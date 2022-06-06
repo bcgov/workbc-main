@@ -1,0 +1,14 @@
+version: "3.7"
+
+services:
+  php:
+    deploy:
+      replicas: 0
+
+  crond:
+    deploy:
+      replicas: 0
+
+  nginx:
+    deploy:
+      replicas: 0
