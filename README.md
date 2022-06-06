@@ -1,7 +1,9 @@
 workbc-main
 ===========
 
-WorkBC.ca on Drupal.
+This is the WorkBC site on Drupal.
+
+[![Lifecycle:Experimental](https://img.shields.io/badge/Lifecycle-Experimental-339999)](https://github.com/bcgov/workbc-ssot)
 
 # Development
 - Start the environment: `docker-compose up && docker-compose exec php composer install`
