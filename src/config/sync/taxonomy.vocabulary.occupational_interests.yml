@@ -1,0 +1,8 @@
+uuid: 7a76e818-a73c-415d-8e60-e18617ba3e13
+langcode: en
+status: true
+dependencies: {  }
+name: 'Occupational Interests'
+vid: occupational_interests
+description: 'Occupational Interests associated with career profiles.'
+weight: 0

@@ -1,0 +1,8 @@
+uuid: d979380c-d033-4962-bd5d-c5f8a6babf57
+langcode: en
+status: true
+dependencies: {  }
+name: Skills
+vid: skills
+description: 'Skills associated with career profiles'
+weight: 0
