@@ -1,0 +1,22 @@
+uuid: e065a0c8-75c5-405f-9760-222beebcdd27
+langcode: en
+status: true
+dependencies:
+  theme:
+    - workbc
+_core:
+  default_config_hash: JTPTkbk6nuaqzqPI-P67pzlMGWSdtRWgYoK2OMCkduQ
+id: workbc_local_tasks
+theme: workbc
+region: content
+weight: -4
+provider: null
+plugin: local_tasks_block
+settings:
+  id: local_tasks_block
+  label: Tabs
+  label_display: '0'
+  provider: core
+  primary: true
+  secondary: true
+visibility: {  }
