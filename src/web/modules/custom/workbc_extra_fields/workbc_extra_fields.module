@@ -1,0 +1,45 @@
+<?php
+
+use GuzzleHttp\Client;
+use GuzzleHttp\Exception\RequestException;
+
+/*
+
+we use hook_entity_view instead of hook_entity_load as we along need to load data from SSoT
+for the node that is being displayed, not for nodes that are being referenced.
+
+
+*/
+function workbc_extra_fields_node_view(array &$build, \Drupal\Core\Entity\EntityInterface $entity, \Drupal\Core\Entity\Display\EntityViewDisplayInterface $display, $view_mode) {
+
+  $data = array();
+  if ($view_mode == "full") {
+     switch($entity->bundle()) {
+       case "career_profile":
+        $entity->ssot_data = ssotCareerProfile($entity->get("field_noc")->getString());
+        break;
+       case "industry_profile":
+       case "region_profile":               
+     }
+  }
+}
+
+function ssotCareerProfile($noc) {
+  return querySSoT('http://ssot:3000/wages?noc=eq.' . $noc);
+}
+
+function querySSoT($url) {
+  $client = new Client();
+  try {
+    $response = $client->get($url);
+    $result = json_decode($response->getBody(), TRUE);
+    if (isset($result[0])) {
+      $data = $result[0];
+      ksm($data);
+      return $data;
+    }
+  }
+  catch (RequestException $e) {
+    // log exception
+  }
+}
