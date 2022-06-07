@@ -44,3 +44,4 @@ If that doesn't work you can use [WAMP](https://www.wampserver.com/en/) as your 
 </VirtualHost>
 ```
 - `docker-compose -f docker-compose.yml -f docker-compose.wamp.yml up`
+- ensure the PHP extension `pdo_pgsql` is actived
