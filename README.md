@@ -6,7 +6,8 @@ This is the WorkBC site on Drupal.
 [![Lifecycle:Experimental](https://img.shields.io/badge/Lifecycle-Experimental-339999)](https://github.com/bcgov/workbc-ssot)
 
 # Development
-- Start the environment: `docker-compose up && docker-compose exec php composer install`
+- Start the environment: `docker-compose up`
+- In a separate terminal, install the latest dependencies: `docker-compose exec php composer install`
 - Import a Drupal data dump: `docker-compose exec -T postgres psql --username workbc workbc < /path/to/workbc-dump.sql` (in Windows PowerShell: `cmd /c "docker-compose exec -T postgres psql --username workbc workbc < /path/to/workbc-dump.sql"`)
 - Import a SSoT data dump: `docker-compose exec -T postgres psql --username workbc ssot < /path/to/ssot-dump.sql` (in Windows PowerShell: `cmd /c "docker-compose exec -T postgres psql --username workbc ssot < /path/to/ssot-dump.sql"`)
 - Edit your `hosts` file to add the following line:
