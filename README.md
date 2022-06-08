@@ -48,3 +48,28 @@ If that doesn't work you can use [WAMP](https://www.wampserver.com/en/) as your 
 ```
 - `docker-compose -f docker-compose.yml -f docker-compose.wamp.yml up`
 - ensure the PHP extension `pdo_pgsql` is actived
+
+## Updating local dev environment after git pull
+As drupal core and drupal contrib module source code is not committed to the git repo, you will need to use composer to download any new or updated source code.
+- `composer install` to update source code
+- `drush cim` to import new configuration
+- `drush cr` to rebuild cache
+
+In some situations `drush cim` fails. In this case, the Drupal UI (Configuration -> Development -> Configuration Syncronization) should work.
+
+## Installing modules
+- execute the composer requires command for the module. The module project page on Drupal.org provides this command.
+ie. `composer require 'drupal/devel:^4.1'`
+- enable the module via Drupal UI Extend menu option
+- export updated configuration to the config/sync folder using `drush cex`
+
+## Backup / Restore
+The drupal Backup & Migrate module does not currently support PostgresQL. Backing up and restoring your local dev site can be accomplished using drush
+
+To backup you site
+`drush sql:dump --result-file=example.sql`
+for more info https://www.drush.org/latest/commands/sql_dump/
+
+To restore from backup
+`drush sql:cli < example.sql`
+for more info https://www.drush.org/latest/commands/sql_cli/
