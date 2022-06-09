@@ -1,6 +1,7 @@
 _core:
   default_config_hash: R4IF-ClDHXxblLcG0L7MgsLvfBIMAvi_skumNFQwkDc
 module:
+  address: 0
   admin_toolbar: 0
   admin_toolbar_links_access_filter: 0
   admin_toolbar_search: 0
@@ -18,6 +19,7 @@ module:
   contextual: 0
   crop: 0
   datetime: 0
+  datetime_range: 0
   dblog: 0
   devel: 0
   devel_kint_extras: 0

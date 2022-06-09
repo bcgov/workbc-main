@@ -1,0 +1,28 @@
+uuid: 6007d4c6-e1ec-460b-b1cc-057ddb94cd96
+langcode: en
+status: true
+dependencies:
+  config:
+    - field.storage.node.field_related_topics
+    - node.type.page
+id: node.page.field_related_topics
+field_name: field_related_topics
+entity_type: node
+bundle: page
+label: 'Related Topics'
+description: ''
+required: false
+translatable: false
+default_value: {  }
+default_value_callback: ''
+settings:
+  handler: 'default:node'
+  handler_settings:
+    target_bundles:
+      page: page
+    sort:
+      field: title
+      direction: ASC
+    auto_create: false
+    auto_create_bundle: ''
+field_type: entity_reference
