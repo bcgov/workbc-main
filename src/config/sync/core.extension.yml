@@ -36,6 +36,8 @@ module:
   history: 0
   image: 0
   image_widget_crop: 0
+  jquery_ui: 0
+  jquery_ui_accordion: 0
   link: 0
   media: 0
   media_library: 0
