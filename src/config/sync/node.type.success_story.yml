@@ -1,0 +1,17 @@
+uuid: 7c316f80-3421-4ee6-ae60-c39f0b2b2557
+langcode: en
+status: true
+dependencies:
+  module:
+    - menu_ui
+third_party_settings:
+  menu_ui:
+    available_menus: {  }
+    parent: ''
+name: 'Success Story'
+type: success_story
+description: ''
+help: ''
+new_revision: true
+preview_mode: 1
+display_submitted: false

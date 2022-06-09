@@ -1,0 +1,58 @@
+uuid: dfe21bca-616d-4139-b599-87518b2ba12b
+langcode: en
+status: true
+dependencies:
+  config:
+    - field.storage.node.field_hours_of_operation
+    - node.type.workbc_centre
+    - paragraphs.paragraphs_type.hours_of_operation
+  module:
+    - entity_reference_revisions
+id: node.workbc_centre.field_hours_of_operation
+field_name: field_hours_of_operation
+entity_type: node
+bundle: workbc_centre
+label: 'Hours of Operation'
+description: ''
+required: false
+translatable: false
+default_value: {  }
+default_value_callback: ''
+settings:
+  handler: 'default:paragraph'
+  handler_settings:
+    target_bundles:
+      hours_of_operation: hours_of_operation
+    negate: 0
+    target_bundles_drag_drop:
+      action_card:
+        weight: 11
+        enabled: false
+      action_card_feature:
+        weight: 12
+        enabled: false
+      action_cards_1_2:
+        weight: 13
+        enabled: false
+      action_cards_1_3:
+        weight: 14
+        enabled: false
+      action_cards_1_4:
+        weight: 15
+        enabled: false
+      action_cards_full_width:
+        weight: 16
+        enabled: false
+      additional_duties:
+        weight: 17
+        enabled: false
+      hours_of_operation:
+        weight: 18
+        enabled: true
+      quote_card:
+        weight: 19
+        enabled: false
+      skills:
+        weight: 20
+        enabled: false
+field_type: entity_reference_revisions

@@ -1,0 +1,31 @@
+uuid: 19740122-1a33-425c-a84d-e95155b702ff
+langcode: en
+status: true
+dependencies:
+  config:
+    - field.storage.node.field_related_topics
+    - node.type.page
+    - node.type.success_story
+    - node.type.workbc_centre
+id: node.workbc_centre.field_related_topics
+field_name: field_related_topics
+entity_type: node
+bundle: workbc_centre
+label: 'Related Topics'
+description: ''
+required: false
+translatable: true
+default_value: {  }
+default_value_callback: ''
+settings:
+  handler: 'default:node'
+  handler_settings:
+    target_bundles:
+      page: page
+      success_story: success_story
+    sort:
+      field: _none
+      direction: ASC
+    auto_create: false
+    auto_create_bundle: page
+field_type: entity_reference

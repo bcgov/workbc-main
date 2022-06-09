@@ -1,0 +1,21 @@
+uuid: 5247d001-edec-4c7a-9185-df4a5655515b
+langcode: en
+status: true
+dependencies:
+  config:
+    - field.storage.node.field_subtitle
+    - node.type.success_story
+  module:
+    - text
+id: node.success_story.field_subtitle
+field_name: field_subtitle
+entity_type: node
+bundle: success_story
+label: Subtitle
+description: ''
+required: false
+translatable: false
+default_value: {  }
+default_value_callback: ''
+settings: {  }
+field_type: text_long

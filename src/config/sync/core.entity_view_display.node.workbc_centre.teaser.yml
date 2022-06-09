@@ -1,0 +1,37 @@
+uuid: 4b2c04b8-0a41-462b-8d68-7ef0e9a46d82
+langcode: en
+status: true
+dependencies:
+  config:
+    - core.entity_view_mode.node.teaser
+    - field.field.node.workbc_centre.field_address
+    - field.field.node.workbc_centre.field_apply_online
+    - field.field.node.workbc_centre.field_email
+    - field.field.node.workbc_centre.field_hero_image
+    - field.field.node.workbc_centre.field_hours_of_operation
+    - field.field.node.workbc_centre.field_related_topics
+    - field.field.node.workbc_centre.field_survey_link
+    - field.field.node.workbc_centre.field_website
+    - node.type.workbc_centre
+  module:
+    - user
+id: node.workbc_centre.teaser
+targetEntityType: node
+bundle: workbc_centre
+mode: teaser
+content:
+  links:
+    settings: {  }
+    third_party_settings: {  }
+    weight: 100
+    region: content
+hidden:
+  extra_field_wbcc_recent_jobs: true
+  field_address: true
+  field_apply_online: true
+  field_email: true
+  field_hero_image: true
+  field_hours_of_operation: true
+  field_related_topics: true
+  field_survey_link: true
+  field_website: true

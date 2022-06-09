@@ -1,0 +1,47 @@
+uuid: f216dd74-8417-44fb-a2f2-8c6c4681f039
+langcode: en
+status: true
+dependencies:
+  config:
+    - field.field.node.success_story.body
+    - field.field.node.success_story.field_image
+    - field.field.node.success_story.field_subtitle
+    - node.type.success_story
+  module:
+    - image
+    - text
+    - user
+id: node.success_story.default
+targetEntityType: node
+bundle: success_story
+mode: default
+content:
+  body:
+    type: text_default
+    label: hidden
+    settings: {  }
+    third_party_settings: {  }
+    weight: 3
+    region: content
+  field_image:
+    type: image
+    label: above
+    settings:
+      image_link: ''
+      image_style: ''
+    third_party_settings: {  }
+    weight: 2
+    region: content
+  field_subtitle:
+    type: text_default
+    label: above
+    settings: {  }
+    third_party_settings: {  }
+    weight: 1
+    region: content
+  links:
+    settings: {  }
+    third_party_settings: {  }
+    weight: 0
+    region: content
+hidden: {  }

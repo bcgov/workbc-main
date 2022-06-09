@@ -1,0 +1,19 @@
+uuid: 848c32f7-5e5c-4375-95e2-4c1cf5d6c290
+langcode: en
+status: true
+dependencies:
+  config:
+    - field.storage.node.field_email
+    - node.type.workbc_centre
+id: node.workbc_centre.field_email
+field_name: field_email
+entity_type: node
+bundle: workbc_centre
+label: Email
+description: ''
+required: false
+translatable: false
+default_value: {  }
+default_value_callback: ''
+settings: {  }
+field_type: email

@@ -1,0 +1,66 @@
+uuid: a088dddb-05d8-4705-a7cd-4d74213420da
+langcode: en
+status: true
+dependencies:
+  config:
+    - field.storage.node.field_action_card_groups
+    - node.type.landing_page
+    - paragraphs.paragraphs_type.action_card_feature
+    - paragraphs.paragraphs_type.action_cards_1_2
+    - paragraphs.paragraphs_type.action_cards_1_3
+    - paragraphs.paragraphs_type.action_cards_1_4
+    - paragraphs.paragraphs_type.action_cards_full_width
+  module:
+    - entity_reference_revisions
+id: node.landing_page.field_action_card_groups
+field_name: field_action_card_groups
+entity_type: node
+bundle: landing_page
+label: 'Action Cards'
+description: ''
+required: true
+translatable: false
+default_value: {  }
+default_value_callback: ''
+settings:
+  handler: 'default:paragraph'
+  handler_settings:
+    target_bundles:
+      action_card_feature: action_card_feature
+      action_cards_full_width: action_cards_full_width
+      action_cards_1_2: action_cards_1_2
+      action_cards_1_3: action_cards_1_3
+      action_cards_1_4: action_cards_1_4
+    negate: 0
+    target_bundles_drag_drop:
+      action_card:
+        weight: -21
+        enabled: false
+      action_card_feature:
+        weight: -20
+        enabled: true
+      action_cards_1_2:
+        weight: -18
+        enabled: true
+      action_cards_1_3:
+        weight: -17
+        enabled: true
+      action_cards_1_4:
+        weight: -16
+        enabled: true
+      action_cards_full_width:
+        weight: -19
+        enabled: true
+      additional_duties:
+        weight: -15
+        enabled: false
+      hours_of_operation:
+        weight: -14
+        enabled: false
+      quote_card:
+        weight: -13
+        enabled: false
+      skills:
+        weight: -12
+        enabled: false
+field_type: entity_reference_revisions
