@@ -6,4 +6,12 @@
 @import 'variables_bootstrap';
 
 // Include bootstrap.
-@import '../../../themes/contrib/bootstrap5/scss/style';
+@import '../../../../themes/contrib/bootstrap5/scss/style';
+
+header {
+    nav.navbar {
+        .region-nav-branding {
+            width: 100%; 
+        }
+    }
+}

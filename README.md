@@ -73,3 +73,6 @@ for more info https://www.drush.org/latest/commands/sql_dump/
 To restore from backup
 `drush sql:cli < example.sql`
 for more info https://www.drush.org/latest/commands/sql_cli/
+
+## Theming / Styling
+- Please see the README.md in the WorkBC theme folder for more details

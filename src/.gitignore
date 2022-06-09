@@ -23,3 +23,6 @@
 
 # Ignore environment file in this folder
 /.env
+
+# Ignore sass cache files
+/web/themes/custom/workbc/.sass-cache/
