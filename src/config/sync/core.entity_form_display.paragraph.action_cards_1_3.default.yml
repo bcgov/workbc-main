@@ -1,0 +1,27 @@
+uuid: cb8e3e2d-e73b-42ae-a834-09d6beb06126
+langcode: en
+status: true
+dependencies:
+  config:
+    - field.field.paragraph.action_cards_1_3.field_action_cards
+    - paragraphs.paragraphs_type.action_cards_1_3
+  module:
+    - entity_reference_revisions
+id: paragraph.action_cards_1_3.default
+targetEntityType: paragraph
+bundle: action_cards_1_3
+mode: default
+content:
+  field_action_cards:
+    type: entity_reference_revisions_autocomplete
+    weight: 0
+    region: content
+    settings:
+      match_operator: CONTAINS
+      match_limit: 10
+      size: 60
+      placeholder: ''
+    third_party_settings: {  }
+hidden:
+  created: true
+  status: true

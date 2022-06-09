@@ -1,0 +1,10 @@
+uuid: 38e21197-cc14-47b9-87a6-8ed525503f59
+langcode: en
+status: true
+dependencies: {  }
+id: action_cards_full_width
+label: 'Action Cards: Full Width'
+icon_uuid: null
+icon_default: null
+description: 'A section of full-width action cards with alternating image/text layout on each row.'
+behavior_plugins: {  }

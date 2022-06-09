@@ -1,0 +1,10 @@
+uuid: 2f10f2c7-612b-4f66-84d1-a106a61fd0e2
+langcode: en
+status: true
+dependencies: {  }
+id: action_card_feature
+label: 'Action Card: Feature'
+icon_uuid: null
+icon_default: null
+description: 'A singe feature action card'
+behavior_plugins: {  }

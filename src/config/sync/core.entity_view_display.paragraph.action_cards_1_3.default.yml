@@ -1,0 +1,24 @@
+uuid: 2a153d91-17d3-4d18-9efb-9c4cd92d6cb3
+langcode: en
+status: true
+dependencies:
+  config:
+    - field.field.paragraph.action_cards_1_3.field_action_cards
+    - paragraphs.paragraphs_type.action_cards_1_3
+  module:
+    - entity_reference_revisions
+id: paragraph.action_cards_1_3.default
+targetEntityType: paragraph
+bundle: action_cards_1_3
+mode: default
+content:
+  field_action_cards:
+    type: entity_reference_revisions_entity_view
+    label: above
+    settings:
+      view_mode: default
+      link: ''
+    third_party_settings: {  }
+    weight: 0
+    region: content
+hidden: {  }

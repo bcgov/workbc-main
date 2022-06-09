@@ -51,6 +51,7 @@ module:
   taxonomy: 0
   tb_megamenu: 0
   text: 0
+  time_field: 0
   toolbar: 0
   tour: 0
   update: 0

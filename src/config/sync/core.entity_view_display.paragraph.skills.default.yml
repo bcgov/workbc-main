@@ -1,0 +1,33 @@
+uuid: c52c3f22-cdfc-4dce-906f-74952f661be3
+langcode: en
+status: true
+dependencies:
+  config:
+    - field.field.paragraph.skills.field_level_of_importance
+    - field.field.paragraph.skills.field_skill
+    - paragraphs.paragraphs_type.skills
+id: paragraph.skills.default
+targetEntityType: paragraph
+bundle: skills
+mode: default
+content:
+  field_level_of_importance:
+    type: number_decimal
+    label: above
+    settings:
+      thousand_separator: ''
+      decimal_separator: .
+      scale: 2
+      prefix_suffix: true
+    third_party_settings: {  }
+    weight: 1
+    region: content
+  field_skill:
+    type: entity_reference_label
+    label: above
+    settings:
+      link: true
+    third_party_settings: {  }
+    weight: 0
+    region: content
+hidden: {  }

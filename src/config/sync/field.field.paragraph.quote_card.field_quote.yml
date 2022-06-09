@@ -1,0 +1,21 @@
+uuid: 53611997-b063-4394-a6bd-bf04ed4d4db5
+langcode: en
+status: true
+dependencies:
+  config:
+    - field.storage.paragraph.field_quote
+    - paragraphs.paragraphs_type.quote_card
+  module:
+    - text
+id: paragraph.quote_card.field_quote
+field_name: field_quote
+entity_type: paragraph
+bundle: quote_card
+label: Quote
+description: ''
+required: false
+translatable: false
+default_value: {  }
+default_value_callback: ''
+settings: {  }
+field_type: text_long

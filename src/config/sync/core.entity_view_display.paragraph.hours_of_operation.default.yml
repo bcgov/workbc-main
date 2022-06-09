@@ -1,0 +1,33 @@
+uuid: 6926aa7c-4586-4115-b437-2863fdd90a3d
+langcode: en
+status: true
+dependencies:
+  config:
+    - field.field.paragraph.hours_of_operation.field_day
+    - field.field.paragraph.hours_of_operation.field_hours
+    - paragraphs.paragraphs_type.hours_of_operation
+  module:
+    - time_field
+id: paragraph.hours_of_operation.default
+targetEntityType: paragraph
+bundle: hours_of_operation
+mode: default
+content:
+  field_day:
+    type: string
+    label: above
+    settings:
+      link_to_entity: false
+    third_party_settings: {  }
+    weight: 0
+    region: content
+  field_hours:
+    type: time_range_formatter
+    label: above
+    settings:
+      time_format: 'h:i A'
+      timerange_format: 'start to end'
+    third_party_settings: {  }
+    weight: 1
+    region: content
+hidden: {  }
