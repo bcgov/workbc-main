@@ -757,7 +757,7 @@ $settings['migrate_node_migrate_type_classic'] = FALSE;
  */
 $settings['config_sync_directory'] = '../config/sync';
 $settings['file_public_path'] = 'sites/default/files';
-$settings['file_private_path'] = '../private';
+$settings['file_private_path'] = '/var/www/html/private';
 $settings['file_tmp_path'] = '/tmp';
 
 // Trusted host entries.
