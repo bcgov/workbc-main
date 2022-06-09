@@ -6,7 +6,6 @@ module:
   admin_toolbar_search: 0
   admin_toolbar_tools: 0
   automated_cron: 0
-  backup_migrate: 0
   big_pipe: 0
   block: 0
   block_content: 0
@@ -54,6 +53,7 @@ module:
   text: 0
   toolbar: 0
   tour: 0
+  update: 0
   user: 0
   views_ui: 0
   workbc_extra_fields: 0
