@@ -1,7 +1,7 @@
 <?php
 
 /**
- * Usage: drush scr /path/to/migrate.php /path/to/ia.csv
+ * Usage: drush scr /path/to/migrate.php /path/to/migration.csv
  */
 
 $file = $extra[0];

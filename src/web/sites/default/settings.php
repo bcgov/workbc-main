@@ -340,13 +340,13 @@ $settings['update_free_access'] = FALSE;
  * Be aware, however, that it is likely that this would allow IP
  * address spoofing unless more advanced precautions are taken.
  */
-# $settings['reverse_proxy'] = TRUE;
+$settings['reverse_proxy'] = TRUE;
 
 /**
  * Specify every reverse proxy IP address in your environment.
  * This setting is required if $settings['reverse_proxy'] is TRUE.
  */
-# $settings['reverse_proxy_addresses'] = ['a.b.c.d', ...];
+$settings['reverse_proxy_addresses'] = array($_SERVER['REMOTE_ADDR']);
 
 /**
  * Reverse proxy trusted headers.
@@ -382,7 +382,7 @@ $settings['update_free_access'] = FALSE;
  * @see \Symfony\Component\HttpFoundation\Request::HEADER_FORWARDED
  * @see \Symfony\Component\HttpFoundation\Request::setTrustedProxies
  */
-# $settings['reverse_proxy_trusted_headers'] = \Symfony\Component\HttpFoundation\Request::HEADER_X_FORWARDED_FOR | \Symfony\Component\HttpFoundation\Request::HEADER_X_FORWARDED_HOST | \Symfony\Component\HttpFoundation\Request::HEADER_X_FORWARDED_PORT | \Symfony\Component\HttpFoundation\Request::HEADER_X_FORWARDED_PROTO | \Symfony\Component\HttpFoundation\Request::HEADER_FORWARDED;
+$settings['reverse_proxy_trusted_headers'] = \Symfony\Component\HttpFoundation\Request::HEADER_X_FORWARDED_ALL | \Symfony\Component\HttpFoundation\Request::HEADER_FORWARDED;
 
 
 /**
@@ -752,7 +752,29 @@ $settings['entity_update_backup'] = TRUE;
  */
 $settings['migrate_node_migrate_type_classic'] = FALSE;
 
+/**
+ * WorkBC configuration.
+ */
 $settings['config_sync_directory'] = '../config/sync';
+$settings['file_public_path'] = 'sites/default/files';
+$settings['file_private_path'] = '../private';
+$settings['file_tmp_path'] = '/tmp';
+
+// Trusted host entries.
+$settings['trusted_host_patterns'] = [
+  '^localhost$',
+  '^127\.0\.0\.1$',
+  'workbc\.docker\.localhost',
+  'workbc\.localhost',
+  '^aws-dev\.workbc\.ca$',
+  '^aws-test\.workbc\.ca$',
+  '^www2\.workbc\.ca$',
+  '^workbc\.b89n0c-prod\.nimbus\.cloud\.gov\.bc\.ca$',
+  '^workbc\.b89n0c-dev\.nimbus\.cloud\.gov\.bc\.ca$',
+  '^workbc\.b89n0c-test\.nimbus\.cloud\.gov\.bc\.ca$',
+];
+
+$config['system.mail']['interface']['default'] = 'ses_mail';
 
 /**
  * Load local development override configuration, if available.
@@ -768,6 +790,9 @@ $settings['config_sync_directory'] = '../config/sync';
  * Keep this code block at the end of this file to take full effect.
  */
 
-if (file_exists($app_root . '/' . $site_path . '/settings.local.php')) {
+// Ensure it all works from the CLI too (i.e. drush)
+if (file_exists($app_root . '/' . $site_path . '/settings.aws.php') && getenv('AWS_BUILD_NAME') != '') {
+  include $app_root . '/' . $site_path . '/settings.aws.php';
+} else if (file_exists($app_root . '/' . $site_path . '/settings.local.php')) {
   include $app_root . '/' . $site_path . '/settings.local.php';
 }

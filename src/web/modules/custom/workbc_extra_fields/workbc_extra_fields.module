@@ -19,19 +19,20 @@ function workbc_extra_fields_node_view(array &$build, \Drupal\Core\Entity\Entity
         $entity->ssot_data = ssotCareerProfile($entity->get("field_noc")->getString());
         break;
        case "industry_profile":
-       case "region_profile":               
+       case "region_profile":
      }
   }
 }
 
 function ssotCareerProfile($noc) {
-  return querySSoT('http://ssot:3000/wages?noc=eq.' . $noc);
+  return querySSoT('wages?noc=eq.' . $noc);
 }
 
 function querySSoT($url) {
+  $ssot = rtrim(\Drupal::config('workbc')->get('ssot_url'), '/');
   $client = new Client();
   try {
-    $response = $client->get($url);
+    $response = $client->get($ssot . '/' . $url);
     $result = json_decode($response->getBody(), TRUE);
     if (isset($result[0])) {
       $data = $result[0];
