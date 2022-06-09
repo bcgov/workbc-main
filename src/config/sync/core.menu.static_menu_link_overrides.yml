@@ -7,3 +7,15 @@ definitions:
     weight: 0
     expanded: false
     enabled: true
+  user__page:
+    menu_name: account
+    parent: 'menu_link_content:c4adf0e1-0787-4486-a991-818a278b3378'
+    weight: -47
+    expanded: false
+    enabled: true
+  user__logout:
+    menu_name: account
+    parent: 'menu_link_content:c4adf0e1-0787-4486-a991-818a278b3378'
+    weight: -46
+    expanded: false
+    enabled: true
