@@ -1,0 +1,34 @@
+uuid: c1bf1e60-316b-4b9c-a889-0921e897af19
+langcode: en
+status: true
+dependencies:
+  config:
+    - field.field.paragraph.hours_of_operation.field_day
+    - field.field.paragraph.hours_of_operation.field_hours
+    - paragraphs.paragraphs_type.hours_of_operation
+  module:
+    - time_field
+id: paragraph.hours_of_operation.default
+targetEntityType: paragraph
+bundle: hours_of_operation
+mode: default
+content:
+  field_day:
+    type: string_textfield
+    weight: 0
+    region: content
+    settings:
+      size: 60
+      placeholder: ''
+    third_party_settings: {  }
+  field_hours:
+    type: time_range_widget
+    weight: 1
+    region: content
+    settings:
+      enabled: false
+      step: 5
+    third_party_settings: {  }
+hidden:
+  created: true
+  status: true

@@ -1,0 +1,34 @@
+uuid: ed9028f6-4f4b-4de0-a5a9-92073c4d5f4e
+langcode: en
+status: true
+dependencies:
+  config:
+    - field.field.paragraph.additional_duties.field_description
+    - field.field.paragraph.additional_duties.field_duty
+    - paragraphs.paragraphs_type.additional_duties
+  module:
+    - text
+id: paragraph.additional_duties.default
+targetEntityType: paragraph
+bundle: additional_duties
+mode: default
+content:
+  field_description:
+    type: text_textarea
+    weight: 1
+    region: content
+    settings:
+      rows: 5
+      placeholder: ''
+    third_party_settings: {  }
+  field_duty:
+    type: string_textfield
+    weight: 0
+    region: content
+    settings:
+      size: 60
+      placeholder: ''
+    third_party_settings: {  }
+hidden:
+  created: true
+  status: true

@@ -23,6 +23,7 @@
         "drupal/backup_migrate": "^5.0",
         "drupal/bootstrap5": "^1.1",
         "drupal/charts": "^5.0",
+        "drupal/console": "~1.0",
         "drupal/core-composer-scaffold": "^9.3",
         "drupal/core-recommended": "^9.3",
         "drupal/crop": "^2.2",
@@ -54,7 +55,8 @@
             "composer/installers": true,
             "cweagans/composer-patches": true,
             "drupal/core-composer-scaffold": true,
-            "dealerdirect/phpcodesniffer-composer-installer": true
+            "dealerdirect/phpcodesniffer-composer-installer": true,
+            "drupal/console-extend-plugin": true
         }
     },
     "autoload": {

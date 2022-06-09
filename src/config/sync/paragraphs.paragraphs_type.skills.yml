@@ -1,0 +1,10 @@
+uuid: 1ab8b10d-fbe2-4a4a-ba2d-388c5220e9ed
+langcode: en
+status: true
+dependencies: {  }
+id: skills
+label: Skills
+icon_uuid: null
+icon_default: null
+description: 'Skill with associated level of importance for Career Profiles.'
+behavior_plugins: {  }

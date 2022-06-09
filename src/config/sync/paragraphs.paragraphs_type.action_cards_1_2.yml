@@ -1,0 +1,10 @@
+uuid: c090e3f9-79ad-4721-9c54-9dec7e068b25
+langcode: en
+status: true
+dependencies: {  }
+id: action_cards_1_2
+label: 'Action Cards: 1/2'
+icon_uuid: null
+icon_default: null
+description: 'A section of calls to action with a 2-per-row layout.'
+behavior_plugins: {  }

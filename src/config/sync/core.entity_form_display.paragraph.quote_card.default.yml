@@ -1,0 +1,44 @@
+uuid: 1af8a061-5b6c-4d14-927c-04e2efb2b7bb
+langcode: en
+status: true
+dependencies:
+  config:
+    - field.field.paragraph.quote_card.field_author
+    - field.field.paragraph.quote_card.field_link
+    - field.field.paragraph.quote_card.field_quote
+    - paragraphs.paragraphs_type.quote_card
+  module:
+    - link
+    - text
+id: paragraph.quote_card.default
+targetEntityType: paragraph
+bundle: quote_card
+mode: default
+content:
+  field_author:
+    type: string_textfield
+    weight: 1
+    region: content
+    settings:
+      size: 60
+      placeholder: ''
+    third_party_settings: {  }
+  field_link:
+    type: link_default
+    weight: 2
+    region: content
+    settings:
+      placeholder_url: ''
+      placeholder_title: ''
+    third_party_settings: {  }
+  field_quote:
+    type: text_textarea
+    weight: 0
+    region: content
+    settings:
+      rows: 5
+      placeholder: ''
+    third_party_settings: {  }
+hidden:
+  created: true
+  status: true

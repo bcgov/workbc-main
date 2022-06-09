@@ -1,0 +1,10 @@
+uuid: cc51e2e1-b189-4a2f-abe3-b77533d9b123
+langcode: en
+status: true
+dependencies: {  }
+id: quote_card
+label: 'Quote Card'
+icon_uuid: null
+icon_default: null
+description: ''
+behavior_plugins: {  }
