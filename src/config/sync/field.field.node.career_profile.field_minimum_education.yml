@@ -1,0 +1,29 @@
+uuid: 46b43323-336e-4e58-a73c-da715053c7ad
+langcode: en
+status: true
+dependencies:
+  config:
+    - field.storage.node.field_minimum_education
+    - node.type.career_profile
+    - taxonomy.vocabulary.education
+id: node.career_profile.field_minimum_education
+field_name: field_minimum_education
+entity_type: node
+bundle: career_profile
+label: 'Minimum Education'
+description: ''
+required: false
+translatable: false
+default_value: {  }
+default_value_callback: ''
+settings:
+  handler: 'default:taxonomy_term'
+  handler_settings:
+    target_bundles:
+      education: education
+    sort:
+      field: name
+      direction: asc
+    auto_create: false
+    auto_create_bundle: ''
+field_type: entity_reference

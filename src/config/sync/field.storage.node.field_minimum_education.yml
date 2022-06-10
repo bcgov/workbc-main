@@ -1,0 +1,20 @@
+uuid: f0dd0f04-669e-4d29-9b22-d0a1eece12a6
+langcode: en
+status: true
+dependencies:
+  module:
+    - node
+    - taxonomy
+id: node.field_minimum_education
+field_name: field_minimum_education
+entity_type: node
+type: entity_reference
+settings:
+  target_type: taxonomy_term
+module: core
+locked: false
+cardinality: 1
+translatable: true
+indexes: {  }
+persist_with_no_fields: false
+custom_storage: false
