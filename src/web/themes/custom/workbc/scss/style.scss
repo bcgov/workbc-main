@@ -1,3 +1,6 @@
+// this file is intended to be a centralized location for importing all of the pieces needed.
+// actual CSS should be broken out to various files.
+
 // Sub theme styling.
 @import 'variables_drupal';
 
@@ -8,10 +11,8 @@
 // Include bootstrap.
 @import '../../../../themes/contrib/bootstrap5/scss/style';
 
-header {
-    nav.navbar {
-        .region-nav-branding {
-            width: 100%;
-        }
-    }
-}
+// Include BC Sans baseline typography fonts and styles
+@import 'bcsans-typography';
+
+// import core styling
+@import 'core';

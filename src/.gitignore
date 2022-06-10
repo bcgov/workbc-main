@@ -25,4 +25,5 @@
 /.env
 
 # Ignore sass cache files
-/web/themes/custom/workbc/.sass-cache/
+.sass-cache/
+*.scssc

@@ -9571,7 +9571,42 @@ em.placeholder {
 code {
   overflow-y: auto; }
 
+@font-face {
+  font-family: 'BCSans';
+  font-style: normal;
+  src: url("../assets/fonts/BCSans/BCSans-Regular.woff2") format("woff2"), url("../assets/fonts/BCSans/BCSans-Regular.woff") format("woff");
+  /* Modern Browsers */ }
+@font-face {
+  font-family: 'BCSans';
+  font-style: italic;
+  src: url("../assets/fonts/BCSans/BCSans-Italic.woff2") format("woff2"), url("../assets/fonts/BCSans/BCSans-Italic.woff") format("woff");
+  /* Modern Browsers */ }
+@font-face {
+  font-family: 'BCSans';
+  font-weight: 700;
+  src: url("../assets/fonts/BCSans/BCSans-Bold.woff2") format("woff2"), url("../assets/fonts/BCSans/BCSans-Bold.woff") format("woff");
+  /* Modern Browsers */ }
+@font-face {
+  font-family: 'BCSans';
+  font-style: italic;
+  font-weight: 700;
+  src: url("../assets/fonts/BCSans/BCSans-BoldItalic.woff2") format("woff2"), url("../assets/fonts/BCSans/BCSans-BoldItalic.woff") format("woff");
+  /* Modern Browsers */ }
+body {
+  font-family: 'BCSans', 'Noto Sans', Verdana, Arial, sans-serif; }
+  body p {
+    font-size: 16px;
+    line-height: 1.6;
+    margin-bottom: 36px;
+    color: #313132; }
+
+header nav.navbar .container {
+  flex-wrap: wrap; }
 header nav.navbar .region-nav-branding {
   width: 100%; }
+  header nav.navbar .region-nav-branding ul.nav, header nav.navbar .region-nav-branding .media-library-view--widget ul.view-header, .media-library-view--widget header nav.navbar .region-nav-branding ul.view-header {
+    height: 80px; }
+    header nav.navbar .region-nav-branding ul.nav li, header nav.navbar .region-nav-branding .media-library-view--widget ul.view-header li, .media-library-view--widget header nav.navbar .region-nav-branding ul.view-header li {
+      height: 100%; }
 
 /*# sourceMappingURL=style.css.map */

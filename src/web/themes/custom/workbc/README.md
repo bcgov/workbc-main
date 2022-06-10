@@ -2,6 +2,10 @@
 
 [Bootstrap 5](https://www.drupal.org/project/bootstrap5) subtheme.
 
+## Fonts.
+B.C. Government digital services are expected to make use of BCSans.
+See https://developer.gov.bc.ca/Typography for more details.
+
 ## Development.
 
 ### CSS compilation.

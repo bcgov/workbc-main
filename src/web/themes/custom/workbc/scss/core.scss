@@ -1,0 +1,19 @@
+
+header {
+    nav.navbar {
+        .container {
+            flex-wrap: wrap;
+        }
+
+        .region-nav-branding {
+            width: 100%;
+            ul.nav {
+                height: 80px;
+
+                li {
+                    height: 100%;
+                }
+            }
+        }
+    }
+}
