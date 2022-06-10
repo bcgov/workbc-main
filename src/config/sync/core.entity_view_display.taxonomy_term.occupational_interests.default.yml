@@ -1,0 +1,32 @@
+uuid: 087cdfb2-d8ed-47b8-9fd5-629778d468eb
+langcode: en
+status: true
+dependencies:
+  config:
+    - field.field.taxonomy_term.occupational_interests.field_image
+    - taxonomy.vocabulary.occupational_interests
+  module:
+    - image
+    - text
+id: taxonomy_term.occupational_interests.default
+targetEntityType: taxonomy_term
+bundle: occupational_interests
+mode: default
+content:
+  description:
+    type: text_default
+    label: hidden
+    settings: {  }
+    third_party_settings: {  }
+    weight: 0
+    region: content
+  field_image:
+    type: image
+    label: above
+    settings:
+      image_link: ''
+      image_style: ''
+    third_party_settings: {  }
+    weight: 1
+    region: content
+hidden: {  }
