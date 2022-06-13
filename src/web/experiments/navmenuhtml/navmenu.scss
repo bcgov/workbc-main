@@ -1,0 +1,67 @@
+@import '../../themes/custom/workbc/scss/includes';
+
+
+// hacky override to fix paths for the experimental
+@font-face {
+    font-family: 'BCSans';
+    font-style: normal;
+    src: url('../../themes/custom/workbc/assets/fonts/BCSans/BCSans-Regular.woff2') format('woff2'), /* Optimized for very modern browsers */
+         url('../../themes/custom/workbc/assets/fonts/BCSans/BCSans-Regular.woff') format('woff'); /* Modern Browsers */
+}
+
+
+nav.navbar {
+    height: 80px;
+    background-color: $workbc_dark_background;
+    padding: 0px;
+    margin: 0px;
+
+    .container {
+        height: 100%;
+
+        & > ul {
+            list-style: none;
+            height: 100%;
+            width: 100%;
+            display: flex;
+            flex-wrap: nowrap;
+            justify-content: space-between;
+            align-items: stretch;
+            gap: 0;
+            padding: 0;
+            margin: 0;
+            
+            & > li {
+                height: 100%;
+                min-width: 90px;
+                flex: 2 1 auto;
+                display: flex;
+                flex-direction:column;
+                justify-content:space-around;
+                padding: $workbc_trim_size $workbc_trim_size 0 $workbc_trim_size; // no padding on bottom - it's taken up by the trim-border instead.
+                border-bottom: $workbc_trim_size solid transparent; // This is to hold the space the trim takes up on hover, so that content doesn't jump around
+
+                & > a {
+                    font-size: 16px;
+                    color: $workbc_dark_text;
+                    text-decoration: none;
+                }
+
+                & > ul {
+                    display: none;
+                }
+
+                &:hover {
+                    border-bottom: $workbc_trim_size solid $workbc_light_trim;
+                    background-color: $workbc_light_background;
+                    color: $workbc_light_text;
+
+                    & > a {
+                        color: $workbc_light_text;
+                        text-decoration: none;
+                    }
+                }
+            }
+        }
+    }
+}
