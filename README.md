@@ -52,7 +52,8 @@ If that doesn't work you can use [WAMP](https://www.wampserver.com/en/) as your 
 
 ## Updating local dev environment after git pull
 As drupal core and drupal contrib module source code is not committed to the git repo, you will need to use composer to download any new or updated source code. From within `docker-compose exec php bash`, do:
-- `composer install` to update source code
+- `composer install` to install new dependencies
+- `composer update` to update existing dependencies
 - `drush cim` to import new configuration
 - `drush cr` to rebuild the cache
 
