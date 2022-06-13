@@ -1,8 +1,0 @@
-uuid: 16962ea7-5afc-4e53-abfa-e36f93c76bc4
-langcode: en
-status: true
-dependencies: {  }
-name: Inquiry
-vid: inquiry
-description: 'Types of inquiry for contact us form'
-weight: 0

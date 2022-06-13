@@ -4,6 +4,7 @@ status: true
 dependencies:
   config:
     - field.field.taxonomy_term.occupational_interests.field_image
+    - field.field.taxonomy_term.occupational_interests.field_subtitle
     - taxonomy.vocabulary.occupational_interests
   module:
     - image
@@ -18,7 +19,7 @@ content:
     label: hidden
     settings: {  }
     third_party_settings: {  }
-    weight: 0
+    weight: 1
     region: content
   field_image:
     type: image
@@ -27,6 +28,14 @@ content:
       image_link: ''
       image_style: ''
     third_party_settings: {  }
-    weight: 1
+    weight: 2
+    region: content
+  field_subtitle:
+    type: string
+    label: above
+    settings:
+      link_to_entity: false
+    third_party_settings: {  }
+    weight: 0
     region: content
 hidden: {  }

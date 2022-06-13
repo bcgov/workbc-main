@@ -1,0 +1,19 @@
+uuid: dcfbeb77-6078-49b8-abd5-fdb2cd911c78
+langcode: en
+status: true
+dependencies:
+  config:
+    - field.storage.taxonomy_term.field_subtitle
+    - taxonomy.vocabulary.occupational_interests
+id: taxonomy_term.occupational_interests.field_subtitle
+field_name: field_subtitle
+entity_type: taxonomy_term
+bundle: occupational_interests
+label: Subtitle
+description: ''
+required: false
+translatable: false
+default_value: {  }
+default_value_callback: ''
+settings: {  }
+field_type: string
