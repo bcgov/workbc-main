@@ -1,0 +1,21 @@
+uuid: db2b76b4-d085-40e8-baaf-69cf06243b06
+langcode: en
+status: true
+dependencies:
+  config:
+    - field.storage.node.field_top_occupations_intro
+    - node.type.industry_profile
+  module:
+    - text
+id: node.industry_profile.field_top_occupations_intro
+field_name: field_top_occupations_intro
+entity_type: node
+bundle: industry_profile
+label: 'Top Occupations Introduction'
+description: ''
+required: false
+translatable: true
+default_value: {  }
+default_value_callback: ''
+settings: {  }
+field_type: text_long

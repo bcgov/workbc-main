@@ -1,0 +1,21 @@
+uuid: efa2ab2c-cd5c-4322-881d-5ace84b640ac
+langcode: en
+status: true
+dependencies:
+  config:
+    - field.storage.node.field_employment_introduction
+    - node.type.industry_profile
+  module:
+    - text
+id: node.industry_profile.field_employment_introduction
+field_name: field_employment_introduction
+entity_type: node
+bundle: industry_profile
+label: 'Employment Introduction'
+description: ''
+required: false
+translatable: false
+default_value: {  }
+default_value_callback: ''
+settings: {  }
+field_type: text_long

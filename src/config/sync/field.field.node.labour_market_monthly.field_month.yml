@@ -1,0 +1,24 @@
+uuid: edea6ac6-4646-4fb6-bd93-bdb80e45c41d
+langcode: en
+status: true
+dependencies:
+  config:
+    - field.storage.node.field_month
+    - node.type.labour_market_monthly
+  module:
+    - datetime
+id: node.labour_market_monthly.field_month
+field_name: field_month
+entity_type: node
+bundle: labour_market_monthly
+label: Month
+description: ''
+required: false
+translatable: false
+default_value:
+  -
+    default_date_type: now
+    default_date: now
+default_value_callback: ''
+settings: {  }
+field_type: datetime

@@ -1,0 +1,194 @@
+uuid: ba8c82ea-f625-4b10-a4db-0abdf3fcbbdf
+langcode: en
+status: true
+dependencies:
+  config:
+    - field.field.node.industry_profile.field_employment_introduction
+    - field.field.node.industry_profile.field_employment_trends_intro
+    - field.field.node.industry_profile.field_hero_image
+    - field.field.node.industry_profile.field_industry_overview
+    - field.field.node.industry_profile.field_key_facts
+    - field.field.node.industry_profile.field_labour_market_stats_intro
+    - field.field.node.industry_profile.field_resources
+    - field.field.node.industry_profile.field_top_occupations_intro
+    - field.field.node.industry_profile.field_wage_introduction
+    - field.field.node.industry_profile.field_work_force_introduction
+    - node.type.industry_profile
+  module:
+    - image
+    - link
+    - text
+    - user
+id: node.industry_profile.default
+targetEntityType: node
+bundle: industry_profile
+mode: default
+content:
+  extra_field_industry_average_wage_bc:
+    settings: {  }
+    third_party_settings: {  }
+    weight: 8
+    region: content
+  extra_field_industry_bc_average_chart:
+    settings: {  }
+    third_party_settings: {  }
+    weight: 12
+    region: content
+  extra_field_industry_employment:
+    settings: {  }
+    third_party_settings: {  }
+    weight: 2
+    region: content
+  extra_field_industry_employment_by_age:
+    settings: {  }
+    third_party_settings: {  }
+    weight: 13
+    region: content
+  extra_field_industry_employment_by_region_map:
+    settings: {  }
+    third_party_settings: {  }
+    weight: 21
+    region: content
+  extra_field_industry_employment_by_region_table:
+    settings: {  }
+    third_party_settings: {  }
+    weight: 22
+    region: content
+  extra_field_industry_employment_by_sex:
+    settings: {  }
+    third_party_settings: {  }
+    weight: 11
+    region: content
+  extra_field_industry_employment_growth:
+    settings: {  }
+    third_party_settings: {  }
+    weight: 3
+    region: content
+  extra_field_industry_employment_growth_rate_one_year_forecast:
+    settings: {  }
+    third_party_settings: {  }
+    weight: 23
+    region: content
+  extra_field_industry_employment_growth_rate_ten_year_forecast:
+    settings: {  }
+    third_party_settings: {  }
+    weight: 24
+    region: content
+  extra_field_industry_employment_latest_trends_percent:
+    settings: {  }
+    third_party_settings: {  }
+    weight: 20
+    region: content
+  extra_field_industry_employment_latest_trends_total:
+    settings: {  }
+    third_party_settings: {  }
+    weight: 19
+    region: content
+  extra_field_industry_employment_types_bc:
+    settings: {  }
+    third_party_settings: {  }
+    weight: 16
+    region: content
+  extra_field_industry_employment_types_can:
+    settings: {  }
+    third_party_settings: {  }
+    weight: 17
+    region: content
+  extra_field_industry_job_openings:
+    settings: {  }
+    third_party_settings: {  }
+    weight: 4
+    region: content
+  extra_field_industry_national_wage:
+    settings: {  }
+    third_party_settings: {  }
+    weight: 9
+    region: content
+  extra_field_industry_top_ten_occupations:
+    settings: {  }
+    third_party_settings: {  }
+    weight: 26
+    region: content
+  field_employment_introduction:
+    type: text_default
+    label: above
+    settings: {  }
+    third_party_settings: {  }
+    weight: 15
+    region: content
+  field_employment_trends_intro:
+    type: text_default
+    label: above
+    settings: {  }
+    third_party_settings: {  }
+    weight: 18
+    region: content
+  field_hero_image:
+    type: image
+    label: above
+    settings:
+      image_link: ''
+      image_style: ''
+    third_party_settings: {  }
+    weight: 1
+    region: content
+  field_industry_overview:
+    type: text_default
+    label: above
+    settings: {  }
+    third_party_settings: {  }
+    weight: 5
+    region: content
+  field_key_facts:
+    type: text_default
+    label: above
+    settings: {  }
+    third_party_settings: {  }
+    weight: 6
+    region: content
+  field_labour_market_stats_intro:
+    type: text_default
+    label: above
+    settings: {  }
+    third_party_settings: {  }
+    weight: 14
+    region: content
+  field_resources:
+    type: link
+    label: above
+    settings:
+      trim_length: 80
+      url_only: false
+      url_plain: false
+      rel: ''
+      target: ''
+    third_party_settings: {  }
+    weight: 27
+    region: content
+  field_top_occupations_intro:
+    type: text_default
+    label: above
+    settings: {  }
+    third_party_settings: {  }
+    weight: 25
+    region: content
+  field_wage_introduction:
+    type: text_default
+    label: above
+    settings: {  }
+    third_party_settings: {  }
+    weight: 7
+    region: content
+  field_work_force_introduction:
+    type: text_default
+    label: above
+    settings: {  }
+    third_party_settings: {  }
+    weight: 10
+    region: content
+  links:
+    settings: {  }
+    third_party_settings: {  }
+    weight: 0
+    region: content
+hidden: {  }

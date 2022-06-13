@@ -1,0 +1,23 @@
+uuid: 4934e53f-b9e5-4a71-ba49-679571c09e84
+langcode: en
+status: true
+dependencies:
+  config:
+    - field.storage.node.field_entire_province
+    - node.type.region_profile
+id: node.region_profile.field_entire_province
+field_name: field_entire_province
+entity_type: node
+bundle: region_profile
+label: 'Entire Province'
+description: 'Boolean indicating if a region represents the entire province or a region of the province.'
+required: false
+translatable: false
+default_value:
+  -
+    value: 0
+default_value_callback: ''
+settings:
+  on_label: 'On'
+  off_label: 'Off'
+field_type: boolean

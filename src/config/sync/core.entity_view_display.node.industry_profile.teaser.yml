@@ -1,0 +1,57 @@
+uuid: 784806da-0ccf-482e-b75a-43c8c46813b2
+langcode: en
+status: true
+dependencies:
+  config:
+    - core.entity_view_mode.node.teaser
+    - field.field.node.industry_profile.field_employment_introduction
+    - field.field.node.industry_profile.field_employment_trends_intro
+    - field.field.node.industry_profile.field_hero_image
+    - field.field.node.industry_profile.field_industry_overview
+    - field.field.node.industry_profile.field_key_facts
+    - field.field.node.industry_profile.field_labour_market_stats_intro
+    - field.field.node.industry_profile.field_resources
+    - field.field.node.industry_profile.field_top_occupations_intro
+    - field.field.node.industry_profile.field_wage_introduction
+    - field.field.node.industry_profile.field_work_force_introduction
+    - node.type.industry_profile
+  module:
+    - user
+id: node.industry_profile.teaser
+targetEntityType: node
+bundle: industry_profile
+mode: teaser
+content:
+  links:
+    settings: {  }
+    third_party_settings: {  }
+    weight: 100
+    region: content
+hidden:
+  extra_field_industry_average_wage_bc: true
+  extra_field_industry_bc_average_chart: true
+  extra_field_industry_employment: true
+  extra_field_industry_employment_by_age: true
+  extra_field_industry_employment_by_region_map: true
+  extra_field_industry_employment_by_region_table: true
+  extra_field_industry_employment_by_sex: true
+  extra_field_industry_employment_growth: true
+  extra_field_industry_employment_growth_rate_one_year_forecast: true
+  extra_field_industry_employment_growth_rate_ten_year_forecast: true
+  extra_field_industry_employment_latest_trends_percent: true
+  extra_field_industry_employment_latest_trends_total: true
+  extra_field_industry_employment_types_bc: true
+  extra_field_industry_employment_types_can: true
+  extra_field_industry_job_openings: true
+  extra_field_industry_national_wage: true
+  extra_field_industry_top_ten_occupations: true
+  field_employment_introduction: true
+  field_employment_trends_intro: true
+  field_hero_image: true
+  field_industry_overview: true
+  field_key_facts: true
+  field_labour_market_stats_intro: true
+  field_resources: true
+  field_top_occupations_intro: true
+  field_wage_introduction: true
+  field_work_force_introduction: true

@@ -1,0 +1,10 @@
+uuid: 2196692d-2b0e-4ea1-9704-d8506b5c6a00
+langcode: en
+status: true
+dependencies:
+  module:
+    - node
+id: node.province
+label: Province
+targetEntityType: node
+cache: true

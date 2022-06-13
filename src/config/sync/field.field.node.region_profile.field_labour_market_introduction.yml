@@ -1,0 +1,21 @@
+uuid: f87c43de-f0b9-4b4a-9c2b-2e4e244c1e9a
+langcode: en
+status: true
+dependencies:
+  config:
+    - field.storage.node.field_labour_market_introduction
+    - node.type.region_profile
+  module:
+    - text
+id: node.region_profile.field_labour_market_introduction
+field_name: field_labour_market_introduction
+entity_type: node
+bundle: region_profile
+label: 'Labour Market Introduction'
+description: ''
+required: false
+translatable: true
+default_value: {  }
+default_value_callback: ''
+settings: {  }
+field_type: text_long

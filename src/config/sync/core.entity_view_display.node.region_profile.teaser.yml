@@ -1,0 +1,53 @@
+uuid: 23da9d9c-a802-404b-a8cc-d16bf2f18fc0
+langcode: en
+status: true
+dependencies:
+  config:
+    - core.entity_view_mode.node.teaser
+    - field.field.node.region_profile.field_entire_province
+    - field.field.node.region_profile.field_hero_image
+    - field.field.node.region_profile.field_industry_highlights_intro
+    - field.field.node.region_profile.field_key_facts
+    - field.field.node.region_profile.field_labour_market_introduction
+    - field.field.node.region_profile.field_labour_market_stats_intro
+    - field.field.node.region_profile.field_region_overview
+    - field.field.node.region_profile.field_top_occupations_intro
+    - node.type.region_profile
+  module:
+    - user
+id: node.region_profile.teaser
+targetEntityType: node
+bundle: region_profile
+mode: teaser
+content:
+  links:
+    settings: {  }
+    third_party_settings: {  }
+    weight: 100
+    region: content
+hidden:
+  extra_field_region_employment: true
+  extra_field_region_employment_by_industry_table: true
+  extra_field_region_employment_by_region_table: true
+  extra_field_region_employment_growth_forecast_percent: true
+  extra_field_region_employment_growth_forecast_total: true
+  extra_field_region_employment_shart_goods_services_chart: true
+  extra_field_region_ft_pt_employment_table: true
+  extra_field_region_ft_pt_employment_table_bc: true
+  extra_field_region_job_openings: true
+  extra_field_region_job_openings_composition_chart: true
+  extra_field_region_job_openings_forecast: true
+  extra_field_region_job_openings_forecast_chart: true
+  extra_field_region_population: true
+  extra_field_region_population_bc: true
+  extra_field_region_top_ten_occupations: true
+  extra_field_region_unemployment_rate: true
+  extra_field_region_unemployment_rate_bc: true
+  field_entire_province: true
+  field_hero_image: true
+  field_industry_highlights_intro: true
+  field_key_facts: true
+  field_labour_market_introduction: true
+  field_labour_market_stats_intro: true
+  field_region_overview: true
+  field_top_occupations_intro: true
