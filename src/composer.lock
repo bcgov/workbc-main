@@ -4,7 +4,7 @@
         "Read more about it at https://getcomposer.org/doc/01-basic-usage.md#installing-dependencies",
         "This file is @generated automatically"
     ],
-    "content-hash": "f4a6ef6dbf4aeea21a7868588afcaf06",
+    "content-hash": "08576febdef5f9dd4433a99110a8988d",
     "packages": [
         {
             "name": "alchemy/zippy",
@@ -4188,6 +4188,21 @@
                 "source": "https://github.com/enlightn/security-checker/tree/v1.10.0"
             },
             "time": "2022-02-21T22:40:16+00:00"
+        },
+        {
+            "name": "google/charts",
+            "version": "45",
+            "dist": {
+                "type": "file",
+                "url": "https://www.gstatic.com/charts/loader.js"
+            },
+            "require": {
+                "composer/installers": "^1.0 || ^2.0"
+            },
+            "type": "drupal-library",
+            "extra": {
+                "installer-name": "google_charts"
+            }
         },
         {
             "name": "graham-campbell/result-type",

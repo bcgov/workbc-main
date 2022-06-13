@@ -17,6 +17,24 @@
         {
             "type": "vcs",
             "url": "https://github.com/infojunkie/gathercontent-client"
+        },
+        {
+            "type": "package",
+            "package": {
+                "name": "google/charts",
+                "version": "45",
+                "type": "drupal-library",
+                "extra": {
+                    "installer-name": "google_charts"
+                },
+                "dist": {
+                    "url": "https://www.gstatic.com/charts/loader.js",
+                    "type": "file"
+                },
+                "require": {
+                    "composer/installers": "^1.0 || ^2.0"
+                }
+            }
         }
     ],
     "require": {
@@ -44,6 +62,7 @@
         "drupal/tb_megamenu": "^1.7",
         "drupal/time_field": "^2.0",
         "drush/drush": "^10.6",
+        "google/charts": "45",
         "vlucas/phpdotenv": "^5.1",
         "webflo/drupal-finder": "^1.2"
     },

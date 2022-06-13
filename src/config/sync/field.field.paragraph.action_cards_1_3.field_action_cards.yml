@@ -6,6 +6,7 @@ dependencies:
     - field.storage.paragraph.field_action_cards
     - paragraphs.paragraphs_type.action_card
     - paragraphs.paragraphs_type.action_cards_1_3
+    - paragraphs.paragraphs_type.quote_card
   module:
     - entity_reference_revisions
 id: paragraph.action_cards_1_3.field_action_cards
@@ -23,6 +24,7 @@ settings:
   handler_settings:
     target_bundles:
       action_card: action_card
+      quote_card: quote_card
     negate: 0
     target_bundles_drag_drop:
       action_card:
@@ -37,6 +39,9 @@ settings:
       action_cards_1_3:
         weight: 13
         enabled: false
+      action_cards_1_4:
+        weight: 15
+        enabled: false
       action_cards_full_width:
         weight: 14
         enabled: false
@@ -48,7 +53,7 @@ settings:
         enabled: false
       quote_card:
         weight: 17
-        enabled: false
+        enabled: true
       skills:
         weight: 18
         enabled: false
