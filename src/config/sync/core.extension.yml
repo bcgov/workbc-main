@@ -50,6 +50,7 @@ module:
   path_alias: 0
   rdf: 0
   search: 0
+  ses_mailer: 0
   shortcut: 0
   system: 0
   taxonomy: 0

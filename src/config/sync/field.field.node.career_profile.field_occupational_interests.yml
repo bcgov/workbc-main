@@ -1,0 +1,29 @@
+uuid: 7cb9d52f-a4c9-4cdb-9a7e-a1d5d6358787
+langcode: en
+status: true
+dependencies:
+  config:
+    - field.storage.node.field_occupational_interests
+    - node.type.career_profile
+    - taxonomy.vocabulary.occupational_interests
+id: node.career_profile.field_occupational_interests
+field_name: field_occupational_interests
+entity_type: node
+bundle: career_profile
+label: 'Occupational Interests'
+description: ''
+required: false
+translatable: false
+default_value: {  }
+default_value_callback: ''
+settings:
+  handler: 'default:taxonomy_term'
+  handler_settings:
+    target_bundles:
+      occupational_interests: occupational_interests
+    sort:
+      field: name
+      direction: asc
+    auto_create: false
+    auto_create_bundle: ''
+field_type: entity_reference

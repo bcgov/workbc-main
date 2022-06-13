@@ -1,0 +1,23 @@
+uuid: c1c249be-edb4-4f94-844a-8ee83f101837
+langcode: en
+status: true
+dependencies:
+  config:
+    - field.storage.node.field_hi_opportunity_occupation
+    - node.type.career_profile
+id: node.career_profile.field_hi_opportunity_occupation
+field_name: field_hi_opportunity_occupation
+entity_type: node
+bundle: career_profile
+label: 'High Opportunity Occupation'
+description: ''
+required: false
+translatable: false
+default_value:
+  -
+    value: 0
+default_value_callback: ''
+settings:
+  on_label: 'On'
+  off_label: 'Off'
+field_type: boolean

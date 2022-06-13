@@ -1,0 +1,6 @@
+name: SES Mailer
+type: module
+description: A Drupal mailer integration with AWS Simple Email Service
+package: Other
+core: 8.x
+core_version_requirement: ^8 || ^9

@@ -13,11 +13,15 @@
         {
             "type": "composer",
             "url": "https://packages.drupal.org/8"
+        },
+        {
+            "type": "vcs",
+            "url": "https://github.com/infojunkie/gathercontent-client"
         }
     ],
     "require": {
         "php": ">=7.4",
-        "cheppers/gathercontent-client": "^2.0",
+        "cheppers/gathercontent-client": "dev-components",
         "composer/installers": "^1.9",
         "cweagans/composer-patches": "^1.7",
         "drupal/address": "^1.10",
