@@ -277,12 +277,12 @@
             "source": {
                 "type": "git",
                 "url": "https://github.com/infojunkie/gathercontent-client.git",
-                "reference": "b50b4651587b1797e832faa00f1fb174b5006406"
+                "reference": "1ef167a16bbb5477ca34a7e2c76816b47272d2d5"
             },
             "dist": {
                 "type": "zip",
-                "url": "https://api.github.com/repos/infojunkie/gathercontent-client/zipball/b50b4651587b1797e832faa00f1fb174b5006406",
-                "reference": "b50b4651587b1797e832faa00f1fb174b5006406",
+                "url": "https://api.github.com/repos/infojunkie/gathercontent-client/zipball/1ef167a16bbb5477ca34a7e2c76816b47272d2d5",
+                "reference": "1ef167a16bbb5477ca34a7e2c76816b47272d2d5",
                 "shasum": ""
             },
             "require": {
@@ -326,7 +326,7 @@
             "support": {
                 "source": "https://github.com/infojunkie/gathercontent-client/tree/components"
             },
-            "time": "2022-06-13T05:32:04+00:00"
+            "time": "2022-06-13T19:56:36+00:00"
         },
         {
             "name": "chi-teck/drupal-code-generator",
@@ -11022,16 +11022,16 @@
         },
         {
             "name": "phpstan/phpdoc-parser",
-            "version": "1.6.2",
+            "version": "1.6.3",
             "source": {
                 "type": "git",
                 "url": "https://github.com/phpstan/phpdoc-parser.git",
-                "reference": "76150ae7512439b4e6903db834e4a327596b617d"
+                "reference": "4a07085f74cb1f3fc7103efa537d9f00ebb74ec7"
             },
             "dist": {
                 "type": "zip",
-                "url": "https://api.github.com/repos/phpstan/phpdoc-parser/zipball/76150ae7512439b4e6903db834e4a327596b617d",
-                "reference": "76150ae7512439b4e6903db834e4a327596b617d",
+                "url": "https://api.github.com/repos/phpstan/phpdoc-parser/zipball/4a07085f74cb1f3fc7103efa537d9f00ebb74ec7",
+                "reference": "4a07085f74cb1f3fc7103efa537d9f00ebb74ec7",
                 "shasum": ""
             },
             "require": {
@@ -11061,9 +11061,9 @@
             "description": "PHPDoc parser with support for nullable, intersection and generic types",
             "support": {
                 "issues": "https://github.com/phpstan/phpdoc-parser/issues",
-                "source": "https://github.com/phpstan/phpdoc-parser/tree/1.6.2"
+                "source": "https://github.com/phpstan/phpdoc-parser/tree/1.6.3"
             },
-            "time": "2022-06-10T09:29:33+00:00"
+            "time": "2022-06-14T11:40:08+00:00"
         },
         {
             "name": "phpunit/php-code-coverage",
