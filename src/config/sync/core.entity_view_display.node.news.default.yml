@@ -5,10 +5,8 @@ dependencies:
   config:
     - field.field.node.news.body
     - field.field.node.news.field_image
-    - field.field.node.news.field_published_date
     - node.type.news
   module:
-    - datetime
     - image
     - text
     - user
@@ -32,15 +30,6 @@ content:
       image_style: ''
     third_party_settings: {  }
     weight: 2
-    region: content
-  field_published_date:
-    type: datetime_default
-    label: above
-    settings:
-      timezone_override: ''
-      format_type: medium
-    third_party_settings: {  }
-    weight: 1
     region: content
   links:
     settings: {  }

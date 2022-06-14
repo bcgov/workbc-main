@@ -4,7 +4,7 @@
         "Read more about it at https://getcomposer.org/doc/01-basic-usage.md#installing-dependencies",
         "This file is @generated automatically"
     ],
-    "content-hash": "ad2f0a29b138c359e78bfaf5d4f1c50f",
+    "content-hash": "5228f1623fe403a53f23cdcf2d034e62",
     "packages": [
         {
             "name": "alchemy/zippy",
@@ -3925,6 +3925,54 @@
             "homepage": "https://www.drupal.org/project/paragraphs",
             "support": {
                 "source": "https://git.drupalcode.org/project/paragraphs"
+            }
+        },
+        {
+            "name": "drupal/published_corrected_date",
+            "version": "2.0.1",
+            "source": {
+                "type": "git",
+                "url": "https://git.drupalcode.org/project/published_corrected_date.git",
+                "reference": "2.0.1"
+            },
+            "dist": {
+                "type": "zip",
+                "url": "https://ftp.drupal.org/files/projects/published_corrected_date-2.0.1.zip",
+                "reference": "2.0.1",
+                "shasum": "a3c66aab6221728ad802225a07fc71c1489dcc2f"
+            },
+            "require": {
+                "drupal/core": "^8 || ^9"
+            },
+            "type": "drupal-module",
+            "extra": {
+                "drupal": {
+                    "version": "2.0.1",
+                    "datestamp": "1632233027",
+                    "security-coverage": {
+                        "status": "covered",
+                        "message": "Covered by Drupal's security advisory policy"
+                    }
+                }
+            },
+            "notification-url": "https://packages.drupal.org/8/downloads",
+            "license": [
+                "GPL-2.0-or-later"
+            ],
+            "authors": [
+                {
+                    "name": "minorOffense",
+                    "homepage": "https://www.drupal.org/user/129088"
+                },
+                {
+                    "name": "spotzero",
+                    "homepage": "https://www.drupal.org/user/657848"
+                }
+            ],
+            "description": "Added a published and corrected date property to nodes.",
+            "homepage": "https://www.drupal.org/project/published_corrected_date",
+            "support": {
+                "source": "https://git.drupalcode.org/project/published_corrected_date"
             }
         },
         {
