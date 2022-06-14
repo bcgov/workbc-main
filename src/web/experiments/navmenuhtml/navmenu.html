@@ -41,22 +41,46 @@ any nav <a> that is the link for a submenu (has a sibling ul) should have 'dropd
         <div class="collapse navbar-collapse" id="main_nav">
           <ul class="navbar-nav nav-t1">
             <!-- for each t1 item in the menu -->
-            <li class="nav-item" data-submenu-trigger="home">
+            <li class="nav-item submenu-underlay-hover">
               <a class="nav-link" href="#">Home</a>
             </li>
-            <li class="nav-item" data-submenu-trigger="search_prepare_for_a_job">
+            <li class="nav-item submenu-underlay-hover">
               <a class="nav-link" href="#">Search & Prepare for a Job</a>
               <div class="submenu-container">
                 <div class="row g-0 submenu">
                   <div class="col-sm-8">
-                    <div class="row g-0">
-                      <div class="col-sm-6 nav-t2">
-                        This is my t2 subnav content for Search & Prepare for a Job
-                      </div>
-                      <div class="col-sm-6 nav-t3">
-                        This is my t3 subnav placeholder
-                      </div>
-                    </div>
+
+
+
+                    <ul class="nav-t2">
+                      <!-- for each t2 item under parent t1 item -->
+                      <li class="nav-item">
+                        <a class="nav-link" href="#">Find Jobs</a>
+                      </li>
+                      <li class="nav-item dropdown nav-theme-light">
+                        <a class="nav-link dropdown-toggle" href="#">Job Application Tips</a>
+                        <!-- for each t3 item under parent t2 item -->
+                        <ul class="dropdown-menu nav-t3">
+                          <li><a class="nav-link" href="#">Resume & Cover Letter</a></li>
+                          <li><a class="nav-link" href="#">Interviews</a></li>
+                          <li><a class="nav-link" href="#">Networking</a></li>
+                          <li><a class="nav-link" href="#">Social Media</a></li>
+                          <li><a class="nav-link" href="#">Your Rights as a Job Applicant</a></li>
+                        </ul>
+                      </li>
+                      <li class="nav-item">
+                        <a class="nav-link" href="#">Industry Job Boards</a>
+                      </li>
+                      <li class="nav-item">
+                        <a class="nav-link" href="#">Work in British Columbia</a>
+                      </li>
+                      <li class="nav-item">
+                        <a class="nav-link" href="#">WorkBC Job Board Advantage</a>
+                      </li>
+                    </ul>
+
+
+
                   </div>
                   <div class="col-sm-4 nav-t1-splash">
                     This is my splash content for Search & Prepare for a Job
@@ -64,22 +88,22 @@ any nav <a> that is the link for a submenu (has a sibling ul) should have 'dropd
                 </div>
               </div>
             </li>
-            <li class="nav-item" data-submenu-trigger="plan_a_acreer">
+            <li class="nav-item submenu-underlay-hover">
               <a class="nav-link" href="#">Plan a Career</a>
             </li>
-            <li class="nav-item" data-submenu-trigger="explore_training_education">
+            <li class="nav-item submenu-underlay-hover">
               <a class="nav-link" href="#">Explore Training & Education</a>
             </li>
-            <li class="nav-item" data-submenu-trigger="research_the_labour_market">
+            <li class="nav-item submenu-underlay-hover">
               <a class="nav-link" href="#">Research the Labour Market</a>
             </li>
-            <li class="nav-item" data-submenu-trigger="access_employer_resources">
+            <li class="nav-item submenu-underlay-hover">
               <a class="nav-link" href="#">Access Employer Resources</a>
             </li>
-            <li class="nav-item" data-submenu-trigger="find_loans_grants_incentives">
+            <li class="nav-item submenu-underlay-hover">
               <a class="nav-link" href="#">Find Loans, Grants & Incentives</a>
             </li>
-            <li class="nav-item" data-submenu-trigger="discover_employment_services">
+            <li class="nav-item submenu-underlay-hover">
               <a class="nav-link" href="#">Discover Employment Services</a>
             </li>
           </ul>
@@ -107,28 +131,18 @@ any nav <a> that is the link for a submenu (has a sibling ul) should have 'dropd
   </footer>
 
   <script>
-    var submenuContainer = $('.submenu-underlay'); 
+    var submenuUnderlay = $('.submenu-underlay'); 
 
-    var showSubmenu = function() {
-      var key = $(this).data('submenu-trigger');
-      var target = $('[data-submenu-target=' + key + ']');
-      if(target != null) {
-        target.show();
-        submenuContainer.show();
-      }
+    var showSubmenuUnderlay = function() {
+        submenuUnderlay.show();
     };
 
-    var hideSubmenu = function() {
-      var key = $(this).data('submenu-trigger');
-      var target = $('[data-submenu-target=' + key + ']');
-      if(target != null) {
-        submenuContainer.hide();
-        target.hide();
-      }
+    var hideSubmenuUnderlay = function() {
+        submenuUnderlay.hide();
     };
 
     $(function(){
-      $('[data-submenu-trigger]').hover(showSubmenu, hideSubmenu);
+      $('.submenu-underlay-hover').hover(showSubmenuUnderlay, hideSubmenuUnderlay);
     });
   </script>
 
