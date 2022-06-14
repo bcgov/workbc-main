@@ -32,7 +32,7 @@ $nodes = [
 print("Creating content...\n");
 $row = 0;
 while (($data = fgetcsv($handle)) !== FALSE) {
-    // Skip first 2 rows.
+    // Skip first 2 header rows.
     $row++;
     if ($row < 3) continue;
 
@@ -52,9 +52,6 @@ while (($data = fgetcsv($handle)) !== FALSE) {
                 $parent = $data[$c-1];
                 if ($parent === $title) {
                     $parent = $c > 1 ? $data[$c-2] : NULL;
-                }
-                if (empty($parent)) {
-                    $parent = NULL;
                 }
             }
             print("$title => $parent\n");
@@ -77,6 +74,7 @@ while (($data = fgetcsv($handle)) !== FALSE) {
         'uid' => 1,
     ];
 
+    // Create the node.
     $node = Drupal::entityTypeManager()
         ->getStorage('node')
         ->create($fields);
@@ -84,24 +82,61 @@ while (($data = fgetcsv($handle)) !== FALSE) {
     $nodes[$title] = [
         'id' => $node->id(),
         'parent' => $parent,
-        'menu_id' => NULL,
+        'menu_item' => NULL,
     ];
 }
 fclose($handle);
 
 // SECOND PASS: Create the menu hierarchy.
 print("Creating menu...\n");
-foreach ($nodes as $title => $node) {
+
+function createMenuEntry($title, $node, &$nodes, $menu_link_storage, $menu_name, $menu_item_home) {
+    print("Menu for \"$title\"\n");
+    if (empty($node)) {
+        print("  Could not find node \"$title\". Skipping\n");
+        return;
+    }
+    if (!empty($node['menu_item'])) {
+        print("  Menu found. Skipping\n");
+        return;
+    }
+
+    $menu_item_parent = $menu_item_home;
+    if (!empty($node['parent'])) {
+        $node_parent = &$nodes[$node['parent']];
+        if (empty($node_parent)) {
+            print("  Could not find parent node \"{$node['parent']}\"\n");
+        }
+        else {
+            if (empty($node_parent['menu_item'])) {
+                print("  Could not find menu for \"{$node['parent']}\". Creating it...\n");
+                createMenuEntry($node['parent'], $node_parent, $nodes, $menu_link_storage, $menu_name, $menu_item_home);
+            }
+            if (empty($node_parent['menu_item'])) {
+                print("  Could not find menu for \"{$node['parent']}\" after creation\n");
+            }
+            else {
+                $menu_item_parent = $node_parent['menu_item'];
+                print("  Parent menu for \"{$node['parent']}\": $menu_item_parent\n");
+            }
+        }
+    }
+
     $menu_link = $menu_link_storage->create([
         'title' => $title,
-        'link' => ['uri' => "internal:/node/{$node['id']}"],
+        'link' => ['uri' => "entity:node/{$node['id']}"],
         'menu_name' => $menu_name,
-        'parent' => $menu_item_home,
+        'parent' => $menu_item_parent,
         'expanded' => TRUE,
         'weight' => 0,
     ]);
     $menu_link->save();
-    $nodes[$title]['menu_id'] = $menu_link->id();
+    $nodes[$title]['menu_item'] = $menu_link->getPluginId();
+    print("  Menu for \"$title\": {$nodes[$title]['menu_item']}\n");
+}
+
+foreach ($nodes as $title => &$node) {
+    createMenuEntry($title, $node, $nodes, $menu_link_storage, $menu_name, $menu_item_home);
 }
 
 /**
