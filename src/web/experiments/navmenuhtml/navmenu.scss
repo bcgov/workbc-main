@@ -145,9 +145,19 @@ body {
 /* ============ navbar layout  ============ */
 
 nav.navbar {
+  position: relative;
   height: 80px;
   padding: 0px;
   margin: 0px;
+
+  &:after {
+      content: "";
+      position: absolute;
+      width: 100%;
+      bottom: 1px;
+      z-index: -1;
+      box-shadow: 0px 0px 8px 2px #000000;
+  }
 
   .container {
     height: 100%;
@@ -175,6 +185,26 @@ nav.navbar {
         flex-direction: column;
         justify-content: space-around;
         align-items: stretch;
+
+        .submenu-container {
+          display: none;
+          position: absolute;
+          z-index: 1;
+          top: 100%;
+          right: 0;
+          left: 0;
+
+          .submenu {
+            width: 100%;
+            min-height: 150px;
+            background: $workbc_light_background;
+            border-bottom: $workbc_trim_thin_size solid $workbc_light_trim_alternate;
+          }
+        }
+
+        &:hover .submenu-container {
+          display: block;
+        }
       }
     }
   }
@@ -189,7 +219,7 @@ header {
   position: relative;
 }
 
-.submenu-container {
+.submenu-underlay {
   position: absolute;
   top: 0;
   right: 0;
@@ -200,13 +230,6 @@ header {
 
   [data-submenu-target] {
     display: none;
-  }
-
-  .submenu {
-    width: 100%;
-    min-height: 150px;
-    background: $workbc_light_background;
-    border-bottom: $workbc_trim_thin_size solid $workbc_light_trim_alternate;
   }
 }
 

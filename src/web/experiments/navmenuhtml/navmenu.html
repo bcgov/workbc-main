@@ -46,6 +46,23 @@ any nav <a> that is the link for a submenu (has a sibling ul) should have 'dropd
             </li>
             <li class="nav-item" data-submenu-trigger="search_prepare_for_a_job">
               <a class="nav-link" href="#">Search & Prepare for a Job</a>
+              <div class="submenu-container">
+                <div class="row g-0 submenu">
+                  <div class="col-sm-8">
+                    <div class="row g-0">
+                      <div class="col-sm-6 nav-t2">
+                        This is my t2 subnav content for Search & Prepare for a Job
+                      </div>
+                      <div class="col-sm-6 nav-t3">
+                        This is my t3 subnav placeholder
+                      </div>
+                    </div>
+                  </div>
+                  <div class="col-sm-4 nav-t1-splash">
+                    This is my splash content for Search & Prepare for a Job
+                  </div>
+                </div>
+              </div>
             </li>
             <li class="nav-item" data-submenu-trigger="plan_a_acreer">
               <a class="nav-link" href="#">Plan a Career</a>
@@ -72,24 +89,7 @@ any nav <a> that is the link for a submenu (has a sibling ul) should have 'dropd
   </header>
 
   <div class="page-content-container">
-    <div class="submenu-container">
-      <div class="container">
-        <div class="submenu" data-submenu-target="search_prepare_for_a_job">
-          <div class="container-fluid">
-            <div class="row">
-              <div class="col-sm-4 nav-t2">
-                This is my t2 subnav content for Search & Prepare for a Job
-              </div>
-              <div class="col-sm-4 nav-t3">
-
-              </div>
-              <div class="col-sm-4 nav-t1-splash">
-                This is my splash content for Search & Prepare for a Job
-              </div>
-            </div>
-          </div>
-        </div>
-      </div>
+    <div class="submenu-underlay">
     </div>
   
     <div>
@@ -100,14 +100,14 @@ any nav <a> that is the link for a submenu (has a sibling ul) should have 'dropd
     </div>
   </div>
 
-  <footer>
+  <footer style="background-color:#001144;color:#ffffff">
     <div class="container">
       This is my footer
     </div>
   </footer>
 
   <script>
-    var submenuContainer = $('.submenu-container'); 
+    var submenuContainer = $('.submenu-underlay'); 
 
     var showSubmenu = function() {
       var key = $(this).data('submenu-trigger');
