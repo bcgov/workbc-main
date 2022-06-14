@@ -41,28 +41,28 @@ any nav <a> that is the link for a submenu (has a sibling ul) should have 'dropd
         <div class="collapse navbar-collapse" id="main_nav">
           <ul class="navbar-nav nav-t1">
             <!-- for each t1 item in the menu -->
-            <li class="nav-item" data-remote-menu-trigger="home">
+            <li class="nav-item" data-submenu-trigger="home">
               <a class="nav-link" href="#">Home</a>
             </li>
-            <li class="nav-item" data-remote-menu-trigger="search_prepare_for_a_job">
+            <li class="nav-item" data-submenu-trigger="search_prepare_for_a_job">
               <a class="nav-link" href="#">Search & Prepare for a Job</a>
             </li>
-            <li class="nav-item" data-remote-menu-trigger="plan_a_acreer">
+            <li class="nav-item" data-submenu-trigger="plan_a_acreer">
               <a class="nav-link" href="#">Plan a Career</a>
             </li>
-            <li class="nav-item" data-remote-menu-trigger="explore_training_education">
+            <li class="nav-item" data-submenu-trigger="explore_training_education">
               <a class="nav-link" href="#">Explore Training & Education</a>
             </li>
-            <li class="nav-item" data-remote-menu-trigger="research_the_labour_market">
+            <li class="nav-item" data-submenu-trigger="research_the_labour_market">
               <a class="nav-link" href="#">Research the Labour Market</a>
             </li>
-            <li class="nav-item" data-remote-menu-trigger="access_employer_resources">
+            <li class="nav-item" data-submenu-trigger="access_employer_resources">
               <a class="nav-link" href="#">Access Employer Resources</a>
             </li>
-            <li class="nav-item" data-remote-menu-trigger="find_loans_grants_incentives">
+            <li class="nav-item" data-submenu-trigger="find_loans_grants_incentives">
               <a class="nav-link" href="#">Find Loans, Grants & Incentives</a>
             </li>
-            <li class="nav-item" data-remote-menu-trigger="discover_employment_services">
+            <li class="nav-item" data-submenu-trigger="discover_employment_services">
               <a class="nav-link" href="#">Discover Employment Services</a>
             </li>
           </ul>
@@ -72,10 +72,22 @@ any nav <a> that is the link for a submenu (has a sibling ul) should have 'dropd
   </header>
 
   <div class="page-content-container">
-    <div class="subnav-container">
+    <div class="submenu-container">
       <div class="container">
-        <div data-remote-menu-target="search_prepare_for_a_job">
-          This is my remote menu
+        <div class="submenu" data-submenu-target="search_prepare_for_a_job">
+          <div class="container-fluid">
+            <div class="row">
+              <div class="col-sm-4 nav-t2">
+                This is my t2 subnav content for Search & Prepare for a Job
+              </div>
+              <div class="col-sm-4 nav-t3">
+
+              </div>
+              <div class="col-sm-4 nav-t1-splash">
+                This is my splash content for Search & Prepare for a Job
+              </div>
+            </div>
+          </div>
         </div>
       </div>
     </div>
@@ -95,28 +107,28 @@ any nav <a> that is the link for a submenu (has a sibling ul) should have 'dropd
   </footer>
 
   <script>
-    var remoteMenuContainer = $('.subnav-container'); 
+    var submenuContainer = $('.submenu-container'); 
 
-    var showRemoteMenu = function() {
-      var key = $(this).data('remote-menu-trigger');
-      var target = $('[data-remote-menu-target=' + key + ']');
+    var showSubmenu = function() {
+      var key = $(this).data('submenu-trigger');
+      var target = $('[data-submenu-target=' + key + ']');
       if(target != null) {
         target.show();
-        remoteMenuContainer.show();
+        submenuContainer.show();
       }
     };
 
-    var hideRemoteMenu = function() {
-      var key = $(this).data('remote-menu-trigger');
-      var target = $('[data-remote-menu-target=' + key + ']');
+    var hideSubmenu = function() {
+      var key = $(this).data('submenu-trigger');
+      var target = $('[data-submenu-target=' + key + ']');
       if(target != null) {
-        remoteMenuContainer.hide();
+        submenuContainer.hide();
         target.hide();
       }
     };
 
     $(function(){
-      $('[data-remote-menu-trigger]').hover(showRemoteMenu, hideRemoteMenu);
+      $('[data-submenu-trigger]').hover(showSubmenu, hideSubmenu);
     });
   </script>
 

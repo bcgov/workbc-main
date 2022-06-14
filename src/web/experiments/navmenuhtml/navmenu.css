@@ -9725,7 +9725,7 @@ header {
 .page-content-container {
   position: relative; }
 
-.subnav-container {
+.submenu-container {
   position: absolute;
   top: 0;
   right: 0;
@@ -9733,8 +9733,13 @@ header {
   left: 0;
   background-color: rgba(20, 20, 20, 0.3);
   display: none; }
-  .subnav-container [data-remote-menu-target] {
+  .submenu-container [data-submenu-target] {
     display: none; }
+  .submenu-container .submenu {
+    width: 100%;
+    min-height: 150px;
+    background: #FFFFFF;
+    border-bottom: 4px solid #2E6AB0; }
 
 /* ============ navbar layout .end// ============ */
 

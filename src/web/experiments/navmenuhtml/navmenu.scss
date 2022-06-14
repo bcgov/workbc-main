@@ -32,8 +32,8 @@ body {
   
   ul {
     li {
-      padding: $workbc_trim_size $workbc_trim_size 0 $workbc_trim_size; // no padding on bottom - it's taken up by the trim-border instead.
-      border-bottom: $workbc_trim_size solid transparent; // This is to hold the space the trim takes up on hover, so that content doesn't jump around
+      padding: $workbc_trim_standard_size $workbc_trim_standard_size 0 $workbc_trim_standard_size; // no padding on bottom - it's taken up by the trim-border instead.
+      border-bottom: $workbc_trim_standard_size solid transparent; // This is to hold the space the trim takes up on hover, so that content doesn't jump around
 
       a {
         font-size: 16px;
@@ -157,6 +157,7 @@ nav.navbar {
     }
     
     ul.nav-t1 {
+      position: relative;
       height: 100%;
       width: 100%;
       display: flex;
@@ -188,7 +189,7 @@ header {
   position: relative;
 }
 
-.subnav-container {
+.submenu-container {
   position: absolute;
   top: 0;
   right: 0;
@@ -197,8 +198,15 @@ header {
   background-color: rgba(20,20,20,0.3);
   display: none;
 
-  [data-remote-menu-target] {
+  [data-submenu-target] {
     display: none;
+  }
+
+  .submenu {
+    width: 100%;
+    min-height: 150px;
+    background: $workbc_light_background;
+    border-bottom: $workbc_trim_thin_size solid $workbc_light_trim_alternate;
   }
 }
 
