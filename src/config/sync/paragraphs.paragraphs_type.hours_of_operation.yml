@@ -6,5 +6,5 @@ id: hours_of_operation
 label: 'Hours of Operation'
 icon_uuid: null
 icon_default: null
-description: 'Hours of operation for a WorkBC Centre'
+description: 'Hours of operation for a WorkBC Centre.'
 behavior_plugins: {  }

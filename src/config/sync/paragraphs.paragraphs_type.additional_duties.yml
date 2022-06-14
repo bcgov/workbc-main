@@ -6,5 +6,5 @@ id: additional_duties
 label: 'Additional Duties'
 icon_uuid: null
 icon_default: null
-description: 'Title and Description for Additional Duties in Career Profiles'
+description: 'Title and Description for Additional Duties in Career Profiles.'
 behavior_plugins: {  }
