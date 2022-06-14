@@ -1,76 +1,124 @@
 <html>
-    <head>
-        <link rel="stylesheet" href="navmenu.css">
-    </head>
-    <body>
 
-        <div style="height: 30px; background-color:blueviolet">
-            <div class="container">
-                Alert Ribbon
-            </div>
+<head>
+  <link rel="stylesheet" href="navmenu.css">
+  <script src="../../core/assets/vendor/jquery/jquery.min.js?v=3.6.0"></script>
+</head>
+
+<body>
+
+  <div style="height: 30px; background-color:blueviolet">
+    <div class="container">
+      Alert Ribbon
+    </div>
+  </div>
+  <div style="height: 100px;">
+    <div class="container">
+      Header Logo
+    </div>
+  </div>
+
+<!--
+Loops for each tier of nav
+all nav <ul> have 'navbar-nav' class
+top level <ul> has 'nav-t1' class
+second level <ul> has 'nav-t2, 'dropdown-menu' classes
+third level <ul> has 'nav-t3', 'submenu', and 'dropdown-menu' classes
+all nav <li> should have 'nav-item' class
+active/current page <li> (including parents) should have 'active' class
+any nav <li> that contains a subnav ul should have 'dropdown' class
+all nav <a> should have 'nav-link' class
+any nav <a> that is the link for a submenu (has a sibling ul) should have 'dropdown-toggle' class
+-->
+
+
+  <header>
+    <nav class="navbar navbar-expand-lg workbc-megamenu nav-theme-t1-dark">
+      <div class="container">
+        <button class="navbar-toggler" type="button" data-bs-toggle="collapse" data-bs-target="#main_nav" aria-expanded="false" aria-label="Toggle navigation">
+          <span class="navbar-toggler-icon"></span>
+        </button>
+        <div class="collapse navbar-collapse" id="main_nav">
+          <ul class="navbar-nav nav-t1">
+            <!-- for each t1 item in the menu -->
+            <li class="nav-item" data-remote-menu-trigger="home">
+              <a class="nav-link" href="#">Home</a>
+            </li>
+            <li class="nav-item" data-remote-menu-trigger="search_prepare_for_a_job">
+              <a class="nav-link" href="#">Search & Prepare for a Job</a>
+            </li>
+            <li class="nav-item" data-remote-menu-trigger="plan_a_acreer">
+              <a class="nav-link" href="#">Plan a Career</a>
+            </li>
+            <li class="nav-item" data-remote-menu-trigger="explore_training_education">
+              <a class="nav-link" href="#">Explore Training & Education</a>
+            </li>
+            <li class="nav-item" data-remote-menu-trigger="research_the_labour_market">
+              <a class="nav-link" href="#">Research the Labour Market</a>
+            </li>
+            <li class="nav-item" data-remote-menu-trigger="access_employer_resources">
+              <a class="nav-link" href="#">Access Employer Resources</a>
+            </li>
+            <li class="nav-item" data-remote-menu-trigger="find_loans_grants_incentives">
+              <a class="nav-link" href="#">Find Loans, Grants & Incentives</a>
+            </li>
+            <li class="nav-item" data-remote-menu-trigger="discover_employment_services">
+              <a class="nav-link" href="#">Discover Employment Services</a>
+            </li>
+          </ul>
         </div>
-        <div style="height: 100px;">
-            <div class="container">
-                Header Logo
-            </div>
+      </div>
+    </nav>
+  </header>
+
+  <div class="page-content-container">
+    <div class="subnav-container">
+      <div class="container">
+        <div data-remote-menu-target="search_prepare_for_a_job">
+          This is my remote menu
         </div>
+      </div>
+    </div>
+  
+    <div>
+      <!-- ALL OTHER PAGE CONTENT GOES HERE - so this means we have to be able to wrap the entire page body through Drupal on all pages -->
+      <div class="container" style="min-height:350px;">
+        This is my main page content
+      </div>
+    </div>
+  </div>
 
-        <header>
-            <nav class="navbar">
-                <div class="container">
-                    <ul>
-                        <!-- Home is kind of a special case? -->
-                        <li>
-                            <a href="">Home</a>
-                        </li>
-                        <!-- for each t1 item in the menu -->
-                        <li>
-                            <a href="">Search & Prepare for a Job</a>
-                            <ul>
-                                <!-- for each t2 item under parent t1 item -->
-                                <li>
-                                    <a href="">Find Jobs</a>
-                                </li>
+  <footer>
+    <div class="container">
+      This is my footer
+    </div>
+  </footer>
 
-                                <li>
-                                    <a href="">Job Application Tips</a>
-                                    <!-- for each t3 item under parent t2 item -->
-                                    <ul>
-                                        <li><a href="">Resume & Cover Letter</a></li>
-                                        <li><a href="">Interviews</a></li>
-                                        <li><a href="">Networking</a></li>
-                                        <li><a href="">Social Media</a></li>
-                                        <li><a href="">Your Rights as a Job Applicant</a></li>
-                                    </ul>
-                                </li>
+  <script>
+    var remoteMenuContainer = $('.subnav-container'); 
 
-                            </ul>
-                        </li>
-                        <li>
-                            <a href="">Plan a Career</a>
-                        </li>
-                        <li>
-                            <a href="">Explore Training & Education</a>
-                        </li>
-                        <li>
-                            <a href="">Research the Labour Market</a>
-                        </li>
-                        <li>
-                            <a href="">Access Employer Resources</a>
-                        </li>
-                        <li>
-                            <a href="">Find Loans, Grants & Incentives</a>
-                        </li>
-                        <li>
-                            <a href="">Discover Employment Services</a>
-                        </li>
+    var showRemoteMenu = function() {
+      var key = $(this).data('remote-menu-trigger');
+      var target = $('[data-remote-menu-target=' + key + ']');
+      if(target != null) {
+        target.show();
+        remoteMenuContainer.show();
+      }
+    };
 
-                    </ul>
-                </div>
-            </nav>
-        </header>
+    var hideRemoteMenu = function() {
+      var key = $(this).data('remote-menu-trigger');
+      var target = $('[data-remote-menu-target=' + key + ']');
+      if(target != null) {
+        remoteMenuContainer.hide();
+        target.hide();
+      }
+    };
 
+    $(function(){
+      $('[data-remote-menu-trigger]').hover(showRemoteMenu, hideRemoteMenu);
+    });
+  </script>
 
-
-    </body>
+</body>
 </html>
