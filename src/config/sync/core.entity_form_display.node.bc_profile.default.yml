@@ -1,24 +1,22 @@
-uuid: 44ee85e5-3d99-4565-8d71-c41cfe51a606
+uuid: 4ae945bf-94ae-44f6-8761-f22d902a05e3
 langcode: en
 status: true
 dependencies:
   config:
-    - field.field.node.region_profile.field_hero_image
-    - field.field.node.region_profile.field_industry_highlights_intro
-    - field.field.node.region_profile.field_key_facts
-    - field.field.node.region_profile.field_labour_market_introduction
-    - field.field.node.region_profile.field_labour_market_stats_intro
-    - field.field.node.region_profile.field_region_overview
-    - field.field.node.region_profile.field_top_occupations_intro
+    - field.field.node.bc_profile.field_hero_image
+    - field.field.node.bc_profile.field_industry_highlights_intro
+    - field.field.node.bc_profile.field_key_facts
+    - field.field.node.bc_profile.field_labour_market_stats_intro
+    - field.field.node.bc_profile.field_region_overview
     - image.style.thumbnail
-    - node.type.region_profile
+    - node.type.bc_profile
   module:
     - image
     - path
     - text
-id: node.region_profile.default
+id: node.bc_profile.default
 targetEntityType: node
-bundle: region_profile
+bundle: bc_profile
 mode: default
 content:
   created:
@@ -29,7 +27,7 @@ content:
     third_party_settings: {  }
   field_hero_image:
     type: image_image
-    weight: 122
+    weight: 121
     region: content
     settings:
       progress_indicator: throbber
@@ -37,7 +35,7 @@ content:
     third_party_settings: {  }
   field_industry_highlights_intro:
     type: text_textarea
-    weight: 126
+    weight: 125
     region: content
     settings:
       rows: 5
@@ -45,15 +43,7 @@ content:
     third_party_settings: {  }
   field_key_facts:
     type: text_textarea
-    weight: 124
-    region: content
-    settings:
-      rows: 5
-      placeholder: ''
-    third_party_settings: {  }
-  field_labour_market_introduction:
-    type: text_textarea
-    weight: 127
+    weight: 123
     region: content
     settings:
       rows: 5
@@ -61,7 +51,7 @@ content:
     third_party_settings: {  }
   field_labour_market_stats_intro:
     type: text_textarea
-    weight: 125
+    weight: 124
     region: content
     settings:
       rows: 5
@@ -69,15 +59,7 @@ content:
     third_party_settings: {  }
   field_region_overview:
     type: text_textarea
-    weight: 123
-    region: content
-    settings:
-      rows: 5
-      placeholder: ''
-    third_party_settings: {  }
-  field_top_occupations_intro:
-    type: text_textarea
-    weight: 128
+    weight: 122
     region: content
     settings:
       rows: 5

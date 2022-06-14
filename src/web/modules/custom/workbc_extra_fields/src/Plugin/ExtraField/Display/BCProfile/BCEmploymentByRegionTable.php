@@ -1,6 +1,6 @@
 <?php
 
-namespace Drupal\workbc_extra_fields\Plugin\ExtraField\Display\RegionProfile;
+namespace Drupal\workbc_extra_fields\Plugin\ExtraField\Display\BCProfile;
 
 use Drupal\Core\Entity\ContentEntityInterface;
 use Drupal\Core\StringTranslation\StringTranslationTrait;
@@ -12,15 +12,15 @@ use GuzzleHttp\Exception\RequestException;
  * Example Extra field with formatted output.
  *
  * @ExtraFieldDisplay(
- *   id = "region_population_bc",
- *   label = @Translation("BC Population"),
- *   description = @Translation("An extra field to display BC population."),
+ *   id = "bc_employment_by_region_table",
+ *   label = @Translation("Employment by Region Table"),
+ *   description = @Translation("An extra field to display employment by region table."),
  *   bundles = {
- *     "node.region_profile",
+ *     "node.bc_profile",
  *   }
  * )
  */
-class RegionPopulationBC extends ExtraFieldDisplayFormattedBase {
+class BCEmploymentByRegionTable extends ExtraFieldDisplayFormattedBase {
 
   use StringTranslationTrait;
 
@@ -29,7 +29,7 @@ class RegionPopulationBC extends ExtraFieldDisplayFormattedBase {
    */
   public function getLabel() {
 
-    return $this->t('BC Population');
+    return $this->t('Employment by Region Table');
   }
 
   /**
