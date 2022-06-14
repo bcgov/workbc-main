@@ -10,7 +10,9 @@ This is the WorkBC site on Drupal.
 - In a separate terminal, install the latest dependencies: `docker-compose exec php composer install`. If you run into timeout issues while it's installing/unzipping PHP, try the following:
   - `docker-compose exec php composer config --global process-timeout 600`
   - `docker-compose exec php composer install --prefer-dist --no-dev`
-- Adjust folder permissions: `docker-compose exec php sudo chown www-data /var/www/html/private`
+- Adjust folder permissions:
+  - `docker-compose exec php sudo chown www-data /var/www/html/private`
+  - `docker-compose exec php sudo chown www-data /var/www/html/config/sync`
 - Enable needed PostgreSQL extension: `docker-compose exec postgres psql -U workbc -d workbc -c "CREATE EXTENSION IF NOT EXISTS pg_trgm;"`
 - Import a Drupal data dump: `docker-compose exec -T postgres psql --username workbc workbc < /path/to/workbc-dump.sql` (in Windows PowerShell: `cmd /c "docker-compose exec -T postgres psql --username workbc workbc < /path/to/workbc-dump.sql"`)
 - Import a SSoT data dump: `docker-compose exec -T postgres psql --username workbc ssot < /path/to/ssot-dump.sql` (in Windows PowerShell: `cmd /c "docker-compose exec -T postgres psql --username workbc ssot < /path/to/ssot-dump.sql"`)

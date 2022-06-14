@@ -43,6 +43,7 @@ hidden:
   extra_field_region_top_ten_occupations: true
   extra_field_region_unemployment_rate: true
   extra_field_region_unemployment_rate_bc: true
+  extra_field_region_unemployment_rate_region: true
   field_entire_province: true
   field_hero_image: true
   field_industry_highlights_intro: true

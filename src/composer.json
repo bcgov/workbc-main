@@ -39,6 +39,7 @@
     ],
     "require": {
         "php": ">=7.4",
+        "aws/aws-sdk-php": "~3.0",
         "cheppers/gathercontent-client": "dev-components",
         "composer/installers": "^1.9",
         "cweagans/composer-patches": "^1.7",
