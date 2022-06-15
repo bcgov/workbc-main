@@ -49,8 +49,8 @@
         "drupal/bootstrap5": "^1.1",
         "drupal/charts": "^5.0",
         "drupal/console": "~1.0",
-        "drupal/core-composer-scaffold": "^9.3",
-        "drupal/core-recommended": "^9.3",
+        "drupal/core-composer-scaffold": "~9.4.0",
+        "drupal/core-recommended": "~9.4.0",
         "drupal/crop": "^2.2",
         "drupal/devel": "^4.1",
         "drupal/devel_kint_extras": "^1.0",
@@ -63,13 +63,13 @@
         "drupal/published_corrected_date": "^2.0",
         "drupal/tb_megamenu": "^1.7",
         "drupal/time_field": "^2.0",
-        "drush/drush": "^10.6",
+        "drush/drush": "^11.0",
         "google/charts": "45",
         "vlucas/phpdotenv": "^5.1",
         "webflo/drupal-finder": "^1.2"
     },
     "require-dev": {
-        "drupal/core-dev": "^9.3"
+        "drupal/core-dev": "~9.4.0"
     },
     "conflict": {
         "drupal/drupal": "*"
