@@ -186,6 +186,10 @@ nav.navbar {
         justify-content: space-around;
         align-items: stretch;
 
+        &:hover .submenu-container {
+          display: block;
+        }
+
         .submenu-container {
           display: none;
           position: absolute;
@@ -196,14 +200,29 @@ nav.navbar {
 
           .submenu {
             width: 100%;
-            min-height: 150px;
+            min-height: 370px;
             background: $workbc_light_background;
             border-bottom: $workbc_trim_thin_size solid $workbc_light_trim_alternate;
-          }
-        }
 
-        &:hover .submenu-container {
-          display: block;
+            .nav-t2 {
+              position: relative;
+              width: 50%;
+
+              & > li {
+                &:hover .nav-t3 {
+                  display: block;
+                }
+              }
+
+              .nav-t3 {
+                position: absolute;
+                left: 100%;
+                top: 0;
+                width: 50%;
+                display: none;
+              }
+            }
+          }
         }
       }
     }
