@@ -17,14 +17,13 @@
  */
 
 $databases['default']['default'] = [
-  'database' => $_ENV['DB_NAME'],
-  'driver' => $_ENV['DB_DRIVER'],
-  'host' => $_ENV['DB_HOST'],
-  'namespace' => 'Drupal\\Core\\Database\\Driver\\' . $_ENV['DB_DRIVER'],
-  'password' => $_ENV['DB_PASSWORD'],
-  'port' => $_ENV['DB_PORT'],
+  'database' => $_SERVER['DB_NAME'],
+  'driver' => $_SERVER['DB_DRIVER'],
+  'host' => $_SERVER['DB_HOST'],
+  'password' => $_SERVER['DB_PASSWORD'],
+  'port' => $_SERVER['DB_PORT'],
   'prefix' => '',
-  'username' => $_ENV['DB_USER'],
+  'username' => $_SERVER['DB_USER'],
 ];
 
 /**

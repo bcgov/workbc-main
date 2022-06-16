@@ -1,0 +1,21 @@
+uuid: e007ce2a-9998-4f51-aecb-d3f4d6faaa79
+langcode: en
+status: true
+dependencies:
+  config:
+    - field.storage.node.field_labour_market_stats_intro
+    - node.type.industry_profile
+  module:
+    - text
+id: node.industry_profile.field_labour_market_stats_intro
+field_name: field_labour_market_stats_intro
+entity_type: node
+bundle: industry_profile
+label: 'Labour Market Statistics Introduction'
+description: ''
+required: false
+translatable: true
+default_value: {  }
+default_value_callback: ''
+settings: {  }
+field_type: text_long

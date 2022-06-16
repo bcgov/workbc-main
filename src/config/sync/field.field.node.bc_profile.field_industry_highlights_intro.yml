@@ -1,0 +1,21 @@
+uuid: 111fde78-909b-4dc2-80d9-16e35d04d452
+langcode: en
+status: true
+dependencies:
+  config:
+    - field.storage.node.field_industry_highlights_intro
+    - node.type.bc_profile
+  module:
+    - text
+id: node.bc_profile.field_industry_highlights_intro
+field_name: field_industry_highlights_intro
+entity_type: node
+bundle: bc_profile
+label: 'Industry Highlights Introduction'
+description: ''
+required: false
+translatable: true
+default_value: {  }
+default_value_callback: ''
+settings: {  }
+field_type: text_long

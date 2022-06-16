@@ -21,6 +21,7 @@ dependencies:
     - field.field.node.career_profile.field_occupational_interests
     - field.field.node.career_profile.field_related_careers
     - field.field.node.career_profile.field_resources
+    - field.field.node.career_profile.field_salary_introduction
     - field.field.node.career_profile.field_skills
     - field.field.node.career_profile.field_skills_introduction
     - field.field.node.career_profile.field_work_environment
@@ -38,25 +39,15 @@ targetEntityType: node
 bundle: career_profile
 mode: default
 content:
-  body:
-    type: text_textarea_with_summary
-    weight: 121
-    region: content
-    settings:
-      rows: 9
-      summary_rows: 3
-      placeholder: ''
-      show_summary: false
-    third_party_settings: {  }
   created:
     type: datetime_timestamp
-    weight: 10
+    weight: 2
     region: content
     settings: {  }
     third_party_settings: {  }
   field_additional_duties:
     type: paragraphs
-    weight: 129
+    weight: 14
     region: content
     settings:
       title: Paragraph
@@ -74,7 +65,7 @@ content:
     third_party_settings: {  }
   field_career_overview_intro:
     type: text_textarea
-    weight: 127
+    weight: 12
     region: content
     settings:
       rows: 5
@@ -82,7 +73,7 @@ content:
     third_party_settings: {  }
   field_career_pathways:
     type: text_textarea
-    weight: 131
+    weight: 17
     region: content
     settings:
       rows: 5
@@ -90,14 +81,14 @@ content:
     third_party_settings: {  }
   field_career_videos:
     type: media_library_widget
-    weight: 125
+    weight: 10
     region: content
     settings:
       media_types: {  }
     third_party_settings: {  }
   field_duties:
     type: text_textarea
-    weight: 128
+    weight: 13
     region: content
     settings:
       rows: 5
@@ -105,7 +96,7 @@ content:
     third_party_settings: {  }
   field_education_training_skills:
     type: text_textarea
-    weight: 135
+    weight: 21
     region: content
     settings:
       rows: 5
@@ -113,7 +104,7 @@ content:
     third_party_settings: {  }
   field_hero_image:
     type: image_image
-    weight: 124
+    weight: 9
     region: content
     settings:
       progress_indicator: throbber
@@ -121,14 +112,14 @@ content:
     third_party_settings: {  }
   field_hi_opportunity_occupation:
     type: boolean_checkbox
-    weight: 123
+    weight: 8
     region: content
     settings:
       display_label: true
     third_party_settings: {  }
   field_industry_highlights_intro:
     type: text_textarea
-    weight: 139
+    weight: 25
     region: content
     settings:
       rows: 5
@@ -136,7 +127,7 @@ content:
     third_party_settings: {  }
   field_insights_from_industry:
     type: text_textarea
-    weight: 140
+    weight: 26
     region: content
     settings:
       rows: 5
@@ -144,7 +135,7 @@ content:
     third_party_settings: {  }
   field_job_titles:
     type: string_textfield
-    weight: 134
+    weight: 20
     region: content
     settings:
       size: 60
@@ -152,7 +143,7 @@ content:
     third_party_settings: {  }
   field_labour_market_introduction:
     type: text_textarea
-    weight: 138
+    weight: 24
     region: content
     settings:
       rows: 5
@@ -160,7 +151,7 @@ content:
     third_party_settings: {  }
   field_minimum_education:
     type: entity_reference_autocomplete
-    weight: 126
+    weight: 11
     region: content
     settings:
       match_operator: CONTAINS
@@ -170,7 +161,7 @@ content:
     third_party_settings: {  }
   field_noc:
     type: string_textfield
-    weight: 122
+    weight: 7
     region: content
     settings:
       size: 60
@@ -178,7 +169,7 @@ content:
     third_party_settings: {  }
   field_occupational_interests:
     type: entity_reference_autocomplete
-    weight: 133
+    weight: 19
     region: content
     settings:
       match_operator: CONTAINS
@@ -188,7 +179,7 @@ content:
     third_party_settings: {  }
   field_related_careers:
     type: entity_reference_autocomplete
-    weight: 132
+    weight: 18
     region: content
     settings:
       match_operator: CONTAINS
@@ -198,15 +189,23 @@ content:
     third_party_settings: {  }
   field_resources:
     type: link_default
-    weight: 141
+    weight: 27
     region: content
     settings:
       placeholder_url: ''
       placeholder_title: ''
     third_party_settings: {  }
+  field_salary_introduction:
+    type: text_textarea
+    weight: 15
+    region: content
+    settings:
+      rows: 5
+      placeholder: ''
+    third_party_settings: {  }
   field_skills:
     type: paragraphs
-    weight: 137
+    weight: 23
     region: content
     settings:
       title: Paragraph
@@ -224,7 +223,7 @@ content:
     third_party_settings: {  }
   field_skills_introduction:
     type: text_textarea
-    weight: 136
+    weight: 22
     region: content
     settings:
       rows: 5
@@ -232,7 +231,7 @@ content:
     third_party_settings: {  }
   field_work_environment:
     type: text_textarea
-    weight: 130
+    weight: 16
     region: content
     settings:
       rows: 5
@@ -240,34 +239,34 @@ content:
     third_party_settings: {  }
   path:
     type: path
-    weight: 30
+    weight: 5
     region: content
     settings: {  }
     third_party_settings: {  }
   promote:
     type: boolean_checkbox
-    weight: 15
+    weight: 3
     region: content
     settings:
       display_label: true
     third_party_settings: {  }
   status:
     type: boolean_checkbox
-    weight: 120
+    weight: 6
     region: content
     settings:
       display_label: true
     third_party_settings: {  }
   sticky:
     type: boolean_checkbox
-    weight: 16
+    weight: 4
     region: content
     settings:
       display_label: true
     third_party_settings: {  }
   title:
     type: string_textfield
-    weight: -5
+    weight: 0
     region: content
     settings:
       size: 60
@@ -275,7 +274,7 @@ content:
     third_party_settings: {  }
   uid:
     type: entity_reference_autocomplete
-    weight: 5
+    weight: 1
     region: content
     settings:
       match_operator: CONTAINS
@@ -283,4 +282,5 @@ content:
       size: 60
       placeholder: ''
     third_party_settings: {  }
-hidden: {  }
+hidden:
+  body: true

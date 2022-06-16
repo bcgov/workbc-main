@@ -6,5 +6,5 @@ id: action_card
 label: 'Action Card'
 icon_uuid: null
 icon_default: null
-description: 'Card with Image, Title, Description and Link that links to another page'
+description: 'Card with Image, Title, Description and Link that links to another page.'
 behavior_plugins: {  }

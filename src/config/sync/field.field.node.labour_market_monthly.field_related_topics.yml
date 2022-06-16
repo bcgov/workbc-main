@@ -1,0 +1,29 @@
+uuid: 97a92674-e0c6-4aab-9c72-0dc2badeaeef
+langcode: en
+status: true
+dependencies:
+  config:
+    - field.storage.node.field_related_topics
+    - node.type.labour_market_monthly
+    - node.type.page
+id: node.labour_market_monthly.field_related_topics
+field_name: field_related_topics
+entity_type: node
+bundle: labour_market_monthly
+label: 'Related Topics'
+description: ''
+required: false
+translatable: true
+default_value: {  }
+default_value_callback: ''
+settings:
+  handler: 'default:node'
+  handler_settings:
+    target_bundles:
+      page: page
+    sort:
+      field: _none
+      direction: ASC
+    auto_create: false
+    auto_create_bundle: ''
+field_type: entity_reference

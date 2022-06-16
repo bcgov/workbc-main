@@ -6,5 +6,5 @@ id: quote_card
 label: 'Quote Card'
 icon_uuid: null
 icon_default: null
-description: ''
+description: 'Card with Quote and Author that links to another page.'
 behavior_plugins: {  }

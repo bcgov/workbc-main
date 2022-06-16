@@ -3,6 +3,8 @@
 use GuzzleHttp\Client;
 use GuzzleHttp\Exception\RequestException;
 
+define ("WORKBC_EXTRA_FIELDS_NOT_AVAILABLE", "n/a");
+
 /*
 
 we use hook_entity_view instead of hook_entity_load as we along need to load data from SSoT

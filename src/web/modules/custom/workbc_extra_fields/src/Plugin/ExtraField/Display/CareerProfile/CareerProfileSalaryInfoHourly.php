@@ -43,23 +43,21 @@ class CareerProfileSalaryInfoHourly extends ExtraFieldDisplayFormattedBase {
    */
   public function viewElements(ContentEntityInterface $entity) {
 
-    $output = "n/a";
-
     if (!empty($entity->ssot_data)) {
-      $hourly1 = $entity->ssot_data['esdc_wage_rate_high_2021'];
-      $hourly2 = $entity->ssot_data['esdc_wage_rate_median_2021'];
-      $hourly3 = $entity->ssot_data['esdc_wage_rate_low_2021'];
+      $hourly1 = '$' . $entity->ssot_data['esdc_wage_rate_high_2021'] . '/hr';
+      $hourly2 = '$' . $entity->ssot_data['esdc_wage_rate_median_2021'] . '/hr';
+      $hourly3 = '$' . $entity->ssot_data['esdc_wage_rate_low_2021'] . '/hr';
     }
     else {
-      $hourly1 = "n/a";
-      $hourly2 = "n/a";
-      $hourly3 = "n/a";
+      $hourly1 = WORKBC_EXTRA_FIELDS_NOT_AVAILABLE;;
+      $hourly2 = WORKBC_EXTRA_FIELDS_NOT_AVAILABLE;
+      $hourly3 = WORKBC_EXTRA_FIELDS_NOT_AVAILABLE;
     }
 
-    $content .= '<table>';
-    $content .= '<tr><td>High</td><td>$' . $hourly1 . '/hr</td></tr>';
-    $content .= '<tr><td>Median</td><td>$' . $hourly2 . '/hr</td></tr>';
-    $content .= '<tr><td>Low</td><td>$' . $hourly3 . '/hr</td></tr>';
+    $content = '<table>';
+    $content .= '<tr><td>High</td><td>' . $hourly1 . '</td></tr>';
+    $content .= '<tr><td>Median</td><td>' . $hourly2 . '</td></tr>';
+    $content .= '<tr><td>Low</td><td>' . $hourly3 . '</td></tr>';
     $content .= '</table>';
 
     $output = $content;

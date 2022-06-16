@@ -1,0 +1,21 @@
+uuid: c7bdabda-c4cc-4727-b2a9-ea2e25d3dbe4
+langcode: en
+status: true
+dependencies:
+  config:
+    - field.storage.node.field_industry_highlights_intro
+    - node.type.region_profile
+  module:
+    - text
+id: node.region_profile.field_industry_highlights_intro
+field_name: field_industry_highlights_intro
+entity_type: node
+bundle: region_profile
+label: 'Industry Highlights Introduction'
+description: ''
+required: false
+translatable: true
+default_value: {  }
+default_value_callback: ''
+settings: {  }
+field_type: text_long

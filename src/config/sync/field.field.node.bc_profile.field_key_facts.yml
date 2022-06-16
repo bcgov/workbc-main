@@ -1,0 +1,21 @@
+uuid: ddad3ced-b267-471f-be3b-215d6fd1bdcf
+langcode: en
+status: true
+dependencies:
+  config:
+    - field.storage.node.field_key_facts
+    - node.type.bc_profile
+  module:
+    - text
+id: node.bc_profile.field_key_facts
+field_name: field_key_facts
+entity_type: node
+bundle: bc_profile
+label: 'Key Facts'
+description: ''
+required: false
+translatable: true
+default_value: {  }
+default_value_callback: ''
+settings: {  }
+field_type: text_long

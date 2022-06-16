@@ -22,6 +22,7 @@ dependencies:
     - field.field.node.career_profile.field_occupational_interests
     - field.field.node.career_profile.field_related_careers
     - field.field.node.career_profile.field_resources
+    - field.field.node.career_profile.field_salary_introduction
     - field.field.node.career_profile.field_skills
     - field.field.node.career_profile.field_skills_introduction
     - field.field.node.career_profile.field_work_environment
@@ -80,6 +81,7 @@ hidden:
   field_occupational_interests: true
   field_related_careers: true
   field_resources: true
+  field_salary_introduction: true
   field_skills: true
   field_skills_introduction: true
   field_work_environment: true

@@ -5,11 +5,9 @@ dependencies:
   config:
     - field.field.node.blog.body
     - field.field.node.blog.field_image
-    - field.field.node.blog.field_published_date
     - image.style.thumbnail
     - node.type.blog
   module:
-    - datetime
     - image
     - path
     - text
@@ -41,12 +39,6 @@ content:
     settings:
       progress_indicator: throbber
       preview_image_style: thumbnail
-    third_party_settings: {  }
-  field_published_date:
-    type: datetime_default
-    weight: 123
-    region: content
-    settings: {  }
     third_party_settings: {  }
   path:
     type: path

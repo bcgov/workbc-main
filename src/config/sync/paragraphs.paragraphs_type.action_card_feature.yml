@@ -6,5 +6,5 @@ id: action_card_feature
 label: 'Action Card: Feature'
 icon_uuid: null
 icon_default: null
-description: 'A singe feature action card'
+description: 'A single feature action card.'
 behavior_plugins: {  }

@@ -11,6 +11,8 @@ module:
   block: 0
   block_content: 0
   breakpoint: 0
+  charts: 0
+  charts_google: 0
   ckeditor: 0
   color: 0
   comment: 0
@@ -48,9 +50,9 @@ module:
   page_cache: 0
   path: 0
   path_alias: 0
+  published_corrected_date: 0
   rdf: 0
   search: 0
-  ses_mailer: 0
   shortcut: 0
   system: 0
   taxonomy: 0

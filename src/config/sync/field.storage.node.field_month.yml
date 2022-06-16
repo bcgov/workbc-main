@@ -1,0 +1,20 @@
+uuid: e0a00e65-24b7-4a8a-95d8-ceeea8613843
+langcode: en
+status: true
+dependencies:
+  module:
+    - datetime
+    - node
+id: node.field_month
+field_name: field_month
+entity_type: node
+type: datetime
+settings:
+  datetime_type: date
+module: datetime
+locked: false
+cardinality: 1
+translatable: true
+indexes: {  }
+persist_with_no_fields: false
+custom_storage: false

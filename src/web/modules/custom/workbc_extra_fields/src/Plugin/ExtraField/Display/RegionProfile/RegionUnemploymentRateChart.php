@@ -12,8 +12,8 @@ use GuzzleHttp\Exception\RequestException;
  * Example Extra field with formatted output.
  *
  * @ExtraFieldDisplay(
- *   id = "region_unemployment_rate",
- *   label = @Translation("Unemployment Rate"),
+ *   id = "region_unemployment_rate_chart",
+ *   label = @Translation("10 Year Unemployment Rate Chart"),
  *   description = @Translation("An extra field to display unemployment rate."),
  *   bundles = {
  *     "node.region_profile",

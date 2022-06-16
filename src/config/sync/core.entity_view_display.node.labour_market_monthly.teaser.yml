@@ -1,0 +1,45 @@
+uuid: 6e3795b6-c17d-4fea-acd5-e310980059f0
+langcode: en
+status: true
+dependencies:
+  config:
+    - core.entity_view_mode.node.teaser
+    - field.field.node.labour_market_monthly.field_employment_introduction
+    - field.field.node.labour_market_monthly.field_industry_highlights_intro
+    - field.field.node.labour_market_monthly.field_month
+    - field.field.node.labour_market_monthly.field_related_topics
+    - field.field.node.labour_market_monthly.field_unemployment_introduction
+    - field.field.node.labour_market_monthly.field_unemployment_region_intro
+    - node.type.labour_market_monthly
+  module:
+    - user
+id: node.labour_market_monthly.teaser
+targetEntityType: node
+bundle: labour_market_monthly
+mode: teaser
+content:
+  links:
+    settings: {  }
+    third_party_settings: {  }
+    weight: 100
+    region: content
+hidden:
+  extra_field_labourmarket_employment: true
+  extra_field_labourmarket_employment_by_age: true
+  extra_field_labourmarket_employment_by_sex: true
+  extra_field_labourmarket_employment_change: true
+  extra_field_labourmarket_employment_change_percent: true
+  extra_field_labourmarket_employment_change_table: true
+  extra_field_labourmarket_participation_rate_current_month: true
+  extra_field_labourmarket_participation_rate_previous_month: true
+  extra_field_labourmarket_unemployed_current_month: true
+  extra_field_labourmarket_unemployed_previous_month: true
+  extra_field_labourmarket_unemployed_rate_current_month: true
+  extra_field_labourmarket_unemployed_rate_previous_month: true
+  extra_field_labourmarket_unemployment_by_region: true
+  field_employment_introduction: true
+  field_industry_highlights_intro: true
+  field_month: true
+  field_related_topics: true
+  field_unemployment_introduction: true
+  field_unemployment_region_intro: true

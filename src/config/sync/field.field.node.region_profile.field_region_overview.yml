@@ -1,0 +1,21 @@
+uuid: 85d2b0b6-bd14-4313-a971-1e47f4e5baae
+langcode: en
+status: true
+dependencies:
+  config:
+    - field.storage.node.field_region_overview
+    - node.type.region_profile
+  module:
+    - text
+id: node.region_profile.field_region_overview
+field_name: field_region_overview
+entity_type: node
+bundle: region_profile
+label: 'Region Overview'
+description: ''
+required: false
+translatable: false
+default_value: {  }
+default_value_callback: ''
+settings: {  }
+field_type: text_long

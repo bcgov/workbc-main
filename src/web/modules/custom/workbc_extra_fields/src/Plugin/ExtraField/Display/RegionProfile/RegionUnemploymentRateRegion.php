@@ -12,15 +12,15 @@ use GuzzleHttp\Exception\RequestException;
  * Example Extra field with formatted output.
  *
  * @ExtraFieldDisplay(
- *   id = "region_employment_by_region_table",
- *   label = @Translation("Employment by Region Table"),
- *   description = @Translation("An extra field to display employment by region table."),
+ *   id = "region_unemployment_rate_region",
+ *   label = @Translation("Region Unemployment Rate"),
+ *   description = @Translation("An extra field to display unemployment rate."),
  *   bundles = {
  *     "node.region_profile",
  *   }
  * )
  */
-class RegionEmploymentByRegionTable extends ExtraFieldDisplayFormattedBase {
+class RegionUnemploymentRateRegion extends ExtraFieldDisplayFormattedBase {
 
   use StringTranslationTrait;
 
@@ -29,7 +29,7 @@ class RegionEmploymentByRegionTable extends ExtraFieldDisplayFormattedBase {
    */
   public function getLabel() {
 
-    return $this->t('Employment by Region Table');
+    return $this->t('Region Unemployment Rate');
   }
 
   /**
