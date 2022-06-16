@@ -50,6 +50,7 @@ module:
   page_cache: 0
   path: 0
   path_alias: 0
+  pgsql: 0
   published_corrected_date: 0
   rdf: 0
   search: 0
