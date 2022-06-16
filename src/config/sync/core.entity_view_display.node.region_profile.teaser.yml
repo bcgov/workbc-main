@@ -26,10 +26,12 @@ content:
     region: content
 hidden:
   extra_field_region_employment: true
+  extra_field_region_employment_bc: true
   extra_field_region_employment_by_industry_table: true
   extra_field_region_employment_by_region_table: true
   extra_field_region_employment_growth_forecast_percent: true
   extra_field_region_employment_growth_forecast_total: true
+  extra_field_region_employment_region: true
   extra_field_region_employment_shart_goods_services_chart: true
   extra_field_region_ft_pt_employment_table: true
   extra_field_region_ft_pt_employment_table_bc: true
@@ -42,6 +44,7 @@ hidden:
   extra_field_region_top_ten_occupations: true
   extra_field_region_unemployment_rate: true
   extra_field_region_unemployment_rate_bc: true
+  extra_field_region_unemployment_rate_chart: true
   extra_field_region_unemployment_rate_region: true
   field_hero_image: true
   field_industry_highlights_intro: true
