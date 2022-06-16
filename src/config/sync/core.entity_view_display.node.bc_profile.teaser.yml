@@ -23,6 +23,20 @@ content:
     weight: 100
     region: content
 hidden:
+  extra_field_BC_ft_pt_employment_table: true
+  extra_field_bc_employment: true
+  extra_field_bc_employment_bc: true
+  extra_field_bc_employment_by_industry_table: true
+  extra_field_bc_employment_by_region_table: true
+  extra_field_bc_employment_shart_goods_services_chart: true
+  extra_field_bc_job_openings: true
+  extra_field_bc_job_openings_composition_chart: true
+  extra_field_bc_job_openings_forecast: true
+  extra_field_bc_job_openings_forecast_chart: true
+  extra_field_bc_population: true
+  extra_field_bc_unemployment_rate: true
+  extra_field_bc_unemployment_rate_bc: true
+  extra_field_bc_unemployment_rate_chart: true
   field_hero_image: true
   field_industry_highlights_intro: true
   field_key_facts: true
