@@ -6,6 +6,7 @@ dependencies:
     - field.field.node.workbc_centre.field_address
     - field.field.node.workbc_centre.field_apply_online
     - field.field.node.workbc_centre.field_email
+    - field.field.node.workbc_centre.field_french_available
     - field.field.node.workbc_centre.field_hero_image
     - field.field.node.workbc_centre.field_hours_of_operation
     - field.field.node.workbc_centre.field_related_topics
@@ -61,6 +62,13 @@ content:
     settings:
       placeholder: ''
       size: 60
+    third_party_settings: {  }
+  field_french_available:
+    type: boolean_checkbox
+    weight: 129
+    region: content
+    settings:
+      display_label: true
     third_party_settings: {  }
   field_hero_image:
     type: image_image
