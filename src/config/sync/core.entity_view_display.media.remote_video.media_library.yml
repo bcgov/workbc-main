@@ -5,7 +5,7 @@ dependencies:
   config:
     - core.entity_view_mode.media.media_library
     - field.field.media.remote_video.field_media_oembed_video
-    - image.style.medium
+    - image.style.1_3_component
     - media.type.remote_video
   module:
     - image
@@ -21,7 +21,7 @@ content:
     label: hidden
     settings:
       image_link: ''
-      image_style: medium
+      image_style: 1_3_component
       image_loading:
         attribute: lazy
     third_party_settings: {  }

@@ -1,0 +1,26 @@
+uuid: c6289d71-3a95-4fd4-9a44-8954e4c80e89
+langcode: en
+status: true
+dependencies:
+  config:
+    - crop.type.crop_3_2
+  module:
+    - crop
+name: in_content_component
+label: 'In Content Component (260 x 170)'
+effects:
+  25f8ca10-69b4-45da-b1ff-7e09baaabcaf:
+    uuid: 25f8ca10-69b4-45da-b1ff-7e09baaabcaf
+    id: crop_crop
+    weight: 1
+    data:
+      crop_type: crop_3_2
+      automatic_crop_provider: null
+  65d5238f-9658-428c-ba8d-99baae4a0b27:
+    uuid: 65d5238f-9658-428c-ba8d-99baae4a0b27
+    id: image_scale_and_crop
+    weight: 2
+    data:
+      width: 260
+      height: 170
+      anchor: center-center
