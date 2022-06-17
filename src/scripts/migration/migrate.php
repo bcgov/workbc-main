@@ -1,5 +1,7 @@
 <?php
 
+use Drupal\path_alias\Entity\PathAlias;
+
 /**
  * Usage: drush scr /path/to/migrate.php -- /path/to/migration.csv
  */
@@ -10,10 +12,22 @@ if (empty($file) or ($handle = fopen($file, "r")) === FALSE) {
 print("Importing $file\n");
 
 // Find the menu where we will insert the content.
-global $menu_link_storage, $menu_name, $menu_item_home;
 $menu_link_storage = \Drupal::entityTypeManager()->getStorage('menu_link_content');
 $menu_name = 'main';
 $menu_item_home = 'standard.front_page';
+
+// Setup the front page.
+// 1. Set the front page to /front.
+\Drupal::configFactory()
+    ->getEditable('system.site')
+    ->set('page.front', '/front')
+    ->save(TRUE);
+
+// 2. Remove all previous aliases to /front.
+$fronts = \Drupal::entityTypeManager()->getStorage('path_alias')->loadByProperties(['alias' => '/front']);
+foreach ($fronts as $front) {
+    $front->delete();
+}
 
 // Types that we can import.
 // TODO Fill this.
@@ -24,7 +38,6 @@ $types = [
 // Map of nodes that we created.
 // title => [id, parent title]
 // TODO Save this in SQLite.
-global $nodes;
 $nodes = [
 ];
 
@@ -132,6 +145,16 @@ function createMenuEntry($title, $node, &$nodes, $menu_link_storage, $menu_name,
     ]);
     $menu_link->save();
     $nodes[$title]['menu_item'] = $menu_link->getPluginId();
+
+    // Add path alias to /front if this is the home page.
+    if (0 === strcasecmp($title, 'Home')) {
+        PathAlias::create([
+            'path' => "/node/{$node['id']}",
+            'alias' => '/front',
+            'langcode' => 'en',
+        ])->save();
+    }
+
     print("  Menu for \"$title\": {$nodes[$title]['menu_item']}\n");
 }
 
