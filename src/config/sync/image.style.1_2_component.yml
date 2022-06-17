@@ -1,0 +1,26 @@
+uuid: 16c126ef-3e88-4391-b7eb-d371e96d4b0e
+langcode: en
+status: true
+dependencies:
+  config:
+    - crop.type.crop_2_1
+  module:
+    - crop
+name: 1_2_component
+label: '1/2 Component (580 x 300)'
+effects:
+  9db8bb20-4f07-4214-833f-bc3b2dbd10aa:
+    uuid: 9db8bb20-4f07-4214-833f-bc3b2dbd10aa
+    id: crop_crop
+    weight: 1
+    data:
+      crop_type: crop_2_1
+      automatic_crop_provider: null
+  3f259e9d-9757-4002-8951-31cc135ba795:
+    uuid: 3f259e9d-9757-4002-8951-31cc135ba795
+    id: image_scale_and_crop
+    weight: 2
+    data:
+      width: 580
+      height: 300
+      anchor: center-center

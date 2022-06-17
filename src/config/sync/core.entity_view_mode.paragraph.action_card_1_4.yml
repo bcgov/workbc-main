@@ -1,0 +1,10 @@
+uuid: be801734-a09d-40a9-b4e4-0a077ee5134a
+langcode: en
+status: true
+dependencies:
+  module:
+    - paragraphs
+id: paragraph.action_card_1_4
+label: 'Action Card: 1/4'
+targetEntityType: paragraph
+cache: true
