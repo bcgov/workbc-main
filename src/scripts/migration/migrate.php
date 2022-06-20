@@ -11,11 +11,6 @@ if (empty($file) or ($handle = fopen($file, "r")) === FALSE) {
 }
 print("Importing $file\n");
 
-// Find the menu where we will insert the content.
-$menu_link_storage = \Drupal::entityTypeManager()->getStorage('menu_link_content');
-$menu_name = 'main';
-$menu_item_home = 'standard.front_page';
-
 // Setup the front page.
 // 1. Set the front page to /front.
 \Drupal::configFactory()
@@ -67,7 +62,6 @@ while (($data = fgetcsv($handle)) !== FALSE) {
                     $parent = $c > 1 ? $data[$c-2] : NULL;
                 }
             }
-            print("$title => $parent\n");
             break;
         }
     }
@@ -96,14 +90,16 @@ while (($data = fgetcsv($handle)) !== FALSE) {
         'id' => $node->id(),
         'parent' => $parent,
         'menu_item' => NULL,
+        'mega_menu' => $data[10]
     ];
+    print("$title => $parent\n");
 }
 fclose($handle);
 
 // SECOND PASS: Create the menu hierarchy.
 print("Creating menu...\n");
 
-function createMenuEntry($title, $node, &$nodes, $menu_link_storage, $menu_name, $menu_item_home) {
+function createMenuEntry($title, $node, &$nodes, $menu_link_storage, $menu_name) {
     print("Menu for \"$title\"\n");
     if (empty($node)) {
         print("  Could not find node \"$title\". Skipping\n");
@@ -114,7 +110,18 @@ function createMenuEntry($title, $node, &$nodes, $menu_link_storage, $menu_name,
         return;
     }
 
-    $menu_item_parent = $menu_item_home;
+    // Add path alias to /front if this is the home page and exit early.
+    if (0 === strcasecmp($title, 'Home')) {
+        PathAlias::create([
+            'path' => "/node/{$node['id']}",
+            'alias' => '/front',
+            'langcode' => 'en',
+        ])->save();
+        print("  Home page found. Set it to front page and skipping\n");
+        return;
+    }
+
+    $menu_item_parent = NULL;
     if (!empty($node['parent'])) {
         $node_parent = &$nodes[$node['parent']];
         if (empty($node_parent)) {
@@ -123,7 +130,7 @@ function createMenuEntry($title, $node, &$nodes, $menu_link_storage, $menu_name,
         else {
             if (empty($node_parent['menu_item'])) {
                 print("  Could not find menu for \"{$node['parent']}\". Creating it...\n");
-                createMenuEntry($node['parent'], $node_parent, $nodes, $menu_link_storage, $menu_name, $menu_item_home);
+                createMenuEntry($node['parent'], $node_parent, $nodes, $menu_link_storage, $menu_name);
             }
             if (empty($node_parent['menu_item'])) {
                 print("  Could not find menu for \"{$node['parent']}\" after creation\n");
@@ -141,25 +148,19 @@ function createMenuEntry($title, $node, &$nodes, $menu_link_storage, $menu_name,
         'menu_name' => $menu_name,
         'parent' => $menu_item_parent,
         'expanded' => TRUE,
-        'weight' => 0,
+        'weight' => $node['mega_menu'],
     ]);
     $menu_link->save();
     $nodes[$title]['menu_item'] = $menu_link->getPluginId();
 
-    // Add path alias to /front if this is the home page.
-    if (0 === strcasecmp($title, 'Home')) {
-        PathAlias::create([
-            'path' => "/node/{$node['id']}",
-            'alias' => '/front',
-            'langcode' => 'en',
-        ])->save();
-    }
-
     print("  Menu for \"$title\": {$nodes[$title]['menu_item']}\n");
 }
 
+$menu_link_storage = \Drupal::entityTypeManager()->getStorage('menu_link_content');
 foreach ($nodes as $title => &$node) {
-    createMenuEntry($title, $node, $nodes, $menu_link_storage, $menu_name, $menu_item_home);
+    if (!empty($node['mega_menu'])) {
+        createMenuEntry($title, $node, $nodes, $menu_link_storage, 'main');
+    }
 }
 
 /**
