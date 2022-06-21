@@ -9697,7 +9697,8 @@ nav.navbar {
   position: sticky;
   height: 80px;
   padding: 0px;
-  margin: 0px; }
+  margin: 0px;
+  z-index: 1; }
   nav.navbar:after {
     content: "";
     position: absolute;

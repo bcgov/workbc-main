@@ -125,10 +125,11 @@
 /* ============ navbar layout  ============ */
 
 nav.navbar {
-  position: sticky;
+  position: relative;
   height: 80px;
   padding: 0px;
   margin: 0px;
+  z-index: 1;
 
   &:after {
       content: "";
