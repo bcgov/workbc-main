@@ -9694,7 +9694,7 @@ body {
 /* ============ navbar themes .end// ============ */
 /* ============ navbar layout  ============ */
 nav.navbar {
-  position: relative;
+  position: sticky;
   height: 80px;
   padding: 0px;
   margin: 0px; }
@@ -9707,7 +9707,8 @@ nav.navbar {
     box-shadow: 0px 0px 8px 2px #000000; }
   nav.navbar .container {
     height: 100%; }
-    nav.navbar .container #main_nav {
+    nav.navbar .container #main_nav,
+    nav.navbar .container #navbarSupportedContent {
       height: 100%; }
     nav.navbar .container ul.nav-t1 {
       position: relative;

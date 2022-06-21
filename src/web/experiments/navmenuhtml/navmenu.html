@@ -32,13 +32,24 @@ any nav <a> that is the link for a submenu (has a sibling ul) should have 'dropd
 -->
 
 
-  <header>
-    <nav class="navbar navbar-expand-lg workbc-megamenu nav-theme-t1-dark">
-      <div class="container">
-        <button class="navbar-toggler" type="button" data-bs-toggle="collapse" data-bs-target="#main_nav" aria-expanded="false" aria-label="Toggle navigation">
-          <span class="navbar-toggler-icon"></span>
-        </button>
-        <div class="collapse navbar-collapse" id="main_nav">
+
+<!-- Begin DRUPAL page.html.twig content -->
+<header>
+  <nav class="navbar navbar-expand-lg workbc-megamenu nav-theme-t1-dark ">
+    <div class="container d-flex">
+      <!-- ... Nav Branding content -->
+
+      <button class="navbar-toggler collapsed" type="button" data-bs-toggle="collapse" data-bs-target="#navbarSupportedContent" aria-controls="navbarSupportedContent" aria-expanded="false" aria-label="Toggle navigation">
+        <span class="navbar-toggler-icon"></span>
+      </button>
+
+      <div class="collapse navbar-collapse justify-content-md-end flex-wrap" id="navbarSupportedContent">
+        <div class="region region-nav-main">
+
+<!-- END DRUPAL page.html.twig content -->
+
+
+
           <ul class="navbar-nav nav-t1">
             <!-- for each t1 item in the menu -->
             <li class="nav-item ">
@@ -115,10 +126,19 @@ any nav <a> that is the link for a submenu (has a sibling ul) should have 'dropd
               <a class="nav-link" href="#">Discover Employment Services</a>
             </li>
           </ul>
+
+
+
+<!-- Begin DRUPAL page.html.twig content -->
         </div>
       </div>
-    </nav>
-  </header>
+    </div>
+  </nav>
+</header>
+<!-- END DRUPAL page.html.twig content -->
+
+
+
 
   <div class="page-content-container">
     <div class="submenu-underlay">

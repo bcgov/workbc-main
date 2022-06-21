@@ -145,7 +145,7 @@ body {
 /* ============ navbar layout  ============ */
 
 nav.navbar {
-  position: relative;
+  position: sticky;
   height: 80px;
   padding: 0px;
   margin: 0px;
@@ -162,7 +162,8 @@ nav.navbar {
   .container {
     height: 100%;
 
-    #main_nav {
+    #main_nav,
+    #navbarSupportedContent {
       height: 100%;
     }
     
