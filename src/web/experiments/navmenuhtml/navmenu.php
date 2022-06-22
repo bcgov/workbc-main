@@ -3,43 +3,35 @@
 // Recreate the navmenu.html structure
 // Usage: drush scr web/experiments/navmenuhtml/navmenu.php
 
-function generateSubMenuTree(&$output, $input, $parent = FALSE) {
-    $input = array_values($input);
-    foreach($input as $key => $item) {
-      //If menu element disabled skip this branch
-      if ($item->link->isEnabled()) {
-        $key = 'submenu-' . $key;
-        $name = $item->link->getTitle();
-        $url = $item->link->getUrlObject();
-        $url_string = $url->toString();
-
-        //If not root element, add as child
-        if ($parent === FALSE) {
-          $output[$key] = [
-            'name' => $name,
-            'tid' => $key,
-            'url_str' => $url_string
-          ];
-        } else {
-          $parent = 'submenu-' . $parent;
-          $output['child'][$key] = [
-            'name' => $name,
-            'tid' => $key,
-            'url_str' => $url_string
-          ];
-        }
-
-        if ($item->hasChildren) {
-          if ($item->depth == 1) {
-            generateSubMenuTree($output[$key], $item->subtree, $key);
-          } else {
-            generateSubMenuTree($output['child'][$key], $item->subtree, $key);
-          }
-        }
+function generateMenuTree($input, $level = 1) {
+  $indent = str_repeat(' ', $level * 4);
+  $ul_classes = ["navbar-nav", "nav-t$level"];
+  switch ($level) {
+    case 2: array_push($ul_classes, "dropdown-menu"); break;
+    case 3: array_push($ul_classes, "dropdown-menu", "submenu"); break;
+  }
+  $output = "$indent<ul class=\"" . implode(' ', $ul_classes) . "\">\n";
+  foreach ($input as $key => $item) {
+    if ($item->link->isEnabled()) {
+      $li_classes = ["nav-item"];
+      if ($item->hasChildren) {
+        array_push($li_classes, "dropdown");
       }
+      $output .= "$indent  <li class=\"" . implode(' ', $li_classes) . "\">\n";
+      $name = $item->link->getTitle();
+      $url = $item->link->getUrlObject()->toString();
+      $a_classes = ["nav-link"];
+      if ($item->hasChildren) {
+        array_push($a_classes, "dropdown-toggle");
+      }
+      $output .= "$indent    <a class=\"" . implode(' ', $a_classes) . "\" href=\"$url\">$name</a>\n";
+      if ($item->hasChildren) {
+        $output .= generateMenuTree($item->subtree, $level + 1);
+      }
+      $output .= "$indent  </li>\n";
     }
+  }
+  $output .= "$indent</ul>\n";
+  return $output;
 }
-
-$tree = NULL;
-generateSubMenuTree($tree, \Drupal::menuTree()->load('main', new \Drupal\Core\Menu\MenuTreeParameters()));
-print(json_encode($tree, JSON_PRETTY_PRINT));
+echo generateMenuTree(\Drupal::menuTree()->load('main', new \Drupal\Core\Menu\MenuTreeParameters()));
