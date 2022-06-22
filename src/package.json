@@ -1,0 +1,5 @@
+{
+  "dependencies": {
+    "dart-sass": "^1.25.0"
+  }
+}
