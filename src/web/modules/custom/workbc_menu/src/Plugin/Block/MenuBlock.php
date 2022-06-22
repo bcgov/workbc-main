@@ -9,7 +9,7 @@ use Drupal\Core\Block\BlockBase;
  *
  * @Block(
  *   id = "menu_block",
- *   admin_label = @Translation("WorkBC menu"),
+ *   admin_label = @Translation("WorkBC menu block"),
  *   category = @Translation("WorkBC"),
  * )
  */
