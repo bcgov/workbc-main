@@ -1,7 +1,7 @@
 name: WorkBC Extra Fields
 type: module
-description: 'Provides Extra Fields plugin for Work BC.'
-package: Work BC
+description: 'Provides Extra Fields plugin for WorkBC.'
+package: WorkBC
 core: 8.x
 core_version_requirement: ^8 || ^9
 dependencies:

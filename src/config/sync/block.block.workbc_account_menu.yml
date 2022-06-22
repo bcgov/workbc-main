@@ -12,7 +12,7 @@ _core:
   default_config_hash: L23mJI_4Gjp0OH-bLwnfNEzS8n20AQB4vtOAGRXfW0w
 id: workbc_account_menu
 theme: workbc
-region: nav_branding
+region: header
 weight: -5
 provider: null
 plugin: 'system_menu_block:account'

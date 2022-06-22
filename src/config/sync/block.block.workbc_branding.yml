@@ -10,7 +10,7 @@ _core:
   default_config_hash: yVAg9SECNVX1wvxyci9ATB_mCQaaT6cWMgVGiW22dyU
 id: workbc_branding
 theme: workbc
-region: nav_branding
+region: header
 weight: -4
 provider: null
 plugin: system_branding_block

@@ -1,33 +1,7 @@
 @import 'includes';
+@import 'navmenu';
 
-header {
-    nav.navbar {
-        .container {
-            flex-wrap: wrap;
-        }
-
-        .region-nav-main {
-            width: 100%;
-            ul.nav {
-                display: flex;
-                flex-wrap: nowrap;
-                justify-content: space-between;
-                align-items: stretch;
-                gap: 10px;
-                background-color: $workbc_dark_background;
-
-                li {
-                    height: 80px;
-                    float: none;
-                    flex: 1 1 1;
-
-                    a {
-                        text-decoration: none;
-                        color: $workbc_dark_text;
-                    }
-                }
-            }
-        }
-    }
+/* Always show vertical scrollbar to prevent content shifting if something causes the page content to grow while being viewed */
+body {
+    overflow-y: scroll; 
 }
-

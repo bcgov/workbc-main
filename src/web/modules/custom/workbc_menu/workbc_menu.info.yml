@@ -1,0 +1,7 @@
+name: WorkBC Menu Module
+description: Creates the WorkBC Mega Menu as a Block.
+package: WorkBC
+type: module
+version: 1.0
+core: 8.x
+core_version_requirement: ^8 || ^9
