@@ -26,7 +26,13 @@ function generateMenuTree($input, $level = 1) {
       }
       $output .= "$indent    <a class=\"" . implode(' ', $a_classes) . "\" href=\"$url\">$name</a>\n";
       if ($item->hasChildren) {
+        if ($level === 1) {
+          $output .= "$indent    <div class=\"submenu-container\"><div class=\"row g-0 submenu\"><div class=\"col-sm-8\">\n";
+        }
         $output .= generateMenuTree($item->subtree, $level + 1);
+        if ($level === 1) {
+          $output .= "$indent    </div></div></div>\n";
+        }
       }
       $output .= "$indent  </li>\n";
     }
