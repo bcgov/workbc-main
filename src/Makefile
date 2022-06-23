@@ -72,6 +72,17 @@ drush:
 logs:
 	@docker-compose --project-directory "$(SOLUTION_ROOT)" logs -f $(filter-out $@,$(MAKECMDGOALS))
 
+## compilescss	:	Compile the scss per Gruntfile configuration
+.PHONY: compilescss
+compilescss:
+	@docker-compose --project-directory "$(SOLUTION_ROOT)" exec php grunt dart-sass
+
+## compilescss	:	Watch the scss for changes and react per Gruntfile configuration
+.PHONY: watchscss
+watchscss:
+	@docker-compose --project-directory "$(SOLUTION_ROOT)" exec php grunt watch
+
+
 # https://stackoverflow.com/a/6273809/1826109
 %:
 	@:

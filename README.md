@@ -90,3 +90,6 @@ For Windows users, follow this guide on StackExchange to install and configure M
 	1. shell
 	1. drush <command>
 	1. logs <container>
+  1. compilescss
+  1. watchscss
+  
