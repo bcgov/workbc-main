@@ -57,6 +57,11 @@ ps:
 shell:
 	@docker-compose --project-directory "$(SOLUTION_ROOT)" exec php bash
 
+## install	:	Install a variety of dependencies
+.PHONY: install
+install:
+	@docker-compose --project-directory "$(SOLUTION_ROOT)" exec php yarn install
+
 ## drush	:	Executes `drush` command in a specified `DRUPAL_ROOT` directory (default is `/var/www/html/web`).
 ##		To use "--flag" arguments include them in quotation marks.
 ##		For example: make drush "watchdog:show --type=cron"
@@ -75,12 +80,12 @@ logs:
 ## compilescss	:	Compile the scss per Gruntfile configuration
 .PHONY: compilescss
 compilescss:
-	@docker-compose --project-directory "$(SOLUTION_ROOT)" exec php grunt dart-sass
+	@docker-compose --project-directory "$(SOLUTION_ROOT)" exec php yarn run grunt dart-sass
 
 ## compilescss	:	Watch the scss for changes and react per Gruntfile configuration
 .PHONY: watchscss
 watchscss:
-	@docker-compose --project-directory "$(SOLUTION_ROOT)" exec php grunt watch
+	@docker-compose --project-directory "$(SOLUTION_ROOT)" exec php yarn run grunt watch
 
 
 # https://stackoverflow.com/a/6273809/1826109
