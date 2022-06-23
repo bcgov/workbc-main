@@ -19,7 +19,7 @@ debug:
 .PHONY: up
 up:
 	@echo "Starting up containers for $(PROJECT_NAME)..."
-	docker-compose --project-directory "$(SOLUTION_ROOT)"" pull
+	docker-compose --project-directory "$(SOLUTION_ROOT)" pull
 	docker-compose --project-directory "$(SOLUTION_ROOT)" up -d --remove-orphans
 
 ## down	:	Stop containers.
