@@ -27,7 +27,7 @@ foreach ($fronts as $front) {
 // Types that we can import.
 // TODO Fill this.
 $types = [
-    'Basic page' => 'page',
+    'Link' => 'link',
 ];
 
 // The columns we are interested in.
@@ -35,6 +35,7 @@ const TREE_FIRST = 2;
 const TREE_LAST = 8;
 const MEGA_MENU = 9;
 const DRUPAL_TYPE = 11;
+const URL = 10;
 
 // FIRST PASS: Create all the nodes.
 print("Creating content...\n");
@@ -45,12 +46,6 @@ while (($data = fgetcsv($handle)) !== FALSE) {
     // Skip first 2 header rows.
     $row++;
     if ($row < 3) continue;
-
-    // Detect a type that we can import.
-    $type = $data[DRUPAL_TYPE];
-    if (!$type || !array_key_exists($type, $types)) {
-        // TODO Log warning.
-    }
 
     // Detect page title and path to create the hierarchy.
     // We build up the $path array to contain the current hierarchy, discarding "Home".
@@ -73,7 +68,14 @@ while (($data = fgetcsv($handle)) !== FALSE) {
     }
 
     // TODO Detect the type from the sheet.
-    $type = 'page';
+    // Detect a type that we can import.
+    $t = $data[DRUPAL_TYPE];
+    if (!$t || !array_key_exists($t, $types)) {
+        $type = 'page';
+    }
+    else {
+        $type = $types[$t];
+    }
 
     // TODO Add more fields from GatherContent.
     $fields = [
@@ -83,17 +85,29 @@ while (($data = fgetcsv($handle)) !== FALSE) {
     ];
 
     // Create the node.
-    $node = Drupal::entityTypeManager()
-        ->getStorage('node')
-        ->create($fields);
-    $node->save();
-    $nodes[implode('/', $path)] = [
-        'id' => $node->id(),
-        'title' => $title,
-        'path' => $path,
-        'menu_item' => NULL,
-        'mega_menu' => !empty($data[MEGA_MENU]) ? $row : NULL
-    ];
+    if ($type === 'link') {
+        $nodes[implode('/', $path)] = [
+            'id' => NULL,
+            'title' => $title,
+            'path' => $path,
+            'menu_item' => NULL,
+            'mega_menu' => !empty($data[MEGA_MENU]) ? $row : NULL,
+            'uri' => $data[URL]
+        ];
+    }
+    else {
+        $node = Drupal::entityTypeManager()
+            ->getStorage('node')
+            ->create($fields);
+        $node->save();
+        $nodes[implode('/', $path)] = [
+            'id' => $node->id(),
+            'title' => $title,
+            'path' => $path,
+            'menu_item' => NULL,
+            'mega_menu' => !empty($data[MEGA_MENU]) ? $row : NULL
+        ];
+    }
 
     print(implode(' => ', $path) . "\n");
 }
@@ -154,7 +168,15 @@ function createMenuEntry($path, $node, &$nodes, $menu_link_storage, $menu_name) 
 
     $menu_link = $menu_link_storage->create([
         'title' => $title,
-        'link' => ['uri' => "entity:node/{$node['id']}"],
+        'link' => empty($node['uri']) ? ['uri' => "entity:node/{$node['id']}"] : [
+            'uri' => "{$node['uri']}",
+            'options' => [
+                'attributes' => [
+                    'rel' => 'noopener noreferrer',
+                    'target' => '_blank',
+                ]
+            ]
+        ],
         'menu_name' => $menu_name,
         'parent' => $menu_item_parent,
         'expanded' => TRUE,

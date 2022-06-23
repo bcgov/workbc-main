@@ -24,6 +24,17 @@ class MenuBlock extends BlockBase {
     ];
   }
 
+  private function renderLink($link) {
+    $name = $link->getTitle();
+    $url = $link->getUrlObject()->toString();
+    $a_classes = ["nav-link"];
+    $a_attributes = [];
+    if (array_key_exists('attributes', $link->getOptions())) foreach ($link->getOptions()['attributes'] as $key => $attr) {
+      $a_attributes[] = "$key=\"$attr\"";
+    }
+    return "<a " . implode(' ', $a_attributes) . " class=\"" . implode(' ', $a_classes) . "\" href=\"$url\">$name</a>";
+  }
+
   private function generateMenuTree($input, $level = 1) {
     $indent = str_repeat(' ', $level * 4);
     $ul_classes = ["nav-t$level"];
@@ -35,10 +46,8 @@ class MenuBlock extends BlockBase {
           array_push($li_classes, "has-submenu");
         }
         $output .= "$indent  <li class=\"" . implode(' ', $li_classes) . "\">\n";
-        $name = $item->link->getTitle();
         $url = $item->link->getUrlObject()->toString();
-        $a_classes = ["nav-link"];
-        $output .= "$indent    <a class=\"" . implode(' ', $a_classes) . "\" href=\"$url\">$name</a>\n";
+        $output .= "$indent    " . $this->renderLink($item->link) . "\n";
         if ($item->hasChildren) {
           if ($level === 1) {
             $output .= "$indent    <div class=\"submenu-container\"><div class=\"row g-0 submenu\"><div class=\"col-sm-8\">\n";
