@@ -74,3 +74,22 @@ The drupal Backup & Migrate module does not currently support PostgresQL. Backin
 
 ## Theming / Styling
 Please see the `src/web/themes/custom/workbc/README.md` for more details.
+
+## Make and development shortcut commands
+This project includes a Makefile, which has been configured with a few command shortcuts to help forgetful developers (like me!) more easily manage all the different CLI tasks they might want to do.
+From the src/ directory, run `make <command>`
+For Windows users, follow this guide on StackExchange to install and configure Make for Windows: https://superuser.com/a/1634350/221936
+
+### Make commands:
+	1. up 
+	1. down
+	1. start
+	1. stop
+	1. prune
+	1. ps
+	1. shell
+	1. drush <command>
+	1. logs <container>
+  	1. compilescss
+  	1. watchscss
+  

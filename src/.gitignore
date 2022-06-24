@@ -28,3 +28,6 @@
 # Ignore sass cache files
 .sass-cache/
 *.scssc
+
+# ignore node-modules, they should be redownloaded
+node_modules

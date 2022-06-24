@@ -1,5 +1,4 @@
 # WorkBC theme
-
 [Bootstrap 5](https://www.drupal.org/project/bootstrap5) subtheme.
 
 ## Fonts.
@@ -9,12 +8,13 @@ See https://developer.gov.bc.ca/Typography for more details.
 ## Development.
 
 ### CSS compilation.
+The php Docker container has Yarn, Grunt, and grunt-dart-sass set up for compilation.
+You will need to either `make install` or `yarn install` from `src/` to install all of the dependencies first.
 
-install [sass](https://sass-lang.com/install).
-To compile, run from subtheme directory: `sass scss/style.scss css/style.css`
+Once dependencies are in place
+`yarn run grunt dart-sass` will compile everything starting with the style.scss, and
+`yarn run grunt watch` will start a watch on all .scss files, and compile on detecting changes.
 
-If you get an error looking like `error scss/style.scss (Line 55 of <rootpath>/src/web/themes/contrib/bootstrap5/dist/bootstrap/5.1.3/scss/mixins/_utilities.scss: Invalid CSS after "...ass}: #{$value}": expected "{", was ";")`
-it means your sass compiler is out of date. 
-If you happen to be compiling through Ruby Sass, a `gem update sass` should solve the issue, otherwise update your sass installation.
-`sass -version` should tell you more.
-
+There are also shortcuts in the toplevel Makefile to these commands -
+`make compilescss` and
+`make watchscss` respectively.

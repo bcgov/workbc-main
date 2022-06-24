@@ -2,29 +2,25 @@ include .env
 
 default: up
 
-COMPOSER_ROOT ?= /var/www/html
-DRUPAL_ROOT ?= /var/www/html/web
+PROJECT_NAME ?= "WorkBC Refresh"
 
-## help	:	Print commands help.
-.PHONY: help
-ifneq (,$(wildcard docker.mk))
-help : docker.mk
-	@sed -n 's/^##//p' $<
-else
-help : Makefile
-	@sed -n 's/^##//p' $<
-endif
+SOLUTION_ROOT ?= $(abspath $(lastword $(MAKEFILE_LIST))/../../)
+COMPOSER_ROOT ?= $(SOLUTION_ROOT)
+DRUPAL_CONTAINER ?= php
+
+
+.PHONY: debug
+debug:
+	@echo SOLUTION_ROOT: $(SOLUTION_ROOT)
+	@echo COMPOSER_ROOT: $(COMPOSER_ROOT)
+	@echo DRUPAL_CONTAINER: $(DRUPAL_CONTAINER)
 
 ## up	:	Start up containers.
 .PHONY: up
 up:
 	@echo "Starting up containers for $(PROJECT_NAME)..."
-	docker-compose pull
-	docker-compose up -d --remove-orphans
-
-.PHONY: mutagen
-mutagen:
-	mutagen-compose up
+	docker-compose --project-directory "$(SOLUTION_ROOT)" pull
+	docker-compose --project-directory "$(SOLUTION_ROOT)" up -d --remove-orphans
 
 ## down	:	Stop containers.
 .PHONY: down
@@ -34,13 +30,13 @@ down: stop
 .PHONY: start
 start:
 	@echo "Starting containers for $(PROJECT_NAME) from where you left off..."
-	@docker-compose start
+	@docker-compose --project-directory "$(SOLUTION_ROOT)" start
 
 ## stop	:	Stop containers.
 .PHONY: stop
 stop:
 	@echo "Stopping containers for $(PROJECT_NAME)..."
-	@docker-compose stop
+	@docker-compose --project-directory "$(SOLUTION_ROOT)" stop
 
 ## prune	:	Remove containers and their volumes.
 ##		You can optionally pass an argument with the service name to prune single container
@@ -49,7 +45,7 @@ stop:
 .PHONY: prune
 prune:
 	@echo "Removing containers for $(PROJECT_NAME)..."
-	@docker-compose down -v $(filter-out $@,$(MAKECMDGOALS))
+	@docker-compose --project-directory "$(SOLUTION_ROOT)" down -v $(filter-out $@,$(MAKECMDGOALS))
 
 ## ps	:	List running containers.
 .PHONY: ps
@@ -57,24 +53,21 @@ ps:
 	@docker ps --filter name='$(PROJECT_NAME)*'
 
 ## shell	:	Access `php` container via shell.
-##		You can optionally pass an argument with a service name to open a shell on the specified container
 .PHONY: shell
 shell:
-	docker exec -ti -e COLUMNS=$(shell tput cols) -e LINES=$(shell tput lines) $(shell docker ps --filter name='$(PROJECT_NAME)_$(or $(filter-out $@,$(MAKECMDGOALS)), 'php')' --format "{{ .ID }}") sh
+	@docker-compose --project-directory "$(SOLUTION_ROOT)" exec php bash
 
-## composer	:	Executes `composer` command in a specified `COMPOSER_ROOT` directory (default is `/var/www/html`).
-##		To use "--flag" arguments include them in quotation marks.
-##		For example: make composer "update drupal/core --with-dependencies"
-.PHONY: composer
-composer:
-	docker exec $(shell docker ps --filter name='^/$(PROJECT_NAME)_php' --format "{{ .ID }}") composer --working-dir=$(COMPOSER_ROOT) $(filter-out $@,$(MAKECMDGOALS))
+## install	:	Install a variety of dependencies
+.PHONY: install
+install:
+	@docker-compose --project-directory "$(SOLUTION_ROOT)" exec php yarn install
 
 ## drush	:	Executes `drush` command in a specified `DRUPAL_ROOT` directory (default is `/var/www/html/web`).
 ##		To use "--flag" arguments include them in quotation marks.
 ##		For example: make drush "watchdog:show --type=cron"
 .PHONY: drush
 drush:
-	docker exec $(shell docker ps --filter name='^/$(PROJECT_NAME)_php' --format "{{ .ID }}") drush -r $(DRUPAL_ROOT) $(filter-out $@,$(MAKECMDGOALS))
+	@docker-compose --project-directory "$(SOLUTION_ROOT)" exec php drush $(filter-out $@,$(MAKECMDGOALS))
 
 ## logs	:	View containers logs.
 ##		You can optinally pass an argument with the service name to limit logs
@@ -82,7 +75,18 @@ drush:
 ##		logs nginx php	: View `nginx` and `php` containers logs.
 .PHONY: logs
 logs:
-	@docker-compose logs -f $(filter-out $@,$(MAKECMDGOALS))
+	@docker-compose --project-directory "$(SOLUTION_ROOT)" logs -f $(filter-out $@,$(MAKECMDGOALS))
+
+## compilescss	:	Compile the scss per Gruntfile configuration
+.PHONY: compilescss
+compilescss:
+	@docker-compose --project-directory "$(SOLUTION_ROOT)" exec php yarn run grunt dart-sass
+
+## compilescss	:	Watch the scss for changes and react per Gruntfile configuration
+.PHONY: watchscss
+watchscss:
+	@docker-compose --project-directory "$(SOLUTION_ROOT)" exec php yarn run grunt watch
+
 
 # https://stackoverflow.com/a/6273809/1826109
 %:
