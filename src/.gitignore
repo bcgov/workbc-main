@@ -30,4 +30,4 @@
 *.scssc
 
 # ignore node-modules, they should be redownloaded
-node_modules/**
+node_modules
