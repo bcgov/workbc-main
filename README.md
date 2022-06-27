@@ -48,6 +48,7 @@ Please see the `src/web/themes/custom/workbc/README.md` for more details.
 This project includes a Makefile, which has been configured with a few command shortcuts to help forgetful developers (like me!) more easily manage all the different CLI tasks they might want to do.
 
 From your host machine, in the `src/` directory, run `make <command>`:
+
 	1. up
 	1. down
 	1. start
