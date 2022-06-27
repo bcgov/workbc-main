@@ -3,9 +3,9 @@ langcode: en
 status: true
 dependencies:
   config:
-    - field.field.node.landing_page.body
     - field.field.node.landing_page.field_action_card_groups
     - field.field.node.landing_page.field_hero_image
+    - field.field.node.landing_page.field_hero_text
     - field.field.node.landing_page.field_related_topics
     - node.type.landing_page
   module:
@@ -18,13 +18,6 @@ targetEntityType: node
 bundle: landing_page
 mode: default
 content:
-  body:
-    type: text_default
-    label: hidden
-    settings: {  }
-    third_party_settings: {  }
-    weight: 101
-    region: content
   field_action_card_groups:
     type: entity_reference_revisions_entity_view
     label: above
@@ -32,7 +25,7 @@ content:
       view_mode: default
       link: ''
     third_party_settings: {  }
-    weight: 103
+    weight: 3
     region: content
   field_hero_image:
     type: image
@@ -43,7 +36,14 @@ content:
       image_loading:
         attribute: lazy
     third_party_settings: {  }
-    weight: 102
+    weight: 2
+    region: content
+  field_hero_text:
+    type: text_default
+    label: above
+    settings: {  }
+    third_party_settings: {  }
+    weight: 1
     region: content
   field_related_topics:
     type: entity_reference_label
@@ -51,11 +51,11 @@ content:
     settings:
       link: true
     third_party_settings: {  }
-    weight: 104
+    weight: 4
     region: content
   links:
     settings: {  }
     third_party_settings: {  }
-    weight: 100
+    weight: 0
     region: content
 hidden: {  }

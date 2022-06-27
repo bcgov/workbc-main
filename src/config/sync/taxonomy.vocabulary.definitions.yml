@@ -1,0 +1,8 @@
+uuid: 82d03d55-7119-4a3c-8acd-86f1845724f8
+langcode: en
+status: true
+dependencies: {  }
+name: Definitions
+vid: definitions
+description: 'List of terms with definitions'
+weight: 0

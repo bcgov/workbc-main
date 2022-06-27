@@ -1,4 +1,4 @@
-uuid: f1114fca-ca6e-446e-afe6-4f1f7e56e1d5
+uuid: 1143c123-a704-4760-ad87-e3b6f3c01d2c
 langcode: en
 status: true
 dependencies:
@@ -9,9 +9,9 @@ dependencies:
     - paragraphs
 third_party_settings:
   field_permissions:
-    permission_type: public
-id: node.field_action_card_groups
-field_name: field_action_card_groups
+    permission_type: custom
+id: node.field_content
+field_name: field_content
 entity_type: node
 type: entity_reference_revisions
 settings:

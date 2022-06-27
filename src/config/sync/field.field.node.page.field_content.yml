@@ -1,26 +1,23 @@
-uuid: a088dddb-05d8-4705-a7cd-4d74213420da
+uuid: 7d77be74-7139-4cce-a8b3-986bb8eaf699
 langcode: en
 status: true
 dependencies:
   config:
-    - field.storage.node.field_action_card_groups
-    - node.type.landing_page
+    - field.storage.node.field_content
+    - node.type.page
     - paragraphs.paragraphs_type.action_card_feature
     - paragraphs.paragraphs_type.action_cards_1_2
-    - paragraphs.paragraphs_type.action_cards_1_3
-    - paragraphs.paragraphs_type.action_cards_1_4
-    - paragraphs.paragraphs_type.action_cards_full_width
     - paragraphs.paragraphs_type.content_text
     - paragraphs.paragraphs_type.content_view
   module:
     - entity_reference_revisions
-id: node.landing_page.field_action_card_groups
-field_name: field_action_card_groups
+id: node.page.field_content
+field_name: field_content
 entity_type: node
-bundle: landing_page
-label: 'Action Cards'
+bundle: page
+label: Content
 description: ''
-required: true
+required: false
 translatable: false
 default_value: {  }
 default_value_callback: ''
@@ -29,34 +26,31 @@ settings:
   handler_settings:
     target_bundles:
       action_card_feature: action_card_feature
-      action_cards_full_width: action_cards_full_width
       action_cards_1_2: action_cards_1_2
-      action_cards_1_3: action_cards_1_3
-      action_cards_1_4: action_cards_1_4
       content_text: content_text
       content_view: content_view
     negate: 0
     target_bundles_drag_drop:
       action_card:
-        weight: -21
+        weight: 11
         enabled: false
       action_card_feature:
-        weight: -20
+        weight: 12
         enabled: true
       action_cards_1_2:
-        weight: -18
+        weight: 13
         enabled: true
       action_cards_1_3:
-        weight: -17
-        enabled: true
+        weight: 14
+        enabled: false
       action_cards_1_4:
-        weight: -16
-        enabled: true
+        weight: 15
+        enabled: false
       action_cards_full_width:
-        weight: -19
-        enabled: true
+        weight: 16
+        enabled: false
       additional_duties:
-        weight: -15
+        weight: 17
         enabled: false
       content_text:
         weight: 20
@@ -65,12 +59,12 @@ settings:
         weight: 21
         enabled: true
       hours_of_operation:
-        weight: -14
+        weight: 18
         enabled: false
       quote_card:
-        weight: -13
+        weight: 19
         enabled: false
       skills:
-        weight: -12
+        weight: 20
         enabled: false
 field_type: entity_reference_revisions

@@ -1,0 +1,31 @@
+uuid: ceace790-7300-46f9-882b-c47980c4821f
+langcode: en
+status: true
+dependencies:
+  config:
+    - field.field.paragraph.content_text.field_body
+    - field.field.paragraph.content_text.field_title
+    - paragraphs.paragraphs_type.content_text
+  module:
+    - text
+id: paragraph.content_text.default
+targetEntityType: paragraph
+bundle: content_text
+mode: default
+content:
+  field_body:
+    type: text_default
+    label: visually_hidden
+    settings: {  }
+    third_party_settings: {  }
+    weight: 1
+    region: content
+  field_title:
+    type: string
+    label: visually_hidden
+    settings:
+      link_to_entity: false
+    third_party_settings: {  }
+    weight: 0
+    region: content
+hidden: {  }

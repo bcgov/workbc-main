@@ -3,6 +3,7 @@ langcode: en
 status: true
 dependencies:
   config:
+    - node.type.landing_page
     - node.type.page
     - taxonomy.vocabulary.tags
   module:
@@ -10,6 +11,7 @@ dependencies:
     - contextual
     - file
     - node
+    - paragraphs_type_permissions
     - path
     - system
     - taxonomy
@@ -29,15 +31,51 @@ permissions:
   - 'access toolbar'
   - 'access tour'
   - 'administer url aliases'
+  - 'create landing_page content'
   - 'create page content'
+  - 'create paragraph content action_card'
+  - 'create paragraph content action_card_feature'
+  - 'create paragraph content action_cards_1_2'
+  - 'create paragraph content action_cards_1_3'
+  - 'create paragraph content action_cards_1_4'
+  - 'create paragraph content action_cards_full_width'
+  - 'create paragraph content additional_duties'
+  - 'create paragraph content hours_of_operation'
+  - 'create paragraph content quote_card'
+  - 'create paragraph content skills'
   - 'create terms in tags'
   - 'create url aliases'
+  - 'delete landing_page revisions'
+  - 'delete own landing_page content'
   - 'delete own page content'
   - 'delete page revisions'
+  - 'delete paragraph content action_card'
+  - 'delete paragraph content action_card_feature'
+  - 'delete paragraph content action_cards_1_2'
+  - 'delete paragraph content action_cards_1_3'
+  - 'delete paragraph content action_cards_1_4'
+  - 'delete paragraph content action_cards_full_width'
+  - 'delete paragraph content additional_duties'
+  - 'delete paragraph content hours_of_operation'
+  - 'delete paragraph content quote_card'
+  - 'delete paragraph content skills'
+  - 'edit any landing_page content'
+  - 'edit any page content'
   - 'edit own comments'
+  - 'edit own landing_page content'
   - 'edit own page content'
   - 'edit terms in tags'
   - 'revert all revisions'
+  - 'update paragraph content action_card'
+  - 'update paragraph content action_card_feature'
+  - 'update paragraph content action_cards_1_2'
+  - 'update paragraph content action_cards_1_3'
+  - 'update paragraph content action_cards_1_4'
+  - 'update paragraph content action_cards_full_width'
+  - 'update paragraph content additional_duties'
+  - 'update paragraph content hours_of_operation'
+  - 'update paragraph content quote_card'
+  - 'update paragraph content skills'
   - 'view all revisions'
   - 'view own unpublished content'
   - 'view the administration theme'
