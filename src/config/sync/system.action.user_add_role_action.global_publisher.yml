@@ -1,0 +1,14 @@
+uuid: 9b276b64-0453-447c-8ef1-c1d40d607818
+langcode: en
+status: true
+dependencies:
+  config:
+    - user.role.global_publisher
+  module:
+    - user
+id: user_add_role_action.global_publisher
+label: 'Add the Global Publisher role to the selected user(s)'
+type: user
+plugin: user_add_role_action
+configuration:
+  rid: global_publisher

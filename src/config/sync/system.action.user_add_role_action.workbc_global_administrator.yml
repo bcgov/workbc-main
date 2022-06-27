@@ -1,0 +1,14 @@
+uuid: 55e3a628-35da-4cdf-90c6-d0bb7189c702
+langcode: en
+status: true
+dependencies:
+  config:
+    - user.role.workbc_global_administrator
+  module:
+    - user
+id: user_add_role_action.workbc_global_administrator
+label: 'Add the WorkBC Global Administrator role to the selected user(s)'
+type: user
+plugin: user_add_role_action
+configuration:
+  rid: workbc_global_administrator

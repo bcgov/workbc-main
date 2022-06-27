@@ -1,0 +1,9 @@
+uuid: 66c05b59-42fc-4977-8c7f-3ef3e6cbc808
+langcode: en
+status: true
+dependencies: {  }
+id: workbc_administrator
+label: 'WorkBC Administrator'
+weight: -1
+is_admin: null
+permissions: {  }
