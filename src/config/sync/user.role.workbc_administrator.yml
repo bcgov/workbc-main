@@ -4,6 +4,6 @@ status: true
 dependencies: {  }
 id: workbc_administrator
 label: 'WorkBC Administrator'
-weight: -1
+weight: -3
 is_admin: null
 permissions: {  }

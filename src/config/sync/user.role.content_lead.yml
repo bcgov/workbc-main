@@ -4,6 +4,6 @@ status: true
 dependencies: {  }
 id: content_lead
 label: 'Content Lead'
-weight: -2
+weight: -4
 is_admin: null
 permissions: {  }

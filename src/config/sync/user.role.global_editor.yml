@@ -4,6 +4,6 @@ status: true
 dependencies: {  }
 id: global_editor
 label: 'Global Editor'
-weight: -3
+weight: -5
 is_admin: null
 permissions: {  }
