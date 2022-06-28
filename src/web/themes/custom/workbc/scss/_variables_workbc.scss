@@ -1,12 +1,30 @@
+$workbc_transparent: transparent;
+$workbc_dark_blue: #002857;
+$workbc_middle_blue: #2E6AB0;
+$workbc_gold: #E7BF3E;
+
+
+$workbc_default_text: #333333;
+
+
 $workbc_trim_standard_size: 6px;
 $workbc_trim_thin_size: 4px;
+$workbc_trim_ultra_thin_size: 3px;
 
-$workbc_dark_background: #002857;
-$workbc_dark_text: #FFFFFF;
-$workbc_dark_trim: #E7BF3E;
 
-$workbc_light_background: #FFFFFF;
-$workbc_light_text: #333333;
-$workbc_light_trim: #E7BF3E;
-$workbc_light_trim_alternate: #2E6AB0;
+$workbc_dark_theme_background: $workbc_dark_blue;
+$workbc_dark_theme_text: #FFFFFF;
+$workbc_dark_theme_trim: $workbc_gold;
+
+
+$workbc_light_theme_background: #FFFFFF;
+$workbc_light_theme_highlight: #f2f2f2;
+
+$workbc_light_theme_text: $workbc_default_text;
+$workbc_light_theme_link: $workbc_middle_blue;
+
+$workbc_light_theme_trim: $workbc_gold;
+$workbc_light_theme_trim_alternate: $workbc_middle_blue;
+
+
 $workbc_alertribbon_background: rgba(121, 29, 95, 1);
