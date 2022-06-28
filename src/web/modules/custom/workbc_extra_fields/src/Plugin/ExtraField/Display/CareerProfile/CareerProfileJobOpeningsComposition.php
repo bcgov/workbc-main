@@ -43,17 +43,28 @@ class CareerProfileJobOpeningsComposition extends ExtraFieldDisplayFormattedBase
    */
   public function viewElements(ContentEntityInterface $entity) {
 
+    $data = [12230, 7360];
+    $labels = [t('Replacement'), t('New Jobs')];
     $chart = [
      '#type' => 'chart',
      '#chart_type' => 'donut',
      'series' => [
        '#type' => 'chart_data',
        '#title' => t(''),
-       '#data' => [12230, 7360],
+       '#data' => $data,
+       '#prefix' => '',
+       '#suffix' => '',
      ],
      'xaxis' => [
        '#type' => 'chart_xaxis',
-       '#labels' => [t('Replacement'), t('New Jobs')],
+       '#labels' => $labels,
+       '#max' => count($data),
+       '#min' => 0,
+     ],
+     'yaxis' => [
+       '#type' => 'chart_yaxis',
+       '#max' => max($data),
+       '#min' => 0,
      ]
     ];
     $output = \Drupal::service('renderer')->render($chart);

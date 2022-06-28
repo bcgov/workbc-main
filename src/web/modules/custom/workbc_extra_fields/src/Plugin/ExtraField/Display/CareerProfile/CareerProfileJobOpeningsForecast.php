@@ -43,17 +43,28 @@ class CareerProfileJobOpeningsForecast extends ExtraFieldDisplayFormattedBase {
    */
   public function viewElements(ContentEntityInterface $entity) {
 
+    $data = [510, 1960, 2120];
+    $labels = [t('2019'), t('2024'), t('2029')];
     $chart = [
      '#type' => 'chart',
      '#chart_type' => 'column',
      'series' => [
        '#type' => 'chart_data',
        '#title' => t(''),
-       '#data' => [510, 1960, 2120],
+       '#data' => $data,
+       '#prefix' => '',
+       '#suffix' => '',
      ],
      'xaxis' => [
        '#type' => 'chart_xaxis',
-       '#labels' => [t('2019'), t('2024'), t('2029')],
+       '#labels' => $labels,
+       '#max' => count($data),
+       '#min' => 0,
+     ],
+     'yaxis' => [
+       '#type' => 'chart_yaxis',
+       '#max' => max($data),
+       '#min' => 0,
      ]
     ];
     $output = \Drupal::service('renderer')->render($chart);
