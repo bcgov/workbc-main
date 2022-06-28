@@ -1,0 +1,14 @@
+uuid: fc3c7882-c0ce-4801-a535-106b2d5134e8
+langcode: en
+status: true
+dependencies:
+  config:
+    - user.role.global_publisher
+  module:
+    - user
+id: user_remove_role_action.global_publisher
+label: 'Remove the Global Publisher role from the selected user(s)'
+type: user
+plugin: user_remove_role_action
+configuration:
+  rid: global_publisher

@@ -47,7 +47,7 @@ Please see the `src/web/themes/custom/workbc/README.md` for more details.
 ## Make and development shortcut commands
 This project includes a Makefile, which has been configured with a few command shortcuts to help forgetful developers (like me!) more easily manage all the different CLI tasks they might want to do.
 
-From your host machine, in the `src/` directory, run `make <command>`: 
+From your host machine, in the `src/` directory, run `make <command>`:
 
 1. `up`
 1. `down`
@@ -62,3 +62,9 @@ From your host machine, in the `src/` directory, run `make <command>`:
 1. `watchscss`
 
 **For Windows users**, follow [this guide on StackExchange to install and configure Make for Windows](https://superuser.com/a/1634350/221936).
+
+## Troubleshooting
+
+- If you run into timeout issues while installing/unzipping PHP, try the following:
+  - `docker-compose exec php composer config --global process-timeout 600`
+  - `docker-compose exec php composer install --prefer-dist --no-dev`
