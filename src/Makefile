@@ -57,10 +57,10 @@ ps:
 shell:
 	@docker-compose --project-directory "$(SOLUTION_ROOT)" exec php bash
 
-## install	:	Install a variety of dependencies
-.PHONY: install
-install:
-	@docker-compose --project-directory "$(SOLUTION_ROOT)" exec php yarn install
+## sync	:	Attempt to synchronize various dependencies - most useful after a pulling a new branch
+.PHONY: sync
+sync:
+	@docker-compose --project-directory "$(SOLUTION_ROOT)" exec php scripts/update.sh
 
 ## drush	:	Executes `drush` command in a specified `DRUPAL_ROOT` directory (default is `/var/www/html/web`).
 ##		To use "--flag" arguments include them in quotation marks.
