@@ -2,3 +2,7 @@ global-styling:
   css:
     theme:
       css/style.css: {}
+fonts: 
+  css:
+    theme:
+      '//fonts.googleapis.com/css2?family=Material+Symbols+Outlined': { type: external, minified: true }
