@@ -1,0 +1,9 @@
+uuid: 3493ca3a-e093-4fe2-b897-d2ecf723e301
+langcode: en
+status: true
+dependencies: {  }
+id: global_editor
+label: 'Global Editor'
+weight: -5
+is_admin: null
+permissions: {  }

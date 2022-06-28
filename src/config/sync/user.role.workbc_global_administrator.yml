@@ -1,0 +1,9 @@
+uuid: 42a2f8c9-bb09-4fa6-ba6e-c91ae123bdf9
+langcode: en
+status: true
+dependencies: {  }
+id: workbc_global_administrator
+label: 'WorkBC Global Administrator'
+weight: -2
+is_admin: null
+permissions: {  }
