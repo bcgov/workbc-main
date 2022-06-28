@@ -1,11 +1,18 @@
 <?php
 
+/**
+ * Generate nodes for all content type in the WorkBC Refresh IA.
+ *
+ * Usage: drush scr /scripts/migration/migrate.php -- /path/to/migration.csv
+ *
+ * Revert:
+ * - drush entity:delete node
+ * - drush entity:delete menu_link_content
+ */
+
 use Drupal\path_alias\Entity\PathAlias;
 
-/**
- * Usage: drush scr /path/to/migrate.php -- /path/to/migration.csv
- */
-$file = array_key_exists(0, $extra) ? $extra[0] : __DIR__ . '/migration.csv';
+ $file = array_key_exists(0, $extra) ? $extra[0] : __DIR__ . '/migration.csv';
 if (empty($file) or ($handle = fopen($file, "r")) === FALSE) {
     die("[WorkBC Migration] Could not open $file\nUsage: drush scr migrate -- /path/to/migration.csv\n");
 }
