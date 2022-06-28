@@ -25,12 +25,8 @@ This is the WorkBC site on Drupal.
 **For Windows users**, You need a [version of Windows that is able to run Docker using Hyper-V backend](https://docs.docker.com/desktop/windows/install/), e.g. Windows 10 Pro.
 
 ## Updating local dev environment after git pull
-`make sync` from the `src/` folder shoulder perform any post-pull actions needed.
-
-It will: 
-#. install any Yarn dependencies
-#. run the update script: `docker-compose exec php scripts/update.sh`
-#. run `drush cim` in the appropriate folder
+`make sync` from the `src/` folder shoulder perform any post-pull actions needed
+or run the update script: `docker-compose exec php scripts/update.sh`
 
 In some situations `drush cim` fails. In this case, the Drupal UI (Configuration -> Development -> Configuration Syncronization) should work. If errors still persist, you may need to manually enable new modules before running the configuration syncronization.
 In some extra rare situations, modules may need to be enabled manually with `drush en module`.
