@@ -26,7 +26,7 @@ This is the WorkBC site on Drupal.
 
 ## Updating local dev environment after git pull
 Run the update script: `docker-compose exec php scripts/update.sh`.
-
+Run `compose install` to handle any module changes. In some cases you might need to `drush en module` to manually enable any newly instally modules.
 In some situations `drush cim` fails. In this case, the Drupal UI (Configuration -> Development -> Configuration Syncronization) should work. If errors still persist, you may need to manually enable new modules before running the configuration syncronization.
 
 ## Installing modules
