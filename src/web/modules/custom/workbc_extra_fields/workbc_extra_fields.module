@@ -38,7 +38,7 @@ function querySSoT($url) {
     $result = json_decode($response->getBody(), TRUE);
     if (isset($result[0])) {
       $data = $result[0];
-      ksm($data);
+      // ksm($data);
       return $data;
     }
   }
