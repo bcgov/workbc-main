@@ -21,7 +21,7 @@ try {
     $fields = [
       'type' => 'career_profile',
       'title' => $profile['occupation_title'],
-      'noc' => $profile['noc'],
+      'field_noc' => $profile['noc'],
       'uid' => 1,
     ];
     print("Creating {$fields['title']}\n");
