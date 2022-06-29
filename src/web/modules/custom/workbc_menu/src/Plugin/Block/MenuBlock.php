@@ -68,7 +68,7 @@ class MenuBlock extends BlockBase {
             $hero_image_url = "";
             if (!$node->get('field_hero_image')->isEmpty()) {
               $image_id = $node->field_hero_image->entity->getFileUri();
-              $hero_image_url = ImageStyle::load('1_3_component')->buildUrl($image_id);
+              $hero_image_url = ImageStyle::load('megamenu')->buildUrl($image_id);
             }
 
             $content = <<<EOT
