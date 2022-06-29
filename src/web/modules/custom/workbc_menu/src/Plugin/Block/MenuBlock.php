@@ -3,6 +3,7 @@
 namespace Drupal\workbc_menu\Plugin\Block;
 
 use Drupal\Core\Block\BlockBase;
+use Drupal\image\Entity\ImageStyle;
 
 /**
  * Provides a WorkBC Menu Block.
@@ -55,11 +56,25 @@ class MenuBlock extends BlockBase {
           $output .= $this->generateMenuTree($item->subtree, $level + 1);
           if ($level === 1) {
             $output .= "$indent    </div>\n";
-            // TODO Retrieve image and blurb (?) of the current $item node.
+
+            $params = $item->link->getRouteParameters();
+            $node = \Drupal::entityTypeManager()->getStorage('node')->load($params['node']);
+
+            $hero_text = "";
+            if (!$node->get('field_hero_text')->isEmpty()) {
+              $hero_text = $node->get('field_hero_text')->value;
+            }
+
+            $hero_image_url = "";
+            if (!$node->get('field_hero_image')->isEmpty()) {
+              $image_id = $node->field_hero_image->entity->getFileUri();
+              $hero_image_url = ImageStyle::load('1_3_component')->buildUrl($image_id);
+            }
+
             $content = <<<EOT
               <div class="col-sm-4 nav-t1-splash">
-                <img src="https://picsum.photos/300/200" />
-                <p>Discover job application tups and search the WorkBC job board.</p>
+                <img src="$hero_image_url" />
+                <p>$hero_text</p>
                 <a href="$url">Read More</a>
               </div>
             EOT;
