@@ -4,7 +4,7 @@
  * Generate career profile nodes from SSoT entries.
  * Source: /wages (WorkBC_2021_Wage_Data)
  *
- * Usage: drush scr /scripts/migration/career_profiles.php
+ * Usage: drush scr /scripts/migration/career_profiles
  *
  * Revert: drush entity:delete node --bundle=career_profile
  */
