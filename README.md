@@ -51,15 +51,21 @@ This project includes a Makefile, which has been configured with a few command s
 
 From your host machine, in the `src/` directory, run `make <command>`:
 
+### Docker related:
 1. `up`
 1. `down`
 1. `start`
 1. `stop`
 1. `prune`
 1. `ps`
+
+### Drupal related:
 1. `shell`
+1. `sync`
 1. `drush <command>`
-1. `logs <service>`
+1. `navrebuild`
+
+### SCSS related:
 1. `compilescss`
 1. `watchscss`
 
