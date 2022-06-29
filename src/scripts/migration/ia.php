@@ -3,7 +3,7 @@
 /**
  * Generate nodes for all content type in the WorkBC Refresh IA.
  *
- * Usage: drush scr /scripts/migration/migrate.php -- /path/to/migration.csv
+ * Usage: drush scr /scripts/migration/ia -- /path/to/ia.csv
  *
  * Revert:
  * - drush entity:delete node
@@ -12,9 +12,9 @@
 
 use Drupal\path_alias\Entity\PathAlias;
 
- $file = array_key_exists(0, $extra) ? $extra[0] : __DIR__ . '/migration.csv';
+$file = array_key_exists(0, $extra) ? $extra[0] : __DIR__ . '/ia.csv';
 if (empty($file) or ($handle = fopen($file, "r")) === FALSE) {
-    die("[WorkBC Migration] Could not open $file\nUsage: drush scr migrate -- /path/to/migration.csv\n");
+    die("[WorkBC Migration] Could not open $file\nUsage: drush scr ia.php -- /path/to/ia.csv\n");
 }
 print("Importing $file\n");
 
