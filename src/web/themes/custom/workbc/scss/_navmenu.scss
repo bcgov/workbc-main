@@ -26,6 +26,7 @@
       padding: $workbc_trim_standard_size $workbc_trim_standard_size 0 $workbc_trim_standard_size; 
       border-bottom: $workbc_trim_standard_size solid $workbc_transparent; 
       min-width: 90px;
+      height: 80px;
       flex: 2 1 auto;
       display: flex;
       flex-direction: column;
@@ -93,12 +94,12 @@
               }
 
               .nav-t3 {
+                display: none;
                 position: absolute;
                 left: 100%;
                 top: 0;
                 height: 100%;
                 width: 50%;
-                display: none;
               }
   
             }
@@ -139,33 +140,26 @@
         }
       }
 
-      .submenu {
-        background: $workbc_light_theme_background;
-        border-bottom: $workbc_trim_thin_size solid $workbc_light_theme_trim_alternate;
-      }
+      .submenu-container {
+        .submenu {
+          background: $workbc_light_theme_background;
+          border-bottom: $workbc_trim_thin_size solid $workbc_light_theme_trim_alternate;
 
-      ul.nav-t2 {
-        & > li {
-          a, a:focus {
-            color: $workbc_light_theme_text;
-          }
-    
-          &:hover {
-            border-left: $workbc_trim_standard_size solid $workbc_dark_blue;
-            background-color: $workbc_light_theme_highlight;
-    
-            a, a:focus {
-              color: $workbc_light_theme_link;
-              text-decoration: underline;
+          ul.nav-t2 {
+            & > li {
+              &:hover {
+                border-left: $workbc_trim_standard_size solid $workbc_dark_blue;
+                background-color: $workbc_light_theme_highlight;
+        
+                a, a:focus {
+                  color: $workbc_light_theme_link;
+                  text-decoration: underline;
+                }
+              }
             }
-          }
-    
-          &.active {
-            border-color: $workbc_dark_theme_trim;
-            background-color: $workbc_dark_theme_background;
     
             a, a:focus {
-              color: $workbc_dark_theme_text;
+              color: $workbc_light_theme_text;
             }
           }
         }
