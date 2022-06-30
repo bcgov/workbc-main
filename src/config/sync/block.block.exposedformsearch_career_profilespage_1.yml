@@ -1,0 +1,28 @@
+uuid: 8c025794-5bd4-42d8-a0e8-ce4d8c82cda4
+langcode: en
+status: true
+dependencies:
+  config:
+    - views.view.search_career_profiles
+  module:
+    - system
+    - views
+  theme:
+    - workbc
+id: exposedformsearch_career_profilespage_1
+theme: workbc
+region: content
+weight: -1
+provider: null
+plugin: 'views_exposed_filter_block:search_career_profiles-page_1'
+settings:
+  id: 'views_exposed_filter_block:search_career_profiles-page_1'
+  label: ''
+  label_display: '0'
+  provider: views
+  views_label: ''
+visibility:
+  request_path:
+    id: request_path
+    negate: false
+    pages: /search-results-career-profiles
