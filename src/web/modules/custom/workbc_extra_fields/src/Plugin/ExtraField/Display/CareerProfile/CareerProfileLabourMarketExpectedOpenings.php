@@ -43,10 +43,12 @@ class CareerProfileLabourMarketExpectedOpenings extends ExtraFieldDisplayFormatt
    */
   public function viewElements(ContentEntityInterface $entity) {
 
-    mt_srand($entity->id());
-    $openings = mt_rand(5000, 33000);
-
-    $output = Number_format($openings,0);
+    if (!empty($entity->ssot_data && isset($entity->ssot_data['career_provincial']['10_year_expected_job_openings_2021_2031']))) {
+      $output = Number_format($entity->ssot_data['career_provincial']['10_year_expected_job_openings_2021_2031'],0);
+    }
+    else {
+      $output = "";
+    }
 
     return [
       ['#markup' => $output],

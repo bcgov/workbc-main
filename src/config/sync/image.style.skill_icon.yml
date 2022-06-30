@@ -1,0 +1,15 @@
+uuid: b538b972-bc67-46f6-b34c-0be83132a050
+langcode: en
+status: true
+dependencies: {  }
+name: skill_icon
+label: 'Skill Icon'
+effects:
+  d332a718-5fc5-4679-8afb-e36c5ecdb3d8:
+    uuid: d332a718-5fc5-4679-8afb-e36c5ecdb3d8
+    id: image_scale
+    weight: 1
+    data:
+      width: 73
+      height: null
+      upscale: false

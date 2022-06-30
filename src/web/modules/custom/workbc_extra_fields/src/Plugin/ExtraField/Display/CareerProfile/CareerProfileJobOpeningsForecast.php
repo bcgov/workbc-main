@@ -43,31 +43,39 @@ class CareerProfileJobOpeningsForecast extends ExtraFieldDisplayFormattedBase {
    */
   public function viewElements(ContentEntityInterface $entity) {
 
-    $data = [510, 1960, 2120];
-    $labels = [t('2019'), t('2024'), t('2029')];
-    $chart = [
-     '#type' => 'chart',
-     '#chart_type' => 'column',
-     'series' => [
-       '#type' => 'chart_data',
-       '#title' => t(''),
-       '#data' => $data,
-       '#prefix' => '',
-       '#suffix' => '',
-     ],
-     'xaxis' => [
-       '#type' => 'chart_xaxis',
-       '#labels' => $labels,
-       '#max' => count($data),
-       '#min' => 0,
-     ],
-     'yaxis' => [
-       '#type' => 'chart_yaxis',
-       '#max' => max($data),
-       '#min' => 0,
-     ]
-    ];
-    $output = \Drupal::service('renderer')->render($chart);
+    if (!empty($entity->ssot_data) && isset($entity->ssot_data['career_provincial'])) {
+      $data = array();
+      $data[] = intval($entity->ssot_data['career_provincial']['job_openings_2022']);
+      $data[] = intval($entity->ssot_data['career_provincial']['job_openings_2026']);
+      $data[] = intval($entity->ssot_data['career_provincial']['job_openings_2031']);
+      $labels = [t('2022'), t('2026'), t('2031')];
+      $chart = [
+        '#type' => 'chart',
+        '#chart_type' => 'column',
+        'series' => [
+          '#type' => 'chart_data',
+          '#title' => t(''),
+          '#data' => $data,
+          '#prefix' => '',
+          '#suffix' => '',
+        ],
+        'xaxis' => [
+          '#type' => 'chart_xaxis',
+          '#labels' => $labels,
+          '#max' => count($data),
+          '#min' => 0,
+        ],
+        'yaxis' => [
+          '#type' => 'chart_yaxis',
+          '#max' => max($data),
+          '#min' => 0,
+        ]
+      ];
+      $output = \Drupal::service('renderer')->render($chart);
+    }
+    else {
+      $output = "";
+    }
 
     return [
       ['#markup' => $output],

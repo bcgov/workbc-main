@@ -84,7 +84,7 @@ third_party_settings:
         - field_education_training_skills
         - extra_field_education_programs
         - field_skills_introduction
-        - field_skills
+        - extra_field_profile_skills
       label: 'Education, Training & Skills'
       parent_name: group_career_profile_tabs
       region: content
@@ -206,6 +206,11 @@ content:
     settings: {  }
     third_party_settings: {  }
     weight: 21
+    region: content
+  extra_field_profile_skills:
+    settings: {  }
+    third_party_settings: {  }
+    weight: 19
     region: content
   extra_field_salary_info_annual_salary:
     settings: {  }
@@ -365,15 +370,6 @@ content:
     third_party_settings: {  }
     weight: 11
     region: content
-  field_skills:
-    type: entity_reference_revisions_entity_view
-    label: above
-    settings:
-      view_mode: default
-      link: ''
-    third_party_settings: {  }
-    weight: 19
-    region: content
   field_skills_introduction:
     type: text_default
     label: above
@@ -396,3 +392,4 @@ content:
 hidden:
   body: true
   field_career_videos: true
+  field_skills: true
