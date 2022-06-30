@@ -1,0 +1,24 @@
+.breadcrumb-wrapper {
+  @include list-reset;
+  @include list-flex;
+
+  box-shadow: $workbc_default_shadow;
+
+  $breadcrumb-height: 45px;
+
+  .breadcrumb {
+    height: $breadcrumb-height;
+    font-size: 14px;
+    color: $workbc_default_text;
+  
+    & > li {
+      &:before {
+        line-height: $breadcrumb-height;
+      }
+
+      a {
+        color: $workbc_default_link;
+      }
+    }
+  }
+}
