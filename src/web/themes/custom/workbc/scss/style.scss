@@ -1,10 +1,27 @@
-@import 'includes';
-@import 'mixins/lists';
-@import 'components/alert_ribbon';
-@import 'components/breadcrumbs';
-@import 'components/navmenu';
+// this file is intended to be a centralized location for importing all of the pieces needed.
+// actual CSS should be broken out to various files.
 
-/* Always show vertical scrollbar to prevent content shifting if something causes the page content to grow while being viewed */
-body {
-    overflow-y: scroll; 
-}
+// abstracts
+@import 'abstracts/variables_drupal';
+@import 'abstracts/variables_workbc';
+@import 'abstracts/variables_bootstrap'; // @see https://getbootstrap.com/docs/5.1/customize/sass/#variable-defaults.
+@import 'abstracts/mixins_lists';
+
+// vendor
+@import '../../../../themes/contrib/bootstrap5/scss/style';
+
+// base
+@import 'base/reset';
+@import 'base/bcsans-typography';
+
+// layouts
+@import 'layout/alert_ribbon';
+@import 'layout/breadcrumbs';
+@import 'layout/navmenu';
+
+// components
+
+// pages
+
+// themes
+

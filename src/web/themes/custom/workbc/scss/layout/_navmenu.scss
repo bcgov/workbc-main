@@ -171,17 +171,7 @@ nav.navbar {
   min-height: 80px;
   padding: 0px;
   margin: 0px;
-//  box-shadow: 0px 5px 10px -5px #9D9D9D;
-
-  &:before {
-      content: "";
-      position: absolute;
-      left: 0;
-      right: 0;
-      bottom: 0;
-      z-index: -1;
-      box-shadow: $workbc_default_shadow;
-    }
+  box-shadow: $workbc_default_shadow;
 
   .container {
     position: relative;
