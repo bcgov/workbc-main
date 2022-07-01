@@ -47,46 +47,46 @@ class CareerProfileJobOpeningsByRegion extends ExtraFieldDisplayFormattedBase {
     if (!empty($entity->ssot_data) && isset($entity->ssot_data['career_regional'])) {
       $region = array();
       $region['name'] = "Cariboo";
-      $region['openings'] = $entity->ssot_data['career_regional']['cariboo_expected_number_of_job_openings_2021_2031'];
-      $region['growth'] = $entity->ssot_data['career_regional']['cariboo_average_annual_employment_growth_2021_2031'];
+      $region['openings'] = floatval($entity->ssot_data['career_regional']['cariboo_expected_number_of_job_openings_2021_2031']);
+      $region['growth'] = floatval($entity->ssot_data['career_regional']['cariboo_average_annual_employment_growth_2021_2031']);
       $regions[] = $region;
       $region = array();
       $region['name'] = "Kootenay";
-      $region['openings'] = $entity->ssot_data['career_regional']['kootenay_expected_number_of_job_openings_2021_2031'];
-      $region['growth'] = $entity->ssot_data['career_regional']['kootenay_average_annual_employment_growth_2021_2031'];
+      $region['openings'] = floatval($entity->ssot_data['career_regional']['kootenay_expected_number_of_job_openings_2021_2031']);
+      $region['growth'] = floatval($entity->ssot_data['career_regional']['kootenay_average_annual_employment_growth_2021_2031']);
       $regions[] = $region;
       $region = array();
       $region['name'] = "Mainland/Southwest";
-      $region['openings'] = $entity->ssot_data['career_regional']['mainland_southwest_expected_number_of_job_openings_2021_2031'];
-      $region['growth'] = $entity->ssot_data['career_regional']['mainland_southwest_average_annual_employment_growth_2021_2031'];
+      $region['openings'] = floatval($entity->ssot_data['career_regional']['mainland_southwest_expected_number_of_job_openings_2021_2031']);
+      $region['growth'] = floatval($entity->ssot_data['career_regional']['mainland_southwest_average_annual_employment_growth_2021_2031']);
       $regions[] = $region;
       $region = array();
       $region['name'] = "North Coast & Nechako";
-      $region['openings'] = $entity->ssot_data['career_regional']['north_coast_and_nechako_expected_number_of_job_openings_2021_20'];
-      $region['growth'] = $entity->ssot_data['career_regional']['north_coast_and_nechako_average_annual_employment_growth_2021_2'];
+      $region['openings'] = floatval($entity->ssot_data['career_regional']['north_coast_and_nechako_expected_number_of_job_openings_2021_20']);
+      $region['growth'] = floatval($entity->ssot_data['career_regional']['north_coast_and_nechako_average_annual_employment_growth_2021_2']);
       $regions[] = $region;
       $region = array();
       $region['name'] = "Northeast";
-      $region['openings'] = $entity->ssot_data['career_regional']['northeast_expected_number_of_job_openings_2021_2031'];
-      $region['growth'] = $entity->ssot_data['career_regional']['northeast_average_annual_employment_growth_2021_2031'];
+      $region['openings'] = floatval($entity->ssot_data['career_regional']['northeast_expected_number_of_job_openings_2021_2031']);
+      $region['growth'] = floatval($entity->ssot_data['career_regional']['northeast_average_annual_employment_growth_2021_2031']);
       $regions[] = $region;
       $region = array();
       $region['name'] = "Thompson-Okanagan";
-      $region['openings'] = $entity->ssot_data['career_regional']['thompson_okanagan_expected_number_of_job_openings_2021_2031'];
-      $region['growth'] = $entity->ssot_data['career_regional']['thompson_okanagan_average_annual_employment_growth_2021_2031'];
+      $region['openings'] = floatval($entity->ssot_data['career_regional']['thompson_okanagan_expected_number_of_job_openings_2021_2031']);
+      $region['growth'] = floatval($entity->ssot_data['career_regional']['thompson_okanagan_average_annual_employment_growth_2021_2031']);
       $regions[] = $region;
       $region = array();
       $region['name'] = "Vancouver Island-Coast";
-      $region['openings'] = $entity->ssot_data['career_regional']['vancouver_island_coast_expected_number_of_job_openings_2021_203'];
-      $region['growth'] = $entity->ssot_data['career_regional']['vancouver_island_coast_average_annual_employment_growth_2021_20'];
+      $region['openings'] = floatval($entity->ssot_data['career_regional']['vancouver_island_coast_expected_number_of_job_openings_2021_203']);
+      $region['growth'] = floatval($entity->ssot_data['career_regional']['vancouver_island_coast_average_annual_employment_growth_2021_20']);
       $regions[] = $region;
     }
 
 
 
     $module_handler = \Drupal::service('module_handler');
-    $module_path = $module_handler->getModule('workbc_extra_fields')->getPath();
-
+    // $module_path = $module_handler->getModule('workbc_extra_fields')->getPath();
+$module_path = "what";
     $text = '<div><img src="/' . $module_path . '/images/u6137.png" width="400px" height="330px"></div>';
     $text .= "<table>";
     $text .= "<tr><th>Region</th><th>Job Openings</th><th>Avg Annual Employment Growth</th></tr>";

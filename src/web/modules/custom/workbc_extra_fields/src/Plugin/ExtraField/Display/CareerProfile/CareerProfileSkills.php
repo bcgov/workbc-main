@@ -76,7 +76,7 @@ class CareerProfileSkills extends ExtraFieldDisplayFormattedBase {
           ],
           'xaxis' => [
             '#type' => 'chart_xaxis',
-            // '#labels' => $labels,
+            '#labels' => $labels,
             '#max' => count($data),
             '#min' => 0,
           ],
