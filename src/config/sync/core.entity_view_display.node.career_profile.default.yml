@@ -393,3 +393,4 @@ hidden:
   body: true
   field_career_videos: true
   field_skills: true
+  search_api_excerpt: true
