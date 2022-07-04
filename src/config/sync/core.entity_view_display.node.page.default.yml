@@ -8,6 +8,7 @@ dependencies:
     - field.field.node.page.field_hero_image
     - field.field.node.page.field_hero_text
     - field.field.node.page.field_related_topics
+    - image.style.feature_component
     - node.type.page
   module:
     - entity_reference_revisions
@@ -42,7 +43,7 @@ content:
     label: above
     settings:
       image_link: ''
-      image_style: ''
+      image_style: feature_component
       image_loading:
         attribute: lazy
     third_party_settings: {  }
