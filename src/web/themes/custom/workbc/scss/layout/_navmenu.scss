@@ -2,9 +2,10 @@
 
 // This mixin houses all the basic trim size setup
 @mixin nav-theme-base {
-  @include list-reset;
-  
+
   ul.nav-t1 {
+    @include list-reset;
+
     position: relative; // create positioning context %nav-t1
     height: 100%;
     width: 100%;
@@ -60,6 +61,8 @@
           padding: 15px 0;
 
           ul.nav-t2 {
+            @include list-reset;
+
             position: relative; // create positioning context %nav-t2
             height: 100%;
             width: 50%;
@@ -88,7 +91,9 @@
                 }
               }
 
-              .nav-t3 {
+              ul.nav-t3 {
+                @include list-reset;
+
                 display: none;
                 position: absolute; // relative to positioning context %nav-t2
                 left: 100%;

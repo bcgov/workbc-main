@@ -1,0 +1,12 @@
+nav.menu--account {
+  display: flex;
+  justify-content: flex-end;
+
+  ul.nav {
+    @include list-reset;
+    @include list-flex-inline;
+
+    & > li {
+    }
+  }
+}

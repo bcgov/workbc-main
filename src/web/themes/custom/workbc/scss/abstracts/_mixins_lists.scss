@@ -1,27 +1,20 @@
 @mixin list-reset {
-    ul, ol {
-      list-style: none;
-      padding: 0;
-      margin: 0;
-    }
-  }
-  
-  @mixin list-flex {
-    ul, ol {
-      height: 100%;
-      width: 100%;
-      display: flex;
-      flex-wrap: nowrap;
-      justify-content: space-between;
-      align-items: stretch;
-      gap: 0;
+  list-style: none;
+  padding: 0;
+  margin: 0;
+}
 
-      & > li {
-        flex: 2 1 auto;
-        display: flex;
-        flex-direction: column;
-        justify-content: space-around;
-        align-items: stretch;
-    }
+@mixin list-flex-inline {
+  // height: 100%;
+  // width: 100%;
+  display: flex;
+  flex-direction: row;
+  flex-wrap: nowrap;
+  // justify-content: space-between;     ************************
+  // align-items: stretch;
+  // gap: 0;
+
+  & > li {
+    flex: 0 1 auto;
   }
 }
