@@ -61,7 +61,9 @@ set footer_classes = ' ' ~
       {{ page.alert_ribbon }}
   {% endif %}
 
-  {{ page.header }}
+  <div class="{{ b5_top_container }}">
+    {{ page.header }}
+  </div>
 
   {% if page.nav_branding or page.nav_main or page.nav_additional %}
   <nav class="{{ nav_classes }}">

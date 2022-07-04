@@ -1,0 +1,62 @@
+.region-header {
+  display: flex;
+  flex-wrap: wrap;
+  flex-direction: row;
+  justify-content: space-between;
+
+  nav.menu--account {
+    $workbc_account_menu_item_padding: 8px;
+  
+    flex: 0 0 100%;
+
+    display: flex;
+    justify-content: flex-end;
+  
+    ul.nav {
+      @include list-reset;
+      @include list-flex-inline;
+  
+      & > li {
+        position: relative; // start position context %navli
+  
+        & > a {
+          color: $workbc_default_text;
+          text-decoration: none;
+          padding: $workbc_account_menu_item_padding;
+        }
+        &:hover > a {
+          text-decoration: underline;
+        }
+        &:not(:last-of-type) {
+          padding-right: $workbc_account_menu_item_padding; // make space for the :after
+  
+          &:after {
+            content: "|";
+            position: absolute; // relative to position context %navli
+            right: 0;
+            top: $workbc_account_menu_item_padding;
+          }
+        }
+      }
+    }
+  }
+
+  .block-system-branding-block {
+    flex: 2 1 auto;
+    padding: 30px 0;
+
+    display: flex;
+    justify-content: flex-start;
+    align-self: center;
+  }
+  
+  .search-block-form {
+    flex: 2 1 auto;
+    padding: 30px 0;
+    
+    display: flex;
+    justify-content: flex-end;
+    align-self: center;
+  }
+}
+
