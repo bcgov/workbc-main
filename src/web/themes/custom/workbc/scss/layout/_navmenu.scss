@@ -17,9 +17,9 @@
     margin: 0;
 
     & > li {
-      padding: $workbc_trim_standard_size $workbc_trim_standard_size 0 $workbc_trim_standard_size; 
-      border-bottom: $workbc_trim_standard_size solid $workbc_transparent; 
-      min-width: 90px;
+      padding: $workbc_trim_standard_size 10px 0 10px; // top padding set to balance border-bottom and keep content centered
+      border-bottom: $workbc_trim_standard_size solid $workbc_transparent; // placeholder for hover styling to avoid content jumping
+      min-width: 80px;
       height: 80px;
       flex: 2 1 auto;
       display: flex;
@@ -30,6 +30,7 @@
       & > a {
         font-size: 16px;
         text-decoration: none;
+        padding: 0;
     
         &:hover {
           text-decoration: none;
@@ -67,29 +68,25 @@
             & > li {
               border-left: $workbc_trim_standard_size solid $workbc_transparent; //placeholder to prevent content shifting when colored borders are in place (hover, etc.)
     
-              a.has-submenu {
-                position: relative; // create positioning context %has-submenu
-
-                &:after {
-                  position: absolute; // relative to positioning context %has-submenu
-                  top: 0;
-                  right: 0;
-                  bottom: 0;
-                  content: '\e5cc';
-                  font-family: 'Material Symbols Outlined';
-                  font-weight: normal;
-                  font-style: normal;
-                  font-size: 24px;  /* Preferred icon size */
-                  color: grey;
-                }
-              }
-
-              &:hover .nav-t3 {
-                display: block;
-              }
-
               a {
                 padding: 5px 20px 5px 10px;
+
+                &.has-submenu {
+                  position: relative; // create positioning context %has-submenu
+
+                  &:after {
+                    position: absolute; // relative to positioning context %has-submenu
+                    top: 0;
+                    right: 0;
+                    bottom: 0;
+                    content: '\e5cc';
+                    font-family: 'Material Symbols Outlined';
+                    font-weight: normal;
+                    font-style: normal;
+                    font-size: 24px;  /* Preferred icon size */
+                    color: grey;
+                  }
+                }
               }
 
               .nav-t3 {
@@ -99,6 +96,10 @@
                 top: 0;
                 height: 100%;
                 width: 50%;
+              }
+
+              &:hover .nav-t3 {
+                display: block;
               }
             }
           }
@@ -182,9 +183,12 @@
 /* ============ navbar layout  ============ */
 
 nav.navbar { 
-  position: relative;
+  position: sticky;
+  top: 100px;
+  align-self: flex-start;
+
   z-index: 3;
-  min-height: 80px;
+  height: 80px;
   padding: 0px;
   margin: 0px;
   box-shadow: $workbc_default_shadow;
