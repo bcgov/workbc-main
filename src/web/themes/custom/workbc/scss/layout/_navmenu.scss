@@ -5,6 +5,7 @@
   @include list-reset;
   
   ul.nav-t1 {
+    position: relative; // create positioning context %nav-t1
     height: 100%;
     width: 100%;
     display: flex;
@@ -43,10 +44,11 @@
 
       .submenu-container {
         display: none;
-        position: absolute;
+        position: absolute; // relative to positioning context %nav-t1
         top: 100%;
         right: 0;
         left: 0;
+        padding-top: 10px;
 
         ul.nav-t1 > li:hover & {
           display: block;
@@ -54,24 +56,24 @@
 
         .submenu {
           width: 100%;
-          min-height: 370px;
+          min-height: 420px;
           padding: 6px 0;
 
           ul.nav-t2 {
-            position: relative;
+            position: relative; // create positioning context %nav-t2
             height: 100%;
             width: 50%;
 
             & > li {
-              border-left: $workbc_trim_standard_size solid $workbc_transparent;
+              border-left: $workbc_trim_standard_size solid $workbc_transparent; //placeholder to prevent content shifting when colored borders are in place (hover, etc.)
     
-              &.has-submenu {
-                position: relative;
-      
+              a.has-submenu {
+                position: relative; // create positioning context %has-submenu
+
                 &:after {
-                  position: absolute;
-                  right: 0;
+                  position: absolute; // relative to positioning context %has-submenu
                   top: 0;
+                  right: 0;
                   bottom: 0;
                   content: '\e5cc';
                   font-family: 'Material Symbols Outlined';
@@ -86,15 +88,18 @@
                 display: block;
               }
 
+              a {
+                padding: 5px 20px 5px 10px;
+              }
+
               .nav-t3 {
                 display: none;
-                position: absolute;
+                position: absolute; // relative to positioning context %nav-t2
                 left: 100%;
                 top: 0;
                 height: 100%;
                 width: 50%;
               }
-  
             }
           }
         }
@@ -143,6 +148,7 @@
               &:hover {
                 border-left: $workbc_trim_standard_size solid $workbc_dark_blue;
                 background-color: $workbc_light_theme_highlight;
+                color: $workbc_default_link;
         
                 a, a:focus {
                   color: $workbc_light_theme_link;
@@ -153,6 +159,16 @@
     
             a, a:focus {
               color: $workbc_light_theme_text;
+            }
+
+            ul.nav-t3 {
+              a {
+                text-decoration: none;
+
+                &:hover {
+                  text-decoration: underline;
+                }
+              }
             }
           }
         }
