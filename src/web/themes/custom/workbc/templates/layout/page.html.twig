@@ -106,25 +106,28 @@ set footer_classes = ' ' ~
   {% if page.breadcrumb %}
       {{ page.breadcrumb }}
   {% endif %}
-  
-  <div class="{{ b5_top_container }}">
-    <div class="row g-0">
-      {% if page.sidebar_first %}
-        <div class="order-2 order-lg-1 {{ sidebar_first_classes }}">
-          {{ page.sidebar_first }}
-        </div>
-      {% endif %}
-      <div class="order-1 order-lg-2 {{ content_classes }}">
-        {{ page.content }}
-      </div>
-      {% if page.sidebar_second %}
-        <div class="order-3 {{ sidebar_second_classes }}">
-          {{ page.sidebar_second }}
-        </div>
-      {% endif %}
-    </div>
-  </div>
 
+  <div class="page-content-wrapper">
+    <div id="submenu-underlay"></div>
+    <div class="{{ b5_top_container }}">
+      <div class="row g-0">
+        {% if page.sidebar_first %}
+          <div class="order-2 order-lg-1 {{ sidebar_first_classes }}">
+            {{ page.sidebar_first }}
+          </div>
+        {% endif %}
+        <div class="order-1 order-lg-2 {{ content_classes }}">
+          {{ page.content }}
+        </div>
+        {% if page.sidebar_second %}
+          <div class="order-3 {{ sidebar_second_classes }}">
+            {{ page.sidebar_second }}
+          </div>
+        {% endif %}
+      </div>
+    </div>
+
+  </div>  
 </main>
 
 {% if page.footer %}
@@ -134,3 +137,5 @@ set footer_classes = ' ' ~
   </div>
 </footer>
 {% endif %}
+
+{{ attach_library('workbc/submenu-underlay') }}

@@ -49,7 +49,6 @@
         top: 100%;
         right: 0;
         left: 0;
-        padding-top: 10px;
 
         ul.nav-t1 > li:hover & {
           display: block;
@@ -58,7 +57,7 @@
         .submenu {
           width: 100%;
           min-height: 420px;
-          padding: 6px 0;
+          padding: 15px 0;
 
           ul.nav-t2 {
             position: relative; // create positioning context %nav-t2
@@ -205,23 +204,18 @@ nav.navbar {
   }
 }
 
-header {
+.page-content-wrapper {
   position: relative;
-}
 
-
-.page-content-container {
-  position: relative;
-}
-
-.submenu-underlay {
-  position: absolute;
-  top: 0;
-  right: 0;
-  bottom: 0;
-  left: 0;
-  background-color: rgba(20,20,20,0.3);
-  display: none;
+  #submenu-underlay {
+    position: absolute;
+    top: 0;
+    right: 0;
+    bottom: 0;
+    left: 0;
+    background-color: rgba(20,20,20,0.15);
+    display: none;
+  }
 }
 
 /* ============ navbar layout .end// ============ */
