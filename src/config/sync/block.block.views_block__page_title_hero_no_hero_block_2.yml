@@ -41,7 +41,6 @@ visibility:
     bundles:
       bc_profile: bc_profile
       blog: blog
-      career_profile: career_profile
       event: event
       industry_profile: industry_profile
       labour_market_monthly: labour_market_monthly
