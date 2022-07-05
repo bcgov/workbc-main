@@ -25,6 +25,7 @@ display:
     display_plugin: default
     position: 0
     display_options:
+      title: 'Career Profiles: Search by A-Z'
       fields:
         nid:
           id: nid
