@@ -1,4 +1,4 @@
-uuid: bb1db8fc-32b4-4632-85d7-445e9c26a19a
+uuid: cb01b031-3b32-4488-aac3-2451a977b587
 langcode: en
 status: true
 dependencies:
@@ -10,14 +10,14 @@ dependencies:
     - views
   theme:
     - workbc
-id: views_block__page_title_hero_no_hero_block_1
+id: views_block__page_title_hero_no_hero_block_3
 theme: workbc
 region: breadcrumb
-weight: -7
+weight: -6
 provider: null
-plugin: 'views_block:page_title_hero_no_hero-block_1'
+plugin: 'views_block:page_title_hero_no_hero-block_3'
 settings:
-  id: 'views_block:page_title_hero_no_hero-block_1'
+  id: 'views_block:page_title_hero_no_hero-block_3'
   label: ''
   label_display: visible
   provider: views
@@ -39,14 +39,4 @@ visibility:
     context_mapping:
       node: '@node.node_route_context:node'
     bundles:
-      bc_profile: bc_profile
-      blog: blog
-      event: event
-      industry_profile: industry_profile
-      labour_market_monthly: labour_market_monthly
-      landing_page: landing_page
-      news: news
-      page: page
-      region_profile: region_profile
-      success_story: success_story
-      workbc_centre: workbc_centre
+      career_profile: career_profile
