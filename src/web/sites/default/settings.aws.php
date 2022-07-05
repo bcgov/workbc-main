@@ -13,6 +13,8 @@ $databases['default']['default'] = array (
 
 $settings['hash_salt'] = json_encode($databases);
 
+$settings['file_private_path'] = '/app/private';
+
 /**
  * WorkBC configuration.
  */
