@@ -11,7 +11,7 @@ _core:
 id: workbc_breadcrumbs
 theme: workbc
 region: breadcrumb
-weight: 0
+weight: -5
 provider: null
 plugin: system_breadcrumb_block
 settings:
