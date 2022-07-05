@@ -3,7 +3,7 @@ workbc-main
 
 This is the WorkBC site on Drupal.
 
-[![Lifecycle:Experimental](https://img.shields.io/badge/Lifecycle-Experimental-339999)](https://github.com/bcgov/workbc-ssot)
+[![Lifecycle:Experimental](https://img.shields.io/badge/Lifecycle-Experimental-339999)](https://github.com/bcgov/workbc-main)
 
 # Development
 ## Initial setup
@@ -28,7 +28,7 @@ This is the WorkBC site on Drupal.
 `make sync` from the `src/` folder should perform any post-pull actions needed
 or run the update script: `docker-compose exec php scripts/update.sh`
 
-In some situations `drush cim` fails. In this case, the Drupal UI (Configuration -> Development -> Configuration Syncronization) should work. 
+In some situations `drush cim` fails. In this case, the Drupal UI (Configuration -> Development -> Configuration Syncronization) should work.
 If errors still persist, you may need to manually enable new modules before running the configuration syncronization with `drush en module`.
 
 ## Installing modules
