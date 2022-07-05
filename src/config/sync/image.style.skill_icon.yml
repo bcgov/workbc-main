@@ -1,15 +1,15 @@
-uuid: b538b972-bc67-46f6-b34c-0be83132a050
+uuid: 88b46936-289b-49bb-ac20-c9762e74f505
 langcode: en
 status: true
 dependencies: {  }
 name: skill_icon
 label: 'Skill Icon'
 effects:
-  d332a718-5fc5-4679-8afb-e36c5ecdb3d8:
-    uuid: d332a718-5fc5-4679-8afb-e36c5ecdb3d8
-    id: image_scale
+  8c06b887-b72c-48c2-8dfc-ba01966371db:
+    uuid: 8c06b887-b72c-48c2-8dfc-ba01966371db
+    id: image_scale_and_crop
     weight: 1
     data:
-      width: 73
-      height: null
-      upscale: false
+      width: 75
+      height: 75
+      anchor: center-center

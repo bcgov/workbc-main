@@ -49,47 +49,47 @@ class CareerProfileLabourMarketEmploymentByRegion extends ExtraFieldDisplayForma
       $region = array();
       $region['name'] = "Cariboo";
       $region['employment'] = intval($entity->ssot_data['career_regional']['cariboo_employment_in_2021']);
-      $region['percent'] = 0;
+      $region['percent'] = floatval($entity->ssot_data['census']['cariboo_employment_of_this_occupation']);
       $regions[] = $region;
       $region = array();
       $region['name'] = "Kootenay";
       $region['employment'] = intval($entity->ssot_data['career_regional']['kootenay_employment_in_2021']);
-      $region['percent'] = 0;
+      $region['percent'] = floatval($entity->ssot_data['census']['kootenay_employment_of_this_occupation']);
       $regions[] = $region;
       $region = array();
       $region['name'] = "Mainland/Southwest";
       $region['employment'] = intval($entity->ssot_data['career_regional']['mainland_southwest_employment_in_2021']);
-      $region['percent'] = 0;
+      $region['percent'] = floatval($entity->ssot_data['census']['mainland_southwest_employment_of_this_occupation']);
       $regions[] = $region;
       $region = array();
       $region['name'] = "North Coast & Nechako";
       $region['employment'] = intval($entity->ssot_data['career_regional']['north_coast_and_nechako_employment_in_2021']);
-      $region['percent'] = 0;
+      $region['percent'] = floatval($entity->ssot_data['census']['north_coast_nechako_employment_of_this_occupation']);
       $regions[] = $region;
       $region = array();
       $region['name'] = "Northeast";
       $region['employment'] = intval($entity->ssot_data['career_regional']['northeast_employment_in_2021']);
-      $region['percent'] = 0;
+      $region['percent'] = floatval($entity->ssot_data['census']['northeast_employment_of_this_occupation']);
       $regions[] = $region;
       $region = array();
       $region['name'] = "Thompson-Okanagan";
       $region['employment'] = intval($entity->ssot_data['career_regional']['thompson_okanagan_employment_in_2021']);
-      $region['percent'] = 0;
+      $region['percent'] = floatval($entity->ssot_data['census']['thompson_okanagan_employment_of_this_occupation']);
       $regions[] = $region;
       $region = array();
       $region['name'] = "Vancouver Island-Coast";
       $region['employment'] = intval($entity->ssot_data['career_regional']['vancouver_island_coast_employment_in_2021']);
-      $region['percent'] = 0;
+      $region['percent'] = floatval($entity->ssot_data['census']['vancouver_island_coast_employment_of_this_occupation']);
       $regions[] = $region;
 
       $total = 0;
 
-      foreach ($regions as $region) {
-        $total += $region['employment'];
-      }
-      foreach ($regions as $i => $region) {
-        $regions[$i]['percent'] = ($region['employment'] / $total) * 100;
-      }
+      // foreach ($regions as $region) {
+      //   $total += $region['employment'];
+      // }
+      // foreach ($regions as $i => $region) {
+      //   $regions[$i]['percent'] = ($region['employment'] / $total) * 100;
+      // }
     }
 
 

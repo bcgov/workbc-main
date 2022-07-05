@@ -27,7 +27,7 @@ class CareerProfileEducationPrograms extends ExtraFieldDisplayFormattedBase {
    */
   public function getLabel() {
 
-    return $this->t('Education Programs');
+    return $this->t('');
   }
 
   /**
@@ -44,13 +44,14 @@ class CareerProfileEducationPrograms extends ExtraFieldDisplayFormattedBase {
   public function viewElements(ContentEntityInterface $entity) {
 
     $noc = $entity->get("field_noc")->getString();
-    $text = "<p>The following program areas are related to this occupation</p>";
-    $text .= "<ul>";
-    $text .= "<li>[education-program]</li>";
-    $text .= "<li>[education-program]</li>";
-    $text .= "<li>[education-program]</li>";
-    $text .= "</ul>";
-    $text .= "<p></p>";
+    $text = "";
+    // $text .= "<p>The following program areas are related to this occupation</p>";
+    // $text .= "<ul>";
+    // $text .= "<li>[education-program]</li>";
+    // $text .= "<li>[education-program]</li>";
+    // $text .= "<li>[education-program]</li>";
+    // $text .= "</ul>";
+    // $text .= "<p></p>";
     $text .= "<p>Find out more information about programs offered specifically for this career.</p>";
     $text .= "<p><a href='https://www.educationplannerbc.ca/search/noc/" . $noc . "'>Visit EducationPlannerBC</a> >";
 

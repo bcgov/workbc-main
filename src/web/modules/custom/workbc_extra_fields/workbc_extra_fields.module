@@ -27,15 +27,15 @@ function workbc_extra_fields_node_view(array &$build, \Drupal\Core\Entity\Entity
 }
 
 function ssotCareerProfile($noc) {
+
   $data = array();
-  $data['wages'] = querySSoT('wages?noc=eq.' . $noc);
-  $data['career_provincial'] = querySSoT('career_provincial?noc=eq.' . $noc);
-  $data['career_regional'] = querySSoT('career_regional?noc=eq.' . $noc);
-  $data['census'] = querySSoT('census?noc=eq.' . $noc);
-  $data['education'] = querySSoT('education?noc=eq.' . $noc);
-  $data['skills'] = array(querySSoT('skills?noc=eq.' . $noc));
-  // $data[''] = querySSoT('?noc=eq.' . $noc);
-  ksm($data);
+  $data['wages'] = querySSoT('wages?noc=eq.' . $noc)[0];
+  $data['career_provincial'] = querySSoT('career_provincial?noc=eq.' . $noc)[0];
+  $data['career_regional'] = querySSoT('career_regional?noc=eq.' . $noc)[0];
+  $data['census'] = querySSoT('census?noc=eq.' . $noc)[0];
+  $data['education'] = querySSoT('education?noc=eq.' . $noc)[0];
+  $data['skills'] = querySSoT('skills?noc=eq.' . $noc);
+ksm($data);
   return $data;
 }
 
@@ -46,7 +46,7 @@ function querySSoT($url) {
     $response = $client->get($ssot . '/' . $url);
     $result = json_decode($response->getBody(), TRUE);
     if (isset($result[0])) {
-      $data = $result[0];
+      $data = $result;
       return $data;
     }
   }

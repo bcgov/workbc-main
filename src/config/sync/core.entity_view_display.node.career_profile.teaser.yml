@@ -10,6 +10,7 @@ dependencies:
     - field.field.node.career_profile.field_career_pathways
     - field.field.node.career_profile.field_career_videos
     - field.field.node.career_profile.field_duties
+    - field.field.node.career_profile.field_education_programs
     - field.field.node.career_profile.field_education_training_skills
     - field.field.node.career_profile.field_hero_image
     - field.field.node.career_profile.field_hi_opportunity_occupation
@@ -23,7 +24,6 @@ dependencies:
     - field.field.node.career_profile.field_related_careers
     - field.field.node.career_profile.field_resources
     - field.field.node.career_profile.field_salary_introduction
-    - field.field.node.career_profile.field_skills
     - field.field.node.career_profile.field_skills_introduction
     - field.field.node.career_profile.field_work_environment
     - node.type.career_profile
@@ -60,6 +60,7 @@ hidden:
   extra_field_labour_market_expected_openings: true
   extra_field_labour_market_number_employed: true
   extra_field_labour_market_region_employment: true
+  extra_field_profile_skills: true
   extra_field_salary_info_annual_salary: true
   extra_field_salary_info_hourly_rate: true
   extra_field_work_environment_number_employed: true
@@ -69,6 +70,7 @@ hidden:
   field_career_pathways: true
   field_career_videos: true
   field_duties: true
+  field_education_programs: true
   field_education_training_skills: true
   field_hero_image: true
   field_hi_opportunity_occupation: true
@@ -82,6 +84,6 @@ hidden:
   field_related_careers: true
   field_resources: true
   field_salary_introduction: true
-  field_skills: true
   field_skills_introduction: true
   field_work_environment: true
+  search_api_excerpt: true

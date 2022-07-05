@@ -45,8 +45,8 @@ class CareerProfileSkills extends ExtraFieldDisplayFormattedBase {
    * {@inheritdoc}
    */
   public function viewElements(ContentEntityInterface $entity) {
-
     if (!empty($entity->ssot_data) && isset($entity->ssot_data['skills'])) {
+
       $output = "";
       foreach ($entity->ssot_data['skills'] as $skill) {
 
