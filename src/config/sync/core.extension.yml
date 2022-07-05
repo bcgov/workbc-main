@@ -10,6 +10,7 @@ module:
   big_pipe: 0
   block: 0
   block_content: 0
+  block_visibility_conditions: 0
   breakpoint: 0
   charts: 0
   charts_google: 0
@@ -67,6 +68,7 @@ module:
   tour: 0
   update: 0
   user: 0
+  views_infinite_scroll: 0
   views_ui: 0
   viewsreference: 0
   workbc_extra_fields: 0
