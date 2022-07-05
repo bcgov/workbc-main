@@ -5,6 +5,7 @@ dependencies:
   config:
     - views.view.search_career_profiles
   module:
+    - block_visibility_conditions
     - system
     - views
   theme:
@@ -25,4 +26,12 @@ visibility:
   request_path:
     id: request_path
     negate: false
-    pages: /search-results-career-profiles
+    pages: /search-career-profiles
+  not_node_type:
+    id: not_node_type
+    bundles: {  }
+    negate: null
+  not_taxonomy_vocabulary:
+    id: not_taxonomy_vocabulary
+    bundles: {  }
+    negate: null
