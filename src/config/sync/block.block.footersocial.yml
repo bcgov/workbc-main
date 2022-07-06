@@ -1,0 +1,25 @@
+uuid: 2c61e7c6-9bcf-47d3-bab3-5b1fe9e18b7e
+langcode: en
+status: true
+dependencies:
+  content:
+    - 'block_content:basic:5920c59b-77aa-4546-89f1-43e8c38503ac'
+  module:
+    - block_content
+  theme:
+    - workbc
+id: footersocial
+theme: workbc
+region: footer
+weight: -7
+provider: null
+plugin: 'block_content:5920c59b-77aa-4546-89f1-43e8c38503ac'
+settings:
+  id: 'block_content:5920c59b-77aa-4546-89f1-43e8c38503ac'
+  label: 'Footer Social'
+  label_display: '0'
+  provider: block_content
+  status: true
+  info: ''
+  view_mode: full
+visibility: {  }

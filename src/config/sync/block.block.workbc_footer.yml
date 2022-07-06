@@ -1,6 +1,6 @@
 uuid: 42a01188-ac65-45dc-847f-72a52c62c894
 langcode: en
-status: false
+status: true
 dependencies:
   config:
     - system.menu.footer
@@ -13,12 +13,12 @@ _core:
 id: workbc_footer
 theme: workbc
 region: footer
-weight: -6
+weight: -8
 provider: null
 plugin: 'system_menu_block:footer'
 settings:
   id: 'system_menu_block:footer'
-  label: Footer
+  label: 'Footer Menu'
   label_display: '0'
   provider: system
   level: 1
