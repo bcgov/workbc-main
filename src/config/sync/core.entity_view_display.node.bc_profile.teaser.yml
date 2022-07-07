@@ -42,3 +42,4 @@ hidden:
   field_key_facts: true
   field_labour_market_stats_intro: true
   field_region_overview: true
+  search_api_excerpt: true

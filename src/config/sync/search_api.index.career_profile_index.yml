@@ -3,42 +3,25 @@ langcode: en
 status: true
 dependencies:
   config:
+    - field.storage.node.field_noc
     - search_api.server.database_server
-    - core.entity_view_mode.node.search_index
   module:
     - node
-    - user
     - search_api
 id: career_profile_index
 name: 'Career Profile Index'
 description: ''
 read_only: false
 field_settings:
-  changed:
-    label: Changed
+  field_noc:
+    label: NOC
     datasource_id: 'entity:node'
-    property_path: changed
-    type: date
+    property_path: field_noc
+    type: text
+    boost: !!float 3
     dependencies:
-      module:
-        - node
-  created:
-    label: 'Authored on'
-    datasource_id: 'entity:node'
-    property_path: created
-    type: date
-    dependencies:
-      module:
-        - node
-  name:
-    label: 'Author name'
-    datasource_id: 'entity:node'
-    property_path: 'uid:entity:name'
-    type: string
-    dependencies:
-      module:
-        - node
-        - user
+      config:
+        - field.storage.node.field_noc
   node_grants:
     label: 'Node access information'
     property_path: search_api_node_grants
@@ -46,16 +29,6 @@ field_settings:
     indexed_locked: true
     type_locked: true
     hidden: true
-  rendered_item:
-    label: 'Rendered HTML output'
-    property_path: rendered_item
-    type: text
-    configuration:
-      roles:
-        anonymous: anonymous
-      view_mode:
-        'entity:node':
-          career_profile: search_index
   status:
     label: 'Publishing status'
     datasource_id: 'entity:node'
@@ -66,27 +39,12 @@ field_settings:
     dependencies:
       module:
         - node
-  sticky:
-    label: 'Sticky at top of lists'
-    datasource_id: 'entity:node'
-    property_path: sticky
-    type: boolean
-    dependencies:
-      module:
-        - node
   title:
     label: Title
     datasource_id: 'entity:node'
     property_path: title
-    type: string
-    dependencies:
-      module:
-        - node
-  type:
-    label: 'Content type'
-    datasource_id: 'entity:node'
-    property_path: type
-    type: string
+    type: text
+    boost: !!float 5
     dependencies:
       module:
         - node
@@ -123,7 +81,8 @@ processor_settings:
       preprocess_query: -46
     all_fields: false
     fields:
-      - rendered_item
+      - field_noc
+      - title
     title: true
     alt: true
     tags:
@@ -136,19 +95,31 @@ processor_settings:
     weights:
       preprocess_index: -50
       preprocess_query: -49
-    all_fields: false
+    all_fields: true
     fields:
-      - rendered_item
+      - field_noc
       - title
   language_with_fallback: {  }
   rendered_item: {  }
+  stemmer:
+    weights:
+      preprocess_index: 0
+      preprocess_query: 0
+    all_fields: false
+    fields:
+      - field_noc
+      - title
+    exceptions:
+      mexican: mexic
+      texan: texa
   stopwords:
     weights:
       preprocess_index: -49
       preprocess_query: -50
     all_fields: false
     fields:
-      - rendered_item
+      - field_noc
+      - title
     stopwords:
       - a
       - an
@@ -191,7 +162,8 @@ processor_settings:
       preprocess_query: -44
     all_fields: false
     fields:
-      - rendered_item
+      - field_noc
+      - title
     spaces: ''
     ignored: ._-
     overlap_cjk: 1
@@ -200,9 +172,9 @@ processor_settings:
     weights:
       preprocess_index: -48
       preprocess_query: -47
-    all_fields: false
+    all_fields: true
     fields:
-      - rendered_item
+      - field_noc
       - title
 tracker_settings:
   default:
