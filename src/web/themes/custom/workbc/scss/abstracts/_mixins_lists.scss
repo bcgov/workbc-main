@@ -1,0 +1,34 @@
+@mixin list-reset {
+  list-style: none;
+  padding: 0;
+  margin: 0;
+}
+
+@mixin list-flex-inline {
+  // height: 100%;
+  // width: 100%;
+  display: flex;
+  flex-direction: row;
+  flex-wrap: nowrap;
+  // justify-content: space-between;     ************************
+  // align-items: stretch;
+  // gap: 0;
+
+  & > li {
+    flex: 0 1 auto;
+  }
+}
+
+@mixin list-item-separator-after($content, $padding) {
+  position: relative; // start position context %navli
+  &:not(:last-of-type) {
+    padding-right: $padding; // make space for the :after
+
+    &:after {
+      content: $content;
+      position: absolute; // relative to position context %navli
+      right: 0;
+      top: $padding;
+    }
+  }
+}

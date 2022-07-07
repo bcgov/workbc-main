@@ -57,6 +57,11 @@ ps:
 shell:
 	@docker-compose --project-directory "$(SOLUTION_ROOT)" exec php bash
 
+## dbshell	:	Access `postgres` container via shell.
+.PHONY: dbshell
+dbshell:
+	@docker-compose --project-directory "$(SOLUTION_ROOT)" exec postgres bash
+
 ## sync	:	Attempt to synchronize various dependencies - most useful after a pulling a new branch
 .PHONY: sync
 sync:
@@ -82,11 +87,32 @@ logs:
 compilescss:
 	@docker-compose --project-directory "$(SOLUTION_ROOT)" exec php yarn run grunt dart-sass
 
-## compilescss	:	Watch the scss for changes and react per Gruntfile configuration
+## watchscss	:	Watch the scss for changes and react per Gruntfile configuration
 .PHONY: watchscss
 watchscss:
 	@docker-compose --project-directory "$(SOLUTION_ROOT)" exec php yarn run grunt watch
 
+## navrebuild	:	rebuild the navigation menu content
+.PHONY: navrebuild
+navrebuild:
+	@docker-compose --project-directory "$(SOLUTION_ROOT)" exec php drush entity:delete node
+	@docker-compose --project-directory "$(SOLUTION_ROOT)" exec php drush entity:delete menu_link_content
+	@docker-compose --project-directory "$(SOLUTION_ROOT)" exec php drush scr scripts/migration/migrate.php
+
+
+## dbreset
+##.PHONY: dbreset
+##	@docker-compose --project-directory "$(SOLUTION_ROOT)" exec postgres scripts/dbreset.sh
+
+## pgdumpclean	:	create a backup of the current postgres database (with clean flag)
+.PHONY: pgdumpclean
+pgdumpclean:
+	@docker-compose --project-directory "$(SOLUTION_ROOT)" exec -T postgres pg_dump --clean --username workbc workbc > $(filter-out $@,$(MAKECMDGOALS))
+
+## pgrestore	:	restore a backup of the current postgres database
+.PHONY: pgrestore
+pgrestore:
+	@docker-compose --project-directory "$(SOLUTION_ROOT)" exec -T postgres psql --username workbc workbc < $(filter-out $@,$(MAKECMDGOALS))
 
 # https://stackoverflow.com/a/6273809/1826109
 %:

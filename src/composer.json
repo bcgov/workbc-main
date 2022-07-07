@@ -65,6 +65,7 @@
         "drupal/paragraphs": "^1.14",
         "drupal/published_corrected_date": "^2.0",
         "drupal/search_api": "^1.23",
+        "drupal/search_api_autocomplete": "^1.6",
         "drupal/time_field": "^2.0",
         "drupal/views_infinite_scroll": "^2.0",
         "drupal/viewsreference": "^1.8",
