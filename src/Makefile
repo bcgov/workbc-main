@@ -104,6 +104,16 @@ navrebuild:
 ##.PHONY: dbreset
 ##	@docker-compose --project-directory "$(SOLUTION_ROOT)" exec postgres scripts/dbreset.sh
 
+## pgdumpclean	:	create a backup of the current postgres database (with clean flag)
+.PHONY: pgdumpclean
+pgdumpclean:
+	@docker-compose --project-directory "$(SOLUTION_ROOT)" exec -T postgres pg_dump --clean --username workbc workbc > $(filter-out $@,$(MAKECMDGOALS))
+
+## pgrestore	:	restore a backup of the current postgres database
+.PHONY: pgrestore
+pgrestore:
+	@docker-compose --project-directory "$(SOLUTION_ROOT)" exec -T postgres psql --username workbc workbc < $(filter-out $@,$(MAKECMDGOALS))
+
 # https://stackoverflow.com/a/6273809/1826109
 %:
 	@:
