@@ -1,15 +1,15 @@
 footer {
   background-color: $workbc_dark_blue;
 
-  .footer-wrapper {
+  .region-footer {
     display: flex;
     flex-flow: row wrap;
+    row-gap: 30px;
 
     width: 100%;
 
     nav.menu--footer {
-      display: flex;
-      flex: 2 0 60%;
+      flex: 2 1 85%;
       justify-content: flex-start;
       align-self: center;
 
@@ -17,13 +17,27 @@ footer {
         @include list-reset;
         @include list-flex-inline;
 
-        color: $workbc_dark_theme_text;
+        & > li { 
+          @include list-item-separator-after("|", 8px);
+          color: $workbc_dark_theme_text;
+
+          &:first-of-type > a {
+            padding-left: 0;
+          }
+
+          & > a {
+            color: $workbc_dark_theme_text;
+
+            &:not(:hover) {
+              text-decoration: none;
+            }
+          }
+        }
       }
     }
 
     #block-footersocial {
-      display: flex;
-      flex: 2 0 30%;
+      flex: 2 1 15%; // this is expected to grow, but using a low value forces the silly drupal structure right
       justify-content: flex-end;
       align-self: center;
 
@@ -31,35 +45,116 @@ footer {
         @include list-reset;
         @include list-flex-inline;
 
-        color: $workbc_dark_theme_text;
+        li {
+          $icon-size: 40px;
+
+          position: relative; // start position context %iconlink
+
+          width: $icon-size;
+          height: $icon-size;
+
+          border-radius: calc($icon-size / 2);
+          border: calc($icon-size / 2) solid white;
+
+          &:not(:first-of-type) {
+            margin-left: 10px;
+          }
+
+          &:hover {
+            border-color: lightgray;
+          }
+
+          & > a {
+            position: absolute; // relative to position context %iconlink
+            color: transparent;
+            width: $icon-size;
+            height: $icon-size;
+            // note: top/left are negative half, and bottom/right are positive half to force it to absolute directly over top
+            top: -(calc($icon-size / 2));
+            right: (calc($icon-size / 2));
+            bottom: (calc($icon-size / 2));
+            left: -(calc($icon-size / 2));
+
+            background-repeat: no-repeat;
+            background-position: center;
+
+            &.twitter {
+              background-image: url(../assets/images/social-icon-twitter.svg);
+              background-size: 50%;
+            }
+  
+            &.youtube {
+              background-image: url(../assets/images/social-icon-youtube.svg);
+              background-size: 50%;
+            }
+  
+            &.linkedin {
+              background-image: url(../assets/images/social-icon-linkedin.svg);
+              background-size: 50%;
+              background-position: 48% 50%;
+            }
+  
+            &.facebook {
+              background-image: url(../assets/images/social-icon-facebook.svg);
+              background-size: 25%;
+            }
+          }
+        }
       }
     }
 
     #block-footertextsize {
-      display: flex;
-      flex: 2 0 50%;
+      flex: 2 1 auto;
       justify-content: flex-start;
       align-self: center;
 
       color: $workbc_dark_theme_text;
+
+      button {
+        background-color: transparent;
+        padding-left: 10px;
+        border: none;
+
+        font-weight: bold;
+
+        &.font-resizer-button__normal {
+          font-size: 1.0rem;
+        }
+
+        &.font-resizer-button__big {
+          font-size: 1.5rem;
+        }
+
+        &.font-resizer-button__bigger {
+          font-size: 2.0rem;
+        }
+      }
     }
 
     #block-footertranslation {
-      display: flex;
-      flex: 2 0 50%;
+      flex: 2 1 auto;
       justify-content: flex-end;
       align-self: center;
 
-      p {
+      span {
+        text-align: right;
         color: $workbc_dark_theme_text;
       }
     }
 
     #block-footercopyright {
-      display: flex;
-      flex: 2 0 100%;
+      flex: 2 1 100%;
       justify-content: space-between;
       align-self: center;
+
+      margin-top: $workbc_default_spacing;
+      padding-top: $workbc_default_spacing;
+      padding-bottom: $workbc_default_spacing;
+      border-top: $workbc_trim_ultra_thin_size solid $workbc_dark_theme_text;
+
+      .text-formatted { // hack to bypass Drupal silliness
+        width: 100%;
+      }
 
       .footer-copyright {
         color: $workbc_dark_theme_text;

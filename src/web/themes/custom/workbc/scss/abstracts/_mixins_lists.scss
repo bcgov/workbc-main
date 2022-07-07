@@ -18,3 +18,17 @@
     flex: 0 1 auto;
   }
 }
+
+@mixin list-item-separator-after($content, $padding) {
+  position: relative; // start position context %navli
+  &:not(:last-of-type) {
+    padding-right: $padding; // make space for the :after
+
+    &:after {
+      content: $content;
+      position: absolute; // relative to position context %navli
+      right: 0;
+      top: $padding;
+    }
+  }
+}

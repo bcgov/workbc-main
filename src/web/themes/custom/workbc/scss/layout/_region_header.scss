@@ -17,24 +17,18 @@
       @include list-flex-inline;
   
       & > li {
-        position: relative; // start position context %navli
-  
+        @include list-item-separator-after("|", $workbc_account_menu_item_padding);
+        color: $workbc_default_text;
+
+        &:last-of-type > a {
+          padding-right: 0;
+        }
+
         & > a {
           color: $workbc_default_text;
-          text-decoration: none;
-          padding: $workbc_account_menu_item_padding;
-        }
-        &:hover > a {
-          text-decoration: underline;
-        }
-        &:not(:last-of-type) {
-          padding-right: $workbc_account_menu_item_padding; // make space for the :after
-  
-          &:after {
-            content: "|";
-            position: absolute; // relative to position context %navli
-            right: 0;
-            top: $workbc_account_menu_item_padding;
+
+          &:not(:hover) {
+            text-decoration: none;
           }
         }
       }
