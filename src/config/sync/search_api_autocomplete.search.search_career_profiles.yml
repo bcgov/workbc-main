@@ -1,0 +1,28 @@
+uuid: aa9d845f-cf0a-4464-897b-c8e2a1db2b2d
+langcode: en
+status: true
+dependencies:
+  config:
+    - search_api.index.career_profile_index
+    - views.view.search_career_profiles
+  module:
+    - views
+    - search_api_autocomplete
+id: search_career_profiles
+label: 'Search: Career Profiles'
+index_id: career_profile_index
+suggester_settings:
+  live_results:
+    fields: {  }
+    highlight:
+      enabled: false
+      field: ''
+    view_modes: {  }
+suggester_weights: {  }
+suggester_limits: {  }
+search_settings:
+  'views:search_career_profiles':
+    displays:
+      default: true
+      selected: {  }
+options: {  }
