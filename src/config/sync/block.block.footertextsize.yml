@@ -1,0 +1,25 @@
+uuid: e3343a71-be8c-4cdf-a1a7-d36ad1ea76a4
+langcode: en
+status: true
+dependencies:
+  content:
+    - 'block_content:basic:311e09e2-63e6-4434-8626-b61c5fe4e7c3'
+  module:
+    - block_content
+  theme:
+    - workbc
+id: footertextsize
+theme: workbc
+region: footer
+weight: -6
+provider: null
+plugin: 'block_content:311e09e2-63e6-4434-8626-b61c5fe4e7c3'
+settings:
+  id: 'block_content:311e09e2-63e6-4434-8626-b61c5fe4e7c3'
+  label: 'Footer Text Size'
+  label_display: '0'
+  provider: block_content
+  status: true
+  info: ''
+  view_mode: full
+visibility: {  }

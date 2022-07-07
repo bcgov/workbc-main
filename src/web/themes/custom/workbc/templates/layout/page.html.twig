@@ -43,7 +43,7 @@
  */
 #}
 {%
-set nav_classes = 'navbar navbar-expand-lg workbc-megamenu nav-theme-t1-dark' ~
+set nav_classes = 'navbar navbar-expand-lg workbc-megamenu nav-theme-dark' ~
   (b5_navbar_schema != 'none' ? " navbar-#{b5_navbar_schema}" : ' ') ~
   (b5_navbar_schema != 'none' ? (b5_navbar_schema == 'dark' ? ' text-light' : ' text-dark' ) : ' ') ~
   (b5_navbar_bg_schema != 'none' ? " bg-#{b5_navbar_bg_schema}" : ' ')
@@ -57,11 +57,17 @@ set footer_classes = ' ' ~
 %}
 
 <header>
-  {{ page.header }}
+  {% if page.alert_ribbon %}
+      {{ page.alert_ribbon }}
+  {% endif %}
+
+  <div class="{{ b5_top_container }}">
+    {{ page.header }}
+  </div>
 
   {% if page.nav_branding or page.nav_main or page.nav_additional %}
   <nav class="{{ nav_classes }}">
-    <div class="{{ b5_top_container }} d-flex">
+    <div class="{{ b5_top_container }} px-0 d-flex">
       {{ page.nav_branding }}
 
       <button class="navbar-toggler collapsed" type="button" data-bs-toggle="collapse"
@@ -95,34 +101,43 @@ set footer_classes = ' ' ~
   set content_classes = (page.sidebar_first and page.sidebar_second) ? 'col-12 col-lg-6' : ((page.sidebar_first or page.sidebar_second) ? 'col-12 col-lg-9' : 'col-12' )
    %}
 
+  {% if page.hero_content %}
+      {{ page.hero_content }}
+  {% endif %}
 
-  <div class="{{ b5_top_container }}">
-    {% if page.breadcrumb %}
+  {% if page.breadcrumb %}
       {{ page.breadcrumb }}
-    {% endif %}
-    <div class="row g-0">
-      {% if page.sidebar_first %}
-        <div class="order-2 order-lg-1 {{ sidebar_first_classes }}">
-          {{ page.sidebar_first }}
-        </div>
-      {% endif %}
-      <div class="order-1 order-lg-2 {{ content_classes }}">
-        {{ page.content }}
-      </div>
-      {% if page.sidebar_second %}
-        <div class="order-3 {{ sidebar_second_classes }}">
-          {{ page.sidebar_second }}
-        </div>
-      {% endif %}
-    </div>
-  </div>
+  {% endif %}
 
+  <div class="page-content-wrapper">
+    <div id="submenu-underlay"></div>
+    <div class="{{ b5_top_container }}">
+      <div class="row g-0">
+        {% if page.sidebar_first %}
+          <div class="order-2 order-lg-1 {{ sidebar_first_classes }}">
+            {{ page.sidebar_first }}
+          </div>
+        {% endif %}
+        <div class="order-1 order-lg-2 {{ content_classes }}">
+          {{ page.content }}
+        </div>
+        {% if page.sidebar_second %}
+          <div class="order-3 {{ sidebar_second_classes }}">
+            {{ page.sidebar_second }}
+          </div>
+        {% endif %}
+      </div>
+    </div>
+
+  </div>  
 </main>
 
 {% if page.footer %}
 <footer class="mt-auto {{ footer_classes }}">
-  <div class="{{ b5_top_container }}">
+  <div class="{{ b5_top_container }} footer-wrapper">
     {{ page.footer }}
   </div>
 </footer>
 {% endif %}
+
+{{ attach_library('workbc/submenu-underlay') }}

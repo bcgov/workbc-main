@@ -25,11 +25,14 @@ class MenuBlock extends BlockBase {
     ];
   }
 
-  private function renderLink($link) {
+  private function renderLink($link, $hasChildren) {
     $name = $link->getTitle();
     $url = $link->getUrlObject()->toString();
     $a_classes = ["nav-link"];
     $a_attributes = [];
+    if($hasChildren) {
+      array_push($a_classes, "has-submenu");
+    }
     if (array_key_exists('attributes', $link->getOptions())) foreach ($link->getOptions()['attributes'] as $key => $attr) {
       $a_attributes[] = "$key=\"$attr\"";
     }
@@ -48,7 +51,7 @@ class MenuBlock extends BlockBase {
         }
         $output .= "$indent  <li class=\"" . implode(' ', $li_classes) . "\">\n";
         $url = $item->link->getUrlObject()->toString();
-        $output .= "$indent    " . $this->renderLink($item->link) . "\n";
+        $output .= "$indent    " . $this->renderLink($item->link, $item->hasChildren) . "\n";
         if ($item->hasChildren) {
           if ($level === 1) {
             $output .= "$indent    <div class=\"submenu-container\"><div class=\"row g-0 submenu\"><div class=\"col-sm-8\">\n";

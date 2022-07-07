@@ -6,3 +6,8 @@ fonts:
   css:
     theme:
       '//fonts.googleapis.com/css2?family=Material+Symbols+Outlined': { type: external, minified: true }
+submenu-underlay:
+  js:
+    js/submenu-underlay.js: {}
+  dependencies:
+    - core/jquery
