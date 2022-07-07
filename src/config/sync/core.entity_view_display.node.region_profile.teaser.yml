@@ -53,3 +53,4 @@ hidden:
   field_labour_market_stats_intro: true
   field_region_overview: true
   field_top_occupations_intro: true
+  search_api_excerpt: true

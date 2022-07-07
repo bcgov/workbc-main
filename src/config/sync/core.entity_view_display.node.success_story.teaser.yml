@@ -32,3 +32,4 @@ content:
 hidden:
   field_image: true
   field_subtitle: true
+  search_api_excerpt: true

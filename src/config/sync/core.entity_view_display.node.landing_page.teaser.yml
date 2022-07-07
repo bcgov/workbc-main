@@ -26,3 +26,4 @@ hidden:
   field_hero_image: true
   field_hero_text: true
   field_related_topics: true
+  search_api_excerpt: true
