@@ -1,0 +1,22 @@
+.alert-ribbon-wrapper {
+  display: flex;
+  flex-wrap: nowrap;
+  justify-content: space-between;
+  align-items: stretch;
+  gap: 0;
+  background-color: $workbc_alertribbon_background;
+
+  p {
+    flex: 2 1 auto;
+    display: flex;
+    flex-direction: column;
+    justify-content: space-around;
+    align-items: stretch;
+
+    margin: 0;
+    padding: 0;
+    min-height: 45px;
+    font-size: 14px;
+    color: $workbc_alertribbon_text;
+  }
+}

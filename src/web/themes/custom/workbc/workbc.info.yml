@@ -6,13 +6,16 @@ core_version_requirement: '^8.9 || ^9'
 libraries:
   - workbc/global-styling
   - workbc/fonts
+  - workbc/submenu-underlay
 stylesheets-remove:
   - '@bootstrap5/css/style.css'
 regions:
+  alert_ribbon: 'Alert Ribbon'
   header: Header
   nav_branding: 'Navigation branding region'
   nav_main: 'Main navigation region'
   nav_additional: 'Additional navigation region (eg search form, social icons, etc)'
+  hero_content: 'Hero Content'
   breadcrumb: Breadcrumbs
   content: 'Main content'
   sidebar_first: 'Sidebar first'

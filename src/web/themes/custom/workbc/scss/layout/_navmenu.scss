@@ -1,0 +1,226 @@
+/* ============ navbar themes ============ */
+
+// This mixin houses all the basic trim size setup
+@mixin nav-theme-base {
+
+  ul.nav-t1 {
+    @include list-reset;
+
+    position: relative; // create positioning context %nav-t1
+    height: 100%;
+    width: 100%;
+    display: flex;
+    flex-wrap: nowrap;
+    justify-content: space-between;
+    align-items: stretch;
+    gap: 0;
+    padding: 0;
+    margin: 0;
+
+    & > li {
+      padding: $workbc_trim_standard_size 10px 0 10px; // top padding set to balance border-bottom and keep content centered
+      border-bottom: $workbc_trim_standard_size solid $workbc_transparent; // placeholder for hover styling to avoid content jumping
+      min-width: 80px;
+      height: 80px;
+      flex: 2 1 auto;
+      display: flex;
+      flex-direction: column;
+      justify-content: space-around;
+      align-items: stretch;
+
+      & > a {
+        font-size: 16px;
+        text-decoration: none;
+        padding: 0;
+    
+        &:hover {
+          text-decoration: none;
+        }
+      }
+  
+      &:hover {
+        .submenu-container {
+          display: block;
+        }
+      }
+
+      .submenu-container {
+        display: none;
+        position: absolute; // relative to positioning context %nav-t1
+        top: 100%;
+        right: 0;
+        left: 0;
+
+        ul.nav-t1 > li:hover & {
+          display: block;
+        }
+
+        .submenu {
+          width: 100%;
+          min-height: 420px;
+          padding: 15px 0;
+
+          ul.nav-t2 {
+            @include list-reset;
+
+            position: relative; // create positioning context %nav-t2
+            height: 100%;
+            width: 50%;
+
+            & > li {
+              border-left: $workbc_trim_standard_size solid $workbc_transparent; //placeholder to prevent content shifting when colored borders are in place (hover, etc.)
+    
+              a {
+                padding: 5px 20px 5px 10px;
+
+                &.has-submenu {
+                  position: relative; // create positioning context %has-submenu
+
+                  &:after {
+                    position: absolute; // relative to positioning context %has-submenu
+                    top: 0;
+                    right: 0;
+                    bottom: 0;
+                    content: '\e5cc';
+                    font-family: 'Material Symbols Outlined';
+                    font-weight: normal;
+                    font-style: normal;
+                    font-size: 24px;  /* Preferred icon size */
+                    color: grey;
+                  }
+                }
+              }
+
+              ul.nav-t3 {
+                @include list-reset;
+
+                display: none;
+                position: absolute; // relative to positioning context %nav-t2
+                left: 100%;
+                top: 0;
+                height: 100%;
+                width: 50%;
+              }
+
+              &:hover .nav-t3 {
+                display: block;
+              }
+            }
+          }
+        }
+      }
+    }
+  }
+}
+
+
+.nav-theme-dark {
+  @include nav-theme-base;
+  background-color: $workbc_dark_theme_background;
+
+  ul.nav-t1 {
+    & > li {
+
+      a, a:focus {
+        color: $workbc_dark_theme_text;
+      }
+
+      &:hover {
+        border-color: $workbc_light_theme_trim;
+        background-color: $workbc_light_theme_background;
+
+        a, a:focus {
+          color: $workbc_light_theme_text;
+        }
+      }
+
+      &.active {
+        border-color: $workbc_light_theme_trim;
+        background-color: $workbc_light_theme_background;
+
+        a, a:focus {
+          color: $workbc_light_theme_text;
+        }
+      }
+
+      .submenu-container {
+        .submenu {
+          background: $workbc_light_theme_background;
+          border-bottom: $workbc_trim_thin_size solid $workbc_light_theme_trim_alternate;
+
+          ul.nav-t2 {
+            & > li {
+              &:hover {
+                border-left: $workbc_trim_standard_size solid $workbc_dark_blue;
+                background-color: $workbc_light_theme_highlight;
+                color: $workbc_default_link;
+        
+                a, a:focus {
+                  color: $workbc_light_theme_link;
+                  text-decoration: underline;
+                }
+              }
+            }
+    
+            a, a:focus {
+              color: $workbc_light_theme_text;
+            }
+
+            ul.nav-t3 {
+              a {
+                text-decoration: none;
+
+                &:hover {
+                  text-decoration: underline;
+                }
+              }
+            }
+          }
+        }
+      }
+    }
+  }
+}
+
+/* ============ navbar themes .end// ============ */
+
+/* ============ navbar layout  ============ */
+
+nav.navbar { 
+  position: sticky;
+  top: 100px;
+  align-self: flex-start;
+
+  z-index: 3;
+  height: 80px;
+  padding: 0px;
+  margin: 0px;
+  box-shadow: $workbc_default_shadow;
+
+  .container {
+    position: relative;
+    z-index: -1; 
+    height: 100%;
+
+    #main_nav,
+    #navbarSupportedContent {
+      height: 100%;
+    }
+  }
+}
+
+.page-content-wrapper {
+  position: relative;
+
+  #submenu-underlay {
+    position: absolute;
+    top: 0;
+    right: 0;
+    bottom: 0;
+    left: 0;
+    background-color: rgba(20,20,20,0.15);
+    display: none;
+  }
+}
+
+/* ============ navbar layout .end// ============ */

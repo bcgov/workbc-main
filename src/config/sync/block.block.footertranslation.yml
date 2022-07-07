@@ -1,0 +1,25 @@
+uuid: 4143aec5-2024-48ae-9e90-08948190c00f
+langcode: en
+status: true
+dependencies:
+  content:
+    - 'block_content:basic:7cf22bc7-4783-4757-af7e-18e2923836be'
+  module:
+    - block_content
+  theme:
+    - workbc
+id: footertranslation
+theme: workbc
+region: footer
+weight: -5
+provider: null
+plugin: 'block_content:7cf22bc7-4783-4757-af7e-18e2923836be'
+settings:
+  id: 'block_content:7cf22bc7-4783-4757-af7e-18e2923836be'
+  label: 'Footer Translation'
+  label_display: '0'
+  provider: block_content
+  status: true
+  info: ''
+  view_mode: full
+visibility: {  }
