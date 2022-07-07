@@ -61,6 +61,7 @@ module:
   search_api_autocomplete: 0
   search_api_db: 0
   shortcut: 0
+  simple_block: 0
   system: 0
   taxonomy: 0
   text: 0
