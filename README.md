@@ -17,7 +17,7 @@ This is the WorkBC site on Drupal.
 ```
 127.0.0.1       workbc.docker.localhost
 ```
-- Run the update script: `docker-compose exec php scripts/update.sh`
+- Run the sync script: `docker-compose exec php scripts/sync.sh`
 - Open http://workbc.docker.localhost:8000/ to view the site and login as `admin` (obtain the password from your admin)
 - Open http://localhost:8080/ to view the SSoT API
 
@@ -25,7 +25,7 @@ This is the WorkBC site on Drupal.
 
 ## Updating local dev environment after git pull
 `make sync` from the `src/` folder should perform any post-pull actions needed
-or run the update script: `docker-compose exec php scripts/update.sh`
+or run the sync script directly: `docker-compose exec php scripts/sync.sh`
 
 In some situations `drush cim` fails. In this case, the Drupal UI (Configuration -> Development -> Configuration Syncronization) should work.
 If errors still persist, you may need to manually enable new modules before running the configuration syncronization with `drush en module`.
@@ -37,7 +37,7 @@ From within the `php` container:
 - Export updated configuration to the `/var/www/html/config/sync` folder using `drush cex`
 
 ## Backup / restore
-The Backup and Migrate module does not currently support PostgresQL. Backing up and restoring your local dev site can be accomplished using `drush`:
+The Backup and Migrate module does not currently support PostgreSQL. Backing up and restoring your local dev site can be accomplished using `drush`:
 
 - To backup: `drush sql:dump --result-file=example.sql`. For more info https://www.drush.org/latest/commands/sql_dump/
 - To restore: `drush sql:cli < example.sql`. For more info https://www.drush.org/latest/commands/sql_cli/

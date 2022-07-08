@@ -65,7 +65,7 @@ dbshell:
 ## sync	:	Attempt to synchronize various dependencies - most useful after a pulling a new branch
 .PHONY: sync
 sync:
-	@docker-compose --project-directory "$(SOLUTION_ROOT)" exec php scripts/update.sh
+	@docker-compose --project-directory "$(SOLUTION_ROOT)" exec php scripts/sync.sh
 
 ## drush	:	Executes `drush` command in a specified `DRUPAL_ROOT` directory (default is `/var/www/html/web`).
 ##		To use "--flag" arguments include them in quotation marks.
