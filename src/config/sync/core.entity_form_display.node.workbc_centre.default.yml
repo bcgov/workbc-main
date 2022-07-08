@@ -4,6 +4,7 @@ status: true
 dependencies:
   config:
     - field.field.node.workbc_centre.field_address
+    - field.field.node.workbc_centre.field_alert
     - field.field.node.workbc_centre.field_apply_online
     - field.field.node.workbc_centre.field_email
     - field.field.node.workbc_centre.field_french_available
@@ -20,6 +21,7 @@ dependencies:
     - link
     - paragraphs
     - path
+    - text
 id: node.workbc_centre.default
 targetEntityType: node
 bundle: workbc_centre
@@ -36,6 +38,14 @@ content:
     weight: 122
     region: content
     settings: {  }
+    third_party_settings: {  }
+  field_alert:
+    type: text_textarea
+    weight: 130
+    region: content
+    settings:
+      rows: 5
+      placeholder: ''
     third_party_settings: {  }
   field_apply_online:
     type: paragraphs
