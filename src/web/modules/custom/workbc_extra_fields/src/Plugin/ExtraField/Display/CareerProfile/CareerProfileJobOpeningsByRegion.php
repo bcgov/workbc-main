@@ -43,15 +43,46 @@ class CareerProfileJobOpeningsByRegion extends ExtraFieldDisplayFormattedBase {
    */
   public function viewElements(ContentEntityInterface $entity) {
 
-    mt_srand($entity->id());
-
-    $names = ["Cariboo", "Kootenay", "Mainland/Southwest", "Nort Coast & Nechako", "Northeast", "Thompson-Okanafan", "Vancouver Island-Coast"];
     $regions = [];
-    for ($i = 0; $i < 7; $i++) {
-      $regions[$i]['name'] = $names[$i];
-      $regions[$i]['openings'] = mt_rand(500, 25000);
-      $regions[$i]['percent'] = mt_rand(5, 20) / 10;
+    if (!empty($entity->ssot_data) && isset($entity->ssot_data['career_regional'])) {
+      $region = array();
+      $region['name'] = t(REGION_CARIBOO);
+      $region['openings'] = floatval($entity->ssot_data['career_regional']['cariboo_expected_number_of_job_openings_2021_2031']);
+      $region['growth'] = floatval($entity->ssot_data['career_regional']['cariboo_average_annual_employment_growth_2021_2031']);
+      $regions[] = $region;
+      $region = array();
+      $region['name'] = t(REGION_KOOTENAY);
+      $region['openings'] = floatval($entity->ssot_data['career_regional']['kootenay_expected_number_of_job_openings_2021_2031']);
+      $region['growth'] = floatval($entity->ssot_data['career_regional']['kootenay_average_annual_employment_growth_2021_2031']);
+      $regions[] = $region;
+      $region = array();
+      $region['name'] = t(REGION_MAINLAND_SOUTHWEST);
+      $region['openings'] = floatval($entity->ssot_data['career_regional']['mainland_southwest_expected_number_of_job_openings_2021_2031']);
+      $region['growth'] = floatval($entity->ssot_data['career_regional']['mainland_southwest_average_annual_employment_growth_2021_2031']);
+      $regions[] = $region;
+      $region = array();
+      $region['name'] = t(REGION_NORTH_COAST_NECHAKO);
+      $region['openings'] = floatval($entity->ssot_data['career_regional']['north_coast_and_nechako_expected_number_of_job_openings_2021_20']);
+      $region['growth'] = floatval($entity->ssot_data['career_regional']['north_coast_and_nechako_average_annual_employment_growth_2021_2']);
+      $regions[] = $region;
+      $region = array();
+      $region['name'] = t(REGION_NORTHEAST);
+      $region['openings'] = floatval($entity->ssot_data['career_regional']['northeast_expected_number_of_job_openings_2021_2031']);
+      $region['growth'] = floatval($entity->ssot_data['career_regional']['northeast_average_annual_employment_growth_2021_2031']);
+      $regions[] = $region;
+      $region = array();
+      $region['name'] = t(REGION_THOMPSON_OKANAGAN);
+      $region['openings'] = floatval($entity->ssot_data['career_regional']['thompson_okanagan_expected_number_of_job_openings_2021_2031']);
+      $region['growth'] = floatval($entity->ssot_data['career_regional']['thompson_okanagan_average_annual_employment_growth_2021_2031']);
+      $regions[] = $region;
+      $region = array();
+      $region['name'] = t(REGION_VANCOUVER_ISLAND_COAST);
+      $region['openings'] = floatval($entity->ssot_data['career_regional']['vancouver_island_coast_expected_number_of_job_openings_2021_203']);
+      $region['growth'] = floatval($entity->ssot_data['career_regional']['vancouver_island_coast_average_annual_employment_growth_2021_20']);
+      $regions[] = $region;
     }
+
+
 
     $module_handler = \Drupal::service('module_handler');
     $module_path = $module_handler->getModule('workbc_extra_fields')->getPath();
@@ -60,7 +91,7 @@ class CareerProfileJobOpeningsByRegion extends ExtraFieldDisplayFormattedBase {
     $text .= "<table>";
     $text .= "<tr><th>Region</th><th>Job Openings</th><th>Avg Annual Employment Growth</th></tr>";
     foreach ($regions as $region) {
-      $text .= "<tr><td>" . $region['name'] . "</td><td>" . number_format($region['openings']) . "</td><td>" . number_format($region['percent'],1) . "%</td></tr>";
+      $text .= "<tr><td>" . $region['name'] . "</td><td>" . number_format($region['openings']) . "</td><td>" . number_format($region['growth'],1) . "%</td></tr>";
     }
     $text .= "</table>";
     $output = $text;
