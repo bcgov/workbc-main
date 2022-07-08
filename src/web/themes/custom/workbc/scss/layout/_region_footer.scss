@@ -73,26 +73,22 @@ footer {
 
             background-repeat: no-repeat;
             background-position: center;
+            background-size: auto 50%;
 
             &.twitter {
               background-image: url(../assets/images/social-icon-twitter.svg);
-              background-size: 50%;
             }
   
             &.youtube {
               background-image: url(../assets/images/social-icon-youtube.svg);
-              background-size: 50%;
             }
   
             &.linkedin {
               background-image: url(../assets/images/social-icon-linkedin.svg);
-              background-size: 50%;
-              background-position: 48% 50%;
             }
   
             &.facebook {
               background-image: url(../assets/images/social-icon-facebook.svg);
-              background-size: 25%;
             }
           }
         }
