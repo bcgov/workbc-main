@@ -35,7 +35,8 @@ function ssotCareerProfile($noc) {
   $data['census'] = querySSoT('census?noc=eq.' . $noc)[0];
   $data['education'] = querySSoT('education?noc=eq.' . $noc)[0];
   $data['skills'] = querySSoT('skills?noc=eq.' . $noc);
-ksm($data);
+  $data['openings'] = querySSoT('openings?noc=eq.' . $noc)[0];
+// ksm($data);
   return $data;
 }
 

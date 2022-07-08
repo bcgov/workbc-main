@@ -46,27 +46,37 @@ class CareerProfileIndustryHighlightsJobOpeningsByIndustry extends ExtraFieldDis
 
     $industries = [];
 
-    if (!empty($entity->ssot_data) && isset($entity->ssot_data['census'])) {
-      $industry = [];
-      $industry['name'] = $entity->ssot_data['census']['industry_1_name'];
-      $industry['openings'] = $entity->ssot_data['census']['industry_1'];
-      $industries[] = $industry;
-      $industry = [];
-      $industry['name'] = $entity->ssot_data['census']['industry_2_name'];
-      $industry['openings'] = $entity->ssot_data['census']['industry_2'];
-      $industries[] = $industry;
-      $industry = [];
-      $industry['name'] = $entity->ssot_data['census']['industry_3_name'];
-      $industry['openings'] = $entity->ssot_data['census']['industry_3'];
-      $industries[] = $industry;
-      $industry = [];
-      $industry['name'] = $entity->ssot_data['census']['industry_4_name'];
-      $industry['openings'] = $entity->ssot_data['census']['industry_4'];
-      $industries[] = $industry;
-      $industry = [];
-      $industry['name'] = $entity->ssot_data['census']['industry_5_name'];
-      $industry['openings'] = $entity->ssot_data['census']['industry_5'];
-      $industries[] = $industry;
+    if (!empty($entity->ssot_data) && isset($entity->ssot_data['openings'])) {
+      if (!is_null($entity->ssot_data['openings']['industry_1_percent'])) {
+        $industry = [];
+        $industry['name'] = $entity->ssot_data['openings']['industry_1_name'];
+        $industry['openings'] = $entity->ssot_data['openings']['industry_1_percent'];
+        $industries[] = $industry;
+      }
+      if (!is_null($entity->ssot_data['openings']['industry_2_percent'])) {
+        $industry = [];
+        $industry['name'] = $entity->ssot_data['openings']['industry_2_name'];
+        $industry['openings'] = $entity->ssot_data['openings']['industry_2_percent'];
+        $industries[] = $industry;
+      }
+      if (!is_null($entity->ssot_data['openings']['industry_3_percent'])) {
+        $industry = [];
+        $industry['name'] = $entity->ssot_data['openings']['industry_3_name'];
+        $industry['openings'] = $entity->ssot_data['openings']['industry_3_percent'];
+        $industries[] = $industry;
+      }
+      if (!is_null($entity->ssot_data['openings']['industry_4_percent'])) {
+        $industry = [];
+        $industry['name'] = $entity->ssot_data['openings']['industry_4_name'];
+        $industry['openings'] = $entity->ssot_data['openings']['industry_4_percent'];
+        $industries[] = $industry;
+      }
+      if (!is_null($entity->ssot_data['openings']['industry_5_percent'])) {
+        $industry = [];
+        $industry['name'] = $entity->ssot_data['openings']['industry_5_name'];
+        $industry['openings'] = $entity->ssot_data['openings']['industry_5_percent'];
+        $industries[] = $industry;
+      }
     }
 
     $text = "<div>";
