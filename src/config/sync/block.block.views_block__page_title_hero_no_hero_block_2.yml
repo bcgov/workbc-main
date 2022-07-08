@@ -1,0 +1,52 @@
+uuid: 98741dc3-370d-419b-8971-57a3595950fc
+langcode: en
+status: true
+dependencies:
+  config:
+    - views.view.page_title_hero_no_hero
+  module:
+    - block_visibility_conditions
+    - node
+    - views
+  theme:
+    - workbc
+id: views_block__page_title_hero_no_hero_block_2
+theme: workbc
+region: content
+weight: -5
+provider: null
+plugin: 'views_block:page_title_hero_no_hero-block_2'
+settings:
+  id: 'views_block:page_title_hero_no_hero-block_2'
+  label: ''
+  label_display: visible
+  provider: views
+  context_mapping: {  }
+  views_label: ''
+  items_per_page: none
+visibility:
+  not_node_type:
+    id: not_node_type
+    bundles: {  }
+    negate: null
+  not_taxonomy_vocabulary:
+    id: not_taxonomy_vocabulary
+    bundles: {  }
+    negate: null
+  'entity_bundle:node':
+    id: 'entity_bundle:node'
+    negate: false
+    context_mapping:
+      node: '@node.node_route_context:node'
+    bundles:
+      bc_profile: bc_profile
+      blog: blog
+      event: event
+      industry_profile: industry_profile
+      labour_market_monthly: labour_market_monthly
+      landing_page: landing_page
+      news: news
+      page: page
+      region_profile: region_profile
+      success_story: success_story
+      workbc_centre: workbc_centre
