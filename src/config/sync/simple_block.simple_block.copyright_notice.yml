@@ -7,5 +7,5 @@ dependencies:
 id: copyright_notice
 title: 'copyright notice'
 content:
-  value: "<div class=\"footer-copyright\"><span>Copyright 2021 <u>Province of British Columbia. All rights reserved.</u></span><img alt=\"British Columbia Logo\" data-align=\"right\" data-entity-type=\"file\" data-entity-uuid=\"3df30783-a0d5-4ec4-8dc0-33f24f22d8c2\" height=\"48\" src=\"/sites/default/files/inline-images/footer-bc.png\" width=\"177\" /></div>\r\n"
+  value: "<div class=\"footer-copyright\"><span>Copyright 2021 <u>Province of British Columbia. All rights reserved.</u></span><img alt=\"British Columbia Logo\" data-align=\"right\" data-entity-type=\"file\" data-entity-uuid=\"3df30783-a0d5-4ec4-8dc0-33f24f22d8c2\" height=\"48\" src=\"/themes/custom/workbc/assets/images/footer-bc.png\" width=\"177\" /></div>\r\n"
   format: full_html
