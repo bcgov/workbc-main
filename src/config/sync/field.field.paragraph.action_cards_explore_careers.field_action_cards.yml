@@ -1,0 +1,67 @@
+uuid: fba5664a-627a-4ee7-ab87-29697a2c24ba
+langcode: en
+status: true
+dependencies:
+  config:
+    - field.storage.paragraph.field_action_cards
+    - paragraphs.paragraphs_type.action_card
+    - paragraphs.paragraphs_type.action_cards_explore_careers
+  module:
+    - entity_reference_revisions
+id: paragraph.action_cards_explore_careers.field_action_cards
+field_name: field_action_cards
+entity_type: paragraph
+bundle: action_cards_explore_careers
+label: 'Action Cards'
+description: ''
+required: false
+translatable: true
+default_value: {  }
+default_value_callback: ''
+settings:
+  handler: 'default:paragraph'
+  handler_settings:
+    target_bundles:
+      action_card: action_card
+    negate: 0
+    target_bundles_drag_drop:
+      action_card:
+        weight: 14
+        enabled: true
+      action_card_feature:
+        weight: 15
+        enabled: false
+      action_cards_1_2:
+        weight: 16
+        enabled: false
+      action_cards_1_3:
+        weight: 17
+        enabled: false
+      action_cards_1_4:
+        weight: 18
+        enabled: false
+      action_cards_explore_careers:
+        weight: 19
+        enabled: false
+      action_cards_full_width:
+        weight: 20
+        enabled: false
+      additional_duties:
+        weight: 21
+        enabled: false
+      content_text:
+        weight: 22
+        enabled: false
+      content_view:
+        weight: 23
+        enabled: false
+      hours_of_operation:
+        weight: 24
+        enabled: false
+      quote_card:
+        weight: 25
+        enabled: false
+      skills:
+        weight: 26
+        enabled: false
+field_type: entity_reference_revisions

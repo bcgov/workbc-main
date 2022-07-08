@@ -1,22 +1,23 @@
-uuid: 8e460a83-67ef-4a24-b0a4-b5a0dc9d0cc7
+uuid: fff52a7a-6cdf-44a2-b08c-9f53f9101e9e
 langcode: en
 status: true
 dependencies:
   config:
+    - core.entity_view_mode.paragraph.action_card_explore_careers
     - field.field.paragraph.action_card.field_description
     - field.field.paragraph.action_card.field_image
     - field.field.paragraph.action_card.field_link
     - field.field.paragraph.action_card.field_title
-    - image.style.action_card_icon
+    - image.style.explore_component
     - paragraphs.paragraphs_type.action_card
   module:
     - image
     - link
     - text
-id: paragraph.action_card.default
+id: paragraph.action_card.action_card_explore_careers
 targetEntityType: paragraph
 bundle: action_card
-mode: default
+mode: action_card_explore_careers
 content:
   field_description:
     type: text_default
@@ -30,7 +31,7 @@ content:
     label: above
     settings:
       image_link: ''
-      image_style: action_card_icon
+      image_style: explore_component
       image_loading:
         attribute: lazy
     third_party_settings: {  }
