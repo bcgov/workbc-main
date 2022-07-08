@@ -43,7 +43,7 @@ class CareerProfileSalaryInfoSalary extends ExtraFieldDisplayFormattedBase {
    */
   public function viewElements(ContentEntityInterface $entity) {
 
-      if (!empty($entity->ssot_data && isset($entity->ssot_data['wages']['calculated_median_annual_salary_2021']))) {
+      if (!empty($entity->ssot_data) && isset($entity->ssot_data['wages']['calculated_median_annual_salary_2021'])) {
         $output = "$" . Number_format($entity->ssot_data['wages']['calculated_median_annual_salary_2021'],0);
       }
       else {

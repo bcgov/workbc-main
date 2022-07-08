@@ -45,13 +45,6 @@ class CareerProfileEducationPrograms extends ExtraFieldDisplayFormattedBase {
 
     $noc = $entity->get("field_noc")->getString();
     $text = "";
-    // $text .= "<p>The following program areas are related to this occupation</p>";
-    // $text .= "<ul>";
-    // $text .= "<li>[education-program]</li>";
-    // $text .= "<li>[education-program]</li>";
-    // $text .= "<li>[education-program]</li>";
-    // $text .= "</ul>";
-    // $text .= "<p></p>";
     $text .= "<p>Find out more information about programs offered specifically for this career.</p>";
     $text .= "<p><a href='https://www.educationplannerbc.ca/search/noc/" . $noc . "'>Visit EducationPlannerBC</a> >";
 

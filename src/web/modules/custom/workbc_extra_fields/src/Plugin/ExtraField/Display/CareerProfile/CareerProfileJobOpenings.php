@@ -43,7 +43,7 @@ class CareerProfileJobOpenings extends ExtraFieldDisplayFormattedBase {
    */
   public function viewElements(ContentEntityInterface $entity) {
 
-    if (!empty($entity->ssot_data && isset($entity->ssot_data['career_provincial']['job_openings_2022']))) {
+    if (!empty($entity->ssot_data) && isset($entity->ssot_data['career_provincial']['job_openings_2022'])) {
       $output = Number_format($entity->ssot_data['career_provincial']['job_openings_2022'],0);
     }
     else {

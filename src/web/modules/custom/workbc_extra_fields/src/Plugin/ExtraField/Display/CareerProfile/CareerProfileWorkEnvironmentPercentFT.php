@@ -43,8 +43,8 @@ class CareerProfileWorkEnvironmentPercentFT extends ExtraFieldDisplayFormattedBa
    */
   public function viewElements(ContentEntityInterface $entity) {
 
-    if (!empty($entity->ssot_data && isset($entity->ssot_data['census']['workforce_characteristics_of_workers_are_working_mostly_full_ti']))) {
-      $output = number_format($entity->ssot_data['census']['workforce_characteristics_of_workers_are_working_mostly_full_ti'],0) . '%';
+    if (!empty($entity->ssot_data) && isset($entity->ssot_data['census']['workers_full_time'])) {
+      $output = number_format($entity->ssot_data['census']['workers_full_time'],0) . '%';
     }
     else {
       $output = WORKBC_EXTRA_FIELDS_NOT_AVAILABLE;

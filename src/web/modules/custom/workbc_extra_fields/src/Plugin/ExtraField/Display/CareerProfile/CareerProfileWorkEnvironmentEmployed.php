@@ -43,8 +43,8 @@ class CareerProfileWorkEnvironmentEmployed extends ExtraFieldDisplayFormattedBas
    */
   public function viewElements(ContentEntityInterface $entity) {
 
-    if (!empty($entity->ssot_data && isset($entity->ssot_data['census']['workforce_characteristics_workers_are_employed']))) {
-      $output = Number_format($entity->ssot_data['census']['workforce_characteristics_workers_are_employed'],0);
+    if (!empty($entity->ssot_data) && isset($entity->ssot_data['census']['workers_employed'])) {
+      $output = Number_format($entity->ssot_data['census']['workers_employed'],0);
     }
     else {
       $output = WORKBC_EXTRA_FIELDS_NOT_AVAILABLE;
