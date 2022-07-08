@@ -5,6 +5,14 @@ use GuzzleHttp\Exception\RequestException;
 
 define ("WORKBC_EXTRA_FIELDS_NOT_AVAILABLE", "n/a");
 
+define ("REGION_CARIBOO", "Cariboo");
+define ("REGION_KOOTENAY", "Kootenay");
+define ("REGION_MAINLAND_SOUTHWEST", "Mainland/Southwest");
+define ("REGION_NORTH_COAST_NECHAKO", "North Coast & Nechako");
+define ("REGION_NORTHEAST", "Northeast");
+define ("REGION_THOMPSON_OKANAGAN", "Thompson-Okanagan");
+define ("REGION_VANCOUVER_ISLAND_COAST", "Vancouver Island-Coast");
+
 /*
 
 we use hook_entity_view instead of hook_entity_load as we along need to load data from SSoT
@@ -27,7 +35,17 @@ function workbc_extra_fields_node_view(array &$build, \Drupal\Core\Entity\Entity
 }
 
 function ssotCareerProfile($noc) {
-  return querySSoT('wages?noc=eq.' . $noc);
+
+  $data = array();
+  $data['wages'] = querySSoT('wages?noc=eq.' . $noc)[0];
+  $data['career_provincial'] = querySSoT('career_provincial?noc=eq.' . $noc)[0];
+  $data['career_regional'] = querySSoT('career_regional?noc=eq.' . $noc)[0];
+  $data['census'] = querySSoT('census?noc=eq.' . $noc)[0];
+  $data['education'] = querySSoT('education?noc=eq.' . $noc)[0];
+  $data['skills'] = querySSoT('skills?noc=eq.' . $noc);
+  $data['openings'] = querySSoT('openings?noc=eq.' . $noc)[0];
+  // ksm($data);
+  return $data;
 }
 
 function querySSoT($url) {
@@ -37,8 +55,7 @@ function querySSoT($url) {
     $response = $client->get($ssot . '/' . $url);
     $result = json_decode($response->getBody(), TRUE);
     if (isset($result[0])) {
-      $data = $result[0];
-      ksm($data);
+      $data = $result;
       return $data;
     }
   }

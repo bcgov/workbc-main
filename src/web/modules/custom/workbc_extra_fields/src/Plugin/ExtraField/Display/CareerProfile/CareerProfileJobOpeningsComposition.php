@@ -43,20 +43,38 @@ class CareerProfileJobOpeningsComposition extends ExtraFieldDisplayFormattedBase
    */
   public function viewElements(ContentEntityInterface $entity) {
 
-    $chart = [
-     '#type' => 'chart',
-     '#chart_type' => 'donut',
-     'series' => [
-       '#type' => 'chart_data',
-       '#title' => t(''),
-       '#data' => [12230, 7360],
-     ],
-     'xaxis' => [
-       '#type' => 'chart_xaxis',
-       '#labels' => [t('Replacement'), t('New Jobs')],
-     ]
-    ];
-    $output = \Drupal::service('renderer')->render($chart);
+    if (!empty($entity->ssot_data) && isset($entity->ssot_data['career_provincial'])) {
+      $data = array();
+      $data[] = floatval($entity->ssot_data['career_provincial']['10_year_replacement_of_retiring_workers_number']);
+      $data[] = floatval($entity->ssot_data['career_provincial']['10_year_new_jobs_due_to_economic_growth_number']);
+      $labels = [t('Replacement'), t('New Jobs')];
+      $chart = [
+        '#type' => 'chart',
+        '#chart_type' => 'donut',
+        'series' => [
+          '#type' => 'chart_data',
+          '#title' => t(''),
+          '#data' => $data,
+          '#prefix' => '',
+          '#suffix' => '',
+        ],
+        'xaxis' => [
+          '#type' => 'chart_xaxis',
+          '#labels' => $labels,
+          '#max' => count($data),
+          '#min' => 0,
+        ],
+        'yaxis' => [
+          '#type' => 'chart_yaxis',
+          '#max' => max($data),
+          '#min' => 0,
+        ]
+      ];
+      $output = \Drupal::service('renderer')->render($chart);
+    }
+    else {
+      $output = "";
+    }
 
     return [
       ['#markup' => $output],
