@@ -1,9 +1,9 @@
-uuid: 51efb9e8-2487-4e47-bb15-7fa4bf027404
+uuid: 5dc40f62-dfa9-4d73-bf7c-ca27b69a4cd8
 langcode: en
 status: true
 dependencies: {  }
-id: action_card_explore_careers
-label: 'Action Card: Explore Careers'
+id: action_cards_explore_careers
+label: 'Action Cards: Explore Careers'
 icon_uuid: null
 icon_default: null
 description: 'A section of calls to action with a 4-per-row layout. Images are displayed with the Explore Careers image style'

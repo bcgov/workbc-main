@@ -1,15 +1,15 @@
-uuid: 36111e74-a840-4360-983b-fd7247ae11c7
+uuid: ce050b04-5b57-4681-9ddf-1e8e5f2a4767
 langcode: en
 status: true
 dependencies:
   config:
-    - field.field.paragraph.action_card_explore_careers.field_action_cards
-    - paragraphs.paragraphs_type.action_card_explore_careers
+    - field.field.paragraph.action_cards_explore_careers.field_action_cards
+    - paragraphs.paragraphs_type.action_cards_explore_careers
   module:
     - entity_reference_revisions
-id: paragraph.action_card_explore_careers.default
+id: paragraph.action_cards_explore_careers.default
 targetEntityType: paragraph
-bundle: action_card_explore_careers
+bundle: action_cards_explore_careers
 mode: default
 content:
   field_action_cards:

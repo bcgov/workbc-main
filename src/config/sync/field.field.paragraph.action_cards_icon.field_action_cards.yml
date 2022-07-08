@@ -1,17 +1,17 @@
-uuid: 7d3ea25b-4de5-4dc0-9d15-f1f240eabb2e
+uuid: 50b08832-8bcd-48b8-a6a1-23d746f610df
 langcode: en
 status: true
 dependencies:
   config:
     - field.storage.paragraph.field_action_cards
     - paragraphs.paragraphs_type.action_card
-    - paragraphs.paragraphs_type.action_card_explore_careers
+    - paragraphs.paragraphs_type.action_cards_icon
   module:
     - entity_reference_revisions
-id: paragraph.action_card_explore_careers.field_action_cards
+id: paragraph.action_cards_icon.field_action_cards
 field_name: field_action_cards
 entity_type: paragraph
-bundle: action_card_explore_careers
+bundle: action_cards_icon
 label: 'Action Cards'
 description: ''
 required: false
@@ -26,11 +26,8 @@ settings:
     negate: 0
     target_bundles_drag_drop:
       action_card:
-        weight: 14
-        enabled: true
-      action_card_explore_careers:
         weight: 15
-        enabled: false
+        enabled: true
       action_card_feature:
         weight: 16
         enabled: false
@@ -43,25 +40,31 @@ settings:
       action_cards_1_4:
         weight: 19
         enabled: false
-      action_cards_full_width:
+      action_cards_explore_careers:
         weight: 20
         enabled: false
-      additional_duties:
+      action_cards_full_width:
         weight: 21
         enabled: false
-      content_text:
+      action_cards_icon:
         weight: 22
         enabled: false
-      content_view:
+      additional_duties:
         weight: 23
         enabled: false
-      hours_of_operation:
+      content_text:
         weight: 24
         enabled: false
-      quote_card:
+      content_view:
         weight: 25
         enabled: false
-      skills:
+      hours_of_operation:
         weight: 26
+        enabled: false
+      quote_card:
+        weight: 27
+        enabled: false
+      skills:
+        weight: 28
         enabled: false
 field_type: entity_reference_revisions
