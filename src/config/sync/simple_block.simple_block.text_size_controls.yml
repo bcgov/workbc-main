@@ -1,0 +1,11 @@
+uuid: 51638650-e209-41e8-a95a-b02803e8e396
+langcode: en
+status: true
+dependencies:
+  config:
+    - filter.format.full_html
+id: text_size_controls
+title: 'Text Size Controls'
+content:
+  value: "<font-resizer> <span class=\"font-resizer-desc\">Increase Text Size: </span><button class=\"font-resizer-button__normal\" title=\"Site Wide Text Size: Normal\" type=\"button\">A</button><button class=\"font-resizer-button__big\" title=\"Site Wide Text Size: Big\" type=\"button\">A</button><button class=\"font-resizer-button__bigger\" title=\"Site Wide Text Size: Bigger\" type=\"button\">A</button> </font-resizer>\r\n"
+  format: full_html
