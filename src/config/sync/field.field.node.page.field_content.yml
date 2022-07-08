@@ -5,6 +5,7 @@ dependencies:
   config:
     - field.storage.node.field_content
     - node.type.page
+    - paragraphs.paragraphs_type.action_card_explore_careers
     - paragraphs.paragraphs_type.action_card_feature
     - paragraphs.paragraphs_type.action_cards_1_2
     - paragraphs.paragraphs_type.content_text
@@ -27,6 +28,7 @@ settings:
     target_bundles:
       action_card_feature: action_card_feature
       action_cards_1_2: action_cards_1_2
+      action_card_explore_careers: action_card_explore_careers
       content_text: content_text
       content_view: content_view
     negate: 0
@@ -34,6 +36,9 @@ settings:
       action_card:
         weight: 11
         enabled: false
+      action_card_explore_careers:
+        weight: 15
+        enabled: true
       action_card_feature:
         weight: 12
         enabled: true

@@ -1,0 +1,10 @@
+uuid: 51efb9e8-2487-4e47-bb15-7fa4bf027404
+langcode: en
+status: true
+dependencies: {  }
+id: action_card_explore_careers
+label: 'Action Card: Explore Careers'
+icon_uuid: null
+icon_default: null
+description: 'A section of calls to action with a 4-per-row layout. Images are displayed with the Explore Careers image style'
+behavior_plugins: {  }
