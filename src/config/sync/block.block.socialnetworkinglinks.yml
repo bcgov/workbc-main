@@ -1,0 +1,31 @@
+uuid: 0207f221-3640-4c10-917b-fb61f234e0de
+langcode: en
+status: true
+dependencies:
+  config:
+    - simple_block.simple_block.social_networking_links
+  module:
+    - block_visibility_conditions
+    - simple_block
+  theme:
+    - workbc
+id: socialnetworkinglinks
+theme: workbc
+region: footer
+weight: -11
+provider: null
+plugin: 'simple_block:social_networking_links'
+settings:
+  id: 'simple_block:social_networking_links'
+  label: 'Social Networking Links'
+  label_display: '0'
+  provider: simple_block
+visibility:
+  not_node_type:
+    id: not_node_type
+    bundles: {  }
+    negate: null
+  not_taxonomy_vocabulary:
+    id: not_taxonomy_vocabulary
+    bundles: {  }
+    negate: null

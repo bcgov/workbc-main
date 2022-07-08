@@ -10,8 +10,6 @@ footer {
 
     nav.menu--footer {
       flex: 2 1 85%;
-      justify-content: flex-start;
-      align-self: center;
 
       & > ul {
         @include list-reset;
@@ -36,10 +34,8 @@ footer {
       }
     }
 
-    #block-footersocial {
+    #block-socialnetworkinglinks {
       flex: 2 1 15%; // this is expected to grow, but using a low value forces the silly drupal structure right
-      justify-content: flex-end;
-      align-self: center;
 
       ul.social-media {
         @include list-reset;
@@ -103,11 +99,8 @@ footer {
       }
     }
 
-    #block-footertextsize {
+    #block-textsizecontrols {
       flex: 2 1 auto;
-      justify-content: flex-start;
-      align-self: center;
-
       color: $workbc_dark_theme_text;
 
       button {
@@ -131,21 +124,21 @@ footer {
       }
     }
 
-    #block-footertranslation {
+    #block-translationcontrols {
       flex: 2 1 auto;
+      display: flex;
       justify-content: flex-end;
-      align-self: center;
 
-      span {
+      p {
+        flex: 2 1 auto;
+
         text-align: right;
         color: $workbc_dark_theme_text;
       }
     }
 
-    #block-footercopyright {
+    #block-copyrightnotice {
       flex: 2 1 100%;
-      justify-content: space-between;
-      align-self: center;
 
       margin-top: $workbc_default_spacing;
       padding-top: $workbc_default_spacing;

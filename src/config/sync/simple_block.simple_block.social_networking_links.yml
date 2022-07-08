@@ -1,0 +1,11 @@
+uuid: 56fb00da-4f9c-4dac-b0c9-4412d5350f81
+langcode: en
+status: true
+dependencies:
+  config:
+    - filter.format.full_html
+id: social_networking_links
+title: 'Social Networking Links'
+content:
+  value: "<ul class=\"social-media\">\r\n\t<li><a class=\"twitter\" href=\"http://www.twitter.com\">&nbsp;</a></li>\r\n\t<li><a class=\"youtube\" href=\"http://www.youtube.com\">&nbsp;</a></li>\r\n\t<li><a class=\"linkedin\" href=\"http://www.linkein.com\">&nbsp;</a></li>\r\n\t<li><a class=\"facebook\" href=\"http://www.facebook.com\">&nbsp;</a></li>\r\n</ul>\r\n"
+  format: full_html

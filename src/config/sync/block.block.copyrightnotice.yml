@@ -1,0 +1,31 @@
+uuid: 6cf5abc3-e21c-42d9-a4eb-43f3958cafe1
+langcode: en
+status: true
+dependencies:
+  config:
+    - simple_block.simple_block.copyright_notice
+  module:
+    - block_visibility_conditions
+    - simple_block
+  theme:
+    - workbc
+id: copyrightnotice
+theme: workbc
+region: footer
+weight: -8
+provider: null
+plugin: 'simple_block:copyright_notice'
+settings:
+  id: 'simple_block:copyright_notice'
+  label: 'Copyright Notice'
+  label_display: '0'
+  provider: simple_block
+visibility:
+  not_node_type:
+    id: not_node_type
+    bundles: {  }
+    negate: null
+  not_taxonomy_vocabulary:
+    id: not_taxonomy_vocabulary
+    bundles: {  }
+    negate: null
