@@ -10,8 +10,6 @@ footer {
 
     nav.menu--footer {
       flex: 2 1 85%;
-      justify-content: flex-start;
-      align-self: center;
 
       & > ul {
         @include list-reset;
@@ -36,10 +34,8 @@ footer {
       }
     }
 
-    #block-footersocial {
+    #block-socialnetworkinglinks {
       flex: 2 1 15%; // this is expected to grow, but using a low value forces the silly drupal structure right
-      justify-content: flex-end;
-      align-self: center;
 
       ul.social-media {
         @include list-reset;
@@ -77,37 +73,30 @@ footer {
 
             background-repeat: no-repeat;
             background-position: center;
+            background-size: auto 50%;
 
             &.twitter {
               background-image: url(../assets/images/social-icon-twitter.svg);
-              background-size: 50%;
             }
   
             &.youtube {
               background-image: url(../assets/images/social-icon-youtube.svg);
-              background-size: 50%;
             }
   
             &.linkedin {
               background-image: url(../assets/images/social-icon-linkedin.svg);
-              background-size: 50%;
-              background-position: 48% 50%;
             }
   
             &.facebook {
               background-image: url(../assets/images/social-icon-facebook.svg);
-              background-size: 25%;
             }
           }
         }
       }
     }
 
-    #block-footertextsize {
+    #block-textsizecontrols {
       flex: 2 1 auto;
-      justify-content: flex-start;
-      align-self: center;
-
       color: $workbc_dark_theme_text;
 
       button {
@@ -131,21 +120,21 @@ footer {
       }
     }
 
-    #block-footertranslation {
+    #block-translationcontrols {
       flex: 2 1 auto;
+      display: flex;
       justify-content: flex-end;
-      align-self: center;
 
-      span {
+      p {
+        flex: 2 1 auto;
+
         text-align: right;
         color: $workbc_dark_theme_text;
       }
     }
 
-    #block-footercopyright {
+    #block-copyrightnotice {
       flex: 2 1 100%;
-      justify-content: space-between;
-      align-self: center;
 
       margin-top: $workbc_default_spacing;
       padding-top: $workbc_default_spacing;
