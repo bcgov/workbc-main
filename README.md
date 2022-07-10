@@ -38,10 +38,7 @@ From within the `php` container:
 - Export updated configuration to the `/var/www/html/config/sync` folder using `drush cex`
 
 ## Backup / restore
-The Backup and Migrate module does not currently support PostgreSQL. Backing up and restoring your local dev site can be accomplished using `drush`:
-
-- To backup: `drush sql:dump --result-file=example.sql`. For more info https://www.drush.org/latest/commands/sql_dump/
-- To restore: `drush sql:cli < example.sql`. For more info https://www.drush.org/latest/commands/sql_cli/
+This repo includes a patched version of Backup and Migrate that supports PostgreSQL using the native `pg_dump` and `psql` tools. You can backup and restore both the Drupal and the SSoT databases using the module.
 
 ## Theming / styling
 Please see the `src/web/themes/custom/workbc/README.md` for more details.
