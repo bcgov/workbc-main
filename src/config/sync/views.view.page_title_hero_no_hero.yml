@@ -615,6 +615,7 @@ display:
       display_description: 'Display page title, hiero image & hero text for content types with a hero image uploaded'
       display_extenders: {  }
       block_category: Views
+      block_hide_empty: true
     cache_metadata:
       max-age: -1
       contexts:
@@ -701,6 +702,7 @@ display:
       display_description: 'Display page title for content types with no hero image uploaded'
       display_extenders: {  }
       block_category: Views
+      block_hide_empty: true
     cache_metadata:
       max-age: -1
       contexts:
