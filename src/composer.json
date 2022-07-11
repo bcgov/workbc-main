@@ -136,6 +136,9 @@
             "drupal/core": "-p2"
         },
         "patches": {
+            "drupal/backup_migrate": {
+                "PostgreSQL support": "patches/drupal/backup_migrate/0002-postgresql-support.patch"
+            }
         }
     }
 }

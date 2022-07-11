@@ -9,7 +9,7 @@ This is the WorkBC site on Drupal.
 ## Initial setup
 - Start the environment: `docker-compose up`
 - Adjust folder permissions:
-  - `docker-compose exec php sudo chown www-data /var/www/html/private`
+  - `mkdir src/private && docker-compose exec php sudo chown www-data /var/www/html/private`
   - `docker-compose exec php sudo chown www-data /var/www/html/config/sync`
 - Import the init data dumps:
   - `bunzip2 -c src/scripts/workbc-init.sql.bz2 | docker-compose exec -T postgres psql -U workbc workbc`
@@ -22,26 +22,23 @@ This is the WorkBC site on Drupal.
 - Open http://workbc.docker.localhost:8000/ to view the site and login as `admin` (obtain the password from your admin)
 - Open http://localhost:8080/ to view the SSoT API
 
-**For Windows users**, You need a [version of Windows that is able to run Docker using Hyper-V backend](https://docs.docker.com/desktop/windows/install/), e.g. Windows 10 Pro. When running a command above in PowerShell, you may need to wrap it using `cmd /c "command"`.
+**For Windows users**, you need a [version of Windows that is able to run Docker using Hyper-V backend](https://docs.docker.com/desktop/windows/install/), e.g. Windows 10 Pro. When running a command above in PowerShell, you may need to wrap it using `cmd /c "command"`.
 
 ## Updating local dev environment after git pull
 `make sync` from the `src/` folder should perform any post-pull actions needed
 or run the sync script directly: `docker-compose exec php scripts/sync.sh`
 
-In some situations `drush cim` fails. In this case, the Drupal UI (Configuration -> Development -> Configuration Syncronization) should work.
-If errors still persist, you may need to manually enable new modules before running the configuration syncronization with `drush en module`.
+In some situations `drush cim` fails. In this case, the [Drupal Admin UI](http://workbc.docker.localhost:8000/admin/config/development/configuration) should work.
+If errors still persist, you may need to manually enable new modules before running the configuration synchronization with `drush en module`.
 
 ## Installing modules
 From within the `php` container:
 - Execute the composer requires command for the module. The module project page on Drupal.org provides this command, e.g. `composer require 'drupal/devel:^4.1'`
-- Enable the module using `drush en module` or via the Drupal Admin Extend option
+- Enable the module using `drush en module` or via the [Drupal Admin UI](http://workbc.docker.localhost:8000/admin/modules).
 - Export updated configuration to the `/var/www/html/config/sync` folder using `drush cex`
 
 ## Backup / restore
-The Backup and Migrate module does not currently support PostgreSQL. Backing up and restoring your local dev site can be accomplished using `drush`:
-
-- To backup: `drush sql:dump --result-file=example.sql`. For more info https://www.drush.org/latest/commands/sql_dump/
-- To restore: `drush sql:cli < example.sql`. For more info https://www.drush.org/latest/commands/sql_cli/
+This repo includes a patched version of Backup and Migrate that supports PostgreSQL using the native `pg_dump` and `psql` tools. You can backup and restore both the Drupal and the SSoT databases using the module.
 
 ## Theming / styling
 Please see the `src/web/themes/custom/workbc/README.md` for more details.

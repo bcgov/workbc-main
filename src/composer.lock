@@ -4,7 +4,7 @@
         "Read more about it at https://getcomposer.org/doc/01-basic-usage.md#installing-dependencies",
         "This file is @generated automatically"
     ],
-    "content-hash": "4eeb86df0a1ca96b01472bfd9ceb9ddd",
+    "content-hash": "2ed151ce34967758c652f510e6445cce",
     "packages": [
         {
             "name": "alchemy/zippy",
@@ -292,7 +292,6 @@
                 "consolidation/robo": "^2.0",
                 "phpunit/phpunit": "^9",
                 "squizlabs/php_codesniffer": "^3.6",
-                "sweetchuck/asset-jar": "^0.0.2",
                 "sweetchuck/git-hooks": "2.x",
                 "sweetchuck/lint-report": "^0.1.0",
                 "sweetchuck/robo-git": "^0.3.0",
@@ -310,14 +309,6 @@
                     "Cheppers\\GatherContent\\Composer\\": "src-dev/Composer",
                     "Cheppers\\GatherContent\\Tests\\": "src-dev/Tests"
                 }
-            },
-            "scripts": {
-                "post-install-cmd": [
-                    "\\Cheppers\\GatherContent\\Composer\\Scripts::postInstallCmd"
-                ],
-                "post-update-cmd": [
-                    "\\Cheppers\\GatherContent\\Composer\\Scripts::postUpdateCmd"
-                ]
             },
             "license": [
                 "GPL-2.0-or-later"
