@@ -1,0 +1,28 @@
+uuid: 50db8dfa-416a-49c6-ba9a-1c21bb52b2dc
+langcode: en
+status: false
+dependencies:
+  config:
+    - core.entity_form_mode.paragraph.action_card_icon
+    - field.field.paragraph.action_cards_explore_careers.field_action_cards
+    - paragraphs.paragraphs_type.action_cards_explore_careers
+  module:
+    - entity_reference_revisions
+id: paragraph.action_cards_explore_careers.action_card_icon
+targetEntityType: paragraph
+bundle: action_cards_explore_careers
+mode: action_card_icon
+content:
+  field_action_cards:
+    type: entity_reference_revisions_autocomplete
+    weight: 0
+    region: content
+    settings:
+      match_operator: CONTAINS
+      match_limit: 10
+      size: 60
+      placeholder: ''
+    third_party_settings: {  }
+hidden:
+  created: true
+  status: true

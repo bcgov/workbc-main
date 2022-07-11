@@ -1,8 +1,9 @@
-uuid: 62fb015d-1257-4acb-8694-7cb1bb407131
+uuid: 2daa2a7d-3975-40dc-895a-78771c2dd513
 langcode: en
 status: true
 dependencies:
   config:
+    - core.entity_form_mode.paragraph.action_card_icon
     - field.field.paragraph.action_card.field_description
     - field.field.paragraph.action_card.field_image
     - field.field.paragraph.action_card.field_link
@@ -13,10 +14,10 @@ dependencies:
     - image_widget_crop
     - link
     - text
-id: paragraph.action_card.default
+id: paragraph.action_card.action_card_icon
 targetEntityType: paragraph
 bundle: action_card
-mode: default
+mode: action_card_icon
 content:
   field_description:
     type: text_textarea
@@ -35,7 +36,7 @@ content:
       preview_image_style: thumbnail
       crop_preview_image_style: crop_thumbnail
       crop_list:
-        - crop_2_1
+        - crop_1_1
       crop_types_required: {  }
       warn_multiple_usages: true
       show_crop_area: true
