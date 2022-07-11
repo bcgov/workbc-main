@@ -101,16 +101,18 @@ set footer_classes = ' ' ~
   set content_classes = (page.sidebar_first and page.sidebar_second) ? 'col-12 col-lg-6' : ((page.sidebar_first or page.sidebar_second) ? 'col-12 col-lg-9' : 'col-12' )
    %}
 
-  {% if page.hero_content %}
-      {{ page.hero_content }}
-  {% endif %}
-
-  {% if page.breadcrumb %}
-      {{ page.breadcrumb }}
-  {% endif %}
-
   <div class="page-content-wrapper">
+
     <div id="submenu-underlay"></div>
+
+    {% if page.hero_content %}
+        {{ page.hero_content }}
+    {% endif %}
+
+    {% if page.breadcrumb %}
+        {{ page.breadcrumb }}
+    {% endif %}
+
     <div class="{{ b5_top_container }}">
       <div class="row g-0">
         {% if page.sidebar_first %}

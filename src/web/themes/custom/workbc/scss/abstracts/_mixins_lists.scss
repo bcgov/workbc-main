@@ -5,14 +5,9 @@
 }
 
 @mixin list-flex-inline {
-  // height: 100%;
-  // width: 100%;
   display: flex;
   flex-direction: row;
   flex-wrap: nowrap;
-  // justify-content: space-between;     ************************
-  // align-items: stretch;
-  // gap: 0;
 
   & > li {
     flex: 0 1 auto;

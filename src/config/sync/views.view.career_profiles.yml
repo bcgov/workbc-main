@@ -643,6 +643,7 @@ display:
         type: normal
         title: Glossary
         weight: 0
+        enabled: false
         menu_name: main
         parent: ''
     cache_metadata:

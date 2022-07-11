@@ -76,3 +76,4 @@ From your host machine, in the `src/` directory, run `make <command>`:
 - If you run into timeout issues while installing/unzipping PHP, try the following:
   - `docker-compose exec php composer config --global process-timeout 600`
   - `docker-compose exec php composer install --prefer-dist --no-dev`
+  - There as also one instance where making sure you were logged into docker helped (`docker login` or logging in via the UI)
