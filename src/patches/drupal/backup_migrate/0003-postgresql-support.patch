@@ -1,0 +1,297 @@
+diff --git a/src/Core/Source/PostgreSQLSource.php b/src/Core/Source/PostgreSQLSource.php
+new file mode 100644
+index 0000000..354262b
+--- /dev/null
++++ b/src/Core/Source/PostgreSQLSource.php
+@@ -0,0 +1,199 @@
++<?php
++
++namespace Drupal\backup_migrate\Core\Source;
++
++use Drupal\backup_migrate\Core\Exception\BackupMigrateException;
++use Drupal\backup_migrate\Core\File\BackupFileReadableInterface;
++use Drupal\backup_migrate\Core\Plugin\PluginCallerTrait;
++use Drupal\backup_migrate\Core\Plugin\PluginCallerInterface;
++use Drupal\backup_migrate\Core\Plugin\PluginBase;
++use Drupal\backup_migrate\Drupal\File\DrupalTempFileAdapter;
++use Drupal\backup_migrate\Core\File\TempFileManager;
++use Drupal\pgsql\Driver\Database\pgsql\Connection as PgsqlConnection;
++use Symfony\Component\Process\Process;
++
++/**
++ *
++ *
++ * @package Drupal\backup_migrate\Core\Source
++ */
++class PostgreSQLSource extends DatabaseSource implements PluginCallerInterface {
++  use PluginCallerTrait;
++
++  /**
++   * A PostgreSQL connection.
++   *
++   * @var resource
++   */
++  protected $connection;
++
++  /**
++   * {@inheritdoc}
++   */
++  public function supportedOps() {
++    return [
++      'exportToFile' => [],
++      'importFromFile' => [],
++    ];
++  }
++
++  /**
++   * Export this source to the given temp file.
++   *
++   * This should be the main back up function for this source.
++   *
++   * @return \Drupal\backup_migrate\Core\File\BackupFileReadableInterface
++   *   A backup file with the contents of the source dumped to it.
++   */
++  public function exportToFile() {
++    $adapter = new DrupalTempFileAdapter(\Drupal::service('file_system'));
++    $tempfilemanager = new TempFileManager($adapter);
++    $this->setTempFileManager($tempfilemanager);
++    $file = $this->getTempFileManager()->create('sql');
++
++    // A bit of PHP magic to get the configuration of the db_exclude plugin.
++    // The PluginManagerInterface::get($plugin_id) method returns a PluginInterface which does not expose the confGet() method.
++    // So we want to cast it to a PluginBase which does expose confGet().
++    // Since PHP doesn't have an explicit casting operator for classes, we use an inline function whose return type is PluginBase.
++    // https://stackoverflow.com/a/69771390/209184
++    $exclude_tables = (array) (fn($plugin):PluginBase=>$plugin)($this->plugins()->get('db_exclude'))->confGet('exclude_tables');
++    $nodata_tables = (array) (fn($plugin):PluginBase=>$plugin)($this->plugins()->get('db_exclude'))->confGet('nodata_tables');
++
++    $process_args = [
++      'pg_dump',
++      '--host', $this->confGet('host'),
++      '--port', $this->confGet('port'),
++      '--user', $this->confGet('username'),
++      '--clean'
++    ];
++    if ($exclude_tables) {
++      foreach($exclude_tables as $table) {
++        array_push($process_args, '--exclude-table', $table);
++      }
++    }
++    if ($nodata_tables) {
++      foreach($nodata_tables as $table) {
++        array_push($process_args, '--exclude-table-data', $table);
++      }
++    }
++    $process = new Process(
++      array_merge($process_args, [$this->confGet('database')]),
++      null,
++      [
++        'PGPASSWORD' => $this->confGet('password')
++      ]
++    );
++    $process->run();
++    if (!$process->isSuccessful()) {
++      $message = $process->getErrorOutput();
++      \Drupal::logger('backup_migrate')->error($message);
++      throw new BackupMigrateException($message);
++    }
++    $file->write($process->getOutput());
++    $file->close();
++    return $file;
++  }
++
++  /**
++   * Import to this source from the given backup file.
++   *
++   * This is the main restore function for this source.
++   *
++   * @param \Drupal\backup_migrate\Core\File\BackupFileReadableInterface $file
++   *   The file to read the backup from. It will not be opened for reading.
++   *
++   * @return bool|int
++   */
++  public function importFromFile(BackupFileReadableInterface $file) {
++    $stream = fopen(\Drupal::service('file_system')->realpath($file->realpath()), 'r');
++    $process = new Process(
++      [
++        'psql',
++        '--host', $this->confGet('host'),
++        '--port', $this->confGet('port'),
++        '--user', $this->confGet('username'),
++        $this->confGet('database')
++      ],
++      null,
++      [
++        'PGPASSWORD' => $this->confGet('password')
++      ],
++      $stream
++    );
++    $process->run();
++    fclose($stream);
++    if (!$process->isSuccessful()) {
++      $message = $process->getErrorOutput();
++      \Drupal::logger('backup_migrate')->error($message);
++      throw new BackupMigrateException($message);
++    }
++    return true;
++  }
++
++  /**
++   * {@inheritdoc}
++   */
++  protected function getRawTables() {
++    $out = [];
++    $tables = $this->query("
++      SELECT * FROM pg_catalog.pg_tables
++      WHERE schemaname != 'pg_catalog' AND
++            schemaname != 'information_schema'
++      ORDER BY tablename
++    ");
++    while ($tables && $table = $tables->fetchAssoc()) {
++      // Lowercase the keys for consistency.
++      $table = array_change_key_case($table);
++      $table['name'] = $table['tablename'];
++      $out[$table['name']] = $table;
++    }
++    return $out;
++  }
++
++  /**
++   * Get the db connection for the specified db.
++   *
++   * @return Drupal\pgsql\Driver\Database\pgsql\Connection
++   *   Connection object.
++   *
++   * @throws \Exception
++   */
++  protected function _getConnection() {
++    if (!$this->connection) {
++      $connection_options = [
++        'host' => $this->confGet('host'),
++        'username' => $this->confGet('username'),
++        'password' => $this->confGet('password'),
++        'database' => $this->confGet('database'),
++        'port' => $this->confGet('port'),
++      ];
++      try {
++        $pdoConnection = PgsqlConnection::open($connection_options);
++        $this->connection = new PgsqlConnection($pdoConnection, $connection_options);
++      }
++      catch (\RuntimeException $e) {
++        throw new BackupMigrateException($e->getMessage());
++      }
++    }
++    return $this->connection;
++  }
++
++  /**
++   * Run a db query on this destination's db.
++   *
++   * @param $query
++   *
++   * @return \Drupal\Core\Database\StatementInterface|int|string|null
++   *
++   * @throws \Exception
++   */
++  protected function query($query) {
++    if ($conn = $this->_getConnection()) {
++      return $conn->query($query);
++    }
++    else {
++      throw new \Exception('Could not run any queries on the database as a connection could not be established');
++    }
++  }
++
++}
+diff --git a/src/Drupal/Source/DrupalPostgreSQLSource.php b/src/Drupal/Source/DrupalPostgreSQLSource.php
+new file mode 100644
+index 0000000..4a941d6
+--- /dev/null
++++ b/src/Drupal/Source/DrupalPostgreSQLSource.php
+@@ -0,0 +1,12 @@
++<?php
++
++namespace Drupal\backup_migrate\Drupal\Source;
++
++use Drupal\backup_migrate\Core\Source\PostgreSQLSource;
++
++/**
++ *
++ *
++ * @package Drupal\backup_migrate\Drupal\Source
++ */
++class DrupalPostgreSQLSource extends PostgreSQLSource {}
+diff --git a/src/Plugin/BackupMigrateSource/DefaultDBSourcePlugin.php b/src/Plugin/BackupMigrateSource/DefaultDBSourcePlugin.php
+index 9db82d8..55bda5b 100644
+--- a/src/Plugin/BackupMigrateSource/DefaultDBSourcePlugin.php
++++ b/src/Plugin/BackupMigrateSource/DefaultDBSourcePlugin.php
+@@ -7,6 +7,7 @@ use Drupal\backup_migrate\Core\Config\Config;
+ use Drupal\backup_migrate\Core\Filter\DBExcludeFilter;
+ use Drupal\backup_migrate\Core\Main\BackupMigrateInterface;
+ use Drupal\backup_migrate\Drupal\Source\DrupalMySQLiSource;
++use Drupal\backup_migrate\Drupal\Source\DrupalPostgreSQLSource;
+ use Drupal\backup_migrate\Drupal\EntityPlugins\SourcePluginBase;
+ 
+ /**
+@@ -40,6 +41,13 @@ class DefaultDBSourcePlugin extends SourcePluginBase {
+       }
+       return new DrupalMySQLiSource($conf);
+     }
++    elseif ($info['driver'] == 'pgsql') {
++      $conf = $this->getConfig();
++      foreach ($info as $key => $value) {
++        $conf->set($key, $value);
++      }
++      return new DrupalPostgreSQLSource($conf);
++    }
+ 
+     return NULL;
+   }
+diff --git a/src/Plugin/BackupMigrateSource/EntireSiteSourcePlugin.php b/src/Plugin/BackupMigrateSource/EntireSiteSourcePlugin.php
+index bbca793..6c12ed9 100644
+--- a/src/Plugin/BackupMigrateSource/EntireSiteSourcePlugin.php
++++ b/src/Plugin/BackupMigrateSource/EntireSiteSourcePlugin.php
+@@ -5,6 +5,7 @@ namespace Drupal\backup_migrate\Plugin\BackupMigrateSource;
+ use Drupal\Core\Database\Database;
+ use Drupal\backup_migrate\Core\Config\Config;
+ use Drupal\backup_migrate\Drupal\Source\DrupalMySQLiSource;
++use Drupal\backup_migrate\Drupal\Source\DrupalPostgreSQLSource;
+ use Drupal\backup_migrate\Core\Main\BackupMigrateInterface;
+ use Drupal\backup_migrate\Drupal\EntityPlugins\SourcePluginBase;
+ use Drupal\backup_migrate\Drupal\Source\DrupalSiteArchiveSource;
+@@ -38,6 +39,12 @@ class EntireSiteSourcePlugin extends SourcePluginBase {
+       $this->dbSource = new DrupalMySQLiSource(new Config($info));
+       return new DrupalSiteArchiveSource($conf, $this->dbSource);
+     }
++    elseif ($info['driver'] == 'pgsql') {
++      $conf = $this->getConfig();
++      $conf->set('directory', DRUPAL_ROOT);
++      $this->dbSource = new DrupalPostgreSQLSource(new Config($info));
++      return new DrupalSiteArchiveSource($conf, $this->dbSource);
++    }
+ 
+     return NULL;
+   }
+diff --git a/src/Plugin/BackupMigrateSource/PostgreSQLSourcePlugin.php b/src/Plugin/BackupMigrateSource/PostgreSQLSourcePlugin.php
+new file mode 100644
+index 0000000..6e5421e
+--- /dev/null
++++ b/src/Plugin/BackupMigrateSource/PostgreSQLSourcePlugin.php
+@@ -0,0 +1,17 @@
++<?php
++
++namespace Drupal\backup_migrate\Plugin\BackupMigrateSource;
++
++use Drupal\backup_migrate\Drupal\EntityPlugins\SourcePluginBase;
++
++/**
++ * Defines an pgsql source plugin.
++ *
++ * @BackupMigrateSourcePlugin(
++ *   id = "PostgreSQL",
++ *   title = @Translation("PostgreSQL Database"),
++ *   description = @Translation("Back up a PostgreSQL compatible database."),
++ *   wrapped_class = "\Drupal\backup_migrate\Core\Source\PostgreSQLSource"
++ * )
++ */
++class PostgreSQLSourcePlugin extends SourcePluginBase {}
