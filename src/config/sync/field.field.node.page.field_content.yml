@@ -7,6 +7,8 @@ dependencies:
     - node.type.page
     - paragraphs.paragraphs_type.action_card_feature
     - paragraphs.paragraphs_type.action_cards_1_2
+    - paragraphs.paragraphs_type.action_cards_explore_careers
+    - paragraphs.paragraphs_type.action_cards_icon
     - paragraphs.paragraphs_type.content_text
     - paragraphs.paragraphs_type.content_view
   module:
@@ -27,8 +29,10 @@ settings:
     target_bundles:
       action_card_feature: action_card_feature
       action_cards_1_2: action_cards_1_2
+      action_cards_explore_careers: action_cards_explore_careers
       content_text: content_text
       content_view: content_view
+      action_cards_icon: action_cards_icon
     negate: 0
     target_bundles_drag_drop:
       action_card:
@@ -46,9 +50,15 @@ settings:
       action_cards_1_4:
         weight: 15
         enabled: false
+      action_cards_explore_careers:
+        weight: 20
+        enabled: true
       action_cards_full_width:
         weight: 16
         enabled: false
+      action_cards_icon:
+        weight: 22
+        enabled: true
       additional_duties:
         weight: 17
         enabled: false

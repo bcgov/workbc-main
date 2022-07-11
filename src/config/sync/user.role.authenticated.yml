@@ -10,7 +10,6 @@ dependencies:
     - filter
     - media
     - paragraphs_type_permissions
-    - search
     - shortcut
     - system
 _core:
@@ -25,7 +24,6 @@ permissions:
   - 'access shortcuts'
   - 'access site-wide contact form'
   - 'post comments'
-  - 'search content'
   - 'skip comment approval'
   - 'use text format basic_html'
   - 'view media'

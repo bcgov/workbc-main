@@ -11,8 +11,9 @@ This is the WorkBC site on Drupal.
 - Adjust folder permissions:
   - `docker-compose exec php sudo chown www-data /var/www/html/private`
   - `docker-compose exec php sudo chown www-data /var/www/html/config/sync`
-- Import a Drupal data dump: `docker-compose exec -T postgres psql --username workbc workbc < /path/to/workbc-dump.sql` (in Windows PowerShell: `cmd /c "docker-compose exec -T postgres psql --username workbc workbc < /path/to/workbc-dump.sql"`)
-- Import a SSoT data dump: `docker-compose exec -T postgres psql --username workbc ssot < /path/to/ssot-dump.sql` (in Windows PowerShell: `cmd /c "docker-compose exec -T postgres psql --username workbc ssot < /path/to/ssot-dump.sql"`)
+- Import the init data dumps:
+  - `bunzip2 -c src/scripts/workbc-init.sql.bz2 | docker-compose exec -T postgres psql -U workbc workbc`
+  - `bunzip2 -c src/scripts/ssot-full.sql.bz2 | docker-compose exec -T postgres psql -U workbc ssot`
 - Edit your `hosts` file to add the following line:
 ```
 127.0.0.1       workbc.docker.localhost
@@ -21,7 +22,7 @@ This is the WorkBC site on Drupal.
 - Open http://workbc.docker.localhost:8000/ to view the site and login as `admin` (obtain the password from your admin)
 - Open http://localhost:8080/ to view the SSoT API
 
-**For Windows users**, You need a [version of Windows that is able to run Docker using Hyper-V backend](https://docs.docker.com/desktop/windows/install/), e.g. Windows 10 Pro.
+**For Windows users**, You need a [version of Windows that is able to run Docker using Hyper-V backend](https://docs.docker.com/desktop/windows/install/), e.g. Windows 10 Pro. When running a command above in PowerShell, you may need to wrap it using `cmd /c "command"`.
 
 ## Updating local dev environment after git pull
 `make sync` from the `src/` folder should perform any post-pull actions needed

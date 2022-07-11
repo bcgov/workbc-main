@@ -10,7 +10,6 @@ dependencies:
     - filter
     - media
     - paragraphs_type_permissions
-    - search
     - system
 _core:
   default_config_hash: 6WavjUYXIegP9AAg2zXGx54MWIVoomC3SZhNiqe-Dyk
@@ -22,7 +21,6 @@ permissions:
   - 'access comments'
   - 'access content'
   - 'access site-wide contact form'
-  - 'search content'
   - 'use text format restricted_html'
   - 'view media'
   - 'view paragraph content action_card'

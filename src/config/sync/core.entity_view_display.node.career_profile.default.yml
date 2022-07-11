@@ -9,6 +9,7 @@ dependencies:
     - field.field.node.career_profile.field_career_pathways
     - field.field.node.career_profile.field_career_videos
     - field.field.node.career_profile.field_duties
+    - field.field.node.career_profile.field_education_programs
     - field.field.node.career_profile.field_education_training_skills
     - field.field.node.career_profile.field_hero_image
     - field.field.node.career_profile.field_hi_opportunity_occupation
@@ -22,7 +23,6 @@ dependencies:
     - field.field.node.career_profile.field_related_careers
     - field.field.node.career_profile.field_resources
     - field.field.node.career_profile.field_salary_introduction
-    - field.field.node.career_profile.field_skills
     - field.field.node.career_profile.field_skills_introduction
     - field.field.node.career_profile.field_work_environment
     - node.type.career_profile
@@ -82,9 +82,10 @@ third_party_settings:
     group_education_training_skills:
       children:
         - field_education_training_skills
+        - field_education_programs
         - extra_field_education_programs
         - field_skills_introduction
-        - field_skills
+        - extra_field_profile_skills
       label: 'Education, Training & Skills'
       parent_name: group_career_profile_tabs
       region: content
@@ -160,7 +161,7 @@ content:
   extra_field_education_programs:
     settings: {  }
     third_party_settings: {  }
-    weight: 17
+    weight: 18
     region: content
   extra_field_employment_growth_rate_forecast:
     settings: {  }
@@ -206,6 +207,11 @@ content:
     settings: {  }
     third_party_settings: {  }
     weight: 21
+    region: content
+  extra_field_profile_skills:
+    settings: {  }
+    third_party_settings: {  }
+    weight: 20
     region: content
   extra_field_salary_info_annual_salary:
     settings: {  }
@@ -256,6 +262,13 @@ content:
     settings: {  }
     third_party_settings: {  }
     weight: 9
+    region: content
+  field_education_programs:
+    type: text_default
+    label: above
+    settings: {  }
+    third_party_settings: {  }
+    weight: 17
     region: content
   field_education_training_skills:
     type: text_default
@@ -365,21 +378,12 @@ content:
     third_party_settings: {  }
     weight: 11
     region: content
-  field_skills:
-    type: entity_reference_revisions_entity_view
-    label: above
-    settings:
-      view_mode: default
-      link: ''
-    third_party_settings: {  }
-    weight: 19
-    region: content
   field_skills_introduction:
     type: text_default
     label: above
     settings: {  }
     third_party_settings: {  }
-    weight: 18
+    weight: 19
     region: content
   field_work_environment:
     type: text_default
