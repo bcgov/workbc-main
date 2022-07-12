@@ -101,6 +101,10 @@ resource "aws_ecs_task_definition" "app" {
 			{
 				name = "POSTGRES_HOST",
 				value = "${data.aws_rds_cluster.postgres.endpoint}"
+			},
+			{
+				name = "SSOT_URL",
+				value = "10.12.9.107"
 			}
 		]
 		secrets = [
