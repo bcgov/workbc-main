@@ -13,6 +13,8 @@ define ("REGION_NORTHEAST", "Northeast");
 define ("REGION_THOMPSON_OKANAGAN", "Thompson-Okanagan");
 define ("REGION_VANCOUVER_ISLAND_COAST", "Vancouver Island-Coast");
 
+define ('SSOT_PING_TIMEOUT', 5);
+
 /*
 
 we use hook_entity_view instead of hook_entity_load as we along need to load data from SSoT
@@ -21,6 +23,10 @@ for the node that is being displayed, not for nodes that are being referenced.
 
 */
 function workbc_extra_fields_node_view(array &$build, \Drupal\Core\Entity\EntityInterface $entity, \Drupal\Core\Entity\Display\EntityViewDisplayInterface $display, $view_mode) {
+  if (!querySSoT('', SSOT_PING_TIMEOUT)) {
+    $entity->ssot_data = NULL;
+    return;
+  }
 
   $data = array();
   if ($view_mode == "full") {
@@ -44,22 +50,23 @@ function ssotCareerProfile($noc) {
   $data['education'] = querySSoT('education?noc=eq.' . $noc)[0];
   $data['skills'] = querySSoT('skills?noc=eq.' . $noc);
   $data['openings'] = querySSoT('openings?noc=eq.' . $noc)[0];
-  // ksm($data);
   return $data;
 }
 
-function querySSoT($url) {
+function querySSoT($url, $read_timeout = NULL) {
   $ssot = rtrim(\Drupal::config('workbc')->get('ssot_url'), '/');
   $client = new Client();
   try {
-    $response = $client->get($ssot . '/' . $url);
-    $result = json_decode($response->getBody(), TRUE);
-    if (isset($result[0])) {
-      $data = $result;
-      return $data;
+    $options = [];
+    if ($read_timeout) {
+      $options['read_timeout'] = $read_timeout;
     }
+    $response = $client->get($ssot . '/' . $url, $options);
+    $result = json_decode($response->getBody(), TRUE);
+    return $result;
   }
   catch (RequestException $e) {
-    // log exception
+    \Drupal::logger('workbc_extra_fields')->error($e->getMessage());
+    return NULL;
   }
 }
