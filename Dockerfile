@@ -3,5 +3,6 @@ RUN apt-get update && apt-get install -y \
   postgresql-client \
   && rm -rf /var/lib/apt/lists/*
 COPY src /code
+ENV GITHUB_SHA=$GITHUB_SHA
 RUN chmod -R g+rwX /code
 RUN cd /code && rm -rf .git && AWS_BUILD_NAME=1 composer install
