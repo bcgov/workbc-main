@@ -36,7 +36,7 @@ jobs:
           role-duration-seconds: 900
           role-session-name: workbc-github-action
           role-skip-session-tagging: true
-          
+
       # Login to ECR
       - name: Login to Amazon ECR
         id: login-ecr
@@ -45,7 +45,7 @@ jobs:
       # Runs a single command using the runners shell
       - name: Build Drupal docker image
         run: |
-          docker build . -t 266795317183.dkr.ecr.ca-central-1.amazonaws.com/workbc:${{ github.sha }}
+          docker build . -t 266795317183.dkr.ecr.ca-central-1.amazonaws.com/workbc:${{ github.sha }} --build-arg GITHUB_SHA
       - name: Push Drupal docker image
         run: |
           docker push 266795317183.dkr.ecr.ca-central-1.amazonaws.com/workbc:${{ github.sha }}
