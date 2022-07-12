@@ -6,4 +6,4 @@ COPY src /code
 ARG GITHUB_SHA=unknown
 ENV GITHUB_SHA=$GITHUB_SHA
 RUN chmod -R g+rwX /code
-RUN cd /code && rm -rf .git && AWS_BUILD_NAME=1 composer install
+RUN cd /code && rm -rf .git && composer install

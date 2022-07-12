@@ -17,7 +17,7 @@ use Webmozart\PathUtil\Path;
 class ScriptHandler {
 
   public static function createRequiredFiles(Event $event) {
-    if (getenv('AWS_BUILD_NAME')) return;
+    if (!getenv('COMPOSER_LOCAL')) return;
 
     $fs = new Filesystem();
     $drupalFinder = new DrupalFinder();
