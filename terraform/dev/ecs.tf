@@ -104,7 +104,7 @@ resource "aws_ecs_task_definition" "app" {
 			},
 			{
 				name = "SSOT_URL",
-				value = "http://10.12.9.107:3000"
+				value = "http://${data.aws_lb.ssot-lb.dns_name}:3000"
 			}
 		]
 		secrets = [
