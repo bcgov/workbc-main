@@ -1,0 +1,19 @@
+uuid: bdd6fa1f-a874-4c90-924c-b6224010becb
+langcode: en
+status: false
+dependencies: {  }
+id: dev
+label: Dev
+description: 'Default development configuration split, intended for use with Local Docker development environments.'
+weight: 0
+folder: ../config/split/dev
+module:
+  config_ignore: 0
+  devel: 0
+  devel_kint_extras: 0
+theme: {  }
+blacklist:
+  - core.extension
+graylist: {  }
+graylist_dependents: true
+graylist_skip_equal: true
