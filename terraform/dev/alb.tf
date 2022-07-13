@@ -6,6 +6,10 @@ data "aws_alb" "main" {
   name = var.alb_name
 }
 
+data "aws_alb" "ssot" {
+  name = "ssot-lb"
+}
+
 # Redirect all traffic from the ALB to the target group
 data "aws_alb_listener" "front_end" {
   load_balancer_arn = data.aws_alb.main.id

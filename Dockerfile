@@ -1,7 +1,4 @@
-FROM 266795317183.dkr.ecr.ca-central-1.amazonaws.com/drupal-base:2.0
-RUN apt-get update && apt-get install -y \
-  postgresql-client \
-  && rm -rf /var/lib/apt/lists/*
+FROM 266795317183.dkr.ecr.ca-central-1.amazonaws.com/drupal-base:2.1
 COPY src /code
 ARG GITHUB_SHA=unknown
 ENV GITHUB_SHA=$GITHUB_SHA
