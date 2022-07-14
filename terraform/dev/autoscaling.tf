@@ -1,7 +1,7 @@
 # auto_scaling.tf
 
 resource "aws_appautoscaling_target" "ecs" {
-#  count              = local.create_ecs_service
+  count              = local.create_ecs_service
   service_namespace  = "ecs"
   resource_id        = "service/${aws_ecs_cluster.main.name}/${aws_ecs_service.main[count.index].name}"
   scalable_dimension = "ecs:service:DesiredCount"
