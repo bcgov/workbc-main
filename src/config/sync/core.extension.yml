@@ -20,7 +20,6 @@ module:
   comment: 0
   config: 0
   config_filter: 0
-  config_ignore: 0
   config_split: 0
   contact: 0
   contextual: 0
@@ -28,8 +27,6 @@ module:
   datetime: 0
   datetime_range: 0
   dblog: 0
-  devel: 0
-  devel_kint_extras: 0
   dynamic_page_cache: 0
   editor: 0
   entity_reference_revisions: 0

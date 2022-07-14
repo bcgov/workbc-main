@@ -9,11 +9,8 @@ weight: 0
 folder: ../config/split/awstest
 module:
   config_ignore: 0
-  devel: 0
-  devel_kint_extras: 0
 theme: {  }
-blacklist:
-  - core.extension
+blacklist: {  }
 graylist: {  }
 graylist_dependents: true
 graylist_skip_equal: true
