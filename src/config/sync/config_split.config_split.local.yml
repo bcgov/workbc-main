@@ -1,0 +1,17 @@
+uuid: cc18e514-2401-4bf2-bfdb-be4a059d18f2
+langcode: en
+status: false
+dependencies: {  }
+id: local
+label: Local
+description: "Intended for individual developer specific configuration. \r\n\r\nThis split should not be necessary and developers should use the default 'dev' split."
+weight: 0
+folder: ../config/split/local
+module:
+  devel: 0
+  devel_kint_extras: 0
+theme: {  }
+blacklist: {  }
+graylist: {  }
+graylist_dependents: true
+graylist_skip_equal: true

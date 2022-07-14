@@ -1,0 +1,16 @@
+uuid: 03cdc1ce-b622-45ba-b7a2-8a2e3d0ad8e4
+langcode: en
+status: false
+dependencies: {  }
+id: aws_test
+label: 'AWS Test'
+description: 'AWS Test environment configuration split.'
+weight: 0
+folder: ../config/split/awstest
+module:
+  config_ignore: 0
+theme: {  }
+blacklist: {  }
+graylist: {  }
+graylist_dependents: true
+graylist_skip_equal: true
