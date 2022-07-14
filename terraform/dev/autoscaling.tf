@@ -11,11 +11,11 @@ resource "aws_appautoscaling_target" "ecs" {
 
 # Automatically scale capacity up by one
 resource "aws_appautoscaling_policy" "up" {
-#  count              = local.create_ecs_service
+  count              = local.create_ecs_service
   name               = "auto_scale_up"
-  service_namespace  = aws_appautoscaling_target.ecs.service_namespace
-  resource_id        = aws_appautoscaling_target.ecs.resource_id
-  scalable_dimension = aws_appautoscaling_target.ecs.scalable_dimension
+  service_namespace  = aws_appautoscaling_target.ecs[count.index].service_namespace
+  resource_id        = aws_appautoscaling_target.ecs[count.index].resource_id
+  scalable_dimension = aws_appautoscaling_target.ecs[count.index].scalable_dimension
 
   step_scaling_policy_configuration {
     adjustment_type         = "ChangeInCapacity"
@@ -33,11 +33,11 @@ resource "aws_appautoscaling_policy" "up" {
 
 # Automatically scale capacity down by one
 resource "aws_appautoscaling_policy" "down" {
-#  count              = local.create_ecs_service
+  count              = local.create_ecs_service
   name               = "auto_scale_down"
-  service_namespace  = aws_appautoscaling_target.ecs.service_namespace
-  resource_id        = aws_appautoscaling_target.ecs.resource_id
-  scalable_dimension = aws_appautoscaling_target.ecs.scalable_dimension
+  service_namespace  = aws_appautoscaling_target.ecs[count.index].service_namespace
+  resource_id        = aws_appautoscaling_target.ecs[count.index].resource_id
+  scalable_dimension = aws_appautoscaling_target.ecs[count.index].scalable_dimension
 
   step_scaling_policy_configuration {
     adjustment_type         = "ChangeInCapacity"
@@ -55,7 +55,7 @@ resource "aws_appautoscaling_policy" "down" {
 
 # CloudWatch alarm that triggers the autoscaling up policy
 resource "aws_cloudwatch_metric_alarm" "service_cpu_high" {
-#  count               = local.create_ecs_service
+  count               = local.create_ecs_service
   alarm_name          = "ecs_cpu_utilization_high"
   comparison_operator = "GreaterThanOrEqualToThreshold"
   evaluation_periods  = "2"
@@ -67,10 +67,10 @@ resource "aws_cloudwatch_metric_alarm" "service_cpu_high" {
 
   dimensions = {
     ClusterName = aws_ecs_cluster.main.name
-    ServiceName = aws_ecs_service.main.name
+    ServiceName = aws_ecs_service.main[count.index].name
   }
 
-  alarm_actions = [aws_appautoscaling_policy.up.arn]
+  alarm_actions = [aws_appautoscaling_policy.up[count.index].arn]
 
   tags = var.common_tags
 }
@@ -89,10 +89,10 @@ resource "aws_cloudwatch_metric_alarm" "service_cpu_low" {
 
   dimensions = {
     ClusterName = aws_ecs_cluster.main.name
-    ServiceName = aws_ecs_service.main.name
+    ServiceName = aws_ecs_service.main[count.index].name
   }
 
-  alarm_actions = [aws_appautoscaling_policy.down.arn]
+  alarm_actions = [aws_appautoscaling_policy.down[count.index].arn]
 
   tags = var.common_tags
 }
