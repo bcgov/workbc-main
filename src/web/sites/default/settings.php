@@ -796,3 +796,53 @@ if (file_exists($app_root . '/' . $site_path . '/settings.aws.php') && getenv('A
 } else if (file_exists($app_root . '/' . $site_path . '/settings.local.php')) {
   include $app_root . '/' . $site_path . '/settings.local.php';
 }
+
+
+/**
+ *  Configuration Split
+ *
+ * 'dev' project environment is intended for use in local
+ * docker development environments.
+ *
+ * the 'local' project environment has been set up for possible
+ * future use, if necessary.
+ *
+ */
+
+if (!is_null(getenv('PROJECT_ENVIRONMENT'))) {
+  if (getenv('PROJECT_ENVIRONMENT') == 'local') {
+    $config['config_split.config_split.local']['status'] = true;
+    $config['config_split.config_split.dev']['status'] = false;
+    $config['config_split.config_split.aws_dev']['status'] = false;
+    $config['config_split.config_split.aws_test']['status'] = false;
+    $config['config_split.config_split.aws_prod']['status'] = false;
+  }
+  else if (getenv('PROJECT_ENVIRONMENT') == 'dev') {
+    $config['config_split.config_split.local']['status'] = false;
+    $config['config_split.config_split.dev']['status'] = true;
+    $config['config_split.config_split.aws_dev']['status'] = false;
+    $config['config_split.config_split.aws_test']['status'] = false;
+    $config['config_split.config_split.aws_prod']['status'] = false;
+  }
+  else if (getenv('PROJECT_ENVIRONMENT') == 'aws-dev') {
+    $config['config_split.config_split.local']['status'] = false;
+    $config['config_split.config_split.dev']['status'] = false;
+    $config['config_split.config_split.aws_dev']['status'] = true;
+    $config['config_split.config_split.aws_test']['status'] = false;
+    $config['config_split.config_split.aws_prod']['status'] = false;
+  }
+  else if (getenv('PROJECT_ENVIRONMENT') == 'aws-test') {
+    $config['config_split.config_split.local']['status'] = false;
+    $config['config_split.config_split.dev']['status'] = false;
+    $config['config_split.config_split.aws_dev']['status'] = false;
+    $config['config_split.config_split.aws_test']['status'] = true;
+    $config['config_split.config_split.aws_prod']['status'] = false;
+  }
+  else if (getenv('PROJECT_ENVIRONMENT') == 'aws-prod') {
+    $config['config_split.config_split.local']['status'] = false;
+    $config['config_split.config_split.dev']['status'] = false;
+    $config['config_split.config_split.aws_dev']['status'] = false;
+    $config['config_split.config_split.aws_test']['status'] = false;
+    $config['config_split.config_split.aws_prod']['status'] = true;
+  }
+}
