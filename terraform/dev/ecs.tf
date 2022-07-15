@@ -105,6 +105,10 @@ resource "aws_ecs_task_definition" "app" {
 			{
 				name = "SSOT_URL",
 				value = "${local.conn_str}"
+			},
+			{
+				name = "PROJECT_ENVIRONMENT",
+				value = "aws-dev"
 			}
 		]
 		secrets = [
