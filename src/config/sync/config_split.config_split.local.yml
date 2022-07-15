@@ -10,6 +10,7 @@ folder: ../config/split/local
 module:
   devel: 0
   devel_kint_extras: 0
+  webform_devel: 0
 theme: {  }
 blacklist: {  }
 graylist: {  }

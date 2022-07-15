@@ -8,9 +8,10 @@ description: 'AWS Development environment configuration split'
 weight: 0
 folder: ../config/split/awsdev
 module:
-  config_ignore: 0
   devel: 0
   devel_kint_extras: 0
+  webform_devel: 0
+  config_ignore: 0
 theme: {  }
 blacklist: {  }
 graylist: {  }
