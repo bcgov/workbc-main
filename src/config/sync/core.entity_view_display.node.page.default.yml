@@ -8,11 +8,9 @@ dependencies:
     - field.field.node.page.field_hero_image
     - field.field.node.page.field_hero_text
     - field.field.node.page.field_related_topics
-    - image.style.feature_component
     - node.type.page
   module:
     - entity_reference_revisions
-    - image
     - text
     - user
 _core:
@@ -27,7 +25,7 @@ content:
     label: hidden
     settings: {  }
     third_party_settings: {  }
-    weight: 2
+    weight: 1
     region: content
   field_content:
     type: entity_reference_revisions_entity_view
@@ -36,25 +34,7 @@ content:
       view_mode: default
       link: ''
     third_party_settings: {  }
-    weight: 5
-    region: content
-  field_hero_image:
-    type: image
-    label: above
-    settings:
-      image_link: ''
-      image_style: feature_component
-      image_loading:
-        attribute: lazy
-    third_party_settings: {  }
-    weight: 1
-    region: content
-  field_hero_text:
-    type: text_default
-    label: above
-    settings: {  }
-    third_party_settings: {  }
-    weight: 0
+    weight: 2
     region: content
   field_related_topics:
     type: entity_reference_label
@@ -62,12 +42,14 @@ content:
     settings:
       link: true
     third_party_settings: {  }
-    weight: 4
+    weight: 3
     region: content
   links:
     settings: {  }
     third_party_settings: {  }
-    weight: 3
+    weight: 0
     region: content
 hidden:
+  field_hero_image: true
+  field_hero_text: true
   search_api_excerpt: true
