@@ -27,7 +27,7 @@ class CareerProfileLabourMarketExpectedOpenings extends ExtraFieldDisplayFormatt
    */
   public function getLabel() {
 
-    return $this->t('Expected Job Openings (2019-2029)');
+    return $this->t('Expected Job Openings');
   }
 
   /**
