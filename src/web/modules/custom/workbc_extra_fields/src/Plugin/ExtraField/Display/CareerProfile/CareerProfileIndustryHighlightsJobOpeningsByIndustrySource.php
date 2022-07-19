@@ -10,15 +10,15 @@ use Drupal\extra_field\Plugin\ExtraFieldDisplayFormattedBase;
  * Example Extra field with formatted output.
  *
  * @ExtraFieldDisplay(
- *   id = "labour_market_expected_openings",
- *   label = @Translation("Labour Market Info - Expected Job Openings"),
- *   description = @Translation("An extra field to display job opening forecast chart."),
+ *   id = "job_openings_by_industry_source",
+ *   label = @Translation("Industry Highlights - Source: Job Openings by Industry"),
+ *   description = @Translation("Provenance metadata for field Industry Highlights - Job Openings by Industry."),
  *   bundles = {
  *     "node.career_profile",
  *   }
  * )
  */
-class CareerProfileLabourMarketExpectedOpenings extends ExtraFieldDisplayFormattedBase {
+class CareerProfileIndustryHighlightsJobOpeningsByIndustrySource extends ExtraFieldDisplayFormattedBase {
 
   use StringTranslationTrait;
 
@@ -27,7 +27,7 @@ class CareerProfileLabourMarketExpectedOpenings extends ExtraFieldDisplayFormatt
    */
   public function getLabel() {
 
-    return $this->t('Expected Job Openings');
+    return $this->t('Source: Forecasted Job Openings by Industry');
   }
 
   /**
@@ -43,8 +43,8 @@ class CareerProfileLabourMarketExpectedOpenings extends ExtraFieldDisplayFormatt
    */
   public function viewElements(ContentEntityInterface $entity) {
 
-    if (!empty($entity->ssot_data) && isset($entity->ssot_data['career_provincial']['10_year_expected_job_openings_2021_2031'])) {
-      $output = Number_format($entity->ssot_data['career_provincial']['10_year_expected_job_openings_2021_2031'],0);
+    if (!empty($entity->ssot_data) && isset($entity->ssot_data['sources']['openings'])) {
+      $output = $entity->ssot_data['sources']['openings']['label'];
     }
     else {
       $output = "";
