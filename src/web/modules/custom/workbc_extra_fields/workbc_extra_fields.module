@@ -17,26 +17,26 @@ define ('SSOT_PING_TIMEOUT', 5);
 
 /*
 
-we use hook_entity_view instead of hook_entity_load as we along need to load data from SSoT
+we use hook_entity_view instead of hook_entity_load as we only need to load data from SSoT
 for the node that is being displayed, not for nodes that are being referenced.
 
 
 */
 function workbc_extra_fields_node_view(array &$build, \Drupal\Core\Entity\EntityInterface $entity, \Drupal\Core\Entity\Display\EntityViewDisplayInterface $display, $view_mode) {
-  if (!querySSoT('', SSOT_PING_TIMEOUT)) {
-    $entity->ssot_data = NULL;
-    return;
-  }
 
-  $data = array();
   if ($view_mode == "full") {
-     switch($entity->bundle()) {
-       case "career_profile":
+    if (!querySSoT('', SSOT_PING_TIMEOUT)) {
+      $entity->ssot_data = NULL;
+      return;
+    }
+
+    switch($entity->bundle()) {
+      case "career_profile":
         $entity->ssot_data = ssotCareerProfile($entity->get("field_noc")->getString());
         break;
-       case "industry_profile":
-       case "region_profile":
-     }
+      case "industry_profile":
+      case "region_profile":
+    }
   }
 }
 
@@ -50,7 +50,19 @@ function ssotCareerProfile($noc) {
   $data['education'] = querySSoT('education?noc=eq.' . $noc)[0];
   $data['skills'] = querySSoT('skills?noc=eq.' . $noc);
   $data['openings'] = querySSoT('openings?noc=eq.' . $noc)[0];
+  $data['sources'] = ssotSources();
   return $data;
+}
+
+function ssotSources() {
+
+  $sources = querySSoT('sources');
+  if (!$sources) return [];
+
+  return array_reduce($sources, function($ret, $source) {
+    $ret[$source['endpoint']] = $source;
+    return $ret;
+  }, []);
 }
 
 function querySSoT($url, $read_timeout = NULL) {
