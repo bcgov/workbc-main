@@ -1,0 +1,29 @@
+uuid: 484453cd-7eff-450c-bb72-102b217a50d0
+langcode: en
+status: true
+dependencies:
+  config:
+    - field.storage.media.field_category
+    - media.type.remote_video
+    - taxonomy.vocabulary.video_categories
+id: media.remote_video.field_category
+field_name: field_category
+entity_type: media
+bundle: remote_video
+label: Categories
+description: ''
+required: false
+translatable: false
+default_value: {  }
+default_value_callback: ''
+settings:
+  handler: 'default:taxonomy_term'
+  handler_settings:
+    target_bundles:
+      video_categories: video_categories
+    sort:
+      field: name
+      direction: asc
+    auto_create: false
+    auto_create_bundle: ''
+field_type: entity_reference

@@ -3,10 +3,15 @@ langcode: en
 status: true
 dependencies:
   config:
+    - field.field.media.remote_video.field_category
+    - field.field.media.remote_video.field_description
+    - field.field.media.remote_video.field_duration
     - field.field.media.remote_video.field_media_oembed_video
     - media.type.remote_video
   module:
+    - duration_field
     - media
+    - text
 _core:
   default_config_hash: zQoBQ0BtnMM_rlDdgftyu6eI4AVs9mo5K8xq7NFO2Zc
 id: media.remote_video.default
@@ -14,6 +19,30 @@ targetEntityType: media
 bundle: remote_video
 mode: default
 content:
+  field_category:
+    type: entity_reference_label
+    label: above
+    settings:
+      link: true
+    third_party_settings: {  }
+    weight: 1
+    region: content
+  field_description:
+    type: text_default
+    label: above
+    settings: {  }
+    third_party_settings: {  }
+    weight: 2
+    region: content
+  field_duration:
+    type: duration_human_display
+    label: above
+    settings:
+      text_length: full
+      separator: space
+    third_party_settings: {  }
+    weight: 3
+    region: content
   field_media_oembed_video:
     type: oembed
     label: hidden
