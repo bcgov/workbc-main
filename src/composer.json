@@ -67,6 +67,7 @@
         "drupal/image_widget_crop": "^2.3",
         "drupal/jquery_ui_accordion": "^1.1",
         "drupal/paragraphs": "^1.14",
+        "drupal/pathauto": "^1.10",
         "drupal/published_corrected_date": "^2.0",
         "drupal/search_api": "^1.23",
         "drupal/search_api_autocomplete": "^1.6",
