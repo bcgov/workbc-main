@@ -1,0 +1,8 @@
+name: WorkBC Custom
+type: module
+description: Provides custom functionality for WorkBC website.
+package: WorkBC
+dependencies:
+  - field
+  - duration_field
+core_version_requirement: ^9
