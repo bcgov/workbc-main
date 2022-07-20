@@ -1,0 +1,22 @@
+uuid: 53c27384-f5df-4a8a-8bb0-ef7d3b8cd79c
+langcode: en
+status: true
+dependencies:
+  module:
+    - node
+id: industry_profile
+label: 'Industry Profile'
+type: 'canonical_entities:node'
+pattern: 'industry-profile/[node:title]'
+selection_criteria:
+  51f88382-e215-4996-ae14-1eeb34b32a9b:
+    id: 'entity_bundle:node'
+    negate: false
+    uuid: 51f88382-e215-4996-ae14-1eeb34b32a9b
+    context_mapping:
+      node: node
+    bundles:
+      industry_profile: industry_profile
+selection_logic: and
+weight: -5
+relationships: {  }
