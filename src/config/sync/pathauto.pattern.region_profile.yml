@@ -1,0 +1,23 @@
+uuid: a8b11b56-449a-406a-bbeb-4b419431c3d2
+langcode: en
+status: true
+dependencies:
+  module:
+    - node
+id: region_profile
+label: 'Region Profile'
+type: 'canonical_entities:node'
+pattern: 'region-profile/[node:title]'
+selection_criteria:
+  3dd6183c-2f2a-4e6f-b274-388796dab137:
+    id: 'entity_bundle:node'
+    negate: false
+    uuid: 3dd6183c-2f2a-4e6f-b274-388796dab137
+    context_mapping:
+      node: node
+    bundles:
+      bc_profile: bc_profile
+      region_profile: region_profile
+selection_logic: and
+weight: -5
+relationships: {  }
