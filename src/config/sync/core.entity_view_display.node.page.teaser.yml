@@ -22,18 +22,16 @@ mode: teaser
 content:
   body:
     type: text_summary_or_trimmed
-    label: hidden
+    label: visually_hidden
     settings:
       trim_length: 600
     third_party_settings: {  }
-    weight: 100
-    region: content
-  links:
-    weight: 101
+    weight: 0
     region: content
 hidden:
   field_content: true
   field_hero_image: true
   field_hero_text: true
   field_related_topics: true
+  links: true
   search_api_excerpt: true

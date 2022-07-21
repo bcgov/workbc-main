@@ -8,38 +8,12 @@ dependencies:
     - core.entity_view_mode.node.search_index
   module:
     - node
-    - user
     - search_api
 id: default_content_index
-name: 'Default content index'
+name: 'Site content index'
 description: 'Default content index created by the Database Search Defaults module'
 read_only: false
 field_settings:
-  author:
-    label: 'Author name'
-    datasource_id: 'entity:node'
-    property_path: 'uid:entity:name'
-    type: string
-    dependencies:
-      module:
-        - node
-        - user
-  changed:
-    label: Changed
-    datasource_id: 'entity:node'
-    property_path: changed
-    type: date
-    dependencies:
-      module:
-        - node
-  created:
-    label: 'Authored on'
-    datasource_id: 'entity:node'
-    property_path: created
-    type: date
-    dependencies:
-      module:
-        - node
   field_tags:
     label: Tags
     datasource_id: 'entity:node'
@@ -86,28 +60,12 @@ field_settings:
     dependencies:
       module:
         - node
-  sticky:
-    label: 'Sticky at top of lists'
-    datasource_id: 'entity:node'
-    property_path: sticky
-    type: boolean
-    dependencies:
-      module:
-        - node
   title:
     label: Title
     datasource_id: 'entity:node'
     property_path: title
     type: text
     boost: !!float 8
-    dependencies:
-      module:
-        - node
-  type:
-    label: 'Content type'
-    datasource_id: 'entity:node'
-    property_path: type
-    type: string
     dependencies:
       module:
         - node
@@ -162,6 +120,17 @@ processor_settings:
       - title
   language_with_fallback: {  }
   rendered_item: {  }
+  stemmer:
+    weights:
+      preprocess_index: 0
+      preprocess_query: 0
+    all_fields: false
+    fields:
+      - rendered_item
+      - title
+    exceptions:
+      mexican: mexic
+      texan: texa
   stopwords:
     weights:
       preprocess_index: -49

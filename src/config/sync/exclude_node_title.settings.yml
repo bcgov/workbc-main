@@ -4,3 +4,41 @@ nid_list: {  }
 translation_sync: true
 search: false
 type: hidden
+content_types:
+  bc_profile: all
+  blog: all
+  career_profile: all
+  event: all
+  industry_profile: all
+  labour_market_monthly: all
+  landing_page: all
+  news: all
+  page: all
+  region_profile: all
+  success_story: all
+  workbc_centre: all
+content_type_modes:
+  bc_profile:
+    - teaser
+  blog:
+    - teaser
+  career_profile:
+    - teaser
+  event:
+    - teaser
+  industry_profile:
+    - teaser
+  labour_market_monthly:
+    - teaser
+  landing_page:
+    - teaser
+  news:
+    - teaser
+  page:
+    - teaser
+  region_profile:
+    - teaser
+  success_story:
+    - teaser
+  workbc_centre:
+    - teaser
