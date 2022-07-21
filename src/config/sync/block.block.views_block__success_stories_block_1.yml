@@ -1,32 +1,29 @@
-uuid: 8c025794-5bd4-42d8-a0e8-ce4d8c82cda4
+uuid: a3393e8f-f3c5-45b2-80fc-964d1fab85cd
 langcode: en
 status: true
 dependencies:
   config:
-    - views.view.search_career_profiles
+    - views.view.success_stories
   module:
     - block_visibility_conditions
     - system
     - views
   theme:
     - workbc
-id: exposedformsearch_career_profilespage_1
+id: views_block__success_stories_block_1
 theme: workbc
 region: content
-weight: -4
+weight: -3
 provider: null
-plugin: 'views_exposed_filter_block:search_career_profiles-page_1'
+plugin: 'views_block:success_stories-block_1'
 settings:
-  id: 'views_exposed_filter_block:search_career_profiles-page_1'
+  id: 'views_block:success_stories-block_1'
   label: ''
   label_display: '0'
   provider: views
   views_label: ''
+  items_per_page: none
 visibility:
-  request_path:
-    id: request_path
-    negate: false
-    pages: /search-career-profiles
   not_node_type:
     id: not_node_type
     bundles: {  }
@@ -35,3 +32,7 @@ visibility:
     id: not_taxonomy_vocabulary
     bundles: {  }
     negate: null
+  request_path:
+    id: request_path
+    negate: false
+    pages: /success-stories
