@@ -76,11 +76,13 @@ module:
   tour: 0
   update: 0
   user: 0
+  views_autosubmit: 0
   views_infinite_scroll: 0
   views_ui: 0
   viewsreference: 0
   webform: 0
   webform_ui: 0
+  workbc_custom: 0
   workbc_extra_fields: 0
   workbc_menu: 0
   pathauto: 1
