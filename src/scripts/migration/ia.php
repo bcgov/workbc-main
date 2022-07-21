@@ -6,11 +6,13 @@
  * Usage: drush scr /scripts/migration/ia -- /path/to/ia.csv
  *
  * Revert:
- * - drush entity:delete node
+ * - drush entity:delete node --bundle=page
+ * - drush entity:delete node --bundle=landing_page
  * - drush entity:delete menu_link_content
  */
 
 use Drupal\path_alias\Entity\PathAlias;
+use Drupal\pathauto\PathautoState;
 
 $file = array_key_exists(0, $extra) ? $extra[0] : __DIR__ . '/ia.csv';
 if (empty($file) or ($handle = fopen($file, "r")) === FALSE) {
@@ -32,17 +34,19 @@ foreach ($fronts as $front) {
 }
 
 // Types that we can import.
-// TODO Fill this.
 $types = [
-    'Link' => 'link',
+    'link' => NULL,
+    'basic page' => 'page',
+    'basic page hero' => 'page',
+    'landing page' => 'landing_page'
 ];
 
 // The columns we are interested in.
-const TREE_FIRST = 2;
-const TREE_LAST = 8;
-const MEGA_MENU = 9;
-const DRUPAL_TYPE = 11;
-const URL = 10;
+const TREE_FIRST = 0;
+const TREE_LAST = 5;
+const MEGA_MENU = 6;
+const DRUPAL_TYPE = 7;
+const URL = 12;
 
 // FIRST PASS: Create all the nodes.
 print("Creating content...\n");
@@ -50,9 +54,9 @@ $row = 0;
 $nodes = [];
 $path = [];
 while (($data = fgetcsv($handle)) !== FALSE) {
-    // Skip first 2 header rows.
+    // Skip first header row.
     $row++;
-    if ($row < 3) continue;
+    if ($row < 2) continue;
 
     // Detect page title and path to create the hierarchy.
     // We build up the $path array to contain the current hierarchy, discarding "Home".
@@ -74,11 +78,16 @@ while (($data = fgetcsv($handle)) !== FALSE) {
         continue;
     }
 
-    // TODO Detect the type from the sheet.
     // Detect a type that we can import.
-    $t = $data[DRUPAL_TYPE];
-    if (!$t || !array_key_exists($t, $types)) {
-        $type = 'page';
+    $t = strtolower($data[DRUPAL_TYPE]);
+    if (empty($t) || !array_key_exists($t, $types)) {
+        if (!empty($data[MEGA_MENU]) && empty($data[URL])) {
+            // A placeholder page until we have a better way to deal with this entry.
+            $type = 'page';
+        }
+        else {
+            $type = NULL;
+        }
     }
     else {
         $type = $types[$t];
@@ -89,10 +98,13 @@ while (($data = fgetcsv($handle)) !== FALSE) {
         'type' => $type,
         'title' => $title,
         'uid' => 1,
+        'path' => [
+            'pathauto' => PathautoState::CREATE,
+        ],
     ];
 
     // Create the node.
-    if ($type === 'link') {
+    if (!empty($data[URL])) {
         $nodes[implode('/', $path)] = [
             'id' => NULL,
             'title' => $title,
@@ -101,8 +113,9 @@ while (($data = fgetcsv($handle)) !== FALSE) {
             'mega_menu' => !empty($data[MEGA_MENU]) ? $row : NULL,
             'uri' => $data[URL]
         ];
+        print("No content: " . implode(' => ', $path) . "\n");
     }
-    else {
+    else if (!empty($type)) {
         $node = Drupal::entityTypeManager()
             ->getStorage('node')
             ->create($fields);
@@ -112,11 +125,14 @@ while (($data = fgetcsv($handle)) !== FALSE) {
             'title' => $title,
             'path' => $path,
             'menu_item' => NULL,
-            'mega_menu' => !empty($data[MEGA_MENU]) ? $row : NULL
+            'mega_menu' => !empty($data[MEGA_MENU]) ? $row : NULL,
+            'uri' => NULL
         ];
+        print("Creating $type: " . implode(' => ', $path) . "\n");
     }
-
-    print(implode(' => ', $path) . "\n");
+    else {
+        print("Ignoring: " . implode(' => ', $path) . "\n");
+    }
 }
 fclose($handle);
 
@@ -156,26 +172,23 @@ function createMenuEntry($path, $node, &$nodes, $menu_link_storage, $menu_name) 
         if (empty($node_parent)) {
             print("  Could not find parent node \"$parent\"\n");
         }
+        else if (empty($node_parent['menu_item'])) {
+            print("  Could not find menu for \"$parent\"\n");
+        }
         else {
-            // if (empty($node_parent['menu_item'])) {
-            //     print("  Could not find menu for \"$parent\". Creating it...\n");
-            //     createMenuEntry($parent, $node_parent, $nodes, $menu_link_storage, $menu_name);
-            // }
-            if (empty($node_parent['menu_item'])) {
-                print("  Could not find menu for \"$parent\"\n");
-            }
-            else {
-                $menu_item_parent = $node_parent['menu_item'];
-                print("  Parent menu for \"$parent\": $menu_item_parent\n");
-                break;
-            }
+            $menu_item_parent = $node_parent['menu_item'];
+            print("  Parent menu for \"$parent\": $menu_item_parent\n");
+            break;
         }
         $parent_path = array_slice($parent_path, 0, -1);
     }
 
-    $menu_link = $menu_link_storage->create([
-        'title' => $title,
-        'link' => empty($node['uri']) ? ['uri' => "entity:node/{$node['id']}"] : [
+    // Setup the proper URI for this menu entry.
+    if (!empty($node['id'])) {
+        $link = ['uri' => "entity:node/{$node['id']}"];
+    }
+    else if (strpos($node['uri'] , 'http') === 0) {
+        $link = [
             'uri' => "{$node['uri']}",
             'options' => [
                 'attributes' => [
@@ -183,7 +196,14 @@ function createMenuEntry($path, $node, &$nodes, $menu_link_storage, $menu_name) 
                     'target' => '_blank',
                 ]
             ]
-        ],
+        ];
+    }
+    else {
+        $link = ['uri' => "internal:{$node['uri']}"];
+    }
+    $menu_link = $menu_link_storage->create([
+        'title' => $title,
+        'link' => $link,
         'menu_name' => $menu_name,
         'parent' => $menu_item_parent,
         'expanded' => TRUE,
