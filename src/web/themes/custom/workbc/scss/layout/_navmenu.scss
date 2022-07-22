@@ -127,7 +127,7 @@
 
       &:hover {
         border-color: $workbc_light_theme_trim;
-        background-color: $workbc_light_theme_background;
+        background-color: $workbc_light_theme_background_default;
 
         a, a:focus {
           color: $workbc_light_theme_text;
@@ -136,7 +136,7 @@
 
       &.active {
         border-color: $workbc_light_theme_trim;
-        background-color: $workbc_light_theme_background;
+        background-color: $workbc_light_theme_background_default;
 
         a, a:focus {
           color: $workbc_light_theme_text;
@@ -145,14 +145,14 @@
 
       .submenu-container {
         .submenu {
-          background: $workbc_light_theme_background;
+          background: $workbc_light_theme_background_default;
           border-bottom: $workbc_trim_thin_size solid $workbc_light_theme_trim_alternate;
 
           ul.nav-t2 {
             & > li {
               &:hover {
                 border-left: $workbc_trim_standard_size solid $workbc_dark_blue;
-                background-color: $workbc_light_theme_highlight;
+                background-color: $workbc_light_theme_background_accent;
                 color: $workbc_default_link;
         
                 a, a:focus {
@@ -195,7 +195,7 @@ nav.navbar {
   height: 80px;
   padding: 0px;
   margin: 0px;
-  box-shadow: $workbc_default_shadow;
+  box-shadow: $workbc_default_drop_shadow;
 
   .container {
     position: relative;
