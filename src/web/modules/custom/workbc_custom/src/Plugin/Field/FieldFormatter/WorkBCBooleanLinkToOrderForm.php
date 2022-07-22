@@ -5,6 +5,8 @@ namespace Drupal\workbc_custom\Plugin\Field\FieldFormatter;
 use Drupal\Core\Field\FormatterBase;
 use Drupal\Core\Field\FieldItemListInterface;
 use Drupal\file\FileInterface;
+use Drupal\Core\Url;
+use Drupal\Core\Link;
 
 /**
  * Plugin implementation of the 'workbc_file_custom_link_text' formatter.
@@ -27,10 +29,10 @@ class WorkBCBooleanLinkToOrderForm extends FormatterBase {
 
     foreach ($items as $delta => $item) {
       $value = $item->get('value')->getCastedValue();
-      ksm($value);
       if ($value) {
-        $link = '<a href="/workbc-order-form">Order Hardcopy</a>';
-        $elements[$delta] = ['#markup' => $link];
+        $options = [];
+        $result = Link::fromTextAndUrl(t('Order Hardcopy'), Url::fromUri('internal:/workbc-order-form', $options))->toString();
+        $elements[$delta] = ['#markup' => $result];
       }
     }
     return $elements;
