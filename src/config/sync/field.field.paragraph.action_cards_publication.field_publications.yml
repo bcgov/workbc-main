@@ -1,16 +1,16 @@
-uuid: 1539aa0a-ed12-4f10-a275-05649728b377
+uuid: febbdca1-5af4-4abb-b763-ddc7b6d83c07
 langcode: en
 status: true
 dependencies:
   config:
-    - field.storage.paragraph.field_publication
+    - field.storage.paragraph.field_publications
     - node.type.publication
-    - paragraphs.paragraphs_type.publication_card
-id: paragraph.publication_card.field_publication
-field_name: field_publication
+    - paragraphs.paragraphs_type.action_cards_publication
+id: paragraph.action_cards_publication.field_publications
+field_name: field_publications
 entity_type: paragraph
-bundle: publication_card
-label: Publication
+bundle: action_cards_publication
+label: Publications
 description: ''
 required: false
 translatable: false
@@ -22,7 +22,7 @@ settings:
     target_bundles:
       publication: publication
     sort:
-      field: _none
+      field: title
       direction: ASC
     auto_create: false
     auto_create_bundle: ''

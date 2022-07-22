@@ -1,4 +1,4 @@
-uuid: d6aceb83-29b9-409e-8dce-751d0ba9f335
+uuid: 48a76664-e5ee-4c3e-800d-d5d82f419049
 langcode: en
 status: true
 dependencies:
@@ -9,15 +9,15 @@ dependencies:
 third_party_settings:
   field_permissions:
     permission_type: public
-id: paragraph.field_publication
-field_name: field_publication
+id: paragraph.field_publications
+field_name: field_publications
 entity_type: paragraph
 type: entity_reference
 settings:
   target_type: node
 module: core
 locked: false
-cardinality: 1
+cardinality: -1
 translatable: true
 indexes: {  }
 persist_with_no_fields: false

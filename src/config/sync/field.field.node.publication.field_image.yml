@@ -1,16 +1,16 @@
-uuid: 3f636186-787b-4f5a-9bde-8eab0af83c0f
+uuid: 397591cb-4b61-408d-aecc-7e8c654fb704
 langcode: en
 status: true
 dependencies:
   config:
-    - field.storage.paragraph.field_image
-    - paragraphs.paragraphs_type.publication_card
+    - field.storage.node.field_image
+    - node.type.publication
   module:
     - image
-id: paragraph.publication_card.field_image
+id: node.publication.field_image
 field_name: field_image
-entity_type: paragraph
-bundle: publication_card
+entity_type: node
+bundle: publication
 label: Image
 description: ''
 required: false

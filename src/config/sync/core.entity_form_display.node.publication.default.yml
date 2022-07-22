@@ -5,17 +5,31 @@ dependencies:
   config:
     - field.field.node.publication.body
     - field.field.node.publication.field_hardcopy_available
+    - field.field.node.publication.field_image
     - field.field.node.publication.field_publication
     - field.field.node.publication.field_resource_number
+    - image.style.thumbnail
     - node.type.publication
   module:
     - file
+    - image_widget_crop
     - path
+    - text
 id: node.publication.default
 targetEntityType: node
 bundle: publication
 mode: default
 content:
+  body:
+    type: text_textarea_with_summary
+    weight: 8
+    region: content
+    settings:
+      rows: 9
+      summary_rows: 3
+      placeholder: ''
+      show_summary: false
+    third_party_settings: {  }
   created:
     type: datetime_timestamp
     weight: 2
@@ -24,10 +38,25 @@ content:
     third_party_settings: {  }
   field_hardcopy_available:
     type: boolean_checkbox
-    weight: 26
+    weight: 11
     region: content
     settings:
       display_label: true
+    third_party_settings: {  }
+  field_image:
+    type: image_widget_crop
+    weight: 10
+    region: content
+    settings:
+      progress_indicator: throbber
+      preview_image_style: thumbnail
+      crop_preview_image_style: crop_thumbnail
+      crop_list:
+        - crop_2_1
+      crop_types_required: {  }
+      warn_multiple_usages: true
+      show_crop_area: true
+      show_default_crop: true
     third_party_settings: {  }
   field_publication:
     type: file_generic
@@ -38,7 +67,7 @@ content:
     third_party_settings: {  }
   field_resource_number:
     type: string_textfield
-    weight: 8
+    weight: 9
     region: content
     settings:
       size: 60
@@ -89,5 +118,4 @@ content:
       size: 60
       placeholder: ''
     third_party_settings: {  }
-hidden:
-  body: true
+hidden: {  }

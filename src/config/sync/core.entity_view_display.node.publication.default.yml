@@ -5,17 +5,27 @@ dependencies:
   config:
     - field.field.node.publication.body
     - field.field.node.publication.field_hardcopy_available
+    - field.field.node.publication.field_image
     - field.field.node.publication.field_publication
     - field.field.node.publication.field_resource_number
     - node.type.publication
   module:
     - file
+    - image
+    - text
     - user
 id: node.publication.default
 targetEntityType: node
 bundle: publication
 mode: default
 content:
+  body:
+    type: text_default
+    label: above
+    settings: {  }
+    third_party_settings: {  }
+    weight: 5
+    region: content
   field_hardcopy_available:
     type: boolean
     label: above
@@ -25,6 +35,17 @@ content:
       format_custom_true: ''
     third_party_settings: {  }
     weight: 3
+    region: content
+  field_image:
+    type: image
+    label: above
+    settings:
+      image_link: ''
+      image_style: ''
+      image_loading:
+        attribute: lazy
+    third_party_settings: {  }
+    weight: 4
     region: content
   field_publication:
     type: file_default
@@ -48,5 +69,6 @@ content:
     weight: 0
     region: content
 hidden:
-  body: true
+  extra_field_publication_orderform_link: true
+  extra_field_workbc_page_title: true
   search_api_excerpt: true
