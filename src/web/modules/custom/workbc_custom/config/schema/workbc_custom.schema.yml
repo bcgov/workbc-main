@@ -1,0 +1,7 @@
+field.formatter.settings.workbc_file_custom_link_text:
+  type: mapping
+  label: 'Custom link text text length'
+  mapping:
+    text_length:
+      type: string
+      label: 'Custom text'

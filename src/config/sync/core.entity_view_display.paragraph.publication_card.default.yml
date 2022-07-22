@@ -1,0 +1,56 @@
+uuid: 6086ec4f-ed47-45a2-8732-06b91c4bc389
+langcode: en
+status: true
+dependencies:
+  config:
+    - field.field.paragraph.publication_card.field_description
+    - field.field.paragraph.publication_card.field_image
+    - field.field.paragraph.publication_card.field_publication
+    - field.field.paragraph.publication_card.field_title
+    - image.style.feature_component
+    - paragraphs.paragraphs_type.publication_card
+  module:
+    - image
+    - text
+id: paragraph.publication_card.default
+targetEntityType: paragraph
+bundle: publication_card
+mode: default
+content:
+  field_description:
+    type: text_default
+    label: visually_hidden
+    settings: {  }
+    third_party_settings: {  }
+    weight: 2
+    region: content
+  field_image:
+    type: image
+    label: visually_hidden
+    settings:
+      image_link: ''
+      image_style: feature_component
+      image_loading:
+        attribute: lazy
+    third_party_settings: {  }
+    weight: 0
+    region: content
+  field_publication:
+    type: entity_reference_entity_view
+    label: visually_hidden
+    settings:
+      view_mode: publication
+      link: false
+    third_party_settings: {  }
+    weight: 3
+    region: content
+  field_title:
+    type: string
+    label: visually_hidden
+    settings:
+      link_to_entity: false
+    third_party_settings: {  }
+    weight: 1
+    region: content
+hidden:
+  search_api_excerpt: true

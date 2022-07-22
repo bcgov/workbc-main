@@ -1,0 +1,29 @@
+uuid: 1539aa0a-ed12-4f10-a275-05649728b377
+langcode: en
+status: true
+dependencies:
+  config:
+    - field.storage.paragraph.field_publication
+    - node.type.publication
+    - paragraphs.paragraphs_type.publication_card
+id: paragraph.publication_card.field_publication
+field_name: field_publication
+entity_type: paragraph
+bundle: publication_card
+label: Publication
+description: ''
+required: false
+translatable: false
+default_value: {  }
+default_value_callback: ''
+settings:
+  handler: 'default:node'
+  handler_settings:
+    target_bundles:
+      publication: publication
+    sort:
+      field: _none
+      direction: ASC
+    auto_create: false
+    auto_create_bundle: ''
+field_type: entity_reference
