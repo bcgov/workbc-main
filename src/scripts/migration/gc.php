@@ -1,8 +1,5 @@
 <?php
 
-use EasyRdf\Parser\Json as ParserJson;
-use EasyRdf\Serialiser\Json;
-
 $email = $_ENV['GATHERCONTENT_EMAIL'];
 $apiKey = $_ENV['GATHERCONTENT_APIKEY'];
 
