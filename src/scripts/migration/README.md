@@ -38,10 +38,10 @@ Each script listed here includes a short documentation header that details its u
 
 | Script | Data source(s) | Drupal output(s) |
 | -------| -------------- | -----------------|
-| ia.php  | IA + GC | Content type `page`<br>Content type `landing_page`<br>Menu `main` |
-| career_profiles.php | SSoT + GC | Content type `career_profile` |
+| ia.php  | IA (`ia.csv`)<br>GC | Content type `page`<br>Content type `landing_page`<br>Menu `main` |
+| career_profiles.php | SSoT<br>GC | Content type `career_profile` |
 | education.php | SSoT | Taxonomy `education` |
 | skills.php | SSoT | Taxonomy `skills` |
-| taxonomy.php | LS<br>definitions.csv | Taxonomy `definitions` |
-| taxonomy.php | LS<br>occupational_interests.csv | Taxonomy `occupational_interests` |
-| taxonomy.php | LS<br>video_categories.csv | Taxonomy `video_categories` |
+| taxonomy.php | LS (`definitions.csv`) | Taxonomy `definitions` |
+| taxonomy.php | LS (`occupational_interests.csv`) | Taxonomy `occupational_interests` |
+| taxonomy.php | LS (`video_categories.csv`) | Taxonomy `video_categories` |
