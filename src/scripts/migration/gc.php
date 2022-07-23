@@ -31,10 +31,9 @@ try {
     if (!array_key_exists($item->templateId, $templates)) {
       $templates[$item->templateId] = $gc->templateGet($item->templateId);
     }
-    print($item->name . ' isA ' . $templates[$item->templateId]['data']->name . "\n");
+    print($item->name . ' isA ' . $templates[$item->templateId]['data']->name . PHP_EOL);
   }
 }
 catch (Exception $e) {
-    echo 'ERROR: ' . $e->getMessage() . PHP_EOL;
-    exit(1);
+    die('ERROR: ' . $e->getMessage() . PHP_EOL);
 }
