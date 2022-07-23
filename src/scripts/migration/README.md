@@ -31,17 +31,17 @@ Some content is unavailable anywhere but on the legacy WorkBC site itself. When 
 
 # Import scripts
 The import scripts listed here are all written using PHP and are meant to be run from within the Drupal container (`php`) via the Drupal console tool `drush`. Typically, a script invocation looks like the following:
-```javascript
+```bash
 drush scr scripts/migration/script.php -- --some-option=some-option-value csv-filename-or-other-operand
 ```
 Each script listed here includes a short documentation header that details its usage, as well as instructions on reverting the import process to start again in case of errors.
 
 | Script | Data source(s) | Drupal output(s) |
 | -------| -------------- | -----------------|
-| ia.php  | IA (`ia.csv`)<br>GC | Content type `page`<br>Content type `landing_page`<br>Menu `main` |
+| ia.php  | IA (ia.csv)<br>GC | Content type `page`<br>Content type `landing_page`<br>Menu `main` |
 | career_profiles.php | SSoT<br>GC | Content type `career_profile` |
 | education.php | SSoT | Taxonomy `education` |
 | skills.php | SSoT | Taxonomy `skills` |
-| taxonomy.php | LS (`definitions.csv`) | Taxonomy `definitions` |
-| taxonomy.php | LS (`occupational_interests.csv`) | Taxonomy `occupational_interests` |
-| taxonomy.php | LS (`video_categories.csv`) | Taxonomy `video_categories` |
+| taxonomy.php | LS (definitions.csv) | Taxonomy `definitions` |
+| taxonomy.php | LS (occupational_interests.csv) | Taxonomy `occupational_interests` |
+| taxonomy.php | LS (video_categories.csv) | Taxonomy `video_categories` |
