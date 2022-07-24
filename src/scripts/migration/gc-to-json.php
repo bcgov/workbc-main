@@ -3,6 +3,8 @@
 $email = $_ENV['GATHERCONTENT_EMAIL'];
 $apiKey = $_ENV['GATHERCONTENT_APIKEY'];
 
+const PUBLISHED_STATUS = 'publish';
+
 $getopt = new \GetOpt\GetOpt([
   ['h', 'help', \GetOpt\GetOpt::NO_ARGUMENT, 'Show this help and quit']
 ], [\GetOpt\GetOpt::SETTING_STRICT_OPERANDS => true]);
@@ -22,7 +24,7 @@ $gc
 try {
   $statuses = $gc->projectStatusesGet($getopt->getOperand('id'));
   $publish_status = current(array_filter($statuses['data'], function ($status) {
-    return strcasecmp($status->name, 'publish') === 0;
+    return strcasecmp($status->name, PUBLISHED_STATUS) === 0;
   }))->id;
   $results = $gc->itemsGet($getopt->getOperand('id'), ['status_id' => [$publish_status]]);
   $templates = [];
