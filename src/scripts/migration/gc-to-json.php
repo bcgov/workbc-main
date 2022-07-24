@@ -24,16 +24,32 @@ try {
   $publish_status = current(array_filter($statuses['data'], function ($status) {
     return strcasecmp($status->name, 'publish') === 0;
   }))->id;
-  $items = $gc->itemsGet($getopt->getOperand('id'), ['status_id' => [$publish_status]]);
+  $results = $gc->itemsGet($getopt->getOperand('id'), ['status_id' => [$publish_status]]);
   $templates = [];
-  foreach ($items['data'] as $i) {
+  $items = [];
+  foreach ($results['data'] as $i) {
     $item = $gc->itemGet($i->id);
     if (!array_key_exists($item->templateId, $templates)) {
-      $templates[$item->templateId] = $gc->templateGet($item->templateId);
+      $templates[$item->templateId] = map_fields_uuids($gc->templateGet($item->templateId));
     }
-    print($item->name . ' isA ' . $templates[$item->templateId]['data']->name . PHP_EOL);
+    $content = [];
+    foreach ($item->content as $uuid => $value) {
+      $content[$templates[$item->templateId][$uuid]->label] = $value;
+    }
+    $items[] = $content;
   }
+  print(json_encode($items, JSON_PRETTY_PRINT));
 }
 catch (Exception $e) {
     die('ERROR: ' . $e->getMessage() . PHP_EOL);
+}
+
+function map_fields_uuids($template) {
+  $map = [];
+  foreach ($template['related']->structure->groups as $group) {
+    foreach ($group->fields as $field) {
+      $map[$field->id] = $field;
+    }
+  }
+  return $map;
 }
