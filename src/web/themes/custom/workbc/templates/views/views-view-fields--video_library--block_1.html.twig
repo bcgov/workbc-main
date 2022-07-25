@@ -31,28 +31,24 @@
  * @ingroup themeable
  */
 #}
-keys: {{ dump(fields|keys) }}
 
-{% for field in fields -%}
-  {%- if field.class == "nothing" -%}
 
-   {{ dump(fields|keys) }}
-   <div class="card-list-item">
-      <div class="card-list-item-link">
-         <a href="{{ fields.field_media_oembed_video }}"><div class="card-list-item-thumbnail">{{fields.thumbnail__target_id }}</div></a>
-      </div>
+   <div class="card-list-item-link">
+      <a href="{{ fields.field_media_oembed_video.content|striptags|trim }}"><div class="card-list-item-thumbnail">{{ fields.thumbnail__target_id.content }}</div></a>
+   </div>
       <div class="card-list-item-details">
-         <div class="card-list-item-categories">{{ field_category }}</div>
-         <div class="card-list-item-duration">{{ field_duration }}</div>
-      </div>
-      <div class="card-list-item-content">
-         card content
-         <div class="card-list-item-title">{{ field.name }}</div>
-         <div class="card-list-item-description">{{ field_description }}</div>
-      </div>
+      <div class="card-list-item-categories">{{ fields.field_category.content }}</div>
+      <div class="card-list-item-duration">{{ fields.field_duration.content }}</div>
+   </div>
+   <div class="card-list-item-content">
+      <div class="card-list-item-title">{{ fields.field.name.content }}</div>
+      <div class="card-list-item-description">{{ fields.field_description.content }}</div>
    </div>
 
-  {%- else -%}
+
+
+
+{# {% for field in fields -%}
    {{ field.separator }}
    {%- if field.wrapper_element -%}
       <{{ field.wrapper_element }}{{ field.wrapper_attributes }}>
@@ -72,7 +68,4 @@ keys: {{ dump(fields|keys) }}
    {%- if field.wrapper_element -%}
       </{{ field.wrapper_element }}>
    {%- endif %}
-
-  {%- endif %}
-   
-{%- endfor %}
+{%- endfor %} #}

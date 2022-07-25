@@ -43,7 +43,7 @@ display:
           admin_label: ''
           plugin_id: field
           label: ''
-          exclude: true
+          exclude: false
           alter:
             alter_text: false
             text: ''
@@ -78,7 +78,7 @@ display:
           element_label_colon: false
           element_wrapper_type: ''
           element_wrapper_class: ''
-          element_default_classes: true
+          element_default_classes: false
           empty: ''
           hide_empty: false
           empty_zero: false
@@ -108,9 +108,9 @@ display:
           entity_field: thumbnail
           plugin_id: field
           label: ''
-          exclude: true
+          exclude: false
           alter:
-            alter_text: true
+            alter_text: false
             text: "<a href=\"#myModal\" class=\"btn btn-primary btn-lg\" data-toggle=\"modal\">{{ thumbnail__target_id }}</a>\r\n\r\nmodalstart\r\n<div id=\"myModal\" class=\"modal fade\">\r\n   <div class=\"modal-dialog\">\r\n      <div class=\"modal-content\">\r\n         <div class=\"modal-header\">\r\n            <h5 class=\"modal-title\">YouTube Video</h5>\r\n            <button type=\"button\" class=\"close\" data-dismiss=\"modal\">&times;</button>\r\n         </div>\r\n         <div class=\"modal-body\">\r\n            <div class=\"embed-responsive embed-responsive-16by9\">\r\n                iframe\r\n            </div>\r\n         </div>\r\n      </div>\r\n   </div>\r\n</div>\r\nmodalend"
             make_link: false
             path: ''
@@ -174,7 +174,7 @@ display:
           admin_label: ''
           plugin_id: field
           label: ''
-          exclude: true
+          exclude: false
           alter:
             alter_text: false
             text: ''
@@ -237,7 +237,7 @@ display:
           admin_label: ''
           plugin_id: field
           label: ''
-          exclude: true
+          exclude: false
           alter:
             alter_text: false
             text: ''
@@ -301,7 +301,7 @@ display:
           entity_field: media
           plugin_id: field
           label: ''
-          exclude: true
+          exclude: false
           alter:
             alter_text: false
             text: ''
@@ -364,7 +364,7 @@ display:
           admin_label: ''
           plugin_id: field
           label: ''
-          exclude: true
+          exclude: false
           alter:
             alter_text: false
             text: ''
@@ -417,55 +417,6 @@ display:
           multi_type: separator
           separator: ', '
           field_api_classes: false
-        nothing:
-          id: nothing
-          table: views
-          field: nothing
-          relationship: none
-          group_type: group
-          admin_label: 'Template: Twig-based full view item rendering'
-          plugin_id: custom
-          label: ''
-          exclude: false
-          alter:
-            alter_text: true
-            text: ''
-            make_link: false
-            path: ''
-            absolute: false
-            external: false
-            replace_spaces: false
-            path_case: none
-            trim_whitespace: false
-            alt: ''
-            rel: ''
-            link_class: ''
-            prefix: ''
-            suffix: ''
-            target: ''
-            nl2br: false
-            max_length: 0
-            word_boundary: true
-            ellipsis: true
-            more_link: false
-            more_link_text: ''
-            more_link_path: ''
-            strip_tags: false
-            trim: false
-            preserve_tags: ''
-            html: false
-          element_type: ''
-          element_class: ''
-          element_label_type: ''
-          element_label_class: ''
-          element_label_colon: false
-          element_wrapper_type: ''
-          element_wrapper_class: ''
-          element_default_classes: true
-          empty: ''
-          hide_empty: false
-          empty_zero: false
-          hide_alter_empty: false
       pager:
         type: full
         options:
@@ -668,7 +619,7 @@ display:
       row:
         type: fields
         options:
-          default_field_elements: true
+          default_field_elements: false
           inline: {  }
           separator: ''
           hide_empty: false
