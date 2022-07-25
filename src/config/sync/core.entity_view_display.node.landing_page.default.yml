@@ -18,7 +18,7 @@ mode: default
 content:
   field_action_card_groups:
     type: entity_reference_revisions_entity_view
-    label: above
+    label: visually_hidden
     settings:
       view_mode: default
       link: ''
