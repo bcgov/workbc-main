@@ -6,6 +6,7 @@ dependencies:
     - field.storage.media.field_category
     - field.storage.media.field_description
     - field.storage.media.field_duration
+    - field.storage.media.field_media_oembed_video
     - image.style.1_3_component
     - media.type.remote_video
     - taxonomy.vocabulary.video_categories
@@ -33,15 +34,13 @@ display:
     display_options:
       title: 'Video Library'
       fields:
-        thumbnail__target_id:
-          id: thumbnail__target_id
-          table: media_field_data
-          field: thumbnail__target_id
+        field_media_oembed_video:
+          id: field_media_oembed_video
+          table: media__field_media_oembed_video
+          field: field_media_oembed_video
           relationship: none
           group_type: group
           admin_label: ''
-          entity_type: media
-          entity_field: thumbnail
           plugin_id: field
           label: ''
           exclude: true
@@ -72,8 +71,73 @@ display:
             trim: false
             preserve_tags: ''
             html: false
-          element_type: div
-          element_class: views-field-field-thumbnail-link
+          element_type: ''
+          element_class: ''
+          element_label_type: ''
+          element_label_class: ''
+          element_label_colon: false
+          element_wrapper_type: ''
+          element_wrapper_class: ''
+          element_default_classes: true
+          empty: ''
+          hide_empty: false
+          empty_zero: false
+          hide_alter_empty: true
+          click_sort_column: value
+          type: string
+          settings:
+            link_to_entity: false
+          group_column: value
+          group_columns: {  }
+          group_rows: true
+          delta_limit: 0
+          delta_offset: 0
+          delta_reversed: false
+          delta_first_last: false
+          multi_type: separator
+          separator: ', '
+          field_api_classes: false
+        thumbnail__target_id:
+          id: thumbnail__target_id
+          table: media_field_data
+          field: thumbnail__target_id
+          relationship: none
+          group_type: group
+          admin_label: ''
+          entity_type: media
+          entity_field: thumbnail
+          plugin_id: field
+          label: ''
+          exclude: true
+          alter:
+            alter_text: true
+            text: "<a href=\"#myModal\" class=\"btn btn-primary btn-lg\" data-toggle=\"modal\">{{ thumbnail__target_id }}</a>\r\n\r\nmodalstart\r\n<div id=\"myModal\" class=\"modal fade\">\r\n   <div class=\"modal-dialog\">\r\n      <div class=\"modal-content\">\r\n         <div class=\"modal-header\">\r\n            <h5 class=\"modal-title\">YouTube Video</h5>\r\n            <button type=\"button\" class=\"close\" data-dismiss=\"modal\">&times;</button>\r\n         </div>\r\n         <div class=\"modal-body\">\r\n            <div class=\"embed-responsive embed-responsive-16by9\">\r\n                iframe\r\n            </div>\r\n         </div>\r\n      </div>\r\n   </div>\r\n</div>\r\nmodalend"
+            make_link: false
+            path: ''
+            absolute: false
+            external: false
+            replace_spaces: false
+            path_case: none
+            trim_whitespace: false
+            alt: ''
+            rel: ''
+            link_class: ''
+            prefix: ''
+            suffix: ''
+            target: ''
+            nl2br: false
+            max_length: 0
+            word_boundary: true
+            ellipsis: true
+            more_link: false
+            more_link_text: ''
+            more_link_path: ''
+            strip_tags: false
+            trim: false
+            preserve_tags: ''
+            html: false
+          element_type: ''
+          element_class: ''
           element_label_type: ''
           element_label_class: ''
           element_label_colon: false
@@ -87,7 +151,7 @@ display:
           click_sort_column: target_id
           type: image
           settings:
-            image_link: content
+            image_link: ''
             image_style: 1_3_component
             image_loading:
               attribute: lazy
@@ -139,13 +203,13 @@ display:
             preserve_tags: ''
             html: false
           element_type: ''
-          element_class: card-categories
+          element_class: ''
           element_label_type: ''
           element_label_class: ''
           element_label_colon: false
           element_wrapper_type: ''
           element_wrapper_class: ''
-          element_default_classes: true
+          element_default_classes: false
           empty: ''
           hide_empty: false
           empty_zero: false
@@ -359,13 +423,13 @@ display:
           field: nothing
           relationship: none
           group_type: group
-          admin_label: ''
+          admin_label: 'Template: Twig-based full view item rendering'
           plugin_id: custom
           label: ''
           exclude: false
           alter:
             alter_text: true
-            text: "   <div class=\"card-list-item-thumbnail\">{{ thumbnail__target_id }}</div>\r\n   <div class=\"card-list-item-details\">\r\n      <div class=\"card-list-item-categories\">{{ field_category }}</div>\r\n      <div class=\"card-list-item-duration\">{{ field_duration }}</div>\r\n   </div>\r\n   <div class=\"card-list-item-content\">\r\n      <div class=\"card-list-item-title\">{{ name }}</div>\r\n      <div class=\"card-list-item-description\">{{ field_description }}</div>\r\n   </div>\r\n   \r\n   "
+            text: ''
             make_link: false
             path: ''
             absolute: false
@@ -635,6 +699,7 @@ display:
         - 'config:field.storage.media.field_category'
         - 'config:field.storage.media.field_description'
         - 'config:field.storage.media.field_duration'
+        - 'config:field.storage.media.field_media_oembed_video'
   block_1:
     id: block_1
     display_title: Block
@@ -655,3 +720,4 @@ display:
         - 'config:field.storage.media.field_category'
         - 'config:field.storage.media.field_description'
         - 'config:field.storage.media.field_duration'
+        - 'config:field.storage.media.field_media_oembed_video'
