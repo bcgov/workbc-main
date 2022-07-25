@@ -1,7 +1,7 @@
 <?php
 
 /**
- * Generate career profile nodes from SSoT entries.
+ * Generate career profile nodes from SSoT entries and optional career_profiles.json import from GatherContent.
  * Source: /wages (WorkBC_2021_Wage_Data)
  *
  * Usage: drush scr /scripts/migration/career_profiles
@@ -11,6 +11,19 @@
 
 use GuzzleHttp\Client;
 use GuzzleHttp\Exception\RequestException;
+
+// Read GatherContent career profiles if present.
+$career_profiles = NULL;
+if (file_exists(__DIR__ . '/career_profiles.json')) {
+  $data = json_decode(file_get_contents(__DIR__ . '/career_profiles.json'));
+  foreach ($data as $i => $career_profile) {
+    $noc = NULL;
+    if (!preg_match('/\d+/', $career_profile->NOC, $noc)) {
+      die("[WorkBC Migration] Could not find NOC in record $i of career_profiles.json. Aborting!" . PHP_EOL);
+    }
+    $career_profiles[$noc[0]] = $career_profile;
+  }
+}
 
 $ssot = rtrim(\Drupal::config('workbc')->get('ssot_url'), '/');
 $client = new Client();
@@ -25,6 +38,40 @@ try {
       'uid' => 1,
     ];
     print("Creating {$fields['title']}\n");
+
+    // Check GC import for this noc.
+    if (array_key_exists($profile['noc'], $career_profiles)) {
+      print("  Found a GatherContent record for this profile\n");
+
+      $career_profile = $career_profiles[$profile['noc']];
+      $fields = array_merge($fields, [
+        'field_career_overview_intro' => convertText($career_profile->{'Career Overview Content'}),
+        'field_duties' => convertText($career_profile->{'Duties Content'}),
+//        'field_additional_duties' => $career_profile->{'Additional Duties Accordion'},
+        'field_salary_introduction' => convertText($career_profile->{'Salary Content'}),
+        'field_work_environment' => convertText($career_profile->{'Work Environment Content'}),
+        'field_career_pathways' => convertText($career_profile->{'Career Pathways Content'}),
+//        'field_related_careers' => $career_profile->{'Related Careers Content'},
+//        'field_occupational_interests' => ???
+//        '??? => $career_profile->{'Occupational Interests Content'},
+//        'field_job_titles	' => $career_profile->{'Job Titles List'},
+        'field_career_videos' => convertVideo($career_profile->{'Career Video URL'}), // TODO How about many videos?
+//        '???' => $career_profile->{'Career Videos Content'},
+        'field_education_training_skills' => convertText($career_profile->{'Education, Training and Skills Content'}),
+        'field_education_programs' => convertText($career_profile->{'Education Programs in B.C. Content'}),
+        'field_skills_introduction' => convertText($career_profile->{'Skills Content'}),
+        'field_labour_market_introduction' => convertText($career_profile->{'Labour Market Statistics Content'}),
+//        '???' => $career_profile->{'Labour Market Outlook Content'},
+//        'field_employment_introduction' => $career_profile->{'Employment Content'};
+        'field_industry_highlights_intro' => convertText($career_profile->{'Industry Highlights Content'}),
+        'field_insights_from_industry' => convertText($career_profile->{'Insights from Industry Content'}),
+        'field_career_overview_intro' => convertText($career_profile->{'Resources Content'}),
+        'field_career_overview_intro' => convertText($career_profile->{'Career Overview Content'}),
+//        'field_hero_image' => $career_profile->{'???'},
+//        'field_hi_opportunity_occupation' => SSOT,
+      ]);
+    }
+
     $node = Drupal::entityTypeManager()
       ->getStorage('node')
       ->create($fields);
@@ -33,4 +80,21 @@ try {
 }
 catch (RequestException $e) {
   print($e->getMessage());
+}
+
+function convertText($field) {
+  return ['format' => 'full_html', 'value' => $field];
+}
+
+function convertVideo($url) {
+  $fields = [
+    'bundle' => 'remote_video',
+    'uid' => 1,
+    'field_media_oembed_video' => $url,
+  ];
+  $media = Drupal::entityTypeManager()
+    ->getStorage('media')
+    ->create($fields);
+  $media->save();
+  return [['target_id' => $media->id()]];
 }

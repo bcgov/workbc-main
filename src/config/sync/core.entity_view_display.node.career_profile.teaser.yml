@@ -13,12 +13,10 @@ dependencies:
     - field.field.node.career_profile.field_education_programs
     - field.field.node.career_profile.field_education_training_skills
     - field.field.node.career_profile.field_hero_image
-    - field.field.node.career_profile.field_hi_opportunity_occupation
     - field.field.node.career_profile.field_industry_highlights_intro
     - field.field.node.career_profile.field_insights_from_industry
     - field.field.node.career_profile.field_job_titles
     - field.field.node.career_profile.field_labour_market_introduction
-    - field.field.node.career_profile.field_minimum_education
     - field.field.node.career_profile.field_noc
     - field.field.node.career_profile.field_occupational_interests
     - field.field.node.career_profile.field_related_careers
@@ -49,6 +47,7 @@ hidden:
   extra_field_annual_salary_source: true
   extra_field_education_programs: true
   extra_field_employment_growth_rate_forecast: true
+  extra_field_high_opportunity_occupation: true
   extra_field_job_openings: true
   extra_field_job_openings_by_industry: true
   extra_field_job_openings_by_industry_source: true
@@ -64,6 +63,7 @@ hidden:
   extra_field_labour_market_number_employed_source: true
   extra_field_labour_market_region_employment: true
   extra_field_labour_market_region_employment_source: true
+  extra_field_minimum_education: true
   extra_field_profile_skills: true
   extra_field_salary_info_annual_salary: true
   extra_field_salary_info_annual_salary_note: true
@@ -79,12 +79,10 @@ hidden:
   field_education_programs: true
   field_education_training_skills: true
   field_hero_image: true
-  field_hi_opportunity_occupation: true
   field_industry_highlights_intro: true
   field_insights_from_industry: true
   field_job_titles: true
   field_labour_market_introduction: true
-  field_minimum_education: true
   field_noc: true
   field_occupational_interests: true
   field_related_careers: true

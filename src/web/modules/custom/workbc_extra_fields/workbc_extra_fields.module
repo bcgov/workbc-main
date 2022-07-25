@@ -55,6 +55,7 @@ function ssotCareerProfile($noc) {
   $data['skills'] = querySSoT('skills?noc=eq.' . $noc);
   $data['openings'] = querySSoT('openings?noc=eq.' . $noc)[0];
   $data['sources'] = ssotSources();
+  $data['high_opportunity_occupations'] = querySSoT('high_opportunity_occupations?noc=eq.' . $noc);
   return $data;
 }
 
