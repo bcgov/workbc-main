@@ -12,7 +12,7 @@ field_name: field_image
 entity_type: node
 bundle: publication
 label: Image
-description: ''
+description: 'An image is needed if this publication is to be displayed on the Publications landing page.'
 required: false
 translatable: true
 default_value: {  }

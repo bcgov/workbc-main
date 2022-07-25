@@ -39,6 +39,7 @@ content:
     weight: 0
     region: content
 hidden:
+  extra_field_workbc_page_title: true
   field_hero_image: true
   field_hero_text: true
   search_api_excerpt: true
