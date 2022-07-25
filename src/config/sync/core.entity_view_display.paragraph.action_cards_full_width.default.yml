@@ -14,7 +14,7 @@ mode: default
 content:
   field_action_cards:
     type: entity_reference_revisions_entity_view
-    label: visually_hidden
+    label: above
     settings:
       view_mode: action_card_full_width
       link: ''
