@@ -1,0 +1,10 @@
+uuid: f42c089c-474c-48b1-a52d-4930de4680cc
+langcode: en
+status: true
+dependencies:
+  module:
+    - node
+id: node.publication
+label: Publication
+targetEntityType: node
+cache: true

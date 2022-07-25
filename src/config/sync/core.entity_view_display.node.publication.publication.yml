@@ -1,0 +1,65 @@
+uuid: dbe09f0f-ee6a-403f-96f0-7611c7a3f348
+langcode: en
+status: true
+dependencies:
+  config:
+    - core.entity_view_mode.node.publication
+    - field.field.node.publication.body
+    - field.field.node.publication.field_hardcopy_available
+    - field.field.node.publication.field_image
+    - field.field.node.publication.field_publication
+    - field.field.node.publication.field_resource_number
+    - image.style.feature_component
+    - node.type.publication
+  module:
+    - image
+    - text
+    - user
+    - workbc_custom
+id: node.publication.publication
+targetEntityType: node
+bundle: publication
+mode: publication
+content:
+  body:
+    type: text_default
+    label: visually_hidden
+    settings: {  }
+    third_party_settings: {  }
+    weight: 2
+    region: content
+  extra_field_publication_orderform_link:
+    settings: {  }
+    third_party_settings: {  }
+    weight: 4
+    region: content
+  extra_field_workbc_page_title:
+    settings: {  }
+    third_party_settings: {  }
+    weight: 1
+    region: content
+  field_image:
+    type: image
+    label: visually_hidden
+    settings:
+      image_link: ''
+      image_style: feature_component
+      image_loading:
+        attribute: lazy
+    third_party_settings: {  }
+    weight: 0
+    region: content
+  field_publication:
+    type: workbc_file_custom_link_text
+    label: visually_hidden
+    settings:
+      custom_text: 'View PDF'
+      target: _blank
+    third_party_settings: {  }
+    weight: 3
+    region: content
+hidden:
+  field_hardcopy_available: true
+  field_resource_number: true
+  links: true
+  search_api_excerpt: true

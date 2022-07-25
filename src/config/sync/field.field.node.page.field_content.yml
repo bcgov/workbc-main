@@ -9,6 +9,7 @@ dependencies:
     - paragraphs.paragraphs_type.action_cards_1_2
     - paragraphs.paragraphs_type.action_cards_explore_careers
     - paragraphs.paragraphs_type.action_cards_icon
+    - paragraphs.paragraphs_type.action_cards_publication
     - paragraphs.paragraphs_type.content_text
     - paragraphs.paragraphs_type.content_view
   module:
@@ -33,6 +34,7 @@ settings:
       content_text: content_text
       content_view: content_view
       action_cards_icon: action_cards_icon
+      action_cards_publication: action_cards_publication
     negate: 0
     target_bundles_drag_drop:
       action_card:
@@ -59,6 +61,9 @@ settings:
       action_cards_icon:
         weight: 22
         enabled: true
+      action_cards_publication:
+        weight: 25
+        enabled: true
       additional_duties:
         weight: 17
         enabled: false
@@ -70,6 +75,9 @@ settings:
         enabled: true
       hours_of_operation:
         weight: 18
+        enabled: false
+      publication_card:
+        weight: 30
         enabled: false
       quote_card:
         weight: 19

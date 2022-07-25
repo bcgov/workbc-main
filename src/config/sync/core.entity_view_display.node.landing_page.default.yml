@@ -18,7 +18,7 @@ mode: default
 content:
   field_action_card_groups:
     type: entity_reference_revisions_entity_view
-    label: above
+    label: visually_hidden
     settings:
       view_mode: default
       link: ''
@@ -39,6 +39,7 @@ content:
     weight: 0
     region: content
 hidden:
+  extra_field_workbc_page_title: true
   field_hero_image: true
   field_hero_text: true
   search_api_excerpt: true
