@@ -1,10 +1,10 @@
 (function ($, Drupal) {
 
-    var underlay = $('#submenu-underlay');
-    var showUnderlay = function() {
+    let underlay = $('#submenu-underlay');
+    let showUnderlay = function() {
         underlay.show();
     };
-    var hideUnderlay = function() {
+    let hideUnderlay = function() {
         underlay.hide();
     };
 

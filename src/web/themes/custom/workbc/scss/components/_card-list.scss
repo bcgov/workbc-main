@@ -1,0 +1,133 @@
+.card-list {
+    $card-spacing: 20px;
+    $container-gutter: 20px;
+
+    .view-content { // should be directly on .card-list, but we have to deal with Drupal's structure
+        display: flex;
+        flex-flow: row wrap;
+        justify-content: space-between;
+        align-items: stretch;
+        align-content: space-between;
+        row-gap: $card-spacing;
+        column-gap: $card-spacing;
+        margin-bottom: $card-spacing;
+
+        & > div {  // should be .card-list-item, but we have to deal with Drupal's structure
+            flex-grow: 0;
+            flex-shrink: 1;
+
+            $card-cols: 1;
+            flex-basis: calc((100% - 2*$container-gutter - ($card-cols - 1)*$card-spacing) / $card-cols);
+            @include media-breakpoint-up(md) {
+                $card-cols: 2;
+                flex-basis: calc((100% - 2*$container-gutter - ($card-cols - 1)*$card-spacing) / $card-cols);
+            }
+            @include media-breakpoint-up(lg) {
+                $card-cols: 3;
+                flex-basis: calc((100% - 2*$container-gutter - ($card-cols - 1)*$card-spacing) / $card-cols);
+            }
+
+            box-shadow: $workbc_default_box_shadow;
+
+            .card-list-item-image {
+                width: 100%;
+
+                a {
+                    position: relative;
+                    display: block;
+
+                    img {
+                        z-index: 1;
+                        width: 100%;
+                    }
+                }
+            }
+
+            .card-list-item-link {
+                width: 100%;
+
+                a, 
+                button {
+                    position: relative;
+                    display: block;
+                    margin: 0;
+                    border: none;
+                    width: 100%;
+                    padding: 0;
+
+                    &:after {
+                        content: "";
+                        position: absolute;
+                        top: 0;
+                        right: 0;
+                        bottom: 0;
+                        left: 0;
+                        z-index: 5;
+                        background: url(../assets/images/video-play-icon.svg) center center no-repeat;
+                        background-size: 60px;
+                    }
+                    &:hover:after {
+                        background: url(../assets/images/video-play-icon-hover.svg) center center no-repeat;
+                        background-size: 60px;
+                    }
+
+                    img {
+                        z-index: 1;
+                        width: 100%;
+                    }
+                }
+            }
+            .card-list-item-details {
+                background-color: $workbc_light_theme_background_accent;
+                padding: 5px $card-spacing;
+                display: flex;
+                flex-flow: row nowrap;
+                justify-content: space-between;
+                align-items: flex-start;
+                column-gap: $card-spacing;
+
+                .card-list-item-published {
+                    display: inline-block;
+                    flex: 2 1 100%;
+                }
+                .card-list-item-categories {
+                    display: inline-block;
+                    flex: 2 1 80%;
+                }
+                .card-list-item-duration {
+                    display: inline-block;
+                    flex: 2 1 20%;
+                    background: url(../assets/images/duration-icon.svg) left center no-repeat;
+                    background-size: 25px;
+                    padding-left: 25px; // ensure the content never overlays the background image icon
+                    color: $workbc_default_text;
+                    text-align: right;
+                    vertical-align: top;
+                }
+            }
+            .card-list-item-content {
+                padding: $card-spacing;
+                padding-bottom: 0;
+
+                & > div:not(:last-child) {
+                    margin-bottom: $card-spacing;
+                }
+
+                .card-list-item-title {
+                    a {
+                        text-decoration: none;
+                        color: $workbc_default_text;
+                        font-weight: bold;
+                    }
+                }
+                // .card-list-item-description {
+                //     margin-bottom: $card-spacing;
+                // }
+
+                // .card-list-item-action {
+                //     margin-bottom: $card-spacing;
+                // }
+            }
+        }
+    }
+}
