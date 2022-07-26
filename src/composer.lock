@@ -277,12 +277,12 @@
             "source": {
                 "type": "git",
                 "url": "https://github.com/infojunkie/gathercontent-client.git",
-                "reference": "1ef167a16bbb5477ca34a7e2c76816b47272d2d5"
+                "reference": "0b6494add9c0f752674f64ef5697803f8e19a912"
             },
             "dist": {
                 "type": "zip",
-                "url": "https://api.github.com/repos/infojunkie/gathercontent-client/zipball/1ef167a16bbb5477ca34a7e2c76816b47272d2d5",
-                "reference": "1ef167a16bbb5477ca34a7e2c76816b47272d2d5",
+                "url": "https://api.github.com/repos/infojunkie/gathercontent-client/zipball/0b6494add9c0f752674f64ef5697803f8e19a912",
+                "reference": "0b6494add9c0f752674f64ef5697803f8e19a912",
                 "shasum": ""
             },
             "require": {
@@ -317,7 +317,7 @@
             "support": {
                 "source": "https://github.com/infojunkie/gathercontent-client/tree/components"
             },
-            "time": "2022-06-13T19:56:36+00:00"
+            "time": "2022-07-26T06:41:31+00:00"
         },
         {
             "name": "chi-teck/drupal-code-generator",

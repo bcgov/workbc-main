@@ -6,7 +6,9 @@ $apiKey = $_ENV['GATHERCONTENT_APIKEY'];
 const PUBLISHED_STATUS = 'publish';
 
 $getopt = new \GetOpt\GetOpt([
-  ['h', 'help', \GetOpt\GetOpt::NO_ARGUMENT, 'Show this help and quit']
+  ['h', 'help', \GetOpt\GetOpt::NO_ARGUMENT, 'Show this help and quit'],
+  ['s', 'status', \GetOpt\GetOpt::MULTIPLE_ARGUMENT, 'Item statuses to download (can be repeated) (default: publish)', 'publish'],
+  ['i', 'item', \GetOpt\GetOpt::MULTIPLE_ARGUMENT, 'Item identifiers to download (can be repeated)']
 ], [\GetOpt\GetOpt::SETTING_STRICT_OPERANDS => true]);
 $getopt->addOperand(new \GetOpt\Operand('id', \GetOpt\Operand::REQUIRED));
 try {
@@ -22,11 +24,14 @@ $gc
   ->setEmail($email)
   ->setApiKey($apiKey);
 try {
-  $statuses = $gc->projectStatusesGet($getopt->getOperand('id'));
-  $publish_status = current(array_filter($statuses['data'], function ($status) {
-    return strcasecmp($status->name, PUBLISHED_STATUS) === 0;
-  }))->id;
-  $results = $gc->itemsGet($getopt->getOperand('id'), ['status_id' => [$publish_status]]);
+  $project_statuses = $gc->projectStatusesGet($getopt->getOperand('id'));
+  $download_statuses = array_map('strtolower', $getopt->getOption('status'));
+  $status_ids = array_values(array_map(function ($status) {
+    return $status->id;
+  }, array_filter($project_statuses['data'], function ($status) use ($download_statuses) {
+    return in_array(strtolower($status->name), $download_statuses);
+  })));
+  $results = $gc->itemsGet($getopt->getOperand('id'), ['status_id' => $status_ids]);
   $templates = [];
   $items = [];
   foreach ($results['data'] as $i) {
@@ -36,7 +41,26 @@ try {
     }
     $content = [];
     foreach ($item->content as $uuid => $value) {
-      $content[$templates[$item->templateId][$uuid]->label] = $value;
+      $field = $templates[$item->templateId][$uuid];
+      if ($field->type === 'component') {
+        if (isset($field->metaData['repeatable'])) {
+          foreach ($value as $i => $component) {
+            foreach ($component as $component_uuid => $component_value) {
+              $component_field = $templates[$item->templateId][$component_uuid];
+              $content[$field->label][$i][$component_field->label] = $component_value;
+            }
+          }
+        }
+        else {
+          foreach ($value as $component_uuid => $component_value) {
+            $component_field = $templates[$item->templateId][$component_uuid];
+            $content[$field->label][$i][$component_field->label] = $component_value;
+          }
+        }
+      }
+      else {
+        $content[$field->label] = $value;
+      }
     }
     $items[] = $content;
   }
@@ -51,6 +75,11 @@ function map_fields_uuids($template) {
   foreach ($template['related']->structure->groups as $group) {
     foreach ($group->fields as $field) {
       $map[$field->id] = $field;
+      if ($field->type === 'component') {
+        foreach ($field->component->fields as $component_field) {
+          $map[$component_field->id] = $component_field;
+        }
+      }
     }
   }
   return $map;
