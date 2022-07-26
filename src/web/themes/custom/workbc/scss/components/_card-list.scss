@@ -45,9 +45,14 @@
             .card-list-item-link {
                 width: 100%;
 
-                a {
+                a, 
+                button {
                     position: relative;
                     display: block;
+                    margin: 0;
+                    border: none;
+                    width: 100%;
+                    padding: 0;
 
                     &:after {
                         content: "";

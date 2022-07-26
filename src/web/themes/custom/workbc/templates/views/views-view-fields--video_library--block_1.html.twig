@@ -32,16 +32,23 @@
  */
 #}
 
+{%- set videoId = fields.field_media_oembed_video.content|striptags|trim %}
+{%- set videoKey = videoId|escape('css') %}
+
+
 <div class="card-list-item">
+
    <div class="card-list-item-link">
-      <a href="{{ fields.field_media_oembed_video.content|striptags|trim }}"><div class="card-list-item-thumbnail">{{ fields.thumbnail__target_id.content }}</div></a>
+      <a class="use-ajax" data-dialog-options='{"width" : "1200", "height": "900"}' data-dialog-type="modal" href="/media/{{ fields.mid.content|striptags|trim }}"><div class="card-list-item-thumbnail">{{ fields.thumbnail__target_id.content }}</div></a>
    </div>
-      <div class="card-list-item-details">
+
+   <div class="card-list-item-details">
       <div class="card-list-item-categories">{{ fields.field_category.content }}</div>
       <div class="card-list-item-duration">{{ fields.field_duration.content }}</div>
    </div>
+
    <div class="card-list-item-content">
-      <div class="card-list-item-title">{{ fields.field.name.content }}</div>
+      <div class="card-list-item-title">{{ fields.name.content }}</div>
       <div class="card-list-item-description">{{ fields.field_description.content }}</div>
    </div>
 </div>
