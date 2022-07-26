@@ -7,6 +7,7 @@ This is the WorkBC site on Drupal.
 
 # Development
 ## Initial setup
+- Copy `.env.example` to `.env`
 - Start the environment: `docker-compose up`
 - Adjust folder permissions:
   - `mkdir src/private && docker-compose exec php sudo chown www-data /var/www/html/private`
