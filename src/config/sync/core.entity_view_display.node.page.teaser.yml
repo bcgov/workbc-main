@@ -24,11 +24,12 @@ content:
     type: text_summary_or_trimmed
     label: visually_hidden
     settings:
-      trim_length: 600
+      trim_length: 100
     third_party_settings: {  }
     weight: 0
     region: content
 hidden:
+  extra_field_workbc_page_title: true
   field_content: true
   field_hero_image: true
   field_hero_text: true

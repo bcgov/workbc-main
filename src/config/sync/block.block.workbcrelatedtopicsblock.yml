@@ -1,0 +1,40 @@
+uuid: 2c3e5356-796f-4151-8b24-9f87ed46e29e
+langcode: en
+status: true
+dependencies:
+  module:
+    - block_visibility_conditions
+    - node
+    - workbc_custom
+  theme:
+    - workbc
+id: workbcrelatedtopicsblock
+theme: workbc
+region: content
+weight: 0
+provider: null
+plugin: related_topics_block
+settings:
+  id: related_topics_block
+  label: 'Related Topics'
+  label_display: '0'
+  provider: workbc_custom
+visibility:
+  not_node_type:
+    id: not_node_type
+    bundles: {  }
+    negate: null
+  not_taxonomy_vocabulary:
+    id: not_taxonomy_vocabulary
+    bundles: {  }
+    negate: null
+  'entity_bundle:node':
+    id: 'entity_bundle:node'
+    negate: false
+    context_mapping:
+      node: '@node.node_route_context:node'
+    bundles:
+      labour_market_monthly: labour_market_monthly
+      landing_page: landing_page
+      page: page
+      workbc_centre: workbc_centre
