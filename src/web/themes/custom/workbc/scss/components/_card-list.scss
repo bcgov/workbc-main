@@ -10,9 +10,10 @@
         align-content: space-between;
         row-gap: $card-spacing;
         column-gap: $card-spacing;
+        margin-bottom: $card-spacing;
 
         & > div {  // should be .card-list-item, but we have to deal with Drupal's structure
-            flex-grow: 2;
+            flex-grow: 0;
             flex-shrink: 1;
 
             $card-cols: 1;
