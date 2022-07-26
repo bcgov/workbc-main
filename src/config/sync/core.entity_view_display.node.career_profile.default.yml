@@ -25,7 +25,6 @@ dependencies:
     - field.field.node.career_profile.field_work_environment
     - node.type.career_profile
   module:
-    - entity_reference_revisions
     - field_group
     - image
     - link
@@ -306,13 +305,11 @@ content:
     weight: 20
     region: content
   field_additional_duties:
-    type: entity_reference_revisions_entity_view
+    type: text_default
     label: above
-    settings:
-      view_mode: default
-      link: ''
+    settings: {  }
     third_party_settings: {  }
-    weight: 10
+    weight: 39
     region: content
   field_career_overview_intro:
     type: text_default

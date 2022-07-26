@@ -42,6 +42,6 @@ Each script listed here includes a short documentation header that details its u
 | career_profiles.php | SSoT<br>GC | Content type `career_profile` |
 | education.php | SSoT | Taxonomy `education` |
 | skills.php | SSoT | Taxonomy `skills` |
-| taxonomy.php | LS (definitions.csv) | Taxonomy `definitions` |
-| taxonomy.php | LS (occupational_interests.csv) | Taxonomy `occupational_interests` |
-| taxonomy.php | LS (video_categories.csv) | Taxonomy `video_categories` |
+| taxonomy.php | LS ([definitions.csv](https://www.workbc.ca/Jobs-Careers/Career-Toolkit/Definitions.aspx)) | Taxonomy `definitions` |
+| taxonomy.php | LS ([occupational_interests.csv](https://www.workbc.ca/Labour-Market-Industry/Skills-for-the-Future-Workforce.aspx#characteristics)) | Taxonomy `occupational_interests` |
+| taxonomy.php | LS ([video_categories.csv](https://www.workbc.ca/videolibrary/)) | Taxonomy `video_categories` |

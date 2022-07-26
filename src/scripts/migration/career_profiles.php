@@ -47,7 +47,7 @@ try {
       $fields = array_merge($fields, [
         'field_career_overview_intro' => convertText($career_profile->{'Career Overview Content'}),
         'field_duties' => convertText($career_profile->{'Duties Content'}),
-//        'field_additional_duties' => $career_profile->{'Additional Duties Accordion'},
+//        'field_additional_duties' => convertText($career_profile->{'Additional Duties Content'}),
         'field_salary_introduction' => convertText($career_profile->{'Salary Content'}),
         'field_work_environment' => convertText($career_profile->{'Work Environment Content'}),
         'field_career_pathways' => convertText($career_profile->{'Career Pathways Content'}),
@@ -68,7 +68,6 @@ try {
         'field_career_overview_intro' => convertText($career_profile->{'Resources Content'}),
         'field_career_overview_intro' => convertText($career_profile->{'Career Overview Content'}),
 //        'field_hero_image' => $career_profile->{'???'},
-//        'field_hi_opportunity_occupation' => SSOT,
       ]);
     }
 
