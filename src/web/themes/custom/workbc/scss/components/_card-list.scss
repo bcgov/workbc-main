@@ -85,6 +85,7 @@
                     justify-content: space-between;
                     align-items: flex-start;
                     column-gap: $card-spacing;
+                    font-size: 0.875rem;
     
                     .card-list-item-published {
                         display: inline-block;
@@ -116,11 +117,8 @@
                     }
     
                     .card-list-item-title {
-                        a {
-                            text-decoration: none;
-                            color: $workbc_default_text;
-                            font-weight: bold;
-                        }
+                        font-weight: bold;
+                        font-size: 1.125rem;
                     }
                 }
 
