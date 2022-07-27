@@ -639,7 +639,7 @@ display:
           admin_label: ''
           plugin_id: field
           label: ''
-          exclude: true
+          exclude: false
           alter:
             alter_text: false
             text: ''
@@ -707,7 +707,7 @@ display:
           entity_field: published_date
           plugin_id: field
           label: ''
-          exclude: true
+          exclude: false
           alter:
             alter_text: false
             text: ''
@@ -751,7 +751,7 @@ display:
           type: timestamp
           settings:
             date_format: custom
-            custom_date_format: 'd M Y'
+            custom_date_format: 'd F Y'
             timezone: ''
           group_column: value
           group_columns: {  }
@@ -774,7 +774,7 @@ display:
           entity_field: title
           plugin_id: field
           label: ''
-          exclude: true
+          exclude: false
           alter:
             alter_text: false
             text: ''
@@ -837,7 +837,7 @@ display:
           admin_label: ''
           plugin_id: field
           label: ''
-          exclude: true
+          exclude: false
           alter:
             alter_text: false
             text: ''
@@ -891,21 +891,22 @@ display:
           multi_type: separator
           separator: ', '
           field_api_classes: false
-        nothing:
-          id: nothing
-          table: views
-          field: nothing
+        view_node:
+          id: view_node
+          table: node
+          field: view_node
           relationship: none
           group_type: group
           admin_label: ''
-          plugin_id: custom
+          entity_type: node
+          plugin_id: entity_link
           label: ''
           exclude: false
           alter:
-            alter_text: true
-            text: "   <div class=\"card-list-item-image\">{{ field_image }}</div>\r\n   <div class=\"card-list-item-details\">\r\n      <div class=\"card-list-item-published\">{{ published_date }}</div>\r\n   </div>\r\n   <div class=\"card-list-item-content\">\r\n      <div class=\"card-list-item-title\">{{ title }}</div>\r\n      <div class=\"card-list-item-description\">{{ body }}</div>\r\n      <div class=\"card-list-item-action\">Read more ></div>\r\n   </div>\r\n"
-            make_link: true
-            path: 'node/{{ nid }}'
+            alter_text: false
+            text: ''
+            make_link: false
+            path: ''
             absolute: false
             external: false
             replace_spaces: false
@@ -939,18 +940,16 @@ display:
           empty: ''
           hide_empty: false
           empty_zero: false
-          hide_alter_empty: false
+          hide_alter_empty: true
+          text: 'Read More > '
+          output_url_as_text: false
+          absolute: false
       style:
-        type: grid
+        type: default
         options:
           grouping: {  }
-          columns: 3
-          automatic_width: true
-          alignment: horizontal
-          row_class_custom: ''
-          row_class_default: true
-          col_class_custom: ''
-          col_class_default: true
+          row_class: ''
+          default_row_class: false
       row:
         type: fields
         options:
@@ -959,9 +958,11 @@ display:
           separator: ''
           hide_empty: false
       defaults:
+        css_class: false
         style: false
         row: false
         fields: false
+      css_class: card-list
       display_description: ''
       display_extenders: {  }
     cache_metadata:
