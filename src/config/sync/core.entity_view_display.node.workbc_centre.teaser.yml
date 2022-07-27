@@ -29,6 +29,7 @@ content:
     region: content
 hidden:
   extra_field_wbcc_recent_jobs: true
+  extra_field_workbc_page_title: true
   field_address: true
   field_alert: true
   field_apply_online: true
