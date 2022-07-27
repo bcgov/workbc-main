@@ -49,3 +49,19 @@ jobs:
       - name: Push Drupal docker image
         run: |
           docker push 266795317183.dkr.ecr.ca-central-1.amazonaws.com/workbc:${{ github.sha }}
+          
+  # workaround for the intermittent skip issue        
+  get_workflow_conclusion:
+    name: Lookup conclusion of workflow_run event
+    runs-on: ubuntu-latest
+    outputs:
+      conclusion: ${{ fromJson(steps.get_conclusion.outputs.data).conclusion }}
+    steps:
+      - name: Get workflow conclusion
+        id: get_conclusion
+        uses: octokit/request-action@v2.1.0
+        with:
+          route: GET /repos/${{ github.repository }}/actions/runs/${{ github.event.workflow_run.id }}
+        env:
+          GITHUB_TOKEN: ${{ secrets.GITHUB_TOKEN }}
+  
