@@ -1,16 +1,16 @@
-uuid: b399ff0d-8747-4b66-9a3c-24957665f0d2
+uuid: 5391b4b4-340c-49ed-a3d7-74cf63b71f61
 langcode: en
 status: true
 dependencies:
   config:
-    - field.storage.node.field_tags
+    - field.storage.node.field_event_type
     - node.type.event
-    - taxonomy.vocabulary.tags
-id: node.event.field_tags
-field_name: field_tags
+    - taxonomy.vocabulary.event_type
+id: node.event.field_event_type
+field_name: field_event_type
 entity_type: node
 bundle: event
-label: Tags
+label: 'Event Type'
 description: ''
 required: false
 translatable: false
@@ -20,7 +20,7 @@ settings:
   handler: 'default:taxonomy_term'
   handler_settings:
     target_bundles:
-      tags: tags
+      event_type: event_type
     sort:
       field: name
       direction: asc

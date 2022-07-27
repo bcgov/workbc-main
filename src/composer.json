@@ -63,6 +63,7 @@
         "drupal/extra_field": "^2.2",
         "drupal/field_group": "^3.2",
         "drupal/field_permissions": "^1.1",
+        "drupal/fullcalendar_view": "^5.1",
         "drupal/health_check": "^2.0",
         "drupal/image_widget_crop": "^2.3",
         "drupal/jquery_ui_accordion": "^1.1",
