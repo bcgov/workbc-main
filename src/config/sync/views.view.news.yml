@@ -709,7 +709,7 @@ display:
           type: timestamp
           settings:
             date_format: custom
-            custom_date_format: 'd M Y'
+            custom_date_format: 'd F Y'
             timezone: ''
           group_column: value
           group_columns: {  }
