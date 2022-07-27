@@ -38,7 +38,7 @@ class WebformPublicationComposite extends WebformCompositeBase {
   public static function getCompositeElements(array $element) {
 
     $options = [];
-    for ($i = 1; $i <= 160; $i++) {
+    for ($i = 0; $i <= 160; $i++) {
       $options[$i] = $i;
     }
 
@@ -62,6 +62,7 @@ class WebformPublicationComposite extends WebformCompositeBase {
         '#type' => 'select',
         // '#title' => t('Quantity'),
         '#options' => $options,
+        '#value' => 0,
       ];
       $elements['publications'][$pub]['title-'.$pub] = [
         '#type' => 'item',
@@ -78,7 +79,7 @@ class WebformPublicationComposite extends WebformCompositeBase {
       if (!is_null($fid)) {
         $file = \Drupal\file\Entity\File::load($fid);
         $link_options = [];
-        $link_options['attributes']['target'] = true;
+        $link_options['attributes']['target'] = 1;
         $link = Link::fromTextAndUrl("View PDF", Url::fromUri('internal:'.$file->createFileUrl(), $link_options))->toString();
         $url = Url::fromUri('internal:'.$file->createFileUrl(), $link_options)->toString();
       }
