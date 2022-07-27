@@ -26,9 +26,9 @@ class RelatedTopicsBlock extends BlockBase {
       $config = $this->getConfiguration();
 
       $form['trimmed_limit'] = [
-        '#type' => 'textfield',
+        '#type' => 'number',
         '#title' => $this->t('Trimmed limit'),
-        '#description' => $this->t('If the body field is being used, the trimmed Body field will end before this character limit.'),
+        '#description' => $this->t('If no hero text or body summary is available, the body field will be used, the trimmed Body field will end before this character limit.'),
         '#default_value' => $config['trimmed_limit'] ?? '150',
       ];
 
