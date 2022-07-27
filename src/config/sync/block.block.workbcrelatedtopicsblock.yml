@@ -19,6 +19,7 @@ settings:
   label: 'Related Topics'
   label_display: '0'
   provider: workbc_custom
+  trimmed_limit: '150'
 visibility:
   not_node_type:
     id: not_node_type
