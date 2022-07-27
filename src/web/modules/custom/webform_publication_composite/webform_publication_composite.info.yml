@@ -1,0 +1,7 @@
+name: 'WorkBC Publication Webform Composite'
+type: module
+description: 'Provides custom webform composite for WorkBC Publications order form.'
+package: 'WorkBC'
+core_version_requirement: ^8.8 || ^9
+dependencies:
+  - 'webform:webform'
