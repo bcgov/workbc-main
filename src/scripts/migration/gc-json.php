@@ -3,11 +3,9 @@
 $email = $_ENV['GATHERCONTENT_EMAIL'];
 $apiKey = $_ENV['GATHERCONTENT_APIKEY'];
 
-const PUBLISHED_STATUS = 'publish';
-
 $getopt = new \GetOpt\GetOpt([
   ['h', 'help', \GetOpt\GetOpt::NO_ARGUMENT, 'Show this help and quit'],
-  ['s', 'status', \GetOpt\GetOpt::MULTIPLE_ARGUMENT, 'Item statuses to download (can be repeated) (default: publish)', 'publish'],
+  ['s', 'status', \GetOpt\GetOpt::MULTIPLE_ARGUMENT, 'Item statuses to download (can be repeated)'],
   ['i', 'item', \GetOpt\GetOpt::MULTIPLE_ARGUMENT, 'Item identifiers to download (can be repeated)']
 ], [\GetOpt\GetOpt::SETTING_STRICT_OPERANDS => true]);
 $getopt->addOperand(new \GetOpt\Operand('id', \GetOpt\Operand::REQUIRED));
@@ -24,6 +22,7 @@ $gc
   ->setEmail($email)
   ->setApiKey($apiKey);
 try {
+  // Build query filter and make initial request.
   $project_statuses = $gc->projectStatusesGet($getopt->getOperand('id'));
   $download_statuses = array_map('strtolower', $getopt->getOption('status'));
   $status_ids = array_values(array_map(function ($status) {
@@ -31,17 +30,35 @@ try {
   }, array_filter($project_statuses['data'], function ($status) use ($download_statuses) {
     return in_array(strtolower($status->name), $download_statuses);
   })));
-  $results = $gc->itemsGet($getopt->getOperand('id'), ['status_id' => $status_ids]);
+  $filter = [
+    'per_page' => 500,
+  ];
+  if (!empty($status_ids)) {
+    $filter['status_id'] = $status_ids;
+  }
+  if (!empty($getopt->getOption('item'))) {
+    $filter['item_id'] = $getopt->getOption('item');
+  }
+  // TODO Pagination.
+  $results = $gc->itemsGet($getopt->getOperand('id'), $filter);
+
+  // Loop on the item list and build the JSON structure.
   $templates = [];
-  $items = [];
-  foreach ($results['data'] as $i) {
-    $item = $gc->itemGet($i->id);
+  $last_key = end(array_keys($results['data']));
+  print("[\n");
+  foreach ($results['data'] as $key => $result) {
+    $item = $gc->itemGet($result->id);
+
+    // Cache the item template.
     if (!array_key_exists($item->templateId, $templates)) {
-      $templates[$item->templateId] = map_fields_uuids($gc->templateGet($item->templateId));
+      $templates[$item->templateId] = map_fields_ids($gc->templateGet($item->templateId));
     }
+
+    // Loop on the content fields and translate field ids to field labels.
     $content = [];
     foreach ($item->content as $uuid => $value) {
       $field = $templates[$item->templateId][$uuid];
+      // In case the field is a component, loop again on all component fields.
       if ($field->type === 'component') {
         if (isset($field->metaData['repeatable'])) {
           foreach ($value as $i => $component) {
@@ -62,15 +79,22 @@ try {
         $content[$field->label] = $value;
       }
     }
-    $items[] = $content;
+    print(json_encode($content, JSON_PRETTY_PRINT));
+    if ($key !== $last_key) {
+      print(',');
+    }
+    print("\n");
   }
-  print(json_encode($items, JSON_PRETTY_PRINT));
+  print("]\n");
 }
 catch (Exception $e) {
     die('ERROR: ' . $e->getMessage() . PHP_EOL);
 }
 
-function map_fields_uuids($template) {
+/**
+ * Create a map of field ids to labels.
+ */
+function map_fields_ids($template) {
   $map = [];
   foreach ($template['related']->structure->groups as $group) {
     foreach ($group->fields as $field) {

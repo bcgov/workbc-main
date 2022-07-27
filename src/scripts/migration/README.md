@@ -36,12 +36,13 @@ drush scr scripts/migration/script.php -- --some-option=some-option-value csv-fi
 ```
 Each script listed here includes a short documentation header that details its usage, as well as instructions on reverting the import process to start again in case of errors.
 
-| Script | Data source(s) | Drupal output(s) |
+| Script | Data source(s) | Output(s) |
 | -------| -------------- | -----------------|
-| ia.php  | IA (ia.csv)<br>GC | Content type `page`<br>Content type `landing_page`<br>Menu `main` |
+| ia.php  | IA (data/ia.csv)<br>GC | Content types `page`, `landing_page`, `blog`, `news`, `success_story`<br>Menu `main` |
 | career_profiles.php | SSoT<br>GC | Content type `career_profile` |
 | education.php | SSoT | Taxonomy `education` |
 | skills.php | SSoT | Taxonomy `skills` |
-| taxonomy.php | LS ([definitions.csv](https://www.workbc.ca/Jobs-Careers/Career-Toolkit/Definitions.aspx)) | Taxonomy `definitions` |
-| taxonomy.php | LS ([occupational_interests.csv](https://www.workbc.ca/Labour-Market-Industry/Skills-for-the-Future-Workforce.aspx#characteristics)) | Taxonomy `occupational_interests` |
-| taxonomy.php | LS ([video_categories.csv](https://www.workbc.ca/videolibrary/)) | Taxonomy `video_categories` |
+| taxonomy.php | LS ([data/definitions.csv](https://www.workbc.ca/Jobs-Careers/Career-Toolkit/Definitions.aspx)) | Taxonomy `definitions` |
+| taxonomy.php | LS ([data/occupational_interests.csv](https://www.workbc.ca/Labour-Market-Industry/Skills-for-the-Future-Workforce.aspx#characteristics)) | Taxonomy `occupational_interests` |
+| taxonomy.php | LS ([data/video_categories.csv](https://www.workbc.ca/videolibrary/)) | Taxonomy `video_categories` |
+| gc-json.php | GC | JSON file with matching items |

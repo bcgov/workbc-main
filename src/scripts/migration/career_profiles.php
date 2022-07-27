@@ -14,8 +14,8 @@ use GuzzleHttp\Exception\RequestException;
 
 // Read GatherContent career profiles if present.
 $career_profiles = NULL;
-if (file_exists(__DIR__ . '/career_profiles.json')) {
-  $data = json_decode(file_get_contents(__DIR__ . '/career_profiles.json'));
+if (file_exists(__DIR__ . '/data/career_profiles.json')) {
+  $data = json_decode(file_get_contents(__DIR__ . '/data/career_profiles.json'));
   foreach ($data as $i => $career_profile) {
     $noc = NULL;
     if (!preg_match('/\d+/', $career_profile->NOC, $noc)) {
@@ -47,15 +47,15 @@ try {
       $fields = array_merge($fields, [
         'field_career_overview_intro' => convertText($career_profile->{'Career Overview Content'}),
         'field_duties' => convertText($career_profile->{'Duties Content'}),
-//        'field_additional_duties' => convertText($career_profile->{'Additional Duties Content'}),
+        'field_additional_duties' => convertText($career_profile->{'Additional Duties List'}),
         'field_salary_introduction' => convertText($career_profile->{'Salary Content'}),
         'field_work_environment' => convertText($career_profile->{'Work Environment Content'}),
         'field_career_pathways' => convertText($career_profile->{'Career Pathways Content'}),
 //        'field_related_careers' => $career_profile->{'Related Careers Content'},
 //        'field_occupational_interests' => ???
 //        '??? => $career_profile->{'Occupational Interests Content'},
-//        'field_job_titles	' => $career_profile->{'Job Titles List'},
-        'field_career_videos' => convertVideo($career_profile->{'Career Video URL'}), // TODO How about many videos?
+        'field_job_titles	' => $career_profile->{'Job Title'},
+        'field_career_videos' => convertVideos($career_profile->{'Career Video Link'}),
 //        '???' => $career_profile->{'Career Videos Content'},
         'field_education_training_skills' => convertText($career_profile->{'Education, Training and Skills Content'}),
         'field_education_programs' => convertText($career_profile->{'Education Programs in B.C. Content'}),
@@ -65,9 +65,9 @@ try {
 //        'field_employment_introduction' => $career_profile->{'Employment Content'};
         'field_industry_highlights_intro' => convertText($career_profile->{'Industry Highlights Content'}),
         'field_insights_from_industry' => convertText($career_profile->{'Insights from Industry Content'}),
-        'field_career_overview_intro' => convertText($career_profile->{'Resources Content'}),
         'field_career_overview_intro' => convertText($career_profile->{'Career Overview Content'}),
 //        'field_hero_image' => $career_profile->{'???'},
+        'field_resources' => convertResources($career_profile->{'Resources'}),
       ]);
     }
 
@@ -85,15 +85,28 @@ function convertText($field) {
   return ['format' => 'full_html', 'value' => $field];
 }
 
-function convertVideo($url) {
-  $fields = [
-    'bundle' => 'remote_video',
-    'uid' => 1,
-    'field_media_oembed_video' => $url,
-  ];
-  $media = Drupal::entityTypeManager()
-    ->getStorage('media')
-    ->create($fields);
-  $media->save();
-  return [['target_id' => $media->id()]];
+function convertVideos($urls) {
+  $targets = [];
+  foreach ($urls as $url) {
+    $fields = [
+      'bundle' => 'remote_video',
+      'uid' => 1,
+      'field_media_oembed_video' => $url,
+    ];
+    $media = Drupal::entityTypeManager()
+      ->getStorage('media')
+      ->create($fields);
+    $media->save();
+    $targets[] = ['target_id' => $media->id()];
+  }
+  return $targets;
+}
+
+function convertResources($resources) {
+  return array_map(function($resource) {
+    return [
+      'uri' => $resource->{'Resource Anchor Link'},
+      'title' => $resource->{'Resource Title'}
+    ];
+  }, array_filter($resources));
 }
