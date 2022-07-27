@@ -28,7 +28,6 @@ module:
   datetime: 0
   datetime_range: 0
   dblog: 0
-  devel_generate: 0
   duration_field: 0
   dynamic_page_cache: 0
   editor: 0
@@ -81,6 +80,7 @@ module:
   views_ui: 0
   viewsreference: 0
   webform: 0
+  webform_publication_composite: 0
   webform_ui: 0
   workbc_custom: 0
   workbc_extra_fields: 0
