@@ -33,17 +33,19 @@
 #}
 
 <div class="workbc-card">
-   <div class="workbc-card-video-preview">
-      <a class="use-ajax" data-dialog-options='{"width" : "auto", "maxWidth": "1200", "height": "auto", "modal": "true", "fluid": "true"}' data-dialog-type="modal" href="/media/{{ fields.mid.content|striptags|trim }}"><div class="workbc-card-thumbnail">{{ fields.thumbnail__target_id.content }}</div></a>
-   </div>
+   <div class="workbc-card-container">
+      <div class="workbc-card-video-preview">
+         <a class="use-ajax" data-dialog-options='{"width" : "auto", "maxWidth": "1200", "height": "auto", "modal": "true", "fluid": "true"}' data-dialog-type="modal" href="/media/{{ fields.mid.content|striptags|trim }}"><div class="workbc-card-thumbnail">{{ fields.thumbnail__target_id.content }}</div></a>
+      </div>
 
-   <div class="workbc-card-details">
-      <div class="workbc-card-categories">{{ fields.field_category.content }}</div>
-      <div class="workbc-card-duration">{{ fields.field_duration.content }}</div>
-   </div>
+      <div class="workbc-card-details">
+         <div class="workbc-card-categories">{{ fields.field_category.content }}</div>
+         <div class="workbc-card-duration">{{ fields.field_duration.content }}</div>
+      </div>
 
-   <div class="workbc-card-content">
-      <div class="workbc-card-title">{{ fields.name.content }}</div>
-      <div class="workbc-card-description">{{ fields.field_description.content }}</div>
+      <div class="workbc-card-content">
+         <div class="workbc-card-title">{{ fields.name.content }}</div>
+         <div class="workbc-card-description">{{ fields.field_description.content }}</div>
+      </div>
    </div>
 </div>
