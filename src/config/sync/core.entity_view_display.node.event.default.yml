@@ -5,14 +5,18 @@ dependencies:
   config:
     - field.field.node.event.body
     - field.field.node.event.field_address
-    - field.field.node.event.field_date
-    - field.field.node.event.field_tags
+    - field.field.node.event.field_end_date
+    - field.field.node.event.field_event_type
+    - field.field.node.event.field_multiple_days
+    - field.field.node.event.field_start_date
     - field.field.node.event.field_target_audience
+    - field.field.node.event.field_time
     - node.type.event
   module:
     - address
-    - datetime_range
+    - datetime
     - text
+    - time_field
     - user
 id: node.event.default
 targetEntityType: node
@@ -24,32 +28,40 @@ content:
     label: hidden
     settings: {  }
     third_party_settings: {  }
-    weight: 101
+    weight: 1
     region: content
   field_address:
     type: address_default
     label: above
     settings: {  }
     third_party_settings: {  }
-    weight: 103
+    weight: 2
     region: content
-  field_date:
-    type: daterange_default
+  field_end_date:
+    type: datetime_default
     label: above
     settings:
       timezone_override: ''
-      format_type: medium
-      separator: '-'
+      format_type: event_date
     third_party_settings: {  }
-    weight: 102
+    weight: 6
     region: content
-  field_tags:
+  field_event_type:
     type: entity_reference_label
     label: above
     settings:
       link: true
     third_party_settings: {  }
-    weight: 104
+    weight: 4
+    region: content
+  field_start_date:
+    type: datetime_default
+    label: above
+    settings:
+      timezone_override: ''
+      format_type: event_date
+    third_party_settings: {  }
+    weight: 5
     region: content
   field_target_audience:
     type: entity_reference_label
@@ -57,12 +69,23 @@ content:
     settings:
       link: true
     third_party_settings: {  }
-    weight: 105
+    weight: 3
+    region: content
+  field_time:
+    type: time_range_formatter
+    label: above
+    settings:
+      time_format: 'g:i A'
+      timerange_format: 'start - end'
+    third_party_settings: {  }
+    weight: 7
     region: content
   links:
     settings: {  }
     third_party_settings: {  }
-    weight: 100
+    weight: 0
     region: content
 hidden:
+  extra_field_workbc_page_title: true
+  field_multiple_days: true
   search_api_excerpt: true
