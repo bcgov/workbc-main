@@ -1,0 +1,125 @@
+$card-spacing: 20px;
+$container-gutter: 20px;
+
+.workbc-card {
+    display: flex;
+    flex-flow: column nowrap;
+    box-shadow: $workbc_default_box_shadow;
+
+    .workbc-card-image-preview {
+        img {
+            width: 100%;
+        }
+    }
+
+    .workbc-card-video-preview {
+        a, 
+        button {
+            position: relative;
+            display: block;
+            margin: 0;
+            border: none;
+            width: 100%;
+            padding: 0;
+
+            &:after {
+                content: "";
+                position: absolute;
+                top: 0;
+                right: 0;
+                bottom: 0;
+                left: 0;
+                z-index: 5;
+                background: url(../assets/images/video-play-icon.svg) center center no-repeat;
+                background-size: 60px;
+            }
+            &:hover:after {
+                background: url(../assets/images/video-play-icon-hover.svg) center center no-repeat;
+                background-size: 60px;
+            }
+
+            img {
+                z-index: 1;
+                width: 100%;
+            }
+        }
+    }
+
+    .workbc-card-details {
+        background-color: $workbc_light_theme_background_accent;
+        padding: 5px $card-spacing;
+        display: flex;
+        flex-flow: row nowrap;
+        justify-content: space-between;
+        align-items: flex-start;
+        column-gap: $card-spacing;
+        font-size: 0.875rem;
+
+        & > div {
+            display: inline-block;
+            flex: 2 1 100%;
+        }
+        .workbc-card-categories {
+            flex: 2 1 80%;
+        }
+        .workbc-card-duration {
+            flex: 2 1 20%;
+
+            background: url(../assets/images/duration-icon.svg) left center no-repeat;
+            background-size: 25px;
+            padding-left: 25px; // ensure the content never overlays the background image icon
+            color: $workbc_default_text;
+            text-align: right;
+            vertical-align: top;
+        }
+    }
+
+    .workbc-card-content {
+        padding: $card-spacing;
+        padding-bottom: 0;
+        flex: 1 0 auto;
+
+        & > div:not(:last-child) {
+            margin-bottom: $card-spacing;
+        }
+
+        .workbc-card-title {
+            font-weight: bold;
+            font-size: 1.125rem;
+        }
+    }
+
+    .workbc-card-action {
+        align-self: flex-end;
+        padding: $card-spacing;
+    }
+}
+
+.workbc-card-list { 
+    display: flex;
+    flex-flow: row wrap;
+    align-items: stretch;
+    align-content: space-between;
+    row-gap: $card-spacing;
+    column-gap: $card-spacing;
+    margin-bottom: $card-spacing;
+
+    .workbc-card {
+        $card-cols: 1;
+        flex: 0 0 calc((100% - ($card-cols - 1)*$card-spacing) / $card-cols);
+        
+        @include media-breakpoint-up(md) {
+            $card-cols: 2;
+            flex-basis: calc((100% - ($card-cols - 1)*$card-spacing) / $card-cols);
+        }
+        @include media-breakpoint-up(lg) {
+            $card-cols: 3;
+            flex-basis: calc((100% - ($card-cols - 1)*$card-spacing) / $card-cols);
+        }
+        
+        & > * {
+            flex: 0 0 auto;
+            width: 100%;
+        }
+    }
+}
