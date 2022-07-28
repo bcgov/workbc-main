@@ -1,7 +1,7 @@
 {#
 /**
  * @file
- * Default theme implementation to display a view of unformatted rows.
+ * Override theme implementation to display a view of unformatted rows.
  *
  * Available variables:
  * - title: The title of this group of rows. May be empty.
@@ -20,6 +20,9 @@
 {% if title %}
   <h3>{{ title }}</h3>
 {% endif %}
+
+<div class="card-list">
 {% for row in rows %}
     {{- row.content -}}
 {% endfor %}
+</div>
