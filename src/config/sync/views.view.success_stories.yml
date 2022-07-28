@@ -215,7 +215,7 @@ display:
           type: timestamp
           settings:
             date_format: custom
-            custom_date_format: 'd F Y'
+            custom_date_format: 'd M Y'
             timezone: ''
           group_column: value
           group_columns: {  }
@@ -355,22 +355,21 @@ display:
           multi_type: separator
           separator: ', '
           field_api_classes: false
-        view_node:
-          id: view_node
-          table: node
-          field: view_node
+        nothing:
+          id: nothing
+          table: views
+          field: nothing
           relationship: none
           group_type: group
           admin_label: ''
-          entity_type: node
-          plugin_id: entity_link
+          plugin_id: custom
           label: ''
           exclude: false
           alter:
-            alter_text: false
-            text: ''
-            make_link: false
-            path: ''
+            alter_text: true
+            text: 'Read more >'
+            make_link: true
+            path: 'node/{{ nid }}'
             absolute: false
             external: false
             replace_spaces: false
@@ -404,10 +403,7 @@ display:
           empty: ''
           hide_empty: false
           empty_zero: false
-          hide_alter_empty: true
-          text: 'Read more > '
-          output_url_as_text: false
-          absolute: false
+          hide_alter_empty: false
       pager:
         type: full
         options:
@@ -492,11 +488,16 @@ display:
             operator_limit_selection: false
             operator_list: {  }
       style:
-        type: default
+        type: grid
         options:
           grouping: {  }
-          row_class: ''
-          default_row_class: false
+          columns: 3
+          automatic_width: true
+          alignment: horizontal
+          row_class_custom: ''
+          row_class_default: true
+          col_class_custom: ''
+          col_class_default: true
       row:
         type: fields
       query:
@@ -508,7 +509,6 @@ display:
           replica: false
           query_tags: {  }
       relationships: {  }
-      css_class: card-list
       header: {  }
       footer: {  }
       display_extenders: {  }
