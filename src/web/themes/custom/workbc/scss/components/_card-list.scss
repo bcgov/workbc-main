@@ -4,7 +4,6 @@
 
     display: flex;
     flex-flow: row wrap;
-    justify-content: space-between;
     align-items: stretch;
     align-content: space-between;
     row-gap: $card-spacing;
@@ -17,14 +16,15 @@
         box-shadow: $workbc_default_box_shadow;
 
         $card-cols: 1;
-        flex: 0 1 calc((100% - 2*$container-gutter - ($card-cols - 1)*$card-spacing) / $card-cols);
+        flex: 0 0 calc((100% - ($card-cols - 1)*$card-spacing) / $card-cols);
+       
         @include media-breakpoint-up(md) {
             $card-cols: 2;
-            flex-basis: calc((100% - 2*$container-gutter - ($card-cols - 1)*$card-spacing) / $card-cols);
+            flex-basis: calc((100% - ($card-cols - 1)*$card-spacing) / $card-cols);
         }
         @include media-breakpoint-up(lg) {
             $card-cols: 3;
-            flex-basis: calc((100% - 2*$container-gutter - ($card-cols - 1)*$card-spacing) / $card-cols);
+            flex-basis: calc((100% - ($card-cols - 1)*$card-spacing) / $card-cols);
         }
         
         & > * {
