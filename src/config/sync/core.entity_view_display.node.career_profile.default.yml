@@ -463,5 +463,6 @@ content:
     region: content
 hidden:
   body: true
+  extra_field_workbc_page_title: true
   field_career_videos: true
   search_api_excerpt: true

@@ -18,7 +18,6 @@ services:
     image: wodby/drupal-php:$PHP_TAG
 #    container_name: "${PROJECT_NAME}_php"
     environment:
-      COMPOSER_LOCAL: "yes"
       COMPOSER_AUTH: "${COMPOSER_AUTH}"
       SSMTP_MAILHUB: mailhog:1025
 #      SSMTP_MAILHUB: opensmtpd:25
