@@ -1,47 +1,26 @@
-uuid: cde31925-4e3e-430d-8d2e-f829b46154e1
+uuid: 66eb68b6-075d-49b2-aa13-718ca24f08b0
 langcode: en
 status: open
 dependencies:
   enforced:
     module:
-      - webform
+      - webform_publication_composite
 _core:
-  default_config_hash: CJr5U2B4if_Ff1SZfnNp_csPKwXIynmbUlBC-SmSOAE
+  default_config_hash: n6zigIZJQAcKSv7b3ugDzbpCG4eKbKky2UD8u3G0LGY
 weight: 0
 open: null
 close: null
 uid: null
 template: false
 archive: false
-id: contact
-title: Contact
-description: 'Basic email contact webform.'
-category: ''
+id: webform_publication_composite
+title: 'Publication: Webform Composite'
+description: 'A custom Webform composite for publications.'
+category: Example
 elements: |
-  name:
-    '#title': 'Your Name'
-    '#type': textfield
-    '#required': true
-    '#default_value': '[current-user:display-name]'
-  email:
-    '#title': 'Your Email'
-    '#type': email
-    '#required': true
-    '#default_value': '[current-user:mail]'
-  subject:
-    '#title': Subject
-    '#type': textfield
-    '#required': true
-    '#test': 'Testing contact webform from [site:name]'
-  message:
-    '#title': Message
-    '#type': textarea
-    '#required': true
-    '#test': 'Please ignore this email.'
-  actions:
-    '#type': webform_actions
-    '#title': 'Submit button(s)'
-    '#submit__label': 'Send message'
+  webform_publication_composite:
+    '#type': webform_publication_composite
+    '#title': 'Webform Publication Composite'
 css: ''
 javascript: ''
 settings:
@@ -129,7 +108,7 @@ settings:
   wizard_toggle: false
   wizard_toggle_show_label: ''
   wizard_toggle_hide_label: ''
-  preview: 0
+  preview: 1
   preview_label: ''
   preview_title: ''
   preview_message: ''
@@ -144,10 +123,10 @@ settings:
   draft_loaded_message: ''
   draft_pending_single_message: ''
   draft_pending_multiple_message: ''
-  confirmation_type: url_message
-  confirmation_url: '<front>'
+  confirmation_type: page
+  confirmation_url: ''
   confirmation_title: ''
-  confirmation_message: 'Your message has been sent.'
+  confirmation_message: ''
   confirmation_attributes: {  }
   confirmation_back: true
   confirmation_back_label: ''
@@ -223,79 +202,5 @@ access:
     roles: {  }
     users: {  }
     permissions: {  }
-handlers:
-  email_confirmation:
-    id: email
-    handler_id: email_confirmation
-    label: 'Email confirmation'
-    notes: ''
-    status: true
-    conditions: {  }
-    weight: 1
-    settings:
-      states:
-        - completed
-      to_mail: '[current-user:mail]'
-      to_options: {  }
-      bcc_mail: ''
-      bcc_options: {  }
-      cc_mail: ''
-      cc_options: {  }
-      from_mail: _default
-      from_options: {  }
-      from_name: _default
-      reply_to: ''
-      return_path: ''
-      sender_mail: ''
-      sender_name: ''
-      subject: '[webform_submission:values:subject:raw]'
-      body: '[webform_submission:values:message:value]'
-      excluded_elements: {  }
-      ignore_access: false
-      exclude_empty: true
-      exclude_empty_checkbox: false
-      exclude_attachments: false
-      html: true
-      attachments: false
-      twig: false
-      theme_name: ''
-      parameters: {  }
-      debug: false
-  email_notification:
-    id: email
-    handler_id: email_notification
-    label: 'Email notification'
-    notes: ''
-    status: true
-    conditions: {  }
-    weight: 2
-    settings:
-      states:
-        - completed
-      to_mail: _default
-      to_options: {  }
-      bcc_mail: ''
-      bcc_options: {  }
-      cc_mail: ''
-      cc_options: {  }
-      from_mail: '[webform_submission:values:email:raw]'
-      from_options: {  }
-      from_name: '[webform_submission:values:name:raw]'
-      reply_to: ''
-      return_path: ''
-      sender_mail: ''
-      sender_name: ''
-      subject: '[webform_submission:values:subject:raw]'
-      body: '[webform_submission:values:message:value]'
-      excluded_elements: {  }
-      ignore_access: false
-      exclude_empty: true
-      exclude_empty_checkbox: false
-      exclude_attachments: false
-      html: true
-      attachments: false
-      twig: false
-      theme_name: ''
-      parameters: {  }
-      debug: false
+handlers: {  }
 variants: {  }

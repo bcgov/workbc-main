@@ -17,7 +17,7 @@ use Webmozart\PathUtil\Path;
 class ScriptHandler {
 
   public static function createRequiredFiles(Event $event) {
-    if (!getenv('COMPOSER_LOCAL')) return;
+    if (getenv('PROJECT_ENVIRONMENT') !== 'dev') return;
 
     $fs = new Filesystem();
     $drupalFinder = new DrupalFinder();

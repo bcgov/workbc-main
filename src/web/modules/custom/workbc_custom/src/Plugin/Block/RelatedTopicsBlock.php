@@ -4,6 +4,7 @@ namespace Drupal\workbc_custom\Plugin\Block;
 
 use Drupal\Core\Block\BlockBase;
 use Drupal\image\Entity\ImageStyle;
+use Drupal\Core\Form\FormStateInterface;
 
 /**
  * Provides a WorkBC Related topics Block.
@@ -15,6 +16,33 @@ use Drupal\image\Entity\ImageStyle;
  * )
  */
 class RelatedTopicsBlock extends BlockBase {
+
+  /**
+     * {@inheritdoc}
+     */
+    public function blockForm($form, FormStateInterface $form_state) {
+      $form = parent::blockForm($form, $form_state);
+
+      $config = $this->getConfiguration();
+
+      $form['trimmed_limit'] = [
+        '#type' => 'number',
+        '#title' => $this->t('Trimmed limit'),
+        '#description' => $this->t('If no hero text or body summary is available, the body field will be used, the trimmed Body field will end before this character limit.'),
+        '#default_value' => $config['trimmed_limit'] ?? '150',
+      ];
+
+      return $form;
+    }
+
+    /**
+     * {@inheritdoc}
+     */
+    public function blockSubmit($form, FormStateInterface $form_state) {
+      parent::blockSubmit($form, $form_state);
+      $values = $form_state->getValues();
+      $this->configuration['trimmed_limit'] = $values['trimmed_limit'];
+    }
 
   /**
    * {@inheritdoc}
@@ -64,14 +92,22 @@ class RelatedTopicsBlock extends BlockBase {
 
   private function renderText($node) {
 
-    if ($node->hasField('body')) {
-      if (!empty($node->get('body')->summary)){
-        return $node->get('body')->summary;
-      }
-      else {
-        $text = strip_tags($node->get('body')->value);
-        $text = \Drupal\Component\Utility\Unicode::truncate($text, 150, TRUE, TRUE, 100);
-        return $text;
+    if ($node->hasField('field_hero_text') && !empty($node->get('field_hero_text')->value)) {
+      return strip_tags($node->get('field_hero_text')->value);
+    }
+    else {
+      if ($node->hasField('body')) {
+        if (!empty($node->get('body')->summary)){
+          return $node->get('body')->summary;
+        }
+        else {
+          if (!empty($node->get('body')->value)) {
+            $text = strip_tags($node->get('body')->value);
+            $config = $this->getConfiguration();
+            $text = \Drupal\Component\Utility\Unicode::truncate($text, $config['trimmed_limit'], TRUE, TRUE);
+            return $text;
+          }
+        }
       }
     }
     return '';

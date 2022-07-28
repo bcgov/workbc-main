@@ -1,47 +1,58 @@
-uuid: cde31925-4e3e-430d-8d2e-f829b46154e1
+uuid: 29039520-86f0-40e4-a856-73b1456d89db
 langcode: en
 status: open
-dependencies:
-  enforced:
-    module:
-      - webform
-_core:
-  default_config_hash: CJr5U2B4if_Ff1SZfnNp_csPKwXIynmbUlBC-SmSOAE
+dependencies: {  }
 weight: 0
 open: null
 close: null
-uid: null
+uid: 1
 template: false
 archive: false
-id: contact
-title: Contact
-description: 'Basic email contact webform.'
+id: workbc_order_form
+title: 'WorkBC Order Form'
+description: 'Webform for ordering WorkBC publications.'
 category: ''
-elements: |
+elements: |-
+  workbc_order_form_intro:
+    '#type': webform_markup
+    '#markup': 'Order your WorkBC publications for free to your door. WorkBC Resources will only be shipped within British Columbia.'
+  publications:
+    '#type': webform_publication_composite
+    '#title': Publications
+    '#flexbox': '0'
   name:
-    '#title': 'Your Name'
     '#type': textfield
+    '#title': Name
     '#required': true
-    '#default_value': '[current-user:display-name]'
-  email:
-    '#title': 'Your Email'
+  organization:
+    '#type': textfield
+    '#title': Organization
+  mailing_address:
+    '#type': webform_address
+    '#title': 'Mailing Address'
+    '#title_display': ''
+    '#wrapper_type': container
+    '#address__title': 'Mailing Address'
+    '#address__required': true
+    '#address_2__access': false
+    '#city__title': City
+    '#city__required': true
+    '#state_province__access': false
+    '#postal_code__title': 'Postal Code'
+    '#postal_code__required': true
+    '#country__access': false
+    '#flexbox': '0'
+  phone_number:
+    '#type': tel
+    '#title': 'Phone Number'
+    '#required': true
+  email_address:
     '#type': email
+    '#title': 'Email Address'
     '#required': true
-    '#default_value': '[current-user:mail]'
-  subject:
-    '#title': Subject
-    '#type': textfield
-    '#required': true
-    '#test': 'Testing contact webform from [site:name]'
-  message:
-    '#title': Message
+  please_provide_any_specific_shipping_instructions_:
     '#type': textarea
-    '#required': true
-    '#test': 'Please ignore this email.'
-  actions:
-    '#type': webform_actions
-    '#title': 'Submit button(s)'
-    '#submit__label': 'Send message'
+    '#title': 'Please provide any specific shipping instructions:'
 css: ''
 javascript: ''
 settings:
@@ -51,10 +62,10 @@ settings:
   ajax_effect: ''
   ajax_speed: null
   page: true
-  page_submit_path: ''
+  page_submit_path: /workbc-order-form
   page_confirm_path: ''
   page_theme_name: ''
-  form_title: source_entity_webform
+  form_title: both
   form_submit_once: false
   form_open_message: ''
   form_close_message: ''
@@ -144,10 +155,10 @@ settings:
   draft_loaded_message: ''
   draft_pending_single_message: ''
   draft_pending_multiple_message: ''
-  confirmation_type: url_message
-  confirmation_url: '<front>'
+  confirmation_type: page
+  confirmation_url: ''
   confirmation_title: ''
-  confirmation_message: 'Your message has been sent.'
+  confirmation_message: ''
   confirmation_attributes: {  }
   confirmation_back: true
   confirmation_back_label: ''
@@ -223,79 +234,5 @@ access:
     roles: {  }
     users: {  }
     permissions: {  }
-handlers:
-  email_confirmation:
-    id: email
-    handler_id: email_confirmation
-    label: 'Email confirmation'
-    notes: ''
-    status: true
-    conditions: {  }
-    weight: 1
-    settings:
-      states:
-        - completed
-      to_mail: '[current-user:mail]'
-      to_options: {  }
-      bcc_mail: ''
-      bcc_options: {  }
-      cc_mail: ''
-      cc_options: {  }
-      from_mail: _default
-      from_options: {  }
-      from_name: _default
-      reply_to: ''
-      return_path: ''
-      sender_mail: ''
-      sender_name: ''
-      subject: '[webform_submission:values:subject:raw]'
-      body: '[webform_submission:values:message:value]'
-      excluded_elements: {  }
-      ignore_access: false
-      exclude_empty: true
-      exclude_empty_checkbox: false
-      exclude_attachments: false
-      html: true
-      attachments: false
-      twig: false
-      theme_name: ''
-      parameters: {  }
-      debug: false
-  email_notification:
-    id: email
-    handler_id: email_notification
-    label: 'Email notification'
-    notes: ''
-    status: true
-    conditions: {  }
-    weight: 2
-    settings:
-      states:
-        - completed
-      to_mail: _default
-      to_options: {  }
-      bcc_mail: ''
-      bcc_options: {  }
-      cc_mail: ''
-      cc_options: {  }
-      from_mail: '[webform_submission:values:email:raw]'
-      from_options: {  }
-      from_name: '[webform_submission:values:name:raw]'
-      reply_to: ''
-      return_path: ''
-      sender_mail: ''
-      sender_name: ''
-      subject: '[webform_submission:values:subject:raw]'
-      body: '[webform_submission:values:message:value]'
-      excluded_elements: {  }
-      ignore_access: false
-      exclude_empty: true
-      exclude_empty_checkbox: false
-      exclude_attachments: false
-      html: true
-      attachments: false
-      twig: false
-      theme_name: ''
-      parameters: {  }
-      debug: false
+handlers: {  }
 variants: {  }

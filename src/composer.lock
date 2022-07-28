@@ -4,7 +4,7 @@
         "Read more about it at https://getcomposer.org/doc/01-basic-usage.md#installing-dependencies",
         "This file is @generated automatically"
     ],
-    "content-hash": "7aaf30688db970028395585d7a4467ae",
+    "content-hash": "7b4cbf7014d589b7073b921f59dd5647",
     "packages": [
         {
             "name": "alchemy/zippy",
@@ -277,12 +277,12 @@
             "source": {
                 "type": "git",
                 "url": "https://github.com/infojunkie/gathercontent-client.git",
-                "reference": "0b6494add9c0f752674f64ef5697803f8e19a912"
+                "reference": "1ef167a16bbb5477ca34a7e2c76816b47272d2d5"
             },
             "dist": {
                 "type": "zip",
-                "url": "https://api.github.com/repos/infojunkie/gathercontent-client/zipball/0b6494add9c0f752674f64ef5697803f8e19a912",
-                "reference": "0b6494add9c0f752674f64ef5697803f8e19a912",
+                "url": "https://api.github.com/repos/infojunkie/gathercontent-client/zipball/1ef167a16bbb5477ca34a7e2c76816b47272d2d5",
+                "reference": "1ef167a16bbb5477ca34a7e2c76816b47272d2d5",
                 "shasum": ""
             },
             "require": {
@@ -317,7 +317,7 @@
             "support": {
                 "source": "https://github.com/infojunkie/gathercontent-client/tree/components"
             },
-            "time": "2022-07-26T06:41:31+00:00"
+            "time": "2022-06-13T19:56:36+00:00"
         },
         {
             "name": "chi-teck/drupal-code-generator",
@@ -2733,82 +2733,6 @@
             }
         },
         {
-            "name": "drupal/config_split",
-            "version": "1.9.0",
-            "source": {
-                "type": "git",
-                "url": "https://git.drupalcode.org/project/config_split.git",
-                "reference": "8.x-1.9"
-            },
-            "dist": {
-                "type": "zip",
-                "url": "https://ftp.drupal.org/files/projects/config_split-8.x-1.9.zip",
-                "reference": "8.x-1.9",
-                "shasum": "cb2a17f590ae057ff8a1864f57e2e114b2395a86"
-            },
-            "require": {
-                "drupal/config_filter": "^1",
-                "drupal/core": "^9.3 || ^10"
-            },
-            "conflict": {
-                "drupal/console": "<1.3.2"
-            },
-            "suggest": {
-                "drupal/chosen": "Chosen uses the Chosen jQuery plugin to make the <select> elements more user-friendly.",
-                "drupal/select2_all": "Applies the Select2 library to all select fields on the site similar to the Chosen module."
-            },
-            "type": "drupal-module",
-            "extra": {
-                "drupal": {
-                    "version": "8.x-1.9",
-                    "datestamp": "1656976425",
-                    "security-coverage": {
-                        "status": "covered",
-                        "message": "Covered by Drupal's security advisory policy"
-                    }
-                },
-                "drush": {
-                    "services": {
-                        "drush.services.yml": "^9 || ^10 || ^11"
-                    }
-                }
-            },
-            "notification-url": "https://packages.drupal.org/8/downloads",
-            "license": [
-                "GPL-2.0-or-later"
-            ],
-            "authors": [
-                {
-                    "name": "Fabian Bircher",
-                    "homepage": "https://www.drupal.org/u/bircher",
-                    "email": "opensource@fabianbircher.com",
-                    "role": "Maintainer"
-                },
-                {
-                    "name": "Nuvole Web",
-                    "homepage": "http://nuvole.org",
-                    "email": "info@nuvole.org",
-                    "role": "Maintainer"
-                },
-                {
-                    "name": "pescetti",
-                    "homepage": "https://www.drupal.org/user/436244"
-                }
-            ],
-            "description": "Configuration filter for importing and exporting extra config",
-            "homepage": "https://www.drupal.org/project/config_split",
-            "keywords": [
-                "Drupal",
-                "configuration",
-                "configuration management"
-            ],
-            "support": {
-                "source": "https://git.drupalcode.org/project/config_split",
-                "issues": "https://www.drupal.org/project/issues/config_split",
-                "slack": "https://drupal.slack.com/archives/C45342CDD"
-            }
-        },
-        {
             "name": "drupal/console",
             "version": "1.9.8",
             "source": {
@@ -4103,6 +4027,59 @@
             }
         },
         {
+            "name": "drupal/fullcalendar_view",
+            "version": "5.1.5",
+            "source": {
+                "type": "git",
+                "url": "https://git.drupalcode.org/project/fullcalendar_view.git",
+                "reference": "5.1.5"
+            },
+            "dist": {
+                "type": "zip",
+                "url": "https://ftp.drupal.org/files/projects/fullcalendar_view-5.1.5.zip",
+                "reference": "5.1.5",
+                "shasum": "52965d2e8ed0741aedcde289c861cb9ea62931a4"
+            },
+            "require": {
+                "drupal/core": "^8 || ^9"
+            },
+            "type": "drupal-module",
+            "extra": {
+                "drupal": {
+                    "version": "5.1.5",
+                    "datestamp": "1651671345",
+                    "security-coverage": {
+                        "status": "covered",
+                        "message": "Covered by Drupal's security advisory policy"
+                    }
+                }
+            },
+            "notification-url": "https://packages.drupal.org/8/downloads",
+            "license": [
+                "GPL-2.0+"
+            ],
+            "authors": [
+                {
+                    "name": "KarinG",
+                    "homepage": "https://www.drupal.org/user/787114"
+                },
+                {
+                    "name": "Mingsong",
+                    "homepage": "https://www.drupal.org/user/2986445"
+                }
+            ],
+            "description": "This is a lightweight View plugin module that provides a calendar view format powered by FullCalendar JavaScript.",
+            "homepage": "http://drupal.org/project/fullcalendar_view",
+            "keywords": [
+                "Drupal",
+                "fullcalendar_view"
+            ],
+            "support": {
+                "source": "http://cgit.drupalcode.org/fullcalendar_view",
+                "issues": "http://drupal.org/project/issues/fullcalendar_view"
+            }
+        },
+        {
             "name": "drupal/health_check",
             "version": "2.0.0",
             "source": {
@@ -4361,6 +4338,149 @@
             "homepage": "https://www.drupal.org/project/jquery_ui_accordion",
             "support": {
                 "source": "https://git.drupalcode.org/project/jquery_ui_accordion"
+            }
+        },
+        {
+            "name": "drupal/keycloak",
+            "version": "1.7.0",
+            "source": {
+                "type": "git",
+                "url": "https://git.drupalcode.org/project/keycloak.git",
+                "reference": "8.x-1.7"
+            },
+            "dist": {
+                "type": "zip",
+                "url": "https://ftp.drupal.org/files/projects/keycloak-8.x-1.7.zip",
+                "reference": "8.x-1.7",
+                "shasum": "87fb3a0317544d82fea9b1e94a307dfc73e81b38"
+            },
+            "require": {
+                "drupal/core": "^8 || ^9",
+                "drupal/openid_connect": "^1.0"
+            },
+            "type": "drupal-module",
+            "extra": {
+                "drupal": {
+                    "version": "8.x-1.7",
+                    "datestamp": "1643562740",
+                    "security-coverage": {
+                        "status": "covered",
+                        "message": "Covered by Drupal's security advisory policy"
+                    }
+                }
+            },
+            "notification-url": "https://packages.drupal.org/8/downloads",
+            "license": [
+                "GPL-2.0+"
+            ],
+            "authors": [
+                {
+                    "name": "Mario Steinitz",
+                    "homepage": "https://www.drupal.org/u/mario-steinitz",
+                    "role": "Maintainer"
+                },
+                {
+                    "name": "Mario Steinitz",
+                    "homepage": "https://www.drupal.org/user/2536014"
+                },
+                {
+                    "name": "cgoffin",
+                    "homepage": "https://www.drupal.org/user/744134"
+                },
+                {
+                    "name": "joseph.olstad",
+                    "homepage": "https://www.drupal.org/user/1321830"
+                },
+                {
+                    "name": "sam-tripp",
+                    "homepage": "https://www.drupal.org/user/3654013"
+                }
+            ],
+            "description": "Enables OpenID Connect Keycloak sign on and user data synchronization.",
+            "homepage": "https://www.drupal.org/project/keycloak",
+            "keywords": [
+                "Drupal"
+            ],
+            "support": {
+                "source": "http://cgit.drupalcode.org/keycloak",
+                "issues": "https://www.drupal.org/project/issues/keycloak"
+            }
+        },
+        {
+            "name": "drupal/openid_connect",
+            "version": "1.2.0",
+            "source": {
+                "type": "git",
+                "url": "https://git.drupalcode.org/project/openid_connect.git",
+                "reference": "8.x-1.2"
+            },
+            "dist": {
+                "type": "zip",
+                "url": "https://ftp.drupal.org/files/projects/openid_connect-8.x-1.2.zip",
+                "reference": "8.x-1.2",
+                "shasum": "b00290161d7dc54fe1dccca1b0ab91bed920f051"
+            },
+            "require": {
+                "drupal/core": "^8.8 || ^9",
+                "ext-json": "*"
+            },
+            "type": "drupal-module",
+            "extra": {
+                "drupal": {
+                    "version": "8.x-1.2",
+                    "datestamp": "1640195069",
+                    "security-coverage": {
+                        "status": "covered",
+                        "message": "Covered by Drupal's security advisory policy"
+                    }
+                }
+            },
+            "notification-url": "https://packages.drupal.org/8/downloads",
+            "license": [
+                "GPL-2.0-or-later"
+            ],
+            "authors": [
+                {
+                    "name": "balintk",
+                    "homepage": "https://www.drupal.org/user/613760"
+                },
+                {
+                    "name": "bojanz",
+                    "homepage": "https://www.drupal.org/user/86106"
+                },
+                {
+                    "name": "jcnventura",
+                    "homepage": "https://www.drupal.org/user/122464"
+                },
+                {
+                    "name": "Mario Steinitz",
+                    "homepage": "https://www.drupal.org/user/2536014"
+                },
+                {
+                    "name": "pfrilling",
+                    "homepage": "https://www.drupal.org/user/169695"
+                },
+                {
+                    "name": "pjcdawkins",
+                    "homepage": "https://www.drupal.org/user/1025236"
+                },
+                {
+                    "name": "robertDouglass",
+                    "homepage": "https://www.drupal.org/user/5449"
+                },
+                {
+                    "name": "sanduhrs",
+                    "homepage": "https://www.drupal.org/user/28074"
+                }
+            ],
+            "description": "A pluggable client implementation for the OpenID Connect protocol.",
+            "homepage": "https://www.drupal.org/project/openid_connect",
+            "keywords": [
+                "Drupal"
+            ],
+            "support": {
+                "source": "https://git.drupalcode.org/project/openid_connect",
+                "issues": "https://www.drupal.org/project/issues/openid_connect"
             }
         },
         {
