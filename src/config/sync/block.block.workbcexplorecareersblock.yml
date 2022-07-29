@@ -1,0 +1,43 @@
+uuid: fb4c01d1-a8e5-4083-9360-b87f8e06bbfe
+langcode: en
+status: true
+dependencies:
+  module:
+    - block_visibility_conditions
+    - system
+    - workbc_custom
+  theme:
+    - workbc
+id: workbcexplorecareersblock
+theme: workbc
+region: content
+weight: 0
+provider: null
+plugin: explore_careers_block
+settings:
+  id: explore_careers_block
+  label: 'WorkBC explore careers block'
+  label_display: '0'
+  provider: workbc_custom
+  trimmed_limit: null
+  label_2: 'View A-Z Profile List'
+  title: 'Career Profiles'
+  body: 'Explore our 500 career profiles to find job expectations, education requirements, salary and more.'
+  title_1: 'Search by keyword(s)'
+  body_1: 'Look up a career profile by entering a keyword(s) from the job title, or by entering the four-digit NOC number.'
+  title_2: 'Search by A-Z'
+  body_2: 'Use the A-Z profile search. Career profiles are organized alphabetically by title'
+  tooltip_1: 'The National Occupational Classification System (NOC) classifies all occupations in Canada.'
+visibility:
+  not_node_type:
+    id: not_node_type
+    bundles: {  }
+    negate: null
+  not_taxonomy_vocabulary:
+    id: not_taxonomy_vocabulary
+    bundles: {  }
+    negate: null
+  request_path:
+    id: request_path
+    negate: false
+    pages: /explore-careers

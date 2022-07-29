@@ -320,7 +320,7 @@ display:
       exposed_form:
         type: basic
         options:
-          submit_button: Search
+          submit_button: 'Search Career Profiles'
           reset_button: false
           reset_button_label: Reset
           exposed_sorts_label: 'Sort by'
@@ -396,7 +396,7 @@ display:
             operator: search_api_fulltext_op
             operator_limit_selection: false
             operator_list: {  }
-            identifier: search_api_fulltext
+            identifier: search
             required: false
             remember: false
             multiple: false
