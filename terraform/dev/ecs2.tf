@@ -1,7 +1,7 @@
 # ecs.tf
 
 resource "aws_ecs_cluster" "solr" {
-  name               = "workbc-cluster"
+  name               = "solr-cluster"
   capacity_providers = ["FARGATE_SPOT"]
 
   default_capacity_provider_strategy {
