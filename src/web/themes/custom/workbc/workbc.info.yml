@@ -7,6 +7,7 @@ libraries:
   - workbc/global-styling
   - workbc/fonts
   - workbc/submenu-underlay
+  - workbc/related-topics-carousel
 stylesheets-remove:
   - '@bootstrap5/css/style.css'
 regions:

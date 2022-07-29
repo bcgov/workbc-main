@@ -3,7 +3,7 @@
     z-index: 1;
 
     height: $hero_banner_height;
-    border-bottom: $workbc_trim_ultra_thin_size solid $workbc_middle_blue;
+    border-bottom: $workbc_trim_ultra_thin_size solid $workbc_palette_dark_secondary;
     background-color: $workbc_light_theme_background_accent;
 
     @include media-breakpoint-up(lg) { 
@@ -25,7 +25,7 @@
                 background: rgb(255,255,255);
                 background: linear-gradient(90deg, rgba($workbc_light_theme_background_accent,1) 10%, rgba($workbc_light_theme_background_accent,0) 50%);
 
-                border-bottom: $workbc_trim_ultra_thin_size solid $workbc_middle_blue; // need to copy the container trim since we're sitting over top of the container
+                border-bottom: $workbc_trim_ultra_thin_size solid $workbc_palette_dark_secondary; // need to copy the container trim since we're sitting over top of the container
             }
         }
 

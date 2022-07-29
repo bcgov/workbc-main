@@ -16,8 +16,8 @@ provider: null
 plugin: related_topics_block
 settings:
   id: related_topics_block
-  label: 'Related Topics'
-  label_display: '0'
+  label: 'Browse Related Topics'
+  label_display: visible
   provider: workbc_custom
   trimmed_limit: '150'
 visibility:

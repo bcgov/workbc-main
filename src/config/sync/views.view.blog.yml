@@ -962,7 +962,7 @@ display:
         style: false
         row: false
         fields: false
-      css_class: card-list
+      css_class: ''
       display_description: ''
       display_extenders: {  }
     cache_metadata:

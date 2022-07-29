@@ -632,7 +632,7 @@ display:
           replica: false
           query_tags: {  }
       relationships: {  }
-      css_class: card-list
+      css_class: ''
       use_ajax: true
       header: {  }
       footer: {  }

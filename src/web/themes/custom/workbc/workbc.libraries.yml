@@ -11,4 +11,9 @@ submenu-underlay:
     js/submenu-underlay.js: {}
   dependencies:
     - core/jquery
+related-topics-carousel:
+  js:
+    js/related-topics-carousel.js: {}
+  dependencies:
+    - core/jquery
     
