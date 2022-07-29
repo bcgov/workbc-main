@@ -9,7 +9,7 @@ _core:
 id: workbc_local_tasks
 theme: workbc
 region: content
-weight: -10
+weight: -11
 provider: null
 plugin: local_tasks_block
 settings:
