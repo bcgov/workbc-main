@@ -15,47 +15,50 @@
 
 {% if related_topics %}
 
-<div id="carouselExampleControls" class="carousel slide" data-bs-ride="carousel">
-  <div class="carousel-inner workbc-card-carousel">
+<div class="workbc-card-carousel">
+   <div id="relatedTopicsCarousel" class="carousel slide" data-bs-ride="carousel">
+      <div class="carousel-inner">
 
-   {% for topic in related_topics %}
-   {% if loop.first %}
-   <div class="carousel-item active">
-   {% else %}
-   <div class="carousel-item">
-   {% endif %}
-      <div class="workbc-card">
-         <div class="workbc-card-container">
-            <div class="workbc-card-image-preview">{{ topic.image }}</div>
+         {% for topic in related_topics %}
+         {% if loop.first %}
+         <div class="carousel-item active">
+         {% else %}
+         <div class="carousel-item">
+         {% endif %}
+            <div class="workbc-card">
+               <div class="workbc-card-container">
+                  <div class="workbc-card-image-preview">{{ topic.image }}</div>
 
-            {% if topic.top_level_parent|length %}
-            <div class="workbc-card-details">
-               <div class="workbc-card-parent">{{ topic.top_level_parent }}</div>
-            </div>
-            {% endif %}
+                  {% if topic.top_level_parent|length %}
+                  <div class="workbc-card-details">
+                     <div class="workbc-card-parent">{{ topic.top_level_parent }}</div>
+                  </div>
+                  {% endif %}
 
-            <div class="workbc-card-content">
-               <div class="workbc-card-title">{{ topic.title }}</div>
-               <div class="workbc-card-description">{{ topic.body }}</div>
-            </div>
+                  <div class="workbc-card-content">
+                     <div class="workbc-card-title">{{ topic.title }}</div>
+                     <div class="workbc-card-description">{{ topic.body }}</div>
+                  </div>
 
-            <div class="workbc-card-action">
-               {{ topic.action }}
+                  <div class="workbc-card-action">
+                     {{ topic.action }}
+                  </div>
+               </div>
             </div>
          </div>
+         {% endfor %}
+
       </div>
+      <button class="carousel-control-prev" type="button" data-bs-target="#relatedTopicsCarousel" data-bs-slide="prev">
+         <span class="carousel-control-prev-icon" aria-hidden="true"></span>
+         <span class="visually-hidden">Previous</span>
+      </button>
+      <button class="carousel-control-next" type="button" data-bs-target="#relatedTopicsCarousel" data-bs-slide="next">
+         <span class="carousel-control-next-icon" aria-hidden="true"></span>
+         <span class="visually-hidden">Next</span>
+      </button>
    </div>
-   {% endfor %}
-
-  </div>
-  <button class="carousel-control-prev" type="button" data-bs-target="#carouselExampleControls" data-bs-slide="prev">
-    <span class="carousel-control-prev-icon" aria-hidden="true"></span>
-    <span class="visually-hidden">Previous</span>
-  </button>
-  <button class="carousel-control-next" type="button" data-bs-target="#carouselExampleControls" data-bs-slide="next">
-    <span class="carousel-control-next-icon" aria-hidden="true"></span>
-    <span class="visually-hidden">Next</span>
-  </button>
 </div>
-
 {% endif %}
+
+{{ attach_library('workbc/related-topics-carousel') }}

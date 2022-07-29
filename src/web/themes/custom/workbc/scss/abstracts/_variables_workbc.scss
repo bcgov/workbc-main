@@ -5,31 +5,34 @@ $workbc_trim_thin_size: 4px;
 $workbc_trim_ultra_thin_size: 3px;
 
 
-$workbc_transparent: transparent;
-$workbc_dark_blue: #002857;
-$workbc_middle_blue: #2E6AB0;
-$workbc_gold: #E7BF3E;
+
+$workbc_palette_transparent: transparent;
+
+$workbc_palette_dark_primary: #002857;
+$workbc_palette_dark_secondary: #2E6AB0;
+
+$workbc_palette_light_primary: #FFFFFF;
+$workbc_palette_light_secondary: #f2f2f2;
+$workbc_palette_light_highlight: #E7BF3E;
 
 
 $workbc_default_text: #333333;
-$workbc_default_link: $workbc_middle_blue;
-$workbc_default_drop_shadow: 0px 5px 10px -5px #9D9D9D;
+$workbc_default_link: $workbc_palette_dark_secondary;
 $workbc_default_box_shadow: 0px 0px 10px 0px #9D9D9D;
+$workbc_default_bottom_shadow: 0px 5px 10px -5px #9D9D9D;
 
 
-$workbc_dark_theme_background: $workbc_dark_blue;
-$workbc_dark_theme_text: #FFFFFF;
-$workbc_dark_theme_trim: $workbc_gold;
+$workbc_dark_theme_background: $workbc_palette_dark_primary;
+$workbc_dark_theme_text: $workbc_palette_light_primary;
+$workbc_dark_theme_trim: $workbc_palette_light_highlight;
 
 
-$workbc_light_theme_background_default: #FFFFFF;
-$workbc_light_theme_background_accent: #f2f2f2;
-
+$workbc_light_theme_background_default: $workbc_palette_light_primary;
+$workbc_light_theme_background_accent: $workbc_palette_light_secondary;
 $workbc_light_theme_text: $workbc_default_text;
-$workbc_light_theme_link: $workbc_middle_blue;
-
-$workbc_light_theme_trim: $workbc_gold;
-$workbc_light_theme_trim_alternate: $workbc_middle_blue;
+$workbc_light_theme_link: $workbc_palette_dark_secondary;
+$workbc_light_theme_trim: $workbc_palette_light_highlight;
+$workbc_light_theme_trim_alternate: $workbc_palette_dark_secondary;
 
 
 $workbc_alertribbon_background: rgba(121, 29, 95, 1);

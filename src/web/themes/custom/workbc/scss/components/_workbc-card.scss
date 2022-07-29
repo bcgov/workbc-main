@@ -2,10 +2,11 @@ $card-spacing: 20px;
 $container-gutter: 20px;
 
 .workbc-card {
-   
+    height: 100%;
+
     .workbc-card-container {
         height: 100%;
-        
+
         display: flex;
         flex-flow: column nowrap;
         box-shadow: $workbc_default_box_shadow;
@@ -100,8 +101,37 @@ $container-gutter: 20px;
     }
 }
 
+// See https://codingyaar.com/bootstrap-carousel-multiple-items-increment-by-1/ for carousel inspiration
 .workbc-card-carousel {
-    padding: $container-gutter;
+
+    .carousel-inner {
+        padding: $container-gutter calc(50px + $container-gutter);
+    }
+    
+    .carousel-control-prev, .carousel-control-next{
+        background-color: transparent;
+        color: $workbc_dark_theme_background;
+        width: 4vh;
+        height: 4vh;
+        border-radius: 50%;
+        top: 50%;
+        transform: translateY(-50%);
+    }
+
+    @media (min-width: 768px) {
+        .carousel-inner {
+            display: flex;
+            flex-flow: row nowrap;
+            align-items: stretch;
+            column-gap: $card-spacing;
+
+            .carousel-item {
+                margin-right: 0;
+                flex: 0 0 calc(100%/3 - 2*$card-spacing);
+                display: block;
+            }
+        }
+    }
 }
 
 .workbc-card-list { 
