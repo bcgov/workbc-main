@@ -9,18 +9,33 @@
  *
  */
 
-  function workbc_custom_theme($existing, $type, $theme, $path) {
-    return [
-      'related_topics_block' => [
-        'variables' => [
-            'related_topics' => array(
-                'image' => NULL,
-                'top_level_parent' => NULL,
-                'title' => NULL,
-                'body' => NULL,
-                'action' => NULL,
-            ),
-        ],
-      ],
-    ];
-  }
+ function workbc_custom_theme($existing, $type, $theme, $path) {
+   return [
+     'related_topics_block' => [
+       'variables' => [
+           'related_topics' => array(
+               'image' => NULL,
+               'top_level_parent' => NULL,
+               'title' => NULL,
+               'body' => NULL,
+               'action' => NULL,
+           ),
+       ],
+     ],
+     'explore_careers_block' => [
+       'variables' => [
+           'explore_careers' => array(
+               'title' => NULL,
+               'body' => NULL,
+               'title_1' => NULL,
+               'body_1' => NULL,
+               'action_1' => NULL,
+               'tooltip_1' => NULL,
+               'title_2' => NULL,
+               'body_2' => NULL,
+               'action_2' => NULL,
+           ),
+       ],
+     ],
+   ];
+ }

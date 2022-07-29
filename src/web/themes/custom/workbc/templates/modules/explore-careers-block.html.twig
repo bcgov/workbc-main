@@ -1,0 +1,43 @@
+{#
+/**
+* @file
+* Template for custom WorkBC Explore Careers Block
+*
+* Available variables:
+* - explore_careers
+*   - title
+*   - body
+*   - title_1
+*   - body_1
+*   - action_1
+*   - tooltip_1
+*   - title_2
+*   - body_2
+*   - action_2
+*
+#}
+
+{% if explore_careers %}
+<div>
+  <div>
+    <div>{{ explore_careers.title }}</div>
+    <div>{{ explore_careers.body }}</div>
+  </div>
+
+  <div>
+    <div>
+      <div>{{ explore_careers.title_1 }}</div>
+      <div>{{ explore_careers.body_1 }}</div>
+      <div>{{ explore_careers.tooltip_1 }}</div>
+      <div>{{ explore_careers.action_1 }}</div>
+    </div>
+
+    <div>
+      <div>{{ explore_careers.title_2 }}</div>
+      <div>{{ explore_careers.body_2 }}</div>
+      <div>{{ explore_careers.action_2 }}</div>
+    </div>
+  </div>
+</div>
+
+{% endif %}

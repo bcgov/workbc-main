@@ -774,13 +774,13 @@ $settings['trusted_host_patterns'] = [
   '^workbc\.b89n0c-test\.nimbus\.cloud\.gov\.bc\.ca$',
 ];
 
-$config['system.mail']['interface']['default'] = 'ses_mail';
+///$config['system.mail']['interface']['default'] = 'ses_mail';
 
 /**
  * Load local development override configuration, if available.
  *
  * Create a settings.local.php file to override variables on secondary (staging,
- * development, etc.) installations of this site.
+ * development, production) installations of this site.
  *
  * Typical uses of settings.local.php include:
  * - Disabling caching.
@@ -799,50 +799,22 @@ if (file_exists($app_root . '/' . $site_path . '/settings.aws.php') && getenv('A
 
 
 /**
- *  Configuration Split
+ * Environment-specific configuration.
+ *
+ * 'aws-dev', 'aws-test', 'aws-prod' project environments are used
+ * on respective AWS stages.
  *
  * 'dev' project environment is intended for use in local
  * docker development environments.
  *
- * the 'local' project environment has been set up for possible
+ * 'local' project environment has been set up for possible
  * future use, if necessary.
- *
  */
 
-if (!is_null(getenv('PROJECT_ENVIRONMENT'))) {
-  if (getenv('PROJECT_ENVIRONMENT') == 'local') {
-    $config['config_split.config_split.local']['status'] = true;
-    $config['config_split.config_split.dev']['status'] = false;
-    $config['config_split.config_split.aws_dev']['status'] = false;
-    $config['config_split.config_split.aws_test']['status'] = false;
-    $config['config_split.config_split.aws_prod']['status'] = false;
-  }
-  else if (getenv('PROJECT_ENVIRONMENT') == 'dev') {
-    $config['config_split.config_split.local']['status'] = false;
-    $config['config_split.config_split.dev']['status'] = true;
-    $config['config_split.config_split.aws_dev']['status'] = false;
-    $config['config_split.config_split.aws_test']['status'] = false;
-    $config['config_split.config_split.aws_prod']['status'] = false;
-  }
-  else if (getenv('PROJECT_ENVIRONMENT') == 'aws-dev') {
-    $config['config_split.config_split.local']['status'] = false;
-    $config['config_split.config_split.dev']['status'] = false;
-    $config['config_split.config_split.aws_dev']['status'] = true;
-    $config['config_split.config_split.aws_test']['status'] = false;
-    $config['config_split.config_split.aws_prod']['status'] = false;
-  }
-  else if (getenv('PROJECT_ENVIRONMENT') == 'aws-test') {
-    $config['config_split.config_split.local']['status'] = false;
-    $config['config_split.config_split.dev']['status'] = false;
-    $config['config_split.config_split.aws_dev']['status'] = false;
-    $config['config_split.config_split.aws_test']['status'] = true;
-    $config['config_split.config_split.aws_prod']['status'] = false;
-  }
-  else if (getenv('PROJECT_ENVIRONMENT') == 'aws-prod') {
-    $config['config_split.config_split.local']['status'] = false;
-    $config['config_split.config_split.dev']['status'] = false;
-    $config['config_split.config_split.aws_dev']['status'] = false;
-    $config['config_split.config_split.aws_test']['status'] = false;
-    $config['config_split.config_split.aws_prod']['status'] = true;
-  }
+if (!in_array(getenv('PROJECT_ENVIRONMENT'), [
+  'dev',
+  'aws-dev',
+  'local'
+])) {
+  $settings['config_exclude_modules'] = ['devel'];
 }
