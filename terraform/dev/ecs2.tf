@@ -22,12 +22,12 @@ resource "aws_ecs_task_definition" "solr" {
   cpu                      = var.fargate_cpu
   memory                   = var.fargate_memory
   tags                     = var.common_tags
-  volume {
-    name = "data"
-    efs_volume_configuration  {
-        file_system_id = aws_efs_file_system.solr.id
-    }
-  }
+#  volume {
+#    name = "data"
+#    efs_volume_configuration  {
+#        file_system_id = aws_efs_file_system.solr.id
+#    }
+#  }
 
   container_definitions = jsonencode([
 	{
@@ -54,12 +54,12 @@ resource "aws_ecs_task_definition" "solr" {
 			}
 		]
 
-		mountPoints = [
-			{
-				containerPath = "/var/solr/data",
-				sourceVolume = "data"
-			}
-		]
+#		mountPoints = [
+#			{
+#				containerPath = "/var/solr/data",
+#				sourceVolume = "data"
+#			}
+#		]
 		volumesFrom = []
 		
 	},
