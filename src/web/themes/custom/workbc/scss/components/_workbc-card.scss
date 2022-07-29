@@ -103,58 +103,79 @@ $container-gutter: 20px;
 
 // See https://codingyaar.com/bootstrap-carousel-multiple-items-increment-by-1/ for carousel inspiration
 .workbc-card-carousel {
-
-    .carousel-inner {
-        padding: $container-gutter calc(50px + $container-gutter);
-    }
-    
-    .carousel-control-prev, .carousel-control-next {
-        background-color: transparent;
-        width: 4vh;
-        height: 4vh;
-        top: 50%;
-        transform: translateY(-50%);
-        border-radius: 50%;
-        border: 1px solid #9D9D9D;
-
-        &:hover {
-            background-color: $workbc_palette_light_secondary;
-        }
-
-        // hacky override of the carousel control icon colors
-        $icon-color: $workbc_palette_dark_primary;
-        $icon-fill-string: "rgb(" + 
-            red($workbc_palette_dark_secondary) + ", " +
-            green($workbc_palette_dark_secondary) + ", " +
-            blue($workbc_palette_dark_secondary) + 
-        ")";
-
-        .carousel-control-prev-icon {
-            background-image: url("data:image/svg+xml,%3csvg xmlns='http://www.w3.org/2000/svg' viewBox='0 0 16 16' fill='#{$icon-fill-string}'%3e%3cpath d='M11.354 1.646a.5.5 0 0 1 0 .708L5.707 8l5.647 5.646a.5.5 0 0 1-.708.708l-6-6a.5.5 0 0 1 0-.708l6-6a.5.5 0 0 1 .708 0z'/%3e%3c/svg%3e") !important;
-        }
-           
-        .carousel-control-next-icon {
-            background-image: url("data:image/svg+xml,%3csvg xmlns='http://www.w3.org/2000/svg' viewBox='0 0 16 16' fill='#{$icon-fill-string}'%3e%3cpath d='M4.646 1.646a.5.5 0 0 1 .708 0l6 6a.5.5 0 0 1 0 .708l-6 6a.5.5 0 0 1-.708-.708L10.293 8 4.646 2.354a.5.5 0 0 1 0-.708z'/%3e%3c/svg%3e") !important;
-        }
-    }
-
-    @media (min-width: 1200px) {
+    .carousel {
 
         .carousel-inner {
-            display: flex;
-            flex-flow: row nowrap;
-            align-items: stretch;
-            column-gap: $card-spacing;
+            padding: $container-gutter calc(50px + $container-gutter);
+        }
+        
+        .carousel-control-prev, .carousel-control-next {
+            background-color: transparent;
+            width: 4vh;
+            height: 4vh;
+            top: 50%;
+            transform: translateY(-50%);
+            border-radius: 50%;
+            border: 1px solid #9D9D9D;
 
-            .carousel-item {
-                margin-right: 0;
-                flex: 0 0 calc(100%/3 - 2*$card-spacing);
-                display: none;
+            &:hover {
+                background-color: $workbc_palette_light_secondary;
+            }
 
-                &.prev,
-                &.active,
-                &.next {
-                    display: block;
+            // hacky override of the carousel control icon colors
+            $icon-color: $workbc_palette_dark_primary;
+            $icon-fill-string: "rgb(" + 
+                red($workbc_palette_dark_secondary) + ", " +
+                green($workbc_palette_dark_secondary) + ", " +
+                blue($workbc_palette_dark_secondary) + 
+            ")";
+
+            .carousel-control-prev-icon {
+                background-image: url("data:image/svg+xml,%3csvg xmlns='http://www.w3.org/2000/svg' viewBox='0 0 16 16' fill='#{$icon-fill-string}'%3e%3cpath d='M11.354 1.646a.5.5 0 0 1 0 .708L5.707 8l5.647 5.646a.5.5 0 0 1-.708.708l-6-6a.5.5 0 0 1 0-.708l6-6a.5.5 0 0 1 .708 0z'/%3e%3c/svg%3e") !important;
+            }
+            
+            .carousel-control-next-icon {
+                background-image: url("data:image/svg+xml,%3csvg xmlns='http://www.w3.org/2000/svg' viewBox='0 0 16 16' fill='#{$icon-fill-string}'%3e%3cpath d='M4.646 1.646a.5.5 0 0 1 .708 0l6 6a.5.5 0 0 1 0 .708l-6 6a.5.5 0 0 1-.708-.708L10.293 8 4.646 2.354a.5.5 0 0 1 0-.708z'/%3e%3c/svg%3e") !important;
+            }
+        }
+
+        @media (min-width: 1200px) {
+            
+            // This shifts the carousel to a three-panel display as 1200px+, and inserts a spacer so that if you're at the start or the end of the list, they'll show in the center slot
+            &.at-start {
+                .carousel-inner {
+                    &:before {
+                        content: "";
+                        display: block;
+                        flex: 0 0 calc(100%/3 - 2*$card-spacing);
+                    }
+                }
+            }
+            &.at-end {
+                .carousel-inner {
+                    &:after {
+                        content: "";
+                        display: block;
+                        flex: 0 0 calc(100%/3 - 2*$card-spacing);
+                    }
+                }
+            }
+            .carousel-inner {
+                display: flex;
+                flex-flow: row nowrap;
+                align-items: stretch;
+                column-gap: $card-spacing;
+
+                .carousel-item {
+                    margin-right: 0;
+                    flex: 0 0 calc(100%/3 - 2*$card-spacing);
+                    display: none;
+
+                    &.prev,
+                    &.active,
+                    &.next {
+                        display: block;
+                    }
                 }
             }
         }

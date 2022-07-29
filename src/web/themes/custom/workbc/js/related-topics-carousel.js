@@ -8,16 +8,17 @@
     let active = items.filter(".active");
     let activeIndex = items.index(active);
 
-    // This should generally be handled by intercepting the bootstrap slide event, but we need this for initial load
     if(activeIndex < 1) {
-      // don't allow 'active' to be at the very start, it always needs a previous sibling
-      active.removeClass('active');
-      $(items[1]).addClass('active');
-    } else if (activeIndex == items.length - 1) {
-      // don't allow 'active' to be at the very end - it always needs a next sibling
-      active.removeClass('active');
-      $(items[items.length - 2]).addClass('active');
-    }
+      carousel.addClass('at-start');
+    } else { 
+      carousel.removeClass('at-start');     
+    } 
+
+    if (activeIndex == items.length - 1) {
+      carousel.addClass('at-end');
+    } else { 
+      carousel.removeClass('at-end');
+    } 
 
     // update index with changes
     active = items.filter(".active");
@@ -30,17 +31,6 @@
     $(items[activeIndex + 1]).addClass("next");
   };
 
-  let checkBounds = function (event) {
-    // this prevents the Bootstrap code from allowing a slide to the very first or last item, since we always want to maintain siblings on either side
-    let items = carousel.find(".carousel-item");
-
-    if(event.type == 'slide' && (event.to == 0 || event.to == items.length - 1)) {
-        event.stopPropagation();
-        return false;
-    }
-  };
-
-  carousel.on('slide.bs.carousel', checkBounds);
   carousel.on('slid.bs.carousel', updateVisible);
 
   updateVisible();
