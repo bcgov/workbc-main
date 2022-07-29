@@ -1,38 +1,20 @@
 (function ($, Drupal) {
 
-  let carousel = $('#relatedTopicsCarousel');
+  // see https://www.codeply.com/p/0CWffz76Q9 for inspiration on desktop size multiple panel view
 
-  let updateVisible = function () {
+  let items = document.querySelectorAll('.carousel .carousel-item');
 
-    let items = carousel.find(".carousel-item");
-    let active = items.filter(".active");
-    let activeIndex = items.index(active);
-
-    if(activeIndex < 1) {
-      carousel.addClass('at-start');
-    } else { 
-      carousel.removeClass('at-start');     
-    } 
-
-    if (activeIndex == items.length - 1) {
-      carousel.addClass('at-end');
-    } else { 
-      carousel.removeClass('at-end');
-    } 
-
-    // update index with changes
-    active = items.filter(".active");
-    activeIndex = items.index(active);
-
-    items.removeClass("prev");
-    items.removeClass("next");
-
-    $(items[activeIndex - 1]).addClass("prev");
-    $(items[activeIndex + 1]).addClass("next");
-  };
-
-  carousel.on('slid.bs.carousel', updateVisible);
-
-  updateVisible();
-
+  items.forEach((el) => {
+      const minPerSlide = 3;
+      let next = el.nextElementSibling
+      for (var i=1; i<minPerSlide; i++) {
+          if (!next) {
+              // wrap carousel by using first child
+            next = items[0]
+          }
+          let cloneChild = next.cloneNode(true)
+          el.appendChild(cloneChild.children[0])
+          next = next.nextElementSibling
+      }
+  })
 })(jQuery, Drupal);
