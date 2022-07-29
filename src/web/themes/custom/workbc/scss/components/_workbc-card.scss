@@ -138,7 +138,8 @@ $container-gutter: 20px;
         }
     }
 
-    @media (min-width: 768px) {
+    @media (min-width: 1200px) {
+
         .carousel-inner {
             display: flex;
             flex-flow: row nowrap;
@@ -148,7 +149,13 @@ $container-gutter: 20px;
             .carousel-item {
                 margin-right: 0;
                 flex: 0 0 calc(100%/3 - 2*$card-spacing);
-                display: block;
+                display: none;
+
+                &.prev,
+                &.active,
+                &.next {
+                    display: block;
+                }
             }
         }
     }
