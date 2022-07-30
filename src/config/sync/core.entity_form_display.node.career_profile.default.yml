@@ -17,7 +17,6 @@ dependencies:
     - field.field.node.career_profile.field_job_titles
     - field.field.node.career_profile.field_labour_market_introduction
     - field.field.node.career_profile.field_noc
-    - field.field.node.career_profile.field_occupational_interests
     - field.field.node.career_profile.field_related_careers
     - field.field.node.career_profile.field_resources
     - field.field.node.career_profile.field_salary_introduction
@@ -142,16 +141,6 @@ content:
     weight: 7
     region: content
     settings:
-      size: 60
-      placeholder: ''
-    third_party_settings: {  }
-  field_occupational_interests:
-    type: entity_reference_autocomplete
-    weight: 19
-    region: content
-    settings:
-      match_operator: CONTAINS
-      match_limit: 10
       size: 60
       placeholder: ''
     third_party_settings: {  }
