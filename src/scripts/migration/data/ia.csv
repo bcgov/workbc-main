@@ -51,18 +51,18 @@
 ,,,"Women",,,"yes","Basic page Hero",,,"http://aved.number41media.com/Wireframes/design-refresh/Beta2022/#id=8xc7m2&p=l3_-_resources_for_women_-_approved&g=1","https://www.workbc.ca/Resources-for/Women.aspx",
 ,,,"Youth",,,"yes","Basic page Hero",,,,"https://www.workbc.ca/Resources-for/Youth.aspx",
 ,,"Career Events",,,,"yes","Landing page",,,"http://aved.number41media.com/Wireframes/design-refresh/Beta2022/#id=o80809&p=l1_-_access_employer_resources&g=1 ","New Page",
-,,," Find Your Fit Tour",,,"yes","Landing page",,,,"https://www.workbc.ca/Jobs-Careers/Find-Your-Fit-Tour.aspx",
+,,," Find Your Fit Tour",,,"yes","Landing page",,,,"https://www.workbc.ca/Jobs-Careers/Find-Your-Fit-Tour.aspx","/find-your-fit-tour"
 ,,,,"Request a Tour Stop",,,"Webform",,,"http://aved.number41media.com/Wireframes/design-refresh/Beta2022/#id=b27wrh&p=l3_-_request_tour_stop_-_approved&g=1","https://www.workbc.ca/Jobs-Careers/Find-Your-Fit-Tour/Request-a-Tour-Form-Page.aspx",
 ,,,"Calendar of Upcoming Events",,,"yes","View of Career Event + Calendar",,,"http://aved.number41media.com/Wireframes/design-refresh/Beta2022/#id=3hnqfz&p=l3_-_calendar_of_events_-_approved&g=1","https://www.workbc.ca/Jobs-Careers/Find-Your-Fit-Tour/Upcoming-Events.aspx",
 ,,"Skills for the Future Workforce",,,,"yes","Basic page",,,"http://aved.number41media.com/Wireframes/design-refresh/Beta2022/#id=g42sgo&p=l2_-_skills_for_the_future_workforce_-_wip&g=1","https://www.workbc.ca/Labour-Market-Industry/Skills-for-the-Future-Workforce.aspx",
-,,"Our Publications",,,,"yes","Landing page",,,"http://aved.number41media.com/Wireframes/design-refresh/Beta2022/#id=u0o1ib&p=l2_-_publications_-_approved&g=1","https://www.workbc.ca/Employment-Services/WorkBC-Publications.aspx",
-,,,"WorkBC Order Form",,,"yes","Webform",,,,"https://www.workbc.ca/Resources-for/Teachers-Career-Counsellors/WorkBC-Resource-Order-Form.aspx",
-,,"Blog",,,,"yes","View of Blog Post ",,,,"New Page",
+,,"Our Publications",,,,"yes","Landing page",,,"http://aved.number41media.com/Wireframes/design-refresh/Beta2022/#id=u0o1ib&p=l2_-_publications_-_approved&g=1","https://www.workbc.ca/Employment-Services/WorkBC-Publications.aspx","/our-publications"
+,,,"WorkBC Order Form",,,"yes","Webform",,,,"https://www.workbc.ca/Resources-for/Teachers-Career-Counsellors/WorkBC-Resource-Order-Form.aspx","/workbc-order-form"
+,,"Blog",,,,"yes","View of Blog Post ",,,,"New Page","/blog"
 ,,,"Individual blogs (separate web pages)",,,,"Blog post",,"One example of 55 blog pages needed",,,
-,,"Success Stories",,,,"yes","View of Success Story",,,"http://aved.number41media.com/Wireframes/design-refresh/Beta2022/#id=1k0gay&p=l2_-_video_library&g=1 ","https://www.workbc.ca/Jobs-Careers/Success-Stories.aspx",
+,,"Success Stories",,,,"yes","View of Success Story",,,"http://aved.number41media.com/Wireframes/design-refresh/Beta2022/#id=1k0gay&p=l2_-_video_library&g=1 ","https://www.workbc.ca/Jobs-Careers/Success-Stories.aspx","/success-stories"
 ,,,"Marilou",,,,"Success Story",,"One example of 25 success story pages needed",,"https://www.workbc.ca/Jobs-Careers/Success-Stories/MARILOU-APPLEBY-A-REALTOR%C2%AE-STILL-GOING-STRONG.aspx ",
-,,"Video Library",,,,"yes","Basic page Hero",,,"http://aved.number41media.com/Wireframes/design-refresh/Beta2022/#id=1k0gay&p=l2_-_video_library_-_approved&g=1","https://www.workbc.ca/videolibrary/",
-,,"News",,,,"yes","View of News Post",,,"http://aved.number41media.com/Wireframes/design-refresh/Beta2022/#id=66keqg&p=l2_-_news_-_wip&g=1","https://www.workbc.ca/news",
+,,"Video Library",,,,"yes","Basic page Hero",,,"http://aved.number41media.com/Wireframes/design-refresh/Beta2022/#id=1k0gay&p=l2_-_video_library_-_approved&g=1","https://www.workbc.ca/videolibrary/","/video-library"
+,,"News",,,,"yes","View of News Post",,,"http://aved.number41media.com/Wireframes/design-refresh/Beta2022/#id=66keqg&p=l2_-_news_-_wip&g=1","https://www.workbc.ca/news","/news"
 ,,,"News story page",,,,"News post",,"One example of 22 news story pages needed",,"https://www.workbc.ca/News/COMING-SOON-UPDATES-TO-THE-WORKBC-JOB-BOARD.aspx",
 ,,,,,,,,,,,,
 ,"Discover Employment Services",,,,,"yes","Landing page",,,"http://aved.number41media.com/Wireframes/design-refresh/Beta2022/#id=6awwwi&p=l1_-_discover_employment_services_-_approved&g=1 ","https://www.workbc.ca/Employment-Services.aspx",
