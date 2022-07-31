@@ -27,8 +27,7 @@ for the node that is being displayed, not for nodes that are being referenced.
 
 */
 function workbc_extra_fields_node_view(array &$build, \Drupal\Core\Entity\EntityInterface $entity, \Drupal\Core\Entity\Display\EntityViewDisplayInterface $display, $view_mode) {
-
-  if ($view_mode == "full") {
+  if ($view_mode === "full") {
     if (!querySSoT('', SSOT_PING_TIMEOUT)) {
       $entity->ssot_data = NULL;
       return;
@@ -45,7 +44,6 @@ function workbc_extra_fields_node_view(array &$build, \Drupal\Core\Entity\Entity
 }
 
 function ssotCareerProfile($noc) {
-
   $data = array();
   $data['wages'] = querySSoT('wages?noc=eq.' . $noc)[0];
   $data['career_provincial'] = querySSoT('career_provincial?noc=eq.' . $noc)[0];
@@ -54,12 +52,13 @@ function ssotCareerProfile($noc) {
   $data['education'] = querySSoT('education?noc=eq.' . $noc)[0];
   $data['skills'] = querySSoT('skills?noc=eq.' . $noc);
   $data['openings'] = querySSoT('openings?noc=eq.' . $noc)[0];
+  $data['high_opportunity_occupations'] = querySSoT('high_opportunity_occupations?noc=eq.' . $noc);
+  $data['occupational_interests'] = querySSoT('occupational_interests?noc=eq.' . $noc);
   $data['sources'] = ssotSources();
   return $data;
 }
 
 function ssotSources() {
-
   $sources = querySSoT('sources');
   if (!$sources) return [];
 

@@ -4,7 +4,7 @@
         "Read more about it at https://getcomposer.org/doc/01-basic-usage.md#installing-dependencies",
         "This file is @generated automatically"
     ],
-    "content-hash": "bf6fc7ec157d20a6d1937b076c95e187",
+    "content-hash": "c91fca12fa661353b941d3919ecced05",
     "packages": [
         {
             "name": "alchemy/zippy",
@@ -277,12 +277,12 @@
             "source": {
                 "type": "git",
                 "url": "https://github.com/infojunkie/gathercontent-client.git",
-                "reference": "1ef167a16bbb5477ca34a7e2c76816b47272d2d5"
+                "reference": "0b6494add9c0f752674f64ef5697803f8e19a912"
             },
             "dist": {
                 "type": "zip",
-                "url": "https://api.github.com/repos/infojunkie/gathercontent-client/zipball/1ef167a16bbb5477ca34a7e2c76816b47272d2d5",
-                "reference": "1ef167a16bbb5477ca34a7e2c76816b47272d2d5",
+                "url": "https://api.github.com/repos/infojunkie/gathercontent-client/zipball/0b6494add9c0f752674f64ef5697803f8e19a912",
+                "reference": "0b6494add9c0f752674f64ef5697803f8e19a912",
                 "shasum": ""
             },
             "require": {
@@ -317,7 +317,7 @@
             "support": {
                 "source": "https://github.com/infojunkie/gathercontent-client/tree/components"
             },
-            "time": "2022-06-13T19:56:36+00:00"
+            "time": "2022-07-26T06:41:31+00:00"
         },
         {
             "name": "chi-teck/drupal-code-generator",
@@ -10648,6 +10648,57 @@
             "time": "2021-09-20T19:19:13+00:00"
         },
         {
+            "name": "ulrichsg/getopt-php",
+            "version": "v4.0.2",
+            "source": {
+                "type": "git",
+                "url": "https://github.com/getopt-php/getopt-php.git",
+                "reference": "821d6118c3701a8ec83110e3c0726c92120959f8"
+            },
+            "dist": {
+                "type": "zip",
+                "url": "https://api.github.com/repos/getopt-php/getopt-php/zipball/821d6118c3701a8ec83110e3c0726c92120959f8",
+                "reference": "821d6118c3701a8ec83110e3c0726c92120959f8",
+                "shasum": ""
+            },
+            "require": {
+                "ext-mbstring": "*",
+                "php": ">=7.1 || ^8.0"
+            },
+            "require-dev": {
+                "limedeck/phpunit-detailed-printer": "*",
+                "phpunit/phpunit": "*",
+                "squizlabs/php_codesniffer": "^3.5.8"
+            },
+            "type": "library",
+            "autoload": {
+                "psr-4": {
+                    "GetOpt\\": "src"
+                }
+            },
+            "notification-url": "https://packagist.org/downloads/",
+            "license": [
+                "MIT"
+            ],
+            "authors": [
+                {
+                    "name": "Ulrich Schmidt-Goertz",
+                    "email": "ulrich@schmidt-goertz.de"
+                },
+                {
+                    "name": "Thomas Flori",
+                    "email": "thflori@gmail.com"
+                }
+            ],
+            "description": "Command line arguments parser for PHP 7.1 and above",
+            "homepage": "http://getopt-php.github.io/getopt-php",
+            "support": {
+                "issues": "https://github.com/getopt-php/getopt-php/issues",
+                "source": "https://github.com/getopt-php/getopt-php/tree/v4.0.2"
+            },
+            "time": "2022-03-11T17:04:44+00:00"
+        },
+        {
             "name": "vlucas/phpdotenv",
             "version": "v5.4.1",
             "source": {
@@ -14449,7 +14500,14 @@
             "time": "2021-07-28T10:34:58+00:00"
         }
     ],
-    "aliases": [],
+    "aliases": [
+        {
+            "package": "cheppers/gathercontent-client",
+            "version": "dev-components",
+            "alias": "3.0",
+            "alias_normalized": "3.0.0.0"
+        }
+    ],
     "minimum-stability": "dev",
     "stability-flags": {
         "cheppers/gathercontent-client": 20

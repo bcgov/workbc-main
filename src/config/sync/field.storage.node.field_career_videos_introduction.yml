@@ -1,4 +1,4 @@
-uuid: 4790ee97-e202-45bd-bad2-bff65eddfc28
+uuid: b15c8fc4-b631-4f40-aa92-6a9ea83f508f
 langcode: en
 status: true
 dependencies:
@@ -9,8 +9,8 @@ dependencies:
 third_party_settings:
   field_permissions:
     permission_type: public
-id: node.field_additional_duties
-field_name: field_additional_duties
+id: node.field_career_videos_introduction
+field_name: field_career_videos_introduction
 entity_type: node
 type: text_long
 settings: {  }

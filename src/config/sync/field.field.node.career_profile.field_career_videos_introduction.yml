@@ -1,17 +1,17 @@
-uuid: 283fd78d-27c1-46bb-950c-bcd854f06e14
+uuid: 0a36959d-a608-45bd-8d85-fca3c6e9da4d
 langcode: en
 status: true
 dependencies:
   config:
-    - field.storage.node.field_additional_duties
+    - field.storage.node.field_career_videos_introduction
     - node.type.career_profile
   module:
     - text
-id: node.career_profile.field_additional_duties
-field_name: field_additional_duties
+id: node.career_profile.field_career_videos_introduction
+field_name: field_career_videos_introduction
 entity_type: node
 bundle: career_profile
-label: 'Additional Duties'
+label: 'Career Videos Introduction'
 description: ''
 required: false
 translatable: false

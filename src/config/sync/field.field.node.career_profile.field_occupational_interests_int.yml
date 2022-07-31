@@ -1,17 +1,17 @@
-uuid: 283fd78d-27c1-46bb-950c-bcd854f06e14
+uuid: f8eff94d-cb57-4094-afa5-3c21acca60c5
 langcode: en
 status: true
 dependencies:
   config:
-    - field.storage.node.field_additional_duties
+    - field.storage.node.field_occupational_interests_int
     - node.type.career_profile
   module:
     - text
-id: node.career_profile.field_additional_duties
-field_name: field_additional_duties
+id: node.career_profile.field_occupational_interests_int
+field_name: field_occupational_interests_int
 entity_type: node
 bundle: career_profile
-label: 'Additional Duties'
+label: 'Occupational Interests Introduction'
 description: ''
 required: false
 translatable: false
