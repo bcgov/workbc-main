@@ -19,7 +19,7 @@
 
     & > li {
       padding: $workbc_trim_standard_size 10px 0 10px; // top padding set to balance border-bottom and keep content centered
-      border-bottom: $workbc_trim_standard_size solid $workbc_transparent; // placeholder for hover styling to avoid content jumping
+      border-bottom: $workbc_trim_standard_size solid $workbc_palette_transparent; // placeholder for hover styling to avoid content jumping
       min-width: 80px;
       height: 80px;
       flex: 2 1 auto;
@@ -68,7 +68,7 @@
             width: 50%;
 
             & > li {
-              border-left: $workbc_trim_standard_size solid $workbc_transparent; //placeholder to prevent content shifting when colored borders are in place (hover, etc.)
+              border-left: $workbc_trim_standard_size solid $workbc_palette_transparent; //placeholder to prevent content shifting when colored borders are in place (hover, etc.)
     
               a {
                 padding: 5px 20px 5px 10px;
@@ -151,7 +151,7 @@
           ul.nav-t2 {
             & > li {
               &:hover {
-                border-left: $workbc_trim_standard_size solid $workbc_dark_blue;
+                border-left: $workbc_trim_standard_size solid $workbc_dark_theme_background;
                 background-color: $workbc_light_theme_background_accent;
                 color: $workbc_default_link;
         
@@ -195,7 +195,7 @@ nav.navbar {
   height: 80px;
   padding: 0px;
   margin: 0px;
-  box-shadow: $workbc_default_drop_shadow;
+  box-shadow: $workbc_default_bottom_shadow;
 
   .container {
     position: relative;

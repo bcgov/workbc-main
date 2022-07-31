@@ -49,30 +49,34 @@ class RelatedTopicsBlock extends BlockBase {
    */
   public function build() {
 
-    $output = "";
+    $related_topics = array();
+
     $node = \Drupal::routeMatch()->getParameter('node');
     if ($node instanceof \Drupal\node\NodeInterface) {
       if ($node->hasField('field_related_topics')) {
         $related = $node->get('field_related_topics')->referencedEntities();
         if (!empty($related)) {
-          $output .= "<h2>Related Topics</h2>";
-          $output .= "<div>";
           foreach ($related as $refNode) {
-              $output .= '<div>';
-              $output .= '<div>' . $this->renderImage($refNode) . '</div>';
-              $output .= '<div>' . $this->getTopLevel($refNode). '</div>';
-              $output .= '<div>' . $refNode->getTitle() . '</div>';
-              $output .= '<div>' . $this->renderText($refNode) . '</div>';
-              $output .= '<div>' . $this->renderLink($refNode) . '</div>';
-              $output .= '</div>';
+            $related_fields = array(
+              'image' => $this->renderImage($refNode),
+              'top_level_parent' => $this->getTopLevel($refNode),
+              'title' => $refNode->getTitle(),
+              'body' => $this->renderText($refNode),
+              'action' => $this->renderLink($refNode),
+            );
+
+            array_push($related_topics, $related_fields);
           }
-          $output .= "</div>";
         }
       }
     }
-    return [
-      '#markup' => $output,
+
+    $renderable = [
+      '#theme' => 'related_topics_block',
+      '#related_topics' => $related_topics,
     ];
+
+    return $renderable;
   }
 
   private function renderImage($node) {

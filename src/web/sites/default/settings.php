@@ -774,8 +774,6 @@ $settings['trusted_host_patterns'] = [
   '^workbc\.b89n0c-test\.nimbus\.cloud\.gov\.bc\.ca$',
 ];
 
-///$config['system.mail']['interface']['default'] = 'ses_mail';
-
 /**
  * Load local development override configuration, if available.
  *
