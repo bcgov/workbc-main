@@ -1,0 +1,21 @@
+uuid: 0a36959d-a608-45bd-8d85-fca3c6e9da4d
+langcode: en
+status: true
+dependencies:
+  config:
+    - field.storage.node.field_career_videos_introduction
+    - node.type.career_profile
+  module:
+    - text
+id: node.career_profile.field_career_videos_introduction
+field_name: field_career_videos_introduction
+entity_type: node
+bundle: career_profile
+label: 'Career Videos Introduction'
+description: ''
+required: false
+translatable: false
+default_value: {  }
+default_value_callback: ''
+settings: {  }
+field_type: text_long

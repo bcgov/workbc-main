@@ -1,0 +1,23 @@
+uuid: 04102722-b287-4586-81f5-138eca10cfb0
+langcode: en
+status: true
+dependencies:
+  module:
+    - field_permissions
+    - node
+    - text
+third_party_settings:
+  field_permissions:
+    permission_type: public
+id: node.field_occupational_interests_int
+field_name: field_occupational_interests_int
+entity_type: node
+type: text_long
+settings: {  }
+module: text
+locked: false
+cardinality: 1
+translatable: true
+indexes: {  }
+persist_with_no_fields: false
+custom_storage: false

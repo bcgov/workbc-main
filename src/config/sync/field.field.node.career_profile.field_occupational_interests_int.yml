@@ -1,0 +1,21 @@
+uuid: f8eff94d-cb57-4094-afa5-3c21acca60c5
+langcode: en
+status: true
+dependencies:
+  config:
+    - field.storage.node.field_occupational_interests_int
+    - node.type.career_profile
+  module:
+    - text
+id: node.career_profile.field_occupational_interests_int
+field_name: field_occupational_interests_int
+entity_type: node
+bundle: career_profile
+label: 'Occupational Interests Introduction'
+description: ''
+required: false
+translatable: false
+default_value: {  }
+default_value_callback: ''
+settings: {  }
+field_type: text_long

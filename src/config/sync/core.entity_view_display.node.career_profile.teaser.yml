@@ -9,6 +9,7 @@ dependencies:
     - field.field.node.career_profile.field_career_overview_intro
     - field.field.node.career_profile.field_career_pathways
     - field.field.node.career_profile.field_career_videos
+    - field.field.node.career_profile.field_career_videos_introduction
     - field.field.node.career_profile.field_duties
     - field.field.node.career_profile.field_education_programs
     - field.field.node.career_profile.field_education_training_skills
@@ -18,6 +19,7 @@ dependencies:
     - field.field.node.career_profile.field_job_titles
     - field.field.node.career_profile.field_labour_market_introduction
     - field.field.node.career_profile.field_noc
+    - field.field.node.career_profile.field_occupational_interests_int
     - field.field.node.career_profile.field_related_careers
     - field.field.node.career_profile.field_resources
     - field.field.node.career_profile.field_salary_introduction
@@ -76,6 +78,7 @@ hidden:
   field_additional_duties: true
   field_career_pathways: true
   field_career_videos: true
+  field_career_videos_introduction: true
   field_duties: true
   field_education_programs: true
   field_education_training_skills: true
@@ -85,6 +88,7 @@ hidden:
   field_job_titles: true
   field_labour_market_introduction: true
   field_noc: true
+  field_occupational_interests_int: true
   field_related_careers: true
   field_resources: true
   field_salary_introduction: true

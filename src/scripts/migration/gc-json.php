@@ -60,16 +60,8 @@ try {
       $field = $templates[$item->templateId][$uuid];
       // In case the field is a component, loop again on all component fields.
       if ($field->type === 'component') {
-        if (isset($field->metaData['repeatable'])) {
-          foreach ($value as $i => $component) {
-            foreach ($component as $component_uuid => $component_value) {
-              $component_field = $templates[$item->templateId][$component_uuid];
-              $content[$field->label][$i][$component_field->label] = $component_value;
-            }
-          }
-        }
-        else {
-          foreach ($value as $component_uuid => $component_value) {
+        foreach ($value as $i => $component) {
+          foreach ($component as $component_uuid => $component_value) {
             $component_field = $templates[$item->templateId][$component_uuid];
             $content[$field->label][$i][$component_field->label] = $component_value;
           }

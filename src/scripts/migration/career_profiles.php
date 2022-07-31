@@ -52,21 +52,20 @@ try {
         'field_work_environment' => convertRichText($career_profile->{'Work Environment Content'}),
         'field_career_pathways' => convertRichText($career_profile->{'Career Pathways Content'}),
 //        'field_related_careers' => $career_profile->{'Related Careers Content'},
-//        'field_occupational_interests' => ???
-//        '??? => $career_profile->{'Occupational Interests Content'},
-        'field_job_titles' => convertMultiple($career_profile->{'Job Title'}),
-        'field_career_videos' => convertVideos($career_profile->{'Career Video Link'}),
-//        '???' => $career_profile->{'Career Videos Content'},
+        'field_occupational_interests_int' => convertRichText($career_profile->{'Occupational Interests Content'}),
+        'field_job_titles' => convertMultiple($career_profile->{'Job Titles List'}),
+        'field_career_videos' => convertVideos($career_profile->{'Career Video URLs'}),
+        'field_career_videos_introduction' => convertRichText($career_profile->{'Career Videos Content'}),
         'field_education_training_skills' => convertRichText($career_profile->{'Education, Training and Skills Content'}),
         'field_education_programs' => convertRichText($career_profile->{'Education Programs in B.C. Content'}),
         'field_skills_introduction' => convertRichText($career_profile->{'Skills Content'}),
         'field_labour_market_introduction' => convertRichText($career_profile->{'Labour Market Statistics Content'}),
 //        '???' => $career_profile->{'Labour Market Outlook Content'},
-//        'field_employment_introduction' => $career_profile->{'Employment Content'};
+//        '???' => $career_profile->{'Employment Content'};
         'field_industry_highlights_intro' => convertRichText($career_profile->{'Industry Highlights Content'}),
         'field_insights_from_industry' => convertRichText($career_profile->{'Insights from Industry Content'}),
         'field_career_overview_intro' => convertRichText($career_profile->{'Career Overview Content'}),
-//        'field_hero_image' => $career_profile->{'???'},
+//        'field_hero_image' => $career_profile->{'Banner Image'},
         'field_resources' => convertResources($career_profile->{'Resources'}),
       ]);
     }
@@ -86,14 +85,12 @@ function convertRichText($field) {
 }
 
 function convertMultiple($multi_field) {
-  return array_map(function($field) {
-    return $field;
-  }, array_filter($multi_field));
+  return array_filter(array_map('trim', explode("\n", $multi_field)));
 }
 
 function convertVideos($urls) {
   $targets = [];
-  foreach ($urls as $url) {
+  foreach (convertMultiple($urls) as $url) {
     $fields = [
       'bundle' => 'remote_video',
       'uid' => 1,
@@ -111,8 +108,10 @@ function convertVideos($urls) {
 function convertResources($resources) {
   return array_map(function($resource) {
     return [
-      'uri' => $resource->{'Resource Anchor Link'},
+      'uri' => $resource->{'Resource Link'},
       'title' => $resource->{'Resource Title'}
     ];
-  }, array_filter($resources));
+  }, array_filter($resources, function($resource) {
+    return !empty($resource->{'Resource Link'}) && !empty($resource->{'Resource Title'});
+  }));
 }
