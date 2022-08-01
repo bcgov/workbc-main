@@ -13,7 +13,7 @@ use GuzzleHttp\Client;
 use GuzzleHttp\Exception\RequestException;
 
 // Read GatherContent career profiles if present.
-$career_profiles = NULL;
+$career_profiles = [];
 if (file_exists(__DIR__ . '/data/career_profiles.json')) {
   $data = json_decode(file_get_contents(__DIR__ . '/data/career_profiles.json'));
   foreach ($data as $i => $career_profile) {
@@ -28,6 +28,9 @@ if (file_exists(__DIR__ . '/data/career_profiles.json')) {
 $ssot = rtrim(\Drupal::config('workbc')->get('ssot_url'), '/');
 $client = new Client();
 try {
+  /**
+   * First pass: Create career profile nodes.
+   */
   $response = $client->get($ssot . '/wages');
   $result = json_decode($response->getBody(), TRUE);
   foreach ($result as $profile) {
@@ -51,7 +54,6 @@ try {
         'field_salary_introduction' => convertRichText($career_profile->{'Salary Content'}),
         'field_work_environment' => convertRichText($career_profile->{'Work Environment Content'}),
         'field_career_pathways' => convertRichText($career_profile->{'Career Pathways Content'}),
-//        'field_related_careers' => $career_profile->{'Related Careers Content'},
         'field_occupational_interests_int' => convertRichText($career_profile->{'Occupational Interests Content'}),
         'field_job_titles' => convertMultiple($career_profile->{'Job Titles List'}),
         'field_career_videos' => convertVideos($career_profile->{'Career Video URLs'}),
@@ -69,10 +71,48 @@ try {
         'field_resources' => convertResources($career_profile->{'Resources'}),
       ]);
     }
+    else {
+      $career_profiles[$profile['noc']] = new stdClass();
+    }
 
     $node = Drupal::entityTypeManager()
       ->getStorage('node')
       ->create($fields);
+    $node->save();
+
+    // Save the node id for the second pass.
+    $career_profiles[$profile['noc']]->nid = $node->id();
+  }
+
+  /**
+   * Second pass: Related career profiles to each other.
+   */
+  foreach ($career_profiles as $noc => $career_profile) {
+    if (empty($career_profile->{'Related Careers NOCs'})) continue;
+
+    print("Relating NOC $noc to other NOCs\n");
+    $node = Drupal::entityTypeManager()
+      ->getStorage('node')
+      ->load($career_profile->nid);
+    if (empty($node)) {
+      print("  Node $nid not found\n");
+      continue;
+    }
+
+    foreach (convertMultiple($career_profile->{'Related Careers NOCs'}) as $raw_related_noc) {
+      $related_noc = NULL;
+      if (!preg_match('/\d+/', $raw_related_noc, $related_noc)) {
+        print("  Could not parse related NOC $raw_related_noc\n");
+        continue;
+      }
+      if (!array_key_exists($related_noc[0], $career_profiles)) {
+        print(" Could not find related NOC {$related_noc[0]}\n");
+        continue;
+      }
+
+      $node->field_related_careers[] = ['target_id' => $career_profiles[$related_noc[0]]->nid];
+    }
+
     $node->save();
   }
 }
