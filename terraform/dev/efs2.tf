@@ -15,9 +15,9 @@ resource "aws_efs_access_point" "solr" {
   
   root_directory {
       creation_info {
-          owner_uid = "33"
-          owner_gid = "33"
-          permissions = "0755"
+          owner_uid = "0"
+          owner_gid = "0"
+          permissions = "0777"
       }
     
       path  = "/solrdata"
