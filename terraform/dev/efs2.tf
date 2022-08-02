@@ -20,7 +20,7 @@ resource "aws_efs_access_point" "solr" {
           permissions = "0777"
       }
     
-      path  = "/solrdata"
+      path  = "/data2"
   }
   
   tags = merge(
