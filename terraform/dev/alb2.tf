@@ -38,7 +38,7 @@ resource "aws_alb_target_group" "solr" {
     protocol            = "HTTP"
     matcher             = "200"
     timeout             = "5"
-    path                = "/"
+    path                = "/solr/#"
     unhealthy_threshold = "2"
   }
     
