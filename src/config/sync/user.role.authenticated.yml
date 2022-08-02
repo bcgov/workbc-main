@@ -7,6 +7,7 @@ dependencies:
   module:
     - comment
     - contact
+    - field_permissions
     - filter
     - media
     - paragraphs_type_permissions
@@ -26,7 +27,9 @@ permissions:
   - 'post comments'
   - 'skip comment approval'
   - 'use text format basic_html'
+  - 'view field_content'
   - 'view media'
+  - 'view own field_content'
   - 'view paragraph content action_card'
   - 'view paragraph content action_card_feature'
   - 'view paragraph content action_cards_1_2'

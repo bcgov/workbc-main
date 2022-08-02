@@ -7,6 +7,7 @@ dependencies:
   module:
     - comment
     - contact
+    - field_permissions
     - filter
     - media
     - paragraphs_type_permissions
@@ -22,7 +23,9 @@ permissions:
   - 'access content'
   - 'access site-wide contact form'
   - 'use text format restricted_html'
+  - 'view field_content'
   - 'view media'
+  - 'view own field_content'
   - 'view paragraph content action_card'
   - 'view paragraph content action_card_feature'
   - 'view paragraph content action_cards_1_2'

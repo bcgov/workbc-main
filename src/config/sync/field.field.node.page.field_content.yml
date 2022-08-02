@@ -76,9 +76,6 @@ settings:
       hours_of_operation:
         weight: 18
         enabled: false
-      publication_card:
-        weight: 30
-        enabled: false
       quote_card:
         weight: 19
         enabled: false
