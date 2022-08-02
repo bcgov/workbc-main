@@ -12,10 +12,24 @@ resource "aws_efs_file_system" "solr" {
 
 resource "aws_efs_access_point" "solr" {
   file_system_id  = aws_efs_file_system.solr.id
-  path  = "/solrdata"
-  owner_gid = "0"
-  owner_uid = "0"
-  permissions = "0755"
+  
+  root_directory {
+      creation_info {
+          owner_uid = "33"
+          owner_gid = "33"
+          permissions = "0755"
+      }
+    
+      path  = "/solrdata"
+  }
+  
+  tags = merge(
+    {
+        Name        = "ap-data"
+    },
+    var.common_tags
+  )
+  
 }
 
 resource "aws_efs_mount_target" "data_azA2" {
