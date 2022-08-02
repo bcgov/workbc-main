@@ -49,6 +49,7 @@
         "drupal/block_visibility_conditions": "^1.0",
         "drupal/bootstrap5": "^1.1",
         "drupal/charts": "^5.0",
+        "drupal/config_filter": "~1",
         "drupal/config_ignore": "^2.3",
         "drupal/console": "~1.0",
         "drupal/core-composer-scaffold": "~9.4.0",
@@ -147,6 +148,9 @@
         "patches": {
             "drupal/backup_migrate": {
                 "PostgreSQL support": "patches/drupal/backup_migrate/0003-postgresql-support.patch"
+            },
+            "drupal/time_field": {
+                "Deprecated function trim() with PHP 8.1": "patches/drupal/time_field/3269302-Deprecated_function_trim_coalescing.patch"
             }
         }
     }
