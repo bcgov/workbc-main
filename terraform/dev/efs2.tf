@@ -10,6 +10,14 @@ resource "aws_efs_file_system" "solr" {
   )
 }
 
+resource "aws_efs_access_point" "solr" {
+  file_system_id  = aws_efs_file_system.solr.id
+  path  = "/solrdata"
+  owner_gid = "0"
+  owner_uid = "0"
+  permissions = "0755"
+}
+
 resource "aws_efs_mount_target" "data_azA2" {
   file_system_id  = aws_efs_file_system.solr.id
   subnet_id       = sort(module.network.aws_subnet_ids.data.ids)[0]
