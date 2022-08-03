@@ -27,7 +27,7 @@ dependencies:
     - image.style.thumbnail
     - node.type.career_profile
   module:
-    - image
+    - image_widget_crop
     - link
     - media_library
     - path
@@ -107,12 +107,19 @@ content:
       placeholder: ''
     third_party_settings: {  }
   field_hero_image:
-    type: image_image
+    type: image_widget_crop
     weight: 9
     region: content
     settings:
       progress_indicator: throbber
       preview_image_style: thumbnail
+      crop_preview_image_style: crop_thumbnail
+      crop_list:
+        - crop_2_1
+      crop_types_required: {  }
+      warn_multiple_usages: true
+      show_crop_area: true
+      show_default_crop: true
     third_party_settings: {  }
   field_industry_highlights_intro:
     type: text_textarea
