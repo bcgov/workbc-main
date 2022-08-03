@@ -1,0 +1,45 @@
+$close_icon_spacing: 30px;
+
+.video-library-modal {
+    position: relative; // start positional context %videomodal
+    padding: $close_icon_spacing;
+    z-index: 1;
+
+    .ui-dialog-titlebar {
+        position: absolute; // relative to positional context %videomodal
+        z-index: 5;
+        top: calc($close_icon_spacing - 5px);
+        right: calc($close_icon_spacing - 15px);
+        border: none;
+        background: none;
+
+        .ui-dialog-title {
+            display: none;
+        }
+
+        .ui-dialog-titlebar-close {
+            z-index: 5;
+            border-radius: $close_icon_spacing;
+            width: $close_icon_spacing;
+            height: $close_icon_spacing;
+            opacity: 100%;
+
+            // hacky override of the icon colors
+            $icon-fill-string: "rgb(" + 
+                red($workbc_palette_light_primary) + ", " +
+                green($workbc_palette_light_primary) + ", " +
+                blue($workbc_palette_light_primary) + 
+            ")";
+            background: $workbc_palette_dark_secondary url("data:image/svg+xml,%3csvg xmlns='http://www.w3.org/2000/svg' viewBox='0 0 16 16' fill='#{$icon-fill-string}'%3e%3cpath d='M.293.293a1 1 0 011.414 0L8 6.586 14.293.293a1 1 0 111.414 1.414L9.414 8l6.293 6.293a1 1 0 01-1.414 1.414L8 9.414l-6.293 6.293a1 1 0 01-1.414-1.414L6.586 8 .293 1.707a1 1 0 010-1.414z'/%3e%3c/svg%3e") center/1em auto no-repeat;
+
+            .ui-icon-closethick {
+                display: none;
+            }
+        }
+    }
+
+    .ui-dialog-content {
+        padding: 0;
+        z-index: 2;
+    }
+}
