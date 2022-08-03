@@ -78,16 +78,17 @@ class WebformPublicationComposite extends WebformCompositeBase {
       $fid = $node->get('field_publication')->target_id;
       if (!is_null($fid)) {
         $file = \Drupal\file\Entity\File::load($fid);
+
+        $size = self::formatBytes($file->getSize());
         $link_options = [];
         $link_options['attributes']['target'] = 1;
-        $link = Link::fromTextAndUrl("View PDF", Url::fromUri('internal:'.$file->createFileUrl(), $link_options))->toString();
+        $link = Link::fromTextAndUrl('PDF (' . $size . ')', Url::fromUri('internal:'.$file->createFileUrl(), $link_options))->toString();
         $url = Url::fromUri('internal:'.$file->createFileUrl(), $link_options)->toString();
       }
       else {
         $link = '';
         $url = '';
       }
-
 
       $elements['publications'][$pub]['display_link-' . $pub] = [
         '#type' => 'item',
@@ -108,5 +109,17 @@ class WebformPublicationComposite extends WebformCompositeBase {
     return $elements;
   }
 
+
+  private static function formatBytes($bytes, $precision = 2) {
+      $units = array('B', 'KB', 'MB', 'GB', 'TB');
+
+      $bytes = max($bytes, 0);
+      $pow = floor(($bytes ? log($bytes) : 0) / log(1024));
+      $pow = min($pow, count($units) - 1);
+
+      $bytes /= pow(1024, $pow);
+
+      return round($bytes, $precision) . ' ' . $units[$pow];
+  }
 
 }
