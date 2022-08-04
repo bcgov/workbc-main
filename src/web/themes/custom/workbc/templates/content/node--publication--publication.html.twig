@@ -66,6 +66,16 @@
  * @see template_preprocess_node()
  *
  */
+
+
+  node of content type publication has the following fields:
+  - name                      - Text (plain) (?) - Default Drupal field
+  - body                      - Text (formatted, long, with summary)
+  - field_hardcopy_available  - Boolean
+  - field_image               - Image
+  - field_publication         - File
+  - field_resource_number     - Text (plain)
+
 #}
 {%
   set classes = [
@@ -80,8 +90,23 @@
 {{ attach_library('classy/node') }}
 <article{{ attributes.addClass(classes) }}>
 
-  <div{{ content_attributes.addClass('node__content') }}>
-    {{ content }}
+{{ kint(node|keys) }}
+{{ kint(node.field_image[0]) }}
+{{ kint(content.field_image[0]).value }}
+
+  <div{{ content_attributes.addClass('node__content', 'workbc-card') }}>
+    <div class="workbc-card-container">
+      <div class="workbc-card-image-preview">{{ node.field_image[0].value }}</div>
+
+      <div class="workbc-card-content">
+          <div class="workbc-card-title">{{ node.title.value }}</div>
+          <div class="workbc-card-description">{{ node.fields.body.value }}</div>
+      </div>
+
+      <div class="workbc-card-action">
+          {{ node.fields.field_publication.value }}
+      </div>
+    </div>
   </div>
 
 </article>

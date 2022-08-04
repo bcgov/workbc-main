@@ -168,3 +168,9 @@ $settings['skip_permissions_hardening'] = TRUE;
  * WorkBC configuration.
  */
 $config['workbc']['ssot_url'] = 'http://ssot:3000';
+
+ini_set('memory_limit', '6G');
+if (class_exists('Kint')) {
+  // Set the max_depth to prevent out-of-memory.
+  \Kint::$max_depth = 3;
+}
