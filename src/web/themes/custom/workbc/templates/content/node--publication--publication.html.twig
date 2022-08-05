@@ -90,21 +90,20 @@
 {{ attach_library('classy/node') }}
 <article{{ attributes.addClass(classes) }}>
 
-{{ kint(node|keys) }}
-{{ kint(node.field_image[0]) }}
-{{ kint(content.field_image[0]).value }}
-
   <div{{ content_attributes.addClass('node__content', 'workbc-card') }}>
     <div class="workbc-card-container">
-      <div class="workbc-card-image-preview">{{ node.field_image[0].value }}</div>
+      <div class="workbc-card-image-preview">{{ content.field_image }}</div>
 
       <div class="workbc-card-content">
-          <div class="workbc-card-title">{{ node.title.value }}</div>
-          <div class="workbc-card-description">{{ node.fields.body.value }}</div>
+          <div class="workbc-card-title">{{ content.extra_field_workbc_page_title }}</div>
+          <div class="workbc-card-description">{{ content.body }}</div>
       </div>
 
       <div class="workbc-card-action">
-          {{ node.fields.field_publication.value }}
+          {{ content.field_publication }}
+          {% if content.extra_field_publication_orderform_link %}
+          {{ content.extra_field_publication_orderform_link }}
+          {% endif %}
       </div>
     </div>
   </div>

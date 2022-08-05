@@ -14,6 +14,11 @@ $container-gutter: 20px;
         .workbc-card-image-preview {
             img {
                 width: 100%;
+
+                @media (min-width: 1200px) {
+                    display: block;
+                    flex: 0 1 calc(50%);
+                }
             }
         }
 
@@ -97,6 +102,26 @@ $container-gutter: 20px;
         .workbc-card-action {
             align-self: flex-end;
             padding: $card-spacing;
+
+            .fancy {
+                position: relative; // Start positioning context %fancy
+                border: 1px solid $workbc_palette_dark_primary;
+                border-radius: 2px;
+
+
+                .pdf {
+                    padding-left: 30px;
+    
+                    &:before {
+                        content: "";
+                        display: block;
+                        position: absolute; // relative to positioning context %fancy
+                        left: 0;
+                        top: 0;
+                        bottom: 0;
+                    }
+                }
+            }
         }
     }
 }
