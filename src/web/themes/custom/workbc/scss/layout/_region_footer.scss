@@ -22,14 +22,6 @@ footer {
           &:first-of-type > a {
             padding-left: 0;
           }
-
-          & > a {
-            color: $workbc_dark_theme_text;
-
-            &:not(:hover) {
-              text-decoration: none;
-            }
-          }
         }
       }
     }
