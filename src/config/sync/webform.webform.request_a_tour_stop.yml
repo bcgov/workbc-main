@@ -37,15 +37,15 @@ elements: |-
     '#title': 'Email Address'
     '#required': true
   phone_number:
-    '#type': webform_telephone
+    '#type': tel
     '#title': 'Phone Number'
-    '#wrapper_type': container
-    '#type__access': false
-    '#phone__title': 'Phone Number'
-    '#phone__title_display': before
-    '#phone__required': true
-    '#ext__title': Extension
-    '#phone__international': false
+    '#required': true
+    '#required_error': 'Phone number is required'
+    '#pattern': '^[0-9]{3}-[0-9]{3}-[0-9]{4}$'
+    '#pattern_error': 'Please use the following format: ###-###-####'
+  phone_extension:
+    '#type': number
+    '#title': Extension
   region:
     '#type': select
     '#title': Region

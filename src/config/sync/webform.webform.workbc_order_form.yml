@@ -53,7 +53,8 @@ elements: |-
     '#title': 'Phone Number'
     '#placeholder': 250-123-4567
     '#required': true
-    '#required_error': (required)
+    '#pattern': '^[0-9]{3}-[0-9]{3}-[0-9]{4}$'
+    '#pattern_error': 'Please use the following format: ###-###-####'
   email_address:
     '#type': email
     '#title': 'Email Address'
