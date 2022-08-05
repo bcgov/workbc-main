@@ -67,6 +67,7 @@ elements: |-
     '#description': 'I agree to the&nbsp;<a href="/privacy">Privacy Policy</a>.'
     '#title_display': none
     '#description_display': after
+    '#required': true
   collection_notice:
     '#type': processed_text
     '#text': |

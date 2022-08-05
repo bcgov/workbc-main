@@ -1,7 +1,9 @@
 uuid: 29039520-86f0-40e4-a856-73b1456d89db
 langcode: en
 status: open
-dependencies: {  }
+dependencies:
+  module:
+    - webform_publication_composite
 weight: 0
 open: null
 close: null
@@ -9,7 +11,7 @@ uid: 1
 template: false
 archive: false
 id: workbc_order_form
-title: 'WorkBC Order Form'
+title: 'WorkBC Resource Order Form'
 description: 'Webform for ordering WorkBC publications.'
 category: ''
 elements: |-
@@ -20,6 +22,9 @@ elements: |-
     '#type': webform_publication_composite
     '#title': Publications
     '#flexbox': '0'
+  section_header_markup:
+    '#type': webform_markup
+    '#markup': '<h2>Order form details</h2>'
   name:
     '#type': textfield
     '#title': Name
@@ -39,16 +44,20 @@ elements: |-
     '#city__required': true
     '#state_province__access': false
     '#postal_code__title': 'Postal Code'
+    '#postal_code__placeholder': A1A1A1
     '#postal_code__required': true
     '#country__access': false
     '#flexbox': '0'
   phone_number:
     '#type': tel
     '#title': 'Phone Number'
+    '#placeholder': 250-123-4567
     '#required': true
+    '#required_error': (required)
   email_address:
     '#type': email
     '#title': 'Email Address'
+    '#placeholder': youremail@example.com
     '#required': true
   please_provide_any_specific_shipping_instructions_:
     '#type': textarea
@@ -70,7 +79,7 @@ settings:
   form_open_message: ''
   form_close_message: ''
   form_exception_message: ''
-  form_previous_submissions: true
+  form_previous_submissions: false
   form_confidential: false
   form_confidential_message: ''
   form_disable_remote_addr: false
@@ -157,8 +166,8 @@ settings:
   draft_pending_multiple_message: ''
   confirmation_type: page
   confirmation_url: ''
-  confirmation_title: ''
-  confirmation_message: ''
+  confirmation_title: 'Thank You'
+  confirmation_message: 'Your order has been received.'
   confirmation_attributes: {  }
   confirmation_back: true
   confirmation_back_label: ''
@@ -272,4 +281,13 @@ handlers:
       theme_name: ''
       parameters: {  }
       debug: false
+  publication_quantity_validation:
+    id: webform_publication_composite_custom_validator
+    handler_id: publication_quantity_validation
+    label: 'Publication quantity validation'
+    notes: ''
+    status: true
+    conditions: {  }
+    weight: 0
+    settings: {  }
 variants: {  }

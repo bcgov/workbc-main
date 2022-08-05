@@ -38,7 +38,7 @@ class WebformPublicationComposite extends WebformCompositeBase {
   public static function getCompositeElements(array $element) {
 
     $options = [];
-    for ($i = 0; $i <= 160; $i++) {
+    for ($i = 1; $i <= 160; $i++) {
       $options[$i] = $i;
     }
 
@@ -55,14 +55,14 @@ class WebformPublicationComposite extends WebformCompositeBase {
     $elements = [];
     $elements['publications'] = array(
       '#type' => 'table',
-      '#header' => array(t('Qty'), t('Title'), t('Resource No'), t('')),
+      '#header' => array(t('Quantity'), t('Resource'), t('Resource No'), t('View PDF')),
     );
     foreach ($nodes as $node) {
       $elements['publications'][$pub]['quantity-'.$pub] = [
         '#type' => 'select',
-        // '#title' => t('Quantity'),
         '#options' => $options,
-        '#value' => 0,
+        '#empty_option' => '0',
+  			'#empty_value' => 0,
       ];
       $elements['publications'][$pub]['title-'.$pub] = [
         '#type' => 'item',
@@ -82,7 +82,9 @@ class WebformPublicationComposite extends WebformCompositeBase {
         $size = self::formatBytes($file->getSize());
         $link_options = [];
         $link_options['attributes']['target'] = 1;
-        $link = Link::fromTextAndUrl('PDF (' . $size . ')', Url::fromUri('internal:'.$file->createFileUrl(), $link_options))->toString();
+        $link = Link::fromTextAndUrl('PDF', Url::fromUri('internal:'.$file->createFileUrl(), $link_options))->toString();
+        $link .= "<br>";
+        $link .= Link::fromTextAndUrl('(' . $size . ')', Url::fromUri('internal:'.$file->createFileUrl(), $link_options))->toString();
         $url = Url::fromUri('internal:'.$file->createFileUrl(), $link_options)->toString();
       }
       else {
