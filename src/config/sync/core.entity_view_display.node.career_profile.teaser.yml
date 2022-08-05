@@ -75,6 +75,7 @@ hidden:
   extra_field_work_environment_percent_fulltime: true
   extra_field_work_environment_source: true
   extra_field_workbc_page_title: true
+  extra_field_workbc_published_on: true
   field_additional_duties: true
   field_career_pathways: true
   field_career_videos: true

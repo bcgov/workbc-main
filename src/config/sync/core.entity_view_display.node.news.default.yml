@@ -5,6 +5,7 @@ dependencies:
   config:
     - field.field.node.news.body
     - field.field.node.news.field_image
+    - image.style.article_wide
     - node.type.news
   module:
     - image
@@ -32,7 +33,7 @@ content:
     label: visually_hidden
     settings:
       image_link: ''
-      image_style: ''
+      image_style: article_wide
       image_loading:
         attribute: lazy
     third_party_settings: {  }

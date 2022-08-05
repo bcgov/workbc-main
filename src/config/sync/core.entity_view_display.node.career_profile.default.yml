@@ -472,4 +472,5 @@ content:
 hidden:
   body: true
   extra_field_workbc_page_title: true
+  extra_field_workbc_published_on: true
   search_api_excerpt: true
