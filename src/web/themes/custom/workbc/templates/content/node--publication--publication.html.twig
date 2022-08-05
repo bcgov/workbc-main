@@ -90,7 +90,7 @@
 {{ attach_library('classy/node') }}
 <article{{ attributes.addClass(classes) }}>
 
-  <div{{ content_attributes.addClass('node__content', 'workbc-card') }}>
+  <div{{ content_attributes.addClass('node__content', 'workbc-card', 'wide') }}>
     <div class="workbc-card-container">
       <div class="workbc-card-image-preview">{{ content.field_image }}</div>
 
@@ -99,11 +99,16 @@
           <div class="workbc-card-description">{{ content.body }}</div>
       </div>
 
-      <div class="workbc-card-action">
-          {{ content.field_publication }}
-          {% if content.extra_field_publication_orderform_link %}
-          {{ content.extra_field_publication_orderform_link }}
-          {% endif %}
+      <div class="workbc-card-actions fancy">
+        <div class="action pdf">
+          <a href="{{ file_url(content.field_publication[0]['#file'].fields.uri.value) }}" target="_blank"><div>View PDF</div></a>
+        </div>
+
+        {% if content.field_hardcopy_available['#items'].value %}
+          <div class="action hardcopy">
+            <a href="/workbc-order-form" target="_blank"><div>Order Hardcopy</div></a>
+          </div>
+        {% endif %}
       </div>
     </div>
   </div>

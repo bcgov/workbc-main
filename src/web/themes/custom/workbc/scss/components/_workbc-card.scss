@@ -4,6 +4,7 @@ $container-gutter: 20px;
 .workbc-card {
     // height: 100%;  This messes up height stretching on Related Topics Carousel
 
+
     .workbc-card-container {
         height: 100%;
 
@@ -11,14 +12,21 @@ $container-gutter: 20px;
         flex-flow: column nowrap;
         box-shadow: $workbc_default_box_shadow;
 
+        @media (min-width: 1200px) {
+            .wide > & {
+                flex-flow: row wrap;
+            }
+        }
+
+
         .workbc-card-image-preview {
             img {
                 width: 100%;
+            }
 
-                @media (min-width: 1200px) {
-                    display: block;
-                    flex: 0 1 calc(50%);
-                }
+            @media (min-width: 1200px) {
+                display: block;
+                flex: 0 1 calc(50%);
             }
         }
 
@@ -99,26 +107,79 @@ $container-gutter: 20px;
             }
         }
 
-        .workbc-card-action {
+        .workbc-card-actions {
             align-self: flex-end;
             padding: $card-spacing;
 
-            .fancy {
-                position: relative; // Start positioning context %fancy
-                border: 1px solid $workbc_palette_dark_primary;
-                border-radius: 2px;
+            &.fancy {
+                $spacing: 10px;
 
+                align-self: center;
+                width: 100%;
 
-                .pdf {
-                    padding-left: 30px;
-    
-                    &:before {
-                        content: "";
-                        display: block;
-                        position: absolute; // relative to positioning context %fancy
-                        left: 0;
-                        top: 0;
-                        bottom: 0;
+                display: flex;
+                flex-direction: row;
+                flex-wrap: wrap;
+                align-content: space-around;
+                justify-content: space-around;
+                align-items: stretch;
+                row-gap: $spacing;
+
+                .action {
+                    flex: 2 1 100%;
+                    border: 1px solid $workbc_default_link;
+                    border-radius: 5px;
+
+                    a {
+                        display: flex;
+                        justify-content: center;
+                        width: 100%;
+                        height: 100%;
+                        padding: 5px;
+                        text-align: center;
+                        font-weight: bold;
+
+                        div {
+                            flex: 0 0 auto;
+                            align-self: center;
+                        }
+
+                        &:before, 
+                        &:after {
+                            content: "";
+                            flex: 0 0 auto;
+                            width: 2rem;
+                            height: 2rem;
+                        }
+
+                        &:before {
+                            margin-right: $spacing;
+                        }
+
+                        &:after {
+                            margin-left: $spacing;
+                        }
+
+                        &:hover {
+                            background-color: $workbc_light_theme_background_accent;
+                            text-decoration: none;
+                        }
+                    }
+
+                    &.pdf {
+                        & a:before {
+                            display: inline-block;
+                            background: url(../assets/images/pdf-icon.svg) center no-repeat;
+                            background-size: 70%;
+                        }
+                    }
+
+                    &.hardcopy {
+                        & a:before {
+                            display: inline-block;
+                            background: url(../assets/images/hardcopy-icon.svg) center no-repeat;
+                            background-size: 100%;
+                        }
                     }
                 }
             }
@@ -190,7 +251,7 @@ $container-gutter: 20px;
     }
 }
 
-.workbc-card-list { 
+.workbc-card-columns { 
     display: flex;
     flex-flow: row wrap;
     align-items: stretch;

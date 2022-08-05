@@ -9,6 +9,7 @@ a {
     text-decoration: none;
 
     &:hover {
+        color: $workbc_default_link;
         text-decoration: underline;
     }
 }
