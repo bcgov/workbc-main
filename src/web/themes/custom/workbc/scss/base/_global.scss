@@ -6,8 +6,9 @@
 
 a {
     color: $workbc_default_link;
+    text-decoration: none;
 
-    &:not(:hover) {
-        text-decoration: none;
+    &:hover {
+        text-decoration: underline;
     }
 }
