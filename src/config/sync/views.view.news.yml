@@ -708,7 +708,7 @@ display:
           click_sort_column: value
           type: timestamp
           settings:
-            date_format: custom
+            date_format: published_on_date
             custom_date_format: 'd F Y'
             timezone: ''
           group_column: value
