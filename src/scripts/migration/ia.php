@@ -220,32 +220,3 @@ foreach ($nodes as $path => &$node) {
         createMenuEntry($path, $node, $nodes, $menu_link_storage, 'main');
     }
 }
-
-/**
- * Access GatherContent item.
- */
-// $email = 'TODO';
-// $apiKey = 'TODO';
-// $projectId = 284269;
-// $client = new \GuzzleHttp\Client();
-// $gc = new \Cheppers\GatherContent\GatherContentClient($client);
-// $gc
-//   ->setEmail($email)
-//   ->setApiKey($apiKey);
-// try {
-//     $item = $gc->itemGet(12593020);
-//     $template = $gc->templateGet($item->templateId);
-//     $component = $gc->componentGet('b9abb081-fb11-444a-96bb-04777aefc84a');
-// }
-// catch (\Exception $e) {
-//     echo 'ERROR: ' . $e->getMessage() . PHP_EOL;
-//     exit(1);
-// }
-// print_r($item->content);
-
-/**
- * Create paragraph
- * https://www.drupal.org/project/paragraphs/issues/2707017
- */
-
-?>

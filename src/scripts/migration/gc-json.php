@@ -1,5 +1,11 @@
 <?php
 
+/**
+ * Generate JSON from GatherContent items.
+ *
+ * Usage: drush scr /scripts/migration/gc-json -- [--status "Status name"] [--item itemId] projectId
+ */
+
 $email = $_ENV['GATHERCONTENT_EMAIL'];
 $apiKey = $_ENV['GATHERCONTENT_APIKEY'];
 
@@ -55,15 +61,26 @@ try {
     }
 
     // Loop on the content fields and translate field ids to field labels.
-    $content = [];
+    $content = [
+      'title' => $item->name,
+      'id' => $item->id,
+    ];
     foreach ($item->content as $uuid => $value) {
       $field = $templates[$item->templateId][$uuid];
       // In case the field is a component, loop again on all component fields.
       if ($field->type === 'component') {
         foreach ($value as $i => $component) {
-          foreach ($component as $component_uuid => $component_value) {
-            $component_field = $templates[$item->templateId][$component_uuid];
-            $content[$field->label][$i][$component_field->label] = $component_value;
+          if (is_array($component) || is_object($component)) {
+            $entry = [];
+            foreach ($component as $component_uuid => $component_value) {
+              $component_field = $templates[$item->templateId][$component_uuid];
+              $entry[$component_field->label] = $component_value;
+            }
+            $content[$field->label][] = $entry;
+          }
+          else {
+            $component_field = $templates[$item->templateId][$i];
+            $content[$field->label][][$component_field->label] = $component;
           }
         }
       }
