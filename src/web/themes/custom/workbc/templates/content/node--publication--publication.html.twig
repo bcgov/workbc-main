@@ -66,6 +66,16 @@
  * @see template_preprocess_node()
  *
  */
+
+
+  node of content type publication has the following fields:
+  - name                      - Text (plain) (?) - Default Drupal field
+  - body                      - Text (formatted, long, with summary)
+  - field_hardcopy_available  - Boolean
+  - field_image               - Image
+  - field_publication         - File
+  - field_resource_number     - Text (plain)
+
 #}
 {%
   set classes = [
@@ -80,8 +90,27 @@
 {{ attach_library('classy/node') }}
 <article{{ attributes.addClass(classes) }}>
 
-  <div{{ content_attributes.addClass('node__content') }}>
-    {{ content }}
+  <div{{ content_attributes.addClass('node__content', 'workbc-card', 'wide') }}>
+    <div class="workbc-card-container">
+      <div class="workbc-card-image-preview">{{ content.field_image }}</div>
+
+      <div class="workbc-card-content">
+        <div class="workbc-card-title">{{ content.extra_field_workbc_page_title }}</div>
+        <div class="workbc-card-description">{{ content.body }}</div>
+        <div class="workbc-card-actions fancy">
+          <div class="action pdf">
+            <a href="{{ file_url(content.field_publication[0]['#file'].fields.uri.value) }}" target="_blank"><div>View PDF</div></a>
+          </div>
+
+          {% if content.field_hardcopy_available['#items'].value %}
+            <div class="action hardcopy">
+              <a href="/workbc-order-form" target="_blank"><div>Order Hardcopy</div></a>
+            </div>
+          {% endif %}
+        </div>
+
+      </div>
+    </div>
   </div>
 
 </article>

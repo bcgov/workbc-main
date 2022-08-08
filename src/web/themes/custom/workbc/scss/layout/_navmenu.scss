@@ -17,6 +17,10 @@
     padding: 0;
     margin: 0;
 
+    & a {
+      padding: 5px 20px 5px 10px;
+    }
+
     & > li {
       padding: $workbc_trim_standard_size 10px 0 10px; // top padding set to balance border-bottom and keep content centered
       border-bottom: $workbc_trim_standard_size solid $workbc_palette_transparent; // placeholder for hover styling to avoid content jumping
@@ -30,12 +34,7 @@
 
       & > a {
         font-size: 16px;
-        text-decoration: none;
         padding: 0;
-    
-        &:hover {
-          text-decoration: none;
-        }
       }
   
       &:hover {
@@ -70,9 +69,7 @@
             & > li {
               border-left: $workbc_trim_standard_size solid $workbc_palette_transparent; //placeholder to prevent content shifting when colored borders are in place (hover, etc.)
     
-              a {
-                padding: 5px 20px 5px 10px;
-
+              & > a {
                 &.has-submenu {
                   position: relative; // create positioning context %has-submenu
 
@@ -86,8 +83,17 @@
                     font-weight: normal;
                     font-style: normal;
                     font-size: 24px;  /* Preferred icon size */
-                    color: grey;
+                    color: $workbc_palette_light_tertiary;
                   }
+
+                }
+              }
+
+              &:hover > a {
+                text-decoration: underline;
+
+                &:after {
+                  color: $workbc_default_link;
                 }
               }
 
@@ -105,6 +111,10 @@
               &:hover .nav-t3 {
                 display: block;
               }
+
+              li:hover > a {
+                text-decoration: underline;
+              }
             }
           }
         }
@@ -121,7 +131,7 @@
   ul.nav-t1 {
     & > li {
 
-      a, a:focus {
+      & > a, a:focus {
         color: $workbc_dark_theme_text;
       }
 
@@ -129,7 +139,7 @@
         border-color: $workbc_light_theme_trim;
         background-color: $workbc_light_theme_background_default;
 
-        a, a:focus {
+        & > a, a:focus {
           color: $workbc_light_theme_text;
         }
       }
@@ -138,7 +148,7 @@
         border-color: $workbc_light_theme_trim;
         background-color: $workbc_light_theme_background_default;
 
-        a, a:focus {
+        & > a, a:focus {
           color: $workbc_light_theme_text;
         }
       }
@@ -150,28 +160,16 @@
 
           ul.nav-t2 {
             & > li {
+              & > a, a:focus {
+                color: $workbc_light_theme_text;
+              }
+  
               &:hover {
                 border-left: $workbc_trim_standard_size solid $workbc_dark_theme_background;
                 background-color: $workbc_light_theme_background_accent;
-                color: $workbc_default_link;
         
-                a, a:focus {
-                  color: $workbc_light_theme_link;
-                  text-decoration: underline;
-                }
-              }
-            }
-    
-            a, a:focus {
-              color: $workbc_light_theme_text;
-            }
-
-            ul.nav-t3 {
-              a {
-                text-decoration: none;
-
-                &:hover {
-                  text-decoration: underline;
+                & > a, a:focus {
+                  color: $workbc_default_link;
                 }
               }
             }

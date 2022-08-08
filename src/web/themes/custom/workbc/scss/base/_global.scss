@@ -1,0 +1,15 @@
+/*
+
+    This should only contain global styling that is expected to apply everywhere in the site. Anything specific to a component, etc. should be kept in the appropriate files.
+
+*/
+
+a {
+    color: $workbc_default_link;
+    text-decoration: none;
+
+    &:hover {
+        color: $workbc_default_link;
+        text-decoration: underline;
+    }
+}
