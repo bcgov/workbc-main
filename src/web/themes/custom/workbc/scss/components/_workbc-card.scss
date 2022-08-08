@@ -2,280 +2,294 @@ $card-spacing: 20px;
 $container-gutter: 20px;
 
 .workbc-card {
-    // height: 100%;  This messes up height stretching on Related Topics Carousel
+  // height: 100%;  This messes up height stretching on Related Topics Carousel
 
+  // &.wide {
+  //   @media (min-width: 1200px) {
+  //     .workbc-card-container {
+  //       flex-flow: column wrap;
+  //       align-content: space-between;
 
-    .workbc-card-container {
-        height: 100%;
+  //       & > div {
+  //         flex: 1 1 auto;
+  //         width: 50%;
+          
+  //         &.workbc-card-image-preview {
+  //           flex: 1 1 100%;
+  //         }
+  //       }
+  //     }
+  //   }
+  // }
 
-        display: flex;
-        flex-flow: column nowrap;
-        box-shadow: $workbc_default_box_shadow;
+  .workbc-card-container {
+    height: 100%;
 
-        @media (min-width: 1200px) {
-            .wide > & {
-                flex-flow: row wrap;
-            }
-        }
+    display: flex;
+    flex-flow: column nowrap;
+    box-shadow: $workbc_default_box_shadow;
 
-
-        .workbc-card-image-preview {
-            img {
-                width: 100%;
-            }
-
-            @media (min-width: 1200px) {
-                display: block;
-                flex: 0 1 calc(50%);
-            }
-        }
-
-        .workbc-card-video-preview {
-            a, 
-            button {
-                position: relative;
-                display: block;
-                margin: 0;
-                border: none;
-                width: 100%;
-                padding: 0;
-
-                &:after {
-                    content: "";
-                    position: absolute;
-                    top: 0;
-                    right: 0;
-                    bottom: 0;
-                    left: 0;
-                    z-index: 5;
-                    background: url(../assets/images/video-play-icon.svg) center center no-repeat;
-                    background-size: 60px;
-                }
-                &:hover:after {
-                    background: url(../assets/images/video-play-icon-hover.svg) center center no-repeat;
-                    background-size: 60px;
-                }
-
-                img {
-                    z-index: 1;
-                    width: 100%;
-                }
-            }
-        }
-
-        .workbc-card-details {
-            background-color: $workbc_light_theme_background_accent;
-            padding: 5px $card-spacing;
-            display: flex;
-            flex-flow: row nowrap;
-            justify-content: space-between;
-            align-items: flex-start;
-            column-gap: $card-spacing;
-            font-size: 0.875rem;
-
-            & > div {
-                display: inline-block;
-                flex: 2 1 100%;
-            }
-            .workbc-card-categories {
-                flex: 2 1 80%;
-            }
-            .workbc-card-duration {
-                flex: 2 1 20%;
-
-                background: url(../assets/images/duration-icon.svg) left center no-repeat;
-                background-size: 25px;
-                padding-left: 25px; // ensure the content never overlays the background image icon
-                color: $workbc_default_text;
-                text-align: right;
-                vertical-align: top;
-            }
-        }
-
-        .workbc-card-content {
-            padding: $card-spacing;
-            padding-bottom: 0;
-            flex: 1 0 auto;
-
-            & > div:not(:last-child) {
-                margin-bottom: $card-spacing;
-            }
-
-            .workbc-card-title {
-                font-weight: bold;
-                font-size: 1.125rem;
-            }
-        }
-
-        .workbc-card-actions {
-            align-self: flex-end;
-            padding: $card-spacing;
-
-            &.fancy {
-                $spacing: 10px;
-
-                align-self: center;
-                width: 100%;
-
-                display: flex;
-                flex-direction: row;
-                flex-wrap: wrap;
-                align-content: space-around;
-                justify-content: space-around;
-                align-items: stretch;
-                row-gap: $spacing;
-
-                .action {
-                    flex: 2 1 100%;
-                    border: 1px solid $workbc_default_link;
-                    border-radius: 5px;
-
-                    a {
-                        display: flex;
-                        justify-content: center;
-                        width: 100%;
-                        height: 100%;
-                        padding: 5px;
-                        text-align: center;
-                        font-weight: bold;
-
-                        div {
-                            flex: 0 0 auto;
-                            align-self: center;
-                        }
-
-                        &:before, 
-                        &:after {
-                            content: "";
-                            flex: 0 0 auto;
-                            width: 2rem;
-                            height: 2rem;
-                        }
-
-                        &:before {
-                            margin-right: $spacing;
-                        }
-
-                        &:after {
-                            margin-left: $spacing;
-                        }
-
-                        &:hover {
-                            background-color: $workbc_light_theme_background_accent;
-                            text-decoration: none;
-                        }
-                    }
-
-                    &.pdf {
-                        & a:before {
-                            display: inline-block;
-                            background: url(../assets/images/pdf-icon.svg) center no-repeat;
-                            background-size: 70%;
-                        }
-                    }
-
-                    &.hardcopy {
-                        & a:before {
-                            display: inline-block;
-                            background: url(../assets/images/hardcopy-icon.svg) center no-repeat;
-                            background-size: 100%;
-                        }
-                    }
-                }
-            }
-        }
+    .workbc-card-image-preview {
+      img {
+        width: 100%;
+      }
     }
+
+    .workbc-card-video-preview {
+
+      a,
+      button {
+        position: relative;
+        display: block;
+        margin: 0;
+        border: none;
+        width: 100%;
+        padding: 0;
+
+        &:after {
+          content: "";
+          position: absolute;
+          top: 0;
+          right: 0;
+          bottom: 0;
+          left: 0;
+          z-index: 5;
+          background: url(../assets/images/video-play-icon.svg) center center no-repeat;
+          background-size: 60px;
+        }
+
+        &:hover:after {
+          background: url(../assets/images/video-play-icon-hover.svg) center center no-repeat;
+          background-size: 60px;
+        }
+
+        img {
+          z-index: 1;
+          width: 100%;
+        }
+      }
+    }
+
+    .workbc-card-details {
+      background-color: $workbc_light_theme_background_accent;
+      padding: 5px $card-spacing;
+      display: flex;
+      flex-flow: row nowrap;
+      justify-content: space-between;
+      align-items: flex-start;
+      column-gap: $card-spacing;
+      font-size: 0.875rem;
+
+      &>div {
+        display: inline-block;
+        flex: 2 1 100%;
+      }
+
+      .workbc-card-categories {
+        flex: 2 1 80%;
+      }
+
+      .workbc-card-duration {
+        flex: 2 1 20%;
+
+        background: url(../assets/images/duration-icon.svg) left center no-repeat;
+        background-size: 25px;
+        padding-left: 25px; // ensure the content never overlays the background image icon
+        color: $workbc_default_text;
+        text-align: right;
+        vertical-align: top;
+      }
+    }
+
+    .workbc-card-content {
+      padding: $card-spacing;
+      flex: 1 0 auto;
+      display: flex;
+      flex-flow: column nowrap;
+
+      & > div {
+        flex: 1 1 auto;
+      }
+
+      & > div:not(:last-child) {
+        margin-bottom: $card-spacing;
+      }
+
+      .workbc-card-title {
+        font-weight: bold;
+        font-size: 1.125rem;
+      }
+
+      .workbc-card-actions {
+        align-self: flex-end;
+        display: flex;
+        align-items: flex-end;
+  
+        &.fancy {
+          $spacing: 10px;
+  
+          align-self: center;
+          width: 100%;
+  
+          display: flex;
+          flex-direction: row;
+          flex-wrap: wrap;
+          align-content: space-around;
+          justify-content: space-around;
+          align-items: stretch;
+          row-gap: $spacing;
+  
+          .action {
+            flex: 2 1 100%;
+            border: 1px solid $workbc_default_link;
+            border-radius: 5px;
+  
+            a {
+              display: flex;
+              justify-content: center;
+              width: 100%;
+              height: 100%;
+              padding: 5px;
+              text-align: center;
+              font-weight: bold;
+  
+              div {
+                flex: 0 0 auto;
+                align-self: center;
+              }
+  
+              &:before,
+              &:after {
+                content: "";
+                flex: 0 0 auto;
+                width: 2rem;
+                height: 2rem;
+              }
+  
+              &:before {
+                margin-right: $spacing;
+              }
+  
+              &:after {
+                margin-left: $spacing;
+              }
+  
+              &:hover {
+                background-color: $workbc_light_theme_background_accent;
+                text-decoration: none;
+              }
+            }
+  
+            &.pdf {
+              & a:before {
+                display: inline-block;
+                background: url(../assets/images/pdf-icon.svg) center no-repeat;
+                background-size: 70%;
+              }
+            }
+  
+            &.hardcopy {
+              & a:before {
+                display: inline-block;
+                background: url(../assets/images/hardcopy-icon.svg) center no-repeat;
+                background-size: 100%;
+              }
+            }
+          }
+        }
+      }
+  
+    }
+  }
 }
 
 // see https://www.codeply.com/p/0CWffz76Q9 for inspiration on desktop size multiple panel view
 .workbc-card-carousel {
-    .carousel {
-        .carousel-inner {
-            .carousel-item {
-                display: none;
+  .carousel {
+    .carousel-inner {
+      .carousel-item {
+        display: none;
 
-                &.active {
-                    padding: $container-gutter calc(50px + $container-gutter);
-                    display: flex;
-                    flex-flow: row nowrap;
-                    align-items: stretch;
-                    column-gap: $card-spacing;
-                    align-content: stretch;
-    
-                    & > .workbc-card {
-                        display: none;
-                        flex: 0 1 calc(100%);
-    
-                        &:first-child {
-                            display: block;
-                        }
+        &.active {
+          padding: $container-gutter calc(50px + $container-gutter);
+          display: flex;
+          flex-flow: row nowrap;
+          align-items: stretch;
+          column-gap: $card-spacing;
+          align-content: stretch;
 
-                        @media (min-width: 1200px) {
-                            display: block;
-                            flex: 0 1 calc(100%/3);
-                        }
-                    }
-                } 
-            }
-        } 
-        
-        .carousel-control-prev, .carousel-control-next {
-            background-color: transparent;
-            width: 4vh;
-            height: 4vh;
-            top: 50%;
-            transform: translateY(-50%);
-            border-radius: 50%;
-            border: 1px solid #9D9D9D;
+          &>.workbc-card {
+            display: none;
+            flex: 0 1 calc(100%);
 
-            &:hover {
-                background-color: $workbc_palette_light_secondary;
+            &:first-child {
+              display: block;
             }
 
-            // hacky override of the carousel control icon colors
-            $icon-color: $workbc_palette_dark_primary;
-            $icon-fill-string: "rgb(" + 
-                red($workbc_palette_dark_secondary) + ", " +
-                green($workbc_palette_dark_secondary) + ", " +
-                blue($workbc_palette_dark_secondary) + 
-            ")";
-
-            .carousel-control-prev-icon {
-                background-image: url("data:image/svg+xml,%3csvg xmlns='http://www.w3.org/2000/svg' viewBox='0 0 16 16' fill='#{$icon-fill-string}'%3e%3cpath d='M11.354 1.646a.5.5 0 0 1 0 .708L5.707 8l5.647 5.646a.5.5 0 0 1-.708.708l-6-6a.5.5 0 0 1 0-.708l6-6a.5.5 0 0 1 .708 0z'/%3e%3c/svg%3e") !important;
+            @media (min-width: 1200px) {
+              display: block;
+              flex: 0 1 calc(100%/3);
             }
-            
-            .carousel-control-next-icon {
-                background-image: url("data:image/svg+xml,%3csvg xmlns='http://www.w3.org/2000/svg' viewBox='0 0 16 16' fill='#{$icon-fill-string}'%3e%3cpath d='M4.646 1.646a.5.5 0 0 1 .708 0l6 6a.5.5 0 0 1 0 .708l-6 6a.5.5 0 0 1-.708-.708L10.293 8 4.646 2.354a.5.5 0 0 1 0-.708z'/%3e%3c/svg%3e") !important;
-            }
+          }
         }
+      }
     }
+
+    .carousel-control-prev,
+    .carousel-control-next {
+      background-color: transparent;
+      width: 4vh;
+      height: 4vh;
+      top: 50%;
+      transform: translateY(-50%);
+      border-radius: 50%;
+      border: 1px solid #9D9D9D;
+
+      &:hover {
+        background-color: $workbc_palette_light_secondary;
+      }
+
+      // hacky override of the carousel control icon colors
+      $icon-color: $workbc_palette_dark_primary;
+      $icon-fill-string: "rgb(" + red($workbc_palette_dark_secondary) + ", " + green($workbc_palette_dark_secondary) + ", " + blue($workbc_palette_dark_secondary) + ")";
+
+      .carousel-control-prev-icon {
+        background-image: url("data:image/svg+xml,%3csvg xmlns='http://www.w3.org/2000/svg' viewBox='0 0 16 16' fill='#{$icon-fill-string}'%3e%3cpath d='M11.354 1.646a.5.5 0 0 1 0 .708L5.707 8l5.647 5.646a.5.5 0 0 1-.708.708l-6-6a.5.5 0 0 1 0-.708l6-6a.5.5 0 0 1 .708 0z'/%3e%3c/svg%3e") !important;
+      }
+
+      .carousel-control-next-icon {
+        background-image: url("data:image/svg+xml,%3csvg xmlns='http://www.w3.org/2000/svg' viewBox='0 0 16 16' fill='#{$icon-fill-string}'%3e%3cpath d='M4.646 1.646a.5.5 0 0 1 .708 0l6 6a.5.5 0 0 1 0 .708l-6 6a.5.5 0 0 1-.708-.708L10.293 8 4.646 2.354a.5.5 0 0 1 0-.708z'/%3e%3c/svg%3e") !important;
+      }
+    }
+  }
 }
 
-.workbc-card-columns { 
-    display: flex;
-    flex-flow: row wrap;
-    align-items: stretch;
-    align-content: space-between;
-    row-gap: $card-spacing;
-    column-gap: $card-spacing;
-    margin-bottom: $card-spacing;
+.workbc-card-columns {
+  display: flex;
+  flex-flow: row wrap;
+  align-items: stretch;
+  align-content: space-between;
+  row-gap: $card-spacing;
+  column-gap: $card-spacing;
+  margin-bottom: $card-spacing;
 
-    .workbc-card {
-        $card-cols: 1;
-        flex: 0 0 calc((100% - ($card-cols - 1)*$card-spacing) / $card-cols);
-        
-        @include media-breakpoint-up(md) {
-            $card-cols: 2;
-            flex-basis: calc((100% - ($card-cols - 1)*$card-spacing) / $card-cols);
-        }
-        @include media-breakpoint-up(lg) {
-            $card-cols: 3;
-            flex-basis: calc((100% - ($card-cols - 1)*$card-spacing) / $card-cols);
-        }
-        
-        & > * {
-            flex: 0 0 auto;
-            width: 100%;
-        }
+  .workbc-card {
+    $card-cols: 1;
+    flex: 0 0 calc((100% - ($card-cols - 1)*$card-spacing) / $card-cols);
+
+    @include media-breakpoint-up(md) {
+      $card-cols: 2;
+      flex-basis: calc((100% - ($card-cols - 1)*$card-spacing) / $card-cols);
     }
+
+    @include media-breakpoint-up(lg) {
+      $card-cols: 3;
+      flex-basis: calc((100% - ($card-cols - 1)*$card-spacing) / $card-cols);
+    }
+
+    &>* {
+      flex: 0 0 auto;
+      width: 100%;
+    }
+  }
 }
