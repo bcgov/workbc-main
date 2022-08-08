@@ -11,6 +11,8 @@ function convertCheck($check_field) {
 }
 
 function convertImage($image) {
+  if (empty($image)) return NULL;
+
   $data = file_get_contents($image->download_url);
   if ($data === FALSE) {
     print("  Could not download file {$image->download_url}\n");
@@ -44,6 +46,8 @@ function convertMultiline($multiline_field) {
 }
 
 function convertVideo($url) {
+  if (empty($url)) return NULL;
+
   $fields = [
     'bundle' => 'remote_video',
     'uid' => 1,

@@ -57,13 +57,16 @@ try {
 
     // Cache the item template.
     if (!array_key_exists($item->templateId, $templates)) {
-      $templates[$item->templateId] = map_fields_ids($gc->templateGet($item->templateId));
+      $template = $gc->templateGet($item->templateId);
+      $templates[$item->templateId] = map_fields_ids($template);
+      $templates[$item->templateId]['template'] = $template['data'];
     }
 
     // Loop on the content fields and translate field ids to field labels.
     $content = [
       'title' => $item->name,
       'id' => $item->id,
+      'template' => $templates[$item->templateId]['template']->name,
     ];
     foreach ($item->content as $uuid => $value) {
       $field = $templates[$item->templateId][$uuid];
