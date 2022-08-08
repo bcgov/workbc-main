@@ -19,16 +19,12 @@ footer {
           @include list-item-separator-after("|", 8px);
           color: $workbc_dark_theme_text;
 
-          &:first-of-type > a {
-            padding-left: 0;
-          }
-
           & > a {
             color: $workbc_dark_theme_text;
+          }
 
-            &:not(:hover) {
-              text-decoration: none;
-            }
+          &:first-of-type > a {
+            padding-left: 0;
           }
         }
       }
