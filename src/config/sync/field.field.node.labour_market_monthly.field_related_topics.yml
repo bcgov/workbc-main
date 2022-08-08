@@ -4,8 +4,19 @@ status: true
 dependencies:
   config:
     - field.storage.node.field_related_topics
+    - node.type.bc_profile
+    - node.type.blog
+    - node.type.career_profile
+    - node.type.event
+    - node.type.industry_profile
     - node.type.labour_market_monthly
+    - node.type.landing_page
+    - node.type.news
     - node.type.page
+    - node.type.publication
+    - node.type.region_profile
+    - node.type.success_story
+    - node.type.workbc_centre
 id: node.labour_market_monthly.field_related_topics
 field_name: field_related_topics
 entity_type: node
@@ -20,10 +31,22 @@ settings:
   handler: 'default:node'
   handler_settings:
     target_bundles:
+      bc_profile: bc_profile
       page: page
+      blog: blog
+      career_profile: career_profile
+      event: event
+      industry_profile: industry_profile
+      labour_market_monthly: labour_market_monthly
+      landing_page: landing_page
+      news: news
+      publication: publication
+      region_profile: region_profile
+      success_story: success_story
+      workbc_centre: workbc_centre
     sort:
       field: _none
       direction: ASC
     auto_create: false
-    auto_create_bundle: ''
+    auto_create_bundle: bc_profile
 field_type: entity_reference
