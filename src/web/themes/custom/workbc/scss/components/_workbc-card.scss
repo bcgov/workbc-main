@@ -4,23 +4,21 @@ $container-gutter: 20px;
 .workbc-card {
   // height: 100%;  This messes up height stretching on Related Topics Carousel
 
-  // &.wide {
-  //   @media (min-width: 1200px) {
-  //     .workbc-card-container {
-  //       flex-flow: column wrap;
-  //       align-content: space-between;
+  &.wide {
+    @media (min-width: 1200px) {
+      .workbc-card-container {
+        flex-flow: row nowrap;
 
-  //       & > div {
-  //         flex: 1 1 auto;
-  //         width: 50%;
-          
-  //         &.workbc-card-image-preview {
-  //           flex: 1 1 100%;
-  //         }
-  //       }
-  //     }
-  //   }
-  // }
+        & > div {
+          flex: 1 1 50%;
+        }
+
+        & > .workbc-card-content {
+          padding: calc(2 * $card-spacing);
+        }
+      }
+    }
+  }
 
   .workbc-card-container {
     height: 100%;
