@@ -38,6 +38,16 @@ content:
     third_party_settings: {  }
     weight: 1
     region: content
+  field_hardcopy_available:
+    type: boolean
+    label: visually_hidden
+    settings:
+      format: default
+      format_custom_false: ''
+      format_custom_true: ''
+    third_party_settings: {  }
+    weight: 5
+    region: content
   field_image:
     type: image
     label: visually_hidden
@@ -59,7 +69,6 @@ content:
     weight: 3
     region: content
 hidden:
-  field_hardcopy_available: true
   field_resource_number: true
   links: true
   search_api_excerpt: true
