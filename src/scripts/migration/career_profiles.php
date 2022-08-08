@@ -1,5 +1,10 @@
 <?php
 
+require('gc-drupal.php');
+
+use GuzzleHttp\Client;
+use GuzzleHttp\Exception\RequestException;
+
 /**
  * Generate career profile nodes from SSoT entries and optional career_profiles.json import from GatherContent.
  * Source: /wages (WorkBC_2021_Wage_Data)
@@ -8,9 +13,6 @@
  *
  * Revert: drush entity:delete node --bundle=career_profile
  */
-
-use GuzzleHttp\Client;
-use GuzzleHttp\Exception\RequestException;
 
 // Read GatherContent career profiles if present.
 $career_profiles = [];
@@ -55,8 +57,8 @@ try {
         'field_work_environment' => convertRichText($career_profile->{'Work Environment Content'}),
         'field_career_pathways' => convertRichText($career_profile->{'Career Pathways Content'}),
         'field_occupational_interests_int' => convertRichText($career_profile->{'Occupational Interests Content'}),
-        'field_job_titles' => convertMultiple($career_profile->{'Job Titles List'}),
-        'field_career_videos' => convertVideos($career_profile->{'Career Video URLs'}),
+        'field_job_titles' => convertMultiline($career_profile->{'Job Titles List'}),
+        'field_career_videos' => array_map('convertVideo', convertMultiline($career_profile->{'Career Video URLs'})),
         'field_career_videos_introduction' => convertRichText($career_profile->{'Career Videos Content'}),
         'field_education_training_skills' => convertRichText($career_profile->{'Education, Training and Skills Content'}),
         'field_education_programs' => convertRichText($career_profile->{'Education Programs in B.C. Content'}),
@@ -85,7 +87,7 @@ try {
   }
 
   /**
-   * Second pass: Related career profiles to each other.
+   * Second pass: Relate career profiles to each other.
    */
   foreach ($career_profiles as $noc => $career_profile) {
     if (empty($career_profile->{'Related Careers NOCs'})) continue;
@@ -95,11 +97,11 @@ try {
       ->getStorage('node')
       ->load($career_profile->nid);
     if (empty($node)) {
-      print("  Node $nid not found\n");
+      print("  Node {$career_profile->nid} not found\n");
       continue;
     }
 
-    foreach (convertMultiple($career_profile->{'Related Careers NOCs'}) as $raw_related_noc) {
+    foreach (convertMultiline($career_profile->{'Related Careers NOCs'}) as $raw_related_noc) {
       $related_noc = NULL;
       if (!preg_match('/\d+/', $raw_related_noc, $related_noc)) {
         print("  Could not parse related NOC $raw_related_noc\n");
@@ -118,31 +120,6 @@ try {
 }
 catch (RequestException $e) {
   print($e->getMessage());
-}
-
-function convertRichText($field) {
-  return ['format' => 'full_html', 'value' => $field];
-}
-
-function convertMultiple($multi_field) {
-  return array_filter(array_map('trim', explode("\n", $multi_field)));
-}
-
-function convertVideos($urls) {
-  $targets = [];
-  foreach (convertMultiple($urls) as $url) {
-    $fields = [
-      'bundle' => 'remote_video',
-      'uid' => 1,
-      'field_media_oembed_video' => $url,
-    ];
-    $media = Drupal::entityTypeManager()
-      ->getStorage('media')
-      ->create($fields);
-    $media->save();
-    $targets[] = ['target_id' => $media->id()];
-  }
-  return $targets;
 }
 
 function convertResources($resources) {

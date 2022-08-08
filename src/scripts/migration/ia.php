@@ -1,9 +1,14 @@
 <?php
 
+require('gc-drupal.php');
+
+use Drupal\path_alias\Entity\PathAlias;
+use Drupal\pathauto\PathautoState;
+
 /**
  * Generate nodes for all content type in the WorkBC Refresh IA.
  *
- * Usage: drush scr /scripts/migration/ia -- /path/to/ia.csv
+ * Usage: drush scr /scripts/migration/ia
  *
  * Revert:
  * - drush entity:delete node --bundle=page
@@ -11,14 +16,23 @@
  * - drush entity:delete menu_link_content
  */
 
-use Drupal\path_alias\Entity\PathAlias;
-use Drupal\pathauto\PathautoState;
-
-$file = array_key_exists(0, $extra) ? $extra[0] : __DIR__ . '/ia.csv';
-if (empty($file) or ($handle = fopen($file, "r")) === FALSE) {
-    die("[WorkBC Migration] Could not open $file\nUsage: drush scr ia.php -- /path/to/ia.csv\n");
+$csv = __DIR__ . '/data/ia.csv';
+if (($handle = fopen($csv, "r")) === FALSE) {
+    die("[WorkBC Migration] Could not open $csv");
 }
-print("Importing $file\n");
+print("Importing IA spreadsheet $csv\n");
+
+$gc_pages = [];
+$gc_pages_title_index = [];
+$gc = __DIR__ . '/data/ia.json';
+if (file_exists($gc)) {
+    print("Importing GC content $gc\n");
+    $row = json_decode(file_get_contents($gc));
+    foreach ($row as $i => $gc_page) {
+        $gc_pages[$gc_page->id] = $gc_page;
+        $gc_pages_title_index[strtolower($gc_page->title)] = $gc_page->id;
+    }
+}
 
 // Setup the front page.
 // 1. Set the front page to /front.
@@ -49,22 +63,23 @@ const DRUPAL_TYPE = 7;
 const URL = 12;
 
 // FIRST PASS: Create all the nodes.
-print("Creating content...\n");
-$row = 0;
-$nodes = [];
+print("FIRST PASS\n");
+$row_number = 0;
+global $pages;
+$pages = [];
 $path = [];
-while (($data = fgetcsv($handle)) !== FALSE) {
+while (($row = fgetcsv($handle)) !== FALSE) {
     // Skip first header row.
-    $row++;
-    if ($row < 2) continue;
+    $row_number++;
+    if ($row_number < 2) continue;
 
     // Detect page title and path to create the hierarchy.
     // We build up the $path array to contain the current hierarchy, discarding "Home".
     $title = NULL;
     $level = NULL;
     for ($c = TREE_LAST; $c >= TREE_FIRST; $c--) {
-        if (!empty($data[$c])) {
-            $title = trim($data[$c]);
+        if (!empty($row[$c])) {
+            $title = trim($row[$c]);
             $level = max(0, $c - TREE_FIRST - 1);
             $path[$level] = $title;
             if ($level < count($path)) {
@@ -74,14 +89,14 @@ while (($data = fgetcsv($handle)) !== FALSE) {
         }
     }
     if (empty($title)) {
-        print("Skipping empty page at row $row\n");
+        print("Skipping empty row $row_number\n");
         continue;
     }
 
     // Detect a type that we can import.
-    $t = strtolower($data[DRUPAL_TYPE]);
+    $t = strtolower($row[DRUPAL_TYPE]);
     if (empty($t) || !array_key_exists($t, $types)) {
-        if (!empty($data[MEGA_MENU]) && empty($data[URL])) {
+        if (!empty($row[MEGA_MENU]) && empty($row[URL])) {
             // A placeholder page until we have a better way to deal with this entry.
             $type = 'page';
         }
@@ -93,7 +108,7 @@ while (($data = fgetcsv($handle)) !== FALSE) {
         $type = $types[$t];
     }
 
-    // TODO Add more fields from GatherContent.
+    print("Processing \"$title\"...\n");
     $fields = [
         'type' => $type,
         'title' => $title,
@@ -103,58 +118,88 @@ while (($data = fgetcsv($handle)) !== FALSE) {
         ],
     ];
 
+    // Add content from GatherContent.
+    unset($gc_page);
+    $gc_page = NULL;
+    if (array_key_exists(strtolower($title), $gc_pages_title_index)) {
+        print("  Found GatherContent entry\n");
+        $gc_page = &$gc_pages[$gc_pages_title_index[strtolower($title)]];
+
+        // Populate fields based on template type.
+        // TODO Verify that template type matches Drupal content type.
+        switch (trim($gc_page->template)) {
+            case "Standard Page":
+                $fields = array_merge($fields, [
+                    'body' => convertRichText($gc_page->{'Page Content'}),
+                    'field_hero_text' => convertRichText($gc_page->{'Page Description'}),
+                    'field_hero_image' => array_map('convertImage', array_filter($gc_page->{'Banner Image'})),
+                ]);
+                break;
+            case "Landing Page 1":
+            case "Landing Page 2":
+            case "Landing Page 3":
+            case "Landing Page 4":
+            case "Landing Page 5":
+            case "Landing Page 6":
+                break;
+        }
+    }
+
     // Create the node.
-    if (!empty($data[URL])) {
-        $nodes[implode('/', $path)] = [
+    if (!empty($row[URL])) {
+        $pages[implode('/', $path)] = [
             'id' => NULL,
             'title' => $title,
             'path' => $path,
             'menu_item' => NULL,
-            'mega_menu' => !empty($data[MEGA_MENU]) ? $row : NULL,
-            'uri' => $data[URL]
+            'mega_menu' => !empty($row[MEGA_MENU]) ? $row_number : NULL,
+            'uri' => $row[URL],
+            'gc' => NULL,
         ];
-        print("No content: " . implode(' => ', $path) . "\n");
+        print("  No content: " . implode(' => ', $path) . "\n");
     }
     else if (!empty($type)) {
         $node = Drupal::entityTypeManager()
             ->getStorage('node')
             ->create($fields);
         $node->save();
-        $nodes[implode('/', $path)] = [
+        $pages[implode('/', $path)] = [
             'id' => $node->id(),
             'title' => $title,
             'path' => $path,
             'menu_item' => NULL,
-            'mega_menu' => !empty($data[MEGA_MENU]) ? $row : NULL,
-            'uri' => NULL
+            'mega_menu' => !empty($row[MEGA_MENU]) ? $row_number : NULL,
+            'uri' => NULL,
+            'gc' => !empty($gc_page) ? $gc_page->id : NULL,
         ];
-        print("Creating $type: " . implode(' => ', $path) . "\n");
+        if (!empty($gc_page)) {
+            $gc_page->nid = $node->id();
+        }
+        print("  Created $type: " . implode(' => ', $path) . "\n");
     }
     else {
-        print("Ignoring: " . implode(' => ', $path) . "\n");
+        print("  Ignoring\n");
     }
 }
 fclose($handle);
 
-// SECOND PASS: Create the menu hierarchy.
-print("Creating menu...\n");
+// SECOND PASS:
+// - Create the menu hierarchy
+// - Link related nodes
+print("SECOND PASS\n");
 
-function createMenuEntry($path, $node, &$nodes, $menu_link_storage, $menu_name) {
-    $title = end($node['path']);
-    print("Menu for \"$title\"\n");
-    if (empty($node)) {
-        print("  Could not find node. Skipping\n");
-        return;
-    }
-    if (!empty($node['menu_item'])) {
+function createMenuEntry($path, $page, &$pages, $menu_name) {
+    if (!empty($page['menu_item'])) {
         print("  Menu found. Skipping\n");
         return;
     }
+    $menu_link_storage = \Drupal::entityTypeManager()->getStorage('menu_link_content');
 
     // Add path alias to /front if this is the home page and exit early.
+    $title = $page['title'];
     if (0 === strcasecmp($title, 'Home')) {
         PathAlias::create([
-            'path' => "/node/{$node['id']}",
+            'path' => "/node/{$page['id']}",
             'alias' => '/front',
             'langcode' => 'en',
         ])->save();
@@ -165,18 +210,18 @@ function createMenuEntry($path, $node, &$nodes, $menu_link_storage, $menu_name) 
     // Find the parent menu item under which this one will be placed.
     // This is not necessarily the immediate parent in the IA tree - it can be an ancestor.
     $menu_item_parent = NULL;
-    $parent_path = array_slice($node['path'], 0, -1);
+    $parent_path = array_slice($page['path'], 0, -1);
     while (!empty($parent_path)) {
         $parent = implode('/', $parent_path);
-        $node_parent = &$nodes[$parent];
-        if (empty($node_parent)) {
+        $page_parent = &$pages[$parent];
+        if (empty($page_parent)) {
             print("  Could not find parent node \"$parent\"\n");
         }
-        else if (empty($node_parent['menu_item'])) {
+        else if (empty($page_parent['menu_item'])) {
             print("  Could not find menu for \"$parent\"\n");
         }
         else {
-            $menu_item_parent = $node_parent['menu_item'];
+            $menu_item_parent = $page_parent['menu_item'];
             print("  Parent menu for \"$parent\": $menu_item_parent\n");
             break;
         }
@@ -184,12 +229,12 @@ function createMenuEntry($path, $node, &$nodes, $menu_link_storage, $menu_name) 
     }
 
     // Setup the proper URI for this menu entry.
-    if (!empty($node['id'])) {
-        $link = ['uri' => "entity:node/{$node['id']}"];
+    if (!empty($page['id'])) {
+        $link = ['uri' => "entity:node/{$page['id']}"];
     }
-    else if (strpos($node['uri'] , 'http') === 0) {
+    else if (strpos($page['uri'] , 'http') === 0) {
         $link = [
-            'uri' => "{$node['uri']}",
+            'uri' => "{$page['uri']}",
             'options' => [
                 'attributes' => [
                     'rel' => 'noopener noreferrer',
@@ -199,7 +244,7 @@ function createMenuEntry($path, $node, &$nodes, $menu_link_storage, $menu_name) 
         ];
     }
     else {
-        $link = ['uri' => "internal:{$node['uri']}"];
+        $link = ['uri' => "internal:{$page['uri']}"];
     }
     $menu_link = $menu_link_storage->create([
         'title' => $title,
@@ -207,45 +252,68 @@ function createMenuEntry($path, $node, &$nodes, $menu_link_storage, $menu_name) 
         'menu_name' => $menu_name,
         'parent' => $menu_item_parent,
         'expanded' => TRUE,
-        'weight' => $node['mega_menu']
+        'weight' => $page['mega_menu']
     ]);
     $menu_link->save();
-    $nodes[$path]['menu_item'] = $menu_link->getPluginId();
-    print("  Menu for \"$title\": {$nodes[$path]['menu_item']}\n");
+    $pages[$path]['menu_item'] = $menu_link->getPluginId();
+    print("  Menu for \"$title\": {$pages[$path]['menu_item']}\n");
 }
 
-$menu_link_storage = \Drupal::entityTypeManager()->getStorage('menu_link_content');
-foreach ($nodes as $path => &$node) {
-    if (!empty($node['mega_menu'])) {
-        createMenuEntry($path, $node, $nodes, $menu_link_storage, 'main');
+foreach ($pages as $path => &$page) {
+    print("Processing \"{$page['title']}\"...\n");
+
+    // Insert node in the navigation menu.
+    if (!empty($page['mega_menu'])) {
+        createMenuEntry($path, $page, $pages, 'main');
+    }
+
+    // Add relations from GatherContent.
+    if (!empty($page['gc']) && array_key_exists($page['gc'], $gc_pages)) {
+        $gc_page = &$gc_pages[$page['gc']];
+        if (empty($gc_page)) {
+            print( "  Empty GatherContent item {$page['title']}\n");
+            continue;
+        }
+
+        if (empty($page['id'])) {
+            print("  Could not find a Drupal node for {$page['title']}\n");
+            continue;
+        }
+
+        $node = Drupal::entityTypeManager()
+            ->getStorage('node')
+            ->load($page['id']);
+
+        if (property_exists($gc_page, 'Related Topics Card')) {
+            $node->field_related_topics = convertRelatedTopics($gc_page->{'Related Topics Card'}, $gc_pages);
+        }
+
+        $node->save();
     }
 }
 
-/**
- * Access GatherContent item.
- */
-// $email = 'TODO';
-// $apiKey = 'TODO';
-// $projectId = 284269;
-// $client = new \GuzzleHttp\Client();
-// $gc = new \Cheppers\GatherContent\GatherContentClient($client);
-// $gc
-//   ->setEmail($email)
-//   ->setApiKey($apiKey);
-// try {
-//     $item = $gc->itemGet(12593020);
-//     $template = $gc->templateGet($item->templateId);
-//     $component = $gc->componentGet('b9abb081-fb11-444a-96bb-04777aefc84a');
-// }
-// catch (\Exception $e) {
-//     echo 'ERROR: ' . $e->getMessage() . PHP_EOL;
-//     exit(1);
-// }
-// print_r($item->content);
+function convertRelatedTopics($related_topics, &$gc_pages) {
+    $field = [];
+    if (!empty($related_topics)) foreach (array_filter($related_topics, function($card) {
+        return !empty($card->{'Link Anchor'});
+    }) as $card) {
+        $related_item = NULL;
+        if (!preg_match('/^https:\/\/.*?\.gathercontent\.com\/item\/(\d+)$/', $card->{'Link Anchor'}, $related_item)) {
+          print("  Could not parse related GatherContent item {$card->{'Link Anchor'}}\n");
+          continue;
+        }
 
-/**
- * Create paragraph
- * https://www.drupal.org/project/paragraphs/issues/2707017
- */
+        $related_id = $related_item[1];
+        if (!array_key_exists($related_id, $gc_pages)) {
+          print(" Could not find related GatherContent item $related_id\n");
+          continue;
+        }
+        if (empty($gc_pages[$related_id]->nid)) {
+          print(" Related GatherContent item $related_id does not have an associated Drupal node\n");
+          continue;
+        }
 
-?>
+        $field[] = ['target_id' => $gc_pages[$related_id]->nid];
+    }
+    return $field;
+}

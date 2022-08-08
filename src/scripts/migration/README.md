@@ -38,11 +38,11 @@ Each script listed here includes a short documentation header that details its u
 
 | Script | Data source(s) | Output(s) |
 | -------| -------------- | -----------------|
-| ia.php  | IA (data/ia.csv)<br>GC | Content types `page`, `landing_page`, `blog`, `news`, `success_story`<br>Menu `main` |
-| career_profiles.php | SSoT<br>GC | Content type `career_profile` |
+| ia.php  | IA (data/ia.csv)<br>GC (data/ia.json) | Content types `page`, `landing_page`, `blog`, `news`, `success_story`<br>Menu `main` |
+| career_profiles.php | SSoT<br>GC (data/career_profiles.json) | Content type `career_profile` |
 | education.php | SSoT | Taxonomy `education` |
 | skills.php | SSoT | Taxonomy `skills` |
 | taxonomy.php | LS ([data/definitions.csv](https://www.workbc.ca/Jobs-Careers/Career-Toolkit/Definitions.aspx)) | Taxonomy `definitions` |
 | taxonomy.php | LS ([data/occupational_interests.csv](https://www.workbc.ca/Labour-Market-Industry/Skills-for-the-Future-Workforce.aspx#characteristics)) | Taxonomy `occupational_interests` |
 | taxonomy.php | LS ([data/video_categories.csv](https://www.workbc.ca/videolibrary/)) | Taxonomy `video_categories` |
-| gc-json.php | GC | JSON file with matching items |
+| gc-json.php | GC | JSON file |
