@@ -29,13 +29,17 @@ elements: |-
       principal: 'Principal, Vice Principal or Adminstator'
       teacher: 'Teacher or Counsellor'
       organizer: Organizer
+    '#empty_option': '—Select Your Role'
   school:
     '#type': textfield
     '#title': School
   email_address:
     '#type': email
     '#title': 'Email Address'
+    '#placeholder': youremail@example.com
     '#required': true
+    '#pattern': '[a-z0-9._%+-]+@[a-z0-9.-]+\.[a-z]{2,}$'
+    '#pattern_error': 'Please enter a valid email address.'
   phone_number:
     '#type': tel
     '#title': 'Phone Number'
@@ -57,6 +61,7 @@ elements: |-
       northeast: Northeast
       thompson-okanagan: Thompson-Okanagan
       vancouver-island-coast: 'Vancouver Island/Coast'
+    '#empty_option': '—Select Your Region'
   city:
     '#type': textfield
     '#title': City

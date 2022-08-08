@@ -60,6 +60,8 @@ elements: |-
     '#title': 'Email Address'
     '#placeholder': youremail@example.com
     '#required': true
+    '#pattern': '[a-z0-9._%+-]+@[a-z0-9.-]+\.[a-z]{2,}$'
+    '#pattern_error': 'Please enter a valid email address.'
   please_provide_any_specific_shipping_instructions_:
     '#type': textarea
     '#title': 'Please provide any specific shipping instructions:'
