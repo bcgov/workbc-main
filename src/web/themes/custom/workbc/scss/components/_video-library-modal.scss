@@ -3,7 +3,7 @@ $close_icon_spacing: 30px;
 .video-library-modal {
     position: relative; // start positional context %videomodal
     padding: $close_icon_spacing;
-    z-index: 1;
+    z-index: 50;
 
     .ui-dialog-titlebar {
         position: absolute; // relative to positional context %videomodal
