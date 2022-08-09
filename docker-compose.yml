@@ -165,26 +165,30 @@ services:
 #    labels:
 #    - "traefik.http.routers.${PROJECT_NAME}_pma.rule=Host(`pma.${PROJECT_BASE_URL}`)"
 
-#  solr:
-#    image: wodby/solr:$SOLR_TAG
+  solr:
+    image: wodby/solr:$SOLR_TAG
 #    container_name: "${PROJECT_NAME}_solr"
-#    environment:
-##      SOLR_DEFAULT_CONFIG_SET: $SOLR_CONFIG_SET
+    ports:
+    - "8983:8983"
+    environment:
+      SOLR_DEFAULT_CONFIG_SET: $SOLR_CONFIG_SET
 #      ZK_HOST: zookeeper:2181
-#      SOLR_HEAP: 1024m
+      SOLR_HEAP: 1024m
 #    depends_on:
 #    - zookeeper
-#    labels:
-#    - "traefik.http.services.${PROJECT_NAME}_solr.loadbalancer.server.port=8983"
-#    - "traefik.http.routers.${PROJECT_NAME}_solr.rule=Host(`solr.${PROJECT_BASE_URL}`)"
+    labels:
+    - "traefik.http.services.${PROJECT_NAME}_solr.loadbalancer.server.port=8983"
+    - "traefik.http.routers.${PROJECT_NAME}_solr.rule=Host(`solr.${PROJECT_BASE_URL}`)"
+    volumes:
+    - solrdata:/opt/solr/server/solr/workbc_dev
 
-#  zookeeper:
-#    image: zookeeper:$ZOOKEEPER_TAG
-#    container_name: "${PROJECT_NAME}_zookeeper"
-#    environment:
-#      ZOO_MY_ID: 1
-#      ZOO_SERVERS: server.1=zookeeper:2888:3888;2181
-#      ZOO_4LW_COMMANDS_WHITELIST: mntr, conf, ruok
+#   zookeeper:
+#     image: zookeeper:$ZOOKEEPER_TAG
+# #    container_name: "${PROJECT_NAME}_zookeeper"
+#     environment:
+#       ZOO_MY_ID: 1
+#       ZOO_SERVERS: server.1=zookeeper:2888:3888;2181
+#       ZOO_4LW_COMMANDS_WHITELIST: mntr, conf, ruok
 
 #  drupal-node:
 #    image: wodby/drupal-node:$DRUPAL_NODE_TAG
@@ -342,6 +346,7 @@ services:
 
 volumes:
   pgdata:
+  solrdata:
 ## For macOS users (Mutagen)
 #  drupal:
 ## For Xdebug profiler

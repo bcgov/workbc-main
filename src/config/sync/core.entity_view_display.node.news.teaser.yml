@@ -29,5 +29,8 @@ content:
     weight: 100
     region: content
 hidden:
+  extra_field_workbc_page_title: true
+  extra_field_workbc_published_on: true
   field_image: true
+  langcode: true
   search_api_excerpt: true

@@ -34,8 +34,10 @@ content:
 hidden:
   extra_field_publication_orderform_link: true
   extra_field_workbc_page_title: true
+  extra_field_workbc_published_on: true
   field_hardcopy_available: true
   field_image: true
   field_publication: true
   field_resource_number: true
+  langcode: true
   search_api_excerpt: true

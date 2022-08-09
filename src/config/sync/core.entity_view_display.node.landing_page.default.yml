@@ -32,7 +32,9 @@ content:
     region: content
 hidden:
   extra_field_workbc_page_title: true
+  extra_field_workbc_published_on: true
   field_hero_image: true
   field_hero_text: true
   field_related_topics: true
+  langcode: true
   search_api_excerpt: true
