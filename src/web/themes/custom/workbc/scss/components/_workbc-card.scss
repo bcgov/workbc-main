@@ -15,6 +15,20 @@ $container-gutter: 20px;
 
         & > .workbc-card-content {
           padding: calc(2 * $card-spacing);
+
+          .workbc-card-actions {
+            &.fancy {
+              flex-wrap: wrap;
+              align-content: flex-start;
+              justify-content: flex-start;
+              align-items: flex-start;
+              column-gap: 10px;
+
+              .action {
+                flex: 0 0 auto;
+              }
+            }
+          }
         }
       }
     }
