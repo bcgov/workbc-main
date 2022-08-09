@@ -143,6 +143,6 @@ class RelatedTopicsBlock extends BlockBase {
         return $title;
       }
     }
-    return '';
+    return $node->getTitle();
   }
 }
