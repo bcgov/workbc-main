@@ -50,12 +50,26 @@ class RelatedTopicsBlock extends BlockBase {
   public function build() {
 
     $related_topics = array();
-
+    $debug = false;
     $node = \Drupal::routeMatch()->getParameter('node');
     if ($node instanceof \Drupal\node\NodeInterface) {
+      if ($node->id() == 17) {
+        $debug = true;
+      }
+      if ($debug) {
+        ksm('related topics block build');
+        ksm($node->id());
+        ksm('rt build - node');
+      }
       if ($node->hasField('field_related_topics')) {
+        if ($debug) {
+          ksm('rt build - has related topics field');
+        }
         $related = $node->get('field_related_topics')->referencedEntities();
         if (!empty($related)) {
+          if ($debug) {
+            ksm('rt build - has related topics');
+          }
           foreach ($related as $refNode) {
             $related_fields = array(
               'image' => $this->renderImage($refNode),
@@ -64,10 +78,30 @@ class RelatedTopicsBlock extends BlockBase {
               'body' => $this->renderText($refNode),
               'action' => $this->renderLink($refNode),
             );
-
+            if ($debug) {
+              ksm($related_fields);
+            }
             array_push($related_topics, $related_fields);
           }
         }
+        else {
+          if ($debug) {
+            ksm('rt build - no related topics');
+          }
+        }
+        if ($debug) {
+          ksm($related_topics);
+        }
+      }
+      else {
+        if ($debug) {
+          ksm('rt build - no related topics field');
+        }
+      }
+    }
+    else {
+      if ($debug) {
+        ksm('rt build - not a node');
       }
     }
 
@@ -75,7 +109,9 @@ class RelatedTopicsBlock extends BlockBase {
       '#theme' => 'related_topics_block',
       '#related_topics' => $related_topics,
     ];
-
+    if ($debug) {
+      ksm($renderable);
+    }
     return $renderable;
   }
 
@@ -84,6 +120,7 @@ class RelatedTopicsBlock extends BlockBase {
     if($imageUri) {
       $image = [
         '#theme' => 'image_style',
+
         '#style_name' => 'related_topics',
         '#uri' => $imageUri
       ];
