@@ -48,7 +48,7 @@ class RelatedTopicsBlock extends BlockBase {
    * {@inheritdoc}
    */
   public function build() {
-
+    ksm('related topics block build');
     $related_topics = array();
     $debug = false;
     $node = \Drupal::routeMatch()->getParameter('node');
@@ -57,7 +57,6 @@ class RelatedTopicsBlock extends BlockBase {
         $debug = true;
       }
       if ($debug) {
-        ksm('related topics block build');
         ksm($node->id());
         ksm('rt build - node');
       }
@@ -100,18 +99,18 @@ class RelatedTopicsBlock extends BlockBase {
       }
     }
     else {
-      if ($debug) {
+      // if ($debug) {
         ksm('rt build - not a node');
-      }
+      // }
     }
 
     $renderable = [
       '#theme' => 'related_topics_block',
       '#related_topics' => $related_topics,
     ];
-    if ($debug) {
+    // if ($debug) {
       ksm($renderable);
-    }
+    // }
     return $renderable;
   }
 
