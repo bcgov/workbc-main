@@ -114,6 +114,10 @@ class RelatedTopicsBlock extends BlockBase {
     return $renderable;
   }
 
+  public function getCacheMaxAge() {
+      return 0;
+  }
+  
   private function renderImage($node) {
     $imageUri = isset($node->get('field_hero_image')->entity) ? $node->get('field_hero_image')->entity->getFileUri() : null;
     if($imageUri) {
