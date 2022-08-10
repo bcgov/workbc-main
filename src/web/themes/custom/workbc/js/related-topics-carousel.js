@@ -2,6 +2,8 @@
 
   // see https://www.codeply.com/p/0CWffz76Q9 for inspiration on desktop size multiple panel view
 
+  console.log("Setting up Related Topics Carousel");
+
   let items = document.querySelectorAll('.carousel .carousel-item');
 
   const minPerSlide = Math.min(items.length, 3);
