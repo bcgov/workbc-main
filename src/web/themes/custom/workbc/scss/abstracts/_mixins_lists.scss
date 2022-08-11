@@ -27,3 +27,15 @@
     }
   }
 }
+
+@mixin text-footnote {
+  font-size: 0.9375rem;
+  line-height: 1.5rem;
+  color: #8A8D8B;
+}
+
+@mixin text-article-date {
+  font-size: 0.9375rem;
+  line-height: 1.5rem;
+  color: #8A8D8B;
+}

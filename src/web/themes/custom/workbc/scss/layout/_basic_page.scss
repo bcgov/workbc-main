@@ -1,0 +1,5 @@
+.node--type-success-story {
+    .field--name-extra-field-workbc-published-on {
+        @include text-article-date;
+    }
+}
