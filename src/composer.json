@@ -71,6 +71,7 @@
         "drupal/image_widget_crop": "^2.3",
         "drupal/jquery_ui_accordion": "^1.1",
         "drupal/keycloak": "^1.7",
+        "drupal/mail_login": "^2.6",
         "drupal/paragraphs": "^1.14",
         "drupal/pathauto": "^1.10",
         "drupal/published_corrected_date": "^2.0",
