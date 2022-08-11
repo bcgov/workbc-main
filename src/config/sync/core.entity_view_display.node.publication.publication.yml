@@ -71,5 +71,6 @@ content:
 hidden:
   extra_field_workbc_published_on: true
   field_resource_number: true
+  langcode: true
   links: true
   search_api_excerpt: true

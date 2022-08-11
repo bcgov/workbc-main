@@ -46,6 +46,8 @@ hidden:
   extra_field_region_unemployment_rate_bc: true
   extra_field_region_unemployment_rate_chart: true
   extra_field_region_unemployment_rate_region: true
+  extra_field_workbc_page_title: true
+  extra_field_workbc_published_on: true
   field_hero_image: true
   field_industry_highlights_intro: true
   field_key_facts: true
@@ -53,4 +55,5 @@ hidden:
   field_labour_market_stats_intro: true
   field_region_overview: true
   field_top_occupations_intro: true
+  langcode: true
   search_api_excerpt: true

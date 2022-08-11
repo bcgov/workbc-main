@@ -45,6 +45,8 @@ hidden:
   extra_field_industry_job_openings: true
   extra_field_industry_national_wage: true
   extra_field_industry_top_ten_occupations: true
+  extra_field_workbc_page_title: true
+  extra_field_workbc_published_on: true
   field_employment_introduction: true
   field_employment_trends_intro: true
   field_hero_image: true
@@ -55,4 +57,5 @@ hidden:
   field_top_occupations_intro: true
   field_wage_introduction: true
   field_work_force_introduction: true
+  langcode: true
   search_api_excerpt: true

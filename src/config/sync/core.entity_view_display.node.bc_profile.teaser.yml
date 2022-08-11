@@ -37,9 +37,12 @@ hidden:
   extra_field_bc_unemployment_rate: true
   extra_field_bc_unemployment_rate_bc: true
   extra_field_bc_unemployment_rate_chart: true
+  extra_field_workbc_page_title: true
+  extra_field_workbc_published_on: true
   field_hero_image: true
   field_industry_highlights_intro: true
   field_key_facts: true
   field_labour_market_stats_intro: true
   field_region_overview: true
+  langcode: true
   search_api_excerpt: true
