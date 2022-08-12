@@ -58,6 +58,13 @@ resource "aws_ecs_task_definition" "solr" {
 				containerPort = 8983
 			}
 		]
+		
+		environment = [
+			{
+				name = "SOLR_CORE_NAME",
+				value = "workbc"
+			}
+		]
 
 		mountPoints = [
 			{
