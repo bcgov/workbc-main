@@ -4,7 +4,7 @@ applies_admin_routes: true
 include_invalid_paths: false
 excluded_paths: ''
 replaced_titles: ''
-custom_paths: "/workbc-order-form :: Plan a Career | /plan-career :: Our Publications | /our-publications :: WorkBC Resource Order Form\r\n/request-a-tour-stop :: Plan a Career | /plan-career :: Career Events | /career-events :: Find Your Fit Tour | /find-your-fit-tour :: Request a Tour Stop\r\nregex!/news/([^/]*) :: Plan a Career | /plan-career :: News | /news ::  $1\r\nregex!/blog/([^/]*) :: Plan a Career | /plan-career :: Blog | /blog ::  $1\r\nregex!/success-story/([^/]*) :: Plan a Career | /plan-career :: Success Stories | /success-stories ::  $1\r\nregex!/career-profiles/([^/]*) :: Plan a Career | /plan-career :: Explore Careers | /explore-careers"
+custom_paths: "/workbc-order-form :: Plan a Career | /plan-career :: Our Publications | /our-publications :: WorkBC Resource Order Form\r\n/request-a-tour-stop :: Plan a Career | /plan-career :: Career Events | /career-events :: Find Your Fit Tour | /find-your-fit-tour :: Request a Tour Stop\r\nregex!/news/([^/]*) :: Plan a Career | /plan-career :: News | /news ::  <title>\r\nregex!/blog/([^/]*) :: Plan a Career | /plan-career :: Blog | /blog ::  <title>\r\nregex!/success-story/([^/]*) :: Plan a Career | /plan-career :: Success Stories | /success-stories ::  <title>\r\nregex!/career-profiles/([^/]*) :: Plan a Career | /plan-career :: Explore Careers | /explore-careers"
 include_home_segment: true
 alternative_title_field: field_breadcrumb_title
 home_segment_title: Home
