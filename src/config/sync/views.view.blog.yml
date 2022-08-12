@@ -213,7 +213,7 @@ display:
           click_sort_column: value
           type: timestamp
           settings:
-            date_format: custom
+            date_format: published_on_date
             custom_date_format: 'd M Y'
             timezone: ''
           group_column: value
@@ -750,7 +750,7 @@ display:
           click_sort_column: value
           type: timestamp
           settings:
-            date_format: custom
+            date_format: published_on_date
             custom_date_format: 'd F Y'
             timezone: ''
           group_column: value
@@ -817,7 +817,7 @@ display:
           click_sort_column: value
           type: string
           settings:
-            link_to_entity: false
+            link_to_entity: true
           group_column: value
           group_columns: {  }
           group_rows: true

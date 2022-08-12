@@ -250,4 +250,7 @@ hidden:
   extra_field_region_employment_by_region_table: true
   extra_field_region_employment_shart_goods_services_chart: true
   extra_field_region_population_bc: true
+  extra_field_workbc_page_title: true
+  extra_field_workbc_published_on: true
+  langcode: true
   search_api_excerpt: true

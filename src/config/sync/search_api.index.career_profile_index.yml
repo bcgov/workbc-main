@@ -4,10 +4,53 @@ status: true
 dependencies:
   config:
     - field.storage.node.field_noc
-    - search_api.server.database_server
+    - search_api.server.solr
   module:
+    - search_api_solr
     - node
     - search_api
+third_party_settings:
+  search_api_solr:
+    finalize: false
+    commit_before_finalize: false
+    commit_after_finalize: false
+    debug_finalize: false
+    highlighter:
+      maxAnalyzedChars: 51200
+      fragmenter: gap
+      usePhraseHighlighter: true
+      highlightMultiTerm: true
+      preserveMulti: false
+      regex:
+        slop: 0.5
+        pattern: blank
+        maxAnalyzedChars: 10000
+      highlight:
+        mergeContiguous: false
+        requireFieldMatch: false
+        snippets: 3
+        fragsize: 0
+    mlt:
+      mintf: 1
+      mindf: 1
+      maxdf: 0
+      maxdfpct: 0
+      minwl: 0
+      maxwl: 0
+      maxqt: 100
+      maxntp: 2000
+      boost: false
+      interestingTerms: none
+    term_modifiers:
+      slop: 3
+      fuzzy: 1
+    advanced:
+      index_prefix: ''
+      collection: ''
+      timezone: ''
+    multilingual:
+      limit_to_content_language: false
+      include_language_independent: true
 id: career_profile_index
 name: 'Career Profile Index'
 description: ''
@@ -70,6 +113,7 @@ datasource_settings:
 processor_settings:
   add_url: {  }
   aggregated_field: {  }
+  auto_aggregated_fulltext_field: {  }
   content_access:
     weights:
       preprocess_query: -43
@@ -101,6 +145,7 @@ processor_settings:
       - title
   language_with_fallback: {  }
   rendered_item: {  }
+  solr_date_range: {  }
   stemmer:
     weights:
       preprocess_index: 0
@@ -183,4 +228,4 @@ options:
   cron_limit: 50
   index_directly: true
   track_changes_in_references: true
-server: database_server
+server: solr

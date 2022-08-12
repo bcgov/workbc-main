@@ -50,6 +50,8 @@ elements: |-
   phone_extension:
     '#type': number
     '#title': Extension
+    '#min': 1
+    '#max': 999999
   region:
     '#type': select
     '#title': Region

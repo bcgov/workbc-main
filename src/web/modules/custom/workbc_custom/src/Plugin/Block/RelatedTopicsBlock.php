@@ -48,7 +48,6 @@ class RelatedTopicsBlock extends BlockBase {
    * {@inheritdoc}
    */
   public function build() {
-
     $related_topics = array();
 
     $node = \Drupal::routeMatch()->getParameter('node');
@@ -64,7 +63,6 @@ class RelatedTopicsBlock extends BlockBase {
               'body' => $this->renderText($refNode),
               'action' => $this->renderLink($refNode),
             );
-
             array_push($related_topics, $related_fields);
           }
         }
@@ -75,8 +73,11 @@ class RelatedTopicsBlock extends BlockBase {
       '#theme' => 'related_topics_block',
       '#related_topics' => $related_topics,
     ];
-
     return $renderable;
+  }
+
+  public function getCacheMaxAge() {
+      return 0;
   }
 
   private function renderImage($node) {
@@ -84,6 +85,7 @@ class RelatedTopicsBlock extends BlockBase {
     if($imageUri) {
       $image = [
         '#theme' => 'image_style',
+
         '#style_name' => 'related_topics',
         '#uri' => $imageUri
       ];
@@ -143,6 +145,6 @@ class RelatedTopicsBlock extends BlockBase {
         return $title;
       }
     }
-    return '';
+    return $node->getTitle();
   }
 }

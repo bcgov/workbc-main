@@ -50,6 +50,7 @@ module:
   jquery_ui: 0
   jquery_ui_accordion: 0
   keycloak: 0
+  language: 0
   link: 0
   media: 0
   media_library: 0
@@ -68,6 +69,7 @@ module:
   search_api: 0
   search_api_autocomplete: 0
   search_api_db: 0
+  search_api_solr: 0
   shortcut: 0
   simple_block: 0
   system: 0

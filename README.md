@@ -15,6 +15,10 @@ This is the WorkBC site on Drupal.
 - Import the init data dumps:
   - `bunzip2 -c src/scripts/workbc-init.sql.bz2 | docker-compose exec -T postgres psql -U workbc workbc`
   - `bunzip2 -c src/scripts/ssot-full.sql.bz2 | docker-compose exec -T postgres psql -U workbc ssot`
+- Create the Solr index:
+  - `docker-compose exec -u 0 solr sh -c "chown -R solr:solr /opt/solr/server/solr/workbc_dev"`
+  - `docker-compose exec solr sh -c "curl -sIN 'http://localhost:8983/solr/admin/cores?action=CREATE&name=workbc_dev&configSet=workbc&instanceDir=workbc_dev'"`
+  - `docker-compose exec php bash -c "drush sapi-r && drush sapi-i"`
 - Edit your `hosts` file to add the following line:
 ```
 127.0.0.1       workbc.docker.localhost

@@ -10,10 +10,14 @@ submenu-underlay:
   js:
     js/submenu-underlay.js: {}
   dependencies:
+    - core/drupal
     - core/jquery
+    - core/once
 related-topics-carousel:
   js:
     js/related-topics-carousel.js: {}
   dependencies:
+    - core/drupal
     - core/jquery
+    - core/once
     
