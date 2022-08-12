@@ -5,6 +5,7 @@ dependencies:
   config:
     - field.field.node.blog.body
     - field.field.node.blog.field_image
+    - field.field.node.blog.field_tags
     - image.style.article_wide
     - node.type.blog
   module:
@@ -38,6 +39,14 @@ content:
         attribute: lazy
     third_party_settings: {  }
     weight: 2
+    region: content
+  field_tags:
+    type: entity_reference_label
+    label: visually_hidden
+    settings:
+      link: true
+    third_party_settings: {  }
+    weight: 4
     region: content
   links:
     settings: {  }
