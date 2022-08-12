@@ -39,3 +39,24 @@
   line-height: 1.5rem;
   color: #8A8D8B;
 }
+
+@mixin underlined-header {
+  $underline-size: 4px;
+
+  position: relative; // begin positional context %underlineheader
+  font-size: 2.8125rem;
+  color: #333333;
+  border-bottom: $underline-size;
+  padding-bottom: $underline-size; 
+
+  &:before {
+    content: '';
+    height: 4px;
+    position: absolute; // relative to positional context %underlineheader
+    left: 0px;
+    bottom: 0px;
+    right: 0px;
+    z-index:-1;
+    background-image: linear-gradient(to right, #D8E5F1 25%, #FFFFFF 100%);
+  }
+}

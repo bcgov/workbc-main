@@ -40,13 +40,10 @@ visibility:
       node: '@node.node_route_context:node'
     bundles:
       bc_profile: bc_profile
-      blog: blog
       event: event
       industry_profile: industry_profile
       labour_market_monthly: labour_market_monthly
       landing_page: landing_page
-      news: news
       page: page
       region_profile: region_profile
-      success_story: success_story
       workbc_centre: workbc_centre

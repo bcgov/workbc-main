@@ -1,5 +1,23 @@
-.node--type-success-story {
+.node--type-success-story,
+.node--type-news,
+.node--type-blog {
+    max-width: $workbc_article_width;
+    margin: auto;
+
+    .field--name-extra-field-workbc-page-title {
+        @include underlined-header;
+        margin-bottom: $workbc_default_spacing;
+    }
+
     .field--name-extra-field-workbc-published-on {
         @include text-article-date;
+        margin-bottom: $workbc_default_spacing;
+    }
+
+    .field--name-field-image,
+    .field--name-field-image .field__item,
+    .field--name-field-image .field__item img {
+        width: 100%;
+        margin-bottom: $workbc_default_spacing;
     }
 }
