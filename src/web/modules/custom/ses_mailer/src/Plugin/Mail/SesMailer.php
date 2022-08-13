@@ -91,9 +91,13 @@ class SesMailer extends PluginBase implements MailInterface, ContainerFactoryPlu
     $result['error'] = FALSE;
     try {
       // Credentials are set in environment variables.
+      $cc = array_key_exists('Cc', $message['headers']) ? $message['headers']['Cc'] : [];
+      $bcc = array_key_exists('Bcc', $message['headers']) ? $message['headers']['Bcc'] : [];
       $response = $this->sesClient->sendEmail([
         'Destination' => [
           'ToAddresses' => [$message['to']],
+          'CcAddresses' => $cc,
+          'BccAddresses' => $bcc,
         ],
         'Message' => [
           'Body' => [
