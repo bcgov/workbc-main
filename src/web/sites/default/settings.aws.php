@@ -17,6 +17,7 @@ $settings['file_private_path'] = '/app/private';
 
 // Email sending via AWS SES.
 $config['system.mail']['interface']['default'] = 'ses_mail';
+$config['system.mail']['interface']['webform'] = 'ses_mail';
 
 // Single Source of Truth (SSoT) configuration.
 $config['workbc']['ssot_url'] = getenv('SSOT_URL');
