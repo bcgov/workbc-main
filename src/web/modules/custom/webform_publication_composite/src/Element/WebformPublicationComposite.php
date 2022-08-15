@@ -55,7 +55,7 @@ class WebformPublicationComposite extends WebformCompositeBase {
     $elements = [];
     $elements['publications'] = array(
       '#type' => 'table',
-      '#header' => array(t('Quantity'), t('Resource'), t('Resource No'), t('View PDF')),
+      '#header' => array(t('Quantity'), t('Resource'), t('Resource Number'), t('View PDF')),
     );
     foreach ($nodes as $node) {
       $elements['publications'][$pub]['quantity-'.$pub] = [
