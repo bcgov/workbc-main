@@ -1,59 +1,116 @@
+$hero_banner_height: 420px;
+
 .hero-banner {
-    $hero_banner_height: 420px;
+    min-height: $hero_banner_height;
     z-index: 1;
 
-    height: $hero_banner_height;
     border-bottom: $workbc_trim_ultra_thin_size solid $workbc_palette_dark_secondary;
     background-color: $workbc_light_theme_background_accent;
-
-    @include media-breakpoint-up(lg) { 
-        position: relative; // start positional context %herobanner
-    }    
+    display: flex;
+    flex-flow: row wrap;
 
     .hero-image-wrapper {
+        width: 100%;
+
         .hero-image-overlay {
-            @include media-breakpoint-up(lg) { 
-                position: absolute; // relative to positional context %herobanner
-                z-index: 1;
-                top: 0;
-                right: 0;
-                bottom: 0;
-
-                height: $hero_banner_height;
-                width: calc(2*$hero_banner_height);
-
-                background: rgb(255,255,255);
-                background: linear-gradient(90deg, rgba($workbc_light_theme_background_accent,1) 10%, rgba($workbc_light_theme_background_accent,0) 50%);
-
-                border-bottom: $workbc_trim_ultra_thin_size solid $workbc_palette_dark_secondary; // need to copy the container trim since we're sitting over top of the container
-            }
+            display: none;
         }
 
         img {
-            @include media-breakpoint-up(lg) { 
-                position: absolute; // relative to positional context %herobanner
-                z-index: 0;
-                top: 0;
-                right: 0;
-                bottom: 0;
-
-                height: $hero_banner_height;
-                width: calc(2*$hero_banner_height);
-            }
+            width: 100%;
         }
     }
 
-    .views-field-title {
-        .field-content {
-            flex: 0 1 50%;
-            padding-top: calc(2 * $workbc_default_spacing);
-        }
-    }
+    .hero-content-wrapper {
+        padding-top: $workbc_default_spacing;
 
-    .views-field-field-hero-text {
-        .field-content {
-            flex: 0 1 50%;
+        .hero-title {
+            padding-top: $workbc_default_spacing;
+        }
+    
+        .hero-content {
             padding-top: $workbc_default_spacing;
         }
     }
+
+//     .view-content {
+//         width: 100%;
+
+//         .views-row {
+//             display: flex;
+//             flex-flow: row wrap;
+
+//             @include media-breakpoint-up(xl) { 
+//                 flex-flow: column wrap;
+//                 align-items: flex-start;
+//             }
+
+//             .hero-image-wrapper {
+//                 z-index: -1;
+//                 width: 100%;
+        
+//                 .hero-image-overlay {
+//                     width: 100%;
+        
+//                     @include media-breakpoint-up(xl) { 
+//                         position: absolute; // relative to positional context %herobanner
+//                         z-index: 1;
+//                         top: 0;
+//                         right: 0;
+//                         bottom: 0;
+        
+//                         height: $hero_banner_height;
+//                         width: calc(2*$hero_banner_height);
+        
+//                         background: rgb(255,255,255);
+//                         background: linear-gradient(90deg, rgba($workbc_light_theme_background_accent,1) 10%, rgba($workbc_light_theme_background_accent,0) 50%);
+        
+//                         border-bottom: $workbc_trim_ultra_thin_size solid $workbc_palette_dark_secondary; // need to copy the container trim since we're sitting over top of the container
+//                     }
+//                 }
+        
+//                 img {
+//                     width: 100%;
+        
+//                     @include media-breakpoint-up(xl) { 
+//                         position: absolute; // relative to positional context %herobanner
+//                         z-index: -2;
+//                         top: 0;
+//                         right: 0;
+//                         bottom: 0;
+        
+//                         height: $hero_banner_height;
+//                         width: calc(2*$hero_banner_height);
+//                     }
+//                 }
+//             }
+        
+//             .views-field-title {
+//                 z-index: 2;
+//                 flex: 0 0 100%;
+        
+//                 .field-content {
+//                     padding-top: calc(2 * $workbc_default_spacing);
+//                 }
+        
+//                 @include media-breakpoint-up(xl) { 
+//                     flex-basis: 50%;
+//                 }    
+//             }
+        
+//             .views-field-field-hero-text {
+//                 z-index: 2;
+//                 flex: 0 0 100%;
+        
+//                 .field-content {
+//                     padding-top: $workbc_default_spacing;
+//                 }
+        
+//                 @include media-breakpoint-up(xl) { 
+//                     flex-basis: 50%;
+//                 }    
+//             }
+//         }
+//     }
+
 }
