@@ -16,6 +16,7 @@ dependencies:
     - field.field.node.career_profile.field_job_titles
     - field.field.node.career_profile.field_noc
     - field.field.node.career_profile.field_related_careers
+    - field.field.node.career_profile.field_related_topics_blurb
     - field.field.node.career_profile.field_resources
     - field.field.node.career_profile.field_work_environment
     - node.type.career_profile
@@ -29,9 +30,12 @@ content: {  }
 hidden:
   extra_field_annual_salary: true
   extra_field_annual_salary_source: true
+  extra_field_career_videos_introduction: true
   extra_field_education_programs: true
   extra_field_employment_growth_rate_forecast: true
+  extra_field_employment_introduction: true
   extra_field_high_opportunity_occupation: true
+  extra_field_industry_highlights_intro: true
   extra_field_job_openings: true
   extra_field_job_openings_by_industry: true
   extra_field_job_openings_by_industry_source: true
@@ -43,17 +47,22 @@ hidden:
   extra_field_job_openings_source: true
   extra_field_labour_market_expected_openings: true
   extra_field_labour_market_expected_openings_source: true
+  extra_field_labour_market_introduction: true
   extra_field_labour_market_number_employed: true
   extra_field_labour_market_number_employed_source: true
   extra_field_labour_market_region_employment: true
   extra_field_labour_market_region_employment_source: true
+  extra_field_labour_market_statistics_i: true
   extra_field_minimum_education: true
   extra_field_occupational_interests: true
+  extra_field_occupational_interests_int: true
   extra_field_profile_skills: true
   extra_field_salary_info_annual_salary: true
   extra_field_salary_info_annual_salary_note: true
   extra_field_salary_info_hourly_rate: true
   extra_field_salary_info_source: true
+  extra_field_salary_introduction: true
+  extra_field_skills_introduction: true
   extra_field_work_environment_number_employed: true
   extra_field_work_environment_percent_fulltime: true
   extra_field_work_environment_source: true
@@ -71,6 +80,7 @@ hidden:
   field_job_titles: true
   field_noc: true
   field_related_careers: true
+  field_related_topics_blurb: true
   field_resources: true
   field_work_environment: true
   langcode: true

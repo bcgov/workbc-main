@@ -15,6 +15,7 @@ dependencies:
     - field.field.node.career_profile.field_job_titles
     - field.field.node.career_profile.field_noc
     - field.field.node.career_profile.field_related_careers
+    - field.field.node.career_profile.field_related_topics_blurb
     - field.field.node.career_profile.field_resources
     - field.field.node.career_profile.field_work_environment
     - image.style.thumbnail
@@ -139,6 +140,14 @@ content:
     settings:
       match_operator: CONTAINS
       match_limit: 10
+      size: 60
+      placeholder: ''
+    third_party_settings: {  }
+  field_related_topics_blurb:
+    type: text_textfield
+    weight: 30
+    region: content
+    settings:
       size: 60
       placeholder: ''
     third_party_settings: {  }

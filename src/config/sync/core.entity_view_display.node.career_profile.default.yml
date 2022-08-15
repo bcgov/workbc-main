@@ -15,6 +15,7 @@ dependencies:
     - field.field.node.career_profile.field_job_titles
     - field.field.node.career_profile.field_noc
     - field.field.node.career_profile.field_related_careers
+    - field.field.node.career_profile.field_related_topics_blurb
     - field.field.node.career_profile.field_resources
     - field.field.node.career_profile.field_work_environment
     - node.type.career_profile
@@ -429,6 +430,13 @@ content:
       link: true
     third_party_settings: {  }
     weight: 24
+    region: content
+  field_related_topics_blurb:
+    type: text_default
+    label: above
+    settings: {  }
+    third_party_settings: {  }
+    weight: 76
     region: content
   field_resources:
     type: link
