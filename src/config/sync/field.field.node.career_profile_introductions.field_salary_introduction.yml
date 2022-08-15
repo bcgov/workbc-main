@@ -1,17 +1,17 @@
-uuid: 366778ee-ee55-49f4-aca5-99f412353ab6
+uuid: 6314cb34-6484-4fdd-b8e5-bb3753388c99
 langcode: en
 status: true
 dependencies:
   config:
     - field.storage.node.field_salary_introduction
-    - node.type.career_profile
+    - node.type.career_profile_introductions
   module:
     - text
-id: node.career_profile.field_salary_introduction
+id: node.career_profile_introductions.field_salary_introduction
 field_name: field_salary_introduction
 entity_type: node
-bundle: career_profile
-label: Salary
+bundle: career_profile_introductions
+label: 'Salary Introduction'
 description: ''
 required: false
 translatable: false

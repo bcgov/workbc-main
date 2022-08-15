@@ -3,26 +3,19 @@ langcode: en
 status: true
 dependencies:
   config:
-    - field.field.node.career_profile.body
-    - field.field.node.career_profile.field_additional_duties
-    - field.field.node.career_profile.field_career_overview_intro
+    - field.field.node.career_profile.field_career_overview
     - field.field.node.career_profile.field_career_pathways
     - field.field.node.career_profile.field_career_videos
-    - field.field.node.career_profile.field_career_videos_introduction
     - field.field.node.career_profile.field_duties
     - field.field.node.career_profile.field_education_programs
     - field.field.node.career_profile.field_education_training_skills
     - field.field.node.career_profile.field_hero_image
-    - field.field.node.career_profile.field_industry_highlights_intro
     - field.field.node.career_profile.field_insights_from_industry
+    - field.field.node.career_profile.field_introductions
     - field.field.node.career_profile.field_job_titles
-    - field.field.node.career_profile.field_labour_market_introduction
     - field.field.node.career_profile.field_noc
-    - field.field.node.career_profile.field_occupational_interests_int
     - field.field.node.career_profile.field_related_careers
     - field.field.node.career_profile.field_resources
-    - field.field.node.career_profile.field_salary_introduction
-    - field.field.node.career_profile.field_skills_introduction
     - field.field.node.career_profile.field_work_environment
     - node.type.career_profile
   module:
@@ -53,9 +46,9 @@ third_party_settings:
         width_breakpoint: 640
     group_career_overview:
       children:
-        - field_career_overview_intro
+        - field_career_overview
         - field_duties
-        - field_salary_introduction
+        - extra_field_salary_introduction
         - extra_field_salary_info_annual_salary
         - extra_field_salary_info_annual_salary_note
         - extra_field_salary_info_hourly_rate
@@ -66,14 +59,13 @@ third_party_settings:
         - extra_field_work_environment_source
         - field_career_pathways
         - field_related_careers
-        - field_occupational_interests_int
+        - extra_field_occupational_interests_int
         - extra_field_occupational_interests
         - field_job_titles
-        - field_additional_duties
       label: 'Career Overview'
       parent_name: group_career_profile_tabs
       region: content
-      weight: 20
+      weight: 25
       format_type: tab
       format_settings:
         classes: ''
@@ -86,12 +78,12 @@ third_party_settings:
         - field_education_training_skills
         - field_education_programs
         - extra_field_education_programs
-        - field_skills_introduction
+        - extra_field_skills_introduction
         - extra_field_profile_skills
       label: 'Education, Training & Skills'
       parent_name: group_career_profile_tabs
       region: content
-      weight: 21
+      weight: 26
       format_type: tab
       format_settings:
         classes: ''
@@ -101,11 +93,13 @@ third_party_settings:
         description: ''
     group_labour_market_statistics:
       children:
-        - field_labour_market_introduction
+        - extra_field_labour_market_statistics_i
+        - extra_field_employment_introduction
         - extra_field_labour_market_number_employed
         - extra_field_labour_market_number_employed_source
         - extra_field_labour_market_region_employment
         - extra_field_labour_market_region_employment_source
+        - extra_field_labour_market_introduction
         - extra_field_labour_market_expected_openings
         - extra_field_labour_market_expected_openings_source
         - extra_field_job_openings_forecast
@@ -117,7 +111,7 @@ third_party_settings:
       label: 'Labour Market Statistics'
       parent_name: group_career_profile_tabs
       region: content
-      weight: 22
+      weight: 27
       format_type: tab
       format_settings:
         classes: ''
@@ -127,14 +121,14 @@ third_party_settings:
         description: ''
     group_industry_highlights:
       children:
-        - field_industry_highlights_intro
+        - extra_field_industry_highlights_intro
         - extra_field_job_openings_by_industry
         - extra_field_job_openings_by_industry_source
         - field_insights_from_industry
       label: 'Industry Highlights'
       parent_name: group_career_profile_tabs
       region: content
-      weight: 23
+      weight: 29
       format_type: tab
       format_settings:
         classes: ''
@@ -148,7 +142,7 @@ third_party_settings:
       label: Resources
       parent_name: group_career_profile_tabs
       region: content
-      weight: 24
+      weight: 30
       format_type: tab
       format_settings:
         classes: ''
@@ -171,20 +165,35 @@ content:
     third_party_settings: {  }
     weight: 6
     region: content
+  extra_field_career_videos_introduction:
+    settings: {  }
+    third_party_settings: {  }
+    weight: 9
+    region: content
   extra_field_education_programs:
     settings: {  }
     third_party_settings: {  }
-    weight: 19
+    weight: 18
     region: content
   extra_field_employment_growth_rate_forecast:
     settings: {  }
     third_party_settings: {  }
-    weight: 34
+    weight: 71
+    region: content
+  extra_field_employment_introduction:
+    settings: {  }
+    third_party_settings: {  }
+    weight: 62
     region: content
   extra_field_high_opportunity_occupation:
     settings: {  }
     third_party_settings: {  }
     weight: 2
+    region: content
+  extra_field_industry_highlights_intro:
+    settings: {  }
+    third_party_settings: {  }
+    weight: 12
     region: content
   extra_field_job_openings:
     settings: {  }
@@ -194,37 +203,37 @@ content:
   extra_field_job_openings_by_industry:
     settings: {  }
     third_party_settings: {  }
-    weight: 21
+    weight: 13
     region: content
   extra_field_job_openings_by_industry_source:
     settings: {  }
     third_party_settings: {  }
-    weight: 22
+    weight: 14
     region: content
   extra_field_job_openings_by_region:
     settings: {  }
     third_party_settings: {  }
-    weight: 38
+    weight: 74
     region: content
   extra_field_job_openings_by_region_source:
     settings: {  }
     third_party_settings: {  }
-    weight: 39
+    weight: 75
     region: content
   extra_field_job_openings_composition:
     settings: {  }
     third_party_settings: {  }
-    weight: 35
+    weight: 72
     region: content
   extra_field_job_openings_forecast:
     settings: {  }
     third_party_settings: {  }
-    weight: 33
+    weight: 70
     region: content
   extra_field_job_openings_forecast_source:
     settings: {  }
     third_party_settings: {  }
-    weight: 37
+    weight: 73
     region: content
   extra_field_job_openings_source:
     settings: {  }
@@ -234,32 +243,42 @@ content:
   extra_field_labour_market_expected_openings:
     settings: {  }
     third_party_settings: {  }
-    weight: 31
+    weight: 68
     region: content
   extra_field_labour_market_expected_openings_source:
     settings: {  }
     third_party_settings: {  }
-    weight: 32
+    weight: 69
+    region: content
+  extra_field_labour_market_introduction:
+    settings: {  }
+    third_party_settings: {  }
+    weight: 67
     region: content
   extra_field_labour_market_number_employed:
     settings: {  }
     third_party_settings: {  }
-    weight: 27
+    weight: 63
     region: content
   extra_field_labour_market_number_employed_source:
     settings: {  }
     third_party_settings: {  }
-    weight: 28
+    weight: 64
     region: content
   extra_field_labour_market_region_employment:
     settings: {  }
     third_party_settings: {  }
-    weight: 29
+    weight: 65
     region: content
   extra_field_labour_market_region_employment_source:
     settings: {  }
     third_party_settings: {  }
-    weight: 30
+    weight: 66
+    region: content
+  extra_field_labour_market_statistics_i:
+    settings: {  }
+    third_party_settings: {  }
+    weight: 61
     region: content
   extra_field_minimum_education:
     settings: {  }
@@ -269,7 +288,12 @@ content:
   extra_field_occupational_interests:
     settings: {  }
     third_party_settings: {  }
-    weight: 23
+    weight: 26
+    region: content
+  extra_field_occupational_interests_int:
+    settings: {  }
+    third_party_settings: {  }
+    weight: 25
     region: content
   extra_field_profile_skills:
     settings: {  }
@@ -279,58 +303,61 @@ content:
   extra_field_salary_info_annual_salary:
     settings: {  }
     third_party_settings: {  }
-    weight: 12
+    weight: 15
     region: content
   extra_field_salary_info_annual_salary_note:
     settings: {  }
     third_party_settings: {  }
-    weight: 13
+    weight: 16
     region: content
   extra_field_salary_info_hourly_rate:
     settings: {  }
     third_party_settings: {  }
-    weight: 14
+    weight: 17
     region: content
   extra_field_salary_info_source:
     settings: {  }
     third_party_settings: {  }
-    weight: 15
-    region: content
-  extra_field_work_environment_number_employed:
-    settings: {  }
-    third_party_settings: {  }
-    weight: 17
-    region: content
-  extra_field_work_environment_percent_fulltime:
-    settings: {  }
-    third_party_settings: {  }
     weight: 18
     region: content
-  extra_field_work_environment_source:
+  extra_field_salary_introduction:
+    settings: {  }
+    third_party_settings: {  }
+    weight: 14
+    region: content
+  extra_field_skills_introduction:
     settings: {  }
     third_party_settings: {  }
     weight: 19
     region: content
-  field_additional_duties:
-    type: text_default
-    label: above
+  extra_field_work_environment_number_employed:
     settings: {  }
     third_party_settings: {  }
-    weight: 25
+    weight: 20
     region: content
-  field_career_overview_intro:
+  extra_field_work_environment_percent_fulltime:
+    settings: {  }
+    third_party_settings: {  }
+    weight: 21
+    region: content
+  extra_field_work_environment_source:
+    settings: {  }
+    third_party_settings: {  }
+    weight: 22
+    region: content
+  field_career_overview:
     type: text_default
     label: above
     settings: {  }
     third_party_settings: {  }
-    weight: 8
+    weight: 12
     region: content
   field_career_pathways:
     type: text_default
     label: above
     settings: {  }
     third_party_settings: {  }
-    weight: 20
+    weight: 23
     region: content
   field_career_videos:
     type: entity_reference_label
@@ -340,19 +367,12 @@ content:
     third_party_settings: {  }
     weight: 10
     region: content
-  field_career_videos_introduction:
-    type: text_default
-    label: above
-    settings: {  }
-    third_party_settings: {  }
-    weight: 9
-    region: content
   field_duties:
     type: text_default
     label: above
     settings: {  }
     third_party_settings: {  }
-    weight: 9
+    weight: 13
     region: content
   field_education_programs:
     type: text_default
@@ -379,19 +399,12 @@ content:
     third_party_settings: {  }
     weight: 4
     region: content
-  field_industry_highlights_intro:
-    type: text_default
-    label: above
-    settings: {  }
-    third_party_settings: {  }
-    weight: 20
-    region: content
   field_insights_from_industry:
     type: text_default
     label: above
     settings: {  }
     third_party_settings: {  }
-    weight: 23
+    weight: 16
     region: content
   field_job_titles:
     type: string
@@ -399,14 +412,7 @@ content:
     settings:
       link_to_entity: false
     third_party_settings: {  }
-    weight: 24
-    region: content
-  field_labour_market_introduction:
-    type: text_default
-    label: above
-    settings: {  }
-    third_party_settings: {  }
-    weight: 26
+    weight: 27
     region: content
   field_noc:
     type: string
@@ -416,20 +422,13 @@ content:
     third_party_settings: {  }
     weight: 1
     region: content
-  field_occupational_interests_int:
-    type: text_default
-    label: above
-    settings: {  }
-    third_party_settings: {  }
-    weight: 22
-    region: content
   field_related_careers:
     type: entity_reference_label
     label: above
     settings:
       link: true
     third_party_settings: {  }
-    weight: 21
+    weight: 24
     region: content
   field_resources:
     type: link
@@ -443,26 +442,12 @@ content:
     third_party_settings: {  }
     weight: 1
     region: content
-  field_salary_introduction:
-    type: text_default
-    label: above
-    settings: {  }
-    third_party_settings: {  }
-    weight: 11
-    region: content
-  field_skills_introduction:
-    type: text_default
-    label: above
-    settings: {  }
-    third_party_settings: {  }
-    weight: 20
-    region: content
   field_work_environment:
     type: text_default
     label: above
     settings: {  }
     third_party_settings: {  }
-    weight: 16
+    weight: 19
     region: content
   links:
     settings: {  }
@@ -470,8 +455,8 @@ content:
     weight: 0
     region: content
 hidden:
-  body: true
   extra_field_workbc_page_title: true
   extra_field_workbc_published_on: true
+  field_introductions: true
   langcode: true
   search_api_excerpt: true

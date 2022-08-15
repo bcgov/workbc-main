@@ -1,17 +1,17 @@
-uuid: c213d659-f6c8-41bd-9f87-b0290091717e
+uuid: 66f5bec9-a972-4da5-b128-feaedddaf855
 langcode: en
 status: true
 dependencies:
   config:
-    - field.storage.node.field_industry_highlights_intro
+    - field.storage.node.field_career_overview
     - node.type.career_profile
   module:
     - text
-id: node.career_profile.field_industry_highlights_intro
-field_name: field_industry_highlights_intro
+id: node.career_profile.field_career_overview
+field_name: field_career_overview
 entity_type: node
 bundle: career_profile
-label: 'Industry Highlights Introduction'
+label: 'Career Overview'
 description: ''
 required: false
 translatable: false

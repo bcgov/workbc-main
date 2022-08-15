@@ -1,16 +1,16 @@
-uuid: 9a60b5fc-f44d-45e9-9fe2-f484528ac1e0
+uuid: 58e26d46-6a84-48ac-91a9-e24974d22047
 langcode: en
 status: true
 dependencies:
   config:
     - field.storage.node.field_skills_introduction
-    - node.type.career_profile
+    - node.type.career_profile_introductions
   module:
     - text
-id: node.career_profile.field_skills_introduction
+id: node.career_profile_introductions.field_skills_introduction
 field_name: field_skills_introduction
 entity_type: node
-bundle: career_profile
+bundle: career_profile_introductions
 label: 'Skills Introduction'
 description: ''
 required: false

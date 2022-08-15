@@ -3,26 +3,19 @@ langcode: en
 status: true
 dependencies:
   config:
-    - field.field.node.career_profile.body
-    - field.field.node.career_profile.field_additional_duties
-    - field.field.node.career_profile.field_career_overview_intro
+    - field.field.node.career_profile.field_career_overview
     - field.field.node.career_profile.field_career_pathways
     - field.field.node.career_profile.field_career_videos
-    - field.field.node.career_profile.field_career_videos_introduction
     - field.field.node.career_profile.field_duties
     - field.field.node.career_profile.field_education_programs
     - field.field.node.career_profile.field_education_training_skills
     - field.field.node.career_profile.field_hero_image
-    - field.field.node.career_profile.field_industry_highlights_intro
     - field.field.node.career_profile.field_insights_from_industry
+    - field.field.node.career_profile.field_introductions
     - field.field.node.career_profile.field_job_titles
-    - field.field.node.career_profile.field_labour_market_introduction
     - field.field.node.career_profile.field_noc
-    - field.field.node.career_profile.field_occupational_interests_int
     - field.field.node.career_profile.field_related_careers
     - field.field.node.career_profile.field_resources
-    - field.field.node.career_profile.field_salary_introduction
-    - field.field.node.career_profile.field_skills_introduction
     - field.field.node.career_profile.field_work_environment
     - image.style.thumbnail
     - node.type.career_profile
@@ -43,17 +36,9 @@ content:
     region: content
     settings: {  }
     third_party_settings: {  }
-  field_additional_duties:
+  field_career_overview:
     type: text_textarea
     weight: 28
-    region: content
-    settings:
-      rows: 5
-      placeholder: ''
-    third_party_settings: {  }
-  field_career_overview_intro:
-    type: text_textarea
-    weight: 12
     region: content
     settings:
       rows: 5
@@ -73,14 +58,6 @@ content:
     region: content
     settings:
       media_types: {  }
-    third_party_settings: {  }
-  field_career_videos_introduction:
-    type: text_textarea
-    weight: 30
-    region: content
-    settings:
-      rows: 5
-      placeholder: ''
     third_party_settings: {  }
   field_duties:
     type: text_textarea
@@ -121,20 +98,22 @@ content:
       show_crop_area: true
       show_default_crop: true
     third_party_settings: {  }
-  field_industry_highlights_intro:
-    type: text_textarea
-    weight: 25
-    region: content
-    settings:
-      rows: 5
-      placeholder: ''
-    third_party_settings: {  }
   field_insights_from_industry:
     type: text_textarea
     weight: 26
     region: content
     settings:
       rows: 5
+      placeholder: ''
+    third_party_settings: {  }
+  field_introductions:
+    type: entity_reference_autocomplete
+    weight: 29
+    region: content
+    settings:
+      match_operator: CONTAINS
+      match_limit: 10
+      size: 60
       placeholder: ''
     third_party_settings: {  }
   field_job_titles:
@@ -145,28 +124,12 @@ content:
       size: 60
       placeholder: ''
     third_party_settings: {  }
-  field_labour_market_introduction:
-    type: text_textarea
-    weight: 24
-    region: content
-    settings:
-      rows: 5
-      placeholder: ''
-    third_party_settings: {  }
   field_noc:
     type: string_textfield
     weight: 7
     region: content
     settings:
       size: 60
-      placeholder: ''
-    third_party_settings: {  }
-  field_occupational_interests_int:
-    type: text_textarea
-    weight: 29
-    region: content
-    settings:
-      rows: 5
       placeholder: ''
     third_party_settings: {  }
   field_related_careers:
@@ -186,22 +149,6 @@ content:
     settings:
       placeholder_url: ''
       placeholder_title: ''
-    third_party_settings: {  }
-  field_salary_introduction:
-    type: text_textarea
-    weight: 15
-    region: content
-    settings:
-      rows: 5
-      placeholder: ''
-    third_party_settings: {  }
-  field_skills_introduction:
-    type: text_textarea
-    weight: 23
-    region: content
-    settings:
-      rows: 5
-      placeholder: ''
     third_party_settings: {  }
   field_work_environment:
     type: text_textarea
@@ -263,5 +210,4 @@ content:
       size: 60
       placeholder: ''
     third_party_settings: {  }
-hidden:
-  body: true
+hidden: {  }

@@ -1,10 +1,14 @@
-uuid: e179553e-4fe7-4f3f-ba34-6be6fdd10234
+uuid: dd8f2734-3a30-48fa-8a8e-26199eeae8b0
 langcode: en
 status: true
 dependencies:
   module:
+    - field_permissions
     - node
     - text
+third_party_settings:
+  field_permissions:
+    permission_type: public
 id: node.field_skills_introduction
 field_name: field_skills_introduction
 entity_type: node

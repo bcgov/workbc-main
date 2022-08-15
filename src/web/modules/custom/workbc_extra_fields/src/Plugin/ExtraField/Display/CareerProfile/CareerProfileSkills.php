@@ -5,8 +5,6 @@ namespace Drupal\workbc_extra_fields\Plugin\ExtraField\Display\CareerProfile;
 use Drupal\Core\Entity\ContentEntityInterface;
 use Drupal\Core\StringTranslation\StringTranslationTrait;
 use Drupal\extra_field\Plugin\ExtraFieldDisplayFormattedBase;
-use GuzzleHttp\Client;
-use GuzzleHttp\Exception\RequestException;
 use Drupal\image\Entity\ImageStyle;
 
 /**

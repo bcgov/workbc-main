@@ -1,0 +1,40 @@
+uuid: c2376598-0303-4df1-9259-061a977577fc
+langcode: en
+status: true
+dependencies:
+  config:
+    - core.entity_view_mode.node.teaser
+    - field.field.node.career_profile_introductions.field_career_videos_introduction
+    - field.field.node.career_profile_introductions.field_employment_introduction
+    - field.field.node.career_profile_introductions.field_industry_highlights_intro
+    - field.field.node.career_profile_introductions.field_labour_market_introduction
+    - field.field.node.career_profile_introductions.field_labour_market_statistics_i
+    - field.field.node.career_profile_introductions.field_occupational_interests_int
+    - field.field.node.career_profile_introductions.field_salary_introduction
+    - field.field.node.career_profile_introductions.field_skills_introduction
+    - node.type.career_profile_introductions
+  module:
+    - user
+id: node.career_profile_introductions.teaser
+targetEntityType: node
+bundle: career_profile_introductions
+mode: teaser
+content:
+  links:
+    settings: {  }
+    third_party_settings: {  }
+    weight: 100
+    region: content
+hidden:
+  extra_field_workbc_page_title: true
+  extra_field_workbc_published_on: true
+  field_career_videos_introduction: true
+  field_employment_introduction: true
+  field_industry_highlights_intro: true
+  field_labour_market_introduction: true
+  field_labour_market_statistics_i: true
+  field_occupational_interests_int: true
+  field_salary_introduction: true
+  field_skills_introduction: true
+  langcode: true
+  search_api_excerpt: true

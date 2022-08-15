@@ -50,27 +50,17 @@ try {
 
       $career_profile = $career_profiles[$profile['noc']];
       $fields = array_merge($fields, [
-        'field_career_overview_intro' => convertRichText($career_profile->{'Career Overview Content'}),
-        'field_duties' => convertRichText($career_profile->{'Duties Content'}),
-        'field_additional_duties' => convertRichText($career_profile->{'Additional Duties List'}),
-        'field_salary_introduction' => convertRichText($career_profile->{'Salary Content'}),
-        'field_work_environment' => convertRichText($career_profile->{'Work Environment Content'}),
+        'field_career_overview' => convertRichText($career_profile->{'Career Overview Content'}),
         'field_career_pathways' => convertRichText($career_profile->{'Career Pathways Content'}),
-        'field_occupational_interests_int' => convertRichText($career_profile->{'Occupational Interests Content'}),
-        'field_job_titles' => convertMultiline($career_profile->{'Job Titles List'}),
         'field_career_videos' => array_map('convertVideo', convertMultiline($career_profile->{'Career Video URLs'})),
-        'field_career_videos_introduction' => convertRichText($career_profile->{'Career Videos Content'}),
+        'field_duties' => convertRichText($career_profile->{'Duties Content'}),
         'field_education_training_skills' => convertRichText($career_profile->{'Education, Training and Skills Content'}),
         'field_education_programs' => convertRichText($career_profile->{'Education Programs in B.C. Content'}),
-        'field_skills_introduction' => convertRichText($career_profile->{'Skills Content'}),
-        'field_labour_market_introduction' => convertRichText($career_profile->{'Labour Market Statistics Content'}),
-//        '???' => $career_profile->{'Labour Market Outlook Content'},
-//        '???' => $career_profile->{'Employment Content'};
-        'field_industry_highlights_intro' => convertRichText($career_profile->{'Industry Highlights Content'}),
+        'field_hero_image' => array_map('convertImage', array_filter($career_profile->{'Banner Image'}))[0] ?? NULL,
         'field_insights_from_industry' => convertRichText($career_profile->{'Insights from Industry Content'}),
-        'field_career_overview_intro' => convertRichText($career_profile->{'Career Overview Content'}),
-//        'field_hero_image' => $career_profile->{'Banner Image'},
+        'field_job_titles' => convertMultiline($career_profile->{'Job Titles List'}),
         'field_resources' => convertResources($career_profile->{'Resources'}),
+        'field_work_environment' => convertRichText($career_profile->{'Work Environment Content'}),
       ]);
     }
     else {
