@@ -410,7 +410,7 @@ display:
               workbc_global_administrator: '0'
               administrator: '0'
             expose_fields: false
-            placeholder: ''
+            placeholder: 'Enter job title, keyword(s) or NOC'
             searched_fields_id: search_api_fulltext_searched_fields
           is_grouped: false
           group_info:

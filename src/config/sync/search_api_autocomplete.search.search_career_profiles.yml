@@ -20,11 +20,8 @@ suggester_settings:
     view_modes:
       'entity:node':
         career_profile: ''
-  server:
-    fields: {  }
 suggester_weights:
   live_results: 0
-  server: 0
 suggester_limits: {  }
 search_settings:
   'views:search_career_profiles':
