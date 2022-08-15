@@ -376,8 +376,8 @@ display:
           label: ''
           exclude: false
           alter:
-            alter_text: true
-            text: "<div class=\"hero-image-wrapper\">\r\n<div class=\"hero-image-overlay\"></div>\r\n{{ field_hero_image }}\r\n</div>"
+            alter_text: false
+            text: ''
             make_link: false
             path: ''
             absolute: false
@@ -610,7 +610,7 @@ display:
         fields: false
         filters: false
         filter_groups: false
-      css_class: hero-banner
+      css_class: ''
       display_description: 'Display page title, hiero image & hero text for content types with a hero image uploaded'
       display_extenders: {  }
       block_category: Views
