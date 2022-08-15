@@ -11,8 +11,37 @@ use GuzzleHttp\Exception\RequestException;
  *
  * Usage: drush scr /scripts/migration/career_profiles
  *
- * Revert: drush entity:delete node --bundle=career_profile
+ * Revert:
+ * - drush entity:delete node --bundle=career_profile
+ * - drush entity:delete node --bundle=career_profile_introductions
  */
+
+// Read and migrate GatherContent career profile introduction if present.
+$career_profile_introductions = NULL;
+if (file_exists(__DIR__ . '/data/career_profile_introductions.json')) {
+  print("Creating Career Profile Introductions\n");
+  $data = json_decode(file_get_contents(__DIR__ . '/data/career_profile_introductions.json'));
+  $career_profile_introductions = reset($data);
+
+  $fields = [
+    'type' => 'career_profile_introductions',
+    'title' => $career_profile_introductions->title,
+    'uid' => 1,
+    'field_career_videos_introduction' => convertRichText($career_profile_introductions->{'Career Videos Introduction'}),
+    'field_employment_introduction' => convertRichText($career_profile_introductions->{'Employment Introduction'}),
+    'field_industry_highlights_intro' => convertRichText($career_profile_introductions->{'Industry Highlights Introduction'}),
+    'field_labour_market_introduction' => convertRichText($career_profile_introductions->{'Labour Market Outlook Introduction'}),
+    'field_labour_market_statistics_i' => convertRichText($career_profile_introductions->{'Labour Market Statistics Introduction'}),
+    'field_occupational_interests_int' => convertRichText($career_profile_introductions->{'Occupational Interests Introduction'}),
+    'field_salary_introduction' => convertRichText($career_profile_introductions->{'Salary Introduction'}),
+    'field_skills_introduction' => convertRichText($career_profile_introductions->{'Skills Introduction'}),
+  ];
+  $node = Drupal::entityTypeManager()
+    ->getStorage('node')
+    ->create($fields);
+  $node->save();
+  $career_profile_introductions->nid = $node->id();
+}
 
 // Read GatherContent career profiles if present.
 $career_profiles = [];
@@ -44,7 +73,14 @@ try {
     ];
     print("Creating {$fields['title']}\n");
 
-    // Check GC import for this noc.
+    // Check GC import for introductory blurbs.
+    if (!empty($career_profile_introductions?->nid)) {
+      $fields = array_merge($fields, [
+        'field_introductions' => ['target_id' => $career_profile_introductions->nid],
+      ]);
+    }
+
+    // Check GC import for this career profile.
     if (array_key_exists($profile['noc'], $career_profiles)) {
       print("  Found a GatherContent record for this profile\n");
 
