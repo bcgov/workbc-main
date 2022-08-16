@@ -12,9 +12,12 @@
 
 // base
 @import 'base/reset';
-@import 'base/overrides_bootstrap';
 @import 'base/bcsans-typography';
 @import 'base/global';
+
+// overrides
+@import 'overrides/overrides_drupal_pagination';
+@import 'overrides/overrides_bootstrap';
 
 // layouts
 @import 'layout/alert_ribbon';
@@ -30,6 +33,7 @@
 @import 'components/related-topics';
 @import 'components/video-library-modal';
 @import 'components/publication';
+@import 'components/search-results';
 
 
 // pages

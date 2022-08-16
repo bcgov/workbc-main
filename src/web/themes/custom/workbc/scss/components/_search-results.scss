@@ -1,0 +1,68 @@
+// search box in the global header
+.region-header .views-exposed-form {
+  flex: 2 1 auto;
+  padding: 30px 0;
+  
+  display: flex;
+  justify-content: flex-end;
+  align-self: center;
+
+  .form-type-search-api-autocomplete > input {
+    border-radius: 0;
+    color: $workbc_palette_dark_default;
+    background-color: $workbc_palette_light_secondary;
+    border: 2px solid $workbc_palette_light_tertiary;
+
+    &:placeholder {
+      color: $workbc_palette_light_tertiary;
+    }
+  }
+
+  .form-actions {
+    display: none;
+  }
+}
+
+// search box in the content of the Search Results page
+.region-content {
+  .views-exposed-form {
+    .form-item-search-api-fulltext {
+      width: 100%;
+
+      & > input {
+        border-radius: 0;
+        color: $workbc_palette_dark_default;
+        background-color: $workbc_palette_light_secondary;
+        border: 2px solid $workbc_palette_dark_secondary;
+    
+        &:placeholder {
+          color: $workbc_palette_light_tertiary;
+        }
+      } 
+    }
+
+    .form-actions {
+      display: none;
+    }
+  }
+
+  .view-search-site-content {
+    .view-header {
+      padding: $workbc_default_spacing 0;
+    }
+
+    .view-content {
+      padding-bottom: $workbc_default_spacing;
+
+      .views-row {
+        padding: $workbc_default_spacing 0;
+        border-bottom: 1px solid $workbc_palette_light_tertiary;
+      }
+    }
+  }
+}
+
+.search-results-header-class {
+  @include underlined-header;
+  margin-bottom: $workbc_default_spacing;
+}
