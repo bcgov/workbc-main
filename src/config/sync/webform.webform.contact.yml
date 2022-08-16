@@ -248,8 +248,8 @@ handlers:
       return_path: ''
       sender_mail: ''
       sender_name: ''
-      subject: '[webform_submission:values:subject:raw]'
-      body: '[webform_submission:values:message:value]'
+      subject: 'WorkBC Contact Us confirmation'
+      body: "Your WorkBC Contact Us submission has been received.<br />\r\n<br />\r\n<br />\r\nThank you"
       excluded_elements: {  }
       ignore_access: false
       exclude_empty: true
