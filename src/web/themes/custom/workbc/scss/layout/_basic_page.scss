@@ -1,3 +1,9 @@
+.block-page-title-block h1 {
+    @include underlined-header;
+    margin: $workbc_default_spacing auto;
+}
+
+// a lot of these styles probably needs to be expanded to a generic 'basic page' instead of being specific to these three nodes types, but we don't have those other pages in place yet
 .node--type-success-story,
 .node--type-news,
 .node--type-blog {
