@@ -304,7 +304,7 @@ handlers:
     settings:
       states:
         - completed
-      to_mail: '[current-user:mail]'
+      to_mail: '[webform_submission:values:email_address:raw]'
       to_options: {  }
       bcc_mail: ''
       bcc_options: {  }

@@ -312,7 +312,7 @@ handlers:
     settings:
       states:
         - completed
-      to_mail: '[current-user:mail]'
+      to_mail: '[webform_submission:values:email_address:raw]'
       to_options: {  }
       bcc_mail: ''
       bcc_options: {  }
@@ -327,7 +327,9 @@ handlers:
       sender_name: ''
       subject: 'Request a Tour Stop confirmation'
       body: "Your request for a Find Your Fit tour stop has been received.<br />\r\n<br />\r\nThank you<br />\r\n&nbsp;"
-      excluded_elements: {  }
+      excluded_elements:
+        introduction_text: introduction_text
+        collection_notice: collection_notice
       ignore_access: false
       exclude_empty: true
       exclude_empty_checkbox: false
