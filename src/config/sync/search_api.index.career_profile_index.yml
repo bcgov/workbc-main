@@ -123,7 +123,7 @@ processor_settings:
     weights:
       preprocess_index: -47
       preprocess_query: -46
-    all_fields: false
+    all_fields: true
     fields:
       - field_noc
       - title
@@ -136,21 +136,17 @@ processor_settings:
       h3: 2
       strong: 2
   ignorecase:
-    weights:
-      preprocess_index: -50
-      preprocess_query: -49
     all_fields: true
     fields:
       - field_noc
       - title
   language_with_fallback: {  }
   rendered_item: {  }
-  solr_date_range: {  }
-  stemmer:
+  solr_date_range:
     weights:
       preprocess_index: 0
-      preprocess_query: 0
-    all_fields: false
+  stemmer:
+    all_fields: true
     fields:
       - field_noc
       - title
@@ -158,10 +154,7 @@ processor_settings:
       mexican: mexic
       texan: texa
   stopwords:
-    weights:
-      preprocess_index: -49
-      preprocess_query: -50
-    all_fields: false
+    all_fields: true
     fields:
       - field_noc
       - title
@@ -202,10 +195,7 @@ processor_settings:
       - will
       - with
   tokenizer:
-    weights:
-      preprocess_index: -45
-      preprocess_query: -44
-    all_fields: false
+    all_fields: true
     fields:
       - field_noc
       - title
@@ -214,9 +204,6 @@ processor_settings:
     overlap_cjk: 1
     minimum_word_size: '3'
   transliteration:
-    weights:
-      preprocess_index: -48
-      preprocess_query: -47
     all_fields: true
     fields:
       - field_noc

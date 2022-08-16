@@ -1,59 +1,71 @@
-.hero-banner {
-    $hero_banner_height: 420px;
-    z-index: 1;
+$hero_banner_height: 420px;
 
-    height: $hero_banner_height;
+.hero-banner {
+    position: relative; // create positional context %herobanner
+    min-height: $hero_banner_height;
+    z-index: 1;
     border-bottom: $workbc_trim_ultra_thin_size solid $workbc_palette_dark_secondary;
     background-color: $workbc_light_theme_background_accent;
-
-    @include media-breakpoint-up(lg) { 
-        position: relative; // start positional context %herobanner
-    }    
+    display: flex;
+    flex-flow: row wrap;
 
     .hero-image-wrapper {
+        width: 100%;
+
+        @include media-breakpoint-up(lg) { 
+            position: absolute; // relative to positional context %herobanner
+            top: 0;
+            right: 0;
+            bottom: 0;
+            z-index: 2;
+            display: flex;
+            justify-content: flex-end;
+            width: auto;
+        }
+    
         .hero-image-overlay {
             @include media-breakpoint-up(lg) { 
                 position: absolute; // relative to positional context %herobanner
-                z-index: 1;
                 top: 0;
                 right: 0;
                 bottom: 0;
-
-                height: $hero_banner_height;
-                width: calc(2*$hero_banner_height);
-
+                left: 0;
+                z-index: 2;
+        
                 background: rgb(255,255,255);
                 background: linear-gradient(90deg, rgba($workbc_light_theme_background_accent,1) 10%, rgba($workbc_light_theme_background_accent,0) 50%);
-
-                border-bottom: $workbc_trim_ultra_thin_size solid $workbc_palette_dark_secondary; // need to copy the container trim since we're sitting over top of the container
             }
         }
 
         img {
-            @include media-breakpoint-up(lg) { 
-                position: absolute; // relative to positional context %herobanner
-                z-index: 0;
-                top: 0;
-                right: 0;
-                bottom: 0;
+            width: 100%;
+            z-index: 1;
 
-                height: $hero_banner_height;
-                width: calc(2*$hero_banner_height);
+            @include media-breakpoint-up(lg) { 
+                height: 100%;
+                width: auto;
             }
         }
     }
 
-    .views-field-title {
-        .field-content {
-            flex: 0 1 50%;
-            padding-top: calc(2 * $workbc_default_spacing);
-        }
-    }
-
-    .views-field-field-hero-text {
-        .field-content {
-            flex: 0 1 50%;
+    .hero-content-wrapper {
+        z-index: 5;
+        padding-top: $workbc_default_spacing;
+        
+        .hero-title {
             padding-top: $workbc_default_spacing;
+        
+            @include media-breakpoint-up(lg) { 
+                width: 50%;
+            }
+        }
+    
+        .hero-content {
+            padding-top: $workbc_default_spacing;
+
+            @include media-breakpoint-up(lg) { 
+                width: 50%;
+            }
         }
     }
 }
