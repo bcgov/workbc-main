@@ -1,0 +1,17 @@
+.pagination {
+    justify-content: flex-end;
+
+    .page-item {
+        .page-link {
+            border: none;
+            border-top-left-radius: 0;
+            border-bottom-left-radius: 0;
+            padding: 0 0.4375rem;
+        }
+
+        &.active .page-link {
+            color: #fff;
+            background-color: $workbc_palette_dark_secondary;
+        }
+    }
+}
