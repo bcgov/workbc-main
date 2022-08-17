@@ -131,15 +131,11 @@ set footer_classes = ' ' ~
       </div>
     </div>
 
-  </div>  
+  </div>
 </main>
 
-{% if page.footer %}
-<footer class="mt-auto {{ footer_classes }}">
-  <div class="{{ b5_top_container }} footer-wrapper">
-    {{ page.footer }}
-  </div>
-</footer>
-{% endif %}
+{# Footer #}
+{% include '@workbc/includes/footer.html.twig' %}
+
 
 {{ attach_library('workbc/submenu-underlay') }}

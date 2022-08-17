@@ -7,5 +7,5 @@ dependencies:
 id: text_size_controls
 title: 'Text Size Controls'
 content:
-  value: "<font-resizer> <span class=\"font-resizer-desc\">Increase Text Size: </span><button class=\"font-resizer-button__normal\" title=\"Site Wide Text Size: Normal\" type=\"button\">A</button><button class=\"font-resizer-button__big\" title=\"Site Wide Text Size: Big\" type=\"button\">A</button><button class=\"font-resizer-button__bigger\" title=\"Site Wide Text Size: Bigger\" type=\"button\">A</button> </font-resizer>\r\n"
+  value: 'Placeholder - Increase Text Size'
   format: full_html

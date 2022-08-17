@@ -1,0 +1,28 @@
+<footer class="footer">
+  <div class="container-lg">
+    <div class="footer__top">
+      <div class="footer__social">
+        {{ drupal_block('simple_block:social_networking_links') }}
+      </div>
+      <div class="footer__nav">
+        {{ drupal_entity('block', 'workbc_footer') }}
+      </div>
+    </div>
+    <div class="footer__mid">
+      <div class="footer__resize">
+        {{ drupal_block('simple_block:text_size_controls', wrapper=false) }}
+      </div>
+      <div class="footer__translate">
+        {{ drupal_block('simple_block:translation_controls', wrapper=false) }}
+      </div>
+    </div>
+    <div class="footer__bottom">
+      <div class="footer__logo">
+        <img src="/{{ directory }}/assets/images/logo-bc.svg" alt="{{ 'logo'|t }}" />
+      </div>
+      <div class="footer__copyright">
+        <p>Copyright &copy; {{ 'now' | date('Y') }}</p> &nbsp; {{ drupal_block('simple_block:copyright_notice', wrapper=false) }}
+      </div>
+    </div>
+  </div>
+</footer>
