@@ -1,5 +1,5 @@
-$card-spacing: 20px;
-$container-gutter: 20px;
+$card-spacing: $workbc_spacing_gutters;
+$container-gutter: $workbc_spacing_gutters;
 
 .workbc-card {
   // height: 100%;  This messes up height stretching on Related Topics Carousel
