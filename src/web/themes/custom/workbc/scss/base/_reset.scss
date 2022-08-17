@@ -1,4 +1,5 @@
-/* Always show vertical scrollbar to prevent content shifting if something causes the page content to grow while being viewed */
+//  Always show vertical scrollbar to prevent content shifting if something causes the page content to grow while being viewed
+
 body {
-    overflow-y: scroll; 
+  overflow-y: scroll;
 }

@@ -12,7 +12,8 @@
 
 // base
 @import 'base/reset';
-@import 'base/bcsans-typography';
+@import 'base/fonts';
+@import 'base/typography';
 @import 'base/global';
 
 // overrides
@@ -24,7 +25,7 @@
 @import 'layout/region_header';
 @import 'layout/navmenu';
 @import 'layout/breadcrumbs';
-@import 'layout/region_footer';
+@import 'layout/footer';
 @import 'layout/basic_page';
 
 // components
