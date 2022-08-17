@@ -17,8 +17,9 @@
 @import 'base/global';
 
 // overrides
-@import 'overrides/overrides_drupal_pagination';
 @import 'overrides/overrides_bootstrap';
+@import 'overrides/overrides_drupal_pagination';
+@import 'overrides/overrides_drupal_forms';
 
 // layouts
 @import 'layout/alert_ribbon';

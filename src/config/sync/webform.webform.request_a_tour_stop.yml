@@ -40,18 +40,21 @@ elements: |-
     '#required': true
     '#pattern': '[a-z0-9._%+-]+@[a-z0-9.-]+\.[a-z]{2,}$'
     '#pattern_error': 'Please enter a valid email address.'
-  phone_number:
-    '#type': tel
-    '#title': 'Phone Number'
-    '#required': true
-    '#required_error': 'Phone number is required'
-    '#pattern': '^[0-9]{3}-[0-9]{3}-[0-9]{4}$'
-    '#pattern_error': 'Please use the following format: ###-###-####'
-  phone_extension:
-    '#type': number
-    '#title': Extension
-    '#min': 1
-    '#max': 999999
+  phone_flexbox:
+    '#type': webform_flexbox
+    '#format': fieldset
+    phone_number:
+      '#type': tel
+      '#title': 'Phone Number'
+      '#required': true
+      '#required_error': 'Phone number is required'
+      '#pattern': '^[0-9]{3}-[0-9]{3}-[0-9]{4}$'
+      '#pattern_error': 'Please use the following format: ###-###-####'
+    phone_extension:
+      '#type': number
+      '#title': Extension
+      '#min': 1
+      '#max': 999999
   region:
     '#type': select
     '#title': Region
