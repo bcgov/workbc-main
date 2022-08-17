@@ -32,20 +32,11 @@
  */
 #}
 
-<div class="hero-banner">
-
-   <div class="hero-image-wrapper">
-      <div class="hero-image-overlay"></div>
-      {{ fields.field_hero_image.content }}
+<div class="no-hero-content-wrapper container-lg">
+   <div class="no-hero-title">
+      <h1 class="basic-page-header">{{ fields.title.content }}</h1>
    </div>
-
-   <div class="hero-content-wrapper container-lg">
-      <div class="hero-title">
-         <h1 class="basic-page-header">{{ fields.title.content }}</h1>
-      </div>
-      <div class="hero-content">
-         {{ fields.field_hero_text.content }}
-      </div>
+   <div class="no-hero-content">
+      {{ fields.field_hero_text.content }}
    </div>
-
 </div>

@@ -12,16 +12,21 @@
 
 // base
 @import 'base/reset';
-@import 'base/overrides_bootstrap';
-@import 'base/bcsans-typography';
+@import 'base/fonts';
+@import 'base/typography';
 @import 'base/global';
+
+// overrides
+@import 'overrides/overrides_bootstrap';
+@import 'overrides/overrides_drupal_pagination';
+@import 'overrides/overrides_drupal_forms';
 
 // layouts
 @import 'layout/alert_ribbon';
 @import 'layout/region_header';
 @import 'layout/navmenu';
 @import 'layout/breadcrumbs';
-@import 'layout/region_footer';
+@import 'layout/footer';
 @import 'layout/basic_page';
 
 // components
@@ -30,6 +35,7 @@
 @import 'components/related-topics';
 @import 'components/video-library-modal';
 @import 'components/publication';
+@import 'components/search-results';
 
 
 // pages
