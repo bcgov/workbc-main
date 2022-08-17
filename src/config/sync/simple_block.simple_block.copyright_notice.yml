@@ -7,5 +7,5 @@ dependencies:
 id: copyright_notice
 title: 'copyright notice'
 content:
-  value: "<p><a href=\"https://www2.gov.bc.ca/gov/content/home/copyright\" target=\"_blank\">Province of British Columbia. All rights reserved.</a></p>\r\n"
+  value: "<p><a href=\"https://www2.gov.bc.ca/gov/content/home/copyright\" rel=\"nofollow noopener\" target=\"_blank\">Province of British Columbia. All rights reserved.</a></p>\r\n"
   format: full_html
