@@ -14,6 +14,7 @@ dependencies:
     - node
     - text
     - user
+    - views_autosubmit
 id: news
 label: News
 module: views
@@ -966,6 +967,17 @@ display:
           text: 'Read more >'
           output_url_as_text: false
           absolute: false
+      exposed_form:
+        type: autosubmit
+        options:
+          submit_button: Apply
+          reset_button: false
+          reset_button_label: Reset
+          exposed_sorts_label: 'Sort by'
+          expose_sort_order: true
+          sort_asc_label: Asc
+          sort_desc_label: Desc
+          autosubmit_hide: true
       style:
         type: default
         options:
@@ -977,10 +989,13 @@ display:
         options: {  }
       defaults:
         css_class: false
+        use_ajax: false
+        exposed_form: false
         style: false
         row: false
         fields: false
       css_class: ''
+      use_ajax: true
       display_description: ''
       display_extenders: {  }
     cache_metadata:
