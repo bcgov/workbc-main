@@ -1,12 +1,12 @@
 .basic-page-header {
     @include underlined-header;
-    margin: $workbc_spacing_default auto;
+    margin-bottom: $workbc_spacing_default;
 }
 
 .no-hero-content-wrapper {
     .no-hero-title h1 {
         @include underlined-header;
-        margin: $workbc_spacing_default auto;
+        margin-bottom: $workbc_spacing_default;
     }
 }
 

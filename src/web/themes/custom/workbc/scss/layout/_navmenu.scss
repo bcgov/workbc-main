@@ -19,6 +19,10 @@
 
     & a {
       padding: 5px 20px 5px 10px;
+
+      &:hover {
+        text-decoration: none;
+      }
     }
 
     & > li {

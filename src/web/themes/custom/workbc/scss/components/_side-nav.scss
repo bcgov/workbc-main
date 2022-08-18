@@ -1,0 +1,19 @@
+.basic-page-left-nav-wrapper {
+    padding-bottom: $workbc_spacing_gutters;
+
+    h2 {
+        font-size: 1.125rem;
+        font-weight: bold;
+        padding-bottom: 2 * $workbc_spacing_gutters;
+    }
+
+    nav.basic-page-left-nav {
+        ul {
+            @include list-reset;
+
+            li {
+                padding-bottom: $workbc_spacing_gutters;
+            }
+        }    
+    }
+}
