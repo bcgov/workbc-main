@@ -2,9 +2,9 @@
 // actual CSS should be broken out to various files.
 
 // abstracts
-@import 'abstracts/variables_drupal';
 @import 'abstracts/variables_workbc';
 @import 'abstracts/variables_bootstrap'; // @see https://getbootstrap.com/docs/5.1/customize/sass/#variable-defaults.
+@import 'abstracts/variables_drupal';
 @import 'abstracts/mixins_lists';
 
 // vendor

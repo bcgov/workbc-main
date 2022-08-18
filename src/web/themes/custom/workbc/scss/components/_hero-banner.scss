@@ -50,10 +50,10 @@ $hero_banner_height: 420px;
 
     .hero-content-wrapper {
         z-index: 5;
-        padding-top: $workbc_default_spacing;
+        padding-top: $workbc_spacing_default;
         
         .hero-title {
-            padding-top: $workbc_default_spacing;
+            padding-top: $workbc_spacing_default;
         
             @include media-breakpoint-up(lg) { 
                 width: 50%;
@@ -61,7 +61,7 @@ $hero_banner_height: 420px;
         }
     
         .hero-content {
-            padding-top: $workbc_default_spacing;
+            padding-top: $workbc_spacing_default;
 
             @include media-breakpoint-up(lg) { 
                 width: 50%;

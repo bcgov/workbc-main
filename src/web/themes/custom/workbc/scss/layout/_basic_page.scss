@@ -1,12 +1,12 @@
 .basic-page-header {
     @include underlined-header;
-    margin: $workbc_default_spacing auto;
+    margin: $workbc_spacing_default auto;
 }
 
 .no-hero-content-wrapper {
     .no-hero-title h1 {
         @include underlined-header;
-        margin: $workbc_default_spacing auto;
+        margin: $workbc_spacing_default auto;
     }
 }
 
@@ -17,18 +17,18 @@
 
     .field--name-extra-field-workbc-page-title {
         @include underlined-header;
-        margin-bottom: $workbc_default_spacing;
+        margin-bottom: $workbc_spacing_default;
     }
 
     .field--name-extra-field-workbc-published-on {
         @include text-article-date;
-        margin-bottom: $workbc_default_spacing;
+        margin-bottom: $workbc_spacing_default;
     }
 
     .field--name-field-image,
     .field--name-field-image .field__item,
     .field--name-field-image .field__item img {
         width: 100%;
-        margin-bottom: $workbc_default_spacing;
+        margin-bottom: $workbc_spacing_default;
     }
 }
