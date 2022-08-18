@@ -1,0 +1,10 @@
+<?php
+
+/**
+ * Delete all Career Profiles because we're changing fields around.
+ */
+function workbc_extra_fields_update_9001() {
+    $storage_handler = \Drupal::entityTypeManager()->getStorage('node');
+    $nodes = $storage_handler->loadByProperties(['type' => 'career_profile']);
+    $storage_handler->delete($nodes);
+}
