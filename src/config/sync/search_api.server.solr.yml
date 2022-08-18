@@ -32,7 +32,7 @@ name: Solr
 description: ''
 backend: search_api_solr
 backend_config:
-  retrieve_data: true
+  retrieve_data: false
   highlight_data: false
   site_hash: false
   server_prefix: ''

@@ -3,7 +3,6 @@ langcode: en
 status: true
 dependencies:
   config:
-    - field.field.node.career_profile_introductions.field_career_videos_introduction
     - field.field.node.career_profile_introductions.field_employment_introduction
     - field.field.node.career_profile_introductions.field_industry_highlights_intro
     - field.field.node.career_profile_introductions.field_labour_market_introduction
@@ -20,13 +19,6 @@ targetEntityType: node
 bundle: career_profile_introductions
 mode: default
 content:
-  field_career_videos_introduction:
-    type: text_default
-    label: above
-    settings: {  }
-    third_party_settings: {  }
-    weight: 108
-    region: content
   field_employment_introduction:
     type: text_default
     label: above
