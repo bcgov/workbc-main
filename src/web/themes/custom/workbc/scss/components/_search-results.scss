@@ -48,18 +48,18 @@
 
   .view-search-site-content {
     .view-header {
-      padding: $workbc_default_spacing 0;
+      padding: $workbc_spacing_default 0;
     }
 
     .view-empty {
-      padding: $workbc_default_spacing 0;
+      padding: $workbc_spacing_default 0;
     }
 
     .view-content {
-      padding-bottom: $workbc_default_spacing;
+      padding-bottom: $workbc_spacing_default;
 
       .views-row {
-        padding: $workbc_default_spacing 0;
+        padding: $workbc_spacing_default 0;
         border-bottom: 1px solid $workbc_palette_light_tertiary;
       }
     }
@@ -69,5 +69,5 @@
 
 .search-results-header-class {
   @include underlined-header;
-  margin-bottom: $workbc_default_spacing;
+  margin-bottom: $workbc_spacing_default;
 }
