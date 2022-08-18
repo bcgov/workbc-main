@@ -1,0 +1,12 @@
+uuid: ebabb509-e272-45cb-9618-a970d84b19c6
+langcode: en
+status: true
+dependencies: {  }
+id: node__success_story
+label: 'Content: Success Story'
+tags:
+  canonical_url: '[current-page:url]'
+  description: '[node:summary]'
+  image_src: '[node:field_image:1_2_component]'
+  keywords: '[node:field_tags]'
+  title: '[node:title] | [site:name]'
