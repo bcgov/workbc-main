@@ -151,8 +151,10 @@ catch (RequestException $e) {
 
 function convertResources($resources) {
   return array_map(function($resource) {
+    $uri = $resource->{'Resource Link'};
+    $uri = strpos($uri, 'http') !== 0 ? "https://$uri" : $uri;
     return [
-      'uri' => $resource->{'Resource Link'},
+      'uri' => $uri,
       'title' => $resource->{'Resource Title'}
     ];
   }, array_filter($resources, function($resource) {

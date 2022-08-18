@@ -12,12 +12,12 @@
     "Career Pathways Content": "<p>At this time, career path information is not available for this occupation.<\/p>",
     "Related Careers NOCs": "NOC 0632\nNOC 6311",
     "Job Titles List": "Baggage handler \/ porter\nBell captain\nCasino\nHotel staff\nManaging\nPassenger service co-ordinator",
-    "Career Videos Content": "<p>Watch the video below to see what a day in the life of a registered nurse is like.<\/p>",
-    "Career Video URLs": "https:\/\/youtu.be\/dij3nkIA6SA\nhttps:\/\/youtu.be\/lYoVI1-Hbpg",
+    "Career Videos Content": "",
+    "Career Video URLs": "",
     "Education, Training and Skills Content": "<ul><li>Completion of secondary school is usually required.<\/li><li>Completion of college courses related to the area supervised may be required.<\/li><li>Experience in the occupation supervised is usually required.<\/li><\/ul>",
     "Education Programs in B.C. Content": "<p>The following program areas are related to this occupation:<\/p><ul><li>Academic\/Basic Upgrading<\/li><\/ul>",
     "Industry Highlights Content": "<p>Learn about the opportunities in B.C.'s major industries, including employment trends, earning potential, locations of work and more.<\/p>",
-    "Insights from Industry Content": "<p>As the population grows and ages, the demand for nurses is rising in B.C. Canadian credentials for registered nurses (RNs) and registered psychiatric nurses (RPNs) are also accepted around the world.<\/p><p>The need for RNs and RPNs is high across the province, especially in the northern and rural regions. To help boost the supply of nurses, post-secondary institutions have opened more training spaces. In addition, the B.C. government will forgive the student loans of graduates who take jobs in regions with the greatest demand.<\/p><p>The demand is particularly strong in specialty areas, such as medical-surgical and mental health. This is especially true in the Mainland\/Southwest region.<\/p>",
+    "Insights from Industry Content": "",
     "Resources": [
         {
             "Resource Title": "",
@@ -1506,6 +1506,586 @@
     "Page Blurb": ""
 },
 {
+    "title": "General farm workers (NOC 8431)",
+    "id": 12867177,
+    "template": "Career Profiles",
+    "Page Title": "General farm workers",
+    "Banner Image": [],
+    "NOC": "(NOC 8431)",
+    "Career Overview Content": "<p>This group includes operators of farm machinery.<\/p><p><strong>People in this occupation:<\/strong><\/p><ul><li>Plant, cultivate and harvest crops<\/li><li>Raise livestock and poultry<\/li><li>Maintain and repair farm equipment and buildings<\/li><li>Are employed on crop, livestock, fruit, vegetable and specialty farms<\/li><\/ul><p><\/p>",
+    "Duties Content": "<p><strong>General farm workers:<\/strong><\/p><ul><li>Plant, fertilize, cultivate, spray, irrigate and harvest crops<\/li><li>Feed and tend livestock and poultry<\/li><li>Milk cows<\/li><li>Operate and maintain farm machinery and equipment<\/li><li>Detect disease and health problems in crops, livestock and poultry<\/li><li>Examine produce for quality and prepare for market<\/li><li>Set and monitor water lines, air flow and temperature in barns, pens and chicken coops<\/li><li>Clean stables, barns, barnyards and pens<\/li><\/ul><h2>Special duties<\/h2><p>General farm workers can become specialized in a particular type of crop or livestock production through experience.<\/p>",
+    "Work Environment Content": "<p><strong>Key aspects of the work in this occupation:<\/strong><\/p><ul><li>Work takes place both indoors and outdoors, so workers may be exposed to various weather conditions.<\/li><li>Workers use machinery, tools and heavy farm equipment, such as tractors, which can pose the risk of injury.<\/li><li>Strong odours are common on a farm.<\/li><li>Farmers may be exposed to chemicals, such as pesticides, and dust and sand in the workplace.<\/li><li>Workers may also be exposed to infectious bacteria and viruses as a result of treating sick animals.<\/li><li>Workers may be exposed to enough noise to affect hearing.<\/li><li>Some machinery can cause a vibrating or back and forth motion in the body.<\/li><\/ul><p><\/p>",
+    "Career Pathways Content": "<p>Progression to supervisory positions is possible with experience.<\/p>",
+    "Related Careers NOCs": "NOC 0821\nNOC 8252\nNOC 8611",
+    "Job Titles List": "Artificial breeding \/ insemination\nBarn\nBeef cattle farm \/ cattle ranch\nCowhand \/ cowboy \/ cowgirl \/ cowpuncher\nCrew member, custom harvest\nDairy farm \/ milking machine\nEgg candler \/ gatherer \/ grader \/ packer\nExaminer, fruit\nFarm hand \/ farm labourer\nFeedlot \/ feedyard\nField crops \/ grain farm \/ orchard\nGroom - farm\nHand, farm \/ ranch \/ stable\nHerder - stockyards\nHoney farm\nHorse breaker\nIrrigation\nMaple tapping \/ sugar bush\nOperator, baler \/ binder \/ combine\nOperator, cropsprayer machine\nOperator, cultivator\nOrganic farm\nPoultry farm\nRider, pasture \/ penrider\nShearer, sheep\nStable\nTechnician, apiary \/ bee farm \/ beekeeping\nTechnician, swine \/ farrowing\nThinner, vegetable\nVineyard",
+    "Career Videos Content": "",
+    "Career Video URLs": "",
+    "Education, Training and Skills Content": "<ul><li>There are no specific education or training requirements. However, a college certificate or specialized courses related to farming, such as farm equipment mechanics, agricultural welding, tree pruning and pesticide application, are available.<\/li><li>Basic farm knowledge, usually obtained from working on a family farm, may be required for employment.<\/li><li>A course or certificate in first aid may be required.<\/li><\/ul><p><\/p>",
+    "Education Programs in B.C. Content": "",
+    "Industry Highlights Content": "",
+    "Insights from Industry Content": "",
+    "Resources": [
+        {
+            "Resource Title": "Canadian Agricultural Human Resource Council",
+            "Resource Link": "www.agritalent.ca"
+        }
+    ],
+    "Page Blurb": ""
+},
+{
+    "title": "General office support workers (NOC 1411)",
+    "id": 12867178,
+    "template": "Career Profiles",
+    "Page Title": "General office support workers",
+    "Banner Image": [],
+    "NOC": "(NOC 1411)",
+    "Career Overview Content": "<p>General office support workers perform clerical duties, including:<\/p><ul><li>Preparing correspondence, reports, statements and other material<\/li><li>Verifying, recording and processing forms and documents, such as contracts and requisitions<\/li><li>Operating office equipment<\/li><li>Answering telephones<\/li><\/ul><p><\/p>",
+    "Duties Content": "<p><strong>General office support workers:<\/strong><\/p><ul><li>Prepare correspondence, reports, statements, forms, presentations, applications and other documents from notes or dictaphone<\/li><li>Respond to telephone, in person or electronic enquiries or forward to appropriate person<\/li><li>Provide general information to clients and the public<\/li><li>Photocopy and collate documents for distribution, mailing and filing<\/li><li>Maintain and prepare reports from manual or electronic files, inventories, mailing lists and databases<\/li><li>Process incoming and outgoing mail, manually or electronically<\/li><li>Send and receive messages and documents using fax machine or electronic mail<\/li><li>Assist with administrative procedures such as budget submissions, contracts administration and work schedules<\/li><li>Perform bookkeeping tasks such as preparing invoices and bank deposits<\/li><li>Sort, process and verify applications, receipts, expenditures, forms and other documents<\/li><li>Order office supplies, service office equipment and arrange for servicing in the case of major repairs<\/li><\/ul><p><\/p>",
+    "Work Environment Content": "<p>A conventional controlled environment such as an office, hospital or school.<\/p>",
+    "Career Pathways Content": "<p>Progression to supervisory or office management positions is possible with experience.<\/p><p>Progression to officer level positions is possible with additional training and experience.<\/p>",
+    "Related Careers NOCs": "NOC 1211\nNOC 1241\nNOC 1253\nNOC 1414\nNOC 1422\nNOC 1431\nNOC 1415\nNOC 1416",
+    "Job Titles List": "Bill sorter\nClerk, address forms\nClerk, administrative \/ general office\nClerk, auction \/ mail order\nClerk, broadcast\nClerk, credit card authorization\nClerk, file \/ filing \/ classification\nClerk, float\nClerk, map\nClerk, municipal office\nClerk, plate filing\nClerk, police station\nClerk, relief\nClerk, road maintenance\nClerk, subscription\nClerk, unit\nClerk, utilities\nClerk, warranty\nClerk-stenographer\nCo-ordinator, course\nCPIC operator\nCriminal records clerk\nFiler, card \/ mail order\nGeneral office\nMarker, board - grain quotations\nOffice assistant \/ clerk\nPersonnel scheduling clerk\nProgram and service delivery clerk - government services\nTicket preparer - manufacturing\nTranscriber, orders\nTypist",
+    "Career Videos Content": "<p>Watch the video below to see what a general office support worker does in a day.<\/p>",
+    "Career Video URLs": "https:\/\/youtu.be\/4867Bc9ktDw",
+    "Education, Training and Skills Content": "<ul><li>Completion of secondary school is usually required<\/li><li>Completion of secondary school or college business or commercial courses is usually required<\/li><\/ul><p><\/p>",
+    "Education Programs in B.C. Content": "<p>The following program areas are related to this occupation:<\/p><ul><li>Administrative Assistance\/Office Assistance<\/li><li>Computing\/Office Automation Related<\/li><\/ul><p><\/p>",
+    "Industry Highlights Content": "",
+    "Insights from Industry Content": "",
+    "Resources": [
+        {
+            "Resource Title": "",
+            "Resource Link": ""
+        }
+    ],
+    "Page Blurb": ""
+},
+{
+    "title": "General practitioners and family physicians (NOC 3112)",
+    "id": 12867179,
+    "template": "Career Profiles",
+    "Page Title": "General practitioners and family physicians",
+    "Banner Image": [],
+    "NOC": "(NOC 3112)",
+    "Career Overview Content": "<p>General practitioners and family physicians diagnose and treat illnesses and injuries. The terms \u201cgeneral practitioner\u201d\u2014or GP\u2014and \u201cfamily physician\u201d are names for the same job with the same duties.<\/p><p>Family physicians provide primary care, which means that they act as a patient\u2019s main health care contact and they work with the patient to manage their general health over the long term.<\/p><p>In this job, GPs may:<\/p><ul><li>Work in a private practice, at a community health centre, clinic, nursing home, hospital, or for government and other types of health organizations<\/li><li>Travel to hospitals to give specific types of patient care<\/li><li>Provide in-home care to patients<\/li><li>Help patients from the community at large or focus on a specific type of patient care, such as maternity, palliative, mental health and addiction, and others<\/li><\/ul><p>GPs need to have good social skills, as they must be able to talk to patients about problems with their health, which can be very serious. To give patients the best possible care, they must keep updating their technical skills and knowledge throughout their careers. They must also have good analytical skills.<\/p>",
+    "Duties Content": "<p>In general, family physicians and general practitioners:<\/p><ul><li>Co-ordinate or manage primary patient care<\/li><li>Screen for health risks and talk to patients about preventing health problems<\/li><li>Advise patients and their families on health care, including staying healthy, accident prevention and treating disease and illness<\/li><li>Examine patients and review\/add to their medical histories<\/li><li>Assess and treat illnesses ranging from minor to life-threatening<\/li><li>Order laboratory and other tests and X-rays to help find illnesses or injuries<\/li><li>Provide in-office or hospital-based emergency care<\/li><li>Refer patients to community-based resources, such as peer and group support and home care services<\/li><li>Consult with and refer to other health care workers, including specialists, to evaluate patients' physical and mental health<\/li><li>Prescribe medicine and give treatments<\/li><li>Perform minor surgeries and assist with other surgical procedures<\/li><li>Manage acute care in office and, in some cases, in hospital<\/li><li>Give vaccinations<\/li><li>Act as a patient advocate<\/li><li>Provide ongoing care to patients, including end-of-life care, pre- and post-natal maternity care, newborn and children\u2019s care, and pain management<\/li><li>Report births, deaths and diseases to government agencies<\/li><\/ul><p><\/p>",
+    "Work Environment Content": "<p>Family physicians mostly work in community-based, independent medical offices and can set their own hours and workload. Some may have to work nights and weekends, and may also be on call 24 hours a day when they need to respond to emergencies. Most family physicians work long hours, which could be from 60-100 hours per week.<\/p><p>Family physicians often work in teams and with other health care providers, such as pharmacists, nurses and nurse practitioners. In the coming years, physicians in primary and community care settings will be expected to work more in teams which include nurses and health care workers with a range of skills.<\/p><p>Better technology has led to changes in the way that care is provided. General practitioners often use resources such as video, telephone and email communication to support patients, including electronic medical records, prescriptions and results. They are also using computer-based education and information resources more regularly.<\/p><p>In this career, family physicians see patients who need different types of help, support or treatment each day. Due to this kind of work, they are exposed to illnesses. They must be careful while examining patients, which means using safety equipment and clothing and making sure that these are removed or properly cleaned when they are done using them.<\/p><p>General practitioners must be ready to deal with patients who may be upset and worried about their health. This, along with working long hours, treating a large number of patients, and strict safety precautions, means that this can be a difficult job.<\/p><p>Practice management and clinical training programs, combined with targeted incentives, have greatly improved professional satisfaction. In addition, physicians are often driven by the need to help others.<\/p>",
+    "Career Pathways Content": "<p>It is common for new family physicians to begin their careers by taking over for doctors who are on leave or on vacation. By doing this, they build experience and get a chance to try out different settings.<\/p><p>Currently, many family physicians choose to join an existing medical office when they graduate. Some continue through their career of providing primary care to patients, and many add a special interest area to their practice, such as hospitalist, palliative care, or occupational medicine. Many new graduates also add skills at the end of their training and work in areas such as emergency or maternity.<\/p><p>Family physicians may also work as hospital administrators, they may teach and\/or conduct research at educational institutions, or work for government, health authorities and other health-related organizations.<\/p>",
+    "Related Careers NOCs": "NOC 0311\nNOC 3111\nNOC 3122\nNOC 3125\nNOC 3124\nNOC 3012",
+    "Job Titles List": "GP (general practitioner)\nLocum doctor\nMD (doctor of medicine)\nMedical - civil aviation\nMedical - industrial\nMissionary, medical\nMOH (medical officer of health)\nPhysician, intern\nPhysician, resident\nPractitioner, family \/ general",
+    "Career Videos Content": "<p>Watch the video below to see what a day in the life of a general practitioner is like.<\/p>",
+    "Career Video URLs": "https:\/\/youtu.be\/hWtpNEZ4C10",
+    "Education, Training and Skills Content": "<p>A Doctor of Medicine degree (MD) is required. Those who want to become a doctor usually complete four years of undergraduate training before taking four years of medical school. Medical schools have high academic admission requirements. University medical programs interview those who apply to make sure that along with good academic records, they also have the needed social skills and attitude to work as a physician.<\/p><p>Graduates of medical programs go through two years of formal residency training. The residency program is competitive, and graduates may need to travel to other provinces to do this. To become a fully licensed physician in B.C., graduates must pass two licensing exams given by the Medical Council of Canada, a national exam provided by the College of Family Physicians of Canada, and become licensed through the College of Physicians and Surgeons of British Columbia. Doctors must maintain professional insurance.<\/p><p>The University of British Columbia (UBC) offers B.C.\u2019s only medical program, which is delivered throughout the province in partnership with other post-secondary institutions, health authorities and community physician practices. There are four regionally distinct sites:<\/p><ul><li>Island Medical Program (IMP) at the University of Victoria<\/li><li>Northern Medical Program (NMP) in Prince George at the University of Northern British Columbia<\/li><li>Southern Medical Program (SMP) in Kelowna at UBC Okanagan<\/li><li>Vancouver Fraser Medical Program<\/li><\/ul><p>Ongoing medical education and professional development are required throughout their careers to make sure that physicians keep up with changes and improvements in their field, and to ensure that they provide patients with modern treatments and up-to-date advice. All family physicians must complete at least 50 hours per year of continuing professional education throughout their career.<br\/><br\/>General practitioners and family physicians who are certified for that occupation by a regulator elsewhere in Canada can apply for the same certification from the regulator in B.C. Under the terms of the <a href=\"https:\/\/www.cfta-alec.ca\/\"  target=\"_blank\" rel=\"noopener noreferrer\">Canadian Free Trade Agreement (CFTA)<\/a>, most applicants who are transferring their credentials from elsewhere in Canada will not be required to complete additional training or testing. However, the B.C. regulator may ask applicants to provide further information such as a letter of good standing, references, or criminal record check.<br\/><br\/>For those who trained outside of Canada and never received certification from any Canadian jurisdiction, a full assessment is likely needed. Most occupational regulators have a process for assessment and recognize internationally trained applicants.<br\/><br\/>Contact the <a href=\"http:\/\/www.cpsbc.ca\/\"  target=\"_blank\" rel=\"noopener noreferrer\">College of Physicians and Surgeons of B.C.<\/a> for details on how to apply for certification in B.C.<br\/><br\/>For information about labour mobility in Canada, visit <a href=\"http:\/\/www.workersmobility.ca\/\"  target=\"_blank\" rel=\"noopener noreferrer\">www.workersmobility.ca<\/a>.<br\/><br\/>View a list of <a href=\"https:\/\/www.workbc.ca\/Jobs-Careers\/Explore-Careers\/B-C-Occupational-Regulators.aspx\" >B.C. occupational regulators<\/a>.<\/p>",
+    "Education Programs in B.C. Content": "<p>The following program areas are related to this occupation:<\/p><ul><li>Health\/Medical - General<\/li><li>Physicians and Surgeons<\/li><\/ul><p><\/p>",
+    "Industry Highlights Content": "",
+    "Insights from Industry Content": "<p>A growing and aging population will require more health services. This means that there will be more job openings for family physicians who want to run a family practice anywhere in B.C.<\/p><p>Overall, in the last few years, there has been an increase in the number of doctors treating patients. Still, in parts of the province, it is hard for some patients to find a family physician. Industry sources report that there is, and will continue to be, a strong demand for general practitioners throughout B.C., especially in northern and rural communities.<\/p><p>Physicians may receive incentives, such as signing bonuses, fee-for-service, flat-rate premiums or travel subsidies, if they move to certain rural communities to practise.<\/p><p>Even though opportunities for medical education in B.C. have gone up, there are still not enough graduates to meet the needs of our aging population. As a result, B.C. has filled gaps by recruiting physicians from other parts of Canada and around the world.<\/p>",
+    "Resources": [
+        {
+            "Resource Title": "B.C. Ministry of Health",
+            "Resource Link": "www.gov.bc.ca\/health"
+        },
+        {
+            "Resource Title": "BC College of Family Physicians (BCCFP)",
+            "Resource Link": "www.bccfp.bc.ca"
+        },
+        {
+            "Resource Title": "BC Family Doctors (Society of General Practitioners of BC)",
+            "Resource Link": "bcfamilydocs.ca"
+        },
+        {
+            "Resource Title": "Canadian Institute for Health Information (CIHI)",
+            "Resource Link": "www.cihi.ca"
+        },
+        {
+            "Resource Title": "Canadian Medical Association (CMA)",
+            "Resource Link": "www.cma.ca"
+        },
+        {
+            "Resource Title": "Canadian Medical Protective Association \u2013 Careers",
+            "Resource Link": "www.cmpa-acpm.ca\/en\/connect\/careers"
+        },
+        {
+            "Resource Title": "Canadian Resident Matching Service (CARMS)",
+            "Resource Link": "www.carms.ca\/en"
+        },
+        {
+            "Resource Title": "College of Physicians and Surgeons of British Columbia (CPSBC)",
+            "Resource Link": "www.cpsbc.ca"
+        },
+        {
+            "Resource Title": "Doctors of BC",
+            "Resource Link": "www.doctorsofbc.ca"
+        },
+        {
+            "Resource Title": "Educational Commission for Foreign Medical Graduates: International Credentials Services (ECFMG)",
+            "Resource Link": "www.ecfmg.org\/eics"
+        },
+        {
+            "Resource Title": "Fraser Health \u2013 Careers",
+            "Resource Link": "careers.fraserhealth.ca"
+        },
+        {
+            "Resource Title": "Health Match BC",
+            "Resource Link": "www.healthmatchbc.org"
+        },
+        {
+            "Resource Title": "Interior Health \u2013 Jobs",
+            "Resource Link": "jobs.interiorhealth.ca"
+        },
+        {
+            "Resource Title": "Island Health \u2013 Careers",
+            "Resource Link": "www.islandhealth.ca\/careers"
+        },
+        {
+            "Resource Title": "Island Health \u2013 Physician Recruitment",
+            "Resource Link": "islanddocs.com"
+        },
+        {
+            "Resource Title": "Medical Council of Canada (MCC)",
+            "Resource Link": "www.mcc.ca"
+        },
+        {
+            "Resource Title": "Northern Health \u2013 Careers",
+            "Resource Link": "careers.northernhealth.ca"
+        },
+        {
+            "Resource Title": "Provincial Health Services Authority (PHSA) \u2013 Careers",
+            "Resource Link": "www.phsa.ca\/careers"
+        },
+        {
+            "Resource Title": "Resident Doctors of BC",
+            "Resource Link": "residentdoctorsbc.ca"
+        },
+        {
+            "Resource Title": "The College of Family Physicians of Canada (CFPC)",
+            "Resource Link": "www.cfpc.ca"
+        },
+        {
+            "Resource Title": "Vancouver Coastal Health \u2013 Careers",
+            "Resource Link": "careers.vch.ca"
+        }
+    ],
+    "Page Blurb": ""
+},
+{
+    "title": "Geological and mineral technologists and technicians (NOC 2212)",
+    "id": 12867180,
+    "template": "Career Profiles",
+    "Page Title": "Geological and mineral technologists and technicians",
+    "Banner Image": [],
+    "NOC": "(NOC 2212)",
+    "Career Overview Content": "<p>Geological and mineral technologists and technicians provide technical support and services or may work independently in the fields of oil and gas exploration and production, geophysics, petroleum engineering, geology, mining and mining engineering, mineralogy, extractive and physical metallurgy, metallurgical engineering and environmental protection.<\/p>",
+    "Duties Content": "<p><strong>Geological and Mineral Technologists<\/strong><\/p><ul><li>Conduct or direct geological, geophysical, geochemical, hydrographic or oceanographic surveys, prospecting field trips, exploratory drilling, well logging or underground mine survey programs<\/li><li>Configure, operate and maintain geophysical survey and well logging instruments and equipment<\/li><li>Prepare notes, sketches, geological maps and cross sections<\/li><li>Prepare, transcribe or analyze seismic, gravimetric, well log or other geophysical and survey data \u2022 Assist engineers and geologists in the evaluation and analysis of petroleum and mineral reservoirs<\/li><li>Prepare or supervise the preparation of rock, mineral or metal samples and perform physical and chemical laboratory tests<\/li><li>Conduct or assist in environmental audits, in the design of measures to minimize undesirable environmental effects of new or expanded mining and oil and gas operations, and in the development of waste management and other related environmental protection procedures<\/li><li>May supervise oil and gas well drilling, well completions and work-overs<\/li><li>May conduct or supervise studies and programs related to mine development, mining methods, mine ventilation, lighting, drainage and ground control<\/li><li>May assist engineers and metallurgists in specifying material selection, metal treatments or corrosion protection systems<\/li><li>May assist hydrogeologists in evaluating groundwater and well circulation and in report preparation<\/li><li>May develop specifications for heat treatment of metals or for welding, design welding fixtures, troubleshoot welding processes or quality problems and supervise welding projects<\/li><li>May co-ordinate crew members' activities during seismic tests.<\/li><\/ul><p><strong>Geological and mineral technicians<\/strong><\/p><ul><li>Participate in geological, geophysical, geochemical, hydrographic or oceanographic surveys, prospecting field trips, exploratory drilling, well logging or underground mine survey programs and in environmental audits and related environmental protection activities<\/li><li>Operate and maintain geophysical survey and well logging instruments and equipment<\/li><li>Prepare notes, sketches, geological maps and cross sections<\/li><li>Assist in preparing, transcribing or analyzing seismic, gravimetric, well log or other geophysical and survey data<\/li><li>Assist in the preparation of rock, mineral or metal samples and in conducting physical and chemical laboratory tests<\/li><li>Assist in hydrogeological field and laboratory studies and in preparation of reports<\/li><li>Carry out a limited range of other technical functions in support of geology, geophysics and petroleum and mining engineering.<\/li><\/ul><p><\/p>",
+    "Work Environment Content": "<p>Geological and mineral technologists and technicians usually work a 35 to 40-hour week, however, extended hours or shift work may also be required. They may work either indoors in an office or laboratory or in field locations, such as mines, construction sites or wilderness areas while some workers may temporarily relocate to remote locations during field work.<\/p><p>Outdoor work sites can be dirty and noisy and safety precautions must be undertaken to reduce risks associated with field work. Some technologists and technicians perform field work during the summer months and indoor laboratory work during the winter.<\/p>",
+    "Career Pathways Content": "<p>Mobility may be possible between geophysical technology and electronic technology, and also between some occupations in this group and related fields of civil engineering technology. In general however, limited mobility is available between the different occupations in this group.<\/p>",
+    "Related Careers NOCs": "NOC 2211\nNOC 2231\nNOC 2241\nNOC 2255\nNOC 8221\nNOC 8222",
+    "Job Titles List": "Analyst, log \/ metallurgical control\nAssayer - mineralogy \/ gold \/ minerals\nCo-ordinator, seismic explortion line crew\nGeophysical observer \/ prospecting\nGeotechnician\nMud man \/ mud woman - petroleum drilling\nObserver, magnetic\nObserver, seismic exploration \/ prospecting\nOpearator, geophysical equipment\nSurvey technician \/ survey technologist\nTechnician \/ technologist, oil geology\nTechnician \/ technologist, sea-floor\nTechnician \/ technologist, soil science\nTechnician \/ technologist, welding\nTechnician, diamond drilling\nTechnician, foundry lab \/ gravity data\nTechnician, rock mechanics\nTechnician, seismic \/ seismometer\nTechnologist, geological prospecting\nTechnologist, geophysical engineering\nTechnologist, hydrographic \/ hydrology\nTechnologist, metallurgy \/ ore\nTechnologist, mine engineering\nTechnologist, mine production\nTechnologist, paleontology \/ palynology",
+    "Career Videos Content": "<p>Watch the video below to learn what a typical day is like for a geological technician.<\/p>",
+    "Career Video URLs": "https:\/\/youtu.be\/wGlZIT2twbg",
+    "Education, Training and Skills Content": "<p>Geological and mineral technologists are usually required to complete a two to three-year college program in geological technology, mining technology, mineralogy or a related discipline. Geological and mineral technicians are usually required to complete a one to two-year college program in a similar discipline as technologists. Geophysics technologists are usually required to complete a two to three-year college program in electronics technology.<\/p><p>Professional certification for geological and mineral technologists and technicians is available through the Applied Science Technologists and Technicians of B.C. (ASTTBC)<\/p><p>Completion of an accredited diploma program and two years of industry work experience are required for Applied Science Technologist (AScT) designation and completion of an accredited certificate program and two years of industry work experience are required for Certified Technician (CTech) designation.<\/p><p>Certification is available for geomatics, metallurgical and gas and petroleum technical occupations.<\/p><p>For more information, please visit the ASTTBC website at <a href=\"http:\/\/www.asttbc.org\/\"  target=\"_blank\" rel=\"noopener noreferrer\">www.asttbc.org<\/a>.<\/p>",
+    "Education Programs in B.C. Content": "<p>The following program areas are related to this occupation:<\/p><ul><li>Mining and Petroleum (Oil and Gas) Related<\/li><\/ul><p><\/p>",
+    "Industry Highlights Content": "",
+    "Insights from Industry Content": "<p>There will be job openings due to the need to replace retiring workers, as well as the creation of new jobs.<\/p><p>Employment growth is expected for geological and mineral technologists and technicians in the mining sector as a result of exploration and mining activity. British Columbia's Oil and gas industry has also seen growth in recent years, as high prices increased production and exploration activities.<\/p><p>Demand for workers in the Professional business services industry is tied to a wide variety of other industries, including Manufacturing and Construction. Employment growth in this industry is expected to follow overall growth in the provincial economy.<\/p>",
+    "Resources": [
+        {
+            "Resource Title": "Applied Science Technologists and Technicians of BC (ASTTBC)",
+            "Resource Link": "www.asttbc.org"
+        },
+        {
+            "Resource Title": "B.C. Ministry of Energy, Mines and Petroleum Resources",
+            "Resource Link": "www2.gov.bc.ca\/gov\/content\/governments\/organizational-structure\/ministries-organizations\/ministries\/energy-mines-and-petroleum-resources"
+        },
+        {
+            "Resource Title": "Canadian Council of Technicians and Technologists (CCTT)",
+            "Resource Link": "www.cctt.ca"
+        },
+        {
+            "Resource Title": "Canadian Institute of Mining, Metallurgy and Petroleum (CIM)",
+            "Resource Link": "www.cim.org"
+        },
+        {
+            "Resource Title": "Careers in Oil + Gas",
+            "Resource Link": "www.careersinoilandgas.com"
+        },
+        {
+            "Resource Title": "Centre of Training Excellence in Mining (CTEM)",
+            "Resource Link": "www.bc-ctem.ca"
+        },
+        {
+            "Resource Title": "MiHR - Careers",
+            "Resource Link": "www.mihr.ca\/careers"
+        },
+        {
+            "Resource Title": "Mining Association of British Columbia (MABC)",
+            "Resource Link": "www.mining.bc.ca"
+        },
+        {
+            "Resource Title": "Mining Association of Canada (MAC)",
+            "Resource Link": "www.mining.ca"
+        },
+        {
+            "Resource Title": "Mining Industry Human Resources Council (MiHR)",
+            "Resource Link": "www.mihr.ca"
+        }
+    ],
+    "Page Blurb": ""
+},
+{
+    "title": "Geological engineers (NOC 2144)",
+    "id": 12867181,
+    "template": "Career Profiles",
+    "Page Title": "Geological engineers",
+    "Banner Image": [],
+    "NOC": "(NOC 2144)",
+    "Career Overview Content": "<p><strong>Geological engineers:<\/strong><\/p><ul><li>Geological engineers carry out geological and geotechnical studies to assess suitability of locations for civil engineering, mining and oil and gas projects<\/li><li>Plan, design, develop and oversee programs of geological data acquisition and analysis and the preparation of geological engineering reports and recommendations<\/li><li>Work for consulting engineering companies; electrical utilities, mining and petroleum companies; and in government, research and educational institutions<\/li><\/ul><p><\/p>",
+    "Duties Content": "<p><strong>Geological engineers:<\/strong><\/p><ul><li>Plan, develop and co-ordinate programs of geotechnical, geological, geophysical or geohydrological data acquisition, analysis and mapping to assist in the development of civil engineering, mining, petroleum and waste management projects or for regional development<\/li><li>Analyze and prepare recommendations and reports for construction or improvements to foundations of civil engineering projects such as rock excavation, pressure grouting and hydraulic channel erosion control<\/li><li>Analyze and prepare recommendations and reports on settlement of buildings, stability of slopes and fills, and likely effects of landslides and earthquakes to support construction and civil engineering projects<\/li><li>Carry out studies on groundwater flow and contamination and develop regulations for site selection, treatment and construction<\/li><li>Plan, develop, co-ordinate and carry out studies in mining exploration, mine evaluation and feasibility studies concerning the mining industry<\/li><li>Carry out surveys and studies of ore deposits, ore reserve calculations and mine designs<\/li><li>Supervise technologists, technicians and other engineers and scientists<\/li><\/ul><p><\/p>",
+    "Work Environment Content": "<p>Work in this occupation is typically performed in a structured environment, such as an office or school, or an outdoor work environment where the worker is exposed to various weather conditions.<\/p>",
+    "Career Pathways Content": "<p>Geological engineers work closely with geologists and other scientists and engineers, and mobility is possible between some fields of specialization and between engineering specializations at the less senior levels. Also, engineers often work in a multidisciplinary environment and acquire knowledge and skills through work experience that may allow them to practise in associated areas of science, engineering, sales, marketing or management.<\/p>",
+    "Related Careers NOCs": "NOC 0211\nNOC 2113\nNOC 2131\nNOC 2143\nNOC 2145\nNOC 2154",
+    "Job Titles List": "Engineer, hydrogeological\nEngineer, petrography\nEngineer, rock sciences",
+    "Career Videos Content": "",
+    "Career Video URLs": "",
+    "Education, Training and Skills Content": "<ul><li>A bachelor's degree in geological engineering or in a related discipline is required.<\/li><li>A master's degree or doctorate in a related engineering discipline may be required.<\/li><li>Licensing by a provincial or territorial association of professional engineers is required to approve engineering drawings and reports and to practise as a Professional Engineer (P.Eng.).<\/li><li>Engineers are eligible for registration following graduation from an accredited educational program, three or four years of supervised work experience in engineering and passing a professional practice examination.<\/li><\/ul><p><\/p>",
+    "Education Programs in B.C. Content": "<p>The following program areas are related to this occupation:<\/p><ul><li>Electrical, Electronic &amp; Communications Engineering<\/li><li>Engineering Science<\/li><\/ul><p><\/p>",
+    "Industry Highlights Content": "",
+    "Insights from Industry Content": "",
+    "Resources": [
+        {
+            "Resource Title": "Association of Consulting Engineering Companies of British Columbia (ACEC-BC)",
+            "Resource Link": "www.acec-bc.ca"
+        },
+        {
+            "Resource Title": "Canadian Technology Immigration Network (CTIN)",
+            "Resource Link": "www.ctin.ca"
+        },
+        {
+            "Resource Title": "Engineering Careers",
+            "Resource Link": "www.engineeringcareers.ca"
+        },
+        {
+            "Resource Title": "Engineering Institute of Canada (EIC)",
+            "Resource Link": "www.eic-ici.ca"
+        },
+        {
+            "Resource Title": "EngineerJobs.com",
+            "Resource Link": "www.engineerjobs.com\/jobs\/canada\/british-columbia"
+        },
+        {
+            "Resource Title": "Engineers & Geoscientists BC",
+            "Resource Link": "www.egbc.ca"
+        },
+        {
+            "Resource Title": "Engineers Canada",
+            "Resource Link": "www.engineerscanada.ca"
+        },
+        {
+            "Resource Title": "Iranian Engineers of British Columbia Association (IEBCA)",
+            "Resource Link": "www.iebca.ca"
+        },
+        {
+            "Resource Title": "Mining Association of BC \u2013 Job Board",
+            "Resource Link": "www.mining.bc.ca\/job-board"
+        },
+        {
+            "Resource Title": "Society of Punjabi Engineers and Technologists of British Columbia (SPEATBC)",
+            "Resource Link": "www.speatbc.org"
+        },
+        {
+            "Resource Title": "Technology Registrations Canada (TRC)",
+            "Resource Link": "www.technologyregistrationscanada.ca"
+        },
+        {
+            "Resource Title": "The Canadian Geotechnical Society",
+            "Resource Link": "www.cgs.ca\/foundation-geotechnique.php?lang=en"
+        }
+    ],
+    "Page Blurb": ""
+},
+{
+    "title": "Geoscientists and oceanographers (NOC 2113)",
+    "id": 12867182,
+    "template": "Career Profiles",
+    "Page Title": "Geoscientists and oceanographers",
+    "Banner Image": [],
+    "NOC": "(NOC 2113)",
+    "Career Overview Content": "<p>Geoscientists and oceanographers include geologists, geochemists and geophysicists.<br\/><br\/>Geoscientists do exploration and research to gain knowledge of the earth's structure, composition and processes. They locate, identify and extract hydrocarbon, mineral and groundwater resources to find out how development and waste disposal projects affect the environment and to lessen the effects. They also examine earth surface processes\u2014for example, stream flow and bank erosion. <br\/><br\/>Oceanographers do exploration and research on:<\/p><ul><li>Ocean processes and phenomena<\/li><li>Biological, chemical and physical characteristics of oceans<\/li><li>Interactions with atmospheric and geological environments<\/li><li>Impacts of human activity on oceans and marine ecosystems<\/li><\/ul><p><\/p>",
+    "Duties Content": "<p><strong>Geoscientists:<\/strong><\/p><ul><li>Conduct theoretical and applied research to extend knowledge of surface and subsurface features of the earth, its history and the operation of physical, chemical and biological systems that control its evolution<\/li><li>Plan, direct and participate in geological, geochemical and geophysical field studies, drilling and geological testing programs<\/li><li>Plan and conduct seismic, electromagnetic, magnetic, gravimetric, radiometric, radar and other remote sensing programs<\/li><li>Plan, direct and participate in analyses of geological, geochemical and geophysical survey data, well logs and other test results, maps, notes and cross sections<\/li><li>Develop models and applied software for the analysis and interpretation of data<\/li><li>Plan and conduct analytical studies of core samples, drill cuttings and rock samples to identify chemical, mineral, hydrocarbon and biological composition and to assess depositional environments and geological age<\/li><li>Assess the size, orientation and composition of mineral ore bodies and hydrocarbon deposits<\/li><li>Identify deposits of construction materials and determine their characteristics and suitability for use as concrete aggregates, road fill or for other applications<\/li><li>Conduct geological and geophysical studies for regional development and advise in areas such as site selection, waste management and restoration of contaminated sites<\/li><li>Recommend the acquisition of lands, exploration and mapping programs and mine development<\/li><li>Identify and advise on anticipated natural risks such as slope erosion, landslides, soil instability, subsidence, earthquakes and volcanic eruptions<\/li><li>May supervise and co-ordinate well drilling, completion and work-overs and mining activities.<\/li><\/ul><p><strong>Oceanographers:<\/strong><\/p><ul><li>Conduct theoretical and applied oceanographic research programs and expeditions to extend knowledge of the physical, chemical and biological properties and functioning of oceans<\/li><li>Plan, direct and participate in sampling and analysis of seawater, plankton, fish, sediments and rocks<\/li><li>Study physical properties of oceans to develop models, charts and computer simulations of ocean conditions, such as tides, waves, currents and sediment transport<\/li><li>Explore ocean floor and submarine geological structures, conduct seismic surveys and study formation of ocean basins and other structures to map ocean floor, coastal erosion, sediment accumulation and areas for offshore oil and gas exploration<\/li><li>Plan and conduct investigations on ocean chemical properties and processes, ocean floor and marine atmosphere and undersea volcanoes to study impacts of environmental changes<\/li><li>Study marine life and interaction with physical and chemical environments to assess impacts of pollutants on marine ecology and to develop ecologically-based methods of seafarming.<\/li><\/ul><p><\/p><h2>Special duties<\/h2><p>Geoscientists may specialize in a number of different areas based on their fields.<\/p><p><strong>Geologists:<\/strong><\/p><ul><li>May specialize in coal geology, environmental geology, geochronology, hydrogeology, mineral deposits or mining, petroleum geology, stratigraphy, tectonics, volcanology or in other fields.<\/li><\/ul><p><strong>Geochemists:<\/strong><\/p><ul><li>May specialize in analytical geochemistry, hydrogeochemistry, applied or mineral exploration geochemistry or petroleum geochemistry or in other fields.<\/li><\/ul><p><strong>Geophysicists:<\/strong><\/p><ul><li>May specialize in areas, such as petroleum geology, earth physics, geodesy, geoelectromagnetism, seismology or in other fields<\/li><\/ul><p><strong>Oceanographers:<\/strong><\/p><ul><li>May specialize in biological, chemical, geological or physical oceanography, or in other fields related to the study of oceans.<\/li><\/ul><p><\/p>",
+    "Work Environment Content": "<p>Geoscientists spend time both in an office and outdoors conducting field work. Field work locations also vary depending on the specialization of the work and the location of the work site. As an example, geologists or geomorphologists may frequently travel to remote field sites by helicopter or other means and cover large areas on foot, whereas geological and geophysical oceanographers often collect data while at sea. Exploration geologists and geophysicists often are required to relocate, as their work requires them to live in different communities adjacent to work sites, in remote areas of B.C., other parts of Canada or overseas.<\/p><p>Geoscientists usually work regular hours; however, they may be required to work longer hours when required due to seasonal site access limitations, remote location or data gathering equipment requirements. Those working in corporate, consulting or research positions may experience stress when facing deadlines to submit proposals, research grant applications and technical reports.<\/p><p>Field work in locations, such as mines, drill sites or rugged terrain, may expose individuals to safety hazards, which can be minimized with safety precautions. Geoscientists may experience exposure to extreme weather conditions, insects, wildlife and other outdoor hazards while working in the field. Field work such as gathering samples may require geoscientists to hammer, dig, use tools, and come in contact with water, snow and ice. Physical stamina is important for doing field work, since this requires carrying rock samples and heavy equipment.<\/p><p>Industry sources also report that the globalization of mineral exploration has resulted in many B.C.-based geoscientists working on projects in other countries and climates around the world, often in developing countries in remote rural settings. As such, the risk of infections, diseases and simple injury (because of the distance from modern medical care facilities) is now greater. However, this is a controllable risk if it is well managed.<\/p><p>Some geochemists may be exposed to health or safety hazards when handling certain chemicals; however, there is little risk if proper procedures are followed.<\/p>",
+    "Career Pathways Content": "<p>New graduates may work as a geoscientist in training (G.I.T.) in order to obtain work experience necessary to become professionally designated. Industry sources report that recent graduates typically obtain positions as a field geoscientist or mapping geologist.<\/p><p>With further training and experience people may move between specializations in this group or they may advance into senior positions, such as project geologist, project manager, senior geoscientist, senior hydrogeologist, manager exploration, principal geologist, partner, VP exploration.<\/p>",
+    "Related Careers NOCs": "NOC 0212\nNOC 0811\nNOC 2111\nNOC 2112\nNOC 2121\nNOC 2144",
+    "Job Titles List": "Biostratigrapher\nCo-ordinator, well site - geology\nGeochemist\nGeodesist\nGeologist, consulting \/ development\nGeologist, environmental \/ exploration\nGeologist, mine \/ mining \/ coal\nGeologist, oil \/ petroleum \/ prospecting\nGeologist, sedimentary \/ structural\nGeomorphologist\nGeophysicist - consulting \/ exploration\nGlaciologist\nHydrologist \/ hydrogeologist\nMicropaleontologist\nMineralogist\nOceanographer, biological \/ chemical\nPaleobotanist \/ paleoecologist\nPalynologist\nPetrographer \/ petrologist\nPhotogeologist\nQuaternarist \/ quaternary scientist\nSedimentologist\nSeismologist\nSpecialist, ice\nStratigrapher\nSurveyor, hydrographic - geology\nVulcanologist",
+    "Career Videos Content": "<p>Watch the video below to see what it's like to be a geologist.<\/p>",
+    "Career Video URLs": "https:\/\/youtu.be\/cc6cISY752M",
+    "Education, Training and Skills Content": "<p>Geologists, Geochemists and Geophysicists must complete a bachelor\u2019s degree in geology, environmental geoscience, geochemistry, geophysics or a related discipline. In order to achieve the required registration by the Association of Professional Engineers and Geoscientists of British Columbia (APEGBC) geoscientists must:<\/p><ul><li>Take a certain number of required university courses (an honours degree from most universities will meet most of these academic requirements)<\/li><li>Gain several years of supervised work experience under a professional geoscientist<\/li><li>Pass a professional ethics examination.<\/li><\/ul><p>Other beneficial qualifications for a person in this career include:<\/p><ul><li>A master's degree or a PhD is required for some positions<\/li><li>Business administration education for geoscientists working in project management<\/li><li>First aid certification is also beneficial for workers that conduct field assessments<\/li><li>Geoscientists require a university degree in geology, geochemistry, geophysics or a related discipline.<\/li><li>A master's or doctoral degree in geophysics, physics, mathematics or engineering may be required for employment as a geophysicist.<\/li><li>Registration with a provincial or territorial association of professional engineers, geologists, geophysicists or geoscientists is usually required for employment and is mandatory to practice in Newfoundland and Labrador, Alberta, British Columbia, the Northwest Territories and Nunavut.<\/li><li>Geologists and geophysicists are eligible for registration following graduation from an accredited educational program and after several years of supervised work experience and, in some provinces, after passing a professional practice examination.<\/li><li>Oceanographers require a university degree in science, mathematics, statistics or engineering and usually require a graduate degree in oceanography.<\/li><\/ul><p><\/p>",
+    "Education Programs in B.C. Content": "<p>The following program areas are related to this occupation:<\/p><ul><li>Geography\/Earth Sciences Related<\/li><\/ul><p><\/p>",
+    "Industry Highlights Content": "",
+    "Insights from Industry Content": "<p>New job openings will result from both the creation of new jobs and retirement.<\/p><p>There will be good opportunities for job seekers due to the relatively limited number of experienced workers available to fill job openings. Industry sources report that due to low levels of career recruitment and retention in the 1980\u2019s and 1990\u2019s, there are an insufficient number of highly qualified geoscientists available to replace experienced geoscientists who retire. Much of this gap is expected to be filled by immigration.<\/p><p>Industry sources also report that more geoscientists are expected to be based in the Lower Mainland, and less in other areas of B.C. Improved travel and instant communications make it easier for geoscientists to reside centrally and work remotely. There will be more opportunities for workers who have their Geoscientist In Training (G.I.T.) or Professional Geoscientist (P.Geo) designation.<\/p><p>New jobs in this occupational group will likely come from oil, gas and mining exploration activities in the province, or from activities in other part of the world being undertaken by companies based in B.C. Prices of oil, gas and certain metals and minerals have soared in recent years due to increased world demand, which will generate some new job opportunities. In particular, industry sources report that demand for workers in the minerals sector is currently strong, and there is an insufficient supply of new graduates to fill job vacancies.<\/p><p>Industry sources also reports that opportunities will also likely become available in the environmental geosciences sector. This sector employs the second highest number of geoscientists and is currently experiencing a significant shortage of qualified graduates.<\/p><p>Many of the growth opportunities for geologist, geochemist and geophysicist specialties are also expected to come from growth in business services that provide geological services, either internationally or to local companies involved in international exploration.<\/p><p>Industry sources report that there is expected to be a greater demand of geoscientists for land use planning, risk assessment and water resources management, and less demand of geoscientists for surveying and mapping. Sources also suggest that there is currently greater demand of geoscientists to work on independent power projects in B.C.<\/p><p>In addition, new graduates will be needed in field-oriented jobs, as older workers may have moved to senior positions or no longer wish to work in the occupation.<\/p><p>Industry sources also report that the globalization of mineral exploration has resulted in many B.C.-based geoscientists working on projects in other countries and climates around the world, often in developing countries in remote rural settings. As such, the risk of infections, diseases and simple injury (because of the distance from modern medical care facilities) is now greater. However, this is a controllable risk if it is well managed.<\/p>",
+    "Resources": [
+        {
+            "Resource Title": "Association for Mineral Exploration British Columbia (AME BC)",
+            "Resource Link": "www.amebc.ca"
+        },
+        {
+            "Resource Title": "Association of Applied Geochemists (AAG)",
+            "Resource Link": "www.appliedgeochemists.org"
+        },
+        {
+            "Resource Title": "Canadian Society of Exploration Geophysicists (CSEG)",
+            "Resource Link": "cseg.ca"
+        },
+        {
+            "Resource Title": "Canadian Society of Petroleum Geologists (CSPG)",
+            "Resource Link": "www.cspg.org"
+        },
+        {
+            "Resource Title": "Centre of Training Excellence in Mining (CTEM)",
+            "Resource Link": "www.bc-ctem.ca"
+        },
+        {
+            "Resource Title": "Engineers and Geoscientists British Columbia (EGBC)",
+            "Resource Link": "www.egbc.ca"
+        },
+        {
+            "Resource Title": "Geological Association of Canada (GAC)",
+            "Resource Link": "www.gac.ca"
+        },
+        {
+            "Resource Title": "Geoscience BC",
+            "Resource Link": "www.geosciencebc.com\/s\/Home.asp"
+        },
+        {
+            "Resource Title": "Geoscientists Canada",
+            "Resource Link": "geoscientistscanada.ca"
+        },
+        {
+            "Resource Title": "Mining Association of British Columbia (MABC)",
+            "Resource Link": "www.mining.bc.ca"
+        },
+        {
+            "Resource Title": "Prospectors and Developers Association of Canada (PDAC)",
+            "Resource Link": "www.pdac.ca"
+        }
+    ],
+    "Page Blurb": ""
+},
+{
+    "title": "Glass forming and finishing machine operators and glass cutters (NOC 9413)",
+    "id": 12867183,
+    "template": "Career Profiles",
+    "Page Title": "Glass forming and finishing machine operators and glass cutters",
+    "Banner Image": [],
+    "NOC": "(NOC 9413)",
+    "Career Overview Content": "<p><strong>Machine operators in this unit group:<\/strong><\/p><ul><li>Operate multi-function process control machinery or single function machines to melt, form, cut or finish flat glass, glassware, bottles and other glass products<\/li><\/ul><p><strong>Glass cutters:<\/strong><\/p><ul><li>Cut flat glass of various thicknesses to specified sizes and shapes by hand<\/li><\/ul><p>These workers are employed by glass and glass products manufacturing companies.<\/p>",
+    "Duties Content": "<p><strong>Glass process control operators:<\/strong><\/p><ul><li>Operate multi-function process control machinery through control panels, computer terminals or other control systems to mix and melt raw materials<\/li><li>Heat, anneal, temper or form float glass or glass products<\/li><li>Coat glass with silver or other metals and materials<\/li><li>Look at gauges, computer printouts and video monitors to verify specified processing conditions and make adjustments as necessary<\/li><li>Maintain shift log of production and other data<\/li><li>May operate process control machinery to cut glass or assemble glass window units<\/li><li>May clean and maintain process machinery<\/li><li>May check to make sure that adequate levels of oil, soap, talc or other materials are used in machine production of glass<\/li><\/ul><p><strong>Glass forming machine operators:<\/strong><\/p><ul><li>Set up and adjust automatic glass feeding, flowing and forming machines<\/li><li>Operate and maintain machines that press or blow molten glass in moulds to form or shape containers, such as bottles, jars and drinking glasses<\/li><li>Operate electric kilns that heat glass sheets and mould to the shape and curve of metal jigs<\/li><li>Spray or swab moulds with oil solutions to prevent adhesion of glass<\/li><li>Weigh, measure and check production samples to assess conformance to specifications using scales and gauges and by visual verification<\/li><\/ul><p><strong>Glass finishing machine operators:<\/strong><\/p><ul><li>Set up and adjust glass and glass-product finishing machines<\/li><li>Operate and maintain finishing machines to grind, drill, sand, bevel, decorate, wash or polish glass or glass products<\/li><li>Inspect products for quality<\/li><li>Record manufacturing information such as quantity, size and type of goods produced<\/li><\/ul><p><strong>Glass cutters:<\/strong><\/p><ul><li>Jig and measure and mark glass or place pattern on or under glass for cutting<\/li><li>Examine and mark defective glass to get best cut<\/li><li>Cut glass along marked outlines or around pattern using hand tools<\/li><li>Smooth rough edges using belt sander or smoothing wheels<\/li><li>Set up, operate and adjust computerized or robotic glass cutting equipment<\/li><li>Monitor process for product quality<\/li><\/ul><p><\/p>",
+    "Work Environment Content": "<p><strong>Key aspects of the work in this occupation:<\/strong><\/p><ul><li>Work takes place in a regular controlled indoor environment.<\/li><li>Work also takes place in an indoor environment, such as a furnace room where temperatures or humidity may vary considerably.<\/li><li>Working with equipment, instruments, machinery or power\/hand tools may be source of injury.<\/li><li>The workplace may contain flying glass or airborne particles that may cause injury.<\/li><li>Workers may be exposed to fire, steam or hot surfaces that can be hazardous.<\/li><li>Noise in the workplace may cause distraction or hearing loss.<\/li><\/ul><p><\/p>",
+    "Career Pathways Content": "<p>Movement is possible among the various types of machine operators in this unit group.<\/p><p>Progression to supervisory positions is possible with experience.<\/p>",
+    "Related Careers NOCs": "NOC 5244\nNOC 7292\nNOC 9211\nNOC 9415\nNOC 9524",
+    "Job Titles List": "Controller, yardage\nCutter, special glass \/ staple\nGatherer\nGrinder, glassware\nInspector, bottle\nMaker, tinted glassware\nMirror maker \/ silverer\nNeon sign pumper \/ tube bender\nOperator, automatic glass-cutting table\nOperator, bottle maker\nOperator, diamond grinder\nOperator, drawing kiln \/ tempering furnace\nOperator, enamelling furnace\nOperator, float\nOperator, glass bonding machine\nOperator, glass cut-off machine\nOperator, glass edger \/ hand-finisher\nOperator, glass furnace \/ set-up\nOperator, glass lehr \/ annealer\nOperator, glass spin mould machine set-up\nOperator, glass windshield autoclave\nOperator, glass-blowing lathe\nOperator, glass-decorating \/ finishing\nOperator, glass-tube-expander\nOperator, strapping machine\nTender, banding machine\nTester, beaker \/ bottle\nWorker, glass - ornamental \/ stained glass\nWorker, glass - polisher \/ presser\nWorker, glass bender \/ beveller \/ breaker",
+    "Career Videos Content": "",
+    "Career Video URLs": "",
+    "Education, Training and Skills Content": "<ul><li>Completion of secondary school may be required.<\/li><li>Experience as a machine operator helper in glass manufacturing is usually required for machine operators in this unit group.<\/li><li>Experience as a glass cutter helper is usually required for manual glass cutters.<\/li><\/ul><p><\/p>",
+    "Education Programs in B.C. Content": "",
+    "Industry Highlights Content": "",
+    "Insights from Industry Content": "",
+    "Resources": [
+        {
+            "Resource Title": "",
+            "Resource Link": ""
+        }
+    ],
+    "Page Blurb": ""
+},
+{
+    "title": "Glaziers (NOC 7292)",
+    "id": 12867184,
+    "template": "Career Profiles",
+    "Page Title": "Glaziers",
+    "Banner Image": [],
+    "NOC": "(NOC 7292)",
+    "Career Overview Content": "<p>Glaziers cut, fit, install and replace glass in residential, commercial and industrial buildings, on exterior walls of buildings and other structures, and in furniture and other products.<\/p><p><strong>People in these occupations:<\/strong><\/p><ul><li>Are also responsible for installing metal frameworks for glass and building the walls of buildings made of suspended glass panels<\/li><li>Work with pre-glazed and panelized glazing systems<\/li><li>Work for construction glass installation contractors, retail service and repair shops and glass fabrication shops<\/li><li>May be self-employed<\/li><li>Must be able to work both independently and in a team setting<\/li><li>Should have good manual dexterity, as well as have good eyesight for measuring and examining glass for flaws<\/li><li>Should be able to understand door hardware and locking\/closing types and systems<\/li><li>Should have mathematical ability<\/li><li>Should be physically fit and able to lift heavy objects, as well as be comfortable working at heights<\/li><li>Should also have a clean driving record and be able to operate and run elevated platforms and equipment<\/li><\/ul><p><\/p>",
+    "Duties Content": "<p><strong>Glaziers perform some or all of the following duties:<\/strong><\/p><ul><li>Read and interpret blueprints and specifications to determine type and thickness of glass, frame, installation procedure and materials required<\/li><li>Measure and mark glass and cut glass using glass cutters or computerized cutter<\/li><li>Tint glass and create patterns on glass by etching, sandblasting or painting designs<\/li><li>Assemble, erect and dismantle scaffolds, rigging and hoisting equipment<\/li><li>Position glass panes into frames and secure glass using clips, points or mouldings<\/li><li>Assemble and install prefabricated glass, mirrors or glass products on walls, ceilings or exteriors of building<\/li><li>Fabricate metal frames for glass installation<\/li><li>Install, fit, fabricate and attach architectural metals or related substitute products in commercial and residential buildings<\/li><li>Install pre-cut mirrors and opaque and transparent glass panels in frames to form exterior walls of buildings<\/li><li>Replace glass in furniture and other products<\/li><li>Prepare and install skylights, showcases and aquariums and stained or other special glass in churches, museums, sports and other establishments<\/li><li>Repair and service residential windows, doors and other glass supporting structures, and replace damaged glass or faulty sealant<\/li><li>May prepare cost estimates for customers or clients<\/li><\/ul><p><\/p>",
+    "Work Environment Content": "<p>Glaziers work a standard 40-hour workweek, however, some overtime may also be required to complete projects and meet deadlines.<\/p><p>Work is done in a variety of indoor and outdoor environments, depending on the job. Outdoor settings may include construction sites or highrise buildings. Outdoor work may also involve working at heights on scaffolding, as well as working under various weather conditions. Indoor work is typically done when repairing or replacing glass in vehicles or furniture.<\/p><p>Glaziers take safety precautions since there is a risk of injury due to the use of cutting tools or from broken glass. Workers are also required to lift heavy objects, which increases the risk of back injury.<\/p><p>Some travel may also be required. Workers should also attend and understand safety programs related to their work.<\/p>",
+    "Career Pathways Content": "<p>With appropriate education and experience, glaziers may progress to supervisory positions, such as foreman, maintenance manager or service manager or they may start their own businesses.<\/p><p>Other career paths include consulting, estimating, project coordination and management, or sales with industry-related products.<\/p>",
+    "Related Careers NOCs": "NOC 7205\nNOC 9413",
+    "Job Titles List": "Glass setter - construction\nGlazier, journeyman \/ journeywoman\nGlazier, leaded glass \/ stained glass\nInstaller, glass wall \/ wallcovering\nMechanic, glass and metal",
+    "Career Videos Content": "",
+    "Career Video URLs": "",
+    "Education, Training and Skills Content": "<p>Completion of secondary school is recommended, but is not required. While trade certification is not required to be an glazier in B.C., it will likely increase job opportunities. Completion of a four-year apprenticeship program is required to be eligible for trade certification.<\/p><p>Apprenticeship programs:<\/p><ul><li>Can be started in secondary school, through entry-level training (foundation programs) at colleges and technical institutes or by direct entry<\/li><li>Require workers to find a sponsor employer who is willing to participate in the program<\/li><\/ul><p>Upon completion of the four-year apprenticeship program and training, as well as successfully passing the interprovincial exam, glaziers are certified as journeypersons. Once individuals pass the interprovincial exam (the final exam for this trade), they will achieve certification and will automatically have a Red Seal endorsement through the Industry Training Authority.<\/p><p>Trainees may also be certified in this trade through the challenge process. If an individual completes 9,600 hours of work in the trade, they can challenge the examination without technical training. Workers are certified if they achieve a minimum score of 70 percent. For more information please see the Industry Training Authority website at <a href=\"http:\/\/www.itabc.ca\/\"  target=\"_blank\" rel=\"noopener noreferrer\">www.itabc.ca.<\/a><\/p><p>Glaziers who are certified for that occupation by a regulator elsewhere in Canada can apply for the same certification from the regulator in B.C. Under the terms of the <a href=\"https:\/\/www.cfta-alec.ca\/\"  target=\"_blank\" rel=\"noopener noreferrer\">Canadian Free Trade Agreement (CFTA)<\/a>, most applicants who are transferring their credentials from elsewhere in Canada will not be required to complete additional training or testing. However, the B.C. regulator may ask applicants to provide further information such as a letter of good standing, references, or criminal record check.<br\/><br\/>For those who trained outside of Canada and never received certification from any Canadian jurisdiction, a full assessment is likely needed. Most occupational regulators have a process for assessment and recognize internationally trained applicants.<br\/><br\/>Contact the <a href=\"http:\/\/www.itabc.ca\/\"  target=\"_blank\" rel=\"noopener noreferrer\">Industry Training Authority of BC<\/a> for details on how to apply for certification in B.C.<br\/><br\/>For information about labour mobility in Canada, visit <a href=\"http:\/\/www.workersmobility.ca\/\"  target=\"_blank\" rel=\"noopener noreferrer\">www.workersmobility.ca<\/a>.<br\/><br\/>View a list of <a href=\"https:\/\/www.workbc.ca\/Jobs-Careers\/Explore-Careers\/B-C-Occupational-Regulators.aspx\" >B.C. occupational regulators<\/a>.<\/p><p><\/p><h3><strong>Trades training resources<\/strong><\/h3><p>Visit our trades training page at <a href=\"https:\/\/number41media1.gathercontent.com\/item\/12593104\" >www.workbc.ca\/trades<\/a> to learn about apprenticeship and trades training in B.C.<\/p>",
+    "Education Programs in B.C. Content": "",
+    "Industry Highlights Content": "",
+    "Insights from Industry Content": "<p>Job growth for glaziers largely depends on trends in the Construction, Manufacturing and Retail industries, where the work is mainly concentrated. Work in the Retail and Manufacturing sectors is less affected by economic cycles than in the Construction industry. Construction activity is sensitive to factors such as interest rates, population growth and the cost of materials.<\/p><p>Industry sources report an insufficient number of people entering this occupation, mainly due to a lack of knowledge about the job.<\/p>",
+    "Resources": [
+        {
+            "Resource Title": "British Columbia Construction Association (BCCA)",
+            "Resource Link": "www.bccassn.com"
+        },
+        {
+            "Resource Title": "BuildForce Canada",
+            "Resource Link": "www.buildforce.ca\/en"
+        },
+        {
+            "Resource Title": "Canadian Glass Association (CGA)",
+            "Resource Link": "canadianglassassociation.com"
+        },
+        {
+            "Resource Title": "Canadian Home Builders\u2019 Association of British Columbia (CHBA BC)",
+            "Resource Link": "chbabc.org"
+        },
+        {
+            "Resource Title": "Construction Labour Relations Association (CLR) of BC",
+            "Resource Link": "www.clra-bc.com"
+        },
+        {
+            "Resource Title": "Fenestration Association of BC (FEN-BC)",
+            "Resource Link": "www.fen-bc.org"
+        },
+        {
+            "Resource Title": "Finishing Trades Institute of BC (FTI BC)",
+            "Resource Link": "ftibc.ca"
+        },
+        {
+            "Resource Title": "Glass, Molders, Pottery, Plastics and Allied Workers International Union",
+            "Resource Link": "www.gmpiu.org"
+        },
+        {
+            "Resource Title": "Independent Contractors and Businesses Association (ICBA) of British Columbia",
+            "Resource Link": "www.icba.bc.ca"
+        },
+        {
+            "Resource Title": "IUPAT DC38 \u2013 The Finishing Trades",
+            "Resource Link": "dc38.ca"
+        },
+        {
+            "Resource Title": "National Glass Association (NGA)",
+            "Resource Link": "www.glass.org"
+        },
+        {
+            "Resource Title": "Skilled Trades Employment Program (STEP)",
+            "Resource Link": "www.stepbc.ca"
+        },
+        {
+            "Resource Title": "SkilledTradesBC",
+            "Resource Link": "www.itabc.ca"
+        }
+    ],
+    "Page Blurb": ""
+},
+{
+    "title": "Government managers - economic analysis, policy development and program administration (NOC 0412)",
+    "id": 12867185,
+    "template": "Career Profiles",
+    "Page Title": "Government managers - economic analysis, policy development and program administration",
+    "Banner Image": [],
+    "NOC": "(NOC 0412)",
+    "Career Overview Content": "<p><strong>Government managers in this unit group:<\/strong><\/p><ul><li>Plan, organize and direct policy, research and programs in government such as taxation, international trade, labour markets, transportation or agriculture<\/li><li>Plan and direct policies and programs to promote industrial and commercial business development in urban and rural areas<\/li><li>Work in government departments and agencies<\/li><\/ul><p><\/p>",
+    "Duties Content": "<p><strong>Government managers in this unit group perform some or all of the following duties:<\/strong><\/p><ul><li>Plan, organize and direct the development of economic policy research projects and economic programs<\/li><li>Participate in the development of departmental policies by providing advice to senior government managers<\/li><li>Organize departmental unit and establish procedures to meet departmental goals set by senior management<\/li><li>Direct and advise economists and other professional staff who conduct economic research, prepare reports or carry out programs in areas of government activity such as taxation, inAXternational trade, labour, transportation or agriculture<\/li><li>Direct and advise economic development officers or other staff carrying out programs to promote industrial and commercial business investment in urban or rural areas<\/li><li>Plan, carry out and control research and administration budgets for projects, support services, equipment or supplies<\/li><li>Organize and direct committees evaluating departmental or agency projects or programs<\/li><li>Interview, hire and oversee training and professional development<\/li><\/ul><p><\/p>",
+    "Work Environment Content": "<p>Work in this occupation is typically performed in a structured environment, such as an office.<\/p>",
+    "Career Pathways Content": "<p>Progression to senior management positions is possible with experience.<\/p>",
+    "Related Careers NOCs": "NOC 0012\nNOC 0111\nNOC 0411\nNOC 4162\nNOC 4163\nNOC 4164",
+    "Job Titles List": "Business development director\nChief, grain market analysis\nChief, revenue programs \/ tax policy\nCo-ordinator, economic development\nDirector, natural resources policy\nDirector, agricultural policy\nDirector, community economic development\nDirector, economic and trade analysis\nDirector, energy policy\nDirector, fishery policy\nDirector, forestry policy\nDirector, industrial development\nDirector, international trade policy\nDirector, labour market analysis\nDirector, market development\nDirector, tourism development\nDirector, trade liaison\nDirector, transportation policy\nEconomic analysis chief\nForest resource analysis chief\nInternational trade policy manager\nManager, agriculture \/ fishery \/ forestry\nManager, border services\nManager, customs\nManager, export programs\nManager, regional economic services\nManager, tourism development \/ research\nManager, transportation programs\nRevenue programs manager\nSuperintendent, park",
+    "Career Videos Content": "",
+    "Career Video URLs": "",
+    "Education, Training and Skills Content": "<ul><li>A bachelor's degree in economics, business administration, commerce or public administration is required.<\/li><li>A master's degree in economics or a related field may be required.<\/li><li>Several years of experience as an economist, economic development officer or socio-economic researcher are required.<\/li><\/ul><p><\/p>",
+    "Education Programs in B.C. Content": "<p>The following program areas are related to this occupation:<\/p><ul><li>Public Administration<\/li><\/ul><p><\/p>",
+    "Industry Highlights Content": "",
+    "Insights from Industry Content": "",
+    "Resources": [
+        {
+            "Resource Title": "",
+            "Resource Link": ""
+        }
+    ],
+    "Page Blurb": ""
+},
+{
+    "title": "Government managers - education policy development and program administration (NOC 0413)",
+    "id": 12867186,
+    "template": "Career Profiles",
+    "Page Title": "Government managers - education policy development and program administration",
+    "Banner Image": [],
+    "NOC": "(NOC 0413)",
+    "Career Overview Content": "<p><strong>Government managers in this unit group:<\/strong><\/p><ul><li>Plan, organize and direct the development and administration of elementary, secondary and post-secondary education policies and programs<\/li><li>Fwork for government departments and agencies<\/li><\/ul><p><\/p>",
+    "Duties Content": "<p><strong>Government managers in this unit group perform some or all of the following duties:<\/strong><\/p><ul><li>Participate in the development of education policy by providing advice to senior government managers<\/li><li>Organize departmental unit and create procedures to meet departmental goals set by senior management<\/li><li>Direct and advise policy researchers or program officers conducting research, preparing documents or carrying out programs for elementary and secondary school systems<\/li><li>Plan, carry out and control budgets for projects, programs, support services and equipment<\/li><li>Organize and direct committees and working groups to plan, manage or evaluate education projects and programs<\/li><li>Interview, hire and provide training for staff<\/li><\/ul><p><\/p>",
+    "Work Environment Content": "<p>Work in this occupation is typically performed in a structured environment, such as an office or school.<\/p>",
+    "Career Pathways Content": "<p>Promotion to senior management positions is possible with experience.<\/p>",
+    "Related Careers NOCs": "NOC 0012\nNOC 0421\nNOC 0422\nNOC 0411",
+    "Job Titles List": "Administrator, education\nDirector, curriculum development\nDirector, education - children \/ adults\nDirector, education - inspection\nDirector, heritage languages\nDirector, policy and planning\nDirector, school services\nDirector, special education\nDirector, university research\nManager, corporate policy\nManager, program administration\nSchool inspection director\nStudent assistance program director",
+    "Career Videos Content": "",
+    "Career Video URLs": "",
+    "Education, Training and Skills Content": "<ul><li>A bachelor's degree in education is required.<\/li><li>A master's degree in a particular educational specialization may be required.<\/li><li>Several years of combined experience as a school teacher and as a government educational policy researcher, consultant or program officer are usually required.<\/li><li>A provincial teaching certificate is usually required.<\/li><\/ul><p><\/p>",
+    "Education Programs in B.C. Content": "<p>The following program areas are related to this occupation:<\/p><ul><li>Elementary\/Secondary Teaching Related<\/li><\/ul><p><\/p>",
+    "Industry Highlights Content": "",
+    "Insights from Industry Content": "",
+    "Resources": [
+        {
+            "Resource Title": "",
+            "Resource Link": ""
+        }
+    ],
+    "Page Blurb": ""
+},
+{
+    "title": "Graphic arts technicians (NOC 5223)",
+    "id": 12867188,
+    "template": "Career Profiles",
+    "Page Title": "Graphic arts technicians",
+    "Banner Image": [],
+    "NOC": "(NOC 5223)",
+    "Career Overview Content": "<p>Graphic arts technicians help conceptualize projects; interpret design specifications or sketches; prepare page mock-ups, layouts and lettering; and prepare production materials for press, electronic or multimedia publishing<strong>.<\/strong><\/p><p><strong>People in this occupation:<\/strong><\/p><ul><li>Work for publishing, communications, advertising, marketing, printing and multimedia establishments, and for television and film production companies<\/li><li>May be self-employed<\/li><li>Should be creative and enjoy careful, precise work<\/li><li>Must possess organizational and communication skills<\/li><li>Must be able to work to deadline<\/li><li>Should have strong computer skills<\/li><\/ul><p><\/p>",
+    "Duties Content": "<p><strong>Graphic arts technicians perform some or all of the following duties:<\/strong><\/p><ul><li>Review the graphic designer\u2019s instructions<\/li><li>Produce or help with developing and producing design concepts<\/li><li>Capture elements such as titles, text, drawings, illustrations, graphics, lettering and colour harmonization using a computer<\/li><li>Produce computerized images and drawings<\/li><li>Digitize images using peripherals and transform them using retouching systems, graphic palettes or specialized software<\/li><li>Do layout, page make-up and placement using the conceptual mock-ups provided<\/li><li>Produce proofs and camera-ready materials and prepare film and any other prepress materials<\/li><li>Paint or ink individual cells of 2-D or 3-D animated drawings according to animator\u2019s specifications using an electronic palette<\/li><li>Lay out, draw or paint letters, figures, logos and designs for windows, advertisements, billboards, vehicles, books and publications, using specialized software or painting equipment<\/li><li>Work in an environment that includes a variety of skill sets<\/li><\/ul><p><\/p>",
+    "Work Environment Content": "<p>Graphic arts technicians usually work 35\u201340 hours per week. However, they may have to adjust their work day to suit clients' schedules and deadlines, sometimes meeting with clients in the evening or on weekends.<\/p><p>Graphic arts technicians who work for manufacturing establishments, large corporations or design firms generally work in bright and comfortable settings. Self-employed graphic arts technicians may work from a home office and may travel to meet with clients.<\/p><p>Those who work with computers for extended periods of time are at risk of eye strain, back strain and wrist problems. Correct positioning when using computers for long periods will reduce these risks.<\/p>",
+    "Career Pathways Content": "<p>Recent graduates may find work in a variety of design sectors, such as advertising agencies, communication design firms and newspapers.<br\/>Some entry-level graphic arts technicians choose self-employment.<br\/>With experience and training, workers in this group may progress to graphic designer positions. With further experience they may progress to management or senior positions such as senior designer, art director or creative director.<\/p>",
+    "Related Careers NOCs": "NOC 1423\nNOC 1452\nNOC 5241\nNOC 9472",
+    "Job Titles List": "Animation (cartoon) camera operator\nAnimation (cartoon) inker \/ painter\nArtist, mannequin\nCompositor - animation\nCompositor - film\nGraphic arts assembler \/ hand painter\nGraphic arts letterer\nPainter, poster \/ signs \/ traffic signs\nPhotographic airbrush artist \/ retoucher\nStencil maker, photographic\nStencil marker - graphic arts\nTechnician, computer graphics \/ design\nTechnician, graphic design\nVideo game artist \/ designer\nVisual effects artist",
+    "Career Videos Content": "",
+    "Career Video URLs": "",
+    "Education, Training and Skills Content": "<p>Graphic arts technicians generally need a college diploma in commercial or graphic arts, computer graphics, animated design or web design. Other requirements may include:<\/p><ul><li>Experience or training in multimedia design at a post-secondary, college or technical institution in programs that can be one to three years long a well-developed portfolio of work that allows clients and prospective employers to view the type and quality of their work<\/li><\/ul><p><\/p>",
+    "Education Programs in B.C. Content": "<p>The following program areas are related to this occupation:<\/p><ul><li>Design (General)<\/li><\/ul><p><\/p>",
+    "Industry Highlights Content": "",
+    "Insights from Industry Content": "",
+    "Resources": [
+        {
+            "Resource Title": "Advertising and Design Club of Canada",
+            "Resource Link": "theadcc.ca"
+        },
+        {
+            "Resource Title": "Society of Graphic Designers of Canada (GDC)",
+            "Resource Link": "www.gdc.net"
+        },
+        {
+            "Resource Title": "The Magazine Association of BC",
+            "Resource Link": "magsbc.com"
+        }
+    ],
+    "Page Blurb": ""
+},
+{
+    "title": "Ground and water transport ticket agents, cargo service representatives and related clerks (NOC 6524)",
+    "id": 12867190,
+    "template": "Career Profiles",
+    "Page Title": "Ground and water transport ticket agents, cargo service representatives and related clerks",
+    "Banner Image": [],
+    "NOC": "(NOC 6524)",
+    "Career Overview Content": "<p><strong>Ticket agents, cargo service representatives and related clerks (except airline):<\/strong><\/p><ul><li>Quote fares and rates<\/li><li>Make reservations<\/li><li>Issue tickets<\/li><li>Process cargo shipment<\/li><li>Check baggage<\/li><li>Perform other related customer service duties to assist travellers<\/li><li>Work for bus and railway companies, freight forwarding and shipping companies, boat cruise operators and other public transit establishments and travel wholesalers<\/li><\/ul><p><\/p>",
+    "Duties Content": "<p><strong>Ticket agents:<\/strong><\/p><ul><li>Answer customer inquiries, quote fares and assist clients in planning travel times and routes<\/li><li>Reserve seats for tour companies, travel agencies, wholesalers and the general public<\/li><li>Issue tickets, handle cash transactions and check baggage<\/li><li>Receive and record bookings for package tours from retail travel agencies<\/li><li>Supply information about available vacancies when working for wholesale travel companies<\/li><\/ul><p><strong>Cargo service representatives:<\/strong><\/p><ul><li>Quote fare and rates for cargo shipment<\/li><li>Compute shipment costs including charges for services and insurance using rate tables and schedules<\/li><li>Prepare and maintain shipping and other documents<\/li><li>Check in passenger baggage and sort for loading by baggage handlers<\/li><li>May load baggage directly into buses, railway cars or cruise ships<\/li><li>Trace lost or misdirected passenger baggage or cargo shipment<\/li><\/ul><p><\/p>",
+    "Work Environment Content": "<p><strong>Key aspects of work in this occupation:<\/strong><\/p><ul><li>Work takes place in a controlled indoor environment.<\/li><\/ul><p><\/p>",
+    "Career Pathways Content": "<p>Progression to supervisory positions is possible through experience.<\/p><p>Ticket agents and cargo service representatives may perform the same duties depending on the size and location of the operations.<\/p>",
+    "Related Careers NOCs": "NOC 6313\nNOC 6521\nNOC 6523",
+    "Job Titles List": "Agent, baggage \/ luggage checker\nAgent, check-in (except airline)\nAgent, customer sales and service\nAgent, passenger - railway \/ bus \/ ship\nAgent, station - rail \/ bus \/ ship\nAgent, ticket \/ info \/ customer service\nAgent, transportation\nClerk, counter \/ front desk \/ reservations\nRepresentative, passenger customer service",
+    "Career Videos Content": "",
+    "Career Video URLs": "",
+    "Education, Training and Skills Content": "<ul><li>Completion of secondary school is usually required.<\/li><li>Up to 10 weeks of training may be provided.<\/li><\/ul><p><\/p>",
+    "Education Programs in B.C. Content": "<p>The following program areas are related to this occupation:<\/p><ul><li>Academic\/Basic Upgrading<\/li><\/ul><p><\/p>",
+    "Industry Highlights Content": "",
+    "Insights from Industry Content": "",
+    "Resources": [
+        {
+            "Resource Title": "",
+            "Resource Link": ""
+        }
+    ],
+    "Page Blurb": ""
+},
+{
     "title": "Railway and motor transport labourers (NOC 7622)",
     "id": 12867389,
     "template": "Career Profiles",
@@ -2864,6 +3444,203 @@
         {
             "Resource Title": "Canadian Association of Social Workers (CASW)",
             "Resource Link": "www.casw-acts.ca"
+        }
+    ],
+    "Page Blurb": ""
+},
+{
+    "title": "Software engineers and designers (NOC 2173)",
+    "id": 12867430,
+    "template": "Career Profiles",
+    "Page Title": "Software engineers and designers",
+    "Banner Image": [],
+    "NOC": "(NOC 2173)",
+    "Career Overview Content": "<p>Software engineers and designers research, design, test and maintain software applications, technical environments, operating systems, embedded software, information warehouses and telecommunications software.<\/p>",
+    "Duties Content": "<p>Software engineers and designers perform some or all of the following:<\/p><ul><li>Explore how, where and why the software will be used to meet the needs of the end user<\/li><li>Research, review and use data and technical information to design, develop and test software systems<\/li><li>Test the software design to make sure it\u2019s useful and will work<\/li><li>Develop and manage database systems<\/li><li>Put forward ideas that improve the software and put those improvements in place<\/li><li>Plan, design and co-ordinate software development, installation, integration and operation of computer-based systems<\/li><li>Troubleshoot, test and develop ways to maintain operating systems and other software<\/li><li>May lead or co-ordinate teams to develop software<\/li><\/ul><p><\/p>",
+    "Work Environment Content": "<p>Software engineers and designers may work in a variety of settings. Some may work in an office or studio (for game design), others may work from home or split their time between a home and company office. Project management and video conferencing technologies allow people to work remotely at least some of the time, if their company agrees to it.<\/p><p>Depending on the work they do, software engineers and designers generally work a regular 40-hour week. Sometimes, people in this job may need to work overtime to meet deadlines. Those with this career could have flexible work schedules. They may work some nights or weekends on a regular basis and some might prefer this schedule as it allows them to manage other parts of their life, such as childcare, in a way that benefits them.<\/p><p>Software engineers and designers work for both the private and public sector. This includes information technology (IT) consulting firms, IT research and development organizations and video game companies. They also work in the aviation, transportation and healthcare industries to name a few. Some with this job may be self-employed and work as a contractor or consultant to larger companies.<\/p><p>People in this job spend a lot of time sitting at a desk and working on a computer. This can cause wrist, back or neck strain. To help stop this from happening, it\u2019s important to make sure that workstations are set up properly.<\/p>",
+    "Career Pathways Content": "<p>As software engineers and designers gain experience, take more training or earn a degree, they can move into higher-level positions, such as chief software architect.<\/p><p>With business and management experience, software engineers and designers may become managers of large software groups or hold other senior positions in the company. Some choose to open their own consulting firms.<\/p>",
+    "Related Careers NOCs": "NOC 0213\nNOC 2133\nNOC 2147\nNOC 2171\nNOC 2172\nNOC 2175\nNOC 2283",
+    "Job Titles List": "Architect, application \/ software\nArchitect, systems \/ technical\nDesigner, AI (artificial intelligence)\nEngineer, computer applications\nEngineer, system integration\nEngineer, telecommunications\nEngineer, verification \/ testing",
+    "Career Videos Content": "<p>Watch the video below to see what a day in the life of a software engineer is like.<\/p>",
+    "Career Video URLs": "https:\/\/youtu.be\/obTfVrY5KLc",
+    "Education, Training and Skills Content": "<p>Usually, software engineers and designers must complete a bachelor's degree in software engineering, computer engineering, computer science or a related subject. Working in a co-op work program through a post-secondary institution can help those with job opportunities.<\/p><p>For some in this job, it could be beneficial to have the Information Systems Professional (ISP) designation, which is issued by the <a href=\"http:\/\/www.cips.ca\/\"  target=\"_blank\" rel=\"noopener noreferrer\">Canada\u2019s Association of Information Technology (IT) Professionals (CIPS)<\/a>. To receive this, a person must have:<\/p><ul><li>Graduated from an accredited computer science or information systems program, or<\/li><li>Passed the ISP examination offered by the <a href=\"http:\/\/www.iccp.org\/index.html\"  target=\"_blank\" rel=\"noopener noreferrer\">Institute for Certification of Computing Professionals (ICCP)<\/a><\/li><\/ul><p>Licensing by a provincial or territorial association of professional engineers is required to practise as a Professional Engineer (P.Eng.). To obtain a Professional Engineer licence, candidates must have the equivalent to graduation from an accredited program in engineering, a period of work experience that demonstrates the required competencies to practise engineering and pass a professional practice examination on the professional obligations, law and ethics of engineering practice in Canada. In British Columbia, this is done through <a href=\"https:\/\/www.egbc.ca\/\"  target=\"_blank\" rel=\"noopener noreferrer\">Engineers and Geoscientists B.C. (EGBC)<\/a>.<\/p><p>Other qualifications that can be helpful in finding a job as a software engineer and designer include:<\/p><ul><li>Membership in a professional association \u2013 this may be required by some employers, particularly jobs that involve public safety or supervisory work<\/li><li>A master's or doctoral degree in a related subject<\/li><li>Knowledge of the most up-to-date technology in their area of focus<\/li><\/ul><p>Throughout their careers, software engineers and designers are expected to continue training. If they are licensed through EGBC, they may need to do this so they can keep their licence current. EGBC offers courses, self-directed studies, seminars and other professional development opportunities for its members.<\/p><p>Software engineers and designers should know how to communicate well because they often lead or work in teams and can be asked to explain complicated software designs to clients. Critical thinking and problem solving are also skills that are an advantage.<\/p>",
+    "Education Programs in B.C. Content": "<p>The following program areas are related to this occupation:<\/p><ul><li>Math\/Statistics (Science)<\/li><li>Math\/Statistics Related (Arts)<\/li><li>Web Technologies<\/li><\/ul><p><\/p>",
+    "Industry Highlights Content": "<p>Learn about the opportunities in B.C.'s major industries, including employment trends, earning potential, locations of work and more.<\/p>",
+    "Insights from Industry Content": "<p>Software engineers often work for companies that are involved in the development of safety critical software and systems. These are systems such as aircraft, cars and medical devices \u2013 which means if they fail, someone could die. People who work in this job must be detail oriented, responsible and have a commitment to making sure that each part of their job is done well.<\/p><p>Those in this career need to continue to update their skills regularly since improvements and changes in technology often affect their work. More and more, employers want their software engineers and designers to have graduated from a CEAB-accredited program and be licensed with <a href=\"https:\/\/www.egbc.ca\/\"  target=\"_blank\" rel=\"noopener noreferrer\">Engineers and Geoscientists B.C. (EGBC)<\/a>.<\/p><p>The health-care sector increasingly needs software engineers to design, develop, evaluate and maintain safe and secure eHealth information systems.<\/p>",
+    "Resources": [
+        {
+            "Resource Title": "Association of Computing Machinery (ACM)",
+            "Resource Link": "www.acm.org"
+        },
+        {
+            "Resource Title": "Association of Consulting Engineering Companies of British Columbia (ACEC-BC)",
+            "Resource Link": "www.acec-bc.ca"
+        },
+        {
+            "Resource Title": "Association of Professional Engineers and Geoscientists of BC (APEGBC) \u2013 Careers",
+            "Resource Link": "www.apeg.bc.ca\/careers"
+        },
+        {
+            "Resource Title": "Canadian Information Processing Society (CIPS) of British Columbia",
+            "Resource Link": "bc.cips.ca"
+        },
+        {
+            "Resource Title": "Canadian Technology Immigration Network (CTIN)",
+            "Resource Link": "www.ctin.ca"
+        },
+        {
+            "Resource Title": "Engineering Institute of Canada (EIC)",
+            "Resource Link": "www.eic-ici.ca"
+        },
+        {
+            "Resource Title": "EngineerJobs.com",
+            "Resource Link": "www.engineerjobs.com\/jobs\/canada\/british-columbia"
+        },
+        {
+            "Resource Title": "Engineers & Geoscientists BC",
+            "Resource Link": "www.egbc.ca"
+        },
+        {
+            "Resource Title": "Engineers Canada",
+            "Resource Link": "www.engineerscanada.ca"
+        },
+        {
+            "Resource Title": "IEEE Computer Society",
+            "Resource Link": "www.computer.org"
+        },
+        {
+            "Resource Title": "Information and Communications Technology Council",
+            "Resource Link": "www.ictc-ctic.ca"
+        },
+        {
+            "Resource Title": "Institute of Electrical and Electronics Engineers (IEEE) Canada",
+            "Resource Link": "www.ieee.ca"
+        },
+        {
+            "Resource Title": "Iranian Engineers of British Columbia Association (IEBCA)",
+            "Resource Link": "www.iebca.ca"
+        },
+        {
+            "Resource Title": "Society of Punjabi Engineers and Technologists of British Columbia (SPEATBC)",
+            "Resource Link": "www.speatbc.org"
+        },
+        {
+            "Resource Title": "Technology Registrations Canada (TRC)",
+            "Resource Link": "www.technologyregistrationscanada.ca"
+        }
+    ],
+    "Page Blurb": ""
+},
+{
+    "title": "Specialist physicians (NOC 3111)",
+    "id": 12867431,
+    "template": "Career Profiles",
+    "Page Title": "Specialist physicians",
+    "Banner Image": [],
+    "NOC": "(NOC 3111)",
+    "Career Overview Content": "<p>Specialist physicians are doctors with extra training and who treat patients in specific areas of health care, including clinical medicine, laboratory medicine and surgery.<\/p>",
+    "Duties Content": "<p>In general, specialist physicians act as consultants to other physicians and they may also do medical research.<\/p><p><strong>Specialists in clinical medicine:<\/strong><\/p><ul><li>Diagnose and treat diseases, as well as physical and psychiatric illnesses and disorders<\/li><li>Order laboratory tests, X-rays and other procedures to identify and understand the patient\u2019s health issue<\/li><li>Prescribe medication and treatment<\/li><li>Refer patients for surgery or other specialized treatments<\/li><\/ul><p><strong>Specialists in laboratory medicine:<\/strong><\/p><ul><li>Study how diseases start or are caused, how they change over time, and what happens to people when they get a disease<\/li><li>Analyze and review laboratory samples and specimens using microscopes and other medical tools<\/li><li>Supervise laboratory activities<\/li><\/ul><p><strong>Specialists in surgery:<\/strong><\/p><ul><li>Review patients\u2019 diseases, disorders or injuries to decide what surgery is needed<\/li><li>Perform and supervise surgery to correct physical health problems and fix injuries<\/li><\/ul><p><\/p>",
+    "Work Environment Content": "<p>Specialist physicians work in various medical or health-care locations. This includes private offices or clinics, hospitals and long-term care facilities. They could also work in labs and academic health sciences centres.<\/p><p>While precautions are taken and safety measures are put in place, people in this career could be exposed to infectious bacteria and viruses that may cause illness. They may work with equipment and instruments that could cause back, wrist and other injuries. They may be near or use X-rays and radioactive substances or non-ionizing radiation, such as radio frequencies and infrared, ultraviolet or visible light, which may be bad for their health.<\/p>",
+    "Career Pathways Content": "<p>Progression to management positions, such as director of laboratory medicine or chief of surgery, is possible with experience.<\/p>",
+    "Related Careers NOCs": "NOC 0311\nNOC 3112\nNOC 3122\nNOC 3125\nNOC 3124",
+    "Job Titles List": "Allergist \/ immunologist\nAnatomical pathologist \/ anatomopathologist\nAnesthesiologist \/ anesthetist\nBacteriologist, medical\nClinical pharmacologist\nDermatologist \/ skin specialist\nEndocrinologist\nEnvironmental medicine specialist\nGastroenterologist\nGeneticist - medical specialist\nGeriatrician \/ geriatrist\nGynecologist\nHeart specialist \/ cardiologist\nHematologist \/ hematopathologist\nInfectious disease physician\nInternist \/ internal medicine specialist\nMedical examiner\nMicrobiologist, medical\nNephrologist \/ kidney specialist\nNerve specialist\nNeurologist \/ neuropathologist\nObstetrician \/ gynecologist\nOccupational health physician (OHP)\nOculist \/ eye specialist\nOHP (occupational health physician)\nOncologist\nOphthalmologist \/ eye specialist\nOtolaryngologist\nParasitologist, medical\nPathologist\nPediatrician \/ neonatologist\nPhoniatrician \/ phoniatrist\nPhysiatrist\nPhysician, hyperbaric\nPhysician, in-patient\nPneumologist \/ lung specialist\nProctologist\nPsychiatrist\nPsychopharmacologist\nRespirologist \/ respiratory specialist\nRheumatologist\nRhinologist \/ nose specialist\nSpecialist, acute care \/ critical care\nSpecialist, cancer \/ oncology\nSpecialist, cardiology\nSpecialist, emergency medicine\nSpecialist, environmental medicine\nSpecialist, epidemiology \/ public health\nSpecialist, fertility \/ infertility\nSpecialist, gerontology\nSpecialist, hematopathology\nSpecialist, infectious diseases\nSpecialist, internal medicine\nSpecialist, nuclear medicine\nSpecialist, pediatric \/ neonatology\nSpecialist, plastic surgery\nSpecialist, preventive medicine\nSpecialist, spinal injury\nSpecialist, sports medicine\nSurgeon, cardothoracic surgeon\nSurgeon, cosmetic \/ plastic \/ esthetic\nSurgeon, general\nSurgeon, neurological \/ neurosurgeon\nSurgeon, orthopedic\nSurgeon, pediatric\nSurgeon, police\nSurgeon, vascular\nSurgical physician \/ resident\nUrologist",
+    "Career Videos Content": "<p>Watch the video below to see what a day in the life of a psychiatrist is like.<\/p>",
+    "Career Video URLs": "https:\/\/youtu.be\/isFI0eqGFBg",
+    "Education, Training and Skills Content": "<p>For a career as a specialist physician, a Doctor of Medicine degree (MD) is required.<\/p><p>Those who want to become a doctor usually complete four years of undergraduate training before taking four years of medical school. Medical schools have high academic admission requirements. University medical programs interview applicants to make sure that along with good academic records, they also have the needed social skills and attitude to work as a doctor.<\/p><p>Residents in training to become specialist physicians are included in this group.<\/p><p>Graduates of medical programs go through two years of formal residency training. The residency program is competitive, and graduates may need to travel to other provinces to do this. To become a fully licensed physician in B.C., graduates must pass two licensing exams given by the <a href=\"https:\/\/www.mcc.ca\/\"  target=\"_blank\" rel=\"noopener noreferrer\">Medical Council of Canada<\/a>, a national exam provided by the <a href=\"https:\/\/www.cfp.ca\/\"  target=\"_blank\" rel=\"noopener noreferrer\">College of Family Physicians of Canada<\/a>, and become licensed through the <a href=\"https:\/\/www.cpsbc.ca\/\"  target=\"_blank\" rel=\"noopener noreferrer\">College of Physicians and Surgeons of British Columbia<\/a>. Doctors must maintain professional insurance.<\/p><p>Ongoing medical education and professional development are required throughout specialist physicians\u2019 careers to make sure they keep up with changes and improvements in their field, and to ensure that they provide patients with modern treatments and current advice. All family physicians must complete at least 50 hours per year of continuing professional education throughout their career.<\/p><p>Specialists in clinical medicine are required to have up to five years of speciality residency training and for some, up to two years of subspecialty training may also be required.<\/p><p>Specialists in laboratory medicine need between four to six years of specialty residency training.<\/p><p>Specialists in surgery must have five to six years of specialty residency training and for some, up to two years of subspecialty training may also be needed.<\/p>",
+    "Education Programs in B.C. Content": "<p>The following program areas are related to this occupation:<\/p><ul><li>Physicians and Surgeons<\/li><\/ul><p><\/p>",
+    "Industry Highlights Content": "<p>Learn about the opportunities in B.C.'s major industries, including employment trends, earning potential, locations of work and more.<\/p>",
+    "Insights from Industry Content": "<p>A growing and aging population will require more health services, including doctors who are specialists in certain areas of medicine.<\/p><p>Overall, in the last few years, there has been an increase in the number of doctors treating patients. Still, in parts of the province, it is hard for some patients to find a specialist physician.<\/p><p>The University of British Columbia (UBC) offers B.C.\u2019s only medical program, which is delivered throughout the province in partnership with other post-secondary institutions, health authorities and community physician practices. There are four regionally distinct sites:<\/p><ul><li>Island Medical Program (IMP) at the University of Victoria<\/li><li>Northern Medical Program (NMP) in Prince George at the University of Northern British Columbia<\/li><li>Southern Medical Program (SMP) in Kelowna at UBC Okanagan<\/li><li>Vancouver Fraser Medical Program<\/li><\/ul><p>Even though opportunities for medical education in B.C. have gone up, there are still not enough graduates to meet the needs of an aging population. As a result, B.C. has filled gaps by recruiting physicians from other parts of Canada and around the world.<\/p>",
+    "Resources": [
+        {
+            "Resource Title": "Association of Faculties of Medicine in Canada (AFMC)",
+            "Resource Link": "afmc.ca"
+        },
+        {
+            "Resource Title": "Canadian Institute for Health Information (CIHI)",
+            "Resource Link": "www.cihi.ca"
+        },
+        {
+            "Resource Title": "Canadian Medical Association (CMA)",
+            "Resource Link": "www.cma.ca"
+        },
+        {
+            "Resource Title": "Canadian Medical Protective Association (CMPA)",
+            "Resource Link": "www.cmpa-acpm.ca\/en\/home"
+        },
+        {
+            "Resource Title": "Canadian Post-M.D. Education Registry (CAPER)",
+            "Resource Link": "caper.ca"
+        },
+        {
+            "Resource Title": "Doctors of BC",
+            "Resource Link": "www.doctorsofbc.ca"
+        },
+        {
+            "Resource Title": "Fraser Health \u2013 Careers",
+            "Resource Link": "careers.fraserhealth.ca"
+        },
+        {
+            "Resource Title": "Health Match BC",
+            "Resource Link": "www.healthmatchbc.org"
+        },
+        {
+            "Resource Title": "Interior Health \u2013 Jobs",
+            "Resource Link": "jobs.interiorhealth.ca"
+        },
+        {
+            "Resource Title": "Island Health \u2013 Careers",
+            "Resource Link": "www.islandhealth.ca\/careers"
+        },
+        {
+            "Resource Title": "Medical Council of Canada (MCC)",
+            "Resource Link": "www.mcc.ca"
+        },
+        {
+            "Resource Title": "Northern Health \u2013 Careers",
+            "Resource Link": "careers.northernhealth.ca"
+        },
+        {
+            "Resource Title": "Provincial Health Services Authority (PHSA) \u2013 Careers",
+            "Resource Link": "www.phsa.ca\/careers"
+        },
+        {
+            "Resource Title": "Resident Doctors of BC",
+            "Resource Link": "residentdoctorsbc.ca"
+        },
+        {
+            "Resource Title": "Royal College of Physicians and Surgeons Canada",
+            "Resource Link": "www.royalcollege.ca\/rcsite\/home-e"
+        },
+        {
+            "Resource Title": "Vancouver Coastal Health \u2013 Careers",
+            "Resource Link": "careers.vch.ca"
+        }
+    ],
+    "Page Blurb": ""
+},
+{
+    "title": "Sports officials and referees (NOC 5253)",
+    "id": 12867433,
+    "template": "Career Profiles",
+    "Page Title": "Sports officials and referees",
+    "Banner Image": [],
+    "NOC": " (NOC 5253)",
+    "Career Overview Content": "<p><strong>Sports officials and referees:<\/strong><\/p><ul><li>Make sure rules and regulations governing sporting events, athletic games and sports competitions are followed<\/li><li>Work for national, provincial and local sporting commissions, organizations and leagues<\/li><\/ul><p><\/p>",
+    "Duties Content": "<p><strong>Sports officials and referees perform some or all of the following duties:<\/strong><\/p><ul><li>Carry out official duties at sporting events or athletic competitions to maintain standards of play and to make sure that game rules and safety regulations are followed<\/li><li>Record lapsed time and keep scores during events or competitions<\/li><li>Judge the performance of competitors, award points, impose penalties for infractions and determine results<\/li><li>Collect scores and other athletic records<\/li><li>Create and maintain rapport with coaches, players and organizing committees<\/li><li>Confirm achievements, training and general background of athletes or animals engaged in sports or related special events, and respond to written protests<\/li><\/ul><p><\/p>",
+    "Work Environment Content": "<p>Key aspects of the work in this occupation:<\/p><ul><li>Work takes place indoors and outdoors in various sports and recreational settings.<\/li><li>Workers may be exposed to various types of weather conditions.<\/li><\/ul><p><\/p>",
+    "Career Pathways Content": "<p>At this time, career path information is not available for this occupation.<\/p>",
+    "Related Careers NOCs": "NOC 5252\nNOC 5254",
+    "Job Titles List": "Evaluator, figure skating\nJudge, goal\nJudge, racetrack\nLine judge \/ referee, sports\nOfficial, racetrack - clerk of scales\nOfficial, racetrack - handicapper\nOfficial, racetrack - race starter-timer\nOfficial, sports\nScorekeeper \/ scoreboard operator\nUmpire",
+    "Career Videos Content": "",
+    "Career Video URLs": "",
+    "Education, Training and Skills Content": "<ul><li>Sports officials require certification by and registration with a sport governing body or commission.<\/li><li>Sports referees require completion of an officiating program offered by a sport governing body.<\/li><\/ul><p><\/p>",
+    "Education Programs in B.C. Content": "",
+    "Industry Highlights Content": "<p>Learn about the opportunities in B.C.'s major industries, including employment trends, earning potential, locations of work and more.<\/p>",
+    "Insights from Industry Content": "",
+    "Resources": [
+        {
+            "Resource Title": "",
+            "Resource Link": ""
         }
     ],
     "Page Blurb": ""
