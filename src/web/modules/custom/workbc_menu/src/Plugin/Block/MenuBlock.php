@@ -43,6 +43,12 @@ class MenuBlock extends BlockBase {
     $indent = str_repeat(' ', $level * 4);
     $ul_classes = ["nav-t$level"];
     $output = "$indent<ul class=\"" . implode(' ', $ul_classes) . "\">\n";
+    uasort($input, function($a, $b) {
+      $w1 = $a->link->getWeight();
+      $w2 = $b->link->getWeight();
+      if ($w1 == $w2) return 0;
+      return $w1 < $w2 ? -1 : 1;
+    });
     foreach ($input as $key => $item) {
       if ($item->link->isEnabled()) {
         $li_classes = ["nav-item"];
