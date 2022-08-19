@@ -1,0 +1,45 @@
+uuid: 42f79d53-256f-4c19-a763-707c5bf5250f
+langcode: en
+status: true
+dependencies:
+  content:
+    - 'block_content:basic:f9ac37ab-b416-4110-8066-0d4b6a17a1d2'
+  module:
+    - block_content
+    - block_visibility_conditions
+    - node
+  theme:
+    - workbc
+id: basicpageleftnav
+theme: workbc
+region: sidebar_first
+weight: 0
+provider: null
+plugin: 'block_content:f9ac37ab-b416-4110-8066-0d4b6a17a1d2'
+settings:
+  id: 'block_content:f9ac37ab-b416-4110-8066-0d4b6a17a1d2'
+  label: 'On this page'
+  label_display: '0'
+  provider: block_content
+  status: true
+  info: ''
+  view_mode: full
+visibility:
+  not_node_type:
+    id: not_node_type
+    bundles: {  }
+    negate: null
+  not_taxonomy_vocabulary:
+    id: not_taxonomy_vocabulary
+    bundles: {  }
+    negate: null
+  'entity_bundle:node':
+    id: 'entity_bundle:node'
+    negate: false
+    context_mapping:
+      node: '@node.node_route_context:node'
+    bundles:
+      blog: blog
+      news: news
+      page: page
+      success_story: success_story

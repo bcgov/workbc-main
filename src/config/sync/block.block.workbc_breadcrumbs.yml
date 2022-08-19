@@ -3,6 +3,7 @@ langcode: en
 status: true
 dependencies:
   module:
+    - block_visibility_conditions
     - system
   theme:
     - workbc
@@ -24,3 +25,11 @@ visibility:
     id: request_path
     negate: true
     pages: '<front>'
+  not_node_type:
+    id: not_node_type
+    bundles: {  }
+    negate: null
+  not_taxonomy_vocabulary:
+    id: not_taxonomy_vocabulary
+    bundles: {  }
+    negate: null

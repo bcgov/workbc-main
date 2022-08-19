@@ -90,16 +90,16 @@ set footer_classes = ' ' ~
   <a id="main-content" tabindex="-1"></a>{# link is in html.html.twig #}
 
   {%
-  set sidebar_first_classes = (page.sidebar_first and page.sidebar_second) ? 'col-12 col-sm-6 col-lg-3' : 'col-12 col-lg-3'
+  set sidebar_first_classes = 'col-12 col-lg-3 col-xl-2'
   %}
 
   {%
-  set sidebar_second_classes = (page.sidebar_first and page.sidebar_second) ? 'col-12 col-sm-6 col-lg-3' : 'col-12 col-lg-3'
+  set sidebar_second_classes = 'col-12 col-lg-3 col-xl-2'
   %}
 
   {%
-  set content_classes = (page.sidebar_first and page.sidebar_second) ? 'col-12 col-lg-6' : ((page.sidebar_first or page.sidebar_second) ? 'col-12 col-lg-9' : 'col-12' )
-   %}
+  set content_classes = (page.sidebar_first and page.sidebar_second) ? 'col-12 col-lg-6 col-xl-8' : ((page.sidebar_first or page.sidebar_second) ? 'col-12 col-lg-9 col-xl-10' : 'col-12' )
+  %}
 
   <div class="page-content-wrapper">
 
@@ -109,18 +109,16 @@ set footer_classes = ' ' ~
         {{ page.hero_content }}
     {% endif %}
 
-    {% if page.breadcrumb %}
-        {{ page.breadcrumb }}
-    {% endif %}
-
+    {{ page.breadcrumb }}
+    
     <div class="{{ b5_top_container }}">
       <div class="row g-0">
         {% if page.sidebar_first %}
-          <div class="order-2 order-lg-1 {{ sidebar_first_classes }}">
+          <div class="order-1 order-lg-1 {{ sidebar_first_classes }}">
             {{ page.sidebar_first }}
           </div>
         {% endif %}
-        <div class="order-1 order-lg-2 {{ content_classes }}">
+        <div class="order-2 order-lg-2 {{ content_classes }}">
           {{ page.content }}
         </div>
         {% if page.sidebar_second %}
