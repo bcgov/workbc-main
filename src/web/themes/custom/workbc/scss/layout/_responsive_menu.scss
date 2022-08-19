@@ -1,0 +1,23 @@
+// Overrides for responsive menu
+
+.responsive-menu-toggle-icon:before,
+.responsive-menu-toggle-icon:after,
+.responsive-menu-toggle-icon span.icon {
+  background-color: #000;
+}
+
+.mm-menu,
+.mm-navbar,
+.mm-panel {
+  background-color: #fff;
+}
+
+.mm-listitem__btn:not(.mm-listitem__text) {
+  border-left: none;
+}
+
+.off-canvas-logo {
+  display: block;
+  max-width: 200px;
+  padding: 40px 20px;
+}

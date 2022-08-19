@@ -40,7 +40,7 @@
         font-size: 1rem;
         padding: 0;
       }
-  
+
       &:hover {
         .submenu-container {
           display: block;
@@ -72,7 +72,7 @@
 
             & > li {
               border-left: $workbc_trim_standard_size solid $workbc_palette_transparent; //placeholder to prevent content shifting when colored borders are in place (hover, etc.)
-    
+
               & > a {
                 &.has-submenu {
                   position: relative; // create positioning context %has-submenu
@@ -167,11 +167,11 @@
               & > a, a:focus {
                 color: $workbc_light_theme_text;
               }
-  
+
               &:hover {
                 border-left: $workbc_trim_standard_size solid $workbc_dark_theme_background;
                 background-color: $workbc_light_theme_background_accent;
-        
+
                 & > a, a:focus {
                   color: $workbc_default_link;
                 }
@@ -188,7 +188,13 @@
 
 /* ============ navbar layout  ============ */
 
-nav.navbar { 
+nav.navbar {
+  display: none;
+
+  @include media-breakpoint-up(lg) {
+    display: block;
+  }
+
   position: sticky;
   top: 100px;
   align-self: flex-start;
@@ -201,7 +207,7 @@ nav.navbar {
 
   .container {
     position: relative;
-    z-index: -1; 
+    z-index: -1;
     height: 100%;
 
     #main_nav,
