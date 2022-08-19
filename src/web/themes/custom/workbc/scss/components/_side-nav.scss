@@ -7,9 +7,12 @@
     padding-bottom: $workbc_spacing_gutters;
 
     nav.basic-page-left-nav {
-        position: sticky; // relative to positional context %leftnav
-        top: 110px;
-    
+
+        @include media-breakpoint-up(lg) { 
+            position: sticky; // relative to positional context %leftnav
+            top: 110px;
+        }    
+
         h2 {
             font-size: 1.125rem;
             line-height: 2.8125rem; // to keep it horizontally centered with page title text. So this should be the same font/lineheight as the page title h1...
