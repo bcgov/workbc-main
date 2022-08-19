@@ -71,7 +71,6 @@
         "drupal/fullcalendar_view": "^5.1",
         "drupal/health_check": "^2.0",
         "drupal/image_widget_crop": "^2.3",
-        "drupal/inline_entity_form": "^1.0@RC",
         "drupal/jquery_ui_accordion": "^1.1",
         "drupal/keycloak": "^1.7",
         "drupal/mail_login": "^2.6",
