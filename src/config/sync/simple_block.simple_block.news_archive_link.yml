@@ -1,0 +1,11 @@
+uuid: c3ea5b50-c4e1-447a-b903-14626099388d
+langcode: en
+status: true
+dependencies:
+  config:
+    - filter.format.basic_html
+id: news_archive_link
+title: 'News Archive Link'
+content:
+  value: "<p><a href=\"/news-archive\">View News Archive</a></p>\r\n"
+  format: basic_html

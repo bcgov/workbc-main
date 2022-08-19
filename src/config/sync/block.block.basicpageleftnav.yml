@@ -1,25 +1,29 @@
-uuid: 2c3e5356-796f-4151-8b24-9f87ed46e29e
+uuid: 42f79d53-256f-4c19-a763-707c5bf5250f
 langcode: en
 status: true
 dependencies:
+  content:
+    - 'block_content:basic:f9ac37ab-b416-4110-8066-0d4b6a17a1d2'
   module:
+    - block_content
     - block_visibility_conditions
     - node
-    - workbc_custom
   theme:
     - workbc
-id: workbcrelatedtopicsblock
+id: basicpageleftnav
 theme: workbc
-region: content
-weight: 2
+region: sidebar_first
+weight: 0
 provider: null
-plugin: related_topics_block
+plugin: 'block_content:f9ac37ab-b416-4110-8066-0d4b6a17a1d2'
 settings:
-  id: related_topics_block
-  label: 'Browse Related Topics'
+  id: 'block_content:f9ac37ab-b416-4110-8066-0d4b6a17a1d2'
+  label: 'On this page'
   label_display: '0'
-  provider: workbc_custom
-  trimmed_limit: '150'
+  provider: block_content
+  status: true
+  info: ''
+  view_mode: full
 visibility:
   not_node_type:
     id: not_node_type
@@ -35,7 +39,7 @@ visibility:
     context_mapping:
       node: '@node.node_route_context:node'
     bundles:
-      labour_market_monthly: labour_market_monthly
-      landing_page: landing_page
+      blog: blog
+      news: news
       page: page
-      workbc_centre: workbc_centre
+      success_story: success_story
