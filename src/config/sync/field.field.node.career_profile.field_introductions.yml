@@ -11,7 +11,7 @@ field_name: field_introductions
 entity_type: node
 bundle: career_profile
 label: Introductions
-description: 'To modify those introductory blurbs, you need to edit the <a href="/admin/content?title=&type=career_profile_introductions&status=All&langcode=All">corresponding item separately</a>.'
+description: 'To modify these introductory blurbs, you need to edit the <a href="/admin/content?title=&type=career_profile_introductions&status=All&langcode=All">corresponding item separately</a>.'
 required: false
 translatable: false
 default_value: {  }
