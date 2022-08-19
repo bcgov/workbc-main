@@ -18,8 +18,10 @@
     }
   }
 
-  .form-actions {
-    display: none;
+  form {
+    .form-actions {
+      display: none;
+    }
   }
 }
 
@@ -70,4 +72,15 @@
 .search-results-header-class {
   @include underlined-header;
   margin-bottom: $workbc_spacing_default;
+}
+
+// Hide the autocomplete icons from the search bar
+.js input.form-autocomplete {
+  background-image: url(../assets/images/search-icon.svg);
+  background-position: calc(100% - 10px) center;
+
+  &.ui-autocomplete-loading {
+      background-image: url(../assets/images/search-icon.svg);
+      background-position: calc(100% - 10px) center;
+  }
 }
