@@ -4,7 +4,7 @@
         "Read more about it at https://getcomposer.org/doc/01-basic-usage.md#installing-dependencies",
         "This file is @generated automatically"
     ],
-    "content-hash": "baa88086e51461dd77349393a6d3d987",
+    "content-hash": "5681406e49b6d38d60b82fac1f76aded",
     "packages": [
         {
             "name": "alchemy/zippy",
@@ -3553,6 +3553,53 @@
                 "source": "https://github.com/drupal/core-recommended/tree/9.4.5"
             },
             "time": "2022-08-03T16:33:29+00:00"
+        },
+        {
+            "name": "drupal/country",
+            "version": "1.0.0",
+            "source": {
+                "type": "git",
+                "url": "https://git.drupalcode.org/project/country.git",
+                "reference": "8.x-1.0"
+            },
+            "dist": {
+                "type": "zip",
+                "url": "https://ftp.drupal.org/files/projects/country-8.x-1.0.zip",
+                "reference": "8.x-1.0",
+                "shasum": "a18d1f2ccb7e90c9821fd403c71c72ae58937bdb"
+            },
+            "require": {
+                "drupal/core": "^8 || ^9"
+            },
+            "type": "drupal-module",
+            "extra": {
+                "drupal": {
+                    "version": "8.x-1.0",
+                    "datestamp": "1642668524",
+                    "security-coverage": {
+                        "status": "covered",
+                        "message": "Covered by Drupal's security advisory policy"
+                    }
+                }
+            },
+            "notification-url": "https://packages.drupal.org/8/downloads",
+            "license": [
+                "GPL-2.0+"
+            ],
+            "authors": [
+                {
+                    "name": "Deji Akala",
+                    "homepage": "https://github.com/dakala",
+                    "email": "dejiakala@gmail.com",
+                    "role": "Maintainer"
+                }
+            ],
+            "description": "A simple country field for Drupal 8",
+            "homepage": "http://drupal.org/project/country",
+            "support": {
+                "source": "http://cgit.drupalcode.org/country",
+                "issues": "http://drupal.org/project/issues/country"
+            }
         },
         {
             "name": "drupal/crop",
