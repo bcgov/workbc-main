@@ -13,7 +13,7 @@ dependencies:
 id: views_block__page_title_hero_no_hero_block_2
 theme: workbc
 region: content
-weight: -13
+weight: -14
 provider: null
 plugin: 'views_block:page_title_hero_no_hero-block_2'
 settings:

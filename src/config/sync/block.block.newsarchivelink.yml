@@ -1,28 +1,26 @@
-uuid: a91121e2-93d5-439b-b630-77e31b1a948a
+uuid: 09235a7f-3517-4986-b4a4-077687c832dd
 langcode: en
 status: true
 dependencies:
   config:
-    - views.view.blog
+    - simple_block.simple_block.news_archive_link
   module:
     - block_visibility_conditions
+    - simple_block
     - system
-    - views
   theme:
     - workbc
-id: views_block__blog_block_1
+id: newsarchivelink
 theme: workbc
 region: content
-weight: -9
+weight: -5
 provider: null
-plugin: 'views_block:blog-block_1'
+plugin: 'simple_block:news_archive_link'
 settings:
-  id: 'views_block:blog-block_1'
-  label: ''
-  label_display: visible
-  provider: views
-  views_label: ''
-  items_per_page: none
+  id: 'simple_block:news_archive_link'
+  label: 'News Archive Link'
+  label_display: '0'
+  provider: simple_block
 visibility:
   not_node_type:
     id: not_node_type
@@ -35,4 +33,4 @@ visibility:
   request_path:
     id: request_path
     negate: false
-    pages: /blog
+    pages: /news

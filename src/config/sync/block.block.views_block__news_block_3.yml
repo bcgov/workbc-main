@@ -1,23 +1,23 @@
-uuid: a91121e2-93d5-439b-b630-77e31b1a948a
+uuid: 27d376b4-534b-4aba-bc8e-94d2a180ff32
 langcode: en
 status: true
 dependencies:
   config:
-    - views.view.blog
+    - views.view.news
   module:
     - block_visibility_conditions
     - system
     - views
   theme:
     - workbc
-id: views_block__blog_block_1
+id: views_block__news_block_3
 theme: workbc
 region: content
-weight: -9
+weight: 1
 provider: null
-plugin: 'views_block:blog-block_1'
+plugin: 'views_block:news-block_3'
 settings:
-  id: 'views_block:blog-block_1'
+  id: 'views_block:news-block_3'
   label: ''
   label_display: visible
   provider: views
@@ -35,4 +35,4 @@ visibility:
   request_path:
     id: request_path
     negate: false
-    pages: /blog
+    pages: /news-archive
