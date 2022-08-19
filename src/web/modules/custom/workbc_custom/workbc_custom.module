@@ -57,5 +57,106 @@
      ],
    ];
 
-
  }
+
+
+ /**
+  *  Hide province and city fields if country <> "CA"
+  */
+ function workbc_custom_form_user_register_form_alter(&$form, \Drupal\Core\Form\FormStateInterface $form_state, $form_id) {
+
+   $form['account']['mail']['#attributes']['placeholder'] = "youremail@example.com";
+
+   $form['field_province']['#states'] = [
+     'visible' => [
+       ':input[name^="field_country"]' => array('value' => 'CA'),
+     ],
+     'required' => [
+       ':input[name^="field_country"]' => array('value' => 'CA'),
+     ],
+   ];
+
+   $form['field_city']['#states'] = [
+     'visible' => [
+       ':input[name^="field_country"]' => array('value' => 'CA'),
+     ],
+   ];
+   $form['field_city']['widget'][0]['value']['#states'] = [
+     'required' => [
+       ':input[name^="field_country"]' => array('value' => 'CA'),
+     ],
+   ];
+
+   if (isset($form['field_security_question']['widget']['#options']['_none'])) {
+     $form['field_security_question']['widget']['#options']['_none'] = "—Select Security Question";
+   }
+
+   if (isset($form['terms_of_use'])) {
+     $text = preg_replace('/(<a.*?>).*?(<\/a>)/', '$1Terms of Use$2', $form['terms_of_use']['terms_of_use_checkbox']['#title']);
+     $form['terms_of_use']['terms_of_use_checkbox']['#title'] = $text;
+   }
+
+   $form['actions']['submit']['#submit'][] = 'workbc_custom_user_register_form_submit';
+}
+
+/**
+ *  Set province and city fields empty if country <> "CA"
+ */
+function workbc_custom_user_register_form_submit(&$form, \Drupal\Core\Form\FormStateInterface $form_state) {
+  // New user has already been created. If not from Canada ensure that
+  // province and city fields are empty.
+  $values = $form_state->cleanValues()->getValues();
+  if ($values['field_country'][0]['value'] <> "CA") {
+    $form_object = $form_state->getFormObject();
+    $entity_id = $form_object->getEntity()->id();
+    $user =  Drupal\user\Entity\User::load($entity_id);
+    $user->set('field_province', '');
+    $user->set('field_city', '');
+    $user->save();
+  }
+}
+
+/**
+ *  Hide province and city fields if country <> "CA"
+ */
+function workbc_custom_form_user_form_alter(&$form, \Drupal\Core\Form\FormStateInterface $form_state, $form_id) {
+
+  $form['field_province']['#states'] = [
+    'visible' => [
+      ':input[name^="field_country"]' => array('value' => 'CA'),
+    ],
+  ];
+
+  $form['field_city']['#states'] = [
+    'visible' => [
+      ':input[name^="field_country"]' => array('value' => 'CA'),
+    ],
+  ];
+  $form['field_city']['widget'][0]['value']['#states'] = [
+    'required' => [
+      ':input[name^="field_country"]' => array('value' => 'CA'),
+    ],
+  ];
+
+  if (isset($form['field_security_question']['widget']['#options']['_none'])) {
+    $form['field_security_question']['widget']['#options']['_none'] = "—Select Security Question";
+  }
+
+  $form['actions']['submit']['#submit'][] = 'workbc_custom_user_form_submit';
+}
+
+/**
+ *  Set province and city fields empty if country <> "CA"
+ */
+function workbc_custom_user_form_submit(&$form, \Drupal\Core\Form\FormStateInterface $form_state) {
+  // If not from Canada ensure that province and city fields are empty.
+  $values = $form_state->cleanValues()->getValues();
+  if ($values['field_country'][0]['value'] <> "CA") {
+    $form_object = $form_state->getFormObject();
+    $entity_id = $form_object->getEntity()->id();
+    $user =  Drupal\user\Entity\User::load($entity_id);
+    $user->set('field_province', '');
+    $user->set('field_city', '');
+    $user->save();
+  }
+}

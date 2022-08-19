@@ -21,3 +21,7 @@
   max-width: 200px;
   padding: 40px 20px;
 }
+
+.responsive-menu-toggle-icon span.label {
+  @include visually-hidden;
+}

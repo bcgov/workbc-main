@@ -11,7 +11,7 @@ field_name: field_tags
 entity_type: node
 bundle: blog
 label: Tags
-description: ''
+description: 'Separate tags with commas.'
 required: false
 translatable: false
 default_value: {  }

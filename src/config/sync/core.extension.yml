@@ -6,6 +6,7 @@ module:
   admin_toolbar_links_access_filter: 0
   admin_toolbar_search: 0
   admin_toolbar_tools: 0
+  auto_username: 0
   automated_cron: 0
   backup_migrate: 0
   better_social_sharing_buttons: 0
@@ -14,6 +15,7 @@ module:
   block_content: 0
   block_visibility_conditions: 0
   breakpoint: 0
+  captcha: 0
   charts: 0
   charts_google: 0
   ckeditor: 0
@@ -24,6 +26,7 @@ module:
   config_ignore: 0
   contact: 0
   contextual: 0
+  country: 0
   crop: 0
   ctools: 0
   datetime: 0
@@ -44,6 +47,7 @@ module:
   field_ui: 0
   file: 0
   filter: 0
+  flood_control: 0
   health_check: 0
   help: 0
   history: 0
@@ -54,6 +58,7 @@ module:
   keycloak: 0
   language: 0
   link: 0
+  mail_login: 0
   media: 0
   media_library: 0
   menu_breadcrumb: 0
@@ -71,6 +76,7 @@ module:
   pgsql: 0
   published_corrected_date: 0
   rdf: 0
+  recaptcha: 0
   responsive_menu: 0
   search_api: 0
   search_api_autocomplete: 0
@@ -81,6 +87,7 @@ module:
   simple_block: 0
   system: 0
   taxonomy: 0
+  terms_of_use: 0
   text: 0
   time_field: 0
   token: 0
