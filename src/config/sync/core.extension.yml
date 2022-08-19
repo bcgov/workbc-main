@@ -71,6 +71,7 @@ module:
   pgsql: 0
   published_corrected_date: 0
   rdf: 0
+  responsive_menu: 0
   search_api: 0
   search_api_autocomplete: 0
   search_api_db: 0
