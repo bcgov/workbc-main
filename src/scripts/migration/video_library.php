@@ -3,6 +3,8 @@
 require('gc-drupal.php');
 
 /**
+ * Usage: drush scr scripts/migration/video_library
+ *
  * Revert: drush entity:delete media --bundle=remote_video
  */
 
