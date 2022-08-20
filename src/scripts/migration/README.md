@@ -6,7 +6,7 @@ This document explains the architecture and tools used to import content into th
 # Rationale and architecture
 The main idea behind the migration system here is to provide the ability to recreate the site content at any time and repeatedly, provided that the sources of content are identified and available. This allows for more robust development and maintenance of the site, and avoids relying on CMS database dumps which mix content, configuration, and operational data.
 
-The architecture of the migration system is exceedingly simple: it consists of a series of PHP scripts that import various pieces of content. The remainder of this document provides a complete reference about the scripts that are currently used.
+The architecture of the migration system is exceedingly simple: it consists of a series of PHP scripts that import various pieces of content. In most cases, this content is supplied here in the form of CSV or JSON files. The remainder of this document provides a complete reference about the scripts that are currently used, and the sources of these data files.
 
 # Data sources
 The sources providing original WorkBC content are the following:
@@ -30,7 +30,7 @@ The BC Labour Market Office supplies statistical data about the BC job market an
 Some content is unavailable anywhere but on the legacy WorkBC site itself. When such content is needed here, we transform it into a CSV file and use a custom script to import it into Drupal.
 
 ## YouTube (YT)
-The YouTube CareerTrekBC site is to be imported as videos into the site.
+The YouTube CareerTrekBC channel is imported to the Drupal video library using the commands below:
 ```
 yt-dlp --flat-playlist --print url https://www.youtube.com/user/CareerTrekBC | while read u; do yt-dlp --no-download --dump-json "$u"; done > /tmp/videos.json
 jq -s '.' /tmp/videos.json > src/scripts/migration/data/video_library.json
