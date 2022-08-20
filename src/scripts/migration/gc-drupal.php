@@ -48,14 +48,29 @@ function convertMultiline($multiline_field) {
 function convertVideo($url, $extra_fields = []) {
   if (empty($url)) return NULL;
 
-  $fields = array_merge([
-    'bundle' => 'remote_video',
-    'uid' => 1,
-    'field_media_oembed_video' => $url,
-  ], $extra_fields);
-  $media = Drupal::entityTypeManager()
-    ->getStorage('media')
-    ->create($fields);
+  // Handle youtu.be shortener.
+  if (preg_match('/http.?:\/\/youtu.be\/(.*$)/i', $url, $match)) {
+    $url = "https://www.youtube.com/watch?v=" . $match[1];
+  }
+
+  $medias = \Drupal::entityTypeManager()->getStorage('media')->loadByProperties(['field_media_oembed_video' => $url]);
+  if (!empty($medias)) {
+    print("  Found existing media item\n");
+    $media = current($medias);
+    foreach ($extra_fields as $key => $field) {
+      $media->$key = $field;
+    }
+  }
+  else {
+    $fields = array_merge([
+      'bundle' => 'remote_video',
+      'uid' => 1,
+      'field_media_oembed_video' => $url,
+    ], $extra_fields);
+    $media = Drupal::entityTypeManager()
+      ->getStorage('media')
+      ->create($fields);
+  }
   $media->save();
   return ['target_id' => $media->id()];
 }
