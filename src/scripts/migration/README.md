@@ -29,6 +29,13 @@ The BC Labour Market Office supplies statistical data about the BC job market an
 ## Legacy site (LS)
 Some content is unavailable anywhere but on the legacy WorkBC site itself. When such content is needed here, we transform it into a CSV file and use a custom script to import it into Drupal.
 
+## YouTube (YT)
+The YouTube CareerTrekBC site is to be imported as videos into the site.
+```
+yt-dlp --flat-playlist --print url https://www.youtube.com/user/CareerTrekBC | while read u; do yt-dlp --no-download --dump-json "$u"; done > /tmp/videos.json
+jq -s '.' /tmp/videos.json > src/scripts/migration/data/video_library.json
+```
+
 # Import scripts
 The import scripts listed here are all written using PHP and are meant to be run from within the Drupal container (`php`) via the Drupal console tool `drush`. Typically, a script invocation looks like the following:
 ```bash
@@ -45,4 +52,5 @@ Each script listed here includes a short documentation header that details its u
 | taxonomy.php | LS ([data/definitions.csv](https://www.workbc.ca/Jobs-Careers/Career-Toolkit/Definitions.aspx)) | Taxonomy `definitions` |
 | taxonomy.php | LS ([data/occupational_interests.csv](https://www.workbc.ca/Labour-Market-Industry/Skills-for-the-Future-Workforce.aspx#characteristics)) | Taxonomy `occupational_interests` |
 | taxonomy.php | LS ([data/video_categories.csv](https://www.workbc.ca/videolibrary/)) | Taxonomy `video_categories` |
+| video_library.php | YT (video_library.json) | Media type `remote_video` |
 | gc-json.php | GC | JSON file |

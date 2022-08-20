@@ -45,14 +45,14 @@ function convertMultiline($multiline_field) {
   return array_filter(array_map('trim', explode("\n", $multiline_field)));
 }
 
-function convertVideo($url) {
+function convertVideo($url, $extra_fields = []) {
   if (empty($url)) return NULL;
 
-  $fields = [
+  $fields = array_merge([
     'bundle' => 'remote_video',
     'uid' => 1,
     'field_media_oembed_video' => $url,
-  ];
+  ], $extra_fields);
   $media = Drupal::entityTypeManager()
     ->getStorage('media')
     ->create($fields);
