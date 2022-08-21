@@ -32,7 +32,7 @@ name: Solr
 description: ''
 backend: search_api_solr
 backend_config:
-  retrieve_data: false
+  retrieve_data: true
   highlight_data: false
   site_hash: false
   server_prefix: ''
@@ -41,10 +41,10 @@ backend_config:
   connector: standard
   connector_config:
     scheme: http
-    host: internal-solr-lb-1277807414.ca-central-1.elb.amazonaws.com
+    host: solr
     port: 8983
     path: /
-    core: workbc
+    core: workbc_dev
     timeout: 5
     index_timeout: 5
     optimize_timeout: 10
