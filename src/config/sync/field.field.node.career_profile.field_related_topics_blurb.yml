@@ -1,0 +1,21 @@
+uuid: 2b9cb1c8-f911-4a00-b1f1-fa4c0264e2ad
+langcode: en
+status: true
+dependencies:
+  config:
+    - field.storage.node.field_related_topics_blurb
+    - node.type.career_profile
+  module:
+    - text
+id: node.career_profile.field_related_topics_blurb
+field_name: field_related_topics_blurb
+entity_type: node
+bundle: career_profile
+label: 'Related Topics Blurb'
+description: 'Text to be used when this content is shown in a Related Topics card.'
+required: false
+translatable: false
+default_value: {  }
+default_value_callback: ''
+settings: {  }
+field_type: text

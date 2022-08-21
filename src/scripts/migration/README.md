@@ -6,7 +6,7 @@ This document explains the architecture and tools used to import content into th
 # Rationale and architecture
 The main idea behind the migration system here is to provide the ability to recreate the site content at any time and repeatedly, provided that the sources of content are identified and available. This allows for more robust development and maintenance of the site, and avoids relying on CMS database dumps which mix content, configuration, and operational data.
 
-The architecture of the migration system is exceedingly simple: it consists of a series of PHP scripts that import various pieces of content. The remainder of this document provides a complete reference about the scripts that are currently used.
+The architecture of the migration system is exceedingly simple: it consists of a series of PHP scripts that import various pieces of content. In most cases, this content is supplied here in the form of CSV, JSON or JSONL files. The remainder of this document provides a complete reference about the scripts that are currently used, and the sources of these data files.
 
 # Data sources
 The sources providing original WorkBC content are the following:
@@ -29,6 +29,13 @@ The BC Labour Market Office supplies statistical data about the BC job market an
 ## Legacy site (LS)
 Some content is unavailable anywhere but on the legacy WorkBC site itself. When such content is needed here, we transform it into a CSV file and use a custom script to import it into Drupal.
 
+## YouTube (YT)
+The YouTube CareerTrekBC channel is imported to the Drupal video library using the commands below:
+```
+yt-dlp --flat-playlist --print url https://www.youtube.com/user/CareerTrekBC | while read u; do yt-dlp --no-download --dump-json "$u"; done > src/scripts/migration/data/video_library.jsonl
+yt-dlp --flat-playlist --print url https://www.youtube.com/user/WorkBC | while read u; do yt-dlp --no-download --dump-json "$u"; done >> src/scripts/migration/data/video_library.jsonl
+```
+
 # Import scripts
 The import scripts listed here are all written using PHP and are meant to be run from within the Drupal container (`php`) via the Drupal console tool `drush`. Typically, a script invocation looks like the following:
 ```bash
@@ -45,4 +52,5 @@ Each script listed here includes a short documentation header that details its u
 | taxonomy.php | LS ([data/definitions.csv](https://www.workbc.ca/Jobs-Careers/Career-Toolkit/Definitions.aspx)) | Taxonomy `definitions` |
 | taxonomy.php | LS ([data/occupational_interests.csv](https://www.workbc.ca/Labour-Market-Industry/Skills-for-the-Future-Workforce.aspx#characteristics)) | Taxonomy `occupational_interests` |
 | taxonomy.php | LS ([data/video_categories.csv](https://www.workbc.ca/videolibrary/)) | Taxonomy `video_categories` |
+| video_library.php | YT (data/video_library.jsonl) | Media type `remote_video` |
 | gc-json.php | GC | JSON file |

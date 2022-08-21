@@ -1,0 +1,21 @@
+uuid: 80ebc1e2-348c-472f-92cc-fdad1243f134
+langcode: en
+status: true
+dependencies:
+  config:
+    - field.storage.node.field_labour_market_introduction
+    - node.type.career_profile_introductions
+  module:
+    - text
+id: node.career_profile_introductions.field_labour_market_introduction
+field_name: field_labour_market_introduction
+entity_type: node
+bundle: career_profile_introductions
+label: 'Labour Market Outlook Introduction'
+description: ''
+required: false
+translatable: true
+default_value: {  }
+default_value_callback: ''
+settings: {  }
+field_type: text_long

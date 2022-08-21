@@ -14,7 +14,7 @@ $getopt = new \GetOpt\GetOpt([
   ['s', 'status', \GetOpt\GetOpt::MULTIPLE_ARGUMENT, 'Item statuses to download (can be repeated)'],
   ['i', 'item', \GetOpt\GetOpt::MULTIPLE_ARGUMENT, 'Item identifiers to download (can be repeated)']
 ], [\GetOpt\GetOpt::SETTING_STRICT_OPERANDS => true]);
-$getopt->addOperand(new \GetOpt\Operand('id', \GetOpt\Operand::REQUIRED));
+$getopt->addOperand(new \GetOpt\Operand('projectId', \GetOpt\Operand::REQUIRED));
 try {
   $getopt->process($extra);
 }
@@ -29,7 +29,7 @@ $gc
   ->setApiKey($apiKey);
 try {
   // Build query filter and make initial request.
-  $project_statuses = $gc->projectStatusesGet($getopt->getOperand('id'));
+  $project_statuses = $gc->projectStatusesGet($getopt->getOperand('projectId'));
   $download_statuses = array_map('strtolower', $getopt->getOption('status'));
   $status_ids = array_values(array_map(function ($status) {
     return $status->id;
@@ -46,7 +46,7 @@ try {
     $filter['item_id'] = $getopt->getOption('item');
   }
   // TODO Pagination.
-  $results = $gc->itemsGet($getopt->getOperand('id'), $filter);
+  $results = $gc->itemsGet($getopt->getOperand('projectId'), $filter);
 
   // Loop on the item list and build the JSON structure.
   $templates = [];
