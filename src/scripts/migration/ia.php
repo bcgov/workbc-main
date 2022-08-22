@@ -8,7 +8,9 @@ use Drupal\pathauto\PathautoState;
 /**
  * Generate nodes for all content type in the WorkBC Refresh IA.
  *
- * Usage: drush scr /scripts/migration/ia
+ * Usage:
+ * - drush scr scripts/migration/gc-jsonl.php -- -s publish 284269 > scripts/migration/data/ia.jsonl
+ * - drush scr scripts/migration/ia
  *
  * Revert:
  * - drush entity:delete node --bundle=page
@@ -18,17 +20,17 @@ use Drupal\pathauto\PathautoState;
 
 $csv = __DIR__ . '/data/ia.csv';
 if (($handle = fopen($csv, "r")) === FALSE) {
-    die("[WorkBC Migration] Could not open $csv");
+    die("Could not open IA spreadsheet $csv");
 }
 print("Importing IA spreadsheet $csv\n");
 
 $gc_pages = [];
 $gc_pages_title_index = [];
-$gc = __DIR__ . '/data/ia.json';
-if (file_exists($gc)) {
-    print("Importing GC content $gc\n");
-    $row = json_decode(file_get_contents($gc));
-    foreach ($row as $i => $gc_page) {
+if ($data = fopen(__DIR__ . '/data/ia.jsonl', 'r')) {
+    print("Reading GC pages\n");
+    while (!feof($data)) {
+        $gc_page = json_decode(fgets($data));
+        if (empty($gc_page)) continue;
         $gc_pages[$gc_page->id] = $gc_page;
         $gc_pages_title_index[strtolower($gc_page->title)] = $gc_page->id;
     }
