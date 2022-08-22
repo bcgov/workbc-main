@@ -262,7 +262,7 @@ handlers:
       to_options: {  }
       bcc_mail: ''
       bcc_options: {  }
-      cc_mail: ''
+      cc_mail: rafael.poncedeleon@quartech.com
       cc_options: {  }
       from_mail: _default
       from_options: {  }
