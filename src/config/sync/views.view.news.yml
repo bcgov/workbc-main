@@ -1015,9 +1015,24 @@ display:
         style: false
         row: false
         fields: false
+        footer: false
       css_class: ''
       use_ajax: true
       display_description: ''
+      footer:
+        area:
+          id: area
+          table: views
+          field: area
+          relationship: none
+          group_type: group
+          admin_label: ''
+          plugin_id: text
+          empty: false
+          content:
+            value: '<a href="/news-archive">View News Archive</a>'
+            format: basic_html
+          tokenize: false
       display_extenders: {  }
     cache_metadata:
       max-age: -1
@@ -1450,8 +1465,23 @@ display:
         style: false
         row: false
         fields: false
+        footer: false
       use_ajax: false
       display_description: ''
+      footer:
+        area:
+          id: area
+          table: views
+          field: area
+          relationship: none
+          group_type: group
+          admin_label: ''
+          plugin_id: text
+          empty: false
+          content:
+            value: '<a href="/news">View All WorkBC News</a>'
+            format: basic_html
+          tokenize: false
       display_extenders: {  }
     cache_metadata:
       max-age: -1

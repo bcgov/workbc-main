@@ -11,7 +11,7 @@ third_party_settings:
     parent: 'main:'
 name: 'Landing Page'
 type: landing_page
-description: ''
+description: '*** DO NOT USE ***'
 help: ''
 new_revision: true
 preview_mode: 1
