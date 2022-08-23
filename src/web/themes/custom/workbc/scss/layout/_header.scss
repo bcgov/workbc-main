@@ -1,0 +1,90 @@
+.header {
+  background-color: #fff;
+}
+
+.header__container {
+  position: relative;
+  padding-top: 20px;
+  padding-bottom: 20px;
+
+  @include media-breakpoint-up(lg) {
+    padding-top: 10px;
+    padding-bottom: 30px;
+  }
+}
+
+.header__logo-search-container {
+  @include media-breakpoint-up(lg) {
+    display: flex;
+  }
+}
+
+.header__logo-link {
+  display: block;
+  width: 170px;
+
+  @include media-breakpoint-up(lg) {
+    width: 260px;
+    align-self: end;
+  }
+
+  img {
+    display: block;
+    width: 100%;
+  }
+}
+
+.header__search {
+  margin-top: 20px;
+
+  @include media-breakpoint-up(lg) {
+    margin-left: auto;
+    align-self: end;
+    min-width: 500px;
+  }
+}
+
+.header__search .form--inline .form-item {
+  margin: 0;
+  float: none;
+}
+
+.header__search input.form-autocomplete,
+.header__search input.form-autocomplete.ui-autocomplete-loading {
+  background-image: url(../assets/images/search-icon.svg);
+  background-position: calc(100% - 10px) center;
+  background-repeat: no-repeat;
+}
+
+.header__search .form-control {
+  padding: 8px;
+  font-size: 0.9rem;
+  border: 2px solid #aaa;
+  border-radius: 0;
+  background-color: $workbc_palette_light_secondary;
+
+  &:focus {
+    outline: none;
+    box-shadow: none;
+    border: 2px solid #666;
+  }
+
+  &:placeholder {
+    color: $workbc_palette_light_tertiary;
+  }
+}
+
+.header__search .form-actions {
+  @include visually-hidden;
+}
+
+.header__menu-toggle {
+  display: block;
+  position: absolute;
+  top: 20px;
+  right: 6px;
+
+  @include media-breakpoint-up(lg) {
+    display: none;
+  }
+}

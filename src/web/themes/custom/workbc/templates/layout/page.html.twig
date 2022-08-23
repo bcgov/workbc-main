@@ -56,35 +56,8 @@ set footer_classes = ' ' ~
   (b5_footer_bg_schema != 'none' ? " bg-#{b5_footer_bg_schema}" : ' ')
 %}
 
-<header>
-  {% if page.alert_ribbon %}
-      {{ page.alert_ribbon }}
-  {% endif %}
-
-  <div class="{{ b5_top_container }}">
-    {{ page.header }}
-  </div>
-
-  {% if page.nav_branding or page.nav_main or page.nav_additional %}
-  <nav class="{{ nav_classes }}">
-    <div class="{{ b5_top_container }} px-0 d-flex">
-      {{ page.nav_branding }}
-
-      <button class="navbar-toggler collapsed" type="button" data-bs-toggle="collapse"
-              data-bs-target="#navbarSupportedContent" aria-controls="navbarSupportedContent"
-              aria-expanded="false" aria-label="Toggle navigation">
-        <span class="navbar-toggler-icon"></span>
-      </button>
-
-      <div class="collapse navbar-collapse justify-content-md-end flex-wrap" id="navbarSupportedContent">
-        {{ page.nav_main }}
-        {{ page.nav_additional }}
-      </div>
-    </div>
-  </nav>
-  {% endif %}
-
-</header>
+{# Header #}
+{% include '@workbc/includes/header.html.twig' %}
 
 <main role="main" class="page-wrapper">
   <a id="main-content" tabindex="-1"></a>{# link is in html.html.twig #}
