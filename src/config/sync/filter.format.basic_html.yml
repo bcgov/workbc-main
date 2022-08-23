@@ -57,5 +57,6 @@ filters:
         default: default
         full: full
       allowed_media_types:
+        document: document
         image: image
         remote_video: remote_video
