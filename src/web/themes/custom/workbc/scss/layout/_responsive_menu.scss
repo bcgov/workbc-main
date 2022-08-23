@@ -1,7 +1,6 @@
 .mobile-nav-header {
   position: relative;
-  padding: 30px 20px;
-  order: 0;
+  padding: 15px 20px;
 }
 
 .mobile-nav-logo {
@@ -11,8 +10,8 @@
 
 .mobile-nav-close {
   position: absolute;
-  top: 25px;
-  right: 10px;
+  top: 10px;
+  right: 15px;
   width: 30px;
   height: 30px;
   background-image: url(../assets/images/close-icon.svg);
@@ -61,14 +60,10 @@
   top: 22px;
 }
 
-.nav-user-mobile-container {
-  order: 2;
+.mobile-nav__user-nav {
+  margin-top: 30px;
 }
 
-.nav-user-mobile {
-  margin-bottom: 40px;
-}
-
-.nav-user-mobile .nav-items {
+.mobile-nav__user-nav .nav-items {
   @include list-reset;
 }
