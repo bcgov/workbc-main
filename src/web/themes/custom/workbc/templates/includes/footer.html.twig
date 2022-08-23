@@ -4,8 +4,10 @@
       <div class="footer__social">
         {{ drupal_block('simple_block:social_networking_links') }}
       </div>
-      <div class="footer__nav">
-        {{ drupal_entity('block', 'workbc_footer') }}
+      <div class="footer__nav-container">
+        <nav class="nav-footer">
+          {{ drupal_block('system_menu_block:footer', wrapper=false) }}
+        </nav>
       </div>
     </div>
     <div class="footer__mid">

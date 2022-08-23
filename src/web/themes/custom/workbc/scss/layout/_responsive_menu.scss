@@ -1,5 +1,25 @@
-// Overrides for responsive menu
+.mobile-nav-header {
+  position: relative;
+  padding: 15px 20px;
+}
 
+.mobile-nav-logo {
+  display: block;
+  max-width: 125px;
+}
+
+.mobile-nav-close {
+  position: absolute;
+  top: 10px;
+  right: 15px;
+  width: 30px;
+  height: 30px;
+  background-image: url(../assets/images/close-icon.svg);
+  background-position: center;
+  background-repeat: no-repeat;
+}
+
+//  Responsive menu overrides
 .responsive-menu-toggle-icon:before,
 .responsive-menu-toggle-icon:after,
 .responsive-menu-toggle-icon span.icon {
@@ -16,12 +36,34 @@
   border-left: none;
 }
 
-.off-canvas-logo {
-  display: block;
-  max-width: 200px;
-  padding: 40px 20px;
+.mm-listitem:after {
+  inset-inline-start: 0;
 }
 
 .responsive-menu-toggle-icon span.label {
   @include visually-hidden;
+}
+
+.responsive-menu-toggle-icon:before,
+.responsive-menu-toggle-icon:after,
+.responsive-menu-toggle-icon span.icon {
+  width: 26px;
+  border-radius: 0;
+  left: 10px;
+}
+
+.responsive-menu-toggle-icon span.icon {
+  top: 15px;
+}
+
+.responsive-menu-toggle-icon:after {
+  top: 22px;
+}
+
+.mobile-nav__user-nav {
+  margin-top: 30px;
+}
+
+.mobile-nav__user-nav .nav-items {
+  @include list-reset;
 }

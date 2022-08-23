@@ -1,0 +1,30 @@
+.nav-user {
+  display: none;
+
+  @include media-breakpoint-up(lg) {
+    display: flex;
+  }
+}
+
+.nav-user .nav-items {
+  @include list-reset;
+  @include list-flex-inline;
+
+  @include media-breakpoint-up(lg) {
+    margin-left: auto;
+  }
+}
+
+.nav-user .nav-item {
+  @include list-item-separator-after("|", 6px);
+  color: $workbc_palette_dark_default;
+
+  &:last-of-type > a {
+    padding-right: 0;
+  }
+}
+
+.nav-user .nav-link {
+  font-size: 0.95rem;
+  color: $workbc_palette_dark_default;
+}
