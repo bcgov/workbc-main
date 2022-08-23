@@ -22,7 +22,11 @@
  */
 #}
 
-<img class="off-canvas-logo" src="/{{ directory }}/logo.svg" alt="{{ 'logo'|t }}" />
+<span class="mobile-nav-header">
+  <a class="mobile-nav-close" aria-label="Close menu" href="#mm-56"></a>
+  <img class="mobile-nav-logo" src="/{{ directory }}/logo.svg" alt="{{ 'logo'|t }}" />
+</span>
+
 
 {% import _self as menus %}
 
@@ -51,3 +55,9 @@
     </ul>
   {% endif %}
 {% endmacro %}
+
+<span class="nav-user-mobile-container">
+  <nav class="nav-user-mobile">
+    {{ drupal_block('system_menu_block:account', wrapper=false) }}
+  </nav>
+</span>
