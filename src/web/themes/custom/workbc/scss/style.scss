@@ -24,8 +24,10 @@
 // layouts
 @import 'layout/page';
 @import 'layout/alert_ribbon';
-@import 'layout/region_header';
-@import 'layout/navmenu';
+@import 'layout/_header';
+@import 'layout/nav_main';
+@import 'layout/nav_user';
+@import 'layout/nav_footer';
 @import 'layout/responsive_menu';
 @import 'layout/breadcrumbs';
 @import 'layout/footer';
