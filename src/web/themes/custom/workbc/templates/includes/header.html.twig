@@ -1,0 +1,35 @@
+{% if page.alert_ribbon %}
+  {{ page.alert_ribbon }}
+{% endif %}
+
+<header class="header">
+  <div class="container-lg header__container">
+    <nav class="nav-user">
+      {{ drupal_block('system_menu_block:account', wrapper=false) }}
+    </nav>
+    <div class="header__logo-search-container">
+      <a class="header__logo-link" href="{{ path('<front>') }}" title="{{ 'Home'|t }}" rel="home">
+        <img src="/{{ directory }}/logo.svg" alt="{{ 'Home'|t }}" />
+      </a>
+      <div class="header__search">
+        {{ drupal_block('views_exposed_filter_block:search_site_content-page_1', wrapper=false) }}
+      </div>
+    </div>
+    <div class="header__menu-toggle">
+      {{ drupal_block('responsive_menu_toggle', wrapper=false) }}
+    </div>
+  </div>
+
+  {# Mian Nav #}
+  {% if page.nav_branding or page.nav_main or page.nav_additional %}
+    <nav class="{{ nav_classes }}">
+      <div class="{{ b5_top_container }} px-0 d-flex">
+        {{ page.nav_branding }}
+        <div class="collapse navbar-collapse justify-content-md-end flex-wrap" id="navbarSupportedContent">
+          {{ page.nav_main }}
+          {{ page.nav_additional }}
+        </div>
+      </div>
+    </nav>
+  {% endif %}
+</header>
