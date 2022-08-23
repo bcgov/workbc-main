@@ -3,7 +3,6 @@ langcode: en
 status: true
 dependencies:
   config:
-    - node.type.landing_page
     - node.type.page
     - taxonomy.vocabulary.tags
   module:
@@ -31,7 +30,6 @@ permissions:
   - 'access toolbar'
   - 'access tour'
   - 'administer url aliases'
-  - 'create landing_page content'
   - 'create page content'
   - 'create paragraph content action_card'
   - 'create paragraph content action_card_feature'
@@ -45,8 +43,6 @@ permissions:
   - 'create paragraph content skills'
   - 'create terms in tags'
   - 'create url aliases'
-  - 'delete landing_page revisions'
-  - 'delete own landing_page content'
   - 'delete own page content'
   - 'delete page revisions'
   - 'delete paragraph content action_card'
@@ -59,10 +55,8 @@ permissions:
   - 'delete paragraph content hours_of_operation'
   - 'delete paragraph content quote_card'
   - 'delete paragraph content skills'
-  - 'edit any landing_page content'
   - 'edit any page content'
   - 'edit own comments'
-  - 'edit own landing_page content'
   - 'edit own page content'
   - 'edit terms in tags'
   - 'revert all revisions'

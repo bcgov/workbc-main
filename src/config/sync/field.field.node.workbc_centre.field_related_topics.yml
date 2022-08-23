@@ -10,7 +10,6 @@ dependencies:
     - node.type.event
     - node.type.industry_profile
     - node.type.labour_market_monthly
-    - node.type.landing_page
     - node.type.news
     - node.type.page
     - node.type.publication
@@ -38,7 +37,6 @@ settings:
       event: event
       industry_profile: industry_profile
       labour_market_monthly: labour_market_monthly
-      landing_page: landing_page
       news: news
       publication: publication
       region_profile: region_profile
