@@ -135,11 +135,6 @@ processor_settings:
       h2: 3
       h3: 2
       strong: 2
-  ignorecase:
-    all_fields: true
-    fields:
-      - field_noc
-      - title
   language_with_fallback: {  }
   rendered_item: {  }
   solr_date_range:
