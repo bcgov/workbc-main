@@ -1,0 +1,8 @@
+uuid: 92eeb9bc-9834-4867-9711-a6c68d37806f
+langcode: en
+status: true
+dependencies: {  }
+id: event_day
+label: 'Event Day'
+locked: false
+pattern: j

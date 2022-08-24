@@ -37,6 +37,14 @@
            ),
        ],
      ],
+     'career_events_block' => [
+       'variables' => [
+           'career_events' => array(
+             'list' => NULL,
+             'calendar' => NULL,
+           ),
+       ],
+     ],
    ];
  }
 
