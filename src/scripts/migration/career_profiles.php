@@ -105,7 +105,6 @@ try {
         'field_job_titles' => convertMultiline($career_profile->{'Job Titles List'}),
         'field_resources' => convertResources($career_profile->{'Resources'}),
         'field_work_environment' => convertRichText($career_profile->{'Work Environment Content'}),
-        'field_field_related_topics_blurb' => convertRichText($career_profile->{'Page Blurb'})
       ]);
     }
     else {

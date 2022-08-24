@@ -17,7 +17,6 @@ dependencies:
     - field.field.node.career_profile.field_job_titles
     - field.field.node.career_profile.field_noc
     - field.field.node.career_profile.field_related_careers
-    - field.field.node.career_profile.field_related_topics_blurb
     - field.field.node.career_profile.field_resources
     - field.field.node.career_profile.field_work_environment
     - node.type.career_profile
@@ -82,7 +81,6 @@ hidden:
   field_job_titles: true
   field_noc: true
   field_related_careers: true
-  field_related_topics_blurb: true
   field_resources: true
   field_work_environment: true
   langcode: true
