@@ -22,6 +22,8 @@ services:
       SSMTP_MAILHUB: mailhog:1025
 #      SSMTP_MAILHUB: opensmtpd:25
       PHP_SENDMAIL_PATH: '"/usr/bin/dos2unix -u | /usr/sbin/ssmtp -t -f"'
+      PHP_POST_MAX_SIZE: 256M
+      PHP_UPLOAD_MAX_FILESIZE: 256M
 #      DB_HOST: $DB_HOST
 #      DB_PORT: $DB_PORT
 #      DB_USER: $DB_USER
@@ -76,6 +78,7 @@ services:
       NGINX_BACKEND_HOST: php
       NGINX_SERVER_ROOT: /var/www/html/web
       NGINX_VHOST_PRESET: $NGINX_VHOST_PRESET
+      NGINX_CLIENT_MAX_BODY_SIZE: 256m
     #      NGINX_DRUPAL_FILE_PROXY_URL: http://example.com
     volumes:
     - ./src/:/var/www/html:cached
