@@ -60,7 +60,7 @@ field_settings:
     label: NOC
     datasource_id: 'entity:node'
     property_path: field_noc
-    type: text
+    type: 'solr_text_custom:ngram'
     boost: !!float 3
     dependencies:
       config:
@@ -86,7 +86,7 @@ field_settings:
     label: Title
     datasource_id: 'entity:node'
     property_path: title
-    type: text
+    type: 'solr_text_custom:ngram'
     boost: !!float 5
     dependencies:
       module:
@@ -135,79 +135,11 @@ processor_settings:
       h2: 3
       h3: 2
       strong: 2
-  ignorecase:
-    all_fields: true
-    fields:
-      - field_noc
-      - title
   language_with_fallback: {  }
   rendered_item: {  }
   solr_date_range:
     weights:
       preprocess_index: 0
-  stemmer:
-    all_fields: true
-    fields:
-      - field_noc
-      - title
-    exceptions:
-      mexican: mexic
-      texan: texa
-  stopwords:
-    all_fields: true
-    fields:
-      - field_noc
-      - title
-    stopwords:
-      - a
-      - an
-      - and
-      - are
-      - as
-      - at
-      - be
-      - but
-      - by
-      - for
-      - if
-      - in
-      - into
-      - is
-      - it
-      - 'no'
-      - not
-      - of
-      - 'on'
-      - or
-      - s
-      - such
-      - t
-      - that
-      - the
-      - their
-      - then
-      - there
-      - these
-      - they
-      - this
-      - to
-      - was
-      - will
-      - with
-  tokenizer:
-    all_fields: true
-    fields:
-      - field_noc
-      - title
-    spaces: ''
-    ignored: ._-
-    overlap_cjk: 1
-    minimum_word_size: '3'
-  transliteration:
-    all_fields: true
-    fields:
-      - field_noc
-      - title
 tracker_settings:
   default:
     indexing_order: fifo
