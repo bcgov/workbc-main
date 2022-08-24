@@ -13,7 +13,7 @@ use GuzzleHttp\Exception\RequestException;
  *
  * Usage:
  * - drush scr scripts/migration/gc-jsonl -- -s publish 290255 > scripts/migration/data/career_profiles.jsonl
- * - drush scr scripts/migration/gc-jsonl -- -i 14814311 290255 > scripts/migration/data/career_profile_introductions.jsonl
+ * - drush scr scripts/migration/gc-jsonl -- 332842 > scripts/migration/data/career_profile_introductions.jsonl
  * - drush scr scripts/migration/career_profiles
  *
  * Revert:
