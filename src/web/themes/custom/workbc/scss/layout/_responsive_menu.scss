@@ -8,15 +8,19 @@
   max-width: 125px;
 }
 
-.mobile-nav-close {
+.mm-btn--close {
   position: absolute;
-  top: 10px;
+  top: -42px;
   right: 15px;
   width: 30px;
   height: 30px;
   background-image: url(../assets/images/close-icon.svg);
   background-position: center;
   background-repeat: no-repeat;
+
+  &:before {
+    content: none;
+  }
 }
 
 //  Responsive menu overrides
