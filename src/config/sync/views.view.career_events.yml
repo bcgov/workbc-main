@@ -1401,7 +1401,7 @@ display:
           end: field_end_date
           title: title
           left_buttons: 'prev,next today'
-          right_buttons: 'dayGridMonth,listMonth'
+          right_buttons: dayGridMonth
           default_view: dayGridMonth
           firstDay: '0'
           nav_links: 1
@@ -1421,10 +1421,10 @@ display:
             bc_profile: '#3a87ad'
             blog: '#3a87ad'
             career_profile: '#3a87ad'
+            career_profile_introductions: '#3a87ad'
             event: '#3a87ad'
             industry_profile: '#3a87ad'
             labour_market_monthly: '#3a87ad'
-            landing_page: '#3a87ad'
             news: '#3a87ad'
             page: '#3a87ad'
             publication: '#3a87ad'
