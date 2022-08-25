@@ -412,7 +412,7 @@ display:
         type: full
         options:
           offset: 0
-          items_per_page: 25
+          items_per_page: 12
           total_pages: null
           id: 0
           tags:
@@ -421,7 +421,7 @@ display:
             first: '« First'
             last: 'Last »'
           expose:
-            items_per_page: true
+            items_per_page: false
             items_per_page_label: 'Items per page'
             items_per_page_options: '25, 50, 100'
             items_per_page_options_all: false
@@ -1947,7 +1947,7 @@ display:
         type: full
         options:
           offset: 0
-          items_per_page: 25
+          items_per_page: 12
           total_pages: null
           id: 0
           tags:

@@ -4,7 +4,7 @@
         "Read more about it at https://getcomposer.org/doc/01-basic-usage.md#installing-dependencies",
         "This file is @generated automatically"
     ],
-    "content-hash": "5681406e49b6d38d60b82fac1f76aded",
+    "content-hash": "e27840fc44dd22c9395a52cb318cccbe",
     "packages": [
         {
             "name": "alchemy/zippy",
@@ -5269,6 +5269,59 @@
             "support": {
                 "source": "https://git.drupal.org/project/recaptcha.git",
                 "issues": "https://www.drupal.org/project/issues/recaptcha"
+            }
+        },
+        {
+            "name": "drupal/registration_link",
+            "version": "2.4.0",
+            "source": {
+                "type": "git",
+                "url": "https://git.drupalcode.org/project/registration_link.git",
+                "reference": "8.x-2.4"
+            },
+            "dist": {
+                "type": "zip",
+                "url": "https://ftp.drupal.org/files/projects/registration_link-8.x-2.4.zip",
+                "reference": "8.x-2.4",
+                "shasum": "cd0884ec1658223b9b9dfd5a837f0f3e2457a718"
+            },
+            "require": {
+                "drupal/core": "^8.0 || ^9.0 || ^10"
+            },
+            "type": "drupal-module",
+            "extra": {
+                "drupal": {
+                    "version": "8.x-2.4",
+                    "datestamp": "1657050798",
+                    "security-coverage": {
+                        "status": "covered",
+                        "message": "Covered by Drupal's security advisory policy"
+                    }
+                }
+            },
+            "notification-url": "https://packages.drupal.org/8/downloads",
+            "license": [
+                "GPL-2.0-or-later"
+            ],
+            "authors": [
+                {
+                    "name": "Ivo.Radulovski",
+                    "homepage": "https://www.drupal.org/user/337498"
+                },
+                {
+                    "name": "i-trokhanenko",
+                    "homepage": "https://www.drupal.org/user/3546872"
+                }
+            ],
+            "description": "This module provides a 'Register' link to user account menu.",
+            "homepage": "https://www.drupal.org/project/registration_link",
+            "keywords": [
+                "Drupal",
+                "registration link"
+            ],
+            "support": {
+                "source": "https://git.drupalcode.org/project/registration_link",
+                "issues": "https://www.drupal.org/project/issues/registration_link"
             }
         },
         {
