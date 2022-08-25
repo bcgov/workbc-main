@@ -99,6 +99,7 @@
         "drupal/pathauto": "^1.10",
         "drupal/published_corrected_date": "^2.0",
         "drupal/recaptcha": "^3.0",
+        "drupal/registration_link": "^2.4",
         "drupal/responsive_menu": "^4.4",
         "drupal/search_api": "^1.23",
         "drupal/search_api_autocomplete": "^1.6",

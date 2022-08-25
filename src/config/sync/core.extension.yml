@@ -47,8 +47,8 @@ module:
   field_ui: 0
   file: 0
   filter: 0
-  fullcalendar_view: 0
   flood_control: 0
+  fullcalendar_view: 0
   health_check: 0
   help: 0
   history: 0
@@ -78,6 +78,7 @@ module:
   published_corrected_date: 0
   rdf: 0
   recaptcha: 0
+  registration_link: 0
   responsive_menu: 0
   search_api: 0
   search_api_autocomplete: 0
