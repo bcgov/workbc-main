@@ -51,6 +51,9 @@ settings:
       action_card_feature:
         weight: 12
         enabled: true
+      action_card_icon:
+        weight: 19
+        enabled: false
       action_cards_1_2:
         weight: 13
         enabled: true

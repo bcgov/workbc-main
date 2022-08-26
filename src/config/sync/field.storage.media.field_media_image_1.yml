@@ -1,4 +1,4 @@
-uuid: 0440793a-5a2e-4d4a-854d-d2fb105e5304
+uuid: 362f57c3-e4ba-4d14-ba53-2c9425d73e34
 langcode: en
 status: true
 dependencies:
@@ -7,16 +7,11 @@ dependencies:
     - file
     - image
     - media
-  enforced:
-    module:
-      - media
 third_party_settings:
   field_permissions:
     permission_type: public
-_core:
-  default_config_hash: 0N0KSFk57p6qsq3qM4lYVGSuROvzXK-tSsdwByqUh3g
-id: media.field_media_image
-field_name: field_media_image
+id: media.field_media_image_1
+field_name: field_media_image_1
 entity_type: media
 type: image
 settings:
