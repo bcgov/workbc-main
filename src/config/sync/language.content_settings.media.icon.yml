@@ -1,0 +1,11 @@
+uuid: 0e590b40-558a-4c90-9722-35d522a09551
+langcode: en
+status: true
+dependencies:
+  config:
+    - media.type.icon
+id: media.icon
+target_entity_type_id: media
+target_bundle: icon
+default_langcode: site_default
+language_alterable: false

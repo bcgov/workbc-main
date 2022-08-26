@@ -4,7 +4,7 @@ status: true
 dependencies:
   config:
     - field.storage.paragraph.field_action_cards
-    - paragraphs.paragraphs_type.action_card
+    - paragraphs.paragraphs_type.action_card_icon
     - paragraphs.paragraphs_type.action_cards_icon
   module:
     - entity_reference_revisions
@@ -22,15 +22,18 @@ settings:
   handler: 'default:paragraph'
   handler_settings:
     target_bundles:
-      action_card: action_card
+      action_card_icon: action_card_icon
     negate: 0
     target_bundles_drag_drop:
       action_card:
         weight: 15
-        enabled: true
+        enabled: false
       action_card_feature:
         weight: 16
         enabled: false
+      action_card_icon:
+        weight: 19
+        enabled: true
       action_cards_1_2:
         weight: 17
         enabled: false
@@ -48,6 +51,9 @@ settings:
         enabled: false
       action_cards_icon:
         weight: 22
+        enabled: false
+      action_cards_publication:
+        weight: 26
         enabled: false
       additional_duties:
         weight: 23

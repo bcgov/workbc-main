@@ -87,6 +87,7 @@ module:
   ses_mailer: 0
   shortcut: 0
   simple_block: 0
+  svg_image: 0
   system: 0
   taxonomy: 0
   terms_of_use: 0
