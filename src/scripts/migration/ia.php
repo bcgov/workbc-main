@@ -9,14 +9,24 @@ use Drupal\pathauto\PathautoState;
  * Generate nodes for all content type in the WorkBC Refresh IA.
  *
  * Usage:
- * - drush scr scripts/migration/gc-jsonl.php -- -s publish 284269 > scripts/migration/data/ia.jsonl
- * - drush scr scripts/migration/ia
+ * - drush scr scripts/migration/gc-jsonl.php -- --status publish 284269 > scripts/migration/data/ia.jsonl
+ * - drush scr scripts/migration/ia -- [--update]
  *
  * Revert:
  * - drush entity:delete node --bundle=page
- * - drush entity:delete node --bundle=landing_page
  * - drush entity:delete menu_link_content
  */
+
+$getopt = new \GetOpt\GetOpt([
+        ['h', 'help', \GetOpt\GetOpt::NO_ARGUMENT, 'Show this help and quit'],
+        ['u', 'update', \GetOpt\GetOpt::NO_ARGUMENT, 'Update nodes if they already exist (default: always create new nodes)'],
+    ], [\GetOpt\GetOpt::SETTING_STRICT_OPERANDS => true]);
+try {
+    $getopt->process($extra);
+}
+catch (Exception $e) {
+    die($getopt->getHelpText());
+}
 
 $csv = __DIR__ . '/data/ia.csv';
 if (($handle = fopen($csv, "r")) === FALSE) {
@@ -54,7 +64,7 @@ $types = [
     'link' => NULL,
     'basic page' => 'page',
     'basic page hero' => 'page',
-    'landing page' => 'landing_page'
+    'landing page' => 'page'
 ];
 
 // The columns we are interested in.
@@ -63,6 +73,7 @@ const TREE_LAST = 5;
 const MEGA_MENU = 6;
 const DRUPAL_TYPE = 7;
 const URL = 12;
+const SIDE_NAV = 13;
 
 // FIRST PASS: Create all the nodes.
 print("FIRST PASS\n");
@@ -127,16 +138,27 @@ while (($row = fgetcsv($handle)) !== FALSE) {
         print("  Found GatherContent entry\n");
         $gc_page = &$gc_pages[$gc_pages_title_index[strtolower($title)]];
 
+        // Populate standard fields.
+        if (property_exists($gc_page, 'Page Content')) {
+            $fields['body'] = convertRichText($gc_page->{'Page Content'}, $gc_pages);
+        }
+        if (property_exists($gc_page, 'Page Description')) {
+            $fields['field_hero_text'] = convertRichText($gc_page->{'Page Description'}, $gc_pages);
+        }
+        if (property_exists($gc_page, 'Banner Image')) {
+            $images = array_map('convertImage', array_filter($gc_page->{'Banner Image'}));
+            if (!empty($images)) {
+                $fields['field_hero_image'] = current($images);
+            }
+        }
+        if (property_exists($gc_page, 'Related Topics Blurb')) {
+            $fields['field_related_topics_blurb'] = convertRichText($gc_page->{'Related Topics Blurb'}, $gc_pages);
+        }
+
         // Populate fields based on template type.
         // TODO Verify that template type matches Drupal content type.
         switch (trim($gc_page->template)) {
             case "Standard Page":
-                $fields = array_merge($fields, [
-                    'body' => convertRichText($gc_page->{'Page Content'}),
-                    'field_hero_text' => convertRichText($gc_page->{'Page Description'}),
-                    'field_hero_image' => array_map('convertImage', array_filter($gc_page->{'Banner Image'})),
-                ]);
-                break;
             case "Landing Page 1":
             case "Landing Page 2":
             case "Landing Page 3":
@@ -150,34 +172,49 @@ while (($row = fgetcsv($handle)) !== FALSE) {
     // Create the node.
     if (!empty($row[URL])) {
         $pages[implode('/', $path)] = [
-            'id' => NULL,
+            'nid' => NULL,
             'title' => $title,
             'path' => $path,
             'menu_item' => NULL,
             'mega_menu' => !empty($row[MEGA_MENU]) ? $row_number : NULL,
             'uri' => $row[URL],
-            'gc' => NULL,
+            'gc_id' => NULL,
         ];
-        print("  No content: " . implode(' => ', $path) . "\n");
+        print("  No content: " . implode(' => ', $path) . PHP_EOL);
     }
     else if (!empty($type)) {
-        $node = Drupal::entityTypeManager()
-            ->getStorage('node')
-            ->create($fields);
+        $node = NULL;
+        if (!empty($getopt->getOption('update'))) {
+            $nodes = \Drupal::entityTypeManager()
+                ->getStorage('node')
+                ->loadByProperties(['title' => $title]);
+            if (!empty($nodes)) {
+                $node = current($nodes);
+                print("  Found existing node " . $node->id() . PHP_EOL);
+                foreach ($fields as $field => $value) {
+                    $node->$field = $value;
+                }
+            }
+        }
+        if (empty($node)) {
+            $node = Drupal::entityTypeManager()
+                ->getStorage('node')
+                ->create($fields);
+        }
         $node->save();
         $pages[implode('/', $path)] = [
-            'id' => $node->id(),
+            'nid' => $node->id(),
             'title' => $title,
             'path' => $path,
             'menu_item' => NULL,
             'mega_menu' => !empty($row[MEGA_MENU]) ? $row_number : NULL,
             'uri' => NULL,
-            'gc' => !empty($gc_page) ? $gc_page->id : NULL,
+            'gc_id' => $gc_page?->id,
         ];
         if (!empty($gc_page)) {
             $gc_page->nid = $node->id();
         }
-        print("  Created $type: " . implode(' => ', $path) . "\n");
+        print("  Created $type: " . implode(' => ', $path) . PHP_EOL);
     }
     else {
         print("  Ignoring\n");
@@ -201,7 +238,7 @@ function createMenuEntry($path, $page, &$pages, $menu_name) {
     $title = $page['title'];
     if (0 === strcasecmp($title, 'Home')) {
         PathAlias::create([
-            'path' => "/node/{$page['id']}",
+            'path' => "/node/{$page['nid']}",
             'alias' => '/front',
             'langcode' => 'en',
         ])->save();
@@ -231,8 +268,8 @@ function createMenuEntry($path, $page, &$pages, $menu_name) {
     }
 
     // Setup the proper URI for this menu entry.
-    if (!empty($page['id'])) {
-        $link = ['uri' => "entity:node/{$page['id']}"];
+    if (!empty($page['nid'])) {
+        $link = ['uri' => "entity:node/{$page['nid']}"];
     }
     else if (strpos($page['uri'] , 'http') === 0) {
         $link = [
@@ -269,25 +306,32 @@ foreach ($pages as $path => &$page) {
         createMenuEntry($path, $page, $pages, 'main');
     }
 
-    // Add relations from GatherContent.
-    if (!empty($page['gc']) && array_key_exists($page['gc'], $gc_pages)) {
-        $gc_page = &$gc_pages[$page['gc']];
+    // Add related items from GatherContent.
+    if (!empty($page['gc_id']) && array_key_exists($page['gc_id'], $gc_pages)) {
+        $gc_page = &$gc_pages[$page['gc_id']];
         if (empty($gc_page)) {
             print( "  Empty GatherContent item {$page['title']}\n");
             continue;
         }
 
-        if (empty($page['id'])) {
+        if (empty($page['nid'])) {
             print("  Could not find a Drupal node for {$page['title']}\n");
             continue;
         }
 
         $node = Drupal::entityTypeManager()
             ->getStorage('node')
-            ->load($page['id']);
+            ->load($page['nid']);
 
         if (property_exists($gc_page, 'Related Topics Card')) {
             $node->field_related_topics = convertRelatedTopics($gc_page->{'Related Topics Card'}, $gc_pages);
+        }
+        if (property_exists($gc_page, 'Related Topics Link Target')) {
+            $node->field_related_topics = convertRelatedTopics(array_map(function($target) {
+                $card = new stdClass();
+                $card->{'Link Target'} = $target;
+                return $card;
+            }, $gc_page->{'Related Topics Link Target'}), $gc_pages);
         }
 
         $node->save();
@@ -297,25 +341,14 @@ foreach ($pages as $path => &$page) {
 function convertRelatedTopics($related_topics, &$gc_pages) {
     $field = [];
     if (!empty($related_topics)) foreach (array_filter($related_topics, function($card) {
-        return !empty($card->{'Link Anchor'});
+        return !empty($card->{'Link Target'});
     }) as $card) {
-        $related_item = NULL;
-        if (!preg_match('/^https:\/\/.*?\.gathercontent\.com\/item\/(\d+)$/', $card->{'Link Anchor'}, $related_item)) {
-          print("  Could not parse related GatherContent item {$card->{'Link Anchor'}}\n");
-          continue;
+        $related_items = convertGatherContentLinks($card->{'Link Target'}, $gc_pages);
+        if (empty($related_items)) {
+            print("  Could not parse related GatherContent item {$card->{'Link Target'}}\n");
+            continue;
         }
-
-        $related_id = $related_item[1];
-        if (!array_key_exists($related_id, $gc_pages)) {
-          print(" Could not find related GatherContent item $related_id\n");
-          continue;
-        }
-        if (empty($gc_pages[$related_id]->nid)) {
-          print(" Related GatherContent item $related_id does not have an associated Drupal node\n");
-          continue;
-        }
-
-        $field[] = ['target_id' => $gc_pages[$related_id]->nid];
+        $field[] = ['target_id' => current($related_items)['nid']];
     }
     return $field;
 }

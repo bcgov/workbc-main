@@ -30,7 +30,7 @@ The BC Labour Market Office supplies statistical data about the BC job market an
 Some content is unavailable anywhere but on the legacy WorkBC site itself. When such content is needed here, we transform it into a CSV file and use a custom script to import it into Drupal.
 
 ## YouTube (YT)
-The YouTube CareerTrekBC channel is imported to the Drupal video library using the commands below:
+The YouTube [CareerTrekBC](https://www.youtube.com/user/CareerTrekBC) and [WorkBC](https://www.youtube.com/user/WorkBC) channels are imported into a JSONL file using the commands below (running on the host):
 ```
 yt-dlp --flat-playlist --print url https://www.youtube.com/user/CareerTrekBC | while read u; do yt-dlp --no-download --dump-json "$u"; done > src/scripts/migration/data/video_library.jsonl
 yt-dlp --flat-playlist --print url https://www.youtube.com/user/WorkBC | while read u; do yt-dlp --no-download --dump-json "$u"; done >> src/scripts/migration/data/video_library.jsonl
