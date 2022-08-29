@@ -4,7 +4,7 @@
  * Populate education taxonomy.
  * Source: /education (All Occupation's Education Background 2021.xlsx)
  *
- * Usage: drush scr /scripts/migration/education
+ * Usage: drush scr scripts/migration/education
  *
  * Revert: drush entity:delete taxonomy_term --bundle=education
  */

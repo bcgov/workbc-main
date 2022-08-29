@@ -3,7 +3,7 @@
 /**
 * Generate any taxonomy vocabulary from a CSV sheet.
 *
-* Usage: drush scr /scripts/migration/taxonomy -- -v vocabulary_name /full/path/to/sheet.csv
+* Usage: drush scr scripts/migration/taxonomy -- -v vocabulary_name /full/path/to/sheet.csv
 *
 * Revert: drush entity:delete taxonomy_term --bundle=vocabulary_name
 */

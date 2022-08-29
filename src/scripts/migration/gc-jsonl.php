@@ -28,6 +28,13 @@ $gc
   ->setEmail($email)
   ->setApiKey($apiKey);
 try {
+  // Get folders.
+  $folders = [];
+  $results = $gc->foldersGet($getopt->getOperand('projectId'));
+  foreach ($results['data'] as $result) {
+    $folders[$result->id] = $result;
+  }
+
   // Build query filter and make initial request.
   $project_statuses = $gc->projectStatusesGet($getopt->getOperand('projectId'));
   $download_statuses = array_map('strtolower', $getopt->getOption('status'));
@@ -65,6 +72,7 @@ try {
       'title' => $item->name,
       'id' => $item->id,
       'template' => $templates[$item->templateId]['template']->name,
+      'folder' => $folders[$item->folderUuid]?->name,
     ];
     foreach ($item->content as $uuid => $value) {
       $field = $templates[$item->templateId][$uuid];

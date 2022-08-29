@@ -8,6 +8,21 @@ The main idea behind the migration system here is to provide the ability to recr
 
 The architecture of the migration system is exceedingly simple: it consists of a series of PHP scripts that import various pieces of content. In most cases, this content is supplied here in the form of CSV or JSONL files. The remainder of this document provides a complete reference about the scripts that are currently used, and the sources of these data files.
 
+# Running the migration
+Assuming an initialized WorkBC Drupal database and updated data files:
+```
+drush scr scripts/migration/taxonomy -- -v definitions /scripts/migration/data/definitions.csv
+drush scr scripts/migration/taxonomy -- -v event_type /scripts/migration/data/event_type.csv
+drush scr scripts/migration/taxonomy -- -v occupational_interests /scripts/migration/data/occupational_interests.csv
+drush scr scripts/migration/taxonomy -- -v video_categories /scripts/migration/data/video_categories.csv
+drush scr scripts/migration/skills
+drush scr scripts/migration/education
+drush scr scripts/migration/video_library
+drush scr scripts/migration/ia
+drush scr scripts/migration/workbc
+drush scr scripts/migration/career_profiles
+```
+
 # Data sources
 The sources providing original WorkBC content are the following:
 
@@ -45,8 +60,9 @@ Each script listed here includes a short documentation header that details its u
 
 | Script | Data source(s) | Output(s) |
 | -------| -------------- | -----------------|
-| ia.php  | IA (data/ia.csv)<br>GC (data/ia.jsonl) | Content types `page`, `landing_page`, `blog`, `news`, `success_story`<br>Menu `main` |
-| career_profiles.php | SSoT<br>GC (data/career_profiles.jsonl)<br>GC (data/career_profile_introductions.jsonl) | Content type `career_profile` |
+| ia.php  | IA (data/ia.csv) | Content type `page`<br>Menu `main` |
+| workbc.php | GC WorkBC (data/workbc.jsonl) | Content types `blog`, `news`, `success_story` |
+| career_profiles.php | SSoT<br>GC WorkBC Career Profiles (data/career_profiles.jsonl)<br>GC WorkBC Introductory Blurbs (data/career_profile_introductions.jsonl) | Content types `career_profile`, `career_profile_introductions` |
 | education.php | SSoT | Taxonomy `education` |
 | skills.php | SSoT | Taxonomy `skills` |
 | taxonomy.php | LS ([data/definitions.csv](https://www.workbc.ca/Jobs-Careers/Career-Toolkit/Definitions.aspx)) | Taxonomy `definitions` |

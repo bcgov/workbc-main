@@ -37,10 +37,9 @@ function convertRadio($radio_field) {
   return current($radio_field)->label;
 }
 
-function convertRichText($text, &$gc_pages = NULL) {
-  if (!empty($gc_pages)) {
-    $items = convertGatherContentLinks($text, $gc_pages);
-    foreach ($items as $item) {
+function convertRichText($text, &$items = NULL) {
+  if (!empty($items)) {
+    foreach (convertGatherContentLinks($text, $items) as $item) {
       $options = ['absolute' => FALSE];
       $url = \Drupal\Core\Url::fromRoute('entity.node.canonical', ['node' => $item['nid']], $options);
       $text = str_replace($item['match'], $url->toString(), $text);
@@ -83,19 +82,18 @@ function convertVideo($url, $extra_fields = []) {
   return ['target_id' => $media->id()];
 }
 
-function convertGatherContentLinks($text, &$gc_pages) {
+function convertGatherContentLinks($text, &$items) {
   if (!preg_match_all('/https:\/\/number41media1\.gathercontent\.com\/item\/(\d+)/i', $text, $matches)) {
     return [];
   }
 
-  $items = [];
+  $targets = [];
   foreach ($matches[1] as $m => $match) {
     $item_id = $match;
 
-    // TODO Handle the case where $gc_pages does not contain the item.
-    if (!array_key_exists($item_id, $gc_pages)) {
-      print("  Could not find related GatherContent item $item_id in existing pages. Trying GC API..." . PHP_EOL);
-
+    // Handle the case where $items does not contain the item.
+    if (!array_key_exists($item_id, $items)) {
+      print("  Could not find related GatherContent item $item_id locally. Trying GC API..." . PHP_EOL);
       $email = $_ENV['GATHERCONTENT_EMAIL'];
       $apiKey = $_ENV['GATHERCONTENT_APIKEY'];
       $client = new \GuzzleHttp\Client();
@@ -105,31 +103,31 @@ function convertGatherContentLinks($text, &$gc_pages) {
         ->setApiKey($apiKey);
       try {
         $item = $gc->itemGet($item_id);
-        $nodes = \Drupal::entityTypeManager()
-          ->getStorage('node')
-          ->loadByProperties(['title' => $item->name]);
-        if (!empty($nodes)) {
-          $node = current($nodes);
-          print("  Found existing node " . $node->id() . PHP_EOL);
-          $items[] = array(
-            'nid' => $node->id(),
-            'match' => $matches[0][$m],
-          );
-        }
+        $item->title = $item->name;
+        $item->process = FALSE;
+        $items[$item_id] = $item;
       }
       catch (Exception $e) {
-        print("  Could not query GatherContent for item $item_id" . PHP_EOL);
+        print("  Could not query GatherContent item $item_id" . PHP_EOL);
+        continue;
       }
-      continue;
     }
-    if (empty($gc_pages[$item_id]->nid)) {
-      print("  Related GatherContent item $item_id does not have an associated Drupal node" . PHP_EOL);
-      continue;
+    if (empty($items[$item_id]->nid)) {
+      print("  Could not find Drupal node for related GatherContent item $item_id locally. Trying Drupal API..." . PHP_EOL);
+      $nodes = \Drupal::entityTypeManager()
+        ->getStorage('node')
+        ->loadByProperties(['title' => trim($items[$item_id]->title)]);
+      if (empty($nodes)) {
+        print("  Could not find Drupal node \"{$items[$item_id]->title}\"" . PHP_EOL);
+        continue;
+      }
+      $node = current($nodes);
+      $items[$item_id]->nid = $node->id();
     }
-    $items[] = array(
-      'nid' => $gc_pages[$item_id]->nid,
+    $targets[] = array(
+      'nid' => $items[$item_id]->nid,
       'match' => $matches[0][$m],
     );
   }
-  return $items;
+  return $targets;
 }
