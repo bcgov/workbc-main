@@ -22,6 +22,7 @@ drush scr scripts/migration/ia
 drush scr scripts/migration/workbc
 drush scr scripts/migration/career_profiles
 ```
+For more details, refer to the headers of these scripts.
 
 # Data sources
 The sources providing original WorkBC content are the following:
@@ -37,6 +38,8 @@ The development team maintains a copy of the IA spreadsheet that is annotated wi
 
 ## GatherContent (GC)
 GatherContent is a CMS that the business team uses to collaborate on writing the text copy (editorial content) that goes into each page of the site. The design team maintains the GatherContent _templates_ which represent the structure (the fields) of the different pages. During migration, an import script maps the GC content fields to Drupal content fields in order to populate the content.
+
+The script `gc_jsonl.php` is used to dump items from a given GC project into a local JSONL file.
 
 ## Labour Market Office Data (SSoT)
 The BC Labour Market Office supplies statistical data about the BC job market and the industry. This information is stored in a separate API service called the Single Source of Truth (SSoT) which the migration scripts here access to create some of the non-editorial content (such as the list of Career Profiles).
@@ -61,12 +64,13 @@ Each script listed here includes a short documentation header that details its u
 | Script | Data source(s) | Output(s) |
 | -------| -------------- | -----------------|
 | ia.php  | IA (data/ia.csv) | Content type `page`<br>Menu `main` |
-| workbc.php | GC WorkBC (data/workbc.jsonl) | Content types `blog`, `news`, `success_story` |
-| career_profiles.php | SSoT<br>GC WorkBC Career Profiles (data/career_profiles.jsonl)<br>GC WorkBC Introductory Blurbs (data/career_profile_introductions.jsonl) | Content types `career_profile`, `career_profile_introductions` |
+| workbc.php | [GC WorkBC](https://number41media1.gathercontent.com/content/284269/items/) (data/workbc.jsonl) | Content types `blog`, `news`, `success_story` |
+| career_profiles.php | SSoT<br>[GC WorkBC Career Profiles](https://number41media1.gathercontent.com/content/290255/items/) (data/career_profiles.jsonl)<br>[GC WorkBC Introductory Blurbs](https://number41media1.gathercontent.com/content/332842/items/) (data/career_profile_introductions.jsonl) | Content types `career_profile`, `career_profile_introductions` |
 | education.php | SSoT | Taxonomy `education` |
 | skills.php | SSoT | Taxonomy `skills` |
-| taxonomy.php | LS ([data/definitions.csv](https://www.workbc.ca/Jobs-Careers/Career-Toolkit/Definitions.aspx)) | Taxonomy `definitions` |
-| taxonomy.php | LS ([data/occupational_interests.csv](https://www.workbc.ca/Labour-Market-Industry/Skills-for-the-Future-Workforce.aspx#characteristics)) | Taxonomy `occupational_interests` |
-| taxonomy.php | LS ([data/video_categories.csv](https://www.workbc.ca/videolibrary/)) | Taxonomy `video_categories` |
-| video_library.php | YT (data/video_library.jsonl) | Media type `remote_video` |
+| taxonomy.php | [LS](https://www.workbc.ca/Jobs-Careers/Career-Toolkit/Definitions.aspx) (data/definitions.csv) | Taxonomy `definitions` |
+| taxonomy.php | [LS](https://www.workbc.ca/Labour-Market-Industry/Skills-for-the-Future-Workforce.aspx#characteristics) (data/occupational_interests.csv) | Taxonomy `occupational_interests` |
+| taxonomy.php | [LS](https://www.workbc.ca/videolibrary/) (data/video_categories.csv) | Taxonomy `video_categories` |
+| taxonomy.php | LS (data/event_type.csv) | Taxonomy `event_type` |
+| video_library.php | YT [CareerTrekBC](https://www.youtube.com/user/CareerTrekBC) and [WorkBC](https://www.youtube.com/user/WorkBC) (data/video_library.jsonl) | Media type `remote_video` |
 | gc-jsonl.php | GC | JSONL file |
