@@ -47,7 +47,7 @@
   font-size: 2.8125rem;
   color: #333333;
   border-bottom: $underline-size;
-  padding-bottom: $underline-size; 
+  padding-bottom: $underline-size;
 
   &:before {
     content: '';
@@ -58,5 +58,23 @@
     right: 0px;
     z-index:-1;
     background-image: linear-gradient(to right, #D8E5F1 25%, #FFFFFF 100%);
+  }
+}
+
+@mixin link-chevron {
+  display: inline-flex;
+  align-items: center;
+
+  &:after {
+    content: "";
+    height: 18px;
+    width: 18px;
+    background: url(../assets/images/chevron.svg) 50% 50% no-repeat;
+    transform: translateX(5px);
+    transition: transform 0.1s;
+  }
+
+  &:hover:after {
+    transform: translateX(8px);
   }
 }
