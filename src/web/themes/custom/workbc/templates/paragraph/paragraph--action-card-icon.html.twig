@@ -44,7 +44,9 @@
 {% set card_w_icon_icon = content.field_icon[0] %}
 {% set card_w_icon_title = content.field_title[0] %}
 {% set card_w_icon_desc = content.field_description[0] %}
-{% set card_w_icon_link = content.field_link[0] %}
+{% set card_w_icon_link_url = content.field_link[0]['#url'] %}
+{% set card_w_icon_link_title = content.field_link[0]['#title'] %}
+
 
 {%
   set classes = [
@@ -62,14 +64,18 @@
       <div class="card-w-icon__icon">
         {{ card_w_icon_icon }}
       </div>
-      <h3 class="card-w-icon__title">
-        {{ card_w_icon_title }}
-      </h3>
-      <div class="card-w-icon__desc">
-        {{ card_w_icon_desc }}
-      </div>
-      <div class="card-w-icon__link">
-        {{ card_w_icon_link }}
+      <div class="card-w-icon-content">
+        <h3 class="card-w-icon__title">
+          {{ card_w_icon_title }}
+        </h3>
+        <div class="card-w-icon__desc">
+          {{ card_w_icon_desc }}
+        </div>
+        {% if card_w_icon_link_url %}
+          <div class="card-w-icon__link-container">
+            <a class="card-w-icon__link" href="{{ card_w_icon_link_url }}">{{ card_w_icon_link_title }}</a>
+          </div>
+        {% endif %}
       </div>
   {% endblock %}
   </div>

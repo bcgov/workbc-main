@@ -1,0 +1,40 @@
+.card-w-icon {
+  padding: 20px;
+  margin-bottom: 24px;
+  box-shadow: 0 0 15px 0 rgba(0, 0, 0, 0.15);
+  text-align: center;
+
+  @include media-breakpoint-up(lg) {
+    text-align: left;
+    padding: 0;
+    display: flex;
+    align-items: center;
+  }
+}
+
+.card-w-icon__icon {
+  display: inline-block;
+  margin: 0 0 20px;
+  width: 110px;
+  height: 110px;
+
+  @include media-breakpoint-up(lg) {
+    display: block;
+    margin: 40px 100px;
+  }
+}
+
+.card-w-icon__icon svg {
+  width: 110px;
+  height: 110px;
+}
+
+.card-w-icon__title {
+  margin-bottom: 20px;
+  font-size: 1.1rem;
+  font-weight: 700;
+}
+
+.card-w-icon__link {
+  @include link-chevron;
+}

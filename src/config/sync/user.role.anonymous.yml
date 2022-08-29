@@ -31,6 +31,7 @@ permissions:
   - 'view own field_content'
   - 'view paragraph content action_card'
   - 'view paragraph content action_card_feature'
+  - 'view paragraph content action_card_icon'
   - 'view paragraph content action_cards_1_2'
   - 'view paragraph content action_cards_1_3'
   - 'view paragraph content action_cards_1_4'
