@@ -6,10 +6,15 @@ use GuzzleHttp\Client;
 use GuzzleHttp\Exception\RequestException;
 
 /**
- * Generate career profile nodes from SSoT entries and optional career_profiles.json import from GatherContent.
- * Source: /wages (WorkBC_2021_Wage_Data)
+ * Generate career profile nodes from SSoT entries and optional career_profiles.jsonl import from GatherContent.
+ * Sources:
+ * - SSoT /wages (WorkBC_2021_Wage_Data)
+ * - GC WorkBC Career Profiles (scripts/migration/data/career_profiles.jsonl)
  *
- * Usage: drush scr /scripts/migration/career_profiles
+ * Usage:
+ * - drush scr scripts/migration/gc-jsonl -- -s publish 290255 > scripts/migration/data/career_profiles.jsonl
+ * - drush scr scripts/migration/gc-jsonl -- 332842 > scripts/migration/data/career_profile_introductions.jsonl
+ * - drush scr scripts/migration/career_profiles
  *
  * Revert:
  * - drush entity:delete node --bundle=career_profile
@@ -18,10 +23,10 @@ use GuzzleHttp\Exception\RequestException;
 
 // Read and migrate GatherContent career profile introduction if present.
 $career_profile_introductions = NULL;
-if (file_exists(__DIR__ . '/data/career_profile_introductions.json')) {
-  print("Creating Career Profile Introductions\n");
-  $data = json_decode(file_get_contents(__DIR__ . '/data/career_profile_introductions.json'));
-  $career_profile_introductions = reset($data);
+
+if (file_exists(__DIR__ . '/data/career_profile_introductions.jsonl')) {
+  print("Reading GC Career Profile Introductions\n");
+  $career_profile_introductions = json_decode(file_get_contents(__DIR__ . '/data/career_profile_introductions.jsonl'));
 
   $fields = [
     'type' => 'career_profile_introductions',
@@ -44,12 +49,15 @@ if (file_exists(__DIR__ . '/data/career_profile_introductions.json')) {
 
 // Read GatherContent career profiles if present.
 $career_profiles = [];
-if (file_exists(__DIR__ . '/data/career_profiles.json')) {
-  $data = json_decode(file_get_contents(__DIR__ . '/data/career_profiles.json'));
-  foreach ($data as $i => $career_profile) {
+if ($data = fopen(__DIR__ . '/data/career_profiles.jsonl', 'r')) {
+  print("Reading GC Career Profiles\n");
+  while (!feof($data)) {
+    $career_profile = json_decode(fgets($data));
+    if (empty($career_profile)) continue;
     $noc = NULL;
     if (!preg_match('/\d+/', $career_profile->NOC, $noc)) {
-      die("[WorkBC Migration] Could not find NOC in record $i of career_profiles.json. Aborting!" . PHP_EOL);
+      $i = count($career_profile) + 1;
+      die("Could not find NOC in record $i of career_profiles.jsonl. Aborting!" . PHP_EOL);
     }
     $career_profiles[$noc[0]] = $career_profile;
   }
@@ -97,7 +105,6 @@ try {
         'field_job_titles' => convertMultiline($career_profile->{'Job Titles List'}),
         'field_resources' => convertResources($career_profile->{'Resources'}),
         'field_work_environment' => convertRichText($career_profile->{'Work Environment Content'}),
-        'field_field_related_topics_blurb' => convertRichText($career_profile->{'Page Blurb'})
       ]);
     }
     else {

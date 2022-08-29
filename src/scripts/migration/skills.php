@@ -4,7 +4,7 @@
  * Populate skills taxonomy.
  * Source: /skills (UPDATED FINAL Skills Data for Career Profiles (updated April16 19).xlsx)
  *
- * Usage: drush scr /scripts/migration/skills
+ * Usage: drush scr scripts/migration/skills
  *
  * Revert: drush entity:delete taxonomy_term --bundle=skills
  */

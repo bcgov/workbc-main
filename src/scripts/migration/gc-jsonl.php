@@ -1,9 +1,9 @@
 <?php
 
 /**
- * Generate JSON from GatherContent items.
+ * Generate JSONL from GatherContent items.
  *
- * Usage: drush scr /scripts/migration/gc-json -- [--status "Status name"] [--item itemId] projectId
+ * Usage: drush scr /scripts/migration/gc-jsonl -- [--status "Status name"] [--item itemId] projectId
  */
 
 $email = $_ENV['GATHERCONTENT_EMAIL'];
@@ -28,6 +28,13 @@ $gc
   ->setEmail($email)
   ->setApiKey($apiKey);
 try {
+  // Get folders.
+  $folders = [];
+  $results = $gc->foldersGet($getopt->getOperand('projectId'));
+  foreach ($results['data'] as $result) {
+    $folders[$result->id] = $result;
+  }
+
   // Build query filter and make initial request.
   $project_statuses = $gc->projectStatusesGet($getopt->getOperand('projectId'));
   $download_statuses = array_map('strtolower', $getopt->getOption('status'));
@@ -50,8 +57,6 @@ try {
 
   // Loop on the item list and build the JSON structure.
   $templates = [];
-  $last_key = end(array_keys($results['data']));
-  print("[\n");
   foreach ($results['data'] as $key => $result) {
     $item = $gc->itemGet($result->id);
 
@@ -67,6 +72,7 @@ try {
       'title' => $item->name,
       'id' => $item->id,
       'template' => $templates[$item->templateId]['template']->name,
+      'folder' => $folders[$item->folderUuid]?->name,
     ];
     foreach ($item->content as $uuid => $value) {
       $field = $templates[$item->templateId][$uuid];
@@ -91,13 +97,8 @@ try {
         $content[$field->label] = $value;
       }
     }
-    print(json_encode($content, JSON_PRETTY_PRINT));
-    if ($key !== $last_key) {
-      print(',');
-    }
-    print("\n");
+    print(json_encode($content) . PHP_EOL);
   }
-  print("]\n");
 }
 catch (Exception $e) {
     die('ERROR: ' . $e->getMessage() . PHP_EOL);
