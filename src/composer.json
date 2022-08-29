@@ -74,6 +74,7 @@
         "drupal/config_ignore": "^2.3",
         "drupal/console": "~1.0",
         "drupal/content_lock": "^2.2",
+        "drupal/content_moderation_notifications": "^3.4",
         "drupal/core-composer-scaffold": "~9.4.0",
         "drupal/core-recommended": "~9.4.0",
         "drupal/country": "^1.0",
