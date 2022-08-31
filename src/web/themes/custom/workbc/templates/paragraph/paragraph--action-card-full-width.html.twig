@@ -41,11 +41,12 @@
 
 {# Variables #}
 
-{% set card_w_icon_icon = content.field_icon[0] %}
-{% set card_w_icon_title = content.field_title[0] %}
-{% set card_w_icon_desc = content.field_description[0] %}
-{% set card_w_icon_link_url = content.field_link[0]['#url'] %}
-{% set card_w_icon_link_title = content.field_link[0]['#title'] %}
+{% set card_w_image_image = content.field_image[0] %}
+{% set card_w_image_aligment = content.field_alignment[0]['#markup'] %}
+{% set card_w_image_title = content.field_title[0] %}
+{% set card_w_image_desc = content.field_description[0] %}
+{% set card_w_image_link_url = content.field_link[0]['#url'] %}
+{% set card_w_image_link_title = content.field_link[0]['#title'] %}
 
 
 {%
@@ -54,29 +55,32 @@
     'paragraph--type--' ~ paragraph.bundle|clean_class,
     view_mode ? 'paragraph--view-mode--' ~ view_mode|clean_class,
     not paragraph.isPublished() ? 'paragraph--unpublished',
-    'card-w-icon'
+    'card-w-image',
+    'card-w-image--' ~ card_w_image_aligment|clean_class
   ]
 %}
+
+
 
 {% block paragraph %}
   <div{{ attributes.addClass(classes) }}>
     {% block content %}
-      <div class="card-w-icon__icon">
-        {{ card_w_icon_icon }}
+      <div class="card-w-image__image" >
+        {{ card_w_image_image }}
       </div>
-      <div class="card-w-icon__content">
-        <h3 class="card-w-icon__title">
-          {{ card_w_icon_title }}
+      <div class="card-w-image__content">
+        <h3 class="card-w-image__title">
+          {{ card_w_image_title }}
         </h3>
-        <div class="card-w-icon__desc">
-          {{ card_w_icon_desc }}
+        <div class="card-w-image__desc">
+          {{ card_w_image_desc }}
         </div>
-        {% if card_w_icon_link_url %}
-          <div class="card-w-icon__link-container">
-            <a class="card-w-icon__link" href="{{ card_w_icon_link_url }}">{{ card_w_icon_link_title }}</a>
+        {% if card_w_image_link_url %}
+          <div class="card-w-image__link-container">
+            <a class="card-w-image__link" href="{{ card_w_image_link_url }}">{{ card_w_image_link_title }}</a>
           </div>
         {% endif %}
       </div>
-  {% endblock %}
+    {% endblock %}
   </div>
 {% endblock paragraph %}
