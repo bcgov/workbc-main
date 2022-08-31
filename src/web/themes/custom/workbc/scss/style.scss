@@ -6,6 +6,7 @@
 @import 'abstracts/variables_bootstrap'; // @see https://getbootstrap.com/docs/5.1/customize/sass/#variable-defaults.
 @import 'abstracts/variables_drupal';
 @import 'abstracts/mixins_lists';
+@import 'abstracts/mixins_links';
 
 // vendor
 @import '../../../../themes/contrib/bootstrap5/scss/style';
@@ -42,6 +43,7 @@
 @import 'components/search-results';
 @import 'components/side-nav';
 @import 'components/card-w-icon';
+@import 'components/card-w-image';
 
 
 // pages
