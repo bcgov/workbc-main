@@ -1,15 +1,20 @@
 .basic-page-header {
-    @include underlined-header;
     margin-bottom: $workbc_spacing_default;
 }
 
 .no-hero-content-wrapper {
-    .no-hero-title h1 {
+    .no-hero-title h1.basic-page-header {
         @include underlined-header;
         margin-bottom: $workbc_spacing_default;
     }
 }
 
+#block-workbc-page-title {
+    h1.basic-page-header {
+        @include underlined-header;
+        margin-bottom: $workbc_spacing_default;
+    }
+}
 // a lot of these styles probably needs to be expanded to a generic 'basic page' instead of being specific to these three nodes types, but we don't have those other pages in place yet
 .node--type-success-story,
 .node--type-news,
