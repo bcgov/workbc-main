@@ -4,9 +4,11 @@ status: true
 dependencies:
   config:
     - field.field.paragraph.action_cards_full_width.field_action_cards
+    - field.field.paragraph.action_cards_full_width.field_alignment
     - paragraphs.paragraphs_type.action_cards_full_width
   module:
     - entity_reference_revisions
+    - options
 id: paragraph.action_cards_full_width.default
 targetEntityType: paragraph
 bundle: action_cards_full_width
@@ -20,6 +22,13 @@ content:
       link: ''
     third_party_settings: {  }
     weight: 0
+    region: content
+  field_alignment:
+    type: list_key
+    label: visually_hidden
+    settings: {  }
+    third_party_settings: {  }
+    weight: 1
     region: content
 hidden:
   search_api_excerpt: true
