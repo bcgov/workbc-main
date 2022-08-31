@@ -1,24 +1,32 @@
-uuid: 1d40c695-a0f2-4acf-92f9-b5f67a4b2e13
+uuid: c952b5c7-00e4-47d8-87ab-96b5e233292a
 langcode: en
 status: true
 dependencies:
   config:
-    - core.entity_view_mode.paragraph.action_card_full_width
-    - field.field.paragraph.action_card.field_description
-    - field.field.paragraph.action_card.field_image
-    - field.field.paragraph.action_card.field_link
-    - field.field.paragraph.action_card.field_title
+    - field.field.paragraph.action_card_full_width.field_alignment
+    - field.field.paragraph.action_card_full_width.field_description
+    - field.field.paragraph.action_card_full_width.field_image
+    - field.field.paragraph.action_card_full_width.field_link
+    - field.field.paragraph.action_card_full_width.field_title
     - image.style.full_width_component
-    - paragraphs.paragraphs_type.action_card
+    - paragraphs.paragraphs_type.action_card_full_width
   module:
-    - image
     - link
+    - options
+    - svg_image
     - text
-id: paragraph.action_card.action_card_full_width
+id: paragraph.action_card_full_width.default
 targetEntityType: paragraph
-bundle: action_card
-mode: action_card_full_width
+bundle: action_card_full_width
+mode: default
 content:
+  field_alignment:
+    type: list_key
+    label: above
+    settings: {  }
+    third_party_settings: {  }
+    weight: 4
+    region: content
   field_description:
     type: text_default
     label: above
@@ -32,10 +40,14 @@ content:
     settings:
       image_link: ''
       image_style: full_width_component
+      svg_attributes:
+        width: null
+        height: null
+      svg_render_as_image: true
       image_loading:
         attribute: lazy
     third_party_settings: {  }
-    weight: 2
+    weight: 3
     region: content
   field_link:
     type: link
@@ -47,7 +59,7 @@ content:
       rel: ''
       target: ''
     third_party_settings: {  }
-    weight: 3
+    weight: 2
     region: content
   field_title:
     type: string

@@ -1,0 +1,23 @@
+uuid: 3d67e3c8-9972-4778-bdbb-1497e014c10c
+langcode: en
+status: true
+dependencies:
+  config:
+    - field.storage.paragraph.field_alignment
+    - paragraphs.paragraphs_type.action_card_full_width
+  module:
+    - options
+id: paragraph.action_card_full_width.field_alignment
+field_name: field_alignment
+entity_type: paragraph
+bundle: action_card_full_width
+label: Alignment
+description: 'The alignment of the image. Images can be positioned on the left or right side of the card.'
+required: true
+translatable: false
+default_value:
+  -
+    value: left
+default_value_callback: ''
+settings: {  }
+field_type: list_string

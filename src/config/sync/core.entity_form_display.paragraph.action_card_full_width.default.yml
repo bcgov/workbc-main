@@ -1,0 +1,88 @@
+uuid: 0ad1d4d5-fc66-40df-8ceb-4b266a0da3b8
+langcode: en
+status: true
+dependencies:
+  config:
+    - field.field.paragraph.action_card_full_width.field_alignment
+    - field.field.paragraph.action_card_full_width.field_description
+    - field.field.paragraph.action_card_full_width.field_image
+    - field.field.paragraph.action_card_full_width.field_link
+    - field.field.paragraph.action_card_full_width.field_title
+    - image.style.full_width_component
+    - paragraphs.paragraphs_type.action_card_full_width
+  module:
+    - field_group
+    - image_widget_crop
+    - link
+    - text
+third_party_settings:
+  field_group:
+    group_image:
+      children:
+        - field_image
+        - field_alignment
+      label: 'Card Image'
+      region: content
+      parent_name: ''
+      weight: 0
+      format_type: details
+      format_settings:
+        classes: ''
+        show_empty_fields: false
+        id: ''
+        open: true
+        description: ''
+        required_fields: true
+id: paragraph.action_card_full_width.default
+targetEntityType: paragraph
+bundle: action_card_full_width
+mode: default
+content:
+  field_alignment:
+    type: options_select
+    weight: 2
+    region: content
+    settings: {  }
+    third_party_settings: {  }
+  field_description:
+    type: text_textarea
+    weight: 4
+    region: content
+    settings:
+      rows: 5
+      placeholder: ''
+    third_party_settings: {  }
+  field_image:
+    type: image_widget_crop
+    weight: 1
+    region: content
+    settings:
+      progress_indicator: throbber
+      preview_image_style: full_width_component
+      crop_preview_image_style: crop_thumbnail
+      crop_list:
+        - crop_3_2
+      crop_types_required: {  }
+      warn_multiple_usages: true
+      show_crop_area: false
+      show_default_crop: true
+    third_party_settings: {  }
+  field_link:
+    type: link_default
+    weight: 5
+    region: content
+    settings:
+      placeholder_url: ''
+      placeholder_title: ''
+    third_party_settings: {  }
+  field_title:
+    type: string_textfield
+    weight: 3
+    region: content
+    settings:
+      size: 60
+      placeholder: ''
+    third_party_settings: {  }
+hidden:
+  created: true
+  status: true
