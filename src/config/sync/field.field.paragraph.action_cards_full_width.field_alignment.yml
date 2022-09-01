@@ -12,8 +12,8 @@ field_name: field_alignment
 entity_type: paragraph
 bundle: action_cards_full_width
 label: Alignment
-description: 'The alignment of the image. Images can be positioned on the left or right side of the card.'
-required: false
+description: 'The alignment of the images. Alignment "Left" is the default. The first card will have its image on the left and the subsequent cards will alternate. If "Right" is chosen the first card in the group will have the image on the right and the subsequent cards will alternate. '
+required: true
 translatable: false
 default_value:
   -

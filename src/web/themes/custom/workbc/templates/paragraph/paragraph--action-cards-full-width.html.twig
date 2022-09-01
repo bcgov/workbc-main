@@ -39,8 +39,6 @@
  */
 #}
 
-{% set image_aligment = content.field_alignment[0]['#markup'] %}
-
 {%
   set classes = [
     'paragraph',
@@ -50,6 +48,7 @@
     'cards-w-images'
   ]
 %}
+
 {% block paragraph %}
   <div{{ attributes.addClass(classes) }}>
     {% block content %}
