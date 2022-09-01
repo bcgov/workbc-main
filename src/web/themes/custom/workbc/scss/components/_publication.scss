@@ -15,6 +15,12 @@
 
 @include media-breakpoint-up(xl) {
     .paragraph--type--action-cards-publication {
+
+        .workbc-card-image-preview {
+            img {
+                min-height: 300px;
+            }
+        }
         .even {
             .workbc-card-image-preview {
                 order: 2;
