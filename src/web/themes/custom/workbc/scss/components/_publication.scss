@@ -2,5 +2,18 @@
     margin-bottom: $workbc_spacing_default;
 }
 
+@include media-breakpoint-up(xl) {
+    .paragraph--type--action-cards-publication {
+        .even {
+            .workbc-card-image-preview {
+                order: 2;
+            }
+            .workbc-card-content {
+                order: 1;
+            }
+        }
+    }
+}
+
 // for Publication order form styling, see src\web\themes\custom\workbc\scss\overrides\_overrides_drupal_forms.scss
 // Styles are placed there as they're primarily overrides of the default Drupal fieldset, rather than complete independent styles

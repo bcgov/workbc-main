@@ -5,7 +5,7 @@ $container-gutter: $workbc_spacing_gutters;
   // height: 100%;  This messes up height stretching on Related Topics Carousel
 
   &.wide {
-    @media (min-width: 1200px) {
+    @include media-breakpoint-up(xl) {
       .workbc-card-container {
         flex-flow: row nowrap;
 
