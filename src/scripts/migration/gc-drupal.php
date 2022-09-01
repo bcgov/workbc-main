@@ -146,7 +146,7 @@ function convertGatherContentLinks($text, &$items) {
 
 function convertEmbeddableLinks($text) {
   // https://uibakery.io/regex-library/url
-  if (!preg_match_all('/\s(https?:\/\/(?:www\.)?[-a-zA-Z0-9@:%._\+~#=]{1,256}\.[a-zA-Z0-9()]{1,6}\b(?:[-a-zA-Z0-9()@:%_\+.~#?&\/=]*))\s/', $text, $matches)) {
+  if (!preg_match_all('/[^"\'](https?:\/\/(?:www\.)?[-a-zA-Z0-9@:%._\+~#=]{1,256}\.[a-zA-Z0-9()]{1,6}\b(?:[-a-zA-Z0-9()@:%_\+.~#?&\/=]*))[^"\']/', $text, $matches)) {
     return [];
   }
 
