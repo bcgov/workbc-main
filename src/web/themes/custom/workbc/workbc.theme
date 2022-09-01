@@ -25,3 +25,23 @@ function workbc_preprocess_page(&$variables) {
     ],
   ];
 }
+
+
+function workbc_preprocess_paragraph(&$variables) {
+
+    $parent = $variables['paragraph']->getParentEntity();
+    if ($parent->bundle() == "action_cards_full_width") {
+      $align = $parent->field_alignment->value;
+      $list = $parent->field_action_cards->getValue();
+      foreach($list as $key => $item) {
+        if ($item["target_id"] == $variables['paragraph']->id()) {
+          if ($key % 2 == 0) {
+            $variables['full_width_image_alignment'] = $align == "left" ? "left" : "right";
+          }
+          else {
+            $variables['full_width_image_alignment'] = $align == "left" ? "right" : "left";
+          }
+        }
+      }
+    }
+}

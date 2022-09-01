@@ -15,15 +15,19 @@
   @include list-item-separator-after("|", 8px);
   display: inline-block;
   color: $workbc_dark_theme_text;
+
+  &:first-child {
+    .nav-link {
+      padding-left: 0;
+    }
+  }
 }
 
 .nav-footer .nav-link {
   color: $workbc_dark_theme_text;
   font-size: 0.9rem;
+  padding: 8px 9px;
 
-  &:first-of-type {
-    padding-left: 0;
-  }
   @include media-breakpoint-up(lg) {
     font-size: 1rem;
   }

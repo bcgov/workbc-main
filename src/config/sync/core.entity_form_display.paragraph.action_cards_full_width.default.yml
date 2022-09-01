@@ -4,6 +4,7 @@ status: true
 dependencies:
   config:
     - field.field.paragraph.action_cards_full_width.field_action_cards
+    - field.field.paragraph.action_cards_full_width.field_alignment
     - paragraphs.paragraphs_type.action_cards_full_width
   module:
     - paragraphs
@@ -14,7 +15,7 @@ mode: default
 content:
   field_action_cards:
     type: paragraphs
-    weight: 0
+    weight: 1
     region: content
     settings:
       title: Paragraph
@@ -29,6 +30,12 @@ content:
       features:
         collapse_edit_all: collapse_edit_all
         duplicate: duplicate
+    third_party_settings: {  }
+  field_alignment:
+    type: options_buttons
+    weight: 0
+    region: content
+    settings: {  }
     third_party_settings: {  }
 hidden:
   created: true

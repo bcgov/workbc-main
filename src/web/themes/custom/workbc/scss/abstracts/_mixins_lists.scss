@@ -59,21 +59,3 @@
     background-image: linear-gradient(to right, #D8E5F1 25%, #FFFFFF 100%);
   }
 }
-
-@mixin link-chevron {
-  display: inline-flex;
-  align-items: center;
-
-  &:after {
-    content: "";
-    height: 18px;
-    width: 18px;
-    background: url(../assets/images/chevron.svg) 50% 50% no-repeat;
-    transform: translateX(5px);
-    transition: transform 0.1s;
-  }
-
-  &:hover:after {
-    transform: translateX(8px);
-  }
-}
