@@ -120,7 +120,7 @@ function convertRelatedTopics($related_topics, &$items) {
             print("  Could not parse related GatherContent item {$card->{'Link Target'}}" . PHP_EOL);
             continue;
         }
-        $field[] = ['target_id' => current($related_items)['nid']];
+        $field[] = ['target_id' => current($related_items)['target_id']];
     }
     return $field;
 }

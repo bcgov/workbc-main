@@ -83,18 +83,18 @@ try {
             $entry = [];
             foreach ($component as $component_uuid => $component_value) {
               $component_field = $templates[$item->templateId][$component_uuid];
-              $entry[$component_field->label] = $component_value;
+              $entry[$component_field->label] = extract_value($component_value);
             }
             $content[$field->label][] = $entry;
           }
           else {
             $component_field = $templates[$item->templateId][$i];
-            $content[$field->label][][$component_field->label] = $component;
+            $content[$field->label][][$component_field->label] = extract_value($component);
           }
         }
       }
       else {
-        $content[$field->label] = $value;
+        $content[$field->label] = extract_value($value);
       }
     }
     print(json_encode($content) . PHP_EOL);
@@ -120,4 +120,17 @@ function map_fields_ids($template) {
     }
   }
   return $map;
+}
+
+/**
+ * Extract value.
+ */
+function extract_value($value) {
+  if (is_string($value)) {
+    return htmlspecialchars_decode($value);
+  }
+  else if (is_array($value)) {
+    return array_map('extract_value', $value);
+  }
+  return $value;
 }
