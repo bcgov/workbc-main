@@ -1,5 +1,16 @@
 .node--type-publication {
     margin-bottom: $workbc_spacing_default;
+
+    .workbc-card {
+        .workbc-card-container {
+            .workbc-card-content {
+                .workbc-card-title {
+                    font-weight: normal;
+                    font-size: 1.3125rem;
+                }
+            }
+        }
+    }
 }
 
 @include media-breakpoint-up(xl) {
@@ -14,6 +25,8 @@
         }
     }
 }
+
+
 
 // for Publication order form styling, see src\web\themes\custom\workbc\scss\overrides\_overrides_drupal_forms.scss
 // Styles are placed there as they're primarily overrides of the default Drupal fieldset, rather than complete independent styles
