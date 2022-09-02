@@ -1,0 +1,23 @@
+uuid: 00cfed97-f707-4cd2-8c45-54de1c35b5fc
+langcode: en
+status: true
+dependencies:
+  config:
+    - field.storage.node.field_archived
+    - node.type.news
+id: node.news.field_archived
+field_name: field_archived
+entity_type: node
+bundle: news
+label: Archived
+description: ''
+required: false
+translatable: false
+default_value:
+  -
+    value: 0
+default_value_callback: ''
+settings:
+  on_label: 'On'
+  off_label: 'Off'
+field_type: boolean
