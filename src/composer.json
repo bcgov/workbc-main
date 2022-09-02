@@ -99,6 +99,7 @@
         "drupal/menu_breadcrumb": "^1.16",
         "drupal/metatag": "^1.21",
         "drupal/paragraphs": "^1.14",
+        "drupal/paragraphs_edit": "^2.0",
         "drupal/pathauto": "^1.10",
         "drupal/published_corrected_date": "^2.0",
         "drupal/recaptcha": "^3.0",
