@@ -29,3 +29,20 @@
     text-decoration: none;
   }
 }
+
+@mixin btn-blue {
+  display: inline-block;
+  padding: 10px 64px;
+  background-color: $workbc_palette_dark_secondary;
+  color: #fff;
+  border-radius: 4px;
+  font-weight: 700;
+  transition: background-color 0.2s;
+
+  &:hover,
+  &:focus {
+    background-color: $workbc_palette_dark_primary;
+    color: #fff;
+    text-decoration: none;
+  }
+}
