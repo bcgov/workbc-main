@@ -90,6 +90,7 @@
         "drupal/field_group": "^3.2",
         "drupal/field_permissions": "^1.1",
         "drupal/flood_control": "^2.2",
+        "drupal/fpa": "^3.0",
         "drupal/fullcalendar_view": "^5.1",
         "drupal/health_check": "^2.0",
         "drupal/image_widget_crop": "^2.3",

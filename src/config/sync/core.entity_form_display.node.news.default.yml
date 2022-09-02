@@ -4,6 +4,7 @@ status: true
 dependencies:
   config:
     - field.field.node.news.body
+    - field.field.node.news.field_archived
     - field.field.node.news.field_image
     - field.field.node.news.field_tags
     - image.style.thumbnail
@@ -32,6 +33,13 @@ content:
     weight: 10
     region: content
     settings: {  }
+    third_party_settings: {  }
+  field_archived:
+    type: boolean_checkbox
+    weight: 124
+    region: content
+    settings:
+      display_label: true
     third_party_settings: {  }
   field_image:
     type: image_widget_crop

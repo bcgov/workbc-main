@@ -4,12 +4,13 @@ status: true
 dependencies:
   config:
     - field.field.node.news.body
+    - field.field.node.news.field_archived
     - field.field.node.news.field_image
     - field.field.node.news.field_tags
     - image.style.article_wide
     - node.type.news
   module:
-    - image
+    - svg_image
     - text
     - user
 id: node.news.default
@@ -33,6 +34,16 @@ content:
     settings: {  }
     third_party_settings: {  }
     weight: 2
+    region: content
+  field_archived:
+    type: boolean
+    label: above
+    settings:
+      format: default
+      format_custom_false: ''
+      format_custom_true: ''
+    third_party_settings: {  }
+    weight: 6
     region: content
   field_image:
     type: image
