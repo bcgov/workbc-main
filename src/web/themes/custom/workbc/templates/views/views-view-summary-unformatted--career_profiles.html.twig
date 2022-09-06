@@ -38,7 +38,7 @@
   {% for letter in 'A'..'Z' %}
     {% set hasResults = (counter < max and rows[counter].link == letter) %}
 
-    {{ options.inline ? '<span' : '<div' }} class="{{ hasResults ? '' : 'no-results' }}">
+    {{ options.inline ? '<span' : '<div' }} {{ hasResults ? '' : 'class="no-results"' }}>
 
     {% if rows[1].separator -%}
       {{ rows[1].separator }}
