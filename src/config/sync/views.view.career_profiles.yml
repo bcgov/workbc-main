@@ -591,7 +591,7 @@ display:
             override: false
             items_per_page: 25
             inline: true
-            separator: ' | '
+            separator: ''
           summary:
             sort_order: asc
             number_of_records: 0
@@ -612,6 +612,21 @@ display:
         options: {  }
       defaults:
         arguments: false
+        header: false
+      header:
+        area:
+          id: area
+          table: views
+          field: area
+          relationship: none
+          group_type: group
+          admin_label: ''
+          plugin_id: text
+          empty: false
+          content:
+            value: 'Select the letter below to filter your search.'
+            format: basic_html
+          tokenize: false
       display_extenders: {  }
       displays:
         default: default
