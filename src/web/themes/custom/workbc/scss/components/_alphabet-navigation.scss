@@ -1,0 +1,23 @@
+$letter-block-size: 44px;
+
+.alphabet-navigation {
+    display: flex;
+    flex-flow: row wrap;
+
+    span {
+        height: $letter-block-size;
+        flex: 0 0 $letter-block-size;
+
+        text-align: center;
+        font-weight: 400;
+        font-size: 1.3125rem;
+
+        &.alphabet-navigation-unfiltered {
+            flex-basis: calc(2 * $letter-block-size); // takes up two spots to have enough room but keep everything tiling evenly
+        }
+
+        &.no-results {
+            color: $workbc_text_footnote_color;
+        }
+    }
+}
