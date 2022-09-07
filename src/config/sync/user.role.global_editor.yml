@@ -17,6 +17,7 @@ dependencies:
     - node.type.success_story
     - node.type.workbc_centre
   module:
+    - field_permissions
     - node
     - workbc_custom
 id: global_editor
@@ -43,4 +44,6 @@ permissions:
   - 'delete page revisions'
   - 'edit any news content'
   - 'edit any page content'
+  - 'edit field_content_group'
+  - 'edit own field_content_group'
   - 'edit own page content'
