@@ -3,7 +3,7 @@ langcode: en
 status: true
 dependencies: {  }
 id: workbc_administrator
-label: 'WorkBC Administrator'
-weight: -3
+label: Administrator
+weight: -6
 is_admin: null
 permissions: {  }

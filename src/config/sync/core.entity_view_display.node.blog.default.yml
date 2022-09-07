@@ -4,12 +4,13 @@ status: true
 dependencies:
   config:
     - field.field.node.blog.body
+    - field.field.node.blog.field_content_group
     - field.field.node.blog.field_image
     - field.field.node.blog.field_tags
     - image.style.article_wide
     - node.type.blog
   module:
-    - image
+    - svg_image
     - text
     - user
 id: node.blog.default
@@ -23,6 +24,11 @@ content:
     settings: {  }
     third_party_settings: {  }
     weight: 4
+    region: content
+  content_moderation_control:
+    settings: {  }
+    third_party_settings: {  }
+    weight: -20
     region: content
   extra_field_workbc_page_title:
     settings: {  }
@@ -40,6 +46,10 @@ content:
     settings:
       image_link: ''
       image_style: article_wide
+      svg_attributes:
+        width: null
+        height: null
+      svg_render_as_image: true
       image_loading:
         attribute: lazy
     third_party_settings: {  }
@@ -59,5 +69,6 @@ content:
     weight: 1
     region: content
 hidden:
+  field_content_group: true
   langcode: true
   search_api_excerpt: true

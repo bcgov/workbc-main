@@ -5,6 +5,7 @@ dependencies:
   config:
     - core.entity_view_mode.node.teaser
     - field.field.node.success_story.body
+    - field.field.node.success_story.field_content_group
     - field.field.node.success_story.field_image
     - field.field.node.success_story.field_subtitle
     - field.field.node.success_story.field_tags
@@ -33,6 +34,7 @@ content:
 hidden:
   extra_field_workbc_page_title: true
   extra_field_workbc_published_on: true
+  field_content_group: true
   field_image: true
   field_subtitle: true
   field_tags: true

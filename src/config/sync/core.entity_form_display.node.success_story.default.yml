@@ -4,6 +4,7 @@ status: true
 dependencies:
   config:
     - field.field.node.success_story.body
+    - field.field.node.success_story.field_content_group
     - field.field.node.success_story.field_image
     - field.field.node.success_story.field_subtitle
     - field.field.node.success_story.field_tags
@@ -31,6 +32,12 @@ content:
   created:
     type: datetime_timestamp
     weight: 10
+    region: content
+    settings: {  }
+    third_party_settings: {  }
+  field_content_group:
+    type: options_select
+    weight: 125
     region: content
     settings: {  }
     third_party_settings: {  }

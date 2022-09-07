@@ -1,9 +1,46 @@
 uuid: 3493ca3a-e093-4fe2-b897-d2ecf723e301
 langcode: en
 status: true
-dependencies: {  }
+dependencies:
+  config:
+    - node.type.bc_profile
+    - node.type.blog
+    - node.type.career_profile
+    - node.type.career_profile_introductions
+    - node.type.event
+    - node.type.industry_profile
+    - node.type.labour_market_monthly
+    - node.type.news
+    - node.type.page
+    - node.type.publication
+    - node.type.region_profile
+    - node.type.success_story
+    - node.type.workbc_centre
+  module:
+    - node
+    - workbc_custom
 id: global_editor
 label: 'Global Editor'
 weight: -5
 is_admin: null
-permissions: {  }
+permissions:
+  - 'access content overview'
+  - 'bypass content groups'
+  - 'create bc_profile content'
+  - 'create blog content'
+  - 'create career_profile content'
+  - 'create career_profile_introductions content'
+  - 'create event content'
+  - 'create industry_profile content'
+  - 'create labour_market_monthly content'
+  - 'create news content'
+  - 'create page content'
+  - 'create publication content'
+  - 'create region_profile content'
+  - 'create success_story content'
+  - 'create workbc_centre content'
+  - 'delete own page content'
+  - 'delete page revisions'
+  - 'edit any news content'
+  - 'edit any page content'
+  - 'edit own page content'

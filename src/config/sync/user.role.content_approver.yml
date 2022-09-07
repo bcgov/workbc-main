@@ -1,9 +1,9 @@
-uuid: 0fb16719-c7bc-4377-95a1-10ba2dd94959
+uuid: 5a891e8f-fb17-4eef-8667-8ce8a2cb447c
 langcode: en
 status: true
 dependencies: {  }
-id: content_publisher
-label: Publisher
+id: content_approver
+label: Approver
 weight: -7
 is_admin: null
 permissions: {  }

@@ -1,0 +1,14 @@
+uuid: 64589c5b-cb86-410f-a19d-c663c1e66441
+langcode: en
+status: true
+dependencies:
+  config:
+    - user.role.global_approver
+  module:
+    - user
+id: user_remove_role_action.global_approver
+label: 'Remove the Global Approver role from the selected user(s)'
+type: user
+plugin: user_remove_role_action
+configuration:
+  rid: global_approver

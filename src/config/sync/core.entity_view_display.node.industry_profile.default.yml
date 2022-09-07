@@ -3,6 +3,7 @@ langcode: en
 status: true
 dependencies:
   config:
+    - field.field.node.industry_profile.field_content_group
     - field.field.node.industry_profile.field_employment_introduction
     - field.field.node.industry_profile.field_employment_trends_intro
     - field.field.node.industry_profile.field_hero_image
@@ -16,8 +17,8 @@ dependencies:
     - node.type.industry_profile
   module:
     - field_group
-    - image
     - link
+    - svg_image
     - text
     - user
 third_party_settings:
@@ -210,6 +211,10 @@ content:
     settings:
       image_link: ''
       image_style: ''
+      svg_attributes:
+        width: null
+        height: null
+      svg_render_as_image: true
       image_loading:
         attribute: lazy
     third_party_settings: {  }
@@ -277,5 +282,6 @@ content:
 hidden:
   extra_field_workbc_page_title: true
   extra_field_workbc_published_on: true
+  field_content_group: true
   langcode: true
   search_api_excerpt: true

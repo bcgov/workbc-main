@@ -3,10 +3,24 @@ langcode: en
 status: true
 dependencies:
   config:
+    - node.type.bc_profile
+    - node.type.blog
+    - node.type.career_profile
+    - node.type.career_profile_introductions
+    - node.type.event
+    - node.type.industry_profile
+    - node.type.labour_market_monthly
+    - node.type.news
     - node.type.page
+    - node.type.publication
+    - node.type.region_profile
+    - node.type.success_story
+    - node.type.workbc_centre
     - taxonomy.vocabulary.tags
+    - workflows.workflow.editorial
   module:
     - comment
+    - content_moderation
     - contextual
     - file
     - node
@@ -30,6 +44,14 @@ permissions:
   - 'access toolbar'
   - 'access tour'
   - 'administer url aliases'
+  - 'create bc_profile content'
+  - 'create blog content'
+  - 'create career_profile content'
+  - 'create career_profile_introductions content'
+  - 'create event content'
+  - 'create industry_profile content'
+  - 'create labour_market_monthly content'
+  - 'create news content'
   - 'create page content'
   - 'create paragraph content action_card'
   - 'create paragraph content action_card_feature'
@@ -41,8 +63,12 @@ permissions:
   - 'create paragraph content hours_of_operation'
   - 'create paragraph content quote_card'
   - 'create paragraph content skills'
+  - 'create publication content'
+  - 'create region_profile content'
+  - 'create success_story content'
   - 'create terms in tags'
   - 'create url aliases'
+  - 'create workbc_centre content'
   - 'delete own page content'
   - 'delete page revisions'
   - 'delete paragraph content action_card'
@@ -55,6 +81,7 @@ permissions:
   - 'delete paragraph content hours_of_operation'
   - 'delete paragraph content quote_card'
   - 'delete paragraph content skills'
+  - 'edit any news content'
   - 'edit any page content'
   - 'edit own comments'
   - 'edit own page content'
@@ -70,6 +97,7 @@ permissions:
   - 'update paragraph content hours_of_operation'
   - 'update paragraph content quote_card'
   - 'update paragraph content skills'
+  - 'use editorial transition create_new_draft'
   - 'view all revisions'
   - 'view own unpublished content'
   - 'view the administration theme'

@@ -11,7 +11,7 @@ dependencies:
 id: workbcrelatedtopicsblock
 theme: workbc
 region: content
-weight: 2
+weight: 0
 provider: null
 plugin: related_topics_block
 settings:

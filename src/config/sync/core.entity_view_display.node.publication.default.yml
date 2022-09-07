@@ -4,6 +4,7 @@ status: true
 dependencies:
   config:
     - field.field.node.publication.body
+    - field.field.node.publication.field_content_group
     - field.field.node.publication.field_hardcopy_available
     - field.field.node.publication.field_image
     - field.field.node.publication.field_publication
@@ -11,7 +12,7 @@ dependencies:
     - node.type.publication
   module:
     - file
-    - image
+    - svg_image
     - text
     - user
 id: node.publication.default
@@ -42,6 +43,10 @@ content:
     settings:
       image_link: ''
       image_style: ''
+      svg_attributes:
+        width: null
+        height: null
+      svg_render_as_image: true
       image_loading:
         attribute: lazy
     third_party_settings: {  }
@@ -72,5 +77,6 @@ hidden:
   extra_field_publication_orderform_link: true
   extra_field_workbc_page_title: true
   extra_field_workbc_published_on: true
+  field_content_group: true
   langcode: true
   search_api_excerpt: true
