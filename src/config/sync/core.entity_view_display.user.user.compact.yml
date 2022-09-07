@@ -5,6 +5,7 @@ dependencies:
   config:
     - core.entity_view_mode.user.compact
     - field.field.user.user.field_city
+    - field.field.user.user.field_content_group
     - field.field.user.user.field_country
     - field.field.user.user.field_first_name
     - field.field.user.user.field_how_do_you_identify
@@ -23,6 +24,7 @@ mode: compact
 content: {  }
 hidden:
   field_city: true
+  field_content_group: true
   field_country: true
   field_first_name: true
   field_how_do_you_identify: true

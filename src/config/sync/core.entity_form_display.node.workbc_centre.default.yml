@@ -6,6 +6,7 @@ dependencies:
     - field.field.node.workbc_centre.field_address
     - field.field.node.workbc_centre.field_alert
     - field.field.node.workbc_centre.field_apply_online
+    - field.field.node.workbc_centre.field_content_group
     - field.field.node.workbc_centre.field_email
     - field.field.node.workbc_centre.field_french_available
     - field.field.node.workbc_centre.field_hero_image
@@ -64,6 +65,16 @@ content:
       features:
         collapse_edit_all: collapse_edit_all
         duplicate: duplicate
+    third_party_settings: {  }
+  field_content_group:
+    type: entity_reference_autocomplete
+    weight: 131
+    region: content
+    settings:
+      match_operator: CONTAINS
+      match_limit: 10
+      size: 60
+      placeholder: ''
     third_party_settings: {  }
   field_email:
     type: email_default

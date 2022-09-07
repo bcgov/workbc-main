@@ -1,0 +1,14 @@
+uuid: 6bcdaf6e-0f86-4830-93a0-ed968f4acff6
+langcode: en
+status: true
+dependencies:
+  config:
+    - user.role.switch_user
+  module:
+    - user
+id: user_add_role_action.switch_user
+label: 'Add the Switch User role to the selected user(s)'
+type: user
+plugin: user_add_role_action
+configuration:
+  rid: switch_user

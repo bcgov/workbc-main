@@ -7,6 +7,7 @@ dependencies:
     - field.field.node.workbc_centre.field_address
     - field.field.node.workbc_centre.field_alert
     - field.field.node.workbc_centre.field_apply_online
+    - field.field.node.workbc_centre.field_content_group
     - field.field.node.workbc_centre.field_email
     - field.field.node.workbc_centre.field_french_available
     - field.field.node.workbc_centre.field_hero_image
@@ -34,6 +35,7 @@ hidden:
   field_address: true
   field_alert: true
   field_apply_online: true
+  field_content_group: true
   field_email: true
   field_french_available: true
   field_hero_image: true

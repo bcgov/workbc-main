@@ -15,34 +15,3 @@
     transform: translateX(8px);
   }
 }
-
-@mixin btn-border {
-  display: inline-block;
-  padding: 8px 52px;
-  border: 2px solid $workbc_palette_dark_secondary;
-  border-radius: 4px;
-  font-weight: 700;
-
-  &:hover,
-  &:focus {
-    background-color: $workbc_palette_light_secondary;
-    text-decoration: none;
-  }
-}
-
-@mixin btn-blue {
-  display: inline-block;
-  padding: 10px 64px;
-  background-color: $workbc_palette_dark_secondary;
-  color: #fff;
-  border-radius: 4px;
-  font-weight: 700;
-  transition: background-color 0.2s;
-
-  &:hover,
-  &:focus {
-    background-color: $workbc_palette_dark_primary;
-    color: #fff;
-    text-decoration: none;
-  }
-}

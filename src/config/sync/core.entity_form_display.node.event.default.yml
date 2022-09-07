@@ -5,6 +5,7 @@ dependencies:
   config:
     - field.field.node.event.body
     - field.field.node.event.field_address
+    - field.field.node.event.field_content_group
     - field.field.node.event.field_end_date
     - field.field.node.event.field_event_type
     - field.field.node.event.field_multiple_days
@@ -42,6 +43,12 @@ content:
   field_address:
     type: address_default
     weight: 13
+    region: content
+    settings: {  }
+    third_party_settings: {  }
+  field_content_group:
+    type: options_select
+    weight: 26
     region: content
     settings: {  }
     third_party_settings: {  }

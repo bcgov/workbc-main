@@ -1,5 +1,9 @@
 <?php
 
+use Drupal\Core\Access\AccessResult;
+use Drupal\node\NodeInterface;
+use Drupal\Core\Session\AccountInterface;
+
 /**
  * @file
  * An example field using the Field Types API.
@@ -116,6 +120,14 @@ function workbc_custom_form_user_form_alter(&$form, \Drupal\Core\Form\FormStateI
     'visible' => [
       ':input[name^="field_country"]' => array('value' => 'CA'),
     ],
+    // 'required' => [
+    //   ':input[name^="field_country"]' => array('value' => 'CA'),
+    // ],
+  ];
+  $form['field_province']['widget'][0]['value']['#states'] = [
+    'required' => [
+      ':input[name^="field_country"]' => array('value' => 'CA'),
+    ],
   ];
 
   $form['field_city']['#states'] = [
@@ -146,4 +158,36 @@ function workbc_custom_user_presave(\Drupal\Core\Entity\EntityInterface $entity)
       $entity->set('field_city', '');
     }
   }
+}
+
+
+
+function workbc_custom_node_access(NodeInterface $node, $op, AccountInterface $account) {
+
+    if ($op == "update" || $op == "delete") {
+      if (!$account->hasPermission("bypass content groups")) {
+          $user = \Drupal\user\Entity\User::load($account->id());
+          if (!isset($user->field_content_group->target_id) ||
+              !isset($node->field_content_group->target_id) ||
+              $user->field_content_group->target_id <> $node->field_content_group->target_id) {
+            return  AccessResult::forbidden();
+          }
+      }
+    }
+  return AccessResult::neutral();
+}
+
+
+/*
+ * This function returns true if user has content editor or content approver roles
+ * and does not have global editor or global approver roles
+ *
+ */
+function workbc_custom_in_content_group(AccountInterface $account) {
+  $roles = $account->getRoles();
+  if ((in_array("content_editor", $roles) || in_array("content_approver", $roles)) &&
+      (!in_array("global_editor", $roles)) && (!in_array("global_approver", $roles))) {
+    return true;
+  }
+  return false;
 }

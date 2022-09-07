@@ -1,0 +1,4 @@
+bypass content groups:
+  title: 'Bypass content group permission check'
+  description: 'Users with this permission are able to bypass content group permission checking.'
+  

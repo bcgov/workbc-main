@@ -5,6 +5,7 @@ dependencies:
   config:
     - field.field.node.news.body
     - field.field.node.news.field_archived
+    - field.field.node.news.field_content_group
     - field.field.node.news.field_image
     - field.field.node.news.field_tags
     - image.style.thumbnail
@@ -40,6 +41,12 @@ content:
     region: content
     settings:
       display_label: true
+    third_party_settings: {  }
+  field_content_group:
+    type: options_select
+    weight: 125
+    region: content
+    settings: {  }
     third_party_settings: {  }
   field_image:
     type: image_widget_crop

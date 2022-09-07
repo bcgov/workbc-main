@@ -5,6 +5,7 @@ dependencies:
   config:
     - field.field.node.page.body
     - field.field.node.page.field_content
+    - field.field.node.page.field_content_group
     - field.field.node.page.field_hero_image
     - field.field.node.page.field_hero_text
     - field.field.node.page.field_related_topics
@@ -25,7 +26,12 @@ content:
     label: hidden
     settings: {  }
     third_party_settings: {  }
-    weight: 1
+    weight: 2
+    region: content
+  content_moderation_control:
+    settings: {  }
+    third_party_settings: {  }
+    weight: 0
     region: content
   field_content:
     type: entity_reference_revisions_entity_view
@@ -34,16 +40,17 @@ content:
       view_mode: default
       link: ''
     third_party_settings: {  }
-    weight: 2
+    weight: 3
     region: content
   links:
     settings: {  }
     third_party_settings: {  }
-    weight: 0
+    weight: 1
     region: content
 hidden:
   extra_field_workbc_page_title: true
   extra_field_workbc_published_on: true
+  field_content_group: true
   field_hero_image: true
   field_hero_text: true
   field_related_topics: true

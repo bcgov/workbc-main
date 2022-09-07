@@ -1,0 +1,33 @@
+uuid: c54352f3-a7cd-4bb6-ba01-4b9d2d30aa8b
+langcode: en
+status: true
+dependencies:
+  config:
+    - field.storage.node.field_content_group
+    - node.type.career_profile_introductions
+    - taxonomy.vocabulary.content_groups
+  content:
+    - 'taxonomy_term:content_groups:d7ecd9f6-e65c-4c07-97ef-feaac7de10a5'
+id: node.career_profile_introductions.field_content_group
+field_name: field_content_group
+entity_type: node
+bundle: career_profile_introductions
+label: 'Content Group'
+description: ''
+required: false
+translatable: true
+default_value:
+  -
+    target_uuid: d7ecd9f6-e65c-4c07-97ef-feaac7de10a5
+default_value_callback: ''
+settings:
+  handler: 'default:taxonomy_term'
+  handler_settings:
+    target_bundles:
+      content_groups: content_groups
+    sort:
+      field: name
+      direction: asc
+    auto_create: false
+    auto_create_bundle: ''
+field_type: entity_reference

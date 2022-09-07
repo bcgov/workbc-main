@@ -3,6 +3,7 @@ langcode: en
 status: true
 dependencies:
   config:
+    - field.field.node.region_profile.field_content_group
     - field.field.node.region_profile.field_hero_image
     - field.field.node.region_profile.field_industry_highlights_intro
     - field.field.node.region_profile.field_key_facts
@@ -13,7 +14,7 @@ dependencies:
     - node.type.region_profile
   module:
     - field_group
-    - image
+    - svg_image
     - text
     - user
 third_party_settings:
@@ -194,6 +195,10 @@ content:
     settings:
       image_link: ''
       image_style: ''
+      svg_attributes:
+        width: null
+        height: null
+      svg_render_as_image: true
       image_loading:
         attribute: lazy
     third_party_settings: {  }
@@ -252,5 +257,6 @@ hidden:
   extra_field_region_population_bc: true
   extra_field_workbc_page_title: true
   extra_field_workbc_published_on: true
+  field_content_group: true
   langcode: true
   search_api_excerpt: true

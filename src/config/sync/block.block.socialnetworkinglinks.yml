@@ -12,7 +12,7 @@ dependencies:
 id: socialnetworkinglinks
 theme: workbc
 region: footer
-weight: -11
+weight: -16
 provider: null
 plugin: 'simple_block:social_networking_links'
 settings:

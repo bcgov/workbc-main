@@ -1,0 +1,33 @@
+uuid: c6601594-3e02-46fb-afcc-9e6965e822f9
+langcode: en
+status: true
+dependencies:
+  config:
+    - field.storage.node.field_content_group
+    - node.type.page
+    - taxonomy.vocabulary.content_groups
+  content:
+    - 'taxonomy_term:content_groups:d7ecd9f6-e65c-4c07-97ef-feaac7de10a5'
+id: node.page.field_content_group
+field_name: field_content_group
+entity_type: node
+bundle: page
+label: 'Content Group'
+description: ''
+required: true
+translatable: false
+default_value:
+  -
+    target_uuid: d7ecd9f6-e65c-4c07-97ef-feaac7de10a5
+default_value_callback: ''
+settings:
+  handler: 'default:taxonomy_term'
+  handler_settings:
+    target_bundles:
+      content_groups: content_groups
+    sort:
+      field: name
+      direction: asc
+    auto_create: false
+    auto_create_bundle: ''
+field_type: entity_reference

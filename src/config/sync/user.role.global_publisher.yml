@@ -1,9 +1,0 @@
-uuid: 24d94322-c5f4-4fcc-83c1-0fd610aaf739
-langcode: en
-status: true
-dependencies: {  }
-id: global_publisher
-label: 'Global Publisher'
-weight: -6
-is_admin: null
-permissions: {  }

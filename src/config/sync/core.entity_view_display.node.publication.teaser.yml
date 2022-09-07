@@ -5,6 +5,7 @@ dependencies:
   config:
     - core.entity_view_mode.node.teaser
     - field.field.node.publication.body
+    - field.field.node.publication.field_content_group
     - field.field.node.publication.field_hardcopy_available
     - field.field.node.publication.field_image
     - field.field.node.publication.field_publication
@@ -35,6 +36,7 @@ hidden:
   extra_field_publication_orderform_link: true
   extra_field_workbc_page_title: true
   extra_field_workbc_published_on: true
+  field_content_group: true
   field_hardcopy_available: true
   field_image: true
   field_publication: true
