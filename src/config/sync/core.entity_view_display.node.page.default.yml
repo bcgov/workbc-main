@@ -8,10 +8,12 @@ dependencies:
     - field.field.node.page.field_content_group
     - field.field.node.page.field_hero_image
     - field.field.node.page.field_hero_text
+    - field.field.node.page.field_page_format
     - field.field.node.page.field_related_topics
     - node.type.page
   module:
     - entity_reference_revisions
+    - options
     - text
     - user
 _core:
@@ -41,6 +43,13 @@ content:
       link: ''
     third_party_settings: {  }
     weight: 3
+    region: content
+  field_page_format:
+    type: list_default
+    label: above
+    settings: {  }
+    third_party_settings: {  }
+    weight: 4
     region: content
   links:
     settings: {  }
