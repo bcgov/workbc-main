@@ -1,0 +1,58 @@
+.card-quote {
+  margin-bottom: 24px;
+
+  @include media-breakpoint-up(lg) {
+    margin-bottom: 0;
+    padding: 30px;
+  }
+}
+
+.card-quote__content {
+  position: relative;
+  margin-bottom: 30px;
+  padding: 30px 20px 20px 20px;
+  border-radius: 14px;
+  border: 3px solid $workbc_palette_light_secondary;
+  font-weight: 700;
+
+  @include media-breakpoint-up(lg) {
+    &:before,
+    &:after {
+      content: "";
+      position: absolute;
+      width: 70px;
+      height: 60px;
+      background-color: #fff;
+    }
+
+    &:before {
+      top: -24px;
+      left: -10px;
+      background-image: url(../assets/images/quote.svg);
+      background-repeat: no-repeat;
+    }
+
+    &:after {
+      bottom: -24px;
+      right: -10px;
+      background-image: url(../assets/images/quote.svg);
+      background-repeat: no-repeat;
+      transform: scale(-1, -1);
+    }
+  }
+}
+
+.card-quote__author {
+  margin-bottom: 20px;
+  font-style: italic;
+}
+
+.card-quote__link-container {
+  @include media-breakpoint-up(lg) {
+    margin-top: auto;
+  }
+}
+
+.card-quote__link {
+  @include link-chevron;
+}
