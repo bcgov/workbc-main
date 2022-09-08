@@ -47,7 +47,7 @@ const TREE_LAST = 5;
 const MEGA_MENU = 6;
 const DRUPAL_TYPE = 7;
 const URL = 12;
-const SIDE_NAV = 13;
+const PAGE_FORMAT = 13;
 
 // FIRST PASS: Create all the nodes.
 print("FIRST PASS" . PHP_EOL);
