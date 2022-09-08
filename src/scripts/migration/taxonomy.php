@@ -17,7 +17,6 @@ try {
     $getopt->process($extra);
 }
 catch (Exception $e) {
-    throw $e;
     die($getopt->getHelpText() . PHP_EOL);
 }
 $file = $getopt->getOperand('file');
