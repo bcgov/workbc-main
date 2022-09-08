@@ -1,0 +1,41 @@
+.card-career {
+  padding: 0 0 30px;
+  margin-bottom: 24px;
+  text-align: center;
+  border-bottom: 4px solid $workbc_palette_dark_secondary;
+
+  @include media-breakpoint-up(md) {
+    display: flex;
+    flex-direction: column;
+    margin-bottom: 0;
+  }
+}
+
+.card-career__image {
+  .img-fluid {
+    width: 100%;
+  }
+}
+
+.card-career__content {
+  padding: 20px;
+  background: linear-gradient(rgb(232, 239, 243) 0%, rgb(255, 255, 255) 100%);
+}
+
+.card-career__title {
+  margin-bottom: 20px;
+  font-size: 1.3rem;
+  font-weight: 700;
+}
+
+.card-career__link-container {
+  padding: 0 20px;
+
+  @include media-breakpoint-up(md) {
+    margin-top: auto;
+  }
+}
+
+.card-career__link {
+  @include btn-blue;
+}
