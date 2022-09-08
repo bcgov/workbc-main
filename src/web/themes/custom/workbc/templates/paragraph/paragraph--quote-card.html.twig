@@ -41,12 +41,10 @@
 
 {# Variables #}
 
-{% set card_feature_image = content.field_image[0] %}
-{% set card_feature_title = content.field_title[0] %}
-{% set card_feature_desc = content.field_description[0] %}
-{% set card_feature_link_url = content.field_link[0]['#url'] %}
-{% set card_feature_link_title = content.field_link[0]['#title'] %}
-
+{% set quote = content.field_quote[0] %}
+{% set quote_author = content.field_author[0] %}
+{% set quote_link_url = content.field_link[0]['#url'] %}
+{% set quote_link_title = content.field_link[0]['#title'] %}
 
 {%
   set classes = [
@@ -54,30 +52,29 @@
     'paragraph--type--' ~ paragraph.bundle|clean_class,
     view_mode ? 'paragraph--view-mode--' ~ view_mode|clean_class,
     not paragraph.isPublished() ? 'paragraph--unpublished',
-    'card-feature',
+    'card-quote',
   ]
 %}
-
 
 {% block paragraph %}
   <div{{ attributes.addClass(classes) }}>
     {% block content %}
-      <div class="card-feature__image" >
-        {{ card_feature_image }}
+      <div class="card-quote__content">
+        {{ quote }}
       </div>
-      <div class="card-feature__content">
-        <h3 class="card-feature__title">
-          {{ card_feature_title }}
-        </h3>
-        <div class="card-feature__desc">
-          {{ card_feature_desc }}
+
+      {% if quote_author %}
+        <div class="card-quote__author">
+          {{ quote_author }}
         </div>
-        {% if card_feature_link_url %}
-          <div class="card-feature__link-container">
-            <a class="card-feature__link" href="{{ card_feature_link_url }}">{{ card_feature_link_title }}</a>
-          </div>
-        {% endif %}
-      </div>
+      {% endif %}
+
+      {% if quote_link_url %}
+        <div class="quote_link-container">
+          <a class="quote_link" href="{{ quote_link_url }}">{{ quote_link_title }}</a>
+        </div>
+      {% endif %}
+
     {% endblock %}
   </div>
 {% endblock paragraph %}
