@@ -9,7 +9,7 @@ use Drupal\pathauto\PathautoState;
  * Update nodes for GatherContent WorkBC items.
  *
  * Usage:
- * - drush scr scripts/migration/gc-jsonl.php -- --status publish 284269 > scripts/migration/data/workbc.jsonl
+ * - drush scr scripts/migration/gc-jsonl -- --status publish 284269 > scripts/migration/data/workbc.jsonl
  * - drush scr scripts/migration/workbc
  *
  * Revert:
@@ -44,15 +44,18 @@ foreach ($items as $id => $item) {
     if (property_exists($item, 'Page Content')) {
         $fields['body'] = convertRichText($item->{'Page Content'}, $items);
     }
+
     if (property_exists($item, 'Page Description')) {
         $fields['field_hero_text'] = convertRichText($item->{'Page Description'}, $items);
     }
+
     if (property_exists($item, 'Banner Image')) {
         $images = array_map('convertImage', array_filter($item->{'Banner Image'}));
         if (!empty($images)) {
             $fields['field_hero_image'] = current($images);
         }
     }
+
     if (property_exists($item, 'Related Topics Blurb')) {
         $fields['field_related_topics_blurb'] = convertRichText($item->{'Related Topics Blurb'}, $items);
     }

@@ -94,6 +94,13 @@ function convertVideo($url, $extra_fields = []) {
   return ['target_id' => $media->id()];
 }
 
+function convertDrupalLinks($text) {
+  if (!preg_match('/^\/(?:[-a-zA-Z0-9()@:%_\+.~#?&\/=]*)$/', $text, $matches)) {
+    return [];
+  }
+  return $matches;
+}
+
 function convertGatherContentLinks($text, &$items) {
   if (!preg_match_all('/https:\/\/number41media1\.gathercontent\.com\/item\/(\d+)/i', $text, $matches)) {
     return [];
