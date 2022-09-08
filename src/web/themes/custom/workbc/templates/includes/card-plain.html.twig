@@ -1,12 +1,10 @@
-
 {# Variables #}
 
-{% set card_feature_image = content.field_image[0] %}
-{% set card_feature_title = content.field_title[0] %}
-{% set card_feature_desc = content.field_description[0] %}
-{% set card_feature_link_url = content.field_link[0]['#url'] %}
-{% set card_feature_link_title = content.field_link[0]['#title'] %}
-
+{% set card_image = content.field_image[0] %}
+{% set card_title = content.field_title[0] %}
+{% set card_desc = content.field_description[0] %}
+{% set card_link_url = content.field_link[0]['#url'] %}
+{% set card_link_title = content.field_link[0]['#title'] %}
 
 {%
   set classes = [
@@ -18,23 +16,22 @@
   ]
 %}
 
-
 {% block paragraph %}
   <div{{ attributes.addClass(classes) }}>
     {% block content %}
       <div class="card-plain__image" >
-        {{ card_feature_image }}
+        {{ card_image }}
       </div>
       <div class="card-plain__content">
         <h3 class="card-plain__title">
           {{ content.field_title }}
         </h3>
         <div class="card-plain__desc">
-          {{ card_feature_desc }}
+          {{ card_desc }}
         </div>
-        {% if card_feature_link_url %}
+        {% if card_link_url %}
           <div class="card-plain__link-container">
-            <a class="card-plain__link" href="{{ card_feature_link_url }}">{{ card_feature_link_title }}</a>
+            <a class="card-plain__link" href="{{ card_link_url }}">{{ card_link_title }}</a>
           </div>
         {% endif %}
       </div>
