@@ -7,7 +7,11 @@
 
 .swiper-container {
     position: relative;
-    padding: 0 60px 40px 60px;
+    padding: 0 40px 40px 40px;
+
+    @include media-breakpoint-up(lg) {
+        padding: 0 60px 40px 60px;
+    }
 
     .swiper {
         padding: 10px;
@@ -21,11 +25,20 @@
         height: auto !important;
 
         .swiper-slide-active {
-            scale: 110%;
+            scale: 100%;
         }
 
         &:not(.swiper-slide-active) {
             scale: 90%;
         }
+    }
+}
+
+// override some Swiper defaults to get smaller nav arrows at mobile size (giving us more Slide space)
+:root {
+    --swiper-navigation-size: 22px !important;
+
+    @include media-breakpoint-up(lg) {
+        --swiper-navigation-size: 44px !important;
     }
 }
