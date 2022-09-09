@@ -29,12 +29,12 @@
         <div class="card-plain__desc">
           {{ card_desc }}
         </div>
-        {% if card_link_url %}
-          <div class="card-plain__link-container">
-            <a class="card-plain__link" href="{{ card_link_url }}">{{ card_link_title }}</a>
-          </div>
-        {% endif %}
       </div>
+      {% if card_link_url %}
+        <div class="card-plain__link-container">
+          <a class="card-plain__link" href="{{ card_link_url }}">{{ card_link_title }}</a>
+        </div>
+      {% endif %}
     {% endblock %}
   </div>
 {% endblock paragraph %}
