@@ -188,7 +188,7 @@ settings:
   confirmation_type: page
   confirmation_url: ''
   confirmation_title: 'Thank You'
-  confirmation_message: 'Your request for a Find a Fit tour stop has been received.'
+  confirmation_message: 'Your request has been submitted.'
   confirmation_attributes: {  }
   confirmation_back: true
   confirmation_back_label: ''
