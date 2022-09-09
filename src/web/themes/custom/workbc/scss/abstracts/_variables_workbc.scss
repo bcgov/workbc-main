@@ -20,15 +20,14 @@ $workbc_palette_light_secondary: #f2f2f2;
 $workbc_palette_light_tertiary: #9D9D9D;
 $workbc_palette_light_highlight: #E7BF3E;
 
-$workbc_palette_shadow_primary: $workbc_palette_light_tertiary;
+$workbc_palette_shadow_primary: rgb(0 0 0 / 15%);
 
 $workbc_palette_alert_primary: rgba(121, 29, 95, 1);
 
 
-
 $workbc_default_text: $workbc_palette_dark_default;
 $workbc_default_link: $workbc_palette_dark_secondary;
-$workbc_default_box_shadow: 0px 0px 10px 0px $workbc_palette_shadow_primary;
+$workbc_default_box_shadow: 0px 0px 15px 0px $workbc_palette_shadow_primary; 
 $workbc_default_bottom_shadow: 0px 5px 10px -5px $workbc_palette_shadow_primary;
 
 $workbc_dark_theme_background: $workbc_palette_dark_primary;

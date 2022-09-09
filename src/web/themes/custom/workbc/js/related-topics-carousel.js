@@ -2,19 +2,27 @@
   ("use strict");
 
   let initSwiperCarousel = function() {
+
+    const initSlideCount = jQuery('.swiper .swiper-slide').length;
+
     const swiper = new Swiper('.swiper', {
       direction: 'horizontal',
-      loop: true,
+      loop: initSlideCount >= 3, // If we have less than three slides, we don't really need a loop since we can see them all, and it does weird things with duplicate slides.
       centeredSlides: true,
+      loopedSlidesLimit: true,
       breakpoints: {
         // pooops the bed at <576px wide
-        640: {
+        1: {
           slidesPerView: 1,
           spaceBetween: 50
         },
+        640: {
+          slidesPerView: 1,
+          spaceBetween: 20
+        },
         768: {
           slidesPerView: 2,
-          spaceBetween: 50
+          spaceBetween: 20
         },
         1024: {
           slidesPerView: 2,
