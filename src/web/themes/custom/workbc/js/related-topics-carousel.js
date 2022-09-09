@@ -1,29 +1,46 @@
 (function ($, Drupal, once) {
   ("use strict");
 
-  let initRelatedTopicsCarousel = function() {
-    // see https://www.codeply.com/p/0CWffz76Q9 for inspiration on desktop size multiple panel view
-    let items = document.querySelectorAll('.carousel .carousel-item');
-    const minPerSlide = Math.min(items.length, 3);
+  let initSwiperCarousel = function() {
+    const swiper = new Swiper('.swiper', {
+      direction: 'horizontal',
+      loop: true,
+      centeredSlides: true,
+      breakpoints: {
+        // pooops the bed at <576px wide
+        640: {
+          slidesPerView: 1,
+          spaceBetween: 50
+        },
+        768: {
+          slidesPerView: 2,
+          spaceBetween: 50
+        },
+        1024: {
+          slidesPerView: 2,
+          spaceBetween: 20
+        },
+        1200: {
+          slidesPerView: 3,
+          spaceBetween: 20
+        },
+      },
 
-    items.forEach((el) => {
-      let next = el.nextElementSibling;
-      for (var i = 1; i < minPerSlide; i++) {
-        if (!next) {
-            // wrap carousel by using first child
-          next = items[0]
-        }
-        let cloneChild = next.cloneNode(true)
-        el.appendChild(cloneChild.children[0])
-        next = next.nextElementSibling
-      }
-    })
+      pagination: {
+        el: '.swiper-pagination',
+      },
+    
+      navigation: {
+        nextEl: '.swiper-button-next',
+        prevEl: '.swiper-button-prev',
+      },
+    });
   };
 
-  Drupal.behaviors.relatedTopicsCarousel = {
+  Drupal.behaviors.swiperCarousel = {
     attach: function (context, settings) {
       // the second parameter must be a selector specific to the content this script applies to, to ensure it's loaded after the content in the case the content is lazy loaded by Drupal
-      once('relatedTopicsCarousel', '.workbc-card-carousel', context).forEach(initRelatedTopicsCarousel);
+      once('swiperCarousel', '.swiper', context).forEach(initSwiperCarousel);
     },
   };
 
