@@ -50,21 +50,23 @@ $hero_banner_height: 420px;
 
     .hero-content-wrapper {
         z-index: 5;
-        
+        padding: 30px 20px;
+
+        @include media-breakpoint-up(lg) { 
+            padding: 80px 10px;
+        }
+
         .hero-title {
-            padding: $workbc_spacing_default 10px;
 
             @include media-breakpoint-up(lg) { 
-                padding: $workbc_spacing_default 0;
+                margin-bottom: 50px;
                 width: 50%;
             }
         }
     
         .hero-content {
-            padding: $workbc_spacing_default 10px;
 
             @include media-breakpoint-up(lg) { 
-                padding: $workbc_spacing_default 0;
                 width: 50%;
             }
         }
