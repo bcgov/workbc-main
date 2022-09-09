@@ -4,3 +4,28 @@
         text-align: center;
     }
 }
+
+.swiper-container {
+    position: relative;
+    padding: 0 60px 40px 60px;
+
+    .swiper {
+        padding: 10px;
+    }
+    
+    .swiper-wrapper {
+        align-content: stretch;
+    }
+
+    .swiper-slide {
+        height: auto !important;
+
+        .swiper-slide-active {
+            scale: 110%;
+        }
+
+        &:not(.swiper-slide-active) {
+            scale: 90%;
+        }
+    }
+}
