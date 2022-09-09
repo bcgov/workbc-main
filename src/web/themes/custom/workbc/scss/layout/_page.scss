@@ -2,3 +2,10 @@
   position: relative;
   background-color: #fff;
 }
+
+.page-format--standard {
+  @include media-breakpoint-up(xl) {
+    width: 66.66666667%;
+    margin: 0 auto;
+  }
+}
