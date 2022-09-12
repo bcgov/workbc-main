@@ -31,3 +31,10 @@ related-topics-carousel:
     - core/once
     - workbc/swiper-js
     
+sidenav-anchors:
+  js:
+    js/sidenav-anchors.js: {}
+  dependencies:
+    - core/drupal
+    - core/jquery
+    - core/once    
