@@ -67,15 +67,17 @@ class SideNavBlock extends BlockBase implements ContainerFactoryPluginInterface 
     $markup = '<div class="basic-page-left-nav-wrapper">';
     $markup .= '<nav class="basic-page-left-nav">';
     $markup .= '<h2>On this page</h2>';
-    $markup .= '<ul>';
-    $markup .= '<li><a href="#heading1">Link to heading 1</a></li>';
-    $markup .= '<li><a href="#heading2">Link to heading 2</a></li>';
-    $markup .= '<li><a href="#heading3">Link to heading 3</a></li>';
+    $markup .= '<ul class="basic-page-left-nav-links">';
     $markup .= "</ul>";
     $markup .= "</nav>";
     $markup .= "</div>";
     return [
       '#markup' => $markup,
+      '#attached' => [
+        'library' => [
+          'workbc/sidenav-anchors',
+        ],
+      ],
     ];
   }
 
