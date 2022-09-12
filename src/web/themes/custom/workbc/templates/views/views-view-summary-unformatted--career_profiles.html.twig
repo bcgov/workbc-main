@@ -24,9 +24,20 @@
   */
 #}
 
+{% set all_active = true %}
+{% for row in rows %}
+  {% if row.active %}
+    {% set all_active = false %}
+  {% endif %}
+{% endfor %}
+
+{% set allClasses = [
+    '',
+    all_active ? 'is-active'
+] %}
 
 <div class='alphabet-navigation views-summary views-summary-unformatted'>
-  {{ options.inline ? '<span' : '<div' }} class="alphabet-navigation-unfiltered">
+  {{ options.inline ? '<span' : '<div' }} class="alphabet-navigation-unfiltered{{all_active ? ' is-active'}}">
 
   <a href="/career-profiles/all">All</a>
 
@@ -37,15 +48,16 @@
   
   {% for letter in 'A'..'Z' %}
     {% set hasResults = (counter < max and rows[counter].link == letter) %}
+    {% set isActive = rows[counter].active %}
 
-    {{ options.inline ? '<span' : '<div' }} {{ hasResults ? '' : 'class="no-results"' }}>
+    {{ options.inline ? '<span' : '<div' }} class="{{hasResults ? '' : 'no-results'}} {{isActive ? 'is-active'}}">
 
     {% if rows[1].separator -%}
       {{ rows[1].separator }}
     {%- endif %}
 
     {% if hasResults %}
-      <a href="{{ rows[counter].url }}"{{ row.attributes.addClass(row.active ? 'is-active')|without('href') }}>{{ letter|upper }}</a>
+      <a href="{{ rows[counter].url }}">{{ letter|upper }}</a>
       {% set counter = counter+1 %}
     {% else %}
       {{ letter|upper }}

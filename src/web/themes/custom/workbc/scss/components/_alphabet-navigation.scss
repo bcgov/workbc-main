@@ -28,7 +28,8 @@ $letter-block-size-desktop: 28px;
             color: $workbc_text_footnote_color;
         }
 
-        &:not(.no-results):hover {
+        &:not(.no-results):hover,
+        &.is-active {
             background: $workbc_palette_dark_secondary;
 
             a,
