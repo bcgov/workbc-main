@@ -121,7 +121,7 @@ class RelatedTopicsBlock extends BlockBase {
 
   private function renderLink($node) {
     $options = ['absolute' => TRUE];
-    $link = \Drupal\Core\Link::createFromRoute('Read more >', 'entity.node.canonical', ['node' => $node->id()], $options);
+    $link =$url = \Drupal\Core\Url::fromRoute('entity.node.canonical', ['node' => $node->id()], $options);
     return $link->toString();
   }
 

@@ -1,29 +1,54 @@
 (function ($, Drupal, once) {
   ("use strict");
 
-  let initRelatedTopicsCarousel = function() {
-    // see https://www.codeply.com/p/0CWffz76Q9 for inspiration on desktop size multiple panel view
-    let items = document.querySelectorAll('.carousel .carousel-item');
-    const minPerSlide = Math.min(items.length, 3);
+  let initSwiperCarousel = function() {
 
-    items.forEach((el) => {
-      let next = el.nextElementSibling;
-      for (var i = 1; i < minPerSlide; i++) {
-        if (!next) {
-            // wrap carousel by using first child
-          next = items[0]
-        }
-        let cloneChild = next.cloneNode(true)
-        el.appendChild(cloneChild.children[0])
-        next = next.nextElementSibling
-      }
-    })
+    const initSlideCount = jQuery('.swiper .swiper-slide').length;
+
+    const swiper = new Swiper('.swiper', {
+      direction: 'horizontal',
+      loop: initSlideCount >= 3, // If we have less than three slides, we don't really need a loop since we can see them all, and it does weird things with duplicate slides.
+      centeredSlides: true,
+      loopedSlidesLimit: true,
+      breakpoints: {
+        // pooops the bed at <576px wide
+        1: {
+          slidesPerView: 1,
+          spaceBetween: 50
+        },
+        640: {
+          slidesPerView: 1,
+          spaceBetween: 20
+        },
+        768: {
+          slidesPerView: 2,
+          spaceBetween: 20
+        },
+        1024: {
+          slidesPerView: 2,
+          spaceBetween: 20
+        },
+        1200: {
+          slidesPerView: 3,
+          spaceBetween: 20
+        },
+      },
+
+      pagination: {
+        el: '.swiper-pagination',
+      },
+    
+      navigation: {
+        nextEl: '.swiper-button-next',
+        prevEl: '.swiper-button-prev',
+      },
+    });
   };
 
-  Drupal.behaviors.relatedTopicsCarousel = {
+  Drupal.behaviors.swiperCarousel = {
     attach: function (context, settings) {
       // the second parameter must be a selector specific to the content this script applies to, to ensure it's loaded after the content in the case the content is lazy loaded by Drupal
-      once('relatedTopicsCarousel', '.workbc-card-carousel', context).forEach(initRelatedTopicsCarousel);
+      once('swiperCarousel', '.swiper', context).forEach(initSwiperCarousel);
     },
   };
 

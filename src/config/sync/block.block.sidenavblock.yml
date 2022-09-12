@@ -1,0 +1,37 @@
+uuid: 39d4e235-8398-434e-8d00-962a4d030877
+langcode: en
+status: true
+dependencies:
+  module:
+    - block_visibility_conditions
+    - node
+    - workbc_custom
+  theme:
+    - workbc
+id: sidenavblock
+theme: workbc
+region: sidebar_first
+weight: 0
+provider: null
+plugin: side_nav_block
+settings:
+  id: side_nav_block
+  label: 'Side Nav Block'
+  label_display: '0'
+  provider: workbc_custom
+visibility:
+  not_node_type:
+    id: not_node_type
+    bundles: {  }
+    negate: null
+  not_taxonomy_vocabulary:
+    id: not_taxonomy_vocabulary
+    bundles: {  }
+    negate: null
+  'entity_bundle:node':
+    id: 'entity_bundle:node'
+    negate: false
+    context_mapping:
+      node: '@node.node_route_context:node'
+    bundles:
+      page: page

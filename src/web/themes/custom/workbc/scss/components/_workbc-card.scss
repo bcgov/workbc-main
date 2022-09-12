@@ -208,6 +208,11 @@ $container-gutter: $workbc_spacing_gutters;
             }
           }
         }
+
+        .action-link {
+          @include link-chevron;
+        }
+
       }
   
     }

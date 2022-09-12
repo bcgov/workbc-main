@@ -6,13 +6,22 @@ fonts:
   css:
     theme:
       '//fonts.googleapis.com/css2?family=Material+Symbols+Outlined': { type: external, minified: true }
+
 submenu-underlay:
   js:
     js/submenu-underlay.js: {}
   dependencies:
     - core/drupal
     - core/jquery
-    - core/once
+    - core/
+
+swiper-js:
+  css:
+    theme:
+      '//cdn.jsdelivr.net/npm/swiper@8/swiper-bundle.min.css': { type: external, minified: true }
+  js:
+    '//cdn.jsdelivr.net/npm/swiper@8/swiper-bundle.min.js': { type: external, minified: true }
+
 related-topics-carousel:
   js:
     js/related-topics-carousel.js: {}
@@ -20,4 +29,5 @@ related-topics-carousel:
     - core/drupal
     - core/jquery
     - core/once
+    - workbc/swiper-js
     

@@ -6,12 +6,12 @@ dependencies:
     - core.entity_view_mode.node.teaser
     - field.field.node.event.body
     - field.field.node.event.field_address
+    - field.field.node.event.field_audience
     - field.field.node.event.field_content_group
     - field.field.node.event.field_end_date
     - field.field.node.event.field_event_type
     - field.field.node.event.field_multiple_days
     - field.field.node.event.field_start_date
-    - field.field.node.event.field_target_audience
     - field.field.node.event.field_time
     - node.type.event
   module:
@@ -39,12 +39,12 @@ hidden:
   extra_field_workbc_page_title: true
   extra_field_workbc_published_on: true
   field_address: true
+  field_audience: true
   field_content_group: true
   field_end_date: true
   field_event_type: true
   field_multiple_days: true
   field_start_date: true
-  field_target_audience: true
   field_time: true
   langcode: true
   search_api_excerpt: true
