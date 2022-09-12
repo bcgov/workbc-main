@@ -188,6 +188,7 @@ $container-gutter: $workbc_spacing_gutters;
               &:hover {
                 background-color: $workbc_light_theme_background_accent;
                 text-decoration: none;
+                border-radius: 5px; // stop the background from making the parent border radius from looking wonky
               }
             }
   
