@@ -9,6 +9,7 @@ libraries:
   - workbc/submenu-underlay
   - workbc/swiper-js
   - workbc/related-topics-carousel
+  - workbc/sidenav-anchors
 stylesheets-remove:
   - '@bootstrap5/css/style.css'
 regions:

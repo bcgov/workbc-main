@@ -537,6 +537,7 @@ display:
           replica: false
           query_tags: {  }
       relationships: {  }
+      css_class: page-format--standard
       use_ajax: true
       header: {  }
       footer: {  }
@@ -611,8 +612,10 @@ display:
         type: views_query
         options: {  }
       defaults:
+        css_class: false
         arguments: false
         header: false
+      css_class: ''
       header:
         area:
           id: area
