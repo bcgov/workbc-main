@@ -77,8 +77,7 @@ resource "aws_cloudfront_distribution" "workbc" {
   aliases = ["aws-test.workbc.ca"]
 
   viewer_certificate {
-    #acm_certificate_arn = "arn:aws:acm:us-east-1:873424993519:certificate/0215bb2d-d224-4681-bf6b-227e9e82f29f"
-    acm_certificate_arn =
+    acm_certificate_arn = "arn:aws:acm:us-east-1:873424993519:certificate/0215bb2d-d224-4681-bf6b-227e9e82f29f"
     ssl_support_method = "sni-only"
   }
 }
