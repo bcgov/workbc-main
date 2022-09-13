@@ -21,6 +21,7 @@ display:
     display_plugin: default
     position: 0
     display_options:
+      title: 'Search Career Profiles'
       fields:
         search_api_relevance:
           id: search_api_relevance
