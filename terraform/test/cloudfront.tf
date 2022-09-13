@@ -1,5 +1,6 @@
 # cloudfront.tf
 
+/*
 resource "random_integer" "cf_origin_id" {
   min = 1
   max = 100
@@ -76,14 +77,14 @@ resource "aws_cloudfront_distribution" "workbc" {
   
   aliases = ["aws-test.workbc.ca"]
 
-  /*viewer_certificate {
+  viewer_certificate {
     #acm_certificate_arn = "arn:aws:acm:us-east-1:873424993519:certificate/0215bb2d-d224-4681-bf6b-227e9e82f29f"
     acm_certificate_arn = "arn:aws:acm:ca-central-1:054099626264:certificate/4e63f03d-8ea4-4788-9dea-73d77b48d93b"
     ssl_support_method = "sni-only"
-  }*/
+  }
 }
 
 output "cloudfront_url" {
   value = "https://${aws_cloudfront_distribution.workbc[0].domain_name}"
 }
-
+*/
