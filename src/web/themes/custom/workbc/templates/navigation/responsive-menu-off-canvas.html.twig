@@ -1,11 +1,9 @@
 <span class="mobile-nav-header">
   <img class="mobile-nav-logo" src="/{{ directory }}/logo.svg" alt="{{ 'logo'|t }}" />
+  <span class="mobile-nav-close" title="Close menu" aria-label="Close menu">
+    <span class="mobile-nav-close__label">{{ 'Close menu'|t }}</span>
+  </span>
 </span>
-
-<a id="toggle-icon" class="toggle responsive-menu-toggle-icon" title="Menu" href="#off-canvas">
-  <span class="icon"></span><span class="label">{{ 'Menu'|t }}</span>
-</a>
-
 
 <div class="mobile-nav__panel">
   {{ include('@responsive_menu/responsive-menu-off-canvas.html.twig') }}
