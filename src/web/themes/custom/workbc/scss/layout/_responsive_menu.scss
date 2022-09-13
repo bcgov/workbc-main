@@ -1,6 +1,6 @@
 .mobile-nav-header {
   position: relative;
-  padding: 15px 20px;
+  padding: 15px 20px 40px;
 }
 
 .mobile-nav-logo {
@@ -8,19 +8,20 @@
   max-width: 125px;
 }
 
-.mm-btn--close {
+.mobile-nav-close {
   position: absolute;
-  top: -42px;
+  top: 12px;
   right: 15px;
   width: 30px;
   height: 30px;
   background-image: url(../assets/images/close-icon.svg);
   background-position: center;
   background-repeat: no-repeat;
+  cursor: pointer;
+}
 
-  &:before {
-    content: none;
-  }
+.mobile-nav-close__label {
+  @include visually-hidden;
 }
 
 //  Responsive menu overrides
