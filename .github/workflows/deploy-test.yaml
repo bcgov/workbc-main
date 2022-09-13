@@ -8,6 +8,7 @@ on:
       - "v[0-9]+.[0-9]+-uat*"
     types:
       - completed
+  workflow_dispatch:
 
 env:
   IMAGE_ID: ${{ secrets.AWS_ECR_URI }}
@@ -35,7 +36,7 @@ jobs:
   cd:
     name: cd
     runs-on: ubuntu-latest
-    if: ${{ github.event.workflow_run.conclusion == 'success' }}
+    #if: ${{ github.event.workflow_run.conclusion == 'success' }}
 
     steps:
       - name: Check out the repo
