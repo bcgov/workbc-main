@@ -60,8 +60,7 @@ resource "aws_cloudfront_distribution" "workbc" {
     max_ttl                = 86400
 	
     # SimpleCORS
-    #response_headers_policy_id = "60669652-455b-4ae9-85a4-c4c02393f86c"
-    response_headers_policy_id =
+    response_headers_policy_id = "60669652-455b-4ae9-85a4-c4c02393f86c"
   }
 
   price_class = "PriceClass_100"
