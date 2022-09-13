@@ -121,7 +121,8 @@ class RelatedTopicsBlock extends BlockBase {
           if (!empty($node->get('body')->value)) {
             $text = strip_tags($node->get('body')->value);
             $config = $this->getConfiguration();
-            $text = \Drupal\Component\Utility\Unicode::truncate($text, $config['trimmed_limit'], TRUE, TRUE);
+            $trim = isset($config['trimmed_limit']) ? $config['trimmed_limit'] : 150;
+            $text = \Drupal\Component\Utility\Unicode::truncate($text, $trim, TRUE, TRUE);
             return $text;
           }
         }
