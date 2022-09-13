@@ -5,28 +5,6 @@
  * WorkBC theme file.
  */
 
-/**
- * Implements hook_preprocess_page().
- */
-function workbc_preprocess_page(&$variables) {
-  $variables['#attached']['drupalSettings']['responsive_menu']['custom'] = [
-    'options' => [
-      'navbar' => [],
-      'navbars' => [
-        [
-          'position' => 'top',
-          'use' => TRUE,
-          'content' => [
-            'title',
-            'close'
-          ]
-        ]
-      ]
-    ],
-  ];
-}
-
-
 function workbc_preprocess_paragraph(&$variables) {
 
     $parent = $variables['paragraph']->getParentEntity();

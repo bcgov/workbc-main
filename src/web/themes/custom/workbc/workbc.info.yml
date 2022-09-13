@@ -10,6 +10,7 @@ libraries:
   - workbc/swiper-js
   - workbc/related-topics-carousel
   - workbc/sidenav-anchors
+  - workbc/mobile-nav
 stylesheets-remove:
   - '@bootstrap5/css/style.css'
 regions:
