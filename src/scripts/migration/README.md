@@ -37,6 +37,7 @@ The development team maintains a copy of the IA spreadsheet that is annotated wi
 - Whether the item should appear in the main navigation menu (column **Mega Menu?**)
 - The specific URL, if any, that the item should have in the header menu (column **New URL**)
 - The page format: `standard`, `sidenav`, `wide` (column **Page Format**)
+- The content group: `WorkBC`, `WDA`, `SDPR` (column **Content Group**)
 
 ## GatherContent (GC)
 GatherContent is a CMS that the business team uses to collaborate on writing the text copy (editorial content) that goes into each page of the site. The design team maintains the GatherContent _templates_ which represent the structure (the fields) of the different pages. During migration, an import script maps the GC content fields to Drupal content fields in order to populate the content.
