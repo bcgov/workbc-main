@@ -119,20 +119,26 @@ $container-gutter: $workbc_spacing_gutters;
       display: flex;
       flex-flow: column nowrap;
 
-      & > div {
-        flex: 1 1 auto;
-      }
-
       & > div:not(:last-child) {
         margin-bottom: $card-spacing;
       }
 
       .workbc-card-title {
+        flex: 0 0 auto;
         font-weight: bold;
         font-size: 1.125rem;
       }
 
+      .workbc-card-description {
+        flex: 1 1 auto;
+      }
+
+      .workbc-card-tags {
+        flex: 0 0 auto;
+      }
+
       .workbc-card-actions {
+        flex: 0 0 auto;
         display: flex;
         align-items: flex-end;
   

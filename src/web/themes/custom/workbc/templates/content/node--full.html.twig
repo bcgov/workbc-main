@@ -78,7 +78,10 @@
     node.isSticky() ? 'node--sticky',
     not node.isPublished() ? 'node--unpublished',
     view_mode ? 'node--view-mode-' ~ view_mode|clean_class,
-    'page-format--' ~ page_format|clean_class,
+    page_format ? 'page-format--' ~ page_format|clean_class,
+    node.bundle == 'blog' ? 'page-format--standard',
+    node.bundle == 'news' ? 'page-format--standard',
+    node.bundle == 'success_story' ? 'page-format--standard',
   ]
 %}
 
