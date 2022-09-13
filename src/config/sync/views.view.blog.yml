@@ -9,8 +9,8 @@ dependencies:
     - image.style.1_3_component
     - node.type.blog
   module:
-    - image
     - node
+    - svg_image
     - text
     - user
 id: blog
@@ -901,7 +901,7 @@ display:
           admin_label: ''
           plugin_id: field
           label: ''
-          exclude: false
+          exclude: true
           alter:
             alter_text: false
             text: ''

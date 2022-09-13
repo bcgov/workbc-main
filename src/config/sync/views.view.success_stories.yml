@@ -9,8 +9,8 @@ dependencies:
     - image.style.1_3_component
     - node.type.success_story
   module:
-    - image
     - node
+    - svg_image
     - text
     - user
 id: success_stories
@@ -298,7 +298,7 @@ display:
           admin_label: ''
           plugin_id: field
           label: ''
-          exclude: false
+          exclude: true
           alter:
             alter_text: false
             text: ''
