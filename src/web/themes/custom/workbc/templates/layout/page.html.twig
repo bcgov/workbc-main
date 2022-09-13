@@ -49,12 +49,6 @@ set nav_classes = 'navbar navbar-expand-lg workbc-megamenu nav-theme-dark' ~
   (b5_navbar_bg_schema != 'none' ? " bg-#{b5_navbar_bg_schema}" : ' ')
 %}
 
-{%
-set footer_classes = ' ' ~
-  (b5_footer_schema != 'none' ? " footer-#{b5_footer_schema}" : ' ') ~
-  (b5_footer_schema != 'none' ? (b5_footer_schema == 'dark' ? ' text-light' : ' text-dark' ) : ' ') ~
-  (b5_footer_bg_schema != 'none' ? " bg-#{b5_footer_bg_schema}" : ' ')
-%}
 
 {# Header #}
 {% include '@workbc/includes/header.html.twig' %}
@@ -65,24 +59,16 @@ set footer_classes = ' ' ~
 <main role="main" class="page-wrapper">
   <a id="main-content" tabindex="-1"></a>{# link is in html.html.twig #}
 
-  {%
-  set sidebar_first_classes = 'col-12 col-lg-3 col-xl-2'
-  %}
-
-  {%
-  set sidebar_second_classes = 'col-12 col-lg-3 col-xl-2'
-  %}
-
-  {%
-  set content_classes = (page.sidebar_first and page.sidebar_second) ? 'col-12 col-lg-6 col-xl-8' : ((page.sidebar_first or page.sidebar_second) ? 'col-12 col-lg-9 col-xl-10' : 'col-12' )
-  %}
+  {% set sidebar_first_classes = 'col-12 col-lg-3 col-xl-2' %}
+  {% set sidebar_second_classes = 'col-12 col-lg-3 col-xl-2' %}
+  {% set content_classes = (page.sidebar_first and page.sidebar_second) ? 'col-12 col-lg-6 col-xl-8' : ((page.sidebar_first or page.sidebar_second) ? 'col-12 col-lg-9 col-xl-10' : 'col-12' ) %}
 
   <div class="page-content-wrapper">
 
     <div id="submenu-underlay"></div>
 
     {% if page.hero_content %}
-        {{ page.hero_content }}
+      {{ page.hero_content }}
     {% endif %}
 
     {{ page.breadcrumb }}
@@ -104,6 +90,12 @@ set footer_classes = ' ' ~
         {% endif %}
       </div>
     </div>
+
+    {% if drupal_block('related_topics_block') %}
+      <div class="container">
+        {{ drupal_block('related_topics_block') }}
+      </div>
+    {% endif %}
 
   </div>
 </main>
