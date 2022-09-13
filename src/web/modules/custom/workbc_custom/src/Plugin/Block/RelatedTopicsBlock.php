@@ -81,19 +81,30 @@ class RelatedTopicsBlock extends BlockBase {
   }
 
   private function renderImage($node) {
-    $imageUri = isset($node->get('field_hero_image')->entity) ? $node->get('field_hero_image')->entity->getFileUri() : null;
-    if($imageUri) {
-      $image = [
-        '#theme' => 'image_style',
 
-        '#style_name' => 'related_topics',
-        '#uri' => $imageUri
-      ];
-      return render($image);
+    if ($node->hasField("field_hero_image")) {
+      $imageUri = isset($node->get('field_hero_image')->entity) ? $node->get('field_hero_image')->entity->getFileUri() : null;
+      if($imageUri) {
+        $image = [
+          '#theme' => 'image_style',
+          '#style_name' => 'related_topics',
+          '#uri' => $imageUri
+        ];
+        return render($image);
+      }
     }
-    else {
-      return '';
+    else if ($node->hasField("field_image")) {
+      $imageUri = isset($node->get('field_image')->entity) ? $node->get('field_image')->entity->getFileUri() : null;
+      if($imageUri) {
+        $image = [
+          '#theme' => 'image_style',
+          '#style_name' => 'related_topics',
+          '#uri' => $imageUri
+        ];
+        return render($image);
+      }
     }
+    return '';
   }
 
   private function renderText($node) {
