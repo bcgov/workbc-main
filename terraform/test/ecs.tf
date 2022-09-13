@@ -36,7 +36,7 @@ resource "aws_ecs_task_definition" "app" {
 	{
 		essential   = false
 		name        = "init"
-		image       = var.app_image
+		image       = "${var.app_repo}/workbc:fdd38b43371f5c2d26f9106e37a8ace0aa01b4fc"
 		networkMode = "awsvpc"
 		entryPoint = ["sh",	"-c"]
 		command = ["cp -rf /code/. /app; ln -s /contents/public /app/web/sites/default/files; ln -s /contents/private /app/private"]
@@ -64,7 +64,7 @@ resource "aws_ecs_task_definition" "app" {
 	{
 		essential   = true
 		name        = "drupal"
-		image       = var.app_image
+		image       = "${var.app_repo}/workbc:fdd38b43371f5c2d26f9106e37a8ace0aa01b4fc"
 		networkMode = "awsvpc"
 		
 		logConfiguration = {
@@ -188,7 +188,7 @@ resource "aws_ecs_task_definition" "app" {
 	{
 		essential   = false
 		name        = "drush"
-		image       = var.app_image
+		image       = "${var.app_repo}/workbc:fdd38b43371f5c2d26f9106e37a8ace0aa01b4fc"
 		networkMode = "awsvpc"
 
 		entryPoint = ["sh", "-c"]
