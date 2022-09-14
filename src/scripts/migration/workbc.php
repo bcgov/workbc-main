@@ -43,6 +43,14 @@ foreach ($items as $id => $item) {
     // Populate standard fields.
     if (property_exists($item, 'Page Content')) {
         $fields['body'] = convertRichText($item->{'Page Content'}, $items);
+
+        // The teaser (aka summary) can come from the page description or the (deprecated) related topics blurb.
+        if (property_exists($item, 'Page Description')) {
+            $fields['body']['summary'] = convertRichText($item->{'Page Description'}, $items);
+        }
+        if (property_exists($item, 'Related Topics Blurb')) {
+            $fields['body']['summary'] = convertRichText($item->{'Related Topics Blurb'}, $items);
+        }
     }
 
     if (property_exists($item, 'Page Description')) {
@@ -54,10 +62,6 @@ foreach ($items as $id => $item) {
         if (!empty($images)) {
             $fields['field_hero_image'] = current($images);
         }
-    }
-
-    if (property_exists($item, 'Related Topics Blurb')) {
-        $fields['field_related_topics_blurb'] = convertRichText($item->{'Related Topics Blurb'}, $items);
     }
 
     // Add related items which come in 2 flavours.
