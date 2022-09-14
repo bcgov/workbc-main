@@ -2,15 +2,18 @@ uuid: 8c025794-5bd4-42d8-a0e8-ce4d8c82cda4
 langcode: en
 status: true
 dependencies:
+  config:
+    - views.view.search_career_profiles
   module:
     - block_visibility_conditions
     - system
+    - views
   theme:
     - workbc
 id: exposedformsearch_career_profilespage_1
 theme: workbc
 region: content
-weight: -10
+weight: -12
 provider: null
 plugin: 'views_exposed_filter_block:search_career_profiles-page_1'
 settings:
