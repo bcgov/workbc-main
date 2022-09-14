@@ -46,14 +46,6 @@ content:
     third_party_settings: {  }
     weight: 2
     region: content
-  field_tags:
-    type: entity_reference_label
-    label: visually_hidden
-    settings:
-      link: true
-    third_party_settings: {  }
-    weight: 4
-    region: content
   links:
     settings: {  }
     third_party_settings: {  }
@@ -63,5 +55,6 @@ hidden:
   extra_field_workbc_published_on: true
   field_content_group: true
   field_subtitle: true
+  field_tags: true
   langcode: true
   search_api_excerpt: true
