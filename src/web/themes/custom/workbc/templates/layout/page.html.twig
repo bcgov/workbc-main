@@ -91,9 +91,9 @@ set nav_classes = 'navbar navbar-expand-lg workbc-megamenu nav-theme-dark' ~
       </div>
     </div>
 
-    {% if drupal_block('related_topics_block') %}
+    {% if drupal_entity('block', 'related_topics') %}
       <div class="container">
-        {{ drupal_block('related_topics_block') }}
+        {{ drupal_entity('block', 'related_topics') }}
       </div>
     {% endif %}
 

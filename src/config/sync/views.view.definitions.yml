@@ -391,7 +391,13 @@ display:
           replica: false
           query_tags: {  }
       relationships: {  }
-      header: {  }
+      css_class: page-format--standard
+      header:
+        area:
+          id: area
+          table: views
+          field: area
+          plugin_id: text
       footer: {  }
       display_extenders: {  }
     cache_metadata:
@@ -441,7 +447,7 @@ display:
             override: false
             items_per_page: 25
             inline: true
-            separator: ' | '
+            separator: ''
           summary:
             sort_order: asc
             number_of_records: 0
@@ -460,7 +466,24 @@ display:
           add_table: false
           require_value: false
       defaults:
+        css_class: false
         arguments: false
+        header: false
+      css_class: ''
+      header:
+        area:
+          id: area
+          table: views
+          field: area
+          relationship: none
+          group_type: group
+          admin_label: ''
+          plugin_id: text
+          empty: false
+          content:
+            value: 'Select the letter below to filter your search.'
+            format: basic_html
+          tokenize: false
       display_extenders: {  }
       displays:
         default: default
@@ -480,6 +503,9 @@ display:
     display_plugin: page
     position: 1
     display_options:
+      defaults:
+        css_class: false
+      css_class: 'page-format--standard alphabet-search-results'
       display_extenders: {  }
       path: definitions
     cache_metadata:

@@ -1,24 +1,24 @@
-uuid: 21a17f7d-b426-430e-bdb6-395612de571c
+uuid: c558c539-09a0-4c35-aa17-020f48553fbd
 langcode: en
 status: true
 dependencies:
   module:
     - block_visibility_conditions
-    - system
     - workbc_custom
   theme:
     - workbc
-id: workbccareereventsblock
+id: related_topics
 theme: workbc
-region: content
-weight: -5
+region: hidden
+weight: -18
 provider: null
-plugin: career_events_block
+plugin: related_topics_block
 settings:
-  id: career_events_block
-  label: 'WorkBC career events block'
-  label_display: visible
+  id: related_topics_block
+  label: 'Related Topics'
+  label_display: '0'
   provider: workbc_custom
+  trimmed_limit: '150'
 visibility:
   not_node_type:
     id: not_node_type
@@ -28,7 +28,3 @@ visibility:
     id: not_taxonomy_vocabulary
     bundles: {  }
     negate: null
-  request_path:
-    id: request_path
-    negate: false
-    pages: /calendar-upcoming-events

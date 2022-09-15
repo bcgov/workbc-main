@@ -83,6 +83,12 @@ elements: |-
     '#text': |
       <p><a href="/collection-notice">View Collection Notice</a>&nbsp;&gt;</p>
     '#format': basic_html
+  actions:
+    '#type': webform_actions
+    '#title': 'Submit button(s)'
+    '#submit__attributes':
+      class:
+        - w-100
 css: ''
 javascript: ''
 settings:

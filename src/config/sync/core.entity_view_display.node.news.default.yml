@@ -36,16 +36,6 @@ content:
     third_party_settings: {  }
     weight: 2
     region: content
-  field_archived:
-    type: boolean
-    label: above
-    settings:
-      format: default
-      format_custom_false: ''
-      format_custom_true: ''
-    third_party_settings: {  }
-    weight: 6
-    region: content
   field_image:
     type: image
     label: visually_hidden
@@ -61,20 +51,14 @@ content:
     third_party_settings: {  }
     weight: 3
     region: content
-  field_tags:
-    type: entity_reference_label
-    label: visually_hidden
-    settings:
-      link: true
-    third_party_settings: {  }
-    weight: 5
-    region: content
   links:
     settings: {  }
     third_party_settings: {  }
     weight: 1
     region: content
 hidden:
+  field_archived: true
   field_content_group: true
+  field_tags: true
   langcode: true
   search_api_excerpt: true
