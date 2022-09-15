@@ -1,54 +1,16 @@
-// search box in the content of the Search Results page
-.region-content {
-  .views-exposed-form {
-    .form-item-search-api-fulltext {
-      width: 100%;
-
-      & > input {
-        border-radius: 0;
-        color: $workbc_palette_dark_default;
-        background-color: $workbc_palette_light_secondary;
-        border: 2px solid $workbc_palette_dark_secondary;
-
-        &:placeholder {
-          color: $workbc_palette_light_tertiary;
-        }
-      }
-    }
-
-    .form-actions {
-      @include visually-hidden;
-    }
-  }
-
-  .view-search-site-content {
-    .view-header {
-      padding: $workbc_spacing_default 0;
-    }
-
-    .view-empty {
-      padding: $workbc_spacing_default 0;
-    }
-
-    .view-content {
-      padding-bottom: $workbc_spacing_default;
-
-      .views-row {
-        padding: $workbc_spacing_default 0;
-        border-bottom: 1px solid $workbc_palette_light_tertiary;
-      }
-    }
-  }
-
-  input.form-autocomplete,
-  input.form-autocomplete.ui-autocomplete-loading {
-    background-image: url(../assets/images/search-icon.svg);
-    background-position: calc(100% - 10px) center;
-    background-repeat: no-repeat;
-  }
+.view-search-site-content .view-header {
+  padding: 0 0 30px;
 }
 
-.search-results-header-class {
-  @include underlined-header;
-  margin-bottom: $workbc_spacing_default;
+.view-search-site-content .view-empty {
+  padding: 30px 0;
+}
+
+.view-search-site-content .view-content {
+  padding-bottom: 30px;
+}
+
+.view-search-site-content .views-row {
+  padding: 30px 0;
+  border-bottom: 1px solid $workbc_palette_light_tertiary;
 }
