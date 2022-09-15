@@ -23,3 +23,13 @@ function workbc_preprocess_paragraph(&$variables) {
       }
     }
 }
+
+
+/**
+ * Implements hook_form_alter().
+ */
+function workbc_form_alter(&$form, \Drupal\Core\Form\FormStateInterface $form_state, $form_id) {
+  if ($form_id == 'views_exposed_form' && $form['#id'] == 'views-exposed-form-search-career-profiles-page-1' or $form['#id'] == 'views-exposed-form-search-site-content-page-1') {
+    $form['#attributes']['class'][] = 'search-form';
+  }
+}
