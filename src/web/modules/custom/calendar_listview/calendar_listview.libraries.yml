@@ -1,0 +1,13 @@
+calendar-listview-lib:
+    css:
+       theme:
+        css/fonts.css: {}
+        css/bootstrap.min.css: {}
+        css/cv_custom.css: {}
+        css/main.css: {}
+        css/responsive.css: {}
+            
+    js:
+        js/jquery.min.js: { weight: -40 }
+        js/bootstrap.bundle.min.js: {}
+        js/cv-custom.js: {}

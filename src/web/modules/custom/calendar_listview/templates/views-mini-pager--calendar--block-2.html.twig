@@ -1,0 +1,55 @@
+{#
+/**
+ * @file
+ * Theme override for a views mini-pager.
+ *
+ * Available variables:
+ * - heading_id: Pagination heading ID.
+ * - items: List of pager items.
+ *
+ * @see template_preprocess_views_mini_pager()
+ */
+#}
+{% if items.previous or items.next %} 
+  <nav class="pager" role="navigation1" aria-labelledby="{{ heading_id }}">
+    <ul class="pager__items js-pager__items">
+      {% if items.next %}
+        <li class="pager__item pager__item--previous">
+          <a href="{{ items.next.href }}" title="{{ 'Go to Previous Events'|t }}" rel="next"{{ items.next.attributes|without('href', 'title', 'rel') }}>
+            <img src="/modules/custom/calendar_listview/images/arrow-left.svg" class="icon arrow-left"/>
+            <span class="visually-hidden">{{ 'Previous Events'|t }}</span>
+            <span aria-hidden="true">{{ items.next.text|default('››'|t) }}</span>
+          </a>
+        </li>
+      {% endif %}
+      {% if items.previous %}
+        <li class="pager__item pager__item--next">
+          <a href="{{ items.previous.href }}" title="{{ 'Go to Next page'|t }}" rel="prev"{{ items.previous.attributes|without('href', 'title', 'rel') }}>
+            <span class="visually-hidden">{{ 'Next Events'|t }}</span>
+            <span aria-hidden="true">{{ items.previous.text|default('‹‹'|t) }}</span>
+            <img src="/modules/custom/calendar_listview/images/arrow-right.svg" class="icon arrow-right"/>
+          </a>
+        </li>
+      {% endif %}
+    </ul>
+    {% if not items.previous %}
+      <div class="pager__item pager__item--next">
+        <a href="/calendar/view/list" title="Go to upcoming events">
+          <span>Next Events</span>
+          <img src="/modules/custom/calendar_listview/images/arrow-right.svg" class="icon arrow-right"/>
+        </a>
+      </div>
+    {% endif %}
+  </nav>
+{% else%}
+  <nav class="pager" role="navigation1" aria-labelledby="{{ heading_id }}">
+    {% if not items.previous %}
+      <div class="pager__item pager__item--next">
+        <a href="/calendar/view/list" title="Go to upcoming events">
+          <span>Next Events</span>
+          <img src="/modules/custom/calendar_listview/images/arrow-right.svg" class="icon arrow-right"/>
+        </a>
+      </div>
+    {% endif %}
+  </nav>
+{% endif %}

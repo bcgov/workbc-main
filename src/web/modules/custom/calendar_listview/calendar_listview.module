@@ -1,0 +1,55 @@
+<?php
+
+  /**
+   * @file
+   *  Calendar Listview module to create list-view feature for calendar. 
+   */
+
+  use Symfony\Component\HttpFoundation\RedirectResponse;
+  use Drupal\Core\Url;
+  use Drupal\Core\Cache\Cache;
+  use Drupal\node\Entity\Node;
+  use Drupal\views\ViewExecutable;
+   
+
+function calendar_listview_page_attachments_alter(array &$attachments) {  
+	$attachments['#attached']['library'][] = 'calendar_listview/calendar-listview-lib';
+}
+
+function calendar_listview_theme($existing, $type, $theme, $path) {
+  return [
+    'views_view_unformatted__calendar' => [
+      'template' => 'views-unformatted--calendar-block-1',
+      'base hook' => 'view'
+    ],
+    'views_mini_pager__event_calendar_listview__block_1' => [
+      'template' => 'views-mini-pager--calendar--block-1',
+      'base hook' => 'view'
+    ],
+    'views_mini_pager__event_calendar_listview__block_2' => [
+      'template' => 'views-mini-pager--calendar--block-2',
+      'base hook' => 'view'
+    ],
+    'views_view__fullcalendar' => [
+      'template' => 'views-view-fullcalendar',
+      'base hook' => 'view'
+    ],
+    'calendarviewmode' => [
+      'template' => 'calendar--viewmode',
+      'variables' => [
+        'viewmode' => NULL,
+      ]
+    ]
+  ];
+}
+
+function calendar_listview_theme_suggestions_page_alter(array &$suggestions, array $variables){
+	if ($view = \Drupal::routeMatch()->getParameter('view_id')) {
+		$display_id = \Drupal::routeMatch()->getParameter('display_id');
+		$suggestions[] = 'page__' . $view . '--' . $display_id;
+	}
+	if ($node = \Drupal::routeMatch()->getParameter('node')) {
+		$suggestions[] = 'page__' . $node->bundle().'_'.$node->id();
+		$suggestions[] = 'page__' . $node->bundle();
+	}
+}

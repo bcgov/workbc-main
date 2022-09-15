@@ -1,0 +1,23 @@
+@media screen and (max-width: 1199px) {
+  .ev-date::Before {
+    right: -11px;
+    background-color: red; }
+
+  .ev-date div, .ev-address p {
+    padding-left: 12px; }
+
+  .ev-address {
+    background-size: 7% 100%;
+    padding-left: 20px; }
+
+  .ev-date {
+    background-size: 8% 100%;
+    padding-left: 20px; }
+
+  .e-description p {
+    padding: 5px 15px 20px 0px; } }
+@media screen and (max-width: 991px) {
+  .ev-date::Before {
+    display: none; } }
+
+/*# sourceMappingURL=responsive.css.map */
