@@ -127,7 +127,7 @@ function map_fields_ids($template) {
  */
 function extract_value($value) {
   if (is_string($value)) {
-    return htmlspecialchars_decode($value);
+    return htmlspecialchars_decode(trim($value));
   }
   else if (is_array($value)) {
     return array_map('extract_value', $value);
