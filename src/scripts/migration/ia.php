@@ -11,7 +11,6 @@ use Drupal\pathauto\PathautoState;
  *
  * Revert:
  * - drush entity:delete node --bundle=page
- * - drush entity:delete menu_link_content
  */
 
 $file = __DIR__ . '/data/ia.csv';
@@ -270,6 +269,12 @@ function createMenuEntry($path, $page, &$pages, $menu_name) {
     print("  Menu for \"$title\": {$pages[$path]['menu_item']}" . PHP_EOL);
 }
 
+// Delete existing main menu.
+$old_menu_links = \Drupal::entityTypeManager()->getStorage('menu_link_content')
+    ->loadByProperties(['menu_name' => 'main']);
+foreach ($old_menu_links as $old_menu_link) {
+    $old_menu_link->delete();
+}
 foreach ($pages as $path => &$page) {
     print("Processing \"{$page['title']}\"..." . PHP_EOL);
 
