@@ -54,6 +54,9 @@ function convertRichText($text, &$items = NULL) {
         $text
       );
     }
+    foreach (convertPDFLinks($text) as $item) {
+      $text = str_replace($item['match'], $item['replace'], $text);
+    }
   }
   return ['format' => 'full_html', 'value' => $text];
 }
@@ -174,6 +177,32 @@ function convertEmbeddableLinks($text) {
         }
       }
     }
+  }
+  return $targets;
+}
+
+function convertPDFLinks($text) {
+  if (!preg_match_all('/https:\/\/www\.workbc\.ca\/getmedia\/[-a-zA-Z0-9]+\/(.*?\.pdf)\.aspx/i', $text, $matches)) {
+    return [];
+  }
+
+  $targets = [];
+  foreach ($matches[0] as $m => $url) {
+    $data = file_get_contents($url);
+    if ($data === FALSE) {
+      print("  Could not download file {$url}\n");
+      continue;
+    }
+    $filename = $matches[1][$m];
+    $file = \Drupal::service('file.repository')->writeData($data, "public://$filename");
+    if (empty($file)) {
+      print(" Could not create file $filename\n");
+      return NULL;
+    }
+    $targets[] = [
+      'match' => $url,
+      'replace' => $file->createFileUrl(),
+    ];
   }
   return $targets;
 }

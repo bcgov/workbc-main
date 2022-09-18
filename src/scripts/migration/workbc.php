@@ -43,18 +43,14 @@ foreach ($items as $id => $item) {
     // Populate standard fields.
     if (property_exists($item, 'Page Content')) {
         $fields['body'] = convertRichText($item->{'Page Content'}, $items);
-
-        // The teaser (aka summary) can come from the page description or the (deprecated) related topics blurb.
-        if (property_exists($item, 'Page Description')) {
-            $fields['body']['summary'] = convertRichText($item->{'Page Description'}, $items);
-        }
-        if (property_exists($item, 'Related Topics Blurb')) {
-            $fields['body']['summary'] = convertRichText($item->{'Related Topics Blurb'}, $items);
-        }
     }
 
     if (property_exists($item, 'Page Description')) {
         $fields['field_hero_text'] = convertRichText($item->{'Page Description'}, $items);
+    }
+
+    if (property_exists($item, 'Related Topics Blurb')) {
+        $fields['field_related_topics_blurb'] = convertRichText($item->{'Related Topics Blurb'}, $items);
     }
 
     if (property_exists($item, 'Banner Image')) {
@@ -77,16 +73,7 @@ foreach ($items as $id => $item) {
     }
 
     // Populate remaining fields based on template type.
-    // TODO Verify that template type matches Drupal content type.
     switch (trim($item->template)) {
-        case "Standard Page":
-        case "Landing Page 1":
-        case "Landing Page 2":
-        case "Landing Page 3":
-        case "Landing Page 4":
-        case "Landing Page 5":
-        case "Landing Page 6":
-            break;
         case "Blog Post, News Post, Success Stories Post":
             if (property_exists($item, 'Date')) {
                 $fields['published_date'] = strtotime($item->{'Date'});
