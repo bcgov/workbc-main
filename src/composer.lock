@@ -4,7 +4,7 @@
         "Read more about it at https://getcomposer.org/doc/01-basic-usage.md#installing-dependencies",
         "This file is @generated automatically"
     ],
-    "content-hash": "2bffbc671c33d6f50ff51f96dd67393d",
+    "content-hash": "58f30228e38b705717c96b5e09e5af6f",
     "packages": [
         {
             "name": "alchemy/zippy",
@@ -5980,6 +5980,63 @@
             "support": {
                 "source": "https://git.drupalcode.org/project/simple_block",
                 "issues": "https://www.drupal.org/project/issues/simple_block"
+            }
+        },
+        {
+            "name": "drupal/simple_sitemap",
+            "version": "4.1.2",
+            "source": {
+                "type": "git",
+                "url": "https://git.drupalcode.org/project/simple_sitemap.git",
+                "reference": "4.1.2"
+            },
+            "dist": {
+                "type": "zip",
+                "url": "https://ftp.drupal.org/files/projects/simple_sitemap-4.1.2.zip",
+                "reference": "4.1.2",
+                "shasum": "0b695684d0a6dd2a6162051aac7dab4852d72214"
+            },
+            "require": {
+                "drupal/core": "^9.3 || ^10",
+                "ext-xmlwriter": "*"
+            },
+            "type": "drupal-module",
+            "extra": {
+                "drupal": {
+                    "version": "4.1.2",
+                    "datestamp": "1655334556",
+                    "security-coverage": {
+                        "status": "covered",
+                        "message": "Covered by Drupal's security advisory policy"
+                    }
+                },
+                "drush": {
+                    "services": {
+                        "drush.services.yml": "^9 || ^10"
+                    }
+                }
+            },
+            "notification-url": "https://packages.drupal.org/8/downloads",
+            "license": [
+                "GPL-2.0-or-later"
+            ],
+            "authors": [
+                {
+                    "name": "Pawel Ginalski (gbyte)",
+                    "homepage": "https://www.drupal.org/u/gbyte",
+                    "email": "contact@gbyte.dev",
+                    "role": "Maintainer"
+                },
+                {
+                    "name": "WalkingDexter",
+                    "homepage": "https://www.drupal.org/user/3251330"
+                }
+            ],
+            "description": "Creates a standard conform hreflang XML sitemap of the site content and provides a framework for developing other sitemap types.",
+            "homepage": "https://drupal.org/project/simple_sitemap",
+            "support": {
+                "source": "https://cgit.drupalcode.org/simple_sitemap",
+                "issues": "https://drupal.org/project/issues/simple_sitemap"
             }
         },
         {
