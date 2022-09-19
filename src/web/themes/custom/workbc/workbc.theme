@@ -5,8 +5,10 @@
  * WorkBC theme file.
  */
 
+/**
+ * Implements hook theme_preprocess_paragraph().
+ */
 function workbc_preprocess_paragraph(&$variables) {
-
     $parent = $variables['paragraph']->getParentEntity();
     if ($parent->bundle() == "action_cards_full_width") {
       $align = $parent->field_alignment->value;
@@ -24,12 +26,29 @@ function workbc_preprocess_paragraph(&$variables) {
     }
 }
 
-
 /**
  * Implements hook_form_alter().
  */
 function workbc_form_alter(&$form, \Drupal\Core\Form\FormStateInterface $form_state, $form_id) {
   if ($form_id == 'views_exposed_form' && $form['#id'] == 'views-exposed-form-search-career-profiles-page-1' or $form['#id'] == 'views-exposed-form-search-site-content-page-1') {
     $form['#attributes']['class'][] = 'search-form';
+  }
+}
+
+/**
+ * Implements hook theme_preprocess_page().
+ */
+function workbc_preprocess_page(&$variables) {
+  // default page format
+  $variables['page_format'] = "standard";
+  if (isset($variables['node'])) {
+    $node = $variables['node'];
+    if ($node instanceof \Drupal\node\NodeInterface) {
+      if ($node->bundle() == "page") {
+        if ($node->hasField('field_page_format') && !$node->get('field_page_format')->isEmpty()) {
+          $variables['page_format'] = $node->get("field_page_format")->getString();
+        }
+      }
+    }
   }
 }
