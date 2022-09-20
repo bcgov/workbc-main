@@ -3,12 +3,13 @@ langcode: en
 status: true
 dependencies:
   module:
+    - block_visibility_conditions
     - workbc_menu
   theme:
     - workbc
 id: workbcmenublock
 theme: workbc
-region: nav_branding
+region: hidden
 weight: 0
 provider: null
 plugin: menu_block
@@ -17,4 +18,12 @@ settings:
   label: 'WorkBC menu block'
   label_display: '0'
   provider: workbc_menu
-visibility: {  }
+visibility:
+  not_node_type:
+    id: not_node_type
+    bundles: {  }
+    negate: null
+  not_taxonomy_vocabulary:
+    id: not_taxonomy_vocabulary
+    bundles: {  }
+    negate: null

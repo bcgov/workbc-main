@@ -1,4 +1,4 @@
-uuid: 7e8ebee5-813c-443f-b3d2-bb9774b30d4a
+uuid: 083c8f1c-6eab-4337-b98c-70b8009767e8
 langcode: en
 status: true
 dependencies:
@@ -9,9 +9,9 @@ dependencies:
     - simple_block
   theme:
     - workbc
-id: alertribbon
+id: alert_ribbon
 theme: workbc
-region: alert_ribbon
+region: hidden
 weight: 0
 provider: null
 plugin: 'simple_block:alert_ribbon'

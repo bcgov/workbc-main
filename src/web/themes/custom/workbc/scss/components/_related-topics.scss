@@ -38,6 +38,11 @@
   }
 }
 
+.swiper-container .swiper-button-next,
+.swiper-container .swiper-button-prev {
+  z-index: 1;
+}
+
 // override some Swiper defaults to get smaller nav arrows at mobile size (giving us more Slide space)
 :root {
   --swiper-navigation-size: 22px !important;
