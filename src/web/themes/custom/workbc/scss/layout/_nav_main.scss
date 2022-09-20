@@ -1,8 +1,5 @@
-/* ============ navbar themes ============ */
-
 // This mixin houses all the basic trim size setup
 @mixin nav-theme-base {
-
   ul.nav-t1 {
     @include list-reset;
 
@@ -27,7 +24,8 @@
 
     & > li {
       padding: $workbc_trim_standard_size 10px 0 10px; // top padding set to balance border-bottom and keep content centered
-      border-bottom: $workbc_trim_standard_size solid $workbc_palette_transparent; // placeholder for hover styling to avoid content jumping
+      border-bottom: $workbc_trim_standard_size solid
+        $workbc_palette_transparent; // placeholder for hover styling to avoid content jumping
       min-width: 80px;
       height: 80px;
       flex: 2 1 auto;
@@ -71,7 +69,8 @@
             width: 50%;
 
             & > li {
-              border-left: $workbc_trim_standard_size solid $workbc_palette_transparent; //placeholder to prevent content shifting when colored borders are in place (hover, etc.)
+              border-left: $workbc_trim_standard_size solid
+                $workbc_palette_transparent; //placeholder to prevent content shifting when colored borders are in place (hover, etc.)
 
               & > a {
                 &.has-submenu {
@@ -82,14 +81,13 @@
                     top: 0;
                     right: 0;
                     bottom: 0;
-                    content: '\e5cc';
-                    font-family: 'Material Symbols Outlined';
+                    content: "\e5cc";
+                    font-family: "Material Symbols Outlined";
                     font-weight: normal;
                     font-style: normal;
-                    font-size: 24px;  /* Preferred icon size */
+                    font-size: 24px; /* Preferred icon size */
                     color: $workbc_palette_light_tertiary;
                   }
-
                 }
               }
 
@@ -127,15 +125,14 @@
   }
 }
 
-
-.nav-theme-dark {
+.nav-main {
   @include nav-theme-base;
   background-color: $workbc_dark_theme_background;
 
   ul.nav-t1 {
     & > li {
-
-      & > a, a:focus {
+      & > a,
+      a:focus {
         color: $workbc_dark_theme_text;
       }
 
@@ -143,7 +140,8 @@
         border-color: $workbc_light_theme_trim;
         background-color: $workbc_light_theme_background_default;
 
-        & > a, a:focus {
+        & > a,
+        a:focus {
           color: $workbc_light_theme_text;
         }
       }
@@ -152,7 +150,8 @@
         border-color: $workbc_light_theme_trim;
         background-color: $workbc_light_theme_background_default;
 
-        & > a, a:focus {
+        & > a,
+        a:focus {
           color: $workbc_light_theme_text;
         }
       }
@@ -160,19 +159,23 @@
       .submenu-container {
         .submenu {
           background: $workbc_light_theme_background_default;
-          border-bottom: $workbc_trim_thin_size solid $workbc_light_theme_trim_alternate;
+          border-bottom: $workbc_trim_thin_size solid
+            $workbc_light_theme_trim_alternate;
 
           ul.nav-t2 {
             & > li {
-              & > a, a:focus {
+              & > a,
+              a:focus {
                 color: $workbc_light_theme_text;
               }
 
               &:hover {
-                border-left: $workbc_trim_standard_size solid $workbc_dark_theme_background;
+                border-left: $workbc_trim_standard_size solid
+                  $workbc_dark_theme_background;
                 background-color: $workbc_light_theme_background_accent;
 
-                & > a, a:focus {
+                & > a,
+                a:focus {
                   color: $workbc_default_link;
                 }
               }
@@ -184,48 +187,96 @@
   }
 }
 
-/* ============ navbar themes .end// ============ */
-
-/* ============ navbar layout  ============ */
-
-nav.navbar {
+.nav-main {
   display: none;
 
   @include media-breakpoint-up(lg) {
     display: block;
+    position: relative;
+    transition: all 0.3s ease-out;
+    z-index: 3;
+    height: 80px;
+    padding: 0;
+    margin: 0;
+    box-shadow: $workbc_default_bottom_shadow;
   }
-
-  z-index: 3;
-  height: 80px;
-  padding: 0px;
-  margin: 0px;
-  box-shadow: $workbc_default_bottom_shadow;
 
   .container {
     position: relative;
     z-index: -1;
     height: 100%;
-
-    #main_nav,
-    #navbarSupportedContent {
-      height: 100%;
-    }
   }
 }
 
-.page-content-wrapper {
-  position: relative;
+.submenu-underlay {
+  position: absolute;
+  top: 0;
+  right: 0;
+  bottom: 0;
+  left: 0;
+  z-index: 2;
+  background-color: rgba(20, 20, 20, 0.15);
+  display: none;
+}
 
-  #submenu-underlay {
-    position: absolute;
+// Fixed Nav
+.nav-fixed {
+  @include media-breakpoint-up(lg) {
+    padding-top: 36px;
+  }
+}
+
+.nav-fixed .nav-main {
+  @include media-breakpoint-up(lg) {
+    position: fixed;
+    width: 100%;
     top: 0;
-    right: 0;
-    bottom: 0;
     left: 0;
-    z-index: 2;
-    background-color: rgba(20,20,20,0.15);
+    transition: all 0.3s ease-out;
+    background-color: #fff;
+  }
+}
+
+.nav-fixed.page-has-alert {
+  @include media-breakpoint-up(lg) {
+    padding-top: 81px;
+  }
+}
+
+// Drupal Admin Menu Offset
+.nav-fixed.toolbar-fixed .nav-main {
+  @include media-breakpoint-up(lg) {
+    top: 38px;
+  }
+}
+
+.nav-fixed.toolbar-tray-open .nav-main {
+  @include media-breakpoint-up(lg) {
+    top: 79px;
+  }
+}
+
+.nav-fixed.toolbar-fixed {
+  @include media-breakpoint-up(lg) {
+    padding-top: 79px;
+  }
+}
+
+// Hides home link in Fixed Nav
+.nav-fixed .nav-main .nav-t1 .nav-item:first-child {
+  @include media-breakpoint-up(lg) {
     display: none;
   }
 }
 
-/* ============ navbar layout .end// ============ */
+.nav-fixed .nav-main ul.nav-t1 > li > a {
+  @include media-breakpoint-up(lg) {
+    color: #234075;
+  }
+}
+
+.nav-fixed .nav-main .submenu-container .submenu {
+  @include media-breakpoint-up(lg) {
+    box-shadow: 0px 8px 5px -5px rgba(0, 0, 0, 0.1) inset;
+  }
+}
