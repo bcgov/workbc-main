@@ -71,3 +71,9 @@
 .mobile-nav__user-nav .nav-items {
   @include list-reset;
 }
+
+.mm-wrapper--position-left .mm-slideout {
+  @include media-breakpoint-up(lg) {
+    transform: none;
+  }
+}
