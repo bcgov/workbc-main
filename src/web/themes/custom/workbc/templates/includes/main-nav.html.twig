@@ -1,13 +1,7 @@
-{% if page.nav_branding or page.nav_main or page.nav_additional %}
-  <nav class="{{ nav_classes }}">
-    <div class="{{ b5_top_container }} px-0 d-flex">
-      {{ page.nav_branding }}
-      <div class="collapse navbar-collapse justify-content-md-end flex-wrap" id="navbarSupportedContent">
-        {{ page.nav_main }}
-        {{ page.nav_additional }}
-      </div>
-    </div>
-  </nav>
-{% endif %}
+<div class="nav-main">
+  <div class="{{ b5_top_container }} px-0 d-flex">
+    {{ drupal_entity('block', 'workbcmenublock') }}
+  </div>
+</div>
 
 {{ attach_library('workbc/submenu-underlay') }}
