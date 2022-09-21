@@ -42,3 +42,7 @@ sidenav-anchors:
 mobile-nav:
   js:
     js/mobile-nav.js: {}
+
+nav:
+  js:
+    js/nav.js: {}

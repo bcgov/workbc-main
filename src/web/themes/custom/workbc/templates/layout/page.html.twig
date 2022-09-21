@@ -42,13 +42,6 @@
  * @see html.html.twig
  */
 #}
-{%
-set nav_classes = 'navbar navbar-expand-lg workbc-megamenu nav-theme-dark' ~
-  (b5_navbar_schema != 'none' ? " navbar-#{b5_navbar_schema}" : ' ') ~
-  (b5_navbar_schema != 'none' ? (b5_navbar_schema == 'dark' ? ' text-light' : ' text-dark' ) : ' ') ~
-  (b5_navbar_bg_schema != 'none' ? " bg-#{b5_navbar_bg_schema}" : ' ')
-%}
-
 
 {# Header #}
 {% include '@workbc/includes/header.html.twig' %}
@@ -70,11 +63,7 @@ set nav_classes = 'navbar navbar-expand-lg workbc-megamenu nav-theme-dark' ~
 
   <div class="page-content-wrapper">
 
-    <div id="submenu-underlay"></div>
-
-    {% if page.hero_content %}
-      {{ page.hero_content }}
-    {% endif %}
+    <div class="submenu-underlay"></div>
 
     {{ page.breadcrumb }}
 

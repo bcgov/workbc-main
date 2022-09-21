@@ -106,6 +106,7 @@
         "drupal/recaptcha": "^3.0",
         "drupal/registration_link": "^2.4",
         "drupal/responsive_menu": "^4.4",
+        "drupal/role_delegation": "^1.2",
         "drupal/scheduled_publish": "^3.9",
         "drupal/search_api": "^1.23",
         "drupal/search_api_autocomplete": "^1.6",
