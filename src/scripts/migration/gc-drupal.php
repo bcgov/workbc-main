@@ -4,6 +4,9 @@
  * Functions to import GatherContent items into Drupal.
  */
 
+use Drupal\Core\Link;
+use Drupal\Core\Url;
+
 function convertCheck($check_field) {
   return array_map(function($field) {
     return $field->label;
@@ -37,12 +40,29 @@ function convertRadio($radio_field) {
   return current($radio_field)->label;
 }
 
+function convertPlainText($text) {
+  return trim($text);
+}
+
 function convertRichText($text, &$items = NULL) {
   if (!empty($items)) {
     foreach (convertGatherContentLinks($text, $items) as $item) {
       $options = ['absolute' => FALSE];
-      $url = \Drupal\Core\Url::fromRoute('entity.node.canonical', ['node' => $item['nid']], $options);
+      $url = \Drupal\Core\Url::fromRoute('entity.node.canonical', ['node' => $item['target_id']], $options);
       $text = str_replace($item['match'], $url->toString(), $text);
+    }
+    foreach (convertEmbeddableLinks($text) as $item) {
+      $media = Drupal::entityTypeManager()
+        ->getStorage('media')
+        ->load($item['target_id']);
+      $text = str_replace(
+        $item['match'],
+        '<drupal-media data-entity-type="media" data-entity-uuid="' . $media->uuid() . '"></drupal-media>',
+        $text
+      );
+    }
+    foreach (convertPDFLinks($text) as $item) {
+      $text = str_replace($item['match'], $item['replace'], $text);
     }
   }
   return ['format' => 'full_html', 'value' => $text];
@@ -60,7 +80,9 @@ function convertVideo($url, $extra_fields = []) {
     $url = "https://www.youtube.com/watch?v=" . $match[1];
   }
 
-  $medias = \Drupal::entityTypeManager()->getStorage('media')->loadByProperties(['field_media_oembed_video' => $url]);
+  $medias = \Drupal::entityTypeManager()
+    ->getStorage('media')
+    ->loadByProperties(['field_media_oembed_video' => $url]);
   if (!empty($medias)) {
     print("  Found existing media item\n");
     $media = current($medias);
@@ -80,6 +102,13 @@ function convertVideo($url, $extra_fields = []) {
   }
   $media->save();
   return ['target_id' => $media->id()];
+}
+
+function convertDrupalLinks($text) {
+  if (!preg_match('/^\/(?:[-a-zA-Z0-9()@:%_\+.~#?&\/=]*)$/', $text, $matches)) {
+    return [];
+  }
+  return $matches;
 }
 
 function convertGatherContentLinks($text, &$items) {
@@ -125,9 +154,73 @@ function convertGatherContentLinks($text, &$items) {
       $items[$item_id]->nid = $node->id();
     }
     $targets[] = array(
-      'nid' => $items[$item_id]->nid,
+      'target_id' => $items[$item_id]->nid,
       'match' => $matches[0][$m],
     );
   }
   return $targets;
+}
+
+function convertEmbeddableLinks($text) {
+  // https://uibakery.io/regex-library/url
+  if (!preg_match_all('/[^"\'](https?:\/\/(?:www\.)?[-a-zA-Z0-9@:%._\+~#=]{1,256}\.[a-zA-Z0-9()]{1,6}\b(?:[-a-zA-Z0-9()@:%_\+.~#?&\/=]*))[^"\']/', $text, $matches)) {
+    return [];
+  }
+
+  $providers = \Drupal::service('media.oembed.provider_repository');
+  $targets = [];
+  foreach ($matches[1] as $url) {
+    print("  Verifying embeddable URL $url..." . PHP_EOL);
+    foreach ($providers->getAll() as $provider_info) {
+      foreach ($provider_info->getEndpoints() as $endpoint) {
+        if ($endpoint->matchUrl($url)) {
+          print("  Found an embeddable URL $url" . PHP_EOL);
+          $video = convertVideo($url);
+          $targets[] = array(
+            'target_id' => $video['target_id'],
+            'match' => $url,
+          );
+          break 2;
+        }
+      }
+    }
+  }
+  return $targets;
+}
+
+function convertPDFLinks($text) {
+  if (!preg_match_all('/https:\/\/www\.workbc\.ca\/getmedia\/[-a-zA-Z0-9]+\/(.*?\.pdf)\.aspx/i', $text, $matches)) {
+    return [];
+  }
+
+  $targets = [];
+  foreach ($matches[0] as $m => $url) {
+    $data = file_get_contents($url);
+    if ($data === FALSE) {
+      print("  Could not download file {$url}\n");
+      continue;
+    }
+    $filename = $matches[1][$m];
+    $file = \Drupal::service('file.repository')->writeData($data, "public://$filename");
+    if (empty($file)) {
+      print(" Could not create file $filename\n");
+      return NULL;
+    }
+    $targets[] = [
+      'match' => $url,
+      'replace' => $file->createFileUrl(),
+    ];
+  }
+  return $targets;
+}
+
+function convertLink($text, $url, &$items) {
+  $internal = convertGatherContentLinks($url, $items);
+  if (!empty($internal)) {
+    $target = Url::fromRoute('entity.node.canonical', ['node' => current($internal)['target_id']]);
+  }
+  else {
+    $target = Url::fromUri($url);
+  }
+  return Link::fromTextAndUrl(trim($text), $target)->toString();
 }
