@@ -263,7 +263,7 @@
 }
 
 // Hides home link in Fixed Nav
-.nav-fixed .nav-main .nav-t1 .nav-item:first-child {
+.nav-fixed .nav-main .nav-t1 > .nav-item:first-child {
   @include media-breakpoint-up(lg) {
     display: none;
   }
