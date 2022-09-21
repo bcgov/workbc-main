@@ -263,7 +263,10 @@ function convertCards($cards, &$items, $card_type = NULL) {
                 $card_fields['field_description'] = convertRichText($card->{'Body'});
             }
             if (property_exists($card, 'Image')) {
-                $card_fields['field_image'] = array_map('convertImage', array_filter($card->{'Image'}))[0] ?? NULL;
+                $images = array_map('convertImage', array_filter($card->{'Image'}));
+                if (!empty($images)) {
+                    $card_fields['field_image'] = current($images);
+                }
             }
             if (property_exists($card, 'Link Text') && property_exists($card, 'Link Target')) {
                 $card_fields['field_link'] = convertLink($card->{'Link Text'}, $card->{'Link Target'}, $items);
