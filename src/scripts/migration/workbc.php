@@ -4,6 +4,7 @@ require('gc-drupal.php');
 
 use Drupal\path_alias\Entity\PathAlias;
 use Drupal\pathauto\PathautoState;
+use Drupal\paragraphs\Entity\Paragraph;
 
 /**
  * Update nodes for GatherContent WorkBC items.
@@ -70,6 +71,11 @@ foreach ($items as $id => $item) {
             $card->{'Link Target'} = $target;
             return $card;
         }, array_filter($item->{'Related Topics Link Target'})), $items);
+    }
+
+    // Import all variations of cards.
+    if (property_exists($item, 'Card')) {
+        $fields['field_content'] = convertCards($item->{'Card'}, $items);
     }
 
     // Populate remaining fields based on template type.
@@ -158,4 +164,122 @@ function createBlogNewsSuccessStory($item) {
     $node->save();
     print("  Created $type" . PHP_EOL);
     return $node;
+}
+
+function convertCards($cards, &$items, $card_type = NULL) {
+    $card_types = [
+        'Feature' => [
+            'container' => 'action_card_feature',
+            'card' => 'action_card',
+            'field_name' => 'field_action_card',
+            'only_one_card_per_container' => TRUE,
+        ],
+        'Full Width' => [
+            'container' => 'action_cards_full_width',
+            'card' => 'action_card_full_width',
+            'field_name' => 'field_action_cards',
+            'only_one_card_per_container' => FALSE,
+        ],
+        '1/2 Width' => [
+            'container' => 'action_cards_1_2',
+            'card' => 'action_card',
+            'field_name' => 'field_action_cards',
+            'only_one_card_per_container' => FALSE,
+        ],
+        '1/3 Width' => [
+            'container' => 'action_cards_1_3',
+            'card' => 'action_card',
+            'field_name' => 'field_action_cards',
+            'only_one_card_per_container' => FALSE,
+        ],
+        '1/4 Width' => [
+            'container' => 'action_cards_1_4',
+            'card' => 'action_card',
+            'field_name' => 'field_action_cards',
+            'only_one_card_per_container' => FALSE,
+        ],
+        'Quote' => [
+            'container' => 'action_cards_1_4',
+            'card' => 'quote_card',
+            'field_name' => 'field_action_cards',
+            'only_one_card_per_container' => FALSE,
+        ],
+        'Icon' => [
+            'container' => 'action_cards_icon',
+            'card' => 'action_card_icon',
+            'field_name' => 'field_action_cards',
+            'only_one_card_per_container' => FALSE,
+        ],
+        'Not a card, just a block of content (in the Body field below)' => [
+            'container' => 'content_text',
+            'card' => NULL,
+            'field_name' => 'field_body',
+            'only_one_card_per_container' => TRUE,
+        ],
+    ];
+
+    $paragraphs = [];
+    $container_paragraph = NULL;
+    foreach ($cards as $card) {
+        $type = $card?->{'Card Type'} ?? $card_type;
+        if (empty($type)) {
+            print("  Cannot create card with empty type" . PHP_EOL);
+            continue;
+        }
+        if (!array_key_exists($type, $card_types)) {
+            print("  Cannot create container with unknown type $type" . PHP_EOL);
+            continue;
+        }
+
+        // Create new container if needed.
+        if (empty($container_paragraph) || $card_types[$type]['only_one_card_per_container'] || $card_types[$type]['container'] !== $container_paragraph->bundle()) {
+            $container_paragraph = Paragraph::create([
+                'type' => $card_types[$type]['container'],
+                'uid' => 1,
+            ]);
+            $container_paragraph->isNew();
+            $container_paragraph->save();
+
+            $paragraphs[] = [
+                'target_id' => $container_paragraph->id(),
+                'target_revision_id' => $container_paragraph->getRevisionId(),
+            ];
+        }
+
+        // Populate container.
+        if (empty($card_types[$type]['card'])) {
+            $container_paragraph->set($card_types[$type]['field_name'], convertRichText($card->{'Body'}));
+        }
+        else {
+            // Create card and add it to container.
+            $card_fields = [
+                'type' => $card_types[$type]['card'],
+                'uid' => 1,
+            ];
+            if (property_exists($card, 'Title')) {
+                $card_fields['field_title'] = convertPlainText($card->{'Title'});
+            }
+            if (property_exists($card, 'Body')) {
+                $card_fields['field_description'] = convertRichText($card->{'Body'});
+            }
+            if (property_exists($card, 'Image')) {
+                $card_fields['field_image'] = array_map('convertImage', array_filter($card->{'Image'}))[0] ?? NULL;
+            }
+            if (property_exists($card, 'Link Text') && property_exists($card, 'Link Target')) {
+                $card_fields['field_link'] = convertLink($card->{'Link Text'}, $card->{'Link Target'}, $items);
+            }
+
+            $card_paragraph = Paragraph::create($card_fields);
+            $card_paragraph->isNew();
+            $card_paragraph->save();
+
+            $container_paragraph->{$card_types[$type]['field_name']}[] = [
+                'target_id' => $card_paragraph->id(),
+                'target_revision_id' => $card_paragraph->getRevisionId(),
+            ];
+        }
+        $container_paragraph->save();
+
+    }
+    return $paragraphs;
 }

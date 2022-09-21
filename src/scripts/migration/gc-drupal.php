@@ -4,6 +4,9 @@
  * Functions to import GatherContent items into Drupal.
  */
 
+use Drupal\Core\Link;
+use Drupal\Core\Url;
+
 function convertCheck($check_field) {
   return array_map(function($field) {
     return $field->label;
@@ -35,6 +38,10 @@ function convertImage($image) {
 
 function convertRadio($radio_field) {
   return current($radio_field)->label;
+}
+
+function convertPlainText($text) {
+  return trim($text);
 }
 
 function convertRichText($text, &$items = NULL) {
@@ -205,4 +212,15 @@ function convertPDFLinks($text) {
     ];
   }
   return $targets;
+}
+
+function convertLink($text, $url, &$items) {
+  $internal = convertGatherContentLinks($url, $items);
+  if (!empty($internal)) {
+    $target = Url::fromRoute('entity.node.canonical', ['node' => current($internal)['target_id']]);
+  }
+  else {
+    $target = Url::fromUri($url);
+  }
+  return Link::fromTextAndUrl(trim($text), $target)->toString();
 }
