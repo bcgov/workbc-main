@@ -10,7 +10,7 @@ dependencies:
     - workbc
 id: sidenavblock
 theme: workbc
-region: sidebar_first
+region: hidden
 weight: 0
 provider: null
 plugin: side_nav_block

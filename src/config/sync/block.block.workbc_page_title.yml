@@ -1,6 +1,6 @@
 uuid: 7ad27b65-d1a1-4031-9cab-2954248a6d16
 langcode: en
-status: true
+status: false
 dependencies:
   module:
     - block_visibility_conditions
@@ -11,7 +11,7 @@ _core:
 id: workbc_page_title
 theme: workbc
 region: content
-weight: -17
+weight: 1
 provider: null
 plugin: page_title_block
 settings:

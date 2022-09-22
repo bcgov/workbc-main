@@ -1,6 +1,6 @@
 uuid: cb01b031-3b32-4488-aac3-2451a977b587
 langcode: en
-status: true
+status: false
 dependencies:
   config:
     - views.view.page_title_hero_no_hero
@@ -12,8 +12,8 @@ dependencies:
     - workbc
 id: views_block__page_title_hero_no_hero_block_3
 theme: workbc
-region: breadcrumb
-weight: -6
+region: content
+weight: -1
 provider: null
 plugin: 'views_block:page_title_hero_no_hero-block_3'
 settings:

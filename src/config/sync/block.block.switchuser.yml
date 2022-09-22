@@ -1,6 +1,6 @@
 uuid: d368153f-466a-4be2-bd87-42d1f68079a5
 langcode: en
-status: true
+status: false
 dependencies:
   module:
     - block_visibility_conditions
@@ -11,7 +11,7 @@ dependencies:
 id: switchuser
 theme: workbc
 region: content
-weight: -2
+weight: 2
 provider: null
 plugin: devel_switch_user
 settings:
