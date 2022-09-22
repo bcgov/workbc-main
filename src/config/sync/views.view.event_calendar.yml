@@ -9,7 +9,6 @@ dependencies:
     - field.storage.node.field_end_date
     - field.storage.node.field_event_type
     - field.storage.node.field_start_date
-    - field.storage.node.field_target_audience
     - field.storage.node.field_time
     - node.type.event
   module:
@@ -151,202 +150,10 @@ display:
           empty_zero: false
           hide_alter_empty: true
           click_sort_column: value
-          type: datetime_custom
+          type: datetime_default
           settings:
             timezone_override: ''
-            date_format: 'F d'
-          group_column: value
-          group_columns: {  }
-          group_rows: true
-          delta_limit: 0
-          delta_offset: 0
-          delta_reversed: false
-          delta_first_last: false
-          multi_type: separator
-          separator: ', '
-          field_api_classes: false
-        field_start_date_1:
-          id: field_start_date_1
-          table: node__field_start_date
-          field: field_start_date
-          relationship: none
-          group_type: group
-          admin_label: ''
-          plugin_id: field
-          label: ''
-          exclude: true
-          alter:
-            alter_text: false
-            text: ''
-            make_link: false
-            path: ''
-            absolute: false
-            external: false
-            replace_spaces: false
-            path_case: none
-            trim_whitespace: false
-            alt: ''
-            rel: ''
-            link_class: ''
-            prefix: ''
-            suffix: ''
-            target: ''
-            nl2br: false
-            max_length: 0
-            word_boundary: true
-            ellipsis: true
-            more_link: false
-            more_link_text: ''
-            more_link_path: ''
-            strip_tags: false
-            trim: false
-            preserve_tags: ''
-            html: false
-          element_type: ''
-          element_class: ''
-          element_label_type: ''
-          element_label_class: ''
-          element_label_colon: false
-          element_wrapper_type: ''
-          element_wrapper_class: ''
-          element_default_classes: true
-          empty: ''
-          hide_empty: false
-          empty_zero: false
-          hide_alter_empty: true
-          click_sort_column: value
-          type: datetime_custom
-          settings:
-            timezone_override: ''
-            date_format: F
-          group_column: value
-          group_columns: {  }
-          group_rows: true
-          delta_limit: 0
-          delta_offset: 0
-          delta_reversed: false
-          delta_first_last: false
-          multi_type: separator
-          separator: ', '
-          field_api_classes: false
-        field_start_date_2:
-          id: field_start_date_2
-          table: node__field_start_date
-          field: field_start_date
-          relationship: none
-          group_type: group
-          admin_label: ''
-          plugin_id: field
-          label: ''
-          exclude: true
-          alter:
-            alter_text: false
-            text: ''
-            make_link: false
-            path: ''
-            absolute: false
-            external: false
-            replace_spaces: false
-            path_case: none
-            trim_whitespace: false
-            alt: ''
-            rel: ''
-            link_class: ''
-            prefix: ''
-            suffix: ''
-            target: ''
-            nl2br: false
-            max_length: 0
-            word_boundary: true
-            ellipsis: true
-            more_link: false
-            more_link_text: ''
-            more_link_path: ''
-            strip_tags: false
-            trim: false
-            preserve_tags: ''
-            html: false
-          element_type: ''
-          element_class: ''
-          element_label_type: ''
-          element_label_class: ''
-          element_label_colon: false
-          element_wrapper_type: ''
-          element_wrapper_class: ''
-          element_default_classes: true
-          empty: ''
-          hide_empty: false
-          empty_zero: false
-          hide_alter_empty: true
-          click_sort_column: value
-          type: datetime_custom
-          settings:
-            timezone_override: ''
-            date_format: d
-          group_column: value
-          group_columns: {  }
-          group_rows: true
-          delta_limit: 0
-          delta_offset: 0
-          delta_reversed: false
-          delta_first_last: false
-          multi_type: separator
-          separator: ', '
-          field_api_classes: false
-        field_start_date_3:
-          id: field_start_date_3
-          table: node__field_start_date
-          field: field_start_date
-          relationship: none
-          group_type: group
-          admin_label: ''
-          plugin_id: field
-          label: ''
-          exclude: true
-          alter:
-            alter_text: false
-            text: ''
-            make_link: false
-            path: ''
-            absolute: false
-            external: false
-            replace_spaces: false
-            path_case: none
-            trim_whitespace: false
-            alt: ''
-            rel: ''
-            link_class: ''
-            prefix: ''
-            suffix: ''
-            target: ''
-            nl2br: false
-            max_length: 0
-            word_boundary: true
-            ellipsis: true
-            more_link: false
-            more_link_text: ''
-            more_link_path: ''
-            strip_tags: false
-            trim: false
-            preserve_tags: ''
-            html: false
-          element_type: ''
-          element_class: ''
-          element_label_type: ''
-          element_label_class: ''
-          element_label_colon: false
-          element_wrapper_type: ''
-          element_wrapper_class: ''
-          element_default_classes: true
-          empty: ''
-          hide_empty: false
-          empty_zero: false
-          hide_alter_empty: true
-          click_sort_column: value
-          type: datetime_custom
-          settings:
-            timezone_override: ''
-            date_format: F
+            format_type: html_date
           group_column: value
           group_columns: {  }
           group_rows: true
@@ -545,10 +352,10 @@ display:
           multi_type: separator
           separator: ', '
           field_api_classes: false
-        field_target_audience:
-          id: field_target_audience
-          table: node__field_target_audience
-          field: field_target_audience
+        field_time:
+          id: field_time
+          table: node__field_time
+          field: field_time
           relationship: none
           group_type: group
           admin_label: ''
@@ -594,11 +401,12 @@ display:
           hide_empty: false
           empty_zero: false
           hide_alter_empty: true
-          click_sort_column: target_id
-          type: entity_reference_label
+          click_sort_column: from
+          type: time_range_formatter
           settings:
-            link: false
-          group_column: target_id
+            time_format: 'h:i a'
+            timerange_format: 'start - end'
+          group_column: ''
           group_columns: {  }
           group_rows: true
           delta_limit: 0
@@ -671,70 +479,6 @@ display:
           multi_type: separator
           separator: ', '
           field_api_classes: false
-        field_time:
-          id: field_time
-          table: node__field_time
-          field: field_time
-          relationship: none
-          group_type: group
-          admin_label: ''
-          plugin_id: field
-          label: ''
-          exclude: true
-          alter:
-            alter_text: false
-            text: ''
-            make_link: false
-            path: ''
-            absolute: false
-            external: false
-            replace_spaces: false
-            path_case: none
-            trim_whitespace: false
-            alt: ''
-            rel: ''
-            link_class: ''
-            prefix: ''
-            suffix: ''
-            target: ''
-            nl2br: false
-            max_length: 0
-            word_boundary: true
-            ellipsis: true
-            more_link: false
-            more_link_text: ''
-            more_link_path: ''
-            strip_tags: false
-            trim: false
-            preserve_tags: ''
-            html: false
-          element_type: ''
-          element_class: ''
-          element_label_type: ''
-          element_label_class: ''
-          element_label_colon: false
-          element_wrapper_type: ''
-          element_wrapper_class: ''
-          element_default_classes: true
-          empty: ''
-          hide_empty: false
-          empty_zero: false
-          hide_alter_empty: true
-          click_sort_column: from
-          type: time_range_formatter
-          settings:
-            time_format: 'h:i a'
-            timerange_format: 'start - end'
-          group_column: ''
-          group_columns: {  }
-          group_rows: true
-          delta_limit: 0
-          delta_offset: 0
-          delta_reversed: false
-          delta_first_last: false
-          multi_type: separator
-          separator: ', '
-          field_api_classes: false
         field_event_type:
           id: field_event_type
           table: node__field_event_type
@@ -798,70 +542,6 @@ display:
           multi_type: separator
           separator: ', '
           field_api_classes: false
-        field_end_date_1:
-          id: field_end_date_1
-          table: node__field_end_date
-          field: field_end_date
-          relationship: none
-          group_type: group
-          admin_label: ''
-          plugin_id: field
-          label: ''
-          exclude: true
-          alter:
-            alter_text: false
-            text: ''
-            make_link: false
-            path: ''
-            absolute: false
-            external: false
-            replace_spaces: false
-            path_case: none
-            trim_whitespace: false
-            alt: ''
-            rel: ''
-            link_class: ''
-            prefix: ''
-            suffix: ''
-            target: ''
-            nl2br: false
-            max_length: 0
-            word_boundary: true
-            ellipsis: true
-            more_link: false
-            more_link_text: ''
-            more_link_path: ''
-            strip_tags: false
-            trim: false
-            preserve_tags: ''
-            html: false
-          element_type: ''
-          element_class: ''
-          element_label_type: ''
-          element_label_class: ''
-          element_label_colon: false
-          element_wrapper_type: ''
-          element_wrapper_class: ''
-          element_default_classes: true
-          empty: ''
-          hide_empty: false
-          empty_zero: false
-          hide_alter_empty: true
-          click_sort_column: value
-          type: datetime_custom
-          settings:
-            timezone_override: ''
-            date_format: 'F d'
-          group_column: value
-          group_columns: {  }
-          group_rows: true
-          delta_limit: 0
-          delta_offset: 0
-          delta_reversed: false
-          delta_first_last: false
-          multi_type: separator
-          separator: ', '
-          field_api_classes: false
         nothing:
           id: nothing
           table: views
@@ -874,7 +554,7 @@ display:
           exclude: false
           alter:
             alter_text: true
-            text: "<div class=\"list-view\">\r\n    <div class=\"row\">\r\n        <div class=\"col-md-3\">\r\n            <div class=\"sd-date-panel\">\r\n                <div class=\"sd-top\">{{ field_start_date_1 }} </div>\r\n                <div class=\"sd-middle\">{{ field_start_date_2 }} </div>\r\n                <div class=\"sd-bottom\">{{ field_start_date_3 }} </div>\r\n            </div>\r\n        </div>\r\n        <div class=\"col-md-9\">\r\n            <div class=\"right-side\">\r\n                <div class=\"e-title\">{{ title }}</div>\r\n                <div class=\"e-sub-title\">{{ field_event_type }}</div>\r\n                <div class=\"row\">\r\n                    <div class=\"col-lg-6\">\r\n                        <div class=\"ev-date\">\r\n                          <div>{{ field_start_date }} - {{ field_end_date_1 }}</div>\r\n                          <div>{{ field_time }} </div>\r\n                        </div>\r\n                    </div>\r\n                    <div class=\"col-lg-6\">\r\n                        <div class=\"ev-address\">\r\n                            {{ field_address }} \r\n                        </div>\r\n                    </div>\r\n                </div>\r\n                <div class=\"e-description\">\r\n                    {{ body }} \r\n                </div>\r\n                <div class=\"e-ta\">\r\n                    Target Audience: {{ field_audience }} \r\n                </div>\r\n            </div>\r\n        </div>\r\n    </div>\r\n</div>\r\n<div class=\"grid-view\">\r\n  <div class=\"grid-title\">{{ title  }}</div>\r\n  <div class=\"grid-sub-title\">{{ field_event_type }}</div>\r\n</div>"
+            text: "<div class=\"list-view\">\r\n    <div class=\"row\">\r\n        <div class=\"col-md-4\">\r\n            <div class=\"sd-date-panel\">\r\n                <div class=\"sd-top\">{{ field_start_date.content|striptags|trim|date('F') }} </div>\r\n                <div class=\"sd-middle\">{{ field_start_date.content|striptags|trim|date('d') }} </div>\r\n                <div class=\"sd-bottom\">{{ field_start_date.content|striptags|trim|date('Y') }} </div>\r\n            </div>\r\n        </div>\r\n        <div class=\"col-md-8\">\r\n            <div class=\"right-side\">\r\n                <div class=\"e-title\">{{ title }}</div>\r\n                <div class=\"e-sub-title\">{{ field_event_type }}</div>\r\n                <div class=\"row\">\r\n                    <div class=\"col-lg-6\">\r\n                        <div class=\"ev-date\">\r\n                          <div>{% if field_start_date|striptags|trim|date('d-m-Y') == field_end_date|striptags|trim|date('d-m-Y') %}\r\n                        {{ field_start_date|striptags|trim|date('F d') }}\r\n                        {% else %}\r\n                          {{ field_start_date|striptags|trim|date('F d') }} -\r\n                          {{ field_end_date|striptags|trim|date('F d') }}\r\n                        {% endif %}</div>\r\n                          <div>{{ field_time }} </div>\r\n                        </div>\r\n                    </div>\r\n                    <div class=\"col-lg-6\">\r\n                        <div class=\"ev-address\">\r\n                            {{ field_address }} \r\n                        </div>\r\n                    </div>\r\n                </div>\r\n                <div class=\"e-description\">\r\n                    {{ body }} \r\n                </div>\r\n                <div class=\"e-ta\">\r\n                    Target Audience: {{ field_audience }} \r\n                </div>\r\n            </div>\r\n        </div>\r\n    </div>\r\n</div>\r\n<div class=\"grid-view\">\r\n  <div class=\"grid-title\">{{ title  }}</div>\r\n  <div class=\"grid-sub-title\">{{ field_event_type }}</div>\r\n</div>"
             make_link: false
             path: ''
             absolute: false
@@ -1023,7 +703,6 @@ display:
         - 'config:field.storage.node.field_end_date'
         - 'config:field.storage.node.field_event_type'
         - 'config:field.storage.node.field_start_date'
-        - 'config:field.storage.node.field_target_audience'
         - 'config:field.storage.node.field_time'
   block_1:
     id: block_1
@@ -1046,5 +725,4 @@ display:
         - 'config:field.storage.node.field_end_date'
         - 'config:field.storage.node.field_event_type'
         - 'config:field.storage.node.field_start_date'
-        - 'config:field.storage.node.field_target_audience'
         - 'config:field.storage.node.field_time'

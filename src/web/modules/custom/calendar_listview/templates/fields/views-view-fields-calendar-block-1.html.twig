@@ -1,0 +1,74 @@
+{#
+/**
+ * @file
+ * Theme override to display all the fields in a row.
+ *
+ * Available variables:
+ * - view: The view in use.
+ * - fields: A list of fields, each one contains:
+ *   - content: The output of the field.
+ *   - raw: The raw data for the field, if it exists. This is NOT output safe.
+ *   - class: The safe class ID to use.
+ *   - handler: The Views field handler controlling this field.
+ *   - inline: Whether or not the field should be inline.
+ *   - wrapper_element: An HTML element for a wrapper.
+ *   - wrapper_attributes: List of attributes for wrapper element.
+ *   - separator: An optional separator that may appear before a field.
+ *   - label: The field's label text.
+ *   - label_element: An HTML element for a label wrapper.
+ *   - label_attributes: List of attributes for label wrapper.
+ *   - label_suffix: Colon after the label.
+ *   - element_type: An HTML element for the field content.
+ *   - element_attributes: List of attributes for HTML element for field content.
+ *   - has_label_colon: A boolean indicating whether to display a colon after
+ *     the label.
+ *   - element_type: An HTML element for the field content.
+ *   - element_attributes: List of attributes for HTML element for field content.
+ * - row: The raw result from the query, with all data it fetched.
+ *
+ * @see template_preprocess_views_view_fields()
+ */
+#}
+<div class="row">
+    <div class="col-md-4">
+        <div class="sd-date-panel">
+            <div class="sd-top">{{ fields.field_events_date.content|striptags|trim|date('F') }} </div>
+            <div class="sd-middle">{{ fields.field_events_date.content|striptags|trim|date('d') }} </div>
+            <div class="sd-bottom">{{ fields.field_events_date.content|striptags|trim|date('Y') }} </div>
+        </div>
+    </div>
+    <div class="col-md-8">
+        <div class="right-side">
+            <div class="e-title">{{ fields.title.content }}</div>
+            <div class="e-sub-title">{{ fields.field_event_type.content }}</div>
+            <div class="row">
+                <div class="col-lg-6">
+                    <div class="ev-date">
+                      <div>
+                        {% if fields.field_events_date.content|striptags|trim|date('d-m-Y') == fields.field_end_date.content|striptags|trim|date('d-m-Y') %}
+                        {{ fields.field_events_date.content|striptags|trim|date('F d') }}
+                        {% else %}
+                          {{ fields.field_events_date.content|striptags|trim|date('F d') }} -
+                          {{ fields.field_end_date.content|striptags|trim|date('F d') }}
+                        {% endif %}
+                      </div>
+                      <div>
+                          {{ fields.field_time.content }}
+                      </div>
+                    </div>
+                </div>
+                <div class="col-lg-6">
+                    <div class="ev-address">
+                        {{ fields.field_address.content }}
+                    </div>
+                </div>
+            </div>
+            <div class="e-description">
+                {{ fields.body.content }} 
+            </div>
+            <div class="e-ta">
+                Target Audience: {{ fields.field_audience.content }} 
+            </div>
+        </div>
+    </div>
+</div>

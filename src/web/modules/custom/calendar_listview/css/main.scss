@@ -293,13 +293,14 @@ $font-600:600;
     .ev-address{
       background:url(../images/pin-location-icon.svg) no-repeat;
       background-size: 23px;
-      padding-left: 39px;
+      padding-left: 46px;
+      background-position: center left;
       margin-left:20px;
     }
     .ev-date{
       background:url(../images/calendar-icon.svg) no-repeat;
       background-size:28px;
-      padding-left:37px;
+      padding-left:46px;
       background-position: center left;
       position:relative;
     }
@@ -515,6 +516,7 @@ $font-600:600;
     }
     .pager__item a:hover,.pager__item a:hover span::before,.pager__item a:hover span::after{
       color:$blue;
+      text-decoration:none;
     }
     .pager__item.is-active{
       display:none;

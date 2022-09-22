@@ -33,21 +33,6 @@
           }
         }
         
-        var dcv = $(".js-drupal-fullcalendar .fc-content-skeleton");
-        
-        if(typeof dcv.attr('class') !== "undefined"){
-          var row = 0;
-          /* $(".js-drupal-fullcalendar .fc-content-skeleton table tbody tr").each(function(){
-            row++;
-            var item = 0;
-            $(this).find('td').each(function(){
-              item++;
-              if(typeof $(this).attr('class') !== "undefined"){
-                $('.fc-day-grid .fc-week:nth-child('+row+') td:nth-child('+item+')').addClass("active");
-              }
-            });
-          }); */
-        }
         $('.pager2 .fc-next-button').once().click(function(){
           $('.fc-toolbar .fc-next-button:first').trigger("click");
         });

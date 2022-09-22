@@ -212,12 +212,13 @@
     .event-cal .list-view .ev-address {
       background: url(../images/pin-location-icon.svg) no-repeat;
       background-size: 23px;
-      padding-left: 39px;
+      background-position: center left;
+      padding-left: 46px;
       margin-left: 20px; }
     .event-cal .list-view .ev-date {
       background: url(../images/calendar-icon.svg) no-repeat;
       background-size: 28px;
-      padding-left: 37px;
+      padding-left: 46px;
       background-position: center left;
       position: relative; }
     .event-cal .list-view .ev-date::Before {
@@ -383,7 +384,8 @@
     transition: all 0.5s ease-in-out;
     border: none; }
   .event-cal .pager .pager__item a:hover, .event-cal .pager .pager__item a:hover span::before, .event-cal .pager .pager__item a:hover span::after {
-    color: #1967e5f5; }
+    color: #1967e5f5; 
+    text-decoration:none;}
   .event-cal .pager .pager__item.is-active {
     display: none; }
   .event-cal .pager .pager__item--next, .event-cal .pager .pager__item--previous {

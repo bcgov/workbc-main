@@ -1,8 +1,0 @@
-uuid: c9d711ca-2ec4-4796-915c-82ac04f504a5
-langcode: en
-status: true
-dependencies: {  }
-name: 'Target Audience'
-vid: target_audience
-description: 'Target audience for events'
-weight: 0
