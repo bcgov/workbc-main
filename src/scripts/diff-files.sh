@@ -11,8 +11,7 @@ rm -rf "$new"
 mkdir "$new" && tar xf "$2" -C "$new"
 
 tmp=$(mktemp -d -t diff-files-XXXXXXXX)
-dif=$(basename -- "$tmp")
-cur=$(pwd)
+dif="$(pwd)/$(basename -- "$tmp").tar.gz"
 
 rsync -rvcm --compare-dest="$old" "$new" "$tmp"
-cd "$tmp" && tar zcf "$cur/$dif.tar.gz" * && cd -
+cd "$tmp" && tar zcf "$dif" * && cd -
