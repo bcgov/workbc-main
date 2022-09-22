@@ -1,0 +1,10 @@
+uuid: 079294cc-331d-4313-83e4-1f21ee865dc2
+langcode: en
+status: true
+dependencies: {  }
+id: action_card_full_width
+label: 'Action Card: Full Width'
+icon_uuid: null
+icon_default: null
+description: 'Full-width action card with left or right image alignment option'
+behavior_plugins: {  }

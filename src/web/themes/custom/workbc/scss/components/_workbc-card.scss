@@ -5,7 +5,7 @@ $container-gutter: $workbc_spacing_gutters;
   // height: 100%;  This messes up height stretching on Related Topics Carousel
 
   &.wide {
-    @media (min-width: 1200px) {
+    @include media-breakpoint-up(xl) {
       .workbc-card-container {
         flex-flow: row nowrap;
 
@@ -119,20 +119,26 @@ $container-gutter: $workbc_spacing_gutters;
       display: flex;
       flex-flow: column nowrap;
 
-      & > div {
-        flex: 1 1 auto;
-      }
-
       & > div:not(:last-child) {
         margin-bottom: $card-spacing;
       }
 
       .workbc-card-title {
+        flex: 0 0 auto;
         font-weight: bold;
         font-size: 1.125rem;
       }
 
+      .workbc-card-description {
+        flex: 1 1 auto;
+      }
+
+      .workbc-card-tags {
+        flex: 0 0 auto;
+      }
+
       .workbc-card-actions {
+        flex: 0 0 auto;
         display: flex;
         align-items: flex-end;
   
@@ -188,6 +194,7 @@ $container-gutter: $workbc_spacing_gutters;
               &:hover {
                 background-color: $workbc_light_theme_background_accent;
                 text-decoration: none;
+                border-radius: 5px; // stop the background from making the parent border radius from looking wonky
               }
             }
   
@@ -208,6 +215,11 @@ $container-gutter: $workbc_spacing_gutters;
             }
           }
         }
+
+        .action-link {
+          @include link-chevron;
+        }
+
       }
   
     }

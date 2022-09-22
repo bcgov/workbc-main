@@ -42,19 +42,6 @@
  * @see html.html.twig
  */
 #}
-{%
-set nav_classes = 'navbar navbar-expand-lg workbc-megamenu nav-theme-dark' ~
-  (b5_navbar_schema != 'none' ? " navbar-#{b5_navbar_schema}" : ' ') ~
-  (b5_navbar_schema != 'none' ? (b5_navbar_schema == 'dark' ? ' text-light' : ' text-dark' ) : ' ') ~
-  (b5_navbar_bg_schema != 'none' ? " bg-#{b5_navbar_bg_schema}" : ' ')
-%}
-
-{%
-set footer_classes = ' ' ~
-  (b5_footer_schema != 'none' ? " footer-#{b5_footer_schema}" : ' ') ~
-  (b5_footer_schema != 'none' ? (b5_footer_schema == 'dark' ? ' text-light' : ' text-dark' ) : ' ') ~
-  (b5_footer_bg_schema != 'none' ? " bg-#{b5_footer_bg_schema}" : ' ')
-%}
 
 {# Header #}
 {% include '@workbc/includes/header.html.twig' %}
@@ -64,47 +51,11 @@ set footer_classes = ' ' ~
 
 <main role="main" class="page-wrapper">
   <a id="main-content" tabindex="-1"></a>{# link is in html.html.twig #}
-
-  {%
-  set sidebar_first_classes = 'col-12 col-lg-3 col-xl-2'
-  %}
-
-  {%
-  set sidebar_second_classes = 'col-12 col-lg-3 col-xl-2'
-  %}
-
-  {%
-  set content_classes = (page.sidebar_first and page.sidebar_second) ? 'col-12 col-lg-6 col-xl-8' : ((page.sidebar_first or page.sidebar_second) ? 'col-12 col-lg-9 col-xl-10' : 'col-12' )
-  %}
-
   <div class="page-content-wrapper">
-
-    <div id="submenu-underlay"></div>
-
-    {% if page.hero_content %}
-        {{ page.hero_content }}
-    {% endif %}
-
-    {{ page.breadcrumb }}
-
-    <div class="{{ b5_top_container }}">
-      <div class="row g-0">
-        {% if page.sidebar_first %}
-          <div class="order-1 order-lg-1 {{ sidebar_first_classes }}">
-            {{ page.sidebar_first }}
-          </div>
-        {% endif %}
-        <div class="order-2 order-lg-2 {{ content_classes }}">
-          {{ page.content }}
-        </div>
-        {% if page.sidebar_second %}
-          <div class="order-3 {{ sidebar_second_classes }}">
-            {{ page.sidebar_second }}
-          </div>
-        {% endif %}
-      </div>
-    </div>
-
+    <div class="submenu-underlay"></div>
+      {{ messages }}
+      {{ tabs }}
+      {{ page.content }}
   </div>
 </main>
 

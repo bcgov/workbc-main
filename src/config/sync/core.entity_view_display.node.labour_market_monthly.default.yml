@@ -3,10 +3,12 @@ langcode: en
 status: true
 dependencies:
   config:
+    - field.field.node.labour_market_monthly.field_content_group
     - field.field.node.labour_market_monthly.field_employment_introduction
     - field.field.node.labour_market_monthly.field_industry_highlights_intro
     - field.field.node.labour_market_monthly.field_month
     - field.field.node.labour_market_monthly.field_related_topics
+    - field.field.node.labour_market_monthly.field_scheduled_publish
     - field.field.node.labour_market_monthly.field_unemployment_introduction
     - field.field.node.labour_market_monthly.field_unemployment_region_intro
     - node.type.labour_market_monthly
@@ -127,8 +129,11 @@ content:
     weight: 0
     region: content
 hidden:
+  content_moderation_control: true
   extra_field_workbc_page_title: true
   extra_field_workbc_published_on: true
+  field_content_group: true
   field_related_topics: true
+  field_scheduled_publish: true
   langcode: true
   search_api_excerpt: true

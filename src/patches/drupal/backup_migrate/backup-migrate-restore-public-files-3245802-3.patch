@@ -1,0 +1,61 @@
+diff --git a/src/Core/Service/TarArchiveReader.php b/src/Core/Service/TarArchiveReader.php
+index bf1b9d6..0077483 100644
+--- a/src/Core/Service/TarArchiveReader.php
++++ b/src/Core/Service/TarArchiveReader.php
+@@ -90,6 +90,7 @@ class TarArchiveReader implements ArchiveReaderInterface {
+       }
+ 
+       // Add the destination directory to the path.
++      $filename = $header['filename'];
+       if (substr($header['filename'], 0, 1) == '/') {
+         $header['filename'] = $directory . $header['filename'];
+       }
+@@ -128,7 +129,7 @@ class TarArchiveReader implements ArchiveReaderInterface {
+ 
+       // Extract a directory.
+       if ($header['typeflag'] == "5") {
+-        if (!$this->createDir($header['filename'])) {
++        if (!$this->createDir($directory, dirname($filename))) {
+           throw new BackupMigrateException(
+             'Unable to create directory %filename',
+             ['%filename' => $header['filename']]
+@@ -137,7 +138,7 @@ class TarArchiveReader implements ArchiveReaderInterface {
+       }
+       // Extract a file/symlink.
+       else {
+-        if (!$this->createDir(dirname($header['filename']))) {
++        if (!$this->createDir($directory, dirname($filename))) {
+           throw new BackupMigrateException(
+             'Unable to create directory for %filename',
+             ['%filename' => $header['filename']]
+@@ -220,23 +221,24 @@ class TarArchiveReader implements ArchiveReaderInterface {
+    * Create a directory or return true if it already exists.
+    *
+    * @param $directory
++   * @param $filename
+    *
+    * @return bool
+    */
+-  private function createDir($directory) {
+-    if ((@is_dir($directory)) || ($directory == '')) {
++  private function createDir($directory, $filename) {
++    if ((@is_dir($directory . $filename)) || ($filename == '')) {
+       return TRUE;
+     }
+-    $parent = dirname($directory);
++    $parent = dirname($filename);
+ 
+     if (
+-      ($parent != $directory) &&
++      ($parent != $filename) &&
+       ($parent != '') &&
+-      (!$this->createDir($parent))
++      (!$this->createDir($directory, $parent))
+     ) {
+       return FALSE;
+     }
+-    if (@!mkdir($directory, 0777)) {
++    if (@!mkdir($directory . $filename, 0777)) {
+       return FALSE;
+     }
+     return TRUE;

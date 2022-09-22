@@ -1,6 +1,7 @@
 _core:
   default_config_hash: R4IF-ClDHXxblLcG0L7MgsLvfBIMAvi_skumNFQwkDc
 module:
+  actions_permissions: 0
   address: 0
   admin_toolbar: 0
   admin_toolbar_links_access_filter: 0
@@ -15,6 +16,7 @@ module:
   block_content: 0
   block_visibility_conditions: 0
   breakpoint: 0
+  cancel_button: 0
   captcha: 0
   charts: 0
   charts_google: 0
@@ -25,6 +27,9 @@ module:
   config_filter: 0
   config_ignore: 0
   contact: 0
+  content_lock: 0
+  content_moderation: 0
+  content_moderation_notifications: 0
   contextual: 0
   country: 0
   crop: 0
@@ -48,6 +53,7 @@ module:
   file: 0
   filter: 0
   flood_control: 0
+  fpa: 0
   fullcalendar_view: 0
   health_check: 0
   help: 0
@@ -63,6 +69,7 @@ module:
   media: 0
   media_library: 0
   menu_breadcrumb: 0
+  menu_export: 0
   menu_link_content: 0
   menu_ui: 0
   metatag: 0
@@ -70,7 +77,9 @@ module:
   node: 0
   openid_connect: 0
   options: 0
+  override_node_options: 0
   page_cache: 0
+  paragraphs_edit: 0
   paragraphs_type_permissions: 0
   path: 0
   path_alias: 0
@@ -80,6 +89,8 @@ module:
   recaptcha: 0
   registration_link: 0
   responsive_menu: 0
+  role_delegation: 0
+  scheduled_publish: 0
   search_api: 0
   search_api_autocomplete: 0
   search_api_db: 0
@@ -87,10 +98,10 @@ module:
   ses_mailer: 0
   shortcut: 0
   simple_block: 0
+  simple_sitemap: 0
   svg_image: 0
   system: 0
   taxonomy: 0
-  terms_of_use: 0
   text: 0
   time_field: 0
   token: 0
@@ -100,6 +111,7 @@ module:
   update: 0
   user: 0
   views_autosubmit: 0
+  views_bulk_operations: 0
   views_infinite_scroll: 0
   views_ui: 0
   viewsreference: 0
@@ -110,6 +122,7 @@ module:
   workbc_custom: 0
   workbc_extra_fields: 0
   workbc_menu: 0
+  workflows: 0
   pathauto: 1
   webform_bootstrap: 1
   views: 10

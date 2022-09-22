@@ -1,14 +1,14 @@
 uuid: 47e56d6f-bf0d-4bd4-bc7c-071dfb0d869b
 langcode: en
-status: true
+status: false
 dependencies:
   config:
     - field.storage.node.body
     - field.storage.node.field_image
     - image.style.1_4_component
   module:
-    - image
     - node
+    - svg_image
     - taxonomy
     - text
     - user

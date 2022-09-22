@@ -1,6 +1,53 @@
-#block-workbcrelatedtopicsblock {
-    & > h2 {
-        width: 100%;
-        text-align: center;
+.block-related-topics-block {
+  margin-top: 20px;
+  padding: 40px 0;
+  border-top: 4px solid $workbc_palette_light_secondary;
+}
+
+.block-related-topics-block h2 {
+  margin-bottom: 30px;
+  text-align: center;
+}
+
+.swiper-container {
+  position: relative;
+  padding: 0 40px 40px 40px;
+
+  @include media-breakpoint-up(lg) {
+    padding: 0 60px 40px 60px;
+  }
+
+  .swiper {
+    padding: 10px;
+  }
+
+  .swiper-wrapper {
+    align-content: stretch;
+  }
+
+  .swiper-slide {
+    height: auto !important;
+
+    .swiper-slide-active {
+      scale: 100%;
     }
+
+    &:not(.swiper-slide-active) {
+      scale: 90%;
+    }
+  }
+}
+
+.swiper-container .swiper-button-next,
+.swiper-container .swiper-button-prev {
+  z-index: 1;
+}
+
+// override some Swiper defaults to get smaller nav arrows at mobile size (giving us more Slide space)
+:root {
+  --swiper-navigation-size: 22px !important;
+
+  @include media-breakpoint-up(lg) {
+    --swiper-navigation-size: 44px !important;
+  }
 }

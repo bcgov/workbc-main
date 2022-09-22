@@ -19,34 +19,50 @@
  */
 #}
 
-{{ options.inline ? '<span' : '<div' }} class="views-summary views-summary-unformatted">
-
-<a href="/definitions/all">All</a>
-
-{{ options.inline ? '</span>' : '</div>' }}
-
-{% set counter = 0 %}
-{% set max = rows|length %}
-
-{% for letter in 'A'..'Z' %}
-  {{ options.inline ? '<span' : '<div' }} >
-
-  {% if rows[1].separator -%}
-    {{ rows[1].separator }}
-  {%- endif %}
-
-  {% if (counter < max and rows[counter].link == letter) %}
-
-    <a href="{{ rows[counter].url }}"{{ row.attributes.addClass(row.active ? 'is-active')|without('href') }}>{{ letter|upper }}</a>
-    {% set counter = counter+1 %}
-  {% else %}
-    {{ letter|upper }}
+{% set all_active = true %}
+{% for row in rows %}
+  {% if row.active %}
+    {% set all_active = false %}
   {% endif %}
+{% endfor %}
 
-  {% if options.count %}
-    ({{ rows[counter].count }})
-  {% endif %}
+{% set allClasses = [
+    '',
+    all_active ? 'is-active'
+] %}
+
+<div class='alphabet-navigation views-summary views-summary-unformatted'>
+  {{ options.inline ? '<span' : '<div' }} class="alphabet-navigation-unfiltered{{all_active ? ' is-active'}}">
+
+  <a href="/career-profiles/all">All</a>
 
   {{ options.inline ? '</span>' : '</div>' }}
 
-{% endfor %}
+  {% set counter = 0 %}
+  {% set max = rows|length %}
+  
+  {% for letter in 'A'..'Z' %}
+    {% set hasResults = (counter < max and rows[counter].link == letter) %}
+    {% set isActive = rows[counter].active %}
+
+    {{ options.inline ? '<span' : '<div' }} class="{{hasResults ? '' : 'no-results'}} {{isActive ? 'is-active'}}">
+
+    {% if rows[1].separator -%}
+      {{ rows[1].separator }}
+    {%- endif %}
+
+    {% if hasResults %}
+      <a href="{{ rows[counter].url }}">{{ letter|upper }}</a>
+      {% set counter = counter+1 %}
+    {% else %}
+      {{ letter|upper }}
+    {% endif %}
+
+    {% if options.count %}
+      ({{ rows[counter].count }})
+    {% endif %}
+
+    {{ options.inline ? '</span>' : '</div>' }}
+
+  {% endfor %}
+</div>

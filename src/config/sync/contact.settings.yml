@@ -4,4 +4,4 @@ default_form: feedback
 flood:
   limit: 10
   interval: 86400
-user_default_enabled: true
+user_default_enabled: false

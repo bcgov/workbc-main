@@ -346,7 +346,7 @@ display:
           title: ''
           default_argument_type: fixed
           default_argument_options:
-            argument: a
+            argument: all
           default_argument_skip_url: false
           summary_options:
             base_path: ''
@@ -537,7 +537,8 @@ display:
           replica: false
           query_tags: {  }
       relationships: {  }
-      use_ajax: true
+      css_class: page-format--standard
+      use_ajax: false
       header: {  }
       footer: {  }
       display_extenders: {  }
@@ -591,7 +592,7 @@ display:
             override: false
             items_per_page: 25
             inline: true
-            separator: ' | '
+            separator: ''
           summary:
             sort_order: asc
             number_of_records: 0
@@ -611,7 +612,24 @@ display:
         type: views_query
         options: {  }
       defaults:
+        css_class: false
         arguments: false
+        header: false
+      css_class: ''
+      header:
+        area:
+          id: area
+          table: views
+          field: area
+          relationship: none
+          group_type: group
+          admin_label: ''
+          plugin_id: text
+          empty: false
+          content:
+            value: 'Select the letter below to filter your search.'
+            format: basic_html
+          tokenize: false
       display_extenders: {  }
       displays:
         default: default
@@ -637,6 +655,9 @@ display:
       query:
         type: views_query
         options: {  }
+      defaults:
+        css_class: false
+      css_class: 'page-format--standard container-lg alphabet-search-results'
       display_extenders: {  }
       path: career-profiles
       menu:

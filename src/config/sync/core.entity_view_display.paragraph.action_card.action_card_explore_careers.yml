@@ -11,8 +11,8 @@ dependencies:
     - image.style.explore_component
     - paragraphs.paragraphs_type.action_card
   module:
-    - image
     - link
+    - svg_image
     - text
 id: paragraph.action_card.action_card_explore_careers
 targetEntityType: paragraph
@@ -32,20 +32,24 @@ content:
     settings:
       image_link: ''
       image_style: explore_component
+      svg_attributes:
+        width: null
+        height: null
+      svg_render_as_image: true
       image_loading:
         attribute: lazy
     third_party_settings: {  }
     weight: 0
     region: content
   field_link:
-    type: link
+    type: link_separate
     label: above
     settings:
-      trim_length: 80
+      trim_length: null
       url_only: false
       url_plain: false
-      rel: ''
-      target: ''
+      rel: '0'
+      target: '0'
     third_party_settings: {  }
     weight: 3
     region: content

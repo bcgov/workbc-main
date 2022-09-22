@@ -1,6 +1,6 @@
 uuid: cdf1be19-aa42-4a2f-98f0-f468b14f9a6a
 langcode: en
-status: true
+status: false
 dependencies:
   config:
     - core.entity_view_mode.node.teaser
@@ -8,6 +8,7 @@ dependencies:
     - field.field.node.career_profile.field_career_pathways
     - field.field.node.career_profile.field_career_videos
     - field.field.node.career_profile.field_career_videos_introduction
+    - field.field.node.career_profile.field_content_group
     - field.field.node.career_profile.field_duties
     - field.field.node.career_profile.field_education_programs
     - field.field.node.career_profile.field_education_training_skills
@@ -72,6 +73,7 @@ hidden:
   field_career_pathways: true
   field_career_videos: true
   field_career_videos_introduction: true
+  field_content_group: true
   field_duties: true
   field_education_programs: true
   field_education_training_skills: true

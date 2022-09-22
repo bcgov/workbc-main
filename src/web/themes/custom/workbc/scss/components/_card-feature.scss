@@ -1,0 +1,44 @@
+.card-feature {
+  margin-bottom: 24px;
+  box-shadow: 0 0 15px 0 rgba(0, 0, 0, 0.15);
+  background-color: $workbc_palette_light_secondary;
+  border: 2px solid #accad7;
+
+  @include media-breakpoint-up(lg) {
+    display: flex;
+    align-items: center;
+    justify-content: space-between;
+    column-gap: 40px;
+  }
+}
+
+.card-feature__image {
+  @include media-breakpoint-up(lg) {
+    flex: 0 1 50%;
+    max-height: 300px;
+    overflow: hidden;
+  }
+
+  .img-fluid {
+    object-fit: cover;
+    width: 100%;
+  }
+}
+
+.card-feature__content {
+  padding: 20px;
+
+  @include media-breakpoint-up(lg) {
+    padding: 10px 20px 10px 0;
+    flex: 0 1 50%;
+  }
+}
+
+.card-feature__title {
+  margin-bottom: 20px;
+  font-size: 1.3rem;
+}
+
+.card-feature__link {
+  @include btn-blue;
+}

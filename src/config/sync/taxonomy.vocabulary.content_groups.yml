@@ -1,0 +1,8 @@
+uuid: b9c1f319-d9aa-49c0-a15b-a0365fc07e86
+langcode: en
+status: true
+dependencies: {  }
+name: 'Content Groups'
+vid: content_groups
+description: 'List of content groups.  Editors and Approvers must be a member of a content group to edit/approve that group''s content.'
+weight: 0

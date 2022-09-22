@@ -11,10 +11,11 @@ The architecture of the migration system is exceedingly simple: it consists of a
 # Running the migration
 Assuming an initialized WorkBC Drupal database and updated data files:
 ```
-drush scr scripts/migration/taxonomy -- -v definitions /scripts/migration/data/definitions.csv
-drush scr scripts/migration/taxonomy -- -v event_type /scripts/migration/data/event_type.csv
-drush scr scripts/migration/taxonomy -- -v occupational_interests /scripts/migration/data/occupational_interests.csv
-drush scr scripts/migration/taxonomy -- -v video_categories /scripts/migration/data/video_categories.csv
+drush scr scripts/migration/taxonomy -- -v definitions /var/www/html/scripts/migration/data/definitions.csv
+drush scr scripts/migration/taxonomy -- -v event_type /var/www/html/scripts/migration/data/event_type.csv
+drush scr scripts/migration/taxonomy -- -v occupational_interests /var/www/html/scripts/migration/data/occupational_interests.csv
+drush scr scripts/migration/taxonomy -- -v video_categories /var/www/html/scripts/migration/data/video_categories.csv
+drush scr scripts/migration/taxonomy -- -v content_groups /var/www/html/scripts/migration/data/content_groups.csv
 drush scr scripts/migration/skills
 drush scr scripts/migration/education
 drush scr scripts/migration/video_library
@@ -35,6 +36,8 @@ The development team maintains a copy of the IA spreadsheet that is annotated wi
 - The GatherContent link for each item, which is used to populate the corresponding Drupal object (column **TODO**)
 - Whether the item should appear in the main navigation menu (column **Mega Menu?**)
 - The specific URL, if any, that the item should have in the header menu (column **New URL**)
+- The page format: `standard`, `sidenav`, `wide` (column **Page Format**)
+- The content group: `WorkBC`, `WDA`, `SDPR` (column **Content Group**)
 
 ## GatherContent (GC)
 GatherContent is a CMS that the business team uses to collaborate on writing the text copy (editorial content) that goes into each page of the site. The design team maintains the GatherContent _templates_ which represent the structure (the fields) of the different pages. During migration, an import script maps the GC content fields to Drupal content fields in order to populate the content.
@@ -46,6 +49,9 @@ The BC Labour Market Office supplies statistical data about the BC job market an
 
 ## Legacy site (LS)
 Some content is unavailable anywhere but on the legacy WorkBC site itself. When such content is needed here, we transform it into a CSV file and use a custom script to import it into Drupal.
+
+## Business requirements document (BRD)
+Some content is explicitly listed in the BRD specification of this project or amendments including Jira / Confluence / private communications.
 
 ## YouTube (YT)
 The YouTube [CareerTrekBC](https://www.youtube.com/user/CareerTrekBC) and [WorkBC](https://www.youtube.com/user/WorkBC) channels are imported into a JSONL file using the commands below (running on the host):
@@ -71,6 +77,7 @@ Each script listed here includes a short documentation header that details its u
 | taxonomy.php | [LS](https://www.workbc.ca/Jobs-Careers/Career-Toolkit/Definitions.aspx) (data/definitions.csv) | Taxonomy `definitions` |
 | taxonomy.php | [LS](https://www.workbc.ca/Labour-Market-Industry/Skills-for-the-Future-Workforce.aspx#characteristics) (data/occupational_interests.csv) | Taxonomy `occupational_interests` |
 | taxonomy.php | [LS](https://www.workbc.ca/videolibrary/) (data/video_categories.csv) | Taxonomy `video_categories` |
-| taxonomy.php | LS (data/event_type.csv) | Taxonomy `event_type` |
+| taxonomy.php | BRD (data/event_type.csv) | Taxonomy `event_type` |
+| taxonomy.php | BRD (data/content_groups.csv) | Taxonomy `content_groups` |
 | video_library.php | YT [CareerTrekBC](https://www.youtube.com/user/CareerTrekBC) and [WorkBC](https://www.youtube.com/user/WorkBC) (data/video_library.jsonl) | Media type `remote_video` |
 | gc-jsonl.php | GC | JSONL file |

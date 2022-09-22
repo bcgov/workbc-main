@@ -1,0 +1,34 @@
+.alphabet-search-results {
+
+    //override a Drupal style
+    .table>:not(:first-child) {
+        border: none; 
+    }
+
+    table {
+        caption {
+            margin-top: $workbc_spacing_default;
+            padding: 0;
+            background-color: $workbc_palette_dark_secondary;
+            text-align: center;
+            font-weight: 400;
+            font-size: 1.3125rem;
+            color: $workbc_dark_theme_text;
+        }
+
+        tbody {
+            $row-border: 1px solid $workbc_palette_light_tertiary;
+
+            tr {
+                border-bottom: $row-border;
+                &:not(:first-of-type) {
+                    border-top: $row-border;
+                }
+
+                td {
+                    padding: 20px 0;
+                }
+            }
+        }
+    }
+}

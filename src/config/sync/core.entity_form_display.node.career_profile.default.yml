@@ -7,6 +7,7 @@ dependencies:
     - field.field.node.career_profile.field_career_pathways
     - field.field.node.career_profile.field_career_videos
     - field.field.node.career_profile.field_career_videos_introduction
+    - field.field.node.career_profile.field_content_group
     - field.field.node.career_profile.field_duties
     - field.field.node.career_profile.field_education_programs
     - field.field.node.career_profile.field_education_training_skills
@@ -21,6 +22,7 @@ dependencies:
     - image.style.thumbnail
     - node.type.career_profile
   module:
+    - content_moderation
     - image_widget_crop
     - link
     - media_library
@@ -67,6 +69,12 @@ content:
     settings:
       rows: 5
       placeholder: ''
+    third_party_settings: {  }
+  field_content_group:
+    type: options_select
+    weight: 101
+    region: content
+    settings: {  }
     third_party_settings: {  }
   field_duties:
     type: text_textarea
@@ -169,6 +177,12 @@ content:
     region: content
     settings:
       include_locked: true
+    third_party_settings: {  }
+  moderation_state:
+    type: moderation_state_default
+    weight: 100
+    region: content
+    settings: {  }
     third_party_settings: {  }
   path:
     type: path

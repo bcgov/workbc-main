@@ -4,13 +4,14 @@ status: true
 dependencies:
   config:
     - field.field.node.success_story.body
+    - field.field.node.success_story.field_content_group
     - field.field.node.success_story.field_image
     - field.field.node.success_story.field_subtitle
     - field.field.node.success_story.field_tags
     - image.style.article_wide
     - node.type.success_story
   module:
-    - image
+    - svg_image
     - text
     - user
 id: node.success_story.default
@@ -36,18 +37,14 @@ content:
     settings:
       image_link: ''
       image_style: article_wide
+      svg_attributes:
+        width: null
+        height: null
+      svg_render_as_image: true
       image_loading:
         attribute: lazy
     third_party_settings: {  }
     weight: 2
-    region: content
-  field_tags:
-    type: entity_reference_label
-    label: visually_hidden
-    settings:
-      link: true
-    third_party_settings: {  }
-    weight: 4
     region: content
   links:
     settings: {  }
@@ -56,6 +53,8 @@ content:
     region: content
 hidden:
   extra_field_workbc_published_on: true
+  field_content_group: true
   field_subtitle: true
+  field_tags: true
   langcode: true
   search_api_excerpt: true

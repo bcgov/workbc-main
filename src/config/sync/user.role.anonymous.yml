@@ -5,7 +5,6 @@ dependencies:
   config:
     - filter.format.restricted_html
   module:
-    - comment
     - contact
     - field_permissions
     - filter
@@ -20,7 +19,6 @@ label: 'Anonymous user'
 weight: -10
 is_admin: false
 permissions:
-  - 'access comments'
   - 'access content'
   - 'access site-wide contact form'
   - 'use search_api_autocomplete for search_career_profiles'
@@ -31,6 +29,7 @@ permissions:
   - 'view own field_content'
   - 'view paragraph content action_card'
   - 'view paragraph content action_card_feature'
+  - 'view paragraph content action_card_full_width'
   - 'view paragraph content action_card_icon'
   - 'view paragraph content action_cards_1_2'
   - 'view paragraph content action_cards_1_3'

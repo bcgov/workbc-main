@@ -1,9 +1,0 @@
-uuid: ad245a3f-a31b-41d8-af00-c00b23b03341
-langcode: en
-status: true
-dependencies: {  }
-id: content_lead
-label: 'Content Lead'
-weight: -4
-is_admin: null
-permissions: {  }

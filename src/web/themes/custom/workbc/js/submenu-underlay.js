@@ -1,6 +1,6 @@
 (function ($, Drupal) {
 
-    let underlay = $('#submenu-underlay');
+    let underlay = $('.submenu-underlay');
     let showUnderlay = function() {
         underlay.show();
     };

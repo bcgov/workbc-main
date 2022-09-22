@@ -1,0 +1,79 @@
+uuid: 7eb5fbff-a7b1-4687-8ec8-61ab8262679a
+langcode: en
+status: true
+dependencies:
+  config:
+    - node.type.labour_market_monthly
+  module:
+    - content_moderation
+_core:
+  default_config_hash: T7gMMyFbTYLalxpIOnzJebvek2OW0b1RgLVE9I2y228
+id: editorial
+label: Editorial
+type: content_moderation
+type_settings:
+  states:
+    archived:
+      label: Archived
+      weight: 1
+      published: false
+      default_revision: true
+    draft:
+      label: Draft
+      weight: -3
+      published: false
+      default_revision: false
+    published:
+      label: Published
+      weight: 0
+      published: true
+      default_revision: true
+    review:
+      label: 'For Approval'
+      weight: -1
+      published: false
+      default_revision: false
+  transitions:
+    archive:
+      label: Archive
+      from:
+        - published
+      to: archived
+      weight: 0
+    archived_draft:
+      label: 'Restore to Draft'
+      from:
+        - archived
+      to: draft
+      weight: 1
+    archived_published:
+      label: Restore
+      from:
+        - archived
+      to: published
+      weight: 2
+    create_new_draft:
+      label: 'Create New Draft'
+      from:
+        - draft
+        - published
+        - review
+      to: draft
+      weight: -4
+    publish:
+      label: Publish
+      from:
+        - review
+      to: published
+      weight: -1
+    send_for_review:
+      label: 'For Approval'
+      from:
+        - draft
+        - review
+      to: review
+      weight: -2
+  entity_types:
+    node:
+      - labour_market_monthly
+  default_moderation_state: draft

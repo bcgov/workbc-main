@@ -1,0 +1,30 @@
+uuid: c558c539-09a0-4c35-aa17-020f48553fbd
+langcode: en
+status: true
+dependencies:
+  module:
+    - block_visibility_conditions
+    - workbc_custom
+  theme:
+    - workbc
+id: related_topics
+theme: workbc
+region: hidden
+weight: -18
+provider: null
+plugin: related_topics_block
+settings:
+  id: related_topics_block
+  label: 'Related Topics'
+  label_display: '0'
+  provider: workbc_custom
+  trimmed_limit: '150'
+visibility:
+  not_node_type:
+    id: not_node_type
+    bundles: {  }
+    negate: null
+  not_taxonomy_vocabulary:
+    id: not_taxonomy_vocabulary
+    bundles: {  }
+    negate: null

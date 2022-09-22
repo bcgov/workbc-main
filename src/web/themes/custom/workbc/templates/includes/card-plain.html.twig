@@ -1,0 +1,40 @@
+{# Variables #}
+
+{% set card_image = content.field_image[0] %}
+{% set card_title = content.field_title[0] %}
+{% set card_desc = content.field_description[0] %}
+{% set card_link_url = content.field_link[0]['#url'] %}
+{% set card_link_title = content.field_link[0]['#title'] %}
+
+{%
+  set classes = [
+    'paragraph',
+    'paragraph--type--' ~ paragraph.bundle|clean_class,
+    view_mode ? 'paragraph--view-mode--' ~ view_mode|clean_class,
+    not paragraph.isPublished() ? 'paragraph--unpublished',
+    'card-plain',
+  ]
+%}
+
+{% block paragraph %}
+  <div{{ attributes.addClass(classes) }}>
+    {% block content %}
+      <div class="card-plain__image" >
+        {{ card_image }}
+      </div>
+      <div class="card-plain__content">
+        <h3 class="card-plain__title">
+          {{ card_title }}
+        </h3>
+        <div class="card-plain__desc">
+          {{ card_desc }}
+        </div>
+      </div>
+      {% if card_link_url %}
+        <div class="card-plain__link-container">
+          <a class="card-plain__link" href="{{ card_link_url }}">{{ card_link_title }}</a>
+        </div>
+      {% endif %}
+    {% endblock %}
+  </div>
+{% endblock paragraph %}

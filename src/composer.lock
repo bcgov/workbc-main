@@ -4,7 +4,7 @@
         "Read more about it at https://getcomposer.org/doc/01-basic-usage.md#installing-dependencies",
         "This file is @generated automatically"
     ],
-    "content-hash": "3dbc3cae2a37ea8e3e27706046569849",
+    "content-hash": "d928ca6c0e8a944b4bd3dedf85871d93",
     "packages": [
         {
             "name": "alchemy/zippy",
@@ -2719,6 +2719,58 @@
             }
         },
         {
+            "name": "drupal/cancel_button",
+            "version": "1.3.0",
+            "source": {
+                "type": "git",
+                "url": "https://git.drupalcode.org/project/cancel_button.git",
+                "reference": "8.x-1.3"
+            },
+            "dist": {
+                "type": "zip",
+                "url": "https://ftp.drupal.org/files/projects/cancel_button-8.x-1.3.zip",
+                "reference": "8.x-1.3",
+                "shasum": "d8c4b63bc95bab19dead2ab41c48e29de9d5159f"
+            },
+            "require": {
+                "drupal/core": "^8 || ^9"
+            },
+            "type": "drupal-module",
+            "extra": {
+                "drupal": {
+                    "version": "8.x-1.3",
+                    "datestamp": "1648243625",
+                    "security-coverage": {
+                        "status": "covered",
+                        "message": "Covered by Drupal's security advisory policy"
+                    }
+                }
+            },
+            "notification-url": "https://packages.drupal.org/8/downloads",
+            "license": [
+                "GPL-2.0-or-later"
+            ],
+            "authors": [
+                {
+                    "name": "danmuzyka",
+                    "homepage": "https://www.drupal.org/user/48685"
+                },
+                {
+                    "name": "kevin.dutra",
+                    "homepage": "https://www.drupal.org/user/1312744"
+                },
+                {
+                    "name": "sukanya.ramakrishnan",
+                    "homepage": "https://www.drupal.org/user/3320069"
+                }
+            ],
+            "description": "This small module adds a Cancel button to Entity forms.",
+            "homepage": "https://www.drupal.org/project/cancel_button",
+            "support": {
+                "source": "https://git.drupalcode.org/project/cancel_button"
+            }
+        },
+        {
             "name": "drupal/captcha",
             "version": "1.4.0",
             "source": {
@@ -4473,6 +4525,62 @@
             }
         },
         {
+            "name": "drupal/fpa",
+            "version": "3.0.2",
+            "source": {
+                "type": "git",
+                "url": "https://git.drupalcode.org/project/fpa.git",
+                "reference": "3.0.2"
+            },
+            "dist": {
+                "type": "zip",
+                "url": "https://ftp.drupal.org/files/projects/fpa-3.0.2.zip",
+                "reference": "3.0.2",
+                "shasum": "906e7bca20f423768759d6bf46b383647eb8cce5"
+            },
+            "require": {
+                "drupal/core": "^8 || ^9"
+            },
+            "type": "drupal-module",
+            "extra": {
+                "drupal": {
+                    "version": "3.0.2",
+                    "datestamp": "1631632749",
+                    "security-coverage": {
+                        "status": "covered",
+                        "message": "Covered by Drupal's security advisory policy"
+                    }
+                }
+            },
+            "notification-url": "https://packages.drupal.org/8/downloads",
+            "license": [
+                "GPL-2.0-or-later"
+            ],
+            "authors": [
+                {
+                    "name": "HakS",
+                    "homepage": "https://www.drupal.org/user/1815198"
+                },
+                {
+                    "name": "VladimirAus",
+                    "homepage": "https://www.drupal.org/user/673120"
+                },
+                {
+                    "name": "azovsky",
+                    "homepage": "https://www.drupal.org/user/330533"
+                },
+                {
+                    "name": "corey.aufang",
+                    "homepage": "https://www.drupal.org/user/163737"
+                }
+            ],
+            "description": "Fast filtering on permissions administration form.",
+            "homepage": "https://www.drupal.org/project/fpa",
+            "support": {
+                "source": "https://git.drupalcode.org/project/fpa"
+            }
+        },
+        {
             "name": "drupal/fullcalendar_view",
             "version": "5.1.7",
             "source": {
@@ -4969,6 +5077,54 @@
             }
         },
         {
+            "name": "drupal/menu_export",
+            "version": "1.3.0",
+            "source": {
+                "type": "git",
+                "url": "https://git.drupalcode.org/project/menu_export.git",
+                "reference": "8.x-1.3"
+            },
+            "dist": {
+                "type": "zip",
+                "url": "https://ftp.drupal.org/files/projects/menu_export-8.x-1.3.zip",
+                "reference": "8.x-1.3",
+                "shasum": "b02e3266efa07de3bb93db0f1c89fe1bdb921f94"
+            },
+            "require": {
+                "drupal/core": "^8 || ^9"
+            },
+            "type": "drupal-module",
+            "extra": {
+                "drupal": {
+                    "version": "8.x-1.3",
+                    "datestamp": "1610559070",
+                    "security-coverage": {
+                        "status": "covered",
+                        "message": "Covered by Drupal's security advisory policy"
+                    }
+                }
+            },
+            "notification-url": "https://packages.drupal.org/8/downloads",
+            "license": [
+                "GPL-2.0-or-later"
+            ],
+            "authors": [
+                {
+                    "name": "joseph.olstad",
+                    "homepage": "https://www.drupal.org/user/1321830"
+                },
+                {
+                    "name": "sandeepguntaka",
+                    "homepage": "https://www.drupal.org/user/3397192"
+                }
+            ],
+            "description": "This module exports and imports menus and menu links.",
+            "homepage": "https://www.drupal.org/project/menu_export",
+            "support": {
+                "source": "https://git.drupalcode.org/project/menu_export"
+            }
+        },
+        {
             "name": "drupal/metatag",
             "version": "1.21.0",
             "source": {
@@ -5112,6 +5268,51 @@
             }
         },
         {
+            "name": "drupal/override_node_options",
+            "version": "2.6.0",
+            "source": {
+                "type": "git",
+                "url": "https://git.drupalcode.org/project/override_node_options.git",
+                "reference": "8.x-2.6"
+            },
+            "dist": {
+                "type": "zip",
+                "url": "https://ftp.drupal.org/files/projects/override_node_options-8.x-2.6.zip",
+                "reference": "8.x-2.6",
+                "shasum": "bb164546d4d40e183a92173e44e7fd75cffdee38"
+            },
+            "require": {
+                "drupal/core": "^8 || ^9"
+            },
+            "type": "drupal-module",
+            "extra": {
+                "drupal": {
+                    "version": "8.x-2.6",
+                    "datestamp": "1606950754",
+                    "security-coverage": {
+                        "status": "covered",
+                        "message": "Covered by Drupal's security advisory policy"
+                    }
+                }
+            },
+            "notification-url": "https://packages.drupal.org/8/downloads",
+            "license": [
+                "GPL-2.0+"
+            ],
+            "authors": [
+                {
+                    "name": "Oliver Davies",
+                    "homepage": "https://www.drupal.org/user/381388",
+                    "email": "oliver@oliverdavies.uk"
+                }
+            ],
+            "description": "Allows permissions to be set on each node option such as published and authoring information.",
+            "homepage": "https://www.drupal.org/project/override_node_options",
+            "support": {
+                "source": "https://git.drupalcode.org/project/override_node_options"
+            }
+        },
+        {
             "name": "drupal/paragraphs",
             "version": "1.14.0",
             "source": {
@@ -5190,6 +5391,55 @@
             "homepage": "https://www.drupal.org/project/paragraphs",
             "support": {
                 "source": "https://git.drupalcode.org/project/paragraphs"
+            }
+        },
+        {
+            "name": "drupal/paragraphs_edit",
+            "version": "2.0.0",
+            "source": {
+                "type": "git",
+                "url": "https://git.drupalcode.org/project/paragraphs_edit.git",
+                "reference": "8.x-2.0"
+            },
+            "dist": {
+                "type": "zip",
+                "url": "https://ftp.drupal.org/files/projects/paragraphs_edit-8.x-2.0.zip",
+                "reference": "8.x-2.0",
+                "shasum": "3b4a7634aecfc35bf45adf86b27d500660887df1"
+            },
+            "require": {
+                "drupal/core": "^8 || ^9 || ^10",
+                "drupal/paragraphs": "*"
+            },
+            "type": "drupal-module",
+            "extra": {
+                "drupal": {
+                    "version": "8.x-2.0",
+                    "datestamp": "1651758518",
+                    "security-coverage": {
+                        "status": "covered",
+                        "message": "Covered by Drupal's security advisory policy"
+                    }
+                }
+            },
+            "notification-url": "https://packages.drupal.org/8/downloads",
+            "license": [
+                "GPL-2.0+"
+            ],
+            "authors": [
+                {
+                    "name": "bbrala",
+                    "homepage": "https://www.drupal.org/user/3366066"
+                },
+                {
+                    "name": "casey",
+                    "homepage": "https://www.drupal.org/user/32403"
+                }
+            ],
+            "description": "Allows users to edit/clone and delete paragraphs.",
+            "homepage": "https://www.drupal.org/project/paragraphs_edit",
+            "support": {
+                "source": "https://git.drupalcode.org/project/paragraphs_edit"
             }
         },
         {
@@ -5488,6 +5738,56 @@
             "support": {
                 "source": "https://cgit.drupalcode.org/responsive_menu",
                 "issues": "https://drupal.org/project/issues/responsive_menu"
+            }
+        },
+        {
+            "name": "drupal/role_delegation",
+            "version": "1.2.0",
+            "source": {
+                "type": "git",
+                "url": "https://git.drupalcode.org/project/role_delegation.git",
+                "reference": "8.x-1.2"
+            },
+            "dist": {
+                "type": "zip",
+                "url": "https://ftp.drupal.org/files/projects/role_delegation-8.x-1.2.zip",
+                "reference": "8.x-1.2",
+                "shasum": "08095bada0f492e70d32fcf357a8c01825ca81fc"
+            },
+            "require": {
+                "drupal/core": "^9.2 || ^10"
+            },
+            "type": "drupal-module",
+            "extra": {
+                "drupal": {
+                    "version": "8.x-1.2",
+                    "datestamp": "1644487627",
+                    "security-coverage": {
+                        "status": "covered",
+                        "message": "Covered by Drupal's security advisory policy"
+                    }
+                }
+            },
+            "notification-url": "https://packages.drupal.org/8/downloads",
+            "license": [
+                "GPL-2.0-or-later"
+            ],
+            "authors": [
+                {
+                    "name": "Jeroen Tubex",
+                    "homepage": "https://www.drupal.org/u/jeroent",
+                    "role": "Maintainer"
+                },
+                {
+                    "name": "benjy",
+                    "homepage": "https://www.drupal.org/user/1852732"
+                }
+            ],
+            "description": "Allows site administrators to grant some roles the authority to assign selected roles to users.",
+            "homepage": "http://drupal.org/project/role_delegation",
+            "support": {
+                "source": "https://git.drupalcode.org/project/role_delegation",
+                "issues": "http://drupal.org/project/role_delegation"
             }
         },
         {
@@ -5826,6 +6126,63 @@
             }
         },
         {
+            "name": "drupal/simple_sitemap",
+            "version": "4.1.2",
+            "source": {
+                "type": "git",
+                "url": "https://git.drupalcode.org/project/simple_sitemap.git",
+                "reference": "4.1.2"
+            },
+            "dist": {
+                "type": "zip",
+                "url": "https://ftp.drupal.org/files/projects/simple_sitemap-4.1.2.zip",
+                "reference": "4.1.2",
+                "shasum": "0b695684d0a6dd2a6162051aac7dab4852d72214"
+            },
+            "require": {
+                "drupal/core": "^9.3 || ^10",
+                "ext-xmlwriter": "*"
+            },
+            "type": "drupal-module",
+            "extra": {
+                "drupal": {
+                    "version": "4.1.2",
+                    "datestamp": "1655334556",
+                    "security-coverage": {
+                        "status": "covered",
+                        "message": "Covered by Drupal's security advisory policy"
+                    }
+                },
+                "drush": {
+                    "services": {
+                        "drush.services.yml": "^9 || ^10"
+                    }
+                }
+            },
+            "notification-url": "https://packages.drupal.org/8/downloads",
+            "license": [
+                "GPL-2.0-or-later"
+            ],
+            "authors": [
+                {
+                    "name": "Pawel Ginalski (gbyte)",
+                    "homepage": "https://www.drupal.org/u/gbyte",
+                    "email": "contact@gbyte.dev",
+                    "role": "Maintainer"
+                },
+                {
+                    "name": "WalkingDexter",
+                    "homepage": "https://www.drupal.org/user/3251330"
+                }
+            ],
+            "description": "Creates a standard conform hreflang XML sitemap of the site content and provides a framework for developing other sitemap types.",
+            "homepage": "https://drupal.org/project/simple_sitemap",
+            "support": {
+                "source": "https://cgit.drupalcode.org/simple_sitemap",
+                "issues": "https://drupal.org/project/issues/simple_sitemap"
+            }
+        },
+        {
             "name": "drupal/svg_image",
             "version": "1.16.0",
             "source": {
@@ -6156,6 +6513,79 @@
             "support": {
                 "source": "https://git.drupalcode.org/project/views_autosubmit",
                 "issues": "https://www.drupal.org/project/issues/views_autosubmit"
+            }
+        },
+        {
+            "name": "drupal/views_bulk_operations",
+            "version": "4.1.4",
+            "source": {
+                "type": "git",
+                "url": "https://git.drupalcode.org/project/views_bulk_operations.git",
+                "reference": "4.1.4"
+            },
+            "dist": {
+                "type": "zip",
+                "url": "https://ftp.drupal.org/files/projects/views_bulk_operations-4.1.4.zip",
+                "reference": "4.1.4",
+                "shasum": "02dfb8e421d0a093e52b3c70e22cd5f5f11fd524"
+            },
+            "require": {
+                "drupal/core": "^9"
+            },
+            "require-dev": {
+                "drush/drush": "^10"
+            },
+            "suggest": {
+                "drush/drush": "^9 || ^10"
+            },
+            "type": "drupal-module",
+            "extra": {
+                "drupal": {
+                    "version": "4.1.4",
+                    "datestamp": "1657620097",
+                    "security-coverage": {
+                        "status": "covered",
+                        "message": "Covered by Drupal's security advisory policy"
+                    }
+                },
+                "drush": {
+                    "services": {
+                        "drush.services.yml": "^9 || ^10"
+                    }
+                }
+            },
+            "notification-url": "https://packages.drupal.org/8/downloads",
+            "license": [
+                "GPL-2.0-or-later"
+            ],
+            "authors": [
+                {
+                    "name": "Marcin Grabias",
+                    "homepage": "https://www.drupal.org/u/graber"
+                },
+                {
+                    "name": "Graber",
+                    "homepage": "https://www.drupal.org/user/1599440"
+                },
+                {
+                    "name": "infojunkie",
+                    "homepage": "https://www.drupal.org/user/48424"
+                },
+                {
+                    "name": "joelpittet",
+                    "homepage": "https://www.drupal.org/user/160302"
+                },
+                {
+                    "name": "Jon Pugh",
+                    "homepage": "https://www.drupal.org/user/17028"
+                }
+            ],
+            "description": "Adds an ability to perform bulk operations on selected entities from view results. Provides an API to create such operations.",
+            "homepage": "https://www.drupal.org/project/views_bulk_operations",
+            "support": {
+                "source": "https://git.drupalcode.org/project/views_bulk_operations/-/tree/8.x-3.x",
+                "issues": "https://www.drupal.org/project/issues/views_bulk_operations?version=8.x",
+                "docs": "https://www.drupal.org/docs/8/modules/views-bulk-operations-vbo"
             }
         },
         {

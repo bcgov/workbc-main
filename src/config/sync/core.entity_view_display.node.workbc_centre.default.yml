@@ -6,6 +6,7 @@ dependencies:
     - field.field.node.workbc_centre.field_address
     - field.field.node.workbc_centre.field_alert
     - field.field.node.workbc_centre.field_apply_online
+    - field.field.node.workbc_centre.field_content_group
     - field.field.node.workbc_centre.field_email
     - field.field.node.workbc_centre.field_french_available
     - field.field.node.workbc_centre.field_hero_image
@@ -17,8 +18,8 @@ dependencies:
   module:
     - address
     - entity_reference_revisions
-    - image
     - link
+    - svg_image
     - text
     - user
 id: node.workbc_centre.default
@@ -77,6 +78,10 @@ content:
     settings:
       image_link: ''
       image_style: ''
+      svg_attributes:
+        width: null
+        height: null
+      svg_render_as_image: true
       image_loading:
         attribute: lazy
     third_party_settings: {  }
@@ -120,6 +125,7 @@ content:
 hidden:
   extra_field_workbc_page_title: true
   extra_field_workbc_published_on: true
+  field_content_group: true
   field_related_topics: true
   langcode: true
   search_api_excerpt: true

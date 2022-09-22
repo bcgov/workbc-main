@@ -1,0 +1,13 @@
+uuid: c12472a8-f06e-44c2-949b-976f19fb605e
+langcode: en
+status: true
+dependencies:
+  module:
+    - devel
+id: switch_user
+label: 'Switch User'
+weight: -1
+is_admin: null
+permissions:
+  - 'access devel information'
+  - 'switch users'

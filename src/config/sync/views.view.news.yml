@@ -10,8 +10,8 @@ dependencies:
     - image.style.1_4_component
     - node.type.news
   module:
-    - image
     - node
+    - svg_image
     - text
     - user
     - views_autosubmit
@@ -881,7 +881,7 @@ display:
           admin_label: ''
           plugin_id: field
           label: ''
-          exclude: false
+          exclude: true
           alter:
             alter_text: false
             text: ''
@@ -1030,8 +1030,8 @@ display:
           plugin_id: text
           empty: false
           content:
-            value: '<a href="/news-archive">View News Archive</a>'
-            format: basic_html
+            value: '<a class="btn btn-primary float-end mb-5 px-5" href="/news-archive">View News Archive</a>'
+            format: full_html
           tokenize: false
       display_extenders: {  }
     cache_metadata:
@@ -1479,7 +1479,7 @@ display:
           plugin_id: text
           empty: false
           content:
-            value: '<a href="/news">View All WorkBC News</a>'
+            value: '<a class="btn btn-primary pull-right" href="/news-archive">View News Archive</a>'
             format: basic_html
           tokenize: false
       display_extenders: {  }

@@ -4,7 +4,7 @@ status: true
 dependencies:
   config:
     - field.storage.paragraph.field_action_cards
-    - paragraphs.paragraphs_type.action_card
+    - paragraphs.paragraphs_type.action_card_full_width
     - paragraphs.paragraphs_type.action_cards_full_width
   module:
     - entity_reference_revisions
@@ -22,20 +22,50 @@ settings:
   handler: 'default:paragraph'
   handler_settings:
     target_bundles:
-      action_card: action_card
+      action_card_full_width: action_card_full_width
     negate: 0
     target_bundles_drag_drop:
       action_card:
         weight: 8
-        enabled: true
+        enabled: false
       action_card_feature:
         weight: 9
+        enabled: false
+      action_card_full_width:
+        weight: 20
+        enabled: true
+      action_card_icon:
+        weight: 21
+        enabled: false
+      action_cards_1_2:
+        weight: 22
+        enabled: false
+      action_cards_1_3:
+        weight: 23
+        enabled: false
+      action_cards_1_4:
+        weight: 24
+        enabled: false
+      action_cards_explore_careers:
+        weight: 25
         enabled: false
       action_cards_full_width:
         weight: 10
         enabled: false
+      action_cards_icon:
+        weight: 27
+        enabled: false
+      action_cards_publication:
+        weight: 28
+        enabled: false
       additional_duties:
         weight: 11
+        enabled: false
+      content_text:
+        weight: 30
+        enabled: false
+      content_view:
+        weight: 31
         enabled: false
       hours_of_operation:
         weight: 12

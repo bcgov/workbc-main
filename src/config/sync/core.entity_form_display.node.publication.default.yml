@@ -4,6 +4,7 @@ status: true
 dependencies:
   config:
     - field.field.node.publication.body
+    - field.field.node.publication.field_content_group
     - field.field.node.publication.field_hardcopy_available
     - field.field.node.publication.field_image
     - field.field.node.publication.field_publication
@@ -33,6 +34,12 @@ content:
   created:
     type: datetime_timestamp
     weight: 2
+    region: content
+    settings: {  }
+    third_party_settings: {  }
+  field_content_group:
+    type: options_select
+    weight: 26
     region: content
     settings: {  }
     third_party_settings: {  }

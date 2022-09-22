@@ -1,0 +1,64 @@
+uuid: c952b5c7-00e4-47d8-87ab-96b5e233292a
+langcode: en
+status: true
+dependencies:
+  config:
+    - field.field.paragraph.action_card_full_width.field_description
+    - field.field.paragraph.action_card_full_width.field_image
+    - field.field.paragraph.action_card_full_width.field_link
+    - field.field.paragraph.action_card_full_width.field_title
+    - image.style.full_width_component
+    - paragraphs.paragraphs_type.action_card_full_width
+  module:
+    - link
+    - svg_image
+    - text
+id: paragraph.action_card_full_width.default
+targetEntityType: paragraph
+bundle: action_card_full_width
+mode: default
+content:
+  field_description:
+    type: text_default
+    label: above
+    settings: {  }
+    third_party_settings: {  }
+    weight: 1
+    region: content
+  field_image:
+    type: image
+    label: above
+    settings:
+      image_link: ''
+      image_style: full_width_component
+      svg_attributes:
+        width: null
+        height: null
+      svg_render_as_image: true
+      image_loading:
+        attribute: lazy
+    third_party_settings: {  }
+    weight: 3
+    region: content
+  field_link:
+    type: link
+    label: above
+    settings:
+      trim_length: 80
+      url_only: false
+      url_plain: false
+      rel: ''
+      target: ''
+    third_party_settings: {  }
+    weight: 2
+    region: content
+  field_title:
+    type: string
+    label: above
+    settings:
+      link_to_entity: false
+    third_party_settings: {  }
+    weight: 0
+    region: content
+hidden:
+  search_api_excerpt: true

@@ -5,6 +5,7 @@ namespace Drupal\workbc_custom\Plugin\Block;
 use Drupal\Core\Block\BlockBase;
 use Drupal\image\Entity\ImageStyle;
 use Drupal\Core\Form\FormStateInterface;
+use Drupal\Core\Cache\Cache;
 
 /**
  * Provides a WorkBC Related topics Block.
@@ -49,6 +50,7 @@ class RelatedTopicsBlock extends BlockBase {
    */
   public function build() {
     $related_topics = array();
+    $renderable = array();
 
     $node = \Drupal::routeMatch()->getParameter('node');
     if ($node instanceof \Drupal\node\NodeInterface) {
@@ -65,35 +67,64 @@ class RelatedTopicsBlock extends BlockBase {
             );
             array_push($related_topics, $related_fields);
           }
+          $renderable = [
+            '#theme' => 'related_topics_block',
+            '#related_topics' => $related_topics,
+          ];
         }
       }
     }
 
-    $renderable = [
-      '#theme' => 'related_topics_block',
-      '#related_topics' => $related_topics,
-    ];
     return $renderable;
   }
 
-  public function getCacheMaxAge() {
-      return 0;
-  }
+  // public function getCacheMaxAge() {
+  //     return 0;
+  // }
 
-  private function renderImage($node) {
-    $imageUri = isset($node->get('field_hero_image')->entity) ? $node->get('field_hero_image')->entity->getFileUri() : null;
-    if($imageUri) {
-      $image = [
-        '#theme' => 'image_style',
-
-        '#style_name' => 'related_topics',
-        '#uri' => $imageUri
-      ];
-      return render($image);
+  public function getCacheTags() {
+    // With this when your node change your block will rebuild.
+    if ($node = \Drupal::routeMatch()->getParameter('node')) {
+      // If there is node add its cachetag.
+      return Cache::mergeTags(parent::getCacheTags(), ['node:' . $node->id()]);
     }
     else {
-      return '';
+      // Return default tags instead.
+      return parent::getCacheTags();
     }
+  }
+
+  public function getCacheContexts() {
+    // Every new route this block will rebuild.
+    return Cache::mergeContexts(parent::getCacheContexts(), ['route']);
+  }
+
+
+  private function renderImage($node) {
+
+    if ($node->hasField("field_hero_image")) {
+      $imageUri = isset($node->get('field_hero_image')->entity) ? $node->get('field_hero_image')->entity->getFileUri() : null;
+      if($imageUri) {
+        $image = [
+          '#theme' => 'image_style',
+          '#style_name' => 'related_topics',
+          '#uri' => $imageUri
+        ];
+        return render($image);
+      }
+    }
+    else if ($node->hasField("field_image")) {
+      $imageUri = isset($node->get('field_image')->entity) ? $node->get('field_image')->entity->getFileUri() : null;
+      if($imageUri) {
+        $image = [
+          '#theme' => 'image_style',
+          '#style_name' => 'related_topics',
+          '#uri' => $imageUri
+        ];
+        return render($image);
+      }
+    }
+    return '';
   }
 
   private function renderText($node) {
@@ -110,7 +141,8 @@ class RelatedTopicsBlock extends BlockBase {
           if (!empty($node->get('body')->value)) {
             $text = strip_tags($node->get('body')->value);
             $config = $this->getConfiguration();
-            $text = \Drupal\Component\Utility\Unicode::truncate($text, $config['trimmed_limit'], TRUE, TRUE);
+            $trim = isset($config['trimmed_limit']) ? $config['trimmed_limit'] : 150;
+            $text = \Drupal\Component\Utility\Unicode::truncate($text, $trim, TRUE, TRUE);
             return $text;
           }
         }
@@ -121,7 +153,7 @@ class RelatedTopicsBlock extends BlockBase {
 
   private function renderLink($node) {
     $options = ['absolute' => TRUE];
-    $link = \Drupal\Core\Link::createFromRoute('Read more >', 'entity.node.canonical', ['node' => $node->id()], $options);
+    $link =$url = \Drupal\Core\Url::fromRoute('entity.node.canonical', ['node' => $node->id()], $options);
     return $link->toString();
   }
 

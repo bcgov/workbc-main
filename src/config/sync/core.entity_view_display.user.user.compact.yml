@@ -4,14 +4,9 @@ status: true
 dependencies:
   config:
     - core.entity_view_mode.user.compact
-    - field.field.user.user.field_city
-    - field.field.user.user.field_country
-    - field.field.user.user.field_first_name
-    - field.field.user.user.field_how_do_you_identify
-    - field.field.user.user.field_last_name
-    - field.field.user.user.field_province
-    - field.field.user.user.field_security_answer
-    - field.field.user.user.field_security_question
+    - field.field.user.user.field_content_group
+    - field.field.user.user.field_organization
+    - field.field.user.user.field_title
   module:
     - user
 _core:
@@ -22,14 +17,9 @@ bundle: user
 mode: compact
 content: {  }
 hidden:
-  field_city: true
-  field_country: true
-  field_first_name: true
-  field_how_do_you_identify: true
-  field_last_name: true
-  field_province: true
-  field_security_answer: true
-  field_security_question: true
+  field_content_group: true
+  field_organization: true
+  field_title: true
   langcode: true
   member_for: true
   search_api_excerpt: true

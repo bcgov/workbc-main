@@ -3,6 +3,7 @@ langcode: en
 status: true
 dependencies:
   config:
+    - field.field.node.region_profile.field_content_group
     - field.field.node.region_profile.field_hero_image
     - field.field.node.region_profile.field_industry_highlights_intro
     - field.field.node.region_profile.field_key_facts
@@ -24,6 +25,12 @@ content:
   created:
     type: datetime_timestamp
     weight: 10
+    region: content
+    settings: {  }
+    third_party_settings: {  }
+  field_content_group:
+    type: options_select
+    weight: 129
     region: content
     settings: {  }
     third_party_settings: {  }

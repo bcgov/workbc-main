@@ -5,11 +5,12 @@ dependencies:
   config:
     - field.field.node.event.body
     - field.field.node.event.field_address
+    - field.field.node.event.field_audience
+    - field.field.node.event.field_content_group
     - field.field.node.event.field_end_date
     - field.field.node.event.field_event_type
     - field.field.node.event.field_multiple_days
     - field.field.node.event.field_start_date
-    - field.field.node.event.field_target_audience
     - field.field.node.event.field_time
     - node.type.event
   module:
@@ -37,6 +38,14 @@ content:
     third_party_settings: {  }
     weight: 2
     region: content
+  field_audience:
+    type: string
+    label: above
+    settings:
+      link_to_entity: false
+    third_party_settings: {  }
+    weight: 3
+    region: content
   field_end_date:
     type: datetime_default
     label: above
@@ -63,14 +72,6 @@ content:
     third_party_settings: {  }
     weight: 5
     region: content
-  field_target_audience:
-    type: entity_reference_label
-    label: above
-    settings:
-      link: true
-    third_party_settings: {  }
-    weight: 3
-    region: content
   field_time:
     type: time_range_formatter
     label: above
@@ -88,6 +89,7 @@ content:
 hidden:
   extra_field_workbc_page_title: true
   extra_field_workbc_published_on: true
+  field_content_group: true
   field_multiple_days: true
   langcode: true
   search_api_excerpt: true
