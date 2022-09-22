@@ -3,18 +3,10 @@ langcode: en
 status: true
 dependencies:
   config:
-    - field.field.user.user.field_city
     - field.field.user.user.field_content_group
-    - field.field.user.user.field_country
-    - field.field.user.user.field_first_name
-    - field.field.user.user.field_how_do_you_identify
-    - field.field.user.user.field_last_name
-    - field.field.user.user.field_province
-    - field.field.user.user.field_security_answer
-    - field.field.user.user.field_security_question
+    - field.field.user.user.field_organization
+    - field.field.user.user.field_title
   module:
-    - address
-    - options
     - user
 _core:
   default_config_hash: E1qmUI2SlozLlJ308jfMMFKT67l1p6PywE2LTRbeYS4
@@ -23,77 +15,31 @@ targetEntityType: user
 bundle: user
 mode: default
 content:
-  field_city:
-    type: string
-    label: above
-    settings:
-      link_to_entity: false
-    third_party_settings: {  }
-    weight: 15
-    region: content
   field_content_group:
     type: entity_reference_label
     label: above
     settings:
-      link: true
+      link: false
     third_party_settings: {  }
-    weight: 16
+    weight: 2
     region: content
-  field_country:
-    type: address_country_default
-    label: above
-    settings: {  }
-    third_party_settings: {  }
-    weight: 13
-    region: content
-  field_first_name:
+  field_organization:
     type: string
     label: above
     settings:
       link_to_entity: false
     third_party_settings: {  }
-    weight: 6
+    weight: 1
     region: content
-  field_how_do_you_identify:
-    type: list_default
-    label: above
-    settings: {  }
-    third_party_settings: {  }
-    weight: 8
-    region: content
-  field_last_name:
+  field_title:
     type: string
     label: above
     settings:
       link_to_entity: false
     third_party_settings: {  }
-    weight: 7
-    region: content
-  field_province:
-    type: list_default
-    label: above
-    settings: {  }
-    third_party_settings: {  }
-    weight: 14
-    region: content
-  field_security_answer:
-    type: string
-    label: above
-    settings:
-      link_to_entity: false
-    third_party_settings: {  }
-    weight: 12
-    region: content
-  field_security_question:
-    type: list_default
-    label: above
-    settings: {  }
-    third_party_settings: {  }
-    weight: 11
-    region: content
-  member_for:
-    weight: 5
+    weight: 0
     region: content
 hidden:
   langcode: true
+  member_for: true
   search_api_excerpt: true

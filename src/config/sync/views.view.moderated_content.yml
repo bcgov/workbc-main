@@ -7,10 +7,12 @@ dependencies:
     - taxonomy.vocabulary.content_groups
     - workflows.workflow.editorial
   module:
+    - content_lock
     - content_moderation
     - node
     - taxonomy
     - user
+    - views_bulk_operations
   enforced:
     module:
       - content_moderation
@@ -32,6 +34,79 @@ display:
     display_options:
       title: 'Moderated content'
       fields:
+        views_bulk_operations_bulk_form:
+          id: views_bulk_operations_bulk_form
+          table: views
+          field: views_bulk_operations_bulk_form
+          relationship: none
+          group_type: group
+          admin_label: ''
+          plugin_id: views_bulk_operations_bulk_form
+          label: 'Views bulk operations'
+          exclude: false
+          alter:
+            alter_text: false
+            text: ''
+            make_link: false
+            path: ''
+            absolute: false
+            external: false
+            replace_spaces: false
+            path_case: none
+            trim_whitespace: false
+            alt: ''
+            rel: ''
+            link_class: ''
+            prefix: ''
+            suffix: ''
+            target: ''
+            nl2br: false
+            max_length: 0
+            word_boundary: true
+            ellipsis: true
+            more_link: false
+            more_link_text: ''
+            more_link_path: ''
+            strip_tags: false
+            trim: false
+            preserve_tags: ''
+            html: false
+          element_type: ''
+          element_class: ''
+          element_label_type: ''
+          element_label_class: ''
+          element_label_colon: true
+          element_wrapper_type: ''
+          element_wrapper_class: ''
+          element_default_classes: true
+          empty: ''
+          hide_empty: false
+          empty_zero: false
+          hide_alter_empty: true
+          batch: true
+          batch_size: 10
+          form_step: true
+          buttons: false
+          action_title: Action
+          clear_on_exposed: true
+          force_selection_info: false
+          selected_actions:
+            0:
+              action_id: 'entity:break_lock:node'
+              preconfiguration:
+                add_confirmation: false
+            8:
+              action_id: workbc_draft_node_action
+              preconfiguration:
+                label_override: Draft
+            9:
+              action_id: workbc_publish_node_action
+              preconfiguration:
+                label_override: Publish
+            10:
+              action_id: workbc_review_node_action
+              preconfiguration:
+                label_override: 'For Approval'
         title:
           id: title
           table: node_field_revision
@@ -420,6 +495,59 @@ display:
           multi_type: separator
           separator: ', '
           field_api_classes: false
+        is_locked:
+          id: is_locked
+          table: content_lock
+          field: is_locked
+          relationship: nid
+          group_type: group
+          admin_label: ''
+          plugin_id: boolean
+          label: 'Is Locked'
+          exclude: false
+          alter:
+            alter_text: false
+            text: ''
+            make_link: false
+            path: ''
+            absolute: false
+            external: false
+            replace_spaces: false
+            path_case: none
+            trim_whitespace: false
+            alt: ''
+            rel: ''
+            link_class: ''
+            prefix: ''
+            suffix: ''
+            target: ''
+            nl2br: false
+            max_length: 0
+            word_boundary: true
+            ellipsis: true
+            more_link: false
+            more_link_text: ''
+            more_link_path: ''
+            strip_tags: false
+            trim: false
+            preserve_tags: ''
+            html: false
+          element_type: ''
+          element_class: ''
+          element_label_type: ''
+          element_label_class: ''
+          element_label_colon: true
+          element_wrapper_type: ''
+          element_wrapper_class: ''
+          element_default_classes: true
+          empty: ''
+          hide_empty: false
+          empty_zero: false
+          hide_alter_empty: true
+          type: custom
+          type_custom_true: Locked
+          type_custom_false: ''
+          not: false
         operations:
           id: operations
           table: node_revision
@@ -524,15 +652,15 @@ display:
       sorts: {  }
       arguments: {  }
       filters:
-        latest_translation_affected_revision:
-          id: latest_translation_affected_revision
+        latest_revision:
+          id: latest_revision
           table: node_revision
-          field: latest_translation_affected_revision
+          field: latest_revision
           relationship: none
           group_type: group
           admin_label: ''
           entity_type: node
-          plugin_id: latest_translation_affected_revision
+          plugin_id: latest_revision
           operator: '='
           value: ''
           group: 1
@@ -648,6 +776,60 @@ display:
             default_group: All
             default_group_multiple: {  }
             group_items: {  }
+        field_content_group_target_id:
+          id: field_content_group_target_id
+          table: node__field_content_group
+          field: field_content_group_target_id
+          relationship: nid
+          group_type: group
+          admin_label: ''
+          plugin_id: taxonomy_index_tid
+          operator: or
+          value: {  }
+          group: 1
+          exposed: true
+          expose:
+            operator_id: field_content_group_target_id_op
+            label: 'Content group'
+            description: ''
+            use_operator: false
+            operator: field_content_group_target_id_op
+            operator_limit_selection: false
+            operator_list: {  }
+            identifier: field_content_group_target_id
+            required: false
+            remember: false
+            multiple: false
+            remember_roles:
+              authenticated: authenticated
+              anonymous: '0'
+              content_editor: '0'
+              content_approver: '0'
+              workbc_administrator: '0'
+              global_editor: '0'
+              global_approver: '0'
+              workbc_global_administrator: '0'
+              administrator: '0'
+              switch_user: '0'
+            reduce: false
+          is_grouped: false
+          group_info:
+            label: ''
+            description: ''
+            identifier: ''
+            optional: true
+            widget: select
+            multiple: false
+            remember: false
+            default_group: All
+            default_group_multiple: {  }
+            group_items: {  }
+          reduce_duplicates: false
+          vid: content_groups
+          type: select
+          hierarchy: false
+          limit: true
+          error_message: true
         moderation_state:
           id: moderation_state
           table: node_field_revision
@@ -660,7 +842,7 @@ display:
           operator: in
           value:
             editorial-draft: editorial-draft
-            editorial-archived: editorial-archived
+            editorial-review: editorial-review
           group: 1
           exposed: true
           expose:
@@ -678,7 +860,14 @@ display:
             remember_roles:
               authenticated: authenticated
               anonymous: '0'
+              content_editor: '0'
+              content_approver: '0'
+              workbc_administrator: '0'
+              global_editor: '0'
+              global_approver: '0'
+              workbc_global_administrator: '0'
               administrator: '0'
+              switch_user: '0'
             reduce: true
           is_grouped: false
           group_info:
@@ -776,60 +965,6 @@ display:
             default_group: All
             default_group_multiple: {  }
             group_items: {  }
-        field_content_group_target_id:
-          id: field_content_group_target_id
-          table: node__field_content_group
-          field: field_content_group_target_id
-          relationship: nid
-          group_type: group
-          admin_label: ''
-          plugin_id: taxonomy_index_tid
-          operator: or
-          value: {  }
-          group: 1
-          exposed: true
-          expose:
-            operator_id: field_content_group_target_id_op
-            label: 'Content Group'
-            description: ''
-            use_operator: false
-            operator: field_content_group_target_id_op
-            operator_limit_selection: false
-            operator_list: {  }
-            identifier: field_content_group_target_id
-            required: false
-            remember: false
-            multiple: false
-            remember_roles:
-              authenticated: authenticated
-              anonymous: '0'
-              content_editor: '0'
-              content_publisher: '0'
-              global_publisher: '0'
-              global_editor: '0'
-              content_lead: '0'
-              workbc_administrator: '0'
-              workbc_global_administrator: '0'
-              administrator: '0'
-            reduce: false
-          is_grouped: false
-          group_info:
-            label: ''
-            description: ''
-            identifier: ''
-            optional: true
-            widget: select
-            multiple: false
-            remember: false
-            default_group: All
-            default_group_multiple: {  }
-            group_items: {  }
-          reduce_duplicates: false
-          vid: content_groups
-          type: select
-          hierarchy: false
-          limit: true
-          error_message: true
       filter_groups:
         operator: AND
         groups:
@@ -926,7 +1061,7 @@ display:
       footer: {  }
       display_extenders: {  }
     cache_metadata:
-      max-age: -1
+      max-age: 0
       contexts:
         - 'languages:language_content'
         - 'languages:language_interface'
@@ -948,7 +1083,7 @@ display:
       display_extenders: {  }
       path: admin/content/moderated
     cache_metadata:
-      max-age: -1
+      max-age: 0
       contexts:
         - 'languages:language_content'
         - 'languages:language_interface'

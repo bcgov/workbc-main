@@ -1,18 +1,18 @@
-uuid: 8210a7c0-c8b9-454d-ba35-7e737f396697
+uuid: fa30dff7-8ef5-43bf-b019-4106d3faec6a
 langcode: en
 status: true
 dependencies:
   config:
-    - field.storage.user.field_city
+    - field.storage.user.field_title
   module:
     - user
-id: user.user.field_city
-field_name: field_city
+id: user.user.field_title
+field_name: field_title
 entity_type: user
 bundle: user
-label: City
+label: Title
 description: ''
-required: false
+required: true
 translatable: false
 default_value: {  }
 default_value_callback: ''

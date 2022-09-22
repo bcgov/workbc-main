@@ -4,17 +4,10 @@ status: true
 dependencies:
   config:
     - core.entity_form_mode.user.register
-    - field.field.user.user.field_city
     - field.field.user.user.field_content_group
-    - field.field.user.user.field_country
-    - field.field.user.user.field_first_name
-    - field.field.user.user.field_how_do_you_identify
-    - field.field.user.user.field_last_name
-    - field.field.user.user.field_province
-    - field.field.user.user.field_security_answer
-    - field.field.user.user.field_security_question
+    - field.field.user.user.field_organization
+    - field.field.user.user.field_title
   module:
-    - address
     - field_group
     - user
 third_party_settings:
@@ -97,62 +90,6 @@ content:
     region: content
     settings: {  }
     third_party_settings: {  }
-  field_city:
-    type: string_textfield
-    weight: 5
-    region: content
-    settings:
-      size: 60
-      placeholder: ''
-    third_party_settings: {  }
-  field_country:
-    type: address_country_default
-    weight: 3
-    region: content
-    settings: {  }
-    third_party_settings: {  }
-  field_first_name:
-    type: string_textfield
-    weight: 1
-    region: content
-    settings:
-      size: 60
-      placeholder: ''
-    third_party_settings: {  }
-  field_how_do_you_identify:
-    type: options_buttons
-    weight: 4
-    region: content
-    settings: {  }
-    third_party_settings: {  }
-  field_last_name:
-    type: string_textfield
-    weight: 2
-    region: content
-    settings:
-      size: 60
-      placeholder: ''
-    third_party_settings: {  }
-  field_province:
-    type: options_select
-    weight: 4
-    region: content
-    settings: {  }
-    third_party_settings: {  }
-  field_security_answer:
-    type: string_textfield
-    weight: 4
-    region: content
-    settings:
-      size: 60
-      placeholder: ''
-    third_party_settings: {  }
-  field_security_question:
-    type: options_select
-    weight: 3
-    region: content
-    settings: {  }
-    third_party_settings: {  }
   terms_of_use:
     weight: 3
     region: content
@@ -161,6 +98,8 @@ content:
 hidden:
   contact: true
   field_content_group: true
+  field_organization: true
+  field_title: true
   langcode: true
   language: true
   path: true

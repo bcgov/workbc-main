@@ -14,7 +14,7 @@ entity_type: node
 bundle: blog
 label: 'Content Group'
 description: ''
-required: true
+required: false
 translatable: true
 default_value:
   -

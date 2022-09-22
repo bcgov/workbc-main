@@ -19,13 +19,12 @@ dependencies:
     - taxonomy.vocabulary.tags
     - workflows.workflow.editorial
   module:
-    - comment
+    - actions_permissions
     - content_moderation
     - contextual
     - file
     - node
     - paragraphs_type_permissions
-    - path
     - system
     - taxonomy
     - toolbar
@@ -43,7 +42,6 @@ permissions:
   - 'access files overview'
   - 'access toolbar'
   - 'access tour'
-  - 'administer url aliases'
   - 'create bc_profile content'
   - 'create blog content'
   - 'create career_profile content'
@@ -67,10 +65,7 @@ permissions:
   - 'create region_profile content'
   - 'create success_story content'
   - 'create terms in tags'
-  - 'create url aliases'
   - 'create workbc_centre content'
-  - 'delete own page content'
-  - 'delete page revisions'
   - 'delete paragraph content action_card'
   - 'delete paragraph content action_card_feature'
   - 'delete paragraph content action_cards_1_2'
@@ -81,12 +76,23 @@ permissions:
   - 'delete paragraph content hours_of_operation'
   - 'delete paragraph content quote_card'
   - 'delete paragraph content skills'
+  - 'edit any bc_profile content'
+  - 'edit any blog content'
+  - 'edit any career_profile content'
+  - 'edit any career_profile_introductions content'
+  - 'edit any event content'
+  - 'edit any industry_profile content'
+  - 'edit any labour_market_monthly content'
   - 'edit any news content'
   - 'edit any page content'
-  - 'edit own comments'
-  - 'edit own page content'
+  - 'edit any publication content'
+  - 'edit any region_profile content'
+  - 'edit any success_story content'
+  - 'edit any workbc_centre content'
+  - 'edit own bc_profile content'
   - 'edit terms in tags'
-  - 'revert all revisions'
+  - 'execute workbc_draft_node_action node'
+  - 'execute workbc_review_node_action node'
   - 'update paragraph content action_card'
   - 'update paragraph content action_card_feature'
   - 'update paragraph content action_cards_1_2'
@@ -98,6 +104,9 @@ permissions:
   - 'update paragraph content quote_card'
   - 'update paragraph content skills'
   - 'use editorial transition create_new_draft'
+  - 'use editorial transition send_for_review'
   - 'view all revisions'
+  - 'view any unpublished content'
+  - 'view latest version'
   - 'view own unpublished content'
   - 'view the administration theme'

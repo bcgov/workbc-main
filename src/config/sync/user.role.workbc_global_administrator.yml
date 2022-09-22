@@ -1,9 +1,97 @@
 uuid: 42a2f8c9-bb09-4fa6-ba6e-c91ae123bdf9
 langcode: en
 status: true
-dependencies: {  }
+dependencies:
+  config:
+    - node.type.bc_profile
+    - node.type.blog
+    - node.type.career_profile
+    - node.type.career_profile_introductions
+    - node.type.event
+    - node.type.industry_profile
+    - node.type.labour_market_monthly
+    - node.type.news
+    - node.type.page
+    - node.type.publication
+    - node.type.region_profile
+    - node.type.success_story
+    - node.type.workbc_centre
+  module:
+    - actions_permissions
+    - content_lock
+    - field_permissions
+    - node
+    - override_node_options
+    - path
+    - role_delegation
+    - system
+    - toolbar
+    - workbc_custom
 id: workbc_global_administrator
 label: 'Global Administrator'
 weight: -3
 is_admin: null
-permissions: {  }
+permissions:
+  - 'access content overview'
+  - 'access toolbar'
+  - 'access user profiles'
+  - 'administer url aliases'
+  - 'administer users'
+  - 'assign content_approver role'
+  - 'assign content_editor role'
+  - 'assign global_approver role'
+  - 'assign global_editor role'
+  - 'assign workbc_administrator role'
+  - 'assign workbc_global_administrator role'
+  - 'break content lock'
+  - 'bypass content groups'
+  - 'create url aliases'
+  - 'delete any bc_profile content'
+  - 'delete any blog content'
+  - 'delete any career_profile content'
+  - 'delete any career_profile_introductions content'
+  - 'delete any event content'
+  - 'delete any industry_profile content'
+  - 'delete any labour_market_monthly content'
+  - 'delete any news content'
+  - 'delete any page content'
+  - 'delete any publication content'
+  - 'delete any region_profile content'
+  - 'delete any success_story content'
+  - 'delete any workbc_centre content'
+  - 'delete bc_profile revisions'
+  - 'delete blog revisions'
+  - 'delete career_profile revisions'
+  - 'delete career_profile_introductions revisions'
+  - 'delete event revisions'
+  - 'delete industry_profile revisions'
+  - 'delete labour_market_monthly revisions'
+  - 'delete news revisions'
+  - 'delete page revisions'
+  - 'delete publication revisions'
+  - 'delete region_profile revisions'
+  - 'delete success_story revisions'
+  - 'delete workbc_centre revisions'
+  - 'edit field_content_group'
+  - 'edit field_organization'
+  - 'edit field_title'
+  - 'edit own field_content_group'
+  - 'edit own field_organization'
+  - 'edit own field_title'
+  - 'execute entity:break_lock node'
+  - 'override bc_profile authored by option'
+  - 'override blog authored by option'
+  - 'override career_profile authored by option'
+  - 'override career_profile_introductions authored by option'
+  - 'override event authored by option'
+  - 'override industry_profile authored by option'
+  - 'override labour_market_monthly authored by option'
+  - 'override news authored by option'
+  - 'override page authored by option'
+  - 'override publication authored by option'
+  - 'override region_profile authored by option'
+  - 'override success_story authored by option'
+  - 'override workbc_centre authored by option'
+  - 'view all revisions'
+  - 'view the administration theme'
+  - 'view user email addresses'

@@ -1,17 +1,17 @@
-uuid: 49c70657-b683-4866-a5ab-205d21f92e59
+uuid: 5efd6c01-a679-42d9-8a4f-d3e796c246fd
 langcode: en
 status: true
 dependencies:
   config:
-    - field.storage.user.field_last_name
+    - field.storage.user.field_organization
   module:
     - user
-id: user.user.field_last_name
-field_name: field_last_name
+id: user.user.field_organization
+field_name: field_organization
 entity_type: user
 bundle: user
-label: 'Last Name'
-description: ''
+label: Organization
+description: 'Ministry and branch'
 required: true
 translatable: false
 default_value: {  }
