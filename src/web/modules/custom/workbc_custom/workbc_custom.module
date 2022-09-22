@@ -5,11 +5,6 @@ use Drupal\node\NodeInterface;
 use Drupal\Core\Session\AccountInterface;
 
 /**
- * @file
- * An example field using the Field Types API.
- */
-
-/**
  *
  */
 
@@ -58,7 +53,6 @@ use Drupal\Core\Session\AccountInterface;
   */
  function workbc_custom_views_data_alter(array &$data) {
 
-
    $data['node_field_data']['workbc_nodes_granular_dates'] = [
      'title' => t('WorkBC node granular date filter'),
      'filter' => [
@@ -72,16 +66,10 @@ use Drupal\Core\Session\AccountInterface;
  }
 
 
-
-
-
-
-
-
 function workbc_custom_form_alter(&$form, \Drupal\Core\Form\FormStateInterface $form_state, $form_id) {
-  // ksm($form_id);
-  // ksm($form);
 
+  // hide password and disable editing of username and email
+  // maintenance of this info is handled by keycloak
   if ($form_id == "user_form") {
     $form['account']['mail']['#disabled'] = true;
     $form['account']['name']['#disabled'] = true;
@@ -103,11 +91,6 @@ function workbc_custom_form_alter(&$form, \Drupal\Core\Form\FormStateInterface $
 
 }
 
-
-
-// function workbc_custom_entity_view(array &$build, \Drupal\Core\Entity\EntityInterface $entity, \Drupal\Core\Entity\Display\EntityViewDisplayInterface $display, $view_mode) {
-//   dump($view_mode);
-// }
 
 /**
  * Implements hook_node_access
@@ -150,7 +133,9 @@ function workbc_custom_node_presave(NodeInterface $entity) {
 
 
 function workbc_custom_user_access(\Drupal\Core\Entity\EntityInterface $entity, $operation, \Drupal\Core\Session\AccountInterface $account) {
-// ksm($operation);
+
+  // users without "bypass content groups" permission can only update/delete
+  // user accounts if they are members of the same content group
   if ($operation == "update" || $operation == "delete") {
     if (!\Drupal::currentUser()->hasPermission('bypass content groups')) {
       $admin = \Drupal\user\Entity\User::load(\Drupal::currentUser()->id());
@@ -159,7 +144,6 @@ function workbc_custom_user_access(\Drupal\Core\Entity\EntityInterface $entity, 
           !isset($entity->field_content_group->target_id) ||
           is_null($entity->field_content_group) ||
           $admin->field_content_group->target_id <> $entity->field_content_group->target_id) {
-            // ksm("here");
         return  AccessResult::forbidden();
       }
     }
