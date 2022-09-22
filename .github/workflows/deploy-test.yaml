@@ -3,11 +3,11 @@ name: Deploy Test
 on:
   workflow_run:
     workflows:
-      - CI
+      - Tag
+    branches:
+      - "v[0-9]+.[0-9]+-uat*"
     types:
       - completed
-    
-  workflow_dispatch:
 
 
 env:
@@ -37,6 +37,7 @@ jobs:
     name: cd
     runs-on: ubuntu-latest
     if: ${{ github.event.workflow_run.conclusion == 'success' }}
+
 
     steps:
       - name: Check out the repo
