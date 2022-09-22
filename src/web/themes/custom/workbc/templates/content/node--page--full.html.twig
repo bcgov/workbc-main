@@ -70,6 +70,22 @@
 
 {% set page_format = content.field_page_format|render|striptags|trim|lower %}
 
+{% set title = label %}
+{% set hero_image = content.field_hero_image[0] %}
+{% set hero_text = content.field_hero_text[0] %}
+{% set page_body = content.body %}
+{% set page_content = content.field_content %}
+
+
+{% set leftblock %}
+  {{ drupal_entity('block', 'sidenavblock') }}
+{% endset %}
+
+{% set related %}
+  {{ drupal_entity('block', 'related_topics') }}
+{% endset %}
+
+
 {%
   set classes = [
     'node',
@@ -79,24 +95,40 @@
     not node.isPublished() ? 'node--unpublished',
     view_mode ? 'node--view-mode-' ~ view_mode|clean_class,
     page_format ? 'page-format--' ~ page_format|clean_class,
-    node.bundle == 'blog' ? 'page-format--standard',
-    node.bundle == 'news' ? 'page-format--standard',
-    node.bundle == 'success_story' ? 'page-format--standard',
+    'page-container',
+    'container-lg',
   ]
 %}
 
+{% if hero_image or hero_text %}
+  {% include '@workbc/includes/hero.html.twig' %}
+{% endif %}
+
+{% include '@workbc/includes/breadcrumbs.html.twig' %}
+
 <article{{ attributes.addClass(classes) }}>
 
-  {{ title_prefix }}
-  {% if label and not page %}
-    <h2{{ title_attributes }}>
-      <a href="{{ url }}" rel="bookmark">{{ label }}</a>
-    </h2>
+  {% if leftblock|striptags|trim %}
+    <aside class="page-sidebar" role="complementary">
+      {{ leftblock }}
+    </aside>
   {% endif %}
-  {{ title_suffix }}
 
-  <div{{ content_attributes.addClass('node__content') }}>
-    {{ content|without(['field_page_format']) }}
+  <div class="page-content">
+    {% if hero_image is empty and hero_text is empty %}
+      <h1 class="page-title">{{ label }}</h1>
+    {% endif %}
+
+    {% if page_body %}
+      {{ page_body }}
+    {% endif %}
+
+    {{ page_content }}
   </div>
-
 </article>
+
+{% if related|striptags|trim %}
+  <div class="container-lg">
+    {{ related }}
+  </div>
+{% endif %}
