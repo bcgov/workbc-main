@@ -10,8 +10,8 @@ dependencies:
     - workbc
 id: bettersocialsharingbuttons
 theme: workbc
-region: breadcrumb
-weight: 0
+region: hidden
+weight: -17
 provider: null
 plugin: social_sharing_buttons_block
 settings:

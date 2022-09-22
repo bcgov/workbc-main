@@ -1026,7 +1026,7 @@ display:
         style: false
         row: false
         fields: false
-      css_class: ''
+      css_class: container-lg
       display_description: ''
       display_extenders: {  }
     cache_metadata:

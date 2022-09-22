@@ -11,7 +11,7 @@ _core:
   default_config_hash: XxWoSC-fMuqPDdI-QBh-W3BkBJOcjwixo-7jsyRF6BA
 id: workbc_breadcrumbs
 theme: workbc
-region: breadcrumb
+region: hidden
 weight: -5
 provider: null
 plugin: system_breadcrumb_block

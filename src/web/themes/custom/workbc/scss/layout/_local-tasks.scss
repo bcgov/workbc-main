@@ -1,0 +1,55 @@
+.block-local-tasks-block {
+  position: fixed;
+  z-index: 99;
+  bottom: 0;
+  left: 40px;
+  margin-bottom: 0;
+  background: rgba(255, 255, 255, 0.95);
+  box-shadow: 1px 0 3px 1px rgba(#000, 0.15);
+}
+
+.block-local-tasks-block .tabs-primary {
+  margin: 0;
+  padding: 0;
+}
+
+.block-local-tasks-block .nav-tabs-items {
+  margin: 0;
+  padding: 0;
+}
+
+.block-local-tasks-block .tabs {
+  margin: 0;
+  padding: 0;
+  font-size: 14px;
+  line-height: 1;
+}
+
+.block-local-tasks-block .tabs li {
+  display: block;
+  margin: 0;
+  padding: 0;
+
+  @include media-breakpoint-up(lg) {
+    display: inline-block;
+  }
+}
+
+.block-local-tasks-block .tabs li a {
+  display: block;
+  padding: 14px 18px;
+  color: $workbc_palette_dark_secondary;
+  text-decoration: none;
+  transition: border-color 0.3s ease;
+
+  &:hover,
+  &:focus {
+    background-color: $workbc_palette_dark_secondary;
+    color: #fff;
+  }
+}
+
+.block-local-tasks-block .tabs li.is-active a {
+  background-color: $workbc_palette_dark_secondary;
+  color: #fff;
+}

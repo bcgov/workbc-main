@@ -51,11 +51,13 @@
 
 <main role="main" class="page-wrapper">
   <a id="main-content" tabindex="-1"></a>{# link is in html.html.twig #}
+
   <div class="page-content-wrapper">
     <div class="submenu-underlay"></div>
       {{ messages }}
-      {{ tabs }}
-      {{ page.content }}
+      <div class="container">
+        {{ page.content }}
+      </div>
   </div>
 </main>
 

@@ -68,8 +68,6 @@
  */
 #}
 
-{% set page_format = content.field_page_format|render|striptags|trim|lower %}
-
 {%
   set classes = [
     'node',
@@ -78,25 +76,15 @@
     node.isSticky() ? 'node--sticky',
     not node.isPublished() ? 'node--unpublished',
     view_mode ? 'node--view-mode-' ~ view_mode|clean_class,
-    page_format ? 'page-format--' ~ page_format|clean_class,
-    node.bundle == 'blog' ? 'page-format--standard',
-    node.bundle == 'news' ? 'page-format--standard',
-    node.bundle == 'success_story' ? 'page-format--standard',
+    'container-lg',
+    'page-format--standard'
   ]
 %}
 
+{% include '@workbc/includes/breadcrumbs.html.twig' %}
+
 <article{{ attributes.addClass(classes) }}>
-
-  {{ title_prefix }}
-  {% if label and not page %}
-    <h2{{ title_attributes }}>
-      <a href="{{ url }}" rel="bookmark">{{ label }}</a>
-    </h2>
-  {% endif %}
-  {{ title_suffix }}
-
-  <div{{ content_attributes.addClass('node__content') }}>
-    {{ content|without(['field_page_format']) }}
-  </div>
-
+  <h1 class="page-title">{{ label }}</h1>
+  {{ content }}
 </article>
+
