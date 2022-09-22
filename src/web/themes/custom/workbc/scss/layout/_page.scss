@@ -6,3 +6,36 @@
 .page-content-wrapper {
   position: relative;
 }
+
+// Page Standard
+.page-format--standard {
+  @include media-breakpoint-up(xl) {
+    width: 66.66666667%;
+    margin: 0 auto;
+  }
+}
+
+// Page with Sidenav
+.page-format--sidenav {
+  @include media-breakpoint-up(lg) {
+    display: flex;
+    gap: 20px;
+  }
+}
+
+.page-format--sidenav .page-content {
+  @include media-breakpoint-up(lg) {
+    flex: 1 0 80%;
+  }
+}
+
+.page-format--sidenav .page-sidebar {
+  @include media-breakpoint-up(lg) {
+    flex: 1 0 20%;
+  }
+}
+
+.page-title {
+  @include underlined-header;
+  margin-bottom: $workbc_spacing_default;
+}
