@@ -11,7 +11,6 @@ use Drupal\pathauto\PathautoState;
  *
  * Revert:
  * - drush entity:delete node --bundle=page
- * - drush entity:delete menu_link_content
  */
 
 $file = __DIR__ . '/data/ia.csv';
@@ -41,13 +40,20 @@ $types = [
     'landing page' => 'page'
 ];
 
+// Content groups for editing permissions.
+$content_groups = [];
+foreach (\Drupal::entityTypeManager()->getStorage('taxonomy_term')->loadTree('content_groups') as $term) {
+    $content_groups[strtolower($term->name)] = $term->tid;
+}
+
 // The columns we are interested in.
 const TREE_FIRST = 0;
 const TREE_LAST = 5;
 const MEGA_MENU = 6;
 const DRUPAL_TYPE = 7;
 const URL = 12;
-const SIDE_NAV = 13;
+const PAGE_FORMAT = 13;
+const CONTENT_GROUP = 14;
 
 // FIRST PASS: Create all the nodes.
 print("FIRST PASS" . PHP_EOL);
@@ -82,8 +88,8 @@ while (($row = fgetcsv($data)) !== FALSE) {
     }
 
     // Detect a type that we can import.
-    $t = strtolower($row[DRUPAL_TYPE]);
-    if (empty($t) || !array_key_exists($t, $types)) {
+    $row_type = strtolower($row[DRUPAL_TYPE]);
+    if (empty($row_type) || !array_key_exists($row_type, $types)) {
         if (!empty($row[MEGA_MENU]) && empty($row[URL])) {
             // A placeholder page until we have a better way to deal with this entry.
             $type = 'page';
@@ -93,7 +99,7 @@ while (($row = fgetcsv($data)) !== FALSE) {
         }
     }
     else {
-        $type = $types[$t];
+        $type = $types[$row_type];
     }
 
     print("Processing \"$title\"..." . PHP_EOL);
@@ -105,6 +111,36 @@ while (($row = fgetcsv($data)) !== FALSE) {
             'pathauto' => PathautoState::CREATE,
         ],
     ];
+
+    // Page format.
+    switch (strtolower($row[PAGE_FORMAT])) {
+        case 'sidenav':
+            $fields['field_page_format'] = 'sidenav';
+        break;
+        case 'standard':
+            $fields['field_page_format'] = 'standard';
+        break;
+        case 'wide':
+            $fields['field_page_format'] = 'wide';
+        break;
+        default:
+            if ($row_type === 'landing page') {
+                $fields['field_page_format'] = 'wide';
+            }
+            else {
+                $fields['field_page_format'] = 'standard';
+            }
+        break;
+    }
+
+    // Content group.
+    $content_group = strtolower($row[CONTENT_GROUP]);
+    if (array_key_exists($content_group, $content_groups)) {
+        $fields['field_content_group'] = ['target_id' => $content_groups[$content_group]];
+    }
+    else {
+        $fields['field_content_group'] = ['target_id' => $content_groups['workbc']];
+    }
 
     // Create the node.
     if (!empty($row[URL])) {
@@ -119,11 +155,23 @@ while (($row = fgetcsv($data)) !== FALSE) {
         print("  No content: " . implode(' => ', $path) . PHP_EOL);
     }
     else if (!empty($type)) {
-        $node = Drupal::entityTypeManager()
+        $nodes = \Drupal::entityTypeManager()
             ->getStorage('node')
-            ->create($fields);
+            ->loadByProperties(['title' => $title]);
+        if (empty($nodes)) {
+            $node = Drupal::entityTypeManager()
+                ->getStorage('node')
+                ->create($fields);
+        }
+        else {
+            $node = current($nodes);
+            foreach ($fields as $field => $value) {
+                $node->$field = $value;
+            }
+        }
         $node->setPublished(TRUE);
         $node->save();
+
         $pages[implode('/', $path)] = [
             'nid' => $node->id(),
             'title' => $title,
@@ -148,7 +196,6 @@ function createMenuEntry($path, $page, &$pages, $menu_name) {
         print("  Menu found. Skipping" . PHP_EOL);
         return;
     }
-    $menu_link_storage = \Drupal::entityTypeManager()->getStorage('menu_link_content');
 
     // Add path alias to /front if this is the home page and exit early.
     $title = $page['title'];
@@ -162,58 +209,72 @@ function createMenuEntry($path, $page, &$pages, $menu_name) {
         return;
     }
 
-    // Find the parent menu item under which this one will be placed.
-    // This is not necessarily the immediate parent in the IA tree - it can be an ancestor.
-    $menu_item_parent = NULL;
-    $parent_path = array_slice($page['path'], 0, -1);
-    while (!empty($parent_path)) {
-        $parent = implode('/', $parent_path);
-        $page_parent = &$pages[$parent];
-        if (empty($page_parent)) {
-            print("  Could not find parent node \"$parent\"" . PHP_EOL);
-        }
-        else if (empty($page_parent['menu_item'])) {
-            print("  Could not find menu for \"$parent\"" . PHP_EOL);
-        }
-        else {
-            $menu_item_parent = $page_parent['menu_item'];
-            print("  Parent menu for \"$parent\": $menu_item_parent" . PHP_EOL);
-            break;
-        }
-        $parent_path = array_slice($parent_path, 0, -1);
-    }
-
-    // Setup the proper URI for this menu entry.
-    if (!empty($page['nid'])) {
-        $link = ['uri' => "entity:node/{$page['nid']}"];
-    }
-    else if (strpos($page['uri'] , 'http') === 0) {
-        $link = [
-            'uri' => "{$page['uri']}",
-            'options' => [
-                'attributes' => [
-                    'rel' => 'noopener noreferrer',
-                    'target' => '_blank',
-                ]
-            ]
-        ];
+    // Abort early if the menu link exists.
+    $menu_link_storage = \Drupal::entityTypeManager()->getStorage('menu_link_content');
+    $menu_links = $menu_link_storage->loadByProperties(['title' => $title]);
+    if (!empty($menu_links)) {
+        $menu_link = current($menu_links);
     }
     else {
-        $link = ['uri' => "internal:{$page['uri']}"];
+        // Find the parent menu item under which this one will be placed.
+        // This is not necessarily the immediate parent in the IA tree - it can be an ancestor.
+        $menu_item_parent = NULL;
+        $parent_path = array_slice($page['path'], 0, -1);
+        while (!empty($parent_path)) {
+            $parent = implode('/', $parent_path);
+            $page_parent = &$pages[$parent];
+            if (empty($page_parent)) {
+                print("  Could not find parent node \"$parent\"" . PHP_EOL);
+            }
+            else if (empty($page_parent['menu_item'])) {
+                print("  Could not find menu for \"$parent\"" . PHP_EOL);
+            }
+            else {
+                $menu_item_parent = $page_parent['menu_item'];
+                print("  Parent menu for \"$parent\": $menu_item_parent" . PHP_EOL);
+                break;
+            }
+            $parent_path = array_slice($parent_path, 0, -1);
+        }
+
+        // Setup the proper URI for this menu entry.
+        if (!empty($page['nid'])) {
+            $link = ['uri' => "entity:node/{$page['nid']}"];
+        }
+        else if (strpos($page['uri'] , 'http') === 0) {
+            $link = [
+                'uri' => "{$page['uri']}",
+                'options' => [
+                    'attributes' => [
+                        'rel' => 'noopener noreferrer',
+                        'target' => '_blank',
+                    ]
+                ]
+            ];
+        }
+        else {
+            $link = ['uri' => "internal:{$page['uri']}"];
+        }
+        $menu_link = $menu_link_storage->create([
+            'title' => $title,
+            'link' => $link,
+            'menu_name' => $menu_name,
+            'parent' => $menu_item_parent,
+            'expanded' => TRUE,
+            'weight' => $page['mega_menu']
+        ]);
+        $menu_link->save();
     }
-    $menu_link = $menu_link_storage->create([
-        'title' => $title,
-        'link' => $link,
-        'menu_name' => $menu_name,
-        'parent' => $menu_item_parent,
-        'expanded' => TRUE,
-        'weight' => $page['mega_menu']
-    ]);
-    $menu_link->save();
     $pages[$path]['menu_item'] = $menu_link->getPluginId();
     print("  Menu for \"$title\": {$pages[$path]['menu_item']}" . PHP_EOL);
 }
 
+// Delete existing main menu.
+$old_menu_links = \Drupal::entityTypeManager()->getStorage('menu_link_content')
+    ->loadByProperties(['menu_name' => 'main']);
+foreach ($old_menu_links as $old_menu_link) {
+    $old_menu_link->delete();
+}
 foreach ($pages as $path => &$page) {
     print("Processing \"{$page['title']}\"..." . PHP_EOL);
 

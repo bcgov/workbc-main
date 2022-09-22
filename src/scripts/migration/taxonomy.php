@@ -54,8 +54,8 @@ while (($data = fgetcsv($handle)) !== FALSE) {
     }
     print("Creating {$fields['name']}\n");
     $term = Drupal::entityTypeManager()
-    ->getStorage('taxonomy_term')
-    ->create($fields);
+        ->getStorage('taxonomy_term')
+        ->create($fields);
     $term->save();
 }
 fclose($handle);
