@@ -5,7 +5,7 @@ die () {
     echo >&2 "$@"
     exit 1
 }
-[ "$#" -eq 2 ] || die "Usage: $0 /path/to/original.tar.gz /path/to/modified.tar.gz"
+[ "$#" -eq 2 ] || die "Usage: $(basename -- "$0") /path/to/original.tar.gz /path/to/modified.tar.gz"
 [ -f "$1" ] || die "File $1 does not exist"
 [ -f "$2" ] || die "File $2 does not exist"
 
