@@ -9,13 +9,13 @@ die () {
 [ -f "$1" ] || die "File $1 does not exist"
 [ -f "$2" ] || die "File $2 does not exist"
 
-old=$(mktemp -d -t diff-files-old-XXXXXXXX)
+old=$(mktemp -d -t tar-diff-old-XXXXXXXX)
 tar xf "$1" -C "$old"
 
-new=$(mktemp -d -t diff-files-new-XXXXXXXX)
+new=$(mktemp -d -t tar-diff-new-XXXXXXXX)
 tar xf "$2" -C "$new"
 
-dif=$(mktemp -d -t diff-files-XXXXXXXX)
+dif=$(mktemp -d -t tar-diff-XXXXXXXX)
 out="$(pwd)/$(basename -- "$dif").tar.gz"
 
 rsync -rvcmq --compare-dest="$old/" "$new/" "$dif"
