@@ -24,6 +24,7 @@
 @import 'overrides/overrides_drupal_forms';
 
 // layouts
+@import 'layout/local-tasks.scss';
 @import 'layout/page';
 @import 'layout/alert_ribbon';
 @import 'layout/_header';
@@ -33,7 +34,6 @@
 @import 'layout/responsive_menu';
 @import 'layout/breadcrumbs';
 @import 'layout/footer';
-@import 'layout/basic_page';
 
 // components
 @import 'components/hero-banner';

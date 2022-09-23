@@ -15,7 +15,7 @@ entity_type: user
 bundle: user
 label: 'Content Group'
 description: ''
-required: false
+required: true
 translatable: false
 default_value:
   -

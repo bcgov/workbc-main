@@ -8,6 +8,7 @@ dependencies:
     - field.field.node.labour_market_monthly.field_industry_highlights_intro
     - field.field.node.labour_market_monthly.field_month
     - field.field.node.labour_market_monthly.field_related_topics
+    - field.field.node.labour_market_monthly.field_scheduled_publish
     - field.field.node.labour_market_monthly.field_unemployment_introduction
     - field.field.node.labour_market_monthly.field_unemployment_region_intro
     - node.type.labour_market_monthly
@@ -20,89 +21,84 @@ targetEntityType: node
 bundle: labour_market_monthly
 mode: default
 content:
-  content_moderation_control:
-    settings: {  }
-    third_party_settings: {  }
-    weight: 0
-    region: content
   extra_field_labourmarket_employment:
     settings: {  }
     third_party_settings: {  }
-    weight: 4
+    weight: 3
     region: content
   extra_field_labourmarket_employment_by_age:
     settings: {  }
     third_party_settings: {  }
-    weight: 7
+    weight: 6
     region: content
   extra_field_labourmarket_employment_by_sex:
     settings: {  }
     third_party_settings: {  }
-    weight: 8
+    weight: 7
     region: content
   extra_field_labourmarket_employment_change:
     settings: {  }
     third_party_settings: {  }
-    weight: 5
+    weight: 4
     region: content
   extra_field_labourmarket_employment_change_percent:
     settings: {  }
     third_party_settings: {  }
-    weight: 6
+    weight: 5
     region: content
   extra_field_labourmarket_employment_change_table:
     settings: {  }
     third_party_settings: {  }
-    weight: 19
+    weight: 18
     region: content
   extra_field_labourmarket_participation_rate_current_month:
     settings: {  }
     third_party_settings: {  }
-    weight: 14
+    weight: 13
     region: content
   extra_field_labourmarket_participation_rate_previous_month:
     settings: {  }
     third_party_settings: {  }
-    weight: 15
+    weight: 14
     region: content
   extra_field_labourmarket_unemployed_current_month:
     settings: {  }
     third_party_settings: {  }
-    weight: 10
+    weight: 9
     region: content
   extra_field_labourmarket_unemployed_previous_month:
     settings: {  }
     third_party_settings: {  }
-    weight: 11
+    weight: 10
     region: content
   extra_field_labourmarket_unemployed_rate_current_month:
     settings: {  }
     third_party_settings: {  }
-    weight: 12
+    weight: 11
     region: content
   extra_field_labourmarket_unemployed_rate_previous_month:
     settings: {  }
     third_party_settings: {  }
-    weight: 13
+    weight: 12
     region: content
   extra_field_labourmarket_unemployment_by_region:
     settings: {  }
     third_party_settings: {  }
-    weight: 17
+    weight: 16
     region: content
   field_employment_introduction:
     type: text_default
     label: above
     settings: {  }
     third_party_settings: {  }
-    weight: 2
+    weight: 1
     region: content
   field_industry_highlights_intro:
     type: text_default
     label: above
     settings: {  }
     third_party_settings: {  }
-    weight: 18
+    weight: 17
     region: content
   field_month:
     type: datetime_default
@@ -111,31 +107,33 @@ content:
       timezone_override: ''
       format_type: medium
     third_party_settings: {  }
-    weight: 3
+    weight: 2
     region: content
   field_unemployment_introduction:
     type: text_default
     label: above
     settings: {  }
     third_party_settings: {  }
-    weight: 9
+    weight: 8
     region: content
   field_unemployment_region_intro:
     type: text_default
     label: above
     settings: {  }
     third_party_settings: {  }
-    weight: 16
+    weight: 15
     region: content
   links:
     settings: {  }
     third_party_settings: {  }
-    weight: 1
+    weight: 0
     region: content
 hidden:
+  content_moderation_control: true
   extra_field_workbc_page_title: true
   extra_field_workbc_published_on: true
   field_content_group: true
   field_related_topics: true
+  field_scheduled_publish: true
   langcode: true
   search_api_excerpt: true

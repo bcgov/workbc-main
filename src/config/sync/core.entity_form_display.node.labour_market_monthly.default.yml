@@ -8,12 +8,16 @@ dependencies:
     - field.field.node.labour_market_monthly.field_industry_highlights_intro
     - field.field.node.labour_market_monthly.field_month
     - field.field.node.labour_market_monthly.field_related_topics
+    - field.field.node.labour_market_monthly.field_scheduled_publish
     - field.field.node.labour_market_monthly.field_unemployment_introduction
     - field.field.node.labour_market_monthly.field_unemployment_region_intro
     - node.type.labour_market_monthly
+    - workflows.workflow.editorial
   module:
+    - content_moderation
     - datetime
     - path
+    - scheduled_publish
     - text
 id: node.labour_market_monthly.default
 targetEntityType: node
@@ -64,6 +68,12 @@ content:
       size: 60
       placeholder: ''
     third_party_settings: {  }
+  field_scheduled_publish:
+    type: scheduled_publish
+    weight: 128
+    region: content
+    settings: {  }
+    third_party_settings: {  }
   field_unemployment_introduction:
     type: text_textarea
     weight: 123
@@ -106,6 +116,11 @@ content:
     settings:
       display_label: true
     third_party_settings: {  }
+  simple_sitemap:
+    weight: 10
+    region: content
+    settings: {  }
+    third_party_settings: {  }
   status:
     type: boolean_checkbox
     weight: 120
@@ -129,13 +144,9 @@ content:
       placeholder: ''
     third_party_settings: {  }
   uid:
-    type: entity_reference_autocomplete
+    type: options_select
     weight: 5
     region: content
-    settings:
-      match_operator: CONTAINS
-      match_limit: 10
-      size: 60
-      placeholder: ''
+    settings: {  }
     third_party_settings: {  }
 hidden: {  }

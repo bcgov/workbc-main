@@ -16,9 +16,6 @@ stylesheets-remove:
   - '@bootstrap5/css/style.css'
 regions:
   header: Header
-  breadcrumb: Breadcrumbs
   content: 'Main content'
-  sidebar_first: 'Sidebar first'
-  sidebar_second: 'Sidebar second'
   footer: Footer
   hidden: Hidden (For Blocks and Paragraphs) # Needed for Blocks/Paragraphs not placed on Page using Regions but TwigTweaks.

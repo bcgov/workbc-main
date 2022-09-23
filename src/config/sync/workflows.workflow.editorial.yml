@@ -29,7 +29,7 @@ type_settings:
       published: true
       default_revision: true
     review:
-      label: 'Send for Review'
+      label: 'For Approval'
       weight: -1
       published: false
       default_revision: false
@@ -67,9 +67,10 @@ type_settings:
       to: published
       weight: -1
     send_for_review:
-      label: 'Send for Review'
+      label: 'For Approval'
       from:
         - draft
+        - review
       to: review
       weight: -2
   entity_types:

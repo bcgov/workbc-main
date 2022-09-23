@@ -359,6 +359,7 @@ display:
           skip_access: false
           preserve_facet_query_args: false
       relationships: {  }
+      css_class: 'container-lg page-format-standard'
       header:
         result:
           id: result

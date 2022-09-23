@@ -5,11 +5,6 @@ use Drupal\node\NodeInterface;
 use Drupal\Core\Session\AccountInterface;
 
 /**
- * @file
- * An example field using the Field Types API.
- */
-
-/**
  *
  */
 
@@ -58,7 +53,6 @@ use Drupal\Core\Session\AccountInterface;
   */
  function workbc_custom_views_data_alter(array &$data) {
 
-
    $data['node_field_data']['workbc_nodes_granular_dates'] = [
      'title' => t('WorkBC node granular date filter'),
      'filter' => [
@@ -72,122 +66,110 @@ use Drupal\Core\Session\AccountInterface;
  }
 
 
- /**
-  *  Hide province and city fields if country <> "CA"
-  */
- function workbc_custom_form_user_register_form_alter(&$form, \Drupal\Core\Form\FormStateInterface $form_state, $form_id) {
+function workbc_custom_form_alter(&$form, \Drupal\Core\Form\FormStateInterface $form_state, $form_id) {
 
-   $form['account']['mail']['#attributes']['placeholder'] = "youremail@example.com";
+  // hide password and disable editing of username and email
+  // maintenance of this info is handled by keycloak
+  if ($form_id == "user_form") {
+    $form['account']['mail']['#disabled'] = true;
+    $form['account']['name']['#disabled'] = true;
+    $form['account']['pass']['#access'] = false;
+    $form['account']['mail']['#description'] = "";
 
-   $form['field_province']['#states'] = [
-     'visible' => [
-       ':input[name^="field_country"]' => array('value' => 'CA'),
-     ],
-     'required' => [
-       ':input[name^="field_country"]' => array('value' => 'CA'),
-     ],
-   ];
-
-   $form['field_city']['#states'] = [
-     'visible' => [
-       ':input[name^="field_country"]' => array('value' => 'CA'),
-     ],
-   ];
-   $form['field_city']['widget'][0]['value']['#states'] = [
-     'required' => [
-       ':input[name^="field_country"]' => array('value' => 'CA'),
-     ],
-   ];
-
-   if (isset($form['field_security_question']['widget']['#options']['_none'])) {
-     $form['field_security_question']['widget']['#options']['_none'] = "—Select Security Question";
-   }
-
-   if (isset($form['terms_of_use'])) {
-     $text = preg_replace('/(<a.*?>).*?(<\/a>)/', '$1Terms of Use$2', $form['terms_of_use']['terms_of_use_checkbox']['#title']);
-     $form['terms_of_use']['terms_of_use_checkbox']['#title'] = $text;
-   }
-}
-
-
-
-/**
- *  Hide province and city fields if country <> "CA"
- */
-function workbc_custom_form_user_form_alter(&$form, \Drupal\Core\Form\FormStateInterface $form_state, $form_id) {
-
-  $form['field_province']['#states'] = [
-    'visible' => [
-      ':input[name^="field_country"]' => array('value' => 'CA'),
-    ],
-    // 'required' => [
-    //   ':input[name^="field_country"]' => array('value' => 'CA'),
-    // ],
-  ];
-  $form['field_province']['widget'][0]['value']['#states'] = [
-    'required' => [
-      ':input[name^="field_country"]' => array('value' => 'CA'),
-    ],
-  ];
-
-  $form['field_city']['#states'] = [
-    'visible' => [
-      ':input[name^="field_country"]' => array('value' => 'CA'),
-    ],
-  ];
-  $form['field_city']['widget'][0]['value']['#states'] = [
-    'required' => [
-      ':input[name^="field_country"]' => array('value' => 'CA'),
-    ],
-  ];
-
-  if (isset($form['field_security_question']['widget']['#options']['_none'])) {
-    $form['field_security_question']['widget']['#options']['_none'] = "—Select Security Question";
-  }
-
-}
-
-
-/**
- *  Clear Province and City fields if selected country is not Canada
- */
-function workbc_custom_user_presave(\Drupal\Core\Entity\EntityInterface $entity) {
-  if ($entity) {
-    if ($entity->get('field_country')->value <> 'CA') {
-      $entity->set('field_province', '');
-      $entity->set('field_city', '');
+    $user = \Drupal::currentUser();
+    if (!$user->hasPermission("bypass content groups")) {
+      $form['field_content_group']['#disabled'] = true;
     }
   }
+
+  // if (isset($form['#entity_type']) && $form['#entity_type'] == 'node') {
+  //   ksm($form['moderation_state']['widget']);
+  //   if (isset($form['field_scheduled_publish'])) {
+  //     $form['field_scheduled_publish']['#access'] = false;
+  //   }
+  // }
+
 }
 
 
-
+/**
+ * Implements hook_node_access
+ *
+ */
 function workbc_custom_node_access(NodeInterface $node, $op, AccountInterface $account) {
 
-    if ($op == "update" || $op == "delete") {
-      if (!$account->hasPermission("bypass content groups")) {
-          $user = \Drupal\user\Entity\User::load($account->id());
-          if (!isset($user->field_content_group->target_id) ||
-              !isset($node->field_content_group->target_id) ||
-              $user->field_content_group->target_id <> $node->field_content_group->target_id) {
-            return  AccessResult::forbidden();
-          }
+  // we only allow update/delete of node if user is a member of the same content group
+  // as the node or the user has "bypass content groups" permission.
+  if ($op == "update" || $op == "delete") {
+    if (!$account->hasPermission("bypass content groups")) {
+      $user = \Drupal\user\Entity\User::load($account->id());
+      if (!isset($user->field_content_group->target_id) ||
+          !isset($node->field_content_group->target_id) ||
+          $user->field_content_group->target_id <> $node->field_content_group->target_id) {
+        return  AccessResult::forbidden();
       }
     }
+  }
   return AccessResult::neutral();
 }
 
 
-/*
- * This function returns true if user has content editor or content approver roles
- * and does not have global editor or global approver roles
- *
+/**
+ * Implements hook_node_presave().
  */
-function workbc_custom_in_content_group(AccountInterface $account) {
-  $roles = $account->getRoles();
-  if ((in_array("content_editor", $roles) || in_array("content_approver", $roles)) &&
-      (!in_array("global_editor", $roles)) && (!in_array("global_approver", $roles))) {
-    return true;
+function workbc_custom_node_presave(NodeInterface $entity) {
+
+  // if this is a new node and user doesn't have bypass content groups hasPermission
+  // we set the content group for the node to the same group as the user.
+  if ($entity->isNew()) {
+    if (!\Drupal::currentUser()->hasPermission('bypass content groups')) {
+      $user = \Drupal\user\Entity\User::load(\Drupal::currentUser()->id());
+      if (isset($user->field_content_group->target_id)) {
+        $entity->get('field_content_group')->setValue($user->field_content_group->target_id);
+      }
+    }
   }
-  return false;
+}
+
+
+function workbc_custom_user_access(\Drupal\Core\Entity\EntityInterface $entity, $operation, \Drupal\Core\Session\AccountInterface $account) {
+
+  // users without "bypass content groups" permission can only update/delete
+  // user accounts if they are members of the same content group
+  if ($operation == "update" || $operation == "delete") {
+    if (!\Drupal::currentUser()->hasPermission('bypass content groups')) {
+      $admin = \Drupal\user\Entity\User::load(\Drupal::currentUser()->id());
+      if (!isset($admin->field_content_group->target_id) ||
+          is_null($admin->field_content_group) ||
+          !isset($entity->field_content_group->target_id) ||
+          is_null($entity->field_content_group) ||
+          $admin->field_content_group->target_id <> $entity->field_content_group->target_id) {
+        return  AccessResult::forbidden();
+      }
+    }
+  }
+  // No opinion.
+  return AccessResult::neutral();
+}
+
+
+function workbc_custom_entity_operation_alter(array &$operations, \Drupal\Core\Entity\EntityInterface $entity) {
+
+  // remove role operation, roles can be changed via edit tab.
+  // this operation is unnecessary and gives certain users access when they shouldn't
+  if ($entity->getEntityTypeId() == "user") {
+    if (isset($operations['role_delegation'])) {
+      unset($operations['role_delegation']);
+    }
+  }
+}
+
+
+function workbc_custom_menu_local_tasks_alter(&$data, $route_name) {
+
+  // remove role tab, roles can be changed via edit tab.
+  // this operation is unnecessary and gives certain users access when they shouldn't
+  if (isset($data['tabs'][0]['role_delegation.edit_form'])) {
+    unset($data['tabs'][0]['role_delegation.edit_form']);
+  }
 }

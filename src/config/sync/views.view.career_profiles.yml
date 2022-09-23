@@ -657,7 +657,7 @@ display:
         options: {  }
       defaults:
         css_class: false
-      css_class: 'page-format--standard alphabet-search-results'
+      css_class: 'page-format--standard container-lg alphabet-search-results'
       display_extenders: {  }
       path: career-profiles
       menu:

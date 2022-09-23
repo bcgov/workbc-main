@@ -2,6 +2,8 @@ uuid: e065a0c8-75c5-405f-9760-222beebcdd27
 langcode: en
 status: true
 dependencies:
+  module:
+    - block_visibility_conditions
   theme:
     - workbc
 _core:
@@ -9,7 +11,7 @@ _core:
 id: workbc_local_tasks
 theme: workbc
 region: content
-weight: -16
+weight: -13
 provider: null
 plugin: local_tasks_block
 settings:
@@ -19,4 +21,12 @@ settings:
   provider: core
   primary: true
   secondary: true
-visibility: {  }
+visibility:
+  not_node_type:
+    id: not_node_type
+    bundles: {  }
+    negate: null
+  not_taxonomy_vocabulary:
+    id: not_taxonomy_vocabulary
+    bundles: {  }
+    negate: null

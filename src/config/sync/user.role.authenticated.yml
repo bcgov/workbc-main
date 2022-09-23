@@ -5,7 +5,6 @@ dependencies:
   config:
     - filter.format.basic_html
   module:
-    - comment
     - contact
     - field_permissions
     - filter
@@ -21,19 +20,21 @@ label: 'Authenticated user'
 weight: -9
 is_admin: false
 permissions:
-  - 'access comments'
   - 'access content'
   - 'access shortcuts'
   - 'access site-wide contact form'
-  - 'post comments'
-  - 'skip comment approval'
   - 'use search_api_autocomplete for search_career_profiles'
   - 'use search_api_autocomplete for search_site_content'
   - 'use text format basic_html'
   - 'view field_content'
   - 'view field_content_group'
+  - 'view field_organization'
+  - 'view field_title'
   - 'view media'
   - 'view own field_content'
+  - 'view own field_content_group'
+  - 'view own field_organization'
+  - 'view own field_title'
   - 'view paragraph content action_card'
   - 'view paragraph content action_card_feature'
   - 'view paragraph content action_card_full_width'

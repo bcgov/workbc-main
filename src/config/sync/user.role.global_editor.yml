@@ -16,16 +16,31 @@ dependencies:
     - node.type.region_profile
     - node.type.success_story
     - node.type.workbc_centre
+    - taxonomy.vocabulary.tags
+    - workflows.workflow.editorial
   module:
-    - field_permissions
+    - actions_permissions
+    - content_moderation
+    - contextual
+    - file
     - node
+    - paragraphs_type_permissions
+    - system
+    - taxonomy
+    - toolbar
+    - tour
     - workbc_custom
 id: global_editor
 label: 'Global Editor'
 weight: -5
 is_admin: null
 permissions:
+  - 'access administration pages'
   - 'access content overview'
+  - 'access contextual links'
+  - 'access files overview'
+  - 'access toolbar'
+  - 'access tour'
   - 'bypass content groups'
   - 'create bc_profile content'
   - 'create blog content'
@@ -36,14 +51,75 @@ permissions:
   - 'create labour_market_monthly content'
   - 'create news content'
   - 'create page content'
+  - 'create paragraph content action_card'
+  - 'create paragraph content action_card_feature'
+  - 'create paragraph content action_cards_1_2'
+  - 'create paragraph content action_cards_1_3'
+  - 'create paragraph content action_cards_1_4'
+  - 'create paragraph content action_cards_full_width'
+  - 'create paragraph content additional_duties'
+  - 'create paragraph content hours_of_operation'
+  - 'create paragraph content quote_card'
+  - 'create paragraph content skills'
   - 'create publication content'
   - 'create region_profile content'
   - 'create success_story content'
+  - 'create terms in tags'
   - 'create workbc_centre content'
-  - 'delete own page content'
-  - 'delete page revisions'
+  - 'delete paragraph content action_card'
+  - 'delete paragraph content action_card_feature'
+  - 'delete paragraph content action_cards_1_2'
+  - 'delete paragraph content action_cards_1_3'
+  - 'delete paragraph content action_cards_1_4'
+  - 'delete paragraph content action_cards_full_width'
+  - 'delete paragraph content additional_duties'
+  - 'delete paragraph content hours_of_operation'
+  - 'delete paragraph content quote_card'
+  - 'delete paragraph content skills'
+  - 'edit any bc_profile content'
+  - 'edit any blog content'
+  - 'edit any career_profile content'
+  - 'edit any career_profile_introductions content'
+  - 'edit any event content'
+  - 'edit any industry_profile content'
+  - 'edit any labour_market_monthly content'
   - 'edit any news content'
   - 'edit any page content'
-  - 'edit field_content_group'
-  - 'edit own field_content_group'
-  - 'edit own page content'
+  - 'edit any publication content'
+  - 'edit any region_profile content'
+  - 'edit any success_story content'
+  - 'edit any workbc_centre content'
+  - 'edit own bc_profile content'
+  - 'edit terms in tags'
+  - 'execute workbc_draft_node_action node'
+  - 'execute workbc_review_node_action node'
+  - 'update paragraph content action_card'
+  - 'update paragraph content action_card_feature'
+  - 'update paragraph content action_cards_1_2'
+  - 'update paragraph content action_cards_1_3'
+  - 'update paragraph content action_cards_1_4'
+  - 'update paragraph content action_cards_full_width'
+  - 'update paragraph content additional_duties'
+  - 'update paragraph content hours_of_operation'
+  - 'update paragraph content quote_card'
+  - 'update paragraph content skills'
+  - 'use editorial transition create_new_draft'
+  - 'use editorial transition send_for_review'
+  - 'view all revisions'
+  - 'view any unpublished content'
+  - 'view bc_profile revisions'
+  - 'view blog revisions'
+  - 'view career_profile revisions'
+  - 'view career_profile_introductions revisions'
+  - 'view event revisions'
+  - 'view industry_profile revisions'
+  - 'view labour_market_monthly revisions'
+  - 'view latest version'
+  - 'view news revisions'
+  - 'view own unpublished content'
+  - 'view page revisions'
+  - 'view publication revisions'
+  - 'view region_profile revisions'
+  - 'view success_story revisions'
+  - 'view the administration theme'
+  - 'view workbc_centre revisions'

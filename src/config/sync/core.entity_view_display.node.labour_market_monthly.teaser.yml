@@ -9,6 +9,7 @@ dependencies:
     - field.field.node.labour_market_monthly.field_industry_highlights_intro
     - field.field.node.labour_market_monthly.field_month
     - field.field.node.labour_market_monthly.field_related_topics
+    - field.field.node.labour_market_monthly.field_scheduled_publish
     - field.field.node.labour_market_monthly.field_unemployment_introduction
     - field.field.node.labour_market_monthly.field_unemployment_region_intro
     - node.type.labour_market_monthly
@@ -50,6 +51,7 @@ hidden:
   field_industry_highlights_intro: true
   field_month: true
   field_related_topics: true
+  field_scheduled_publish: true
   field_unemployment_introduction: true
   field_unemployment_region_intro: true
   langcode: true
