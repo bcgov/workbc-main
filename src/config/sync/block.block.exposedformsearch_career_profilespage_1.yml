@@ -12,8 +12,8 @@ dependencies:
     - workbc
 id: exposedformsearch_career_profilespage_1
 theme: workbc
-region: content
-weight: -7
+region: views
+weight: -9
 provider: null
 plugin: 'views_exposed_filter_block:search_career_profiles-page_1'
 settings:

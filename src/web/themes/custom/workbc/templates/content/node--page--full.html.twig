@@ -77,7 +77,7 @@
 {% set page_content = content.field_content %}
 
 
-{% set leftblock %}
+{% set left_block %}
   {{ drupal_entity('block', 'sidenavblock') }}
 {% endset %}
 
@@ -108,9 +108,9 @@
 
 <article{{ attributes.addClass(classes) }}>
 
-  {% if leftblock|striptags|trim %}
+  {% if left_block|striptags|trim %}
     <aside class="page-sidebar" role="complementary">
-      {{ leftblock }}
+      {{ left_block }}
     </aside>
   {% endif %}
 
@@ -119,11 +119,16 @@
       <h1 class="page-title">{{ label }}</h1>
     {% endif %}
 
+    {% if drupal_region('views') %}
+      {{ drupal_region('views') }}
+    {% endif %}
+
     {% if page_body %}
       {{ page_body }}
     {% endif %}
 
     {{ page_content }}
+
   </div>
 </article>
 

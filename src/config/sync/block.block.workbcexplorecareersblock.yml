@@ -10,8 +10,8 @@ dependencies:
     - workbc
 id: workbcexplorecareersblock
 theme: workbc
-region: content
-weight: -1
+region: views
+weight: -5
 provider: null
 plugin: explore_careers_block
 settings:
