@@ -1,14 +1,25 @@
-.alert-ribbon {
+.sitewide-alert {
   background-color: $workbc_alertribbon_background;
+  text-align: center;
+  font-size: 16px;
 }
 
-.alert-ribbon-container {
-  min-height: 45px;
+.field--name-message {
   display: flex;
-  align-items: center
+  align-items: center;
 }
 
-.alert-ribbon-container p {
-  font-size: 14px;
+.field--name-message p {
+  font-size: 16px;
   color: #fff;
+}
+
+.sitewide-alert button {
+  background: none;
+  color:  #fff;
+  border: none;
+  padding: 0;
+  cursor: pointer;
+  outline: inherit;
+  font-size: 19px;
 }
