@@ -1,17 +1,23 @@
 #! /bin/bash
 set -e
-old=$(basename -- "$1")
-old="/tmp/${old%%.*}/"
-rm -rf "$old"
-mkdir "$old" && tar xf "$1" -C "$old"
 
-new=$(basename -- "$2")
-new="/tmp/${new%%.*}/"
-rm -rf "$new"
-mkdir "$new" && tar xf "$2" -C "$new"
+die () {
+    echo >&2 "$@"
+    exit 1
+}
+[ "$#" -eq 2 ] || die "Usage: $0 /path/to/original.tar.gz /path/to/modified.tar.gz"
+[ -f "$1" ] || die "File $1 does not exist"
+[ -f "$2" ] || die "File $2 does not exist"
 
-tmp=$(mktemp -d -t diff-files-XXXXXXXX)
-dif="$(pwd)/$(basename -- "$tmp").tar.gz"
+old=$(mktemp -d -t diff-files-old-XXXXXXXX)
+tar xf "$1" -C "$old"
 
-rsync -rvcm --compare-dest="$old" "$new" "$tmp"
-cd "$tmp" && tar zcf "$dif" * && cd -
+new=$(mktemp -d -t diff-files-new-XXXXXXXX)
+tar xf "$2" -C "$new"
+
+dif=$(mktemp -d -t diff-files-XXXXXXXX)
+out="$(pwd)/$(basename -- "$dif").tar.gz"
+
+rsync -rvcmq --compare-dest="$old/" "$new/" "$dif"
+cd "$dif" && tar zcf "$out" * && cd - > /dev/null
+echo "Diff archive output at $out"
