@@ -115,6 +115,7 @@
         "drupal/search_api_solr": "^4.2",
         "drupal/simple_block": "^1.3",
         "drupal/simple_sitemap": "^4.1",
+        "drupal/sitewide_alert": "^2.0",
         "drupal/svg_image": "^1.16",
         "drupal/terms_of_use": "^2.3",
         "drupal/time_field": "^2.0",
