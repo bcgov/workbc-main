@@ -55,7 +55,8 @@
   <div class="page-content-wrapper">
     <div class="submenu-underlay"></div>
       {{ messages }}
-      <div class="container">
+      {% include '@workbc/includes/breadcrumbs.html.twig' %}
+      <div class="page-content-wrapper container-lg">
         {{ page.content }}
       </div>
   </div>
