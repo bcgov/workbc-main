@@ -10,7 +10,7 @@ use Drupal\paragraphs\Entity\Paragraph;
  * Update nodes for GatherContent WorkBC items.
  *
  * Usage:
- * - drush scr scripts/migration/gc-jsonl -- --status publish 284269 > scripts/migration/data/workbc.jsonl
+ * - drush scr scripts/migration/gc-jsonl -- --status publish --status "content revisions" --status "copy review" --status "in approvals" 284269 > scripts/migration/data/workbc.jsonl
  * - drush scr scripts/migration/workbc
  *
  * Revert:
