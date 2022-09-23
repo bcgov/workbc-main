@@ -12,8 +12,8 @@ dependencies:
     - workbc
 id: views_block__news_block_3
 theme: workbc
-region: content
-weight: 0
+region: views
+weight: -13
 provider: null
 plugin: 'views_block:news-block_3'
 settings:

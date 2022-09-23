@@ -18,4 +18,5 @@ regions:
   header: Header
   content: 'Main content'
   footer: Footer
+  views: Views (For View Blocks embedded in Pages)
   hidden: Hidden (For Blocks and Paragraphs) # Needed for Blocks/Paragraphs not placed on Page using Regions but TwigTweaks.

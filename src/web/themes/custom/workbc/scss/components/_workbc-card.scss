@@ -65,7 +65,7 @@ $container-gutter: $workbc_spacing_gutters;
           right: 0;
           bottom: 0;
           left: 0;
-          z-index: 5;
+          z-index: 2;
           background: url(../assets/images/video-play-icon.svg) center center no-repeat;
           background-size: 60px;
         }
@@ -141,13 +141,13 @@ $container-gutter: $workbc_spacing_gutters;
         flex: 0 0 auto;
         display: flex;
         align-items: flex-end;
-  
+
         &.fancy {
           $spacing: 10px;
-  
+
           align-self: center;
           width: 100%;
-  
+
           display: flex;
           flex-direction: row;
           flex-wrap: wrap;
@@ -155,12 +155,12 @@ $container-gutter: $workbc_spacing_gutters;
           justify-content: space-around;
           align-items: stretch;
           row-gap: $spacing;
-  
+
           .action {
             flex: 2 1 100%;
             border: 1px solid $workbc_default_link;
             border-radius: 5px;
-  
+
             a {
               display: flex;
               justify-content: center;
@@ -169,12 +169,12 @@ $container-gutter: $workbc_spacing_gutters;
               padding: 5px;
               text-align: center;
               font-weight: bold;
-  
+
               div {
                 flex: 0 0 auto;
                 align-self: center;
               }
-  
+
               &:before,
               &:after {
                 content: "";
@@ -182,22 +182,22 @@ $container-gutter: $workbc_spacing_gutters;
                 width: 2rem;
                 height: 2rem;
               }
-  
+
               &:before {
                 margin-right: $spacing;
               }
-  
+
               &:after {
                 margin-left: $spacing;
               }
-  
+
               &:hover {
                 background-color: $workbc_light_theme_background_accent;
                 text-decoration: none;
                 border-radius: 5px; // stop the background from making the parent border radius from looking wonky
               }
             }
-  
+
             &.pdf {
               & a:before {
                 display: inline-block;
@@ -205,7 +205,7 @@ $container-gutter: $workbc_spacing_gutters;
                 background-size: 70%;
               }
             }
-  
+
             &.hardcopy {
               & a:before {
                 display: inline-block;
@@ -221,7 +221,7 @@ $container-gutter: $workbc_spacing_gutters;
         }
 
       }
-  
+
     }
   }
 }
