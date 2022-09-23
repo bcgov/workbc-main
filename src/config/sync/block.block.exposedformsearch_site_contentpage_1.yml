@@ -12,8 +12,8 @@ dependencies:
     - workbc
 id: exposedformsearch_site_contentpage_1
 theme: workbc
-region: content
-weight: -6
+region: views
+weight: -8
 provider: null
 plugin: 'views_exposed_filter_block:search_site_content-page_1'
 settings:

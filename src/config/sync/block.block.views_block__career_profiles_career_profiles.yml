@@ -1,26 +1,27 @@
-uuid: a3393e8f-f3c5-45b2-80fc-964d1fab85cd
+uuid: 479167ff-8f7b-437f-89e1-94d79ef831ff
 langcode: en
 status: true
 dependencies:
   config:
-    - views.view.success_stories
+    - views.view.career_profiles
   module:
     - block_visibility_conditions
     - system
     - views
   theme:
     - workbc
-id: views_block__success_stories_block_1
+id: views_block__career_profiles_career_profiles
 theme: workbc
 region: views
-weight: -7
+weight: -12
 provider: null
-plugin: 'views_block:success_stories-block_1'
+plugin: 'views_block:career_profiles-career_profiles'
 settings:
-  id: 'views_block:success_stories-block_1'
+  id: 'views_block:career_profiles-career_profiles'
   label: ''
   label_display: '0'
   provider: views
+  context_mapping: {  }
   views_label: ''
   items_per_page: none
 visibility:
@@ -35,4 +36,4 @@ visibility:
   request_path:
     id: request_path
     negate: false
-    pages: /success-stories
+    pages: /career-profiles

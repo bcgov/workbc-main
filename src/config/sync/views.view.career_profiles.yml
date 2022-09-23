@@ -5,7 +5,6 @@ dependencies:
   config:
     - field.storage.node.field_noc
     - node.type.career_profile
-    - system.menu.main
   module:
     - node
     - user
@@ -537,7 +536,7 @@ display:
           replica: false
           query_tags: {  }
       relationships: {  }
-      css_class: page-format--standard
+      css_class: ''
       use_ajax: false
       header: {  }
       footer: {  }
@@ -633,7 +632,6 @@ display:
       display_extenders: {  }
       displays:
         default: default
-        page_1: page_1
       inherit_arguments: false
     cache_metadata:
       max-age: -1
@@ -646,27 +644,13 @@ display:
         - user.permissions
       tags:
         - 'config:field.storage.node.field_noc'
-  page_1:
-    id: page_1
-    display_title: Page
-    display_plugin: page
-    position: 1
+  career_profiles:
+    id: career_profiles
+    display_title: Block
+    display_plugin: block
+    position: 3
     display_options:
-      query:
-        type: views_query
-        options: {  }
-      defaults:
-        css_class: false
-      css_class: 'page-format--standard container-lg alphabet-search-results'
       display_extenders: {  }
-      path: career-profiles
-      menu:
-        type: normal
-        title: Glossary
-        weight: 0
-        enabled: false
-        menu_name: main
-        parent: ''
     cache_metadata:
       max-age: -1
       contexts:
