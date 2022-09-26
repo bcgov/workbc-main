@@ -79,3 +79,36 @@ function calendar_listview_preprocess_node(&$variables) {
     $variables['viewmode'] = $mode;
   }
 }
+
+
+/**
+ * {@inheritdoc}
+*/
+function calendar_listview_form_node_form_alter(&$form, $formState, $form_id) {
+  if($form_id == 'node_event_form' || $form_id == 'node_event_edit_form'){
+    $form['field_end_date']['#required'] = TRUE;
+    $form['#validate'][] = 'validateEventForm';
+  }
+}
+
+/**
+ * {@inheritdoc}
+*/
+
+function validateEventForm($form, &$form_state) {
+  $start_date = $form_state->getValue('field_start_date')[0]['value'];
+  $end_date = $form_state->getValue('field_end_date')[0]['value'];
+  $event_start_date = strtotime($start_date->format('Y-m-d H:i:s'));
+  $event_end_date = strtotime($end_date->format('Y-m-d H:i:s'));
+  if($event_end_date < $event_start_date){
+    $form_state->set('field_end_date', TRUE);
+    $form_state->setErrorByName('field_end_date', 'Event End Date must not be smaller than the Event Start Date.');
+  }else if ($event_end_date == $event_start_date){
+    $start_time = $form_state->getValue('field_time')[0]['from'];
+    $end_time = $form_state->getValue('field_time')[0]['to'];
+    if($end_time < $start_time){
+      $form_state->set('field_time', TRUE);
+      $form_state->setErrorByName('field_time', 'Event End Time must not be smaller than the Event Start Time.');
+    }
+  }
+}
