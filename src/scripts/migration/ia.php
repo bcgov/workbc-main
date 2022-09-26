@@ -51,6 +51,7 @@ const TREE_FIRST = 0;
 const TREE_LAST = 5;
 const MEGA_MENU = 6;
 const DRUPAL_TYPE = 7;
+const LEGACY_URL = 11;
 const URL = 12;
 const PAGE_FORMAT = 13;
 const CONTENT_GROUP = 14;
@@ -91,7 +92,7 @@ while (($row = fgetcsv($data)) !== FALSE) {
     $row_type = strtolower($row[DRUPAL_TYPE]);
     if (empty($row_type) || !array_key_exists($row_type, $types)) {
         if (!empty($row[MEGA_MENU]) && empty($row[URL])) {
-            // A placeholder page until we have a better way to deal with this entry.
+            // Create a placeholder page until we have a better way to deal with this entry.
             $type = 'page';
         }
         else {
@@ -102,6 +103,7 @@ while (($row = fgetcsv($data)) !== FALSE) {
         $type = $types[$row_type];
     }
 
+    // Populate the standard fields.
     print("Processing \"$title\"..." . PHP_EOL);
     $fields = [
         'type' => $type,
@@ -111,6 +113,14 @@ while (($row = fgetcsv($data)) !== FALSE) {
             'pathauto' => PathautoState::CREATE,
         ],
     ];
+
+    // Legacy URL.
+    if (stripos($row[LEGACY_URL], 'https://www.workbc.ca', 0) === 0) {
+        $fields['field_legacy_url'] = [
+            'title' => $title,
+            'uri' => $row[LEGACY_URL],
+        ];
+    }
 
     // Page format.
     switch (strtolower($row[PAGE_FORMAT])) {
@@ -142,7 +152,8 @@ while (($row = fgetcsv($data)) !== FALSE) {
         $fields['field_content_group'] = ['target_id' => $content_groups['workbc']];
     }
 
-    // Create the node.
+    // Process the IA item.
+    // If an explicit URL is given, we skip node creation and move directly to menu item insertion.
     if (!empty($row[URL])) {
         $pages[implode('/', $path)] = [
             'nid' => NULL,
@@ -155,16 +166,77 @@ while (($row = fgetcsv($data)) !== FALSE) {
         print("  No content: " . implode(' => ', $path) . PHP_EOL);
     }
     else if (!empty($type)) {
-        $nodes = \Drupal::entityTypeManager()
-            ->getStorage('node')
-            ->loadByProperties(['title' => $title]);
-        if (empty($nodes)) {
+        // We want to create or update a Drupal node for this IA item.
+        // Identifying an existing node by title is not enough because some pages have non-unique titles.
+        // Instead, we identify the node by its position in the IA, i.e. the navigatin menu:
+        // 1. Identify the parent menu item in the navigation menu (assumed to be unique)
+        // 2. Identify the node menu item in the navigation menu
+        // 3. Retrieve the node entity from the menu item
+        // Fall back to re-creating the node if any step above fails.
+        if (count($path) >= 2) {
+            $parent = implode('/', array_slice($path, 0, count($path)-1));
+            if (!array_key_exists($parent, $pages)) {
+                print("  Could not find parent \"$parent\" in recently processed pages" . PHP_EOL);
+            }
+            else {
+                $menu_items_parent = \Drupal::entityTypeManager()
+                    ->getStorage('menu_link_content')
+                    ->loadByProperties([
+                        'link.uri' => 'entity:node/' . $pages[$parent]['nid'],
+                        'menu_name' => 'main',
+                    ]);
+                $node = NULL;
+                if (empty($menu_items_parent)) {
+                    print("  Could not find parent menu item \"$parent\"" . PHP_EOL);
+                }
+                else if (count($menu_items_parent) > 1) {
+                    print("  Found multiple parent menu items \"$parent\"" . PHP_EOL);
+                }
+                else {
+                    $menu_items_page = \Drupal::entityTypeManager()
+                        ->getStorage('menu_link_content')
+                        ->loadByProperties([
+                            'parent' => current($menu_items_parent)->getPluginId(),
+                            'menu_name' => 'main',
+                            'title' => $title
+                        ]);
+                    if (empty($menu_items_page)) {
+                        print("  Could not find menu item whose parent is \"$parent\"" . PHP_EOL);
+                    }
+                    else {
+                        $nid = (int) filter_var(current($menu_items_page)->link->uri, FILTER_SANITIZE_NUMBER_INT);
+                        $node = Drupal::entityTypeManager()
+                            ->getStorage('node')
+                            ->load($nid);
+                    }
+                }
+            }
+        }
+        else {
+            // No parent: Get the menu item directly and hope the title is unique.
+            $menu_items_page = \Drupal::entityTypeManager()
+                ->getStorage('menu_link_content')
+                ->loadByProperties([
+                    'menu_name' => 'main',
+                    'title' => $title
+                ]);
+            if (empty($menu_items_page)) {
+                print("  Could not find menu item" . PHP_EOL);
+            }
+            else {
+                $nid = (int) filter_var(current($menu_items_page)->link->uri, FILTER_SANITIZE_NUMBER_INT);
+                $node = Drupal::entityTypeManager()
+                    ->getStorage('node')
+                    ->load($nid);
+            }
+        }
+        if (empty($node)) {
+            print("  Creating new node for \"$title\"" . PHP_EOL);
             $node = Drupal::entityTypeManager()
                 ->getStorage('node')
                 ->create($fields);
         }
         else {
-            $node = current($nodes);
             foreach ($fields as $field => $value) {
                 $node->$field = $value;
             }
@@ -177,13 +249,13 @@ while (($row = fgetcsv($data)) !== FALSE) {
             'title' => $title,
             'path' => $path,
             'menu_item' => NULL,
-            'mega_menu' => !empty($row[MEGA_MENU]) ? $row_number : NULL,
+            'mega_menu' => !empty($row[MEGA_MENU]) ? $row_number : false,
             'uri' => NULL,
         ];
-        print("  Created $type: " . implode(' => ', $path) . PHP_EOL);
+        print("  Created/updated $type: " . implode(' => ', $path) . PHP_EOL);
     }
     else {
-        print("  Ignoring" . PHP_EOL);
+        print("  No explicit URL and no detected type. Ignoring" . PHP_EOL);
     }
 }
 fclose($data);
@@ -209,77 +281,63 @@ function createMenuEntry($path, $page, &$pages, $menu_name) {
         return;
     }
 
-    // Abort early if the menu link exists.
+    // Find the parent menu item under which this one will be placed.
+    // This is not necessarily the immediate parent in the IA tree - it can be an ancestor.
     $menu_link_storage = \Drupal::entityTypeManager()->getStorage('menu_link_content');
-    $menu_links = $menu_link_storage->loadByProperties(['title' => $title]);
-    if (!empty($menu_links)) {
-        $menu_link = current($menu_links);
-    }
-    else {
-        // Find the parent menu item under which this one will be placed.
-        // This is not necessarily the immediate parent in the IA tree - it can be an ancestor.
-        $menu_item_parent = NULL;
-        $parent_path = array_slice($page['path'], 0, -1);
-        while (!empty($parent_path)) {
-            $parent = implode('/', $parent_path);
-            $page_parent = &$pages[$parent];
-            if (empty($page_parent)) {
-                print("  Could not find parent node \"$parent\"" . PHP_EOL);
-            }
-            else if (empty($page_parent['menu_item'])) {
-                print("  Could not find menu for \"$parent\"" . PHP_EOL);
-            }
-            else {
-                $menu_item_parent = $page_parent['menu_item'];
-                print("  Parent menu for \"$parent\": $menu_item_parent" . PHP_EOL);
-                break;
-            }
-            $parent_path = array_slice($parent_path, 0, -1);
+    $menu_item_parent = NULL;
+    $parent_path = array_slice($page['path'], 0, -1);
+    while (!empty($parent_path)) {
+        $parent = implode('/', $parent_path);
+        $page_parent = &$pages[$parent];
+        if (empty($page_parent)) {
+            print("  Could not find parent node \"$parent\"" . PHP_EOL);
         }
-
-        // Setup the proper URI for this menu entry.
-        if (!empty($page['nid'])) {
-            $link = ['uri' => "entity:node/{$page['nid']}"];
-        }
-        else if (strpos($page['uri'] , 'http') === 0) {
-            $link = [
-                'uri' => "{$page['uri']}",
-                'options' => [
-                    'attributes' => [
-                        'rel' => 'noopener noreferrer',
-                        'target' => '_blank',
-                    ]
-                ]
-            ];
+        else if (empty($page_parent['menu_item'])) {
+            print("  Could not find menu for \"$parent\"" . PHP_EOL);
         }
         else {
-            $link = ['uri' => "internal:{$page['uri']}"];
+            $menu_item_parent = $page_parent['menu_item'];
+            print("  Parent menu for \"$parent\": $menu_item_parent" . PHP_EOL);
+            break;
         }
-        $menu_link = $menu_link_storage->create([
-            'title' => $title,
-            'link' => $link,
-            'menu_name' => $menu_name,
-            'parent' => $menu_item_parent,
-            'expanded' => TRUE,
-            'weight' => $page['mega_menu']
-        ]);
-        $menu_link->save();
+        $parent_path = array_slice($parent_path, 0, -1);
     }
+
+    // Setup the proper URI for this menu entry.
+    if (!empty($page['nid'])) {
+        $link = ['uri' => "entity:node/{$page['nid']}"];
+    }
+    else if (strpos($page['uri'] , 'http') === 0) {
+        $link = [
+            'uri' => "{$page['uri']}",
+            'options' => [
+                'attributes' => [
+                    'rel' => 'noopener noreferrer',
+                    'target' => '_blank',
+                ]
+            ]
+        ];
+    }
+    else {
+        $link = ['uri' => "internal:{$page['uri']}"];
+    }
+    $menu_link = $menu_link_storage->create([
+        'title' => $title,
+        'link' => $link,
+        'menu_name' => $menu_name,
+        'parent' => $menu_item_parent,
+        'expanded' => TRUE,
+        'weight' => $page['mega_menu'] || 0,
+        'enabled' => !!$page['mega_menu']
+    ]);
+    $menu_link->save();
     $pages[$path]['menu_item'] = $menu_link->getPluginId();
     print("  Menu for \"$title\": {$pages[$path]['menu_item']}" . PHP_EOL);
 }
 
-// Delete existing main menu.
-$old_menu_links = \Drupal::entityTypeManager()->getStorage('menu_link_content')
-    ->loadByProperties(['menu_name' => 'main']);
-foreach ($old_menu_links as $old_menu_link) {
-    $old_menu_link->delete();
-}
+// Delete existing main menu items and process new items.
+\Drupal::service('plugin.manager.menu.link')->deleteLinksInMenu('main');
 foreach ($pages as $path => &$page) {
     print("Processing \"{$page['title']}\"..." . PHP_EOL);
-
-    // Insert node in the navigation menu.
-    if (!empty($page['mega_menu'])) {
-        createMenuEntry($path, $page, $pages, 'main');
-    }
+    createMenuEntry($path, $page, $pages, 'main');
 }
