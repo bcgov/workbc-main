@@ -16,7 +16,8 @@ stylesheets-remove:
   - '@bootstrap5/css/style.css'
 regions:
   header: Header
-  content: 'Main content'
+  content_top: 'Main Content Top'
+  content: 'Main Content'
+  content_bottom: 'Main Content Bottom'
   footer: Footer
-  views: Views (For View Blocks embedded in Pages)
   hidden: Hidden (For Blocks and Paragraphs) # Needed for Blocks/Paragraphs not placed on Page using Regions but TwigTweaks.

@@ -1,0 +1,57 @@
+uuid: 54c608ef-a6fa-4356-9cb9-fe500f61e22e
+langcode: en
+status: true
+dependencies:
+  config:
+    - core.entity_view_mode.node.full
+    - field.field.node.success_story.body
+    - field.field.node.success_story.field_content_group
+    - field.field.node.success_story.field_image
+    - field.field.node.success_story.field_subtitle
+    - field.field.node.success_story.field_tags
+    - image.style.article_wide
+    - node.type.success_story
+  module:
+    - svg_image
+    - text
+    - user
+id: node.success_story.full
+targetEntityType: node
+bundle: success_story
+mode: full
+content:
+  body:
+    type: text_default
+    label: visually_hidden
+    settings: {  }
+    third_party_settings: {  }
+    weight: 2
+    region: content
+  field_image:
+    type: image
+    label: visually_hidden
+    settings:
+      image_link: ''
+      image_style: article_wide
+      svg_attributes:
+        width: null
+        height: null
+      svg_render_as_image: true
+      image_loading:
+        attribute: lazy
+    third_party_settings: {  }
+    weight: 1
+    region: content
+  links:
+    settings: {  }
+    third_party_settings: {  }
+    weight: 0
+    region: content
+hidden:
+  extra_field_workbc_page_title: true
+  extra_field_workbc_published_on: true
+  field_content_group: true
+  field_subtitle: true
+  field_tags: true
+  langcode: true
+  search_api_excerpt: true
