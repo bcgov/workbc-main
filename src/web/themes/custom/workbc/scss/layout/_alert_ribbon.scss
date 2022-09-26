@@ -1,25 +1,51 @@
-.sitewide-alert {
-  background-color: $workbc_alertribbon_background;
-  text-align: center;
-  font-size: 16px;
-}
-
-.field--name-message {
+.sitewide-alert.alert {
   display: flex;
   align-items: center;
-}
-
-.field--name-message p {
-  font-size: 16px;
+  margin: 0;
+  border: 0;
+  border-radius: 0;
+  padding: 10px 12px;
+  background-color: $workbc_alertribbon_background;
+  text-align: center;
+  font-size: 14px;
   color: #fff;
 }
 
-.sitewide-alert button {
-  background: none;
-  color:  #fff;
+.sitewide-alert > span {
+  display: block;
+  flex-grow: 1;
+  text-align: center;
+}
+
+.sitewide-alert .close {
+  float: none;
+  margin-left: auto;
+  display: block;
+  height: 28px;
+  width: 32px;
   border: none;
   padding: 0;
+  background-color: #ccc;
+  background: none;
+  color: #fff;
+  border: none;
   cursor: pointer;
-  outline: inherit;
-  font-size: 19px;
+  outline: none;
+  font-size: 30px;
+  line-height: 1;
+}
+
+.sitewide-alert .close > span {
+  display: block;
+  height: 32px;
+}
+
+.sitewide-alert a {
+  font-weight: 700;
+  color: #fff;
+  text-decoration: underline;
+
+  &:hover {
+    text-decoration: none;
+  }
 }
