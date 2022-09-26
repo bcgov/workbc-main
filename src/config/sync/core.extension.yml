@@ -16,6 +16,7 @@ module:
   block_content: 0
   block_visibility_conditions: 0
   breakpoint: 0
+  calendar_listview: 0
   cancel_button: 0
   captcha: 0
   charts: 0
