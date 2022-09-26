@@ -12,7 +12,7 @@ dependencies:
     - workbc
 id: views_block__blog_block_1
 theme: workbc
-region: views
+region: content_bottom
 weight: -10
 provider: null
 plugin: 'views_block:blog-block_1'

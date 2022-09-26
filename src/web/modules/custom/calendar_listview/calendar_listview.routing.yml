@@ -1,0 +1,15 @@
+calendar_listview.view:
+  path: '/calendar/view/{viewmode}'
+  defaults:
+    _controller: '\Drupal\calendar_listview\Controller\CalendarListviewController::viewmode'
+    _title: 'Calendar View'
+  requirements:
+    _role: 'administrator'
+    
+calendar_listview.view1:
+  path: '/admin/calendar/view/{viewmode}'
+  defaults:
+    _controller: '\Drupal\calendar_listview\Controller\CalendarListviewController::viewmode'
+    _title: 'Calendar View'
+  requirements:
+    _role: 'administrator'

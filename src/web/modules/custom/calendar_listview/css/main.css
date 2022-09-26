@@ -1,0 +1,492 @@
+.event-cal {
+  /****** Calendar View Start Here ******/
+  /****** Calendar View End Here ******/
+  /****** list View Start Here ******/
+  /****** list View End Here ******/
+  /****** Common Css Start Here ******/
+  /****** Common Css End Here ******/ }
+  .event-cal p, .event-cal a, .event-cal div, .event-cal h2 {
+    font-family: 'BCSans', sans-serif;
+    font-weight: 400;
+    font-style: normal;
+    font-size: 14px;
+    margin: 0; }
+  .event-cal .fc-day-grid-event .grid-view {
+    display: block; }
+  .event-cal .view-event-calendar .fc-button-group {
+    position: unset; }
+  .event-cal .view-event-calendar .bottom-buttons.fc-button-group {
+    display: inherit; }
+  .event-cal .view-event-calendar .fc-toolbar.fc-header-toolbar {
+    position: relative;
+    margin-bottom: 3.5em; }
+  .event-cal .view-event-calendar .fc-day-number {
+    color: #000000;
+    font-weight: 600; }
+  .event-cal .view-event-calendar .fc-ltr .fc-dayGrid-view .fc-day-top .fc-day-number {
+    float: left;
+    padding: 6px; }
+  .event-cal .view-event-calendar .fc-toolbar h2 {
+    font-size: 26px;
+    font-weight: 600;
+    margin-right: 100px; }
+  .event-cal .view-event-calendar .fc-content span {
+    font-weight: 500; }
+  .event-cal .view-event-calendar .fc-time {
+    color: #1967e5f5; }
+  .event-cal .view-event-calendar .fc-day-grid-event .fc-content {
+    white-space: unset;
+    overflow: unset; }
+  .event-cal .view-event-calendar .fc-event {
+    font-size: 13px;
+    line-height: 22px; }
+  .event-cal .view-event-calendar .fc-title {
+    font-size: 16px;
+    line-height: 22px;
+    color: #000000; }
+  .event-cal .view-event-calendar .fc-unthemed td.fc-today {
+    background: transparent; }
+  .event-cal .view-event-calendar .fc-content {
+    padding: 3px 7px; }
+  .event-cal .view-event-calendar .fc-day-header {
+    text-align: left;
+    padding-left: 6px; }
+  .event-cal .view-event-calendar .fc-event {
+    border: none; }
+  .event-cal .view-event-calendar .fc-event.active {
+    background-color: #2e6ab0 !important; }
+  .event-cal .view-event-calendar .fc-content .fc-time {
+    display: none; }
+  .event-cal .view-event-calendar .fc-event {
+    border: none;
+    padding: 5px 2px;
+    font-size: 13px;
+    line-height: 22px; }
+  .event-cal .fc-button-group .fc-button {
+    color: #2e6ab0;
+    font-size: 15px;
+    line-height: 24px;
+    font-weight: 400;
+    transition: all 0.5s ease-in-out;
+    border: none; }
+  .event-cal .fc-button-group .fc-button .fc-icon {
+    font-size: 15px;
+    width: 17px; }
+  .event-cal .fc-button-group .fc-prev-button .fc-icon-chevron-left {
+    background: url("../images/arrow-left.svg") no-repeat;
+    background-repeat: no-repeat;
+    background-position: center left;
+    background-size: 7px; }
+  .event-cal .fc-button-group .fc-prev-button .fc-icon-chevron-left:before {
+    content: none; }
+  .event-cal .fc-button-group .fc-next-button .fc-icon-chevron-right {
+    background: url("../images/arrow-right.svg") no-repeat;
+    background-repeat: no-repeat;
+    background-position: center right;
+    background-size: 7px; }
+  .event-cal .fc-button-group .fc-next-button .fc-icon-chevron-right:before {
+    content: none; }
+  .event-cal .fc-button-group .fc-button-group > .fc-button:last-of-type {
+    position: absolute;
+    right: 0px; }
+  .event-cal .fc-button-group .fc-button:hover {
+    color: #1967e5f5;
+    background-color: white;
+    border: none; }
+  .event-cal .fc-button-group .fc-button-primary:not(:disabled).fc-button-active:focus, .event-cal .fc-button-group .fc-button-primary:not(:disabled):active:focus {
+    border: inherit;
+    -webkit-box-shadow: inherit;
+    box-shadow: inherit;
+    background: inherit; }
+  .event-cal .fc-view tr, .event-cal .fc-view th {
+    background-color: white; }
+  .event-cal .fc-view a {
+    border: none; }
+  .event-cal .fc-view a.fc-day-grid-event {
+    border-bottom: 3px solid #e9f0f9; }
+  .event-cal .fc-view a.fc-day-grid-event:hover, .event-cal .fc-view a.fc-day-grid-event.active {
+    border-bottom: 3px solid #2e6ab0 !important; }
+  .event-cal .fc-view .fc td, .event-cal .fc-view .fc th, .event-cal .fc-view .fc-unthemed td {
+    border: none;
+    border-width: 0px; }
+  .event-cal .fc-view thead > tr, .event-cal .fc-view .fc-unthemed td {
+    border: none;
+    border-style: none;
+    border-width: none;
+    border-color: none; }
+  .event-cal .fc-view .fc-content-skeleton {
+    padding: 0px; }
+  .event-cal .fc-view .fc-content-skeleton table {
+    height: 111px;
+    margin: 0px; }
+  .event-cal .fc-view .fc-scroller {
+    height: unset !important;
+    overflow: unset !important; }
+  .event-cal .fc-view .fc-widget-content {
+    border: 1px solid #d7d7d7;
+    border-bottom: 0px; }
+  .event-cal .fc-view .fc-week.fc-widget-content {
+    border: 0px;
+    border-bottom: 1px solid #d7d7d7; }
+  .event-cal .fc-view a:hover, .event-cal .fc-view a[data-goto]:hover {
+    text-decoration: none;
+    border: none; }
+  .event-cal .fc-view .grid-title {
+    font-size: 16px;
+    color: #2e6ab0;
+    font-weight: 600;
+    line-height: 17px;
+    margin-bottom: 3px; }
+  .event-cal .fc-view .grid-sub-title {
+    font-size: 15px;
+    line-height: 24px; }
+  .event-cal .fc-view .fc-event.active .grid-title, .event-cal .fc-view .fc-event.active .grid-sub-title {
+    color: #ffffff; }
+  .event-cal .nav-tabs .nav-item.show .nav-link, .event-cal .nav-tabs .nav-link.active {
+    background-color: #2e6ab0;
+    border-color: transparent;
+    color: white;
+    font-family: 'BCSans', sans-serif;
+    font-weight: 400;
+    font-style: normal;
+    font-size: 14px;
+    border-radius: 30px;
+    padding: 0.1rem 1rem; }
+  .event-cal .fc .fc-widget-header {
+    border: none;
+    color: #2e6ab0;
+    font-size: 17px;
+    font-weight: 600; }
+  .event-cal .list-view {
+    box-shadow: 0px 0px 7px #ccc;
+    margin-top: 3.5em;
+    padding: 20px;
+    padding-top: 25px; }
+    .event-cal .list-view .sd-top {
+      font-weight: bold;
+      font-size: 20px;
+      line-height: 110%; }
+    .event-cal .list-view .sd-middle {
+      font-size: 72px;
+      line-height: 140%;
+      color: #009cde; }
+    .event-cal .list-view .sd-bottom {
+      font-size: 17px;
+      font-weight: 400;
+      line-height: 23px; }
+    .event-cal .list-view .right-side {
+      color: #cccccc;
+      margin-bottom: 20px; }
+      .event-cal .list-view .right-side .ev-address {
+        margin-bottom: 15px; }
+    .event-cal .list-view .e-description p {
+      color: #000000;
+      font-size: 17px;
+      line-height: 23px;
+      font-weight: 400;
+      padding: 15px 15px 25px 0px;
+      margin: 0px; }
+    .event-cal .list-view .e-sub-title {
+      color: #767676;
+      margin-bottom: 20px;
+      font-weight: 400;
+      font-size: 16px; }
+    .event-cal .list-view .e-ta {
+      line-height: 23px;
+      font-weight: 400;
+      color: #767676;
+      font-size: 16px; }
+    .event-cal .list-view .e-title {
+      font-size: 21px;
+      line-height: 29px;
+      font-weight: 700;
+      color: #333333;
+      margin-bottom: 15px; }
+    .event-cal .list-view .ev-date div, .event-cal .list-view .ev-address p {
+      margin: 0px;
+      font-weight: 400;
+      color: #333333;
+      font-size: 17px;
+      line-height: 25px;
+      font-family: 'BCSans', sans-serif; }
+    .event-cal .list-view .ev-address {
+      background: url(../images/pin-location-icon.svg) no-repeat;
+      background-size: 23px;
+      background-position: center left;
+      padding-left: 46px;
+      margin-left: 20px; }
+    .event-cal .list-view .ev-date {
+      background: url(../images/calendar-icon.svg) no-repeat;
+      background-size: 28px;
+      padding-left: 46px;
+      background-position: center left;
+      position: relative; }
+    .event-cal .list-view .ev-date::Before {
+      position: absolute;
+      right: -23px;
+      top: 0px;
+      height: 100%;
+      width: 5px;
+      background-color: #f2f2f2;
+      content: ""; }
+    .event-cal .list-view .sd-date-panel {
+      max-width: 200px;
+      border-bottom: 5px solid #1d4581;
+      text-align: center;
+      margin: auto;
+      padding: 10px;
+      margin-top: 20px;
+      margin-left: 80px; }
+  .event-cal .list-full-view .view-header h2 {
+    margin: 0px;
+    padding: 0px;
+    text-align: center;
+    font-size: 26px;
+    font-weight: 400;
+    box-shadow: none;
+    font-size: 30px;
+    color: #333333;
+    text-align: center;
+    line-height: 45px; }
+  .event-cal .list-full-view .view-content h3:first-child {
+    display: none; }
+  .event-cal .list-full-view .view-content h3 {
+    text-align: center;
+    margin-top: 55px; }
+  .event-cal .nav-tabs .nav-link {
+    border-radius: 30px;
+    padding: 0.1rem 1rem;
+    border: 0px !important; }
+  .event-cal .nav-tabs .nav-link:hover {
+    border: 0px; }
+  .event-cal .fc-button-group {
+    position: unset; }
+  .event-cal .list-nav .nav-tabs {
+    display: -webkit-inline-box; }
+  .event-cal .nav-tabs {
+    display: flex;
+    justify-content: flex-end;
+    font-family: 'BCSans', sans-serif;
+    font-weight: 400;
+    font-style: normal;
+    font-size: 14px;
+    display: -webkit-inline-box; }
+  .event-cal .tab-pane {
+    position: relative; }
+  .event-cal .pager__item pager__item--next a span {
+    color: #000000; }
+  .event-cal .list-nav {
+    text-align: right;
+    margin-bottom: 30px; }
+  .event-cal .nav-tabs {
+    border-radius: 25px;
+    border: 1px solid #cccccc;
+    display: inline-flex;
+    padding: 1px 3px 2px; }
+  .event-cal .list-nav button {
+    font-size: 17px;
+    font-weight: 600;
+    border: none;
+    padding: 3px 20px;
+    background-color: transparent;
+    transition: all 0.5s ease-in-out;
+    display: inline-flex;
+    align-items: center; }
+  .event-cal .list-nav #nav-list-view-tab {
+    margin-right: 10px; }
+  .event-cal .list-nav svg {
+    width: 16px;
+    height: 16px;
+    stroke-width: 3px;
+    transition: all 0.5s ease-in-out; }
+  .event-cal .list-nav svg circle, .event-cal .list-nav svg rect {
+    transition: all 0.5s ease-in-out; }
+  .event-cal .list-nav i {
+    margin-right: 5px;
+    display: inline-flex;
+    align-items: center;
+    justify-content: center; }
+  .event-cal .list-nav .calender_icon svg {
+    stroke: #000000; }
+  .event-cal .list-nav .calender_icon img {
+    width: 18px;
+    height: 16px; }
+  .event-cal .list-nav .nav-link.active .calender_icon svg {
+    fill: white;
+    stroke: white; }
+  .event-cal .list-nav .nav-link.active svg {
+    fill: white; }
+  .event-cal .pager__item {
+    padding: 0px; }
+  .event-cal .pager__item--next span, .event-cal .pager__item--previous span {
+    display: inline-block;
+    line-height: 1;
+    position: relative; }
+  .event-cal .pager__item--next span {
+    padding-right: 8px; }
+  .event-cal .pager__item--next a span, .event-cal .pager__item--previous a span {
+    position: relative;
+    font-family: 'BCSans', sans-serif; }
+  .event-cal .pager__item--previous span {
+    padding-left: 8px; }
+  .event-cal .fc th {
+    text-align: left;
+    border: none; }
+  .event-cal .fc-today-button, .event-cal .fc-dayGridMonth-button {
+    display: none; }
+  .event-cal .fc-list-view a:hover {
+    color: inherit !important; }
+  .event-cal .fc-list-view .fc-list-table td {
+    padding: 30px 10px; }
+  .event-cal .fc-list-view .grid-view {
+    display: none; }
+  .event-cal .fc-view-container .fc-list-table * {
+    -webkit-box-sizing: border-box !important; }
+  .event-cal .fc-list-view .list-view {
+    display: block; }
+  .event-cal table.fc-list-table tr td:nth-child(1) {
+    display: none; }
+  .event-cal table.fc-list-table tr td:nth-child(2) {
+    display: none; }
+  .event-cal .fc-day-grid-event .list-view {
+    display: none; }
+  .event-cal .pager {
+    position: absolute;
+    top: 11px;
+    left: 0px;
+    width: 100%; }
+  .event-cal .pager2 {
+    display: inline-block;
+    width: 100%; }
+   .event-cal .calendar-full-view .pager2{
+      margin-top:20px;
+    }
+  .event-cal .pager2 .pager {
+    position: relative;
+    margin-top: 20px; }
+  .event-cal .pager ul {
+    text-align: right;
+    display: inline-block;
+    justify-content: space-between; }
+  .event-cal .pager li a {
+    color: #2e6ab0;
+    font-size: 15px;
+    line-height: 24px;
+    font-weight: 400;
+    transition: all 0.5s ease-in-out; }
+  .event-cal .pager ul.pager__items {
+    margin: 0px; }
+  .event-cal .pager .pager__item a {
+    color: #2e6ab0;
+    font-size: 15px;
+    line-height: 24px;
+    font-weight: 400;
+    transition: all 0.5s ease-in-out;
+    border: none; }
+  .event-cal .pager .pager__item a:hover, .event-cal .pager .pager__item a:hover span::before, .event-cal .pager .pager__item a:hover span::after {
+    color: #1967e5f5; 
+    text-decoration:none;}
+  .event-cal .pager .pager__item.is-active {
+    display: none; }
+  .event-cal .pager .pager__item--next, .event-cal .pager .pager__item--previous {
+    display: inline-block;
+    padding: 0px; }
+  .event-cal .pager .pager__item--next {
+    position: absolute;
+    top: 0px;
+    right: 0px; }
+  .event-cal .bottom-buttons .list-view {
+    box-shadow: 0px 0px 10px #ccc;
+    margin-top: 20px;
+    padding: 20px;
+    padding-top: 30px; }
+  .event-cal .fc .fc-row .fc-content-skeleton td {
+    border-color: #d7d7d7;
+    border-bottom: 0px;
+    border-top: 0px; }
+  .event-cal .fc td.fc-today {
+    border-style: none; }
+  .event-cal .fc-content .fc-time {
+    display: none; }
+  .event-cal .bottom-buttons .list-view {
+    box-shadow: 0px 0px 10px #ccc;
+    margin-top: 20px;
+    padding: 20px;
+    padding-top: 30px; }
+  .event-cal .fc .fc-widget-header {
+    border: none;
+    color: #2e6ab0;
+    font-size: 17px;
+    font-weight: 400;
+    text-transform: capitalize; }
+  .event-cal .fc-day-grid-event .grid-view {
+    display: block; }
+  .event-cal .fc table {
+    margin: 0px; }
+  .event-cal .fc-button {
+    color: #0c1939;
+    background-color: transparent;
+    border: none;
+    font-size: 16px;
+    font-weight: 600;
+    margin: 0px;
+    padding: 0px;
+    transition: all 0.5s ease-in-out; }
+    
+    .event-cal .fc-button-group .fc-button:focus{
+      box-shadow: inherit !important;
+      -webkit-box-shadow: inherit !important;
+      border: 0px !important;
+      outline: 0px !important;
+    }
+  .event-cal .fc-button .fc-icon {
+    font-size: 15px;
+    width: 17px; }
+  .event-cal .fc-button-group > .fc-button:last-of-type {
+    position: absolute;
+    right: 0px; }
+  .event-cal .fc-button:hover {
+    color: #1967e5f5;
+    background-color: white;
+    border: none; }
+  .event-cal .fc-day-number {
+    color: #000000;
+    font-weight: 600; }
+  .event-cal .fc-ltr .fc-dayGrid-view .fc-day-top .fc-day-number {
+    float: left;
+    padding: 6px;
+    font-size: 16px; }
+  .event-cal .e-description p {
+    color: #000000;
+    font-size: 17px;
+    line-height: 23px;
+    font-weight: 400;
+    padding: 15px 15px 25px 0px;
+    margin: 0px; }
+  .event-cal .fc-day-number {
+    color: #000000;
+    font-weight: 600; }
+  .event-cal .fc-ltr .fc-dayGrid-view .fc-day-top .fc-day-number {
+    float: left;
+    padding: 3px 6px;
+    font-size: 16px;
+    font-weight: 400; }
+  .event-cal .fc-day-grid-event .fc-content {
+    white-space: unset;
+    overflow: unset; }
+  .event-cal .tab-content {
+    margin-bottom: 50px; }
+    .event-cal .tab-content .fc-toolbar h2 {
+      font-size: 30px;
+      font-weight: 400;
+      margin-right: 100px; }
+  .event-cal .fc-content span {
+    font-weight: 500; }
+  .event-cal .fc-unthemed td.fc-today {
+    background: transparent; }
+  .event-cal .fc-content {
+    padding: 3px 7px; }
+  .event-cal .tab-pane {
+    position: relative; }
+
+/*# sourceMappingURL=main.css.map */
