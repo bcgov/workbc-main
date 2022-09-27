@@ -11,6 +11,7 @@ dependencies:
     - file
     - node
     - scheduled_publish
+    - sitewide_alert
     - system
     - toolbar
 id: content_approver
@@ -37,4 +38,5 @@ permissions:
   - 'view all revisions'
   - 'view any unpublished content'
   - 'view latest version'
+  - 'view published sitewide alert entities'
   - 'view the administration theme'

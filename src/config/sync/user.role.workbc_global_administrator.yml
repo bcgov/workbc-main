@@ -24,6 +24,7 @@ dependencies:
     - override_node_options
     - path
     - role_delegation
+    - sitewide_alert
     - system
     - toolbar
     - workbc_custom
@@ -93,5 +94,6 @@ permissions:
   - 'override success_story authored by option'
   - 'override workbc_centre authored by option'
   - 'view all revisions'
+  - 'view published sitewide alert entities'
   - 'view the administration theme'
   - 'view user email addresses'
