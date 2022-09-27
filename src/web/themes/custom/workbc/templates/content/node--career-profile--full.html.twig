@@ -68,10 +68,27 @@
  */
 #}
 
+{# 
+links
+field_noc
+extra_field_high_opportunity_occupation
+extra_field_minimum_education
+field_hero_image
+extra_field_annual_salary
+extra_field_annual_salary_source
+extra_field_job_openings
+extra_field_job_openings_source
+field_career_videos_introduction
+field_career_videos
+group_career_profile_tabs
+#}
+
 {% set title = label %}
 {% set hero_image = content.field_hero_image[0] %}
+{% set hero_text = null %}
 {% set hero_noc = content.field_noc['#items'].getString() %} 
 {% set hero_hoo = content.extra_field_high_opportunity_occupation[0]['#markup'] %}
+
 
 
 {%
@@ -88,7 +105,35 @@
 {% include '@workbc/includes/breadcrumbs.html.twig' %}
 
 {% if hero_image or hero_text %}
-  {% include '@workbc/includes/hero.html.twig' %}
+  <div class="hero-banner hero-banner-profile">
+
+    <div class="hero-image-wrapper">
+        <div class="hero-image-overlay"></div>
+        {{ hero_image }}
+    </div>
+
+    <div class="container-lg">
+        <div class="hero-content-wrapper">
+          <div class="hero-title">
+              <h1>{{ title }}</h1>
+          </div>
+
+          <div class="hero-noc">(NOC {{ hero_noc }})</div>
+
+          {% if hero_hoo %}
+              <div class="hero-hoo">
+                <img src="/{{ directory }}/assets/images/hoo-icon.svg" alt="{{ 'High opportunity occupation'|t }}" />
+                <span>High opportunity occupation</span>
+              </div>
+          {% endif %}
+
+          <div class="hero-content">
+              {{ hero_text }}
+          </div>
+        </div>
+    </div>
+
+  </div>
 {% endif %}
 
 <article{{ attributes.addClass(classes) }}>
@@ -179,3 +224,6 @@
     {{ related }}
   </div>
 {% endif %}
+
+
+{{ kint(content) }}
