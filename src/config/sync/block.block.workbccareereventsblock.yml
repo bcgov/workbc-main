@@ -11,7 +11,7 @@ dependencies:
 id: workbccareereventsblock
 theme: workbc
 region: content_bottom
-weight: -6
+weight: -9
 provider: null
 plugin: career_events_block
 settings:
