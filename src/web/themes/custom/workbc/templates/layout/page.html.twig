@@ -59,6 +59,9 @@
   <div class="page-content-wrapper">
     <div class="submenu-underlay"></div>
       {{ messages }}
+      {% if node.getType() != 'page' and node.getType() != 'career_profile'  %}
+        {% include '@workbc/includes/breadcrumbs.html.twig' %}
+      {% endif %}
       {{ tabs }}
       {{ page.content }}
   </div>
