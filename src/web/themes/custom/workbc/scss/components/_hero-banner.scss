@@ -10,8 +10,7 @@ $hero_banner_height: 420px;
     flex-flow: row wrap;
     
     &.hero-banner-profile {
-
-        .hero-title .basic-page-header {
+       .hero-title .basic-page-header {
             margin-bottom: 10px;
         }
 
@@ -33,6 +32,7 @@ $hero_banner_height: 420px;
                 padding: 30px 20px 10px 20px;
                 background: $workbc_palette_light_primary;
                 border-bottom: $workbc_trim_ultra_thin_size solid $workbc_palette_dark_secondary;
+                box-shadow: $workbc_default_box_shadow;
             }
         }
     }
@@ -45,7 +45,7 @@ $hero_banner_height: 420px;
             top: 0;
             right: 0;
             bottom: 0;
-            z-index: 2;
+            z-index: -1;
             display: flex;
             justify-content: flex-end;
             width: auto;
@@ -77,18 +77,18 @@ $hero_banner_height: 420px;
     }
 
     .hero-content-wrapper {
+        display: flex;
+        flex-flow: column nowrap;
         z-index: 5;
         margin: 30px 20px;
 
         @include media-breakpoint-up(lg) { 
+            width: 50%;
             margin: 80px 10px;
         }
 
         .hero-title {
-            @include media-breakpoint-up(lg) { 
-                margin-bottom: 50px;
-                width: 50%;
-            }
+            flex: 0 0 100%;
         }
 
         .hero-title-card {
@@ -98,23 +98,22 @@ $hero_banner_height: 420px;
         }
     
         .hero-noc {
+            flex: 0 0 100%;
             color: #6E6E6E;
             margin-bottom: $workbc_spacing_default;
         }
 
         .hero-hoo {
+            flex: 0 0 100%;
             color: $workbc_palette_dark_secondary;
 
             @include media-breakpoint-up(lg) { 
-                float: right;
+                align-self: flex-end;
             }
         }
 
         .hero-content {
-
-            @include media-breakpoint-up(lg) { 
-                width: 50%;
-            }
+            flex: 0 0 100%;
         }
     }
 }
