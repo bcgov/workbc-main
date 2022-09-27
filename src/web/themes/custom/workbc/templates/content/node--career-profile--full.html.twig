@@ -68,28 +68,23 @@
  */
 #}
 
-{# 
-links
-field_noc
-extra_field_high_opportunity_occupation
-extra_field_minimum_education
-field_hero_image
-extra_field_annual_salary
-extra_field_annual_salary_source
-extra_field_job_openings
-extra_field_job_openings_source
-field_career_videos_introduction
-field_career_videos
-group_career_profile_tabs
-#}
-
 {% set title = label %}
 {% set hero_image = content.field_hero_image[0] %}
 {% set hero_text = null %}
 {% set hero_noc = content.field_noc['#items'].getString() %} 
 {% set hero_hoo = content.extra_field_high_opportunity_occupation[0]['#markup'] %}
 
+{% set statistic_annual_salary = content.extra_field_annual_salary %}
+{% set statistic_annual_salary_source = content.extra_field_annual_salary_source %}
+{% set statistic_minimum_education = content.extra_field_minimum_education %}
+{% set statistic_job_openings = content.extra_field_job_openings %}
+{% set statistic_job_openings_source = content.extra_field_job_openings_source %}
 
+{% set career_profile_tabbed_content = content.group_career_profile_tabs %}
+
+{% set career_videos_introduction = content.field_career_videos_introduction %}
+{% set career_videos = content.field_career_videos %}
+{% set links = content.links %}
 
 {%
   set classes = [
@@ -136,6 +131,12 @@ group_career_profile_tabs
   </div>
 {% endif %}
 
+<div class="social-sharing-wrapper">
+  <div class="container-lg">
+    Social Sharing icons placeholder
+  </div>
+</div>
+
 <article{{ attributes.addClass(classes) }}>
 
   {# fields and markup here e.g: {{ content.field_noc }} or set the content.field as variables above and render here #}
@@ -143,15 +144,12 @@ group_career_profile_tabs
 
   <div class="career-statistics-wrapper">
     <div class="container-lg">
-      Career Statistics Placeholder
 
-      {{ content.fields_extra_field_annual_salary }}
-      {{ content.fields_extra_field_annual_salary_source }}
-
-      {{ content.fields_extra_field_minimum_education }}
-
-      {{ content.fields_extra_field_job_openings }}
-      {{ content.fields_extra_field_job_openings_source }}
+      {{ statistic_annual_salary }}
+      {{ statistic_annual_salary_source }}
+      {{ statistic_minimum_education }}
+      {{ statistic_job_openings }}
+      {{ statistic_job_openings_source }}
 
     </div>
   </div>
@@ -159,56 +157,23 @@ group_career_profile_tabs
   <div class="career-details-wrapper">
     <div class="container-lg">
 
-    {{ content.group_career_profile_tabs }}
-
-      {# <ul class="nav nav-tabs" id="myTab" role="tablist">
-        <li class="nav-item" role="presentation">
-          <button class="nav-link active" id="overview-tab" data-bs-toggle="tab" data-bs-target="#overview" type="button" role="tab" aria-controls="overview" aria-selected="true">Career Overview</button>
-        </li>
-        <li class="nav-item" role="presentation">
-          <button class="nav-link" id="education-tab" data-bs-toggle="tab" data-bs-target="#education" type="button" role="tab" aria-controls="education" aria-selected="false">Education, Training &amp; Skills</button>
-        </li>
-        <li class="nav-item" role="presentation">
-          <button class="nav-link" id="statistics-tab" data-bs-toggle="tab" data-bs-target="#statistics" type="button" role="tab" aria-controls="statistics" aria-selected="false">Labour Market Statistics</button>
-        </li>
-        <li class="nav-item" role="presentation">
-          <button class="nav-link" id="highlights-tab" data-bs-toggle="tab" data-bs-target="#highlights" type="button" role="tab" aria-controls="highlights" aria-selected="false">Industry Highlights</button>
-        </li>
-        <li class="nav-item" role="presentation">
-          <button class="nav-link" id="resources-tab" data-bs-toggle="tab" data-bs-target="#resources" type="button" role="tab" aria-controls="resources" aria-selected="false">Resources</button>
-        </li>
-      </ul>
-
-      <div class="tab-content" id="myTabContent">
-        <div class="tab-pane fade show active" id="overview" role="tabpanel" aria-labelledby="overview-tab">
-          {{ content.field_career_overview }}
-        </div>
-        <div class="tab-pane fade" id="education" role="tabpanel" aria-labelledby="education-tab">
-          {{ content.field_education_training_skills }}
-        </div>
-        <div class="tab-pane fade" id="statistics" role="tabpanel" aria-labelledby="statistics-tab">
-          {{ content.field_education_training_skills }}
-        </div>
-        <div class="tab-pane fade" id="highlights" role="tabpanel" aria-labelledby="highlights-tab">
-          {{ content.field_insights_from_industry }}
-        </div>
-        <div class="tab-pane fade" id="resources" role="tabpanel" aria-labelledby="resources-tab">
-          {{ content.field_resources }}
-        </div>
-      </div> #}
+    {{ career_profile_tabbed_content }}
 
     </div>
   </div>
 
   <div class="career-videos-wrapper">
     <div class="container-lg">
-      Career Videos Placeholder (desktop sidebar)
+      <h2>{{ career_videos_introduction }}</h2>
+      {{ career_videos }}
     </div>
   </div>
 
   <div class="career-recent-jobs-wrapper">
     <div class="container-lg">
       Recent Jobs Placeholder (desktop sidebar)
+
+      {{ links }}
     </div>
   </div>
 
@@ -226,4 +191,4 @@ group_career_profile_tabs
 {% endif %}
 
 
-{{ kint(content) }}
+{# {{ kint(content) }} #}
