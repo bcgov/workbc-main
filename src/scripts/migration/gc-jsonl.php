@@ -61,6 +61,9 @@ try {
     $item = $gc->itemGet($result->id);
 
     // Cache the item template.
+    if (empty($item->templateId)) {
+      continue;
+    }
     if (!array_key_exists($item->templateId, $templates)) {
       $template = $gc->templateGet($item->templateId);
       $templates[$item->templateId] = map_fields_ids($template);

@@ -168,8 +168,8 @@ while (($row = fgetcsv($data)) !== FALSE) {
     else if (!empty($type)) {
         // We want to create or update a Drupal node for this IA item.
         // Identifying an existing node by title is not enough because some pages have non-unique titles.
-        // Instead, we identify the node by its position in the IA, i.e. the navigatin menu:
-        // 1. Identify the parent menu item in the navigation menu (assumed to be unique)
+        // Instead, we identify the node by its position in the navigation menu:
+        // 1. Identify the parent menu item in the navigation menu
         // 2. Identify the node menu item in the navigation menu
         // 3. Retrieve the node entity from the menu item
         // Fall back to re-creating the node if any step above fails.
