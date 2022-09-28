@@ -113,7 +113,6 @@ foreach ($items as $id => $item) {
                 'title' => $parent,
                 'menu_name' => 'main',
             ]);
-        $node = NULL;
         if (empty($menu_items_parent)) {
             print("  Could not find parent menu item \"$parent\". Aborting" . PHP_EOL);
             continue;
