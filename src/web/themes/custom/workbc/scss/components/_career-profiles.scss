@@ -1,0 +1,12 @@
+.workbc-career-profile {
+    display: flex;
+    flex-flow: column nowrap;
+
+    .career-statistics-wrapper {
+        padding: 0 10px;
+
+        @include media-breakpoint-up(lg) {
+            padding: 0;
+        }
+    }
+}

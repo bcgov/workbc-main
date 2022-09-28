@@ -94,6 +94,15 @@
     node.isSticky() ? 'node--sticky',
     not node.isPublished() ? 'node--unpublished',
     view_mode ? 'node--view-mode-' ~ view_mode|clean_class,
+    'workbc-career-profile',
+  ]
+%}
+
+{% set container_attributes = create_attribute() %}
+{% 
+  set container_classes = [
+    'container-lg',
+    'px-1'
   ]
 %}
 
@@ -131,34 +140,23 @@
   </div>
 {% endif %}
 
-<div class="social-sharing-wrapper">
-  <div class="container-lg">
-    Social Sharing icons placeholder
-  </div>
-</div>
+{% include '@workbc/includes/social-sharing.html.twig' %}
 
 <article{{ attributes.addClass(classes) }}>
 
-  {# fields and markup here e.g: {{ content.field_noc }} or set the content.field as variables above and render here #}
-  {# {{ see node node--page--full.html.twig as an example }} #}
-
   <div class="career-statistics-wrapper">
-    <div class="container-lg">
-
+    <div{{ container_attributes.addClass(container_classes) }}>
       {{ statistic_annual_salary }}
       {{ statistic_annual_salary_source }}
       {{ statistic_minimum_education }}
       {{ statistic_job_openings }}
       {{ statistic_job_openings_source }}
-
     </div>
   </div>
 
   <div class="career-details-wrapper">
     <div class="container-lg">
-
-    {{ career_profile_tabbed_content }}
-
+      {{ career_profile_tabbed_content }}
     </div>
   </div>
 
@@ -172,16 +170,10 @@
   <div class="career-recent-jobs-wrapper">
     <div class="container-lg">
       Recent Jobs Placeholder (desktop sidebar)
-
       {{ links }}
     </div>
   </div>
 
-  {% if page_body %}
-    {{ page_body }}
-  {% endif %}
-
-  {{ page_content }}
 </article>
 
 {% if related|striptags|trim %}
