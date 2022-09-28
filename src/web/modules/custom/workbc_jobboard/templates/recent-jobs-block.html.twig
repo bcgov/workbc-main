@@ -1,0 +1,40 @@
+<div class="jobs-data">
+  {% if (data is empty) or (data|length < 1) %}
+    <div class="sub-title card-plain__title no-data">
+      {{no_result_text}}
+    </div>
+  {% else %}
+    <div class="sub-title card-plain__title">
+      <span>{{ sub_title }}</span>
+    </div>
+    <div class="cards-grid cards-grid-1-1">
+      {% for key,jobs in data %}
+        {% if key < no_of_records %}
+          <div class="card-plain card-plain__content job-box item">
+            <h3 class="card-plain__title job-title">
+              <a href="#" title="{{jobs.jobTitle}}">{{jobs.jobTitle}}</a>
+            </h3>
+            <div class="job-company">
+              {{jobs.employer}}
+            </div>
+            <div class="job-location">
+              <span>
+               <img src="/modules/custom/workbc_jobboard/images/location.svg"/>
+              </span>
+              {{jobs.location}}
+            </div>
+            <div class="job-post-date">
+              <label>Posted on: </label>
+              {{jobs.datePosted}}
+            </div>
+          </div>
+        {% endif %}
+      {% endfor%}
+    </div>
+    {% if data|length > no_of_records %}
+      <div class="more-jobs">
+        <a href="#" value="View more jobs" class="card-w-image__link more-jobs">{{ readmore_label }}</a>
+      </div>
+    {% endif %}
+  {% endif %}
+</div>

@@ -1,0 +1,30 @@
+<?php
+
+/**
+ * @file
+ *  Work BC Job Board module
+ */
+ 
+
+function workbc_jobboard_page_attachments_alter(array &$attachments) {  
+	$attachments['#attached']['library'][] = 'workbc_jobboard/workbc-jobboard';
+}
+
+/**
+*{@inheritdoc}
+*/
+function workbc_jobboard_theme($existing, $type, $theme, $path) {
+  return [
+    'recent_jobs' => [
+      'template' => 'recent-jobs-block',
+      'variables' => [
+        'data' => [],
+        'sub_title' => '',
+        'no_of_records' => '',
+        'no_result_text' => '',
+        'readmore_label' => '',
+        'api_url' => '',
+      ],
+    ],
+  ];
+}

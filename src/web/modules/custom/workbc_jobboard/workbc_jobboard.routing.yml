@@ -1,0 +1,9 @@
+# workbc_jobboard.get_recent_jobs:
+  # path: '/api/career-profiles/topjobs/{noccode}'
+  # defaults:
+    # _title: 'Get Recent Jobs'
+    # _controller: '\Drupal\workbc_jobboard\Controller\WorkBcJobboardController::getRecentJobsJson'
+  # requirements:
+    # _permission: 'access content'
+  # options:
+    # no_cache: 'TRUE'
