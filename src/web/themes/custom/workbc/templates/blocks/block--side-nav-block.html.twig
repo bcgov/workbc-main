@@ -30,20 +30,12 @@
     'block',
     'block-' ~ configuration.provider|clean_class,
     'block-' ~ plugin_id|clean_class,
-    'basic-page-left-nav-wrapper'
+    'page-left-nav-wrapper'
   ]
 %}
 <div{{ attributes.addClass(classes) }}>
-
-    <nav class="basic-page-left-nav">
-        <h2>On this page</h1>
-        <ul>
-            <li><a href="#heading1">Link to heading 1</a></li>
-            <li><a href="#heading2">Link to heading 2</a></li>
-            <li><a href="#heading3">Link to heading 3</a></li>
-            <li><a href="#heading4">Link to heading 4</a></li>
-            <li><a href="#heading5">Link to heading 5</a></li>
-        </ul>
-    </nav>
-
+  <nav class="page-left-nav">
+    <h2 class="page-left-nav__title">On this page</h2>
+    <ul class="page-left-nav__links"></ul>
+  </nav>
 </div>
