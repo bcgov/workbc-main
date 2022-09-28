@@ -1,0 +1,26 @@
+.profile-information-card-deck {
+    display: flex;
+    flex-flow: column nowrap;
+    row-gap: 10px;
+}
+
+.profile-information-card {
+    flex: 0 0 130px;
+    background-color: $workbc_light_theme_background_default;
+    border: 2px solid #9b9b9b;
+    box-shadow: $workbc_default_box_shadow; 
+
+    .profile-information-card-icon {
+
+    }
+    .profile-information-card-description {
+        
+    }
+    .profile-information-card-content {
+        
+    }
+    .profile-information-card-infotip {
+        
+    }
+
+}

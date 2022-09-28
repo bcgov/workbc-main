@@ -1,6 +1,7 @@
 .workbc-career-profile {
     display: flex;
     flex-flow: column nowrap;
+    background-color: $workbc_light_theme_background_accent;
 
     .career-statistics-wrapper {
         padding: 0 10px;

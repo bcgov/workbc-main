@@ -140,17 +140,57 @@
   </div>
 {% endif %}
 
-{% include '@workbc/includes/social-sharing.html.twig' %}
-
 <article{{ attributes.addClass(classes) }}>
 
+  {% include '@workbc/includes/social-sharing.html.twig' %}
+
   <div class="career-statistics-wrapper">
-    <div{{ container_attributes.addClass(container_classes) }}>
-      {{ statistic_annual_salary }}
-      {{ statistic_annual_salary_source }}
-      {{ statistic_minimum_education }}
-      {{ statistic_job_openings }}
-      {{ statistic_job_openings_source }}
+    <div{{ container_attributes.addClass(container_classes).addClass("profile-information-card-deck") }}>
+
+      <div class="profile-information-card">
+        <div class="profile-information-card-icon">
+          icon
+        </div>
+        <div class="profile-information-card-description">
+          {{ statistic_annual_salary['#title'] }}
+        </div>
+        <div class="profile-information-card-content">
+          {{ statistic_annual_salary.0['#markup'] }}
+        </div>
+        <div class="profile-information-card-infotip">
+          {{ statistic_annual_salary_source.0['#markup'] }}
+        </div>
+      </div>
+
+      <div class="profile-information-card">
+        <div class="profile-information-card-icon">
+          icon
+        </div>
+        <div class="profile-information-card-description">
+          {{ statistic_minimum_education['#title'] }}
+        </div>
+        <div class="profile-information-card-content">
+          {{ statistic_minimum_education.0['#markup'] }}
+        </div>
+        <div class="profile-information-card-infotip">
+        </div>
+      </div>
+
+      <div class="profile-information-card">
+        <div class="profile-information-card-icon">
+          icon
+        </div>
+        <div class="profile-information-card-description">
+          {{ statistic_job_openings['#title'] }}
+        </div>
+        <div class="profile-information-card-content">
+          {{ statistic_job_openings.0['#markup'] }}
+        </div>
+        <div class="profile-information-card-infotip">
+          {{ statistic_job_openings_source.0['#markup'] }}
+        </div>
+      </div>
+
     </div>
   </div>
 
