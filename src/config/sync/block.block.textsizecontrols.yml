@@ -12,7 +12,7 @@ dependencies:
 id: textsizecontrols
 theme: workbc
 region: footer
-weight: -15
+weight: -12
 provider: null
 plugin: 'simple_block:text_size_controls'
 settings:

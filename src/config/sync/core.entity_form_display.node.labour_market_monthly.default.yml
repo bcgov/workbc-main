@@ -19,6 +19,7 @@ dependencies:
     - path
     - scheduled_publish
     - text
+    - workbc_custom
 id: node.labour_market_monthly.default
 targetEntityType: node
 bundle: labour_market_monthly
@@ -144,7 +145,7 @@ content:
       placeholder: ''
     third_party_settings: {  }
   uid:
-    type: options_select
+    type: workbc_select_resort
     weight: 5
     region: content
     settings: {  }

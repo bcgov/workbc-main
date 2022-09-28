@@ -9,12 +9,12 @@ dependencies:
     - field.field.node.blog.field_tags
     - image.style.thumbnail
     - node.type.blog
-    - workflows.workflow.editorial
   module:
     - content_moderation
     - image_widget_crop
     - path
     - text
+    - workbc_custom
 id: node.blog.default
 targetEntityType: node
 bundle: blog
@@ -94,6 +94,11 @@ content:
     settings:
       display_label: true
     third_party_settings: {  }
+  simple_sitemap:
+    weight: 10
+    region: content
+    settings: {  }
+    third_party_settings: {  }
   status:
     type: boolean_checkbox
     weight: 120
@@ -117,13 +122,9 @@ content:
       placeholder: ''
     third_party_settings: {  }
   uid:
-    type: entity_reference_autocomplete
+    type: workbc_select_resort
     weight: 5
     region: content
-    settings:
-      match_operator: CONTAINS
-      match_limit: 10
-      size: 60
-      placeholder: ''
+    settings: {  }
     third_party_settings: {  }
 hidden: {  }
