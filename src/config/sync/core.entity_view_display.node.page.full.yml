@@ -11,6 +11,7 @@ dependencies:
     - field.field.node.page.field_hero_text
     - field.field.node.page.field_page_format
     - field.field.node.page.field_related_topics
+    - field.field.node.page.field_related_topics_blurb
     - node.type.page
   module:
     - entity_reference_revisions
@@ -85,5 +86,6 @@ hidden:
   extra_field_workbc_published_on: true
   field_content_group: true
   field_related_topics: true
+  field_related_topics_blurb: true
   langcode: true
   search_api_excerpt: true

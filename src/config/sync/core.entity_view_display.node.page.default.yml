@@ -10,6 +10,7 @@ dependencies:
     - field.field.node.page.field_hero_text
     - field.field.node.page.field_page_format
     - field.field.node.page.field_related_topics
+    - field.field.node.page.field_related_topics_blurb
     - node.type.page
   module:
     - entity_reference_revisions
@@ -42,6 +43,13 @@ content:
       link: ''
     third_party_settings: {  }
     weight: 2
+    region: content
+  field_related_topics_blurb:
+    type: text_default
+    label: above
+    settings: {  }
+    third_party_settings: {  }
+    weight: 3
     region: content
   links:
     settings: {  }
