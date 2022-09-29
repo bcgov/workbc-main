@@ -2,7 +2,6 @@
 
 require('gc-drupal.php');
 
-use Drupal\path_alias\Entity\PathAlias;
 use Drupal\pathauto\PathautoState;
 use Drupal\paragraphs\Entity\Paragraph;
 
