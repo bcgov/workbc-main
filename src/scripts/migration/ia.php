@@ -112,6 +112,7 @@ while (($row = fgetcsv($data)) !== FALSE) {
         'path' => [
             'pathauto' => PathautoState::CREATE,
         ],
+        'moderation_state' => 'published',
     ];
 
     // Legacy URL.

@@ -77,6 +77,7 @@ try {
       'title' => $profile['occupation_title'],
       'field_noc' => $profile['noc'],
       'uid' => 1,
+      'moderation_state' => 'published',
     ];
     print("Creating {$fields['title']}\n");
 
@@ -114,6 +115,7 @@ try {
     $node = Drupal::entityTypeManager()
       ->getStorage('node')
       ->create($fields);
+    $node->setPublished(TRUE);
     $node->save();
 
     // Save the node id for the second pass.

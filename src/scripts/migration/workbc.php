@@ -199,10 +199,12 @@ function createBlogNewsSuccessStory($item) {
         'path' => [
             'pathauto' => PathautoState::CREATE,
         ],
+        'moderation_state' => 'published',
     ];
     $node = Drupal::entityTypeManager()
         ->getStorage('node')
         ->create($fields);
+    $node->setPublished(TRUE);
     $node->save();
     print("  Created $type" . PHP_EOL);
     return $node;
