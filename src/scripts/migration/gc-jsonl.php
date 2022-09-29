@@ -61,6 +61,9 @@ try {
     $item = $gc->itemGet($result->id);
 
     // Cache the item template.
+    if (empty($item->templateId)) {
+      continue;
+    }
     if (!array_key_exists($item->templateId, $templates)) {
       $template = $gc->templateGet($item->templateId);
       $templates[$item->templateId] = map_fields_ids($template);
@@ -68,11 +71,15 @@ try {
     }
 
     // Loop on the content fields and translate field ids to field labels.
+    $item_status = array_filter($project_statuses['data'], function ($status) use ($item) {
+      return $status->id == $item->statusId;
+    });
     $content = [
       'title' => $item->name,
       'id' => $item->id,
       'template' => $templates[$item->templateId]['template']->name,
       'folder' => $folders[$item->folderUuid]?->name,
+      'status' => current($item_status)->name,
     ];
     foreach ($item->content as $uuid => $value) {
       $field = $templates[$item->templateId][$uuid];
