@@ -1,0 +1,21 @@
+uuid: fb161dfd-41a8-4f1a-9b71-067732fe1a2a
+langcode: en
+status: true
+dependencies:
+  config:
+    - field.storage.node.field_related_topics_blurb
+    - node.type.blog
+  module:
+    - text
+id: node.blog.field_related_topics_blurb
+field_name: field_related_topics_blurb
+entity_type: node
+bundle: blog
+label: 'Related Topics Blurb'
+description: 'The text that should appear in a Related Topics card for this page.'
+required: false
+translatable: true
+default_value: {  }
+default_value_callback: ''
+settings: {  }
+field_type: text_long
