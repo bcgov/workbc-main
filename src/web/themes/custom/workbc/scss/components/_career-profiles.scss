@@ -5,9 +5,70 @@
 
     .career-statistics-wrapper {
         padding: 0 10px;
+        margin-bottom: $workbc_spacing_default;
 
         @include media-breakpoint-up(lg) {
             padding: 0;
+        }
+    }
+
+    // Series of overrides on top of Drupal Horizontal tab styling
+    $border-size: 3px;
+
+    .horizontal-tabs {
+        border: none;
+        background-color: $workbc_palette_light_primary;
+
+        .horizontal-tabs-list {
+            overflow-y: auto;
+            width: 100%;
+            border-bottom: $border-size solid $workbc_palette_dark_secondary;
+            background-color: $workbc_palette_light_secondary;
+            padding: 0 15px;
+
+            .horizontal-tab-button {
+                position: relative;
+                border: $border-size solid;
+                border-bottom: none;
+                margin-right: $border-size;
+
+                &.selected {
+                    border-color: $workbc_palette_dark_secondary;
+                    font-weight: bold;
+                    
+                    a {
+                        color: $workbc_palette_dark_secondary;
+                        background-color: $workbc_palette_light_primary;
+                    }
+    
+                    &:after {
+                        content: '';
+                        position: absolute;
+                        left: 0;
+                        right: 0;
+                        bottom: -$border-size;
+                        height: $border-size;
+                        background-color: $workbc_palette_light_primary;
+                    }
+                }
+
+                &:not(.selected) {
+                    border-color: $workbc_palette_dark_secondary;
+    
+                    a {
+                        color: $workbc_palette_light_primary;
+                        background-color: $workbc_palette_dark_secondary;
+
+                        strong {
+                            font-weight: normal;
+                        }
+                    }
+
+                    &:hover a {
+                        background-color: #215693;
+                    }
+                }
+            }
         }
     }
 }

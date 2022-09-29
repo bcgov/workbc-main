@@ -99,12 +99,6 @@
 %}
 
 {% set container_attributes = create_attribute() %}
-{% 
-  set container_classes = [
-    'container-lg',
-    'px-1'
-  ]
-%}
 
 {% include '@workbc/includes/breadcrumbs.html.twig' %}
 
@@ -145,8 +139,7 @@
   {% include '@workbc/includes/social-sharing.html.twig' %}
 
   <div class="career-statistics-wrapper">
-    <div{{ container_attributes.addClass(container_classes).addClass("profile-information-card-deck") }}>
-
+    <div class="container-lg px-1 profile-information-card-deck">
       <div class="profile-information-card">
         <div class="profile-information-card-icon">
           icon
@@ -195,20 +188,20 @@
   </div>
 
   <div class="career-details-wrapper">
-    <div class="container-lg">
+    <div class="container-lg px-0">
       {{ career_profile_tabbed_content }}
     </div>
   </div>
 
   <div class="career-videos-wrapper">
-    <div class="container-lg">
+    <div class="container-lg px-1">
       <h2>{{ career_videos_introduction }}</h2>
       {{ career_videos }}
     </div>
   </div>
 
   <div class="career-recent-jobs-wrapper">
-    <div class="container-lg">
+    <div class="container-lg px-1">
       Recent Jobs Placeholder (desktop sidebar)
       {{ links }}
     </div>
@@ -217,7 +210,7 @@
 </article>
 
 {% if related|striptags|trim %}
-  <div class="container-lg">
+  <div class="container-lg px-1">
     {{ related }}
   </div>
 {% endif %}
