@@ -12,9 +12,9 @@ dependencies:
     - user
     - views_bulk_operations
 id: search_content
-label: 'Content Search'
+label: 'Search content'
 module: views
-description: ''
+description: 'Search for content editors'
 tag: ''
 base_table: search_api_index_default_content_index
 base_field: search_api_id
@@ -25,7 +25,7 @@ display:
     display_plugin: default
     position: 0
     display_options:
-      title: 'Content Search'
+      title: 'Search content'
       fields:
         views_bulk_operations_bulk_form:
           id: views_bulk_operations_bulk_form

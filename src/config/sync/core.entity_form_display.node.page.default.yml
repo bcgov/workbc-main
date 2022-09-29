@@ -11,6 +11,7 @@ dependencies:
     - field.field.node.page.field_page_format
     - field.field.node.page.field_related_topics
     - field.field.node.page.view_mode_selection
+    - field.field.node.page.field_related_topics_blurb
     - image.style.thumbnail
     - node.type.page
     - workflows.workflow.editorial
@@ -105,6 +106,14 @@ content:
       match_operator: CONTAINS
       match_limit: 10
       size: 60
+      placeholder: ''
+    third_party_settings: {  }
+  field_related_topics_blurb:
+    type: text_textarea
+    weight: 26
+    region: content
+    settings:
+      rows: 5
       placeholder: ''
     third_party_settings: {  }
   langcode:

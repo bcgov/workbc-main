@@ -6,9 +6,11 @@ dependencies:
     - field.field.node.blog.body
     - field.field.node.blog.field_content_group
     - field.field.node.blog.field_image
+    - field.field.node.blog.field_related_topics_blurb
     - field.field.node.blog.field_tags
     - image.style.thumbnail
     - node.type.blog
+    - workflows.workflow.editorial
   module:
     - content_moderation
     - image_widget_crop
@@ -57,6 +59,14 @@ content:
       warn_multiple_usages: true
       show_crop_area: true
       show_default_crop: true
+    third_party_settings: {  }
+  field_related_topics_blurb:
+    type: text_textarea
+    weight: 125
+    region: content
+    settings:
+      rows: 5
+      placeholder: ''
     third_party_settings: {  }
   field_tags:
     type: entity_reference_autocomplete_tags

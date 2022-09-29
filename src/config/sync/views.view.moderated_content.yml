@@ -95,6 +95,7 @@ display:
               action_id: 'entity:break_lock:node'
               preconfiguration:
                 add_confirmation: false
+                label_override: 'Break lock'
             8:
               action_id: workbc_draft_node_action
               preconfiguration:
@@ -635,7 +636,7 @@ display:
         options:
           perm: 'view any unpublished content'
       cache:
-        type: tag
+        type: none
         options: {  }
       empty:
         area_text_custom:
