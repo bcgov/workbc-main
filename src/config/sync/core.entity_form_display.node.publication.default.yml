@@ -12,10 +12,12 @@ dependencies:
     - image.style.thumbnail
     - node.type.publication
   module:
+    - content_moderation
     - file
     - image_widget_crop
     - path
     - text
+    - workbc_custom
 id: node.publication.default
 targetEntityType: node
 bundle: publication
@@ -87,6 +89,12 @@ content:
     settings:
       include_locked: true
     third_party_settings: {  }
+  moderation_state:
+    type: moderation_state_default
+    weight: 100
+    region: content
+    settings: {  }
+    third_party_settings: {  }
   path:
     type: path
     weight: 5
@@ -99,6 +107,11 @@ content:
     region: content
     settings:
       display_label: true
+    third_party_settings: {  }
+  simple_sitemap:
+    weight: 10
+    region: content
+    settings: {  }
     third_party_settings: {  }
   status:
     type: boolean_checkbox
@@ -123,13 +136,9 @@ content:
       placeholder: ''
     third_party_settings: {  }
   uid:
-    type: entity_reference_autocomplete
+    type: workbc_select_resort
     weight: 1
     region: content
-    settings:
-      match_operator: CONTAINS
-      match_limit: 10
-      size: 60
-      placeholder: ''
+    settings: {  }
     third_party_settings: {  }
 hidden: {  }

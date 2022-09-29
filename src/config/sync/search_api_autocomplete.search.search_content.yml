@@ -1,0 +1,28 @@
+uuid: c4b0dfb5-8ff1-463b-ba7f-9dc35140f5e7
+langcode: en
+status: true
+dependencies:
+  config:
+    - search_api.index.default_content_index
+    - views.view.search_content
+  module:
+    - views
+    - search_api_autocomplete
+id: search_content
+label: 'Search Content'
+index_id: default_content_index
+suggester_settings:
+  live_results:
+    fields: {  }
+    highlight:
+      enabled: false
+      field: ''
+    view_modes: {  }
+suggester_weights: {  }
+suggester_limits: {  }
+search_settings:
+  'views:search_content':
+    displays:
+      default: true
+      selected: {  }
+options: {  }

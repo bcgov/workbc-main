@@ -4,10 +4,11 @@ status: true
 dependencies:
   module:
     - devel
+    - sitewide_alert
 id: switch_user
 label: 'Switch User'
 weight: -1
 is_admin: null
 permissions:
-  - 'access devel information'
   - 'switch users'
+  - 'view published sitewide alert entities'

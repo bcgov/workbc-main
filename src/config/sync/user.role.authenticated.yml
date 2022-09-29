@@ -12,6 +12,7 @@ dependencies:
     - paragraphs_type_permissions
     - search_api_autocomplete
     - shortcut
+    - sitewide_alert
     - system
 _core:
   default_config_hash: I44QAB4es39lNzMQWiJLq2dfjX7VRSOzT_5KzAcUq_M
@@ -52,3 +53,4 @@ permissions:
   - 'view paragraph content hours_of_operation'
   - 'view paragraph content quote_card'
   - 'view paragraph content skills'
+  - 'view published sitewide alert entities'
