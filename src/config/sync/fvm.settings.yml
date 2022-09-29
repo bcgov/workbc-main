@@ -1,0 +1,75 @@
+media__audio: 0
+media__audio__view_modes:
+  media_library: 0
+media__document: 0
+media__document__view_modes:
+  media_library: 0
+media__icon: 0
+media__icon__view_modes:
+  media_library: 0
+media__image: 0
+media__image__view_modes:
+  media_library: 0
+media__remote_video: 0
+media__remote_video__view_modes:
+  media_library: 0
+media__video: 0
+media__video__view_modes:
+  media_library: 0
+node__bc_profile: 0
+node__bc_profile__view_modes:
+  teaser: 0
+node__blog: 0
+node__blog__view_modes:
+  full: 0
+  teaser: 0
+node__career_profile: 0
+node__career_profile__view_modes:
+  full: 0
+  teaser: 0
+node__career_profile_introductions: 0
+node__career_profile_introductions__view_modes:
+  teaser: 0
+node__event: 0
+node__event__view_modes:
+  full: 0
+  teaser: 0
+node__industry_profile: 0
+node__industry_profile__view_modes:
+  teaser: 0
+node__labour_market_monthly: 0
+node__labour_market_monthly__view_modes:
+  teaser: 0
+node__news: 0
+node__news__view_modes:
+  full: 0
+  teaser: 0
+node__page: 1
+node__page__view_modes:
+  calendar: calendar
+  full: full
+  teaser: 0
+node__publication: 0
+node__publication__view_modes:
+  publication: 0
+  teaser: 0
+node__region_profile: 0
+node__region_profile__view_modes:
+  teaser: 0
+node__success_story: 0
+node__success_story__view_modes:
+  full: 0
+  teaser: 0
+node__workbc_centre: 0
+node__workbc_centre__view_modes:
+  teaser: 0
+user__user: 0
+user__user__view_modes:
+  compact: 0
+paragraph__action_card: 0
+paragraph__action_card__view_modes:
+  action_card_1_2: 0
+  action_card_1_3: 0
+  action_card_1_4: 0
+  action_card_explore_careers: 0
+  action_card_feature: 0

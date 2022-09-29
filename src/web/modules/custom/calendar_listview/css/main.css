@@ -1,10 +1,6 @@
 .event-cal {
-  /****** Calendar View Start Here ******/
-  /****** Calendar View End Here ******/
-  /****** list View Start Here ******/
-  /****** list View End Here ******/
-  /****** Common Css Start Here ******/
-  /****** Common Css End Here ******/ }
+  margin-top:30px;
+  }
   .event-cal p, .event-cal a, .event-cal div, .event-cal h2 {
     font-family: 'BCSans', sans-serif;
     font-weight: 400;
