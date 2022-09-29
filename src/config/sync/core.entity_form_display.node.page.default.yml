@@ -10,10 +10,13 @@ dependencies:
     - field.field.node.page.field_hero_text
     - field.field.node.page.field_page_format
     - field.field.node.page.field_related_topics
+    - field.field.node.page.view_mode_selection
     - image.style.thumbnail
     - node.type.page
+    - workflows.workflow.editorial
   module:
     - content_moderation
+    - fvm
     - image_widget_crop
     - paragraphs
     - path
@@ -149,6 +152,14 @@ content:
     weight: 3
     region: content
     settings: {  }
+    third_party_settings: {  }
+  view_mode_selection:
+    type: fvm_options_select
+    weight: 26
+    region: content
+    settings:
+      default_option: Default
+      remove_default_option: 0
     third_party_settings: {  }
 hidden:
   promote: true
