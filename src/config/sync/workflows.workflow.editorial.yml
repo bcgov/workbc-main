@@ -3,7 +3,19 @@ langcode: en
 status: true
 dependencies:
   config:
+    - node.type.bc_profile
+    - node.type.blog
+    - node.type.career_profile
+    - node.type.career_profile_introductions
+    - node.type.event
+    - node.type.industry_profile
     - node.type.labour_market_monthly
+    - node.type.news
+    - node.type.page
+    - node.type.publication
+    - node.type.region_profile
+    - node.type.success_story
+    - node.type.workbc_centre
   module:
     - content_moderation
 _core:
@@ -73,7 +85,25 @@ type_settings:
         - review
       to: review
       weight: -2
+    stay_published:
+      label: 'Stay Published'
+      from:
+        - published
+      to: published
+      weight: 3
   entity_types:
     node:
+      - bc_profile
+      - blog
+      - career_profile
+      - career_profile_introductions
+      - event
+      - industry_profile
       - labour_market_monthly
+      - news
+      - page
+      - publication
+      - region_profile
+      - success_story
+      - workbc_centre
   default_moderation_state: draft
