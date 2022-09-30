@@ -11,7 +11,7 @@ dependencies:
 id: sidenavblock
 theme: workbc
 region: hidden
-weight: -9
+weight: -11
 provider: null
 plugin: side_nav_block
 settings:

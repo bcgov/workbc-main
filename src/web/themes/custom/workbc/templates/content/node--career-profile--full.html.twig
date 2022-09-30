@@ -100,7 +100,8 @@
 
 {% set container_attributes = create_attribute() %}
 
-{% include '@workbc/includes/breadcrumbs.html.twig' %}
+{# When breadcrums are displayed below the hero section #}
+{{ drupal_block('system_breadcrumb_block', wrapper=false) }}
 
 {% if hero_image or hero_text %}
   <div class="hero-banner hero-banner-profile">

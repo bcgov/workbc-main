@@ -2,7 +2,6 @@
 
 require('gc-drupal.php');
 
-use Drupal\path_alias\Entity\PathAlias;
 use Drupal\pathauto\PathautoState;
 use Drupal\paragraphs\Entity\Paragraph;
 
@@ -10,7 +9,7 @@ use Drupal\paragraphs\Entity\Paragraph;
  * Update nodes for GatherContent WorkBC items.
  *
  * Usage:
- * - drush scr scripts/migration/gc-jsonl -- --status publish 284269 > scripts/migration/data/workbc.jsonl
+ * - drush scr scripts/migration/gc-jsonl -- -s "Content Revisions" -s "Manager Review" -s "Director Review" -s "ED Review" -s "GCPE Review" -s "Published" 284269 > scripts/migration/data/workbc.jsonl
  * - drush scr scripts/migration/workbc
  *
  * Revert:
@@ -87,7 +86,12 @@ foreach ($items as $id => $item) {
             break;
     }
 
-    // Load the corresponding node.
+    // We want to create or update a Drupal node for this GC item.
+    // Identifying an existing node by title is sometimes not enough because some pages have non-unique titles.
+    // If so, we identify the node by its position in the navigation menu:
+    // 1. Identify the parent menu item in the navigation menu (assumed to be unique)
+    // 2. Identify the node menu item in the navigation menu
+    // 3. Retrieve the node entity from the menu item
     $nodes = \Drupal::entityTypeManager()
         ->getStorage('node')
         ->loadByProperties(['title' => $title]);
@@ -97,6 +101,43 @@ foreach ($items as $id => $item) {
         if (empty($node)) {
             print("  Could not create Drupal node" . PHP_EOL);
             continue;
+        }
+    }
+    else if (count($nodes) > 1) {
+        $parent = $item['folder'];
+        print("  Found multiple nodes with same title. Attempting to locate parent \"$parent\"..." . PHP_EOL);
+        $menu_items_parent = \Drupal::entityTypeManager()
+            ->getStorage('menu_link_content')
+            ->loadByProperties([
+                'title' => $parent,
+                'menu_name' => 'main',
+            ]);
+        if (empty($menu_items_parent)) {
+            print("  Could not find parent menu item \"$parent\". Aborting" . PHP_EOL);
+            continue;
+        }
+        else if (count($menu_items_parent) > 1) {
+            print("  Found multiple parent menu items \"$parent\". Aborting" . PHP_EOL);
+            continue;
+        }
+        else {
+            $menu_items_page = \Drupal::entityTypeManager()
+                ->getStorage('menu_link_content')
+                ->loadByProperties([
+                    'parent' => current($menu_items_parent)->getPluginId(),
+                    'menu_name' => 'main',
+                    'title' => $title
+                ]);
+            if (empty($menu_items_page)) {
+                print("  Could not find menu item whose parent is \"$parent\". Aborting" . PHP_EOL);
+                continue;
+            }
+            else {
+                $nid = (int) filter_var(current($menu_items_page)->link->uri, FILTER_SANITIZE_NUMBER_INT);
+                $node = Drupal::entityTypeManager()
+                    ->getStorage('node')
+                    ->load($nid);
+            }
         }
     }
     else {
@@ -157,10 +198,12 @@ function createBlogNewsSuccessStory($item) {
         'path' => [
             'pathauto' => PathautoState::CREATE,
         ],
+        'moderation_state' => 'published',
     ];
     $node = Drupal::entityTypeManager()
         ->getStorage('node')
         ->create($fields);
+    $node->setPublished(TRUE);
     $node->save();
     print("  Created $type" . PHP_EOL);
     return $node;

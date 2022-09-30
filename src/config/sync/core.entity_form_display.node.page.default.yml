@@ -10,14 +10,18 @@ dependencies:
     - field.field.node.page.field_hero_text
     - field.field.node.page.field_page_format
     - field.field.node.page.field_related_topics
+    - field.field.node.page.view_mode_selection
+    - field.field.node.page.field_related_topics_blurb
     - image.style.thumbnail
     - node.type.page
+    - workflows.workflow.editorial
   module:
     - content_moderation
     - image_widget_crop
     - paragraphs
     - path
     - text
+    - workbc_custom
 _core:
   default_config_hash: SfpLhPExzvR0MgFp0Wp7CrmgEnhcqQ-fXIWFhbf4ue0
 id: node.page.default
@@ -43,7 +47,7 @@ content:
     third_party_settings: {  }
   field_content:
     type: paragraphs
-    weight: 11
+    weight: 12
     region: content
     settings:
       title: Paragraph
@@ -96,12 +100,20 @@ content:
     third_party_settings: {  }
   field_related_topics:
     type: entity_reference_autocomplete
-    weight: 12
+    weight: 13
     region: content
     settings:
       match_operator: CONTAINS
       match_limit: 10
       size: 60
+      placeholder: ''
+    third_party_settings: {  }
+  field_related_topics_blurb:
+    type: text_textarea
+    weight: 26
+    region: content
+    settings:
+      rows: 5
       placeholder: ''
     third_party_settings: {  }
   langcode:
@@ -113,13 +125,18 @@ content:
     third_party_settings: {  }
   moderation_state:
     type: moderation_state_default
-    weight: 13
+    weight: 14
     region: content
     settings: {  }
     third_party_settings: {  }
   path:
     type: path
     weight: 6
+    region: content
+    settings: {  }
+    third_party_settings: {  }
+  simple_sitemap:
+    weight: 11
     region: content
     settings: {  }
     third_party_settings: {  }
@@ -139,15 +156,12 @@ content:
       placeholder: ''
     third_party_settings: {  }
   uid:
-    type: entity_reference_autocomplete
+    type: workbc_select_resort
     weight: 3
     region: content
-    settings:
-      match_operator: CONTAINS
-      match_limit: 10
-      size: 60
-      placeholder: ''
+    settings: {  }
     third_party_settings: {  }
 hidden:
   promote: true
   sticky: true
+  view_mode_selection: true

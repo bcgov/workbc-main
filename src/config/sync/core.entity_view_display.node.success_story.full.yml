@@ -7,6 +7,7 @@ dependencies:
     - field.field.node.success_story.body
     - field.field.node.success_story.field_content_group
     - field.field.node.success_story.field_image
+    - field.field.node.success_story.field_related_topics_blurb
     - field.field.node.success_story.field_subtitle
     - field.field.node.success_story.field_tags
     - image.style.article_wide
@@ -26,6 +27,11 @@ content:
     settings: {  }
     third_party_settings: {  }
     weight: 2
+    region: content
+  content_moderation_control:
+    settings: {  }
+    third_party_settings: {  }
+    weight: -20
     region: content
   field_image:
     type: image
@@ -51,6 +57,7 @@ hidden:
   extra_field_workbc_page_title: true
   extra_field_workbc_published_on: true
   field_content_group: true
+  field_related_topics_blurb: true
   field_subtitle: true
   field_tags: true
   langcode: true

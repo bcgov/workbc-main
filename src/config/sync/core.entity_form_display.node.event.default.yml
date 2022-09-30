@@ -20,6 +20,7 @@ dependencies:
     - path
     - text
     - time_field
+    - workbc_custom
 id: node.event.default
 targetEntityType: node
 bundle: event
@@ -113,6 +114,11 @@ content:
     settings:
       display_label: true
     third_party_settings: {  }
+  simple_sitemap:
+    weight: 10
+    region: content
+    settings: {  }
+    third_party_settings: {  }
   status:
     type: boolean_checkbox
     weight: 7
@@ -136,14 +142,10 @@ content:
       placeholder: ''
     third_party_settings: {  }
   uid:
-    type: entity_reference_autocomplete
+    type: workbc_select_resort
     weight: 1
     region: content
-    settings:
-      match_operator: CONTAINS
-      match_limit: 10
-      size: 60
-      placeholder: ''
+    settings: {  }
     third_party_settings: {  }
 hidden:
   field_multiple_days: true

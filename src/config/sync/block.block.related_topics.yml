@@ -10,7 +10,7 @@ dependencies:
 id: related_topics
 theme: workbc
 region: hidden
-weight: -12
+weight: -13
 provider: null
 plugin: related_topics_block
 settings:

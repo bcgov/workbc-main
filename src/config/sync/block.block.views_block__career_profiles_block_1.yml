@@ -13,7 +13,7 @@ dependencies:
 id: views_block__career_profiles_block_1
 theme: workbc
 region: content_bottom
-weight: 0
+weight: -5
 provider: null
 plugin: 'views_block:career_profiles-block_1'
 settings:

@@ -1,0 +1,10 @@
+uuid: 2dca64f9-d8c0-41a3-a772-cc19cae9b13a
+langcode: en
+status: true
+dependencies:
+  module:
+    - node
+id: node.calendar
+label: Calendar
+targetEntityType: node
+cache: true
