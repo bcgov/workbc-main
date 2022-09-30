@@ -1,4 +1,4 @@
-uuid: 069ac6e5-e231-4e9b-82bd-cf34005a3c9f
+uuid: 6c4e1e96-2c44-48be-a5e1-1cdb76b087b8
 langcode: en
 status: true
 dependencies:
@@ -7,12 +7,10 @@ dependencies:
     - system
   theme:
     - workbc
-_core:
-  default_config_hash: XxWoSC-fMuqPDdI-QBh-W3BkBJOcjwixo-7jsyRF6BA
-id: workbc_breadcrumbs
+id: breadcrumbs
 theme: workbc
 region: hidden
-weight: -10
+weight: -9
 provider: null
 plugin: system_breadcrumb_block
 settings:
@@ -21,13 +19,11 @@ settings:
   label_display: '0'
   provider: system
 visibility:
-  request_path:
-    id: request_path
-    negate: true
-    pages: '<front>'
   not_node_type:
     id: not_node_type
-    bundles: {  }
+    bundles:
+      career_profile: career_profile
+      page: page
     negate: null
   not_taxonomy_vocabulary:
     id: not_taxonomy_vocabulary

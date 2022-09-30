@@ -1,28 +1,29 @@
-uuid: a91121e2-93d5-439b-b630-77e31b1a948a
+uuid: 5508cd04-affc-43a5-a74d-e07eb36d3538
 langcode: en
 status: true
 dependencies:
   config:
-    - views.view.blog
+    - webform.webform.workbc_order_form
   module:
     - block_visibility_conditions
     - system
-    - views
+    - webform
   theme:
     - workbc
-id: views_block__blog_block_1
+id: webform
 theme: workbc
 region: content_bottom
-weight: -9
+weight: 0
 provider: null
-plugin: 'views_block:blog-block_1'
+plugin: webform_block
 settings:
-  id: 'views_block:blog-block_1'
-  label: ''
+  id: webform_block
+  label: Webform
   label_display: visible
-  provider: views
-  views_label: ''
-  items_per_page: none
+  provider: webform
+  webform_id: workbc_order_form
+  default_data: ''
+  redirect: false
 visibility:
   not_node_type:
     id: not_node_type
@@ -35,4 +36,4 @@ visibility:
   request_path:
     id: request_path
     negate: false
-    pages: /blog
+    pages: /career-profiles
