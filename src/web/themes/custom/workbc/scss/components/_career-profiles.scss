@@ -3,24 +3,15 @@
     flex-flow: column nowrap;
     background-color: $workbc_light_theme_background_accent;
 
-    .career-statistics-wrapper {
-        padding: 0 10px;
-        margin-bottom: $workbc_spacing_default;
-
-        @include media-breakpoint-up(lg) {
-            padding: 0;
-        }
-    }
-
     // Series of overrides on top of Drupal Horizontal tab styling
-    $border-size: 3px;
-
     .horizontal-tabs {
+        $border-size: 3px;
+
         border: none;
         background-color: $workbc_palette_light_primary;
 
         .horizontal-tabs-list {
-            overflow-y: auto;
+            overflow-x: auto;
             width: 100%;
             border-bottom: $border-size solid $workbc_palette_dark_secondary;
             background-color: $workbc_palette_light_secondary;
@@ -70,5 +61,21 @@
                 }
             }
         }
+    }
+
+    .career-statistics-wrapper {
+        margin-bottom: $workbc_spacing_default;
+    }
+
+    .career-details-wrapper {
+        background-color: #ffffff;
+    }
+
+    .career-videos-wrapper {
+        padding-top: 30px;
+    }
+
+    .career-recent-jobs-wrapper {
+
     }
 }

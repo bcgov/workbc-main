@@ -362,10 +362,11 @@ content:
     weight: 24
     region: content
   field_career_videos:
-    type: entity_reference_label
+    type: entity_reference_entity_view
     label: above
     settings:
-      link: true
+      view_mode: ajaxembed
+      link: false
     third_party_settings: {  }
     weight: 10
     region: content
