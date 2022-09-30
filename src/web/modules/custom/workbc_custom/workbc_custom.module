@@ -80,6 +80,11 @@ function workbc_custom_form_alter(&$form, \Drupal\Core\Form\FormStateInterface $
     if (!$user->hasPermission("bypass content groups")) {
       $form['field_content_group']['#disabled'] = true;
     }
+    // allow edit if super user
+    if ($user->id() == 1) {
+      $form['account']['name']['#disabled'] = false;
+      $form['account']['mail']['#disabled'] = false;
+    }
   }
 
 }
