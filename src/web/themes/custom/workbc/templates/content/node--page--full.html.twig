@@ -104,7 +104,8 @@
   {% include '@workbc/includes/hero.html.twig' %}
 {% endif %}
 
-{% include '@workbc/includes/breadcrumbs.html.twig' %}
+{# When breadcrums are displayed below the hero section #}
+{{ drupal_block('system_breadcrumb_block', wrapper=false) }}
 
 <article{{ attributes.addClass(classes) }}>
 

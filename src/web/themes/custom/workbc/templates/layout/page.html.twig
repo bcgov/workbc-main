@@ -58,10 +58,9 @@
   <a id="main-content" tabindex="-1"></a>{# link is in html.html.twig #}
   <div class="page-content-wrapper">
     <div class="submenu-underlay"></div>
+      {# Breadcrumbs #}
+      {% include '@workbc/includes/breadcrumbs.html.twig' %}
       {{ messages }}
-      {% if node.getType() != 'page' and node.getType() != 'career_profile'  %}
-        {% include '@workbc/includes/breadcrumbs.html.twig' %}
-      {% endif %}
       {{ tabs }}
       {{ page.content }}
   </div>
