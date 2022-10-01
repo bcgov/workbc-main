@@ -20,7 +20,7 @@ class WorkBcJobboardController extends ControllerBase
       $apiServices = new apiServices();
       $data = $apiServices->fnGetRecentPost($parameters);
       if(!empty($data)){
-        $response = ['response'=>200, 'message'=>'Success', 'data'=>$data['response']];
+        $response = ['response'=>200, 'message'=>'Success', 'data'=>$data];
       }else {
         $response = ['response'=>403, 'message'=>'No Data found', 'data'=>[]];
       }

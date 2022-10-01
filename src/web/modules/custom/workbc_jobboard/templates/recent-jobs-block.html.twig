@@ -12,7 +12,11 @@
         {% if key < no_of_records %}
           <div class="card-plain card-plain__content job-box item">
             <h3 class="card-plain__title job-title">
-              <a href="#" title="{{jobs.jobTitle}}">{{jobs.jobTitle}}</a>
+              {% if jobs.externalUrl is not empty %}
+                <a href="{{jobs.externalUrl}}" title="{{jobs.jobTitle}}">{{jobs.jobTitle}}</a>
+              {% else  %}
+                <a href="https://www.workbc.ca/Jobs-Careers/Find-Jobs/Jobs.aspx#/job-details/{{jobs.jobId}}" title="{{jobs.jobTitle}}">{{jobs.jobTitle}}</a>
+              {% endif %}
             </h3>
             <div class="job-company">
               {{jobs.employer}}
@@ -33,7 +37,7 @@
     </div>
     {% if data|length > no_of_records %}
       <div class="more-jobs">
-        <a href="#" value="View more jobs" class="card-w-image__link more-jobs">{{ readmore_label }}</a>
+        <a href="https://www.workbc.ca/Jobs-Careers/Find-Jobs/Jobs.aspx#/job-search;noc={{noc}};" value="View more jobs" class="card-w-image__link more-jobs">{{ readmore_label }}</a>
       </div>
     {% endif %}
   {% endif %}

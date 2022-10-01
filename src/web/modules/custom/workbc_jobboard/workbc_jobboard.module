@@ -4,8 +4,6 @@
  * @file
  *  Work BC Job Board module
  */
- 
-
 function workbc_jobboard_page_attachments_alter(array &$attachments) {  
 	$attachments['#attached']['library'][] = 'workbc_jobboard/workbc-jobboard';
 }
@@ -24,6 +22,7 @@ function workbc_jobboard_theme($existing, $type, $theme, $path) {
         'no_result_text' => '',
         'readmore_label' => '',
         'api_url' => '',
+        'noc' => '',
       ],
     ],
   ];

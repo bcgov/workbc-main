@@ -169,6 +169,8 @@ $settings['skip_permissions_hardening'] = TRUE;
  */
 $config['workbc']['ssot_url'] = 'http://ssot:3000';
 
+$config['jobboard']['api_url'] = 'https://api-jobboard.workbc.ca';
+
 $config['backup_migrate.backup_migrate_source.ssot_database'] = [
   'id' => 'ssot_database',
   'label' => 'SSoT Database',
@@ -235,5 +237,5 @@ $config['search_api.server.solr'] = [
 ini_set('memory_limit', '1G');
 if (class_exists('Kint')) {
   // Set the max_depth to prevent out-of-memory.
-  \Kint::$max_depth = 3;
+ // \Kint::$max_depth = 3;
 }

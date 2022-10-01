@@ -80,9 +80,10 @@ class WorkbcJobboardSidebar extends BlockBase{
       $form_state->setErrorByName('job_board_results_to_show', $this->t('No. of results field can\'t be empty.'));
     }
   }
+  
 	/**
-	*{@inheritdoc}
-	*/	
+   * {@inheritdoc}
+   */	
 	public function build(){
     $config = $this->getConfiguration();
     $node = \Drupal::routeMatch()->getParameter('node');
@@ -94,7 +95,7 @@ class WorkbcJobboardSidebar extends BlockBase{
         $WorkBcJobboardController = new WorkBcJobboardController();
         $recent_jobs = $WorkBcJobboardController->getRecentPosts($noc_value);
         if($recent_jobs['response'] == 200){
-          $jobs = json_decode($recent_jobs['data']);
+          $jobs = $recent_jobs['data'];
           return [
             '#type' => 'markup',
             '#markup' => 'Explore recent job postings.',
@@ -102,8 +103,9 @@ class WorkbcJobboardSidebar extends BlockBase{
             '#data' => $jobs,
             '#sub_title' => $config['job_board_sub_title']??'',
             '#no_of_records' => $config['job_board_results_to_show']??'',
-            '#readmore_label' => (!empty(trim($config['job_board_read_more_button_title']))) ?$config['job_board_read_more_button_title'] : 'View more jobs',
+            '#readmore_label' => (isset($config['job_board_read_more_button_title'])) ?$config['job_board_read_more_button_title'] : 'View more jobs',
             '#no_result_text' => (isset($config['job_board_no_result_text'])) ?$config['job_board_no_result_text'] : 'There are no current job postings.',
+            '#noc' => (isset($noc_value)) ? $noc_value : '',
           ];
         }
       }
@@ -111,8 +113,8 @@ class WorkbcJobboardSidebar extends BlockBase{
 	}
   
   /**
-	*{@inheritdoc}
-	*/
+   * {@inheritdoc}
+   */
 	public function blockAccess(AccountInterface $account){
     return AccessResult::allowedIfHasPermission($account, "access recent jobs block");
   }
