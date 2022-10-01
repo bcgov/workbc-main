@@ -644,8 +644,8 @@ display:
         - user.permissions
       tags:
         - 'config:field.storage.node.field_noc'
-  career_profiles:
-    id: career_profiles
+  block_1:
+    id: block_1
     display_title: Block
     display_plugin: block
     position: 3

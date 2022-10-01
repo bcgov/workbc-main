@@ -51,12 +51,15 @@
 
 <main role="main" class="page-wrapper">
   <a id="main-content" tabindex="-1"></a>{# link is in html.html.twig #}
+  <div class="page-content-wrapper">
     <div class="submenu-underlay"></div>
-    {{ messages }}
-    {% include '@workbc/includes/breadcrumbs.html.twig' %}
-    <div class="page-content-wrapper container-lg">
-      {{ page.content }}
-    </div>
+      {# Breadcrumbs #}
+      {% include '@workbc/includes/breadcrumbs.html.twig' %}
+      {{ messages }}
+      <div class="page-content-wrapper container-lg">
+        {{ page.content }}
+      </div>
+  </div>
 </main>
 
 {# Footer #}

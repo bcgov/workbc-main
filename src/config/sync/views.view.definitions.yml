@@ -22,7 +22,7 @@ display:
     display_plugin: default
     position: 0
     display_options:
-      title: Definitions
+      title: ''
       fields:
         name:
           id: name
@@ -415,6 +415,7 @@ display:
     display_plugin: attachment
     position: 2
     display_options:
+      title: ''
       pager:
         type: none
         options:
@@ -466,6 +467,7 @@ display:
           add_table: false
           require_value: false
       defaults:
+        title: false
         css_class: false
         arguments: false
         header: false
@@ -505,7 +507,7 @@ display:
     display_options:
       defaults:
         css_class: false
-      css_class: 'page-format--standard alphabet-search-results'
+      css_class: 'page-format--standard container-lg alphabet-search-results'
       display_extenders: {  }
       path: definitions
     cache_metadata:

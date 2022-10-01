@@ -2,10 +2,15 @@ uuid: b0e7c2f8-5dc8-443d-b10f-0b80a951137f
 langcode: en
 status: true
 dependencies:
+  config:
+    - field.storage.node.field_content_group
+    - taxonomy.vocabulary.content_groups
   module:
     - content_lock
     - node
+    - taxonomy
     - user
+    - views_bulk_operations
 _core:
   default_config_hash: QvXv3a6WUyv4-xW6nELYHAg41Li9IxbbExB5j6Tkd4Y
 id: locked_content
@@ -24,16 +29,15 @@ display:
     display_options:
       title: 'Locked content'
       fields:
-        node_bulk_form:
-          id: node_bulk_form
-          table: node
-          field: node_bulk_form
+        views_bulk_operations_bulk_form:
+          id: views_bulk_operations_bulk_form
+          table: views
+          field: views_bulk_operations_bulk_form
           relationship: none
           group_type: group
           admin_label: ''
-          entity_type: node
-          plugin_id: node_bulk_form
-          label: 'Node operations bulk form'
+          plugin_id: views_bulk_operations_bulk_form
+          label: 'Views bulk operations'
           exclude: false
           alter:
             alter_text: false
@@ -66,7 +70,7 @@ display:
           element_class: ''
           element_label_type: ''
           element_label_class: ''
-          element_label_colon: false
+          element_label_colon: true
           element_wrapper_type: ''
           element_wrapper_class: ''
           element_default_classes: true
@@ -74,10 +78,19 @@ display:
           hide_empty: false
           empty_zero: false
           hide_alter_empty: true
+          batch: true
+          batch_size: 10
+          form_step: true
+          buttons: false
           action_title: Action
-          include_exclude: include
+          clear_on_exposed: true
+          force_selection_info: false
           selected_actions:
-            - node_break_lock_action
+            -
+              action_id: 'entity:break_lock:node'
+              preconfiguration:
+                add_confirmation: false
+                label_override: 'Break lock'
         title:
           id: title
           table: node_field_data
@@ -180,6 +193,69 @@ display:
           type: entity_reference_label
           settings:
             link: true
+          group_column: target_id
+          group_columns: {  }
+          group_rows: true
+          delta_limit: 0
+          delta_offset: 0
+          delta_reversed: false
+          delta_first_last: false
+          multi_type: separator
+          separator: ', '
+          field_api_classes: false
+        field_content_group:
+          id: field_content_group
+          table: node__field_content_group
+          field: field_content_group
+          relationship: none
+          group_type: group
+          admin_label: ''
+          plugin_id: field
+          label: 'Content Group'
+          exclude: false
+          alter:
+            alter_text: false
+            text: ''
+            make_link: false
+            path: ''
+            absolute: false
+            external: false
+            replace_spaces: false
+            path_case: none
+            trim_whitespace: false
+            alt: ''
+            rel: ''
+            link_class: ''
+            prefix: ''
+            suffix: ''
+            target: ''
+            nl2br: false
+            max_length: 0
+            word_boundary: true
+            ellipsis: true
+            more_link: false
+            more_link_text: ''
+            more_link_path: ''
+            strip_tags: false
+            trim: false
+            preserve_tags: ''
+            html: false
+          element_type: ''
+          element_class: ''
+          element_label_type: ''
+          element_label_class: ''
+          element_label_colon: true
+          element_wrapper_type: ''
+          element_wrapper_class: ''
+          element_default_classes: true
+          empty: ''
+          hide_empty: false
+          empty_zero: false
+          hide_alter_empty: true
+          click_sort_column: target_id
+          type: entity_reference_label
+          settings:
+            link: false
           group_column: target_id
           group_columns: {  }
           group_rows: true
@@ -398,7 +474,7 @@ display:
       access:
         type: perm
         options:
-          perm: 'administer nodes'
+          perm: 'access content overview'
       cache:
         type: none
         options: {  }
@@ -568,6 +644,60 @@ display:
             default_group: All
             default_group_multiple: {  }
             group_items: {  }
+        field_content_group_target_id:
+          id: field_content_group_target_id
+          table: node__field_content_group
+          field: field_content_group_target_id
+          relationship: none
+          group_type: group
+          admin_label: ''
+          plugin_id: taxonomy_index_tid
+          operator: or
+          value: {  }
+          group: 1
+          exposed: true
+          expose:
+            operator_id: field_content_group_target_id_op
+            label: 'Content Group'
+            description: ''
+            use_operator: false
+            operator: field_content_group_target_id_op
+            operator_limit_selection: false
+            operator_list: {  }
+            identifier: field_content_group_target_id
+            required: false
+            remember: false
+            multiple: false
+            remember_roles:
+              authenticated: authenticated
+              anonymous: '0'
+              content_editor: '0'
+              content_approver: '0'
+              workbc_administrator: '0'
+              global_editor: '0'
+              global_approver: '0'
+              workbc_global_administrator: '0'
+              administrator: '0'
+              switch_user: '0'
+            reduce: false
+          is_grouped: false
+          group_info:
+            label: ''
+            description: ''
+            identifier: ''
+            optional: true
+            widget: select
+            multiple: false
+            remember: false
+            default_group: All
+            default_group_multiple: {  }
+            group_items: {  }
+          reduce_duplicates: false
+          vid: content_groups
+          type: select
+          hierarchy: false
+          limit: true
+          error_message: true
         title:
           id: title
           table: node_field_data
@@ -708,9 +838,11 @@ display:
         - 'languages:language_interface'
         - url
         - url.query_args
+        - user
         - 'user.node_grants:view'
         - user.permissions
-      tags: {  }
+      tags:
+        - 'config:field.storage.node.field_content_group'
   page_1:
     id: page_1
     display_title: Page
@@ -736,6 +868,8 @@ display:
         - 'languages:language_interface'
         - url
         - url.query_args
+        - user
         - 'user.node_grants:view'
         - user.permissions
-      tags: {  }
+      tags:
+        - 'config:field.storage.node.field_content_group'

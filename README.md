@@ -36,6 +36,14 @@ or run the sync script directly: `docker-compose exec php scripts/sync.sh`
 In some situations `drush cim` fails. In this case, the [Drupal Admin UI](http://workbc.docker.localhost:8000/admin/config/development/configuration) should work.
 If errors still persist, you may need to manually enable new modules before running the configuration synchronization with `drush en module`.
 
+## Updating local dev environment from a deployment stage
+You may want to get the latest data from a deployment stage (DEV, TEST or PROD). In that case, follow these steps:
+- Delete all your local `workbc` database tables (e.g. using a database manager such as the excellent [DBeaver](https://dbeaver.io/))
+- Import the init data dump `bunzip2 -c src/scripts/workbc-init.sql.bz2 | docker-compose exec -T postgres psql -U workbc workbc`
+- Download a fresh dump from your desired stage via Backup/Migrate module at `https://<stage>.workbc.ca/admin/config/development/backup_migrate` and select Backup Source **Default Drupal Database**
+- Restore the fresh dump on your local at http://workbc.docker.localhost:8000/admin/config/development/backup_migrate/restore
+- Repeat the above two steps for Backup Source **Public Files Directory** in case you also need the latest files
+
 ## Installing modules
 From within the `php` container:
 - Execute the composer requires command for the module. The module project page on Drupal.org provides this command, e.g. `composer require 'drupal/devel:^4.1'`

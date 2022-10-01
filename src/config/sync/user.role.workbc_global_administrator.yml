@@ -16,6 +16,7 @@ dependencies:
     - node.type.region_profile
     - node.type.success_story
     - node.type.workbc_centre
+    - taxonomy.vocabulary.content_groups
   module:
     - actions_permissions
     - content_lock
@@ -26,6 +27,7 @@ dependencies:
     - role_delegation
     - sitewide_alert
     - system
+    - taxonomy
     - toolbar
     - workbc_custom
 id: workbc_global_administrator
@@ -34,6 +36,7 @@ weight: -3
 is_admin: null
 permissions:
   - 'access content overview'
+  - 'access taxonomy overview'
   - 'access toolbar'
   - 'access user profiles'
   - 'administer url aliases'
@@ -46,6 +49,7 @@ permissions:
   - 'assign workbc_global_administrator role'
   - 'break content lock'
   - 'bypass content groups'
+  - 'create terms in content_groups'
   - 'create url aliases'
   - 'delete any bc_profile content'
   - 'delete any blog content'
@@ -79,6 +83,7 @@ permissions:
   - 'edit own field_content_group'
   - 'edit own field_organization'
   - 'edit own field_title'
+  - 'edit terms in content_groups'
   - 'execute entity:break_lock node'
   - 'override bc_profile authored by option'
   - 'override blog authored by option'

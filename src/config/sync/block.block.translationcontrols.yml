@@ -12,7 +12,7 @@ dependencies:
 id: translationcontrols
 theme: workbc
 region: footer
-weight: -14
+weight: -11
 provider: null
 plugin: 'simple_block:translation_controls'
 settings:

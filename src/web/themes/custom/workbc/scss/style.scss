@@ -21,6 +21,7 @@
 // overrides
 @import 'overrides/overrides_drupal_pagination';
 @import 'overrides/overrides_drupal_forms';
+@import 'overrides/overrides_drupal';
 
 // layouts
 @import 'layout/local-tasks.scss';
@@ -53,3 +54,4 @@
 @import 'components/alphabet-navigation';
 @import 'components/alphabet-search';
 @import 'components/request-tour-stop';
+@import 'components/post';
