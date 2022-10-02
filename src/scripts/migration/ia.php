@@ -174,6 +174,7 @@ while (($row = fgetcsv($data)) !== FALSE) {
         // 2. Identify the node menu item in the navigation menu
         // 3. Retrieve the node entity from the menu item
         // Fall back to re-creating the node if any step above fails.
+        $node = NULL;
         if (count($path) >= 2) {
             $parent = implode('/', array_slice($path, 0, count($path)-1));
             if (!array_key_exists($parent, $pages)) {
