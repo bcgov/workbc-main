@@ -106,6 +106,8 @@
 
 {% include '@workbc/includes/breadcrumbs.html.twig' %}
 
+{{ drupal_block("social_sharing_buttons_block") }}
+
 <article{{ attributes.addClass(classes) }}>
 
   {% if left_block|striptags|trim %}
