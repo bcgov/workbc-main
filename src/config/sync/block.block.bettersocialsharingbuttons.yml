@@ -11,7 +11,7 @@ dependencies:
 id: bettersocialsharingbuttons
 theme: workbc
 region: hidden
-weight: -12
+weight: -10
 provider: null
 plugin: social_sharing_buttons_block
 settings:
@@ -24,6 +24,7 @@ settings:
     twitter: twitter
     email: email
     linkedin: linkedin
+    print: print
     whatsapp: 0
     facebook_messenger: 0
     pinterest: 0
@@ -31,12 +32,11 @@ settings:
     tumblr: 0
     reddit: 0
     evernote: 0
-    print: 0
     copy: 0
   iconset: social-icons--no-color
   facebook_app_id: ''
   print_css: ''
-  width: 45px
+  width: 35px
   radius: 3px
 visibility:
   not_node_type:
@@ -55,4 +55,5 @@ visibility:
     bundles:
       blog: blog
       news: news
+      page: page
       success_story: success_story
