@@ -32,10 +32,32 @@ while (!feof($data)) {
     $items[$item->id] = $item;
 }
 
+// FIRST PASS: Create missing items.
+print("FIRST PASS =================" . PHP_EOL);
+foreach ($items as $id => $item) {
+    $title = convertPlainText($item->title);
+    print("Querying \"$title\"..." . PHP_EOL);
+
+    // Identify a node by its title.
+    $nodes = \Drupal::entityTypeManager()
+        ->getStorage('node')
+        ->loadByProperties(['title' => $title]);
+    if (empty($nodes)) {
+        print("  Could not find Drupal node. Attempting to create it..." . PHP_EOL);
+        $node = createItem($item);
+        if (empty($node)) {
+            print("  Could not create Drupal node" . PHP_EOL);
+            continue;
+        }
+    }
+}
+
+// SECOND PASS: Populate fields.
+print("SECOND PASS =================" . PHP_EOL);
 foreach ($items as $id => $item) {
     if (!$item->process) continue;
 
-    $title = $item->title;
+    $title = convertPlainText($item->title);
     print("Processing \"$title\"..." . PHP_EOL);
 
     $fields = [];
@@ -73,8 +95,20 @@ foreach ($items as $id => $item) {
     }
 
     // Import all variations of cards.
-    if (property_exists($item, 'Card')) {
-        $fields['field_content'] = convertCards($item->{'Card'}, $items);
+    $field_content = [];
+    foreach([
+        'Card' => NULL,
+        'CTA - Feature' => 'Feature',
+        'CTA - Full' => 'Full Width',
+        'CTA - 1/2' => '1/2 Width',
+        'CTA - 1/3' => '1/3 Width',
+    ] as $card_field => $card_type) {
+        if (property_exists($item, $card_field)) {
+            $field_content = array_merge($field_content, convertCards($item->$card_field, $items, $card_type));
+        }
+    }
+    if (!empty($field_content)) {
+        $fields['field_content'] = $field_content;
     }
 
     // Populate remaining fields based on template type.
@@ -96,15 +130,11 @@ foreach ($items as $id => $item) {
         ->getStorage('node')
         ->loadByProperties(['title' => $title]);
     if (empty($nodes)) {
-        print("  Could not find Drupal node. Attempting to create it..." . PHP_EOL);
-        $node = createItem($item);
-        if (empty($node)) {
-            print("  Could not create Drupal node" . PHP_EOL);
-            continue;
-        }
+        print("  Could not find Drupal node. Ignoring" . PHP_EOL);
+        continue;
     }
     else if (count($nodes) > 1) {
-        $parent = $item['folder'];
+        $parent = $item->folder;
         print("  Found multiple nodes with same title. Attempting to locate parent \"$parent\"..." . PHP_EOL);
         $menu_items_parent = \Drupal::entityTypeManager()
             ->getStorage('menu_link_content')
@@ -193,7 +223,7 @@ function createBlogNewsSuccessStory($item) {
     }
     $fields = [
         'type' => $type,
-        'title' => $item->title,
+        'title' => convertPlainText($item->title),
         'uid' => 1,
         'path' => [
             'pathauto' => PathautoState::CREATE,
@@ -264,10 +294,16 @@ function convertCards($cards, &$items, $card_type = NULL) {
     $paragraphs = [];
     $container_paragraph = NULL;
     foreach ($cards as $card) {
-        $type = $card?->{'Card Type'} ?? $card_type;
+        $empty = TRUE;
+        foreach (['Card Type', 'Title', 'Body', 'Image', 'Link Text', 'Link Target'] as $check) {
+            if (property_exists($card, $check) && !empty($card->$check)) $empty = FALSE;
+        }
+        if ($empty) continue;
+
+        $type = property_exists($card, 'Card Type') && !empty($card->{'Card Type'}) ? convertRadio($card->{'Card Type'}) : $card_type;
         if (empty($type)) {
-            print("  Cannot create card with empty type" . PHP_EOL);
-            continue;
+            print("  Found a card with empty type: Assuming Full Width" . PHP_EOL);
+            $type = 'Full Width';
         }
         if (!array_key_exists($type, $card_types)) {
             print("  Cannot create container with unknown type $type" . PHP_EOL);
@@ -312,7 +348,11 @@ function convertCards($cards, &$items, $card_type = NULL) {
                 }
             }
             if (property_exists($card, 'Link Text') && property_exists($card, 'Link Target')) {
-                $card_fields['field_link'] = convertLink($card->{'Link Text'}, $card->{'Link Target'}, $items);
+                $link_text = convertPlainText($card->{'Link Text'});
+                $link_target = convertPlainText($card->{'Link Target'});
+                if (!empty($link_text) && !empty($link_target)) {
+                    $card_fields['field_link'] = convertLink($link_text, $link_target, $items);
+                }
             }
 
             $card_paragraph = Paragraph::create($card_fields);

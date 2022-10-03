@@ -57,7 +57,7 @@ const PAGE_FORMAT = 13;
 const CONTENT_GROUP = 14;
 
 // FIRST PASS: Create all the nodes.
-print("FIRST PASS" . PHP_EOL);
+print("FIRST PASS =================" . PHP_EOL);
 
 $row_number = 0;
 global $pages;
@@ -174,6 +174,7 @@ while (($row = fgetcsv($data)) !== FALSE) {
         // 2. Identify the node menu item in the navigation menu
         // 3. Retrieve the node entity from the menu item
         // Fall back to re-creating the node if any step above fails.
+        $node = NULL;
         if (count($path) >= 2) {
             $parent = implode('/', array_slice($path, 0, count($path)-1));
             if (!array_key_exists($parent, $pages)) {
@@ -262,7 +263,7 @@ while (($row = fgetcsv($data)) !== FALSE) {
 fclose($data);
 
 // SECOND PASS: Create the menu hierarchy
-print("SECOND PASS\n");
+print("SECOND PASS =================" . PHP_EOL);
 
 function createMenuEntry($path, $page, &$pages, $menu_name) {
     if (!empty($page['menu_item'])) {
