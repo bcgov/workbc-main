@@ -6,6 +6,7 @@ services:
   twitter: twitter
   email: email
   linkedin: linkedin
+  print: print
   whatsapp: 0
   facebook_messenger: 0
   pinterest: 0
@@ -13,9 +14,8 @@ services:
   tumblr: 0
   reddit: 0
   evernote: 0
-  print: 0
   copy: 0
-width: 45px
+width: 28px
 radius: 3px
 print_css: ''
 facebook_app_id: ''
