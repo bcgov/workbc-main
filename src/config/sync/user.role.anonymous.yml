@@ -11,6 +11,7 @@ dependencies:
     - media
     - paragraphs_type_permissions
     - search_api_autocomplete
+    - sitewide_alert
     - system
 _core:
   default_config_hash: 6WavjUYXIegP9AAg2zXGx54MWIVoomC3SZhNiqe-Dyk
@@ -44,3 +45,4 @@ permissions:
   - 'view paragraph content hours_of_operation'
   - 'view paragraph content quote_card'
   - 'view paragraph content skills'
+  - 'view published sitewide alert entities'

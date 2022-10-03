@@ -82,13 +82,6 @@ function workbc_custom_form_alter(&$form, \Drupal\Core\Form\FormStateInterface $
     }
   }
 
-  // if (isset($form['#entity_type']) && $form['#entity_type'] == 'node') {
-  //   ksm($form['moderation_state']['widget']);
-  //   if (isset($form['field_scheduled_publish'])) {
-  //     $form['field_scheduled_publish']['#access'] = false;
-  //   }
-  // }
-
 }
 
 

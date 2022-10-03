@@ -1,13 +1,15 @@
 uuid: 06691537-2d35-42b6-80e6-70573c881bb3
 langcode: en
-status: true
+status: false
 dependencies: {  }
 id: draft
 workflow: editorial
 transitions:
   create_new_draft: create_new_draft
 roles:
+  content_editor: content_editor
   content_approver: content_approver
+  global_editor: global_editor
   global_approver: global_approver
 author: false
 site_mail: true

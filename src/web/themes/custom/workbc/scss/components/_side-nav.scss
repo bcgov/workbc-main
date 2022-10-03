@@ -1,31 +1,34 @@
-.region-sidebar-first {
-    height: 100%;
+.page-left-nav-wrapper {
+  height: 100%;
+  margin-bottom: $workbc_spacing_gutters;
+
+  @include media-breakpoint-up(lg) {
+    padding-top: 20px;
+    margin-bottom: 0;
+  }
 }
 
-.basic-page-left-nav-wrapper {
-    height: 100%;
-    padding-bottom: $workbc_spacing_gutters;
+.page-left-nav {
+  @include media-breakpoint-up(lg) {
+    position: sticky; // relative to positional context %leftnav
+    top: 110px;
+  }
+}
 
-    nav.basic-page-left-nav {
+.page-left-nav__links {
+  @include list-reset;
+}
 
-        @include media-breakpoint-up(lg) { 
-            position: sticky; // relative to positional context %leftnav
-            top: 110px;
-        }    
+.page-left-nav__links li {
+  padding-bottom: $workbc_spacing_gutters;
+}
 
-        h2 {
-            font-size: 1.125rem;
-            line-height: 2.8125rem; // to keep it horizontally centered with page title text. So this should be the same font/lineheight as the page title h1...
-            font-weight: bold;
-            padding-bottom: 2 * $workbc_spacing_gutters;
-        }
+.page-left-nav__title {
+  margin-bottom: 20px;
+  font-size: 1.125rem;
+  font-weight: bold;
 
-        ul {
-            @include list-reset;
-
-            li {
-                padding-bottom: $workbc_spacing_gutters;
-            }
-        }    
-    }
+  @include media-breakpoint-up(lg) {
+    margin-bottom: 50px;
+  }
 }

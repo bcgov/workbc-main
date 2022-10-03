@@ -12,7 +12,7 @@ dependencies:
 id: copyrightnotice
 theme: workbc
 region: footer
-weight: -13
+weight: -10
 provider: null
 plugin: 'simple_block:copyright_notice'
 settings:

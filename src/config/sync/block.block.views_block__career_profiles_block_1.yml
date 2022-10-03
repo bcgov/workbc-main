@@ -1,32 +1,30 @@
-uuid: 8c025794-5bd4-42d8-a0e8-ce4d8c82cda4
+uuid: c0e49efb-c435-46a0-8b9a-224763f4836f
 langcode: en
 status: true
 dependencies:
   config:
-    - views.view.search_career_profiles
+    - views.view.career_profiles
   module:
     - block_visibility_conditions
     - system
     - views
   theme:
     - workbc
-id: exposedformsearch_career_profilespage_1
+id: views_block__career_profiles_block_1
 theme: workbc
 region: content_bottom
-weight: -9
+weight: 0
 provider: null
-plugin: 'views_exposed_filter_block:search_career_profiles-page_1'
+plugin: 'views_block:career_profiles-block_1'
 settings:
-  id: 'views_exposed_filter_block:search_career_profiles-page_1'
+  id: 'views_block:career_profiles-block_1'
   label: ''
   label_display: '0'
   provider: views
+  context_mapping: {  }
   views_label: ''
+  items_per_page: none
 visibility:
-  request_path:
-    id: request_path
-    negate: false
-    pages: /search-career-profiles
   not_node_type:
     id: not_node_type
     bundles: {  }
@@ -35,3 +33,7 @@ visibility:
     id: not_taxonomy_vocabulary
     bundles: {  }
     negate: null
+  request_path:
+    id: request_path
+    negate: false
+    pages: /career-profiles

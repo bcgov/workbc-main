@@ -25,6 +25,7 @@ dependencies:
     - file
     - node
     - paragraphs_type_permissions
+    - sitewide_alert
     - system
     - taxonomy
     - toolbar
@@ -119,6 +120,7 @@ permissions:
   - 'view own unpublished content'
   - 'view page revisions'
   - 'view publication revisions'
+  - 'view published sitewide alert entities'
   - 'view region_profile revisions'
   - 'view success_story revisions'
   - 'view the administration theme'
