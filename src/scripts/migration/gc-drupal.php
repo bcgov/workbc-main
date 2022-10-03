@@ -18,7 +18,7 @@ function convertImage($image) {
 
   $data = file_get_contents($image->download_url);
   if ($data === FALSE) {
-    print("  Could not download file {$image->download_url}\n");
+    print("  Could not download file {$image->download_url}" . PHP_EOL);
     return NULL;
   }
   $filename = str_replace('/', '_', $image->file_id) . '-' . $image->filename;
@@ -41,7 +41,7 @@ function convertRadio($radio_field) {
 }
 
 function convertPlainText($text) {
-  return trim($text);
+  return str_replace([''], [''], strip_tags(trim($text)));
 }
 
 function convertRichText($text, &$items = NULL) {
@@ -64,6 +64,7 @@ function convertRichText($text, &$items = NULL) {
     foreach (convertPDFLinks($text) as $item) {
       $text = str_replace($item['match'], $item['replace'], $text);
     }
+    // TODO Convert uploaded images within rich text.
   }
   return ['format' => 'full_html', 'value' => $text];
 }
@@ -132,12 +133,13 @@ function convertGatherContentLinks($text, &$items) {
         ->setApiKey($apiKey);
       try {
         $item = $gc->itemGet($item_id);
-        $item->title = $item->name;
+        // If we read a career profile, remove the NOC suffix.
+        $item->title = preg_replace('/\s+\(NOC\s+\d+\)$/i', '', $item->name);
         $item->process = FALSE;
         $items[$item_id] = $item;
       }
       catch (Exception $e) {
-        print("  Could not query GatherContent item $item_id" . PHP_EOL);
+        print("  Could not query GatherContent item $item_id: {$e->getMessage()}" . PHP_EOL);
         continue;
       }
     }
@@ -145,7 +147,7 @@ function convertGatherContentLinks($text, &$items) {
       print("  Could not find Drupal node for related GatherContent item $item_id locally. Trying Drupal API..." . PHP_EOL);
       $nodes = \Drupal::entityTypeManager()
         ->getStorage('node')
-        ->loadByProperties(['title' => trim($items[$item_id]->title)]);
+        ->loadByProperties(['title' => convertPlainText($items[$item_id]->title)]);
       if (empty($nodes)) {
         print("  Could not find Drupal node \"{$items[$item_id]->title}\"" . PHP_EOL);
         continue;
@@ -195,12 +197,18 @@ function convertPDFLinks($text) {
 
   $targets = [];
   foreach ($matches[0] as $m => $url) {
-    $data = file_get_contents($url);
+    $filename = $matches[1][$m];
+    $local = __DIR__ . "/data/pdf/$filename";
+    if (file_exists($local)) {
+      $data = file_get_contents($local);
+    }
+    else {
+      $data = file_get_contents($url);
+    }
     if ($data === FALSE) {
-      print("  Could not download file {$url}\n");
+      print("  Could not download file {$url}" . PHP_EOL);
       continue;
     }
-    $filename = $matches[1][$m];
     $file = \Drupal::service('file.repository')->writeData($data, "public://$filename");
     if (empty($file)) {
       print(" Could not create file $filename\n");

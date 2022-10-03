@@ -85,6 +85,10 @@ try {
       $field = $templates[$item->templateId][$uuid];
       // In case the field is a component, loop again on all component fields.
       if ($field->type === 'component') {
+        // If the keys are strings, that means it's a single object: stuff it in a real array.
+        if (gettype(current(array_keys($value))) === 'string') {
+          $value = [$value];
+        }
         foreach ($value as $i => $component) {
           if (is_array($component) || is_object($component)) {
             $entry = [];
@@ -109,6 +113,10 @@ try {
 }
 catch (Exception $e) {
     die('ERROR: ' . $e->getMessage() . PHP_EOL);
+}
+
+function extract_component($component) {
+
 }
 
 /**

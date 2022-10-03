@@ -57,7 +57,7 @@ const PAGE_FORMAT = 13;
 const CONTENT_GROUP = 14;
 
 // FIRST PASS: Create all the nodes.
-print("FIRST PASS" . PHP_EOL);
+print("FIRST PASS =================" . PHP_EOL);
 
 $row_number = 0;
 global $pages;
@@ -263,7 +263,7 @@ while (($row = fgetcsv($data)) !== FALSE) {
 fclose($data);
 
 // SECOND PASS: Create the menu hierarchy
-print("SECOND PASS\n");
+print("SECOND PASS =================" . PHP_EOL);
 
 function createMenuEntry($path, $page, &$pages, $menu_name) {
     if (!empty($page['menu_item'])) {

@@ -74,7 +74,7 @@ try {
   foreach ($result as $profile) {
     $fields = [
       'type' => 'career_profile',
-      'title' => $profile['occupation_title'],
+      'title' => convertPlainText($profile['occupation_title']),
       'field_noc' => $profile['noc'],
       'uid' => 1,
       'moderation_state' => 'published',
@@ -160,11 +160,11 @@ catch (RequestException $e) {
 
 function convertResources($resources) {
   return array_map(function($resource) {
-    $uri = $resource->{'Resource Link'};
+    $uri = convertPlainText($resource->{'Resource Link'});
     $uri = strpos($uri, 'http') !== 0 ? "https://$uri" : $uri;
     return [
       'uri' => $uri,
-      'title' => $resource->{'Resource Title'}
+      'title' => convertPlainText($resource->{'Resource Title'})
     ];
   }, array_filter($resources, function($resource) {
     return !empty($resource->{'Resource Link'}) && !empty($resource->{'Resource Title'});
