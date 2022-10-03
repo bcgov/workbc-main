@@ -115,10 +115,6 @@ catch (Exception $e) {
     die('ERROR: ' . $e->getMessage() . PHP_EOL);
 }
 
-function extract_component($component) {
-
-}
-
 /**
  * Create a map of field ids to labels.
  */

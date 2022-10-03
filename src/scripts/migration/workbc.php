@@ -96,7 +96,6 @@ foreach ($items as $id => $item) {
 
     // Import all variations of cards.
     $field_content = [];
-    if (property_exists($item, ''))
     foreach([
         'Card' => NULL,
         'CTA - Feature' => 'Feature',
@@ -301,7 +300,7 @@ function convertCards($cards, &$items, $card_type = NULL) {
         }
         if ($empty) continue;
 
-        $type = property_exists($card, 'Card Type') ? convertRadio($card->{'Card Type'}) : $card_type;
+        $type = property_exists($card, 'Card Type') && !empty($card->{'Card Type'}) ? convertRadio($card->{'Card Type'}) : $card_type;
         if (empty($type)) {
             print("  Found a card with empty type: Assuming Full Width" . PHP_EOL);
             $type = 'Full Width';

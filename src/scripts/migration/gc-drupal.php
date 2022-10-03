@@ -227,8 +227,14 @@ function convertLink($text, $url, &$items) {
   if (!empty($internal)) {
     $target = Url::fromRoute('entity.node.canonical', ['node' => current($internal)['target_id']]);
   }
+  else if (str_starts_with($url, '/')) {
+    $target = Url::fromUri("internal:$url");
+  }
   else {
     $target = Url::fromUri($url);
   }
-  return Link::fromTextAndUrl(trim($text), $target)->toString();
+  return [
+    'title' => $text,
+    'uri' => $target->toUriString()
+  ];
 }
