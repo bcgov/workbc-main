@@ -1,0 +1,40 @@
+legend {
+  display: none;
+}
+
+.table>:not(caption)>*>* {
+  padding: 20px;
+}
+
+thead {
+  background-color: $workbc_dark_theme_background;
+  color: $workbc_dark_theme_text;
+
+  th {
+    padding: $workbc_spacing_default;
+    border-bottom: none;
+  }
+}
+
+tbody {
+  border: none;
+
+  tr {
+    &:nth-child(2n) td {
+      background-color: $workbc_palette_light_secondary;
+    }
+
+    td {
+      padding: $workbc_spacing_default;
+      border-bottom: none;
+
+      &:not(:last-of-type) {
+        border-right: 2px solid $workbc_palette_light_tertiary;
+      }
+    }
+  }
+}
+
+.table > :not(:first-child) {
+  border: none;
+}
