@@ -113,7 +113,7 @@ class SesMailer extends PluginBase implements MailInterface, ContainerFactoryPlu
           ],
         ],
         'ReplyToAddresses' => [$message['from']],
-        'ReturnPath' => $message['reply-to'],
+        'ReturnPath' => $replyTo,
         'Source' => $message['from'],
       ]);
       $this->logger->info('Successfully sent email from %from to %to with message ID %id', [
