@@ -3,72 +3,111 @@
     flex-flow: column nowrap;
     background-color: $workbc_light_theme_background_accent;
 
-    // Series of overrides on top of Drupal Horizontal tab styling
-    .horizontal-tabs {
-        $border-size: 3px;
-
-        border: none;
-        background-color: $workbc_palette_light_primary;
-
-        .horizontal-tabs-list {
-            overflow-x: auto;
-            width: 100%;
-            border-bottom: $border-size solid $workbc_palette_dark_secondary;
-            background-color: $workbc_palette_light_secondary;
-            padding: 0 15px;
-
-            .horizontal-tab-button {
-                position: relative;
-                border: $border-size solid;
-                border-bottom: none;
-                margin-right: $border-size;
-
-                &.selected {
-                    border-color: $workbc_palette_dark_secondary;
-                    font-weight: bold;
-                    
-                    a {
-                        color: $workbc_palette_dark_secondary;
-                        background-color: $workbc_palette_light_primary;
-                    }
-    
-                    &:after {
-                        content: '';
-                        position: absolute;
-                        left: 0;
-                        right: 0;
-                        bottom: -$border-size;
-                        height: $border-size;
-                        background-color: $workbc_palette_light_primary;
-                    }
-                }
-
-                &:not(.selected) {
-                    border-color: $workbc_palette_dark_secondary;
-    
-                    a {
-                        color: $workbc_palette_light_primary;
-                        background-color: $workbc_palette_dark_secondary;
-
-                        strong {
-                            font-weight: normal;
-                        }
-                    }
-
-                    &:hover a {
-                        background-color: #215693;
-                    }
-                }
-            }
-        }
-    }
-
     .career-statistics-wrapper {
         margin-bottom: $workbc_spacing_default;
     }
 
     .career-details-wrapper {
+        $border-size: 3px;
+
+        position: relative; // begin positional context %career-details-wrapper
         background-color: #ffffff;
+
+        @include media-breakpoint-up(lg) {
+            .career-details-theme-shim {
+                position: absolute; // relative to positional context %career-details-wrapper
+                top: 0;
+                z-index: 1;
+                background-color: $workbc_palette_light_secondary;
+                border-bottom: $border-size solid $workbc_palette_dark_secondary;
+                height: 49px;
+                width: 100%;
+            }
+        }
+
+        // Series of overrides on top of Drupal Horizontal tab styling
+        .horizontal-tabs {
+            z-index: 2;
+            border: none;
+            background-color: $workbc_palette_light_primary;
+
+            // at tablet+, in "tabs" mode (switching is controlled by Drupal, not our styles)
+            .horizontal-tabs-list {
+                width: 100%;
+                border-bottom: $border-size solid $workbc_palette_dark_secondary;
+                background-color: $workbc_palette_light_secondary;
+                padding: 0 15px;
+
+                .horizontal-tab-button {
+                    position: relative;
+                    border: $border-size solid;
+                    border-bottom: none;
+                    margin-right: $border-size;
+
+                    &.selected {
+                        border-color: $workbc_palette_dark_secondary;
+                        font-weight: bold;
+                        
+                        a {
+                            color: $workbc_palette_dark_secondary;
+                            background-color: $workbc_palette_light_primary;
+                        }
+        
+                        &:after {
+                            content: '';
+                            position: absolute;
+                            left: 0;
+                            right: 0;
+                            bottom: -$border-size;
+                            height: $border-size;
+                            background-color: $workbc_palette_light_primary;
+                        }
+                    }
+
+                    &:not(.selected) {
+                        border-color: $workbc_palette_dark_secondary;
+        
+                        a {
+                            color: $workbc_palette_light_primary;
+                            background-color: $workbc_palette_dark_secondary;
+
+                            strong {
+                                font-weight: normal;
+                            }
+                        }
+
+                        &:hover a {
+                            background-color: #215693;
+                        }
+                    }
+                }
+            }
+
+            // at mobile, in "panes" mode
+            details {
+                border: $border-size solid $workbc_palette_dark_secondary;
+                border-radius: 0;
+                border-collapse: collapse;
+
+                @include media-breakpoint-up(lg) {
+                    border: none;
+                }
+
+                &:not([open]) summary {
+                    border-radius: 0;
+                    color: $workbc_palette_light_primary;
+                    background-color: $workbc_palette_dark_secondary !important;
+                }
+
+                &[open] summary {
+                    border-radius: 0;
+                    color: $workbc_palette_dark_secondary;
+                    background-color: $workbc_palette_light_primary !important;
+                    border-bottom: $border-size solid $workbc_palette_dark_secondary;
+                }
+    
+            }
+        }
     }
 
     .career-videos-wrapper {
