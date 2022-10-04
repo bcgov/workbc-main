@@ -36,4 +36,4 @@ visibility:
   request_path:
     id: request_path
     negate: false
-    pages: /plan-career/our-publications/request-tour-stop
+    pages: /request-tour-stop
