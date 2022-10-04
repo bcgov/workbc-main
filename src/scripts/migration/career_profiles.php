@@ -12,8 +12,8 @@ use GuzzleHttp\Exception\RequestException;
  * - GC WorkBC Career Profiles (scripts/migration/data/career_profiles.jsonl)
  *
  * Usage:
- * - drush scr scripts/migration/gc-jsonl -- -s publish 290255 > scripts/migration/data/career_profiles.jsonl
- * - drush scr scripts/migration/gc-jsonl -- 332842 > scripts/migration/data/career_profile_introductions.jsonl
+ * - drush scr scripts/migration/gc-jsonl -- -s "Content Revisions" -s "Manager Review" -s "Director Review" -s "ED Review" -s "GCPE Review" -s "Published" 290255 > scripts/migration/data/career_profiles.jsonl
+ * - drush scr scripts/migration/gc-jsonl -- -i 14878299 332842 > scripts/migration/data/career_profile_introductions.jsonl
  * - drush scr scripts/migration/career_profiles
  *
  * Revert:
@@ -74,9 +74,10 @@ try {
   foreach ($result as $profile) {
     $fields = [
       'type' => 'career_profile',
-      'title' => $profile['occupation_title'],
+      'title' => convertPlainText($profile['occupation_title']),
       'field_noc' => $profile['noc'],
       'uid' => 1,
+      'moderation_state' => 'published',
     ];
     print("Creating {$fields['title']}\n");
 
@@ -114,6 +115,7 @@ try {
     $node = Drupal::entityTypeManager()
       ->getStorage('node')
       ->create($fields);
+    $node->setPublished(TRUE);
     $node->save();
 
     // Save the node id for the second pass.
@@ -158,11 +160,11 @@ catch (RequestException $e) {
 
 function convertResources($resources) {
   return array_map(function($resource) {
-    $uri = $resource->{'Resource Link'};
+    $uri = convertPlainText($resource->{'Resource Link'});
     $uri = strpos($uri, 'http') !== 0 ? "https://$uri" : $uri;
     return [
       'uri' => $uri,
-      'title' => $resource->{'Resource Title'}
+      'title' => convertPlainText($resource->{'Resource Title'})
     ];
   }, array_filter($resources, function($resource) {
     return !empty($resource->{'Resource Link'}) && !empty($resource->{'Resource Title'});

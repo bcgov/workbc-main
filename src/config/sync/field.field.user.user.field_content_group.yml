@@ -6,7 +6,7 @@ dependencies:
     - field.storage.user.field_content_group
     - taxonomy.vocabulary.content_groups
   content:
-    - 'taxonomy_term:content_groups:d7ecd9f6-e65c-4c07-97ef-feaac7de10a5'
+    - 'taxonomy_term:content_groups:58d3a10c-37db-4885-b5cc-23a28bdf4e1b'
   module:
     - user
 id: user.user.field_content_group
@@ -19,7 +19,7 @@ required: true
 translatable: false
 default_value:
   -
-    target_uuid: d7ecd9f6-e65c-4c07-97ef-feaac7de10a5
+    target_uuid: 58d3a10c-37db-4885-b5cc-23a28bdf4e1b
 default_value_callback: ''
 settings:
   handler: 'default:taxonomy_term'

@@ -235,5 +235,5 @@ $config['search_api.server.solr'] = [
 ini_set('memory_limit', '1G');
 if (class_exists('Kint')) {
   // Set the max_depth to prevent out-of-memory.
-  \Kint::$max_depth = 3;
+  \Kint::$depth_limit = 3;
 }

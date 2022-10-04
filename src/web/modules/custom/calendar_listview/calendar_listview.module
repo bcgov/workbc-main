@@ -48,8 +48,8 @@ function calendar_listview_theme($existing, $type, $theme, $path) {
       'template' => 'fields/views-view-fields-calendar-block-1',
       'base hook' => 'view'
     ],
-    'node__page__full' => [
-      'template' => 'node--page-full',
+    'node__page__calendar' => [
+      'template' => 'node--page--calendar',
       'base hook' => 'node',
       'variables' => [
         'viewmode' => null,

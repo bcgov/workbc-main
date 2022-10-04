@@ -61,6 +61,9 @@ try {
     $item = $gc->itemGet($result->id);
 
     // Cache the item template.
+    if (empty($item->templateId)) {
+      continue;
+    }
     if (!array_key_exists($item->templateId, $templates)) {
       $template = $gc->templateGet($item->templateId);
       $templates[$item->templateId] = map_fields_ids($template);
@@ -68,16 +71,24 @@ try {
     }
 
     // Loop on the content fields and translate field ids to field labels.
+    $item_status = array_filter($project_statuses['data'], function ($status) use ($item) {
+      return $status->id == $item->statusId;
+    });
     $content = [
       'title' => $item->name,
       'id' => $item->id,
       'template' => $templates[$item->templateId]['template']->name,
       'folder' => $folders[$item->folderUuid]?->name,
+      'status' => current($item_status)->name,
     ];
     foreach ($item->content as $uuid => $value) {
       $field = $templates[$item->templateId][$uuid];
       // In case the field is a component, loop again on all component fields.
       if ($field->type === 'component') {
+        // If the keys are strings, that means it's a single object: stuff it in a real array.
+        if (gettype(current(array_keys($value))) === 'string') {
+          $value = [$value];
+        }
         foreach ($value as $i => $component) {
           if (is_array($component) || is_object($component)) {
             $entry = [];

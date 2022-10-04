@@ -1,0 +1,71 @@
+{%
+  set classes = [
+    'node',
+    'node--type-' ~ node.bundle|clean_class,
+    node.isPromoted() ? 'node--promoted',
+    node.isSticky() ? 'node--sticky',
+    not node.isPublished() ? 'node--unpublished',
+    view_mode ? 'node--view-mode-' ~ view_mode|clean_class,
+  ]
+%}
+{{ attach_library('classy/node') }}
+<article{{ attributes.addClass(classes) }}>
+
+  {% if display_submitted %}
+    <footer class="node__meta">
+      {{ author_picture }}
+      <div{{ author_attributes.addClass('node__submitted') }}>
+        {% trans %}Submitted by {{ author_name }} on {{ date }}{% endtrans %}
+        {{ metadata }}
+      </div>
+    </footer>
+  {% endif %}
+
+  <div{{ content_attributes.addClass('node__content') }}>
+    {% if viewmode is not null %}
+      <div class="calendar event-cal container calendar--view-mode-{{view_mode|clean_class}}">
+        <div class="calendar-content">
+        <nav class="list-nav">
+          <div class="nav nav-tabs" id="nav-tab" role="tablist">
+            <a href="/calendar-upcoming-events?mode=list" class="nav-link {{ viewmode=='list' or viewmode=='archive'   ? 'show active' :'' }}"  >
+              {%
+                set active = viewmode=='list' or viewmode=='archive' ? '-hover' : ''
+              %}
+              <span class="calender_icon">
+                <img src="/modules/custom/calendar_listview/images/list-view{{active}}.svg" class="icon"/>
+              </span>
+              List View
+            </a>
+            <a href="/calendar-upcoming-events?mode=calendar" class="nav-link {{ viewmode=='calendar' ? 'show active' :'' }}"  >
+            {%
+                set active = viewmode=='calendar' ? '-hover' : ''
+              %}
+              <span class="calender_icon">
+                <img src="/modules/custom/calendar_listview/images/calendar-view{{active}}.svg" class="icon"/>
+              </span>
+              Calendar View
+            </a>
+          </div>
+        </nav>
+        <div class="tab-content" id="nav-tabContent">
+          {% if viewmode == 'list' %}
+            <div class="list-full-view tab-pane fade show active" id="nav-list-view" role="tabpanel" aria-labelledby="nav-list-view-tab">
+              {{ drupal_view('event_calendar_listview', 'block_1') }}
+            </div>
+          {% elseif viewmode == 'calendar' %}
+            <div class="calendar-full-view tab-pane fade show active" id="nav-calendar-view" role="tabpanel" aria-labelledby="nav-calendar-view-tab">
+              {{ drupal_view('event_calendar', 'block_1') }}
+            </div>
+          {% else %}
+            <div class="list-full-view tab-pane fade show active" id="nav-list-view" role="tabpanel" aria-labelledby="nav-list-view-tab">
+              {{ drupal_view('event_calendar_listview', 'block_2') }}
+            </div>
+          {% endif %}
+        </div>
+      </div>
+    </div>
+    {% endif %}
+    {{ content }}
+  </div>
+  {{custom_var}}
+</article>

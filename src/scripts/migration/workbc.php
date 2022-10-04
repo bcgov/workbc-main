@@ -2,7 +2,6 @@
 
 require('gc-drupal.php');
 
-use Drupal\path_alias\Entity\PathAlias;
 use Drupal\pathauto\PathautoState;
 use Drupal\paragraphs\Entity\Paragraph;
 
@@ -10,7 +9,7 @@ use Drupal\paragraphs\Entity\Paragraph;
  * Update nodes for GatherContent WorkBC items.
  *
  * Usage:
- * - drush scr scripts/migration/gc-jsonl -- --status publish 284269 > scripts/migration/data/workbc.jsonl
+ * - drush scr scripts/migration/gc-jsonl -- -s "Content Revisions" -s "Manager Review" -s "Director Review" -s "ED Review" -s "GCPE Review" -s "Published" 284269 > scripts/migration/data/workbc.jsonl
  * - drush scr scripts/migration/workbc
  *
  * Revert:
@@ -33,10 +32,32 @@ while (!feof($data)) {
     $items[$item->id] = $item;
 }
 
+// FIRST PASS: Create missing items.
+print("FIRST PASS =================" . PHP_EOL);
+foreach ($items as $id => $item) {
+    $title = convertPlainText($item->title);
+    print("Querying \"$title\"..." . PHP_EOL);
+
+    // Identify a node by its title.
+    $nodes = \Drupal::entityTypeManager()
+        ->getStorage('node')
+        ->loadByProperties(['title' => $title]);
+    if (empty($nodes)) {
+        print("  Could not find Drupal node. Attempting to create it..." . PHP_EOL);
+        $node = createItem($item);
+        if (empty($node)) {
+            print("  Could not create Drupal node" . PHP_EOL);
+            continue;
+        }
+    }
+}
+
+// SECOND PASS: Populate fields.
+print("SECOND PASS =================" . PHP_EOL);
 foreach ($items as $id => $item) {
     if (!$item->process) continue;
 
-    $title = $item->title;
+    $title = convertPlainText($item->title);
     print("Processing \"$title\"..." . PHP_EOL);
 
     $fields = [];
@@ -74,8 +95,20 @@ foreach ($items as $id => $item) {
     }
 
     // Import all variations of cards.
-    if (property_exists($item, 'Card')) {
-        $fields['field_content'] = convertCards($item->{'Card'}, $items);
+    $field_content = [];
+    foreach([
+        'Card' => NULL,
+        'CTA - Feature' => 'Feature',
+        'CTA - Full' => 'Full Width',
+        'CTA - 1/2' => '1/2 Width',
+        'CTA - 1/3' => '1/3 Width',
+    ] as $card_field => $card_type) {
+        if (property_exists($item, $card_field)) {
+            $field_content = array_merge($field_content, convertCards($item->$card_field, $items, $card_type));
+        }
+    }
+    if (!empty($field_content)) {
+        $fields['field_content'] = $field_content;
     }
 
     // Populate remaining fields based on template type.
@@ -87,16 +120,54 @@ foreach ($items as $id => $item) {
             break;
     }
 
-    // Load the corresponding node.
+    // We want to create or update a Drupal node for this GC item.
+    // Identifying an existing node by title is sometimes not enough because some pages have non-unique titles.
+    // If so, we identify the node by its position in the navigation menu:
+    // 1. Identify the parent menu item in the navigation menu (assumed to be unique)
+    // 2. Identify the node menu item in the navigation menu
+    // 3. Retrieve the node entity from the menu item
     $nodes = \Drupal::entityTypeManager()
         ->getStorage('node')
         ->loadByProperties(['title' => $title]);
     if (empty($nodes)) {
-        print("  Could not find Drupal node. Attempting to create it..." . PHP_EOL);
-        $node = createItem($item);
-        if (empty($node)) {
-            print("  Could not create Drupal node" . PHP_EOL);
+        print("  Could not find Drupal node. Ignoring" . PHP_EOL);
+        continue;
+    }
+    else if (count($nodes) > 1) {
+        $parent = $item->folder;
+        print("  Found multiple nodes with same title. Attempting to locate parent \"$parent\"..." . PHP_EOL);
+        $menu_items_parent = \Drupal::entityTypeManager()
+            ->getStorage('menu_link_content')
+            ->loadByProperties([
+                'title' => $parent,
+                'menu_name' => 'main',
+            ]);
+        if (empty($menu_items_parent)) {
+            print("  Could not find parent menu item \"$parent\". Aborting" . PHP_EOL);
             continue;
+        }
+        else if (count($menu_items_parent) > 1) {
+            print("  Found multiple parent menu items \"$parent\". Aborting" . PHP_EOL);
+            continue;
+        }
+        else {
+            $menu_items_page = \Drupal::entityTypeManager()
+                ->getStorage('menu_link_content')
+                ->loadByProperties([
+                    'parent' => current($menu_items_parent)->getPluginId(),
+                    'menu_name' => 'main',
+                    'title' => $title
+                ]);
+            if (empty($menu_items_page)) {
+                print("  Could not find menu item whose parent is \"$parent\". Aborting" . PHP_EOL);
+                continue;
+            }
+            else {
+                $nid = (int) filter_var(current($menu_items_page)->link->uri, FILTER_SANITIZE_NUMBER_INT);
+                $node = Drupal::entityTypeManager()
+                    ->getStorage('node')
+                    ->load($nid);
+            }
         }
     }
     else {
@@ -152,15 +223,17 @@ function createBlogNewsSuccessStory($item) {
     }
     $fields = [
         'type' => $type,
-        'title' => $item->title,
+        'title' => convertPlainText($item->title),
         'uid' => 1,
         'path' => [
             'pathauto' => PathautoState::CREATE,
         ],
+        'moderation_state' => 'published',
     ];
     $node = Drupal::entityTypeManager()
         ->getStorage('node')
         ->create($fields);
+    $node->setPublished(TRUE);
     $node->save();
     print("  Created $type" . PHP_EOL);
     return $node;
@@ -221,10 +294,16 @@ function convertCards($cards, &$items, $card_type = NULL) {
     $paragraphs = [];
     $container_paragraph = NULL;
     foreach ($cards as $card) {
-        $type = $card?->{'Card Type'} ?? $card_type;
+        $empty = TRUE;
+        foreach (['Card Type', 'Title', 'Body', 'Image', 'Link Text', 'Link Target'] as $check) {
+            if (property_exists($card, $check) && !empty($card->$check)) $empty = FALSE;
+        }
+        if ($empty) continue;
+
+        $type = property_exists($card, 'Card Type') && !empty($card->{'Card Type'}) ? convertRadio($card->{'Card Type'}) : $card_type;
         if (empty($type)) {
-            print("  Cannot create card with empty type" . PHP_EOL);
-            continue;
+            print("  Found a card with empty type: Assuming Full Width" . PHP_EOL);
+            $type = 'Full Width';
         }
         if (!array_key_exists($type, $card_types)) {
             print("  Cannot create container with unknown type $type" . PHP_EOL);
@@ -269,7 +348,11 @@ function convertCards($cards, &$items, $card_type = NULL) {
                 }
             }
             if (property_exists($card, 'Link Text') && property_exists($card, 'Link Target')) {
-                $card_fields['field_link'] = convertLink($card->{'Link Text'}, $card->{'Link Target'}, $items);
+                $link_text = convertPlainText($card->{'Link Text'});
+                $link_target = convertPlainText($card->{'Link Target'});
+                if (!empty($link_text) && !empty($link_target)) {
+                    $card_fields['field_link'] = convertLink($link_text, $link_target, $items);
+                }
             }
 
             $card_paragraph = Paragraph::create($card_fields);

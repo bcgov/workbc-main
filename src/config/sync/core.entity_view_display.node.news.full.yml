@@ -8,6 +8,7 @@ dependencies:
     - field.field.node.news.field_archived
     - field.field.node.news.field_content_group
     - field.field.node.news.field_image
+    - field.field.node.news.field_related_topics_blurb
     - field.field.node.news.field_tags
     - image.style.article_wide
     - node.type.news
@@ -26,6 +27,11 @@ content:
     settings: {  }
     third_party_settings: {  }
     weight: 3
+    region: content
+  content_moderation_control:
+    settings: {  }
+    third_party_settings: {  }
+    weight: -20
     region: content
   extra_field_workbc_published_on:
     settings: {  }
@@ -56,6 +62,7 @@ hidden:
   extra_field_workbc_page_title: true
   field_archived: true
   field_content_group: true
+  field_related_topics_blurb: true
   field_tags: true
   langcode: true
   search_api_excerpt: true
