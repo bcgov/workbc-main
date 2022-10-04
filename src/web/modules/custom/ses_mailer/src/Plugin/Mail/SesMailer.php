@@ -94,9 +94,7 @@ class SesMailer extends PluginBase implements MailInterface, ContainerFactoryPlu
       $cc = array_key_exists('Cc', $message['headers']) ? [$message['headers']['Cc']] : [];
       $bcc = array_key_exists('Bcc', $message['headers']) ? [$message['headers']['Bcc']] : [];
 
-      \Drupal::logger('ses_mailer')->notice('Message[reply-to]: ' . $message['reply-to']);
       $replyTo = empty($message['reply-to']) ? $message['from'] : $message['reply-to'];
-      \Drupal::logger('ses_mailer')->notice('Reply To: ' . $replyTo);
 
       $response = $this->sesClient->sendEmail([
         'Destination' => [
@@ -115,7 +113,7 @@ class SesMailer extends PluginBase implements MailInterface, ContainerFactoryPlu
           ],
         ],
         'ReplyToAddresses' => [$message['from']],
-        'ReturnPath' => $replyTo,
+        'ReturnPath' => $message['reply-to'],
         'Source' => $message['from'],
       ]);
       $this->logger->info('Successfully sent email from %from to %to with message ID %id', [
