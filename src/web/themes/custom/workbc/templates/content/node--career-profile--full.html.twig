@@ -141,47 +141,49 @@
 
   <div class="career-statistics-wrapper">
     <div class="container-lg profile-information-card-deck">
-      <div class="profile-information-card">
+
+      <div class="profile-information-card profile-information-salary">
         <div class="profile-information-card-icon">
-          icon
-        </div>
-        <div class="profile-information-card-description">
-          {{ statistic_annual_salary['#title'] }}
         </div>
         <div class="profile-information-card-content">
+          <div class="profile-information-card-title">
+            {{ statistic_annual_salary['#title'] }}
+          </div>
+          <div class="profile-information-card-value">
           {{ statistic_annual_salary.0['#markup'] }}
+          </div>
         </div>
         <div class="profile-information-card-infotip">
-          {{ statistic_annual_salary_source.0['#markup'] }}
+          <a tabindex="0" class="btn btn-link info-tooltip" role="button" data-bs-toggle="popover" data-bs-container="body" data-bs-trigger="click" data-bs-placement="bottom" data-bs-custom-class="workbc-popover" title="hidden title" data-bs-html="true" data-bs-content="<em>Source:</em> {{ statistic_annual_salary_source.0['#markup'] }}"></a>
         </div>
       </div>
 
-      <div class="profile-information-card">
+      <div class="profile-information-card profile-information-education">
         <div class="profile-information-card-icon">
-          icon
-        </div>
-        <div class="profile-information-card-description">
-          {{ statistic_minimum_education['#title'] }}
         </div>
         <div class="profile-information-card-content">
+          <div class="profile-information-card-title">
+            {{ statistic_minimum_education['#title'] }}
+          </div>
+          <div class="profile-information-card-value">
           {{ statistic_minimum_education.0['#markup'] }}
-        </div>
-        <div class="profile-information-card-infotip">
+          </div>
         </div>
       </div>
 
-      <div class="profile-information-card">
+      <div class="profile-information-card profile-information-jobs">
         <div class="profile-information-card-icon">
-          icon
-        </div>
-        <div class="profile-information-card-description">
-          {{ statistic_job_openings['#title'] }}
         </div>
         <div class="profile-information-card-content">
+          <div class="profile-information-card-title">
+            {{ statistic_job_openings['#title'] }}
+          </div>
+          <div class="profile-information-card-value">
           {{ statistic_job_openings.0['#markup'] }}
+          </div>
         </div>
         <div class="profile-information-card-infotip">
-          {{ statistic_job_openings_source.0['#markup'] }}
+          <a tabindex="0" class="btn btn-link info-tooltip" role="button" data-bs-toggle="popover" data-bs-container="body" data-bs-trigger="focus" data-bs-placement="bottom" data-bs-custom-class="workbc-popover" title="hidden title" data-bs-html="true" data-bs-content="<em>Source:</em> {{ statistic_job_openings_source.0['#markup'] }}"></a>
         </div>
       </div>
 
@@ -216,8 +218,4 @@
   </div>
 {% endif %}
 
-
-{# {{ kint(content) }} #}
-{# <div class="raw-content">
-  {{ content }}
-</div> #}
+{{ attach_library('workbc/init-popovers') }}

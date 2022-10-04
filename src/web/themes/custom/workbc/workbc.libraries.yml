@@ -46,3 +46,12 @@ mobile-nav:
 nav:
   js:
     js/nav.js: {}
+
+init-popovers:
+  js:
+    js/init-popovers.js: {}
+  dependencies:
+    - core/drupal
+    - core/jquery
+    - core/once
+    - core/popperjs

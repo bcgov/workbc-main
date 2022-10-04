@@ -50,33 +50,6 @@
 
 <div{{ attributes.addClass(classes, 'field__items') }}>
   {% for item in items %}
-
     {{ item.content }}
-
-{# 
-
-    {% set item_mid = item.content['#media'].values.mid %}
-    {% set item_thumb = item.content['#media'].values.thumbnail %}
-
-
-    kint:
-    {{ kint(item.content) }}
-    {{ kint(item.content['#media']) }}
-    {{ kint(item.content['#media'].values) }}
-    {{ kint(item.content['#media'].values['mid']) }}
-    {{ kint(item.content['#media']['values']) }}
-    <br/>
-
-    content:
-    {{ item.content['#media'].cacheMaxAge }}
-    {{ item.content['#media'].values }}
-    {{ item.content['#media'].values['mid'] }}
-    <br/>
-
-    thumb:
-    {{ item_mid }}
-    {{ item_thumb }}
-    <br/> #}
-
   {% endfor %}
 </div>

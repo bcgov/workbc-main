@@ -12,6 +12,7 @@ libraries:
   - workbc/sidenav-anchors
   - workbc/mobile-nav
   - workbc/nav
+  - workbc/init-popovers
 stylesheets-remove:
   - '@bootstrap5/css/style.css'
 regions:
