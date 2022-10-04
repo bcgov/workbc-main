@@ -1,0 +1,21 @@
+uuid: f6cb183e-38c4-40e4-b8cf-b42bcb781ddc
+langcode: en
+status: true
+dependencies:
+  config:
+    - field.storage.node.field_monthly_introduction
+    - node.type.labour_market_monthly
+  module:
+    - text
+id: node.labour_market_monthly.field_monthly_introduction
+field_name: field_monthly_introduction
+entity_type: node
+bundle: labour_market_monthly
+label: 'Monthly Introduction'
+description: ''
+required: false
+translatable: false
+default_value: {  }
+default_value_callback: ''
+settings: {  }
+field_type: text_long
