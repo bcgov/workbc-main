@@ -1,16 +1,16 @@
-uuid: 5508cd04-affc-43a5-a74d-e07eb36d3538
+uuid: c5db05a5-1a0f-4b37-b0e0-706281ad4ef8
 langcode: en
 status: true
 dependencies:
   config:
-    - webform.webform.workbc_order_form
+    - webform.webform.request_a_tour_stop
   module:
     - block_visibility_conditions
     - system
     - webform
   theme:
     - workbc
-id: webform
+id: webform_2
 theme: workbc
 region: content_bottom
 weight: 0
@@ -18,10 +18,10 @@ provider: null
 plugin: webform_block
 settings:
   id: webform_block
-  label: 'Webform (WorkBC Order Form)'
+  label: 'Webform (Request a Tour Stop)'
   label_display: '0'
   provider: webform
-  webform_id: workbc_order_form
+  webform_id: request_a_tour_stop
   default_data: ''
   redirect: false
 visibility:
@@ -36,4 +36,4 @@ visibility:
   request_path:
     id: request_path
     negate: false
-    pages: /workbc-order-form
+    pages: /request-tour-stop
