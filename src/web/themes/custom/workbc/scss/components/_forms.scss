@@ -2,12 +2,10 @@
 .form-item input[type="tel"],
 .form-item input[type="number"],
 .form-item input[type="email"],
-.form-item input[type="password"],
 .form-item input[type="checkbox"],
 .form-item textarea,
 .form-item select {
   border-radius: 0;
-  border: 2px solid $workbc_palette_dark_secondary;
 
   &:placeholder {
     color: $workbc_palette_light_tertiary;
