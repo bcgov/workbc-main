@@ -1,0 +1,35 @@
+.form-item input[type="text"],
+.form-item input[type="tel"],
+.form-item input[type="number"],
+.form-item input[type="email"],
+.form-item input[type="checkbox"],
+.form-item textarea,
+.form-item select {
+  border-radius: 0;
+
+  &:placeholder {
+    color: $workbc_palette_light_tertiary;
+  }
+}
+
+.form-required:after {
+  content: "(required)";
+  color: $workbc_palette_light_tertiary;
+  font-style: italic;
+  width: auto;
+  height: auto;
+  vertical-align: baseline;
+  background: none;
+}
+
+.form-type-checkbox .description {
+  display: inline-block;
+}
+
+fieldset {
+  border: none;
+}
+
+.fieldset-wrapper {
+  padding: 0;
+}

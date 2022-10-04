@@ -12,8 +12,8 @@ roles:
 author: false
 site_mail: false
 emails: ''
-subject: 'Sent for review: [current-page:title]'
+subject: 'For Approval: [node:title]'
 body:
-  value: "<p>[current-page:title] has been sent for review.</p>\r\n"
+  value: "<p>Page&nbsp;<strong>[node:title]</strong> has been sent for approval.</p>\r\n"
   format: basic_html
 label: Review

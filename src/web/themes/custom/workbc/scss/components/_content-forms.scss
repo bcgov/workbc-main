@@ -1,0 +1,30 @@
+.content-form {
+  padding: 40px 30px;
+  margin-bottom: 40px;
+  box-shadow: 0 0 10px rgb(219 219 219);
+}
+
+.content-form .form-text,
+.content-form .form-textarea,
+.content-form .form-email,
+.content-form .form-tel,
+.content-form .form-number,
+.content-form .form-select {
+  border: 2px solid $workbc_palette_dark_secondary;
+}
+
+.content-form legend {
+  display: none;
+}
+
+.content-form fieldset.form-item > .fieldset-wrapper {
+  padding: 0;
+}
+
+.content-form fieldset.form-item {
+  border: none;
+}
+
+.content-form .webform-button--submit {
+  @include btn-blue;
+}
