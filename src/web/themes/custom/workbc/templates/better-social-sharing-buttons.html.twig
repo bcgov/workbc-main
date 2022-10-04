@@ -1,0 +1,45 @@
+{{ attach_library('better_social_sharing_buttons/styling') }}
+
+<div class="social-sharing-buttons">
+    {# Facebook share button #}
+    {% if items.services.facebook %}
+        <a href="https://www.facebook.com/sharer/sharer.php?u={{ items.page_url }}&title={{ items.title }}" target="_blank" title="{{ 'Share to'|t }} Facebook" aria-label="{{ 'Share to'|t }} Facebook" class="social-sharing-buttons__button share-facebook" rel="noopener">
+            <span class="visually-hidden"> Follow Us on Facebook </span>
+        </a>
+    {% endif %}
+
+    {# Twitter share button #}
+    {% if items.services.twitter %}
+        <a href="http://twitter.com/intent/tweet?text={{ items.title }}+{{ items.page_url }}" target="_blank" title="{{ 'Share to'|t }} Twitter" aria-label="{{ 'Share to'|t }} Twitter" class="social-sharing-buttons__button share-twitter" rel="noopener">
+            <span class="visually-hidden"> Follow Us on Twitter </span>
+        </a>
+    {% endif %}
+
+    {# Linkedin share button #}
+    {% if items.services.linkedin %}
+        <a href="https://www.linkedin.com/sharing/share-offsite/?url={{ items.page_url }}" target="_blank" title="{{ 'Share to'|t }} Linkedin" aria-label="{{ 'Share to'|t }} Linkedin" class="social-sharing-buttons__button share-linkedin" rel="noopener">
+            <span class="visually-hidden"> Follow Us on LinkedIn </span>
+        </a>
+    {% endif %}
+
+    {# Email share button #}
+    {% if items.services.email %}
+        <a href="mailto:?subject={{ items.title }}&body={{ items.page_url }}" title="{{ 'Share to'|t }} Email" aria-label="{{ 'Share to'|t }} Email" class="social-sharing-buttons__button share-email" target="_blank" rel="noopener">
+            <span class="visually-hidden"> Share Via an Email </span>
+        </a>
+    {% endif %}
+
+    {# Print share button #}
+    {% if items.services.print %}
+    {% if items.print_css %}
+      {% set href = "#" %}
+      {% set rel = items.print_css %}
+      {{ attach_library('better_social_sharing_buttons/print-css') }}
+    {% else %}
+      {% set href = "javascript:window.print()" %}
+    {% endif %}
+    <a href="{{ href }}" rel="{{ rel }}" id="printlink" class="share-print">
+        <span class="visually-hidden"> Print this page </span>
+    </a>
+    {% endif %}
+</div>
