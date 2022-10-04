@@ -93,6 +93,11 @@ class SesMailer extends PluginBase implements MailInterface, ContainerFactoryPlu
       // Credentials are set in environment variables.
       $cc = array_key_exists('Cc', $message['headers']) ? [$message['headers']['Cc']] : [];
       $bcc = array_key_exists('Bcc', $message['headers']) ? [$message['headers']['Bcc']] : [];
+
+      \Drupal::logger('ses_mailer')->notice('Message[reply-to]: ' . $message['reply-to']);
+      $replyTo = empty($message['reply-to']) ? $message['from'] : $message['reply-to'];
+      \Drupal::logger('ses_mailer')->notice('Reply To: ' . $replyTo);
+
       $response = $this->sesClient->sendEmail([
         'Destination' => [
           'ToAddresses' => [$message['to']],
@@ -110,7 +115,7 @@ class SesMailer extends PluginBase implements MailInterface, ContainerFactoryPlu
           ],
         ],
         'ReplyToAddresses' => [$message['from']],
-        'ReturnPath' => $message['reply-to'],
+        'ReturnPath' => $replyTo,
         'Source' => $message['from'],
       ]);
       $this->logger->info('Successfully sent email from %from to %to with message ID %id', [
