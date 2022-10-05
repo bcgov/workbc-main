@@ -6,11 +6,15 @@ use Drupal\pathauto\PathautoState;
 /**
  * Generate nodes for all content types in the WorkBC IA.
  *
+ * Prerequisites:
+ * - drush scr scripts/migration/taxonomy -- -v content_groups /var/www/html/scripts/migration/data/content_groups.csv
+ *
  * Usage:
  * - drush scr scripts/migration/ia
  *
  * Revert:
  * - drush entity:delete node --bundle=page
+ * - drush entity:delete node --bundle=labour_market_monthly
  */
 
 $file = __DIR__ . '/data/ia.csv';
@@ -37,7 +41,8 @@ $types = [
     'link' => NULL,
     'basic page' => 'page',
     'basic page hero' => 'page',
-    'landing page' => 'page'
+    'landing page' => 'page',
+    'labour market monthly' => 'labour_market_monthly',
 ];
 
 // Content groups for editing permissions.
@@ -251,7 +256,7 @@ while (($row = fgetcsv($data)) !== FALSE) {
             'title' => $title,
             'path' => $path,
             'menu_item' => NULL,
-            'mega_menu' => !empty($row[MEGA_MENU]) ? $row_number : false,
+            'mega_menu' => strcasecmp($row[MEGA_MENU], "yes") === 0 ? $row_number : false,
             'uri' => NULL,
         ];
         print("  Created/updated $type: " . implode(' => ', $path) . PHP_EOL);
