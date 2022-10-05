@@ -33,3 +33,7 @@ fieldset {
 .fieldset-wrapper {
   padding: 0;
 }
+
+.form-submit {
+  @include btn-blue;
+}
