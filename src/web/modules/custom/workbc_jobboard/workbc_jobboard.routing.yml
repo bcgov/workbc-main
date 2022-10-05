@@ -1,4 +1,9 @@
-# workbc_jobboard.get_recent_jobs:
+###########################################
+# This file is for testing purposes only. 
+# It can be used to call local JSON file while developing instead of calling the API each time. 
+# getRecentJobsJson() will also have to be uncommented in WorkBcJobboardController.php for this routing to work. 
+###########################################
+#workbc_jobboard.get_recent_jobs:
   # path: '/api/career-profiles/topjobs/{noccode}'
   # defaults:
     # _title: 'Get Recent Jobs'

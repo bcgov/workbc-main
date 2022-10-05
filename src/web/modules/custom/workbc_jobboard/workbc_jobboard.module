@@ -21,7 +21,7 @@ function workbc_jobboard_theme($existing, $type, $theme, $path) {
         'no_of_records' => '',
         'no_result_text' => '',
         'readmore_label' => '',
-        'api_url' => '',
+        'jobboard_api_url' => '',
         'noc' => '',
       ],
     ],

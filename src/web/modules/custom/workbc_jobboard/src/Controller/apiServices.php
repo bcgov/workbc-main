@@ -24,9 +24,9 @@ class apiServices extends ControllerBase{
    *{@inheritdoc}
 	 */	
   function fnGetRecentPost($parameter='', $read_timeout=null) {
-    $api_url = \Drupal::config('jobboard')->get('api_url').'/'.GET_RECENT_POST;
+    $jobboard_api_url = \Drupal::config('jobboard')->get('jobboard_api_url').'/'.GET_RECENT_POST;
     if(!empty($parameter)){
-      $api_url .= "/".$parameter;
+      $jobboard_api_url .= "/".$parameter;
     }
     $client = new Client();
     try {
@@ -34,7 +34,7 @@ class apiServices extends ControllerBase{
       if ($read_timeout) {
         $options['read_timeout'] = $read_timeout;
       }
-      $response = $client->get($api_url, $options);
+      $response = $client->get($jobboard_api_url, $options);
       $result = json_decode($response->getBody(), TRUE);
       return $result;
     }

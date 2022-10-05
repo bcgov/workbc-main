@@ -22,4 +22,4 @@ $config['system.mail']['interface']['webform'] = 'ses_mail';
 // Single Source of Truth (SSoT) configuration.
 $config['workbc']['ssot_url'] = getenv('SSOT_URL');
 
-$config['jobboard']['api_url'] = getenv('api_url');
+$config['jobboard']['api_url'] = getenv('JOBBOARD_API_URL');
