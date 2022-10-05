@@ -536,7 +536,7 @@ display:
           replica: false
           query_tags: {  }
       relationships: {  }
-      css_class: ''
+      css_class: career-profiles-search
       use_ajax: false
       header: {  }
       footer: {  }
