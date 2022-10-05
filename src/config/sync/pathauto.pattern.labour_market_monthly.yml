@@ -7,12 +7,12 @@ dependencies:
 id: labour_market_monthly
 label: 'Labour Market Monthly'
 type: 'canonical_entities:node'
-pattern: 'labour-market-monthly/[node:field_month:date:custom:M-Y]'
+pattern: '[node:title]'
 selection_criteria:
-  bc2601ce-dd8f-468f-b325-9469950c5876:
+  18b21bef-6876-4f68-b0ac-55c5d4e74310:
     id: 'entity_bundle:node'
     negate: false
-    uuid: bc2601ce-dd8f-468f-b325-9469950c5876
+    uuid: 18b21bef-6876-4f68-b0ac-55c5d4e74310
     context_mapping:
       node: node
     bundles:
