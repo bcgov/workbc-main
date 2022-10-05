@@ -89,18 +89,50 @@ class SesMailer extends PluginBase implements MailInterface, ContainerFactoryPlu
   public function mail(array $message) {
     $result = [];
     $result['error'] = FALSE;
+
     try {
       // Credentials are set in environment variables.
-      $cc = array_key_exists('Cc', $message['headers']) ? [$message['headers']['Cc']] : [];
-      $bcc = array_key_exists('Bcc', $message['headers']) ? [$message['headers']['Bcc']] : [];
 
-      \Drupal::logger('ses_mailer')->notice('Message[reply-to]: ' . $message['reply-to']);
+      $to = [];
+      if (!is_array($message['to'])) {
+        if (!empty($message['to'])) {
+          $to = explode(",", $message['to']);
+        }
+      }
+      else {
+        $to = $message['to'];
+      }
+
+      $cc = [];
+      if (array_key_exists('Cc', $message['headers'])) {
+        if (!is_array($message['headers']['Cc'])) {
+          if (!empty($message['headers']['Cc'])) {
+            $cc = explode(",", $message['headers']['Cc']);
+          }
+        }
+        else {
+          $cc = $message['headers']['Cc'];
+        }
+      }
+      
+      $bcc = [];
+      if (array_key_exists('Bcc', $message['headers'])) {
+        if (!is_array($message['headers']['Bcc'])) {
+          if (!empty($message['headers']['Bcc'])) {
+            $bcc = explode(",", $message['headers']['Bcc']);
+          }
+        }
+        else {
+          $bcc = $message['headers']['Bcc'];
+        }
+      }
+
+      // if no reply-to address is provided, default to using from address
       $replyTo = empty($message['reply-to']) ? $message['from'] : $message['reply-to'];
-      \Drupal::logger('ses_mailer')->notice('Reply To: ' . $replyTo);
 
       $response = $this->sesClient->sendEmail([
         'Destination' => [
-          'ToAddresses' => [$message['to']],
+          'ToAddresses' => $to,
           'CcAddresses' => $cc,
           'BccAddresses' => $bcc,
         ],

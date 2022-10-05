@@ -8,8 +8,12 @@ use Drupal\paragraphs\Entity\Paragraph;
 /**
  * Update nodes for GatherContent WorkBC items.
  *
- * Usage:
+ * Prerequisites:
+ * - drush scr scripts/migration/ia (including prerequisites)
  * - drush scr scripts/migration/gc-jsonl -- -s "Content Revisions" -s "Manager Review" -s "Director Review" -s "ED Review" -s "GCPE Review" -s "Published" 284269 > scripts/migration/data/workbc.jsonl
+ * - drush scr scripts/migration/gc-jsonl -- -i 14989150 332842 > scripts/migration/data/labour_market_introductions.jsonl
+
+ * Usage:
  * - drush scr scripts/migration/workbc
  *
  * Revert:
@@ -18,6 +22,14 @@ use Drupal\paragraphs\Entity\Paragraph;
  * - drush entity:delete node --bundle=success_story
  */
 
+// Read GatherContent labour market introduction if present.
+$labour_market_introductions = NULL;
+if (file_exists(__DIR__ . '/data/labour_market_introductions.jsonl')) {
+  print("Reading GC Labour Market Introductions\n");
+  $labour_market_introductions = json_decode(file_get_contents(__DIR__ . '/data/labour_market_introductions.jsonl'));
+}
+
+// Read GatherContent page data.
 $file = __DIR__ . '/data/workbc.jsonl';
 if (($data = fopen($file, 'r')) === FALSE) {
     die("Could not open GC WorkBC items $file" . PHP_EOL);
@@ -32,7 +44,7 @@ while (!feof($data)) {
     $items[$item->id] = $item;
 }
 
-// FIRST PASS: Create missing items.
+// FIRST PASS: Create nodes that are not expressed in the IA.
 print("FIRST PASS =================" . PHP_EOL);
 foreach ($items as $id => $item) {
     $title = convertPlainText($item->title);
@@ -79,6 +91,7 @@ foreach ($items as $id => $item) {
         $images = array_map('convertImage', array_filter($item->{'Banner Image'}));
         if (!empty($images)) {
             $fields['field_hero_image'] = current($images);
+            $fields['field_image'] = current($images);
         }
     }
 
@@ -111,13 +124,27 @@ foreach ($items as $id => $item) {
         $fields['field_content'] = $field_content;
     }
 
-    // Populate remaining fields based on template type.
-    switch (trim($item->template)) {
-        case "Blog Post, News Post, Success Stories Post":
-            if (property_exists($item, 'Date')) {
-                $fields['published_date'] = strtotime($item->{'Date'});
-            }
-            break;
+    // Populate remaining fields based on specific conditions.
+    $template = convertPlainText($item->template);
+    if ($template === 'Blog Post, News Post, Success Stories Post') {
+        if (property_exists($item, 'Date')) {
+            $fields['published_date'] = strtotime($item->{'Date'});
+        }
+        break;
+    }
+    else if ($title === 'Labour Market Monthly Update' && !empty($labour_market_introductions)) {
+        if (property_exists($labour_market_introductions, 'Employment Introduction')) {
+            $fields['field_employment_introduction'] = convertRichText($labour_market_introductions->{'Employment Introduction'});
+        }
+        if (property_exists($labour_market_introductions, 'Industry Highlights Introduction')) {
+            $fields['field_industry_highlights_intro'] = convertRichText($labour_market_introductions->{'Industry Highlights Introduction'});
+        }
+        if (property_exists($labour_market_introductions, 'Unemployment by Region Introduction')) {
+            $fields['field_unemployment_region_intro'] = convertRichText($labour_market_introductions->{'Unemployment by Region Introduction'});
+        }
+        if (property_exists($labour_market_introductions, 'Unemployment Introduction')) {
+            $fields['field_unemployment_introduction'] = convertRichText($labour_market_introductions->{'Unemployment Introduction'});
+        }
     }
 
     // We want to create or update a Drupal node for this GC item.

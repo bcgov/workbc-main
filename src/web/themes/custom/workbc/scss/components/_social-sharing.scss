@@ -1,0 +1,61 @@
+.social-sharing-buttons {
+  justify-content: left;
+  padding-bottom: 20px;
+  margin: 0;
+
+  @include media-breakpoint-up(md) {
+    justify-content: right;
+  }
+}
+
+.social-sharing-buttons a {
+  display: block;
+  width: 32px;
+  height: 32px;
+  border-radius: 0;
+  background-color: #fff;
+  background-repeat: no-repeat;
+  background-position: center;
+  background-size: auto 47%;
+  text-decoration: none;
+
+  &.share-facebook {
+    background-image: url("../assets/images/social-icon-facebook-grey.svg");
+
+    &:hover {
+      background-image: url("../assets/images/social-icon-facebook-blue.svg");
+    }
+  }
+
+  &.share-twitter {
+    background-image: url("../assets/images/social-icon-twitter-grey.svg");
+
+    &:hover {
+      background-image: url("../assets/images/social-icon-twitter-blue.svg");
+    }
+  }
+
+  &.share-linkedin {
+    background-image: url("../assets/images/social-icon-linkedin-grey.svg");
+
+    &:hover {
+      background-image: url("../assets/images/social-icon-linkedin-blue.svg");
+    }
+  }
+
+  &.share-email {
+    background-image: url("../assets/images/social-icon-email-grey.svg");
+
+    &:hover {
+      background-image: url("../assets/images/social-icon-email-blue.svg");
+    }
+  }
+
+  &.share-print {
+    background-image: url("../assets/images/social-icon-printer-grey.svg");
+
+    &:hover {
+      background-image: url("../assets/images/social-icon-printer-blue.svg");
+    }
+  }
+}

@@ -28,3 +28,9 @@
 .content-form .webform-button--submit {
   @include btn-blue;
 }
+
+
+// Tour Stop Form override
+.webform-submission-request-a-tour-stop-form #edit-cancel {
+  @include visually-hidden;
+}

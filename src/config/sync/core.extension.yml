@@ -124,6 +124,7 @@ module:
   webform_ui: 0
   workbc_custom: 0
   workbc_extra_fields: 0
+  workbc_jobboard: 0
   workbc_menu: 0
   workflows: 0
   pathauto: 1

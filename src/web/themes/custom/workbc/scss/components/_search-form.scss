@@ -33,14 +33,13 @@
   }
 }
 
-.search-form .form-submit.btn-primary {
+.search-form .form-submit {
   background-color: transparent;
   border-radius: 0;
   border: 2px solid #aaa;
   border-left: none;
   font-size: 0;
   line-height: 0;
-  height: 44px;
   width: 44px;
   background-image: url(../assets/images/search-icon.svg);
   background-position: calc(100% - 10px) center;
@@ -54,12 +53,14 @@
 
 // Header Search
 .header__search .search-form .form-control,
-.header__search .search-form .form-submit.btn-primary {
+.header__search .search-form .form-submit {
   background-color: $workbc_palette_light_secondary;
 }
 
 .header__search .search-form .form-control,
-.header__search .search-form .form-submit.btn-primary {
+.header__search .search-form .form-submit {
+  height: 44px;
+
   &:focus {
     background-color: #fff;
   }
@@ -71,7 +72,9 @@
 }
 
 .region-content .search-form .form-control,
-.region-content .search-form .form-submit.btn-primary {
+.region-content .search-form .form-submit {
+  height: 44px;
+
   &:hover,
   &:focus {
     background-color: #f8f8f8;

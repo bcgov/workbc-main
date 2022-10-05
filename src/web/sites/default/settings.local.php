@@ -169,6 +169,8 @@ $settings['skip_permissions_hardening'] = TRUE;
  */
 $config['workbc']['ssot_url'] = 'http://ssot:3000';
 
+$config['jobboard']['jobboard_api_url'] = 'https://api-jobboard.workbc.ca';
+
 $config['backup_migrate.backup_migrate_source.ssot_database'] = [
   'id' => 'ssot_database',
   'label' => 'SSoT Database',

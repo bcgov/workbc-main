@@ -23,7 +23,6 @@ use GuzzleHttp\Exception\RequestException;
 
 // Read and migrate GatherContent career profile introduction if present.
 $career_profile_introductions = NULL;
-
 if (file_exists(__DIR__ . '/data/career_profile_introductions.jsonl')) {
   print("Reading GC Career Profile Introductions\n");
   $career_profile_introductions = json_decode(file_get_contents(__DIR__ . '/data/career_profile_introductions.jsonl'));
