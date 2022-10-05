@@ -93,28 +93,37 @@ class SesMailer extends PluginBase implements MailInterface, ContainerFactoryPlu
     try {
       // Credentials are set in environment variables.
 
+      $to = [];
       if (!is_array($message['to'])) {
         if (!empty($message['to'])) {
           $to = explode(",", $message['to']);
         }
+      }
+      else {
+        $to = $message['to'];
+      }
+
+      $cc = [];
+      if (array_key_exists('Cc', $message['headers'])) {
+        if (!is_array($message['headers']['Cc'])) {
+          if (!empty($message['headers']['Cc'])) {
+            $cc = explode(",", $message['headers']['Cc']);
+          }
+        }
         else {
-          $to = [];
+          $cc = $message['headers']['Cc'];
         }
       }
-      if (!is_array($message['headers']['Cc'])) {
-        if (!empty($message['headers']['Cc'])) {
-          $cc = explode(",", $message['headers']['Cc']);
+      
+      $bcc = [];
+      if (array_key_exists('Bcc', $message['headers'])) {
+        if (!is_array($message['headers']['Bcc'])) {
+          if (!empty($message['headers']['Bcc'])) {
+            $bcc = explode(",", $message['headers']['Bcc']);
+          }
         }
         else {
-          $cc = [];
-        }
-      }
-      if (!is_array($message['headers']['Bcc'])) {
-        if (!empty($message['headers']['Bcc'])) {
-          $bcc = explode(",", $message['headers']['Bcc']);
-        }
-        else {
-          $bcc = [];
+          $bcc = $message['headers']['Bcc'];
         }
       }
 
