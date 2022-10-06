@@ -8,38 +8,6 @@
   flex-flow: row wrap;
 }
   
-.hero-content-wrapper {
-  display: flex;
-  flex-flow: column nowrap;
-  z-index: 5;
-  margin: 30px 0;
-
-  @include media-breakpoint-up(lg) { 
-      width: 50%;
-      margin: 80px 0;
-  }
-}
-
-.hero-content {
-  @include media-breakpoint-up(lg) {
-    width: 50%;
-  }
-}
-
-.hero-title {
-  flex: 0 0 100%;
-  font-size: 2.813rem;
-
-  @include media-breakpoint-up(lg) {
-    margin-bottom: 50px;
-    width: 50%;
-  }
-}
-
-.hero-title-card .basic-page-header {
-  margin-bottom: 0;
-}
-
 .hero-image-wrapper {
   width: 100%;
 
@@ -82,6 +50,53 @@
   }
 }
 
+.hero-content-wrapper {
+  display: flex;
+  flex-flow: column nowrap;
+  z-index: 5;
+  padding: 30px 0;
+
+  @include media-breakpoint-up(lg) { 
+      padding: 80px 0;
+  }
+}
+
+.hero-content {
+  flex: 0 0;
+  @include media-breakpoint-up(lg) {
+    width: 50%;
+  }
+}
+
+.hero-title {
+  flex: 0 0;
+  font-size: 2.813rem;
+
+  @include media-breakpoint-up(lg) {
+    margin-bottom: 50px;
+    width: 50%;
+  }
+}
+
+.hero-title-card .basic-page-header {
+  margin-bottom: 0;
+}
+
+.hero-noc {
+  flex: 0 0 100%;
+  color: #6E6E6E;
+  margin-bottom: $workbc_spacing_default;
+}
+
+.hero-hoo {
+  flex: 0 0 100%;
+  color: $workbc_palette_dark_secondary;
+
+  @include media-breakpoint-up(lg) { 
+      align-self: flex-end;
+  }
+}
+
 .hero-banner.hero-banner-profile {
   .hero-title .basic-page-header {
     margin-bottom: 10px;
@@ -102,29 +117,11 @@
     }
     
     .hero-content-wrapper {
-        padding: 30px 20px 10px 20px;
-        background: $workbc_palette_light_primary;
-        border-bottom: $workbc_trim_ultra_thin_size solid $workbc_palette_dark_secondary;
-        box-shadow: $workbc_default_box_shadow;
+      margin-top: 60px;
+      padding: 30px 20px 10px 20px;
+      background: $workbc_palette_light_primary;
+      border-bottom: $workbc_trim_ultra_thin_size solid $workbc_palette_dark_secondary;
+      box-shadow: $workbc_default_box_shadow;
     }
   }
-}
-
-.hero-noc {
-  flex: 0 0 100%;
-  color: #6E6E6E;
-  margin-bottom: $workbc_spacing_default;
-}
-
-.hero-hoo {
-  flex: 0 0 100%;
-  color: $workbc_palette_dark_secondary;
-
-  @include media-breakpoint-up(lg) { 
-      align-self: flex-end;
-  }
-}
-
-.hero-content {
-  flex: 0 0 100%;
 }
