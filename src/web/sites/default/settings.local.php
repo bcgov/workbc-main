@@ -239,3 +239,5 @@ if (class_exists('Kint')) {
   // Set the max_depth to prevent out-of-memory.
   \Kint::$depth_limit = 3;
 }
+
+header('access-control-allow-origin: *');
