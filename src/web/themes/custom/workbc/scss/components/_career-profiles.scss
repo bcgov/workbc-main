@@ -117,4 +117,29 @@
     .career-recent-jobs-wrapper {
 
     }
+
+    .career-content-container {
+        display: flex;
+        flex-flow: row wrap;
+
+        .career-content-main {
+            flex: 0 0 100%;
+            width: 100%;
+
+            @include media-breakpoint-up(lg) {
+                flex: 0 0 75%;
+                width: 75%;
+            }
+        }
+
+        .career-content-sidebar {
+            flex: 0 0 100%;
+            width: 100%;
+
+            @include media-breakpoint-up(lg) {
+                flex: 0 0 25%;
+                width: 25%;
+            }
+        }
+    }
 }

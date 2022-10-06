@@ -190,26 +190,34 @@
     </div>
   </div>
 
-  <div class="career-details-wrapper">
-    <div class="career-details-theme-shim"></div>
-    <div class="container-lg">
-      {{ career_profile_tabbed_content }}
-    </div>
-  </div>
+    <div class="career-details-wrapper">
+      <div class="career-details-theme-shim"></div>
+      <div class="container-lg">
+        <div class="career-content-container">
 
-  <div class="career-videos-wrapper">
-    <div class="container-lg">
-      <h2>{{ career_videos_introduction }}</h2>
-      {{ career_videos }}
-    </div>
-  </div>
+          <div class="career-content-main">
+            {{ career_profile_tabbed_content }}
+          </div>
 
-  <div class="career-recent-jobs-wrapper">
-    <div class="container-lg">
-      Recent Jobs Placeholder (desktop sidebar)
-      {{ links }}
+          <div class="career-content-sidebar">
+            <div class="career-videos-wrapper">
+              <div class="container-lg">
+                <h2>{{ career_videos_introduction }}</h2>
+                {{ career_videos }}
+              </div>
+            </div>
+
+            <div class="career-recent-jobs-wrapper">
+              <div class="container-lg">
+                {# {{ drupal_block('workbc_jobboard_recent_jobs_sidebar', wrapper=false) }} #}
+                {{ drupal_entity('block', 'recentjobs') }}
+              </div>
+            </div>
+          </div>
+
+        </div>
+      </div>
     </div>
-  </div>
 
 </article>
 
