@@ -50,6 +50,10 @@
   }
 }
 
+.hero-content-container {
+  flex: 50%;
+}
+
 .hero-content-wrapper {
   display: flex;
   flex-flow: column nowrap;
@@ -58,14 +62,12 @@
 
   @include media-breakpoint-up(lg) { 
       padding: 80px 0;
+      width: 50%;
   }
 }
 
 .hero-content {
   flex: 0 0;
-  @include media-breakpoint-up(lg) {
-    width: 50%;
-  }
 }
 
 .hero-title {
@@ -74,7 +76,6 @@
 
   @include media-breakpoint-up(lg) {
     margin-bottom: 50px;
-    width: 50%;
   }
 }
 
@@ -83,13 +84,13 @@
 }
 
 .hero-noc {
-  flex: 0 0 100%;
+  flex: 0 0;
   color: #6E6E6E;
   margin-bottom: $workbc_spacing_default;
 }
 
 .hero-hoo {
-  flex: 0 0 100%;
+  flex: 0 0;
   color: $workbc_palette_dark_secondary;
 
   @include media-breakpoint-up(lg) { 
