@@ -1,70 +1,23 @@
-$hero_banner_height: 420px;
-
 .hero-banner {
-    position: relative; // create positional context %herobanner
-    min-height: $hero_banner_height;
-    z-index: 1;
-    border-bottom: $workbc_trim_ultra_thin_size solid $workbc_palette_dark_secondary;
-    background-color: $workbc_light_theme_background_accent;
-    display: flex;
-    flex-flow: row wrap;
-    
-    &.hero-banner-profile {
-       .hero-title .basic-page-header {
-            margin-bottom: 10px;
-        }
+  position: relative; // create positional context %herobanner
+  min-height: 420px;
+  z-index: 1;
+  border-bottom: $workbc_trim_ultra_thin_size solid $workbc_palette_dark_secondary;
+  background-color: $workbc_light_theme_background_accent;
+  display: flex;
+  flex-flow: row wrap;
+}
+  
+.hero-content-wrapper {
+  display: flex;
+  flex-flow: column nowrap;
+  z-index: 5;
+  margin: 30px 0;
 
-        @include media-breakpoint-up(lg) { 
-            border-bottom: none;
-
-            &:after {
-                position: absolute;
-                bottom: 0;
-                left: 0;
-                right: 0;
-                top: 0;
-                z-index: 10;
-                content: '';
-                box-shadow: $workbc_default_inset_bottom_shadow;
-            }
-            
-            .hero-content-wrapper {
-                padding: 30px 20px 10px 20px;
-                background: $workbc_palette_light_primary;
-                border-bottom: $workbc_trim_ultra_thin_size solid $workbc_palette_dark_secondary;
-                box-shadow: $workbc_default_box_shadow;
-            }
-        }
-    }
-
-    .hero-image-wrapper {
-        width: 100%;
-
-        @include media-breakpoint-up(lg) { 
-            position: absolute; // relative to positional context %herobanner
-            top: 0;
-            right: 0;
-            bottom: 0;
-            z-index: -1;
-            display: flex;
-            justify-content: flex-end;
-            width: auto;
-        }
-    
-        .hero-image-overlay {
-            @include media-breakpoint-up(lg) { 
-                position: absolute; // relative to positional context %herobanner
-                top: 0;
-                right: 0;
-                bottom: 0;
-                left: 0;
-                z-index: 2;
-        
-                background: rgb(255,255,255);
-                background: linear-gradient(90deg, rgba($workbc_light_theme_background_accent,1) 10%, rgba($workbc_light_theme_background_accent,0) 50%);
-            }
-        }
-    }
+  @include media-breakpoint-up(lg) { 
+      width: 50%;
+      margin: 80px 0;
+  }
 }
 
 .hero-content {
@@ -74,48 +27,42 @@ $hero_banner_height: 420px;
 }
 
 .hero-title {
+  flex: 0 0 100%;
   font-size: 2.813rem;
 
-    .hero-content-wrapper {
-        display: flex;
-        flex-flow: column nowrap;
-        z-index: 5;
-        padding: 30px 20px;
+  @include media-breakpoint-up(lg) {
+    margin-bottom: 50px;
+    width: 50%;
+  }
+}
 
-        @include media-breakpoint-up(lg) { 
-            width: 50%;
-            padding: 80px 10px;
-        }
+.hero-title-card .basic-page-header {
+  margin-bottom: 0;
+}
 
-        .hero-title {
-            flex: 0 0 100%;
-        }
+.hero-image-wrapper {
+  width: 100%;
 
-        .hero-title-card {
-            .basic-page-header {
-                margin-bottom: 0;
-            }
-        }
-    
-        .hero-noc {
-            flex: 0 0 100%;
-            color: #6E6E6E;
-            margin-bottom: $workbc_spacing_default;
-        }
+  @include media-breakpoint-up(lg) {
+    position: absolute; // relative to positional context %herobanner
+    top: 0;
+    right: 0;
+    bottom: 0;
+    z-index: 2;
+    display: flex;
+    justify-content: flex-end;
+    width: auto;
+  }
+}
 
-        .hero-hoo {
-            flex: 0 0 100%;
-            color: $workbc_palette_dark_secondary;
+.hero-image-wrapper img {
+  width: 100%;
+  z-index: 1;
 
-            @include media-breakpoint-up(lg) { 
-                align-self: flex-end;
-            }
-        }
-
-        .hero-content {
-            flex: 0 0 100%;
-        }
-    }
+  @include media-breakpoint-up(lg) {
+    height: 100%;
+    width: auto;
+  }
 }
 
 .hero-image-overlay {
@@ -133,4 +80,51 @@ $hero_banner_height: 420px;
       rgba($workbc_light_theme_background_accent, 0) 50%
     );
   }
+}
+
+.hero-banner.hero-banner-profile {
+  .hero-title .basic-page-header {
+    margin-bottom: 10px;
+  }
+
+  @include media-breakpoint-up(lg) { 
+    border-bottom: none;
+
+    &:after {
+        position: absolute;
+        bottom: 0;
+        left: 0;
+        right: 0;
+        top: 0;
+        z-index: 10;
+        content: '';
+        box-shadow: $workbc_default_inset_bottom_shadow;
+    }
+    
+    .hero-content-wrapper {
+        padding: 30px 20px 10px 20px;
+        background: $workbc_palette_light_primary;
+        border-bottom: $workbc_trim_ultra_thin_size solid $workbc_palette_dark_secondary;
+        box-shadow: $workbc_default_box_shadow;
+    }
+  }
+}
+
+.hero-noc {
+  flex: 0 0 100%;
+  color: #6E6E6E;
+  margin-bottom: $workbc_spacing_default;
+}
+
+.hero-hoo {
+  flex: 0 0 100%;
+  color: $workbc_palette_dark_secondary;
+
+  @include media-breakpoint-up(lg) { 
+      align-self: flex-end;
+  }
+}
+
+.hero-content {
+  flex: 0 0 100%;
 }
