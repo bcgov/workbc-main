@@ -82,6 +82,35 @@
 
 {% set career_profile_tabbed_content = content.group_career_profile_tabs %}
 
+{% set tab_groups = {
+  'item-1': {
+    'title': 'Career Overview',
+    'key': 'group_career_overview',
+    'content': career_profile_tabbed_content.group_career_overview,
+  },
+  'item-2': {
+    'title': 'Training, Education & Skills',
+    'key': 'group_education_training_skills',
+    'content': career_profile_tabbed_content.group_education_training_skills,
+  },
+  'item-3': {
+    'title': 'Labour Market Statistics',
+    'key': 'group_labour_market_statistics',
+    'content': career_profile_tabbed_content.group_labour_market_statistics,
+  },
+  'item-4': {
+    'title': 'Industry Highlights',
+    'key': 'group_industry_highlights',
+    'content': career_profile_tabbed_content.group_industry_highlights,
+  },
+  'item-5': {
+    'title': 'Resources',
+    'key': 'group_resources',
+    'content': career_profile_tabbed_content.group_resources,
+  },
+ }
+%}
+
 {% set career_videos_introduction = content.field_career_videos_introduction %}
 {% set career_videos = content.field_career_videos %}
 {% set links = content.links %}
@@ -190,35 +219,49 @@
     </div>
   </div>
 
-    <div class="career-details-wrapper">
-      <div class="career-details-theme-shim"></div>
-      <div class="container-lg">
-        <div class="career-content-container">
+  <div class="career-details-wrapper">
 
-          <div class="career-content-main">
-            {{ career_profile_tabbed_content }}
+    <div class="career-content-tabs">
+      <div class="container-lg">
+        <ul class="nav nav-tabs" id="career-content-tabs" role="tablist">
+          {% for group in tab_groups %}
+            <li class="nav-item" role="presentation">
+              <a class="nav-link{{ loop.first ? ' active'}}" id="{{group.key}}-tab" data-bs-toggle="tab" data-bs-target="#{{group.key}}-content" aria-controls="{{group.key}}-content" aria-selected="true" role="tab" href="#">{{group.title}}</a>
+            </li>
+          {% endfor %}
+        </ul>
+      </div>
+    </div>
+
+    <div class="container-lg">
+      <div class="career-content-container">
+
+        <div class="tab-content career-content-main">
+          {% for group in tab_groups %}
+            <div class="tab-pane{{ loop.first ? ' active'}}" id="{{group.key}}-content" role="tabpanel" aria-labelledby="{{group.key}}-tab">
+                {{ group.content }}
+            </div>
+          {% endfor %}
+        </div>
+
+        <div class="career-content-sidebar">
+          <div class="career-videos-wrapper">
+            <div class="container-lg">
+              <h2>{{ career_videos_introduction }}</h2>
+              {{ career_videos }}
+            </div>
           </div>
 
-          <div class="career-content-sidebar">
-            <div class="career-videos-wrapper">
-              <div class="container-lg">
-                <h2>{{ career_videos_introduction }}</h2>
-                {{ career_videos }}
-              </div>
-            </div>
-
-            <div class="career-recent-jobs-wrapper">
-              <div class="container-lg">
-                {# {{ drupal_block('workbc_jobboard_recent_jobs_sidebar', wrapper=false) }} #}
-                {{ drupal_entity('block', 'recentjobs') }}
-              </div>
+          <div class="career-recent-jobs-wrapper">
+            <div class="container-lg">
+              {{ drupal_entity('block', 'recentjobs') }}
             </div>
           </div>
 
         </div>
       </div>
     </div>
-
+  </div>
 </article>
 
 {% if related|striptags|trim %}
