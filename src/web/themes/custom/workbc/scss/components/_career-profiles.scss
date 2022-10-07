@@ -26,6 +26,30 @@
             }
         }
 
+
+        .scroll-container {
+            position: relative;
+
+            &:after {
+                position: absolute;
+                content: '';
+                right: 50px;
+                bottom: -20px;
+                height: 20px;
+                width: 50px;
+                background-image: url(../assets/images/scroll-right-icon.svg);        
+                background-position: center;
+                background-repeat: no-repeat;
+            }
+
+            @include media-breakpoint-up(lg)
+            {
+                &:after {
+                    display: none;
+                }
+            }
+        }
+
         .scroll {
             display: flex;
             flex-wrap: nowrap;
