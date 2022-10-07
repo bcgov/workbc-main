@@ -25,11 +25,12 @@
 }
 
 .hero-title {
-  font-size: 2.813rem;
+  font-size: 2.25;
 
   @include media-breakpoint-up(lg) {
     margin-bottom: 50px;
     width: 50%;
+    font-size: 2.813rem;
   }
 }
 
