@@ -33,11 +33,11 @@
             &:after {
                 position: absolute;
                 content: '';
-                right: 50px;
-                bottom: -20px;
+                right: 0;
+                bottom: -25px;
                 height: 20px;
                 width: 50px;
-                background-image: url(../assets/images/scroll-right-icon.svg);        
+                background-image: url(../assets/images/scroll-right-icon.svg);
                 background-position: center;
                 background-repeat: no-repeat;
             }
@@ -54,16 +54,7 @@
             display: flex;
             flex-wrap: nowrap;
             white-space: nowrap;
-            overflow-x: auto;
-            overflow-y: hidden;
-            -webkit-overflow-scrolling: touch;
-            -ms-overflow-style: -ms-autohiding-scrollbar;
         }
-
-        .scroll::--webkit-scrollbar {
-            display: none;
-        }
-
 
         .career-content-tabs {
             border: none;
@@ -72,14 +63,13 @@
 
             .career-content-tab-list {
                 width: 100%;
-                padding: 0 15px;
                 border-bottom: 0;
 
                 .career-content-tab-button {
                     border: $border-size solid;
                     border-radius: 0;
                     border-bottom: none;
-                    margin-right: $border-size;                    
+                    margin-right: $border-size;
 
                     &.active {
                         position: relative; // relative to positional context %career-details-wrapper
@@ -87,7 +77,7 @@
                         font-weight: bold;
                         color: $workbc_palette_dark_secondary;
                         background-color: $workbc_palette_light_primary;
-                    
+
                         &:hover {
                             text-decoration: none;
                         }
@@ -110,39 +100,6 @@
                 }
             }
         }
-
-
-        // Series of overrides on top of Drupal Horizontal tab styling
-        .horizontal-tabs {
-            z-index: 2;
-            border: none;
-            background-color: $workbc_palette_light_primary;
-
-            // at mobile, in "panes" mode
-            details {
-                border: $border-size solid $workbc_palette_dark_secondary;
-                border-radius: 0;
-                border-collapse: collapse;
-
-                @include media-breakpoint-up(lg) {
-                    border: none;
-                }
-
-                &:not([open]) summary {
-                    border-radius: 0;
-                    color: $workbc_palette_light_primary;
-                    background-color: $workbc_palette_dark_secondary !important;
-                }
-
-                &[open] summary {
-                    border-radius: 0;
-                    color: $workbc_palette_dark_secondary;
-                    background-color: $workbc_palette_light_primary !important;
-                    border-bottom: $border-size solid $workbc_palette_dark_secondary;
-                }
-    
-            }
-        }
     }
 
     .career-videos-wrapper {
@@ -160,6 +117,7 @@
         .career-content-main {
             flex: 0 0 100%;
             width: 100%;
+            padding: 30px 0;
 
             @include media-breakpoint-up(lg) {
                 flex: 0 0 75%;
