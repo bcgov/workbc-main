@@ -1,3 +1,4 @@
 backup_migrate.backup_migrate_source.ssot_database.yml
+backup_migrate.backup_migrate_destination.s3_bucket.yml
 openid_connect.settings.keycloak.yml
 recaptcha.settings.yml
