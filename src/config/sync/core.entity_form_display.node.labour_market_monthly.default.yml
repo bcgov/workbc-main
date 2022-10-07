@@ -8,7 +8,6 @@ dependencies:
     - field.field.node.labour_market_monthly.field_hero_image
     - field.field.node.labour_market_monthly.field_hero_text
     - field.field.node.labour_market_monthly.field_industry_highlights_intro
-    - field.field.node.labour_market_monthly.field_monthly_introduction
     - field.field.node.labour_market_monthly.field_related_topics
     - field.field.node.labour_market_monthly.field_scheduled_publish
     - field.field.node.labour_market_monthly.field_unemployment_introduction
@@ -67,14 +66,6 @@ content:
   field_industry_highlights_intro:
     type: text_textarea
     weight: 16
-    region: content
-    settings:
-      rows: 5
-      placeholder: ''
-    third_party_settings: {  }
-  field_monthly_introduction:
-    type: text_textarea
-    weight: 3
     region: content
     settings:
       rows: 5
