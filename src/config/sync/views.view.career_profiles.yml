@@ -536,9 +536,22 @@ display:
           replica: false
           query_tags: {  }
       relationships: {  }
-      css_class: career-profiles-search
+      css_class: 'container-lg page-format--standard career-profiles-search'
       use_ajax: false
-      header: {  }
+      header:
+        area:
+          id: area
+          table: views
+          field: area
+          relationship: none
+          group_type: group
+          admin_label: ''
+          plugin_id: text
+          empty: false
+          content:
+            value: '<h1 class="page-title">Career Profiles: Search by A-Z </h1>'
+            format: full_html
+          tokenize: false
       footer: {  }
       display_extenders: {  }
     cache_metadata:
@@ -632,6 +645,7 @@ display:
       display_extenders: {  }
       displays:
         default: default
+        page_1: page_1
       inherit_arguments: false
     cache_metadata:
       max-age: -1
@@ -644,13 +658,14 @@ display:
         - user.permissions
       tags:
         - 'config:field.storage.node.field_noc'
-  block_1:
-    id: block_1
-    display_title: Block
-    display_plugin: block
+  page_1:
+    id: page_1
+    display_title: Page
+    display_plugin: page
     position: 3
     display_options:
       display_extenders: {  }
+      path: plan-career/explore-careers/career-search
     cache_metadata:
       max-age: -1
       contexts:
