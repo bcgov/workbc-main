@@ -168,7 +168,7 @@ display:
           exclude: false
           alter:
             alter_text: true
-            text: "{{ name_1 }}\r\n{{ description__format }}"
+            text: "<h2>{{ name_1 }}</h2>\r\n{{ description__format }}"
             make_link: false
             path: ''
             absolute: false
@@ -391,7 +391,7 @@ display:
           replica: false
           query_tags: {  }
       relationships: {  }
-      css_class: page-format--standard
+      css_class: ''
       header:
         area:
           id: area
@@ -490,6 +490,7 @@ display:
       displays:
         default: default
         page_1: page_1
+      attachment_position: before
       inherit_arguments: false
     cache_metadata:
       max-age: -1
@@ -505,11 +506,28 @@ display:
     display_plugin: page
     position: 1
     display_options:
+      title: Definitions
       defaults:
+        title: false
         css_class: false
-      css_class: 'page-format--standard container-lg alphabet-search-results'
+        header: false
+      css_class: 'container-lg page-format--standard alphabet-search-results'
+      header:
+        area:
+          id: area
+          table: views
+          field: area
+          relationship: none
+          group_type: group
+          admin_label: ''
+          plugin_id: text
+          empty: false
+          content:
+            value: '<h1 class="page-title">Definitions</h1>'
+            format: full_html
+          tokenize: false
       display_extenders: {  }
-      path: definitions
+      path: plan-career/explore-careers/definitions
     cache_metadata:
       max-age: -1
       contexts:
