@@ -220,13 +220,14 @@
   </div>
 
   <div class="career-details-wrapper">
+    <div class="career-content-shim"></div>
 
-    <div class="career-content-tabs">
-      <div class="container-lg">
-        <ul class="nav nav-tabs" id="career-content-tabs" role="tablist">
+    <div class="career-content-tabs ">
+      <div class="container-lg scroll-container">
+        <ul class="nav nav-tabs career-content-tab-list scroll" id="career-content-tabs" role="tablist">
           {% for group in tab_groups %}
             <li class="nav-item" role="presentation">
-              <a class="nav-link{{ loop.first ? ' active'}}" id="{{group.key}}-tab" data-bs-toggle="tab" data-bs-target="#{{group.key}}-content" aria-controls="{{group.key}}-content" aria-selected="true" role="tab" href="#">{{group.title}}</a>
+              <a class="nav-link career-content-tab-button{{ loop.first ? ' active'}}" id="{{group.key}}-tab" data-bs-toggle="tab" data-bs-target="#{{group.key}}-content" aria-controls="{{group.key}}-content" aria-selected="true" role="tab" href="#">{{group.title}}</a>
             </li>
           {% endfor %}
         </ul>

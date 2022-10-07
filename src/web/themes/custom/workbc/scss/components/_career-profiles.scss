@@ -11,6 +11,7 @@
         $border-size: 3px;
 
         position: relative; // begin positional context %career-details-wrapper
+        z-index: 10;
         background-color: #ffffff;
 
         @include media-breakpoint-up(lg) {
@@ -25,63 +26,73 @@
             }
         }
 
+        .scroll {
+            display: flex;
+            flex-wrap: nowrap;
+            white-space: nowrap;
+            overflow-x: auto;
+            overflow-y: hidden;
+            -webkit-overflow-scrolling: touch;
+            -ms-overflow-style: -ms-autohiding-scrollbar;
+        }
+
+        .scroll::--webkit-scrollbar {
+            display: none;
+        }
+
+
+        .career-content-tabs {
+            border: none;
+            background-color: $workbc_palette_light_secondary;
+            border-bottom: $border-size solid $workbc_palette_dark_secondary;
+
+            .career-content-tab-list {
+                width: 100%;
+                padding: 0 15px;
+                border-bottom: 0;
+
+                .career-content-tab-button {
+                    border: $border-size solid;
+                    border-radius: 0;
+                    border-bottom: none;
+                    margin-right: $border-size;                    
+
+                    &.active {
+                        position: relative; // relative to positional context %career-details-wrapper
+                        border-color: $workbc_palette_dark_secondary;
+                        font-weight: bold;
+                        color: $workbc_palette_dark_secondary;
+                        background-color: $workbc_palette_light_primary;
+                    
+                        &:hover {
+                            text-decoration: none;
+                        }
+                    }
+
+                    &:not(.active) {
+                        border-color: $workbc_palette_dark_secondary;
+                        color: $workbc_palette_light_primary;
+                        background-color: $workbc_palette_dark_secondary;
+
+                        strong {
+                            font-weight: normal;
+                        }
+
+                        &:hover {
+                            background-color: #215693;
+                            text-decoration: none;
+                        }
+                    }
+                }
+            }
+        }
+
+
         // Series of overrides on top of Drupal Horizontal tab styling
         .horizontal-tabs {
             z-index: 2;
             border: none;
             background-color: $workbc_palette_light_primary;
-
-            // at tablet+, in "tabs" mode (switching is controlled by Drupal, not our styles)
-            .horizontal-tabs-list {
-                width: 100%;
-                border-bottom: $border-size solid $workbc_palette_dark_secondary;
-                background-color: $workbc_palette_light_secondary;
-                padding: 0 15px;
-
-                .horizontal-tab-button {
-                    position: relative;
-                    border: $border-size solid;
-                    border-bottom: none;
-                    margin-right: $border-size;
-
-                    &.selected {
-                        border-color: $workbc_palette_dark_secondary;
-                        font-weight: bold;
-                        
-                        a {
-                            color: $workbc_palette_dark_secondary;
-                            background-color: $workbc_palette_light_primary;
-                        }
-        
-                        &:after {
-                            content: '';
-                            position: absolute;
-                            left: 0;
-                            right: 0;
-                            bottom: -$border-size;
-                            height: $border-size;
-                            background-color: $workbc_palette_light_primary;
-                        }
-                    }
-
-                    &:not(.selected) {
-                        border-color: $workbc_palette_dark_secondary;
-        
-                        a {
-                            color: $workbc_palette_light_primary;
-                            background-color: $workbc_palette_dark_secondary;
-
-                            strong {
-                                font-weight: normal;
-                            }
-                        }
-
-                        &:hover a {
-                            background-color: #215693;
-                        }
-                    }
-                }
-            }
 
             // at mobile, in "panes" mode
             details {
