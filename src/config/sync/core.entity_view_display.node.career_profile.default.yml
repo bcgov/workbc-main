@@ -157,6 +157,11 @@ targetEntityType: node
 bundle: career_profile
 mode: default
 content:
+  content_moderation_control:
+    settings: {  }
+    third_party_settings: {  }
+    weight: -20
+    region: content
   extra_field_annual_salary:
     settings: {  }
     third_party_settings: {  }
