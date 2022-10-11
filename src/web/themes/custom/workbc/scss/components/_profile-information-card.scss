@@ -1,0 +1,77 @@
+.profile-information-card-deck {
+    display: flex;
+    flex-flow: row wrap;
+    row-gap: 10px;
+    column-gap: 10px;
+}
+
+.profile-information-card {
+
+    $icon-size: 64px;
+
+    position: relative; // begin positional context %profile-information-card
+    flex: 0 0 100%;
+    height: 130px;
+    background-color: $workbc_light_theme_background_default;
+    border: 2px solid #9b9b9b;
+    box-shadow: $workbc_default_box_shadow; 
+    display: flex;
+    flex-flow: row nowrap;
+    padding: 0 60px;
+
+    @include media-breakpoint-up(lg) {
+        flex: 1 1 30%;
+    }
+
+    .profile-information-card-icon {
+        flex: 0 0 $icon-size;
+        height: 100%;
+        background-size: $icon-size $icon-size;
+        background-position: center center;
+        background-repeat: no-repeat;
+    }
+    .profile-information-card-content {
+        flex: 0 0 calc(100% - $icon-size);
+        display: flex;
+        flex-flow: column nowrap;
+        justify-content: center;
+
+        .profile-information-card-title {
+            width: 100%;
+            font-size: 1.3125rem;
+            color: $workbc_palette_dark_default;
+            text-align: center;
+        }
+        .profile-information-card-value {
+            width: 100%;
+            font-size: 1.75rem;
+            font-weight: bold;
+            color: $workbc_palette_dark_primary;
+            text-align: center;
+        }
+    }
+    .profile-information-card-infotip {
+        position: absolute; // relative to positional context %profile-information-card
+        right: 10px;
+        bottom: 10px;
+    }
+
+}
+
+.profile-information-salary {
+    .profile-information-card-icon {
+        background-image: url(../assets/images/profile-icon-envelope.svg);        
+    }
+}
+
+.profile-information-education {
+    .profile-information-card-icon {
+        background-image: url(../assets/images/profile-icon-gradcap.svg);
+    }
+}
+
+.profile-information-jobs {
+    .profile-information-card-icon {
+        background-image: url(../assets/images/profile-icon-resume.svg);
+    }
+}

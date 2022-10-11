@@ -70,7 +70,50 @@
 
 {% set title = label %}
 {% set hero_image = content.field_hero_image[0] %}
+{% set hero_text = null %}
+{% set hero_noc = content.field_noc['#items'].getString() %} 
+{% set hero_hoo = content.extra_field_high_opportunity_occupation[0]['#markup'] %}
 
+{% set statistic_annual_salary = content.extra_field_annual_salary %}
+{% set statistic_annual_salary_source = content.extra_field_annual_salary_source %}
+{% set statistic_minimum_education = content.extra_field_minimum_education %}
+{% set statistic_job_openings = content.extra_field_job_openings %}
+{% set statistic_job_openings_source = content.extra_field_job_openings_source %}
+
+{% set career_profile_tabbed_content = content.group_career_profile_tabs %}
+
+{% set tab_groups = {
+  'item-1': {
+    'title': 'Career Overview'|t,
+    'key': 'group_career_overview',
+    'content': career_profile_tabbed_content.group_career_overview,
+  },
+  'item-2': {
+    'title': 'Training, Education & Skills'|t,
+    'key': 'group_education_training_skills',
+    'content': career_profile_tabbed_content.group_education_training_skills,
+  },
+  'item-3': {
+    'title': 'Labour Market Statistics'|t,
+    'key': 'group_labour_market_statistics',
+    'content': career_profile_tabbed_content.group_labour_market_statistics,
+  },
+  'item-4': {
+    'title': 'Industry Highlights'|t,
+    'key': 'group_industry_highlights',
+    'content': career_profile_tabbed_content.group_industry_highlights,
+  },
+  'item-5': {
+    'title': 'Resources'|t,
+    'key': 'group_resources',
+    'content': career_profile_tabbed_content.group_resources,
+  },
+ }
+%}
+
+{% set career_videos_introduction = content.field_career_videos_introduction %}
+{% set career_videos = content.field_career_videos %}
+{% set links = content.links %}
 
 {%
   set classes = [
@@ -80,24 +123,155 @@
     node.isSticky() ? 'node--sticky',
     not node.isPublished() ? 'node--unpublished',
     view_mode ? 'node--view-mode-' ~ view_mode|clean_class,
+    'workbc-career-profile',
   ]
 %}
 
-{% if hero_image or hero_text %}
-  {% include '@workbc/includes/hero.html.twig' %}
-{% endif %}
+{% set container_attributes = create_attribute() %}
 
 {# When breadcrums are displayed below the hero section #}
 {{ drupal_block('system_breadcrumb_block', wrapper=false) }}
 
+{% if hero_image or hero_text %}
+  <div class="hero-banner hero-banner-profile">
+
+    <div class="hero-image-wrapper">
+      <div class="hero-image-overlay"></div>
+      {{ hero_image }}
+    </div>
+
+    <div class="hero-content-container container-lg">
+      <div class="hero-content-wrapper">
+        <div class="hero-title">
+          <h1>{{ title }}</h1>
+        </div>
+
+        <div class="hero-noc">(NOC {{ hero_noc }})</div>
+
+        {% if hero_hoo %}
+          <div class="hero-hoo">
+            <img src="/{{ directory }}/assets/images/hoo-icon.svg" alt="{{ 'High opportunity occupation'|t }}" />
+            <span>{{ 'High opportunity occupation'|t }}</span>
+          </div>
+        {% endif %}
+
+        <div class="hero-content">
+          {{ hero_text }}
+        </div>
+      </div>
+    </div>
+
+  </div>
+{% endif %}
+
 <article{{ attributes.addClass(classes) }}>
 
-  Placeholder
+  {% include '@workbc/includes/social-sharing.html.twig' %}
 
-  {# fields and markup here e.g: {{ content.field_noc }} or set the content.field as variables above and render here #}
+  <div class="career-statistics-wrapper">
+    <div class="container-lg profile-information-card-deck">
 
-  {# {{ see node node--page--full.html.twig as an example }} #}
+      <div class="profile-information-card profile-information-salary">
+        <div class="profile-information-card-icon">
+        </div>
+        <div class="profile-information-card-content">
+          <div class="profile-information-card-title">
+            {{ statistic_annual_salary['#title'] }}
+          </div>
+          <div class="profile-information-card-value">
+          {{ statistic_annual_salary.0['#markup'] }}
+          </div>
+        </div>
+        <div class="profile-information-card-infotip">
+          <a tabindex="0" class="btn btn-link info-tooltip" role="button" data-bs-toggle="popover" data-bs-container="body" data-bs-trigger="click" data-bs-placement="bottom" data-bs-custom-class="workbc-popover" title="hidden title" data-bs-html="true" data-bs-content="<em>Source:</em> {{ statistic_annual_salary_source.0['#markup'] }}"></a>
+        </div>
+      </div>
 
-  {{ content }}
+      <div class="profile-information-card profile-information-education">
+        <div class="profile-information-card-icon">
+        </div>
+        <div class="profile-information-card-content">
+          <div class="profile-information-card-title">
+            {{ statistic_minimum_education['#title'] }}
+          </div>
+          <div class="profile-information-card-value">
+          {{ statistic_minimum_education.0['#markup'] }}
+          </div>
+        </div>
+      </div>
+
+      <div class="profile-information-card profile-information-jobs">
+        <div class="profile-information-card-icon">
+        </div>
+        <div class="profile-information-card-content">
+          <div class="profile-information-card-title">
+            {{ statistic_job_openings['#title'] }}
+          </div>
+          <div class="profile-information-card-value">
+          {{ statistic_job_openings.0['#markup'] }}
+          </div>
+        </div>
+        <div class="profile-information-card-infotip">
+          <a tabindex="0" class="btn btn-link info-tooltip" role="button" data-bs-toggle="popover" data-bs-container="body" data-bs-trigger="focus" data-bs-placement="bottom" data-bs-custom-class="workbc-popover" title="hidden title" data-bs-html="true" data-bs-content="<em>Source:</em> {{ statistic_job_openings_source.0['#markup'] }}"></a>
+        </div>
+      </div>
+
+    </div>
+  </div>
+
+  <div class="career-details-wrapper">
+    <div class="career-content-shim"></div>
+
+    <div class="career-content-tabs ">
+      <div class="container-lg scroll-container">
+        <ul class="nav nav-tabs career-content-tab-list scroll" id="career-content-tabs" role="tablist">
+          {% for group in tab_groups %}
+            <li class="nav-item" role="presentation">
+              <a class="nav-link career-content-tab-button{{ loop.first ? ' active'}}" id="{{group.key}}-tab" data-bs-toggle="tab" data-bs-target="#{{group.key}}-content" aria-controls="{{group.key}}-content" aria-selected="true" role="tab" href="#">{{group.title}}</a>
+            </li>
+          {% endfor %}
+        </ul>
+      </div>
+      <div class="container-lg scroll-affordance-shim"></div>
+    </div>
+
+    <div class="container-lg">
+      <div class="career-content-container">
+
+        <div class="tab-content career-content-main">
+          {% for group in tab_groups %}
+            <div class="tab-pane{{ loop.first ? ' active'}}" id="{{group.key}}-content" role="tabpanel" aria-labelledby="{{group.key}}-tab">
+                {{ group.content }}
+            </div>
+          {% endfor %}
+        </div>
+
+        <div class="career-content-sidebar">
+          <div class="career-videos-wrapper">
+            <div class="container-lg">
+              <h2>{{ career_videos_introduction }}</h2>
+              {{ career_videos }}
+            </div>
+          </div>
+
+          <div class="career-recent-jobs-wrapper">
+            <div class="container-lg">
+              {{ drupal_entity('block', 'recentjobs') }}
+            </div>
+          </div>
+
+        </div>
+      </div>
+    </div>
+  </div>
 </article>
+
+{% if related|striptags|trim %}
+  <div class="container-lg px-1">
+    {{ related }}
+  </div>
+{% endif %}
+
+{{ attach_library('workbc/init-popovers') }}
+{{ attach_library('workbc/scrollbooster') }}
 

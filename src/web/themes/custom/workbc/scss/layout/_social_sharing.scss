@@ -1,0 +1,12 @@
+.social-sharing-wrapper {
+    display: flex;
+    padding: 15px 0;
+
+    .social-sharing-content {
+        flex: 0 0;
+        
+        @include media-breakpoint-up(lg) {
+            align-self: right;
+        }
+    }
+}

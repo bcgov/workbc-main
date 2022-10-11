@@ -15,12 +15,11 @@ submenu-underlay:
     - core/jquery
     - core/
 
-swiper-js:
-  css:
-    theme:
-      '//cdn.jsdelivr.net/npm/swiper@8/swiper-bundle.min.css': { type: external, minified: true }
+scrollbooster:
   js:
-    '//cdn.jsdelivr.net/npm/swiper@8/swiper-bundle.min.js': { type: external, minified: true }
+    '//unpkg.com/scrollbooster@3.0.2/dist/scrollbooster.min.js': { type: module, minified: true }
+    js/scrollbooster-init.js: { }
+
 
 related-topics-carousel:
   js:
@@ -46,3 +45,12 @@ mobile-nav:
 nav:
   js:
     js/nav.js: {}
+
+init-popovers:
+  js:
+    js/init-popovers.js: {}
+  dependencies:
+    - core/drupal
+    - core/jquery
+    - core/once
+    - core/popperjs
