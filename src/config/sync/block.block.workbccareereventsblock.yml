@@ -16,7 +16,7 @@ provider: null
 plugin: career_events_block
 settings:
   id: career_events_block
-  label: 'WorkBC career events block'
+  label: 'WorkBC Career Events'
   label_display: visible
   provider: workbc_custom
 visibility:
@@ -31,4 +31,4 @@ visibility:
   request_path:
     id: request_path
     negate: false
-    pages: /calendar-upcoming-events
+    pages: /plan-career/career-events/calendar-upcoming-events

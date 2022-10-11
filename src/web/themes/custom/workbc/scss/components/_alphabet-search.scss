@@ -1,34 +1,32 @@
 .alphabet-search-results {
+  margin-bottom: 60px;
+}
 
-    //override a Drupal style
-    .table>:not(:first-child) {
-        border: none; 
-    }
+.alphabet-search-results tbody tr td {
+  padding: 40px 0;
+  border-bottom: 1px solid #dbdbdb;
+}
 
-    table {
-        caption {
-            margin-top: $workbc_spacing_default;
-            padding: 0;
-            background-color: $workbc_palette_dark_secondary;
-            text-align: center;
-            font-weight: 400;
-            font-size: 1.3125rem;
-            color: $workbc_dark_theme_text;
-        }
+.alphabet-search-results table tbody tr:nth-child(2n) td {
+  background-color: #fff;
+}
 
-        tbody {
-            $row-border: 1px solid $workbc_palette_light_tertiary;
+.alphabet-search-results caption,
+.career-profiles-search caption {
+  margin-top: $workbc_spacing_default;
+  padding: 0;
+  background-color: $workbc_palette_dark_secondary;
+  text-align: center;
+  font-weight: 400;
+  font-size: 1.3125rem;
+  color: $workbc_dark_theme_text;
+}
 
-            tr {
-                border-bottom: $row-border;
-                &:not(:first-of-type) {
-                    border-top: $row-border;
-                }
+.alphabet-search-results td p {
+  margin: 0;
+}
 
-                td {
-                    padding: 20px 0;
-                }
-            }
-        }
-    }
+.alphabet-search-results td h2 {
+  font-size: 1rem;
+  font-weight: 700;
 }

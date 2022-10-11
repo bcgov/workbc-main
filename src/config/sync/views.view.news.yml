@@ -1030,7 +1030,7 @@ display:
           plugin_id: text
           empty: false
           content:
-            value: '<a class="btn btn-primary float-end mb-5 px-5" href="/news-archive">View News Archive</a>'
+            value: '<a class="btn-primary  float-end mb-5" href="/plan-career/news-archive">View News Archive</a>'
             format: full_html
           tokenize: false
       display_extenders: {  }

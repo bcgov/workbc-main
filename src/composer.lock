@@ -4,7 +4,7 @@
         "Read more about it at https://getcomposer.org/doc/01-basic-usage.md#installing-dependencies",
         "This file is @generated automatically"
     ],
-    "content-hash": "1590716b1d18f4fd3320bd719faa9430",
+    "content-hash": "d8a9a2239dbba63da541ebde0b15a57e",
     "packages": [
         {
             "name": "alchemy/zippy",
@@ -2575,6 +2575,58 @@
             }
         },
         {
+            "name": "drupal/backup_migrate_aws_s3",
+            "version": "5.0.6",
+            "source": {
+                "type": "git",
+                "url": "https://git.drupalcode.org/project/backup_migrate_aws_s3.git",
+                "reference": "5.0.6"
+            },
+            "dist": {
+                "type": "zip",
+                "url": "https://ftp.drupal.org/files/projects/backup_migrate_aws_s3-5.0.6.zip",
+                "reference": "5.0.6",
+                "shasum": "059e6958c87d0f259fe413717ec72ea88a05a70d"
+            },
+            "require": {
+                "aws/aws-sdk-php": "^3.2",
+                "drupal/backup_migrate": "^5.0",
+                "drupal/core": "^8.8 || ^9 || ^10",
+                "drupal/key": "^1.15"
+            },
+            "type": "drupal-module",
+            "extra": {
+                "drupal": {
+                    "version": "5.0.6",
+                    "datestamp": "1661280495",
+                    "security-coverage": {
+                        "status": "covered",
+                        "message": "Covered by Drupal's security advisory policy"
+                    }
+                }
+            },
+            "notification-url": "https://packages.drupal.org/8/downloads",
+            "license": [
+                "GPL-2.0+"
+            ],
+            "authors": [
+                {
+                    "name": "George Anderson (geoanders)",
+                    "homepage": "https://www.drupal.org/u/geoanders",
+                    "role": "Maintainer"
+                },
+                {
+                    "name": "Snehal Gaikwad",
+                    "homepage": "https://www.drupal.org/u/snehalgaikwad"
+                }
+            ],
+            "description": "Provides AWS S3 destination for Backup & Migrate module.",
+            "homepage": "https://drupal.org/project/backup_migrate_aws_s3",
+            "support": {
+                "source": "https://git.drupalcode.org/project/backup_migrate_aws_s3"
+            }
+        },
+        {
             "name": "drupal/better_social_sharing_buttons",
             "version": "4.0.0",
             "source": {
@@ -4947,6 +4999,71 @@
             "homepage": "https://www.drupal.org/project/jquery_ui_accordion",
             "support": {
                 "source": "https://git.drupalcode.org/project/jquery_ui_accordion"
+            }
+        },
+        {
+            "name": "drupal/key",
+            "version": "1.16.0",
+            "source": {
+                "type": "git",
+                "url": "https://git.drupalcode.org/project/key.git",
+                "reference": "8.x-1.16"
+            },
+            "dist": {
+                "type": "zip",
+                "url": "https://ftp.drupal.org/files/projects/key-8.x-1.16.zip",
+                "reference": "8.x-1.16",
+                "shasum": "35a4476d7d52563bb26bd4dcc5fbf5fdd7c9391b"
+            },
+            "require": {
+                "drupal/core": ">=8.9 <11"
+            },
+            "type": "drupal-module",
+            "extra": {
+                "drupal": {
+                    "version": "8.x-1.16",
+                    "datestamp": "1661968490",
+                    "security-coverage": {
+                        "status": "covered",
+                        "message": "Covered by Drupal's security advisory policy"
+                    }
+                },
+                "drush": {
+                    "services": {
+                        "drush.services.yml": ">=9"
+                    }
+                }
+            },
+            "notification-url": "https://packages.drupal.org/8/downloads",
+            "license": [
+                "GPL-2.0-or-later"
+            ],
+            "authors": [
+                {
+                    "name": "Cellar Door",
+                    "homepage": "https://www.drupal.org/user/658076"
+                },
+                {
+                    "name": "crashtest_",
+                    "homepage": "https://www.drupal.org/user/261457"
+                },
+                {
+                    "name": "nerdstein",
+                    "homepage": "https://www.drupal.org/user/1557710"
+                },
+                {
+                    "name": "rlhawk",
+                    "homepage": "https://www.drupal.org/user/352283"
+                }
+            ],
+            "description": "Provides the ability to manage site-wide keys",
+            "homepage": "http://drupal.org/project/key",
+            "keywords": [
+                "Drupal"
+            ],
+            "support": {
+                "source": "https://git.drupalcode.org/project/key",
+                "issues": "http://drupal.org/project/key"
             }
         },
         {

@@ -5,18 +5,17 @@ dependencies:
   module:
     - node
 id: basic_page
-label: 'Basic & Landing pages'
+label: Pages
 type: 'canonical_entities:node'
-pattern: '[node:title]'
+pattern: '[node:menu-link:parents:join-path]/[node:title]'
 selection_criteria:
-  1a21e941-40dc-48e7-a8bd-7144aa4c3bb6:
+  a7df1b1d-ce79-40e3-b0f4-a457ec29adbb:
     id: 'entity_bundle:node'
     negate: false
-    uuid: 1a21e941-40dc-48e7-a8bd-7144aa4c3bb6
+    uuid: a7df1b1d-ce79-40e3-b0f4-a457ec29adbb
     context_mapping:
       node: node
     bundles:
-      landing_page: landing_page
       page: page
 selection_logic: and
 weight: -5
