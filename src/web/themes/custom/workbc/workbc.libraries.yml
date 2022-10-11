@@ -17,7 +17,7 @@ submenu-underlay:
 
 scrollbooster:
   js:
-    '//unpkg.com/scrollbooster@2/dist/scrollbooster.min.js': { type: module, minified: true }
+    '//unpkg.com/scrollbooster@3.0.2/dist/scrollbooster.min.js': { type: module, minified: true }
     js/scrollbooster-init.js: { }
 
 
