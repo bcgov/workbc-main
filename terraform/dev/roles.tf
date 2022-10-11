@@ -205,6 +205,3 @@ resource "aws_iam_role_policy" "workbc_container_ses" {
   }
   EOF  
 }
-
-
-

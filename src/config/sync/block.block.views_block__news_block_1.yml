@@ -35,4 +35,4 @@ visibility:
   request_path:
     id: request_path
     negate: false
-    pages: /news
+    pages: /plan-career/news
