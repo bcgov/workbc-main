@@ -84,27 +84,27 @@
 
 {% set tab_groups = {
   'item-1': {
-    'title': 'Career Overview',
+    'title': 'Career Overview'|t,
     'key': 'group_career_overview',
     'content': career_profile_tabbed_content.group_career_overview,
   },
   'item-2': {
-    'title': 'Training, Education & Skills',
+    'title': 'Training, Education & Skills'|t,
     'key': 'group_education_training_skills',
     'content': career_profile_tabbed_content.group_education_training_skills,
   },
   'item-3': {
-    'title': 'Labour Market Statistics',
+    'title': 'Labour Market Statistics'|t,
     'key': 'group_labour_market_statistics',
     'content': career_profile_tabbed_content.group_labour_market_statistics,
   },
   'item-4': {
-    'title': 'Industry Highlights',
+    'title': 'Industry Highlights'|t,
     'key': 'group_industry_highlights',
     'content': career_profile_tabbed_content.group_industry_highlights,
   },
   'item-5': {
-    'title': 'Resources',
+    'title': 'Resources'|t,
     'key': 'group_resources',
     'content': career_profile_tabbed_content.group_resources,
   },
@@ -151,7 +151,7 @@
         {% if hero_hoo %}
           <div class="hero-hoo">
             <img src="/{{ directory }}/assets/images/hoo-icon.svg" alt="{{ 'High opportunity occupation'|t }}" />
-            <span>High opportunity occupation</span>
+            <span>{{ 'High opportunity occupation'|t }}</span>
           </div>
         {% endif %}
 
