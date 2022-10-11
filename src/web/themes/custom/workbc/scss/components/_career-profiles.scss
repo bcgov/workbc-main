@@ -28,8 +28,17 @@
 
 
         .scroll-container {
-            position: relative;
+            overflow: hidden;
+        }
 
+        .scroll {
+            display: flex;
+            flex-wrap: nowrap;
+            white-space: nowrap;
+        }
+
+        .scroll-affordance-shim {
+            position: relative;
             &:after {
                 position: absolute;
                 content: '';
@@ -48,12 +57,6 @@
                     display: none;
                 }
             }
-        }
-
-        .scroll {
-            display: flex;
-            flex-wrap: nowrap;
-            white-space: nowrap;
         }
 
         .career-content-tabs {
