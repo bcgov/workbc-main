@@ -111,7 +111,7 @@ class ExploreCareersBlock extends BlockBase {
 
 
     $options = [];
-    $link = Link::fromTextAndUrl(t($config['label_2'] ?? ""), Url::fromUri('internal:/career-profiles', $options))->toString();
+    $link = Link::fromTextAndUrl(t($config['label_2'] ?? ""), Url::fromUri('internal:/plan-career/explore-careers/career-search', $options))->toString();
 
     $explore_careers = array(
       'title' => $config['title'] ?? "",

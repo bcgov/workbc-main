@@ -71,7 +71,7 @@
 {% set title = label %}
 {% set hero_image = content.field_hero_image[0] %}
 {% set hero_text = null %}
-{% set hero_noc = content.field_noc['#items'].getString() %} 
+{% set hero_noc = content.field_noc['#items'].getString() %}
 {% set hero_hoo = content.extra_field_high_opportunity_occupation[0]['#markup'] %}
 
 {% set statistic_annual_salary = content.extra_field_annual_salary %}
@@ -166,7 +166,10 @@
 
 <article{{ attributes.addClass(classes) }}>
 
-  {% include '@workbc/includes/social-sharing.html.twig' %}
+  {# When social links are displayed below the hero section #}
+  <div class="social-sharing container-lg">
+    {{ drupal_block('social_sharing_buttons_block', wrapper=false) }}
+  </div>
 
   <div class="career-statistics-wrapper">
     <div class="container-lg profile-information-card-deck">

@@ -60,9 +60,11 @@
     <div class="submenu-underlay"></div>
       {# Breadcrumbs #}
       {% include '@workbc/includes/breadcrumbs.html.twig' %}
-      {{ messages }}
-      {{ tabs }}
-      {{ page.content }}
+      {# Social Sharing #}
+      {% include '@workbc/includes/social-sharing.html.twig' %}
+      <div class="page-content">
+        {{ page.content }}
+      </div>
   </div>
 </main>
 

@@ -11,6 +11,9 @@
 
 // Page Standard
 .page-format--standard {
+  padding-top: 30px;
+  padding-bottom: 30px;
+
   @include media-breakpoint-up(xl) {
     width: 66.66666667%;
     margin: 0 auto;

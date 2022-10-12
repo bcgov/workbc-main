@@ -1,7 +1,3 @@
-<div class="social-sharing-wrapper">
-  <div class="container-lg">
-    <div class="social-sharing-content">
-      {{ drupal_entity('block', 'bettersocialsharingbuttons') }}
-    </div>
-  </div>
-</div>
+{% if drupal_entity('block', 'bettersocialsharingbuttons') %}
+  {{ drupal_entity('block', 'bettersocialsharingbuttons') }}
+{% endif %}
