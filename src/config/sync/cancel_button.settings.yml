@@ -265,7 +265,7 @@ entity_type_cancel_destination:
   webform_submission_workbc_order_form:
     path: /
   webform_submission:
-    enabled: true
+    enabled: false
   workflow:
     path: /
     enabled: true

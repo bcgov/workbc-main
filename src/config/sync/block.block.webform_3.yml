@@ -1,28 +1,29 @@
-uuid: a91121e2-93d5-439b-b630-77e31b1a948a
+uuid: 28fe39a2-8d4c-4d6d-832a-6697ad5ce8d8
 langcode: en
 status: true
 dependencies:
   config:
-    - views.view.blog
+    - webform.webform.contact
   module:
     - block_visibility_conditions
     - system
-    - views
+    - webform
   theme:
     - workbc
-id: views_block__blog_block_1
+id: webform_3
 theme: workbc
 region: content_bottom
-weight: -13
+weight: -6
 provider: null
-plugin: 'views_block:blog-block_1'
+plugin: webform_block
 settings:
-  id: 'views_block:blog-block_1'
-  label: ''
-  label_display: visible
-  provider: views
-  views_label: ''
-  items_per_page: none
+  id: webform_block
+  label: 'Contact Us'
+  label_display: '0'
+  provider: webform
+  webform_id: contact
+  default_data: ''
+  redirect: false
 visibility:
   not_node_type:
     id: not_node_type
@@ -35,4 +36,4 @@ visibility:
   request_path:
     id: request_path
     negate: false
-    pages: /plan-career/blog
+    pages: /contact-us

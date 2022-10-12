@@ -1,28 +1,26 @@
-uuid: a91121e2-93d5-439b-b630-77e31b1a948a
+uuid: bb822184-124f-4f1b-96e4-bc274f3b9e9e
 langcode: en
 status: true
 dependencies:
   config:
-    - views.view.blog
+    - simple_block.simple_block.online_chat
   module:
     - block_visibility_conditions
+    - simple_block
     - system
-    - views
   theme:
     - workbc
-id: views_block__blog_block_1
+id: onlinechat
 theme: workbc
 region: content_bottom
-weight: -13
+weight: -5
 provider: null
-plugin: 'views_block:blog-block_1'
+plugin: 'simple_block:online_chat'
 settings:
-  id: 'views_block:blog-block_1'
-  label: ''
-  label_display: visible
-  provider: views
-  views_label: ''
-  items_per_page: none
+  id: 'simple_block:online_chat'
+  label: 'Online Chat'
+  label_display: '0'
+  provider: simple_block
 visibility:
   not_node_type:
     id: not_node_type
@@ -35,4 +33,4 @@ visibility:
   request_path:
     id: request_path
     negate: false
-    pages: /plan-career/blog
+    pages: /contact-us

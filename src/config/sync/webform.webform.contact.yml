@@ -14,34 +14,56 @@ uid: null
 template: false
 archive: false
 id: contact
-title: Contact
+title: 'Contact Us'
 description: 'Basic email contact webform.'
 category: ''
-elements: |
+elements: |-
+  form_heading:
+    '#type': processed_text
+    '#text': |
+      <h2>Email</h2>
+
+      <p>All fields are mandatory unless otherwise noted.</p>
+    '#format': basic_html
+  inquiry_type:
+    '#type': select
+    '#title': 'Inquiry Type'
+    '#options':
+      job-seeker: 'Job Seeker Account Inquiry'
+      workbc-centre: 'WorkBC Centre Inquiry'
+      workbc-general: 'WorkBC General Inquiry'
+      workbc-website: 'WorkBC Website Feedback'
+    '#empty_option': '—Select Inquiry Type'
+    '#required': true
   name:
     '#title': 'Your Name'
     '#type': textfield
     '#required': true
     '#default_value': '[current-user:display-name]'
   email:
-    '#title': 'Your Email'
     '#type': email
+    '#title': 'Your Email'
     '#required': true
+    '#pattern': '[a-z0-9._%+-]+@[a-z0-9.-]+\.[a-z]{2,}$'
+    '#pattern_error': 'Please enter a valid email address.'
     '#default_value': '[current-user:mail]'
-  subject:
-    '#title': Subject
-    '#type': textfield
-    '#required': true
-    '#test': 'Testing contact webform from [site:name]'
   message:
-    '#title': Message
     '#type': textarea
+    '#title': Message
+    '#placeholder': 'Enter your mesage'
     '#required': true
+    '#counter_type': character
+    '#counter_maximum': 1500
     '#test': 'Please ignore this email.'
   actions:
     '#type': webform_actions
     '#title': 'Submit button(s)'
-    '#submit__label': 'Send message'
+    '#submit__label': Send
+  collection_notice:
+    '#type': processed_text
+    '#text': |
+      <p><a href="/collection-notice">View Collection Notice</a>&nbsp;&gt;</p>
+    '#format': basic_html
 css: ''
 javascript: ''
 settings:
@@ -144,7 +166,7 @@ settings:
   draft_loaded_message: ''
   draft_pending_single_message: ''
   draft_pending_multiple_message: ''
-  confirmation_type: url_message
+  confirmation_type: inline
   confirmation_url: '<front>'
   confirmation_title: ''
   confirmation_message: 'Your message has been sent.'
