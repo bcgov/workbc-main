@@ -80,6 +80,12 @@ class ExploreCareersBlock extends BlockBase {
         '#default_value' => $config['label_2'] ?? '',
       ];
 
+      $form['path_2'] = [
+        '#type' => 'textfield',
+        '#title' => $this->t('Action 2 Path'),
+        '#description' => $this->t(''),
+        '#default_value' => $config['path_2'] ?? '',
+      ];
       return $form;
     }
 
@@ -97,7 +103,7 @@ class ExploreCareersBlock extends BlockBase {
       $this->configuration['title_2'] = $values['title_2'];
       $this->configuration['body_2'] = $values['body_2'];
       $this->configuration['label_2'] = $values['label_2'];
-
+      $this->configuration['path_2'] = $values['path_2'];
     }
 
   /**
@@ -109,9 +115,8 @@ class ExploreCareersBlock extends BlockBase {
 
     $config = $this->getConfiguration();
 
-
     $options = [];
-    $link = Link::fromTextAndUrl(t($config['label_2'] ?? ""), Url::fromUri('internal:/plan-career/explore-careers/career-search', $options))->toString();
+    $link = Link::fromTextAndUrl(t($config['label_2'] ?? ""), Url::fromUri('internal:'. $config['path_2'], $options))->toString();
 
     $explore_careers = array(
       'title' => $config['title'] ?? "",
