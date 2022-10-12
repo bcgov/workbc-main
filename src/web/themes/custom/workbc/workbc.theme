@@ -60,9 +60,7 @@ function workbc_preprocess_page(&$variables) {
 function workbc_preprocess_views_view_summary_unformatted(&$variables) {
 
   $view = $variables['view'];
-  if ($view->id() == "career_profiles" || $view->id() == "definitions") {
-    $variables['view_base_path'] = $view->getPath();
-  }
+  $variables['view_base_path'] = $view->getPath();
 }
 
 
