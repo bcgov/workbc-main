@@ -1,8 +1,9 @@
-uuid: 9cb9e269-f2ce-4036-b942-7755243aab6d
+uuid: f990003d-f58f-44d6-a66e-182e960adf42
 langcode: en
 status: true
 dependencies:
   config:
+    - core.entity_view_mode.node.full
     - field.field.node.publication.body
     - field.field.node.publication.field_content_group
     - field.field.node.publication.field_hardcopy_available
@@ -15,10 +16,10 @@ dependencies:
     - svg_image
     - text
     - user
-id: node.publication.default
+id: node.publication.full
 targetEntityType: node
 bundle: publication
-mode: default
+mode: full
 content:
   body:
     type: text_default
