@@ -1,17 +1,21 @@
 .pagination {
-    justify-content: flex-end;
+  justify-content: flex-end;
+}
 
-    .page-item {
-        .page-link {
-            border: none;
-            border-top-left-radius: 0;
-            border-bottom-left-radius: 0;
-            padding: 0 7px;
-        }
+.pagination .page-item .page-link {
+  border: none;
+  border-top-left-radius: 0;
+  border-bottom-left-radius: 0;
+  margin-left: 0;
+  padding: 0 8px;
+  color: $workbc_palette_dark_secondary;
 
-        &.active .page-link {
-            color: #fff;
-            background-color: $workbc_palette_dark_secondary;
-        }
-    }
+  &:focus {
+    box-shadow: none;
+  }
+}
+
+.pagination .page-item.active .page-link {
+  color: #fff;
+  background-color: $workbc_palette_dark_secondary;
 }
