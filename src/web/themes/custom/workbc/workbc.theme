@@ -54,6 +54,17 @@ function workbc_preprocess_page(&$variables) {
 }
 
 /**
+ * Prepares "view_base_path" variables for unformatted summary view templates
+ * for use with glossary All option.
+ */
+function workbc_preprocess_views_view_summary_unformatted(&$variables) {
+
+  $view = $variables['view'];
+  $variables['view_base_path'] = $view->getPath();
+}
+
+
+/**
  * Prepares variables for media templates.
  *
  * Default template: media.html.twig.
