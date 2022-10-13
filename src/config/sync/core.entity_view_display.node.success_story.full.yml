@@ -8,6 +8,7 @@ dependencies:
     - field.field.node.success_story.field_content_group
     - field.field.node.success_story.field_image
     - field.field.node.success_story.field_related_topics_blurb
+    - field.field.node.success_story.field_scheduled_publish
     - field.field.node.success_story.field_subtitle
     - field.field.node.success_story.field_tags
     - image.style.article_wide
@@ -58,6 +59,7 @@ hidden:
   extra_field_workbc_published_on: true
   field_content_group: true
   field_related_topics_blurb: true
+  field_scheduled_publish: true
   field_subtitle: true
   field_tags: true
   langcode: true

@@ -10,11 +10,13 @@ dependencies:
     - field.field.node.page.field_hero_text
     - field.field.node.page.field_page_format
     - field.field.node.page.field_related_topics
-    - field.field.node.page.view_mode_selection
     - field.field.node.page.field_related_topics_blurb
+    - field.field.node.page.field_scheduled_publish
+    - field.field.node.page.view_mode_selection
     - node.type.page
   module:
     - entity_reference_revisions
+    - scheduled_publish
     - text
     - user
 _core:
@@ -51,6 +53,15 @@ content:
     settings: {  }
     third_party_settings: {  }
     weight: 3
+    region: content
+  field_scheduled_publish:
+    type: scheduled_publish_generic_formatter
+    label: above
+    settings:
+      date_format: html_datetime
+      text_pattern: '%moderation_state% - %date%'
+    third_party_settings: {  }
+    weight: 4
     region: content
   links:
     settings: {  }

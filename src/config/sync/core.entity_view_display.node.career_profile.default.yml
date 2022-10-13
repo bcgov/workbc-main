@@ -18,11 +18,13 @@ dependencies:
     - field.field.node.career_profile.field_noc
     - field.field.node.career_profile.field_related_careers
     - field.field.node.career_profile.field_resources
+    - field.field.node.career_profile.field_scheduled_publish
     - field.field.node.career_profile.field_work_environment
     - node.type.career_profile
   module:
     - field_group
     - link
+    - scheduled_publish
     - svg_image
     - text
     - user
@@ -460,6 +462,15 @@ content:
       target: ''
     third_party_settings: {  }
     weight: 1
+    region: content
+  field_scheduled_publish:
+    type: scheduled_publish_generic_formatter
+    label: above
+    settings:
+      date_format: html_datetime
+      text_pattern: '%moderation_state% - %date%'
+    third_party_settings: {  }
+    weight: 82
     region: content
   field_work_environment:
     type: text_default

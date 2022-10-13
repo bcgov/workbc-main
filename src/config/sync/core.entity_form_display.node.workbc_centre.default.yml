@@ -12,10 +12,12 @@ dependencies:
     - field.field.node.workbc_centre.field_hero_image
     - field.field.node.workbc_centre.field_hours_of_operation
     - field.field.node.workbc_centre.field_related_topics
+    - field.field.node.workbc_centre.field_scheduled_publish
     - field.field.node.workbc_centre.field_survey_link
     - field.field.node.workbc_centre.field_website
     - image.style.thumbnail
     - node.type.workbc_centre
+    - workflows.workflow.editorial
   module:
     - address
     - content_moderation
@@ -23,6 +25,7 @@ dependencies:
     - link
     - paragraphs
     - path
+    - scheduled_publish
     - text
     - workbc_custom
 id: node.workbc_centre.default
@@ -135,6 +138,12 @@ content:
       match_limit: 10
       size: 60
       placeholder: ''
+    third_party_settings: {  }
+  field_scheduled_publish:
+    type: scheduled_publish
+    weight: 132
+    region: content
+    settings: {  }
     third_party_settings: {  }
   field_survey_link:
     type: paragraphs

@@ -7,6 +7,7 @@ dependencies:
     - field.field.node.success_story.field_content_group
     - field.field.node.success_story.field_image
     - field.field.node.success_story.field_related_topics_blurb
+    - field.field.node.success_story.field_scheduled_publish
     - field.field.node.success_story.field_subtitle
     - field.field.node.success_story.field_tags
     - image.style.thumbnail
@@ -16,6 +17,7 @@ dependencies:
     - content_moderation
     - image_widget_crop
     - path
+    - scheduled_publish
     - text
     - workbc_custom
 id: node.success_story.default
@@ -68,6 +70,12 @@ content:
     settings:
       rows: 5
       placeholder: ''
+    third_party_settings: {  }
+  field_scheduled_publish:
+    type: scheduled_publish
+    weight: 127
+    region: content
+    settings: {  }
     third_party_settings: {  }
   field_subtitle:
     type: text_textarea

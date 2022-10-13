@@ -12,6 +12,7 @@ dependencies:
     - field.field.node.industry_profile.field_key_facts
     - field.field.node.industry_profile.field_labour_market_stats_intro
     - field.field.node.industry_profile.field_resources
+    - field.field.node.industry_profile.field_scheduled_publish
     - field.field.node.industry_profile.field_top_occupations_intro
     - field.field.node.industry_profile.field_wage_introduction
     - field.field.node.industry_profile.field_work_force_introduction
@@ -23,6 +24,11 @@ targetEntityType: node
 bundle: industry_profile
 mode: teaser
 content:
+  content_moderation_control:
+    settings: {  }
+    third_party_settings: {  }
+    weight: -20
+    region: content
   links:
     settings: {  }
     third_party_settings: {  }
@@ -56,6 +62,7 @@ hidden:
   field_key_facts: true
   field_labour_market_stats_intro: true
   field_resources: true
+  field_scheduled_publish: true
   field_top_occupations_intro: true
   field_wage_introduction: true
   field_work_force_introduction: true

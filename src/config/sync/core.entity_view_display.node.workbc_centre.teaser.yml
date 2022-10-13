@@ -13,6 +13,7 @@ dependencies:
     - field.field.node.workbc_centre.field_hero_image
     - field.field.node.workbc_centre.field_hours_of_operation
     - field.field.node.workbc_centre.field_related_topics
+    - field.field.node.workbc_centre.field_scheduled_publish
     - field.field.node.workbc_centre.field_survey_link
     - field.field.node.workbc_centre.field_website
     - node.type.workbc_centre
@@ -23,6 +24,11 @@ targetEntityType: node
 bundle: workbc_centre
 mode: teaser
 content:
+  content_moderation_control:
+    settings: {  }
+    third_party_settings: {  }
+    weight: -20
+    region: content
   links:
     settings: {  }
     third_party_settings: {  }
@@ -41,6 +47,7 @@ hidden:
   field_hero_image: true
   field_hours_of_operation: true
   field_related_topics: true
+  field_scheduled_publish: true
   field_survey_link: true
   field_website: true
   langcode: true

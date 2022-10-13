@@ -10,14 +10,17 @@ dependencies:
     - field.field.node.event.field_end_date
     - field.field.node.event.field_event_type
     - field.field.node.event.field_multiple_days
+    - field.field.node.event.field_scheduled_publish
     - field.field.node.event.field_start_date
     - field.field.node.event.field_time
     - node.type.event
+    - workflows.workflow.editorial
   module:
     - address
     - content_moderation
     - datetime
     - path
+    - scheduled_publish
     - text
     - time_field
     - workbc_custom
@@ -71,6 +74,12 @@ content:
   field_event_type:
     type: options_buttons
     weight: 12
+    region: content
+    settings: {  }
+    third_party_settings: {  }
+  field_scheduled_publish:
+    type: scheduled_publish
+    weight: 26
     region: content
     settings: {  }
     third_party_settings: {  }

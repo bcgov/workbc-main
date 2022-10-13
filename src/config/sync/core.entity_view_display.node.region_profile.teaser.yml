@@ -11,6 +11,7 @@ dependencies:
     - field.field.node.region_profile.field_labour_market_introduction
     - field.field.node.region_profile.field_labour_market_stats_intro
     - field.field.node.region_profile.field_region_overview
+    - field.field.node.region_profile.field_scheduled_publish
     - field.field.node.region_profile.field_top_occupations_intro
     - node.type.region_profile
   module:
@@ -20,6 +21,11 @@ targetEntityType: node
 bundle: region_profile
 mode: teaser
 content:
+  content_moderation_control:
+    settings: {  }
+    third_party_settings: {  }
+    weight: -20
+    region: content
   links:
     settings: {  }
     third_party_settings: {  }
@@ -56,6 +62,7 @@ hidden:
   field_labour_market_introduction: true
   field_labour_market_stats_intro: true
   field_region_overview: true
+  field_scheduled_publish: true
   field_top_occupations_intro: true
   langcode: true
   search_api_excerpt: true
