@@ -1,0 +1,32 @@
+.pagination {
+  justify-content: flex-end;
+}
+
+.pagination .page-item .page-link {
+  border: none;
+  border-radius: 0;
+  margin-left: 0;
+  padding: 0 8px;
+  color: $workbc_palette_dark_secondary;
+
+  &:hover,
+  &:focus {
+    background-color: transparent;
+    box-shadow: none;
+    text-decoration: underline;
+  }
+}
+
+.pagination .page-item:not(.pager__item--previous):not(.pager__item--first):not(.pager__item--next):not(.pager__item--last) .page-link {
+  &:focus,
+  &:hover {
+    text-decoration: none;
+    background-color: $workbc_palette_dark_secondary;
+    color: #fff;
+  }
+}
+
+.pagination .page-item.active .page-link {
+  color: #fff;
+  background-color: $workbc_palette_dark_secondary;
+}
