@@ -129,47 +129,51 @@
 
 {% set container_attributes = create_attribute() %}
 
-{# When breadcrums are displayed below the hero section #}
-{{ drupal_block('system_breadcrumb_block', wrapper=false) }}
+<div class="career-profile-header">
 
-{% if hero_image or hero_text %}
-  <div class="hero-banner hero-banner-profile">
+  <div class="career-profile-header-breadcrumb">
+    {{ drupal_block('system_breadcrumb_block', wrapper=false) }}
+  </div>
 
-    <div class="hero-image-wrapper">
-      <div class="hero-image-overlay"></div>
-      {{ hero_image }}
-    </div>
+  {% if hero_image or hero_text %}
+    <div class="career-profile-header-banner hero-banner hero-banner-profile">
 
-    <div class="hero-content-container container-lg">
-      <div class="hero-content-wrapper">
-        <div class="hero-title">
-          <h1>{{ title }}</h1>
-        </div>
+      <div class="hero-image-wrapper">
+        <div class="hero-image-overlay"></div>
+        {{ hero_image }}
+      </div>
 
-        <div class="hero-noc">(NOC {{ hero_noc }})</div>
-
-        {% if hero_hoo %}
-          <div class="hero-hoo">
-            <img src="/{{ directory }}/assets/images/hoo-icon.svg" alt="{{ 'High opportunity occupation'|t }}" />
-            <span>{{ 'High opportunity occupation'|t }}</span>
+      <div class="hero-content-container container-lg">
+        <div class="hero-content-wrapper">
+          <div class="hero-title">
+            <h1>{{ title }}</h1>
           </div>
-        {% endif %}
 
-        <div class="hero-content">
-          {{ hero_text }}
+          <div class="hero-noc">(NOC {{ hero_noc }})</div>
+
+          {% if hero_hoo %}
+            <div class="hero-hoo">
+              <img src="/{{ directory }}/assets/images/hoo-icon.svg" alt="{{ 'High opportunity occupation'|t }}" />
+              <span>{{ 'High opportunity occupation'|t }}</span>
+            </div>
+          {% endif %}
+
+          <div class="hero-content">
+            {{ hero_text }}
+          </div>
         </div>
       </div>
+
     </div>
+  {% endif %}
 
-  </div>
-{% endif %}
-
-<article{{ attributes.addClass(classes) }}>
-
-  {# When social links are displayed below the hero section #}
-  <div class="social-sharing container-lg">
+  <div class="career-profile-header-social container-lg">
     {{ drupal_block('social_sharing_buttons_block', wrapper=false) }}
   </div>
+</div>
+
+
+<article{{ attributes.addClass(classes) }}>
 
   <div class="career-statistics-wrapper">
     <div class="container-lg profile-information-card-deck">

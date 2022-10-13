@@ -1,7 +1,38 @@
+.career-profile-header {
+    display: flex;
+    flex-flow: column nowrap;
+
+    .career-profile-header-breadcrumb {
+        flex: 0 0;
+        order: 1;
+
+        @include media-breakpoint-up(lg) {
+            order: 2;
+        }
+    }
+    .career-profile-header-banner {
+        flex: 0 0;
+        order: 2;
+
+        @include media-breakpoint-up(lg) {
+            order: 1;
+        }
+    }
+    .career-profile-header-social {
+        flex: 0 0;
+        order: 3;
+        
+        @include media-breakpoint-up(lg) {
+            order: 3;
+        }
+    }
+}
+
 .workbc-career-profile {
     display: flex;
     flex-flow: column nowrap;
     background-color: $workbc_light_theme_background_accent;
+    margin-top: 15px;
 
     .career-statistics-wrapper {
         margin-bottom: $workbc_spacing_default;
