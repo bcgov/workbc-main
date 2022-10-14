@@ -15,7 +15,7 @@
               {% if jobs.externalUrl is not empty %}
                 <a href="{{jobs.externalUrl}}" title="{{jobs.jobTitle}}">{{jobs.jobTitle}}</a>
               {% else  %}
-                <a href="https://www.workbc.ca/Jobs-Careers/Find-Jobs/Jobs.aspx#/job-details/{{jobs.jobId}}" title="{{jobs.jobTitle}}">{{jobs.jobTitle}}</a>
+                <a href="{{ find_job_url }}#/job-details/{{jobs.jobId}}" title="{{jobs.jobTitle}}">{{jobs.jobTitle}}</a>
               {% endif %}
             </h3>
             <div class="job-company">
@@ -37,34 +37,8 @@
     </div>
     {% if data|length > no_of_records %}
       <div class="more-jobs">
-        <a href="https://www.workbc.ca/Jobs-Careers/Find-Jobs/Jobs.aspx#/job-search;noc={{noc}};" value="View more jobs" class="card-w-image__link more-jobs">{{ readmore_label }}</a>
+        <a href="{{ find_job_url }}#/job-search;noc={{noc}};" value="View more jobs" class="card-w-image__link more-jobs">{{ readmore_label }}</a>
       </div>
     {% endif %}
   {% endif %}
-</div>
-
-<div class="layout-container"> 
-    
-    
-    <link rel="stylesheet" href="https://api-jobboard.workbc.ca/bootstrap/bootstrap.min.css?v=Release-1980">
-    <link rel="stylesheet" href="https://api-jobboard.workbc.ca/dist/jb-search/styles.css?v=Release-1980">
-    <app-root api="https://api-jobboard.workbc.ca/" jbsearch="/career-profiles/other-business-services-managers" jbaccount="/Account.aspx" _nghost-dxq-c45="" ng-version="12.2.16">
-    </app-root>
-    <script src="https://api-jobboard.workbc.ca/dist/jb-search/runtime-es2017.js?v=Release-1980" type="module"></script>
-    <script src="https://api-jobboard.workbc.ca/dist/jb-search/runtime-es5.js?v=Release-1980" nomodule="" defer=""></script>
-    <script src="https://api-jobboard.workbc.ca/dist/jb-search/polyfills-es2017.js?v=Release-1980" type="module"></script>
-    <script src="https://api-jobboard.workbc.ca/dist/jb-search/polyfills-es5.js?v=Release-1980" nomodule="" defer=""></script>
-    <script src="https://api-jobboard.workbc.ca/dist/jb-search/main-es2017.js?v=Release-1980" type="module"></script>
-    <script src="https://api-jobboard.workbc.ca/dist/jb-search/main-es5.js?v=Release-1980" nomodule="" defer=""></script>
-    <script>
-        // disable the main form on the page.
-        (function ($) {
-            $(function () {
-                $("form#form").submit(function (e) {
-                    e.preventDefault();
-                });
-            });
-        })($cmsj);
-    </script>
-    
 </div>

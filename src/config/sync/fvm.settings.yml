@@ -12,6 +12,8 @@ media__image__view_modes:
   media_library: 0
 media__remote_video: 0
 media__remote_video__view_modes:
+  ajaxembed: 0
+  full: 0
   media_library: 0
 media__video: 0
 media__video__view_modes:
@@ -39,6 +41,7 @@ node__industry_profile__view_modes:
   teaser: 0
 node__labour_market_monthly: 0
 node__labour_market_monthly__view_modes:
+  full: 0
   teaser: 0
 node__news: 0
 node__news__view_modes:
@@ -48,9 +51,11 @@ node__page: 1
 node__page__view_modes:
   calendar: calendar
   full: full
+  jobboard: jobboard
   teaser: 0
 node__publication: 0
 node__publication__view_modes:
+  full: 0
   publication: 0
   teaser: 0
 node__region_profile: 0
