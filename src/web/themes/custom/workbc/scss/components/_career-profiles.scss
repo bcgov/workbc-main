@@ -40,23 +40,7 @@
 
     .career-details-wrapper {
         $border-size: 3px;
-
-        position: relative; // begin positional context %career-details-wrapper
-        z-index: 10;
         background-color: #ffffff;
-
-        @include media-breakpoint-up(lg) {
-            .career-details-theme-shim {
-                position: absolute; // relative to positional context %career-details-wrapper
-                top: 0;
-                z-index: 1;
-                background-color: $workbc_palette_light_secondary;
-                border-bottom: $border-size solid $workbc_palette_dark_secondary;
-                height: 49px;
-                width: 100%;
-            }
-        }
-
 
         .scroll-container {
             overflow: hidden;
