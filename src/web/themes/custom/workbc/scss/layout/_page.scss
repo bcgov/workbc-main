@@ -42,6 +42,11 @@
 }
 
 .page-title {
-  @include underlined-header;
+  @include gradient-underline;
+
+  font-size: 2.25rem;
+  @include media-breakpoint-up(lg) {
+    font-size: 2.8125rem;
+  }
   margin-bottom: $workbc_spacing_default;
 }

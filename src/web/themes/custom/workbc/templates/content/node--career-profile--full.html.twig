@@ -246,11 +246,60 @@
       <div class="career-content-container">
 
         <div class="tab-content career-content-main">
-          {% for group in tab_groups %}
+          {% set tempgroup = tab_groups|first %}
+          {#
+          'title': 'Career Overview'|t,
+          'key': 'group_career_overview',
+          'content': career_profile_tabbed_content.group_career_overview,
+          #}
+
+          <div class="tab-pane active" id="{{tempgroup.key}}-content" role="tabpanel" aria-labelledby="{{tempgroup.key}}-tab">
+              
+              <h2 class="introduction">Career Overview</h2>
+              <div>{{ tempgroup.content.field_career_overview.0['#text'] | raw }}</div>
+              
+              <h2>Duties</h2>
+              <div>{{ tempgroup.content.field_duties.0['#text'] | raw }}</div>
+
+              <h2>Salary</h2>
+              <div>{{ tempgroup.content.field_salary_introduction.0['#text'] | raw }}</div>
+
+              <div class="salary-card card-profile">
+                <div class="card-profile__content">
+                  <div class="card-profile__statistic">
+                    <h3>Annual Salary</h3>
+                    <div class="card-profile__statistic-single">
+                      <span>$31.99/hr</span>
+                    </div>
+                  </div>
+                  <div class="card-profile__statistic">
+                    <h3>Provincial Hourly Rate</h3>
+                    <div class="card-profile__statistic-multiple">
+                      <label>High</label><span>$31.99/hr</span>
+                      <label>Median</label><span>$27.49/hr</span>
+                      <label>Low</label><span>$18.48/hr</span>
+                    </div>
+                  </div>  
+                </div>
+                <div class="card-profile__source">
+                  <em>Source:</em> 2020 Labour Force Survey
+                </div>
+              </div>
+
+              <hr>
+              <hr>
+              {{ tempgroup.content }}
+              {{ kint(tempgroup.content) }}
+              <hr>
+              <hr>
+          </div>
+
+          {% for group in tab_groups|slice(1) %}
             <div class="tab-pane{{ loop.first ? ' active'}}" id="{{group.key}}-content" role="tabpanel" aria-labelledby="{{group.key}}-tab">
                 {{ group.content }}
             </div>
           {% endfor %}
+
         </div>
 
         <div class="career-content-sidebar">

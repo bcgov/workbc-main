@@ -189,11 +189,28 @@
         .career-content-main {
             flex: 0 0 100%;
             width: 100%;
-            padding: 30px 0;
+            padding: 30px 60px 30px 0;
 
             @include media-breakpoint-up(lg) {
                 flex: 0 0 75%;
                 width: 75%;
+            }
+
+            .tab-pane:not(.active) {
+                display: none;
+            }
+
+            h2 {
+                font-size: 1.313rem;
+                margin-bottom: 20px;
+
+                &.introduction {
+                    font-size: 1.875rem;
+                    font-weight: bold;
+                }
+                &:not(.introduction) {
+                    @include gradient-underline;
+                }
             }
         }
 
