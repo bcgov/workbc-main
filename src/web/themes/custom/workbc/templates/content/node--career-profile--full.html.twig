@@ -68,53 +68,6 @@
  */
 #}
 
-{% set title = label %}
-{% set hero_image = content.field_hero_image[0] %}
-{% set hero_text = null %}
-{% set hero_noc = content.field_noc['#items'].getString() %}
-{% set hero_hoo = content.extra_field_high_opportunity_occupation[0]['#markup'] %}
-
-{% set statistic_annual_salary = content.extra_field_annual_salary %}
-{% set statistic_annual_salary_source = content.extra_field_annual_salary_source %}
-{% set statistic_minimum_education = content.extra_field_minimum_education %}
-{% set statistic_job_openings = content.extra_field_job_openings %}
-{% set statistic_job_openings_source = content.extra_field_job_openings_source %}
-
-{% set career_profile_tabbed_content = content.group_career_profile_tabs %}
-
-{% set tab_groups = {
-  'item-1': {
-    'title': 'Career Overview'|t,
-    'key': 'group_career_overview',
-    'content': career_profile_tabbed_content.group_career_overview,
-  },
-  'item-2': {
-    'title': 'Training, Education & Skills'|t,
-    'key': 'group_education_training_skills',
-    'content': career_profile_tabbed_content.group_education_training_skills,
-  },
-  'item-3': {
-    'title': 'Labour Market Statistics'|t,
-    'key': 'group_labour_market_statistics',
-    'content': career_profile_tabbed_content.group_labour_market_statistics,
-  },
-  'item-4': {
-    'title': 'Industry Highlights'|t,
-    'key': 'group_industry_highlights',
-    'content': career_profile_tabbed_content.group_industry_highlights,
-  },
-  'item-5': {
-    'title': 'Resources'|t,
-    'key': 'group_resources',
-    'content': career_profile_tabbed_content.group_resources,
-  },
- }
-%}
-
-{% set career_videos_introduction = content.field_career_videos_introduction %}
-{% set career_videos = content.field_career_videos %}
-{% set links = content.links %}
-
 {%
   set classes = [
     'node',
@@ -127,7 +80,66 @@
   ]
 %}
 
-{% set container_attributes = create_attribute() %}
+{# This viewmodel is intended to collect all of the incoming variables in one place, and the remainder of the template should 
+ refer only to this viewmodel (or Drupal/Twig generics like loop, directory, etc #}
+{% set viewmodel = {
+  title: label,
+  top_statistics: {
+    annual_salary: {
+      icon_class: 'profile-information-salary',
+      title: content.extra_field_annual_salary['#title'],
+      value: content.extra_field_annual_salary.0['#markup'],
+      source: content.extra_field_annual_salary_source.0['#markup']
+    },
+    minimum_education: {
+      icon_class: 'profile-information-education',
+      title: content.extra_field_minimum_education['#title'],
+      value: content.extra_field_minimum_education.0['#markup'],
+      source: null
+    },
+    job_openings: {
+      icon_class: 'profile-information-jobs',
+      title: content.extra_field_job_openings['#title'],
+      value: content.extra_field_job_openings.0['#markup'],
+      source: content.extra_field_job_openings_source.0['#markup']
+    },
+  },
+  hero: {
+    image: content.field_hero_image[0],
+    title: label,
+    description: null,
+    noc: content.field_noc['#items'].getString(),
+    hoo: content.extra_field_high_opportunity_occupation[0]['#markup'],
+  },
+  tab_sections: {
+    career_overview: {
+      title: 'Career Overview',
+      description: content.group_career_profile_tabs.group_career_overview.field_career_overview.0['#text'],
+      duties_description: content.group_career_profile_tabs.group_career_overview.field_duties.0['#text'],
+      salary_description: content.group_career_profile_tabs.group_career_overview.extra_field_salary_introduction.0['#text'],
+    },
+    education: {
+      title: 'Training, Education & Skills',
+    },
+    labour_market: {
+      title: 'Labour Market Statistics',
+    },
+    industry_highlights: {
+      title: 'Industry Highlights',
+    },
+    resources: {
+      title: 'Resources',
+    },
+  },
+  career_videos: {
+    introduction: content.field_career_videos_introduction,
+    content: content.field_career_videos,
+  },
+  links: content.links,
+}
+%}
+
+
 
 <div class="career-profile-header">
 
@@ -135,23 +147,23 @@
     {{ drupal_block('system_breadcrumb_block', wrapper=false) }}
   </div>
 
-  {% if hero_image or hero_text %}
+  {% if viewmodel['hero']['image'] or viewmodel['hero']['description'] %}
     <div class="career-profile-header-banner hero-banner hero-banner-profile">
 
       <div class="hero-image-wrapper">
         <div class="hero-image-overlay"></div>
-        {{ hero_image }}
+        {{ viewmodel['hero']['image'] }}
       </div>
 
       <div class="hero-content-container container-lg">
         <div class="hero-content-wrapper">
           <div class="hero-title">
-            <h1>{{ title }}</h1>
+            <h1>{{ viewmodel['hero']['title'] }}</h1>
           </div>
 
-          <div class="hero-noc">(NOC {{ hero_noc }})</div>
+          <div class="hero-noc">(NOC {{ viewmodel['hero']['noc'] }})</div>
 
-          {% if hero_hoo %}
+          {% if viewmodel['hero']['hoo'] %}
             <div class="hero-hoo">
               <img src="/{{ directory }}/assets/images/hoo-icon.svg" alt="{{ 'High opportunity occupation'|t }}" />
               <span>{{ 'High opportunity occupation'|t }}</span>
@@ -159,7 +171,7 @@
           {% endif %}
 
           <div class="hero-content">
-            {{ hero_text }}
+            {{ viewmodel['hero']['description'] }}
           </div>
         </div>
       </div>
@@ -172,56 +184,32 @@
   </div>
 </div>
 
-
 <article{{ attributes.addClass(classes) }}>
 
   <div class="career-statistics-wrapper">
     <div class="container-lg profile-information-card-deck">
 
-      <div class="profile-information-card profile-information-salary">
-        <div class="profile-information-card-icon">
-        </div>
-        <div class="profile-information-card-content">
-          <div class="profile-information-card-title">
-            {{ statistic_annual_salary['#title'] }}
-          </div>
-          <div class="profile-information-card-value">
-          {{ statistic_annual_salary.0['#markup'] }}
-          </div>
-        </div>
-        <div class="profile-information-card-infotip">
-          <a tabindex="0" class="btn btn-link info-tooltip" role="button" data-bs-toggle="popover" data-bs-container="body" data-bs-trigger="click" data-bs-placement="bottom" data-bs-custom-class="workbc-popover" title="hidden title" data-bs-html="true" data-bs-content="<em>Source:</em> {{ statistic_annual_salary_source.0['#markup'] }}"></a>
-        </div>
-      </div>
+      {% for statistic in viewmodel['top_statistics'] %}
 
-      <div class="profile-information-card profile-information-education">
-        <div class="profile-information-card-icon">
-        </div>
-        <div class="profile-information-card-content">
-          <div class="profile-information-card-title">
-            {{ statistic_minimum_education['#title'] }}
+        <div class="profile-information-card {{ statistic['icon_class'] }}">
+          <div class="profile-information-card-icon">
           </div>
-          <div class="profile-information-card-value">
-          {{ statistic_minimum_education.0['#markup'] }}
+          <div class="profile-information-card-content">
+            <div class="profile-information-card-title">
+              {{ statistic['title'] }}
+            </div>
+            <div class="profile-information-card-value">
+            {{ statistic['value'] }}
+            </div>
           </div>
+          {% if statistic[''] %}
+            <div class="profile-information-card-infotip">
+              <a tabindex="0" class="btn btn-link info-tooltip" role="button" data-bs-toggle="popover" data-bs-container="body" data-bs-trigger="click" data-bs-placement="bottom" data-bs-custom-class="workbc-popover" title="hidden title" data-bs-html="true" data-bs-content="<em>Source:</em> {{ statistic['source'] }}"></a>
+            </div>
+          {% endif %}
         </div>
-      </div>
 
-      <div class="profile-information-card profile-information-jobs">
-        <div class="profile-information-card-icon">
-        </div>
-        <div class="profile-information-card-content">
-          <div class="profile-information-card-title">
-            {{ statistic_job_openings['#title'] }}
-          </div>
-          <div class="profile-information-card-value">
-          {{ statistic_job_openings.0['#markup'] }}
-          </div>
-        </div>
-        <div class="profile-information-card-infotip">
-          <a tabindex="0" class="btn btn-link info-tooltip" role="button" data-bs-toggle="popover" data-bs-container="body" data-bs-trigger="focus" data-bs-placement="bottom" data-bs-custom-class="workbc-popover" title="hidden title" data-bs-html="true" data-bs-content="<em>Source:</em> {{ statistic_job_openings_source.0['#markup'] }}"></a>
-        </div>
-      </div>
+      {% endfor %}
 
     </div>
   </div>
@@ -230,9 +218,9 @@
     <div class="career-content-tabs ">
       <div class="container-lg scroll-container">
         <ul class="nav nav-tabs career-content-tab-list scroll" id="career-content-tabs" role="tablist">
-          {% for group in tab_groups %}
+          {% for key, tab in viewmodel['tab_sections'] %}
             <li class="nav-item" role="presentation">
-              <a class="nav-link career-content-tab-button{{ loop.first ? ' active'}}" id="{{group.key}}-tab" data-bs-toggle="tab" data-bs-target="#{{group.key}}-content" aria-controls="{{group.key}}-content" aria-selected="true" role="tab" href="#">{{group.title}}</a>
+              <a class="nav-link career-content-tab-button{{ loop.first ? ' active'}}" id="{{key}}-tab" data-bs-toggle="tab" data-bs-target="#{{key}}-content" aria-controls="{{key}}-content" aria-selected="true" role="tab" href="#">{{tab['title']}}</a>
             </li>
           {% endfor %}
         </ul>
@@ -242,78 +230,77 @@
 
     <div class="container-lg">
       <div class="career-content-container">
-
         <div class="tab-content career-content-main">
-          {% set tempgroup = tab_groups|first %}
-          {#
-          'title': 'Career Overview'|t,
-          'key': 'group_career_overview',
-          'content': career_profile_tabbed_content.group_career_overview,
-          #}
 
-          <div class="tab-pane active" id="{{tempgroup.key}}-content" role="tabpanel" aria-labelledby="{{tempgroup.key}}-tab">
-              
-              <h2 class="introduction">Career Overview</h2>
-              <div>{{ tempgroup.content.field_career_overview.0['#text'] | raw }}</div>
-              
-              <h2>Duties</h2>
-              <div>{{ tempgroup.content.field_duties.0['#text'] | raw }}</div>
+          <div class="tab-pane active" id="career_overview-content" role="tabpanel" aria-labelledby="career_overview-tab">
+            <h2 class="introduction">{{ viewmodel['tab_sections']['career_overview']['title'] |t }}</h2>
+            <div>{{ viewmodel['tab_sections']['career_overview']['description'] |raw }}</div>
+            
+            <h2>Duties</h2>
+            <div>{{ viewmodel['tab_sections']['career_overview']['duties_description'] |raw }}</div>
 
-              <h2>Salary</h2>
-              <div>{{ tempgroup.content.field_salary_introduction.0['#text'] | raw }}</div>
+            <h2>Salary</h2>
+            <div>{{ viewmodel['tab_sections']['career_overview']['salary_description'] |raw }}</div>
 
-              <div class="salary-card card-profile">
-                <div class="card-profile__content">
-                  <div class="card-profile__statistic">
-                    <h3>Annual Salary</h3>
-                    <div class="card-profile__statistic-single">
-                      <span>$31.99/hr</span>
+
+            {{ kint(content.group_career_profile_tabs.group_career_overview) }}
+
+            <div class="salary-card card-profile">
+              <div class="card-profile__content">
+                <div class="card-profile__statistic">
+                  <h3>Annual Salary</h3>
+                  <div class="card-profile__statistic-single">
+                    <span>$31.99/hr</span>
+                  </div>
+                </div>
+                <div class="card-profile__statistic">
+                  <h3>Provincial Hourly Rate</h3>
+                  <div class="card-profile__statistic-table">
+                    <div class="stat-row">
+                      <label class="stat-col">High</label>
+                      <span class="stat-col">$31.99/hr</span>
+                    </div>
+                    <div class="stat-row">
+                      <label class="stat-col">Median</label>
+                      <span class="stat-col">$27.49/hr</span>
+                    </div>
+                    <div class="stat-row">
+                      <label class="stat-col">Low</label>
+                      <span class="stat-col">$18.48/hr</span>
                     </div>
                   </div>
-                  <div class="card-profile__statistic">
-                    <h3>Provincial Hourly Rate</h3>
-                    <div class="card-profile__statistic-table">
-                      <div class="stat-row">
-                        <label class="stat-col">High</label>
-                        <span class="stat-col">$31.99/hr</span>
-                      </div>
-                      <div class="stat-row">
-                        <label class="stat-col">Median</label>
-                        <span class="stat-col">$27.49/hr</span>
-                      </div>
-                      <div class="stat-row">
-                        <label class="stat-col">Low</label>
-                        <span class="stat-col">$18.48/hr</span>
-                      </div>
-                    </div>
-                  </div>  
-                </div>
-                <div class="card-profile__source">
-                  <em>Source:</em> 2020 Labour Force Survey
-                </div>
+                </div>  
               </div>
-
-              <hr>
-              <hr>
-              {{ tempgroup.content }}
-              {{ kint(tempgroup.content) }}
-              <hr>
-              <hr>
+              <div class="card-profile__source">
+                <em>Source:</em> 2020 Labour Force Survey
+              </div>
+            </div>
           </div>
 
-          {% for group in tab_groups|slice(1) %}
-            <div class="tab-pane{{ loop.first ? ' active'}}" id="{{group.key}}-content" role="tabpanel" aria-labelledby="{{group.key}}-tab">
-                {{ group.content }}
-            </div>
-          {% endfor %}
+          <div class="tab-pane" id="education-content" role="tabpanel" aria-labelledby="education-tab">
+            Education
+          </div>
+
+          <div class="tab-pane" id="labour_market-content" role="tabpanel" aria-labelledby="labour_market-tab">
+            Labour Market
+          </div>
+
+          <div class="tab-pane" id="industry_highlights-content" role="tabpanel" aria-labelledby="industry_highlights-tab">
+            industry_highlights
+          </div>
+
+          <div class="tab-pane" id="resources-content" role="tabpanel" aria-labelledby="resources-tab">
+            resources
+          </div>
 
         </div>
 
         <div class="career-content-sidebar">
+
           <div class="career-videos-wrapper">
             <div class="container-lg">
-              <h2>{{ career_videos_introduction }}</h2>
-              {{ career_videos }}
+              <h2>{{ viewmodel['career_videos']['introduction'] }}</h2>
+              {{ viewmodel['career_videos']['content'] }}
             </div>
           </div>
 
