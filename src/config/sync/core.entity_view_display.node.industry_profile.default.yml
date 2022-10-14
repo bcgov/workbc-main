@@ -11,6 +11,7 @@ dependencies:
     - field.field.node.industry_profile.field_key_facts
     - field.field.node.industry_profile.field_labour_market_stats_intro
     - field.field.node.industry_profile.field_resources
+    - field.field.node.industry_profile.field_scheduled_publish
     - field.field.node.industry_profile.field_top_occupations_intro
     - field.field.node.industry_profile.field_wage_introduction
     - field.field.node.industry_profile.field_work_force_introduction
@@ -18,6 +19,7 @@ dependencies:
   module:
     - field_group
     - link
+    - scheduled_publish
     - svg_image
     - text
     - user
@@ -106,6 +108,11 @@ targetEntityType: node
 bundle: industry_profile
 mode: default
 content:
+  content_moderation_control:
+    settings: {  }
+    third_party_settings: {  }
+    weight: -20
+    region: content
   extra_field_industry_average_wage_bc:
     settings: {  }
     third_party_settings: {  }
@@ -253,6 +260,15 @@ content:
     third_party_settings: {  }
     weight: 28
     region: content
+  field_scheduled_publish:
+    type: scheduled_publish_generic_formatter
+    label: above
+    settings:
+      date_format: html_datetime
+      text_pattern: '%moderation_state% - %date%'
+    third_party_settings: {  }
+    weight: 32
+    region: content
   field_top_occupations_intro:
     type: text_default
     label: above
@@ -280,6 +296,17 @@ content:
     weight: 0
     region: content
 hidden:
+  extra_field_industry_employment_growth_rate_one_year_source: true
+  extra_field_industry_employment_growth_rate_ten_year_source: true
+  extra_field_industry_employment_growth_source: true
+  extra_field_industry_employment_region_source: true
+  extra_field_industry_employment_source: true
+  extra_field_industry_employment_trends_source: true
+  extra_field_industry_employment_types_source: true
+  extra_field_industry_job_openings_source: true
+  extra_field_industry_wage_source: true
+  extra_field_industry_workforce_age_source: true
+  extra_field_industry_workforce_gender_source: true
   extra_field_workbc_page_title: true
   extra_field_workbc_published_on: true
   field_content_group: true

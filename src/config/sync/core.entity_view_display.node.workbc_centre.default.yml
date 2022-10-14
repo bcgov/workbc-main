@@ -12,6 +12,7 @@ dependencies:
     - field.field.node.workbc_centre.field_hero_image
     - field.field.node.workbc_centre.field_hours_of_operation
     - field.field.node.workbc_centre.field_related_topics
+    - field.field.node.workbc_centre.field_scheduled_publish
     - field.field.node.workbc_centre.field_survey_link
     - field.field.node.workbc_centre.field_website
     - node.type.workbc_centre
@@ -19,6 +20,7 @@ dependencies:
     - address
     - entity_reference_revisions
     - link
+    - scheduled_publish
     - svg_image
     - text
     - user
@@ -27,6 +29,11 @@ targetEntityType: node
 bundle: workbc_centre
 mode: default
 content:
+  content_moderation_control:
+    settings: {  }
+    third_party_settings: {  }
+    weight: -20
+    region: content
   extra_field_wbcc_recent_jobs:
     settings: {  }
     third_party_settings: {  }
@@ -95,6 +102,15 @@ content:
       link: ''
     third_party_settings: {  }
     weight: 3
+    region: content
+  field_scheduled_publish:
+    type: scheduled_publish_generic_formatter
+    label: above
+    settings:
+      date_format: html_datetime
+      text_pattern: '%moderation_state% - %date%'
+    third_party_settings: {  }
+    weight: 11
     region: content
   field_survey_link:
     type: entity_reference_revisions_entity_view

@@ -10,6 +10,7 @@ dependencies:
     - field.field.node.bc_profile.field_key_facts
     - field.field.node.bc_profile.field_labour_market_stats_intro
     - field.field.node.bc_profile.field_region_overview
+    - field.field.node.bc_profile.field_scheduled_publish
     - node.type.bc_profile
   module:
     - user
@@ -51,5 +52,6 @@ hidden:
   field_key_facts: true
   field_labour_market_stats_intro: true
   field_region_overview: true
+  field_scheduled_publish: true
   langcode: true
   search_api_excerpt: true

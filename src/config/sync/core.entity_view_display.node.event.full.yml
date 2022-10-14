@@ -11,6 +11,7 @@ dependencies:
     - field.field.node.event.field_end_date
     - field.field.node.event.field_event_type
     - field.field.node.event.field_multiple_days
+    - field.field.node.event.field_scheduled_publish
     - field.field.node.event.field_start_date
     - field.field.node.event.field_time
     - node.type.event
@@ -31,6 +32,11 @@ content:
     settings: {  }
     third_party_settings: {  }
     weight: 1
+    region: content
+  content_moderation_control:
+    settings: {  }
+    third_party_settings: {  }
+    weight: -20
     region: content
   field_address:
     type: address_default
@@ -92,5 +98,6 @@ hidden:
   extra_field_workbc_published_on: true
   field_content_group: true
   field_multiple_days: true
+  field_scheduled_publish: true
   langcode: true
   search_api_excerpt: true

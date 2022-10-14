@@ -7,11 +7,13 @@ dependencies:
     - field.field.node.success_story.field_content_group
     - field.field.node.success_story.field_image
     - field.field.node.success_story.field_related_topics_blurb
+    - field.field.node.success_story.field_scheduled_publish
     - field.field.node.success_story.field_subtitle
     - field.field.node.success_story.field_tags
     - image.style.article_wide
     - node.type.success_story
   module:
+    - scheduled_publish
     - svg_image
     - text
     - user
@@ -58,6 +60,15 @@ content:
     settings: {  }
     third_party_settings: {  }
     weight: 4
+    region: content
+  field_scheduled_publish:
+    type: scheduled_publish_generic_formatter
+    label: above
+    settings:
+      date_format: html_datetime
+      text_pattern: '%moderation_state% - %date%'
+    third_party_settings: {  }
+    weight: 5
     region: content
   links:
     settings: {  }

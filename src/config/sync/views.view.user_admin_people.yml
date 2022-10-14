@@ -4,7 +4,10 @@ status: true
 dependencies:
   config:
     - field.storage.user.field_content_group
+    - taxonomy.vocabulary.content_groups
   module:
+    - role_delegation
+    - taxonomy
     - user
 _core:
   default_config_hash: njaZigMvB4ap21Fg_tQcJhWgYJCGNi49Z5rRL_N6RI0
@@ -683,6 +686,60 @@ display:
                 title: Blocked
                 operator: '='
                 value: '0'
+        field_content_group_target_id:
+          id: field_content_group_target_id
+          table: user__field_content_group
+          field: field_content_group_target_id
+          relationship: none
+          group_type: group
+          admin_label: ''
+          plugin_id: taxonomy_index_tid
+          operator: or
+          value: {  }
+          group: 1
+          exposed: true
+          expose:
+            operator_id: field_content_group_target_id_op
+            label: 'Content Group'
+            description: ''
+            use_operator: false
+            operator: field_content_group_target_id_op
+            operator_limit_selection: false
+            operator_list: {  }
+            identifier: field_content_group_target_id
+            required: false
+            remember: false
+            multiple: false
+            remember_roles:
+              authenticated: authenticated
+              anonymous: '0'
+              content_editor: '0'
+              content_approver: '0'
+              workbc_administrator: '0'
+              global_editor: '0'
+              global_approver: '0'
+              workbc_global_administrator: '0'
+              administrator: '0'
+              switch_user: '0'
+            reduce: false
+          is_grouped: false
+          group_info:
+            label: ''
+            description: ''
+            identifier: ''
+            optional: true
+            widget: select
+            multiple: false
+            remember: false
+            default_group: All
+            default_group_multiple: {  }
+            group_items: {  }
+          reduce_duplicates: false
+          vid: content_groups
+          type: select
+          hierarchy: false
+          limit: true
+          error_message: true
         roles_target_id:
           id: roles_target_id
           table: user__roles
@@ -955,6 +1012,7 @@ display:
         - 'languages:language_interface'
         - url
         - url.query_args
+        - user
         - user.permissions
       tags:
         - 'config:field.storage.user.field_content_group'
@@ -989,6 +1047,7 @@ display:
         - 'languages:language_interface'
         - url
         - url.query_args
+        - user
         - user.permissions
       tags:
         - 'config:field.storage.user.field_content_group'

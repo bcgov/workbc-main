@@ -19,6 +19,7 @@ dependencies:
     - field.field.node.career_profile.field_noc
     - field.field.node.career_profile.field_related_careers
     - field.field.node.career_profile.field_resources
+    - field.field.node.career_profile.field_scheduled_publish
     - field.field.node.career_profile.field_work_environment
     - node.type.career_profile
   module:
@@ -521,5 +522,6 @@ hidden:
   extra_field_workbc_published_on: true
   field_content_group: true
   field_introductions: true
+  field_scheduled_publish: true
   langcode: true
   search_api_excerpt: true

@@ -1,9 +1,11 @@
 .breadcrumb-wrapper {
   padding: 12px 0;
   box-shadow: $workbc_default_bottom_shadow;
-  overflow: hidden;
   overflow-x: scroll;
-  overscroll-behavior-x: contain;
+
+  @include media-breakpoint-up(md) {
+    overflow-x: auto;
+  }
 }
 
 .breadcrumb {

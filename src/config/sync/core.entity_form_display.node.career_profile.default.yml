@@ -18,15 +18,18 @@ dependencies:
     - field.field.node.career_profile.field_noc
     - field.field.node.career_profile.field_related_careers
     - field.field.node.career_profile.field_resources
+    - field.field.node.career_profile.field_scheduled_publish
     - field.field.node.career_profile.field_work_environment
     - image.style.thumbnail
     - node.type.career_profile
+    - workflows.workflow.editorial
   module:
     - content_moderation
     - image_widget_crop
     - link
     - media_library
     - path
+    - scheduled_publish
     - text
     - workbc_custom
 id: node.career_profile.default
@@ -163,6 +166,12 @@ content:
     settings:
       placeholder_url: ''
       placeholder_title: ''
+    third_party_settings: {  }
+  field_scheduled_publish:
+    type: scheduled_publish
+    weight: 102
+    region: content
+    settings: {  }
     third_party_settings: {  }
   field_work_environment:
     type: text_textarea

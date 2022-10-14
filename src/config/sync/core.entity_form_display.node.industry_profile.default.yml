@@ -11,16 +11,19 @@ dependencies:
     - field.field.node.industry_profile.field_key_facts
     - field.field.node.industry_profile.field_labour_market_stats_intro
     - field.field.node.industry_profile.field_resources
+    - field.field.node.industry_profile.field_scheduled_publish
     - field.field.node.industry_profile.field_top_occupations_intro
     - field.field.node.industry_profile.field_wage_introduction
     - field.field.node.industry_profile.field_work_force_introduction
     - image.style.thumbnail
     - node.type.industry_profile
+    - workflows.workflow.editorial
   module:
     - content_moderation
     - image_widget_crop
     - link
     - path
+    - scheduled_publish
     - text
     - workbc_custom
 id: node.industry_profile.default
@@ -102,6 +105,12 @@ content:
     settings:
       placeholder_url: ''
       placeholder_title: ''
+    third_party_settings: {  }
+  field_scheduled_publish:
+    type: scheduled_publish
+    weight: 132
+    region: content
+    settings: {  }
     third_party_settings: {  }
   field_top_occupations_intro:
     type: text_textarea

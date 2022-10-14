@@ -11,7 +11,7 @@
 .page-left-nav {
   @include media-breakpoint-up(lg) {
     position: sticky; // relative to positional context %leftnav
-    top: 110px;
+    top: 120px;
   }
 }
 
@@ -30,5 +30,15 @@
 
   @include media-breakpoint-up(lg) {
     margin-bottom: 50px;
+  }
+}
+
+// Offset for Fixed Nav and Title being covered
+.page-format--sidenav h2 :target:before {
+  @include media-breakpoint-up(lg) {
+    content: "";
+    display: block;
+    height: 110px;
+    margin-top: -110px;
   }
 }
