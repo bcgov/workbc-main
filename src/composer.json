@@ -19,6 +19,10 @@
             "url": "https://github.com/infojunkie/gathercontent-client"
         },
         {
+            "type": "vcs",
+            "url": "https://git.drupalcode.org/project/backup_migrate_aws_s3"
+        },
+        {
             "type": "package",
             "package": {
                 "name": "google/charts",
@@ -65,7 +69,7 @@
         "drupal/admin_toolbar": "^3.1",
         "drupal/auto_username": "^1.2",
         "drupal/backup_migrate": "^5.0",
-        "drupal/backup_migrate_aws_s3": "^5.0",
+        "drupal/backup_migrate_aws_s3": "dev-5.0.x",
         "drupal/better_social_sharing_buttons": "^4.0",
         "drupal/block_visibility_conditions": "^1.0",
         "drupal/bootstrap5": "^1.1",
