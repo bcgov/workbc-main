@@ -19,6 +19,7 @@ dependencies:
     - field.field.node.career_profile.field_noc
     - field.field.node.career_profile.field_related_careers
     - field.field.node.career_profile.field_resources
+    - field.field.node.career_profile.field_scheduled_publish
     - field.field.node.career_profile.field_work_environment
     - node.type.career_profile
   module:
@@ -27,7 +28,12 @@ id: node.career_profile.teaser
 targetEntityType: node
 bundle: career_profile
 mode: teaser
-content: {  }
+content:
+  content_moderation_control:
+    settings: {  }
+    third_party_settings: {  }
+    weight: -20
+    region: content
 hidden:
   extra_field_annual_salary: true
   extra_field_annual_salary_source: true
@@ -84,6 +90,7 @@ hidden:
   field_noc: true
   field_related_careers: true
   field_resources: true
+  field_scheduled_publish: true
   field_work_environment: true
   langcode: true
   links: true

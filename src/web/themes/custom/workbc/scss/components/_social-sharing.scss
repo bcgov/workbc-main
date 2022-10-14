@@ -1,6 +1,10 @@
+.social-sharing {
+  padding: 20px 0;
+}
+
 .social-sharing-buttons {
+  display: flex;
   justify-content: left;
-  padding-bottom: 20px;
   margin: 0;
 
   @include media-breakpoint-up(md) {
@@ -13,7 +17,6 @@
   width: 32px;
   height: 32px;
   border-radius: 0;
-  background-color: #fff;
   background-repeat: no-repeat;
   background-position: center;
   background-size: auto 47%;

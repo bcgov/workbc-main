@@ -29,6 +29,7 @@ $workbc_default_text: $workbc_palette_dark_default;
 $workbc_default_link: $workbc_palette_dark_secondary;
 $workbc_default_box_shadow: 0px 0px 15px 0px $workbc_palette_shadow_primary; 
 $workbc_default_bottom_shadow: 0px 5px 10px -5px $workbc_palette_shadow_primary;
+$workbc_default_inset_bottom_shadow: inset 0px -10px 10px -10px $workbc_palette_shadow_primary;
 
 $workbc_dark_theme_background: $workbc_palette_dark_primary;
 $workbc_dark_theme_text: $workbc_palette_light_primary;

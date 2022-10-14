@@ -1,22 +1,31 @@
 .breadcrumb-wrapper {
+  padding: 12px 0;
   box-shadow: $workbc_default_bottom_shadow;
-  $breadcrumb-height: 45px;
-  margin-bottom: $workbc_spacing_default;
+  overflow-x: scroll;
 
-  ul.breadcrumb, 
-  ol.breadcrumb {
-    @include list-reset;
-    @include list-flex-inline;
-    justify-content: flex-start;
-    align-items: center;
+  @include media-breakpoint-up(md) {
+    overflow-x: auto;
+  }
+}
 
-    height: $breadcrumb-height;
+.breadcrumb {
+  margin: 0;
+  padding: 0;
+  display: flex;
+  flex-wrap: nowrap;
+}
+
+.breadcrumb .breadcrumb-item {
+  display: block;
+  white-space: nowrap;
+  font-size: 13px;
+
+  @include media-breakpoint-up(lg) {
     font-size: 14px;
+  }
 
-    & > li {
-      &:before {
-        color: $workbc_default_text;
-      }
-    }
+  &:before {
+    float: none;
+    color: $workbc_default_text;
   }
 }

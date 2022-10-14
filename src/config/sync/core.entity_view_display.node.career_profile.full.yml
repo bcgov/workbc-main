@@ -19,6 +19,7 @@ dependencies:
     - field.field.node.career_profile.field_noc
     - field.field.node.career_profile.field_related_careers
     - field.field.node.career_profile.field_resources
+    - field.field.node.career_profile.field_scheduled_publish
     - field.field.node.career_profile.field_work_environment
     - node.type.career_profile
   module:
@@ -40,11 +41,18 @@ third_party_settings:
       parent_name: ''
       region: content
       weight: 11
-      format_type: tabs
+      format_type: html_element
       format_settings:
         classes: ''
         show_empty_fields: true
         id: ''
+        element: div
+        show_label: false
+        label_element: h3
+        label_element_classes: ''
+        attributes: ''
+        effect: none
+        speed: fast
         direction: horizontal
         width_breakpoint: 640
     group_career_overview:
@@ -69,11 +77,18 @@ third_party_settings:
       parent_name: group_career_profile_tabs
       region: content
       weight: 25
-      format_type: tab
+      format_type: html_element
       format_settings:
         classes: ''
         show_empty_fields: true
         id: ''
+        element: div
+        show_label: false
+        label_element: h3
+        label_element_classes: ''
+        attributes: ''
+        effect: none
+        speed: fast
         formatter: open
         description: ''
     group_education_training_skills:
@@ -87,11 +102,18 @@ third_party_settings:
       parent_name: group_career_profile_tabs
       region: content
       weight: 26
-      format_type: tab
+      format_type: html_element
       format_settings:
         classes: ''
         show_empty_fields: true
         id: ''
+        element: div
+        show_label: false
+        label_element: h3
+        label_element_classes: ''
+        attributes: ''
+        effect: none
+        speed: fast
         formatter: open
         description: ''
     group_labour_market_statistics:
@@ -115,11 +137,18 @@ third_party_settings:
       parent_name: group_career_profile_tabs
       region: content
       weight: 27
-      format_type: tab
+      format_type: html_element
       format_settings:
         classes: ''
         show_empty_fields: true
         id: ''
+        element: div
+        show_label: false
+        label_element: h3
+        label_element_classes: ''
+        attributes: ''
+        effect: none
+        speed: fast
         formatter: open
         description: ''
     group_industry_highlights:
@@ -132,11 +161,18 @@ third_party_settings:
       parent_name: group_career_profile_tabs
       region: content
       weight: 29
-      format_type: tab
+      format_type: html_element
       format_settings:
         classes: ''
         show_empty_fields: true
         id: ''
+        element: div
+        show_label: false
+        label_element: h3
+        label_element_classes: ''
+        attributes: ''
+        effect: none
+        speed: fast
         formatter: open
         description: ''
     group_resources:
@@ -146,11 +182,18 @@ third_party_settings:
       parent_name: group_career_profile_tabs
       region: content
       weight: 30
-      format_type: tab
+      format_type: html_element
       format_settings:
         classes: ''
         show_empty_fields: true
         id: ''
+        element: div
+        show_label: false
+        label_element: h3
+        label_element_classes: ''
+        attributes: ''
+        effect: none
+        speed: fast
         formatter: open
         description: ''
 id: node.career_profile.full
@@ -158,6 +201,11 @@ targetEntityType: node
 bundle: career_profile
 mode: full
 content:
+  content_moderation_control:
+    settings: {  }
+    third_party_settings: {  }
+    weight: -20
+    region: content
   extra_field_annual_salary:
     settings: {  }
     third_party_settings: {  }
@@ -363,10 +411,11 @@ content:
     weight: 24
     region: content
   field_career_videos:
-    type: entity_reference_label
+    type: entity_reference_entity_view
     label: above
     settings:
-      link: true
+      view_mode: ajaxembed
+      link: false
     third_party_settings: {  }
     weight: 10
     region: content
@@ -473,5 +522,6 @@ hidden:
   extra_field_workbc_published_on: true
   field_content_group: true
   field_introductions: true
+  field_scheduled_publish: true
   langcode: true
   search_api_excerpt: true

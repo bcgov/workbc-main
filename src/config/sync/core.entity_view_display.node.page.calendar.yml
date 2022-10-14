@@ -11,6 +11,8 @@ dependencies:
     - field.field.node.page.field_hero_text
     - field.field.node.page.field_page_format
     - field.field.node.page.field_related_topics
+    - field.field.node.page.field_related_topics_blurb
+    - field.field.node.page.field_scheduled_publish
     - field.field.node.page.view_mode_selection
     - node.type.page
   module:
@@ -59,6 +61,7 @@ hidden:
   field_page_format: true
   field_related_topics: true
   field_related_topics_blurb: true
+  field_scheduled_publish: true
   langcode: true
   search_api_excerpt: true
   view_mode_selection: true

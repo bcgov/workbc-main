@@ -1,0 +1,11 @@
+uuid: 44376592-75e2-4045-bd38-23546114fd1f
+langcode: en
+status: true
+dependencies:
+  config:
+    - filter.format.basic_html
+id: contact_us_french_link
+title: 'Contact Us - French link'
+content:
+  value: "<p><a href=\"/\">Services disponibles en français</a></p>\r\n"
+  format: basic_html

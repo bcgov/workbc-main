@@ -10,8 +10,9 @@ dependencies:
     - field.field.node.page.field_hero_text
     - field.field.node.page.field_page_format
     - field.field.node.page.field_related_topics
-    - field.field.node.page.view_mode_selection
     - field.field.node.page.field_related_topics_blurb
+    - field.field.node.page.field_scheduled_publish
+    - field.field.node.page.view_mode_selection
     - image.style.thumbnail
     - node.type.page
     - workflows.workflow.editorial
@@ -20,6 +21,7 @@ dependencies:
     - image_widget_crop
     - paragraphs
     - path
+    - scheduled_publish
     - text
     - workbc_custom
 _core:
@@ -115,6 +117,12 @@ content:
     settings:
       rows: 5
       placeholder: ''
+    third_party_settings: {  }
+  field_scheduled_publish:
+    type: scheduled_publish
+    weight: 27
+    region: content
+    settings: {  }
     third_party_settings: {  }
   langcode:
     type: language_select

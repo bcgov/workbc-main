@@ -7,11 +7,13 @@ libraries:
   - workbc/global-styling
   - workbc/fonts
   - workbc/submenu-underlay
-  - workbc/swiper-js
   - workbc/related-topics-carousel
   - workbc/sidenav-anchors
   - workbc/mobile-nav
   - workbc/nav
+  - workbc/init-popovers
+  - workbc/swiper-js
+  - workbc/scrollbooster
 stylesheets-remove:
   - '@bootstrap5/css/style.css'
 regions:

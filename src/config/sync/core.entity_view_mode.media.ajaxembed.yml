@@ -1,0 +1,10 @@
+uuid: 52ad7d40-844c-4a3c-96ad-875104401843
+langcode: en
+status: true
+dependencies:
+  module:
+    - media
+id: media.ajaxembed
+label: AjaxEmbed
+targetEntityType: media
+cache: true

@@ -1,0 +1,53 @@
+uuid: 346bb0a0-24b1-4408-9f05-5e1742ae01a3
+langcode: en
+status: true
+dependencies:
+  config:
+    - core.entity_view_mode.media.ajaxembed
+    - field.field.media.remote_video.field_category
+    - field.field.media.remote_video.field_description
+    - field.field.media.remote_video.field_duration
+    - field.field.media.remote_video.field_media_oembed_video
+    - media.type.remote_video
+  module:
+    - svg_image
+_core:
+  default_config_hash: zQoBQ0BtnMM_rlDdgftyu6eI4AVs9mo5K8xq7NFO2Zc
+id: media.remote_video.ajaxembed
+targetEntityType: media
+bundle: remote_video
+mode: ajaxembed
+content:
+  field_media_oembed_video:
+    type: string
+    label: above
+    settings:
+      link_to_entity: false
+    third_party_settings: {  }
+    weight: 0
+    region: content
+  thumbnail:
+    type: image
+    label: hidden
+    settings:
+      image_link: ''
+      image_style: ''
+      svg_attributes:
+        width: null
+        height: null
+      svg_render_as_image: true
+      image_loading:
+        attribute: lazy
+    third_party_settings: {  }
+    weight: 1
+    region: content
+hidden:
+  created: true
+  field_category: true
+  field_description: true
+  field_duration: true
+  field_title: true
+  langcode: true
+  name: true
+  search_api_excerpt: true
+  uid: true

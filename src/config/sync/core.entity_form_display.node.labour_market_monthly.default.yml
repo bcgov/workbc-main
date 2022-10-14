@@ -5,19 +5,21 @@ dependencies:
   config:
     - field.field.node.labour_market_monthly.field_content_group
     - field.field.node.labour_market_monthly.field_employment_introduction
+    - field.field.node.labour_market_monthly.field_hero_image
+    - field.field.node.labour_market_monthly.field_hero_text
     - field.field.node.labour_market_monthly.field_industry_highlights_intro
-    - field.field.node.labour_market_monthly.field_month
     - field.field.node.labour_market_monthly.field_related_topics
     - field.field.node.labour_market_monthly.field_scheduled_publish
     - field.field.node.labour_market_monthly.field_unemployment_introduction
     - field.field.node.labour_market_monthly.field_unemployment_region_intro
+    - image.style.thumbnail
     - node.type.labour_market_monthly
     - workflows.workflow.editorial
   module:
     - content_moderation
-    - datetime
     - path
     - scheduled_publish
+    - svg_image
     - text
     - workbc_custom
 id: node.labour_market_monthly.default
@@ -27,19 +29,35 @@ mode: default
 content:
   created:
     type: datetime_timestamp
-    weight: 10
+    weight: 6
     region: content
     settings: {  }
     third_party_settings: {  }
   field_content_group:
     type: options_select
-    weight: 127
+    weight: 18
     region: content
     settings: {  }
     third_party_settings: {  }
   field_employment_introduction:
     type: text_textarea
-    weight: 121
+    weight: 13
+    region: content
+    settings:
+      rows: 5
+      placeholder: ''
+    third_party_settings: {  }
+  field_hero_image:
+    type: image_image
+    weight: 1
+    region: content
+    settings:
+      progress_indicator: throbber
+      preview_image_style: thumbnail
+    third_party_settings: {  }
+  field_hero_text:
+    type: text_textarea
+    weight: 2
     region: content
     settings:
       rows: 5
@@ -47,21 +65,15 @@ content:
     third_party_settings: {  }
   field_industry_highlights_intro:
     type: text_textarea
-    weight: 125
+    weight: 16
     region: content
     settings:
       rows: 5
       placeholder: ''
     third_party_settings: {  }
-  field_month:
-    type: datetime_default
-    weight: 122
-    region: content
-    settings: {  }
-    third_party_settings: {  }
   field_related_topics:
     type: entity_reference_autocomplete
-    weight: 126
+    weight: 17
     region: content
     settings:
       match_operator: CONTAINS
@@ -71,13 +83,13 @@ content:
     third_party_settings: {  }
   field_scheduled_publish:
     type: scheduled_publish
-    weight: 128
+    weight: 19
     region: content
     settings: {  }
     third_party_settings: {  }
   field_unemployment_introduction:
     type: text_textarea
-    weight: 123
+    weight: 14
     region: content
     settings:
       rows: 5
@@ -85,7 +97,7 @@ content:
     third_party_settings: {  }
   field_unemployment_region_intro:
     type: text_textarea
-    weight: 124
+    weight: 15
     region: content
     settings:
       rows: 5
@@ -93,52 +105,52 @@ content:
     third_party_settings: {  }
   langcode:
     type: language_select
-    weight: 2
+    weight: 4
     region: content
     settings:
       include_locked: true
     third_party_settings: {  }
   moderation_state:
     type: moderation_state_default
-    weight: 100
+    weight: 11
     region: content
     settings: {  }
     third_party_settings: {  }
   path:
     type: path
-    weight: 30
+    weight: 10
     region: content
     settings: {  }
     third_party_settings: {  }
   promote:
     type: boolean_checkbox
-    weight: 15
+    weight: 8
     region: content
     settings:
       display_label: true
     third_party_settings: {  }
   simple_sitemap:
-    weight: 10
+    weight: 7
     region: content
     settings: {  }
     third_party_settings: {  }
   status:
     type: boolean_checkbox
-    weight: 120
+    weight: 12
     region: content
     settings:
       display_label: true
     third_party_settings: {  }
   sticky:
     type: boolean_checkbox
-    weight: 16
+    weight: 9
     region: content
     settings:
       display_label: true
     third_party_settings: {  }
   title:
     type: string_textfield
-    weight: -5
+    weight: 0
     region: content
     settings:
       size: 60

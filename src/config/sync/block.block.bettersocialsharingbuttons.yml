@@ -11,7 +11,7 @@ dependencies:
 id: bettersocialsharingbuttons
 theme: workbc
 region: hidden
-weight: -10
+weight: -11
 provider: null
 plugin: social_sharing_buttons_block
 settings:
@@ -54,6 +54,8 @@ visibility:
       node: '@node.node_route_context:node'
     bundles:
       blog: blog
+      event: event
+      labour_market_monthly: labour_market_monthly
       news: news
-      page: page
+      publication: publication
       success_story: success_story

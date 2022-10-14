@@ -18,11 +18,13 @@ dependencies:
     - field.field.node.career_profile.field_noc
     - field.field.node.career_profile.field_related_careers
     - field.field.node.career_profile.field_resources
+    - field.field.node.career_profile.field_scheduled_publish
     - field.field.node.career_profile.field_work_environment
     - node.type.career_profile
   module:
     - field_group
     - link
+    - scheduled_publish
     - svg_image
     - text
     - user
@@ -157,6 +159,11 @@ targetEntityType: node
 bundle: career_profile
 mode: default
 content:
+  content_moderation_control:
+    settings: {  }
+    third_party_settings: {  }
+    weight: -20
+    region: content
   extra_field_annual_salary:
     settings: {  }
     third_party_settings: {  }
@@ -362,10 +369,11 @@ content:
     weight: 24
     region: content
   field_career_videos:
-    type: entity_reference_label
+    type: entity_reference_entity_view
     label: above
     settings:
-      link: true
+      view_mode: ajaxembed
+      link: false
     third_party_settings: {  }
     weight: 10
     region: content
@@ -454,6 +462,15 @@ content:
       target: ''
     third_party_settings: {  }
     weight: 1
+    region: content
+  field_scheduled_publish:
+    type: scheduled_publish_generic_formatter
+    label: above
+    settings:
+      date_format: html_datetime
+      text_pattern: '%moderation_state% - %date%'
+    third_party_settings: {  }
+    weight: 82
     region: content
   field_work_environment:
     type: text_default

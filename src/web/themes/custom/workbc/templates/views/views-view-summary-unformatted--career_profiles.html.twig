@@ -39,13 +39,13 @@
 <div class='alphabet-navigation views-summary views-summary-unformatted'>
   {{ options.inline ? '<span' : '<div' }} class="alphabet-navigation-unfiltered{{all_active ? ' is-active'}}">
 
-  <a href="/career-profiles/all">All</a>
+  <a href="/{{ view_base_path }}">All</a>
 
   {{ options.inline ? '</span>' : '</div>' }}
 
   {% set counter = 0 %}
   {% set max = rows|length %}
-  
+
   {% for letter in 'A'..'Z' %}
     {% set hasResults = (counter < max and rows[counter].link == letter) %}
     {% set isActive = rows[counter].active %}
