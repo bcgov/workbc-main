@@ -50,18 +50,19 @@
   }
 }
 
-.card-profile__statistic-multiple {
-  display: flex;
-  flex-flow: row wrap;
-  row-gap: 10px;
-  justify-content: center;
+.card-profile__statistic-table {
+  display: table;
 
-  label {
-    flex: 0 0 34%;
+  .stat-row {
+    display: table-row;
+  }
+
+  .stat-col {
+    display: table-cell;
+    padding: 6px 20px;
   }
 
   span {
-    flex: 0 0 34%;
     color: $workbc_palette_dark_tertiary;
     font-weight: bold;
   }

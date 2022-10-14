@@ -189,11 +189,12 @@
         .career-content-main {
             flex: 0 0 100%;
             width: 100%;
-            padding: 30px 60px 30px 0;
+            padding: 30px 0;
 
             @include media-breakpoint-up(lg) {
                 flex: 0 0 75%;
                 width: 75%;
+                padding: 30px 60px 30px 0;
             }
 
             .tab-pane:not(.active) {
