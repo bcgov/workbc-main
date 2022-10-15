@@ -87,6 +87,7 @@
     view_mode ? 'node--view-mode-' ~ view_mode|clean_class,
   ]
 %}
+
 {{ attach_library('classy/node') }}
 <article{{ attributes.addClass(classes) }}>
 
@@ -104,7 +105,7 @@
 
           {% if content.field_hardcopy_available['#items'].value %}
             <div class="action hardcopy">
-              <a href="/workbc-order-form" target="_blank"><div>Order Hardcopy</div></a>
+              <a href="{{ order_form_path }}" target="_blank"><div>Order Hardcopy</div></a>
             </div>
           {% endif %}
         </div>

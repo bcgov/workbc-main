@@ -1,0 +1,15 @@
+workbc_custom.admin_index:
+  path: '/admin/config/workbc'
+  defaults:
+    _controller: '\Drupal\system\Controller\SystemController::systemAdminMenuBlockPage'
+    _title: 'WorkBC'
+  requirements:
+    _permission: 'access administration pages'
+
+workbc_custom.admin_settings:
+  path: '/admin/config/workbc/workbc'
+  defaults:
+    _title: 'WorkBC Custom'
+    _form: '\Drupal\workbc_custom\Form\AdminSettingsForm'
+  requirements:
+    _permission: 'administer workbc_custom settings'
