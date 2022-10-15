@@ -19,10 +19,6 @@
             "url": "https://github.com/infojunkie/gathercontent-client"
         },
         {
-            "type": "vcs",
-            "url": "https://git.drupalcode.org/project/backup_migrate_aws_s3"
-        },
-        {
             "type": "package",
             "package": {
                 "name": "google/charts",
@@ -69,7 +65,7 @@
         "drupal/admin_toolbar": "^3.1",
         "drupal/auto_username": "^1.2",
         "drupal/backup_migrate": "^5.0",
-        "drupal/backup_migrate_aws_s3": "dev-5.0.x",
+        "drupal/backup_migrate_aws_s3": "^5.0",
         "drupal/better_social_sharing_buttons": "^4.0",
         "drupal/block_visibility_conditions": "^1.0",
         "drupal/bootstrap5": "^1.1",
@@ -202,6 +198,9 @@
             "drupal/backup_migrate": {
                 "PostgreSQL support": "patches/drupal/backup_migrate/0003-postgresql-support.patch",
                 "Directory restore": "patches/drupal/backup_migrate/backup-migrate-restore-public-files-3245802-3.patch"
+            },
+            "drupal/backup_migrate_aws_s3": {
+                "Optional AWS keys": "patches/drupal/backup_migrate_aws_s3/keys-optional-3315033-1.patch"
             },
             "drupal/time_field": {
                 "Deprecated function trim() with PHP 8.1": "patches/drupal/time_field/3269302-Deprecated_function_trim_coalescing.patch"

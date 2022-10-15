@@ -4,7 +4,7 @@
         "Read more about it at https://getcomposer.org/doc/01-basic-usage.md#installing-dependencies",
         "This file is @generated automatically"
     ],
-    "content-hash": "4110ba2a93ba7abb222c349c6b0d7965",
+    "content-hash": "3c1490443f34c6de2b7452a59a447a26",
     "packages": [
         {
             "name": "alchemy/zippy",
@@ -2576,11 +2576,17 @@
         },
         {
             "name": "drupal/backup_migrate_aws_s3",
-            "version": "dev-5.0.x",
+            "version": "5.0.6",
             "source": {
                 "type": "git",
                 "url": "https://git.drupalcode.org/project/backup_migrate_aws_s3.git",
-                "reference": "d0183971bbe4ca2d79cab76757fd6d095e9a4acc"
+                "reference": "5.0.6"
+            },
+            "dist": {
+                "type": "zip",
+                "url": "https://ftp.drupal.org/files/projects/backup_migrate_aws_s3-5.0.6.zip",
+                "reference": "5.0.6",
+                "shasum": "059e6958c87d0f259fe413717ec72ea88a05a70d"
             },
             "require": {
                 "aws/aws-sdk-php": "^3.2",
@@ -2590,15 +2596,12 @@
             },
             "type": "drupal-module",
             "extra": {
-                "branch-alias": {
-                    "dev-5.0.x": "5.0.x-dev"
-                },
                 "drupal": {
-                    "version": "5.0.6+1-dev",
-                    "datestamp": "1665621305",
+                    "version": "5.0.6",
+                    "datestamp": "1661280495",
                     "security-coverage": {
-                        "status": "not-covered",
-                        "message": "Dev releases are not covered by Drupal security advisories."
+                        "status": "covered",
+                        "message": "Covered by Drupal's security advisory policy"
                     }
                 }
             },
@@ -17016,8 +17019,7 @@
     ],
     "minimum-stability": "dev",
     "stability-flags": {
-        "cheppers/gathercontent-client": 20,
-        "drupal/backup_migrate_aws_s3": 20
+        "cheppers/gathercontent-client": 20
     },
     "prefer-stable": true,
     "prefer-lowest": false,
