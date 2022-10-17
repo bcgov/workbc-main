@@ -128,6 +128,7 @@
       work_environment_percent_fulltime: content.group_career_profile_tabs.group_career_overview.extra_field_work_environment_percent_fulltime.0['#markup'],
       work_environment_source: content.group_career_profile_tabs.group_career_overview.extra_field_work_environment_source.0['#markup'],
 
+      career_pathways_description: content.group_career_profile_tabs.group_career_overview.field_career_pathways.0['#text']
     },
     education: {
       title: 'Training, Education & Skills',
@@ -275,8 +276,6 @@
             </div>
 
             <h2>Work Environment</h2>
-            <div>{{ viewmodel['tab_sections']['career_overview']['work_environment_description'] |raw }}</div>
-
             <div class="salary-card card-profile">
               <div class="card-profile__content">
                 <div class="card-profile__statistic">
@@ -296,6 +295,10 @@
                 <em>Source:</em> {{ viewmodel['tab_sections']['career_overview']['work_environment_source'] |raw }}
               </div>
             </div>
+            <div>{{ viewmodel['tab_sections']['career_overview']['work_environment_description'] |raw }}</div>
+
+            <h2>Career Pathways</h2>
+            <div>{{ viewmodel['tab_sections']['career_overview']['career_pathways_description'] |raw }}</div>
 
 
             {{ kint(content.group_career_profile_tabs.group_career_overview) }}
