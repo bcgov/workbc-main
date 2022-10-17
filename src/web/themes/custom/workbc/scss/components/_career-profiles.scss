@@ -192,6 +192,10 @@
                 &.introduction {
                     font-size: 1.875rem;
                     font-weight: bold;
+
+                    @include media-breakpoint-up(lg) {
+                        background-image: linear-gradient(to right, #D8E5F1 25%, #FFFFFF 100%);
+                    }
                 }
                 &:not(.introduction) {
                     @include gradient-underline;
