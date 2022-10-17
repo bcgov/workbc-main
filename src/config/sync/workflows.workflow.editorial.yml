@@ -85,8 +85,14 @@ type_settings:
         - review
       to: review
       weight: -2
+    skip_approval:
+      label: 'Skip Approval (Super Admin only)'
+      from:
+        - draft
+      to: published
+      weight: 4
     stay_published:
-      label: 'Stay Published'
+      label: 'Stay Published (Super Admin only)'
       from:
         - published
       to: published
