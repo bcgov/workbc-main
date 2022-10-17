@@ -128,7 +128,9 @@
       work_environment_percent_fulltime: content.group_career_profile_tabs.group_career_overview.extra_field_work_environment_percent_fulltime.0['#markup'],
       work_environment_source: content.group_career_profile_tabs.group_career_overview.extra_field_work_environment_source.0['#markup'],
 
-      career_pathways_description: content.group_career_profile_tabs.group_career_overview.field_career_pathways.0['#text']
+      career_pathways_description: content.group_career_profile_tabs.group_career_overview.field_career_pathways.0['#text'],
+
+      related_careers: content.group_career_profile_tabs.group_career_overview.field_related_careers,
     },
     education: {
       title: 'Training, Education & Skills',
@@ -300,8 +302,10 @@
             <h2>Career Pathways</h2>
             <div>{{ viewmodel['tab_sections']['career_overview']['career_pathways_description'] |raw }}</div>
 
+            <h2>Related Careers</h2>
+            <div>{{ viewmodel['tab_sections']['career_overview']['related_careers'] }}</div>
 
-            {{ kint(content.group_career_profile_tabs.group_career_overview) }}
+            {{ kint(viewmodel['tab_sections']['career_overview']['related_careers']) }}
 
           </div>
 

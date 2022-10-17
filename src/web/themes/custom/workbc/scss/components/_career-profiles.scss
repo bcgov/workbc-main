@@ -175,6 +175,11 @@
             width: 100%;
             padding: 30px 0;
 
+            // hide any of the field labels that comes through. We don't want to render these in this way
+            .field__label {
+                display: none;
+            }
+
             @include media-breakpoint-up(lg) {
                 flex: 0 0 75%;
                 width: 75%;
@@ -187,6 +192,7 @@
 
             h2 {
                 font-size: 1.313rem;
+                font-weight: normal;
                 margin-bottom: 20px;
 
                 &.introduction {
