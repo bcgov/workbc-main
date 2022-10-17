@@ -53,6 +53,14 @@ function workbc_preprocess_page(&$variables) {
   }
 }
 
+
+function workbc_preprocess_node(&$variables) {
+  if ($variables['node']->bundle() == "publication" && $variables['view_mode'] == "publication") {
+    $config = \Drupal::config('workbc_custom.settings');
+    $variables['order_form_path'] = $config->get('pathsettings.order_form');
+  }
+}
+
 /**
  * Prepares "view_base_path" variables for unformatted summary view templates
  * for use with glossary All option.

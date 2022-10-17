@@ -3,8 +3,8 @@ langcode: en
 status: true
 dependencies: {  }
 id: action_cards_publication
-label: 'Action Cards: Publication'
+label: 'Action Cards Container: Publication'
 icon_uuid: null
 icon_default: null
-description: ''
+description: 'A section of Publication Cards.'
 behavior_plugins: {  }

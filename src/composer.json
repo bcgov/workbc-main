@@ -199,6 +199,9 @@
                 "PostgreSQL support": "patches/drupal/backup_migrate/0003-postgresql-support.patch",
                 "Directory restore": "patches/drupal/backup_migrate/backup-migrate-restore-public-files-3245802-3.patch"
             },
+            "drupal/backup_migrate_aws_s3": {
+                "Optional AWS keys": "patches/drupal/backup_migrate_aws_s3/keys-optional-3315033-1.patch"
+            },
             "drupal/time_field": {
                 "Deprecated function trim() with PHP 8.1": "patches/drupal/time_field/3269302-Deprecated_function_trim_coalescing.patch"
             }

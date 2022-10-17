@@ -13,10 +13,10 @@ dependencies:
     - image.style.feature_component
     - node.type.publication
   module:
+    - file
     - svg_image
     - text
     - user
-    - workbc_custom
 id: node.publication.publication
 targetEntityType: node
 bundle: publication
@@ -28,6 +28,11 @@ content:
     settings: {  }
     third_party_settings: {  }
     weight: 2
+    region: content
+  content_moderation_control:
+    settings: {  }
+    third_party_settings: {  }
+    weight: -20
     region: content
   extra_field_publication_orderform_link:
     settings: {  }
@@ -55,17 +60,20 @@ content:
     settings:
       image_link: ''
       image_style: feature_component
+      svg_attributes:
+        width: null
+        height: null
+      svg_render_as_image: true
       image_loading:
         attribute: lazy
     third_party_settings: {  }
     weight: 0
     region: content
   field_publication:
-    type: workbc_file_custom_link_text
+    type: file_default
     label: visually_hidden
     settings:
-      custom_text: 'View PDF'
-      target: _blank
+      use_description_as_link_text: true
     third_party_settings: {  }
     weight: 3
     region: content
