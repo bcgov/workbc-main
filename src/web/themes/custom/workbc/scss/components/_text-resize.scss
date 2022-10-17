@@ -1,0 +1,53 @@
+.text-resize {
+  display: flex;
+  align-items: flex-end;
+  line-height: 1;
+}
+
+.text-resize__label {
+  margin-right: 20px;
+  white-space: nowrap;
+  font-size: 15px;
+}
+
+.text-resize__controls {
+  display: flex;
+  align-items: flex-end;
+}
+
+.text-resize a#text_resize_reset,
+.text-resize a#text_resize_decrease,
+.text-resize a#text_resize_increase {
+  float: none;
+  display: block;
+  width: auto;
+  height: auto;
+  margin: 0;
+  background: none;
+  text-indent: 0;
+  font-weight: 700;
+  color: #fff;
+
+  &:hover {
+    color: #1da1f2;
+    text-decoration: none;
+  }
+}
+
+.text-resize a#text_resize_decrease {
+  margin-right: 20px;
+  font-size: 14px;
+}
+
+.text-resize a#text_resize_reset {
+  margin-right: 20px;
+  font-size: 20px;
+}
+
+.text-resize a#text_resize_increase {
+  font-size: 30px;
+}
+
+.text-resize a sup {
+  @include visually-hidden;
+}
