@@ -175,11 +175,6 @@
             width: 100%;
             padding: 30px 0;
 
-            // hide any of the field labels that comes through. We don't want to render these in this way
-            .field__label {
-                display: none;
-            }
-
             @include media-breakpoint-up(lg) {
                 flex: 0 0 75%;
                 width: 75%;
@@ -205,7 +200,12 @@
                 }
                 &:not(.introduction) {
                     @include gradient-underline;
+                    padding-bottom: 15px;
                 }
+            }
+
+            .career-content-section {
+                margin: 30px 0;
             }
         }
 

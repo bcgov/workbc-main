@@ -46,25 +46,23 @@
   span {
     color: $workbc_palette_dark_tertiary;
     font-size: 2.5rem;
-    font-weight: bold;
   }
 }
 
 .card-profile__statistic-table {
-  display: table;
+  table {
+    tr {
+      td {
+        border: none;
+        background: none;
+        padding: 6px 20px;
 
-  .stat-row {
-    display: table-row;
-  }
-
-  .stat-col {
-    display: table-cell;
-    padding: 6px 20px;
-  }
-
-  span {
-    color: $workbc_palette_dark_tertiary;
-    font-weight: bold;
+        &:last-of-type {
+          color: $workbc_palette_dark_tertiary;
+          font-weight: bold;
+        }
+      }
+    }
   }
 }
 

@@ -250,60 +250,76 @@
             <h2 class="introduction">{{ viewmodel['tab_sections']['career_overview']['title'] |t }}</h2>
             <div>{{ viewmodel['tab_sections']['career_overview']['description'] |raw }}</div>
             
-            <h2>Duties</h2>
-            <div>{{ viewmodel['tab_sections']['career_overview']['duties_description'] |raw }}</div>
+            <div class="career-content-section">
+              <h2>Duties</h2>
+              <div>{{ viewmodel['tab_sections']['career_overview']['duties_description'] |raw }}</div>
+            </div>
 
-            <h2>Salary</h2>
-            <div>{{ viewmodel['tab_sections']['career_overview']['salary_description'] |raw }}</div>
+            <div class="career-content-section">
+              <h2>Salary</h2>
+              <div>{{ viewmodel['tab_sections']['career_overview']['salary_description'] |raw }}</div>
 
-            <div class="salary-card card-profile">
-              <div class="card-profile__content">
-                <div class="card-profile__statistic">
-                  <h3>Annual Salary</h3>
-                  <div class="card-profile__statistic-single">
-                    <span>{{ viewmodel['tab_sections']['career_overview']['salary_annual_salary'] |raw }}</span>
+              <div class="salary-card card-profile">
+                <div class="card-profile__content">
+                  <div class="card-profile__statistic">
+                    <h3>Annual Salary</h3>
+                    <div class="card-profile__statistic-single">
+                      <span>{{ viewmodel['tab_sections']['career_overview']['salary_annual_salary'] |raw }}</span>
+                    </div>
+                    <span>{{ viewmodel['tab_sections']['career_overview']['salary_annual_salary_note'] |raw }}</span>
                   </div>
-                  <span>{{ viewmodel['tab_sections']['career_overview']['salary_annual_salary_note'] |raw }}</span>
+                  <div class="card-profile__statistic">
+                    <h3>Provincial Hourly Rate</h3>
+                    <div class="card-profile__statistic-table">
+                      {{ viewmodel['tab_sections']['career_overview']['salary_provincial_hourly_rate_markup'] |raw }}
+                    </div>
+                  </div>  
                 </div>
-                <div class="card-profile__statistic">
-                  <h3>Provincial Hourly Rate</h3>
-                  <div class="card-profile__statistic-table">
-                    {{ viewmodel['tab_sections']['career_overview']['salary_provincial_hourly_rate_markup'] |raw }}
-                  </div>
-                </div>  
-              </div>
-              <div class="card-profile__source">
-                <em>Source:</em> {{ viewmodel['tab_sections']['career_overview']['salary_source'] |raw }}
+                <div class="card-profile__source">
+                  <em>Source:</em> {{ viewmodel['tab_sections']['career_overview']['salary_source'] |raw }}
+                </div>
               </div>
             </div>
 
-            <h2>Work Environment</h2>
-            <div class="salary-card card-profile">
-              <div class="card-profile__content">
-                <div class="card-profile__statistic">
-                  <h3># Workers Employed</h3>
-                  <div class="card-profile__statistic-single">
-                    <span>{{ viewmodel['tab_sections']['career_overview']['work_environment_workers_employed'] |raw }}</span>
+            <div class="career-content-section">
+              <h2>Work Environment</h2>
+              <div class="salary-card card-profile">
+                <div class="card-profile__content">
+                  <div class="card-profile__statistic">
+                    <h3># Workers Employed</h3>
+                    <div class="card-profile__statistic-single">
+                      <span>{{ viewmodel['tab_sections']['career_overview']['work_environment_workers_employed'] |raw }}</span>
+                    </div>
+                  </div>
+                  <div class="card-profile__statistic">
+                    <h3>% Employed Full Time</h3>
+                    <div class="card-profile__statistic-single">
+                      <span>{{ viewmodel['tab_sections']['career_overview']['work_environment_percent_fulltime'] |raw }}</span>
+                    </div>
                   </div>
                 </div>
-                <div class="card-profile__statistic">
-                  <h3>% Employed Full Time</h3>
-                  <div class="card-profile__statistic-single">
-                    <span>{{ viewmodel['tab_sections']['career_overview']['work_environment_percent_fulltime'] |raw }}</span>
-                  </div>
+                <div class="card-profile__source">
+                  <em>Source:</em> {{ viewmodel['tab_sections']['career_overview']['work_environment_source'] |raw }}
                 </div>
               </div>
-              <div class="card-profile__source">
-                <em>Source:</em> {{ viewmodel['tab_sections']['career_overview']['work_environment_source'] |raw }}
-              </div>
+              {{ viewmodel['tab_sections']['career_overview']['work_environment_description'] |raw }}
             </div>
-            <div>{{ viewmodel['tab_sections']['career_overview']['work_environment_description'] |raw }}</div>
 
-            <h2>Career Pathways</h2>
-            <div>{{ viewmodel['tab_sections']['career_overview']['career_pathways_description'] |raw }}</div>
+            <div class="career-content-section">
+              <h2>Career Pathways</h2>
+              {{ viewmodel['tab_sections']['career_overview']['career_pathways_description'] |raw }}
+            </div>
 
-            <h2>Related Careers</h2>
-            <div>{{ viewmodel['tab_sections']['career_overview']['related_careers'] }}</div>
+            <div class="career-content-section">
+              <h2>Related Careers</h2>
+              {{ viewmodel['tab_sections']['career_overview']['related_careers'] }}
+            </div>
+
+            <div class="career-content-section">
+              <h2>Occupational Interests</h2>
+              {{ viewmodel['tab_sections']['career_overview']['related_careers'] }}
+            </div>
+
 
             {{ kint(viewmodel['tab_sections']['career_overview']['related_careers']) }}
 
