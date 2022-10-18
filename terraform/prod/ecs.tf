@@ -112,7 +112,7 @@ resource "aws_ecs_task_definition" "app" {
 			},			
 			{
 				name = "PROJECT_ENVIRONMENT",
-				value = "aws-test"
+				value = "aws-prod"
 			}
 		]
 		secrets = [
