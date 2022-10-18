@@ -39,7 +39,7 @@ resource "aws_ecs_task_definition" "app" {
 		image       = var.app_image
 		networkMode = "awsvpc"
 		entryPoint = ["sh",	"-c"]
-		command = ["cp -rf /code/. /app; ln -s /contents/public /app/web/sites/default/files; ln -s /contents/private /app/private; ln -s /app /var/www/html"]
+		command = ["cp -rf /code/. /app; ln -s /contents/public /app/web/sites/default/files; ln -s /contents/private /app/private"]
 		mountPoints = [
 			{
 				containerPath = "/contents",
