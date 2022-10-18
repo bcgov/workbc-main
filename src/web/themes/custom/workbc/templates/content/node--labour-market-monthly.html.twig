@@ -68,6 +68,10 @@
  */
 #}
 
+{% set title = label %}
+{% set hero_image = content.field_hero_image[0] %}
+{% set hero_text = content.field_hero_text[0] %}
+
 {%
   set classes = [
     'node',
@@ -81,7 +85,21 @@
   ]
 %}
 
+{% if hero_image or hero_text %}
+  {% include '@workbc/includes/hero.html.twig' %}
+{% endif %}
+
+{# When breadcrums are displayed below the hero section #}
+{{ drupal_block('system_breadcrumb_block', wrapper=false) }}
+
+{# When social links are displayed below the hero section #}
+<div class="social-sharing container-lg">
+  {{ drupal_block('social_sharing_buttons_block', wrapper=false) }}
+</div>
+
 <article{{ attributes.addClass(classes) }}>
-  <h1 class="page-title">{{ label }}</h1>
-  {{ content }}
+  {% if hero_image is empty and hero_text is empty %}
+    <h1 class="page-title">{{ label }}</h1>
+  {% endif %}
+   {{ content }}  {# Updated to Render Fields Individualy #}
 </article>
