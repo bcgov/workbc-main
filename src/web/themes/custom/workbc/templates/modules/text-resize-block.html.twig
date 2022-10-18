@@ -1,0 +1,23 @@
+{#
+/**
+ * @file
+ * Default theme implementation for a text resizer.
+ *
+ * Available variables:
+ * - content: Content to display, including:
+ *   - output: The button HTML output.
+ *
+ * @see template_preprocess_text_resize_block()
+ *
+ * @ingroup themeable
+ */
+#}
+
+<div class="text-resize">
+  <div class="text-resize__label">
+    {{ 'Increase Text Size:'|t }}
+  </div>
+  <div class="text-resize__controls">
+    {{ content.output }}
+  </div>
+</div>

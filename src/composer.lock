@@ -4,7 +4,7 @@
         "Read more about it at https://getcomposer.org/doc/01-basic-usage.md#installing-dependencies",
         "This file is @generated automatically"
     ],
-    "content-hash": "3c1490443f34c6de2b7452a59a447a26",
+    "content-hash": "435f42b921faf6568eef4290aae8b445",
     "packages": [
         {
             "name": "alchemy/zippy",
@@ -6504,6 +6504,54 @@
             "support": {
                 "source": "https://git.drupalcode.org/project/terms_of_use",
                 "issues": "https://www.drupal.org/project/issues/terms_of_use"
+            }
+        },
+        {
+            "name": "drupal/text_resize",
+            "version": "1.2.0",
+            "source": {
+                "type": "git",
+                "url": "https://git.drupalcode.org/project/text_resize.git",
+                "reference": "8.x-1.2"
+            },
+            "dist": {
+                "type": "zip",
+                "url": "https://ftp.drupal.org/files/projects/text_resize-8.x-1.2.zip",
+                "reference": "8.x-1.2",
+                "shasum": "9a5ef44c3cd12d661bb3e40bbc8d2dcaa2250ab3"
+            },
+            "require": {
+                "drupal/core": "^8 || ^9"
+            },
+            "type": "drupal-module",
+            "extra": {
+                "drupal": {
+                    "version": "8.x-1.2",
+                    "datestamp": "1634404210",
+                    "security-coverage": {
+                        "status": "covered",
+                        "message": "Covered by Drupal's security advisory policy"
+                    }
+                }
+            },
+            "notification-url": "https://packages.drupal.org/8/downloads",
+            "license": [
+                "GPL-2.0-or-later"
+            ],
+            "authors": [
+                {
+                    "name": "Wongjn",
+                    "homepage": "https://www.drupal.org/user/3055747"
+                },
+                {
+                    "name": "attheshow",
+                    "homepage": "https://www.drupal.org/user/249768"
+                }
+            ],
+            "description": "Creates a block that allows your users to resize text on the page.",
+            "homepage": "https://www.drupal.org/project/text_resize",
+            "support": {
+                "source": "https://git.drupalcode.org/project/text_resize"
             }
         },
         {
@@ -17027,5 +17075,5 @@
         "php": ">=7.4"
     },
     "platform-dev": [],
-    "plugin-api-version": "2.3.0"
+    "plugin-api-version": "2.1.0"
 }
