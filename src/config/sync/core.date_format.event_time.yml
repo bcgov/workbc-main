@@ -1,8 +1,0 @@
-uuid: db3f59b1-ed1d-4fb7-942c-a0323878378d
-langcode: en
-status: true
-dependencies: {  }
-id: event_time
-label: 'Event Time'
-locked: false
-pattern: 'g:i A'

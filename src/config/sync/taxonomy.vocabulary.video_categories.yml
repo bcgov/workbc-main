@@ -1,8 +1,0 @@
-uuid: ad51ac7a-8a4d-4fdd-836e-5bc2e7137162
-langcode: en
-status: true
-dependencies: {  }
-name: 'Video Categories'
-vid: video_categories
-description: ''
-weight: 0

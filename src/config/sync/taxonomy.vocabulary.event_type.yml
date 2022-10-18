@@ -1,8 +1,0 @@
-uuid: dea3a2be-f0a6-4a2b-8d9c-65a78ef898d6
-langcode: en
-status: true
-dependencies: {  }
-name: 'Event Type'
-vid: event_type
-description: 'Types of career events'
-weight: 0

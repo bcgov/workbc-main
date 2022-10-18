@@ -1,3 +1,20 @@
 .btn-primary {
-  @include btn-blue;
+  display: inline-block;
+  padding: 8px 30px;
+  border: 2px solid $workbc_palette_dark_secondary;
+  border-radius: 6px;
+  vertical-align: middle;
+  font-weight: 700;
+  text-align: center;
+  color: #fff;
+  background-color: $workbc_palette_dark_secondary;
+  transition: background-color 0.2s;
+  
+  &:hover,
+  &:focus {
+    color: $workbc_palette_dark_secondary;
+    background-color: $workbc_palette_light_secondary;
+    box-shadow: none!important;
+    text-decoration: none;
+  }
 }

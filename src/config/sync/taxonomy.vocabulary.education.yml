@@ -1,8 +1,0 @@
-uuid: b23b1e9c-e2d9-4ce6-90cf-0edfe5349433
-langcode: en
-status: true
-dependencies: {  }
-name: Education
-vid: education
-description: 'Education level'
-weight: 0

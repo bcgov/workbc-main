@@ -1,7 +1,0 @@
-_core:
-  default_config_hash: U69DBeuvXuNVOC15rVNaBjDPK2fWFbo9v4takdYSSO8
-default_form: feedback
-flood:
-  limit: 10
-  interval: 86400
-user_default_enabled: false

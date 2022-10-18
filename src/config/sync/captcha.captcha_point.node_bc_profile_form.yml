@@ -1,7 +1,0 @@
-uuid: b760edf1-208e-4b10-8b36-acdc64917c8b
-langcode: en
-status: false
-dependencies: {  }
-formId: node_bc_profile_form
-captchaType: default
-label: null

@@ -1,8 +1,0 @@
-uuid: ab4288aa-17f6-4557-af20-241004f15f1f
-langcode: en
-status: true
-dependencies: {  }
-id: event_year
-label: 'Event Year'
-locked: false
-pattern: 'Y'
