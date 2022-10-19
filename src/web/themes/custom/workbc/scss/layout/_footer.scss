@@ -87,18 +87,29 @@
 // Footer Mid Section
 .footer__mid {
   display: flex;
-  justify-content: space-around;
+  flex-direction: column;
+  align-items: center;
   padding: 60px 0;
   border-top: 2px solid #e5e5e5;
   border-bottom: 2px solid #e5e5e5;
 
   @include media-breakpoint-up(sm) {
+    flex-direction: row;
     justify-content: space-between;
+    align-items: flex-end;
   }
 
   @include media-breakpoint-up(lg) {
     padding: 70px 0 60px;
     border-top: none;
+  }
+}
+
+.footer__resize {
+  margin-bottom: 40px;
+
+  @include media-breakpoint-up(sm) {
+    margin-bottom: 0;
   }
 }
 

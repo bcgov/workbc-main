@@ -120,6 +120,7 @@
         "drupal/sitewide_alert": "^2.0",
         "drupal/svg_image": "^1.16",
         "drupal/terms_of_use": "^2.3",
+        "drupal/text_resize": "^1.2",
         "drupal/time_field": "^2.0",
         "drupal/twig_tweak": "^3.1",
         "drupal/views_autosubmit": "^1.4",

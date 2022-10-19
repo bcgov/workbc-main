@@ -23,6 +23,7 @@ visibility:
     id: not_node_type
     bundles:
       career_profile: career_profile
+      labour_market_monthly: labour_market_monthly
       page: page
     negate: null
   not_taxonomy_vocabulary:
