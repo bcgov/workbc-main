@@ -43,7 +43,24 @@ class IndustryAverageWageBC extends ExtraFieldDisplayFormattedBase {
    */
   public function viewElements(ContentEntityInterface $entity) {
 
-    $output = "[not-yet-available]";
+    if (!empty($entity->ssot_data) && isset($entity->ssot_data['labour_force_survey_industry'])) {
+      $avgMen = '$' . $entity->ssot_data['labour_force_survey_industry']['earnings_men_average'] . '/hr';
+      $avgWomen = '$' . $entity->ssot_data['labour_force_survey_industry']['earnings_women_average'] . '/hr';
+      $avgYouth = '$' . $entity->ssot_data['labour_force_survey_industry']['earnings_youth_average'] . '/hr';
+    }
+    else {
+      $avgMen = WORKBC_EXTRA_FIELDS_NOT_AVAILABLE;;
+      $avgWomen = WORKBC_EXTRA_FIELDS_NOT_AVAILABLE;
+      $avgYouth = WORKBC_EXTRA_FIELDS_NOT_AVAILABLE;
+    }
+
+    $content = '<table>';
+    $content .= '<tr><td>Men</td><td>' . $avgMen . '</td></tr>';
+    $content .= '<tr><td>Women</td><td>' . $avgWomen . '</td></tr>';
+    $content .= '<tr><td>Youth</td><td>' . $avgYouth . '</td></tr>';
+    $content .= '</table>';
+
+    $output = $content;
 
     return [
       ['#markup' => $output],

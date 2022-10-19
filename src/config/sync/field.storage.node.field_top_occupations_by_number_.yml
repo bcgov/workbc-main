@@ -1,12 +1,16 @@
-uuid: bfa4a101-7a8f-4df2-80c0-2b570560dbff
+uuid: cdeff777-98f3-490b-8c25-88e0dfd37927
 langcode: en
 status: true
 dependencies:
   module:
+    - field_permissions
     - node
     - text
-id: node.field_employment_trends_intro
-field_name: field_employment_trends_intro
+third_party_settings:
+  field_permissions:
+    permission_type: public
+id: node.field_top_occupations_by_number_
+field_name: field_top_occupations_by_number_
 entity_type: node
 type: text_long
 settings: {  }

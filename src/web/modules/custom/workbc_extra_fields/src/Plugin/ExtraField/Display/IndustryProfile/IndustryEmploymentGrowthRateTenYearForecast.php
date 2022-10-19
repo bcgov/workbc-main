@@ -43,7 +43,39 @@ class IndustryEmploymentGrowthRateTenYearForecast extends ExtraFieldDisplayForma
    */
   public function viewElements(ContentEntityInterface $entity) {
 
-    $output = "[not-yet-available]";
+    if (!empty($entity->ssot_data) && isset($entity->ssot_data['industry_outlook'])) {
+      $data = array();
+      $data[] = $entity->ssot_data['industry_outlook']['share_total_employment_pct_2021'];
+      $data[] = $entity->ssot_data['industry_outlook']['share_total_employment_pct_2026'];
+      $data[] = $entity->ssot_data['industry_outlook']['share_total_employment_pct_2031'];
+      $labels = ['2021', '2026', '2031'];
+      $chart = [
+        '#type' => 'chart',
+        '#chart_type' => 'column',
+        'series' => [
+          '#type' => 'chart_data',
+          '#title' => t(''),
+          '#data' => $data,
+          '#prefix' => '',
+          '#suffix' => '',
+        ],
+        'xaxis' => [
+          '#type' => 'chart_xaxis',
+          '#labels' => $labels,
+          '#max' => count($data),
+          '#min' => 0,
+        ],
+        'yaxis' => [
+          '#type' => 'chart_yaxis',
+          '#max' => max($data),
+          '#min' => 0,
+        ]
+      ];
+      $output = \Drupal::service('renderer')->render($chart);
+    }
+    else {
+      $output = "";
+    }
 
     return [
       ['#markup' => $output],

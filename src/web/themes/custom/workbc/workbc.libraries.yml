@@ -2,6 +2,7 @@ global-styling:
   css:
     theme:
       css/style.css: {}
+      css/print.css: { media: print }
 fonts:
   css:
     theme:

@@ -10,15 +10,15 @@ use Drupal\extra_field\Plugin\ExtraFieldDisplayFormattedBase;
  * Example Extra field with formatted output.
  *
  * @ExtraFieldDisplay(
- *   id = "industry_employment",
- *   label = @Translation("Employment"),
- *   description = @Translation("An extra field to display labour market employment."),
+ *   id = "labour_market_stats_introduction",
+ *   label = @Translation("Labour Market Statistics Introduction"),
+ *   description = @Translation("An extra field to display the Labour Market Statistics introductory blurb."),
  *   bundles = {
  *     "node.industry_profile",
  *   }
  * )
  */
-class IndustryEmployment extends ExtraFieldDisplayFormattedBase {
+class IndustryLabourMarketStatisticsIntroduction extends ExtraFieldDisplayFormattedBase {
 
   use StringTranslationTrait;
 
@@ -27,7 +27,7 @@ class IndustryEmployment extends ExtraFieldDisplayFormattedBase {
    */
   public function getLabel() {
 
-    return $this->t('Employment');
+    return $this->t('Labour Market Statistics Introduction');
   }
 
   /**
@@ -42,16 +42,8 @@ class IndustryEmployment extends ExtraFieldDisplayFormattedBase {
    * {@inheritdoc}
    */
   public function viewElements(ContentEntityInterface $entity) {
-
-    if (!empty($entity->ssot_data) && isset($entity->ssot_data['industry_outlook']['employment_2021'])) {
-      $output = Number_format($entity->ssot_data['industry_outlook']['employment_2021'],0);
-    }
-    else {
-      $output = WORKBC_EXTRA_FIELDS_NOT_AVAILABLE;
-    }
-    return [
-      ['#markup' => $output],
-    ];
+    $introductions = $entity->get('field_introductions')?->referencedEntities();
+    return empty($introductions) ? NULL : $introductions[0]->get('field_labour_market_statistics_i')?->view();
   }
 
 }

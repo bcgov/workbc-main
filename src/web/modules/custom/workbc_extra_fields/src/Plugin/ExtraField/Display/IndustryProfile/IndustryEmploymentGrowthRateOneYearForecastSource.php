@@ -10,15 +10,15 @@ use Drupal\extra_field\Plugin\ExtraFieldDisplayFormattedBase;
  * Example Extra field with formatted output.
  *
  * @ExtraFieldDisplay(
- *   id = "industry_employment",
- *   label = @Translation("Employment"),
- *   description = @Translation("An extra field to display labour market employment."),
+ *   id = "industry_employment_growth_rate_one_year_source",
+ *   label = @Translation("Source: Employment Growth Rate One Year Forecast"),
+ *   description = @Translation("Provenance metadata for field Industry Employment Growth Rate One Year Forecast."),
  *   bundles = {
  *     "node.industry_profile",
  *   }
  * )
  */
-class IndustryEmployment extends ExtraFieldDisplayFormattedBase {
+class IndustryEmploymentGrowthRateOneYearForecastSource extends ExtraFieldDisplayFormattedBase {
 
   use StringTranslationTrait;
 
@@ -27,7 +27,7 @@ class IndustryEmployment extends ExtraFieldDisplayFormattedBase {
    */
   public function getLabel() {
 
-    return $this->t('Employment');
+    return $this->t('Source: Employment Growth Rate Forecast (One Year)');
   }
 
   /**
@@ -43,8 +43,8 @@ class IndustryEmployment extends ExtraFieldDisplayFormattedBase {
    */
   public function viewElements(ContentEntityInterface $entity) {
 
-    if (!empty($entity->ssot_data) && isset($entity->ssot_data['industry_outlook']['employment_2021'])) {
-      $output = Number_format($entity->ssot_data['industry_outlook']['employment_2021'],0);
+    if (!empty($entity->ssot_data) && isset($entity->ssot_data['sources']['industry_outlook'])) {
+      $output = $entity->ssot_data['sources']['industry_outlook']['label'];
     }
     else {
       $output = WORKBC_EXTRA_FIELDS_NOT_AVAILABLE;
