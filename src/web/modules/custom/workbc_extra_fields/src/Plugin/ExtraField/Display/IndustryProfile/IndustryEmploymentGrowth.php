@@ -43,11 +43,19 @@ class IndustryEmploymentGrowth extends ExtraFieldDisplayFormattedBase {
    */
   public function viewElements(ContentEntityInterface $entity) {
 
-    $output = "[not-yet-available]";
-
+    if (!empty($entity->ssot_data) && isset($entity->ssot_data['industry_outlook']['annual_employment_growth_rate_pct_2021_2026'])) {
+      if ($entity->ssot_data['industry_outlook']['annual_employment_growth_rate_pct_2021_2026'] > 0) {
+        $output = "+" . Number_format($entity->ssot_data['industry_outlook']['annual_employment_growth_rate_pct_2021_2026'],1) . "%";
+      }
+      else {
+        $output = Number_format($entity->ssot_data['industry_outlook']['annual_employment_growth_rate_pct_2021_2026'],1) . "%";
+      }
+    }
+    else {
+      $output = WORKBC_EXTRA_FIELDS_NOT_AVAILABLE;
+    }
     return [
       ['#markup' => $output],
     ];
   }
-
 }

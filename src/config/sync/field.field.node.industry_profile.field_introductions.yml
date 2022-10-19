@@ -1,0 +1,29 @@
+uuid: 22bb9674-feb8-4291-9b66-807b6c03befb
+langcode: en
+status: true
+dependencies:
+  config:
+    - field.storage.node.field_introductions
+    - node.type.industry_profile
+    - node.type.industry_profile_introductions
+id: node.industry_profile.field_introductions
+field_name: field_introductions
+entity_type: node
+bundle: industry_profile
+label: Introductions
+description: ''
+required: false
+translatable: true
+default_value: {  }
+default_value_callback: ''
+settings:
+  handler: 'default:node'
+  handler_settings:
+    target_bundles:
+      industry_profile_introductions: industry_profile_introductions
+    sort:
+      field: _none
+      direction: ASC
+    auto_create: false
+    auto_create_bundle: career_profile_introductions
+field_type: entity_reference

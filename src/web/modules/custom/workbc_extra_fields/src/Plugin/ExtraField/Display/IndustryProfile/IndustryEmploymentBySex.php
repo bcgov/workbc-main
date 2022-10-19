@@ -43,7 +43,38 @@ class IndustryEmploymentBySex extends ExtraFieldDisplayFormattedBase {
    */
   public function viewElements(ContentEntityInterface $entity) {
 
-    $output = "[not-yet-available]";
+    if (!empty($entity->ssot_data) && isset($entity->ssot_data['labour_force_survey_industry'])) {
+      $data = array();
+      $data[] = floatval($entity->ssot_data['labour_force_survey_industry']['workforce_employment_gender_2020_pct_men']);
+      $data[] = floatval($entity->ssot_data['labour_force_survey_industry']['workforce_employment_gender_2020_pct_women']);
+      $labels = [t('Men'), t('Women')];
+      $chart = [
+        '#type' => 'chart',
+        '#chart_type' => 'donut',
+        'series' => [
+          '#type' => 'chart_data',
+          '#title' => t(''),
+          '#data' => $data,
+          '#prefix' => '',
+          '#suffix' => '',
+        ],
+        'xaxis' => [
+          '#type' => 'chart_xaxis',
+          '#labels' => $labels,
+          '#max' => count($data),
+          '#min' => 0,
+        ],
+        'yaxis' => [
+          '#type' => 'chart_yaxis',
+          '#max' => max($data),
+          '#min' => 0,
+        ]
+      ];
+      $output = \Drupal::service('renderer')->render($chart);
+    }
+    else {
+      $output = "";
+    }
 
     return [
       ['#markup' => $output],

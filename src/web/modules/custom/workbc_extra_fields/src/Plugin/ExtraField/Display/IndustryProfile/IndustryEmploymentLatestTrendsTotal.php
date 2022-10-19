@@ -43,8 +43,14 @@ class IndustryEmploymentLatestTrendsTotal extends ExtraFieldDisplayFormattedBase
    */
   public function viewElements(ContentEntityInterface $entity) {
 
-    $output = "[not-yet-available]";
-
+    if (!empty($entity->ssot_data) && isset($entity->ssot_data['monthly_labour_market_updates'])) {
+      $sourceData = $entity->ssot_data['monthly_labour_market_updates'];
+      $idx = ssotLatestMonthlyLabourMarketUpdate($entity->ssot_data['monthly_labour_market_updates']);
+      $output = ssotFormatNumber($entity->ssot_data['monthly_labour_market_updates'][$idx]['employment_change_abs_total_employment'], 0, true);
+    }
+    else {
+      $output = WORKBC_EXTRA_FIELDS_NOT_AVAILABLE;
+    }
     return [
       ['#markup' => $output],
     ];

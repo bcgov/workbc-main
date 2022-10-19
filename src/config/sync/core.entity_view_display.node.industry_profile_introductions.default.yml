@@ -1,0 +1,81 @@
+uuid: 19a039bd-b661-49ed-a44e-d27fa10b8019
+langcode: en
+status: true
+dependencies:
+  config:
+    - field.field.node.industry_profile_introductions.field_content_group
+    - field.field.node.industry_profile_introductions.field_employment_introduction
+    - field.field.node.industry_profile_introductions.field_hourly_earnings_introducti
+    - field.field.node.industry_profile_introductions.field_labour_market_introduction
+    - field.field.node.industry_profile_introductions.field_labour_market_statistics_i
+    - field.field.node.industry_profile_introductions.field_top_occupations_by_number_
+    - field.field.node.industry_profile_introductions.field_workforce_introduction
+    - node.type.industry_profile_introductions
+  module:
+    - text
+    - user
+id: node.industry_profile_introductions.default
+targetEntityType: node
+bundle: industry_profile_introductions
+mode: default
+content:
+  field_content_group:
+    type: entity_reference_label
+    label: above
+    settings:
+      link: true
+    third_party_settings: {  }
+    weight: 107
+    region: content
+  field_employment_introduction:
+    type: text_default
+    label: above
+    settings: {  }
+    third_party_settings: {  }
+    weight: 105
+    region: content
+  field_hourly_earnings_introducti:
+    type: text_default
+    label: above
+    settings: {  }
+    third_party_settings: {  }
+    weight: 101
+    region: content
+  field_labour_market_introduction:
+    type: text_default
+    label: above
+    settings: {  }
+    third_party_settings: {  }
+    weight: 103
+    region: content
+  field_labour_market_statistics_i:
+    type: text_default
+    label: above
+    settings: {  }
+    third_party_settings: {  }
+    weight: 104
+    region: content
+  field_top_occupations_by_number_:
+    type: text_default
+    label: above
+    settings: {  }
+    third_party_settings: {  }
+    weight: 106
+    region: content
+  field_workforce_introduction:
+    type: text_default
+    label: above
+    settings: {  }
+    third_party_settings: {  }
+    weight: 102
+    region: content
+  links:
+    settings: {  }
+    third_party_settings: {  }
+    weight: 100
+    region: content
+hidden:
+  extra_field_workbc_page_title: true
+  extra_field_workbc_published_on: true
+  langcode: true
+  search_api_excerpt: true
