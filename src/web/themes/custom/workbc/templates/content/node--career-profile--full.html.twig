@@ -89,7 +89,8 @@
       icon_class: 'profile-information-salary',
       title: content.extra_field_annual_salary['#title'],
       value: content.extra_field_annual_salary.0['#markup'],
-      source: content.extra_field_annual_salary_source.0['#markup']
+      source: content.extra_field_annual_salary_source.0['#markup'],
+      info: content.extra_field_annual_salary_source.0['#markup'],
     },
     minimum_education: {
       icon_class: 'profile-information-education',
@@ -131,6 +132,9 @@
       career_pathways_description: content.group_career_profile_tabs.group_career_overview.field_career_pathways.0['#text'],
 
       related_careers: content.group_career_profile_tabs.group_career_overview.field_related_careers,
+
+      occupational_interests_intro: content.group_career_profile_tabs.group_career_overview.extra_field_occupational_interests_int.0['#text'],
+      occupational_interests_items: content.group_career_profile_tabs.group_career_overview.extra_field_occupational_interests.0,
     },
     education: {
       title: 'Training, Education & Skills',
@@ -216,7 +220,7 @@
             {{ statistic['value'] }}
             </div>
           </div>
-          {% if statistic[''] %}
+          {% if statistic['source'] %}
             <div class="profile-information-card-infotip">
               <a tabindex="0" class="btn btn-link info-tooltip" role="button" data-bs-toggle="popover" data-bs-container="body" data-bs-trigger="click" data-bs-placement="bottom" data-bs-custom-class="workbc-popover" title="hidden title" data-bs-html="true" data-bs-content="<em>Source:</em> {{ statistic['source'] }}"></a>
             </div>
@@ -224,6 +228,8 @@
         </div>
 
       {% endfor %}
+
+  {{ kint(content) }}
 
     </div>
   </div>
@@ -317,11 +323,22 @@
 
             <div class="career-content-section">
               <h2>Occupational Interests</h2>
-              {{ viewmodel['tab_sections']['career_overview']['related_careers'] }}
+              {{ viewmodel['tab_sections']['career_overview']['occupational_interests_intro'] |raw }}
+              <div class="card-occupational-interest-deck">
+                {% for interest in viewmodel['tab_sections']['career_overview']['occupational_interests_items'] %}
+                  {{ interest }} 
+                {% endfor %}
+                {# This next pair of ifs is just for debugging - it guarantees we have at least three interests for testing 1/3rds layout #}
+                {% set source = viewmodel['tab_sections']['career_overview']['occupational_interests_items'] %}
+                {% set extra = source[0:1] %}
+                {% if source|length < 3 %}
+                  {{ extra }} 
+                {% endif %}
+                {% if source|length < 2 %}
+                  {{ extra }} 
+                {% endif %}
+              </div>
             </div>
-
-
-            {{ kint(viewmodel['tab_sections']['career_overview']['related_careers']) }}
 
           </div>
 
