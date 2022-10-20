@@ -216,7 +216,7 @@ resource "aws_iam_role_policy" "workbc_container_s3" {
     {
       "Effect": "Allow",
       "Action": ["s3:ListBucket"],
-      "Resource": ["arn:aws:s3:::workbc-backup-restore-bucket"]
+      "Resource": ["${aws_s3_bucket.workbc_s3.arn}"]
     },
     {
       "Effect": "Allow",
@@ -225,7 +225,7 @@ resource "aws_iam_role_policy" "workbc_container_s3" {
         "s3:GetObject",
         "s3:DeleteObject"
       ],
-      "Resource": ["arn:aws:s3:::workbc-backup-restore-bucket/*"]
+      "Resource": ["${aws_s3_bucket.workbc_s3.arn}"]
     }
   ]
 }
