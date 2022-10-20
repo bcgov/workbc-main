@@ -39,7 +39,7 @@
       {{ name }}
       <div class="card-occupational-interest__content-info">
         {% set closeButtonHtml = '<button type="button" id="close" class="close" onclick="$(&quot;#example&quot;).popover(&quot;hide&quot;);">&times;</button>' %}
-        <a tabindex="0" class="btn btn-link info-tooltip" role="button" data-bs-toggle="popover" data-bs-container="body" data-bs-trigger="click" data-bs-placement="bottom" data-bs-custom-class="workbc-popover" title="hidden title" data-bs-html="true" data-bs-content="{{ content.description.0['#text']|raw }}"></a>
+        <a tabindex="0" class="btn btn-link info-tooltip" role="button" data-bs-toggle="popover" data-bs-container="body" data-bs-trigger="click hover" data-bs-placement="bottom" data-bs-custom-class="workbc-popover" title="hidden title" data-bs-html="true" data-bs-content="{{ content.description.0['#text']|raw }}"></a>
       </div>
     </div>
     <div class="card-occupational-interest__content-category">({{content.field_subtitle}})</div>
