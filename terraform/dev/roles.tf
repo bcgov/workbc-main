@@ -205,3 +205,29 @@ resource "aws_iam_role_policy" "workbc_container_ses" {
   }
   EOF  
 }
+
+resource "aws_iam_role_policy" "workbc_container_s3" {
+	name = "workbc_container_s3"
+	role = aws_iam_role.workbc_container_role.id
+	policy = jsonencode(
+    {
+  "Version": "2012-10-17",
+  "Statement": [
+    {
+      "Effect": "Allow",
+      "Action": ["s3:ListBucket"],
+      "Resource": ["arn:aws:s3:::workbc-backup-restore-bucket"]
+    },
+    {
+      "Effect": "Allow",
+      "Action": [
+        "s3:PutObject",
+        "s3:GetObject",
+        "s3:DeleteObject"
+      ],
+      "Resource": ["arn:aws:s3:::workbc-backup-restore-bucket/*"]
+    }
+  ]
+}
+  )
+}
