@@ -1,0 +1,76 @@
+.card-occupational-interest-deck {
+  display: flex;
+  flex-flow: row wrap;
+  column-gap: 15px;
+  row-gap: 15px;
+  margin-bottom: 24px;
+}
+
+.card-occupational-interest {
+  flex: 0 0 100%;
+  padding: 25px;
+  display: flex;
+  box-shadow: 0 0 15px 0 rgba(0, 0, 0, 0.15);
+  flex-flow: row wrap;
+
+  @include media-breakpoint-up(xl) {
+    flex: 0 0 calc(100%/3 - 10px); // where does this extra 10px come from and cause wrapping?
+    align-items: center;
+    justify-content: center;
+  }
+}
+
+.card-occupational-interest__icon-container {
+  flex: 0 0 calc(100%/3);
+  display: flex;
+  justify-content: center;
+
+  @include media-breakpoint-up(xl) {
+    margin-bottom: 30px;
+  }
+}
+
+.card-occupational-interest__icon-content {
+  width: 80px;
+  height: 80px;
+}
+
+.card-occupational-interest__content-container {
+  flex: 0 0 calc(100%/3);
+  display: flex;
+  flex-flow: column nowrap;
+  justify-content: center;
+  align-items: center;
+  font-size: 1.125rem;
+
+  @include media-breakpoint-up(xl) {
+    flex: 0 0 100%;
+    font-size: 1.5rem;
+  }
+}
+
+.card-occupational-interest__content-title {
+  position: relative; // begin positional context %content-title
+  min-height: 16px;
+  font-weight: bold;
+  text-align: center;
+
+  &>div {
+    display: inline-block;
+  }
+
+  @include media-breakpoint-up(xl) {
+    font-size: 1.5rem;
+  }
+}
+
+.card-occupational-interest__content-category {
+  text-align: center;
+
+  .field--name-field-subtitle {
+    display: inline-block;
+  }
+}
+
+.card-occupational-interest__content-info {
+}

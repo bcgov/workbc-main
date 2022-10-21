@@ -1,7 +1,38 @@
+.career-profile-header {
+    display: flex;
+    flex-flow: column nowrap;
+
+    .career-profile-header-breadcrumb {
+        flex: 0 0;
+        order: 1;
+
+        @include media-breakpoint-up(lg) {
+            order: 2;
+        }
+    }
+    .career-profile-header-banner {
+        flex: 0 0;
+        order: 2;
+
+        @include media-breakpoint-up(lg) {
+            order: 1;
+        }
+    }
+    .career-profile-header-social {
+        flex: 0 0;
+        order: 3;
+        
+        @include media-breakpoint-up(lg) {
+            order: 3;
+        }
+    }
+}
+
 .workbc-career-profile {
     display: flex;
     flex-flow: column nowrap;
     background-color: $workbc_light_theme_background_accent;
+    margin-top: 15px;
 
     .career-statistics-wrapper {
         margin-bottom: $workbc_spacing_default;
@@ -9,23 +40,7 @@
 
     .career-details-wrapper {
         $border-size: 3px;
-
-        position: relative; // begin positional context %career-details-wrapper
-        z-index: 10;
         background-color: #ffffff;
-
-        @include media-breakpoint-up(lg) {
-            .career-details-theme-shim {
-                position: absolute; // relative to positional context %career-details-wrapper
-                top: 0;
-                z-index: 1;
-                background-color: $workbc_palette_light_secondary;
-                border-bottom: $border-size solid $workbc_palette_dark_secondary;
-                height: 49px;
-                width: 100%;
-            }
-        }
-
 
         .scroll-container {
             overflow: hidden;
@@ -163,6 +178,34 @@
             @include media-breakpoint-up(lg) {
                 flex: 0 0 75%;
                 width: 75%;
+                padding: 30px 60px 30px 0;
+            }
+
+            .tab-pane:not(.active) {
+                display: none;
+            }
+
+            h2 {
+                font-size: 1.313rem;
+                font-weight: normal;
+                margin-bottom: 20px;
+
+                &.introduction {
+                    font-size: 1.875rem;
+                    font-weight: bold;
+
+                    @include media-breakpoint-up(lg) {
+                        background-image: linear-gradient(to right, #D8E5F1 25%, #FFFFFF 100%);
+                    }
+                }
+                &:not(.introduction) {
+                    @include gradient-underline;
+                    padding-bottom: 15px;
+                }
+            }
+
+            .career-content-section {
+                margin: 30px 0;
             }
         }
 

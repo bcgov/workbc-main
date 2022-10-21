@@ -40,11 +40,10 @@
   color: #8A8D8B;
 }
 
-@mixin underlined-header {
+@mixin gradient-underline {
   $underline-size: 4px;
 
   position: relative; // begin positional context %underlineheader
-  font-size: 2.25rem;
   color: #333333;
   border-bottom: $underline-size;
   padding-bottom: $underline-size;
@@ -57,9 +56,5 @@
     bottom: 0px;
     right: 0px;
     background-image: linear-gradient(to right, #D8E5F1 25%, #FFFFFF 100%);
-  }
-
-  @include media-breakpoint-up(lg) {
-    font-size: 2.8125rem;
   }
 }

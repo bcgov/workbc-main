@@ -445,7 +445,7 @@ content:
     region: content
   field_related_careers:
     type: entity_reference_label
-    label: above
+    label: hidden
     settings:
       link: true
     third_party_settings: {  }
