@@ -229,8 +229,6 @@
 
       {% endfor %}
 
-  {{ kint(content) }}
-
     </div>
   </div>
 
@@ -338,6 +336,16 @@
                   {{ extra }} 
                 {% endif %}
               </div>
+            </div>
+
+            <div class="career-content-section">
+              <h2>Job Titles</h2>
+
+              <ul class="career-content-job-titles">
+                {% for jobtitle in content.group_career_profile_tabs.group_career_overview.field_job_titles['#items'] %}
+                  <li>{{ jobtitle.value }}</li>
+                {% endfor %}  
+              </ul>
             </div>
 
           </div>
