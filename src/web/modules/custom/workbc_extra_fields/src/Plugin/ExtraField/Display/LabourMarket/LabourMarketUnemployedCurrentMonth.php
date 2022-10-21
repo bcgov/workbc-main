@@ -43,7 +43,28 @@ class LabourMarketUnemployedCurrentMonth extends ExtraFieldDisplayFormattedBase 
    */
   public function viewElements(ContentEntityInterface $entity) {
 
-    $output = "[not-yet-available]";
+    //values
+    // print $entity->ssot_data['monthly_labour_market_updates'][0]['month']; exit;
+    $year = $entity->ssot_data['monthly_labour_market_updates'][0]['year'];
+    //month
+    $monthNum = $entity->ssot_data['monthly_labour_market_updates'][0]['month'];
+    $month = date ('F', mktime(0, 0, 0, $monthNum, 10));
+
+    $total_unemployed = Number_format($entity->ssot_data['monthly_labour_market_updates'][0]['total_unemployed']);
+    $unemployed_rate_value = $entity->ssot_data['monthly_labour_market_updates'][0]['employment_rate_pct_unemployment']; 
+    $unemployed_part_value = $entity->ssot_data['monthly_labour_market_updates'][0]['employment_rate_pct_participation']; 
+    $source_text = $this->t('Labour Force Survey (monthly, seasonally adjusted)');  
+
+    //output
+    $output = '
+    <div class="LME--total-unemployed">
+    <span class="LME--total-unemployed-label">'.$this->t("Total Unemployed (@month @year)", ["@month" => $month, "@year" => $year]).'</span>
+    <span class="LME--total-unemployed-value blue">'.$total_unemployed.'</span>
+    <div class="LME--total-unemployed-rate">
+      <div class="LME--total-unemployed-rate"><span>'.$this->t("Unemployment Rate").'</span><span class="LME--total-unemployed-rate-value">'.$unemployed_rate_value.'%</span></div>
+      <div class="LME--total-unemployed-part"><span>'.$this->t("Participation Rate").'</span><span class="LME--total-unemployed-part-value">'.$unemployed_part_value.'%</span></div>
+    </div>
+    </div>';
 
     return [
       ['#markup' => $output],

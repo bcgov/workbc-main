@@ -43,7 +43,39 @@ class LabourMarketUnemployedPreviousMonth extends ExtraFieldDisplayFormattedBase
    */
   public function viewElements(ContentEntityInterface $entity) {
 
-    $output = "[not-yet-available]";
+     //values
+    $year = $entity->ssot_data['monthly_labour_market_updates'][0]['year'];
+    //month
+    $monthNum = $entity->ssot_data['monthly_labour_market_updates'][0]['month'] - 1;
+
+    if($monthNum == 0) {
+      $monthNum = 12;
+      $year = $year - 1;
+    }
+
+    $month = date ('F', mktime(0, 0, 0, $monthNum, 10));
+
+    $total_unemployed = Number_format($entity->ssot_data['monthly_labour_market_updates'][0]['total_unemployed_previous']);
+    $unemployed_rate_value =  $entity->ssot_data['monthly_labour_market_updates'][0]['employment_rate_pct_unemployment_previous']; 
+    $unemployed_part_value = $entity->ssot_data['monthly_labour_market_updates'][0]['employment_rate_pct_participation_previous']; 
+    $information_text_tooltip = '<div id="u46282_text" class="text ">
+                    <p><span style="font-family:"BCSans";font-weight:700;font-style:italic;">Participation Rate</span><span style="font-family:"BCSans";font-weight:400;font-style:normal;"> represents the number of people in the workforce that are of working age as a percentage of total </span></p><p><span style="font-family:"BCSans";font-weight:400;font-style:normal;">BC population.</span></p>
+                  </div>';  
+
+    //output
+    $output = '
+    <div class="LME--total-unemployed">
+    <span class="LME--total-unemployed-label">'.$this->t("Total Unemployed (@month @year)", ["@month" => $month, "@year" => $year]).'</span>
+    <span class="LME--total-unemployed-value blue">'.$total_unemployed.'</span>
+    <div class="LME--total-unemployed-rate">
+      <div class="LME--total-unemployed-rate"><span>'.$this->t("Unemployment Rate").'</span><span class="LME--total-unemployed-rate-value">'.$unemployed_rate_value.'%</span></div>
+      <div class="LME--total-unemployed-part">
+        <span>'.$this->t("Participation Rate").'</span>
+        <span class="LME--total-unemployed-part-value">'.$unemployed_part_value.'%</span>
+        <span class="LME--total-unemployed-information-text">'.$information_text_tooltip.'</span>
+      </div>
+    </div>
+    </div>';
 
     return [
       ['#markup' => $output],

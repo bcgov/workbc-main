@@ -43,11 +43,93 @@ class LabourMarketUnemploymentByRegion extends ExtraFieldDisplayFormattedBase {
    */
   public function viewElements(ContentEntityInterface $entity) {
 
-    $output = "[not-yet-available]";
+
+    //values
+    $currentYear = $entity->ssot_data['monthly_labour_market_updates'][0]['year'];
+    //month
+    $currentMonth = $entity->ssot_data['monthly_labour_market_updates'][0]['month'];
+    $currentMonthName = date ('F', mktime(0, 0, 0, $currentMonth, 10));
+
+    $previousMonth = $currentMonth - 1;
+    $previousYear = $currentYear;
+    if($previousMonth == 0) {
+      $previousMonth = 12;
+      $previousYear = $currentYear - 1;
+    }
+
+    $previousMonthName =  date ('F', mktime(0, 0, 0, $previousMonth, 10));;
+
+    $header = [$this->t(''), $this->t("@curmonth @curyear", ["@curmonth" => $currentMonthName, "@curyear" => $currentYear]), $this->t("@premonth @preyear", ["@premonth" => $previousMonthName, "@preyear" => $previousYear])];
+
+    $rows = $this->getRegionValues($entity->ssot_data['monthly_labour_market_updates'][0]);
+    
+    //TODO: Previous year values
+    $module_handler = \Drupal::service('module_handler');
+    $module_path = $module_handler->getModule('workbc_extra_fields')->getPath();
+    $image_uri = '/' . $module_path . '/images/' . WORKBC_BC_MAP_WITH_LABELS;
 
     return [
-      ['#markup' => $output],
+      [
+            '#theme' => 'image',
+            '#uri' => $image_uri,
+            '#alt' => 'BC Image Map',
+      ],
+      [
+        '#theme' => 'table',
+        '#header' => $header,
+        '#rows' => $rows,
+        '#attributes' => array('class'=>array('bc-region-table')),
+        '#header_columns' => 4,
+      ],
     ];
   }
+
+  public function getRegionValues($values){
+    $regions = [];
+    $needle = 'unemployment_pct_';
+    if(!empty($values)){
+      foreach($values as $key => $value){
+        if(strpos($key, $needle) !== false){
+          $regionsubstring = str_replace('unemployment_pct_', "", $key);
+          //region mapping
+          $region_map = $this->getRegionMappings();
+
+          //if previous values
+          if(strpos($regionsubstring, 'previous') !== false) {
+            $regionsubstring = str_replace('_previous', "", $regionsubstring);
+            if(empty($region_map[$regionsubstring])){
+              continue;
+            }
+            $regions[$regionsubstring]['region'] = $region_map[$regionsubstring];
+            $regions[$regionsubstring]['previous'] = $value.'%';
+          } else {
+            if(empty($region_map[$regionsubstring])){
+              continue;
+            }
+            $regions[$regionsubstring]['region'] = $region_map[$regionsubstring];
+            $regions[$regionsubstring]['current'] = $value.'%';
+          }
+          
+        }
+      }
+    }
+    return $regions;
+  }
+
+    public function getRegionMappings(){
+    $region_map = [
+            'all' => 'All regions',
+            'british_columbia' => 'British Columbia',
+            'vancouver_island_coast' =>'Vancouver Island/Coast',
+            'mainland_southwest'  => 'Mainland/Southwest',
+            'thompson_okanagan' => 'Thompson-Okanagan',
+            'kootenay' => 'Kootenay',
+            'cariboo' => 'Cariboo',
+            'north_coast_and_nechako' => 'North Coast and Nechako',
+            'northeast' => 'Northeast'
+          ];
+    return $region_map;
+  }
+
 
 }

@@ -34,6 +34,13 @@ function workbc_extra_fields_node_view(array &$build, \Drupal\Core\Entity\Entity
     }
 
     switch($entity->bundle()) {
+      case "labour_market_monthly":
+        //Example: http://localhost:3000/monthly_labour_market_updates?year=eq.2022&month=eq.1
+        $year = \Drupal::request()->query->get('year');
+        $month = \Drupal::request()->query->get('month');
+        $entity->ssot_data = ssotLabourMarketMonthly($year,$month);
+        $entity->ssot_months = ssotLabourMarketMonths();
+        break;
       case "career_profile":
         $entity->ssot_data = ssotCareerProfile($entity->get("field_noc")->getString());
         break;
@@ -41,6 +48,28 @@ function workbc_extra_fields_node_view(array &$build, \Drupal\Core\Entity\Entity
       case "region_profile":
     }
   }
+}
+
+function ssotLabourMarketMonthly($year = null, $month = null){
+  $data = array();
+  $parameters = '';
+  if(!empty($year)) {
+      $parameters .= 'year=eq.' . $year;
+  } 
+  if(!empty($month)) {
+      $parameters .= '&month=eq.' . $month;
+  }
+  //query ssot request
+  $data['monthly_labour_market_updates'] = querySSoT('monthly_labour_market_updates?' . $parameters);
+  $data['sources'] = ssotSources();
+  return $data;
+}
+
+function ssotLabourMarketMonths(){
+  $data = array();
+  //query ssot request
+  $data['monthly_labour_market_months'] = querySSoT('monthly_labour_market_updates?select=year%2Cmonth');
+  return $data;
 }
 
 function ssotCareerProfile($noc) {
@@ -84,4 +113,9 @@ function querySSoT($url, $read_timeout = NULL) {
     \Drupal::logger('workbc_extra_fields')->error($e->getMessage());
     return NULL;
   }
+}
+
+
+function workbc_extra_fields_page_attachments_alter(array &$attachments) {  
+  $attachments['#attached']['library'][] = 'workbc_extra_fields/extra-fields';
 }
