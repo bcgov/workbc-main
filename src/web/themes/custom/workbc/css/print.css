@@ -1,3 +1,107 @@
-/* Welcome to Compass. Use this file to define print styles.
- * Import this file using the following HTML or equivalent:
- * <link href="/stylesheets/print.css" media="print" rel="stylesheet" type="text/css" /> */
+body {
+  color: #000 !important;
+  background-color: transparent !important;
+  box-shadow: none !important;
+  text-shadow: none !important;
+}
+
+.page-container {
+  width: 100%;
+  margin: 0;
+  float: none;
+}
+
+h1 {
+  font-size: 24pt;
+}
+
+h2,
+h3,
+h4 {
+  font-size: 14pt;
+  margin-top: 25px;
+}
+
+a {
+  page-break-inside: avoid;
+}
+
+blockquote {
+  page-break-inside: avoid;
+}
+
+h1,
+h2,
+h3,
+h4,
+h5,
+h6 {
+  page-break-after: avoid;
+  page-break-inside: avoid;
+}
+
+img {
+  page-break-inside: avoid;
+  page-break-after: avoid;
+}
+
+table,
+pre {
+  page-break-inside: avoid;
+}
+
+ul,
+ol,
+dl {
+  page-break-before: avoid;
+}
+
+a:link,
+a:visited,
+a {
+  background: transparent;
+  color: blue;
+  font-weight: bold;
+  text-decoration: underline;
+  text-align: left;
+}
+
+iframe {
+  display: none;
+  width: 0 !important;
+  height: 0 !important;
+  overflow: hidden !important;
+  line-height: 0pt !important;
+  white-space: nowrap;
+}
+
+p,
+address,
+li,
+dt,
+dd,
+blockquote {
+  font-size: 100%;
+}
+
+ul,
+ol {
+  list-style: square;
+  margin-left: 18pt;
+  margin-bottom: 20pt;
+}
+
+li {
+  line-height: 1.6em;
+}
+
+/* Hide Elements not needed for Printing */
+
+.sitewide-alert,
+.header,
+.mm-menu,
+.breadcrumb-wrapper,
+.block-related-topics-block,
+.footer {
+  display: none !important;
+}

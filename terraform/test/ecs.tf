@@ -107,6 +107,10 @@ resource "aws_ecs_task_definition" "app" {
 				value = "${local.conn_str}"
 			},
 			{
+				name = "JOBBOARD_API_URL",
+				value = "${local.jb_api_url}"
+			},			
+			{
 				name = "PROJECT_ENVIRONMENT",
 				value = "aws-test"
 			}

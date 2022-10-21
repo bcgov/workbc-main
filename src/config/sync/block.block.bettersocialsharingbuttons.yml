@@ -55,7 +55,6 @@ visibility:
     bundles:
       blog: blog
       event: event
-      labour_market_monthly: labour_market_monthly
       news: news
       publication: publication
       success_story: success_story

@@ -3,7 +3,7 @@
 use GuzzleHttp\Client;
 use GuzzleHttp\Exception\RequestException;
 
-define ("WORKBC_EXTRA_FIELDS_NOT_AVAILABLE", "n/a");
+define ("WORKBC_EXTRA_FIELDS_NOT_AVAILABLE", "[not-yet-available]");
 
 define ("WORKBC_BC_MAP_WITH_LABELS", "bc-map-labels.png");
 define ("WORKBC_BC_MAP", "bc-map.png");
@@ -45,10 +45,14 @@ function workbc_extra_fields_node_view(array &$build, \Drupal\Core\Entity\Entity
         $entity->ssot_data = ssotCareerProfile($entity->get("field_noc")->getString());
         break;
       case "industry_profile":
+        ksm($entity->getTitle());
+        $entity->ssot_data = ssotIndustryProfile($entity->getTitle());
+        ksm($entity->ssot_data);
       case "region_profile":
     }
   }
 }
+
 
 function ssotLabourMarketMonthly($year = null, $month = null){
   $data = array();
@@ -61,11 +65,20 @@ function ssotLabourMarketMonthly($year = null, $month = null){
   }
   //query ssot request
   $data['monthly_labour_market_updates'] = querySSoT('monthly_labour_market_updates?' . $parameters);
+   $data['sources'] = ssotSources();
+  return $data;
+}
+
+function ssotIndustryProfile($industry) {
+  $data = array();
+  $data['industry_outlook'] = querySSoT('industry_outlook?industry=eq.' . $industry)[0];
+  $data['labour_force_survey_industry'] = querySSoT('labour_force_survey_industry?industry=eq.' . $industry)[0];
+  $data['monthly_labour_market_updates'] = querySSoT('monthly_labour_market_updates');
   $data['sources'] = ssotSources();
   return $data;
 }
 
-function ssotLabourMarketMonths(){
+function ssotLabourMarketMonths() {
   $data = array();
   //query ssot request
   $data['monthly_labour_market_months'] = querySSoT('monthly_labour_market_updates?select=year%2Cmonth');
@@ -118,4 +131,26 @@ function querySSoT($url, $read_timeout = NULL) {
 
 function workbc_extra_fields_page_attachments_alter(array &$attachments) {  
   $attachments['#attached']['library'][] = 'workbc_extra_fields/extra-fields';
+}
+
+function ssotLatestMonthlyLabourMarketUpdate($sourceData) {
+  $latestKey = "000000";
+  $latestIdx = 0;
+  foreach ($sourceData as $idx => $data) {
+    $key = $data['year'] . str_pad($data['month'], 2, "0", STR_PAD_LEFT);
+    if ($key > $latestKey) {
+      $latestKey = $key;
+      $latestIdx = $idx;
+    }
+  }
+  return $latestIdx;
+}
+
+function ssotFormatNumber($number, $decimals = 0, $positive = false) {
+
+  $value = number_format($number, $decimals);
+  if ($positive && $number > 0) {
+    $value = "+" . $value;
+  }
+  return $value;
 }

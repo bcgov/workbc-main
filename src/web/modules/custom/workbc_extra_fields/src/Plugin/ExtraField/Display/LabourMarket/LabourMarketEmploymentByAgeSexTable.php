@@ -92,10 +92,10 @@ class LabourMarketEmploymentByAgeSexTable extends ExtraFieldDisplayFormattedBase
           if(strpos($age, 'previous') !== false) {
             $age = str_replace('_previous', "", $age);
             $genderAgeValues[$age]['age'] = str_replace("_"," ",$age) . $this->t(' years');
-            $genderAgeValues[$age]['previous'] = $value;
+            $genderAgeValues[$age]['previous'] = number_format($value);
           } else {
             $genderAgeValues[$age]['age'] = str_replace("_"," ",$age). $this->t(' years');
-            $genderAgeValues[$age]['current'] = $value;
+            $genderAgeValues[$age]['current'] = number_format($value);
           }
         }
 
@@ -110,10 +110,10 @@ class LabourMarketEmploymentByAgeSexTable extends ExtraFieldDisplayFormattedBase
           if(strpos($gender, 'previous') !== false) {
             $gender = str_replace('_previous', "", $gender);
             $genderAgeValues[$gender]['gender'] = $gender;
-            $genderAgeValues[$gender]['previous'] = $value;
+            $genderAgeValues[$gender]['previous'] = number_format($value);
           } else {
             $genderAgeValues[$gender]['gender'] = $gender;
-            $genderAgeValues[$gender]['current'] = $value;
+            $genderAgeValues[$gender]['current'] = number_format($value);
           }
         }
 

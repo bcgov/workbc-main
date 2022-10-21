@@ -9,6 +9,7 @@ dependencies:
     - node.type.career_profile_introductions
     - node.type.event
     - node.type.industry_profile
+    - node.type.industry_profile_introductions
     - node.type.labour_market_monthly
     - node.type.news
     - node.type.page
@@ -105,6 +106,7 @@ type_settings:
       - career_profile_introductions
       - event
       - industry_profile
+      - industry_profile_introductions
       - labour_market_monthly
       - news
       - page

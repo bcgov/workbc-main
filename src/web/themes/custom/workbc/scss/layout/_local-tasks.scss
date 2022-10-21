@@ -1,11 +1,16 @@
 .block-local-tasks-block {
-  position: fixed;
-  z-index: 99;
-  bottom: 0;
-  left: 40px;
+  margin-top: auto;
   margin-bottom: 0;
   background: rgba(255, 255, 255, 0.95);
   box-shadow: 1px 0 3px 1px rgba(#000, 0.15);
+  position: absolute;
+  bottom: 0;
+  left: 40px;
+  z-index: 99;
+
+  @include media-breakpoint-up(lg) {
+    position: fixed;
+  }
 }
 
 .block-local-tasks-block .tabs-primary {
@@ -28,9 +33,7 @@
 .block-local-tasks-block .tabs li {
   margin: 0;
   padding: 0;
-
-
-    display: inline-block;
+  display: inline-block;
 }
 
 .block-local-tasks-block .tabs li a {
