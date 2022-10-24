@@ -1,0 +1,10 @@
+uuid: 7be1b3c1-87fc-4929-91c8-4dd96049be28
+langcode: en
+status: true
+dependencies:
+  module:
+    - node
+id: node.jobboard
+label: Jobboard
+targetEntityType: node
+cache: true

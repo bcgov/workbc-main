@@ -54,3 +54,22 @@
  width:100%;
  text-align:center;
 }
+/*
+ *  Styles below apply to the embedded Job Board app
+ *
+*/
+app-root .breadcrumbs{display:none;}
+app-root input[type=checkbox],app-root input[type=radio] {
+    -webkit-appearance: none;
+    -moz-appearance: none;
+    appearance: none;
+    border: 0;
+    opacity: 0;
+    outline: 0;
+    padding: 0;
+    vertical-align: middle;
+    width: 0;
+    position: absolute;
+}
+app-root .job-search-contain .icon-wrap, app-root .job-search-contain .icon-wrap.small, app-root .modal .icon-wrap.small,app-root .account-contain .icon-wrap, app-root .modal .icon-wrap {display:inline-block;}
+app-root .account-contain app-account-dashboard .card .btn{margin:0px;}
