@@ -63,9 +63,15 @@ function ssotLabourMarketMonthly($year = null, $month = null){
   if(!empty($month)) {
       $parameters .= '&month=eq.' . $month;
   }
+  $endpoint = 'monthly_labour_market_updates';
   //query ssot request
   $data['monthly_labour_market_updates'] = querySSoT('monthly_labour_market_updates?' . $parameters);
-   $data['sources'] = ssotSources();
+  //data sources
+  $sources = querySSoT('sources?endpoint=eq.' . $endpoint);
+  foreach($sources as $source) {
+    $datapoint = !empty($source['datapoint'])?$source['datapoint']:'no-datapoint';
+    $data['sources'][$datapoint] = $source['label'];
+  }
   return $data;
 }
 

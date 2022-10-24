@@ -10,15 +10,15 @@ use Drupal\extra_field\Plugin\ExtraFieldDisplayFormattedBase;
  * Example Extra field with formatted output.
  *
  * @ExtraFieldDisplay(
- *   id = "labourmarket_employment_change_table",
- *   label = @Translation("Employment Change Table"),
+ *   id = "labourmarket_employment_industries_table",
+ *   label = @Translation("Employment Industries Table"),
  *   description = @Translation("An extra field to display industry employment change table."),
  *   bundles = {
  *     "node.labour_market_monthly",
  *   }
  * )
  */
-class LabourMarketEmploymentChangeTable extends ExtraFieldDisplayFormattedBase {
+class LabourMarketEmploymentIndustriesTable extends ExtraFieldDisplayFormattedBase {
 
   use StringTranslationTrait;
 
@@ -27,7 +27,7 @@ class LabourMarketEmploymentChangeTable extends ExtraFieldDisplayFormattedBase {
    */
   public function getLabel() {
 
-    return $this->t('Employment Change Table');
+    return $this->t('Employment Industries Change Table');
   }
 
   /**
@@ -57,7 +57,8 @@ class LabourMarketEmploymentChangeTable extends ExtraFieldDisplayFormattedBase {
       $rows[] = [$values['industry'], $values['abs'], $values['per']];
     }
     
-    //TODO: Previous year values & image
+    $source_text = $entity->ssot_data['sources']['Industry Highlights'];
+    $output = '<span><strong>Source: </strong>'.$source_text.'</span>';
 
     return [
       [
@@ -67,6 +68,10 @@ class LabourMarketEmploymentChangeTable extends ExtraFieldDisplayFormattedBase {
         '#attributes' => array('class'=>array('my-table')),
         '#header_columns' => 4,
       ],
+      [
+        '#markup' => $output 
+      ]
+
     ];
   }
 

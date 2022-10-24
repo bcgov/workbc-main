@@ -60,6 +60,8 @@ class LabourMarketEmploymentByAgeSexTable extends ExtraFieldDisplayFormattedBase
     $header = [$this->t(''), $this->t("@curmonth @curyear", ["@curmonth" => $currentMonthName, "@curyear" => $currentYear]), $this->t("@premonth @preyear", ["@premonth" => $previousMonthName, "@preyear" => $previousYear])];
 
     $rows = $this->getGenderAgeValues($entity->ssot_data['monthly_labour_market_updates'][0]);
+    $source_text = $entity->ssot_data['sources']['no-datapoint'];
+    $output = '<span><strong>Source: </strong>'.$source_text.'</span>';
 
     return [
       [
@@ -68,6 +70,9 @@ class LabourMarketEmploymentByAgeSexTable extends ExtraFieldDisplayFormattedBase
         '#rows' => $rows,
         '#attributes' => array('class'=>array('bc-region-table')),
         '#header_columns' => 4,
+      ],
+      [
+        '#markup' => $output 
       ]
     ];
 

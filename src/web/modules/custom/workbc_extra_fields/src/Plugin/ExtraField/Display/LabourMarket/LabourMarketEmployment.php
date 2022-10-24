@@ -50,7 +50,7 @@ class LabourMarketEmployment extends ExtraFieldDisplayFormattedBase {
     $month = date ('F', mktime(0, 0, 0, $monthNum, 10));
 
     $total_employment =  Number_format($entity->ssot_data['monthly_labour_market_updates'][0]['total_employed']);
-    $source_text = $this->t('Labour Force Survey (monthly, seasonally adjusted)');
+    $source_text = $entity->ssot_data['sources']['no-datapoint'];
 
     //output
     $output = '

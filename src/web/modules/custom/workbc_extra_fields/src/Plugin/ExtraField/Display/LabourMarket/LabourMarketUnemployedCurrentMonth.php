@@ -53,7 +53,7 @@ class LabourMarketUnemployedCurrentMonth extends ExtraFieldDisplayFormattedBase 
     $total_unemployed = Number_format($entity->ssot_data['monthly_labour_market_updates'][0]['total_unemployed']);
     $unemployed_rate_value = $entity->ssot_data['monthly_labour_market_updates'][0]['employment_rate_pct_unemployment']; 
     $unemployed_part_value = $entity->ssot_data['monthly_labour_market_updates'][0]['employment_rate_pct_participation']; 
-    $source_text = $this->t('Labour Force Survey (monthly, seasonally adjusted)');  
+    $source_text = $entity->ssot_data['sources']['no-datapoint'];
 
     //output
     $output = '
@@ -64,6 +64,7 @@ class LabourMarketUnemployedCurrentMonth extends ExtraFieldDisplayFormattedBase 
       <div class="LME--total-unemployed-rate"><span>'.$this->t("Unemployment Rate").'</span><span class="LME--total-unemployed-rate-value">'.$unemployed_rate_value.'%</span></div>
       <div class="LME--total-unemployed-part"><span>'.$this->t("Participation Rate").'</span><span class="LME--total-unemployed-part-value">'.$unemployed_part_value.'%</span></div>
     </div>
+    <span class="LME--total-employed-bottom-source"><strong>Source: </strong>'.$source_text.'</span>
     </div>';
 
     return [

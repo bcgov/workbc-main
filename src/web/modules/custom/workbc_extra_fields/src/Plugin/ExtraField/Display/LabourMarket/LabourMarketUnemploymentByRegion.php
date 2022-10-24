@@ -63,10 +63,14 @@ class LabourMarketUnemploymentByRegion extends ExtraFieldDisplayFormattedBase {
 
     $rows = $this->getRegionValues($entity->ssot_data['monthly_labour_market_updates'][0]);
     
-    //TODO: Previous year values
+    //Image
     $module_handler = \Drupal::service('module_handler');
     $module_path = $module_handler->getModule('workbc_extra_fields')->getPath();
     $image_uri = '/' . $module_path . '/images/' . WORKBC_BC_MAP_WITH_LABELS;
+
+    //Source
+    $source_text = $entity->ssot_data['sources']['no-datapoint'];
+    $output = '<span><strong>Source: </strong>'.$source_text.'</span>';
 
     return [
       [
@@ -81,6 +85,9 @@ class LabourMarketUnemploymentByRegion extends ExtraFieldDisplayFormattedBase {
         '#attributes' => array('class'=>array('bc-region-table')),
         '#header_columns' => 4,
       ],
+      [
+        '#markup' => $output 
+      ]
     ];
   }
 
