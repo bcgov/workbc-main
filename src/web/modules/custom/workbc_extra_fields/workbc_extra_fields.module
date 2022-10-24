@@ -52,6 +52,7 @@ function ssotIndustryProfile($industry) {
   $data['industry_outlook'] = querySSoT('industry_outlook?industry=eq.' . $industry)[0];
   $data['labour_force_survey_industry'] = querySSoT('labour_force_survey_industry?industry=eq.' . $industry)[0];
   $data['monthly_labour_market_updates'] = querySSoT('monthly_labour_market_updates');
+  $data['openings_industry'] = querySSoT('openings_industry?industry=eq.' . $industry);
   $data['sources'] = ssotSources();
   return $data;
 }
