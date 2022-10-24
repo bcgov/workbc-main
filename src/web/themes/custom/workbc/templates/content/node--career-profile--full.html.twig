@@ -266,14 +266,18 @@
               <div class="salary-card card-profile">
                 <div class="card-profile__content">
                   <div class="card-profile__statistic">
-                    <h3>Annual Salary</h3>
+                    <div class="card-profile__statistic-header">
+                      <h3>Annual Salary</h3>
+                      <a tabindex="0" class="btn btn-link info-tooltip" role="button" data-bs-toggle="popover" data-bs-container="body" data-bs-trigger="click hover" data-bs-placement="bottom" data-bs-custom-class="workbc-popover" title="hidden title" data-bs-html="true" data-bs-content="{{ viewmodel['tab_sections']['career_overview']['salary_annual_salary_note']|raw }}"></a>
+                    </div>
                     <div class="card-profile__statistic-single">
                       <span>{{ viewmodel['tab_sections']['career_overview']['salary_annual_salary'] |raw }}</span>
                     </div>
-                    <span>{{ viewmodel['tab_sections']['career_overview']['salary_annual_salary_note'] |raw }}</span>
                   </div>
                   <div class="card-profile__statistic">
-                    <h3>Provincial Hourly Rate</h3>
+                    <div class="card-profile__statistic-header">
+                      <h3>Provincial Hourly Rate</h3>
+                    </div>
                     <div class="card-profile__statistic-table">
                       {{ viewmodel['tab_sections']['career_overview']['salary_provincial_hourly_rate_markup'] |raw }}
                     </div>
@@ -290,13 +294,17 @@
               <div class="salary-card card-profile">
                 <div class="card-profile__content">
                   <div class="card-profile__statistic">
-                    <h3># Workers Employed</h3>
+                    <div class="card-profile__statistic-header">
+                      <h3># Workers Employed</h3>
+                    </div>
                     <div class="card-profile__statistic-single">
                       <span>{{ viewmodel['tab_sections']['career_overview']['work_environment_workers_employed'] |raw }}</span>
                     </div>
                   </div>
                   <div class="card-profile__statistic">
-                    <h3>% Employed Full Time</h3>
+                    <div class="card-profile__statistic-header">
+                      <h3>% Employed Full Time</h3>
+                    </div>
                     <div class="card-profile__statistic-single">
                       <span>{{ viewmodel['tab_sections']['career_overview']['work_environment_percent_fulltime'] |raw }}</span>
                     </div>

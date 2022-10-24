@@ -21,7 +21,7 @@
 }
 
 .card-occupational-interest__icon-container {
-  flex: 0 0 calc(100%/3);
+  flex: 0 0 25%;
   display: flex;
   justify-content: center;
 
@@ -36,7 +36,7 @@
 }
 
 .card-occupational-interest__content-container {
-  flex: 0 0 calc(100%/3);
+  flex: 0 0 50%;  // this must be [100% - 2*(.card-occupational-interest__icon-container width)] to maintain centering in the container
   display: flex;
   flex-flow: column nowrap;
   justify-content: center;
@@ -51,6 +51,7 @@
 
 .card-occupational-interest__content-title {
   position: relative; // begin positional context %content-title
+  font-size: 1.125rem;
   min-height: 16px;
   font-weight: bold;
   text-align: center;
@@ -58,13 +59,10 @@
   &>div {
     display: inline-block;
   }
-
-  @include media-breakpoint-up(xl) {
-    font-size: 1.5rem;
-  }
 }
 
 .card-occupational-interest__content-category {
+  font-size: 1.125rem;
   text-align: center;
 
   .field--name-field-subtitle {
@@ -73,4 +71,6 @@
 }
 
 .card-occupational-interest__content-info {
+  position: absolute;  // relative to positional context %content-title
+  right: -32px;
 }
