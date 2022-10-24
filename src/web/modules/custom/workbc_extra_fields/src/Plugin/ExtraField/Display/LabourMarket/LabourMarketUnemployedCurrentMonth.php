@@ -64,7 +64,7 @@ class LabourMarketUnemployedCurrentMonth extends ExtraFieldDisplayFormattedBase 
       <div class="LME--total-unemployed-rate"><span>'.$this->t("Unemployment Rate").'</span><span class="LME--total-unemployed-rate-value">'.$unemployed_rate_value.'%</span></div>
       <div class="LME--total-unemployed-part"><span>'.$this->t("Participation Rate").'</span><span class="LME--total-unemployed-part-value">'.$unemployed_part_value.'%</span></div>
     </div>
-    <span class="LME--total-employed-bottom-source"><strong>Source: </strong>'.$source_text.'</span>
+    <span class="LME--total-employed-bottom-source"><strong>'.$this->t("Source: ").'</strong>'.$source_text.'</span>
     </div>';
 
     return [

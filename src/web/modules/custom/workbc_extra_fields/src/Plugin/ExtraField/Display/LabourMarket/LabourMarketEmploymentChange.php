@@ -61,7 +61,7 @@ class LabourMarketEmploymentChange extends ExtraFieldDisplayFormattedBase {
       <div class="LME--total-employed-time-full"><span>'.$this->t("Full Time").'</span><span class="LME--total-employed-time-full-value">'.$fulltime_value.'</span></div>
       <div class="LME--total-employed-time-part"><span>'.$this->t("Part Time").'</span><span class="LME--total-employed-time-part-value">'.$parttime_value.'</span></div>
     </div>
-    <span class="LME--total-employed-bottom-source"><strong>Source: </strong>'.$source_text.'</span>
+    <span class="LME--total-employed-bottom-source"><strong>'.$this->t("Source: ").'</strong>'.$source_text.'</span>
     </div>';
 
 

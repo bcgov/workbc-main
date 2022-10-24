@@ -58,7 +58,7 @@ class LabourMarketEmploymentIndustriesTable extends ExtraFieldDisplayFormattedBa
     }
     
     $source_text = $entity->ssot_data['sources']['Industry Highlights'];
-    $output = '<span><strong>Source: </strong>'.$source_text.'</span>';
+    $output = '<span><strong>'.$this->t("Source: ").'</strong>'.$source_text.'</span>';
 
     return [
       [

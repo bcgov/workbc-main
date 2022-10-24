@@ -61,7 +61,7 @@ class LabourMarketEmploymentByAgeSexTable extends ExtraFieldDisplayFormattedBase
 
     $rows = $this->getGenderAgeValues($entity->ssot_data['monthly_labour_market_updates'][0]);
     $source_text = $entity->ssot_data['sources']['no-datapoint'];
-    $output = '<span><strong>Source: </strong>'.$source_text.'</span>';
+    $output = '<span><strong>'.$this->t("Source: ").'</strong>'.$source_text.'</span>';
 
     return [
       [

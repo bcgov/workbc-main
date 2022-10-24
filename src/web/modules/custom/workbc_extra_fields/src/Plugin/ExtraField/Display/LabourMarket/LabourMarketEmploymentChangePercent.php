@@ -48,8 +48,7 @@ class LabourMarketEmploymentChangePercent extends ExtraFieldDisplayFormattedBase
     $month = date ('F', $entity->ssot_data['monthly_labour_market_updates'][0]['month']);
     $total_employment_change = $entity->ssot_data['monthly_labour_market_updates'][0]['employment_change_pct_total_employment'];
     $fulltime_value = $entity->ssot_data['monthly_labour_market_updates'][0]['employment_change_pct_full_time_jobs']; 
-    $parttime_value = $entity->ssot_data['monthly_labour_market_updates'][0]['employment_change_pct_part_time_jobs']; 
-    $source_text = $entity->ssot_data['sources']['no-datapoint'];;  
+    $parttime_value = $entity->ssot_data['monthly_labour_market_updates'][0]['employment_change_pct_part_time_jobs'];  
 
     //output
     $output = '

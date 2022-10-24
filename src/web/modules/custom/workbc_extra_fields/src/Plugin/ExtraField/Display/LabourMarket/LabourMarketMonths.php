@@ -62,7 +62,6 @@ class LabourMarketMonths extends ExtraFieldDisplayFormattedBase {
     
 
     $text = $this->t('The latest monthly data is displayed below. If you would like to see data from previous months, please select a month from the dropdown.');
-    // $source_text = $this->t('Labour Force Survey (monthly, seasonally adjusted)');
 
     if(!empty($query_month) && !empty($query_year)) {
       $default_value = $query_month.'_'.$query_year;
