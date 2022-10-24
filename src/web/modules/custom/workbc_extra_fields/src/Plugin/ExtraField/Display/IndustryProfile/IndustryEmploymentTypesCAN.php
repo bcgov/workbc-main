@@ -45,13 +45,13 @@ class IndustryEmploymentTypesCAN extends ExtraFieldDisplayFormattedBase {
 
     if (!empty($entity->ssot_data) && isset($entity->ssot_data['labour_force_survey_industryx'])) {
       $ft = 100;
-      $ft -= $entity->ssot_data['labour_force_survey_industry']['employment_part_time_pct_2020'];
-      $ft -= $entity->ssot_data['labour_force_survey_industry']['employment_self_employment_pct_2020'];
-      $ft -= $entity->ssot_data['labour_force_survey_industry']['employment_temporary_pct_2020'];
+      $ft -= $entity->ssot_data['labour_force_survey_industry']['employment_part_time_pct'];
+      $ft -= $entity->ssot_data['labour_force_survey_industry']['employment_self_employment_pct'];
+      $ft -= $entity->ssot_data['labour_force_survey_industry']['employment_temporary_pct'];
       $employmentFullTime = $ft . '%';
-      $employmentPartTime = $entity->ssot_data['labour_force_survey_industry']['employment_part_time_pct_2020'] . '%';
-      $employmentSelfEmployed = $entity->ssot_data['labour_force_survey_industry']['employment_self_employment_pct_2020'] . '%';
-      $employmentTemporary =  $entity->ssot_data['labour_force_survey_industry']['employment_temporary_pct_2020'] . '%';
+      $employmentPartTime = $entity->ssot_data['labour_force_survey_industry']['employment_part_time_pct'] . '%';
+      $employmentSelfEmployed = $entity->ssot_data['labour_force_survey_industry']['employment_self_employment_pct'] . '%';
+      $employmentTemporary =  $entity->ssot_data['labour_force_survey_industry']['employment_temporary_pct'] . '%';
     }
     else {
       $employmentFullTime = WORKBC_EXTRA_FIELDS_NOT_AVAILABLE;;

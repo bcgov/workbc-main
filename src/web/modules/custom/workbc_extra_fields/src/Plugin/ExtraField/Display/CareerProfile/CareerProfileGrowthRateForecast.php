@@ -45,9 +45,9 @@ class CareerProfileGrowthRateForecast extends ExtraFieldDisplayFormattedBase {
 
     if (!empty($entity->ssot_data) && isset($entity->ssot_data['career_provincial'])) {
       $data = array();
-      $data[] = floatval($entity->ssot_data['career_provincial']['forecasted_average_employment_growth_rate_2021_2026']);
-      $data[] = floatval($entity->ssot_data['career_provincial']['forecasted_average_employment_growth_rate_2026_2031']);
-      $labels = [t('2021-2026'), t('2026-2031')];
+      $data[] = floatval($entity->ssot_data['career_provincial']['forecasted_average_employment_growth_rate_first5y']);
+      $data[] = floatval($entity->ssot_data['career_provincial']['forecasted_average_employment_growth_rate_second5y']);
+      $labels = ['2022-2027', '2027-2032'];
       $chart = [
         '#type' => 'chart',
         '#chart_type' => 'column',

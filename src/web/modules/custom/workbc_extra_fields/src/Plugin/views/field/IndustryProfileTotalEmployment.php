@@ -35,8 +35,8 @@ class IndustryProfileTotalEmployment extends FieldPluginBase {
     // ksm($values);
     $node = $this->getEntity($values);
     if ($node->bundle() == "industry_profile") {
-      if (!empty($values->ssot_data) && isset($values->ssot_data['labour_force_survey_industry']['total_employment_2020'])) {
-        $output = Number_format($values->ssot_data['labour_force_survey_industry']['total_employment_2020'],0);
+      if (!empty($values->ssot_data) && isset($values->ssot_data['labour_force_survey_industry']['total_employment'])) {
+        $output = Number_format($values->ssot_data['labour_force_survey_industry']['total_employment'],0);
       }
       else {
         $output = WORKBC_EXTRA_FIELDS_NOT_AVAILABLE;

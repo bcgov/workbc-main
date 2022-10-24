@@ -45,8 +45,8 @@ class CareerProfileJobOpeningsComposition extends ExtraFieldDisplayFormattedBase
 
     if (!empty($entity->ssot_data) && isset($entity->ssot_data['career_provincial'])) {
       $data = array();
-      $data[] = floatval($entity->ssot_data['career_provincial']['10_year_replacement_of_retiring_workers_number']);
-      $data[] = floatval($entity->ssot_data['career_provincial']['10_year_new_jobs_due_to_economic_growth_number']);
+      $data[] = floatval($entity->ssot_data['career_provincial']['replacement_of_retiring_workers_10y']);
+      $data[] = floatval($entity->ssot_data['career_provincial']['new_jobs_due_to_economic_growth_10y']);
       $labels = [t('Replacement'), t('New Jobs')];
       $chart = [
         '#type' => 'chart',

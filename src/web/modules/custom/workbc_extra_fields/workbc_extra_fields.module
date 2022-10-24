@@ -64,7 +64,7 @@ function ssotCareerProfile($noc) {
   $data['census'] = querySSoT('census?noc=eq.' . $noc)[0];
   $data['education'] = querySSoT('education?noc=eq.' . $noc)[0];
   $data['skills'] = querySSoT('skills?noc=eq.' . $noc);
-  $data['openings'] = querySSoT('openings?noc=eq.' . $noc)[0];
+  $data['openings_careers'] = querySSoT('openings_careers?noc=eq.' . $noc)[0];
   $data['high_opportunity_occupations'] = querySSoT('high_opportunity_occupations?noc=eq.' . $noc);
   $data['occupational_interests'] = querySSoT('occupational_interests?noc=eq.' . $noc);
   $data['sources'] = ssotSources();

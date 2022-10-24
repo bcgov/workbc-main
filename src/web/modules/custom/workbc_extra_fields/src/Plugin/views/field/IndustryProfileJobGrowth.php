@@ -34,8 +34,8 @@ class IndustryProfileJobGrowth extends FieldPluginBase {
   public function render(ResultRow $values) {
     $node = $this->getEntity($values);
     if ($node->bundle() == "industry_profile") {
-      if (!empty($values->ssot_data) && isset($values->ssot_data['labour_force_survey_industry']['yoy_change_employment_2019_2020'])) {
-        $output = ssotFormatNumber($values->ssot_data['labour_force_survey_industry']['yoy_change_employment_2019_2020'], 0, true);
+      if (!empty($values->ssot_data) && isset($values->ssot_data['labour_force_survey_industry']['yoy_change_employment'])) {
+        $output = ssotFormatNumber($values->ssot_data['labour_force_survey_industry']['yoy_change_employment'], 0, true);
       }
       else {
         $output = WORKBC_EXTRA_FIELDS_NOT_AVAILABLE;

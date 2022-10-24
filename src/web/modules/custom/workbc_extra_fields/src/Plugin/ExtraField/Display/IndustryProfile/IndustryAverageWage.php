@@ -44,9 +44,9 @@ class IndustryAverageWage extends ExtraFieldDisplayFormattedBase {
   public function viewElements(ContentEntityInterface $entity) {
 
     if (!empty($entity->ssot_data) && isset($entity->ssot_data['labour_force_survey_industry'])) {
-      $avgMen = '$' . $entity->ssot_data['labour_force_survey_industry']['earnings_men_2021'] . '/hr';
-      $avgWomen = '$' . $entity->ssot_data['labour_force_survey_industry']['earnings_women_2021'] . '/hr';
-      $avgYouth = '$' . $entity->ssot_data['labour_force_survey_industry']['earnings_youth_2021'] . '/hr';
+      $avgMen = '$' . $entity->ssot_data['labour_force_survey_industry']['earnings_men'] . '/hr';
+      $avgWomen = '$' . $entity->ssot_data['labour_force_survey_industry']['earnings_women'] . '/hr';
+      $avgYouth = '$' . $entity->ssot_data['labour_force_survey_industry']['earnings_youth'] . '/hr';
     }
     else {
       $avgMen = WORKBC_EXTRA_FIELDS_NOT_AVAILABLE;;

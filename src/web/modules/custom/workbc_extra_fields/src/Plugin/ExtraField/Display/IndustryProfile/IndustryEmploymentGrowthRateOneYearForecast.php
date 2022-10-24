@@ -45,8 +45,8 @@ class IndustryEmploymentGrowthRateOneYearForecast extends ExtraFieldDisplayForma
 
     if (!empty($entity->ssot_data) && isset($entity->ssot_data['industry_outlook'])) {
       $data = array();
-      $data[] = $entity->ssot_data['industry_outlook']['annual_employment_growth_rate_pct_2021_2026'];
-      $data[] = $entity->ssot_data['industry_outlook']['annual_employment_growth_rate_pct_2026_2031'];
+      $data[] = $entity->ssot_data['industry_outlook']['annual_employment_growth_rate_pct_first5y'];
+      $data[] = $entity->ssot_data['industry_outlook']['annual_employment_growth_rate_pct_second5y'];
       $labels = ['2021 - 2026', '2026 - 2031'];
       $chart = [
         '#type' => 'chart',
