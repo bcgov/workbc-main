@@ -42,6 +42,8 @@ function workbc_jobboard_theme($existing, $type, $theme, $path) {
         'jobboard_api_url'=>'',
         'find_job_url'=>'',
         'find_job_account_url'=>'',
+        'search_career_profile_link'=>'',
+        'labour_market_outlook'=>'',
       ],
     ],
   ];
@@ -77,13 +79,16 @@ function workbc_jobboard_preprocess_node(&$variables) {
     $variables['jobboard_api_url'] = \Drupal::config('jobboard')->get('jobboard_api_url');
     $variables['find_job_url'] = \Drupal::config('jobboard')->get('find_job_url');
     $variables['find_job_account_url'] = \Drupal::config('jobboard')->get('find_job_account_url');
+    $variables['#cache']['max-age'] = 0;
     if($current_path == $variables['find_job_url']){
-      $variables['#cache']['max-age'] = 0;
       $variables['elements']['#theme'] = 'node__page_jobboard_findjobs';
     }
     else if($current_path == $variables['find_job_account_url']){
-      $variables['#cache']['max-age'] = 0;
-      $variables['elements']['#theme'] = 'node__page_jobboard_account';
+      $variables['elements']['#theme'] = 'node__page_jobboard_account';      
+      $variables['search_career_profile_link'] = \Drupal::config('jobboard')->get('search_career_profile_link');
+      $variables['labour_market_outlook'] = \Drupal::config('jobboard')->get('labour_market_outlook');
+      $variables['explore_industryand_sector_outlooks'] = \Drupal::config('jobboard')->get('explore_industryand_sector_outlooks');
+      $variables['view_industry_profiles'] = \Drupal::config('jobboard')->get('view_industry_profiles');
     }
   }
 }

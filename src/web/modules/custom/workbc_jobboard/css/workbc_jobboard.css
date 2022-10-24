@@ -54,6 +54,10 @@
  width:100%;
  text-align:center;
 }
+/*
+ *  Styles below apply to the embedded Job Board app
+ *
+*/
 app-root .breadcrumbs{display:none;}
 app-root input[type=checkbox],app-root input[type=radio] {
     -webkit-appearance: none;

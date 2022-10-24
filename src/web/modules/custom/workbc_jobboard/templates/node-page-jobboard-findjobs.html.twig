@@ -140,16 +140,6 @@
       <script src="{{jobboard_api_url}}/dist/jb-search/polyfills-es5.js?v=Release-1980" nomodule="" defer=""></script>
       <script src="{{jobboard_api_url}}/dist/jb-search/main-es2017.js?v=Release-1980" type="module"></script>
       <script src="{{jobboard_api_url}}/dist/jb-search/main-es5.js?v=Release-1980" nomodule="" defer=""></script>
-      <script>
-          // disable the main form on the page.
-          (function ($) {
-              $(function () {
-                  $("form#form").submit(function (e) {
-                      e.preventDefault();
-                  });
-              });
-          })($cmsj);
-      </script>
     </div>
     {{ page_content }}
 

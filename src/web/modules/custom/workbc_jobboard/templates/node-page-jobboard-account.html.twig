@@ -129,31 +129,25 @@
     {% if page_body %}
       {{ page_body }}
     {% endif %}
-    <div class="layout-container"> 
-    
-    
-    <link rel="stylesheet" href="{{jobboard_api_url}}/bootstrap/bootstrap.min.css?v=Release-1980">
-    <link rel="stylesheet" href="{{jobboard_api_url}}/dist/jb-account/styles.css?v=Release-1980">
-    <app-root api="{{jobboard_api_url}}/" jbsearch="{{find_job_url}}" jbaccount="{{find_job_account_url}}" _nghost-ngr-c118="" ng-version="12.2.16"></app-root>
-    <script src="{{jobboard_api_url}}/dist/jb-account/runtime-es2017.js?v=Release-1980" type="module"></script>
-    <script src="{{jobboard_api_url}}/dist/jb-account/runtime-es5.js?v=Release-1980" nomodule="" defer=""></script>
-    <script src="{{jobboard_api_url}}/dist/jb-account/polyfills-es2017.js?v=Release-1980" type="module"></script>
-    <script src="{{jobboard_api_url}}/dist/jb-account/polyfills-es5.js?v=Release-1980" nomodule="" defer=""></script>
-    <script src="{{jobboard_api_url}}/dist/jb-account/main-es2017.js?v=Release-1980" type="module"></script>
-    <script src="{{jobboard_api_url}}/dist/jb-account/main-es5.js?v=Release-1980" nomodule="" defer=""></script>
-    <script>
-        // disable the main form on the page.
-        (function ($) {
-            $(function () {
-                $("form#form").submit(function (e) {
-                    e.preventDefault();
-                });
-            });
-        })($cmsj);
-    </script>
+    <div class="layout-container">
+      <link rel="stylesheet" href="{{jobboard_api_url}}/bootstrap/bootstrap.min.css?v=Release-1980">
+      <link rel="stylesheet" href="{{jobboard_api_url}}/dist/jb-account/styles.css?v=Release-1980">
+      <app-root api="{{jobboard_api_url}}/" jbsearch="{{find_job_url}}" jbaccount="{{find_job_account_url}}" _nghost-ngr-c118="" ng-version="12.2.16" _ngcontent-otq-c106></app-root>
+      <script src="{{jobboard_api_url}}/dist/jb-account/runtime-es2017.js?v=Release-1980" type="module"></script>
+      <script src="{{jobboard_api_url}}/dist/jb-account/runtime-es5.js?v=Release-1980" nomodule="" defer=""></script>
+      <script src="{{jobboard_api_url}}/dist/jb-account/polyfills-es2017.js?v=Release-1980" type="module"></script>
+      <script src="{{jobboard_api_url}}/dist/jb-account/polyfills-es5.js?v=Release-1980" nomodule="" defer=""></script>
+      <script src="{{jobboard_api_url}}/dist/jb-account/main-es2017.js?v=Release-1980" type="module"></script>
+      <script src="{{jobboard_api_url}}/dist/jb-account/main-es5.js?v=Release-1980" nomodule="" defer=""></script>
+        
+      <script>
+        var LabourMarketOutlook = '{{labour_market_outlook}}';
+        var searchCareerProfileLink = '{{search_career_profile_link}}';
+        var ViewIndustryProfiles = '{{view_industry_profiles}}';
+        var ExploreIndustryandSectorOutlooks = '{{explore_industryand_sector_outlooks}}';
+      </script>
 
-    
-</div>
+  </div>
     {{ page_content }}
 
     {% if drupal_region('content_bottom') %}
