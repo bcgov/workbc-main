@@ -2,6 +2,7 @@
 
 use GuzzleHttp\Client;
 use GuzzleHttp\Exception\RequestException;
+use Drupal\views\ViewExecutable;
 
 define ("WORKBC_EXTRA_FIELDS_NOT_AVAILABLE", "[not-yet-available]");
 
@@ -17,6 +18,7 @@ define ("REGION_THOMPSON_OKANAGAN", "Thompson-Okanagan");
 define ("REGION_VANCOUVER_ISLAND_COAST", "Vancouver Island-Coast");
 
 define ('SSOT_PING_TIMEOUT', 5);
+
 
 
 /*
@@ -38,9 +40,8 @@ function workbc_extra_fields_node_view(array &$build, \Drupal\Core\Entity\Entity
         $entity->ssot_data = ssotCareerProfile($entity->get("field_noc")->getString());
         break;
       case "industry_profile":
-        ksm($entity->getTitle());
         $entity->ssot_data = ssotIndustryProfile($entity->getTitle());
-        ksm($entity->ssot_data);
+        break;
       case "region_profile":
     }
   }
@@ -119,4 +120,18 @@ function ssotFormatNumber($number, $decimals = 0, $positive = false) {
     $value = "+" . $value;
   }
   return $value;
+}
+
+/*
+   populate view results with SSoT data here so API is called only
+   once per row.
+ */
+
+function workbc_extra_fields_views_pre_render(ViewExecutable $view) {
+
+  if ($view->id() == "industry_profiles") {
+    foreach($view->result as $key => $result) {
+      $view->result[$key]->ssot_data = ssotIndustryProfile($result->node_field_data_title);
+    }
+  }
 }

@@ -10,15 +10,15 @@ use Drupal\extra_field\Plugin\ExtraFieldDisplayFormattedBase;
  * Example Extra field with formatted output.
  *
  * @ExtraFieldDisplay(
- *   id = "industry_employment_types_bc",
- *   label = @Translation("Employment Type BC"),
- *   description = @Translation("An extra field to display industry employment types BC."),
+ *   id = "industry_employment_types_industry",
+ *   label = @Translation("Employment Type Industry"),
+ *   description = @Translation("An extra field to display industry employment types Industry."),
  *   bundles = {
  *     "node.industry_profile",
  *   }
  * )
  */
-class IndustryEmploymentTypesBC extends ExtraFieldDisplayFormattedBase {
+class IndustryEmploymentTypesIndustry extends ExtraFieldDisplayFormattedBase {
 
   use StringTranslationTrait;
 
@@ -27,7 +27,7 @@ class IndustryEmploymentTypesBC extends ExtraFieldDisplayFormattedBase {
    */
   public function getLabel() {
 
-    return $this->t('Employment Types BC');
+    return $this->t('Employment Types Industry');
   }
 
   /**
@@ -45,13 +45,13 @@ class IndustryEmploymentTypesBC extends ExtraFieldDisplayFormattedBase {
 
     if (!empty($entity->ssot_data) && isset($entity->ssot_data['labour_force_survey_industry'])) {
       $ft = 100;
-      $ft -= $entity->ssot_data['labour_force_survey_industry']['employment_part_time_pct_average'];
-      $ft -= $entity->ssot_data['labour_force_survey_industry']['employment_self_employment_pct_average'];
-      $ft -= $entity->ssot_data['labour_force_survey_industry']['employment_temporary_pct_average'];
+      $ft -= $entity->ssot_data['labour_force_survey_industry']['employment_part_time_pct_2020'];
+      $ft -= $entity->ssot_data['labour_force_survey_industry']['employment_self_employment_pct_2020'];
+      $ft -= $entity->ssot_data['labour_force_survey_industry']['employment_temporary_pct_2020'];
       $employmentFullTime = $ft . '%';
-      $employmentPartTime = $entity->ssot_data['labour_force_survey_industry']['employment_part_time_pct_average'] . '%';
-      $employmentSelfEmployed = $entity->ssot_data['labour_force_survey_industry']['employment_self_employment_pct_average'] . '%';
-      $employmentTemporary =  $entity->ssot_data['labour_force_survey_industry']['employment_temporary_pct_average'] . '%';
+      $employmentPartTime = $entity->ssot_data['labour_force_survey_industry']['employment_part_time_pct_2020'] . '%';
+      $employmentSelfEmployed = $entity->ssot_data['labour_force_survey_industry']['employment_self_employment_pct_2020'] . '%';
+      $employmentTemporary =  $entity->ssot_data['labour_force_survey_industry']['employment_temporary_pct_2020'] . '%';
     }
     else {
       $employmentFullTime = WORKBC_EXTRA_FIELDS_NOT_AVAILABLE;;
