@@ -58,8 +58,9 @@ class LabourMarketUnemployedPreviousMonth extends ExtraFieldDisplayFormattedBase
     $total_unemployed = Number_format($entity->ssot_data['monthly_labour_market_updates'][0]['total_unemployed_previous']);
     $unemployed_rate_value =  $entity->ssot_data['monthly_labour_market_updates'][0]['employment_rate_pct_unemployment_previous']; 
     $unemployed_part_value = $entity->ssot_data['monthly_labour_market_updates'][0]['employment_rate_pct_participation_previous']; 
-    $information_text_tooltip = '<div id="u46282_text" class="text ">
-                    <p><span style="font-family:"BCSans";font-weight:700;font-style:italic;">Participation Rate</span><span style="font-family:"BCSans";font-weight:400;font-style:normal;"> represents the number of people in the workforce that are of working age as a percentage of total </span></p><p><span style="font-family:"BCSans";font-weight:400;font-style:normal;">BC population.</span></p>
+    $information_text_tooltip = '
+                  <div class="tool-tip">
+                    <p>'. $this-> ('Participation Rate represents the number of people in the workforce that are of working age as a percentage of total BC population.') . '</p>
                   </div>';  
 
     //output
