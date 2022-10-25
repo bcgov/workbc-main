@@ -59,7 +59,7 @@ class LabourMarketUnemploymentByRegion extends ExtraFieldDisplayFormattedBase {
 
     $previousMonthName =  date ('F', mktime(0, 0, 0, $previousMonth, 10));;
 
-    $header = [$this->t(''), $this->t("@curmonth @curyear", ["@curmonth" => $currentMonthName, "@curyear" => $currentYear]), $this->t("@premonth @preyear", ["@premonth" => $previousMonthName, "@preyear" => $previousYear])];
+    $header = [' ', $this->t("@curmonth @curyear", ["@curmonth" => $currentMonthName, "@curyear" => $currentYear]), $this->t("@premonth @preyear", ["@premonth" => $previousMonthName, "@preyear" => $previousYear])];
 
     $rows = $this->getRegionValues($entity->ssot_data['monthly_labour_market_updates'][0]);
     
@@ -70,7 +70,7 @@ class LabourMarketUnemploymentByRegion extends ExtraFieldDisplayFormattedBase {
 
     //Source
     $source_text = $entity->ssot_data['sources']['no-datapoint'];
-    $output = '<span><strong>'.$this->t("Source: ").'</strong>'.$source_text.'</span>';
+    $output = '<span><strong>'.$this->t("Source").': </strong>'.$source_text.'</span>';
 
     return [
       [
