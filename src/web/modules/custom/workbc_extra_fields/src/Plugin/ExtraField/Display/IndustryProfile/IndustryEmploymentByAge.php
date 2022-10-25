@@ -48,27 +48,32 @@ class IndustryEmploymentByAge extends ExtraFieldDisplayFormattedBase {
       $value -= $entity->ssot_data['labour_force_survey_industry']['workforce_employment_under_25_pct_average'];
       $value -= $entity->ssot_data['labour_force_survey_industry']['workforce_employment_over_55_pct_average'];
 
-      $bcAvgUnder25 = $entity->ssot_data['labour_force_survey_industry']['workforce_employment_under_25_pct_average'] . '%';
-      $bcAvg25thru55 = $value . "%";
-      $bcAvgOver55 = $entity->ssot_data['labour_force_survey_industry']['workforce_employment_over_55_pct_average'] . '%';
-      $natAvgUnder25 = WORKBC_EXTRA_FIELDS_NOT_AVAILABLE;
-      $natAvg25thru55 = WORKBC_EXTRA_FIELDS_NOT_AVAILABLE;
-      $natAvgOver55 = WORKBC_EXTRA_FIELDS_NOT_AVAILABLE;
+      $bcAvgUnder25 = ssotFormatNumber($entity->ssot_data['labour_force_survey_industry']['workforce_employment_under_25_pct_average'],0) . '%';
+      $bcAvg25thru55 = ssotFormatNumber($value,0) . "%";
+      $bcAvgOver55 = ssotFormatNumber($entity->ssot_data['labour_force_survey_industry']['workforce_employment_over_55_pct_average'],0) . '%';
+
+      $value = 100;
+      $value -= $entity->ssot_data['labour_force_survey_industry']['workforce_employment_under_25_pct'];
+      $value -= $entity->ssot_data['labour_force_survey_industry']['workforce_employment_over_55_pct'];
+
+      $industryAvgUnder25 = ssotFormatNumber($entity->ssot_data['labour_force_survey_industry']['workforce_employment_under_25_pct'],0) . '%';
+      $industryAvg25thru55 = ssotFormatNumber($value,0) . "%";
+      $industryAvgOver55 = ssotFormatNumber($entity->ssot_data['labour_force_survey_industry']['workforce_employment_over_55_pct'],0) . '%';
     }
     else {
       $bcAvgUnder25 = WORKBC_EXTRA_FIELDS_NOT_AVAILABLE;;
       $bcAvg25thru55 = WORKBC_EXTRA_FIELDS_NOT_AVAILABLE;
       $bcAvgOver55 = WORKBC_EXTRA_FIELDS_NOT_AVAILABLE;
-      $natAvgUnder25 = WORKBC_EXTRA_FIELDS_NOT_AVAILABLE;;
-      $natAvg25thru55 = WORKBC_EXTRA_FIELDS_NOT_AVAILABLE;
-      $natAvgOver55 = WORKBC_EXTRA_FIELDS_NOT_AVAILABLE;
+      $industryAvgUnder25 = WORKBC_EXTRA_FIELDS_NOT_AVAILABLE;;
+      $industryAvg25thru55 = WORKBC_EXTRA_FIELDS_NOT_AVAILABLE;
+      $industryAvgOver55 = WORKBC_EXTRA_FIELDS_NOT_AVAILABLE;
     }
 
     $content = '<table>';
-    $content .= '<tr><th>Age Group</th><th>B.C. Industry Average</th><th>National Average</th></tr>';
-    $content .= '<tr><td>15 - 24 years</td><td>' . $bcAvgUnder25 . '</td><td>' . $natAvgUnder25 . '</td></tr>';
-    $content .= '<tr><td>25 - 54 years</td><td>' . $bcAvg25thru55 . '</td><td>' . $natAvg25thru55 . '</td></tr>';
-    $content .= '<tr><td>55+ years</td><td>' . $bcAvgOver55 . '</td><td>' . $natAvgOver55 . '</td></tr>';
+    $content .= '<tr><th>Age Group</th><th>Industry Average</th><th>B.C. Average</th></tr>';
+    $content .= '<tr><td>15 - 24 years</td><td>' . $industryAvgUnder25 . '</td><td>' . $bcAvgUnder25 . '</td></tr>';
+    $content .= '<tr><td>25 - 54 years</td><td>' . $industryAvg25thru55 . '</td><td>' . $bcAvg25thru55 . '</td></tr>';
+    $content .= '<tr><td>55+ years</td><td>' . $industryAvgOver55 . '</td><td>' . $bcAvgOver55 . '</td></tr>';
     $content .= '</table>';
 
     $output = $content;

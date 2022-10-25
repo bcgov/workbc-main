@@ -22,4 +22,11 @@ $config['system.mail']['interface']['webform'] = 'ses_mail';
 // Single Source of Truth (SSoT) configuration.
 $config['workbc']['ssot_url'] = getenv('SSOT_URL');
 
-$config['jobboard']['api_url'] = getenv('JOBBOARD_API_URL');
+$config['jobboard']['jobboard_api_url'] = 'https://dev-api-jobboard.workbc.ca';
+$config['jobboard']['find_job_url'] = '/search-and-prepare-job/find-jobs';
+$config['jobboard']['find_job_account_url'] = '/account';
+
+$config['jobboard']['search_career_profile_link'] = '/jobs-careers/explore-careers';
+$config['jobboard']['labour_market_outlook'] = '/labour-market-industry/labour-market-outlook';
+$config['jobboard']['explore_industryand_sector_outlooks'] = '/labour-market-industry/industry-sector-outlooks';
+$config['jobboard']['view_industry_profiles'] = '/labour-market-industry/industry-profiles';

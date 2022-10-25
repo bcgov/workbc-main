@@ -10,15 +10,15 @@ use Drupal\extra_field\Plugin\ExtraFieldDisplayFormattedBase;
  * Example Extra field with formatted output.
  *
  * @ExtraFieldDisplay(
- *   id = "industry_employment_types_can",
- *   label = @Translation("Employment Type National"),
- *   description = @Translation("An extra field to display industry employment types national."),
+ *   id = "industry_employment_types_industry",
+ *   label = @Translation("Employment Type Industry"),
+ *   description = @Translation("An extra field to display industry employment types Industry."),
  *   bundles = {
  *     "node.industry_profile",
  *   }
  * )
  */
-class IndustryEmploymentTypesCAN extends ExtraFieldDisplayFormattedBase {
+class IndustryEmploymentTypesIndustry extends ExtraFieldDisplayFormattedBase {
 
   use StringTranslationTrait;
 
@@ -27,7 +27,7 @@ class IndustryEmploymentTypesCAN extends ExtraFieldDisplayFormattedBase {
    */
   public function getLabel() {
 
-    return $this->t('Employment Types National');
+    return $this->t('Employment Types Industry');
   }
 
   /**
@@ -43,7 +43,7 @@ class IndustryEmploymentTypesCAN extends ExtraFieldDisplayFormattedBase {
    */
   public function viewElements(ContentEntityInterface $entity) {
 
-    if (!empty($entity->ssot_data) && isset($entity->ssot_data['labour_force_survey_industryx'])) {
+    if (!empty($entity->ssot_data) && isset($entity->ssot_data['labour_force_survey_industry'])) {
       $ft = 100;
       $ft -= $entity->ssot_data['labour_force_survey_industry']['employment_part_time_pct'];
       $ft -= $entity->ssot_data['labour_force_survey_industry']['employment_self_employment_pct'];

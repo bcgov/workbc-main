@@ -44,9 +44,9 @@ class CareerProfileSalaryInfoHourly extends ExtraFieldDisplayFormattedBase {
   public function viewElements(ContentEntityInterface $entity) {
 
     if (!empty($entity->ssot_data)) {
-      $hourly1 = '$' . $entity->ssot_data['wages']['esdc_wage_rate_high_2021'] . '/hr';
-      $hourly2 = '$' . $entity->ssot_data['wages']['esdc_wage_rate_median_2021'] . '/hr';
-      $hourly3 = '$' . $entity->ssot_data['wages']['esdc_wage_rate_low_2021'] . '/hr';
+      $hourly1 = '$' . $entity->ssot_data['wages']['esdc_wage_rate_high'] . '/hr';
+      $hourly2 = '$' . $entity->ssot_data['wages']['esdc_wage_rate_median'] . '/hr';
+      $hourly3 = '$' . $entity->ssot_data['wages']['esdc_wage_rate_low'] . '/hr';
     }
     else {
       $hourly1 = WORKBC_EXTRA_FIELDS_NOT_AVAILABLE;;

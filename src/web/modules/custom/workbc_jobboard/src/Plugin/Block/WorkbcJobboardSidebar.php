@@ -106,6 +106,7 @@ class WorkbcJobboardSidebar extends BlockBase{
             '#readmore_label' => (isset($config['job_board_read_more_button_title'])) ?$config['job_board_read_more_button_title'] : 'View more jobs',
             '#no_result_text' => (isset($config['job_board_no_result_text'])) ?$config['job_board_no_result_text'] : 'There are no current job postings.',
             '#noc' => (isset($noc_value)) ? $noc_value : '',
+            '#find_job_url'=>\Drupal::config('jobboard')->get('find_job_url'),
           ];
         }
       }

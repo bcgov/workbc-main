@@ -10,15 +10,15 @@ use Drupal\extra_field\Plugin\ExtraFieldDisplayFormattedBase;
  * Example Extra field with formatted output.
  *
  * @ExtraFieldDisplay(
- *   id = "industry_average_wage_bc",
- *   label = @Translation("BC Average Wage"),
- *   description = @Translation("An extra field to display industry average wage BC."),
+ *   id = "industry_wage",
+ *   label = @Translation("Industry Average Wage"),
+ *   description = @Translation("An extra field to display industry wage."),
  *   bundles = {
  *     "node.industry_profile",
  *   }
  * )
  */
-class IndustryAverageWageBC extends ExtraFieldDisplayFormattedBase {
+class IndustryAverageWage extends ExtraFieldDisplayFormattedBase {
 
   use StringTranslationTrait;
 
@@ -27,7 +27,7 @@ class IndustryAverageWageBC extends ExtraFieldDisplayFormattedBase {
    */
   public function getLabel() {
 
-    return $this->t('BC Average Wage');
+    return $this->t('Industry Average Wage');
   }
 
   /**
@@ -44,9 +44,9 @@ class IndustryAverageWageBC extends ExtraFieldDisplayFormattedBase {
   public function viewElements(ContentEntityInterface $entity) {
 
     if (!empty($entity->ssot_data) && isset($entity->ssot_data['labour_force_survey_industry'])) {
-      $avgMen = '$' . $entity->ssot_data['labour_force_survey_industry']['earnings_men_average'] . '/hr';
-      $avgWomen = '$' . $entity->ssot_data['labour_force_survey_industry']['earnings_women_average'] . '/hr';
-      $avgYouth = '$' . $entity->ssot_data['labour_force_survey_industry']['earnings_youth_average'] . '/hr';
+      $avgMen = '$' . $entity->ssot_data['labour_force_survey_industry']['earnings_men'] . '/hr';
+      $avgWomen = '$' . $entity->ssot_data['labour_force_survey_industry']['earnings_women'] . '/hr';
+      $avgYouth = '$' . $entity->ssot_data['labour_force_survey_industry']['earnings_youth'] . '/hr';
     }
     else {
       $avgMen = WORKBC_EXTRA_FIELDS_NOT_AVAILABLE;;

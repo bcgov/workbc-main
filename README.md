@@ -13,8 +13,8 @@ This is the WorkBC site on Drupal.
   - `mkdir src/private && docker-compose exec php sudo chown www-data /var/www/html/private`
   - `docker-compose exec php sudo chown www-data /var/www/html/config/sync`
 - Import the init data dumps:
-  - `bunzip2 -c src/scripts/workbc-init.sql.bz2 | docker-compose exec -T postgres psql -U workbc workbc`
-  - `bunzip2 -c src/scripts/ssot-full.sql.bz2 | docker-compose exec -T postgres psql -U workbc ssot && docker-compose kill -s SIGUSR1 ssot`
+  - `gunzip -k -c src/scripts/workbc-init.sql.gz | docker-compose exec -T postgres psql -U workbc workbc`
+  - `gunzip -k -c src/scripts/ssot-full.sql.gz | docker-compose exec -T postgres psql -U workbc ssot && docker-compose kill -s SIGUSR1 ssot`
 - Create the Solr index:
   - `docker-compose exec -u 0 solr sh -c "chown -R solr:solr /opt/solr/server/solr/workbc_dev"`
   - `docker-compose exec solr sh -c "curl -sIN 'http://localhost:8983/solr/admin/cores?action=CREATE&name=workbc_dev&configSet=workbc&instanceDir=workbc_dev'"`
@@ -39,7 +39,7 @@ If errors still persist, you may need to manually enable new modules before runn
 ## Updating local dev environment from a deployment stage
 You may want to get the latest data from a deployment stage (DEV, TEST or PROD). In that case, follow these steps:
 - Delete all your local `workbc` database tables (e.g. using a database manager such as the excellent [DBeaver](https://dbeaver.io/))
-- Import the init data dump `bunzip2 -c src/scripts/workbc-init.sql.bz2 | docker-compose exec -T postgres psql -U workbc workbc`
+- Import the init data dump `gunzip -k -c src/scripts/workbc-init.sql.gz | docker-compose exec -T postgres psql -U workbc workbc`
 - Download a fresh dump from your desired stage via Backup/Migrate module at `https://<stage>.workbc.ca/admin/config/development/backup_migrate` and select Backup Source **Default Drupal Database**
 - Restore the fresh dump on your local at http://workbc.docker.localhost:8000/admin/config/development/backup_migrate/restore
 - Repeat the above two steps for Backup Source **Public Files Directory** in case you also need the latest files

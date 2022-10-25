@@ -45,8 +45,8 @@ class IndustryEmploymentBySex extends ExtraFieldDisplayFormattedBase {
 
     if (!empty($entity->ssot_data) && isset($entity->ssot_data['labour_force_survey_industry'])) {
       $data = array();
-      $data[] = floatval($entity->ssot_data['labour_force_survey_industry']['workforce_employment_gender_2020_pct_men']);
-      $data[] = floatval($entity->ssot_data['labour_force_survey_industry']['workforce_employment_gender_2020_pct_women']);
+      $data[] = floatval($entity->ssot_data['labour_force_survey_industry']['workforce_employment_gender_pct_men']);
+      $data[] = floatval($entity->ssot_data['labour_force_survey_industry']['workforce_employment_gender_pct_women']);
       $labels = [t('Men'), t('Women')];
       $chart = [
         '#type' => 'chart',
