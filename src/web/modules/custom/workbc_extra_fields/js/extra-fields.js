@@ -13,7 +13,6 @@
 
         var redirectUrl = currentUrl+'?month='+parameters[0]+'&year='+parameters[1];
         window.location.href = redirectUrl;
-        console.log($(this).val());
       });
     },
   };
