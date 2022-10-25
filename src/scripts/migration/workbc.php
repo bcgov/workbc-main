@@ -146,6 +146,17 @@ foreach ($items as $id => $item) {
             $fields['field_unemployment_introduction'] = convertRichText($labour_market_introductions->{'Unemployment Introduction'});
         }
     }
+    else if ($template === 'Industry Profile') {
+        if (property_exists($item, 'Industry Overview')) {
+            $fields['field_industry_overview'] = convertRichText($item->{'Industry Overview'}, $items);
+        }
+        if (property_exists($item, 'Key Facts')) {
+            $fields['field_key_facts'] = convertRichText($item->{'Key Facts'}, $items);
+        }
+        if (property_exists($item, 'Resource')) {
+            $fields['field_resources'] = convertResources($career_profile->{'Resources'});
+        }
+    }
 
     // We want to create or update a Drupal node for this GC item.
     // Identifying an existing node by title is sometimes not enough because some pages have non-unique titles.
@@ -227,10 +238,32 @@ function createItem($item) {
     switch (trim($item->template)) {
         case "Blog Post, News Post, Success Stories Post":
             return createBlogNewsSuccessStory($item);
+        case "Industry Profile":
+            return createIndustryProfile($item);
         default:
             break;
     }
     return NULL;
+}
+
+function createIndustryProfile($item) {
+    $type ='industry_profile';
+    $fields = [
+        'type' => $type,
+        'title' => convertPlainText($item->title),
+        'uid' => 1,
+        'path' => [
+            'pathauto' => PathautoState::CREATE,
+        ],
+        'moderation_state' => 'published',
+    ];
+    $node = Drupal::entityTypeManager()
+        ->getStorage('node')
+        ->create($fields);
+    $node->setPublished(TRUE);
+    $node->save();
+    print("  Created $type" . PHP_EOL);
+    return $node;
 }
 
 function createBlogNewsSuccessStory($item) {

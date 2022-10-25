@@ -238,3 +238,16 @@ function convertLink($text, $url, &$items) {
     'uri' => $target->toUriString()
   ];
 }
+
+function convertResources($resources) {
+  return array_map(function($resource) {
+    $uri = convertPlainText($resource->{'Resource Link'});
+    $uri = strpos($uri, 'http') !== 0 ? "https://$uri" : $uri;
+    return [
+      'uri' => $uri,
+      'title' => convertPlainText($resource->{'Resource Title'})
+    ];
+  }, array_filter($resources, function($resource) {
+    return !empty($resource->{'Resource Link'}) && !empty($resource->{'Resource Title'});
+  }));
+}
