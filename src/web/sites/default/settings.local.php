@@ -171,12 +171,13 @@ $config['workbc']['ssot_url'] = 'http://ssot:3000';
 
 $config['jobboard']['jobboard_api_url'] = 'https://dev-api-jobboard.workbc.ca';
 $config['jobboard']['find_job_url'] = '/search-and-prepare-job/find-jobs';
-$config['jobboard']['find_job_account_url'] = '/account';
+$config['jobboard']['find_job_account_url'] = '/account'; 
 
-$config['jobboard']['search_career_profile_link'] = '/jobs-careers/explore-careers';
-$config['jobboard']['labour_market_outlook'] = '/labour-market-industry/labour-market-outlook';
-$config['jobboard']['explore_industryand_sector_outlooks'] = '/labour-market-industry/industry-sector-outlooks';
-$config['jobboard']['view_industry_profiles'] = '/labour-market-industry/industry-profiles';
+$config['jobboard']['search_career_profile_link'] = '/explore-careers';
+$config['jobboard']['labour_market_outlook'] = '/bcs-labour-market-outlook-2021-edition';
+$config['jobboard']['explore_industryand_sector_outlooks'] = '/industry-sector-outlooks';
+$config['jobboard']['view_industry_profiles'] = '/industry-profiles';
+$config['jobboard']['job_search_tips'] = '/jobs-careers/job-board-search-tips';
 
 $config['backup_migrate.backup_migrate_source.ssot_database'] = [
   'id' => 'ssot_database',

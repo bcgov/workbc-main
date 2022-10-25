@@ -26,8 +26,8 @@ This module links to six different pages within Drupal.
   1.7 job-alert: Displays saved job alerts
   1.8 saved-career-profiles: Displays saved career profiles and links to two Drupal pages (#2 & #3 in this list)
   1.9 saved-industry-profiles: Displays the list of saved industry profiles and points to two Drupal pages (#4 & #5 in this list)
-  1. A personal-settings: Helps user set his account preferences
-  1. B logout: Standard logout page interface for the user, implemented using JS.
+  1.A personal-settings: Helps user set his account preferences
+  1.B logout: Standard logout page interface for the user, implemented using JS.
 2. /jobs-careers/explore-careers: This path is set in settings.local.php & settings.aws.php $config['jobboard']['search_career_profile_link']. The static page it points to is out of the scope of this module.
 3. /labour-market-industry/labour-market-outlook: This path is set in settings.local.php & settings.aws.php. The static page it points to is out of the scope of this module.
 4. /labour-market-industry/industry-sector-outlooks: This path is set in settings.local.php & settings.aws.php. The static page it points to is out of the scope of this module.

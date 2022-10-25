@@ -17,7 +17,7 @@
         });
         
       });
-      $(window, context).once('jobboard').on('hashchange load', function (e) {
+      $(window, context).once('jobboard').on('hashchange load jobboardlogin', function (e) {
         var currentUser = readCookie('currentUser.username');
         var CheckLoginLinkExists = $("nav.nav-user .nav-items li.new-login-link");
         var CheckLogoutLinkExists = $("nav.nav-user .nav-items li.new-logout-link");
@@ -39,6 +39,7 @@
 })(jQuery, Drupal);
 
 jQuery(window).on('hashchange', function (e) {
+//  console.log("Location: "+location.hash );
   if(location.hash == '#/saved-career-profiles'){
     setTimeout(function(){
       if (typeof searchCareerProfileLink !== 'undefined') {
@@ -57,11 +58,28 @@ jQuery(window).on('hashchange', function (e) {
         var href2 = jQuery('app-root .saved-careers-inner .col-lg-6:last .info-box a').attr('href', ExploreIndustryandSectorOutlooks);
       }
     }, 500);
+  }else if(location.hash == '#/job-alerts/create'){
+    setTimeout(function(){
+//      console.log("In "+JobSearchTips);
+      if (typeof JobSearchTips !== 'undefined') {
+        var href3 = jQuery('app-root .account-contain a.find-jobs-btn').attr('href', JobSearchTips);
+      }
+    }, 500);
   }
 });
 
+//console.log("Hash Out: "+window.location.hash);
 if (window.location.hash) {
+//  console.log("Hash In: "+window.location.hash);
   jQuery(window).trigger('hashchange');
+  if(window.location.hash != "#/register"){
+    if(history.pushState) {
+      history.pushState(null, null, '#/personal-settings');
+    }
+    else {
+        location.hash = '#/personal-settings';
+    }
+  }
 }
 
 function readCookie(cookieName){
