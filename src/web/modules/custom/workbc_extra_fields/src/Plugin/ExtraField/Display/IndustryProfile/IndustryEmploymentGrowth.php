@@ -45,10 +45,10 @@ class IndustryEmploymentGrowth extends ExtraFieldDisplayFormattedBase {
 
     if (!empty($entity->ssot_data) && isset($entity->ssot_data['industry_outlook']['annual_employment_growth_rate_pct_first5y'])) {
       if ($entity->ssot_data['industry_outlook']['annual_employment_growth_rate_pct_first5y'] > 0) {
-        $output = "+" . Number_format($entity->ssot_data['industry_outlook']['annual_employment_growth_rate_pct_first5y'],1) . "%";
+        $output = "+" . ssotFormatNumber($entity->ssot_data['industry_outlook']['annual_employment_growth_rate_pct_first5y'],1) . "%";
       }
       else {
-        $output = Number_format($entity->ssot_data['industry_outlook']['annual_employment_growth_rate_pct_first5y'],1) . "%";
+        $output = ssotFormatNumber($entity->ssot_data['industry_outlook']['annual_employment_growth_rate_pct_first5y'],1) . "%";
       }
     }
     else {

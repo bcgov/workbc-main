@@ -20,12 +20,10 @@ define ("REGION_VANCOUVER_ISLAND_COAST", "Vancouver Island-Coast");
 define ('SSOT_PING_TIMEOUT', 5);
 
 
-
 /*
 
 we use hook_entity_view instead of hook_entity_load as we only need to load data from SSoT
 for the node that is being displayed, not for nodes that are being referenced.
-
 
 */
 function workbc_extra_fields_node_view(array &$build, \Drupal\Core\Entity\EntityInterface $entity, \Drupal\Core\Entity\Display\EntityViewDisplayInterface $display, $view_mode) {
@@ -114,8 +112,13 @@ function ssotLatestMonthlyLabourMarketUpdate($sourceData) {
   return $latestIdx;
 }
 
+/*
+   custom number format function to add '+' if required
+   additional check to set value to 0 if null
+ */
 function ssotFormatNumber($number, $decimals = 0, $positive = false) {
 
+  $number = is_null($number) ? 0 : $number;
   $value = number_format($number, $decimals);
   if ($positive && $number > 0) {
     $value = "+" . $value;
