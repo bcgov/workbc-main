@@ -20,3 +20,6 @@ $$;
 CREATE EVENT TRIGGER pgrst_watch
   ON ddl_command_end
   EXECUTE PROCEDURE public.pgrst_watch();
+
+-- Turn on case-insensitive text extension
+CREATE EXTENSION citext;
