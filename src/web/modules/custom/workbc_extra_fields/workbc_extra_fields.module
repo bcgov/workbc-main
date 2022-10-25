@@ -39,7 +39,7 @@ function workbc_extra_fields_node_view(array &$build, \Drupal\Core\Entity\Entity
         $year = \Drupal::request()->query->get('year');
         $month = \Drupal::request()->query->get('month');
         $entity->ssot_data = ssotLabourMarketMonthly($year,$month);
-        $entity->ssot_months = ssotLabourMarketMonths();
+        
         break;
       case "career_profile":
         $entity->ssot_data = ssotCareerProfile($entity->get("field_noc")->getString());
@@ -72,6 +72,9 @@ function ssotLabourMarketMonthly($year = null, $month = null){
     $datapoint = !empty($source['datapoint'])?$source['datapoint']:'no-datapoint';
     $data['sources'][$datapoint] = $source['label'];
   }
+
+  //Months years data for select list element on top of the page.
+  $data['monthsYears'] = querySSoT('monthly_labour_market_updates?select=year%2Cmonth');
   return $data;
 }
 
@@ -81,13 +84,6 @@ function ssotIndustryProfile($industry) {
   $data['labour_force_survey_industry'] = querySSoT('labour_force_survey_industry?industry=eq.' . $industry)[0];
   $data['monthly_labour_market_updates'] = querySSoT('monthly_labour_market_updates');
   $data['sources'] = ssotSources();
-  return $data;
-}
-
-function ssotLabourMarketMonths() {
-  $data = array();
-  //query ssot request
-  $data['monthly_labour_market_months'] = querySSoT('monthly_labour_market_updates?select=year%2Cmonth');
   return $data;
 }
 
