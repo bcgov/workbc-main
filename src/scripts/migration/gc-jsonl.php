@@ -6,8 +6,8 @@
  * Usage: drush scr /scripts/migration/gc-jsonl -- [--status "Status name"] [--item itemId] projectId
  */
 
-$email = $_ENV['GATHERCONTENT_EMAIL'];
-$apiKey = $_ENV['GATHERCONTENT_APIKEY'];
+$email = getenv('GATHERCONTENT_EMAIL');
+$apiKey = getenv('GATHERCONTENT_APIKEY');
 
 $getopt = new \GetOpt\GetOpt([
   ['h', 'help', \GetOpt\GetOpt::NO_ARGUMENT, 'Show this help and quit'],
