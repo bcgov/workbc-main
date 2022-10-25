@@ -57,11 +57,11 @@ class LabourMarketEmploymentByAgeSexTable extends ExtraFieldDisplayFormattedBase
 
     $previousMonthName =  date ('F', mktime(0, 0, 0, $previousMonth, 10));;
 
-    $header = [$this->t(''), $this->t("@curmonth @curyear", ["@curmonth" => $currentMonthName, "@curyear" => $currentYear]), $this->t("@premonth @preyear", ["@premonth" => $previousMonthName, "@preyear" => $previousYear])];
+    $header = [' ', $this->t("@curmonth @curyear", ["@curmonth" => $currentMonthName, "@curyear" => $currentYear]), $this->t("@premonth @preyear", ["@premonth" => $previousMonthName, "@preyear" => $previousYear])];
 
     $rows = $this->getGenderAgeValues($entity->ssot_data['monthly_labour_market_updates'][0]);
     $source_text = $entity->ssot_data['sources']['no-datapoint'];
-    $output = '<span><strong>'.$this->t("Source: ").'</strong>'.$source_text.'</span>';
+    $output = '<span><strong>'.$this->t("Source").':</strong> '.$source_text.'</span>';
 
     return [
       [
@@ -96,10 +96,10 @@ class LabourMarketEmploymentByAgeSexTable extends ExtraFieldDisplayFormattedBase
           //if previous values
           if(strpos($age, 'previous') !== false) {
             $age = str_replace('_previous', "", $age);
-            $genderAgeValues[$age]['age'] = str_replace("_"," ",$age) . $this->t(' years');
+            $genderAgeValues[$age]['age'] = str_replace("_"," ",$age) . ' ' . $this->t('years');
             $genderAgeValues[$age]['previous'] = number_format($value);
           } else {
-            $genderAgeValues[$age]['age'] = str_replace("_"," ",$age). $this->t(' years');
+            $genderAgeValues[$age]['age'] = str_replace("_"," ",$age). ' ' . $this->t('years');
             $genderAgeValues[$age]['current'] = number_format($value);
           }
         }
