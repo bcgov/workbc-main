@@ -74,7 +74,7 @@ function ssotLabourMarketMonthly($year = null, $month = null){
   }
 
   //Months years data for select list element on top of the page.
-  $data['monthsYears'] = querySSoT('monthly_labour_market_updates?select=year%2Cmonth');
+  $data['months_years'] = querySSoT('monthly_labour_market_updates?select=year%2Cmonth');
   return $data;
 }
 

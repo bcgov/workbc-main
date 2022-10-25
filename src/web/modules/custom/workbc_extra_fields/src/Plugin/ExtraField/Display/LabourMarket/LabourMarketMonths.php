@@ -47,7 +47,7 @@ class LabourMarketMonths extends ExtraFieldDisplayFormattedBase {
     $query_month = \Drupal::request()->query->get('month');
 
     //values
-    $data = $entity->ssot_data['monthsYears'];
+    $data = $entity->ssot_data['months_years'];
 
     if (!empty($data)){
       foreach($data as $key => $value) {
