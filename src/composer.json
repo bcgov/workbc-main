@@ -200,8 +200,8 @@
                 "PostgreSQL support": "patches/drupal/backup_migrate/0003-postgresql-support.patch",
                 "Directory restore": "patches/drupal/backup_migrate/backup-migrate-restore-public-files-3245802-3.patch"
             },
-            "drupal/time_field": {
-                "Deprecated function trim() with PHP 8.1": "patches/drupal/time_field/3269302-Deprecated_function_trim_coalescing.patch"
+            "drupal/search_api_solr": {
+                "Empty specific languages": "patches/drupal/search_api_solr/search_api_solr-empty-specific-languages-3314711-21.patch"
             }
         }
     }

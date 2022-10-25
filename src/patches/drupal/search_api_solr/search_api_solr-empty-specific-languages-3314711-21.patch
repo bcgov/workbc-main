@@ -1,0 +1,26 @@
+diff --git a/src/Plugin/search_api/backend/SearchApiSolrBackend.php b/src/Plugin/search_api/backend/SearchApiSolrBackend.php
+index e678d47d..6e4bf8e3 100644
+--- a/src/Plugin/search_api/backend/SearchApiSolrBackend.php
++++ b/src/Plugin/search_api/backend/SearchApiSolrBackend.php
+@@ -1192,7 +1192,7 @@ class SearchApiSolrBackend extends BackendPluginBase implements SolrBackendInter
+     $index_id = $this->getTargetedIndexId($index);
+     $site_hash = $this->getTargetedSiteHash($index);
+     $languages = $this->languageManager->getLanguages();
+-    $specific_languages = array_keys(array_filter($index->getThirdPartySetting('search_api_solr', 'multilingual', ['specific_languages' => []])['specific_languages']));
++    $specific_languages = array_keys(array_filter($index->getThirdPartySetting('search_api_solr', 'multilingual', ['specific_languages' => []])['specific_languages'] ?? []));
+     $fulltext_fields = $index->getFulltextFields();
+     $request_time = $this->formatDate($this->time->getRequestTime());
+     $base_urls = [];
+diff --git a/src/Utility/Utility.php b/src/Utility/Utility.php
+index 2914fe64..77bd9ba3 100644
+--- a/src/Utility/Utility.php
++++ b/src/Utility/Utility.php
+@@ -1289,7 +1289,7 @@ class Utility {
+       }
+     }
+ 
+-    $specific_languages = array_keys(array_filter($index->getThirdPartySetting('search_api_solr', 'multilingual', ['specific_languages' => []])['specific_languages']));
++    $specific_languages = array_keys(array_filter($index->getThirdPartySetting('search_api_solr', 'multilingual', ['specific_languages' => []])['specific_languages'] ?? []));
+     if (!empty($specific_languages)) {
+       $language_ids = array_intersect($language_ids, $specific_languages);
+       $fallback_languages = array_intersect($fallback_languages, $specific_languages);
