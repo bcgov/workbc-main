@@ -60,7 +60,7 @@ class LabourMarketUnemployedPreviousMonth extends ExtraFieldDisplayFormattedBase
     $unemployed_part_value = $entity->ssot_data['monthly_labour_market_updates'][0]['employment_rate_pct_participation_previous']; 
     $information_text_tooltip = '
                   <div class="tool-tip">
-                    <p>'. $this-> ('Participation Rate represents the number of people in the workforce that are of working age as a percentage of total BC population.') . '</p>
+                    <p>'. $this->t('Participation Rate represents the number of people in the workforce that are of working age as a percentage of total BC population.') . '</p>
                   </div>';  
 
     //output
