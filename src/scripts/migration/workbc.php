@@ -131,7 +131,6 @@ try {
         if (property_exists($item, 'Date')) {
             $fields['published_date'] = strtotime($item->{'Date'});
         }
-        break;
     }
     else if ($title === 'Labour Market Monthly Update' && !empty($labour_market_introductions)) {
         if (property_exists($labour_market_introductions, 'Employment Introduction')) {
@@ -155,7 +154,7 @@ try {
             $fields['field_key_facts'] = convertRichText($item->{'Key Facts'}, $items);
         }
         if (property_exists($item, 'Resource')) {
-            $fields['field_resources'] = convertResources($career_profile->{'Resources'});
+            $fields['field_resources'] = convertResources($item->{'Resource'});
         }
     }
 
