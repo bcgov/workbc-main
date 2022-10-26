@@ -124,8 +124,8 @@ function convertGatherContentLinks($text, &$items) {
     // Handle the case where $items does not contain the item.
     if (!array_key_exists($item_id, $items)) {
       print("  Could not find related GatherContent item $item_id locally. Trying GC API..." . PHP_EOL);
-      $email = $_ENV['GATHERCONTENT_EMAIL'];
-      $apiKey = $_ENV['GATHERCONTENT_APIKEY'];
+      $email = getenv('GATHERCONTENT_EMAIL');
+      $apiKey = getenv('GATHERCONTENT_APIKEY');
       $client = new \GuzzleHttp\Client();
       $gc = new \Cheppers\GatherContent\GatherContentClient($client);
       $gc
