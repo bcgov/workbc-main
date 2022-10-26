@@ -25,7 +25,7 @@ use Drupal\paragraphs\Entity\Paragraph;
 // Read GatherContent labour market introduction if present.
 $labour_market_introductions = NULL;
 if (file_exists(__DIR__ . '/data/labour_market_introductions.jsonl')) {
-  print("Reading GC Labour Market Introductions\n");
+  print("Reading GC Labour Market Introductions" . PHP_EOL);
   $labour_market_introductions = json_decode(file_get_contents(__DIR__ . '/data/labour_market_introductions.jsonl'));
 }
 
@@ -69,6 +69,7 @@ print("SECOND PASS =================" . PHP_EOL);
 foreach ($items as $id => $item) {
     if (!$item->process) continue;
 
+try {
     $title = convertPlainText($item->title);
     print("Processing \"$title\"..." . PHP_EOL);
 
@@ -130,7 +131,6 @@ foreach ($items as $id => $item) {
         if (property_exists($item, 'Date')) {
             $fields['published_date'] = strtotime($item->{'Date'});
         }
-        break;
     }
     else if ($title === 'Labour Market Monthly Update' && !empty($labour_market_introductions)) {
         if (property_exists($labour_market_introductions, 'Employment Introduction')) {
@@ -144,6 +144,17 @@ foreach ($items as $id => $item) {
         }
         if (property_exists($labour_market_introductions, 'Unemployment Introduction')) {
             $fields['field_unemployment_introduction'] = convertRichText($labour_market_introductions->{'Unemployment Introduction'});
+        }
+    }
+    else if ($template === 'Industry Profile') {
+        if (property_exists($item, 'Industry Overview')) {
+            $fields['field_industry_overview'] = convertRichText($item->{'Industry Overview'}, $items);
+        }
+        if (property_exists($item, 'Key Facts')) {
+            $fields['field_key_facts'] = convertRichText($item->{'Key Facts'}, $items);
+        }
+        if (property_exists($item, 'Resource')) {
+            $fields['field_resources'] = convertResources($item->{'Resource'});
         }
     }
 
@@ -207,6 +218,11 @@ foreach ($items as $id => $item) {
     $node->setPublished(TRUE);
     $node->save();
 }
+catch (Exception $e) {
+    print("  Failed to save node: " . $e->getMessage() . PHP_EOL);
+}
+
+}
 
 function convertRelatedTopics($related_topics, &$items) {
     $field = [];
@@ -227,10 +243,32 @@ function createItem($item) {
     switch (trim($item->template)) {
         case "Blog Post, News Post, Success Stories Post":
             return createBlogNewsSuccessStory($item);
+        case "Industry Profile":
+            return createIndustryProfile($item);
         default:
             break;
     }
     return NULL;
+}
+
+function createIndustryProfile($item) {
+    $type ='industry_profile';
+    $fields = [
+        'type' => $type,
+        'title' => convertPlainText($item->title),
+        'uid' => 1,
+        'path' => [
+            'pathauto' => PathautoState::CREATE,
+        ],
+        'moderation_state' => 'published',
+    ];
+    $node = Drupal::entityTypeManager()
+        ->getStorage('node')
+        ->create($fields);
+    $node->setPublished(TRUE);
+    $node->save();
+    print("  Created $type" . PHP_EOL);
+    return $node;
 }
 
 function createBlogNewsSuccessStory($item) {
