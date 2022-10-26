@@ -65,6 +65,14 @@ class CareerProfileSkills extends ExtraFieldDisplayFormattedBase {
         $chart = [
           '#type' => 'chart',
           '#chart_type' => 'donut',
+          '#chart_library' => 'google',
+          '#width' => '110',
+          '#width_units' => 'px',
+          '#height' => '110',
+          '#height_units' => 'px',
+          '#colors' => array(
+            '#029CDD',
+            '#dbdbdb'),
           'series' => [
             '#type' => 'chart_data',
             '#title' => t(''),
@@ -83,23 +91,30 @@ class CareerProfileSkills extends ExtraFieldDisplayFormattedBase {
             '#max' => 100,
             '#min' => 0,
           ],
-          // '#raw_options' => [
-          //   'options' => [
-          //     'pieHole' => 0.75,
-          //     'legend' => 'none',
-          //   ]
-          // ]
+          '#raw_options' => [
+            'options' => [
+              'pieHole' => 0.75,
+              'legend' => 'none',
+              'enableInteractivity' => 'false',
+              'theme' => 'maximized', // only use this if no legend, otherwise legend will be on top of chart
+            ]
+          ]
         ];
         $chart_render = \Drupal::service('renderer')->render($chart);
 
-        $output .= '<div class="career-profile-skill">';
-        $output .= '<div class="career-profile-skill-icon"><img src="' . $icon_url . '" /></div>';
-        $output .= '<div class="career-profile-skill-title">' . $skill['skills_competencies'] . '</div>';
-        $output .= '<div class="career-profile-skill-description">' . $term->getDescription() . '</div>';
-        $output .= '<div class="career-profile-skill-chart">' . $chart_render . '</div>';
+        $output .= '<div class="career-profiles-skill">';
+        $output .= '  <div class="career-profiles-skill-icon-container">';
+        $output .= '     <img class="career-profiles-skill-icon" src="' . $icon_url . '" />';
+        $output .= '  </div>';
+        $output .= '  <div class="career-profiles-skill-content-container">';
+        $output .= '    <div class="career-profiles-skill-title">' . $skill['skills_competencies'] . '</div>';
+        $output .= '    <div class="career-profiles-skill-description">' . $term->getDescription() . '</div>';
+        $output .= '  </div>';
+        $output .= '  <div class="career-profiles-skill-chart-container">';
+        $output .= '    <div class="career-profiles-skill-chart-data">' . $chart_render . '</div>';
+        $output .= '    <div class="career-profiles-skill-chart-overlay">' . intval($skill['importance']) . '%</div>';
+        $output .= '  </div>';
         $output .= '</div>';
-
-
       }
     }
     else {
