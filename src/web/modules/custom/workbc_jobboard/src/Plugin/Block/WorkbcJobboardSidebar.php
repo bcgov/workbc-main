@@ -108,6 +108,19 @@ class WorkbcJobboardSidebar extends BlockBase{
             '#noc' => (isset($noc_value)) ? $noc_value : '',
             '#find_job_url'=>\Drupal::config('jobboard')->get('find_job_url'),
           ];
+        }else {
+          return [
+            '#type' => 'markup',
+            '#markup' => 'Explore recent job postings.',
+            '#theme' => 'recent_jobs',
+            '#data' => [],
+            '#sub_title' => $config['job_board_sub_title']??'',
+            '#no_of_records' => $config['job_board_results_to_show']??'',
+            '#readmore_label' => (isset($config['job_board_read_more_button_title'])) ?$config['job_board_read_more_button_title'] : 'View more jobs',
+            '#no_result_text' => 'Error '. $recent_jobs['response'].': Unable to connect to Job Board API.',
+            '#noc' => (isset($noc_value)) ? $noc_value : '',
+            '#find_job_url'=>\Drupal::config('jobboard')->get('find_job_url'),
+          ];
         }
       }
     }
