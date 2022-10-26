@@ -20,12 +20,10 @@ define ("REGION_VANCOUVER_ISLAND_COAST", "Vancouver Island-Coast");
 define ('SSOT_PING_TIMEOUT', 5);
 
 
-
 /*
 
 we use hook_entity_view instead of hook_entity_load as we only need to load data from SSoT
 for the node that is being displayed, not for nodes that are being referenced.
-
 
 */
 function workbc_extra_fields_node_view(array &$build, \Drupal\Core\Entity\EntityInterface $entity, \Drupal\Core\Entity\Display\EntityViewDisplayInterface $display, $view_mode) {
@@ -36,6 +34,13 @@ function workbc_extra_fields_node_view(array &$build, \Drupal\Core\Entity\Entity
     }
 
     switch($entity->bundle()) {
+      case "labour_market_monthly":
+        //Example: http://localhost:3000/monthly_labour_market_updates?year=eq.2022&month=eq.1
+        $year = \Drupal::request()->query->get('year');
+        $month = \Drupal::request()->query->get('month');
+        $entity->ssot_data = ssotLabourMarketMonthly($year,$month);
+        
+        break;
       case "career_profile":
         $entity->ssot_data = ssotCareerProfile($entity->get("field_noc")->getString());
         break;
@@ -45,6 +50,31 @@ function workbc_extra_fields_node_view(array &$build, \Drupal\Core\Entity\Entity
       case "region_profile":
     }
   }
+}
+
+
+function ssotLabourMarketMonthly($year = null, $month = null){
+  $data = array();
+  $parameters = '';
+  if(!empty($year)) {
+      $parameters .= 'year=eq.' . $year;
+  } 
+  if(!empty($month)) {
+      $parameters .= '&month=eq.' . $month;
+  }
+  $endpoint = 'monthly_labour_market_updates';
+  //query ssot request
+  $data['monthly_labour_market_updates'] = querySSoT('monthly_labour_market_updates?' . $parameters);
+  //data sources
+  $sources = querySSoT('sources?endpoint=eq.' . $endpoint);
+  foreach($sources as $source) {
+    $datapoint = !empty($source['datapoint'])?$source['datapoint']:'no-datapoint';
+    $data['sources'][$datapoint] = $source['label'];
+  }
+
+  //Months years data for select list element on top of the page.
+  $data['months_years'] = querySSoT('monthly_labour_market_updates?select=year%2Cmonth');
+  return $data;
 }
 
 function ssotIndustryProfile($industry) {
@@ -100,8 +130,12 @@ function querySSoT($url, $read_timeout = NULL) {
   }
 }
 
-function ssotLatestMonthlyLabourMarketUpdate($sourceData) {
 
+function workbc_extra_fields_page_attachments_alter(array &$attachments) {  
+  $attachments['#attached']['library'][] = 'workbc_extra_fields/extra-fields';
+}
+
+function ssotLatestMonthlyLabourMarketUpdate($sourceData) {
   $latestKey = "000000";
   $latestIdx = 0;
   foreach ($sourceData as $idx => $data) {
@@ -114,8 +148,13 @@ function ssotLatestMonthlyLabourMarketUpdate($sourceData) {
   return $latestIdx;
 }
 
+/*
+   custom number format function to add '+' if required
+   additional check to set value to 0 if null
+ */
 function ssotFormatNumber($number, $decimals = 0, $positive = false) {
 
+  $number = is_null($number) ? 0 : $number;
   $value = number_format($number, $decimals);
   if ($positive && $number > 0) {
     $value = "+" . $value;
