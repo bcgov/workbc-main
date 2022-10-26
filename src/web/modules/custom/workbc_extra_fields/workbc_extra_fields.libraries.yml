@@ -1,0 +1,3 @@
+extra-fields:
+    js:
+        js/extra-fields.js: {}
