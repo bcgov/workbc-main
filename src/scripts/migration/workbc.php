@@ -25,7 +25,7 @@ use Drupal\paragraphs\Entity\Paragraph;
 // Read GatherContent labour market introduction if present.
 $labour_market_introductions = NULL;
 if (file_exists(__DIR__ . '/data/labour_market_introductions.jsonl')) {
-  print("Reading GC Labour Market Introductions\n");
+  print("Reading GC Labour Market Introductions" . PHP_EOL);
   $labour_market_introductions = json_decode(file_get_contents(__DIR__ . '/data/labour_market_introductions.jsonl'));
 }
 

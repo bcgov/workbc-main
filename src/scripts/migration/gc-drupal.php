@@ -4,7 +4,6 @@
  * Functions to import GatherContent items into Drupal.
  */
 
-use Drupal\Core\Link;
 use Drupal\Core\Url;
 
 function convertCheck($check_field) {
@@ -24,7 +23,7 @@ function convertImage($image) {
   $filename = str_replace('/', '_', $image->file_id) . '-' . $image->filename;
   $file = \Drupal::service('file.repository')->writeData($data, "public://$filename");
   if (empty($file)) {
-    print(" Could not create file $filename\n");
+    print(" Could not create file $filename" . PHP_EOL);
     return NULL;
   }
 
@@ -85,7 +84,6 @@ function convertVideo($url, $extra_fields = []) {
     ->getStorage('media')
     ->loadByProperties(['field_media_oembed_video' => $url]);
   if (!empty($medias)) {
-    print("  Found existing media item\n");
     $media = current($medias);
     foreach ($extra_fields as $key => $field) {
       $media->$key = $field;
@@ -191,13 +189,13 @@ function convertEmbeddableLinks($text) {
 }
 
 function convertPDFLinks($text) {
-  if (!preg_match_all('/https:\/\/www\.workbc\.ca\/getmedia\/[-a-zA-Z0-9]+\/(.*?\.pdf)\.aspx/i', $text, $matches)) {
+  if (!preg_match_all('/https:\/\/www\.workbc\.ca\/getmedia\/[-a-zA-Z0-9]+\/([^"]\.pdf)\.aspx/i', $text, $matches)) {
     return [];
   }
 
   $targets = [];
   foreach ($matches[0] as $m => $url) {
-    $filename = $matches[1][$m];
+    $filename = urldecode($matches[1][$m]);
     $local = __DIR__ . "/data/pdf/$filename";
     if (file_exists($local)) {
       $data = file_get_contents($local);
@@ -211,7 +209,7 @@ function convertPDFLinks($text) {
     }
     $file = \Drupal::service('file.repository')->writeData($data, "public://$filename");
     if (empty($file)) {
-      print(" Could not create file $filename\n");
+      print(" Could not create file $filename" . PHP_EOL);
       return NULL;
     }
     $targets[] = [
