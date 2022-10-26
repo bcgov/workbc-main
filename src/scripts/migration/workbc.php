@@ -69,6 +69,7 @@ print("SECOND PASS =================" . PHP_EOL);
 foreach ($items as $id => $item) {
     if (!$item->process) continue;
 
+try {
     $title = convertPlainText($item->title);
     print("Processing \"$title\"..." . PHP_EOL);
 
@@ -217,6 +218,11 @@ foreach ($items as $id => $item) {
     }
     $node->setPublished(TRUE);
     $node->save();
+}
+catch (Exception $e) {
+    print("  Failed to save node: " . $e->getMessage() . PHP_EOL);
+}
+
 }
 
 function convertRelatedTopics($related_topics, &$items) {
