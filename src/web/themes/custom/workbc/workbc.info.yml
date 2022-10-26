@@ -12,6 +12,7 @@ libraries:
   - workbc/mobile-nav
   - workbc/nav
   - workbc/init-popovers
+  - workbc/static-load-more
   - workbc/swiper-js
   - workbc/scrollbooster
 stylesheets-remove:

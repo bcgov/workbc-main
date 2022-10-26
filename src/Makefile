@@ -112,8 +112,8 @@ pgdumpclean:
 ## pgrestore	:	restore a backup of the current postgres database
 .PHONY: pgrestore
 pgrestore:
-	@docker-compose --project-directory "$(SOLUTION_ROOT)" exec -T postgres psql --username workbc workbc < $(filter-out $@,$(MAKECMDGOALS))
-
+##@docker-compose --project-directory "$(SOLUTION_ROOT)" exec -T postgres psql --username workbc workbc < $(filter-out $@,$(MAKECMDGOALS))
+	@cmd /c "docker-compose exec -T postgres psql -U workbc ssot < .\src\scripts\ssot-full.sql"
 # https://stackoverflow.com/a/6273809/1826109
 %:
 	@:

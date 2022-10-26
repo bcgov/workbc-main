@@ -412,14 +412,14 @@
               <h2>Skills</h2>
               <div>{{ viewmodel['tab_sections']['education']['skills_introduction'] |raw }}</div>
 
-              {#  Need to render these into a "show more" container, and load only the first three #}
-              {% for skill in viewmodel['tab_sections']['education']['skills_list'] %}
-                {{ skill.0['#markup']|raw }}
-              {% endfor %}
-            </div>
+              <div data-static-load-more-container data-static-load-more-initial="3" data-static-load-more-step="3">
+                <div data-static-load-more-items>
+                  {{ content.group_career_profile_tabs.group_education_training_skills.extra_field_profile_skills.0['#markup']|trim|raw }}
+                </div>
+                <button data-static-load-more-trigger class="btn btn-primary">Load More</button>
+              <div>
 
-            {{ content.group_career_profile_tabs.group_education_training_skills.extra_field_profile_skills.0['#markup']|trim|raw }}
-            {{ kint(content.group_career_profile_tabs.group_education_training_skills.extra_field_profile_skills) }}
+            </div>
           </div>
 
           <div class="tab-pane" id="labour_market-content" role="tabpanel" aria-labelledby="labour_market-tab">
@@ -465,4 +465,5 @@
 
 {{ attach_library('workbc/init-popovers') }}
 {{ attach_library('workbc/scrollbooster') }}
+{{ attach_library('workbc/static-load-more') }}
 
