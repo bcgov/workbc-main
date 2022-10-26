@@ -46,6 +46,25 @@
           '#default_value' => $config->get('pathsettings.order_form'),
         ];
 
+        $form['collectionsettings'] = [
+          '#tree' => TRUE,
+          '#type' => 'fieldset',
+          '#title' => $this->t('Collection Notice settings'),
+        ];
+
+        $text = $config->get('collectionsettings.notice');
+        if (is_null($text) || !isset($text['value'])) {
+          $text['value'] = "";
+          $text['format'] = "basic_html";
+        }
+
+        $form['collectionsettings']['notice'] = [
+          '#type' => 'text_format',
+          '#title' => $this->t('Collection Notice text.'),
+          '#default_value' => $text['value'],
+          '#format' => $text['format'],
+        ];
+
         return parent::buildForm($form, $form_state);
       }
 
@@ -55,6 +74,7 @@
       public function submitForm(array &$form, FormStateInterface $form_state) {
         $config = $this->config('workbc_custom.settings');
         $config->set('pathsettings', $form_state->getValue('pathsettings'));
+        $config->set('collectionsettings', $form_state->getValue('collectionsettings'));
         $config->save();
         parent::submitForm($form, $form_state);
       }

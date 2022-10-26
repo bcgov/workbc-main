@@ -1,24 +1,24 @@
-uuid: b7e744de-7477-4e73-aac0-a92d080d77a5
+uuid: 89db954e-20b1-4bc9-8cb5-a46346c40ef1
 langcode: en
 status: true
 dependencies:
   config:
-    - simple_block.simple_block.visit_a_workbc_centre
+    - simple_block.simple_block.contact_us_french_link
   module:
     - block_visibility_conditions
     - simple_block
     - system
   theme:
     - workbc
-id: visitaworkbccentre
+id: contactusfrenchlink
 theme: workbc
-region: content_bottom
-weight: -5
+region: hidden
+weight: 0
 provider: null
-plugin: 'simple_block:visit_a_workbc_centre'
+plugin: 'simple_block:contact_us_french_link'
 settings:
-  id: 'simple_block:visit_a_workbc_centre'
-  label: 'Visit a WorkBC Centre'
+  id: 'simple_block:contact_us_french_link'
+  label: 'Contact Us - French link'
   label_display: visible
   provider: simple_block
 visibility:

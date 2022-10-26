@@ -1,26 +1,24 @@
-uuid: b7e744de-7477-4e73-aac0-a92d080d77a5
+uuid: eb4a24bf-c7a7-470e-ae18-63f0b93da004
 langcode: en
 status: true
 dependencies:
-  config:
-    - simple_block.simple_block.visit_a_workbc_centre
   module:
     - block_visibility_conditions
-    - simple_block
     - system
+    - workbc_custom
   theme:
     - workbc
-id: visitaworkbccentre
+id: collectionnoticeblock
 theme: workbc
 region: content_bottom
-weight: -5
+weight: -7
 provider: null
-plugin: 'simple_block:visit_a_workbc_centre'
+plugin: collection_notice_block
 settings:
-  id: 'simple_block:visit_a_workbc_centre'
-  label: 'Visit a WorkBC Centre'
-  label_display: visible
-  provider: simple_block
+  id: collection_notice_block
+  label: 'Collection Notice block'
+  label_display: '0'
+  provider: workbc_custom
 visibility:
   not_node_type:
     id: not_node_type
