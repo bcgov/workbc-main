@@ -53,9 +53,20 @@ class CareerProfileSkills extends ExtraFieldDisplayFormattedBase {
               ->loadByProperties(['name' => $skill['skills_competencies'], 'vid' => 'skills']);
         $term = $terms[array_key_first($terms)];
         $icon_url = "";
+        $image = "";
         if (!$term->get('field_image')->isEmpty()) {
           $image_id = $term->field_image->entity->getFileUri();
           $icon_url = ImageStyle::load('skill_icon')->buildUrl($image_id);
+
+          $imageUri = isset($term->get('field_image')->entity) ? $term->get('field_image')->entity->getFileUri() : null;
+          if($imageUri) {
+            $image = [
+              '#theme' => 'image_style',
+              '#style_name' => 'skill_icon',
+              '#uri' => $imageUri
+            ];
+            $image = render($image);
+          }
         }
 
         $data = array();
@@ -104,7 +115,7 @@ class CareerProfileSkills extends ExtraFieldDisplayFormattedBase {
 
         $output .= '<div class="career-profiles-skill">';
         $output .= '  <div class="career-profiles-skill-icon-container">';
-        $output .= '     <img class="career-profiles-skill-icon" src="' . $icon_url . '" />';
+        $output .= '  ' . $image;
         $output .= '  </div>';
         $output .= '  <div class="career-profiles-skill-content-container">';
         $output .= '    <div class="career-profiles-skill-title">' . $skill['skills_competencies'] . '</div>';
