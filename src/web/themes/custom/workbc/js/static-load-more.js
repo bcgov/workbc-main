@@ -5,7 +5,7 @@
     let container = $(containerJquery);
     let initialCount = container.data('static-load-more-initial');
     let items = container.children('[data-static-load-more-items]').first().children();
-    let trigger = container.children('[data-static-load-more-trigger]').first();
+    let trigger = container.find('[data-static-load-more-trigger]').first();
 
     items.slice(initialCount).hide();
 
@@ -22,7 +22,7 @@
     hiddenItems.slice(0, stepCount).show();
       
     if(hiddenItems.length <= stepCount) {
-      let trigger = container.children('[data-static-load-more-trigger]').first();
+      let trigger = container.find('[data-static-load-more-trigger]').first();
       trigger.hide();
     }
   }

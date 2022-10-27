@@ -39,14 +39,26 @@ class CareerProfileSkills extends ExtraFieldDisplayFormattedBase {
     return 'above';
   }
 
+
   /**
    * {@inheritdoc}
    */
   public function viewElements(ContentEntityInterface $entity) {
     if (!empty($entity->ssot_data) && isset($entity->ssot_data['skills'])) {
 
+      $skills = $entity->ssot_data['skills'];
+      $filteredSkills = array_filter($skills, function($var) {
+        return intval($var['importance']) > 0;
+      });
+      array_multisort(
+        array_column($filteredSkills, 'importance'), SORT_DESC,
+        array_column($filteredSkills, 'skills_competencies'), SORT_ASC,
+        $filteredSkills
+      );
+      $limitedSkills = array_slice($filteredSkills, 0, 10);
+
       $output = "";
-      foreach ($entity->ssot_data['skills'] as $skill) {
+      foreach ($limitedSkills as $skill) {
 
         $terms = \Drupal::entityTypeManager()
               ->getStorage('taxonomy_term')
