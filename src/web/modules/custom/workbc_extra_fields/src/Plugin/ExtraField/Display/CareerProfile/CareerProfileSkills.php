@@ -89,10 +89,6 @@ class CareerProfileSkills extends ExtraFieldDisplayFormattedBase {
           '#type' => 'chart',
           '#chart_type' => 'donut',
           '#chart_library' => 'google',
-          '#width' => '110',
-          '#width_units' => 'px',
-          '#height' => '110',
-          '#height_units' => 'px',
           '#colors' => array(
             '#029CDD',
             '#dbdbdb'),
@@ -119,6 +115,8 @@ class CareerProfileSkills extends ExtraFieldDisplayFormattedBase {
               'pieHole' => 0.75,
               'legend' => 'none',
               'enableInteractivity' => 'false',
+              'width' => 110,
+              'height' => 110,
               'theme' => 'maximized', // only use this if no legend, otherwise legend will be on top of chart
             ]
           ]
