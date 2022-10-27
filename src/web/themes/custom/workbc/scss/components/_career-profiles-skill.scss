@@ -1,0 +1,78 @@
+.career-profiles-skill-list {
+    display: flex;
+    flex-flow: row wrap;
+    row-gap: 20px;
+    box-shadow: $workbc_default_box_shadow;
+
+    @include media-breakpoint-up(xl) {
+        flex-flow: row wrap;
+        column-gap: 20px;
+    }
+}
+
+.career-profiles-skill {
+    flex: 0 0 100%;
+    margin-bottom: 20px;
+    box-shadow: $workbc_default_box_shadow;
+    display: flex;
+    flex-flow: column wrap;
+    padding: 20px;
+
+    @include media-breakpoint-up(xl) {
+        flex: 0 0 calc(100%/3);
+        flex-flow: row wrap;
+    }
+}
+
+.career-profiles-skill-icon-container {
+    display: none;
+
+    @include media-breakpoint-up(xl) {
+        display: flex;
+        justify-content: center;
+        align-items: center;
+        flex: 0 0 100px;
+    }
+}
+
+
+.career-profiles-skill-content-container {
+    @include media-breakpoint-up(xl) {
+        flex: 1 0;
+        padding-right: 30px;
+    }
+}
+
+.career-profiles-skill-title {
+    font-size: 1.313rem;
+    margin-bottom: 30px;
+}
+
+.career-profiles-skill-description {
+
+}
+
+
+.career-profiles-skill-chart-container {
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    position: relative; // begin positional context %career-profiles-skill-chart
+
+    @include media-breakpoint-up(xl) {
+        flex: 0 0 110px;
+        overflow: hidden;
+    }
+}
+
+.career-profiles-skill-chart-data {
+    width: 110px;
+    height: 110px;
+}
+
+.career-profiles-skill-chart-overlay {
+    position: absolute; // relative to positional context %career-profiles-skill-chart
+    flex: 1 0;
+    font-size: 1.25rem;
+    color: $workbc_palette_dark_tertiary;
+}
