@@ -7,5 +7,5 @@ dependencies:
 id: contact_us_french_link
 title: 'Contact Us - French link'
 content:
-  value: "<p><a href=\"/\">Services disponibles en français</a></p>\r\n"
+  value: "<p><a href=\"/contactez-nous\">Services disponibles en français</a></p>\r\n"
   format: basic_html

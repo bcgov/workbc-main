@@ -13,3 +13,12 @@ workbc_custom.admin_settings:
     _form: '\Drupal\workbc_custom\Form\AdminSettingsForm'
   requirements:
     _permission: 'administer workbc_custom settings'
+
+
+workbc_custom.collection_notice:
+  path: 'collection-notice'
+  defaults:
+    _title: 'Modal'
+    _controller: '\Drupal\workbc_custom\Controller\CollectionNoticeModalController::modal'
+  requirements:
+    _permission: 'access content'
