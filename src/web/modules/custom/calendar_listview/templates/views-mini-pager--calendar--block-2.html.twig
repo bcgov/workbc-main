@@ -34,7 +34,7 @@
     </ul>
     {% if not items.previous %}
       <div class="pager__item pager__item--next">
-        <a href="/calendar-upcoming-events?mode=list" title="Go to upcoming events">
+        <a href="{{ path('<current>') }}?mode=list" title="Go to upcoming events">
           <span>Next Events</span>
           <img src="/modules/custom/calendar_listview/images/arrow-right.svg" class="icon arrow-right"/>
         </a>
@@ -45,7 +45,7 @@
   <nav class="pager" role="navigation1" aria-labelledby="{{ heading_id }}">
     {% if not items.previous %}
       <div class="pager__item pager__item--next">
-        <a href="/calendar-upcoming-events?mode=list" title="Go to upcoming events">
+        <a href="{{ path('<current>') }}?mode=list" title="Go to upcoming events">
           <span>Next Events</span>
           <img src="/modules/custom/calendar_listview/images/arrow-right.svg" class="icon arrow-right"/>
         </a>
