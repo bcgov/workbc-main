@@ -55,6 +55,14 @@ nav:
   js:
     js/nav.js: {}
 
+static-load-more:
+  js:
+    js/static-load-more.js: {}
+  dependencies:
+    - core/drupal
+    - core/jquery
+    - core/once
+
 init-popovers:
   js:
     js/init-popovers.js: {}
