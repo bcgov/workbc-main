@@ -14,9 +14,9 @@
   <nav class="pager" role="navigation1" aria-labelledby="{{ heading_id }}">
     {% if not items.previous %}
       <div class="pager__item pager__item--previous">
-        <a href="/calendar-upcoming-events?mode=archive" title="Go to archive events">
+        <a href="{{ path('<current>') }}?mode=archive" title="Go to archive events">
           <img src="/modules/custom/calendar_listview/images/arrow-left.svg" class="icon arrow-left"/>
-          <span>Previous Events</span>
+          <span>Previous Events</span> 
         </a>
       </div>
     {% endif %}
@@ -53,7 +53,7 @@
   <nav class="pager" role="navigation1" aria-labelledby="{{ heading_id }}">
     {% if not items.previous %}
       <div class="pager__item pager__item--previous">
-        <a href="/calendar-upcoming-events?mode=archive" title="Go to archive events">
+        <a href="{{ path('<current>') }}?mode=archive" title="Go to archive events">
           <img src="/modules/custom/calendar_listview/images/arrow-left.svg" class="icon arrow-left"/>
           <span>Previous Events</span>
         </a>

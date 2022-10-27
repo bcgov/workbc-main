@@ -9,6 +9,47 @@
   ]
 %}
 {{ attach_library('classy/node') }}
+
+
+{% set page_format = content.field_page_format|render|striptags|trim|lower %}
+
+{% set title = label %}
+{% set hero_image = content.field_hero_image[0] %}
+{% set hero_text = content.field_hero_text[0] %}
+{% set page_body = content.body %}
+{% set page_content = content.field_content %}
+
+
+{% set left_block %}
+  {{ drupal_entity('block', 'sidenavblock') }}
+{% endset %}
+
+{% set related %}
+  {{ drupal_entity('block', 'related_topics') }}
+{% endset %}
+
+
+{%
+  set classes = [
+    'node',
+    'node--type-' ~ node.bundle|clean_class,
+    node.isPromoted() ? 'node--promoted',
+    node.isSticky() ? 'node--sticky',
+    not node.isPublished() ? 'node--unpublished',
+    view_mode ? 'node--view-mode-' ~ view_mode|clean_class,
+    page_format ? 'page-format--' ~ page_format|clean_class,
+    'page-container',
+    'container-lg',
+  ]
+%}
+{% if hero_image or hero_text %}
+  {% include '@workbc/includes/hero.html.twig' %}
+{% endif %}
+
+{# When breadcrums are displayed below the hero section #}
+{{ drupal_block('system_breadcrumb_block', wrapper=false) }}
+
+{{ drupal_entity('block', 'bettersocialsharingbuttons') }}
 <article{{ attributes.addClass(classes) }}>
 
   {% if display_submitted %}
@@ -27,7 +68,7 @@
         <div class="calendar-content">
         <nav class="list-nav">
           <div class="nav nav-tabs" id="nav-tab" role="tablist">
-            <a href="/calendar-upcoming-events?mode=list" class="nav-link {{ viewmode=='list' or viewmode=='archive'   ? 'show active' :'' }}"  >
+            <a href="{{ path('<current>') }}?mode=list" class="nav-link {{ viewmode=='list' or viewmode=='archive'   ? 'show active' :'' }}"  >
               {%
                 set active = viewmode=='list' or viewmode=='archive' ? '-hover' : ''
               %}
@@ -36,7 +77,7 @@
               </span>
               List View
             </a>
-            <a href="/calendar-upcoming-events?mode=calendar" class="nav-link {{ viewmode=='calendar' ? 'show active' :'' }}"  >
+            <a href="{{ path('<current>') }}?mode=calendar" class="nav-link {{ viewmode=='calendar' ? 'show active' :'' }}"  >
             {%
                 set active = viewmode=='calendar' ? '-hover' : ''
               %}
@@ -65,7 +106,7 @@
       </div>
     </div>
     {% endif %}
-    {{ content }}
+    
   </div>
   {{custom_var}}
 </article>
