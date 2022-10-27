@@ -20,3 +20,26 @@
     box-shadow: none!important;
   }
 }
+
+.btn-secondary {
+  display: inline-block;
+  padding: 8px 30px;
+  border: 2px solid $workbc_palette_dark_secondary;
+  border-radius: 6px;
+  vertical-align: middle;
+  font-weight: 700;
+  text-align: center;
+  text-decoration: none;
+  color: $workbc_palette_dark_secondary;
+  background-color: $workbc_palette_light_primary;
+  transition: background-color 0.2s;
+
+  &:hover,
+  &:focus {
+    border: 2px solid $workbc_palette_dark_secondary;
+    background-color: $workbc_palette_light_secondary;
+    color: $workbc_palette_dark_secondary;
+    text-decoration: none;
+    box-shadow: none!important;
+  }
+}
