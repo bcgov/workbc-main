@@ -40,7 +40,7 @@ function convertRadio($radio_field) {
 }
 
 function convertPlainText($text) {
-  return str_replace([''], [''], strip_tags(trim($text)));
+  return trim(strip_tags($text));
 }
 
 function convertRichText($text, &$items = NULL) {

@@ -58,7 +58,7 @@ foreach ($items as $id => $item) {
         print("  Could not find Drupal node. Attempting to create it..." . PHP_EOL);
         $node = createItem($item);
         if (empty($node)) {
-            print("  Could not create Drupal node" . PHP_EOL);
+            print("  Error: Could not create Drupal node" . PHP_EOL);
             continue;
         }
     }
@@ -181,11 +181,11 @@ try {
                 'menu_name' => 'main',
             ]);
         if (empty($menu_items_parent)) {
-            print("  Could not find parent menu item \"$parent\". Aborting" . PHP_EOL);
+            print("  Error: Could not find parent menu item \"$parent\". Aborting" . PHP_EOL);
             continue;
         }
         else if (count($menu_items_parent) > 1) {
-            print("  Found multiple parent menu items \"$parent\". Aborting" . PHP_EOL);
+            print("  Error: Found multiple parent menu items \"$parent\". Aborting" . PHP_EOL);
             continue;
         }
         else {
@@ -197,7 +197,7 @@ try {
                     'title' => $title
                 ]);
             if (empty($menu_items_page)) {
-                print("  Could not find menu item whose parent is \"$parent\". Aborting" . PHP_EOL);
+                print("  Error: Could not find menu item whose parent is \"$parent\". Aborting" . PHP_EOL);
                 continue;
             }
             else {
@@ -219,7 +219,7 @@ try {
     $node->save();
 }
 catch (Exception $e) {
-    print("  Failed to save node: " . $e->getMessage() . PHP_EOL);
+    print("  Error: Could not save Drupal node: " . $e->getMessage() . PHP_EOL);
 }
 
 }
