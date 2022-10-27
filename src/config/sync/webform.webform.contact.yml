@@ -59,11 +59,6 @@ elements: |-
     '#type': webform_actions
     '#title': 'Submit button(s)'
     '#submit__label': Send
-  collection_notice:
-    '#type': processed_text
-    '#text': |
-      <p><a href="/collection-notice">View Collection Notice</a>&nbsp;&gt;</p>
-    '#format': basic_html
 css: ''
 javascript: ''
 settings:

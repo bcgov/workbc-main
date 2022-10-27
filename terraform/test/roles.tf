@@ -225,7 +225,7 @@ resource "aws_iam_role_policy" "workbc_container_s3" {
         "s3:GetObject",
         "s3:DeleteObject"
       ],
-      "Resource": ["arn:aws:s3:::workbc-backup-restore-bucket"]
+      "Resource": ["arn:aws:s3:::workbc-backup-restore-bucket/*"]
     }
   ]
 }

@@ -34,11 +34,19 @@
       border-right: 4px solid $workbc_palette_light_secondary;
     }
   }
+}
+
+.card-profile__statistic-header {
+  margin-bottom: 30px;
 
   h3 {
+    display: inline-block;
     font-size: 1.125rem;
     font-weight: bold;
-    margin-bottom: 30px;
+  }
+
+  a.info-tooltip {
+    display: inline-block;
   }
 }
 

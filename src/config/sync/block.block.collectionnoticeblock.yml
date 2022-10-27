@@ -1,0 +1,34 @@
+uuid: eb4a24bf-c7a7-470e-ae18-63f0b93da004
+langcode: en
+status: true
+dependencies:
+  module:
+    - block_visibility_conditions
+    - system
+    - workbc_custom
+  theme:
+    - workbc
+id: collectionnoticeblock
+theme: workbc
+region: content_bottom
+weight: -7
+provider: null
+plugin: collection_notice_block
+settings:
+  id: collection_notice_block
+  label: 'Collection Notice block'
+  label_display: '0'
+  provider: workbc_custom
+visibility:
+  not_node_type:
+    id: not_node_type
+    bundles: {  }
+    negate: null
+  not_taxonomy_vocabulary:
+    id: not_taxonomy_vocabulary
+    bundles: {  }
+    negate: null
+  request_path:
+    id: request_path
+    negate: false
+    pages: /contact-us

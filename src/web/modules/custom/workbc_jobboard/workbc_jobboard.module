@@ -22,6 +22,7 @@ function workbc_jobboard_theme($existing, $type, $theme, $path) {
         'no_result_text' => '',
         'readmore_label' => '',
         'jobboard_api_url' => '',
+        'jobboard_api_url2' => '',
         'noc' => '',
         'find_job_url'=>'',
       ],
@@ -77,6 +78,7 @@ function workbc_jobboard_preprocess_node(&$variables) {
     $nid = $variables['node']->id();
     $current_path = \Drupal::service('path_alias.manager')->getAliasByPath('/node/'.$nid);
     $variables['jobboard_api_url'] = \Drupal::config('jobboard')->get('jobboard_api_url');
+    $variables['jobboard_api_url2'] = \Drupal::config('jobboard')->get('jobboard_api_url2');
     $variables['find_job_url'] = \Drupal::config('jobboard')->get('find_job_url');
     $variables['find_job_account_url'] = \Drupal::config('jobboard')->get('find_job_account_url');
     $variables['#cache']['max-age'] = 0;

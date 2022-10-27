@@ -170,6 +170,7 @@ $settings['skip_permissions_hardening'] = TRUE;
 $config['workbc']['ssot_url'] = 'http://ssot:3000';
 
 $config['jobboard']['jobboard_api_url'] = 'https://dev-api-jobboard.workbc.ca';
+$config['jobboard']['jobboard_api_url2'] = 'https://dev-api-jobboard.workbc.ca';
 $config['jobboard']['find_job_url'] = '/search-and-prepare-job/find-jobs';
 $config['jobboard']['find_job_account_url'] = '/account';
 

@@ -225,7 +225,7 @@ resource "aws_iam_role_policy" "workbc_container_s3" {
         "s3:GetObject",
         "s3:DeleteObject"
       ],
-      "Resource": ["${aws_s3_bucket.workbc_s3.arn}"]
+      "Resource": ["${aws_s3_bucket.workbc_s3.arn}/*"]
     }
   ]
 }
