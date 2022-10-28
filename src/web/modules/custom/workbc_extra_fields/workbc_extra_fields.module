@@ -56,6 +56,10 @@ function workbc_extra_fields_node_view(array &$build, \Drupal\Core\Entity\Entity
 function ssotLabourMarketMonthly($year = null, $month = null){
   $data = array();
   $parameters = '';
+
+  //Months years data for select list element on top of the page.
+  $data['months_years'] = querySSoT('monthly_labour_market_updates?select=year%2Cmonth&order=year%2C%20month');
+
   if(!empty($year)) {
       $parameters .= 'year=eq.' . $year;
   } 
@@ -65,6 +69,19 @@ function ssotLabourMarketMonthly($year = null, $month = null){
   $endpoint = 'monthly_labour_market_updates';
   //query ssot request
   $data['monthly_labour_market_updates'] = querySSoT('monthly_labour_market_updates?' . $parameters);
+  if(empty($data['monthly_labour_market_updates'])){
+     \Drupal::messenger()->addError('Chosen year and month has no data. Please select from the provided year and months dropdown.');
+  }
+  
+  if(!empty($data['monthly_labour_market_updates'])) {
+    $currentYear = $data['monthly_labour_market_updates'][0]['year'];
+    //month
+    $currentMonth = $data['monthly_labour_market_updates'][0]['month'];
+
+    $data['current_previous_months_names']= ssotGetPreviousMonthYear($currentMonth, $currentYear);
+  }
+  
+
   //data sources
   $sources = querySSoT('sources?endpoint=eq.' . $endpoint);
   foreach($sources as $source) {
@@ -72,8 +89,6 @@ function ssotLabourMarketMonthly($year = null, $month = null){
     $data['sources'][$datapoint] = $source['label'];
   }
 
-  //Months years data for select list element on top of the page.
-  $data['months_years'] = querySSoT('monthly_labour_market_updates?select=year%2Cmonth');
   return $data;
 }
 
@@ -160,6 +175,39 @@ function ssotFormatNumber($number, $decimals = 0, $positive = false) {
     $value = "+" . $value;
   }
   return $value;
+}
+
+
+/**
+ * Get Current and Previous Month Year. 
+ */
+
+function ssotGetPreviousMonthYear($currentMonth, $currentYear) {
+    
+    if(empty($currentMonth) || empty($currentYear)){
+      return;
+    }
+    //month
+    $currentMonthName = date ('F', mktime(0, 0, 0, $currentMonth, 10));
+
+    //current month and year
+    $data['current_month_year'] = $currentMonthName . ' ' . $currentYear;
+
+    //current month and previous year
+    $previousYear = $currentYear - 1;
+    $data['current_month_previous_year'] = $currentMonthName . ' ' . $previousYear;
+    
+    //previous month and previous year
+    $previousMonth = $currentMonth - 1;
+    $previousYear = $currentYear;
+    if($previousMonth == 0) {
+      $previousMonth = 12;
+      $previousYear = $currentYear - 1;
+    }
+    $previousMonthName =  date ('F', mktime(0, 0, 0, $previousMonth, 10));
+    $data['previous_month_year'] = $previousMonthName. ' ' . $previousYear;
+    
+    return $data;
 }
 
 /*

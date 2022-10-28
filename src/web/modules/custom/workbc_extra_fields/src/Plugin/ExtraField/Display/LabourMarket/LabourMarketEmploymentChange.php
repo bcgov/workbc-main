@@ -43,13 +43,20 @@ class LabourMarketEmploymentChange extends ExtraFieldDisplayFormattedBase {
    */
   public function viewElements(ContentEntityInterface $entity) {
 
+    if(empty($entity->ssot_data['monthly_labour_market_updates'])){
+      $output = '<div>'. WORKBC_EXTRA_FIELDS_NOT_AVAILABLE .'</div>';
+      return [
+        ['#markup' => $output ],
+      ];
+    }
+
+    $data = $entity->ssot_data['monthly_labour_market_updates'][0];
+
     //values
-    $year = $entity->ssot_data['monthly_labour_market_updates'][0]['year'];
-    $month = date ('F', $entity->ssot_data['monthly_labour_market_updates'][0]['month']);
-    $total_employment_change = Number_format($entity->ssot_data['monthly_labour_market_updates'][0]['employment_change_abs_total_employment']);
-    $fulltime_value = Number_format($entity->ssot_data['monthly_labour_market_updates'][0]['employment_change_abs_full_time_jobs']); 
-    $parttime_value = Number_format($entity->ssot_data['monthly_labour_market_updates'][0]['employment_change_abs_part_time_jobs']); 
-    $source_text = $entity->ssot_data['sources']['no-datapoint'];  
+    $total_employment_change = !empty($data['employment_change_abs_total_employment']) ? ssotFormatNumber($data['employment_change_abs_total_employment'], 0 , true) : WORKBC_EXTRA_FIELDS_NOT_AVAILABLE;
+    $fulltime_value = !empty($data['employment_change_abs_full_time_jobs']) ? ssotFormatNumber($data['employment_change_abs_full_time_jobs'], 0 , true) : WORKBC_EXTRA_FIELDS_NOT_AVAILABLE; 
+    $parttime_value = !empty($data['employment_change_abs_part_time_jobs']) ? ssotFormatNumber($data['employment_change_abs_part_time_jobs'], 0 , true) : WORKBC_EXTRA_FIELDS_NOT_AVAILABLE; 
+    $source_text = !empty($entity->ssot_data['sources']['no-datapoint'])?$entity->ssot_data['sources']['no-datapoint'] : WORKBC_EXTRA_FIELDS_NOT_AVAILABLE;
 
     //output
     $output = '

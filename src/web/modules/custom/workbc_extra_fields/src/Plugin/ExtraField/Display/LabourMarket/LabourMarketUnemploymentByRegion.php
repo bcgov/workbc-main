@@ -43,23 +43,17 @@ class LabourMarketUnemploymentByRegion extends ExtraFieldDisplayFormattedBase {
    */
   public function viewElements(ContentEntityInterface $entity) {
 
-
-    //values
-    $currentYear = $entity->ssot_data['monthly_labour_market_updates'][0]['year'];
-    //month
-    $currentMonth = $entity->ssot_data['monthly_labour_market_updates'][0]['month'];
-    $currentMonthName = date ('F', mktime(0, 0, 0, $currentMonth, 10));
-
-    $previousMonth = $currentMonth - 1;
-    $previousYear = $currentYear;
-    if($previousMonth == 0) {
-      $previousMonth = 12;
-      $previousYear = $currentYear - 1;
+    if(empty($entity->ssot_data['monthly_labour_market_updates'])){
+      $output = '<div>'. WORKBC_EXTRA_FIELDS_NOT_AVAILABLE .'</div>';
+      return [
+        ['#markup' => $output ],
+      ];
     }
 
-    $previousMonthName =  date ('F', mktime(0, 0, 0, $previousMonth, 10));;
+    //values
+    $current_previous_months = $entity->ssot_data['current_previous_months_names'];
 
-    $header = [' ', $this->t("@curmonth @curyear", ["@curmonth" => $currentMonthName, "@curyear" => $currentYear]), $this->t("@premonth @preyear", ["@premonth" => $previousMonthName, "@preyear" => $previousYear])];
+    $header = [' ',  $current_previous_months['current_month_year'] , $current_previous_months['current_month_previous_year']];
 
     $rows = $this->getRegionValues($entity->ssot_data['monthly_labour_market_updates'][0]);
     
@@ -108,13 +102,13 @@ class LabourMarketUnemploymentByRegion extends ExtraFieldDisplayFormattedBase {
               continue;
             }
             $regions[$regionsubstring]['region'] = $region_map[$regionsubstring];
-            $regions[$regionsubstring]['previous'] = $value.'%';
+            $regions[$regionsubstring]['previous'] = !empty($value)?$value.'%': WORKBC_EXTRA_FIELDS_NOT_AVAILABLE;
           } else {
             if(empty($region_map[$regionsubstring])){
               continue;
             }
             $regions[$regionsubstring]['region'] = $region_map[$regionsubstring];
-            $regions[$regionsubstring]['current'] = $value.'%';
+            $regions[$regionsubstring]['current'] = !empty($value)?$value.'%': WORKBC_EXTRA_FIELDS_NOT_AVAILABLE;
           }
           
         }

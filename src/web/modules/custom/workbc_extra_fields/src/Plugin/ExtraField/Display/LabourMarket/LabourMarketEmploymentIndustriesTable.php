@@ -42,22 +42,24 @@ class LabourMarketEmploymentIndustriesTable extends ExtraFieldDisplayFormattedBa
    * {@inheritdoc}
    */
   public function viewElements(ContentEntityInterface $entity) {
+    
+    if(empty($entity->ssot_data['monthly_labour_market_updates'])){
+      $output = '<div>'.WORKBC_EXTRA_FIELDS_NOT_AVAILABLE.'</div>';
+      return [
+        ['#markup' => $output ],
+      ];
+    }
 
-    //values
-    $year = $entity->ssot_data['monthly_labour_market_updates'][0]['year'];
-    //month
-    $monthNum = $entity->ssot_data['monthly_labour_market_updates'][0]['month'];
-    $month = date ('F', mktime(0, 0, 0, $monthNum, 10));
-
+    $data = $entity->ssot_data['monthly_labour_market_updates'][0];
     $header = [$this->t('Industry'), $this->t("Employment (change since last month)"),$this->t("Employment (% change since last month)")];
-    $data = $this->getIndustryHighlights($entity->ssot_data['monthly_labour_market_updates'][0]);
+    $data = $this->getIndustryHighlights($data);
 
     $rows = [];
     foreach($data as $values){
       $rows[] = [$values['industry'], $values['abs'], $values['per']];
     }
     
-    $source_text = $entity->ssot_data['sources']['Industry Highlights'];
+    $source_text = !empty($entity->ssot_data['sources']['Industry Highlights'])?$entity->ssot_data['sources']['Industry Highlights']:WORKBC_EXTRA_FIELDS_NOT_AVAILABLE;
     $output = '<span><strong>'.$this->t("Source").': </strong>'.$source_text.'</span>';
 
     return [
@@ -104,17 +106,16 @@ class LabourMarketEmploymentIndustriesTable extends ExtraFieldDisplayFormattedBa
         if(strpos($key, $needle) !== false){
           $industrysubstring = str_replace($needle, "", $key);
           $industries[$industrysubstring]['industry'] = $industries_mapping[$industrysubstring];
-          $industries[$industrysubstring]['abs'] = number_format($value);
+          $industries[$industrysubstring]['abs'] = !empty($value)?ssotFormatNumber($value,0,true):WORKBC_EXTRA_FIELDS_NOT_AVAILABLE;
         }
         //percentage value
         if(strpos($key, $pct_needle) !== false){
           $industrysubstring = str_replace($pct_needle, "", $key);
           $industries[$industrysubstring]['industry'] = $industries_mapping[$industrysubstring];
-          $industries[$industrysubstring]['per'] = number_format($value, 2, '.', '').'%';
+          $industries[$industrysubstring]['per'] = !empty($value)?ssotFormatNumber($value, 2).'%':WORKBC_EXTRA_FIELDS_NOT_AVAILABLE;
         }
       }
     }
-    // print_r($industries); exit;
     return $industries;
   }
 
