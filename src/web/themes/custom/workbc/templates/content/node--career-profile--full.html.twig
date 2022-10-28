@@ -157,6 +157,7 @@
     resources: {
       title: 'Resources',
       description: content.group_career_profile_tabs.group_resources.field_career_overview.0['#text'],
+      resource_list: content.group_career_profile_tabs.group_resources.field_resources['#items'],
     },
   },
   career_videos: {
@@ -391,17 +392,40 @@
             </div>
           </div>
 
-
           <div class="tab-pane" id="labour_market-content" role="tabpanel" aria-labelledby="labour_market-tab">
+            <h2 class="introduction">{{ viewmodel['tab_sections']['labour_market']['title'] |t }}</h2>
+            <div>{{ viewmodel['tab_sections']['labour_market']['description'] |raw }}</div>
+
+            <hr>
+            <hr>
             {{ content.group_career_profile_tabs.group_labour_market_statistics }}
+            <hr>
+            <hr>
           </div>
 
           <div class="tab-pane" id="industry_highlights-content" role="tabpanel" aria-labelledby="industry_highlights-tab">
+            <h2 class="introduction">{{ viewmodel['tab_sections']['industry_highlights']['title'] |t }}</h2>
+            <div>{{ viewmodel['tab_sections']['industry_highlights']['description'] |raw }}</div>
+
+            <hr>
+            <hr>
             {{ content.group_career_profile_tabs.group_industry_highlights }} 
+            <hr>
+            <hr>
           </div>
 
           <div class="tab-pane" id="resources-content" role="tabpanel" aria-labelledby="resources-tab">
-            {{ content.group_career_profile_tabs.group_resources }}
+            <h2 class="introduction">{{ viewmodel['tab_sections']['resources']['title'] |t }}</h2>
+            <div>{{ viewmodel['tab_sections']['resources']['description'] |raw }}</div>
+
+            <ul class="resource-link-list">
+              {% for resource in viewmodel['tab_sections']['resources']['resource_list'] %}
+                <li class="resource-link">
+                  <div class="resource-link__title">{{ resource.title }}</div>
+                  <a class="resource-link__href" target="_blank" href="{{ resource.uri }}">{{ resource.title }}</a>
+                </li>
+              {% endfor %}
+            </ul>
           </div>
 
         </div>
