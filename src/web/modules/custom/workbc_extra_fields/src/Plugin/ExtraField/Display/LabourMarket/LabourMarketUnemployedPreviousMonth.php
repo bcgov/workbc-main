@@ -43,21 +43,20 @@ class LabourMarketUnemployedPreviousMonth extends ExtraFieldDisplayFormattedBase
    */
   public function viewElements(ContentEntityInterface $entity) {
 
-     //values
-    $year = $entity->ssot_data['monthly_labour_market_updates'][0]['year'];
-    //month
-    $monthNum = $entity->ssot_data['monthly_labour_market_updates'][0]['month'] - 1;
-
-    if($monthNum == 0) {
-      $monthNum = 12;
-      $year = $year - 1;
+    if(empty($entity->ssot_data['monthly_labour_market_updates'])){
+      $output = '<div>'. WORKBC_EXTRA_FIELDS_NOT_AVAILABLE .'</div>';
+      return [
+        ['#markup' => $output ],
+      ];
     }
 
-    $month = date ('F', mktime(0, 0, 0, $monthNum, 10));
+    $data = $entity->ssot_data['monthly_labour_market_updates'][0];
+    //values
+    $current_previous_months = $entity->ssot_data['current_previous_months_names'];
 
-    $total_unemployed = Number_format($entity->ssot_data['monthly_labour_market_updates'][0]['total_unemployed_previous']);
-    $unemployed_rate_value =  $entity->ssot_data['monthly_labour_market_updates'][0]['employment_rate_pct_unemployment_previous']; 
-    $unemployed_part_value = $entity->ssot_data['monthly_labour_market_updates'][0]['employment_rate_pct_participation_previous']; 
+    $total_unemployed = !empty($data['total_unemployed_previous'])?ssotFormatNumber($data['total_unemployed_previous']) : WORKBC_EXTRA_FIELDS_NOT_AVAILABLE;
+    $unemployed_rate_value =  !empty($data['employment_rate_pct_unemployment_previous'])?$data['employment_rate_pct_unemployment_previous']:WORKBC_EXTRA_FIELDS_NOT_AVAILABLE; 
+    $unemployed_part_value = !empty($data['employment_rate_pct_participation_previous'])?$data['employment_rate_pct_participation_previous']:WORKBC_EXTRA_FIELDS_NOT_AVAILABLE; 
     $information_text_tooltip = '
                   <div class="tool-tip">
                     <p>'. $this->t('Participation Rate represents the number of people in the workforce that are of working age as a percentage of total BC population.') . '</p>
@@ -66,7 +65,7 @@ class LabourMarketUnemployedPreviousMonth extends ExtraFieldDisplayFormattedBase
     //output
     $output = '
     <div class="LME--total-unemployed">
-    <span class="LME--total-unemployed-label">'.$this->t("Total Unemployed (@month @year)", ["@month" => $month, "@year" => $year]).'</span>
+    <span class="LME--total-unemployed-label">'.$this->t("Total Unemployed (@previousmonthyear)", ["@previousmonthyear" => $current_previous_months['previous_month_year']]).'</span>
     <span class="LME--total-unemployed-value blue">'.$total_unemployed.'</span>
     <div class="LME--total-unemployed-rate">
       <div class="LME--total-unemployed-rate"><span>'.$this->t("Unemployment Rate").'</span><span class="LME--total-unemployed-rate-value">'.$unemployed_rate_value.'%</span></div>

@@ -43,19 +43,21 @@ class LabourMarketEmployment extends ExtraFieldDisplayFormattedBase {
    */
   public function viewElements(ContentEntityInterface $entity) {
 
-    //values
-    $year = $entity->ssot_data['monthly_labour_market_updates'][0]['year'];
-    //month
-    $monthNum = $entity->ssot_data['monthly_labour_market_updates'][0]['month'];
-    $month = date ('F', mktime(0, 0, 0, $monthNum, 10));
+    if(empty($entity->ssot_data['monthly_labour_market_updates'])) {
+      $output = '<div>'. WORKBC_EXTRA_FIELDS_NOT_AVAILABLE .'</div>';
+      return [
+        ['#markup' => $output ],
+      ];
+    }
 
-    $total_employment =  Number_format($entity->ssot_data['monthly_labour_market_updates'][0]['total_employed']);
-    $source_text = $entity->ssot_data['sources']['no-datapoint'];
+    $current_previous_months = !empty($entity->ssot_data['current_previous_months_names'])?$entity->ssot_data['current_previous_months_names']:WORKBC_EXTRA_FIELDS_NOT_AVAILABLE;
+    $total_employment =  !empty($entity->ssot_data['monthly_labour_market_updates'][0]['total_employed'])?ssotFormatNumber($entity->ssot_data['monthly_labour_market_updates'][0]['total_employed']):WORKBC_EXTRA_FIELDS_NOT_AVAILABLE;
+    $source_text = !empty($entity->ssot_data['sources']['no-datapoint'])?$entity->ssot_data['sources']['no-datapoint']:WORKBC_EXTRA_FIELDS_NOT_AVAILABLE;
 
     //output
     $output = '
     <div class="LME--total-employed">
-    <span class="LME--total-employed-label">'.$this->t("Total Employed (@month @year)", ["@month" => $month, "@year" => $year]).'</span>
+    <span class="LME--total-employed-label">'.$this->t("Total Employed (@currentmonthyear)", ["@currentmonthyear" => $current_previous_months['current_month_year']]).'</span>
     <span class="LME--total-employed-value blue">'.$total_employment.'</span>
     <span class="LME--total-employed-bottom-source"><strong>'.$this->t("Source: ").'</strong>'.$source_text.'</span>
     </div>';

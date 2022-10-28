@@ -42,25 +42,23 @@ class LabourMarketEmploymentByAgeSexTable extends ExtraFieldDisplayFormattedBase
    */
   public function viewElements(ContentEntityInterface $entity) {
 
-    //values
-    $currentYear = $entity->ssot_data['monthly_labour_market_updates'][0]['year'];
-    //month
-    $currentMonth = $entity->ssot_data['monthly_labour_market_updates'][0]['month'];
-    $currentMonthName = date ('F', mktime(0, 0, 0, $currentMonth, 10));
-
-    $previousMonth = $currentMonth - 1;
-    $previousYear = $currentYear;
-    if($previousMonth == 0) {
-      $previousMonth = 12;
-      $previousYear = $currentYear - 1;
+    if(empty($entity->ssot_data['monthly_labour_market_updates'])){
+      $output = '<div>'.WORKBC_EXTRA_FIELDS_NOT_AVAILABLE.'</div>';
+      return [
+        ['#markup' => $output ],
+      ];
     }
 
-    $previousMonthName =  date ('F', mktime(0, 0, 0, $previousMonth, 10));;
+    $current_previous_months = $entity->ssot_data['current_previous_months_names'];
+    $header = [' ', $current_previous_months['current_month_year'], $current_previous_months['previous_month_year']];
 
-    $header = [' ', $this->t("@curmonth @curyear", ["@curmonth" => $currentMonthName, "@curyear" => $currentYear]), $this->t("@premonth @preyear", ["@premonth" => $previousMonthName, "@preyear" => $previousYear])];
-
-    $rows = $this->getGenderAgeValues($entity->ssot_data['monthly_labour_market_updates'][0]);
-    $source_text = $entity->ssot_data['sources']['no-datapoint'];
+    if(!empty($entity->ssot_data['monthly_labour_market_updates'][0])) {
+      $rows = $this->getGenderAgeValues($entity->ssot_data['monthly_labour_market_updates'][0]);  
+    } else {
+      $rows[] = WORKBC_EXTRA_FIELDS_NOT_AVAILABLE;
+    }
+    
+    $source_text = !empty($entity->ssot_data['sources']['no-datapoint']) ? $entity->ssot_data['sources']['no-datapoint'] : WORKBC_EXTRA_FIELDS_NOT_AVAILABLE;
     $output = '<span><strong>'.$this->t("Source").':</strong> '.$source_text.'</span>';
 
     return [
@@ -96,11 +94,11 @@ class LabourMarketEmploymentByAgeSexTable extends ExtraFieldDisplayFormattedBase
           //if previous values
           if(strpos($age, 'previous') !== false) {
             $age = str_replace('_previous', "", $age);
-            $genderAgeValues[$age]['age'] = str_replace("_"," ",$age) . ' ' . $this->t('years');
-            $genderAgeValues[$age]['previous'] = number_format($value);
+            $genderAgeValues[$age]['age'] = str_replace("_"," - ",$age) . ' ' . $this->t('years');
+            $genderAgeValues[$age]['previous'] = $value ? ssotFormatNumber($value): WORKBC_EXTRA_FIELDS_NOT_AVAILABLE;
           } else {
-            $genderAgeValues[$age]['age'] = str_replace("_"," ",$age). ' ' . $this->t('years');
-            $genderAgeValues[$age]['current'] = number_format($value);
+            $genderAgeValues[$age]['age'] = str_replace("_"," - ",$age). ' ' . $this->t('years');
+            $genderAgeValues[$age]['current'] = $value ? ssotFormatNumber($value):WORKBC_EXTRA_FIELDS_NOT_AVAILABLE;
           }
         }
 
@@ -115,10 +113,10 @@ class LabourMarketEmploymentByAgeSexTable extends ExtraFieldDisplayFormattedBase
           if(strpos($gender, 'previous') !== false) {
             $gender = str_replace('_previous', "", $gender);
             $genderAgeValues[$gender]['gender'] = $gender;
-            $genderAgeValues[$gender]['previous'] = number_format($value);
+            $genderAgeValues[$gender]['previous'] = $value ? ssotFormatNumber($value): WORKBC_EXTRA_FIELDS_NOT_AVAILABLE;
           } else {
             $genderAgeValues[$gender]['gender'] = $gender;
-            $genderAgeValues[$gender]['current'] = number_format($value);
+            $genderAgeValues[$gender]['current'] = $value ? ssotFormatNumber($value): WORKBC_EXTRA_FIELDS_NOT_AVAILABLE;
           }
         }
 

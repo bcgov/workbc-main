@@ -43,12 +43,19 @@ class LabourMarketEmploymentChangePercent extends ExtraFieldDisplayFormattedBase
    */
   public function viewElements(ContentEntityInterface $entity) {
 
+    if(empty($entity->ssot_data['monthly_labour_market_updates'])){
+      $output = '<div>'.WORKBC_EXTRA_FIELDS_NOT_AVAILABLE.'</div>';
+      return [
+        ['#markup' => $output ],
+      ];
+    }
+
+    $data = $entity->ssot_data['monthly_labour_market_updates'][0];
+
     //values
-    $year = $entity->ssot_data['monthly_labour_market_updates'][0]['year'];
-    $month = date ('F', $entity->ssot_data['monthly_labour_market_updates'][0]['month']);
-    $total_employment_change = $entity->ssot_data['monthly_labour_market_updates'][0]['employment_change_pct_total_employment'];
-    $fulltime_value = $entity->ssot_data['monthly_labour_market_updates'][0]['employment_change_pct_full_time_jobs']; 
-    $parttime_value = $entity->ssot_data['monthly_labour_market_updates'][0]['employment_change_pct_part_time_jobs'];  
+    $total_employment_change = !empty($data['employment_change_pct_total_employment'])?ssotFormatNumber($data['employment_change_pct_total_employment'], 1, true):WORKBC_EXTRA_FIELDS_NOT_AVAILABLE;
+    $fulltime_value = !empty($data['employment_change_pct_full_time_jobs'])?ssotFormatNumber($data['employment_change_pct_full_time_jobs'], 1, true):WORKBC_EXTRA_FIELDS_NOT_AVAILABLE; 
+    $parttime_value = !empty($data['employment_change_pct_part_time_jobs'])?ssotFormatNumber($data['employment_change_pct_part_time_jobs'], 1, true):WORKBC_EXTRA_FIELDS_NOT_AVAILABLE;  
 
     //output
     $output = '
