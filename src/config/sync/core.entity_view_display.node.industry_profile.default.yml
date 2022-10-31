@@ -67,6 +67,7 @@ third_party_settings:
         - extra_field_industry_employment_types_industry
         - extra_field_industry_employment_types_bc
         - extra_field_industry_employment_types_source
+        - extra_field_industry_employment_trends_dates
         - extra_field_industry_employment_latest_trends_total
         - extra_field_industry_employment_latest_trends_percent
         - extra_field_industry_employment_trends_source
@@ -210,6 +211,11 @@ content:
     third_party_settings: {  }
     weight: 4
     region: content
+  extra_field_industry_employment_trends_dates:
+    settings: {  }
+    third_party_settings: {  }
+    weight: 28
+    region: content
   extra_field_industry_employment_trends_source:
     settings: {  }
     third_party_settings: {  }
@@ -228,7 +234,7 @@ content:
   extra_field_industry_employment_types_source:
     settings: {  }
     third_party_settings: {  }
-    weight: 28
+    weight: 27
     region: content
   extra_field_industry_job_openings:
     settings: {  }

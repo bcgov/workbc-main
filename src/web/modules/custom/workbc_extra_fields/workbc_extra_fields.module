@@ -39,7 +39,7 @@ function workbc_extra_fields_node_view(array &$build, \Drupal\Core\Entity\Entity
         $year = \Drupal::request()->query->get('year');
         $month = \Drupal::request()->query->get('month');
         $entity->ssot_data = ssotLabourMarketMonthly($year,$month);
-        
+
         break;
       case "career_profile":
         $entity->ssot_data = ssotCareerProfile($entity->get("field_noc")->getString());
@@ -62,7 +62,7 @@ function ssotLabourMarketMonthly($year = null, $month = null){
 
   if(!empty($year)) {
       $parameters .= 'year=eq.' . $year;
-  } 
+  }
   if(!empty($month)) {
       $parameters .= '&month=eq.' . $month;
   }
@@ -72,7 +72,7 @@ function ssotLabourMarketMonthly($year = null, $month = null){
   if(empty($data['monthly_labour_market_updates'])){
      \Drupal::messenger()->addError('Chosen year and month has no data. Please select from the provided year and months dropdown.');
   }
-  
+
   if(!empty($data['monthly_labour_market_updates'])) {
     $currentYear = $data['monthly_labour_market_updates'][0]['year'];
     //month
@@ -80,7 +80,7 @@ function ssotLabourMarketMonthly($year = null, $month = null){
 
     $data['current_previous_months_names']= ssotGetPreviousMonthYear($currentMonth, $currentYear);
   }
-  
+
 
   //data sources
   $sources = querySSoT('sources?endpoint=eq.' . $endpoint);
@@ -99,7 +99,11 @@ function ssotIndustryProfile($industry) {
   $data['monthly_labour_market_updates'] = querySSoT('monthly_labour_market_updates');
   $data['openings_industry'] = querySSoT('openings_industry?industry=eq.' . $industry);
   $data['sources'] = ssotSources();
+  $data['schema'] = ssotSchema();
+  // ksm($data['schema']['definitions']);
+  // ksm($data['schema']['definitions']['openings_industry']['properties']);
   return $data;
+
 }
 
 function ssotCareerProfile($noc) {
@@ -114,7 +118,24 @@ function ssotCareerProfile($noc) {
   $data['high_opportunity_occupations'] = querySSoT('high_opportunity_occupations?noc=eq.' . $noc);
   $data['occupational_interests'] = querySSoT('occupational_interests?noc=eq.' . $noc);
   $data['sources'] = ssotSources();
+  $data['schema'] = ssotSchema();
   return $data;
+}
+
+
+function ssotParseDateRange($schema, $section, $field) {
+
+  // ksm($section . ": " . $field);
+  // ksm($schema['definitions'][$section]['properties']);
+  $text = $schema['definitions'][$section]['properties'][$field]['description'];
+  preg_match('#\{(.*?)\}#', $text, $match);
+
+  return empty($match) ? "" : $match[1];
+}
+
+function ssotSchema() {
+  $schema = querySSoT("");
+  return $schema;
 }
 
 function ssotSources() {
@@ -146,7 +167,7 @@ function querySSoT($url, $read_timeout = NULL) {
 }
 
 
-function workbc_extra_fields_page_attachments_alter(array &$attachments) {  
+function workbc_extra_fields_page_attachments_alter(array &$attachments) {
   $attachments['#attached']['library'][] = 'workbc_extra_fields/extra-fields';
 }
 
@@ -179,11 +200,11 @@ function ssotFormatNumber($number, $decimals = 0, $positive = false) {
 
 
 /**
- * Get Current and Previous Month Year. 
+ * Get Current and Previous Month Year.
  */
 
 function ssotGetPreviousMonthYear($currentMonth, $currentYear) {
-    
+
     if(empty($currentMonth) || empty($currentYear)){
       return;
     }
@@ -196,7 +217,7 @@ function ssotGetPreviousMonthYear($currentMonth, $currentYear) {
     //current month and previous year
     $previousYear = $currentYear - 1;
     $data['current_month_previous_year'] = $currentMonthName . ' ' . $previousYear;
-    
+
     //previous month and previous year
     $previousMonth = $currentMonth - 1;
     $previousYear = $currentYear;
@@ -206,7 +227,7 @@ function ssotGetPreviousMonthYear($currentMonth, $currentYear) {
     }
     $previousMonthName =  date ('F', mktime(0, 0, 0, $previousMonth, 10));
     $data['previous_month_year'] = $previousMonthName. ' ' . $previousYear;
-    
+
     return $data;
 }
 

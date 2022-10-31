@@ -26,8 +26,8 @@ class IndustryAverageWageBC extends ExtraFieldDisplayFormattedBase {
    * {@inheritdoc}
    */
   public function getLabel() {
-
-    return $this->t('BC Average Wage');
+    $datestr = ssotParseDateRange($this->getEntity()->ssot_data['schema'], 'labour_force_survey_industry', 'earnings_men_average');
+    return $this->t("BC Average Wage (" . $datestr . ")");
   }
 
   /**
@@ -44,9 +44,9 @@ class IndustryAverageWageBC extends ExtraFieldDisplayFormattedBase {
   public function viewElements(ContentEntityInterface $entity) {
 
     if (!empty($entity->ssot_data) && isset($entity->ssot_data['labour_force_survey_industry'])) {
-      $avgMen = '$' . $entity->ssot_data['labour_force_survey_industry']['earnings_men_average'] . '/hr';
-      $avgWomen = '$' . $entity->ssot_data['labour_force_survey_industry']['earnings_women_average'] . '/hr';
-      $avgYouth = '$' . $entity->ssot_data['labour_force_survey_industry']['earnings_youth_average'] . '/hr';
+      $avgMen = '$' . ssotFormatNumber($entity->ssot_data['labour_force_survey_industry']['earnings_men_average'],2) . '/hr';
+      $avgWomen = '$' . ssotFormatNumber($entity->ssot_data['labour_force_survey_industry']['earnings_women_average'],2) . '/hr';
+      $avgYouth = '$' . ssotFormatNumber($entity->ssot_data['labour_force_survey_industry']['earnings_youth_average'],2) . '/hr';
     }
     else {
       $avgMen = WORKBC_EXTRA_FIELDS_NOT_AVAILABLE;;

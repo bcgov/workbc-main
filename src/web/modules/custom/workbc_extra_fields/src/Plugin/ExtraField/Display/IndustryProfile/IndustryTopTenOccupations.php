@@ -44,8 +44,11 @@ class IndustryTopTenOccupations extends ExtraFieldDisplayFormattedBase {
   public function viewElements(ContentEntityInterface $entity) {
 
     if (!empty($entity->ssot_data) && isset($entity->ssot_data['openings_industry'])) {
+
+      $datestr = ssotParseDateRange($this->getEntity()->ssot_data['schema'], 'openings_industry', 'openings');
+
       $content = "<table>";
-      $content .= "<tr><th>Top Ten Occupations</th><th>Job Openings</th></tr>";
+      $content .= "<tr><th>Top Ten Occupations</th><th>Job Openings (" . $datestr . ")</th></tr>";
       foreach ($entity->ssot_data['openings_industry'] as $job) {
         if ($nid = $this->nodeID($job['noc'])) {
           $alias = \Drupal::service('path_alias.manager')->getAliasByPath('/node/'.$nid);

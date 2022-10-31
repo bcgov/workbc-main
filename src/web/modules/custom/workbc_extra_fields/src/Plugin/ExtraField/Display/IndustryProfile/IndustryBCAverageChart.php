@@ -26,8 +26,8 @@ class IndustryBCAverageChart extends ExtraFieldDisplayFormattedBase {
    * {@inheritdoc}
    */
   public function getLabel() {
-
-    return $this->t('BC Average Chart');
+    $datestr = ssotParseDateRange($this->getEntity()->ssot_data['schema'], 'labour_force_survey_industry', 'workforce_provincial_average_pct_men');
+    return $this->t("BC Average (" . $datestr . ")");
   }
 
   /**

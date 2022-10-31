@@ -44,6 +44,7 @@ class IndustryEmploymentByAge extends ExtraFieldDisplayFormattedBase {
   public function viewElements(ContentEntityInterface $entity) {
 
     if (!empty($entity->ssot_data) && isset($entity->ssot_data['labour_force_survey_industry'])) {
+
       $value = 100;
       $value -= $entity->ssot_data['labour_force_survey_industry']['workforce_employment_under_25_pct_average'];
       $value -= $entity->ssot_data['labour_force_survey_industry']['workforce_employment_over_55_pct_average'];
@@ -69,8 +70,11 @@ class IndustryEmploymentByAge extends ExtraFieldDisplayFormattedBase {
       $industryAvgOver55 = WORKBC_EXTRA_FIELDS_NOT_AVAILABLE;
     }
 
+    $datestr1 = ssotParseDateRange($entity->ssot_data['schema'], 'labour_force_survey_industry', 'workforce_employment_under_25_pct_average');
+    $datestr2 = ssotParseDateRange($entity->ssot_data['schema'], 'labour_force_survey_industry', 'workforce_employment_under_25_pct');
+
     $content = '<table>';
-    $content .= '<tr><th>Age Group</th><th>Industry Average</th><th>B.C. Average</th></tr>';
+    $content .= "<tr><th>Age Group</th><th>Industry Average (" . $datestr1 . ")</th><th>B.C. Average (" . $datestr2 . ")</th></tr>";
     $content .= '<tr><td>15 - 24 years</td><td>' . $industryAvgUnder25 . '</td><td>' . $bcAvgUnder25 . '</td></tr>';
     $content .= '<tr><td>25 - 54 years</td><td>' . $industryAvg25thru55 . '</td><td>' . $bcAvg25thru55 . '</td></tr>';
     $content .= '<tr><td>55+ years</td><td>' . $industryAvgOver55 . '</td><td>' . $bcAvgOver55 . '</td></tr>';

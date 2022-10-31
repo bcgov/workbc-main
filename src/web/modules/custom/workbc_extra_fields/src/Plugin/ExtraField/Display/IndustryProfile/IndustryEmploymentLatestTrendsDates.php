@@ -10,15 +10,15 @@ use Drupal\extra_field\Plugin\ExtraFieldDisplayFormattedBase;
  * Example Extra field with formatted output.
  *
  * @ExtraFieldDisplay(
- *   id = "industry_employment_latest_trends_percent",
- *   label = @Translation("Latest Employment Trends Percent"),
- *   description = @Translation("An extra field to display industry latest employment trends percent."),
+ *   id = "industry_employment_trends_dates",
+ *   label = @Translation("Latest Employment Trends Dates"),
+ *   description = @Translation("An extra field to display industry latest employment trends dates."),
  *   bundles = {
  *     "node.industry_profile",
  *   }
  * )
  */
-class IndustryEmploymentLatestTrendsPercent extends ExtraFieldDisplayFormattedBase {
+class IndustryEmploymentLatestTrendsDates extends ExtraFieldDisplayFormattedBase {
 
   use StringTranslationTrait;
 
@@ -27,7 +27,7 @@ class IndustryEmploymentLatestTrendsPercent extends ExtraFieldDisplayFormattedBa
    */
   public function getLabel() {
 
-    return $this->t('Latest Employment Trends Percent');
+    return $this->t('Latest Employment Trends');
   }
 
   /**
@@ -46,9 +46,9 @@ class IndustryEmploymentLatestTrendsPercent extends ExtraFieldDisplayFormattedBa
     if (!empty($entity->ssot_data) && isset($entity->ssot_data['monthly_labour_market_updates'])) {
       $sourceData = $entity->ssot_data['monthly_labour_market_updates'];
       $idx = ssotLatestMonthlyLabourMarketUpdate($entity->ssot_data['monthly_labour_market_updates']);
-      $output = "<div>(since last month)</div>";
-      $output .= ssotFormatNumber($entity->ssot_data['monthly_labour_market_updates'][$idx]['employment_change_pct_total_employment'], 1, true);
-      $output .= "%";
+      $date1 = strtotime($entity->ssot_data['monthly_labour_market_updates'][$idx]['year'] . "-" . $entity->ssot_data['monthly_labour_market_updates'][$idx]['month']. "-01", 10);
+      $date2 = strtotime("-1 month", $date1);
+      $output = date("M Y", $date1) . " vs. " . date("M Y", $date2);
     }
     else {
       $output = WORKBC_EXTRA_FIELDS_NOT_AVAILABLE;

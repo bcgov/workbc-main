@@ -45,44 +45,46 @@ class CareerProfileLabourMarketEmploymentByRegion extends ExtraFieldDisplayForma
 
     $names = ["Cariboo", "Kootenay", "Mainland/Southwest", "Nort Coast & Nechako", "Northeast", "Thompson-Okanagan", "Vancouver Island-Coast"];
     $regions = [];
-    if (!empty($entity->ssot_data) && isset($entity->ssot_data['career_regional'])) {
+    if (!empty($entity->ssot_data) && isset($entity->ssot_data['census']) && isset($entity->ssot_data['career_regional'])) {
       $total = intval($entity->ssot_data['census']['workers_employed']);
       $region = array();
       $region['name'] = t(REGION_CARIBOO);
       $region['percent'] = floatval($entity->ssot_data['census']['cariboo_employment_of_this_occupation']);
-      $region['employment'] = round($region['percent'] * $total / 100);
+      $region['employment'] = $entity->ssot_data['career_regional']['cariboo_employment_current'];
       $regions[] = $region;
       $region = array();
       $region['name'] = t(REGION_KOOTENAY);
       $region['percent'] = floatval($entity->ssot_data['census']['kootenay_employment_of_this_occupation']);
-      $region['employment'] = round($region['percent'] * $total / 100);
+      $region['employment'] = $entity->ssot_data['career_regional']['kootenay_employment_current'];
       $regions[] = $region;
       $region = array();
       $region['name'] = t(REGION_MAINLAND_SOUTHWEST);
       $region['percent'] = floatval($entity->ssot_data['census']['mainland_southwest_employment_of_this_occupation']);
-      $region['employment'] = round($region['percent'] * $total / 100);
+      $region['employment'] = $entity->ssot_data['career_regional']['mainland_southwest_employment_current'];
       $regions[] = $region;
       $region = array();
       $region['name'] = t(REGION_NORTH_COAST_NECHAKO);
       $region['percent'] = floatval($entity->ssot_data['census']['north_coast_nechako_employment_of_this_occupation']);
-      $region['employment'] = round($region['percent'] * $total / 100);
+      $region['employment'] = $entity->ssot_data['career_regional']['north_coast_and_nechako_employment_current'];
       $regions[] = $region;
       $region = array();
       $region['name'] = t(REGION_NORTHEAST);
       $region['percent'] = floatval($entity->ssot_data['census']['northeast_employment_of_this_occupation']);
-      $region['employment'] = round($region['percent'] * $total / 100);
+      $region['employment'] = $entity->ssot_data['career_regional']['northeast_employment_current'];
       $regions[] = $region;
       $region = array();
       $region['name'] = t(REGION_THOMPSON_OKANAGAN);
       $region['percent'] = floatval($entity->ssot_data['census']['thompson_okanagan_employment_of_this_occupation']);
-      $region['employment'] = round($region['percent'] * $total / 100);
+      $region['employment'] = $entity->ssot_data['career_regional']['thompson_okanagan_employment_current'];
       $regions[] = $region;
       $region = array();
       $region['name'] = t(REGION_VANCOUVER_ISLAND_COAST);
       $region['percent'] = floatval($entity->ssot_data['census']['vancouver_island_coast_employment_of_this_occupation']);
-      $region['employment'] = round($region['percent'] * $total / 100);
+      $region['employment'] = $entity->ssot_data['career_regional']['vancouver_island_coast_employment_current'];
       $regions[] = $region;
     }
+
+    $datestr = ssotParseDateRange($entity->ssot_data['schema'], 'career_regional', 'cariboo_employment_current');
 
     $module_handler = \Drupal::service('module_handler');
     $module_path = $module_handler->getModule('workbc_extra_fields')->getPath();
@@ -90,9 +92,9 @@ class CareerProfileLabourMarketEmploymentByRegion extends ExtraFieldDisplayForma
     $text = '<div><img src="/' . $module_path . '/images/' . WORKBC_BC_MAP_WITH_LABELS . '"></div>';
     $text .= "<div>";
     $text .= "<table>";
-    $text .= "<tr><th>Region</th><th>Employment</th><th>% Employment</th></tr>";
+    $text .= "<tr><th>Region</th><th>Employment (" . $datestr . ")</th><th>% Employment</th></tr>";
     foreach ($regions as $region) {
-      $text .= "<tr><td>" . $region['name'] . "</td><td>" . number_format($region['employment']) . "</td><td>" . number_format($region['percent'],1) . "%</td></tr>";
+      $text .= "<tr><td>" . $region['name'] . "</td><td>" . ssotFormatNumber($region['employment']) . "</td><td>" . ssotFormatNumber($region['percent'],1) . "%</td></tr>";
     }
     $text .= "</table>";
     $text .= "</div>";

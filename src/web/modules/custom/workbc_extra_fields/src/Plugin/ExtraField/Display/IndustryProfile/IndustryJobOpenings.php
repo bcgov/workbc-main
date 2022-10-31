@@ -26,8 +26,8 @@ class IndustryJobOpenings extends ExtraFieldDisplayFormattedBase {
    * {@inheritdoc}
    */
   public function getLabel() {
-
-    return $this->t('Job Openings');
+    $datestr = ssotParseDateRange($this->getEntity()->ssot_data['schema'], 'industry_outlook', 'openings');
+    return $this->t("Job Openings (" . $datestr . ")");
   }
 
   /**

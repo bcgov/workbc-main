@@ -26,8 +26,8 @@ class CareerProfileJobOpeningsByRegion extends ExtraFieldDisplayFormattedBase {
    * {@inheritdoc}
    */
   public function getLabel() {
-
-    return $this->t('Job Openings');
+    $datestr = ssotParseDateRange($this->getEntity()->ssot_data['schema'], 'career_regional', 'cariboo_expected_number_of_job_openings_10y');
+    return $this->t('Job Openings by Region (:datestr)', array(":datestr" => $datestr));
   }
 
   /**

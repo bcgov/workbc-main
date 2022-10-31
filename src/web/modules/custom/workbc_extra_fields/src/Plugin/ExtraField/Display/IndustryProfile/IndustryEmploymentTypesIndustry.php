@@ -27,7 +27,8 @@ class IndustryEmploymentTypesIndustry extends ExtraFieldDisplayFormattedBase {
    */
   public function getLabel() {
 
-    return $this->t('Employment Types Industry');
+    $datestr = ssotParseDateRange($this->getEntity()->ssot_data['schema'], 'labour_force_survey_industry', 'employment_part_time_pct');
+    return $this->t("Employment Types Industry (" . $datestr . ")");
   }
 
   /**

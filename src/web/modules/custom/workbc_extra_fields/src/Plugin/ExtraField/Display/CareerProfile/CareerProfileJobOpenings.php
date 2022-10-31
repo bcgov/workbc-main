@@ -26,8 +26,8 @@ class CareerProfileJobOpenings extends ExtraFieldDisplayFormattedBase {
    * {@inheritdoc}
    */
   public function getLabel() {
-
-    return $this->t('Job Openings');
+    $datestr = ssotParseDateRange($this->getEntity()->ssot_data['schema'], 'career_provincial', 'job_openings_first');
+    return $this->t('Job Openings (:datestr)', array(":datestr" => $datestr));
   }
 
   /**

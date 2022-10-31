@@ -27,7 +27,8 @@ class IndustryEmploymentGrowth extends ExtraFieldDisplayFormattedBase {
    */
   public function getLabel() {
 
-    return $this->t('Employment Growth');
+    $datestr = ssotParseDateRange($this->getEntity()->ssot_data['schema'], 'industry_outlook', 'annual_employment_growth_rate_pct_first5y');
+    return $this->t("Employment Growth (" . $datestr . ")");
   }
 
   /**
