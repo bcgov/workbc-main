@@ -1,0 +1,18 @@
+.resource-link-list {
+  list-style: none;
+  padding: 0;
+}
+
+.resource-link {
+  width: 100%;
+  border-bottom: 1px solid $workbc_palette_light_tertiary;
+  padding: 15px 0;
+}
+
+.resource-link__title {
+  font-weight: bold;
+}
+
+.resource-link__href {
+
+}
