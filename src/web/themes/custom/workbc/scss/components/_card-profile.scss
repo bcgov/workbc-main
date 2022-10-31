@@ -1,3 +1,5 @@
+$card-padding: 20px;
+
 .card-profile {
   position: relative; // begin positional context %card-profile
   margin-bottom: 24px;
@@ -5,8 +7,21 @@
   padding-bottom: 35px; // Extra padding to make room for absolutely positioned source
 }
 
+.card-profile__header {
+  padding: $card-padding $card-padding 0 $card-padding;
+
+  h3 {
+    width: 100%;
+    margin: 0;
+    font-size: 1.125rem;
+    line-height: 1.125rem;
+    font-weight: bold;
+    text-align: center;
+  }
+}
+
 .card-profile__content {
-  padding: 20px;
+  padding: $card-padding;
   display: flex;
   flex-flow: column nowrap;
 
@@ -16,7 +31,7 @@
 }
 
 .card-profile__statistic {
-  padding: 30px;
+  padding: $card-padding;
   flex: 1 1 100%;
   display: flex;
   flex-flow: column nowrap;
@@ -37,11 +52,12 @@
 }
 
 .card-profile__statistic-header {
-  margin-bottom: 30px;
+  margin-bottom: $card-padding;
 
   h3 {
     display: inline-block;
     font-size: 1.125rem;
+    line-height: 1.125rem;
     font-weight: bold;
   }
 
@@ -54,6 +70,7 @@
   span {
     color: $workbc_palette_dark_tertiary;
     font-size: 2.5rem;
+    line-height: 2.5rem;
   }
 }
 
@@ -63,7 +80,7 @@
       td {
         border: none;
         background: none;
-        padding: 6px 20px;
+        padding: 6px $card-padding;
 
         &:last-of-type {
           color: $workbc_palette_dark_tertiary;
@@ -76,10 +93,10 @@
 
 .card-profile__source {
   position: absolute;  // relative to positional context %card-profile
-  bottom: 10px;
-  left: 10px;
-
+  bottom: $card-padding;
+  left: $card-padding;
   font-size: 0.875rem;
+  line-height: 0.875rem;
 
   em {
     font-weight: bold;

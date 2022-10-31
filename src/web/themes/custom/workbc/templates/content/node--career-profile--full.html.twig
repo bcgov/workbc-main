@@ -153,6 +153,10 @@
     industry_highlights: {
       title: 'Industry Highlights',
       description: content.group_career_profile_tabs.group_industry_highlights.field_career_overview.0['#text'],
+      job_openings: content.group_career_profile_tabs.group_industry_highlights.extra_field_job_openings_by_industry.0['#markup'],
+      job_openings_source: content.group_career_profile_tabs.group_industry_highlights.extra_field_job_openings_by_industry_source.0['#markup'],
+      insights_title: 'Insights from Industry',
+      insights_description: content.group_career_profile_tabs.group_industry_highlights.field_insights_from_industry.0['#text'],
     },
     resources: {
       title: 'Resources',
@@ -407,11 +411,23 @@
             <h2 class="introduction">{{ viewmodel['tab_sections']['industry_highlights']['title'] |t }}</h2>
             <div>{{ viewmodel['tab_sections']['industry_highlights']['description'] |raw }}</div>
 
-            <hr>
-            <hr>
-            {{ content.group_career_profile_tabs.group_industry_highlights }} 
-            <hr>
-            <hr>
+            <div class="card-profile">
+              <div class="card-profile__header">
+                <h3>Forecasted Job Openings by Industry</h3>
+              </div>
+              <div class="card-profile__content">
+                {{ viewmodel['tab_sections']['industry_highlights']['job_openings'] |raw }}
+              </div>
+              <div class="card-profile__content">
+                <div>For additional industry information, visit the <a href="/research-labour-market/bcs-industries-and-sectors/industry-profiles">Industry Profiles</a> page.</div>
+              </div>
+              <div class="card-profile__source">
+                <em>Source:</em> {{ viewmodel['tab_sections']['industry_highlights']['job_openings_source'] |raw }}
+              </div>
+            </div>
+
+            <h2>{{ viewmodel['tab_sections']['industry_highlights']['insights_title'] |t }}</h2>
+            <div>{{ viewmodel['tab_sections']['industry_highlights']['insights_description'] |raw }}</div>
           </div>
 
           <div class="tab-pane" id="resources-content" role="tabpanel" aria-labelledby="resources-tab">

@@ -23,6 +23,13 @@ thead {
 tbody {
   border: none;
 
+  th {
+    background-color: $workbc_dark_theme_background;
+    color: $workbc_dark_theme_text;
+    padding: $workbc_spacing_default;
+    border-bottom: none;
+  }
+
   tr {
     &:nth-child(2n) td {
       background-color: $workbc_palette_light_secondary;
