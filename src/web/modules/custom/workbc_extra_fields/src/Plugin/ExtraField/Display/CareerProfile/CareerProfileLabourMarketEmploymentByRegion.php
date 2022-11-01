@@ -65,7 +65,7 @@ class CareerProfileLabourMarketEmploymentByRegion extends ExtraFieldDisplayForma
       $region = array();
       $region['name'] = t(REGION_NORTH_COAST_NECHAKO);
       $region['percent'] = floatval($entity->ssot_data['census']['north_coast_nechako_employment_of_this_occupation']);
-      $region['employment'] = $entity->ssot_data['career_regional']['north_coast_and_nechako_employment_current'];
+      $region['employment'] = $entity->ssot_data['career_regional']['north_coast_nechako_employment_current'];
       $regions[] = $region;
       $region = array();
       $region['name'] = t(REGION_NORTHEAST);
