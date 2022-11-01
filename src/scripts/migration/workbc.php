@@ -116,6 +116,7 @@ try {
         'CTA - Full' => 'Full Width',
         'CTA - 1/2' => '1/2 Width',
         'CTA - 1/3' => '1/3 Width',
+        'Quote' => 'Quote',
     ] as $card_field => $card_type) {
         if (property_exists($item, $card_field)) {
             $field_content = array_merge($field_content, convertCards($item->$card_field, $items, $card_type));
@@ -283,7 +284,7 @@ function createBlogNewsSuccessStory($item) {
             $type = 'success_story';
             break;
         default:
-            print("  Unhandled folder {$item->folder}" . PHP_EOL);
+            print("  Unhandled folder {$item->folder} for blogs/news/success stories. Ignoring" . PHP_EOL);
             return;
     }
     $fields = [
@@ -342,7 +343,13 @@ function convertCards($cards, &$items, $card_type = NULL) {
             'field_name' => 'field_action_cards',
             'only_one_card_per_container' => FALSE,
         ],
-        'Icon' => [
+        'Full Width Icon' => [
+            'container' => 'action_cards_icon',
+            'card' => 'action_card_icon',
+            'field_name' => 'field_action_cards',
+            'only_one_card_per_container' => FALSE,
+        ],
+        '1/2 Width Icon' => [
             'container' => 'action_cards_icon',
             'card' => 'action_card_icon',
             'field_name' => 'field_action_cards',
@@ -367,11 +374,11 @@ function convertCards($cards, &$items, $card_type = NULL) {
 
         $type = property_exists($card, 'Card Type') && !empty($card->{'Card Type'}) ? convertRadio($card->{'Card Type'}) : $card_type;
         if (empty($type)) {
-            print("  Found a card with empty type: Assuming Full Width" . PHP_EOL);
+            print("  Found a card with empty type. Assuming Full Width" . PHP_EOL);
             $type = 'Full Width';
         }
         if (!array_key_exists($type, $card_types)) {
-            print("  Cannot create container with unknown type $type" . PHP_EOL);
+            print("  Error: Cannot create container with unknown type $type" . PHP_EOL);
             continue;
         }
 
@@ -402,9 +409,11 @@ function convertCards($cards, &$items, $card_type = NULL) {
             ];
             if (property_exists($card, 'Title')) {
                 $card_fields['field_title'] = convertPlainText($card->{'Title'});
+                $card_fields['field_author'] = convertPlainText($card->{'Title'});
             }
             if (property_exists($card, 'Body')) {
                 $card_fields['field_description'] = convertRichText($card->{'Body'});
+                $card_fields['field_quote'] = convertRichText($card->{'Body'});
             }
             if (property_exists($card, 'Image')) {
                 $images = array_map('convertImage', array_filter($card->{'Image'}));

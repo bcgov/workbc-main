@@ -15,7 +15,13 @@ function convertCheck($check_field) {
 function convertImage($image) {
   if (empty($image)) return NULL;
 
-  $data = file_get_contents($image->download_url);
+  $local = __DIR__ . "/data/assets/{$image->filename}";
+  if (file_exists($local)) {
+    $data = file_get_contents($local);
+  }
+  else {
+    $data = file_get_contents($image->download_url);
+  }
   if ($data === FALSE) {
     print("  Could not download file {$image->download_url}" . PHP_EOL);
     return NULL;
@@ -44,27 +50,26 @@ function convertPlainText($text) {
 }
 
 function convertRichText($text, &$items = NULL) {
-  if (!empty($items)) {
-    foreach (convertGatherContentLinks($text, $items) as $item) {
-      $options = ['absolute' => FALSE];
-      $url = \Drupal\Core\Url::fromRoute('entity.node.canonical', ['node' => $item['target_id']], $options);
-      $text = str_replace($item['match'], $url->toString(), $text);
-    }
-    foreach (convertEmbeddableLinks($text) as $item) {
-      $media = Drupal::entityTypeManager()
-        ->getStorage('media')
-        ->load($item['target_id']);
-      $text = str_replace(
-        $item['match'],
-        '<drupal-media data-entity-type="media" data-entity-uuid="' . $media->uuid() . '"></drupal-media>',
-        $text
-      );
-    }
-    foreach (convertPDFLinks($text) as $item) {
-      $text = str_replace($item['match'], $item['replace'], $text);
-    }
-    // TODO Convert uploaded images within rich text.
+  if (!empty($items)) foreach (convertGatherContentLinks($text, $items) as $item) {
+    $options = ['absolute' => FALSE];
+    $url = \Drupal\Core\Url::fromRoute('entity.node.canonical', ['node' => $item['target_id']], $options);
+    $text = str_replace($item['match'], $url->toString(), $text);
   }
+  foreach (convertEmbeddableLinks($text) as $item) {
+    $media = Drupal::entityTypeManager()
+      ->getStorage('media')
+      ->load($item['target_id']);
+    $text = str_replace(
+      $item['match'],
+      '<drupal-media data-entity-type="media" data-entity-uuid="' . $media->uuid() . '"></drupal-media>',
+      $text
+    );
+  }
+  foreach (convertPDFLinks($text) as $item) {
+    $text = str_replace($item['match'], $item['replace'], $text);
+  }
+  // TODO Detect links to workbc.ca and convert to Drupal links.
+  // TODO Convert uploaded images within rich text.
   return ['format' => 'full_html', 'value' => $text];
 }
 
@@ -137,7 +142,7 @@ function convertGatherContentLinks($text, &$items) {
         $items[$item_id] = $item;
       }
       catch (Exception $e) {
-        print("  Could not query GatherContent item $item_id: {$e->getMessage()}" . PHP_EOL);
+        print("  Error: Could not query GatherContent item $item_id: {$e->getMessage()}" . PHP_EOL);
         continue;
       }
     }
@@ -147,7 +152,7 @@ function convertGatherContentLinks($text, &$items) {
         ->getStorage('node')
         ->loadByProperties(['title' => convertPlainText($items[$item_id]->title)]);
       if (empty($nodes)) {
-        print("  Could not find Drupal node \"{$items[$item_id]->title}\"" . PHP_EOL);
+        print("  Error: Could not find Drupal node \"{$items[$item_id]->title}\"" . PHP_EOL);
         continue;
       }
       $node = current($nodes);
