@@ -13,6 +13,7 @@ dependencies:
     - search_api_autocomplete
     - sitewide_alert
     - system
+    - workbc_jobboard
 _core:
   default_config_hash: 6WavjUYXIegP9AAg2zXGx54MWIVoomC3SZhNiqe-Dyk
 id: anonymous
@@ -21,6 +22,7 @@ weight: -10
 is_admin: false
 permissions:
   - 'access content'
+  - 'access recent jobs block'
   - 'access site-wide contact form'
   - 'use search_api_autocomplete for search_career_profiles'
   - 'use search_api_autocomplete for search_site_content'
