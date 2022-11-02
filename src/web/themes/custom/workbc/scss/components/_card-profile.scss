@@ -6,16 +6,24 @@ $card-padding: 20px;
   box-shadow: 0 0 15px 0 rgba(0, 0, 0, 0.15);
   padding-top: $card-padding; // use padding to prevent the first items top margin from collapsing into the margin between cards
   padding-bottom: 65px; // Extra padding to make room for absolutely positioned source and associated whitespace
+
+  display: flex;
+  flex-flow: column nowrap;
+
+  @include media-breakpoint-up(lg) {
+    flex-flow: row wrap;
+  }
 }
 
 .card-profile__content {
-  padding: $card-padding;
   display: flex;
   flex-flow: column nowrap;
   align-items: center;
+  flex: 1 1;
 
-  flex: 1 1 100%;
-  margin: $card-padding;
+  @include media-breakpoint-up(lg) {
+    flex: 1 1 100%;
+  }
 }
 
 .card-profile__content-small {
@@ -23,30 +31,48 @@ $card-padding: 20px;
   flex-flow: column nowrap;
   align-items: center;
 
-  flex: 1 1 50%;
+  flex: 1 1;
   margin: $card-padding;
 
   @include media-breakpoint-up(lg) {
-    flex-flow: row nowrap;
-    flex-basis: 50%;
+    flex-basis: 40%;
+    flex-flow: column nowrap;
   }
-  
-  &:not(:last-of-type) {
-    border-bottom: 4px solid $workbc_palette_light_secondary;
+}
 
-    @include media-breakpoint-up(lg) {
-      border-bottom: none;
-      border-right: 4px solid $workbc_palette_light_secondary;
-    }
+.card-profile__content-divider {
+  margin: $card-padding;
+  border-bottom: 4px solid $workbc_palette_light_secondary;
+
+  @include media-breakpoint-up(lg) {
+    border-bottom: none;
+    border-right: 4px solid $workbc_palette_light_secondary;
   }
 }
 
 .card-profile__content-header {
-  flex: 0 0 100%;
+  position: relative; // begin positional context %content-header
+  flex: 0 0;
+  display: inline-block;
+  font-size: 1.125rem;
+  line-height: 1.125rem;
+  font-weight: bold;
+  margin-bottom: $card-padding;
+}
+
+.card-profile__content-tooltip {
+  position: absolute; // relative to positional context %content-header  
+  top: 0;
+  bottom: 0;
+  right: -40px;
 }
 
 // hacky style overrides on external content we have no direct control over
 .card-profile__content-item {
+  display: flex;
+  flex-flow: column wrap;
+  justify-content: center;
+  flex: 1 1;
   max-width: 100%;
 
   img { 
@@ -55,7 +81,33 @@ $card-padding: 20px;
   }
 }
 
+.card-profile__content-table {
+  display: flex;
+  flex-flow: column wrap;
+  justify-content: center;
+  flex: 1 1;
+
+  table {
+    tr {
+      td {
+        border: none;
+        background: none;
+        padding: 6px $card-padding;
+
+        &:last-of-type {
+          color: $workbc_palette_dark_tertiary;
+          font-weight: bold;
+        }
+      }
+    }
+  }
+}
+
 .card-profile__content-value {
+  display: flex;
+  flex-flow: column wrap;
+  justify-content: center;
+  flex: 1 1;
   color: $workbc_palette_dark_tertiary;
   font-size: 2.5rem;
   line-height: 2.5rem;
@@ -135,23 +187,6 @@ $card-padding: 20px;
 //     color: $workbc_palette_dark_tertiary;
 //     font-size: 2.5rem;
 //     line-height: 2.5rem;
-//   }
-// }
-
-// .card-profile__statistic-table {
-//   table {
-//     tr {
-//       td {
-//         border: none;
-//         background: none;
-//         padding: 6px $card-padding;
-
-//         &:last-of-type {
-//           color: $workbc_palette_dark_tertiary;
-//           font-weight: bold;
-//         }
-//       }
-//     }
 //   }
 // }
 
