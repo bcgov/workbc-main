@@ -4,40 +4,30 @@ $card-padding: 20px;
   position: relative; // begin positional context %card-profile
   margin-bottom: 24px;
   box-shadow: 0 0 15px 0 rgba(0, 0, 0, 0.15);
-  padding-bottom: 35px; // Extra padding to make room for absolutely positioned source
-}
-
-.card-profile__header {
-  padding: $card-padding $card-padding 0 $card-padding;
-
-  h3 {
-    width: 100%;
-    margin: 0;
-    font-size: 1.125rem;
-    line-height: 1.125rem;
-    font-weight: bold;
-    text-align: center;
-  }
+  padding-top: $card-padding; // use padding to prevent the first items top margin from collapsing into the margin between cards
+  padding-bottom: 65px; // Extra padding to make room for absolutely positioned source and associated whitespace
 }
 
 .card-profile__content {
   padding: $card-padding;
   display: flex;
   flex-flow: column nowrap;
+  align-items: center;
 
-  @include media-breakpoint-up(lg) {
-    flex-flow: row nowrap;
-  }
+  flex: 1 1 100%;
+  margin: $card-padding;
 }
 
-.card-profile__statistic {
-  padding: $card-padding;
-  flex: 1 1 100%;
+.card-profile__content-small {
   display: flex;
   flex-flow: column nowrap;
   align-items: center;
 
+  flex: 1 1 50%;
+  margin: $card-padding;
+
   @include media-breakpoint-up(lg) {
+    flex-flow: row nowrap;
     flex-basis: 50%;
   }
   
@@ -51,43 +41,29 @@ $card-padding: 20px;
   }
 }
 
-.card-profile__statistic-header {
-  margin-bottom: $card-padding;
+.card-profile__content-header {
+  flex: 0 0 100%;
+}
 
-  h3 {
-    display: inline-block;
-    font-size: 1.125rem;
-    line-height: 1.125rem;
-    font-weight: bold;
+// hacky style overrides on external content we have no direct control over
+.card-profile__content-item {
+  max-width: 100%;
+
+  img { 
+    max-width: 100%;
+    margin: $card-padding 0;
   }
+}
 
+.card-profile__content-value {
+  color: $workbc_palette_dark_tertiary;
+  font-size: 2.5rem;
+  line-height: 2.5rem;
+}
+
+.card-profile__content-tooltip {
   a.info-tooltip {
     display: inline-block;
-  }
-}
-
-.card-profile__statistic-single {
-  span {
-    color: $workbc_palette_dark_tertiary;
-    font-size: 2.5rem;
-    line-height: 2.5rem;
-  }
-}
-
-.card-profile__statistic-table {
-  table {
-    tr {
-      td {
-        border: none;
-        background: none;
-        padding: 6px $card-padding;
-
-        &:last-of-type {
-          color: $workbc_palette_dark_tertiary;
-          font-weight: bold;
-        }
-      }
-    }
   }
 }
 
@@ -103,3 +79,79 @@ $card-padding: 20px;
     font-style: normal;
   }
 }
+
+// .card-profile__header {
+//   padding: $card-padding $card-padding 0 $card-padding;
+
+//   h3 {
+//     width: 100%;
+//     margin: 0;
+//     font-size: 1.125rem;
+//     line-height: 1.125rem;
+//     font-weight: bold;
+//     text-align: center;
+//   }
+// }
+
+// .card-profile__statistic {
+//   padding: $card-padding;
+//   flex: 1 1 100%;
+//   display: flex;
+//   flex-flow: column nowrap;
+//   align-items: center;
+
+//   @include media-breakpoint-up(lg) {
+//     flex-basis: 50%;
+//   }
+  
+//   &:not(:last-of-type) {
+//     border-bottom: 4px solid $workbc_palette_light_secondary;
+
+//     @include media-breakpoint-up(lg) {
+//       border-bottom: none;
+//       border-right: 4px solid $workbc_palette_light_secondary;
+//     }
+//   }
+// }
+
+
+// .card-profile__statistic-header {
+//   margin-bottom: $card-padding;
+
+//   h3 {
+//     display: inline-block;
+//     font-size: 1.125rem;
+//     line-height: 1.125rem;
+//     font-weight: bold;
+//   }
+
+//   a.info-tooltip {
+//     display: inline-block;
+//   }
+// }
+
+// .card-profile__statistic-single {
+//   span {
+//     color: $workbc_palette_dark_tertiary;
+//     font-size: 2.5rem;
+//     line-height: 2.5rem;
+//   }
+// }
+
+// .card-profile__statistic-table {
+//   table {
+//     tr {
+//       td {
+//         border: none;
+//         background: none;
+//         padding: 6px $card-padding;
+
+//         &:last-of-type {
+//           color: $workbc_palette_dark_tertiary;
+//           font-weight: bold;
+//         }
+//       }
+//     }
+//   }
+// }
+
