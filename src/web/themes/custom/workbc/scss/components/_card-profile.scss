@@ -41,7 +41,7 @@ $card-padding: 20px;
 }
 
 .card-profile__content-divider {
-  margin: $card-padding;
+  margin-top: $card-padding;
   border-bottom: 4px solid $workbc_palette_light_secondary;
 
   @include media-breakpoint-up(lg) {
