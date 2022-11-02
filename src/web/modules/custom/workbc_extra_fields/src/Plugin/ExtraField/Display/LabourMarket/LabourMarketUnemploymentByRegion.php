@@ -56,7 +56,7 @@ class LabourMarketUnemploymentByRegion extends ExtraFieldDisplayFormattedBase {
     $header = [' ',  $current_previous_months['current_month_year'] , $current_previous_months['current_month_previous_year']];
 
     $rows = $this->getRegionValues($entity->ssot_data['monthly_labour_market_updates'][0]);
-    
+
     //Image
     $module_handler = \Drupal::service('module_handler');
     $module_path = $module_handler->getModule('workbc_extra_fields')->getPath();
@@ -80,7 +80,7 @@ class LabourMarketUnemploymentByRegion extends ExtraFieldDisplayFormattedBase {
         '#header_columns' => 4,
       ],
       [
-        '#markup' => $output 
+        '#markup' => $output
       ]
     ];
   }
@@ -110,7 +110,7 @@ class LabourMarketUnemploymentByRegion extends ExtraFieldDisplayFormattedBase {
             $regions[$regionsubstring]['region'] = $region_map[$regionsubstring];
             $regions[$regionsubstring]['current'] = !empty($value)?$value.'%': WORKBC_EXTRA_FIELDS_NOT_AVAILABLE;
           }
-          
+
         }
       }
     }
@@ -126,7 +126,7 @@ class LabourMarketUnemploymentByRegion extends ExtraFieldDisplayFormattedBase {
             'thompson_okanagan' => 'Thompson-Okanagan',
             'kootenay' => 'Kootenay',
             'cariboo' => 'Cariboo',
-            'north_coast_and_nechako' => 'North Coast and Nechako',
+            'north_coast_nechako' => 'North Coast and Nechako',
             'northeast' => 'Northeast'
           ];
     return $region_map;

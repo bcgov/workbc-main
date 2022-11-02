@@ -62,8 +62,8 @@ class CareerProfileJobOpeningsByRegion extends ExtraFieldDisplayFormattedBase {
       $regions[] = $region;
       $region = array();
       $region['name'] = t(REGION_NORTH_COAST_NECHAKO);
-      $region['openings'] = floatval($entity->ssot_data['career_regional']['north_coast_and_nechako_expected_number_of_job_openings_10y']);
-      $region['growth'] = floatval($entity->ssot_data['career_regional']['north_coast_and_nechako_annual_employment_growth_10y_pct']);
+      $region['openings'] = floatval($entity->ssot_data['career_regional']['north_coast_nechako_expected_number_of_job_openings_10y']);
+      $region['growth'] = floatval($entity->ssot_data['career_regional']['north_coast_nechako_annual_employment_growth_10y_pct']);
       $regions[] = $region;
       $region = array();
       $region['name'] = t(REGION_NORTHEAST);

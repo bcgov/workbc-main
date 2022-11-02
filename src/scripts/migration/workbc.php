@@ -22,6 +22,18 @@ use Drupal\paragraphs\Entity\Paragraph;
  * - drush entity:delete node --bundle=success_story
  */
 
+// Accept an option to import a single item given its id
+$getopt = new \GetOpt\GetOpt([
+    ['i', 'item', \GetOpt\GetOpt::REQUIRED_ARGUMENT, 'Item identifier to import'],
+], []);
+try {
+    $getopt->process($extra);
+}
+catch (Exception $e) {
+    die($getopt->getHelpText() . PHP_EOL);
+}
+$item_id = trim($getopt->getOption('item'));
+
 // Read GatherContent labour market introduction if present.
 $labour_market_introductions = NULL;
 if (file_exists(__DIR__ . '/data/labour_market_introductions.jsonl')) {
@@ -47,6 +59,8 @@ while (!feof($data)) {
 // FIRST PASS: Create nodes that are not expressed in the IA.
 print("FIRST PASS =================" . PHP_EOL);
 foreach ($items as $id => $item) {
+    if (!empty($item_id) && $id != $item_id) continue;
+
     $title = convertPlainText($item->title);
     print("Querying \"$title\"..." . PHP_EOL);
 
@@ -67,6 +81,7 @@ foreach ($items as $id => $item) {
 // SECOND PASS: Populate fields.
 print("SECOND PASS =================" . PHP_EOL);
 foreach ($items as $id => $item) {
+    if (!empty($item_id) && $id != $item_id) continue;
     if (!$item->process) continue;
 
 try {
@@ -110,6 +125,7 @@ try {
 
     // Import all variations of cards.
     $field_content = [];
+    $container_paragraph = NULL;
     foreach([
         'Card' => NULL,
         'CTA - Feature' => 'Feature',
@@ -119,7 +135,7 @@ try {
         'Quote' => 'Quote',
     ] as $card_field => $card_type) {
         if (property_exists($item, $card_field)) {
-            $field_content = array_merge($field_content, convertCards($item->$card_field, $items, $card_type));
+            $field_content = array_merge($field_content, convertCards($item->$card_field, $card_type, $items, $container_paragraph));
         }
     }
     if (!empty($field_content)) {
@@ -305,7 +321,7 @@ function createBlogNewsSuccessStory($item) {
     return $node;
 }
 
-function convertCards($cards, &$items, $card_type = NULL) {
+function convertCards($cards, $card_type, &$items, &$container_paragraph) {
     $card_types = [
         'Feature' => [
             'container' => 'action_card_feature',
@@ -338,7 +354,7 @@ function convertCards($cards, &$items, $card_type = NULL) {
             'only_one_card_per_container' => FALSE,
         ],
         'Quote' => [
-            'container' => 'action_cards_1_4',
+            'container' => 'action_cards_1_3',
             'card' => 'quote_card',
             'field_name' => 'field_action_cards',
             'only_one_card_per_container' => FALSE,
@@ -364,7 +380,6 @@ function convertCards($cards, &$items, $card_type = NULL) {
     ];
 
     $paragraphs = [];
-    $container_paragraph = NULL;
     foreach ($cards as $card) {
         $empty = TRUE;
         foreach (['Card Type', 'Title', 'Body', 'Image', 'Link Text', 'Link Target'] as $check) {
