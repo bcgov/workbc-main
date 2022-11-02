@@ -148,7 +148,26 @@
     },
     labour_market: {
       title: 'Labour Market Statistics',
-      description: content.group_career_profile_tabs.group_labour_market_statistics.field_career_overview.0['#text'],
+      description: content.group_career_profile_tabs.group_labour_market_statistics.extra_field_labour_market_statistics_i.0['#text'],
+
+      employment_title: 'Employment',
+      employment_introduction: content.group_career_profile_tabs.group_labour_market_statistics.extra_field_employment_introduction.0['#text'],
+      employment_number: content.group_career_profile_tabs.group_labour_market_statistics.extra_field_labour_market_number_employed.0['#markup'],
+      employment_number_source: content.group_career_profile_tabs.group_labour_market_statistics.extra_field_labour_market_number_employed_source.0['#markup'],
+      employment_by_region: content.group_career_profile_tabs.group_labour_market_statistics.extra_field_labour_market_region_employment.0['#markup'],
+      employment_by_region_source: content.group_career_profile_tabs.group_labour_market_statistics.extra_field_labour_market_region_employment_source.0['#markup'],
+
+      outlook_title: 'Labour Market Outlook',
+      outlook_introduction: content.group_career_profile_tabs.group_labour_market_statistics.extra_field_labour_market_introduction.0['#text'],
+      outlook_openings_expected: content.group_career_profile_tabs.group_labour_market_statistics.extra_field_labour_market_expected_openings.0['#markup'],
+      outlook_openings_expected_source: content.group_career_profile_tabs.group_labour_market_statistics.extra_field_labour_market_expected_openings_source.0['#markup'],
+      outlook_openings_forecast: content.group_career_profile_tabs.group_labour_market_statistics.extra_field_job_openings_forecast.0['#markup'],
+      outlook_openings_forecast_growth_rate: content.group_career_profile_tabs.group_labour_market_statistics.extra_field_employment_growth_rate_forecast.0['#markup'],
+      outlook_openings_forecast_source: content.group_career_profile_tabs.group_labour_market_statistics.extra_field_job_openings_forecast_source.0['#markup'],
+      outlook_openings_composition: content.group_career_profile_tabs.group_labour_market_statistics.extra_field_job_openings_composition.0['#markup'],
+      outlook_openings_by_region: content.group_career_profile_tabs.group_labour_market_statistics.extra_field_job_openings_by_region.0['#markup'],
+      outlook_openings_by_region_source: content.group_career_profile_tabs.group_labour_market_statistics.extra_field_job_openings_by_region_source.0['#markup'],
+
     },
     industry_highlights: {
       title: 'Industry Highlights',
@@ -400,11 +419,74 @@
             <h2 class="introduction">{{ viewmodel['tab_sections']['labour_market']['title'] |t }}</h2>
             <div>{{ viewmodel['tab_sections']['labour_market']['description'] |raw }}</div>
 
-            <hr>
-            <hr>
-            {{ content.group_career_profile_tabs.group_labour_market_statistics }}
-            <hr>
-            <hr>
+
+            <h2>{{ viewmodel['tab_sections']['labour_market']['employment_title'] }}</h2>
+            <div>{{ viewmodel['tab_sections']['labour_market']['employment_introduction'] }}</div>
+            
+            <div class="card-profile">
+              <div class="card-profile__content">
+                <h3 class="card-profile__content-header">Employment</h3>
+                <span class="card-profile__content-value">{{ viewmodel['tab_sections']['labour_market']['employment_number'] |raw }}</span>
+              </div>
+              <div class="card-profile__source">
+                <em>Source:</em> {{ viewmodel['tab_sections']['labour_market']['employment_number_source']|raw }}
+              </div>
+            </div>
+
+            <div class="card-profile">
+              <div class="card-profile__content">
+                <h3 class="card-profile__content-header">Employment by Region</h3>
+                <span class="card-profile__content-item">{{ viewmodel['tab_sections']['labour_market']['employment_by_region']|raw }}</span>
+              </div>
+              <div class="card-profile__source">
+                <em>Source:</em> {{ viewmodel['tab_sections']['labour_market']['employment_by_region_source']|raw }}
+              </div>
+            </div>
+
+            <h2>{{ viewmodel['tab_sections']['labour_market']['outlook_title'] }}</h2>
+            <div>{{ viewmodel['tab_sections']['labour_market']['outlook_introduction']|raw }}</div>
+
+            <div class="card-profile">
+              <div class="card-profile__content">
+                <h3 class="card-profile__content-header">Expected Job Openings (2019 - 2029)</h3>
+                <span class="card-profile__content-value">{{ viewmodel['tab_sections']['labour_market']['outlook_openings_expected']|raw }}</span>
+              </div>
+              <div class="card-profile__source">
+                <em>Source:</em> {{ viewmodel['tab_sections']['labour_market']['outlook_openings_expected_source']|raw }}
+              </div>
+            </div>
+
+            <div class="card-profile">
+              <div class="card-profile__content-small">
+                <h3 class="card-profile__content-header">Forecasted Job Openings</h3>
+                <span class="card-profile__content-item">{{ viewmodel['tab_sections']['labour_market']['outlook_openings_forecast']|raw }}</span>
+              </div>
+
+              <div class="card-profile__content-small">
+                <h3 class="card-profile__content-header">Forecasted Employment Growth Rate</h3>
+                <span class="card-profile__content-item">{{ viewmodel['tab_sections']['labour_market']['outlook_openings_forecast_growth_rate']|raw }}</span>
+              </div>
+
+              <div class="card-profile__content">
+                <h3 class="card-profile__content-header">Composition of Job Openings</h3>
+                <span class="card-profile__content-item">{{ viewmodel['tab_sections']['labour_market']['outlook_openings_composition']|raw }}</span>
+              </div>
+
+              <div class="card-profile__source">
+                <em>Source:</em> {{ viewmodel['tab_sections']['labour_market']['outlook_openings_forecast_source']|raw }}
+              </div>
+            </div>
+
+            <div class="card-profile">
+              <div class="card-profile__content">
+                <h3 class="card-profile__content-header">Job Openings by Region (2019 - 2029)</h3>
+                <span class="card-profile__content-item">{{ viewmodel['tab_sections']['labour_market']['outlook_openings_by_region']|raw }}</span>
+              </div>
+              <div class="card-profile__source">
+                <em>Source:</em> {{ viewmodel['tab_sections']['labour_market']['outlook_openings_by_region_source']|raw }}
+              </div>
+            </div>
+
           </div>
 
           <div class="tab-pane" id="industry_highlights-content" role="tabpanel" aria-labelledby="industry_highlights-tab">
