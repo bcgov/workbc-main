@@ -41,10 +41,11 @@ $card-padding: 20px;
 }
 
 .card-profile__content-divider {
-  margin-top: $card-padding;
+  margin: $card-padding;
   border-bottom: 4px solid $workbc_palette_light_secondary;
 
   @include media-breakpoint-up(lg) {
+    margin-top: $card-padding;
     border-bottom: none;
     border-right: 4px solid $workbc_palette_light_secondary;
   }

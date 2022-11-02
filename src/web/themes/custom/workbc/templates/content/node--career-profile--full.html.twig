@@ -442,17 +442,15 @@
                 <h3 class="card-profile__content-header">Forecasted Job Openings</h3>
                 <span class="card-profile__content-item">{{ viewmodel['tab_sections']['labour_market']['outlook_openings_forecast']|raw }}</span>
               </div>
-
+              <div class="card-profile__content-divider"></div>
               <div class="card-profile__content-small">
                 <h3 class="card-profile__content-header">Forecasted Employment Growth Rate</h3>
                 <span class="card-profile__content-item">{{ viewmodel['tab_sections']['labour_market']['outlook_openings_forecast_growth_rate']|raw }}</span>
               </div>
-
               <div class="card-profile__content">
                 <h3 class="card-profile__content-header">Composition of Job Openings</h3>
                 <span class="card-profile__content-item">{{ viewmodel['tab_sections']['labour_market']['outlook_openings_composition']|raw }}</span>
               </div>
-
               <div class="card-profile__source">
                 <em>Source:</em> {{ viewmodel['tab_sections']['labour_market']['outlook_openings_forecast_source']|raw }}
               </div>
@@ -477,7 +475,7 @@
             <div class="card-profile">
               <div class="card-profile__content">
                 <h3 class="card-profile__content-header">Forecasted Job Openings by Industry</h3>
-                {{ viewmodel['tab_sections']['industry_highlights']['job_openings'] |raw }}
+                <span class="card-profile__content-item">{{ viewmodel['tab_sections']['industry_highlights']['job_openings'] |raw }}</span>
               </div>
               <div class="card-profile__content">
                 <div>For additional industry information, visit the <a href="/research-labour-market/bcs-industries-and-sectors/industry-profiles">Industry Profiles</a> page.</div>
