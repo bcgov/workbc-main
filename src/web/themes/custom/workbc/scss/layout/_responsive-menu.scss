@@ -73,7 +73,5 @@
 }
 
 .mm-wrapper--position-left .mm-slideout {
-  @include media-breakpoint-up(lg) {
-    transform: none;
-  }
+  transform: none;
 }

@@ -1,7 +1,7 @@
 .nav-user {
   display: none;
 
-  @include media-breakpoint-up(lg) {
+  @include media-breakpoint-up(xl) {
     display: flex;
   }
 }
@@ -10,7 +10,7 @@
   @include list-reset;
   @include list-flex-inline;
 
-  @include media-breakpoint-up(lg) {
+  @include media-breakpoint-up(xl) {
     margin-left: auto;
   }
 }

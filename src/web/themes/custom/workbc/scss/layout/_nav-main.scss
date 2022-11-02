@@ -190,7 +190,7 @@
 .nav-main {
   display: none;
 
-  @include media-breakpoint-up(lg) {
+  @include media-breakpoint-up(xl) {
     display: block;
     position: relative;
     transition: all 0.3s ease-out;
@@ -221,13 +221,15 @@
 
 // Fixed Nav
 .nav-fixed {
-  @include media-breakpoint-up(lg) {
+    padding-top: 180px;
+
+  @include media-breakpoint-up(xl) {
     padding-top: 36px;
   }
 }
 
 .nav-fixed .nav-main {
-  @include media-breakpoint-up(lg) {
+  @include media-breakpoint-up(xl) {
     position: fixed;
     z-index: 10;
     width: 100%;
@@ -239,45 +241,58 @@
 }
 
 .nav-fixed.page-has-alert {
-  @include media-breakpoint-up(lg) {
+  @include media-breakpoint-up(xl) {
     padding-top: 81px;
   }
 }
 
 // Drupal Admin Menu Offset
 .nav-fixed.toolbar-fixed .nav-main {
-  @include media-breakpoint-up(lg) {
+  @include media-breakpoint-up(xl) {
     top: 38px;
   }
 }
 
 .nav-fixed.toolbar-tray-open .nav-main {
-  @include media-breakpoint-up(lg) {
+  @include media-breakpoint-up(xl) {
     top: 79px;
   }
 }
 
 .nav-fixed.toolbar-fixed {
-  @include media-breakpoint-up(lg) {
+  @include media-breakpoint-up(xl) {
     padding-top: 79px;
   }
 }
 
-// Hides home link in Fixed Nav
+// logo in the nav
 .nav-fixed .nav-main .nav-t1 > .nav-item:first-child {
-  @include media-breakpoint-up(lg) {
-    display: none;
+  padding: 0;
+  border-bottom: none;
+  min-width: 170px;
+  height: auto;
+}
+
+.nav-fixed .nav-main .nav-t1 > .nav-item:first-child a {
+  @include media-breakpoint-up(xl) {
+    display: block;
+    height: 32px;
+    background-image: url(../logo.svg);
+    background-repeat: no-repeat;
+    background-size: 170px auto;
+    font-size: 0;
+    color: transparent;
   }
 }
 
 .nav-fixed .nav-main ul.nav-t1 > li > a {
-  @include media-breakpoint-up(lg) {
+  @include media-breakpoint-up(xl) {
     color: #234075;
   }
 }
 
 .nav-fixed .nav-main .submenu-container .submenu {
-  @include media-breakpoint-up(lg) {
+  @include media-breakpoint-up(xl) {
     box-shadow: 0px 8px 5px -5px rgba(0, 0, 0, 0.1) inset;
   }
 }
