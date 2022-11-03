@@ -27,7 +27,7 @@ class CareerProfileSalaryIntroduction extends ExtraFieldDisplayFormattedBase {
    */
   public function getLabel() {
 
-    return $this->t('Salary Introduction');
+    return $this->t('Salary');
   }
 
   /**

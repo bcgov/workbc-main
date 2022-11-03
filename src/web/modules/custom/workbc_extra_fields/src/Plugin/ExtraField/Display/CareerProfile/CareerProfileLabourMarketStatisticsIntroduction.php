@@ -27,7 +27,7 @@ class CareerProfileLabourMarketStatisticsIntroduction extends ExtraFieldDisplayF
    */
   public function getLabel() {
 
-    return $this->t('Labour Market Statistics Introduction');
+    return $this->t('Labour Market Statistics');
   }
 
   /**

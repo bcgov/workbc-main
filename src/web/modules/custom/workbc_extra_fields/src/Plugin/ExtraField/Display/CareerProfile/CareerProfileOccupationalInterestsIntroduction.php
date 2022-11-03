@@ -27,7 +27,7 @@ class CareerProfileOccupationalInterestsIntroduction extends ExtraFieldDisplayFo
    */
   public function getLabel() {
 
-    return $this->t('Occupational Interests Introduction');
+    return $this->t('Occupational Interests');
   }
 
   /**
