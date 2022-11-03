@@ -169,11 +169,10 @@ $settings['skip_permissions_hardening'] = TRUE;
  */
 $config['workbc']['ssot_url'] = 'http://ssot:3000';
 
-$config['jobboard']['jobboard_api_url'] = 'https://workbc-jb.b89n0c-dev.nimbus.cloud.gov.bc.ca';
-$config['jobboard']['jobboard_api_url2'] = 'https://workbc-jb.b89n0c-dev.nimbus.cloud.gov.bc.ca';
+$config['jobboard']['jobboard_api_url_frontend'] = 'https://dev-api-jobboard.workbc.ca';
+$config['jobboard']['jobboard_api_url_backend'] = 'https://workbc-jb.b89n0c-dev.nimbus.cloud.gov.bc.ca';
 $config['jobboard']['find_job_url'] = '/search-and-prepare-job/find-jobs';
 $config['jobboard']['find_job_account_url'] = '/account';
-
 $config['jobboard']['search_career_profile_link'] = '/jobs-careers/explore-careers';
 $config['jobboard']['labour_market_outlook'] = '/labour-market-industry/labour-market-outlook';
 $config['jobboard']['explore_industryand_sector_outlooks'] = '/labour-market-industry/industry-sector-outlooks';

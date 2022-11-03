@@ -91,6 +91,7 @@ module:
   published_corrected_date: 0
   rdf: 0
   recaptcha: 0
+  redirect: 0
   registration_link: 0
   responsive_menu: 0
   role_delegation: 0

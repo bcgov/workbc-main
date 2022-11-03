@@ -6,25 +6,25 @@ use GuzzleHttp\Client;
 use GuzzleHttp\Exception\RequestException;
 
 const GET_RECENT_POST = 'api/career-profiles/topjobs';
-  
+
 /**
  *{@inheritdoc}
  */
 class apiServices extends ControllerBase{
-  
+
 
   /**
    *{@inheritdoc}
-	 */	
+	 */
   function __construct() {
-    
+
   }
-  
+
   /**
    *{@inheritdoc}
-	 */	
+	 */
   function fnGetRecentPost($parameter='', $read_timeout=null) {
-    $jobboard_api_url = \Drupal::config('jobboard')->get('jobboard_api_url2').'/'.GET_RECENT_POST;
+    $jobboard_api_url = \Drupal::config('jobboard')->get('jobboard_api_url_backend').'/'.GET_RECENT_POST;
     if(!empty($parameter)){
       $jobboard_api_url .= "/".$parameter;
     }

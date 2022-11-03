@@ -51,13 +51,14 @@ INSTALLATION
 CONFIGURATION
 -------------
 API URL and links to all pages have to be set in settings.local.php & settings.aws.php. Since API URLs have to be different in different environments and Drupal page URLs can change in DB for different environments, these settings are set separately in both the file with the following configurations
-  1. $config['jobboard']['jobboard_api_url']
-  2. $config['jobboard']['find_job_url']
-  3. $config['jobboard']['find_job_account_url']
-  4. $config['jobboard']['search_career_profile_link']
-  5. $config['jobboard']['labour_market_outlook']
-  6. $config['jobboard']['explore_industryand_sector_outlooks']
-  7. $config['jobboard']['view_industry_profiles']
+  1. $config['jobboard']['jobboard_api_url_frontend']
+  2. $config['jobboard']['jobboard_api_url_backend']
+  3. $config['jobboard']['find_job_url']
+  4. $config['jobboard']['find_job_account_url']
+  5. $config['jobboard']['search_career_profile_link']
+  6. $config['jobboard']['labour_market_outlook']
+  7. $config['jobboard']['explore_industryand_sector_outlooks']
+  8. $config['jobboard']['view_industry_profiles']
 
 
 MAINTAINERS
