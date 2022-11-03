@@ -76,7 +76,7 @@
     node.isSticky() ? 'node--sticky',
     not node.isPublished() ? 'node--unpublished',
     view_mode ? 'node--view-mode-' ~ view_mode|clean_class,
-    'workbc-career-profile',
+    'workbc-profile',
   ]
 %}
 
@@ -219,16 +219,14 @@
 }
 %}
 
-{{ kint(content.group_career_profile_tabs.group_resources)}}
+<div class="profile-header">
 
-<div class="career-profile-header">
-
-  <div class="career-profile-header-breadcrumb">
+  <div class="profile-header-breadcrumb">
     {{ drupal_block('system_breadcrumb_block', wrapper=false) }}
   </div>
 
   {% if viewmodel['hero']['image'] or viewmodel['hero']['description'] %}
-    <div class="career-profile-header-banner hero-banner hero-banner-profile">
+    <div class="profile-header-banner hero-banner hero-banner-profile">
 
       <div class="hero-image-wrapper">
         <div class="hero-image-overlay"></div>
@@ -259,14 +257,14 @@
     </div>
   {% endif %}
 
-  <div class="career-profile-header-social container-lg">
+  <div class="profile-header-social container-lg">
     {{ drupal_block('social_sharing_buttons_block', wrapper=false) }}
   </div>
 </div>
 
 <article{{ attributes.addClass(classes) }}>
 
-  <div class="career-statistics-wrapper">
+  <div class="profile-statistics-wrapper">
     <div class="container-lg profile-information-card-deck">
 
       {% for statistic in viewmodel['top_statistics'] %}
@@ -295,13 +293,13 @@
     </div>
   </div>
 
-  <div class="career-details-wrapper">
-    <div class="career-content-tabs ">
+  <div class="profile-details-wrapper">
+    <div class="profile-content-tabs ">
       <div class="container-lg scroll-container">
-        <ul class="nav nav-tabs career-content-tab-list scroll" id="career-content-tabs" role="tablist">
+        <ul class="nav nav-tabs profile-content-tab-list scroll" id="profile-content-tabs" role="tablist">
           {% for key, tab in viewmodel['tab_sections'] %}
             <li class="nav-item" role="presentation">
-              <a class="nav-link career-content-tab-button{{ loop.first ? ' active'}}" id="{{key}}-tab" data-bs-toggle="tab" data-bs-target="#{{key}}-content" aria-controls="{{key}}-content" aria-selected="true" role="tab" href="#">{{tab['title']}}</a>
+              <a class="nav-link profile-content-tab-button{{ loop.first ? ' active'}}" id="{{key}}-tab" data-bs-toggle="tab" data-bs-target="#{{key}}-content" aria-controls="{{key}}-content" aria-selected="true" role="tab" href="#">{{tab['title']}}</a>
             </li>
           {% endfor %}
         </ul>
@@ -310,19 +308,19 @@
     </div>
 
     <div class="container-lg">
-      <div class="career-content-container">
-        <div class="tab-content career-content-main">
+      <div class="profile-content-container">
+        <div class="tab-content profile-content-main">
 
           <div class="tab-pane active" id="career_overview-content" role="tabpanel" aria-labelledby="career_overview-tab">
             <h2 class="introduction">{{ viewmodel['tab_sections']['career_overview']['title'] }}</h2>
             <div>{{ viewmodel['tab_sections']['career_overview']['description']|raw }}</div>
             
-            <div class="career-content-section">
+            <div class="profile-content-section">
               <h2>{{ viewmodel['tab_sections']['career_overview']['duties_title'] }}</h2>
               <div>{{ viewmodel['tab_sections']['career_overview']['duties_description']|raw }}</div>
             </div>
 
-            <div class="career-content-section">
+            <div class="profile-content-section">
               <h2>{{ viewmodel['tab_sections']['career_overview']['salary_title'] }}</h2>
               <div>{{ viewmodel['tab_sections']['career_overview']['salary_description']|raw }}</div>
 
@@ -342,7 +340,7 @@
               </div>
             </div>
 
-            <div class="career-content-section">
+            <div class="profile-content-section">
               <h2>{{ viewmodel['tab_sections']['career_overview']['work_environment_title'] }}</h2>
               <div class="card-profile">
                 <div class="card-profile__content-small">
@@ -361,17 +359,17 @@
               {{ viewmodel['tab_sections']['career_overview']['work_environment_description']|raw }}
             </div>
 
-            <div class="career-content-section">
+            <div class="profile-content-section">
               <h2>{{ viewmodel['tab_sections']['career_overview']['career_pathways_title'] }}</h2>
               {{ viewmodel['tab_sections']['career_overview']['career_pathways_description']|raw }}
             </div>
 
-            <div class="career-content-section">
+            <div class="profile-content-section">
               <h2>{{ viewmodel['tab_sections']['career_overview']['related_careers_title'] }}</h2>
               {{ viewmodel['tab_sections']['career_overview']['related_careers'] }}
             </div>
 
-            <div class="career-content-section">
+            <div class="profile-content-section">
               <h2>{{ viewmodel['tab_sections']['career_overview']['occupational_interests_title'] }}</h2>
               {{ viewmodel['tab_sections']['career_overview']['occupational_interests_intro']|raw }}
               <div class="card-occupational-interest-deck">
@@ -381,7 +379,7 @@
               </div>
             </div>
 
-            <div class="career-content-section">
+            <div class="profile-content-section">
               <h2>{{ ['tab_sections']['career_overview']['job_titles_title'] }}</h2>
 
               <ul class="career-content-job-titles">
@@ -397,7 +395,7 @@
             <h2 class="introduction">{{ viewmodel['tab_sections']['education']['title'] }}</h2>
             <div>{{ viewmodel['tab_sections']['education']['description']|raw }}</div>
 
-            <div class="career-content-section">
+            <div class="profile-content-section">
               <h2>{{ viewmodel['tab_sections']['education']['education_programs_title'] }}</h2>
               <div>{{ viewmodel['tab_sections']['education']['education_programs_introduction']|raw }}</div>
 
@@ -407,7 +405,7 @@
             </div>
 
 
-             <div class="career-content-section">
+             <div class="profile-content-section">
               <h2>{{ viewmodel['tab_sections']['education']['skills_title'] }}</h2>
               <div>{{ viewmodel['tab_sections']['education']['skills_introduction']|raw }}</div>
 
@@ -532,9 +530,9 @@
 
         </div>
 
-        <div class="career-content-sidebar">
+        <div class="profile-content-sidebar">
 
-          <div class="career-videos-wrapper">
+          <div class="profile-videos-wrapper">
             <div class="container-lg">
               <h2>{{ viewmodel['career_videos']['introduction'] }}</h2>
               {{ viewmodel['career_videos']['content'] }}
