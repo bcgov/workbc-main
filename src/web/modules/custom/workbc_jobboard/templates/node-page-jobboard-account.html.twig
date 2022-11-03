@@ -119,7 +119,7 @@
 
   <div class="page-content">
     {% if hero_image is empty and hero_text is empty %}
-      
+
     {% endif %}
 
     {% if drupal_region('content_top') %}
@@ -130,16 +130,16 @@
       {{ page_body }}
     {% endif %}
     <div class="layout-container">
-      <link rel="stylesheet" href="{{jobboard_api_url}}/bootstrap/bootstrap.min.css?v=Release-1980">
-      <link rel="stylesheet" href="{{jobboard_api_url}}/dist/jb-account/styles.css?v=Release-1980">
-      <app-root api="{{jobboard_api_url}}/" jbsearch="{{find_job_url}}" jbaccount="{{find_job_account_url}}" _nghost-ngr-c118="" ng-version="12.2.16" _ngcontent-otq-c106></app-root>
-      <script src="{{jobboard_api_url}}/dist/jb-account/runtime-es2017.js?v=Release-1980" type="module"></script>
-      <script src="{{jobboard_api_url}}/dist/jb-account/runtime-es5.js?v=Release-1980" nomodule="" defer=""></script>
-      <script src="{{jobboard_api_url}}/dist/jb-account/polyfills-es2017.js?v=Release-1980" type="module"></script>
-      <script src="{{jobboard_api_url}}/dist/jb-account/polyfills-es5.js?v=Release-1980" nomodule="" defer=""></script>
-      <script src="{{jobboard_api_url}}/dist/jb-account/main-es2017.js?v=Release-1980" type="module"></script>
-      <script src="{{jobboard_api_url}}/dist/jb-account/main-es5.js?v=Release-1980" nomodule="" defer=""></script>
-        
+      <link rel="stylesheet" href="{{jobboard_api_url_frontend}}/bootstrap/bootstrap.min.css?v=Release-1980">
+      <link rel="stylesheet" href="{{jobboard_api_url_frontend}}/dist/jb-account/styles.css?v=Release-1980">
+      <app-root api="{{jobboard_api_url_frontend}}/" jbsearch="{{find_job_url}}" jbaccount="{{find_job_account_url}}" _nghost-ngr-c118="" ng-version="12.2.16" _ngcontent-otq-c106></app-root>
+      <script src="{{jobboard_api_url_frontend}}/dist/jb-account/runtime-es2017.js?v=Release-1980" type="module"></script>
+      <script src="{{jobboard_api_url_frontend}}/dist/jb-account/runtime-es5.js?v=Release-1980" nomodule="" defer=""></script>
+      <script src="{{jobboard_api_url_frontend}}/dist/jb-account/polyfills-es2017.js?v=Release-1980" type="module"></script>
+      <script src="{{jobboard_api_url_frontend}}/dist/jb-account/polyfills-es5.js?v=Release-1980" nomodule="" defer=""></script>
+      <script src="{{jobboard_api_url_frontend}}/dist/jb-account/main-es2017.js?v=Release-1980" type="module"></script>
+      <script src="{{jobboard_api_url_frontend}}/dist/jb-account/main-es5.js?v=Release-1980" nomodule="" defer=""></script>
+
       <script>
         var LabourMarketOutlook = '{{labour_market_outlook}}';
         var searchCareerProfileLink = '{{search_career_profile_link}}';
