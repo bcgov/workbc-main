@@ -178,8 +178,8 @@
       employment_by_region_markup: content.group_career_profile_tabs.group_labour_market_statistics.extra_field_labour_market_region_employment.0['#markup'],
       employment_by_region_source: content.group_career_profile_tabs.group_labour_market_statistics.extra_field_labour_market_region_employment_source.0['#markup'],
 
-      outlook_title: content.group_career_profile_tabs.group_labour_market_statistics.extra_field_labour_market_introduction['#title'],
-      outlook_introduction: content.group_career_profile_tabs.group_labour_market_statistics.extra_field_labour_market_introduction.0['#text'],
+      outlook_introduction_title: content.group_career_profile_tabs.group_labour_market_statistics.extra_field_labour_market_introduction['#title'],
+      outlook_introduction_markup: content.group_career_profile_tabs.group_labour_market_statistics.extra_field_labour_market_introduction.0['#text'],
 
       outlook_openings_expected_title: content.group_career_profile_tabs.group_labour_market_statistics.extra_field_labour_market_expected_openings['#title'],
       outlook_openings_expected_markup: content.group_career_profile_tabs.group_labour_market_statistics.extra_field_labour_market_expected_openings.0['#markup'],
@@ -431,7 +431,7 @@
 
 
             <h2>{{ viewmodel['tab_sections']['labour_market']['employment_title'] }}</h2>
-            <div>{{ viewmodel['tab_sections']['labour_market']['employment_introduction'] }}</div>
+            <div>{{ viewmodel['tab_sections']['labour_market']['employment_introduction']|raw }}</div>
             
             <div class="card-profile">
               <div class="card-profile__content">
@@ -453,8 +453,8 @@
               </div>
             </div>
 
-            <h2>{{ viewmodel['tab_sections']['labour_market']['outlook_title'] }}</h2>
-            <div>{{ viewmodel['tab_sections']['labour_market']['outlook_introduction']|raw }}</div>
+            <h2>{{ viewmodel['tab_sections']['labour_market']['outlook_introduction_title'] }}</h2>
+            <div>{{ viewmodel['tab_sections']['labour_market']['outlook_introduction_markup']|raw }}</div>
 
             <div class="card-profile">
               <div class="card-profile__content">
