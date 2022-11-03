@@ -27,7 +27,7 @@ class CareerProfileIndustryHighlightsIntroduction extends ExtraFieldDisplayForma
    */
   public function getLabel() {
 
-    return $this->t('Industry Highlights Introduction');
+    return $this->t('Industry Highlights');
   }
 
   /**

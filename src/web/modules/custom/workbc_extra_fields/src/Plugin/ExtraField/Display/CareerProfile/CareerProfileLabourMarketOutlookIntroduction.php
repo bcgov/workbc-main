@@ -27,7 +27,7 @@ class CareerProfileLabourMarketOutlookIntroduction extends ExtraFieldDisplayForm
    */
   public function getLabel() {
 
-    return $this->t('Labour Market Outlook Introduction');
+    return $this->t('Labour Market Outlook');
   }
 
   /**

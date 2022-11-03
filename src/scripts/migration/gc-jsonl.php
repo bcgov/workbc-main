@@ -3,7 +3,7 @@
 /**
  * Generate JSONL from GatherContent items.
  *
- * Usage: drush scr /scripts/migration/gc-jsonl -- [--status "Status name"] [--item itemId] projectId
+ * Usage: drush scr scripts/migration/gc-jsonl -- [--status "Status name"] [--item itemId] projectId
  */
 
 $email = getenv('GATHERCONTENT_EMAIL');

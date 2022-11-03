@@ -1,12 +1,30 @@
 .header {
   position: relative;
-  z-index: 1;
   background-color: #fff;
   box-shadow: 0 4px 7px rgba(0, 0, 0, 0.1);
+  transition: all 1.3s ease-out;
 
-  @include media-breakpoint-up(lg) {
+  @include media-breakpoint-up(xl) {
     box-shadow: none;
   }
+}
+
+.nav-fixed .header {
+  @include media-breakpoint-down(xl) {
+    position: fixed;
+    top: 0;
+    left:0;
+    width: 100%;
+    z-index: 2;
+  }
+}
+
+.nav-fixed.toolbar-fixed .header {
+  top: 38px;
+}
+
+.nav-fixed.toolbar-tray-open .header {
+  top: 79px;
 }
 
 .header__container {
@@ -14,14 +32,14 @@
   padding-top: 20px;
   padding-bottom: 30px;
 
-  @include media-breakpoint-up(lg) {
+  @include media-breakpoint-up(xl) {
     padding-top: 10px;
     padding-bottom: 30px;
   }
 }
 
 .header__logo-search-container {
-  @include media-breakpoint-up(lg) {
+  @include media-breakpoint-up(xl) {
     display: flex;
   }
 }
@@ -30,7 +48,7 @@
   display: block;
   width: 170px;
 
-  @include media-breakpoint-up(lg) {
+  @include media-breakpoint-up(xl) {
     width: 260px;
     align-self: end;
   }
@@ -44,11 +62,15 @@
 .header__search {
   margin-top: 20px;
 
-  @include media-breakpoint-up(lg) {
+  @include media-breakpoint-up(xl) {
     margin-left: auto;
     align-self: end;
     min-width: 500px;
   }
+}
+
+.nav-fixed .header__search {
+  display: none;
 }
 
 .header__menu-toggle {
@@ -57,7 +79,7 @@
   top: 20px;
   right: 6px;
 
-  @include media-breakpoint-up(lg) {
+  @include media-breakpoint-up(xl) {
     display: none;
   }
 }

@@ -14,7 +14,7 @@ use Drupal\paragraphs\Entity\Paragraph;
  * - drush scr scripts/migration/gc-jsonl -- -i 14989150 332842 > scripts/migration/data/labour_market_introductions.jsonl
 
  * Usage:
- * - drush scr scripts/migration/workbc
+ * - drush scr scripts/migration/workbc [--item itemId]
  *
  * Revert:
  * - drush entity:delete node --bundle=blog

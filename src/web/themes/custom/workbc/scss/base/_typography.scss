@@ -9,11 +9,11 @@ p {
   margin: 0;
 }
 
-.region-content p {
+.node p {
   margin-bottom: $workbc_spacing_default;
 }
 
-.field--name-body h2 {
+.node .field--name-body h2 {
   font-size: 2.25rem;
   font-weight: 700;
   margin-bottom: 30px;
