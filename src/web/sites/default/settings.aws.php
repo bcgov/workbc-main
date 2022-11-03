@@ -23,7 +23,7 @@ $config['system.mail']['interface']['webform'] = 'ses_mail';
 $config['workbc']['ssot_url'] = getenv('SSOT_URL');
 
 $config['jobboard']['jobboard_api_url_frontend'] = getenv('JOBBOARD_API_URL');
-// TODO Replace this with getenv('JOBBOARD_API_URL_INTERNAL')
+// TODO Replace this with getenv('JOBBOARD_API_URL_INTERNAL') when it is available
 $config['jobboard']['jobboard_api_url_backend'] = 'https://workbc-jb.b89n0c-dev.nimbus.cloud.gov.bc.ca';
 $config['jobboard']['find_job_url'] = '/search-and-prepare-job/find-jobs';
 $config['jobboard']['find_job_account_url'] = '/account';
