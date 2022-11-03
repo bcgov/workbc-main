@@ -4,7 +4,7 @@
  * @file
  *  Work BC Job Board module
  */
-function workbc_jobboard_page_attachments_alter(array &$attachments) {  
+function workbc_jobboard_page_attachments_alter(array &$attachments) {
 	$attachments['#attached']['library'][] = 'workbc_jobboard/workbc-jobboard';
 }
 
@@ -21,8 +21,8 @@ function workbc_jobboard_theme($existing, $type, $theme, $path) {
         'no_of_records' => '',
         'no_result_text' => '',
         'readmore_label' => '',
-        'jobboard_api_url' => '',
-        'jobboard_api_url2' => '',
+        'jobboard_api_url_frontend' => '',
+        'jobboard_api_url_backend' => '',
         'noc' => '',
         'find_job_url'=>'',
       ],
@@ -31,7 +31,7 @@ function workbc_jobboard_theme($existing, $type, $theme, $path) {
       'template' => 'node-page-jobboard-findjobs',
       'base hook' => 'node',
       'variables' => [
-        'jobboard_api_url'=>'',
+        'jobboard_api_url_frontend'=>'',
         'find_job_url'=>'',
         'find_job_account_url'=>'',
       ],
@@ -40,7 +40,7 @@ function workbc_jobboard_theme($existing, $type, $theme, $path) {
       'template' => 'node-page-jobboard-account',
       'base hook' => 'node',
       'variables' => [
-        'jobboard_api_url'=>'',
+        'jobboard_api_url_frontend'=>'',
         'find_job_url'=>'',
         'find_job_account_url'=>'',
         'search_career_profile_link'=>'',
@@ -60,10 +60,10 @@ function workbc_jobboard_theme_suggestions_node_alter(array &$suggestions, array
     $current_path = \Drupal::service('path_alias.manager')->getAliasByPath('/node/'.$nid);
     $find_job_url = \Drupal::config('jobboard')->get('find_job_url');
     $find_job_account_url = \Drupal::config('jobboard')->get('find_job_account_url');
-    
+
     if($current_path == $find_job_url){
       $suggestions[] = 'node__' . $node->bundle().'_'.$variables['elements']['#view_mode'].'_findjobs';
-    } 
+    }
     else if($current_path == $find_job_account_url){
       $suggestions[] = 'node__' . $node->bundle().'_'.$variables['elements']['#view_mode'].'_account';
     }
@@ -77,8 +77,8 @@ function workbc_jobboard_preprocess_node(&$variables) {
   if($variables['view_mode'] === "jobboard"){
     $nid = $variables['node']->id();
     $current_path = \Drupal::service('path_alias.manager')->getAliasByPath('/node/'.$nid);
-    $variables['jobboard_api_url'] = \Drupal::config('jobboard')->get('jobboard_api_url');
-    $variables['jobboard_api_url2'] = \Drupal::config('jobboard')->get('jobboard_api_url2');
+    $variables['jobboard_api_url_frontend'] = \Drupal::config('jobboard')->get('jobboard_api_url_frontend');
+    $variables['jobboard_api_url_backend'] = \Drupal::config('jobboard')->get('jobboard_api_url_backend');
     $variables['find_job_url'] = \Drupal::config('jobboard')->get('find_job_url');
     $variables['find_job_account_url'] = \Drupal::config('jobboard')->get('find_job_account_url');
     $variables['#cache']['max-age'] = 0;
@@ -86,7 +86,7 @@ function workbc_jobboard_preprocess_node(&$variables) {
       $variables['elements']['#theme'] = 'node__page_jobboard_findjobs';
     }
     else if($current_path == $variables['find_job_account_url']){
-      $variables['elements']['#theme'] = 'node__page_jobboard_account';      
+      $variables['elements']['#theme'] = 'node__page_jobboard_account';
       $variables['search_career_profile_link'] = \Drupal::config('jobboard')->get('search_career_profile_link');
       $variables['labour_market_outlook'] = \Drupal::config('jobboard')->get('labour_market_outlook');
       $variables['explore_industryand_sector_outlooks'] = \Drupal::config('jobboard')->get('explore_industryand_sector_outlooks');
