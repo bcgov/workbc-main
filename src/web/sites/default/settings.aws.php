@@ -22,8 +22,8 @@ $config['system.mail']['interface']['webform'] = 'ses_mail';
 // Single Source of Truth (SSoT) configuration.
 $config['workbc']['ssot_url'] = getenv('SSOT_URL');
 
-$config['jobboard']['jobboard_api_url'] = 'https://test-api-jobboard.workbc.ca';
-$config['jobboard']['jobboard_api_url2'] = 'https://api-jobboard.workbc.ca';
+$config['jobboard']['jobboard_api_url'] = 'https://workbc-jb.b89n0c-dev.nimbus.cloud.gov.bc.ca';
+$config['jobboard']['jobboard_api_url2'] = 'https://workbc-jb.b89n0c-dev.nimbus.cloud.gov.bc.ca';
 $config['jobboard']['find_job_url'] = '/search-and-prepare-job/find-jobs';
 $config['jobboard']['find_job_account_url'] = '/account';
 
