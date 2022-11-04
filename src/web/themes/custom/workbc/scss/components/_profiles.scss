@@ -197,6 +197,10 @@
                 &:not(.introduction) {
                     @include gradient-underline;
                     padding-bottom: 15px;
+
+                    @include media-breakpoint-up(lg) {
+                        font-size: 1.875rem;
+                    }
                 }
             }
 
