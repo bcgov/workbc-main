@@ -84,6 +84,12 @@
  refer only to this viewmodel (or Drupal/Twig generics like loop, directory, etc #}
 {% set viewmodel = {
   title: label,
+  hero: {
+    image: content.field_hero_image[0],
+    title: label,
+    subtitle: 'Industry Profile',
+    description: null,
+  },
   top_statistics: {
     employment: {
       icon_class: 'profile-information-employment',
@@ -104,16 +110,23 @@
       source: content.extra_field_industry_job_openings_source.0['#markup']
     },
   },
-  hero: {
-    image: content.field_hero_image[0],
-    title: label,
-    subtitle: 'Industry Profile',
-    description: null,
-  },
   tab_sections: {
     industry_overview: {
-      title: content.group_industry_profile.group_industry_overview['#title'],
-      description: content.group_industry_profile.group_industry_overview.0['#text'],
+      title: content.group_industry_profile.group_industry_overview.field_industry_overview['#title'],
+      description: content.group_industry_profile.group_industry_overview.field_industry_overview.0['#text'],
+
+      key_facts_title: content.group_industry_profile.group_industry_overview.field_key_facts['#title'],
+      key_facts_markup: content.group_industry_profile.group_industry_overview.field_key_facts.0['#text'],
+
+      wage_title: content.group_industry_profile.group_industry_overview.extra_field_hourly_earnings_introduction['#title'],
+      wage_markup: content.group_industry_profile.group_industry_overview.extra_field_hourly_earnings_introduction.0['#text'],
+      wage_average_bc_title: content.group_industry_profile.group_industry_overview.extra_field_industry_average_wage_bc['#title'],
+      wage_average_bc_markup: content.group_industry_profile.group_industry_overview.extra_field_industry_average_wage_bc.0['#markup'],
+      wage_average_national_title: content.group_industry_profile.group_industry_overview.extra_field_industry_wage['#title'],
+      wage_average_national_markup: content.group_industry_profile.group_industry_overview.extra_field_industry_wage.0['#markup'],
+      wage_source: content.group_industry_profile.group_industry_overview.extra_field_industry_wage_source.0['#markup'],
+
+
     },
     labour_market_statistics: {
       title: content.group_industry_profile.group_labour_market_statistics['#title'],
@@ -165,8 +178,6 @@
   </div>
 </div>
 
-{{ kint(content)}}
-
 <article{{ attributes.addClass(classes) }}>
 
   <div class="profile-statistics-wrapper">
@@ -198,6 +209,8 @@
     </div>
   </div>
 
+{{ kint(content.group_industry_profile.group_industry_overview)}}
+
   <div class="profile-details-wrapper">
     <div class="profile-content-tabs ">
       <div class="container-lg scroll-container">
@@ -221,8 +234,28 @@
             <div>{{ viewmodel['tab_sections']['industry_overview']['description']|raw }}</div>
             
             <div class="profile-content-section">
-              <h2>{{ viewmodel['tab_sections']['industry_overview']['duties_title'] }}</h2>
-              <div>{{ viewmodel['tab_sections']['industry_overview']['duties_description']|raw }}</div>
+              <h2>{{ viewmodel['tab_sections']['industry_overview']['key_facts_title'] }}</h2>
+              <div>{{ viewmodel['tab_sections']['industry_overview']['key_facts_markup']|raw }}</div>
+            </div>
+
+            <div class="profile-content-section">
+              <h2>{{ viewmodel['tab_sections']['industry_overview']['wage_title'] }}</h2>
+              <div>{{ viewmodel['tab_sections']['industry_overview']['wage_markup']|raw }}</div>
+
+              <div class="card-profile">
+                <div class="card-profile__content-small">
+                  <h3 class="card-profile__content-header">{{ viewmodel['tab_sections']['industry_overview']['wage_average_bc_title'] }}</h3>
+                  <span class="card-profile__content-item">{{ viewmodel['tab_sections']['industry_overview']['wage_average_bc_markup']|raw }}</span>
+                </div>
+                <div class="card-profile__content-divider"></div>
+                <div class="card-profile__content-small">
+                  <h3 class="card-profile__content-header">{{ viewmodel['tab_sections']['industry_overview']['wage_average_national_title'] }}</h3>
+                  <span class="card-profile__content-item">{{ viewmodel['tab_sections']['industry_overview']['wage_average_national_markup']|raw }}</span>
+                </div>
+                <div class="card-profile__source">
+                  <em>Source:</em> {{ viewmodel['tab_sections']['industry_overview']['wage_source']|raw }}
+                </div>
+              </div>
             </div>
 
           </div>
