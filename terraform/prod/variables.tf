@@ -84,6 +84,7 @@ variable "fargate_memory" {
 #variable "budget_tag" {
 #  description = "The Cost Allocation Tag that will be used to build the monthly budget. "
 #  default     = "Project=Startup Sample"
+#  test the new workflows
 #}
 
 variable "common_tags" {

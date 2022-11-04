@@ -111,6 +111,10 @@ resource "aws_ecs_task_definition" "app" {
 				value = "${local.jb_api_url}"
 			},
 			{
+				name = "JOBBOARD_API_INTERNAL_URL",
+				value = "${local.jb_api_internal_url}"
+			},
+			{
 				name = "PROJECT_ENVIRONMENT",
 				value = "aws-dev"
 			}
