@@ -60,6 +60,7 @@ const LEGACY_URL = 11;
 const URL = 12;
 const PAGE_FORMAT = 13;
 const CONTENT_GROUP = 14;
+const VIEW_MODE = 15;
 
 // FIRST PASS: Create all the nodes.
 print("FIRST PASS =================" . PHP_EOL);
@@ -118,10 +119,17 @@ while (($row = fgetcsv($data)) !== FALSE) {
             'alias' => $row[URL],
             'pathauto' => PathautoState::SKIP,
         ] : [
-            'pathauto' => PathautoState::CREATE,
+            'pathauto' => PathautoState::SKIP,
         ],
         'moderation_state' => 'published',
     ];
+
+    // View mode.
+    if (!empty($row[VIEW_MODE])) {
+        $fields['view_mode_selection'][] = [
+            'target_id' => 'node.' . $row[VIEW_MODE],
+        ];
+    }
 
     // Legacy URL.
     if (stripos($row[LEGACY_URL], 'https://www.workbc.ca', 0) === 0) {
@@ -217,7 +225,6 @@ function createMenuEntry($path, $page, &$pages, $menu_name) {
 
     // Find the parent menu item under which this one will be placed.
     // This is not necessarily the immediate parent in the IA tree - it can be an ancestor.
-    $menu_link_storage = \Drupal::entityTypeManager()->getStorage('menu_link_content');
     $menu_item_parent = NULL;
     $parent_path = array_slice($page['path'], 0, -1);
     while (!empty($parent_path)) {
@@ -255,7 +262,9 @@ function createMenuEntry($path, $page, &$pages, $menu_name) {
     else {
         $link = ['uri' => "internal:{$page['uri']}"];
     }
-    $menu_link = $menu_link_storage->create([
+    $menu_link = \Drupal::entityTypeManager()
+    ->getStorage('menu_link_content')
+    ->create([
         'title' => $title,
         'link' => $link,
         'menu_name' => $menu_name,
@@ -267,6 +276,13 @@ function createMenuEntry($path, $page, &$pages, $menu_name) {
     $menu_link->save();
     $pages[$path]['menu_item'] = $menu_link->getPluginId();
     print("  Menu for \"$title\": {$pages[$path]['menu_item']}" . PHP_EOL);
+
+    // Update the node path (which may be based on the menu path).
+    if (!empty($page['nid']) && empty($page['uri'])) {
+        $node = \Drupal::entityTypeManager()->getStorage('node')->load($page['nid']);
+        $node->path->pathauto = PathautoState::CREATE;
+        $node->save();
+    }
 }
 
 // Delete existing main menu items and process new items.
