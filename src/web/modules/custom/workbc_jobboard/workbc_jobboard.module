@@ -55,7 +55,7 @@ function workbc_jobboard_theme($existing, $type, $theme, $path) {
 */
 function workbc_jobboard_theme_suggestions_node_alter(array &$suggestions, array $variables){
 	if(isset($variables['elements']['#view_mode']) && $variables['elements']['#view_mode'] === "jobboard"){
-    $node = \Drupal::routeMatch()->getParameter('node');
+    $node = $variables['elements']['#node'];
     $nid = $node->id();
     $current_path = \Drupal::service('path_alias.manager')->getAliasByPath('/node/'.$nid);
     $find_job_url = \Drupal::config('jobboard')->get('find_job_url');

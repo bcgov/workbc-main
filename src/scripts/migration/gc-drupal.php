@@ -228,17 +228,17 @@ function convertPDFLinks($text) {
 function convertLink($text, $url, &$items) {
   $internal = convertGatherContentLinks($url, $items);
   if (!empty($internal)) {
-    $target = Url::fromRoute('entity.node.canonical', ['node' => current($internal)['target_id']]);
+    $target = "internal:/node/" . current($internal)['target_id'];
   }
   else if (str_starts_with($url, '/')) {
-    $target = Url::fromUri("internal:$url");
+    $target = "internal:$url";
   }
   else {
-    $target = Url::fromUri($url);
+    $target = $url;
   }
   return [
     'title' => $text,
-    'uri' => $target->toUriString()
+    'uri' => $target,
   ];
 }
 

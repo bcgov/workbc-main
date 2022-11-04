@@ -78,11 +78,13 @@ variable "fargate_memory" {
 #variable "budget_amount" {
 #  description = "The amount of spend for the budget. Example: enter 100 to represent $100"
 #  default     = "100.0"
+#  test workflow test-ci
 #}
 
 #variable "budget_tag" {
 #  description = "The Cost Allocation Tag that will be used to build the monthly budget. "
 #  default     = "Project=Startup Sample"
+#  test the new workflows
 #}
 
 variable "common_tags" {
