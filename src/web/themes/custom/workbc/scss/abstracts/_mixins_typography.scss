@@ -1,0 +1,30 @@
+@mixin text-footnote {
+  font-size: 0.9375rem;
+  line-height: 1.5rem;
+  color: #8A8D8B;
+}
+
+@mixin text-article-date {
+  font-size: 0.9375rem;
+  line-height: 1.5rem;
+  color: #8A8D8B;
+}
+
+@mixin gradient-underline {
+  $underline-size: 4px;
+
+  position: relative; // begin positional context %underlineheader
+  color: #333333;
+  border-bottom: $underline-size;
+  padding-bottom: $underline-size;
+
+  &:after {
+    content: '';
+    height: 4px;
+    position: absolute; // relative to positional context %underlineheader
+    left: 0px;
+    bottom: 0px;
+    right: 0px;
+    background-image: linear-gradient(to right, #D8E5F1 25%, #FFFFFF 100%);
+  }
+}

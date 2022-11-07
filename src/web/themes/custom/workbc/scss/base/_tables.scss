@@ -40,7 +40,7 @@ tbody {
       border-bottom: none;
 
       &:not(:last-of-type) {
-        border-right: 2px solid $workbc_palette_light_tertiary;
+        border-right: 2px solid #d7d7d7;
       }
     }
   }

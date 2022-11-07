@@ -56,10 +56,10 @@ class LabourMarketEmployment extends ExtraFieldDisplayFormattedBase {
 
     //output
     $output = '
-    <div class="LME--total-employed">
-    <span class="LME--total-employed-label">'.$this->t("Total Employed (@currentmonthyear)", ["@currentmonthyear" => $current_previous_months['current_month_year']]).'</span>
-    <span class="LME--total-employed-value blue">'.$total_employment.'</span>
-    <span class="LME--total-employed-bottom-source"><strong>'.$this->t("Source: ").'</strong>'.$source_text.'</span>
+    <div class="lm-total-employed">
+    <div class="lm-label text-center"><strong>'.$this->t("Total Employed (@currentmonthyear)", ["@currentmonthyear" => $current_previous_months['current_month_year']]).'</strong></div>
+    <div class="lm-data-value text-center">'.$total_employment.'</div>
+    <div class="lm-source"><strong>'.$this->t("Source: ").'</strong>'.$source_text.'</div>
     </div>';
 
     return [
