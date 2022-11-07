@@ -6,12 +6,7 @@ use Drupal\pathauto\PathautoState;
 /**
  * Generate nodes for all content types in the WorkBC IA.
  *
- * Usage:
- * - drush scr scripts/migration/ia
- *
- * Revert:
- * - drush entity:delete node --bundle=page
- * - drush entity:delete node --bundle=labour_market_monthly
+ * Usage: drush scr scripts/migration/ia
  */
 
 $file = __DIR__ . '/data/ia.csv';

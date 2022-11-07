@@ -7,13 +7,8 @@ use Drupal\paragraphs\Entity\Paragraph;
 /**
  * Update nodes for GatherContent WorkBC items.
  *
- * Usage:
- * - drush scr scripts/migration/workbc [--item itemId]
+ * Usage: drush scr scripts/migration/workbc [--item itemId]
  *
- * Revert:
- * - drush entity:delete node --bundle=blog
- * - drush entity:delete node --bundle=news
- * - drush entity:delete node --bundle=success_story
  */
 
 // Accept an option to import a single item given its id

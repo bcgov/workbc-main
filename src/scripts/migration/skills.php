@@ -6,7 +6,6 @@
  *
  * Usage: drush scr scripts/migration/skills
  *
- * Revert: drush entity:delete taxonomy_term --bundle=skills
  */
 
 use GuzzleHttp\Client;

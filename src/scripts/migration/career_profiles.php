@@ -11,14 +11,8 @@ use GuzzleHttp\Exception\RequestException;
  * - SSoT /wages (WorkBC_2021_Wage_Data)
  * - GC WorkBC Career Profiles (scripts/migration/data/career_profiles.jsonl)
  *
- * Usage:
- * - drush scr scripts/migration/gc-jsonl -- -s "Content Revisions" -s "Manager Review" -s "Director Review" -s "ED Review" -s "GCPE Review" -s "Published" 290255 > scripts/migration/data/career_profiles.jsonl
- * - drush scr scripts/migration/gc-jsonl -- -i 14878299 332842 > scripts/migration/data/career_profile_introductions.jsonl
- * - drush scr scripts/migration/career_profiles
+ * Usage: drush scr scripts/migration/career_profiles
  *
- * Revert:
- * - drush entity:delete node --bundle=career_profile
- * - drush entity:delete node --bundle=career_profile_introductions
  */
 
 // Read and migrate GatherContent career profile introduction if present.
