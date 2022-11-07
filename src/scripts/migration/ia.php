@@ -6,9 +6,6 @@ use Drupal\pathauto\PathautoState;
 /**
  * Generate nodes for all content types in the WorkBC IA.
  *
- * Prerequisites:
- * - drush scr scripts/migration/taxonomy -- -v content_groups /var/www/html/scripts/migration/data/content_groups.csv
- *
  * Usage:
  * - drush scr scripts/migration/ia
  *

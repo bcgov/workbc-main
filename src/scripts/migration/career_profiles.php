@@ -24,26 +24,19 @@ use GuzzleHttp\Exception\RequestException;
 // Read and migrate GatherContent career profile introduction if present.
 $career_profile_introductions = NULL;
 if (file_exists(__DIR__ . '/data/career_profile_introductions.jsonl')) {
-  print("Reading GC Career Profile Introductions\n");
-  $career_profile_introductions = json_decode(file_get_contents(__DIR__ . '/data/career_profile_introductions.jsonl'));
-
-  $fields = [
+  print("Reading GC Career Profile Introductions" . PHP_EOL);
+  $item = json_decode(file_get_contents(__DIR__ . '/data/career_profile_introductions.jsonl'));
+  $career_profile_introductions = createNode([
     'type' => 'career_profile_introductions',
-    'title' => $career_profile_introductions->title,
-    'uid' => 1,
-    'field_employment_introduction' => convertRichText($career_profile_introductions->{'Employment Introduction'}),
-    'field_industry_highlights_intro' => convertRichText($career_profile_introductions->{'Industry Highlights Introduction'}),
-    'field_labour_market_introduction' => convertRichText($career_profile_introductions->{'Labour Market Outlook Introduction'}),
-    'field_labour_market_statistics_i' => convertRichText($career_profile_introductions->{'Labour Market Statistics Introduction'}),
-    'field_occupational_interests_int' => convertRichText($career_profile_introductions->{'Occupational Interests Introduction'}),
-    'field_salary_introduction' => convertRichText($career_profile_introductions->{'Salary Introduction'}),
-    'field_skills_introduction' => convertRichText($career_profile_introductions->{'Skills Introduction'}),
-  ];
-  $node = Drupal::entityTypeManager()
-    ->getStorage('node')
-    ->create($fields);
-  $node->save();
-  $career_profile_introductions->nid = $node->id();
+    'title' => convertPlainText($item->title),
+    'field_employment_introduction' => convertRichText($item->{'Employment Introduction'}),
+    'field_industry_highlights_intro' => convertRichText($item->{'Industry Highlights Introduction'}),
+    'field_labour_market_introduction' => convertRichText($item->{'Labour Market Outlook Introduction'}),
+    'field_labour_market_statistics_i' => convertRichText($item->{'Labour Market Statistics Introduction'}),
+    'field_occupational_interests_int' => convertRichText($item->{'Occupational Interests Introduction'}),
+    'field_salary_introduction' => convertRichText($item->{'Salary Introduction'}),
+    'field_skills_introduction' => convertRichText($item->{'Skills Introduction'}),
+  ]);
 }
 
 // Read GatherContent career profiles if present.
@@ -81,16 +74,14 @@ try {
     print("Creating {$fields['title']}\n");
 
     // Check GC import for introductory blurbs.
-    if (!empty($career_profile_introductions?->nid)) {
+    if (!empty($career_profile_introductions)) {
       $fields = array_merge($fields, [
-        'field_introductions' => ['target_id' => $career_profile_introductions->nid],
+        'field_introductions' => ['target_id' => $career_profile_introductions->id()],
       ]);
     }
 
     // Check GC import for this career profile.
     if (array_key_exists($profile['noc'], $career_profiles)) {
-      print("  Found a GatherContent record for this profile\n");
-
       $career_profile = $career_profiles[$profile['noc']];
       $fields = array_merge($fields, [
         'field_career_overview' => convertRichText($career_profile->{'Career Overview Content'}),
@@ -108,16 +99,11 @@ try {
       ]);
     }
     else {
+      print("  Could not find a GatherContent item for this profile" . PHP_EOL);
       $career_profiles[$profile['noc']] = new stdClass();
     }
 
-    $node = Drupal::entityTypeManager()
-      ->getStorage('node')
-      ->create($fields);
-    $node->setPublished(TRUE);
-    $node->save();
-
-    // Save the node id for the second pass.
+    $node = createNode($fields);
     $career_profiles[$profile['noc']]->nid = $node->id();
   }
 
@@ -127,23 +113,23 @@ try {
   foreach ($career_profiles as $noc => $career_profile) {
     if (empty($career_profile->{'Related Careers NOCs'})) continue;
 
-    print("Relating NOC $noc to other NOCs\n");
+    print("Relating NOC $noc to other NOCs" . PHP_EOL);
     $node = Drupal::entityTypeManager()
       ->getStorage('node')
       ->load($career_profile->nid);
     if (empty($node)) {
-      print("  Node {$career_profile->nid} not found\n");
+      print("  Could not find node {$career_profile->nid}" . PHP_EOL);
       continue;
     }
 
     foreach (convertMultiline($career_profile->{'Related Careers NOCs'}) as $raw_related_noc) {
       $related_noc = NULL;
       if (!preg_match('/\d+/', $raw_related_noc, $related_noc)) {
-        print("  Could not parse related NOC $raw_related_noc\n");
+        print("  Could not parse related NOC $raw_related_noc" . PHP_EOL);
         continue;
       }
       if (!array_key_exists($related_noc[0], $career_profiles)) {
-        print(" Could not find related NOC {$related_noc[0]}\n");
+        print(" Could not find related NOC {$related_noc[0]}" . PHP_EOL);
         continue;
       }
 
