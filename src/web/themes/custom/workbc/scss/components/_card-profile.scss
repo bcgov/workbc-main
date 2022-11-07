@@ -1,4 +1,8 @@
 $card-padding: 20px;
+// start with half instead of dividing by 2 to avoid potential integer division truncation complications
+$card-divider-margin-half: 20px;
+$card-divider-size-half: 2px; 
+$card-divider-size: calc(2*$card-divider-size-half);
 
 .card-profile {
   position: relative; // begin positional context %card-profile
@@ -16,10 +20,31 @@ $card-padding: 20px;
   }
 }
 
-// start with half instead of dividing by 2 to avoid potential integer division truncation complications
-$card-divider-margin-half: 20px;
-$card-divider-size-half: 2px; 
-$card-divider-size: calc(2*$card-divider-size-half);
+.card-profile__header {
+  flex: 1 1;
+  margin-bottom: $card-padding;
+
+  @include media-breakpoint-up(lg) {
+    flex: 1 1 100%;
+  }
+
+  h2 {
+    flex: 0 0;
+    display: block;
+    font-size: 1.125rem;
+    line-height: 1.125rem;
+    text-align: center;
+    font-weight: bold;
+  }
+
+  h3 {
+    flex: 0 0;
+    display: block;
+    font-size: 1.000rem;
+    text-align: center;
+    line-height: 1.000rem;
+  }
+}
 
 .card-profile__content {
   display: flex;
