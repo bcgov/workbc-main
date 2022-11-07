@@ -17,40 +17,43 @@
 <h2> Browse Related Topics</h2>
 
 <div class="swiper-container">
-   <div class="swiper">
-      <div class="swiper-wrapper">
-
-         {% for topic in related_topics %}
-         <div class="swiper-slide workbc-card">
-            <div class="workbc-card-container">
-               <div class="workbc-card-image-preview">{{ topic.image }}</div>
-
-               {% if topic.top_level_parent|length %}
-               <div class="workbc-card-details">
-                  <div class="workbc-card-parent">{{ topic.top_level_parent }}</div>
-               </div>
-               {% endif %}
-
-               <div class="workbc-card-content">
-                  <div class="workbc-card-title">{{ topic.title }}</div>
-                  <div class="workbc-card-description">{{ topic.body }}</div>
-                  <div class="workbc-card-actions">
-                     <div class="action">
-                        <a class="action-link" href="{{ topic.action }}">Read More</a>
-                     </div>
-                  </div>
-               </div>
+  <div class="swiper">
+    <div class="swiper-wrapper">
+      {% for topic in related_topics %}
+        <div class="swiper-slide workbc-card">
+          <div class="workbc-card-container">
+            <div class="workbc-card-image-preview">
+              {% if topic.image %}
+                {{ topic.image }}
+              {% else %}
+              <img src="/{{ directory }}/assets/images/related-topics-default.jpg" alt="{{ 'women writing'|t }}" />
+              {% endif %}
             </div>
-         </div>
-         {% endfor %}
 
+            {% if topic.top_level_parent|length %}
+              <div class="workbc-card-details">
+                <div class="workbc-card-parent">{{ topic.top_level_parent }}</div>
+              </div>
+            {% endif %}
+
+            <div class="workbc-card-content">
+              <div class="workbc-card-title">{{ topic.title }}</div>
+                <div class="workbc-card-description">{{ topic.body }}</div>
+                  <div class="workbc-card-actions">
+                    <div class="action">
+                      <a class="action-link" href="{{ topic.action }}">Read More</a>
+                    </div>
+                  </div>
+              </div>
+            </div>
+          </div>
+          {% endfor %}
       </div>
-   </div>
+    </div>
 
-   <div class="swiper-pagination"></div>
-
-   <div class="swiper-button-prev"></div>
-   <div class="swiper-button-next"></div>
+  <div class="swiper-pagination"></div>
+  <div class="swiper-button-prev"></div>
+  <div class="swiper-button-next"></div>
 </div>
 
 {% endif %}
