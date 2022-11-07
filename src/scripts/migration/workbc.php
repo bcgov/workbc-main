@@ -262,14 +262,37 @@ function createItem($item) {
             return createBlogNewsSuccessStory($item);
         case "Industry Profile":
             return createIndustryProfile($item);
+        case "Regional Profile":
+            return createRegionalProfile($item);
         default:
             break;
     }
     return NULL;
 }
 
+function createRegionalProfile($item) {
+    $title = convertPlainText($item->title);
+    $type = strcasecmp($title, "British Columbia") === 0 ? 'bc_profile' : 'region_profile';
+    $fields = [
+        'type' => $type,
+        'title' => $title,
+        'uid' => 1,
+        'path' => [
+            'pathauto' => PathautoState::CREATE,
+        ],
+        'moderation_state' => 'published',
+    ];
+    $node = Drupal::entityTypeManager()
+        ->getStorage('node')
+        ->create($fields);
+    $node->setPublished(TRUE);
+    $node->save();
+    print("  Created $type" . PHP_EOL);
+    return $node;
+}
+
 function createIndustryProfile($item) {
-    $type ='industry_profile';
+    $type = 'industry_profile';
     $fields = [
         'type' => $type,
         'title' => convertPlainText($item->title),
