@@ -55,27 +55,31 @@ class LabourMarketUnemployedPreviousMonth extends ExtraFieldDisplayFormattedBase
     $current_previous_months = $entity->ssot_data['current_previous_months_names'];
 
     $total_unemployed = !empty($data['total_unemployed_previous'])?ssotFormatNumber($data['total_unemployed_previous']) : WORKBC_EXTRA_FIELDS_NOT_AVAILABLE;
-    $unemployed_rate_value =  !empty($data['employment_rate_pct_unemployment_previous'])?$data['employment_rate_pct_unemployment_previous']:WORKBC_EXTRA_FIELDS_NOT_AVAILABLE; 
-    $unemployed_part_value = !empty($data['employment_rate_pct_participation_previous'])?$data['employment_rate_pct_participation_previous']:WORKBC_EXTRA_FIELDS_NOT_AVAILABLE; 
+    $unemployed_rate_value =  !empty($data['employment_rate_pct_unemployment_previous'])?$data['employment_rate_pct_unemployment_previous']:WORKBC_EXTRA_FIELDS_NOT_AVAILABLE;
+    $unemployed_part_value = !empty($data['employment_rate_pct_participation_previous'])?$data['employment_rate_pct_participation_previous']:WORKBC_EXTRA_FIELDS_NOT_AVAILABLE;
     $information_text_tooltip = '
-                  <div class="tool-tip">
+                  <div class="lm-tooltip-content">
                     <p>'. $this->t('Participation Rate represents the number of people in the workforce that are of working age as a percentage of total BC population.') . '</p>
-                  </div>';  
+                  </div>';
+    $source_text = !empty($entity->ssot_data['sources']['no-datapoint'])?$entity->ssot_data['sources']['no-datapoint']:WORKBC_EXTRA_FIELDS_NOT_AVAILABLE;
+
 
     //output
     $output = '
-    <div class="LME--total-unemployed">
-    <span class="LME--total-unemployed-label">'.$this->t("Total Unemployed (@previousmonthyear)", ["@previousmonthyear" => $current_previous_months['previous_month_year']]).'</span>
-    <span class="LME--total-unemployed-value blue">'.$total_unemployed.'</span>
-    <div class="LME--total-unemployed-rate">
-      <div class="LME--total-unemployed-rate"><span>'.$this->t("Unemployment Rate").'</span><span class="LME--total-unemployed-rate-value">'.$unemployed_rate_value.'%</span></div>
-      <div class="LME--total-unemployed-part">
-        <span>'.$this->t("Participation Rate").'</span>
-        <span class="LME--total-unemployed-part-value">'.$unemployed_part_value.'%</span>
-        <span class="LME--total-unemployed-information-text">'.$information_text_tooltip.'</span>
+    <div class="lm-data-box text-center">
+    <div class="lm-label">'.$this->t("<strong>Total Unemployed</strong> (@previousmonthyear)", ["@previousmonthyear" => $current_previous_months['previous_month_year']]).'</div>
+    <div class="lm-data-value">'.$total_unemployed.'</div>
+    <div class="lm-data-container">
+      <div class="lm-data-item">
+        <div class="lm-data-item-label">'.$this->t("Unemployment Rate").'</div><div class="lm-data-item-value">'.$unemployed_rate_value.'%</div></div>
+      <div class="lm-data-item lm-has-tooltip">
+        <div class="lm-data-item-label">'.$this->t("Participation Rate").'</div>
+        <div class="lm-data-item-value">'.$unemployed_part_value.'%</div>
+        <div class="lm-tooltip">'.$information_text_tooltip.'</div>
       </div>
     </div>
-    </div>';
+    </div>
+    <div class="lm-source"><strong>'.$this->t("Source").': </strong>'.$source_text.'</div>';
 
     return [
       ['#markup' => $output],

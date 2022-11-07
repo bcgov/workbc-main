@@ -64,7 +64,7 @@ class LabourMarketUnemploymentByRegion extends ExtraFieldDisplayFormattedBase {
 
     //Source
     $source_text = $entity->ssot_data['sources']['no-datapoint'];
-    $output = '<span><strong>'.$this->t("Source").': </strong>'.$source_text.'</span>';
+    $output = '<div class="lm-source"><strong>'.$this->t("Source").': </strong>'.$source_text.'</div>';
 
     return [
       [
