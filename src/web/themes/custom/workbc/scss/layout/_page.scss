@@ -40,13 +40,3 @@
     flex: 1 0 20%;
   }
 }
-
-.page-title {
-  @include gradient-underline;
-
-  font-size: 2.25rem;
-  @include media-breakpoint-up(lg) {
-    font-size: 2.8125rem;
-  }
-  margin-bottom: $workbc_spacing_default;
-}
