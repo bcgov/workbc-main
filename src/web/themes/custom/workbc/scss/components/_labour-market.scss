@@ -1,0 +1,141 @@
+.lm-months {
+  padding: 40px;
+  background-color: $workbc_palette_light_secondary;
+  margin-bottom: 20px;
+}
+
+.lm-months .form-select {
+  max-width: 400px;
+  border: 2px solid $workbc_palette_dark_secondary;
+}
+
+.lm-total-employment-container {
+  padding: 30px 10px 10px;
+  box-shadow: 0 0 10px rgb(219 219 219);
+  margin-bottom: 20px;
+}
+
+.lm-change-container {
+  padding: 30px 10px 10px;
+  box-shadow: 0 0 10px rgb(219 219 219);
+  margin-bottom: 20px;
+
+  @include media-breakpoint-up(lg) {
+    display: grid;
+    grid-template-columns: 1fr 1fr;
+  }
+}
+
+.lm-data-box:first-of-type {
+  margin-bottom: 20px;
+  border-bottom: 4px solid $workbc_palette_light_secondary;
+
+  @include media-breakpoint-up(lg) {
+    margin-bottom: 0;
+    border-right: 4px solid $workbc_palette_light_secondary;
+    border-bottom: none;
+  }
+}
+
+.lm-data-container {
+  max-width: 240px;
+  margin: 0 auto 40px;
+}
+
+.lm-table-container {
+  margin-bottom: 30px;
+  padding: 30px 40px 20px;
+  box-shadow: 0 0 10px rgb(219 219 219);
+  overflow-x: scroll;
+}
+
+.lm-table-container .table {
+  margin-bottom: 40px;
+}
+
+.lm-table-container img {
+  display: block;
+  margin: 30px 0;
+}
+
+.lm-label-tabel {
+  margin-bottom: 20px;
+  text-align: center;
+  font-weight: 700;
+}
+
+.lm-unemployment-container {
+  margin-bottom: 40px;
+}
+
+.lm-data-item {
+  display: flex;
+  justify-content: space-between;
+  font-size: 18px;
+}
+
+.lm-source {
+  padding-top: 20px;
+  font-size: 0.875rem;
+  color: #666;
+}
+
+.lm-label {
+  margin-bottom: 20px;
+  font-size: 1.125rem;
+}
+
+.lm-data-item-value {
+  font-weight: 700;
+}
+
+.lm-data-value {
+  margin-bottom: 30px;
+  font-size: 2.5rem;
+  color: $workbc_palette_dark_tertiary;
+}
+
+.lm-has-tooltip {
+  position: relative;
+  cursor: pointer;
+}
+
+.lm-tooltip-content {
+  display: none;
+  position: absolute;
+  top: 20px;
+  left: -200px;
+  width: 240px;
+  padding: 10px;
+  background-color: #fff;
+  border: 2px solid $workbc_palette_dark_secondary;
+  border-radius: 6px;
+
+  @include media-breakpoint-up(lg) {
+    top: 20px;
+    left: -50px;
+  }
+}
+
+.lm-tooltip-content p {
+  margin: 0;
+  font-size: 14px;
+  text-align: left;
+}
+
+.lm-tooltip {
+  position: absolute;
+  z-index: 1;
+  top: 4px;
+  right: -30px;
+  width: 20px;
+  height: 20px;
+  background-image: url(../assets/images/info-tooltip-icon.svg);
+  background-size: 20px;
+  background-position: center;
+  background-repeat: no-repeat;
+}
+
+.lm-tooltip:hover .lm-tooltip-content {
+  display: block;
+}
