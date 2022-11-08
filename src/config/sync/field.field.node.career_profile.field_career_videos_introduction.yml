@@ -11,7 +11,7 @@ id: node.career_profile.field_career_videos_introduction
 field_name: field_career_videos_introduction
 entity_type: node
 bundle: career_profile
-label: 'Career Videos Introduction'
+label: 'Career Videos'
 description: ''
 required: false
 translatable: false
