@@ -80,7 +80,7 @@
   ]
 %}
 
-{# This viewmodel is intended to collect all of the incoming variables in one place, and the remainder of the template should 
+{# This viewmodel is intended to collect all of the incoming variables in one place, and the remainder of the template should
  refer only to this viewmodel (or Drupal/Twig generics like loop, directory, etc #}
 {% set viewmodel = {
   title: label,
@@ -118,18 +118,18 @@
 
       duties_title: content.group_career_profile_tabs.group_career_overview.field_duties['#title'],
       duties_description: content.group_career_profile_tabs.group_career_overview.field_duties.0['#text'],
-      
+
       salary_title: content.group_career_profile_tabs.group_career_overview.extra_field_salary_introduction['#title'],
       salary_description: content.group_career_profile_tabs.group_career_overview.extra_field_salary_introduction.0['#text'],
 
       salary_annual_salary_title: content.group_career_profile_tabs.group_career_overview.extra_field_salary_info_annual_salary['#title'],
       salary_annual_salary_markup: content.group_career_profile_tabs.group_career_overview.extra_field_salary_info_annual_salary.0['#markup'],
       salary_annual_salary_note: content.group_career_profile_tabs.group_career_overview.extra_field_salary_info_annual_salary_note.0['#markup'],
-      
+
       salary_provincial_hourly_rate_title: content.group_career_profile_tabs.group_career_overview.extra_field_salary_info_hourly_rate['#title'],
       salary_provincial_hourly_rate_markup: content.group_career_profile_tabs.group_career_overview.extra_field_salary_info_hourly_rate.0['#markup'],
-      
-      salary_source: content.group_career_profile_tabs.group_career_overview.extra_field_salary_info_source.0['#markup'], 
+
+      salary_source: content.group_career_profile_tabs.group_career_overview.extra_field_salary_info_source.0['#markup'],
 
       work_environment_title: content.group_career_profile_tabs.group_career_overview.field_work_environment['#title'],
       work_environment_description: content.group_career_profile_tabs.group_career_overview.field_work_environment.0['#text'],
@@ -333,7 +333,7 @@
                 <div class="card-profile__content-small">
                   <h3 class="card-profile__content-header">{{ viewmodel['tab_sections']['career_overview']['salary_provincial_hourly_rate_title'] }}</h3>
                   <span class="card-profile__content-table">{{ viewmodel['tab_sections']['career_overview']['salary_provincial_hourly_rate_markup']|raw }}</span>
-                </div>  
+                </div>
                 <div class="card-profile__source">
                   <em>Source:</em> {{ viewmodel['tab_sections']['career_overview']['salary_source']|raw }}
                 </div>
@@ -374,7 +374,7 @@
               {{ viewmodel['tab_sections']['career_overview']['occupational_interests_intro']|raw }}
               <div class="card-occupational-interest-deck">
                 {% for interest in viewmodel['tab_sections']['career_overview']['occupational_interests_items'] %}
-                  {{ interest }} 
+                  {{ interest }}
                 {% endfor %}
               </div>
             </div>
@@ -385,7 +385,7 @@
               <ul class="career-content-job-titles">
                 {% for jobtitle in viewmodel['tab_sections']['career_overview']['job_titles'] %}
                   <li>{{ jobtitle.value }}</li>
-                {% endfor %}  
+                {% endfor %}
               </ul>
             </div>
 
@@ -429,7 +429,7 @@
 
             <h2>{{ viewmodel['tab_sections']['labour_market']['employment_title'] }}</h2>
             <div>{{ viewmodel['tab_sections']['labour_market']['employment_introduction']|raw }}</div>
-            
+
             <div class="card-profile">
               <div class="card-profile__content">
                 <h3 class="card-profile__content-header">{{ viewmodel['tab_sections']['labour_market']['employment_number_title'] }}</h3>

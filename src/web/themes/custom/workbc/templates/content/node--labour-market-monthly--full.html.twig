@@ -72,6 +72,20 @@
 {% set hero_image = content.field_hero_image[0] %}
 {% set hero_text = content.field_hero_text[0] %}
 
+{% set months = content.extra_field_labourmarket_months %}
+{% set employment_intro = content.field_employment_introduction %}
+{% set total_employed = content.extra_field_labourmarket_employment %}
+{% set employment_change = content.extra_field_labourmarket_employment_change %}
+{% set employment_change_percent = content.extra_field_labourmarket_employment_change_percent %}
+{% set employment_by_age_sex_table = content.extra_field_labourmarket_employment_by_age_sex_table %}
+{% set unemployment_intro = content.field_unemployment_introduction %}
+{% set unemployed_current_month = content.extra_field_labourmarket_unemployed_current_month %}
+{% set unemployed_previous_month = content.extra_field_labourmarket_unemployed_previous_month %}
+{% set unemployment_region_intro = content.field_unemployment_region_intro %}
+{% set unemployment_by_region = content.extra_field_labourmarket_unemployment_by_region %}
+{% set industry_highlights_intro = content.field_industry_highlights_intro %}
+{% set employment_industries_table = content.extra_field_labourmarket_employment_industries_table %}
+
 {%
   set classes = [
     'node',
@@ -98,8 +112,57 @@
 </div>
 
 <article{{ attributes.addClass(classes) }}>
-  {% if hero_image is empty and hero_text is empty %}
-    <h1 class="page-title">{{ label }}</h1>
-  {% endif %}
-   {{ content }}  {# TODO Update to Render Fields Individualy #}
+
+  <div class="lm-months">
+    {{ months }}
+  </div>
+
+  <div class="lm-employment-intro">
+    <h2 class="title-w-underline">{{ 'Employment'|t }}</h2>
+    {{ employment_intro }}
+  </div>
+
+  <div class="lm-total-employment-container">
+    {{ total_employed }}
+  </div>
+
+  <div class="lm-change-container">
+    {{ employment_change }}
+    {{ employment_change_percent }}
+  </div>
+
+  <div class="lm-table-container">
+    <div class="lm-label lm-label-tabel">{{ 'Employment by Age Group And Sex'|t }}</div>
+    {{ employment_by_age_sex_table }}
+  </div>
+
+  <div class="lm-unemployment-intro">
+    <h2 class="title-w-underline">{{ 'Unemployment'|t }}</h2>
+    {{ unemployment_intro }}
+  </div>
+
+  <div class="lm-change-container lm-unemployment-container">
+    {{ unemployed_current_month }}
+    {{ unemployed_previous_month }}
+  </div>
+
+  <div class="lm-intro">
+    <h2 class="title-w-underline">{{ 'Unemployment by Region'|t }}</h2>
+    {{ unemployment_region_intro }}
+  </div>
+
+  <div class="lm-table-container">
+    <div class="lm-label lm-label-tabel">{{ 'Unemployment Rate (%)'|t }}</div>
+    {{ unemployment_by_region }}
+  </div>
+
+  <div class="lm-intro">
+    <h2 class="title-w-underline">{{ 'Industry Highlights'|t }}</h2>
+    {{ industry_highlights_intro }}
+  </div>
+
+  <div class="lm-table-container">
+    {{ employment_industries_table }}
+  </div>
+
 </article>

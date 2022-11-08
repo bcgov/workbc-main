@@ -67,7 +67,7 @@ class LabourMarketMonths extends ExtraFieldDisplayFormattedBase {
        $options[$monthNum.'_'.$year] = $monthName.' '.$year;
       }
     }
-    
+
 
     $text = $this->t('The latest monthly data is displayed below. If you would like to see data from previous months, please select a month from the dropdown.');
 
@@ -78,18 +78,18 @@ class LabourMarketMonths extends ExtraFieldDisplayFormattedBase {
     }
 
     // print $default_value; exit;
-    
+
     //output
     $output = '
-    <div class="LME--months">
-    <span class="LME--months-label">'.$text.'</span>
+    <div class="lm-months-text">
+    '.$text.'
     </div>';
 
     return [
       ['#markup' => $output ],
       [
         '#type' => 'select',
-        '#title' => $this->t('Months'),
+        // '#title' => $this->t('Months'),
         '#options'=> $options,
         '#value' => $default_value,
         '#attributes' => ['id' => 'employment-months']

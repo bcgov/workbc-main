@@ -11,9 +11,11 @@
           domain = domain.split(".");
           domain.pop();
           domain = domain.join(' ');
-          if(!confirm("This job posting is on another organization’s job board. By continuing, you will be directed to the original posting at "+domain)){
-            e.preventDefault();
-          };
+          if($(this).parents('.job-title').length || $(this).parents('.node--view-mode-jobboard').length ){
+            if(!confirm("This job posting is on another organization’s job board. By continuing, you will be directed to the original posting at "+domain)){
+              e.preventDefault();
+            };
+          }
         });
         
       });

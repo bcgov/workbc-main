@@ -12,7 +12,6 @@ require('gc-drupal.php');
  * - (on the host) yt-dlp --flat-playlist --print url https://www.youtube.com/user/WorkBC | while read u; do yt-dlp --no-download --dump-json "$u"; done >> src/scripts/migration/data/video_library.jsonl
  * - drush scr scripts/migration/video_library
  *
- * Revert: drush entity:delete media --bundle=remote_video
  */
 
 // Load category terms to use later.
