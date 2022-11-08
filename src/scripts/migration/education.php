@@ -6,7 +6,6 @@
  *
  * Usage: drush scr scripts/migration/education
  *
- * Revert: drush entity:delete taxonomy_term --bundle=education
  */
 
 use GuzzleHttp\Client;

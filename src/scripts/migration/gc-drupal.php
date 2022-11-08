@@ -4,7 +4,7 @@
  * Functions to import GatherContent items into Drupal.
  */
 
-use Drupal\Core\Url;
+use Drupal\pathauto\PathautoState;
 
 function convertCheck($check_field) {
   return array_map(function($field) {
@@ -253,4 +253,26 @@ function convertResources($resources) {
   }, array_filter($resources, function($resource) {
     return !empty($resource->{'Resource Link'}) && !empty($resource->{'Resource Title'});
   }));
+}
+
+function createNode($fields) {
+  // Defaults.
+  if (!array_key_exists('uid', $fields)) {
+    $fields['uid'] = 1;
+  }
+  if (!array_key_exists('path', $fields)) {
+    $fields['path'] = [
+      'pathauto' => PathautoState::CREATE,
+    ];
+  }
+  if (!array_key_exists('moderation_state', $fields)) {
+    $fields['moderation_state'] = 'published';
+  }
+  $node = Drupal::entityTypeManager()
+      ->getStorage('node')
+      ->create($fields);
+  $node->setPublished(TRUE);
+  $node->save();
+  print("  Created {$fields['type']}" . PHP_EOL);
+  return $node;
 }

@@ -2,24 +2,13 @@
 
 require('gc-drupal.php');
 
-use Drupal\pathauto\PathautoState;
 use Drupal\paragraphs\Entity\Paragraph;
 
 /**
  * Update nodes for GatherContent WorkBC items.
  *
- * Prerequisites:
- * - drush scr scripts/migration/ia (including prerequisites)
- * - drush scr scripts/migration/gc-jsonl -- -s "Content Revisions" -s "Manager Review" -s "Director Review" -s "ED Review" -s "GCPE Review" -s "Published" 284269 > scripts/migration/data/workbc.jsonl
- * - drush scr scripts/migration/gc-jsonl -- -i 14989150 332842 > scripts/migration/data/labour_market_introductions.jsonl
-
- * Usage:
- * - drush scr scripts/migration/workbc [--item itemId]
+ * Usage: drush scr scripts/migration/workbc [--item itemId]
  *
- * Revert:
- * - drush entity:delete node --bundle=blog
- * - drush entity:delete node --bundle=news
- * - drush entity:delete node --bundle=success_story
  */
 
 // Accept an option to import a single item given its id
@@ -34,11 +23,46 @@ catch (Exception $e) {
 }
 $item_id = trim($getopt->getOption('item'));
 
-// Read GatherContent labour market introduction if present.
+// Read GatherContent labour market introductions if present.
 $labour_market_introductions = NULL;
 if (file_exists(__DIR__ . '/data/labour_market_introductions.jsonl')) {
-  print("Reading GC Labour Market Introductions" . PHP_EOL);
-  $labour_market_introductions = json_decode(file_get_contents(__DIR__ . '/data/labour_market_introductions.jsonl'));
+    print("Reading GC Labour Market Introductions" . PHP_EOL);
+    // There's no "labour_market_introductions" content type,
+    // because there's only a single "labour_market" instance,
+    // so the fields will be directly copied into this instance when it's created.
+    $labour_market_introductions = json_decode(file_get_contents(__DIR__ . '/data/labour_market_introductions.jsonl'));
+}
+
+// Read GatherContent industry profile introductions if present.
+$industry_profile_introductions = NULL;
+if (file_exists(__DIR__ . '/data/industry_profile_introductions.jsonl')) {
+    print("Reading GC Industry Profile Introductions" . PHP_EOL);
+    $item = json_decode(file_get_contents(__DIR__ . '/data/industry_profile_introductions.jsonl'));
+    $industry_profile_introductions = createNode([
+        'type' => 'industry_profile_introductions',
+        'title' => convertPlainText($item->title),
+        'field_employment_introduction' => convertRichText($item->{'Employment Introduction'}),
+        'field_hourly_earnings_introducti' => convertRichText($item->{'Hourly Earnings Introduction'}),
+        'field_labour_market_introduction' => convertRichText($item->{'Labour Market Outlook Introduction'}),
+        'field_labour_market_statistics_i' => convertRichText($item->{'Labour Market Statistics Introduction'}),
+        'field_top_occupations_by_number_' => convertRichText($item->{'Top Occupations by Number of Job Openings Introduction'}),
+        'field_workforce_introduction' => convertRichText($item->{'Workforce Introduction'}),
+    ]);
+}
+
+// Read GatherContent regional profile introductions if present.
+$regional_profile_introductions = NULL;
+if (file_exists(__DIR__ . '/data/regional_profile_introductions.jsonl')) {
+    print("Reading GC Regional Profile Introductions" . PHP_EOL);
+    $item = json_decode(file_get_contents(__DIR__ . '/data/regional_profile_introductions.jsonl'));
+    $regional_profile_introductions = createNode([
+        'type' => 'regional_profile_introductions',
+        'title' => convertPlainText($item->title),
+        'field_labour_market_statistics_i' => convertRichText($item->{'Labour Market Statistics Introduction'}),
+        'field_employment_introduction' => convertRichText($item->{'Employment Introduction'}),
+        'field_labour_market_outlook_intr' => convertRichText($item->{'Labour Market Outlook Introduction'}),
+        'field_top_occupations_introducti' => convertRichText($item->{'Top Occupations Introduction'}),
+    ]);
 }
 
 // Read GatherContent page data.
@@ -262,30 +286,41 @@ function createItem($item) {
             return createBlogNewsSuccessStory($item);
         case "Industry Profile":
             return createIndustryProfile($item);
+        case "Regional Profile":
+            return createRegionalProfile($item);
         default:
             break;
     }
     return NULL;
 }
 
+function createRegionalProfile($item) {
+    $title = convertPlainText($item->title);
+    $type = strcasecmp($title, "British Columbia") === 0 ? 'bc_profile' : 'region_profile';
+    $fields = [
+        'type' => $type,
+        'title' => $title,
+    ];
+    if (!empty($regional_profile_introductions)) {
+        $fields = array_merge($fields, [
+            'field_introductions' => ['target_id' => $regional_profile_introductions->id()],
+        ]);
+    }
+    return createNode($fields);
+}
+
 function createIndustryProfile($item) {
-    $type ='industry_profile';
+    $type = 'industry_profile';
     $fields = [
         'type' => $type,
         'title' => convertPlainText($item->title),
-        'uid' => 1,
-        'path' => [
-            'pathauto' => PathautoState::CREATE,
-        ],
-        'moderation_state' => 'published',
     ];
-    $node = Drupal::entityTypeManager()
-        ->getStorage('node')
-        ->create($fields);
-    $node->setPublished(TRUE);
-    $node->save();
-    print("  Created $type" . PHP_EOL);
-    return $node;
+    if (!empty($industry_profile_introductions)) {
+        $fields = array_merge($fields, [
+            'field_introductions' => ['target_id' => $industry_profile_introductions->id()],
+        ]);
+    }
+    return createNode($fields);
 }
 
 function createBlogNewsSuccessStory($item) {
@@ -306,19 +341,8 @@ function createBlogNewsSuccessStory($item) {
     $fields = [
         'type' => $type,
         'title' => convertPlainText($item->title),
-        'uid' => 1,
-        'path' => [
-            'pathauto' => PathautoState::CREATE,
-        ],
-        'moderation_state' => 'published',
     ];
-    $node = Drupal::entityTypeManager()
-        ->getStorage('node')
-        ->create($fields);
-    $node->setPublished(TRUE);
-    $node->save();
-    print("  Created $type" . PHP_EOL);
-    return $node;
+    return createNode($fields);
 }
 
 function convertCards($cards, $card_type, &$items, &$container_paragraph) {
