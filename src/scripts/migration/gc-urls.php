@@ -1,5 +1,11 @@
 <?php
 
+/**
+ * Extract URLs for GC assets or PDF files from GC JSONL files.
+ *
+ * Usage: php gc-urls.php [--pdf | --assets] < /path/to/input.jsonl > /path/to/output
+ */
+
 const ASSET_REGEX = '|https://assets.gathercontent.com/[A-Za-z0-9\\/]+\\?dl=[^"]+|';
 const PDF_REGEX = '|https://www.workbc.ca/getmedia/[^"]+.pdf.aspx|';
 
