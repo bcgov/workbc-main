@@ -32,9 +32,9 @@
 <div class="row">
     <div class="col-md-4">
         <div class="sd-date-panel">
-            <div class="sd-top">{{ fields.field_events_date.content|striptags|trim|date('F') }} </div>
-            <div class="sd-middle">{{ fields.field_events_date.content|striptags|trim|date('d') }} </div>
-            <div class="sd-bottom">{{ fields.field_events_date.content|striptags|trim|date('Y') }} </div>
+            <div class="sd-top">{{ fields.field_start_date.content|striptags|trim|date('F') }} </div>
+            <div class="sd-middle">{{ fields.field_start_date.content|striptags|trim|date('d') }} </div>
+            <div class="sd-bottom">{{ fields.field_start_date.content|striptags|trim|date('Y') }} </div>
         </div>
     </div>
     <div class="col-md-8">
@@ -45,10 +45,10 @@
                 <div class="col-lg-6">
                     <div class="ev-date">
                       <div>
-                        {% if fields.field_events_date.content|striptags|trim|date('d-m-Y') == fields.field_end_date.content|striptags|trim|date('d-m-Y') %}
-                        {{ fields.field_events_date.content|striptags|trim|date('F d') }}
+                        {% if fields.field_start_date.content|striptags|trim|date('d-m-Y') == fields.field_end_date.content|striptags|trim|date('d-m-Y') %}
+                        {{ fields.field_start_date.content|striptags|trim|date('F d') }}
                         {% else %}
-                          {{ fields.field_events_date.content|striptags|trim|date('F d') }} -
+                          {{ fields.field_start_date.content|striptags|trim|date('F d') }} -
                           {{ fields.field_end_date.content|striptags|trim|date('F d') }}
                         {% endif %}
                       </div>
