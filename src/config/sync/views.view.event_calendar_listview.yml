@@ -956,7 +956,7 @@ display:
           plugin_id: text
           empty: false
           content:
-            value: '<div class="fc-center"><h2>{{ field_start_date.content|striptags|trim|date(''F Y'') }}</h2></div>'
+            value: '<div class="fc-center"><h2>{{ field_start_date|striptags|trim|date(''F Y'') }}</h2></div>'
             format: basic_html
           tokenize: true
       footer: {  }
@@ -1501,7 +1501,7 @@ display:
           exclude: false
           alter:
             alter_text: true
-            text: '{{ field_start_date.content|striptags|trim|date(''F Y'') }}'
+            text: '{{ field_start_date|striptags|trim|date(''F Y'') }}'
             make_link: false
             path: ''
             absolute: false
@@ -2240,7 +2240,7 @@ display:
           exclude: false
           alter:
             alter_text: true
-            text: '{{ field_start_date.content|striptags|trim|date(''F Y'') }}'
+            text: '{{ field_start_date|striptags|trim|date(''F Y'') }}'
             make_link: false
             path: ''
             absolute: false
