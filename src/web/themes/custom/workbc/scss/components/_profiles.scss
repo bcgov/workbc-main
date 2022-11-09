@@ -1,8 +1,8 @@
-.career-profile-header {
+.profile-header {
     display: flex;
     flex-flow: column nowrap;
 
-    .career-profile-header-breadcrumb {
+    .profile-header-breadcrumb {
         flex: 0 0;
         order: 1;
 
@@ -10,7 +10,7 @@
             order: 2;
         }
     }
-    .career-profile-header-banner {
+    .profile-header-banner {
         flex: 0 0;
         order: 2;
 
@@ -18,7 +18,7 @@
             order: 1;
         }
     }
-    .career-profile-header-social {
+    .profile-header-social {
         flex: 0 0;
         order: 3;
         
@@ -28,17 +28,17 @@
     }
 }
 
-.workbc-career-profile {
+.workbc-profile {
     display: flex;
     flex-flow: column nowrap;
     background-color: $workbc_light_theme_background_accent;
     margin-top: 15px;
 
-    .career-statistics-wrapper {
+    .profile-statistics-wrapper {
         margin-bottom: $workbc_spacing_default;
     }
 
-    .career-details-wrapper {
+    .profile-details-wrapper {
         $border-size: 3px;
         background-color: #ffffff;
 
@@ -74,23 +74,23 @@
             }
         }
 
-        .career-content-tabs {
+        .profile-content-tabs {
             border: none;
             background-color: $workbc_palette_light_secondary;
             border-bottom: $border-size solid $workbc_palette_dark_secondary;
 
-            .career-content-tab-list {
+            .profile-content-tab-list {
                 width: 100%;
                 border-bottom: 0;
 
-                .career-content-tab-button {
+                .profile-content-tab-button {
                     border: $border-size solid;
                     border-radius: 0;
                     border-bottom: none;
                     margin-right: $border-size;
 
                     &.active {
-                        position: relative; // relative to positional context %career-details-wrapper
+                        position: relative; // relative to positional context %profile-details-wrapper
                         border-color: $workbc_palette_dark_secondary;
                         font-weight: bold;
                         color: $workbc_palette_dark_secondary;
@@ -120,7 +120,7 @@
         }
     }
 
-    .career-videos-wrapper {
+    .profile-videos-wrapper {
         padding: 30px 0;
 
         h2 {
@@ -162,15 +162,11 @@
         }
     }
 
-    .career-recent-jobs-wrapper {
-
-    }
-
-    .career-content-container {
+    .profile-content-container {
         display: flex;
         flex-flow: row wrap;
 
-        .career-content-main {
+        .profile-content-main {
             flex: 0 0 100%;
             width: 100%;
             padding: 30px 0;
@@ -185,31 +181,37 @@
                 display: none;
             }
 
-            h2 {
-                font-size: 1.313rem;
-                font-weight: normal;
-                margin-bottom: 20px;
-
-                &.introduction {
-                    font-size: 1.875rem;
-                    font-weight: bold;
-
-                    @include media-breakpoint-up(lg) {
-                        background-image: linear-gradient(to right, #D8E5F1 25%, #FFFFFF 100%);
-                    }
-                }
-                &:not(.introduction) {
-                    @include gradient-underline;
-                    padding-bottom: 15px;
-                }
+            .profile-content-section {
+                margin: 30px 0;
             }
 
-            .career-content-section {
-                margin: 30px 0;
+            .profile-content-main__header {
+                font-size: 1.875rem;
+                font-weight: bold;
+                margin-bottom: 20px;
+
+                @include media-breakpoint-up(lg) {
+                    background-image: linear-gradient(to right, #D8E5F1 25%, #FFFFFF 100%);
+                    font-size: 1.875rem;
+                }
+
+            }
+            
+            .profile-content-section__header {
+                font-size: 1.313rem;
+                font-weight: normal;
+                padding-bottom: 15px;
+                margin-bottom: 20px;
+
+                @include gradient-underline;
+
+                @include media-breakpoint-up(lg) {
+                    font-size: 1.875rem;
+                }
             }
         }
 
-        .career-content-sidebar {
+        .profile-content-sidebar {
             flex: 0 0 100%;
             width: 100%;
 
