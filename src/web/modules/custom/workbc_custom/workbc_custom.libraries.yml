@@ -1,0 +1,7 @@
+custom-script:
+  version: 1.x
+  js:
+    js/custom-script.js: {}
+  dependencies:
+    - core/jquery
+    - core/drupalSettings

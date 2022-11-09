@@ -87,6 +87,11 @@ function workbc_custom_form_alter(&$form, \Drupal\Core\Form\FormStateInterface $
     }
   }
 
+
+  if($form_id == "hoo_options"){
+    $form['#attached']['library'][] =  'workbc_custom/custom-script';
+  }
+
 }
 
 
@@ -171,3 +176,35 @@ function workbc_custom_menu_local_tasks_alter(&$data, $route_name) {
     unset($data['tabs'][0]['role_delegation.edit_form']);
   }
 }
+
+
+/**
+ * Get SSOT data for the High Opportunity block. 
+ */
+function ssotHighOpportunityOptions($parameters = null){
+  $data = array();
+  $data['data'] = querySSoT('high_opportunity_occupations?' . $parameters);
+
+  //options
+  $data['options'] = querySSoT('high_opportunity_occupations?select=occupational_interest,typical_education_background,region');
+
+  return $data;
+}
+
+/**
+ * Function to get the region mappings.
+ */ 
+function getRegionMappings() {
+    $region_map = [
+            'all' => 'All regions',
+            'british_columbia' => 'British Columbia',
+            'vancouver_island_coast' =>'Vancouver Island/Coast',
+            'mainland_southwest'  => 'Mainland/Southwest',
+            'thompson_okanagan' => 'Thompson-Okanagan',
+            'kootenay' => 'Kootenay',
+            'cariboo' => 'Cariboo',
+            'north_coast_nechako' => 'North Coast and Nechako',
+            'northeast' => 'Northeast'
+          ];
+    return $region_map;
+  }
