@@ -1,12 +1,16 @@
-uuid: 20d7ebe2-cfb2-4f31-95cc-41d6d0d64197
+uuid: b4da6ea2-a3c5-43b4-be20-247effad2673
 langcode: en
 status: true
 dependencies:
   module:
+    - field_permissions
     - node
     - text
-id: node.field_labour_market_stats_intro
-field_name: field_labour_market_stats_intro
+third_party_settings:
+  field_permissions:
+    permission_type: public
+id: node.field_top_occupations_introducti
+field_name: field_top_occupations_introducti
 entity_type: node
 type: text_long
 settings: {  }

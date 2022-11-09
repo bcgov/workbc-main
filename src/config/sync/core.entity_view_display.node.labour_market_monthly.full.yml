@@ -160,6 +160,9 @@ content:
     region: content
 hidden:
   content_moderation_control: true
+  extra_field_labourmarket_employment_by_age_sex_table: true
+  extra_field_labourmarket_employment_industries_table: true
+  extra_field_labourmarket_months: true
   extra_field_workbc_page_title: true
   extra_field_workbc_published_on: true
   field_content_group: true

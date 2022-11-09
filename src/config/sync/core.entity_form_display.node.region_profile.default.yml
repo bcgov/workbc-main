@@ -6,12 +6,10 @@ dependencies:
     - field.field.node.region_profile.field_content_group
     - field.field.node.region_profile.field_hero_image
     - field.field.node.region_profile.field_industry_highlights_intro
+    - field.field.node.region_profile.field_introductions
     - field.field.node.region_profile.field_key_facts
-    - field.field.node.region_profile.field_labour_market_introduction
-    - field.field.node.region_profile.field_labour_market_stats_intro
     - field.field.node.region_profile.field_region_overview
     - field.field.node.region_profile.field_scheduled_publish
-    - field.field.node.region_profile.field_top_occupations_intro
     - image.style.thumbnail
     - node.type.region_profile
     - workflows.workflow.editorial
@@ -62,25 +60,19 @@ content:
       rows: 5
       placeholder: ''
     third_party_settings: {  }
+  field_introductions:
+    type: entity_reference_autocomplete
+    weight: 131
+    region: content
+    settings:
+      match_operator: CONTAINS
+      match_limit: 10
+      size: 60
+      placeholder: ''
+    third_party_settings: {  }
   field_key_facts:
     type: text_textarea
     weight: 124
-    region: content
-    settings:
-      rows: 5
-      placeholder: ''
-    third_party_settings: {  }
-  field_labour_market_introduction:
-    type: text_textarea
-    weight: 127
-    region: content
-    settings:
-      rows: 5
-      placeholder: ''
-    third_party_settings: {  }
-  field_labour_market_stats_intro:
-    type: text_textarea
-    weight: 125
     region: content
     settings:
       rows: 5
@@ -99,14 +91,6 @@ content:
     weight: 130
     region: content
     settings: {  }
-    third_party_settings: {  }
-  field_top_occupations_intro:
-    type: text_textarea
-    weight: 128
-    region: content
-    settings:
-      rows: 5
-      placeholder: ''
     third_party_settings: {  }
   langcode:
     type: language_select

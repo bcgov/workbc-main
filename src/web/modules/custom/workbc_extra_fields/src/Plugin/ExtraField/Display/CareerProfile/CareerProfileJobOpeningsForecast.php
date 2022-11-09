@@ -48,7 +48,12 @@ class CareerProfileJobOpeningsForecast extends ExtraFieldDisplayFormattedBase {
       $data[] = intval($entity->ssot_data['career_provincial']['job_openings_first']);
       $data[] = intval($entity->ssot_data['career_provincial']['job_openings_second']);
       $data[] = intval($entity->ssot_data['career_provincial']['job_openings_third']);
-      $labels = ['2022', '2026', '2031'];
+      $dates = array();
+      $dates[] = ssotParseDateRange($entity->ssot_data['schema'], 'career_provincial', 'job_openings_first');
+      $dates[] = ssotParseDateRange($entity->ssot_data['schema'], 'career_provincial', 'job_openings_second');
+      $dates[] = ssotParseDateRange($entity->ssot_data['schema'], 'career_provincial', 'job_openings_third');
+
+      $labels = $dates;
       $chart = [
         '#type' => 'chart',
         '#chart_type' => 'column',

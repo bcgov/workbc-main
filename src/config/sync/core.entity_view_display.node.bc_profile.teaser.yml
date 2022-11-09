@@ -7,8 +7,8 @@ dependencies:
     - field.field.node.bc_profile.field_content_group
     - field.field.node.bc_profile.field_hero_image
     - field.field.node.bc_profile.field_industry_highlights_intro
+    - field.field.node.bc_profile.field_introductions
     - field.field.node.bc_profile.field_key_facts
-    - field.field.node.bc_profile.field_labour_market_stats_intro
     - field.field.node.bc_profile.field_region_overview
     - field.field.node.bc_profile.field_scheduled_publish
     - node.type.bc_profile
@@ -40,7 +40,10 @@ hidden:
   extra_field_bc_job_openings_composition_chart: true
   extra_field_bc_job_openings_forecast: true
   extra_field_bc_job_openings_forecast_chart: true
+  extra_field_bc_labour_market_outlook_introduction: true
+  extra_field_bc_labour_market_stats_introduction: true
   extra_field_bc_population: true
+  extra_field_bc_top_occupations_introduction: true
   extra_field_bc_unemployment_rate: true
   extra_field_bc_unemployment_rate_bc: true
   extra_field_bc_unemployment_rate_chart: true
@@ -49,8 +52,8 @@ hidden:
   field_content_group: true
   field_hero_image: true
   field_industry_highlights_intro: true
+  field_introductions: true
   field_key_facts: true
-  field_labour_market_stats_intro: true
   field_region_overview: true
   field_scheduled_publish: true
   langcode: true

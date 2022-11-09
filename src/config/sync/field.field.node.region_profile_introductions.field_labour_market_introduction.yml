@@ -1,17 +1,17 @@
-uuid: f87c43de-f0b9-4b4a-9c2b-2e4e244c1e9a
+uuid: 4852680c-2d02-4ab3-95be-80ee8ab624d2
 langcode: en
 status: true
 dependencies:
   config:
     - field.storage.node.field_labour_market_introduction
-    - node.type.region_profile
+    - node.type.region_profile_introductions
   module:
     - text
-id: node.region_profile.field_labour_market_introduction
+id: node.region_profile_introductions.field_labour_market_introduction
 field_name: field_labour_market_introduction
 entity_type: node
-bundle: region_profile
-label: 'Labour Market Introduction'
+bundle: region_profile_introductions
+label: 'Labour Market Outlook Introduction'
 description: ''
 required: false
 translatable: true

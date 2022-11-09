@@ -27,7 +27,8 @@ class BCEmploymentBC extends ExtraFieldDisplayFormattedBase {
    */
   public function getLabel() {
 
-    return $this->t('Employment');
+    $datestr = ssotParseDateRange($this->getEntity()->ssot_data['schema'], 'labour_force_survey_bc_employment', 'total_employment_num');
+    return $this->t("Total B.C. Employment (" . $datestr . ")");
   }
 
   /**
@@ -43,8 +44,12 @@ class BCEmploymentBC extends ExtraFieldDisplayFormattedBase {
    */
   public function viewElements(ContentEntityInterface $entity) {
 
-    $output = "[not-yet-available]";
-
+    if (!empty($entity->ssot_data) && isset($entity->ssot_data['labour_force_survey_bc_employment']['total_employment_num'])) {
+      $output = ssotFormatNumber($entity->ssot_data['labour_force_survey_bc_employment']['total_employment_num'],0);
+    }
+    else {
+      $output = WORKBC_EXTRA_FIELDS_NOT_AVAILABLE;
+    }
     return [
       ['#markup' => $output],
     ];

@@ -26,8 +26,8 @@ class BCPopulation extends ExtraFieldDisplayFormattedBase {
    * {@inheritdoc}
    */
   public function getLabel() {
-
-    return $this->t('BC Population');
+    $date1 = strtotime($this->getEntity()->ssot_data['monthly_labour_market_updates']['year'] . "-" . $this->getEntity()->ssot_data['monthly_labour_market_updates']['month']. "-01", 10);
+    return $this->t("Population - age 15+ (" . date("M Y", $date1) . ")");
   }
 
   /**
@@ -43,8 +43,13 @@ class BCPopulation extends ExtraFieldDisplayFormattedBase {
    */
   public function viewElements(ContentEntityInterface $entity) {
 
-    $output = "[not-yet-available]";
-
+    if (!empty($entity->ssot_data) && isset($entity->ssot_data['monthly_labour_market_updates'])) {
+      $field = 'population_' . $entity->ssot_data['region'];
+      $output = ssotFormatNumber($entity->ssot_data['monthly_labour_market_updates'][$field],0);
+    }
+    else {
+      $output = WORKBC_EXTRA_FIELDS_NOT_AVAILABLE;
+    }
     return [
       ['#markup' => $output],
     ];
