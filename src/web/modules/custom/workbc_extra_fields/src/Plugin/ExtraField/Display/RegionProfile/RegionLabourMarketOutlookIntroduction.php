@@ -27,7 +27,7 @@ class RegionLabourMarketOutlookIntroduction extends ExtraFieldDisplayFormattedBa
    */
   public function getLabel() {
 
-    return $this->t('Labour Market');
+    return $this->t('Labour Market Outlook');
   }
 
   /**

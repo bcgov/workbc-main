@@ -27,7 +27,7 @@ class BCLabourMarketOutlookIntroduction extends ExtraFieldDisplayFormattedBase {
    */
   public function getLabel() {
 
-    return $this->t('Labour Market');
+    return $this->t('Labour Market Outlook');
   }
 
   /**
