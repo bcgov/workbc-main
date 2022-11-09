@@ -77,9 +77,8 @@
 .region-content .search-form .form-submit {
   height: 44px;
 
-  &:hover,
-  &:focus {
-    background-color: #f8f8f8;
+  &:focus::placeholder {
+    color: #212529;
   }
 }
 
