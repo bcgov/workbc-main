@@ -51,21 +51,21 @@ if (file_exists(__DIR__ . '/data/industry_profile_introductions.jsonl')) {
     ]);
 }
 
-// // Read GatherContent regional profile introductions if present.
-// global $regional_profile_introductions;
-// $regional_profile_introductions = NULL;
-// if (file_exists(__DIR__ . '/data/regional_profile_introductions.jsonl')) {
-//     print("Reading GC Regional Profile Introductions" . PHP_EOL);
-//     $item = json_decode(file_get_contents(__DIR__ . '/data/regional_profile_introductions.jsonl'));
-//     $regional_profile_introductions = createNode([
-//         'type' => 'regional_profile_introductions',
-//         'title' => convertPlainText($item->title),
-//         'field_labour_market_statistics_i' => convertRichText($item->{'Labour Market Statistics Introduction'}),
-//         'field_employment_introduction' => convertRichText($item->{'Employment Introduction'}),
-//         'field_labour_market_outlook_intr' => convertRichText($item->{'Labour Market Outlook Introduction'}),
-//         'field_top_occupations_introducti' => convertRichText($item->{'Top Occupations Introduction'}),
-//     ]);
-// }
+// Read GatherContent regional profile introductions if present.
+global $regional_profile_introductions;
+$regional_profile_introductions = NULL;
+if (file_exists(__DIR__ . '/data/regional_profile_introductions.jsonl')) {
+    print("Reading GC Regional Profile Introductions" . PHP_EOL);
+    $item = json_decode(file_get_contents(__DIR__ . '/data/regional_profile_introductions.jsonl'));
+    $regional_profile_introductions = createNode([
+        'type' => 'region_profile_introductions',
+        'title' => convertPlainText($item->title),
+        'field_labour_market_statistics_i' => convertRichText($item->{'Labour Market Statistics Introduction'}),
+        'field_employment_introduction' => convertRichText($item->{'Employment Introduction'}),
+        'field_labour_market_introduction' => convertRichText($item->{'Labour Market Outlook Introduction'}),
+        'field_top_occupations_introducti' => convertRichText($item->{'Top Occupations Introduction'}),
+    ]);
+}
 
 // Read GatherContent page data.
 $file = __DIR__ . '/data/workbc.jsonl';
