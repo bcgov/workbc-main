@@ -216,7 +216,8 @@ function convertEmbeddableLinks($text) {
 }
 
 function convertPDFLinks($text) {
-    if (!preg_match_all('/https:\/\/www\.workbc\.ca\/getmedia\/[-a-zA-Z0-9]+\/([^"]\.pdf)\.aspx/i', $text, $matches)) {
+    $matches = [];
+    if (!preg_match_all('|https://www.workbc.ca/getmedia/[a-zA-Z0-9-]+/([^"]+.pdf).aspx|', $text, $matches)) {
         return [];
     }
 
