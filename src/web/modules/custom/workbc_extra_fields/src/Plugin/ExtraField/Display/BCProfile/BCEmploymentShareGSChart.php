@@ -88,7 +88,6 @@ class BCEmploymentShareGSChart extends ExtraFieldDisplayFormattedBase {
         'series_one' => [
           '#type' => 'chart_data',
           '#title' => t('Goods'),
-          '#annotation' => $series1,
           '#data' => $series1,
         ],
         'series_two' => [
