@@ -279,7 +279,7 @@ function convertResources($resources) {
     }));
 }
 
-function createNode($fields, $legacy_url = null) {
+function createNode($fields, $legacy_urls = null) {
     // Defaults.
     if (!array_key_exists('uid', $fields)) {
         $fields['uid'] = 1;
@@ -300,18 +300,26 @@ function createNode($fields, $legacy_url = null) {
     $node->setPublished(TRUE);
     $node->save();
 
-    // Insert redirection.
-    if (!empty($legacy_url) && stripos($legacy_url, 'https://www.workbc.ca/') === 0) {
-        Redirect::create([
-            'redirect_source' => str_replace('https://www.workbc.ca/', '', $legacy_url),
-            'redirect_redirect' => 'internal:/node/' . $node->id(),
-            'language' => 'und',
-            'status_code' => '301',
-        ])->save();
-    }
+    // Setup redirection.
+    createRedirection($legacy_urls, 'internal:/node/' . $node->id());
 
     print("  Created {$fields['type']}" . PHP_EOL);
     return $node;
+}
+
+function createRedirection($legacy_urls, $target_url) {
+    if (!empty($legacy_urls)) {
+        foreach (explode(',', $legacy_urls) as $legacy_url) {
+            if (stripos($legacy_url, 'https://www.workbc.ca/') === 0) {
+                Redirect::create([
+                    'redirect_source' => str_replace('https://www.workbc.ca/', '', $legacy_url),
+                    'redirect_redirect' => $target_url,
+                    'language' => 'und',
+                    'status_code' => '301',
+                ])->save();
+            }
+        }
+    }
 }
 
 function loadNodeByTitleParent($title, $parent) {

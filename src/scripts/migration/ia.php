@@ -169,7 +169,9 @@ while (($row = fgetcsv($data)) !== FALSE) {
             'uri' => $row[URL] ?? NULL,
         ];
     }
-    // If an explicit URL is given, we skip node creation and move directly to menu item insertion.
+    // If an explicit URL is given but there is no node type:
+    // - Insert a menu link
+    // - Setup a redirection
     else if (!empty($row[URL])) {
         $pages[implode('/', $path)] = [
             'nid' => NULL,
@@ -179,6 +181,9 @@ while (($row = fgetcsv($data)) !== FALSE) {
             'mega_menu' => strcasecmp($row[MEGA_MENU], 'yes') === 0 ? $row_number : false,
             'uri' => $row[URL],
         ];
+
+        createRedirection($row[LEGACY_URL], 'internal:' . $row[URL]);
+
         print("  No content, just menu item: " . implode(' => ', $path) . PHP_EOL);
     }
     else {
