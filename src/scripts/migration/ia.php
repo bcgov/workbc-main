@@ -1,7 +1,8 @@
 <?php
 
+require('gc-drupal.php');
+
 use Drupal\pathauto\PathautoState;
-use Drupal\redirect\Entity\Redirect;
 
 /**
  * Generate nodes for all content types in the WorkBC IA.
@@ -157,13 +158,7 @@ while (($row = fgetcsv($data)) !== FALSE) {
 
     // Process the IA item.
     if (!empty($type)) {
-        // Create a Drupal node for this IA item.
-        print("  Creating new node for \"$title\"" . PHP_EOL);
-        $node = Drupal::entityTypeManager()
-            ->getStorage('node')
-            ->create($fields);
-        $node->setPublished(TRUE);
-        $node->save();
+        $node = createNode($fields, $row[LEGACY_URL]);
 
         $pages[implode('/', $path)] = [
             'nid' => $node->id(),
@@ -173,18 +168,6 @@ while (($row = fgetcsv($data)) !== FALSE) {
             'mega_menu' => strcasecmp($row[MEGA_MENU], 'yes') === 0 ? $row_number : false,
             'uri' => $row[URL] ?? NULL,
         ];
-
-        // Redirect legacy URL to new one.
-        if (!empty($row[LEGACY_URL]) && strpos($row[LEGACY_URL], 'https://www.workbc.ca/') === 0) {
-            Redirect::create([
-                'redirect_source' => str_replace('https://www.workbc.ca/', '', $row[LEGACY_URL]),
-                'redirect_redirect' => 'internal:/node/' . $node->id(),
-                'language' => 'und',
-                'status_code' => '301',
-            ])->save();
-        }
-
-        print("  Created $type: " . implode(' => ', $path) . PHP_EOL);
     }
     // If an explicit URL is given, we skip node creation and move directly to menu item insertion.
     else if (!empty($row[URL])) {

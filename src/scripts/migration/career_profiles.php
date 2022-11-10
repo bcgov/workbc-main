@@ -97,7 +97,7 @@ try {
       $career_profiles[$profile['noc']] = new stdClass();
     }
 
-    $node = createNode($fields);
+    $node = createNode($fields, 'https://www.workbc.ca/Jobs-Careers/Explore-Careers/Browse-Career-Profile/' . $profile['noc']);
     $career_profiles[$profile['noc']]->nid = $node->id();
   }
 

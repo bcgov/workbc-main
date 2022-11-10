@@ -5,6 +5,7 @@
  */
 
 use Drupal\pathauto\PathautoState;
+use Drupal\redirect\Entity\Redirect;
 
 function convertCheck($check_field) {
     return array_map(function($field) {
@@ -278,7 +279,7 @@ function convertResources($resources) {
     }));
 }
 
-function createNode($fields) {
+function createNode($fields, $legacy_url = null) {
     // Defaults.
     if (!array_key_exists('uid', $fields)) {
         $fields['uid'] = 1;
@@ -291,11 +292,24 @@ function createNode($fields) {
     if (!array_key_exists('moderation_state', $fields)) {
         $fields['moderation_state'] = 'published';
     }
+
+    // Create node.
     $node = Drupal::entityTypeManager()
     ->getStorage('node')
     ->create($fields);
     $node->setPublished(TRUE);
     $node->save();
+
+    // Insert redirection.
+    if (!empty($legacy_url) && stripos($legacy_url, 'https://www.workbc.ca/') === 0) {
+        Redirect::create([
+            'redirect_source' => str_replace('https://www.workbc.ca/', '', $legacy_url),
+            'redirect_redirect' => 'internal:/node/' . $node->id(),
+            'language' => 'und',
+            'status_code' => '301',
+        ])->save();
+    }
+
     print("  Created {$fields['type']}" . PHP_EOL);
     return $node;
 }
