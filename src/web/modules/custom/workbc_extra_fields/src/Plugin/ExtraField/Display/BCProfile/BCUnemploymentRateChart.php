@@ -61,6 +61,7 @@ class BCUnemploymentRateChart extends ExtraFieldDisplayFormattedBase {
           '#type' => 'chart_data',
           '#title' => t('BC'),
           '#data' => $bc,
+          '#color' => '#002857',
           '#prefix' => '',
           '#suffix' => '',
         ],

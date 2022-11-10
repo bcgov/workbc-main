@@ -51,6 +51,9 @@ class BCJobOpeningsCompositionChart extends ExtraFieldDisplayFormattedBase {
       $chart = [
         '#type' => 'chart',
         '#chart_type' => 'donut',
+        '#colors' => array(
+          '#009cde',
+          '#002857'),
         'series' => [
           '#type' => 'chart_data',
           '#title' => t(''),
@@ -68,6 +71,13 @@ class BCJobOpeningsCompositionChart extends ExtraFieldDisplayFormattedBase {
           '#type' => 'chart_yaxis',
           '#max' => max($data),
           '#min' => 0,
+        ],
+        '#raw_options' => [
+          'options' => [
+            'pieHole' => 0.7,
+            'width' => 600,
+            'height' => 350,
+          ]
         ]
       ];
       $output = \Drupal::service('renderer')->render($chart);

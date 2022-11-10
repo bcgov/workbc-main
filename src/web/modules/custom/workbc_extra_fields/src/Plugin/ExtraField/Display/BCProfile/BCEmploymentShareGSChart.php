@@ -45,24 +45,32 @@ class BCEmploymentShareGSChart extends ExtraFieldDisplayFormattedBase {
   public function viewElements(ContentEntityInterface $entity) {
 
     if (!empty($entity->ssot_data) && isset($entity->ssot_data['labour_force_survey_regional_industry_province'])) {
+      $regions = [];
       $series1 = [];
       $series2 = [];
-      $regions = [];
+
       foreach ($entity->ssot_data['labour_force_survey_regional_industry_province'] as $region) {
         if ($region['region'] <> "british_columbia") {
-          $regions[] = $region['region'];
+          $regions[] = ssotRegionName($region['region']);
           $series1[] = $region['goods'];
           $series2[] = $region['services'];
         }
+        else {
+          $bcGoods = $region['goods'];
+          $bcServices = $region['services'];
+        }
       }
-      // $regions[] =
-      // $series1[] =
-      // $series2[] =
+      $regions[] = "";
+      $series1[] = 0;
+      $series2[] = 0;
+      $regions[] = ssotRegionName('british_columbia');
+      $series1[] = $bcGoods;
+      $series2[] = $bcServices;
 
       // Define an x-axis to be used in multiple examples.
       $xaxis = [
         '#type' => 'chart_xaxis',
-        '#title' => $this->t('Regions'),
+        // '#title' => $this->t('Regions'),
         '#labels' => $regions,
       ];
 
@@ -74,9 +82,13 @@ class BCEmploymentShareGSChart extends ExtraFieldDisplayFormattedBase {
       $chart = [
         '#type' => 'chart',
         '#chart_type' => 'bar',
+        '#colors' => array(
+          '#002857',
+          '#009cde'),
         'series_one' => [
           '#type' => 'chart_data',
           '#title' => t('Goods'),
+          '#annotation' => $series1,
           '#data' => $series1,
         ],
         'series_two' => [
@@ -87,7 +99,14 @@ class BCEmploymentShareGSChart extends ExtraFieldDisplayFormattedBase {
         'x_axis' => $xaxis,
         'y_axis' => $yaxis,
         '#stacking' => TRUE,
-        '#raw_options' => [],
+        '#raw_options' => [
+          'options' => [
+            'height' => '500',
+            'legend' => [
+              'position' => 'bottom',
+            ],
+          ],
+        ],
       ];
 
       $output = \Drupal::service('renderer')->render($chart);

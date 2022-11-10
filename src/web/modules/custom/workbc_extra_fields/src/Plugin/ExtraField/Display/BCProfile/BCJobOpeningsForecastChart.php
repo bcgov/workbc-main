@@ -61,6 +61,7 @@ class BCJobOpeningsForecastChart extends ExtraFieldDisplayFormattedBase {
       $chart = [
         '#type' => 'chart',
         '#chart_type' => 'column',
+        '#colors' => ['#2E6AB0'],
         'series' => [
           '#type' => 'chart_data',
           '#title' => t(''),
