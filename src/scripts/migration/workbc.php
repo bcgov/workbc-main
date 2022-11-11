@@ -34,7 +34,6 @@ if (file_exists(__DIR__ . '/data/labour_market_introductions.jsonl')) {
 }
 
 // Read GatherContent industry profile introductions if present.
-global $industry_profile_introductions;
 $industry_profile_introductions = NULL;
 if (file_exists(__DIR__ . '/data/industry_profile_introductions.jsonl')) {
     print("Reading GC Industry Profile Introductions" . PHP_EOL);
@@ -52,7 +51,6 @@ if (file_exists(__DIR__ . '/data/industry_profile_introductions.jsonl')) {
 }
 
 // Read GatherContent regional profile introductions if present.
-global $regional_profile_introductions;
 $regional_profile_introductions = NULL;
 if (file_exists(__DIR__ . '/data/regional_profile_introductions.jsonl')) {
     print("Reading GC Regional Profile Introductions" . PHP_EOL);
@@ -208,7 +206,16 @@ try {
         if (property_exists($item, 'Resource')) {
             $fields['field_resources'] = convertResources($item->{'Resource'});
         }
+        if (!empty($industry_profile_introductions)) {
+            $fields['field_introductions'] = ['target_id' => $industry_profile_introductions->id()];
+        }
     }
+    else if ($template === 'Regional Profile') {
+        if (!empty($regional_profile_introductions)) {
+            $fields['field_introductions'] = ['target_id' => $regional_profile_introductions->id()];
+        }
+    }
+
     $node = loadNodeByTitleParent($title, $item->folder);
     if (empty($node)) {
         print("  Error: Could not find node" . PHP_EOL);
@@ -242,12 +249,12 @@ function convertRelatedTopics($related_topics, &$items) {
 }
 
 function createItem($item) {
-    switch (trim($item->template)) {
-        case "Blog Post, News Post, Success Stories Post":
+    switch (convertPlainText($item->template)) {
+        case 'Blog Post, News Post, Success Stories Post':
             return createBlogNewsSuccessStory($item);
-        case "Industry Profile":
+        case 'Industry Profile':
             return createIndustryProfile($item);
-        case "Regional Profile":
+        case 'Regional Profile':
             return createRegionalProfile($item);
         default:
             break;
@@ -258,54 +265,38 @@ function createItem($item) {
 function createRegionalProfile($item) {
     $title = convertPlainText($item->title);
     $type = strcasecmp($title, "British Columbia") === 0 ? 'bc_profile' : 'region_profile';
-    $fields = [
+    return createNode([
         'type' => $type,
         'title' => $title,
-    ];
-    global $regional_profile_introductions;
-    if (!empty($regional_profile_introductions)) {
-        $fields = array_merge($fields, [
-            'field_introductions' => ['target_id' => $regional_profile_introductions->id()],
-        ]);
-    }
-    return createNode($fields);
+    ]);
 }
 
 function createIndustryProfile($item) {
-    $type = 'industry_profile';
-    $fields = [
-        'type' => $type,
+    return createNode([
+        'type' => 'industry_profile',
         'title' => convertPlainText($item->title),
-    ];
-    global $industry_profile_introductions;
-    if (!empty($industry_profile_introductions)) {
-        $fields = array_merge($fields, [
-            'field_introductions' => ['target_id' => $industry_profile_introductions->id()],
-        ]);
-    }
-    return createNode($fields);
+    ]);
 }
 
 function createBlogNewsSuccessStory($item) {
     switch ($item->folder) {
-        case "Blog":
+        case 'Blog':
             $type = 'blog';
             break;
-        case "News":
+        case 'News':
             $type = 'news';
             break;
-        case "Success Stories":
+        case 'Success Stories':
             $type = 'success_story';
             break;
         default:
             print("  Unhandled folder {$item->folder} for blogs/news/success stories. Ignoring" . PHP_EOL);
             return;
     }
-    $fields = [
+    return createNode([
         'type' => $type,
         'title' => convertPlainText($item->title),
-    ];
-    return createNode($fields);
+    ]);
 }
 
 function convertCards($cards, $card_type, &$items, &$container_paragraph) {

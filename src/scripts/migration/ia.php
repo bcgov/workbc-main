@@ -35,6 +35,8 @@ $types = [
     'basic page hero' => 'page',
     'landing page' => 'page',
     'labour market monthly' => 'labour_market_monthly',
+    'regional profile' => 'region_profile',
+    'bc profile' => 'bc_profile'
 ];
 
 // Content groups for editing permissions.
