@@ -13,3 +13,4 @@ drush scr scripts/migration/ia
 drush scr scripts/migration/career_profiles
 drush scr scripts/migration/workbc
 drush sapi-ena && drush sapi-r && drush sapi-i
+drush cron

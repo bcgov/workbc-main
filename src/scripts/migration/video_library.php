@@ -1,6 +1,6 @@
 <?php
 
-require('gc-drupal.php');
+require('utilities.php');
 
 /**
  * Sources:
