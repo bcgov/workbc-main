@@ -1,7 +1,7 @@
 <?php
 
 /**
- * Functions to import GatherContent items into Drupal.
+ * Utilities to help import GatherContent items into Drupal.
  */
 
 use Drupal\pathauto\PathautoState;
@@ -309,7 +309,7 @@ function createNode($fields, $legacy_urls = null) {
 
 function createRedirection($legacy_urls, $target_url) {
     if (!empty($legacy_urls)) {
-        foreach (explode(',', $legacy_urls) as $legacy_url) {
+        foreach (array_map('trim', explode(',', $legacy_urls)) as $legacy_url) {
             if (stripos($legacy_url, 'https://www.workbc.ca/') === 0) {
                 Redirect::create([
                     'redirect_source' => str_replace('https://www.workbc.ca/', '', $legacy_url),

@@ -1,6 +1,6 @@
 <?php
 
-require('gc-drupal.php');
+require('utilities.php');
 
 use Drupal\paragraphs\Entity\Paragraph;
 
@@ -65,16 +65,32 @@ if (file_exists(__DIR__ . '/data/regional_profile_introductions.jsonl')) {
     ]);
 }
 
+// Read regions and industries mappings if present.
+const COL_DRUPAL = 0;
+const COL_SSOT = 1;
+const COL_KENTICO = 2;
+const COL_JOBBOARD = 3;
+global $regions_industries;
+$regions_industries = [];
+if (file_exists(__DIR__ . '/data/regions_industries.csv')) {
+    print("Reading Regions and Industries identifiers" . PHP_EOL);
+    $handle = fopen(__DIR__ . '/data/regions_industries.csv', 'r');
+    while (($row = fgetcsv($handle)) !== FALSE) {
+        $regions_industries[strtolower($row[COL_DRUPAL])] = $row;
+    }
+    fclose($handle);
+}
+
 // Read GatherContent page data.
 $file = __DIR__ . '/data/workbc.jsonl';
-if (($data = fopen($file, 'r')) === FALSE) {
+if (($handle = fopen($file, 'r')) === FALSE) {
     die("Could not open GC WorkBC items $file" . PHP_EOL);
 }
 print("Importing GC WorkBC items $file" . PHP_EOL);
 
 $items = [];
-while (!feof($data)) {
-    $item = json_decode(fgets($data));
+while (!feof($handle)) {
+    $item = json_decode(fgets($handle));
     if (empty($item)) continue;
     $item->process = TRUE;
 
@@ -91,6 +107,7 @@ while (!feof($data)) {
 
     $items[$item->id] = $item;
 }
+fclose($handle);
 
 // FIRST PASS: Create nodes that are not expressed in the IA.
 print("FIRST PASS =================" . PHP_EOL);
@@ -254,28 +271,19 @@ function createItem($item) {
             return createBlogNewsSuccessStory($item);
         case 'Industry Profile':
             return createIndustryProfile($item);
-        case 'Regional Profile':
-            return createRegionalProfile($item);
         default:
             break;
     }
     return NULL;
 }
 
-function createRegionalProfile($item) {
-    $title = convertPlainText($item->title);
-    $type = strcasecmp($title, "British Columbia") === 0 ? 'bc_profile' : 'region_profile';
-    return createNode([
-        'type' => $type,
-        'title' => $title,
-    ]);
-}
-
 function createIndustryProfile($item) {
+    global $regions_industries;
+    $title = convertPlainText($item->title);
     return createNode([
         'type' => 'industry_profile',
-        'title' => convertPlainText($item->title),
-    ]);
+        'title' => $title,
+    ], 'https://www.workbc.ca/Labour-Market-Information/Industry-Information/Industry-Profiles/' . $regions_industries[strtolower($title)][COL_KENTICO]);
 }
 
 function createBlogNewsSuccessStory($item) {
