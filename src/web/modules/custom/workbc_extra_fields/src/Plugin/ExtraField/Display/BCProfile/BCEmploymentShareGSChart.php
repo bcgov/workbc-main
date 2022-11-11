@@ -126,8 +126,6 @@ class BCEmploymentShareGSChart extends ExtraFieldDisplayFormattedBase {
       ];
 
       $output = \Drupal::service('renderer')->render($chart);
-
-      ksm($output);
     }
     else {
       $output = WORKBC_EXTRA_FIELDS_NOT_AVAILABLE;
