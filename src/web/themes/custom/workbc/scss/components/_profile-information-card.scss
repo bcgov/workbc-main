@@ -7,7 +7,7 @@
 
 .profile-information-card {
 
-    $icon-size: 64px;
+    $icon-size: 50px;
 
     position: relative; // begin positional context %profile-information-card
     flex: 0 0 100%;
@@ -17,28 +17,35 @@
     box-shadow: $workbc_default_box_shadow; 
     display: flex;
     flex-flow: row nowrap;
-    padding: 0 60px;
+    justify-content: space-evenly;
 
-    @include media-breakpoint-up(lg) {
-        flex: 1 1 30%;
+    @include media-breakpoint-up(xl) {
+        flex: 1 0 24%;
+    }
+
+    &:after {
+        // placeholder to balance the size of the icon, keeping the content centered
+        content: ' ';
+        flex: 0 0 $icon-size;
+        height: 100%;
     }
 
     .profile-information-card-icon {
-        flex: 0 0 $icon-size;
         height: 100%;
+        width: $icon-size;
         background-size: $icon-size $icon-size;
         background-position: center center;
         background-repeat: no-repeat;
     }
     .profile-information-card-content {
-        flex: 0 0 calc(100% - $icon-size);
+        flex: 0 0 50%;
         display: flex;
         flex-flow: column nowrap;
         justify-content: center;
 
         .profile-information-card-title {
             width: 100%;
-            font-size: 1.3125rem;
+            font-size: 1.00rem;
             color: $workbc_palette_dark_default;
             text-align: center;
         }
@@ -56,7 +63,12 @@
         right: 10px;
         bottom: 10px;
     }
+}
 
+.profile-information-social {
+    .profile-information-card-icon {
+        background-image: url(../assets/images/profile-icon-social.svg);        
+    }
 }
 
 .profile-information-salary {
