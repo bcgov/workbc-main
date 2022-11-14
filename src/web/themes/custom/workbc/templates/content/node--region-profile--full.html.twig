@@ -118,7 +118,7 @@
   },
   tab_sections: {
     overview: {
-      title: content.group_region_profile_tabs.group_regional_overview.field_region_overview['#title'],
+      title: content.group_region_profile_tabs.group_regional_overview.field_region_overview['#title'] ?? "Regional Overview",
       description: content.group_region_profile_tabs.group_regional_overview.field_region_overview.0['#text'],
 
       region_overview_title: content.group_region_profile_tabs.group_regional_overview.field_region_overview['#title'],
@@ -128,7 +128,7 @@
       key_facts_text: content.group_region_profile_tabs.group_regional_overview.field_key_facts.0['#text'],
     },
     labour_market_statistics: {
-      title: content.group_region_profile_tabs.group_labour_market_statistics.extra_field_region_labour_market_stats_introduction['#title'],
+      title: content.group_region_profile_tabs.group_labour_market_statistics.extra_field_region_labour_market_stats_introduction['#title'] ?? "Labour Market Statistics",
       description: content.group_region_profile_tabs.group_labour_market_statistics.extra_field_region_labour_market_stats_introduction.0['#text'],
 
       employment_title: content.group_region_profile_tabs.group_labour_market_statistics.extra_field_region_employment_introduction['#title'],
@@ -175,7 +175,7 @@
 
     },
     industry_highlights: {
-      title: content.group_region_profile_tabs.group_industry_highlights.field_industry_highlights_intro['#title'],
+      title: content.group_region_profile_tabs.group_industry_highlights.field_industry_highlights_intro['#title'] ?? "Industry Highlights",
       description: content.group_region_profile_tabs.group_industry_highlights.field_industry_highlights_intro.0['#text'],
 
       employment_title: content.group_region_profile_tabs.group_industry_highlights.extra_field_region_employment_by_industry_table['#title'],
