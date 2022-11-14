@@ -3,6 +3,7 @@ langcode: en
 status: true
 dependencies:
   config:
+    - core.entity_view_mode.node.teaser
     - field.storage.node.body
     - field.storage.node.field_image
     - field.storage.node.field_tags
@@ -1052,6 +1053,7 @@ display:
     display_plugin: block
     position: 2
     display_options:
+      title: ''
       fields:
         nid:
           id: nid
@@ -1445,29 +1447,44 @@ display:
           sort_asc_label: Asc
           sort_desc_label: Desc
       style:
-        type: grid
+        type: default
         options:
-          grouping: {  }
-          columns: 4
-          automatic_width: true
-          alignment: horizontal
-          row_class_custom: ''
-          row_class_default: true
-          col_class_custom: ''
-          col_class_default: true
+          row_class: featured-news__card
+          default_row_class: true
+          uses_fields: false
       row:
-        type: fields
-        options: {  }
+        type: 'entity:node'
+        options:
+          relationship: none
+          view_mode: teaser
       defaults:
+        title: false
+        css_class: false
         use_ajax: false
         pager: false
         exposed_form: false
         style: false
         row: false
         fields: false
+        header: false
         footer: false
+      css_class: featured-news
       use_ajax: false
       display_description: ''
+      header:
+        area:
+          id: area
+          table: views
+          field: area
+          relationship: none
+          group_type: group
+          admin_label: ''
+          plugin_id: text
+          empty: false
+          content:
+            value: '<h2 class="featured-news-view-title">Top News</h2>'
+            format: full_html
+          tokenize: false
       footer:
         area:
           id: area
@@ -1479,8 +1496,8 @@ display:
           plugin_id: text
           empty: false
           content:
-            value: '<a class="btn btn-primary pull-right" href="/news-archive">View News Archive</a>'
-            format: basic_html
+            value: '<a class="featured-news-all-link" href="/plan-career/news">View All WorkBC News</a>'
+            format: full_html
           tokenize: false
       display_extenders: {  }
     cache_metadata:
