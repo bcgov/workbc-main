@@ -21,6 +21,7 @@
         $region_value = \Drupal::request()->query->get('region');
         $education_value = \Drupal::request()->query->get('education');
         $interest_value = \Drupal::request()->query->get('interest');
+        $wage_value = \Drupal::request()->query->get('wage');
         $offset = \Drupal::request()->query->get('offset');
         $limit = \Drupal::request()->query->get('limit');
         $parameters = '';
@@ -37,6 +38,16 @@
         }
         if(!empty($interest_value)) {
           $parameters .= '&occupational_interest=like.*' . $interest_value. '*';
+          $filters_exists = TRUE;
+        }
+        if(!empty($wage_value)) {
+          $wages_limit = explode('-',$wage_value);
+          if($wages_limit[0] > 0){
+            $parameters .= '&wage_rate_median=gt.' . $wages_limit[0];
+          }
+          if($wages_limit[1] > 0){
+            $parameters .= '&wage_rate_median=lt.' . $wages_limit[1];
+          }
           $filters_exists = TRUE;
         }
 
@@ -63,9 +74,19 @@
         $regionMappings = getRegionMappings();
 
         //filters options
-        $regionOptions[''] = $this->t('Select');
-        $educationOptions[''] = $this->t('Select');
-        $interestOptions[''] = $this->t('Select');
+        $no_value_text = $this->t('Select');;
+        $regionOptions[''] = $no_value_text;
+        $educationOptions[''] = $no_value_text;
+        $interestOptions[''] = $no_value_text;
+        $wageOptions = [
+          '' => $no_value_text,
+          '0-20'  => $this->t('Under $20.00 per hour'),
+          '20-30' => $this->t('$20.00 to $29.99 per hour'),
+          '30-40' => $this->t('$30.00 to $39.99 per hour'),
+          '40-49' => $this->t('$40.00 to $49.99 per hour'),
+          '50-0' => $this->t('$50.00+ per hour')
+        ];
+
         foreach($select_options as $select_key => $select_values) {
           $regionOptions[$select_values['region']] = $regionMappings[$select_values['region']];
           $educationOptions[$select_values['typical_education_background']] = $select_values['typical_education_background'];
@@ -87,7 +108,7 @@
           foreach($data as $key => $values){
             $rows[$key]['occupation'] = $values['occupation'];
             $rows[$key]['typical_education_background'] = $values['typical_education_background'];
-            $rows[$key]['wage_rate_median'] = '$'.$values['wage_rate_median'];
+            $rows[$key]['wage_rate_median'] = '$'.number_format($values['wage_rate_median']);
             $rows[$key]['openings_forecast'] = ssotFormatNumber($values['openings_forecast']);
             $rows[$key]['occupational_interest'] = $values['occupational_interest'];
           } 
@@ -126,6 +147,14 @@
           '#attributes' => ['id' => 'occupational-interest']
         ];
 
+        $form['filters']['wage'] = [
+          '#type' => 'select',
+          '#title' => $this->t('Wage'),
+          '#options'=> $wageOptions,
+          '#value' => $wage_value?$wage_value:'null',
+          '#attributes' => ['id' => 'wage']
+        ];
+
         if(!empty($data)) {
           $form['data'] = [
             '#theme' => 'table',
@@ -145,7 +174,7 @@
           ];
         } else {
           if($filters_exists) {
-            $output = '<div>'.$this->t('Choosen filters has no value. Please refine data from the above provided dropdowns.').'</div>';
+            $output = '<div>'.$this->t('No data available for chosen filters. Please select other values for filtering.').'</div>';
           } else {
             $output = '<div>'.$this->t('No data available.').'</div>';  
           }
