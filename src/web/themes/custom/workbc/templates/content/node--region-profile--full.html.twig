@@ -177,6 +177,10 @@
     industry_highlights: {
       title: content.group_region_profile_tabs.group_industry_highlights.field_industry_highlights_intro['#title'],
       description: content.group_region_profile_tabs.group_industry_highlights.field_industry_highlights_intro.0['#text'],
+
+      employment_title: content.group_region_profile_tabs.group_industry_highlights.extra_field_region_employment_by_industry_table['#title'],
+      employment_markup: content.group_region_profile_tabs.group_industry_highlights.extra_field_region_employment_by_industry_table.0['#markup'],
+      employment_source: content.group_region_profile_tabs.group_industry_highlights.extra_field_region_employment_by_industry_source.0['#markup'],
     },
     
   },
@@ -277,6 +281,9 @@
               <h2 class="profile-content-section__header">{{ viewmodel['tab_sections']['overview']['key_facts_title'] }}</h2>
               <div>{{ viewmodel['tab_sections']['overview']['key_facts_text']|raw }}</div>
             </div>
+
+            {{ kint(content.group_region_profile_tabs.group_regional_overview) }}
+
           </div>
 
           <div class="tab-pane" id="labour_market_statistics-content" role="tabpanel" aria-labelledby="labour_market_statistics-tab">
@@ -389,8 +396,15 @@
             <h2 class="profile-content-main__header">{{ viewmodel['tab_sections']['industry_highlights']['title'] }}</h2>
             <div>{{ viewmodel['tab_sections']['industry_highlights']['description']|raw }}</div>
 
-            {{ kint(content.group_region_profile_tabs.group_industry_highlights) }}
-
+            <div class="card-profile">
+              <div class="card-profile__content">
+                <h3 class="card-profile__content-header">{{ viewmodel['tab_sections']['industry_highlights']['employment_title'] }}</h3>
+                <span class="card-profile__content-item">{{ viewmodel['tab_sections']['industry_highlights']['employment_markup']|raw }}</span>
+              </div>
+              <div class="card-profile__source">
+                <em>Source:</em> {{ viewmodel['tab_sections']['industry_highlights']['employment_source']|raw }}
+              </div>
+            </div>
           </div>
 
         </div>
