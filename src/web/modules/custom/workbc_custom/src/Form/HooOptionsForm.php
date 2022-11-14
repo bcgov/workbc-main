@@ -108,7 +108,7 @@
           foreach($data as $key => $values){
             $rows[$key]['occupation'] = $values['occupation'];
             $rows[$key]['typical_education_background'] = $values['typical_education_background'];
-            $rows[$key]['wage_rate_median'] = '$'.number_format($values['wage_rate_median']);
+            $rows[$key]['wage_rate_median'] = '$'.ssotFormatNumber($values['wage_rate_median'], 2);
             $rows[$key]['openings_forecast'] = ssotFormatNumber($values['openings_forecast']);
             $rows[$key]['occupational_interest'] = $values['occupational_interest'];
           } 
