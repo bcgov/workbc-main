@@ -2,64 +2,57 @@
   Drupal.behaviors.customscript = {
     attach: function (context, settings) {
 
-      var currentUrl = window.location.href.split('?')[0];
+      console.log('asdasd');
 
       //education change
       $('#education-level').change( function() {
-        var value = $(this).val();
-
-        var redirectUrl = currentUrl+'?education='+value;
-
-        if($('#region').val()){
-          var region = $('#region').val();
-          redirectUrl = redirectUrl+'&region='+region;
-        }
-
-        if($('#occupational-interest').val()){
-          var interest = $('#occupational-interest').val();
-          redirectUrl = redirectUrl+'&interest='+interest;
-        }
-
-        window.location.href = redirectUrl;
+        window.location.href = redirectUrl();
       });
 
       //region change
       $('#region').change( function() {
-        var value = $(this).val();
-
-        var redirectUrl = currentUrl+'?region='+value;
-
-        if($('#education-level').val()){
-          var education = $('#education-level').val();
-          redirectUrl = redirectUrl+'&education='+education;
-        }
-
-        if($('#occupational-interest').val()){
-          var interest = $('#occupational-interest').val();
-          redirectUrl = redirectUrl+'&interest='+interest;
-        }
-
-        window.location.href = redirectUrl;
+        window.location.href = redirectUrl();
       });
 
       //interest change
       $('#occupational-interest').change( function() {
-        var value = $(this).val();
+        window.location.href = redirectUrl();
+      });
 
-        var redirectUrl = currentUrl+'?interest='+value;
+      //interest change
+      $('#wage').change( function() {
+        window.location.href = redirectUrl();
+      });
+
+      var redirectUrl = function (){
+
+        var redirectUrl = window.location.href.split('?')[0];
+        var parameters = [];
 
         if($('#education-level').val()){
           var education = $('#education-level').val();
-          redirectUrl = redirectUrl+'&education='+education;
+          parameters.push('education='+education);
         }
 
         if($('#region').val()){
           var region = $('#region').val();
-          redirectUrl = redirectUrl+'&region='+region;
+          parameters.push('region='+region);
         }
 
-        window.location.href = redirectUrl;
-      });
+        if($('#occupational-interest').val()){
+          var interest = $('#occupational-interest').val();
+          parameters.push('interest='+interest);
+        }
+
+        if($('#wage').val()){
+          var wage = $('#wage').val();
+          parameters.push('wage='+wage);
+        }
+
+        redirectUrl = redirectUrl + '?' + parameters.join('&');
+
+        return redirectUrl;
+      }
  
     }
   }
