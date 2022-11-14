@@ -53,7 +53,11 @@ class BCEmploymentShareGSChart extends ExtraFieldDisplayFormattedBase {
         if ($region['region'] <> "british_columbia") {
           $regions[] = ssotRegionName($region['region']);
           $series1[] = $region['goods'];
+          $styles1[] = '';
+          $annotations1[] = $region['goods'] . "%";
           $series2[] = $region['services'];
+          $styles2[] = '';
+          $annotations2[] = $region['services'] . "%";
         }
         else {
           $bcGoods = $region['goods'];
@@ -62,15 +66,18 @@ class BCEmploymentShareGSChart extends ExtraFieldDisplayFormattedBase {
       }
       $regions[] = "";
       $series1[] = 0;
+      $annotations1[] = "";
       $series2[] = 0;
+      $annotations2[] = "";
       $regions[] = ssotRegionName('british_columbia');
       $series1[] = $bcGoods;
+      $annotations1[] = $bcGoods . "%";
       $series2[] = $bcServices;
+      $annotations2[] = $bcServices . "%";
 
       // Define an x-axis to be used in multiple examples.
       $xaxis = [
         '#type' => 'chart_xaxis',
-        // '#title' => $this->t('Regions'),
         '#labels' => $regions,
       ];
 
@@ -90,10 +97,20 @@ class BCEmploymentShareGSChart extends ExtraFieldDisplayFormattedBase {
           '#title' => t('Goods'),
           '#data' => $series1,
         ],
+        'series_one_annotations' => [
+          '#type' => 'chart_data',
+          '#title' => [ 'role' => 'annotation'],
+          '#data' => $annotations1,
+        ],
         'series_two' => [
           '#type' => 'chart_data',
           '#title' => t('Services'),
           '#data' => $series2,
+        ],
+        'series_two_annotations' => [
+          '#type' => 'chart_data',
+          '#title' => [ 'role' => 'annotation'],
+          '#data' => $annotations2,
         ],
         'x_axis' => $xaxis,
         'y_axis' => $yaxis,

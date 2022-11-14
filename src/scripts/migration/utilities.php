@@ -1,10 +1,11 @@
 <?php
 
 /**
- * Functions to import GatherContent items into Drupal.
+ * Utilities to help import GatherContent items into Drupal.
  */
 
 use Drupal\pathauto\PathautoState;
+use Drupal\redirect\Entity\Redirect;
 
 function convertCheck($check_field) {
     return array_map(function($field) {
@@ -278,7 +279,7 @@ function convertResources($resources) {
     }));
 }
 
-function createNode($fields) {
+function createNode($fields, $legacy_urls = null) {
     // Defaults.
     if (!array_key_exists('uid', $fields)) {
         $fields['uid'] = 1;
@@ -291,13 +292,34 @@ function createNode($fields) {
     if (!array_key_exists('moderation_state', $fields)) {
         $fields['moderation_state'] = 'published';
     }
+
+    // Create node.
     $node = Drupal::entityTypeManager()
     ->getStorage('node')
     ->create($fields);
     $node->setPublished(TRUE);
     $node->save();
+
+    // Setup redirection.
+    createRedirection($legacy_urls, 'internal:/node/' . $node->id());
+
     print("  Created {$fields['type']}" . PHP_EOL);
     return $node;
+}
+
+function createRedirection($legacy_urls, $target_url) {
+    if (!empty($legacy_urls)) {
+        foreach (array_map('trim', explode(',', $legacy_urls)) as $legacy_url) {
+            if (stripos($legacy_url, 'https://www.workbc.ca/') === 0) {
+                Redirect::create([
+                    'redirect_source' => str_replace('https://www.workbc.ca/', '', $legacy_url),
+                    'redirect_redirect' => $target_url,
+                    'language' => 'und',
+                    'status_code' => '301',
+                ])->save();
+            }
+        }
+    }
 }
 
 function loadNodeByTitleParent($title, $parent) {
