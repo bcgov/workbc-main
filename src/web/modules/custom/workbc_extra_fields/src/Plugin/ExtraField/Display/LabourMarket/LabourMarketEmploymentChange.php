@@ -54,21 +54,18 @@ class LabourMarketEmploymentChange extends ExtraFieldDisplayFormattedBase {
 
     //values
     $total_employment_change = !empty($data['employment_change_abs_total_employment']) ? ssotFormatNumber($data['employment_change_abs_total_employment'], 0 , true) : WORKBC_EXTRA_FIELDS_NOT_AVAILABLE;
-    $fulltime_value = !empty($data['employment_change_abs_full_time_jobs']) ? ssotFormatNumber($data['employment_change_abs_full_time_jobs'], 0 , true) : WORKBC_EXTRA_FIELDS_NOT_AVAILABLE; 
-    $parttime_value = !empty($data['employment_change_abs_part_time_jobs']) ? ssotFormatNumber($data['employment_change_abs_part_time_jobs'], 0 , true) : WORKBC_EXTRA_FIELDS_NOT_AVAILABLE; 
-    $source_text = !empty($entity->ssot_data['sources']['no-datapoint'])?$entity->ssot_data['sources']['no-datapoint'] : WORKBC_EXTRA_FIELDS_NOT_AVAILABLE;
+    $fulltime_value = !empty($data['employment_change_abs_full_time_jobs']) ? ssotFormatNumber($data['employment_change_abs_full_time_jobs'], 0 , true) : WORKBC_EXTRA_FIELDS_NOT_AVAILABLE;
+    $parttime_value = !empty($data['employment_change_abs_part_time_jobs']) ? ssotFormatNumber($data['employment_change_abs_part_time_jobs'], 0 , true) : WORKBC_EXTRA_FIELDS_NOT_AVAILABLE;
 
     //output
     $output = '
-    <div class="LME--total-employed">
-    <span class="LME--total-employed-label"><strong>'.$this->t("Employment Change").'</strong></span>
-    <span class="LME--total-employed-label">'.$this->t("(since last month)").'</span>
-    <span class="LME--total-employed-value blue">'.$total_employment_change.'</span>
-    <div class="LME--total-employed-time">
-      <div class="LME--total-employed-time-full"><span>'.$this->t("Full Time").'</span><span class="LME--total-employed-time-full-value">'.$fulltime_value.'</span></div>
-      <div class="LME--total-employed-time-part"><span>'.$this->t("Part Time").'</span><span class="LME--total-employed-time-part-value">'.$parttime_value.'</span></div>
+    <div class="lm-data-box text-center">
+    <div class="lm-label"><strong>'.$this->t("Employment Change").'</strong><div class="lm-total-employed-sub-label">'.$this->t("(since last month)").'</div></div>
+    <div class="lm-data-value">'.$total_employment_change.'</div>
+    <div class="lm-data-container">
+      <div class="lm-data-item"><div class="lm-data-item-label">'.$this->t("Full Time").'</div><div class="lm-data-item-value">'.$fulltime_value.'</div></div>
+      <div class="lm-data-item"><div class="lm-data-item-label">'.$this->t("Part Time").'</div><div class="lm-data-item-value">'.$parttime_value.'</div></div>
     </div>
-    <span class="LME--total-employed-bottom-source"><strong>'.$this->t("Source").': </strong>'.$source_text.'</span>
     </div>';
 
 

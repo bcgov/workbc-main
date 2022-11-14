@@ -53,24 +53,24 @@ class LabourMarketEmploymentByAgeSexTable extends ExtraFieldDisplayFormattedBase
     $header = [' ', $current_previous_months['current_month_year'], $current_previous_months['previous_month_year']];
 
     if(!empty($entity->ssot_data['monthly_labour_market_updates'][0])) {
-      $rows = $this->getGenderAgeValues($entity->ssot_data['monthly_labour_market_updates'][0]);  
+      $rows = $this->getGenderAgeValues($entity->ssot_data['monthly_labour_market_updates'][0]);
     } else {
       $rows[] = WORKBC_EXTRA_FIELDS_NOT_AVAILABLE;
     }
-    
+
     $source_text = !empty($entity->ssot_data['sources']['no-datapoint']) ? $entity->ssot_data['sources']['no-datapoint'] : WORKBC_EXTRA_FIELDS_NOT_AVAILABLE;
-    $output = '<span><strong>'.$this->t("Source").':</strong> '.$source_text.'</span>';
+    $output = '<div class="lm-source"><strong>'.$this->t("Source").':</strong> '.$source_text.'</div>';
 
     return [
       [
         '#theme' => 'table',
         '#header' => $header,
         '#rows' => $rows,
-        '#attributes' => array('class'=>array('bc-region-table')),
+        '#attributes' => array('class'=>array('lm-region-table')),
         '#header_columns' => 4,
       ],
       [
-        '#markup' => $output 
+        '#markup' => $output
       ]
     ];
 
@@ -87,7 +87,7 @@ class LabourMarketEmploymentByAgeSexTable extends ExtraFieldDisplayFormattedBase
         //age values
         if(strpos($key, $ageNeedle) !== false){
           $age = str_replace($ageNeedle, "", $key);
-          
+
           if(empty($genderAgeValues['age']['head'])) {
             $genderAgeValues['ahead'] = [$this->t('Age'),'',''];
           }

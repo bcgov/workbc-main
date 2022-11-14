@@ -5,7 +5,6 @@
 *
 * Usage: drush scr scripts/migration/taxonomy -- -v vocabulary_name /full/path/to/sheet.csv
 *
-* Revert: drush entity:delete taxonomy_term --bundle=vocabulary_name
 */
 
 $getopt = new \GetOpt\GetOpt([

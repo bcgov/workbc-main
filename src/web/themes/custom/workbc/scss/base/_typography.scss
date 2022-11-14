@@ -13,8 +13,29 @@ p {
   margin-bottom: $workbc_spacing_default;
 }
 
+.page-title {
+  @include gradient-underline;
+  margin-bottom: $workbc_spacing_default;
+  font-size: 2.25rem;
+
+  @include media-breakpoint-up(lg) {
+    font-size: 2.8125rem;
+  }
+}
+
 .node .field--name-body h2 {
   font-size: 2.25rem;
   font-weight: 700;
   margin-bottom: 30px;
+}
+
+.title-w-underline {
+  @include gradient-underline;
+  margin-bottom: 24px;
+  font-weight: 700;
+  font-size: 1.875rem;
+
+  @include media-breakpoint-up(lg) {
+    font-size: 2.25rem;
+  }
 }

@@ -42,7 +42,7 @@ class LabourMarketEmploymentIndustriesTable extends ExtraFieldDisplayFormattedBa
    * {@inheritdoc}
    */
   public function viewElements(ContentEntityInterface $entity) {
-    
+
     if(empty($entity->ssot_data['monthly_labour_market_updates'])){
       $output = '<div>'.WORKBC_EXTRA_FIELDS_NOT_AVAILABLE.'</div>';
       return [
@@ -58,9 +58,9 @@ class LabourMarketEmploymentIndustriesTable extends ExtraFieldDisplayFormattedBa
     foreach($data as $values){
       $rows[] = [$values['industry'], $values['abs'], $values['per']];
     }
-    
+
     $source_text = !empty($entity->ssot_data['sources']['Industry Highlights'])?$entity->ssot_data['sources']['Industry Highlights']:WORKBC_EXTRA_FIELDS_NOT_AVAILABLE;
-    $output = '<span><strong>'.$this->t("Source").': </strong>'.$source_text.'</span>';
+    $output = '<div class="lm-source"><strong>'.$this->t("Source").': </strong>'.$source_text.'</div>';
 
     return [
       [
@@ -71,7 +71,7 @@ class LabourMarketEmploymentIndustriesTable extends ExtraFieldDisplayFormattedBa
         '#header_columns' => 4,
       ],
       [
-        '#markup' => $output 
+        '#markup' => $output
       ]
 
     ];

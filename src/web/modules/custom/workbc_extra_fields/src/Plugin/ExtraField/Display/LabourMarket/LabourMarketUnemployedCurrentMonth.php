@@ -53,20 +53,18 @@ class LabourMarketUnemployedCurrentMonth extends ExtraFieldDisplayFormattedBase 
     //values
     $current_previous_months = $entity->ssot_data['current_previous_months_names'];
     $total_unemployed = !empty($data['total_unemployed'])?ssotFormatNumber($data['total_unemployed']) : WORKBC_EXTRA_FIELDS_NOT_AVAILABLE;
-    $unemployed_rate_value = !empty($data['employment_rate_pct_unemployment'])?$data['employment_rate_pct_unemployment'].'%': WORKBC_EXTRA_FIELDS_NOT_AVAILABLE; 
-    $unemployed_part_value = !empty($data['employment_rate_pct_participation'])?$data['employment_rate_pct_participation']:WORKBC_EXTRA_FIELDS_NOT_AVAILABLE; 
-    $source_text = !empty($entity->ssot_data['sources']['no-datapoint'])?$entity->ssot_data['sources']['no-datapoint']:WORKBC_EXTRA_FIELDS_NOT_AVAILABLE;
+    $unemployed_rate_value = !empty($data['employment_rate_pct_unemployment'])?$data['employment_rate_pct_unemployment'].'%': WORKBC_EXTRA_FIELDS_NOT_AVAILABLE;
+    $unemployed_part_value = !empty($data['employment_rate_pct_participation'])?$data['employment_rate_pct_participation']:WORKBC_EXTRA_FIELDS_NOT_AVAILABLE;
 
     //output
     $output = '
-    <div class="LME--total-unemployed">
-    <span class="LME--total-unemployed-label">'.$this->t("Total Unemployed (@currentmonthyear)", ['@currentmonthyear' => $current_previous_months['current_month_year']]).'</span>
-    <span class="LME--total-unemployed-value blue">'.$total_unemployed.'</span>
-    <div class="LME--total-unemployed-rate">
-      <div class="LME--total-unemployed-rate"><span>'.$this->t("Unemployment Rate").'</span><span class="LME--total-unemployed-rate-value">'.$unemployed_rate_value.'%</span></div>
-      <div class="LME--total-unemployed-part"><span>'.$this->t("Participation Rate").'</span><span class="LME--total-unemployed-part-value">'.$unemployed_part_value.'%</span></div>
+    <div class="lm-data-box text-center">
+    <div class="lm-label">'.$this->t("<strong>Total Unemployed</strong> (@currentmonthyear)", ['@currentmonthyear' => $current_previous_months['current_month_year']]).'</div>
+    <div class="lm-data-value">'.$total_unemployed.'</div>
+    <div class="lm-data-container">
+      <div class="lm-data-item"><div class="lm-data-item-label">'.$this->t("Unemployment Rate").'</div><div class="lm-data-item-value">'.$unemployed_rate_value.'%</div></div>
+      <div class="lm-data-item"><div class="lm-data-item-label">'.$this->t("Participation Rate").'</div><div class="lm-data-item-value">'.$unemployed_part_value.'%</div></div>
     </div>
-    <span class="LME--total-employed-bottom-source"><strong>'.$this->t("Source").': </strong>'.$source_text.'</span>
     </div>';
 
     return [
