@@ -5,20 +5,22 @@ dependencies:
   config:
     - field.field.node.workbc_centre.field_address
     - field.field.node.workbc_centre.field_alert
-    - field.field.node.workbc_centre.field_apply_online
+    - field.field.node.workbc_centre.field_content
     - field.field.node.workbc_centre.field_content_group
     - field.field.node.workbc_centre.field_email
     - field.field.node.workbc_centre.field_french_available
+    - field.field.node.workbc_centre.field_geolocation
     - field.field.node.workbc_centre.field_hero_image
-    - field.field.node.workbc_centre.field_hours_of_operation
+    - field.field.node.workbc_centre.field_phone
     - field.field.node.workbc_centre.field_related_topics
     - field.field.node.workbc_centre.field_scheduled_publish
-    - field.field.node.workbc_centre.field_survey_link
     - field.field.node.workbc_centre.field_website
+    - field.field.node.workbc_centre.field_working_hours
     - node.type.workbc_centre
   module:
     - address
     - entity_reference_revisions
+    - geolocation
     - link
     - scheduled_publish
     - svg_image
@@ -53,21 +55,21 @@ content:
     third_party_settings: {  }
     weight: 6
     region: content
-  field_apply_online:
+  field_content:
     type: entity_reference_revisions_entity_view
     label: above
     settings:
       view_mode: default
       link: ''
     third_party_settings: {  }
-    weight: 7
+    weight: 13
     region: content
   field_email:
     type: basic_string
     label: above
     settings: {  }
     third_party_settings: {  }
-    weight: 4
+    weight: 15
     region: content
   field_french_available:
     type: boolean
@@ -78,6 +80,13 @@ content:
       format_custom_true: ''
     third_party_settings: {  }
     weight: 10
+    region: content
+  field_geolocation:
+    type: geolocation_latlng
+    label: above
+    settings: {  }
+    third_party_settings: {  }
+    weight: 14
     region: content
   field_hero_image:
     type: image
@@ -94,14 +103,12 @@ content:
     third_party_settings: {  }
     weight: 1
     region: content
-  field_hours_of_operation:
-    type: entity_reference_revisions_entity_view
+  field_phone:
+    type: basic_string
     label: above
-    settings:
-      view_mode: default
-      link: ''
+    settings: {  }
     third_party_settings: {  }
-    weight: 3
+    weight: 16
     region: content
   field_scheduled_publish:
     type: scheduled_publish_generic_formatter
@@ -111,15 +118,6 @@ content:
       text_pattern: '%moderation_state% - %date%'
     third_party_settings: {  }
     weight: 11
-    region: content
-  field_survey_link:
-    type: entity_reference_revisions_entity_view
-    label: above
-    settings:
-      view_mode: default
-      link: ''
-    third_party_settings: {  }
-    weight: 8
     region: content
   field_website:
     type: link
@@ -132,6 +130,13 @@ content:
       target: ''
     third_party_settings: {  }
     weight: 5
+    region: content
+  field_working_hours:
+    type: text_default
+    label: above
+    settings: {  }
+    third_party_settings: {  }
+    weight: 12
     region: content
   links:
     settings: {  }

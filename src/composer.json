@@ -95,6 +95,7 @@
         "drupal/fpa": "^3.0",
         "drupal/fullcalendar_view": "^5.1",
         "drupal/fvm": "^2.0",
+        "drupal/geolocation": "^3.10",
         "drupal/health_check": "^2.0",
         "drupal/image_widget_crop": "^2.3",
         "drupal/jquery_ui_accordion": "^1.1",

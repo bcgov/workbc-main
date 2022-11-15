@@ -31,4 +31,4 @@ visibility:
   request_path:
     id: request_path
     negate: false
-    pages: "/contact-us\r\n/plan-career/career-events/request-tour-stop"
+    pages: "/contact-us\r\n/plan-career/career-events/find-your-fit-tour/request-tour-stop"

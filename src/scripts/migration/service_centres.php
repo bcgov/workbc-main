@@ -32,6 +32,12 @@ const COL_FAX = 13;
 const COL_EMAIL = 14;
 const COL_WEBSITE = 15;
 const COL_OPENING_HOURS = 16;
+const COL_CATCHMENT_AREA_ID = 17;
+const COL_CONTRACTOR_ID = 18;
+const COL_LEGACY_URL = 19;
+
+// FIRST PASS: Create all the nodes.
+print("FIRST PASS =================" . PHP_EOL);
 
 $row_number = 0;
 global $centres;
@@ -40,5 +46,48 @@ while (($row = fgetcsv($handle)) !== FALSE) {
     // Skip first header row.
     $row_number++;
     if ($row_number < 2) continue;
+
+    $title = convertPlainText($row[COL_TITLE]);
+    print("Processing \"$title\"..." . PHP_EOL);
+
+    // Build the fields.
+    $fields = [
+        'type' => 'workbc_centre',
+        'title' => $title,
+        'field_email' => $row[COL_EMAIL],
+        'field_website' => [
+            'title' => 'Visit Website',
+            'uri' => $row[COL_WEBSITE],
+            'options' => [
+                'attributes' => [
+                    'rel' => 'noopener noreferrer',
+                    'target' => '_blank',
+                ]
+            ]
+        ],
+        'field_working_hours' => convertWorkingHours($row[COL_OPENING_HOURS]),
+        'field_geolocation' => [
+            'lat'=> $row[COL_LAT],
+            'lng' => $row[COL_LON]
+        ],
+        'field_french_available' => !!$row[COL_FRENCH],
+        'field_address' => [
+            'country_code' => 'CA',
+            'address_line1' => $row[COL_ADDRESS_1],
+            'administrative_area' => 'BC',
+            'locality' => $row[COL_CITY],
+            'postal_code' => $row[COL_POSTAL_CODE],
+        ],
+        'field_phone' => $row[COL_PHONE],
+    ];
+
+    $node = createNode($fields, $row[COL_LEGACY_URL] . '?id=' . $row[COL_CENTRE_ID]);
 }
 fclose($handle);
+
+function convertWorkingHours($hours) {
+    return [
+        'format' => 'full_html',
+        'value' => str_replace("\n", "<br/>", $hours),
+    ];
+}

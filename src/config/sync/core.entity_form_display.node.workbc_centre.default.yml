@@ -5,27 +5,30 @@ dependencies:
   config:
     - field.field.node.workbc_centre.field_address
     - field.field.node.workbc_centre.field_alert
-    - field.field.node.workbc_centre.field_apply_online
+    - field.field.node.workbc_centre.field_content
     - field.field.node.workbc_centre.field_content_group
     - field.field.node.workbc_centre.field_email
     - field.field.node.workbc_centre.field_french_available
+    - field.field.node.workbc_centre.field_geolocation
     - field.field.node.workbc_centre.field_hero_image
-    - field.field.node.workbc_centre.field_hours_of_operation
+    - field.field.node.workbc_centre.field_phone
     - field.field.node.workbc_centre.field_related_topics
     - field.field.node.workbc_centre.field_scheduled_publish
-    - field.field.node.workbc_centre.field_survey_link
     - field.field.node.workbc_centre.field_website
+    - field.field.node.workbc_centre.field_working_hours
     - image.style.thumbnail
     - node.type.workbc_centre
     - workflows.workflow.editorial
   module:
     - address
     - content_moderation
+    - entity_reference_revisions
+    - geolocation
     - image_widget_crop
     - link
-    - paragraphs
     - path
     - scheduled_publish
+    - telephone
     - text
     - workbc_custom
 id: node.workbc_centre.default
@@ -53,23 +56,15 @@ content:
       rows: 5
       placeholder: ''
     third_party_settings: {  }
-  field_apply_online:
-    type: paragraphs
-    weight: 126
+  field_content:
+    type: entity_reference_revisions_autocomplete
+    weight: 134
     region: content
     settings:
-      title: Paragraph
-      title_plural: Paragraphs
-      edit_mode: open
-      closed_mode: summary
-      autocollapse: none
-      closed_mode_threshold: 0
-      add_mode: dropdown
-      form_display_mode: default
-      default_paragraph_type: ''
-      features:
-        collapse_edit_all: collapse_edit_all
-        duplicate: duplicate
+      match_operator: CONTAINS
+      match_limit: 10
+      size: 60
+      placeholder: ''
     third_party_settings: {  }
   field_content_group:
     type: entity_reference_autocomplete
@@ -83,7 +78,7 @@ content:
     third_party_settings: {  }
   field_email:
     type: email_default
-    weight: 124
+    weight: 136
     region: content
     settings:
       placeholder: ''
@@ -95,6 +90,12 @@ content:
     region: content
     settings:
       display_label: true
+    third_party_settings: {  }
+  field_geolocation:
+    type: geolocation_latlng
+    weight: 135
+    region: content
+    settings: {  }
     third_party_settings: {  }
   field_hero_image:
     type: image_widget_crop
@@ -111,23 +112,12 @@ content:
       show_crop_area: true
       show_default_crop: true
     third_party_settings: {  }
-  field_hours_of_operation:
-    type: paragraphs
-    weight: 123
+  field_phone:
+    type: telephone_default
+    weight: 137
     region: content
     settings:
-      title: Paragraph
-      title_plural: Paragraphs
-      edit_mode: open
-      closed_mode: summary
-      autocollapse: none
-      closed_mode_threshold: 0
-      add_mode: dropdown
-      form_display_mode: default
-      default_paragraph_type: ''
-      features:
-        collapse_edit_all: collapse_edit_all
-        duplicate: duplicate
+      placeholder: ''
     third_party_settings: {  }
   field_related_topics:
     type: entity_reference_autocomplete
@@ -145,24 +135,6 @@ content:
     region: content
     settings: {  }
     third_party_settings: {  }
-  field_survey_link:
-    type: paragraphs
-    weight: 127
-    region: content
-    settings:
-      title: Paragraph
-      title_plural: Paragraphs
-      edit_mode: open
-      closed_mode: summary
-      autocollapse: none
-      closed_mode_threshold: 0
-      add_mode: dropdown
-      form_display_mode: default
-      default_paragraph_type: ''
-      features:
-        collapse_edit_all: collapse_edit_all
-        duplicate: duplicate
-    third_party_settings: {  }
   field_website:
     type: link_default
     weight: 125
@@ -170,6 +142,14 @@ content:
     settings:
       placeholder_url: ''
       placeholder_title: ''
+    third_party_settings: {  }
+  field_working_hours:
+    type: text_textarea
+    weight: 133
+    region: content
+    settings:
+      rows: 5
+      placeholder: ''
     third_party_settings: {  }
   langcode:
     type: language_select
@@ -227,6 +207,11 @@ content:
   uid:
     type: workbc_select_resort
     weight: 5
+    region: content
+    settings: {  }
+    third_party_settings: {  }
+  url_redirects:
+    weight: 50
     region: content
     settings: {  }
     third_party_settings: {  }

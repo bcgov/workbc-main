@@ -1,19 +1,20 @@
-uuid: a4c5c10b-8ad4-40be-9d7e-6a99805f7ff2
+uuid: abef3d3c-16be-4feb-9f4b-5c332ad16f2f
 langcode: en
 status: true
 dependencies:
   module:
     - field_permissions
     - node
+    - text
 third_party_settings:
   field_permissions:
     permission_type: public
-id: node.field_email
-field_name: field_email
+id: node.field_working_hours
+field_name: field_working_hours
 entity_type: node
-type: email
+type: text_long
 settings: {  }
-module: core
+module: text
 locked: false
 cardinality: 1
 translatable: true
