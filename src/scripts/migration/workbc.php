@@ -184,7 +184,12 @@ try {
         'Quote' => 'Quote',
     ] as $card_field => $card_type) {
         if (property_exists($item, $card_field)) {
-            $field_content = array_merge($field_content, convertCards($item->$card_field, $card_type, $items, $container_paragraph));
+            if (strcasecmp($title, "Publications") === 0) {
+                $field_content = array_merge($field_content, convertCardsPublications($item->$card_field, $card_type, $items, $container_paragraph));
+            }
+            else {
+                $field_content = array_merge($field_content, convertCards($item->$card_field, $card_type, $items, $container_paragraph));
+            }
         }
     }
     if (!empty($field_content)) {
@@ -464,6 +469,56 @@ function convertCards($cards, $card_type, &$items, &$container_paragraph) {
                 'target_revision_id' => $card_paragraph->getRevisionId(),
             ];
         }
+        $container_paragraph->save();
+
+    }
+    return $paragraphs;
+}
+
+function convertCardsPublications($cards, $card_type, &$items, &$container_paragraph) {
+    $paragraphs = [];
+    foreach ($cards as $card) {
+        $empty = TRUE;
+        foreach (['Card Type', 'Title', 'Body', 'Image', 'Link Text', 'Link Target'] as $check) {
+            if (property_exists($card, $check) && !empty($card->$check)) $empty = FALSE;
+        }
+        if ($empty) continue;
+
+        // Create new container if needed.
+        if (empty($container_paragraph)) {
+            $container_paragraph = Paragraph::create([
+                'type' => 'action_cards_publication',
+                'uid' => 1,
+            ]);
+            $container_paragraph->isNew();
+            $container_paragraph->save();
+
+            $paragraphs[] = [
+                'target_id' => $container_paragraph->id(),
+                'target_revision_id' => $container_paragraph->getRevisionId(),
+            ];
+        }
+
+        // Identify publication node related to this card and update it.
+        $publications = Drupal::entityTypeManager()
+        ->getStorage('node')
+        ->loadByProperties(['type' => 'publication', 'title' => convertPlainText($card->{'Title'})]);
+        if (empty($publications)) {
+            print("  Could not find publication \"$card->{'Title'}\". Ignoring" . PHP_EOL);
+            continue;
+        }
+        $publication = current($publications);
+        $publication->body = convertRichText($card->{'Body'});
+        $images = array_map('convertImage', array_filter($card->{'Image'}));
+        if (!empty($images)) {
+            $publication->field_image = current($images);
+        }
+        $publication->save();
+
+        // Link publication node to paragraph.
+        $container_paragraph->field_publications[] = [
+            'target_id' => $publication->id()
+        ];
         $container_paragraph->save();
 
     }

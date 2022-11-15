@@ -42,8 +42,6 @@ const COL_LEGACY_URL = 19;
 print("FIRST PASS =================" . PHP_EOL);
 
 $row_number = 0;
-global $centres;
-$centres = [];
 while (($row = fgetcsv($handle)) !== FALSE) {
     // Skip first header row.
     $row_number++;
