@@ -47,15 +47,18 @@ while (($row = fgetcsv($handle)) !== FALSE) {
     }
 
     // Find the related file.
-    $files = Drupal::entityTypeManager()
-    ->getStorage('file')
-    ->loadByProperties(['filename' => $row[COL_FILE]]);
-    if (empty($files)) {
-        print("  Could not find file. Aborting" . PHP_EOL);
+    $filename = $row[COL_FILE];
+    $local = __DIR__ . "/data/pdf/$filename";
+    if (file_exists($local)) {
+        $data = file_get_contents($local);
+    }
+    else {
+        print("  Could not find file \"$filename\" locally. Aborting" . PHP_EOL);
         continue;
     }
+    $file = \Drupal::service('file.repository')->writeData($data, "public://$filename");
     $fields['field_publication'] = [
-        'target_id' => current($files)->id(),
+        'target_id' => $file->id(),
     ];
 
     $node = createNode($fields);
