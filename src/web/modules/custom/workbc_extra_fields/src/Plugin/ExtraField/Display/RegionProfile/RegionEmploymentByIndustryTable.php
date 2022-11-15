@@ -43,8 +43,28 @@ class RegionEmploymentByIndustryTable extends ExtraFieldDisplayFormattedBase {
    */
   public function viewElements(ContentEntityInterface $entity) {
 
-    $output = "[not-yet-available]";
+    if (!empty($entity->ssot_data) && isset($entity->ssot_data['labour_force_survey_regional_industry_region'])) {
+      $datestr = ssotParseDateRange($this->getEntity()->ssot_data['schema'], 'labour_force_survey_regional_industry_region', 'openings');
 
+      $industries = ssotProcessEmploymentIndustry($entity->ssot_data['labour_force_survey_regional_industry_region']);
+
+      $content = "<table>";
+      $content .= "<tr><th>Industry</th><th>Employment (" . $datestr . ")</th><th>% Share of Employment for this Industry</th></tr>";
+      foreach ($industries as $industry) {
+        $link = "<a href='" . $industry['link'] . "'>";
+        $close = "</a>";
+        $content .= "<tr>";
+        $content .= "<td>" . $link . $industry['name'] . $close . "</td>";
+        $content .= "<td>" . "n/a" . "</td>";
+        $content .= "<td>" . ssotFormatNumber($industry['share'],1) . "%</td>";
+        $content .= "</tr>";
+      }
+      $content .= "</table>";
+      $output = $content;
+    }
+    else {
+      $output = WORKBC_EXTRA_FIELDS_NOT_AVAILABLE;
+    }
     return [
       ['#markup' => $output],
     ];

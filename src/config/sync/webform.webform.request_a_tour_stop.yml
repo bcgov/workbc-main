@@ -78,11 +78,6 @@ elements: |-
     '#title_display': none
     '#description_display': after
     '#required': true
-  collection_notice:
-    '#type': processed_text
-    '#text': |
-      <p><a href="/collection-notice">View Collection Notice</a>&nbsp;&gt;</p>
-    '#format': basic_html
   actions:
     '#type': webform_actions
     '#title': 'Submit button(s)'

@@ -27,7 +27,7 @@ class IndustryEmploymentLatestTrendsPercent extends ExtraFieldDisplayFormattedBa
    */
   public function getLabel() {
 
-    return $this->t('Latest Employment Trends Percent');
+    return $this->t('% Change');
   }
 
   /**

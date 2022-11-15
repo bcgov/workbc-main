@@ -43,8 +43,46 @@ class BCUnemploymentRateChart extends ExtraFieldDisplayFormattedBase {
    */
   public function viewElements(ContentEntityInterface $entity) {
 
-    $output = "[not-yet-available]";
-
+    if (!empty($entity->ssot_data) && isset($entity->ssot_data['labour_force_survey_bc_employment'])) {
+      $region = array();
+      $bc = array();
+      for ($i = 1; $i <= 11; $i++) {
+        $bc[] = floatval($entity->ssot_data['labour_force_survey_bc_employment']['unemployment_rate_year_'.$i]);
+      }
+      $bcHi = floatval($entity->ssot_data['labour_force_survey_bc_employment']['unemployment_rate_year_high']);
+      $bcLo =  floatval($entity->ssot_data['labour_force_survey_bc_employment']['unemployment_rate_year_low']);
+      $max = max($bc);
+      $min = min($bc);
+      $labels = [t('BC')];
+      $chart = [
+        '#type' => 'chart',
+        '#chart_type' => 'line',
+        'series' => [
+          '#type' => 'chart_data',
+          '#title' => t('BC'),
+          '#data' => $bc,
+          '#color' => '#002857',
+          '#prefix' => '',
+          '#suffix' => '',
+        ],
+        'xaxis' => [
+          '#type' => 'chart_xaxis',
+          '#labels' => $labels,
+          '#max' => count($region),
+          '#min' => 0,
+        ],
+        'yaxis' => [
+          '#type' => 'chart_yaxis',
+          '#max' => $max+2,
+          '#min' => $min-2,
+        ]
+      ];
+      $output = \Drupal::service('renderer')->render($chart);
+      // $output = "";
+    }
+    else {
+      $output = WORKBC_EXTRA_FIELDS_NOT_AVAILABLE;
+    }
     return [
       ['#markup' => $output],
     ];

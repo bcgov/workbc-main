@@ -27,7 +27,7 @@ class IndustryWorkforceIntroduction extends ExtraFieldDisplayFormattedBase {
    */
   public function getLabel() {
 
-    return $this->t('Workforce Introduction');
+    return $this->t('Workforce');
   }
 
   /**

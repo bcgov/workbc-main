@@ -27,7 +27,7 @@ class IndustryHourlyEarningsIntroduction extends ExtraFieldDisplayFormattedBase 
    */
   public function getLabel() {
 
-    return $this->t('Hourly Earnings Introduction');
+    return $this->t('Hourly Earnings');
   }
 
   /**

@@ -23,8 +23,10 @@ visibility:
     id: not_node_type
     bundles:
       career_profile: career_profile
+      industry_profile: industry_profile
       labour_market_monthly: labour_market_monthly
       page: page
+      region_profile: region_profile
     negate: null
   not_taxonomy_vocabulary:
     id: not_taxonomy_vocabulary

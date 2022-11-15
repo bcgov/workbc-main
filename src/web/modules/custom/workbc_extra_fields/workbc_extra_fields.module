@@ -12,10 +12,12 @@ define ("WORKBC_BC_MAP", "bc-map.png");
 define ("REGION_CARIBOO", "Cariboo");
 define ("REGION_KOOTENAY", "Kootenay");
 define ("REGION_MAINLAND_SOUTHWEST", "Mainland/Southwest");
-define ("REGION_NORTH_COAST_NECHAKO", "North Coast & Nechako");
+define ("REGION_NORTH_COAST_NECHAKO", "North Coast and Nechako");
 define ("REGION_NORTHEAST", "Northeast");
 define ("REGION_THOMPSON_OKANAGAN", "Thompson-Okanagan");
-define ("REGION_VANCOUVER_ISLAND_COAST", "Vancouver Island-Coast");
+define ("REGION_VANCOUVER_ISLAND_COAST", "Vancouver Island/Coast");
+
+define ("REGION_BRITISH_COLUMBIA", "British Columbia");
 
 define ('SSOT_PING_TIMEOUT', 5);
 
@@ -27,6 +29,7 @@ for the node that is being displayed, not for nodes that are being referenced.
 
 */
 function workbc_extra_fields_node_view(array &$build, \Drupal\Core\Entity\EntityInterface $entity, \Drupal\Core\Entity\Display\EntityViewDisplayInterface $display, $view_mode) {
+
   if ($view_mode === "full" || $view_mode === "search_index") {
     if (!querySSoT('', SSOT_PING_TIMEOUT)) {
       $entity->ssot_data = NULL;
@@ -48,6 +51,11 @@ function workbc_extra_fields_node_view(array &$build, \Drupal\Core\Entity\Entity
         $entity->ssot_data = ssotIndustryProfile($entity->getTitle());
         break;
       case "region_profile":
+        $entity->ssot_data = ssotRegionProfile($entity->getTitle());
+        break;
+      case "bc_profile":
+        $entity->ssot_data = ssotBCProfile($entity->getTitle());
+        break;
     }
   }
 }
@@ -92,6 +100,58 @@ function ssotLabourMarketMonthly($year = null, $month = null){
   return $data;
 }
 
+function ssotBCProfile($region) {
+
+  $region = ssotRegionKey($region);
+
+  $data = array();
+
+  $data['population'] = querySSoT('population?region=eq.' . $region)[0];
+  $data['regional_labour_market_outlook'] = querySSoT('regional_labour_market_outlook?region=eq.british_columbia')[0];
+  // $data['labour_force_survey_regional_employment'] = querySSoT('labour_force_survey_regional_employment?region=eq.' . $region)[0];
+  $data['labour_force_survey_bc_employment'] = querySSoT('labour_force_survey_regional_employment?region=eq.british_columbia')[0];
+  $data['labour_force_survey_regions_employment'] = querySSoT('labour_force_survey_regional_employment?region=neq.british_columbia');
+  $data['labour_force_survey_regional_industry_region'] = querySSoT('labour_force_survey_regional_industry_region')[0];
+  $data['labour_force_survey_regional_industry_province'] = querySSoT('labour_force_survey_regional_industry_province');
+  $data['industry_outlook'] = querySSoT('industry_outlook');
+  $data['regional_top_industries'] = querySSoT('regional_top_industries?region=eq.' . $region);
+  $data['regional_top_occupations'] = querySSoT('regional_top_occupations?region=eq.' . $region);
+  $temp = querySSoT('monthly_labour_market_updates');
+  $idx = ssotLatestMonthlyLabourMarketUpdate($temp);
+  $data['monthly_labour_market_updates'] = $temp[$idx];
+
+  $data['sources'] = ssotSources();
+  $data['schema'] = ssotSchema();
+  $data['region'] = $region;
+  return $data;
+}
+
+
+
+function ssotRegionProfile($region) {
+
+  $region = ssotRegionKey($region);
+  $data = array();
+
+  $data['population'] = querySSoT('population?region=eq.' . $region)[0];
+  $data['regional_labour_market_outlook'] = querySSoT('regional_labour_market_outlook?region=eq.' . $region)[0];
+  $data['labour_force_survey_regional_employment'] = querySSoT('labour_force_survey_regional_employment?region=eq.' . $region)[0];
+  $data['labour_force_survey_bc_employment'] = querySSoT('labour_force_survey_regional_employment?region=eq.british_columbia')[0];
+  $data['labour_force_survey_regional_industry_region'] = querySSoT('labour_force_survey_regional_industry_region?region=eq.' . $region)[0];
+  $data['labour_force_survey_regional_industry_province'] = querySSoT('labour_force_survey_regional_industry_province');
+  $data['industry_outlook'] = querySSoT('industry_outlook');
+  $data['regional_top_industries'] = querySSoT('regional_top_industries?region=eq.' . $region);
+  $data['regional_top_occupations'] = querySSoT('regional_top_occupations?region=eq.' . $region);
+  $temp = querySSoT('monthly_labour_market_updates');
+  $idx = ssotLatestMonthlyLabourMarketUpdate($temp);
+  $data['monthly_labour_market_updates'] = $temp[$idx];
+  $data['sources'] = ssotSources();
+  $data['schema'] = ssotSchema();
+  $data['region'] = $region;
+  return $data;
+}
+
+
 function ssotIndustryProfile($industry) {
   $data = array();
   $data['industry_outlook'] = querySSoT('industry_outlook?industry=eq.' . $industry)[0];
@@ -100,10 +160,7 @@ function ssotIndustryProfile($industry) {
   $data['openings_industry'] = querySSoT('openings_industry?industry=eq.' . $industry);
   $data['sources'] = ssotSources();
   $data['schema'] = ssotSchema();
-  // ksm($data['schema']['definitions']);
-  // ksm($data['schema']['definitions']['openings_industry']['properties']);
   return $data;
-
 }
 
 function ssotCareerProfile($noc) {
@@ -125,11 +182,11 @@ function ssotCareerProfile($noc) {
 
 function ssotParseDateRange($schema, $section, $field) {
 
-  // ksm($section . ": " . $field);
-  // ksm($schema['definitions'][$section]['properties']);
-  $text = $schema['definitions'][$section]['properties'][$field]['description'];
-  preg_match('#\{(.*?)\}#', $text, $match);
-
+  $match = "";
+  if (isset($schema['definitions'][$section]['properties'][$field]['description'])) {
+    $text = $schema['definitions'][$section]['properties'][$field]['description'];
+    preg_match('#\{(.*?)\}#', $text, $match);
+  }
   return empty($match) ? "" : $match[1];
 }
 
@@ -183,6 +240,119 @@ function ssotLatestMonthlyLabourMarketUpdate($sourceData) {
   }
   return $latestIdx;
 }
+
+
+function ssotRegions() {
+  static $regions = array(
+    "cariboo" => REGION_CARIBOO,
+    "kootenay" => REGION_KOOTENAY,
+    "northeast" => REGION_NORTHEAST,
+    "mainland_southwest" => REGION_MAINLAND_SOUTHWEST,
+    "thompson_okanagan" => REGION_THOMPSON_OKANAGAN,
+    "vancouver_island_coast" => REGION_VANCOUVER_ISLAND_COAST,
+    "north_coast_nechako" => REGION_NORTH_COAST_NECHAKO,
+    "british_columbia" => REGION_BRITISH_COLUMBIA,
+  );
+
+  return $regions;
+}
+
+function ssotRegionKey($region) {
+  $key = array_search ($region, ssotRegions());
+  return $key;
+}
+
+function ssotRegionName($machine_name) {
+  $regions = ssotRegions();
+  return isset($regions[$machine_name]) ? $regions[$machine_name] : "";
+}
+
+function ssotProcessEmploymentIndustry($ssotdata) {
+
+  if (empty($ssotdata)) {
+    return [];
+  }
+
+  $industries = ssotIndustries();
+  $sectors = ssotIndustrySectors();
+
+  $data = [];
+  foreach ($industries as $key => $name) {
+    $nid = \Drupal::entityQuery('node')
+      ->condition('title', $name)
+      ->sort('nid', 'DESC')
+      ->execute();
+    $nid = reset($nid);
+
+    $data[] = array(
+      'key' => $key,
+      'name' => $name,
+      'share' => $ssotdata[$key],
+      'sector' => $sectors[$key],
+      'employment' => 0,
+      'link' => \Drupal::service('path_alias.manager')->getAliasByPath('/node/'. $nid),
+    );
+  }
+
+  return $data;
+}
+
+function ssotIndustries() {
+
+  static $industries = array(
+    'accommodation_food_services' => 'Accommodation And Food Services',
+    'agriculture_fishing' => 'Agriculture And Fishing',
+    'business_building_other_support_services' => 'Business, Building And Other Support Services',
+    'construction' => 'Construction',
+    'educational_services' => 'Educational Services',
+    'finance_insurance_real_estate' => 'Finance, Insurance And Real Estate',
+    'forestry_logging_support_activities' => 'Forestry, Logging And Support Activities',
+    'health_care_social_assistance' => 'Health Care And Social Assistance',
+    'information_culture_recreation' => 'Information, Culture And Recreation',
+    'manufacturing' => 'Manufacturing',
+    'mining_oil_gas_extraction' => 'Mining And Oil And Gas Extraction',
+    'other_private_services' => 'Repair, Personal And Non-Profit Services',
+    'professional_scientific_technical_services' => 'Professional, Scientific And Technical Services',
+    'public_administration' => 'Public Administration',
+    'retail_trade' => 'Retail Trade',
+    'transportation_warehousing' => 'Transportation And Warehousing',
+    'utilities' => 'Utilities',
+    'wholesale_trade' => 'Wholesale Trade',
+  );
+  return $industries;
+}
+
+function ssotIndustrySectors() {
+
+  static $industries = array(
+    'accommodation_food_services' => 'Services',
+    'agriculture_fishing' => 'Goods',
+    'business_building_other_support_services' => 'Services',
+    'construction' => 'Goods',
+    'educational_services' => 'Services',
+    'finance_insurance_real_estate' => 'Services',
+    'forestry_logging_support_activities' => 'Goods',
+    'health_care_social_assistance' => 'Services',
+    'information_culture_recreation' => 'Services',
+    'manufacturing' => 'Goods',
+    'mining_oil_gas_extraction' => 'Goods',
+    'other_private_services' => 'Services',
+    'professional_scientific_technical_services' => 'Services',
+    'public_administration' => 'Services',
+    'retail_trade' => 'Services',
+    'transportation_warehousing' => 'Services',
+    'utilities' => 'Goods',
+    'wholesale_trade' => 'Services',
+  );
+  return $industries;
+}
+
+function ssotIndustryName($machine_name) {
+
+  $industries = ssotIndustries();
+  return isset($industries[$machine_name]) ? $industries[$machine_name] : "";
+}
+
 
 /*
    custom number format function to add '+' if required

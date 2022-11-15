@@ -27,7 +27,7 @@ class IndustryEmploymentGrowthRateOneYearForecast extends ExtraFieldDisplayForma
    */
   public function getLabel() {
 
-    return $this->t('Employment Growth Rate Annual Forecast');
+    return $this->t('Forecasted Average Annual Employment Growth Rate');
   }
 
   /**

@@ -1,0 +1,21 @@
+uuid: 2d50709e-d9f1-45f5-96e4-106b5ecc96c5
+langcode: en
+status: true
+dependencies:
+  config:
+    - field.storage.node.field_employment_introduction
+    - node.type.region_profile_introductions
+  module:
+    - text
+id: node.region_profile_introductions.field_employment_introduction
+field_name: field_employment_introduction
+entity_type: node
+bundle: region_profile_introductions
+label: 'Employment Introduction'
+description: ''
+required: false
+translatable: true
+default_value: {  }
+default_value_callback: ''
+settings: {  }
+field_type: text_long
