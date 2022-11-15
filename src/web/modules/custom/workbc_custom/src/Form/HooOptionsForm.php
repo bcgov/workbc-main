@@ -82,7 +82,7 @@
         $educationOptions[''] = $no_value_text;
         $interestOptions[''] = $no_value_text;
 
-        //static wage options 
+        //static wage options
         $wageOptions = [
           '' => $no_value_text,
           '0-20'  => $this->t('Under $20.00 per hour'),
@@ -111,7 +111,7 @@
             $rows[$key]['wage_rate_median'] = '$'.ssotFormatNumber($values['wage_rate_median'], 2);
             $rows[$key]['openings_forecast'] = ssotFormatNumber($values['openings_forecast']);
             $rows[$key]['occupational_interest'] = $values['occupational_interest'];
-          } 
+          }
         } else {
           $rows[] = WORKBC_EXTRA_FIELDS_NOT_AVAILABLE;
         }
@@ -121,7 +121,7 @@
 
         //form
         $form['filters']['heading'] = [
-            '#markup' => $this->t('Filter High Opportunity Occupations by region, education and occupational interest below.')
+            '#markup' => $this->t('Filter High Opportunity Occupations by region, education, occupational interest and wage below.')
           ];
 
         $form['filters']['education_level'] = [
@@ -131,7 +131,7 @@
           '#value' => $education_value?$education_value:'null',
           '#attributes' => ['id' => 'education-level']
         ];
-      
+
         $form['filters']['region'] = [
           '#type' => 'select',
           '#title' => $this->t('Region'),
@@ -176,10 +176,10 @@
           if($filters_exists) {
             $output = '<div>'.$this->t('No data available for chosen filters. Please select other values for filtering.').'</div>';
           } else {
-            $output = '<div>'.$this->t('No data available.').'</div>';  
+            $output = '<div>'.$this->t('No data available.').'</div>';
           }
           $form['data'] = [
-            '#markup' => $output 
+            '#markup' => $output
           ];
         }
         return $form;
@@ -196,5 +196,5 @@
       public function submitForm(array &$form, FormStateInterface $form_state) {
          // Nothing.
       }
-        
+
     }

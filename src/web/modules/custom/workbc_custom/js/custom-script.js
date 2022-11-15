@@ -2,8 +2,6 @@
   Drupal.behaviors.customscript = {
     attach: function (context, settings) {
 
-      console.log('asdasd');
-
       //education change
       $('#education-level').change( function() {
         window.location.href = redirectUrl();
@@ -19,7 +17,7 @@
         window.location.href = redirectUrl();
       });
 
-      //interest change
+      //wage change
       $('#wage').change( function() {
         window.location.href = redirectUrl();
       });
@@ -53,7 +51,7 @@
 
         return redirectUrl;
       }
- 
+
     }
   }
 })(jQuery, Drupal);
