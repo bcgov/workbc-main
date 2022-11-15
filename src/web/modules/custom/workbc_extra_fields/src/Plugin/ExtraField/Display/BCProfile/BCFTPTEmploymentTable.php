@@ -43,8 +43,19 @@ class BCFTPTEmploymentTable extends ExtraFieldDisplayFormattedBase {
    */
   public function viewElements(ContentEntityInterface $entity) {
 
-    $output = "[not-yet-available]";
+    if (!empty($entity->ssot_data) && isset($entity->ssot_data['labour_force_survey_bc_employment'])) {
+      $fulltime = $entity->ssot_data['labour_force_survey_bc_employment']['full_time_employment_pct'];
+      $parttime = $entity->ssot_data['labour_force_survey_bc_employment']['part_time_employment_pct'];
 
+      $content = "<table>";
+      $content .= "<tr><td>Full-time employment</td><td>" . ssotFormatNumber($fulltime,0) . "%</td></tr>";
+      $content .= "<tr><td>Part-time employment</td><td>" . ssotFormatNumber($parttime,0) . "%</td></tr>";
+      $content .= "</table>";
+      $output = $content;
+    }
+    else {
+      $output = WORKBC_EXTRA_FIELDS_NOT_AVAILABLE;
+    }
     return [
       ['#markup' => $output],
     ];

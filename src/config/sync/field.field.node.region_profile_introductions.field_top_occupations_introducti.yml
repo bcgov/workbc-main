@@ -1,0 +1,21 @@
+uuid: 58048327-3997-4a92-b871-9b05f17eeef0
+langcode: en
+status: true
+dependencies:
+  config:
+    - field.storage.node.field_top_occupations_introducti
+    - node.type.region_profile_introductions
+  module:
+    - text
+id: node.region_profile_introductions.field_top_occupations_introducti
+field_name: field_top_occupations_introducti
+entity_type: node
+bundle: region_profile_introductions
+label: 'Top Occupations Introduction'
+description: ''
+required: false
+translatable: false
+default_value: {  }
+default_value_callback: ''
+settings: {  }
+field_type: text_long

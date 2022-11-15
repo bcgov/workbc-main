@@ -93,7 +93,7 @@ class LabourMarketUnemploymentByRegion extends ExtraFieldDisplayFormattedBase {
         if(strpos($key, $needle) !== false){
           $regionsubstring = str_replace('unemployment_pct_', "", $key);
           //region mapping
-          $region_map = $this->getRegionMappings();
+          $region_map = getRegionMappings();
 
           //if previous values
           if(strpos($regionsubstring, 'previous') !== false) {
@@ -115,21 +115,6 @@ class LabourMarketUnemploymentByRegion extends ExtraFieldDisplayFormattedBase {
       }
     }
     return $regions;
-  }
-
-    public function getRegionMappings(){
-    $region_map = [
-            'all' => 'All regions',
-            'british_columbia' => 'British Columbia',
-            'vancouver_island_coast' =>'Vancouver Island/Coast',
-            'mainland_southwest'  => 'Mainland/Southwest',
-            'thompson_okanagan' => 'Thompson-Okanagan',
-            'kootenay' => 'Kootenay',
-            'cariboo' => 'Cariboo',
-            'north_coast_nechako' => 'North Coast and Nechako',
-            'northeast' => 'Northeast'
-          ];
-    return $region_map;
   }
 
 

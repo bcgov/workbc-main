@@ -27,7 +27,7 @@ class BCJobOpeningsForecastChart extends ExtraFieldDisplayFormattedBase {
    */
   public function getLabel() {
 
-    return $this->t('Job Openings Forecast Chart');
+    return $this->t('Forecasted Job Openings');
   }
 
   /**
@@ -43,8 +43,49 @@ class BCJobOpeningsForecastChart extends ExtraFieldDisplayFormattedBase {
    */
   public function viewElements(ContentEntityInterface $entity) {
 
-    $output = "[not-yet-available]";
+    if (!empty($entity->ssot_data) && isset($entity->ssot_data['regional_labour_market_outlook'])) {
+      $data = array();
+      $data[] = floatval($entity->ssot_data['regional_labour_market_outlook']['employment_outlook_first']);
+      $data[] = floatval($entity->ssot_data['regional_labour_market_outlook']['employment_outlook_second']);
+      $data[] = floatval($entity->ssot_data['regional_labour_market_outlook']['employment_outlook_third']);
 
+      $date1 = ssotParseDateRange($entity->ssot_data['schema'], 'regional_labour_market_outlook', 'employment_outlook_first');
+      $date2 = ssotParseDateRange($entity->ssot_data['schema'], 'regional_labour_market_outlook', 'employment_outlook_second');
+      $date3 = ssotParseDateRange($entity->ssot_data['schema'], 'regional_labour_market_outlook', 'employment_outlook_third');
+      $dates = array();
+      $dates[] = $date1;
+      $dates[] = $date2;
+      $dates[] = $date3;
+
+      $labels = $dates;
+      $chart = [
+        '#type' => 'chart',
+        '#chart_type' => 'column',
+        '#colors' => ['#2E6AB0'],
+        'series' => [
+          '#type' => 'chart_data',
+          '#title' => t(''),
+          '#data' => $data,
+          '#prefix' => '',
+          '#suffix' => '',
+        ],
+        'xaxis' => [
+          '#type' => 'chart_xaxis',
+          '#labels' => $labels,
+          '#max' => count($data),
+          '#min' => 0,
+        ],
+        'yaxis' => [
+          '#type' => 'chart_yaxis',
+          '#max' => max($data),
+          '#min' => 0,
+        ]
+      ];
+      $output = \Drupal::service('renderer')->render($chart);
+    }
+    else {
+      $output = WORKBC_EXTRA_FIELDS_NOT_AVAILABLE;
+    }
     return [
       ['#markup' => $output],
     ];

@@ -27,7 +27,7 @@ class IndustryLabourMarketStatisticsIntroduction extends ExtraFieldDisplayFormat
    */
   public function getLabel() {
 
-    return $this->t('Labour Market Statistics Introduction');
+    return $this->t('Labour Market Statistics');
   }
 
   /**

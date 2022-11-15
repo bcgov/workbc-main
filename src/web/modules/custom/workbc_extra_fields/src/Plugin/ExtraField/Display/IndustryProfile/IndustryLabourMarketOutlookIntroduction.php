@@ -27,7 +27,7 @@ class IndustryLabourMarketOutlookIntroduction extends ExtraFieldDisplayFormatted
    */
   public function getLabel() {
 
-    return $this->t('Labour Market Introduction');
+    return $this->t('Labour Market Outlook');
   }
 
   /**

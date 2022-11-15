@@ -43,11 +43,38 @@ class RegionTopTenOccupations extends ExtraFieldDisplayFormattedBase {
    */
   public function viewElements(ContentEntityInterface $entity) {
 
-    $output = "[not-yet-available]";
-
+    if (!empty($entity->ssot_data) && isset($entity->ssot_data['regional_top_occupations'])) {
+      $datestr = ssotParseDateRange($this->getEntity()->ssot_data['schema'], 'regional_top_occupations', 'openings');
+      $content = "<table>";
+      $content .= "<tr><th>Top Ten Occupations</th><th>Job Openings (" . $datestr . ")</th></tr>";
+      foreach ($entity->ssot_data['regional_top_occupations'] as $job) {
+        if ($nid = $this->nodeID($job['noc'])) {
+          $alias = \Drupal::service('path_alias.manager')->getAliasByPath('/node/'.$nid);
+          $link = "<a href='" . $alias . "'>";
+        }
+        else {
+          $link = "";
+        }
+        $content .= "<tr>";
+        $content .= "<td>" . $link . $job['occupation'] . " (NOC " . $job['noc'] . ")</a></td>";
+        $content .= "<td>" . ssotFormatNumber($job['openings'],0) . "</td>";
+      }
+      $content .= "</table>";
+      $output = $content;
+    }
+    else {
+      $output = WORKBC_EXTRA_FIELDS_NOT_AVAILABLE;
+    }
     return [
       ['#markup' => $output],
     ];
   }
 
+  private function nodeID($noc) {
+    $query = \Drupal::entityQuery('node')
+        ->condition('status', 1)
+        ->condition('field_noc.value', $noc);
+    $nids = $query->execute();
+    return !empty($nids) ? reset($nids) : false;
+  }
 }

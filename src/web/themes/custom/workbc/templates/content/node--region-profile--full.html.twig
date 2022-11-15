@@ -1,0 +1,442 @@
+{#
+/**
+ * @file
+ * Theme override to display a node.
+ *
+ * Available variables:
+ * - node: The node entity with limited access to object properties and methods.
+ *   Only method names starting with "get", "has", or "is" and a few common
+ *   methods such as "id", "label", and "bundle" are available. For example:
+ *   - node.getCreatedTime() will return the node creation timestamp.
+ *   - node.hasField('field_example') returns TRUE if the node bundle includes
+ *     field_example. (This does not indicate the presence of a value in this
+ *     field.)
+ *   - node.isPublished() will return whether the node is published or not.
+ *   Calling other methods, such as node.delete(), will result in an exception.
+ *   See \Drupal\node\Entity\Node for a full list of public properties and
+ *   methods for the node object.
+ * - label: (optional) The title of the node.
+ * - content: All node items. Use {{ content }} to print them all,
+ *   or print a subset such as {{ content.field_example }}. Use
+ *   {{ content|without('field_example') }} to temporarily suppress the printing
+ *   of a given child element.
+ * - author_picture: The node author user entity, rendered using the "compact"
+ *   view mode.
+ * - metadata: Metadata for this node.
+ * - date: (optional) Themed creation date field.
+ * - author_name: (optional) Themed author name field.
+ * - url: Direct URL of the current node.
+ * - display_submitted: Whether submission information should be displayed.
+ * - attributes: HTML attributes for the containing element.
+ *   The attributes.class element may contain one or more of the following
+ *   classes:
+ *   - node: The current template type (also known as a "theming hook").
+ *   - node--type-[type]: The current node type. For example, if the node is an
+ *     "Article" it would result in "node--type-article". Note that the machine
+ *     name will often be in a short form of the human readable label.
+ *   - node--view-mode-[view_mode]: The View Mode of the node; for example, a
+ *     teaser would result in: "node--view-mode-teaser", and
+ *     full: "node--view-mode-full".
+ *   The following are controlled through the node publishing options.
+ *   - node--promoted: Appears on nodes promoted to the front page.
+ *   - node--sticky: Appears on nodes ordered above other non-sticky nodes in
+ *     teaser listings.
+ *   - node--unpublished: Appears on unpublished nodes visible only to site
+ *     admins.
+ * - title_attributes: Same as attributes, except applied to the main title
+ *   tag that appears in the template.
+ * - content_attributes: Same as attributes, except applied to the main
+ *   content tag that appears in the template.
+ * - author_attributes: Same as attributes, except applied to the author of
+ *   the node tag that appears in the template.
+ * - title_prefix: Additional output populated by modules, intended to be
+ *   displayed in front of the main title tag that appears in the template.
+ * - title_suffix: Additional output populated by modules, intended to be
+ *   displayed after the main title tag that appears in the template.
+ * - view_mode: View mode; for example, "teaser" or "full".
+ * - teaser: Flag for the teaser state. Will be true if view_mode is 'teaser'.
+ * - page: Flag for the full page state. Will be true if view_mode is 'full'.
+ * - readmore: Flag for more state. Will be true if the teaser content of the
+ *   node cannot hold the main body content.
+ * - logged_in: Flag for authenticated user status. Will be true when the
+ *   current user is a logged-in member.
+ * - is_admin: Flag for admin user status. Will be true when the current user
+ *   is an administrator.
+ *
+ * @see template_preprocess_node()
+ *
+ */
+#}
+
+{%
+  set classes = [
+    'node',
+    'node--type-' ~ node.bundle|clean_class,
+    node.isPromoted() ? 'node--promoted',
+    node.isSticky() ? 'node--sticky',
+    not node.isPublished() ? 'node--unpublished',
+    view_mode ? 'node--view-mode-' ~ view_mode|clean_class,
+    'workbc-profile',
+  ]
+%}
+
+{# This viewmodel is intended to collect all of the incoming variables in one place, and the remainder of the template should 
+ refer only to this viewmodel (or Drupal/Twig generics like loop, directory, etc) #}
+{% set viewmodel = {
+  title: label,
+  hero: {
+    image: content.field_hero_image[0],
+    title: label,
+    subtitle: 'Regional Profile',
+    description: null,
+  },
+  top_statistics: {
+    population: {
+      icon_class: 'profile-information-social',
+      title: content.extra_field_region_population['#title'],
+      value: content.extra_field_region_population.0['#markup'],
+      source: content.extra_field_region_population_source.0['#markup'],
+    },
+    employment: {
+      icon_class: 'profile-information-employment',
+      title: content.extra_field_region_employment['#title'],
+      value: content.extra_field_region_employment.0['#markup'],
+      source: content.extra_field_region_employment_source.0['#markup'],
+    },
+    unemployment_rate: {
+      icon_class: 'profile-information-employment-growth',
+      title: content.extra_field_region_unemployment_rate['#title'],
+      value: content.extra_field_region_unemployment_rate.0['#markup'],
+      source: content.extra_field_region_unemployment_rate_source.0['#markup'],
+    },
+    job_openings: {
+      icon_class: 'profile-information-jobs',
+      title: content.extra_field_region_job_openings['#title'],
+      value: content.extra_field_region_job_openings.0['#markup'],
+      source: content.extra_field_region_job_openings_source.0['#markup']
+    },
+  },
+  tab_sections: {
+    overview: {
+      title: content.group_region_profile_tabs.group_regional_overview.field_region_overview['#title'] ?? "Regional Overview",
+      description: content.group_region_profile_tabs.group_regional_overview.field_region_overview.0['#text'],
+
+      region_overview_title: content.group_region_profile_tabs.group_regional_overview.field_region_overview['#title'],
+      region_overview_text: content.group_region_profile_tabs.group_regional_overview.field_region_overview.0['#text'],
+
+      key_facts_title: content.group_region_profile_tabs.group_regional_overview.field_key_facts['#title'],
+      key_facts_text: content.group_region_profile_tabs.group_regional_overview.field_key_facts.0['#text'],
+    },
+    labour_market_statistics: {
+      title: content.group_region_profile_tabs.group_labour_market_statistics.extra_field_region_labour_market_stats_introduction['#title'] ?? "Labour Market Statistics",
+      description: content.group_region_profile_tabs.group_labour_market_statistics.extra_field_region_labour_market_stats_introduction.0['#text'],
+
+      employment_title: content.group_region_profile_tabs.group_labour_market_statistics.extra_field_region_employment_introduction['#title'],
+      employment_markup: content.group_region_profile_tabs.group_labour_market_statistics.extra_field_region_employment_introduction.0['#markup'],
+      employment_regional_title: content.group_region_profile_tabs.group_labour_market_statistics.extra_field_region_employment_region['#title'],
+      employment_regional_markup: content.group_region_profile_tabs.group_labour_market_statistics.extra_field_region_employment_region.0['#markup'],
+      employment_regional_ftpt_table_markup: content.group_region_profile_tabs.group_labour_market_statistics.extra_field_region_ft_pt_employment_table.0['#markup'],
+      employment_bc_title: content.group_region_profile_tabs.group_labour_market_statistics.extra_field_region_employment_bc['#title'],
+      employment_bc_markup: content.group_region_profile_tabs.group_labour_market_statistics.extra_field_region_employment_bc.0['#markup'],
+      employment_bc_ftpt_table_markup: content.group_region_profile_tabs.group_labour_market_statistics.extra_field_region_ft_pt_employment_table_bc.0['#markup'],
+      employment_source: content.group_region_profile_tabs.group_labour_market_statistics.extra_field_region_employment_region_source.0['#markup'],
+
+      uneployment_regional_title: content.group_region_profile_tabs.group_labour_market_statistics.extra_field_region_unemployment_rate_region['#title'],
+      uneployment_regional_markup: content.group_region_profile_tabs.group_labour_market_statistics.extra_field_region_unemployment_rate_region.0['#markup'],
+      uneployment_bc_title: content.group_region_profile_tabs.group_labour_market_statistics.extra_field_region_unemployment_rate_bc['#title'],
+      uneployment_bc_markup: content.group_region_profile_tabs.group_labour_market_statistics.extra_field_region_unemployment_rate_bc.0['#markup'],
+      uneployment_chart_title: content.group_region_profile_tabs.group_labour_market_statistics.extra_field_region_unemployment_rate_chart['#title'],
+      uneployment_chart_markup: content.group_region_profile_tabs.group_labour_market_statistics.extra_field_region_unemployment_rate_chart.0['#markup'],
+      unemployment_source: content.group_region_profile_tabs.group_labour_market_statistics.extra_field_region_unemployment_region_source.0['#markup'],
+
+      labour_market_outlook_title: content.group_region_profile_tabs.group_labour_market_statistics.extra_field_region_labour_market_outlook_introduction['#title'],
+      labour_market_outlook_markup: content.group_region_profile_tabs.group_labour_market_statistics.extra_field_region_labour_market_outlook_introduction.0['#text'],
+     
+      forecast_job_openings_title: content.group_region_profile_tabs.group_labour_market_statistics.extra_field_region_job_openings_forecast['#title'],
+      forecast_job_openings_markup: content.group_region_profile_tabs.group_labour_market_statistics.extra_field_region_job_openings_forecast.0['#markup'],
+      forecast_job_openings_source: content.group_region_profile_tabs.group_labour_market_statistics.extra_field_region_job_openings_forecast_source.0['#markup'],
+      forecast_job_openings_chart_title: content.group_region_profile_tabs.group_labour_market_statistics.extra_field_region_job_openings_forecast_chart['#title'],
+      forecast_job_openings_chart_markup: content.group_region_profile_tabs.group_labour_market_statistics.extra_field_region_job_openings_forecast_chart.0['#markup'],
+      forecast_job_openings_composition_title: content.group_region_profile_tabs.group_labour_market_statistics.extra_field_region_job_openings_composition_chart['#title'],
+      forecast_job_openings_composition_markup: content.group_region_profile_tabs.group_labour_market_statistics.extra_field_region_job_openings_composition_chart.0['#markup'],
+      forecast_job_openings_chart_source: content.group_region_profile_tabs.group_labour_market_statistics.extra_field_region_job_openings_forecast_chart_source.0['#markup'],
+
+      forecast_growth_total_title: content.group_region_profile_tabs.group_labour_market_statistics.extra_field_region_employment_growth_forecast_total['#title'],
+      forecast_growth_total_markup: content.group_region_profile_tabs.group_labour_market_statistics.extra_field_region_employment_growth_forecast_total.0['#markup'],
+      forecast_growth_average_title: content.group_region_profile_tabs.group_labour_market_statistics.extra_field_region_employment_growth_forecast_percent['#title'],
+      forecast_growth_average_markup: content.group_region_profile_tabs.group_labour_market_statistics.extra_field_region_employment_growth_forecast_percent.0['#markup'],
+      forecast_growth_rate_chart_title: content.group_region_profile_tabs.group_labour_market_statistics.extra_field_region_employment_growth_rate_forecast_chart['#title'],
+      forecast_growth_rate_chart_markup: content.group_region_profile_tabs.group_labour_market_statistics.extra_field_region_employment_growth_rate_forecast_chart.0['#markup'],
+      forecast_growth_source: content.group_region_profile_tabs.group_labour_market_statistics.extra_field_region_employment_growth_forecast_source.0['#markup'],
+
+      top_occupations_title: content.group_region_profile_tabs.group_labour_market_statistics.extra_field_region_top_occupations_introduction['#title'],
+      top_occupations_text: content.group_region_profile_tabs.group_labour_market_statistics.extra_field_region_top_occupations_introduction.0['#text'],
+      top_occupations_markup: content.group_region_profile_tabs.group_labour_market_statistics.extra_field_region_top_ten_occupations.0['#markup'],
+
+    },
+    industry_highlights: {
+      title: content.group_region_profile_tabs.group_industry_highlights.field_industry_highlights_intro['#title'] ?? "Industry Highlights",
+      description: content.group_region_profile_tabs.group_industry_highlights.field_industry_highlights_intro.0['#text'],
+
+      employment_title: content.group_region_profile_tabs.group_industry_highlights.extra_field_region_employment_by_industry_table['#title'],
+      employment_markup: content.group_region_profile_tabs.group_industry_highlights.extra_field_region_employment_by_industry_table.0['#markup'],
+      employment_source: content.group_region_profile_tabs.group_industry_highlights.extra_field_region_employment_by_industry_source.0['#markup'],
+    },
+    
+  },
+  links: content.links,
+}
+%}
+
+<div class="profile-header">
+
+  <div class="profile-header-breadcrumb">
+    {{ drupal_block('system_breadcrumb_block', wrapper=false) }}
+  </div>
+
+  {% if viewmodel['hero']['image'] or viewmodel['hero']['description'] %}
+    <div class="profile-header-banner hero-banner hero-banner-profile">
+
+      <div class="hero-image-wrapper">
+        <div class="hero-image-overlay"></div>
+        {{ viewmodel['hero']['image'] }}
+      </div>
+
+      <div class="hero-content-container container-lg">
+        <div class="hero-content-wrapper">
+          <div class="hero-title">
+            <h1>{{ viewmodel['hero']['title'] }}</h1>
+          </div>
+
+          <div class="hero-subtitle">{{ viewmodel['hero']['subtitle'] }}</div>
+
+          <div class="hero-content">
+            {{ viewmodel['hero']['description'] }}
+          </div>
+        </div>
+      </div>
+
+    </div>
+  {% endif %}
+
+  <div class="profile-header-social container-lg">
+    {{ drupal_block('social_sharing_buttons_block', wrapper=false) }}
+  </div>
+</div>
+
+<article{{ attributes.addClass(classes) }}>
+
+  <div class="profile-statistics-wrapper">
+    <div class="container-lg profile-information-card-deck">
+
+      {% for statistic in viewmodel['top_statistics'] %}
+
+        <div class="profile-information-card {{ statistic['icon_class'] }}">
+          <div class="profile-information-card-icon">
+          </div>
+          <div class="profile-information-card-content">
+            <div class="profile-information-card-title">
+              {{ statistic['title'] }}
+            </div>
+            <div class="profile-information-card-value">
+              {{ statistic['value'] }}
+              {# {{ statistic['value']|length > 30 ? statistic['value']|slice(0, 30)|split(' ')|slice(0, -1)|join(' ') ~ ' …' : statistic['value'] }} #}
+            </div>
+          </div>
+          {% if statistic['source'] %}
+            <div class="profile-information-card-infotip">
+              <a tabindex="0" class="btn btn-link info-tooltip" role="button" data-bs-toggle="popover" data-bs-container="body" data-bs-trigger="click hover" data-bs-placement="bottom" data-bs-custom-class="workbc-popover" title="hidden title" data-bs-html="true" data-bs-content="<em>Source:</em> {{ statistic['source'] }}"></a>
+            </div>
+          {% endif %}
+        </div>
+
+      {% endfor %}
+
+    </div>
+  </div>
+
+  <div class="profile-details-wrapper">
+    <div class="profile-content-tabs ">
+      <div class="container-lg scroll-container">
+        <ul class="nav nav-tabs profile-content-tab-list scroll" id="profile-content-tabs" role="tablist">
+          {% for key, tab in viewmodel['tab_sections'] %}
+            <li class="nav-item" role="presentation">
+              <a class="nav-link profile-content-tab-button{{ loop.first ? ' active'}}" id="{{key}}-tab" data-bs-toggle="tab" data-bs-target="#{{key}}-content" aria-controls="{{key}}-content" aria-selected="true" role="tab" href="#">{{tab['title']}}</a>
+            </li>
+          {% endfor %}
+        </ul>
+      </div>
+      <div class="container-lg scroll-affordance-shim"></div>
+    </div>
+
+    <div class="container-lg">
+      <div class="profile-content-container">
+        <div class="tab-content profile-content-main">
+
+          <div class="tab-pane active" id="overview-content" role="tabpanel" aria-labelledby="overview-tab">
+            <h2 class="profile-content-main__header">{{ viewmodel['tab_sections']['overview']['title'] }}</h2>
+            <div>{{ viewmodel['tab_sections']['overview']['description']|raw }}</div>
+
+            <div class="profile-content-section">
+              <h2 class="profile-content-section__header">{{ viewmodel['tab_sections']['overview']['key_facts_title'] }}</h2>
+              <div>{{ viewmodel['tab_sections']['overview']['key_facts_text']|raw }}</div>
+            </div>
+
+            {{ kint(content.group_region_profile_tabs.group_regional_overview) }}
+
+          </div>
+
+          <div class="tab-pane" id="labour_market_statistics-content" role="tabpanel" aria-labelledby="labour_market_statistics-tab">
+            <h2 class="profile-content-main__header">{{ viewmodel['tab_sections']['labour_market_statistics']['title'] }}</h2>
+            <div>{{ viewmodel['tab_sections']['labour_market_statistics']['description']|raw }}</div>
+
+            <div class="profile-content-section">
+              <h2 class="profile-content-section__header">{{ viewmodel['tab_sections']['labour_market_statistics']['employment_title'] }}</h2>
+              <div>{{ viewmodel['tab_sections']['labour_market_statistics']['employment_markup']|raw }}</div>
+            </div>
+            
+            <div class="card-profile">
+              <div class="card-profile__content-small">
+                <h3 class="card-profile__content-header">{{ viewmodel['tab_sections']['labour_market_statistics']['employment_regional_title'] }}</h3>
+                <span class="card-profile__content-value">{{ viewmodel['tab_sections']['labour_market_statistics']['employment_regional_markup']|raw }}</span>
+                <span class="card-profile__content-item">{{ viewmodel['tab_sections']['labour_market_statistics']['employment_regional_ftpt_table_markup']|raw }}</span>
+              </div>
+              <div class="card-profile__content-divider"></div>
+              <div class="card-profile__content-small">
+                <h3 class="card-profile__content-header">{{ viewmodel['tab_sections']['labour_market_statistics']['employment_bc_title'] }}</h3>
+                <span class="card-profile__content-value">{{ viewmodel['tab_sections']['labour_market_statistics']['employment_bc_markup']|raw }}</span>
+                <span class="card-profile__content-item">{{ viewmodel['tab_sections']['labour_market_statistics']['employment_bc_ftpt_table_markup']|raw }}</span>
+              </div>
+              <div class="card-profile__source">
+                <em>Source:</em> {{ viewmodel['tab_sections']['labour_market_statistics']['employment_source']|raw }}
+              </div>
+            </div>
+
+            <div class="card-profile">
+              <div class="card-profile__content-small">
+                <h3 class="card-profile__content-header">{{ viewmodel['tab_sections']['labour_market_statistics']['uneployment_regional_title'] }}</h3>
+                <span class="card-profile__content-value">{{ viewmodel['tab_sections']['labour_market_statistics']['uneployment_regional_markup']|raw }}</span>
+              </div>
+              <div class="card-profile__content-divider"></div>
+              <div class="card-profile__content-small">
+                <h3 class="card-profile__content-header">{{ viewmodel['tab_sections']['labour_market_statistics']['uneployment_bc_title'] }}</h3>
+                <span class="card-profile__content-value">{{ viewmodel['tab_sections']['labour_market_statistics']['uneployment_bc_markup']|raw }}</span>
+              </div>
+              <div class="card-profile__content">
+                <h3 class="card-profile__content-header">{{ viewmodel['tab_sections']['labour_market_statistics']['uneployment_chart_title'] }}</h3>
+                <span class="card-profile__content-value">{{ viewmodel['tab_sections']['labour_market_statistics']['uneployment_chart_markup']|raw }}</span>
+              </div>
+              <div class="card-profile__source">
+                <em>Source:</em> {{ viewmodel['tab_sections']['labour_market_statistics']['unemployment_source']|raw }}
+              </div>
+            </div>
+
+            <div class="profile-content-section">
+              <h2 class="profile-content-section__header">{{ viewmodel['tab_sections']['labour_market_statistics']['labour_market_outlook_title'] }}</h2>
+              <div>{{ viewmodel['tab_sections']['labour_market_statistics']['labour_market_outlook_markup']|raw }}</div>
+            </div>
+            
+            <div class="card-profile">
+              <div class="card-profile__content">
+                <h3 class="card-profile__content-header">{{ viewmodel['tab_sections']['labour_market_statistics']['forecast_job_openings_title'] }}</h3>
+                <span class="card-profile__content-value">{{ viewmodel['tab_sections']['labour_market_statistics']['forecast_job_openings_markup']|raw }}</span>
+              </div>
+              <div class="card-profile__source">
+                <em>Source:</em> {{ viewmodel['tab_sections']['labour_market_statistics']['forecast_job_openings_source']|raw }}
+              </div>
+            </div>
+
+            <div class="card-profile">
+              <div class="card-profile__content">
+                <h3 class="card-profile__content-header">{{ viewmodel['tab_sections']['labour_market_statistics']['forecast_job_openings_chart_title'] }}</h3>
+                <span class="card-profile__content-value">{{ viewmodel['tab_sections']['labour_market_statistics']['forecast_job_openings_chart_markup']|raw }}</span>
+              </div>
+              <div class="card-profile__content">
+                <h3 class="card-profile__content-header">{{ viewmodel['tab_sections']['labour_market_statistics']['forecast_job_openings_composition_title'] }}</h3>
+                <span class="card-profile__content-value">{{ viewmodel['tab_sections']['labour_market_statistics']['forecast_job_openings_composition_markup']|raw }}</span>
+              </div>
+              <div class="card-profile__source">
+                <em>Source:</em> {{ viewmodel['tab_sections']['labour_market_statistics']['forecast_job_openings_chart_source']|raw }}
+              </div>
+            </div>
+
+            <div class="card-profile">
+              <div class="card-profile__content-small">
+                <h3 class="card-profile__content-header">{{ viewmodel['tab_sections']['labour_market_statistics']['forecast_growth_total_title'] }}</h3>
+                <span class="card-profile__content-value">{{ viewmodel['tab_sections']['labour_market_statistics']['forecast_growth_total_markup']|raw }}</span>
+              </div>
+              <div class="card-profile__content-divider"></div>
+              <div class="card-profile__content-small">
+                <h3 class="card-profile__content-header">{{ viewmodel['tab_sections']['labour_market_statistics']['forecast_growth_average_title'] }}</h3>
+                <span class="card-profile__content-value">{{ viewmodel['tab_sections']['labour_market_statistics']['forecast_growth_average_markup']|raw }}</span>
+              </div>
+              <div class="card-profile__content">
+                <h3 class="card-profile__content-header">{{ viewmodel['tab_sections']['labour_market_statistics']['forecast_growth_rate_chart_title'] }}</h3>
+                <span class="card-profile__content-value">{{ viewmodel['tab_sections']['labour_market_statistics']['forecast_growth_rate_chart_markup']|raw }}</span>
+              </div>
+              <div class="card-profile__source">
+                <em>Source:</em> {{ viewmodel['tab_sections']['labour_market_statistics']['forecast_growth_source']|raw }}
+              </div>
+            </div>
+
+            <div class="profile-content-section">
+              <h2 class="profile-content-section__header">{{ viewmodel['tab_sections']['labour_market_statistics']['top_occupations_title'] }}</h2>
+              <div>{{ viewmodel['tab_sections']['labour_market_statistics']['top_occupations_text']|raw }}</div>
+            </div>
+
+            <div class="card-profile">
+              <div class="card-profile__content">
+                <span class="card-profile__content-item">{{ viewmodel['tab_sections']['labour_market_statistics']['top_occupations_markup']|raw }}</span>
+              </div>
+            </div>
+
+          </div>
+
+          <div class="tab-pane" id="industry_highlights-content" role="tabpanel" aria-labelledby="industry_highlights-tab">
+            <h2 class="profile-content-main__header">{{ viewmodel['tab_sections']['industry_highlights']['title'] }}</h2>
+            <div>{{ viewmodel['tab_sections']['industry_highlights']['description']|raw }}</div>
+
+            <div class="card-profile">
+              <div class="card-profile__content">
+                <h3 class="card-profile__content-header">{{ viewmodel['tab_sections']['industry_highlights']['employment_title'] }}</h3>
+                <span class="card-profile__content-item">{{ viewmodel['tab_sections']['industry_highlights']['employment_markup']|raw }}</span>
+              </div>
+              <div class="card-profile__source">
+                <em>Source:</em> {{ viewmodel['tab_sections']['industry_highlights']['employment_source']|raw }}
+              </div>
+            </div>
+          </div>
+
+        </div>
+
+        <div class="profile-content-sidebar">
+
+          <div class="profile-videos-wrapper">
+            <div class="container-lg">
+              <h2>{{ viewmodel['career_videos']['introduction'] }}</h2>
+              {{ viewmodel['career_videos']['content'] }}
+            </div>
+          </div>
+
+          <div class="career-recent-jobs-wrapper">
+            <div class="container-lg">
+              {{ drupal_entity('block', 'recentjobs') }}
+            </div>
+          </div>
+
+        </div>
+      </div>
+    </div>
+  </div>
+</article>
+
+{% if related|striptags|trim %}
+  <div class="container-lg px-1">
+    {{ related }}
+  </div>
+{% endif %}
+
+{{ attach_library('workbc/init-popovers') }}
+{{ attach_library('workbc/scrollbooster') }}
+{{ attach_library('workbc/static-load-more') }}
+

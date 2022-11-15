@@ -1,6 +1,7 @@
 <?php
 
-use Drupal\path_alias\Entity\PathAlias;
+require('utilities.php');
+
 use Drupal\pathauto\PathautoState;
 
 /**
@@ -10,7 +11,7 @@ use Drupal\pathauto\PathautoState;
  */
 
 $file = __DIR__ . '/data/ia.csv';
-if (($data = fopen($file, 'r')) === FALSE) {
+if (($handle = fopen($file, 'r')) === FALSE) {
     die("Could not open IA spreadsheet $file" . PHP_EOL);
 }
 print("Importing IA spreadsheet $file" . PHP_EOL);
@@ -35,6 +36,8 @@ $types = [
     'basic page hero' => 'page',
     'landing page' => 'page',
     'labour market monthly' => 'labour_market_monthly',
+    'regional profile' => 'region_profile',
+    'bc profile' => 'bc_profile'
 ];
 
 // Content groups for editing permissions.
@@ -44,15 +47,15 @@ foreach (\Drupal::entityTypeManager()->getStorage('taxonomy_term')->loadTree('co
 }
 
 // The columns we are interested in.
-const TREE_FIRST = 0;
-const TREE_LAST = 5;
-const MEGA_MENU = 6;
-const DRUPAL_TYPE = 7;
-const LEGACY_URL = 11;
-const URL = 12;
-const PAGE_FORMAT = 13;
-const CONTENT_GROUP = 14;
-const VIEW_MODE = 15;
+const COL_TREE_FIRST = 0;
+const COL_TREE_LAST = 5;
+const COL_MEGA_MENU = 6;
+const COL_DRUPAL_TYPE = 7;
+const COL_LEGACY_URL = 11;
+const COL_URL = 12;
+const COL_PAGE_FORMAT = 13;
+const COL_CONTENT_GROUP = 14;
+const COL_VIEW_MODE = 15;
 
 // FIRST PASS: Create all the nodes.
 print("FIRST PASS =================" . PHP_EOL);
@@ -61,7 +64,7 @@ $row_number = 0;
 global $pages;
 $pages = [];
 $path = [];
-while (($row = fgetcsv($data)) !== FALSE) {
+while (($row = fgetcsv($handle)) !== FALSE) {
     // Skip first header row.
     $row_number++;
     if ($row_number < 2) continue;
@@ -70,10 +73,10 @@ while (($row = fgetcsv($data)) !== FALSE) {
     // We build up the $path array to contain the current hierarchy, discarding "Home".
     $title = NULL;
     $level = NULL;
-    for ($c = TREE_LAST; $c >= TREE_FIRST; $c--) {
+    for ($c = COL_TREE_LAST; $c >= COL_TREE_FIRST; $c--) {
         if (!empty($row[$c])) {
             $title = trim($row[$c]);
-            $level = max(0, $c - TREE_FIRST - 1);
+            $level = max(0, $c - COL_TREE_FIRST - 1);
             $path[$level] = $title;
             if ($level < count($path)) {
                 $path = array_slice($path, 0, $level + 1);
@@ -87,9 +90,9 @@ while (($row = fgetcsv($data)) !== FALSE) {
     }
 
     // Detect a type that we can import.
-    $row_type = strtolower($row[DRUPAL_TYPE]);
+    $row_type = strtolower($row[COL_DRUPAL_TYPE]);
     if (empty($row_type) || !array_key_exists($row_type, $types)) {
-        if (!empty($row[MEGA_MENU]) && empty($row[URL])) {
+        if (!empty($row[COL_MEGA_MENU]) && empty($row[COL_URL])) {
             // Create a placeholder page until we have a better way to deal with this entry.
             $type = 'page';
         }
@@ -107,8 +110,8 @@ while (($row = fgetcsv($data)) !== FALSE) {
         'type' => $type,
         'title' => $title,
         'uid' => 1,
-        'path' => !empty($row[URL]) ? [
-            'alias' => $row[URL],
+        'path' => !empty($row[COL_URL]) ? [
+            'alias' => $row[COL_URL],
             'pathauto' => PathautoState::SKIP,
         ] : [
             'pathauto' => PathautoState::SKIP,
@@ -117,22 +120,14 @@ while (($row = fgetcsv($data)) !== FALSE) {
     ];
 
     // View mode.
-    if (!empty($row[VIEW_MODE])) {
+    if (!empty($row[COL_VIEW_MODE])) {
         $fields['view_mode_selection'][] = [
-            'target_id' => 'node.' . $row[VIEW_MODE],
-        ];
-    }
-
-    // Legacy URL.
-    if (stripos($row[LEGACY_URL], 'https://www.workbc.ca', 0) === 0) {
-        $fields['field_legacy_url'] = [
-            'title' => $title,
-            'uri' => $row[LEGACY_URL],
+            'target_id' => 'node.' . $row[COL_VIEW_MODE],
         ];
     }
 
     // Page format.
-    switch (strtolower($row[PAGE_FORMAT])) {
+    switch (strtolower($row[COL_PAGE_FORMAT])) {
         case 'sidenav':
             $fields['field_page_format'] = 'sidenav';
         break;
@@ -153,7 +148,7 @@ while (($row = fgetcsv($data)) !== FALSE) {
     }
 
     // Content group.
-    $content_group = strtolower($row[CONTENT_GROUP]);
+    $content_group = strtolower($row[COL_CONTENT_GROUP]);
     if (array_key_exists($content_group, $content_groups)) {
         $fields['field_content_group'] = ['target_id' => $content_groups[$content_group]];
     }
@@ -163,41 +158,41 @@ while (($row = fgetcsv($data)) !== FALSE) {
 
     // Process the IA item.
     if (!empty($type)) {
-        // Create a Drupal node for this IA item.
-        print("  Creating new node for \"$title\"" . PHP_EOL);
-        $node = Drupal::entityTypeManager()
-            ->getStorage('node')
-            ->create($fields);
-        $node->setPublished(TRUE);
-        $node->save();
+        $node = createNode($fields, $row[COL_LEGACY_URL]);
 
         $pages[implode('/', $path)] = [
             'nid' => $node->id(),
             'title' => $title,
             'path' => $path,
             'menu_item' => NULL,
-            'mega_menu' => strcasecmp($row[MEGA_MENU], 'yes') === 0 ? $row_number : false,
-            'uri' => $row[URL] ?? NULL,
+            'mega_menu' => strcasecmp($row[COL_MEGA_MENU], 'yes') === 0 ? $row_number : false,
+            'uri' => $row[COL_URL] ?? NULL,
         ];
-        print("  Created $type: " . implode(' => ', $path) . PHP_EOL);
     }
-    // If an explicit URL is given, we skip node creation and move directly to menu item insertion.
-    else if (!empty($row[URL])) {
+    // If an explicit URL is given but there is no node type:
+    // - Insert a menu link
+    // - Setup a redirection
+    else if (!empty($row[COL_URL])) {
         $pages[implode('/', $path)] = [
             'nid' => NULL,
             'title' => $title,
             'path' => $path,
             'menu_item' => NULL,
-            'mega_menu' => strcasecmp($row[MEGA_MENU], 'yes') === 0 ? $row_number : false,
-            'uri' => $row[URL],
+            'mega_menu' => strcasecmp($row[COL_MEGA_MENU], 'yes') === 0 ? $row_number : false,
+            'uri' => $row[COL_URL],
         ];
+
+        if (str_starts_with($row[COL_URL], '/')) {
+            createRedirection($row[COL_LEGACY_URL], 'internal:' . $row[COL_URL]);
+        }
+
         print("  No content, just menu item: " . implode(' => ', $path) . PHP_EOL);
     }
     else {
         print("  No explicit URL and no detected type. Ignoring" . PHP_EOL);
     }
 }
-fclose($data);
+fclose($handle);
 
 // SECOND PASS: Create the menu hierarchy
 print("SECOND PASS =================" . PHP_EOL);

@@ -1,0 +1,17 @@
+_core:
+  default_config_hash: FGYrMvt5Li0Jm92wyoGSiFFNoI_WqcHTeNDMq4jHId0
+langcode: en
+status: false
+mapping:
+  type: simple
+  domain: null
+  conditions:
+    not:
+      extensions:
+        - css
+        - js
+scheme: //
+farfuture:
+  status: true
+stream_wrappers:
+  - public

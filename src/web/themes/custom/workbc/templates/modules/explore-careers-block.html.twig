@@ -18,24 +18,30 @@
 #}
 
 {% if explore_careers %}
-<div>
-  <div>
-    <div>{{ explore_careers.title }}</div>
-    <div>{{ explore_careers.body }}</div>
+<div class="explore-careers__container container-lg">
+  <div class="explore-careers__title-container">
+    <h2 class="explore-careers__title">{{ explore_careers.title }}</h2>
+    <div class="explore-careers__sub-title">{{ explore_careers.body }}</div>
   </div>
 
-  <div>
-    <div>
-      <div>{{ explore_careers.title_1 }}</div>
-      <div>{{ explore_careers.body_1 }}</div>
-      <div>{{ explore_careers.tooltip_1 }}</div>
+  <di class="explore-careers__search-container">
+    <div class="explore-careers__search-box explore-careers__search-box--keyword">
+      <div class="explore-careers__label">{{ explore_careers.title_1 }}</div>
+      <div class="explore-careers__text">
+        {{ explore_careers.body_1 }}
+        <span class="workbc-tooltip explore-careers--tooltip">
+          <div class="workbc-tooltip-content explore-careers--tooltip-content">
+            {{ explore_careers.tooltip_1 }}
+          </div>
+        </span>
+      </div>
       <div>{{ explore_careers.action_1 }}</div>
     </div>
 
-    <div>
-      <div>{{ explore_careers.title_2 }}</div>
-      <div>{{ explore_careers.body_2 }}</div>
-      <div>{{ explore_careers.action_2 }}</div>
+    <div class="explore-careers__search-box explore-careers__search-box--az">
+      <div class="explore-careers__label">{{ explore_careers.title_2 }}</div>
+      <div class="explore-careers__text">{{ explore_careers.body_2 }}</div>
+      <div class="explore-careers__cta">{{ explore_careers.action_2 }}</div>
     </div>
   </div>
 </div>

@@ -27,7 +27,8 @@ class BCUnemploymentRateBC extends ExtraFieldDisplayFormattedBase {
    */
   public function getLabel() {
 
-    return $this->t('BC Unemployment Rate');
+    $datestr = ssotParseDateRange($this->getEntity()->ssot_data['schema'], 'labour_force_survey_regional_employment', 'unemployment_rate_year_11');
+    return $this->t("BC Unemployment Rate (" . $datestr . ")");
   }
 
   /**
@@ -43,8 +44,12 @@ class BCUnemploymentRateBC extends ExtraFieldDisplayFormattedBase {
    */
   public function viewElements(ContentEntityInterface $entity) {
 
-    $output = "[not-yet-available]";
-
+    if (!empty($entity->ssot_data) && isset($entity->ssot_data['labour_force_survey_bc_employment']['unemployment_rate_year_11'])) {
+      $output = ssotFormatNumber($entity->ssot_data['labour_force_survey_bc_employment']['unemployment_rate_year_11'], 1) . "%";
+    }
+    else {
+      $output = WORKBC_EXTRA_FIELDS_NOT_AVAILABLE;
+    }
     return [
       ['#markup' => $output],
     ];

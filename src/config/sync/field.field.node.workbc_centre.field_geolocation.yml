@@ -1,0 +1,21 @@
+uuid: 84c6025f-db4e-402d-ab03-c1205caa35d9
+langcode: en
+status: true
+dependencies:
+  config:
+    - field.storage.node.field_geolocation
+    - node.type.workbc_centre
+  module:
+    - geolocation
+id: node.workbc_centre.field_geolocation
+field_name: field_geolocation
+entity_type: node
+bundle: workbc_centre
+label: Geolocation
+description: ''
+required: false
+translatable: false
+default_value: {  }
+default_value_callback: ''
+settings: {  }
+field_type: geolocation

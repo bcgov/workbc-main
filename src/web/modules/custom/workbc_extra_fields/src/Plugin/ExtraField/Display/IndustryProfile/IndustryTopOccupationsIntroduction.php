@@ -27,7 +27,7 @@ class IndustryTopOccupationsIntroduction extends ExtraFieldDisplayFormattedBase 
    */
   public function getLabel() {
 
-    return $this->t('Top Occupations by Number of Job Openings Introduction');
+    return $this->t('Top Occupations by Job Openings');
   }
 
   /**

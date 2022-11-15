@@ -6,16 +6,17 @@ dependencies:
     - core.entity_view_mode.node.teaser
     - field.field.node.workbc_centre.field_address
     - field.field.node.workbc_centre.field_alert
-    - field.field.node.workbc_centre.field_apply_online
+    - field.field.node.workbc_centre.field_content
     - field.field.node.workbc_centre.field_content_group
     - field.field.node.workbc_centre.field_email
     - field.field.node.workbc_centre.field_french_available
+    - field.field.node.workbc_centre.field_geolocation
     - field.field.node.workbc_centre.field_hero_image
-    - field.field.node.workbc_centre.field_hours_of_operation
+    - field.field.node.workbc_centre.field_phone
     - field.field.node.workbc_centre.field_related_topics
     - field.field.node.workbc_centre.field_scheduled_publish
-    - field.field.node.workbc_centre.field_survey_link
     - field.field.node.workbc_centre.field_website
+    - field.field.node.workbc_centre.field_working_hours
     - node.type.workbc_centre
   module:
     - user
@@ -40,15 +41,16 @@ hidden:
   extra_field_workbc_published_on: true
   field_address: true
   field_alert: true
-  field_apply_online: true
+  field_content: true
   field_content_group: true
   field_email: true
   field_french_available: true
+  field_geolocation: true
   field_hero_image: true
-  field_hours_of_operation: true
+  field_phone: true
   field_related_topics: true
   field_scheduled_publish: true
-  field_survey_link: true
   field_website: true
+  field_working_hours: true
   langcode: true
   search_api_excerpt: true

@@ -27,7 +27,7 @@ class IndustryEmploymentGrowthRateTenYearForecast extends ExtraFieldDisplayForma
    */
   public function getLabel() {
 
-    return $this->t('Employment Growth Rate 10 Year Forecast');
+    return $this->t('Forecasted 10-Year Industry Share of Total Employment');
   }
 
   /**

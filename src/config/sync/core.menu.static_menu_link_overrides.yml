@@ -19,9 +19,3 @@ definitions:
     weight: -46
     expanded: false
     enabled: true
-  standard__front_page:
-    menu_name: main
-    parent: ''
-    weight: -50
-    expanded: false
-    enabled: true
