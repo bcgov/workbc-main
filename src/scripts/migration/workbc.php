@@ -505,11 +505,12 @@ function convertCardsPublications($cards, $card_type, &$items, &$container_parag
         }
 
         // Identify publication node related to this card and update it.
+        $publication_title = convertPlainText($card->{'Title'});
         $publications = Drupal::entityTypeManager()
         ->getStorage('node')
-        ->loadByProperties(['type' => 'publication', 'title' => convertPlainText($card->{'Title'})]);
+        ->loadByProperties(['type' => 'publication', 'title' => $publication_title]);
         if (empty($publications)) {
-            print("  Could not find publication \"$card->{'Title'}\". Ignoring" . PHP_EOL);
+            print("  Could not find publication \"$publication_title\". Ignoring" . PHP_EOL);
             continue;
         }
         $publication = current($publications);
