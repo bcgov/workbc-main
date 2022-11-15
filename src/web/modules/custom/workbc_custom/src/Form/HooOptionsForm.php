@@ -78,6 +78,8 @@
         $regionOptions[''] = $no_value_text;
         $educationOptions[''] = $no_value_text;
         $interestOptions[''] = $no_value_text;
+
+        //static wage options 
         $wageOptions = [
           '' => $no_value_text,
           '0-20'  => $this->t('Under $20.00 per hour'),
@@ -87,20 +89,15 @@
           '50-0' => $this->t('$50.00+ per hour')
         ];
 
+        //occupational interests options
+        $occupational_interests = [];
+        foreach (\Drupal::entityTypeManager()->getStorage('taxonomy_term')->loadTree('occupational_interests') as $term) {
+            $interestOptions[$term->name] = $term->name;
+        }
+
         foreach($select_options as $select_key => $select_values) {
           $regionOptions[$select_values['region']] = $regionMappings[$select_values['region']];
           $educationOptions[$select_values['typical_education_background']] = $select_values['typical_education_background'];
-
-          if(strpos($select_values['occupational_interest'], ',')!== false){
-            $occupational_interest_arr = explode(',', $select_values['occupational_interest']);
-            foreach($occupational_interest_arr as $occupational_interest_key => $occupational_interest_value) {
-              $oi_value = trim($occupational_interest_value);
-              $interestOptions[$oi_value] = $oi_value;
-            }
-          } else {
-            $interestOptions[$select_values['occupational_interest']] = $select_values['occupational_interest'];
-          }
-          
         }
 
         //rows data

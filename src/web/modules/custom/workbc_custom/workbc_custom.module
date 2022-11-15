@@ -186,7 +186,7 @@ function ssotHighOpportunityOptions($parameters = null){
   $data['data'] = querySSoT('high_opportunity_occupations?' . $parameters);
 
   //options
-  $data['options'] = querySSoT('high_opportunity_occupations?select=occupational_interest,typical_education_background,region,wage_rate_median');
+  $data['options'] = querySSoT('high_opportunity_occupations?select=typical_education_background,region');
 
   return $data;
 }
