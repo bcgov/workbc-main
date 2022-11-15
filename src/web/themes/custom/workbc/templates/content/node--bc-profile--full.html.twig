@@ -168,9 +168,9 @@
       employment_markup: content.group_bc_profile.group_industry_highlights.extra_field_bc_employment_by_industry_table.0['#markup'],
       employment_source: content.group_bc_profile.group_industry_highlights.extra_field_bc_employment_by_industry_source.0['#markup'],
 
-      employment_title: content.group_bc_profile.group_industry_highlights.extra_field_bc_employment_by_industry_table['#title'],
-      employment_markup: content.group_bc_profile.group_industry_highlights.extra_field_bc_employment_by_industry_table.0['#markup'],
-      employment_source: content.group_bc_profile.group_industry_highlights.extra_field_bc_employment_by_industry_source.0['#markup'],
+      employment_goods_service_share_chart_title: content.group_bc_profile.group_industry_highlights.extra_field_bc_employment_goods_service_share_chart['#title'],
+      employment_goods_service_share_chart_markup: content.group_bc_profile.group_industry_highlights.extra_field_bc_employment_goods_service_share_chart.0['#markup'],
+      employment_goods_service_share_chart_source: content.group_bc_profile.group_industry_highlights.extra_field_bc_employment_goods_service_share_source.0['#markup'],
 
     },
     
@@ -349,9 +349,6 @@
           </div>
 
           <div class="tab-pane" id="industry_highlights-content" role="tabpanel" aria-labelledby="industry_highlights-tab">
-
-            {{ kint(content.group_bc_profile.group_industry_highlights) }}
-
             <h2 class="profile-content-main__header">{{ viewmodel['tab_sections']['industry_highlights']['title'] }}</h2>
             <div>{{ viewmodel['tab_sections']['industry_highlights']['description']|raw }}</div>
 
@@ -364,8 +361,17 @@
                 <em>Source:</em> {{ viewmodel['tab_sections']['industry_highlights']['employment_source']|raw }}
               </div>
             </div>
-          </div>
 
+            <div class="card-profile">
+              <div class="card-profile__content">
+                <h3 class="card-profile__content-header">{{ viewmodel['tab_sections']['industry_highlights']['employment_goods_service_share_chart_title'] }}</h3>
+                <span class="card-profile__content-item">{{ viewmodel['tab_sections']['industry_highlights']['employment_goods_service_share_chart_markup']|raw }}</span>
+              </div>
+              <div class="card-profile__source">
+                <em>Source:</em> {{ viewmodel['tab_sections']['industry_highlights']['employment_goods_service_share_chart_source']|raw }}
+              </div>
+            </div>
+          </div>
         </div>
 
         <div class="profile-content-sidebar">
