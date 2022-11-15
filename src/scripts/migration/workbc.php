@@ -104,6 +104,11 @@ while (!feof($handle)) {
         $item->title = 'Account';
     }
 
+    // "B.C.’s Labour Market Outlook: 2021 Edition" fails because its parent item in IA is different than its parent folder in GC.
+    if (strcasecmp($item->title, 'B.C.’s Labour Market Outlook: 2021 Edition') === 0) {
+        $item->folder = 'Research the Labour Market';
+    }
+
     $items[$item->id] = $item;
 }
 fclose($handle);
