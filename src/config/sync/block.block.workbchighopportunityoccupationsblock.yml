@@ -17,7 +17,7 @@ plugin: high_opportunity_occupations
 settings:
   id: high_opportunity_occupations
   label: 'WorkBC high opportunity occupations  block'
-  label_display: visible
+  label_display: '0'
   provider: workbc_custom
 visibility:
   not_node_type:
