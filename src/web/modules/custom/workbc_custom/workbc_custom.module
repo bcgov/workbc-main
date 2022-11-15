@@ -188,6 +188,9 @@ function ssotHighOpportunityOptions($parameters = null){
   //options
   $data['options'] = querySSoT('high_opportunity_occupations?select=typical_education_background,region');
 
+  //schema
+  $data['schema'] = ssotSchema();
+
   return $data;
 }
 

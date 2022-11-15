@@ -67,8 +67,11 @@
         $data = $dataHHO['data'];
         $select_options = $dataHHO['options'];
 
+
+        $parsed_date_range = ssotParseDateRange($dataHHO['schema'], 'high_opportunity_occupations', 'openings_forecast');
+
         //table header
-        $header = [$this->t('Occupation'), $this->t('Education Requirements'), $this->t('Median Hourly Wage'), $this->t('Job Openings to 2029'), $this->t('Occupational Interest')];
+        $header = [$this->t('Occupation'), $this->t('Education Requirements'), $this->t('Median Hourly Wage'), $this->t('Job Openings to'). ' '. $parsed_date_range, $this->t('Occupational Interest')];
 
 
         $regionMappings = getRegionMappings();
