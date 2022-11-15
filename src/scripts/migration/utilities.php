@@ -310,9 +310,11 @@ function createNode($fields, $legacy_urls = null) {
 function createRedirection($legacy_urls, $target_url) {
     if (!empty($legacy_urls)) {
         foreach (array_map('trim', explode(',', $legacy_urls)) as $legacy_url) {
-            if (stripos($legacy_url, 'https://www.workbc.ca/') === 0) {
+            $count = 0;
+            $result = preg_replace('|https://(?:www.)?workbc.ca/(.*)|', '$1', $legacy_url, -1, $count);
+            if ($count > 0) {
                 Redirect::create([
-                    'redirect_source' => str_replace('https://www.workbc.ca/', '', $legacy_url),
+                    'redirect_source' => $result,
                     'redirect_redirect' => $target_url,
                     'language' => 'und',
                     'status_code' => '301',

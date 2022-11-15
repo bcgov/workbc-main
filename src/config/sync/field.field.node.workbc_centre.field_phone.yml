@@ -1,19 +1,21 @@
-uuid: 7bd57ec7-3a3b-4265-80bc-62f007dd6325
+uuid: f06c7798-8a1d-4927-b8fd-7667bed26d2a
 langcode: en
 status: true
 dependencies:
   config:
-    - field.storage.node.field_email
+    - field.storage.node.field_phone
     - node.type.workbc_centre
-id: node.workbc_centre.field_email
-field_name: field_email
+  module:
+    - telephone
+id: node.workbc_centre.field_phone
+field_name: field_phone
 entity_type: node
 bundle: workbc_centre
-label: Email
+label: Phone
 description: ''
 required: false
 translatable: false
 default_value: {  }
 default_value_callback: ''
 settings: {  }
-field_type: email
+field_type: telephone

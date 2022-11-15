@@ -12,5 +12,6 @@ drush scr scripts/migration/video_library
 drush scr scripts/migration/ia
 drush scr scripts/migration/career_profiles
 drush scr scripts/migration/workbc
+drush scr scripts/migration/service_centres
 drush sapi-ena && drush sapi-r && drush sapi-i
 drush cron

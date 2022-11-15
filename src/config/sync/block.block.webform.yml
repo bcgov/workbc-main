@@ -36,4 +36,4 @@ visibility:
   request_path:
     id: request_path
     negate: false
-    pages: /plan-career/our-publications/workbc-order-form
+    pages: /plan-career/publications/workbc-order-form
