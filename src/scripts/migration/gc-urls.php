@@ -7,7 +7,7 @@
  */
 
 const ASSET_REGEX = '|https://assets.gathercontent.com/[A-Za-z0-9\\/]+\\?dl=[^"]+|';
-const PDF_REGEX = '|https://www.workbc.ca/getmedia/[^"]+.pdf.aspx|';
+const PDF_REGEX = '/https:\/\/www.workbc.ca\/getmedia\/[a-zA-Z0-9-]+\/[^"#]+.(?:pdf|docx).aspx/';
 
 $opts = getopt('', [
     'pdf',

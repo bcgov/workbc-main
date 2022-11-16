@@ -218,7 +218,7 @@ function convertEmbeddableLinks($text) {
 
 function convertPDFLinks($text) {
     $matches = [];
-    if (!preg_match_all('|https://www.workbc.ca/getmedia/[a-zA-Z0-9-]+/([^"]+.pdf).aspx|', $text, $matches)) {
+    if (!preg_match_all('/https:\/\/www.workbc.ca\/getmedia\/[a-zA-Z0-9-]+\/([^"#]+.(?:pdf|docx)).aspx/', $text, $matches)) {
         return [];
     }
 
@@ -254,11 +254,17 @@ function convertLink($text, $url, &$items) {
     if (!empty($internal)) {
         $target = "internal:/node/" . current($internal)['target_id'];
     }
-    else if (str_starts_with($url, '/')) {
-        $target = "internal:$url";
-    }
     else {
-        $target = $url;
+        $internal = convertPDFLinks($url);
+        if (!empty($internal)) {
+            $target = "internal:" . current($internal)['replace'];
+        }
+        else if (str_starts_with($url, '/')) {
+            $target = "internal:$url";
+        }
+        else {
+            $target = $url;
+        }
     }
     return [
         'title' => $text,

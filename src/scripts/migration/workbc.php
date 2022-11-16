@@ -409,7 +409,7 @@ function convertCards($cards, $card_type, &$items, &$container_paragraph) {
     $paragraphs = [];
     foreach ($cards as $card) {
         $empty = TRUE;
-        foreach (['Card Type', 'Title', 'Body', 'Image', 'Link Text', 'Link Target'] as $check) {
+        foreach (['Title', 'Body', 'Image', 'Link Text', 'Link Target'] as $check) {
             if (property_exists($card, $check) && !empty($card->$check)) $empty = FALSE;
         }
         if ($empty) continue;
