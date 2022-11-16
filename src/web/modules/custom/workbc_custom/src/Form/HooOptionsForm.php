@@ -117,11 +117,14 @@
         }
 
         //TBD: Source text
-        $source_text = $this->t('<strong>Wage Rate</strong>: For occupations with a “*”, the annual wage rate is provided, as the hourly wage rate is not available.');
+        $source_text = '<div class="form-note">'.'<strong>'.$this->t('Wage Rate: ').'</strong>' .$this->t('For occupations with a "*", the annual wage rate is provided, as the hourly wage rate is not available.').'</div>';
+
+        $form['#attributes']['class'][] = 'high-opportunity-occupations-form';
 
         //form
         $form['filters']['heading'] = [
-            '#markup' => $this->t('Filter High Opportunity Occupations by region, education, occupational interest and wage below.')
+            '#prefix' => '<div class="high-opportunity-occupations-form__filters">',
+            '#markup' => '<p>'.$this->t('Filter High Opportunity Occupations by region, education, occupational interest and wage below.') .'</p>'
           ];
 
         $form['filters']['education_level'] = [
@@ -152,21 +155,26 @@
           '#title' => $this->t('Wage'),
           '#options'=> $wageOptions,
           '#value' => $wage_value?$wage_value:'null',
-          '#attributes' => ['id' => 'wage']
+          '#attributes' => ['id' => 'wage'],
+          '#suffix' => '</div>'
         ];
 
         if(!empty($data)) {
           $form['data'] = [
+            '#prefix' => '<div class="content-form">',
             '#theme' => 'table',
             '#header' => $header,
             '#rows' => $rows,
             '#attributes' => array('class'=>array('bc-high-opportunites-table')),
             '#header_columns' => 5,
+            '#suffix' => '</div>',
           ];
 
           $form['load_more'] = [
+            '#prefix' => '<div class="text-center">',
             '#type' => 'button',
-           '#value' => $this->t('Load More'),
+            '#value' => $this->t('Load More'),
+            '#suffix' => '</div>',
           ];
 
         $form['source_text'] = [
