@@ -208,7 +208,7 @@ try {
             $fields['published_date'] = strtotime($item->{'Date'});
         }
     }
-    else if ($title === 'Labour Market Monthly Update' && !empty($labour_market_introductions)) {
+    else if (strcasecmp($title, 'Labour Market Monthly Update') === 0 && !empty($labour_market_introductions)) {
         if (property_exists($labour_market_introductions, 'Employment Introduction')) {
             $fields['field_employment_introduction'] = convertRichText($labour_market_introductions->{'Employment Introduction'});
         }
@@ -240,6 +240,20 @@ try {
         if (!empty($regional_profile_introductions)) {
             $fields['field_introductions'] = ['target_id' => $regional_profile_introductions->id()];
         }
+    }
+    else if (strcasecmp($title, 'WorkBC Centre Template') === 0) {
+        // SPECIAL CASE: This is a template that applies to ALL nodes of type workbc_centre.
+        print("  Updating all WorkBC Centres" . PHP_EOL);
+        $centres = \Drupal::entityTypeManager()
+        ->getStorage('node')
+        ->loadByProperties(['type' => 'workbc_centre']);
+        foreach ($centres as $node) {
+            foreach ($fields as $field => $value) {
+                $node->$field = $value;
+            }
+            $node->save();
+        }
+        continue;
     }
 
     $node = loadNodeByTitleParent($title, $item->folder);
