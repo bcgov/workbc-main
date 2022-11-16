@@ -91,6 +91,9 @@ function convertRichText($text, &$items = NULL) {
     foreach (convertPDFLinks($text) as $item) {
         $text = str_replace($item['match'], $item['replace'], $text);
     }
+    foreach (convertWorkBCLinks($text) as $item) {
+        $text = str_replace($item['match'], $item['replace'], $text);
+    }
     // TODO Detect links to workbc.ca and convert to Drupal links.
     // TODO Convert uploaded images within rich text.
     return ['format' => 'full_html', 'value' => $text];
@@ -249,6 +252,22 @@ function convertPDFLinks($text) {
     return $targets;
 }
 
+function convertWorkBCLinks($text) {
+    $matches = [];
+    if (!preg_match_all('/https:\/\/(?:www.)?workbc.ca(\/[^"#]+)/', $text, $matches)) {
+        return [];
+    }
+
+    $targets = [];
+    foreach ($matches[0] as $m => $url) {
+        $targets[] = [
+            'match' => $url,
+            'replace' => $matches[1][$m],
+        ];
+    }
+    return $targets;
+}
+
 function convertLink($text, $url, &$items) {
     $internal = convertGatherContentLinks($url, $items);
     if (!empty($internal)) {
@@ -259,11 +278,17 @@ function convertLink($text, $url, &$items) {
         if (!empty($internal)) {
             $target = "internal:" . current($internal)['replace'];
         }
-        else if (str_starts_with($url, '/')) {
-            $target = "internal:$url";
-        }
         else {
-            $target = $url;
+            $internal = convertWorkBCLinks($url);
+            if (!empty($internal)) {
+                $target = "internal:" . current($internal)['replace'];
+            }
+            else if (str_starts_with($url, '/')) {
+                $target = "internal:$url";
+            }
+            else {
+                $target = $url;
+            }
         }
     }
     return [
