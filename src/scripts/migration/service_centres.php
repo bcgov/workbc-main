@@ -81,24 +81,6 @@ while (($row = fgetcsv($handle)) !== FALSE) {
         'field_phone' => $row[COL_PHONE],
     ];
 
-    // We're just creating 2 hard-coded cards in a 1/2 container:
-    // - Apply online
-    // - Tell us what you think
-    $container_paragraph = Paragraph::create([
-        'type' => 'action_cards_1_2',
-        'uid' => 1,
-    ]);
-    $container_paragraph->isNew();
-    $container_paragraph->field_action_cards = [
-        convertCard('Apply online', 'Access services from your computer.', 'Learn how to apply', 'internal:/discover-employment-services/online-employment-services'),
-        convertCard('Tell us what you think', 'Share your thoughts about your WorkBC Centre experience.', 'Take the WorkBC Centres Survey', 'http://workbccentressurvey.ca/'),
-    ];
-    $container_paragraph->save();
-    $fields['field_content'] = [[
-        'target_id' => $container_paragraph->id(),
-        'target_revision_id' => $container_paragraph->getRevisionId(),
-    ]];
-
     $node = createNode($fields, $row[COL_LEGACY_URL] . '?id=' . $row[COL_CENTRE_ID]);
 }
 fclose($handle);

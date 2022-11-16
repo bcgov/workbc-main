@@ -28,7 +28,7 @@ function convertImage($image) {
         return NULL;
     }
     $filename = str_replace('/', '_', $image->file_id) . '-' . $image->filename;
-    $file = \Drupal::service('file.repository')->writeData($data, "public://$filename");
+    $file = \Drupal::service('file.repository')->writeData($data, "public://$filename", \Drupal\Core\File\FileSystemInterface::EXISTS_REPLACE);
     if (empty($file)) {
         print(" Could not create file $filename" . PHP_EOL);
         return NULL;
@@ -218,7 +218,7 @@ function convertEmbeddableLinks($text) {
 
 function convertPDFLinks($text) {
     $matches = [];
-    if (!preg_match_all('|https://www.workbc.ca/getmedia/[a-zA-Z0-9-]+/([^"]+.pdf).aspx|', $text, $matches)) {
+    if (!preg_match_all('/https:\/\/www.workbc.ca\/getmedia\/[a-zA-Z0-9-]+\/([^"#]+.(?:pdf|docx)).aspx/', $text, $matches)) {
         return [];
     }
 
@@ -236,7 +236,7 @@ function convertPDFLinks($text) {
             print("  Could not download file $url" . PHP_EOL);
             continue;
         }
-        $file = \Drupal::service('file.repository')->writeData($data, "public://$filename");
+        $file = \Drupal::service('file.repository')->writeData($data, "public://$filename", \Drupal\Core\File\FileSystemInterface::EXISTS_REPLACE);
         if (empty($file)) {
             print(" Could not create file $filename" . PHP_EOL);
             return NULL;
@@ -254,11 +254,17 @@ function convertLink($text, $url, &$items) {
     if (!empty($internal)) {
         $target = "internal:/node/" . current($internal)['target_id'];
     }
-    else if (str_starts_with($url, '/')) {
-        $target = "internal:$url";
-    }
     else {
-        $target = $url;
+        $internal = convertPDFLinks($url);
+        if (!empty($internal)) {
+            $target = "internal:" . current($internal)['replace'];
+        }
+        else if (str_starts_with($url, '/')) {
+            $target = "internal:$url";
+        }
+        else {
+            $target = $url;
+        }
     }
     return [
         'title' => $text,
