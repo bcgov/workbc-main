@@ -10,6 +10,7 @@ dependencies:
     - field.field.node.bc_profile.field_key_facts
     - field.field.node.bc_profile.field_region_overview
     - field.field.node.bc_profile.field_scheduled_publish
+    - image.style.hero_image
     - node.type.bc_profile
   module:
     - field_group
@@ -252,7 +253,7 @@ content:
     label: above
     settings:
       image_link: ''
-      image_style: ''
+      image_style: hero_image
       svg_attributes:
         width: null
         height: null

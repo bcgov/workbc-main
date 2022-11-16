@@ -11,6 +11,7 @@ dependencies:
     - field.field.node.industry_profile.field_resources
     - field.field.node.industry_profile.field_scheduled_publish
     - field.field.node.industry_profile.field_types_of_employment
+    - image.style.hero_image
     - node.type.industry_profile
   module:
     - field_group
@@ -298,7 +299,7 @@ content:
     label: above
     settings:
       image_link: ''
-      image_style: ''
+      image_style: hero_image
       svg_attributes:
         width: null
         height: null
