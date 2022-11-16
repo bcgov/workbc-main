@@ -10,6 +10,7 @@ dependencies:
     - field.field.node.bc_profile.field_key_facts
     - field.field.node.bc_profile.field_region_overview
     - field.field.node.bc_profile.field_scheduled_publish
+    - image.style.hero_image
     - node.type.bc_profile
   module:
     - field_group
@@ -84,7 +85,7 @@ third_party_settings:
         - field_industry_highlights_intro
         - extra_field_bc_employment_by_industry_table
         - extra_field_bc_employment_by_industry_source
-        - extra_field_bc_employment_shart_goods_services_chart
+        - extra_field_bc_employment_goods_service_share_chart
         - extra_field_bc_employment_goods_service_share_source
       label: Industry
       parent_name: group_bc_profile
@@ -142,10 +143,20 @@ content:
     third_party_settings: {  }
     weight: 14
     region: content
+  extra_field_bc_employment_goods_service_share_chart:
+    settings: {  }
+    third_party_settings: {  }
+    weight: 22
+    region: content
   extra_field_bc_employment_goods_service_share_source:
     settings: {  }
     third_party_settings: {  }
     weight: 23
+    region: content
+  extra_field_bc_employment_goods_services_share_chart:
+    settings: {  }
+    third_party_settings: {  }
+    weight: 22
     region: content
   extra_field_bc_employment_introduction:
     settings: {  }
@@ -252,7 +263,7 @@ content:
     label: above
     settings:
       image_link: ''
-      image_style: ''
+      image_style: hero_image
       svg_attributes:
         width: null
         height: null

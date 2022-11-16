@@ -10,7 +10,7 @@ use Drupal\extra_field\Plugin\ExtraFieldDisplayFormattedBase;
  * Example Extra field with formatted output.
  *
  * @ExtraFieldDisplay(
- *   id = "bc_employment_shart_goods_services_chart",
+ *   id = "bc_employment_goods_service_share_chart",
  *   label = @Translation("Employment Share Goods & Services Chart"),
  *   description = @Translation("An extra field to display employment share goods & services chart."),
  *   bundles = {
