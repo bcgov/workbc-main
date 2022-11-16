@@ -117,14 +117,14 @@
         }
 
         //TBD: Source text
-        $source_text = $this->t('<div class="form-note"><strong>Wage Rate</strong>: For occupations with a “*”, the annual wage rate is provided, as the hourly wage rate is not available.</div>');
+        $source_text = '<div class="form-note">'.'<strong>'.$this->t('Wage Rate: ').'</strong>' .$this->t('For occupations with a "*", the annual wage rate is provided, as the hourly wage rate is not available.').'</div>';
 
         $form['#attributes']['class'][] = 'high-opportunity-occupations-form';
 
         //form
         $form['filters']['heading'] = [
             '#prefix' => '<div class="high-opportunity-occupations-form__filters">',
-            '#markup' => $this->t('<p>Filter High Opportunity Occupations by region, education, occupational interest and wage below.</p>')
+            '#markup' => '<p>'.$this->t('Filter High Opportunity Occupations by region, education, occupational interest and wage below.') .'</p>'
           ];
 
         $form['filters']['education_level'] = [
