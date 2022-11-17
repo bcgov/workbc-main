@@ -43,8 +43,19 @@ class RegionFTPTEmploymentTable extends ExtraFieldDisplayFormattedBase {
    */
   public function viewElements(ContentEntityInterface $entity) {
 
-    $output = "[not-yet-available]";
+    if (!empty($entity->ssot_data) && isset($entity->ssot_data['labour_force_survey_regional_employment'])) {
+      $fulltime = $entity->ssot_data['labour_force_survey_regional_employment']['full_time_employment_pct'];
+      $parttime = 100 - $fulltime;
 
+      $content = "<table>";
+      $content .= "<tr><td>Full-time employment</td><td>" . ssotFormatNumber($fulltime,0) . "%</td></tr>";
+      $content .= "<tr><td>Part-time employment</td><td>" . ssotFormatNumber($parttime,0) . "%</td></tr>";
+      $content .= "</table>";
+      $output = $content;
+    }
+    else {
+      $output = WORKBC_EXTRA_FIELDS_NOT_AVAILABLE;
+    }
     return [
       ['#markup' => $output],
     ];

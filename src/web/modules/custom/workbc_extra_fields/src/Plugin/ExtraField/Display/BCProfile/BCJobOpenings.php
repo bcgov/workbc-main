@@ -27,7 +27,10 @@ class BCJobOpenings extends ExtraFieldDisplayFormattedBase {
    */
   public function getLabel() {
 
-    return $this->t('Job Openings');
+    $datestr1 = ssotParseDateRange($this->getEntity()->ssot_data['schema'], 'regional_labour_market_outlook', 'employment_outlook_first');
+    $datestr2 = ssotParseDateRange($this->getEntity()->ssot_data['schema'], 'regional_labour_market_outlook', 'employment_outlook_third');
+    return $this->t("Job Openings (" . $datestr1 . "-" . $datestr2 . ")");
+
   }
 
   /**
@@ -43,8 +46,12 @@ class BCJobOpenings extends ExtraFieldDisplayFormattedBase {
    */
   public function viewElements(ContentEntityInterface $entity) {
 
-    $output = "[not-yet-available]";
-
+    if (!empty($entity->ssot_data) && isset($entity->ssot_data['regional_labour_market_outlook'])) {
+      $output = ssotFormatNumber($entity->ssot_data['regional_labour_market_outlook']['forecasted_total_employment_growth_10y'],0);
+    }
+    else {
+      $output = WORKBC_EXTRA_FIELDS_NOT_AVAILABLE;
+    }
     return [
       ['#markup' => $output],
     ];

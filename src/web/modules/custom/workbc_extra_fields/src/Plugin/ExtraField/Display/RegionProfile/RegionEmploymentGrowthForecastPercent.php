@@ -27,7 +27,7 @@ class RegionEmploymentGrowthForecastPercent extends ExtraFieldDisplayFormattedBa
    */
   public function getLabel() {
 
-    return $this->t('Employment Growth Forecast Percent');
+    return $this->t('Forecasted Average Annual Employment Growth Rate');
   }
 
   /**
@@ -43,8 +43,12 @@ class RegionEmploymentGrowthForecastPercent extends ExtraFieldDisplayFormattedBa
    */
   public function viewElements(ContentEntityInterface $entity) {
 
-    $output = "[not-yet-available]";
-
+    if (!empty($entity->ssot_data) && isset($entity->ssot_data['regional_labour_market_outlook']['forecasted_annual_employment_growth_rate'])) {
+      $output = ssotFormatNumber($entity->ssot_data['regional_labour_market_outlook']['forecasted_annual_employment_growth_rate'],1)."%";
+    }
+    else {
+      $output = WORKBC_EXTRA_FIELDS_NOT_AVAILABLE;
+    }
     return [
       ['#markup' => $output],
     ];

@@ -27,7 +27,7 @@ class IndustryEmploymentTypesCAN extends ExtraFieldDisplayFormattedBase {
    */
   public function getLabel() {
 
-    return $this->t('Employment Types National');
+    return $this->t('National');
   }
 
   /**

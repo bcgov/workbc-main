@@ -1,6 +1,6 @@
 <?php
 
-require('gc-drupal.php');
+require('utilities.php');
 
 use Drupal\paragraphs\Entity\Paragraph;
 
@@ -8,7 +8,6 @@ use Drupal\paragraphs\Entity\Paragraph;
  * Update nodes for GatherContent WorkBC items.
  *
  * Usage: drush scr scripts/migration/workbc [--item itemId]
- *
  */
 
 // Accept an option to import a single item given its id
@@ -56,29 +55,63 @@ if (file_exists(__DIR__ . '/data/regional_profile_introductions.jsonl')) {
     print("Reading GC Regional Profile Introductions" . PHP_EOL);
     $item = json_decode(file_get_contents(__DIR__ . '/data/regional_profile_introductions.jsonl'));
     $regional_profile_introductions = createNode([
-        'type' => 'regional_profile_introductions',
+        'type' => 'region_profile_introductions',
         'title' => convertPlainText($item->title),
         'field_labour_market_statistics_i' => convertRichText($item->{'Labour Market Statistics Introduction'}),
         'field_employment_introduction' => convertRichText($item->{'Employment Introduction'}),
-        'field_labour_market_outlook_intr' => convertRichText($item->{'Labour Market Outlook Introduction'}),
+        'field_labour_market_introduction' => convertRichText($item->{'Labour Market Outlook Introduction'}),
         'field_top_occupations_introducti' => convertRichText($item->{'Top Occupations Introduction'}),
     ]);
 }
 
+// Read regions and industries mappings if present.
+const COL_DRUPAL = 0;
+const COL_SSOT = 1;
+const COL_KENTICO = 2;
+const COL_JOBBOARD = 3;
+global $regions_industries;
+$regions_industries = [];
+if (file_exists(__DIR__ . '/data/regions_industries.csv')) {
+    print("Reading Regions and Industries identifiers" . PHP_EOL);
+    $handle = fopen(__DIR__ . '/data/regions_industries.csv', 'r');
+    while (($row = fgetcsv($handle)) !== FALSE) {
+        $regions_industries[strtolower($row[COL_DRUPAL])] = $row;
+    }
+    fclose($handle);
+}
+
 // Read GatherContent page data.
 $file = __DIR__ . '/data/workbc.jsonl';
-if (($data = fopen($file, 'r')) === FALSE) {
+if (($handle = fopen($file, 'r')) === FALSE) {
     die("Could not open GC WorkBC items $file" . PHP_EOL);
 }
 print("Importing GC WorkBC items $file" . PHP_EOL);
 
 $items = [];
-while (!feof($data)) {
-    $item = json_decode(fgets($data));
+while (!feof($handle)) {
+    $item = json_decode(fgets($handle));
     if (empty($item)) continue;
     $item->process = TRUE;
+
+    // SPECIAL CASES
+    // There are two "Reports" pages. For one of them, its parent item in IA is different than its parent folder in GC - which makes it unidentifiable.
+    if (strcasecmp($item->title, 'Reports') === 0 && strcasecmp($item->folder, 'Reports') === 0) {
+        $item->folder = 'B.C.’s Economy';
+    }
+
+    // "Register" is really the "Account" page.
+    if (strcasecmp($item->title, 'Register') === 0) {
+        $item->title = 'Account';
+    }
+
+    // "B.C.’s Labour Market Outlook: 2021 Edition" fails because its parent item in IA is different than its parent folder in GC.
+    if (strcasecmp($item->title, 'B.C.’s Labour Market Outlook: 2021 Edition') === 0) {
+        $item->folder = 'Research the Labour Market';
+    }
+
     $items[$item->id] = $item;
 }
+fclose($handle);
 
 // FIRST PASS: Create nodes that are not expressed in the IA.
 print("FIRST PASS =================" . PHP_EOL);
@@ -88,12 +121,9 @@ foreach ($items as $id => $item) {
     $title = convertPlainText($item->title);
     print("Querying \"$title\"..." . PHP_EOL);
 
-    // Identify a node by its title.
-    $nodes = \Drupal::entityTypeManager()
-        ->getStorage('node')
-        ->loadByProperties(['title' => $title]);
-    if (empty($nodes)) {
-        print("  Could not find Drupal node. Attempting to create it..." . PHP_EOL);
+    $node = loadNodeByTitleParent($title, $item->folder);
+    if (empty($node)) {
+        print("  Could not find node. Attempting to create it..." . PHP_EOL);
         $node = createItem($item);
         if (empty($node)) {
             print("  Error: Could not create Drupal node" . PHP_EOL);
@@ -159,7 +189,12 @@ try {
         'Quote' => 'Quote',
     ] as $card_field => $card_type) {
         if (property_exists($item, $card_field)) {
-            $field_content = array_merge($field_content, convertCards($item->$card_field, $card_type, $items, $container_paragraph));
+            if (strcasecmp($title, "Publications") === 0) {
+                $field_content = array_merge($field_content, convertCardsPublications($item->$card_field, $card_type, $items, $container_paragraph));
+            }
+            else {
+                $field_content = array_merge($field_content, convertCards($item->$card_field, $card_type, $items, $container_paragraph));
+            }
         }
     }
     if (!empty($field_content)) {
@@ -173,7 +208,7 @@ try {
             $fields['published_date'] = strtotime($item->{'Date'});
         }
     }
-    else if ($title === 'Labour Market Monthly Update' && !empty($labour_market_introductions)) {
+    else if (strcasecmp($title, 'Labour Market Monthly Update') === 0 && !empty($labour_market_introductions)) {
         if (property_exists($labour_market_introductions, 'Employment Introduction')) {
             $fields['field_employment_introduction'] = convertRichText($labour_market_introductions->{'Employment Introduction'});
         }
@@ -197,62 +232,35 @@ try {
         if (property_exists($item, 'Resource')) {
             $fields['field_resources'] = convertResources($item->{'Resource'});
         }
+        if (!empty($industry_profile_introductions)) {
+            $fields['field_introductions'] = ['target_id' => $industry_profile_introductions->id()];
+        }
     }
-
-    // We want to create or update a Drupal node for this GC item.
-    // Identifying an existing node by title is sometimes not enough because some pages have non-unique titles.
-    // If so, we identify the node by its position in the navigation menu:
-    // 1. Identify the parent menu item in the navigation menu (assumed to be unique)
-    // 2. Identify the node menu item in the navigation menu
-    // 3. Retrieve the node entity from the menu item
-    $nodes = \Drupal::entityTypeManager()
+    else if ($template === 'Regional Profile') {
+        if (!empty($regional_profile_introductions)) {
+            $fields['field_introductions'] = ['target_id' => $regional_profile_introductions->id()];
+        }
+    }
+    else if (strcasecmp($title, 'WorkBC Centre Template') === 0) {
+        // SPECIAL CASE: This is a template that applies to ALL nodes of type workbc_centre.
+        print("  Updating all WorkBC Centres" . PHP_EOL);
+        $centres = \Drupal::entityTypeManager()
         ->getStorage('node')
-        ->loadByProperties(['title' => $title]);
-    if (empty($nodes)) {
-        print("  Could not find Drupal node. Ignoring" . PHP_EOL);
+        ->loadByProperties(['type' => 'workbc_centre']);
+        foreach ($centres as $node) {
+            foreach ($fields as $field => $value) {
+                $node->$field = $value;
+            }
+            $node->save();
+        }
         continue;
     }
-    else if (count($nodes) > 1) {
-        $parent = $item->folder;
-        print("  Found multiple nodes with same title. Attempting to locate parent \"$parent\"..." . PHP_EOL);
-        $menu_items_parent = \Drupal::entityTypeManager()
-            ->getStorage('menu_link_content')
-            ->loadByProperties([
-                'title' => $parent,
-                'menu_name' => 'main',
-            ]);
-        if (empty($menu_items_parent)) {
-            print("  Error: Could not find parent menu item \"$parent\". Aborting" . PHP_EOL);
-            continue;
-        }
-        else if (count($menu_items_parent) > 1) {
-            print("  Error: Found multiple parent menu items \"$parent\". Aborting" . PHP_EOL);
-            continue;
-        }
-        else {
-            $menu_items_page = \Drupal::entityTypeManager()
-                ->getStorage('menu_link_content')
-                ->loadByProperties([
-                    'parent' => current($menu_items_parent)->getPluginId(),
-                    'menu_name' => 'main',
-                    'title' => $title
-                ]);
-            if (empty($menu_items_page)) {
-                print("  Error: Could not find menu item whose parent is \"$parent\". Aborting" . PHP_EOL);
-                continue;
-            }
-            else {
-                $nid = (int) filter_var(current($menu_items_page)->link->uri, FILTER_SANITIZE_NUMBER_INT);
-                $node = Drupal::entityTypeManager()
-                    ->getStorage('node')
-                    ->load($nid);
-            }
-        }
+
+    $node = loadNodeByTitleParent($title, $item->folder);
+    if (empty($node)) {
+        print("  Error: Could not find node" . PHP_EOL);
+        continue;
     }
-    else {
-        $node = current($nodes);
-    }
-    print("  Found existing node " . $node->id() . PHP_EOL);
     foreach ($fields as $field => $value) {
         $node->$field = $value;
     }
@@ -260,7 +268,7 @@ try {
     $node->save();
 }
 catch (Exception $e) {
-    print("  Error: Could not save Drupal node: " . $e->getMessage() . PHP_EOL);
+    print("  Error: Could not save node: " . $e->getMessage() . PHP_EOL);
 }
 
 }
@@ -281,68 +289,45 @@ function convertRelatedTopics($related_topics, &$items) {
 }
 
 function createItem($item) {
-    switch (trim($item->template)) {
-        case "Blog Post, News Post, Success Stories Post":
+    switch (convertPlainText($item->template)) {
+        case 'Blog Post, News Post, Success Stories Post':
             return createBlogNewsSuccessStory($item);
-        case "Industry Profile":
+        case 'Industry Profile':
             return createIndustryProfile($item);
-        case "Regional Profile":
-            return createRegionalProfile($item);
         default:
             break;
     }
     return NULL;
 }
 
-function createRegionalProfile($item) {
-    $title = convertPlainText($item->title);
-    $type = strcasecmp($title, "British Columbia") === 0 ? 'bc_profile' : 'region_profile';
-    $fields = [
-        'type' => $type,
-        'title' => $title,
-    ];
-    if (!empty($regional_profile_introductions)) {
-        $fields = array_merge($fields, [
-            'field_introductions' => ['target_id' => $regional_profile_introductions->id()],
-        ]);
-    }
-    return createNode($fields);
-}
-
 function createIndustryProfile($item) {
-    $type = 'industry_profile';
-    $fields = [
-        'type' => $type,
-        'title' => convertPlainText($item->title),
-    ];
-    if (!empty($industry_profile_introductions)) {
-        $fields = array_merge($fields, [
-            'field_introductions' => ['target_id' => $industry_profile_introductions->id()],
-        ]);
-    }
-    return createNode($fields);
+    global $regions_industries;
+    $title = convertPlainText($item->title);
+    return createNode([
+        'type' => 'industry_profile',
+        'title' => $title,
+    ], 'https://www.workbc.ca/Labour-Market-Information/Industry-Information/Industry-Profiles/' . $regions_industries[strtolower($title)][COL_KENTICO]);
 }
 
 function createBlogNewsSuccessStory($item) {
     switch ($item->folder) {
-        case "Blog":
+        case 'Blog':
             $type = 'blog';
             break;
-        case "News":
+        case 'News':
             $type = 'news';
             break;
-        case "Success Stories":
+        case 'Success Stories':
             $type = 'success_story';
             break;
         default:
             print("  Unhandled folder {$item->folder} for blogs/news/success stories. Ignoring" . PHP_EOL);
             return;
     }
-    $fields = [
+    return createNode([
         'type' => $type,
         'title' => convertPlainText($item->title),
-    ];
-    return createNode($fields);
+    ]);
 }
 
 function convertCards($cards, $card_type, &$items, &$container_paragraph) {
@@ -395,6 +380,24 @@ function convertCards($cards, $card_type, &$items, &$container_paragraph) {
             'field_name' => 'field_action_cards',
             'only_one_card_per_container' => FALSE,
         ],
+        'Explore Careers > Career Tools' => [
+            'container' => 'action_cards_explore_careers',
+            'card' => 'action_card',
+            'field_name' => 'field_action_cards',
+            'only_one_card_per_container' => FALSE,
+        ],
+        'Explore Careers > Featured Resources' => [
+            'container' => 'action_cards_icon',
+            'card' => 'action_card_icon',
+            'field_name' => 'field_action_cards',
+            'only_one_card_per_container' => FALSE,
+        ],
+        'Explore Careers > Additional Topics' => [
+            'container' => 'action_cards_1_4',
+            'card' => 'action_card',
+            'field_name' => 'field_action_cards',
+            'only_one_card_per_container' => FALSE,
+        ],
         'Not a card, just a block of content (in the Body field below)' => [
             'container' => 'content_text',
             'card' => NULL,
@@ -406,7 +409,7 @@ function convertCards($cards, $card_type, &$items, &$container_paragraph) {
     $paragraphs = [];
     foreach ($cards as $card) {
         $empty = TRUE;
-        foreach (['Card Type', 'Title', 'Body', 'Image', 'Link Text', 'Link Target'] as $check) {
+        foreach (['Title', 'Body', 'Image', 'Link Text', 'Link Target'] as $check) {
             if (property_exists($card, $check) && !empty($card->$check)) $empty = FALSE;
         }
         if ($empty) continue;
@@ -455,9 +458,17 @@ function convertCards($cards, $card_type, &$items, &$container_paragraph) {
                 $card_fields['field_quote'] = convertRichText($card->{'Body'});
             }
             if (property_exists($card, 'Image')) {
-                $images = array_map('convertImage', array_filter($card->{'Image'}));
-                if (!empty($images)) {
-                    $card_fields['field_image'] = current($images);
+                if ($card_types[$type]['card'] === 'action_card_icon') {
+                    $icons = array_map('convertIcon', array_filter($card->{'Image'}));
+                    if (!empty($icons)) {
+                        $card_fields['field_icon'] = current($icons);
+                    }
+                }
+                else {
+                    $images = array_map('convertImage', array_filter($card->{'Image'}));
+                    if (!empty($images)) {
+                        $card_fields['field_image'] = current($images);
+                    }
                 }
             }
             if (property_exists($card, 'Link Text') && property_exists($card, 'Link Target')) {
@@ -477,6 +488,57 @@ function convertCards($cards, $card_type, &$items, &$container_paragraph) {
                 'target_revision_id' => $card_paragraph->getRevisionId(),
             ];
         }
+        $container_paragraph->save();
+
+    }
+    return $paragraphs;
+}
+
+function convertCardsPublications($cards, $card_type, &$items, &$container_paragraph) {
+    $paragraphs = [];
+    foreach ($cards as $card) {
+        $empty = TRUE;
+        foreach (['Card Type', 'Title', 'Body', 'Image', 'Link Text', 'Link Target'] as $check) {
+            if (property_exists($card, $check) && !empty($card->$check)) $empty = FALSE;
+        }
+        if ($empty) continue;
+
+        // Create new container if needed.
+        if (empty($container_paragraph)) {
+            $container_paragraph = Paragraph::create([
+                'type' => 'action_cards_publication',
+                'uid' => 1,
+            ]);
+            $container_paragraph->isNew();
+            $container_paragraph->save();
+
+            $paragraphs[] = [
+                'target_id' => $container_paragraph->id(),
+                'target_revision_id' => $container_paragraph->getRevisionId(),
+            ];
+        }
+
+        // Identify publication node related to this card and update it.
+        $publication_title = convertPlainText($card->{'Title'});
+        $publications = Drupal::entityTypeManager()
+        ->getStorage('node')
+        ->loadByProperties(['type' => 'publication', 'title' => $publication_title]);
+        if (empty($publications)) {
+            print("  Could not find publication \"$publication_title\". Ignoring" . PHP_EOL);
+            continue;
+        }
+        $publication = current($publications);
+        $publication->body = convertRichText($card->{'Body'});
+        $images = array_map('convertImage', array_filter($card->{'Image'}));
+        if (!empty($images)) {
+            $publication->field_image = current($images);
+        }
+        $publication->save();
+
+        // Link publication node to paragraph.
+        $container_paragraph->field_publications[] = [
+            'target_id' => $publication->id()
+        ];
         $container_paragraph->save();
 
     }

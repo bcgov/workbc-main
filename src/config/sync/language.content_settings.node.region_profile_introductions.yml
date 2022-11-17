@@ -1,0 +1,11 @@
+uuid: 6c67701f-2779-4081-bc70-a207d4ba2d94
+langcode: en
+status: true
+dependencies:
+  config:
+    - node.type.region_profile_introductions
+id: node.region_profile_introductions
+target_entity_type_id: node
+target_bundle: region_profile_introductions
+default_langcode: site_default
+language_alterable: false

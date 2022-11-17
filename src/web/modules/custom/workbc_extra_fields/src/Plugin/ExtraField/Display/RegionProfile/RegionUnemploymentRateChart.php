@@ -43,8 +43,55 @@ class RegionUnemploymentRateChart extends ExtraFieldDisplayFormattedBase {
    */
   public function viewElements(ContentEntityInterface $entity) {
 
-    $output = "[not-yet-available]";
-
+    if (!empty($entity->ssot_data) && isset($entity->ssot_data['labour_force_survey_regional_employment'])) {
+      $region = array();
+      $bc = array();
+      for ($i = 1; $i <= 11; $i++) {
+        $region[] = floatval($entity->ssot_data['labour_force_survey_regional_employment']['unemployment_rate_year_'.$i]);
+        $bc[] = floatval($entity->ssot_data['labour_force_survey_bc_employment']['unemployment_rate_year_'.$i]);
+      }
+      $regionHi = floatval($entity->ssot_data['labour_force_survey_regional_employment']['unemployment_rate_year_high']);
+      $regionLo = floatval($entity->ssot_data['labour_force_survey_regional_employment']['unemployment_rate_year_low']);
+      $bcHi = floatval($entity->ssot_data['labour_force_survey_regional_employment']['unemployment_rate_year_high']);
+      $bcLo =  floatval($entity->ssot_data['labour_force_survey_regional_employment']['unemployment_rate_year_low']);
+      $max = max(array_merge($region, $bc));
+      $min = min(array_merge($region, $bc));
+      $labels = [t('Region'), t('BC')];
+      $chart = [
+        '#type' => 'chart',
+        '#chart_type' => 'line',
+        'series_one' => [
+          '#type' => 'chart_data',
+          '#title' => t('Region'),
+          '#data' => $region,
+          '#prefix' => '',
+          '#suffix' => '',
+        ],
+        'series_two' => [
+          '#type' => 'chart_data',
+          '#title' => t('BC'),
+          '#data' => $bc,
+          '#prefix' => '',
+          '#suffix' => '',
+        ],
+        'xaxis' => [
+          '#type' => 'chart_xaxis',
+          '#labels' => $labels,
+          '#max' => count($region),
+          '#min' => 0,
+        ],
+        'yaxis' => [
+          '#type' => 'chart_yaxis',
+          '#max' => $max+2,
+          '#min' => $min-2,
+        ]
+      ];
+      $output = \Drupal::service('renderer')->render($chart);
+      // $output = "";
+    }
+    else {
+      $output = WORKBC_EXTRA_FIELDS_NOT_AVAILABLE;
+    }
     return [
       ['#markup' => $output],
     ];

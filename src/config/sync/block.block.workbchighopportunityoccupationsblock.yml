@@ -1,0 +1,34 @@
+uuid: 8d29cedb-e181-4fa1-8206-8d848dfc2fa5
+langcode: en
+status: true
+dependencies:
+  module:
+    - block_visibility_conditions
+    - system
+    - workbc_custom
+  theme:
+    - workbc
+id: workbchighopportunityoccupationsblock
+theme: workbc
+region: content_bottom
+weight: -10
+provider: null
+plugin: high_opportunity_occupations
+settings:
+  id: high_opportunity_occupations
+  label: 'WorkBC high opportunity occupations  block'
+  label_display: '0'
+  provider: workbc_custom
+visibility:
+  not_node_type:
+    id: not_node_type
+    bundles: {  }
+    negate: null
+  not_taxonomy_vocabulary:
+    id: not_taxonomy_vocabulary
+    bundles: {  }
+    negate: null
+  request_path:
+    id: request_path
+    negate: false
+    pages: /research-labour-market/high-opportunity-occupations

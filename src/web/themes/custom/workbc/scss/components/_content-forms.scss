@@ -2,6 +2,7 @@
   padding: 40px 30px;
   margin-bottom: 40px;
   box-shadow: 0 0 10px rgb(219 219 219);
+  overflow-x: scroll;
 }
 
 .content-form .form-text,
@@ -29,8 +30,38 @@
   @include btn-blue;
 }
 
-
 // Tour Stop Form override
 .webform-submission-request-a-tour-stop-form #edit-cancel {
   @include visually-hidden;
+}
+
+.block-collection-notice-block .use-ajax {
+  @include link-chevron;
+}
+
+// High Opportunity Occupations Form
+
+.high-opportunity-occupations-form__filters {
+  padding: 20px;
+  margin-bottom: 40px;
+  background-color: $workbc_palette_light_secondary;
+}
+
+.high-opportunity-occupations-form__filters .form-select {
+  border: 2px solid $workbc_palette_dark_secondary;
+}
+
+.high-opportunity-occupations-form__filters label {
+  margin-bottom: 5px;
+  font-weight: 700;
+}
+
+.high-opportunity-occupations-form .form-note {
+  padding-top: 20px;
+  font-size: 0.875rem;
+  color: #666;
+}
+
+.high-opportunity-occupations-form .button {
+  text-align: center;
 }

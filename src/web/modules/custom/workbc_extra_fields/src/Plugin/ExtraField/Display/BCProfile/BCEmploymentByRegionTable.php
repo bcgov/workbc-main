@@ -27,7 +27,7 @@ class BCEmploymentByRegionTable extends ExtraFieldDisplayFormattedBase {
    */
   public function getLabel() {
 
-    return $this->t('Employment by Region Table');
+    return $this->t('Employment by Region');
   }
 
   /**
@@ -43,8 +43,39 @@ class BCEmploymentByRegionTable extends ExtraFieldDisplayFormattedBase {
    */
   public function viewElements(ContentEntityInterface $entity) {
 
-    $output = "[not-yet-available]";
+    if (!empty($entity->ssot_data) && isset($entity->ssot_data['regional_top_industries'])) {
+      $datestr = ssotParseDateRange($this->getEntity()->ssot_data['schema'], 'regional_top_industries', 'openings');
 
+      $regions = $entity->ssot_data['labour_force_survey_regions_employment'];
+      usort($regions, function($a, $b) {
+        return $a['region'] <=> $b['region'];
+      });
+
+      $content = "<table>";
+      $content .= "<tr><th>Region</th><th>Full-time Employment Rate</th><th>Part-time Employment Rate</th></tr>";
+      foreach ($regions as $region) {
+        $nid = \Drupal::entityQuery('node')
+          ->condition('title', ssotRegionName($region['region']))
+          ->sort('nid', 'DESC')
+          ->execute();
+        $nid = reset($nid);
+
+        $alias = \Drupal::service('path_alias.manager')->getAliasByPath('/node/'.$nid);
+        $link = "<a href='" . $alias . "'>";
+        $close = "</a>";
+
+        $content .= "<tr>";
+        $content .= "<td>" . $link . ssotRegionName($region['region']) . $close . "</td>";
+        $content .= "<td>" . ssotFormatNumber($region['full_time_employment_pct']) . "%</td>";
+        $content .= "<td>" . ssotFormatNumber($region['part_time_employment_pct']) . "%</td>";
+        $content .= "</tr>";
+      }
+      $content .= "</table>";
+      $output = $content;
+    }
+    else {
+      $output = WORKBC_EXTRA_FIELDS_NOT_AVAILABLE;
+    }
     return [
       ['#markup' => $output],
     ];

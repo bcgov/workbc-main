@@ -8,12 +8,10 @@ dependencies:
     - field.field.node.region_profile.field_hero_image
     - field.field.node.region_profile.field_industry_highlights_intro
     - field.field.node.region_profile.field_job_board_id
+    - field.field.node.region_profile.field_introductions
     - field.field.node.region_profile.field_key_facts
-    - field.field.node.region_profile.field_labour_market_introduction
-    - field.field.node.region_profile.field_labour_market_stats_intro
     - field.field.node.region_profile.field_region_overview
     - field.field.node.region_profile.field_scheduled_publish
-    - field.field.node.region_profile.field_top_occupations_intro
     - node.type.region_profile
   module:
     - user
@@ -35,36 +33,49 @@ content:
 hidden:
   extra_field_region_employment: true
   extra_field_region_employment_bc: true
+  extra_field_region_employment_by_industry_source: true
   extra_field_region_employment_by_industry_table: true
   extra_field_region_employment_by_region_table: true
   extra_field_region_employment_growth_forecast_percent: true
+  extra_field_region_employment_growth_forecast_source: true
   extra_field_region_employment_growth_forecast_total: true
+  extra_field_region_employment_growth_rate_forecast_chart: true
+  extra_field_region_employment_introduction: true
   extra_field_region_employment_region: true
+  extra_field_region_employment_region_source: true
   extra_field_region_employment_shart_goods_services_chart: true
+  extra_field_region_employment_source: true
   extra_field_region_ft_pt_employment_table: true
   extra_field_region_ft_pt_employment_table_bc: true
   extra_field_region_job_openings: true
   extra_field_region_job_openings_composition_chart: true
   extra_field_region_job_openings_forecast: true
   extra_field_region_job_openings_forecast_chart: true
+  extra_field_region_job_openings_forecast_chart_source: true
+  extra_field_region_job_openings_forecast_source: true
+  extra_field_region_job_openings_source: true
+  extra_field_region_labour_market_outlook_introduction: true
+  extra_field_region_labour_market_stats_introduction: true
   extra_field_region_population: true
   extra_field_region_population_bc: true
+  extra_field_region_population_source: true
+  extra_field_region_top_occupations_introduction: true
   extra_field_region_top_ten_occupations: true
   extra_field_region_unemployment_rate: true
   extra_field_region_unemployment_rate_bc: true
   extra_field_region_unemployment_rate_chart: true
   extra_field_region_unemployment_rate_region: true
+  extra_field_region_unemployment_rate_source: true
+  extra_field_region_unemployment_region_source: true
   extra_field_workbc_page_title: true
   extra_field_workbc_published_on: true
   field_content_group: true
   field_hero_image: true
   field_industry_highlights_intro: true
   field_job_board_id: true
+  field_introductions: true
   field_key_facts: true
-  field_labour_market_introduction: true
-  field_labour_market_stats_intro: true
   field_region_overview: true
   field_scheduled_publish: true
-  field_top_occupations_intro: true
   langcode: true
   search_api_excerpt: true

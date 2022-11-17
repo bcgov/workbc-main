@@ -11,6 +11,7 @@ dependencies:
     - field.field.node.industry_profile.field_key_facts
     - field.field.node.industry_profile.field_resources
     - field.field.node.industry_profile.field_scheduled_publish
+    - field.field.node.industry_profile.field_types_of_employment
     - image.style.thumbnail
     - node.type.industry_profile
     - workflows.workflow.editorial
@@ -48,7 +49,7 @@ content:
       preview_image_style: thumbnail
       crop_preview_image_style: crop_thumbnail
       crop_list:
-        - crop_2_1
+        - crop_3_2
       crop_types_required: {  }
       warn_multiple_usages: true
       show_crop_area: true
@@ -101,6 +102,14 @@ content:
     weight: 132
     region: content
     settings: {  }
+    third_party_settings: {  }
+  field_types_of_employment:
+    type: string_textfield
+    weight: 134
+    region: content
+    settings:
+      size: 60
+      placeholder: ''
     third_party_settings: {  }
   langcode:
     type: language_select

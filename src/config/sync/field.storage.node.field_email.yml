@@ -1,9 +1,13 @@
-uuid: c6ec06b5-fa3e-4e59-b1d8-bf369ce61b18
+uuid: a4c5c10b-8ad4-40be-9d7e-6a99805f7ff2
 langcode: en
 status: true
 dependencies:
   module:
+    - field_permissions
     - node
+third_party_settings:
+  field_permissions:
+    permission_type: public
 id: node.field_email
 field_name: field_email
 entity_type: node

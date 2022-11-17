@@ -84,7 +84,7 @@ class IndustryEmploymentByRegionTable extends ExtraFieldDisplayFormattedBase {
 
 
     $content = "<table>";
-    $content .= "<tr><th>Region</th><th>Job Openings</th><th>Avg Annual Employment Growth</th></tr>";
+    $content .= "<tr><th>Region</th><th>% Employment this Industry</th><th>% Employment All Industries</th></tr>";
     foreach ($regions as $region) {
       $content .= "<tr><td>" . $region['name'] . "</td><td>" . ssotFormatNumber($region['industry'], 1) . "%</td><td>" . ssotFormatNumber($region['all'],1) . "%</td></tr>";
     }

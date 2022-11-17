@@ -1,0 +1,21 @@
+uuid: 886ec738-c984-416b-b66a-cfd15584b496
+langcode: en
+status: true
+dependencies:
+  config:
+    - field.storage.node.field_working_hours
+    - node.type.workbc_centre
+  module:
+    - text
+id: node.workbc_centre.field_working_hours
+field_name: field_working_hours
+entity_type: node
+bundle: workbc_centre
+label: 'Working Hours'
+description: ''
+required: false
+translatable: false
+default_value: {  }
+default_value_callback: ''
+settings: {  }
+field_type: text_long

@@ -1,10 +1,14 @@
 $card-padding: 20px;
+// start with half instead of dividing by 2 to avoid potential integer division truncation complications
+$card-divider-margin-half: 20px;
+$card-divider-size-half: 2px; 
+$card-divider-size: calc(2*$card-divider-size-half);
 
 .card-profile {
   position: relative; // begin positional context %card-profile
   margin-bottom: 24px;
   box-shadow: 0 0 15px 0 rgba(0, 0, 0, 0.15);
-  padding-top: $card-padding; // use padding to prevent the first items top margin from collapsing into the margin between cards
+  padding: $card-padding; 
   padding-bottom: 65px; // Extra padding to make room for absolutely positioned source and associated whitespace
 
   display: flex;
@@ -12,6 +16,33 @@ $card-padding: 20px;
 
   @include media-breakpoint-up(lg) {
     flex-flow: row wrap;
+    row-gap: 20px;
+  }
+}
+
+.card-profile__header {
+  flex: 1 1;
+  margin-bottom: $card-padding;
+
+  @include media-breakpoint-up(lg) {
+    flex: 1 1 100%;
+  }
+
+  h2 {
+    flex: 0 0;
+    display: block;
+    font-size: 1.125rem;
+    line-height: 1.125rem;
+    text-align: center;
+    font-weight: bold;
+  }
+
+  h3 {
+    flex: 0 0;
+    display: block;
+    font-size: 1.000rem;
+    text-align: center;
+    line-height: 1.000rem;
   }
 }
 
@@ -30,24 +61,25 @@ $card-padding: 20px;
   display: flex;
   flex-flow: column nowrap;
   align-items: center;
-
+  margin-bottom: $card-padding;
   flex: 1 1;
-  margin: $card-padding;
 
   @include media-breakpoint-up(lg) {
-    flex-basis: 40%;
+    flex-basis: calc(50% - $card-divider-size-half - $card-divider-margin-half);
     flex-flow: column nowrap;
   }
 }
 
 .card-profile__content-divider {
-  margin: $card-padding;
-  border-bottom: 4px solid $workbc_palette_light_secondary;
+  border-bottom: $card-divider-size solid $workbc_palette_light_secondary;
+  margin: $card-divider-margin-half 0;
+  flex: 1 1;
 
   @include media-breakpoint-up(lg) {
-    margin-top: $card-padding;
+    flex-basis: $card-divider-size;
+    margin: 0 $card-divider-margin-half;
     border-bottom: none;
-    border-right: 4px solid $workbc_palette_light_secondary;
+    border-right: $card-divider-size solid $workbc_palette_light_secondary;
   }
 }
 

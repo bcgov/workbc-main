@@ -34,7 +34,7 @@ class CollectionNoticeBlock extends BlockBase {
 
     return array(
       '#type' => 'markup',
-      '#markup' => Link::fromTextAndUrl(t('View Collection Notice'), $link_url)->toString() . " >",
+      '#markup' => Link::fromTextAndUrl(t('View Collection Notice'), $link_url)->toString(),
       '#attached' => ['library' => ['core/drupal.dialog.ajax']]
     );
   }

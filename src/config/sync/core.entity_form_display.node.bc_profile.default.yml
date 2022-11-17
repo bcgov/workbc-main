@@ -6,8 +6,8 @@ dependencies:
     - field.field.node.bc_profile.field_content_group
     - field.field.node.bc_profile.field_hero_image
     - field.field.node.bc_profile.field_industry_highlights_intro
+    - field.field.node.bc_profile.field_introductions
     - field.field.node.bc_profile.field_key_facts
-    - field.field.node.bc_profile.field_labour_market_stats_intro
     - field.field.node.bc_profile.field_region_overview
     - field.field.node.bc_profile.field_scheduled_publish
     - image.style.thumbnail
@@ -46,7 +46,7 @@ content:
       preview_image_style: thumbnail
       crop_preview_image_style: crop_thumbnail
       crop_list:
-        - crop_2_1
+        - crop_3_2
       crop_types_required: {  }
       warn_multiple_usages: true
       show_crop_area: true
@@ -54,23 +54,25 @@ content:
     third_party_settings: {  }
   field_industry_highlights_intro:
     type: text_textarea
-    weight: 13
+    weight: 27
     region: content
     settings:
       rows: 5
+      placeholder: ''
+    third_party_settings: {  }
+  field_introductions:
+    type: entity_reference_autocomplete
+    weight: 28
+    region: content
+    settings:
+      match_operator: CONTAINS
+      match_limit: 10
+      size: 60
       placeholder: ''
     third_party_settings: {  }
   field_key_facts:
     type: text_textarea
     weight: 11
-    region: content
-    settings:
-      rows: 5
-      placeholder: ''
-    third_party_settings: {  }
-  field_labour_market_stats_intro:
-    type: text_textarea
-    weight: 12
     region: content
     settings:
       rows: 5
@@ -146,6 +148,11 @@ content:
   uid:
     type: workbc_select_resort
     weight: 2
+    region: content
+    settings: {  }
+    third_party_settings: {  }
+  url_redirects:
+    weight: 50
     region: content
     settings: {  }
     third_party_settings: {  }

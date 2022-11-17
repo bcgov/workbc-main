@@ -27,7 +27,7 @@ class RegionEmploymentGrowthForecastTotal extends ExtraFieldDisplayFormattedBase
    */
   public function getLabel() {
 
-    return $this->t('Employment Growth Forecast Total');
+    return $this->t('Forecasted 10-Year Total Employment Growth');
   }
 
   /**
@@ -43,8 +43,12 @@ class RegionEmploymentGrowthForecastTotal extends ExtraFieldDisplayFormattedBase
    */
   public function viewElements(ContentEntityInterface $entity) {
 
-    $output = "[not-yet-available]";
-
+    if (!empty($entity->ssot_data) && isset($entity->ssot_data['regional_labour_market_outlook']['forecasted_total_employment_growth_10y'])) {
+      $output = ssotFormatNumber($entity->ssot_data['regional_labour_market_outlook']['forecasted_total_employment_growth_10y'],0);
+    }
+    else {
+      $output = WORKBC_EXTRA_FIELDS_NOT_AVAILABLE;
+    }
     return [
       ['#markup' => $output],
     ];
