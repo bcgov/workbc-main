@@ -17,7 +17,6 @@ dependencies:
     - field.field.node.workbc_centre.field_website
     - field.field.node.workbc_centre.field_working_hours
     - filter.format.basic_html
-    - image.style.hero_image
     - node.type.workbc_centre
   module:
     - address
@@ -80,7 +79,7 @@ content:
     region: content
   field_alert:
     type: text_default
-    label: above
+    label: hidden
     settings: {  }
     third_party_settings: {  }
     weight: 6
@@ -103,7 +102,7 @@ content:
     region: content
   field_french_available:
     type: boolean
-    label: above
+    label: hidden
     settings:
       format: default
       format_custom_false: ''
@@ -126,7 +125,7 @@ content:
     label: above
     settings:
       image_link: ''
-      image_style: hero_image
+      image_style: ''
       svg_attributes:
         width: null
         height: null

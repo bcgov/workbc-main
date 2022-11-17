@@ -150,10 +150,29 @@
 <article{{ attributes.addClass(classes) }}>
   <div class="profile-details-wrapper">
     <div class="container-lg">
-      <div class="workbc_centre__content">
-        {{ viewmodel['alert'] }}
-        {{ viewmodel['main_content'] }}
-        {{ viewmodel['recent_jobs'] }}
+      <div class="workbc_centre__content-container">
+        {% if viewmodel['alert'] %}
+          <div class="workbc_centre__alert">
+            <h3 class="workbc_centre__alert-header">Service Alert!</h3>
+            <div class="workbc_centre__alert-content">
+              {{ viewmodel['alert'] }}
+            </div>
+          </div>
+        {% endif %}
+
+        <div class="workbc_centre__content-main">
+          {{ viewmodel['main_content'] }}
+        </div>
+
+        {% if viewmodel['recent_jobs']  %}
+          <div class="workbc_centre__recent-jobs">
+            <h3 class="workbc_centre__recent-jobs-header">Recent Jobs in {{ viewmodel['hero']['title'] }}</h3>
+            <div class="workbc_centre__recent-jobs-content">
+              {{ viewmodel['recent_jobs'] }}
+            </div>
+          </div>
+        {% endif %}
+        
       </div>
     </div>
   </div>
