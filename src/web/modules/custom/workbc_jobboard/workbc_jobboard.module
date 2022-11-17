@@ -18,7 +18,8 @@ function workbc_jobboard_theme($existing, $type, $theme, $path) {
       'variables' => [
         'data' => [],
         'sub_title' => '',
-        'no_of_records' => '',
+        'no_of_records_to_show' => '',
+        'total_result' => '',
         'no_result_text' => '',
         'readmore_label' => '',
         'jobboard_api_url_frontend' => '',
@@ -87,10 +88,6 @@ function workbc_jobboard_preprocess_node(&$variables) {
     }
     else if($current_path == $variables['find_job_account_url']){
       $variables['elements']['#theme'] = 'node__page_jobboard_account';
-      $variables['search_career_profile_link'] = \Drupal::config('jobboard')->get('search_career_profile_link');
-      $variables['labour_market_outlook'] = \Drupal::config('jobboard')->get('labour_market_outlook');
-      $variables['explore_industryand_sector_outlooks'] = \Drupal::config('jobboard')->get('explore_industryand_sector_outlooks');
-      $variables['view_industry_profiles'] = \Drupal::config('jobboard')->get('view_industry_profiles');
     }
   }
 }

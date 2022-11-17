@@ -7,6 +7,7 @@ dependencies:
     - field.field.node.industry_profile.field_hero_image
     - field.field.node.industry_profile.field_industry_overview
     - field.field.node.industry_profile.field_introductions
+    - field.field.node.industry_profile.field_job_board_id
     - field.field.node.industry_profile.field_key_facts
     - field.field.node.industry_profile.field_resources
     - field.field.node.industry_profile.field_scheduled_publish
@@ -344,6 +345,7 @@ hidden:
   extra_field_workbc_published_on: true
   field_content_group: true
   field_introductions: true
+  field_job_board_id: true
   field_scheduled_publish: true
   langcode: true
   search_api_excerpt: true
