@@ -16,6 +16,7 @@ dependencies:
     - field.field.node.workbc_centre.field_scheduled_publish
     - field.field.node.workbc_centre.field_website
     - field.field.node.workbc_centre.field_working_hours
+    - image.style.hero_image
     - node.type.workbc_centre
   module:
     - address
@@ -24,6 +25,7 @@ dependencies:
     - link
     - scheduled_publish
     - svg_image
+    - telephone
     - text
     - user
 id: node.workbc_centre.default
@@ -93,7 +95,7 @@ content:
     label: above
     settings:
       image_link: ''
-      image_style: ''
+      image_style: hero_image
       svg_attributes:
         width: null
         height: null
@@ -104,9 +106,10 @@ content:
     weight: 1
     region: content
   field_phone:
-    type: basic_string
+    type: telephone_link
     label: above
-    settings: {  }
+    settings:
+      title: ''
     third_party_settings: {  }
     weight: 16
     region: content
