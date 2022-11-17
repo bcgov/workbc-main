@@ -90,10 +90,10 @@
   },
   address_contact: content.group_address_contact_informatio,
   hours: content.field_working_hours,
-  french_available: content.field_french_available.value,
+  french_available: content.field_french_available.0['#markup'] == 'True',
   alert: content.field_alert,
 
-  main_content: field_content,
+  main_content: content.field_content,
 
   recent_jobs: content.extra_field_wbcc_recent_jobs,
   links: content.links,
@@ -179,7 +179,6 @@
 </article>
 
 <div style="background-color: #DDFFDD">
-  {{ content }}
   {{ kint(content) }}
 </div>
 

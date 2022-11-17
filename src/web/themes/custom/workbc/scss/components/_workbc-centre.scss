@@ -17,11 +17,11 @@
         position: absolute;
         top: 3px;
         bottom: 0;
-        left: -25px;
-        width: 20px;
-        height: 20px;
+        left: -30px;
+        width: 25px;
+        height: 25px;
         background: url(../assets/images/icon-location-blue.svg) center center no-repeat;
-        background-size: 16px;
+        background-size: 25px;
     }
 }
 
@@ -38,11 +38,11 @@
         position: absolute;
         top: 3px;
         bottom: 0;
-        left: -25px;
-        width: 20px;
-        height: 20px;
+        left: -30px;
+        width: 25px;
+        height: 25px;
         background: url(../assets/images/icon-duration-blue.svg) center center no-repeat;
-        background-size: 20px;
+        background-size: 25px;
     }
 }
 
@@ -50,12 +50,37 @@
 }
 
 .workbc_centre__alert {
+    background-color: rgb(35, 64, 117);
+    display: flex;
+    flex-flow: column wrap;
+    justify-content: center;
+    align-items: center;
+    padding: 30px;
+    margin-bottom: 30px;
 }
 
 .workbc_centre__alert-header {
+    position: relative; // begin positional context %workbc_centre__alert-header
+    color: rgb(255, 207, 38);
+    font-size: 1.313rem;
+    line-height: 36px;
+
+    &:before {
+        content: '';
+        position: absolute;
+        top: 0;
+        bottom: 0;
+        left: -50px;
+        width: 35px;
+        height: 35px;
+        background: url(../assets/images/icon-warning-yellow.svg) center center no-repeat;
+        background-size: 35px;
+    }
 }
 
 .workbc_centre__alert-content {
+    margin-top: 30px;
+    color: $workbc_dark_theme_text;
 }
 
 .workbc_centre__content-main {
