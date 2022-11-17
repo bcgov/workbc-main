@@ -20,6 +20,7 @@ dependencies:
     - field.field.node.career_profile.field_resources
     - field.field.node.career_profile.field_scheduled_publish
     - field.field.node.career_profile.field_work_environment
+    - image.style.hero_image
     - node.type.career_profile
   module:
     - field_group
@@ -98,7 +99,6 @@ third_party_settings:
     group_labour_market_statistics:
       children:
         - extra_field_labour_market_statistics_i
-        - extra_field_employment_introduction
         - extra_field_labour_market_number_employed
         - extra_field_labour_market_number_employed_source
         - extra_field_labour_market_region_employment
@@ -410,7 +410,7 @@ content:
     label: above
     settings:
       image_link: ''
-      image_style: ''
+      image_style: hero_image
       svg_attributes:
         width: null
         height: null

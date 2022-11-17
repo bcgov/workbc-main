@@ -17,6 +17,7 @@ dependencies:
     - field.field.node.workbc_centre.field_website
     - field.field.node.workbc_centre.field_working_hours
     - filter.format.basic_html
+    - image.style.hero_image
     - node.type.workbc_centre
   module:
     - address
@@ -125,7 +126,7 @@ content:
     label: above
     settings:
       image_link: ''
-      image_style: ''
+      image_style: hero_image
       svg_attributes:
         width: null
         height: null
