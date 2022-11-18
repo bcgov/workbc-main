@@ -414,3 +414,40 @@ function workbc_extra_fields_views_pre_render(ViewExecutable $view) {
     }
   }
 }
+
+
+function epbcGetPrograms($nocid) {
+
+  $programs = [];
+  $client = new \SoapClient("https://ws.educationplannerbc.ca/ProgramsWebService3.asmx?wsdl");
+
+  $result = $client->getNocs();
+  $nocs = $result->GetNocsResult->Nocs->Nocs;
+  foreach ($nocs as $noc) {
+    if ($noc->Noc == $nocid) {
+      $career = $noc;
+      break;
+    }
+  }
+
+  $programs = [];
+  if (isset($career->Subjectareas->Subjectarea)) {
+    $areaIDs = [];
+    if (is_array($career->Subjectareas->Subjectarea)) {
+      foreach ($career->Subjectareas->Subjectarea as $area) {
+        $areaIDs[] = $area->SubjectareaID;
+      }
+    }
+    else {
+      $areaIDs[] = $career->Subjectareas->Subjectarea->SubjectareaID;
+    }
+
+    $results = $client->getSubjectAreas();
+    foreach ($results->GetSubjectareasResult->Subjectareas->Subjectarea as $area) {
+      if (in_array($area->SubjectareaID, $areaIDs)) {
+        $programs[] = $area->SubjectareaLabel;
+      }
+    }
+  }
+  return $programs;
+}
