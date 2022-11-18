@@ -1,0 +1,78 @@
+<?php
+
+/**
+ * @file
+ * Contains gdx_analytics_drupal_snowplow.module.
+ */
+
+use Drupal\Core\Routing\RouteMatchInterface;
+use Drupal\Core\Link;
+use Drupal\Core\Url;
+
+/**
+ * Implements hook_help().
+ */
+function gdx_analytics_drupal_snowplow_help($route_name, RouteMatchInterface $route_match) {
+  switch ($route_name) {
+    // Main module help for the gdx_analytics_drupal_snowplow module.
+    case 'help.page.gdx_analytics_drupal_snowplow':
+      $output = '';
+      $output .= '<h3>' . t('About') . '</h3>';
+      $output .= '<p>' . t('This is the GDX Analytics Drupal Snowplow module.') . '</p>';
+      return $output;
+
+    default:
+  }
+}
+
+/**
+ * Implements hook_page_attachments().
+ */
+function gdx_analytics_drupal_snowplow_page_attachments(array &$page) {
+  // print 'here'; exit;
+  $config = \Drupal::config('gdx_analytics_drupal_snowplow.settings');
+  $collector = $config->getRawData()['gdx_collector_mode'];
+  $script_uri = $config->getRawData()['gdx_analytics_snowplow_script_uri'];
+  $snowplow_version = $config->getRawData()['gdx_analytics_snowplow_version'];
+  $page['#attached']['drupalSettings']['gdx_collector'] = $collector;
+  $admin_context = \Drupal::service('router.admin_context');
+  
+
+  // Get route info and set up link to settings form.
+  $curr_route_name = \Drupal::routeMatch()->getRouteName();
+  $form_route = Url::fromRoute('gdx_analytics_drupal_snowplow.gdx_analytics_drupal_snowplow_settings_form');
+  $link = Link::fromTextAndUrl('Please Configure Your GDX Analytics Drupal Snowplow Module', $form_route);
+  if($curr_route_name == 'search.view_node_search') {
+    $page['#attached']['drupalSettings']['search'] = true;
+  }
+
+// print 'er'; exit;
+  // Set admin message if settings form not complete.
+  if($admin_context->isAdminRoute()){
+    // Check that the Module has been configured; if there are fields missing, set a warning.
+    if(isset($collector,$script_uri,$snowplow_version)){
+      if($curr_route_name == 'gdx_analytics_drupal_snowplow.gdx_analytics_drupal_snowplow_settings_form') {
+        drupal_set_message(t('Please Configure Your GDX Analytics Drupal Snowplow Module.<br>'
+                           . 'For assistance with filling out this form, contact the GDX Analytics Team.'), 'warning');
+      }else {
+        drupal_set_message($link,'warning');
+      }
+    }
+  }
+
+  // Attach the tracking code to front-end pages.
+  if(!$admin_context->isAdminRoute()){
+    if($snowplow_version == 'Standalone Search vE.2.14.0') {
+      if(!empty(Drupal::request()->query->all()['keys'])){
+        $page['#attached']['drupalSettings']['search_terms'] = explode(' ', Drupal::request()->query->all()['keys']);
+      }
+      $page['#attached']['drupalSettings']['script_uri'] = $script_uri;
+      $page['#attached']['library'][] = 'gdx_analytics_drupal_snowplow/gdx_analytics_drupal_snowplow.webtracker_search';
+      // exit;
+    } elseif ($snowplow_version == 'Standalone vE.2.14.0'){
+      $admin_context = \Drupal::service('router.admin_context');
+      $page['#attached']['drupalSettings']['script_uri'] = $script_uri;
+      $page['#attached']['library'][] = 'gdx_analytics_drupal_snowplow/gdx_analytics_drupal_snowplow.webtracker'; 
+    }
+  }
+}
