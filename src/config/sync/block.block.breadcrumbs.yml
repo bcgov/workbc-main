@@ -27,6 +27,7 @@ visibility:
       labour_market_monthly: labour_market_monthly
       page: page
       region_profile: region_profile
+      workbc_centre: workbc_centre
     negate: null
   not_taxonomy_vocabulary:
     id: not_taxonomy_vocabulary

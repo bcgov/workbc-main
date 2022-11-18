@@ -16,11 +16,12 @@ dependencies:
     - field.field.node.workbc_centre.field_scheduled_publish
     - field.field.node.workbc_centre.field_website
     - field.field.node.workbc_centre.field_working_hours
-    - image.style.hero_image
+    - filter.format.basic_html
     - node.type.workbc_centre
   module:
     - address
     - entity_reference_revisions
+    - field_group
     - geolocation
     - link
     - scheduled_publish
@@ -28,6 +29,32 @@ dependencies:
     - telephone
     - text
     - user
+third_party_settings:
+  field_group:
+    group_address_contact_informatio:
+      children:
+        - field_address
+        - field_phone
+        - field_geolocation
+        - field_email
+        - field_website
+      label: 'Address & Contact Information'
+      parent_name: ''
+      region: content
+      weight: 3
+      format_type: html_element
+      format_settings:
+        classes: ''
+        show_empty_fields: true
+        id: ''
+        element: div
+        show_label: false
+        label_element: h3
+        label_element_classes: ''
+        attributes: ''
+        effect: none
+        speed: fast
+        description: ''
 id: node.workbc_centre.default
 targetEntityType: node
 bundle: workbc_centre
@@ -36,66 +63,69 @@ content:
   content_moderation_control:
     settings: {  }
     third_party_settings: {  }
-    weight: -20
+    weight: 0
     region: content
   extra_field_wbcc_recent_jobs:
     settings: {  }
     third_party_settings: {  }
-    weight: 9
+    weight: 8
     region: content
   field_address:
     type: address_default
-    label: above
+    label: hidden
     settings: {  }
     third_party_settings: {  }
-    weight: 2
+    weight: 14
     region: content
   field_alert:
     type: text_default
-    label: above
+    label: hidden
     settings: {  }
     third_party_settings: {  }
     weight: 6
     region: content
   field_content:
     type: entity_reference_revisions_entity_view
-    label: above
+    label: hidden
     settings:
       view_mode: default
       link: ''
     third_party_settings: {  }
-    weight: 13
+    weight: 7
     region: content
   field_email:
-    type: basic_string
-    label: above
+    type: email_mailto
+    label: hidden
     settings: {  }
     third_party_settings: {  }
-    weight: 15
+    weight: 17
     region: content
   field_french_available:
     type: boolean
-    label: above
+    label: hidden
     settings:
       format: default
       format_custom_false: ''
       format_custom_true: ''
     third_party_settings: {  }
-    weight: 10
+    weight: 5
     region: content
   field_geolocation:
-    type: geolocation_latlng
-    label: above
-    settings: {  }
+    type: geolocation_token
+    label: hidden
+    settings:
+      tokenized_text:
+        value: '<a href="https://maps.google.com/?q=[geolocation_current_item:lat],[geolocation_current_item:lng]" target="_blank">Get Directions</a>'
+        format: basic_html
     third_party_settings: {  }
-    weight: 14
+    weight: 16
     region: content
   field_hero_image:
     type: image
     label: above
     settings:
       image_link: ''
-      image_style: hero_image
+      image_style: ''
       svg_attributes:
         width: null
         height: null
@@ -103,15 +133,15 @@ content:
       image_loading:
         attribute: lazy
     third_party_settings: {  }
-    weight: 1
+    weight: 2
     region: content
   field_phone:
     type: telephone_link
-    label: above
+    label: hidden
     settings:
       title: ''
     third_party_settings: {  }
-    weight: 16
+    weight: 15
     region: content
   field_scheduled_publish:
     type: scheduled_publish_generic_formatter
@@ -120,11 +150,11 @@ content:
       date_format: html_datetime
       text_pattern: '%moderation_state% - %date%'
     third_party_settings: {  }
-    weight: 11
+    weight: 1
     region: content
   field_website:
     type: link
-    label: above
+    label: hidden
     settings:
       trim_length: 80
       url_only: false
@@ -132,19 +162,19 @@ content:
       rel: ''
       target: ''
     third_party_settings: {  }
-    weight: 5
+    weight: 18
     region: content
   field_working_hours:
     type: text_default
-    label: above
+    label: hidden
     settings: {  }
     third_party_settings: {  }
-    weight: 12
+    weight: 4
     region: content
   links:
     settings: {  }
     third_party_settings: {  }
-    weight: 0
+    weight: 9
     region: content
 hidden:
   extra_field_workbc_page_title: true
