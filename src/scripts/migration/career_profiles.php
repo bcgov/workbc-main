@@ -84,7 +84,8 @@ try {
         'field_career_videos_introduction' => convertRichText($career_profile->{'Career Videos Content'}),
         'field_duties' => convertRichText($career_profile->{'Duties Content'}),
         'field_education_training_skills' => convertRichText($career_profile->{'Education, Training and Skills Content'}),
-        'field_education_programs' => convertRichText($career_profile->{'Education Programs in B.C. Content'}),
+        // The following field is directly accessed from Education Planner BC API.
+        //'field_education_programs' => convertRichText($career_profile->{'Education Programs in B.C. Content'}),
         'field_hero_image' => array_map('convertImage', array_filter($career_profile->{'Banner Image'}))[0] ?? NULL,
         'field_insights_from_industry' => convertRichText($career_profile->{'Insights from Industry Content'}),
         'field_job_titles' => convertMultiline($career_profile->{'Job Titles List'}),
