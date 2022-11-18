@@ -65,7 +65,7 @@
 
   @include media-breakpoint-up(lg) {
     padding: 80px 0;
-    width: 50%;
+    width: calc(2 * (100%/3));
   }
 }
 
@@ -132,9 +132,12 @@
       margin-top: 60px;
       padding: 30px 20px 10px 20px;
       background: $workbc_palette_light_primary;
-      border-bottom: $workbc_trim_ultra_thin_size solid
-        $workbc_palette_dark_secondary;
+      border-bottom: $workbc_trim_ultra_thin_size solid $workbc_palette_dark_secondary;
       box-shadow: $workbc_default_box_shadow;
+
+      @include media-breakpoint-up(lg) {
+        width: 50%;
+      }
     }
   }
 }
