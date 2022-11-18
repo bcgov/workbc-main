@@ -119,11 +119,11 @@ try {
     foreach (convertMultiline($career_profile->{'Related Careers NOCs'}) as $raw_related_noc) {
       $related_noc = NULL;
       if (!preg_match('/\d+/', $raw_related_noc, $related_noc)) {
-        print("  Could not parse related NOC $raw_related_noc" . PHP_EOL);
+        print("  Error: Could not parse related NOC $raw_related_noc" . PHP_EOL);
         continue;
       }
       if (!array_key_exists($related_noc[0], $career_profiles)) {
-        print(" Could not find related NOC {$related_noc[0]}" . PHP_EOL);
+        print("  Error: Could not find related NOC {$related_noc[0]}" . PHP_EOL);
         continue;
       }
 

@@ -119,11 +119,15 @@ foreach ($items as $id => $item) {
     if (!empty($item_id) && $id != $item_id) continue;
 
     $title = convertPlainText($item->title);
+
+    // SPECIAL CASE: This is a template that applies to ALL nodes of type workbc_centre.
+    // Nothing to do in this loop.
+    if (strcasecmp($title, 'WorkBC Centre Template') === 0) continue;
+
     print("Querying \"$title\"..." . PHP_EOL);
 
     $node = loadNodeByTitleParent($title, $item->folder);
     if (empty($node)) {
-        print("  Could not find node. Attempting to create it..." . PHP_EOL);
         $node = createItem($item);
         if (empty($node)) {
             print("  Error: Could not create Drupal node" . PHP_EOL);
@@ -280,7 +284,7 @@ function convertRelatedTopics($related_topics, &$items) {
     }) as $card) {
         $related_items = convertGatherContentLinks($card->{'Link Target'}, $items);
         if (empty($related_items)) {
-            print("  Could not parse related GatherContent item {$card->{'Link Target'}}" . PHP_EOL);
+            print("  Error: Could not parse related GatherContent link: {$card->{'Link Target'}}" . PHP_EOL);
             continue;
         }
         $field[] = ['target_id' => current($related_items)['target_id']];
