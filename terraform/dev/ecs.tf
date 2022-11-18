@@ -246,6 +246,29 @@ resource "aws_ecs_task_definition" "app" {
 				condition = "COMPLETE"
 			}
 		]
+	},
+	{
+		essential   = false
+		name        = "cron-runner"
+		image       = "${var.app_repo}/drupal-cron:1.0"
+		networkMode = "awsvpc"
+		
+		logConfiguration = {
+			logDriver = "awslogs"
+			options = {
+				awslogs-create-group  = "true"
+				awslogs-group         = "/ecs/workbc-cron-runner"
+				awslogs-region        = var.aws_region
+				awslogs-stream-prefix = "ecs"
+			}
+		}
+		
+		environment = [
+			{
+				name = "Cron_Url",
+				value = "https://aws-dev.workbc.ca/cron/vNlYnxjqJe1cK9KaV4DO8LNiaHrIGA9z8PfluY11h-uW79PBFQ9vsS9EVnC-Bsy6ZnBE9luRqA"
+			}
+		]
 	}
   ])
 }
