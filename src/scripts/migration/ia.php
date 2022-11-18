@@ -257,7 +257,7 @@ function createMenuEntry($path, $page, &$pages, $menu_name) {
         'menu_name' => $menu_name,
         'parent' => $menu_item_parent,
         'expanded' => TRUE,
-        'weight' => $page['mega_menu'] || 0,
+        'weight' => $page['mega_menu'] ?? 0,
         'enabled' => !!$page['mega_menu']
     ]);
     $menu_link->save();
