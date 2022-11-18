@@ -11,7 +11,7 @@ resource "aws_ecs_task_definition" "cron-job" {
 
   container_definitions = jsonencode([
 	{
-		essential   = false
+		essential   = true
 		name        = "cron-runner"
 		image       = "${var.app_repo}/drupal-cron:1.0"
 		networkMode = "awsvpc"
