@@ -37,4 +37,7 @@ visibility:
     context_mapping:
       node: '@node.node_route_context:node'
     bundles:
+      bc_profile: bc_profile
       career_profile: career_profile
+      industry_profile: industry_profile
+      region_profile: region_profile

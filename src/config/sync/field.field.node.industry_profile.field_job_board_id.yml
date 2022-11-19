@@ -1,0 +1,19 @@
+uuid: a6844850-6d4f-42d2-9ded-fe4aa98d1184
+langcode: en
+status: true
+dependencies:
+  config:
+    - field.storage.node.field_job_board_id
+    - node.type.industry_profile
+id: node.industry_profile.field_job_board_id
+field_name: field_job_board_id
+entity_type: node
+bundle: industry_profile
+label: 'Job Board ID'
+description: ''
+required: false
+translatable: false
+default_value: {  }
+default_value_callback: ''
+settings: {  }
+field_type: string
