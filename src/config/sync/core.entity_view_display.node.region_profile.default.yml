@@ -6,6 +6,7 @@ dependencies:
     - field.field.node.region_profile.field_content_group
     - field.field.node.region_profile.field_hero_image
     - field.field.node.region_profile.field_industry_highlights_intro
+    - field.field.node.region_profile.field_job_board_id
     - field.field.node.region_profile.field_introductions
     - field.field.node.region_profile.field_key_facts
     - field.field.node.region_profile.field_region_overview
@@ -336,6 +337,13 @@ content:
       date_format: html_datetime
       text_pattern: '%moderation_state% - %date%'
     third_party_settings: {  }
+    weight: 8
+    region: content
+  field_top_occupations_intro:
+    type: text_default
+    label: above
+    settings: {  }
+    third_party_settings: {  }
     weight: 12
     region: content
   links:
@@ -350,6 +358,7 @@ hidden:
   extra_field_workbc_page_title: true
   extra_field_workbc_published_on: true
   field_content_group: true
+  field_job_board_id: true
   field_introductions: true
   langcode: true
   search_api_excerpt: true
