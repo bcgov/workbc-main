@@ -10,122 +10,81 @@ use Drupal\paragraphs\Entity\Paragraph;
  * Usage: drush scr scripts/migration/service_centres.php
  */
 
-$file = __DIR__ . '/data/service_centres.csv';
-if (($handle = fopen($file, 'r')) === FALSE) {
-    die("Could not open Service Centres spreadsheet $file" . PHP_EOL);
+$file = __DIR__ . '/data/service_centres.kml';
+if (!file_exists($file)) {
+    die("Could not open Service Centres KML $file" . PHP_EOL);
 }
-print("Importing Service Centres spreadsheet $file" . PHP_EOL);
-
-// The columns we are interested in.
-const COL_CENTRE_ID = 0;
-const COL_TITLE = 1;
-const COL_ADDRESS_1 = 2;
-const COL_ADDRESS_2 = 3;
-const COL_CITY = 4;
-const COL_PROVINCE_ID = 5;
-const COL_POSTAL_CODE = 6;
-const COL_LAT = 7;
-const COL_LON = 8;
-const COL_STORE_FRONT = 9;
-const COL_ENGLISH = 10;
-const COL_FRENCH = 11;
-const COL_PHONE = 12;
-const COL_FAX = 13;
-const COL_EMAIL = 14;
-const COL_WEBSITE = 15;
-const COL_OPENING_HOURS = 16;
-const COL_CATCHMENT_AREA_ID = 17;
-const COL_CONTRACTOR_ID = 18;
-const COL_LEGACY_URL = 19;
+print("Importing Service Centres KML $file" . PHP_EOL);
 
 // FIRST PASS: Create all the nodes.
 print("FIRST PASS =================" . PHP_EOL);
 
-$row_number = 0;
-while (($row = fgetcsv($handle)) !== FALSE) {
-    // Skip first header row.
-    $row_number++;
-    if ($row_number < 2) continue;
+$xml = simplexml_load_file($file);
+$xml->registerXPathNamespace('kml', "http://www.opengis.net/kml/2.2");
 
-    $title = convertPlainText($row[COL_TITLE]);
+foreach ($xml->Document->Placemark as $centre) {
+    $title = convertPlainText($centre->name);
     print("Processing \"$title\"..." . PHP_EOL);
 
     // Build the fields.
     $fields = [
         'type' => 'workbc_centre',
         'title' => $title,
-        'field_email' => $row[COL_EMAIL],
-        'field_website' => [
-            'title' => 'Visit Website',
-            'uri' => $row[COL_WEBSITE],
-            'options' => [
-                'attributes' => [
-                    'rel' => 'noopener noreferrer',
-                    'target' => '_blank',
-                ]
-            ]
-        ],
-        'field_working_hours' => convertWorkingHours($row[COL_OPENING_HOURS]),
-        'field_geolocation' => [
-            'lat'=> $row[COL_LAT],
-            'lng' => $row[COL_LON]
-        ],
-        'field_french_available' => !!$row[COL_FRENCH],
-        'field_address' => [
-            'country_code' => 'CA',
-            'address_line1' => $row[COL_ADDRESS_1],
-            'administrative_area' => 'BC',
-            'locality' => $row[COL_CITY],
-            'postal_code' => $row[COL_POSTAL_CODE],
-        ],
-        'field_phone' => $row[COL_PHONE],
+        'field_email' => str_replace('mailto:', '', $centre->xpath('kml:ExtendedData/kml:Data[@name="email"]')[0]->value),
+        // 'field_website' => [
+        //     'title' => 'Visit Website',
+        //     'uri' => // TODO,
+        //     'options' => [
+        //         'attributes' => [
+        //             'rel' => 'noopener noreferrer',
+        //             'target' => '_blank',
+        //         ]
+        //     ]
+        // ],
+        'field_working_hours' => convertWorkingHours($centre),
+        'field_geolocation' => convertCoordinates($centre),
+        'field_french_available' => strcasecmp('Y', $centre->xpath('kml:ExtendedData/kml:Data[@name="hasFrench"]')[0]->value) === 0,
+        'field_address' => convertAddress($centre),
+        'field_phone' => (string) $centre->xpath('kml:ExtendedData/kml:Data[@name="phone"]')[0]->value,
     ];
 
-    // We're just creating 2 hard-coded cards in a 1/2 container:
-    // - Apply online
-    // - Tell us what you think
-    $container_paragraph = Paragraph::create([
-        'type' => 'action_cards_1_2',
-        'uid' => 1,
-    ]);
-    $container_paragraph->isNew();
-    $container_paragraph->field_action_cards = [
-        convertCard('Apply online', 'Access services from your computer.', 'Learn how to apply', 'internal:/discover-employment-services/online-employment-services'),
-        convertCard('Tell us what you think', 'Share your thoughts about your WorkBC Centre experience.', 'Take the WorkBC Centres Survey', 'http://workbccentressurvey.ca/'),
-    ];
-    $container_paragraph->save();
-    $fields['field_content'] = [[
-        'target_id' => $container_paragraph->id(),
-        'target_revision_id' => $container_paragraph->getRevisionId(),
-    ]];
-
-    $node = createNode($fields, $row[COL_LEGACY_URL] . '?id=' . $row[COL_CENTRE_ID]);
+    $node = createNode($fields, (string) $centre->xpath('kml:ExtendedData/kml:Data[@name="website"]')[0]->value);
 }
-fclose($handle);
 
-function convertWorkingHours($hours) {
+function convertWorkingHours($centre) {
     return [
+        'value' => join('<br/>', array_filter([
+            (string) $centre->xpath('kml:ExtendedData/kml:Data[@name="hours1"]')[0]->value,
+            (string) $centre->xpath('kml:ExtendedData/kml:Data[@name="hours2"]')[0]->value,
+            (string) $centre->xpath('kml:ExtendedData/kml:Data[@name="hours3"]')[0]->value,
+            (string) $centre->xpath('kml:ExtendedData/kml:Data[@name="hours4"]')[0]->value,
+        ])),
         'format' => 'full_html',
-        'value' => str_replace("\n", "<br/>", $hours),
     ];
 }
 
-function convertCard($title, $body, $link_text, $link_target) {
-    $card_fields = [
-        'type' => 'action_card',
-        'uid' => 1,
-        'field_title' => $title,
-        'field_description' => $body,
-        'field_link' => [
-            'title' => $link_text,
-            'uri' => $link_target,
-        ],
-    ];
-    $card_paragraph = Paragraph::create($card_fields);
-    $card_paragraph->isNew();
-    $card_paragraph->save();
+function convertCoordinates($centre) {
+    $coords = explode(',', $centre->Point->coordinates);
     return [
-        'target_id' => $card_paragraph->id(),
-        'target_revision_id' => $card_paragraph->getRevisionId(),
+        'lat' => $coords[0],
+        'lng' => $coords[1],
+    ];
+}
+
+function convertAddress($centre) {
+    $address = explode(',', (string) $centre->xpath('kml:ExtendedData/kml:Data[@name="address"]')[0]->value);
+    if (count($address) < 3 || count($address) > 4) {
+        print("  Error: Could not parse address" . PHP_EOL);
+    }
+    if (count($address) == 3) {
+        array_splice($address, 2, 0, '');
+    }
+    return [
+        'country_code' => 'CA',
+        'address_line1' => trim($address[0]),
+        'address_line2' => trim($address[2]),
+        'administrative_area' => 'BC',
+        'locality' => trim($address[1]),
+        'postal_code' => trim(str_replace('BC', '', $address[3])),
     ];
 }

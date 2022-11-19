@@ -56,7 +56,7 @@ while (($row = fgetcsv($handle)) !== FALSE) {
         print("  Could not find file \"$filename\" locally. Aborting" . PHP_EOL);
         continue;
     }
-    $file = \Drupal::service('file.repository')->writeData($data, "public://$filename");
+    $file = \Drupal::service('file.repository')->writeData($data, "public://$filename", \Drupal\Core\File\FileSystemInterface::EXISTS_REPLACE);
     $fields['field_publication'] = [
         'target_id' => $file->id(),
     ];

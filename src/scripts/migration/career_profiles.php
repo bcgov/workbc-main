@@ -84,7 +84,8 @@ try {
         'field_career_videos_introduction' => convertRichText($career_profile->{'Career Videos Content'}),
         'field_duties' => convertRichText($career_profile->{'Duties Content'}),
         'field_education_training_skills' => convertRichText($career_profile->{'Education, Training and Skills Content'}),
-        'field_education_programs' => convertRichText($career_profile->{'Education Programs in B.C. Content'}),
+        // The following field is directly accessed from Education Planner BC API.
+        //'field_education_programs' => convertRichText($career_profile->{'Education Programs in B.C. Content'}),
         'field_hero_image' => array_map('convertImage', array_filter($career_profile->{'Banner Image'}))[0] ?? NULL,
         'field_insights_from_industry' => convertRichText($career_profile->{'Insights from Industry Content'}),
         'field_job_titles' => convertMultiline($career_profile->{'Job Titles List'}),
@@ -119,11 +120,11 @@ try {
     foreach (convertMultiline($career_profile->{'Related Careers NOCs'}) as $raw_related_noc) {
       $related_noc = NULL;
       if (!preg_match('/\d+/', $raw_related_noc, $related_noc)) {
-        print("  Could not parse related NOC $raw_related_noc" . PHP_EOL);
+        print("  Error: Could not parse related NOC $raw_related_noc" . PHP_EOL);
         continue;
       }
       if (!array_key_exists($related_noc[0], $career_profiles)) {
-        print(" Could not find related NOC {$related_noc[0]}" . PHP_EOL);
+        print("  Error: Could not find related NOC {$related_noc[0]}" . PHP_EOL);
         continue;
       }
 
