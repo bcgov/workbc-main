@@ -72,8 +72,8 @@ hidden:
   field_content_group: true
   field_hero_image: true
   field_industry_highlights_intro: true
-  field_job_board_id: true
   field_introductions: true
+  field_job_board_id: true
   field_key_facts: true
   field_region_overview: true
   field_scheduled_publish: true
