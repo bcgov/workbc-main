@@ -55,7 +55,6 @@ class CareerProfileEducationPrograms extends ExtraFieldDisplayFormattedBase {
       }
       $text .= "</ul>";
     }
-
     $output = $text;
 
     return ['#markup' => $output];
