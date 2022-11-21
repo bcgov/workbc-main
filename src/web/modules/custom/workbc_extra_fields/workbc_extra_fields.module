@@ -436,6 +436,12 @@ function epbcGetPrograms($nocid) {
 
 
 function epbcSetPrograms() {
+
+  if (!extension_loaded("soap")) {
+    \Drupal::logger('workbc_extra_fields')->notice("SOAP extension not loaded");
+    return;
+  }
+
   $client = new \SoapClient("https://ws.educationplannerbc.ca/ProgramsWebService3.asmx?wsdl");
 
   $epbcData = [];
