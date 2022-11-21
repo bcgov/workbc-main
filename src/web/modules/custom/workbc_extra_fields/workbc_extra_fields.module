@@ -415,39 +415,62 @@ function workbc_extra_fields_views_pre_render(ViewExecutable $view) {
   }
 }
 
+function workbc_extra_fields_cron() {
+  epbcSetPrograms();
+}
+
 
 function epbcGetPrograms($nocid) {
 
+  $data = \Drupal::state()->get('epbc_education_programs', []);
+  if (empty($data)) {
+    epbcSetPrograms();
+    $data = \Drupal::state()->get('epbc_education_programs', []);
+  }
   $programs = [];
+  if (isset($data[$nocid])) {
+    $programs = $data[$nocid];
+  }
+  return $programs;
+}
+
+
+function epbcSetPrograms() {
+
+  if (!extension_loaded("soap")) {
+    \Drupal::logger('workbc_extra_fields')->notice("SOAP extension not loaded");
+    return;
+  }
+
   $client = new \SoapClient("https://ws.educationplannerbc.ca/ProgramsWebService3.asmx?wsdl");
+
+  $epbcData = [];
+
+  $subjects = $client->getSubjectAreas();
 
   $result = $client->getNocs();
   $nocs = $result->GetNocsResult->Nocs->Nocs;
   foreach ($nocs as $noc) {
-    if ($noc->Noc == $nocid) {
-      $career = $noc;
-      break;
-    }
-  }
+    $programs = [];
+    if (isset($noc->Subjectareas->Subjectarea)) {
+      $areaIDs = [];
+      if (is_array($noc->Subjectareas->Subjectarea)) {
+        foreach ($noc->Subjectareas->Subjectarea as $area) {
+          $areaIDs[] = $area->SubjectareaID;
+        }
+      }
+      else {
+        $areaIDs[] = $noc->Subjectareas->Subjectarea->SubjectareaID;
+      }
 
-  $programs = [];
-  if (isset($career->Subjectareas->Subjectarea)) {
-    $areaIDs = [];
-    if (is_array($career->Subjectareas->Subjectarea)) {
-      foreach ($career->Subjectareas->Subjectarea as $area) {
-        $areaIDs[] = $area->SubjectareaID;
+      foreach ($subjects->GetSubjectareasResult->Subjectareas->Subjectarea as $area) {
+        if (in_array($area->SubjectareaID, $areaIDs)) {
+          $programs[] = $area->SubjectareaLabel;
+        }
       }
     }
-    else {
-      $areaIDs[] = $career->Subjectareas->Subjectarea->SubjectareaID;
-    }
-
-    $results = $client->getSubjectAreas();
-    foreach ($results->GetSubjectareasResult->Subjectareas->Subjectarea as $area) {
-      if (in_array($area->SubjectareaID, $areaIDs)) {
-        $programs[] = $area->SubjectareaLabel;
-      }
-    }
+    $epbcData[$noc->Noc] = $programs;
   }
-  return $programs;
+  \Drupal::state()->set('epbc_education_programs', $epbcData);
+  \Drupal::logger('workbc_extra_fields')->notice("pull latest program data from Education Planner BC");
 }

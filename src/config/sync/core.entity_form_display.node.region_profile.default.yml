@@ -6,6 +6,7 @@ dependencies:
     - field.field.node.region_profile.field_content_group
     - field.field.node.region_profile.field_hero_image
     - field.field.node.region_profile.field_industry_highlights_intro
+    - field.field.node.region_profile.field_job_board_id
     - field.field.node.region_profile.field_introductions
     - field.field.node.region_profile.field_key_facts
     - field.field.node.region_profile.field_region_overview
@@ -67,6 +68,14 @@ content:
     settings:
       match_operator: CONTAINS
       match_limit: 10
+      size: 60
+      placeholder: ''
+    third_party_settings: {  }
+  field_job_board_id:
+    type: string_textfield
+    weight: 131
+    region: content
+    settings:
       size: 60
       placeholder: ''
     third_party_settings: {  }

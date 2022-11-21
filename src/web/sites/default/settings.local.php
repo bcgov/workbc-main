@@ -173,10 +173,6 @@ $config['jobboard']['jobboard_api_url_frontend'] = 'https://dev-api-jobboard.wor
 $config['jobboard']['jobboard_api_url_backend'] = 'https://workbc-jb.b89n0c-dev.nimbus.cloud.gov.bc.ca';
 $config['jobboard']['find_job_url'] = '/search-and-prepare-job/find-jobs';
 $config['jobboard']['find_job_account_url'] = '/account';
-$config['jobboard']['search_career_profile_link'] = '/jobs-careers/explore-careers';
-$config['jobboard']['labour_market_outlook'] = '/labour-market-industry/labour-market-outlook';
-$config['jobboard']['explore_industryand_sector_outlooks'] = '/labour-market-industry/industry-sector-outlooks';
-$config['jobboard']['view_industry_profiles'] = '/labour-market-industry/industry-profiles';
 
 $config['backup_migrate.backup_migrate_source.ssot_database'] = [
   'id' => 'ssot_database',
