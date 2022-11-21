@@ -55,7 +55,7 @@ class RegionEmploymentByIndustryTable extends ExtraFieldDisplayFormattedBase {
         $close = "</a>";
         $content .= "<tr>";
         $content .= "<td>" . $link . $industry['name'] . $close . "</td>";
-        $content .= "<td>" . "n/a" . "</td>";
+        $content .= "<td>" . ssotFormatNumber($industry['employment'],0) . "</td>";
         $content .= "<td>" . ssotFormatNumber($industry['share'],1) . "%</td>";
         $content .= "</tr>";
       }

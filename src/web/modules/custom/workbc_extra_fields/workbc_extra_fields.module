@@ -289,7 +289,7 @@ function ssotProcessEmploymentIndustry($ssotdata) {
       'name' => $name,
       'share' => $ssotdata[$key],
       'sector' => $sectors[$key],
-      'employment' => 0,
+      'employment' => $ssotdata[$key."_num"],
       'link' => \Drupal::service('path_alias.manager')->getAliasByPath('/node/'. $nid),
     );
   }
