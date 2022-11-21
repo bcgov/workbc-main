@@ -61,17 +61,6 @@ content:
       rows: 5
       placeholder: ''
     third_party_settings: {  }
-  field_job_board_id:
-    type: string_textfield
-    weight: 131
-    region: content
-    settings:
-      size: 60
-      placeholder: ''
-    third_party_settings: {  }
-  field_key_facts:
-    type: text_textarea
-    weight: 124
   field_introductions:
     type: entity_reference_autocomplete
     weight: 131
@@ -79,6 +68,14 @@ content:
     settings:
       match_operator: CONTAINS
       match_limit: 10
+      size: 60
+      placeholder: ''
+    third_party_settings: {  }
+  field_job_board_id:
+    type: string_textfield
+    weight: 131
+    region: content
+    settings:
       size: 60
       placeholder: ''
     third_party_settings: {  }

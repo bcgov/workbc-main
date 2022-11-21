@@ -180,6 +180,11 @@
 
 <div style="background-color: #DDFFDD">
   {{ kint(content) }}
+  <div class="career-recent-jobs-wrapper">
+    <div class="container-lg">
+      {{ drupal_entity('block', 'recentjobs') }}
+    </div>
+  </div>
 </div>
 
 {% if related|striptags|trim %}
