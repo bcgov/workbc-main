@@ -55,8 +55,6 @@ class CareerProfileEducationPrograms extends ExtraFieldDisplayFormattedBase {
       }
       $text .= "</ul>";
     }
-    $text .= "<p>Find out more information about programs offered specifically for this career.</p>";
-    $text .= "<p><a href='https://www.educationplannerbc.ca/search/noc/" . $noc . "'>Visit EducationPlannerBC</a></p>";
 
     $output = $text;
 
