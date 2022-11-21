@@ -1,0 +1,26 @@
+uuid: e11caaef-4c8f-43cc-92f1-c1dadd118172
+langcode: en
+status: true
+dependencies:
+  config:
+    - crop.type.crop_3_2
+  module:
+    - crop
+name: hero_image
+label: 'Hero Image'
+effects:
+  0d994064-ce09-42c0-b461-24d280aff332:
+    uuid: 0d994064-ce09-42c0-b461-24d280aff332
+    id: crop_crop
+    weight: -10
+    data:
+      crop_type: crop_3_2
+      automatic_crop_provider: null
+  d8b1ee53-6b19-45c1-88d2-1b65824b6135:
+    uuid: d8b1ee53-6b19-45c1-88d2-1b65824b6135
+    id: image_scale_and_crop
+    weight: -8
+    data:
+      width: 800
+      height: 533
+      anchor: center-center

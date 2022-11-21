@@ -68,90 +68,29 @@
  */
 #}
 
-{% set page_format = content.field_page_format|render|striptags|trim|lower %}
-
-{% set title = label %}
-{% set hero_image = content.field_hero_image[0] %}
-{% set hero_text = content.field_hero_text[0] %}
-{% set page_body = content.body %}
-{% set page_content = content.field_content %}
-
-
-{% set left_block %}
-  {{ drupal_entity('block', 'sidenavblock') }}
-{% endset %}
-
-{% set related %}
-  {{ drupal_entity('block', 'related_topics') }}
-{% endset %}
-
+{% set image = content.field_image %}
+{% set date = content.extra_field_workbc_published_on %}
+{% set title = content.extra_field_workbc_page_title %}
+{% set body = content.body|render|striptags|trim %}
 
 {%
   set classes = [
-    'node',
-    'node--type-' ~ node.bundle|clean_class,
-    node.isPromoted() ? 'node--promoted',
-    node.isSticky() ? 'node--sticky',
-    not node.isPublished() ? 'node--unpublished',
-    view_mode ? 'node--view-mode-' ~ view_mode|clean_class,
-    page_format ? 'page-format--' ~ page_format|clean_class,
-    'page-container',
-    'container-lg',
+    'featured-blog__card-container',
   ]
 %}
 
-{% if hero_image or hero_text %}
-  {% include '@workbc/includes/hero.html.twig' %}
-{% endif %}
-
-{# When breadcrums are displayed below the hero section #}
-{{ drupal_block('system_breadcrumb_block', wrapper=false) }}
-
-{{ drupal_entity('block', 'bettersocialsharingbuttons') }}
-
-<article{{ attributes.addClass(classes) }}>
-
-  {% if left_block|striptags|trim %}
-    <aside class="page-sidebar" role="complementary">
-      {{ left_block }}
-    </aside>
-  {% endif %}
-
-  <div class="page-content">
-    {% if hero_image is empty and hero_text is empty %}
-
-    {% endif %}
-
-    {% if drupal_region('content_top') %}
-      {{ drupal_region('content_top') }}
-    {% endif %}
-
-    {% if page_body %}
-      {{ page_body }}
-    {% endif %}
-    <div class="layout-container">
-      <link rel="stylesheet" href="{{jobboard_api_url_frontend}}/bootstrap/bootstrap.min.css?v=Release-1980">
-      <link rel="stylesheet" href="{{jobboard_api_url_frontend}}/dist/jb-account/styles.css?v=Release-1980">
-      <app-root api="{{jobboard_api_url_frontend}}/" jbsearch="{{find_job_url}}" jbaccount="{{find_job_account_url}}" _nghost-ngr-c118="" ng-version="12.2.16" _ngcontent-otq-c106></app-root>
-      <script src="{{jobboard_api_url_frontend}}/dist/jb-account/runtime-es2017.js?v=Release-1980" type="module"></script>
-      <script src="{{jobboard_api_url_frontend}}/dist/jb-account/runtime-es5.js?v=Release-1980" nomodule="" defer=""></script>
-      <script src="{{jobboard_api_url_frontend}}/dist/jb-account/polyfills-es2017.js?v=Release-1980" type="module"></script>
-      <script src="{{jobboard_api_url_frontend}}/dist/jb-account/polyfills-es5.js?v=Release-1980" nomodule="" defer=""></script>
-      <script src="{{jobboard_api_url_frontend}}/dist/jb-account/main-es2017.js?v=Release-1980" type="module"></script>
-      <script src="{{jobboard_api_url_frontend}}/dist/jb-account/main-es5.js?v=Release-1980" nomodule="" defer=""></script>
-
+<div{{ attributes.addClass(classes) }}>
+  <div class="featured-blog__card-content-container">
+    <div class="featured-blog__card-content">
+      {{ date }}
+      <h3 class="featured-blog__card-title">
+        {{ title }}
+      </h3>
+      <div class="featured-blog__card-body">
+        {{ body }}
+        <a class="featured-blog__card-link" href="{{ url }}" title="{{ 'Read More'|t }}">{{ 'Read More'|t }}</a>
+      </div>
+    </div>
+    {{ image }}
   </div>
-    {{ page_content }}
-
-    {% if drupal_region('content_bottom') %}
-      {{ drupal_region('content_bottom') }}
-    {% endif %}
-
-  </div>
-</article>
-
-{% if related|striptags|trim %}
-  <div class="container-lg">
-    {{ related }}
-  </div>
-{% endif %}
+</div>

@@ -9,7 +9,7 @@
     </div>
     <div class="cards-grid cards-grid-1-1">
       {% for key,jobs in data %}
-        {% if key < no_of_records %}
+        {% if key < no_of_records_to_show %}
           <div class="card-plain card-plain__content job-box item">
             <h3 class="card-plain__title job-title">
               {% if jobs.externalUrl is not empty %}
@@ -35,9 +35,9 @@
         {% endif %}
       {% endfor%}
     </div>
-    {% if data|length > no_of_records %}
+    {% if total_result > no_of_records_to_show %}
       <div class="more-jobs">
-        <a href="{{ find_job_url }}#/job-search;noc={{noc}};" value="View more jobs" class="card-w-image__link more-jobs">{{ readmore_label }}</a>
+        <a href="{{ find_job_url }}#/job-search;{{noc}};" value="View more jobs" class="card-w-image__link more-jobs" data-result="{{total_result}}">{{ readmore_label }}</a>
       </div>
     {% endif %}
   {% endif %}
