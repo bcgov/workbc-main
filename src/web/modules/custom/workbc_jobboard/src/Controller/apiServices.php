@@ -5,13 +5,12 @@ use Drupal\Core\Controller\ControllerBase;
 use GuzzleHttp\Client;
 use GuzzleHttp\Exception\RequestException;
 
-const GET_RECENT_POST = 'api/career-profiles/topjobs';
+const SEARCH_POST = 'api/Search/JobSearch';
 
 /**
  *{@inheritdoc}
  */
 class apiServices extends ControllerBase{
-
 
   /**
    *{@inheritdoc}
@@ -23,18 +22,20 @@ class apiServices extends ControllerBase{
   /**
    *{@inheritdoc}
 	 */
-  function fnGetRecentPost($parameter='', $read_timeout=null) {
-    $jobboard_api_url = \Drupal::config('jobboard')->get('jobboard_api_url_backend').'/'.GET_RECENT_POST;
-    if(!empty($parameter)){
-      $jobboard_api_url .= "/".$parameter;
+  function fnGetPost($parameter='', $action="SearchPost", $method="post") {
+    $options = [];
+    $options['read_timeout'] = null;
+    if($action == 'SearchPost'){
+      $jobboard_api_url = \Drupal::config('jobboard')->get('jobboard_api_url_backend').'/'.SEARCH_POST;
+      $options['body'] = json_encode($parameter);
+      $options['headers'] = [
+        'Accept' => 'application/json',
+        'Content-Type' => 'application/json'
+      ];
     }
-    $client = new Client();
     try {
-      $options = [];
-      if ($read_timeout) {
-        $options['read_timeout'] = $read_timeout;
-      }
-      $response = $client->get($jobboard_api_url, $options);
+      $client = new Client();
+      $response = $client->$method($jobboard_api_url, $options);
       $result = json_decode($response->getBody(), TRUE);
       return $result;
     }
