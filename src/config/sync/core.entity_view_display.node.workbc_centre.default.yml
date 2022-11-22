@@ -116,7 +116,7 @@ content:
     label: hidden
     settings:
       tokenized_text:
-        value: '<a href="https://maps.google.com/?q=[geolocation_current_item:lat],[geolocation_current_item:lng]" target="_blank">Get Directions</a>'
+        value: "<p><a target=\"_blank\" href=\"https://google.com/maps/search/?api=1&amp;query=[geolocation_current_item:lat],[geolocation_current_item:lng]\">Get Directions</a></p>\r\n"
         format: basic_html
     third_party_settings: {  }
     weight: 16
