@@ -10,12 +10,6 @@ use Drupal\pathauto\PathautoState;
  * Usage: drush scr scripts/migration/ia
  */
 
-$file = __DIR__ . '/data/ia.csv';
-if (($handle = fopen($file, 'r')) === FALSE) {
-    die("Could not open IA spreadsheet $file" . PHP_EOL);
-}
-print("Importing IA spreadsheet $file" . PHP_EOL);
-
 // Setup the front page.
 // 1. Set the front page to /front.
 \Drupal::configFactory()
@@ -46,7 +40,23 @@ foreach (\Drupal::entityTypeManager()->getStorage('taxonomy_term')->loadTree('co
     $content_groups[strtolower($term->name)] = $term->tid;
 }
 
-// The columns we are interested in.
+// Read regions and industries mappings if present.
+const COL_DRUPAL = 0;
+const COL_SSOT = 1;
+const COL_KENTICO = 2;
+const COL_JOBBOARD = 3;
+global $regions_industries;
+$regions_industries = [];
+if (file_exists(__DIR__ . '/data/regions_industries.csv')) {
+    print("Reading Regions and Industries identifiers" . PHP_EOL);
+    $handle = fopen(__DIR__ . '/data/regions_industries.csv', 'r');
+    while (($row = fgetcsv($handle)) !== FALSE) {
+        $regions_industries[strtolower($row[COL_DRUPAL])] = $row;
+    }
+    fclose($handle);
+}
+
+// Open the main IA sheet.
 const COL_TREE_FIRST = 0;
 const COL_TREE_LAST = 5;
 const COL_MEGA_MENU = 6;
@@ -56,6 +66,11 @@ const COL_URL = 12;
 const COL_PAGE_FORMAT = 13;
 const COL_CONTENT_GROUP = 14;
 const COL_VIEW_MODE = 15;
+$file = __DIR__ . '/data/ia.csv';
+if (($handle = fopen($file, 'r')) === FALSE) {
+    die("Could not open IA spreadsheet $file" . PHP_EOL);
+}
+print("Importing IA spreadsheet $file" . PHP_EOL);
 
 // FIRST PASS: Create all the nodes.
 print("FIRST PASS =================" . PHP_EOL);
@@ -154,6 +169,11 @@ while (($row = fgetcsv($handle)) !== FALSE) {
     }
     else {
         $fields['field_content_group'] = ['target_id' => $content_groups['workbc']];
+    }
+
+    // Job Board ID for region profiles.
+    if (in_array($type, ['region_profile', 'bc_profile'])) {
+        $fields['field_job_board_id'] = $regions_industries[$title_lower][COL_JOBBOARD];
     }
 
     // Process the IA item.

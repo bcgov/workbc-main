@@ -60,6 +60,7 @@ module:
   fpa: 0
   fullcalendar_view: 0
   fvm: 0
+  gdx_analytics_drupal_snowplow: 0
   geolocation: 0
   health_check: 0
   help: 0

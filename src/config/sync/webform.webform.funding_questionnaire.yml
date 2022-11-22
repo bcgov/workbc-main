@@ -1,0 +1,369 @@
+uuid: 44a96990-f21c-483c-964c-cb38f8de2d42
+langcode: en
+status: open
+dependencies: {  }
+weight: 0
+open: null
+close: null
+uid: 1
+template: false
+archive: false
+id: funding_questionnaire
+title: 'Funding Questionnaire'
+description: 'Also called Self-Assessment Questionnaire.'
+category: ''
+elements: |-
+  intro:
+    '#type': webform_wizard_page
+    '#title': Intro
+    '#next_button_label': 'Funding Questionnaire'
+    intro_markup:
+      '#type': webform_markup
+      '#markup': |-
+        <h3>Community and Employer Partnerships Applicants</h3>
+
+        <p data_liveedit_tagid="0000000014E2BF80">We are excited that you&rsquo;re interested in applying for our program! There are four funding options available for community organizations, business, and other applicants. To help you apply for the right funding stream and before you start writing the application, please complete this questionnaire which takes about two minutes. Once you&rsquo;ve done this, you can move on to the application. If you are a job seeker wanting to get work experience and training on one of our projects,&nbsp;<a href="/Employment-Services/WorkBC-Centres/Find-Your-WorkBC-Centre.aspx">contact your WorkBC Centre</a>&nbsp;today!<br />
+        <br />
+        If you have questions about the questionnaire or anything else about our program, email us at&nbsp;<a href="mailto:CEPteam@gov.bc.ca">CEPteam@gov.bc.ca</a>. Thank you!</p>
+  page_1:
+    '#type': webform_wizard_page
+    '#title': 'Page 1'
+    '#prev_button_label': Back
+    '#next_button_label': Next
+    membership:
+      '#type': radios
+      '#title': '1. Are you applying for funding as a member of one of the following organizations:'
+      '#description': |-
+        <ul>
+        	<li>Non-Profit Organizations</li>
+        	<li>Crown Corporations</li>
+        	<li>Municipalities or Agencies</li>
+        	<li>Band/Tribal Councils/First Nations Governments</li>
+        	<li>Public Health or Educational Institutions</li>
+        	<li>Businesses *<br />
+        	<small>* Note: Private sector organizations are eligible for Community and Employer Partnerships funding consideration under certain conditions. Funding cannot be used to improve any business&rsquo; position in the competitive marketplace.</small></li>
+        </ul>
+      '#description_display': before
+      '#options': yes_no
+      '#required': true
+    labour_market_issue:
+      '#type': radios
+      '#title': '2. Does your project address a labour market issue?'
+      '#options': yes_no
+      '#required': true
+    incremental:
+      '#type': radios
+      '#title': '3. Is your project incremental to the services already provided or mandated by your organization?'
+      '#options': yes_no
+      '#required': true
+  page_2:
+    '#type': webform_wizard_page
+    '#title': 'Page 2'
+    '#states':
+      invisible:
+        - ':input[name="membership"]':
+            value: 'No'
+        - or
+        - ':input[name="labour_market_issue"]':
+            value: 'No'
+        - or
+        - ':input[name="incremental"]':
+            value: 'No'
+    '#prev_button_label': Back
+    '#next_button_label': Next
+    participants:
+      '#type': radios
+      '#title': '1. Does your project involve participants?'
+      '#options': yes_no
+      '#required': true
+    yes_participants:
+      '#type': radios
+      '#title': '2. Please choose the answer that best fits your project:'
+      '#description': 'NOTE: You may be required to consult with local WorkBC Centre(s) regarding availability of participants prior to submitting your application for funding.&nbsp;'
+      '#description_display': before
+      '#options':
+        1: 'The main intent of your project is -- to provide valuable, relevant and finite work experience to participants on a project that will also benefit the larger community.'
+        2: 'The main intent of your project is -- to prepare unemployed individuals for the labour market through a combination of employer partnerships, in-classroom training, job shadowing, work experience, counseling, vocational and/or learning assessments, job search skills, and/or mentorship.'
+        3: 'Your project involves -- research to develop and/or implement innovative or unique projects (e.g. pilots), processes or practices that strengthen understanding of the labour market.'
+      '#required': true
+      '#states':
+        visible:
+          ':input[name="participants"]':
+            value: 'Yes'
+    no_participants:
+      '#type': radios
+      '#title': '2. Please choose the answer that best fits your project:'
+      '#options':
+        1: 'Your project involves -- developing an analysis of labour market issues or developing strategies which address local labour market force issues and/or human resource needs.'
+        2: |-
+          Are you an employer who has employees at risk of job loss as a result of one of the following conditions: -- a. Reduced business activity;
+
+          b. Significant changes in market conditions;
+
+          c. New legislative or regulatory requirements for workers
+        3: 'Your project involves -- research to develop and/or implement innovative and/or unique projects (e.g. pilots), processes or practices that strengthen the understanding of the labour market.'
+      '#required': true
+      '#states':
+        visible:
+          ':input[name="participants"]':
+            value: 'No'
+  result:
+    '#type': webform_wizard_page
+    '#title': Result
+    '#prev_button_label': Back
+    result_intro:
+      '#type': webform_markup
+      '#markup': |-
+        <p>Based on the information provided, the project you propose may be eligible under the following WorkBC Community and Employer Partnership funding streams. Only one application can be submitted at a time.<br />
+        &nbsp;</p>
+
+        <p>Thank you for your interest in the WorkBC Community and Employer Partnerships programs and funding. The information you provided in the self-assessment program suggest that your project concept might meet the criteria of the following funding stream:</p>
+    result_job_creation:
+      '#type': webform_markup
+      '#states':
+        visible:
+          ':input[name="yes_participants"]':
+            value: '1'
+      '#markup': |-
+        <h3>Job Creation Partnerships</h3>
+
+        <p>Provides funding to organizations to assist with local projects that provide community benefit and that normally would not take place without project funding, while creating jobs that provide unemployed eligible EI Clients with Opportunities to gain meaningful work experience. Projects benefit the job seeker, community and the local economy; however, the primary focus must be on helping the job seeker. Click&nbsp;<a href="https://apply.workbc.ca/cep/start" target="_blank" rel="noopener noreferrer nofollow">here</a>&nbsp;to submit your online application.</p>
+    result_labour_market_training:
+      '#type': webform_markup
+      '#states':
+        visible:
+          ':input[name="yes_participants"]':
+            value: '2'
+      '#markup': |-
+        <h3>Project Based Labour Market Training</h3>
+
+        <p>Provides funding to organizations to support projects that provide both benefits to the community and to individuals by providing a combination of on and off the job training delivered under a project based training model to assist eligible individuals obtain the skills they need for employment. Projects enhance participant&rsquo;s employability skills by providing training and other supports in a supportive, group environment. Training is supported by a range of activities which may include counselling, vocational and/or learning assessments, work experience, job search skills, mentorship, referral to community resources and post-project follow up. Click&nbsp;<a href="https://apply.workbc.ca/cep/start" target="_blank" rel="noopener noreferrer nofollow">here</a>&nbsp;to submit your online application.</p>
+    result_research:
+      '#type': webform_markup
+      '#states':
+        visible:
+          - ':input[name="yes_participants"]':
+              value: '3'
+          - or
+          - ':input[name="no_participants"]':
+              value: '3'
+      '#markup': |-
+        <h3>Research and Innovation</h3>
+
+        <p>Provides funding to community organizations and partners to undertake research or develop and implement innovative projects (e.g. pilots), processes or practices that strengthen the understanding of the labour market and helps move more Clients into sustainable jobs. R and I uses progressive research and leading edge innovation to discover better ways to help unemployed British Columbian&rsquo;s join the labour force as quickly as possible. It is designed to fund untried and untested solutions to labour market problems with the goal of creating employment services of the future. Click&nbsp;<a href="https://apply.workbc.ca/cep/start" target="_blank" rel="noopener noreferrer nofollow">here</a>&nbsp;to submit your online application.</p>
+    result_labour_market_partnership:
+      '#type': webform_markup
+      '#states':
+        visible:
+          - ':input[name="no_participants"]':
+              value: '1'
+          - or
+          - ':input[name="no_participants"]':
+              value: '2'
+      '#markup': |-
+        <h3>Labour Market Partnerships</h3>
+
+        <p>Provides funding to organizations to encourage, support and facilitate addressing labour force issues (imbalances) and human resource planning activities which are in the public interest. LMP also includes the Employer Sponsored Training (EST) program that provides eligible employers with financial assistance to support training activities for employees who would otherwise lose their jobs. Click&nbsp;<a href="https://apply.workbc.ca/cep/start" target="_blank" rel="noopener noreferrer nofollow">here</a>&nbsp;to submit your online application.</p>
+    result_sorry_2:
+      '#type': webform_markup
+      '#states':
+        visible:
+          - ':input[name="membership"]':
+              value: 'No'
+          - or
+          - ':input[name="labour_market_issue"]':
+              value: 'No'
+          - or
+          - ':input[name="incremental"]':
+              value: 'No'
+      '#markup': '<h3>Sorry, you are ineligible for CEP funding.</h3>'
+    result_outro:
+      '#type': webform_markup
+      '#markup': '<p>Please Note: This is not a contracting process and neither the proponent nor the Province is legally bound as a result of this process.</p>'
+    actions:
+      '#type': webform_actions
+      '#title': 'Submit button(s)'
+      '#submit_hide': true
+css: ''
+javascript: ''
+settings:
+  ajax: false
+  ajax_scroll_top: form
+  ajax_progress_type: ''
+  ajax_effect: ''
+  ajax_speed: null
+  page: false
+  page_submit_path: ''
+  page_confirm_path: ''
+  page_theme_name: ''
+  form_title: both
+  form_submit_once: false
+  form_open_message: ''
+  form_close_message: ''
+  form_exception_message: ''
+  form_previous_submissions: true
+  form_confidential: false
+  form_confidential_message: ''
+  form_disable_remote_addr: false
+  form_convert_anonymous: false
+  form_prepopulate: false
+  form_prepopulate_source_entity: false
+  form_prepopulate_source_entity_required: false
+  form_prepopulate_source_entity_type: ''
+  form_unsaved: false
+  form_disable_back: false
+  form_submit_back: false
+  form_disable_autocomplete: false
+  form_novalidate: false
+  form_disable_inline_errors: false
+  form_required: false
+  form_autofocus: false
+  form_details_toggle: false
+  form_reset: false
+  form_access_denied: default
+  form_access_denied_title: ''
+  form_access_denied_message: ''
+  form_access_denied_attributes: {  }
+  form_file_limit: ''
+  form_attributes: {  }
+  form_method: ''
+  form_action: ''
+  share: false
+  share_node: false
+  share_theme_name: ''
+  share_title: true
+  share_page_body_attributes: {  }
+  submission_label: ''
+  submission_exception_message: ''
+  submission_locked_message: ''
+  submission_log: false
+  submission_excluded_elements: {  }
+  submission_exclude_empty: false
+  submission_exclude_empty_checkbox: false
+  submission_views: {  }
+  submission_views_replace: {  }
+  submission_user_columns: {  }
+  submission_user_duplicate: false
+  submission_access_denied: default
+  submission_access_denied_title: ''
+  submission_access_denied_message: ''
+  submission_access_denied_attributes: {  }
+  previous_submission_message: ''
+  previous_submissions_message: ''
+  autofill: false
+  autofill_message: ''
+  autofill_excluded_elements: {  }
+  wizard_progress_bar: true
+  wizard_progress_pages: false
+  wizard_progress_percentage: false
+  wizard_progress_link: false
+  wizard_progress_states: false
+  wizard_start_label: ''
+  wizard_preview_link: false
+  wizard_confirmation: true
+  wizard_confirmation_label: ''
+  wizard_auto_forward: true
+  wizard_auto_forward_hide_next_button: false
+  wizard_keyboard: true
+  wizard_track: ''
+  wizard_prev_button_label: ''
+  wizard_next_button_label: ''
+  wizard_toggle: false
+  wizard_toggle_show_label: ''
+  wizard_toggle_hide_label: ''
+  preview: 0
+  preview_label: ''
+  preview_title: ''
+  preview_message: ''
+  preview_attributes: {  }
+  preview_excluded_elements: {  }
+  preview_exclude_empty: true
+  preview_exclude_empty_checkbox: false
+  draft: none
+  draft_multiple: false
+  draft_auto_save: false
+  draft_saved_message: ''
+  draft_loaded_message: ''
+  draft_pending_single_message: ''
+  draft_pending_multiple_message: ''
+  confirmation_type: page
+  confirmation_url: ''
+  confirmation_title: ''
+  confirmation_message: ''
+  confirmation_attributes: {  }
+  confirmation_back: true
+  confirmation_back_label: ''
+  confirmation_back_attributes: {  }
+  confirmation_exclude_query: false
+  confirmation_exclude_token: false
+  confirmation_update: false
+  limit_total: null
+  limit_total_interval: null
+  limit_total_message: ''
+  limit_total_unique: false
+  limit_user: null
+  limit_user_interval: null
+  limit_user_message: ''
+  limit_user_unique: false
+  entity_limit_total: null
+  entity_limit_total_interval: null
+  entity_limit_user: null
+  entity_limit_user_interval: null
+  purge: none
+  purge_days: null
+  results_disabled: false
+  results_disabled_ignore: false
+  results_customize: false
+  token_view: false
+  token_update: false
+  token_delete: false
+  serial_disabled: false
+access:
+  create:
+    roles:
+      - anonymous
+      - authenticated
+    users: {  }
+    permissions: {  }
+  view_any:
+    roles: {  }
+    users: {  }
+    permissions: {  }
+  update_any:
+    roles: {  }
+    users: {  }
+    permissions: {  }
+  delete_any:
+    roles: {  }
+    users: {  }
+    permissions: {  }
+  purge_any:
+    roles: {  }
+    users: {  }
+    permissions: {  }
+  view_own:
+    roles: {  }
+    users: {  }
+    permissions: {  }
+  update_own:
+    roles: {  }
+    users: {  }
+    permissions: {  }
+  delete_own:
+    roles: {  }
+    users: {  }
+    permissions: {  }
+  administer:
+    roles: {  }
+    users: {  }
+    permissions: {  }
+  test:
+    roles: {  }
+    users: {  }
+    permissions: {  }
+  configuration:
+    roles: {  }
+    users: {  }
+    permissions: {  }
+handlers: {  }
+variants: {  }

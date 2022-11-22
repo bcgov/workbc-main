@@ -59,6 +59,10 @@ function workbc_preprocess_node(&$variables) {
     $config = \Drupal::config('workbc_custom.settings');
     $variables['order_form_path'] = $config->get('pathsettings.order_form');
   }
+  $current_path = \Drupal::service('path.current')->getPath();
+  $internal = \Drupal::service('path_alias.manager')->getAliasByPath($current_path);
+  $variables['is_front'] = $internal == \Drupal::configFactory()->get('system.site')->get('page.front');
+  $variables['is_contact'] = $internal == "/contact-us";
 }
 
 /**
@@ -73,23 +77,13 @@ function workbc_preprocess_views_view_summary_unformatted(&$variables) {
 
 
 /**
- * Prepares variables for media templates.
- *
- * Default template: media.html.twig.
- *
- * @param array $variables
- *   An associative array containing:
- *   - media: An individual media for display.
+ * Implements hook_preprocess_html().
  */
-function mytheme_preprocess_media(&$variables) {
-  /** @var \Drupal\media_entity\MediaInterface $media */
-  $media = $variables['elements']['#media'];
+function workbc_preprocess_html(&$vars) {
+  // Get the current path
+  $current_path = \Drupal::service('path.current')->getPath();
+  $internal = \Drupal::service('path_alias.manager')->getAliasByPath($current_path);
 
-  $variables['media'] = $media;
-  $variables['name'] = $media->label();
-
-  // Helpful $content variable for templates.
-  foreach (Element::children($variables['elements']) as $key) {
-    $variables['content'][$key] = $variables['elements'][$key];
-  }
+  // Assign it to body class
+  $vars['attributes']['class'][] = str_replace("/", "", $internal);
 }

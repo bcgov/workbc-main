@@ -1,27 +1,27 @@
 "Drupal","SSoT","Kentico","Job Board"
-"Accommodation and Food Services","Accommodation and Food Services","Accommodation-and-Food-Services",
-"Agriculture and Fishing","Agriculture and Fishing","Agriculture-and-Fishing",
-"Business, Building and Other Support Services","Business, Building and Other Support Services","Business-Building-and-Other-Support-Services",
-"Construction","Construction","Construction",
-"Educational Services","Educational Services","Educational-Services",
-"Finance, Insurance and Real Estate","Finance, Insurance and Real Estate","Finance-Insurance-and-Real-Estate",
-"Forestry, Logging and Support Activities","Forestry, Logging and Support Activities","Forestry-and-Logging-with-Support-Activities",
-"Health Care and Social Assistance","Health Care and Social Assistance","Health-Care-and-Social-Assistance",
-"Information, Culture and Recreation","Information, Culture and Recreation","Information-Culture-and-Recreation",
-"Manufacturing","Manufacturing","Manufacturing",
-"Mining and Oil and Gas Extraction","Mining and Oil and Gas Extraction","Mining-and-Oil-and-Gas-Extraction",
-"Professional, Scientific and Technical Services","Professional, Scientific and Technical Services","Professional-Scientific-and-Technical-Services",
-"Public Administration","Public Administration","Public-Administration",
-"Repair, Personal and Non-Profit Services","Repair, Personal and Non-Profit Services","Repair-Personal-and-Non-Profit-Services",
-"Retail Trade","Retail Trade","Retail-Trade",
-"Transportation and Warehousing","Transportation and Warehousing","Transportation-and-Warehousing"
-"Utilities","Utilities","Utilities",
-"Wholesale Trade","Wholesale Trade","Wholesale-Trade",
-"British Columbia","british_columbia","British-Columbia",
-"North Coast and Nechako","north_coast_nechako","North-Coast-Nechako",
-"Northeast","northeast","Northeast",
-"Cariboo","cariboo","Cariboo",
-"Kootenay","kootenay","Kootenay",
-"Thompson-Okanagan","thompson_okanagan","Thompson-Okanagan",
-"Mainland/Southwest","mainland_southwest","Mainland-Southwest",
-"Vancouver Island/Coast","vancouver_island_coast","Vancouver-Island-Coast",
+"Accommodation and Food Services","Accommodation and Food Services","Accommodation-and-Food-Services","37"
+"Agriculture and Fishing","Agriculture and Fishing","Agriculture-and-Fishing","1"
+"Business, Building and Other Support Services","Business, Building and Other Support Services","Business-Building-and-Other-Support-Services","Blank"
+"Construction","Construction","Construction","23"
+"Educational Services","Educational Services","Educational-Services","34"
+"Finance, Insurance and Real Estate","Finance, Insurance and Real Estate","Finance-Insurance-and-Real-Estate","29"
+"Forestry, Logging and Support Activities","Forestry, Logging and Support Activities","Forestry-and-Logging-with-Support-Activities","40"
+"Health Care and Social Assistance","Health Care and Social Assistance","Health-Care-and-Social-Assistance","35"
+"Information, Culture and Recreation","Information, Culture and Recreation","Information-Culture-and-Recreation","28"
+"Manufacturing","Manufacturing","Manufacturing","24"
+"Mining and Oil and Gas Extraction","Mining and Oil and Gas Extraction","Mining-and-Oil-and-Gas-Extraction","21"
+"Professional, Scientific and Technical Services","Professional, Scientific and Technical Services","Professional-Scientific-and-Technical-Services","31"
+"Public Administration","Public Administration","Public-Administration","39"
+"Repair, Personal and Non-Profit Services","Repair, Personal and Non-Profit Services","Repair-Personal-and-Non-Profit-Services","43"
+"Retail Trade","Retail Trade","Retail-Trade","26"
+"Transportation and Warehousing","Transportation and Warehousing","Transportation-and-Warehousing","27"
+"Utilities","Utilities","Utilities","22"
+"Wholesale Trade","Wholesale Trade","Wholesale-Trade","25"
+"British Columbia","british_columbia","British-Columbia","Cariboo,Kootenay,MainlandSouthwest,NorthCoastNechako,Northeast,ThompsonOkanagan,VancouverIslandCoast"
+"North Coast and Nechako","north_coast_nechako","North-Coast-Nechako","NorthCoast&Nechako"
+"Northeast","northeast","Northeast","Northeast"
+"Cariboo","cariboo","Cariboo","Cariboo"
+"Kootenay","kootenay","Kootenay","Kootenay"
+"Thompson-Okanagan","thompson_okanagan","Thompson-Okanagan","Thompson-Okanagan"
+"Mainland/Southwest","mainland_southwest","Mainland-Southwest","Mainland / Southwest"
+"Vancouver Island/Coast","vancouver_island_coast","Vancouver-Island-Coast","Vancouver Island / Coast"
