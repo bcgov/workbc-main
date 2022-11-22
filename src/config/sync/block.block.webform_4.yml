@@ -1,0 +1,39 @@
+uuid: 14c1cfdc-6360-4199-93a2-686ad25434f8
+langcode: en
+status: true
+dependencies:
+  config:
+    - webform.webform.funding_questionnaire
+  module:
+    - block_visibility_conditions
+    - system
+    - webform
+  theme:
+    - workbc
+id: webform_4
+theme: workbc
+region: content_bottom
+weight: 0
+provider: null
+plugin: webform_block
+settings:
+  id: webform_block
+  label: 'Self-Assessment Questionnaire'
+  label_display: visible
+  provider: webform
+  webform_id: funding_questionnaire
+  default_data: ''
+  redirect: false
+visibility:
+  not_node_type:
+    id: not_node_type
+    bundles: {  }
+    negate: null
+  not_taxonomy_vocabulary:
+    id: not_taxonomy_vocabulary
+    bundles: {  }
+    negate: null
+  request_path:
+    id: request_path
+    negate: false
+    pages: /discover-employment-services/community-and-employer-partnerships/self-assessment-questionnaire
