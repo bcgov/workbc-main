@@ -109,36 +109,32 @@ class WorkbcJobboardSidebar extends BlockBase{
         $view_more_link_parameters = "noc=$noc_value";
       }
       else if($type == 'bc_profile'){
-        $parameters["SearchLocations"] = [
-          [
-            "Region"=> "Cariboo"
-          ],
-          [
-            "Region"=> "Kootenay"
-          ],
-          [
-            "Region"=> "North Coast & Nechako"
-          ],
-          [
-            "Region"=> "Northeast"
-          ],
-          [
-            "Region"=> "Mainland / Southwest"
-          ],
-          [
-            "Region"=> "Thompson-Okanagan"
-          ],
-          [
-            "Region"=> "Vancouver Island / Coast"
-          ]
-        ];
-        $view_more_link_parameters = 'region=Cariboo,Kootenay,MainlandSouthwest,NorthCoastNechako,Northeast,ThompsonOkanagan,VancouverIslandCoast;';
+        $field_job_board_id = ($node->get('field_job_board_id')->getValue())? $node->get('field_job_board_id')->getValue(): '';
+        $field_job_board_id = (!empty($field_job_board_id[0]['value']))? explode(",",$field_job_board_id[0]['value']):'';
+        $view_more_link_parameters = '';
+        if(!empty($field_job_board_id)){
+          foreach($field_job_board_id as $key => $region){
+            $parameters["SearchLocations"] [] = [
+              "Region"=> "$region",
+            ];
+            if($key > 0) $view_more_link_parameters .= ',';
+            $view_more_link_parameters  .= str_replace(" ", "", ucwords(str_replace(["-", '/', '&'], " ",$region)));
+          }
+        }
+        $view_more_link_parameters = "region=$view_more_link_parameters";
       }
       else if($type == 'industry_profile'){
         $field_job_board_id = ($node->get('field_job_board_id')->getValue())? $node->get('field_job_board_id')->getValue(): '';
-        $field_job_board_id = (!empty($field_job_board_id[0]['value']))? $field_job_board_id[0]['value']:'';
-        $parameters["SearchIndustry"] = [$field_job_board_id];
-        $view_more_link_parameters = "industry=$field_job_board_id";
+        $field_job_board_id = (!empty($field_job_board_id[0]['value']))? explode(",",$field_job_board_id[0]['value']):'';
+        $view_more_link_parameters = '';
+        if(!empty($field_job_board_id)){
+          foreach($field_job_board_id as $key => $Industry){
+            $parameters["SearchIndustry"][] = $Industry;
+            if($key > 0) $view_more_link_parameters .= ',';
+            $view_more_link_parameters  .= str_replace(" ", "", ucwords(str_replace(["-", '/', '&'], " ",$Industry)));
+          }
+        }
+        $view_more_link_parameters = "industry=$view_more_link_parameters";
       }
       else if($type == 'region_profile'){
         $field_job_board_id = ($node->get('field_job_board_id')->getValue())? $node->get('field_job_board_id')->getValue(): '';

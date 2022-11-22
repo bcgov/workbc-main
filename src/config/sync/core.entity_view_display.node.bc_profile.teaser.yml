@@ -8,6 +8,7 @@ dependencies:
     - field.field.node.bc_profile.field_hero_image
     - field.field.node.bc_profile.field_industry_highlights_intro
     - field.field.node.bc_profile.field_introductions
+    - field.field.node.bc_profile.field_job_board_id
     - field.field.node.bc_profile.field_key_facts
     - field.field.node.bc_profile.field_region_overview
     - field.field.node.bc_profile.field_scheduled_publish
@@ -37,6 +38,7 @@ hidden:
   extra_field_bc_employment_by_industry_source: true
   extra_field_bc_employment_by_industry_table: true
   extra_field_bc_employment_by_region_table: true
+  extra_field_bc_employment_goods_service_share_chart: true
   extra_field_bc_employment_goods_service_share_source: true
   extra_field_bc_employment_introduction: true
   extra_field_bc_employment_region_source: true
@@ -65,6 +67,7 @@ hidden:
   field_hero_image: true
   field_industry_highlights_intro: true
   field_introductions: true
+  field_job_board_id: true
   field_key_facts: true
   field_region_overview: true
   field_scheduled_publish: true

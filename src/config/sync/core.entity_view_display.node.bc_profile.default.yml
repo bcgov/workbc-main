@@ -7,6 +7,7 @@ dependencies:
     - field.field.node.bc_profile.field_hero_image
     - field.field.node.bc_profile.field_industry_highlights_intro
     - field.field.node.bc_profile.field_introductions
+    - field.field.node.bc_profile.field_job_board_id
     - field.field.node.bc_profile.field_key_facts
     - field.field.node.bc_profile.field_region_overview
     - field.field.node.bc_profile.field_scheduled_publish
@@ -279,6 +280,14 @@ content:
     settings: {  }
     third_party_settings: {  }
     weight: 19
+    region: content
+  field_job_board_id:
+    type: string
+    label: above
+    settings:
+      link_to_entity: false
+    third_party_settings: {  }
+    weight: 25
     region: content
   field_key_facts:
     type: text_default
