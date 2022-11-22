@@ -438,7 +438,7 @@ function epbcGetPrograms($nocid) {
 function epbcSetPrograms() {
 
   if (!extension_loaded("soap")) {
-    \Drupal::logger('workbc_extra_fields')->notice("SOAP extension not loaded");
+    \Drupal::logger('workbc_extra_fields')->warning("SOAP extension not loaded. Cannot pull program data from Education Planner BC.");
     return;
   }
 
@@ -472,5 +472,5 @@ function epbcSetPrograms() {
     $epbcData[$noc->Noc] = $programs;
   }
   \Drupal::state()->set('epbc_education_programs', $epbcData);
-  \Drupal::logger('workbc_extra_fields')->notice("pull latest program data from Education Planner BC");
+  \Drupal::logger('workbc_extra_fields')->notice("Pulled latest program data from Education Planner BC.");
 }

@@ -8,20 +8,20 @@ definitions:
     expanded: false
     enabled: false
   user__page:
-    enabled: false
     menu_name: account
     parent: ''
-    expanded: false
     weight: -47
-  user__logout:
+    expanded: false
     enabled: false
+  user__logout:
     menu_name: account
     parent: ''
     weight: -46
     expanded: false
-  registration_link__user_register:
     enabled: false
+  registration_link__user_register:
     menu_name: account
     parent: ''
     weight: 10
     expanded: false
+    enabled: false

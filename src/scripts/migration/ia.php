@@ -103,6 +103,7 @@ while (($row = fgetcsv($handle)) !== FALSE) {
         print("Skipping empty row $row_number" . PHP_EOL);
         continue;
     }
+    $title_lower = strtolower($title);
 
     // Detect a type that we can import.
     $row_type = strtolower($row[COL_DRUPAL_TYPE]);

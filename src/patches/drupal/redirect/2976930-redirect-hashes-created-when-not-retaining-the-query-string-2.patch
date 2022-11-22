@@ -1,0 +1,15 @@
+diff --git a/src/RedirectRepository.php b/src/RedirectRepository.php
+index f8a1cea..72693fc 100644
+--- a/src/RedirectRepository.php
++++ b/src/RedirectRepository.php
+@@ -69,8 +69,8 @@ class RedirectRepository {
+       $hashes[] = Redirect::generateHash($source_path, $query, Language::LANGCODE_NOT_SPECIFIED);
+     }
+ 
+-    // Add a hash without the query string if using passthrough querystrings.
+-    if (!empty($query) && $this->config->get('passthrough_querystring')) {
++    // Add a hash without the query string.
++    if (!empty($query)) {
+       $hashes[] = Redirect::generateHash($source_path, [], $language);
+       if ($language != Language::LANGCODE_NOT_SPECIFIED) {
+         $hashes[] = Redirect::generateHash($source_path, [], Language::LANGCODE_NOT_SPECIFIED);
