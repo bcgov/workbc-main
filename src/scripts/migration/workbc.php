@@ -307,10 +307,12 @@ function createItem($item) {
 function createIndustryProfile($item) {
     global $regions_industries;
     $title = convertPlainText($item->title);
+    $title_lower = strtolower($title);
     return createNode([
         'type' => 'industry_profile',
         'title' => $title,
-    ], 'https://www.workbc.ca/Labour-Market-Information/Industry-Information/Industry-Profiles/' . $regions_industries[strtolower($title)][COL_KENTICO]);
+        'field_job_board_id' => $regions_industries[$title_lower][COL_JOBBOARD],
+    ], 'https://www.workbc.ca/Labour-Market-Information/Industry-Information/Industry-Profiles/' . $regions_industries[$title_lower][COL_KENTICO]);
 }
 
 function createBlogNewsSuccessStory($item) {

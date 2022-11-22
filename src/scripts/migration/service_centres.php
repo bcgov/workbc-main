@@ -47,6 +47,7 @@ foreach ($xml->Document->Placemark as $centre) {
         'field_address' => convertAddress($centre),
         'field_phone' => (string) $centre->xpath('kml:ExtendedData/kml:Data[@name="phone"]')[0]->value,
     ];
+    $fields['field_job_board_id'] = $fields['field_address']['locality'];
 
     $node = createNode($fields, (string) $centre->xpath('kml:ExtendedData/kml:Data[@name="website"]')[0]->value);
 }
