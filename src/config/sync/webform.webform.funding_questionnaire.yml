@@ -22,7 +22,7 @@ elements: |-
       '#markup': |-
         <h3>Community and Employer Partnerships Applicants</h3>
 
-        <p data_liveedit_tagid="0000000014E2BF80">We are excited that you&rsquo;re interested in applying for our program! There are four funding options available for community organizations, business, and other applicants. To help you apply for the right funding stream and before you start writing the application, please complete this questionnaire which takes about two minutes. Once you&rsquo;ve done this, you can move on to the application. If you are a job seeker wanting to get work experience and training on one of our projects,&nbsp;<a href="https://www.workbc.ca/Employment-Services/WorkBC-Centres/Find-Your-WorkBC-Centre.aspx">contact your WorkBC Centre</a>&nbsp;today!<br />
+        <p data_liveedit_tagid="0000000014E2BF80">We are excited that you&rsquo;re interested in applying for our program! There are four funding options available for community organizations, business, and other applicants. To help you apply for the right funding stream and before you start writing the application, please complete this questionnaire which takes about two minutes. Once you&rsquo;ve done this, you can move on to the application. If you are a job seeker wanting to get work experience and training on one of our projects,&nbsp;<a href="/Employment-Services/WorkBC-Centres/Find-Your-WorkBC-Centre.aspx">contact your WorkBC Centre</a>&nbsp;today!<br />
         <br />
         If you have questions about the questionnaire or anything else about our program, email us at&nbsp;<a href="mailto:CEPteam@gov.bc.ca">CEPteam@gov.bc.ca</a>. Thank you!</p>
   page_1:
@@ -56,22 +56,19 @@ elements: |-
       '#title': '3. Is your project incremental to the services already provided or mandated by your organization?'
       '#options': yes_no
       '#required': true
-    result_sorry:
-      '#type': webform_markup
-      '#states':
-        visible:
-          - ':input[name="membership"]':
-              value: 'No'
-          - or
-          - ':input[name="labour_market_issue"]':
-              value: 'No'
-          - or
-          - ':input[name="incremental"]':
-              value: 'No'
-      '#markup': '<p>Sorry, you are ineligible for CEP funding.</p>'
   page_2:
     '#type': webform_wizard_page
     '#title': 'Page 2'
+    '#states':
+      invisible:
+        - ':input[name="membership"]':
+            value: 'No'
+        - or
+        - ':input[name="labour_market_issue"]':
+            value: 'No'
+        - or
+        - ':input[name="incremental"]':
+            value: 'No'
     '#prev_button_label': Back
     '#next_button_label': Next
     participants:
@@ -81,7 +78,9 @@ elements: |-
       '#required': true
     yes_participants:
       '#type': radios
-      '#title': '2. NOTE: You may be required to consult with local WorkBC Centre(s) regarding availability of participants prior to submitting your application for funding. Please choose the answer that best fits your project:'
+      '#title': '2. Please choose the answer that best fits your project:'
+      '#description': 'NOTE: You may be required to consult with local WorkBC Centre(s) regarding availability of participants prior to submitting your application for funding.&nbsp;'
+      '#description_display': before
       '#options':
         1: 'The main intent of your project is -- to provide valuable, relevant and finite work experience to participants on a project that will also benefit the larger community.'
         2: 'The main intent of your project is -- to prepare unemployed individuals for the labour market through a combination of employer partnerships, in-classroom training, job shadowing, work experience, counseling, vocational and/or learning assessments, job search skills, and/or mentorship.'
@@ -128,7 +127,7 @@ elements: |-
       '#markup': |-
         <h3>Job Creation Partnerships</h3>
 
-        <p>Provides funding to organizations to assist with local projects that provide community benefit and that normally would not take place without project funding, while creating jobs that provide unemployed eligible EI Clients with Opportunities to gain meaningful work experience. Projects benefit the job seeker, community and the local economy; however, the primary focus must be on helping the job seeker. Click&nbsp;<a href="https://apply.workbc.ca/cep/start">here</a>&nbsp;to submit your online application.</p>
+        <p>Provides funding to organizations to assist with local projects that provide community benefit and that normally would not take place without project funding, while creating jobs that provide unemployed eligible EI Clients with Opportunities to gain meaningful work experience. Projects benefit the job seeker, community and the local economy; however, the primary focus must be on helping the job seeker. Click&nbsp;<a href="https://apply.workbc.ca/cep/start" target="_blank" rel="noopener noreferrer nofollow">here</a>&nbsp;to submit your online application.</p>
     result_labour_market_training:
       '#type': webform_markup
       '#states':
@@ -138,7 +137,7 @@ elements: |-
       '#markup': |-
         <h3>Project Based Labour Market Training</h3>
 
-        <p>Provides funding to organizations to support projects that provide both benefits to the community and to individuals by providing a combination of on and off the job training delivered under a project based training model to assist eligible individuals obtain the skills they need for employment. Projects enhance participant&rsquo;s employability skills by providing training and other supports in a supportive, group environment. Training is supported by a range of activities which may include counselling, vocational and/or learning assessments, work experience, job search skills, mentorship, referral to community resources and post-project follow up. Click&nbsp;<a href="https://apply.workbc.ca/cep/start">here</a>&nbsp;to submit your online application.</p>
+        <p>Provides funding to organizations to support projects that provide both benefits to the community and to individuals by providing a combination of on and off the job training delivered under a project based training model to assist eligible individuals obtain the skills they need for employment. Projects enhance participant&rsquo;s employability skills by providing training and other supports in a supportive, group environment. Training is supported by a range of activities which may include counselling, vocational and/or learning assessments, work experience, job search skills, mentorship, referral to community resources and post-project follow up. Click&nbsp;<a href="https://apply.workbc.ca/cep/start" target="_blank" rel="noopener noreferrer nofollow">here</a>&nbsp;to submit your online application.</p>
     result_research:
       '#type': webform_markup
       '#states':
@@ -151,7 +150,7 @@ elements: |-
       '#markup': |-
         <h3>Research and Innovation</h3>
 
-        <p>Provides funding to community organizations and partners to undertake research or develop and implement innovative projects (e.g. pilots), processes or practices that strengthen the understanding of the labour market and helps move more Clients into sustainable jobs. R and I uses progressive research and leading edge innovation to discover better ways to help unemployed British Columbian&rsquo;s join the labour force as quickly as possible. It is designed to fund untried and untested solutions to labour market problems with the goal of creating employment services of the future. Click&nbsp;<a href="https://apply.workbc.ca/cep/start">here</a>&nbsp;to submit your online application.</p>
+        <p>Provides funding to community organizations and partners to undertake research or develop and implement innovative projects (e.g. pilots), processes or practices that strengthen the understanding of the labour market and helps move more Clients into sustainable jobs. R and I uses progressive research and leading edge innovation to discover better ways to help unemployed British Columbian&rsquo;s join the labour force as quickly as possible. It is designed to fund untried and untested solutions to labour market problems with the goal of creating employment services of the future. Click&nbsp;<a href="https://apply.workbc.ca/cep/start" target="_blank" rel="noopener noreferrer nofollow">here</a>&nbsp;to submit your online application.</p>
     result_labour_market_partnership:
       '#type': webform_markup
       '#states':
@@ -164,10 +163,27 @@ elements: |-
       '#markup': |-
         <h3>Labour Market Partnerships</h3>
 
-        <p>Provides funding to organizations to encourage, support and facilitate addressing labour force issues (imbalances) and human resource planning activities which are in the public interest. LMP also includes the Employer Sponsored Training (EST) program that provides eligible employers with financial assistance to support training activities for employees who would otherwise lose their jobs. Click&nbsp;<a href="https://apply.workbc.ca/cep/start">here</a>&nbsp;to submit your online application.</p>
+        <p>Provides funding to organizations to encourage, support and facilitate addressing labour force issues (imbalances) and human resource planning activities which are in the public interest. LMP also includes the Employer Sponsored Training (EST) program that provides eligible employers with financial assistance to support training activities for employees who would otherwise lose their jobs. Click&nbsp;<a href="https://apply.workbc.ca/cep/start" target="_blank" rel="noopener noreferrer nofollow">here</a>&nbsp;to submit your online application.</p>
+    result_sorry_2:
+      '#type': webform_markup
+      '#states':
+        visible:
+          - ':input[name="membership"]':
+              value: 'No'
+          - or
+          - ':input[name="labour_market_issue"]':
+              value: 'No'
+          - or
+          - ':input[name="incremental"]':
+              value: 'No'
+      '#markup': '<h3>Sorry, you are ineligible for CEP funding.</h3>'
     result_outro:
       '#type': webform_markup
       '#markup': '<p>Please Note: This is not a contracting process and neither the proponent nor the Province is legally bound as a result of this process.</p>'
+    actions:
+      '#type': webform_actions
+      '#title': 'Submit button(s)'
+      '#submit_hide': true
 css: ''
 javascript: ''
 settings:
@@ -176,7 +192,7 @@ settings:
   ajax_progress_type: ''
   ajax_effect: ''
   ajax_speed: null
-  page: true
+  page: false
   page_submit_path: ''
   page_confirm_path: ''
   page_theme_name: ''
