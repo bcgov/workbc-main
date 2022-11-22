@@ -1,0 +1,7 @@
+gdx_analytics_drupal_snowplow.gdx_analytics_drupal_snowplow_settings_form:
+  title: 'GDX Analytics Drupal Snowplow Settings Form'
+  route_name: gdx_analytics_drupal_snowplow.gdx_analytics_drupal_snowplow_settings_form
+  description: 'GDX Analytics Drupal Snowplow Settings'
+  parent: system.admin_config_system
+  weight: 99
+

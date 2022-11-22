@@ -1,0 +1,64 @@
+.job-search {
+  @include media-breakpoint-up(lg) {
+    max-width: 640px;
+  }
+}
+
+.tab-content__jobs {
+  min-height: 300px;
+  padding: 40px 32px;
+  background-color: #fff;
+  border: 3px solid #accad7;
+  box-shadow: 0 0 10px 2px rgb(0, 0, 0, 0.1);
+}
+
+.job-search .nav-tabs .nav-link {
+  margin-bottom: -4px;
+  padding: 14px 40px;
+  border-radius: 0;
+  background-color: #accad7;
+  border: 3px solid transparent;
+  border-bottom: none;
+  font-size: 18px;
+  color: #1e1e1e;
+
+  &:hover {
+    background-color: #8eadbb;
+    border: 3px solid #8eadbb;
+    border-bottom: none;
+  }
+}
+
+.job-search .nav-tabs .nav-link.active {
+  background-color: #fff;
+  border: 3px solid #accad7;
+  border-bottom: none;
+  font-weight: 700;
+}
+
+.job-search__title {
+  margin-bottom: 20px;
+}
+
+.job-search__txt {
+  margin-bottom: 20px;
+}
+
+.job-search__form-container {
+  margin-bottom: 20px;
+  display: flex;
+  gap: 20px;
+}
+
+.job-search__form-inputs label {
+  font-weight: 700;
+}
+
+.job-search__form-inputs input {
+  border-radius: 0;
+  border: 2px solid $workbc_palette_dark_secondary;
+}
+
+.job-search__form-radios label {
+  margin-left: 5px;
+}

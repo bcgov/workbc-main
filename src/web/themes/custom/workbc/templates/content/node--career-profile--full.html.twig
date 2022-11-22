@@ -155,9 +155,8 @@
     education: {
       title: content.group_career_profile_tabs.group_education_training_skills.field_education_training_skills['#title'] ?? "Education",
       description: content.group_career_profile_tabs.group_education_training_skills.field_education_training_skills.0['#text'],
-      education_programs_title: content.group_career_profile_tabs.group_education_training_skills.field_education_programs['#title'],
-      education_programs_introduction: content.group_career_profile_tabs.group_education_training_skills.field_education_programs.0['#text'],
-      education_programs_list: content.group_career_profile_tabs.group_education_training_skills.extra_field_education_programs['#items'],
+      education_programs_title: content.group_career_profile_tabs.group_education_training_skills.extra_field_education_programs['#title'],
+      education_programs_list: content.group_career_profile_tabs.group_education_training_skills.extra_field_education_programs.0,
       skills_title: content.group_career_profile_tabs.group_education_training_skills.extra_field_skills_introduction['#title'],
       skills_introduction: content.group_career_profile_tabs.group_education_training_skills.extra_field_skills_introduction.0['#text'],
       skills_list: content.group_career_profile_tabs.group_education_training_skills.extra_field_profile_skills.0,
@@ -314,7 +313,7 @@
           <div class="tab-pane active" id="career_overview-content" role="tabpanel" aria-labelledby="career_overview-tab">
             <h2 class="profile-content_main__header">{{ viewmodel['tab_sections']['career_overview']['title'] }}</h2>
             <div>{{ viewmodel['tab_sections']['career_overview']['description']|raw }}</div>
-            
+
             <div class="profile-content-section">
               <h2 class="profile-content-section__header">{{ viewmodel['tab_sections']['career_overview']['duties_title'] }}</h2>
               <div>{{ viewmodel['tab_sections']['career_overview']['duties_description']|raw }}</div>
@@ -397,15 +396,26 @@
 
             <div class="profile-content-section">
               <h2 class="profile-content-section__header">{{ viewmodel['tab_sections']['education']['education_programs_title'] }}</h2>
-              <div>{{ viewmodel['tab_sections']['education']['education_programs_introduction']|raw }}</div>
+              <div>{{ viewmodel['tab_sections']['education']['education_programs_list']|raw }}</div>
 
               {% for program in viewmodel['tab_sections']['education']['education_programs_list'] %}
                 {{ program.0['#markup']|raw }}
               {% endfor %}
+
+              <div class="card-profile">
+                <div class="card-profile__header">
+                  <img src="/{{ directory }}/assets/images/logo-educationplannerbc.png" alt="EducationPlannerBC Logo" />
+                </div>
+                <div class="card-profile__content-left">
+                  <div class="card-profile__content-item">Find out more information about programs offered specifically for this career.</div>
+                </div>
+                <div class="card-profile__link-container">
+                  <a class="card-profile__link" target="_blank" href="https://www.educationplannerbc.ca/search/noc/{{viewmodel['hero']['noc']}}">Visit EducationPlannerBC</a>
+                </div>
+              </div>
             </div>
 
-
-             <div class="profile-content-section">
+            <div class="profile-content-section">
               <h2 class="profile-content-section__header">{{ viewmodel['tab_sections']['education']['skills_title'] }}</h2>
               <div>{{ viewmodel['tab_sections']['education']['skills_introduction']|raw }}</div>
 
@@ -560,4 +570,3 @@
 {{ attach_library('workbc/init-popovers') }}
 {{ attach_library('workbc/scrollbooster') }}
 {{ attach_library('workbc/static-load-more') }}
-

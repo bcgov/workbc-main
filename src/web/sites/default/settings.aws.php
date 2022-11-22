@@ -26,7 +26,3 @@ $config['jobboard']['jobboard_api_url_frontend'] = getenv('JOBBOARD_API_URL');
 $config['jobboard']['jobboard_api_url_backend'] = getenv('JOBBOARD_API_INTERNAL_URL');
 $config['jobboard']['find_job_url'] = '/search-and-prepare-job/find-jobs';
 $config['jobboard']['find_job_account_url'] = '/account';
-$config['jobboard']['search_career_profile_link'] = '/jobs-careers/explore-careers';
-$config['jobboard']['labour_market_outlook'] = '/labour-market-industry/labour-market-outlook';
-$config['jobboard']['explore_industryand_sector_outlooks'] = '/labour-market-industry/industry-sector-outlooks';
-$config['jobboard']['view_industry_profiles'] = '/labour-market-industry/industry-profiles';
