@@ -54,6 +54,44 @@
  width:100%;
  text-align:center;
 }
+@media screen and (min-width: 1024px) {
+  .jobs-data-horizontal-view{
+    width: 100%;
+    max-width: 100%;
+  }
+  .page-node-type-workbc-centre .block-workbc-jobboard h2{
+    width:100%;
+    margin:auto;
+    text-align:center;
+  }
+  .jobs-data-horizontal-view .sub-title{
+    display:none;
+  }
+  .jobs-data-horizontal-view .job-location{
+    font-size:16px;
+  }
+  .jobs-data-horizontal-view .cards-grid{
+    max-width:100%;
+    display: flex;
+    font-size: 0;
+    flex-wrap: wrap;
+    margin-top:20px;
+  }
+  .jobs-data-horizontal-view .cards-grid .card-plain{
+    flex: 1 0 21%;
+    margin: 5px;
+    height: 100px;
+  }
+  .jobs-data-horizontal-view .more-jobs {
+    text-align: center;
+    margin-bottom: 20px;
+  }
+  .jobs-data-horizontal-view .more-jobs a{
+    margin:auto;
+    text-align:center;
+    width:auto;
+  }
+}
 /*
  *  Styles below apply to the embedded Job Board app
  *

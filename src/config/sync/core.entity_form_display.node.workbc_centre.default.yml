@@ -11,6 +11,7 @@ dependencies:
     - field.field.node.workbc_centre.field_french_available
     - field.field.node.workbc_centre.field_geolocation
     - field.field.node.workbc_centre.field_hero_image
+    - field.field.node.workbc_centre.field_job_board_id
     - field.field.node.workbc_centre.field_phone
     - field.field.node.workbc_centre.field_related_topics
     - field.field.node.workbc_centre.field_scheduled_publish
@@ -113,6 +114,14 @@ content:
       warn_multiple_usages: true
       show_crop_area: true
       show_default_crop: true
+    third_party_settings: {  }
+  field_job_board_id:
+    type: string_textfield
+    weight: 138
+    region: content
+    settings:
+      size: 60
+      placeholder: ''
     third_party_settings: {  }
   field_phone:
     type: telephone_default

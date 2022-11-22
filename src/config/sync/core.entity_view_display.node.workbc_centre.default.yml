@@ -11,6 +11,7 @@ dependencies:
     - field.field.node.workbc_centre.field_french_available
     - field.field.node.workbc_centre.field_geolocation
     - field.field.node.workbc_centre.field_hero_image
+    - field.field.node.workbc_centre.field_job_board_id
     - field.field.node.workbc_centre.field_phone
     - field.field.node.workbc_centre.field_related_topics
     - field.field.node.workbc_centre.field_scheduled_publish
@@ -134,6 +135,14 @@ content:
         attribute: lazy
     third_party_settings: {  }
     weight: 2
+    region: content
+  field_job_board_id:
+    type: string
+    label: above
+    settings:
+      link_to_entity: false
+    third_party_settings: {  }
+    weight: 19
     region: content
   field_phone:
     type: telephone_link
