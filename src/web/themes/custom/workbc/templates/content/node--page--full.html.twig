@@ -100,9 +100,13 @@
   ]
 %}
 
-{% if hero_image or hero_text %}
+
+{% if is_front %}
+  {% include '@workbc/includes/hero-home.html.twig' %}
+    {% elseif hero_image or hero_text %}
   {% include '@workbc/includes/hero.html.twig' %}
 {% endif %}
+
 
 {# When breadcrums are displayed below the hero section #}
 {{ drupal_block('system_breadcrumb_block', wrapper=false) }}

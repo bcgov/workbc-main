@@ -9,7 +9,6 @@ $card-divider-size: calc(2*$card-divider-size-half);
   margin-bottom: 24px;
   box-shadow: 0 0 15px 0 rgba(0, 0, 0, 0.15);
   padding: $card-padding; 
-  padding-bottom: 65px; // Extra padding to make room for absolutely positioned source and associated whitespace
 
   display: flex;
   flex-flow: column nowrap;
@@ -44,6 +43,14 @@ $card-divider-size: calc(2*$card-divider-size-half);
     text-align: center;
     line-height: 1.000rem;
   }
+
+  img {
+    width: 100%;
+
+    @include media-breakpoint-up(lg) {
+      width: 50%;
+    }
+  }
 }
 
 .card-profile__content {
@@ -56,6 +63,17 @@ $card-divider-size: calc(2*$card-divider-size-half);
     flex: 1 1 100%;
   }
 }
+
+.card-profile__content-left {
+  display: flex;
+  flex-flow: column nowrap;
+  flex: 1 1;
+
+  @include media-breakpoint-up(lg) {
+    flex: 1 1 100%;
+  }
+}
+
 
 .card-profile__content-small {
   display: flex;
@@ -152,10 +170,18 @@ $card-divider-size: calc(2*$card-divider-size-half);
   }
 }
 
+.card-profile__link-container {
+
+  @include media-breakpoint-up(lg) {
+    margin-top: auto;
+  }
+}
+
+.card-profile__link {
+  @include link-chevron;
+}
+
 .card-profile__source {
-  position: absolute;  // relative to positional context %card-profile
-  bottom: $card-padding;
-  left: $card-padding;
   font-size: 0.875rem;
   line-height: 0.875rem;
 
