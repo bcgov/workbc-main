@@ -10,7 +10,7 @@ dependencies:
     - workbc
 id: collectionnoticeblock
 theme: workbc
-region: content_bottom
+region: hidden
 weight: -7
 provider: null
 plugin: collection_notice_block

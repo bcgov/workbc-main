@@ -3,9 +3,9 @@ langcode: en
 status: true
 dependencies:
   config:
-    - filter.format.basic_html
+    - filter.format.full_html
 id: visit_a_workbc_centre
 title: 'Visit a WorkBC Centre'
 content:
-  value: "<p>WorkBC Employment Services provide a wide range of services and supports to help B.C. job seekers find and maintain employment.</p>\r\n\r\n<p><a href=\"/workbc-centres\">Read more &gt;</a></p>\r\n"
-  format: basic_html
+  value: "<p>WorkBC Employment Services provide a wide range of services and supports to help B.C. job seekers find and maintain employment.</p>\r\n\r\n<div><a href=\"/workbc-centres\">Read more</a></div>\r\n"
+  format: full_html

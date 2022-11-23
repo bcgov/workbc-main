@@ -3,6 +3,10 @@
   margin-bottom: 40px;
   box-shadow: 0 0 10px rgb(219 219 219);
   overflow-x: scroll;
+
+  @include media-breakpoint-up(lg) {
+    overflow-x: auto;
+  }
 }
 
 .content-form .form-text,
@@ -64,4 +68,10 @@
 
 .high-opportunity-occupations-form .button {
   text-align: center;
+}
+
+// Confirmation Message
+.webform-confirmation__message {
+  font-size: 1.25rem;
+  font-weight: 700;
 }
