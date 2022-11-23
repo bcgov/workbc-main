@@ -1,0 +1,34 @@
+<div class="hero-home">
+  <div class="hero-home__image">
+    {{ hero_image }}
+  </div>
+  <div class="hero-home__container container-lg">
+    <div class="job-search">
+      <ul class="nav nav-tabs" id="Tab" role="tablist">
+        <li class="nav-item" role="presentation">
+          <button class="nav-link active" id="home-tab" data-bs-toggle="tab" data-bs-target="#find" type="button" role="tab" aria-controls="Find a Job" aria-selected="true">Find a Job</button>
+        </li>
+        <li class="nav-item" role="presentation">
+          <button class="nav-link" id="profile-tab" data-bs-toggle="tab" data-bs-target="#post" type="button" role="tab" aria-controls="Post a Job" aria-selected="false">Post a Job</button>
+        </li>
+      </ul>
+      <div class="tab-content tab-content__jobs" id="TabContent">
+        <div class="tab-pane fade show active" id="find" role="tabpanel" aria-labelledby="find-job-tab">
+          <h2 class="job-search__title">Search <strong>53,173</strong> jobs in B.C.</h2>
+          <div class="job-search__txt">Refine results by using keywords and selecting Job Title, Job Description and/or Employer. Or perform a direct search by entering the Job Number.</div>
+          <div class="job-search__form-container job-search__form-inputs">
+            <div class="form-group"><label>Keyword</label> <input type="text" name="keywords" class="form-control ng-untouched ng-pristine ng-valid" placeholder="Keyword(s)" aria-label="Keyword(s)" data-form-type="query"></div>
+            <div class="form-group"><label>Location</label><input type="text" aria-label="City or Postal Code" name="cityOrPostal" placeholder="City or Postal Code" id="cityOrPostal" maxlength="50" class="mat-autocomplete-trigger form-control ng-untouched ng-pristine ng-valid" autocomplete="off" role="combobox" aria-autocomplete="list" aria-expanded="false" aria-haspopup="true" data-form-type="address,city,zip" data-kwimpalastatus="alive" data-kwimpalaid="1668797718024-1"></div>
+          </div>
+          <div class="job-search__form-container job-search__form-radios "><div class="form-group ng-star-inserted"><input type="radio" name="KeywordbyAll" id="KeywordbyAll" value="all" class="ng-untouched ng-pristine ng-valid" data-form-type="other"><label for="KeywordbyAll" class="form-check-label">Search All </label></div><div class="form-group ng-star-inserted"><input type="radio" name="KeywordbyJobTitle" id="KeywordbyJobTitle" value="title" class="ng-untouched ng-pristine ng-valid" data-form-type="title,job" data-kwimpalastatus="dead"><label for="KeywordbyJobTitle" class="form-check-label">Job title only</label></div><div class="form-group ng-star-inserted"><input type="radio" name="KeywordbyEmployer" id="KeywordbyEmployer" value="employer" class="ng-untouched ng-pristine ng-valid" data-form-type="other"><label for="KeywordbyEmployer" class="form-check-label">Employer name only</label></div><div class="form-group"><input type="radio" name="KeywordbyJobNumber" id="KeywordbyJobNumber" value="jobId" class="ng-untouched ng-pristine ng-valid" data-form-type="other"><label for="KeywordbyJobNumber" class="form-check-label">Job Number</label></div></div>
+          <a class="btn-primary" href="#">Find Jobs</a>
+        </div>
+        <div class="tab-pane fade" id="post" role="tabpanel" aria-labelledby="post-job-tab">
+          <h2 class="job-search__title">Post jobs</h2>
+          <div class="job-search__txt">Use B.C.'s most comprehensive job board to post jobs for free and find the right people to help your business grow. With hundreds of thousands of job seekers using the site, it's a great way to find new talent.</div>
+          <a class="btn-primary" href="#">Post a Job</a>
+        </div>
+      </div>
+    </div>
+  </div>
+</div>

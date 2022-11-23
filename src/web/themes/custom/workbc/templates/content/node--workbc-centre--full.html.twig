@@ -1,0 +1,188 @@
+{#
+/**
+ * @file
+ * Theme override to display a node.
+ *
+ * Available variables:
+ * - node: The node entity with limited access to object properties and methods.
+ *   Only method names starting with "get", "has", or "is" and a few common
+ *   methods such as "id", "label", and "bundle" are available. For example:
+ *   - node.getCreatedTime() will return the node creation timestamp.
+ *   - node.hasField('field_example') returns TRUE if the node bundle includes
+ *     field_example. (This does not indicate the presence of a value in this
+ *     field.)
+ *   - node.isPublished() will return whether the node is published or not.
+ *   Calling other methods, such as node.delete(), will result in an exception.
+ *   See \Drupal\node\Entity\Node for a full list of public properties and
+ *   methods for the node object.
+ * - label: (optional) The title of the node.
+ * - content: All node items. Use {{ content }} to print them all,
+ *   or print a subset such as {{ content.field_example }}. Use
+ *   {{ content|without('field_example') }} to temporarily suppress the printing
+ *   of a given child element.
+ * - author_picture: The node author user entity, rendered using the "compact"
+ *   view mode.
+ * - metadata: Metadata for this node.
+ * - date: (optional) Themed creation date field.
+ * - author_name: (optional) Themed author name field.
+ * - url: Direct URL of the current node.
+ * - display_submitted: Whether submission information should be displayed.
+ * - attributes: HTML attributes for the containing element.
+ *   The attributes.class element may contain one or more of the following
+ *   classes:
+ *   - node: The current template type (also known as a "theming hook").
+ *   - node--type-[type]: The current node type. For example, if the node is an
+ *     "Article" it would result in "node--type-article". Note that the machine
+ *     name will often be in a short form of the human readable label.
+ *   - node--view-mode-[view_mode]: The View Mode of the node; for example, a
+ *     teaser would result in: "node--view-mode-teaser", and
+ *     full: "node--view-mode-full".
+ *   The following are controlled through the node publishing options.
+ *   - node--promoted: Appears on nodes promoted to the front page.
+ *   - node--sticky: Appears on nodes ordered above other non-sticky nodes in
+ *     teaser listings.
+ *   - node--unpublished: Appears on unpublished nodes visible only to site
+ *     admins.
+ * - title_attributes: Same as attributes, except applied to the main title
+ *   tag that appears in the template.
+ * - content_attributes: Same as attributes, except applied to the main
+ *   content tag that appears in the template.
+ * - author_attributes: Same as attributes, except applied to the author of
+ *   the node tag that appears in the template.
+ * - title_prefix: Additional output populated by modules, intended to be
+ *   displayed in front of the main title tag that appears in the template.
+ * - title_suffix: Additional output populated by modules, intended to be
+ *   displayed after the main title tag that appears in the template.
+ * - view_mode: View mode; for example, "teaser" or "full".
+ * - teaser: Flag for the teaser state. Will be true if view_mode is 'teaser'.
+ * - page: Flag for the full page state. Will be true if view_mode is 'full'.
+ * - readmore: Flag for more state. Will be true if the teaser content of the
+ *   node cannot hold the main body content.
+ * - logged_in: Flag for authenticated user status. Will be true when the
+ *   current user is a logged-in member.
+ * - is_admin: Flag for admin user status. Will be true when the current user
+ *   is an administrator.
+ *
+ * @see template_preprocess_node()
+ *
+ */
+#}
+
+{%
+  set classes = [
+    'node',
+    'node--type-' ~ node.bundle|clean_class,
+    node.isPromoted() ? 'node--promoted',
+    node.isSticky() ? 'node--sticky',
+    not node.isPublished() ? 'node--unpublished',
+    view_mode ? 'node--view-mode-' ~ view_mode|clean_class,
+    'workbc-profile',
+  ]
+%}
+
+{# This viewmodel is intended to collect all of the incoming variables in one place, and the remainder of the template should
+ refer only to this viewmodel (or Drupal/Twig generics like loop, directory, etc) #}
+{% set viewmodel = {
+  title: label,
+  hero: {
+    image: content.field_hero_image[0],
+    title: label,
+  },
+  address_contact: content.group_address_contact_informatio,
+  hours: content.field_working_hours,
+  french_available: content.field_french_available.0['#markup'] == 'True',
+  alert: content.field_alert[0],
+
+  main_content: content.field_content,
+
+  recent_jobs: content.extra_field_wbcc_recent_jobs,
+  links: content.links,
+}
+%}
+
+<div class="profile-header">
+
+  <div class="profile-header-breadcrumb">
+    {{ drupal_block('system_breadcrumb_block', wrapper=false) }}
+  </div>
+
+  <div class="profile-header-banner hero-banner">
+
+    <div class="hero-image-wrapper">
+      <div class="hero-image-overlay"></div>
+      {{ viewmodel['hero']['image'] }}
+    </div>
+
+    <div class="hero-content-container container-lg">
+      <div class="hero-content-wrapper">
+        <div class="hero-title">
+          <h1>Work BC Centre {{ viewmodel['hero']['title'] }}</h1>
+        </div>
+
+        <div class="hero-content workbc_centre__hero-content">
+          <div class="workbc-centre__address">
+            <h3>Address &amp; Contact Information</h3>
+            {{ viewmodel['address_contact'] }}
+          </div>
+          <div class="workbc-centre__hours">
+            <h3>Hours of Operation</h3>
+            {{ viewmodel['hours'] }}
+          </div>
+        </div>
+      </div>
+    </div>
+
+  </div>
+
+  <div class="profile-header-social container-lg">
+    {{ drupal_block('social_sharing_buttons_block', wrapper=false) }}
+  </div>
+</div>
+
+{% if viewmodel['french_available'] %}
+  <div class="container-lg d-flex justify-content-center">
+    Services disponibles en français
+  </div>
+{% endif %}
+
+<article{{ attributes.addClass(classes) }}>
+  <div class="profile-details-wrapper">
+    <div class="container-lg">
+      <div class="workbc_centre__content-container">
+        {% if viewmodel['alert'] %}
+          <div class="workbc_centre__alert">
+            <h3 class="workbc_centre__alert-header">Service Alert!</h3>
+            <div class="workbc_centre__alert-content">
+              {{ viewmodel['alert'] }}
+            </div>
+          </div>
+        {% endif %}
+
+        <div class="workbc_centre__content-main">
+          {{ viewmodel['main_content'] }}
+        </div>
+
+      </div>
+    </div>
+  </div>
+
+  <div class="career-recent-jobs-wrapper">
+    <div class="container-lg">
+      {{ drupal_entity('block', 'recentjobs') }}
+    </div>
+  </div>
+
+</article>
+
+{% if related|striptags|trim %}
+  <div class="container-lg px-1">
+    {{ related }}
+  </div>
+{% endif %}
+
+{#
+{{ attach_library('workbc/init-popovers') }}
+{{ attach_library('workbc/scrollbooster') }}
+{{ attach_library('workbc/static-load-more') }}
+#}
+

@@ -18,12 +18,14 @@ services:
     image: wodby/drupal-php:$PHP_TAG
 #    container_name: "${PROJECT_NAME}_php"
     environment:
+      PROJECT_ENVIRONMENT: dev
       COMPOSER_AUTH: "${COMPOSER_AUTH}"
       SSMTP_MAILHUB: mailhog:1025
 #      SSMTP_MAILHUB: opensmtpd:25
       PHP_SENDMAIL_PATH: '"/usr/bin/dos2unix -u | /usr/sbin/ssmtp -t -f"'
       PHP_POST_MAX_SIZE: 256M
       PHP_UPLOAD_MAX_FILESIZE: 256M
+      PHP_MAX_EXECUTION_TIME: 300
 #      DB_HOST: $DB_HOST
 #      DB_PORT: $DB_PORT
 #      DB_USER: $DB_USER

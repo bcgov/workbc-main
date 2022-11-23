@@ -1,0 +1,19 @@
+uuid: 911b551c-b367-4eb0-b696-1aa85014554c
+langcode: en
+status: true
+dependencies:
+  config:
+    - field.storage.node.field_job_board_id
+    - node.type.bc_profile
+id: node.bc_profile.field_job_board_id
+field_name: field_job_board_id
+entity_type: node
+bundle: bc_profile
+label: 'Job Board ID'
+description: ''
+required: false
+translatable: true
+default_value: {  }
+default_value_callback: ''
+settings: {  }
+field_type: string

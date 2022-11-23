@@ -19,6 +19,7 @@
         });
         
       });
+
       $(window, context).once('jobboard').on('hashchange load', function (e) {
         var currentUser = readCookie('currentUser.username');
         var CheckLoginLinkExists = $("nav.nav-user .nav-items li.new-login-link");
@@ -40,31 +41,11 @@
   }
 })(jQuery, Drupal);
 
-jQuery(window).on('hashchange', function (e) {
-  if(location.hash == '#/saved-career-profiles'){
-    setTimeout(function(){
-      if (typeof searchCareerProfileLink !== 'undefined') {
-        var href = jQuery('app-root .saved-careers-inner .col-lg-6:first .info-box a').attr('href', searchCareerProfileLink);
-      }
-      if (typeof LabourMarketOutlook !== 'undefined') {
-        var href2 = jQuery('app-root .saved-careers-inner .col-lg-6:last .info-box a').attr('href', LabourMarketOutlook);
-      }
-    }, 500);
-  }else if(location.hash == '#/saved-industry-profiles'){
-    setTimeout(function(){
-      if (typeof ViewIndustryProfiles !== 'undefined') {
-        var href = jQuery('app-root .saved-careers-inner .col-lg-6:first .info-box a').attr('href', ViewIndustryProfiles);
-      }
-      if (typeof ExploreIndustryandSectorOutlooks !== 'undefined') {
-        var href2 = jQuery('app-root .saved-careers-inner .col-lg-6:last .info-box a').attr('href', ExploreIndustryandSectorOutlooks);
-      }
-    }, 500);
-  }
-});
 
 if (window.location.hash) {
   jQuery(window).trigger('hashchange');
 }
+
 
 function readCookie(cookieName){
   var d=[],

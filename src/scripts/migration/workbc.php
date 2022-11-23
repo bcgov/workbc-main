@@ -119,11 +119,15 @@ foreach ($items as $id => $item) {
     if (!empty($item_id) && $id != $item_id) continue;
 
     $title = convertPlainText($item->title);
+
+    // SPECIAL CASE: This is a template that applies to ALL nodes of type workbc_centre.
+    // Nothing to do in this loop.
+    if (strcasecmp($title, 'WorkBC Centre Template') === 0) continue;
+
     print("Querying \"$title\"..." . PHP_EOL);
 
     $node = loadNodeByTitleParent($title, $item->folder);
     if (empty($node)) {
-        print("  Could not find node. Attempting to create it..." . PHP_EOL);
         $node = createItem($item);
         if (empty($node)) {
             print("  Error: Could not create Drupal node" . PHP_EOL);
@@ -208,7 +212,7 @@ try {
             $fields['published_date'] = strtotime($item->{'Date'});
         }
     }
-    else if ($title === 'Labour Market Monthly Update' && !empty($labour_market_introductions)) {
+    else if (strcasecmp($title, 'Labour Market Monthly Update') === 0 && !empty($labour_market_introductions)) {
         if (property_exists($labour_market_introductions, 'Employment Introduction')) {
             $fields['field_employment_introduction'] = convertRichText($labour_market_introductions->{'Employment Introduction'});
         }
@@ -241,6 +245,20 @@ try {
             $fields['field_introductions'] = ['target_id' => $regional_profile_introductions->id()];
         }
     }
+    else if (strcasecmp($title, 'WorkBC Centre Template') === 0) {
+        // SPECIAL CASE: This is a template that applies to ALL nodes of type workbc_centre.
+        print("  Updating all WorkBC Centres" . PHP_EOL);
+        $centres = \Drupal::entityTypeManager()
+        ->getStorage('node')
+        ->loadByProperties(['type' => 'workbc_centre']);
+        foreach ($centres as $node) {
+            foreach ($fields as $field => $value) {
+                $node->$field = $value;
+            }
+            $node->save();
+        }
+        continue;
+    }
 
     $node = loadNodeByTitleParent($title, $item->folder);
     if (empty($node)) {
@@ -266,7 +284,7 @@ function convertRelatedTopics($related_topics, &$items) {
     }) as $card) {
         $related_items = convertGatherContentLinks($card->{'Link Target'}, $items);
         if (empty($related_items)) {
-            print("  Could not parse related GatherContent item {$card->{'Link Target'}}" . PHP_EOL);
+            print("  Error: Could not parse related GatherContent link: {$card->{'Link Target'}}" . PHP_EOL);
             continue;
         }
         $field[] = ['target_id' => current($related_items)['target_id']];
@@ -289,10 +307,12 @@ function createItem($item) {
 function createIndustryProfile($item) {
     global $regions_industries;
     $title = convertPlainText($item->title);
+    $title_lower = strtolower($title);
     return createNode([
         'type' => 'industry_profile',
         'title' => $title,
-    ], 'https://www.workbc.ca/Labour-Market-Information/Industry-Information/Industry-Profiles/' . $regions_industries[strtolower($title)][COL_KENTICO]);
+        'field_job_board_id' => $regions_industries[$title_lower][COL_JOBBOARD],
+    ], 'https://www.workbc.ca/Labour-Market-Information/Industry-Information/Industry-Profiles/' . $regions_industries[$title_lower][COL_KENTICO]);
 }
 
 function createBlogNewsSuccessStory($item) {
@@ -395,7 +415,7 @@ function convertCards($cards, $card_type, &$items, &$container_paragraph) {
     $paragraphs = [];
     foreach ($cards as $card) {
         $empty = TRUE;
-        foreach (['Card Type', 'Title', 'Body', 'Image', 'Link Text', 'Link Target'] as $check) {
+        foreach (['Title', 'Body', 'Image', 'Link Text', 'Link Target'] as $check) {
             if (property_exists($card, $check) && !empty($card->$check)) $empty = FALSE;
         }
         if ($empty) continue;
@@ -505,11 +525,12 @@ function convertCardsPublications($cards, $card_type, &$items, &$container_parag
         }
 
         // Identify publication node related to this card and update it.
+        $publication_title = convertPlainText($card->{'Title'});
         $publications = Drupal::entityTypeManager()
         ->getStorage('node')
-        ->loadByProperties(['type' => 'publication', 'title' => convertPlainText($card->{'Title'})]);
+        ->loadByProperties(['type' => 'publication', 'title' => $publication_title]);
         if (empty($publications)) {
-            print("  Could not find publication \"$card->{'Title'}\". Ignoring" . PHP_EOL);
+            print("  Could not find publication \"$publication_title\". Ignoring" . PHP_EOL);
             continue;
         }
         $publication = current($publications);

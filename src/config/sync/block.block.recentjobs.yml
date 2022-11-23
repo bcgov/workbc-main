@@ -22,6 +22,7 @@ settings:
   job_board_sub_title: 'Explore recent job postings.'
   job_board_results_to_show: '3'
   job_board_no_result_text: 'There are no current job postings.'
+  job_board_results_to_show_horizontal_view: '4'
 visibility:
   not_node_type:
     id: not_node_type
@@ -37,4 +38,8 @@ visibility:
     context_mapping:
       node: '@node.node_route_context:node'
     bundles:
+      bc_profile: bc_profile
       career_profile: career_profile
+      industry_profile: industry_profile
+      region_profile: region_profile
+      workbc_centre: workbc_centre

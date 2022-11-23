@@ -9,6 +9,7 @@ dependencies:
     - field.field.node.publication.field_image
     - field.field.node.publication.field_publication
     - field.field.node.publication.field_resource_number
+    - image.style.feature_component
     - node.type.publication
   module:
     - file
@@ -47,7 +48,7 @@ content:
     label: above
     settings:
       image_link: ''
-      image_style: ''
+      image_style: feature_component
       svg_attributes:
         width: null
         height: null

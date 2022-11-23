@@ -11,6 +11,7 @@ dependencies:
     - field.field.node.workbc_centre.field_french_available
     - field.field.node.workbc_centre.field_geolocation
     - field.field.node.workbc_centre.field_hero_image
+    - field.field.node.workbc_centre.field_job_board_id
     - field.field.node.workbc_centre.field_phone
     - field.field.node.workbc_centre.field_related_topics
     - field.field.node.workbc_centre.field_scheduled_publish
@@ -22,10 +23,10 @@ dependencies:
   module:
     - address
     - content_moderation
-    - entity_reference_revisions
     - geolocation
     - image_widget_crop
     - link
+    - paragraphs
     - path
     - scheduled_publish
     - telephone
@@ -57,14 +58,16 @@ content:
       placeholder: ''
     third_party_settings: {  }
   field_content:
-    type: entity_reference_revisions_autocomplete
+    type: entity_reference_paragraphs
     weight: 134
     region: content
     settings:
-      match_operator: CONTAINS
-      match_limit: 10
-      size: 60
-      placeholder: ''
+      title: Paragraph
+      title_plural: Paragraphs
+      edit_mode: open
+      add_mode: dropdown
+      form_display_mode: default
+      default_paragraph_type: ''
     third_party_settings: {  }
   field_content_group:
     type: entity_reference_autocomplete
@@ -106,11 +109,19 @@ content:
       preview_image_style: thumbnail
       crop_preview_image_style: crop_thumbnail
       crop_list:
-        - crop_2_1
+        - crop_3_2
       crop_types_required: {  }
       warn_multiple_usages: true
       show_crop_area: true
       show_default_crop: true
+    third_party_settings: {  }
+  field_job_board_id:
+    type: string_textfield
+    weight: 138
+    region: content
+    settings:
+      size: 60
+      placeholder: ''
     third_party_settings: {  }
   field_phone:
     type: telephone_default

@@ -24,13 +24,13 @@ function convertImage($image) {
         $data = file_get_contents($image->download_url);
     }
     if ($data === FALSE) {
-        print("  Could not download file {$image->download_url}" . PHP_EOL);
+        print("  Error: Could not download file {$image->download_url}" . PHP_EOL);
         return NULL;
     }
     $filename = str_replace('/', '_', $image->file_id) . '-' . $image->filename;
-    $file = \Drupal::service('file.repository')->writeData($data, "public://$filename");
+    $file = \Drupal::service('file.repository')->writeData($data, "public://$filename", \Drupal\Core\File\FileSystemInterface::EXISTS_REPLACE);
     if (empty($file)) {
-        print(" Could not create file $filename" . PHP_EOL);
+        print("  Error: Could not create file $filename" . PHP_EOL);
         return NULL;
     }
 
@@ -39,6 +39,8 @@ function convertImage($image) {
         'target_id' => $file->id(),
         'alt' => empty($image->alt_text) ? $title : $image->alt_text,
         'title' => $title,
+        'uuid' => $file->uuid(),
+        'uri' => $file->createFileUrl(),
     ];
 }
 
@@ -88,11 +90,18 @@ function convertRichText($text, &$items = NULL) {
             $text
         );
     }
-    foreach (convertPDFLinks($text) as $item) {
+    foreach (convertWorkBCImageLinks($text) as $item) {
         $text = str_replace($item['match'], $item['replace'], $text);
     }
-    // TODO Detect links to workbc.ca and convert to Drupal links.
-    // TODO Convert uploaded images within rich text.
+    foreach (convertWorkBCFileLinks($text) as $item) {
+        $text = str_replace($item['match'], $item['replace'], $text);
+    }
+    foreach (convertWorkBCGeneralLinks($text) as $item) {
+        $text = str_replace($item['match'], $item['replace'], $text);
+    }
+    foreach (convertGatherContentImageLinks($text) as $item) {
+        $text = str_replace($item['match'], $item['replace'], $text);
+    }
     return ['format' => 'full_html', 'value' => $text];
 }
 
@@ -104,7 +113,7 @@ function convertVideo($url, $extra_fields = []) {
     if (empty($url)) return NULL;
 
     // Handle youtu.be shortener.
-    if (preg_match('/http.?:\/\/youtu.be\/(.*$)/i', $url, $match)) {
+    if (preg_match('/https?:\/\/youtu.be\/(.*$)/i', $url, $match)) {
         $url = "https://www.youtube.com/watch?v=" . $match[1];
     }
 
@@ -131,13 +140,6 @@ function convertVideo($url, $extra_fields = []) {
     return ['target_id' => $media->id()];
 }
 
-function convertDrupalLinks($text) {
-    if (!preg_match('/^\/(?:[-a-zA-Z0-9()@:%_\+.~#?&\/=]*)$/', $text, $matches)) {
-        return [];
-    }
-    return $matches;
-}
-
 function convertGatherContentLinks($text, &$items) {
     if (!preg_match_all('/https:\/\/number41media1\.gathercontent\.com\/item\/(\d+)/i', $text, $matches)) {
         return [];
@@ -149,7 +151,6 @@ function convertGatherContentLinks($text, &$items) {
 
         // Handle the case where $items does not contain the item.
         if (!array_key_exists($item_id, $items)) {
-            print("  Could not find related GatherContent item $item_id locally. Trying GC API..." . PHP_EOL);
             $email = getenv('GATHERCONTENT_EMAIL');
             $apiKey = getenv('GATHERCONTENT_APIKEY');
             $client = new \GuzzleHttp\Client();
@@ -170,7 +171,6 @@ function convertGatherContentLinks($text, &$items) {
             }
         }
         if (empty($items[$item_id]->nid)) {
-            print("  Could not find Drupal node for related GatherContent item $item_id locally. Trying Drupal API..." . PHP_EOL);
             $nodes = \Drupal::entityTypeManager()
             ->getStorage('node')
             ->loadByProperties(['title' => convertPlainText($items[$item_id]->title)]);
@@ -191,6 +191,7 @@ function convertGatherContentLinks($text, &$items) {
 
 function convertEmbeddableLinks($text) {
     // https://uibakery.io/regex-library/url
+    $matches = [];
     if (!preg_match_all('/[^"\'](https?:\/\/(?:www\.)?[-a-zA-Z0-9@:%._\+~#=]{1,256}\.[a-zA-Z0-9()]{1,6}\b(?:[-a-zA-Z0-9()@:%_\+.~#?&\/=]*))[^"\']/', $text, $matches)) {
         return [];
     }
@@ -198,7 +199,6 @@ function convertEmbeddableLinks($text) {
     $providers = \Drupal::service('media.oembed.provider_repository');
     $targets = [];
     foreach ($matches[1] as $url) {
-        print("  Verifying embeddable URL $url..." . PHP_EOL);
         foreach ($providers->getAll() as $provider_info) {
             foreach ($provider_info->getEndpoints() as $endpoint) {
                 if ($endpoint->matchUrl($url)) {
@@ -216,15 +216,15 @@ function convertEmbeddableLinks($text) {
     return $targets;
 }
 
-function convertPDFLinks($text) {
+function convertWorkBCFileLinks($text) {
     $matches = [];
-    if (!preg_match_all('|https://www.workbc.ca/getmedia/[a-zA-Z0-9-]+/([^"]+.pdf).aspx|', $text, $matches)) {
+    if (!preg_match_all('/https:\/\/www.workbc.ca\/getmedia\/[[:alnum:]-]+\/([^"#]+.(?:pdf|docx)).aspx/i', $text, $matches)) {
         return [];
     }
 
     $targets = [];
     foreach ($matches[0] as $m => $url) {
-        $filename = urldecode($matches[1][$m]);
+        $filename = $matches[1][$m];
         $local = __DIR__ . "/data/pdf/$filename";
         if (file_exists($local)) {
             $data = file_get_contents($local);
@@ -233,12 +233,12 @@ function convertPDFLinks($text) {
             $data = file_get_contents($url);
         }
         if ($data === FALSE) {
-            print("  Could not download file $url" . PHP_EOL);
+            print("  Error: Could not download file $url" . PHP_EOL);
             continue;
         }
-        $file = \Drupal::service('file.repository')->writeData($data, "public://$filename");
+        $file = \Drupal::service('file.repository')->writeData($data, "public://$filename", \Drupal\Core\File\FileSystemInterface::EXISTS_REPLACE);
         if (empty($file)) {
-            print(" Could not create file $filename" . PHP_EOL);
+            print("  Error: Could not create file $filename" . PHP_EOL);
             return NULL;
         }
         $targets[] = [
@@ -249,16 +249,150 @@ function convertPDFLinks($text) {
     return $targets;
 }
 
+function convertWorkBCGeneralLinks($text) {
+    $matches = [];
+    if (!preg_match_all('/https:\/\/(?:www.)?workbc.ca(\/[^"#]+)/i', $text, $matches)) {
+        return [];
+    }
+
+    $targets = [];
+    foreach ($matches[0] as $m => $url) {
+        // SPECIAL CASES: Exclude these from results.
+        foreach ([
+            '/careercompass',
+            '/careersearchtool',
+            '/careertransitiontool',
+        ] as $exclude) {
+            if (str_starts_with($matches[1][$m], $exclude)) {
+                continue 2;
+            }
+        }
+        $targets[] = [
+            'match' => $url,
+            'replace' => $matches[1][$m],
+        ];
+    }
+    return $targets;
+}
+
+function convertWorkBCImageLinks($text) {
+    $matches = [];
+    if (!preg_match_all('/<figure>.*?(https:\/\/www.workbc.ca\/getmedia\/[[:alnum:]-]+\/([^"#?]+.jpg).aspx|https:\/\/www.workbc.ca\/getattachment\/[[:alnum:]\/-]+\/([^"#?]+.jpg).aspx).*?<\/figure>/i', $text, $matches)) {
+        return [];
+    }
+
+    $targets = [];
+    foreach ($matches[0] as $m => $match) {
+        $url = $matches[1][$m];
+        $filename = !empty($matches[2][$m]) ? $matches[2][$m] : $matches[3][$m];
+        $local = __DIR__ . "/data/assets/$filename";
+        if (file_exists($local)) {
+            $data = file_get_contents($local);
+        }
+        else {
+            $data = file_get_contents($url);
+        }
+        if ($data === FALSE) {
+            print("  Error: Could not download file $url" . PHP_EOL);
+            continue;
+        }
+        $file = \Drupal::service('file.repository')->writeData($data, "public://$filename", \Drupal\Core\File\FileSystemInterface::EXISTS_REPLACE);
+        if (empty($file)) {
+            print("  Error: Could not create file $filename" . PHP_EOL);
+            return NULL;
+        }
+
+        // Build an <img> tag based on the image we found.
+        $alt = str_replace([".jpg", '"'], '', $filename);
+        $tag = '<img alt="' . $alt . '" data-entity-type="file" data-entity-uuid="' . $file->uuid() . '" src="' . $file->createFileUrl() . '" />';
+
+        $targets[] = [
+            'match' => $match,
+            'replace' => $tag,
+        ];
+    }
+    return $targets;
+}
+
+function convertGatherContentImageLinks($text) {
+    if (!preg_match_all('/<figure>.*?https:\/\/assets.gathercontent.com\/([[:alnum:]]+\/[[:alnum:]]+)\?(.*?)<\/figure>/i', $text, $matches)) {
+        return [];
+    }
+
+    $targets = [];
+    foreach ($matches[1] as $m => $match) {
+        $image_id = $match;
+        $email = getenv('GATHERCONTENT_EMAIL');
+        $apiKey = getenv('GATHERCONTENT_APIKEY');
+        $projectId = getenv('GATHERCONTENT_PROJECT_ID');
+        $client = new \GuzzleHttp\Client();
+        try {
+            $response = $client->request('GET', "https://api.gathercontent.com/projects/$projectId/files/$image_id", [
+                'headers' => [
+                    'accept' => 'application/vnd.gathercontent.v2+json',
+                    'authorization' => 'Basic ' . base64_encode($email . ':' . $apiKey),
+                ],
+            ]);
+            $image = json_decode($response->getBody())->data;
+            $image->file_id = $image_id;
+            $item = convertImage($image);
+
+            // Build an <img> tag based on the image we found.
+            $tag = '<img alt="' . $item['alt'] . '" data-entity-type="file" data-entity-uuid="' . $item['uuid'] . '" src="' . $item['uri'] . '"';
+
+            // Detect image width and/or height.
+            if (preg_match_all('/(?:^|&)(w|h)=(\d+)/', $matches[2][$m], $attrs)) {
+                $autos = ['width' => 'width="auto"', 'height' => 'height="auto"'];
+                foreach ($attrs[1] as $a => $attr) {
+                    if ($attr === 'w') {
+                        $tag .= ' width="' . $attrs[2][$a] . '"';
+                        unset($autos['width']);
+                    }
+                    else if ($attr === 'h') {
+                        $tag .= ' height="' . $attrs[2][$a] . '"';
+                        unset($autos['height']);
+                    }
+                }
+                $tag .= ' ' . join(' ', $autos);
+            }
+
+            $tag .= ' />';
+
+            $targets[] = [
+                'match' => $matches[0][$m],
+                'replace' => $tag,
+            ];
+        }
+        catch (Exception $e) {
+            print("  Error: Could not query GatherContent image $image_id: {$e->getMessage()}" . PHP_EOL);
+            continue;
+        }
+    }
+    return $targets;
+}
+
 function convertLink($text, $url, &$items) {
     $internal = convertGatherContentLinks($url, $items);
     if (!empty($internal)) {
         $target = "internal:/node/" . current($internal)['target_id'];
     }
-    else if (str_starts_with($url, '/')) {
-        $target = "internal:$url";
-    }
     else {
-        $target = $url;
+        $internal = convertWorkBCFileLinks($url);
+        if (!empty($internal)) {
+            $target = "internal:" . current($internal)['replace'];
+        }
+        else {
+            $internal = convertWorkBCGeneralLinks($url);
+            if (!empty($internal)) {
+                $target = "internal:" . current($internal)['replace'];
+            }
+            else if (str_starts_with($url, '/')) {
+                $target = "internal:$url";
+            }
+            else {
+                $target = $url;
+            }
+        }
     }
     return [
         'title' => $text,
@@ -334,7 +468,7 @@ function loadNodeByTitleParent($title, $parent) {
     ->getStorage('node')
     ->loadByProperties(['title' => $title]);
     if (empty($nodes)) {
-        print("  Could not find any node with title \"$title\". Ignoring" . PHP_EOL);
+        print("  Warning: Could not find any node with title \"$title\"" . PHP_EOL);
         return false;
     }
     else if (count($nodes) > 1) {
