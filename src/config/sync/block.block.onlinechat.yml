@@ -12,8 +12,8 @@ dependencies:
     - workbc
 id: onlinechat
 theme: workbc
-region: content_bottom
-weight: -6
+region: hidden
+weight: -9
 provider: null
 plugin: 'simple_block:online_chat'
 settings:
