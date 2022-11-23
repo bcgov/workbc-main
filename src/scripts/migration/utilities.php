@@ -90,10 +90,13 @@ function convertRichText($text, &$items = NULL) {
             $text
         );
     }
-    foreach (convertPDFLinks($text) as $item) {
+    foreach (convertWorkBCImageLinks($text) as $item) {
         $text = str_replace($item['match'], $item['replace'], $text);
     }
-    foreach (convertWorkBCLinks($text) as $item) {
+    foreach (convertWorkBCFileLinks($text) as $item) {
+        $text = str_replace($item['match'], $item['replace'], $text);
+    }
+    foreach (convertWorkBCGeneralLinks($text) as $item) {
         $text = str_replace($item['match'], $item['replace'], $text);
     }
     foreach (convertGatherContentImageLinks($text) as $item) {
@@ -188,6 +191,7 @@ function convertGatherContentLinks($text, &$items) {
 
 function convertEmbeddableLinks($text) {
     // https://uibakery.io/regex-library/url
+    $matches = [];
     if (!preg_match_all('/[^"\'](https?:\/\/(?:www\.)?[-a-zA-Z0-9@:%._\+~#=]{1,256}\.[a-zA-Z0-9()]{1,6}\b(?:[-a-zA-Z0-9()@:%_\+.~#?&\/=]*))[^"\']/', $text, $matches)) {
         return [];
     }
@@ -212,7 +216,7 @@ function convertEmbeddableLinks($text) {
     return $targets;
 }
 
-function convertPDFLinks($text) {
+function convertWorkBCFileLinks($text) {
     $matches = [];
     if (!preg_match_all('/https:\/\/www.workbc.ca\/getmedia\/[[:alnum:]-]+\/([^"#]+.(?:pdf|docx)).aspx/i', $text, $matches)) {
         return [];
@@ -245,7 +249,7 @@ function convertPDFLinks($text) {
     return $targets;
 }
 
-function convertWorkBCLinks($text) {
+function convertWorkBCGeneralLinks($text) {
     $matches = [];
     if (!preg_match_all('/https:\/\/(?:www.)?workbc.ca(\/[^"#]+)/i', $text, $matches)) {
         return [];
@@ -266,6 +270,45 @@ function convertWorkBCLinks($text) {
         $targets[] = [
             'match' => $url,
             'replace' => $matches[1][$m],
+        ];
+    }
+    return $targets;
+}
+
+function convertWorkBCImageLinks($text) {
+    $matches = [];
+    if (!preg_match_all('/<figure>.*?(https:\/\/www.workbc.ca\/getmedia\/[[:alnum:]-]+\/([^"#?]+.jpg).aspx|https:\/\/www.workbc.ca\/getattachment\/[[:alnum:]\/-]+\/([^"#?]+.jpg).aspx).*?<\/figure>/i', $text, $matches)) {
+        return [];
+    }
+
+    $targets = [];
+    foreach ($matches[0] as $m => $match) {
+        $url = $matches[1][$m];
+        $filename = !empty($matches[2][$m]) ? $matches[2][$m] : $matches[3][$m];
+        $local = __DIR__ . "/data/assets/$filename";
+        if (file_exists($local)) {
+            $data = file_get_contents($local);
+        }
+        else {
+            $data = file_get_contents($url);
+        }
+        if ($data === FALSE) {
+            print("  Error: Could not download file $url" . PHP_EOL);
+            continue;
+        }
+        $file = \Drupal::service('file.repository')->writeData($data, "public://$filename", \Drupal\Core\File\FileSystemInterface::EXISTS_REPLACE);
+        if (empty($file)) {
+            print("  Error: Could not create file $filename" . PHP_EOL);
+            return NULL;
+        }
+
+        // Build an <img> tag based on the image we found.
+        $alt = str_replace([".jpg", '"'], '', $filename);
+        $tag = '<img alt="' . $alt . '" data-entity-type="file" data-entity-uuid="' . $file->uuid() . '" src="' . $file->createFileUrl() . '" />';
+
+        $targets[] = [
+            'match' => $match,
+            'replace' => $tag,
         ];
     }
     return $targets;
@@ -334,12 +377,12 @@ function convertLink($text, $url, &$items) {
         $target = "internal:/node/" . current($internal)['target_id'];
     }
     else {
-        $internal = convertPDFLinks($url);
+        $internal = convertWorkBCFileLinks($url);
         if (!empty($internal)) {
             $target = "internal:" . current($internal)['replace'];
         }
         else {
-            $internal = convertWorkBCLinks($url);
+            $internal = convertWorkBCGeneralLinks($url);
             if (!empty($internal)) {
                 $target = "internal:" . current($internal)['replace'];
             }
