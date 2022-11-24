@@ -379,6 +379,7 @@ display:
           replica: false
           query_tags: {  }
       relationships: {  }
+      css_class: content-form
       header: {  }
       footer:
         area:
