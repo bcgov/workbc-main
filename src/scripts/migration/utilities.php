@@ -16,23 +16,8 @@ function convertCheck($check_field) {
 function convertImage($image) {
     if (empty($image)) return NULL;
 
-    $local = __DIR__ . "/data/assets/{$image->filename}";
-    if (file_exists($local)) {
-        $data = file_get_contents($local);
-    }
-    else {
-        $data = file_get_contents($image->download_url);
-    }
-    if ($data === FALSE) {
-        print("  Error: Could not download file {$image->download_url}" . PHP_EOL);
-        return NULL;
-    }
-    $filename = str_replace('/', '_', $image->file_id) . '-' . $image->filename;
-    $file = \Drupal::service('file.repository')->writeData($data, "public://$filename", \Drupal\Core\File\FileSystemInterface::EXISTS_REPLACE);
-    if (empty($file)) {
-        print("  Error: Could not create file $filename" . PHP_EOL);
-        return NULL;
-    }
+    $file = createFile($image->download_url, 'assets', $image->filename, str_replace('/', '_', $image->file_id) . '-' . $image->filename);
+    if (empty($file)) return NULL;
 
     $title = pathinfo($image->filename, PATHINFO_FILENAME);
     return [
@@ -224,23 +209,9 @@ function convertWorkBCFileLinks($text) {
 
     $targets = [];
     foreach ($matches[0] as $m => $url) {
-        $filename = $matches[1][$m];
-        $local = __DIR__ . "/data/pdf/$filename";
-        if (file_exists($local)) {
-            $data = file_get_contents($local);
-        }
-        else {
-            $data = file_get_contents($url);
-        }
-        if ($data === FALSE) {
-            print("  Error: Could not download file $url" . PHP_EOL);
-            continue;
-        }
-        $file = \Drupal::service('file.repository')->writeData($data, "public://$filename", \Drupal\Core\File\FileSystemInterface::EXISTS_REPLACE);
-        if (empty($file)) {
-            print("  Error: Could not create file $filename" . PHP_EOL);
-            return NULL;
-        }
+        $file = createFile($url, 'pdf', $matches[1][$m], $matches[1][$m]);
+        if (empty($file)) continue;
+
         $targets[] = [
             'match' => $url,
             'replace' => $file->createFileUrl(),
@@ -277,33 +248,18 @@ function convertWorkBCGeneralLinks($text) {
 
 function convertWorkBCImageLinks($text) {
     $matches = [];
-    if (!preg_match_all('/<figure>.*?(https:\/\/www.workbc.ca\/getmedia\/[[:alnum:]-]+\/([^"#?]+.jpg).aspx|https:\/\/www.workbc.ca\/getattachment\/[[:alnum:]\/-]+\/([^"#?]+.jpg).aspx).*?<\/figure>/i', $text, $matches)) {
+    if (!preg_match_all('/<figure>.*?(https:\/\/www.workbc.ca\/getmedia\/[[:alnum:]-]+\/([^"#?]+.(?:jpg|png)).aspx|https:\/\/www.workbc.ca\/getattachment\/[[:alnum:]\/-]+\/([^"#?]+.(?:jpg|png)).aspx).*?<\/figure>/i', $text, $matches)) {
         return [];
     }
 
     $targets = [];
     foreach ($matches[0] as $m => $match) {
-        $url = $matches[1][$m];
         $filename = !empty($matches[2][$m]) ? $matches[2][$m] : $matches[3][$m];
-        $local = __DIR__ . "/data/assets/$filename";
-        if (file_exists($local)) {
-            $data = file_get_contents($local);
-        }
-        else {
-            $data = file_get_contents($url);
-        }
-        if ($data === FALSE) {
-            print("  Error: Could not download file $url" . PHP_EOL);
-            continue;
-        }
-        $file = \Drupal::service('file.repository')->writeData($data, "public://$filename", \Drupal\Core\File\FileSystemInterface::EXISTS_REPLACE);
-        if (empty($file)) {
-            print("  Error: Could not create file $filename" . PHP_EOL);
-            return NULL;
-        }
+        $file = createFile($matches[1][$m], 'assets', $filename, $filename);
+        if (empty($file)) continue;
 
         // Build an <img> tag based on the image we found.
-        $alt = str_replace([".jpg", '"'], '', $filename);
+        $alt = str_replace('"', '', pathinfo($filename, PATHINFO_FILENAME));
         $tag = '<img alt="' . $alt . '" data-entity-type="file" data-entity-uuid="' . $file->uuid() . '" src="' . $file->createFileUrl() . '" />';
 
         $targets[] = [
@@ -413,6 +369,27 @@ function convertResources($resources) {
     }));
 }
 
+function createFile($url, $dataFolder, $dataFilename, $finalFilename) {
+    $local = __DIR__ . "/data/$dataFolder/$dataFilename";
+    $data = FALSE;
+    if (file_exists($local)) {
+        $data = file_get_contents($local);
+    }
+    else if (!empty($url)) {
+        $data = file_get_contents($url);
+    }
+    if ($data === FALSE) {
+        print("  Error: Could not download file $local ($url)" . PHP_EOL);
+        return NULL;
+    }
+    $file = \Drupal::service('file.repository')->writeData($data, "public://$finalFilename", \Drupal\Core\File\FileSystemInterface::EXISTS_REPLACE);
+    if (empty($file)) {
+        print("  Error: Could not create file $finalFilename" . PHP_EOL);
+        return NULL;
+    }
+    return $file;
+}
+
 function createNode($fields, $legacy_urls = null) {
     // Defaults.
     if (!array_key_exists('uid', $fields)) {
@@ -458,7 +435,7 @@ function createRedirection($legacy_urls, $target_url) {
     }
 }
 
-function loadNodeByTitleParent($title, $parent) {
+function findNode($title, $parent) {
     // Identifying an existing node by title is sometimes not enough because some pages have non-unique titles.
     // If so, we identify the node by its position in the navigation menu:
     // 1. Identify the parent menu item in the navigation menu (assumed to be unique)

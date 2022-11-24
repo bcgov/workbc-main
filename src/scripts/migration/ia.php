@@ -68,9 +68,9 @@ const COL_CONTENT_GROUP = 14;
 const COL_VIEW_MODE = 15;
 $file = __DIR__ . '/data/ia.csv';
 if (($handle = fopen($file, 'r')) === FALSE) {
-    die("Could not open IA spreadsheet $file" . PHP_EOL);
+    die("Could not open IA CSV $file" . PHP_EOL);
 }
-print("Importing IA spreadsheet $file" . PHP_EOL);
+print("Importing IA CSV $file" . PHP_EOL);
 
 // FIRST PASS: Create all the nodes.
 print("FIRST PASS =================" . PHP_EOL);

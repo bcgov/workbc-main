@@ -8,16 +8,16 @@ dependencies:
     - field.field.node.workbc_centre.field_content
     - field.field.node.workbc_centre.field_content_group
     - field.field.node.workbc_centre.field_email
-    - field.field.node.workbc_centre.field_french_available
     - field.field.node.workbc_centre.field_geolocation
     - field.field.node.workbc_centre.field_hero_image
     - field.field.node.workbc_centre.field_job_board_id
+    - field.field.node.workbc_centre.field_multilingual_centre
     - field.field.node.workbc_centre.field_phone
     - field.field.node.workbc_centre.field_related_topics
     - field.field.node.workbc_centre.field_scheduled_publish
     - field.field.node.workbc_centre.field_website
     - field.field.node.workbc_centre.field_working_hours
-    - filter.format.basic_html
+    - filter.format.full_html
     - node.type.workbc_centre
   module:
     - address
@@ -27,7 +27,6 @@ dependencies:
     - link
     - scheduled_publish
     - svg_image
-    - telephone
     - text
     - user
 third_party_settings:
@@ -101,23 +100,13 @@ content:
     third_party_settings: {  }
     weight: 17
     region: content
-  field_french_available:
-    type: boolean
-    label: hidden
-    settings:
-      format: true-false
-      format_custom_false: ''
-      format_custom_true: ''
-    third_party_settings: {  }
-    weight: 5
-    region: content
   field_geolocation:
     type: geolocation_token
     label: hidden
     settings:
       tokenized_text:
-        value: "<p><a target=\"_blank\" href=\"https://google.com/maps/search/?api=1&amp;query=[geolocation_current_item:lat],[geolocation_current_item:lng]\">Get Directions</a></p>\r\n"
-        format: basic_html
+        value: "<p><a target=\"_blank\" rel=\"noopener noreferrer\" href=\"https://google.com/maps/search/?api=1&amp;query=[geolocation_current_item:lat],[geolocation_current_item:lng]\" target=\"_blank\">Get Directions</a></p>\r\n"
+        format: full_html
     third_party_settings: {  }
     weight: 16
     region: content
@@ -144,11 +133,23 @@ content:
     third_party_settings: {  }
     weight: 19
     region: content
-  field_phone:
-    type: telephone_link
+  field_multilingual_centre:
+    type: link
     label: hidden
     settings:
-      title: ''
+      trim_length: 80
+      url_only: false
+      url_plain: false
+      rel: ''
+      target: ''
+    third_party_settings: {  }
+    weight: 20
+    region: content
+  field_phone:
+    type: string
+    label: hidden
+    settings:
+      link_to_entity: false
     third_party_settings: {  }
     weight: 15
     region: content

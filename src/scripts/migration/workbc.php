@@ -126,7 +126,7 @@ foreach ($items as $id => $item) {
 
     print("Querying \"$title\"..." . PHP_EOL);
 
-    $node = loadNodeByTitleParent($title, $item->folder);
+    $node = findNode($title, $item->folder);
     if (empty($node)) {
         $node = createItem($item);
         if (empty($node)) {
@@ -260,7 +260,7 @@ try {
         continue;
     }
 
-    $node = loadNodeByTitleParent($title, $item->folder);
+    $node = findNode($title, $item->folder);
     if (empty($node)) {
         print("  Error: Could not find node" . PHP_EOL);
         continue;

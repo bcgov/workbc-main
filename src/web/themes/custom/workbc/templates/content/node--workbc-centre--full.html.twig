@@ -90,13 +90,11 @@
   },
   address_contact: content.group_address_contact_informatio,
   hours: content.field_working_hours,
-  french_available: content.field_french_available.0['#markup'] == 'True',
   alert: content.field_alert[0],
-
   main_content: content.field_content,
-
   recent_jobs: content.extra_field_wbcc_recent_jobs,
   links: content.links,
+  multilingual: content.field_multilingual_centre
 }
 %}
 
@@ -139,9 +137,9 @@
   </div>
 </div>
 
-{% if viewmodel['french_available'] %}
+{% if viewmodel['multilingual'] %}
   <div class="container-lg d-flex justify-content-center">
-    Services disponibles en français
+    {{ viewmodel['multilingual'] }}
   </div>
 {% endif %}
 
