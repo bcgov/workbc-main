@@ -38,7 +38,6 @@ If errors still persist, you may need to manually enable new modules before runn
 
 ## Updating local dev environment from a deployment stage
 You may want to get the latest data from a deployment stage (DEV, TEST or PROD). In that case, follow these steps:
-- Delete all your local `workbc` database tables (e.g. using a database manager such as the excellent [DBeaver](https://dbeaver.io/))
 - Import the init data dump `gunzip -k -c src/scripts/workbc-init.sql.gz | docker-compose exec -T postgres psql -U workbc workbc`
 - Download a fresh dump from your desired stage via Backup/Migrate module at `https://<stage>.workbc.ca/admin/config/development/backup_migrate` and select Backup Source **Default Drupal Database**
 - Restore the fresh dump on your local at http://workbc.docker.localhost:8000/admin/config/development/backup_migrate/restore
