@@ -79,7 +79,7 @@ elements: |-
     yes_participants:
       '#type': radios
       '#title': '2. Please choose the answer that best fits your project:'
-      '#description': 'NOTE: You may be required to consult with local WorkBC Centre(s) regarding availability of participants prior to submitting your application for funding.&nbsp;'
+      '#description': '<strong>NOTE: You may be required to consult with local WorkBC Centre(s) regarding availability of participants prior to submitting your application for funding.&nbsp;</strong>'
       '#description_display': before
       '#options':
         1: 'The main intent of your project is -- to provide valuable, relevant and finite work experience to participants on a project that will also benefit the larger community.'
