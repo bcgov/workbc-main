@@ -7,6 +7,11 @@ use GuzzleHttp\Exception\RequestException;
 
 const SEARCH_POST = 'api/Search/JobSearch';
 
+const GETTOTAL_JOBS = 'api/Search/gettotaljobs';
+
+const GET_CITIES = 'api/location/cities';
+
+
 /**
  *{@inheritdoc}
  */
@@ -22,7 +27,7 @@ class apiServices extends ControllerBase{
   /**
    *{@inheritdoc}
 	 */
-  function fnGetPost($parameter='', $action="SearchPost", $method="post") {
+  function fnGetPost($parameter='', $action="", $method="") {
     $options = [];
     $options['read_timeout'] = null;
     if($action == 'SearchPost'){
@@ -32,6 +37,21 @@ class apiServices extends ControllerBase{
         'Accept' => 'application/json',
         'Content-Type' => 'application/json'
       ];
+    }
+    else if ($action == 'getTotalJobs'){
+      $jobboard_api_url = \Drupal::config('jobboard')->get('jobboard_api_url_backend').'/'.GETTOTAL_JOBS;
+    }
+    else if ($action == 'getCities'){
+      $jobboard_api_url = \Drupal::config('jobboard')->get('jobboard_api_url_backend').'/'.GET_CITIES;
+    }
+    if($method == 'get'){
+      if(is_array($parameter)){
+        foreach($parameter as $para){
+          $jobboard_api_url .= '/'.$para;
+        }
+      }else {
+        $jobboard_api_url .= '/'.$parameter;
+      }
     }
     try {
       $client = new Client();

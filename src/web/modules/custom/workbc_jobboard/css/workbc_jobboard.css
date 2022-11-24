@@ -111,3 +111,5 @@ app-root input[type=checkbox],app-root input[type=radio] {
 }
 app-root .job-search-contain .icon-wrap, app-root .job-search-contain .icon-wrap.small, app-root .modal .icon-wrap.small,app-root .account-contain .icon-wrap, app-root .modal .icon-wrap {display:inline-block;}
 app-root .account-contain app-account-dashboard .card .btn{margin:0px;}
+
+.job-search__form-container .form-radios{width:100%;margin-bottom: 20px; display: flex; gap: 20px;}
