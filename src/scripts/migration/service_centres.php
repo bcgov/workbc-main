@@ -40,7 +40,7 @@ $file = __DIR__ . '/data/service_centres.csv';
 if (($handle = fopen($file, 'r')) === FALSE) {
     die("Could not open Service Centres CSV $file" . PHP_EOL);
 }
-print("Importing Service Centres $file" . PHP_EOL);
+print("Importing Service Centres CSV $file" . PHP_EOL);
 
 // FIRST PASS: Create all the nodes.
 print("FIRST PASS =================" . PHP_EOL);
