@@ -47,16 +47,9 @@ while (($row = fgetcsv($handle)) !== FALSE) {
     }
 
     // Find the related file.
-    $filename = $row[COL_FILE];
-    $local = __DIR__ . "/data/pdf/$filename";
-    if (file_exists($local)) {
-        $data = file_get_contents($local);
-    }
-    else {
-        print("  Could not find file \"$filename\" locally. Aborting" . PHP_EOL);
-        continue;
-    }
-    $file = \Drupal::service('file.repository')->writeData($data, "public://$filename", \Drupal\Core\File\FileSystemInterface::EXISTS_REPLACE);
+    $file = createFile(NULL, 'pdf', $row[COL_FILE], $row[COL_FILE]);
+    if (empty($file)) continue;
+
     $fields['field_publication'] = [
         'target_id' => $file->id(),
     ];
