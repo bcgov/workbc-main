@@ -70,8 +70,30 @@
   text-align: center;
 }
 
+// Industry Profiles Table
+.view-industry-profiles .view-footer {
+  margin-top: 20px;
+  font-size: .875rem;
+  color: #666;
+}
+
 // Confirmation Message
 .webform-confirmation__message {
   font-size: 1.25rem;
   font-weight: 700;
+}
+
+
+// Self-Assessment Questionnaire
+.progress-marker::before {
+  z-index: 2;
+}
+
+.webform-submission-funding-questionnaire-form .description {
+  margin-bottom: 20px;
+}
+
+.webform-progress-tracker li[data-webform-page="webform_confirmation"],
+.webform-progress-tracker li[data-webform-page="result"] .progress-marker:after {
+  display: none;
 }
