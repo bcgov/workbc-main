@@ -1,0 +1,33 @@
+uuid: c25ae7da-fbcf-4103-a5ab-f1ea9e1e37db
+langcode: en
+status: true
+dependencies:
+  module:
+    - block_visibility_conditions
+    - workbc_jobboard
+  theme:
+    - workbc
+id: searchrecentjobs
+theme: workbc
+region: hidden
+weight: 0
+provider: null
+plugin: workbc_jobboard_search_recent_jobs
+settings:
+  id: workbc_jobboard_search_recent_jobs
+  label: 'Search Jobs'
+  label_display: '0'
+  provider: workbc_jobboard
+  job_board_findjob_title: ' Search <strong>@JOBS jobs</strong> in B.C. '
+  job_board_findjob_description: 'Refine results by using keywords and selecting Job Title, Job Description and/or Employer. Or perform a direct search by entering the Job Number.'
+  job_board_postjob_title: ' Post jobs'
+  job_board_postjob_description: 'Use B.C.''s most comprehensive job board to post jobs for free and find the right people to help your business grow. With hundreds of thousands of job seekers using the site, it''s a great way to find new talent.'
+visibility:
+  not_node_type:
+    id: not_node_type
+    bundles: {  }
+    negate: null
+  not_taxonomy_vocabulary:
+    id: not_taxonomy_vocabulary
+    bundles: {  }
+    negate: null
