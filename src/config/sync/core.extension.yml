@@ -8,6 +8,7 @@ module:
   admin_toolbar_search: 0
   admin_toolbar_tools: 0
   auto_username: 0
+  automated_cron: 0
   backup_migrate: 0
   backup_migrate_aws_s3: 0
   better_social_sharing_buttons: 0
@@ -61,6 +62,7 @@ module:
   fvm: 0
   gdx_analytics_drupal_snowplow: 0
   geolocation: 0
+  gtranslate: 0
   health_check: 0
   help: 0
   history: 0
