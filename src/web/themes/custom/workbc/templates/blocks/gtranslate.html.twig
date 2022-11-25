@@ -1,0 +1,17 @@
+{#
+/**
+ * @file
+ * Template for the gtranslate block
+ * Available variables:
+ * - gtranslate_html: html of the gtranslate block.
+ */
+#}
+<div class="text-resize">
+  <div class="text-resize__label">
+    {{ 'View in Other Languages:'|t }}
+  </div>
+  <div class="gtranslate">
+    {{ gtranslate_html|raw }}
+    <div class="gtranslate-bottom-text"><p>{{ 'Powered by Google Translate'|t }}</p></div>
+ </div>
+</div>

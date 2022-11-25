@@ -209,6 +209,9 @@
             },
             "drupal/redirect": {
                 "Ignore query strings": "patches/drupal/redirect/2976930-redirect-hashes-created-when-not-retaining-the-query-string-2.patch"
+            },
+            "drupal/gtranslate" : {
+               "Replace Select language by the dafault/current language": "https://www.drupal.org/files/issues/2022-10-24/select_default_value.patch"
             }
         }
     }
