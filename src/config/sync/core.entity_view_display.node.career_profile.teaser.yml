@@ -23,18 +23,22 @@ dependencies:
     - field.field.node.career_profile.field_work_environment
     - node.type.career_profile
   module:
+    - text
     - user
 id: node.career_profile.teaser
 targetEntityType: node
 bundle: career_profile
 mode: teaser
 content:
-  content_moderation_control:
+  field_career_overview:
+    type: text_default
+    label: visually_hidden
     settings: {  }
     third_party_settings: {  }
-    weight: -20
+    weight: 0
     region: content
 hidden:
+  content_moderation_control: true
   extra_field_annual_salary: true
   extra_field_annual_salary_source: true
   extra_field_career_videos_introduction: true
@@ -75,7 +79,6 @@ hidden:
   extra_field_work_environment_source: true
   extra_field_workbc_page_title: true
   extra_field_workbc_published_on: true
-  field_career_overview: true
   field_career_pathways: true
   field_career_videos: true
   field_career_videos_introduction: true

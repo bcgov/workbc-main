@@ -1,0 +1,51 @@
+uuid: fa4ad757-f98f-42a9-970d-a5ff214c6ce4
+langcode: en
+status: false
+dependencies:
+  config:
+    - core.entity_view_mode.node.search_result
+    - field.field.node.page.body
+    - field.field.node.page.field_content
+    - field.field.node.page.field_content_group
+    - field.field.node.page.field_hero_image
+    - field.field.node.page.field_hero_text
+    - field.field.node.page.field_page_format
+    - field.field.node.page.field_related_topics
+    - field.field.node.page.field_related_topics_blurb
+    - field.field.node.page.field_scheduled_publish
+    - field.field.node.page.view_mode_selection
+    - node.type.page
+  module:
+    - text
+    - user
+_core:
+  default_config_hash: M_Y8L5tfmhx7DR143E05YyZSpvgil6VFvqcfBWykalg
+id: node.page.search_result
+targetEntityType: node
+bundle: page
+mode: search_result
+content:
+  body:
+    type: text_summary_or_trimmed
+    label: hidden
+    settings:
+      trim_length: 300
+    third_party_settings: {  }
+    weight: 0
+    region: content
+hidden:
+  content_moderation_control: true
+  extra_field_workbc_page_title: true
+  extra_field_workbc_published_on: true
+  field_content: true
+  field_content_group: true
+  field_hero_image: true
+  field_hero_text: true
+  field_page_format: true
+  field_related_topics: true
+  field_related_topics_blurb: true
+  field_scheduled_publish: true
+  langcode: true
+  links: true
+  search_api_excerpt: true
+  view_mode_selection: true

@@ -9,13 +9,19 @@ definitions:
     enabled: false
   user__page:
     menu_name: account
-    parent: 'menu_link_content:c4adf0e1-0787-4486-a991-818a278b3378'
+    parent: ''
     weight: -47
     expanded: false
-    enabled: true
+    enabled: false
   user__logout:
     menu_name: account
-    parent: 'menu_link_content:c4adf0e1-0787-4486-a991-818a278b3378'
+    parent: ''
     weight: -46
     expanded: false
-    enabled: true
+    enabled: false
+  registration_link__user_register:
+    menu_name: account
+    parent: ''
+    weight: 10
+    expanded: false
+    enabled: false

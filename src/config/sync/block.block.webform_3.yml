@@ -12,8 +12,8 @@ dependencies:
     - workbc
 id: webform_3
 theme: workbc
-region: content_bottom
-weight: -8
+region: hidden
+weight: -10
 provider: null
 plugin: webform_block
 settings:

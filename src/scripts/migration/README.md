@@ -10,20 +10,11 @@ The architecture of the migration system is exceedingly simple: it consists of a
 
 # Running the migration
 Assuming an initialized WorkBC Drupal database and updated data files:
+```shell
+scripts/migration/download.sh
+scripts/migration/migration.sh
 ```
-drush scr scripts/migration/taxonomy -- -v definitions /var/www/html/scripts/migration/data/definitions.csv
-drush scr scripts/migration/taxonomy -- -v event_type /var/www/html/scripts/migration/data/event_type.csv
-drush scr scripts/migration/taxonomy -- -v occupational_interests /var/www/html/scripts/migration/data/occupational_interests.csv
-drush scr scripts/migration/taxonomy -- -v video_categories /var/www/html/scripts/migration/data/video_categories.csv
-drush scr scripts/migration/taxonomy -- -v content_groups /var/www/html/scripts/migration/data/content_groups.csv
-drush scr scripts/migration/skills
-drush scr scripts/migration/education
-drush scr scripts/migration/video_library
-drush scr scripts/migration/ia
-drush scr scripts/migration/workbc
-drush scr scripts/migration/career_profiles
-```
-For more details, refer to the headers of these scripts.
+For more details, refer to the source of these scripts.
 
 # Data sources
 The sources providing original WorkBC content are the following:
@@ -33,8 +24,8 @@ The business team maintains an Excel spreadsheet that defines the content tree o
 
 The development team maintains a copy of the IA spreadsheet that is annotated with various implementation-related information for each IA item. These are:
 - The Drupal content type for each item, which is used to instantiate the correct type during migration (column **Drupal Content Type**)
-- The GatherContent link for each item, which is used to populate the corresponding Drupal object (column **TODO**)
 - Whether the item should appear in the main navigation menu (column **Mega Menu?**)
+- the Legacy URL(s), if any, that Drupal should support to redirect to the created content (column **Current URL**)
 - The specific URL, if any, that the item should have in the header menu (column **New URL**)
 - The page format: `standard`, `sidenav`, `wide` (column **Page Format**)
 - The content group: `WorkBC`, `WDA`, `SDPR` (column **Content Group**)
