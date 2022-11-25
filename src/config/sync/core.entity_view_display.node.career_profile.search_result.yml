@@ -1,9 +1,9 @@
-uuid: cdf1be19-aa42-4a2f-98f0-f468b14f9a6a
+uuid: 5faa42ec-3872-4586-acaa-0661bdd24d23
 langcode: en
-status: true
+status: false
 dependencies:
   config:
-    - core.entity_view_mode.node.teaser
+    - core.entity_view_mode.node.search_result
     - field.field.node.career_profile.field_career_overview
     - field.field.node.career_profile.field_career_pathways
     - field.field.node.career_profile.field_career_videos
@@ -23,17 +23,109 @@ dependencies:
     - field.field.node.career_profile.field_work_environment
     - node.type.career_profile
   module:
+    - field_group
     - text
     - user
-id: node.career_profile.teaser
+third_party_settings:
+  field_group:
+    group_career_profile_tabs:
+      children: {  }
+      label: 'Career Profile Tabs'
+      parent_name: ''
+      region: hidden
+      weight: 59
+      format_type: tabs
+      format_settings:
+        classes: ''
+        show_empty_fields: true
+        id: ''
+        direction: horizontal
+        width_breakpoint: 640
+    group_career_overview:
+      children: {  }
+      label: 'Career Overview'
+      parent_name: ''
+      region: hidden
+      weight: 60
+      format_type: tab
+      format_settings:
+        classes: ''
+        show_empty_fields: true
+        id: ''
+        formatter: open
+        description: ''
+    group_education_training_skills:
+      children: {  }
+      label: 'Education, Training & Skills'
+      parent_name: ''
+      region: hidden
+      weight: 61
+      format_type: tab
+      format_settings:
+        classes: ''
+        show_empty_fields: true
+        id: ''
+        formatter: open
+        description: ''
+    group_labour_market_statistics:
+      children: {  }
+      label: 'Labour Market Statistics'
+      parent_name: ''
+      region: hidden
+      weight: 62
+      format_type: tab
+      format_settings:
+        classes: ''
+        show_empty_fields: true
+        id: ''
+        formatter: open
+        description: ''
+    group_industry_highlights:
+      children: {  }
+      label: 'Industry Highlights'
+      parent_name: ''
+      region: hidden
+      weight: 63
+      format_type: tab
+      format_settings:
+        classes: ''
+        show_empty_fields: true
+        id: ''
+        formatter: open
+        description: ''
+    group_resources:
+      children: {  }
+      label: Resources
+      parent_name: ''
+      region: hidden
+      weight: 64
+      format_type: tab
+      format_settings:
+        classes: ''
+        show_empty_fields: true
+        id: ''
+        formatter: open
+        description: ''
+id: node.career_profile.search_result
 targetEntityType: node
 bundle: career_profile
-mode: teaser
+mode: search_result
 content:
-  field_career_overview:
-    type: text_default
-    label: visually_hidden
+  extra_field_career_videos_introduction:
     settings: {  }
+    third_party_settings: {  }
+    weight: 9
+    region: content
+  extra_field_employment_introduction:
+    settings: {  }
+    third_party_settings: {  }
+    weight: 62
+    region: content
+  field_career_overview:
+    type: text_trimmed
+    label: hidden
+    settings:
+      trim_length: 300
     third_party_settings: {  }
     weight: 0
     region: content
@@ -41,10 +133,8 @@ hidden:
   content_moderation_control: true
   extra_field_annual_salary: true
   extra_field_annual_salary_source: true
-  extra_field_career_videos_introduction: true
   extra_field_education_programs: true
   extra_field_employment_growth_rate_forecast: true
-  extra_field_employment_introduction: true
   extra_field_high_opportunity_occupation: true
   extra_field_industry_highlights_intro: true
   extra_field_job_openings: true
