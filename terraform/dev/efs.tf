@@ -21,3 +21,11 @@ resource "aws_efs_mount_target" "data_azB" {
   subnet_id       = sort(module.network.aws_subnet_ids.data.ids)[1]
   security_groups = [data.aws_security_group.app.id]
 }
+  
+resource "aws_efs_backup_policy" "workbc-efs-backups-policy" {
+  file_system_id = aws_efs_file_system.workbc.id
+
+  backup_policy {
+    status = "ENABLED"
+  }
+}
