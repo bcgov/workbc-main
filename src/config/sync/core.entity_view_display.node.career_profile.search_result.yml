@@ -1,0 +1,190 @@
+uuid: 5faa42ec-3872-4586-acaa-0661bdd24d23
+langcode: en
+status: false
+dependencies:
+  config:
+    - core.entity_view_mode.node.search_result
+    - field.field.node.career_profile.field_career_overview
+    - field.field.node.career_profile.field_career_pathways
+    - field.field.node.career_profile.field_career_videos
+    - field.field.node.career_profile.field_career_videos_introduction
+    - field.field.node.career_profile.field_content_group
+    - field.field.node.career_profile.field_duties
+    - field.field.node.career_profile.field_education_programs
+    - field.field.node.career_profile.field_education_training_skills
+    - field.field.node.career_profile.field_hero_image
+    - field.field.node.career_profile.field_insights_from_industry
+    - field.field.node.career_profile.field_introductions
+    - field.field.node.career_profile.field_job_titles
+    - field.field.node.career_profile.field_noc
+    - field.field.node.career_profile.field_related_careers
+    - field.field.node.career_profile.field_resources
+    - field.field.node.career_profile.field_scheduled_publish
+    - field.field.node.career_profile.field_work_environment
+    - node.type.career_profile
+  module:
+    - field_group
+    - text
+    - user
+third_party_settings:
+  field_group:
+    group_career_profile_tabs:
+      children: {  }
+      label: 'Career Profile Tabs'
+      parent_name: ''
+      region: hidden
+      weight: 59
+      format_type: tabs
+      format_settings:
+        classes: ''
+        show_empty_fields: true
+        id: ''
+        direction: horizontal
+        width_breakpoint: 640
+    group_career_overview:
+      children: {  }
+      label: 'Career Overview'
+      parent_name: ''
+      region: hidden
+      weight: 60
+      format_type: tab
+      format_settings:
+        classes: ''
+        show_empty_fields: true
+        id: ''
+        formatter: open
+        description: ''
+    group_education_training_skills:
+      children: {  }
+      label: 'Education, Training & Skills'
+      parent_name: ''
+      region: hidden
+      weight: 61
+      format_type: tab
+      format_settings:
+        classes: ''
+        show_empty_fields: true
+        id: ''
+        formatter: open
+        description: ''
+    group_labour_market_statistics:
+      children: {  }
+      label: 'Labour Market Statistics'
+      parent_name: ''
+      region: hidden
+      weight: 62
+      format_type: tab
+      format_settings:
+        classes: ''
+        show_empty_fields: true
+        id: ''
+        formatter: open
+        description: ''
+    group_industry_highlights:
+      children: {  }
+      label: 'Industry Highlights'
+      parent_name: ''
+      region: hidden
+      weight: 63
+      format_type: tab
+      format_settings:
+        classes: ''
+        show_empty_fields: true
+        id: ''
+        formatter: open
+        description: ''
+    group_resources:
+      children: {  }
+      label: Resources
+      parent_name: ''
+      region: hidden
+      weight: 64
+      format_type: tab
+      format_settings:
+        classes: ''
+        show_empty_fields: true
+        id: ''
+        formatter: open
+        description: ''
+id: node.career_profile.search_result
+targetEntityType: node
+bundle: career_profile
+mode: search_result
+content:
+  extra_field_career_videos_introduction:
+    settings: {  }
+    third_party_settings: {  }
+    weight: 9
+    region: content
+  extra_field_employment_introduction:
+    settings: {  }
+    third_party_settings: {  }
+    weight: 62
+    region: content
+  field_career_overview:
+    type: text_trimmed
+    label: hidden
+    settings:
+      trim_length: 300
+    third_party_settings: {  }
+    weight: 0
+    region: content
+hidden:
+  content_moderation_control: true
+  extra_field_annual_salary: true
+  extra_field_annual_salary_source: true
+  extra_field_education_programs: true
+  extra_field_employment_growth_rate_forecast: true
+  extra_field_high_opportunity_occupation: true
+  extra_field_industry_highlights_intro: true
+  extra_field_job_openings: true
+  extra_field_job_openings_by_industry: true
+  extra_field_job_openings_by_industry_source: true
+  extra_field_job_openings_by_region: true
+  extra_field_job_openings_by_region_source: true
+  extra_field_job_openings_composition: true
+  extra_field_job_openings_forecast: true
+  extra_field_job_openings_forecast_source: true
+  extra_field_job_openings_source: true
+  extra_field_labour_market_expected_openings: true
+  extra_field_labour_market_expected_openings_source: true
+  extra_field_labour_market_introduction: true
+  extra_field_labour_market_number_employed: true
+  extra_field_labour_market_number_employed_source: true
+  extra_field_labour_market_region_employment: true
+  extra_field_labour_market_region_employment_source: true
+  extra_field_labour_market_statistics_i: true
+  extra_field_minimum_education: true
+  extra_field_occupational_interests: true
+  extra_field_occupational_interests_int: true
+  extra_field_profile_skills: true
+  extra_field_salary_info_annual_salary: true
+  extra_field_salary_info_annual_salary_note: true
+  extra_field_salary_info_hourly_rate: true
+  extra_field_salary_info_source: true
+  extra_field_salary_introduction: true
+  extra_field_skills_introduction: true
+  extra_field_work_environment_number_employed: true
+  extra_field_work_environment_percent_fulltime: true
+  extra_field_work_environment_source: true
+  extra_field_workbc_page_title: true
+  extra_field_workbc_published_on: true
+  field_career_pathways: true
+  field_career_videos: true
+  field_career_videos_introduction: true
+  field_content_group: true
+  field_duties: true
+  field_education_programs: true
+  field_education_training_skills: true
+  field_hero_image: true
+  field_insights_from_industry: true
+  field_introductions: true
+  field_job_titles: true
+  field_noc: true
+  field_related_careers: true
+  field_resources: true
+  field_scheduled_publish: true
+  field_work_environment: true
+  langcode: true
+  links: true
+  search_api_excerpt: true

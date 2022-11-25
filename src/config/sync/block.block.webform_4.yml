@@ -19,7 +19,7 @@ plugin: webform_block
 settings:
   id: webform_block
   label: 'Self-Assessment Questionnaire'
-  label_display: visible
+  label_display: '0'
   provider: webform
   webform_id: funding_questionnaire
   default_data: ''

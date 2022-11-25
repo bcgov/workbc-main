@@ -1,0 +1,79 @@
+uuid: 4b9e5dfe-1642-4d59-91bd-e4f5324657bf
+langcode: en
+status: true
+dependencies:
+  config:
+    - core.entity_view_mode.node.search_results
+    - field.field.node.workbc_centre.field_address
+    - field.field.node.workbc_centre.field_alert
+    - field.field.node.workbc_centre.field_content
+    - field.field.node.workbc_centre.field_content_group
+    - field.field.node.workbc_centre.field_email
+    - field.field.node.workbc_centre.field_geolocation
+    - field.field.node.workbc_centre.field_hero_image
+    - field.field.node.workbc_centre.field_job_board_id
+    - field.field.node.workbc_centre.field_multilingual_centre
+    - field.field.node.workbc_centre.field_phone
+    - field.field.node.workbc_centre.field_related_topics
+    - field.field.node.workbc_centre.field_scheduled_publish
+    - field.field.node.workbc_centre.field_website
+    - field.field.node.workbc_centre.field_working_hours
+    - node.type.workbc_centre
+  module:
+    - address
+    - field_group
+    - user
+third_party_settings:
+  field_group:
+    group_address_contact_informatio:
+      children: {  }
+      label: 'Address & Contact Information'
+      parent_name: ''
+      region: hidden
+      weight: 4
+      format_type: html_element
+      format_settings:
+        classes: ''
+        show_empty_fields: true
+        id: ''
+        element: div
+        show_label: false
+        label_element: h3
+        label_element_classes: ''
+        attributes: ''
+        effect: none
+        speed: fast
+        description: ''
+id: node.workbc_centre.search_results
+targetEntityType: node
+bundle: workbc_centre
+mode: search_results
+content:
+  field_address:
+    type: address_default
+    label: hidden
+    settings: {  }
+    third_party_settings: {  }
+    weight: 0
+    region: content
+hidden:
+  content_moderation_control: true
+  extra_field_wbcc_recent_jobs: true
+  extra_field_workbc_page_title: true
+  extra_field_workbc_published_on: true
+  field_alert: true
+  field_content: true
+  field_content_group: true
+  field_email: true
+  field_geolocation: true
+  field_hero_image: true
+  field_job_board_id: true
+  field_multilingual_centre: true
+  field_phone: true
+  field_related_topics: true
+  field_scheduled_publish: true
+  field_website: true
+  field_working_hours: true
+  langcode: true
+  links: true
+  search_api_excerpt: true

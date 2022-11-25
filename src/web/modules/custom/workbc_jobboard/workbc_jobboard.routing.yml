@@ -1,6 +1,16 @@
+workbc_jobboard.get_recent_jobs:
+  path: '/api/getCities'
+  defaults:
+    _title: 'Get Cities'
+    _controller: '\Drupal\workbc_jobboard\Controller\WorkBcJobboardController::getCitiesJson'
+  requirements:
+    _permission: 'access content'
+  options:
+    no_cache: 'TRUE'
+
 ###########################################
-# This file is for testing purposes only. 
-# It can be used to call local JSON file while developing instead of calling the API each time. 
+# This file is for testing purposes only.
+# It can be used to call local JSON file while developing instead of calling the API each time.
 # getRecentJobsJson() will also have to be uncommented in WorkBcJobboardController.php for this routing to work. 
 ###########################################
 #workbc_jobboard.get_recent_jobs:
@@ -12,3 +22,4 @@
     # _permission: 'access content'
   # options:
     # no_cache: 'TRUE'
+    

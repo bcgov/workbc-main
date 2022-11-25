@@ -205,6 +205,9 @@
             },
             "drupal/search_api_solr": {
                 "Empty specific languages": "patches/drupal/search_api_solr/search_api_solr-empty-specific-languages-3314711-21.patch"
+            },
+            "drupal/redirect": {
+                "Ignore query strings": "patches/drupal/redirect/2976930-redirect-hashes-created-when-not-retaining-the-query-string-2.patch"
             }
         }
     }

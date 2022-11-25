@@ -1,0 +1,146 @@
+// Contact Info
+.contact-info-container {
+  @include media-breakpoint-up(md) {
+    display: grid;
+    grid-template-columns: minmax(100px, 200px) minmax(300px, 1fr);
+    gap: 30px;
+  }
+}
+
+.contact-info-item {
+  margin-bottom: 20px;
+
+  @include media-breakpoint-up(md) {
+    margin-bottom: 0;
+  }
+}
+
+.contact-info-label {
+  margin-bottom: 10px;
+  font-size: 1.3125rem;
+  padding-left: 30px;
+  background-repeat: no-repeat;
+  background-position: 0 50%;
+  background-size: auto 65%;
+
+  &.contact-info-label--phone {
+    background-image: url(../assets/images/icon-phone.svg);
+  }
+
+  &.contact-info-label--fax {
+    background-image: url(../assets/images/icon-fax.svg);
+  }
+
+  &.contact-info-label--toll-free {
+    background-image: url(../assets/images/icon-toll-free.svg);
+  }
+
+  &.contact-info-label--hours {
+    background-image: url(../assets/images/icon-clock.svg);
+  }
+}
+
+.contact-info {
+  display: block;
+  margin-left: 30px;
+}
+
+
+// Contact Page
+.contact-container {
+  margin-bottom: 40px;
+
+  @include media-breakpoint-up(lg) {
+    display: flex;
+    justify-content: space-between;
+    gap: 40px;
+  }
+}
+
+.contact-form-container {
+  margin-bottom: 20px;
+
+  @include media-breakpoint-up(lg) {
+    margin-bottom: 0;
+  }
+}
+
+.contact-blocks-container {
+  @include media-breakpoint-up(lg) {
+    flex: 0 1 380px;
+  }
+}
+
+// Contact Form
+.webform-submission-contact-form .form-no-label {
+  margin-top: 0;
+}
+
+.webform-submission-contact-form h2 {
+  margin-bottom: 20px;
+  font-size: 2.25rem;
+  font-weight: 700;
+}
+
+.webform-submission-contact-form .form-text,
+.webform-submission-contact-form .form-textarea,
+.webform-submission-contact-form .form-email,
+.webform-submission-contact-form .form-select {
+  padding: 10px;
+  border: 2px solid $workbc_palette_dark_secondary;
+}
+.webform-submission-contact-form .form-text,
+.webform-submission-contact-form .form-select,
+.webform-submission-contact-form .form-email {
+  @include media-breakpoint-up(lg) {
+    max-width: 300px;
+  }
+}
+
+.webform-submission-contact-form .form-submit {
+  margin: 5px 0;
+  width: 100%;
+}
+
+// Chat Block
+.block-simple-blockonline-chat {
+  margin-bottom: 20px;
+  background-color: #deebf0;
+  border: 1px solid #c7d9e1;
+  box-shadow: 0 0 15px 0 rgba(0, 0, 0, 0.15);
+}
+
+.block-simple-blockonline-chat img {
+  display: block;
+  width: 100%;
+  margin-bottom: 10px;
+}
+
+.blockonline-chat-content {
+  padding: 20px 20px 30px;
+}
+
+.blockonline-chat-title {
+  margin-bottom: 16px;
+  font-size: 1.125rem;
+  font-weight: 700;
+}
+
+.block-simple-blockvisit-a-workbc-centre {
+  background-color: #fff;
+  box-shadow: 0 0 15px 0 rgba(0, 0, 0, 0.15);
+}
+
+.block-simple-blockvisit-a-workbc-centre {
+  padding: 40px 20px 30px;
+}
+
+.block-simple-blockvisit-a-workbc-centre h2 {
+  margin-bottom: 20px;
+  font-size: 1.125rem;
+  font-weight: 700;
+}
+
+.block-simple-blockvisit-a-workbc-centre a {
+  @include link-chevron;
+}

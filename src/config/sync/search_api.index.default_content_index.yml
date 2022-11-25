@@ -3,6 +3,7 @@ langcode: en
 status: true
 dependencies:
   config:
+    - field.storage.node.field_noc
     - search_api.server.solr
     - core.entity_view_mode.node.search_index
   module:
@@ -56,6 +57,23 @@ name: 'Site content index'
 description: 'Default content index created by the Database Search Defaults module'
 read_only: false
 field_settings:
+  field_noc:
+    label: NOC
+    datasource_id: 'entity:node'
+    property_path: field_noc
+    type: text
+    boost: !!float 5
+    dependencies:
+      config:
+        - field.storage.node.field_noc
+  nid:
+    label: ID
+    datasource_id: 'entity:node'
+    property_path: nid
+    type: integer
+    dependencies:
+      module:
+        - node
   node_grants:
     label: 'Node access information'
     property_path: search_api_node_grants
@@ -137,6 +155,7 @@ processor_settings:
       preprocess_query: -46
     all_fields: true
     fields:
+      - field_noc
       - rendered_item
       - title
     title: true

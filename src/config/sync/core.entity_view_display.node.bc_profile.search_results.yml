@@ -1,0 +1,139 @@
+uuid: a5b19d53-2f8e-4daf-bec3-edfde179adb0
+langcode: en
+status: true
+dependencies:
+  config:
+    - core.entity_view_mode.node.search_results
+    - field.field.node.bc_profile.field_content_group
+    - field.field.node.bc_profile.field_hero_image
+    - field.field.node.bc_profile.field_industry_highlights_intro
+    - field.field.node.bc_profile.field_introductions
+    - field.field.node.bc_profile.field_job_board_id
+    - field.field.node.bc_profile.field_key_facts
+    - field.field.node.bc_profile.field_region_overview
+    - field.field.node.bc_profile.field_scheduled_publish
+    - node.type.bc_profile
+  module:
+    - field_group
+    - text
+    - user
+third_party_settings:
+  field_group:
+    group_bc_profile:
+      children: {  }
+      label: 'BC Profile'
+      parent_name: ''
+      region: hidden
+      weight: 12
+      format_type: tabs
+      format_settings:
+        classes: ''
+        show_empty_fields: true
+        id: ''
+        direction: horizontal
+        width_breakpoint: 640
+    group_region_overview:
+      children: {  }
+      label: 'Region Overview'
+      parent_name: ''
+      region: hidden
+      weight: 13
+      format_type: tab
+      format_settings:
+        classes: ''
+        show_empty_fields: true
+        id: ''
+        formatter: open
+        description: ''
+    group_labour_market_statistics:
+      children: {  }
+      label: 'Labour Market Statistics'
+      parent_name: ''
+      region: hidden
+      weight: 15
+      format_type: tab
+      format_settings:
+        classes: ''
+        show_empty_fields: true
+        id: ''
+        formatter: closed
+        description: ''
+    group_industry_highlights:
+      children: {  }
+      label: Industry
+      parent_name: ''
+      region: hidden
+      weight: 32
+      format_type: tab
+      format_settings:
+        classes: ''
+        show_empty_fields: true
+        id: ''
+        formatter: closed
+        description: ''
+id: node.bc_profile.search_results
+targetEntityType: node
+bundle: bc_profile
+mode: search_results
+content:
+  extra_field_bc_employment_goods_services_share_chart:
+    settings: {  }
+    third_party_settings: {  }
+    weight: 22
+    region: content
+  extra_field_bc_employment_shart_goods_services_chart:
+    settings: {  }
+    third_party_settings: {  }
+    weight: 22
+    region: content
+  field_region_overview:
+    type: text_trimmed
+    label: visually_hidden
+    settings:
+      trim_length: 275
+    third_party_settings: {  }
+    weight: 0
+    region: content
+hidden:
+  content_moderation_control: true
+  extra_field_BC_ft_pt_employment_table: true
+  extra_field_bc_employment: true
+  extra_field_bc_employment_bc: true
+  extra_field_bc_employment_bc_source: true
+  extra_field_bc_employment_by_industry_source: true
+  extra_field_bc_employment_by_industry_table: true
+  extra_field_bc_employment_by_region_table: true
+  extra_field_bc_employment_goods_service_share_chart: true
+  extra_field_bc_employment_goods_service_share_source: true
+  extra_field_bc_employment_introduction: true
+  extra_field_bc_employment_region_source: true
+  extra_field_bc_employment_source: true
+  extra_field_bc_job_openings: true
+  extra_field_bc_job_openings_composition_chart: true
+  extra_field_bc_job_openings_forecast: true
+  extra_field_bc_job_openings_forecast_chart: true
+  extra_field_bc_job_openings_forecast_chart_source: true
+  extra_field_bc_job_openings_forecast_source: true
+  extra_field_bc_job_openings_source: true
+  extra_field_bc_labour_market_outlook_introduction: true
+  extra_field_bc_labour_market_stats_introduction: true
+  extra_field_bc_population: true
+  extra_field_bc_population_source: true
+  extra_field_bc_top_occupations_introduction: true
+  extra_field_bc_unemployment_rate: true
+  extra_field_bc_unemployment_rate_bc: true
+  extra_field_bc_unemployment_rate_chart: true
+  extra_field_bc_unemployment_rate_source: true
+  extra_field_bc_unemployment_region_source: true
+  extra_field_workbc_page_title: true
+  extra_field_workbc_published_on: true
+  field_content_group: true
+  field_hero_image: true
+  field_industry_highlights_intro: true
+  field_introductions: true
+  field_job_board_id: true
+  field_key_facts: true
+  field_scheduled_publish: true
+  langcode: true
+  links: true
+  search_api_excerpt: true

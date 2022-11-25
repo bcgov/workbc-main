@@ -1,0 +1,23 @@
+<div class="job-search">
+  <ul class="nav nav-tabs" id="Tab" role="tablist">
+    <li class="nav-item" role="presentation">
+      <button class="nav-link active" id="home-tab" data-bs-toggle="tab" data-bs-target="#find" type="button" role="tab" aria-controls="Find a Job" aria-selected="true">Find a Job</button>
+    </li>
+    <li class="nav-item" role="presentation">
+      <button class="nav-link" id="profile-tab" data-bs-toggle="tab" data-bs-target="#post" type="button" role="tab" aria-controls="Post a Job" aria-selected="false">Post a Job</button>
+    </li>
+  </ul>
+  <div class="tab-content tab-content__jobs" id="TabContent">
+    <div class="tab-pane fade show active" id="find" role="tabpanel" aria-labelledby="find-job-tab">
+      <h2 class="job-search__title">{{job_title|replace({ ('@JOBS'): totalJobs|number_format(0, ',') }) | raw }}</h2>
+      <div class="job-search__txt">{{job_description}}</div>
+      {{form}}
+    </div>
+    <div class="tab-pane fade" id="post" role="tabpanel" aria-labelledby="post-job-tab">
+      <h2 class="job-search__title">{{postjob_title}}</h2>
+      <div class="job-search__txt">{{postjob_description}}</div>
+      <a class="btn-primary" href="#">Post a Job</a>
+    </div>
+  </div>
+</div>
+ 

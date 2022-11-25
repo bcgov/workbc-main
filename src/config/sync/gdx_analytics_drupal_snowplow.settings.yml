@@ -1,5 +1,5 @@
 _core:
   default_config_hash: XWtIQVscTuEOoCRjxT3mDK5WvOndVIYMbzRcpXSlDGw
-gdx_collector_mode: 'https://spm.apps.gov.bc.ca'
+gdx_collector_mode: spm.apps.gov.bc.ca
 gdx_analytics_snowplow_version: 'Standalone Search vE.2.14.0'
 gdx_analytics_snowplow_script_uri: 'https://www2.gov.bc.ca/StaticWebResources/static/sp/sp-2-14-0.js'
