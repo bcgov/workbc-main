@@ -6,12 +6,12 @@
  * - gtranslate_html: html of the gtranslate block.
  */
 #}
-<div class="text-resize">
-  <div class="text-resize__label">
+<div class="footer__translate">
+  <div class="footer__translate__label">
     {{ 'View in Other Languages:'|t }}
   </div>
-  <div class="gtranslate">
+  <div class="footer__translate-select">
     {{ gtranslate_html|raw }}
-    <div class="gtranslate-bottom-text"><p>{{ 'Powered by Google Translate'|t }}</p></div>
- </div>
+    <div class="g-translate-text"><div class="g-tranlate-word">{{ 'Powered by'|t }}</div> <div class="g-tranlate-logo">{{ 'Google'|t }}</div> <div class="g-tranlate-word">{{ 'Translate'|t }}</div></div>
+  </div>
 </div>
