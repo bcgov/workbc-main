@@ -103,7 +103,7 @@
 
 {% if is_front %}
   {% include '@workbc/includes/hero-home.html.twig' %}
-    {% elseif hero_image or hero_text %}
+{% elseif hero_image or hero_text %}
   {% include '@workbc/includes/hero.html.twig' %}
 {% endif %}
 

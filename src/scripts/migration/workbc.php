@@ -121,7 +121,7 @@ if (($handle = fopen($file, 'r')) !== FALSE) {
     while (!feof($handle)) {
         $item = json_decode(fgets($handle));
         if (empty($item)) continue;
-        $items[$item->id] = (object) array_merge((array) $items[$item->id], (array) $item);
+        $items[$item->id] = (object) array_merge_recursive((array) $items[$item->id], (array) $item);
     }
     fclose($handle);
 }
@@ -423,6 +423,12 @@ function convertCards($cards, $card_type, &$items, &$container_paragraph) {
             'field_name' => 'field_body',
             'only_one_card_per_container' => TRUE,
         ],
+        'View' => [
+            'container' => 'content_view',
+            'card' => NULL,
+            'field_name' => 'field_view',
+            'only_one_card_per_container' => TRUE,
+        ]
     ];
 
     $paragraphs = [];
@@ -459,8 +465,14 @@ function convertCards($cards, $card_type, &$items, &$container_paragraph) {
         }
 
         // Populate container.
-        if (empty($card_types[$type]['card'])) {
+        if ($card_types[$type]['container'] === 'content_text') {
             $container_paragraph->set($card_types[$type]['field_name'], convertRichText($card->{'Body'}));
+        }
+        else if ($card_types[$type]['container'] === 'content_view') {
+            $container_paragraph->set($card_types[$type]['field_name'], [
+                'target_id' => convertPlainText($card->{'Title'}),
+                'display_id' => convertPlainText($card->{'Body'})
+            ]);
         }
         else {
             // Create card and add it to container.

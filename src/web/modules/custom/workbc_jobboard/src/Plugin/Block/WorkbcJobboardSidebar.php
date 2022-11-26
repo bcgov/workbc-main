@@ -5,7 +5,7 @@ use Drupal\Core\Block\BlockBase;
 use Drupal\Core\Url;
 use Drupal\Core\Form\FormStateInterface;
 use Drupal\Component\Utility\UrlHelper;
-use Drupal\Core\Access\AccessResult; 
+use Drupal\Core\Access\AccessResult;
 use Drupal\Core\Session\AccountInterface;
 use Drupal\workbc_jobboard\Controller\WorkBcJobboardController;
 
@@ -15,12 +15,12 @@ use Drupal\workbc_jobboard\Controller\WorkBcJobboardController;
  * @Block(
  *   id = "workbc_jobboard_recent_jobs_sidebar",
  *   admin_label = @Translation("Recent Jobs"),
- *   category = @Translation("Workbc Jobboard Sidebar"),
+ *   category = @Translation("WorkBC Job Board"),
  * )
  */
- 
+
 class WorkbcJobboardSidebar extends BlockBase{
-  
+
   /**
    * {@inheritdoc}
    */
@@ -63,7 +63,7 @@ class WorkbcJobboardSidebar extends BlockBase{
     ];
     return $form;
   }
-  
+
   /**
    * {@inheritdoc}
    */
@@ -75,7 +75,7 @@ class WorkbcJobboardSidebar extends BlockBase{
     $this->configuration['job_board_results_to_show_horizontal_view'] = $values['job_board_results_to_show_horizontal_view'];
     $this->configuration['job_board_no_result_text'] = $values['job_board_no_result_text'];
   }
-  
+
   /**
    * {@inheritdoc}
    */
@@ -87,10 +87,10 @@ class WorkbcJobboardSidebar extends BlockBase{
       $form_state->setErrorByName('job_board_results_to_show', $this->t('No. of results field can\'t be empty.'));
     }
   }
-  
+
 	/**
    * {@inheritdoc}
-   */	
+   */
 	public function build(){
     $node = \Drupal::routeMatch()->getParameter('node');
     if($node instanceof \Drupal\node\NodeInterface) {
@@ -195,7 +195,7 @@ class WorkbcJobboardSidebar extends BlockBase{
       ];
     }
 	}
-  
+
   /**
    * {@inheritdoc}
    */
