@@ -121,7 +121,7 @@ if (($handle = fopen($file, 'r')) !== FALSE) {
     while (!feof($handle)) {
         $item = json_decode(fgets($handle));
         if (empty($item)) continue;
-        $items[$item->id] = (object) array_merge_recursive((array) $items[$item->id], (array) $item);
+        $items[$item->id] = (object) array_merge((array) $items[$item->id], (array) $item);
     }
     fclose($handle);
 }
