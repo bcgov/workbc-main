@@ -61,6 +61,7 @@ module:
   fvm: 0
   gdx_analytics_drupal_snowplow: 0
   geolocation: 0
+  gtranslate: 0
   health_check: 0
   help: 0
   history: 0
