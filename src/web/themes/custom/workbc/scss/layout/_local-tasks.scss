@@ -4,12 +4,13 @@
   background: rgba(255, 255, 255, 0.95);
   box-shadow: 1px 0 3px 1px rgba(#000, 0.15);
   position: absolute;
-  bottom: 0;
+  bottom: -40px;
   left: 40px;
   z-index: 99;
 
-  @include media-breakpoint-up(lg) {
+  @include media-breakpoint-up(md) {
     position: fixed;
+    bottom: 0;
   }
 }
 
