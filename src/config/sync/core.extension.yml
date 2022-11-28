@@ -40,8 +40,6 @@ module:
   datetime: 0
   datetime_range: 0
   dblog: 0
-  devel: 0
-  devel_kint_extras: 0
   duration_field: 0
   dynamic_page_cache: 0
   easy_breadcrumb: 0
@@ -52,7 +50,6 @@ module:
   field: 0
   field_group: 0
   field_permissions: 0
-  field_ui: 0
   file: 0
   filter: 0
   flood_control: 0
@@ -125,12 +122,9 @@ module:
   views_autosubmit: 0
   views_bulk_operations: 0
   views_infinite_scroll: 0
-  views_ui: 0
   viewsreference: 0
   webform: 0
-  webform_devel: 0
   webform_publication_composite: 0
-  webform_ui: 0
   workbc_custom: 0
   workbc_extra_fields: 0
   workbc_jobboard: 0
