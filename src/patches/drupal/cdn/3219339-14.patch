@@ -17,7 +17,7 @@ index 42816be..f6d112b 100644
 + * Add the new "prevent_duplicate_content" setting, set it to its default initial value.
 + */
 +function cdn_update_8004() {
-+  \Drupal::configFactory()->getEditable('cdn.settings')->set('prevent_duplicate_content', TRUE)->save();
++  \Drupal::configFactory()->getEditable('cdn.settings')->set('prevent_duplicate_content', FALSE)->save();
 +}
 diff --git a/config/install/cdn.settings.yml b/config/install/cdn.settings.yml
 index c68efd9..1a51405 100644
@@ -30,7 +30,7 @@ index c68efd9..1a51405 100644
 +# Duplicate content prevention is enabled by default, can optionally be disabled. This is needed when on the one hand
 +# certain files are served from CDN A, but on the other hand the entire site is put behind CDN B.
 +# @see \Drupal\cdn\StackMiddleware\DuplicateContentPreventionMiddleware
-+prevent_duplicate_content: true
++prevent_duplicate_content: false
 diff --git a/config/schema/cdn.schema.yml b/config/schema/cdn.schema.yml
 index 76e160f..fe88c83 100644
 --- a/config/schema/cdn.schema.yml
@@ -62,7 +62,7 @@ index aec1a4b..337eb67 100644
 @@ -45,4 +49,18 @@ class CdnServiceProvider implements ServiceProviderInterface {
      return $cdn_settings['status'] === TRUE;
    }
- 
+
 +  /**
 +   * @return bool
 +   */
