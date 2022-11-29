@@ -28,6 +28,41 @@ function workbc_jobboard_theme($existing, $type, $theme, $path) {
         'find_job_url'=>'',
       ],
     ],
+    'recent_jobs_horizontal_view' => [
+      'template' => 'recent-jobs-horizontal-block',
+      'variables' => [
+        'data' => [],
+        'sub_title' => '',
+        'no_of_records_to_show' => '',
+        'no_of_records_to_show_horizontal_view' => '',
+        'total_result' => '',
+        'no_result_text' => '',
+        'readmore_label' => '',
+        'jobboard_api_url_frontend' => '',
+        'jobboard_api_url_backend' => '',
+        'noc' => '',
+        'find_job_url'=>'',
+      ],
+    ],
+    'search_recent_jobs' => [
+      'template' => 'search-recent-jobs-block',
+      'variables' => [
+        'data' => [],
+        'form' => '',
+        'totalJobs' => '',
+        'job_title' => '',
+        'job_description' => '',
+        'postjob_title' => '',
+        'postjob_description' => '',
+      ],
+    ],
+    'save_profile' => [
+      'template' => 'save-profile-block',
+      'variables' => [
+        'data' => [],
+        'form' => '',
+      ],
+    ],
     'node__page_jobboard_findjobs' => [
       'template' => 'node-page-jobboard-findjobs',
       'base hook' => 'node',

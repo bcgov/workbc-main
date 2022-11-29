@@ -240,7 +240,7 @@
 
           <div class="hero-noc">(NOC {{ viewmodel['hero']['noc'] }})</div>
 
-          {% if viewmodel['hero']['hoo'] %}
+          {% if viewmodel['hero']['hoo'] == 'YES' %}
             <div class="hero-hoo">
               <img src="/{{ directory }}/assets/images/hoo-icon.svg" alt="{{ 'High opportunity occupation'|t }}" />
               <span>{{ 'High opportunity occupation'|t }}</span>

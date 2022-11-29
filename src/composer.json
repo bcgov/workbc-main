@@ -96,6 +96,7 @@
         "drupal/fullcalendar_view": "^5.1",
         "drupal/fvm": "^2.0",
         "drupal/geolocation": "^3.10",
+        "drupal/gtranslate": "^1.14",
         "drupal/health_check": "^2.0",
         "drupal/image_widget_crop": "^2.3",
         "drupal/jquery_ui_accordion": "^1.1",
@@ -205,6 +206,15 @@
             },
             "drupal/search_api_solr": {
                 "Empty specific languages": "patches/drupal/search_api_solr/search_api_solr-empty-specific-languages-3314711-21.patch"
+            },
+            "drupal/redirect": {
+                "Ignore query strings": "patches/drupal/redirect/2976930-redirect-hashes-created-when-not-retaining-the-query-string-2.patch"
+            },
+            "drupal/gtranslate" : {
+               "Replace Select language by the dafault/current language": "patches/drupal/gtranslate/select_default_value.patch"
+            },
+            "drupal/cdn": {
+                "Disable DuplicateContentPreventionMiddleware": "patches/drupal/cdn/3219339-14.patch"
             }
         }
     }

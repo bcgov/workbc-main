@@ -54,6 +54,50 @@
  width:100%;
  text-align:center;
 }
+.workbc-fobboard-save-profile {
+  text-align: right;
+}
+.save_career_profile{}
+.workbc-fobboard-save-profile .save_career_profile .form-submit{background: inherit; color: inherit;text-align:right; padding-right: 0px; padding-left: 5px;background: url(../images/save.svg) no-repeat 0px 4px; margin: 0px; padding: 0px; padding-left: 24px;color: #2e6ab0; outline:0px;}
+.workbc-fobboard-save-profile .save_career_profile .form-submit:focus{box-shadow: none;}
+@media screen and (min-width: 1024px) {
+  .jobs-data-horizontal-view{
+    width: 100%;
+    max-width: 100%;
+  }
+  .page-node-type-workbc-centre .block-workbc-jobboard h2{
+    width:100%;
+    margin:auto;
+    text-align:center;
+  }
+  .jobs-data-horizontal-view .sub-title{
+    display:none;
+  }
+  .jobs-data-horizontal-view .job-location{
+    font-size:16px;
+  }
+  .jobs-data-horizontal-view .cards-grid{
+    max-width:100%;
+    display: flex;
+    font-size: 0;
+    flex-wrap: wrap;
+    margin-top:20px;
+  }
+  .jobs-data-horizontal-view .cards-grid .card-plain{
+    flex: 1 0 21%;
+    margin: 5px;
+    height: 100px;
+  }
+  .jobs-data-horizontal-view .more-jobs {
+    text-align: center;
+    margin-bottom: 20px;
+  }
+  .jobs-data-horizontal-view .more-jobs a{
+    margin:auto;
+    text-align:center;
+    width:auto;
+  }
+}
 /*
  *  Styles below apply to the embedded Job Board app
  *
@@ -73,3 +117,5 @@ app-root input[type=checkbox],app-root input[type=radio] {
 }
 app-root .job-search-contain .icon-wrap, app-root .job-search-contain .icon-wrap.small, app-root .modal .icon-wrap.small,app-root .account-contain .icon-wrap, app-root .modal .icon-wrap {display:inline-block;}
 app-root .account-contain app-account-dashboard .card .btn{margin:0px;}
+
+.job-search__form-container .form-radios{width:100%;margin-bottom: 20px; display: flex; gap: 20px;}

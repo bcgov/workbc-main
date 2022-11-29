@@ -1,0 +1,17 @@
+{#
+/**
+ * @file
+ * Template for the gtranslate block
+ * Available variables:
+ * - gtranslate_html: html of the gtranslate block.
+ */
+#}
+<div class="footer__translate">
+  <div class="footer__translate__label">
+    {{ 'View in Other Languages:'|t }}
+  </div>
+  <div class="footer__translate-select">
+    {{ gtranslate_html|raw }}
+    <div class="g-translate-text"><div class="g-tranlate-word">{{ 'Powered by'|t }}</div> <div class="g-tranlate-logo">{{ 'Google'|t }}</div> <div class="g-tranlate-word">{{ 'Translate'|t }}</div></div>
+  </div>
+</div>

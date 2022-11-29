@@ -179,7 +179,7 @@ function workbc_custom_menu_local_tasks_alter(&$data, $route_name) {
 
 
 /**
- * Get SSOT data for the High Opportunity block. 
+ * Get SSOT data for the High Opportunity block.
  */
 function ssotHighOpportunityOptions($parameters = null){
   $data = array();
@@ -196,7 +196,7 @@ function ssotHighOpportunityOptions($parameters = null){
 
 /**
  * Function to get the region mappings.
- */ 
+ */
 function getRegionMappings() {
     $region_map = [
             'all' => 'All regions',

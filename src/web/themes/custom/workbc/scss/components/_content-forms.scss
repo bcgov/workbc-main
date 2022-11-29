@@ -3,6 +3,10 @@
   margin-bottom: 40px;
   box-shadow: 0 0 10px rgb(219 219 219);
   overflow-x: scroll;
+
+  @include media-breakpoint-up(lg) {
+    overflow-x: auto;
+  }
 }
 
 .content-form .form-text,
@@ -64,4 +68,32 @@
 
 .high-opportunity-occupations-form .button {
   text-align: center;
+}
+
+// Industry Profiles Table
+.view-industry-profiles .view-footer {
+  margin-top: 20px;
+  font-size: .875rem;
+  color: #666;
+}
+
+// Confirmation Message
+.webform-confirmation__message {
+  font-size: 1.25rem;
+  font-weight: 700;
+}
+
+
+// Self-Assessment Questionnaire
+.progress-marker::before {
+  z-index: 2;
+}
+
+.webform-submission-funding-questionnaire-form .description {
+  margin-bottom: 20px;
+}
+
+.webform-progress-tracker li[data-webform-page="webform_confirmation"],
+.webform-progress-tracker li[data-webform-page="result"] .progress-marker:after {
+  display: none;
 }

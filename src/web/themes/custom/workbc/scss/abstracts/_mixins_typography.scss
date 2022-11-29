@@ -1,13 +1,13 @@
 @mixin text-footnote {
   font-size: 0.9375rem;
   line-height: 1.5rem;
-  color: #8A8D8B;
+  color: #757575;
 }
 
 @mixin text-article-date {
   font-size: 0.9375rem;
   line-height: 1.5rem;
-  color: #8A8D8B;
+  color: #757575;
 }
 
 @mixin gradient-underline {
@@ -27,4 +27,8 @@
     right: 0px;
     background-image: linear-gradient(to right, #D8E5F1 25%, #FFFFFF 100%);
   }
+}
+
+.text-footnote {
+  @include text-footnote;
 }

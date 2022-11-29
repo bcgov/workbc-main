@@ -1,0 +1,37 @@
+uuid: 4299f7bf-acee-4ae5-8d92-be2be0c1a185
+langcode: en
+status: true
+dependencies:
+  module:
+    - block_visibility_conditions
+    - node
+    - workbc_jobboard
+  theme:
+    - workbc
+id: saveprofile
+theme: workbc
+region: hidden
+weight: 0
+provider: null
+plugin: workbc_jobboard_save_profile
+settings:
+  id: workbc_jobboard_save_profile
+  label: 'Save Profile'
+  label_display: '0'
+  provider: workbc_jobboard
+visibility:
+  not_node_type:
+    id: not_node_type
+    bundles: {  }
+    negate: null
+  not_taxonomy_vocabulary:
+    id: not_taxonomy_vocabulary
+    bundles: {  }
+    negate: null
+  'entity_bundle:node':
+    id: 'entity_bundle:node'
+    negate: false
+    context_mapping:
+      node: '@node.node_route_context:node'
+    bundles:
+      career_profile: career_profile

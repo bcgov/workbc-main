@@ -9,21 +9,28 @@
 #}
 <div class="breadcrumb-wrapper">
   {% if breadcrumb %}
-    <div class="container-lg d-flex align-items-center">
-      <nav aria-label="breadcrumb">
-        <h2 id="system-breadcrumb" class="visually-hidden">{{ 'Breadcrumb'|t }}</h2>
-        <ol class="breadcrumb">
-        {% for item in breadcrumb %}
-          <li class="breadcrumb-item">
-            {% if item.url %}
-              <a href="{{ item.url }}">{{ item.text }}</a>
-            {% else %}
-              {{ item.text }}
-            {% endif %}
-          </li>
-        {% endfor %}
-        </ol>
-      </nav>
+    <div class="container-lg">
+      <div class="row">
+        <div class="col-8 col-md-8 d-flex align-items-center">
+          <nav aria-label="breadcrumb">
+            <h2 id="system-breadcrumb" class="visually-hidden">{{ 'Breadcrumb'|t }}</h2>
+            <ol class="breadcrumb">
+            {% for item in breadcrumb %}
+              <li class="breadcrumb-item">
+                {% if item.url %}
+                  <a href="{{ item.url }}">{{ item.text }}</a>
+                {% else %}
+                  {{ item.text }}
+                {% endif %}
+              </li>
+            {% endfor %}
+            </ol>
+          </nav>
+        </div>
+        <div class="col-4 col-md-4">
+          {{ drupal_entity('block', 'saveprofile') }}
+        </div>
+      </div>
     </div>
   {% endif %}
 </div>

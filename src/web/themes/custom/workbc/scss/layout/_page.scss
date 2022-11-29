@@ -40,3 +40,20 @@
     flex: 1 0 20%;
   }
 }
+
+// Front Tweaks
+.front .node-page-content {
+  padding-top: 40px;
+}
+
+// Miscellaneous pages
+.page--not-found .region-content .block-system {
+  padding: 80px 0;
+  font-size: 2rem;
+}
+
+.userlogin .region-content {
+  max-width: 900px;
+  padding: 60px 12px;
+  margin: 0 auto;
+}

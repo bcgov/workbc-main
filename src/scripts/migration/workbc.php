@@ -83,9 +83,9 @@ if (file_exists(__DIR__ . '/data/regions_industries.csv')) {
 // Read GatherContent page data.
 $file = __DIR__ . '/data/workbc.jsonl';
 if (($handle = fopen($file, 'r')) === FALSE) {
-    die("Could not open GC WorkBC items $file" . PHP_EOL);
+    die("Could not open GatherContent WorkBC items $file" . PHP_EOL);
 }
-print("Importing GC WorkBC items $file" . PHP_EOL);
+print("Importing GatherContent WorkBC items $file" . PHP_EOL);
 
 $items = [];
 while (!feof($handle)) {
@@ -113,6 +113,19 @@ while (!feof($handle)) {
 }
 fclose($handle);
 
+// Merge extra content if any.
+$file = __DIR__ . '/data/extra.jsonl';
+if (($handle = fopen($file, 'r')) !== FALSE) {
+    print("Importing extra content $file" . PHP_EOL);
+
+    while (!feof($handle)) {
+        $item = json_decode(fgets($handle));
+        if (empty($item)) continue;
+        $items[$item->id] = (object) array_merge((array) $items[$item->id], (array) $item);
+    }
+    fclose($handle);
+}
+
 // FIRST PASS: Create nodes that are not expressed in the IA.
 print("FIRST PASS =================" . PHP_EOL);
 foreach ($items as $id => $item) {
@@ -126,7 +139,7 @@ foreach ($items as $id => $item) {
 
     print("Querying \"$title\"..." . PHP_EOL);
 
-    $node = loadNodeByTitleParent($title, $item->folder);
+    $node = findNode($title, $item->folder);
     if (empty($node)) {
         $node = createItem($item);
         if (empty($node)) {
@@ -260,7 +273,7 @@ try {
         continue;
     }
 
-    $node = loadNodeByTitleParent($title, $item->folder);
+    $node = findNode($title, $item->folder);
     if (empty($node)) {
         print("  Error: Could not find node" . PHP_EOL);
         continue;
@@ -410,6 +423,12 @@ function convertCards($cards, $card_type, &$items, &$container_paragraph) {
             'field_name' => 'field_body',
             'only_one_card_per_container' => TRUE,
         ],
+        'View' => [
+            'container' => 'content_view',
+            'card' => NULL,
+            'field_name' => 'field_view',
+            'only_one_card_per_container' => TRUE,
+        ]
     ];
 
     $paragraphs = [];
@@ -446,8 +465,14 @@ function convertCards($cards, $card_type, &$items, &$container_paragraph) {
         }
 
         // Populate container.
-        if (empty($card_types[$type]['card'])) {
+        if ($card_types[$type]['container'] === 'content_text') {
             $container_paragraph->set($card_types[$type]['field_name'], convertRichText($card->{'Body'}));
+        }
+        else if ($card_types[$type]['container'] === 'content_view') {
+            $container_paragraph->set($card_types[$type]['field_name'], [
+                'target_id' => convertPlainText($card->{'Title'}),
+                'display_id' => convertPlainText($card->{'Body'})
+            ]);
         }
         else {
             // Create card and add it to container.

@@ -13,7 +13,7 @@ dependencies:
 id: contactusfrenchlink
 theme: workbc
 region: hidden
-weight: 0
+weight: -11
 provider: null
 plugin: 'simple_block:contact_us_french_link'
 settings:

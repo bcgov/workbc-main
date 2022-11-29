@@ -8,9 +8,10 @@ dependencies:
     - field.field.node.workbc_centre.field_content
     - field.field.node.workbc_centre.field_content_group
     - field.field.node.workbc_centre.field_email
-    - field.field.node.workbc_centre.field_french_available
     - field.field.node.workbc_centre.field_geolocation
     - field.field.node.workbc_centre.field_hero_image
+    - field.field.node.workbc_centre.field_job_board_id
+    - field.field.node.workbc_centre.field_multilingual_centre
     - field.field.node.workbc_centre.field_phone
     - field.field.node.workbc_centre.field_related_topics
     - field.field.node.workbc_centre.field_scheduled_publish
@@ -86,13 +87,6 @@ content:
       placeholder: ''
       size: 60
     third_party_settings: {  }
-  field_french_available:
-    type: boolean_checkbox
-    weight: 129
-    region: content
-    settings:
-      display_label: true
-    third_party_settings: {  }
   field_geolocation:
     type: geolocation_latlng
     weight: 135
@@ -113,6 +107,22 @@ content:
       warn_multiple_usages: true
       show_crop_area: true
       show_default_crop: true
+    third_party_settings: {  }
+  field_job_board_id:
+    type: string_textfield
+    weight: 138
+    region: content
+    settings:
+      size: 60
+      placeholder: ''
+    third_party_settings: {  }
+  field_multilingual_centre:
+    type: link_default
+    weight: 139
+    region: content
+    settings:
+      placeholder_url: ''
+      placeholder_title: ''
     third_party_settings: {  }
   field_phone:
     type: telephone_default
