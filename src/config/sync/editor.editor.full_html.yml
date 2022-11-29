@@ -35,6 +35,12 @@ settings:
             - BulletedList
             - NumberedList
         -
+          name: 'Text Align'
+          items:
+            - JustifyLeft
+            - JustifyCenter
+            - JustifyRight
+        -
           name: Media
           items:
             - Blockquote
@@ -46,12 +52,15 @@ settings:
           name: 'Block Formatting'
           items:
             - Format
+            - Styles
         -
           name: Tools
           items:
             - ShowBlocks
             - Source
-  plugins: {  }
+  plugins:
+    stylescombo:
+      styles: "a.btn.btn-primary|Primary Button\r\na.btn.btn-secondary|Secondary Button\r\np.text-footnote|Footnote"
 image_upload:
   status: true
   scheme: public

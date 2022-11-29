@@ -112,9 +112,11 @@
 {{ drupal_block('system_breadcrumb_block', wrapper=false) }}
 
 {# When social links are displayed below the hero section #}
-<div class="social-sharing container-lg">
-  {{ drupal_block('social_sharing_buttons_block', wrapper=false) }}
-</div>
+{% if not is_front %}
+  <div class="social-sharing container-lg">
+    {{ drupal_block('social_sharing_buttons_block', wrapper=false) }}
+  </div>
+{% endif %}
 
 <article{{ attributes.addClass(classes) }}>
 
@@ -124,7 +126,7 @@
     </aside>
   {% endif %}
 
-  <div class="page-content">
+  <div class="node-page-content">
     {% if hero_image is empty and hero_text is empty %}
       <h1 class="page-title">{{ label }}</h1>
     {% endif %}
