@@ -1,2 +1,4 @@
 access recent jobs block:
   title: 'Can view recent jobs block'
+access find jobs block:
+  title: 'Can view find jobs block'

@@ -54,6 +54,12 @@
  width:100%;
  text-align:center;
 }
+.workbc-fobboard-save-profile {
+  text-align: right;
+}
+.save_career_profile{}
+.workbc-fobboard-save-profile .save_career_profile .form-submit{background: inherit; color: inherit;text-align:right; padding-right: 0px; padding-left: 5px;background: url(../images/save.svg) no-repeat 0px 4px; margin: 0px; padding: 0px; padding-left: 24px;color: #2e6ab0; outline:0px;}
+.workbc-fobboard-save-profile .save_career_profile .form-submit:focus{box-shadow: none;}
 @media screen and (min-width: 1024px) {
   .jobs-data-horizontal-view{
     width: 100%;

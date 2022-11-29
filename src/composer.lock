@@ -4,7 +4,7 @@
         "Read more about it at https://getcomposer.org/doc/01-basic-usage.md#installing-dependencies",
         "This file is @generated automatically"
     ],
-    "content-hash": "e82812a8175d3d6dc525788095b94b67",
+    "content-hash": "6436f797dee15e964c92c3728a8b1141",
     "packages": [
         {
             "name": "alchemy/zippy",
@@ -4862,6 +4862,50 @@
             "support": {
                 "source": "https://git.drupal.org/project/geolocation.git",
                 "issues": "https://www.drupal.org/project/issues/geolocation"
+            }
+        },
+        {
+            "name": "drupal/gtranslate",
+            "version": "1.14.0",
+            "source": {
+                "type": "git",
+                "url": "https://git.drupalcode.org/project/gtranslate.git",
+                "reference": "8.x-1.14"
+            },
+            "dist": {
+                "type": "zip",
+                "url": "https://ftp.drupal.org/files/projects/gtranslate-8.x-1.14.zip",
+                "reference": "8.x-1.14",
+                "shasum": "47ccdc3dee56c99e3481d65342e55e7e2cdfa099"
+            },
+            "require": {
+                "drupal/core": "^8 || ^9"
+            },
+            "type": "drupal-module",
+            "extra": {
+                "drupal": {
+                    "version": "8.x-1.14",
+                    "datestamp": "1613514186",
+                    "security-coverage": {
+                        "status": "covered",
+                        "message": "Covered by Drupal's security advisory policy"
+                    }
+                }
+            },
+            "notification-url": "https://packages.drupal.org/8/downloads",
+            "license": [
+                "GPL-2.0-or-later"
+            ],
+            "authors": [
+                {
+                    "name": "edo888",
+                    "homepage": "https://www.drupal.org/user/291183"
+                }
+            ],
+            "description": "Uses Google power to translate your website.",
+            "homepage": "https://www.drupal.org/project/gtranslate",
+            "support": {
+                "source": "https://git.drupalcode.org/project/gtranslate"
             }
         },
         {

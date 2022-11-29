@@ -1,0 +1,80 @@
+ cdn.install                     |  7 +++++++
+ config/install/cdn.settings.yml |  4 ++++
+ config/schema/cdn.schema.yml    |  3 +++
+ src/CdnServiceProvider.php      | 20 +++++++++++++++++++-
+ 4 files changed, 33 insertions(+), 1 deletion(-)
+
+diff --git a/cdn.install b/cdn.install
+index 42816be..f6d112b 100644
+--- a/cdn.install
++++ b/cdn.install
+@@ -34,3 +34,10 @@ function cdn_update_8002() {
+ function cdn_update_8003() {
+   \Drupal::configFactory()->getEditable('cdn.settings')->set('scheme', '//')->save();
+ }
++
++/**
++ * Add the new "prevent_duplicate_content" setting, set it to its default initial value.
++ */
++function cdn_update_8004() {
++  \Drupal::configFactory()->getEditable('cdn.settings')->set('prevent_duplicate_content', FALSE)->save();
++}
+diff --git a/config/install/cdn.settings.yml b/config/install/cdn.settings.yml
+index c68efd9..1a51405 100644
+--- a/config/install/cdn.settings.yml
++++ b/config/install/cdn.settings.yml
+@@ -75,3 +75,7 @@ farfuture:
+ # Public is enabled by default, additional local stream wrappers can be added.
+ stream_wrappers:
+   - public
++# Duplicate content prevention is enabled by default, can optionally be disabled. This is needed when on the one hand
++# certain files are served from CDN A, but on the other hand the entire site is put behind CDN B.
++# @see \Drupal\cdn\StackMiddleware\DuplicateContentPreventionMiddleware
++prevent_duplicate_content: false
+diff --git a/config/schema/cdn.schema.yml b/config/schema/cdn.schema.yml
+index 76e160f..fe88c83 100644
+--- a/config/schema/cdn.schema.yml
++++ b/config/schema/cdn.schema.yml
+@@ -28,3 +28,6 @@ cdn.settings:
+       type: sequence
+       sequence:
+         type: cdn.stream_wrapper_scheme
++    prevent_duplicate_content:
++      type: boolean
++      label: 'Prevent duplicate content'
+diff --git a/src/CdnServiceProvider.php b/src/CdnServiceProvider.php
+index aec1a4b..337eb67 100644
+--- a/src/CdnServiceProvider.php
++++ b/src/CdnServiceProvider.php
+@@ -19,7 +19,11 @@ class CdnServiceProvider implements ServiceProviderInterface {
+    * {@inheritdoc}
+    */
+   public function register(ContainerBuilder $container) {
+-    if ($this->cdnStatusIsEnabled()) {
++    if (!$this->cdnStatusIsEnabled()) {
++      return;
++    }
++
++    if ($this->cdnDuplicateContentPreventionIsEnabled()) {
+       $container->register('http_middleware.cdn.duplicate_content_prevention', DuplicateContentPreventionMiddleware::class)
+         ->addArgument(new Reference('request_stack'))
+         // Set the priority so that this middleware runs:
+@@ -45,4 +49,18 @@ class CdnServiceProvider implements ServiceProviderInterface {
+     return $cdn_settings['status'] === TRUE;
+   }
+
++  /**
++   * @return bool
++   */
++  protected function cdnDuplicateContentPreventionIsEnabled() : bool {
++    $cdn_settings = BootstrapConfigStorageFactory::get()->read('cdn.settings');
++    // In Kernel tests it's possible this code is called before cdn.settings
++    // exists. In such cases behave as though the CDN status is "disabled". This
++    // is also the default value in cdn.settings.yml.
++    if ($cdn_settings === FALSE) {
++      return FALSE;
++    }
++    return $cdn_settings['prevent_duplicate_content'] === TRUE;
++  }
++
+ }

@@ -11,6 +11,14 @@ const GETTOTAL_JOBS = 'api/Search/gettotaljobs';
 
 const GET_CITIES = 'api/location/cities';
 
+const SAVE_CAREER_PROFILE = 'api/career-profiles/save';
+
+const STATUS_CAREER_PROFILE = 'api/career-profiles/status';
+
+const SAVE_INDUSTRY_PROFILE = 'api/industry-profiles/save';
+
+const STATUS_INDUSTRY_PROFILE = 'api/industry-profiles/status';
+
 
 /**
  *{@inheritdoc}
@@ -43,6 +51,42 @@ class apiServices extends ControllerBase{
     }
     else if ($action == 'getCities'){
       $jobboard_api_url = \Drupal::config('jobboard')->get('jobboard_api_url_backend').'/'.GET_CITIES;
+    }
+    else if ($action == 'saveProfile'){
+      if(isset($parameter['profile_id'])){
+        $jobboard_api_url = \Drupal::config('jobboard')->get('jobboard_api_url_frontend').'/'.SAVE_CAREER_PROFILE ."/".$parameter['profile_id'];
+        unset($parameter['profile_id']);
+        $options['headers'] = [];
+        $options['headers'] = $parameter;
+        $options['headers']['Accept'] = '*/*';
+      }
+    }
+    else if ($action == 'statusProfile'){
+      if(isset($parameter['profile_id'])){
+        $jobboard_api_url = \Drupal::config('jobboard')->get('jobboard_api_url_frontend').'/'.STATUS_CAREER_PROFILE ."/".$parameter['profile_id'];
+        $options['headers'] = [];
+        $options['headers']['Authorization'] = [$parameter['Authorization']];
+        $options['headers']['Accept'] = '*/*';
+        unset($parameter['Authorization']);
+      }
+    }
+    else if ($action == 'saveIndustryProfile'){
+      if(isset($parameter['profile_id'])){
+        $jobboard_api_url = \Drupal::config('jobboard')->get('jobboard_api_url_frontend').'/'.SAVE_INDUSTRY_PROFILE ."/".$parameter['profile_id'];
+        unset($parameter['profile_id']);
+        $options['headers'] = [];
+        $options['headers'] = $parameter;
+        $options['headers']['Accept'] = '*/*';
+      }
+    }
+    else if ($action == 'statusIndustryProfile'){
+      if(isset($parameter['profile_id'])){
+        $jobboard_api_url = \Drupal::config('jobboard')->get('jobboard_api_url_frontend').'/'.STATUS_INDUSTRY_PROFILE ."/".$parameter['profile_id'];
+        $options['headers'] = [];
+        $options['headers']['Authorization'] = [$parameter['Authorization']];
+        $options['headers']['Accept'] = '*/*';
+        unset($parameter['Authorization']);
+      }
     }
     if($method == 'get'){
       if(is_array($parameter)){

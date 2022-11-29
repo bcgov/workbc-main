@@ -56,6 +56,13 @@ function workbc_jobboard_theme($existing, $type, $theme, $path) {
         'postjob_description' => '',
       ],
     ],
+    'save_profile' => [
+      'template' => 'save-profile-block',
+      'variables' => [
+        'data' => [],
+        'form' => '',
+      ],
+    ],
     'node__page_jobboard_findjobs' => [
       'template' => 'node-page-jobboard-findjobs',
       'base hook' => 'node',

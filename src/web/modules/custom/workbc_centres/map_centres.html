@@ -148,7 +148,7 @@
     //End Icons
 
     //Run the kml layer
-    var runLayer = omnivore.kml("assets/pins.kml")
+    var runLayer = omnivore.kml("assets/centres.kml")
       .on('ready',function(){
         map.fitBounds(runLayer.getBounds());
         runLayer.eachLayer(function(layer){

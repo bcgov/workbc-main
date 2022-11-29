@@ -1,4 +1,4 @@
-// This mixin houses all the basic trim size setup
+// This mixin houses all the basic trim size setup, visibility and general layout
 @mixin nav-theme-base {
   ul.nav-t1 {
     @include list-reset;
@@ -24,8 +24,7 @@
 
     & > li {
       padding: $workbc_trim_standard_size 10px 0 10px; // top padding set to balance border-bottom and keep content centered
-      border-bottom: $workbc_trim_standard_size solid
-        $workbc_palette_transparent; // placeholder for hover styling to avoid content jumping
+      border-bottom: $workbc_trim_standard_size solid $workbc_palette_transparent; // placeholder for hover styling to avoid content jumping
       min-width: 80px;
       height: 80px;
       flex: 2 1 auto;
@@ -125,6 +124,7 @@
   }
 }
 
+// Nav colors and styling
 .nav-main {
   @include nav-theme-base;
   background-color: $workbc_dark_theme_background;
@@ -170,13 +170,26 @@
               }
 
               &:hover {
-                border-left: $workbc_trim_standard_size solid
-                  $workbc_dark_theme_background;
+                border-left: $workbc_trim_standard_size solid $workbc_dark_theme_background;
                 background-color: $workbc_light_theme_background_accent;
 
                 & > a,
                 a:focus {
                   color: $workbc_default_link;
+                }
+              }
+            }
+
+            // hacky style for when a t1 menu is open, but the t2 menu is not hovered
+            // makes it behave as though the first t2 item is hovered
+            // (styling and t3 visibility)
+            &:not(:hover) {
+              & > li:first-child {
+                border-left: $workbc_trim_standard_size solid $workbc_dark_theme_background;
+                background-color: $workbc_light_theme_background_accent;
+
+                .nav-t3 {
+                  display: block;
                 }
               }
             }
@@ -186,6 +199,21 @@
     }
   }
 }
+
+// .nav-main ul.nav-t1>li .submenu-container .submenu ul.nav-t2:not(:hover)>li ul.nav-t3
+
+// // this works to highlight the first item if the whole list isn't hovered
+// ul.nav-t2:not(:hover) {
+//   .nav-item:first-child {
+//     background-color: red;
+
+//     .nav-t3 {
+//         display: block;
+//     }
+//   }
+// }
+
+
 
 .nav-main {
   display: none;

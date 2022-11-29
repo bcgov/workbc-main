@@ -8,14 +8,14 @@ use Symfony\Component\HttpFoundation\RedirectResponse;
 use Drupal\workbc_jobboard\Controller\WorkBcJobboardController;
 
 class JobboardSearchForm extends FormBase {
-  
+
   /**
    * {@inheritdoc}
    */
   public function getFormId() {
-    return 'workbc_fobboard_search_form';
+    return 'workbc_jobboard_search_form';
   }
-  
+
   /**
    * {@inheritdoc}
    */
@@ -58,20 +58,20 @@ class JobboardSearchForm extends FormBase {
     $form['searchtype'] = [
       '#type' => 'radios',
       '#options' => [
-        'bySearchAll' => 'Search All', 
-        'byJobTitle' => 'Job title only', 
-        'byEmployerName' => 'Employer name only', 
+        'bySearchAll' => 'Search All',
+        'byJobTitle' => 'Job title only',
+        'byEmployerName' => 'Employer name only',
         'byJobNumber' => 'Job Number'
       ],
       '#default_value' => 'bySearchAll',
       '#required' => TRUE,
-      '#prefix' => '<div class="job-search__form-container job-search__form-radios">',
+      '#prefix' => '<div class="job-search__form-radios">',
       '#suffix' => '</div>',
     ];
     $form['submit'] = [
       '#type' => 'submit',
-      '#value' => $this->t('Find Jobs'),
-      'attributes' => [
+      '#value' => t('Find Jobs'),
+      '#attributes' => [
         'class' => [
           'btn-primary',
         ],
@@ -79,14 +79,14 @@ class JobboardSearchForm extends FormBase {
     ];
     return $form;
   }
-  
+
   /**
    * {@inheritdoc}
    */
   public function validateForm(array &$form, FormStateInterface $form_state) {
     parent::validateForm($form, $form_state);
   }
-  
+
   /*
    * {@inheritdoc}
    */
@@ -126,6 +126,5 @@ class JobboardSearchForm extends FormBase {
     }
     $redirectSearchPage = new RedirectResponse($url);
     $redirectSearchPage->send();
-    return;
   }
 }
