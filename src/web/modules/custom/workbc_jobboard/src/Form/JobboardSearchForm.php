@@ -70,7 +70,7 @@ class JobboardSearchForm extends FormBase {
     ];
     $form['submit'] = [
       '#type' => 'submit',
-      '#value' => $this->t('Find Jobs'),
+      '#value' => t('Find Jobs'),
       '#attributes' => [
         'class' => [
           'btn-primary',
@@ -126,6 +126,5 @@ class JobboardSearchForm extends FormBase {
     }
     $redirectSearchPage = new RedirectResponse($url);
     $redirectSearchPage->send();
-    return;
   }
 }
