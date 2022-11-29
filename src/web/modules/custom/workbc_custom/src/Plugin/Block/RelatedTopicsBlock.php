@@ -129,7 +129,10 @@ class RelatedTopicsBlock extends BlockBase {
 
   private function renderText($node) {
 
-    if ($node->hasField('field_hero_text') && !empty($node->get('field_hero_text')->value)) {
+    if ($node->hasField('field_related_topics_blurb') && !empty($node->get('field_related_topics_blurb')->value)) {
+      return strip_tags($node->get('field_related_topics_blurb')->value);
+    }
+    else if ($node->hasField('field_hero_text') && !empty($node->get('field_hero_text')->value)) {
       return strip_tags($node->get('field_hero_text')->value);
     }
     else {
