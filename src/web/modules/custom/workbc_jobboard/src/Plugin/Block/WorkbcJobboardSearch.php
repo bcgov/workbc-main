@@ -5,7 +5,7 @@ use Drupal\Core\Block\BlockBase;
 use Drupal\Core\Url;
 use Drupal\Core\Form\FormStateInterface;
 use Drupal\Component\Utility\UrlHelper;
-use Drupal\Core\Access\AccessResult; 
+use Drupal\Core\Access\AccessResult;
 use Drupal\Core\Session\AccountInterface;
 use Drupal\Core\Form\FormInterface;
 use Drupal\workbc_jobboard\Controller\WorkBcJobboardController;
@@ -17,12 +17,12 @@ use Drupal\workbc_jobboard\Controller\WorkBcJobboardController;
  * @Block(
  *   id = "workbc_jobboard_search_recent_jobs",
  *   admin_label = @Translation("Search Jobs"),
- *   category = @Translation("Workbc Jobboard"),
+ *   category = @Translation("WorkBC Job Board"),
  * )
  */
- 
+
 class WorkbcJobboardSearch extends BlockBase{
-  
+
   /**
    * {@inheritdoc}
    */
@@ -45,14 +45,14 @@ class WorkbcJobboardSearch extends BlockBase{
       '#title' => $this->t('Job Description'),
       '#description' => $this->t('Find job block description'),
       '#default_value' => $config['job_board_findjob_description'] ?? '',
-    ]; 
+    ];
     $form['job_board_postjob_title'] = [
       '#type' => 'textfield',
       '#required' => true,
       '#title' => $this->t('Post Job Title'),
       '#description' => $this->t('Post job block title'),
       '#default_value' => $config['job_board_postjob_title'] ?? '',
-    ];    
+    ];
     $form['job_board_postjob_description'] = [
       '#type' => 'textarea',
       '#rows' => 10,
@@ -61,7 +61,7 @@ class WorkbcJobboardSearch extends BlockBase{
       '#title' => $this->t('Post Job Description'),
       '#description' => $this->t('Post job block description'),
       '#default_value' => $config['job_board_postjob_description'] ?? '',
-    ];  
+    ];
     return $form;
   }
 
@@ -76,7 +76,7 @@ class WorkbcJobboardSearch extends BlockBase{
     $this->configuration['job_board_postjob_title'] = $values['job_board_postjob_title'];
     $this->configuration['job_board_postjob_description'] = $values['job_board_postjob_description'];
   }
-  
+
   /**
    * {@inheritdoc}
    */
@@ -88,9 +88,9 @@ class WorkbcJobboardSearch extends BlockBase{
 
 	/**
    * {@inheritdoc}
-   */	
+   */
 	public function build(){
-    
+
     $config = $this->getConfiguration();
     $searchform = \Drupal::formBuilder()->getForm('Drupal\workbc_jobboard\Form\JobboardSearchForm');
     $WorkBcJobboardController = new WorkBcJobboardController();
@@ -107,10 +107,9 @@ class WorkbcJobboardSearch extends BlockBase{
       '#job_description' => $config['job_board_findjob_description']??'',
       '#postjob_title' => $config['job_board_postjob_title']??'',
       '#postjob_description' => $config['job_board_postjob_description']??'',
-      'render element' => 'form'
     ];
   }
-  
+
   /**
    * {@inheritdoc}
    */

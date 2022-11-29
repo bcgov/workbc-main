@@ -51,11 +51,12 @@
 
   @include media-breakpoint-up(lg) {
     margin-top: -40px;
-    max-width: 500px;
+    flex: 1 0 500px
   }
 
   img {
     display: block;
+    width: 100%;
     margin: 0;
   }
 }
@@ -68,6 +69,10 @@
   margin-bottom: 20px;
   font-size: 1rem;
   font-weight: 700;
+}
+
+.featured-blog__card-body {
+  margin-bottom: 20px;
 }
 
 .featured-blog .view-footer {

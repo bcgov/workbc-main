@@ -811,10 +811,17 @@ if (file_exists($app_root . '/' . $site_path . '/settings.aws.php') && getenv('A
  * future use, if necessary.
  */
 
-if (!in_array(getenv('PROJECT_ENVIRONMENT'), [
+if (in_array(getenv('PROJECT_ENVIRONMENT'), [
   'dev',
   'aws-dev',
   'local'
 ])) {
-  $settings['config_exclude_modules'] = ['devel'];
+  $settings['config_exclude_modules'] = [
+    'devel', 
+    'devel_kint_extras', 
+    'webform_devel', 
+    'views_ui',
+    'field_ui',
+    'webform_ui',
+  ];
 }

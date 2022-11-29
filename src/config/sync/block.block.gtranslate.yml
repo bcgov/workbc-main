@@ -1,0 +1,29 @@
+uuid: 96fe506c-14c0-4518-8953-c40ad45a067e
+langcode: en
+status: true
+dependencies:
+  module:
+    - block_visibility_conditions
+    - gtranslate
+  theme:
+    - workbc
+id: gtranslate
+theme: workbc
+region: hidden
+weight: -17
+provider: null
+plugin: gtranslate_block
+settings:
+  id: gtranslate_block
+  label: Gtranslate
+  label_display: visible
+  provider: gtranslate
+visibility:
+  not_node_type:
+    id: not_node_type
+    bundles: {  }
+    negate: null
+  not_taxonomy_vocabulary:
+    id: not_taxonomy_vocabulary
+    bundles: {  }
+    negate: null

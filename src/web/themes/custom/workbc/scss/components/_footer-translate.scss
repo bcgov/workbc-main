@@ -1,0 +1,32 @@
+.footer__translate {
+  display: flex;
+  gap: 10px
+}
+
+.footer__translate__label {
+  text-align: right;
+}
+
+.footer__translate-select select {
+  color: $workbc_palette_dark_default;
+  border-radius: 0;
+  padding: 3px 10px;
+}
+
+.g-translate-text {
+  display: flex;
+  align-items: center;
+  font-size: 0.75rem;
+}
+
+.g-tranlate-logo {
+  display: block;
+  width: 70px;
+  height: 30px;
+  font-size: 0;
+  color: transparent;
+  background-repeat: no-repeat;
+  background-position: center;
+  background-size: auto 65%;
+  background-image: url(../assets/images/google-logo.svg);
+}

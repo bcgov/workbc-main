@@ -37,3 +37,17 @@ fieldset {
 .form-submit {
   @include btn-blue;
 }
+
+// JQuery UI overrides
+.ui-widget-content .ui-state-active {
+  border: 1px solid transparent;
+  background: none;
+  margin: 0;
+  color: $workbc_palette_dark_default;
+}
+
+.ui-widget-content a {
+  text-decoration: none;
+  color: $workbc_palette_dark_default;
+  border: 1px solid transparent;
+}

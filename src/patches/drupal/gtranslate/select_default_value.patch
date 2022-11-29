@@ -1,0 +1,45 @@
+diff --git a/src/Plugin/Block/GTranslateBlock.php b/src/Plugin/Block/GTranslateBlock.php
+index c514b74..937ef36 100644
+--- a/src/Plugin/Block/GTranslateBlock.php
++++ b/src/Plugin/Block/GTranslateBlock.php
+@@ -142,14 +142,14 @@ EOT;
+                 }; break;
+                 case 'dropdown': {
+                     $block_content .= '<select onchange="doGTranslate(this);" id="gtranslate_selector" class="notranslate" aria-label="Website Language Selector">';
+-                    $block_content .= '<option value="">Select Language</option>';
++                    $block_content .= '<option value=' . $gtranslate_main_lang . '|' . $gtranslate_main_lang . '>' . $languages[$gtranslate_main_lang] . '</option>';
+ 
+                     $i = 0;
+                     foreach($languages as $lang => $lang_name) {
+                         $flag_y = $flag_map_vertical[$lang];
+ 
+                         if($settings->get('gtranslate_'.$lang)) {
+-                            $block_content .= '<option value="'.$gtranslate_main_lang.'|'.$lang.'" style="'.($lang == $gtranslate_main_lang ? 'font-weight:bold;' : '').'background:url(\''.base_path().drupal_get_path('module', 'gtranslate').'/gtranslate-files/16l.png\') no-repeat scroll 0 -'.$flag_y.'px;padding-left:18px;">'.$lang_name.'</option>';
++                            $block_content .= '<option value="'.$gtranslate_main_lang.'|'.$lang.'" style="'.($lang == $gtranslate_main_lang ? 'display:none;' : '').'background:url(\''.base_path().drupal_get_path('module', 'gtranslate').'/gtranslate-files/16l.png\') no-repeat scroll 0 -'.$flag_y.'px;padding-left:18px;">'.$lang_name.'</option>';
+                         }
+ 
+                         $i++;
+@@ -275,14 +275,14 @@ EOT;
+                     }
+ 
+                     $block_content .= '<select onchange="doGTranslate(this);" id="gtranslate_selector" class="notranslate" aria-label="Website Language Selector">';
+-                    $block_content .= '<option value="">Select Language</option>';
++                    $block_content .= '<option value=' . $gtranslate_main_lang . '|' . $gtranslate_main_lang . '>' . $languages[$gtranslate_main_lang] . '</option>';
+ 
+                     $i = 0;
+                     foreach($languages as $lang => $lang_name) {
+                         if($settings->get('gtranslate_'.$lang)) {
+                             $flag_y = $flag_map_vertical[$lang];
+ 
+-                            $block_content .= '<option value="'.$gtranslate_main_lang.'|'.$lang.'" style="'.($lang == $gtranslate_main_lang ? 'font-weight:bold;' : '').'background:url(\''.base_path().drupal_get_path('module', 'gtranslate').'/gtranslate-files/16l.png\') no-repeat scroll 0 -'.$flag_y.'px;padding-left:18px;">'.$lang_name.'</option>';
++                            $block_content .= '<option value="'.$gtranslate_main_lang.'|'.$lang.'" style="'.($lang == $gtranslate_main_lang ? 'display:none;' : '').'background:url(\''.base_path().drupal_get_path('module', 'gtranslate').'/gtranslate-files/16l.png\') no-repeat scroll 0 -'.$flag_y.'px;padding-left:18px;">'.$lang_name.'</option>';
+                         }
+ 
+                         $i++;
+@@ -395,4 +395,4 @@ EOT;
+ 
+         return $return;
+     }
+-}
+\ No newline at end of file
++}

@@ -5,3 +5,4 @@ ignored_config_entities:
   - 'backup_migrate.backup_migrate_source.*'
   - 'search_api.server.*'
   - 'recaptcha.*'
+  - cdn.settings
