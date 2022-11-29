@@ -22,6 +22,7 @@ weight: -10
 is_admin: false
 permissions:
   - 'access content'
+  - 'access find jobs block'
   - 'access recent jobs block'
   - 'access site-wide contact form'
   - 'use search_api_autocomplete for search_career_profiles'

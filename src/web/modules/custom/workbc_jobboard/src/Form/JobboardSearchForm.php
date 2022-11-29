@@ -13,7 +13,7 @@ class JobboardSearchForm extends FormBase {
    * {@inheritdoc}
    */
   public function getFormId() {
-    return 'workbc_fobboard_search_form';
+    return 'workbc_jobboard_search_form';
   }
   
   /**
@@ -70,8 +70,8 @@ class JobboardSearchForm extends FormBase {
     ];
     $form['submit'] = [
       '#type' => 'submit',
-      '#value' => $this->t('Find Jobs'),
-      'attributes' => [
+      '#value' => t('Find Jobs'),
+      '#attributes' => [
         'class' => [
           'btn-primary',
         ],
@@ -126,6 +126,5 @@ class JobboardSearchForm extends FormBase {
     }
     $redirectSearchPage = new RedirectResponse($url);
     $redirectSearchPage->send();
-    return;
   }
 }
