@@ -54,7 +54,7 @@ class apiServices extends ControllerBase{
     }
     else if ($action == 'saveProfile'){
       if(isset($parameter['profile_id'])){
-        $jobboard_api_url = \Drupal::config('jobboard')->get('jobboard_api_url_frontend').'/'.SAVE_CAREER_PROFILE ."/".$parameter['profile_id'];
+        $jobboard_api_url = \Drupal::config('jobboard')->get('jobboard_api_url_backend').'/'.SAVE_CAREER_PROFILE ."/".$parameter['profile_id'];
         unset($parameter['profile_id']);
         $options['headers'] = [];
         $options['headers'] = $parameter;
@@ -63,7 +63,7 @@ class apiServices extends ControllerBase{
     }
     else if ($action == 'statusProfile'){
       if(isset($parameter['profile_id'])){
-        $jobboard_api_url = \Drupal::config('jobboard')->get('jobboard_api_url_frontend').'/'.STATUS_CAREER_PROFILE ."/".$parameter['profile_id'];
+        $jobboard_api_url = \Drupal::config('jobboard')->get('jobboard_api_url_backend').'/'.STATUS_CAREER_PROFILE ."/".$parameter['profile_id'];
         $options['headers'] = [];
         $options['headers']['Authorization'] = [$parameter['Authorization']];
         $options['headers']['Accept'] = '*/*';
@@ -72,7 +72,7 @@ class apiServices extends ControllerBase{
     }
     else if ($action == 'saveIndustryProfile'){
       if(isset($parameter['profile_id'])){
-        $jobboard_api_url = \Drupal::config('jobboard')->get('jobboard_api_url_frontend').'/'.SAVE_INDUSTRY_PROFILE ."/".$parameter['profile_id'];
+        $jobboard_api_url = \Drupal::config('jobboard')->get('jobboard_api_url_backend').'/'.SAVE_INDUSTRY_PROFILE ."/".$parameter['profile_id'];
         unset($parameter['profile_id']);
         $options['headers'] = [];
         $options['headers'] = $parameter;
@@ -81,7 +81,7 @@ class apiServices extends ControllerBase{
     }
     else if ($action == 'statusIndustryProfile'){
       if(isset($parameter['profile_id'])){
-        $jobboard_api_url = \Drupal::config('jobboard')->get('jobboard_api_url_frontend').'/'.STATUS_INDUSTRY_PROFILE ."/".$parameter['profile_id'];
+        $jobboard_api_url = \Drupal::config('jobboard')->get('jobboard_api_url_backend').'/'.STATUS_INDUSTRY_PROFILE ."/".$parameter['profile_id'];
         $options['headers'] = [];
         $options['headers']['Authorization'] = [$parameter['Authorization']];
         $options['headers']['Accept'] = '*/*';
