@@ -3,6 +3,7 @@ langcode: en
 status: true
 dependencies:
   config:
+    - filter.format.full_html
     - node.type.bc_profile
     - node.type.blog
     - node.type.career_profile
@@ -21,6 +22,7 @@ dependencies:
     - actions_permissions
     - content_lock
     - field_permissions
+    - filter
     - node
     - override_node_options
     - path
@@ -98,6 +100,7 @@ permissions:
   - 'override region_profile authored by option'
   - 'override success_story authored by option'
   - 'override workbc_centre authored by option'
+  - 'use text format full_html'
   - 'view all revisions'
   - 'view published sitewide alert entities'
   - 'view the administration theme'

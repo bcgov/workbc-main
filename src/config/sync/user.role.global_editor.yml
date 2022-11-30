@@ -3,6 +3,7 @@ langcode: en
 status: true
 dependencies:
   config:
+    - filter.format.full_html
     - node.type.bc_profile
     - node.type.blog
     - node.type.career_profile
@@ -23,6 +24,7 @@ dependencies:
     - content_moderation
     - contextual
     - file
+    - filter
     - node
     - paragraphs_type_permissions
     - sitewide_alert
@@ -106,6 +108,7 @@ permissions:
   - 'update paragraph content skills'
   - 'use editorial transition create_new_draft'
   - 'use editorial transition send_for_review'
+  - 'use text format full_html'
   - 'view all revisions'
   - 'view any unpublished content'
   - 'view bc_profile revisions'

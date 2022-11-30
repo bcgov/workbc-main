@@ -2,8 +2,11 @@ uuid: 66c05b59-42fc-4977-8c7f-3ef3e6cbc808
 langcode: en
 status: true
 dependencies:
+  config:
+    - filter.format.full_html
   module:
     - field_permissions
+    - filter
     - node
     - override_node_options
     - path
@@ -43,6 +46,7 @@ permissions:
   - 'override region_profile authored by option'
   - 'override success_story authored by option'
   - 'override workbc_centre authored by option'
+  - 'use text format full_html'
   - 'view all revisions'
   - 'view published sitewide alert entities'
   - 'view the administration theme'
