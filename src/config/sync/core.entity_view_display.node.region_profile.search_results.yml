@@ -47,8 +47,8 @@ third_party_settings:
         description: ''
     group_labour_market_statistics:
       children:
-        - group_regional_overview
         - field_key_facts
+        - group_regional_overview
       label: 'Labour Market Statistics'
       parent_name: ''
       region: hidden
@@ -95,7 +95,7 @@ content:
     region: content
   field_region_overview:
     type: text_default
-    label: above
+    label: hidden
     settings: {  }
     third_party_settings: {  }
     weight: 0
