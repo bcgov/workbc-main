@@ -254,6 +254,15 @@ try {
         }
     }
     else if ($template === 'Regional Profile') {
+        if (property_exists($item, 'Regional Overview')) {
+            $fields['field_region_overview'] = convertRichText($item->{'Regional Overview'}, $items);
+        }
+        if (property_exists($item, 'Key Facts')) {
+            $fields['field_key_facts'] = convertRichText($item->{'Key Facts'}, $items);
+        }
+        if (property_exists($item, 'Industry Highlights')) {
+            $fields['field_industry_highlights_intro'] = convertRichText($item->{'Industry Highlights'}, $items);
+        }
         if (!empty($regional_profile_introductions)) {
             $fields['field_introductions'] = ['target_id' => $regional_profile_introductions->id()];
         }
