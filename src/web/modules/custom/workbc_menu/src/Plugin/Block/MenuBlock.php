@@ -83,10 +83,12 @@ class MenuBlock extends BlockBase {
           }
 
           $content = <<<EOT
-            <div class="col-sm-4 nav-t1-splash">
-              <img src="$hero_image_url" />
-              <p>$hero_text</p>
-              <a href="$url">Read More</a>
+            <div class="col-sm-4 megamenu-splash">
+              <img class="megamenu-splash__image" src="$hero_image_url" />
+              <div class="megamenu-splash__content">$hero_text</div>
+              <div class="megamenu-splash__actions">
+                <a class="action-link" href="$url">Read More</a>
+              </div>
             </div>
           EOT;
           $output .= $content;
