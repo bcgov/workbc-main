@@ -83,15 +83,16 @@ if (file_exists(__DIR__ . '/data/regions_industries.csv')) {
 // Read GatherContent page data.
 $file = __DIR__ . '/data/workbc.jsonl';
 if (($handle = fopen($file, 'r')) === FALSE) {
-    die("Could not open GatherContent WorkBC items $file" . PHP_EOL);
+    die("Could not open GatherContent WorkBC Pages $file" . PHP_EOL);
 }
-print("Importing GatherContent WorkBC items $file" . PHP_EOL);
+print("Importing GatherContent WorkBC Pages $file" . PHP_EOL);
 
 $items = [];
 while (!feof($handle)) {
     $item = json_decode(fgets($handle));
     if (empty($item)) continue;
     $item->process = TRUE;
+    $item->title = convertPlainText($item->title);
 
     // SPECIAL CASES
     // There are two "Reports" pages. For one of them, its parent item in IA is different than its parent folder in GC - which makes it unidentifiable.
@@ -113,6 +114,22 @@ while (!feof($handle)) {
 }
 fclose($handle);
 
+// Read GatherContent career profiles.
+$file = __DIR__ . '/data/career_profiles.jsonl';
+if (($handle = fopen($file, 'r')) === FALSE) {
+    die("Could not open GatherContent Career Profiles $file" . PHP_EOL);
+}
+print("Reading GatherContent Career Profiles $file" . PHP_EOL);
+
+while (!feof($handle)) {
+    $item = json_decode(fgets($handle));
+    if (empty($item)) continue;
+    $item->process = FALSE;
+    $item->title = preg_replace('/\s+\(NOC\s+\d+\)$/i', '', convertPlainText($item->title));
+    $items[$item->id] = $item;
+}
+fclose($handle);
+
 // Merge extra content if any.
 $file = __DIR__ . '/data/extra.jsonl';
 if (($handle = fopen($file, 'r')) !== FALSE) {
@@ -130,6 +147,7 @@ if (($handle = fopen($file, 'r')) !== FALSE) {
 print("FIRST PASS =================" . PHP_EOL);
 foreach ($items as $id => $item) {
     if (!empty($item_id) && $id != $item_id) continue;
+    if (!$item->process) continue;
 
     $title = convertPlainText($item->title);
 

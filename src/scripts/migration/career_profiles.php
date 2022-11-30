@@ -18,7 +18,7 @@ use GuzzleHttp\Exception\RequestException;
 // Read and migrate GatherContent career profile introduction if present.
 $career_profile_introductions = NULL;
 if (file_exists(__DIR__ . '/data/career_profile_introductions.jsonl')) {
-  print("Reading GC Career Profile Introductions" . PHP_EOL);
+  print("Reading GatherContent Career Profile Introductions" . PHP_EOL);
   $item = json_decode(file_get_contents(__DIR__ . '/data/career_profile_introductions.jsonl'));
   $career_profile_introductions = createNode([
     'type' => 'career_profile_introductions',
@@ -36,7 +36,7 @@ if (file_exists(__DIR__ . '/data/career_profile_introductions.jsonl')) {
 // Read GatherContent career profiles if present.
 $career_profiles = [];
 if ($data = fopen(__DIR__ . '/data/career_profiles.jsonl', 'r')) {
-  print("Reading GC Career Profiles\n");
+  print("Reading GatherContent Career Profiles" . PHP_EOL);
   while (!feof($data)) {
     $career_profile = json_decode(fgets($data));
     if (empty($career_profile)) continue;
@@ -77,6 +77,10 @@ try {
     // Check GC import for this career profile.
     if (array_key_exists($profile['noc'], $career_profiles)) {
       $career_profile = $career_profiles[$profile['noc']];
+
+      // Override title with official one.
+      $fields['title'] = preg_replace('/\s+\(NOC\s+\d+\)$/i', '', convertPlainText($career_profile->title));
+
       $fields = array_merge($fields, [
         'field_career_overview' => convertRichText($career_profile->{'Career Overview Content'}),
         'field_career_pathways' => convertRichText($career_profile->{'Career Pathways Content'}),
