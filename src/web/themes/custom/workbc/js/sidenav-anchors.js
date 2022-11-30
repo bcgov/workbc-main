@@ -13,7 +13,7 @@
 
   let initSidenavAnchors = function() {
     let article = jQuery('article.page-format--sidenav');
-    let headings = article.find(".page-content h2");
+    let headings = article.find(".node-page-content h2");
 
     headings.each(configureHeadingAnchor);
   };
