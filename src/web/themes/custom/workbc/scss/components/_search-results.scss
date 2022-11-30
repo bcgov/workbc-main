@@ -14,3 +14,13 @@
   padding: 30px 0;
   border-bottom: 1px solid $workbc_palette_light_tertiary;
 }
+
+.search__title {
+  margin-bottom: 10px;
+  font-size: 1rem;
+  font-weight: 700;
+}
+
+.node p.search__teaser {
+  margin-bottom: 0;
+}

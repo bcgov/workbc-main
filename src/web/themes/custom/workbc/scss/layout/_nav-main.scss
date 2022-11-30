@@ -106,7 +106,8 @@
                 left: 100%;
                 top: 0;
                 height: 100%;
-                width: 50%;
+                width: 100%;
+                padding: 0 15px;
               }
 
               &:hover .nav-t3 {
@@ -163,6 +164,8 @@
             $workbc_light_theme_trim_alternate;
 
           ul.nav-t2 {
+            border-right: 3px solid $workbc_light_theme_background_accent;
+
             & > li {
               & > a,
               a:focus {
@@ -199,21 +202,6 @@
     }
   }
 }
-
-// .nav-main ul.nav-t1>li .submenu-container .submenu ul.nav-t2:not(:hover)>li ul.nav-t3
-
-// // this works to highlight the first item if the whole list isn't hovered
-// ul.nav-t2:not(:hover) {
-//   .nav-item:first-child {
-//     background-color: red;
-
-//     .nav-t3 {
-//         display: block;
-//     }
-//   }
-// }
-
-
 
 .nav-main {
   display: none;

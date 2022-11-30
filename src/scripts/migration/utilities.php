@@ -135,35 +135,35 @@ function convertGatherContentLinks($text, &$items) {
         $item_id = $match;
 
         // Handle the case where $items does not contain the item.
+        // All items should now be downloaded.
         if (!array_key_exists($item_id, $items)) {
-            $email = getenv('GATHERCONTENT_EMAIL');
-            $apiKey = getenv('GATHERCONTENT_APIKEY');
-            $client = new \GuzzleHttp\Client();
-            $gc = new \Cheppers\GatherContent\GatherContentClient($client);
-            $gc
-            ->setEmail($email)
-            ->setApiKey($apiKey);
-            try {
-                $item = $gc->itemGet($item_id);
-                // If we read a career profile, remove the NOC suffix.
-                $item->title = preg_replace('/\s+\(NOC\s+\d+\)$/i', '', $item->name);
-                $item->process = FALSE;
-                $items[$item_id] = $item;
-            }
-            catch (Exception $e) {
-                print("  Error: Could not query GatherContent item $item_id: {$e->getMessage()}" . PHP_EOL);
-                continue;
-            }
+            print("  Error: Could not find GatherContent item $item_id" . PHP_EOL);
+            continue;
+            // $email = getenv('GATHERCONTENT_EMAIL');
+            // $apiKey = getenv('GATHERCONTENT_APIKEY');
+            // $client = new \GuzzleHttp\Client();
+            // $gc = new \Cheppers\GatherContent\GatherContentClient($client);
+            // $gc
+            // ->setEmail($email)
+            // ->setApiKey($apiKey);
+            // try {
+            //     $item = $gc->itemGet($item_id);
+            //     // If we read a career profile, remove the NOC suffix.
+            //     $item->title = preg_replace('/\s+\(NOC\s+\d+\)$/i', '', $item->name);
+            //     $item->process = FALSE;
+            //     $items[$item_id] = $item;
+            // }
+            // catch (Exception $e) {
+            //     print("  Error: Could not query GatherContent item $item_id: {$e->getMessage()}" . PHP_EOL);
+            //     continue;
+            // }
         }
         if (empty($items[$item_id]->nid)) {
-            $nodes = \Drupal::entityTypeManager()
-            ->getStorage('node')
-            ->loadByProperties(['title' => convertPlainText($items[$item_id]->title)]);
-            if (empty($nodes)) {
-                print("  Error: Could not find Drupal node \"{$items[$item_id]->title}\"" . PHP_EOL);
+            $node = findNode($items[$item_id]->title, $items[$item_id]->folder);
+            if (empty($node)) {
+                print("  Error: Could not find Drupal node for GatherContent item $item_id" . PHP_EOL);
                 continue;
             }
-            $node = current($nodes);
             $items[$item_id]->nid = $node->id();
         }
         $targets[] = array(

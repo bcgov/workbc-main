@@ -818,10 +818,10 @@ if (in_array(getenv('PROJECT_ENVIRONMENT'), [
 ])) {
   $settings['config_exclude_modules'] = [
     'devel', 
+    'devel_generate',
     'devel_kint_extras', 
     'webform_devel', 
     'views_ui',
-    'field_ui',
     'webform_ui',
   ];
 }

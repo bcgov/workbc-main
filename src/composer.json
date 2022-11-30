@@ -212,9 +212,6 @@
             },
             "drupal/gtranslate" : {
                "Replace Select language by the dafault/current language": "patches/drupal/gtranslate/select_default_value.patch"
-            },
-            "drupal/cdn": {
-                "Disable DuplicateContentPreventionMiddleware": "patches/drupal/cdn/3219339-14.patch"
             }
         }
     }
