@@ -67,6 +67,13 @@
  *
  */
 #}
+
+{% set body = content.body|render|striptags %}
+{% set career_overview = content.field_career_overview|render|striptags %}
+{% set region_overview = content.field_region_overview|render|striptags %}
+{% set industry_overview = content.field_industry_overview|render|striptags %}
+{% set address = content.field_address|render|striptags %}
+
 {%
   set classes = [
     'node',
@@ -78,11 +85,40 @@
   ]
 %}
 
-{{ attach_library('classy/node') }}
 <article{{ attributes.addClass(classes) }}>
 
-  <div{{ content_attributes.addClass('node__content') }}>
-    {{ content }}
-  </div>
+  <h2 class="search__title">
+    <a href="{{ url }}" {{ label }}</a>
+  </h2>
+
+  {% if body%}
+    <p class="search__teaser">
+      {{ body }}
+    </p>
+  {% endif %}
+
+  {% if career_overview %}
+    <p class="search__teaser">
+      {{ career_overview  }}
+    </p>
+  {% endif %}
+
+  {% if region_overview %}
+    <p class="search__teaser">
+      {{ region_overview  }}
+    </p>
+  {% endif %}
+
+  {% if industry_overview %}
+    <p class="search__teaser">
+      {{ industry_overview  }}
+    </p>
+  {% endif %}
+
+  {% if address %}
+    <p class="search__teaser">
+      {{ address  }}
+    </p>
+  {% endif %}
 
 </article>

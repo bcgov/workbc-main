@@ -79,7 +79,7 @@ mode: search_results
 content:
   field_industry_overview:
     type: text_trimmed
-    label: above
+    label: hidden
     settings:
       trim_length: 275
     third_party_settings: {  }

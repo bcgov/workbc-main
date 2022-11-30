@@ -535,7 +535,25 @@ display:
       style:
         type: default
       row:
-        type: fields
+        type: search_api
+        options:
+          view_modes:
+            'entity:node':
+              bc_profile: search_results
+              blog: search_results
+              career_profile: search_results
+              career_profile_introductions: search_results
+              event: search_results
+              industry_profile: search_results
+              industry_profile_introductions: search_results
+              labour_market_monthly: search_results
+              news: search_results
+              page: search_results
+              publication: search_results
+              region_profile: search_results
+              region_profile_introductions: search_results
+              success_story: search_results
+              workbc_centre: search_results
       query:
         type: search_api_query
         options:

@@ -123,7 +123,7 @@ content:
     region: content
   field_career_overview:
     type: text_trimmed
-    label: visually_hidden
+    label: hidden
     settings:
       trim_length: 275
     third_party_settings: {  }
