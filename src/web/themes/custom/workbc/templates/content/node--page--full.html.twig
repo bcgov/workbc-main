@@ -109,7 +109,9 @@
 
 
 {# When breadcrums are displayed below the hero section #}
-{{ drupal_block('system_breadcrumb_block', wrapper=false) }}
+{% if not is_front %}
+  {{ drupal_block('system_breadcrumb_block', wrapper=false) }}
+{% endif %}
 
 {# When social links are displayed below the hero section #}
 {% if not is_front %}
