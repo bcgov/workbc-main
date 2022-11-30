@@ -21,7 +21,8 @@
     .profile-header-social {
         flex: 0 0;
         order: 3;
-        
+        padding: 20px 0;
+
         @include media-breakpoint-up(lg) {
             order: 3;
         }
@@ -154,7 +155,7 @@
                 background: url(../assets/images/video-play-icon.svg) center center no-repeat;
                 background-size: 60px;
               }
-      
+
               &:hover:after {
                 background: url(../assets/images/video-play-icon-hover.svg) center center no-repeat;
                 background-size: 60px;
@@ -196,7 +197,7 @@
                 }
 
             }
-            
+
             .profile-content-section__header {
                 font-size: 1.313rem;
                 font-weight: normal;
