@@ -4,13 +4,13 @@
   background: #ccd7dc;
 
   @include media-breakpoint-up(lg) {
-    min-height: 530px;
+    min-height: 478px;
   }
 }
 
 .hero-home__container {
-  padding-top: 40px;
-  padding-bottom: 40px;
+  padding-top: 35px;
+  padding-bottom: 35px;
   position: relative;
 }
 
