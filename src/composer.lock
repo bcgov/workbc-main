@@ -4,7 +4,7 @@
         "Read more about it at https://getcomposer.org/doc/01-basic-usage.md#installing-dependencies",
         "This file is @generated automatically"
     ],
-    "content-hash": "f9b8d86f2829f5f913d4b9d50bff65b9",
+    "content-hash": "d185b660614fdff7eda8a54ef164505f",
     "packages": [
         {
             "name": "alchemy/zippy",
@@ -5624,53 +5624,6 @@
             }
         },
         {
-            "name": "drupal/minifyjs",
-            "version": "2.2.0",
-            "source": {
-                "type": "git",
-                "url": "https://git.drupalcode.org/project/minifyjs.git",
-                "reference": "8.x-2.2"
-            },
-            "dist": {
-                "type": "zip",
-                "url": "https://ftp.drupal.org/files/projects/minifyjs-8.x-2.2.zip",
-                "reference": "8.x-2.2",
-                "shasum": "38f312f3632cbd0bfa0fd91c74de27d37c8dfbb0"
-            },
-            "require": {
-                "drupal/core": "^8 || ^9",
-                "patchwork/jsqueeze": "~2.0"
-            },
-            "type": "drupal-module",
-            "extra": {
-                "drupal": {
-                    "version": "8.x-2.2",
-                    "datestamp": "1593007534",
-                    "security-coverage": {
-                        "status": "covered",
-                        "message": "Covered by Drupal's security advisory policy"
-                    }
-                }
-            },
-            "notification-url": "https://packages.drupal.org/8/downloads",
-            "license": [
-                "GPL-2.0+"
-            ],
-            "authors": [
-                {
-                    "name": "Scott Joudry",
-                    "homepage": "https://www.drupal.org/user/1846786",
-                    "email": "sj@slydevil.com"
-                }
-            ],
-            "description": "Allows an administrator to minify any javascript file in Drupal and use that version rather than the original.",
-            "homepage": "https://www.drupal.org/project/minifyjs",
-            "support": {
-                "source": "https://git.drupalcode.org/project/minifyjs",
-                "issues": "https://www.drupal.org/project/issues/minifyjs"
-            }
-        },
-        {
             "name": "drupal/openid_connect",
             "version": "1.2.0",
             "source": {
@@ -9046,58 +8999,6 @@
                 "source": "https://github.com/nikic/PHP-Parser/tree/v4.15.2"
             },
             "time": "2022-11-12T15:38:23+00:00"
-        },
-        {
-            "name": "patchwork/jsqueeze",
-            "version": "v2.0.5",
-            "source": {
-                "type": "git",
-                "url": "https://github.com/tchwork/jsqueeze.git",
-                "reference": "693d64850eab2ce6a7c8f7cf547e1ab46e69d542"
-            },
-            "dist": {
-                "type": "zip",
-                "url": "https://api.github.com/repos/tchwork/jsqueeze/zipball/693d64850eab2ce6a7c8f7cf547e1ab46e69d542",
-                "reference": "693d64850eab2ce6a7c8f7cf547e1ab46e69d542",
-                "shasum": ""
-            },
-            "require": {
-                "php": ">=5.3.0"
-            },
-            "type": "library",
-            "extra": {
-                "branch-alias": {
-                    "dev-master": "2.0-dev"
-                }
-            },
-            "autoload": {
-                "psr-4": {
-                    "Patchwork\\": "src/"
-                }
-            },
-            "notification-url": "https://packagist.org/downloads/",
-            "license": [
-                "(Apache-2.0 or GPL-2.0)"
-            ],
-            "authors": [
-                {
-                    "name": "Nicolas Grekas",
-                    "email": "p@tchwork.com"
-                }
-            ],
-            "description": "Efficient JavaScript minification in PHP",
-            "homepage": "https://github.com/tchwork/jsqueeze",
-            "keywords": [
-                "compression",
-                "javascript",
-                "minification"
-            ],
-            "support": {
-                "issues": "https://github.com/tchwork/jsqueeze/issues",
-                "source": "https://github.com/tchwork/jsqueeze/tree/master"
-            },
-            "abandoned": true,
-            "time": "2016-04-19T09:28:22+00:00"
         },
         {
             "name": "pear/archive_tar",
