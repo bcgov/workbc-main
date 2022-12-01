@@ -1,34 +1,38 @@
-global-styling:
-  css:
-    theme:
-      css/style.css: {}
-      css/print.css: { media: print }
+
 fonts:
   css:
     theme:
       '//fonts.googleapis.com/css2?family=Material+Symbols+Outlined': { type: external, minified: true }
 
-submenu-underlay:
+global-styling:
+  css:
+    theme:
+      css/style.css: {}
+      css/print.css: { media: print }
+
+init-popovers:
   js:
-    js/submenu-underlay.js: {}
+    js/init-popovers.js: {}
   dependencies:
     - core/drupal
     - core/jquery
-    - core/
+    - core/once
+    - core/popperjs
 
-scrollbooster:
+back-to-top:
   js:
-    '//unpkg.com/scrollbooster@3.0.2/dist/scrollbooster.min.js': { type: module, minified: true }
-    js/scrollbooster-init.js: { }
+    js/back-to-top.js: {}
+  dependencies:
+    - core/drupal
+    - core/jquery
 
-
-swiper-js:
-  css:
-    theme:
-      '//cdn.jsdelivr.net/npm/swiper@8/swiper-bundle.min.css': { type: external, minified: true }
+mobile-nav:
   js:
-    '//cdn.jsdelivr.net/npm/swiper@8/swiper-bundle.min.js': { type: external, minified: true }
+    js/mobile-nav.js: {}
 
+nav:
+  js:
+    js/nav.js: {}
 
 related-topics-carousel:
   js:
@@ -39,6 +43,11 @@ related-topics-carousel:
     - core/once
     - workbc/swiper-js
 
+scrollbooster:
+  js:
+    '//unpkg.com/scrollbooster@3.0.2/dist/scrollbooster.min.js': { type: module, minified: true }
+    js/scrollbooster-init.js: { }
+
 sidenav-anchors:
   js:
     js/sidenav-anchors.js: {}
@@ -46,14 +55,6 @@ sidenav-anchors:
     - core/drupal
     - core/jquery
     - core/once
-
-mobile-nav:
-  js:
-    js/mobile-nav.js: {}
-
-nav:
-  js:
-    js/nav.js: {}
 
 static-load-more:
   js:
@@ -63,11 +64,17 @@ static-load-more:
     - core/jquery
     - core/once
 
-init-popovers:
+submenu-underlay:
   js:
-    js/init-popovers.js: {}
+    js/submenu-underlay.js: {}
   dependencies:
     - core/drupal
     - core/jquery
-    - core/once
-    - core/popperjs
+    - core/
+
+swiper-js:
+  css:
+    theme:
+      '//cdn.jsdelivr.net/npm/swiper@8/swiper-bundle.min.css': { type: external, minified: true }
+  js:
+    '//cdn.jsdelivr.net/npm/swiper@8/swiper-bundle.min.js': { type: external, minified: true }
