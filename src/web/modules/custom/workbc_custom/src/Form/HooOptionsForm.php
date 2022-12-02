@@ -51,16 +51,6 @@
           $filters_exists = TRUE;
         }
 
-        //pagination & offset
-        if(!empty($offset)) {
-            $parameters .= '&offset=' . $offset;
-        }
-        if(empty($limit)) {
-            $parameters .= '&limit=20';
-        } else {
-            $parameters .= '&limit='. $limit;
-        }
-
         //data
         $dataHHO = ssotHighOpportunityOptions($parameters);
 
@@ -174,13 +164,6 @@
             '#rows' => $rows,
             '#attributes' => array('class'=>array('bc-high-opportunites-table')),
             '#header_columns' => 5,
-            '#suffix' => '</div>',
-          ];
-
-          $form['load_more'] = [
-            '#prefix' => '<div class="text-center">',
-            '#type' => 'button',
-            '#value' => $this->t('Load More'),
             '#suffix' => '</div>',
           ];
 
