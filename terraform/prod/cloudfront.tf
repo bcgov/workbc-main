@@ -67,8 +67,7 @@ resource "aws_cloudfront_distribution" "workbc" {
 
   restrictions {
     geo_restriction {
-      restriction_type = "whitelist"
-      locations = ["CA"]
+      restriction_type = "none"
     }
   }
 
