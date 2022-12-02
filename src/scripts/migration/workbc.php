@@ -354,7 +354,7 @@ function createIndustryProfile($item) {
         'title' => $title,
         'field_job_board_id' => $regions_industries[$title_lower][COL_JOBBOARD_SEARCH],
         'field_job_board_save_profile_id' => $regions_industries[$title_lower][COL_JOBBOARD_SAVE],
-    ], 'https://www.workbc.ca/Labour-Market-Information/Industry-Information/Industry-Profiles/' . $regions_industries[$title_lower][COL_KENTICO]);
+    ], 'https://www.workbc.ca/Labour-Market-Information/Industry-Information/Industry-Profiles/' . $regions_industries[$title_lower][COL_KENTICO] . '.aspx');
 }
 
 function createBlogNewsSuccessStory($item) {

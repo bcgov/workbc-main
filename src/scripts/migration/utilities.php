@@ -422,19 +422,21 @@ function createRedirection($legacy_urls, $target_url) {
         foreach (array_map('trim', explode(',', $legacy_urls)) as $legacy_url) {
             $count = 0;
             $result = preg_replace('|https://(?:www.)?workbc.ca/(.*)|', '$1', $legacy_url, -1, $count);
-            if ($count > 0) {
+            if ($count > 0 && !empty($result)) {
                 Redirect::create([
                     'redirect_source' => $result,
                     'redirect_redirect' => $target_url,
                     'language' => 'und',
                     'status_code' => '301',
                 ])->save();
-                Redirect::create([
-                    'redirect_source' => str_replace('.aspx', '', $result),
-                    'redirect_redirect' => $target_url,
-                    'language' => 'und',
-                    'status_code' => '301',
-                ])->save();
+                if (str_ends_with($result, '.aspx')) {
+                    Redirect::create([
+                        'redirect_source' => str_replace('.aspx', '', $result),
+                        'redirect_redirect' => $target_url,
+                        'language' => 'und',
+                        'status_code' => '301',
+                    ])->save();
+                }
             }
         }
     }
