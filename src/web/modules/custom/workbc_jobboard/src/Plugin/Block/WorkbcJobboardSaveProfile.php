@@ -5,7 +5,7 @@ use Drupal\Core\Block\BlockBase;
 use Drupal\Core\Url;
 use Drupal\Core\Form\FormStateInterface;
 use Drupal\Component\Utility\UrlHelper;
-use Drupal\Core\Access\AccessResult; 
+use Drupal\Core\Access\AccessResult;
 use Drupal\Core\Session\AccountInterface;
 use Drupal\Core\Form\FormInterface;
 use Drupal\workbc_jobboard\Controller\WorkBcJobboardController;
@@ -17,15 +17,15 @@ use Drupal\workbc_jobboard\Controller\WorkBcJobboardController;
  * @Block(
  *   id = "workbc_jobboard_save_profile",
  *   admin_label = @Translation("Save Profile"),
- *   category = @Translation("Workbc Jobboard"),
+ *   category = @Translation("WorkBC Job Board"),
  * )
  */
- 
+
 class WorkbcJobboardSaveProfile extends BlockBase{
-  
+
 	/**
    * {@inheritdoc}
-   */	
+   */
 	public function build(){
     $config = $this->getConfiguration();
     $saveProfile = \Drupal::formBuilder()->getForm('Drupal\workbc_jobboard\Form\JobboardSaveProfileForm');
@@ -37,7 +37,7 @@ class WorkbcJobboardSaveProfile extends BlockBase{
       '#data' => [],
     ];
   }
-  
+
   /**
    * {@inheritdoc}
    */
