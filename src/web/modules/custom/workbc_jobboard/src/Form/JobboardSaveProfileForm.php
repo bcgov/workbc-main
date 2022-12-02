@@ -24,20 +24,20 @@ class JobboardSaveProfileForm extends FormBase {
       if($node instanceof \Drupal\node\NodeInterface) {
         $type = $node->bundle();
         if($type == 'career_profile') {
-          $noc_value = ($node->get('field_noc')->getValue())? $node->get('field_noc')->getValue(): '';
-          $noc_value = (!empty($noc_value) && isset($noc_value[0]['value']))? $noc_value[0]['value'] :'';
+          $temp_field_value = ($node->get('field_noc')->getValue())? $node->get('field_noc')->getValue(): '';
+          $temp_field_value = (!empty($temp_field_value) && isset($temp_field_value[0]['value']))? $temp_field_value[0]['value'] :'';
           $action = 'statusProfile';
         }
         else if($type == 'industry_profile') {
-          $noc_value = ($node->get('field_jobboard_save_profile_id')->getValue())? $node->get('field_jobboard_save_profile_id')->getValue(): '';
-          $noc_value = (!empty($noc_value) && isset($noc_value[0]['value']))? $noc_value[0]['value'] :'';
-          $noc_value = explode(',', $noc_value);
-          $noc_value = $noc_value[0];
+          $temp_field_value = ($node->get('field_job_board_save_profile_id')->getValue())? $node->get('field_job_board_save_profile_id')->getValue(): '';
+          $temp_field_value = (!empty($temp_field_value) && isset($temp_field_value[0]['value']))? $temp_field_value[0]['value'] :'';
+          $temp_field_value = explode(',', $temp_field_value);
+          $temp_field_value = $temp_field_value[0];
           $action = 'statusIndustryProfile';
         }
       }
       $WorkBcJobboardController = new WorkBcJobboardController();
-      $parameters = ['profile_id'=>$noc_value, 'Authorization'=>$Bearer];
+      $parameters = ['profile_id'=>$temp_field_value, 'Authorization'=>$Bearer];
       $response = $WorkBcJobboardController->getPosts($parameters, $action, 'GET');
       if($response['response'] == 200){
         $this->isSaved = $response['data'];
@@ -96,20 +96,20 @@ class JobboardSaveProfileForm extends FormBase {
           $type = $node->bundle();
           if(isset($_COOKIE['currentUser_token'])){
             if($type == 'career_profile') {
-              $noc_value = ($node->get('field_noc')->getValue())? $node->get('field_noc')->getValue(): '';
-              $noc_value = (!empty($noc_value) && isset($noc_value[0]['value']))? $noc_value[0]['value'] :'';
+              $temp_field_value = ($node->get('field_noc')->getValue())? $node->get('field_noc')->getValue(): '';
+              $temp_field_value = (!empty($temp_field_value) && isset($temp_field_value[0]['value']))? $temp_field_value[0]['value'] :'';
               $action = 'saveProfile';
             }
             else if($type == 'industry_profile') {
-              $noc_value = ($node->get('field_jobboard_save_profile_id')->getValue())? $node->get('field_jobboard_save_profile_id')->getValue(): '';
-              $noc_value = (!empty($noc_value) && isset($noc_value[0]['value']))? $noc_value[0]['value'] :'';
-              $noc_value = explode(',', $noc_value);
-              $noc_value = $noc_value[0];
+              $temp_field_value = ($node->get('field_job_board_save_profile_id')->getValue())? $node->get('field_job_board_save_profile_id')->getValue(): '';
+              $temp_field_value = (!empty($temp_field_value) && isset($temp_field_value[0]['value']))? $temp_field_value[0]['value'] :'';
+              $temp_field_value = explode(',', $temp_field_value);
+              $temp_field_value = $temp_field_value[0];
               $action = 'saveIndustryProfile';
             }
             
             $WorkBcJobboardController = new WorkBcJobboardController();
-            $parameters = ['profile_id'=>$noc_value, 'Authorization'=>$Bearer];
+            $parameters = ['profile_id'=>$temp_field_value, 'Authorization'=>$Bearer];
             $saveProfile = $WorkBcJobboardController->getPosts($parameters, $action);
             if($saveProfile['response'] == 200){
               $this->isSaved = 1;

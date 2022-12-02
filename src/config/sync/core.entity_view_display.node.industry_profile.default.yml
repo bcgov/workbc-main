@@ -8,7 +8,7 @@ dependencies:
     - field.field.node.industry_profile.field_industry_overview
     - field.field.node.industry_profile.field_introductions
     - field.field.node.industry_profile.field_job_board_id
-    - field.field.node.industry_profile.field_jobboard_save_profile_id
+    - field.field.node.industry_profile.field_job_board_save_profile_id
     - field.field.node.industry_profile.field_key_facts
     - field.field.node.industry_profile.field_resources
     - field.field.node.industry_profile.field_scheduled_publish
@@ -318,7 +318,7 @@ content:
     third_party_settings: {  }
     weight: 23
     region: content
-  field_jobboard_save_profile_id:
+  field_job_board_save_profile_id:
     type: string
     label: above
     settings:

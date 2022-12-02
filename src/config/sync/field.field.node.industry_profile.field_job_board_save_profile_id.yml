@@ -1,15 +1,15 @@
-uuid: 83dcc2e2-a896-44eb-b1f8-861727b437ca
+uuid: e47574e2-66b2-4eab-ae26-a37e841c10d5
 langcode: en
 status: true
 dependencies:
   config:
-    - field.storage.node.field_jobboard_save_profile_id
+    - field.storage.node.field_job_board_save_profile_id
     - node.type.industry_profile
-id: node.industry_profile.field_jobboard_save_profile_id
-field_name: field_jobboard_save_profile_id
+id: node.industry_profile.field_job_board_save_profile_id
+field_name: field_job_board_save_profile_id
 entity_type: node
 bundle: industry_profile
-label: 'Jobboard Save Profile ID'
+label: 'Job Board Save Profile ID'
 description: 'Used by Job Board API to save this Industry Profile in the User Profile.'
 required: false
 translatable: false
