@@ -6,9 +6,6 @@
     };
 
     const initScrollToTopTrigger = () => {
-
-        console.log("initializing Scroll To Top trigger");
-
         var trigger = injectFixedButton();
         attachScrollListener(trigger);
     };
