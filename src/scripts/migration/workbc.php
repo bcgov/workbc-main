@@ -353,7 +353,7 @@ function createIndustryProfile($item) {
         'type' => 'industry_profile',
         'title' => $title,
         'field_job_board_id' => $regions_industries[$title_lower][COL_JOBBOARD_SEARCH],
-        'field_jobboard_save_profile_id' => $regions_industries[$title_lower][COL_JOBBOARD_SAVE],
+        'field_job_board_save_profile_id' => $regions_industries[$title_lower][COL_JOBBOARD_SAVE],
     ], 'https://www.workbc.ca/Labour-Market-Information/Industry-Information/Industry-Profiles/' . $regions_industries[$title_lower][COL_KENTICO]);
 }
 
