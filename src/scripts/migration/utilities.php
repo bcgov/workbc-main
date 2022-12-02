@@ -429,6 +429,12 @@ function createRedirection($legacy_urls, $target_url) {
                     'language' => 'und',
                     'status_code' => '301',
                 ])->save();
+                Redirect::create([
+                    'redirect_source' => str_replace('.aspx', '', $result),
+                    'redirect_redirect' => $target_url,
+                    'language' => 'und',
+                    'status_code' => '301',
+                ])->save();
             }
         }
     }

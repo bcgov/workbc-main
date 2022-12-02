@@ -1146,7 +1146,7 @@
 			<name>WorkBC Centre - Surrey - 56 Ave</name>
 			<address>Unit 202 - 17700 - 56 Avenue, Surrey, BC V3S 1C7</address>
 			<Snippet maxLines="0"/>
-			<description>&lt;![CDATA[&lt;p&gt;&lt;h3&gt;&lt;a href=&quot;https://www.workbc.ca/WorkBC-Centres/Mainland-Southwest/Surrey-56.aspx&quot; target=&quot;_blank&quot;&gt;WorkBC Centre - Surrey - 56 Ave&lt;/a&gt;&lt;/h3&gt;&lt;/p&gt;&lt;em&gt;STORE FRONT: 1&lt;/em&gt;&lt;br/&gt;&lt;em&gt;CATCHMENT AREA: 20&lt;/em&gt;</description>
+			<description>&lt;![CDATA[&lt;p&gt;&lt;h3&gt;&lt;a href=&quot;/WorkBC-Centres/Mainland-Southwest/Surrey-56.aspx&quot; target=&quot;_blank&quot;&gt;WorkBC Centre - Surrey - 56 Ave&lt;/a&gt;&lt;/h3&gt;&lt;/p&gt;&lt;em&gt;STORE FRONT: 1&lt;/em&gt;&lt;br/&gt;&lt;em&gt;CATCHMENT AREA: 20&lt;/em&gt;</description>
 			<styleUrl>#WorkBCCentres</styleUrl>
 			<ExtendedData>
 				<Data name="Contractor">
@@ -1180,7 +1180,7 @@
 					<value>mailto:centre-surrey-56@workbc.ca</value>
 				</Data>
 				<Data name="website">
-					<value>https://www.workbc.ca/WorkBC-Centres/Mainland-Southwest/Surrey-56.aspx</value>
+					<value>/WorkBC-Centres/Mainland-Southwest/Surrey-56.aspx</value>
 				</Data>
 				<Data name="hasFrench">
 					<value>N</value>
@@ -1268,7 +1268,7 @@
 			<name>WorkBC Centre - Surrey - 152 St</name>
 			<address>108 - 1688 152 Street, Surrey, BC V4A 4N2</address>
 			<Snippet maxLines="0"/>
-			<description>&lt;![CDATA[&lt;p&gt;&lt;h3&gt;&lt;a href=&quot;https://www.workbc.ca/WorkBC-Centres/Mainland-Southwest/Surrey-152-St.aspx&quot; target=&quot;_blank&quot;&gt;WorkBC Centre - Surrey - 152 St&lt;/a&gt;&lt;/h3&gt;&lt;/p&gt;&lt;em&gt;STORE FRONT: 1&lt;/em&gt;&lt;br/&gt;&lt;em&gt;CATCHMENT AREA: 22&lt;/em&gt;</description>
+			<description>&lt;![CDATA[&lt;p&gt;&lt;h3&gt;&lt;a href=&quot;/WorkBC-Centres/Mainland-Southwest/Surrey-152-St.aspx&quot; target=&quot;_blank&quot;&gt;WorkBC Centre - Surrey - 152 St&lt;/a&gt;&lt;/h3&gt;&lt;/p&gt;&lt;em&gt;STORE FRONT: 1&lt;/em&gt;&lt;br/&gt;&lt;em&gt;CATCHMENT AREA: 22&lt;/em&gt;</description>
 			<styleUrl>#WorkBCCentres</styleUrl>
 			<ExtendedData>
 				<Data name="Contractor">
@@ -1302,7 +1302,7 @@
 					<value>mailto:centre-surrey-152@workbc.ca</value>
 				</Data>
 				<Data name="website">
-					<value>https://www.workbc.ca/WorkBC-Centres/Mainland-Southwest/Surrey-152-St.aspx</value>
+					<value>/WorkBC-Centres/Mainland-Southwest/Surrey-152-St.aspx</value>
 				</Data>
 				<Data name="hasFrench">
 					<value>N</value>
@@ -1390,7 +1390,7 @@
 			<name>WorkBC Centre - Burnaby - Metrotown</name>
 			<address>601-4211 Kingsway, Burnaby, BC V5H 1Z6</address>
 			<Snippet maxLines="0"/>
-			<description>&lt;![CDATA[&lt;p&gt;&lt;h3&gt;&lt;a href=&quot;https://www.workbc.ca/WorkBC-Centres/Mainland-Southwest/Burnaby-4211-Kingsway.aspx&quot; target=&quot;_blank&quot;&gt;WorkBC Centre - Burnaby - Metrotown&lt;/a&gt;&lt;/h3&gt;&lt;/p&gt;&lt;em&gt;STORE FRONT: 1&lt;/em&gt;&lt;br/&gt;&lt;em&gt;CATCHMENT AREA: 24&lt;/em&gt;</description>
+			<description>&lt;![CDATA[&lt;p&gt;&lt;h3&gt;&lt;a href=&quot;/WorkBC-Centres/Mainland-Southwest/Burnaby-4211-Kingsway.aspx&quot; target=&quot;_blank&quot;&gt;WorkBC Centre - Burnaby - Metrotown&lt;/a&gt;&lt;/h3&gt;&lt;/p&gt;&lt;em&gt;STORE FRONT: 1&lt;/em&gt;&lt;br/&gt;&lt;em&gt;CATCHMENT AREA: 24&lt;/em&gt;</description>
 			<styleUrl>#WorkBCCentres</styleUrl>
 			<ExtendedData>
 				<Data name="Contractor">
@@ -1424,7 +1424,7 @@
 					<value>mailto:centre-burnaby-4211kingsway@workbc.ca</value>
 				</Data>
 				<Data name="website">
-					<value>https://www.workbc.ca/WorkBC-Centres/Mainland-Southwest/Burnaby-4211-Kingsway.aspx</value>
+					<value>/WorkBC-Centres/Mainland-Southwest/Burnaby-4211-Kingsway.aspx</value>
 				</Data>
 				<Data name="hasFrench">
 					<value>N</value>
@@ -1573,7 +1573,7 @@
 			<name>WorkBC Centre - Abbotsford</name>
 			<address>#103 - 33255 S Fraser Way  Abbotsford, BC, V2S 2B2</address>
 			<Snippet maxLines="0"/>
-			<description>&lt;![CDATA[&lt;p&gt;&lt;h3&gt;&lt;a href=&quot;https://www.workbc.ca/WorkBC-Centres/Mainland-Southwest/AbbotsfordEnFrancais.aspx&quot; target=&quot;_blank&quot;&gt;WorkBC Centre - Abbotsford&lt;/a&gt;&lt;/h3&gt;&lt;/p&gt;&lt;em&gt;STORE FRONT: 1&lt;/em&gt;&lt;br/&gt;&lt;em&gt;CATCHMENT AREA: 27&lt;/em&gt;</description>
+			<description>&lt;![CDATA[&lt;p&gt;&lt;h3&gt;&lt;a href=&quot;/WorkBC-Centres/Mainland-Southwest/AbbotsfordEnFrancais.aspx&quot; target=&quot;_blank&quot;&gt;WorkBC Centre - Abbotsford&lt;/a&gt;&lt;/h3&gt;&lt;/p&gt;&lt;em&gt;STORE FRONT: 1&lt;/em&gt;&lt;br/&gt;&lt;em&gt;CATCHMENT AREA: 27&lt;/em&gt;</description>
 			<styleUrl>#WorkBCCentres</styleUrl>
 			<ExtendedData>
 				<Data name="Contractor">
@@ -1607,7 +1607,7 @@
 					<value>mailto:info-abbotsford@workbc.ca </value>
 				</Data>
 				<Data name="website">
-					<value>https://www.workbc.ca/WorkBC-Centres/Mainland-Southwest/AbbotsfordEnFrancais.aspx</value>
+					<value>/WorkBC-Centres/Mainland-Southwest/AbbotsfordEnFrancais.aspx</value>
 				</Data>
 				<Data name="hasFrench">
 					<value>N</value>
@@ -2305,7 +2305,7 @@
 			<name>WorkBC Centre - Prince Rupert - Market</name>
 			<address>125 Market Place, Prince Rupert, BC V8J 1B9</address>
 			<Snippet maxLines="0"/>
-			<description>&lt;![CDATA[&lt;p&gt;&lt;h3&gt;&lt;a href=&quot;https://www.workbc.ca/WorkBC-Centres/North-Coast-Nechako/Prince-Rupert-Market.aspx&quot; target=&quot;_blank&quot;&gt;WorkBC Centre - Prince Rupert - Market&lt;/a&gt;&lt;/h3&gt;&lt;/p&gt;&lt;em&gt;STORE FRONT: 1&lt;/em&gt;&lt;br/&gt;&lt;em&gt;CATCHMENT AREA: 39&lt;/em&gt;</description>
+			<description>&lt;![CDATA[&lt;p&gt;&lt;h3&gt;&lt;a href=&quot;/WorkBC-Centres/North-Coast-Nechako/Prince-Rupert-Market.aspx&quot; target=&quot;_blank&quot;&gt;WorkBC Centre - Prince Rupert - Market&lt;/a&gt;&lt;/h3&gt;&lt;/p&gt;&lt;em&gt;STORE FRONT: 1&lt;/em&gt;&lt;br/&gt;&lt;em&gt;CATCHMENT AREA: 39&lt;/em&gt;</description>
 			<styleUrl>#WorkBCCentres</styleUrl>
 			<ExtendedData>
 				<Data name="Contractor">
@@ -2339,7 +2339,7 @@
 					<value>mailto:centre-princerupert@workbc.ca</value>
 				</Data>
 				<Data name="website">
-					<value>https://www.workbc.ca/WorkBC-Centres/North-Coast-Nechako/Prince-Rupert-Market.aspx</value>
+					<value>/WorkBC-Centres/North-Coast-Nechako/Prince-Rupert-Market.aspx</value>
 				</Data>
 				<Data name="hasFrench">
 					<value>N</value>
@@ -5233,7 +5233,7 @@
 			<name>WorkBC Centre - Burnaby - Edmonds</name>
 			<address>7297 Kingsway, Burnaby, BC V5E 1G5</address>
 			<Snippet maxLines="0"/>
-			<description>&lt;![CDATA[&lt;p&gt;&lt;h3&gt;&lt;a href=&quot;https://www.workbc.ca/WorkBC-Centres/Mainland-Southwest/Burnaby-7297-Kingsway.aspx&quot; target=&quot;_blank&quot;&gt;WorkBC Centre - Burnaby - Edmonds&lt;/a&gt;&lt;/h3&gt;&lt;/p&gt;&lt;em&gt;STORE FRONT: 3&lt;/em&gt;&lt;br/&gt;&lt;em&gt;CATCHMENT AREA: 24&lt;/em&gt;</description>
+			<description>&lt;![CDATA[&lt;p&gt;&lt;h3&gt;&lt;a href=&quot;/WorkBC-Centres/Mainland-Southwest/Burnaby-7297-Kingsway.aspx&quot; target=&quot;_blank&quot;&gt;WorkBC Centre - Burnaby - Edmonds&lt;/a&gt;&lt;/h3&gt;&lt;/p&gt;&lt;em&gt;STORE FRONT: 3&lt;/em&gt;&lt;br/&gt;&lt;em&gt;CATCHMENT AREA: 24&lt;/em&gt;</description>
 			<styleUrl>#WorkBCCentres</styleUrl>
 			<ExtendedData>
 				<Data name="Contractor">
@@ -5267,7 +5267,7 @@
 					<value>mailto:centre-burnaby-7297kingsway@workbc.ca</value>
 				</Data>
 				<Data name="website">
-					<value>https://www.workbc.ca/WorkBC-Centres/Mainland-Southwest/Burnaby-7297-Kingsway.aspx</value>
+					<value>/WorkBC-Centres/Mainland-Southwest/Burnaby-7297-Kingsway.aspx</value>
 				</Data>
 				<Data name="hasFrench">
 					<value>N</value>

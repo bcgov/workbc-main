@@ -2,8 +2,6 @@
 
 require('utilities.php');
 
-use Drupal\paragraphs\Entity\Paragraph;
-
 /**
  * Create nodes for WorkBC Service Centres.
  *
