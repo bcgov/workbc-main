@@ -35,3 +35,4 @@ visibility:
       node: '@node.node_route_context:node'
     bundles:
       career_profile: career_profile
+      industry_profile: industry_profile

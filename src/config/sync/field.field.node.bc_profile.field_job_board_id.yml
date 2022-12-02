@@ -9,8 +9,8 @@ id: node.bc_profile.field_job_board_id
 field_name: field_job_board_id
 entity_type: node
 bundle: bc_profile
-label: 'Job Board ID'
-description: ''
+label: 'Job Board Search ID'
+description: 'Used by Job Board API to search for this Regional Profile on the Find Jobs page.'
 required: false
 translatable: true
 default_value: {  }

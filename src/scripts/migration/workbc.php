@@ -68,7 +68,8 @@ if (file_exists(__DIR__ . '/data/regional_profile_introductions.jsonl')) {
 const COL_DRUPAL = 0;
 const COL_SSOT = 1;
 const COL_KENTICO = 2;
-const COL_JOBBOARD = 3;
+const COL_JOBBOARD_SEARCH = 3;
+const COL_JOBBOARD_SAVE = 4;
 global $regions_industries;
 $regions_industries = [];
 if (file_exists(__DIR__ . '/data/regions_industries.csv')) {
@@ -351,7 +352,8 @@ function createIndustryProfile($item) {
     return createNode([
         'type' => 'industry_profile',
         'title' => $title,
-        'field_job_board_id' => $regions_industries[$title_lower][COL_JOBBOARD],
+        'field_job_board_id' => $regions_industries[$title_lower][COL_JOBBOARD_SEARCH],
+        'field_job_board_save_profile_id' => $regions_industries[$title_lower][COL_JOBBOARD_SAVE],
     ], 'https://www.workbc.ca/Labour-Market-Information/Industry-Information/Industry-Profiles/' . $regions_industries[$title_lower][COL_KENTICO]);
 }
 
