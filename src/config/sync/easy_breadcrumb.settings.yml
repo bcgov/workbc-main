@@ -4,7 +4,7 @@ applies_admin_routes: false
 include_invalid_paths: false
 excluded_paths: ''
 replaced_titles: ''
-custom_paths: "/workbc-order-form :: Plan a Career | /plan-career :: Our Publications | /our-publications :: WorkBC Resource Order Form\r\n/request-a-tour-stop :: Plan a Career | /plan-career :: Career Events | /career-events :: Find Your Fit Tour | /find-your-fit-tour :: Request a Tour Stop\r\nregex!/news/([^/]*) :: Plan a Career | /plan-career :: News | /news ::  <title>\r\nregex!/blog/([^/]*) :: Plan a Career | /plan-career :: Blog | /blog ::  <title>\r\nregex!/success-story/([^/]*) :: Plan a Career | /plan-career :: Success Stories | /success-stories ::  <title>\r\nregex!/career-profiles/([^/]*) :: Plan a Career | /plan-career :: Explore Careers | /explore-careers"
+custom_paths: "/workbc-order-form :: Plan a Career | /plan-career :: Our Publications | /our-publications :: WorkBC Resource Order Form\r\n/request-a-tour-stop :: Plan a Career | /plan-career :: Career Events | /career-events :: Find Your Fit Tour | /find-your-fit-tour :: Request a Tour Stop\r\nregex!/news/([^/]*) :: Plan a Career | /plan-career :: News | /plan-career/news ::  <title>\r\nregex!/blog/([^/]*) :: Plan a Career | /plan-career :: Blog | /plan-career/blog ::  <title>\r\nregex!/success-story/([^/]*) :: Plan a Career | /plan-career :: Success Stories | /plan-career/success-stories ::  <title>\r\nregex!/career-profiles/([^/]*) :: Plan a Career | /plan-career :: Explore Careers | /explore-careers"
 include_home_segment: true
 alternative_title_field: field_breadcrumb_title
 home_segment_title: Home
@@ -14,6 +14,7 @@ title_from_page_when_available: true
 title_segment_as_link: false
 use_menu_title_as_fallback: false
 use_page_title_as_menu_title_fallback: false
+menu_title_preferred_menu: ''
 remove_repeated_segments: true
 language_path_prefix_as_segment: false
 absolute_paths: false
@@ -40,3 +41,5 @@ segment_display_limit: 0
 truncator_mode: false
 truncator_length: 100
 truncator_dots: true
+remove_repeated_segments_text_only: 0
+home_segment_validation_skip: 0

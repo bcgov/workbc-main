@@ -26,7 +26,7 @@ class CareerProfileJobOpenings extends ExtraFieldDisplayFormattedBase {
    * {@inheritdoc}
    */
   public function getLabel() {
-    $datestr = ssotParseDateRange($this->getEntity()->ssot_data['schema'], 'career_provincial', 'job_openings_first');
+    $datestr = ssotParseDateRange($this->getEntity()->ssot_data['schema'], 'career_provincial', 'expected_job_openings_10y');
     return $this->t('Job Openings (:datestr)', array(":datestr" => $datestr));
   }
 
@@ -43,8 +43,8 @@ class CareerProfileJobOpenings extends ExtraFieldDisplayFormattedBase {
    */
   public function viewElements(ContentEntityInterface $entity) {
 
-    if (!empty($entity->ssot_data) && isset($entity->ssot_data['career_provincial']['job_openings_first'])) {
-      $output = Number_format($entity->ssot_data['career_provincial']['job_openings_first'],0);
+    if (!empty($entity->ssot_data) && isset($entity->ssot_data['career_provincial']['expected_job_openings_10y'])) {
+      $output = Number_format($entity->ssot_data['career_provincial']['expected_job_openings_10y'],0);
     }
     else {
       $output = WORKBC_EXTRA_FIELDS_NOT_AVAILABLE;
