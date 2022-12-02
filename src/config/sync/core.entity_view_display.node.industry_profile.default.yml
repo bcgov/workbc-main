@@ -12,7 +12,6 @@ dependencies:
     - field.field.node.industry_profile.field_key_facts
     - field.field.node.industry_profile.field_resources
     - field.field.node.industry_profile.field_scheduled_publish
-    - field.field.node.industry_profile.field_types_of_employment
     - image.style.hero_image
     - node.type.industry_profile
   module:
@@ -344,14 +343,6 @@ content:
       target: ''
     third_party_settings: {  }
     weight: 28
-    region: content
-  field_types_of_employment:
-    type: string
-    label: above
-    settings:
-      link_to_entity: false
-    third_party_settings: {  }
-    weight: 25
     region: content
   links:
     settings: {  }

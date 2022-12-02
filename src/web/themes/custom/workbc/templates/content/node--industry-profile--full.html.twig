@@ -80,7 +80,7 @@
   ]
 %}
 
-{# This viewmodel is intended to collect all of the incoming variables in one place, and the remainder of the template should 
+{# This viewmodel is intended to collect all of the incoming variables in one place, and the remainder of the template should
  refer only to this viewmodel (or Drupal/Twig generics like loop, directory, etc #}
 {% set viewmodel = {
   title: label,
@@ -145,8 +145,8 @@
       employment_title: content.group_industry_profile.group_labour_market_statistics.extra_field_employment_introduction['#title'],
       employment_text: content.group_industry_profile.group_labour_market_statistics.extra_field_employment_introduction.0['#text'],
 
-      employment_types_title: content.group_industry_profile.group_labour_market_statistics.field_types_of_employment['#title'],
-      employment_types_text__field: content.group_industry_profile.group_labour_market_statistics.field_types_of_employment.0,
+      employment_types_title: 'Types of Employment',
+      employment_types_text__field: 'Shows % of Persons Employed for each type',
       employment_types_industry_title: content.group_industry_profile.group_labour_market_statistics.extra_field_industry_employment_types_industry['#title'],
       employment_types_industry_markup: content.group_industry_profile.group_labour_market_statistics.extra_field_industry_employment_types_industry.0['#markup'],
       employment_types_bc_title: content.group_industry_profile.group_labour_market_statistics.extra_field_industry_employment_types_bc['#title'],
@@ -185,7 +185,7 @@
       title: content.group_industry_profile.group_resources['#title'] ?? "Resources",
       resource_list: content.group_industry_profile.group_resources.field_resources['#items'],
     },
-    
+
   },
   links: content.links,
 }
@@ -279,7 +279,7 @@
           <div class="tab-pane active" id="industry_overview-content" role="tabpanel" aria-labelledby="industry_overview-tab">
             <h2 class="profile-content-main__header">{{ viewmodel['tab_sections']['industry_overview']['title'] }}</h2>
             <div>{{ viewmodel['tab_sections']['industry_overview']['description']|raw }}</div>
-            
+
             <div class="profile-content-section">
               <h2 class="profile-content-section__header">{{ viewmodel['tab_sections']['industry_overview']['key_facts_title'] }}</h2>
               <div>{{ viewmodel['tab_sections']['industry_overview']['key_facts_markup']|raw }}</div>
