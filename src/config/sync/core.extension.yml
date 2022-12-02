@@ -7,6 +7,10 @@ module:
   admin_toolbar_links_access_filter: 0
   admin_toolbar_search: 0
   admin_toolbar_tools: 0
+  advagg: 0
+  advagg_css_minify: 0
+  advagg_js_minify: 0
+  advagg_validator: 0
   auto_username: 0
   backup_migrate: 0
   backup_migrate_aws_s3: 0

@@ -63,6 +63,7 @@
         "cweagans/composer-patches": "^1.7",
         "drupal/address": "^1.10",
         "drupal/admin_toolbar": "^3.1",
+        "drupal/advagg": "^5.0",
         "drupal/auto_username": "^1.2",
         "drupal/backup_migrate": "^5.0",
         "drupal/backup_migrate_aws_s3": "^5.0",

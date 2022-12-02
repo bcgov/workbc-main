@@ -245,16 +245,16 @@ try {
     }
     else if (strcasecmp($title, 'Labour Market Monthly Update') === 0 && !empty($labour_market_introductions)) {
         if (property_exists($labour_market_introductions, 'Employment Introduction')) {
-            $fields['field_employment_introduction'] = convertRichText($labour_market_introductions->{'Employment Introduction'});
+            $fields['field_employment_introduction'] = convertRichText($labour_market_introductions->{'Employment Introduction'}, $items);
         }
         if (property_exists($labour_market_introductions, 'Industry Highlights Introduction')) {
-            $fields['field_industry_highlights_intro'] = convertRichText($labour_market_introductions->{'Industry Highlights Introduction'});
+            $fields['field_industry_highlights_intro'] = convertRichText($labour_market_introductions->{'Industry Highlights Introduction'}, $items);
         }
         if (property_exists($labour_market_introductions, 'Unemployment by Region Introduction')) {
-            $fields['field_unemployment_region_intro'] = convertRichText($labour_market_introductions->{'Unemployment by Region Introduction'});
+            $fields['field_unemployment_region_intro'] = convertRichText($labour_market_introductions->{'Unemployment by Region Introduction'}, $items);
         }
         if (property_exists($labour_market_introductions, 'Unemployment Introduction')) {
-            $fields['field_unemployment_introduction'] = convertRichText($labour_market_introductions->{'Unemployment Introduction'});
+            $fields['field_unemployment_introduction'] = convertRichText($labour_market_introductions->{'Unemployment Introduction'}, $items);
         }
     }
     else if ($template === 'Industry Profile') {
@@ -493,7 +493,7 @@ function convertCards($cards, $card_type, &$items, &$container_paragraph) {
 
         // Populate container.
         if ($card_types[$type]['container'] === 'content_text') {
-            $container_paragraph->set($card_types[$type]['field_name'], convertRichText($card->{'Body'}));
+            $container_paragraph->set($card_types[$type]['field_name'], convertRichText($card->{'Body'}, $items));
         }
         else if ($card_types[$type]['container'] === 'content_view') {
             $container_paragraph->set($card_types[$type]['field_name'], [
@@ -512,8 +512,8 @@ function convertCards($cards, $card_type, &$items, &$container_paragraph) {
                 $card_fields['field_author'] = convertPlainText($card->{'Title'});
             }
             if (property_exists($card, 'Body')) {
-                $card_fields['field_description'] = convertRichText($card->{'Body'});
-                $card_fields['field_quote'] = convertRichText($card->{'Body'});
+                $card_fields['field_description'] = convertRichText($card->{'Body'}, $items);
+                $card_fields['field_quote'] = convertRichText($card->{'Body'}, $items);
             }
             if (property_exists($card, 'Image')) {
                 if ($card_types[$type]['card'] === 'action_card_icon') {
@@ -586,7 +586,7 @@ function convertCardsPublications($cards, $card_type, &$items, &$container_parag
             continue;
         }
         $publication = current($publications);
-        $publication->body = convertRichText($card->{'Body'});
+        $publication->body = convertRichText($card->{'Body'}, $items);
         $images = array_map('convertImage', array_filter($card->{'Image'}));
         if (!empty($images)) {
             $publication->field_image = current($images);

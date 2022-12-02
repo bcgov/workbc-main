@@ -187,7 +187,6 @@ function convertEmbeddableLinks($text) {
         foreach ($providers->getAll() as $provider_info) {
             foreach ($provider_info->getEndpoints() as $endpoint) {
                 if ($endpoint->matchUrl($url)) {
-                    print("  Found an embeddable URL $url" . PHP_EOL);
                     $video = convertVideo($url);
                     $targets[] = array(
                         'target_id' => $video['target_id'],
