@@ -9,7 +9,7 @@ id: node.industry_profile.field_job_board_id
 field_name: field_job_board_id
 entity_type: node
 bundle: industry_profile
-label: 'Job Board ID'
+label: 'Job Board Search ID'
 description: ''
 required: false
 translatable: false
