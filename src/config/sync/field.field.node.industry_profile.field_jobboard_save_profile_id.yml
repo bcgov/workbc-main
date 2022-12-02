@@ -9,7 +9,7 @@ id: node.industry_profile.field_jobboard_save_profile_id
 field_name: field_jobboard_save_profile_id
 entity_type: node
 bundle: industry_profile
-label: 'Jobboard Save Profile ID'
+label: 'Job Board Save Profile ID'
 description: 'Used by Job Board API to save this Industry Profile in the User Profile.'
 required: false
 translatable: false
