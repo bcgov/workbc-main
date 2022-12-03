@@ -52,10 +52,6 @@ function workbc_extra_fields_node_view(array &$build, \Drupal\Core\Entity\Entity
         break;
       case "region_profile":
         $entity->ssot_data = ssotRegionProfile($entity->getTitle());
-        ksm($entity->ssot_data);
-        // $schema['definitions'][$section]['properties'][$field]['description'];
-        ksm($entity->ssot_data['schema']['definitions']['labour_force_survey_regional_employment']['properties']);
-        ksm($entity->ssot_data['schema']['definitions']['labour_force_survey_regional_industry_region']);
         break;
       case "bc_profile":
         $entity->ssot_data = ssotBCProfile($entity->getTitle());
