@@ -52,6 +52,10 @@ function workbc_extra_fields_node_view(array &$build, \Drupal\Core\Entity\Entity
         break;
       case "region_profile":
         $entity->ssot_data = ssotRegionProfile($entity->getTitle());
+        ksm($entity->ssot_data);
+        // $schema['definitions'][$section]['properties'][$field]['description'];
+        ksm($entity->ssot_data['schema']['definitions']['labour_force_survey_regional_employment']['properties']);
+        ksm($entity->ssot_data['schema']['definitions']['labour_force_survey_regional_industry_region']);
         break;
       case "bc_profile":
         $entity->ssot_data = ssotBCProfile($entity->getTitle());
@@ -180,11 +184,15 @@ function ssotCareerProfile($noc) {
 }
 
 
-function ssotParseDateRange($schema, $section, $field) {
+function ssotParseDateRange($schema, $section, $field = "") {
 
   $match = "";
   if (isset($schema['definitions'][$section]['properties'][$field]['description'])) {
     $text = $schema['definitions'][$section]['properties'][$field]['description'];
+    preg_match('#\{(.*?)\}#', $text, $match);
+  }
+  else if (isset($schema['definitions'][$section]['description'])) {
+    $text = $schema['definitions'][$section]['description'];
     preg_match('#\{(.*?)\}#', $text, $match);
   }
   return empty($match) ? "" : $match[1];

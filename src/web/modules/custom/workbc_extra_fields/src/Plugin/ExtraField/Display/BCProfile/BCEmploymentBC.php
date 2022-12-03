@@ -27,7 +27,7 @@ class BCEmploymentBC extends ExtraFieldDisplayFormattedBase {
    */
   public function getLabel() {
 
-    $datestr = ssotParseDateRange($this->getEntity()->ssot_data['schema'], 'labour_force_survey_bc_employment', 'total_employment_num');
+    $datestr = ssotParseDateRange($this->getEntity()->ssot_data['schema'], 'labour_force_survey_regional_employment', 'total_employment_num');
     return $this->t("Total B.C. Employment (" . $datestr . ")");
   }
 
