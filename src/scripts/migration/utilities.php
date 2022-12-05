@@ -139,24 +139,6 @@ function convertGatherContentLinks($text, &$items) {
         if (!array_key_exists($item_id, $items)) {
             print("  Error: Could not find GatherContent item $item_id" . PHP_EOL);
             continue;
-            // $email = getenv('GATHERCONTENT_EMAIL');
-            // $apiKey = getenv('GATHERCONTENT_APIKEY');
-            // $client = new \GuzzleHttp\Client();
-            // $gc = new \Cheppers\GatherContent\GatherContentClient($client);
-            // $gc
-            // ->setEmail($email)
-            // ->setApiKey($apiKey);
-            // try {
-            //     $item = $gc->itemGet($item_id);
-            //     // If we read a career profile, remove the NOC suffix.
-            //     $item->title = preg_replace('/\s+\(NOC\s+\d+\)$/i', '', $item->name);
-            //     $item->process = FALSE;
-            //     $items[$item_id] = $item;
-            // }
-            // catch (Exception $e) {
-            //     print("  Error: Could not query GatherContent item $item_id: {$e->getMessage()}" . PHP_EOL);
-            //     continue;
-            // }
         }
         if (empty($items[$item_id]->nid)) {
             $node = findNode($items[$item_id]->title, $items[$item_id]->folder);
@@ -274,19 +256,22 @@ function convertGatherContentImageLinks($text) {
         return [];
     }
 
+    // Prepare GatherContent API headers.
+    $email = getenv('GATHERCONTENT_EMAIL');
+    $apiKey = getenv('GATHERCONTENT_APIKEY');
+    $projectId = getenv('GATHERCONTENT_PROJECT_ID');
+    $client = new \GuzzleHttp\Client();
+    $headers = [
+        'accept' => 'application/vnd.gathercontent.v2+json',
+        'authorization' => 'Basic ' . base64_encode($email . ':' . $apiKey),
+    ];
+
     $targets = [];
     foreach ($matches[1] as $m => $match) {
         $image_id = $match;
-        $email = getenv('GATHERCONTENT_EMAIL');
-        $apiKey = getenv('GATHERCONTENT_APIKEY');
-        $projectId = getenv('GATHERCONTENT_PROJECT_ID');
-        $client = new \GuzzleHttp\Client();
         try {
             $response = $client->request('GET', "https://api.gathercontent.com/projects/$projectId/files/$image_id", [
-                'headers' => [
-                    'accept' => 'application/vnd.gathercontent.v2+json',
-                    'authorization' => 'Basic ' . base64_encode($email . ':' . $apiKey),
-                ],
+                'headers' => $headers
             ]);
             $image = json_decode($response->getBody())->data;
             $image->file_id = $image_id;

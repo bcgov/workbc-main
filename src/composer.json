@@ -15,10 +15,6 @@
             "url": "https://packages.drupal.org/8"
         },
         {
-            "type": "vcs",
-            "url": "https://github.com/infojunkie/gathercontent-client"
-        },
-        {
             "type": "package",
             "package": {
                 "name": "google/charts",
@@ -58,7 +54,6 @@
     "require": {
         "php": ">=7.4",
         "aws/aws-sdk-php": "~3.0",
-        "cheppers/gathercontent-client": "dev-components as 3.0",
         "composer/installers": "^1.9",
         "cweagans/composer-patches": "^1.7",
         "drupal/address": "^1.10",

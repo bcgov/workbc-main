@@ -22,27 +22,44 @@ catch (Exception $e) {
   die($getopt->getHelpText());
 }
 
-$client = new \GuzzleHttp\Client();
-$gc = new \Cheppers\GatherContent\GatherContentClient($client);
-$gc
-  ->setEmail($email)
-  ->setApiKey($apiKey);
+// Prepare GatherContent API headers.
+$email = getenv('GATHERCONTENT_EMAIL');
+$apiKey = getenv('GATHERCONTENT_APIKEY');
+$projectId = $getopt->getOperand('projectId');
+$client = new \GuzzleHttp\Client(['base_uri' => 'https://api.gathercontent.com/']);
+$headers = [
+  'accept' => 'application/vnd.gathercontent.v2+json',
+  'authorization' => 'Basic ' . base64_encode($email . ':' . $apiKey),
+];
+$headers0_5 = [
+  'accept' => 'application/vnd.gathercontent.v0.5+json',
+];
+
 try {
   // Get folders.
   $folders = [];
-  $results = $gc->foldersGet($getopt->getOperand('projectId'));
-  foreach ($results['data'] as $result) {
-    $folders[$result->id] = $result;
+  $response = $client->request('GET', "https://api.gathercontent.com/projects/$projectId/folders", [
+    'headers' => $headers
+  ]);
+  $results = json_decode($response->getBody())->data;
+  foreach ($results as $result) {
+    $folders[$result->uuid] = $result;
   }
 
-  // Build query filter and make initial request.
-  $project_statuses = $gc->projectStatusesGet($getopt->getOperand('projectId'));
+  // Get status ids.
+  $response = $client->request('GET', "https://api.gathercontent.com/projects/$projectId/statuses", [
+    'headers' => $headers0_5,
+    'auth' => [$email, $apiKey],
+  ]);
+  $project_statuses = json_decode($response->getBody())->data;
   $download_statuses = array_map('strtolower', $getopt->getOption('status'));
   $status_ids = array_values(array_map(function ($status) {
     return $status->id;
-  }, array_filter($project_statuses['data'], function ($status) use ($download_statuses) {
+  }, array_filter($project_statuses, function ($status) use ($download_statuses) {
     return in_array(strtolower($status->name), $download_statuses);
   })));
+
+  // Build query filter and make initial request.
   $filter = [
     'per_page' => 500,
   ];
@@ -53,53 +70,64 @@ try {
     $filter['item_id'] = $getopt->getOption('item');
   }
   // TODO Pagination.
-  $results = $gc->itemsGet($getopt->getOperand('projectId'), $filter);
+  $response = $client->request('GET', "https://api.gathercontent.com/projects/$projectId/items", [
+    'headers' => $headers,
+    'query' => $filter,
+  ]);
+  $results = json_decode($response->getBody())->data;
 
   // Loop on the item list and build the JSON structure.
   $templates = [];
-  foreach ($results['data'] as $key => $result) {
-    $item = $gc->itemGet($result->id);
+  foreach ($results as $key => $result) {
+    $response = $client->request('GET', "https://api.gathercontent.com/items/{$result->id}", [
+      'headers' => $headers,
+    ]);
+    $item = json_decode($response->getBody())->data;
 
     // Cache the item template.
-    if (empty($item->templateId)) {
+    if (empty($item->template_id)) {
       continue;
     }
-    if (!array_key_exists($item->templateId, $templates)) {
-      $template = $gc->templateGet($item->templateId);
-      $templates[$item->templateId] = map_fields_ids($template);
-      $templates[$item->templateId]['template'] = $template['data'];
+    if (!array_key_exists($item->template_id, $templates)) {
+      $response = $client->request('GET', "https://api.gathercontent.com/templates/{$item->template_id}", [
+        'headers' => $headers,
+      ]);
+      $template = json_decode($response->getBody());
+
+      $templates[$item->template_id] = map_fields_ids($template);
+      $templates[$item->template_id]['template'] = $template->data;
     }
 
     // Loop on the content fields and translate field ids to field labels.
-    $item_status = array_filter($project_statuses['data'], function ($status) use ($item) {
-      return $status->id == $item->statusId;
+    $item_status = array_filter($project_statuses, function ($status) use ($item) {
+      return $status->id == $item->status_id;
     });
     $content = [
       'title' => $item->name,
       'id' => $item->id,
-      'template' => $templates[$item->templateId]['template']->name,
-      'folder' => $folders[$item->folderUuid]?->name,
+      'template' => $templates[$item->template_id]['template']->name,
+      'folder' => $folders[$item->folder_uuid]?->name,
       'status' => current($item_status)->name,
     ];
     foreach ($item->content as $uuid => $value) {
-      $field = $templates[$item->templateId][$uuid];
+      $field = $templates[$item->template_id][$uuid];
       // In case the field is a component, loop again on all component fields.
-      if ($field->type === 'component') {
+      if ($field->field_type === 'component') {
         // If the keys are strings, that means it's a single object: stuff it in a real array.
-        if (gettype(current(array_keys($value))) === 'string') {
+        if (is_object($value) && gettype(current(array_keys(get_object_vars($value)))) === 'string') {
           $value = [$value];
         }
         foreach ($value as $i => $component) {
           if (is_array($component) || is_object($component)) {
             $entry = [];
             foreach ($component as $component_uuid => $component_value) {
-              $component_field = $templates[$item->templateId][$component_uuid];
+              $component_field = $templates[$item->template_id][$component_uuid];
               $entry[$component_field->label] = extract_value($component_value);
             }
             $content[$field->label][] = $entry;
           }
           else {
-            $component_field = $templates[$item->templateId][$i];
+            $component_field = $templates[$item->template_id][$i];
             $content[$field->label][][$component_field->label] = extract_value($component);
           }
         }
@@ -120,12 +148,12 @@ catch (Exception $e) {
  */
 function map_fields_ids($template) {
   $map = [];
-  foreach ($template['related']->structure->groups as $group) {
+  foreach ($template->related->structure->groups as $group) {
     foreach ($group->fields as $field) {
-      $map[$field->id] = $field;
-      if ($field->type === 'component') {
+      $map[$field->uuid] = $field;
+      if ($field->field_type === 'component') {
         foreach ($field->component->fields as $component_field) {
-          $map[$component_field->id] = $component_field;
+          $map[$component_field->uuid] = $component_field;
         }
       }
     }
