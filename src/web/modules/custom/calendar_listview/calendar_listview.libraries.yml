@@ -1,7 +1,6 @@
 calendar-listview-lib:
     css:
        theme:
-        css/fonts.css: {}
         css/main.css: {}
         css/responsive.css: {}
             

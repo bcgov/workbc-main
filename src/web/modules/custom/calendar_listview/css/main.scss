@@ -296,6 +296,8 @@ $font-600:600;
       padding-left: 46px;
       background-position: center left;
       margin-left:20px;
+      padding-top: 2px;
+      padding-bottom: 3px;
     }
     .ev-date{
       background:url(../images/calendar-icon.svg) no-repeat;
@@ -650,4 +652,9 @@ $font-600:600;
   .tab-pane{
     position:relative;     
   }
+}
+.page-container .event-cal img{
+  display: unset;
+  width: auto;
+
 }
