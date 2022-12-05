@@ -210,7 +210,9 @@
       background-size: 23px;
       background-position: center left;
       padding-left: 46px;
-      margin-left: 20px; }
+      margin-left: 20px;
+      padding-top:2px;
+      padding-bottom:3px;}
     .event-cal .list-view .ev-date {
       background: url(../images/calendar-icon.svg) no-repeat;
       background-size: 28px;
@@ -484,5 +486,9 @@
     padding: 3px 7px; }
   .event-cal .tab-pane {
     position: relative; }
+  .page-container .event-cal img{
+    display: unset;
+    width: auto;
+  }
 
 /*# sourceMappingURL=main.css.map */
