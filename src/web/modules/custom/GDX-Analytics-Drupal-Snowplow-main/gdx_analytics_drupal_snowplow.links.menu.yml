@@ -1,7 +1,7 @@
 gdx_analytics_drupal_snowplow.gdx_analytics_drupal_snowplow_settings_form:
-  title: 'GDX Analytics Drupal Snowplow Settings Form'
+  title: 'GDX Analytics Drupal Snowplow settings'
   route_name: gdx_analytics_drupal_snowplow.gdx_analytics_drupal_snowplow_settings_form
-  description: 'GDX Analytics Drupal Snowplow Settings'
+  description: 'Configure the collector environment and tracking script URI. The version number is hard-coded.'
   parent: system.admin_config_system
   weight: 99
 
