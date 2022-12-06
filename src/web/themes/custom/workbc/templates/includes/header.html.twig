@@ -5,7 +5,10 @@
     </nav>
     <div class="header__logo-search-container">
       <a class="header__logo-link" href="{{ path('<front>') }}" title="{{ 'Home'|t }}" rel="home">
-        <img src="/{{ directory }}/logo.svg" alt="{{ 'Home'|t }}" />
+        <span class="visually-hidden">
+          {{ 'Home'|t }}
+        </span>
+        <img src="/{{ directory }}/logo.svg" alt="{{ 'logo'|t }}" />
       </a>
       <div class="header__search">
         {{ drupal_block('views_exposed_filter_block:search_site_content-page_1', wrapper=false) }}
