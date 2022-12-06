@@ -28,4 +28,11 @@ class HighOpportunityOccupations extends BlockBase {
     return $form;
   }
 
+  /**
+   * @return int
+   */
+  public function getCacheMaxAge() {
+    return 0;
+  }
+
 }
