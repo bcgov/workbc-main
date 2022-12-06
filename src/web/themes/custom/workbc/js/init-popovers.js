@@ -25,17 +25,15 @@
   }
 
   let initPopovers = function () {
-    if($().popover) {
-      $('[data-bs-toggle="popover"]').popover();
+    $(document).ready(function() {
       managePopoverClosure();
-    }
+      $('[data-bs-toggle="popover"]').popover();
+    });
   };
 
   Drupal.behaviors.initPopoverBehavior = {
     attach: function (context, settings) {
-
-      initPopovers();
-
+      $(document, context).once('initPopoverBehavior').each(initPopovers);
     },
   };
 

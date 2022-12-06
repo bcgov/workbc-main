@@ -179,6 +179,7 @@
           $form['data'] = [
             '#markup' => $output
           ];
+          $form['#cache'] = ['max-age' => 0];
         }
         return $form;
       }

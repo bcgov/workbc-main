@@ -7,7 +7,7 @@
     var anchorid = "sideNavAnchorId_" + index;
     var anchorText = jQuery(element).text();
 
-    $(this).wrapInner('<a id="' + anchorid + '" />');
+    $(this).append('<a class="sidenav-anchor" id="' + anchorid + '" />');
     linkList.append('<li><a href="#' + anchorid + '">' + anchorText + '</a></li>');
   };
 

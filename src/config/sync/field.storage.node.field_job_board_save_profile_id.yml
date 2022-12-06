@@ -1,4 +1,4 @@
-uuid: 8f0538b7-b022-4caf-9c87-7e35ffbeba06
+uuid: f7c5c60a-6afd-47d9-8046-f6db08f7480e
 langcode: en
 status: true
 dependencies:
@@ -8,8 +8,8 @@ dependencies:
 third_party_settings:
   field_permissions:
     permission_type: public
-id: node.field_types_of_employment
-field_name: field_types_of_employment
+id: node.field_job_board_save_profile_id
+field_name: field_job_board_save_profile_id
 entity_type: node
 type: string
 settings:

@@ -9,8 +9,8 @@ id: node.industry_profile.field_job_board_id
 field_name: field_job_board_id
 entity_type: node
 bundle: industry_profile
-label: 'Job Board ID'
-description: ''
+label: 'Job Board Search ID'
+description: 'Used by Job Board API to search for this Industry Profile on the Find Jobs page.'
 required: false
 translatable: false
 default_value: {  }

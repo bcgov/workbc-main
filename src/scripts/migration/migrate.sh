@@ -14,5 +14,6 @@ drush scr scripts/migration/career_profiles
 drush scr scripts/migration/service_centres
 drush scr scripts/migration/publications
 drush scr scripts/migration/workbc
+drush scr scripts/migration/solr_reset
 drush sapi-ena && drush sapi-r && drush sapi-i
 drush cron

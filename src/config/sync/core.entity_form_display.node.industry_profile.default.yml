@@ -8,10 +8,10 @@ dependencies:
     - field.field.node.industry_profile.field_industry_overview
     - field.field.node.industry_profile.field_introductions
     - field.field.node.industry_profile.field_job_board_id
+    - field.field.node.industry_profile.field_job_board_save_profile_id
     - field.field.node.industry_profile.field_key_facts
     - field.field.node.industry_profile.field_resources
     - field.field.node.industry_profile.field_scheduled_publish
-    - field.field.node.industry_profile.field_types_of_employment
     - image.style.thumbnail
     - node.type.industry_profile
     - workflows.workflow.editorial
@@ -81,6 +81,14 @@ content:
       size: 60
       placeholder: ''
     third_party_settings: {  }
+  field_job_board_save_profile_id:
+    type: string_textfield
+    weight: 135
+    region: content
+    settings:
+      size: 60
+      placeholder: ''
+    third_party_settings: {  }
   field_key_facts:
     type: text_textarea
     weight: 123
@@ -102,14 +110,6 @@ content:
     weight: 132
     region: content
     settings: {  }
-    third_party_settings: {  }
-  field_types_of_employment:
-    type: string_textfield
-    weight: 134
-    region: content
-    settings:
-      size: 60
-      placeholder: ''
     third_party_settings: {  }
   langcode:
     type: language_select

@@ -44,7 +44,8 @@ foreach (\Drupal::entityTypeManager()->getStorage('taxonomy_term')->loadTree('co
 const COL_DRUPAL = 0;
 const COL_SSOT = 1;
 const COL_KENTICO = 2;
-const COL_JOBBOARD = 3;
+const COL_JOBBOARD_SEARCH = 3;
+const COL_JOBBOARD_SAVE = 4;
 global $regions_industries;
 $regions_industries = [];
 if (file_exists(__DIR__ . '/data/regions_industries.csv')) {
@@ -174,7 +175,7 @@ while (($row = fgetcsv($handle)) !== FALSE) {
 
     // Job Board ID for region profiles.
     if (in_array($type, ['region_profile', 'bc_profile'])) {
-        $fields['field_job_board_id'] = $regions_industries[$title_lower][COL_JOBBOARD];
+        $fields['field_job_board_id'] = $regions_industries[$title_lower][COL_JOBBOARD_SEARCH];
     }
 
     // Process the IA item.

@@ -180,11 +180,15 @@ function ssotCareerProfile($noc) {
 }
 
 
-function ssotParseDateRange($schema, $section, $field) {
+function ssotParseDateRange($schema, $section, $field = "") {
 
   $match = "";
   if (isset($schema['definitions'][$section]['properties'][$field]['description'])) {
     $text = $schema['definitions'][$section]['properties'][$field]['description'];
+    preg_match('#\{(.*?)\}#', $text, $match);
+  }
+  else if (isset($schema['definitions'][$section]['description'])) {
+    $text = $schema['definitions'][$section]['description'];
     preg_match('#\{(.*?)\}#', $text, $match);
   }
   return empty($match) ? "" : $match[1];
