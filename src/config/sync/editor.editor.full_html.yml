@@ -59,6 +59,9 @@ settings:
             - ShowBlocks
             - Source
   plugins:
+    drupallink:
+      linkit_enabled: true
+      linkit_profile: default
     stylescombo:
       styles: "a.btn.btn-primary|Primary Button\r\na.btn.btn-secondary|Secondary Button\r\np.text-footnote|Footnote"
 image_upload:
