@@ -25,6 +25,11 @@ data "aws_iam_policy_document" "allow_access_from_other_accounts" {
       identifiers = ["arn:aws:iam::054099626264:role/workbc_container_role"]
     }
 
+    principals {
+      type        = "AWS"
+      identifiers = ["arn:aws:iam::846410483170:role/workbc_container_role"]
+    }
+
     actions = [
       "s3:ListBucket",
       "s3:GetBucketLocation",
@@ -44,6 +49,11 @@ data "aws_iam_policy_document" "allow_access_from_other_accounts" {
     principals {
       type        = "AWS"
       identifiers = ["arn:aws:iam::054099626264:role/workbc_container_role"]
+    }
+
+    principals {
+      type        = "AWS"
+      identifiers = ["arn:aws:iam::846410483170:role/workbc_container_role"]
     }
 
     actions = [
