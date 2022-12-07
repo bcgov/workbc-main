@@ -205,3 +205,78 @@ resource "aws_iam_role_policy" "workbc_container_ses" {
   }
   EOF  
 }
+
+resource "aws_iam_role_policy" "workbc_container_s3" {
+	name = "workbc_container_s3"
+	role = aws_iam_role.workbc_container_role.id
+	policy = jsonencode(
+    {
+  "Version": "2012-10-17",
+  "Statement": [
+    {
+      "Effect": "Allow",
+      "Action": ["s3:ListBucket"],
+      "Resource": ["arn:aws:s3:::workbc-backup-restore-bucket"]
+    },
+    {
+      "Effect": "Allow",
+      "Action": [
+        "s3:PutObject",
+        "s3:GetObject",
+        "s3:DeleteObject"
+      ],
+      "Resource": ["arn:aws:s3:::workbc-backup-restore-bucket/*"]
+    }
+  ]
+}
+  )
+}
+
+resource "aws_iam_role" "workbc_events_role" {
+	name = "workbc_events_role"
+	assume_role_policy = jsonencode({
+    "Version": "2012-10-17",
+    "Statement": [
+        {
+            "Effect": "Allow",
+            "Principal": {
+                "Service": "events.amazonaws.com"
+            },
+            "Action": "sts:AssumeRole"
+        }
+    ]
+	})
+}
+
+resource "aws_iam_role_policy" "events_ecs" {
+	name = "EventBridgeECSPolicy_WorkBC"
+	role = aws_iam_role.workbc_events_role.id
+	policy = jsonencode({
+
+    "Version": "2012-10-17",
+    "Statement": [
+        {
+            "Effect": "Allow",
+            "Action": [
+                "ecs:RunTask"
+            ],
+            "Resource": [
+                "*"
+            ]
+        },
+        {
+            "Effect": "Allow",
+            "Action": "iam:PassRole",
+            "Resource": [
+                "*"
+            ],
+            "Condition": {
+                "StringLike": {
+                    "iam:PassedToService": "ecs-tasks.amazonaws.com"
+                }
+            }
+        }
+    ]
+
+	})
+}
