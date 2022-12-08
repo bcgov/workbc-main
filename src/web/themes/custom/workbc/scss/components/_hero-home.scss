@@ -30,10 +30,8 @@
     z-index: 0;
     max-height: none;
     overflow: auto;
-  }
 
-  &:before {
-    @include media-breakpoint-up(lg) {
+    &:before {
       content: "";
       display: block;
       position: absolute;
