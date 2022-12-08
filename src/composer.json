@@ -207,7 +207,8 @@
                 "Ignore query strings": "patches/drupal/redirect/2976930-redirect-hashes-created-when-not-retaining-the-query-string-2.patch"
             },
             "drupal/gtranslate" : {
-               "Replace Select language by the dafault/current language": "patches/drupal/gtranslate/select_default_value.patch"
+               "Replace Select language by the dafault/current language": "patches/drupal/gtranslate/select_default_value.patch",
+               "Select doesnt show language selected after changing pages": "patches/drupal/gtranslate/select_changed_value.patch"
             }
         }
     }
