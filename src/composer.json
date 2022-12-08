@@ -97,6 +97,7 @@
         "drupal/image_widget_crop": "^2.3",
         "drupal/jquery_ui_accordion": "^1.1",
         "drupal/keycloak": "^1.7",
+        "drupal/linkit": "^6.0@beta",
         "drupal/mail_login": "^2.6",
         "drupal/menu_breadcrumb": "^1.16",
         "drupal/menu_export": "^1.3",

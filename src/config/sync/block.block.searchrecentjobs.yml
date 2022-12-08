@@ -22,6 +22,8 @@ settings:
   job_board_findjob_description: 'Refine results by using keywords and selecting Job Title, Job Description and/or Employer. Or perform a direct search by entering the Job Number.'
   job_board_postjob_title: ' Post jobs'
   job_board_postjob_description: 'Use B.C.''s most comprehensive job board to post jobs for free and find the right people to help your business grow. With hundreds of thousands of job seekers using the site, it''s a great way to find new talent.'
+  job_board_postjob_link_label: 'Post a Job'
+  job_board_postjob_link_url: '#'
 visibility:
   not_node_type:
     id: not_node_type

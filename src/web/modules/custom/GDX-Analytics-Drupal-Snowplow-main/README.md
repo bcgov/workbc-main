@@ -6,7 +6,9 @@
   
 ## Requirements  
 
-  This module requires Drupal 8.
+  This module requires Drupal 9.
+
+  A zipped Drupal 8 module is available as a stand-alone folder: [GDX-Analytics-Snowplow-Drupal8.zip](https://github.com/bcgov/GDX-Analytics-Drupal-Snowplow/blob/e70bd464d2c1582866c1d7cbaeccf69f423cb423/GDX-Analytics-Snowplow-Drupal8.zip).
   
 ## Project Status
 
@@ -20,22 +22,23 @@ This is the central repository for work by the GDX Analytics Team.
 ## Installation
  
   Install as you would normally install a contributed Drupal module. Visit:
-  https://www.drupal.org/documentation/install/modules-themes/modules-7
+  https://www.drupal.org/docs/extending-drupal/installing-modules
   for further information.
 
   In your drupal installation, change directories to your sites/modules/custom folder.
+  
   Clone the project from github: https://github.com/bcgov/GDX-Analytics-Drupal-Snowplow.
-  Install the module in admin » extend.
-  Navigate to admin » config » gdx_analytics_drupal_snowplow » config_settings and enter
-  the collector environment, snowplow version number, and snowplow tracking script uri.
+
+  Make sure you clone (or checkout) the D9 Branch.
+  
+  Install the module in Administration » Extend. Select the module; then scroll down and click Install.
 
 ## Configuration
 
-  Configure settings in Administration » Configuration » System 
-    » GDX Analytics Drupal Snowplow » Config_settings.
+  Configure settings in Administration » Configuration » GDX Analytics Drupal Snowplow settings.
     
-  Use this Configuration Page to set the collector version, script version, and specify
-  the uri of the tracking script.
+  Use this Configuration page to set the collector version, script version, and
+  the URI of the tracking script.
 
 ## Getting Help or Reporting an Issue
  
