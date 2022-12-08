@@ -1,0 +1,88 @@
+diff --git a/gtranslate.libraries.yml b/gtranslate.libraries.yml
+index b1e6d93..f8d0839 100644
+--- a/gtranslate.libraries.yml
++++ b/gtranslate.libraries.yml
+@@ -2,5 +2,11 @@ jquery-slider:
+   version: 1.0
+   js:
+     js/jquery-slider.js: {}
++    js/gcustom.js: {}
+   dependencies:
+-    - core/jquery
+\ No newline at end of file
++    - core/jquery
++
++lang-selector:
++  version: 1.0
++  js:
++    js/gtranslate-language-selector.js: {}
+diff --git a/gtranslate.module b/gtranslate.module
+index ba86417..6313074 100644
+--- a/gtranslate.module
++++ b/gtranslate.module
+@@ -45,3 +45,10 @@ function gtranslate_theme($existing, $type, $theme, $path) {
+     ),
+   );
+ }
++
++ /*
++  *  Hook_page_attachments.
++  */
++function gtranslate_page_attachments(array &$page) {
++    $page['#attached']['library'][] = 'gtranslate/lang-selector';
++}
+diff --git a/js/gtranslate-language-selector.js b/js/gtranslate-language-selector.js
+new file mode 100644
+index 0000000..f49cd0f
+--- /dev/null
++++ b/js/gtranslate-language-selector.js
+@@ -0,0 +1,18 @@
++jQuery(function($){
++  var currentLang = showCookieValue();
++  if(!currentLang || currentLang == false){
++    currentLang = 'en';
++  }
++  $('#gtranslate_selector option[value="en|'+currentLang+'"]').attr('selected', 'selected');
++  function showCookieValue() {
++      cookieValue = document.cookie
++              .split('; ')
++              .find(row => row.startsWith('googtrans='));
++      if (cookieValue) {
++          var trans = cookieValue.split('=')[1];
++          return trans.split('/')[2];
++      } else {
++          return false;
++      }
++  }
++});
+diff --git a/src/Plugin/Block/GTranslateBlock.php b/src/Plugin/Block/GTranslateBlock.php
+index c514b74..3545ccd 100644
+--- a/src/Plugin/Block/GTranslateBlock.php
++++ b/src/Plugin/Block/GTranslateBlock.php
+@@ -159,7 +159,7 @@ EOT;
+                 }; break;
+                 case 'dropdown_with_flags': {
+ 
+-                    $current_language = isset($_SERVER['HTTP_X_GT_LANG']) ? $_SERVER['HTTP_X_GT_LANG'] : $gtranslate_main_lang;
++                    $current_language = isset( $_COOKIE['HTTP_X_GT_LANG'] ) ? $_COOKIE['HTTP_X_GT_LANG'] : $gtranslate_main_lang;
+ 
+                     list($flag_x, $flag_y) = $flag_map[$current_language];
+ 
+@@ -172,7 +172,7 @@ EOT;
+                     foreach($languages as $lang => $lang_name) {
+                         list($flag_x, $flag_y) = $flag_map[$lang];
+                         if($settings->get('gtranslate_'.$lang) == '2')
+-                            $block_content .= '<a href="#" onclick="doGTranslate(\''.$gtranslate_main_lang.'|'.$lang.'\');jQuery(this).parent().parent().find(\'div.selected a\').html(jQuery(this).html());return false;" title="'.$lang_name.'" class="nturl '.($current_language == $lang ? ' selected' : '').'"><span class="gflag" style="background-position:-'.$flag_x.'px -'.$flag_y.'px;"><img src="'.base_path().drupal_get_path('module', 'gtranslate').'/gtranslate-files/blank.png" height="16" width="16" alt="'.$lang_name.'" /></span>'.$lang_name.'</a>';
++                            $block_content .= '<a href="#" onclick="setCookie(\'HTTP_X_GT_LANG\', \'' . $lang . '\', 30);doGTranslate(\''.$gtranslate_main_lang.'|'.$lang.'\');jQuery(this).parent().parent().find(\'div.selected a\').html(jQuery(this).html());return false;" title="'.$lang_name.'" class="nturl '.($current_language == $lang ? ' selected' : '').'"><span class="gflag" style="background-position:-'.$flag_x.'px -'.$flag_y.'px;"><img src="'.base_path().drupal_get_path('module', 'gtranslate').'/gtranslate-files/blank.png" height="16" width="16" alt="'.$lang_name.'" /></span>'.$lang_name.'</a>';
+                     }
+ 
+                     $block_content .= '</div></div>';
+@@ -333,7 +333,7 @@ EOT;
+                 }; break;
+                 case 'dropdown_with_flags': {
+ 
+-                    $current_language = isset($_SERVER['HTTP_X_GT_LANG']) ? $_SERVER['HTTP_X_GT_LANG'] : $gtranslate_main_lang;
++                    $current_language = isset( $_COOKIE['HTTP_X_GT_LANG'] ) ? $_COOKIE['HTTP_X_GT_LANG'] : $gtranslate_main_lang;
+ 
+                     list($flag_x, $flag_y) = $flag_map[$current_language];
+ 
