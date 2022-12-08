@@ -62,6 +62,18 @@ class WorkbcJobboardSearch extends BlockBase{
       '#description' => $this->t('Post job block description'),
       '#default_value' => $config['job_board_postjob_description'] ?? '',
     ];
+    $form['job_board_postjob_link_label'] = [
+      '#type' => 'textfield',
+      '#required' => true,
+      '#title' => $this->t('Link Label'),
+      '#description' => $this->t('Post Job Link Label'),
+      '#default_value' => $config['job_board_postjob_link_label'] ?? 'Post Job',
+    ];
+    $form['job_board_postjob_link_url'] = [
+      '#type' => 'textfield',
+      '#title' => $this->t('Post Job Link URL'),
+      '#default_value' => $config['job_board_postjob_link_url'] ?? '#',
+    ];
     return $form;
   }
 
@@ -75,6 +87,8 @@ class WorkbcJobboardSearch extends BlockBase{
     $this->configuration['job_board_findjob_description'] = $values['job_board_findjob_description'];
     $this->configuration['job_board_postjob_title'] = $values['job_board_postjob_title'];
     $this->configuration['job_board_postjob_description'] = $values['job_board_postjob_description'];
+    $this->configuration['job_board_postjob_link_label'] = $values['job_board_postjob_link_label'];
+    $this->configuration['job_board_postjob_link_url'] = $values['job_board_postjob_link_url'];
   }
 
   /**
@@ -107,6 +121,8 @@ class WorkbcJobboardSearch extends BlockBase{
       '#job_description' => $config['job_board_findjob_description']??'',
       '#postjob_title' => $config['job_board_postjob_title']??'',
       '#postjob_description' => $config['job_board_postjob_description']??'',
+      '#postjob_link_label' => $config['job_board_postjob_link_label']??'Post a Job',
+      '#postjob_link_url' => $config['job_board_postjob_link_url']??'#',
     ];
   }
 

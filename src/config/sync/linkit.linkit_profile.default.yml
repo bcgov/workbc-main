@@ -1,0 +1,35 @@
+uuid: 2c75fbeb-4941-4e75-82dd-7fab9ee5e9c3
+langcode: en
+status: true
+dependencies:
+  module:
+    - node
+_core:
+  default_config_hash: Tt8DtxZ3Nooo0PoWPpJvszA3R_5d8MmpUW7LM_R-BzY
+label: Default
+id: default
+description: 'A default Linkit profile'
+matchers:
+  556010a3-e317-48b3-b4ed-854c10f4b950:
+    id: 'entity:node'
+    uuid: 556010a3-e317-48b3-b4ed-854c10f4b950
+    settings:
+      metadata: 'by [node:author] | [node:created:medium]'
+      bundles:
+        bc_profile: bc_profile
+        blog: blog
+        career_profile: career_profile
+        event: event
+        industry_profile: industry_profile
+        labour_market_monthly: labour_market_monthly
+        news: news
+        page: page
+        publication: publication
+        region_profile: region_profile
+        success_story: success_story
+        workbc_centre: workbc_centre
+      group_by_bundle: false
+      substitution_type: canonical
+      limit: 100
+      include_unpublished: false
+    weight: 0

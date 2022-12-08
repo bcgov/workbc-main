@@ -73,6 +73,7 @@ module:
   keycloak: 0
   language: 0
   link: 0
+  linkit: 0
   mail_login: 0
   media: 0
   media_library: 0
