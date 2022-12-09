@@ -7,6 +7,7 @@ use Drush\Commands\DrushCommands;
 use Drush\Boot\DrupalBootLevels;
 use Drupal\backup_migrate\Core\Exception\BackupMigrateException;
 use Drupal\backup_migrate\Core\Destination\ListableDestinationInterface;
+use Symfony\Component\Console\Input\InputOption;
 
 class BackupMigrateCommands extends DrushCommands
 {
@@ -14,38 +15,51 @@ class BackupMigrateCommands extends DrushCommands
      * List sources and destinations.
      *
      * @command backup_migrate:list
-     * @aliases baml
-     *
-     */
-    public function list() {
-        Drush::bootstrapManager()->doBootstrap(DrupalBootLevels::FULL);
-        $bam = \backup_migrate_get_service_object();
-        print_r(array_keys($bam->sources()->getAll()));
-        print_r(array_keys($bam->destinations()->getAll()));
-    }
-
-    /**
-     * List files in a destinations.
-     *
-     * @command backup_migrate:list_files
      * @aliases bamls
      *
-     * @param destination_id Identifier of the Backup Destination.
+     * @option sources Flag to list sources (default: yes, use --no-sources to hide)
+     * @option destinations Flag to list destinations (default: yes, use --no-destinations to hide)
+     * @option files Flag to list files for a comma-separated list of destination identifiers (default: none)
      *
+     * @param array $options
      */
-    public function list_files(
-        $destination_id
-    ) {
+    public function list(array $options = [
+        'sources' => true,
+        'destinations' => true,
+        'files' => InputOption::VALUE_REQUIRED,
+    ]): string {
         Drush::bootstrapManager()->doBootstrap(DrupalBootLevels::FULL);
         $bam = \backup_migrate_get_service_object();
-        $destination = $bam->destinations()->get($destination_id);
-        if (!$destination) {
-            throw new BackupMigrateException('The destination !id does not exist.', ['!id' => $destination_id]);
+        $output = [];
+        if ($options['sources']) {
+            $output['sources'] = array_keys($bam->sources()->getAll());
         }
-        if (!$destination instanceof ListableDestinationInterface) {
-            throw new BackupMigrateException('The destination !id is not listable.', ['!id' => $destination_id]);
+        if ($options['destinations']) {
+            $output['destinations'] = array_keys($bam->destinations()->getAll());
         }
-        print_r(array_keys($destination->listFiles()));
+        if ($options['files']) {
+            foreach(array_map('trim', explode(',', $options['files'])) as $destination_id) {
+                $destination = $bam->destinations()->get($destination_id);
+                if (!$destination) {
+                    $this->logger()->warning(dt('The destination !id does not exist.', ['!id' => $destination_id]));
+                    continue;
+                }
+                if (!$destination instanceof ListableDestinationInterface) {
+                    $this->logger()->warning(dt('The destination !id is not listable.', ['!id' => $destination_id]));
+                    continue;
+                }
+                try {
+                    $output['files'][$destination_id] = array_keys($destination->listFiles());
+                }
+                catch (\Exception $e) {
+                    $this->logger()->error(dt('The destination !id caused an error: !error', [
+                        '!id' => $destination_id,
+                        '!error' => $e->getMessage()
+                    ]));
+                }
+            }
+        }
+        return json_encode($output, JSON_PRETTY_PRINT);
     }
 
     /**
