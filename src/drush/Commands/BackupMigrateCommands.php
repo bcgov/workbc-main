@@ -21,7 +21,10 @@ class BackupMigrateCommands extends DrushCommands
      * @option destinations Flag to list destinations (default: yes, use --no-destinations to hide)
      * @option files Flag to list files for a comma-separated list of destination identifiers (default: none)
      *
-     * @param array $options
+     * @param options
+     *
+     * @return string JSON listing of sources, destinations, files
+     *
      */
     public function list(array $options = [
         'sources' => true,
@@ -71,10 +74,10 @@ class BackupMigrateCommands extends DrushCommands
      * @param source_id Identifier of the Backup Source.
      * @param destination_id Identifier of the Backup Destination.
      *
-     * @return string
+     * @return string Backup completion status
      *
      * @throws \Drupal\backup_migrate\Core\Exception\BackupMigrateException
-
+     *
      */
     public function backup(
         $source_id,
@@ -84,7 +87,10 @@ class BackupMigrateCommands extends DrushCommands
         Drush::bootstrapManager()->doBootstrap(DrupalBootLevels::FULL);
         $bam = \backup_migrate_get_service_object();
         $bam->backup($source_id, $destination_id);
-        return t('Backup complete.');
+        return json_encode([
+            'status' => 'success',
+            'message' => dt('Backup complete.')
+        ], JSON_PRETTY_PRINT);
     }
 
     /**
@@ -97,10 +103,10 @@ class BackupMigrateCommands extends DrushCommands
      * @param destination_id Identifier of the Backup Destination.
      * @param file_id optional Identifier of the Destination file.
      *
-     * @return string
+     * @return string Restore completion status
      *
      * @throws \Drupal\backup_migrate\Core\Exception\BackupMigrateException
-
+     *
      */
     public function restore(
         $source_id,
@@ -111,6 +117,9 @@ class BackupMigrateCommands extends DrushCommands
         Drush::bootstrapManager()->doBootstrap(DrupalBootLevels::FULL);
         $bam = \backup_migrate_get_service_object();
         $bam->restore($source_id, $destination_id, $file_id);
-        return t('Restore complete.');
+        return json_encode([
+            'status' => 'success',
+            'message' => dt('Restore complete.')
+        ], JSON_PRETTY_PRINT);
     }
 }
