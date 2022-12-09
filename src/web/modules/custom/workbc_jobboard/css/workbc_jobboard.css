@@ -116,6 +116,17 @@
 .nav-items .dropdown .dropdown-menu .nav-item .nav-link:after{
   
 }
+/* For WR-1254 */
+.view-video-library .view-empty{
+  margin:2rem 0px 6rem;
+}
+/* For WR-1197 (next two)*/
+body.plan-careervideo-library .pagination {
+    padding: 1rem 0 0;
+}
+body.plan-careervideo-library div.view-id-video_library{
+  margin-bottom: 2.4rem;
+}
 
 @media screen and (min-width: 1024px) {
   .jobs-data-horizontal-view{
