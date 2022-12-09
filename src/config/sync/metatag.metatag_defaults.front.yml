@@ -8,4 +8,7 @@ id: front
 label: 'Front page'
 tags:
   canonical_url: '[site:url]'
+  og_site_name: '[site:name]'
+  og_title: WorkBC
   shortlink: '[site:url]'
+  title: WorkBC

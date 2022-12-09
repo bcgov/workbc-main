@@ -54,6 +54,8 @@ function workbc_jobboard_theme($existing, $type, $theme, $path) {
         'job_description' => '',
         'postjob_title' => '',
         'postjob_description' => '',
+        'postjob_link_label' => '',
+        'postjob_link_url' => '',
       ],
     ],
     'save_profile' => [

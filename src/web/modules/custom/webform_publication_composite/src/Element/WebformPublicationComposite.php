@@ -63,6 +63,7 @@ class WebformPublicationComposite extends WebformCompositeBase {
         '#options' => $options,
         '#empty_option' => '0',
   			'#empty_value' => 0,
+        '#attributes' => array('aria-label' => 'Quantity'),
       ];
       $elements['publications'][$pub]['title-'.$pub] = [
         '#type' => 'item',
