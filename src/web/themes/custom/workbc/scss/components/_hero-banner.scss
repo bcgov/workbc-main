@@ -108,12 +108,20 @@
   border-bottom: none;
 }
 
-.profile-header-banner .hero-content-wrapper {
-  padding: 30px 20px 10px 20px;
-  background: $workbc_palette_light_primary;
+.profile-header-banner .hero-content-container {
+  border-bottom: $workbc_trim_ultra_thin_size solid
+    $workbc_palette_dark_secondary;
+  @include media-breakpoint-up(lg) {
+    padding-top: 70px;
+    border-bottom: none;
+  }
+}
 
+.profile-header-banner .hero-content-wrapper {
   @include media-breakpoint-up(lg) {
     max-width: 540px;
+    padding: 30px 20px 10px 20px;
+    background: $workbc_palette_light_primary;
     border-bottom: $workbc_trim_ultra_thin_size solid
       $workbc_palette_dark_secondary;
     box-shadow: $workbc_default_box_shadow;
