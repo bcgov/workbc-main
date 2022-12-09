@@ -1,84 +1,78 @@
 .hero-banner {
   position: relative; // create positional context %herobanner
-  min-height: 420px;
   z-index: 1;
   border-bottom: $workbc_trim_ultra_thin_size solid
     $workbc_palette_dark_secondary;
   background-color: $workbc_light_theme_background_accent;
-  display: flex;
-  flex-flow: row wrap;
+
+  @include media-breakpoint-up(lg) {
+    min-height: 400px;
+  }
 }
 
 .hero-image-wrapper {
-  width: 100%;
+  max-height: 330px;
+  overflow: hidden;
 
   @include media-breakpoint-up(lg) {
-    position: absolute; // relative to positional context %herobanner
+    position: absolute;
     top: 0;
-    right: 0;
     bottom: 0;
-    z-index: 2;
-    display: flex;
-    justify-content: flex-end;
-    width: auto;
+    right: 0;
+    z-index: 0;
+    max-height: none;
+    overflow: auto;
+
+    &:before {
+      content: "";
+      display: block;
+      position: absolute;
+      top: 0;
+      right: 0;
+      bottom: 0;
+      left: 0;
+      z-index: 2;
+      background: linear-gradient(
+        90deg,
+        rgba($workbc_light_theme_background_accent, 1) 10%,
+        rgba($workbc_light_theme_background_accent, 0) 50%
+      );
+    }
   }
 }
 
 .hero-image-wrapper img {
+  display: block;
   width: 100%;
-  z-index: 1;
 
   @include media-breakpoint-up(lg) {
     height: 100%;
-    width: auto;
-  }
-}
-
-.hero-image-overlay {
-  @include media-breakpoint-up(lg) {
-    position: absolute; // relative to positional context %herobanner
-    top: 0;
-    right: 0;
-    bottom: 0;
-    left: 0;
-    z-index: 2;
-    background: rgb(255, 255, 255);
-    background: linear-gradient(
-      90deg,
-      rgba($workbc_light_theme_background_accent, 1) 10%,
-      rgba($workbc_light_theme_background_accent, 0) 50%
-    );
+    object-fit: cover;
   }
 }
 
 .hero-content-container {
-  z-index: 2;
-  flex: 50%;
-}
-
-.hero-content-wrapper {
   position: relative;
-  display: flex;
-  flex-flow: column nowrap;
-  z-index: 2;
-  padding: 30px 0;
+  padding-top: 30px;
+  padding-bottom: 30px;
 
   @include media-breakpoint-up(lg) {
-    padding: 80px 0;
-    width: calc(2 * (100%/3));
+    padding-top: 80px;
   }
 }
 
-.hero-content {
-  flex: 0 0;
+.hero-content-wrapper {
+  @include media-breakpoint-up(lg) {
+    width: 50%;
+    max-width: 640px;
+  }
 }
 
 .hero-title {
-  flex: 0 0;
   font-size: 2.25rem;
 
   @include media-breakpoint-up(lg) {
-    margin-bottom: 50px;
+    margin-bottom: 30px;
     font-size: 2.813rem;
   }
 }
@@ -109,35 +103,27 @@
   }
 }
 
-.hero-banner.hero-banner-profile {
-  .hero-title .basic-page-header {
-    margin-bottom: 10px;
-  }
+// Profile Hero Variations
+.profile-header-banner.hero-banner {
+  border-bottom: none;
+}
 
+.profile-header-banner .hero-content-container {
+  border-bottom: $workbc_trim_ultra_thin_size solid
+    $workbc_palette_dark_secondary;
   @include media-breakpoint-up(lg) {
+    padding-top: 70px;
     border-bottom: none;
+  }
+}
 
-    &:after {
-      position: absolute;
-      bottom: 0;
-      left: 0;
-      right: 0;
-      top: 0;
-      z-index: 10;
-      content: "";
-      box-shadow: $workbc_default_inset_bottom_shadow;
-    }
-
-    .hero-content-wrapper {
-      margin-top: 60px;
-      padding: 30px 20px 10px 20px;
-      background: $workbc_palette_light_primary;
-      border-bottom: $workbc_trim_ultra_thin_size solid $workbc_palette_dark_secondary;
-      box-shadow: $workbc_default_box_shadow;
-
-      @include media-breakpoint-up(lg) {
-        width: 50%;
-      }
-    }
+.profile-header-banner .hero-content-wrapper {
+  @include media-breakpoint-up(lg) {
+    max-width: 540px;
+    padding: 30px 20px 10px 20px;
+    background: $workbc_palette_light_primary;
+    border-bottom: $workbc_trim_ultra_thin_size solid
+      $workbc_palette_dark_secondary;
+    box-shadow: $workbc_default_box_shadow;
   }
 }
