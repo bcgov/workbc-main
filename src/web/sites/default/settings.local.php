@@ -16,6 +16,8 @@
  * at the bottom of 'sites/example.com/settings.php'.
  */
 
+$base_url = sprintf('http://%s:%s', getenv('PROJECT_BASE_URL'), getenv('PROJECT_PORT'));
+
 $databases['default']['default'] = [
   'database' => $_SERVER['DB_NAME'],
   'driver' => $_SERVER['DB_DRIVER'],

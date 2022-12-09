@@ -69,19 +69,19 @@ class WorkBCArchiveDumpCommands extends DrushCommands
      * @option generator The generator name to store in the MANIFEST.yml file. The default is "Drush archive-dump".
      * @option generatorversion The generator version number to store in the MANIFEST file. The default is Drush version.
      *
-     * @usage drush archive:dump
+     * @usage drush workbc:dump
      *   Create a site archive file in a temporary directory containing code, database and Drupal files.
-     * @usage drush archive:dump --destination=/path/to/archive.tar.gz
+     * @usage drush workbc:dump --destination=/path/to/archive.tar.gz
      *   Create /path/to/archive.tar.gz file containing code, database and Drupal files.
-     * @usage drush archive:dump --destination=/path/to/archive.tar.gz --overwrite
+     * @usage drush workbc:dump --destination=/path/to/archive.tar.gz --overwrite
      *   Create (or overwrite if exists) /path/to/archive.tar.gz file containing code, database and Drupal files.
-     * @usage drush archive:dump --code --destination=/path/to/archive.tar.gz
+     * @usage drush workbc:dump --code --destination=/path/to/archive.tar.gz
      *   Create /path/to/archive.tar.gz file containing the code only.
-     * @usage drush archive:dump --exclude-code-paths=foo_bar.txt,web/sites/.+/settings.php --destination=/path/to/archive.tar.gz
+     * @usage drush workbc:dump --exclude-code-paths=foo_bar.txt,web/sites/.+/settings.php --destination=/path/to/archive.tar.gz
      *   Create /path/to/archive.tar.gz file containing code, database and Drupal files but excluding foo_bar.txt file and settings.php files if found in web/sites/* subdirectories.
-     * @usage drush archive:dump --files --destination=/path/to/archive.tar.gz
+     * @usage drush workbc:dump --files --destination=/path/to/archive.tar.gz
      *   Create /path/to/archive.tar.gz file containing the Drupal files only.
-     * @usage drush archive:dump --database --destination=/path/to/archive.tar.gz
+     * @usage drush workbc:dump --db --destination=/path/to/archive.tar.gz
      *   Create /path/to/archive.tar.gz archive file containing the database dump only.
      *
      * @optionset_sql
@@ -228,7 +228,7 @@ class WorkBCArchiveDumpCommands extends DrushCommands
             ],
             'description' => $options['description'] ?? null,
             'tags' => $options['tags'] ?? null,
-            'generator' => $options['generator'] ?? 'Drush archive:dump',
+            'generator' => $options['generator'] ?? 'Drush workbc:dump',
             'generatorversion' => $options['generatorversion'] ?? Drush::getVersion(),
         ];
         $manifestFilePath = Path::join($this->archiveDir, self::MANIFEST_FILE_NAME);

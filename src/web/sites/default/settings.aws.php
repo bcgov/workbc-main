@@ -1,5 +1,7 @@
 <?php
 
+$base = 'https://' . $_SERVER['HTTP_X_FORWARDED_HOST'];
+
 $databases['default']['default'] = array (
     'database' => getenv('POSTGRES_DB'),
     'username' => getenv('POSTGRES_USER'),
