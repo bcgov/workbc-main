@@ -51,7 +51,9 @@
       });
       
       $(".fc-prev-button").once().append("Previous Month");
+      $(".fc-prev-button").attr("aria-label","Previous Month");
       $(".fc-next-button").once().prepend("Next Month");
+      $(".fc-next-button").attr("aria-label","Next Month");
       $(".fc-tue span").once().append("s");
       $(".fc-thu span").once().append("rs");
       $(".fc-day-grid-event").once().click(function(){

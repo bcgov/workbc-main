@@ -73,7 +73,7 @@
                 set active = viewmode=='list' or viewmode=='archive' ? '-hover' : ''
               %}
               <span class="calender_icon">
-                <img src="/modules/custom/calendar_listview/images/list-view{{active}}.svg" class="icon"/>
+                <img src="/modules/custom/calendar_listview/images/list-view{{active}}.svg" class="icon" alt="List View"/>
               </span>
               List View
             </a>
@@ -82,7 +82,7 @@
                 set active = viewmode=='calendar' ? '-hover' : ''
               %}
               <span class="calender_icon">
-                <img src="/modules/custom/calendar_listview/images/calendar-view{{active}}.svg" class="icon"/>
+                <img src="/modules/custom/calendar_listview/images/calendar-view{{active}}.svg" class="icon" alt="Calendar View"/>
               </span>
               Calendar View
             </a>
@@ -90,11 +90,11 @@
         </nav>
         <div class="tab-content" id="nav-tabContent">
           {% if viewmode == 'list' %}
-            <div class="list-full-view tab-pane fade show active" id="nav-list-view" role="tabpanel" aria-labelledby="nav-list-view-tab">
+            <div class="list-full-view tab-pane fade show active" id="nav-list-view" role="tabpanel" >
               {{ drupal_view('event_calendar_listview', 'block_1') }}
             </div>
           {% elseif viewmode == 'calendar' %}
-            <div class="calendar-full-view tab-pane fade show active" id="nav-calendar-view" role="tabpanel" aria-labelledby="nav-calendar-view-tab">
+            <div class="calendar-full-view tab-pane fade show active" id="nav-calendar-view" role="tabpanel" >
               {{ drupal_view('event_calendar', 'block_1') }}
             </div>
           {% else %}
