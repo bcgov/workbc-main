@@ -350,6 +350,18 @@ services:
     depends_on:
       - ssot
 
+  test:
+    build:
+      context: ./src/test
+#    container_name: "${PROJECT_NAME}_test"
+    network_mode: host
+    stdin_open: true
+    tty: true
+    environment:
+      BASE_URL: http://workbc.docker.localhost:8000
+    volumes:
+    - ./src/test:/app:cached
+
 volumes:
   pgdata:
   solrdata:
