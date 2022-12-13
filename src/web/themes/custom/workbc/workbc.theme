@@ -33,6 +33,13 @@ function workbc_form_alter(&$form, \Drupal\Core\Form\FormStateInterface $form_st
   if ($form_id == 'views_exposed_form' && $form['#id'] == 'views-exposed-form-search-career-profiles-page-1' or $form['#id'] == 'views-exposed-form-search-site-content-page-1') {
     $form['#attributes']['class'][] = 'search-form';
   }
+
+  if ($form_id == "views_exposed_form" && "views-exposed-form-search-site-content-page-1") {
+    $form['search_api_fulltext']['#attributes']['aria-label'] = "Search";
+  }
+  if ($form_id == "views_exposed_form" && "views-exposed-form-search-career-profiles-page-1") {
+    $form['search']['#attributes']['aria-label'] = "Search";
+  }  
 }
 
 /**
