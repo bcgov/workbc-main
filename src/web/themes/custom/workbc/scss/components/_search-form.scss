@@ -47,6 +47,7 @@
   background-image: url(../assets/images/search-icon.svg);
   background-position: calc(100% - 10px) center;
   background-repeat: no-repeat;
+  color: transparent;
 
   &:focus {
     outline: none;
