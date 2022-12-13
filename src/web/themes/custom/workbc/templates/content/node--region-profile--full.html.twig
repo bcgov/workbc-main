@@ -80,7 +80,7 @@
   ]
 %}
 
-{# This viewmodel is intended to collect all of the incoming variables in one place, and the remainder of the template should 
+{# This viewmodel is intended to collect all of the incoming variables in one place, and the remainder of the template should
  refer only to this viewmodel (or Drupal/Twig generics like loop, directory, etc) #}
 {% set viewmodel = {
   title: label,
@@ -151,7 +151,7 @@
 
       labour_market_outlook_title: content.group_region_profile_tabs.group_labour_market_statistics.extra_field_region_labour_market_outlook_introduction['#title'],
       labour_market_outlook_markup: content.group_region_profile_tabs.group_labour_market_statistics.extra_field_region_labour_market_outlook_introduction.0['#text'],
-     
+
       forecast_job_openings_title: content.group_region_profile_tabs.group_labour_market_statistics.extra_field_region_job_openings_forecast['#title'],
       forecast_job_openings_markup: content.group_region_profile_tabs.group_labour_market_statistics.extra_field_region_job_openings_forecast.0['#markup'],
       forecast_job_openings_source: content.group_region_profile_tabs.group_labour_market_statistics.extra_field_region_job_openings_forecast_source.0['#markup'],
@@ -182,7 +182,7 @@
       employment_markup: content.group_region_profile_tabs.group_industry_highlights.extra_field_region_employment_by_industry_table.0['#markup'],
       employment_source: content.group_region_profile_tabs.group_industry_highlights.extra_field_region_employment_by_industry_source.0['#markup'],
     },
-    
+
   },
   links: content.links,
 }
@@ -198,7 +198,6 @@
     <div class="profile-header-banner hero-banner hero-banner-profile">
 
       <div class="hero-image-wrapper">
-        <div class="hero-image-overlay"></div>
         {{ viewmodel['hero']['image'] }}
       </div>
 
@@ -291,7 +290,7 @@
               <h2 class="profile-content-section__header">{{ viewmodel['tab_sections']['labour_market_statistics']['employment_title'] }}</h2>
               <div>{{ viewmodel['tab_sections']['labour_market_statistics']['employment_markup']|raw }}</div>
             </div>
-            
+
             <div class="card-profile">
               <div class="card-profile__content-small">
                 <h3 class="card-profile__content-header">{{ viewmodel['tab_sections']['labour_market_statistics']['employment_regional_title'] }}</h3>
@@ -332,7 +331,7 @@
               <h2 class="profile-content-section__header">{{ viewmodel['tab_sections']['labour_market_statistics']['labour_market_outlook_title'] }}</h2>
               <div>{{ viewmodel['tab_sections']['labour_market_statistics']['labour_market_outlook_markup']|raw }}</div>
             </div>
-            
+
             <div class="card-profile">
               <div class="card-profile__content">
                 <h3 class="card-profile__content-header">{{ viewmodel['tab_sections']['labour_market_statistics']['forecast_job_openings_title'] }}</h3>

@@ -5,7 +5,6 @@ namespace Drush\Commands;
 use Drush\Drush;
 use Drush\Commands\DrushCommands;
 use Drush\Boot\DrupalBootLevels;
-use Drupal\backup_migrate\Core\Exception\BackupMigrateException;
 use Drupal\backup_migrate\Core\Destination\ListableDestinationInterface;
 use Symfony\Component\Console\Input\InputOption;
 
@@ -35,10 +34,31 @@ class BackupMigrateCommands extends DrushCommands
         $bam = \backup_migrate_get_service_object();
         $output = [];
         if ($options['sources']) {
-            $output['sources'] = array_keys($bam->sources()->getAll());
+            $output['sources'] = array_reduce(array_keys($bam->sources()->getAll()), function($sources, $source_id) {
+                $source = \Drupal::entityTypeManager()->getStorage('backup_migrate_source')->load($source_id);
+                if ($source) {
+                    $sources[] = [
+                        'id' => $source_id,
+                        'label' => $source->get('label'),
+                        'type' => $source->get('type'),
+                    ];
+                }
+                return $sources;
+            }, []);
         }
         if ($options['destinations']) {
-            $output['destinations'] = array_keys($bam->destinations()->getAll());
+            $output['destinations'] = array_reduce(array_keys($bam->destinations()->getAll()), function($destinations, $destination_id) {
+                print_r($destination_id);
+                $destination = \Drupal::entityTypeManager()->getStorage('backup_migrate_destination')->load($destination_id);
+                if ($destination) {
+                    $destinations[] = [
+                        'id' => $destination_id,
+                        'label' => $destination->get('label'),
+                        'type' => $destination->get('type'),
+                    ];
+                }
+                return $destinations;
+            }, []);
         }
         if ($options['files']) {
             foreach(array_map('trim', explode(',', $options['files'])) as $destination_id) {
@@ -52,7 +72,21 @@ class BackupMigrateCommands extends DrushCommands
                     continue;
                 }
                 try {
-                    $output['files'][$destination_id] = array_keys($destination->listFiles());
+                    $files = $destination->listFiles();
+                    $output['files'][$destination_id] = array_reduce(array_keys($files), function($files_info, $file_id) use($files) {
+                        $files_info[] = array_merge([
+                            'id' => $file_id,
+                            'filename' => $files[$file_id]->getFullName(),
+                        ], $files[$file_id]->getMetaAll());
+                        return $files_info;
+                    }, []);
+                    usort($output['files'][$destination_id], function($file1, $file2) {
+                        // TODO What if datestamp is not available?
+                        $a = $file1['datestamp'];
+                        $b = $file2['datestamp'];
+                        if ($a == $b) return 0;
+                        return ($a < $b) ? -1 : 1;
+                    });
                 }
                 catch (\Exception $e) {
                     $this->logger()->error(dt('The destination !id caused an error: !error', [
