@@ -74,7 +74,7 @@ elements: |-
   privacy_policy:
     '#type': checkbox
     '#title': 'I agree to the Privacy Policy'
-    '#description': 'I agree to the&nbsp;<a href="/privacy">Privacy Policy</a>.'
+    '#description': 'I agree to the&nbsp;<a href="http://www2.gov.bc.ca/gov/content/home/privacy" target="_blank">Privacy Policy</a>.'
     '#title_display': none
     '#description_display': after
     '#required': true
@@ -84,6 +84,19 @@ elements: |-
     '#submit__attributes':
       class:
         - w-100
+  terms_of_service:
+    '#type': webform_terms_of_service
+    '#title': '{View collection notice}'
+    '#exclude_empty': true
+    '#terms_title': 'Collection Notice Terms'
+    '#terms_content': |-
+      <p>If you choose to contact us, any personal information that you provide may be collected by the Ministry of Advanced Education, Skills and Training under section 26(c) of the Freedom of Information and Protection of Privacy Act. The purpose of the collection is to address your inquiry or comment. If you have any questions about the collection of your personal information, please contact:<br />
+      <br />
+      Manager, WorkBC and WelcomeBC Operations<br />
+      PO Box 9189; STN PROV GOVT<br />
+      Victoria, BC<br />
+      V8W 9E6<br />
+      1-877-952-6914 (toll-free)</p>
 css: ''
 javascript: ''
 settings:
