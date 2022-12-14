@@ -24,7 +24,7 @@ resource "aws_cloudfront_distribution" "workbc" {
 	
 	custom_header {
 	  name = "X-Forwarded-Host"
-	  value = "www.aws.workbc.ca"
+	  value = "aws.workbc.ca"
 	  #value = "aws-dev.workbc.ca"	
 	}
 	
@@ -75,7 +75,7 @@ resource "aws_cloudfront_distribution" "workbc" {
 
   tags = var.common_tags
   
-  aliases = ["www.aws.workbc.ca"]
+  aliases = ["aws.workbc.ca"]
   #aliases = ["aws-dev.workbc.ca"]	
 
   viewer_certificate {
