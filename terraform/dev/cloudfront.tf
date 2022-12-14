@@ -75,7 +75,7 @@ resource "aws_cloudfront_distribution" "workbc" {
 
   tags = var.common_tags
   
-  aliases = ["aws.workbc.ca"]
+  aliases = ["www.aws.workbc.ca"]
   #aliases = ["aws-dev.workbc.ca"]	
 
   viewer_certificate {
