@@ -6,7 +6,7 @@ $grey:#cccccc;
 $lightgrey:rgba(242, 242, 242, 1);
 $blue:#1967e5f5;
 $darkblue:#0c1939;
-$skyblue:#009cde;
+$skyblue:#0183ba;
 $font-600:600;
 .event-cal{
   p,a,div,h2{
@@ -31,7 +31,7 @@ $font-600:600;
       position:relative;
       margin-bottom:3.5em;
     }
-    
+
     .fc-day-number{
       color:$black;
       font-weight:$font-600;
@@ -53,7 +53,7 @@ $font-600:600;
     }
     .fc-day-grid-event .fc-content {
       white-space:unset;
-      overflow: unset; 
+      overflow: unset;
     }
     .fc-event{
       font-size:13px;
@@ -181,7 +181,7 @@ $font-600:600;
     }
     .fc-scroller{
       height:unset !important;
-      overflow: unset !important;  
+      overflow: unset !important;
     }
     .fc-widget-content{
       border:1px solid rgba(215, 215, 215, 1);
@@ -230,18 +230,18 @@ $font-600:600;
   /****** list View Start Here ******/
   .list-view{
       box-shadow: 0px 0px 7px #ccc;
-      margin-top: 3.5em; 
+      margin-top: 3.5em;
       padding: 20px;
       padding-top:25px;
     .sd-top {
-      font-weight: bold; 
+      font-weight: bold;
       font-size: 20px;
       line-height:110%;
     }
     .sd-middle {
-      font-size: 72px; 
+      font-size: 72px;
       line-height:140%;
-      color:$skyblue; 
+      color:$skyblue;
     }
     .sd-bottom{
       font-size: 17px;
@@ -263,8 +263,8 @@ $font-600:600;
       padding:15px 15px 25px 0px;
       margin:0px;
     }
-    .e-sub-title{    
-      color: #767676; 
+    .e-sub-title{
+      color: #767676;
       margin-bottom: 20px;
       font-weight:400;
       font-size: 16px;
@@ -272,7 +272,7 @@ $font-600:600;
     .e-ta{
       line-height:23px;
       font-weight:400;
-      color: #767676;
+      color: #757575;
       font-size: 16px;
     }
     .e-title{
@@ -316,9 +316,9 @@ $font-600:600;
       content:"";
     }
     .sd-date-panel{
-      max-width: 200px; 
+      max-width: 200px;
       border-bottom: 5px solid #1d4581;
-      text-align: center; 
+      text-align: center;
       margin:auto;
       padding: 10px;
       margin-top:20px;
@@ -390,7 +390,7 @@ $font-600:600;
       border: none;
       padding:3px 20px;
       background-color:transparent;
-      transition:all 0.5s ease-in-out;       
+      transition:all 0.5s ease-in-out;
       display: inline-flex;
       align-items: center;
     }
@@ -422,7 +422,7 @@ $font-600:600;
     }
     .nav-link.active svg{
       fill:white;
-    }    
+    }
   }
   .pager__item{
     padding:0px;
@@ -450,8 +450,8 @@ $font-600:600;
     display:none;
   }
 
-  .fc-list-view a:hover { 
-    color: inherit !important; 
+  .fc-list-view a:hover {
+    color: inherit !important;
   }
   .fc-list-view .fc-list-table td {
     padding:30px 10px
@@ -465,10 +465,10 @@ $font-600:600;
   .fc-list-view .list-view{
     display:block;
   }
-  table.fc-list-table tr td:nth-child(1) { 
-    display: none; 
+  table.fc-list-table tr td:nth-child(1) {
+    display: none;
   }
-  table.fc-list-table tr td:nth-child(2) { 
+  table.fc-list-table tr td:nth-child(2) {
     display: none;
   }
   .fc-day-grid-event .list-view{
@@ -502,7 +502,7 @@ $font-600:600;
       font-size:15px;
       line-height: 24px;
       font-weight:400;
-      transition:all 0.5s ease-in-out; 
+      transition:all 0.5s ease-in-out;
     }
     li a span{}
     ul.pager__items{
@@ -534,7 +534,7 @@ $font-600:600;
     }
   }
   .bottom-buttons{
-    .list-view {    
+    .list-view {
       box-shadow: 0px 0px 10px #ccc;
       margin-top: 20px;
       padding: 20px;
@@ -555,7 +555,7 @@ $font-600:600;
     display:none;
   }
   .bottom-buttons{
-    .list-view {    
+    .list-view {
       box-shadow: 0px 0px 10px #ccc;
       margin-top: 20px;
       padding: 20px;
@@ -628,7 +628,7 @@ $font-600:600;
   }
   .fc-day-grid-event .fc-content {
     white-space:unset;
-    overflow: unset; 
+    overflow: unset;
   }
   .tab-content{
     margin-bottom:50px;
@@ -636,7 +636,7 @@ $font-600:600;
       font-size:30px;
       font-weight:400;
       margin-right:100px;
-    }    
+    }
   }
 
   .fc-content span{
@@ -650,7 +650,7 @@ $font-600:600;
     padding:3px 7px;
   }
   .tab-pane{
-    position:relative;     
+    position:relative;
   }
 }
 .page-container .event-cal img{
