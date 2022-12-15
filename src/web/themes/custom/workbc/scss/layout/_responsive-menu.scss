@@ -40,6 +40,7 @@
 .mm-navbar,
 .mm-panel {
   background-color: #fff;
+  color: #000;
 }
 
 .mm-listitem__btn:not(.mm-listitem__text) {
@@ -52,6 +53,7 @@
 
 .responsive-menu-toggle-icon span.label {
   @include visually-hidden;
+  color:#000;
 }
 
 .responsive-menu-toggle-icon:before,
