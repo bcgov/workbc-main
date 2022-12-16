@@ -86,7 +86,10 @@ elements: |-
         - w-100
   terms_of_service:
     '#type': webform_terms_of_service
-    '#title': '{View collection notice}'
+    '#title': '{View Collection Notice}'
+    '#label_attributes':
+      class:
+        - view-collection-notice
     '#exclude_empty': true
     '#terms_title': 'Collection Notice Terms'
     '#terms_content': |-

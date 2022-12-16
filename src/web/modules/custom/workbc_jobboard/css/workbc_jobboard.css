@@ -226,4 +226,25 @@ div.ui-dialog[aria-describedby="webform-terms-of-service-terms_of_service--descr
 }
 .path-webform .description.form-item__description {display:inline-block;margin-left:10px;}
 .path-webform div.ui-dialog[aria-describedby="webform-terms-of-service-terms_of_service--description"]:focus, div.ui-dialog[aria-describedby="webform-terms-of-service-terms_of_service--description"] *:focus, div.ui-dialog[aria-describedby="webform-terms-of-service-terms_of_service--description"] .ui-dialog-titlebar-close:focus{box-shadow:inherit !important;border:inherit !important; margin-right: 10px; margin-top: 0px;}
+.webform-submission-request-a-tour-stop-form .form-actions{
+  margin:35px 0px;
+}
+.webform-submission-request-a-tour-stop-form .view-collection-notice.option{
+  margin-top:5px;
+}
+.webform-submission-request-a-tour-stop-form .view-collection-notice.option a{
+  display: inline-flex;
+}
+.webform-submission-request-a-tour-stop-form .view-collection-notice.option a:after {
+    content: "";
+    height: 18px;
+    width: 18px;
+    background: url(../../../../themes/custom/workbc/assets/images/chevron.svg) 50% 50% no-repeat;
+    transform: translateX(5px);
+    transition: transform .1s;
+    margin-top:3px;
+}
+.webform-submission-request-a-tour-stop-form .view-collection-notice.option a:hover:after{
+  transform: translateX(8px);
+}
 /***** Webform request-tour-stop ends *******/
