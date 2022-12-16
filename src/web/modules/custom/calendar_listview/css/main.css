@@ -165,7 +165,7 @@
     .event-cal .list-view .sd-middle {
       font-size: 72px;
       line-height: 140%;
-      color: #009cde; }
+      color: #0183ba; }
     .event-cal .list-view .sd-bottom {
       font-size: 17px;
       font-weight: 400;
@@ -183,14 +183,14 @@
       padding: 15px 15px 25px 0px;
       margin: 0px; }
     .event-cal .list-view .e-sub-title {
-      color: #767676;
+      color: #727272;
       margin-bottom: 20px;
       font-weight: 400;
       font-size: 16px; }
     .event-cal .list-view .e-ta {
       line-height: 23px;
       font-weight: 400;
-      color: #767676;
+      color: #727272;
       font-size: 16px; }
     .event-cal .list-view .e-title {
       font-size: 21px;
@@ -382,7 +382,7 @@
     transition: all 0.5s ease-in-out;
     border: none; }
   .event-cal .pager .pager__item a:hover, .event-cal .pager .pager__item a:hover span::before, .event-cal .pager .pager__item a:hover span::after {
-    color: #1967e5f5; 
+    color: #1967e5f5;
     text-decoration:none;}
   .event-cal .pager .pager__item.is-active {
     display: none; }
@@ -430,7 +430,7 @@
     margin: 0px;
     padding: 0px;
     transition: all 0.5s ease-in-out; }
-    
+
     .event-cal .fc-button-group .fc-button:focus{
       box-shadow: inherit !important;
       -webkit-box-shadow: inherit !important;
