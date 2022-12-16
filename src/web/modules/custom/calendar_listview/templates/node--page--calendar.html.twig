@@ -66,23 +66,23 @@
     {% if viewmode is not null %}
       <div class="calendar event-cal container calendar--view-mode-{{view_mode|clean_class}}">
         <div class="calendar-content">
-        <nav class="list-nav">
+        <nav class="list-nav" aria-labelledby="list-nav">
           <div class="nav nav-tabs" id="nav-tab" role="tablist">
-            <a href="{{ path('<current>') }}?mode=list" class="nav-link {{ viewmode=='list' or viewmode=='archive'   ? 'show active' :'' }}"  >
+            <a href="{{ path('<current>') }}?mode=list" class="nav-link {{ viewmode=='list' or viewmode=='archive'   ? 'show active' :'' }}" role="tab"  >
               {%
                 set active = viewmode=='list' or viewmode=='archive' ? '-hover' : ''
               %}
               <span class="calender_icon">
-                <img src="/modules/custom/calendar_listview/images/list-view{{active}}.svg" class="icon" alt="List View"/>
+                <img src="/modules/custom/calendar_listview/images/list-view{{active}}.svg" class="icon" alt="List View Icon"/>
               </span>
-              List View
+               Icon
             </a>
-            <a href="{{ path('<current>') }}?mode=calendar" class="nav-link {{ viewmode=='calendar' ? 'show active' :'' }}"  >
+            <a href="{{ path('<current>') }}?mode=calendar" class="nav-link {{ viewmode=='calendar' ? 'show active' :'' }}"  role="tab" >
             {%
                 set active = viewmode=='calendar' ? '-hover' : ''
               %}
               <span class="calender_icon">
-                <img src="/modules/custom/calendar_listview/images/calendar-view{{active}}.svg" class="icon" alt="Calendar View"/>
+                <img src="/modules/custom/calendar_listview/images/calendar-view{{active}}.svg" class="icon" alt="Calendar View Icon"/>
               </span>
               Calendar View
             </a>
@@ -106,7 +106,7 @@
       </div>
     </div>
     {% endif %}
-    
+
   </div>
   {{custom_var}}
 </article>
