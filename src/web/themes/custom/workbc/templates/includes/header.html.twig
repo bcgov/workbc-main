@@ -1,6 +1,6 @@
 <header class="header">
   <div class="container-lg header__container">
-    <nav class="nav-user">
+    <nav class="nav-user" aria-labelledby="nav-user">
       {{ drupal_block('system_menu_block:account', wrapper=false) }}
     </nav>
     <div class="header__logo-search-container">
@@ -8,7 +8,7 @@
         <span class="visually-hidden">
           {{ 'Home'|t }}
         </span>
-        <img src="/{{ directory }}/logo.svg" alt="{{ 'logo'|t }}" />
+        <img src="/{{ directory }}/logo.svg" aria-hidden="true"  title="{{ 'WorkBC'|t }}" alt="{{ 'WorkBC'|t }}" />
       </a>
       <div class="header__search">
         {{ drupal_block('views_exposed_filter_block:search_site_content-page_1', wrapper=false) }}

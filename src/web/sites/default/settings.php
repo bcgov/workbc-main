@@ -771,6 +771,8 @@ $settings['trusted_host_patterns'] = [
   '^aws-prod\.workbc\.ca$',
   //'^www2\.workbc\.ca$',
   '^www\.workbc\.ca$',
+  '^www\.aws\.workbc\.ca$',
+  '^aws\.workbc\.ca$',
   '^workbc\.b89n0c-prod\.nimbus\.cloud\.gov\.bc\.ca$',
   '^workbc\.b89n0c-dev\.nimbus\.cloud\.gov\.bc\.ca$',
   '^workbc\.b89n0c-test\.nimbus\.cloud\.gov\.bc\.ca$',

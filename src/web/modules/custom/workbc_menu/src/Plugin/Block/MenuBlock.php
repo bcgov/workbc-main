@@ -80,11 +80,12 @@ class MenuBlock extends BlockBase {
           if (!$node->get('field_hero_image')->isEmpty()) {
             $image_id = $node->field_hero_image->entity->getFileUri();
             $hero_image_url = ImageStyle::load('megamenu')->buildUrl($image_id);
+            $image_alt = $node->field_hero_image->alt;
           }
 
           $content = <<<EOT
             <div class="col-sm-4 megamenu-splash">
-              <img class="megamenu-splash__image" src="$hero_image_url" />
+              <img class="megamenu-splash__image" src="$hero_image_url" alt="$image_alt" />
               <div class="megamenu-splash__content">$hero_text</div>
               <div class="megamenu-splash__actions">
                 <a class="action-link" href="$url">Read More</a>

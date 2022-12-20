@@ -19,7 +19,7 @@ plugin: 'simple_block:contact_us_french_link'
 settings:
   id: 'simple_block:contact_us_french_link'
   label: 'Contact Us - French link'
-  label_display: visible
+  label_display: '0'
   provider: simple_block
 visibility:
   not_node_type:

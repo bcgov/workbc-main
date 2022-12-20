@@ -44,7 +44,12 @@ class CareerProfileHighOpportunityOccupation extends ExtraFieldDisplayFormattedB
   public function viewElements(ContentEntityInterface $entity) {
 
     if (!empty($entity->ssot_data) && !empty($entity->ssot_data['high_opportunity_occupations'])) {
-        $output = 'YES';
+      $output = 'NO';
+      foreach ($entity->ssot_data['high_opportunity_occupations'] as $value) {
+        if ($value['region'] == "british_columbia") {
+          $output = 'YES'; 
+        }
+      }
     }
     else {
         $output = 'NO';
