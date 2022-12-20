@@ -17,7 +17,11 @@
             };
           }
         });
-        
+        $(".region-map-select select", context).once('jobboard').on("change", function(){
+          if($(this).val() != ""){
+            window.location.href=$(this).val();
+          }
+        });
       });
 
       $(window, context).once('jobboard').on('hashchange load jobboardlogin', function (e) {
