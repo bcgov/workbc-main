@@ -248,3 +248,35 @@ div.ui-dialog[aria-describedby="webform-terms-of-service-terms_of_service--descr
   transform: translateX(8px);
 }
 /***** Webform request-tour-stop ends *******/
+/***** Map regional profiles starts *******/
+.desktop-hidden{display:none;}
+@media screen and (max-width: 679px) {
+  .region-map-select.mobile-regions{
+    display:block;
+    position: relative;
+    overflow: hidden;
+    display: inline-block;
+    margin-bottom:20px;
+  }
+  .region-map-select.mobile-regions select{
+    padding: 9px 25px 9px 10px;
+  }
+  .custom-select__icon {
+    position: absolute;
+    top: 0;
+    right: 0;
+    height: 45px;
+    width: 40px;
+    padding: 0;
+    z-index: 2;
+    pointer-events: none;
+    background-repeat: no-repeat;
+    background-size: 100%;
+    background-color: #224076;
+    background-position-y: 50%;
+  }
+  .webform-submission-request-a-tour-stop-form option:checked{
+    background-color:#224076;
+  }
+}
+/***** Map regional profiles ends *******/
