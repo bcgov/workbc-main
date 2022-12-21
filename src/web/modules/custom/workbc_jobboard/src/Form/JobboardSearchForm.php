@@ -33,6 +33,7 @@ class JobboardSearchForm extends FormBase {
       '#suffix' => '</div>',
       '#attributes' => [
         'class'=>['form-control','ng-untouched','ng-pristine','ng-valid'],
+        'id'=>['edit-keywords'],
         'placeholder'=>'Keyword(s)',
         'aria-label'=>'Keyword(s)',
         'data-form-type'=>'query',
@@ -48,10 +49,12 @@ class JobboardSearchForm extends FormBase {
       '#autocomplete_route_name' => 'workbc_jobboard.get_recent_jobs',
       '#attributes' => [
         'class'=>['form-control','ng-untouched','ng-pristine','ng-valid','mat-autocomplete-trigger'],
+        'id'=>['edit-location'],
         'placeholder'=>'City or Postal Code',
-        'aria-label'=>'City or Postal Code',
+        'aria-label'=>'Location',
         'data-form-type'=>'query',
         'role'=>'combobox',
+        'aria-expanded'=>'false',
         'size'=>20,
       ],
     ];
@@ -65,7 +68,7 @@ class JobboardSearchForm extends FormBase {
       ],
       '#default_value' => 'bySearchAll',
       '#required' => TRUE,
-      '#prefix' => '<div class="job-search__form-radios">',
+      '#prefix' => '<div class="job-search__form-radios" role="radiogroup" aria-labelledby="edit-searchtype">',
       '#suffix' => '</div>',
     ];
     $form['submit'] = [

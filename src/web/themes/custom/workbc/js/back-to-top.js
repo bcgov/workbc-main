@@ -11,13 +11,20 @@
     };
 
     const injectFixedButton = () => {
-        var container = document.createElement('div'); 
+        var container = document.createElement('div');
         container.classList.add('back-to-top');
+        container.setAttribute('role', 'none');
         document.body.appendChild(container);
+
+        var label = document.createElement('label');
+        label.textContent = 'Back to top';
+        label.classList.add('visually-hidden');
+        container.appendChild(label);
 
         var trigger = document.createElement('button');
         trigger.textContent = 'Back to top';
         trigger.classList.add('back-to-top__trigger', 'btn', 'btn-prefix-chevron-up');
+        trigger.setAttribute('aria-label', 'Back to top');
         trigger.addEventListener('click', scrollToTop);
         container.appendChild(trigger);
 
@@ -34,7 +41,7 @@
             triggerElem.classList.remove('active');
           }
         };
-        
+
         window.addEventListener("scroll", onScrollBehavior);
     };
 
@@ -43,5 +50,5 @@
         $(document, context).once('back_to_top').each(initScrollToTopTrigger);
       },
     };
-  
+
   })(jQuery, Drupal);
