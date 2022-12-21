@@ -66,7 +66,7 @@
     {% if viewmode is not null %}
       <div class="calendar event-cal container calendar--view-mode-{{view_mode|clean_class}}">
         <div class="calendar-content">
-        <nav class="list-nav" aria-labelledby="list-nav">
+        <nav class="list-nav" aria-label="list-nav">
           <div class="nav nav-tabs" id="nav-tab" role="tablist">
             <a href="{{ path('<current>') }}?mode=list" class="nav-link {{ viewmode=='list' or viewmode=='archive'   ? 'show active' :'' }}" role="tab"  >
               {%
@@ -94,11 +94,11 @@
               {{ drupal_view('event_calendar_listview', 'block_1') }}
             </div>
           {% elseif viewmode == 'calendar' %}
-            <div class="calendar-full-view tab-pane fade show active" id="nav-calendar-view" role="tabpanel" >
+            <div class="calendar-full-view tab-pane fade show active" id="nav-calendar-view" role="tabpanel" aria-label="Calendar View">
               {{ drupal_view('event_calendar', 'block_1') }}
             </div>
           {% else %}
-            <div class="list-full-view tab-pane fade show active" id="nav-list-view" role="tabpanel" aria-labelledby="nav-list-view-tab">
+            <div class="list-full-view tab-pane fade show active" id="nav-list-view" role="tabpanel" aria-label="List View">
               {{ drupal_view('event_calendar_listview', 'block_2') }}
             </div>
           {% endif %}
