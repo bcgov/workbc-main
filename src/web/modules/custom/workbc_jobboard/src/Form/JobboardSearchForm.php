@@ -34,7 +34,7 @@ class JobboardSearchForm extends FormBase {
       '#attributes' => [
         'class'=>['form-control','ng-untouched','ng-pristine','ng-valid'],
         'id'=>['edit-keywords'],
-        'placeholder'=>'Keyword(s)',
+        'placeholder'=>'Job Title / Description / Employer',
         'aria-label'=>'Keyword(s)',
         'data-form-type'=>'query',
         'size'=>20,
@@ -50,7 +50,7 @@ class JobboardSearchForm extends FormBase {
       '#attributes' => [
         'class'=>['form-control','ng-untouched','ng-pristine','ng-valid','mat-autocomplete-trigger'],
         'id'=>['edit-location'],
-        'placeholder'=>'City or Postal Code',
+        'placeholder'=>'City / Postal Code',
         'aria-label'=>'Location',
         'data-form-type'=>'query',
         'role'=>'combobox',
@@ -58,7 +58,14 @@ class JobboardSearchForm extends FormBase {
         'size'=>20,
       ],
     ];
-    $form['searchtype'] = [
+    $form['markup'] = [
+      '#title' => 'Search Type',
+      '#type' => 'fieldset',
+      '#collapsible' => False,
+      '#collapsed' => FALSE,
+      '#required' => FALSE,
+    ];
+    $form['markup']['searchtype'] = [
       '#type' => 'radios',
       '#options' => [
         'bySearchAll' => 'Search All',
@@ -68,9 +75,15 @@ class JobboardSearchForm extends FormBase {
       ],
       '#default_value' => 'bySearchAll',
       '#required' => TRUE,
-      '#prefix' => '<div class="job-search__form-radios" role="radiogroup" aria-labelledby="edit-searchtype">',
+      '#prefix' => '<div class="job-search__form-radios">',
       '#suffix' => '</div>',
+      '#attributes' => [
+        'data-twig-suggestion' => [
+          'jobboard-radios',
+        ],
+      ],
     ];
+    $form['markup']['searchtype']['#attributes']['class'][] = 'wj_radio';
     $form['submit'] = [
       '#type' => 'submit',
       '#value' => t('Find Jobs'),
