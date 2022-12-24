@@ -8,20 +8,24 @@
     display: flex;
     align-items: center;
     justify-content: space-between;
-    column-gap: 40px;
+    align-items: stretch;
+    column-gap: 30px;
   }
 }
 
 .card-feature__image {
   @include media-breakpoint-up(lg) {
     flex: 0 1 50%;
-    max-height: 300px;
     overflow: hidden;
   }
+}
 
-  .img-fluid {
+.card-feature__image .img-fluid {
+  width: 100%;
+
+  @include media-breakpoint-up(lg) {
     object-fit: cover;
-    width: 100%;
+    height: 100%;
   }
 }
 
@@ -29,8 +33,8 @@
   padding: 20px;
 
   @include media-breakpoint-up(lg) {
-    padding: 10px 20px 10px 0;
     flex: 0 1 50%;
+    padding: 20px 0;
   }
 }
 
@@ -39,6 +43,41 @@
   font-size: 1.3125rem;
 }
 
-.card-feature__link {
+body:not(.front) .card-feature__link {
   @include btn-blue;
+}
+
+// Homepage Featured Card Variation
+.front .card-feature {
+  border: none;
+}
+
+.front .card-feature__content {
+  background: linear-gradient(
+    90deg,
+    rgba(218, 235, 240, 1) 0%,
+    rgba(242, 242, 242, 1) 96%
+  );
+
+  @include media-breakpoint-up(lg) {
+    padding: 30px 20px;
+  }
+}
+
+.front .card-feature__content ul {
+  margin-bottom: 30px;
+}
+
+.front .card-feature__image {
+  @include media-breakpoint-up(lg) {
+    order: 2;
+  }
+}
+
+.front .card-feature__title {
+  font-size: 1.875rem;
+}
+
+.front .card-feature__link {
+  @include link-chevron;
 }

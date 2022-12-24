@@ -41,7 +41,7 @@
   display: inline-block;
   margin-right: 10px;
 }
-.jobs-data .job-post-date {    
+.jobs-data .job-post-date {
   font-family: 'BCSans';
   font-weight: 400;
   font-style: normal;
@@ -57,18 +57,19 @@
 .workbc-fobboard-save-profile {
   text-align: right;
 }
-.workbc-fobboard-save-profile .save_career_profile .form-submit{
-  background: inherit; 
-  color: inherit;
-  text-align:right; 
-  padding-right: 0px;
-  padding-left: 5px;
-  background: url(../images/save.svg) no-repeat 0px 4px;
-  margin: 0px; 
-  padding: 0px; 
-  padding-left: 24px;
-  color: #2e6ab0; 
-  outline:0px;
+.workbc-fobboard-save-profile .save_career_profile .form-submit {
+  width: 28px;
+  height: 28px;
+  text-align:right;
+  padding: 0 0 0 5px;
+  background-image: url(../images/save.svg);
+  background-repeat: no-repeat;
+  background-position: 100% 50%;
+  background-size: 18px;
+  background-color: #fff;
+  outline:0;
+  color: transparent;
+  overflow: hidden;
 }
 .workbc-fobboard-save-profile .save_career_profile .form-submit:focus{
   box-shadow: none;
@@ -111,10 +112,10 @@
   background:none !important;
 }
 .nav-items .dropdown .dropdown-menu .nav-item .nav-link{
-  
+
 }
 .nav-items .dropdown .dropdown-menu .nav-item .nav-link:after{
-  
+
 }
 /* For WR-1254 */
 .view-video-library .view-empty{
@@ -127,6 +128,15 @@ body.plan-careervideo-library .pagination {
 body.plan-careervideo-library div.view-id-video_library{
   margin-bottom: 2.4rem;
 }
+
+@media screen and (min-width: 768px) {
+  .workbc-fobboard-save-profile .save_career_profile .form-submit{
+    width: auto;
+    padding-right: 28px;
+    color: #2e6ab0;
+  }
+}
+
 @media screen and (min-width: 1024px) {
   .jobs-data-horizontal-view{
     width: 100%;
