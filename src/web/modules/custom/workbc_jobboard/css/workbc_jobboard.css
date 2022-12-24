@@ -290,3 +290,8 @@ div.ui-dialog[aria-describedby="webform-terms-of-service-terms_of_service--descr
   }
 }
 /***** Map regional profiles ends *******/
+
+/***** Search Form starts *******/
+.workbc-jobboard-search-form fieldset.form-item{border:0px;}
+.workbc-jobboard-search-form fieldset.form-item .fieldset-wrapper{padding:0px;}
+/***** Search Form ends *******/
