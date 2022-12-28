@@ -1,7 +1,7 @@
 #!/bin/bash
 
 cp cases.txt urls.txt
-sed -i -r 's@BASE-URL@'"$BASE_URL"'@' urls.txt
+sed -i -r 's@^/@'"$BASE_URL"'/@' urls.txt
 
 wget -q $BASE_URL/sitemap.xml -O sitemap.xml
 xmllint --xpath "//*[local-name()='loc']/text()" sitemap.xml >> urls.txt

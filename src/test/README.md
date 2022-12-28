@@ -54,20 +54,20 @@ Shortest transaction:	        0.00
 - `siege.conf` controls the `siege` running parameters.
 
 # cases.txt
-This file contains additional target urls such as post commands or multiples of urls that should be hit more often.
+This file contains additional target URLs such as POST commands or multiples of URLs that should be hit more often.
 
-Use `BASE-URL` as the domain for each url.  When the `load-test.sh` script is run `BASE-URL` will be replaced with the current value of the `BASE_URL` environment variable.
+Make sure to start each target URL with a forward-slash `/` which will get prefixed with the value of `BASE_URL`.
 
 ```
-BASE-URL/contact-us POST name=homer&email=test@localhost.com&message=hello&inquiry_type=job-seeker
-BASE-URL/
-BASE-URL/
-BASE-URL/
-BASE-URL/
-BASE-URL/
-BASE-URL/plan-career
-BASE-URL/plan-career
-BASE-URL/plan-career
-BASE-URL/plan-career
-BASE-URL/plan-career
+/contact-us POST name=homer&email=test@localhost.com&message=hello&inquiry_type=job-seeker
+/
+/
+/
+/
+/
+/plan-career
+/plan-career
+/plan-career
+/plan-career
+/plan-career
 ```

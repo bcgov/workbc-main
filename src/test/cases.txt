@@ -1,4 +1,4 @@
-BASE-URL/contact-us POST name=homer&email=test@localhost.com&message=hello&inquiry_type=job-seeker
-BASE-URL/plan-career/career-events/find-your-fit-tour/request-tour-stop POST name=Homer&role=organizer&school=Collingwood&email_address=organizer@locahost.com&phone_number=250-555-1234&phone_extension=123&region=mainland-southwest&city=Vancouver&privacy_policy=checked
-BASE-URL/plan-career/publications/workbc-order-form POST publications[quantity-2]=5&publications[quantity-6]=5&name=Homer&organization=Collingwood&mailing_address[address]=123 Main st&mailing_address[city]=Vancouver&mailing_address[postal_code]&phone_number=250-555-1234&email_address=homer@localhost.com&please_provide_any_specific_shipping_instructions_=front door
-BASE-URL/
+/contact-us POST name=homer&email=test@localhost.com&message=hello&inquiry_type=job-seeker
+/plan-career/career-events/find-your-fit-tour/request-tour-stop POST name=Homer&role=organizer&school=Collingwood&email_address=organizer@locahost.com&phone_number=250-555-1234&phone_extension=123&region=mainland-southwest&city=Vancouver&privacy_policy=checked
+/plan-career/publications/workbc-order-form POST publications[quantity-2]=5&publications[quantity-6]=5&name=Homer&organization=Collingwood&mailing_address[address]=123 Main st&mailing_address[city]=Vancouver&mailing_address[postal_code]&phone_number=250-555-1234&email_address=homer@localhost.com&please_provide_any_specific_shipping_instructions_=front door
+/
