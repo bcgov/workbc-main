@@ -87,7 +87,7 @@
           '0-20'  => $this->t('Under $20.00 per hour'),
           '20-30' => $this->t('$20.00 to $29.99 per hour'),
           '30-40' => $this->t('$30.00 to $39.99 per hour'),
-          '40-49' => $this->t('$40.00 to $49.99 per hour'),
+          '40-50' => $this->t('$40.00 to $49.99 per hour'),
           '50-0' => $this->t('$50.00+ per hour')
         ];
 
@@ -114,7 +114,7 @@
             if (abs($values['wage_rate_median'] - $values['annual_salary_median']) < PHP_FLOAT_EPSILON) {
               $asterisk = '*';
             }
-            
+
             $rows[$key]['wage_rate_median'] = '$'.ssotFormatNumber($values['wage_rate_median'], 2).$asterisk;
             $rows[$key]['openings_forecast'] = ssotFormatNumber($values['openings_forecast']);
             $rows[$key]['occupational_interest'] = $values['occupational_interest'];
