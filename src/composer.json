@@ -74,8 +74,8 @@
         "drupal/console": "~1.0",
         "drupal/content_lock": "^2.2",
         "drupal/content_moderation_notifications": "^3.4",
-        "drupal/core-composer-scaffold": "~9.4.0",
-        "drupal/core-recommended": "~9.4.0",
+        "drupal/core-composer-scaffold": "~9.5.0",
+        "drupal/core-recommended": "~9.5.0",
         "drupal/country": "^1.0",
         "drupal/crop": "^2.2",
         "drupal/devel": "^4.1",
@@ -137,7 +137,7 @@
         "webflo/drupal-finder": "^1.2"
     },
     "require-dev": {
-        "drupal/core-dev": "~9.4.0"
+        "drupal/core-dev": "~9.5.0"
     },
     "conflict": {
         "drupal/drupal": "*"
@@ -201,15 +201,12 @@
                 "PostgreSQL support": "patches/drupal/backup_migrate/0003-postgresql-support.patch",
                 "Directory restore": "patches/drupal/backup_migrate/backup-migrate-restore-public-files-3245802-3.patch"
             },
-            "drupal/search_api_solr": {
-                "Empty specific languages": "patches/drupal/search_api_solr/search_api_solr-empty-specific-languages-3314711-21.patch"
-            },
             "drupal/redirect": {
                 "Ignore query strings": "patches/drupal/redirect/2976930-redirect-hashes-created-when-not-retaining-the-query-string-2.patch"
             },
             "drupal/gtranslate" : {
-               "Replace Select language by the dafault/current language": "patches/drupal/gtranslate/select_default_value.patch",
-               "Select doesnt show language selected after changing pages": "patches/drupal/gtranslate/select_changed_value.patch"
+               "Replace select language with the default/current language": "patches/drupal/gtranslate/select_default_value.patch",
+               "Select doesn't show language selected after changing pages": "patches/drupal/gtranslate/select_changed_value.patch"
             }
         }
     }
