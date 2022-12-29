@@ -21,16 +21,13 @@ settings:
 visibility:
   not_node_type:
     id: not_node_type
-    bundles:
-      bc_profile: bc_profile
-      career_profile: career_profile
-      industry_profile: industry_profile
-      labour_market_monthly: labour_market_monthly
-      page: page
-      region_profile: region_profile
-      workbc_centre: workbc_centre
+    bundles: {  }
     negate: null
   not_taxonomy_vocabulary:
     id: not_taxonomy_vocabulary
     bundles: {  }
     negate: null
+  request_path:
+    id: request_path
+    negate: true
+    pages: "<front>\r\n/contact-us"
