@@ -47,6 +47,6 @@
   // add a negative vertical offset - this should prevent the anchor snapping from placing the anchored content below the fixed header
   display: block;
   position: relative;
-  top: -100px; 
+  top: -100px;
   visibility: hidden;
 }

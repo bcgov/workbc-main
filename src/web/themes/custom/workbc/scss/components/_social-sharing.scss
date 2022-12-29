@@ -64,3 +64,10 @@
     }
   }
 }
+
+// Profile Variation
+.page-node-type-region-profile .social-sharing,
+.page-node-type-career-profile .social-sharing,
+.page-node-type-industry-profile .social-sharing {
+  background-color: $workbc_palette_light_secondary;
+}
