@@ -3,8 +3,7 @@
   left: 50%;
   transform: translate(-50%, 0);
   width: 100vw;
-  padding: 60px 0 100px;
-  margin-top: -110px;
+  padding-bottom: 100px;
   background-color: $workbc_palette_light_secondary;
   background-image: url(../assets/images/explore-careers-bg.png);
   background-repeat: repeat-x;
@@ -14,14 +13,12 @@
 
   @include media-breakpoint-up(lg) {
     margin-bottom: 60px;
-    padding: 60px 0;
     background-size: 52%;
     background-position: 90% 80%;
   }
 }
 
 .explore-careers__container {
-  margin-top: 30px;
 
   @include media-breakpoint-up(lg) {
     max-width: 1100px;
