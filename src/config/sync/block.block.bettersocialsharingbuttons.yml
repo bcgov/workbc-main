@@ -5,7 +5,6 @@ dependencies:
   module:
     - better_social_sharing_buttons
     - block_visibility_conditions
-    - node
     - system
   theme:
     - workbc
@@ -48,24 +47,6 @@ visibility:
     id: not_taxonomy_vocabulary
     bundles: {  }
     negate: null
-  'entity_bundle:node':
-    id: 'entity_bundle:node'
-    negate: false
-    context_mapping:
-      node: '@node.node_route_context:node'
-    bundles:
-      bc_profile: bc_profile
-      blog: blog
-      career_profile: career_profile
-      event: event
-      industry_profile: industry_profile
-      labour_market_monthly: labour_market_monthly
-      news: news
-      page: page
-      publication: publication
-      region_profile: region_profile
-      success_story: success_story
-      workbc_centre: workbc_centre
   request_path:
     id: request_path
     negate: true

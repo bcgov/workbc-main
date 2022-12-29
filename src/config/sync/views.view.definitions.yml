@@ -511,7 +511,7 @@ display:
         title: false
         css_class: false
         header: false
-      css_class: 'container-lg page-format--standard alphabet-search-results'
+      css_class: ''
       header:
         area:
           id: area

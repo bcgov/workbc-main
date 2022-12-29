@@ -30,4 +30,4 @@ visibility:
   request_path:
     id: request_path
     negate: true
-    pages: "<front>\r\n/contact-us"
+    pages: "<front>\r\n/contact-us\r\n/contactez-nous\r\n/search-and-prepare-job\r\n/plan-career\r\n/plan-career/resources\r\n/discover-employment-services\r\n/explore-training-and-education\r\n/research-labour-market\r\n/access-employer-resources\r\n/find-loans-and-grants"
