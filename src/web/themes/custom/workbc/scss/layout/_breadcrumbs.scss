@@ -1,7 +1,9 @@
 .breadcrumb-wrapper {
+  position: relative;
   padding: 12px 0;
   box-shadow: $workbc_default_bottom_shadow;
   overflow-x: scroll;
+  z-index: 2;
 
   @include media-breakpoint-up(md) {
     overflow-x: auto;

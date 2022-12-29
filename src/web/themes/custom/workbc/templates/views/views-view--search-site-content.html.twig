@@ -42,6 +42,12 @@
   ]
 %}
 
+{# Breadcrumbs #}
+{% include '@workbc/includes/breadcrumbs.html.twig' %}
+
+{# Social Sharing #}
+{% include '@workbc/includes/social-sharing.html.twig' %}
+
 <div{{ attributes.addClass(classes) }}>
   {{ drupal_block('page_title_block', wrapper=false) }}
   {{ drupal_block('views_exposed_filter_block:search_site_content-page_1', wrapper=false) }}

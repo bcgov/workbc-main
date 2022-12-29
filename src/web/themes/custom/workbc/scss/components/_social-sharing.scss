@@ -64,3 +64,13 @@
     }
   }
 }
+
+// Social Share with grey background variation
+.page-node-type-region-profile .social-sharing,
+.page-node-type-career-profile .social-sharing,
+.page-node-type-industry-profile .social-sharing,
+.page-node-type-bc-profile .social-sharing,
+.plan-careerexplore-careers .social-sharing,
+.workbc-centresworkbc-centers .social-sharing {
+  background-color: $workbc_palette_light_secondary;
+}

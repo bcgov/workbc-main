@@ -39,6 +39,7 @@
     dom_id ? 'js-view-dom-id-' ~ dom_id,
     'container-lg',
     'page-format--standard',
+    'alphabet-search-results',
   ]
 %}
 
@@ -49,9 +50,6 @@
 {% include '@workbc/includes/social-sharing.html.twig' %}
 
 <div{{ attributes.addClass(classes) }}>
-  {{ drupal_block('page_title_block', wrapper=false) }}
-  {{ drupal_block('views_exposed_filter_block:search_career_profiles-page_1', wrapper=false) }}
-
   {{ title_prefix }}
   {% if title %}
     {{ title }}
@@ -67,6 +65,7 @@
       {{ exposed }}
     </div>
   {% endif %}
+
   {% if attachment_before %}
     <div class="attachment attachment-before">
       {{ attachment_before }}
