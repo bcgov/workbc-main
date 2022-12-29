@@ -220,10 +220,6 @@
 
 <div class="profile-header">
 
-  <div class="profile-header-breadcrumb">
-    {{ drupal_block('system_breadcrumb_block', wrapper=false) }}
-  </div>
-
   {% if viewmodel['hero']['image'] or viewmodel['hero']['description'] %}
     <div class="profile-header-banner hero-banner hero-banner-profile">
 
@@ -255,10 +251,13 @@
     </div>
   {% endif %}
 
-  <div class="profile-header-social container-lg">
-    {{ drupal_block('social_sharing_buttons_block', wrapper=false) }}
-  </div>
 </div>
+
+{# Breadcrumbs #}
+{% include '@workbc/includes/breadcrumbs.html.twig' %}
+
+{# Social Sharing #}
+{% include '@workbc/includes/social-sharing.html.twig' %}
 
 <article{{ attributes.addClass(classes) }}>
 

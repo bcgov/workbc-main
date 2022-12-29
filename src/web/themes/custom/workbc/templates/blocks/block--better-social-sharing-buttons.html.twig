@@ -30,8 +30,7 @@
     'block',
     'block-' ~ configuration.provider|clean_class,
     'block-' ~ plugin_id|clean_class,
-    'social-sharing',
-    'container-lg'
+    'social-sharing'
   ]
 %}
 <div{{ attributes.addClass(classes) }}>
@@ -41,6 +40,8 @@
   {% endif %}
   {{ title_suffix }}
   {% block content %}
+  <div class="container-lg">
     {{ content }}
+  </div>
   {% endblock %}
 </div>
