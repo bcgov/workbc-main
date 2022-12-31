@@ -1,14 +1,14 @@
 $card-padding: 20px;
 // start with half instead of dividing by 2 to avoid potential integer division truncation complications
 $card-divider-margin-half: 20px;
-$card-divider-size-half: 2px; 
+$card-divider-size-half: 2px;
 $card-divider-size: calc(2*$card-divider-size-half);
 
 .card-profile {
   position: relative; // begin positional context %card-profile
   margin-bottom: 24px;
   box-shadow: 0 0 15px 0 rgba(0, 0, 0, 0.15);
-  padding: $card-padding; 
+  padding: $card-padding;
 
   display: flex;
   flex-flow: column nowrap;
@@ -112,7 +112,7 @@ $card-divider-size: calc(2*$card-divider-size-half);
 }
 
 .card-profile__content-tooltip {
-  position: absolute; // relative to positional context %content-header  
+  position: absolute; // relative to positional context %content-header
   top: 0;
   bottom: 0;
   right: -40px;
@@ -126,7 +126,7 @@ $card-divider-size: calc(2*$card-divider-size-half);
   flex: 1 1;
   max-width: 100%;
 
-  img { 
+  img {
     max-width: 100%;
     margin: $card-padding 0;
   }
@@ -146,7 +146,7 @@ $card-divider-size: calc(2*$card-divider-size-half);
         padding: 6px $card-padding;
 
         &:last-of-type {
-          color: $workbc_palette_dark_tertiary;
+          color: #007db2;
           font-weight: bold;
         }
       }
