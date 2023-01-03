@@ -103,13 +103,11 @@
   {% include '@workbc/includes/hero.html.twig' %}
 {% endif %}
 
-{# When breadcrums are displayed below the hero section #}
-{{ drupal_block('system_breadcrumb_block', wrapper=false) }}
+{# Breadcrumbs #}
+{% include '@workbc/includes/breadcrumbs.html.twig' %}
 
-{# When social links are displayed below the hero section #}
-<div class="social-sharing container-lg">
-  {{ drupal_block('social_sharing_buttons_block', wrapper=false) }}
-</div>
+{# Social Sharing #}
+{% include '@workbc/includes/social-sharing.html.twig' %}
 
 <article{{ attributes.addClass(classes) }}>
 

@@ -3,6 +3,9 @@
     namespace Drupal\workbc_custom\Form;
     use Drupal\Core\Form\FormBase;
     use Drupal\Core\Form\FormStateInterface;
+    use Drupal\Core\Link;
+    use Drupal\Core\Url;
+
     /**
      * Class HooOptionsForm for demonstration.
     */
@@ -31,6 +34,10 @@
         if(!empty($region_value)) {
           $parameters .= '&region=eq.' . $region_value;
           $filters_exists = TRUE;
+        } else {
+          $parameters .= '&region=eq.british_columbia';
+          $filters_exists = TRUE;
+          $region_value = 'british_columbia';
         }
         if(!empty($education_value)) {
           $parameters .= '&typical_education_background=eq.' . $education_value;
@@ -43,13 +50,16 @@
         if(!empty($wage_value)) {
           $wages_limit = explode('-',$wage_value);
           if($wages_limit[0] > 0){
-            $parameters .= '&wage_rate_median=gt.' . $wages_limit[0];
+            $parameters .= '&wage_rate_median=gte.' . $wages_limit[0];
           }
           if($wages_limit[1] > 0){
             $parameters .= '&wage_rate_median=lt.' . $wages_limit[1];
           }
           $filters_exists = TRUE;
         }
+
+        //set order by
+        $parameters .= '&order=openings_forecast.desc';
 
         //data
         $dataHHO = ssotHighOpportunityOptions($parameters);
@@ -67,8 +77,7 @@
         $regionMappings = getRegionMappings();
 
         //filters options
-        $no_value_text = $this->t('Select');;
-        $regionOptions[''] = $no_value_text;
+        $no_value_text = $this->t('All');;
         $educationOptions[''] = $no_value_text;
         $interestOptions[''] = $no_value_text;
 
@@ -78,7 +87,7 @@
           '0-20'  => $this->t('Under $20.00 per hour'),
           '20-30' => $this->t('$20.00 to $29.99 per hour'),
           '30-40' => $this->t('$30.00 to $39.99 per hour'),
-          '40-49' => $this->t('$40.00 to $49.99 per hour'),
+          '40-50' => $this->t('$40.00 to $49.99 per hour'),
           '50-0' => $this->t('$50.00+ per hour')
         ];
 
@@ -96,7 +105,8 @@
         //rows data
         if(!empty($data)) {
           foreach($data as $key => $values){
-            $rows[$key]['occupation'] = $values['occupation'];
+            $rows[$key]['occupation'] = $this->getNocLink($values);
+
             $rows[$key]['typical_education_background'] = $values['typical_education_background'];
 
             //annual wages check
@@ -104,7 +114,7 @@
             if (abs($values['wage_rate_median'] - $values['annual_salary_median']) < PHP_FLOAT_EPSILON) {
               $asterisk = '*';
             }
-            
+
             $rows[$key]['wage_rate_median'] = '$'.ssotFormatNumber($values['wage_rate_median'], 2).$asterisk;
             $rows[$key]['openings_forecast'] = ssotFormatNumber($values['openings_forecast']);
             $rows[$key]['occupational_interest'] = $values['occupational_interest'];
@@ -194,6 +204,26 @@
       */
       public function submitForm(array &$form, FormStateInterface $form_state) {
          // Nothing.
+      }
+
+      /**
+       * Function to generate carrer profile link using the NOC.
+      */
+      public function getNocLink($values) {
+        $title = $values['occupation'].' ('.t('NOC').' '.$values['noc'].')';
+        //fetch entity id using the noc code to generate the link for
+        // carrer profiles.
+        $query = \Drupal::database()->select('node__field_noc', 'n');
+        $query->addField('n', 'entity_id');
+        $query->condition('n.field_noc_value', $values['noc']);
+        $results = $query->execute()->fetchAssoc();
+        if(!empty($results['entity_id'])) {
+          $nid = $results['entity_id'];
+          $link = Link::fromTextAndUrl($title, Url::fromUri('internal:/node/'.$nid))->toString();
+          return $link;
+        } else {
+          return $title;
+        }
       }
 
     }

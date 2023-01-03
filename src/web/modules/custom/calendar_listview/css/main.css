@@ -491,4 +491,12 @@
     width: auto;
   }
 
+.event-cal .view-event-calendar .fc-ltr .fc-dayGrid-view .fc-day-top .fc-day-number {
+  color: #333;
+}
+
+.fc-day-top.fc-other-month {
+  opacity: 0.7;
+}
+
 /*# sourceMappingURL=main.css.map */

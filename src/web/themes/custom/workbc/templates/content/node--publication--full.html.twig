@@ -81,6 +81,12 @@
   ]
 %}
 
+{# Breadcrumbs #}
+{% include '@workbc/includes/breadcrumbs.html.twig' %}
+
+{# Social Sharing #}
+{% include '@workbc/includes/social-sharing.html.twig' %}
+
 <article{{ attributes.addClass(classes) }}>
   <h1 class="page-title">{{ label }}</h1>
   {{ content }}

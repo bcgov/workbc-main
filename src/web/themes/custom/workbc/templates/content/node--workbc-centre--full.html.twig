@@ -100,10 +100,6 @@
 
 <div class="profile-header">
 
-  <div class="profile-header-breadcrumb">
-    {{ drupal_block('system_breadcrumb_block', wrapper=false) }}
-  </div>
-
   <div class="profile-header-banner hero-banner">
 
     <div class="hero-image-wrapper">
@@ -131,10 +127,13 @@
 
   </div>
 
-  <div class="profile-header-social container-lg">
-    {{ drupal_block('social_sharing_buttons_block', wrapper=false) }}
-  </div>
 </div>
+
+{# Breadcrumbs #}
+{% include '@workbc/includes/breadcrumbs.html.twig' %}
+
+{# Social Sharing #}
+{% include '@workbc/includes/social-sharing.html.twig' %}
 
 {% if viewmodel['multilingual'] %}
   <div class="container-lg d-flex justify-content-center">

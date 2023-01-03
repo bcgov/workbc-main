@@ -107,23 +107,20 @@
   {% include '@workbc/includes/hero.html.twig' %}
 {% endif %}
 
+{# Breadcrumbs #}
+{% include '@workbc/includes/breadcrumbs.html.twig' %}
 
-{# When breadcrums are displayed below the hero section #}
-{% if not is_front %}
-  {{ drupal_block('system_breadcrumb_block', wrapper=false) }}
-{% endif %}
+{# Social Sharing #}
+{% include '@workbc/includes/social-sharing.html.twig' %}
 
-{# When social links are displayed below the hero section #}
-{% if not is_front %}
-  <div class="social-sharing container-lg">
-    {{ drupal_block('social_sharing_buttons_block', wrapper=false) }}
-  </div>
-{% endif %}
+{# French Link #}
+{% include '@workbc/includes/french-link.html.twig' %}
+
 
 <article{{ attributes.addClass(classes) }}>
 
   {% if left_block|striptags|trim %}
-    <aside class="page-sidebar" role="complementary">
+    <aside class="page-sidebar" role="complementary" aria-label="Sidebar">
       {{ left_block }}
     </aside>
   {% endif %}
@@ -148,10 +145,6 @@
     {% endif %}
 
     {% if is_contact %}
-      <div class="d-flex justify-content-center">
-        {{ drupal_entity('block', 'contactusfrenchlink') }}
-      </div>
-
       <div class="contact-container">
         <div class="contact-form-container">
           {{ drupal_entity('block', 'webform_3') }}

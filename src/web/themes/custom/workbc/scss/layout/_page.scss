@@ -41,15 +41,18 @@
   }
 }
 
-// Front Tweaks
-.front .node-page-content {
-  padding-top: 40px;
-}
-
 // Miscellaneous pages
 .page--not-found .region-content .block-system {
   padding: 80px 0;
   font-size: 2rem;
+}
+
+.page-format--wide .node-page-content {
+  padding-top: 40px;
+}
+
+.plan-careerexplore-careers .node-page-content {
+  padding-top: 0;
 }
 
 .userlogin .region-content {

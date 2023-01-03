@@ -52,3 +52,22 @@ Shortest transaction:	        0.00
 # Configuration
 - `BASE_URL` environment variable targets a specific Drupal installation and queries its `/sitemap.xml` file (default: `http://workbc.docker.localhost:8000`)
 - `siege.conf` controls the `siege` running parameters.
+
+# cases.txt
+This file contains additional target URLs such as POST commands or multiples of URLs that should be hit more often.
+
+Make sure to start each target URL with a forward-slash `/` which will get prefixed with the value of `BASE_URL`.
+
+```
+/contact-us POST name=homer&email=test@localhost.com&message=hello&inquiry_type=job-seeker
+/
+/
+/
+/
+/
+/plan-career
+/plan-career
+/plan-career
+/plan-career
+/plan-career
+```

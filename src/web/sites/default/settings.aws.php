@@ -1,6 +1,6 @@
 <?php
 
-$base = 'https://' . $_SERVER['HTTP_X_FORWARDED_HOST'];
+$base_url = 'https://' . $_SERVER['HTTP_X_FORWARDED_HOST'];
 
 $databases['default']['default'] = array (
     'database' => getenv('POSTGRES_DB'),

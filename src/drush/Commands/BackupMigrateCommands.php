@@ -48,7 +48,6 @@ class BackupMigrateCommands extends DrushCommands
         }
         if ($options['destinations']) {
             $output['destinations'] = array_reduce(array_keys($bam->destinations()->getAll()), function($destinations, $destination_id) {
-                print_r($destination_id);
                 $destination = \Drupal::entityTypeManager()->getStorage('backup_migrate_destination')->load($destination_id);
                 if ($destination) {
                     $destinations[] = [

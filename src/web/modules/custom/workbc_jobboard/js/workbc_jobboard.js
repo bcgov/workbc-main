@@ -17,7 +17,11 @@
             };
           }
         });
-        
+        $(".region-map-select select", context).once('jobboard').on("change", function(){
+          if($(this).val() != ""){
+            window.location.href=$(this).val();
+          }
+        });
       });
 
       $(window, context).once('jobboard').on('hashchange load jobboardlogin', function (e) {
@@ -33,9 +37,9 @@
             if(CheckLoginLinkExists.length < 1){
               CheckLogoutLinkExists.remove();
               CheckLogoutLinkMobileExists.remove();
-              var appendLoginMenus = "<li class='nav-item new-login-link'> <a  href='/account#/dashboard' class='nav-link'>My Profile</a><li class='nav-item new-login-link'> <a  href='/account#/personal-settings' class='nav-link'>Personal Settings</a><li class='nav-item new-login-link'> <a  href='/account/#/logout' class='nav-link' onclick=\"document.cookie = 'currentUser.username=; expires=Thu, 01 Jan 1970 00:00:00 UTC; Path=/'; document.cookie = 'currentUser.email=; expires=Thu, 01 Jan 1970 00:00:00 UTC; Path=/';document.cookie = 'currentUser.firstname=; expires=Thu, 01 Jan 1970 00:00:00 UTC; Path=/';document.cookie = 'currentUser.lastname=; expires=Thu, 01 Jan 1970 00:00:00 UTC; Path=/';document.cookie = 'currentUser.id=; expires=Thu, 01 Jan 1970 00:00:00 UTC; Path=/';document.cookie = 'currentUser.token=; expires=Thu, 01 Jan 1970 00:00:00 UTC; Path=/';localStorage.removeItem('currentUser'); location.reload();\"> Log out </a>";
+              var appendLoginMenus = "<li class='nav-item new-login-link'> <a  href='/account#/dashboard' class='nav-link'>My Profile</a><li class='nav-item new-login-link'> <a  href='/account#/personal-settings' class='nav-link'>Personal Settings</a><li class='nav-item new-login-link'> <a  href='/account#/logout' class='nav-link' onclick=\"document.cookie = 'currentUser.username=; expires=Thu, 01 Jan 1970 00:00:00 UTC; Path=/'; document.cookie = 'currentUser.email=; expires=Thu, 01 Jan 1970 00:00:00 UTC; Path=/';document.cookie = 'currentUser.firstname=; expires=Thu, 01 Jan 1970 00:00:00 UTC; Path=/';document.cookie = 'currentUser.lastname=; expires=Thu, 01 Jan 1970 00:00:00 UTC; Path=/';document.cookie = 'currentUser.id=; expires=Thu, 01 Jan 1970 00:00:00 UTC; Path=/';document.cookie = 'currentUser.token=; expires=Thu, 01 Jan 1970 00:00:00 UTC; Path=/';localStorage.removeItem('currentUser'); location.reload();\"> Log out </a>";
               
-              var appendLoginMenusD = "<li class='nav-item new-login-link dropdown'> <a  href='javascript:void(0)' class='nav-link dropdown-toggle' data-bs-toggle='dropdown'>My Account</a><ul class='dropdown-menu'><li class='nav-item new-login-link dropdown-item'><a  href='/account#/dashboard' class='nav-link' >My Profile</a></li><li class='nav-item new-login-link dropdown-item'><a  href='/account#/personal-settings' class='nav-link' >Personal Settings</a></li><li class='nav-item new-login-link dropdown-item'> <a  href='/account/#/logout' class='nav-link' onclick=\"document.cookie = 'currentUser.username=; expires=Thu, 01 Jan 1970 00:00:00 UTC; Path=/'; document.cookie = 'currentUser.email=; expires=Thu, 01 Jan 1970 00:00:00 UTC; Path=/';document.cookie = 'currentUser.firstname=; expires=Thu, 01 Jan 1970 00:00:00 UTC; Path=/';document.cookie = 'currentUser.lastname=; expires=Thu, 01 Jan 1970 00:00:00 UTC; Path=/';document.cookie = 'currentUser.id=; expires=Thu, 01 Jan 1970 00:00:00 UTC; Path=/';document.cookie = 'currentUser.token=; expires=Thu, 01 Jan 1970 00:00:00 UTC; Path=/';localStorage.removeItem('currentUser'); location.reload();\"> Log out </a></li></ul></li>";
+              var appendLoginMenusD = "<li class='nav-item new-login-link dropdown'> <a  href='javascript:void(0)' class='nav-link dropdown-toggle' data-bs-toggle='dropdown'>My Account</a><ul class='dropdown-menu'><li class='nav-item new-login-link dropdown-item'><a  href='/account#/dashboard' class='nav-link' >My Profile</a></li><li class='nav-item new-login-link dropdown-item'><a  href='/account#/personal-settings' class='nav-link' >Personal Settings</a></li><li class='nav-item new-login-link dropdown-item'> <a  href='/account#/logout' class='nav-link' onclick=\"document.cookie = 'currentUser.username=; expires=Thu, 01 Jan 1970 00:00:00 UTC; Path=/'; document.cookie = 'currentUser.email=; expires=Thu, 01 Jan 1970 00:00:00 UTC; Path=/';document.cookie = 'currentUser.firstname=; expires=Thu, 01 Jan 1970 00:00:00 UTC; Path=/';document.cookie = 'currentUser.lastname=; expires=Thu, 01 Jan 1970 00:00:00 UTC; Path=/';document.cookie = 'currentUser.id=; expires=Thu, 01 Jan 1970 00:00:00 UTC; Path=/';document.cookie = 'currentUser.token=; expires=Thu, 01 Jan 1970 00:00:00 UTC; Path=/';localStorage.removeItem('currentUser'); location.reload();\"> Log out </a></li></ul></li>";
               
               //Desktop menu
               $("nav.nav-user .nav-items").append(appendLoginMenusD);
