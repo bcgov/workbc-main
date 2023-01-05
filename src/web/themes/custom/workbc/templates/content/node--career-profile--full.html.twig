@@ -363,7 +363,7 @@
 
             <div class="profile-content-section">
               <h2 class="profile-content-section__header">{{ viewmodel['tab_sections']['career_overview']['related_careers_title'] }}</h2>
-              {{ viewmodel['tab_sections']['career_overview']['related_careers'] }}
+              {{ viewmodel['tab_sections']['career_overview']['related_careers_list'] }}
             </div>
 
             <div class="profile-content-section">
@@ -377,10 +377,10 @@
             </div>
 
             <div class="profile-content-section">
-              <h2 class="profile-content-section__header">{{ ['tab_sections']['career_overview']['job_titles_title'] }}</h2>
+              <h2 class="profile-content-section__header">{{ viewmodel['tab_sections']['career_overview']['job_titles_title'] }}</h2>
 
               <ul class="career-content-job-titles">
-                {% for jobtitle in viewmodel['tab_sections']['career_overview']['job_titles'] %}
+                {% for jobtitle in viewmodel['tab_sections']['career_overview']['job_titles_list'] %}
                   <li>{{ jobtitle.value }}</li>
                 {% endfor %}
               </ul>
