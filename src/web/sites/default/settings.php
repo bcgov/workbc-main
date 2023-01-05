@@ -819,11 +819,12 @@ if (in_array(getenv('PROJECT_ENVIRONMENT'), [
   'local'
 ])) {
   $settings['config_exclude_modules'] = [
-    'devel', 
+    'devel',
     'devel_generate',
-    'devel_kint_extras', 
-    'webform_devel', 
+    'devel_kint_extras',
+    'webform_devel',
     'views_ui',
     'webform_ui',
+    'dblog'
   ];
 }
