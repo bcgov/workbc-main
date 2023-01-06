@@ -110,6 +110,7 @@
         "drupal/published_corrected_date": "^2.0",
         "drupal/recaptcha": "^3.0",
         "drupal/redirect": "^1.8",
+        "drupal/redis": "^1.6",
         "drupal/registration_link": "^2.4",
         "drupal/responsive_menu": "^4.4",
         "drupal/role_delegation": "^1.2",

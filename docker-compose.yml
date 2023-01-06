@@ -144,9 +144,11 @@ services:
 #    - "traefik.http.services.${PROJECT_NAME}_varnish.loadbalancer.server.port=6081"
 #    - "traefik.http.routers.${PROJECT_NAME}_varnish.rule=Host(`varnish.${PROJECT_BASE_URL}`)"
 
-#  redis:
-#    container_name: "${PROJECT_NAME}_redis"
-#    image: wodby/redis:$REDIS_TAG
+  redis:
+  #   container_name: "${PROJECT_NAME}_redis"
+    image: wodby/redis:$REDIS_TAG
+    ports:
+    - "6379:6379"
 
 #  adminer:
 #    container_name: "${PROJECT_NAME}_adminer"
