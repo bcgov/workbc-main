@@ -1,0 +1,41 @@
+uuid: 29e9a2d9-fbcc-4752-96fd-e7e974f9af4a
+langcode: en
+status: true
+dependencies:
+  config:
+    - core.entity_form_mode.node.bulk_edit
+    - field.field.node.publication.body
+    - field.field.node.publication.field_content_group
+    - field.field.node.publication.field_hardcopy_available
+    - field.field.node.publication.field_image
+    - field.field.node.publication.field_publication
+    - field.field.node.publication.field_resource_number
+    - node.type.publication
+id: node.publication.bulk_edit
+targetEntityType: node
+bundle: publication
+mode: bulk_edit
+content:
+  field_content_group:
+    type: options_select
+    weight: 0
+    region: content
+    settings: {  }
+    third_party_settings: {  }
+hidden:
+  body: true
+  created: true
+  field_hardcopy_available: true
+  field_image: true
+  field_publication: true
+  field_resource_number: true
+  langcode: true
+  moderation_state: true
+  path: true
+  promote: true
+  simple_sitemap: true
+  status: true
+  sticky: true
+  title: true
+  uid: true
+  url_redirects: true

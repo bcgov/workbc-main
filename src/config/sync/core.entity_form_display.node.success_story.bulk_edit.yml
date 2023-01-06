@@ -1,0 +1,43 @@
+uuid: 77abfeda-92ea-497a-9e12-5408e8597100
+langcode: en
+status: true
+dependencies:
+  config:
+    - core.entity_form_mode.node.bulk_edit
+    - field.field.node.success_story.body
+    - field.field.node.success_story.field_content_group
+    - field.field.node.success_story.field_image
+    - field.field.node.success_story.field_related_topics_blurb
+    - field.field.node.success_story.field_scheduled_publish
+    - field.field.node.success_story.field_subtitle
+    - field.field.node.success_story.field_tags
+    - node.type.success_story
+id: node.success_story.bulk_edit
+targetEntityType: node
+bundle: success_story
+mode: bulk_edit
+content:
+  field_content_group:
+    type: options_select
+    weight: 0
+    region: content
+    settings: {  }
+    third_party_settings: {  }
+hidden:
+  body: true
+  created: true
+  field_image: true
+  field_related_topics_blurb: true
+  field_scheduled_publish: true
+  field_subtitle: true
+  field_tags: true
+  langcode: true
+  moderation_state: true
+  path: true
+  promote: true
+  simple_sitemap: true
+  status: true
+  sticky: true
+  title: true
+  uid: true
+  url_redirects: true

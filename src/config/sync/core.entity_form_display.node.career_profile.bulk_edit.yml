@@ -1,0 +1,63 @@
+uuid: 2040809d-46d5-4e63-a04a-cb1da68358c4
+langcode: en
+status: true
+dependencies:
+  config:
+    - core.entity_form_mode.node.bulk_edit
+    - field.field.node.career_profile.field_career_overview
+    - field.field.node.career_profile.field_career_pathways
+    - field.field.node.career_profile.field_career_videos
+    - field.field.node.career_profile.field_career_videos_introduction
+    - field.field.node.career_profile.field_content_group
+    - field.field.node.career_profile.field_duties
+    - field.field.node.career_profile.field_education_programs
+    - field.field.node.career_profile.field_education_training_skills
+    - field.field.node.career_profile.field_hero_image
+    - field.field.node.career_profile.field_insights_from_industry
+    - field.field.node.career_profile.field_introductions
+    - field.field.node.career_profile.field_job_titles
+    - field.field.node.career_profile.field_noc
+    - field.field.node.career_profile.field_related_careers
+    - field.field.node.career_profile.field_resources
+    - field.field.node.career_profile.field_scheduled_publish
+    - field.field.node.career_profile.field_work_environment
+    - node.type.career_profile
+id: node.career_profile.bulk_edit
+targetEntityType: node
+bundle: career_profile
+mode: bulk_edit
+content:
+  field_content_group:
+    type: options_select
+    weight: 0
+    region: content
+    settings: {  }
+    third_party_settings: {  }
+hidden:
+  created: true
+  field_career_overview: true
+  field_career_pathways: true
+  field_career_videos: true
+  field_career_videos_introduction: true
+  field_duties: true
+  field_education_programs: true
+  field_education_training_skills: true
+  field_hero_image: true
+  field_insights_from_industry: true
+  field_introductions: true
+  field_job_titles: true
+  field_noc: true
+  field_related_careers: true
+  field_resources: true
+  field_scheduled_publish: true
+  field_work_environment: true
+  langcode: true
+  moderation_state: true
+  path: true
+  promote: true
+  simple_sitemap: true
+  status: true
+  sticky: true
+  title: true
+  uid: true
+  url_redirects: true

@@ -1,0 +1,45 @@
+uuid: 6027d507-1ac8-49ed-9520-80a48f2a002c
+langcode: en
+status: true
+dependencies:
+  config:
+    - core.entity_form_mode.node.bulk_edit
+    - field.field.node.region_profile.field_content_group
+    - field.field.node.region_profile.field_hero_image
+    - field.field.node.region_profile.field_industry_highlights_intro
+    - field.field.node.region_profile.field_introductions
+    - field.field.node.region_profile.field_job_board_id
+    - field.field.node.region_profile.field_key_facts
+    - field.field.node.region_profile.field_region_overview
+    - field.field.node.region_profile.field_scheduled_publish
+    - node.type.region_profile
+id: node.region_profile.bulk_edit
+targetEntityType: node
+bundle: region_profile
+mode: bulk_edit
+content:
+  field_content_group:
+    type: options_select
+    weight: 0
+    region: content
+    settings: {  }
+    third_party_settings: {  }
+hidden:
+  created: true
+  field_hero_image: true
+  field_industry_highlights_intro: true
+  field_introductions: true
+  field_job_board_id: true
+  field_key_facts: true
+  field_region_overview: true
+  field_scheduled_publish: true
+  langcode: true
+  moderation_state: true
+  path: true
+  promote: true
+  simple_sitemap: true
+  status: true
+  sticky: true
+  title: true
+  uid: true
+  url_redirects: true
