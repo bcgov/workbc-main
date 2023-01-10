@@ -117,6 +117,14 @@ resource "aws_ecs_task_definition" "app" {
 			{
 				name = "PROJECT_ENVIRONMENT",
 				value = "aws-test"
+			},
+			{
+				name = "REDIS_HOST",
+				value = "${aws_elasticache_replication_group.workbc_redis_rg.primary_endpoint_address}"
+			},
+			{
+				name = "REDIS_PORT",
+				value = "6379"
 			}
 		]
 		secrets = [
