@@ -3,6 +3,7 @@ langcode: en
 status: true
 dependencies:
   config:
+    - field.field.node.region_profile_introductions.field_content_group
     - field.field.node.region_profile_introductions.field_employment_introduction
     - field.field.node.region_profile_introductions.field_labour_market_introduction
     - field.field.node.region_profile_introductions.field_labour_market_statistics_i
@@ -16,6 +17,14 @@ targetEntityType: node
 bundle: region_profile_introductions
 mode: default
 content:
+  field_content_group:
+    type: entity_reference_label
+    label: above
+    settings:
+      link: true
+    third_party_settings: {  }
+    weight: 106
+    region: content
   field_employment_introduction:
     type: text_default
     label: above

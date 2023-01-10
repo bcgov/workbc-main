@@ -778,6 +778,11 @@ $settings['trusted_host_patterns'] = [
   '^workbc\.b89n0c-test\.nimbus\.cloud\.gov\.bc\.ca$',
 ];
 
+// Redis cache.
+$settings['redis.connection']['interface'] = 'PhpRedis';
+$settings['cache']['default'] = 'cache.backend.redis';
+$settings['container_yamls'][] = 'modules/contrib/redis/example.services.yml';
+
 /**
  * Load local development override configuration, if available.
  *
@@ -799,7 +804,6 @@ if (file_exists($app_root . '/' . $site_path . '/settings.aws.php') && getenv('A
   include $app_root . '/' . $site_path . '/settings.local.php';
 }
 
-
 /**
  * Environment-specific configuration.
  *
@@ -819,11 +823,12 @@ if (in_array(getenv('PROJECT_ENVIRONMENT'), [
   'local'
 ])) {
   $settings['config_exclude_modules'] = [
-    'devel', 
+    'devel',
     'devel_generate',
-    'devel_kint_extras', 
-    'webform_devel', 
+    'devel_kint_extras',
+    'webform_devel',
     'views_ui',
     'webform_ui',
+    'dblog'
   ];
 }

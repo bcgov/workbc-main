@@ -1,34 +1,39 @@
-uuid: 9afa5c31-c9dc-46eb-a72b-bd1ce422bec7
+uuid: e4ffe012-ff45-4b94-8327-83219dbd5365
 langcode: en
 status: true
 dependencies:
   config:
-    - core.entity_view_mode.node.teaser
+    - core.entity_form_mode.node.bulk_edit
     - field.field.node.region_profile_introductions.field_content_group
     - field.field.node.region_profile_introductions.field_employment_introduction
     - field.field.node.region_profile_introductions.field_labour_market_introduction
     - field.field.node.region_profile_introductions.field_labour_market_statistics_i
     - field.field.node.region_profile_introductions.field_top_occupations_introducti
     - node.type.region_profile_introductions
-  module:
-    - user
-id: node.region_profile_introductions.teaser
+id: node.region_profile_introductions.bulk_edit
 targetEntityType: node
 bundle: region_profile_introductions
-mode: teaser
+mode: bulk_edit
 content:
-  links:
+  field_content_group:
+    type: options_select
+    weight: 0
+    region: content
     settings: {  }
     third_party_settings: {  }
-    weight: 100
-    region: content
 hidden:
-  extra_field_workbc_page_title: true
-  extra_field_workbc_published_on: true
-  field_content_group: true
+  created: true
   field_employment_introduction: true
   field_labour_market_introduction: true
   field_labour_market_statistics_i: true
   field_top_occupations_introducti: true
   langcode: true
-  search_api_excerpt: true
+  moderation_state: true
+  path: true
+  promote: true
+  simple_sitemap: true
+  status: true
+  sticky: true
+  title: true
+  uid: true
+  url_redirects: true

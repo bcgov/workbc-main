@@ -1,0 +1,43 @@
+uuid: 76a55b42-2a7f-4af4-8539-d4e4594c8860
+langcode: en
+status: true
+dependencies:
+  config:
+    - core.entity_form_mode.node.bulk_edit
+    - field.field.node.news.body
+    - field.field.node.news.field_archived
+    - field.field.node.news.field_content_group
+    - field.field.node.news.field_image
+    - field.field.node.news.field_related_topics_blurb
+    - field.field.node.news.field_scheduled_publish
+    - field.field.node.news.field_tags
+    - node.type.news
+id: node.news.bulk_edit
+targetEntityType: node
+bundle: news
+mode: bulk_edit
+content:
+  field_content_group:
+    type: options_select
+    weight: 0
+    region: content
+    settings: {  }
+    third_party_settings: {  }
+hidden:
+  body: true
+  created: true
+  field_archived: true
+  field_image: true
+  field_related_topics_blurb: true
+  field_scheduled_publish: true
+  field_tags: true
+  langcode: true
+  moderation_state: true
+  path: true
+  promote: true
+  simple_sitemap: true
+  status: true
+  sticky: true
+  title: true
+  uid: true
+  url_redirects: true

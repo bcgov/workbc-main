@@ -1,0 +1,49 @@
+uuid: a31581be-bd26-4c89-8000-a198e898c201
+langcode: en
+status: true
+dependencies:
+  config:
+    - core.entity_form_mode.node.bulk_edit
+    - field.field.node.event.body
+    - field.field.node.event.field_address
+    - field.field.node.event.field_audience
+    - field.field.node.event.field_content_group
+    - field.field.node.event.field_end_date
+    - field.field.node.event.field_event_type
+    - field.field.node.event.field_multiple_days
+    - field.field.node.event.field_scheduled_publish
+    - field.field.node.event.field_start_date
+    - field.field.node.event.field_time
+    - node.type.event
+id: node.event.bulk_edit
+targetEntityType: node
+bundle: event
+mode: bulk_edit
+content:
+  field_content_group:
+    type: options_select
+    weight: 0
+    region: content
+    settings: {  }
+    third_party_settings: {  }
+hidden:
+  body: true
+  created: true
+  field_address: true
+  field_audience: true
+  field_end_date: true
+  field_event_type: true
+  field_multiple_days: true
+  field_scheduled_publish: true
+  field_start_date: true
+  field_time: true
+  langcode: true
+  moderation_state: true
+  path: true
+  promote: true
+  simple_sitemap: true
+  status: true
+  sticky: true
+  title: true
+  uid: true
+  url_redirects: true

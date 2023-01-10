@@ -1,0 +1,57 @@
+uuid: 26ad4102-34fe-4c55-b6ab-a50aa2b60d19
+langcode: en
+status: true
+dependencies:
+  config:
+    - core.entity_form_mode.node.bulk_edit
+    - field.field.node.workbc_centre.field_address
+    - field.field.node.workbc_centre.field_alert
+    - field.field.node.workbc_centre.field_content
+    - field.field.node.workbc_centre.field_content_group
+    - field.field.node.workbc_centre.field_email
+    - field.field.node.workbc_centre.field_geolocation
+    - field.field.node.workbc_centre.field_hero_image
+    - field.field.node.workbc_centre.field_job_board_id
+    - field.field.node.workbc_centre.field_multilingual_centre
+    - field.field.node.workbc_centre.field_phone
+    - field.field.node.workbc_centre.field_related_topics
+    - field.field.node.workbc_centre.field_scheduled_publish
+    - field.field.node.workbc_centre.field_website
+    - field.field.node.workbc_centre.field_working_hours
+    - node.type.workbc_centre
+id: node.workbc_centre.bulk_edit
+targetEntityType: node
+bundle: workbc_centre
+mode: bulk_edit
+content:
+  field_content_group:
+    type: options_select
+    weight: 0
+    region: content
+    settings: {  }
+    third_party_settings: {  }
+hidden:
+  created: true
+  field_address: true
+  field_alert: true
+  field_content: true
+  field_email: true
+  field_geolocation: true
+  field_hero_image: true
+  field_job_board_id: true
+  field_multilingual_centre: true
+  field_phone: true
+  field_related_topics: true
+  field_scheduled_publish: true
+  field_website: true
+  field_working_hours: true
+  langcode: true
+  moderation_state: true
+  path: true
+  promote: true
+  simple_sitemap: true
+  status: true
+  sticky: true
+  title: true
+  uid: true
+  url_redirects: true

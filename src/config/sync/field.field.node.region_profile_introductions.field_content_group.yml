@@ -1,17 +1,17 @@
-uuid: d358c00f-5389-4fb2-8efb-a62e93796c86
+uuid: d3409a70-70a4-4b8b-a523-e7e4302439d8
 langcode: en
 status: true
 dependencies:
   config:
     - field.storage.node.field_content_group
-    - node.type.news
+    - node.type.region_profile_introductions
     - taxonomy.vocabulary.content_groups
   content:
     - 'taxonomy_term:content_groups:95878edb-27fb-429e-8738-063341b0fb02'
-id: node.news.field_content_group
+id: node.region_profile_introductions.field_content_group
 field_name: field_content_group
 entity_type: node
-bundle: news
+bundle: region_profile_introductions
 label: 'Content Group'
 description: ''
 required: false

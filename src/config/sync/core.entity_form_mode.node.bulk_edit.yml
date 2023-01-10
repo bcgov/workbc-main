@@ -1,0 +1,10 @@
+uuid: aef4547f-90da-467b-85bf-f9720d219856
+langcode: en
+status: true
+dependencies:
+  module:
+    - node
+id: node.bulk_edit
+label: 'Bulk edit'
+targetEntityType: node
+cache: true

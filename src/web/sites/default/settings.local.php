@@ -170,6 +170,9 @@ $settings['skip_permissions_hardening'] = TRUE;
 /**
  * WorkBC local development configuration.
  */
+$settings['redis.connection']['host'] = 'redis';
+$settings['redis.connection']['port'] = '6379';
+
 $config['workbc']['ssot_url'] = 'http://ssot:3000';
 
 $config['jobboard']['jobboard_api_url_frontend'] = 'https://dev-api-jobboard.workbc.ca';

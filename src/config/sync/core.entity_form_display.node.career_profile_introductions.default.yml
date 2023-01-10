@@ -12,6 +12,7 @@ dependencies:
     - field.field.node.career_profile_introductions.field_salary_introduction
     - field.field.node.career_profile_introductions.field_skills_introduction
     - node.type.career_profile_introductions
+    - workflows.workflow.editorial
   module:
     - content_moderation
     - path
@@ -146,6 +147,11 @@ content:
   uid:
     type: workbc_select_resort
     weight: 5
+    region: content
+    settings: {  }
+    third_party_settings: {  }
+  url_redirects:
+    weight: 50
     region: content
     settings: {  }
     third_party_settings: {  }
