@@ -779,9 +779,9 @@ $settings['trusted_host_patterns'] = [
 ];
 
 // Redis cache.
-//$settings['redis.connection']['interface'] = 'PhpRedis';
-//$settings['cache']['default'] = 'cache.backend.redis';
-//$settings['container_yamls'][] = 'modules/contrib/redis/example.services.yml';
+$settings['redis.connection']['interface'] = 'PhpRedis';
+$settings['cache']['default'] = 'cache.backend.redis';
+$settings['container_yamls'][] = 'modules/contrib/redis/example.services.yml';
 
 /**
  * Load local development override configuration, if available.
