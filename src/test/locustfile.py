@@ -1,13 +1,14 @@
 from locust import HttpUser, task, between
 import urllib
 import random
+from io import TextIOWrapper
 
 class QuickstartUser(HttpUser):
     # Wait between 7 and 15 seconds per request per user
     wait_time = between(7, 15)
 
     # Download the list of urls
-    response = urllib.request.urlopen('https://raw.githubusercontent.com/bcgov/workbc-main/develop/src/test/urls-aws-prod.txt')
+    response = TextIOWrapper(urllib.request.urlopen('https://raw.githubusercontent.com/bcgov/workbc-main/develop/src/test/urls-aws-prod.txt'))
     urls = [url.strip() for url in response.readlines() if url.strip()]
 
     @task(1)
