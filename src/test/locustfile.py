@@ -8,7 +8,9 @@ class QuickstartUser(HttpUser):
     wait_time = between(7, 15)
 
     # Download the list of urls
-    response = TextIOWrapper(urllib.request.urlopen('https://raw.githubusercontent.com/bcgov/workbc-main/develop/src/test/urls-aws-prod.txt'))
+    request = urllib.request.Request('https://raw.githubusercontent.com/bcgov/workbc-main/develop/src/test/urls-aws-prod.txt')
+    request.add_header('Pragma', 'no-cache')
+    response = TextIOWrapper(urllib.request.urlopen(request))
     urls = [url.strip() for url in response.readlines() if url.strip()]
 
     @task(1)
