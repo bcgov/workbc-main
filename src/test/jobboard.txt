@@ -1,0 +1,6 @@
+/search-and-prepare-job/find-jobs#/job-search;search=nurse;
+/search-and-prepare-job/find-jobs#/job-search;search=nurse;sortby=1;
+/search-and-prepare-job/find-jobs#/job-search;search=nurse;sortby=1;workplacetype=0;
+/search-and-prepare-job/find-jobs#/job-search;salaryrange=1;
+/search-and-prepare-job/find-jobs#/job-search;employmentgroups=1;
+/search-and-prepare-job/find-jobs#/job-details/37420686
