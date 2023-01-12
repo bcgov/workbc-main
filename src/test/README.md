@@ -71,3 +71,15 @@ Make sure to start each target URL with a forward-slash `/` which will get prefi
 /plan-career
 /plan-career
 ```
+
+# locustfile.py
+As a parallel experiment, the alternative load-testing tool [Locust](https://locust.io/) can be used:
+```
+locust -H $BASE_URL --autostart
+```
+Then open http://0.0.0.0:8089/
+
+# Troubleshooting
+Your testing machine will encounter socket errors as your ramp up the concurrent users. You need to tune your kernel parameters to accommodate higher numbers, e.g.
+- https://askubuntu.com/questions/46339/how-could-i-tune-the-linux-kernel-parameters-so-that-socket-could-be-recycled-fr
+- https://stackoverflow.com/questions/880557/socket-accept-too-many-open-files
