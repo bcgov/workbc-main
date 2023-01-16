@@ -68,6 +68,7 @@ resource "aws_cloudfront_distribution" "workbc" {
   restrictions {
     geo_restriction {
       restriction_type = "none"
+      locations        = []
     }
   }
 
@@ -77,6 +78,7 @@ resource "aws_cloudfront_distribution" "workbc" {
 
   viewer_certificate {
     acm_certificate_arn = "arn:aws:acm:us-east-1:846410483170:certificate/27a09302-3322-4d85-96f3-db4be28a8e24"
+    minimum_protocol_version = "TLSv1.2_2021"
     ssl_support_method = "sni-only"
   }
 }
