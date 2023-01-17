@@ -7,7 +7,7 @@ dependencies:
   module:
     - crop
 name: in_content_component
-label: 'In Content Component (260 x 170)'
+label: 'In Content Component (520 x 340)'
 effects:
   25f8ca10-69b4-45da-b1ff-7e09baaabcaf:
     uuid: 25f8ca10-69b4-45da-b1ff-7e09baaabcaf
@@ -21,6 +21,6 @@ effects:
     id: image_scale_and_crop
     weight: 2
     data:
-      width: 260
-      height: 170
+      width: 520
+      height: 340
       anchor: center-center
