@@ -1,6 +1,13 @@
 <?php
 
-$base_url = 'https://' . $_SERVER['HTTP_X_FORWARDED_HOST'];
+$base_urls = [
+    'aws-dev' => 'https://aws-dev.workbc.ca',
+    'aws-test' => 'https://aws-test.workbc.ca',
+    'aws-prod' => 'https://aws-prod.workbc.ca',
+];
+if (array_key_exists(getenv('PROJECT_ENVIRONMENT'), $base_urls)) {
+    $base_url = $base_urls[getenv('PROJECT_ENVIRONMENT')];
+}
 
 $databases['default']['default'] = array (
     'database' => getenv('POSTGRES_DB'),
