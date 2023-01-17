@@ -7,7 +7,7 @@ dependencies:
   module:
     - crop
 name: 1_2_component
-label: '1/2 Component (580 x 300)'
+label: '1/2 Component (1160 x 600)'
 effects:
   9db8bb20-4f07-4214-833f-bc3b2dbd10aa:
     uuid: 9db8bb20-4f07-4214-833f-bc3b2dbd10aa
@@ -21,6 +21,6 @@ effects:
     id: image_scale_and_crop
     weight: 2
     data:
-      width: 580
-      height: 300
+      width: 1160
+      height: 600
       anchor: center-center

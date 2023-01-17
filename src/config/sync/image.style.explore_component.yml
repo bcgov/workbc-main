@@ -7,7 +7,7 @@ dependencies:
   module:
     - crop
 name: explore_component
-label: 'Explore Careers Component (280 x 250)'
+label: 'Explore Careers Component (560 x 500)'
 effects:
   b70d1762-b74d-4849-ba8d-c0032eae1268:
     uuid: b70d1762-b74d-4849-ba8d-c0032eae1268
@@ -21,6 +21,6 @@ effects:
     id: image_scale_and_crop
     weight: 2
     data:
-      width: 280
-      height: 250
+      width: 560
+      height: 500
       anchor: center-center
