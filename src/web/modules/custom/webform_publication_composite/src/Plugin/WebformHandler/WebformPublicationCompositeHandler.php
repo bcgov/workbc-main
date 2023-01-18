@@ -35,20 +35,19 @@ class WebformPublicationCompositeHandler extends WebformHandlerBase {
   /**
     * Validate a quantity greater than zero has been selected for at least one publication.
     */
-   private function validatePublication(FormStateInterface $formState) {
-     $value = !empty($formState->getValue('phone')) ? Html::escape($formState->getValue('phone')) : NULL;
+  private function validatePublication(FormStateInterface $formState) {
+    $publications = $formState->getValue('publications');
 
-     $publications = $formState->getValue('publications');
+    $total_publications = is_numeric($publications['total_publications']) ? intval($publications['total_publications']) : 0;
+    $total_ordered = 0;
+    for ($i = 1; $i <= $total_publications; $i++) {
+      $quantity = is_numeric($publications['quantity-'.$i]) ? intval($publications['quantity-'.$i]) : 0;
+      $total_ordered += $quantity;
+    }
 
-     $total_publications = $publications['total_publications'];
-     $total_ordered = 0;
-     for ($i = 1; $i <= $total_publications; $i++) {
-       $total_ordered += $publications['quantity-'.$i];
-     }
-
-     if ($total_ordered == 0) {
-       $formState->setErrorByName('publication', 'Please enter a quantity.');
-     }
-   }
+    if ($total_ordered == 0) {
+      $formState->setErrorByName('publication', 'Please enter a quantity.');
+    }
+  }
 
  }

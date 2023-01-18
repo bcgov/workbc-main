@@ -84,6 +84,13 @@ From your host machine, in the `src/` directory, run `make <command>`:
 
 **For Windows users**, follow [this guide on StackExchange to install and configure Make for Windows](https://superuser.com/a/1634350/221936).
 
+## Testing
+Refer to the [`src/scripts/test`](src/scripts/test/README.md) folder for instructions on load-testing the site.
+
+
+## Content migration / seeding
+Refer to the [`src/scripts/migration`](src/scripts/migration/README.md) folder for instructions on seeding content from legacy sources into this site.
+
 ## Troubleshooting
 
 - If you notice that Search API is no longer finding results even though you rebuilt the Solr indexes, try the following:
