@@ -28,7 +28,7 @@ class BCUnemploymentRateBC extends ExtraFieldDisplayFormattedBase {
   public function getLabel() {
 
     $datestr = ssotParseDateRange($this->getEntity()->ssot_data['schema'], 'labour_force_survey_regional_employment', 'unemployment_rate_year_11');
-    return $this->t("Unemployment Rate for all of B.C (" . $datestr . ")");
+    return $this->t("B.C. Unemployment Rate (" . $datestr . ")");
   }
 
   /**
