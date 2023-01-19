@@ -27,7 +27,7 @@ class BCUnemploymentRateChart extends ExtraFieldDisplayFormattedBase {
    */
   public function getLabel() {
 
-    return $this->t('10-year Unemployment Rate');
+    return $this->t('10-year Unemployment Rate in B.C.');
   }
 
   /**
