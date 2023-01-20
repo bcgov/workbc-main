@@ -43,13 +43,13 @@ class CareerProfileSalaryInfoHourly extends ExtraFieldDisplayFormattedBase {
    */
   public function viewElements(ContentEntityInterface $entity) {
 
-    if (!empty($entity->ssot_data)) {
-      $hourly1 = '$' . $entity->ssot_data['wages']['esdc_wage_rate_high'] . '/hr';
-      $hourly2 = '$' . $entity->ssot_data['wages']['esdc_wage_rate_median'] . '/hr';
-      $hourly3 = '$' . $entity->ssot_data['wages']['esdc_wage_rate_low'] . '/hr';
+    if (!empty($entity->ssot_data) && abs($entity->ssot_data['wages']['esdc_wage_rate_median'] - $entity->ssot_data['wages']['calculated_median_annual_salary']) > PHP_FLOAT_EPSILON) {
+      $hourly1 = empty($entity->ssot_data['wages']['esdc_wage_rate_high']) ? WORKBC_EXTRA_FIELDS_NOT_AVAILABLE : '$' . ssotFormatNumber($entity->ssot_data['wages']['esdc_wage_rate_high'],2) . '/hr';
+      $hourly2 = empty($entity->ssot_data['wages']['esdc_wage_rate_median']) ? WORKBC_EXTRA_FIELDS_NOT_AVAILABLE : '$' . ssotFormatNumber($entity->ssot_data['wages']['esdc_wage_rate_median'],2) . '/hr';
+      $hourly3 = empty($entity->ssot_data['wages']['esdc_wage_rate_low']) ? WORKBC_EXTRA_FIELDS_NOT_AVAILABLE : '$' . ssotFormatNumber($entity->ssot_data['wages']['esdc_wage_rate_low'],2) . '/hr';
     }
     else {
-      $hourly1 = WORKBC_EXTRA_FIELDS_NOT_AVAILABLE;;
+      $hourly1 = WORKBC_EXTRA_FIELDS_NOT_AVAILABLE;
       $hourly2 = WORKBC_EXTRA_FIELDS_NOT_AVAILABLE;
       $hourly3 = WORKBC_EXTRA_FIELDS_NOT_AVAILABLE;
     }
