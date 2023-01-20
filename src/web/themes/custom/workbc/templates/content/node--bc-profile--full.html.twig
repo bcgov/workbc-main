@@ -119,7 +119,7 @@
   tab_sections: {
     overview: {
       tab: 'Provincial Overview',
-      title: content.group_bc_profile.group_region_overview.field_region_overview['#title'],
+      title: content.group_bc_profile.group_region_overview.field_region_overview['#title'] ?? 'Provincial Overview',
       description: content.group_bc_profile.group_region_overview.field_region_overview.0['#text'],
 
       region_overview_title: content.group_bc_profile.group_region_overview.field_region_overview['#title'],
@@ -130,7 +130,7 @@
     },
     labour_market_statistics: {
       tab: 'Labour Market Statistics',
-      title: content.group_bc_profile.group_labour_market_statistics.extra_field_bc_labour_market_stats_introduction['#title'],
+      title: content.group_bc_profile.group_labour_market_statistics.extra_field_bc_labour_market_stats_introduction['#title'] ?? 'Labour Market Statistics',
       description: content.group_bc_profile.group_labour_market_statistics.extra_field_bc_labour_market_stats_introduction.0['#text'],
 
       employment_title: content.group_bc_profile.group_labour_market_statistics.extra_field_bc_employment_introduction['#title'],
@@ -164,7 +164,7 @@
     },
     industry_highlights: {
       tab: 'Industry Highlights',
-      title: content.group_bc_profile.group_industry_highlights.field_industry_highlights_intro['#title'],
+      title: content.group_bc_profile.group_industry_highlights.field_industry_highlights_intro['#title'] ?? 'Industry Highlights',
       description: content.group_bc_profile.group_industry_highlights.field_industry_highlights_intro.0['#text'],
 
       employment_title: content.group_bc_profile.group_industry_highlights.extra_field_bc_employment_by_industry_table['#title'],

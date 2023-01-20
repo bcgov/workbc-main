@@ -114,7 +114,7 @@
   tab_sections: {
     career_overview: {
       tab: 'Career Overview',
-      title: content.group_career_profile_tabs.group_career_overview.field_career_overview['#title'],
+      title: content.group_career_profile_tabs.group_career_overview.field_career_overview['#title'] ?? 'Career Overview',
       description: content.group_career_profile_tabs.group_career_overview.field_career_overview.0['#text'],
 
       duties_title: content.group_career_profile_tabs.group_career_overview.field_duties['#title'],
@@ -155,7 +155,7 @@
     },
     education: {
       tab: 'Education',
-      title: content.group_career_profile_tabs.group_education_training_skills.field_education_training_skills['#title'],
+      title: content.group_career_profile_tabs.group_education_training_skills.field_education_training_skills['#title'] ?? 'Education',
       description: content.group_career_profile_tabs.group_education_training_skills.field_education_training_skills.0['#text'],
       education_programs_title: content.group_career_profile_tabs.group_education_training_skills.extra_field_education_programs['#title'],
       education_programs_list: content.group_career_profile_tabs.group_education_training_skills.extra_field_education_programs.0,
@@ -165,7 +165,7 @@
     },
     labour_market: {
       tab: 'Labour Market',
-      title: content.group_career_profile_tabs.group_labour_market_statistics.extra_field_labour_market_statistics_i['#title'],
+      title: content.group_career_profile_tabs.group_labour_market_statistics.extra_field_labour_market_statistics_i['#title'] ?? 'Labour Market',
       description: content.group_career_profile_tabs.group_labour_market_statistics.extra_field_labour_market_statistics_i.0['#text'],
 
       employment_title: content.group_career_profile_tabs.group_labour_market_statistics.extra_field_employment_introduction['#title'],
@@ -201,7 +201,7 @@
     },
     industry_highlights: {
       tab: 'Industry Highlights',
-      title: content.group_career_profile_tabs.group_industry_highlights.extra_field_industry_highlights_intro['#title'],
+      title: content.group_career_profile_tabs.group_industry_highlights.extra_field_industry_highlights_intro['#title'] ?? 'Industry Highlights',
       description: content.group_career_profile_tabs.group_industry_highlights.extra_field_industry_highlights_intro.0['#text'],
       job_openings_title: content.group_career_profile_tabs.group_industry_highlights.extra_field_job_openings_by_industry['#title'],
       job_openings_markup: content.group_career_profile_tabs.group_industry_highlights.extra_field_job_openings_by_industry.0['#markup'],
@@ -211,7 +211,7 @@
     },
     resources: {
       tab: 'Resources',
-      title: content.group_career_profile_tabs.group_resources.field_resources['#title'],
+      title: content.group_career_profile_tabs.group_resources.field_resources['#title'] ?? 'Resources',
       resource_list: content.group_career_profile_tabs.group_resources.field_resources['#items'],
     },
   },

@@ -113,7 +113,7 @@
   tab_sections: {
     industry_overview: {
       tab: 'Industry Overview',
-      title: content.group_industry_profile.group_industry_overview.field_industry_overview['#title'],
+      title: content.group_industry_profile.group_industry_overview.field_industry_overview['#title'] ?? 'Industry Overview',
       description: content.group_industry_profile.group_industry_overview.field_industry_overview.0['#text'],
 
       key_facts_title: content.group_industry_profile.group_industry_overview.field_key_facts['#title'],
@@ -141,7 +141,7 @@
     },
     labour_market_statistics: {
       tab: 'Labour Market Statistics',
-      title: content.group_industry_profile.group_labour_market_statistics.extra_field_labour_market_stats_introduction['#title'],
+      title: content.group_industry_profile.group_labour_market_statistics.extra_field_labour_market_stats_introduction['#title'] ?? 'Labour Market Statistics',
       description: content.group_industry_profile.group_labour_market_statistics.extra_field_labour_market_stats_introduction.0['#text'],
 
       employment_title: content.group_industry_profile.group_labour_market_statistics.extra_field_employment_introduction['#title'],
@@ -185,7 +185,7 @@
     },
     resources: {
       tab: 'Resources',
-      title: content.group_industry_profile.group_resources['#title'],
+      title: content.group_industry_profile.group_resources['#title'] ?? 'Resources',
       resource_list: content.group_industry_profile.group_resources.field_resources['#items'],
     },
 
