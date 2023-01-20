@@ -50,48 +50,44 @@ class BCEmploymentShareGSChart extends ExtraFieldDisplayFormattedBase {
       $series2 = [];
 
       foreach ($entity->ssot_data['labour_force_survey_regional_industry_province'] as $region) {
+        $goods = round($region['goods']);
+        $services = round($region['services']);
         if ($region['region'] <> "british_columbia") {
           $regions[] = ssotRegionName($region['region']);
-          $series1[] = $region['goods'];
-          $styles1[] = '';
-          $annotations1[] = $region['goods'] . "%";
-          $series2[] = $region['services'];
-          $styles2[] = '';
-          $annotations2[] = $region['services'] . "%";
+          $series1[] = $goods;
+          $annotations1[] = $goods . "%";
+          $series2[] = $services;
+          $annotations2[] = $services . "%";
         }
         else {
-          $bcGoods = $region['goods'];
-          $bcServices = $region['services'];
+          $bcGoods = $goods;
+          $bcServices = $services;
         }
       }
-      $regions[] = "";
-      $series1[] = 0;
-      $annotations1[] = "";
-      $series2[] = 0;
-      $annotations2[] = "";
-      $regions[] = ssotRegionName('british_columbia');
+
+      $regions[] = $this->t('B.C. Average');
       $series1[] = $bcGoods;
       $annotations1[] = $bcGoods . "%";
       $series2[] = $bcServices;
       $annotations2[] = $bcServices . "%";
 
-      // Define an x-axis to be used in multiple examples.
       $xaxis = [
         '#type' => 'chart_xaxis',
         '#labels' => $regions,
       ];
 
-      // Define a y-axis to be used in multiple examples.
       $yaxis = [
         '#type' => 'chart_yaxis',
       ];
+
       // Stacked column chart with two series.
       $chart = [
         '#type' => 'chart',
         '#chart_type' => 'bar',
         '#colors' => array(
           '#002857',
-          '#009cde'),
+          '#009cde'
+        ),
         'series_one' => [
           '#type' => 'chart_data',
           '#title' => t('Goods'),
@@ -99,7 +95,7 @@ class BCEmploymentShareGSChart extends ExtraFieldDisplayFormattedBase {
         ],
         'series_one_annotations' => [
           '#type' => 'chart_data',
-          '#title' => [ 'role' => 'annotation'],
+          '#title' => ['role' => 'annotation'],
           '#data' => $annotations1,
         ],
         'series_two' => [
@@ -109,7 +105,7 @@ class BCEmploymentShareGSChart extends ExtraFieldDisplayFormattedBase {
         ],
         'series_two_annotations' => [
           '#type' => 'chart_data',
-          '#title' => [ 'role' => 'annotation'],
+          '#title' => ['role' => 'annotation'],
           '#data' => $annotations2,
         ],
         'x_axis' => $xaxis,
@@ -117,10 +113,11 @@ class BCEmploymentShareGSChart extends ExtraFieldDisplayFormattedBase {
         '#stacking' => TRUE,
         '#raw_options' => [
           'options' => [
-            'height' => '500',
-            'legend' => [
-              'position' => 'bottom',
-            ],
+            'height' => 500,
+            // 'legend' => [
+            //   'position' => 'bottom',
+            //   'maxLines' => 3,
+            // ],
           ],
         ],
       ];
