@@ -11,7 +11,7 @@ id: node.region_profile.field_industry_highlights_intro
 field_name: field_industry_highlights_intro
 entity_type: node
 bundle: region_profile
-label: 'Industry Highlights Introduction'
+label: 'Industry Highlights'
 description: ''
 required: false
 translatable: true
