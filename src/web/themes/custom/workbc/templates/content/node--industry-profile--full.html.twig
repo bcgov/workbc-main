@@ -112,7 +112,8 @@
   },
   tab_sections: {
     industry_overview: {
-      title: content.group_industry_profile.group_industry_overview.field_industry_overview['#title'] ?? "Industry Overview",
+      tab: 'Industry Overview',
+      title: content.group_industry_profile.group_industry_overview.field_industry_overview['#title'],
       description: content.group_industry_profile.group_industry_overview.field_industry_overview.0['#text'],
 
       key_facts_title: content.group_industry_profile.group_industry_overview.field_key_facts['#title'],
@@ -139,7 +140,8 @@
       workforce_by_age_source: content.group_industry_profile.group_industry_overview.extra_field_industry_workforce_age_source.0['#markup'],
     },
     labour_market_statistics: {
-      title: content.group_industry_profile.group_labour_market_statistics.extra_field_labour_market_stats_introduction['#title'] ?? "Labour Market Statistics",
+      tab: 'Labour Market Statistics',
+      title: content.group_industry_profile.group_labour_market_statistics.extra_field_labour_market_stats_introduction['#title'],
       description: content.group_industry_profile.group_labour_market_statistics.extra_field_labour_market_stats_introduction.0['#text'],
 
       employment_title: content.group_industry_profile.group_labour_market_statistics.extra_field_employment_introduction['#title'],
@@ -182,7 +184,8 @@
       top_occupations_markup: content.group_industry_profile.group_labour_market_statistics.extra_field_industry_top_ten_occupations.0['#markup'],
     },
     resources: {
-      title: content.group_industry_profile.group_resources['#title'] ?? "Resources",
+      tab: 'Resources',
+      title: content.group_industry_profile.group_resources['#title'],
       resource_list: content.group_industry_profile.group_resources.field_resources['#items'],
     },
 
@@ -262,7 +265,7 @@
         <ul class="nav nav-tabs profile-content-tab-list scroll" id="profile-content-tabs" role="tablist">
           {% for key, tab in viewmodel['tab_sections'] %}
             <li class="nav-item" role="presentation">
-              <a class="nav-link profile-content-tab-button{{ loop.first ? ' active'}}" id="{{key}}-tab" data-bs-toggle="tab" data-bs-target="#{{key}}-content" aria-controls="{{key}}-content" aria-selected="true" role="tab" href="#">{{tab['title']}}</a>
+              <a class="nav-link profile-content-tab-button{{ loop.first ? ' active'}}" id="{{key}}-tab" data-bs-toggle="tab" data-bs-target="#{{key}}-content" aria-controls="{{key}}-content" aria-selected="true" role="tab" href="#">{{tab['tab']}}</a>
             </li>
           {% endfor %}
         </ul>
