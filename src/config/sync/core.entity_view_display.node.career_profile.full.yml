@@ -21,6 +21,7 @@ dependencies:
     - field.field.node.career_profile.field_resources
     - field.field.node.career_profile.field_scheduled_publish
     - field.field.node.career_profile.field_work_environment
+    - image.style.hero_image
     - node.type.career_profile
   module:
     - field_group
@@ -452,7 +453,7 @@ content:
     label: above
     settings:
       image_link: ''
-      image_style: ''
+      image_style: hero_image
       svg_attributes:
         width: null
         height: null
