@@ -13,6 +13,7 @@ dependencies:
     - field.field.node.labour_market_monthly.field_scheduled_publish
     - field.field.node.labour_market_monthly.field_unemployment_introduction
     - field.field.node.labour_market_monthly.field_unemployment_region_intro
+    - image.style.hero_image
     - node.type.labour_market_monthly
   module:
     - svg_image
@@ -115,7 +116,7 @@ content:
     label: above
     settings:
       image_link: ''
-      image_style: ''
+      image_style: hero_image
       svg_attributes:
         width: null
         height: null
