@@ -4,7 +4,7 @@ use GuzzleHttp\Client;
 use GuzzleHttp\Exception\RequestException;
 use Drupal\views\ViewExecutable;
 
-define ("WORKBC_EXTRA_FIELDS_NOT_AVAILABLE", "[not-yet-available]");
+define ("WORKBC_EXTRA_FIELDS_NOT_AVAILABLE", "N/A");
 
 define ("WORKBC_BC_MAP_WITH_LABELS", "bc-map-labels.png");
 define ("WORKBC_BC_MAP", "bc-map.png");

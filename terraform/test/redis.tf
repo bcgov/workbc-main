@@ -9,7 +9,7 @@ resource "aws_elasticache_replication_group" "workbc_redis_rg" {
 	preferred_cache_cluster_azs	=	["ca-central-1a", "ca-central-1b"]
 	replication_group_id		=	"workbc-rep-group"
 	description			=	"Redis replication group for Drupal"
-	node_type			=	"cache.t3.micro"
+	node_type			=	"cache.t2.micro"
 	num_cache_clusters		=	2
 	engine_version			=	"6.x"
 	parameter_group_name		=	"default.redis6.x"

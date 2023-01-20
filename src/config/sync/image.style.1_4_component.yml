@@ -7,7 +7,7 @@ dependencies:
   module:
     - crop
 name: 1_4_component
-label: '1/4 Component (280 x 150)'
+label: '1/4 Component (560 x 300)'
 effects:
   e403a817-97c6-4286-86e5-1e0477fa7762:
     uuid: e403a817-97c6-4286-86e5-1e0477fa7762
@@ -21,6 +21,6 @@ effects:
     id: image_scale_and_crop
     weight: 2
     data:
-      width: 280
-      height: 150
+      width: 560
+      height: 300
       anchor: center-center

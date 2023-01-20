@@ -3,6 +3,8 @@ WorkBC Load Testing
 
 This folder contains tools to load-test the WorkBC site. It uses [`siege`](https://github.com/JoeDog/siege) as the load-testing engine.
 
+It is recommended to run Siege v4.1.6 or greater. This version [includes a fix to show URLs that cause errors](https://github.com/JoeDog/siege/issues/216 - you will need to [download the source package and compile it yourself](https://download.joedog.org/siege/) if the packaged version is earlier.
+
 # Getting Started
 ```
 docker-compose up
@@ -71,3 +73,15 @@ Make sure to start each target URL with a forward-slash `/` which will get prefi
 /plan-career
 /plan-career
 ```
+
+# locustfile.py
+As a parallel experiment, the alternative load-testing tool [Locust](https://locust.io/) can be used:
+```
+locust -H $BASE_URL --autostart
+```
+Then open http://0.0.0.0:8089/
+
+# Troubleshooting
+Your testing machine will encounter socket errors as your ramp up the concurrent users. You need to tune your kernel parameters to accommodate higher numbers, e.g.
+- https://askubuntu.com/questions/46339/how-could-i-tune-the-linux-kernel-parameters-so-that-socket-could-be-recycled-fr
+- https://stackoverflow.com/questions/880557/socket-accept-too-many-open-files

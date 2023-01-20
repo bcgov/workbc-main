@@ -7,7 +7,7 @@ dependencies:
   module:
     - crop
 name: feature_component
-label: 'Feature Component (580 x 300)'
+label: 'Feature Component (1160 x 600)'
 effects:
   9b6aa2c1-5112-449a-b796-53b400bb5525:
     uuid: 9b6aa2c1-5112-449a-b796-53b400bb5525
@@ -21,6 +21,6 @@ effects:
     id: image_scale_and_crop
     weight: 2
     data:
-      width: 580
-      height: 300
+      width: 1160
+      height: 600
       anchor: center-center

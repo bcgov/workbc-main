@@ -17,6 +17,7 @@
  */
 
 $base_url = sprintf('http://%s:%s', getenv('PROJECT_BASE_URL'), getenv('PROJECT_PORT'));
+$config['simple_sitemap.settings']['base_url'] = $base_url;
 
 $databases['default']['default'] = [
   'database' => $_SERVER['DB_NAME'],

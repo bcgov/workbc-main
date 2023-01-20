@@ -354,15 +354,17 @@ services:
 
   test:
     build:
-      context: ./src/test
+      context: ./src/scripts/test
 #    container_name: "${PROJECT_NAME}_test"
     network_mode: host
     stdin_open: true
     tty: true
+    ports:
+      - "8089:8089"
     environment:
       BASE_URL: http://workbc.docker.localhost:8000
     volumes:
-    - ./src/test:/app:cached
+    - ./src/scripts/test:/app:cached
 
 volumes:
   pgdata:

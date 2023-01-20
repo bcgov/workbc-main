@@ -4,6 +4,7 @@ namespace Drupal\webform_publication_composite\Plugin\WebformElement;
 
 use Drupal\webform\Plugin\WebformElement\WebformCompositeBase;
 use Drupal\webform\WebformSubmissionInterface;
+use Drupal\Component\Utility\Html;
 
 /**
  * Provides a 'webform_publication_composite' element.
@@ -37,14 +38,18 @@ class WebformPublicationComposite extends WebformCompositeBase {
    * {@inheritdoc}
    */
   protected function formatTextItemValue(array $element, WebformSubmissionInterface $webform_submission, array $options = []) {
-    $value = $this->getValue($element, $webform_submission, $options);
+    $publications = $this->getValue($element, $webform_submission, $options);
 
+    $total_publications = is_numeric($publications['total_publications']) ? intval($publications['total_publications']) : 0;
     $lines = [];
-    for ($pub = 1; $pub <= $value['total_publications']; $pub++) {
-      if ($value['quantity-'.$pub] > 0) {
-        $line = "Qty: " . ($value['quantity-'.$pub] ? $value['quantity-'.$pub] : '');
-        $line .= ' - ' . ($value['resource_no-'.$pub] ? ' ' . $value['resource_no-'.$pub] : '');
-        $line .= ' - ' . ($value['title-'.$pub] ? ' ' . $value['title-'.$pub] : '');
+    for ($pub = 1; $pub <= $total_publications; $pub++) {
+      $quantity = is_numeric($publications['quantity-'.$pub]) ? intval($publications['quantity-'.$pub]) : 0;
+      $resource = Html::escape($publications['resource_no-'.$pub]);
+      $title = Html::escape($publications['title-'.$pub]);
+      if ($quantity > 0) {
+        $line = "Qty: " . $quantity;
+        $line .= ' - ' . $resource;
+        $line .= ' - ' . $title;
         $lines[] = $line;
       }
     }

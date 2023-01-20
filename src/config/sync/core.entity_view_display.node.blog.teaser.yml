@@ -10,6 +10,7 @@ dependencies:
     - field.field.node.blog.field_related_topics_blurb
     - field.field.node.blog.field_scheduled_publish
     - field.field.node.blog.field_tags
+    - image.style.full_width_component
     - node.type.blog
   module:
     - svg_image
@@ -43,7 +44,7 @@ content:
     label: above
     settings:
       image_link: ''
-      image_style: ''
+      image_style: full_width_component
       svg_attributes:
         width: null
         height: null
