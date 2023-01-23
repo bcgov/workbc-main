@@ -118,6 +118,7 @@
   },
   tab_sections: {
     overview: {
+      tab: 'Regional Overview',
       title: content.group_region_profile_tabs.group_regional_overview.field_region_overview['#title'] ?? "Regional Overview",
       description: content.group_region_profile_tabs.group_regional_overview.field_region_overview.0['#text'],
 
@@ -128,6 +129,7 @@
       key_facts_text: content.group_region_profile_tabs.group_regional_overview.field_key_facts.0['#text'],
     },
     labour_market_statistics: {
+      tab: 'Labour Market Statistics',
       title: content.group_region_profile_tabs.group_labour_market_statistics.extra_field_region_labour_market_stats_introduction['#title'] ?? "Labour Market Statistics",
       description: content.group_region_profile_tabs.group_labour_market_statistics.extra_field_region_labour_market_stats_introduction.0['#text'],
 
@@ -175,6 +177,7 @@
 
     },
     industry_highlights: {
+      tab: 'Industry Highlights',
       title: content.group_region_profile_tabs.group_industry_highlights.field_industry_highlights_intro['#title'] ?? "Industry Highlights",
       description: content.group_region_profile_tabs.group_industry_highlights.field_industry_highlights_intro.0['#text'],
 
@@ -259,7 +262,7 @@
         <ul class="nav nav-tabs profile-content-tab-list scroll" id="profile-content-tabs" role="tablist">
           {% for key, tab in viewmodel['tab_sections'] %}
             <li class="nav-item" role="presentation">
-              <a class="nav-link profile-content-tab-button{{ loop.first ? ' active'}}" id="{{key}}-tab" data-bs-toggle="tab" data-bs-target="#{{key}}-content" aria-controls="{{key}}-content" aria-selected="true" role="tab" href="#">{{tab['title']}}</a>
+              <a class="nav-link profile-content-tab-button{{ loop.first ? ' active'}}" id="{{key}}-tab" data-bs-toggle="tab" data-bs-target="#{{key}}-content" aria-controls="{{key}}-content" aria-selected="true" role="tab" href="#">{{tab['tab']}}</a>
             </li>
           {% endfor %}
         </ul>
