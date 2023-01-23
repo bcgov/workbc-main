@@ -1,0 +1,21 @@
+diff --git a/modules/charts_google/js/charts_google.js b/modules/charts_google/js/charts_google.js
+index f7abe81..76143bc 100755
+--- a/modules/charts_google/js/charts_google.js
++++ b/modules/charts_google/js/charts_google.js
+@@ -6,7 +6,7 @@
+ 
+   'use strict';
+ 
+-  Drupal.googleCharts = Drupal.googleCharts || {charts: []};
++  Drupal.googleCharts = Drupal.googleCharts || {charts: {}};
+ 
+   /**
+    * Behavior to initialize Google Charts.
+@@ -122,6 +122,7 @@
+         options['colorAxis'] = {colors: colors};
+       }
+       chart.draw(data, options);
++      Drupal.googleCharts.charts[chartId] = chart;
+     };
+   };
+ 
