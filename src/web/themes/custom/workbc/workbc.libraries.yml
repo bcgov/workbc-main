@@ -78,3 +78,7 @@ swiper-js:
       '//cdn.jsdelivr.net/npm/swiper@8/swiper-bundle.min.css': { type: external, minified: true }
   js:
     '//cdn.jsdelivr.net/npm/swiper@8/swiper-bundle.min.js': { type: external, minified: true }
+
+google-charts-redraw:
+  js:
+    js/google-charts-redraw.js: {}

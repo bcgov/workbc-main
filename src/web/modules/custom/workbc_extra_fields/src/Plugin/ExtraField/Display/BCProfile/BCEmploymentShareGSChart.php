@@ -90,7 +90,7 @@ class BCEmploymentShareGSChart extends ExtraFieldDisplayFormattedBase {
         ),
         'series_one' => [
           '#type' => 'chart_data',
-          '#title' => t('Goods'),
+          '#title' => $this->t('Goods'),
           '#data' => $series1,
         ],
         'series_one_annotations' => [
@@ -100,7 +100,7 @@ class BCEmploymentShareGSChart extends ExtraFieldDisplayFormattedBase {
         ],
         'series_two' => [
           '#type' => 'chart_data',
-          '#title' => t('Services'),
+          '#title' => $this->t('Services'),
           '#data' => $series2,
         ],
         'series_two_annotations' => [
@@ -111,15 +111,10 @@ class BCEmploymentShareGSChart extends ExtraFieldDisplayFormattedBase {
         'x_axis' => $xaxis,
         'y_axis' => $yaxis,
         '#stacking' => TRUE,
-        '#raw_options' => [
-          'options' => [
-            'height' => 500,
-            // 'legend' => [
-            //   'position' => 'bottom',
-            //   'maxLines' => 3,
-            // ],
-          ],
-        ],
+        '#raw_options' => [],
+        '#height' => 500, '#height_units' => 'px',
+        '#width' => 100, '#width_units' => '%',
+        '#legend_position' => 'bottom',
       ];
 
       $output = \Drupal::service('renderer')->render($chart);
