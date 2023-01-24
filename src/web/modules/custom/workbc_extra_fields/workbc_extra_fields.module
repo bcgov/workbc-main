@@ -63,34 +63,30 @@ function workbc_extra_fields_node_view(array &$build, \Drupal\Core\Entity\Entity
 
 function ssotLabourMarketMonthly($year = null, $month = null){
   $data = array();
-  $parameters = '';
 
-  //Months years data for select list element on top of the page.
-  $data['monthly_labour_market_updates_months_years'] = querySSoT('monthly_labour_market_updates?select=year%2Cmonth&order=year.desc%2C%20month.desc');
+  // Months years data for select list element on top of the page.
+  $data['monthly_labour_market_updates_months_years'] = querySSoT('monthly_labour_market_updates?select=year%2Cmonth&order=year.desc%2Cmonth.desc');
 
+  // Full data query.
+  $parameters = 'order=year.desc%2Cmonth.desc';
   if(!empty($year)) {
-      $parameters .= 'year=eq.' . $year;
+    $parameters .= '&year=eq.' . $year;
   }
   if(!empty($month)) {
-      $parameters .= '&month=eq.' . $month;
+    $parameters .= '&month=eq.' . $month;
   }
-  $endpoint = 'monthly_labour_market_updates';
-  //query ssot request
   $data['monthly_labour_market_updates'] = querySSoT('monthly_labour_market_updates?' . $parameters);
-  if(empty($data['monthly_labour_market_updates'])){
-     \Drupal::messenger()->addError('Chosen year and month has no data. Please select from the provided year and months dropdown.');
+  if(empty($data['monthly_labour_market_updates'])) {
+    \Drupal::messenger()->addError('Chosen year and month has no data. Please select from the provided year and months dropdown.');
   }
-
-  if(!empty($data['monthly_labour_market_updates'])) {
+  else {
     $currentYear = $data['monthly_labour_market_updates'][0]['year'];
-    //month
     $currentMonth = $data['monthly_labour_market_updates'][0]['month'];
-
     $data['current_previous_months_names']= ssotGetPreviousMonthYear($currentMonth, $currentYear);
   }
 
-
-  //data sources
+  // Source metadata.
+  $endpoint = 'monthly_labour_market_updates';
   $sources = querySSoT('sources?endpoint=eq.' . $endpoint);
   foreach($sources as $source) {
     $datapoint = !empty($source['datapoint'])?$source['datapoint']:'no-datapoint';
@@ -108,7 +104,6 @@ function ssotBCProfile($region) {
 
   $data['population'] = querySSoT('population?region=eq.' . $region)[0];
   $data['regional_labour_market_outlook'] = querySSoT('regional_labour_market_outlook?region=eq.british_columbia')[0];
-  // $data['labour_force_survey_regional_employment'] = querySSoT('labour_force_survey_regional_employment?region=eq.' . $region)[0];
   $data['labour_force_survey_bc_employment'] = querySSoT('labour_force_survey_regional_employment?region=eq.british_columbia')[0];
   $data['labour_force_survey_regions_employment'] = querySSoT('labour_force_survey_regional_employment?region=neq.british_columbia');
   $data['labour_force_survey_regional_industry_region'] = querySSoT('labour_force_survey_regional_industry_region')[0];
