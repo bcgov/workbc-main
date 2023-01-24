@@ -131,7 +131,7 @@ $card-divider-size: calc(2 * $card-divider-size-half);
   }
 
   @include media-breakpoint-up(lg) {
-    overflow: auto;
+    overflow: initial;
   }
 }
 
@@ -197,13 +197,40 @@ $card-divider-size: calc(2 * $card-divider-size-half);
   }
 }
 
-.card-profile__legend {
+// Two legends side by side
+.card-profile__legends-container {
+  margin: 60px auto 40px;
+  display: flex;
+  flex-direction: column;
+  justify-content: space-around;
+
+  @include media-breakpoint-up(lg) {
+    flex-direction: row;
+    gap: 60px;
+  }
+}
+
+.card-profile__legends-container .card-profile__legend:first-child {
+  margin-bottom: 30px;
+
+  @include media-breakpoint-up(lg) {
+    padding-right: 55px;
+    border-right: 4px solid #f2f2f2;
+    margin-bottom: 0;
+  }
+}
+
+// Single legend
+.card-profile__legend-container {
   min-width: 180px;
   margin: 60px auto 40px;
+}
+
+.card-profile__legend {
   line-height: 1;
 }
 
-.card-profile__legend-region {
+.card-profile__legend-title {
   display: flex;
   align-items: center;
   margin-bottom: 15px;
@@ -218,6 +245,12 @@ $card-divider-size: calc(2 * $card-divider-size-half);
     width: 15px;
     height: 15px;
     background-color: #234075;
+  }
+}
+
+.card-profile__legend-title--grey {
+  &:before {
+    background-color: #a6a6a6;
   }
 }
 
