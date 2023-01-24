@@ -1,24 +1,24 @@
-uuid: 89db954e-20b1-4bc9-8cb5-a46346c40ef1
+uuid: 86ad24a1-ec86-4908-86f8-f849128e678f
 langcode: en
 status: true
 dependencies:
   config:
-    - simple_block.simple_block.contact_us_french_link
+    - simple_block.simple_block.self_serve_services_french_link
   module:
     - block_visibility_conditions
     - simple_block
     - system
   theme:
     - workbc
-id: contactusfrenchlink
+id: self_serve_services_french_link
 theme: workbc
 region: hidden
-weight: -11
+weight: 0
 provider: null
-plugin: 'simple_block:contact_us_french_link'
+plugin: 'simple_block:self_serve_services_french_link'
 settings:
-  id: 'simple_block:contact_us_french_link'
-  label: 'Contact Us - French link'
+  id: 'simple_block:self_serve_services_french_link'
+  label: 'Self Serve Services - French link'
   label_display: '0'
   provider: simple_block
 visibility:
@@ -33,4 +33,4 @@ visibility:
   request_path:
     id: request_path
     negate: false
-    pages: /contact-us
+    pages: /discover-employment-services/workbc-centres/self-serve-services
