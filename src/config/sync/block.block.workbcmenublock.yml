@@ -10,7 +10,7 @@ dependencies:
 id: workbcmenublock
 theme: workbc
 region: hidden
-weight: -14
+weight: -16
 provider: null
 plugin: menu_block
 settings:

@@ -13,7 +13,7 @@ dependencies:
 id: visitaworkbccentre
 theme: workbc
 region: hidden
-weight: -8
+weight: -11
 provider: null
 plugin: 'simple_block:visit_a_workbc_centre'
 settings:

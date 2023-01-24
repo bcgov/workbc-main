@@ -13,7 +13,7 @@ dependencies:
 id: onlinechat
 theme: workbc
 region: hidden
-weight: -9
+weight: -13
 provider: null
 plugin: 'simple_block:online_chat'
 settings:

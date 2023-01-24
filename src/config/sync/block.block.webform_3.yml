@@ -13,7 +13,7 @@ dependencies:
 id: webform_3
 theme: workbc
 region: hidden
-weight: -10
+weight: -12
 provider: null
 plugin: webform_block
 settings:
