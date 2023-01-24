@@ -11,7 +11,7 @@ dependencies:
 id: recentjobs
 theme: workbc
 region: hidden
-weight: -14
+weight: -17
 provider: null
 plugin: workbc_jobboard_recent_jobs_sidebar
 settings:

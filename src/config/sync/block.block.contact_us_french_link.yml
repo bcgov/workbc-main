@@ -1,24 +1,24 @@
-uuid: bb822184-124f-4f1b-96e4-bc274f3b9e9e
+uuid: 78d2788d-d9c8-475a-a0cd-e6d109305a4e
 langcode: en
 status: true
 dependencies:
   config:
-    - simple_block.simple_block.online_chat
+    - simple_block.simple_block.contact_us_french_link
   module:
     - block_visibility_conditions
     - simple_block
     - system
   theme:
     - workbc
-id: onlinechat
+id: contact_us_french_link
 theme: workbc
 region: hidden
-weight: -13
+weight: -7
 provider: null
-plugin: 'simple_block:online_chat'
+plugin: 'simple_block:contact_us_french_link'
 settings:
-  id: 'simple_block:online_chat'
-  label: 'Online Chat'
+  id: 'simple_block:contact_us_french_link'
+  label: 'Contact Us - French link'
   label_display: '0'
   provider: simple_block
 visibility:

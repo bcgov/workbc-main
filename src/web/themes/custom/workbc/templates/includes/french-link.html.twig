@@ -1,3 +1,43 @@
-{% if drupal_entity('block', 'contactusfrenchlink') %}
-  {{ drupal_entity('block', 'contactusfrenchlink') }}
+{% set contact_us_fr_link = drupal_entity('block', 'contact_us_french_link')|render %}
+{% set online_employment_services_fr_link = drupal_entity('block', 'online_employment_services_french_link')|render %}
+{% set employment_services_fr_link = drupal_entity('block', 'employment_services_french_link')|render %}
+{% set who_should_visit_workbc_centre_fr_link = drupal_entity('block', 'who_should_visit_workbc_centre_french_link')|render %}
+{% set self_serve_services_fr_link = drupal_entity('block', 'self_serve_services_french_link')|render %}
+{% set workbc_centre_locations_fr_link = drupal_entity('block', 'workbc_centre_locations_french_link')|render %}
+
+
+{% if contact_us_fr_link %}
+  <div class="fr-link">
+    {{ contact_us_fr_link }}
+  </div>
+{% endif %}
+
+{% if online_employment_services_fr_link %}
+  <div class="fr-link">
+    {{ online_employment_services_fr_link }}
+  </div>
+{% endif %}
+
+{% if employment_services_fr_link %}
+  <div class="fr-link">
+    {{ employment_services_fr_link }}
+  </div>
+{% endif %}
+
+{% if who_should_visit_workbc_centre_fr_link %}
+  <div class="fr-link">
+    {{ who_should_visit_workbc_centre_fr_link }}
+  </div>
+{% endif %}
+
+{% if self_serve_services_fr_link %}
+  <div class="fr-link">
+    {{ self_serve_services_fr_link }}
+  </div>
+{% endif %}
+
+{% if workbc_centre_locations_fr_link %}
+  <div class="fr-link">
+    {{ workbc_centre_locations_fr_link }}
+  </div>
 {% endif %}

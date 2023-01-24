@@ -1,0 +1,11 @@
+uuid: 46dcdf0e-e05d-4ec4-bc1a-6e8238d32bd8
+langcode: en
+status: true
+dependencies:
+  config:
+    - filter.format.full_html
+id: workbc_centre_locations_french_link
+title: 'Workbc Centre Locations - French Link'
+content:
+  value: "<p><a href=\"/discover-employment-services/workbc-centres/workbc-centre-locations/trouver-un-centre-workbc\">Services disponibles en français</a></p>\r\n"
+  format: full_html
