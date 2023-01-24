@@ -66,7 +66,7 @@ function ssotLabourMarketMonthly($year = null, $month = null){
   $parameters = '';
 
   //Months years data for select list element on top of the page.
-  $data['months_years'] = querySSoT('monthly_labour_market_updates?select=year%2Cmonth&order=year%2C%20month');
+  $data['monthly_labour_market_updates_months_years'] = querySSoT('monthly_labour_market_updates?select=year%2Cmonth&order=year.desc%2C%20month.desc');
 
   if(!empty($year)) {
       $parameters .= 'year=eq.' . $year;
@@ -116,10 +116,9 @@ function ssotBCProfile($region) {
   $data['industry_outlook'] = querySSoT('industry_outlook');
   $data['regional_top_industries'] = querySSoT('regional_top_industries?region=eq.' . $region);
   $data['regional_top_occupations'] = querySSoT('regional_top_occupations?region=eq.' . $region);
-  $temp = querySSoT('monthly_labour_market_updates');
-  $idx = ssotLatestMonthlyLabourMarketUpdate($temp);
-  $data['monthly_labour_market_updates'] = $temp[$idx];
-
+  $monthly_labour_market_updates = querySSoT('monthly_labour_market_updates');
+  $latest = ssotLatestMonthlyLabourMarketUpdate($monthly_labour_market_updates);
+  $data['monthly_labour_market_updates'] = $monthly_labour_market_updates[$latest];
   $data['sources'] = ssotSources();
   $data['schema'] = ssotSchema();
   $data['region'] = $region;
@@ -142,9 +141,9 @@ function ssotRegionProfile($region) {
   $data['industry_outlook'] = querySSoT('industry_outlook');
   $data['regional_top_industries'] = querySSoT('regional_top_industries?region=eq.' . $region);
   $data['regional_top_occupations'] = querySSoT('regional_top_occupations?region=eq.' . $region);
-  $temp = querySSoT('monthly_labour_market_updates');
-  $idx = ssotLatestMonthlyLabourMarketUpdate($temp);
-  $data['monthly_labour_market_updates'] = $temp[$idx];
+  $monthly_labour_market_updates = querySSoT('monthly_labour_market_updates');
+  $latest = ssotLatestMonthlyLabourMarketUpdate($monthly_labour_market_updates);
+  $data['monthly_labour_market_updates'] = $monthly_labour_market_updates[$latest];
   $data['sources'] = ssotSources();
   $data['schema'] = ssotSchema();
   $data['region'] = $region;
