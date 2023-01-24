@@ -10,7 +10,7 @@ dependencies:
 id: breadcrumbs
 theme: workbc
 region: hidden
-weight: -12
+weight: -14
 provider: null
 plugin: system_breadcrumb_block
 settings:

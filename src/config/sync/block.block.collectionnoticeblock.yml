@@ -11,7 +11,7 @@ dependencies:
 id: collectionnoticeblock
 theme: workbc
 region: hidden
-weight: -7
+weight: -10
 provider: null
 plugin: collection_notice_block
 settings:
