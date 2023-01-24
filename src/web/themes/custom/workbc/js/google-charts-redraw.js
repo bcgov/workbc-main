@@ -12,7 +12,6 @@
     // Manually fix the chart width to 100%.
     if (!dataAttributes['options'].width) {
       const width = $(element).closest('.card-profile__content').width();
-      console.log(width);
       dataAttributes['options'].width = width;
     }
 
@@ -32,13 +31,15 @@
       });
 
       window.addEventListener('resize', function () {
-        Drupal.googleCharts.waitForFinalEvent(function () {
-          $('.charts-google').each(function () {
-            if (this.dataset.hasOwnProperty('chart')) {
-              redrawGoogleChart(this);
-            }
-          });
-        }, 200, 'google-charts-redraw');
+        if (Drupal.Charts && Drupal.googleCharts) {
+          Drupal.googleCharts.waitForFinalEvent(function () {
+            $('.charts-google').each(function () {
+              if (this.dataset.hasOwnProperty('chart')) {
+                redrawGoogleChart(this);
+              }
+            });
+          }, 200, 'google-charts-redraw');
+        }
       });
     },
   };

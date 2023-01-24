@@ -56,30 +56,25 @@ class BCJobOpeningsForecastChart extends ExtraFieldDisplayFormattedBase {
       $dates[] = $date1;
       $dates[] = $date2;
       $dates[] = $date3;
-
-      $labels = $dates;
       $chart = [
         '#type' => 'chart',
         '#chart_type' => 'column',
         '#colors' => ['#2E6AB0'],
         'series' => [
           '#type' => 'chart_data',
-          '#title' => t(''),
           '#data' => $data,
+          '#title' => t('Openings'),
           '#prefix' => '',
           '#suffix' => '',
         ],
         'xaxis' => [
           '#type' => 'chart_xaxis',
-          '#labels' => $labels,
-          '#max' => count($data),
-          '#min' => 0,
+          '#labels' => $dates,
         ],
         'yaxis' => [
           '#type' => 'chart_yaxis',
-          '#max' => max($data),
-          '#min' => 0,
-        ]
+        ],
+        '#legend_position' => 'none',
       ];
       $output = \Drupal::service('renderer')->render($chart);
     }

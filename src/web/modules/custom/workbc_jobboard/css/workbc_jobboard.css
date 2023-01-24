@@ -1,5 +1,4 @@
 .jobs-data {
-  max-width:280px;
   margin-bottom:30px;
 }
 .block-workbc-jobboard h2{
@@ -138,6 +137,10 @@ body.plan-careervideo-library div.view-id-video_library{
 }
 
 @media screen and (min-width: 1024px) {
+  .jobs-data{
+    max-width:280px;
+  }
+
   .jobs-data-horizontal-view{
     width: 100%;
     max-width: 100%;
