@@ -142,33 +142,35 @@ class RegionUnemploymentRateChart extends ExtraFieldDisplayFormattedBase {
 
       // Render the legends
       $output .= <<<EOS
-  <div class='card-profile__legend'>
-    <div class='card-profile__legend-region'>$regionName</div>
+      <div class='card-profile__legends-container'>
+        <div class='card-profile__legend'>
+          <div class='card-profile__legend-title'>$regionName</div>
 
-    <div class='card-profile__legend-item card-profile__legend-item--low'>
-      <div class='card-profile__legend-label card-profile__legend-label--low'>Low:</div>
-      <div class='card-profile__legend-value'>$regionLo%</div>
-    </div>
+          <div class='card-profile__legend-item card-profile__legend-item--low'>
+            <div class='card-profile__legend-label card-profile__legend-label--low'>Low:</div>
+            <div class='card-profile__legend-value'>$regionLo%</div>
+          </div>
 
-    <div class='card-profile__legend-item card-profile__legend-item--high'>
-      <div class='card-profile__legend-label card-profile__legend-label--high'>High:</div>
-      <div class='card-profile__legend-value'>$regionHi%</div>
-    </div>
-  </div>
+          <div class='card-profile__legend-item card-profile__legend-item--high'>
+            <div class='card-profile__legend-label card-profile__legend-label--high'>High:</div>
+            <div class='card-profile__legend-value'>$regionHi%</div>
+          </div>
+        </div>
 
-  <div class='card-profile__legend'>
-    <div class='card-profile__legend-province'>British Columbia</div>
+        <div class='card-profile__legend'>
+          <div class='card-profile__legend-title card-profile__legend-title--grey'>British Columbia</div>
 
-    <div class='card-profile__legend-item card-profile__legend-item--low'>
-      <div class='card-profile__legend-label card-profile__legend-label--low'>Low:</div>
-      <div class='card-profile__legend-value'>$bcLo%</div>
-    </div>
+          <div class='card-profile__legend-item card-profile__legend-item--low'>
+            <div class='card-profile__legend-label card-profile__legend-label--low'>Low:</div>
+            <div class='card-profile__legend-value'>$bcLo%</div>
+          </div>
 
-    <div class='card-profile__legend-item card-profile__legend-item--high'>
-      <div class='card-profile__legend-label card-profile__legend-label--high'>High:</div>
-      <div class='card-profile__legend-value'>$bcHi%</div>
-    </div>
-  </div>
+          <div class='card-profile__legend-item card-profile__legend-item--high'>
+            <div class='card-profile__legend-label card-profile__legend-label--high'>High:</div>
+            <div class='card-profile__legend-value'>$bcHi%</div>
+          </div>
+        </div>
+      </div>
 EOS;
     }
     else {
