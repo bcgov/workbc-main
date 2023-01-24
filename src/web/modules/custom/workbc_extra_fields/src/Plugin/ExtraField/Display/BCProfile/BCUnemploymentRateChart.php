@@ -52,7 +52,7 @@ class BCUnemploymentRateChart extends ExtraFieldDisplayFormattedBase {
       $years = array();
       for ($i = 1; $i <= 11; $i++) {
         $bc[] = floatval($entity->ssot_data['labour_force_survey_bc_employment']['unemployment_rate_year_'.$i]);
-        $years[] = $year - 10 + $i;
+        $years[] = $year - 11 + $i;
       }
       $chart = [
         '#type' => 'chart',
