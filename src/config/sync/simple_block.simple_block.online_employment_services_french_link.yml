@@ -7,5 +7,5 @@ dependencies:
 id: online_employment_services_french_link
 title: 'Online Employment Services - French Link'
 content:
-  value: "<p><a data-entity-substitution=\"canonical\" data-entity-type=\"node\" data-entity-uuid=\"9627f8c2-bce6-43c0-922c-db5d4b9a36cf\" href=\"/node/71\">Services disponibles en français</a></p>\r\n"
+  value: "<p><a href=\"/discover-employment-services/online-employment-services/services-demploi-en-ligne\">Services disponibles en français</a></p>\r\n"
   format: full_html
