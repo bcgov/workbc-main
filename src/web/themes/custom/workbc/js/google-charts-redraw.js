@@ -12,7 +12,6 @@
     // Manually fix the chart width to 100%.
     if (!dataAttributes['options'].width) {
       const width = $(element).closest('.card-profile__content').width();
-      console.log(width);
       dataAttributes['options'].width = width;
     }
 
