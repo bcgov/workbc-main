@@ -108,15 +108,21 @@ class BCUnemploymentRateChart extends ExtraFieldDisplayFormattedBase {
 
       // Render the legends
       $module_handler = \Drupal::service('module_handler');
-      $module_path = $module_handler->getModule('workbc_extra_fields')->getPath();
-      $text = '<div><img src="/' . $module_path . '/images/"></div>';
         $output .= <<<EOS
-<div>
-  <div>British Columbia</div>
-  <div><img src="/$module_path/images/green-dot.svg"/>Low: $lo%</div>
-  <div><img src="/$module_path/images/red-dot.svg"/>High: $hi%</div>
-</div>
-EOS;
+                        <div class='card-profile__legend'>
+                          <div class='card-profile__legend-region'>British Columbia</div>
+
+                          <div class='card-profile__legend-item card-profile__legend-item--low'>
+                            <div class='card-profile__legend-label card-profile__legend-label--low'>Low:</div>
+                            <div class='card-profile__legend-value'>$lo%</div>
+                          </div>
+
+                          <div class='card-profile__legend-item card-profile__legend-item--high'>
+                            <div class='card-profile__legend-label card-profile__legend-label--high'>High:</div>
+                            <div class='card-profile__legend-value'>$hi%</div>
+                          </div>
+                        </div>
+                      EOS;
     }
     else {
       $output = WORKBC_EXTRA_FIELDS_NOT_AVAILABLE;
