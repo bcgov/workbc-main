@@ -45,7 +45,6 @@ class BCUnemploymentRateChart extends ExtraFieldDisplayFormattedBase {
 
     if (!empty($entity->ssot_data) && isset($entity->ssot_data['labour_force_survey_bc_employment'])) {
       $year = intval(ssotParseDateRange($entity->ssot_data['schema'], 'labour_force_survey_regional_employment', 'total_employment_num'));
-
       $hi = floatval($entity->ssot_data['labour_force_survey_bc_employment']['unemployment_rate_year_high']);
       $lo = floatval($entity->ssot_data['labour_force_survey_bc_employment']['unemployment_rate_year_low']);
       $bc = array();
@@ -98,17 +97,26 @@ class BCUnemploymentRateChart extends ExtraFieldDisplayFormattedBase {
           '#min' => 0,
           '#max' => min(100, $hi + 5),
         ],
-        '#legend_position' => 'bottom',
+        '#legend_position' => 'none',
         '#data_markers' => TRUE,
-        '#legend_font_weight' => 'bold',
-        '#legend_font_size' => 14,
         '#raw_options' => [
           'options' => [
           ],
         ]
       ];
       $output = \Drupal::service('renderer')->render($chart);
-      $output .= "<div>Low: $lo%<br/>High: $hi%</div>";
+
+      // Render the legends
+      $module_handler = \Drupal::service('module_handler');
+      $module_path = $module_handler->getModule('workbc_extra_fields')->getPath();
+      $text = '<div><img src="/' . $module_path . '/images/"></div>';
+        $output .= <<<EOS
+<div>
+  <div>British Columbia</div>
+  <div><img src="/$module_path/images/green-dot.svg"/>Low: $lo%</div>
+  <div><img src="/$module_path/images/red-dot.svg"/>High: $hi%</div>
+</div>
+EOS;
     }
     else {
       $output = WORKBC_EXTRA_FIELDS_NOT_AVAILABLE;
