@@ -2,14 +2,13 @@ $card-padding: 20px;
 // start with half instead of dividing by 2 to avoid potential integer division truncation complications
 $card-divider-margin-half: 20px;
 $card-divider-size-half: 2px;
-$card-divider-size: calc(2*$card-divider-size-half);
+$card-divider-size: calc(2 * $card-divider-size-half);
 
 .card-profile {
   position: relative; // begin positional context %card-profile
   margin-bottom: 24px;
   box-shadow: 0 0 15px 0 rgba(0, 0, 0, 0.15);
   padding: $card-padding;
-
   display: flex;
   flex-flow: column nowrap;
 
@@ -39,9 +38,9 @@ $card-divider-size: calc(2*$card-divider-size-half);
   h3 {
     flex: 0 0;
     display: block;
-    font-size: 1.000rem;
+    font-size: 1rem;
     text-align: center;
-    line-height: 1.000rem;
+    line-height: 1rem;
   }
 
   img {
@@ -73,7 +72,6 @@ $card-divider-size: calc(2*$card-divider-size-half);
     flex: 1 1 100%;
   }
 }
-
 
 .card-profile__content-small {
   display: flex;
@@ -125,11 +123,20 @@ $card-divider-size: calc(2*$card-divider-size-half);
   justify-content: center;
   flex: 1 1;
   max-width: 100%;
+  overflow-x: scroll;
 
   img {
     max-width: 100%;
     margin: $card-padding 0;
   }
+
+  @include media-breakpoint-up(lg) {
+    overflow: auto;
+  }
+}
+
+.card-profile__content-item table {
+  margin-bottom: 20px;
 }
 
 .card-profile__content-table {
@@ -171,7 +178,6 @@ $card-divider-size: calc(2*$card-divider-size-half);
 }
 
 .card-profile__link-container {
-
   @include media-breakpoint-up(lg) {
     margin-top: auto;
   }
@@ -188,5 +194,74 @@ $card-divider-size: calc(2*$card-divider-size-half);
   em {
     font-weight: bold;
     font-style: normal;
+  }
+}
+
+.card-profile__legend {
+  min-width: 180px;
+  margin: 60px auto 40px;
+  line-height: 1;
+}
+
+.card-profile__legend-region {
+  display: flex;
+  align-items: center;
+  margin-bottom: 15px;
+  font-size: 1rem;
+  font-weight: 700;
+  color: $workbc_palette_dark_default;
+
+  &:before {
+    content: "";
+    display: inline-block;
+    margin-right: 15px;
+    width: 15px;
+    height: 15px;
+    background-color: #234075;
+  }
+}
+
+.card-profile__legend-item {
+  display: flex;
+  align-items: center;
+  margin-bottom: 10px;
+  font-size: 1.125rem;
+  font-weight: 700;
+}
+
+.card-profile__legend-label {
+  font-size: 1rem;
+  font-weight: 400;
+  color: $workbc_palette_dark_default;
+
+  &:before {
+    content: "";
+    display: inline-block;
+    margin-right: 17px;
+    width: 12px;
+    height: 12px;
+    border-radius: 50%;
+    border-style: solid;
+    border-width: 2px;
+  }
+}
+
+.card-profile__legend-item--low .card-profile__legend-value {
+  margin-left: 17px;
+}
+
+.card-profile__legend-item--high .card-profile__legend-value {
+  margin-left: 13px;
+}
+
+.card-profile__legend-label--low {
+  &:before {
+    border-color: #008e2d;
+  }
+}
+
+.card-profile__legend-label--high {
+  &:before {
+    border-color: #ee0000;
   }
 }
