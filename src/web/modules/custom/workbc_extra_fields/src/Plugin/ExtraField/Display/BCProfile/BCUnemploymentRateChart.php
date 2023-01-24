@@ -67,7 +67,9 @@ class BCUnemploymentRateChart extends ExtraFieldDisplayFormattedBase {
         'series_tooltip' => [
           '#type' => 'chart_data',
           '#title' => ['role' => 'tooltip'],
-          '#data' => array_map(function($v, $i) use($years) { return $v . '% in ' . $years[$i]; }, $bc, array_keys($bc)),
+          '#data' => array_map(function($v, $i) use($years) {
+            return $v . '% in ' . $years[$i];
+          }, $bc, array_keys($bc)),
           '#suffix' => '%',
         ],
         'series_style' => [
@@ -93,6 +95,8 @@ class BCUnemploymentRateChart extends ExtraFieldDisplayFormattedBase {
         ],
         'yaxis' => [
           '#type' => 'chart_yaxis',
+          '#min' => 0,
+          '#max' => min(100, $hi + 5),
         ],
         '#legend_position' => 'bottom',
         '#data_markers' => TRUE,
@@ -100,9 +104,6 @@ class BCUnemploymentRateChart extends ExtraFieldDisplayFormattedBase {
         '#legend_font_size' => 14,
         '#raw_options' => [
           'options' => [
-            'legend' => [
-              'maxLines' => 3
-            ]
           ],
         ]
       ];
