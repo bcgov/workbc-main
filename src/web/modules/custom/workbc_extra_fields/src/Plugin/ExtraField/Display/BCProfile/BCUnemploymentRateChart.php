@@ -107,22 +107,21 @@ class BCUnemploymentRateChart extends ExtraFieldDisplayFormattedBase {
       $output = \Drupal::service('renderer')->render($chart);
 
       // Render the legends
-      $module_handler = \Drupal::service('module_handler');
-        $output .= <<<EOS
-                        <div class='card-profile__legend'>
-                          <div class='card-profile__legend-region'>British Columbia</div>
+      $output .= <<<EOS
+  <div class='card-profile__legend'>
+    <div class='card-profile__legend-region'>British Columbia</div>
 
-                          <div class='card-profile__legend-item card-profile__legend-item--low'>
-                            <div class='card-profile__legend-label card-profile__legend-label--low'>Low:</div>
-                            <div class='card-profile__legend-value'>$lo%</div>
-                          </div>
+    <div class='card-profile__legend-item card-profile__legend-item--low'>
+      <div class='card-profile__legend-label card-profile__legend-label--low'>Low:</div>
+      <div class='card-profile__legend-value'>$lo%</div>
+    </div>
 
-                          <div class='card-profile__legend-item card-profile__legend-item--high'>
-                            <div class='card-profile__legend-label card-profile__legend-label--high'>High:</div>
-                            <div class='card-profile__legend-value'>$hi%</div>
-                          </div>
-                        </div>
-                      EOS;
+    <div class='card-profile__legend-item card-profile__legend-item--high'>
+      <div class='card-profile__legend-label card-profile__legend-label--high'>High:</div>
+      <div class='card-profile__legend-value'>$hi%</div>
+    </div>
+  </div>
+EOS;
     }
     else {
       $output = WORKBC_EXTRA_FIELDS_NOT_AVAILABLE;
