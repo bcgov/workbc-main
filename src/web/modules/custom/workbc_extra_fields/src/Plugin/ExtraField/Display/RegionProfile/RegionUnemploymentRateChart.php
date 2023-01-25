@@ -61,40 +61,11 @@ class RegionUnemploymentRateChart extends ExtraFieldDisplayFormattedBase {
       $chart = [
         '#type' => 'chart',
         '#chart_type' => 'line',
-        'series_region' => [
-          '#type' => 'chart_data',
-          '#title' => $this->t('Region'),
-          '#data' => $region,
-          '#color' => '#a6a6a6',
-          '#suffix' => '%',
-        ],
-        'series_region_tooltip' => [
-          '#type' => 'chart_data',
-          '#title' => ['role' => 'tooltip'],
-          '#data' => array_map(function($v, $i) use($years) {
-            return $v . '% in ' . $years[$i];
-          }, $region, array_keys($region)),
-          '#suffix' => '%',
-        ],
-        'series_region_style' => [
-          '#type' => 'chart_data',
-          '#title' => ['role' => 'style'],
-          '#data' => array_map(function($v) use($regionHi, $regionLo) {
-            if (abs($v - $regionHi) < PHP_FLOAT_EPSILON) {
-              return 'point { size: 5; shape-type: circle; stroke-width: 2; stroke-color: #ee0000; fill-color: #fff }';
-            }
-            else if (abs($v - $regionLo) < PHP_FLOAT_EPSILON) {
-              return 'point { size: 5; shape-type: circle; stroke-width: 2; stroke-color: #008e2d; fill-color: #fff }';
-            }
-            return 'point { size: 4; shape-type: circle }';
-          }, $region),
-          '#suffix' => '%',
-        ],
         'series_bc' => [
           '#type' => 'chart_data',
           '#title' => $this->t('British Columbia'),
           '#data' => $bc,
-          '#color' => '#002857',
+          '#color' => '#a6a6a6',
           '#suffix' => '%',
         ],
         'series_bc_tooltip' => [
@@ -117,6 +88,35 @@ class RegionUnemploymentRateChart extends ExtraFieldDisplayFormattedBase {
             }
             return 'point { size: 4; shape-type: circle }';
           }, $bc),
+          '#suffix' => '%',
+        ],
+        'series_region' => [
+          '#type' => 'chart_data',
+          '#title' => $this->t('Region'),
+          '#data' => $region,
+          '#color' => '#002857',
+          '#suffix' => '%',
+        ],
+        'series_region_tooltip' => [
+          '#type' => 'chart_data',
+          '#title' => ['role' => 'tooltip'],
+          '#data' => array_map(function($v, $i) use($years) {
+            return $v . '% in ' . $years[$i];
+          }, $region, array_keys($region)),
+          '#suffix' => '%',
+        ],
+        'series_region_style' => [
+          '#type' => 'chart_data',
+          '#title' => ['role' => 'style'],
+          '#data' => array_map(function($v) use($regionHi, $regionLo) {
+            if (abs($v - $regionHi) < PHP_FLOAT_EPSILON) {
+              return 'point { size: 5; shape-type: circle; stroke-width: 2; stroke-color: #ee0000; fill-color: #fff }';
+            }
+            else if (abs($v - $regionLo) < PHP_FLOAT_EPSILON) {
+              return 'point { size: 5; shape-type: circle; stroke-width: 2; stroke-color: #008e2d; fill-color: #fff }';
+            }
+            return 'point { size: 4; shape-type: circle }';
+          }, $region),
           '#suffix' => '%',
         ],
         'xaxis' => [
