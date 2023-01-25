@@ -135,6 +135,10 @@ resource "aws_ecs_task_definition" "app" {
 			{
 				name = "POSTGRES_PASSWORD",
 				valueFrom = "${data.aws_secretsmanager_secret_version.creds.arn}:password::"
+			},
+			{
+				name = "JOBBOARD_GOOGLE_MAPS_KEY",
+				valueFrom = "${data.aws_secretsmanager_secret_version.creds2.arn}:gm_ref::"
 			}
 		]
 
