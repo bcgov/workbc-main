@@ -210,6 +210,16 @@ resource "aws_ecs_task_definition" "app" {
 		name        = "drush"
 		image       = var.app_image
 		networkMode = "awsvpc"
+		
+		logConfiguration = {
+			logDriver = "awslogs"
+			options = {
+				awslogs-create-group  = "true"
+				awslogs-group         = "/ecs/drush"
+				awslogs-region        = var.aws_region
+				awslogs-stream-prefix = "ecs"
+			}
+		}
 
 		entryPoint = ["sh", "-c"]
 		command = ["drush cr; drush updb -y; drush cr; drush cim -y;"]
