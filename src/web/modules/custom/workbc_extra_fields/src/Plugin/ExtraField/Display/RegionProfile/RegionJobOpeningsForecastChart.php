@@ -83,10 +83,6 @@ class RegionJobOpeningsForecastChart extends ExtraFieldDisplayFormattedBase {
           ]
         ],
         '#legend_position' => 'none',
-        '#raw_options' => [
-          'options' => [
-          ]
-        ]
       ];
       $output = \Drupal::service('renderer')->render($chart);
     }

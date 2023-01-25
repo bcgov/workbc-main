@@ -69,7 +69,7 @@ class RegionEmploymentGrowthForecastChart extends ExtraFieldDisplayFormattedBase
           '#type' => 'chart_data',
           '#title' => ['role' => 'annotation'],
           '#data' => array_map(function($v) {
-            return ssotFormatNumber($v,2).'%';
+            return ssotFormatNumber($v, 1, true) . '%';
           }, $data),
         ],
         'xaxis' => [
@@ -86,10 +86,6 @@ class RegionEmploymentGrowthForecastChart extends ExtraFieldDisplayFormattedBase
           ]
         ],
         '#legend_position' => 'none',
-        '#raw_options' => [
-          'options' => [
-          ]
-        ]
       ];
       $output = \Drupal::service('renderer')->render($chart);
     }

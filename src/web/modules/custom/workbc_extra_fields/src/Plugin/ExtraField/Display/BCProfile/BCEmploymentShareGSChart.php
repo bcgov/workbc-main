@@ -111,7 +111,6 @@ class BCEmploymentShareGSChart extends ExtraFieldDisplayFormattedBase {
         'x_axis' => $xaxis,
         'y_axis' => $yaxis,
         '#stacking' => TRUE,
-        '#raw_options' => [],
         '#height' => 500, '#height_units' => 'px',
         '#width' => 100, '#width_units' => '%',
         '#legend_position' => 'bottom',

@@ -19,3 +19,20 @@ index f7abe81..76143bc 100755
      };
    };
  
+diff --git a/modules/charts_google/src/Plugin/chart/Library/Google.php b/modules/charts_google/src/Plugin/chart/Library/Google.php
+index 93f0bf6..e8a6e6f 100755
+--- a/modules/charts_google/src/Plugin/chart/Library/Google.php
++++ b/modules/charts_google/src/Plugin/chart/Library/Google.php
+@@ -425,10 +425,10 @@ class Google extends ChartBase implements ContainerFactoryPluginInterface {
+         }
+ 
+         // Merge in point raw options.
+-        if (!empty($data_item['#raw_options'])) {
++        if (!empty($element[$key]['#raw_options'])) {
+           $series = NestedArray::mergeDeepArray([
+             $series,
+-            $data_item['#raw_options'],
++            $element[$key]['#raw_options'],
+           ]);
+         }
+ 

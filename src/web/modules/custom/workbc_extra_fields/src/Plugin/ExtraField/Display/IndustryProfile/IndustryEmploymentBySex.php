@@ -47,27 +47,33 @@ class IndustryEmploymentBySex extends ExtraFieldDisplayFormattedBase {
       $data = array();
       $data[] = floatval($entity->ssot_data['labour_force_survey_industry']['workforce_employment_gender_pct_men']);
       $data[] = floatval($entity->ssot_data['labour_force_survey_industry']['workforce_employment_gender_pct_women']);
-      $labels = [t('Men'), t('Women')];
+      $labels = [$this->t('Men'), $this->t('Women')];
       $chart = [
         '#type' => 'chart',
         '#chart_type' => 'donut',
         'series' => [
           '#type' => 'chart_data',
-          '#title' => t(''),
+          '#title' => $this->t('Employment by Sex'),
           '#data' => $data,
-          '#prefix' => '',
-          '#suffix' => '',
+        ],
+        'series_tooltip' => [
+          '#type' => 'chart_data',
+          '#title' => ['role' => 'tooltip'],
+          '#data' => array_map(function($v, $l) {
+            return $l . ' ' . ssotFormatNumber($v, 1) . '%';
+          }, $data, $labels),
         ],
         'xaxis' => [
           '#type' => 'chart_xaxis',
           '#labels' => $labels,
-          '#max' => count($data),
-          '#min' => 0,
         ],
         'yaxis' => [
           '#type' => 'chart_yaxis',
-          '#max' => max($data),
-          '#min' => 0,
+        ],
+        '#raw_options' => [
+          'options' => [
+            'pieHole' => 0.5,
+          ]
         ]
       ];
       $output = \Drupal::service('renderer')->render($chart);

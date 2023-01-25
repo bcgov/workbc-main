@@ -99,10 +99,6 @@ class BCUnemploymentRateChart extends ExtraFieldDisplayFormattedBase {
         ],
         '#legend_position' => 'none',
         '#data_markers' => TRUE,
-        '#raw_options' => [
-          'options' => [
-          ],
-        ]
       ];
       $output = \Drupal::service('renderer')->render($chart);
 

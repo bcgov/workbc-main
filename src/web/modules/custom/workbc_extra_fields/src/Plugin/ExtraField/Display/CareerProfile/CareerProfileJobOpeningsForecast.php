@@ -52,29 +52,35 @@ class CareerProfileJobOpeningsForecast extends ExtraFieldDisplayFormattedBase {
       $dates[] = ssotParseDateRange($entity->ssot_data['schema'], 'career_provincial', 'job_openings_first');
       $dates[] = ssotParseDateRange($entity->ssot_data['schema'], 'career_provincial', 'job_openings_second');
       $dates[] = ssotParseDateRange($entity->ssot_data['schema'], 'career_provincial', 'job_openings_third');
-
-      $labels = $dates;
       $chart = [
         '#type' => 'chart',
         '#chart_type' => 'column',
         'series' => [
           '#type' => 'chart_data',
-          '#title' => t(''),
+          '#title' => $this->t('Forecasted Job Openings'),
           '#data' => $data,
-          '#prefix' => '',
-          '#suffix' => '',
+        ],
+        'series_annotation' => [
+          '#type' => 'chart_data',
+          '#title' => ['role' => 'annotation'],
+          '#data' => array_map(function($v) {
+            return ssotFormatNumber($v, 0, true);
+          }, $data),
         ],
         'xaxis' => [
           '#type' => 'chart_xaxis',
-          '#labels' => $labels,
-          '#max' => count($data),
-          '#min' => 0,
+          '#labels' => $dates,
         ],
         'yaxis' => [
           '#type' => 'chart_yaxis',
-          '#max' => max($data),
-          '#min' => 0,
-        ]
+          '#raw_options' => [
+            'textPosition' => 'none',
+            'gridlines' => [
+              'count' => 1,
+            ],
+          ]
+        ],
+        '#legend_position' => 'none',
       ];
       $output = \Drupal::service('renderer')->render($chart);
     }
