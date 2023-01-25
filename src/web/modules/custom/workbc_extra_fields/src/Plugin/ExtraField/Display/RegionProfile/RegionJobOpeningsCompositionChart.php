@@ -47,27 +47,32 @@ class RegionJobOpeningsCompositionChart extends ExtraFieldDisplayFormattedBase {
       $data = array();
       $data[] = floatval($entity->ssot_data['regional_labour_market_outlook']['replacement_of_retiring_workers_openings']);
       $data[] = floatval($entity->ssot_data['regional_labour_market_outlook']['new_jobs_due_to_economic_growth_openings']);
-      $labels = [t('Replacement'), t('New Jobs')];
       $chart = [
         '#type' => 'chart',
         '#chart_type' => 'donut',
+        '#colors' => array(
+          '#009cde',
+          '#002857'
+        ),
         'series' => [
           '#type' => 'chart_data',
-          '#title' => t(''),
+          '#title' => $this->t('Composition of Job Openings'),
           '#data' => $data,
-          '#prefix' => '',
-          '#suffix' => '',
         ],
         'xaxis' => [
           '#type' => 'chart_xaxis',
-          '#labels' => $labels,
-          '#max' => count($data),
-          '#min' => 0,
+          '#labels' => [$this->t('Replacement of retiring workers'), $this->t('New jobs due to economic growth')],
         ],
         'yaxis' => [
           '#type' => 'chart_yaxis',
-          '#max' => max($data),
-          '#min' => 0,
+        ],
+        '#raw_options' => [
+          'options' => [
+            'pieHole' => 0.5,
+            'width' => 600,
+            'height' => 350,
+            'pieSliceText' => 'percentage'
+          ]
         ]
       ];
       $output = \Drupal::service('renderer')->render($chart);

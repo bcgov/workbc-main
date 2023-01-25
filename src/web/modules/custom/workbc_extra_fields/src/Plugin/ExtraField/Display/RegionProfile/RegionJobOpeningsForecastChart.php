@@ -63,8 +63,11 @@ class RegionJobOpeningsForecastChart extends ExtraFieldDisplayFormattedBase {
           '#type' => 'chart_data',
           '#title' => $this->t('Openings'),
           '#data' => $data,
-          '#prefix' => '',
-          '#suffix' => '',
+        ],
+        'series_annotation' => [
+          '#type' => 'chart_data',
+          '#title' => ['role' => 'annotation'],
+          '#data' => $data,
         ],
         'xaxis' => [
           '#type' => 'chart_xaxis',
@@ -72,8 +75,18 @@ class RegionJobOpeningsForecastChart extends ExtraFieldDisplayFormattedBase {
         ],
         'yaxis' => [
           '#type' => 'chart_yaxis',
+          '#raw_options' => [
+            'textPosition' => 'none',
+            'gridlines' => [
+              'count' => 1,
+            ],
+          ]
         ],
-        '#legend_position' => 'none'
+        '#legend_position' => 'none',
+        '#raw_options' => [
+          'options' => [
+          ]
+        ]
       ];
       $output = \Drupal::service('renderer')->render($chart);
     }

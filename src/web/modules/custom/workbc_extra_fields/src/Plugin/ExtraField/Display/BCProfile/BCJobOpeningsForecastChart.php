@@ -64,8 +64,11 @@ class BCJobOpeningsForecastChart extends ExtraFieldDisplayFormattedBase {
           '#type' => 'chart_data',
           '#data' => $data,
           '#title' => t('Openings'),
-          '#prefix' => '',
-          '#suffix' => '',
+        ],
+        'series_annotation' => [
+          '#type' => 'chart_data',
+          '#title' => ['role' => 'annotation'],
+          '#data' => $data,
         ],
         'xaxis' => [
           '#type' => 'chart_xaxis',
@@ -73,8 +76,18 @@ class BCJobOpeningsForecastChart extends ExtraFieldDisplayFormattedBase {
         ],
         'yaxis' => [
           '#type' => 'chart_yaxis',
+          '#raw_options' => [
+            'textPosition' => 'none',
+            'gridlines' => [
+              'count' => 1,
+            ],
+          ]
         ],
         '#legend_position' => 'none',
+        '#raw_options' => [
+          'options' => [
+          ]
+        ]
       ];
       $output = \Drupal::service('renderer')->render($chart);
     }

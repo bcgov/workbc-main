@@ -48,33 +48,47 @@ class RegionEmploymentGrowthForecastChart extends ExtraFieldDisplayFormattedBase
    */
   public function viewElements(ContentEntityInterface $entity) {
 
-    $date1 = ssotParseDateRange($this->getEntity()->ssot_data['schema'], 'regional_labour_market_outlook', 'forecasted_employment_growth_rate_first5y');
-    $date2 = ssotParseDateRange($this->getEntity()->ssot_data['schema'], 'regional_labour_market_outlook', 'forecasted_employment_growth_rate_second5y');
     if (!empty($entity->ssot_data) && isset($entity->ssot_data['regional_labour_market_outlook']['forecasted_employment_growth_rate_second5y'])) {
       $data = array();
       $data[] = $entity->ssot_data['regional_labour_market_outlook']['forecasted_employment_growth_rate_first5y'];
       $data[] = $entity->ssot_data['regional_labour_market_outlook']['forecasted_employment_growth_rate_second5y'];
-      $labels = [$date1, $date2];
+      $date1 = ssotParseDateRange($this->getEntity()->ssot_data['schema'], 'regional_labour_market_outlook', 'forecasted_employment_growth_rate_first5y');
+      $date2 = ssotParseDateRange($this->getEntity()->ssot_data['schema'], 'regional_labour_market_outlook', 'forecasted_employment_growth_rate_second5y');
+      $dates = array();
+      $dates[] = $date1;
+      $dates[] = $date2;
       $chart = [
         '#type' => 'chart',
         '#chart_type' => 'column',
         'series' => [
           '#type' => 'chart_data',
-          '#title' => t(''),
+          '#title' => $this->t('Forecasted Employment Growth Rate'),
           '#data' => $data,
-          '#prefix' => '',
-          '#suffix' => '',
+        ],
+        'series_annotation' => [
+          '#type' => 'chart_data',
+          '#title' => ['role' => 'annotation'],
+          '#data' => array_map(function($v) {
+            return ssotFormatNumber($v,2).'%';
+          }, $data),
         ],
         'xaxis' => [
           '#type' => 'chart_xaxis',
-          '#labels' => $labels,
-          '#max' => count($data),
-          '#min' => 0,
+          '#labels' => $dates,
         ],
         'yaxis' => [
           '#type' => 'chart_yaxis',
-          '#max' => max($data),
-          '#min' => 0,
+          '#raw_options' => [
+            'textPosition' => 'none',
+            'gridlines' => [
+              'count' => 1,
+            ],
+          ]
+        ],
+        '#legend_position' => 'none',
+        '#raw_options' => [
+          'options' => [
+          ]
         ]
       ];
       $output = \Drupal::service('renderer')->render($chart);
