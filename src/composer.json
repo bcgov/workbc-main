@@ -210,6 +210,9 @@
             "drupal/gtranslate" : {
                "Replace select language with the default/current language": "patches/drupal/gtranslate/select_default_value.patch",
                "Select doesn't show language selected after changing pages": "patches/drupal/gtranslate/select_changed_value.patch"
+            },
+            "drupal/charts": {
+                "Remember chart instances": "patches/drupal/charts/remember-charts.patch"
             }
         }
     }

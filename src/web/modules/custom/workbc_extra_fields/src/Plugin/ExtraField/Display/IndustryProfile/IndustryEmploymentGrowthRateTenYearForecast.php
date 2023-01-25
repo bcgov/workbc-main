@@ -48,28 +48,42 @@ class IndustryEmploymentGrowthRateTenYearForecast extends ExtraFieldDisplayForma
       $data[] = $entity->ssot_data['industry_outlook']['share_total_employment_pct_first'];
       $data[] = $entity->ssot_data['industry_outlook']['share_total_employment_pct_second'];
       $data[] = $entity->ssot_data['industry_outlook']['share_total_employment_pct_third'];
-      $labels = ['2021', '2026', '2031'];
+      $date1 = ssotParseDateRange($entity->ssot_data['schema'], 'industry_outlook', 'share_total_employment_pct_first');
+      $date2 = ssotParseDateRange($entity->ssot_data['schema'], 'industry_outlook', 'share_total_employment_pct_second');
+      $date3 = ssotParseDateRange($entity->ssot_data['schema'], 'industry_outlook', 'share_total_employment_pct_third');
+      $dates = array();
+      $dates[] = $date1;
+      $dates[] = $date2;
+      $dates[] = $date3;
       $chart = [
         '#type' => 'chart',
         '#chart_type' => 'column',
         'series' => [
           '#type' => 'chart_data',
-          '#title' => t(''),
+          '#title' => $this->t('Forecasted 10-Year Industry Share of Total Employment'),
           '#data' => $data,
-          '#prefix' => '',
-          '#suffix' => '',
+        ],
+        'series_annotation' => [
+          '#type' => 'chart_data',
+          '#title' => ['role' => 'annotation'],
+          '#data' => array_map(function($v) {
+            return ssotFormatNumber($v, 1) . '%';
+          }, $data),
         ],
         'xaxis' => [
           '#type' => 'chart_xaxis',
-          '#labels' => $labels,
-          '#max' => count($data),
-          '#min' => 0,
+          '#labels' => $dates,
         ],
         'yaxis' => [
           '#type' => 'chart_yaxis',
-          '#max' => max($data),
-          '#min' => 0,
-        ]
+          '#raw_options' => [
+            'textPosition' => 'none',
+            'gridlines' => [
+              'count' => 1,
+            ],
+          ]
+        ],
+        '#legend_position' => 'none',
       ];
       $output = \Drupal::service('renderer')->render($chart);
     }

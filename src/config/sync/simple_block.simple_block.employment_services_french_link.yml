@@ -1,0 +1,11 @@
+uuid: 2f3ad10f-8480-44af-8fda-c41eb73cd510
+langcode: en
+status: true
+dependencies:
+  config:
+    - filter.format.full_html
+id: employment_services_french_link
+title: 'Employment Services - French link'
+content:
+  value: "<p><a href=\"/discover-employment-services/workbc-centres/employment-services/services-demploi\">Services disponibles en français</a></p>\r\n"
+  format: full_html

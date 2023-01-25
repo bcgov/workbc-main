@@ -36,6 +36,7 @@ $config['jobboard']['jobboard_api_url_frontend'] = getenv('JOBBOARD_API_URL');
 $config['jobboard']['jobboard_api_url_backend'] = getenv('JOBBOARD_API_INTERNAL_URL');
 $config['jobboard']['find_job_url'] = '/search-and-prepare-job/find-jobs';
 $config['jobboard']['find_job_account_url'] = '/account';
+$config['jobboard']['google_maps_key'] = getenv('JOBBOARD_GOOGLE_MAPS_KEY');
 
 $settings['redis.connection']['host'] = getenv('REDIS_HOST');
 $settings['redis.connection']['port'] = getenv('REDIS_PORT');

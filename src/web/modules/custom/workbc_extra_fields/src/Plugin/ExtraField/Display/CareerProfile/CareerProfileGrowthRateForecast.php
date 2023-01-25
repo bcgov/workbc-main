@@ -47,36 +47,41 @@ class CareerProfileGrowthRateForecast extends ExtraFieldDisplayFormattedBase {
       $data = array();
       $data[] = floatval($entity->ssot_data['career_provincial']['forecasted_average_employment_growth_rate_first5y']);
       $data[] = floatval($entity->ssot_data['career_provincial']['forecasted_average_employment_growth_rate_second5y']);
-
       $date1 = ssotParseDateRange($entity->ssot_data['schema'], 'career_provincial', 'job_openings_first');
       $date2 = ssotParseDateRange($entity->ssot_data['schema'], 'career_provincial', 'job_openings_second');
       $date3 = ssotParseDateRange($entity->ssot_data['schema'], 'career_provincial', 'job_openings_third');
       $dates = array();
       $dates[] = $date1 . "-" . $date2;
       $dates[] = $date2 . "-" . $date3;
-
-      $labels = $dates;
       $chart = [
         '#type' => 'chart',
         '#chart_type' => 'column',
         'series' => [
           '#type' => 'chart_data',
-          '#title' => t(''),
+          '#title' => $this->t('Forecasted Employment Growth Rate'),
           '#data' => $data,
-          '#prefix' => '',
-          '#suffix' => '',
+        ],
+        'series_annotation' => [
+          '#type' => 'chart_data',
+          '#title' => ['role' => 'annotation'],
+          '#data' => array_map(function($v) {
+            return ssotFormatNumber($v, 1, true) . '%';
+          }, $data),
         ],
         'xaxis' => [
           '#type' => 'chart_xaxis',
-          '#labels' => $labels,
-          '#max' => count($data),
-          '#min' => 0,
+          '#labels' => $dates,
         ],
         'yaxis' => [
           '#type' => 'chart_yaxis',
-          '#max' => 5,
-          '#min' => 0,
-        ]
+          '#raw_options' => [
+            'textPosition' => 'none',
+            'gridlines' => [
+              'count' => 1,
+            ],
+          ]
+        ],
+        '#legend_position' => 'none',
       ];
       $output = \Drupal::service('renderer')->render($chart);
     }

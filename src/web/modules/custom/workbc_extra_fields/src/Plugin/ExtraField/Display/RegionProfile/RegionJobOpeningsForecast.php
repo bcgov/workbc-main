@@ -45,7 +45,7 @@ class RegionJobOpeningsForecast extends ExtraFieldDisplayFormattedBase {
   public function viewElements(ContentEntityInterface $entity) {
 
     if (!empty($entity->ssot_data) && isset($entity->ssot_data['regional_labour_market_outlook'])) {
-      $output = ssotFormatNumber($entity->ssot_data['regional_labour_market_outlook']['forecasted_total_employment_growth_10y'],0);
+      $output = ssotFormatNumber($entity->ssot_data['regional_labour_market_outlook']['employment_outlook_third'],0);
     }
     else {
       $output = WORKBC_EXTRA_FIELDS_NOT_AVAILABLE;

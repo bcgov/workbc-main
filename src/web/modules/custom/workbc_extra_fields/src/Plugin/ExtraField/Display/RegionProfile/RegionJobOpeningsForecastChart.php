@@ -56,29 +56,33 @@ class RegionJobOpeningsForecastChart extends ExtraFieldDisplayFormattedBase {
       $dates[] = $date1;
       $dates[] = $date2;
       $dates[] = $date3;
-
-      $labels = $dates;
       $chart = [
         '#type' => 'chart',
         '#chart_type' => 'column',
         'series' => [
           '#type' => 'chart_data',
-          '#title' => t(''),
+          '#title' => $this->t('Openings'),
           '#data' => $data,
-          '#prefix' => '',
-          '#suffix' => '',
+        ],
+        'series_annotation' => [
+          '#type' => 'chart_data',
+          '#title' => ['role' => 'annotation'],
+          '#data' => $data,
         ],
         'xaxis' => [
           '#type' => 'chart_xaxis',
-          '#labels' => $labels,
-          '#max' => count($data),
-          '#min' => 0,
+          '#labels' => $dates,
         ],
         'yaxis' => [
           '#type' => 'chart_yaxis',
-          '#max' => max($data),
-          '#min' => 0,
-        ]
+          '#raw_options' => [
+            'textPosition' => 'none',
+            'gridlines' => [
+              'count' => 1,
+            ],
+          ]
+        ],
+        '#legend_position' => 'none',
       ];
       $output = \Drupal::service('renderer')->render($chart);
     }

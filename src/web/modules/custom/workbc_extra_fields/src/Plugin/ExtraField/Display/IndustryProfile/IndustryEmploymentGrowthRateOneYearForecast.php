@@ -47,28 +47,40 @@ class IndustryEmploymentGrowthRateOneYearForecast extends ExtraFieldDisplayForma
       $data = array();
       $data[] = $entity->ssot_data['industry_outlook']['annual_employment_growth_rate_pct_first5y'];
       $data[] = $entity->ssot_data['industry_outlook']['annual_employment_growth_rate_pct_second5y'];
-      $labels = ['2021 - 2026', '2026 - 2031'];
+      $date1 = ssotParseDateRange($entity->ssot_data['schema'], 'industry_outlook', 'annual_employment_growth_rate_pct_first5y');
+      $date2 = ssotParseDateRange($entity->ssot_data['schema'], 'industry_outlook', 'annual_employment_growth_rate_pct_second5y');
+      $dates = array();
+      $dates[] = $date1;
+      $dates[] = $date2;
       $chart = [
         '#type' => 'chart',
         '#chart_type' => 'column',
         'series' => [
           '#type' => 'chart_data',
-          '#title' => t(''),
+          '#title' => $this->t('Forecasted Average Annual Employment Growth Rate'),
           '#data' => $data,
-          '#prefix' => '',
-          '#suffix' => '',
+        ],
+        'series_annotation' => [
+          '#type' => 'chart_data',
+          '#title' => ['role' => 'annotation'],
+          '#data' => array_map(function($v) {
+            return ssotFormatNumber($v, 1, true) . '%';
+          }, $data),
         ],
         'xaxis' => [
           '#type' => 'chart_xaxis',
-          '#labels' => $labels,
-          '#max' => count($data),
-          '#min' => 0,
+          '#labels' => $dates,
         ],
         'yaxis' => [
           '#type' => 'chart_yaxis',
-          '#max' => max($data),
-          '#min' => 0,
-        ]
+          '#raw_options' => [
+            'textPosition' => 'none',
+            'gridlines' => [
+              'count' => 1,
+            ],
+          ]
+        ],
+        '#legend_position' => 'none',
       ];
       $output = \Drupal::service('renderer')->render($chart);
     }

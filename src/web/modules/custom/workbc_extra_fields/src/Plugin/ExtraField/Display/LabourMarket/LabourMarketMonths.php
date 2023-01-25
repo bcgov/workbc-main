@@ -46,7 +46,7 @@ class LabourMarketMonths extends ExtraFieldDisplayFormattedBase {
     $query_year = \Drupal::request()->query->get('year');
     $query_month = \Drupal::request()->query->get('month');
 
-    if(empty($entity->ssot_data['months_years'])) {
+    if(empty($entity->ssot_data['monthly_labour_market_updates_months_years'])) {
       $output = '<div>'. WORKBC_EXTRA_FIELDS_NOT_AVAILABLE .'</div>';
       return [
         ['#markup' => $output ],
@@ -55,7 +55,7 @@ class LabourMarketMonths extends ExtraFieldDisplayFormattedBase {
 
 
     //values
-    $data = $entity->ssot_data['months_years'];
+    $data = $entity->ssot_data['monthly_labour_market_updates_months_years'];
 
     if (!empty($data)){
       foreach($data as $key => $value) {

@@ -84,31 +84,25 @@ class CareerProfileSkills extends ExtraFieldDisplayFormattedBase {
         $data = array();
         $data[] = intval($skill['importance']);
         $data[] = 100 - intval($skill['importance']);
-        $labels = [t('Importance')];
         $chart = [
           '#type' => 'chart',
           '#chart_type' => 'donut',
           '#chart_library' => 'google',
           '#colors' => array(
             '#029CDD',
-            '#dbdbdb'),
+            '#dbdbdb'
+          ),
           'series' => [
             '#type' => 'chart_data',
-            '#title' => t(''),
+            '#title' => $this->t('Profile Skills'),
             '#data' => $data,
-            '#prefix' => '',
-            '#suffix' => '',
           ],
           'xaxis' => [
             '#type' => 'chart_xaxis',
-            '#labels' => $labels,
-            '#max' => count($data),
-            '#min' => 0,
+            '#labels' => [$this->t('Importance')],
           ],
           'yaxis' => [
             '#type' => 'chart_yaxis',
-            '#max' => 100,
-            '#min' => 0,
           ],
           '#raw_options' => [
             'options' => [

@@ -1,24 +1,24 @@
-uuid: bb822184-124f-4f1b-96e4-bc274f3b9e9e
+uuid: 76bf1562-f7b4-42b9-84fd-01a12a60d7e8
 langcode: en
 status: true
 dependencies:
   config:
-    - simple_block.simple_block.online_chat
+    - simple_block.simple_block.online_employment_services_french_link
   module:
     - block_visibility_conditions
     - simple_block
     - system
   theme:
     - workbc
-id: onlinechat
+id: online_employment_services_french_link
 theme: workbc
 region: hidden
-weight: -13
+weight: -6
 provider: null
-plugin: 'simple_block:online_chat'
+plugin: 'simple_block:online_employment_services_french_link'
 settings:
-  id: 'simple_block:online_chat'
-  label: 'Online Chat'
+  id: 'simple_block:online_employment_services_french_link'
+  label: 'Online Employment Services - French Link'
   label_display: '0'
   provider: simple_block
 visibility:
@@ -33,4 +33,4 @@ visibility:
   request_path:
     id: request_path
     negate: false
-    pages: /contact-us
+    pages: /discover-employment-services/online-employment-services

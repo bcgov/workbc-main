@@ -1,0 +1,11 @@
+uuid: 89084457-20c9-4bb3-828e-74b94742bf9f
+langcode: en
+status: true
+dependencies:
+  config:
+    - filter.format.full_html
+id: self_serve_services_french_link
+title: 'Self Serve Services - French link'
+content:
+  value: "<p><a href=\"/discover-employment-services/workbc-centres/self-serve-services/services-en-libre-service\">Services disponibles en français</a></p>\r\n"
+  format: full_html

@@ -11,7 +11,7 @@ dependencies:
 id: saveprofile
 theme: workbc
 region: hidden
-weight: 0
+weight: -9
 provider: null
 plugin: workbc_jobboard_save_profile
 settings:

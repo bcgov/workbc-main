@@ -68,6 +68,8 @@ module:
   image_widget_crop: 0
   jquery_ui: 0
   jquery_ui_accordion: 0
+  jquery_ui_autocomplete: 0
+  jquery_ui_menu: 0
   key: 0
   keycloak: 0
   language: 0
