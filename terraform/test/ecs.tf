@@ -135,6 +135,10 @@ resource "aws_ecs_task_definition" "app" {
 			{
 				name = "POSTGRES_PASSWORD",
 				valueFrom = "${data.aws_secretsmanager_secret_version.creds.arn}:password::"
+			},
+			{
+				name = "JOBBOARD_GOOGLE_MAPS_KEY",
+				valueFrom = "${data.aws_secretsmanager_secret_version.creds.arn}:gm_ref::"
 			}
 		]
 
@@ -206,6 +210,16 @@ resource "aws_ecs_task_definition" "app" {
 		name        = "drush"
 		image       = var.app_image
 		networkMode = "awsvpc"
+		
+		logConfiguration = {
+			logDriver = "awslogs"
+			options = {
+				awslogs-create-group  = "true"
+				awslogs-group         = "/ecs/${var.app_name}"
+				awslogs-region        = var.aws_region
+				awslogs-stream-prefix = "ecs"
+			}
+		}
 
 		entryPoint = ["sh", "-c"]
 		command = ["drush cr; drush updb -y; drush cr; drush cim -y;"]
@@ -225,6 +239,30 @@ resource "aws_ecs_task_definition" "app" {
 			{
 				name = "POSTGRES_HOST",
 				value = "${data.aws_rds_cluster.postgres.endpoint}"
+			},
+			{
+				name = "SSOT_URL",
+				value = "${local.conn_str}"
+			},
+			{
+				name = "JOBBOARD_API_URL",
+				value = "${local.jb_api_url}"
+			},
+			{
+				name = "JOBBOARD_API_INTERNAL_URL",
+				value = "${local.jb_api_internal_url}"
+			},
+			{
+				name = "PROJECT_ENVIRONMENT",
+				value = "aws-test"
+			},
+			{
+				name = "REDIS_HOST",
+				value = "${aws_elasticache_replication_group.workbc_redis_rg.primary_endpoint_address}"
+			},
+			{
+				name = "REDIS_PORT",
+				value = "6379"
 			}
 		]
 		secrets = [
@@ -235,6 +273,10 @@ resource "aws_ecs_task_definition" "app" {
 			{
 				name = "POSTGRES_PASSWORD",
 				valueFrom = "${data.aws_secretsmanager_secret_version.creds.arn}:password::"
+			},
+			{
+				name = "JOBBOARD_GOOGLE_MAPS_KEY",
+				valueFrom = "${data.aws_secretsmanager_secret_version.creds.arn}:gm_ref::"
 			}
 		]
 		mountPoints = [
