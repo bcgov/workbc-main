@@ -215,7 +215,7 @@ resource "aws_ecs_task_definition" "app" {
 			logDriver = "awslogs"
 			options = {
 				awslogs-create-group  = "true"
-				awslogs-group         = "/ecs/drush"
+				awslogs-group         = "/ecs/${var.app_name}"
 				awslogs-region        = var.aws_region
 				awslogs-stream-prefix = "ecs"
 			}
