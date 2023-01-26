@@ -61,13 +61,14 @@ resource "aws_cloudfront_distribution" "workbc" {
 	
     # SimpleCORS
     response_headers_policy_id = "60669652-455b-4ae9-85a4-c4c02393f86c"
-  }
+ 
 
   	#This cloudfront function redirects workbc.ca to aws-prod.workbc.ca -- 301
     function_association {
       event_type   = "viewer-request"
       function_arn = "arn:aws:cloudfront::846410483170:function/redirectApex2www"
     }
+  }
 
   price_class = "PriceClass_100"
 
