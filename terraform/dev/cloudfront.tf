@@ -15,7 +15,7 @@ resource "aws_cloudfront_origin_access_control" "oac" {
 
 resource "aws_cloudfront_distribution" "workbc" {
 
-  #count = var.cloudfront ? 1 : 0
+  count = var.cloudfront ? 1 : 0
 
   origin {
     custom_origin_config {
