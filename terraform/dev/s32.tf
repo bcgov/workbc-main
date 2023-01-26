@@ -31,7 +31,7 @@ data "aws_iam_policy_document" "allow_access_from_cloudfront" {
 	condition {
 	  test = "StringEquals"
 	  variable = "AWS:SourceArn"
-	  values = ["${aws_cloudfront_distribution.workbc.arn}"]
+	  values = ["${aws_cloudfront_distribution.workbc[0].arn}"]
 	}
   }
 	
