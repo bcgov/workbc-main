@@ -3,7 +3,6 @@ langcode: en
 status: true
 dependencies:
   module:
-    - block_visibility_conditions
     - workbc_jobboard
   theme:
     - workbc
@@ -24,12 +23,4 @@ settings:
   job_board_postjob_description: 'Use B.C.''s most comprehensive job board to post jobs for free and find the right people to help your business grow. With hundreds of thousands of job seekers using the site, it''s a great way to find new talent.'
   job_board_postjob_link_label: 'Post a Job'
   job_board_postjob_link_url: /access-employer-resources/hire-employees/find-workers
-visibility:
-  not_node_type:
-    id: not_node_type
-    bundles: {  }
-    negate: null
-  not_taxonomy_vocabulary:
-    id: not_taxonomy_vocabulary
-    bundles: {  }
-    negate: null
+visibility: {  }
