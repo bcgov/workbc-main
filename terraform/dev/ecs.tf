@@ -276,7 +276,7 @@ resource "aws_ecs_task_definition" "app" {
 			},
 			{
 				name = "JOBBOARD_GOOGLE_MAPS_KEY",
-				valueFrom = "${data.aws_secretsmanager_secret_version.creds.arn}:gm_ref::"
+				valueFrom = "${data.aws_secretsmanager_secret_version.creds2.arn}:gm_ref::"
 			}
 		]
 		mountPoints = [
