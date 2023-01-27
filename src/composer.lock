@@ -4,7 +4,7 @@
         "Read more about it at https://getcomposer.org/doc/01-basic-usage.md#installing-dependencies",
         "This file is @generated automatically"
     ],
-    "content-hash": "1c643bcf97fad491ee75d6c67163137f",
+    "content-hash": "d23d6bf49139f8cb72e721c05da977b2",
     "packages": [
         {
             "name": "alchemy/zippy",
@@ -2724,29 +2724,26 @@
         },
         {
             "name": "drupal/block_visibility_conditions",
-            "version": "1.0.0",
+            "version": "dev-1.x",
             "source": {
                 "type": "git",
                 "url": "https://git.drupalcode.org/project/block_visibility_conditions.git",
-                "reference": "8.x-1.0"
-            },
-            "dist": {
-                "type": "zip",
-                "url": "https://ftp.drupal.org/files/projects/block_visibility_conditions-8.x-1.0.zip",
-                "reference": "8.x-1.0",
-                "shasum": "cc3ca7940f23c13a05beb344ce1084778c6890c4"
+                "reference": "89c578b252af0d99c832af5b6c6ee4d52b6490d1"
             },
             "require": {
-                "drupal/core": "^8 || ^9"
+                "drupal/core": "^8 || ^9 || ^10"
             },
             "require-dev": {
                 "drupal/commerce_product": "*"
             },
             "type": "drupal-module",
             "extra": {
+                "branch-alias": {
+                    "dev-1.x": "1.x-dev"
+                },
                 "drupal": {
-                    "version": "8.x-1.0",
-                    "datestamp": "1587513847",
+                    "version": "8.x-1.x-dev",
+                    "datestamp": "1673037697",
                     "security-coverage": {
                         "status": "not-covered",
                         "message": "Project has not opted into security advisory coverage!"
@@ -17766,6 +17763,7 @@
     "aliases": [],
     "minimum-stability": "dev",
     "stability-flags": {
+        "drupal/block_visibility_conditions": 20,
         "drupal/linkit": 10
     },
     "prefer-stable": true,

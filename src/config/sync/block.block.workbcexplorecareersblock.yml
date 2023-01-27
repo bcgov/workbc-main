@@ -3,7 +3,6 @@ langcode: en
 status: true
 dependencies:
   module:
-    - block_visibility_conditions
     - system
     - workbc_custom
   theme:
@@ -30,14 +29,6 @@ settings:
   tooltip_1: 'The National Occupational Classification System (NOC) classifies all occupations in Canada.'
   path_2: /plan-career/explore-careers/career-search
 visibility:
-  not_node_type:
-    id: not_node_type
-    bundles: {  }
-    negate: null
-  not_taxonomy_vocabulary:
-    id: not_taxonomy_vocabulary
-    bundles: {  }
-    negate: null
   request_path:
     id: request_path
     negate: false

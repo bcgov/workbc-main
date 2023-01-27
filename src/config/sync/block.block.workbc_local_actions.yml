@@ -2,8 +2,6 @@ uuid: 91af30cc-1b84-4eed-a808-fe5111936547
 langcode: en
 status: true
 dependencies:
-  module:
-    - block_visibility_conditions
   theme:
     - workbc
 _core:
@@ -19,12 +17,4 @@ settings:
   label: 'Primary admin actions'
   label_display: '0'
   provider: core
-visibility:
-  not_node_type:
-    id: not_node_type
-    bundles: {  }
-    negate: null
-  not_taxonomy_vocabulary:
-    id: not_taxonomy_vocabulary
-    bundles: {  }
-    negate: null
+visibility: {  }

@@ -3,7 +3,6 @@ langcode: en
 status: true
 dependencies:
   module:
-    - block_visibility_conditions
     - system
     - workbc_custom
   theme:
@@ -20,14 +19,6 @@ settings:
   label_display: '0'
   provider: workbc_custom
 visibility:
-  not_node_type:
-    id: not_node_type
-    bundles: {  }
-    negate: null
-  not_taxonomy_vocabulary:
-    id: not_taxonomy_vocabulary
-    bundles: {  }
-    negate: null
   request_path:
     id: request_path
     negate: false
