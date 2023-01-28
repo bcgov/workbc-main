@@ -42,6 +42,8 @@ resource "aws_iam_role_policy" "ecs_task_execution_kms" {
         ],
         "Resource": [
           "arn:aws:secretsmanager:ca-central-1:054099626264:secret:workbc-cc-db-creds-T79YaY",
+          "arn:aws:kms:ca-central-1:054099626264:key/cf72efe3-3d2e-4d74-8c34-26a0855d5c92",
+          "arn:aws:secretsmanager:ca-central-1:054099626264:secret:workbc-jb-db-creds-3kRXuy",
           "arn:aws:kms:ca-central-1:054099626264:key/cf72efe3-3d2e-4d74-8c34-26a0855d5c92"
         ]
       }
@@ -216,7 +218,7 @@ resource "aws_iam_role_policy" "workbc_container_s3" {
     {
       "Effect": "Allow",
       "Action": ["s3:ListBucket"],
-      "Resource": ["arn:aws:s3:::workbc-backup-restore-bucket"]
+      "Resource": ["${aws_s3_bucket.workbc_s3.arn}"]
     },
     {
       "Effect": "Allow",
@@ -225,7 +227,7 @@ resource "aws_iam_role_policy" "workbc_container_s3" {
         "s3:GetObject",
         "s3:DeleteObject"
       ],
-      "Resource": ["arn:aws:s3:::workbc-backup-restore-bucket/*"]
+      "Resource": ["${aws_s3_bucket.workbc_s3.arn}/*"]
     }
   ]
 }
