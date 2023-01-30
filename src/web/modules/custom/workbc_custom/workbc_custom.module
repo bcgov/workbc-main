@@ -5,7 +5,7 @@ use Drupal\node\NodeInterface;
 use Drupal\Core\Session\AccountInterface;
 
 /**
- *
+ * Implements hook_theme().
  */
 
  function workbc_custom_theme($existing, $type, $theme, $path) {
@@ -65,7 +65,9 @@ use Drupal\Core\Session\AccountInterface;
 
  }
 
-
+/**
+ * Implements hook_form_alter().
+ */
 function workbc_custom_form_alter(&$form, \Drupal\Core\Form\FormStateInterface $form_state, $form_id) {
 
   // hide password and disable editing of username and email
@@ -96,7 +98,7 @@ function workbc_custom_form_alter(&$form, \Drupal\Core\Form\FormStateInterface $
 
 
 /**
- * Implements hook_node_access
+ * Implements hook_node_access().
  *
  */
 function workbc_custom_node_access(NodeInterface $node, $op, AccountInterface $account) {
@@ -134,7 +136,9 @@ function workbc_custom_node_presave(NodeInterface $entity) {
   }
 }
 
-
+/**
+ * Implements hook_user_access().
+ */
 function workbc_custom_user_access(\Drupal\Core\Entity\EntityInterface $entity, $operation, \Drupal\Core\Session\AccountInterface $account) {
 
   // users without "bypass content groups" permission can only update/delete
@@ -155,7 +159,9 @@ function workbc_custom_user_access(\Drupal\Core\Entity\EntityInterface $entity, 
   return AccessResult::neutral();
 }
 
-
+/**
+ * Implements hook_entity_operation_alter().
+ */
 function workbc_custom_entity_operation_alter(array &$operations, \Drupal\Core\Entity\EntityInterface $entity) {
 
   // remove role operation, roles can be changed via edit tab.
@@ -167,7 +173,9 @@ function workbc_custom_entity_operation_alter(array &$operations, \Drupal\Core\E
   }
 }
 
-
+/**
+ * Implements hook_menu_local_tasks_alter().
+ */
 function workbc_custom_menu_local_tasks_alter(&$data, $route_name) {
 
   // remove role tab, roles can be changed via edit tab.
@@ -177,6 +185,18 @@ function workbc_custom_menu_local_tasks_alter(&$data, $route_name) {
   }
 }
 
+/**
+ * Implements hook_webform_element_alter().
+ */
+function workbc_custom_webform_element_alter(array &$element, \Drupal\Core\Form\FormStateInterface $form_state, array $context) {
+  if (isset($element['#webform_id']) && $element['#webform_id'] === 'contact--name') {
+    $element['#element_validate'][] = 'workbc_custom_webform_contact_name_validate';
+  }
+}
+
+function workbc_custom_webform_contact_name_validate(array &$element, \Drupal\Core\Form\FormStateInterface $formState, array &$form) {
+  $formState->setValue('name', urlencode($formState->getValue('name')));
+}
 
 /**
  * Get SSOT data for the High Opportunity block.
