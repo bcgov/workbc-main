@@ -18,7 +18,7 @@
     Drupal.googleCharts.drawChart(chartId, dataAttributes['visualization'], dataAttributes['data'], dataAttributes['options'])();
   }
 
-  Drupal.behaviors.initPopoverBehavior = {
+  Drupal.behaviors.redrawGoogleChart = {
     attach: function (context, settings) {
       $('.nav-link', context).on('shown.bs.tab', function (e) {
         if (Drupal.Charts && Drupal.googleCharts) {
