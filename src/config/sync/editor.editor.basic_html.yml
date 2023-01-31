@@ -17,8 +17,19 @@ settings:
         -
           name: Formatting
           items:
+            - Undo
+            - Redo
             - Bold
             - Italic
+            - Underline
+            - JustifyLeft
+            - JustifyCenter
+            - JustifyRight
+            - Outdent
+            - Indent
+            - Cut
+            - Paste
+            - Table
         -
           name: Linking
           items:

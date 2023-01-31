@@ -4,6 +4,12 @@ status: true
 dependencies:
   config:
     - filter.format.full_html
+    - media.type.audio
+    - media.type.document
+    - media.type.icon
+    - media.type.image
+    - media.type.remote_video
+    - media.type.video
     - node.type.bc_profile
     - node.type.blog
     - node.type.career_profile
@@ -25,8 +31,10 @@ dependencies:
     - contextual
     - file
     - filter
+    - media
     - node
     - paragraphs_type_permissions
+    - redirect
     - sitewide_alert
     - system
     - taxonomy
@@ -42,16 +50,24 @@ permissions:
   - 'access content overview'
   - 'access contextual links'
   - 'access files overview'
+  - 'access media overview'
   - 'access toolbar'
   - 'access tour'
+  - 'administer redirect settings'
+  - 'administer redirects'
   - 'bypass content groups'
+  - 'create audio media'
   - 'create bc_profile content'
   - 'create blog content'
   - 'create career_profile content'
   - 'create career_profile_introductions content'
+  - 'create document media'
   - 'create event content'
+  - 'create icon media'
+  - 'create image media'
   - 'create industry_profile content'
   - 'create labour_market_monthly content'
+  - 'create media'
   - 'create news content'
   - 'create page content'
   - 'create paragraph content action_card'
@@ -66,9 +82,25 @@ permissions:
   - 'create paragraph content skills'
   - 'create publication content'
   - 'create region_profile content'
+  - 'create remote_video media'
   - 'create success_story content'
   - 'create terms in tags'
+  - 'create video media'
   - 'create workbc_centre content'
+  - 'delete any audio media'
+  - 'delete any document media'
+  - 'delete any icon media'
+  - 'delete any image media'
+  - 'delete any media'
+  - 'delete any remote_video media'
+  - 'delete any video media'
+  - 'delete media'
+  - 'delete own audio media'
+  - 'delete own document media'
+  - 'delete own icon media'
+  - 'delete own image media'
+  - 'delete own remote_video media'
+  - 'delete own video media'
   - 'delete paragraph content action_card'
   - 'delete paragraph content action_card_feature'
   - 'delete paragraph content action_cards_1_2'
@@ -79,23 +111,41 @@ permissions:
   - 'delete paragraph content hours_of_operation'
   - 'delete paragraph content quote_card'
   - 'delete paragraph content skills'
+  - 'edit any audio media'
   - 'edit any bc_profile content'
   - 'edit any blog content'
   - 'edit any career_profile content'
   - 'edit any career_profile_introductions content'
+  - 'edit any document media'
   - 'edit any event content'
+  - 'edit any icon media'
+  - 'edit any image media'
   - 'edit any industry_profile content'
   - 'edit any labour_market_monthly content'
   - 'edit any news content'
   - 'edit any page content'
   - 'edit any publication content'
   - 'edit any region_profile content'
+  - 'edit any remote_video media'
   - 'edit any success_story content'
+  - 'edit any video media'
   - 'edit any workbc_centre content'
+  - 'edit own audio media'
   - 'edit own bc_profile content'
+  - 'edit own document media'
+  - 'edit own icon media'
+  - 'edit own image media'
+  - 'edit own remote_video media'
+  - 'edit own video media'
   - 'edit terms in tags'
+  - 'execute entity:break_lock media'
+  - 'execute entity:publish_action media'
+  - 'execute entity:save_action media'
+  - 'execute entity:unpublish_action media'
   - 'execute workbc_draft_node_action node'
   - 'execute workbc_review_node_action node'
+  - 'update any media'
+  - 'update media'
   - 'update paragraph content action_card'
   - 'update paragraph content action_card_feature'
   - 'update paragraph content action_cards_1_2'
@@ -109,6 +159,7 @@ permissions:
   - 'use editorial transition create_new_draft'
   - 'use editorial transition send_for_review'
   - 'use text format full_html'
+  - 'view all media revisions'
   - 'view all revisions'
   - 'view any unpublished content'
   - 'view bc_profile revisions'
@@ -119,8 +170,10 @@ permissions:
   - 'view industry_profile revisions'
   - 'view labour_market_monthly revisions'
   - 'view latest version'
+  - 'view media'
   - 'view news revisions'
   - 'view own unpublished content'
+  - 'view own unpublished media'
   - 'view page revisions'
   - 'view publication revisions'
   - 'view published sitewide alert entities'

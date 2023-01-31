@@ -3,7 +3,6 @@ langcode: en
 status: true
 dependencies:
   module:
-    - block_visibility_conditions
     - node
     - workbc_jobboard
   theme:
@@ -24,14 +23,6 @@ settings:
   job_board_no_result_text: 'There are no current job postings.'
   job_board_results_to_show_horizontal_view: '4'
 visibility:
-  not_node_type:
-    id: not_node_type
-    bundles: {  }
-    negate: null
-  not_taxonomy_vocabulary:
-    id: not_taxonomy_vocabulary
-    bundles: {  }
-    negate: null
   'entity_bundle:node':
     id: 'entity_bundle:node'
     negate: false

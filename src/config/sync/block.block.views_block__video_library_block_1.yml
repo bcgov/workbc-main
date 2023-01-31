@@ -5,7 +5,6 @@ dependencies:
   config:
     - views.view.video_library
   module:
-    - block_visibility_conditions
     - system
     - views
   theme:
@@ -24,14 +23,6 @@ settings:
   views_label: ''
   items_per_page: none
 visibility:
-  not_node_type:
-    id: not_node_type
-    bundles: {  }
-    negate: null
-  not_taxonomy_vocabulary:
-    id: not_taxonomy_vocabulary
-    bundles: {  }
-    negate: null
   request_path:
     id: request_path
     negate: false

@@ -5,7 +5,6 @@ dependencies:
   config:
     - views.view.search_site_content
   module:
-    - block_visibility_conditions
     - views
   theme:
     - workbc
@@ -21,12 +20,4 @@ settings:
   label_display: '0'
   provider: views
   views_label: ''
-visibility:
-  not_node_type:
-    id: not_node_type
-    bundles: {  }
-    negate: null
-  not_taxonomy_vocabulary:
-    id: not_taxonomy_vocabulary
-    bundles: {  }
-    negate: null
+visibility: {  }

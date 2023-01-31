@@ -5,7 +5,6 @@ dependencies:
   config:
     - webform.webform.request_a_tour_stop
   module:
-    - block_visibility_conditions
     - system
     - webform
   theme:
@@ -25,14 +24,6 @@ settings:
   default_data: ''
   redirect: false
 visibility:
-  not_node_type:
-    id: not_node_type
-    bundles: {  }
-    negate: null
-  not_taxonomy_vocabulary:
-    id: not_taxonomy_vocabulary
-    bundles: {  }
-    negate: null
   request_path:
     id: request_path
     negate: false

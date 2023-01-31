@@ -5,6 +5,14 @@ resource "random_integer" "cf_origin_id" {
   max = 100
 }
 
+resource "aws_cloudfront_origin_access_control" "oac" {
+  name = "oac"
+  description = "OAC Policy"
+  origin_access_control_origin_type = "s3"
+  signing_behavior = "always"
+  signing_protocol = "sigv4"
+}
+
 resource "aws_cloudfront_distribution" "workbc" {
 
   count = var.cloudfront ? 1 : 0
@@ -28,6 +36,12 @@ resource "aws_cloudfront_distribution" "workbc" {
 	  value = "aws-dev.workbc.ca"	
 	}
 	
+  }
+	
+  origin {
+        domain_name = aws_s3_bucket.workbc_s32.bucket_regional_domain_name
+	origin_id = "SDPR-Contents"
+	origin_access_control_id = aws_cloudfront_origin_access_control.oac.id
   }
 
   enabled         = true
@@ -68,6 +82,38 @@ resource "aws_cloudfront_distribution" "workbc" {
       event_type   = "viewer-request"
       function_arn = "arn:aws:cloudfront::873424993519:function/pearldevcfredirect"
     }
+  }
+	
+  ordered_cache_behavior {
+        path_pattern = "/getmedia/*"
+        allowed_methods = [
+        "DELETE",
+        "GET",
+        "HEAD",
+        "OPTIONS",
+        "PATCH",
+        "POST",
+        "PUT"]
+        cached_methods = ["GET", "HEAD"]
+	target_origin_id = "SDPR-Contents"
+	cache_policy_id = "658327ea-f89d-4fab-a63d-7e88639e58f6"
+	viewer_protocol_policy = "redirect-to-https"
+  }
+  
+    ordered_cache_behavior {
+        path_pattern = "/WorkBC-Template/*"
+        allowed_methods = [
+        "DELETE",
+        "GET",
+        "HEAD",
+        "OPTIONS",
+        "PATCH",
+        "POST",
+        "PUT"]
+        cached_methods = ["GET", "HEAD"]
+        target_origin_id = "SDPR-Contents"
+	cache_policy_id = "658327ea-f89d-4fab-a63d-7e88639e58f6"
+	viewer_protocol_policy = "redirect-to-https"
   }
 
   price_class = "PriceClass_100"

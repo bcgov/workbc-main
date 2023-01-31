@@ -55,7 +55,7 @@ resource "aws_ecs_task_definition" "app" {
 			logDriver = "awslogs"
 			options = {
 				awslogs-create-group  = "true"
-				awslogs-group         = "/ecs/${var.app_name}"
+				awslogs-group         = "/ecs/${var.app_name}/init"
 				awslogs-region        = var.aws_region
 				awslogs-stream-prefix = "ecs"
 			}
@@ -71,7 +71,7 @@ resource "aws_ecs_task_definition" "app" {
 			logDriver = "awslogs"
 			options = {
 				awslogs-create-group  = "true"
-				awslogs-group         = "/ecs/${var.app_name}"
+				awslogs-group         = "/ecs/${var.app_name}/drupal"
 				awslogs-region        = var.aws_region
 				awslogs-stream-prefix = "ecs"
 			}
@@ -138,7 +138,7 @@ resource "aws_ecs_task_definition" "app" {
 			},
 			{
 				name = "JOBBOARD_GOOGLE_MAPS_KEY",
-				valueFrom = "${data.aws_secretsmanager_secret_version.creds.arn}:gm_ref::"
+				valueFrom = "${data.aws_secretsmanager_secret_version.creds2.arn}:gm_ref::"
 			}
 		]
 
@@ -164,14 +164,14 @@ resource "aws_ecs_task_definition" "app" {
 	{
 		essential   = true
 		name        = "nginx"
-		image       = "${var.app_repo}/nginx:2.1"
+		image       = "${var.app_repo}/nginx:2.2"
 		networkMode = "awsvpc"
 		
 		logConfiguration = {
 			logDriver = "awslogs"
 			options = {
 				awslogs-create-group  = "true"
-				awslogs-group         = "/ecs/${var.app_name}"
+				awslogs-group         = "/ecs/${var.app_name}/nginx"
 				awslogs-region        = var.aws_region
 				awslogs-stream-prefix = "ecs"
 			}
@@ -215,7 +215,7 @@ resource "aws_ecs_task_definition" "app" {
 			logDriver = "awslogs"
 			options = {
 				awslogs-create-group  = "true"
-				awslogs-group         = "/ecs/${var.app_name}"
+				awslogs-group         = "/ecs/${var.app_name}/drush"
 				awslogs-region        = var.aws_region
 				awslogs-stream-prefix = "ecs"
 			}
@@ -276,7 +276,7 @@ resource "aws_ecs_task_definition" "app" {
 			},
 			{
 				name = "JOBBOARD_GOOGLE_MAPS_KEY",
-				valueFrom = "${data.aws_secretsmanager_secret_version.creds.arn}:gm_ref::"
+				valueFrom = "${data.aws_secretsmanager_secret_version.creds2.arn}:gm_ref::"
 			}
 		]
 		mountPoints = [

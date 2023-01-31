@@ -4,7 +4,6 @@ status: true
 dependencies:
   module:
     - better_social_sharing_buttons
-    - block_visibility_conditions
     - system
   theme:
     - workbc
@@ -39,14 +38,6 @@ settings:
   width: 35px
   radius: 3px
 visibility:
-  not_node_type:
-    id: not_node_type
-    bundles: {  }
-    negate: null
-  not_taxonomy_vocabulary:
-    id: not_taxonomy_vocabulary
-    bundles: {  }
-    negate: null
   request_path:
     id: request_path
     negate: true

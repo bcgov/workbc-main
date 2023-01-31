@@ -3,7 +3,6 @@ langcode: en
 status: true
 dependencies:
   module:
-    - block_visibility_conditions
     - responsive_menu
   theme:
     - workbc
@@ -18,12 +17,4 @@ settings:
   label: 'Responsive menu mobile icon'
   label_display: '0'
   provider: responsive_menu
-visibility:
-  not_node_type:
-    id: not_node_type
-    bundles: {  }
-    negate: null
-  not_taxonomy_vocabulary:
-    id: not_taxonomy_vocabulary
-    bundles: {  }
-    negate: null
+visibility: {  }

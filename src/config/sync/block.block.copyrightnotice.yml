@@ -5,7 +5,6 @@ dependencies:
   config:
     - simple_block.simple_block.copyright_notice
   module:
-    - block_visibility_conditions
     - simple_block
   theme:
     - workbc
@@ -20,12 +19,4 @@ settings:
   label: 'Copyright Notice'
   label_display: '0'
   provider: simple_block
-visibility:
-  not_node_type:
-    id: not_node_type
-    bundles: {  }
-    negate: null
-  not_taxonomy_vocabulary:
-    id: not_taxonomy_vocabulary
-    bundles: {  }
-    negate: null
+visibility: {  }
