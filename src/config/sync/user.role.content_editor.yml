@@ -17,6 +17,7 @@ dependencies:
     - node.type.region_profile
     - node.type.success_story
     - node.type.workbc_centre
+    - taxonomy.vocabulary.definitions
     - taxonomy.vocabulary.tags
     - workflows.workflow.editorial
   module:
@@ -67,6 +68,7 @@ permissions:
   - 'create publication content'
   - 'create region_profile content'
   - 'create success_story content'
+  - 'create terms in definitions'
   - 'create terms in tags'
   - 'create workbc_centre content'
   - 'delete paragraph content action_card'
@@ -79,6 +81,7 @@ permissions:
   - 'delete paragraph content hours_of_operation'
   - 'delete paragraph content quote_card'
   - 'delete paragraph content skills'
+  - 'delete terms in definitions'
   - 'edit any bc_profile content'
   - 'edit any blog content'
   - 'edit any career_profile content'
@@ -93,6 +96,7 @@ permissions:
   - 'edit any success_story content'
   - 'edit any workbc_centre content'
   - 'edit own bc_profile content'
+  - 'edit terms in definitions'
   - 'edit terms in tags'
   - 'execute workbc_draft_node_action node'
   - 'execute workbc_review_node_action node'
