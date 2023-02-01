@@ -3,6 +3,10 @@
 use Drupal\Core\Access\AccessResult;
 use Drupal\node\NodeInterface;
 use Drupal\Core\Session\AccountInterface;
+use Drupal\Core\Entity\EntityInterface;
+use Drupal\Core\Config\Entity\ConfigEntityInterface;
+use Drupal\Core\Form\FormStateInterface;
+use Drupal\Core\Url;
 
 /**
  * Implements hook_theme().
@@ -139,7 +143,7 @@ function workbc_custom_node_presave(NodeInterface $entity) {
 /**
  * Implements hook_user_access().
  */
-function workbc_custom_user_access(\Drupal\Core\Entity\EntityInterface $entity, $operation, \Drupal\Core\Session\AccountInterface $account) {
+function workbc_custom_user_access(EntityInterface $entity, $operation, AccountInterface $account) {
 
   // users without "bypass content groups" permission can only update/delete
   // user accounts if they are members of the same content group
@@ -162,7 +166,7 @@ function workbc_custom_user_access(\Drupal\Core\Entity\EntityInterface $entity, 
 /**
  * Implements hook_entity_operation_alter().
  */
-function workbc_custom_entity_operation_alter(array &$operations, \Drupal\Core\Entity\EntityInterface $entity) {
+function workbc_custom_entity_operation_alter(array &$operations, EntityInterface $entity) {
 
   // remove role operation, roles can be changed via edit tab.
   // this operation is unnecessary and gives certain users access when they shouldn't
@@ -188,14 +192,57 @@ function workbc_custom_menu_local_tasks_alter(&$data, $route_name) {
 /**
  * Implements hook_webform_element_alter().
  */
-function workbc_custom_webform_element_alter(array &$element, \Drupal\Core\Form\FormStateInterface $form_state, array $context) {
+function workbc_custom_webform_element_alter(array &$element, FormStateInterface $form_state, array $context) {
   if (isset($element['#webform_id']) && $element['#webform_id'] === 'contact--name') {
     $element['#element_validate'][] = 'workbc_custom_webform_contact_name_validate';
   }
 }
 
-function workbc_custom_webform_contact_name_validate(array &$element, \Drupal\Core\Form\FormStateInterface $formState, array &$form) {
-  $formState->setValue('name', urlencode($formState->getValue('name')));
+function workbc_custom_webform_contact_name_validate(array &$element, FormStateInterface $form_state, array &$form) {
+  $form_state->setValue('name', urlencode($form_state->getValue('name')));
+}
+
+/**
+ * Implements hook_form_FORM_ID_alter() for config_admin_import_form.
+ *
+ * Show export link for each modified config item.
+ */
+function workbc_custom_form_config_admin_import_form_alter(&$form, FormStateInterface $form_state, $form_id) {
+  $configs = [];
+  foreach (\Drupal::service('entity_type.manager')->getDefinitions() as $entity_type => $definition) {
+    if ($definition->entityClassImplements(ConfigEntityInterface::class)) {
+      $entity_storage = \Drupal::service('entity_type.manager')->getStorage($entity_type);
+      foreach ($entity_storage->loadMultiple() as $entity) {
+        $configs[$definition->getConfigPrefix() . '.' . $entity->id()] = [
+          'config_type' => $entity_type,
+          'config_name' => $entity->id(),
+        ];
+      }
+    }
+  }
+
+  $collection = '';
+  $config_change_type = 'update';
+  foreach ($form[$collection][$config_change_type]['list']['#rows'] as &$config_change) {
+    $config_item = $config_change['name'];
+
+    if (array_key_exists($config_item, $configs)) {
+      $config_type = $configs[$config_item]['config_type'];
+      $config_name = $configs[$config_item]['config_name'];
+    }
+    else {
+      $config_type = 'system.simple';
+      $config_name = $config_item;
+    }
+
+    $config_change['operations']['data']['#links']['export'] = [
+      'title' => t('Export config'),
+      'url' => Url::fromRoute('config.export_single', [
+        'config_type' => $config_type,
+        'config_name' => $config_name,
+      ]),
+    ];
+  }
 }
 
 /**
@@ -218,16 +265,16 @@ function ssotHighOpportunityOptions($parameters = null){
  * Function to get the region mappings.
  */
 function getRegionMappings() {
-    $region_map = [
-            'all' => 'All regions',
-            'british_columbia' => 'British Columbia',
-            'vancouver_island_coast' =>'Vancouver Island/Coast',
-            'mainland_southwest'  => 'Mainland/Southwest',
-            'thompson_okanagan' => 'Thompson-Okanagan',
-            'kootenay' => 'Kootenay',
-            'cariboo' => 'Cariboo',
-            'north_coast_nechako' => 'North Coast and Nechako',
-            'northeast' => 'Northeast'
-          ];
-    return $region_map;
-  }
+  $region_map = [
+    'all' => 'All regions',
+    'british_columbia' => 'British Columbia',
+    'vancouver_island_coast' =>'Vancouver Island/Coast',
+    'mainland_southwest'  => 'Mainland/Southwest',
+    'thompson_okanagan' => 'Thompson-Okanagan',
+    'kootenay' => 'Kootenay',
+    'cariboo' => 'Cariboo',
+    'north_coast_nechako' => 'North Coast and Nechako',
+    'northeast' => 'Northeast'
+  ];
+  return $region_map;
+}
