@@ -223,7 +223,7 @@ function workbc_custom_form_config_admin_import_form_alter(&$form, FormStateInte
 
   $collection = '';
   $config_change_type = 'update';
-  foreach ($form[$collection][$config_change_type]['list']['#rows'] as &$config_change) {
+  if (!empty($form[$collection][$config_change_type]['list']['#rows'])) foreach ($form[$collection][$config_change_type]['list']['#rows'] as &$config_change) {
     $config_item = $config_change['name'];
 
     if (array_key_exists($config_item, $configs)) {
