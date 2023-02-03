@@ -7,5 +7,4 @@ ignored_config_entities:
   - 'recaptcha.*'
   - cdn.settings
   - system.maintenance
-  - system.site
   - system.performance
