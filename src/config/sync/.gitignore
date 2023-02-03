@@ -2,3 +2,6 @@ backup_migrate.backup_migrate_source.ssot_database.yml
 openid_connect.settings.keycloak.yml
 recaptcha.settings.yml
 cdn.settings.yml
+system.maintenance.yml
+system.site.yml
+system.performance.yml
