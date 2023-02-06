@@ -35,7 +35,31 @@ resource "aws_ecs_task_definition" "solr" {
   }
 
   container_definitions = jsonencode([
-	{
+		{
+		essential   = false
+		name        = "solrinit"
+		image       = "${var.app_repo}/solr:0.1"
+		networkMode = "awsvpc"
+		entryPoint = ["sh",	"-c"]
+		command = ["rm /var/solr/data/workbc/data/index/write.lock 2>/dev/null"]
+		mountPoints = [
+			{
+				containerPath = "/var/solr/data",
+				sourceVolume = "data"
+			}
+		]
+		volumesFrom = []
+		logConfiguration = {
+			logDriver = "awslogs"
+			options = {
+				awslogs-create-group  = "true"
+				awslogs-group         = "/ecs/${var.app_name}/solrinit"
+				awslogs-region        = var.aws_region
+				awslogs-stream-prefix = "ecs"
+			}
+		}
+	},
+  {
 		essential   = true
 		name        = "solr"
 		image       = "${var.app_repo}/solr:0.1"
@@ -45,7 +69,7 @@ resource "aws_ecs_task_definition" "solr" {
 			logDriver = "awslogs"
 			options = {
 				awslogs-create-group  = "true"
-				awslogs-group         = "/ecs/${var.app_name}"
+				awslogs-group         = "/ecs/${var.app_name}/solr"
 				awslogs-region        = var.aws_region
 				awslogs-stream-prefix = "ecs"
 			}
@@ -73,9 +97,13 @@ resource "aws_ecs_task_definition" "solr" {
 			}
 		]
 		volumesFrom = []
-		
-	},
-
+    dependsOn = [
+			{
+				containerName = "solrinit"
+				condition = "COMPLETE"
+			}
+    ]	
+	}
   ])
 }
 
