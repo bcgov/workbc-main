@@ -69,7 +69,7 @@ resource "aws_ecs_task_definition" "solr" {
 			logDriver = "awslogs"
 			options = {
 				awslogs-create-group  = "true"
-				awslogs-group         = "/ecs/${var.app_name}/so"
+				awslogs-group         = "/ecs/${var.app_name}/solr"
 				awslogs-region        = var.aws_region
 				awslogs-stream-prefix = "ecs"
 			}
