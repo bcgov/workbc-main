@@ -32,7 +32,7 @@ resource "aws_cloudfront_distribution" "workbc" {
 	
 	custom_header {
 	  name = "X-Forwarded-Host"
-	  value = "aws-prod.workbc.ca"
+	  value = "www.workbc.ca"
 	}
 	
   }
@@ -76,7 +76,7 @@ resource "aws_cloudfront_distribution" "workbc" {
     # SimpleCORS
     response_headers_policy_id = "60669652-455b-4ae9-85a4-c4c02393f86c"
 
-  	#This cloudfront function redirects workbc.ca to aws-prod.workbc.ca -- 301
+  	#This cloudfront function redirects workbc.ca to www.workbc.ca -- 301
     function_association {
       event_type   = "viewer-request"
       function_arn = "arn:aws:cloudfront::846410483170:function/redirectApex2www"
@@ -126,7 +126,7 @@ resource "aws_cloudfront_distribution" "workbc" {
 
   tags = var.common_tags
   
-  aliases = ["aws-prod.workbc.ca", "workbc.ca"]
+  aliases = ["www.workbc.ca", "workbc.ca"]
 
   viewer_certificate {
     acm_certificate_arn = "arn:aws:acm:us-east-1:846410483170:certificate/27a09302-3322-4d85-96f3-db4be28a8e24"
