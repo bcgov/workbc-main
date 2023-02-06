@@ -4,5 +4,5 @@ ARG GITHUB_SHA=unknown
 ENV GITHUB_SHA=$GITHUB_SHA
 
 RUN chmod -R g+rwX /code
-RUN cd /code && rm -rf .git && composer install
-#RUN cd /code && rm -rf .git && composer install && composer update
+#RUN cd /code && rm -rf .git && composer install
+RUN cd /code && rm -rf .git && composer install && composer update
