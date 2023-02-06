@@ -8,5 +8,8 @@ fetch:
   max_attempts: 2
   timeout: 30
 notification:
-  emails: {  }
+  emails:
+    - AEST.InformationSecurity@gov.bc.ca
+    - requestIT@gov.bc.ca
+    - WDST.Techs@gov.bc.ca
   threshold: all
