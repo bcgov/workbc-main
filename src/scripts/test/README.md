@@ -3,7 +3,7 @@ WorkBC Load Testing
 
 This folder contains tools to load-test the WorkBC site. It uses [`siege`](https://github.com/JoeDog/siege) as the load-testing engine.
 
-It is recommended to run Siege v4.1.6 or greater. This version [includes a fix to show URLs that cause errors](https://github.com/JoeDog/siege/issues/216 - you will need to [download the source package and compile it yourself](https://download.joedog.org/siege/) if the packaged version is earlier.
+It is recommended to run Siege v4.1.6 or greater. This version [includes a fix to show URLs that cause errors](https://github.com/JoeDog/siege/issues/216) - you will need to [download the source package and compile it yourself](https://download.joedog.org/siege/) if the packaged version is earlier.
 
 # Getting Started
 ```
