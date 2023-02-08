@@ -3,7 +3,7 @@ WorkBC Load Testing
 
 This folder contains tools to load-test the WorkBC site. It uses [`siege`](https://github.com/JoeDog/siege) as the load-testing tool.
 
-It is recommended to run siege v4.1.6 or greater. This version [includes a fix to show URLs that cause errors](https://github.com/JoeDog/siege/issues/216) - you will need to [download the source package and compile it yourself](https://download.joedog.org/siege/) if the packaged version is earlier. This is only needed to have more visiblity into siege failures, not site failures (which are logged by siege in its verbose output).
+It is recommended to run siege v4.1.6 or greater. This version [includes a fix to show URLs that cause errors](https://github.com/JoeDog/siege/issues/216) - you will need to [download the source package and compile it yourself](https://download.joedog.org/siege/) if the packaged version is earlier. This is only needed to have more visiblity into siege failures, not site errors (which are logged by siege in its verbose output).
 
 # Getting Started
 ```
@@ -55,7 +55,7 @@ Shortest transaction:	        0.00
 - `BASE_URL` environment variable targets a specific Drupal installation and queries its `/sitemap.xml` file (default: `http://workbc.docker.localhost:8000`)
 - `siege.conf` controls the `siege` running parameters. These can be overridden during a run with [command-line arguments](https://manpages.ubuntu.com/manpages/bionic/man1/siege.1.html).
 
-# cases.txt and other .txt test case files.
+# cases.txt and other .txt test case files
 These files contain additional target URLs such as POST commands or repeated URLs that should be hit more often. Make sure each target is a relative URL starting with a forward-slash `/` which will get prefixed with the value of `BASE_URL`. To run a case file `case-file.txt` with siege, do the following:
 ```
 cp case-file.txt urls.txt
