@@ -106,13 +106,13 @@ class LabourMarketEmploymentIndustriesTable extends ExtraFieldDisplayFormattedBa
         if(strpos($key, $needle) !== false){
           $industrysubstring = str_replace($needle, "", $key);
           $industries[$industrysubstring]['industry'] = $industries_mapping[$industrysubstring];
-          $industries[$industrysubstring]['abs'] = !empty($value)?ssotFormatNumber($value,0,true):WORKBC_EXTRA_FIELDS_NOT_AVAILABLE;
+          $industries[$industrysubstring]['abs'] = ($value===0||$value)?ssotFormatNumber($value,0,true):WORKBC_EXTRA_FIELDS_NOT_AVAILABLE;
         }
         //percentage value
         if(strpos($key, $pct_needle) !== false){
           $industrysubstring = str_replace($pct_needle, "", $key);
           $industries[$industrysubstring]['industry'] = $industries_mapping[$industrysubstring];
-          $industries[$industrysubstring]['per'] = !empty($value)?ssotFormatNumber($value, 2).'%':WORKBC_EXTRA_FIELDS_NOT_AVAILABLE;
+          $industries[$industrysubstring]['per'] = ($value===0||$value)?ssotFormatNumber($value, 2).'%':WORKBC_EXTRA_FIELDS_NOT_AVAILABLE;
         }
       }
     }
