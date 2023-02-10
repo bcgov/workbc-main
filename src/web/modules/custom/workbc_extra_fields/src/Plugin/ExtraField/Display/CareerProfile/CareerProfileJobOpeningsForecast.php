@@ -78,6 +78,7 @@ class CareerProfileJobOpeningsForecast extends ExtraFieldDisplayFormattedBase {
             'gridlines' => [
               'count' => 1,
             ],
+            'minValue' => 0,
           ]
         ],
         '#legend_position' => 'none',
