@@ -81,6 +81,11 @@ resource "aws_cloudfront_distribution" "workbc" {
       event_type   = "viewer-request"
       function_arn = "arn:aws:cloudfront::846410483170:function/redirectApex2www"
     }
+    
+    # Associate the CloudFront distribution with the existing WAF web ACL by ARN
+    # This regulates users' frequent access to the website  
+    web_acl_id = "arn:aws:wafv2:us-east-1:846410483170:global/webacl/workbc-protection/fcd24911-4d7d-4257-b05c-7988b6b16dc2"
+	  
   }
 
   ordered_cache_behavior {
