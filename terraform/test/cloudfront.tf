@@ -75,6 +75,10 @@ resource "aws_cloudfront_distribution" "workbc" {
 	
     # SimpleCORS
     response_headers_policy_id = "60669652-455b-4ae9-85a4-c4c02393f86c"
+	  
+    # Associate the CloudFront distribution with the existing WAF web ACL by ARN
+    # This regulates users' frequent access to the website
+    web_acl_id = "arn:aws:wafv2:us-east-1:054099626264:global/webacl/workbc-test-block-constant-requests/e5d007cd-4d1f-4df9-8cb1-d5901385dfb6"	
   }
 
   ordered_cache_behavior {
