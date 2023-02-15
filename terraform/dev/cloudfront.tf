@@ -135,6 +135,10 @@ resource "aws_cloudfront_distribution" "workbc" {
     minimum_protocol_version = "TLSv1.2_2021"
     ssl_support_method = "sni-only"
   }
+	
+    # Associate the CloudFront distribution with the existing WAF web ACL by ARN
+    # This regulates users' frequent access to the website
+    web_acl_id = "arn:aws:wafv2:us-east-1:873424993519:global/webacl/workbc-dev-waf/2bc96095-ff24-4602-95fe-484051c3271e"	 
 }
 
 output "cloudfront_url" {
