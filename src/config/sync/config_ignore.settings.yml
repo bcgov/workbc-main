@@ -8,3 +8,13 @@ ignored_config_entities:
   - cdn.settings
   - system.maintenance
   - system.performance
+  - system.mail
+  - block.block.workbcexplorecareersblock
+  - contact.form.feedback
+  - gdx_analytics_drupal_snowplow.settings
+  - user.role.authenticated
+  - webform.webform.contact
+  - webform.webform.request_a_tour_stop
+  - webform.webform.workbc_order_form
+  - workbc_custom.settings
+  - block.block.webform_3
