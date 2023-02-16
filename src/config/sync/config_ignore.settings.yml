@@ -8,3 +8,9 @@ ignored_config_entities:
   - cdn.settings
   - system.maintenance
   - system.performance
+  - 'block.block.*'
+  - 'contact.form.*'
+  - gdx_analytics_drupal_snowplow.settings
+  - user.role.authenticated
+  - 'webform.webform.*'
+  - workbc_custom.settings
