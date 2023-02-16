@@ -289,7 +289,7 @@ handlers:
     settings:
       states:
         - completed
-      to_mail: test@gov.bc.ca
+      to_mail: wbcinfo@gov.bc.ca
       to_options: {  }
       bcc_mail: ''
       bcc_options: {  }
