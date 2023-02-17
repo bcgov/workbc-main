@@ -1,7 +1,7 @@
 <?php
 
 $base_urls = [
-    'aws-dev' => 'https://aws-dev.workbc.ca',
+    'aws-dev' => 'https://dev.workbc.ca',
     'aws-test' => 'https://aws-test.workbc.ca',
     'aws-prod' => 'https://www.workbc.ca',
 ];
