@@ -769,6 +769,8 @@ $settings['trusted_host_patterns'] = [
   '^aws-dev\.workbc\.ca$',
   '^aws-test\.workbc\.ca$',
   '^aws-prod\.workbc\.ca$',
+  '^dev\.workbc\.ca$',
+  '^test\.workbc\.ca$',
   //'^www2\.workbc\.ca$',
   '^www\.workbc\.ca$',
   '^www\.aws\.workbc\.ca$',
