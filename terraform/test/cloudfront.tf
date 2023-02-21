@@ -32,7 +32,8 @@ resource "aws_cloudfront_distribution" "workbc" {
 	
 	custom_header {
 	  name = "X-Forwarded-Host"
-	  value = "aws-test.workbc.ca"
+	  #value = "aws-test.workbc.ca"
+	  value = "test.workbc.ca"
 	}
 	
   }
@@ -74,7 +75,7 @@ resource "aws_cloudfront_distribution" "workbc" {
     max_ttl                = 31536000
 	
     # SimpleCORS
-    response_headers_policy_id = "60669652-455b-4ae9-85a4-c4c02393f86c"  
+    response_headers_policy_id = "60669652-455b-4ae9-85a4-c4c02393f86c"
   }
 
   ordered_cache_behavior {
@@ -120,7 +121,8 @@ resource "aws_cloudfront_distribution" "workbc" {
 
   tags = var.common_tags
   
-  aliases = ["aws-test.workbc.ca"]
+  #aliases = ["aws-test.workbc.ca"]
+  aliases = ["test.workbc.ca"]
 
   viewer_certificate {
     acm_certificate_arn = "arn:aws:acm:us-east-1:054099626264:certificate/7a41ac55-9da3-46c5-9d59-54530e771070"
