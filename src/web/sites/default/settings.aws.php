@@ -1,8 +1,8 @@
 <?php
 
 $base_urls = [
-    'aws-dev' => 'https://aws-dev.workbc.ca',
-    'aws-test' => 'https://aws-test.workbc.ca',
+    'aws-dev' => 'https://dev.workbc.ca',
+    'aws-test' => 'https://test.workbc.ca',
     'aws-prod' => 'https://www.workbc.ca',
 ];
 if (array_key_exists(getenv('PROJECT_ENVIRONMENT'), $base_urls)) {
