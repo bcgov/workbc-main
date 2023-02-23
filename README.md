@@ -30,11 +30,7 @@ This is the WorkBC site on Drupal.
 **For Windows users**, you need a [version of Windows that is able to run Docker using Hyper-V backend](https://docs.docker.com/desktop/windows/install/), e.g. Windows 10 Pro. When running a command above in PowerShell, you may need to wrap it using `cmd /c "command"`.
 
 ## Updating local dev environment after git pull
-`make sync` from the `src/` folder should perform any post-pull actions needed
-or run the sync script directly: `docker-compose exec php scripts/sync.sh`
-
-In some situations `drush cim` fails. In this case, the [Drupal Admin UI](http://workbc.docker.localhost:8000/admin/config/development/configuration) should work.
-If errors still persist, you may need to manually enable new modules before running the configuration synchronization with `drush en module`.
+Run the sync script `docker-compose exec php scripts/sync.sh`
 
 ## Updating local dev environment from a deployment stage
 You may want to get the latest data from a deployment stage (DEV, TEST or PROD). In that case, follow these steps:
@@ -101,3 +97,5 @@ Refer to the [`src/scripts/migration`](src/scripts/migration/README.md) folder f
   - `docker-compose exec php composer config --global process-timeout 600`
   - `docker-compose exec php composer install --prefer-dist --no-dev`
   - There is also one instance where making sure you were logged into docker helped (`docker login` or logging in via the UI)
+
+- In some situations `drush cim` fails. In this case, the [Drupal Admin UI](http://workbc.docker.localhost:8000/admin/config/development/configuration) should work. If errors still persist, you may need to manually enable new modules before running the configuration synchronization with `drush en module`.

@@ -205,7 +205,8 @@
                 "Directory restore": "patches/drupal/backup_migrate/backup-migrate-restore-public-files-3245802-3.patch"
             },
             "drupal/redirect": {
-                "Ignore query strings": "patches/drupal/redirect/2976930-redirect-hashes-created-when-not-retaining-the-query-string-2.patch"
+                "Ignore query strings": "patches/drupal/redirect/2976930-redirect-hashes-created-when-not-retaining-the-query-string-2.patch",
+                "Add request to hook_redirect_response_alter": "patches/drupal/redirect/hook_alter_request.patch"
             },
             "drupal/gtranslate" : {
                "Replace select language with the default/current language": "patches/drupal/gtranslate/select_default_value.patch",

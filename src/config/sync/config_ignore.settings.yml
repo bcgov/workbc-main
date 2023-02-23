@@ -8,6 +8,7 @@ ignored_config_entities:
   - cdn.settings
   - system.maintenance
   - system.performance
+  - system.mail
   - 'block.block.*'
   - 'contact.form.*'
   - gdx_analytics_drupal_snowplow.settings

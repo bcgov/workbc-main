@@ -7,6 +7,9 @@ use Drupal\Core\Entity\EntityInterface;
 use Drupal\Core\Config\Entity\ConfigEntityInterface;
 use Drupal\Core\Form\FormStateInterface;
 use Drupal\Core\Url;
+use Drupal\Core\Routing\TrustedRedirectResponse;
+use Drupal\redirect\Entity\Redirect;
+use Symfony\Component\HttpFoundation\Request;
 
 /**
  * Implements hook_theme().
@@ -242,6 +245,18 @@ function workbc_custom_form_config_admin_import_form_alter(&$form, FormStateInte
         'config_name' => $config_name,
       ]),
     ];
+  }
+}
+
+/**
+ * Implements hook_redirect_response_alter().
+ *
+ * Capture a Find Jobs redirect and add the noc argument if searchNOC is present.
+ */
+function workbc_custom_redirect_response_alter(TrustedRedirectResponse $response, Redirect $redirect, Request $request) {
+  if (!empty($request->query) && $request->query->has('searchNOC')) {
+    $noc = $request->query->get('searchNOC');
+    $response->setTargetUrl($response->getTargetUrl() . "#/job-search;noc=$noc;");
   }
 }
 

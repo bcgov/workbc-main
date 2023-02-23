@@ -33,7 +33,8 @@ resource "aws_cloudfront_distribution" "workbc" {
 	custom_header {
 	  name = "X-Forwarded-Host"
 	  #value = "aws.workbc.ca"
-	  value = "aws-dev.workbc.ca"	
+	  #value = "aws-dev.workbc.ca"
+    value = "dev.workbc.ca"	
 	}
 	
   }
@@ -77,7 +78,7 @@ resource "aws_cloudfront_distribution" "workbc" {
     # SimpleCORS
     response_headers_policy_id = "60669652-455b-4ae9-85a4-c4c02393f86c"
 	  
-	  #This cloudfront function redirects aws.workbc.ca to aws-dev.workbc.ca -- 301
+	  #This cloudfront function redirects aws.workbc.ca to dev.workbc.ca -- 301
     function_association {
       event_type   = "viewer-request"
       function_arn = "arn:aws:cloudfront::873424993519:function/pearldevcfredirect"
@@ -128,13 +129,18 @@ resource "aws_cloudfront_distribution" "workbc" {
   tags = var.common_tags
   
   #aliases = ["aws.workbc.ca"]
-  aliases = ["aws-dev.workbc.ca", "aws.workbc.ca"]	
+  #aliases = ["aws-dev.workbc.ca", "aws.workbc.ca"]
+  aliases = ["dev.workbc.ca", "aws.workbc.ca"]	
 
   viewer_certificate {
     acm_certificate_arn = "arn:aws:acm:us-east-1:873424993519:certificate/0215bb2d-d224-4681-bf6b-227e9e82f29f"
     minimum_protocol_version = "TLSv1.2_2021"
     ssl_support_method = "sni-only"
   }
+	
+    # Associate the CloudFront distribution with the existing WAF web ACL by ARN
+    # This regulates users' frequent access to the website
+    web_acl_id = "arn:aws:wafv2:us-east-1:873424993519:global/webacl/workbc-dev-waf/2bc96095-ff24-4602-95fe-484051c3271e"	 
 }
 
 output "cloudfront_url" {

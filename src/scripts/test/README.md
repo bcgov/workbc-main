@@ -1,9 +1,9 @@
 WorkBC Load Testing
 ===================
 
-This folder contains tools to load-test the WorkBC site. It uses [`siege`](https://github.com/JoeDog/siege) as the load-testing engine.
+This folder contains tools to load-test the WorkBC site. It uses [`siege`](https://github.com/JoeDog/siege) as the load-testing tool.
 
-It is recommended to run Siege v4.1.6 or greater. This version [includes a fix to show URLs that cause errors](https://github.com/JoeDog/siege/issues/216 - you will need to [download the source package and compile it yourself](https://download.joedog.org/siege/) if the packaged version is earlier.
+It is recommended to run siege v4.1.6 or greater. This version [includes a fix to show URLs that cause errors](https://github.com/JoeDog/siege/issues/216) - you will need to [download the source package and compile it yourself](https://download.joedog.org/siege/) if the packaged version is earlier. This is only needed to have more visiblity into siege failures, not site errors (which are logged by siege in its verbose output).
 
 # Getting Started
 ```
@@ -53,34 +53,15 @@ Shortest transaction:	        0.00
 
 # Configuration
 - `BASE_URL` environment variable targets a specific Drupal installation and queries its `/sitemap.xml` file (default: `http://workbc.docker.localhost:8000`)
-- `siege.conf` controls the `siege` running parameters.
+- `siege.conf` controls the `siege` running parameters. These can be overridden during a run with [command-line arguments](https://manpages.ubuntu.com/manpages/bionic/man1/siege.1.html).
 
-# cases.txt
-This file contains additional target URLs such as POST commands or multiples of URLs that should be hit more often.
-
-Make sure to start each target URL with a forward-slash `/` which will get prefixed with the value of `BASE_URL`.
-
+# cases.txt and other .txt test case files
+These files contain additional target URLs such as POST commands or repeated URLs that should be hit more often. Make sure each target is a relative URL starting with a forward-slash `/` which will get prefixed with the value of `BASE_URL`. To run a case file `case-file.txt` with siege, do the following:
 ```
-/contact-us POST name=homer&email=test@localhost.com&message=hello&inquiry_type=job-seeker
-/
-/
-/
-/
-/
-/plan-career
-/plan-career
-/plan-career
-/plan-career
-/plan-career
+cp case-file.txt urls.txt
+sed -i -r 's@^/@'"$BASE_URL"'/@' urls.txt
+siege --rc=./siege.conf
 ```
-
-# locustfile.py
-As a parallel experiment, the alternative load-testing tool [Locust](https://locust.io/) can be used:
-```
-locust -H $BASE_URL --autostart
-```
-Then open http://0.0.0.0:8089/
-
 # Troubleshooting
 Your testing machine will encounter socket errors as your ramp up the concurrent users. You need to tune your kernel parameters to accommodate higher numbers, e.g.
 - https://askubuntu.com/questions/46339/how-could-i-tune-the-linux-kernel-parameters-so-that-socket-could-be-recycled-fr

@@ -44,7 +44,12 @@ class ContentTypePublishedOn extends ExtraFieldDisplayFormattedBase {
    */
   public function viewElements(ContentEntityInterface $entity) {
 
+    if (!empty($entity->published_date->value)) {
       $output = \Drupal::service('date.formatter')->format($entity->published_date->value, 'published_on_date');
+    }
+    else {
+      $output = '';
+    }
 
     return [
       ['#markup' => $output],
