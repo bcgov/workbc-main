@@ -833,4 +833,6 @@ if (in_array(getenv('PROJECT_ENVIRONMENT'), [
     'webform_ui',
     'dblog'
   ];
+
+  $settings['config_ignore_deactivate'] = TRUE;
 }
