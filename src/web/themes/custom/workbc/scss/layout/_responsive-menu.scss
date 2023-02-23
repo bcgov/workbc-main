@@ -1,3 +1,7 @@
+html {
+  overflow-x: hidden; // Needed to prevent horizontal scrolling when off-canvas menu is open.
+}
+
 .mm-menu--offcanvas {
   width: 80vw;
   min-width: 240px;
