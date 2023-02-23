@@ -133,14 +133,17 @@
       {{ drupal_region('content_top') }}
     {% endif %}
 
-    {% if page_body %}
-      {{ page_body }}
-    {% endif %}
-
     {% if is_contact %}
       <div class="contact-container">
         <div class="contact-form-container">
-          {{ page_content }}
+          {% if page_body %}
+            {{ page_body }}
+          {% endif %}
+
+          {% if page_content %}
+            {{ page_content }}
+          {% endif %}
+
           {{ drupal_entity('block', 'webform_3') }}
           {{ drupal_entity('block', 'collectionnoticeblock') }}
         </div>
@@ -150,7 +153,13 @@
         </div>
       </div>
     {% else %}
-      {{ page_content }}
+      {% if page_body %}
+        {{ page_body }}
+      {% endif %}
+
+      {% if page_content %}
+        {{ page_content }}
+      {% endif %}
     {% endif %}
 
     {% if drupal_region('content_bottom') %}
