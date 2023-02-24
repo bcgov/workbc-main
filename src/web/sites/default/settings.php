@@ -834,5 +834,5 @@ if (in_array(getenv('PROJECT_ENVIRONMENT'), [
     'dblog'
   ];
 
-  $settings['config_ignore_deactivate'] = TRUE;
+  //$settings['config_ignore_deactivate'] = TRUE;
 }
