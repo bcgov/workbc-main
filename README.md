@@ -3,7 +3,7 @@ workbc-main
 
 This is the WorkBC site on Drupal.
 
-[![Lifecycle:Experimental](https://img.shields.io/badge/Lifecycle-Experimental-339999)](https://github.com/bcgov/workbc-main)
+[![Lifecycle:Maturing](https://img.shields.io/badge/Lifecycle-Maturing-007EC6)](https://github.com/bcgov/workbc-main)
 
 # Development
 ## Initial setup

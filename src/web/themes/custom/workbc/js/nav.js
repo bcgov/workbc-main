@@ -5,8 +5,8 @@
   Drupal.behaviors.bannerTop = {
     attach: function (context, settings) {
       // detect scroll and add class to body
-      $(window).scroll(function () {
-        var y_scroll_pos = window.pageYOffset;
+      $("body").scroll(function () {
+        var y_scroll_pos = document.body.scrollTop;
         var scroll_pos = 142;
 
         if (y_scroll_pos > scroll_pos) {
