@@ -51,10 +51,10 @@ elements: |-
   phone_number:
     '#type': tel
     '#title': 'Phone Number'
-    '#placeholder': 250-123-4567
+    '#placeholder': 604-123-4567
     '#required': true
-    '#pattern': '^[0-9]{3}-[0-9]{3}-[0-9]{4}$'
-    '#pattern_error': 'Please use the following format: ###-###-####'
+    '#pattern': '^[0-9]{3}[-.\s]?[0-9]{3}[-.\s]?[0-9]{4}$'
+    '#pattern_error': 'Please enter a valid Canadian phone number.'
   email_address:
     '#type': email
     '#title': 'Email Address'
