@@ -46,10 +46,11 @@ elements: |-
     phone_number:
       '#type': tel
       '#title': 'Phone Number'
+      '#placeholder': 604-123-4567
       '#required': true
-      '#required_error': 'Phone number is required'
-      '#pattern': '^[0-9]{3}-[0-9]{3}-[0-9]{4}$'
-      '#pattern_error': 'Please use the following format: ###-###-####'
+      '#required_error': 'Phone number is required.'
+      '#pattern': '^[0-9]{3}[-.\s]?[0-9]{3}[-.\s]?[0-9]{4}$'
+      '#pattern_error': 'Please enter a valid Canadian phone number.'
     phone_extension:
       '#type': number
       '#title': Extension
