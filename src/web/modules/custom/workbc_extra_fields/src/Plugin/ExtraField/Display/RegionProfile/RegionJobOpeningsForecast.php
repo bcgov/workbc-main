@@ -26,9 +26,8 @@ class RegionJobOpeningsForecast extends ExtraFieldDisplayFormattedBase {
    * {@inheritdoc}
    */
   public function getLabel() {
-    $datestr1 = ssotParseDateRange($this->getEntity()->ssot_data['schema'], 'regional_labour_market_outlook', 'employment_outlook_first');
-    $datestr2 = ssotParseDateRange($this->getEntity()->ssot_data['schema'], 'regional_labour_market_outlook', 'employment_outlook_third');
-    return $this->t("Total Forecasted Job Openings (" . $datestr1 . "-" . $datestr2 . ")");
+    $datestr = ssotParseDateRange($this->getEntity()->ssot_data['schema'], 'regional_labour_market_outlook', 'job_openings_10y');
+    return $this->t("Total Forecasted Job Openings (" . $datestr . ")");
   }
 
   /**
@@ -45,7 +44,7 @@ class RegionJobOpeningsForecast extends ExtraFieldDisplayFormattedBase {
   public function viewElements(ContentEntityInterface $entity) {
 
     if (!empty($entity->ssot_data) && isset($entity->ssot_data['regional_labour_market_outlook'])) {
-      $output = ssotFormatNumber($entity->ssot_data['regional_labour_market_outlook']['employment_outlook_third'],0);
+      $output = ssotFormatNumber($entity->ssot_data['regional_labour_market_outlook']['job_openings_10y'],0);
     }
     else {
       $output = WORKBC_EXTRA_FIELDS_NOT_AVAILABLE;
