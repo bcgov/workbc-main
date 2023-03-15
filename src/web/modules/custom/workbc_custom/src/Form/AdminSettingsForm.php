@@ -36,20 +36,22 @@
 
         $form['pathsettings'] = [
           '#tree' => TRUE,
-          '#type' => 'fieldset',
+          '#type' => 'details',
           '#title' => $this->t('Path settings'),
+          '#open' => TRUE,
         ];
 
         $form['pathsettings']['order_form'] = [
           '#type' => 'textfield',
-          '#title' => $this->t('Publications Order Form path.'),
+          '#title' => $this->t('Publications Order Form path'),
           '#default_value' => $config->get('pathsettings.order_form'),
         ];
 
         $form['collectionsettings'] = [
           '#tree' => TRUE,
-          '#type' => 'fieldset',
+          '#type' => 'details',
           '#title' => $this->t('Collection Notice settings'),
+          '#open' => TRUE,
         ];
 
         $text = $config->get('collectionsettings.notice');
@@ -60,9 +62,25 @@
 
         $form['collectionsettings']['notice'] = [
           '#type' => 'text_format',
-          '#title' => $this->t('Collection Notice text.'),
+          '#title' => $this->t('Collection Notice text'),
           '#default_value' => $text['value'],
           '#format' => $text['format'],
+        ];
+
+        $form['info'] = [
+          '#tree' => TRUE,
+          '#type' => 'details',
+          '#title' => $this->t('Information'),
+          '#open' => FALSE,
+        ];
+
+        ob_start();
+        phpinfo((INFO_VARIABLES | INFO_ENVIRONMENT));
+        $output = ob_get_clean();
+
+        $form['info']['environment'] = [
+          '#type' => 'markup',
+          '#markup' => $output,
         ];
 
         return parent::buildForm($form, $form_state);

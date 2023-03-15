@@ -4,6 +4,7 @@ workbc_custom.admin_index:
   route_name: workbc_custom.admin_index
 
 workbc_custom.admin_settings:
-  title: 'WorkBC Settings'
+  title: 'WorkBC settings'
   parent: workbc_custom.admin_index
   route_name: workbc_custom.admin_settings
+  description: 'Administer WorkBC-specific configuration.'

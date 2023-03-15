@@ -9,7 +9,7 @@ workbc_custom.admin_index:
 workbc_custom.admin_settings:
   path: '/admin/config/workbc/workbc'
   defaults:
-    _title: 'WorkBC Custom'
+    _title: 'WorkBC settings'
     _form: '\Drupal\workbc_custom\Form\AdminSettingsForm'
   requirements:
     _permission: 'administer workbc_custom settings'
