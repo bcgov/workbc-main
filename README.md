@@ -24,7 +24,7 @@ This is the WorkBC site on Drupal.
 127.0.0.1       workbc.docker.localhost
 ```
 - Run the sync script: `docker-compose exec php scripts/sync.sh`
-- Open http://workbc.docker.localhost:8000/ to view the site and login as `admin` (obtain the password from your admin)
+- Open http://workbc.docker.localhost:8000/ to view the site and login as `admin` (obtain the password from your admin or change the password using `drush upwd admin 'password'`)
 - Open http://localhost:8080/ to view the SSoT API
 
 **For Windows users**, you need a [version of Windows that is able to run Docker using Hyper-V backend](https://docs.docker.com/desktop/windows/install/), e.g. Windows 10 Pro. When running a command above in PowerShell, you may need to wrap it using `cmd /c "command"`.
