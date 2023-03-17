@@ -65,6 +65,9 @@ elements: |-
   please_provide_any_specific_shipping_instructions_:
     '#type': textarea
     '#title': 'Please provide any specific shipping instructions:'
+  captcha:
+    '#type': captcha
+    '#captcha_type': recaptcha/reCAPTCHA
 css: ''
 javascript: ''
 settings:

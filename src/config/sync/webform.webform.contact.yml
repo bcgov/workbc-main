@@ -55,6 +55,9 @@ elements: |-
     '#counter_type': character
     '#counter_maximum': 1500
     '#test': 'Please ignore this email.'
+  captcha:
+    '#type': captcha
+    '#captcha_type': recaptcha/reCAPTCHA
   actions:
     '#type': webform_actions
     '#title': 'Submit button(s)'
