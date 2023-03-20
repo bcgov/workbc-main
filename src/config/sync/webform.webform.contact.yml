@@ -306,7 +306,7 @@ handlers:
       sender_mail: ''
       sender_name: ''
       subject: 'Contact Inquiry'
-      body: "<p>Inquiry Type: {{ webform_token('[webform_submission:values:inquiry_type]', webform_submission, [], options) }}</p>\r\n<p>Message: {{ webform_token('[webform_submission:values:message]', webform_submission, [], options) }}</p>"
+      body: "<p>Inquiry Type: {{ webform_token('[webform_submission:values:inquiry_type]', webform_submission, [], options) }}</p>\r\n<p>Message:</p>\r\n<p>{{ webform_token('[webform_submission:values:message:format:html]', webform_submission, [], options) }}</p>"
       excluded_elements: {  }
       ignore_access: false
       exclude_empty: true
