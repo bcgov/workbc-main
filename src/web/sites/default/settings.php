@@ -834,5 +834,12 @@ if (in_array(getenv('PROJECT_ENVIRONMENT'), [
     'dblog'
   ];
 
-  //$settings['config_ignore_deactivate'] = TRUE;
+  $config['config_ignore.settings']['ignored_config_entities'] = [
+    'openid_connect.*'.
+    'backup_migrate.backup_migrate_source.*',
+    'search_api.server.*',
+    'recaptcha.*',
+    'cdn.settings',
+    'gdx_analytics_drupal_snowplow.settings',
+  ];
 }
