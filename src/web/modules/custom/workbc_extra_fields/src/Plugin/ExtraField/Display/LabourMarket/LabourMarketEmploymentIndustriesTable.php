@@ -112,7 +112,7 @@ class LabourMarketEmploymentIndustriesTable extends ExtraFieldDisplayFormattedBa
         if(strpos($key, $pct_needle) !== false){
           $industrysubstring = str_replace($pct_needle, "", $key);
           $industries[$industrysubstring]['industry'] = $industries_mapping[$industrysubstring];
-          $industries[$industrysubstring]['per'] = ($value===0||$value)?ssotFormatNumber($value, 2).'%':WORKBC_EXTRA_FIELDS_NOT_AVAILABLE;
+          $industries[$industrysubstring]['per'] = ($value===0||$value)?ssotFormatNumber($value, 1).'%':WORKBC_EXTRA_FIELDS_NOT_AVAILABLE;
         }
       }
     }
