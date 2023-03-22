@@ -10,4 +10,9 @@ tags:
   canonical_url: '[current-page:url]'
   og_site_name: '[site:name]'
   og_title: '[current-page:title] | [site:name]'
+  og_url: '[current-page:url]'
   title: '[current-page:title] | [site:name]'
+  twitter_cards_page_url: '[current-page:url]'
+  twitter_cards_site: '@WorkBC'
+  twitter_cards_title: '[current-page:title] | [site:name]'
+  twitter_cards_type: summary

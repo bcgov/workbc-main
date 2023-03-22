@@ -10,7 +10,6 @@ use Drupal\Core\Session\AccountInterface;
 use Drupal\Core\Form\FormInterface;
 use Drupal\workbc_jobboard\Controller\WorkBcJobboardController;
 
-
 /**
  * Provides a 'Search Jobs' Block.
  *
@@ -110,6 +109,9 @@ class WorkbcJobboardSearch extends BlockBase{
     $WorkBcJobboardController = new WorkBcJobboardController();
     $parameters = ['getTotalJobs'=>true];
     $recent_jobs = $WorkBcJobboardController->getPosts($parameters, 'getTotalJobs', 'get');
+    
+    \Drupal::service('page_cache_kill_switch')->trigger();
+
     return [
       '#type' => 'markup',
       '#markup' => 'Explore recent job postings.',
@@ -132,4 +134,12 @@ class WorkbcJobboardSearch extends BlockBase{
 	public function blockAccess(AccountInterface $account){
     return AccessResult::allowedIfHasPermission($account, "access find jobs block");
   }
+
+  /**
+   * {@inheritdoc}
+   */
+  public function getCacheMaxAge() {
+    return 0;
+  }
+
 }

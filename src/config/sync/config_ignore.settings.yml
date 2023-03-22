@@ -9,9 +9,7 @@ ignored_config_entities:
   - system.maintenance
   - system.performance
   - system.mail
-  - 'block.block.*'
   - 'contact.form.*'
   - gdx_analytics_drupal_snowplow.settings
-  - user.role.authenticated
-  - 'webform.webform.*'
+  - 'user.role.*'
   - workbc_custom.settings

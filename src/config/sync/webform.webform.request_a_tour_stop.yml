@@ -26,7 +26,7 @@ elements: |-
     '#type': select
     '#title': Role
     '#options':
-      principal: 'Principal, Vice Principal or Adminstator'
+      principal: 'Principal, Vice Principal or Administrator'
       teacher: 'Teacher or Counsellor'
       organizer: Organizer
     '#empty_option': '—Select Your Role'
@@ -38,7 +38,7 @@ elements: |-
     '#title': 'Email Address'
     '#placeholder': youremail@example.com
     '#required': true
-    '#pattern': '[a-z0-9._%+-]+@[a-z0-9.-]+\.[a-z]{2,}$'
+    '#pattern': '[A-Za-z0-9._%+-]+@[A-Za-z0-9.-]+\.[A-Za-z]{2,}$'
     '#pattern_error': 'Please enter a valid email address.'
   phone_flexbox:
     '#type': webform_flexbox
@@ -46,10 +46,11 @@ elements: |-
     phone_number:
       '#type': tel
       '#title': 'Phone Number'
+      '#placeholder': 604-123-4567
       '#required': true
-      '#required_error': 'Phone number is required'
-      '#pattern': '^[0-9]{3}-[0-9]{3}-[0-9]{4}$'
-      '#pattern_error': 'Please use the following format: ###-###-####'
+      '#required_error': 'Phone number is required.'
+      '#pattern': '^[0-9]{3}[-.\s]?[0-9]{3}[-.\s]?[0-9]{4}$'
+      '#pattern_error': 'Please enter a valid Canadian phone number.'
     phone_extension:
       '#type': number
       '#title': Extension
@@ -78,6 +79,9 @@ elements: |-
     '#title_display': none
     '#description_display': after
     '#required': true
+  captcha:
+    '#type': captcha
+    '#captcha_type': recaptcha/reCAPTCHA
   actions:
     '#type': webform_actions
     '#title': 'Submit button(s)'

@@ -53,7 +53,7 @@ class LabourMarketUnemployedCurrentMonth extends ExtraFieldDisplayFormattedBase 
     //values
     $current_previous_months = $entity->ssot_data['current_previous_months_names'];
     $total_unemployed = !empty($data['total_unemployed'])?ssotFormatNumber($data['total_unemployed']) : WORKBC_EXTRA_FIELDS_NOT_AVAILABLE;
-    $unemployed_rate_value = !empty($data['employment_rate_pct_unemployment'])?$data['employment_rate_pct_unemployment'].'%': WORKBC_EXTRA_FIELDS_NOT_AVAILABLE;
+    $unemployed_rate_value = !empty($data['employment_rate_pct_unemployment'])?$data['employment_rate_pct_unemployment']: WORKBC_EXTRA_FIELDS_NOT_AVAILABLE;
     $unemployed_part_value = !empty($data['employment_rate_pct_participation'])?$data['employment_rate_pct_participation']:WORKBC_EXTRA_FIELDS_NOT_AVAILABLE;
 
     //output

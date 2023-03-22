@@ -3,7 +3,7 @@ workbc-main
 
 This is the WorkBC site on Drupal.
 
-[![Lifecycle:Experimental](https://img.shields.io/badge/Lifecycle-Experimental-339999)](https://github.com/bcgov/workbc-main)
+[![Lifecycle:Maturing](https://img.shields.io/badge/Lifecycle-Maturing-007EC6)](https://github.com/bcgov/workbc-main)
 
 # Development
 ## Initial setup
@@ -24,23 +24,22 @@ This is the WorkBC site on Drupal.
 127.0.0.1       workbc.docker.localhost
 ```
 - Run the sync script: `docker-compose exec php scripts/sync.sh`
-- Open http://workbc.docker.localhost:8000/ to view the site and login as `admin` (obtain the password from your admin)
+- Open http://workbc.docker.localhost:8000/ to view the site and login as `admin` (obtain the password from your admin or change the password using `drush upwd admin 'password'`)
 - Open http://localhost:8080/ to view the SSoT API
 
 **For Windows users**, you need a [version of Windows that is able to run Docker using Hyper-V backend](https://docs.docker.com/desktop/windows/install/), e.g. Windows 10 Pro. When running a command above in PowerShell, you may need to wrap it using `cmd /c "command"`.
 
-## Updating local dev environment after git pull
-Run the sync script `docker-compose exec php scripts/sync.sh`
-
 ## Updating local dev environment from a deployment stage
 You may want to get the latest data from a deployment stage (DEV, TEST or PROD). In that case, follow these steps:
+- Take a full database dump: `docker-compose exec -T postgres pg_dump --clean --username workbc workbc | gzip > workbc-backup.sql.gz`
 - Import the init data dump `gunzip -k -c src/scripts/workbc-init.sql.gz | docker-compose exec -T postgres psql -U workbc workbc`
 - Download a fresh dump from your desired stage via Backup/Migrate module at `https://<stage>.workbc.ca/admin/config/development/backup_migrate` and select Backup Source **Default Drupal Database**
 - Restore the fresh dump on your local at http://workbc.docker.localhost:8000/admin/config/development/backup_migrate/restore
 - Repeat the above two steps for Backup Source **Public Files Directory** in case you also need the latest files
+- Run the sync script: `docker-compose exec php scripts/sync.sh`
 
 ## Installing modules
-From within the `php` container:
+- Access the container: `docker-compose exec php bash`
 - Execute the composer requires command for the module. The module project page on Drupal.org provides this command, e.g. `composer require 'drupal/devel:^4.1'`
 - Enable the module using `drush en module` or via the [Drupal Admin UI](http://workbc.docker.localhost:8000/admin/modules).
 - Export updated configuration to the `/var/www/html/config/sync` folder using `drush cex`

@@ -51,20 +51,23 @@ elements: |-
   phone_number:
     '#type': tel
     '#title': 'Phone Number'
-    '#placeholder': 250-123-4567
+    '#placeholder': 604-123-4567
     '#required': true
-    '#pattern': '^[0-9]{3}-[0-9]{3}-[0-9]{4}$'
-    '#pattern_error': 'Please use the following format: ###-###-####'
+    '#pattern': '^[0-9]{3}[-.\s]?[0-9]{3}[-.\s]?[0-9]{4}$'
+    '#pattern_error': 'Please enter a valid Canadian phone number.'
   email_address:
     '#type': email
     '#title': 'Email Address'
     '#placeholder': youremail@example.com
     '#required': true
-    '#pattern': '[a-z0-9._%+-]+@[a-z0-9.-]+\.[a-z]{2,}$'
+    '#pattern': '[A-Za-z0-9._%+-]+@[A-Za-z0-9.-]+\.[A-Za-z]{2,}$'
     '#pattern_error': 'Please enter a valid email address.'
   please_provide_any_specific_shipping_instructions_:
     '#type': textarea
     '#title': 'Please provide any specific shipping instructions:'
+  captcha:
+    '#type': captcha
+    '#captcha_type': recaptcha/reCAPTCHA
 css: ''
 javascript: ''
 settings:

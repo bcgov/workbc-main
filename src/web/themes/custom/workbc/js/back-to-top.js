@@ -2,7 +2,7 @@
     ("use strict");
 
     const scrollToTop = () => {
-        window.scrollTo({top: 0, behavior: 'smooth'});
+        document.body.scrollTo({top: 0, behavior: 'smooth'});
     };
 
     const initScrollToTopTrigger = () => {
@@ -34,7 +34,7 @@
     const attachScrollListener = (triggerElem) => {
 
         var onScrollBehavior = function() {
-          var y = window.scrollY;
+          var y = document.body.scrollTop;
           if (y >= 150) {
             triggerElem.classList.add('active');
           } else {
@@ -42,7 +42,7 @@
           }
         };
 
-        window.addEventListener("scroll", onScrollBehavior);
+        document.body.addEventListener("scroll", onScrollBehavior);
     };
 
     Drupal.behaviors.back_to_top = {

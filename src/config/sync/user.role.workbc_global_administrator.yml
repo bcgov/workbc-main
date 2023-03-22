@@ -23,6 +23,7 @@ dependencies:
     - content_lock
     - field_permissions
     - filter
+    - metatag
     - node
     - override_node_options
     - path
@@ -41,6 +42,7 @@ permissions:
   - 'access taxonomy overview'
   - 'access toolbar'
   - 'access user profiles'
+  - 'administer meta tags'
   - 'administer url aliases'
   - 'administer users'
   - 'assign content_approver role'

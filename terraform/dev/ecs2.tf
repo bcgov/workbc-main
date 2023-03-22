@@ -35,30 +35,6 @@ resource "aws_ecs_task_definition" "solr" {
   }
 
   container_definitions = jsonencode([
-		{
-		essential   = false
-		name        = "solrinit"
-		image       = "${var.app_repo}/solr:0.1"
-		networkMode = "awsvpc"
-		entryPoint = ["sh",	"-c"]
-		command = ["rm /var/solr/data/workbc/data/index/write.lock 2>/dev/null"]
-		mountPoints = [
-			{
-				containerPath = "/var/solr/data",
-				sourceVolume = "data"
-			}
-		]
-		volumesFrom = []
-		logConfiguration = {
-			logDriver = "awslogs"
-			options = {
-				awslogs-create-group  = "true"
-				awslogs-group         = "/ecs/${var.app_name}/solrinit"
-				awslogs-region        = var.aws_region
-				awslogs-stream-prefix = "ecs"
-			}
-		}
-	},
   {
 		essential   = true
 		name        = "solr"
@@ -96,13 +72,7 @@ resource "aws_ecs_task_definition" "solr" {
 				sourceVolume = "data"
 			}
 		]
-		volumesFrom = []
-    dependsOn = [
-			{
-				containerName = "solrinit"
-				condition = "COMPLETE"
-			}
-    ]	
+		volumesFrom = []	
 	}
   ])
 }
@@ -118,6 +88,8 @@ resource "aws_ecs_service" "solr" {
   health_check_grace_period_seconds = 60
   wait_for_steady_state             = false
   enable_execute_command            = true
+  deployment_maximum_percent        = 100
+  deployment_minimum_healthy_percent = 0
 
 
   capacity_provider_strategy {

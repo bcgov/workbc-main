@@ -17,7 +17,7 @@ provider: null
 plugin: webform_block
 settings:
   id: webform_block
-  label: 'Self-Assessment Questionnaire'
+  label: 'Complete Funding Questionnaire'
   label_display: '0'
   provider: webform
   webform_id: funding_questionnaire
@@ -27,4 +27,4 @@ visibility:
   request_path:
     id: request_path
     negate: false
-    pages: /discover-employment-services/community-and-employer-partnerships/self-assessment-questionnaire
+    pages: /discover-employment-services/community-and-employer-partnerships/complete-funding-questionnaire-0
