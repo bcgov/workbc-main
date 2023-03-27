@@ -35,8 +35,8 @@ third_party_settings:
     group_address_contact_informatio:
       children:
         - field_address
-        - field_phone
         - field_geolocation
+        - field_phone
         - field_email
         - field_website
       label: 'Address & Contact Information'
@@ -95,7 +95,7 @@ content:
     weight: 7
     region: content
   field_email:
-    type: email_mailto
+    type: basic_string
     label: hidden
     settings: {  }
     third_party_settings: {  }
@@ -109,7 +109,7 @@ content:
         value: "<p><a target=\"_blank\" rel=\"noopener noreferrer\" href=\"https://google.com/maps/search/?api=1&amp;query=[geolocation_current_item:lat],[geolocation_current_item:lng]\" target=\"_blank\">Get Directions</a></p>\r\n"
         format: full_html
     third_party_settings: {  }
-    weight: 16
+    weight: 15
     region: content
   field_hero_image:
     type: image
@@ -152,7 +152,7 @@ content:
     settings:
       link_to_entity: false
     third_party_settings: {  }
-    weight: 15
+    weight: 16
     region: content
   field_scheduled_publish:
     type: scheduled_publish_generic_formatter
