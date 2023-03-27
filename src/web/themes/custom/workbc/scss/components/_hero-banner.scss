@@ -119,7 +119,7 @@
 
 .profile-header-banner .hero-content-wrapper {
   @include media-breakpoint-up(lg) {
-    max-width: 540px;
+    width: 70%;
     padding: 30px 20px 10px 20px;
     background: $workbc_palette_light_primary;
     border-bottom: $workbc_trim_ultra_thin_size solid

@@ -1,112 +1,110 @@
 .workbc_centre__hero-content {
-    display: flex;
-    flex-flow: row wrap;
-    column-gap: 30px;
-    row-gap: 30px;
-    margin: 30px 0;
+  display: flex;
+  flex-flow: row wrap;
+  column-gap: 30px;
+  row-gap: 30px;
+  margin: 30px 0;
 }
 
 .workbc-centre__address {
-    flex: 1 0 100%;
-    position: relative; // begin positional context %workbc-centre__address
-    padding-left: 30px;
+  flex: 1 0 100%;
+  position: relative; // begin positional context %workbc-centre__address
+  padding-left: 30px;
 
-    @include media-breakpoint-up(lg) {
-        flex-basis: 0;
-    }
+  @include media-breakpoint-up(lg) {
+    flex-basis: 0;
+  }
 
-    h3 {
-        font-size: 1.313rem;
-    }
+  h3 {
+    margin-bottom: 12px;
+    font-size: 1.313rem;
+  }
 
-    &:before {
-        content: '';
-        position: absolute;
-        top: 0;
-        bottom: 0;
-        left: 0;
-        width: 25px;
-        height: 25px;
-        background: url(../assets/images/icon-location-blue.svg) center center no-repeat;
-        background-size: 25px;
-    }
+  &:before {
+    content: "";
+    position: absolute;
+    top: 0;
+    bottom: 0;
+    left: 0;
+    width: 25px;
+    height: 25px;
+    background: url(../assets/images/icon-location-blue.svg) center center
+      no-repeat;
+    background-size: 25px;
+  }
+}
+
+.workbc-centre__address .field--name-field-phone,
+.workbc-centre__address .field--name-field-geolocation {
+  margin-bottom: 6px;
 }
 
 .workbc-centre__hours {
-    flex: 1 0 100%;
-    position: relative; // begin positional context %workbc-centre__hours
-    padding-left: 30px;
+  flex: 1 0 100%;
+  position: relative; // begin positional context %workbc-centre__hours
+  padding-left: 30px;
 
-    @include media-breakpoint-up(lg) {
-        flex-basis: 0;
-    }
+  @include media-breakpoint-up(lg) {
+    flex-basis: 0;
+  }
 
-    h3 {
-        font-size: 1.313rem;
-    }
+  h3 {
+    margin-bottom: 12px;
+    font-size: 1.313rem;
+  }
 
-    &:before {
-        content: '';
-        position: absolute;
-        top: 0;
-        bottom: 0;
-        left: 0;
-        width: 25px;
-        height: 25px;
-        background: url(../assets/images/icon-duration-blue.svg) center center no-repeat;
-        background-size: 25px;
-    }
-}
-
-.workbc_centre__content-container {
+  &:before {
+    content: "";
+    position: absolute;
+    top: 0;
+    bottom: 0;
+    left: 0;
+    width: 25px;
+    height: 25px;
+    background: url(../assets/images/icon-duration-blue.svg) center center
+      no-repeat;
+    background-size: 25px;
+  }
 }
 
 .workbc_centre__alert {
-    background-color: rgb(35, 64, 117);
-    display: flex;
-    flex-flow: column wrap;
-    justify-content: center;
-    align-items: center;
-    padding: 30px;
-    margin-bottom: 30px;
+  background-color: rgb(35, 64, 117);
+  display: flex;
+  flex-flow: column wrap;
+  justify-content: center;
+  align-items: center;
+  padding: 30px;
+  margin-bottom: 30px;
 }
 
 .workbc_centre__alert-header {
-    position: relative; // begin positional context %workbc_centre__alert-header
-    color: rgb(255, 207, 38);
-    font-size: 1.313rem;
-    line-height: 36px;
+  position: relative; // begin positional context %workbc_centre__alert-header
+  color: rgb(255, 207, 38);
+  font-size: 1.313rem;
+  line-height: 36px;
 
-    &:before {
-        content: '';
-        position: absolute;
-        top: 0;
-        bottom: 0;
-        left: -50px;
-        width: 35px;
-        height: 35px;
-        background: url(../assets/images/icon-warning-yellow.svg) center center no-repeat;
-        background-size: 35px;
-    }
+  &:before {
+    content: "";
+    position: absolute;
+    top: 0;
+    bottom: 0;
+    left: -50px;
+    width: 35px;
+    height: 35px;
+    background: url(../assets/images/icon-warning-yellow.svg) center center
+      no-repeat;
+    background-size: 35px;
+  }
 }
 
 .workbc_centre__alert-content {
-    margin-top: 30px;
-    color: $workbc_dark_theme_text;
-}
-
-.workbc_centre__content-main {
+  margin-top: 30px;
+  color: $workbc_dark_theme_text;
 }
 
 .workbc_centre__recent-jobs {
-    display: flex;
-    flex-flow: column wrap;
-    justify-content: center;
-    align-items: center;
-}
-
-.workbc_centre__recent-jobs-header {
-}
-
-.workbc_centre__recent-jobs-content {
+  display: flex;
+  flex-flow: column wrap;
+  justify-content: center;
+  align-items: center;
 }
