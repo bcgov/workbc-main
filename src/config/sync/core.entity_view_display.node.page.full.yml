@@ -8,6 +8,7 @@ dependencies:
     - field.field.node.page.field_content
     - field.field.node.page.field_content_group
     - field.field.node.page.field_hero_image
+    - field.field.node.page.field_hero_image_media
     - field.field.node.page.field_hero_text
     - field.field.node.page.field_page_format
     - field.field.node.page.field_related_topics
@@ -34,12 +35,12 @@ content:
     label: hidden
     settings: {  }
     third_party_settings: {  }
-    weight: 2
+    weight: 4
     region: content
   content_moderation_control:
     settings: {  }
     third_party_settings: {  }
-    weight: 0
+    weight: 2
     region: content
   field_content:
     type: entity_reference_revisions_entity_view
@@ -48,7 +49,7 @@ content:
       view_mode: default
       link: ''
     third_party_settings: {  }
-    weight: 3
+    weight: 5
     region: content
   field_hero_image:
     type: image
@@ -65,24 +66,33 @@ content:
     third_party_settings: {  }
     weight: 0
     region: content
+  field_hero_image_media:
+    type: entity_reference_entity_view
+    label: above
+    settings:
+      view_mode: default
+      link: false
+    third_party_settings: {  }
+    weight: 1
+    region: content
   field_hero_text:
     type: text_default
     label: above
     settings: {  }
     third_party_settings: {  }
-    weight: 1
+    weight: 3
     region: content
   field_page_format:
     type: list_key
     label: hidden
     settings: {  }
     third_party_settings: {  }
-    weight: 4
+    weight: 6
     region: content
   links:
     settings: {  }
     third_party_settings: {  }
-    weight: 5
+    weight: 7
     region: content
 hidden:
   extra_field_workbc_page_title: true

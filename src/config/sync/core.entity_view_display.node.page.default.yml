@@ -7,6 +7,7 @@ dependencies:
     - field.field.node.page.field_content
     - field.field.node.page.field_content_group
     - field.field.node.page.field_hero_image
+    - field.field.node.page.field_hero_image_media
     - field.field.node.page.field_hero_text
     - field.field.node.page.field_page_format
     - field.field.node.page.field_related_topics
@@ -31,7 +32,7 @@ content:
     label: hidden
     settings: {  }
     third_party_settings: {  }
-    weight: 1
+    weight: 2
     region: content
   content_moderation_control:
     settings: {  }
@@ -45,14 +46,14 @@ content:
       view_mode: default
       link: ''
     third_party_settings: {  }
-    weight: 2
+    weight: 3
     region: content
   field_related_topics_blurb:
     type: text_default
     label: above
     settings: {  }
     third_party_settings: {  }
-    weight: 3
+    weight: 4
     region: content
   field_scheduled_publish:
     type: scheduled_publish_generic_formatter
@@ -61,18 +62,19 @@ content:
       date_format: html_datetime
       text_pattern: '%moderation_state% - %date%'
     third_party_settings: {  }
-    weight: 4
+    weight: 5
     region: content
   links:
     settings: {  }
     third_party_settings: {  }
-    weight: 0
+    weight: 1
     region: content
 hidden:
   extra_field_workbc_page_title: true
   extra_field_workbc_published_on: true
   field_content_group: true
   field_hero_image: true
+  field_hero_image_media: true
   field_hero_text: true
   field_page_format: true
   field_related_topics: true

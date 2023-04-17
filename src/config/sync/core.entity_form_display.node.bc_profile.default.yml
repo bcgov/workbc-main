@@ -5,6 +5,7 @@ dependencies:
   config:
     - field.field.node.bc_profile.field_content_group
     - field.field.node.bc_profile.field_hero_image
+    - field.field.node.bc_profile.field_hero_image_media
     - field.field.node.bc_profile.field_industry_highlights_intro
     - field.field.node.bc_profile.field_introductions
     - field.field.node.bc_profile.field_job_board_id
@@ -17,6 +18,7 @@ dependencies:
   module:
     - content_moderation
     - image_widget_crop
+    - media_library
     - path
     - scheduled_publish
     - text
@@ -53,9 +55,16 @@ content:
       show_crop_area: true
       show_default_crop: true
     third_party_settings: {  }
+  field_hero_image_media:
+    type: media_library_widget
+    weight: 10
+    region: content
+    settings:
+      media_types: {  }
+    third_party_settings: {  }
   field_industry_highlights_intro:
     type: text_textarea
-    weight: 27
+    weight: 16
     region: content
     settings:
       rows: 5
@@ -63,7 +72,7 @@ content:
     third_party_settings: {  }
   field_introductions:
     type: entity_reference_autocomplete
-    weight: 28
+    weight: 17
     region: content
     settings:
       match_operator: CONTAINS
@@ -73,7 +82,7 @@ content:
     third_party_settings: {  }
   field_job_board_id:
     type: string_textfield
-    weight: 51
+    weight: 19
     region: content
     settings:
       size: 60
@@ -81,7 +90,7 @@ content:
     third_party_settings: {  }
   field_key_facts:
     type: text_textarea
-    weight: 11
+    weight: 13
     region: content
     settings:
       rows: 5
@@ -89,7 +98,7 @@ content:
     third_party_settings: {  }
   field_region_overview:
     type: text_textarea
-    weight: 10
+    weight: 11
     region: content
     settings:
       rows: 5
@@ -97,7 +106,7 @@ content:
     third_party_settings: {  }
   field_scheduled_publish:
     type: scheduled_publish
-    weight: 26
+    weight: 15
     region: content
     settings: {  }
     third_party_settings: {  }
@@ -128,7 +137,7 @@ content:
       display_label: true
     third_party_settings: {  }
   simple_sitemap:
-    weight: 10
+    weight: 12
     region: content
     settings: {  }
     third_party_settings: {  }
@@ -161,7 +170,7 @@ content:
     settings: {  }
     third_party_settings: {  }
   url_redirects:
-    weight: 50
+    weight: 18
     region: content
     settings: {  }
     third_party_settings: {  }

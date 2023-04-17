@@ -5,6 +5,7 @@ dependencies:
   config:
     - field.field.node.region_profile.field_content_group
     - field.field.node.region_profile.field_hero_image
+    - field.field.node.region_profile.field_hero_image_media
     - field.field.node.region_profile.field_industry_highlights_intro
     - field.field.node.region_profile.field_introductions
     - field.field.node.region_profile.field_job_board_id
@@ -29,7 +30,7 @@ third_party_settings:
       label: 'Region Profile Tabs'
       parent_name: ''
       region: content
-      weight: 11
+      weight: 13
       format_type: tabs
       format_settings:
         classes: ''
@@ -127,7 +128,7 @@ content:
   extra_field_region_employment:
     settings: {  }
     third_party_settings: {  }
-    weight: 5
+    weight: 6
     region: content
   extra_field_region_employment_bc:
     settings: {  }
@@ -182,7 +183,7 @@ content:
   extra_field_region_employment_source:
     settings: {  }
     third_party_settings: {  }
-    weight: 6
+    weight: 7
     region: content
   extra_field_region_ft_pt_employment_table:
     settings: {  }
@@ -197,7 +198,7 @@ content:
   extra_field_region_job_openings:
     settings: {  }
     third_party_settings: {  }
-    weight: 9
+    weight: 11
     region: content
   extra_field_region_job_openings_composition_chart:
     settings: {  }
@@ -227,7 +228,7 @@ content:
   extra_field_region_job_openings_source:
     settings: {  }
     third_party_settings: {  }
-    weight: 10
+    weight: 12
     region: content
   extra_field_region_labour_market_outlook_introduction:
     settings: {  }
@@ -242,12 +243,12 @@ content:
   extra_field_region_population:
     settings: {  }
     third_party_settings: {  }
-    weight: 3
+    weight: 4
     region: content
   extra_field_region_population_source:
     settings: {  }
     third_party_settings: {  }
-    weight: 4
+    weight: 5
     region: content
   extra_field_region_top_occupations_introduction:
     settings: {  }
@@ -262,7 +263,7 @@ content:
   extra_field_region_unemployment_rate:
     settings: {  }
     third_party_settings: {  }
-    weight: 7
+    weight: 8
     region: content
   extra_field_region_unemployment_rate_bc:
     settings: {  }
@@ -282,7 +283,7 @@ content:
   extra_field_region_unemployment_rate_source:
     settings: {  }
     third_party_settings: {  }
-    weight: 8
+    weight: 10
     region: content
   extra_field_region_unemployment_region_source:
     settings: {  }
@@ -308,6 +309,15 @@ content:
         attribute: lazy
     third_party_settings: {  }
     weight: 2
+    region: content
+  field_hero_image_media:
+    type: entity_reference_entity_view
+    label: above
+    settings:
+      view_mode: default
+      link: true
+    third_party_settings: {  }
+    weight: 3
     region: content
   field_industry_highlights_intro:
     type: text_default
@@ -337,7 +347,7 @@ content:
       date_format: html_datetime
       text_pattern: '%moderation_state% - %date%'
     third_party_settings: {  }
-    weight: 8
+    weight: 9
     region: content
   field_top_occupations_intro:
     type: text_default

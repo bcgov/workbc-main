@@ -5,6 +5,7 @@ dependencies:
   config:
     - field.field.node.industry_profile.field_content_group
     - field.field.node.industry_profile.field_hero_image
+    - field.field.node.industry_profile.field_hero_image_media
     - field.field.node.industry_profile.field_industry_overview
     - field.field.node.industry_profile.field_introductions
     - field.field.node.industry_profile.field_job_board_id
@@ -30,7 +31,7 @@ third_party_settings:
       label: 'Industry Profile'
       parent_name: ''
       region: content
-      weight: 9
+      weight: 10
       format_type: tabs
       format_settings:
         classes: ''
@@ -66,8 +67,6 @@ third_party_settings:
     group_labour_market_statistics:
       children:
         - extra_field_labour_market_stats_introduction
-        - extra_field_employment_introduction
-        - field_types_of_employment
         - extra_field_industry_employment_types_industry
         - extra_field_industry_employment_types_bc
         - extra_field_industry_employment_types_source
@@ -143,7 +142,7 @@ content:
   extra_field_industry_employment:
     settings: {  }
     third_party_settings: {  }
-    weight: 3
+    weight: 4
     region: content
   extra_field_industry_employment_by_age:
     settings: {  }
@@ -168,7 +167,7 @@ content:
   extra_field_industry_employment_growth:
     settings: {  }
     third_party_settings: {  }
-    weight: 5
+    weight: 6
     region: content
   extra_field_industry_employment_growth_rate_one_year_forecast:
     settings: {  }
@@ -193,7 +192,7 @@ content:
   extra_field_industry_employment_growth_source:
     settings: {  }
     third_party_settings: {  }
-    weight: 6
+    weight: 7
     region: content
   extra_field_industry_employment_latest_trends_percent:
     settings: {  }
@@ -213,7 +212,7 @@ content:
   extra_field_industry_employment_source:
     settings: {  }
     third_party_settings: {  }
-    weight: 4
+    weight: 5
     region: content
   extra_field_industry_employment_trends_dates:
     settings: {  }
@@ -243,12 +242,12 @@ content:
   extra_field_industry_job_openings:
     settings: {  }
     third_party_settings: {  }
-    weight: 7
+    weight: 8
     region: content
   extra_field_industry_job_openings_source:
     settings: {  }
     third_party_settings: {  }
-    weight: 8
+    weight: 9
     region: content
   extra_field_industry_top_ten_occupations:
     settings: {  }
@@ -310,6 +309,15 @@ content:
     third_party_settings: {  }
     weight: 2
     region: content
+  field_hero_image_media:
+    type: entity_reference_entity_view
+    label: above
+    settings:
+      view_mode: default
+      link: true
+    third_party_settings: {  }
+    weight: 3
+    region: content
   field_industry_overview:
     type: text_default
     label: above
@@ -323,7 +331,7 @@ content:
     settings:
       link_to_entity: false
     third_party_settings: {  }
-    weight: 43
+    weight: 11
     region: content
   field_key_facts:
     type: text_default

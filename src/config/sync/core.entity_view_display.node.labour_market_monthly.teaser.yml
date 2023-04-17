@@ -7,6 +7,7 @@ dependencies:
     - field.field.node.labour_market_monthly.field_content_group
     - field.field.node.labour_market_monthly.field_employment_introduction
     - field.field.node.labour_market_monthly.field_hero_image
+    - field.field.node.labour_market_monthly.field_hero_image_media
     - field.field.node.labour_market_monthly.field_hero_text
     - field.field.node.labour_market_monthly.field_industry_highlights_intro
     - field.field.node.labour_market_monthly.field_related_topics
@@ -34,10 +35,13 @@ content:
 hidden:
   extra_field_labourmarket_employment: true
   extra_field_labourmarket_employment_by_age: true
+  extra_field_labourmarket_employment_by_age_sex_table: true
   extra_field_labourmarket_employment_by_sex: true
   extra_field_labourmarket_employment_change: true
   extra_field_labourmarket_employment_change_percent: true
   extra_field_labourmarket_employment_change_table: true
+  extra_field_labourmarket_employment_industries_table: true
+  extra_field_labourmarket_months: true
   extra_field_labourmarket_participation_rate_current_month: true
   extra_field_labourmarket_participation_rate_previous_month: true
   extra_field_labourmarket_unemployed_current_month: true
@@ -50,6 +54,7 @@ hidden:
   field_content_group: true
   field_employment_introduction: true
   field_hero_image: true
+  field_hero_image_media: true
   field_hero_text: true
   field_industry_highlights_intro: true
   field_related_topics: true
