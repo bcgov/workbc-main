@@ -10,7 +10,7 @@ id: node.workbc_centre.field_hero_image_media
 field_name: field_hero_image_media
 entity_type: node
 bundle: workbc_centre
-label: 'Hero Image Media'
+label: 'Hero Image'
 description: ''
 required: false
 translatable: true

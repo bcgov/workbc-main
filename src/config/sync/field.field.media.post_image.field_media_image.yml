@@ -1,19 +1,19 @@
-uuid: 17ed315c-88f5-42b2-ae3e-f24bd0bef075
+uuid: ddcad497-1aef-425f-bc69-592a788b3582
 langcode: en
 status: true
 dependencies:
   config:
-    - field.storage.node.field_hero_image
-    - node.type.industry_profile
+    - field.storage.media.field_media_image
+    - media.type.post_image
   module:
     - image
-id: node.industry_profile.field_hero_image
-field_name: field_hero_image
-entity_type: node
-bundle: industry_profile
-label: 'Hero Image (DO NOT USE)'
-description: "DO NOT USE! \r\n\r\nThis is a legacy field that has been replaced by the newer <b>Hero Image</b> field which pulls the content from the Media Library."
-required: false
+id: media.post_image.field_media_image
+field_name: field_media_image
+entity_type: media
+bundle: post_image
+label: Image
+description: ''
+required: true
 translatable: true
 default_value: {  }
 default_value_callback: ''
@@ -30,7 +30,7 @@ settings:
   title_field: false
   title_field_required: false
   default_image:
-    uuid: ''
+    uuid: null
     alt: ''
     title: ''
     width: null

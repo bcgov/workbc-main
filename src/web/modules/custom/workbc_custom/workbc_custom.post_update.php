@@ -46,7 +46,7 @@ function workbc_custom_post_update_1531(&$sandbox = NULL) {
 }
 
 /**
- * Migrate field_hero_image to field_hero_image_media.
+ * Migrate hero images.
  *
  * As per ticket WR-1566.
  */
@@ -97,5 +97,61 @@ function workbc_custom_post_update_1566_hero_image(&$sandbox = NULL) {
   }
 
   $sandbox['#finished'] = empty($sandbox['fields']) ? 1 : ($sandbox['count'] - count($sandbox['fields'])) / $sandbox['count'];
-  return t('[WR-1566] Migrated one field_hero_image.');
+  return t('[WR-1566] Migrated one hero image.');
+}
+
+/**
+ * Migrate post images.
+ *
+ * As per ticket WR-1566.
+ */
+function workbc_custom_post_update_1566_post_image(&$sandbox = NULL) {
+  if (!isset($sandbox['fields'])) {
+    $connection = \Drupal::database();
+    $query = $connection->select('node__field_image');
+    $query->condition('bundle', 'publication', '!=');
+    $query->addField('node__field_image', 'entity_id');
+    $query->addField('node__field_image', 'field_image_target_id');
+    $query->addField('node__field_image', 'field_image_alt');
+    $query->addField('node__field_image', 'field_image_title');
+    $sandbox['fields'] = $query->execute()->fetchAll();
+    $sandbox['count'] = count($sandbox['fields']);
+  }
+
+  $field = array_shift($sandbox['fields']);
+  if (!empty($field)) {
+    $file = \Drupal::entityTypeManager()
+    ->getStorage('file')
+    ->load(intval($field->field_image_target_id));
+    $node = Drupal::entityTypeManager()
+    ->getStorage('node')
+    ->load($field->entity_id);
+    $title = $field->field_image_title ?? $field->field_image_alt;
+    $alt = $field->field_image_alt ?? $field->field_image_title;
+    $fields = [
+      'name' => $title,
+      'bundle' => 'post_image',
+      'uid' => 1,
+      'field_media_image' => [
+        'target_id' => $file->id(),
+        'alt' => $alt,
+        'title' => $title,
+        'uuid' => $file->uuid(),
+        'uri' => $file->createFileUrl(),
+      ],
+    ];
+    $media = Drupal::entityTypeManager()
+    ->getStorage('media')
+    ->create($fields);
+    $media->save();
+    $node->field_image_media[] = [
+      'target_id' => $media->id(),
+      'alt' => $alt,
+      'title' => $title,
+    ];
+    $node->save();
+  }
+
+  $sandbox['#finished'] = empty($sandbox['fields']) ? 1 : ($sandbox['count'] - count($sandbox['fields'])) / $sandbox['count'];
+  return t('[WR-1566] Migrated one post image.');
 }

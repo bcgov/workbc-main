@@ -12,12 +12,10 @@ dependencies:
     - field.field.node.bc_profile.field_key_facts
     - field.field.node.bc_profile.field_region_overview
     - field.field.node.bc_profile.field_scheduled_publish
-    - image.style.hero_image
     - node.type.bc_profile
   module:
     - field_group
     - scheduled_publish
-    - svg_image
     - text
     - user
 third_party_settings:
@@ -30,7 +28,7 @@ third_party_settings:
       label: 'BC Profile'
       parent_name: ''
       region: content
-      weight: 12
+      weight: 11
       format_type: tabs
       format_settings:
         classes: ''
@@ -118,7 +116,7 @@ content:
   extra_field_bc_employment:
     settings: {  }
     third_party_settings: {  }
-    weight: 6
+    weight: 5
     region: content
   extra_field_bc_employment_bc:
     settings: {  }
@@ -178,12 +176,12 @@ content:
   extra_field_bc_employment_source:
     settings: {  }
     third_party_settings: {  }
-    weight: 7
+    weight: 6
     region: content
   extra_field_bc_job_openings:
     settings: {  }
     third_party_settings: {  }
-    weight: 10
+    weight: 9
     region: content
   extra_field_bc_job_openings_composition_chart:
     settings: {  }
@@ -213,7 +211,7 @@ content:
   extra_field_bc_job_openings_source:
     settings: {  }
     third_party_settings: {  }
-    weight: 11
+    weight: 10
     region: content
   extra_field_bc_labour_market_outlook_introduction:
     settings: {  }
@@ -228,17 +226,17 @@ content:
   extra_field_bc_population:
     settings: {  }
     third_party_settings: {  }
-    weight: 4
+    weight: 3
     region: content
   extra_field_bc_population_source:
     settings: {  }
     third_party_settings: {  }
-    weight: 5
+    weight: 4
     region: content
   extra_field_bc_unemployment_rate:
     settings: {  }
     third_party_settings: {  }
-    weight: 8
+    weight: 7
     region: content
   extra_field_bc_unemployment_rate_bc:
     settings: {  }
@@ -253,27 +251,12 @@ content:
   extra_field_bc_unemployment_rate_source:
     settings: {  }
     third_party_settings: {  }
-    weight: 9
+    weight: 8
     region: content
   extra_field_bc_unemployment_region_source:
     settings: {  }
     third_party_settings: {  }
     weight: 18
-    region: content
-  field_hero_image:
-    type: image
-    label: above
-    settings:
-      image_link: ''
-      image_style: hero_image
-      svg_attributes:
-        width: null
-        height: null
-      svg_render_as_image: true
-      image_loading:
-        attribute: lazy
-    third_party_settings: {  }
-    weight: 2
     region: content
   field_hero_image_media:
     type: entity_reference_entity_view
@@ -282,7 +265,7 @@ content:
       view_mode: default
       link: true
     third_party_settings: {  }
-    weight: 3
+    weight: 2
     region: content
   field_industry_highlights_intro:
     type: text_default
@@ -297,7 +280,7 @@ content:
     settings:
       link_to_entity: false
     third_party_settings: {  }
-    weight: 14
+    weight: 13
     region: content
   field_key_facts:
     type: text_default
@@ -320,7 +303,7 @@ content:
       date_format: html_datetime
       text_pattern: '%moderation_state% - %date%'
     third_party_settings: {  }
-    weight: 13
+    weight: 12
     region: content
   links:
     settings: {  }
@@ -332,6 +315,7 @@ hidden:
   extra_field_workbc_page_title: true
   extra_field_workbc_published_on: true
   field_content_group: true
+  field_hero_image: true
   field_introductions: true
   langcode: true
   search_api_excerpt: true

@@ -7,14 +7,13 @@ dependencies:
     - field.field.node.success_story.body
     - field.field.node.success_story.field_content_group
     - field.field.node.success_story.field_image
+    - field.field.node.success_story.field_image_media
     - field.field.node.success_story.field_related_topics_blurb
     - field.field.node.success_story.field_scheduled_publish
     - field.field.node.success_story.field_subtitle
     - field.field.node.success_story.field_tags
-    - image.style.article_wide
     - node.type.success_story
   module:
-    - svg_image
     - text
     - user
 id: node.success_story.full
@@ -27,37 +26,32 @@ content:
     label: visually_hidden
     settings: {  }
     third_party_settings: {  }
-    weight: 2
+    weight: 3
     region: content
   content_moderation_control:
     settings: {  }
     third_party_settings: {  }
-    weight: -20
+    weight: 0
     region: content
-  field_image:
-    type: image
+  field_image_media:
+    type: entity_reference_entity_view
     label: visually_hidden
     settings:
-      image_link: ''
-      image_style: article_wide
-      svg_attributes:
-        width: null
-        height: null
-      svg_render_as_image: true
-      image_loading:
-        attribute: lazy
+      view_mode: default
+      link: true
     third_party_settings: {  }
-    weight: 1
+    weight: 2
     region: content
   links:
     settings: {  }
     third_party_settings: {  }
-    weight: 0
+    weight: 1
     region: content
 hidden:
   extra_field_workbc_page_title: true
   extra_field_workbc_published_on: true
   field_content_group: true
+  field_image: true
   field_related_topics_blurb: true
   field_scheduled_publish: true
   field_subtitle: true

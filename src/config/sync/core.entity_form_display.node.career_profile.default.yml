@@ -21,12 +21,10 @@ dependencies:
     - field.field.node.career_profile.field_resources
     - field.field.node.career_profile.field_scheduled_publish
     - field.field.node.career_profile.field_work_environment
-    - image.style.thumbnail
     - node.type.career_profile
     - workflows.workflow.editorial
   module:
     - content_moderation
-    - image_widget_crop
     - link
     - media_library
     - path
@@ -46,7 +44,7 @@ content:
     third_party_settings: {  }
   field_career_overview:
     type: text_textarea
-    weight: 12
+    weight: 11
     region: content
     settings:
       rows: 5
@@ -54,7 +52,7 @@ content:
     third_party_settings: {  }
   field_career_pathways:
     type: text_textarea
-    weight: 18
+    weight: 17
     region: content
     settings:
       rows: 5
@@ -62,14 +60,14 @@ content:
     third_party_settings: {  }
   field_career_videos:
     type: media_library_widget
-    weight: 14
+    weight: 13
     region: content
     settings:
       media_types: {  }
     third_party_settings: {  }
   field_career_videos_introduction:
     type: text_textarea
-    weight: 13
+    weight: 12
     region: content
     settings:
       rows: 5
@@ -77,13 +75,13 @@ content:
     third_party_settings: {  }
   field_content_group:
     type: options_select
-    weight: 27
+    weight: 26
     region: content
     settings: {  }
     third_party_settings: {  }
   field_duties:
     type: text_textarea
-    weight: 15
+    weight: 14
     region: content
     settings:
       rows: 5
@@ -91,7 +89,7 @@ content:
     third_party_settings: {  }
   field_education_programs:
     type: text_textarea
-    weight: 21
+    weight: 20
     region: content
     settings:
       rows: 5
@@ -99,37 +97,22 @@ content:
     third_party_settings: {  }
   field_education_training_skills:
     type: text_textarea
-    weight: 20
+    weight: 19
     region: content
     settings:
       rows: 5
       placeholder: ''
     third_party_settings: {  }
-  field_hero_image:
-    type: image_widget_crop
-    weight: 9
-    region: content
-    settings:
-      progress_indicator: throbber
-      preview_image_style: thumbnail
-      crop_preview_image_style: crop_thumbnail
-      crop_list:
-        - crop_3_2
-      crop_types_required: {  }
-      warn_multiple_usages: true
-      show_crop_area: true
-      show_default_crop: true
-    third_party_settings: {  }
   field_hero_image_media:
     type: media_library_widget
-    weight: 10
+    weight: 9
     region: content
     settings:
       media_types: {  }
     third_party_settings: {  }
   field_insights_from_industry:
     type: text_textarea
-    weight: 22
+    weight: 21
     region: content
     settings:
       rows: 5
@@ -137,13 +120,13 @@ content:
     third_party_settings: {  }
   field_introductions:
     type: options_select
-    weight: 24
+    weight: 23
     region: content
     settings: {  }
     third_party_settings: {  }
   field_job_titles:
     type: string_textfield
-    weight: 16
+    weight: 15
     region: content
     settings:
       size: 60
@@ -159,7 +142,7 @@ content:
     third_party_settings: {  }
   field_related_careers:
     type: entity_reference_autocomplete
-    weight: 19
+    weight: 18
     region: content
     settings:
       match_operator: CONTAINS
@@ -169,7 +152,7 @@ content:
     third_party_settings: {  }
   field_resources:
     type: link_default
-    weight: 23
+    weight: 22
     region: content
     settings:
       placeholder_url: ''
@@ -177,13 +160,13 @@ content:
     third_party_settings: {  }
   field_scheduled_publish:
     type: scheduled_publish
-    weight: 28
+    weight: 27
     region: content
     settings: {  }
     third_party_settings: {  }
   field_work_environment:
     type: text_textarea
-    weight: 17
+    weight: 16
     region: content
     settings:
       rows: 5
@@ -198,7 +181,7 @@ content:
     third_party_settings: {  }
   moderation_state:
     type: moderation_state_default
-    weight: 26
+    weight: 25
     region: content
     settings: {  }
     third_party_settings: {  }
@@ -216,7 +199,7 @@ content:
       display_label: true
     third_party_settings: {  }
   simple_sitemap:
-    weight: 11
+    weight: 10
     region: content
     settings: {  }
     third_party_settings: {  }
@@ -249,8 +232,9 @@ content:
     settings: {  }
     third_party_settings: {  }
   url_redirects:
-    weight: 25
+    weight: 24
     region: content
     settings: {  }
     third_party_settings: {  }
-hidden: {  }
+hidden:
+  field_hero_image: true
