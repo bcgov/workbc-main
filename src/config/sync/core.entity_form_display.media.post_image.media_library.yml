@@ -23,7 +23,6 @@ content:
       preview_image_style: thumbnail
       crop_preview_image_style: crop_thumbnail
       crop_list:
-        - crop_2_1
         - crop_wide
       crop_types_required: {  }
       warn_multiple_usages: true
