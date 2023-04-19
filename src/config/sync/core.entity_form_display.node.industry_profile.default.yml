@@ -5,6 +5,7 @@ dependencies:
   config:
     - field.field.node.industry_profile.field_content_group
     - field.field.node.industry_profile.field_hero_image
+    - field.field.node.industry_profile.field_hero_image_media
     - field.field.node.industry_profile.field_industry_overview
     - field.field.node.industry_profile.field_introductions
     - field.field.node.industry_profile.field_job_board_id
@@ -12,13 +13,12 @@ dependencies:
     - field.field.node.industry_profile.field_key_facts
     - field.field.node.industry_profile.field_resources
     - field.field.node.industry_profile.field_scheduled_publish
-    - image.style.thumbnail
     - node.type.industry_profile
     - workflows.workflow.editorial
   module:
     - content_moderation
-    - image_widget_crop
     - link
+    - media_library
     - path
     - scheduled_publish
     - text
@@ -30,34 +30,26 @@ mode: default
 content:
   created:
     type: datetime_timestamp
-    weight: 10
+    weight: 3
     region: content
     settings: {  }
     third_party_settings: {  }
   field_content_group:
     type: options_select
-    weight: 131
+    weight: 15
     region: content
     settings: {  }
     third_party_settings: {  }
-  field_hero_image:
-    type: image_widget_crop
-    weight: 121
+  field_hero_image_media:
+    type: media_library_widget
+    weight: 11
     region: content
     settings:
-      progress_indicator: throbber
-      preview_image_style: thumbnail
-      crop_preview_image_style: crop_thumbnail
-      crop_list:
-        - crop_3_2
-      crop_types_required: {  }
-      warn_multiple_usages: true
-      show_crop_area: true
-      show_default_crop: true
+      media_types: {  }
     third_party_settings: {  }
   field_industry_overview:
     type: text_textarea
-    weight: 122
+    weight: 12
     region: content
     settings:
       rows: 5
@@ -65,7 +57,7 @@ content:
     third_party_settings: {  }
   field_introductions:
     type: entity_reference_autocomplete
-    weight: 133
+    weight: 17
     region: content
     settings:
       match_operator: CONTAINS
@@ -75,7 +67,7 @@ content:
     third_party_settings: {  }
   field_job_board_id:
     type: string_textfield
-    weight: 134
+    weight: 18
     region: content
     settings:
       size: 60
@@ -83,7 +75,7 @@ content:
     third_party_settings: {  }
   field_job_board_save_profile_id:
     type: string_textfield
-    weight: 135
+    weight: 19
     region: content
     settings:
       size: 60
@@ -91,7 +83,7 @@ content:
     third_party_settings: {  }
   field_key_facts:
     type: text_textarea
-    weight: 123
+    weight: 13
     region: content
     settings:
       rows: 5
@@ -99,7 +91,7 @@ content:
     third_party_settings: {  }
   field_resources:
     type: link_default
-    weight: 130
+    weight: 14
     region: content
     settings:
       placeholder_url: ''
@@ -107,58 +99,58 @@ content:
     third_party_settings: {  }
   field_scheduled_publish:
     type: scheduled_publish
-    weight: 132
+    weight: 16
     region: content
     settings: {  }
     third_party_settings: {  }
   langcode:
     type: language_select
-    weight: 2
+    weight: 1
     region: content
     settings:
       include_locked: true
     third_party_settings: {  }
   moderation_state:
     type: moderation_state_default
-    weight: 100
+    weight: 9
     region: content
     settings: {  }
     third_party_settings: {  }
   path:
     type: path
-    weight: 30
+    weight: 7
     region: content
     settings: {  }
     third_party_settings: {  }
   promote:
     type: boolean_checkbox
-    weight: 15
+    weight: 5
     region: content
     settings:
       display_label: true
     third_party_settings: {  }
   simple_sitemap:
-    weight: 10
+    weight: 4
     region: content
     settings: {  }
     third_party_settings: {  }
   status:
     type: boolean_checkbox
-    weight: 120
+    weight: 10
     region: content
     settings:
       display_label: true
     third_party_settings: {  }
   sticky:
     type: boolean_checkbox
-    weight: 16
+    weight: 6
     region: content
     settings:
       display_label: true
     third_party_settings: {  }
   title:
     type: string_textfield
-    weight: -5
+    weight: 0
     region: content
     settings:
       size: 60
@@ -166,13 +158,14 @@ content:
     third_party_settings: {  }
   uid:
     type: workbc_select_resort
-    weight: 5
+    weight: 2
     region: content
     settings: {  }
     third_party_settings: {  }
   url_redirects:
-    weight: 50
+    weight: 8
     region: content
     settings: {  }
     third_party_settings: {  }
-hidden: {  }
+hidden:
+  field_hero_image: true

@@ -1,0 +1,29 @@
+uuid: 78968c76-f1d8-4d2f-b3dc-64747c19deaf
+langcode: en
+status: true
+dependencies:
+  config:
+    - field.storage.node.field_hero_image_media
+    - media.type.hero_image
+    - node.type.workbc_centre
+id: node.workbc_centre.field_hero_image_media
+field_name: field_hero_image_media
+entity_type: node
+bundle: workbc_centre
+label: 'Hero Image'
+description: ''
+required: false
+translatable: true
+default_value: {  }
+default_value_callback: ''
+settings:
+  handler: 'default:media'
+  handler_settings:
+    target_bundles:
+      hero_image: hero_image
+    sort:
+      field: _none
+      direction: ASC
+    auto_create: false
+    auto_create_bundle: ''
+field_type: entity_reference

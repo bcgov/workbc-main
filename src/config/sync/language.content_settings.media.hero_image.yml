@@ -1,0 +1,11 @@
+uuid: c8558353-2428-44ee-8e4f-d8fa39607b04
+langcode: en
+status: true
+dependencies:
+  config:
+    - media.type.hero_image
+id: media.hero_image
+target_entity_type_id: media
+target_bundle: hero_image
+default_langcode: site_default
+language_alterable: false

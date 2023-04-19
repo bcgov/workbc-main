@@ -13,6 +13,7 @@ dependencies:
     - field.field.node.career_profile.field_education_programs
     - field.field.node.career_profile.field_education_training_skills
     - field.field.node.career_profile.field_hero_image
+    - field.field.node.career_profile.field_hero_image_media
     - field.field.node.career_profile.field_insights_from_industry
     - field.field.node.career_profile.field_introductions
     - field.field.node.career_profile.field_job_titles
@@ -43,6 +44,7 @@ hidden:
   field_education_programs: true
   field_education_training_skills: true
   field_hero_image: true
+  field_hero_image_media: true
   field_insights_from_industry: true
   field_introductions: true
   field_job_titles: true

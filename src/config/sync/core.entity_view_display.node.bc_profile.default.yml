@@ -5,18 +5,17 @@ dependencies:
   config:
     - field.field.node.bc_profile.field_content_group
     - field.field.node.bc_profile.field_hero_image
+    - field.field.node.bc_profile.field_hero_image_media
     - field.field.node.bc_profile.field_industry_highlights_intro
     - field.field.node.bc_profile.field_introductions
     - field.field.node.bc_profile.field_job_board_id
     - field.field.node.bc_profile.field_key_facts
     - field.field.node.bc_profile.field_region_overview
     - field.field.node.bc_profile.field_scheduled_publish
-    - image.style.hero_image
     - node.type.bc_profile
   module:
     - field_group
     - scheduled_publish
-    - svg_image
     - text
     - user
 third_party_settings:
@@ -259,18 +258,12 @@ content:
     third_party_settings: {  }
     weight: 18
     region: content
-  field_hero_image:
-    type: image
+  field_hero_image_media:
+    type: entity_reference_entity_view
     label: above
     settings:
-      image_link: ''
-      image_style: hero_image
-      svg_attributes:
-        width: null
-        height: null
-      svg_render_as_image: true
-      image_loading:
-        attribute: lazy
+      view_mode: default
+      link: true
     third_party_settings: {  }
     weight: 2
     region: content
@@ -287,7 +280,7 @@ content:
     settings:
       link_to_entity: false
     third_party_settings: {  }
-    weight: 25
+    weight: 13
     region: content
   field_key_facts:
     type: text_default
@@ -322,6 +315,7 @@ hidden:
   extra_field_workbc_page_title: true
   extra_field_workbc_published_on: true
   field_content_group: true
+  field_hero_image: true
   field_introductions: true
   langcode: true
   search_api_excerpt: true

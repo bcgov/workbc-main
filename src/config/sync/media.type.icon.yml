@@ -9,7 +9,7 @@ third_party_settings:
     image_field: _none
 id: icon
 label: Icon
-description: 'Icons and vector graphics'
+description: 'Icons and vector graphics.'
 source: image
 queue_thumbnail_downloads: false
 new_revision: false

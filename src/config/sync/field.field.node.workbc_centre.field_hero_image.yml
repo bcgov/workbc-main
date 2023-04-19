@@ -11,8 +11,8 @@ id: node.workbc_centre.field_hero_image
 field_name: field_hero_image
 entity_type: node
 bundle: workbc_centre
-label: 'Hero Image'
-description: ''
+label: 'Hero Image (DO NOT USE)'
+description: "DO NOT USE! \r\n\r\nThis is a legacy field that has been replaced by the newer <b>Hero Image</b> field which pulls the content from the Media Library."
 required: false
 translatable: true
 default_value: {  }
