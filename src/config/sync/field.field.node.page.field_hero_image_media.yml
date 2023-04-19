@@ -10,7 +10,7 @@ id: node.page.field_hero_image_media
 field_name: field_hero_image_media
 entity_type: node
 bundle: page
-label: 'Hero Image Media'
+label: 'Hero Image'
 description: ''
 required: false
 translatable: false

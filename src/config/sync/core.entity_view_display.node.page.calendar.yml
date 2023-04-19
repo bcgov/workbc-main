@@ -15,11 +15,9 @@ dependencies:
     - field.field.node.page.field_related_topics_blurb
     - field.field.node.page.field_scheduled_publish
     - field.field.node.page.view_mode_selection
-    - image.style.hero_image
     - node.type.page
   module:
     - entity_reference_revisions
-    - svg_image
     - text
     - user
 _core:
@@ -50,21 +48,6 @@ content:
     third_party_settings: {  }
     weight: 3
     region: content
-  field_hero_image:
-    type: image
-    label: above
-    settings:
-      image_link: ''
-      image_style: hero_image
-      svg_attributes:
-        width: null
-        height: null
-      svg_render_as_image: true
-      image_loading:
-        attribute: lazy
-    third_party_settings: {  }
-    weight: 4
-    region: content
   field_hero_image_media:
     type: entity_reference_entity_view
     label: above
@@ -72,14 +55,14 @@ content:
       view_mode: default
       link: true
     third_party_settings: {  }
-    weight: 5
+    weight: 4
     region: content
   field_hero_text:
     type: text_default
     label: above
     settings: {  }
     third_party_settings: {  }
-    weight: 6
+    weight: 5
     region: content
   links:
     settings: {  }
@@ -90,6 +73,7 @@ hidden:
   extra_field_workbc_page_title: true
   extra_field_workbc_published_on: true
   field_content_group: true
+  field_hero_image: true
   field_page_format: true
   field_related_topics: true
   field_related_topics_blurb: true

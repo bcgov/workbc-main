@@ -25,7 +25,7 @@ content:
   extra_field_labourmarket_employment:
     settings: {  }
     third_party_settings: {  }
-    weight: 3
+    weight: 4
     region: content
   extra_field_labourmarket_employment_by_age:
     settings: {  }
@@ -35,7 +35,7 @@ content:
   extra_field_labourmarket_employment_by_age_sex_table:
     settings: {  }
     third_party_settings: {  }
-    weight: 6
+    weight: 7
     region: content
   extra_field_labourmarket_employment_by_sex:
     settings: {  }
@@ -45,12 +45,12 @@ content:
   extra_field_labourmarket_employment_change:
     settings: {  }
     third_party_settings: {  }
-    weight: 4
+    weight: 5
     region: content
   extra_field_labourmarket_employment_change_percent:
     settings: {  }
     third_party_settings: {  }
-    weight: 5
+    weight: 6
     region: content
   extra_field_labourmarket_employment_change_table:
     settings: {  }
@@ -60,12 +60,12 @@ content:
   extra_field_labourmarket_employment_industries_table:
     settings: {  }
     third_party_settings: {  }
-    weight: 23
+    weight: 14
     region: content
   extra_field_labourmarket_months:
     settings: {  }
     third_party_settings: {  }
-    weight: 1
+    weight: 2
     region: content
   extra_field_labourmarket_participation_rate_current_month:
     settings: {  }
@@ -80,12 +80,12 @@ content:
   extra_field_labourmarket_unemployed_current_month:
     settings: {  }
     third_party_settings: {  }
-    weight: 8
+    weight: 9
     region: content
   extra_field_labourmarket_unemployed_previous_month:
     settings: {  }
     third_party_settings: {  }
-    weight: 9
+    weight: 10
     region: content
   extra_field_labourmarket_unemployed_rate_current_month:
     settings: {  }
@@ -100,14 +100,14 @@ content:
   extra_field_labourmarket_unemployment_by_region:
     settings: {  }
     third_party_settings: {  }
-    weight: 11
+    weight: 12
     region: content
   field_employment_introduction:
     type: text_default
     label: above
     settings: {  }
     third_party_settings: {  }
-    weight: 2
+    weight: 3
     region: content
   field_hero_image_media:
     type: entity_reference_label
@@ -115,33 +115,33 @@ content:
     settings:
       link: true
     third_party_settings: {  }
-    weight: 24
+    weight: 0
     region: content
   field_industry_highlights_intro:
     type: text_default
     label: above
     settings: {  }
     third_party_settings: {  }
-    weight: 12
+    weight: 13
     region: content
   field_unemployment_introduction:
     type: text_default
     label: above
     settings: {  }
     third_party_settings: {  }
-    weight: 7
+    weight: 8
     region: content
   field_unemployment_region_intro:
     type: text_default
     label: above
     settings: {  }
     third_party_settings: {  }
-    weight: 10
+    weight: 11
     region: content
   links:
     settings: {  }
     third_party_settings: {  }
-    weight: 0
+    weight: 1
     region: content
 hidden:
   content_moderation_control: true

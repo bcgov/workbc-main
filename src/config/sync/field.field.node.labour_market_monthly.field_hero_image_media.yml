@@ -10,7 +10,7 @@ id: node.labour_market_monthly.field_hero_image_media
 field_name: field_hero_image_media
 entity_type: node
 bundle: labour_market_monthly
-label: 'Hero Image Media'
+label: 'Hero Image'
 description: ''
 required: false
 translatable: true
