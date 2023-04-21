@@ -3,9 +3,9 @@
 namespace Drupal\workbc_custom\Plugin\Block;
 
 use Drupal\Core\Block\BlockBase;
-use Drupal\image\Entity\ImageStyle;
 use Drupal\Core\Form\FormStateInterface;
 use Drupal\Core\Cache\Cache;
+use Drupal\media\Entity\Media;
 
 /**
  * Provides a WorkBC Related topics Block.
@@ -102,8 +102,10 @@ class RelatedTopicsBlock extends BlockBase {
 
   private function renderImage($node) {
 
-    if ($node->hasField("field_hero_image")) {
-      $imageUri = isset($node->get('field_hero_image')->entity) ? $node->get('field_hero_image')->entity->getFileUri() : null;
+    if ($node->hasField('field_hero_image_media') && !$node->get('field_hero_image_media')->isEmpty()) {
+      $media_id = $node->field_hero_image_media[0]->getValue()['target_id'];
+      $media = Media::load($media_id);
+      $imageUri = $media->field_media_image->entity->getFileUri();
       if($imageUri) {
         $image = [
           '#theme' => 'image_style',
@@ -113,8 +115,10 @@ class RelatedTopicsBlock extends BlockBase {
         return render($image);
       }
     }
-    else if ($node->hasField("field_image")) {
-      $imageUri = isset($node->get('field_image')->entity) ? $node->get('field_image')->entity->getFileUri() : null;
+    else if ($node->hasField('field_image_media') && !$node->get('field_image_media')->isEmpty()) {
+      $media_id = $node->field_image_media[0]->getValue()['target_id'];
+      $media = Media::load($media_id);
+      $imageUri = $media->field_media_image->entity->getFileUri();
       if($imageUri) {
         $image = [
           '#theme' => 'image_style',

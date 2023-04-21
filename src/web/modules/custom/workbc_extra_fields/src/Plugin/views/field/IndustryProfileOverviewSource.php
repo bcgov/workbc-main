@@ -32,7 +32,6 @@ class IndustryProfileOverviewSource extends FieldPluginBase {
    * @{inheritdoc}
    */
   public function render(ResultRow $values) {
-    // ksm($values);
     $node = $this->getEntity($values);
     if ($node->bundle() == "industry_profile") {
       if (!empty($values->ssot_data) && isset($values->ssot_data['sources']['labour_force_survey_industry'])) {
