@@ -3,8 +3,8 @@ langcode: en
 status: true
 dependencies: {  }
 id: action_card_icon
-label: 'Action Card: Icon'
+label: 'Card: Icon'
 icon_uuid: null
 icon_default: null
-description: 'A single Icon card.'
+description: 'A single icon card.'
 behavior_plugins: {  }

@@ -3,8 +3,8 @@ langcode: en
 status: true
 dependencies: {  }
 id: action_cards_icon
-label: 'Action Cards Container: Icon'
+label: 'Section: Icons'
 icon_uuid: null
 icon_default: null
-description: "A section of Icon Cards displayed in a Single row.\r\n"
+description: "A section of icon cards displayed in a single row.\r\n"
 behavior_plugins: {  }

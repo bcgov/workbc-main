@@ -3,8 +3,8 @@ langcode: en
 status: true
 dependencies: {  }
 id: action_cards_explore_careers
-label: 'Action Cards Container: Explore Careers'
+label: 'Section: Explore Careers'
 icon_uuid: null
 icon_default: null
-description: 'A section of calls to action with a 4-per-row layout. Images are displayed with the Explore Careers image style.'
+description: 'A section of calls to action with a 4-per-row layout. Images are displayed with the "Explore Careers" image style.'
 behavior_plugins: {  }

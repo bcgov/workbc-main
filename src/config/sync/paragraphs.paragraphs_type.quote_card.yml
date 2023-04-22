@@ -3,8 +3,8 @@ langcode: en
 status: true
 dependencies: {  }
 id: quote_card
-label: 'Quote Card'
+label: 'Card: Quote'
 icon_uuid: null
 icon_default: null
-description: 'Card with Quote and Author that links to another page.'
+description: 'Card with quote and author that links to another page.'
 behavior_plugins: {  }

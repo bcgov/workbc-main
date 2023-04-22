@@ -3,8 +3,8 @@ langcode: en
 status: true
 dependencies: {  }
 id: action_card_feature
-label: 'Action Card: Feature'
+label: 'Section: Feature'
 icon_uuid: null
 icon_default: null
-description: 'A single feature action card.'
+description: 'A section for a single feature action card.'
 behavior_plugins: {  }

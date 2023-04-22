@@ -3,7 +3,7 @@ langcode: en
 status: true
 dependencies: {  }
 id: action_card_full_width
-label: 'Action Card: Full Width'
+label: 'Card: Full Width'
 icon_uuid: null
 icon_default: null
 description: 'Full-width action card with left or right image alignment option.'
