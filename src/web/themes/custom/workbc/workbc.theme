@@ -5,6 +5,8 @@
  * WorkBC theme file.
  */
 
+use Drupal\file\Entity\File;
+
 /**
  * Implements hook theme_preprocess_paragraph().
  */
@@ -39,7 +41,7 @@ function workbc_form_alter(&$form, \Drupal\Core\Form\FormStateInterface $form_st
   }
   if ($form_id == "views_exposed_form" && "views-exposed-form-search-career-profiles-page-1") {
     $form['search']['#attributes']['aria-label'] = "Search";
-  }  
+  }
 }
 
 /**
@@ -62,9 +64,14 @@ function workbc_preprocess_page(&$variables) {
 
 
 function workbc_preprocess_node(&$variables) {
-  if ($variables['node']->bundle() == "publication" && $variables['view_mode'] == "publication") {
+  if ($variables['node']->bundle() === "publication" && $variables['view_mode'] === "publication") {
     $config = \Drupal::config('workbc_custom.settings');
     $variables['order_form_path'] = $config->get('pathsettings.order_form');
+    $media = $variables['content']['field_publication_media'][0]['#media'];
+    if (!empty($media->field_media_document[0])) {
+      $fid = $media->field_media_document[0]->getValue()['target_id'];
+      $variables['file_link'] = File::load($fid)->createFileUrl();
+    }
   }
   $current_path = \Drupal::service('path.current')->getPath();
   $internal = \Drupal::service('path_alias.manager')->getAliasByPath($current_path);

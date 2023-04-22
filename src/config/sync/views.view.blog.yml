@@ -6,6 +6,7 @@ dependencies:
     - core.entity_view_mode.node.teaser
     - field.storage.node.body
     - field.storage.node.field_image
+    - field.storage.node.field_image_media
     - field.storage.node.field_related_topics_blurb
     - field.storage.node.field_tags
     - image.style.1_3_component
@@ -633,10 +634,10 @@ display:
           multi_type: separator
           separator: ', '
           field_api_classes: false
-        field_image:
-          id: field_image
-          table: node__field_image
-          field: field_image
+        field_image_media:
+          id: field_image_media
+          table: node__field_image_media
+          field: field_image_media
           relationship: none
           group_type: group
           admin_label: ''
@@ -683,13 +684,10 @@ display:
           empty_zero: false
           hide_alter_empty: true
           click_sort_column: target_id
-          type: image
+          type: entity_reference_entity_view
           settings:
-            image_link: ''
-            image_style: 1_3_component
-            image_loading:
-              attribute: lazy
-          group_column: ''
+            view_mode: 1_3_component
+          group_column: target_id
           group_columns: {  }
           group_rows: true
           delta_limit: 0
@@ -1039,7 +1037,7 @@ display:
         - 'user.node_grants:view'
         - user.permissions
       tags:
-        - 'config:field.storage.node.field_image'
+        - 'config:field.storage.node.field_image_media'
         - 'config:field.storage.node.field_related_topics_blurb'
         - 'config:field.storage.node.field_tags'
   block_2:

@@ -2,11 +2,9 @@
 
 namespace Drupal\webform_publication_composite\Element;
 
-use Drupal\Core\Form\FormStateInterface;
 use Drupal\webform\Element\WebformCompositeBase;
-use Drupal\file\FileInterface;
-use Drupal\Core\Url;
 use Drupal\Core\Link;
+use Drupal\media\Entity\Media;
 
 /**
  * Provides a 'webform_publication_composite'.
@@ -76,17 +74,20 @@ class WebformPublicationComposite extends WebformCompositeBase {
         '#value' => $node->get('field_resource_number')->getString(),
       ];
 
-      $fid = $node->get('field_publication')->target_id;
+      $fid = null;
+      if (!$node->get('field_publication_media')->isEmpty()) {
+        $media_id = $node->field_publication_media[0]->getValue()['target_id'];
+        $media = Media::load($media_id);
+        $fid = $media->field_media_document[0]->getValue()['target_id'];
+      }
       if (!is_null($fid)) {
         $file = \Drupal\file\Entity\File::load($fid);
-
+        $url = \Drupal::service('file_url_generator')->generate($file->getFileUri())->mergeOptions(['attributes' => ['target' => 1]]);
         $size = self::formatBytes($file->getSize());
-        $link_options = [];
-        $link_options['attributes']['target'] = 1;
-        $link = Link::fromTextAndUrl('PDF', Url::fromUri('internal:'.$file->createFileUrl(), $link_options))->toString();
+        $link = Link::fromTextAndUrl('PDF', $url)->toString();
         $link .= "<br>";
-        $link .= Link::fromTextAndUrl('(' . $size . ')', Url::fromUri('internal:'.$file->createFileUrl(), $link_options))->toString();
-        $url = Url::fromUri('internal:'.$file->createFileUrl(), $link_options)->toString();
+        $link .= Link::fromTextAndUrl('(' . $size . ')', $url)->toString();
+        $url = $url->toString();
       }
       else {
         $link = '';

@@ -7,15 +7,16 @@ dependencies:
     - field.field.node.publication.field_content_group
     - field.field.node.publication.field_hardcopy_available
     - field.field.node.publication.field_image
+    - field.field.node.publication.field_image_media
     - field.field.node.publication.field_publication
+    - field.field.node.publication.field_publication_media
     - field.field.node.publication.field_resource_number
-    - image.style.thumbnail
     - node.type.publication
     - workflows.workflow.editorial
   module:
     - content_moderation
-    - file
-    - image_widget_crop
+    - media_library
+    - media_library_edit
     - path
     - text
     - workbc_custom
@@ -26,7 +27,7 @@ mode: default
 content:
   body:
     type: text_textarea_with_summary
-    weight: 8
+    weight: 9
     region: content
     settings:
       rows: 9
@@ -36,48 +37,42 @@ content:
     third_party_settings: {  }
   created:
     type: datetime_timestamp
-    weight: 2
+    weight: 3
     region: content
     settings: {  }
     third_party_settings: {  }
   field_content_group:
     type: options_select
-    weight: 26
+    weight: 14
     region: content
     settings: {  }
     third_party_settings: {  }
   field_hardcopy_available:
     type: boolean_checkbox
-    weight: 11
+    weight: 13
     region: content
     settings:
       display_label: true
     third_party_settings: {  }
-  field_image:
-    type: image_widget_crop
-    weight: 10
+  field_image_media:
+    type: media_library_widget
+    weight: 11
     region: content
     settings:
-      progress_indicator: throbber
-      preview_image_style: thumbnail
-      crop_preview_image_style: crop_thumbnail
-      crop_list:
-        - crop_2_1
-      crop_types_required: {  }
-      warn_multiple_usages: true
-      show_crop_area: true
-      show_default_crop: true
+      media_types: {  }
     third_party_settings: {  }
-  field_publication:
-    type: file_generic
-    weight: 7
+  field_publication_media:
+    type: media_library_widget
+    weight: 8
     region: content
     settings:
-      progress_indicator: throbber
-    third_party_settings: {  }
+      media_types: {  }
+    third_party_settings:
+      media_library_edit:
+        show_edit: '1'
   field_resource_number:
     type: string_textfield
-    weight: 9
+    weight: 10
     region: content
     settings:
       size: 60
@@ -92,38 +87,38 @@ content:
     third_party_settings: {  }
   moderation_state:
     type: moderation_state_default
-    weight: 100
+    weight: 16
     region: content
     settings: {  }
     third_party_settings: {  }
   path:
     type: path
-    weight: 5
+    weight: 6
     region: content
     settings: {  }
     third_party_settings: {  }
   promote:
     type: boolean_checkbox
-    weight: 3
+    weight: 4
     region: content
     settings:
       display_label: true
     third_party_settings: {  }
   simple_sitemap:
-    weight: 10
+    weight: 12
     region: content
     settings: {  }
     third_party_settings: {  }
   status:
     type: boolean_checkbox
-    weight: 6
+    weight: 7
     region: content
     settings:
       display_label: true
     third_party_settings: {  }
   sticky:
     type: boolean_checkbox
-    weight: 4
+    weight: 5
     region: content
     settings:
       display_label: true
@@ -143,8 +138,10 @@ content:
     settings: {  }
     third_party_settings: {  }
   url_redirects:
-    weight: 50
+    weight: 15
     region: content
     settings: {  }
     third_party_settings: {  }
-hidden: {  }
+hidden:
+  field_image: true
+  field_publication: true
