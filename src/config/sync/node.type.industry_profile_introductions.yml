@@ -11,7 +11,7 @@ third_party_settings:
     parent: 'main:'
 name: 'Industry Profile Introductions'
 type: industry_profile_introductions
-description: ''
+description: 'Introductory blurbs used in Industry Profiles.'
 help: ''
 new_revision: true
 preview_mode: 1

@@ -5,10 +5,10 @@ dependencies:
   config:
     - core.entity_view_mode.media.media_library
     - field.field.media.image.field_media_image
-    - image.style.1_3_component
+    - image.style.media_library
     - media.type.image
   module:
-    - image
+    - svg_image
 _core:
   default_config_hash: p4SdSdLBlqfympeNav_Tdpn0-pL62tbjc348_zcPof4
 id: media.image.media_library
@@ -21,7 +21,11 @@ content:
     label: hidden
     settings:
       image_link: ''
-      image_style: 1_3_component
+      image_style: media_library
+      svg_attributes:
+        width: null
+        height: null
+      svg_render_as_image: true
       image_loading:
         attribute: lazy
     third_party_settings: {  }

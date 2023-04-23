@@ -6,5 +6,5 @@ id: action_cards_full_width
 label: 'Section: Full Width'
 icon_uuid: null
 icon_default: null
-description: 'A section of full-width action cards with alternating image/text layout on each row.'
+description: 'A section of full-width cards with alternating image/text layout on each row.'
 behavior_plugins: {  }

@@ -46,8 +46,8 @@ content:
     type: entity_reference_entity_view
     label: above
     settings:
-      view_mode: default
-      link: true
+      view_mode: action_card_feature
+      link: false
     third_party_settings: {  }
     weight: 4
     region: content

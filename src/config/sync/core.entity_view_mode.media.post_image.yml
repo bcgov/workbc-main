@@ -1,10 +1,10 @@
-uuid: c1dd4f77-4323-4f7f-85d2-bda0070ff06f
+uuid: 6a5c2ac0-b804-4132-8d62-07c46cf64f2d
 langcode: en
 status: true
 dependencies:
   module:
     - media
-id: media.1_3_component
-label: 'Action Card: 1/3'
+id: media.post_image
+label: 'Post image'
 targetEntityType: media
 cache: true

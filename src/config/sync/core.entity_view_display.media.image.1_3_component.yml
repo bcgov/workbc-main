@@ -1,24 +1,27 @@
-uuid: ff33a4c8-4378-42dc-b96d-cb1bb12ec04a
+uuid: 3027e6bb-4bce-4126-92e1-42410756d275
 langcode: en
 status: true
 dependencies:
   config:
-    - field.field.media.post_image.field_media_image
-    - image.style.article_wide
-    - media.type.post_image
+    - core.entity_view_mode.media.1_3_component
+    - field.field.media.image.field_media_image
+    - image.style.1_3_component
+    - media.type.image
   module:
     - svg_image
-id: media.post_image.default
+_core:
+  default_config_hash: whJrNezqUJ7Qhg7raMQj2Hz9JPiWxijezhWIEN9BVVk
+id: media.image.1_3_component
 targetEntityType: media
-bundle: post_image
-mode: default
+bundle: image
+mode: 1_3_component
 content:
   field_media_image:
     type: image
-    label: visually_hidden
+    label: hidden
     settings:
       image_link: ''
-      image_style: article_wide
+      image_style: 1_3_component
       svg_attributes:
         width: null
         height: null
@@ -26,7 +29,7 @@ content:
       image_loading:
         attribute: lazy
     third_party_settings: {  }
-    weight: 0
+    weight: 1
     region: content
 hidden:
   created: true

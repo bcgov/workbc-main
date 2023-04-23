@@ -1,19 +1,19 @@
-uuid: 90555d89-6866-49cb-9bf8-03ca700fe805
+uuid: 2569f72b-2182-4847-ad9b-0e6775465cdf
 langcode: en
 status: true
 dependencies:
   config:
-    - field.storage.node.field_image_media
+    - field.storage.paragraph.field_image_media
     - media.type.image
-    - node.type.success_story
-id: node.success_story.field_image_media
+    - paragraphs.paragraphs_type.action_card
+id: paragraph.action_card.field_image_media
 field_name: field_image_media
-entity_type: node
-bundle: success_story
+entity_type: paragraph
+bundle: action_card
 label: Image
 description: ''
 required: false
-translatable: true
+translatable: false
 default_value: {  }
 default_value_callback: ''
 settings:
@@ -25,5 +25,5 @@ settings:
       field: _none
       direction: ASC
     auto_create: false
-    auto_create_bundle: image
+    auto_create_bundle: feature_image
 field_type: entity_reference

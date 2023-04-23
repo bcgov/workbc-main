@@ -1,21 +1,24 @@
-uuid: 5ca6486e-2066-4e37-bdab-fa3d8f0f8a68
+uuid: f7ce7e64-8fa1-4bf0-a3ac-542c50c36951
 langcode: en
 status: true
 dependencies:
   config:
-    - field.field.media.hero_image.field_media_image
+    - core.entity_view_mode.media.hero_image
+    - field.field.media.image.field_media_image
     - image.style.hero_image
-    - media.type.hero_image
+    - media.type.image
   module:
     - svg_image
-id: media.hero_image.default
+_core:
+  default_config_hash: whJrNezqUJ7Qhg7raMQj2Hz9JPiWxijezhWIEN9BVVk
+id: media.image.hero_image
 targetEntityType: media
-bundle: hero_image
-mode: default
+bundle: image
+mode: hero_image
 content:
   field_media_image:
     type: image
-    label: visually_hidden
+    label: hidden
     settings:
       image_link: ''
       image_style: hero_image
@@ -26,7 +29,7 @@ content:
       image_loading:
         attribute: lazy
     third_party_settings: {  }
-    weight: 0
+    weight: 1
     region: content
 hidden:
   created: true

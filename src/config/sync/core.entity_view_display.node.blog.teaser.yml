@@ -42,8 +42,8 @@ content:
     type: entity_reference_entity_view
     label: above
     settings:
-      view_mode: default
-      link: true
+      view_mode: full_width_component
+      link: false
     third_party_settings: {  }
     weight: 3
     region: content

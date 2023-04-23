@@ -110,10 +110,11 @@ content:
     weight: 3
     region: content
   field_hero_image_media:
-    type: entity_reference_label
+    type: entity_reference_entity_view
     label: above
     settings:
-      link: true
+      view_mode: hero_image
+      link: false
     third_party_settings: {  }
     weight: 0
     region: content

@@ -6,12 +6,11 @@ dependencies:
     - core.entity_view_mode.paragraph.action_card_1_2
     - field.field.paragraph.action_card.field_description
     - field.field.paragraph.action_card.field_image
+    - field.field.paragraph.action_card.field_image_media
     - field.field.paragraph.action_card.field_link
     - field.field.paragraph.action_card.field_title
-    - image.style.1_2_component
     - paragraphs.paragraphs_type.action_card
   module:
-    - image
     - link
     - text
 id: paragraph.action_card.action_card_1_2
@@ -26,14 +25,12 @@ content:
     third_party_settings: {  }
     weight: 1
     region: content
-  field_image:
-    type: image
+  field_image_media:
+    type: entity_reference_entity_view
     label: above
     settings:
-      image_link: ''
-      image_style: 1_2_component
-      image_loading:
-        attribute: lazy
+      view_mode: action_card_1_2
+      link: false
     third_party_settings: {  }
     weight: 2
     region: content
@@ -58,4 +55,5 @@ content:
     weight: 0
     region: content
 hidden:
+  field_image: true
   search_api_excerpt: true

@@ -1,17 +1,17 @@
-uuid: 90555d89-6866-49cb-9bf8-03ca700fe805
+uuid: 99896f90-4e79-47eb-a0a4-b9b6b4c02935
 langcode: en
 status: true
 dependencies:
   config:
-    - field.storage.node.field_image_media
+    - field.storage.paragraph.field_image_media
     - media.type.image
-    - node.type.success_story
-id: node.success_story.field_image_media
+    - paragraphs.paragraphs_type.action_card_full_width
+id: paragraph.action_card_full_width.field_image_media
 field_name: field_image_media
-entity_type: node
-bundle: success_story
+entity_type: paragraph
+bundle: action_card_full_width
 label: Image
-description: ''
+description: 'Use a cropping of 3:2 for best visual results.<br>'
 required: false
 translatable: true
 default_value: {  }
@@ -25,5 +25,5 @@ settings:
       field: _none
       direction: ASC
     auto_create: false
-    auto_create_bundle: image
+    auto_create_bundle: feature_image
 field_type: entity_reference

@@ -4,14 +4,14 @@ status: true
 dependencies:
   config:
     - field.storage.node.field_image_media
-    - media.type.feature_image
+    - media.type.image
     - node.type.publication
 id: node.publication.field_image_media
 field_name: field_image_media
 entity_type: node
 bundle: publication
 label: Image
-description: 'An image is needed if this publication is to be displayed on the Publications landing page.'
+description: "An image is needed if this publication is to be displayed on the Publications landing page.<br>\r\nUse a cropping of 2:1 for best visual results.<br>"
 required: false
 translatable: true
 default_value: {  }
@@ -20,7 +20,7 @@ settings:
   handler: 'default:media'
   handler_settings:
     target_bundles:
-      feature_image: feature_image
+      image: image
     sort:
       field: _none
       direction: ASC

@@ -1,25 +1,27 @@
-uuid: 9d9a6dfb-8b7f-48b0-9dff-2acb3d37fdae
+uuid: a2576367-62d5-405a-80dd-e64752a8b25c
 langcode: en
 status: true
 dependencies:
   config:
+    - core.entity_view_mode.media.action_card_explore_careers
     - field.field.media.image.field_media_image
+    - image.style.explore_component
     - media.type.image
   module:
     - svg_image
 _core:
   default_config_hash: whJrNezqUJ7Qhg7raMQj2Hz9JPiWxijezhWIEN9BVVk
-id: media.image.default
+id: media.image.action_card_explore_careers
 targetEntityType: media
 bundle: image
-mode: default
+mode: action_card_explore_careers
 content:
   field_media_image:
     type: image
     label: hidden
     settings:
       image_link: ''
-      image_style: ''
+      image_style: explore_component
       svg_attributes:
         width: null
         height: null
