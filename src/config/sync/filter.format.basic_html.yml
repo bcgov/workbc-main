@@ -3,7 +3,7 @@ langcode: en
 status: true
 dependencies:
   config:
-    - core.entity_view_mode.media.full
+    - core.entity_view_mode.media.inline
   module:
     - editor
     - linkit
@@ -53,10 +53,9 @@ filters:
     status: true
     weight: 100
     settings:
-      default_view_mode: default
+      default_view_mode: inline
       allowed_view_modes:
-        default: default
-        full: full
+        inline: inline
       allowed_media_types:
         document: document
         image: image
