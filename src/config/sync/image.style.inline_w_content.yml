@@ -1,0 +1,15 @@
+uuid: ccbdc68c-76e4-4479-ad84-91873ae126a4
+langcode: en
+status: true
+dependencies: {  }
+name: inline_w_content
+label: 'Inline with Content'
+effects:
+  a976b041-b9a1-416e-a427-c4706b3173c6:
+    uuid: a976b041-b9a1-416e-a427-c4706b3173c6
+    id: image_scale
+    weight: 1
+    data:
+      width: 900
+      height: null
+      upscale: false
