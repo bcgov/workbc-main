@@ -19,7 +19,6 @@ dependencies:
   module:
     - content_moderation
     - media_library
-    - media_library_edit
     - paragraphs
     - path
     - scheduled_publish
@@ -79,9 +78,7 @@ content:
     region: content
     settings:
       media_types: {  }
-    third_party_settings:
-      media_library_edit:
-        show_edit: '1'
+    third_party_settings: {  }
   field_hero_text:
     type: text_textarea
     weight: 9
