@@ -16,6 +16,7 @@ dependencies:
   module:
     - content_moderation
     - media_library
+    - media_library_edit
     - path
     - text
     - workbc_custom
@@ -59,14 +60,18 @@ content:
     region: content
     settings:
       media_types: {  }
-    third_party_settings: {  }
+    third_party_settings:
+      media_library_edit:
+        show_edit: '1'
   field_publication_media:
     type: media_library_widget
     weight: 8
     region: content
     settings:
       media_types: {  }
-    third_party_settings: {  }
+    third_party_settings:
+      media_library_edit:
+        show_edit: '1'
   field_resource_number:
     type: string_textfield
     weight: 10

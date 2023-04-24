@@ -27,6 +27,7 @@ dependencies:
     - content_moderation
     - link
     - media_library
+    - media_library_edit
     - path
     - scheduled_publish
     - text
@@ -109,7 +110,9 @@ content:
     region: content
     settings:
       media_types: {  }
-    third_party_settings: {  }
+    third_party_settings:
+      media_library_edit:
+        show_edit: '1'
   field_insights_from_industry:
     type: text_textarea
     weight: 21
