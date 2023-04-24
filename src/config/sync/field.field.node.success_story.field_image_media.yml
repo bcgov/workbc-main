@@ -11,7 +11,7 @@ field_name: field_image_media
 entity_type: node
 bundle: success_story
 label: Image
-description: ''
+description: 'For best visual results, use a crop size of 2:1 or "Wide".<br>'
 required: false
 translatable: true
 default_value: {  }

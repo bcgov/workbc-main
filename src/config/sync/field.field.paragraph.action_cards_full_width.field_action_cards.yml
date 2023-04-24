@@ -12,8 +12,8 @@ id: paragraph.action_cards_full_width.field_action_cards
 field_name: field_action_cards
 entity_type: paragraph
 bundle: action_cards_full_width
-label: 'Action Cards'
-description: ''
+label: Cards
+description: 'For best visual results, use a crop size of 3:2.<br>'
 required: false
 translatable: false
 default_value: {  }
@@ -66,9 +66,6 @@ settings:
         enabled: false
       content_view:
         weight: 31
-        enabled: false
-      hours_of_operation:
-        weight: 12
         enabled: false
       quote_card:
         weight: 13

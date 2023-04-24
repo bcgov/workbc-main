@@ -53,8 +53,8 @@ content:
     weight: 12
     region: content
     settings:
-      title: Paragraph
-      title_plural: Paragraphs
+      title: Section
+      title_plural: Sections
       edit_mode: open
       closed_mode: summary
       autocollapse: none

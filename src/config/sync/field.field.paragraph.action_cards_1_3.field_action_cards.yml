@@ -13,8 +13,8 @@ id: paragraph.action_cards_1_3.field_action_cards
 field_name: field_action_cards
 entity_type: paragraph
 bundle: action_cards_1_3
-label: 'Action Cards'
-description: 'Use a cropping of 2:1 for best visual results.<br>'
+label: Cards
+description: 'For best visual results, use a crop size of 2:1.<br>'
 required: false
 translatable: true
 default_value: {  }

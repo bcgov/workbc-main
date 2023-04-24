@@ -17,8 +17,8 @@ content:
     weight: 0
     region: content
     settings:
-      title: Paragraph
-      title_plural: Paragraphs
+      title: Card
+      title_plural: Cards
       edit_mode: open
       closed_mode: summary
       autocollapse: none
@@ -27,6 +27,7 @@ content:
       form_display_mode: action_card_explore_careers
       default_paragraph_type: action_card
       features:
+        add_above: '0'
         collapse_edit_all: collapse_edit_all
         duplicate: duplicate
     third_party_settings: {  }

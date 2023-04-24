@@ -11,7 +11,7 @@ field_name: field_image_media
 entity_type: node
 bundle: publication
 label: Image
-description: "An image is needed if this publication is to be displayed on the Publications landing page.<br>\r\nUse a cropping of 2:1 for best visual results.<br>"
+description: "An image is needed if this publication is to be displayed on the Publications landing page.<br>\r\nFor best visual results, use a crop size of 2:1.<br>"
 required: false
 translatable: true
 default_value: {  }
