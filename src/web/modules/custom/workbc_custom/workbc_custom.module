@@ -293,3 +293,115 @@ function getRegionMappings() {
   ];
   return $region_map;
 }
+
+/**
+ * Function to identify rich text content fields that contain unmanaged files.
+ *
+ * We iterate on all text fields for nodes/paragraphs whose format is full_html,
+ * Identify the field's data table,
+ * Query all its rows,
+ * Match each value column with:
+ * - a file entity type signature (data-entity-type="file")
+ * - a straight file reference (src="/sites/default/files/XXX")
+ * For each match, we attempt to identify an existing media record,
+ *   by querying the file_managed x file_usage tables to match the file uuid or path, respectively.
+ */
+function getUnmanagedFiles() {
+  $fields = [];
+  foreach (['node', 'paragraph'] as $entity) {
+    foreach (\Drupal::service('entity_type.bundle.info')->getBundleInfo($entity) as $bundle => $bundle_info) {
+      foreach (\Drupal::service('entity_field.manager')->getFieldDefinitions($entity, $bundle) as $field => $field_info) {
+        if (str_contains($field_info->getType(), 'text')) {
+          $fields[$field] = $field_info;
+        }
+      }
+    }
+  }
+
+  $results = [];
+  $connection = \Drupal::database();
+  foreach ($fields as $field => $field_info) {
+    $entity = $field_info->getTargetEntityTypeId();
+    $entity_storage = \Drupal::entityTypeManager()->getStorage($entity);
+    $table_mapping = $entity_storage->getTableMapping();
+    $field_storage_definition = $field_info->getFieldStorageDefinition();
+    $table = $table_mapping->getDedicatedDataTableName($field_storage_definition);
+    $query = $connection->select($table);
+    $query->addField($table, "{$field}_value");
+    $query->addField($table, "{$field}_format");
+    $query->addField($table, "entity_id");
+    $rows = $query->execute()->fetchAll();
+    foreach ($rows as $row) {
+      if ($row->{"{$field}_format"} === 'full_html') {
+        $row_matches = [];
+        if (preg_match_all('/data-entity-type="file" data-entity-uuid="([a-z0-9-]+)" src="(\/sites\/default\/files\/[^"]+)"/', $row->{"{$field}_value"}, $matches, PREG_SET_ORDER) > 0) {
+          foreach ($matches as $match) {
+            $row_matches[] = [
+              'match' => $match[0],
+              'file_uuid' => $match[1],
+              'file_path' => $match[2],
+              'media_id' => $connection->query("
+                select distinct fu.id
+                from file_managed fm inner join file_usage fu on fu.fid = fm.fid
+                where fu.type = 'media' and
+                fm.uuid = :uuid
+              ", [':uuid' => $match[1]])?->fetchField()
+            ];
+          }
+        }
+        if (preg_match_all('/src="(\/sites\/default\/files\/[^"]+)"/', $row->{"{$field}_value"}, $matches, PREG_SET_ORDER) > 0) {
+          foreach ($matches as $match) {
+            // Eliminate matches from above.
+            foreach ($row_matches as $row_match) {
+              if ($row_match['file_path'] === $match[1]) continue 2;
+            }
+            $row_matches[] = [
+              'match' => $match[0],
+              'file_uuid' => null,
+              'file_path' => $match[1],
+              'media_id' => $connection->query("
+                select distinct fu.id
+                from file_managed fm inner join file_usage fu on fu.fid = fm.fid
+                where fu.type = 'media' and
+                fm.uri = :uri
+              ", [':uri' => str_replace('/sites/default/files/', 'public://', urldecode($match[1]))])?->fetchField()
+            ];
+          }
+        }
+        if (!empty($row_matches)) {
+          $options = [
+            'absolute' => false,
+            'attributes' => [
+              'target' => '_blank',
+            ]
+          ];
+          if ($entity === 'node') {
+            $node = \Drupal::entityTypeManager()->getStorage('node')->load($row->entity_id);
+            $url = Url::fromRoute('entity.node.edit_form', [
+              'node' => $row->entity_id
+            ], $options);
+          }
+          else if ($entity === 'paragraph') {
+            $paragraph = \Drupal::entityTypeManager()->getStorage('paragraph')->load($row->entity_id);
+            $node = \Drupal::entityTypeManager()->getStorage('node')->load($paragraph->get('parent_id')->value);
+            $url = Url::fromRoute('paragraphs_edit.edit_form', [
+              'root_parent' => $paragraph->get('parent_id')->value,
+              'root_parent_type' => $paragraph->get('parent_type')->value,
+              'paragraph' => $row->entity_id
+            ], $options);
+          }
+          $results[] = [
+            'title' => $node->get('title')->value,
+            'entity' => $entity,
+            'bundle' => $field_info->getTargetBundle(),
+            'field' => $field,
+            'label' => $field_info->getLabel(),
+            'edit_url' => $url,
+            'matches' => $row_matches,
+          ];
+        }
+      }
+    }
+  }
+  return $results;
+}

@@ -4,6 +4,7 @@
 
     use Drupal\Core\Form\ConfigFormBase;
     use Drupal\Core\Form\FormStateInterface;
+    use Drupal\Core\Link;
 
     /**
      * Class AdminSettingsForm.
@@ -67,20 +68,51 @@
           '#format' => $text['format'],
         ];
 
-        $form['info'] = [
+        $form['reports'] = [
           '#tree' => TRUE,
           '#type' => 'details',
-          '#title' => $this->t('Information'),
+          '#title' => $this->t('Reports'),
+          '#open' => TRUE,
+        ];
+
+        $files = getUnmanagedFiles();
+        $form['reports']['files'] = [
+          '#tree' => TRUE,
+          '#type' => 'details',
+          '#title' => $this->t('Unmanaged files'),
+          '#description' => $this->t('
+            This is a report of pages containing unmanaged files instead of media library items.<br>
+            Click the <b>Edit</b> link to edit the page, then look for the field named in the <b>Field</b> column to find the content to be edited.<br>
+            Click the <b>Source</b> button of the editor to locate the unmanaged file(s) in the field content.'
+          ),
+          '#open' => FALSE,
+        ];
+
+        $form['reports']['files']['table'] = [
+          '#theme' => 'table',
+          '#header' => ['Page', 'Field', 'Edit'],
+          '#rows' => array_map(function ($file) {
+            return [
+              $file['title'],
+              $file['label'],
+              Link::fromTextAndUrl($this->t('Edit'), $file['edit_url'])
+            ];
+          }, $files),
+        ];
+
+        $form['environment'] = [
+          '#tree' => TRUE,
+          '#type' => 'details',
+          '#title' => $this->t('Environment'),
           '#open' => FALSE,
         ];
 
         ob_start();
         phpinfo((INFO_VARIABLES | INFO_ENVIRONMENT));
-        $output = ob_get_clean();
-
-        $form['info']['environment'] = [
+        $env = ob_get_clean();
+        $form['environment']['env'] = [
           '#type' => 'markup',
-          '#markup' => $output,
+          '#markup' => $env,
         ];
 
         return parent::buildForm($form, $form_state);
