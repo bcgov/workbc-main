@@ -328,78 +328,85 @@ function getUnmanagedFiles() {
     $table = $table_mapping->getDedicatedDataTableName($field_storage_definition);
     $query = $connection->select($table);
     $query->addField($table, "{$field}_value");
-    $query->addField($table, "{$field}_format");
     $query->addField($table, "entity_id");
     $rows = $query->execute()->fetchAll();
     foreach ($rows as $row) {
-      if ($row->{"{$field}_format"} === 'full_html') {
-        $row_matches = [];
-        if (preg_match_all('/data-entity-type="file" data-entity-uuid="([a-z0-9-]+)" src="(\/sites\/default\/files\/[^"]+)"/', $row->{"{$field}_value"}, $matches, PREG_SET_ORDER) > 0) {
-          foreach ($matches as $match) {
-            $row_matches[] = [
-              'match' => $match[0],
-              'file_uuid' => $match[1],
-              'file_path' => $match[2],
-              'media_id' => $connection->query("
-                select distinct fu.id
-                from file_managed fm inner join file_usage fu on fu.fid = fm.fid
-                where fu.type = 'media' and
-                fm.uuid = :uuid
-              ", [':uuid' => $match[1]])?->fetchField()
-            ];
-          }
-        }
-        if (preg_match_all('/src="(\/sites\/default\/files\/[^"]+)"/', $row->{"{$field}_value"}, $matches, PREG_SET_ORDER) > 0) {
-          foreach ($matches as $match) {
-            // Eliminate matches from above.
-            foreach ($row_matches as $row_match) {
-              if ($row_match['file_path'] === $match[1]) continue 2;
-            }
-            $row_matches[] = [
-              'match' => $match[0],
-              'file_uuid' => null,
-              'file_path' => $match[1],
-              'media_id' => $connection->query("
-                select distinct fu.id
-                from file_managed fm inner join file_usage fu on fu.fid = fm.fid
-                where fu.type = 'media' and
-                fm.uri = :uri
-              ", [':uri' => str_replace('/sites/default/files/', 'public://', urldecode($match[1]))])?->fetchField()
-            ];
-          }
-        }
-        if (!empty($row_matches)) {
-          $options = [
-            'absolute' => false,
-            'attributes' => [
-              'target' => '_blank',
-            ]
-          ];
-          if ($entity === 'node') {
-            $node = \Drupal::entityTypeManager()->getStorage('node')->load($row->entity_id);
-            $url = Url::fromRoute('entity.node.edit_form', [
-              'node' => $row->entity_id
-            ], $options);
-          }
-          else if ($entity === 'paragraph') {
-            $paragraph = \Drupal::entityTypeManager()->getStorage('paragraph')->load($row->entity_id);
-            $node = \Drupal::entityTypeManager()->getStorage('node')->load($paragraph->get('parent_id')->value);
-            $url = Url::fromRoute('paragraphs_edit.edit_form', [
-              'root_parent' => $paragraph->get('parent_id')->value,
-              'root_parent_type' => $paragraph->get('parent_type')->value,
-              'paragraph' => $row->entity_id
-            ], $options);
-          }
-          $results[] = [
-            'title' => $node->get('title')->value,
-            'entity' => $entity,
-            'bundle' => $field_info->getTargetBundle(),
-            'field' => $field,
-            'label' => $field_info->getLabel(),
-            'edit_url' => $url,
-            'matches' => $row_matches,
+      $row_matches = [];
+      if (preg_match_all('/data-entity-type="file" data-entity-uuid="([a-z0-9-]+)" src="(\/sites\/default\/files\/[^"]+)"/', $row->{"{$field}_value"}, $matches, PREG_SET_ORDER) > 0) {
+        foreach ($matches as $match) {
+          $row_matches[] = [
+            'match' => $match[0],
+            'file_uuid' => $match[1],
+            'file_path' => $match[2],
+            'media_id' => $connection->query("
+              select distinct fu.id
+              from file_managed fm inner join file_usage fu on fu.fid = fm.fid
+              where fu.type = 'media' and
+              fm.uuid = :uuid
+            ", [':uuid' => $match[1]])?->fetchField()
           ];
         }
+      }
+      if (preg_match_all('/src="(\/sites\/default\/files\/[^"]+)"/', $row->{"{$field}_value"}, $matches, PREG_SET_ORDER) > 0) {
+        foreach ($matches as $match) {
+          // Eliminate matches from above.
+          foreach ($row_matches as $row_match) {
+            if ($row_match['file_path'] === $match[1]) continue 2;
+          }
+          $row_matches[] = [
+            'match' => $match[0],
+            'file_uuid' => null,
+            'file_path' => $match[1],
+            'media_id' => $connection->query("
+              select distinct fu.id
+              from file_managed fm inner join file_usage fu on fu.fid = fm.fid
+              where fu.type = 'media' and
+              fm.uri = :uri
+            ", [':uri' => str_replace('/sites/default/files/', 'public://', urldecode($match[1]))])?->fetchField()
+          ];
+        }
+      }
+      if (preg_match_all('/src="(https:\/\/[^\.]+\.gathercontent\.com\/[^"]+)"/', $row->{"{$field}_value"}, $matches, PREG_SET_ORDER) > 0) {
+        foreach ($matches as $match) {
+          $row_matches[] = [
+            'match' => $match[0],
+            'file_uuid' => null,
+            'file_path' => $match[1],
+            'media_id' => null,
+          ];
+        }
+      }
+      if (!empty($row_matches)) {
+        $options = [
+          'absolute' => false,
+          'attributes' => [
+            'target' => '_blank',
+          ]
+        ];
+        if ($entity === 'node') {
+          $node = \Drupal::entityTypeManager()->getStorage('node')->load($row->entity_id);
+          $url = Url::fromRoute('entity.node.edit_form', [
+            'node' => $row->entity_id
+          ], $options);
+        }
+        else if ($entity === 'paragraph') {
+          $paragraph = \Drupal::entityTypeManager()->getStorage('paragraph')->load($row->entity_id);
+          $node = \Drupal::entityTypeManager()->getStorage('node')->load($paragraph->get('parent_id')->value);
+          $url = Url::fromRoute('paragraphs_edit.edit_form', [
+            'root_parent' => $paragraph->get('parent_id')->value,
+            'root_parent_type' => $paragraph->get('parent_type')->value,
+            'paragraph' => $row->entity_id
+          ], $options);
+        }
+        $results[] = [
+          'title' => $node->get('title')->value,
+          'entity' => $entity,
+          'bundle' => $field_info->getTargetBundle(),
+          'field' => $field,
+          'label' => $field_info->getLabel(),
+          'edit_url' => $url,
+          'matches' => $row_matches,
+        ];
       }
     }
   }
