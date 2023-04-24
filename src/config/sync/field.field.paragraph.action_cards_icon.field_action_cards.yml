@@ -12,7 +12,7 @@ id: paragraph.action_cards_icon.field_action_cards
 field_name: field_action_cards
 entity_type: paragraph
 bundle: action_cards_icon
-label: 'Action Cards'
+label: 'Icon Cards'
 description: ''
 required: false
 translatable: true
@@ -30,6 +30,9 @@ settings:
         enabled: false
       action_card_feature:
         weight: 16
+        enabled: false
+      action_card_full_width:
+        weight: 19
         enabled: false
       action_card_icon:
         weight: 19
@@ -63,9 +66,6 @@ settings:
         enabled: false
       content_view:
         weight: 25
-        enabled: false
-      hours_of_operation:
-        weight: 26
         enabled: false
       quote_card:
         weight: 27

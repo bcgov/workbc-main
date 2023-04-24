@@ -12,8 +12,8 @@ id: paragraph.action_cards_explore_careers.field_action_cards
 field_name: field_action_cards
 entity_type: paragraph
 bundle: action_cards_explore_careers
-label: 'Action Cards'
-description: 'Use a cropping of 1:1 for best visual results.<br>'
+label: 'Explore Career Cards'
+description: 'For best visual results, use a crop size of 1:1.<br>'
 required: false
 translatable: true
 default_value: {  }
