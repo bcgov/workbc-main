@@ -218,6 +218,9 @@
             },
             "drupal/media_library_edit": {
                 "Adjust the form's return destination": "patches/drupal/media_library_edit/edit-form-destination.patch"
+            },
+            "drupal/core": {
+                "Media library add form mode": "patches/drupal/core/3323232-29.patch"
             }
         }
     }
