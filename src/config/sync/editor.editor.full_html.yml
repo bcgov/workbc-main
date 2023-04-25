@@ -1,75 +1,77 @@
-uuid: 3c679889-e2fc-4ba3-a8bd-4f91a32cc901
+uuid: 4f96649c-490c-42c0-b79a-ca739de33f8c
 langcode: en
 status: true
 dependencies:
   config:
     - filter.format.full_html
   module:
-    - ckeditor
-_core:
-  default_config_hash: 967ijj7p6i7rwrYl7r08WQFeCY_c23YAh0h8u-w_CXM
+    - ckeditor5
 format: full_html
-editor: ckeditor
+editor: ckeditor5
 settings:
   toolbar:
-    rows:
-      -
-        -
-          name: Formatting
-          items:
-            - Bold
-            - Italic
-            - Strike
-            - Underline
-            - Superscript
-            - Subscript
-            - '-'
-            - RemoveFormat
-            - Undo
-            - Redo
-            - Cut
-            - Paste
-        -
-          name: Linking
-          items:
-            - DrupalLink
-            - DrupalUnlink
-        -
-          name: Lists
-          items:
-            - BulletedList
-            - NumberedList
-        -
-          name: 'Text Align'
-          items:
-            - Outdent
-            - Indent
-            - JustifyLeft
-            - JustifyCenter
-            - JustifyRight
-        -
-          name: Media
-          items:
-            - Blockquote
-            - DrupalMediaLibrary
-            - Table
-            - HorizontalRule
-        -
-          name: 'Block Formatting'
-          items:
-            - Format
-            - Styles
-        -
-          name: Tools
-          items:
-            - ShowBlocks
-            - Source
+    items:
+      - bold
+      - italic
+      - strikethrough
+      - underline
+      - superscript
+      - subscript
+      - removeFormat
+      - undo
+      - redo
+      - '|'
+      - link
+      - '|'
+      - bulletedList
+      - numberedList
+      - '|'
+      - outdent
+      - indent
+      - alignment
+      - '|'
+      - blockQuote
+      - drupalMedia
+      - insertTable
+      - horizontalLine
+      - '|'
+      - heading
+      - codeBlock
+      - style
+      - '|'
+      - sourceEditing
   plugins:
-    drupallink:
-      linkit_enabled: true
-      linkit_profile: default
-    stylescombo:
-      styles: "a.btn.btn-primary|Primary Button\r\na.btn.btn-secondary|Secondary Button\r\np.text-footnote|Footnote"
+    ckeditor5_heading:
+      enabled_headings:
+        - heading2
+        - heading3
+        - heading4
+        - heading5
+        - heading6
+    ckeditor5_style:
+      styles:
+        -
+          label: 'Primary Button'
+          element: '<a class="btn btn-primary">'
+        -
+          label: 'Secondary Button'
+          element: '<a class="btn btn-secondary">'
+        -
+          label: Footnote
+          element: '<p class="text-footnote">'
+    ckeditor5_sourceEditing:
+      allowed_tags: {  }
+    ckeditor5_list:
+      reversed: true
+      startIndex: true
+    ckeditor5_alignment:
+      enabled_alignments:
+        - left
+        - center
+        - right
+        - justify
+    media_media:
+      allow_view_mode_override: true
 image_upload:
   status: true
   scheme: public
