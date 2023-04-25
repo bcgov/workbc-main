@@ -7,18 +7,19 @@ dependencies:
     - field.field.node.page.field_content
     - field.field.node.page.field_content_group
     - field.field.node.page.field_hero_image
+    - field.field.node.page.field_hero_image_media
     - field.field.node.page.field_hero_text
     - field.field.node.page.field_page_format
     - field.field.node.page.field_related_topics
     - field.field.node.page.field_related_topics_blurb
     - field.field.node.page.field_scheduled_publish
     - field.field.node.page.view_mode_selection
-    - image.style.thumbnail
     - node.type.page
     - workflows.workflow.editorial
   module:
     - content_moderation
-    - image_widget_crop
+    - media_library
+    - media_library_edit
     - paragraphs
     - path
     - scheduled_publish
@@ -52,8 +53,8 @@ content:
     weight: 12
     region: content
     settings:
-      title: Paragraph
-      title_plural: Paragraphs
+      title: Section
+      title_plural: Sections
       edit_mode: open
       closed_mode: summary
       autocollapse: none
@@ -72,21 +73,15 @@ content:
     region: content
     settings: {  }
     third_party_settings: {  }
-  field_hero_image:
-    type: image_widget_crop
+  field_hero_image_media:
+    type: media_library_widget
     weight: 8
     region: content
     settings:
-      progress_indicator: throbber
-      preview_image_style: thumbnail
-      crop_preview_image_style: crop_thumbnail
-      crop_list:
-        - crop_3_2
-      crop_types_required: {  }
-      warn_multiple_usages: true
-      show_crop_area: true
-      show_default_crop: true
-    third_party_settings: {  }
+      media_types: {  }
+    third_party_settings:
+      media_library_edit:
+        show_edit: '1'
   field_hero_text:
     type: text_textarea
     weight: 9
@@ -176,6 +171,7 @@ content:
     settings: {  }
     third_party_settings: {  }
 hidden:
+  field_hero_image: true
   promote: true
   sticky: true
   view_mode_selection: true

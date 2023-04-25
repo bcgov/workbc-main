@@ -1,0 +1,10 @@
+uuid: c1dd4f77-4323-4f7f-85d2-bda0070ff06f
+langcode: en
+status: true
+dependencies:
+  module:
+    - media
+id: media.1_3_component
+label: 'Action Card: 1/3'
+targetEntityType: media
+cache: true

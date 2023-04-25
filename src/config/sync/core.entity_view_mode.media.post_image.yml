@@ -1,0 +1,10 @@
+uuid: 6a5c2ac0-b804-4132-8d62-07c46cf64f2d
+langcode: en
+status: true
+dependencies:
+  module:
+    - media
+id: media.post_image
+label: 'Post image'
+targetEntityType: media
+cache: true

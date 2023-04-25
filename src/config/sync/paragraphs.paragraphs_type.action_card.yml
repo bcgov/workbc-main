@@ -3,8 +3,8 @@ langcode: en
 status: true
 dependencies: {  }
 id: action_card
-label: 'Action Card'
+label: Card
 icon_uuid: null
 icon_default: null
-description: 'Card with Image, Title, Description and Link that links to another page.'
+description: 'Card with image, title, description and link to another page.'
 behavior_plugins: {  }

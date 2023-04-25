@@ -1,0 +1,40 @@
+uuid: a2576367-62d5-405a-80dd-e64752a8b25c
+langcode: en
+status: true
+dependencies:
+  config:
+    - core.entity_view_mode.media.action_card_explore_careers
+    - field.field.media.image.field_media_image
+    - image.style.explore_component
+    - media.type.image
+  module:
+    - svg_image
+_core:
+  default_config_hash: whJrNezqUJ7Qhg7raMQj2Hz9JPiWxijezhWIEN9BVVk
+id: media.image.action_card_explore_careers
+targetEntityType: media
+bundle: image
+mode: action_card_explore_careers
+content:
+  field_media_image:
+    type: image
+    label: hidden
+    settings:
+      image_link: ''
+      image_style: explore_component
+      svg_attributes:
+        width: null
+        height: null
+      svg_render_as_image: true
+      image_loading:
+        attribute: lazy
+    third_party_settings: {  }
+    weight: 1
+    region: content
+hidden:
+  created: true
+  langcode: true
+  name: true
+  search_api_excerpt: true
+  thumbnail: true
+  uid: true

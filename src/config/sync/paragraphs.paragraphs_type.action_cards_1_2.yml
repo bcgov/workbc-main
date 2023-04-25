@@ -3,8 +3,8 @@ langcode: en
 status: true
 dependencies: {  }
 id: action_cards_1_2
-label: 'Action Cards Container: 1/2'
+label: 'Section: 1/2'
 icon_uuid: null
 icon_default: null
-description: 'A section of calls to action with a 2-per-row layout.'
+description: 'A section of cards with a 2-per-row layout.'
 behavior_plugins: {  }

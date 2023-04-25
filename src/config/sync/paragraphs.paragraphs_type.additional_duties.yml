@@ -3,8 +3,8 @@ langcode: en
 status: true
 dependencies: {  }
 id: additional_duties
-label: 'Additional Duties'
+label: 'Career Profile: Additional Duties'
 icon_uuid: null
 icon_default: null
-description: 'Title and Description for Additional Duties in Career Profiles.'
+description: 'Title and description for additional duties in career profiles.'
 behavior_plugins: {  }

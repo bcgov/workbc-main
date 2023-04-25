@@ -11,6 +11,7 @@ dependencies:
     - field.field.node.workbc_centre.field_email
     - field.field.node.workbc_centre.field_geolocation
     - field.field.node.workbc_centre.field_hero_image
+    - field.field.node.workbc_centre.field_hero_image_media
     - field.field.node.workbc_centre.field_job_board_id
     - field.field.node.workbc_centre.field_multilingual_centre
     - field.field.node.workbc_centre.field_phone
@@ -47,6 +48,7 @@ hidden:
   field_email: true
   field_geolocation: true
   field_hero_image: true
+  field_hero_image_media: true
   field_job_board_id: true
   field_multilingual_centre: true
   field_phone: true

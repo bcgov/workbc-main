@@ -11,8 +11,8 @@ id: node.publication.field_publication
 field_name: field_publication
 entity_type: node
 bundle: publication
-label: Publication
-description: ''
+label: 'Publication (DO NOT USE)'
+description: "DO NOT USE! \r\n\r\nThis is a legacy field that has been replaced by the newer <b>Publication</b> field which pulls the content from the Media Library."
 required: false
 translatable: false
 default_value: {  }

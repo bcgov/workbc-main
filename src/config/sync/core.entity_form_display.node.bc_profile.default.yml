@@ -5,18 +5,19 @@ dependencies:
   config:
     - field.field.node.bc_profile.field_content_group
     - field.field.node.bc_profile.field_hero_image
+    - field.field.node.bc_profile.field_hero_image_media
     - field.field.node.bc_profile.field_industry_highlights_intro
     - field.field.node.bc_profile.field_introductions
     - field.field.node.bc_profile.field_job_board_id
     - field.field.node.bc_profile.field_key_facts
     - field.field.node.bc_profile.field_region_overview
     - field.field.node.bc_profile.field_scheduled_publish
-    - image.style.thumbnail
     - node.type.bc_profile
     - workflows.workflow.editorial
   module:
     - content_moderation
-    - image_widget_crop
+    - media_library
+    - media_library_edit
     - path
     - scheduled_publish
     - text
@@ -34,28 +35,22 @@ content:
     third_party_settings: {  }
   field_content_group:
     type: options_select
-    weight: 14
+    weight: 13
     region: content
     settings: {  }
     third_party_settings: {  }
-  field_hero_image:
-    type: image_widget_crop
+  field_hero_image_media:
+    type: media_library_widget
     weight: 9
     region: content
     settings:
-      progress_indicator: throbber
-      preview_image_style: thumbnail
-      crop_preview_image_style: crop_thumbnail
-      crop_list:
-        - crop_3_2
-      crop_types_required: {  }
-      warn_multiple_usages: true
-      show_crop_area: true
-      show_default_crop: true
-    third_party_settings: {  }
+      media_types: {  }
+    third_party_settings:
+      media_library_edit:
+        show_edit: '1'
   field_industry_highlights_intro:
     type: text_textarea
-    weight: 27
+    weight: 15
     region: content
     settings:
       rows: 5
@@ -63,7 +58,7 @@ content:
     third_party_settings: {  }
   field_introductions:
     type: entity_reference_autocomplete
-    weight: 28
+    weight: 16
     region: content
     settings:
       match_operator: CONTAINS
@@ -73,7 +68,7 @@ content:
     third_party_settings: {  }
   field_job_board_id:
     type: string_textfield
-    weight: 51
+    weight: 18
     region: content
     settings:
       size: 60
@@ -81,7 +76,7 @@ content:
     third_party_settings: {  }
   field_key_facts:
     type: text_textarea
-    weight: 11
+    weight: 12
     region: content
     settings:
       rows: 5
@@ -97,7 +92,7 @@ content:
     third_party_settings: {  }
   field_scheduled_publish:
     type: scheduled_publish
-    weight: 26
+    weight: 14
     region: content
     settings: {  }
     third_party_settings: {  }
@@ -128,7 +123,7 @@ content:
       display_label: true
     third_party_settings: {  }
   simple_sitemap:
-    weight: 10
+    weight: 11
     region: content
     settings: {  }
     third_party_settings: {  }
@@ -161,8 +156,9 @@ content:
     settings: {  }
     third_party_settings: {  }
   url_redirects:
-    weight: 50
+    weight: 17
     region: content
     settings: {  }
     third_party_settings: {  }
-hidden: {  }
+hidden:
+  field_hero_image: true

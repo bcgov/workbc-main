@@ -6,13 +6,14 @@ dependencies:
     - core.entity_form_mode.paragraph.action_card_explore_careers
     - field.field.paragraph.action_card.field_description
     - field.field.paragraph.action_card.field_image
+    - field.field.paragraph.action_card.field_image_media
     - field.field.paragraph.action_card.field_link
     - field.field.paragraph.action_card.field_title
-    - image.style.thumbnail
     - paragraphs.paragraphs_type.action_card
   module:
-    - image_widget_crop
     - link
+    - media_library
+    - media_library_edit
     - text
 id: paragraph.action_card.action_card_explore_careers
 targetEntityType: paragraph
@@ -27,21 +28,15 @@ content:
       rows: 5
       placeholder: ''
     third_party_settings: {  }
-  field_image:
-    type: image_widget_crop
+  field_image_media:
+    type: media_library_widget
     weight: 0
     region: content
     settings:
-      progress_indicator: throbber
-      preview_image_style: thumbnail
-      crop_preview_image_style: crop_thumbnail
-      crop_list:
-        - crop_1_1
-      crop_types_required: {  }
-      warn_multiple_usages: true
-      show_crop_area: true
-      show_default_crop: true
-    third_party_settings: {  }
+      media_types: {  }
+    third_party_settings:
+      media_library_edit:
+        show_edit: '1'
   field_link:
     type: link_default
     weight: 3
@@ -60,4 +55,5 @@ content:
     third_party_settings: {  }
 hidden:
   created: true
+  field_image: true
   status: true

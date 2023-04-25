@@ -1,0 +1,10 @@
+uuid: 618288c7-554b-4fc2-86bb-433455901b28
+langcode: en
+status: true
+dependencies:
+  module:
+    - media
+id: media.action_card_icon
+label: 'Action Card: Icon'
+targetEntityType: media
+cache: true

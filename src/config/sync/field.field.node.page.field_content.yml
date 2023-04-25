@@ -15,7 +15,6 @@ dependencies:
     - paragraphs.paragraphs_type.action_cards_publication
     - paragraphs.paragraphs_type.content_text
     - paragraphs.paragraphs_type.content_view
-    - paragraphs.paragraphs_type.quote_card
   module:
     - entity_reference_revisions
 id: node.page.field_content
@@ -37,7 +36,6 @@ settings:
       action_cards_1_3: action_cards_1_3
       action_cards_1_4: action_cards_1_4
       action_cards_full_width: action_cards_full_width
-      quote_card: quote_card
       action_cards_explore_careers: action_cards_explore_careers
       content_text: content_text
       content_view: content_view
@@ -51,6 +49,9 @@ settings:
       action_card_feature:
         weight: 12
         enabled: true
+      action_card_full_width:
+        weight: 19
+        enabled: false
       action_card_icon:
         weight: 19
         enabled: false
@@ -84,12 +85,9 @@ settings:
       content_view:
         weight: 21
         enabled: true
-      hours_of_operation:
-        weight: 18
-        enabled: false
       quote_card:
         weight: 19
-        enabled: true
+        enabled: false
       skills:
         weight: 20
         enabled: false

@@ -1,0 +1,29 @@
+uuid: 99896f90-4e79-47eb-a0a4-b9b6b4c02935
+langcode: en
+status: true
+dependencies:
+  config:
+    - field.storage.paragraph.field_image_media
+    - media.type.image
+    - paragraphs.paragraphs_type.action_card_full_width
+id: paragraph.action_card_full_width.field_image_media
+field_name: field_image_media
+entity_type: paragraph
+bundle: action_card_full_width
+label: Image
+description: 'Use a cropping of 3:2 for best visual results.<br>'
+required: false
+translatable: true
+default_value: {  }
+default_value_callback: ''
+settings:
+  handler: 'default:media'
+  handler_settings:
+    target_bundles:
+      image: image
+    sort:
+      field: _none
+      direction: ASC
+    auto_create: false
+    auto_create_bundle: feature_image
+field_type: entity_reference

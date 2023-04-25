@@ -5,13 +5,12 @@ dependencies:
   config:
     - field.field.paragraph.action_card.field_description
     - field.field.paragraph.action_card.field_image
+    - field.field.paragraph.action_card.field_image_media
     - field.field.paragraph.action_card.field_link
     - field.field.paragraph.action_card.field_title
-    - image.style.action_card_icon
     - paragraphs.paragraphs_type.action_card
   module:
     - link
-    - svg_image
     - text
 id: paragraph.action_card.default
 targetEntityType: paragraph
@@ -25,18 +24,12 @@ content:
     third_party_settings: {  }
     weight: 2
     region: content
-  field_image:
-    type: image
+  field_image_media:
+    type: entity_reference_entity_view
     label: above
     settings:
-      image_link: ''
-      image_style: action_card_icon
-      svg_attributes:
-        width: null
-        height: null
-      svg_render_as_image: true
-      image_loading:
-        attribute: lazy
+      view_mode: action_card_icon
+      link: false
     third_party_settings: {  }
     weight: 0
     region: content
@@ -61,4 +54,5 @@ content:
     weight: 1
     region: content
 hidden:
+  field_image: true
   search_api_excerpt: true

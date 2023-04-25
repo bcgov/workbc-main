@@ -1,0 +1,10 @@
+uuid: 2c596a7e-a0f4-436e-83f2-363ff84321d3
+langcode: en
+status: true
+dependencies:
+  module:
+    - media
+id: media.action_card_explore_careers
+label: 'Action Card: Explore Careers'
+targetEntityType: media
+cache: true

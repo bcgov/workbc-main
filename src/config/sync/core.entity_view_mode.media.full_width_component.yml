@@ -1,0 +1,10 @@
+uuid: 910f7027-f217-47ef-b082-2a92e2e116d0
+langcode: en
+status: true
+dependencies:
+  module:
+    - media
+id: media.full_width_component
+label: 'Action Card: Full Width'
+targetEntityType: media
+cache: true

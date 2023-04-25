@@ -4,6 +4,7 @@ namespace Drupal\workbc_menu\Plugin\Block;
 
 use Drupal\Core\Block\BlockBase;
 use Drupal\image\Entity\ImageStyle;
+use Drupal\media\Entity\Media;
 
 /**
  * Provides a WorkBC Menu Block.
@@ -77,9 +78,11 @@ class MenuBlock extends BlockBase {
           }
 
           $hero_image_url = "";
-          if (!$node->get('field_hero_image')->isEmpty()) {
-            $image_id = $node->field_hero_image->entity->getFileUri();
-            $hero_image_url = ImageStyle::load('megamenu')->buildUrl($image_id);
+          if ($node->hasField('field_hero_image_media') && !$node->get('field_hero_image_media')->isEmpty()) {
+            $media_id = $node->field_hero_image_media[0]->getValue()['target_id'];
+            $media = Media::load($media_id);
+            $image_uri = $media->field_media_image->entity->getFileUri();
+            $hero_image_url = ImageStyle::load('megamenu')->buildUrl($image_uri);
             $image_alt = $node->field_hero_image->alt;
           }
 

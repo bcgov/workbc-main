@@ -13,8 +13,8 @@ id: paragraph.action_cards_1_2.field_action_cards
 field_name: field_action_cards
 entity_type: paragraph
 bundle: action_cards_1_2
-label: 'Action Cards'
-description: ''
+label: Cards
+description: 'For best visual results, use a crop size of 2:1.<br>'
 required: false
 translatable: true
 default_value: {  }
@@ -33,6 +33,12 @@ settings:
       action_card_feature:
         weight: 10
         enabled: false
+      action_card_full_width:
+        weight: 19
+        enabled: false
+      action_card_icon:
+        weight: 20
+        enabled: false
       action_cards_1_2:
         weight: 11
         enabled: false
@@ -42,14 +48,26 @@ settings:
       action_cards_1_4:
         weight: 15
         enabled: false
+      action_cards_explore_careers:
+        weight: 24
+        enabled: false
       action_cards_full_width:
         weight: 12
+        enabled: false
+      action_cards_icon:
+        weight: 26
+        enabled: false
+      action_cards_publication:
+        weight: 27
         enabled: false
       additional_duties:
         weight: 13
         enabled: false
-      hours_of_operation:
-        weight: 14
+      content_text:
+        weight: 29
+        enabled: false
+      content_view:
+        weight: 30
         enabled: false
       quote_card:
         weight: 15

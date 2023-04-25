@@ -66,7 +66,7 @@ resource "aws_ecs_task_definition" "app" {
 		name        = "drupal"
 		image       = var.app_image
 		networkMode = "awsvpc"
-		
+
 		logConfiguration = {
 			logDriver = "awslogs"
 			options = {
@@ -75,7 +75,7 @@ resource "aws_ecs_task_definition" "app" {
 				awslogs-region        = var.aws_region
 				awslogs-stream-prefix = "ecs"
 			}
-		}		
+		}
 
 		portMappings = [
 			{
@@ -84,7 +84,7 @@ resource "aws_ecs_task_definition" "app" {
 				containerPort = 9000
 			}
 		]
-		
+
 		environment = [
 			{
 				name = "POSTGRES_PORT",
@@ -153,7 +153,7 @@ resource "aws_ecs_task_definition" "app" {
 			}
 		]
 		volumesFrom = []
-		
+
 		dependsOn = [
 			{
 				containerName = "init"
@@ -166,7 +166,7 @@ resource "aws_ecs_task_definition" "app" {
 		name        = "nginx"
 		image       = "${var.app_repo}/nginx:2.2"
 		networkMode = "awsvpc"
-		
+
 		logConfiguration = {
 			logDriver = "awslogs"
 			options = {
@@ -175,7 +175,7 @@ resource "aws_ecs_task_definition" "app" {
 				awslogs-region        = var.aws_region
 				awslogs-stream-prefix = "ecs"
 			}
-		}		
+		}
 
 		portMappings = [
 			{
@@ -196,7 +196,7 @@ resource "aws_ecs_task_definition" "app" {
 			}
 		]
 		volumesFrom = []
-		
+
 		dependsOn = [
 			{
 				containerName = "init"
@@ -210,7 +210,7 @@ resource "aws_ecs_task_definition" "app" {
 		name        = "drush"
 		image       = var.app_image
 		networkMode = "awsvpc"
-		
+
 		logConfiguration = {
 			logDriver = "awslogs"
 			options = {
@@ -222,8 +222,7 @@ resource "aws_ecs_task_definition" "app" {
 		}
 
 		entryPoint = ["sh", "-c"]
-		command = ["drush cr; drush updb -y; drush cr; drush cim -y;"]
-                #command = ["drush cr; drush updb -y; drush cr;"]
+		command = ["drush cr; drush updb -y --no-post-updates; drush cim -y; drush updb -y; drush cr"]
 		environment = [
 			{
 				name = "POSTGRES_PORT",

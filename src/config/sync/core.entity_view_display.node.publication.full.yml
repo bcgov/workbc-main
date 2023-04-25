@@ -8,12 +8,12 @@ dependencies:
     - field.field.node.publication.field_content_group
     - field.field.node.publication.field_hardcopy_available
     - field.field.node.publication.field_image
+    - field.field.node.publication.field_image_media
     - field.field.node.publication.field_publication
+    - field.field.node.publication.field_publication_media
     - field.field.node.publication.field_resource_number
     - node.type.publication
   module:
-    - file
-    - svg_image
     - text
     - user
 id: node.publication.full
@@ -26,12 +26,12 @@ content:
     label: above
     settings: {  }
     third_party_settings: {  }
-    weight: 5
+    weight: 6
     region: content
   content_moderation_control:
     settings: {  }
     third_party_settings: {  }
-    weight: -20
+    weight: 0
     region: content
   field_hardcopy_available:
     type: boolean
@@ -41,28 +41,23 @@ content:
       format_custom_false: ''
       format_custom_true: ''
     third_party_settings: {  }
-    weight: 3
-    region: content
-  field_image:
-    type: image
-    label: above
-    settings:
-      image_link: ''
-      image_style: ''
-      svg_attributes:
-        width: null
-        height: null
-      svg_render_as_image: true
-      image_loading:
-        attribute: lazy
-    third_party_settings: {  }
     weight: 4
     region: content
-  field_publication:
-    type: file_default
+  field_image_media:
+    type: entity_reference_entity_view
     label: above
     settings:
-      use_description_as_link_text: true
+      view_mode: default
+      link: true
+    third_party_settings: {  }
+    weight: 5
+    region: content
+  field_publication_media:
+    type: entity_reference_entity_view
+    label: above
+    settings:
+      view_mode: action_card_feature
+      link: false
     third_party_settings: {  }
     weight: 1
     region: content
@@ -72,17 +67,19 @@ content:
     settings:
       link_to_entity: false
     third_party_settings: {  }
-    weight: 2
+    weight: 3
     region: content
   links:
     settings: {  }
     third_party_settings: {  }
-    weight: 0
+    weight: 2
     region: content
 hidden:
   extra_field_publication_orderform_link: true
   extra_field_workbc_page_title: true
   extra_field_workbc_published_on: true
   field_content_group: true
+  field_image: true
+  field_publication: true
   langcode: true
   search_api_excerpt: true

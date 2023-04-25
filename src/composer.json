@@ -100,6 +100,7 @@
         "drupal/linkit": "^6.0@beta",
         "drupal/log_stdout": "^1.3",
         "drupal/mail_login": "^2.6",
+        "drupal/media_library_edit": "^3.0",
         "drupal/menu_breadcrumb": "^1.16",
         "drupal/menu_export": "^1.3",
         "drupal/metatag": "^1.21",
@@ -214,6 +215,9 @@
             },
             "drupal/charts": {
                 "Remember chart instances": "patches/drupal/charts/remember-charts.patch"
+            },
+            "drupal/media_library_edit": {
+                "Adjust the form's return destination": "patches/drupal/media_library_edit/edit-form-destination.patch"
             }
         }
     }

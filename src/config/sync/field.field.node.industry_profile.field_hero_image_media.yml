@@ -1,0 +1,29 @@
+uuid: fc4dda16-9eee-4ac5-9764-1b5eb07c4f51
+langcode: en
+status: true
+dependencies:
+  config:
+    - field.storage.node.field_hero_image_media
+    - media.type.image
+    - node.type.industry_profile
+id: node.industry_profile.field_hero_image_media
+field_name: field_hero_image_media
+entity_type: node
+bundle: industry_profile
+label: 'Hero Image'
+description: 'For best visual results, use a crop size of 3:2.<br>'
+required: false
+translatable: true
+default_value: {  }
+default_value_callback: ''
+settings:
+  handler: 'default:media'
+  handler_settings:
+    target_bundles:
+      image: image
+    sort:
+      field: _none
+      direction: ASC
+    auto_create: false
+    auto_create_bundle: hero_image
+field_type: entity_reference
