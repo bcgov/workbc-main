@@ -215,6 +215,9 @@
             },
             "drupal/charts": {
                 "Remember chart instances": "patches/drupal/charts/remember-charts.patch"
+            },
+            "drupal/media_library_edit": {
+                "Adjust the form's return destination": "patches/drupal/media_library_edit/edit-form-destination.patch"
             }
         }
     }
