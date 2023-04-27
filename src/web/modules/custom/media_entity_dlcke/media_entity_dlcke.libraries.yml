@@ -1,0 +1,10 @@
+drupal.media_entity_dlcke.dialog:
+  version: VERSION
+  js:
+    js/media_entity_dlcke.dialog.js: {}
+  css:
+    theme:
+      css/media_entity_dlcke.dialog.css: {}
+  dependencies:
+    - core/drupal
+    - core/jquery

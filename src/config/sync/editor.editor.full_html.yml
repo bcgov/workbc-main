@@ -52,6 +52,7 @@ settings:
           items:
             - Blockquote
             - DrupalMediaLibrary
+            - MediaEntityDLCKE
             - Table
             - HorizontalRule
         -
@@ -65,11 +66,11 @@ settings:
             - ShowBlocks
             - Source
   plugins:
+    stylescombo:
+      styles: "a.btn.btn-primary|Primary Button\r\na.btn.btn-secondary|Secondary Button\r\np.text-footnote|Footnote"
     drupallink:
       linkit_enabled: true
       linkit_profile: default
-    stylescombo:
-      styles: "a.btn.btn-primary|Primary Button\r\na.btn.btn-secondary|Secondary Button\r\np.text-footnote|Footnote"
 image_upload:
   status: true
   scheme: public

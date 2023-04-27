@@ -1,6 +1,6 @@
 uuid: 74d8b46a-9b7a-4703-bfc4-13865f5ace47
 langcode: en
-status: true
+status: false
 dependencies:
   config:
     - core.entity_view_mode.media.inline
