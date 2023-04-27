@@ -63,12 +63,12 @@ content:
     weight: 19
     region: content
     settings:
-      title: Paragraph
-      title_plural: Paragraphs
+      title: Section
+      title_plural: Sections
       edit_mode: open
       add_mode: dropdown
       form_display_mode: default
-      default_paragraph_type: ''
+      default_paragraph_type: action_cards_1_2
     third_party_settings: {  }
   field_content_group:
     type: options_select
@@ -96,6 +96,7 @@ content:
     region: content
     settings:
       media_types: {  }
+      form_mode: crop_3_2
     third_party_settings:
       media_library_edit:
         show_edit: '1'

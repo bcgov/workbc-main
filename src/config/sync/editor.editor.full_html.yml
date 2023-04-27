@@ -32,6 +32,7 @@ settings:
         -
           name: Linking
           items:
+            - MediaEntityDLCKE
             - DrupalLink
             - DrupalUnlink
         -
@@ -52,7 +53,6 @@ settings:
           items:
             - Blockquote
             - DrupalMediaLibrary
-            - MediaEntityDLCKE
             - Table
             - HorizontalRule
         -

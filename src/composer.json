@@ -217,6 +217,9 @@
             "drupal/charts": {
                 "Remember chart instances": "patches/drupal/charts/remember-charts.patch"
             },
+            "drupal/media_library_edit": {
+                "Media library edit form mode": "patches/drupal/media_library_edit/form_mode.patch"
+            },
             "drupal/core": {
                 "Media library add form mode": "patches/drupal/core/3323232-29.patch"
             }

@@ -11,7 +11,7 @@ field_name: field_hero_image_media
 entity_type: node
 bundle: page
 label: 'Hero Image'
-description: 'For best visual results, use a crop size of 3:2.<br>'
+description: ''
 required: false
 translatable: false
 default_value: {  }

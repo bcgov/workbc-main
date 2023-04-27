@@ -61,6 +61,7 @@ content:
     region: content
     settings:
       media_types: {  }
+      form_mode: crop_wide
     third_party_settings:
       media_library_edit:
         show_edit: '1'
