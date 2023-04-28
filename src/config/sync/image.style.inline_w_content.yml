@@ -1,15 +1,50 @@
 uuid: ccbdc68c-76e4-4479-ad84-91873ae126a4
 langcode: en
 status: true
-dependencies: {  }
+dependencies:
+  config:
+    - crop.type.crop_1_1
+    - crop.type.crop_2_1
+    - crop.type.crop_3_2
+    - crop.type.crop_wide
+  module:
+    - crop
 name: inline_w_content
 label: 'Inline with Content'
 effects:
   a976b041-b9a1-416e-a427-c4706b3173c6:
     uuid: a976b041-b9a1-416e-a427-c4706b3173c6
     id: image_scale
-    weight: 1
+    weight: -6
     data:
       width: 900
       height: null
       upscale: false
+  e6b0ad07-401a-4536-9fbb-b6332b247eff:
+    uuid: e6b0ad07-401a-4536-9fbb-b6332b247eff
+    id: crop_crop
+    weight: -10
+    data:
+      crop_type: crop_1_1
+      automatic_crop_provider: null
+  3c2ce7ff-af49-4788-9ed8-86985adfbf8b:
+    uuid: 3c2ce7ff-af49-4788-9ed8-86985adfbf8b
+    id: crop_crop
+    weight: -9
+    data:
+      crop_type: crop_2_1
+      automatic_crop_provider: null
+  81f8a631-c595-43c0-bab2-7f9cfa32f440:
+    uuid: 81f8a631-c595-43c0-bab2-7f9cfa32f440
+    id: crop_crop
+    weight: -8
+    data:
+      crop_type: crop_3_2
+      automatic_crop_provider: null
+  64abe493-4f30-4e7a-8b4a-f7728cf26254:
+    uuid: 64abe493-4f30-4e7a-8b4a-f7728cf26254
+    id: crop_crop
+    weight: -7
+    data:
+      crop_type: crop_wide
+      automatic_crop_provider: null
