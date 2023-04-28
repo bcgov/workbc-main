@@ -75,44 +75,8 @@
           '#open' => TRUE,
         ];
 
-        $files = getUnmanagedFiles();
-        $form['reports']['files'] = [
-          '#tree' => TRUE,
-          '#type' => 'details',
-          '#title' => $this->t('Unmanaged files'),
-          '#description' => $this->t('
-            This is a report of pages containing unmanaged files instead of media library items.<br>
-            Click the <b>Edit</b> link to edit the page, then look for the field named in the <b>Field</b> column to find the content to be edited.<br>
-            Click the <b>Source</b> button of the editor to locate the unmanaged file(s) in the field content.'
-          ),
-          '#open' => FALSE,
-        ];
-
-        $form['reports']['files']['table'] = [
-          '#theme' => 'table',
-          '#header' => ['Page', 'Field', 'Edit'],
-          '#rows' => array_map(function ($file) {
-            return [
-              $file['title'],
-              $file['label'],
-              Link::fromTextAndUrl($this->t('Edit'), $file['edit_url'])
-            ];
-          }, $files),
-        ];
-
-        $form['environment'] = [
-          '#tree' => TRUE,
-          '#type' => 'details',
-          '#title' => $this->t('Environment'),
-          '#open' => FALSE,
-        ];
-
-        ob_start();
-        phpinfo((INFO_VARIABLES | INFO_ENVIRONMENT));
-        $env = ob_get_clean();
-        $form['environment']['env'] = [
-          '#type' => 'markup',
-          '#markup' => $env,
+        $form['reports']['notice'] = [
+          '#markup' => 'Moved to the <a href="/admin/reports">reports section</a>. Check for <b>WorkBC</b> reports there.'
         ];
 
         return parent::buildForm($form, $form_state);
