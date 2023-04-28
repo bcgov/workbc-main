@@ -3,7 +3,6 @@ langcode: en
 status: true
 dependencies:
   config:
-    - filter.format.basic_html
     - media.type.audio
     - media.type.document
     - media.type.icon
@@ -13,7 +12,6 @@ dependencies:
   module:
     - contact
     - field_permissions
-    - filter
     - media
     - paragraphs_type_permissions
     - search_api_autocomplete
@@ -104,7 +102,6 @@ permissions:
   - 'update paragraph content skills'
   - 'use search_api_autocomplete for search_career_profiles'
   - 'use search_api_autocomplete for search_site_content'
-  - 'use text format basic_html'
   - 'use views bulk edit'
   - 'view all media revisions'
   - 'view field_content'

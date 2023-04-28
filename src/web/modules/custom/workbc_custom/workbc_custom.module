@@ -79,14 +79,14 @@ function workbc_custom_form_alter(&$form, \Drupal\Core\Form\FormStateInterface $
 
   // hide password and disable editing of username and email
   // maintenance of this info is handled by keycloak
-  if ($form_id == "user_form") {
+  if ($form_id === 'user_form') {
     $form['account']['mail']['#disabled'] = true;
     $form['account']['name']['#disabled'] = true;
     $form['account']['pass']['#access'] = false;
     $form['account']['mail']['#description'] = "";
 
     $user = \Drupal::currentUser();
-    if (!$user->hasPermission("bypass content groups")) {
+    if (!$user->hasPermission('bypass content groups')) {
       $form['field_content_group']['#disabled'] = true;
     }
     // allow edit if super user
@@ -96,13 +96,20 @@ function workbc_custom_form_alter(&$form, \Drupal\Core\Form\FormStateInterface $
     }
   }
 
-
-  if($form_id == "hoo_options"){
+  if ($form_id === 'hoo_options'){
     $form['#attached']['library'][] =  'workbc_custom/custom-script';
   }
 
 }
 
+/**
+ * Implements hook_entity_form_mode_alter().
+ */
+function workbc_custom_entity_form_mode_alter(&$form_mode, Drupal\Core\Entity\EntityInterface $entity) {
+  if ($entity->getEntityTypeId() === 'media' && \Drupal::request()->query->get('form_mode')) {
+    $form_mode = \Drupal::request()->query->get('form_mode');
+  }
+}
 
 /**
  * Implements hook_node_access().

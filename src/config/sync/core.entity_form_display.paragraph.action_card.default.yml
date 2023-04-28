@@ -33,6 +33,7 @@ content:
     region: content
     settings:
       media_types: {  }
+      form_mode: crop_2_1
     third_party_settings:
       media_library_edit:
         show_edit: '1'

@@ -13,7 +13,7 @@ field_name: field_action_card
 entity_type: paragraph
 bundle: action_card_feature
 label: 'Feature Card'
-description: 'For best visual results, use a crop size of 2:1.<br>'
+description: ''
 required: false
 translatable: false
 default_value: {  }

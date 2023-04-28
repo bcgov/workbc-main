@@ -1,12 +1,12 @@
 diff --git a/media_library_edit.module b/media_library_edit.module
-index 29f8a78..9953af7 100644
+index 29f8a78..7df7223 100644
 --- a/media_library_edit.module
 +++ b/media_library_edit.module
 @@ -95,6 +95,7 @@ function media_library_edit_field_widget_single_element_form_alter(array &$eleme
              foreach (Element::children($element['selection']) as $key) {
                $edit_url_query_params = [
                  'media_library_edit' => 'ajax',
-+                'destination' => $form_state->getformObject()?->getEntity()?->toUrl('edit-form')?->toString(),
++                'form_mode' => isset($element['open_button']['#media_library_state']) && method_exists($element['open_button']['#media_library_state'], 'getFormModeId') ? $element['open_button']['#media_library_state']->getFormModeId() : 'media-library',
                ];
                $edit_url = Url::fromUserInput(str_replace('{media}', $element['selection'][$key]['target_id']['#value'], $edit_template) . '?' . UrlHelper::buildQuery($edit_url_query_params));
                $dialog_options = MediaLibraryUiBuilder::dialogOptions();
