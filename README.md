@@ -55,34 +55,8 @@ This repo includes a patched version of Backup and Migrate that supports Postgre
 ## Theming / styling
 Please see the `src/web/themes/custom/workbc/README.md` for more details.
 
-## Make and development shortcut commands
-This project includes a Makefile, which has been configured with a few command shortcuts to help forgetful developers (like me!) more easily manage all the different CLI tasks they might want to do.
-
-From your host machine, in the `src/` directory, run `make <command>`:
-
-### Docker related:
-1. `up`
-1. `down`
-1. `start`
-1. `stop`
-1. `prune`
-1. `ps`
-
-### Drupal related:
-1. `shell`
-1. `sync`
-1. `drush <command>`
-1. `navrebuild`
-
-### SCSS related:
-1. `compilescss`
-1. `watchscss`
-
-**For Windows users**, follow [this guide on StackExchange to install and configure Make for Windows](https://superuser.com/a/1634350/221936).
-
 ## Testing
 Refer to the [`src/scripts/test`](src/scripts/test/README.md) folder for instructions on load-testing the site.
-
 
 ## Content migration / seeding
 Refer to the [`src/scripts/migration`](src/scripts/migration/README.md) folder for instructions on seeding content from legacy sources into this site.
