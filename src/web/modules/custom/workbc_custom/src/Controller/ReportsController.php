@@ -9,10 +9,10 @@ namespace Drupal\workbc_custom\Controller;
 
 use Drupal\Core\Controller\ControllerBase;
 use Drupal\Core\Link;
+use Drupal\Core\Url;
 
 class ReportsController extends ControllerBase {
-  public function files() {
-    $files = getUnmanagedFiles();
+  public function unmanaged_files() {
     return [[
       '#markup' => 'This is a report of pages containing unmanaged files instead of media library items.<br>
       Click the <b>Edit</b> link to edit the page, then look for the field named in the <b>Field</b> column to find the content to be edited.<br>
@@ -20,14 +20,42 @@ class ReportsController extends ControllerBase {
       It will typically be an HTML tag that references a file like <code>/sites/default/files/filename.pdf</code>.'
     ],[
       '#theme' => 'table',
-      '#header' => ['Page', 'Field', 'Edit'],
+      '#header' => ['Page', 'Field', 'Matches', 'Edit'],
       '#rows' => array_map(function ($file) {
         return [
           $file['title'],
           $file['label'],
+          [
+            'data' => ['#markup' => join('<br>', array_map(function ($m) {
+              if (!empty($m['media_id'])) {
+                return Link::createFromRoute($m['file_path'], 'media_entity_download.download', ['media' => $m['media_id']], [
+                  'attributes' => ['target' => '_blank']
+                ])->toString();
+              }
+              else {
+                return $m['type'] .'://' . $m['file_path'];
+              }
+            }, $file['matches']))]
+          ],
           Link::fromTextAndUrl($this->t('Edit'), $file['edit_url'])
         ];
-      }, $files),
+      }, getUnmanagedFiles()),
+    ]];
+  }
+
+  public function duplicate_files() {
+    return [[
+      '#markup' => 'This is a report of duplicate files in the Drupal filesystem. For each file, the corresponding media library item is shown, if any.',
+    ],[
+      '#theme' => 'table',
+      '#header' => ['Duplicates'],
+      '#rows' => array_map(function ($dupes) {
+        return [['data' => ['#markup' => join('<br>', array_map(function($d) {
+          return Link::fromTextAndUrl($d, Url::fromUri(\Drupal::service('file_url_generator')->generateAbsoluteString($d), [
+            'attributes' => ['target' => '_blank']
+          ]))->toString();
+        }, $dupes))]]];
+      }, getDuplicateFiles())
     ]];
   }
 

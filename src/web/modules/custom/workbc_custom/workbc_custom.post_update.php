@@ -1,6 +1,7 @@
 <?php
 
 use Drupal\redirect\Entity\Redirect;
+use Drupal\Core\Url;
 
 /**
  * Add redirections of the form http://www.workbc.ca/Job-Seekers/Career-Profiles/[NOC]
@@ -264,4 +265,102 @@ function workbc_custom_post_update_1566_paragraph_images(&$sandbox = NULL) {
 
   $sandbox['#finished'] = empty($sandbox['fields']) ? 1 : ($sandbox['count'] - count($sandbox['fields'])) / $sandbox['count'];
   return t('[WR-1566] Migrated one paragraph image.');
+}
+
+/**
+ * Migrate rich content fields that refer to files.
+ *
+ * As per tickets WR-1564/WR-1566.
+ */
+function workbc_custom_post_update_1566_rich_content_fields(&$sandbox = NULL) {
+  if (!isset($sandbox['fields'])) {
+    $sandbox['fields'] = getUnmanagedFiles();
+    $sandbox['count'] = count($sandbox['fields']);
+    $sandbox['medias'] = [];
+  }
+
+  // Loop on each rich text field that contains file references.
+  // The end goal is to replace each file reference with a media reference.
+  // If the media had already been created, just go ahead an replace the reference.
+  // Otherwise, create a new media item to encapsulate the file.
+  // Keep a cache of created file_id => media_id to avoid creating duplicate media items.
+  $field = array_shift($sandbox['fields']);
+  if (!empty($field)) {
+    // Load the entity that contains the field we're processing.
+    $entity = Drupal::entityTypeManager()
+    ->getStorage($field['entity'])
+    ->load($field['entity_id']);
+
+    // Each field has potentially many matches of file references that need replacing.
+    foreach ($field['matches'] as $match) {
+      $media_id = $match['media_id'];
+      if (empty($media_id)) {
+        $file = \Drupal::entityTypeManager()
+        ->getStorage('file')
+        ->load($match['file_id']);
+
+        // First check our cache for an existing media that was created for this file.
+        if (array_key_exists($file->id(), $sandbox['medias'])) {
+          $media_id = $sandbox['medias'][$file->id()];
+          $media = Drupal::entityTypeManager()
+          ->getStorage('media')
+          ->load($media_id);
+        }
+        else {
+          // Not in cache: Create new media that encapsulates the file.
+          $path_parts = pathinfo($file->getFilename());
+          $media_fields = [
+            'name' => $path_parts['filename'],
+            'bundle' => $match['type'] === 'href' ? 'document': 'image',
+            'uid' => 1,
+            'field_media_image' => [
+              'target_id' => $file->id(),
+              'alt' => $path_parts['filename'],
+              'title' => $path_parts['filename'],
+              'uuid' => $file->uuid(),
+              'uri' => $file->createFileUrl(),
+            ],
+            'field_media_document' => [
+              'target_id' => $file->id(),
+              'title' => $path_parts['filename'],
+              'display' => 1,
+              'description' => '',
+              'uuid' => $file->uuid(),
+              'uri' => $file->createFileUrl(),
+            ],
+          ];
+          $media = Drupal::entityTypeManager()
+          ->getStorage('media')
+          ->create($media_fields);
+          $media->save();
+          $sandbox['medias'][$file->id()] = $media_id = $media->id();
+        }
+      }
+      else {
+        $media = Drupal::entityTypeManager()
+        ->getStorage('media')
+        ->load($media_id);
+      }
+      if (empty($media) || empty($media_id)) {
+        \Drupal::messenger()->addWarning('Empty media for ' . $match['file_path'], true);
+        continue;
+      }
+      switch ($match['type']) {
+        case 'img':
+          // Replace img with media embed.
+          $embed = '<drupal-media data-entity-type="media" data-entity-uuid="' . $media->uuid() . '"></drupal-media>';
+          $entity->{$field['field']}->value = str_replace($match['match'], $embed, $entity->{$field['field']}->value);
+          break;
+        case 'href':
+          // Replace href with media download.
+          $url = new Url('media_entity_download.download', ['media' => $media_id]);
+          $entity->{$field['field']}->value = str_replace($match['file_path'], $url->toString(), $entity->{$field['field']}->value);
+          break;
+      }
+    }
+    $entity->save();
+  }
+
+  $sandbox['#finished'] = empty($sandbox['fields']) ? 1 : ($sandbox['count'] - count($sandbox['fields'])) / $sandbox['count'];
+  return t('[WR-1566] Migrated one rich content field.');
 }

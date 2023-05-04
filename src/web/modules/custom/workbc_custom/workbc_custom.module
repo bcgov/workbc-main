@@ -339,47 +339,50 @@ function getUnmanagedFiles() {
     $rows = $query->execute()->fetchAll();
     foreach ($rows as $row) {
       $row_matches = [];
-      if (preg_match_all('/data-entity-type="file" data-entity-uuid="([a-z0-9-]+)" src="(\/sites\/default\/files\/[^"]+)"/', $row->{"{$field}_value"}, $matches, PREG_SET_ORDER) > 0) {
+      if (preg_match_all('/<img\s[^>]*data-entity-type="file" data-entity-uuid="([a-z0-9-]+)"\s[^>]*src="(\/sites\/default\/files\/[^"]+)"[^>]*\/>/', $row->{"{$field}_value"}, $matches, PREG_SET_ORDER) > 0) {
         foreach ($matches as $match) {
+          $file = $connection->query("
+            select fm.fid, fu.id
+            from file_managed fm left join file_usage fu on fu.fid = fm.fid and fu.type = 'media'
+            where fm.uuid = :uuid
+          ", [':uuid' => $match[1]])->fetchObject();
           $row_matches[] = [
+            'type' => 'img',
             'match' => $match[0],
             'file_uuid' => $match[1],
             'file_path' => $match[2],
-            'media_id' => $connection->query("
-              select distinct fu.id
-              from file_managed fm inner join file_usage fu on fu.fid = fm.fid
-              where fu.type = 'media' and
-              fm.uuid = :uuid
-            ", [':uuid' => $match[1]])?->fetchField()
+            'media_id' => $file->id,
+            'file_id' => $file->fid,
           ];
         }
       }
-      if (preg_match_all('/src="(\/sites\/default\/files\/[^"]+)"/', $row->{"{$field}_value"}, $matches, PREG_SET_ORDER) > 0) {
+      if (preg_match_all('/href="(\/sites\/default\/files\/[^"]+)"/', $row->{"{$field}_value"}, $matches, PREG_SET_ORDER) > 0) {
         foreach ($matches as $match) {
-          // Eliminate matches from above.
-          foreach ($row_matches as $row_match) {
-            if ($row_match['file_path'] === $match[1]) continue 2;
-          }
+          $path = explode('#', urldecode($match[1]))[0];
+          $file = $connection->query("
+            select fm.fid, fu.id
+            from file_managed fm left join file_usage fu on fu.fid = fm.fid and fu.type = 'media'
+            where fm.uri ilike :uri
+          ", [':uri' => str_replace('/sites/default/files/', 'public://', $path)])->fetchObject();
           $row_matches[] = [
+            'type' => 'href',
             'match' => $match[0],
             'file_uuid' => null,
             'file_path' => $match[1],
-            'media_id' => $connection->query("
-              select distinct fu.id
-              from file_managed fm inner join file_usage fu on fu.fid = fm.fid
-              where fu.type = 'media' and
-              fm.uri = :uri
-            ", [':uri' => str_replace('/sites/default/files/', 'public://', urldecode($match[1]))])?->fetchField()
+            'media_id' => $file->id,
+            'file_id' => $file->fid,
           ];
         }
       }
       if (preg_match_all('/src="(https:\/\/[^\.]+\.gathercontent\.com\/[^"]+)"/', $row->{"{$field}_value"}, $matches, PREG_SET_ORDER) > 0) {
         foreach ($matches as $match) {
           $row_matches[] = [
+            'type' => 'gathercontent',
             'match' => $match[0],
             'file_uuid' => null,
             'file_path' => $match[1],
             'media_id' => null,
+            'file_id' => null,
           ];
         }
       }
@@ -408,6 +411,7 @@ function getUnmanagedFiles() {
         $results[] = [
           'title' => $node->get('title')->value,
           'entity' => $entity,
+          'entity_id' => $row->entity_id,
           'bundle' => $field_info->getTargetBundle(),
           'field' => $field,
           'label' => $field_info->getLabel(),
@@ -418,4 +422,27 @@ function getUnmanagedFiles() {
     }
   }
   return $results;
+}
+
+/**
+ * Function to find duplicate files in the Drupal public file directory.
+ */
+function getDuplicateFiles() {
+  $duplicates = [];
+  $it = new RecursiveIteratorIterator(
+    new RecursiveCallbackFilterIterator(
+      new RecursiveDirectoryIterator('./sites/default/files', FilesystemIterator::SKIP_DOTS),
+      function ($current) {
+        if ($current->isDir() && $current->getBaseName() === 'styles') {
+          return false;
+        }
+        return true;
+      }
+    )
+  );
+  foreach ($it as $current) {
+    $hash = sha1_file($current->getPathName());
+    $duplicates[$hash][] = $current->getPathName();
+  }
+  return array_filter($duplicates, function ($candidate) { return count($candidate) > 1; });
 }
