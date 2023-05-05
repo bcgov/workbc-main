@@ -453,7 +453,7 @@ function getDuplicateFiles() {
         where fm.uri ilike :uri
       ", [':uri' => str_replace('./sites/default/files/', 'public://', $duplicate)])->fetchObject();
       return [
-        'file_path' => ltrim($duplicate, '.'),
+        'file_path' => $duplicate,
         'file_id' => $file ? $file->fid : null,
         'media_id' => $file ? $file->id : null,
       ];
