@@ -295,6 +295,11 @@ function workbc_custom_post_update_1566_rich_content_fields(&$sandbox = NULL) {
     foreach ($field['matches'] as $match) {
       $media_id = $match['media_id'];
       if (empty($media_id)) {
+        if (empty($match['file_id'])) {
+          \Drupal::messenger()->addWarning('Empty file for ' . $match['file_path'], true);
+          continue;
+        }
+
         $file = \Drupal::entityTypeManager()
         ->getStorage('file')
         ->load($match['file_id']);
@@ -358,6 +363,7 @@ function workbc_custom_post_update_1566_rich_content_fields(&$sandbox = NULL) {
           break;
       }
     }
+    $entity->setNewRevision(TRUE);
     $entity->save();
   }
 

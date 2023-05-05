@@ -13,6 +13,7 @@ dependencies:
     - contact
     - field_permissions
     - media
+    - media_entity_download
     - paragraphs_type_permissions
     - search_api_autocomplete
     - shortcut
@@ -60,6 +61,7 @@ permissions:
   - 'delete own image media'
   - 'delete own remote_video media'
   - 'delete own video media'
+  - 'download media'
   - 'edit any audio media'
   - 'edit any document media'
   - 'edit any icon media'

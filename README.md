@@ -53,13 +53,15 @@ This repo includes a patched version of Backup and Migrate that supports Postgre
 - `drush backup_migrate:restore source_id destination_id file_id` to restore a given file (e.g. `backup-2023-01-03T12-02-04.sql.gz`) from a given destination (e.g. `private_files`) to a given source (e.g. `default_db`).
 
 ## Theming / styling
-Please see the `src/web/themes/custom/workbc/README.md` for more details.
+Refer to the [`src/web/themes/custom/workbc`](src/web/themes/custom/workbc/README.md) folder for more details.
 
 ## Testing
 Refer to the [`src/scripts/test`](src/scripts/test/README.md) folder for instructions on load-testing the site.
 
 ## Content migration / seeding
-Refer to the [`src/scripts/migration`](src/scripts/migration/README.md) folder for instructions on seeding content from legacy sources into this site.
+- Refer to the [`src/scripts/migration`](src/scripts/migration/README.md) folder for instructions on seeding content from legacy sources into this site.
+- Post-seeding content migration are located in the [`workbc_custom.post_update.php`](src/web/modules/custom/workbc_custom/workbc_custom.post_update.php) file.
+- For development purposes, the script [`reset_hook_post_update.php`](src/scripts/reset_hook_post_update.php) can be used to selectively reset migration runs in order to re-run them. Usage: `drush scr scripts/reset_hook_post_update.php -- workbc_custom`.
 
 ## Troubleshooting
 

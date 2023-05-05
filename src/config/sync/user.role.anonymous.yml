@@ -6,6 +6,7 @@ dependencies:
     - contact
     - field_permissions
     - media
+    - media_entity_download
     - paragraphs_type_permissions
     - search_api_autocomplete
     - sitewide_alert
@@ -22,6 +23,7 @@ permissions:
   - 'access find jobs block'
   - 'access recent jobs block'
   - 'access site-wide contact form'
+  - 'download media'
   - 'use search_api_autocomplete for search_career_profiles'
   - 'use search_api_autocomplete for search_site_content'
   - 'view field_content'
