@@ -444,5 +444,19 @@ function getDuplicateFiles() {
     $hash = sha1_file($current->getPathName());
     $duplicates[$hash][] = $current->getPathName();
   }
-  return array_filter($duplicates, function ($candidate) { return count($candidate) > 1; });
+  $connection = \Drupal::database();
+  return array_map(function($dupes) use ($connection) {
+    return array_map(function($duplicate) use ($connection) {
+      $file = $connection->query("
+        select fm.fid, fu.id
+        from file_managed fm left join file_usage fu on fu.fid = fm.fid and fu.type = 'media'
+        where fm.uri ilike :uri
+      ", [':uri' => str_replace('./sites/default/files/', 'public://', $duplicate)])->fetchObject();
+      return [
+        'file_path' => ltrim($duplicate, '.'),
+        'file_id' => $file ? $file->fid : null,
+        'media_id' => $file ? $file->id : null,
+      ];
+    }, $dupes);
+  }, array_filter($duplicates, function ($candidates) { return count($candidates) > 1; }));
 }

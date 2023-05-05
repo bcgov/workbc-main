@@ -51,9 +51,18 @@ class ReportsController extends ControllerBase {
       '#header' => ['Duplicates'],
       '#rows' => array_map(function ($dupes) {
         return [['data' => ['#markup' => join('<br>', array_map(function($d) {
-          return Link::fromTextAndUrl($d, Url::fromUri(\Drupal::service('file_url_generator')->generateAbsoluteString($d), [
-            'attributes' => ['target' => '_blank']
-          ]))->toString();
+          $cells = [$d['file_path']];
+          if (!empty($d['file_id'])) {
+            $cells[] = Link::createFromRoute('[File usage]', 'view.files.page_2', ['arg_0' => $d['file_id']], [
+              'attributes' => ['target' => '_blank']
+            ])->toString();
+          }
+          if (!empty($d['media_id'])) {
+            $cells[] = Link::createFromRoute('[Media usage]', 'entity.media.canonical', ['media' => $d['media_id']], [
+              'attributes' => ['target' => '_blank']
+            ])->toString();
+          }
+          return join(' ', $cells);
         }, $dupes))]]];
       }, getDuplicateFiles())
     ]];
