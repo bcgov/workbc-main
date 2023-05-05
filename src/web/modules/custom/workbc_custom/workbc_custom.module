@@ -433,7 +433,7 @@ function getDuplicateFiles() {
     new RecursiveCallbackFilterIterator(
       new RecursiveDirectoryIterator('./sites/default/files', FilesystemIterator::SKIP_DOTS),
       function ($current) {
-        if ($current->isDir() && $current->getBaseName() === 'styles') {
+        if ($current->isDir() && in_array($current->getBaseName(), ['styles', 'php'])) {
           return false;
         }
         return true;
