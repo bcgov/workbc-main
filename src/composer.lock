@@ -4,7 +4,7 @@
         "Read more about it at https://getcomposer.org/doc/01-basic-usage.md#installing-dependencies",
         "This file is @generated automatically"
     ],
-    "content-hash": "5d91a1db721e6e08d00c33a5da89223d",
+    "content-hash": "7b26430a6290c6e8789d4ac1a4b5dff1",
     "packages": [
         {
             "name": "alchemy/zippy",
@@ -4635,6 +4635,73 @@
                 "source": "https://git.drupalcode.org/project/field_permissions",
                 "issues": "https://www.drupal.org/project/issues/field_permissions"
             }
+        },
+        {
+            "name": "drupal/filehash",
+            "version": "2.0.9",
+            "source": {
+                "type": "git",
+                "url": "https://git.drupalcode.org/project/filehash.git",
+                "reference": "2.0.9"
+            },
+            "dist": {
+                "type": "zip",
+                "url": "https://ftp.drupal.org/files/projects/filehash-2.0.9.zip",
+                "reference": "2.0.9",
+                "shasum": "776b59faeef7302101647374c7b2fa9e99cf2535"
+            },
+            "require": {
+                "drupal/core": "^8.6 || ^9.0 || ^10.0"
+            },
+            "require-dev": {
+                "drush/drush": "^10.6 || ^11.0"
+            },
+            "suggest": {
+                "yzalis/identicon": "^2.0"
+            },
+            "type": "drupal-module",
+            "extra": {
+                "drupal": {
+                    "version": "2.0.9",
+                    "datestamp": "1673523003",
+                    "security-coverage": {
+                        "status": "covered",
+                        "message": "Covered by Drupal's security advisory policy"
+                    }
+                },
+                "drush": {
+                    "services": {
+                        "drush.services.yml": "^9 || ^10 || ^11"
+                    }
+                }
+            },
+            "notification-url": "https://packages.drupal.org/8/downloads",
+            "license": [
+                "GPL-2.0-or-later"
+            ],
+            "authors": [
+                {
+                    "name": "Mark Burdett (mfb)",
+                    "homepage": "https://www.drupal.org/u/mfb",
+                    "role": "Maintainer"
+                }
+            ],
+            "description": "File Hash module generates and stores MD5, SHA-1 and/or SHA-256 hashes for each file uploaded to the site.",
+            "homepage": "https://www.drupal.org/project/filehash",
+            "support": {
+                "source": "https://git.drupalcode.org/project/filehash",
+                "issues": "https://www.drupal.org/project/issues/filehash"
+            },
+            "funding": [
+                {
+                    "type": "github",
+                    "url": "https://github.com/sponsors/mfb"
+                },
+                {
+                    "type": "patreon",
+                    "url": "https://www.patreon.com/mfb"
+                }
+            ]
         },
         {
             "name": "drupal/flood_control",

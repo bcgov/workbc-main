@@ -2,6 +2,7 @@
 
 use Drupal\redirect\Entity\Redirect;
 use Drupal\Core\Url;
+use Drupal\file\Entity\File;
 
 /**
  * Add redirections of the form http://www.workbc.ca/Job-Seekers/Career-Profiles/[NOC]
@@ -369,4 +370,23 @@ function workbc_custom_post_update_1566_rich_content_fields(&$sandbox = NULL) {
 
   $sandbox['#finished'] = empty($sandbox['fields']) ? 1 : ($sandbox['count'] - count($sandbox['fields'])) / $sandbox['count'];
   return t('[WR-1566] Migrated one rich content field.');
+}
+
+function workbc_custom_post_update_1660_generate_filehash(&$sandbox = NULL) {
+  if (!isset($sandbox['processed'])) {
+    $sandbox['processed'] = 0;
+    $sandbox['count'] = \Drupal::database()->query('SELECT COUNT(*) FROM {file_managed}')->fetchField();
+  }
+  $files = \Drupal::database()->select('file_managed')
+    ->fields('file_managed', ['fid'])
+    ->orderBy('fid')
+    ->range($sandbox['processed'], 1)
+    ->execute();
+  foreach ($files as $file) {
+    // Loading the file object is enough to generate the hash.
+    $file = File::load($file->fid);
+    $sandbox['processed']++;
+  }
+  $sandbox['#finished'] = $sandbox['count'] ? $sandbox['processed'] / $sandbox['count'] : 1;
+  return t('Generated file hash for %url.', ['%url' => $file->getFileUri()]);
 }

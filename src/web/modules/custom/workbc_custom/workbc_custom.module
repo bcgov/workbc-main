@@ -428,35 +428,22 @@ function getUnmanagedFiles() {
  * Function to find duplicate files in the Drupal public file directory.
  */
 function getDuplicateFiles() {
-  $duplicates = [];
-  $it = new RecursiveIteratorIterator(
-    new RecursiveCallbackFilterIterator(
-      new RecursiveDirectoryIterator('./sites/default/files', FilesystemIterator::SKIP_DOTS),
-      function ($current) {
-        if ($current->isDir() && in_array($current->getBaseName(), ['styles', 'php'])) {
-          return false;
-        }
-        return true;
-      }
-    )
-  );
-  foreach ($it as $current) {
-    $hash = sha1_file($current->getPathName());
-    $duplicates[$hash][] = $current->getPathName();
-  }
   $connection = \Drupal::database();
-  return array_map(function($dupes) use ($connection) {
-    return array_map(function($duplicate) use ($connection) {
-      $file = $connection->query("
-        select fm.fid, fu.id
-        from file_managed fm left join file_usage fu on fu.fid = fm.fid and fu.type = 'media'
-        where fm.uri ilike :uri
-      ", [':uri' => str_replace('./sites/default/files/', 'public://', $duplicate)])->fetchObject();
-      return [
-        'file_path' => $duplicate,
-        'file_id' => $file ? $file->fid : null,
-        'media_id' => $file ? $file->id : null,
-      ];
-    }, $dupes);
-  }, array_filter($duplicates, function ($candidates) { return count($candidates) > 1; }));
+  $files = $connection->query("
+    select fm.fid, fm.sha1, fm.uri, fu.id as media_id
+    from {file_managed} fm left join {file_usage} fu on fu.fid = fm.fid and fu.type = 'media'
+  ");
+  $duplicates = [];
+  foreach ($files as $file) {
+    // Discard some results.
+    foreach (['media-icons/', 'oembed_thumbnails/'] as $discard) {
+      if (str_contains($file->uri, $discard)) continue 2;
+    }
+    $duplicates[$file->sha1][] = [
+      'file_id' => $file->fid,
+      'media_id' => $file->media_id,
+      'file_path' => str_replace('public://', './sites/default/files/', $file->uri),
+    ];
+  }
+  return array_filter($duplicates, function ($candidates) { return count($candidates) > 1; });
 }

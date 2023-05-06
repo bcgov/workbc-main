@@ -52,6 +52,7 @@ module:
   field_permissions: 0
   field_ui: 0
   file: 0
+  filehash: 0
   filter: 0
   flood_control: 0
   fpa: 0
