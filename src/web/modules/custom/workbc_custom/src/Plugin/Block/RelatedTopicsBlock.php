@@ -105,7 +105,7 @@ class RelatedTopicsBlock extends BlockBase {
     if ($node->hasField('field_hero_image_media') && !$node->get('field_hero_image_media')->isEmpty()) {
       $media_id = $node->field_hero_image_media[0]->getValue()['target_id'];
       $media = Media::load($media_id);
-      $imageUri = $media->field_media_image->entity->getFileUri();
+      $imageUri = $media?->field_media_image?->entity?->getFileUri();
       if($imageUri) {
         $image = [
           '#theme' => 'image_style',
@@ -118,7 +118,7 @@ class RelatedTopicsBlock extends BlockBase {
     else if ($node->hasField('field_image_media') && !$node->get('field_image_media')->isEmpty()) {
       $media_id = $node->field_image_media[0]->getValue()['target_id'];
       $media = Media::load($media_id);
-      $imageUri = $media->field_media_image->entity->getFileUri();
+      $imageUri = $media?->field_media_image?->entity?->getFileUri();
       if($imageUri) {
         $image = [
           '#theme' => 'image_style',

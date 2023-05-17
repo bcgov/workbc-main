@@ -301,6 +301,29 @@ function getRegionMappings() {
   return $region_map;
 }
 
+function getRichTextFields($entities = ['node', 'paragraph']) {
+  $fields = [];
+  foreach ($entities as $entity) {
+    foreach (\Drupal::service('entity_type.bundle.info')->getBundleInfo($entity) as $bundle => $bundle_info) {
+      foreach (\Drupal::service('entity_field.manager')->getFieldDefinitions($entity, $bundle) as $field => $field_info) {
+        if (str_contains($field_info->getType(), 'text')) {
+          $entity_type = $field_info->getTargetEntityTypeId();
+          $entity_storage = \Drupal::entityTypeManager()->getStorage($entity_type);
+          $table_mapping = $entity_storage->getTableMapping();
+          $field_storage_definition = $field_info->getFieldStorageDefinition();
+          $table = $table_mapping->getDedicatedDataTableName($field_storage_definition);
+          $fields[$field] = [
+            'field_info' => $field_info,
+            'entity' => $entity_type,
+            'table' => $table,
+          ];
+        }
+      }
+    }
+  }
+  return $fields;
+}
+
 /**
  * Function to identify rich text content fields that contain unmanaged files.
  *
@@ -314,28 +337,16 @@ function getRegionMappings() {
  *   by querying the file_managed x file_usage tables to match the file uuid or path, respectively.
  */
 function getUnmanagedFiles() {
-  $fields = [];
-  foreach (['node', 'paragraph'] as $entity) {
-    foreach (\Drupal::service('entity_type.bundle.info')->getBundleInfo($entity) as $bundle => $bundle_info) {
-      foreach (\Drupal::service('entity_field.manager')->getFieldDefinitions($entity, $bundle) as $field => $field_info) {
-        if (str_contains($field_info->getType(), 'text')) {
-          $fields[$field] = $field_info;
-        }
-      }
-    }
-  }
-
+  $rich_text_fields = getRichTextFields();
   $results = [];
   $connection = \Drupal::database();
-  foreach ($fields as $field => $field_info) {
-    $entity = $field_info->getTargetEntityTypeId();
-    $entity_storage = \Drupal::entityTypeManager()->getStorage($entity);
-    $table_mapping = $entity_storage->getTableMapping();
-    $field_storage_definition = $field_info->getFieldStorageDefinition();
-    $table = $table_mapping->getDedicatedDataTableName($field_storage_definition);
+  foreach ($rich_text_fields as $field => $info) {
+    $field_info = $info['field_info'];
+    $entity = $info['entity'];
+    $table = $info['table'];
     $query = $connection->select($table);
     $query->addField($table, "{$field}_value");
-    $query->addField($table, "entity_id");
+    $query->addField($table, 'entity_id');
     $rows = $query->execute()->fetchAll();
     foreach ($rows as $row) {
       $row_matches = [];
@@ -387,35 +398,23 @@ function getUnmanagedFiles() {
         }
       }
       if (!empty($row_matches)) {
-        $options = [
-          'absolute' => false,
-          'attributes' => [
-            'target' => '_blank',
-          ]
-        ];
         if ($entity === 'node') {
-          $node = \Drupal::entityTypeManager()->getStorage('node')->load($row->entity_id);
-          $url = Url::fromRoute('entity.node.edit_form', [
-            'node' => $row->entity_id
-          ], $options);
+          $node_id = $row->entity_id;
         }
         else if ($entity === 'paragraph') {
           $paragraph = \Drupal::entityTypeManager()->getStorage('paragraph')->load($row->entity_id);
-          $node = \Drupal::entityTypeManager()->getStorage('node')->load($paragraph->get('parent_id')->value);
-          $url = Url::fromRoute('paragraphs_edit.edit_form', [
-            'root_parent' => $paragraph->get('parent_id')->value,
-            'root_parent_type' => $paragraph->get('parent_type')->value,
-            'paragraph' => $row->entity_id
-          ], $options);
+          while ($paragraph->get('parent_type')->value === 'paragraph') {
+            $paragraph = \Drupal::entityTypeManager()->getStorage('paragraph')->load($paragraph->get('parent_id')->value);
+          }
+          $node_id = $paragraph->get('parent_id')->value;
         }
         $results[] = [
-          'title' => $node->get('title')->value,
+          'node_id' => $node_id,
           'entity' => $entity,
           'entity_id' => $row->entity_id,
           'bundle' => $field_info->getTargetBundle(),
           'field' => $field,
           'label' => $field_info->getLabel(),
-          'edit_url' => $url,
           'matches' => $row_matches,
         ];
       }
@@ -432,18 +431,103 @@ function getDuplicateFiles() {
   $files = $connection->query("
     select fm.fid, fm.sha1, fm.uri, fu.id as media_id
     from {file_managed} fm left join {file_usage} fu on fu.fid = fm.fid and fu.type = 'media'
+    where sha1 is not null
   ");
   $duplicates = [];
   foreach ($files as $file) {
     // Discard some results.
+    $file_path = str_replace('public://', './sites/default/files/', $file->uri);
     foreach (['media-icons/', 'oembed_thumbnails/'] as $discard) {
       if (str_contains($file->uri, $discard)) continue 2;
     }
-    $duplicates[$file->sha1][] = [
+    $duplicates[$file->sha1][$file->media_id ?? null] = [
       'file_id' => $file->fid,
       'media_id' => $file->media_id,
-      'file_path' => str_replace('public://', './sites/default/files/', $file->uri),
+      'file_path' => $file_path,
+      'usages' => []
     ];
   }
-  return array_filter($duplicates, function ($candidates) { return count($candidates) > 1; });
+  $duplicates = array_filter($duplicates, function ($candidates) { return count($candidates) > 1; });
+
+  // Identify content usage for each identified media.
+  $rich_text_fields = getRichTextFields();
+  foreach ($duplicates as &$candidates) {
+    foreach ($candidates as &$d) {
+      if (empty($d['media_id'])) continue;
+
+      $media_id = $d['media_id'];
+      $media = \Drupal::entityTypeManager()
+      ->getStorage('media')
+      ->load($media_id);
+
+      // Flag deleted media - it's a bug.
+      if (empty($media)) {
+        $d['usages'][] = [
+          'type' => 'deleted'
+        ];
+      }
+
+      // Identify the duplicate media in the reference fields.
+      foreach ([
+        ['node', 'field_hero_image_media'],
+        ['node', 'field_image_media'],
+        ['node', 'field_publication_media'],
+        ['paragraph', 'field_image_media'],
+        ['paragraph', 'field_icon'],
+      ] as $entity_field) {
+        $table = $entity_field[0] . '__' . $entity_field[1];
+        $query = $connection->select($table);
+        $query->addField($table, 'entity_id');
+        $query->condition($entity_field[1] . '_target_id', $media_id);
+        foreach ($query->execute() as $row) {
+          $d['usages'][] = [
+            'entity' => $entity_field[0],
+            'entity_id' => $row->entity_id,
+            'field' => $entity_field[1],
+            'type' => 'reference'
+          ];
+        }
+      }
+
+      // Identify the duplicate media in the link fields.
+      foreach ([
+        ['paragraph', 'field_link'],
+      ] as $entity_field) {
+        $table = $entity_field[0] . '__' . $entity_field[1];
+        $query = $connection->select($table);
+        $query->addField($table, 'entity_id');
+        $query->condition($entity_field[1] . '_uri', 'internal:/media/' . $media_id . '/download%', 'LIKE');
+        foreach ($query->execute() as $row) {
+          $d['usages'][] = [
+            'entity' => $entity_field[0],
+            'entity_id' => $row->entity_id,
+            'field' => $entity_field[1],
+            'type' => 'link'
+          ];
+        }
+      }
+
+      // Identify the duplicate media in the rich content fields.
+      foreach ($rich_text_fields as $field => $info) {
+        $table = $info['table'];
+        $query = $connection->select($table);
+        $query->addField($table, 'entity_id');
+        $query->condition(
+          $query->orConditionGroup()
+          ->condition("{$field}_value", '%' . ($media?->uuid() ?? '00000000-0000-0000-0000-000000000000') . '%', 'LIKE')
+          ->condition("{$field}_value", '%/media/' . $media_id . '/download%', 'LIKE')
+        );
+        foreach ($query->execute() as $row) {
+          $d['usages'][] = [
+            'entity' => $info['entity'],
+            'entity_id' => $row->entity_id,
+            'field' => $field,
+            'type' => 'text'
+          ];
+        }
+      }
+    }
+  }
+
+  return $duplicates;
 }
