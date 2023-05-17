@@ -37,8 +37,8 @@ This is the central repository for work by the GDX Analytics Team.
 
   Configure settings in Administration » Configuration » GDX Analytics Drupal Snowplow settings.
     
-  Use this Configuration page to set the collector version, script version, and
-  the URI of the tracking script.
+  Use this Configuration page to set the collector version, script version,
+  the URI, and app ID of the tracking script.
 
 ## Getting Help or Reporting an Issue
  

@@ -1,5 +1,5 @@
 gdx_analytics_drupal_snowplow.webtracker:
-  version: 1.x
+  version: 2.0.0
   header: true
   js: 
     js/SnowplowInlineCode.js: {}
@@ -7,7 +7,7 @@ gdx_analytics_drupal_snowplow.webtracker:
     - core/drupalSettings
 
 gdx_analytics_drupal_snowplow.webtracker_search:
-  version: 1.x
+  version: 2.0.0
   header: true
   js: 
     js/SnowplowInlineCodeSearch.js: {}
