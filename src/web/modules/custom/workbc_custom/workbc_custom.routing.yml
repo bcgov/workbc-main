@@ -14,6 +14,29 @@ workbc_custom.admin_settings:
   requirements:
     _permission: 'administer workbc_custom settings'
 
+workbc_custom.report_unmanaged_files:
+  path: '/admin/reports/unmanaged_files'
+  defaults:
+    _controller: '\Drupal\workbc_custom\Controller\ReportsController::unmanaged_files'
+    _title: 'WorkBC unmanaged files'
+  requirements:
+    _permission: 'administer workbc_custom settings'
+
+workbc_custom.report_duplicate_files:
+  path: '/admin/reports/duplicate_files'
+  defaults:
+    _controller: '\Drupal\workbc_custom\Controller\ReportsController::duplicate_files'
+    _title: 'WorkBC duplicate files'
+  requirements:
+    _permission: 'administer workbc_custom settings'
+
+workbc_custom.report_environment:
+  path: '/admin/reports/environment'
+  defaults:
+    _controller: '\Drupal\workbc_custom\Controller\ReportsController::environment'
+    _title: 'WorkBC environment'
+  requirements:
+    _permission: 'administer workbc_custom settings'
 
 workbc_custom.collection_notice:
   path: 'collection-notice'

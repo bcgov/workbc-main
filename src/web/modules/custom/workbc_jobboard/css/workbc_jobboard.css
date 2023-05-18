@@ -234,9 +234,9 @@ div.ui-dialog[aria-describedby="webform-terms-of-service-terms_of_service--descr
   margin-top: 11px !important;
   opacity:0.5 !important;
 }
-.ui-dialog .ui-button .ui-icon {
+/* .ui-dialog .ui-button .ui-icon {
   background: none !important;
-}
+} */
 .path-webform .description.form-item__description {display:inline-block;margin-left:10px;}
 .path-webform div.ui-dialog[aria-describedby="webform-terms-of-service-terms_of_service--description"]:focus, div.ui-dialog[aria-describedby="webform-terms-of-service-terms_of_service--description"] *:focus, div.ui-dialog[aria-describedby="webform-terms-of-service-terms_of_service--description"] .ui-dialog-titlebar-close:focus{box-shadow:inherit !important;border:inherit !important; margin-right: 10px; margin-top: 0px;}
 .webform-submission-request-a-tour-stop-form .form-actions{

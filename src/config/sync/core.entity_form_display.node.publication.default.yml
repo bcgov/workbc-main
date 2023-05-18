@@ -60,6 +60,7 @@ content:
     region: content
     settings:
       media_types: {  }
+      form_mode: crop_2_1
     third_party_settings:
       media_library_edit:
         show_edit: '1'
@@ -69,9 +70,10 @@ content:
     region: content
     settings:
       media_types: {  }
+      form_mode: media_library
     third_party_settings:
       media_library_edit:
-        show_edit: '1'
+        show_edit: '0'
   field_resource_number:
     type: string_textfield
     weight: 10

@@ -52,6 +52,7 @@ module:
   field_permissions: 0
   field_ui: 0
   file: 0
+  filehash: 0
   filter: 0
   flood_control: 0
   fpa: 0
@@ -77,6 +78,8 @@ module:
   log_stdout: 0
   mail_login: 0
   media: 0
+  media_entity_dlcke: 0
+  media_entity_download: 0
   media_library: 0
   media_library_edit: 0
   menu_breadcrumb: 0

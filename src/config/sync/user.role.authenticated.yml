@@ -3,7 +3,6 @@ langcode: en
 status: true
 dependencies:
   config:
-    - filter.format.basic_html
     - media.type.audio
     - media.type.document
     - media.type.icon
@@ -13,8 +12,8 @@ dependencies:
   module:
     - contact
     - field_permissions
-    - filter
     - media
+    - media_entity_download
     - paragraphs_type_permissions
     - search_api_autocomplete
     - shortcut
@@ -62,6 +61,7 @@ permissions:
   - 'delete own image media'
   - 'delete own remote_video media'
   - 'delete own video media'
+  - 'download media'
   - 'edit any audio media'
   - 'edit any document media'
   - 'edit any icon media'
@@ -104,7 +104,6 @@ permissions:
   - 'update paragraph content skills'
   - 'use search_api_autocomplete for search_career_profiles'
   - 'use search_api_autocomplete for search_site_content'
-  - 'use text format basic_html'
   - 'use views bulk edit'
   - 'view all media revisions'
   - 'view field_content'

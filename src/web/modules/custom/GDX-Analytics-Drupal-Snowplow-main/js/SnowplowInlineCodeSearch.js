@@ -8,8 +8,9 @@
     };p[i].q=p[i].q||[];n=l.createElement(o);g=l.getElementsByTagName(o)[0];n.async=1;
     n.src=w;g.parentNode.insertBefore(n,g)}}(window,document,"script",drupalSettings['script_uri'],"snowplow"));
   var collector = drupalSettings['gdx_collector'];
+  var app_id = drupalSettings['app_id']
   window.snowplow('newTracker','rt',collector, {
-    appId: "Snowplow_standalone",
+    appId: app_id,
     cookieLifetime: 86400 * 548,
     platform: 'web',
     post: true,

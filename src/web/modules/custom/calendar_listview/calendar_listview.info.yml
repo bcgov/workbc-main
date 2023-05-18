@@ -2,10 +2,5 @@ name: Calendar Listview
 type: module
 description: 'Calendar Listview Module'
 core_version_requirement: ^8 || ^9
-
 libraries:
   - calendar_listview/calendar-listview-lib
-
-version: '8.x-1.x-dev'
-project: 'calendar_listview'
-datestamp: 1660997750

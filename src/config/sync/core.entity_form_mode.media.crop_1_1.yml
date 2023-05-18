@@ -1,0 +1,10 @@
+uuid: 1b2b53f9-6eb1-4ae1-a75a-a5b09e5007b5
+langcode: en
+status: true
+dependencies:
+  module:
+    - media
+id: media.crop_1_1
+label: 'Crop 1:1'
+targetEntityType: media
+cache: true

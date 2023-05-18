@@ -2,10 +2,5 @@ name: WorkBC Job Board
 type: module
 description: 'Provides a Recent job results'
 core_version_requirement: ^8 || ^9
-
 libraries:
   - workbc_jobboard/workbc-jobboard
-
-version: '8.x-1.x-dev'
-project: 'workbc_jobboard'
-datestamp: 1664030753000

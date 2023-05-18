@@ -159,7 +159,7 @@ entity_type_cancel_destination:
   media_video:
     path: /
   media:
-    enabled: true
+    enabled: false
   media_type:
     path: /
     enabled: true
@@ -311,3 +311,21 @@ entity_type_cancel_destination:
   paragraphs_type:
     path: /
     enabled: true
+  key:
+    path: /
+    enabled: true
+  key_config_override:
+    path: /
+    enabled: true
+  linkit_profile:
+    path: /
+    enabled: true
+  node_industry_profile_introductions:
+    path: /
+  node_region_profile_introductions:
+    path: /
+  redirect:
+    path: /
+    enabled: true
+  webform_submission_funding_questionnaire:
+    path: /

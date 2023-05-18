@@ -65,6 +65,7 @@ content:
     region: content
     settings:
       media_types: {  }
+      form_mode: media_library
     third_party_settings: {  }
   field_career_videos_introduction:
     type: text_textarea
@@ -110,6 +111,7 @@ content:
     region: content
     settings:
       media_types: {  }
+      form_mode: crop_3_2
     third_party_settings:
       media_library_edit:
         show_edit: '1'

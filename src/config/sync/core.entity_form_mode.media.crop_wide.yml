@@ -1,0 +1,10 @@
+uuid: 3e903492-b543-4f85-9deb-d36847984be3
+langcode: en
+status: true
+dependencies:
+  module:
+    - media
+id: media.crop_wide
+label: 'Crop Wide'
+targetEntityType: media
+cache: true
