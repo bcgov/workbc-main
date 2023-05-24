@@ -355,11 +355,17 @@ function ssotIndustryName($machine_name) {
 /*
    custom number format function to add '+' if required
    additional check to set value to 0 if null
+   additional special case for zero (no decimals)
  */
 function ssotFormatNumber($number, $decimals = 0, $positive = false) {
 
   $number = is_null($number) ? 0 : $number;
-  $value = number_format($number, $decimals);
+  if (abs($number) > PHP_FLOAT_EPSILON) {
+    $value = number_format($number, $decimals);
+  }
+  else {
+    $value = "0";
+  }
   if ($positive && $number > 0) {
     $value = "+" . $value;
   }
