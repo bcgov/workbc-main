@@ -551,6 +551,11 @@ function workbc_custom_post_update_1660_part_02_deduplicate_medias(&$sandbox = N
         ->getStorage('media')
         ->load($d['media_id']);
 
+        if (empty($media)) {
+          \Drupal::messenger()->addWarning('Could not find media ' . $d['media_id'], true);
+          continue;
+        }
+
         // Iterate on usages.
         foreach ($d['usages'] as $usage) {
           if ($usage['type'] === 'deleted') continue;
