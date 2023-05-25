@@ -332,7 +332,7 @@ function getRichTextFields($entities = ['node', 'paragraph']) {
  * Query all its rows,
  * Match each value column with:
  * - a file entity type signature (data-entity-type="file")
- * - a straight file reference (src="/sites/default/files/XXX")
+ * - a straight file reference (src="%/sites/default/files/XXX")
  * For each match, we attempt to identify an existing media record,
  *   by querying the file_managed x file_usage tables to match the file uuid or path, respectively.
  */
@@ -367,14 +367,14 @@ function getUnmanagedFiles() {
           ];
         }
       }
-      if (preg_match_all('/href="(\/sites\/default\/files\/[^"]+)"/', $row->{"{$field}_value"}, $matches, PREG_SET_ORDER) > 0) {
+      if (preg_match_all('/href="((?:https:\/\/www\.workbc\.ca)?\/sites\/default\/files\/[^"]+)"/', $row->{"{$field}_value"}, $matches, PREG_SET_ORDER) > 0) {
         foreach ($matches as $match) {
           $path = explode('#', urldecode($match[1]))[0];
           $file = $connection->query("
             select fm.fid, fu.id
             from file_managed fm left join file_usage fu on fu.fid = fm.fid and fu.type = 'media'
             where fm.uri ilike :uri
-          ", [':uri' => str_replace('/sites/default/files/', 'public://', $path)])->fetchObject();
+          ", [':uri' => preg_replace('/(https:\/\/www\.workbc\.ca)?\/sites\/default\/files\//', 'public://', $path)])->fetchObject();
           $row_matches[] = [
             'type' => 'href',
             'match' => $match[0],
