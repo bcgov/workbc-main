@@ -309,18 +309,19 @@ function workbc_custom_post_update_1566_paragraph_links(&$sandbox = NULL) {
     $query->addField('paragraph__field_link', 'entity_id');
     $query->addField('paragraph__field_link', 'field_link_uri');
     $query->addField('paragraph__field_link', 'field_link_title');
-    $query->condition('field_link_uri', 'internal:/sites/default/files/%', 'LIKE');
+    $query->condition('field_link_uri', '%/sites/default/files/%', 'LIKE');
     $sandbox['fields'] = $query->execute()->fetchAll();
     $sandbox['count'] = count($sandbox['fields']);
   }
 
   $field = array_shift($sandbox['fields']);
   if (!empty($field)) {
+    $path = explode('#', urldecode($field->field_link_uri))[0];
     $row = \Drupal::database()->query("
       select fm.fid, fu.id as media_id
       from file_managed fm left join file_usage fu on fu.fid = fm.fid and fu.type = 'media'
       where fm.uri ilike :uri
-    ", [':uri' => str_replace('internal:/sites/default/files/', 'public://', $field->field_link_uri)])->fetchObject();
+    ", [':uri' => preg_replace('/(internal:|https:\/\/www\.workbc\.ca)\/sites\/default\/files\//', 'public://', $path)])->fetchObject();
 
     if (empty($row->fid)) {
       \Drupal::messenger()->addWarning('Empty file for ' . $field->field_link_uri, true);
