@@ -5,10 +5,10 @@ name: DEV-CI
 # Controls when the workflow will run
 on:
   # Triggers the workflow on push or pull request events but only for the "master" branch
-  push:
-    branches: [ "develop" ]
-  #pull_request:
-  #  branches: [ "master" ]
+  #push:
+  #  branches: [ "develop" ]
+  pull_request:
+    branches: [ "master" ]
 
   # Allows you to run this workflow manually from the Actions tab
   workflow_dispatch:
@@ -45,7 +45,7 @@ jobs:
       # Runs a single command using the runners shell
       - name: Build Drupal docker image
         run: |
-          docker build . -t 266795317183.dkr.ecr.ca-central-1.amazonaws.com/workbc:${{ github.sha }} --build-arg GITHUB_SHA=${{ github.sha }}
+          docker build . -t ${{ secrets.AWS_ECR_URI }}:${{ github.sha }} --build-arg GITHUB_SHA=${{ github.sha }}
       - name: Push Drupal docker image
         run: |
-          docker push 266795317183.dkr.ecr.ca-central-1.amazonaws.com/workbc:${{ github.sha }}
+          docker push ${{ secrets.AWS_ECR_URI }}:${{ github.sha }}
