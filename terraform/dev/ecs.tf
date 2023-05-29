@@ -332,6 +332,5 @@ resource "aws_ecs_service" "main" {
   }
 
   depends_on = [data.aws_alb_listener.front_end, aws_iam_role_policy_attachment.ecs_task_execution_role]
-
   tags = var.common_tags
 }
