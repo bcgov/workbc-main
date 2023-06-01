@@ -84,7 +84,6 @@ function workbc_preprocess_node(&$variables) {
  * for use with glossary All option.
  */
 function workbc_preprocess_views_view_summary_unformatted(&$variables) {
-
   $view = $variables['view'];
   $variables['view_base_path'] = $view->getPath();
 }
@@ -100,4 +99,19 @@ function workbc_preprocess_html(&$vars) {
 
   // Assign it to body class
   $vars['attributes']['class'][] = str_replace("/", "", $internal);
+}
+
+/**
+ * Implements hook_preprocess_menu().
+ */
+function workbc_preprocess_menu(&$vars) {
+  if ($vars['menu_name'] === 'footer') {
+    foreach ($vars['items'] as &$item) {
+      if ($item['url']->isExternal()) {
+        $item['attributes']
+        ->setAttribute('target', '_blank')
+        ->setAttribute('rel', 'noopener norefereer');
+      }
+    }
+  }
 }
