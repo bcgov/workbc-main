@@ -94,9 +94,11 @@ class LabourMarketEmploymentByAgeSexTable extends ExtraFieldDisplayFormattedBase
           //if previous values
           if(strpos($age, 'previous') !== false) {
             $age = str_replace('_previous', "", $age);
+            $age = str_replace('55', "55+", $age);
             $genderAgeValues[$age]['age'] = str_replace("_"," - ",$age) . ' ' . $this->t('years');
             $genderAgeValues[$age]['previous'] = $value ? ssotFormatNumber($value): WORKBC_EXTRA_FIELDS_NOT_AVAILABLE;
-          } else {
+          } else {           
+            $age = str_replace('55', "55+", $age);
             $genderAgeValues[$age]['age'] = str_replace("_"," - ",$age). ' ' . $this->t('years');
             $genderAgeValues[$age]['current'] = $value ? ssotFormatNumber($value):WORKBC_EXTRA_FIELDS_NOT_AVAILABLE;
           }
@@ -112,10 +114,10 @@ class LabourMarketEmploymentByAgeSexTable extends ExtraFieldDisplayFormattedBase
           //if previous values
           if(strpos($gender, 'previous') !== false) {
             $gender = str_replace('_previous', "", $gender);
-            $genderAgeValues[$gender]['gender'] = $gender;
+            $genderAgeValues[$gender]['gender'] = ucfirst($gender);
             $genderAgeValues[$gender]['previous'] = $value ? ssotFormatNumber($value): WORKBC_EXTRA_FIELDS_NOT_AVAILABLE;
           } else {
-            $genderAgeValues[$gender]['gender'] = $gender;
+            $genderAgeValues[$gender]['gender'] = ucfirst($gender);
             $genderAgeValues[$gender]['current'] = $value ? ssotFormatNumber($value): WORKBC_EXTRA_FIELDS_NOT_AVAILABLE;
           }
         }
