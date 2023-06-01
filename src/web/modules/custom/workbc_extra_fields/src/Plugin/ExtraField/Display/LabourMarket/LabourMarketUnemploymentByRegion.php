@@ -4,6 +4,8 @@ namespace Drupal\workbc_extra_fields\Plugin\ExtraField\Display\LabourMarket;
 
 use Drupal\Core\Entity\ContentEntityInterface;
 use Drupal\Core\StringTranslation\StringTranslationTrait;
+use Drupal\Core\Link;
+use Drupal\Core\Url;
 use Drupal\extra_field\Plugin\ExtraFieldDisplayFormattedBase;
 
 /**
@@ -94,20 +96,19 @@ class LabourMarketUnemploymentByRegion extends ExtraFieldDisplayFormattedBase {
           $regionsubstring = str_replace('unemployment_pct_', "", $key);
           //region mapping
           $region_map = getRegionMappings();
-
           //if previous values
           if(strpos($regionsubstring, 'previous') !== false) {
             $regionsubstring = str_replace('_previous', "", $regionsubstring);
             if(empty($region_map[$regionsubstring])){
               continue;
-            }
-            $regions[$regionsubstring]['region'] = $region_map[$regionsubstring];
+            }    
+            $regions[$regionsubstring]['region'] = Link::fromTextAndUrl(t($region_map[$regionsubstring]), Url::fromUri('internal:' . ssotRegionLink($regionsubstring), []))->toString();
             $regions[$regionsubstring]['previous'] = !empty($value)?$value.'%': WORKBC_EXTRA_FIELDS_NOT_AVAILABLE;
           } else {
             if(empty($region_map[$regionsubstring])){
               continue;
             }
-            $regions[$regionsubstring]['region'] = $region_map[$regionsubstring];
+            $regions[$regionsubstring]['region'] = Link::fromTextAndUrl(t($region_map[$regionsubstring]), Url::fromUri('internal:' . ssotRegionLink($regionsubstring), []))->toString();
             $regions[$regionsubstring]['current'] = !empty($value)?$value.'%': WORKBC_EXTRA_FIELDS_NOT_AVAILABLE;
           }
 

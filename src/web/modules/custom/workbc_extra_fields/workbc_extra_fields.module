@@ -255,6 +255,8 @@ function ssotRegions() {
   return $regions;
 }
 
+
+
 function ssotRegionKey($region) {
   $key = array_search ($region, ssotRegions());
   return $key;
@@ -262,6 +264,26 @@ function ssotRegionKey($region) {
 
 function ssotRegionName($machine_name) {
   $regions = ssotRegions();
+  return isset($regions[$machine_name]) ? $regions[$machine_name] : "";
+}
+
+function ssotRegionLinks() {
+  static $region_links = array(
+    "cariboo" => "/region-profile/cariboo",
+    "kootenay" => "/region-profile/kootenay",
+    "northeast" => "/region-profile/northeast",
+    "mainland_southwest" => "/region-profile/mainlandsouthwest",
+    "thompson_okanagan" => "/region-profile/thompson-okanagan",
+    "vancouver_island_coast" => "/region-profile/vancouver-islandcoast",
+    "north_coast_nechako" => "/region-profile/north-coast-and-nechako",
+    "british_columbia" => "/region-profile/british-columbia",
+  );
+
+  return $region_links;
+}
+
+function ssotRegionLink($machine_name) {
+  $regions = ssotRegionLinks();
   return isset($regions[$machine_name]) ? $regions[$machine_name] : "";
 }
 
