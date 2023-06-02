@@ -317,7 +317,7 @@ resource "aws_ecs_task_definition" "app" {
 			{
 				hostPort = 9001
 				protocol = "tcp"
-				containerPort = 9000
+				containerPort = 9001
 			}
 		]
 
