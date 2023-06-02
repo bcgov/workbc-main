@@ -27,7 +27,7 @@ class IndustryEmploymentGrowth extends ExtraFieldDisplayFormattedBase {
    */
   public function getLabel() {
 
-    $datestr = ssotParseDateRange($this->getEntity()->ssot_data['schema'], 'industry_outlook', 'annual_employment_growth_rate_pct_first5y');
+    $datestr = ssotParseDateRange($this->getEntity()->ssot_data['schema'], 'industry_outlook', 'annual_employment_growth_rate_pct_10y');
     return $this->t("Employment Growth (" . $datestr . ")");
   }
 
@@ -44,13 +44,8 @@ class IndustryEmploymentGrowth extends ExtraFieldDisplayFormattedBase {
    */
   public function viewElements(ContentEntityInterface $entity) {
 
-    if (!empty($entity->ssot_data) && isset($entity->ssot_data['industry_outlook']['annual_employment_growth_rate_pct_first5y'])) {
-      if ($entity->ssot_data['industry_outlook']['annual_employment_growth_rate_pct_first5y'] > 0) {
-        $output = "+" . ssotFormatNumber($entity->ssot_data['industry_outlook']['annual_employment_growth_rate_pct_first5y'],1) . "%";
-      }
-      else {
-        $output = ssotFormatNumber($entity->ssot_data['industry_outlook']['annual_employment_growth_rate_pct_first5y'],1) . "%";
-      }
+    if (!empty($entity->ssot_data) && isset($entity->ssot_data['industry_outlook']['annual_employment_growth_rate_pct_10y'])) {
+      $output = ssotFormatNumber($entity->ssot_data['industry_outlook']['annual_employment_growth_rate_pct_10y'], 1, true) . "%";
     }
     else {
       $output = WORKBC_EXTRA_FIELDS_NOT_AVAILABLE;

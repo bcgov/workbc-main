@@ -1,7 +1,7 @@
 workbc-main
 ===========
 
-This is the WorkBC site on Drupal.
+This is the [WorkBC.ca](https://workbc.ca) site on Drupal.
 
 [![Lifecycle:Maturing](https://img.shields.io/badge/Lifecycle-Maturing-007EC6)](https://github.com/bcgov/workbc-main)
 
