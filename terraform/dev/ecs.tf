@@ -296,6 +296,92 @@ resource "aws_ecs_task_definition" "app" {
 				condition = "COMPLETE"
 			}
 		]
+	},
+	{
+		essential   = false
+		name        = "backup"
+		image       = "${var.app_repo}/drupal-base:2.8"
+		networkMode = "awsvpc"
+
+#		logConfiguration = {
+#			logDriver = "awslogs"
+#			options = {
+#				awslogs-create-group  = "false"
+#				awslogs-group         = "/ecs/${var.app_name}/backup"
+#				awslogs-region        = var.aws_region
+#				awslogs-stream-prefix = "ecs"
+#			}
+#		}
+
+		environment = [
+			{
+				name = "POSTGRES_PORT",
+				value = "5432"
+			},
+			{
+				name = "POSTGRES_DB",
+				value = "drupal"
+			},
+			{
+				name = "AWS_BUILD_NAME",
+				value = "aws"
+			},
+			{
+				name = "POSTGRES_HOST",
+				value = "${data.aws_rds_cluster.postgres.endpoint}"
+			},
+			{
+				name = "SSOT_URL",
+				value = "${local.conn_str}"
+			},
+			{
+				name = "JOBBOARD_API_URL",
+				value = "${local.jb_api_url}"
+			},
+			{
+				name = "JOBBOARD_API_INTERNAL_URL",
+				value = "${local.jb_api_internal_url}"
+			},
+			{
+				name = "PROJECT_ENVIRONMENT",
+				value = "aws-dev"
+			},
+			{
+				name = "REDIS_HOST",
+				value = "${aws_elasticache_replication_group.workbc_redis_rg.primary_endpoint_address}"
+			},
+			{
+				name = "REDIS_PORT",
+				value = "6379"
+			}
+		]
+		secrets = [
+			{
+				name = "POSTGRES_USER",
+				valueFrom = "${data.aws_secretsmanager_secret_version.creds.arn}:username::"
+			},
+			{
+				name = "POSTGRES_PASSWORD",
+				valueFrom = "${data.aws_secretsmanager_secret_version.creds.arn}:password::"
+			},
+			{
+				name = "JOBBOARD_GOOGLE_MAPS_KEY",
+				valueFrom = "${data.aws_secretsmanager_secret_version.creds2.arn}:gm_ref::"
+			}
+		]
+
+		mountPoints = [
+			{
+				containerPath = "/contents",
+				sourceVolume = "contents"
+			},
+			{
+				containerPath = "/app",
+				sourceVolume = "app"
+			}
+		]
+		volumesFrom = []
+
 	}
   ])
 }
