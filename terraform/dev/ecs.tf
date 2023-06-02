@@ -300,7 +300,7 @@ resource "aws_ecs_task_definition" "app" {
 	{
 		essential   = false
 		name        = "backup"
-		image       = "${var.app_repo}/backup:0.2"
+		image       = "${var.app_repo}/backup:0.3"
 		networkMode = "awsvpc"
 
 #		logConfiguration = {
@@ -313,13 +313,7 @@ resource "aws_ecs_task_definition" "app" {
 #			}
 #		}
 #		
-#		portMappings = [
-#			{
-#				hostPort = 9001
-#				protocol = "tcp"
-#				containerPort = 9001
-#			}
-#		]
+
 
 		environment = [
 			{
@@ -389,6 +383,12 @@ resource "aws_ecs_task_definition" "app" {
 			}
 		]
 		volumesFrom = []
+		dependsOn = [
+			{
+				containerName = "init"
+				condition = "COMPLETE"
+			}
+		]
 
 	}
   ])
