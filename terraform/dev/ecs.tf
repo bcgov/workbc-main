@@ -300,7 +300,7 @@ resource "aws_ecs_task_definition" "app" {
 	{
 		essential   = false
 		name        = "backup"
-		image       = "public.ecr.aws/docker/library/php:8.1-rc-cli-alpine3.16"
+		image       = "${var.app_repo}/backup:0.1"
 		networkMode = "awsvpc"
 
 #		logConfiguration = {
