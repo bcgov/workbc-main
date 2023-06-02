@@ -300,7 +300,7 @@ resource "aws_ecs_task_definition" "app" {
 	{
 		essential   = false
 		name        = "backup"
-		image       = "${var.app_repo}/drupal-base:2.8"
+		image       = "public.ecr.aws/docker/library/php:8.1-rc-cli-alpine3.16"
 		networkMode = "awsvpc"
 
 #		logConfiguration = {
@@ -312,14 +312,14 @@ resource "aws_ecs_task_definition" "app" {
 #				awslogs-stream-prefix = "ecs"
 #			}
 #		}
-		
-		portMappings = [
-			{
-				hostPort = 9001
-				protocol = "tcp"
-				containerPort = 9001
-			}
-		]
+#		
+#		portMappings = [
+#			{
+#				hostPort = 9001
+#				protocol = "tcp"
+#				containerPort = 9001
+#			}
+#		]
 
 		environment = [
 			{
