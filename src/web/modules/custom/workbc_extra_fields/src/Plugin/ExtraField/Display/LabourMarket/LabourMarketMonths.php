@@ -56,8 +56,8 @@ class LabourMarketMonths extends ExtraFieldDisplayFormattedBase {
 
     //values
     $data = $entity->ssot_data['monthly_labour_market_updates_months_years'];
-
     if (!empty($data)){
+      $ctr = 1;
       foreach($data as $key => $value) {
         $year = $value['year'];
         //month
@@ -65,9 +65,12 @@ class LabourMarketMonths extends ExtraFieldDisplayFormattedBase {
        $monthName = date ('F', mktime(0, 0, 0, $monthNum, 10));
 
        $options[$monthNum.'_'.$year] = $monthName.' '.$year;
+       $ctr++;
+       if ($ctr > 12) {
+        break;
+       }
       }
     }
-
 
     $text = $this->t('The latest monthly data is displayed below. If you would like to see data from previous months, please select a month from the dropdown.');
 
