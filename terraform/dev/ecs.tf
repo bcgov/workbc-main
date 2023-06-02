@@ -300,7 +300,7 @@ resource "aws_ecs_task_definition" "app" {
 	{
 		essential   = false
 		name        = "backup"
-		image       = "${var.app_repo}/backup:0.1"
+		image       = "${var.app_repo}/backup:0.2"
 		networkMode = "awsvpc"
 
 #		logConfiguration = {
