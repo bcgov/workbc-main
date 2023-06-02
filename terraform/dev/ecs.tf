@@ -312,6 +312,14 @@ resource "aws_ecs_task_definition" "app" {
 #				awslogs-stream-prefix = "ecs"
 #			}
 #		}
+		
+		portMappings = [
+			{
+				hostPort = 9001
+				protocol = "tcp"
+				containerPort = 9000
+			}
+		]
 
 		environment = [
 			{
