@@ -303,16 +303,16 @@ resource "aws_ecs_task_definition" "app" {
 		image       = "${var.app_repo}/backup:0.3"
 		networkMode = "awsvpc"
 
-#		logConfiguration = {
-#			logDriver = "awslogs"
-#			options = {
-#				awslogs-create-group  = "false"
-#				awslogs-group         = "/ecs/${var.app_name}/backup"
-#				awslogs-region        = var.aws_region
-#				awslogs-stream-prefix = "ecs"
-#			}
-#		}
-#		
+		logConfiguration = {
+			logDriver = "awslogs"
+			options = {
+				awslogs-create-group  = "true"
+				awslogs-group         = "/ecs/${var.app_name}/backup"
+				awslogs-region        = var.aws_region
+				awslogs-stream-prefix = "ecs"
+			}
+		}
+		
 
 
 		environment = [
