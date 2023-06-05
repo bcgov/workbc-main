@@ -64,7 +64,7 @@ Refer to the [`src/scripts/test`](src/scripts/test/README.md) folder for instruc
 
 # Troubleshooting
 - If you notice that Search API is no longer finding results even though you rebuilt the Solr indexes, try the following:
-  - `docker-compose exec solr sh -c "curl 'http://localhost:8983/solr/workbc_dev/update?commit=true' -H 'Content-Type: text/xml' --data-binary '<delete><query>*:*</query></delete>'"`
+  - `docker-compose exec php bash -c "drush scr scripts/reset_solr.php"`
   - `docker-compose exec php bash -c "drush sapi-r && drush sapi-i"`
 
 - If you run into timeout issues while installing/unzipping PHP, try the following:
