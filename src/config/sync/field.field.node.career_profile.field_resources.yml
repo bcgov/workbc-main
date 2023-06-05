@@ -11,7 +11,7 @@ id: node.career_profile.field_resources
 field_name: field_resources
 entity_type: node
 bundle: career_profile
-label: Resources
+label: 'Resources (DO NOT USE)'
 description: ''
 required: false
 translatable: false

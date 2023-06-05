@@ -20,12 +20,12 @@ dependencies:
     - field.field.node.career_profile.field_noc
     - field.field.node.career_profile.field_related_careers
     - field.field.node.career_profile.field_resources
+    - field.field.node.career_profile.field_resources_reference
     - field.field.node.career_profile.field_scheduled_publish
     - field.field.node.career_profile.field_work_environment
     - node.type.career_profile
   module:
     - field_group
-    - link
     - text
     - user
 third_party_settings:
@@ -119,7 +119,6 @@ third_party_settings:
     group_labour_market_statistics:
       children:
         - extra_field_labour_market_statistics_i
-        - extra_field_employment_introduction
         - extra_field_labour_market_number_employed
         - extra_field_labour_market_number_employed_source
         - extra_field_labour_market_region_employment
@@ -177,7 +176,7 @@ third_party_settings:
         description: ''
     group_resources:
       children:
-        - field_resources
+        - field_resources_reference
       label: Resources
       parent_name: group_career_profile_tabs
       region: content
@@ -487,15 +486,12 @@ content:
     third_party_settings: {  }
     weight: 25
     region: content
-  field_resources:
-    type: link
+  field_resources_reference:
+    type: entity_reference_entity_view
     label: above
     settings:
-      trim_length: 80
-      url_only: false
-      url_plain: false
-      rel: ''
-      target: ''
+      view_mode: default
+      link: true
     third_party_settings: {  }
     weight: 1
     region: content
@@ -517,6 +513,7 @@ hidden:
   field_content_group: true
   field_hero_image: true
   field_introductions: true
+  field_resources: true
   field_scheduled_publish: true
   langcode: true
   search_api_excerpt: true

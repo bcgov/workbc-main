@@ -19,12 +19,12 @@ dependencies:
     - field.field.node.career_profile.field_noc
     - field.field.node.career_profile.field_related_careers
     - field.field.node.career_profile.field_resources
+    - field.field.node.career_profile.field_resources_reference
     - field.field.node.career_profile.field_scheduled_publish
     - field.field.node.career_profile.field_work_environment
     - node.type.career_profile
   module:
     - field_group
-    - link
     - scheduled_publish
     - text
     - user
@@ -141,7 +141,7 @@ third_party_settings:
         description: ''
     group_resources:
       children:
-        - field_resources
+        - field_resources_reference
       label: Resources
       parent_name: group_career_profile_tabs
       region: content
@@ -444,17 +444,12 @@ content:
     third_party_settings: {  }
     weight: 25
     region: content
-  field_resources:
-    type: link
+  field_resources_reference:
+    type: entity_reference_entity_id
     label: above
-    settings:
-      trim_length: 80
-      url_only: false
-      url_plain: false
-      rel: ''
-      target: ''
+    settings: {  }
     third_party_settings: {  }
-    weight: 1
+    weight: 2
     region: content
   field_scheduled_publish:
     type: scheduled_publish_generic_formatter
@@ -463,7 +458,7 @@ content:
       date_format: html_datetime
       text_pattern: '%moderation_state% - %date%'
     third_party_settings: {  }
-    weight: 14
+    weight: 13
     region: content
   field_work_environment:
     type: text_default
@@ -483,5 +478,6 @@ hidden:
   field_content_group: true
   field_hero_image: true
   field_introductions: true
+  field_resources: true
   langcode: true
   search_api_excerpt: true
