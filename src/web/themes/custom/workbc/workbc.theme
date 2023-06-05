@@ -76,7 +76,6 @@ function workbc_preprocess_node(&$variables) {
   }
 
   if ($variables['node']->bundle() === "career_profile" || $variables['node']->bundle() === "industry_profile") {
-    ksm($variables['node']->bundle());
     $resources = $variables['node']->get("field_resources_reference")->referencedEntities();
     $links = [];
     foreach ($resources as $resource) {     
