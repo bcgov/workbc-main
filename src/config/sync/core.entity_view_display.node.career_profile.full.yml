@@ -487,11 +487,9 @@ content:
     weight: 25
     region: content
   field_resources_reference:
-    type: entity_reference_entity_view
+    type: entity_reference_entity_id
     label: above
-    settings:
-      view_mode: default
-      link: true
+    settings: {  }
     third_party_settings: {  }
     weight: 1
     region: content

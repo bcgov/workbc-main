@@ -6,6 +6,7 @@
  */
 
 use Drupal\file\Entity\File;
+use Drupal\Core\Url;
 
 /**
  * Implements hook theme_preprocess_paragraph().
@@ -73,6 +74,20 @@ function workbc_preprocess_node(&$variables) {
       $variables['file_link'] = File::load($fid)->createFileUrl();
     }
   }
+
+  if ($variables['node']->bundle() === "career_profile" || $variables['node']->bundle() === "industry_profile") {
+    ksm($variables['node']->bundle());
+    $resources = $variables['node']->get("field_resources_reference")->referencedEntities();
+    $links = [];
+    foreach ($resources as $resource) {     
+      $link = [];
+      $link['title'] = $resource->get("field_resource")->title;
+      $link['uri'] = Url::fromUri($resource->get("field_resource")->uri);
+      $links[] = $link;
+    }
+    $variables['resources_links'] = $links;
+  }
+
   $current_path = \Drupal::service('path.current')->getPath();
   $internal = \Drupal::service('path_alias.manager')->getAliasByPath($current_path);
   $variables['is_front'] = $internal == \Drupal::configFactory()->get('system.site')->get('page.front');

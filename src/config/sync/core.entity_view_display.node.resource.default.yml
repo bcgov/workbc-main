@@ -6,7 +6,7 @@ dependencies:
     - field.field.node.resource.field_resource
     - node.type.resource
   module:
-    - link
+    - linkit
     - user
 id: node.resource.default
 targetEntityType: node
@@ -14,7 +14,7 @@ bundle: resource
 mode: default
 content:
   field_resource:
-    type: link
+    type: linkit
     label: above
     settings:
       trim_length: 80
@@ -22,6 +22,7 @@ content:
       url_plain: false
       rel: ''
       target: ''
+      linkit_profile: default
     third_party_settings: {  }
     weight: 0
     region: content
