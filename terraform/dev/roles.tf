@@ -234,6 +234,24 @@ resource "aws_iam_role_policy" "workbc_container_s3" {
   )
 }
 
+resource "aws_iam_role_policy" "workbc_container_cf" {
+  name = "workbc_container_cf"
+  role = aws_iam_role.workbc_container_role.id
+
+  policy = <<-EOF
+  {
+      "Version": "2012-10-17",
+      "Statement": [
+          {
+              "Effect": "Allow",
+              "Action": ["cloudfront:CreateInvalidation"],
+              "Resource": "*"
+          }
+      ]
+  }
+  EOF  
+}
+
 resource "aws_iam_role" "workbc_events_role" {
 	name = "workbc_events_role"
 	assume_role_policy = jsonencode({
