@@ -355,6 +355,10 @@ resource "aws_ecs_task_definition" "app" {
 			{
 				name = "REDIS_PORT",
 				value = "6379"
+			},
+			{
+				name = "CF_DIST_ID",
+				value = "${aws_cloudfront_distribution.workbc.id}"
 			}
 		]
 		secrets = [
@@ -369,6 +373,10 @@ resource "aws_ecs_task_definition" "app" {
 			{
 				name = "JOBBOARD_GOOGLE_MAPS_KEY",
 				valueFrom = "${data.aws_secretsmanager_secret_version.creds2.arn}:gm_ref::"
+			},
+			{
+				name = "DRUPAL_ADM_PWD",
+				valueFrom = "${data.aws_secretsmanager_secret_version.creds.arn}:drupal_admin_pwd::"
 			}
 		]
 		mountPoints = [
