@@ -65,7 +65,7 @@ class LabourMarketUnemploymentByRegion extends ExtraFieldDisplayFormattedBase {
     $image_uri = '/' . $module_path . '/images/' . WORKBC_BC_MAP_WITH_LABELS;
 
     //Source
-    $source_text = $entity->ssot_data['sources']['no-datapoint'];
+    $source_text = !empty($entity->ssot_data['sources']['unemployment_pct'])?$entity->ssot_data['sources']['unemployment_pct']:WORKBC_EXTRA_FIELDS_NOT_AVAILABLE;
     $output = '<div class="lm-source"><strong>'.$this->t("Source").': </strong>'.$source_text.'</div>';
 
     return [
@@ -101,7 +101,7 @@ class LabourMarketUnemploymentByRegion extends ExtraFieldDisplayFormattedBase {
             $regionsubstring = str_replace('_previous', "", $regionsubstring);
             if(empty($region_map[$regionsubstring])){
               continue;
-            }    
+            }
             $regions[$regionsubstring]['region'] = Link::fromTextAndUrl(t($region_map[$regionsubstring]), Url::fromUri('internal:' . ssotRegionLink($regionsubstring), []))->toString();
             $regions[$regionsubstring]['previous'] = !empty($value)?$value.'%': WORKBC_EXTRA_FIELDS_NOT_AVAILABLE;
           } else {
