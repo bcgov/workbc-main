@@ -358,7 +358,7 @@ resource "aws_ecs_task_definition" "app" {
 			},
 			{
 				name = "CF_DIST_ID",
-				value = "${aws_cloudfront_distribution.workbc.id}"
+				value = "${aws_cloudfront_distribution.workbc[0].id}"
 			}
 		]
 		secrets = [
@@ -376,7 +376,7 @@ resource "aws_ecs_task_definition" "app" {
 			},
 			{
 				name = "DRUPAL_ADM_PWD",
-				valueFrom = "${data.aws_secretsmanager_secret_version.creds.arn}:drupal_admin_pwd::"
+				valueFrom = "${data.aws_secretsmanager_secret_version.creds.arn}:drupal_admin_password::"
 			}
 		]
 		mountPoints = [
