@@ -2015,7 +2015,7 @@ display:
             offset_label: Offset
           quantity: 9
       exposed_form:
-        type: autosubmit
+        type: basic
         options:
           submit_button: Apply
           reset_button: false
@@ -2024,7 +2024,6 @@ display:
           expose_sort_order: true
           sort_asc_label: Asc
           sort_desc_label: Desc
-          autosubmit_hide: false
       sorts:
         published_date:
           id: published_date
