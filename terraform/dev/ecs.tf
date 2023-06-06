@@ -364,11 +364,11 @@ resource "aws_ecs_task_definition" "app" {
 		secrets = [
 			{
 				name = "POSTGRES_USER",
-				valueFrom = "${data.aws_secretsmanager_secret_version.creds.arn}:username::"
+				valueFrom = "${data.aws_secretsmanager_secret_version.creds.arn}:adm_username::"
 			},
 			{
 				name = "POSTGRES_PASSWORD",
-				valueFrom = "${data.aws_secretsmanager_secret_version.creds.arn}:password::"
+				valueFrom = "${data.aws_secretsmanager_secret_version.creds.arn}:adm_password::"
 			},
 			{
 				name = "JOBBOARD_GOOGLE_MAPS_KEY",
@@ -376,7 +376,7 @@ resource "aws_ecs_task_definition" "app" {
 			},
 			{
 				name = "DRUPAL_ADM_PWD",
-				valueFrom = "${data.aws_secretsmanager_secret_version.creds.arn}:drupal_admin_password::"
+				valueFrom = "${data.aws_secretsmanager_secret_version.creds.arn}:drupal_adm_password::"
 			}
 		]
 		mountPoints = [
