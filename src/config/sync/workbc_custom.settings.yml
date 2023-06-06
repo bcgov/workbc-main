@@ -3,4 +3,4 @@ pathsettings:
 collectionsettings:
   notice:
     value: "<p>If you choose to contact us, any personal information that you provide may be collected by the Ministry of Post-Secondary Education and Future Skills under section 26(c) of the Freedom of Information and Protection of Privacy Act. The purpose of the collection is to address your inquiry or comment, if you have any questions about the collection of your personal information place contact:</p>\r\n\r\n<p>&nbsp;</p>\r\n\r\n<p>Manager, WorkBC Operations<br />\r\nPO Box 9189; STN PROV GOVT<br />\r\nVictoria, BC<br />\r\nV8W 9E6<br />\r\n1-877-952-6914 (toll-free)</p>\r\n\r\n<p>&nbsp;</p>\r\n"
-    format: full_html
+    format: basic_html

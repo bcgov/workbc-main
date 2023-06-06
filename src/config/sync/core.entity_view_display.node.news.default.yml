@@ -5,6 +5,7 @@ dependencies:
   config:
     - field.field.node.news.body
     - field.field.node.news.field_archived
+    - field.field.node.news.field_call_to_action
     - field.field.node.news.field_content_group
     - field.field.node.news.field_image
     - field.field.node.news.field_image_media
@@ -42,6 +43,14 @@ content:
     settings: {  }
     third_party_settings: {  }
     weight: 3
+    region: content
+  field_call_to_action:
+    type: string
+    label: above
+    settings:
+      link_to_entity: false
+    third_party_settings: {  }
+    weight: 8
     region: content
   field_image_media:
     type: entity_reference_entity_view
