@@ -85,7 +85,7 @@ display:
           group_type: group
           admin_label: ''
           plugin_id: field
-          label: Resource
+          label: Link
           exclude: false
           alter:
             alter_text: false
@@ -153,7 +153,7 @@ display:
           admin_label: ''
           entity_type: node
           plugin_id: entity_operations
-          label: 'Operations links'
+          label: Operations
           exclude: false
           alter:
             alter_text: false
@@ -196,15 +196,17 @@ display:
           hide_alter_empty: true
           destination: false
       pager:
-        type: mini
+        type: full
         options:
           offset: 0
-          items_per_page: 50
+          items_per_page: 20
           total_pages: null
           id: 0
           tags:
             next: ››
             previous: ‹‹
+            first: '« First'
+            last: 'Last »'
           expose:
             items_per_page: false
             items_per_page_label: 'Items per page'
@@ -213,11 +215,12 @@ display:
             items_per_page_options_all_label: '- All -'
             offset: false
             offset_label: Offset
+          quantity: 9
       exposed_form:
         type: basic
         options:
           submit_button: Apply
-          reset_button: false
+          reset_button: true
           reset_button_label: Reset
           exposed_sorts_label: 'Sort by'
           expose_sort_order: true
@@ -278,6 +281,100 @@ display:
           expose:
             operator_limit_selection: false
             operator_list: {  }
+        field_resource_title:
+          id: field_resource_title
+          table: node__field_resource
+          field: field_resource_title
+          relationship: none
+          group_type: group
+          admin_label: ''
+          plugin_id: string
+          operator: contains
+          value: ''
+          group: 1
+          exposed: true
+          expose:
+            operator_id: field_resource_title_op
+            label: Title
+            description: ''
+            use_operator: false
+            operator: field_resource_title_op
+            operator_limit_selection: false
+            operator_list: {  }
+            identifier: field_resource_title
+            required: false
+            remember: false
+            multiple: false
+            remember_roles:
+              authenticated: authenticated
+              anonymous: '0'
+              content_editor: '0'
+              content_approver: '0'
+              workbc_administrator: '0'
+              global_editor: '0'
+              global_approver: '0'
+              workbc_global_administrator: '0'
+              administrator: '0'
+            placeholder: ''
+          is_grouped: false
+          group_info:
+            label: ''
+            description: ''
+            identifier: ''
+            optional: true
+            widget: select
+            multiple: false
+            remember: false
+            default_group: All
+            default_group_multiple: {  }
+            group_items: {  }
+        field_resource_uri:
+          id: field_resource_uri
+          table: node__field_resource
+          field: field_resource_uri
+          relationship: none
+          group_type: group
+          admin_label: ''
+          plugin_id: string
+          operator: contains
+          value: ''
+          group: 1
+          exposed: true
+          expose:
+            operator_id: field_resource_uri_op
+            label: Link
+            description: ''
+            use_operator: false
+            operator: field_resource_uri_op
+            operator_limit_selection: false
+            operator_list: {  }
+            identifier: field_resource_uri
+            required: false
+            remember: false
+            multiple: false
+            remember_roles:
+              authenticated: authenticated
+              anonymous: '0'
+              content_editor: '0'
+              content_approver: '0'
+              workbc_administrator: '0'
+              global_editor: '0'
+              global_approver: '0'
+              workbc_global_administrator: '0'
+              administrator: '0'
+            placeholder: ''
+          is_grouped: false
+          group_info:
+            label: ''
+            description: ''
+            identifier: ''
+            optional: true
+            widget: select
+            multiple: false
+            remember: false
+            default_group: All
+            default_group_multiple: {  }
+            group_items: {  }
       style:
         type: table
       row:
@@ -312,6 +409,7 @@ display:
       contexts:
         - 'languages:language_content'
         - 'languages:language_interface'
+        - url
         - url.query_args
         - 'user.node_grants:view'
         - user.roles
@@ -339,6 +437,7 @@ display:
       contexts:
         - 'languages:language_content'
         - 'languages:language_interface'
+        - url
         - url.query_args
         - 'user.node_grants:view'
         - user.roles
