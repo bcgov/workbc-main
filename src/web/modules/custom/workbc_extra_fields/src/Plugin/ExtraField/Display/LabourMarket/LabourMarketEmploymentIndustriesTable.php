@@ -59,7 +59,7 @@ class LabourMarketEmploymentIndustriesTable extends ExtraFieldDisplayFormattedBa
       $rows[] = [$values['industry'], $values['abs'], $values['per']];
     }
 
-    $source_text = !empty($entity->ssot_data['sources']['Industry Highlights'])?$entity->ssot_data['sources']['Industry Highlights']:WORKBC_EXTRA_FIELDS_NOT_AVAILABLE;
+    $source_text = !empty($entity->ssot_data['sources']['no-datapoint'])?$entity->ssot_data['sources']['no-datapoint']:WORKBC_EXTRA_FIELDS_NOT_AVAILABLE;
     $output = '<div class="lm-source"><strong>'.$this->t("Source").': </strong>'.$source_text.'</div>';
 
     return [
