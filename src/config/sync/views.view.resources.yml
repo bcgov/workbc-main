@@ -5,6 +5,7 @@ dependencies:
   config:
     - field.storage.node.field_resource
     - node.type.resource
+    - system.menu.admin
     - user.role.administrator
     - user.role.global_approver
     - user.role.global_editor
@@ -27,7 +28,7 @@ display:
     display_plugin: default
     position: 0
     display_options:
-      title: Resources
+      title: 'Resources Library'
       fields:
         title:
           id: title
@@ -324,6 +325,15 @@ display:
     display_options:
       display_extenders: {  }
       path: admin/config/workbc/resources
+      menu:
+        type: normal
+        title: 'WorkBC resources'
+        description: 'List of external resources for use in Career and Industry Profiles '
+        weight: 0
+        expanded: false
+        menu_name: admin
+        parent: workbc_custom.admin_index
+        context: '0'
     cache_metadata:
       max-age: -1
       contexts:
