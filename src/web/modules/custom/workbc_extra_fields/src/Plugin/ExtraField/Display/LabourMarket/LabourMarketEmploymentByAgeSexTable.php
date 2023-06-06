@@ -10,7 +10,7 @@ use Drupal\extra_field\Plugin\ExtraFieldDisplayFormattedBase;
  *
  * @ExtraFieldDisplay(
  *   id = "labourmarket_employment_by_age_sex_table",
- *   label = @Translation("Employment by Age Group And Sex"),
+ *   label = @Translation("Employment by Age Group and Sex"),
  *   description = @Translation("An extra field to display table of employment by age and sex."),
  *   bundles = {
  *     "node.labour_market_monthly",
@@ -26,7 +26,7 @@ class LabourMarketEmploymentByAgeSexTable extends ExtraFieldDisplayFormattedBase
    */
   public function getLabel() {
 
-    return $this->t('Employment by Age Group And Sex');
+    return $this->t('Employment by Age Group and Sex');
   }
 
   /**
