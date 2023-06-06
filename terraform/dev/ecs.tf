@@ -300,7 +300,7 @@ resource "aws_ecs_task_definition" "app" {
 	{
 		essential   = false
 		name        = "backup"
-		image       = "${var.app_repo}/backup:0.5"
+		image       = var.app_image
 		networkMode = "awsvpc"
 
 		logConfiguration = {
@@ -312,9 +312,9 @@ resource "aws_ecs_task_definition" "app" {
 				awslogs-stream-prefix = "ecs"
 			}
 		}
-		
 
-
+		entryPoint = ["sh", "-c"]
+		command = ["sleep infinity"]
 		environment = [
 			{
 				name = "POSTGRES_PORT",
@@ -371,7 +371,6 @@ resource "aws_ecs_task_definition" "app" {
 				valueFrom = "${data.aws_secretsmanager_secret_version.creds2.arn}:gm_ref::"
 			}
 		]
-
 		mountPoints = [
 			{
 				containerPath = "/contents",
@@ -389,7 +388,6 @@ resource "aws_ecs_task_definition" "app" {
 				condition = "COMPLETE"
 			}
 		]
-
 	}
   ])
 }
