@@ -650,7 +650,10 @@ function workbc_custom_post_update_1603_resources(&$sandbox = NULL) {
       \Drupal::messenger()->addWarning('Could not parse URI ' . $field->field_resources_uri, true);
     }
     else {
-      $normalized_uri = ltrim(trim($uri_parts['host']), 'www.') . str_replace(['/web', '/'], '', trim($uri_parts['path'] ?? ''));
+      $normalized_uri = strtolower(
+        preg_replace('/^www\.|\.com$/i', '', trim($uri_parts['host'])) .
+        preg_replace(['/^\/web$/i', '/^\/$/'], '', trim($uri_parts['path'] ?? ''))
+      );
       if (array_key_exists($normalized_uri, $sandbox['resources'])) {
         $resource_id = $sandbox['resources'][$normalized_uri];
       }
