@@ -19,13 +19,13 @@ dependencies:
     - field.field.node.career_profile.field_noc
     - field.field.node.career_profile.field_related_careers
     - field.field.node.career_profile.field_resources
+    - field.field.node.career_profile.field_resources_reference
     - field.field.node.career_profile.field_scheduled_publish
     - field.field.node.career_profile.field_work_environment
     - node.type.career_profile
     - workflows.workflow.editorial
   module:
     - content_moderation
-    - link
     - media_library
     - media_library_edit
     - path
@@ -155,13 +155,15 @@ content:
       size: 60
       placeholder: ''
     third_party_settings: {  }
-  field_resources:
-    type: link_default
+  field_resources_reference:
+    type: entity_reference_autocomplete
     weight: 22
     region: content
     settings:
-      placeholder_url: ''
-      placeholder_title: ''
+      match_operator: CONTAINS
+      match_limit: 10
+      size: 60
+      placeholder: ''
     third_party_settings: {  }
   field_scheduled_publish:
     type: scheduled_publish
@@ -243,3 +245,4 @@ content:
     third_party_settings: {  }
 hidden:
   field_hero_image: true
+  field_resources: true

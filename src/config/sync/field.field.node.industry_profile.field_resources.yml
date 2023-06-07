@@ -11,8 +11,8 @@ id: node.industry_profile.field_resources
 field_name: field_resources
 entity_type: node
 bundle: industry_profile
-label: Resources
-description: ''
+label: 'Resources (DO NOT USE)'
+description: "DO NOT USE! \r\n\r\nThis is a legacy field that has been replaced by the newer <b>Resources</b> field which pulls the content from the <a href=\"/admin/config/workbc/resources\">Resources Library</a>."
 required: false
 translatable: true
 default_value: {  }

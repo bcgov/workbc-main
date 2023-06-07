@@ -625,3 +625,68 @@ function workbc_custom_post_update_1660_part_02_deduplicate_medias(&$sandbox = N
   $sandbox['#finished'] = empty($sandbox['duplicates']) ? 1 : ($sandbox['count'] - count($sandbox['duplicates'])) / $sandbox['count'];
   return t('[WR-1660] Deduplicated one media item.');
 }
+
+/**
+ * Migrate resource fields to resource nodes.
+ *
+ * As per ticket WR-1603.
+ */
+function workbc_custom_post_update_1603_resources(&$sandbox = NULL) {
+  if (!isset($sandbox['fields'])) {
+    $connection = \Drupal::database();
+    $query = $connection->select('node__field_resources');
+    $query->addField('node__field_resources', 'entity_id');
+    $query->addField('node__field_resources', 'field_resources_uri');
+    $query->addField('node__field_resources', 'field_resources_title');
+    $sandbox['fields'] = $query->execute()->fetchAll();
+    $sandbox['count'] = count($sandbox['fields']);
+    $sandbox['resources'] = [];
+  }
+
+  $field = array_shift($sandbox['fields']);
+  if (!empty($field)) {
+    $uri_parts = parse_url($field->field_resources_uri);
+    if (empty($uri_parts['host'])) {
+      \Drupal::messenger()->addWarning('Could not parse URI ' . $field->field_resources_uri, true);
+    }
+    else {
+      $normalized_uri = strtolower(
+        preg_replace('/^www\.|\.com$/i', '', trim($uri_parts['host'])) .
+        preg_replace(['/^\/web$/i', '/^\/$/'], '', trim($uri_parts['path'] ?? ''))
+      );
+      if (array_key_exists($normalized_uri, $sandbox['resources'])) {
+        $resource_id = $sandbox['resources'][$normalized_uri];
+      }
+      else {
+        // Create a new resource for this field.
+        $resource_fields = [
+          'title' => $field->field_resources_title,
+          'uid' => 1,
+          'type' => 'resource',
+          'moderation_state' => 'published',
+          'field_resource' => [
+            'title' => $field->field_resources_title,
+            'uri' => $field->field_resources_uri,
+          ]
+        ];
+        $resource = Drupal::entityTypeManager()
+        ->getStorage('node')
+        ->create($resource_fields);
+        $resource->setPublished(TRUE);
+        $resource->save();
+        $resource_id = $resource->id();
+        $sandbox['resources'][$normalized_uri] = $resource_id;
+      }
+      $node = Drupal::entityTypeManager()
+      ->getStorage('node')
+      ->load($field->entity_id);
+      $node->field_resources_reference[] = [
+        'target_id' => $resource_id
+      ];
+      $node->save();
+    }
+  }
+
+  $sandbox['#finished'] = empty($sandbox['fields']) ? 1 : ($sandbox['count'] - count($sandbox['fields'])) / $sandbox['count'];
+  return t('[WR-1603] Migrated one resource field.');
+}

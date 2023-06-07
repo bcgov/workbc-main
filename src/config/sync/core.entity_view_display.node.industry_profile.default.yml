@@ -12,11 +12,11 @@ dependencies:
     - field.field.node.industry_profile.field_job_board_save_profile_id
     - field.field.node.industry_profile.field_key_facts
     - field.field.node.industry_profile.field_resources
+    - field.field.node.industry_profile.field_resources_reference
     - field.field.node.industry_profile.field_scheduled_publish
     - node.type.industry_profile
   module:
     - field_group
-    - link
     - text
     - user
 third_party_settings:
@@ -95,7 +95,7 @@ third_party_settings:
         description: ''
     group_resources:
       children:
-        - field_resources
+        - field_resources_reference
       label: Resources
       parent_name: group_industry_profile
       region: content
@@ -120,7 +120,7 @@ content:
   extra_field_employment_introduction:
     settings: {  }
     third_party_settings: {  }
-    weight: 24
+    weight: 11
     region: content
   extra_field_hourly_earnings_introduction:
     settings: {  }
@@ -323,17 +323,12 @@ content:
     third_party_settings: {  }
     weight: 24
     region: content
-  field_resources:
-    type: link
+  field_resources_reference:
+    type: entity_reference_entity_id
     label: above
-    settings:
-      trim_length: 80
-      url_only: false
-      url_plain: false
-      rel: ''
-      target: ''
+    settings: {  }
     third_party_settings: {  }
-    weight: 28
+    weight: 29
     region: content
   links:
     settings: {  }
@@ -349,6 +344,7 @@ hidden:
   field_hero_image: true
   field_introductions: true
   field_job_board_id: true
+  field_resources: true
   field_scheduled_publish: true
   langcode: true
   search_api_excerpt: true

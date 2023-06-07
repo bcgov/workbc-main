@@ -1,4 +1,4 @@
-uuid: e177b14c-719b-487f-9651-0893c71a986b
+uuid: 91bed63b-8a53-49a6-8732-e51dd199f1db
 langcode: en
 status: true
 dependencies:
@@ -9,14 +9,14 @@ dependencies:
 third_party_settings:
   field_permissions:
     permission_type: public
-id: node.field_resources
-field_name: field_resources
+id: node.field_resource
+field_name: field_resource
 entity_type: node
 type: link
 settings: {  }
 module: link
 locked: false
-cardinality: -1
+cardinality: 1
 translatable: true
 indexes: {  }
 persist_with_no_fields: false

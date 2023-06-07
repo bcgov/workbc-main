@@ -1,0 +1,34 @@
+uuid: 4055e4fd-38ce-49bb-a2ca-4ba27f0c17f9
+langcode: en
+status: true
+dependencies:
+  config:
+    - field.field.node.resource.field_resource
+    - node.type.resource
+  module:
+    - linkit
+    - user
+id: node.resource.default
+targetEntityType: node
+bundle: resource
+mode: default
+content:
+  field_resource:
+    type: linkit
+    label: above
+    settings:
+      trim_length: 80
+      url_only: false
+      url_plain: false
+      rel: ''
+      target: ''
+      linkit_profile: default
+    third_party_settings: {  }
+    weight: 0
+    region: content
+hidden:
+  extra_field_workbc_page_title: true
+  extra_field_workbc_published_on: true
+  langcode: true
+  links: true
+  search_api_excerpt: true

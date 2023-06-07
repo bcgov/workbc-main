@@ -1,0 +1,26 @@
+uuid: 41ff2e8f-d436-4ffc-8302-0574dbde0492
+langcode: en
+status: true
+dependencies:
+  config:
+    - core.entity_view_mode.node.teaser
+    - field.field.node.resource.field_resource
+    - node.type.resource
+  module:
+    - user
+id: node.resource.teaser
+targetEntityType: node
+bundle: resource
+mode: teaser
+content:
+  links:
+    settings: {  }
+    third_party_settings: {  }
+    weight: 100
+    region: content
+hidden:
+  extra_field_workbc_page_title: true
+  extra_field_workbc_published_on: true
+  field_resource: true
+  langcode: true
+  search_api_excerpt: true
