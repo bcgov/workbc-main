@@ -2,9 +2,16 @@ resource "aws_s3_bucket" "workbc_s3" {
   bucket = "workbc-backup-restore-bucket"
 }
 
-resource "aws_s3_bucket_acl" "workbc_s3_acl" {
+#resource "aws_s3_bucket_acl" "workbc_s3_acl" {
+#  bucket = aws_s3_bucket.workbc_s3.id
+#  acl    = "private"
+#}
+
+resource "aws_s3_bucket_ownership_controls" "acl_disabled" {
   bucket = aws_s3_bucket.workbc_s3.id
-  acl    = "private"
+    rule {
+      object_ownership = "BucketOwnerEnforced"
+    }
 }
 
 resource "aws_s3_bucket_policy" "allow_access_from_other_accounts" {
