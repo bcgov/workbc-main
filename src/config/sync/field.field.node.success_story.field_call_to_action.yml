@@ -9,13 +9,11 @@ id: node.success_story.field_call_to_action
 field_name: field_call_to_action
 entity_type: node
 bundle: success_story
-label: 'Call To Action'
-description: ''
+label: 'Call to Action'
+description: 'This call to action will appear on the landing page card for this post. Leave it empty to use the default label "Read More".'
 required: false
 translatable: true
-default_value:
-  -
-    value: 'Read More'
+default_value: {  }
 default_value_callback: ''
 settings: {  }
 field_type: string
