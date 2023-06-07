@@ -355,20 +355,28 @@ resource "aws_ecs_task_definition" "app" {
 			{
 				name = "REDIS_PORT",
 				value = "6379"
+			},
+			{
+				name = "CF_DIST_ID",
+				value = "${aws_cloudfront_distribution.workbc[0].id}"
 			}
 		]
 		secrets = [
 			{
 				name = "POSTGRES_USER",
-				valueFrom = "${data.aws_secretsmanager_secret_version.creds.arn}:username::"
+				valueFrom = "${data.aws_secretsmanager_secret_version.creds.arn}:adm_username::"
 			},
 			{
 				name = "POSTGRES_PASSWORD",
-				valueFrom = "${data.aws_secretsmanager_secret_version.creds.arn}:password::"
+				valueFrom = "${data.aws_secretsmanager_secret_version.creds.arn}:adm_password::"
 			},
 			{
 				name = "JOBBOARD_GOOGLE_MAPS_KEY",
 				valueFrom = "${data.aws_secretsmanager_secret_version.creds2.arn}:gm_ref::"
+			},
+			{
+				name = "DRUPAL_ADM_PWD",
+				valueFrom = "${data.aws_secretsmanager_secret_version.creds.arn}:drupal_adm_password::"
 			}
 		]
 		mountPoints = [
