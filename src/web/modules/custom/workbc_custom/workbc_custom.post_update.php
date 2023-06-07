@@ -663,7 +663,6 @@ function workbc_custom_post_update_1603_resources(&$sandbox = NULL) {
           'title' => $field->field_resources_title,
           'uid' => 1,
           'type' => 'resource',
-          'moderation_state' => 'published',
           'field_resource' => [
             'title' => $field->field_resources_title,
             'uri' => $field->field_resources_uri,
