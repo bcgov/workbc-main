@@ -10,6 +10,7 @@ dependencies:
     - search_api_solr
     - node
     - search_api
+    - paragraphs
 third_party_settings:
   search_api_solr:
     finalize: false
@@ -52,9 +53,13 @@ third_party_settings:
     multilingual:
       limit_to_content_language: false
       include_language_independent: true
+      use_language_undefined_as_fallback_language: false
+      specific_languages:
+        en: '0'
+      use_universal_collation: false
 id: default_content_index
 name: 'Site content index'
-description: 'Default content index created by the Database Search Defaults module'
+description: ''
 read_only: false
 field_settings:
   field_noc:
@@ -134,6 +139,18 @@ field_settings:
         - node
 datasource_settings:
   'entity:node':
+    bundles:
+      default: true
+      selected:
+        - career_profile_introductions
+        - industry_profile_introductions
+        - labour_market_monthly
+        - region_profile_introductions
+        - resource
+    languages:
+      default: true
+      selected: {  }
+  'entity:paragraph':
     bundles:
       default: true
       selected: {  }
