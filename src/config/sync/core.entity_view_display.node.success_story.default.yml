@@ -4,6 +4,7 @@ status: true
 dependencies:
   config:
     - field.field.node.success_story.body
+    - field.field.node.success_story.field_call_to_action
     - field.field.node.success_story.field_content_group
     - field.field.node.success_story.field_image
     - field.field.node.success_story.field_image_media
@@ -37,6 +38,14 @@ content:
     settings: {  }
     third_party_settings: {  }
     weight: 1
+    region: content
+  field_call_to_action:
+    type: string
+    label: above
+    settings:
+      link_to_entity: false
+    third_party_settings: {  }
+    weight: 7
     region: content
   field_image_media:
     type: entity_reference_entity_view
