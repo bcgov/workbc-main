@@ -10,15 +10,15 @@ use Drupal\extra_field\Plugin\ExtraFieldDisplayFormattedBase;
  * Example Extra field with formatted output.
  *
  * @ExtraFieldDisplay(
- *   id = "job_openings_by_region",
- *   label = @Translation("Labour Market Info - Job Openings by Region"),
- *   description = @Translation("An extra field to display job opening forecast chart."),
+ *   id = "job_openings_by_region_na",
+ *   label = @Translation("Labour Market Info - N/A: Job Openings by Region"),
+ *   description = @Translation("An extra field to display job opening forecast chart N/A legend."),
  *   bundles = {
  *     "node.career_profile",
  *   }
  * )
  */
-class CareerProfileJobOpeningsByRegion extends ExtraFieldDisplayFormattedBase {
+class CareerProfileJobOpeningsByRegionNA extends ExtraFieldDisplayFormattedBase {
 
   use StringTranslationTrait;
 
@@ -26,8 +26,7 @@ class CareerProfileJobOpeningsByRegion extends ExtraFieldDisplayFormattedBase {
    * {@inheritdoc}
    */
   public function getLabel() {
-    $datestr = ssotParseDateRange($this->getEntity()->ssot_data['schema'], 'career_regional', 'cariboo_expected_number_of_job_openings_10y');
-    return $this->t('Job Openings by Region (:datestr)', array(":datestr" => $datestr));
+    return $this->t("");
   }
 
   /**
@@ -46,62 +45,46 @@ class CareerProfileJobOpeningsByRegion extends ExtraFieldDisplayFormattedBase {
     $regions = [];
     if (!empty($entity->ssot_data) && isset($entity->ssot_data['career_regional'])) {
       $region = array();
-      $region['name'] = t(REGION_CARIBOO);
       $region['openings'] = floatval($entity->ssot_data['career_regional']['cariboo_expected_number_of_job_openings_10y']);
       $region['growth'] = floatval($entity->ssot_data['career_regional']['cariboo_average_annual_employment_growth_10y_pct']);
       $regions[] = $region;
       $region = array();
-      $region['name'] = t(REGION_KOOTENAY);
       $region['openings'] = floatval($entity->ssot_data['career_regional']['kootenay_expected_number_of_job_openings_10y']);
       $region['growth'] = floatval($entity->ssot_data['career_regional']['kootenay_average_annual_employment_growth_10y_pct']);
       $regions[] = $region;
       $region = array();
-      $region['name'] = t(REGION_MAINLAND_SOUTHWEST);
       $region['openings'] = floatval($entity->ssot_data['career_regional']['mainland_southwest_expected_number_of_job_openings_10y']);
       $region['growth'] = floatval($entity->ssot_data['career_regional']['mainland_southwest_annual_employment_growth_10y_pct']);
       $regions[] = $region;
       $region = array();
-      $region['name'] = t(REGION_NORTH_COAST_NECHAKO);
       $region['openings'] = floatval($entity->ssot_data['career_regional']['north_coast_nechako_expected_number_of_job_openings_10y']);
       $region['growth'] = floatval($entity->ssot_data['career_regional']['north_coast_nechako_annual_employment_growth_10y_pct']);
       $regions[] = $region;
       $region = array();
-      $region['name'] = t(REGION_NORTHEAST);
       $region['openings'] = floatval($entity->ssot_data['career_regional']['northeast_expected_number_of_job_openings_10y']);
       $region['growth'] = floatval($entity->ssot_data['career_regional']['northeast_annual_employment_growth_10y_pct']);
       $regions[] = $region;
       $region = array();
-      $region['name'] = t(REGION_THOMPSON_OKANAGAN);
       $region['openings'] = floatval($entity->ssot_data['career_regional']['thompson_okanagan_expected_number_of_job_openings_10y']);
       $region['growth'] = floatval($entity->ssot_data['career_regional']['thompson_okanagan_annual_employment_growth_10y_pct']);
       $regions[] = $region;
       $region = array();
-      $region['name'] = t(REGION_VANCOUVER_ISLAND_COAST);
       $region['openings'] = floatval($entity->ssot_data['career_regional']['vancouver_island_coast_expected_number_of_job_openings_10y']);
       $region['growth'] = floatval($entity->ssot_data['career_regional']['vancouver_island_coast_annual_employment_growth_10y_pct']);
       $regions[] = $region;
     }
 
-    $module_handler = \Drupal::service('module_handler');
-    $module_path = $module_handler->getModule('workbc_extra_fields')->getPath();
-
-    $text = '<div><img src="/' . $module_path . '/images/' . WORKBC_BC_MAP_WITH_LABELS . '"></div>';
-    $text .= "<table>";
-    $text .= "<tr><th>Region</th><th>Job Openings</th><th>Avg Annual Employment Growth</th></tr>";
-    foreach ($regions as $region) {
-      $value = $region['openings'];
-      $openings = ($value===0||$value)?ssotFormatNumber($value, 0):WORKBC_EXTRA_FIELDS_NOT_AVAILABLE;
-
-      $value = $region['growth'];
-      $growth = ($value===0||$value)?ssotFormatNumber($value,1) . "%":WORKBC_EXTRA_FIELDS_NOT_AVAILABLE;
-      $text .= "<tr><td>" . $region['name'] . "</td><td>" . $openings . "</td><td>" . $growth . "</td></tr>";
+    $has_null = false;
+    foreach ($regions as $key => $value) {
+      if (in_array(null, $value)) {
+        $has_null = true;
+        break;
+      }
     }
-    $text .= "</table>";
 
-    $output = $text;
-
+    // return $has_null ? "YES" : "NO";
     return [
-      ['#markup' => $output],
+      ['#markup' => $has_null ? "YES" : "NO"],
     ];
   }
 
