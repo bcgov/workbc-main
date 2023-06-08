@@ -197,6 +197,16 @@ $card-divider-size: calc(2 * $card-divider-size-half);
   }
 }
 
+.card-profile__na {
+  font-size: 0.875rem;
+  line-height: 0.875rem;
+  width: 100%;
+  
+  em {
+    font-weight: bold;
+    font-style: normal;
+  }
+}
 // Two legends side by side
 .card-profile__legends-container {
   margin: 60px auto 40px;
