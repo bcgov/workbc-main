@@ -82,7 +82,6 @@ class CareerProfileJobOpeningsByRegionNA extends ExtraFieldDisplayFormattedBase 
       }
     }
 
-    // return $has_null ? "YES" : "NO";
     return [
       ['#markup' => $has_null ? "YES" : "NO"],
     ];
