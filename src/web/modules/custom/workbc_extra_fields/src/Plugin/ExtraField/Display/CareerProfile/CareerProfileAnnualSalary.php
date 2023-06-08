@@ -11,8 +11,8 @@ use Drupal\extra_field\Plugin\ExtraFieldDisplayFormattedBase;
  *
  * @ExtraFieldDisplay(
  *   id = "annual_salary",
- *   label = @Translation("Annual Salary"),
- *   description = @Translation("An extra field to display job opening forecast chart."),
+ *   label = @Translation("Annual Earnings"),
+ *   description = @Translation("An extra field to display career annual earnings."),
  *   bundles = {
  *     "node.career_profile",
  *   }
@@ -27,7 +27,7 @@ class CareerProfileAnnualSalary extends ExtraFieldDisplayFormattedBase {
    */
   public function getLabel() {
 
-    return $this->t('Annual Salary');
+    return $this->t('Annual Earnings');
   }
 
   /**
