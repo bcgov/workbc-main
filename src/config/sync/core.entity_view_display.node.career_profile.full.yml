@@ -131,6 +131,7 @@ third_party_settings:
         - extra_field_job_openings_composition
         - extra_field_job_openings_forecast_source
         - extra_field_job_openings_by_region
+        - extra_field_job_openings_by_region_na
         - extra_field_job_openings_by_region_source
       label: 'Labour Market Statistics'
       parent_name: group_career_profile_tabs
@@ -228,7 +229,7 @@ content:
   extra_field_employment_growth_rate_forecast:
     settings: {  }
     third_party_settings: {  }
-    weight: 72
+    weight: 70
     region: content
   extra_field_employment_introduction:
     settings: {  }
@@ -263,27 +264,32 @@ content:
   extra_field_job_openings_by_region:
     settings: {  }
     third_party_settings: {  }
-    weight: 75
+    weight: 73
+    region: content
+  extra_field_job_openings_by_region_na:
+    settings: {  }
+    third_party_settings: {  }
+    weight: 74
     region: content
   extra_field_job_openings_by_region_source:
     settings: {  }
     third_party_settings: {  }
-    weight: 76
+    weight: 75
     region: content
   extra_field_job_openings_composition:
     settings: {  }
     third_party_settings: {  }
-    weight: 73
+    weight: 71
     region: content
   extra_field_job_openings_forecast:
     settings: {  }
     third_party_settings: {  }
-    weight: 71
+    weight: 69
     region: content
   extra_field_job_openings_forecast_source:
     settings: {  }
     third_party_settings: {  }
-    weight: 74
+    weight: 72
     region: content
   extra_field_job_openings_source:
     settings: {  }
@@ -293,37 +299,37 @@ content:
   extra_field_labour_market_expected_openings:
     settings: {  }
     third_party_settings: {  }
-    weight: 69
+    weight: 67
     region: content
   extra_field_labour_market_expected_openings_source:
     settings: {  }
     third_party_settings: {  }
-    weight: 70
+    weight: 68
     region: content
   extra_field_labour_market_introduction:
     settings: {  }
     third_party_settings: {  }
-    weight: 68
+    weight: 66
     region: content
   extra_field_labour_market_number_employed:
     settings: {  }
     third_party_settings: {  }
-    weight: 63
+    weight: 62
     region: content
   extra_field_labour_market_number_employed_source:
     settings: {  }
     third_party_settings: {  }
-    weight: 64
+    weight: 63
     region: content
   extra_field_labour_market_region_employment:
     settings: {  }
     third_party_settings: {  }
-    weight: 65
+    weight: 64
     region: content
   extra_field_labour_market_region_employment_source:
     settings: {  }
     third_party_settings: {  }
-    weight: 67
+    weight: 65
     region: content
   extra_field_labour_market_statistics_i:
     settings: {  }

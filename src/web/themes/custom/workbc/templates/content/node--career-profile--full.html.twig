@@ -196,6 +196,7 @@
 
       outlook_openings_by_region_title: content.group_career_profile_tabs.group_labour_market_statistics.extra_field_job_openings_by_region['#title'],
       outlook_openings_by_region_markup: content.group_career_profile_tabs.group_labour_market_statistics.extra_field_job_openings_by_region.0['#markup'],
+      outlook_openings_by_region_na: content.group_career_profile_tabs.group_labour_market_statistics.extra_field_job_openings_by_region_na[0]['#markup'],
       outlook_openings_by_region_source: content.group_career_profile_tabs.group_labour_market_statistics.extra_field_job_openings_by_region_source.0['#markup'],
 
     },
@@ -500,6 +501,13 @@
                 <h3 class="card-profile__content-header">{{ viewmodel['tab_sections']['labour_market']['outlook_openings_by_region_title'] }}</h3>
                 <span class="card-profile__content-item">{{ viewmodel['tab_sections']['labour_market']['outlook_openings_by_region_markup']|raw }}</span>
               </div>
+
+              {% if viewmodel['tab_sections']['labour_market']['outlook_openings_by_region_na'] == 'YES' %}
+                <div class="card-profile__na">
+                  <em>N/A:</em> Data is not available for this region.
+                </div>
+              {% endif %}
+
               <div class="card-profile__source">
                 <em>Source:</em> {{ viewmodel['tab_sections']['labour_market']['outlook_openings_by_region_source']|raw }}
               </div>
