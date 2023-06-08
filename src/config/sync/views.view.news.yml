@@ -1879,10 +1879,10 @@ display:
           multi_type: separator
           separator: ', '
           field_api_classes: false
-        body:
-          id: body
-          table: node__body
-          field: body
+        field_related_topics_blurb:
+          id: field_related_topics_blurb
+          table: node__field_related_topics_blurb
+          field: field_related_topics_blurb
           relationship: none
           group_type: group
           admin_label: ''
@@ -1929,9 +1929,8 @@ display:
           empty_zero: false
           hide_alter_empty: true
           click_sort_column: value
-          type: text_summary_or_trimmed
-          settings:
-            trim_length: 250
+          type: text_default
+          settings: {  }
           group_column: value
           group_columns: {  }
           group_rows: true
@@ -2163,7 +2162,7 @@ display:
           entity_type: node
           entity_field: published_date
           plugin_id: date
-          order: ASC
+          order: DESC
           expose:
             label: ''
             field_identifier: ''
@@ -2328,7 +2327,7 @@ display:
         - 'user.node_grants:view'
         - user.permissions
       tags:
-        - 'config:field.storage.node.body'
         - 'config:field.storage.node.field_call_to_action'
         - 'config:field.storage.node.field_image_media'
+        - 'config:field.storage.node.field_related_topics_blurb'
         - 'config:field.storage.node.field_tags'
