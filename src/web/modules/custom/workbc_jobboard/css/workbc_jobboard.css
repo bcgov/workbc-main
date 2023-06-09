@@ -53,10 +53,10 @@
  width:100%;
  text-align:center;
 }
-.workbc-fobboard-save-profile {
+.workbc-jobboard-save-profile {
   text-align: right;
 }
-.workbc-fobboard-save-profile .save_career_profile .form-submit {
+.workbc-jobboard-save-profile .save_career_profile .form-submit {
   width: 28px;
   height: 28px;
   text-align:right;
@@ -70,7 +70,7 @@
   color: transparent;
   overflow: hidden;
 }
-.workbc-fobboard-save-profile .save_career_profile .form-submit:focus{
+.workbc-jobboard-save-profile .save_career_profile .form-submit:focus{
   box-shadow: none;
 }
 .new-login-link a, .new-logout-link a {font-weight:bold;}
@@ -129,7 +129,7 @@ body.plan-careervideo-library div.view-id-video_library{
 }
 
 @media screen and (min-width: 768px) {
-  .workbc-fobboard-save-profile .save_career_profile .form-submit{
+  .workbc-jobboard-save-profile .save_career_profile .form-submit{
     width: auto;
     padding-right: 28px;
     color: #2e6ab0;

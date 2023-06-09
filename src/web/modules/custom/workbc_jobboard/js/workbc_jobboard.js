@@ -45,7 +45,7 @@
   <a  href="/account#/personal-settings" class="nav-link">Personal Settings</a>
 </li>
 <li class="nav-item new-login-link">
-  <a href="/account#/logout" class="nav-link" onclick="document.cookie='currentUser.username=; expires=Thu, 01 Jan 1970 00:00:00 UTC; Path=/'; document.cookie='currentUser.email=; expires=Thu, 01 Jan 1970 00:00:00 UTC; Path=/'; document.cookie='currentUser.firstname=; expires=Thu, 01 Jan 1970 00:00:00 UTC; Path=/'; document.cookie='currentUser.lastname=; expires=Thu, 01 Jan 1970 00:00:00 UTC; Path=/'; document.cookie='currentUser.id=; expires=Thu, 01 Jan 1970 00:00:00 UTC; Path=/'; document.cookie='currentUser.token=; expires=Thu, 01 Jan 1970 00:00:00 UTC; Path=/'; localStorage.removeItem('currentUser'); location.reload();">Log out</a>
+  <a href="/account#/logout" class="nav-link" onclick="localStorage.removeItem('currentUser'); document.cookie='currentUser.username=; expires=Thu, 01 Jan 1970 00:00:00 UTC; Path=/;'; document.cookie='currentUser.email=; expires=Thu, 01 Jan 1970 00:00:00 UTC; Path=/;'; document.cookie='currentUser.firstName=; expires=Thu, 01 Jan 1970 00:00:00 UTC; Path=/;'; document.cookie='currentUser.lastName=; expires=Thu, 01 Jan 1970 00:00:00 UTC; Path=/;'; document.cookie='currentUser.id=; expires=Thu, 01 Jan 1970 00:00:00 UTC; Path=/;'; document.cookie='currentUser.token=; expires=Thu, 01 Jan 1970 00:00:00 UTC; Path=/;'; return true;">Log out</a>
 </li>
 `;
               var appendLoginMenusD = `
@@ -107,7 +107,7 @@ function readCookie(cookieName){
 
       // Set each cookie.
       for (const prop in entry) {
-        document.cookie = `${split[0]}.${prop}=${entry[prop]}; expires=Fri, 31 Dec 9999 23:59:59 GMT; SameSite=None; Secure`;
+        document.cookie= `${split[0]}.${prop}=${entry[prop]}; Path=/;`;
       }
 
       return entry[split[1]];
