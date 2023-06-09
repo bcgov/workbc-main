@@ -58,7 +58,7 @@ class LabourMarketUnemployedPreviousMonth extends ExtraFieldDisplayFormattedBase
     $unemployed_rate_value =  !empty($data['employment_rate_pct_unemployment_previous'])?$data['employment_rate_pct_unemployment_previous']:WORKBC_EXTRA_FIELDS_NOT_AVAILABLE;
     $unemployed_part_value = !empty($data['employment_rate_pct_participation_previous'])?$data['employment_rate_pct_participation_previous']:WORKBC_EXTRA_FIELDS_NOT_AVAILABLE;
     $information_text_tooltip = '
-                  <div class="workbc-tooltip-content lm--tooltip-content">
+                  <div class="workbc-tooltip-content lm-tooltip-content">
                     <p>'. $this->t('Participation Rate represents the number of people in the workforce that are of working age as a percentage of total BC population.') . '</p>
                   </div>';
     $source_text = !empty($entity->ssot_data['sources']['no-datapoint'])?$entity->ssot_data['sources']['no-datapoint']:WORKBC_EXTRA_FIELDS_NOT_AVAILABLE;

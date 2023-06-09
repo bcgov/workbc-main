@@ -66,7 +66,9 @@ class LabourMarketEmploymentByAgeSexTable extends ExtraFieldDisplayFormattedBase
         '#theme' => 'table',
         '#header' => $header,
         '#rows' => $rows,
-        '#attributes' => array('class'=>array('lm-region-table')),
+        '#attributes' => array(
+          'class' => array('lm-table-age-gender'),
+        ),
         '#header_columns' => 4,
       ],
       [
@@ -77,7 +79,7 @@ class LabourMarketEmploymentByAgeSexTable extends ExtraFieldDisplayFormattedBase
   }
 
 
-    public function getGenderAgeValues($values){
+  public function getGenderAgeValues($values){
     $genderAgeValues = [];
     $ageNeedle = 'employment_by_age_group_';
     $genderNeedle = 'employment_by_gender_';
@@ -97,7 +99,7 @@ class LabourMarketEmploymentByAgeSexTable extends ExtraFieldDisplayFormattedBase
             $age = str_replace('55', "55+", $age);
             $genderAgeValues[$age]['age'] = str_replace("_"," - ",$age) . ' ' . $this->t('years');
             $genderAgeValues[$age]['previous'] = $value ? ssotFormatNumber($value): WORKBC_EXTRA_FIELDS_NOT_AVAILABLE;
-          } else {           
+          } else {
             $age = str_replace('55', "55+", $age);
             $genderAgeValues[$age]['age'] = str_replace("_"," - ",$age). ' ' . $this->t('years');
             $genderAgeValues[$age]['current'] = $value ? ssotFormatNumber($value):WORKBC_EXTRA_FIELDS_NOT_AVAILABLE;
