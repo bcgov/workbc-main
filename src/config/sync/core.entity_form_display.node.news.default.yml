@@ -9,6 +9,7 @@ dependencies:
     - field.field.node.news.field_content_group
     - field.field.node.news.field_image
     - field.field.node.news.field_image_media
+    - field.field.node.news.field_published_date
     - field.field.node.news.field_related_topics_blurb
     - field.field.node.news.field_scheduled_publish
     - field.field.node.news.field_tags
@@ -16,6 +17,7 @@ dependencies:
     - workflows.workflow.editorial
   module:
     - content_moderation
+    - datetime
     - media_library
     - media_library_edit
     - path
@@ -74,6 +76,12 @@ content:
     third_party_settings:
       media_library_edit:
         show_edit: '1'
+  field_published_date:
+    type: datetime_default
+    weight: 18
+    region: content
+    settings: {  }
+    third_party_settings: {  }
   field_related_topics_blurb:
     type: text_textarea
     weight: 16
@@ -84,7 +92,7 @@ content:
     third_party_settings: {  }
   field_scheduled_publish:
     type: scheduled_publish
-    weight: 18
+    weight: 19
     region: content
     settings: {  }
     third_party_settings: {  }

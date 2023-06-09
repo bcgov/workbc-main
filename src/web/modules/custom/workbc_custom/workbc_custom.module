@@ -148,6 +148,15 @@ function workbc_custom_node_presave(NodeInterface $entity) {
       }
     }
   }
+
+  if ($entity->bundle() == "blog" || $entity->bundle() == "news") {
+    if (!is_null($entity->get('field_published_date')->value)) {
+      $update = strtotime($entity->get('field_published_date')->value);
+      if ($update <> $entity->get('published_date')->value) {
+        $update > $entity->get('published_date')->setValue($update);
+      }
+    }
+  }
 }
 
 /**
