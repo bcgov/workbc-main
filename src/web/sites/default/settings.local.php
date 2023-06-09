@@ -28,6 +28,16 @@ $databases['default']['default'] = [
   'prefix' => '',
   'username' => $_SERVER['DB_USER'],
 ];
+$databases['ssot']['default'] = [
+  'database' => 'ssot',
+  'driver' => 'pgsql',
+  'host' => 'postgres',
+  'password' => 'workbc',
+  'port' => 5432,
+  'prefix' => '',
+  'username' => 'workbc',
+];
+
 
 /**
  * Assertions.

@@ -55,11 +55,32 @@ use Symfony\Component\HttpFoundation\Request;
  }
 
 
+  /**
+  * Implements hook_views_data().
+  */
+// function workbc_custom_views_data() {
+
+//   $data = [];
+
+//   // $data['high_opportunity_occupations']['table']['base'] = [
+//   //   // Identifier (primary) field in this table for Views.
+//   //   'field' => 'high_opportunity_occupations_noc',
+//   //   // Label in the UI.
+//   //   'title' => t('SSOT: High Opportunity Occupations'),
+//   //   // Longer description in the UI. Required.
+//   //   'help' => t('SSOT: High Opportunity Occupations table.'),
+//   // ];
+
+//   return $data;
+
+// }
+
  /**
   * Implements hook_views_data_alter().
   */
  function workbc_custom_views_data_alter(array &$data) {
-
+   ksm($data);
+   ksm($data['high_opportunity_occupations']);
    $data['node_field_data']['workbc_nodes_granular_dates'] = [
      'title' => t('WorkBC node granular date filter'),
      'filter' => [
@@ -70,6 +91,27 @@ use Symfony\Component\HttpFoundation\Request;
      ],
    ];
 
+   $data['high_opportunity_occupations']['career_link'] = [
+    'title' => 'Career Profile link',
+    'help' => 'Requires high opportunity occupation NOC field to be included in view.',
+    'field' => [
+      'id' => 'high_opportunity_occupations_career_link',
+    ],
+   ];
+
+   $data['high_opportunity_occupations']['hourly_wage'] = [
+    'title' => 'Hourly Wage',
+    'help' => 'Provides formatted hourly wage.',
+    'field' => [
+      'id' => 'high_opportunity_occupations_hourly_wage',
+    ],
+   ];
+
+   
+//   $data['high_opportunity_occupations']['table']['base']['field'] = "high_opportunity_occupations_noc";
+  //  $data['high_opportunity_occupations']['wage_rate_median']['field']['id'] = 'float';
+   
+   ksm($data['high_opportunity_occupations']);   
  }
 
 /**
@@ -100,6 +142,11 @@ function workbc_custom_form_alter(&$form, \Drupal\Core\Form\FormStateInterface $
     $form['#attached']['library'][] =  'workbc_custom/custom-script';
   }
 
+  if ($form_id == 'views_exposed_form') {
+    ksm($form_id);
+    ksm($form);
+  }
+  
 }
 
 /**
