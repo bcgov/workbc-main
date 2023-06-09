@@ -70,15 +70,15 @@ class LabourMarketUnemploymentByRegion extends ExtraFieldDisplayFormattedBase {
 
     return [
       [
-            '#theme' => 'image',
-            '#uri' => $image_uri,
-            '#alt' => 'BC Image Map',
+        '#theme' => 'image',
+        '#uri' => $image_uri,
+        '#alt' => 'BC Image Map',
       ],
       [
         '#theme' => 'table',
         '#header' => $header,
         '#rows' => $rows,
-        '#attributes' => array('class'=>array('bc-region-table')),
+        '#attributes' => array('class'=>array('lm-table-region')),
         '#header_columns' => 4,
       ],
       [

@@ -67,7 +67,7 @@ class LabourMarketEmploymentIndustriesTable extends ExtraFieldDisplayFormattedBa
         '#theme' => 'table',
         '#header' => $header,
         '#rows' => $rows,
-        '#attributes' => array('class'=>array('my-table')),
+        '#attributes' => array('class'=>array('lm-table-industries')),
         '#header_columns' => 4,
       ],
       [
