@@ -132,6 +132,7 @@
         "drupal/views_autosubmit": "^1.4",
         "drupal/views_bulk_edit": "^2.8",
         "drupal/views_bulk_operations": "^4.1",
+        "drupal/views_database_connector": "^2.0",
         "drupal/views_infinite_scroll": "^2.0",
         "drupal/viewsreference": "^1.8",
         "drupal/webform": "^6.1",
