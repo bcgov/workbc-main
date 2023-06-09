@@ -91,7 +91,13 @@ class LabourMarketEmploymentByAgeSexTable extends ExtraFieldDisplayFormattedBase
           $age = str_replace($ageNeedle, "", $key);
 
           if(empty($genderAgeValues['age']['head'])) {
-            $genderAgeValues['ahead'] = [$this->t('Age'),'',''];
+            $genderAgeValues['ahead'] = [
+              [
+                'data' => $this->t('Age'),
+                'colspan' => 3,
+                'class' => ['lm-header'],
+              ],
+            ];
           }
           //if previous values
           if(strpos($age, 'previous') !== false) {
@@ -111,7 +117,13 @@ class LabourMarketEmploymentByAgeSexTable extends ExtraFieldDisplayFormattedBase
           $gender = str_replace($genderNeedle, "", $key);
 
           if(empty($genderAgeValues['gender']['head'])) {
-            $genderAgeValues['ghead'] = [$this->t('Sex'),'',''];
+            $genderAgeValues['ghead'] = [
+              [
+                'data' => $this->t('Sex'),
+                'colspan' => 3,
+                'class' => ['lm-header'],
+              ],
+            ];
           }
           //if previous values
           if(strpos($gender, 'previous') !== false) {
