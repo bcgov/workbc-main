@@ -8,6 +8,7 @@ use Drupal\Core\Config\Entity\ConfigEntityInterface;
 use Drupal\Core\Form\FormStateInterface;
 use Drupal\Core\Url;
 use Drupal\Core\Routing\TrustedRedirectResponse;
+use Drupal\views\ViewExecutable;
 use Drupal\redirect\Entity\Redirect;
 use Symfony\Component\HttpFoundation\Request;
 
@@ -114,6 +115,16 @@ use Symfony\Component\HttpFoundation\Request;
    ksm($data['high_opportunity_occupations']);   
  }
 
+
+function workbc_custom_views_pre_render(ViewExecutable $view) {
+  if ($view->id() == 'high_opportunity_occupations') {
+    $schema = ssotSchema("");
+    $range = ssotParseDateRange($schema, 'high_opportunity_occupations', 'openings_forecast');
+    $view->field['openings_forecast']->options['label'] = "Job Openings to " . $range;
+   }
+}
+
+
 /**
  * Implements hook_form_alter().
  */
@@ -142,12 +153,35 @@ function workbc_custom_form_alter(&$form, \Drupal\Core\Form\FormStateInterface $
     $form['#attached']['library'][] =  'workbc_custom/custom-script';
   }
 
-  if ($form_id == 'views_exposed_form') {
-    ksm($form_id);
-    ksm($form);
-  }
-  
+ 
 }
+
+
+
+function workbc_custom_form_views_exposed_form_alter(&$form, \Drupal\Core\Form\FormStateInterface $form_state, $form_id) {
+
+  if (isset($form['region'])) {
+    unset($form['region']['#options']['All']);
+  }
+
+  if (isset($form['typical_education_background'])) {
+    $form['typical_education_background']['#options']['All'] = "All";
+  }
+
+  if (isset($form['occupational_interest'])) {
+    $form['occupational_interest']['#options']['All'] = "All";
+  }
+
+  if (isset($form['wage_rate_median'])) {
+    $form['wage_rate_median']['#options']['All'] = "All";
+  }
+
+  // if (isset($form['wage_rate_median'])) {
+  //   unset($form['wage_rate_median']['#options']['All']);
+  // }
+}
+
+
 
 /**
  * Implements hook_entity_form_mode_alter().

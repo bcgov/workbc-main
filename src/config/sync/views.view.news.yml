@@ -565,7 +565,7 @@ display:
           replica: false
           query_tags: {  }
       relationships: {  }
-      use_ajax: false
+      use_ajax: true
       header: {  }
       footer: {  }
       display_extenders: {  }
@@ -1118,7 +1118,7 @@ display:
         fields: false
         footer: false
       css_class: ''
-      use_ajax: false
+      use_ajax: true
       display_description: ''
       footer:
         area:
@@ -1561,7 +1561,7 @@ display:
       defaults:
         title: false
         css_class: false
-        use_ajax: true
+        use_ajax: false
         pager: false
         exposed_form: false
         style: false
@@ -1570,6 +1570,7 @@ display:
         header: false
         footer: false
       css_class: featured-news
+      use_ajax: false
       display_description: ''
       header:
         area:
@@ -2300,7 +2301,7 @@ display:
         options: {  }
       defaults:
         css_class: false
-        use_ajax: true
+        use_ajax: false
         pager: false
         exposed_form: false
         style: false
@@ -2310,6 +2311,7 @@ display:
         filters: false
         filter_groups: false
       css_class: ''
+      use_ajax: true
       display_description: ''
       exposed_block: false
       display_extenders: {  }

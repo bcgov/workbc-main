@@ -10,17 +10,18 @@ use Drupal\Core\Url;
 use Drupal\Core\Link;
 
 /**
- * Plugin implementation of the 'workbc_file_custom_link_text' formatter.
+ * Plugin implementation of the 'workbc_numeric_to_money' formatter.
  *
  * @FieldFormatter(
- *   id = "workbc_string_to_money",
- *   label = @Translation("String to Money"),
+ *   id = "workbc_numeric_to_money",
+ *   label = @Translation("Numeric to Money"),
  *   field_types = {
+ *     "integer",
  *     "numeric",
  *   }
  * )
  */
-class WorkBCStringToMoneyFormatter extends FormatterBase {
+class WorkBCNumericToMoneyFormatter extends FormatterBase {
 
 
   /**
@@ -28,7 +29,7 @@ class WorkBCStringToMoneyFormatter extends FormatterBase {
    */
   public function settingsSummary() {
     $summary = [];
-    $summary[] = $this->t('Displays converts string to money format');
+    $summary[] = $this->t('Displays converts numeric to money format');
     return $summary;
   }
 
@@ -41,8 +42,7 @@ class WorkBCStringToMoneyFormatter extends FormatterBase {
     $settings = $this->getSettings();
 
     foreach ($items as $delta => $item) {
-// ksm($item);
-      $result = "$00.00";
+      $result = $this->getSetting('prefix') . number_format($item->value, $this->getSetting('decimals'));
       $elements[$delta] = ['#markup' => $result];
     }
     return $elements;
@@ -70,14 +70,13 @@ class WorkBCStringToMoneyFormatter extends FormatterBase {
 
       $elements['prefix'] = [
         '#type' => 'textfield',
-        '#title' => t('Custom link text'),
+        '#title' => t('Prefix'),
         '#default_value' => $this->getSetting('prefix'),
-        '#description' => t('Enter prefix.'),
+        '#description' => t('Text to put before the number, such as currency symbol.'),
       ];
       $elements['decimals'] = [
         '#type' => 'textfield',
         '#title' => t('Decimals'),
-        '#return_value' => '2',
         '#default_value' => $this->getSetting('decimals'),
       ];
     return $elements;

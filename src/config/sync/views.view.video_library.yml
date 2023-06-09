@@ -11,8 +11,8 @@ dependencies:
     - media.type.remote_video
     - taxonomy.vocabulary.video_categories
   module:
+    - image
     - media
-    - svg_image
     - taxonomy
     - text
     - user
@@ -646,7 +646,7 @@ display:
           query_tags: {  }
       relationships: {  }
       css_class: ''
-      use_ajax: false
+      use_ajax: true
       header: {  }
       footer: {  }
       display_extenders: {  }

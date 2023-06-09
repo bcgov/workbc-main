@@ -29,21 +29,9 @@ class HighOpportunityOccupationHourlyWage extends FieldPluginBase {
    */
   public function render(ResultRow $values) {
 
-    // $query = \Drupal::database()->select('node__field_noc', 'n');
-    // $query->addField('n', 'entity_id');
-    // $query->condition('n.field_noc_value', $values->high_opportunity_occupations_noc);
-    // $results = $query->execute()->fetchAssoc();
-    // if(!empty($results['entity_id'])) {
-    //   $nid = $results['entity_id'];
-    //   $link = Url::fromUri('internal:/node/'.$nid)->toString();
-    // } else {
-    //   $link = "";
-    // }
-    // ksm($values);
     $wage = "$" . number_format($values->high_opportunity_occupations_wage_rate_median,2);
-    // $wage = "-wage-";
     return $wage;
-    ;
+
   }
 
 }
