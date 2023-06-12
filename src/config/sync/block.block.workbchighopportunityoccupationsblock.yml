@@ -10,7 +10,7 @@ dependencies:
 id: workbchighopportunityoccupationsblock
 theme: workbc
 region: content_bottom
-weight: -14
+weight: -13
 provider: null
 plugin: high_opportunity_occupations
 settings:

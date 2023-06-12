@@ -80,9 +80,8 @@ use Symfony\Component\HttpFoundation\Request;
   * Implements hook_views_data_alter().
   */
  function workbc_custom_views_data_alter(array &$data) {
-   ksm($data);
-   ksm($data['high_opportunity_occupations']);
-   $data['node_field_data']['workbc_nodes_granular_dates'] = [
+
+  $data['node_field_data']['workbc_nodes_granular_dates'] = [
      'title' => t('WorkBC node granular date filter'),
      'filter' => [
        'title' => t('WorkBC node granular date filter'),
@@ -106,13 +105,8 @@ use Symfony\Component\HttpFoundation\Request;
     'field' => [
       'id' => 'high_opportunity_occupations_hourly_wage',
     ],
-   ];
-
-   
-//   $data['high_opportunity_occupations']['table']['base']['field'] = "high_opportunity_occupations_noc";
-  //  $data['high_opportunity_occupations']['wage_rate_median']['field']['id'] = 'float';
-   
-   ksm($data['high_opportunity_occupations']);   
+   ]; 
+  
  }
 
 

@@ -1,4 +1,4 @@
-uuid: e0b29d1c-77a8-4d66-b130-7bd234f9e60c
+uuid: f9fa30ec-1f23-4035-9585-d83ab8fa52ed
 langcode: en
 status: true
 dependencies:
@@ -12,13 +12,13 @@ dependencies:
 id: views_block__high_opportunity_occupations_block_1
 theme: workbc
 region: content_bottom
-weight: 0
+weight: -14
 provider: null
 plugin: 'views_block:high_opportunity_occupations-block_1'
 settings:
   id: 'views_block:high_opportunity_occupations-block_1'
   label: ''
-  label_display: visible
+  label_display: '0'
   provider: views
   views_label: ''
   items_per_page: none
