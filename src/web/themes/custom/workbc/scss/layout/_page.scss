@@ -37,6 +37,14 @@
   }
 }
 
+.page-format--standard.node--type-blog,
+.page-format--standard.node--type-news,
+.page-format--standard.node--type-success-story {
+  @extend .page-format--standard;
+
+  padding-top: 0px;
+}
+
 // Page with Sidenav
 .page-format--sidenav {
   @include media-breakpoint-up(lg) {
