@@ -23,9 +23,15 @@
         {{ card_image }}
       </div>
       <div class="card-plain__content">
+        {% if not override_image %}
         <h3 class="card-plain__title">
           {{ card_title }}
         </h3>
+        {% else %}
+        <div class="card-plain__override_image">
+          {{ override_image }}
+        </div>
+        {% endif %}
         <div class="card-plain__desc">
           {{ card_desc }}
         </div>

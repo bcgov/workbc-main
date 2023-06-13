@@ -12,21 +12,54 @@ use Drupal\Core\Url;
  * Implements hook theme_preprocess_paragraph().
  */
 function workbc_preprocess_paragraph(&$variables) {
-    $parent = $variables['paragraph']->getParentEntity();
-    if ($parent->bundle() == "action_cards_full_width") {
-      $align = $parent->field_alignment->value;
-      $list = $parent->field_action_cards->getValue();
-      foreach($list as $key => $item) {
-        if ($item["target_id"] == $variables['paragraph']->id()) {
-          if ($key % 2 == 0) {
-            $variables['full_width_image_alignment'] = $align == "left" ? "left" : "right";
-          }
-          else {
-            $variables['full_width_image_alignment'] = $align == "left" ? "right" : "left";
-          }
+  $parent = $variables['paragraph']->getParentEntity();
+  if ($parent->bundle() == 'action_cards_full_width') {
+    $align = $parent->field_alignment->value;
+    $list = $parent->field_action_cards->getValue();
+    foreach($list as $key => $item) {
+      if ($item['target_id'] == $variables['paragraph']->id()) {
+        if ($key % 2 == 0) {
+          $variables['full_width_image_alignment'] = $align == 'left' ? 'left' : 'right';
+        }
+        else {
+          $variables['full_width_image_alignment'] = $align == 'left' ? 'right' : 'left';
         }
       }
     }
+  }
+
+  // SPECIAL CASES:
+  // Override titles for "EducationPlannerBC" and "StudentAidBC" into images.
+  if (
+    $variables['view_mode'] === 'action_card_1_2' &&
+    isset($variables['content']['field_title'][0]['#context']['value'])
+  ) {
+    $image = null;
+    switch ($variables['content']['field_title'][0]['#context']['value']) {
+      case 'EducationPlannerBC':
+        $image = 'education-planner-bc.png';
+        $width = '75%';
+        break;
+      case 'StudentAidBC':
+        $image = 'student-aid-bc.png';
+        $width = '50%';
+        break;
+      default:
+        break;
+    }
+    if ($image) {
+      $default_theme_name = \Drupal::config('system.theme')->get('default');
+      $theme_path = \Drupal::service('extension.list.theme')->getPath($default_theme_name);
+      $variables['override_image'] = [
+        '#theme' => 'image',
+        '#uri' => $theme_path . '/assets/images/' . $image,
+        '#alt' => $variables['content']['field_title'][0]['#context']['value'],
+        '#attributes' => [
+          'style' => "width:$width;"
+        ]
+      ];
+    }
+  }
 }
 
 /**
@@ -63,7 +96,9 @@ function workbc_preprocess_page(&$variables) {
   }
 }
 
-
+/**
+ * Implements hook theme_preprocess_node().
+ */
 function workbc_preprocess_node(&$variables) {
   if ($variables['node']->bundle() === "publication" && $variables['view_mode'] === "publication") {
     $config = \Drupal::config('workbc_custom.settings');
