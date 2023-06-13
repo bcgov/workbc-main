@@ -79,7 +79,6 @@ use Symfony\Component\HttpFoundation\Request;
 function workbc_custom_views_pre_render(ViewExecutable $view) {
 
   if ($view->id() == 'industry_profiles') {
-    // ksm($view->field);
     $schema = ssotSchema("");
     $datestr = ssotParseDateRange($schema, 'labour_force_survey_industry', 'yoy_employment_growth_pct');
     $view->field['industry_profile_job_growth_rate']->options['label'] = "Job Growth Rate<p class='ssot-years'>(" . $datestr . ")</p>";

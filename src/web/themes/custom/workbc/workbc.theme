@@ -7,7 +7,6 @@
 
 use Drupal\file\Entity\File;
 use Drupal\Core\Url;
-use Drupal\views\ViewExecutable;
 
 /**
  * Implements hook theme_preprocess_paragraph().
@@ -166,7 +165,3 @@ function workbc_preprocess_menu(&$vars) {
   }
 }
 
-
-function workbc_preprocess_views_view_table(&$vars) {
-
-}
