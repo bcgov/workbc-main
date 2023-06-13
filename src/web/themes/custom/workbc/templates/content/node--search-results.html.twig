@@ -69,6 +69,7 @@
 #}
 
 {% set body = content.body|render|striptags %}
+{% set hero = content.field_hero_text|render|striptags %}
 {% set career_overview = content.field_career_overview|render|striptags %}
 {% set region_overview = content.field_region_overview|render|striptags %}
 {% set industry_overview = content.field_industry_overview|render|striptags %}
@@ -91,7 +92,13 @@
     <a href="{{ url }}" {{ label }}</a>
   </h2>
 
-  {% if body%}
+{% autoescape false %}
+
+  {% if hero %}
+    <p class="search__teaser">
+      {{ hero }}
+    </p>
+  {% elseif body %}
     <p class="search__teaser">
       {{ body }}
     </p>
@@ -120,5 +127,7 @@
       {{ address  }}
     </p>
   {% endif %}
+
+{% endautoescape %}
 
 </article>
