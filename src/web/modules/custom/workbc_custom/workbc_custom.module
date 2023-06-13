@@ -114,6 +114,12 @@ use Symfony\Component\HttpFoundation\Request;
 
 function workbc_custom_views_pre_render(ViewExecutable $view) {
 
+  if ($view->id() == 'high_opportunity_occupations') {
+    $schema = ssotSchema("");
+    $range = ssotParseDateRange($schema, 'high_opportunity_occupations', 'openings_forecast');
+    $view->field['openings_forecast']->options['label'] = "Job Openings to " . $range;
+  }
+
   if ($view->id() == 'industry_profiles') {
     $schema = ssotSchema("");
     $datestr = ssotParseDateRange($schema, 'labour_force_survey_industry', 'yoy_employment_growth_pct');
