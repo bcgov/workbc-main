@@ -29,7 +29,13 @@ class HighOpportunityOccupationHourlyWage extends FieldPluginBase {
    */
   public function render(ResultRow $values) {
 
-    $wage = "$" . number_format($values->high_opportunity_occupations_wage_rate_median,2);
+    if (!isset($values->high_opportunity_occupations_wage_rate_median) ||
+        $values->high_opportunity_occupations_annual_salary_median == $values->high_opportunity_occupations_wage_rate_median) {
+      $wage = "$" . number_format($values->high_opportunity_occupations_annual_salary_median,0) . "*";
+    }
+    else {
+      $wage = "$" . number_format($values->high_opportunity_occupations_wage_rate_median,2);  
+    }
     return $wage;
 
   }
