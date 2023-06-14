@@ -12,7 +12,7 @@ The architecture of the migration system is exceedingly simple: it consists of a
 Assuming an initialized WorkBC Drupal database and updated data files:
 ```shell
 scripts/migration/download.sh
-scripts/migration/migration.sh
+scripts/migration/migrate.sh
 ```
 For more details, refer to the source of these scripts.
 
@@ -65,9 +65,9 @@ Each script listed here includes a short documentation header that details its u
 | career_profiles.php | SSoT<br>[GC WorkBC Career Profiles](https://number41media1.gathercontent.com/content/290255/items/) (data/career_profiles.jsonl)<br>[GC WorkBC Introductory Blurbs](https://number41media1.gathercontent.com/content/332842/items/) (data/career_profile_introductions.jsonl) | Content types `career_profile`, `career_profile_introductions` |
 | education.php | SSoT | Taxonomy `education` |
 | skills.php | SSoT | Taxonomy `skills` |
-| taxonomy.php | [LS](https://www.workbc.ca/Jobs-Careers/Career-Toolkit/Definitions.aspx) (data/definitions.csv) | Taxonomy `definitions` |
-| taxonomy.php | [LS](https://www.workbc.ca/Labour-Market-Industry/Skills-for-the-Future-Workforce.aspx#characteristics) (data/occupational_interests.csv) | Taxonomy `occupational_interests` |
-| taxonomy.php | [LS](https://www.workbc.ca/videolibrary/) (data/video_categories.csv) | Taxonomy `video_categories` |
+| taxonomy.php | LS (data/definitions.csv) | Taxonomy `definitions` |
+| taxonomy.php | LS (data/occupational_interests.csv) | Taxonomy `occupational_interests` |
+| taxonomy.php | LS (data/video_categories.csv) | Taxonomy `video_categories` |
 | taxonomy.php | BRD (data/event_type.csv) | Taxonomy `event_type` |
 | taxonomy.php | BRD (data/content_groups.csv) | Taxonomy `content_groups` |
 | video_library.php | YT [CareerTrekBC](https://www.youtube.com/user/CareerTrekBC) and [WorkBC](https://www.youtube.com/user/WorkBC) (data/video_library.jsonl) | Media type `remote_video` |

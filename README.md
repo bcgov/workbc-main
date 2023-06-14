@@ -58,9 +58,9 @@ Refer to the [`src/web/themes/custom/workbc`](src/web/themes/custom/workbc/READM
 Refer to the [`src/scripts/test`](src/scripts/test/README.md) folder for instructions on load-testing the site.
 
 # Content migration / seeding
-- Refer to the [`src/scripts/migration`](src/scripts/migration/README.md) folder for instructions on seeding content from legacy sources into this site.
-- Post-seeding content migration are located in the [`workbc_custom.post_update.php`](src/web/modules/custom/workbc_custom/workbc_custom.post_update.php) file.
+- Content migrations are located in the [`workbc_custom.post_update.php`](src/web/modules/custom/workbc_custom/workbc_custom.post_update.php) file.
 - For development purposes, the script [`reset_hook_post_update.php`](src/scripts/reset_hook_post_update.php) can be used to selectively reset migration runs in order to re-run them. Usage: `drush scr scripts/reset_hook_post_update.php -- workbc_custom`.
+- Refer to the [`src/scripts/migration`](src/scripts/migration/README.md) folder for instructions on seeding content from legacy sources into this site.
 
 # Troubleshooting
 - If you notice that Search API is no longer finding results even though you rebuilt the Solr indexes, try the following:

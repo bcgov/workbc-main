@@ -43,8 +43,8 @@ class IndustryEmploymentSource extends ExtraFieldDisplayFormattedBase {
    */
   public function viewElements(ContentEntityInterface $entity) {
 
-    if (!empty($entity->ssot_data) && isset($entity->ssot_data['sources']['industry_outlook'])) {
-      $output = $entity->ssot_data['sources']['industry_outlook']['label'];
+    if (!empty($entity->ssot_data) && isset($entity->ssot_data['sources']['labour_force_survey_industry'])) {
+      $output = $entity->ssot_data['sources']['labour_force_survey_industry']['label'];
     }
     else {
       $output = WORKBC_EXTRA_FIELDS_NOT_AVAILABLE;
