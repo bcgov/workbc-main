@@ -26,7 +26,7 @@ class IndustryEmployment extends ExtraFieldDisplayFormattedBase {
    * {@inheritdoc}
    */
   public function getLabel() {
-    $datestr = ssotParseDateRange($this->getEntity()->ssot_data['schema'], 'industry_outlook', 'employment_first');
+    $datestr = ssotParseDateRange($this->getEntity()->ssot_data['schema'], 'labour_force_survey_industry', 'total_employment');
     return $this->t("Employment (" . $datestr . ")");
   }
 
@@ -43,8 +43,8 @@ class IndustryEmployment extends ExtraFieldDisplayFormattedBase {
    */
   public function viewElements(ContentEntityInterface $entity) {
 
-    if (!empty($entity->ssot_data) && isset($entity->ssot_data['industry_outlook']['employment_first'])) {
-      $output = ssotFormatNumber($entity->ssot_data['industry_outlook']['employment_first'],0);
+    if (!empty($entity->ssot_data) && isset($entity->ssot_data['labour_force_survey_industry']['total_employment'])) {
+      $output = ssotFormatNumber($entity->ssot_data['labour_force_survey_industry']['total_employment'],0);
     }
     else {
       $output = WORKBC_EXTRA_FIELDS_NOT_AVAILABLE;
