@@ -11,6 +11,10 @@
     align-items: stretch;
     column-gap: 30px;
   }
+
+  li:not(:last-child) {
+    margin-bottom: 20px;
+  }
 }
 
 .card-feature__image {
