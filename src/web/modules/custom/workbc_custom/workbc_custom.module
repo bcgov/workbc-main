@@ -8,6 +8,8 @@ use Drupal\Core\Config\Entity\ConfigEntityInterface;
 use Drupal\Core\Form\FormStateInterface;
 use Drupal\Core\Url;
 use Drupal\Core\Routing\TrustedRedirectResponse;
+use Drupal\views\ViewExecutable;
+use Drupal\views\Plugin\views\cache\CachePluginBase;
 use Drupal\redirect\Entity\Redirect;
 use Symfony\Component\HttpFoundation\Request;
 
@@ -71,6 +73,23 @@ use Symfony\Component\HttpFoundation\Request;
    ];
 
  }
+
+
+
+function workbc_custom_views_pre_render(ViewExecutable $view) {
+
+  if ($view->id() == 'industry_profiles') {
+    $schema = ssotSchema("");
+    $datestr = ssotParseDateRange($schema, 'labour_force_survey_industry', 'yoy_employment_growth_pct');
+    $view->field['industry_profile_job_growth_rate']->options['label'] = "Job Growth Rate<p class='ssot-years'>(" . $datestr . ")</p>";
+    $datestr = ssotParseDateRange($schema, 'labour_force_survey_industry', 'yoy_change_employment');
+    $view->field['industry_profile_job_growth']->options['label'] = "Job Growth<p class='ssot-years'>(" . $datestr . ")</p>";    
+    $datestr = ssotParseDateRange($schema, 'labour_force_survey_industry', 'total_employment');
+    $view->field['industry_profile_total_employment']->options['label'] = "Total Employment<p class='ssot-years'>(" . $datestr . ")</p>";
+  }
+
+}
+
 
 /**
  * Implements hook_form_alter().
@@ -146,6 +165,13 @@ function workbc_custom_node_presave(NodeInterface $entity) {
       if (isset($user->field_content_group->target_id)) {
         $entity->get('field_content_group')->setValue($user->field_content_group->target_id);
       }
+    }
+  }
+
+  if ($entity->bundle() == "blog" || $entity->bundle() == "news") {
+    if (!is_null($entity->get('field_published_date')->value)) {
+      $update = strtotime($entity->get('field_published_date')->value);
+      $entity->get('published_date')->setValue($update);
     }
   }
 }

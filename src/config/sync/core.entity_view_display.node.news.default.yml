@@ -9,11 +9,13 @@ dependencies:
     - field.field.node.news.field_content_group
     - field.field.node.news.field_image
     - field.field.node.news.field_image_media
+    - field.field.node.news.field_published_date
     - field.field.node.news.field_related_topics_blurb
     - field.field.node.news.field_scheduled_publish
     - field.field.node.news.field_tags
     - node.type.news
   module:
+    - datetime
     - scheduled_publish
     - text
     - user
@@ -60,6 +62,15 @@ content:
       link: false
     third_party_settings: {  }
     weight: 4
+    region: content
+  field_published_date:
+    type: datetime_default
+    label: above
+    settings:
+      timezone_override: ''
+      format_type: medium
+    third_party_settings: {  }
+    weight: 9
     region: content
   field_related_topics_blurb:
     type: text_default
