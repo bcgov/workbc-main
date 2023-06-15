@@ -1,0 +1,29 @@
+uuid: f9fa30ec-1f23-4035-9585-d83ab8fa52ed
+langcode: en
+status: true
+dependencies:
+  config:
+    - views.view.high_opportunity_occupations
+  module:
+    - system
+    - views
+  theme:
+    - workbc
+id: views_block__high_opportunity_occupations_block_1
+theme: workbc
+region: content_bottom
+weight: -14
+provider: null
+plugin: 'views_block:high_opportunity_occupations-block_1'
+settings:
+  id: 'views_block:high_opportunity_occupations-block_1'
+  label: ''
+  label_display: '0'
+  provider: views
+  views_label: ''
+  items_per_page: none
+visibility:
+  request_path:
+    id: request_path
+    negate: false
+    pages: /research-labour-market/high-opportunity-occupations

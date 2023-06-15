@@ -12,7 +12,7 @@ dependencies:
 id: views_block__news_block_3
 theme: workbc
 region: content_bottom
-weight: -15
+weight: -20
 provider: null
 plugin: 'views_block:news-block_3'
 settings:

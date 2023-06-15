@@ -225,6 +225,9 @@
             "drupal/core": {
                 "Media library add form mode": "patches/drupal/core/3323232-29.patch",
                 "Media library CKEditor embed": "patches/drupal/core/ckeditor-media.patch"
+            },
+            "drupal/views_infinite_scroll": {
+                "Remove repeating header": "patches/drupal/views_infinite_scroll/2899705-53.patch"
             }
         }
     }
