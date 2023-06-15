@@ -5,11 +5,11 @@ namespace Drupal\workbc_custom\Plugin\Block;
 use Drupal\Core\Block\BlockBase;
 use Drupal\Core\Form\FormStateInterface;
 use Drupal\Core\Cache\Cache;
-use Drupal\media\Entity\Media;
 use Drupal\Core\Url;
 use Drupal\Core\Link;
 /**
- * Provides a WorkBC Related topics Block.
+ * Provides a WorkBC Switch language link Block for content that has a value in
+ * the Multilingual centre field.
  *
  * @Block(
  *   id = "switch_language_block",
@@ -40,12 +40,8 @@ class SwitchLanguageBlock extends BlockBase {
       $renderable = array();
     }
     return $renderable;
-
   }
 
-  // public function getCacheMaxAge() {
-  //     return 0;
-  // }
 
   public function getCacheTags() {
     // With this when your node change your block will rebuild.
@@ -62,13 +58,6 @@ class SwitchLanguageBlock extends BlockBase {
   public function getCacheContexts() {
     // Every new route this block will rebuild.
     return Cache::mergeContexts(parent::getCacheContexts(), ['route']);
-  }
-
-
-  private function renderLink($node) {
-    $options = ['absolute' => TRUE];
-    $link =$url = \Drupal\Core\Url::fromRoute('entity.node.canonical', ['node' => $node->id()], $options);
-    return $link->toString();
   }
 
 }
