@@ -248,7 +248,7 @@ display:
             alter_text: true
             text: '{{ occupation }} (NOC {{ noc }})'
             make_link: true
-            path: '{{ career_link }} '
+            path: '{{ career_link }}'
             absolute: false
             external: false
             replace_spaces: false
