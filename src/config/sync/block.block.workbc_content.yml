@@ -11,7 +11,7 @@ _core:
 id: workbc_content
 theme: workbc
 region: content
-weight: -11
+weight: -18
 provider: null
 plugin: system_main_block
 settings:

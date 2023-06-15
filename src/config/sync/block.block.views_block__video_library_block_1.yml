@@ -12,7 +12,7 @@ dependencies:
 id: views_block__video_library_block_1
 theme: workbc
 region: content_bottom
-weight: -14
+weight: -19
 provider: null
 plugin: 'views_block:video_library-block_1'
 settings:
