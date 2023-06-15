@@ -9,7 +9,7 @@ dependencies:
 id: gtranslate
 theme: workbc
 region: hidden
-weight: -20
+weight: -22
 provider: null
 plugin: gtranslate_block
 settings:

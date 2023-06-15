@@ -12,7 +12,7 @@ dependencies:
 id: contact_us_french_link
 theme: workbc
 region: hidden
-weight: -7
+weight: -9
 provider: null
 plugin: 'simple_block:contact_us_french_link'
 settings:
