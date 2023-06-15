@@ -22,7 +22,7 @@ $databases['default']['default'] = array (
 );
 $databases['ssot']['default'] = array (
     'database' => 'ssot',
-    'username' => getenv('POSTGRES_USER'),
+    'username' => 'postgres',
     'password' => getenv('POSTGRES_PASSWORD'),
     'prefix' => '',
     'host' => getenv('POSTGRES_HOST'),
