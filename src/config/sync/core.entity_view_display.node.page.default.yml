@@ -9,6 +9,7 @@ dependencies:
     - field.field.node.page.field_hero_image
     - field.field.node.page.field_hero_image_media
     - field.field.node.page.field_hero_text
+    - field.field.node.page.field_multilingual_centre
     - field.field.node.page.field_page_format
     - field.field.node.page.field_related_topics
     - field.field.node.page.field_related_topics_blurb
@@ -17,6 +18,7 @@ dependencies:
     - node.type.page
   module:
     - entity_reference_revisions
+    - link
     - scheduled_publish
     - text
     - user
@@ -47,6 +49,18 @@ content:
       link: ''
     third_party_settings: {  }
     weight: 3
+    region: content
+  field_multilingual_centre:
+    type: link
+    label: above
+    settings:
+      trim_length: 80
+      url_only: false
+      url_plain: false
+      rel: ''
+      target: ''
+    third_party_settings: {  }
+    weight: 6
     region: content
   field_related_topics_blurb:
     type: text_default
