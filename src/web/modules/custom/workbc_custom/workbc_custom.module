@@ -643,13 +643,13 @@ function workbc_custom_system_breadcrumb_alter(Breadcrumb &$breadcrumb, RouteMat
     if ($node->bundle() == 'news' && $node->field_archived->get(0)->getValue()['value'] == "1") {
 
       $url = Url::fromUri('internal:/plan-career/news-archive');
-      $archive = Link::fromTextAndUrl("News archive", $url);
+      $archive = Link::fromTextAndUrl("News Archive", $url);
 
       $links = $breadcrumb->getLinks();
       $links[4] = $links[3];
       $links[3] = $archive;
     
-      // $breadcrumb->setLinks will generate an error if the object already has links set
+      // $breadcrumb->setLinks() will generate an error if the object already has links set
       // so we create a new Breadcrumb object with the links we want and clone to $breadcrumb
       $new_breadcrumb = new Breadcrumb();
       $new_breadcrumb->setLinks($links);
