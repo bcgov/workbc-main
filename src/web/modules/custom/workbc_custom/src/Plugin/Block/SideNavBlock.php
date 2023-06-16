@@ -16,8 +16,9 @@ use Drupal\Core\Session\AccountInterface;
  *
  * @Block(
  *  id = "side_nav_block",
- *  label = "Side Nav for Page content type",
- *  admin_label = @Translation("Side Nav Block"),
+ *  label = "Side Navigation for Page content type",
+ *  admin_label = @Translation("Side Navigation Block"),
+ *  category = @Translation("WorkBC"),
  * )
  */
 class SideNavBlock extends BlockBase implements ContainerFactoryPluginInterface {

@@ -16,6 +16,7 @@ use Drupal\Component\Serialization\Json;
  * @Block(
  *   id = "collection_notice_block",
  *   admin_label = @Translation("Collection Notice block"),
+ *   category = @Translation("WorkBC"),
  * )
  */
 class CollectionNoticeBlock extends BlockBase {
