@@ -26,3 +26,4 @@ visibility:
       node: '@node.node_route_context:node'
     bundles:
       page: page
+      workbc_centre: workbc_centre
