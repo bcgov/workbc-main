@@ -76,6 +76,7 @@
 {% set page_body = content.body %}
 {% set page_content = content.field_content %}
 
+{% set switch_language_link = drupal_entity('block', 'workbcswitchlanguageblock')|render %}
 
 {% set left_block %}
   {{ drupal_entity('block', 'sidenavblock') }}
@@ -110,8 +111,12 @@
 {# Breadcrumbs #}
 {% include '@workbc/includes/breadcrumbs.html.twig' %}
 
-{# French Link #}
-{% include '@workbc/includes/french-link.html.twig' %}
+{# Switch Language Link #}
+{% if switch_language_link %}
+  <div class="fr-link">
+    {{ switch_language_link }}
+  </div>
+{% endif %}
 
 {# Social Sharing #}
 {% include '@workbc/includes/social-sharing.html.twig' %}

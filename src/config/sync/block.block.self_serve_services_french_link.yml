@@ -12,7 +12,7 @@ dependencies:
 id: self_serve_services_french_link
 theme: workbc
 region: hidden
-weight: 0
+weight: -5
 provider: null
 plugin: 'simple_block:self_serve_services_french_link'
 settings:

@@ -12,7 +12,7 @@ dependencies:
 id: who_should_visit_workbc_centre_french_link
 theme: workbc
 region: hidden
-weight: -4
+weight: -6
 provider: null
 plugin: 'simple_block:who_should_visit_workbc_centre_french_link'
 settings:

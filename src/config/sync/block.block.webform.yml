@@ -12,7 +12,7 @@ dependencies:
 id: webform
 theme: workbc
 region: content_bottom
-weight: -15
+weight: -17
 provider: null
 plugin: webform_block
 settings:

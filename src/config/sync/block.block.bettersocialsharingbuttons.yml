@@ -10,7 +10,7 @@ dependencies:
 id: bettersocialsharingbuttons
 theme: workbc
 region: hidden
-weight: -15
+weight: -17
 provider: null
 plugin: social_sharing_buttons_block
 settings:

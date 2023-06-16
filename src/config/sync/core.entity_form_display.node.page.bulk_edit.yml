@@ -10,6 +10,7 @@ dependencies:
     - field.field.node.page.field_hero_image
     - field.field.node.page.field_hero_image_media
     - field.field.node.page.field_hero_text
+    - field.field.node.page.field_multilingual_centre
     - field.field.node.page.field_page_format
     - field.field.node.page.field_related_topics
     - field.field.node.page.field_related_topics_blurb
@@ -42,6 +43,7 @@ hidden:
   field_hero_image: true
   field_hero_image_media: true
   field_hero_text: true
+  field_multilingual_centre: true
   field_related_topics: true
   field_related_topics_blurb: true
   field_scheduled_publish: true

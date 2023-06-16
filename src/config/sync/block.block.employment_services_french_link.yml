@@ -12,7 +12,7 @@ dependencies:
 id: employment_services_french_link
 theme: workbc
 region: hidden
-weight: -5
+weight: -7
 provider: null
 plugin: 'simple_block:employment_services_french_link'
 settings:
