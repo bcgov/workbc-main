@@ -1,0 +1,18 @@
+.paragraph--uuid--60cab2b7-92fd-4c13-96cf-5881b7b61f3b {
+  .card-plain__desc {
+    p {
+      margin-bottom: 0;
+    }
+  }
+
+  .card-plain__content {
+    padding-bottom: 0;
+  }
+
+  .card-plain__parent {
+    display: block;
+    background-color: $workbc_light_theme_background_accent;
+    padding: 5px $card-spacing;
+    font-size: 0.875rem;
+  }
+}

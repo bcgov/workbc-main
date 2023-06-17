@@ -7,7 +7,6 @@
 
 use Drupal\file\Entity\File;
 use Drupal\Core\Url;
-use Drupal\menu_link_content\Entity\MenuLinkContent;
 
 /**
  * Implements hook theme_preprocess_paragraph().
@@ -29,7 +28,7 @@ function workbc_preprocess_paragraph(&$variables) {
     }
   }
 
-  // SPECIAL CASES:
+  // SPECIAL CASE
   // Override titles for "EducationPlannerBC" and "StudentAidBC" into images.
   if (isset($variables['paragraph']->field_title)) {
     $title = $variables['paragraph']->field_title->value;
@@ -60,7 +59,8 @@ function workbc_preprocess_paragraph(&$variables) {
     }
   }
 
-  // Find parent menu item for cards.
+  // SPECIAL CASE
+  // Find parent menu item for featured topics cards.
   if (isset($variables['paragraph']->field_link)) {
     $url = Url::fromUri($variables['paragraph']->field_link->uri);
     if ($url->isRouted()) {
@@ -78,6 +78,15 @@ function workbc_preprocess_paragraph(&$variables) {
       }
     }
   }
+}
+
+/**
+ * Implements hook theme_suggestions_paragraph_alter().
+ */
+function workbc_theme_suggestions_paragraph_alter(array &$suggestions, array $variables) {
+  $suggestions = array_merge($suggestions, array_map(function ($suggestion) use(&$variables) {
+    return $suggestion . '__' . strtr($variables['elements']['#paragraph']->uuid->value, '-', '_');
+  }, $suggestions));
 }
 
 /**
