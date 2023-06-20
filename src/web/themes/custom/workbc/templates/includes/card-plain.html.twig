@@ -22,6 +22,9 @@
       <div class="card-plain__image" >
         {{ card_image }}
       </div>
+      <div class="card-plain__parent">
+        {{ parent_title ?? '&nbsp;' }}
+      </div>
       <div class="card-plain__content">
         {% if not override_image %}
         <h3 class="card-plain__title">

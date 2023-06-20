@@ -44,3 +44,7 @@
 .card-plain__link {
   @include link-chevron;
 }
+
+.card-plain__parent {
+  display: none;
+}

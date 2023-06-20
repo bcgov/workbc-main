@@ -28,14 +28,12 @@ function workbc_preprocess_paragraph(&$variables) {
     }
   }
 
-  // SPECIAL CASES:
+  // SPECIAL CASE
   // Override titles for "EducationPlannerBC" and "StudentAidBC" into images.
-  if (
-    $variables['view_mode'] === 'action_card_1_2' &&
-    isset($variables['content']['field_title'][0]['#context']['value'])
-  ) {
+  if (isset($variables['paragraph']->field_title)) {
+    $title = $variables['paragraph']->field_title->value;
     $image = null;
-    switch ($variables['content']['field_title'][0]['#context']['value']) {
+    switch ($title) {
       case 'EducationPlannerBC':
         $image = 'education-planner-bc.png';
         $width = '75%';
@@ -53,13 +51,60 @@ function workbc_preprocess_paragraph(&$variables) {
       $variables['override_image'] = [
         '#theme' => 'image',
         '#uri' => $theme_path . '/assets/images/' . $image,
-        '#alt' => $variables['content']['field_title'][0]['#context']['value'],
+        '#alt' => $title,
         '#attributes' => [
           'style' => "width:$width;"
         ]
       ];
     }
   }
+
+  // SPECIAL CASE
+  // Find parent menu item for featured topics cards.
+  $menu_link_manager = \Drupal::service('plugin.manager.menu.link');
+  if (isset($variables['paragraph']->field_link)) {
+    $url = Url::fromUri($variables['paragraph']->field_link->uri);
+    if ($url->isRouted()) {
+      $params = $url->getRouteParameters();
+      if (isset($params['node'])) {
+        $links = $menu_link_manager->loadLinksByRoute('entity.node.canonical', array('node' => $params['node']));
+        if ($links) {
+          $parent_menu = reset($links)->getParent();
+          if ($parent_menu) {
+            $parent = $menu_link_manager->createInstance($parent_menu);
+            $variables['parent_title'] = $parent->getTitle();
+          }
+        }
+      }
+    }
+    else {
+      $links = \Drupal::entityTypeManager()
+      ->getStorage('menu_link_content')
+      ->loadByProperties([
+        'link.uri' => $variables['paragraph']->field_link->uri
+      ]);
+      if ($links) {
+        $child_menu = $menu_link_manager->createInstance('menu_link_content:'.reset($links)->uuid());
+        $parent_menu = $child_menu->getParent();
+        if ($parent_menu) {
+          $parent = $menu_link_manager->createInstance($parent_menu);
+          $variables['parent_title'] = $parent->getTitle();
+        }
+      }
+    }
+    if (empty($variables['parent_title'])) {
+      $variables['parent_title'] = 'WorkBC';
+    }
+  }
+}
+
+/**
+ * Implements hook theme_suggestions_paragraph_alter().
+ */
+function workbc_theme_suggestions_paragraph_alter(array &$suggestions, array $variables) {
+  $suggestions = array_merge($suggestions, array_map(function ($suggestion) use(&$variables) {
+    return $suggestion . '__' . strtr($variables['elements']['#paragraph']->uuid->value, '-', '_');
+  }, $suggestions));
 }
 
 /**
@@ -69,7 +114,6 @@ function workbc_form_alter(&$form, \Drupal\Core\Form\FormStateInterface $form_st
   if ($form_id == 'views_exposed_form' && $form['#id'] == 'views-exposed-form-search-career-profiles-page-1' or $form['#id'] == 'views-exposed-form-search-site-content-page-1') {
     $form['#attributes']['class'][] = 'search-form';
   }
-
   if ($form_id == "views_exposed_form" && "views-exposed-form-search-site-content-page-1") {
     $form['search_api_fulltext']['#attributes']['aria-label'] = "Search";
   }
