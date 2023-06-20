@@ -61,12 +61,12 @@ function workbc_preprocess_paragraph(&$variables) {
 
   // SPECIAL CASE
   // Find parent menu item for featured topics cards.
+  $menu_link_manager = \Drupal::service('plugin.manager.menu.link');
   if (isset($variables['paragraph']->field_link)) {
     $url = Url::fromUri($variables['paragraph']->field_link->uri);
     if ($url->isRouted()) {
       $params = $url->getRouteParameters();
       if (isset($params['node'])) {
-        $menu_link_manager = \Drupal::service('plugin.manager.menu.link');
         $links = $menu_link_manager->loadLinksByRoute('entity.node.canonical', array('node' => $params['node']));
         if ($links) {
           $parent_menu = reset($links)->getParent();
@@ -76,6 +76,24 @@ function workbc_preprocess_paragraph(&$variables) {
           }
         }
       }
+    }
+    else {
+      $links = \Drupal::entityTypeManager()
+      ->getStorage('menu_link_content')
+      ->loadByProperties([
+        'link.uri' => $variables['paragraph']->field_link->uri
+      ]);
+      if ($links) {
+        $child_menu = $menu_link_manager->createInstance('menu_link_content:'.reset($links)->uuid());
+        $parent_menu = $child_menu->getParent();
+        if ($parent_menu) {
+          $parent = $menu_link_manager->createInstance($parent_menu);
+          $variables['parent_title'] = $parent->getTitle();
+        }
+      }
+    }
+    if (empty($variables['parent_title'])) {
+      $variables['parent_title'] = 'WorkBC';
     }
   }
 }
