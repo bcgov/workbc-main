@@ -41,6 +41,13 @@ class WorkbcJobboardSaveProfile extends BlockBase{
   /**
    * {@inheritdoc}
    */
+  public function getCacheMaxAge() {
+    return 0;
+  }
+
+  /**
+   * {@inheritdoc}
+   */
 	public function blockAccess(AccountInterface $account){
     return AccessResult::allowedIfHasPermission($account, "access find jobs block");
   }
