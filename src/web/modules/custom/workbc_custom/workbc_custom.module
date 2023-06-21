@@ -646,8 +646,10 @@ function workbc_custom_system_breadcrumb_alter(Breadcrumb &$breadcrumb, RouteMat
       $archive = Link::fromTextAndUrl("News Archive", $url);
 
       $links = $breadcrumb->getLinks();
-      $links[4] = $links[3];
-      $links[3] = $archive;
+
+      $last = array_key_last($links);
+      $links[] = $links[$last];
+      $links[$last] = $archive;
     
       // $breadcrumb->setLinks() will generate an error if the object already has links set
       // so we create a new Breadcrumb object with the links we want and clone to $breadcrumb
