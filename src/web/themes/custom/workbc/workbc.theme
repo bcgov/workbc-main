@@ -220,12 +220,18 @@ function workbc_theme_suggestions_form_element_alter(array &$suggestions, array 
   }
 }
 
-// preprocess form element
+
+/**
+ * Implements hook theme_preprocess_form_element().
+ */
 function workbc_preprocess_form_element(&$variables) {
 
   if (substr($variables['element']['#id'], 0, 26) == "edit-occupational-interest") {
-    // get config
-    $variables['occupational_interest_tooltip'] = "content here...";
+    $text = \Drupal::config('workbc_custom.settings')->get('tooltips.occupationalinterest');
+    if (is_null($text) || !isset($text)) {
+      $text = 'Careers based on <a href="/plan-career/skills-future-workforce">six interest types</a>.';
+    }
+    $variables['occupational_interest_tooltip'] = $text;
   }  
   
 }

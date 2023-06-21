@@ -68,6 +68,26 @@
           '#format' => $text['format'],
         ];
 
+
+        $form['tooltips'] = [
+          '#tree' => TRUE,
+          '#type' => 'details',
+          '#title' => $this->t('Tool Tip settings'),
+          '#open' => TRUE,
+        ];
+
+        $text = $config->get('tooltips.occupationalinterest');
+        if (is_null($text) || !isset($text)) {
+          $text = 'Careers based on <a href="/plan-career/skills-future-workforce">six interest types</a>.';
+        }
+
+        $form['tooltips']['occupationalinterest'] = [
+          '#type' => 'textarea',
+          '#title' => $this->t('Occupationial Interest Tool Tip'),
+          '#default_value' => $text,
+        ];
+
+        
         $form['reports'] = [
           '#tree' => TRUE,
           '#type' => 'details',
@@ -89,6 +109,7 @@
         $config = $this->config('workbc_custom.settings');
         $config->set('pathsettings', $form_state->getValue('pathsettings'));
         $config->set('collectionsettings', $form_state->getValue('collectionsettings'));
+        $config->set('tooltips', $form_state->getValue('tooltips'));
         $config->save();
         parent::submitForm($form, $form_state);
       }
