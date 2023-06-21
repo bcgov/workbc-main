@@ -69,6 +69,7 @@
         "drupal/captcha": "^1.4",
         "drupal/cdn": "^3.5",
         "drupal/charts": "^5.0",
+        "drupal/chosen": "^4.0",
         "drupal/config_filter": "~1",
         "drupal/config_ignore": "^2.3",
         "drupal/console": "~1.0",
