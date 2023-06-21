@@ -17,7 +17,7 @@ required: true
 translatable: true
 default_value:
   -
-    value: left
+    value: right
 default_value_callback: ''
 settings: {  }
 field_type: list_string

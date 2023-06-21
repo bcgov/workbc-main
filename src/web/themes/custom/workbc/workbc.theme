@@ -28,6 +28,23 @@ function workbc_preprocess_paragraph(&$variables) {
     }
   }
 
+
+  if ($parent->bundle() == 'action_card_feature') {
+    $align = $parent->field_alignment->value;
+    $list = $parent->field_action_card->getValue();
+    foreach($list as $key => $item) {
+      if ($item['target_id'] == $variables['paragraph']->id()) {
+        if ($key % 2 == 0) {
+          $variables['feature_image_alignment'] = $align == 'left' ? 'left' : 'right';
+        }
+        else {
+          $variables['feature_image_alignment'] = $align == 'left' ? 'right' : 'left';
+        }
+      }
+    }
+  }
+
+
   // SPECIAL CASE
   // Override titles for "EducationPlannerBC" and "StudentAidBC" into images.
   if (isset($variables['paragraph']->field_title)) {
