@@ -24,14 +24,6 @@ content:
     third_party_settings: {  }
     weight: 1
     region: content
-  field_key:
-    type: string
-    label: above
-    settings:
-      link_to_entity: false
-    third_party_settings: {  }
-    weight: 3
-    region: content
   field_link:
     type: link_separate
     label: above
@@ -52,4 +44,5 @@ content:
     weight: 0
     region: content
 hidden:
+  field_key: true
   search_api_excerpt: true

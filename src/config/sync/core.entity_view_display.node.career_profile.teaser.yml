@@ -53,6 +53,7 @@ hidden:
   extra_field_job_openings_by_industry: true
   extra_field_job_openings_by_industry_source: true
   extra_field_job_openings_by_region: true
+  extra_field_job_openings_by_region_na: true
   extra_field_job_openings_by_region_source: true
   extra_field_job_openings_composition: true
   extra_field_job_openings_forecast: true

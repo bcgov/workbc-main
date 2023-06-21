@@ -3,6 +3,7 @@ langcode: en
 status: true
 dependencies:
   config:
+    - field.field.paragraph.action_cards_publication.field_key
     - field.field.paragraph.action_cards_publication.field_publications
     - paragraphs.paragraphs_type.action_cards_publication
 id: paragraph.action_cards_publication.default
@@ -20,4 +21,5 @@ content:
     weight: 0
     region: content
 hidden:
+  field_key: true
   search_api_excerpt: true
