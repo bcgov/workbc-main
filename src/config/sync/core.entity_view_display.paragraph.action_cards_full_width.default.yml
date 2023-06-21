@@ -5,6 +5,7 @@ dependencies:
   config:
     - field.field.paragraph.action_cards_full_width.field_action_cards
     - field.field.paragraph.action_cards_full_width.field_alignment
+    - field.field.paragraph.action_cards_full_width.field_key
     - paragraphs.paragraphs_type.action_cards_full_width
   module:
     - entity_reference_revisions
@@ -21,6 +22,14 @@ content:
       link: ''
     third_party_settings: {  }
     weight: 0
+    region: content
+  field_key:
+    type: string
+    label: above
+    settings:
+      link_to_entity: false
+    third_party_settings: {  }
+    weight: 1
     region: content
 hidden:
   field_alignment: true

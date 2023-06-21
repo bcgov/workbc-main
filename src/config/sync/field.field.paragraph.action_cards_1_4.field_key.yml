@@ -1,0 +1,19 @@
+uuid: 3c6a9e4e-84eb-4435-aa0c-36e3c92de530
+langcode: en
+status: true
+dependencies:
+  config:
+    - field.storage.paragraph.field_key
+    - paragraphs.paragraphs_type.action_cards_1_4
+id: paragraph.action_cards_1_4.field_key
+field_name: field_key
+entity_type: paragraph
+bundle: action_cards_1_4
+label: Key
+description: 'This field is for internal use only and should not be edited.'
+required: false
+translatable: true
+default_value: {  }
+default_value_callback: ''
+settings: {  }
+field_type: string

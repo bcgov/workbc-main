@@ -3,6 +3,7 @@ langcode: en
 status: true
 dependencies:
   config:
+    - field.field.paragraph.content_view.field_key
     - field.field.paragraph.content_view.field_view
     - paragraphs.paragraphs_type.content_view
   module:
@@ -12,6 +13,14 @@ targetEntityType: paragraph
 bundle: content_view
 mode: default
 content:
+  field_key:
+    type: string
+    label: above
+    settings:
+      link_to_entity: false
+    third_party_settings: {  }
+    weight: 1
+    region: content
   field_view:
     type: viewsreference_formatter
     label: visually_hidden

@@ -5,6 +5,7 @@ dependencies:
   config:
     - field.field.paragraph.additional_duties.field_description
     - field.field.paragraph.additional_duties.field_duty
+    - field.field.paragraph.additional_duties.field_key
     - paragraphs.paragraphs_type.additional_duties
   module:
     - text
@@ -27,6 +28,14 @@ content:
       link_to_entity: false
     third_party_settings: {  }
     weight: 0
+    region: content
+  field_key:
+    type: string
+    label: above
+    settings:
+      link_to_entity: false
+    third_party_settings: {  }
+    weight: 2
     region: content
 hidden:
   search_api_excerpt: true

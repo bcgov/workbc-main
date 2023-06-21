@@ -4,9 +4,12 @@ status: true
 dependencies:
   config:
     - field.field.paragraph.action_card_feature.field_action_card
+    - field.field.paragraph.action_card_feature.field_alignment
+    - field.field.paragraph.action_card_feature.field_key
     - paragraphs.paragraphs_type.action_card_feature
   module:
     - entity_reference_revisions
+    - options
 id: paragraph.action_card_feature.default
 targetEntityType: paragraph
 bundle: action_card_feature
@@ -20,6 +23,21 @@ content:
       link: ''
     third_party_settings: {  }
     weight: 0
+    region: content
+  field_alignment:
+    type: list_default
+    label: above
+    settings: {  }
+    third_party_settings: {  }
+    weight: 2
+    region: content
+  field_key:
+    type: string
+    label: above
+    settings:
+      link_to_entity: false
+    third_party_settings: {  }
+    weight: 1
     region: content
 hidden:
   search_api_excerpt: true

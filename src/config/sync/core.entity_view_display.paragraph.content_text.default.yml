@@ -4,6 +4,7 @@ status: true
 dependencies:
   config:
     - field.field.paragraph.content_text.field_body
+    - field.field.paragraph.content_text.field_key
     - field.field.paragraph.content_text.field_title
     - paragraphs.paragraphs_type.content_text
   module:
@@ -19,6 +20,14 @@ content:
     settings: {  }
     third_party_settings: {  }
     weight: 1
+    region: content
+  field_key:
+    type: string
+    label: above
+    settings:
+      link_to_entity: false
+    third_party_settings: {  }
+    weight: 2
     region: content
   field_title:
     type: string

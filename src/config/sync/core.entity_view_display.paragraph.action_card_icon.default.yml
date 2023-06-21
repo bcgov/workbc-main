@@ -5,6 +5,7 @@ dependencies:
   config:
     - field.field.paragraph.action_card_icon.field_description
     - field.field.paragraph.action_card_icon.field_icon
+    - field.field.paragraph.action_card_icon.field_key
     - field.field.paragraph.action_card_icon.field_link
     - field.field.paragraph.action_card_icon.field_title
     - paragraphs.paragraphs_type.action_card_icon
@@ -31,6 +32,14 @@ content:
       link: false
     third_party_settings: {  }
     weight: 0
+    region: content
+  field_key:
+    type: string
+    label: above
+    settings:
+      link_to_entity: false
+    third_party_settings: {  }
+    weight: 4
     region: content
   field_link:
     type: link

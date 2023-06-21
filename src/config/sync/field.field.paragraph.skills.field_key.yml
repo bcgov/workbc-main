@@ -1,0 +1,19 @@
+uuid: af7952e7-ddc1-4e9f-a470-aefc8164b098
+langcode: en
+status: true
+dependencies:
+  config:
+    - field.storage.paragraph.field_key
+    - paragraphs.paragraphs_type.skills
+id: paragraph.skills.field_key
+field_name: field_key
+entity_type: paragraph
+bundle: skills
+label: Key
+description: 'This field is for internal use only and should not be edited.'
+required: false
+translatable: true
+default_value: {  }
+default_value_callback: ''
+settings: {  }
+field_type: string

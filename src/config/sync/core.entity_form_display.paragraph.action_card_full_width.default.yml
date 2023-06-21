@@ -6,6 +6,7 @@ dependencies:
     - field.field.paragraph.action_card_full_width.field_description
     - field.field.paragraph.action_card_full_width.field_image
     - field.field.paragraph.action_card_full_width.field_image_media
+    - field.field.paragraph.action_card_full_width.field_key
     - field.field.paragraph.action_card_full_width.field_link
     - field.field.paragraph.action_card_full_width.field_title
     - paragraphs.paragraphs_type.action_card_full_width
@@ -37,6 +38,14 @@ content:
     third_party_settings:
       media_library_edit:
         show_edit: '1'
+  field_key:
+    type: string_textfield
+    weight: 4
+    region: content
+    settings:
+      size: 60
+      placeholder: ''
+    third_party_settings: {  }
   field_link:
     type: link_default
     weight: 3

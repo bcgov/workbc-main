@@ -1,0 +1,23 @@
+uuid: 7a581f0c-d169-4bdf-81ea-cd2d337788a9
+langcode: en
+status: true
+dependencies:
+  config:
+    - field.storage.paragraph.field_alignment
+    - paragraphs.paragraphs_type.action_card_feature
+  module:
+    - options
+id: paragraph.action_card_feature.field_alignment
+field_name: field_alignment
+entity_type: paragraph
+bundle: action_card_feature
+label: Alignment
+description: 'The alignment of the images. Alignment "Left" is the default. The first card will have its image on the left and the subsequent cards will alternate. If "Right" is chosen the first card in the group will have the image on the right and the subsequent cards will alternate. '
+required: true
+translatable: true
+default_value:
+  -
+    value: left
+default_value_callback: ''
+settings: {  }
+field_type: list_string

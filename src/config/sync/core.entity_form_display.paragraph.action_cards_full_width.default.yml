@@ -5,6 +5,7 @@ dependencies:
   config:
     - field.field.paragraph.action_cards_full_width.field_action_cards
     - field.field.paragraph.action_cards_full_width.field_alignment
+    - field.field.paragraph.action_cards_full_width.field_key
     - paragraphs.paragraphs_type.action_cards_full_width
   module:
     - paragraphs
@@ -37,6 +38,14 @@ content:
     weight: 0
     region: content
     settings: {  }
+    third_party_settings: {  }
+  field_key:
+    type: string_textfield
+    weight: 2
+    region: content
+    settings:
+      size: 60
+      placeholder: ''
     third_party_settings: {  }
 hidden:
   created: true
