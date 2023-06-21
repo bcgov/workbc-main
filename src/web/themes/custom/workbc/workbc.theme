@@ -102,9 +102,25 @@ function workbc_preprocess_paragraph(&$variables) {
  * Implements hook theme_suggestions_paragraph_alter().
  */
 function workbc_theme_suggestions_paragraph_alter(array &$suggestions, array $variables) {
+
+  if (isset($variables['elements']['#paragraph']->field_key->value)) {
+    ksm($suggestions);
+  }
+  
   $suggestions = array_merge($suggestions, array_map(function ($suggestion) use(&$variables) {
     return $suggestion . '__' . strtr($variables['elements']['#paragraph']->uuid->value, '-', '_');
   }, $suggestions));
+
+
+  if (isset($variables['elements']['#paragraph']->field_key->value)) {
+    ksm($suggestions);
+    $suggestions = array_merge($suggestions, array_map(function ($suggestion) use(&$variables) {
+      return $suggestion . '__' . strtr($variables['elements']['#paragraph']->field_key->value, '-', '_');
+    }, $suggestions));
+    ksm($suggestions);    
+  }
+
+  // ksm($suggestions);
 }
 
 /**
