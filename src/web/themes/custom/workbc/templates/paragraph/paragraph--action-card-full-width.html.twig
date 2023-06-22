@@ -51,7 +51,7 @@
 {%
   set classes = [
     'paragraph',
-    paragraph.field_key[0].value ? 'paragraph--key--' ~ paragraph.field_key[0].value,    
+    paragraph.field_key[0].value ? 'paragraph--key--' ~ paragraph.field_key[0].value|clean_class,    
     'paragraph--type--' ~ paragraph.bundle|clean_class,
     view_mode ? 'paragraph--view-mode--' ~ view_mode|clean_class,
     not paragraph.isPublished() ? 'paragraph--unpublished',
