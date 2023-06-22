@@ -72,9 +72,16 @@ body:not(.front) .card-feature__link {
   margin-bottom: 30px;
 }
 
-.front .card-feature__image {
+.front .card-feature__image,
+.card-feature--right .card-feature__image {
   @include media-breakpoint-up(lg) {
     order: 2;
+  }
+}
+
+.card-feature--left .card-feature__image {
+  @include media-breakpoint-up(lg) {
+    order: 0;
   }
 }
 
