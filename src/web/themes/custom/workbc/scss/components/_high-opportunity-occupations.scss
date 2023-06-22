@@ -19,8 +19,17 @@
 
 .view-high-opportunity-occupations .view-filters .form-select {
     border: 2px solid #2e6ab0;
+    line-height: 2;
+    border-radius: 0;
 }
 
+.view-high-opportunity-occupations .chosen-container-multi .chosen-choices {
+  border-radius: 0;
+}
+
+.view-high-opportunity-occupations .chosen-container-multi {
+  width: 100% !important;
+}
 
 .view-high-opportunity-occupations .view-footer {
   font-size: 0.875rem;

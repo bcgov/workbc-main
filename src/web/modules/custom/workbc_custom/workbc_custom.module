@@ -181,7 +181,7 @@ function workbc_custom_form_views_exposed_form_alter(&$form, \Drupal\Core\Form\F
   }
 
   if (isset($form['occupational_interest'])) {
-    $form['occupational_interest']['#options']['All'] = "All";
+    unset($form['occupational_interest']['#options']['All']);
     $form['occupational_interest']['#chosen'] = true;
   }
 
