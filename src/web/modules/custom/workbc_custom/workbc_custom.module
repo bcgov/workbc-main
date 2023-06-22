@@ -188,10 +188,7 @@ function workbc_custom_form_views_exposed_form_alter(&$form, \Drupal\Core\Form\F
   if (isset($form['wage_rate_median'])) {
     $form['wage_rate_median']['#options']['All'] = "All";
   }
-
-  // if (isset($form['wage_rate_median'])) {
-  //   unset($form['wage_rate_median']['#options']['All']);
-  // }
+  
 }
 
 
