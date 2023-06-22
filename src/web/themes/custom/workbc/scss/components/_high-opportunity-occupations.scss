@@ -23,12 +23,34 @@
     border-radius: 0;
 }
 
+.view-high-opportunity-occupations .chosen-container-multi .form-select {
+  border: 2px solid #2e6ab0;
+}
+
 .view-high-opportunity-occupations .chosen-container-multi .chosen-choices {
   border-radius: 0;
 }
 
 .view-high-opportunity-occupations .chosen-container-multi {
   width: 100% !important;
+}
+
+.view-high-opportunity-occupations .chosen-container-active .chosen-drop {
+  border-color: black;
+  box-shadow: 0 0 15px 0 rgba(0, 0, 0, 0.15);
+  border-radius: 0;
+  left: -2px;
+  top: 106%;
+}
+
+.view-high-opportunity-occupations .chosen-results {
+  margin: 0px;
+  padding-left: 0px;
+}
+
+.view-high-opportunity-occupations .chosen-container .chosen-results .active-result {
+  border-radius: 0;
+  padding-left: 15px;
 }
 
 .view-high-opportunity-occupations .view-footer {

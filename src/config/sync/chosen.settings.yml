@@ -12,9 +12,9 @@ disable_search: false
 allow_single_deselect: false
 disabled_themes:
   claro: '0'
-  bootstrap5: '0'
   workbc: '0'
+  bootstrap5: '0'
 chosen_include: 2
-placeholder_text_multiple: 'Choose some options'
+placeholder_text_multiple: All
 placeholder_text_single: 'Choose an option'
 no_results_text: 'No results match'
