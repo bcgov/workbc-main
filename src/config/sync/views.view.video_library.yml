@@ -816,7 +816,7 @@ display:
             alter_text: false
             text: ''
             make_link: true
-            path: '/video-library?video_category={{ field_category__target_id }}'
+            path: '/plan-career/video-library?video_category={{ field_category__target_id }}'
             absolute: false
             external: false
             replace_spaces: false
