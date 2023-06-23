@@ -9,7 +9,7 @@ id: paragraph.action_cards_1_4.field_key
 field_name: field_key
 entity_type: paragraph
 bundle: action_cards_1_4
-label: Key
+label: 'Section key'
 description: 'This field is for internal use only and should not be edited.'
 required: false
 translatable: true

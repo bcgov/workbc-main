@@ -9,7 +9,7 @@ id: paragraph.action_cards_full_width.field_key
 field_name: field_key
 entity_type: paragraph
 bundle: action_cards_full_width
-label: Key
+label: 'Section key'
 description: 'This field is for internal use only and should not be edited.'
 required: false
 translatable: true
