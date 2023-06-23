@@ -9,7 +9,7 @@ id: paragraph.quote_card.field_key
 field_name: field_key
 entity_type: paragraph
 bundle: quote_card
-label: Key
+label: 'Card key'
 description: 'This field is for internal use only and should not be edited.'
 required: false
 translatable: true
