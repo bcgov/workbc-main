@@ -28,11 +28,17 @@
 }
 
 .view-high-opportunity-occupations .chosen-container-multi .chosen-choices {
-  border-radius: 0;
+  border: none;
 }
 
 .view-high-opportunity-occupations .chosen-container-multi {
   width: 100% !important;
+}
+
+.view-high-opportunity-occupations .chosen-container-multi input.chosen-search-input {
+  &::placeholder {
+    color: $workbc_default_text;
+  }
 }
 
 .view-high-opportunity-occupations .chosen-container-active .chosen-drop {
