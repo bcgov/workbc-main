@@ -67,7 +67,7 @@
           '#default_value' => $text['value'],
           '#format' => $text['format'],
         ];
-
+      
         $form['reports'] = [
           '#tree' => TRUE,
           '#type' => 'details',

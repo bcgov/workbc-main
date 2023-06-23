@@ -682,7 +682,7 @@ display:
           plugin_id: string
           operator: '='
           value: ''
-          group: 1
+          group: 2
           exposed: true
           expose:
             operator_id: occupational_interest_op
@@ -706,34 +706,34 @@ display:
             identifier: occupational_interest
             optional: true
             widget: select
-            multiple: false
+            multiple: true
             remember: false
             default_group: All
             default_group_multiple: {  }
             group_items:
               1:
                 title: Artistic
-                operator: '='
+                operator: contains
                 value: Artistic
               2:
                 title: Conventional
-                operator: '='
+                operator: contains
                 value: Conventional
               3:
                 title: Enterprising
-                operator: '='
+                operator: contains
                 value: Enterprising
               4:
                 title: Investigative
-                operator: '='
+                operator: contains
                 value: Investigative
               5:
                 title: Realistic
-                operator: '='
+                operator: contains
                 value: Realistic
               6:
                 title: Social
-                operator: '='
+                operator: contains
                 value: Social
         wage_rate_median:
           id: wage_rate_median
@@ -748,7 +748,7 @@ display:
             min: ''
             max: ''
             value: ''
-          group: 1
+          group: 3
           exposed: true
           expose:
             operator_id: wage_rate_median_op
@@ -818,6 +818,8 @@ display:
         operator: AND
         groups:
           1: AND
+          2: OR
+          3: AND
       style:
         type: table
       row:
