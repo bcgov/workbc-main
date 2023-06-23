@@ -57,6 +57,39 @@ body:not(.front) .card-feature__link {
 }
 
 .front .card-feature__content {
+
+  @include media-breakpoint-up(lg) {
+    padding: 30px 20px;
+  }
+}
+
+.front .card-feature__content ul {
+  margin-bottom: 30px;
+}
+
+.front .card-feature__image,
+.card-feature--right .card-feature__image {
+  @include media-breakpoint-up(lg) {
+    order: 2;
+  }
+}
+
+.card-feature--left .card-feature__image {
+  @include media-breakpoint-up(lg) {
+    order: 0;
+  }
+}
+
+.front .card-feature__title {
+  font-size: 1.875rem;
+}
+
+.front .card-feature__link {
+  @include link-chevron;
+}
+
+
+.paragraph--key--explore-careers .card-feature__content {
   background: linear-gradient(
     90deg,
     rgba(218, 235, 240, 1) 0%,
@@ -68,20 +101,14 @@ body:not(.front) .card-feature__link {
   }
 }
 
-.front .card-feature__content ul {
-  margin-bottom: 30px;
+.paragraph--key--explore-labour-market {
+  background-color: #efe9e9;
 }
 
-.front .card-feature__image {
+.paragraph--key--explore-labour-market .card-feature__content {
+  background-color: #efe9e9;
+
   @include media-breakpoint-up(lg) {
-    order: 2;
+    padding: 30px 20px;
   }
-}
-
-.front .card-feature__title {
-  font-size: 1.875rem;
-}
-
-.front .card-feature__link {
-  @include link-chevron;
 }

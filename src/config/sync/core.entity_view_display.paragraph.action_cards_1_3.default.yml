@@ -4,6 +4,7 @@ status: true
 dependencies:
   config:
     - field.field.paragraph.action_cards_1_3.field_action_cards
+    - field.field.paragraph.action_cards_1_3.field_key
     - paragraphs.paragraphs_type.action_cards_1_3
   module:
     - entity_reference_revisions
@@ -22,4 +23,5 @@ content:
     weight: 0
     region: content
 hidden:
+  field_key: true
   search_api_excerpt: true

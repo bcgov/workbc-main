@@ -6,6 +6,7 @@ dependencies:
     - field.field.paragraph.action_card_full_width.field_description
     - field.field.paragraph.action_card_full_width.field_image
     - field.field.paragraph.action_card_full_width.field_image_media
+    - field.field.paragraph.action_card_full_width.field_key
     - field.field.paragraph.action_card_full_width.field_link
     - field.field.paragraph.action_card_full_width.field_title
     - paragraphs.paragraphs_type.action_card_full_width
@@ -55,4 +56,5 @@ content:
     region: content
 hidden:
   field_image: true
+  field_key: true
   search_api_excerpt: true

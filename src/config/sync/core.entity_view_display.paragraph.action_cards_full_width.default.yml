@@ -5,6 +5,7 @@ dependencies:
   config:
     - field.field.paragraph.action_cards_full_width.field_action_cards
     - field.field.paragraph.action_cards_full_width.field_alignment
+    - field.field.paragraph.action_cards_full_width.field_key
     - paragraphs.paragraphs_type.action_cards_full_width
   module:
     - entity_reference_revisions
@@ -24,4 +25,5 @@ content:
     region: content
 hidden:
   field_alignment: true
+  field_key: true
   search_api_excerpt: true

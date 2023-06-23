@@ -3,6 +3,7 @@ langcode: en
 status: true
 dependencies:
   config:
+    - field.field.paragraph.skills.field_key
     - field.field.paragraph.skills.field_level_of_importance
     - field.field.paragraph.skills.field_skill
     - paragraphs.paragraphs_type.skills
@@ -31,4 +32,5 @@ content:
     weight: 0
     region: content
 hidden:
+  field_key: true
   search_api_excerpt: true

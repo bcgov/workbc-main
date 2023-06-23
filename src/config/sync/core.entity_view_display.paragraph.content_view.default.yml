@@ -3,6 +3,7 @@ langcode: en
 status: true
 dependencies:
   config:
+    - field.field.paragraph.content_view.field_key
     - field.field.paragraph.content_view.field_view
     - paragraphs.paragraphs_type.content_view
   module:
@@ -25,4 +26,5 @@ content:
     weight: 0
     region: content
 hidden:
+  field_key: true
   search_api_excerpt: true

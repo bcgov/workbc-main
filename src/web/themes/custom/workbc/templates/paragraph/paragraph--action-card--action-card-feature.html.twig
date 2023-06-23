@@ -42,6 +42,7 @@
 {# Variables #}
 
 {% set card_feature_image = content.field_image_media[0] %}
+{% set card_feature_image_alignment = feature_image_alignment %}
 {% set card_feature_title = content.field_title[0] %}
 {% set card_feature_desc = content.field_description[0] %}
 {% set card_feature_link_url = content.field_link[0]['#url'] %}
@@ -51,10 +52,12 @@
 {%
   set classes = [
     'paragraph',
+    paragraph.field_key[0].value ? 'paragraph--key--' ~ paragraph.field_key[0].value|clean_class,
     'paragraph--type--' ~ paragraph.bundle|clean_class,
     view_mode ? 'paragraph--view-mode--' ~ view_mode|clean_class,
     not paragraph.isPublished() ? 'paragraph--unpublished',
     'card-feature',
+    'card-feature--' ~ card_feature_image_alignment|clean_class    
   ]
 %}
 

@@ -5,6 +5,7 @@ dependencies:
   config:
     - field.field.paragraph.additional_duties.field_description
     - field.field.paragraph.additional_duties.field_duty
+    - field.field.paragraph.additional_duties.field_key
     - paragraphs.paragraphs_type.additional_duties
   module:
     - text
@@ -24,6 +25,14 @@ content:
   field_duty:
     type: string_textfield
     weight: 0
+    region: content
+    settings:
+      size: 60
+      placeholder: ''
+    third_party_settings: {  }
+  field_key:
+    type: string_textfield
+    weight: 2
     region: content
     settings:
       size: 60

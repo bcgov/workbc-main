@@ -5,6 +5,7 @@ dependencies:
   config:
     - field.field.paragraph.action_card_icon.field_description
     - field.field.paragraph.action_card_icon.field_icon
+    - field.field.paragraph.action_card_icon.field_key
     - field.field.paragraph.action_card_icon.field_link
     - field.field.paragraph.action_card_icon.field_title
     - paragraphs.paragraphs_type.action_card_icon
@@ -53,4 +54,5 @@ content:
     weight: 1
     region: content
 hidden:
+  field_key: true
   search_api_excerpt: true

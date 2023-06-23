@@ -3,6 +3,7 @@ langcode: en
 status: true
 dependencies:
   config:
+    - field.field.paragraph.skills.field_key
     - field.field.paragraph.skills.field_level_of_importance
     - field.field.paragraph.skills.field_skill
     - paragraphs.paragraphs_type.skills
@@ -11,6 +12,14 @@ targetEntityType: paragraph
 bundle: skills
 mode: default
 content:
+  field_key:
+    type: string_textfield
+    weight: 2
+    region: content
+    settings:
+      size: 60
+      placeholder: ''
+    third_party_settings: {  }
   field_level_of_importance:
     type: number
     weight: 1

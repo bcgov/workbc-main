@@ -4,6 +4,7 @@ status: true
 dependencies:
   config:
     - field.field.paragraph.quote_card.field_author
+    - field.field.paragraph.quote_card.field_key
     - field.field.paragraph.quote_card.field_link
     - field.field.paragraph.quote_card.field_quote
     - paragraphs.paragraphs_type.quote_card
@@ -43,4 +44,5 @@ content:
     weight: 0
     region: content
 hidden:
+  field_key: true
   search_api_excerpt: true

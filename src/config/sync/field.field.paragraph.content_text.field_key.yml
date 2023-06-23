@@ -1,0 +1,19 @@
+uuid: 87cf82ec-de91-4c0c-80fa-0e413a019cdd
+langcode: en
+status: true
+dependencies:
+  config:
+    - field.storage.paragraph.field_key
+    - paragraphs.paragraphs_type.content_text
+id: paragraph.content_text.field_key
+field_name: field_key
+entity_type: paragraph
+bundle: content_text
+label: Key
+description: 'This field is for internal use only and should not be edited.'
+required: false
+translatable: true
+default_value: {  }
+default_value_callback: ''
+settings: {  }
+field_type: string

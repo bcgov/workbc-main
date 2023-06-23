@@ -5,6 +5,7 @@ dependencies:
   config:
     - core.entity_form_mode.paragraph.action_card_explore_careers
     - field.field.paragraph.action_cards_explore_careers.field_action_cards
+    - field.field.paragraph.action_cards_explore_careers.field_key
     - paragraphs.paragraphs_type.action_cards_explore_careers
   module:
     - entity_reference_revisions
@@ -25,4 +26,5 @@ content:
     third_party_settings: {  }
 hidden:
   created: true
+  field_key: true
   status: true

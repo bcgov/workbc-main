@@ -5,6 +5,7 @@ dependencies:
   config:
     - field.field.paragraph.action_card_icon.field_description
     - field.field.paragraph.action_card_icon.field_icon
+    - field.field.paragraph.action_card_icon.field_key
     - field.field.paragraph.action_card_icon.field_link
     - field.field.paragraph.action_card_icon.field_title
     - paragraphs.paragraphs_type.action_card_icon
@@ -35,6 +36,14 @@ content:
     third_party_settings:
       media_library_edit:
         show_edit: '1'
+  field_key:
+    type: string_textfield
+    weight: 4
+    region: content
+    settings:
+      size: 60
+      placeholder: ''
+    third_party_settings: {  }
   field_link:
     type: link_default
     weight: 3
