@@ -21,6 +21,10 @@
     border: 2px solid #2e6ab0;
     line-height: 2;
     border-radius: 0;
+
+    &:focus {
+      box-shadow: none;
+    }
 }
 
 .view-high-opportunity-occupations .chosen-container-multi .form-select {
