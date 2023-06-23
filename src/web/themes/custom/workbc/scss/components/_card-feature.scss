@@ -100,3 +100,15 @@ body:not(.front) .card-feature__link {
     padding: 30px 20px;
   }
 }
+
+.paragraph--key--explore-labour-market {
+  background-color: #efe9e9;
+}
+
+.paragraph--key--explore-labour-market .card-feature__content {
+  background-color: #efe9e9;
+
+  @include media-breakpoint-up(lg) {
+    padding: 30px 20px;
+  }
+}
