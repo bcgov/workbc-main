@@ -57,11 +57,6 @@ body:not(.front) .card-feature__link {
 }
 
 .front .card-feature__content {
-  background: linear-gradient(
-    90deg,
-    rgba(218, 235, 240, 1) 0%,
-    rgba(242, 242, 242, 1) 96%
-  );
 
   @include media-breakpoint-up(lg) {
     padding: 30px 20px;
@@ -91,4 +86,17 @@ body:not(.front) .card-feature__link {
 
 .front .card-feature__link {
   @include link-chevron;
+}
+
+
+.paragraph--key--explore-careers .card-feature__content {
+  background: linear-gradient(
+    90deg,
+    rgba(218, 235, 240, 1) 0%,
+    rgba(242, 242, 242, 1) 96%
+  );
+
+  @include media-breakpoint-up(lg) {
+    padding: 30px 20px;
+  }
 }
