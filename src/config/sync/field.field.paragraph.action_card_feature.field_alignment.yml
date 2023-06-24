@@ -12,12 +12,12 @@ field_name: field_alignment
 entity_type: paragraph
 bundle: action_card_feature
 label: Alignment
-description: 'The alignment of the images. Alignment "Left" is the default. The first card will have its image on the left and the subsequent cards will alternate. If "Right" is chosen the first card in the group will have the image on the right and the subsequent cards will alternate. '
+description: 'The alignment of the image. Alignment "Left" is the default. '
 required: true
 translatable: true
 default_value:
   -
-    value: right
+    value: left
 default_value_callback: ''
 settings: {  }
 field_type: list_string

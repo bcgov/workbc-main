@@ -28,7 +28,6 @@ function workbc_preprocess_paragraph(&$variables) {
     }
   }
 
-
   if ($parent->bundle() == 'action_card_feature') {
     $align = $parent->field_alignment->value;
     $list = $parent->field_action_card->getValue();
@@ -44,40 +43,7 @@ function workbc_preprocess_paragraph(&$variables) {
     }
   }
 
-
-  // SPECIAL CASE
-  // Override titles for "EducationPlannerBC" and "StudentAidBC" into images.
-  if (isset($variables['paragraph']->field_title)) {
-    $title = $variables['paragraph']->field_title->value;
-    $image = null;
-    switch ($title) {
-      case 'EducationPlannerBC':
-        $image = 'education-planner-bc.png';
-        $width = '75%';
-        break;
-      case 'StudentAidBC':
-        $image = 'student-aid-bc.png';
-        $width = '50%';
-        break;
-      default:
-        break;
-    }
-    if ($image) {
-      $default_theme_name = \Drupal::config('system.theme')->get('default');
-      $theme_path = \Drupal::service('extension.list.theme')->getPath($default_theme_name);
-      $variables['override_image'] = [
-        '#theme' => 'image',
-        '#uri' => $theme_path . '/assets/images/' . $image,
-        '#alt' => $title,
-        '#attributes' => [
-          'style' => "width:$width;"
-        ]
-      ];
-    }
-  }
-
-  // SPECIAL CASE
-  // Find parent menu item for featured topics cards.
+  // Find parent menu item for cards with links.
   $menu_link_manager = \Drupal::service('plugin.manager.menu.link');
   if (isset($variables['paragraph']->field_link)) {
     $url = Url::fromUri($variables['paragraph']->field_link->uri);
@@ -113,6 +79,30 @@ function workbc_preprocess_paragraph(&$variables) {
       $variables['parent_title'] = 'WorkBC';
     }
   }
+
+  // SPECIAL CASE
+  // Override cards for "EducationPlannerBC" and "StudentAidBC" by injecting their logos.
+  if (isset($variables['paragraph']->field_key)) {
+    $key = $variables['paragraph']->field_key->value;
+    $image = null;
+    switch ($key) {
+      case 'education-planner-bc':
+      case 'student-aid-bc':
+        $image = "$key.png";
+        break;
+      default:
+        break;
+    }
+    if ($image) {
+      $default_theme_name = \Drupal::config('system.theme')->get('default');
+      $theme_path = \Drupal::service('extension.list.theme')->getPath($default_theme_name);
+      $variables['override_image'] = [
+        '#theme' => 'image',
+        '#uri' => $theme_path . '/assets/images/' . $image,
+        '#alt' => $variables['paragraph']->field_title->value,
+      ];
+    }
+  }
 }
 
 /**
@@ -122,8 +112,7 @@ function workbc_theme_suggestions_paragraph_alter(array &$suggestions, array $va
 
   $new_suggestions = array();
   foreach ($suggestions as $suggestion) {
-    $new_suggestions[] = $suggestion . '__' . strtr($variables['elements']['#paragraph']->uuid->value, '-', '_');
-    if (isset($variables['elements']['#paragraph']->field_key->value)) {    
+    if (isset($variables['elements']['#paragraph']->field_key->value)) {
       $new_suggestions[] = $suggestion . '__' . strtr($variables['elements']['#paragraph']->field_key->value, '-', '_');
     }
   }
@@ -251,7 +240,7 @@ function workbc_preprocess_form_element(&$variables) {
   if (isset($variables['element']['#name'])) {
     if ($variables['element']['#name'] == "occupational_interest") {
       $variables['occupational_interest_tooltip'] = 'Careers based on <a href="/plan-career/skills-future-workforce">six interest types</a>.';
-    }  
+    }
   }
-  
+
 }
