@@ -45,7 +45,7 @@ function workbc_preprocess_paragraph(&$variables) {
 
   // Find parent menu item for cards with links.
   $menu_link_manager = \Drupal::service('plugin.manager.menu.link');
-  if (isset($variables['paragraph']->field_link)) {
+  if (isset($variables['paragraph']->field_link->uri)) {
     $url = Url::fromUri($variables['paragraph']->field_link->uri);
     if ($url->isRouted()) {
       $params = $url->getRouteParameters();
