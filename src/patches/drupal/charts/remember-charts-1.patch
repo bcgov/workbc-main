@@ -19,29 +19,3 @@ index e99e27f..d93e24b 100755
      };
    };
  
-diff --git a/modules/charts_google/src/Plugin/chart/Library/Google.php b/modules/charts_google/src/Plugin/chart/Library/Google.php
-index 1c29101..9732d07 100755
---- a/modules/charts_google/src/Plugin/chart/Library/Google.php
-+++ b/modules/charts_google/src/Plugin/chart/Library/Google.php
-@@ -204,7 +204,7 @@ class Google extends ChartBase implements ContainerFactoryPluginInterface {
-    *   The returned chart definition.
-    */
-   public function chartsGooglePopulateChartOptions(array $element, array $chart_definition) {
--    if ($this->configuration['use_material_design']) {
-+    if (!empty($this->configuration['use_material_design'])) {
-       $chart_definition['options']['theme'] = 'material';
-       $chart_definition['options']['chart']['title'] = $element['#title'] ?? NULL;
-       $chart_definition['options']['chart']['subtitle'] = $element['#subtitle'] ?? NULL;
-@@ -479,10 +479,10 @@ class Google extends ChartBase implements ContainerFactoryPluginInterface {
-         }
- 
-         // Merge in point raw options.
--        if (!empty($data_item['#raw_options'])) {
-+        if (!empty($element[$key]['#raw_options'])) {
-           $series = NestedArray::mergeDeepArray([
-             $series,
--            $data_item['#raw_options'],
-+            $element[$key]['#raw_options'],
-           ]);
-         }
- 
