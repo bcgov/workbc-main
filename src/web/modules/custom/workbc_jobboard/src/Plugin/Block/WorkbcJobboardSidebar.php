@@ -195,11 +195,4 @@ class WorkbcJobboardSidebar extends BlockBase{
       ];
     }
 	}
-
-  /**
-   * {@inheritdoc}
-   */
-	public function blockAccess(AccountInterface $account){
-    return AccessResult::allowedIfHasPermission($account, "access recent jobs block");
-  }
 }

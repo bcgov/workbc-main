@@ -109,7 +109,7 @@ class WorkbcJobboardSearch extends BlockBase{
     $WorkBcJobboardController = new WorkBcJobboardController();
     $parameters = ['getTotalJobs'=>true];
     $recent_jobs = $WorkBcJobboardController->getPosts($parameters, 'getTotalJobs', 'get');
-    
+
     \Drupal::service('page_cache_kill_switch')->trigger();
 
     return [
@@ -126,13 +126,6 @@ class WorkbcJobboardSearch extends BlockBase{
       '#postjob_link_label' => $config['job_board_postjob_link_label']??'Post a Job',
       '#postjob_link_url' => $config['job_board_postjob_link_url']??'#',
     ];
-  }
-
-  /**
-   * {@inheritdoc}
-   */
-	public function blockAccess(AccountInterface $account){
-    return AccessResult::allowedIfHasPermission($account, "access find jobs block");
   }
 
   /**
