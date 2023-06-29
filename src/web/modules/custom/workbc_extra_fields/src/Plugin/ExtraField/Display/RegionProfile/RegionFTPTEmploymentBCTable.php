@@ -44,12 +44,22 @@ class RegionFTPTEmploymentBCTable extends ExtraFieldDisplayFormattedBase {
   public function viewElements(ContentEntityInterface $entity) {
 
     if (!empty($entity->ssot_data) && isset($entity->ssot_data['labour_force_survey_bc_employment'])) {
-      $fulltime = $entity->ssot_data['labour_force_survey_bc_employment']['full_time_employment_pct'];
-      $parttime = 100 - $fulltime;
+
+      $value = $entity->ssot_data['labour_force_survey_bc_employment']['full_time_employment_pct'];
+      if ($value===0||$value) {
+        $fulltime = ssotFormatNumber($value) . "%" ;
+        $value = 100 - $value;
+        $parttime = ssotFormatNumber($value) . "%" ;
+  
+      }
+      else {
+        $fulltime = WORKBC_EXTRA_FIELDS_NOT_AVAILABLE;
+        $fulltime = WORKBC_EXTRA_FIELDS_NOT_AVAILABLE;
+      }
 
       $content = "<table>";
-      $content .= "<tr><td>Full-time employment</td><td>" . ssotFormatNumber($fulltime,0) . "%</td></tr>";
-      $content .= "<tr><td>Part-time employment</td><td>" . ssotFormatNumber($parttime,0) . "%</td></tr>";
+      $content .= "<tr><td>Full-time employment</td><td>" . $fulltime . "</td></tr>";
+      $content .= "<tr><td>Part-time employment</td><td>" . $parttime . "</td></tr>";
       $content .= "</table>";
       $output = $content;
     }
