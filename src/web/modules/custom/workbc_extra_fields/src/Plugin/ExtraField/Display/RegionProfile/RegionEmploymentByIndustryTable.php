@@ -55,8 +55,10 @@ class RegionEmploymentByIndustryTable extends ExtraFieldDisplayFormattedBase {
         $close = "</a>";
         $content .= "<tr>";
         $content .= "<td>" . $link . $industry['name'] . $close . "</td>";
-        $content .= "<td>" . ssotFormatNumber($industry['employment'],0) . "</td>";
-        $content .= "<td>" . ssotFormatNumber($industry['share'],1) . "%</td>";
+        $employment = ($industry['employment']===0||$industry['employment']) ? ssotFormatNumber($industry['employment'],0) : WORKBC_EXTRA_FIELDS_NOT_AVAILABLE ;
+        $content .= "<td>" . $employment . "</td>";
+        $share = ($industry['share']===0||$industry['share']) ? ssotFormatNumber($industry['share'],1) . "%" : WORKBC_EXTRA_FIELDS_NOT_AVAILABLE ;
+        $content .= "<td>" . $share . "</td>";
         $content .= "</tr>";
       }
       $content .= "</table>";

@@ -54,7 +54,8 @@ class BCEmploymentByIndustryTable extends ExtraFieldDisplayFormattedBase {
         $close = "</a>";
         $content .= "<tr>";
         $content .= "<td>" . $link . $industry['name'] . $close . "</td>";
-        $content .= "<td>" . ssotFormatNumber($industry['share'],1) . "%</td>";
+        $share = ($industry['share']===0||$industry['share']) ? ssotFormatNumber($industry['share'],1) . "%" : WORKBC_EXTRA_FIELDS_NOT_AVAILABLE ;
+        $content .= "<td>" . $share . "</td>";
         $content .= "<td>" . $industry['sector'] . "</td>";
         $content .= "</tr>";
       }

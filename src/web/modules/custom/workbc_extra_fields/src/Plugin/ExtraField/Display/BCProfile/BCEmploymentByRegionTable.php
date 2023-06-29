@@ -66,8 +66,12 @@ class BCEmploymentByRegionTable extends ExtraFieldDisplayFormattedBase {
 
         $content .= "<tr>";
         $content .= "<td>" . $link . ssotRegionName($region['region']) . $close . "</td>";
-        $content .= "<td>" . ssotFormatNumber($region['full_time_employment_pct']) . "%</td>";
-        $content .= "<td>" . ssotFormatNumber($region['part_time_employment_pct']) . "%</td>";
+        $value = $region['full_time_employment_pct'];
+        $percent = ($value===0||$value) ? ssotFormatNumber($value) . "%" : WORKBC_EXTRA_FIELDS_NOT_AVAILABLE ;
+        $content .= "<td>" . $percent . "</td>";
+        $value = $region['part_time_employment_pct'];
+        $percent = ($value===0||$value) ? ssotFormatNumber($value) . "%" : WORKBC_EXTRA_FIELDS_NOT_AVAILABLE ;
+        $content .= "<td>" . $percent . "</td>";
         $content .= "</tr>";
       }
       $content .= "</table>";
