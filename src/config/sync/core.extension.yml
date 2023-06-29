@@ -19,6 +19,7 @@ module:
   block: 0
   block_content: 0
   breakpoint: 0
+  cache_control_override: 0
   calendar_listview: 0
   cancel_button: 0
   captcha: 0
@@ -96,6 +97,7 @@ module:
   openid_connect: 0
   options: 0
   override_node_options: 0
+  page_cache: 0
   paragraphs_edit: 0
   paragraphs_type_permissions: 0
   path: 0
