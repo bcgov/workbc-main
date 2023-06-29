@@ -52,7 +52,7 @@ class CareerProfileLabourMarketEmploymentByRegion extends ExtraFieldDisplayForma
       $value = $entity->ssot_data['census']['cariboo_employment_of_this_occupation'];
       $region['percent'] = ($value===0||$value) ? ssotFormatNumber(floatval($value),1) . "%" : WORKBC_EXTRA_FIELDS_NOT_AVAILABLE;
       $value = $entity->ssot_data['career_regional']['cariboo_employment_current'];
-      $region['employment'] = ($value===0||$value) ? ssotFormatNumber($vlaue) :WORKBC_EXTRA_FIELDS_NOT_AVAILABLE;
+      $region['employment'] = ($value===0||$value) ? ssotFormatNumber($value) :WORKBC_EXTRA_FIELDS_NOT_AVAILABLE;
       $regions[] = $region;
       $region = array();
       $region['name'] = t(REGION_KOOTENAY);
