@@ -47,38 +47,52 @@ class CareerProfileJobOpeningsByRegion extends ExtraFieldDisplayFormattedBase {
     if (!empty($entity->ssot_data) && isset($entity->ssot_data['career_regional'])) {
       $region = array();
       $region['name'] = t(REGION_CARIBOO);
-      $region['openings'] = floatval($entity->ssot_data['career_regional']['cariboo_expected_number_of_job_openings_10y']);
-      $region['growth'] = floatval($entity->ssot_data['career_regional']['cariboo_average_annual_employment_growth_10y_pct']);
+      $value = $entity->ssot_data['career_regional']['cariboo_expected_number_of_job_openings_10y'];
+      $region['openings'] = ($value===0||$value) ? ssotFormatNumber(floatval($value),0) : WORKBC_EXTRA_FIELDS_NOT_AVAILABLE;
+      $value = $entity->ssot_data['career_regional']['cariboo_average_annual_employment_growth_10y_pct'];
+      $region['growth'] = ($value===0||$value) ? ssotFormatNumber($value,1) . "%" : WORKBC_EXTRA_FIELDS_NOT_AVAILABLE;
       $regions[] = $region;
       $region = array();
       $region['name'] = t(REGION_KOOTENAY);
-      $region['openings'] = floatval($entity->ssot_data['career_regional']['kootenay_expected_number_of_job_openings_10y']);
-      $region['growth'] = floatval($entity->ssot_data['career_regional']['kootenay_average_annual_employment_growth_10y_pct']);
+      $value = $entity->ssot_data['career_regional']['kootenay_expected_number_of_job_openings_10y'];
+      $region['openings'] = ($value===0||$value)  ? ssotFormatNumber(floatval($value),0) : WORKBC_EXTRA_FIELDS_NOT_AVAILABLE;
+      $value = $entity->ssot_data['career_regional']['kootenay_average_annual_employment_growth_10y_pct'];
+      $region['growth'] = ($value===0||$value) ? ssotFormatNumber($value,1) . "%" : WORKBC_EXTRA_FIELDS_NOT_AVAILABLE;
       $regions[] = $region;
       $region = array();
       $region['name'] = t(REGION_MAINLAND_SOUTHWEST);
-      $region['openings'] = floatval($entity->ssot_data['career_regional']['mainland_southwest_expected_number_of_job_openings_10y']);
-      $region['growth'] = floatval($entity->ssot_data['career_regional']['mainland_southwest_annual_employment_growth_10y_pct']);
+      $value = $entity->ssot_data['career_regional']['mainland_southwest_expected_number_of_job_openings_10y'];
+      $region['openings'] = ($value===0||$value) ? ssotFormatNumber(floatval($value),0) : WORKBC_EXTRA_FIELDS_NOT_AVAILABLE;
+      $value = $entity->ssot_data['career_regional']['mainland_southwest_annual_employment_growth_10y_pct'];
+      $region['growth'] = ($value===0||$value) ? ssotFormatNumber($value,1) . "%" : WORKBC_EXTRA_FIELDS_NOT_AVAILABLE;
       $regions[] = $region;
       $region = array();
       $region['name'] = t(REGION_NORTH_COAST_NECHAKO);
-      $region['openings'] = floatval($entity->ssot_data['career_regional']['north_coast_nechako_expected_number_of_job_openings_10y']);
-      $region['growth'] = floatval($entity->ssot_data['career_regional']['north_coast_nechako_annual_employment_growth_10y_pct']);
+      $value = $entity->ssot_data['career_regional']['north_coast_nechako_expected_number_of_job_openings_10y'];
+      $region['openings'] = ($value===0||$value) ? ssotFormatNumber(floatval($value),0) : WORKBC_EXTRA_FIELDS_NOT_AVAILABLE;
+      $value = $entity->ssot_data['career_regional']['north_coast_nechako_annual_employment_growth_10y_pct'];
+      $region['growth'] = ($value===0||$value) ? ssotFormatNumber($value,1) . "%" : WORKBC_EXTRA_FIELDS_NOT_AVAILABLE;
       $regions[] = $region;
       $region = array();
       $region['name'] = t(REGION_NORTHEAST);
-      $region['openings'] = floatval($entity->ssot_data['career_regional']['northeast_expected_number_of_job_openings_10y']);
-      $region['growth'] = floatval($entity->ssot_data['career_regional']['northeast_annual_employment_growth_10y_pct']);
+      $value = $entity->ssot_data['career_regional']['northeast_expected_number_of_job_openings_10y'];
+      $region['openings'] = ($value===0||$value) ? ssotFormatNumber(floatval($value),0) : WORKBC_EXTRA_FIELDS_NOT_AVAILABLE;
+      $value = $entity->ssot_data['career_regional']['northeast_annual_employment_growth_10y_pct'];
+      $region['growth'] = ($value===0||$value) ? ssotFormatNumber($value,1) . "%" : WORKBC_EXTRA_FIELDS_NOT_AVAILABLE;
       $regions[] = $region;
       $region = array();
       $region['name'] = t(REGION_THOMPSON_OKANAGAN);
-      $region['openings'] = floatval($entity->ssot_data['career_regional']['thompson_okanagan_expected_number_of_job_openings_10y']);
-      $region['growth'] = floatval($entity->ssot_data['career_regional']['thompson_okanagan_annual_employment_growth_10y_pct']);
+      $value = $entity->ssot_data['career_regional']['thompson_okanagan_expected_number_of_job_openings_10y'];
+      $region['openings'] = ($value===0||$value) ? ssotFormatNumber(floatval($value),0) : WORKBC_EXTRA_FIELDS_NOT_AVAILABLE;
+      $value = $entity->ssot_data['career_regional']['thompson_okanagan_annual_employment_growth_10y_pct'];
+      $region['growth'] = ($value===0||$value) ? ssotFormatNumber($value,1) . "%" : WORKBC_EXTRA_FIELDS_NOT_AVAILABLE;
       $regions[] = $region;
       $region = array();
       $region['name'] = t(REGION_VANCOUVER_ISLAND_COAST);
-      $region['openings'] = floatval($entity->ssot_data['career_regional']['vancouver_island_coast_expected_number_of_job_openings_10y']);
-      $region['growth'] = floatval($entity->ssot_data['career_regional']['vancouver_island_coast_annual_employment_growth_10y_pct']);
+      $rvalue = $entity->ssot_data['career_regional']['vancouver_island_coast_expected_number_of_job_openings_10y'];
+      $region['openings'] = ($value===0||$value) ? ssotFormatNumber(floatval($value),0) : WORKBC_EXTRA_FIELDS_NOT_AVAILABLE;
+      $value = $entity->ssot_data['career_regional']['vancouver_island_coast_annual_employment_growth_10y_pct'];
+      $region['growth'] = ($value===0||$value) ? ssotFormatNumber($value,1) . "%" : WORKBC_EXTRA_FIELDS_NOT_AVAILABLE;
       $regions[] = $region;
     }
 
@@ -89,12 +103,7 @@ class CareerProfileJobOpeningsByRegion extends ExtraFieldDisplayFormattedBase {
     $text .= "<table>";
     $text .= "<tr><th>Region</th><th>Job Openings</th><th>Avg Annual Employment Growth</th></tr>";
     foreach ($regions as $region) {
-      $value = $region['openings'];
-      $openings = ($value===0||$value)?ssotFormatNumber($value, 0):WORKBC_EXTRA_FIELDS_NOT_AVAILABLE;
-
-      $value = $region['growth'];
-      $growth = ($value===0||$value)?ssotFormatNumber($value,1) . "%":WORKBC_EXTRA_FIELDS_NOT_AVAILABLE;
-      $text .= "<tr><td>" . $region['name'] . "</td><td>" . $openings . "</td><td>" . $growth . "</td></tr>";
+      $text .= "<tr><td>" . $region['name'] . "</td><td>" . $region['openings'] . "</td><td>" . $region['growth'] . "</td></tr>";
     }
     $text .= "</table>";
 
