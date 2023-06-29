@@ -89,7 +89,7 @@ class CareerProfileJobOpeningsByRegion extends ExtraFieldDisplayFormattedBase {
       $regions[] = $region;
       $region = array();
       $region['name'] = t(REGION_VANCOUVER_ISLAND_COAST);
-      $rvalue = $entity->ssot_data['career_regional']['vancouver_island_coast_expected_number_of_job_openings_10y'];
+      $value = $entity->ssot_data['career_regional']['vancouver_island_coast_expected_number_of_job_openings_10y'];
       $region['openings'] = ($value===0||$value) ? ssotFormatNumber(floatval($value),0) : WORKBC_EXTRA_FIELDS_NOT_AVAILABLE;
       $value = $entity->ssot_data['career_regional']['vancouver_island_coast_annual_employment_growth_10y_pct'];
       $region['growth'] = ($value===0||$value) ? ssotFormatNumber($value,1) . "%" : WORKBC_EXTRA_FIELDS_NOT_AVAILABLE;
