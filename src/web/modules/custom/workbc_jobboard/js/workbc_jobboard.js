@@ -45,7 +45,7 @@
   <a  href="/account#/personal-settings" class="nav-link">Personal Settings</a>
 </li>
 <li class="nav-item new-login-link">
-  <a href="/account#/logout" class="nav-link" onclick="localStorage.removeItem('currentUser'); document.cookie='currentUser.username=; expires=Thu, 01 Jan 1970 00:00:00 UTC; Path=/;'; document.cookie='currentUser.email=; expires=Thu, 01 Jan 1970 00:00:00 UTC; Path=/;'; document.cookie='currentUser.firstName=; expires=Thu, 01 Jan 1970 00:00:00 UTC; Path=/;'; document.cookie='currentUser.lastName=; expires=Thu, 01 Jan 1970 00:00:00 UTC; Path=/;'; document.cookie='currentUser.id=; expires=Thu, 01 Jan 1970 00:00:00 UTC; Path=/;'; document.cookie='currentUser.token=; expires=Thu, 01 Jan 1970 00:00:00 UTC; Path=/;'; return true;">Log out</a>
+  <a href="/account#/logout" class="nav-link" onclick="localStorage.removeItem('currentUser'); document.cookie='currentUser.username=; expires=Thu, 01 Jan 1970 00:00:00 UTC; Path=/;'; document.cookie='currentUser.email=; expires=Thu, 01 Jan 1970 00:00:00 UTC; Path=/;'; document.cookie='currentUser.firstName=; expires=Thu, 01 Jan 1970 00:00:00 UTC; Path=/;'; document.cookie='currentUser.lastName=; expires=Thu, 01 Jan 1970 00:00:00 UTC; Path=/;'; document.cookie='currentUser.id=; expires=Thu, 01 Jan 1970 00:00:00 UTC; Path=/;'; document.cookie='currentUser.token=; expires=Thu, 01 Jan 1970 00:00:00 UTC; Path=/;'; if (location.pathname === '/account') location.reload(true); else return true;">Log out</a>
 </li>
 `;
               var appendLoginMenusD = `
