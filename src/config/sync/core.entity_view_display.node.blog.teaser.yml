@@ -22,6 +22,14 @@ targetEntityType: node
 bundle: blog
 mode: teaser
 content:
+  body:
+    type: text_summary_or_trimmed
+    label: hidden
+    settings:
+      trim_length: 600
+    third_party_settings: {  }
+    weight: 2
+    region: content
   extra_field_workbc_page_title:
     settings: {  }
     third_party_settings: {  }
@@ -41,20 +49,12 @@ content:
     third_party_settings: {  }
     weight: 3
     region: content
-  field_related_topics_blurb:
-    type: text_default
-    label: hidden
-    settings: {  }
-    third_party_settings: {  }
-    weight: 2
-    region: content
   links:
     settings: {  }
     third_party_settings: {  }
     weight: 4
     region: content
 hidden:
-  body: true
   content_moderation_control: true
   field_call_to_action: true
   field_content_group: true
