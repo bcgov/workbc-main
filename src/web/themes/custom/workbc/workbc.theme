@@ -106,7 +106,7 @@ function workbc_get_descendant($menu) {
   $parent_menu = $menu->getParent();
   while (!empty($parent_menu)) {
     $parent = $menu_link_manager->createInstance($parent_menu);
-    $result = $parent->getTitle();       
+    $result = $parent->getTitle();
     $parent_menu = $parent->getParent();
   }
   return $result;
@@ -247,7 +247,7 @@ function workbc_preprocess_form_element(&$variables) {
 
   if (isset($variables['element']['#name'])) {
     if ($variables['element']['#name'] == "occupational_interest") {
-      $variables['occupational_interest_tooltip'] = 'Careers based on <a href="/plan-career/skills-future-workforce">six interest types</a>.';
+      $variables['occupational_interest_tooltip'] = 'Careers based on <a href="/plan-career/skills-future-workforce/characteristics#sideNavAnchorId_1" target="_blank" rel="noopener noreferrer">six interest types</a>.';
     }
   }
 
