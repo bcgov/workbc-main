@@ -52,11 +52,7 @@ function workbc_preprocess_paragraph(&$variables) {
       if (isset($params['node'])) {
         $links = $menu_link_manager->loadLinksByRoute('entity.node.canonical', array('node' => $params['node']));
         if ($links) {
-          $parent_menu = reset($links)->getParent();
-          if ($parent_menu) {
-            $parent = $menu_link_manager->createInstance($parent_menu);
-            $variables['parent_title'] = $parent->getTitle();
-          }
+          $variables['parent_title'] = workbc_get_descendant(reset($links));
         }
       }
     }
@@ -68,11 +64,7 @@ function workbc_preprocess_paragraph(&$variables) {
       ]);
       if ($links) {
         $child_menu = $menu_link_manager->createInstance('menu_link_content:'.reset($links)->uuid());
-        $parent_menu = $child_menu->getParent();
-        if ($parent_menu) {
-          $parent = $menu_link_manager->createInstance($parent_menu);
-          $variables['parent_title'] = $parent->getTitle();
-        }
+        $variables['parent_title'] = workbc_get_descendant($child_menu);
       }
     }
     if (empty($variables['parent_title'])) {
@@ -104,6 +96,22 @@ function workbc_preprocess_paragraph(&$variables) {
     }
   }
 }
+
+
+function workbc_get_descendant($menu) {
+  $result = "";
+
+  $menu_link_manager = \Drupal::service('plugin.manager.menu.link');
+
+  $parent_menu = $menu->getParent();
+  while (!empty($parent_menu)) {
+    $parent = $menu_link_manager->createInstance($parent_menu);
+    $result = $parent->getTitle();       
+    $parent_menu = $parent->getParent();
+  }
+  return $result;
+}
+
 
 /**
  * Implements hook theme_suggestions_paragraph_alter().
