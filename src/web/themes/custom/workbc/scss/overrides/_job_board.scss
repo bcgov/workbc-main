@@ -1,3 +1,305 @@
+.jobs-data {
+  margin-bottom:30px;
+}
+.block-workbc-jobboard h2{
+  margin-bottom: 20px;
+  font-weight: 700;
+  font-size: 1.15rem;
+  margin-bottom:10px;
+  font-size:21px;
+  line-height: 23px;
+}
+.jobs-data .job-title.card-plain__title {
+  text-transform:capitalize;
+  margin-bottom:5px;
+}
+.jobs-data .sub-title{
+  margin-top:5px;
+  margin-bottom:20px;
+  font-size:18px;
+  font-weight:500;
+}
+.jobs-data .job-box.item {
+  position: relative;
+}
+.jobs-data .job-company {
+  font-size: 15px;
+  margin-bottom: 10px;
+  font-weight: 500;
+}
+.jobs-data .job-location {
+    margin-bottom: 20px;
+}
+.jobs-data .job-location span{
+  margin-right:5px;
+}
+.jobs-data .job-location span img, .jobs-data .sub-title span svg{
+  margin-top:-4px;
+}
+.jobs-data .job-post-date label {
+  display: inline-block;
+  margin-right: 10px;
+}
+.jobs-data .job-post-date {
+  font-family: 'BCSans';
+  font-weight: 400;
+  font-style: normal;
+  font-size: 15px;
+  color: #8A8D8B;
+  position: absolute;
+  bottom: 12px;
+}
+.jobs-data a.more-jobs{
+ width:100%;
+ text-align:center;
+}
+.workbc-jobboard-save-profile {
+  text-align: right;
+}
+.workbc-jobboard-save-profile .save_career_profile .form-submit {
+  width: 28px;
+  height: 28px;
+  text-align:right;
+  padding: 0 0 0 5px;
+  background-image: url(../images/save.svg);
+  background-repeat: no-repeat;
+  background-position: 100% 50%;
+  background-size: 18px;
+  background-color: #fff;
+  outline:0;
+  color: transparent;
+  overflow: hidden;
+}
+.workbc-jobboard-save-profile .save_career_profile .form-submit:focus{
+  box-shadow: none;
+}
+.new-login-link a, .new-logout-link a {font-weight:bold;}
+.nav-items .dropdown .nav-item:not(:last-of-type):after{
+  display:none;
+}
+.nav-items .dropdown .dropdown-menu{
+  margin-top: 15px !important;
+  border: 2px solid #2e6ab0;
+  min-width: 200px;
+  left: -88px !important;
+}
+.nav-items .dropdown .dropdown-menu::before, .nav-items .dropdown .dropdown-menu::after{
+  bottom: 100%;
+	right: 20px;
+	border: solid transparent;
+	content: "";
+	height: 0;
+	width: 0;
+	position: absolute;
+	pointer-events: none;
+}
+.nav-items .dropdown .dropdown-menu::before{
+  border-color: rgba(194, 225, 245, 0);
+	border-bottom-color: #2e6ab0;
+	border-width: 20px;
+	margin-left: -20px;
+}
+.nav-items .dropdown .dropdown-menu::after{
+  border-color: rgba(136, 183, 213, 0);
+	border-bottom-color: #ffffff;
+	border-width: 17px;
+	margin-left: -17px;
+  margin-right:3px;
+}
+
+.nav-items .dropdown .dropdown-menu .nav-item:active{
+  background:none !important;
+}
+.nav-items .dropdown .dropdown-menu .nav-item .nav-link{
+
+}
+.nav-items .dropdown .dropdown-menu .nav-item .nav-link:after{
+
+}
+/* For WR-1254 */
+.view-video-library .view-empty{
+  margin:2rem 0px 6rem;
+}
+/* For WR-1197 (next two)*/
+body.plan-careervideo-library .pagination {
+    padding: 1rem 0 0;
+}
+body.plan-careervideo-library div.view-id-video_library{
+  margin-bottom: 2.4rem;
+}
+
+@media screen and (min-width: 768px) {
+  .workbc-jobboard-save-profile .save_career_profile .form-submit{
+    width: auto;
+    padding-right: 28px;
+    color: #2e6ab0;
+  }
+}
+
+@media screen and (min-width: 1024px) {
+  .jobs-data{
+    max-width:280px;
+  }
+
+  .jobs-data-horizontal-view{
+    width: 100%;
+    max-width: 100%;
+  }
+  .page-node-type-workbc-centre .block-workbc-jobboard h2{
+    width:100%;
+    margin:auto;
+    text-align:center;
+  }
+  .jobs-data-horizontal-view .sub-title{
+    display:none;
+  }
+  .jobs-data-horizontal-view .job-location{
+    font-size:16px;
+  }
+  .jobs-data-horizontal-view .cards-grid{
+    max-width:100%;
+    display: flex;
+    font-size: 0;
+    flex-wrap: wrap;
+    margin-top:20px;
+  }
+  .jobs-data-horizontal-view .cards-grid .card-plain{
+    flex: 1 0 21%;
+    margin: 5px;
+    height: 100px;
+  }
+  .jobs-data-horizontal-view .more-jobs {
+    text-align: center;
+    margin-bottom: 20px;
+  }
+  .jobs-data-horizontal-view .more-jobs a{
+    margin:auto;
+    text-align:center;
+    width:auto;
+  }
+}
+/*
+ *  Styles below apply to the embedded Job Board app
+ *
+*/
+app-root .breadcrumbs{display:none;}
+app-root input[type=checkbox],app-root input[type=radio] {
+    -webkit-appearance: none;
+    -moz-appearance: none;
+    appearance: none;
+    border: 0;
+    opacity: 0;
+    outline: 0;
+    padding: 0;
+    vertical-align: middle;
+    width: 0;
+    position: absolute;
+}
+app-root .job-search-contain .icon-wrap, app-root .job-search-contain .icon-wrap.small, app-root .modal .icon-wrap.small,app-root .account-contain .icon-wrap, app-root .modal .icon-wrap {display:inline-block;}
+app-root .account-contain app-account-dashboard .card .btn{margin:0px;}
+
+.job-search__form-container .form-radios{width:100%;margin-bottom: 20px; display: flex; gap: 20px;}
+
+/***** Webform request-tour-stop starts *******/
+.form-type-webform-terms-of-service .form-checkbox{display:none;}
+div.ui-dialog[aria-describedby="webform-terms-of-service-terms_of_service--description"] {
+  max-width: 500px;
+}
+div.ui-dialog[aria-describedby="webform-terms-of-service-terms_of_service--description"] .ui-dialog-titlebar {
+  background: #fff;
+  color: #234075;
+  font-size: 1.0625rem;
+  padding-bottom: 0px;
+  border:0px;
+  padding-top:15px;
+}
+div.ui-dialog[aria-describedby="webform-terms-of-service-terms_of_service--description"] .ui-dialog-title {
+  font-size: 1.0625rem;
+  margin-bottom: 0.85em;
+}
+div.ui-dialog[aria-describedby="webform-terms-of-service-terms_of_service--description"] .webform-terms-of-service-details {
+  margin-top: 0px;
+  padding: 0px 20px;
+}
+div.ui-dialog[aria-describedby="webform-terms-of-service-terms_of_service--description"] > .webform-terms-of-service-details p {
+  font-size: 13px;
+  color: #234075;
+}
+div.ui-dialog[aria-describedby="webform-terms-of-service-terms_of_service--description"] .ui-dialog-titlebar-close{
+  height: 12px;
+  width: 12px;
+  padding:0px;
+  margin-right: 10px;
+  top: 0px !important;
+  margin-top: 11px !important;
+  opacity:0.5 !important;
+}
+/* .ui-dialog .ui-button .ui-icon {
+  background: none !important;
+} */
+.path-webform .description.form-item__description {display:inline-block;margin-left:10px;}
+.path-webform div.ui-dialog[aria-describedby="webform-terms-of-service-terms_of_service--description"]:focus, div.ui-dialog[aria-describedby="webform-terms-of-service-terms_of_service--description"] *:focus, div.ui-dialog[aria-describedby="webform-terms-of-service-terms_of_service--description"] .ui-dialog-titlebar-close:focus{box-shadow:inherit !important;border:inherit !important; margin-right: 10px; margin-top: 0px;}
+.webform-submission-request-a-tour-stop-form .form-actions{
+  margin:35px 0px;
+}
+.webform-submission-request-a-tour-stop-form .view-collection-notice.option{
+  margin-top:5px;
+}
+.webform-submission-request-a-tour-stop-form .view-collection-notice.option a{
+  display: inline-flex;
+}
+.webform-submission-request-a-tour-stop-form .view-collection-notice.option a:after {
+    content: "";
+    height: 18px;
+    width: 18px;
+    background: url(../../../../themes/custom/workbc/assets/images/chevron.svg) 50% 50% no-repeat;
+    transform: translateX(5px);
+    transition: transform .1s;
+    margin-top:3px;
+}
+.webform-submission-request-a-tour-stop-form .view-collection-notice.option a:hover:after{
+  transform: translateX(8px);
+}
+/***** Webform request-tour-stop ends *******/
+/***** Map regional profiles starts *******/
+.desktop-hidden{display:none;}
+@media screen and (max-width: 679px) {
+  .region-map-select.mobile-regions{
+    display:block;
+    position: relative;
+    overflow: hidden;
+    display: inline-block;
+    margin-bottom:20px;
+  }
+  .region-map-select.mobile-regions select{
+    padding: 9px 25px 9px 10px;
+  }
+  .custom-select__icon {
+    position: absolute;
+    top: 0;
+    right: 0;
+    height: 45px;
+    width: 40px;
+    padding: 0;
+    z-index: 2;
+    pointer-events: none;
+    background-repeat: no-repeat;
+    background-size: 100%;
+    background-color: #224076;
+    background-position-y: 50%;
+  }
+  .webform-submission-request-a-tour-stop-form option:checked{
+    background-color:#224076;
+  }
+}
+/***** Map regional profiles ends *******/
+
+/***** Search Form starts *******/
+.workbc-jobboard-search-form fieldset.form-item{border:0px;}
+.workbc-jobboard-search-form fieldset.form-item .fieldset-wrapper{padding:0px;}
+/***** Search Form ends *******/
+
+
 
 .job-item .icon,
 .job-details .icon {
