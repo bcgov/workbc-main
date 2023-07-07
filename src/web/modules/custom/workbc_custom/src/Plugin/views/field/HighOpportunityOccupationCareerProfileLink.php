@@ -29,6 +29,7 @@ class HighOpportunityOccupationCareerProfileLink extends FieldPluginBase {
    */
   public function render(ResultRow $values) {
     if (isset($values->high_opportunity_occupations_noc)) {
+      \Drupal::logger('workbc_custom')->notice("NOC: [" . $values->high_opportunity_occupations_noc . "]");
       $query = \Drupal::database()->select('node__field_noc', 'n');
       $query->addField('n', 'entity_id');
       $query->condition('n.field_noc_value', $values->high_opportunity_occupations_noc);
@@ -36,12 +37,15 @@ class HighOpportunityOccupationCareerProfileLink extends FieldPluginBase {
       if(!empty($results['entity_id'])) {
         $nid = $results['entity_id'];
         $link = Url::fromUri('internal:/node/'.$nid)->toString();
+        \Drupal::logger('workbc_custom')->notice("Career Profile found - " . $link);
       } else {
         $link = "";
+        \Drupal::logger('workbc_custom')->notice("No Career Profile found");
       }
     }
     else {
       $link = "";
+      \Drupal::logger('workbc_custom')->notice("HOO NOC field has no value");      
     }
     return $link;
   }
