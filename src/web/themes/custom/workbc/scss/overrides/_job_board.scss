@@ -205,12 +205,19 @@ app-root .account-contain app-account-dashboard .card .btn{margin:0px;}
 .workbc-jobboard-search-form fieldset.form-item .fieldset-wrapper{padding:0px;}
 /***** Search Form ends *******/
 
+/***** Dialog starts *******/
+mat-dialog-container .btn-close {
+  background: none;
+}
+mat-dialog-container .terms-logo {
+  display: none;
+}
+/***** Dialog end *******/
 
 .job-item .icon,
 .job-details .icon {
   width: 12px;
 }
-
 
 .job-alert .icon {
   width: 16px;
