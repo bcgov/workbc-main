@@ -313,6 +313,56 @@ resource "aws_ecs_task_definition" "app" {
 			}
 		]
 	}
+	{
+		essential   = false
+		name        = "pdf"
+		image       = "${var.app_repo}/pdf:0.1"
+		networkMode = "awsvpc"
+
+		logConfiguration = {
+			logDriver = "awslogs"
+			options = {
+				awslogs-create-group  = "true"
+				awslogs-group         = "/ecs/${var.app_name}/pdf"
+				awslogs-region        = var.aws_region
+				awslogs-stream-prefix = "ecs"
+			}
+		}
+
+		environment = [
+			{
+				name = "POSTGRES_PORT",
+				value = "5432"
+			},
+			{
+				name = "POSTGRES_DB",
+				value = "drupal"
+			},
+			{
+				name = "POSTGRES_HOST",
+				value = "${data.aws_rds_cluster.postgres.endpoint}"
+			}			
+		]
+		secrets = [
+			{
+				name = "POSTGRES_USER",
+				valueFrom = "${data.aws_secretsmanager_secret_version.creds.arn}:username::"
+			},
+			{
+				name = "POSTGRES_PASSWORD",
+				valueFrom = "${data.aws_secretsmanager_secret_version.creds.arn}:password::"
+			}
+		]
+
+		mountPoints = [
+			{
+				containerPath = "/contents",
+				sourceVolume = "contents"
+			}
+		]
+		volumesFrom = []
+
+	}
   ])
 }
 
