@@ -30,14 +30,22 @@ class HighOpportunityOccupationHourlyWage extends FieldPluginBase {
   public function render(ResultRow $values) {
 
     if (!isset($values->high_opportunity_occupations_wage_rate_median) ||
-        $values->high_opportunity_occupations_wage_rate_median == 0 ) {
-      $wage = WORKBC_EXTRA_FIELDS_NOT_AVAILABLE;
-    } 
+        $values->high_opportunity_occupations_wage_rate_median == 0
+    ) {
+      if (!isset($values->high_opportunity_occupations_annual_salary_median) ||
+          $values->high_opportunity_occupations_annual_salary_median == 0
+      ) {
+        $wage = "$0.00*";
+      }
+      else {
+        $wage = "$" . number_format($values->high_opportunity_occupations_annual_salary_median,0) . "*";
+      }
+    }
     else if ($values->high_opportunity_occupations_annual_salary_median == $values->high_opportunity_occupations_wage_rate_median) {
       $wage = "$" . number_format($values->high_opportunity_occupations_annual_salary_median,0) . "*";
     }
     else {
-      $wage = "$" . number_format($values->high_opportunity_occupations_wage_rate_median,2);  
+      $wage = "$" . number_format($values->high_opportunity_occupations_wage_rate_median,2);
     }
     return $wage;
 
