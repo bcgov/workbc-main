@@ -206,7 +206,6 @@ app-root .account-contain app-account-dashboard .card .btn{margin:0px;}
 /***** Search Form ends *******/
 
 
-
 .job-item .icon,
 .job-details .icon {
   width: 12px;
@@ -219,4 +218,12 @@ app-root .account-contain app-account-dashboard .card .btn{margin:0px;}
 
 .map-view .icon {
   width: 22.5px;
+}
+
+#PostingLanguage .form-check-label {
+  padding-left: 25px;
+}
+
+.tooltip-icon .icon {
+  width: 20px;
 }
