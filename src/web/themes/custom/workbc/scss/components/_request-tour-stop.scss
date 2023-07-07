@@ -1,0 +1,63 @@
+
+/***** Webform request-tour-stop starts *******/
+.form-type-webform-terms-of-service .form-checkbox{display:none;}
+div.ui-dialog[aria-describedby="webform-terms-of-service-terms_of_service--description"] {
+  max-width: 500px;
+}
+div.ui-dialog[aria-describedby="webform-terms-of-service-terms_of_service--description"] .ui-dialog-titlebar {
+  background: #fff;
+  color: #234075;
+  font-size: 1.0625rem;
+  padding-bottom: 0px;
+  border:0px;
+  padding-top:15px;
+}
+div.ui-dialog[aria-describedby="webform-terms-of-service-terms_of_service--description"] .ui-dialog-title {
+  font-size: 1.0625rem;
+  margin-bottom: 0.85em;
+}
+div.ui-dialog[aria-describedby="webform-terms-of-service-terms_of_service--description"] .webform-terms-of-service-details {
+  margin-top: 0px;
+  padding: 0px 20px;
+}
+div.ui-dialog[aria-describedby="webform-terms-of-service-terms_of_service--description"] > .webform-terms-of-service-details p {
+  font-size: 13px;
+  color: #234075;
+}
+div.ui-dialog[aria-describedby="webform-terms-of-service-terms_of_service--description"] .ui-dialog-titlebar-close{
+  height: 12px;
+  width: 12px;
+  padding:0px;
+  margin-right: 10px;
+  top: 0px !important;
+  margin-top: 11px !important;
+  opacity:0.5 !important;
+}
+/* .ui-dialog .ui-button .ui-icon {
+  background: none !important;
+} */
+.path-webform .description.form-item__description {display:inline-block;margin-left:10px;}
+.path-webform div.ui-dialog[aria-describedby="webform-terms-of-service-terms_of_service--description"]:focus, div.ui-dialog[aria-describedby="webform-terms-of-service-terms_of_service--description"] *:focus, div.ui-dialog[aria-describedby="webform-terms-of-service-terms_of_service--description"] .ui-dialog-titlebar-close:focus{box-shadow:inherit !important;border:inherit !important; margin-right: 10px; margin-top: 0px;}
+.webform-submission-request-a-tour-stop-form .form-actions{
+  margin:35px 0px;
+}
+.webform-submission-request-a-tour-stop-form .view-collection-notice.option{
+  margin-top:5px;
+}
+.webform-submission-request-a-tour-stop-form .view-collection-notice.option a{
+  display: inline-flex;
+}
+.webform-submission-request-a-tour-stop-form .view-collection-notice.option a:after {
+    content: "";
+    height: 18px;
+    width: 18px;
+    background: url(../assets/images/chevron.svg) 50% 50% no-repeat;
+    transform: translateX(5px);
+    transition: transform .1s;
+    margin-top:3px;
+}
+.webform-submission-request-a-tour-stop-form .view-collection-notice.option a:hover:after{
+  transform: translateX(8px);
+}
+/***** Webform request-tour-stop ends *******/
+

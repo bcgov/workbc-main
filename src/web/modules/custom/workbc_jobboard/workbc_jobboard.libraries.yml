@@ -1,8 +1,5 @@
 workbc-jobboard:
     version: 1.x
-    css:
-        theme:
-            css/workbc_jobboard.css: {}
             
     js:
         js/workbc_jobboard.js:
