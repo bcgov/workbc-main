@@ -28,18 +28,10 @@ class HighOpportunityOccupationCareerProfileLink extends FieldPluginBase {
    * @{inheritdoc}
    */
   public function render(ResultRow $values) {
-    static $firstTime = true;
 
-    if ($firstTime) {
-      foreach ($values as $key => $value) {
-        $display = is_string($value) ? " - Value: " . $value : "";
-        \Drupal::logger('workbc_custom')->notice("Key: " . $key . $display);
-      }
-    }
+    // we are seeing inconsistencies in the field name across local and DEV/TEST/PROD environments
+    // quick & dirty fix to handle both.
     if (isset($values->high_opportunity_occupations_noc)) {
-      if ($firstTime) {
-        \Drupal::logger('workbc_custom')->notice("NOC: [" . $values->high_opportunity_occupations_noc . "]");
-      }
       $query = \Drupal::database()->select('node__field_noc', 'n');
       $query->addField('n', 'entity_id');
       $query->condition('n.field_noc_value', $values->high_opportunity_occupations_noc);
@@ -47,24 +39,24 @@ class HighOpportunityOccupationCareerProfileLink extends FieldPluginBase {
       if(!empty($results['entity_id'])) {
         $nid = $results['entity_id'];
         $link = Url::fromUri('internal:/node/'.$nid)->toString();
-        if ($firstTime) {
-          \Drupal::logger('workbc_custom')->notice("Career Profile found - " . $link);
-        }
       } else {
         $link = "";
-        if ($firstTime) {
-          \Drupal::logger('workbc_custom')->notice("No Career Profile found");
-        }
+      }
+    }
+    elseif (isset($values->noc)) {
+      $query = \Drupal::database()->select('node__field_noc', 'n');
+      $query->addField('n', 'entity_id');
+      $query->condition('n.field_noc_value', $values->noc);
+      $results = $query->execute()->fetchAssoc();
+      if(!empty($results['entity_id'])) {
+        $nid = $results['entity_id'];
+        $link = Url::fromUri('internal:/node/'.$nid)->toString();
+      } else {
+        $link = "";
       }
     }
     else {
       $link = "";
-      if ($firstTime) {      
-        \Drupal::logger('workbc_custom')->notice("HOO NOC field has no value");      
-      }
-    }
-    if ($firstTime) {
-      $firstTime = false;
     }
     return $link;
   }
