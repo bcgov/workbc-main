@@ -29,21 +29,8 @@ class HighOpportunityOccupationCareerProfileLink extends FieldPluginBase {
    */
   public function render(ResultRow $values) {
 
-    // we are seeing inconsistencies in the field name across local and DEV/TEST/PROD environments
-    // quick & dirty fix to handle both.
-    if (isset($values->high_opportunity_occupations_noc)) {
-      $query = \Drupal::database()->select('node__field_noc', 'n');
-      $query->addField('n', 'entity_id');
-      $query->condition('n.field_noc_value', $values->high_opportunity_occupations_noc);
-      $results = $query->execute()->fetchAssoc();
-      if(!empty($results['entity_id'])) {
-        $nid = $results['entity_id'];
-        $link = Url::fromUri('internal:/node/'.$nid)->toString();
-      } else {
-        $link = "";
-      }
-    }
-    elseif (isset($values->noc)) {
+    $link = "";
+    if (isset($values->noc)) {
       $query = \Drupal::database()->select('node__field_noc', 'n');
       $query->addField('n', 'entity_id');
       $query->condition('n.field_noc_value', $values->noc);
@@ -51,16 +38,9 @@ class HighOpportunityOccupationCareerProfileLink extends FieldPluginBase {
       if(!empty($results['entity_id'])) {
         $nid = $results['entity_id'];
         $link = Url::fromUri('internal:/node/'.$nid)->toString();
-      } else {
-        $link = "";
       }
-    }
-    else {
-      $link = "";
     }
     return $link;
   }
-
-
 
 }

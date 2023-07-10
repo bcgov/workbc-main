@@ -60,27 +60,6 @@ use Symfony\Component\HttpFoundation\Request;
    ];
  }
 
-
-  /**
-  * Implements hook_views_data().
-  */
-// function workbc_custom_views_data() {
-
-//   $data = [];
-
-//   // $data['high_opportunity_occupations']['table']['base'] = [
-//   //   // Identifier (primary) field in this table for Views.
-//   //   'field' => 'high_opportunity_occupations_noc',
-//   //   // Label in the UI.
-//   //   'title' => t('SSOT: High Opportunity Occupations'),
-//   //   // Longer description in the UI. Required.
-//   //   'help' => t('SSOT: High Opportunity Occupations table.'),
-//   // ];
-
-//   return $data;
-
-// }
-
  /**
   * Implements hook_views_data_alter().
   */
@@ -110,8 +89,9 @@ use Symfony\Component\HttpFoundation\Request;
     'field' => [
       'id' => 'high_opportunity_occupations_hourly_wage',
     ],
-   ]; 
-  
+   ];
+
+   $data['high_opportunity_occupations']['table']['base']['field'] = 'noc';
  }
 
 
@@ -129,7 +109,7 @@ function workbc_custom_views_pre_render(ViewExecutable $view) {
     $datestr = ssotParseDateRange($schema, 'labour_force_survey_industry', 'yoy_employment_growth_pct');
     $view->field['industry_profile_job_growth_rate']->options['label'] = "Job Growth Rate<p class='ssot-years'>(" . $datestr . ")</p>";
     $datestr = ssotParseDateRange($schema, 'labour_force_survey_industry', 'yoy_change_employment');
-    $view->field['industry_profile_job_growth']->options['label'] = "Job Growth<p class='ssot-years'>(" . $datestr . ")</p>";    
+    $view->field['industry_profile_job_growth']->options['label'] = "Job Growth<p class='ssot-years'>(" . $datestr . ")</p>";
     $datestr = ssotParseDateRange($schema, 'labour_force_survey_industry', 'total_employment');
     $view->field['industry_profile_total_employment']->options['label'] = "Total Employment<p class='ssot-years'>(" . $datestr . ")</p>";
   }
@@ -165,7 +145,7 @@ function workbc_custom_form_alter(&$form, \Drupal\Core\Form\FormStateInterface $
     $form['#attached']['library'][] =  'workbc_custom/custom-script';
   }
 
- 
+
 }
 
 
@@ -188,7 +168,7 @@ function workbc_custom_form_views_exposed_form_alter(&$form, \Drupal\Core\Form\F
   if (isset($form['wage_rate_median'])) {
     $form['wage_rate_median']['#options']['All'] = "All";
   }
-  
+
 }
 
 
@@ -648,7 +628,7 @@ function workbc_custom_system_breadcrumb_alter(Breadcrumb &$breadcrumb, RouteMat
       $last = array_key_last($links);
       $links[] = $links[$last];
       $links[$last] = $archive;
-    
+
       // $breadcrumb->setLinks() will generate an error if the object already has links set
       // so we create a new Breadcrumb object with the links we want and clone to $breadcrumb
       $new_breadcrumb = new Breadcrumb();
