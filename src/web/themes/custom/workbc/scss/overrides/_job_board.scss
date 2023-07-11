@@ -260,6 +260,8 @@ app-filter .job-search-filters .navbar .navbar-toggler {
   margin-right: 0px;
 }
 
-app-root .account-contain .navbar {
-  // font-size: 85%;
+@media (min-width:940px) and (max-width:1199px) {
+  app-root .user-info-container {
+    flex: 0 0 30% !important;
+  }
 }
