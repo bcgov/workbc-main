@@ -128,11 +128,23 @@ body.plan-careervideo-library div.view-id-video_library{
   margin-bottom: 2.4rem;
 }
 
+@media screen and (min-width: 600px) {
+  app-thank-you .form-group .resend-register-link-btn {
+    width: 235px !important;
+  }
+}
+
 @media screen and (min-width: 768px) {
   .workbc-jobboard-save-profile .save_career_profile .form-submit{
     width: auto;
     padding-right: 28px;
     color: #2e6ab0;
+  }
+}
+
+@media screen and (min-width:940px) and (max-width:1199px) {
+  app-root .user-info-container {
+    flex: 0 0 30% !important;
   }
 }
 
@@ -233,4 +245,23 @@ mat-dialog-container .terms-logo {
 
 .tooltip-icon .icon {
   width: 20px;
+}
+
+#location_tooltip {
+  width: auto;
+}
+
+
+#jobNo {
+  display: flex;
+  flex-direction: row;
+  align-items: flex-end;
+}
+
+#jobNo img {
+  width: 22px;
+}
+
+app-filter .job-search-filters .navbar .navbar-toggler {
+  margin-right: 0px;
 }
