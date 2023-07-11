@@ -128,6 +128,12 @@ body.plan-careervideo-library div.view-id-video_library{
   margin-bottom: 2.4rem;
 }
 
+@media screen and (min-width: 600px) {
+  app-thank-you .form-group .resend-register-link-btn {
+    width: 235px !important;
+  }
+}
+
 @media screen and (min-width: 768px) {
   .workbc-jobboard-save-profile .save_career_profile .form-submit{
     width: auto;
@@ -243,4 +249,17 @@ mat-dialog-container .terms-logo {
 #jobNo {
   display: flex;
   flex-direction: row;
+  align-items: flex-end;
+}
+
+#jobNo img {
+  width: 22px;
+}
+
+app-filter .job-search-filters .navbar .navbar-toggler {
+  margin-right: 0px;
+}
+
+app-root .account-contain .navbar {
+  // font-size: 85%;
 }
