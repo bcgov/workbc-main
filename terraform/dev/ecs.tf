@@ -316,7 +316,7 @@ resource "aws_ecs_task_definition" "app" {
 	{
 		essential   = false
 		name        = "pdf"
-		image       = "${var.app_repo}/pdf:0.5"
+		image       = "${var.app_repo}/pdf:0.6"
 		networkMode = "awsvpc"
 
 		logConfiguration = {
