@@ -61,11 +61,11 @@ class IndustryEmploymentTypesIndustry extends ExtraFieldDisplayFormattedBase {
       $employmentTemporary = WORKBC_EXTRA_FIELDS_NOT_AVAILABLE;
     }
 
-    $content = '<table>';
-    $content .= '<tr><td>Full Time</td><td>' . $employmentFullTime . '</td></tr>';
-    $content .= '<tr><td>Part Time</td><td>' . $employmentPartTime . '</td></tr>';
-    $content .= '<tr><td>Self-employed</td><td>' . $employmentSelfEmployed . '</td></tr>';
-    $content .= '<tr><td>Temporary Jobs</td><td>' . $employmentTemporary . '</td></tr>';
+    $content = '<table class="industry-profile-table">';
+    $content .= '<tr><td>Full Time</td><td class="industry-profile-table-value">' . $employmentFullTime . '</td></tr>';
+    $content .= '<tr><td>Part Time</td><td class="industry-profile-table-value">' . $employmentPartTime . '</td></tr>';
+    $content .= '<tr><td>Self-employed</td><td class="industry-profile-table-value">' . $employmentSelfEmployed . '</td></tr>';
+    $content .= '<tr><td>Temporary Jobs</td><td class="industry-profile-table-value">' . $employmentTemporary . '</td></tr>';
     $content .= '</table>';
 
     $output = $content;

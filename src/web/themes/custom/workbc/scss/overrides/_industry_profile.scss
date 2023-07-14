@@ -1,0 +1,17 @@
+
+.industry-profile-table tr {
+  &:nth-child(2n) td {
+    background-color: $workbc_palette_light_primary;
+  }
+}
+
+.industry-profile-table td {
+  &:not(:last-of-type) {
+    border-right: none;
+  }
+}
+
+.industry-profile-table-value {
+  font-weight: bold;
+  color: $workbc_palette_dark_tertiary;
+}
