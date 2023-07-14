@@ -35,7 +35,7 @@ class HighOpportunityOccupationHourlyWage extends FieldPluginBase {
       if (!isset($values->high_opportunity_occupations_annual_salary_median) ||
           $values->high_opportunity_occupations_annual_salary_median == 0
       ) {
-        $wage = "$0.00*";
+        $wage = WORKBC_EXTRA_FIELDS_NOT_AVAILABLE;
       }
       else {
         $wage = "$" . number_format($values->high_opportunity_occupations_annual_salary_median,0) . "*";
