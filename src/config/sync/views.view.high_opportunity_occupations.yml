@@ -12,7 +12,7 @@ module: views
 description: ''
 tag: ''
 base_table: high_opportunity_occupations
-base_field: wage_rate_low
+base_field: noc
 display:
   default:
     id: default
@@ -582,21 +582,21 @@ display:
             default_group_multiple: {  }
             group_items:
               1:
-                title: Diploma/Certificate
-                operator: '='
-                value: Diploma/Certificate
-              2:
                 title: Degree
                 operator: '='
                 value: Degree
-              3:
-                title: 'High School'
+              2:
+                title: Diploma/Certificate
                 operator: '='
-                value: 'High School'
-              4:
+                value: Diploma/Certificate
+              3:
                 title: 'Apprenticeship Certificate'
                 operator: '='
                 value: 'Apprenticeship Certificate'
+              4:
+                title: 'High School'
+                operator: '='
+                value: 'High School'
         region:
           id: region
           table: high_opportunity_occupations
@@ -649,25 +649,25 @@ display:
                 operator: '='
                 value: kootenay
               4:
-                title: Northeast
-                operator: '='
-                value: northeast
-              5:
                 title: Mainland/Southwest
                 operator: '='
                 value: mainland_southwest
-              6:
-                title: Thompson-Okanagan
-                operator: '='
-                value: thompson_okanagan
-              7:
-                title: 'Vancouver Island/Coast'
-                operator: '='
-                value: vancouver_island_coast
-              8:
+              5:
                 title: 'North Coast and Nechako'
                 operator: '='
                 value: north_coast_nechako
+              6:
+                title: Northeast
+                operator: '='
+                value: northeast
+              7:
+                title: Thompson-Okanagan
+                operator: '='
+                value: thompson_okanagan
+              8:
+                title: 'Vancouver Island/Coast'
+                operator: '='
+                value: vancouver_island_coast
               9:
                 title: ''
                 operator: '='
