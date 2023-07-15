@@ -539,14 +539,18 @@
           <div class="tab-pane" id="resources-content" role="tabpanel" aria-labelledby="resources-tab">
             <h2 class="profile-content-main__header">{{ viewmodel['tab_sections']['resources']['title'] }}</h2>
 
-            <ul class="resource-link-list">
-              {% for resource in viewmodel['tab_sections']['resources']['resource_list'] %}
-                <li class="resource-link">
-                  <div class="resource-link__title">{{ resource.title }}</div>
-                  <a class="resource-link__href" target="_blank" href="{{ resource.uri }}">{{ resource.uri }}</a>
-                </li>
-              {% endfor %}
-            </ul>
+            {% if resources_links %}
+              <ul class="resource-link-list">
+                {% for resource in viewmodel['tab_sections']['resources']['resource_list'] %}
+                  <li class="resource-link">
+                    <div class="resource-link__title">{{ resource.title }}</div>
+                    <a class="resource-link__href" target="_blank" href="{{ resource.uri }}">{{ resource.uri }}</a>
+                  </li>
+                {% endfor %}
+              </ul>
+            {% else %}
+              <p>Resource information is currently not available.</p>
+            {% endif %}
           </div>
 
         </div>
