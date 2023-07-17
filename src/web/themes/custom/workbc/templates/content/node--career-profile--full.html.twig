@@ -168,8 +168,8 @@
       title: content.group_career_profile_tabs.group_labour_market_statistics.extra_field_labour_market_statistics_i['#title'] ?? 'Labour Market Statistics',
       description: content.group_career_profile_tabs.group_labour_market_statistics.extra_field_labour_market_statistics_i.0['#text'],
 
-      employment_title: content.group_career_profile_tabs.group_labour_market_statistics.extra_field_employment_introduction['#title'],
-      employment_introduction: content.group_career_profile_tabs.group_labour_market_statistics.extra_field_employment_introduction.0['#text'],
+      employment_title: content.group_career_profile_tabs.group_labour_market_statistics.extra_field_career_employment_introduction['#title'] ?? "Employment",
+      employment_introduction: content.group_career_profile_tabs.group_labour_market_statistics.extra_field_career_employment_introduction.0['#text'],
 
       employment_number_title: content.group_career_profile_tabs.group_labour_market_statistics.extra_field_labour_market_number_employed['#title'],
       employment_number_markup: content.group_career_profile_tabs.group_labour_market_statistics.extra_field_labour_market_number_employed.0['#markup'],
@@ -441,7 +441,7 @@
             <div>{{ viewmodel['tab_sections']['labour_market']['description']|raw }}</div>
 
 
-            <h2>{{ viewmodel['tab_sections']['labour_market']['employment_title'] }}</h2>
+            <h2 class="profile-content-section__header">{{ viewmodel['tab_sections']['labour_market']['employment_title'] }}</h2>
             <div>{{ viewmodel['tab_sections']['labour_market']['employment_introduction']|raw }}</div>
 
             <div class="card-profile">

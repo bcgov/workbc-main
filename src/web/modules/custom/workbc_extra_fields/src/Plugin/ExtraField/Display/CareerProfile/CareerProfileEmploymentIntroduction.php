@@ -10,7 +10,7 @@ use Drupal\extra_field\Plugin\ExtraFieldDisplayFormattedBase;
  * Example Extra field with formatted output.
  *
  * @ExtraFieldDisplay(
- *   id = "employment_introduction",
+ *   id = "career_employment_introduction",
  *   label = @Translation("Employment Introduction"),
  *   description = @Translation("An extra field to display the Employment introductory blurb."),
  *   bundles = {
@@ -18,6 +18,7 @@ use Drupal\extra_field\Plugin\ExtraFieldDisplayFormattedBase;
  *   }
  * )
  */
+
 class CareerProfileEmploymentIntroduction extends ExtraFieldDisplayFormattedBase {
 
   use StringTranslationTrait;
@@ -26,8 +27,7 @@ class CareerProfileEmploymentIntroduction extends ExtraFieldDisplayFormattedBase
    * {@inheritdoc}
    */
   public function getLabel() {
-
-    return $this->t('Employment Introduction');
+    return $this->t('Employment');
   }
 
   /**
@@ -41,7 +41,7 @@ class CareerProfileEmploymentIntroduction extends ExtraFieldDisplayFormattedBase
   /**
    * {@inheritdoc}
    */
-  public function viewElements(ContentEntityInterface $entity) {
+  public function viewElements(ContentEntityInterface $entity) { 
     $introductions = $entity->get('field_introductions')?->referencedEntities();
     return empty($introductions) ? NULL : $introductions[0]->get('field_employment_introduction')?->view();
   }
