@@ -312,7 +312,7 @@ resource "aws_ecs_task_definition" "app" {
 				condition = "COMPLETE"
 			}
 		]
-	},
+	}/*,
 	{
 		essential   = false
 		name        = "pdf"
@@ -362,7 +362,7 @@ resource "aws_ecs_task_definition" "app" {
 		]
 		volumesFrom = []
 
-	}
+	}*/
   ])
 }
 
