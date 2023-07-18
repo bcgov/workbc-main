@@ -47,6 +47,7 @@ class BCEmploymentByRegionTable extends ExtraFieldDisplayFormattedBase {
       $datestr = ssotParseDateRange($this->getEntity()->ssot_data['schema'], 'regional_top_industries', 'openings');
 
       $bc = $entity->ssot_data['labour_force_survey_bc_employment'];
+      
       $regions = $entity->ssot_data['labour_force_survey_regions_employment'];
       usort($regions, function($a, $b) {
         return $a['region'] <=> $b['region'];
