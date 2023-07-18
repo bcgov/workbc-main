@@ -27,7 +27,7 @@ class IndustryAverageWage extends ExtraFieldDisplayFormattedBase {
    */
   public function getLabel() {
     $datestr = ssotParseDateRange($this->getEntity()->ssot_data['schema'], 'labour_force_survey_industry', 'earnings_men');
-    return $this->t("Industry Average Wage (" . $datestr . ")");
+    return $this->t("Industry Average Hourly Earnings (" . $datestr . ")");
   }
 
   /**
