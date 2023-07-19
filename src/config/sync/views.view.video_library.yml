@@ -481,7 +481,7 @@ display:
           entity_type: media
           entity_field: name
           plugin_id: standard
-          order: DESC
+          order: ASC
           expose:
             label: ''
             field_identifier: ''
