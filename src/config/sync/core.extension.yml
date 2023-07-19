@@ -84,6 +84,7 @@ module:
   media: 0
   media_entity_dlcke: 0
   media_entity_download: 0
+  media_file_delete: 0
   media_library: 0
   media_library_edit: 0
   menu_breadcrumb: 0
