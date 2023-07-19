@@ -1,0 +1,12 @@
+
+.bc-profile-employment-region-footer {
+  font-weight: bold;
+  background-color: $workbc_palette_dark_tertiary;
+  color: $workbc_dark_theme_text;
+}
+
+.bc-profile-employment-region-footer td {
+  &:not(:last-of-type) {
+    border-right: none;
+  }
+}
