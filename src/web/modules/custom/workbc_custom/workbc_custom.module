@@ -145,6 +145,9 @@ function workbc_custom_form_alter(&$form, \Drupal\Core\Form\FormStateInterface $
     $form['#attached']['library'][] =  'workbc_custom/custom-script';
   }
 
+  if ($form_id == 'media_delete_multiple_confirm_form') {
+    $form['also_delete_file']['#default_value'] = TRUE;
+  }
 
 }
 
