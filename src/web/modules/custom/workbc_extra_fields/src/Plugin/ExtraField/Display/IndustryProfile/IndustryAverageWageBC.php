@@ -27,7 +27,7 @@ class IndustryAverageWageBC extends ExtraFieldDisplayFormattedBase {
    */
   public function getLabel() {
     $datestr = ssotParseDateRange($this->getEntity()->ssot_data['schema'], 'labour_force_survey_industry', 'earnings_men_average');
-    return $this->t("BC Average Wage (" . $datestr . ")");
+    return $this->t("B.C. Average Hourly Earnings (" . $datestr . ")");
   }
 
   /**
