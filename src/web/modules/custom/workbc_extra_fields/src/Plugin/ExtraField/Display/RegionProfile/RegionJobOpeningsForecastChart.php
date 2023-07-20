@@ -45,9 +45,9 @@ class RegionJobOpeningsForecastChart extends ExtraFieldDisplayFormattedBase {
 
     if (!empty($entity->ssot_data) && isset($entity->ssot_data['regional_labour_market_outlook'])) {
       $data = array();
-      $data[] = floatval($entity->ssot_data['regional_labour_market_outlook']['job_openings_first']);
-      $data[] = floatval($entity->ssot_data['regional_labour_market_outlook']['job_openings_second']);
-      $data[] = floatval($entity->ssot_data['regional_labour_market_outlook']['job_openings_third']);
+      $data[] = round(floatval($entity->ssot_data['regional_labour_market_outlook']['job_openings_first']));
+      $data[] = round(floatval($entity->ssot_data['regional_labour_market_outlook']['job_openings_second']));
+      $data[] = round(floatval($entity->ssot_data['regional_labour_market_outlook']['job_openings_third']));
 
       $date1 = ssotParseDateRange($entity->ssot_data['schema'], 'regional_labour_market_outlook', 'job_openings_first');
       $date2 = ssotParseDateRange($entity->ssot_data['schema'], 'regional_labour_market_outlook', 'job_openings_second');
