@@ -9,6 +9,7 @@ dependencies:
     - field.field.node.success_story.field_image
     - field.field.node.success_story.field_image_media
     - field.field.node.success_story.field_related_topics_blurb
+    - field.field.node.success_story.field_related_topics_image
     - field.field.node.success_story.field_scheduled_publish
     - field.field.node.success_story.field_subtitle
     - field.field.node.success_story.field_tags
@@ -17,7 +18,6 @@ dependencies:
   module:
     - content_moderation
     - media_library
-    - media_library_edit
     - path
     - scheduled_publish
     - text
@@ -45,7 +45,7 @@ content:
     third_party_settings: {  }
   field_call_to_action:
     type: string_textfield
-    weight: 17
+    weight: 18
     region: content
     settings:
       size: 60
@@ -75,9 +75,17 @@ content:
       rows: 5
       placeholder: ''
     third_party_settings: {  }
+  field_related_topics_image:
+    type: media_library_widget
+    weight: 17
+    region: content
+    settings:
+      media_types: {  }
+      form_mode: media_library
+    third_party_settings: {  }
   field_scheduled_publish:
     type: scheduled_publish
-    weight: 18
+    weight: 19
     region: content
     settings: {  }
     third_party_settings: {  }

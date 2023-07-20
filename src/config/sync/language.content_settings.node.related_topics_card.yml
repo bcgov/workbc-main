@@ -1,0 +1,11 @@
+uuid: d16c6781-c7e2-437e-9936-697069a65c63
+langcode: en
+status: true
+dependencies:
+  config:
+    - node.type.related_topics_card
+id: node.related_topics_card
+target_entity_type_id: node
+target_bundle: related_topics_card
+default_langcode: site_default
+language_alterable: false
