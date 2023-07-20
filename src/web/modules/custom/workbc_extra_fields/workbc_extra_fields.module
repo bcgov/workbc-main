@@ -373,10 +373,14 @@ function ssotIndustryName($machine_name) {
   return isset($industries[$machine_name]) ? $industries[$machine_name] : "";
 }
 
-function ssotFormatNA($number, $decimals = 0, $suffix = "") {
+function ssotFormatNA($number, $decimals = 0, $suffix = "", $no_negative = FALSE) {
 
   if ($number===0||$number) {
-    $result = ssotFormatNumber(floatval($number), $decimals) . $suffix;
+    $value = floatval($number);
+    if ($no_negative) {
+      $value = $value < 0 ? 0 : $value;
+    }
+    $result = ssotFormatNumber($value, $decimals) . $suffix;
   }
   else {
     $result = WORKBC_EXTRA_FIELDS_NOT_AVAILABLE;
