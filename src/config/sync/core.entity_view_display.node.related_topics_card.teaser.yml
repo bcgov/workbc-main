@@ -1,0 +1,32 @@
+uuid: 2c6d3070-d90b-4fee-a4bb-2a1b75e298f6
+langcode: en
+status: true
+dependencies:
+  config:
+    - core.entity_view_mode.node.teaser
+    - field.field.node.related_topics_card.field_external_link
+    - field.field.node.related_topics_card.field_ia_location
+    - field.field.node.related_topics_card.field_related_topics_blurb
+    - field.field.node.related_topics_card.field_related_topics_image
+    - node.type.related_topics_card
+  module:
+    - user
+id: node.related_topics_card.teaser
+targetEntityType: node
+bundle: related_topics_card
+mode: teaser
+content:
+  links:
+    settings: {  }
+    third_party_settings: {  }
+    weight: 100
+    region: content
+hidden:
+  extra_field_workbc_page_title: true
+  extra_field_workbc_published_on: true
+  field_external_link: true
+  field_ia_location: true
+  field_related_topics_blurb: true
+  field_related_topics_image: true
+  langcode: true
+  search_api_excerpt: true

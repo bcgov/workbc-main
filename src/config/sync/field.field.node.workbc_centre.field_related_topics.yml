@@ -14,6 +14,7 @@ dependencies:
     - node.type.page
     - node.type.publication
     - node.type.region_profile
+    - node.type.related_topics_card
     - node.type.success_story
     - node.type.workbc_centre
 id: node.workbc_centre.field_related_topics
@@ -31,15 +32,16 @@ settings:
   handler_settings:
     target_bundles:
       bc_profile: bc_profile
-      page: page
       blog: blog
       career_profile: career_profile
       event: event
       industry_profile: industry_profile
       labour_market_monthly: labour_market_monthly
       news: news
+      page: page
       publication: publication
       region_profile: region_profile
+      related_topics_card: related_topics_card
       success_story: success_story
       workbc_centre: workbc_centre
     sort:

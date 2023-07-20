@@ -10,6 +10,7 @@ dependencies:
     - field.field.node.blog.field_image_media
     - field.field.node.blog.field_published_date
     - field.field.node.blog.field_related_topics_blurb
+    - field.field.node.blog.field_related_topics_image
     - field.field.node.blog.field_scheduled_publish
     - field.field.node.blog.field_tags
     - node.type.blog
@@ -77,6 +78,14 @@ content:
     settings: {  }
     third_party_settings: {  }
     weight: 6
+    region: content
+  field_related_topics_image:
+    type: entity_reference_label
+    label: above
+    settings:
+      link: true
+    third_party_settings: {  }
+    weight: 10
     region: content
   field_scheduled_publish:
     type: scheduled_publish_generic_formatter

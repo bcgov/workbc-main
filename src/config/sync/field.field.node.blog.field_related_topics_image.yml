@@ -1,0 +1,29 @@
+uuid: 2b5a87f2-46ec-4051-b90a-109dbbc59340
+langcode: en
+status: true
+dependencies:
+  config:
+    - field.storage.node.field_related_topics_image
+    - media.type.image
+    - node.type.blog
+id: node.blog.field_related_topics_image
+field_name: field_related_topics_image
+entity_type: node
+bundle: blog
+label: 'Related Topics Image'
+description: ''
+required: false
+translatable: true
+default_value: {  }
+default_value_callback: ''
+settings:
+  handler: 'default:media'
+  handler_settings:
+    target_bundles:
+      image: image
+    sort:
+      field: _none
+      direction: ASC
+    auto_create: false
+    auto_create_bundle: ''
+field_type: entity_reference
