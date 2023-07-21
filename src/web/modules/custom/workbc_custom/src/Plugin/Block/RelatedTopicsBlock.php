@@ -102,7 +102,20 @@ class RelatedTopicsBlock extends BlockBase {
 
   private function renderImage($node) {
 
-    if ($node->hasField('field_hero_image_media') && !$node->get('field_hero_image_media')->isEmpty()) {
+    if ($node->hasField('field_related_topics_image') && !$node->get('field_related_topics_image')->isEmpty()) {
+      $media_id = $node->field_related_topics_image[0]->getValue()['target_id'];
+      $media = Media::load($media_id);
+      $imageUri = $media?->field_media_image?->entity?->getFileUri();
+      if($imageUri) {
+        $image = [
+          '#theme' => 'image_style',
+          '#style_name' => 'related_topics',
+          '#uri' => $imageUri
+        ];
+        return render($image);
+      }
+    }
+    else if ($node->hasField('field_hero_image_media') && !$node->get('field_hero_image_media')->isEmpty()) {
       $media_id = $node->field_hero_image_media[0]->getValue()['target_id'];
       $media = Media::load($media_id);
       $imageUri = $media?->field_media_image?->entity?->getFileUri();
@@ -159,31 +172,42 @@ class RelatedTopicsBlock extends BlockBase {
   }
 
   private function renderLink($node) {
-    $options = ['absolute' => TRUE];
-    $link =$url = \Drupal\Core\Url::fromRoute('entity.node.canonical', ['node' => $node->id()], $options);
-    return $link->toString();
+    if ($node->getType() == "related_topics_card") {
+      return $node->field_external_link->uri;
+    }
+    else {
+      $options = ['absolute' => TRUE];
+      $link = $url = \Drupal\Core\Url::fromRoute('entity.node.canonical', ['node' => $node->id()], $options);
+      return $link->toString();
+    }
   }
 
   private function getTopLevel($node) {
-    $menu_link_manager = \Drupal::service('plugin.manager.menu.link');
 
-    if ($node->id()) {
-      $menu_link = $menu_link_manager->loadLinksByRoute('entity.node.canonical', array('node' => $node->id()));
+    if ($node->getType() == "related_topics_card") {
+      return $node->field_ia_location->value;
     }
     else {
-      return '';
-    }
+      $menu_link_manager = \Drupal::service('plugin.manager.menu.link');
 
-    if (is_array($menu_link) && count($menu_link)) {
-      $menu_link = reset($menu_link);
-      if ($menu_link->getParent()) {
-        $parents = $menu_link_manager->getParentIds($menu_link->getParent());
-        $parents = array_reverse($parents);
-        $parent = reset($parents);
-        $title = $menu_link_manager->createInstance($parent)->getTitle();
-        return $title;
+      if ($node->id()) {
+        $menu_link = $menu_link_manager->loadLinksByRoute('entity.node.canonical', array('node' => $node->id()));
       }
+      else {
+        return '';
+      }
+      if (is_array($menu_link) && count($menu_link)) {
+        $menu_link = reset($menu_link);
+        if ($menu_link->getParent()) {
+          $parents = $menu_link_manager->getParentIds($menu_link->getParent());
+          $parents = array_reverse($parents);
+          $parent = reset($parents);
+          $title = $menu_link_manager->createInstance($parent)->getTitle();
+          return $title;
+        }
+      }
+      return $node->getTitle();
     }
-    return $node->getTitle();
   }
+
 }

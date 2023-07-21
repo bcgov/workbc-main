@@ -1,0 +1,65 @@
+uuid: 82bf7fb6-7d38-4b8e-a437-01a93d56b8c0
+langcode: en
+status: true
+dependencies:
+  config:
+    - field.field.node.related_topics_card.field_external_link
+    - field.field.node.related_topics_card.field_ia_location
+    - field.field.node.related_topics_card.field_related_topics_blurb
+    - field.field.node.related_topics_card.field_related_topics_image
+    - node.type.related_topics_card
+  module:
+    - link
+    - text
+    - user
+id: node.related_topics_card.default
+targetEntityType: node
+bundle: related_topics_card
+mode: default
+content:
+  field_external_link:
+    type: link
+    label: above
+    settings:
+      trim_length: 80
+      url_only: false
+      url_plain: false
+      rel: ''
+      target: ''
+    third_party_settings: {  }
+    weight: 102
+    region: content
+  field_ia_location:
+    type: string
+    label: above
+    settings:
+      link_to_entity: false
+    third_party_settings: {  }
+    weight: 105
+    region: content
+  field_related_topics_blurb:
+    type: text_default
+    label: above
+    settings: {  }
+    third_party_settings: {  }
+    weight: 103
+    region: content
+  field_related_topics_image:
+    type: entity_reference_entity_view
+    label: above
+    settings:
+      view_mode: action_card_1_4
+      link: false
+    third_party_settings: {  }
+    weight: 104
+    region: content
+  links:
+    settings: {  }
+    third_party_settings: {  }
+    weight: 100
+    region: content
+hidden:
+  extra_field_workbc_page_title: true
+  extra_field_workbc_published_on: true
+  langcode: true
+  search_api_excerpt: true

@@ -10,6 +10,7 @@ dependencies:
     - field.field.node.blog.field_image_media
     - field.field.node.blog.field_published_date
     - field.field.node.blog.field_related_topics_blurb
+    - field.field.node.blog.field_related_topics_image
     - field.field.node.blog.field_scheduled_publish
     - field.field.node.blog.field_tags
     - node.type.blog
@@ -18,7 +19,6 @@ dependencies:
     - content_moderation
     - datetime
     - media_library
-    - media_library_edit
     - path
     - scheduled_publish
     - text
@@ -46,7 +46,7 @@ content:
     third_party_settings: {  }
   field_call_to_action:
     type: string_textfield
-    weight: 16
+    weight: 17
     region: content
     settings:
       size: 60
@@ -70,7 +70,7 @@ content:
         show_edit: '1'
   field_published_date:
     type: datetime_default
-    weight: 17
+    weight: 18
     region: content
     settings: {  }
     third_party_settings: {  }
@@ -82,9 +82,17 @@ content:
       rows: 5
       placeholder: ''
     third_party_settings: {  }
+  field_related_topics_image:
+    type: media_library_widget
+    weight: 16
+    region: content
+    settings:
+      media_types: {  }
+      form_mode: media_library
+    third_party_settings: {  }
   field_scheduled_publish:
     type: scheduled_publish
-    weight: 18
+    weight: 19
     region: content
     settings: {  }
     third_party_settings: {  }

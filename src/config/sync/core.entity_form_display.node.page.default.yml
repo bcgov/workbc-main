@@ -14,6 +14,7 @@ dependencies:
     - field.field.node.page.field_page_format
     - field.field.node.page.field_related_topics
     - field.field.node.page.field_related_topics_blurb
+    - field.field.node.page.field_related_topics_image
     - field.field.node.page.field_scheduled_publish
     - field.field.node.page.view_mode_selection
     - node.type.page
@@ -22,7 +23,6 @@ dependencies:
     - content_moderation
     - link
     - media_library
-    - media_library_edit
     - paragraphs
     - path
     - scheduled_publish
@@ -131,6 +131,14 @@ content:
     settings:
       rows: 5
       placeholder: ''
+    third_party_settings: {  }
+  field_related_topics_image:
+    type: media_library_widget
+    weight: 16
+    region: content
+    settings:
+      media_types: {  }
+      form_mode: media_library
     third_party_settings: {  }
   field_scheduled_publish:
     type: scheduled_publish
