@@ -186,6 +186,23 @@ function workbc_preprocess_node(&$variables) {
     $variables['resources_links'] = $links;
   }
 
+
+  if ($variables['node']->bundle() === "career_profile") {
+    $careers = $variables['node']->get("field_related_careers")->referencedEntities();
+    $links = [];
+    foreach ($careers as $career) {
+      $link = [];
+      $link['title'] = $career->getTitle();
+      $link['noc'] = $career->get('field_noc')->value;
+      $options = ['absolute' => TRUE];
+      $url = \Drupal\Core\Url::fromRoute('entity.node.canonical', ['node' => $career->id()], $options);
+      $link['uri'] = $url->toString();
+      $links[] = $link;
+    }
+    $variables['related_career_links'] = $links;
+  }
+
+
   $current_path = \Drupal::service('path.current')->getPath();
   $internal = \Drupal::service('path_alias.manager')->getAliasByPath($current_path);
   $variables['is_front'] = $internal == \Drupal::configFactory()->get('system.site')->get('page.front');
