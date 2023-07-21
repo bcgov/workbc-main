@@ -62,6 +62,7 @@ class IndustryTopTenOccupations extends ExtraFieldDisplayFormattedBase {
         $content .= "<td>" . ssotFormatNumber($job['openings'],0) . "</td>";
       }
       $content .= "</table>";
+      $content .= "<a class='btn-primary industry-profile-hoo-link' href='/research-labour-market/high-opportunity-occupations'>View all high opportunity occupations</a>";
       $output = $content;
     }
     else {
