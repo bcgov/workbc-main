@@ -252,3 +252,21 @@ function workbc_preprocess_form_element(&$variables) {
   }
 
 }
+
+
+/**
+ * Implements hook_preprocess_block().
+ */
+function workbc_preprocess_block(&$vars) {
+  if ($vars['plugin_id'] === 'side_nav_block') {
+    $vars['on_this_page'] = "On this page";
+    $node = \Drupal::routeMatch()->getParameter('node');
+    if ($node instanceof \Drupal\node\NodeInterface) {
+      if ($node->hasField('field_language')) {
+        if ($node->get('field_language')->value == "french") {
+          $vars['on_this_page'] = "Sur cette page";
+        }
+      }
+    }
+  }
+}
