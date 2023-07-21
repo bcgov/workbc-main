@@ -9,6 +9,7 @@ dependencies:
     - field.field.node.page.field_hero_image
     - field.field.node.page.field_hero_image_media
     - field.field.node.page.field_hero_text
+    - field.field.node.page.field_language
     - field.field.node.page.field_multilingual_centre
     - field.field.node.page.field_page_format
     - field.field.node.page.field_related_topics
@@ -93,9 +94,15 @@ content:
       rows: 5
       placeholder: ''
     third_party_settings: {  }
+  field_language:
+    type: options_select
+    weight: 17
+    region: content
+    settings: {  }
+    third_party_settings: {  }
   field_multilingual_centre:
     type: link_default
-    weight: 17
+    weight: 18
     region: content
     settings:
       placeholder_url: ''
@@ -135,7 +142,7 @@ content:
     third_party_settings: {  }
   field_scheduled_publish:
     type: scheduled_publish
-    weight: 18
+    weight: 19
     region: content
     settings: {  }
     third_party_settings: {  }
@@ -185,7 +192,7 @@ content:
     settings: {  }
     third_party_settings: {  }
   url_redirects:
-    weight: 19
+    weight: 20
     region: content
     settings: {  }
     third_party_settings: {  }
