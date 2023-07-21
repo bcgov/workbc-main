@@ -342,9 +342,12 @@ function workbc_custom_form_config_admin_import_form_alter(&$form, FormStateInte
  * Capture a Find Jobs redirect and add the noc argument if searchNOC is present.
  */
 function workbc_custom_redirect_response_alter(TrustedRedirectResponse $response, Redirect $redirect, Request $request) {
-  if (!empty($request->query) && $request->query->has('searchNOC')) {
-    $noc = $request->query->get('searchNOC');
-    $response->setTargetUrl($response->getTargetUrl() . "#/job-search;noc=$noc;");
+  if (!empty($request->query)) {
+    $params = array_change_key_case($request->query->all(), CASE_LOWER);
+    if (array_key_exists('searchnoc', $params)) {
+      $noc = $params['searchnoc'];
+      $response->setTargetUrl($response->getTargetUrl() . "#/job-search;noc=$noc;");
+    }
   }
 }
 

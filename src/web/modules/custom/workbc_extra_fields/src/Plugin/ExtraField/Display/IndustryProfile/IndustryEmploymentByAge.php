@@ -27,7 +27,7 @@ class IndustryEmploymentByAge extends ExtraFieldDisplayFormattedBase {
    */
   public function getLabel() {
 
-    return $this->t('Employment by Age');
+    return $this->t('Employment by Age Group');
   }
 
   /**
@@ -49,17 +49,17 @@ class IndustryEmploymentByAge extends ExtraFieldDisplayFormattedBase {
       $value -= $entity->ssot_data['labour_force_survey_industry']['workforce_employment_under_25_pct_average'];
       $value -= $entity->ssot_data['labour_force_survey_industry']['workforce_employment_over_55_pct_average'];
 
-      $bcAvgUnder25 = ssotFormatNumber($entity->ssot_data['labour_force_survey_industry']['workforce_employment_under_25_pct_average'],0) . '%';
-      $bcAvg25thru55 = ssotFormatNumber($value,0) . "%";
-      $bcAvgOver55 = ssotFormatNumber($entity->ssot_data['labour_force_survey_industry']['workforce_employment_over_55_pct_average'],0) . '%';
+      $bcAvgUnder25 = ssotFormatNumber($entity->ssot_data['labour_force_survey_industry']['workforce_employment_under_25_pct_average'],1) . '%';
+      $bcAvg25thru55 = ssotFormatNumber($value,1) . "%";
+      $bcAvgOver55 = ssotFormatNumber($entity->ssot_data['labour_force_survey_industry']['workforce_employment_over_55_pct_average'],1) . '%';
 
       $value = 100;
       $value -= $entity->ssot_data['labour_force_survey_industry']['workforce_employment_under_25_pct'];
       $value -= $entity->ssot_data['labour_force_survey_industry']['workforce_employment_over_55_pct'];
 
-      $industryAvgUnder25 = ssotFormatNumber($entity->ssot_data['labour_force_survey_industry']['workforce_employment_under_25_pct'],0) . '%';
-      $industryAvg25thru55 = ssotFormatNumber($value,0) . "%";
-      $industryAvgOver55 = ssotFormatNumber($entity->ssot_data['labour_force_survey_industry']['workforce_employment_over_55_pct'],0) . '%';
+      $industryAvgUnder25 = ssotFormatNumber($entity->ssot_data['labour_force_survey_industry']['workforce_employment_under_25_pct'],1) . '%';
+      $industryAvg25thru55 = ssotFormatNumber($value,1) . "%";
+      $industryAvgOver55 = ssotFormatNumber($entity->ssot_data['labour_force_survey_industry']['workforce_employment_over_55_pct'],1) . '%';
     }
     else {
       $bcAvgUnder25 = WORKBC_EXTRA_FIELDS_NOT_AVAILABLE;;
