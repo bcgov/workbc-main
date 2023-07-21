@@ -265,3 +265,7 @@ mat-dialog-container .terms-logo {
 app-filter .job-search-filters .navbar .navbar-toggler {
   margin-right: 0px;
 }
+
+app-filter .job-search-filters .navbar .navbar-nav .nav-item > .dropdown-menu {
+  z-index: 1;
+}

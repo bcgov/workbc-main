@@ -144,7 +144,7 @@
       career_pathways_description: content.group_career_profile_tabs.group_career_overview.field_career_pathways.0['#text'],
 
       related_careers_title: content.group_career_profile_tabs.group_career_overview.field_related_careers['#title'],
-      related_careers_list: content.group_career_profile_tabs.group_career_overview.field_related_careers,
+      related_careers_list: related_career_links,
 
       occupational_interests_title: content.group_career_profile_tabs.group_career_overview.extra_field_occupational_interests_int['#title'],
       occupational_interests_intro: content.group_career_profile_tabs.group_career_overview.extra_field_occupational_interests_int.0['#text'],
@@ -369,7 +369,14 @@
 
             <div class="profile-content-section">
               <h2 class="profile-content-section__header">{{ viewmodel['tab_sections']['career_overview']['related_careers_title'] }}</h2>
-              {{ viewmodel['tab_sections']['career_overview']['related_careers_list'] }}
+            
+                {% for career in viewmodel['tab_sections']['career_overview']['related_careers_list'] %}
+                  <div class="related-careers-link">
+                    <a href="{{ career.uri }}"><span class="related-careers-link-title">{{ career.title }}</span> (NOC {{career.noc }})</a>
+                  </div>
+                {% endfor %}
+              </ul>
+                            
             </div>
 
             <div class="profile-content-section">

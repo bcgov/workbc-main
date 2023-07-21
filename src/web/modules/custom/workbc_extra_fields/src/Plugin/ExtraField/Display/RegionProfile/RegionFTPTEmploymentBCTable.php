@@ -57,9 +57,9 @@ class RegionFTPTEmploymentBCTable extends ExtraFieldDisplayFormattedBase {
         $fulltime = WORKBC_EXTRA_FIELDS_NOT_AVAILABLE;
       }
 
-      $content = "<table>";
-      $content .= "<tr><td>Full-time employment</td><td>" . $fulltime . "</td></tr>";
-      $content .= "<tr><td>Part-time employment</td><td>" . $parttime . "</td></tr>";
+      $content = "<table class='region-profile-table'>";
+      $content .= "<tr><td>Full-time employment (average):</td><td class='region-profile-table-value'>" . $fulltime . "</td></tr>";
+      $content .= "<tr><td>Part-time employment (average):</td><td class='region-profile-table-value'>" . $parttime . "</td></tr>";
       $content .= "</table>";
       $output = $content;
     }
