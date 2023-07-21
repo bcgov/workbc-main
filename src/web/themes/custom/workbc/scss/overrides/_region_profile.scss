@@ -1,3 +1,26 @@
+.region-profile-table {
+  margin: 50px;
+  width: auto;
+}
+
+.region-profile-table tr {
+  &:nth-child(2n) td {
+    background-color: $workbc_palette_light_primary;
+  }
+}
+
+.region-profile-table td {
+  padding: 3px;
+  &:not(:last-of-type) {
+    border-right: none;
+  }
+}
+
+.region-profile-table-value {
+  font-weight: bold;
+  color: #009CDE;
+}
+
 
 .bc-profile-employment-region-footer {
   font-weight: bold;
