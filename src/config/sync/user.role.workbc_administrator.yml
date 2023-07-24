@@ -23,6 +23,7 @@ dependencies:
   module:
     - field_permissions
     - filter
+    - media_file_delete
     - node
     - override_node_options
     - path
@@ -41,6 +42,7 @@ permissions:
   - 'access toolbar'
   - 'access user profiles'
   - 'administer content types'
+  - 'administer media file delete'
   - 'administer nodes'
   - 'administer url aliases'
   - 'administer users'
