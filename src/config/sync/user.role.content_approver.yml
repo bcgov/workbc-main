@@ -25,6 +25,7 @@ dependencies:
     - content_moderation
     - field_permissions
     - file
+    - media_file_delete
     - node
     - scheduled_publish
     - sitewide_alert
@@ -42,6 +43,7 @@ permissions:
   - 'access scheduled publish pages'
   - 'access toolbar'
   - 'administer content types'
+  - 'administer media file delete'
   - 'administer nodes'
   - 'bypass node access'
   - 'create bc_profile content'

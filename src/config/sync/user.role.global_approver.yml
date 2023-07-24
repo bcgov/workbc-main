@@ -31,6 +31,7 @@ dependencies:
     - field_permissions
     - file
     - media
+    - media_file_delete
     - node
     - redirect
     - scheduled_publish
@@ -50,6 +51,7 @@ permissions:
   - 'access scheduled publish pages'
   - 'access toolbar'
   - 'administer content types'
+  - 'administer media file delete'
   - 'administer nodes'
   - 'administer redirect settings'
   - 'administer redirects'
