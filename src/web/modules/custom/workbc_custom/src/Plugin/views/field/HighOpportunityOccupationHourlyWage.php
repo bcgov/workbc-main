@@ -38,14 +38,31 @@ class HighOpportunityOccupationHourlyWage extends FieldPluginBase {
         $wage = WORKBC_EXTRA_FIELDS_NOT_AVAILABLE;
       }
       else {
-        $wage = "$" . number_format($values->high_opportunity_occupations_annual_salary_median,0) . "*";
+        $options = array(
+          'decimals' => 0,
+          'prefix' => "$",
+          'suffix' => "*",
+          'na_if_empty' => TRUE,         
+        );          
+        $wage = ssotFormatNumber($values->high_opportunity_occupations_annual_salary_median, $options);
       }
     }
     else if ($values->high_opportunity_occupations_annual_salary_median == $values->high_opportunity_occupations_wage_rate_median) {
-      $wage = "$" . number_format($values->high_opportunity_occupations_annual_salary_median,0) . "*";
+      $options = array(
+        'decimals' => 0,
+        'prefix' => "$",
+        'suffix' => "*",
+        'na_if_empty' => TRUE,
+      );       
+      $wage = ssotFormatNumber($values->high_opportunity_occupations_annual_salary_median, $options);
     }
     else {
-      $wage = "$" . number_format($values->high_opportunity_occupations_wage_rate_median,2);
+      $options = array(
+        'decimals' => 2,
+        'prefix' => "$",
+        'na_if_empty' => TRUE,
+      );      
+      $wage = ssotFormatNumber($values->high_opportunity_occupations_wage_rate_median, $options);
     }
     return $wage;
 

@@ -34,8 +34,14 @@ class IndustryProfileJobGrowthRate extends FieldPluginBase {
   public function render(ResultRow $values) {
     $node = $this->getEntity($values);
     if ($node->bundle() == "industry_profile") {
+      $options = array(
+        'decimals' => 1,
+        'suffix' => "%",
+        'positive_sign' => TRUE,
+        'na_if_empty' => TRUE,
+      );      
       if (!empty($values->ssot_data) && isset($values->ssot_data['labour_force_survey_industry']['yoy_employment_growth_pct'])) {
-        $output = ssotFormatNumber($values->ssot_data['labour_force_survey_industry']['yoy_employment_growth_pct'], 1, true) . '%';
+        $output = ssotFormatNumber($values->ssot_data['labour_force_survey_industry']['yoy_employment_growth_pct'], $options);
       }
       else {
         $output = WORKBC_EXTRA_FIELDS_NOT_AVAILABLE;

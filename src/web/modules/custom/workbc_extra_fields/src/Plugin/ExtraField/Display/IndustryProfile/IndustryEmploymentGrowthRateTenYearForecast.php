@@ -67,7 +67,12 @@ class IndustryEmploymentGrowthRateTenYearForecast extends ExtraFieldDisplayForma
           '#type' => 'chart_data',
           '#title' => ['role' => 'annotation'],
           '#data' => array_map(function($v) {
-            return ssotFormatNumber($v, 1) . '%';
+            $options = array(
+              'decimals' => 1,
+              'suffix' => "%",
+              'na_if_empty' => TRUE,
+            );
+            return ssotFormatNumber($v, $options);
           }, $data),
         ],
         'xaxis' => [

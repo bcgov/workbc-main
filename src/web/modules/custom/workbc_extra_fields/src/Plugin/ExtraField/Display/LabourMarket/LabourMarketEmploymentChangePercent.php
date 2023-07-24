@@ -52,10 +52,16 @@ class LabourMarketEmploymentChangePercent extends ExtraFieldDisplayFormattedBase
 
     $data = $entity->ssot_data['monthly_labour_market_updates'][0];
 
+    $options = array(
+      'decimals' => 1,
+      'suffix' => "%",
+      'positive_sign' => TRUE,
+      'na_if_empty' => TRUE,
+    );
     //values
-    $total_employment_change = isset($data['employment_change_pct_total_employment'])?ssotFormatNumber($data['employment_change_pct_total_employment'], 1, true).'%':WORKBC_EXTRA_FIELDS_NOT_AVAILABLE;
-    $fulltime_value = isset($data['employment_change_pct_full_time_jobs'])?ssotFormatNumber($data['employment_change_pct_full_time_jobs'], 1, true).'%':WORKBC_EXTRA_FIELDS_NOT_AVAILABLE;
-    $parttime_value = isset($data['employment_change_pct_part_time_jobs'])?ssotFormatNumber($data['employment_change_pct_part_time_jobs'], 1, true).'%':WORKBC_EXTRA_FIELDS_NOT_AVAILABLE;
+    $total_employment_change = ssotFormatNumber($data['employment_change_pct_total_employment'], $options);
+    $fulltime_value = ssotFormatNumber($data['employment_change_pct_full_time_jobs'], $options);
+    $parttime_value = ssotFormatNumber($data['employment_change_pct_part_time_jobs'], $options);
     $source_text = !empty($entity->ssot_data['sources']['no-datapoint'])?$entity->ssot_data['sources']['no-datapoint'] : WORKBC_EXTRA_FIELDS_NOT_AVAILABLE;
 
     //output

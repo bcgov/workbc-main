@@ -43,8 +43,12 @@ class RegionEmploymentRegion extends ExtraFieldDisplayFormattedBase {
    */
   public function viewElements(ContentEntityInterface $entity) {
 
+    $options = array(
+      'decimals' => 0,
+      'na_if_empty' => TRUE,
+    );
     if (!empty($entity->ssot_data) && isset($entity->ssot_data['labour_force_survey_regional_employment']['total_employment_num'])) {
-      $output = ssotFormatNumber($entity->ssot_data['labour_force_survey_regional_employment']['total_employment_num'],0);
+      $output = ssotFormatNumber($entity->ssot_data['labour_force_survey_regional_employment']['total_employment_num'], $options);
     }
     else {
       $output = WORKBC_EXTRA_FIELDS_NOT_AVAILABLE;

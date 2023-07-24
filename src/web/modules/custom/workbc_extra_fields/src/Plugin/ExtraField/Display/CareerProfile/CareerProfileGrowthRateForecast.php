@@ -53,6 +53,7 @@ class CareerProfileGrowthRateForecast extends ExtraFieldDisplayFormattedBase {
       $dates = array();
       $dates[] = $date1 . "-" . $date2;
       $dates[] = $date2 . "-" . $date3;
+
       $chart = [
         '#type' => 'chart',
         '#chart_type' => 'column',
@@ -65,7 +66,12 @@ class CareerProfileGrowthRateForecast extends ExtraFieldDisplayFormattedBase {
           '#type' => 'chart_data',
           '#title' => ['role' => 'annotation'],
           '#data' => array_map(function($v) {
-            return ssotFormatNumber($v, 1, true) . '%';
+            $options = array(
+              'decimals' => 1,
+              'suffix' => "%",
+              'positive_sign' => TRUE,
+            );
+            return ssotFormatNumber($v, $options);
           }, $data),
         ],
         'xaxis' => [

@@ -52,10 +52,15 @@ class LabourMarketEmploymentChange extends ExtraFieldDisplayFormattedBase {
 
     $data = $entity->ssot_data['monthly_labour_market_updates'][0];
 
+    $options = array(
+      'decimals' => 0,
+      'positive_sign' => TRUE,
+      'na_if_empty' => TRUE,
+    );
     //values
-    $total_employment_change = !empty($data['employment_change_abs_total_employment']) ? ssotFormatNumber($data['employment_change_abs_total_employment'], 0 , true) : WORKBC_EXTRA_FIELDS_NOT_AVAILABLE;
-    $fulltime_value = !empty($data['employment_change_abs_full_time_jobs']) ? ssotFormatNumber($data['employment_change_abs_full_time_jobs'], 0 , true) : WORKBC_EXTRA_FIELDS_NOT_AVAILABLE;
-    $parttime_value = !empty($data['employment_change_abs_part_time_jobs']) ? ssotFormatNumber($data['employment_change_abs_part_time_jobs'], 0 , true) : WORKBC_EXTRA_FIELDS_NOT_AVAILABLE;
+    $total_employment_change = ssotFormatNumber($data['employment_change_abs_total_employment'], $options);
+    $fulltime_value = ssotFormatNumber($data['employment_change_abs_full_time_jobs'], $options);
+    $parttime_value = ssotFormatNumber($data['employment_change_abs_part_time_jobs'], $options);
 
     //output
     $output = '

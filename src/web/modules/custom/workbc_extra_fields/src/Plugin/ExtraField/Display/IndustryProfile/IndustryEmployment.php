@@ -43,8 +43,12 @@ class IndustryEmployment extends ExtraFieldDisplayFormattedBase {
    */
   public function viewElements(ContentEntityInterface $entity) {
 
+    $options = array(
+      'decimals' => 0,
+      'na_if_empty' => TRUE,
+    );
     if (!empty($entity->ssot_data) && isset($entity->ssot_data['labour_force_survey_industry']['total_employment'])) {
-      $output = ssotFormatNumber($entity->ssot_data['labour_force_survey_industry']['total_employment'],0);
+      $output = ssotFormatNumber($entity->ssot_data['labour_force_survey_industry']['total_employment'], $options);
     }
     else {
       $output = WORKBC_EXTRA_FIELDS_NOT_AVAILABLE;

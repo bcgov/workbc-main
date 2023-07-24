@@ -81,11 +81,14 @@ class CareerProfileIndustryHighlightsJobOpeningsByIndustry extends ExtraFieldDis
 
     $datestr = ssotParseDateRange($this->getEntity()->ssot_data['schema'], 'openings_careers', 'industry_1_openings');
 
+    $options = array(
+      'na_if_empty' => TRUE,
+    );
     $text = "<div>";
     $text = "<table>";
     $text .= "<tr><th>Industry</th><th>Job Openings (" . $datestr . ")</th></tr>";
     foreach ($industries as $industry) {
-      $text .= "<tr><td>" . $industry['name'] . "</td><td>" . ssotFormatNumber($industry['openings_careers']) . "</td></tr>";
+      $text .= "<tr><td>" . $industry['name'] . "</td><td>" . ssotFormatNumber($industry['openings_careers'], $options) . "</td></tr>";
     }
     $text .= "</table>";
     $output = $text;

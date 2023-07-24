@@ -43,8 +43,13 @@ class CareerProfileAnnualSalary extends ExtraFieldDisplayFormattedBase {
    */
   public function viewElements(ContentEntityInterface $entity) {
 
+    $options = array(
+      'decimals' => 0,
+      'prefix' => "$",
+      'na_if_empty' => TRUE,
+    );
     if (!empty($entity->ssot_data) && isset($entity->ssot_data['wages']['calculated_median_annual_salary'])) {
-      $output = "$" . Number_format($entity->ssot_data['wages']['calculated_median_annual_salary'],0);
+      $output = ssotFormatNumber($entity->ssot_data['wages']['calculated_median_annual_salary'], $options);
     }
     else {
       $output = WORKBC_EXTRA_FIELDS_NOT_AVAILABLE;

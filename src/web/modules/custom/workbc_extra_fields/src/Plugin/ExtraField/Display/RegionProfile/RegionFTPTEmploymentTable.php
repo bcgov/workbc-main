@@ -46,12 +46,17 @@ class RegionFTPTEmploymentTable extends ExtraFieldDisplayFormattedBase {
     if (!empty($entity->ssot_data) && isset($entity->ssot_data['labour_force_survey_regional_employment'])) {
       // $fulltime = $entity->ssot_data['labour_force_survey_regional_employment']['full_time_employment_pct'];
       // $parttime = 100 - $fulltime;
+      $options = array(
+        'decimals' => 0,
+        'suffix' => "%",
+        'na_if_empty' => TRUE,
+      );
 
       $value = $entity->ssot_data['labour_force_survey_regional_employment']['full_time_employment_pct'];
       if ($value===0||$value) {
-        $fulltime = ssotFormatNumber($value) . "%" ;
+        $fulltime = ssotFormatNumber($value, $options);
         $value = 100 - $value;
-        $parttime = ssotFormatNumber($value) . "%" ;
+        $parttime = ssotFormatNumber($value, $options);
   
       }
       else {

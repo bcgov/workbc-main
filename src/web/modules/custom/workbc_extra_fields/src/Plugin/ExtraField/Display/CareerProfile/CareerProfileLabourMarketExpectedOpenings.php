@@ -43,8 +43,13 @@ class CareerProfileLabourMarketExpectedOpenings extends ExtraFieldDisplayFormatt
    */
   public function viewElements(ContentEntityInterface $entity) {
 
+    $options = array(
+      'decimals' => 0,
+      'no_negative' => TRUE,
+      'na_if_empty' => TRUE,
+    );    
     if (!empty($entity->ssot_data) && isset($entity->ssot_data['career_provincial']['expected_job_openings_10y'])) {
-      $output = ssotFormatNA($entity->ssot_data['career_provincial']['expected_job_openings_10y'], 0, "", TRUE);     
+      $output = ssotFormatNumber($entity->ssot_data['career_provincial']['expected_job_openings_10y'], $options);     
     }
     else {
       $output = "";

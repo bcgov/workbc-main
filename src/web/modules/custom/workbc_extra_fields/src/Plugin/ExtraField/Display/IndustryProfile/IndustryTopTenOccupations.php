@@ -47,6 +47,10 @@ class IndustryTopTenOccupations extends ExtraFieldDisplayFormattedBase {
 
       $datestr = ssotParseDateRange($this->getEntity()->ssot_data['schema'], 'openings_industry', 'openings');
 
+      $options = array(
+        'decimals' => 0,
+        'na_if_empty' => TRUE,
+      );
       $content = "<table>";
       $content .= "<tr><th>Top Ten Occupations</th><th>Job Openings<br>(" . $datestr . ")</th></tr>";
       foreach ($entity->ssot_data['openings_industry'] as $job) {
@@ -59,7 +63,7 @@ class IndustryTopTenOccupations extends ExtraFieldDisplayFormattedBase {
         }
         $content .= "<tr>";
         $content .= "<td>" . $link . $job['description'] . " (NOC " . $job['noc'] . ")</a></td>";
-        $content .= "<td>" . ssotFormatNumber($job['openings'],0) . "</td>";
+        $content .= "<td>" . ssotFormatNumber($job['openings'], $options) . "</td>";
       }
       $content .= "</table>";
       $content .= "<a class='btn-primary industry-profile-hoo-link' href='/research-labour-market/high-opportunity-occupations'>View all high opportunity occupations</a>";

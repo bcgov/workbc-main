@@ -47,6 +47,12 @@ class BCEmploymentByIndustryTable extends ExtraFieldDisplayFormattedBase {
       $datestr = ssotParseDateRange($this->getEntity()->ssot_data['schema'], 'labour_force_survey_regional_industry_region', 'openings');
       $industries = ssotProcessEmploymentIndustry($entity->ssot_data['labour_force_survey_regional_industry_region']);
 
+      $options = array(
+        'decimals' => 1,
+        'suffix' => "%",
+        'na_if_empty' => TRUE,
+      );
+      
       $content = "<table>";
       $content .= "<tr><th>Industry</th><th>% Share of Employment for this Industry</th><th>Sector</th></tr>";
       foreach ($industries as $industry) {
@@ -54,8 +60,7 @@ class BCEmploymentByIndustryTable extends ExtraFieldDisplayFormattedBase {
         $close = "</a>";
         $content .= "<tr>";
         $content .= "<td>" . $link . $industry['name'] . $close . "</td>";
-        $share = ($industry['share']===0||$industry['share']) ? ssotFormatNumber($industry['share'],1) . "%" : WORKBC_EXTRA_FIELDS_NOT_AVAILABLE ;
-        $content .= "<td>" . $share . "</td>";
+        $content .= "<td>" . ssotFormatNumber($industry['share'], $options) . "</td>";
         $content .= "<td>" . $industry['sector'] . "</td>";
         $content .= "</tr>";
       }

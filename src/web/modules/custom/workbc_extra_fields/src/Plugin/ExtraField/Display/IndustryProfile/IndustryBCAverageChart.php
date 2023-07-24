@@ -60,7 +60,12 @@ class IndustryBCAverageChart extends ExtraFieldDisplayFormattedBase {
           '#type' => 'chart_data',
           '#title' => ['role' => 'tooltip'],
           '#data' => array_map(function($v, $l) {
-            return $l .' ' . ssotFormatNumber($v, 1) . '%';
+            $options = array(
+              'decimals' => 1,
+              'suffix' => "%",
+              'na_if_empty' => TRUE,
+            );
+            return $l .' ' . ssotFormatNumber($v, $options);
           }, $data, $labels),
         ],
         'xaxis' => [

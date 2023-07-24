@@ -44,10 +44,15 @@ class RegionUnemploymentRate extends ExtraFieldDisplayFormattedBase {
    */
   public function viewElements(ContentEntityInterface $entity) {
 
+    $options = array(
+      'decimals' => 1,
+      'suffix' => "%",
+      'na_if_empty' => TRUE,
+    );
     if (!empty($entity->ssot_data) && isset($entity->ssot_data['monthly_labour_market_updates'])) {
       $field = 'unemployment_pct_' . $entity->ssot_data['region'];
       if (!is_null($entity->ssot_data['monthly_labour_market_updates'][$field])) {
-        $output = ssotFormatNumber($entity->ssot_data['monthly_labour_market_updates'][$field], 1) . "%";
+        $output = ssotFormatNumber($entity->ssot_data['monthly_labour_market_updates'][$field], $options);
       }
       else {
         $output = "not available";

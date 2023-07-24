@@ -373,42 +373,69 @@ function ssotIndustryName($machine_name) {
   return isset($industries[$machine_name]) ? $industries[$machine_name] : "";
 }
 
-function ssotFormatNA($number, $decimals = 0, $suffix = "", $no_negative = FALSE) {
-
-  if ($number===0||$number) {
-    $value = floatval($number);
-    if ($no_negative) {
-      $value = $value < 0 ? 0 : $value;
-    }
-    $result = ssotFormatNumber($value, $decimals) . $suffix;
-  }
-  else {
-    $result = WORKBC_EXTRA_FIELDS_NOT_AVAILABLE;
-  }
-  return $result;
-}
-
 
 /*
    custom number format function to add '+' if required
    additional check to set value to 0 if null
    additional special case for zero (no decimals)
- */
-function ssotFormatNumber($number, $decimals = 0, $positive = false) {
 
-  $number = is_null($number) ? 0 : $number;
-  if (abs($number) > PHP_FLOAT_EPSILON) {
-    $value = number_format($number, $decimals);
+   decimal default 0
+   suffix default ""
+   prefix default ""
+   positive TRUE, FALSE default FALSE
+   na_if_empty TRUE, FALSE default FALSE, 
+   no_negative TRUE, FALSE default FALSE
+ */
+function ssotFormatNumber($number, $options = []) {
+  
+  $valid = ['decimals', 'positive_sign', 'suffix', 'prefix', 'na_if_empty', 'no_negative', 'sanity_check'];
+  $error = false;
+  foreach ($options as $key => $option) {
+    if (!in_array($key, $valid)) {
+      \Drupal::logger('workbc_extra_fields')->error("invalid option: @option", ['@option' => $key]);
+      $error = true;
+    }
+  }
+
+  $decimals = isset($options['decimals']) ? $options['decimals'] : 0;
+  $positive_sign = isset($options['positive_sign']) ? $options['positive_sign'] : FALSE;
+  $suffix = isset($options['suffix']) ? $options['suffix'] : "";
+  $prefix = isset($options['prefix']) ? $options['prefix'] : "";
+  $na_if_empty  = isset($options['na_if_empty']) ? $options['na_if_empty'] : FALSE;
+  $no_negative  = isset($options['no_negative']) ? $options['no_negative'] : FALSE;
+  $sanity_check = isset($options['sanity_check']) ? $options['sanity_check'] : FALSE;
+
+  if ($error) {
+    $value = "[error]";  
+  }
+  else if ($sanity_check) {
+    $value = "[ssot]";
+  }
+  else if ($na_if_empty && is_null($number)) {
+    $value = WORKBC_EXTRA_FIELDS_NOT_AVAILABLE;
   }
   else {
-    $value = "0";
-  }
-  if ($positive && $number > 0) {
-    $value = "+" . $value;
+    $number = is_null($number) ? 0 : $number;
+    if (abs($number) > PHP_FLOAT_EPSILON) {
+      if ($no_negative) {
+        $number = $number < 0 ? 0 : $number;
+      }
+      $sign = "";
+      if ($number < 0) {
+        $sign = "-";
+      }
+      else if ($number > 0 && $positive_sign) {
+        $sign = "+";
+      }
+      $value = $sign . $prefix . number_format(abs($number), $decimals) . $suffix;
+    }
+    else {
+      $value = $prefix . number_format(0, $decimals) . $suffix;
+    }
+
   }
   return $value;
 }
-
 
 /**
  * Get Current and Previous Month Year.
