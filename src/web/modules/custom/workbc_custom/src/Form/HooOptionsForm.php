@@ -111,7 +111,7 @@
 
             $options = array(
               'decimals' => 2,
-              'prefix' => "$$",
+              'prefix' => "$",
               'suffix' => (abs($values['wage_rate_median'] - $values['annual_salary_median']) < PHP_FLOAT_EPSILON) ? "*" : "",
             );
             $rows[$key]['wage_rate_median'] = ssotFormatNumber($values['wage_rate_median'], $options);
