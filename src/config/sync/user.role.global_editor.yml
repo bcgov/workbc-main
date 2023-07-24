@@ -32,6 +32,7 @@ dependencies:
     - file
     - filter
     - media
+    - media_file_delete
     - node
     - paragraphs_type_permissions
     - redirect
@@ -53,6 +54,7 @@ permissions:
   - 'access media overview'
   - 'access toolbar'
   - 'access tour'
+  - 'administer media file delete'
   - 'administer redirect settings'
   - 'administer redirects'
   - 'bypass content groups'

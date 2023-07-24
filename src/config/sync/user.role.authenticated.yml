@@ -14,6 +14,7 @@ dependencies:
     - field_permissions
     - media
     - media_entity_download
+    - media_file_delete
     - paragraphs_type_permissions
     - search_api_autocomplete
     - shortcut
@@ -34,6 +35,7 @@ permissions:
   - 'access recent jobs block'
   - 'access shortcuts'
   - 'access site-wide contact form'
+  - 'administer media file delete'
   - 'administer menu'
   - 'create audio media'
   - 'create document media'
