@@ -382,18 +382,17 @@ function ssotIndustryName($machine_name) {
    decimal default 0
    suffix default ""
    prefix default ""
-   positive TRUE, FALSE default FALSE
+   positive_sign TRUE, FALSE default FALSE
    na_if_empty TRUE, FALSE default FALSE, 
-   no_negative TRUE, FALSE default FALSE
+   no_negative TRUE, FALSE default FALSE,
+   sanity_check TRUE, FALSE default FALSE, TRUE will display "[ssot]"
  */
 function ssotFormatNumber($number, $options = []) {
   
   $valid = ['decimals', 'positive_sign', 'suffix', 'prefix', 'na_if_empty', 'no_negative', 'sanity_check'];
-  $error = false;
   foreach ($options as $key => $option) {
     if (!in_array($key, $valid)) {
       \Drupal::logger('workbc_extra_fields')->error("invalid option: @option", ['@option' => $key]);
-      $error = true;
     }
   }
 
@@ -405,10 +404,7 @@ function ssotFormatNumber($number, $options = []) {
   $no_negative  = isset($options['no_negative']) ? $options['no_negative'] : FALSE;
   $sanity_check = isset($options['sanity_check']) ? $options['sanity_check'] : FALSE;
 
-  if ($error) {
-    $value = "[error]";  
-  }
-  else if ($sanity_check) {
+  if ($sanity_check) {
     $value = "[ssot]";
   }
   else if ($na_if_empty && is_null($number)) {

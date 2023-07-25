@@ -99,8 +99,9 @@ class TestPageController extends ControllerBase {
 
     $options = array(
       'decimals' => 1,
+      'positive_sign' => TRUE,
+      'suffix' => "%",
       'nap_if_empty' => TRUE,      
-      'sanity_check' => TRUE,
     );
     foreach ($numbers as $number) {
       $rows[] = $this->createRow($number, $options);
