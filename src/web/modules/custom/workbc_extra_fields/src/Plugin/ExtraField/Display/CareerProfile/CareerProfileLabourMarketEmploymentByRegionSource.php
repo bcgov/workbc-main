@@ -43,8 +43,8 @@ class CareerProfileLabourMarketEmploymentByRegionSource extends ExtraFieldDispla
    */
   public function viewElements(ContentEntityInterface $entity) {
 
-    if (!empty($entity->ssot_data) && isset($entity->ssot_data['sources']['census'])) {
-      $output = $entity->ssot_data['sources']['census']['label'];
+    if (!empty($entity->ssot_data) && isset($entity->ssot_data['sources']['census']) && isset($entity->ssot_data['sources']['career_regional'])) {
+      $output = $entity->ssot_data['sources']['census']['label'] . " and " . $entity->ssot_data['sources']['career_regional']['label'] ;
     }
     else {
       $output = WORKBC_EXTRA_FIELDS_NOT_AVAILABLE;
