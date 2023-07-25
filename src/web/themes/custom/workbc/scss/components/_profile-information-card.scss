@@ -14,7 +14,7 @@
     height: 130px;
     background-color: $workbc_light_theme_background_default;
     border: 2px solid #9b9b9b;
-    box-shadow: $workbc_default_box_shadow; 
+    box-shadow: $workbc_default_box_shadow;
     display: flex;
     flex-flow: row nowrap;
     justify-content: space-evenly;
@@ -51,7 +51,7 @@
         }
         .profile-information-card-value {
             width: 100%;
-            font-size: 1.5rem;
+            font-size: 28px;
             font-weight: bold;
             line-height: 2.00rem;
             color: $workbc_palette_dark_primary;
@@ -67,13 +67,13 @@
 
 .profile-information-social {
     .profile-information-card-icon {
-        background-image: url(../assets/images/profile-icon-social.svg);        
+        background-image: url(../assets/images/profile-icon-social.svg);
     }
 }
 
 .profile-information-salary {
     .profile-information-card-icon {
-        background-image: url(../assets/images/profile-icon-envelope.svg);        
+        background-image: url(../assets/images/profile-icon-envelope.svg);
     }
 }
 
