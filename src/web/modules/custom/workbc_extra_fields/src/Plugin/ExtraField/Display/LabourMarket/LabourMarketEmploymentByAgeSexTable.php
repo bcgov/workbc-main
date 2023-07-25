@@ -83,7 +83,14 @@ class LabourMarketEmploymentByAgeSexTable extends ExtraFieldDisplayFormattedBase
     $genderAgeValues = [];
     $ageNeedle = 'employment_by_age_group_';
     $genderNeedle = 'employment_by_gender_';
+
     if(!empty($values)){
+      
+      $options = array(
+        'decimals' => 0,
+        'na_if_empty' => TRUE,
+      );
+
       foreach($values as $key => $value){
 
         //age values
@@ -99,16 +106,17 @@ class LabourMarketEmploymentByAgeSexTable extends ExtraFieldDisplayFormattedBase
               ],
             ];
           }
+
           //if previous values
           if(strpos($age, 'previous') !== false) {
             $age = str_replace('_previous', "", $age);
             $age = str_replace('55', "55+", $age);
             $genderAgeValues[$age]['age'] = str_replace("_"," - ",$age) . ' ' . $this->t('years');
-            $genderAgeValues[$age]['previous'] = $value ? ssotFormatNumber($value): WORKBC_EXTRA_FIELDS_NOT_AVAILABLE;
+            $genderAgeValues[$age]['previous'] = ssotFormatNumber($value, $options);
           } else {
             $age = str_replace('55', "55+", $age);
             $genderAgeValues[$age]['age'] = str_replace("_"," - ",$age). ' ' . $this->t('years');
-            $genderAgeValues[$age]['current'] = $value ? ssotFormatNumber($value):WORKBC_EXTRA_FIELDS_NOT_AVAILABLE;
+            $genderAgeValues[$age]['current'] = ssotFormatNumber($value, $options);
           }
         }
 
@@ -129,10 +137,10 @@ class LabourMarketEmploymentByAgeSexTable extends ExtraFieldDisplayFormattedBase
           if(strpos($gender, 'previous') !== false) {
             $gender = str_replace('_previous', "", $gender);
             $genderAgeValues[$gender]['gender'] = ucfirst($gender);
-            $genderAgeValues[$gender]['previous'] = $value ? ssotFormatNumber($value): WORKBC_EXTRA_FIELDS_NOT_AVAILABLE;
+            $genderAgeValues[$gender]['previous'] = ssotFormatNumber($value, $options);
           } else {
             $genderAgeValues[$gender]['gender'] = ucfirst($gender);
-            $genderAgeValues[$gender]['current'] = $value ? ssotFormatNumber($value): WORKBC_EXTRA_FIELDS_NOT_AVAILABLE;
+            $genderAgeValues[$gender]['current'] = ssotFormatNumber($value, $options);
           }
         }
 

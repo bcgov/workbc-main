@@ -50,11 +50,22 @@ class LabourMarketUnemployedCurrentMonth extends ExtraFieldDisplayFormattedBase 
       ];
     }
     $data = $entity->ssot_data['monthly_labour_market_updates'][0];
+
+    $options = array(
+      'decimals' => 0,
+      'na_if_empty' => TRUE,
+    );
     //values
     $current_previous_months = $entity->ssot_data['current_previous_months_names'];
-    $total_unemployed = !empty($data['total_unemployed'])?ssotFormatNumber($data['total_unemployed']) : WORKBC_EXTRA_FIELDS_NOT_AVAILABLE;
-    $unemployed_rate_value = !empty($data['employment_rate_pct_unemployment'])?$data['employment_rate_pct_unemployment']: WORKBC_EXTRA_FIELDS_NOT_AVAILABLE;
-    $unemployed_part_value = !empty($data['employment_rate_pct_participation'])?$data['employment_rate_pct_participation']:WORKBC_EXTRA_FIELDS_NOT_AVAILABLE;
+    $total_unemployed = ssotFormatNumber($data['total_unemployed'], $options);
+
+    $options = array(
+      'decimals' => 1,
+      'suffix' => "%",
+      'na_if_empty' => TRUE,
+    );    
+    $unemployed_rate_value = ssotFormatNumber($data['employment_rate_pct_unemployment'], $options);   
+    $unemployed_part_value = ssotFormatNumber($data['employment_rate_pct_participation'], $options);
 
     //output
     $output = '
@@ -62,8 +73,8 @@ class LabourMarketUnemployedCurrentMonth extends ExtraFieldDisplayFormattedBase 
     <div class="lm-label">'.$this->t("<strong>Total Unemployed</strong> (@currentmonthyear)", ['@currentmonthyear' => $current_previous_months['current_month_year']]).'</div>
     <div class="lm-data-value">'.$total_unemployed.'</div>
     <div class="lm-data-container">
-      <div class="lm-data-item"><div class="lm-data-item-label">'.$this->t("Unemployment Rate").'</div><div class="lm-data-item-value">'.$unemployed_rate_value.'%</div></div>
-      <div class="lm-data-item"><div class="lm-data-item-label">'.$this->t("Participation Rate").'</div><div class="lm-data-item-value">'.$unemployed_part_value.'%</div></div>
+      <div class="lm-data-item"><div class="lm-data-item-label">'.$this->t("Unemployment Rate").'</div><div class="lm-data-item-value">'.$unemployed_rate_value.'</div></div>
+      <div class="lm-data-item"><div class="lm-data-item-label">'.$this->t("Participation Rate").'</div><div class="lm-data-item-value">'.$unemployed_part_value.'</div></div>
     </div>
     </div>';
 

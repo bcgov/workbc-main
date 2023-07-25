@@ -43,6 +43,10 @@ class RegionTopTenOccupations extends ExtraFieldDisplayFormattedBase {
    */
   public function viewElements(ContentEntityInterface $entity) {
 
+    $options = array(
+      'decimals' => 0,
+      'na_if_empty' => TRUE,
+    );
     if (!empty($entity->ssot_data) && isset($entity->ssot_data['regional_top_occupations'])) {
       $datestr = ssotParseDateRange($this->getEntity()->ssot_data['schema'], 'regional_top_occupations', 'openings');
       $content = "<table>";
@@ -57,7 +61,7 @@ class RegionTopTenOccupations extends ExtraFieldDisplayFormattedBase {
         }
         $content .= "<tr>";
         $content .= "<td>" . $link . $job['occupation'] . " (NOC " . $job['noc'] . ")</a></td>";
-        $content .= "<td>" . ssotFormatNumber($job['openings'],0) . "</td>";
+        $content .= "<td>" . ssotFormatNumber($job['openings'], $options) . "</td>";
       }
       $content .= "</table>";
       $output = $content;

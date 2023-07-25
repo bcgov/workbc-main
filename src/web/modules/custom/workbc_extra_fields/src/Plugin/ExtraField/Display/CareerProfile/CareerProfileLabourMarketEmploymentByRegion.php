@@ -45,56 +45,65 @@ class CareerProfileLabourMarketEmploymentByRegion extends ExtraFieldDisplayForma
 
     $names = ["Cariboo", "Kootenay", "Mainland/Southwest", "Nort Coast & Nechako", "Northeast", "Thompson-Okanagan", "Vancouver Island-Coast"];
     $regions = [];
+    $options1 = array(
+      'decimals' => 1,
+      'suffix' => "%",
+      'na_if_empty' => TRUE,
+    );
+    $options2 = array(
+      'decimals' => 0,
+      'na_if_empty' => TRUE,
+    );    
     if (!empty($entity->ssot_data) && isset($entity->ssot_data['census']) && isset($entity->ssot_data['career_regional'])) {
       $total = intval($entity->ssot_data['census']['workers_employed']);
       $region = array();
       $region['name'] = t(REGION_CARIBOO);
       $value = $entity->ssot_data['census']['cariboo_employment_of_this_occupation'];
-      $region['percent'] = ($value===0||$value) ? ssotFormatNumber(floatval($value),1) . "%" : WORKBC_EXTRA_FIELDS_NOT_AVAILABLE;
+      $region['percent'] = ssotFormatNumber($value, $options1);
       $value = $entity->ssot_data['career_regional']['cariboo_employment_current'];
-      $region['employment'] = ($value===0||$value) ? ssotFormatNumber($value) :WORKBC_EXTRA_FIELDS_NOT_AVAILABLE;
+      $region['employment'] = ssotFormatNumber($value, $options2);
       $regions[] = $region;
       $region = array();
       $region['name'] = t(REGION_KOOTENAY);
       $value = $entity->ssot_data['census']['kootenay_employment_of_this_occupation'];
-      $region['percent'] = ($value===0||$value) ? ssotFormatNumber(floatval($value),1) . "%" : WORKBC_EXTRA_FIELDS_NOT_AVAILABLE; 
+      $region['percent'] = ssotFormatNumber($value, $options1); 
       $value = $entity->ssot_data['career_regional']['kootenay_employment_current'];
-      $region['employment'] = ($value===0||$value) ? ssotFormatNumber($value) :WORKBC_EXTRA_FIELDS_NOT_AVAILABLE;
+      $region['employment'] = ssotFormatNumber($value, $options2);
       $regions[] = $region;
       $region = array();
       $region['name'] = t(REGION_MAINLAND_SOUTHWEST);
       $value = $entity->ssot_data['census']['mainland_southwest_employment_of_this_occupation'];
-      $region['percent'] = ($value===0||$value) ? ssotFormatNumber(floatval($value),1) . "%" : WORKBC_EXTRA_FIELDS_NOT_AVAILABLE;
+      $region['percent'] = ssotFormatNumber($value, $options1);
       $value = $entity->ssot_data['career_regional']['mainland_southwest_employment_current'];
-      $region['employment'] = ($value===0||$value) ? ssotFormatNumber($value) :WORKBC_EXTRA_FIELDS_NOT_AVAILABLE;
+      $region['employment'] = ssotFormatNumber($value, $options2);
       $regions[] = $region;
       $region = array();
       $region['name'] = t(REGION_NORTH_COAST_NECHAKO);
       $value = $entity->ssot_data['census']['north_coast_nechako_employment_of_this_occupation'];
-      $region['percent'] = ($value===0||$value) ? ssotFormatNumber(floatval($value),1) . "%" : WORKBC_EXTRA_FIELDS_NOT_AVAILABLE;
+      $region['percent'] = ssotFormatNumber($value, $options1);
       $value = $entity->ssot_data['career_regional']['north_coast_nechako_employment_current'];
-      $region['employment'] = ($value===0||$value) ? ssotFormatNumber($value) :WORKBC_EXTRA_FIELDS_NOT_AVAILABLE;
+      $region['employment'] = ssotFormatNumber($value, $options2);
       $regions[] = $region;
       $region = array();
       $region['name'] = t(REGION_NORTHEAST);
       $value = $entity->ssot_data['census']['northeast_employment_of_this_occupation'];
-      $region['percent'] = ($value===0||$value) ? ssotFormatNumber(floatval($value),1) . "%" : WORKBC_EXTRA_FIELDS_NOT_AVAILABLE;
+      $region['percent'] = ssotFormatNumber($value, $options1);
       $value = $entity->ssot_data['career_regional']['northeast_employment_current'];
-      $region['employment'] = ($value===0||$value) ? ssotFormatNumber($value) :WORKBC_EXTRA_FIELDS_NOT_AVAILABLE;
+      $region['employment'] = ssotFormatNumber($value, $options2);
       $regions[] = $region;
       $region = array();
       $region['name'] = t(REGION_THOMPSON_OKANAGAN);
       $value = $entity->ssot_data['census']['thompson_okanagan_employment_of_this_occupation'];
-      $region['percent'] = ($value===0||$value) ? ssotFormatNumber(floatval($value),1) . "%" : WORKBC_EXTRA_FIELDS_NOT_AVAILABLE;
+      $region['percent'] = ssotFormatNumber($value, $options1);
       $value = $entity->ssot_data['career_regional']['thompson_okanagan_employment_current'];
-      $region['employment'] = ($value===0||$value) ? ssotFormatNumber($value) :WORKBC_EXTRA_FIELDS_NOT_AVAILABLE;
+      $region['employment'] = ssotFormatNumber($value, $options2);
       $regions[] = $region;
       $region = array();
       $region['name'] = t(REGION_VANCOUVER_ISLAND_COAST);
       $value = $entity->ssot_data['census']['vancouver_island_coast_employment_of_this_occupation'];
-      $region['percent'] = ($value===0||$value) ? ssotFormatNumber(floatval($value),1) . "%" : WORKBC_EXTRA_FIELDS_NOT_AVAILABLE;
+      $region['percent'] = ssotFormatNumber($value, $options1);
       $value = $entity->ssot_data['career_regional']['vancouver_island_coast_employment_current'];
-      $region['employment'] = ($value===0||$value) ? ssotFormatNumber($value) :WORKBC_EXTRA_FIELDS_NOT_AVAILABLE;
+      $region['employment'] = ssotFormatNumber($value, $options2);
       $regions[] = $region;
     }
 

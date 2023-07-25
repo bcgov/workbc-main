@@ -43,45 +43,49 @@ class IndustryEmploymentByRegionTable extends ExtraFieldDisplayFormattedBase {
    */
   public function viewElements(ContentEntityInterface $entity) {
 
+    $options = array(
+      'decimals' => 1,
+      'suffix' => "%",
+      'na_if_empty' => TRUE,
+    );
     $regions = array();
     if (!empty($entity->ssot_data) && isset($entity->ssot_data['labour_force_survey_industry'])) {
       $region = array();
       $region['name'] = t(REGION_CARIBOO);
-      $region['industry'] = ssotFormatNA($entity->ssot_data['labour_force_survey_industry']['location_cariboo_employment_this_industry_pct'], 1, "%");
-      $region['all'] = ssotFormatNA($entity->ssot_data['labour_force_survey_industry']['location_cariboo_employment_all_industries_pct'], 1, "%");
+      $region['industry'] = ssotFormatNumber($entity->ssot_data['labour_force_survey_industry']['location_cariboo_employment_this_industry_pct'], $options);
+      $region['all'] = ssotFormatNumber($entity->ssot_data['labour_force_survey_industry']['location_cariboo_employment_all_industries_pct'], $options);
       $regions[] = $region;
       $region = array();
       $region['name'] = t(REGION_KOOTENAY);
-      $region['industry'] = ssotFormatNA($entity->ssot_data['labour_force_survey_industry']['location_kootenay_employment_this_industry_pct'], 1, "%");
-      $region['all'] = ssotFormatNA($entity->ssot_data['labour_force_survey_industry']['location_kootenay_employment_all_industries_pct'], 1, "%");
+      $region['industry'] = ssotFormatNumber($entity->ssot_data['labour_force_survey_industry']['location_kootenay_employment_this_industry_pct'], $options);
+      $region['all'] = ssotFormatNumber($entity->ssot_data['labour_force_survey_industry']['location_kootenay_employment_all_industries_pct'], $options);
       $regions[] = $region;
       $region = array();
       $region['name'] = t(REGION_MAINLAND_SOUTHWEST);
-      $region['industry'] = ssotFormatNA($entity->ssot_data['labour_force_survey_industry']['location_mainland_southwest_employment_this_industry_pct'], 1, "%");
-      $region['all'] = ssotFormatNA($entity->ssot_data['labour_force_survey_industry']['location_mainland_southwest_employment_all_industries_pct'], 1, "%");
+      $region['industry'] = ssotFormatNumber($entity->ssot_data['labour_force_survey_industry']['location_mainland_southwest_employment_this_industry_pct'], $options);
+      $region['all'] = ssotFormatNumber($entity->ssot_data['labour_force_survey_industry']['location_mainland_southwest_employment_all_industries_pct'], $options);
       $regions[] = $region;
       $region = array();
       $region['name'] = t(REGION_NORTH_COAST_NECHAKO);
-      $region['industry'] = ssotFormatNA($entity->ssot_data['labour_force_survey_industry']['location_north_coast_nechako_employment_this_industry_pct'], 1, "%");
-      $region['all'] = ssotFormatNA($entity->ssot_data['labour_force_survey_industry']['location_north_coast_nechako_employment_all_industries_pct'], 1, "%");
+      $region['industry'] = ssotFormatNumber($entity->ssot_data['labour_force_survey_industry']['location_north_coast_nechako_employment_this_industry_pct'], $options);
+      $region['all'] = ssotFormatNumber($entity->ssot_data['labour_force_survey_industry']['location_north_coast_nechako_employment_all_industries_pct'], $options);
       $regions[] = $region;
       $region = array();
       $region['name'] = t(REGION_NORTHEAST);
-      $region['industry'] = ssotFormatNA($entity->ssot_data['labour_force_survey_industry']['location_northeast_employment_this_industry_pct'], 1, "%");
-      $region['all'] = ssotFormatNA($entity->ssot_data['labour_force_survey_industry']['location_northeast_employment_all_industries_pct'], 1, "%");
+      $region['industry'] = ssotFormatNumber($entity->ssot_data['labour_force_survey_industry']['location_northeast_employment_this_industry_pct'], $options);
+      $region['all'] = ssotFormatNumber($entity->ssot_data['labour_force_survey_industry']['location_northeast_employment_all_industries_pct'], $options);
       $regions[] = $region;
       $region = array();
       $region['name'] = t(REGION_THOMPSON_OKANAGAN);
-      $region['industry'] = ssotFormatNA($entity->ssot_data['labour_force_survey_industry']['location_thompson_okanagan_employment_this_industry_pct'], 1, "%");
-      $region['all'] = ssotFormatNA($entity->ssot_data['labour_force_survey_industry']['location_thompson_okanagan_employment_all_industries_pct'], 1, "%");
+      $region['industry'] = ssotFormatNumber($entity->ssot_data['labour_force_survey_industry']['location_thompson_okanagan_employment_this_industry_pct'], $options);
+      $region['all'] = ssotFormatNumber($entity->ssot_data['labour_force_survey_industry']['location_thompson_okanagan_employment_all_industries_pct'], $options);
       $regions[] = $region;
       $region = array();
       $region['name'] = t(REGION_VANCOUVER_ISLAND_COAST);
-      $region['industry'] = ssotFormatNA($entity->ssot_data['labour_force_survey_industry']['location_vancouver_island_coast_employment_this_industry_pct'], 1, "%");
-      $region['all'] = ssotFormatNA($entity->ssot_data['labour_force_survey_industry']['location_vancouver_island_coast_employment_all_industries_pct'], 1, "%");
+      $region['industry'] = ssotFormatNumber($entity->ssot_data['labour_force_survey_industry']['location_vancouver_island_coast_employment_this_industry_pct'], $options);
+      $region['all'] = ssotFormatNumber($entity->ssot_data['labour_force_survey_industry']['location_vancouver_island_coast_employment_all_industries_pct'], $options);
       $regions[] = $region;
     }
-
 
     $content = "<table>";
     $content .= "<tr><th>Region</th><th>% Employment this Industry</th><th>% Employment All Industries</th></tr>";

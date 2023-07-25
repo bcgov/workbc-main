@@ -43,8 +43,12 @@ class CareerProfileLabourMarketEmployed extends ExtraFieldDisplayFormattedBase {
    */
   public function viewElements(ContentEntityInterface $entity) {
 
+    $options = array(
+      'decimals' => 0,
+      'na_if_empty' => TRUE,
+    );
     if (!empty($entity->ssot_data) && isset($entity->ssot_data['census']['workers_employed'])) {
-      $output = Number_format($entity->ssot_data['census']['workers_employed'],0);
+      $output = ssotFormatNumber($entity->ssot_data['census']['workers_employed'], $options);
     }
     else {
       $output = WORKBC_EXTRA_FIELDS_NOT_AVAILABLE;

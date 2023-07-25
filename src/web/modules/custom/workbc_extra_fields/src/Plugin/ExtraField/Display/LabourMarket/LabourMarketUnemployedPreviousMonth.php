@@ -54,9 +54,18 @@ class LabourMarketUnemployedPreviousMonth extends ExtraFieldDisplayFormattedBase
     //values
     $current_previous_months = $entity->ssot_data['current_previous_months_names'];
 
-    $total_unemployed = !empty($data['total_unemployed_previous'])?ssotFormatNumber($data['total_unemployed_previous']) : WORKBC_EXTRA_FIELDS_NOT_AVAILABLE;
-    $unemployed_rate_value =  !empty($data['employment_rate_pct_unemployment_previous'])?$data['employment_rate_pct_unemployment_previous']:WORKBC_EXTRA_FIELDS_NOT_AVAILABLE;
-    $unemployed_part_value = !empty($data['employment_rate_pct_participation_previous'])?$data['employment_rate_pct_participation_previous']:WORKBC_EXTRA_FIELDS_NOT_AVAILABLE;
+    $options = array(
+      'decimals' => 0,
+      'na_if_empty' => TRUE,
+    ); 
+    $total_unemployed = ssotFormatNumber($data['total_unemployed_previous'], $options);
+    $options = array(
+      'decimals' => 1,
+      'suffix' => "%",
+      'na_if_empty' => TRUE,
+    );     
+    $unemployed_rate_value =  ssotFormatNumber($data['employment_rate_pct_unemployment_previous'], $options); 
+    $unemployed_part_value = ssotFormatNumber($data['employment_rate_pct_participation_previous'], $options);
     $information_text_tooltip = '
                   <div class="workbc-tooltip-content lm-tooltip-content">
                     <p>'. $this->t('Participation Rate represents the number of people in the workforce that are of working age as a percentage of total BC population.') . '</p>
@@ -71,10 +80,10 @@ class LabourMarketUnemployedPreviousMonth extends ExtraFieldDisplayFormattedBase
     <div class="lm-data-value">'.$total_unemployed.'</div>
     <div class="lm-data-container">
       <div class="lm-data-item">
-        <div class="lm-data-item-label">'.$this->t("Unemployment Rate").'</div><div class="lm-data-item-value">'.$unemployed_rate_value.'%</div></div>
+        <div class="lm-data-item-label">'.$this->t("Unemployment Rate").'</div><div class="lm-data-item-value">'.$unemployed_rate_value.'</div></div>
       <div class="lm-data-item lm-has-tooltip">
         <div class="lm-data-item-label">'.$this->t("Participation Rate").'</div>
-        <div class="lm-data-item-value">'.$unemployed_part_value.'% <span class="workbc-tooltip">'.$information_text_tooltip.'</span></div>
+        <div class="lm-data-item-value">'.$unemployed_part_value.' <span class="workbc-tooltip">'.$information_text_tooltip.'</span></div>
       </div>
     </div>
     </div>

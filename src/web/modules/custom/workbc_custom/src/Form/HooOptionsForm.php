@@ -109,13 +109,12 @@
 
             $rows[$key]['typical_education_background'] = $values['typical_education_background'];
 
-            //annual wages check
-            $asterisk = '';
-            if (abs($values['wage_rate_median'] - $values['annual_salary_median']) < PHP_FLOAT_EPSILON) {
-              $asterisk = '*';
-            }
-
-            $rows[$key]['wage_rate_median'] = '$'.ssotFormatNumber($values['wage_rate_median'], 2).$asterisk;
+            $options = array(
+              'decimals' => 2,
+              'prefix' => "$",
+              'suffix' => (abs($values['wage_rate_median'] - $values['annual_salary_median']) < PHP_FLOAT_EPSILON) ? "*" : "",
+            );
+            $rows[$key]['wage_rate_median'] = ssotFormatNumber($values['wage_rate_median'], $options);
             $rows[$key]['openings_forecast'] = ssotFormatNumber($values['openings_forecast']);
             $rows[$key]['occupational_interest'] = $values['occupational_interest'];
           }

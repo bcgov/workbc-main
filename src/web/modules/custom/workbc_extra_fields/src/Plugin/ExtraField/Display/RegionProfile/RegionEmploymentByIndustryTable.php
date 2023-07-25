@@ -48,6 +48,16 @@ class RegionEmploymentByIndustryTable extends ExtraFieldDisplayFormattedBase {
 
       $industries = ssotProcessEmploymentIndustry($entity->ssot_data['labour_force_survey_regional_industry_region']);
 
+      $options1 = array(
+        'decimals' => 0,
+        'na_if_empty' => TRUE,
+      );
+      $options2 = array(
+        'decimals' => 1,
+        'suffix' => "%",
+        'na_if_empty' => TRUE,
+      );
+
       $content = "<table>";
       $content .= "<tr><th>Industry</th><th>Employment (" . $datestr . ")</th><th>% Share of Employment for this Industry</th></tr>";
       foreach ($industries as $industry) {
@@ -55,9 +65,9 @@ class RegionEmploymentByIndustryTable extends ExtraFieldDisplayFormattedBase {
         $close = "</a>";
         $content .= "<tr>";
         $content .= "<td>" . $link . $industry['name'] . $close . "</td>";
-        $employment = ($industry['employment']===0||$industry['employment']) ? ssotFormatNumber($industry['employment'],0) : WORKBC_EXTRA_FIELDS_NOT_AVAILABLE ;
+        $employment = ssotFormatNumber($industry['employment'], $options1);
         $content .= "<td>" . $employment . "</td>";
-        $share = ($industry['share']===0||$industry['share']) ? ssotFormatNumber($industry['share'],1) . "%" : WORKBC_EXTRA_FIELDS_NOT_AVAILABLE ;
+        $share = ssotFormatNumber($industry['share'], $options2);
         $content .= "<td>" . $share . "</td>";
         $content .= "</tr>";
       }

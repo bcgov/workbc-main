@@ -34,8 +34,12 @@ class IndustryProfileTotalEmployment extends FieldPluginBase {
   public function render(ResultRow $values) {
     $node = $this->getEntity($values);
     if ($node->bundle() == "industry_profile") {
+      $options = array(
+        'decimals' => 0,
+        'na_if_empty' => TRUE,
+      );
       if (!empty($values->ssot_data) && isset($values->ssot_data['labour_force_survey_industry']['total_employment'])) {
-        $output = Number_format($values->ssot_data['labour_force_survey_industry']['total_employment'],0);
+        $output = ssotFormatNumber($values->ssot_data['labour_force_survey_industry']['total_employment'], $options);
       }
       else {
         $output = WORKBC_EXTRA_FIELDS_NOT_AVAILABLE;

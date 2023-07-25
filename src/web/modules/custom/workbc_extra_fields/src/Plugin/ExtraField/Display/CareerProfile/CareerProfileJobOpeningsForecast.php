@@ -45,9 +45,12 @@ class CareerProfileJobOpeningsForecast extends ExtraFieldDisplayFormattedBase {
 
     if (!empty($entity->ssot_data) && isset($entity->ssot_data['career_provincial'])) {
       $data = array();
-      $data[] = intval($entity->ssot_data['career_provincial']['job_openings_first']);
-      $data[] = intval($entity->ssot_data['career_provincial']['job_openings_second']);
-      $data[] = intval($entity->ssot_data['career_provincial']['job_openings_third']);
+      $value = intval($entity->ssot_data['career_provincial']['job_openings_first']);
+      $data[] = $value < 0 ? 0 : $value;
+      $value = intval($entity->ssot_data['career_provincial']['job_openings_second']);
+      $data[] = $value < 0 ? 0 : $value;
+      $value = intval($entity->ssot_data['career_provincial']['job_openings_third']);
+      $data[] = $value < 0 ? 0 : $value;
       $dates = array();
       $dates[] = ssotParseDateRange($entity->ssot_data['schema'], 'career_provincial', 'job_openings_first');
       $dates[] = ssotParseDateRange($entity->ssot_data['schema'], 'career_provincial', 'job_openings_second');
@@ -64,7 +67,12 @@ class CareerProfileJobOpeningsForecast extends ExtraFieldDisplayFormattedBase {
           '#type' => 'chart_data',
           '#title' => ['role' => 'annotation'],
           '#data' => array_map(function($v) {
-            return ssotFormatNumber($v, 0, true);
+            $options = array(
+              'decimals' => 0,
+              'positive_sign' => TRUE,
+              'na_if_empty' => TRUE,
+            );
+            return ssotFormatNumber($v, $options);
           }, $data),
         ],
         'xaxis' => [

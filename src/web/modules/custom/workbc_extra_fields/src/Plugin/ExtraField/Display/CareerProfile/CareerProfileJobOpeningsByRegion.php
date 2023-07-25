@@ -43,42 +43,52 @@ class CareerProfileJobOpeningsByRegion extends ExtraFieldDisplayFormattedBase {
    */
   public function viewElements(ContentEntityInterface $entity) {
 
+    $options1 = array(
+      'decimals' => 0,
+      'no_negative' => TRUE,
+      'na_if_empty' => TRUE,
+    );
+    $options2 = array(
+      'decimals' => 1,
+      'suffix' => "%",
+      'na_if_empty' => TRUE,
+    );    
     $regions = [];
     if (!empty($entity->ssot_data) && isset($entity->ssot_data['career_regional'])) {
       $region = array();
       $region['name'] = t(REGION_CARIBOO);
-      $region['openings'] = ssotFormatNA($entity->ssot_data['career_regional']['cariboo_expected_number_of_job_openings_10y'], 0);
-      $region['growth'] = ssotFormatNA($entity->ssot_data['career_regional']['cariboo_average_annual_employment_growth_10y_pct'], 1, "%");
+      $region['openings'] = ssotFormatNumber($entity->ssot_data['career_regional']['cariboo_expected_number_of_job_openings_10y'], $options1);
+      $region['growth'] = ssotFormatNumber($entity->ssot_data['career_regional']['cariboo_average_annual_employment_growth_10y_pct'], $options2);
       $regions[] = $region;
       $region = array();
       $region['name'] = t(REGION_KOOTENAY);
-      $region['openings'] = ssotFormatNA($entity->ssot_data['career_regional']['kootenay_expected_number_of_job_openings_10y'], 0);
-      $region['growth'] = ssotFormatNA($entity->ssot_data['career_regional']['kootenay_average_annual_employment_growth_10y_pct'], 1, "%");
+      $region['openings'] = ssotFormatNumber($entity->ssot_data['career_regional']['kootenay_expected_number_of_job_openings_10y'], $options1);
+      $region['growth'] = ssotFormatNumber($entity->ssot_data['career_regional']['kootenay_average_annual_employment_growth_10y_pct'], $options2);
       $regions[] = $region;
       $region = array();
       $region['name'] = t(REGION_MAINLAND_SOUTHWEST);
-      $region['openings'] = ssotFormatNA($entity->ssot_data['career_regional']['mainland_southwest_expected_number_of_job_openings_10y'], 0);
-      $region['growth'] = ssotFormatNA($entity->ssot_data['career_regional']['mainland_southwest_annual_employment_growth_10y_pct'], 1, "%");
+      $region['openings'] = ssotFormatNumber($entity->ssot_data['career_regional']['mainland_southwest_expected_number_of_job_openings_10y'], $options1);
+      $region['growth'] = ssotFormatNumber($entity->ssot_data['career_regional']['mainland_southwest_annual_employment_growth_10y_pct'], $options2);
       $regions[] = $region;
       $region = array();
       $region['name'] = t(REGION_NORTH_COAST_NECHAKO);
-      $region['openings'] = ssotFormatNA($entity->ssot_data['career_regional']['north_coast_nechako_expected_number_of_job_openings_10y'], 0);
-      $region['growth'] = ssotFormatNA($entity->ssot_data['career_regional']['north_coast_nechako_annual_employment_growth_10y_pct'], 1, "%");
+      $region['openings'] = ssotFormatNumber($entity->ssot_data['career_regional']['north_coast_nechako_expected_number_of_job_openings_10y'], $options1);
+      $region['growth'] = ssotFormatNumber($entity->ssot_data['career_regional']['north_coast_nechako_annual_employment_growth_10y_pct'], $options2);
       $regions[] = $region;
       $region = array();
       $region['name'] = t(REGION_NORTHEAST);
-      $region['openings'] = ssotFormatNA($entity->ssot_data['career_regional']['northeast_expected_number_of_job_openings_10y'], 0);
-      $region['growth'] = ssotFormatNA($entity->ssot_data['career_regional']['northeast_annual_employment_growth_10y_pct'], 1, "%");
+      $region['openings'] = ssotFormatNumber($entity->ssot_data['career_regional']['northeast_expected_number_of_job_openings_10y'], $options1);
+      $region['growth'] = ssotFormatNumber($entity->ssot_data['career_regional']['northeast_annual_employment_growth_10y_pct'], $options2);
       $regions[] = $region;
       $region = array();
       $region['name'] = t(REGION_THOMPSON_OKANAGAN);
-      $region['openings'] = ssotFormatNA($entity->ssot_data['career_regional']['thompson_okanagan_expected_number_of_job_openings_10y'], 0);
-      $region['growth'] = ssotFormatNA($entity->ssot_data['career_regional']['thompson_okanagan_annual_employment_growth_10y_pct'], 1, "%");
+      $region['openings'] = ssotFormatNumber($entity->ssot_data['career_regional']['thompson_okanagan_expected_number_of_job_openings_10y'], $options1);
+      $region['growth'] = ssotFormatNumber($entity->ssot_data['career_regional']['thompson_okanagan_annual_employment_growth_10y_pct'], $options2);
       $regions[] = $region;
       $region = array();
       $region['name'] = t(REGION_VANCOUVER_ISLAND_COAST);
-      $region['openings'] = ssotFormatNA($entity->ssot_data['career_regional']['vancouver_island_coast_expected_number_of_job_openings_10y'], 0);
-      $region['growth'] = ssotFormatNA($entity->ssot_data['career_regional']['vancouver_island_coast_annual_employment_growth_10y_pct'], 1, "%");
+      $region['openings'] = ssotFormatNumber($entity->ssot_data['career_regional']['vancouver_island_coast_expected_number_of_job_openings_10y'], $options1);
+      $region['growth'] = ssotFormatNumber($entity->ssot_data['career_regional']['vancouver_island_coast_annual_employment_growth_10y_pct'], $options2);
       $regions[] = $region;
     }
 

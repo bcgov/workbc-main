@@ -41,8 +41,12 @@ class WorkBCNumericToMoneyFormatter extends FormatterBase {
 
     $settings = $this->getSettings();
 
+    $options = array(
+      'decimals' => $this->getSetting('decimals'),
+      'prefix' => $this->getSetting('prefix'),
+    );
     foreach ($items as $delta => $item) {
-      $result = $this->getSetting('prefix') . number_format($item->value, $this->getSetting('decimals'));
+      $result = ssotFormatNumber($item->value, $options);
       $elements[$delta] = ['#markup' => $result];
     }
     return $elements;

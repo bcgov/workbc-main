@@ -43,9 +43,13 @@ class RegionUnemploymentRateRegion extends ExtraFieldDisplayFormattedBase {
    * {@inheritdoc}
    */
   public function viewElements(ContentEntityInterface $entity) {
-
+    $options = array(
+      'decimals' => 1,
+      'suffix' => "%",
+      'na_if_empty' => TRUE,
+    );
     if (!empty($entity->ssot_data) && isset($entity->ssot_data['labour_force_survey_regional_employment']['unemployment_rate_year_11'])) {
-      $output = ssotFormatNumber($entity->ssot_data['labour_force_survey_regional_employment']['unemployment_rate_year_11'],1) . "%";
+      $output = ssotFormatNumber($entity->ssot_data['labour_force_survey_regional_employment']['unemployment_rate_year_11'], $options);
     }
     else {
       $output = WORKBC_EXTRA_FIELDS_NOT_AVAILABLE;

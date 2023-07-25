@@ -43,10 +43,16 @@ class IndustryAverageWage extends ExtraFieldDisplayFormattedBase {
    */
   public function viewElements(ContentEntityInterface $entity) {
 
+    $options = array(
+      'decimals' => 2,
+      'prefix' => "$",
+      'suffix' => "/hr",
+      'na_if_empty' => TRUE,
+    );
     if (!empty($entity->ssot_data) && isset($entity->ssot_data['labour_force_survey_industry'])) {
-      $avgMen = '$' . ssotFormatNumber($entity->ssot_data['labour_force_survey_industry']['earnings_men'],2) . '/hr';
-      $avgWomen = '$' . ssotFormatNumber($entity->ssot_data['labour_force_survey_industry']['earnings_women'],2) . '/hr';
-      $avgYouth = '$' . ssotFormatNumber($entity->ssot_data['labour_force_survey_industry']['earnings_youth'],2) . '/hr';
+      $avgMen = ssotFormatNumber($entity->ssot_data['labour_force_survey_industry']['earnings_men'], $options);
+      $avgWomen = ssotFormatNumber($entity->ssot_data['labour_force_survey_industry']['earnings_women'], $options);
+      $avgYouth = ssotFormatNumber($entity->ssot_data['labour_force_survey_industry']['earnings_youth'], $options);
     }
     else {
       $avgMen = WORKBC_EXTRA_FIELDS_NOT_AVAILABLE;;

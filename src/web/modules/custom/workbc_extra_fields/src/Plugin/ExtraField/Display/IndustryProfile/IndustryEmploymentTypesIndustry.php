@@ -44,15 +44,20 @@ class IndustryEmploymentTypesIndustry extends ExtraFieldDisplayFormattedBase {
    */
   public function viewElements(ContentEntityInterface $entity) {
 
+    $options = array(
+      'decimals' => 0,
+      'suffix' => "%",
+      'na_if_empty' => TRUE,
+    );
     if (!empty($entity->ssot_data) && isset($entity->ssot_data['labour_force_survey_industry'])) {
       $ft = 100;
       $ft -= $entity->ssot_data['labour_force_survey_industry']['employment_part_time_pct'];
       $ft -= $entity->ssot_data['labour_force_survey_industry']['employment_self_employment_pct'];
       $ft -= $entity->ssot_data['labour_force_survey_industry']['employment_temporary_pct'];
-      $employmentFullTime = ssotFormatNumber($ft, 0) . '%';
-      $employmentPartTime = ssotFormatNumber($entity->ssot_data['labour_force_survey_industry']['employment_part_time_pct'], 0) . '%';
-      $employmentSelfEmployed = ssotFormatNumber($entity->ssot_data['labour_force_survey_industry']['employment_self_employment_pct'], 0) . '%';
-      $employmentTemporary =  ssotFormatNumber($entity->ssot_data['labour_force_survey_industry']['employment_temporary_pct'], 0) . '%';
+      $employmentFullTime = ssotFormatNumber($ft, $options);
+      $employmentPartTime = ssotFormatNumber($entity->ssot_data['labour_force_survey_industry']['employment_part_time_pct'], $options);
+      $employmentSelfEmployed = ssotFormatNumber($entity->ssot_data['labour_force_survey_industry']['employment_self_employment_pct'], $options);
+      $employmentTemporary =  ssotFormatNumber($entity->ssot_data['labour_force_survey_industry']['employment_temporary_pct'], $options);
     }
     else {
       $employmentFullTime = WORKBC_EXTRA_FIELDS_NOT_AVAILABLE;;

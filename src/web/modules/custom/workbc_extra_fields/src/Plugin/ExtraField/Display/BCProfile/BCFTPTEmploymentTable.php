@@ -43,11 +43,16 @@ class BCFTPTEmploymentTable extends ExtraFieldDisplayFormattedBase {
    */
   public function viewElements(ContentEntityInterface $entity) {
 
+    $options = array(
+      'decimals' => 0,
+      'suffix' => "%",
+      'na_if_empty' => TRUE,
+    );
     if (!empty($entity->ssot_data) && isset($entity->ssot_data['labour_force_survey_bc_employment'])) {
       $value = $entity->ssot_data['labour_force_survey_bc_employment']['full_time_employment_pct'];
-      $fulltime = ($value===0||$value) ? ssotFormatNumber($value) . "%" : WORKBC_EXTRA_FIELDS_NOT_AVAILABLE ;
+      $fulltime = ssotFormatNumber($value, $options);
       $value = $entity->ssot_data['labour_force_survey_bc_employment']['part_time_employment_pct'];
-      $parttime = ($value===0||$value) ? ssotFormatNumber($value) . "%" : WORKBC_EXTRA_FIELDS_NOT_AVAILABLE ;
+      $parttime = ssotFormatNumber($value, $options);
       $content = "<table class='region-profile-table'>";
       $content .= "<tr><td>Full-time employment (average):</td><td class='region-profile-table-value'>" . $fulltime . "</td></tr>";
       $content .= "<tr><td>Part-time employment (average):</td><td class='region-profile-table-value'>" . $parttime . "</td></tr>";

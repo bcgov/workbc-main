@@ -43,8 +43,12 @@ class IndustryJobOpenings extends ExtraFieldDisplayFormattedBase {
    */
   public function viewElements(ContentEntityInterface $entity) {
 
+    $options = array(
+      'decimals' => 0,
+      'na_if_empty' => TRUE,
+    );
     if (!empty($entity->ssot_data) && isset($entity->ssot_data['industry_outlook']['openings'])) {
-      $output = ssotFormatNumber($entity->ssot_data['industry_outlook']['openings'],0);
+      $output = ssotFormatNumber($entity->ssot_data['industry_outlook']['openings'], $options);
     }
     else {
       $output = WORKBC_EXTRA_FIELDS_NOT_AVAILABLE;

@@ -46,7 +46,11 @@ class BCEmployment extends ExtraFieldDisplayFormattedBase {
 
     if (!empty($entity->ssot_data) && isset($entity->ssot_data['monthly_labour_market_updates'])) {
       $field = 'total_jobs_' . $entity->ssot_data['region'];
-      $output = ssotFormatNumber($entity->ssot_data['monthly_labour_market_updates'][$field],0);
+      $options = array(
+        'decimals' => 0,
+        'na_if_empty' => TRUE,
+      );
+      $output = ssotFormatNumber($entity->ssot_data['monthly_labour_market_updates'][$field], $options);
     }
     else {
       $output = WORKBC_EXTRA_FIELDS_NOT_AVAILABLE;

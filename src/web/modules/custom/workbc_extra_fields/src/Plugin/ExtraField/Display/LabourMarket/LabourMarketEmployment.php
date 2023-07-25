@@ -50,8 +50,12 @@ class LabourMarketEmployment extends ExtraFieldDisplayFormattedBase {
       ];
     }
 
+    $options = array(
+      'decimals' => 0,
+      'na_if_empty' => TRUE,
+    );
     $current_previous_months = !empty($entity->ssot_data['current_previous_months_names'])?$entity->ssot_data['current_previous_months_names']:WORKBC_EXTRA_FIELDS_NOT_AVAILABLE;
-    $total_employment =  !empty($entity->ssot_data['monthly_labour_market_updates'][0]['total_employed'])?ssotFormatNumber($entity->ssot_data['monthly_labour_market_updates'][0]['total_employed']):WORKBC_EXTRA_FIELDS_NOT_AVAILABLE;
+    $total_employment =  ssotFormatNumber($entity->ssot_data['monthly_labour_market_updates'][0]['total_employed'], $options);
     $source_text = !empty($entity->ssot_data['sources']['no-datapoint'])?$entity->ssot_data['sources']['no-datapoint']:WORKBC_EXTRA_FIELDS_NOT_AVAILABLE;
 
     //output
