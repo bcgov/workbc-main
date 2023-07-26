@@ -130,16 +130,15 @@
       {{ page_body }}
     {% endif %}
     <div class="layout-container">
-      <link rel="stylesheet" href="{{jobboard_api_url_frontend}}/bootstrap/bootstrap.min.css?v=Release-1980">
-      <link rel="stylesheet" href="{{jobboard_api_url_frontend}}/dist/jb-account/styles.css?v=Release-1980">
+      <link rel="stylesheet" href="{{jobboard_api_url_frontend}}/bootstrap/bootstrap.min.css?v={{drupal_config('jobboard', 'sha')}}">
+      <link rel="stylesheet" href="{{jobboard_api_url_frontend}}/dist/jb-account/styles.css?v={{drupal_config('jobboard', 'sha')}}">
       <app-root api="{{jobboard_api_url_frontend}}/" jbsearch="{{find_job_url}}" jbaccount="{{find_job_account_url}}" _nghost-ngr-c118="" ng-version="12.2.16" _ngcontent-otq-c106></app-root>
-      <script src="{{jobboard_api_url_frontend}}/dist/jb-account/runtime-es2017.js?v=Release-1980" type="module"></script>
-      <script src="{{jobboard_api_url_frontend}}/dist/jb-account/runtime-es5.js?v=Release-1980" nomodule="" defer=""></script>
-      <script src="{{jobboard_api_url_frontend}}/dist/jb-account/polyfills-es2017.js?v=Release-1980" type="module"></script>
-      <script src="{{jobboard_api_url_frontend}}/dist/jb-account/polyfills-es5.js?v=Release-1980" nomodule="" defer=""></script>
-      <script src="{{jobboard_api_url_frontend}}/dist/jb-account/main-es2017.js?v=Release-1980" type="module"></script>
-      <script src="{{jobboard_api_url_frontend}}/dist/jb-account/main-es5.js?v=Release-1980" nomodule="" defer=""></script>
-
+      <script src="{{jobboard_api_url_frontend}}/dist/jb-account/runtime-es2017.js?v={{drupal_config('jobboard', 'sha')}}" type="module"></script>
+      <script src="{{jobboard_api_url_frontend}}/dist/jb-account/runtime-es5.js?v={{drupal_config('jobboard', 'sha')}}" nomodule="" defer=""></script>
+      <script src="{{jobboard_api_url_frontend}}/dist/jb-account/polyfills-es2017.js?v={{drupal_config('jobboard', 'sha')}}" type="module"></script>
+      <script src="{{jobboard_api_url_frontend}}/dist/jb-account/polyfills-es5.js?v={{drupal_config('jobboard', 'sha')}}" nomodule="" defer=""></script>
+      <script src="{{jobboard_api_url_frontend}}/dist/jb-account/main-es2017.js?v={{drupal_config('jobboard', 'sha')}}" type="module"></script>
+      <script src="{{jobboard_api_url_frontend}}/dist/jb-account/main-es5.js?v={{drupal_config('jobboard', 'sha')}}" nomodule="" defer=""></script>
   </div>
     {{ page_content }}
 
