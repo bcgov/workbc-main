@@ -53,7 +53,24 @@ class WorkBcJobboardController extends ControllerBase {
 
   /**
    * {@inheritdoc}
-	 */
+   */
+  function api($parameters, $action, $method) {
+    try {
+      $options = $this->getCallOptions($parameters, $action, $method);
+      $client = new Client();
+      $response = $client->$method($options['url'], $options);
+      $result = json_decode($response->getBody(), TRUE);
+      return $result;
+    }
+    catch (RequestException $e) {
+      \Drupal::logger('workbc_jobboard')->error($e->getMessage());
+      return NULL;
+    }
+  }
+
+  /**
+   * {@inheritdoc}
+   */
   function getCallOptions($parameters, $action, $method) {
     $options = [];
     if($action == 'SearchPost'){
@@ -117,22 +134,5 @@ class WorkBcJobboardController extends ControllerBase {
     }
     $options['url'] = $jobboard_api_url;
     return $options;
-  }
-
-  /**
-   * {@inheritdoc}
-	 */
-  function api($parameters, $action, $method) {
-    try {
-      $options = $this->getCallOptions($parameters, $action, $method);
-      $client = new Client();
-      $response = $client->$method($options['url'], $options);
-      $result = json_decode($response->getBody(), TRUE);
-      return $result;
-    }
-    catch (RequestException $e) {
-      \Drupal::logger('workbc_jobboard')->error($e->getMessage());
-      return NULL;
-    }
   }
 }
