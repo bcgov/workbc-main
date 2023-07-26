@@ -785,6 +785,11 @@ $settings['redis.connection']['interface'] = 'PhpRedis';
 $settings['cache']['default'] = 'cache.backend.redis';
 $settings['container_yamls'][] = 'modules/contrib/redis/example.services.yml';
 
+// Job Board settings.
+$config['jobboard']['find_job_url'] = '/search-and-prepare-job/find-jobs';
+$config['jobboard']['find_job_account_url'] = '/account';
+$config['jobboard']['sha'] = 'd55f0015790fcdab86d6f6574da4ce8828d806b7';
+
 /**
  * Load local development override configuration, if available.
  *
