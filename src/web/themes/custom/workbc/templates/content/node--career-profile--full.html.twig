@@ -369,14 +369,14 @@
 
             <div class="profile-content-section">
               <h2 class="profile-content-section__header">{{ viewmodel['tab_sections']['career_overview']['related_careers_title'] }}</h2>
-            
+
                 {% for career in viewmodel['tab_sections']['career_overview']['related_careers_list'] %}
                   <div class="related-careers-link">
                     <a href="{{ career.uri }}"><span class="related-careers-link-title">{{ career.title }}</span> (NOC {{career.noc }})</a>
                   </div>
                 {% endfor %}
               </ul>
-                            
+
             </div>
 
             <div class="profile-content-section">
@@ -389,14 +389,21 @@
               </div>
             </div>
 
-            <div class="profile-content-section">
+            <div class="profile-content-section" id="job-titles">
               <h2 class="profile-content-section__header">{{ viewmodel['tab_sections']['career_overview']['job_titles_title'] }}</h2>
 
-              <ul class="career-content-job-titles">
-                {% for jobtitle in viewmodel['tab_sections']['career_overview']['job_titles_list'] %}
-                  <li>{{ jobtitle.value }}</li>
+              <div data-static-load-more-container data-static-load-more-initial="6" data-static-load-more-step="200">
+                <div data-static-load-more-items class="career-content-job-titles">
+                {% for row in viewmodel['tab_sections']['career_overview']['job_titles_list'] %}
+                  {% for jobtitle in row %}
+                    <div class="job-title-item">{{ jobtitle.value }}</div>
+                  {% endfor %}
                 {% endfor %}
-              </ul>
+                </div>
+                <div class="static-load-more-button-container">
+                  <a data-static-load-more-trigger>View more &#10093;</a>
+                </div>
+              </div>
             </div>
 
           </div>
