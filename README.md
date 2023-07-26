@@ -52,7 +52,19 @@ This repo includes a patched version of Backup and Migrate that supports Postgre
 - `drush backup_migrate:restore source_id destination_id file_id` to restore a given file (e.g. `backup-2023-01-03T12-02-04.sql.gz`) from a given destination (e.g. `private_files`) to a given source (e.g. `default_db`).
 
 # Theming / styling
-Refer to the [`src/web/themes/custom/workbc`](src/web/themes/custom/workbc/README.md) folder for more details.
+The [WorkBC theme](src/web/themes/custom/workbc) is a [Bootstrap 5](https://www.drupal.org/project/bootstrap5) subtheme.
+
+## Fonts
+B.C. Government digital services are expected to make use of BCSans.
+See https://developer.gov.bc.ca/Typography for more details.
+
+## Development
+The `php` Docker container has `yarn`, `grunt`, and `grunt-dart-sass` set up for compilation.
+You will need to either `make install` or `yarn install` from `src/` to install all of the dependencies first.
+
+Once dependencies are in place:
+`yarn run grunt dart-sass` will compile everything starting with the style.scss, and
+`yarn run grunt watch` will start a watch on all .scss files, and compile on detecting changes.
 
 # Testing
 Refer to the [`src/scripts/test`](src/scripts/test/README.md) folder for instructions on load-testing the site.

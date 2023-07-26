@@ -2,14 +2,6 @@
 namespace Drupal\workbc_jobboard\Plugin\Block;
 
 use Drupal\Core\Block\BlockBase;
-use Drupal\Core\Url;
-use Drupal\Core\Form\FormStateInterface;
-use Drupal\Component\Utility\UrlHelper;
-use Drupal\Core\Access\AccessResult;
-use Drupal\Core\Session\AccountInterface;
-use Drupal\Core\Form\FormInterface;
-use Drupal\workbc_jobboard\Controller\WorkBcJobboardController;
-
 
 /**
  * Provides a 'Save Career Profile' Block.
@@ -21,27 +13,42 @@ use Drupal\workbc_jobboard\Controller\WorkBcJobboardController;
  * )
  */
 
-class WorkbcJobboardSaveProfile extends BlockBase{
+class WorkbcJobboardSaveProfile extends BlockBase {
 
 	/**
    * {@inheritdoc}
    */
-	public function build(){
-    $config = $this->getConfiguration();
-    $saveProfile = \Drupal::formBuilder()->getForm('Drupal\workbc_jobboard\Form\JobboardSaveProfileForm');
+	public function build() {
+    $node = \Drupal::routeMatch()->getParameter('node');
+    if (!($node instanceof \Drupal\node\NodeInterface)) return null;
+
+    $type = $node->bundle();
+    switch ($type) {
+      case 'career_profile':
+        $profile_id = $node?->get('field_noc')?->value ?? '';
+        $status = \Drupal::config('jobboard')->get('jobboard_api_url_frontend') . '/api/career-profiles/status/' . $profile_id;
+        $save = \Drupal::config('jobboard')->get('jobboard_api_url_frontend') . '/api/career-profiles/save/' . $profile_id;
+        break;
+      case 'industry_profile':
+        $profile_id = explode(',', $node?->get('field_job_board_save_profile_id')?->value ?? '')[0];
+        $status = \Drupal::config('jobboard')->get('jobboard_api_url_frontend') . '/api/industry-profiles/status/' . $profile_id;
+        $save = \Drupal::config('jobboard')->get('jobboard_api_url_frontend') . '/api/industry-profiles/save/' . $profile_id;
+        break;
+      default:
+        return null;
+    }
+
     return [
       '#type' => 'markup',
-      '#markup' => 'Save profile',
       '#theme' => 'save_profile',
-      '#form' => (isset($saveProfile))? $saveProfile: '',
-      '#data' => [],
+      '#attached' => [
+        'drupalSettings' => [
+          'jobboard' => [
+            'status' => $status,
+            'save' => $save,
+          ]
+        ]
+      ]
     ];
-  }
-
-  /**
-   * {@inheritdoc}
-   */
-  public function getCacheMaxAge() {
-    return isset($_COOKIE['currentUser_token']) ? 0 : \Drupal\Core\Cache\Cache::PERMANENT;
   }
 }
