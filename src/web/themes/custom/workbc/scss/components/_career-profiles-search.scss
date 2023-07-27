@@ -31,13 +31,16 @@
 #job-titles .static-load-more-button-container {
   padding-top: 1rem;
   justify-content: left;
-  color: $workbc_default_link;
-  text-decoration: none;
-  @include link-chevron;
-}
 
-#job-titles .static-load-more-button-container:hover {
-  text-decoration: underline;
+  a {
+    color: $workbc_default_link;
+    text-decoration: none;
+    @include link-chevron;
+  }
+
+  a:hover {
+    text-decoration: underline;
+  }
 }
 
 #job-titles .career-content-job-titles {
