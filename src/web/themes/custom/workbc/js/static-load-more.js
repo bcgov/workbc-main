@@ -4,6 +4,7 @@
   let initialize = function (containerJquery) {
     let container = $(containerJquery);
     let initialCount = container.data('static-load-more-initial');
+    let moreText = container.data('static-more-text');
     let items = container.children('[data-static-load-more-items]').first().children();
     let trigger = container.find('[data-static-load-more-trigger]').first();
 
@@ -11,20 +12,46 @@
 
     trigger.on('click', function() { loadMore(container) });
 
+    // if moreText parameter is populated, update link text
+    if(moreText) {
+      trigger.text(moreText)
+    }
+
     container.show();
   };
 
   let loadMore = function (containerJquery) {
     let container = $(containerJquery);
     let stepCount = container.data('static-load-more-step');
+    let lessText = container.data('static-less-text');
     let hiddenItems = container.children('[data-static-load-more-items]').first().children(':hidden');
-    
+
     hiddenItems.slice(0, stepCount).show();
-      
-    if(hiddenItems.length <= stepCount) {
-      let trigger = container.find('[data-static-load-more-trigger]').first();
+    let trigger = container.find('[data-static-load-more-trigger]').first();
+
+    // if lessText is not set, hide the 'show less' link
+    if(hiddenItems.length <= stepCount && ! lessText) {
       trigger.hide();
     }
+
+    // if lessText is populated, display the 'show less' link text
+    if(hiddenItems.length <= stepCount && lessText) {
+      trigger.on('click', function() { showLess(container) });
+      trigger.text(lessText);
+    }
+  }
+
+  let showLess = function (containerJquery) {
+    let container = $(containerJquery);
+    let moreText = container.data('static-more-text');
+    let initialCount = container.data('static-load-more-initial');
+    let trigger = container.find('[data-static-load-more-trigger]').first();
+    let items = container.children('[data-static-load-more-items]').first().children();
+    items.slice(initialCount).hide();
+    container.show();
+
+    trigger.on('click', function() { loadMore(container) });
+    trigger.text(moreText)
   }
 
   Drupal.behaviors.initStaticLoadMoreBehavior = {
