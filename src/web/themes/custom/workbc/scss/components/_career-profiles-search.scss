@@ -32,6 +32,12 @@
   padding-top: 1rem;
   justify-content: left;
   color: $workbc_default_link;
+  text-decoration: none;
+}
+
+#job-titles .static-load-more-button-container:hover {
+  color: $workbc_default_link;
+  text-decoration: underline;
 }
 
 #job-titles .career-content-job-titles {
