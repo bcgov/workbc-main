@@ -38,6 +38,7 @@
 #job-titles .static-load-more-button-container:hover {
   color: $workbc_default_link;
   text-decoration: underline;
+  @include link-chevron;
 }
 
 #job-titles .career-content-job-titles {
