@@ -12,7 +12,8 @@
 
     trigger.on('click', function() { loadMore(container) });
 
-    // if moreText parameter is populated, update link text
+    // if moreText parameter is populated, update link text, otherwise default to using
+    // the text between the anchor tags.  ie: "<a ...>Show more</a>"
     if(moreText) {
       trigger.text(moreText)
     }
