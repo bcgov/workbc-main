@@ -1,0 +1,404 @@
+
+#workbc-interactive-map {
+  /* border-width: 0px;
+  position: absolute;
+  left: 0px;
+  top: 0px;
+  width: 400px;
+  height: 330px; */
+  display: flex;
+}
+
+#interactive-map-cariboo,
+#interactive-map-kootenay,
+#interactive-map-mainland,
+#interactive-map-northcoast,
+#interactive-map-northeast,
+#interactive-map-thompson,
+#interactive-map-vancouver {
+  display: none; 
+  visibility: hidden;
+}
+
+.map-region {
+  border-width: 0px;
+  position: absolute;
+  left: 0px;
+  top: 0px;
+  width: 400px;
+  height: 330px;  
+}
+
+#map-hot-spot-01 {
+  border-width: 0px;
+  position: absolute;
+  left: 168px;
+  top: 40px;
+  width: 110px;
+  height: 26px;
+  overflow: hidden;
+  background-image: url(../images/transparent.gif);
+}
+
+
+
+#map-hot-spot-02 {
+  border-width:0px;
+  position:absolute;
+  left:370px;
+  top:221px;
+  width:108px;
+  height:26px;
+  overflow:hidden;
+  background-image:url('../../resources/images/transparent.gif');
+}
+#map-hot-spot-03 {
+  border-width:0px;
+  position:absolute;
+  left:357px;
+  top:247px;
+  width:121px;
+  height:35px;
+  overflow:hidden;
+  background-image:url('../../resources/images/transparent.gif');
+}
+#map-hot-spot-04 {
+  border-width:0px;
+  position:absolute;
+  left:377px;
+  top:282px;
+  width:101px;
+  height:16px;
+  overflow:hidden;
+  background-image:url('../../resources/images/transparent.gif');
+}
+#map-hot-spot-05 {
+  border-width:0px;
+  position:absolute;
+  left:406px;
+  top:298px;
+  width:72px;
+  height:14px;
+  overflow:hidden;
+  background-image:url('../../resources/images/transparent.gif');
+}
+#map-hot-spot-06 {
+  border-width:0px;
+  position:absolute;
+  left:431px;
+  top:312px;
+  width:47px;
+  height:14px;
+  overflow:hidden;
+  background-image:url('../../resources/images/transparent.gif');
+}
+#map-hot-spot-07 {
+  border-width:0px;
+  position:absolute;
+  left:455px;
+  top:326px;
+  width:25px;
+  height:12px;
+  overflow:hidden;
+  background-image:url('../../resources/images/transparent.gif');
+}
+#map-hot-spot-08 {
+  border-width:0px;
+  position:absolute;
+  left:416px;
+  top:326px;
+  width:38px;
+  height:26px;
+  overflow:hidden;
+  background-image:url('../../resources/images/transparent.gif');
+}
+#map-hot-spot-09 {
+  border-width:0px;
+  position:absolute;
+  left:423px;
+  top:352px;
+  width:57px;
+  height:26px;
+  overflow:hidden;
+  background-image:url('../../resources/images/transparent.gif');
+}
+#map-hot-spot-10 {
+  border-width:0px;
+  position:absolute;
+  left:385px;
+  top:378px;
+  width:95px;
+  height:31px;
+  overflow:hidden;
+  background-image:url('../../resources/images/transparent.gif');
+}
+#map-hot-spot-11 {
+  border-width:0px;
+  position:absolute;
+  left:389px;
+  top:409px;
+  width:50px;
+  height:17px;
+  overflow:hidden;
+  background-image:url('../../resources/images/transparent.gif');
+}
+#map-hot-spot-12 {
+  border-width:0px;
+  position:absolute;
+  left:439px;
+  top:409px;
+  width:39px;
+  height:14px;
+  overflow:hidden;
+  background-image:url('../../resources/images/transparent.gif');
+}
+#map-hot-spot-13 {
+  border-width:0px;
+  position:absolute;
+  left:480px;
+  top:373px;
+  width:24px;
+  height:14px;
+  overflow:hidden;
+  background-image:url('../../resources/images/transparent.gif');
+}
+#map-hot-spot-14 {
+  border-width:0px;
+  position:absolute;
+  left:480px;
+  top:391px;
+  width:48px;
+  height:32px;
+  overflow:hidden;
+  background-image:url('../../resources/images/transparent.gif');
+}
+#map-hot-spot-15 {
+  border-width:0px;
+  position:absolute;
+  left:449px;
+  top:423px;
+  width:79px;
+  height:20px;
+  overflow:hidden;
+  background-image:url('../../resources/images/transparent.gif');
+}
+#map-hot-spot-16 {
+  border-width:0px;
+  position:absolute;
+  left:449px;
+  top:443px;
+  width:71px;
+  height:20px;
+  overflow:hidden;
+  background-image:url('../../resources/images/transparent.gif');
+}
+#map-hot-spot-17 {
+  border-width:0px;
+  position:absolute;
+  left:464px;
+  top:463px;
+  width:37px;
+  height:24px;
+  overflow:hidden;
+  background-image:url('../../resources/images/transparent.gif');
+}
+#map-hot-spot-18 {
+  border-width:0px;
+  position:absolute;
+  left:528px;
+  top:415px;
+  width:30px;
+  height:17px;
+  overflow:hidden;
+  background-image:url('../../resources/images/transparent.gif');
+}
+#map-hot-spot-19 {
+  border-width:0px;
+  position:absolute;
+  left:528px;
+  top:403px;
+  width:13px;
+  height:12px;
+  overflow:hidden;
+  background-image:url('../../resources/images/transparent.gif');
+}
+#map-hot-spot-20 {
+  border-width:0px;
+  position:absolute;
+  left:528px;
+  top:432px;
+  width:13px;
+  height:12px;
+  overflow:hidden;
+  background-image:url('../../resources/images/transparent.gif');
+}
+#map-hot-spot-21 {
+  border-width:0px;
+  position:absolute;
+  left:501px;
+  top:463px;
+  width:94px;
+  height:20px;
+  overflow:hidden;
+  background-image:url('../../resources/images/transparent.gif');
+}
+#map-hot-spot-22 {
+  border-width:0px;
+  position:absolute;
+  left:520px;
+  top:444px;
+  width:68px;
+  height:19px;
+  overflow:hidden;
+  background-image:url('../../resources/images/transparent.gif');
+}
+#map-hot-spot-23 {
+  border-width:0px;
+  position:absolute;
+  left:541px;
+  top:432px;
+  width:35px;
+  height:12px;
+  overflow:hidden;
+  background-image:url('../../resources/images/transparent.gif');
+}
+#map-hot-spot-24 {
+  border-width:0px;
+  position:absolute;
+  left:263px;
+  top:192px;
+  width:96px;
+  height:26px;
+  overflow:hidden;
+  background-image:url('../../resources/images/transparent.gif');
+}
+#map-hot-spot-25 {
+  border-width:0px;
+  position:absolute;
+  left:268px;
+  top:218px;
+  width:100px;
+  height:26px;
+  overflow:hidden;
+  background-image:url('../../resources/images/transparent.gif');
+}
+#map-hot-spot-26 {
+  border-width:0px;
+  position:absolute;
+  left:282px;
+  top:244px;
+  width:75px;
+  height:26px;
+  overflow:hidden;
+  background-image:url('../../resources/images/transparent.gif');
+}
+#map-hot-spot-27 {
+  border-width:0px;
+  position:absolute;
+  left:292px;
+  top:270px;
+  width:65px;
+  height:26px;
+  overflow:hidden;
+  background-image:url('../../resources/images/transparent.gif');
+}
+#map-hot-spot-28 {
+  border-width:0px;
+  position:absolute;
+  left:339px;
+  top:296px;
+  width:38px;
+  height:82px;
+  overflow:hidden;
+  background-image:url('../../resources/images/transparent.gif');
+}
+#map-hot-spot-29 {
+  border-width:0px;
+  position:absolute;
+  left:303px;
+  top:296px;
+  width:36px;
+  height:85px;
+  overflow:hidden;
+  background-image:url('../../resources/images/transparent.gif');
+}
+#map-hot-spot-30 {
+  border-width:0px;
+  position:absolute;
+  left:377px;
+  top:298px;
+  width:29px;
+  height:75px;
+  overflow:hidden;
+  background-image:url('../../resources/images/transparent.gif');
+}
+#map-hot-spot-31 {
+  border-width:0px;
+  position:absolute;
+  left:357px;
+  top:283px;
+  width:20px;
+  height:13px;
+  overflow:hidden;
+  background-image:url('../../resources/images/transparent.gif');
+}
+#map-hot-spot-32 {
+  border-width:0px;
+  position:absolute;
+  left:406px;
+  top:312px;
+  width:10px;
+  height:59px;
+  overflow:hidden;
+  background-image:url('../../resources/images/transparent.gif');
+}
+#map-hot-spot-33 {
+  border-width:0px;
+  position:absolute;
+  left:339px;
+  top:381px;
+  width:46px;
+  height:45px;
+  overflow:hidden;
+  background-image:url('../../resources/images/transparent.gif');
+}
+#map-hot-spot-34 {
+  border-width:0px;
+  position:absolute;
+  left:368px;
+  top:426px;
+  width:46px;
+  height:77px;
+  overflow:hidden;
+  background-image:url('../../resources/images/transparent.gif');
+}
+#map-hot-spot-35 {
+  border-width:0px;
+  position:absolute;
+  left:331px;
+  top:426px;
+  width:37px;
+  height:43px;
+  overflow:hidden;
+  background-image:url('../../resources/images/transparent.gif');
+}
+#map-hot-spot-36 {
+  border-width:0px;
+  position:absolute;
+  left:414px;
+  top:433px;
+  width:35px;
+  height:56px;
+  overflow:hidden;
+  background-image:url('../../resources/images/transparent.gif');
+}
+#map-hot-spot-37 {
+  border-width:0px;
+  position:absolute;
+  left:449px;
+  top:463px;
+  width:15px;
+  height:26px;
+  overflow:hidden;
+  background-image:url('../../resources/images/transparent.gif');
+}

@@ -538,3 +538,36 @@ function epbcSetPrograms() {
   \Drupal::state()->set('epbc_education_programs', $epbcData);
   \Drupal::logger('workbc_extra_fields')->notice("Pulled latest program data from Education Planner BC.");
 }
+
+
+
+function workbcInteractiveMap() {
+  
+  $module_handler = \Drupal::service('module_handler');
+  $module_path = $module_handler->getModule('workbc_extra_fields')->getPath();
+
+  $regions = ['cariboo', 'kootenay', 'mainland', 'northcoast', 'northeast', 'thompson', 'vancouver'];
+
+  $map = '<div id="workbc-interactive-map-container">';
+  $map = '<div id="workbc-interactive-map">';
+  $map .= '<img class="map-region" src="/' . $module_path . '/images/map-bc.png">';
+
+  foreach ($regions as $region) {
+    $map .= '<img id="interactive-map-' . $region . '" class="map-region" src="/' . $module_path . '/images/map-' . $region . '.png">';
+  }
+  
+  // $map .= '<img id="interactive-map-kootenay" class="map-region" src="/' . $module_path . '/images/map-kootenay.png">';  
+  // $map .= '<img id="interactive-map-mainland" class="map-region" src="/' . $module_path . '/images/map-mainland.png">';
+  // $map .= '<img id="interactive-map-northcoast" class="map-region" src="/' . $module_path . '/images/map-northcoast.png">';
+  // $map .= '<img id="interactive-map-northeast" class="map-region" src="/' . $module_path . '/images/map-northeast.png">';
+  // $map .= '<img id="interactive-map-thompson" class="map-region" src="/' . $module_path . '/images/map-thompson.png">';
+  // $map .= '<img id="interactive-map-vancouver" class="map-region" src="/' . $module_path . '/images/map-vancouver.png">';
+  $hotspots = [0,5,5,5,5,5,5,5,1,1,1,1,1,1,6,6,6,6,6,6,6,2,2,2,4,4,4,4,4,4,4,4,4,7,7,7,3,3];
+  for ($i = 1; $i <= 37; $i++) {
+    $id = "map-hot-spot-". str_pad($i, 2, "0", STR_PAD_LEFT);
+    $map .= '<div id="' . $id . '" class="map-hot-spot" tabindex="0" style="cursor: pointer;" onmouseover="mapHover(' . $hotspots[$i] . ')"> </div>';
+  }
+  $map .= '</div>';
+  $map .= '</div>';
+  return $map;
+}

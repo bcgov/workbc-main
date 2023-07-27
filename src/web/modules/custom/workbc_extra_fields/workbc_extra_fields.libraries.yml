@@ -1,3 +1,7 @@
 extra-fields:
-    js:
-        js/extra-fields.js: {}
+  css:
+    theme:
+      css/style.css: {}
+  js:
+    js/extra-fields.js: {}
+    js/interactive-map.js: {}

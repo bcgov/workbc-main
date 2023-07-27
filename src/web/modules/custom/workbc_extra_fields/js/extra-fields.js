@@ -18,5 +18,12 @@
   };
 
 
+  Drupal.behaviors.mapHover = {
+    attach: function () {
+      console.log("mapHover");
+    }
+  }
 
 })(jQuery);
+
+

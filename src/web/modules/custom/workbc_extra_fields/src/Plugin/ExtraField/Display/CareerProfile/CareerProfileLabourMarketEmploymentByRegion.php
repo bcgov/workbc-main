@@ -109,10 +109,11 @@ class CareerProfileLabourMarketEmploymentByRegion extends ExtraFieldDisplayForma
 
     $datestr = ssotParseDateRange($entity->ssot_data['schema'], 'career_regional', 'cariboo_employment_current');
 
-    $module_handler = \Drupal::service('module_handler');
-    $module_path = $module_handler->getModule('workbc_extra_fields')->getPath();
+    // $module_handler = \Drupal::service('module_handler');
+    // $module_path = $module_handler->getModule('workbc_extra_fields')->getPath();
+    // '<div><img src="/' . $module_path . '/images/' . WORKBC_BC_MAP_WITH_LABELS . '"></div>';
 
-    $text = '<div><img src="/' . $module_path . '/images/' . WORKBC_BC_MAP_WITH_LABELS . '"></div>';
+    $text = workbcInteractiveMap();
     $text .= "<div>";
     $text .= "<table>";
     $text .= "<tr><th>Region</th><th>Employment (" . $datestr . ")</th><th>% Employment</th></tr>";
