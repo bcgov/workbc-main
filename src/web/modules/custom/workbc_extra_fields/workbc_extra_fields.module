@@ -19,6 +19,20 @@ define ("REGION_VANCOUVER_ISLAND_COAST", "Vancouver Island/Coast");
 
 define ("REGION_BRITISH_COLUMBIA", "British Columbia");
 
+define ("REGION_CARIBOO_ID", 1);
+define ("REGION_KOOTENAY_ID", 2);
+define ("REGION_MAINLAND_SOUTHWEST_ID", 3);
+define ("REGION_NORTH_COAST_NECHAKO_ID", 4);
+define ("REGION_NORTHEAST_ID", 5);
+define ("REGION_THOMPSON_OKANAGAN_ID", 6);
+define ("REGION_VANCOUVER_ISLAND_COAST_ID", 7);
+define ("REGION_BRITISH_COLUMBIA_ID", 0);
+
+define ("WORK_BC_INTERACTIVE_MAP_1", 1);
+define ("WORK_BC_INTERACTIVE_MAP_2", 2);
+define ("WORK_BC_INTERACTIVE_MAP_3", 3);
+define ("WORK_BC_INTERACTIVE_MAP_4", 4);
+
 define ('SSOT_PING_TIMEOUT', 5);
 
 
@@ -541,31 +555,44 @@ function epbcSetPrograms() {
 
 
 
-function workbcInteractiveMap() {
+function workbcInteractiveMap($map_id) {
   
   $module_handler = \Drupal::service('module_handler');
   $module_path = $module_handler->getModule('workbc_extra_fields')->getPath();
 
-  $regions = ['cariboo', 'kootenay', 'mainland', 'northcoast', 'northeast', 'thompson', 'vancouver'];
-
-  $map = '<div id="workbc-interactive-map-container">';
-  $map = '<div id="workbc-interactive-map">';
-  $map .= '<img class="map-region" src="/' . $module_path . '/images/map-bc.png">';
+  $regions = [];
+  $temp = ssotRegions();
+  foreach ($temp as $key => $value) {
+    if ($key <> "british_columbia") {
+      $regions[] = $key;
+    }
+  } 
+  $map = '<div id="workbc-interactive-map-' . $map_id . '" class="workbc-interactive-map-container">';
+  $map .= '<div class="workbc-interactive-map">';
+  $map .= '<img class="map-region" src="/' . $module_path . '/images/map-british_columbia.png">';
 
   foreach ($regions as $region) {
     $map .= '<img id="interactive-map-' . $region . '" class="map-region" src="/' . $module_path . '/images/map-' . $region . '.png">';
   }
   
-  // $map .= '<img id="interactive-map-kootenay" class="map-region" src="/' . $module_path . '/images/map-kootenay.png">';  
-  // $map .= '<img id="interactive-map-mainland" class="map-region" src="/' . $module_path . '/images/map-mainland.png">';
-  // $map .= '<img id="interactive-map-northcoast" class="map-region" src="/' . $module_path . '/images/map-northcoast.png">';
-  // $map .= '<img id="interactive-map-northeast" class="map-region" src="/' . $module_path . '/images/map-northeast.png">';
-  // $map .= '<img id="interactive-map-thompson" class="map-region" src="/' . $module_path . '/images/map-thompson.png">';
-  // $map .= '<img id="interactive-map-vancouver" class="map-region" src="/' . $module_path . '/images/map-vancouver.png">';
-  $hotspots = [0,5,5,5,5,5,5,5,1,1,1,1,1,1,6,6,6,6,6,6,6,2,2,2,4,4,4,4,4,4,4,4,4,7,7,7,3,3];
+  $hotspots = [0,
+               REGION_NORTHEAST_ID,REGION_NORTHEAST_ID,REGION_NORTHEAST_ID,REGION_NORTHEAST_ID,
+               REGION_NORTHEAST_ID,REGION_NORTHEAST_ID,REGION_NORTHEAST_ID,
+               REGION_CARIBOO_ID,REGION_CARIBOO_ID,REGION_CARIBOO_ID,
+               REGION_CARIBOO_ID,REGION_CARIBOO_ID,REGION_CARIBOO_ID,
+               REGION_THOMPSON_OKANAGAN_ID,REGION_THOMPSON_OKANAGAN_ID,REGION_THOMPSON_OKANAGAN_ID,
+               REGION_THOMPSON_OKANAGAN_ID,REGION_THOMPSON_OKANAGAN_ID,REGION_THOMPSON_OKANAGAN_ID,
+               REGION_THOMPSON_OKANAGAN_ID,
+               REGION_KOOTENAY_ID,REGION_KOOTENAY_ID,REGION_KOOTENAY_ID,
+               REGION_NORTH_COAST_NECHAKO_ID,REGION_NORTH_COAST_NECHAKO_ID,REGION_NORTH_COAST_NECHAKO_ID,
+               REGION_NORTH_COAST_NECHAKO_ID,REGION_NORTH_COAST_NECHAKO_ID,REGION_NORTH_COAST_NECHAKO_ID,
+               REGION_NORTH_COAST_NECHAKO_ID,REGION_NORTH_COAST_NECHAKO_ID,REGION_NORTH_COAST_NECHAKO_ID,
+               REGION_VANCOUVER_ISLAND_COAST_ID,REGION_VANCOUVER_ISLAND_COAST_ID,REGION_VANCOUVER_ISLAND_COAST_ID,
+               REGION_MAINLAND_SOUTHWEST_ID,REGION_MAINLAND_SOUTHWEST_ID];
+
   for ($i = 1; $i <= 37; $i++) {
     $id = "map-hot-spot-". str_pad($i, 2, "0", STR_PAD_LEFT);
-    $map .= '<div id="' . $id . '" class="map-hot-spot" tabindex="0" style="cursor: pointer;" onmouseover="mapHover(' . $hotspots[$i] . ')"> </div>';
+    $map .= '<div id="' . $id . '" class="map-hot-spot" tabindex="0" style="cursor: pointer;" onmouseenter="mapHoverOn(' . $map_id . ',' . $hotspots[$i] . ')" onmouseleave="mapHoverOff(' . $map_id . ',' . $hotspots[$i] . ')" onclick="mapClick(' . $map_id . ',' . $hotspots[$i] . ')" > </div>';
   }
   $map .= '</div>';
   $map .= '</div>';

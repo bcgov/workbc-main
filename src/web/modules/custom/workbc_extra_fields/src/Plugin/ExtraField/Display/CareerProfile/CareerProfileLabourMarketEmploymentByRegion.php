@@ -113,12 +113,13 @@ class CareerProfileLabourMarketEmploymentByRegion extends ExtraFieldDisplayForma
     // $module_path = $module_handler->getModule('workbc_extra_fields')->getPath();
     // '<div><img src="/' . $module_path . '/images/' . WORKBC_BC_MAP_WITH_LABELS . '"></div>';
 
-    $text = workbcInteractiveMap();
+    $text = "";
+    $text .= workbcInteractiveMap(WORK_BC_INTERACTIVE_MAP_1);
     $text .= "<div>";
     $text .= "<table>";
     $text .= "<tr><th>Region</th><th>Employment (" . $datestr . ")</th><th>% Employment</th></tr>";
     foreach ($regions as $region) {
-      $text .= "<tr><td>" . $region['name'] . "</td><td>" . $region['employment'] . "</td><td>" . $region['percent'] . "</td></tr>";
+      $text .= "<tr id='interactive-map-row-" . ssotRegionKey($region['name']) . "'><td>" . $region['name'] . "</td><td>" . $region['employment'] . "</td><td>" . $region['percent'] . "</td></tr>";
     }
     $text .= "</table>";
     $text .= "</div>";
