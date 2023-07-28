@@ -72,7 +72,7 @@ class BCEmploymentByRegionTable extends ExtraFieldDisplayFormattedBase {
         $link = "<a href='" . $alias . "'>";
         $close = "</a>";
 
-        $content .= "<tr>";
+        $content .= "<tr class='bc-profile-employment-region-row'>";
         $content .= "<td class='region-name'>" . $link . ssotRegionName($region['region']) . $close . "</td>";
         $percent = ssotFormatNumber($region['full_time_employment_pct'], $options);
         $content .= "<td class='full-time-rate' data-label='Full-time Employment Rate'>" . $percent . "</td>";

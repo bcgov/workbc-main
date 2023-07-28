@@ -34,6 +34,118 @@
   }
 }
 
+#bc-regional-employment-stats .card-profile__content {
+  align-items: normal;
+}
+
+#bc-regional-employment-stats.card-profile {
+  padding: 20px 0 20px 0;
+}
+
+#bc-regional-employment-stats h3 {
+  text-align: center;
+}
+
+#bc-regional-employment-stats .card-profile__source {
+  padding-left: 20px;
+}
+
+@media (min-width:768px) {
+  #job-titles .career-content-job-titles > * {
+    width:50%;
+  }
+}
+
+@media screen and (max-width: 600px) {
+  #bc-regional-employment-stats {
+    table {
+      border: 0;
+      width: 100%;
+      overflow-x: hidden;
+    }
+
+    .table-header {
+      display: none;
+    }
+
+    table caption {
+      font-size: 1.3em;
+    }
+
+    table thead {
+      border: none;
+      clip: rect(0 0 0 0);
+      height: 1px;
+      margin: -1px;
+      overflow: hidden;
+      padding: 0;
+      position: absolute;
+      width: 1px;
+    }
+
+    table td {
+      padding: 0;
+    }
+
+    table tr {
+      padding: 1em 0 1em 0;
+      display: block;
+    }
+
+    table tr.bc-profile-employment-region-footer {
+      padding: 20px 20px 20px 20px;
+      background: $workbc_palette_dark_tertiary;
+      color: $workbc_palette_light_primary;
+
+      .region-name {
+        display: block;
+        padding-bottom: 1em;
+        text-align: left;
+      }
+    }
+
+    table tr.bc-profile-employment-region-row {
+      border-bottom: 3px solid $workbc_light_theme_background_accent;
+      background: $workbc_palette_light_primary;
+      margin: 0 20px 0 20px;
+
+      td {
+        border: none;
+        background-color: $workbc_palette_light_primary;
+      }
+
+      .region-name {
+        display: block;
+        padding-bottom: 1em;
+        text-align: left;
+        color: $workbc_palette_dark_secondary;
+      }
+    }
+
+    table td.full-time-rate, table td.part-time-rate {
+      display: block;
+      text-align: right;
+    }
+
+    table td.full-time-rate::before, table td.part-time-rate::before {
+      /*
+      * aria-label has no advantage, it won't be read inside a table
+      content: attr(aria-label);
+      */
+      content: attr(data-label);
+      float: left;
+      font-weight: bold;
+    }
+
+    table tr:nth-last-child(-n + 2) {
+      border-bottom: none;
+    }
+  }
+
+}
+
 #block-workbc-content .hero-title h1 {
   font-size: 45px;
 }
+
+
