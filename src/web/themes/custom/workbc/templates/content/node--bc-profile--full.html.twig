@@ -295,9 +295,16 @@
               </div>
             </div>
 
-            <div class="card-profile">
+            <div class="card-profile" id="bc-regional-employment-stats">
               <div class="card-profile__content">
-                <h3 class="card-profile__content-header">{{ viewmodel['tab_sections']['labour_market_statistics']['employment_bc_by_region_title'] }}</h3>
+                <h3 class="card-profile__content-header">
+                  {{ viewmodel['tab_sections']['labour_market_statistics']['employment_bc_by_region_title'] }}
+                  <span class="workbc-tooltip bc-profile--tooltip">
+                    <div class="workbc-tooltip-content bc-profile--tooltip-content">
+                     <em>{{'Unemployment rate'|t }}</em> {{ 'refers to the percentage of the population 15 years and older that are not employed.'|t }}
+                    </div>
+                  </span>
+                </h3>
                 <span class="card-profile__content-item">{{ viewmodel['tab_sections']['labour_market_statistics']['employment_bc_by_region_markup']|raw }}</span>
               </div>
               <div class="card-profile__source">
