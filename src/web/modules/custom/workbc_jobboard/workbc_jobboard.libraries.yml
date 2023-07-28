@@ -1,5 +1,9 @@
 workbc-jobboard:
     version: 1.x
-            
     js:
         js/workbc_jobboard.js:
+    dependencies:
+        - core/drupal
+        - core/jquery
+        - core/once
+        - core/drupal.message
