@@ -72,7 +72,10 @@ class WorkBcJobboardController extends ControllerBase {
    * {@inheritdoc}
    */
   function getCallOptions($parameters, $action, $method) {
-    $options = [];
+    $options = [
+      'connect_timeout' => 1,
+      'read_timeout' => 10,
+    ];
     if($action == 'SearchPost'){
       $jobboard_api_url = \Drupal::config('jobboard')->get('jobboard_api_url_backend').'/'.SEARCH_POST;
       $options['body'] = json_encode($parameters);
