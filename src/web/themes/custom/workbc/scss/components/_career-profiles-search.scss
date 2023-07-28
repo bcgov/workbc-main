@@ -41,3 +41,8 @@
   margin-left: 2rem;
 }
 
+@media (min-width:768px) {
+  #job-titles .career-content-job-titles > * {
+    width:50%;
+  }
+}
