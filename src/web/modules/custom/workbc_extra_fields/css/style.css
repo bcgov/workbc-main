@@ -1,3 +1,7 @@
+:root {
+  --left-offset: 0px;
+  --top-offset: 0px;
+}
 
 .workbc-interactive-map {
   border-width: 0px;
@@ -42,42 +46,42 @@
 
 #map-hot-spot-01 {
   position: absolute;
-  left: 168px;
-  top: 40px;
+  left: calc(var(--left-offset) + 168px);
+  top: calc(var(--top-offset) + 40px);
   width: 110px;
   height: 26px;
 }
 #map-hot-spot-02 {
   position:absolute;
-  left:170px;
-  top:66px;
+  left:calc(var(--left-offset) + 170px);
+  top:calc(var(--top-offset) + 66px);
   width:108px;
   height:26px;
 }
 #map-hot-spot-03 {
   position:absolute;
-  left:157px;
-  top:92px;
+  left:calc(var(--left-offset) + 157px);
+  top:calc(var(--top-offset) + 92px);
   width:121px;
   height:35px;
 }
 #map-hot-spot-04 {
   position:absolute;
-  left:177px;
+  left:calc(var(--left-offset) + 177px);
   top:127px;
   width:101px;
   height:16px;
 }
 #map-hot-spot-05 {
   position:absolute;
-  left:206px;
+  left:calc(var(--left-offset) + 206px);
   top:143px;
   width:72px;
   height:14px;
 }
 #map-hot-spot-06 {
   position:absolute;
-  left:231px;
+  left:calc(var(--left-offset) + 231px);
   top:157px;
   width:47px;
   height:14px;
@@ -85,7 +89,7 @@
 #map-hot-spot-07 {
   border-width:0px;
   position:absolute;
-  left:255px;
+  left:calc(var(--left-offset) + 255px);
   top:171px;
   width:25px;
   height:12px;
@@ -95,7 +99,7 @@
 #map-hot-spot-08 {
   border-width:0px;
   position:absolute;
-  left:216px;
+  left:calc(var(--left-offset) + 216px);
   top:171px;
   width:38px;
   height:26px;
@@ -105,7 +109,7 @@
 #map-hot-spot-09 {
   border-width:0px;
   position:absolute;
-  left:223px;
+  left:calc(var(--left-offset) + 223px);
   top:196px;
   width:57px;
   height:26px;
@@ -115,7 +119,7 @@
 #map-hot-spot-10 {
   border-width:0px;
   position:absolute;
-  left:185px;
+  left:calc(var(--left-offset) + 185px);
   top:223px;
   width:95px;
   height:31px;
@@ -125,7 +129,7 @@
 #map-hot-spot-11 {
   border-width:0px;
   position:absolute;
-  left:189px;
+  left:calc(var(--left-offset) + 189px);
   top:254px;
   width:50px;
   height:17px;
@@ -135,7 +139,7 @@
 #map-hot-spot-12 {
   border-width:0px;
   position:absolute;
-  left:239px;
+  left:calc(var(--left-offset) + 239px);
   top:254px;
   width:39px;
   height:14px;
@@ -145,7 +149,7 @@
 #map-hot-spot-13 {
   border-width:0px;
   position:absolute;
-  left:280px;
+  left:calc(var(--left-offset) + 280px);
   top:218px;
   width:24px;
   height:14px;
@@ -155,7 +159,7 @@
 #map-hot-spot-14 {
   border-width:0px;
   position:absolute;
-  left:280px;
+  left:calc(var(--left-offset) + 280px);
   top:236px;
   width:48px;
   height:32px;
@@ -165,7 +169,7 @@
 #map-hot-spot-15 {
   border-width:0px;
   position:absolute;
-  left:249px;
+  left:calc(var(--left-offset) + 249px);
   top:268px;
   width:79px;
   height:20px;
@@ -175,7 +179,7 @@
 #map-hot-spot-16 {
   border-width:0px;
   position:absolute;
-  left:249px;
+  left:calc(var(--left-offset) + 249px);
   top:288px;
   width:71px;
   height:20px;
@@ -185,7 +189,7 @@
 #map-hot-spot-17 {
   border-width:0px;
   position:absolute;
-  left:264px;
+  left:calc(var(--left-offset) + 264px);
   top:308px;
   width:37px;
   height:24px;
@@ -195,7 +199,7 @@
 #map-hot-spot-18 {
   border-width:0px;
   position:absolute;
-  left:328px;
+  left:calc(var(--left-offset) + 328px);
   top:260px;
   width:30px;
   height:17px;
@@ -205,7 +209,7 @@
 #map-hot-spot-19 {
   border-width:0px;
   position:absolute;
-  left:328px;
+  left:calc(var(--left-offset) + 328px);
   top:248px;
   width:13px;
   height:12px;
@@ -215,7 +219,7 @@
 #map-hot-spot-20 {
   border-width:0px;
   position:absolute;
-  left:328px;
+  left:calc(var(--left-offset) + 328px);
   top:277px;
   width:13px;
   height:12px;
@@ -225,7 +229,7 @@
 #map-hot-spot-21 {
   border-width:0px;
   position:absolute;
-  left:301px;
+  left:calc(var(--left-offset) + 301px);
   top:308px;
   width:94px;
   height:20px;
@@ -235,7 +239,7 @@
 #map-hot-spot-22 {
   border-width:0px;
   position:absolute;
-  left:320px;
+  left:calc(var(--left-offset) + 320px);
   top:289px;
   width:68px;
   height:19px;
@@ -245,7 +249,7 @@
 #map-hot-spot-23 {
   border-width:0px;
   position:absolute;
-  left:341px;
+  left:calc(var(--left-offset) + 341px);
   top:277px;
   width:35px;
   height:12px;
@@ -255,7 +259,7 @@
 #map-hot-spot-24 {
   border-width:0px;
   position:absolute;
-  left:63px;
+  left:calc(var(--left-offset) + 63px);
   top:37px;
   width:96px;
   height:26px;
@@ -265,7 +269,7 @@
 #map-hot-spot-25 {
   border-width:0px;
   position:absolute;
-  left:68px;
+  left:calc(var(--left-offset) + 68px);
   top:63px;
   width:100px;
   height:26px;
@@ -275,7 +279,7 @@
 #map-hot-spot-26 {
   border-width:0px;
   position:absolute;
-  left:82px;
+  left:calc(var(--left-offset) + 82px);
   top:89px;
   width:75px;
   height:26px;
@@ -285,7 +289,7 @@
 #map-hot-spot-27 {
   border-width:0px;
   position:absolute;
-  left:92px;
+  left:calc(var(--left-offset) + 92px);
   top:115px;
   width:65px;
   height:26px;
@@ -295,7 +299,7 @@
 #map-hot-spot-28 {
   border-width:0px;
   position:absolute;
-  left:139px;
+  left:calc(var(--left-offset) + 139px);
   top:141px;
   width:38px;
   height:82px;
@@ -305,7 +309,7 @@
 #map-hot-spot-29 {
   border-width:0px;
   position:absolute;
-  left:103px;
+  left:calc(var(--left-offset) + 103px);
   top:141px;
   width:36px;
   height:85px;
@@ -315,7 +319,7 @@
 #map-hot-spot-30 {
   border-width:0px;
   position:absolute;
-  left:177px;
+  left:calc(var(--left-offset) + 177px);
   top:143px;
   width:29px;
   height:75px;
@@ -325,7 +329,7 @@
 #map-hot-spot-31 {
   border-width:0px;
   position:absolute;
-  left:157px;
+  left:calc(var(--left-offset) + 157px);
   top:128px;
   width:20px;
   height:13px;
@@ -335,7 +339,7 @@
 #map-hot-spot-32 {
   border-width:0px;
   position:absolute;
-  left:206px;
+  left:calc(var(--left-offset) + 206px);
   top:157px;
   width:10px;
   height:59px;
@@ -345,7 +349,7 @@
 #map-hot-spot-33 {
   border-width:0px;
   position:absolute;
-  left:139px;
+  left:calc(var(--left-offset) + 139px);
   top:226px;
   width:46px;
   height:45px;
@@ -355,7 +359,7 @@
 #map-hot-spot-34 {
   border-width:0px;
   position:absolute;
-  left:168px;
+  left:calc(var(--left-offset) + 168px);
   top:271px;
   width:46px;
   height:77px;
@@ -365,7 +369,7 @@
 #map-hot-spot-35 {
   border-width:0px;
   position:absolute;
-  left:131px;
+  left:calc(var(--left-offset) + 131px);
   top:271px;
   width:37px;
   height:43px;
@@ -375,7 +379,7 @@
 #map-hot-spot-36 {
   border-width:0px;
   position:absolute;
-  left:214px;
+  left:calc(var(--left-offset) + 214px);
   top:278px;
   width:35px;
   height:56px;
@@ -385,7 +389,7 @@
 #map-hot-spot-37 {
   border-width:0px;
   position:absolute;
-  left:249px;
+  left:calc(var(--left-offset) + 249px);
   top:308px;
   width:15px;
   height:26px;

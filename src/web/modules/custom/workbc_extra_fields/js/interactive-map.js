@@ -1,6 +1,6 @@
 let regions = ['', 'cariboo', 'kootenay', 'mainland_southwest', 'north_coast_nechako', 'northeast','thompson_okanagan', 'vancouver_island_coast'];
-let currentRegion = 0;
-let pastRegion = 0;
+let currentRegion = [0,0,0,0];
+
 
 function mapHoverOn(map, region) {
 console.log(map);
@@ -16,7 +16,7 @@ function mapHoverOff(map, region) {
   
   // workbc_interactive-map-
 
-  if (region != currentRegion) {
+  if (region != currentRegion[map]) {
     var element = document.querySelector("#workbc-interactive-map-" + map + " #interactive-map-" + regions[region]);
     element.style.visibility = "hidden";
     element.style.display = "none";
@@ -24,15 +24,15 @@ function mapHoverOff(map, region) {
 }
 
 function mapClick(map, region) {
-  if (currentRegion != region && currentRegion != 0) {
-    var element = document.querySelector("#workbc-interactive-map-" + map + " interactive-map-" + regions[currentRegion]);
+  if (currentRegion[map] != region && currentRegion[map] != 0) {
+    var element = document.querySelector("#workbc-interactive-map-" + map + " #interactive-map-" + regions[currentRegion[map]]);
     element.style.visibility = "hidden";
     element.style.display = "none";
-    var element = document.querySelector("#workbc-interactive-map-" + map + " interactive-map-row-"+regions[currentRegion]);
-    element.classList.remove("interactive-map-row-hilite");
+    var element2 = document.querySelector("#workbc-interactive-map-" + map + " #interactive-map-row-"+regions[currentRegion[map]]);
+    element2.classList.remove("interactive-map-row-hilite");
   } 
-  currentRegion = region;
+  currentRegion[map] = region;
 
-  var element = document.querySelector("#workbc-interactive-map-" + map + " interactive-map-row-"+regions[currentRegion]);
+  var element = document.querySelector("#workbc-interactive-map-" + map + " #interactive-map-row-"+regions[currentRegion[map]]);
   element.classList.add("interactive-map-row-hilite");
 }

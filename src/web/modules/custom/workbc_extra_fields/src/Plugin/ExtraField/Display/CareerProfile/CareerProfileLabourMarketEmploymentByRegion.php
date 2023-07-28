@@ -113,7 +113,7 @@ class CareerProfileLabourMarketEmploymentByRegion extends ExtraFieldDisplayForma
     // $module_path = $module_handler->getModule('workbc_extra_fields')->getPath();
     // '<div><img src="/' . $module_path . '/images/' . WORKBC_BC_MAP_WITH_LABELS . '"></div>';
 
-    $text = "";
+    $text = '<div id="workbc-interactive-map-' . WORK_BC_INTERACTIVE_MAP_1 . '">';
     $text .= workbcInteractiveMap(WORK_BC_INTERACTIVE_MAP_1);
     $text .= "<div>";
     $text .= "<table>";
@@ -123,7 +123,7 @@ class CareerProfileLabourMarketEmploymentByRegion extends ExtraFieldDisplayForma
     }
     $text .= "</table>";
     $text .= "</div>";
-
+    $text .= "</div>";
     $output = $text;
 
     return [

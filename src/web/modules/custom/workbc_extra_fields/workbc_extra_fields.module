@@ -567,7 +567,7 @@ function workbcInteractiveMap($map_id) {
       $regions[] = $key;
     }
   } 
-  $map = '<div id="workbc-interactive-map-' . $map_id . '" class="workbc-interactive-map-container">';
+  $map = '<div class="workbc-interactive-map-container">';
   $map .= '<div class="workbc-interactive-map">';
   $map .= '<img class="map-region" src="/' . $module_path . '/images/map-british_columbia.png">';
 
