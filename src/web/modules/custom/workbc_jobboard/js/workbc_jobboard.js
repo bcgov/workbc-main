@@ -80,7 +80,7 @@
         else {
           $('.workbc-jobboard-save-profile input.form-submit')
             .val('Save this profile')
-            .css('visibility', 'visible')
+            .css('visibility', 'hidden')
             .attr('disabled', false);
         }
       });

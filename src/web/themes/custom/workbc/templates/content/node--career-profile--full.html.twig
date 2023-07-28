@@ -392,7 +392,11 @@
             <div class="profile-content-section" id="job-titles">
               <h2 class="profile-content-section__header">{{ viewmodel['tab_sections']['career_overview']['job_titles_title'] }}</h2>
 
-              <div data-static-load-more-container data-static-load-more-initial="6" data-static-load-more-step="200">
+              <div data-static-load-more-container
+                   data-static-load-more-initial="6"
+                   data-static-load-more-step="200"
+                   data-static-more-text="View more"
+                   data-static-less-text="View less">
                 <div data-static-load-more-items class="career-content-job-titles">
                 {% for row in viewmodel['tab_sections']['career_overview']['job_titles_list'] %}
                   {% for jobtitle in row %}
@@ -400,8 +404,8 @@
                   {% endfor %}
                 {% endfor %}
                 </div>
-                <div class="static-load-more-button-container">
-                  <a data-static-load-more-trigger>View more</a>
+                <div class="static-load-more-button-container megamenu-splash__actions">
+                  <a class="action-link pointer" data-static-load-more-trigger></a>
                 </div>
               </div>
             </div>
