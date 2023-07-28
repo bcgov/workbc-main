@@ -35,5 +35,6 @@ jobs:
         run: |
           docker pull ${{ env.IMAGE_ID }}:${GITHUB_SHA}
           docker tag ${{ env.IMAGE_ID }}:${GITHUB_SHA} ${{ env.IMAGE_ID }}:latest-test
+          docker push ${{ env.IMAGE_ID }}:latest-test
           docker tag ${{ env.IMAGE_ID }}:${GITHUB_SHA} ${{ env.IMAGE_ID }}:${GITHUB_REF#refs/tags/}
           docker push ${{ env.IMAGE_ID }}:${GITHUB_REF#refs/tags/}
