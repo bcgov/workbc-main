@@ -18,7 +18,7 @@ class WorkbcJobboardSaveProfile extends BlockBase {
 	/**
    * {@inheritdoc}
    */
-	public function build() {
+  public function build() {
     $node = \Drupal::routeMatch()->getParameter('node');
     if (!($node instanceof \Drupal\node\NodeInterface)) return null;
 
