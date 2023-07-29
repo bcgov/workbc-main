@@ -80,8 +80,17 @@
         else {
           $('.workbc-jobboard-save-profile input.form-submit')
             .val('Save this profile')
-            .css('visibility', 'hidden')
-            .attr('disabled', false);
+            .css('visibility', 'visible')
+            .attr('disabled', false)
+            .on('click', function() {
+              if (window.localStorage) {
+                window.localStorage.setItem(settings.jobboard.storageKey, settings.jobboard.profileId);
+                if (settings.jobboard.urlKey) {
+                  window.localStorage.setItem(settings.jobboard.urlKey, window.location.href);
+                }
+              }
+              window.location.href = '/account#/login';
+            });
         }
       });
 
