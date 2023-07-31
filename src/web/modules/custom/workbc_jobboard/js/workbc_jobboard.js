@@ -1,7 +1,7 @@
-(function ($, Drupal) {
+(function ($, Drupal, once) {
 	Drupal.behaviors.jobboard = {
     attach: function (context, settings){
-      $('.block-workbc-jobboard', context).once('jobboard').ready(function(){
+      once('jobboard', '.block-workbc-jobboard', context).forEach(function() {
         $('a').filter(function() {
           return this.hostname && this.hostname !== location.hostname;
         }).once('jobboard').click(function(e) {
@@ -22,6 +22,76 @@
             window.location.href=$(this).val();
           }
         });
+      });
+
+      once('jobboard', '.workbc-jobboard-save-profile', context).forEach(function() {
+        const token = readCookie('currentUser.token');
+        if (token) {
+          $.ajax({
+            url: settings.jobboard.status,
+            method: 'GET',
+            headers: {
+              'Accept': '*/*',
+              'Content-Type': 'application/json',
+              'Authorization': `Bearer ${token}`,
+            },
+            success: function (data) {
+              const saved = !!data;
+              if (saved) {
+                $('.workbc-jobboard-save-profile input.form-submit')
+                  .val('Saved')
+                  .css('visibility', 'visible')
+                  .attr('disabled', true);
+              }
+              else {
+                $('.workbc-jobboard-save-profile input.form-submit')
+                  .val('Save this profile')
+                  .css('visibility', 'visible')
+                  .attr('disabled', false)
+                  .on('click', function() {
+                    $.ajax({
+                      url: settings.jobboard.save,
+                      method: 'POST',
+                      headers: {
+                        'Accept': '*/*',
+                        'Content-Type': 'application/json',
+                        'Authorization': `Bearer ${token}`,
+                      },
+                      success: function(data) {
+                        const messages = new Drupal.Message();
+                        messages.add('Profile successfully added.');
+                        $('.workbc-jobboard-save-profile input.form-submit')
+                          .val('Saved')
+                          .css('visibility', 'visible')
+                          .attr('disabled', true);
+                      },
+                      error: function(xhr, error) {
+                        console.error(`[Job Board] Error saving profile: ${error}`);
+                      }
+                    });
+                  })
+              }
+            },
+            error: function (xhr, error) {
+              console.error(`[Job Board] Error getting profile status: ${error}`);
+            }
+          });
+        }
+        else {
+          $('.workbc-jobboard-save-profile input.form-submit')
+            .val('Save this profile')
+            .css('visibility', 'visible')
+            .attr('disabled', false)
+            .on('click', function() {
+              if (window.localStorage) {
+                window.localStorage.setItem(settings.jobboard.storageKey, settings.jobboard.profileId);
+                if (settings.jobboard.urlKey) {
+                  window.localStorage.setItem(settings.jobboard.urlKey, window.location.href);
+                }
+              }
+              window.location.href = '/account#/login';
+            });
+        }
       });
 
       $(window, context).once('jobboard').on('hashchange load jobboardlogin', function (e) {
@@ -91,7 +161,7 @@
       });
     }
   }
-})(jQuery, Drupal);
+})(jQuery, Drupal, once);
 
 
 if (window.location.hash) {
@@ -107,7 +177,7 @@ function readCookie(cookieName){
 
       // Set each cookie.
       for (const prop in entry) {
-        document.cookie= `${split[0]}.${prop}=${entry[prop]}; Path=/;`;
+        document.cookie = `${split[0]}.${prop}=${entry[prop]}; Path=/;`;
       }
 
       return entry[split[1]];
@@ -117,12 +187,12 @@ function readCookie(cookieName){
     }
   }
 
-  var d=[],
-  e=document.cookie.split(";");
-  cookieName=RegExp("^\\s*"+cookieName+"=\\s*(.*?)\\s*$");
-  for(var b=0;b<e.length;b++){
-    var f=e[b].match(cookieName);
-    f&&d.push(f[1])
+  var d = [],
+  e = document.cookie.split(";");
+  cookieName = RegExp("^\\s*" + cookieName + "=\\s*(.*?)\\s*$");
+  for (var b=0; b<e.length; b++){
+    var f = e[b].match(cookieName);
+    if (f) d.push(f[1]);
   }
   return d[0] || '';
 }
