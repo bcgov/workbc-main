@@ -68,21 +68,21 @@
 #map-hot-spot-04 {
   position:absolute;
   left:calc(var(--left-offset) + 177px);
-  top:127px;
+  top:calc(var(--top-offset) + 127px);
   width:101px;
   height:16px;
 }
 #map-hot-spot-05 {
   position:absolute;
   left:calc(var(--left-offset) + 206px);
-  top:143px;
+  top:calc(var(--top-offset) + 143px);
   width:72px;
   height:14px;
 }
 #map-hot-spot-06 {
   position:absolute;
   left:calc(var(--left-offset) + 231px);
-  top:157px;
+  top:calc(var(--top-offset) + 157px);
   width:47px;
   height:14px;
 }
@@ -90,7 +90,7 @@
   border-width:0px;
   position:absolute;
   left:calc(var(--left-offset) + 255px);
-  top:171px;
+  top:calc(var(--top-offset) + 171px);
   width:25px;
   height:12px;
   overflow:hidden;
@@ -100,7 +100,7 @@
   border-width:0px;
   position:absolute;
   left:calc(var(--left-offset) + 216px);
-  top:171px;
+  top:calc(var(--top-offset) + 171px);
   width:38px;
   height:26px;
   overflow:hidden;
@@ -110,7 +110,7 @@
   border-width:0px;
   position:absolute;
   left:calc(var(--left-offset) + 223px);
-  top:196px;
+  top:calc(var(--top-offset) + 196px);
   width:57px;
   height:26px;
   overflow:hidden;
@@ -120,7 +120,7 @@
   border-width:0px;
   position:absolute;
   left:calc(var(--left-offset) + 185px);
-  top:223px;
+  top:calc(var(--top-offset) + 223px);
   width:95px;
   height:31px;
   overflow:hidden;
@@ -130,7 +130,7 @@
   border-width:0px;
   position:absolute;
   left:calc(var(--left-offset) + 189px);
-  top:254px;
+  top:calc(var(--top-offset) + 254px);
   width:50px;
   height:17px;
   overflow:hidden;
@@ -140,7 +140,7 @@
   border-width:0px;
   position:absolute;
   left:calc(var(--left-offset) + 239px);
-  top:254px;
+  top:calc(var(--top-offset) + 254px);
   width:39px;
   height:14px;
   overflow:hidden;
@@ -150,7 +150,7 @@
   border-width:0px;
   position:absolute;
   left:calc(var(--left-offset) + 280px);
-  top:218px;
+  top:calc(var(--top-offset) + 218px);
   width:24px;
   height:14px;
   overflow:hidden;
@@ -160,7 +160,7 @@
   border-width:0px;
   position:absolute;
   left:calc(var(--left-offset) + 280px);
-  top:236px;
+  top:calc(var(--top-offset) + 236px);
   width:48px;
   height:32px;
   overflow:hidden;
@@ -170,7 +170,7 @@
   border-width:0px;
   position:absolute;
   left:calc(var(--left-offset) + 249px);
-  top:268px;
+  top:calc(var(--top-offset) + 268px);
   width:79px;
   height:20px;
   overflow:hidden;
@@ -180,7 +180,7 @@
   border-width:0px;
   position:absolute;
   left:calc(var(--left-offset) + 249px);
-  top:288px;
+  top:calc(var(--top-offset) + 288px);
   width:71px;
   height:20px;
   overflow:hidden;
@@ -190,7 +190,7 @@
   border-width:0px;
   position:absolute;
   left:calc(var(--left-offset) + 264px);
-  top:308px;
+  top:calc(var(--top-offset) + 308px);
   width:37px;
   height:24px;
   overflow:hidden;
@@ -200,7 +200,7 @@
   border-width:0px;
   position:absolute;
   left:calc(var(--left-offset) + 328px);
-  top:260px;
+  top:calc(var(--top-offset) + 260px);
   width:30px;
   height:17px;
   overflow:hidden;
@@ -210,7 +210,7 @@
   border-width:0px;
   position:absolute;
   left:calc(var(--left-offset) + 328px);
-  top:248px;
+  top:calc(var(--top-offset) + 248px);
   width:13px;
   height:12px;
   overflow:hidden;
@@ -220,7 +220,7 @@
   border-width:0px;
   position:absolute;
   left:calc(var(--left-offset) + 328px);
-  top:277px;
+  top:calc(var(--top-offset) + 277px);
   width:13px;
   height:12px;
   overflow:hidden;
@@ -230,7 +230,7 @@
   border-width:0px;
   position:absolute;
   left:calc(var(--left-offset) + 301px);
-  top:308px;
+  top:calc(var(--top-offset) + 308px);
   width:94px;
   height:20px;
   overflow:hidden;
@@ -240,7 +240,7 @@
   border-width:0px;
   position:absolute;
   left:calc(var(--left-offset) + 320px);
-  top:289px;
+  top:calc(var(--top-offset) + 289px);
   width:68px;
   height:19px;
   overflow:hidden;
@@ -250,7 +250,7 @@
   border-width:0px;
   position:absolute;
   left:calc(var(--left-offset) + 341px);
-  top:277px;
+  top:calc(var(--top-offset) + 277px);
   width:35px;
   height:12px;
   overflow:hidden;
@@ -260,7 +260,7 @@
   border-width:0px;
   position:absolute;
   left:calc(var(--left-offset) + 63px);
-  top:37px;
+  top:calc(var(--top-offset) + 37px);
   width:96px;
   height:26px;
   overflow:hidden;
@@ -270,7 +270,7 @@
   border-width:0px;
   position:absolute;
   left:calc(var(--left-offset) + 68px);
-  top:63px;
+  top:calc(var(--top-offset) + 63px);
   width:100px;
   height:26px;
   overflow:hidden;
@@ -280,7 +280,7 @@
   border-width:0px;
   position:absolute;
   left:calc(var(--left-offset) + 82px);
-  top:89px;
+  top:calc(var(--top-offset) + 89px);
   width:75px;
   height:26px;
   overflow:hidden;
@@ -290,7 +290,7 @@
   border-width:0px;
   position:absolute;
   left:calc(var(--left-offset) + 92px);
-  top:115px;
+  top:calc(var(--top-offset) + 115px);
   width:65px;
   height:26px;
   overflow:hidden;
@@ -300,7 +300,7 @@
   border-width:0px;
   position:absolute;
   left:calc(var(--left-offset) + 139px);
-  top:141px;
+  top:calc(var(--top-offset) + 141px);
   width:38px;
   height:82px;
   overflow:hidden;
@@ -310,7 +310,7 @@
   border-width:0px;
   position:absolute;
   left:calc(var(--left-offset) + 103px);
-  top:141px;
+  top:calc(var(--top-offset) + 141px);
   width:36px;
   height:85px;
   overflow:hidden;
@@ -320,7 +320,7 @@
   border-width:0px;
   position:absolute;
   left:calc(var(--left-offset) + 177px);
-  top:143px;
+  top:calc(var(--top-offset) + 143px);
   width:29px;
   height:75px;
   overflow:hidden;
@@ -330,7 +330,7 @@
   border-width:0px;
   position:absolute;
   left:calc(var(--left-offset) + 157px);
-  top:128px;
+  top:calc(var(--top-offset) + 128px);
   width:20px;
   height:13px;
   overflow:hidden;
@@ -340,7 +340,7 @@
   border-width:0px;
   position:absolute;
   left:calc(var(--left-offset) + 206px);
-  top:157px;
+  top:calc(var(--top-offset) + 157px);
   width:10px;
   height:59px;
   overflow:hidden;
@@ -350,7 +350,7 @@
   border-width:0px;
   position:absolute;
   left:calc(var(--left-offset) + 139px);
-  top:226px;
+  top:calc(var(--top-offset) + 226px);
   width:46px;
   height:45px;
   overflow:hidden;
@@ -360,7 +360,7 @@
   border-width:0px;
   position:absolute;
   left:calc(var(--left-offset) + 168px);
-  top:271px;
+  top:calc(var(--top-offset) + 271px);
   width:46px;
   height:77px;
   overflow:hidden;
@@ -370,7 +370,7 @@
   border-width:0px;
   position:absolute;
   left:calc(var(--left-offset) + 131px);
-  top:271px;
+  top:calc(var(--top-offset) + 271px);
   width:37px;
   height:43px;
   overflow:hidden;
@@ -380,7 +380,7 @@
   border-width:0px;
   position:absolute;
   left:calc(var(--left-offset) + 214px);
-  top:278px;
+  top:calc(var(--top-offset) + 278px);
   width:35px;
   height:56px;
   overflow:hidden;
@@ -390,7 +390,7 @@
   border-width:0px;
   position:absolute;
   left:calc(var(--left-offset) + 249px);
-  top:308px;
+  top:calc(var(--top-offset) + 308px);
   width:15px;
   height:26px;
   overflow:hidden;
