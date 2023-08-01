@@ -38,9 +38,142 @@
   background-color: #009CDE;
 }
 
+
+.map-region-label {
+  font-size: 14px;
+  color: #2E6AB0;
+  cursor: pointer;
+}
+
+.map-region-label:hover {
+  text-decoration: underline;
+}
+
+#map-region-label-cariboo {
+  position: absolute;
+  left: calc(var(--left-offset) + 337px);
+  top: calc(var(--top-offset) + 196px);
+  width: 88px;
+  height: 32px;
+}
+
+#map-region-label-kootenay {
+  position: absolute;
+  left: calc(var(--left-offset) + 440px);
+  top: calc(var(--top-offset) + 296px);
+  width: 89px;
+  height: 32px;
+}
+
+#map-region-label-mainland_southwest {
+  position: absolute;
+  left: calc(var(--left-offset) + 0px);
+  top: calc(var(--top-offset) + 301px);
+  width: 171px;
+  height: 32px;
+}
+
+#map-region-label-north_coast_nechako {
+  position: absolute;
+  left: calc(var(--left-offset) + 0px);
+  top: calc(var(--top-offset) + 95px);
+  width: 177px;
+  height: 32px;
+}
+
+#map-region-label-northeast {
+  position: absolute;
+  left: calc(var(--left-offset) + 335px);
+  top: calc(var(--top-offset) + 95px);
+  width: 88px;
+  height: 32px;
+}
+
+#map-region-label-thompson_okanagan {
+  position: absolute;
+  left: calc(var(--left-offset) + 390px);
+  top: calc(var(--top-offset) + 245px);
+  width: 171px;
+  height:32px
+}
+
+#map-region-label-vancouver_island_coast {
+  position: absolute;
+  left: calc(var(--left-offset) + 0px);
+  top: calc(var(--top-offset) + 260px);
+  width: 194px;
+  height: 32px;
+}
+
+
+/* .map-region-label-line {
+  color: #D7D7D7;
+} */
+
+#map-region-label-line-cariboo {
+  position: absolute;
+  left: calc(var(--left-offset) + 237px);
+  top: calc(var(--top-offset) + 186px);
+  width: 88px;
+  height: 2px;
+}
+
+#map-region-label-line-kootenay {
+  position: absolute;
+  left: calc(var(--left-offset) + 440px);
+  top: calc(var(--top-offset) + 296px);
+  width: 89px;
+  height: 2px;
+}
+
+#map-region-label-line-mainland_southwest {
+  position: absolute;
+  left: calc(var(--left-offset) + 0px);
+  top: calc(var(--top-offset) + 301px);
+  width: 171px;
+  height: 2px;
+}
+
+#map-region-label-line-north_coast_nechako {
+  position: absolute;
+  left: calc(var(--left-offset) + 0px);
+  top: calc(var(--top-offset) + 95px);
+  width: 177px;
+  height: 2px;
+}
+
+#map-region-label-line-northeast {
+  position: absolute;
+  left: calc(var(--left-offset) + 235px);
+  top: calc(var(--top-offset) + 85px);
+  width: 88px;
+  height: 2px;
+  color:#D7D7D7;
+}
+
+#map-region-label-line-thompson_okanagan {
+  position: absolute;
+  left: calc(var(--left-offset) + 390px);
+  top: calc(var(--top-offset) + 245px);
+  width: 171px;
+  height: 2px
+}
+
+#map-region-label-line-vancouver_island_coast {
+  position: absolute;
+  left: calc(var(--left-offset) + 0px);
+  top: calc(var(--top-offset) + 260px);
+  width: 194px;
+  height: 2px;
+}
+
+
+
+
 .map-hot-spot {
   border-width: 0px;
   overflow: hidden;
+  cursor: pointer;
   background-image: url(../images/transparent.gif);
 }
 

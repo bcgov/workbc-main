@@ -270,6 +270,22 @@ function ssotRegions() {
 }
 
 
+function ssotRegionIds() {
+  static $regions = array(
+    "cariboo" => REGION_CARIBOO_ID,
+    "kootenay" => REGION_KOOTENAY_ID,
+    "northeast" => REGION_NORTHEAST_ID,
+    "mainland_southwest" => REGION_MAINLAND_SOUTHWEST_ID,
+    "thompson_okanagan" => REGION_THOMPSON_OKANAGAN_ID,
+    "vancouver_island_coast" => REGION_VANCOUVER_ISLAND_COAST_ID,
+    "north_coast_nechako" => REGION_NORTH_COAST_NECHAKO_ID,
+    "british_columbia" => REGION_BRITISH_COLUMBIA_ID,
+  );
+  
+  return $regions;
+}
+
+
 
 function ssotRegionKey($region) {
   $key = array_search ($region, ssotRegions());
@@ -561,11 +577,14 @@ function workbcInteractiveMap($map_id) {
   $module_path = $module_handler->getModule('workbc_extra_fields')->getPath();
 
   $regions = [];
+  $labels = [];
   $temp = ssotRegions();
   foreach ($temp as $key => $value) {
     if ($key <> "british_columbia") {
       $regions[] = $key;
+      $labels[$key] = $value;
     }
+    
   } 
   $map = '<div class="workbc-interactive-map-container">';
   $map .= '<div class="workbc-interactive-map">';
@@ -592,9 +611,25 @@ function workbcInteractiveMap($map_id) {
 
   for ($i = 1; $i <= 37; $i++) {
     $id = "map-hot-spot-". str_pad($i, 2, "0", STR_PAD_LEFT);
-    $map .= '<div id="' . $id . '" class="map-hot-spot" tabindex="0" style="cursor: pointer;" onmouseenter="mapHoverOn(' . $map_id . ',' . $hotspots[$i] . ')" onmouseleave="mapHoverOff(' . $map_id . ',' . $hotspots[$i] . ')" onclick="mapClick(' . $map_id . ',' . $hotspots[$i] . ')" > </div>';
+    $map .= '<div id="' . $id . '" class="map-hot-spot" tabindex="0" onmouseenter="mapHoverOn(' . $map_id . ',' . $hotspots[$i] . ')" onmouseleave="mapHoverOff(' . $map_id . ',' . $hotspots[$i] . ')" onclick="mapClick(' . $map_id . ',' . $hotspots[$i] . ')" > </div>';
   }
+
+  $hotspots = ssotRegionIds();
+
+  foreach ($labels as $key => $region) {
+    $id = "map-region-label-" . $key;
+    $map .= '<div id="' . $id . '" class="map-region-label" onmouseenter="mapHoverOn(' . $map_id . ',' . $hotspots[$key] . ')" onmouseleave="mapHoverOff(' . $map_id . ',' . $hotspots[$key] . ')" onclick="mapClick(' . $map_id . ',' . $hotspots[$key] . ')">' . $region . '</div>';
+  }
+
+  foreach ($labels as $key => $region) {
+    $id = "map-region-label-line-" . $key;
+    $map .= '<div id="' . $id . '" class="map-region-label-line">';
+    $map .= '<img src="/' . $module_path . '/images/map-line.svg">';
+    $map .= '</div>';
+  }
+
   $map .= '</div>';
   $map .= '</div>';
   return $map;
 }
+
