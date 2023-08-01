@@ -1,5 +1,7 @@
 <?php
 
+use Drupal\workbc_jobboard\Controller\WorkBcJobboardController;
+
 /**
  * @file
  *  Work BC Job Board module
@@ -127,5 +129,20 @@ function workbc_jobboard_preprocess_node(&$variables) {
     else if($current_path == $variables['find_job_account_url']){
       $variables['elements']['#theme'] = 'node__page_jobboard_account';
     }
+  }
+}
+
+/**
+ * Implements hook_cron().
+ */
+function workbc_jobboard_cron() {
+  $WorkBcJobboardController = new WorkBcJobboardController();
+  $total_jobs = $WorkBcJobboardController->getPosts(['getTotalJobs'=>true], 'getTotalJobs', 'get');
+  if (isset($total_jobs['data'])) {
+    \Drupal::state()->set('jobboard_total_jobs', $total_jobs['data']);
+    \Drupal::logger('workbc_jobboard')->notice('Pulled total jobs from Job Board API.');
+  }
+  else {
+    \Drupal::logger('workbc_jobboard')->warning('Could not pull total jobs from Job Board API.');
   }
 }

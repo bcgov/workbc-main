@@ -24,6 +24,28 @@
         });
       });
 
+      once('jobboard', '.job-search', context).forEach(function() {
+        $('#find-job .job-search__title').each(function() {
+          const that = this;
+          $.ajax({
+            url: settings.jobboard.totalJobs,
+            method: 'GET',
+            headers: {
+              'Accept': '*/*',
+              'Content-Type': 'application/json',
+            },
+            success: function (data) {
+              const totalJobs = parseInt(data).toLocaleString('en-CA');
+              const html = $(that).html().replace(/[\d,]+/, totalJobs);
+              $(that).html(html);
+            },
+            error: function () {
+              console.error(`[Job Board] Error getting total jobs`);
+            }
+          });
+        });
+      });
+
       once('jobboard', '.workbc-jobboard-save-profile', context).forEach(function() {
         const token = readCookie('currentUser.token');
         if (token) {
@@ -65,15 +87,15 @@
                           .css('visibility', 'visible')
                           .attr('disabled', true);
                       },
-                      error: function(xhr, error) {
-                        console.error(`[Job Board] Error saving profile: ${error}`);
+                      error: function() {
+                        console.error(`[Job Board] Error saving profile`);
                       }
                     });
                   })
               }
             },
-            error: function (xhr, error) {
-              console.error(`[Job Board] Error getting profile status: ${error}`);
+            error: function () {
+              console.error(`[Job Board] Error getting profile status`);
             }
           });
         }

@@ -105,34 +105,27 @@ class WorkbcJobboardSearch extends BlockBase{
 	public function build(){
 
     $config = $this->getConfiguration();
-    $searchform = \Drupal::formBuilder()->getForm('Drupal\workbc_jobboard\Form\JobboardSearchForm');
-    $WorkBcJobboardController = new WorkBcJobboardController();
-    $parameters = ['getTotalJobs'=>true];
-    $recent_jobs = $WorkBcJobboardController->getPosts($parameters, 'getTotalJobs', 'get');
-
-    \Drupal::service('page_cache_kill_switch')->trigger();
 
     return [
       '#type' => 'markup',
       '#markup' => 'Explore recent job postings.',
       '#theme' => 'search_recent_jobs',
       '#data' => [],
-      '#form' => $searchform,
-      '#totalJobs' => (isset($recent_jobs['data']))? $recent_jobs['data'] : 0,
+      '#form' => \Drupal::formBuilder()->getForm('Drupal\workbc_jobboard\Form\JobboardSearchForm'),
+      '#totalJobs' => \Drupal::state()->get('jobboard_total_jobs', 0),
       '#job_title' => $config['job_board_findjob_title']??'',
       '#job_description' => $config['job_board_findjob_description']??'',
       '#postjob_title' => $config['job_board_postjob_title']??'',
       '#postjob_description' => $config['job_board_postjob_description']??'',
       '#postjob_link_label' => $config['job_board_postjob_link_label']??'Post a Job',
       '#postjob_link_url' => $config['job_board_postjob_link_url']??'#',
+      '#attached' => [
+        'drupalSettings' => [
+          'jobboard' => [
+            'totalJobs' => \Drupal::config('jobboard')->get('jobboard_api_url_frontend') . '/api/Search/gettotaljobs'
+          ]
+        ]
+      ]
     ];
   }
-
-  /**
-   * {@inheritdoc}
-   */
-  public function getCacheMaxAge() {
-    return 0;
-  }
-
 }
