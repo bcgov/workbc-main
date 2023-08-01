@@ -237,9 +237,8 @@ resource "aws_ecs_task_definition" "app" {
 			}
 		}
 
-		#entryPoint = ["sh", "-c"]
-		#command = ["drush cr; drush updb -y --no-post-updates; drush cim -y; drush updb -y; drush cr"]
-		entryPoint = ["sleep", "infinity"]
+		entryPoint = ["sh", "-c"]
+		command = ["drush cr; drush updb -y --no-post-updates; drush cim -y; drush updb -y; drush cr"]
 		environment = [
 			{
 				name = "POSTGRES_PORT",
