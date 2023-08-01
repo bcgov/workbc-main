@@ -53,7 +53,7 @@ class LabourMarketEmploymentByAgeSexTable extends ExtraFieldDisplayFormattedBase
     $header = [' ', $current_previous_months['current_month_year'], $current_previous_months['previous_month_year']];
 
     if(!empty($entity->ssot_data['monthly_labour_market_updates'][0])) {
-      $rows = $this->getGenderAgeValues($entity->ssot_data['monthly_labour_market_updates'][0]);
+      $rows = $this->getGenderAgeValues($entity->ssot_data['monthly_labour_market_updates'][0], $header);
     } else {
       $rows[] = WORKBC_EXTRA_FIELDS_NOT_AVAILABLE;
     }
@@ -79,13 +79,13 @@ class LabourMarketEmploymentByAgeSexTable extends ExtraFieldDisplayFormattedBase
   }
 
 
-  public function getGenderAgeValues($values){
+  public function getGenderAgeValues($values, $header){
     $genderAgeValues = [];
     $ageNeedle = 'employment_by_age_group_';
     $genderNeedle = 'employment_by_gender_';
 
     if(!empty($values)){
-      
+
       $options = array(
         'decimals' => 0,
         'na_if_empty' => TRUE,
@@ -98,7 +98,8 @@ class LabourMarketEmploymentByAgeSexTable extends ExtraFieldDisplayFormattedBase
           $age = str_replace($ageNeedle, "", $key);
 
           if(empty($genderAgeValues['age']['head'])) {
-            $genderAgeValues['ahead'] = [
+            $genderAgeValues['ahead']['class'] = ['age-header'];
+            $genderAgeValues['ahead']['data'] = [
               [
                 'data' => $this->t('Age'),
                 'colspan' => 3,
@@ -109,14 +110,33 @@ class LabourMarketEmploymentByAgeSexTable extends ExtraFieldDisplayFormattedBase
 
           //if previous values
           if(strpos($age, 'previous') !== false) {
+            $class = ['previous_age'];
             $age = str_replace('_previous', "", $age);
             $age = str_replace('55', "55+", $age);
-            $genderAgeValues[$age]['age'] = str_replace("_"," - ",$age) . ' ' . $this->t('years');
-            $genderAgeValues[$age]['previous'] = ssotFormatNumber($value, $options);
+            $genderAgeValues[$age]['class'] = ['age-data-row'];
+            $genderAgeValues[$age]['data']['age'] = [
+              'data' => str_replace("_"," - ",$age) . ' ' . $this->t('years'),
+              'class' => ['label']
+            ];
+            $genderAgeValues[$age]['data']['previous'] = [
+              'data' => ssotFormatNumber($value, $options),
+              'class' => $class,
+              'data-label' => $header[2]
+            ];
+
           } else {
+            $class = ['current_age'];
             $age = str_replace('55', "55+", $age);
-            $genderAgeValues[$age]['age'] = str_replace("_"," - ",$age). ' ' . $this->t('years');
-            $genderAgeValues[$age]['current'] = ssotFormatNumber($value, $options);
+            $genderAgeValues[$age]['class'] = ['age-data-row'];
+            $genderAgeValues[$age]['data']['age'] = [
+              'data' => str_replace("_"," - ",$age) . ' ' . $this->t('years'),
+              'class' => ['label']
+            ];
+            $genderAgeValues[$age]['data']['current'] = [
+              'data' => ssotFormatNumber($value, $options),
+              'class' => $class,
+              'data-label' => $header[1]
+            ];
           }
         }
 
@@ -125,7 +145,8 @@ class LabourMarketEmploymentByAgeSexTable extends ExtraFieldDisplayFormattedBase
           $gender = str_replace($genderNeedle, "", $key);
 
           if(empty($genderAgeValues['gender']['head'])) {
-            $genderAgeValues['ghead'] = [
+            $genderAgeValues['ghead']['class'] = ['gender-header'];
+            $genderAgeValues['ghead']['data'] = [
               [
                 'data' => $this->t('Sex'),
                 'colspan' => 3,
@@ -135,12 +156,29 @@ class LabourMarketEmploymentByAgeSexTable extends ExtraFieldDisplayFormattedBase
           }
           //if previous values
           if(strpos($gender, 'previous') !== false) {
+            $class = ['previous_gender'];
             $gender = str_replace('_previous', "", $gender);
-            $genderAgeValues[$gender]['gender'] = ucfirst($gender);
-            $genderAgeValues[$gender]['previous'] = ssotFormatNumber($value, $options);
+            $genderAgeValues[$gender]['class'] = ['gender-data-row'];
+            $genderAgeValues[$gender]['data']['gender'] = [
+              'data' => ucfirst($gender),
+              'class' => ['label']
+            ];
+            $genderAgeValues[$gender]['data']['previous'] = [
+              'data' => ssotFormatNumber($value, $options),
+              'class' => $class,
+              'data-label' => $header[2]
+            ];
           } else {
-            $genderAgeValues[$gender]['gender'] = ucfirst($gender);
-            $genderAgeValues[$gender]['current'] = ssotFormatNumber($value, $options);
+            $class = ['current_gender'];
+            $genderAgeValues[$gender]['data']['gender'] = [
+              'data' => ucfirst($gender),
+              'class' => ['label']
+            ];
+            $genderAgeValues[$gender]['data']['current'] = [
+              'data' => ssotFormatNumber($value, $options),
+              'class' => $class,
+              'data-label' => $header[1]
+            ];
           }
         }
 

@@ -58,8 +58,83 @@
       text-align: right;
     }
 
-    td:not(:first-child) {
+    td.label {
+      display: table-cell;
+    }
+
+    td.current_age, td.previous_age, td.current_gender, td.previous_gender {
       text-align: right;
+    }
+  }
+
+  @media screen and (max-width: 600px) {
+    table.lm-table-age-gender {
+      padding: 0 0 0 0;
+      border: 0;
+      width: 100%;
+      overflow-x: hidden;
+
+      thead {
+        border: none;
+        clip: rect(0 0 0 0);
+        height: 1px;
+        margin: -1px;
+        overflow: hidden;
+        padding: 20px 0 20px 0;
+        position: absolute;
+        width: 1px;
+      }
+
+      td.lm-header {
+        display: block;
+        background-color: $workbc_dark_theme_background;
+        color: $workbc_dark_theme_text
+      }
+
+      td.label {
+        font-weight: normal;
+        border: none;
+        padding-left: 0;
+        padding-top: 0;
+        padding-bottom: 0;
+      }
+
+      tr {
+        padding: 1em 0 1em 0;
+        display: block;
+      }
+
+      td.current_age, td.previous_age, td.current_gender, td.previous_gender {
+        display: block;
+        text-align: right;
+        border: none;
+        padding-bottom: 0;
+        padding-left: 0;
+        padding-right: 0;
+      }
+
+      td.current_age::before, td.previous_age::before, td.current_gender::before, td.previous_gender::before {
+        /*
+        * aria-label has no advantage, it won't be read inside a table
+        content: attr(aria-label);
+        */
+        content: attr(data-label);
+        float: left;
+        font-weight: bold;
+      }
+
+      tr.gender-data-row, tr.age-data-row {
+        border-bottom: 3px solid $workbc_light_theme_background_accent;
+      }
+
+      :nth-child(3 of tr.age-data-row), :nth-child(2 of tr.gender-data-row) {
+        border-bottom: none;
+      }
+
+      td.previous_gender, td.previous_age {
+        padding-top: 5px;
+      }
+
     }
   }
 
@@ -72,6 +147,8 @@
       font-weight: bold;
       background-color: $workbc_palette_light_secondary;
     }
+
+
   }
 
   img {
