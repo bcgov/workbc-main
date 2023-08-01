@@ -29,6 +29,9 @@
           const that = this;
           $.ajax({
             url: settings.jobboard.totalJobs,
+            data: {
+              't': Date.now(),
+            },
             method: 'GET',
             headers: {
               'Accept': '*/*',
