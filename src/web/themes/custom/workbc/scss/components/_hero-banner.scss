@@ -11,7 +11,7 @@
 }
 
 .hero-image-wrapper {
-  max-height: 330px;
+  height: 400px;
   overflow: hidden;
 
   @include media-breakpoint-up(lg) {
@@ -20,7 +20,7 @@
     bottom: 0;
     right: 0;
     z-index: 0;
-    max-height: none;
+    height: 400px;
     overflow: auto;
 
     &:before {
@@ -46,8 +46,9 @@
   width: 100%;
 
   @include media-breakpoint-up(lg) {
-    height: 100%;
-    object-fit: cover;
+    // height: 100%;
+    object-fit: contain;
+    object-position: right top;
   }
 }
 
