@@ -2,10 +2,9 @@
   position: relative;
   border-bottom: 3px solid $workbc_palette_dark_secondary;
   background: #ccd7dc;
-  height: auto;
 
   @include media-breakpoint-up(lg) {
-    height: 481px;
+    min-height: 481px;
   }
 }
 
