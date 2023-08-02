@@ -2,9 +2,10 @@
   position: relative;
   border-bottom: 3px solid $workbc_palette_dark_secondary;
   background: #ccd7dc;
+  height: auto;
 
   @include media-breakpoint-up(lg) {
-    min-height: 478px;
+    height: 481px;
   }
 }
 
@@ -19,7 +20,7 @@
 }
 
 .hero-home__image {
-  max-height: 330px;
+  height: auto;
   overflow: hidden;
 
   @include media-breakpoint-up(lg) {
@@ -28,7 +29,7 @@
     bottom: 0;
     right: 0;
     z-index: 0;
-    max-height: none;
+    height: 478px;
     overflow: auto;
 
     &:before {
@@ -51,6 +52,6 @@
 
   @include media-breakpoint-up(lg) {
     height: 100%;
-    object-fit: cover;
+    object-fit: contain;
   }
 }
