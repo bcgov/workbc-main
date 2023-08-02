@@ -46,7 +46,6 @@
   width: 100%;
 
   @include media-breakpoint-up(lg) {
-    // height: 100%;
     object-fit: contain;
     object-position: right top;
   }
