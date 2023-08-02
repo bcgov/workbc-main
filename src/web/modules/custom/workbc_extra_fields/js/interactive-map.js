@@ -3,8 +3,6 @@ let currentRegion = [0,0,0,0];
 
 
 function mapHoverOn(map, region) {
-console.log(map);
-console.log(region);
 
   var element = document.querySelector("#workbc-interactive-map-" + map + " #interactive-map-" + regions[region]);
   element.style.visibility = "visible";
@@ -14,8 +12,6 @@ console.log(region);
 
 function mapHoverOff(map, region) {
   
-  // workbc_interactive-map-
-
   if (region != currentRegion[map]) {
     var element = document.querySelector("#workbc-interactive-map-" + map + " #interactive-map-" + regions[region]);
     element.style.visibility = "hidden";

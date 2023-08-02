@@ -28,10 +28,10 @@ define ("REGION_THOMPSON_OKANAGAN_ID", 6);
 define ("REGION_VANCOUVER_ISLAND_COAST_ID", 7);
 define ("REGION_BRITISH_COLUMBIA_ID", 0);
 
-define ("WORK_BC_INTERACTIVE_MAP_1", 1);
-define ("WORK_BC_INTERACTIVE_MAP_2", 2);
-define ("WORK_BC_INTERACTIVE_MAP_3", 3);
-define ("WORK_BC_INTERACTIVE_MAP_4", 4);
+define ("WORK_BC_INTERACTIVE_MAP_1", 1);  // Career Profile Employment by Region
+define ("WORK_BC_INTERACTIVE_MAP_2", 2);  // Career Profile Job Openings by Region
+define ("WORK_BC_INTERACTIVE_MAP_3", 3);  // B.C. Region Employment by Region
+define ("WORK_BC_INTERACTIVE_MAP_4", 4);  // Labour Market Monthly Unemployment Rate
 
 define ('SSOT_PING_TIMEOUT', 5);
 
@@ -623,7 +623,7 @@ function workbcInteractiveMap($map_id) {
 
   foreach ($labels as $key => $region) {
     $id = "map-region-label-line-" . $key;
-    $map .= '<div id="' . $id . '" class="map-region-label-line">';
+    $map .= '<div id="' . $id . '">';
     $map .= '<img src="/' . $module_path . '/images/map-line.svg">';
     $map .= '</div>';
   }

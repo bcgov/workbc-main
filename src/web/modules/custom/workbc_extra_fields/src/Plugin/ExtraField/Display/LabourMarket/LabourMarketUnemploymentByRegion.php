@@ -57,8 +57,8 @@ class LabourMarketUnemploymentByRegion extends ExtraFieldDisplayFormattedBase {
 
     $header = [' ',  $current_previous_months['current_month_year'] , $current_previous_months['current_month_previous_year']];
 
-    $rows = $this->getRegionValues($entity->ssot_data['monthly_labour_market_updates'][0]);
-
+    $data = $this->getRegionValues($entity->ssot_data['monthly_labour_market_updates'][0]);
+ksm($data);
     //Image
     $module_handler = \Drupal::service('module_handler');
     $module_path = $module_handler->getModule('workbc_extra_fields')->getPath();
@@ -68,11 +68,22 @@ class LabourMarketUnemploymentByRegion extends ExtraFieldDisplayFormattedBase {
     $source_text = !empty($entity->ssot_data['sources']['unemployment_pct'])?$entity->ssot_data['sources']['unemployment_pct']:WORKBC_EXTRA_FIELDS_NOT_AVAILABLE;
     $output = '<div class="lm-source"><strong>'.$this->t("Source").': </strong>'.$source_text.'</div>';
 
+    $map = workbcInteractiveMap(WORK_BC_INTERACTIVE_MAP_4);
+
+    $rows = [];
+    foreach ($data as $key => $region) {
+      $id='interactive-map-row-' . $key;
+			$rows[] = array('data' => $region, 'id' => $id);
+    }
+
     return [
       [
-        '#theme' => 'image',
-        '#uri' => $image_uri,
-        '#alt' => 'BC Image Map',
+        '#markup' => '<div id="workbc-interactive-map-' . WORK_BC_INTERACTIVE_MAP_4 . '">',
+      ],
+      [
+        '#markup' => $map,
+        // '#uri' => $image_uri,
+        // '#alt' => 'BC Image Map',
       ],
       [
         '#theme' => 'table',
@@ -83,7 +94,10 @@ class LabourMarketUnemploymentByRegion extends ExtraFieldDisplayFormattedBase {
       ],
       [
         '#markup' => $output
-      ]
+      ],
+      [
+        '#markup' => "</div>",
+      ]      
     ];
   }
 

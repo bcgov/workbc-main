@@ -59,7 +59,11 @@ class BCEmploymentByRegionTable extends ExtraFieldDisplayFormattedBase {
         'na_if_empty' => TRUE,
       );
 
-      $content = "<table>";
+      $content = "";
+      $content = '<div id="workbc-interactive-map-' . WORK_BC_INTERACTIVE_MAP_3 . '">';
+      $content .= workbcInteractiveMap(WORK_BC_INTERACTIVE_MAP_3);
+      $content .= "<div>";
+      $content .= "<table>";
       $content .= "<tr class='table-header'><th>Region</th><th>Full-time Employment Rate</th><th>Part-time Employment Rate</th></tr>";
       foreach ($regions as $region) {
         $nid = \Drupal::entityQuery('node')
@@ -72,7 +76,7 @@ class BCEmploymentByRegionTable extends ExtraFieldDisplayFormattedBase {
         $link = "<a href='" . $alias . "'>";
         $close = "</a>";
 
-        $content .= "<tr class='bc-profile-employment-region-row'>";
+        $content .= "<tr  id='interactive-map-row-" . $region['region'] . "' class='bc-profile-employment-region-row'>";
         $content .= "<td class='region-name'>" . $link . ssotRegionName($region['region']) . $close . "</td>";
         $percent = ssotFormatNumber($region['full_time_employment_pct'], $options);
         $content .= "<td class='full-time-rate' data-label='Full-time Employment Rate'>" . $percent . "</td>";
@@ -90,6 +94,8 @@ class BCEmploymentByRegionTable extends ExtraFieldDisplayFormattedBase {
       $content .= "</tr>";
 
       $content .= "</table>";
+      $content .= "</div>";
+      $content .= "</div>";       
       $output = $content;
     }
     else {

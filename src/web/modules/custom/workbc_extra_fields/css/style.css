@@ -2,15 +2,18 @@
   --left-offset: 0px;
   --top-offset: 0px;
 }
+.workbc-interactive-map-container {
+  position: relative;
+}
 
 .workbc-interactive-map {
   border-width: 0px;
-  /* left: 0px; */
-  /* top: 50px; */
+  position: relative;
+  left: 85px;
+  top: 0px;
   width: 400px;
-  height: 330px;
-  /* position: relative; */
-  /* display: flex; */
+  height: 370px;
+
 }
 
 #interactive-map-cariboo,
@@ -67,16 +70,16 @@
 
 #map-region-label-mainland_southwest {
   position: absolute;
-  left: calc(var(--left-offset) + 0px);
-  top: calc(var(--top-offset) + 301px);
+  left: calc(var(--left-offset) + -75px);
+  top: calc(var(--top-offset) + 310px);
   width: 171px;
   height: 32px;
 }
 
 #map-region-label-north_coast_nechako {
   position: absolute;
-  left: calc(var(--left-offset) + 0px);
-  top: calc(var(--top-offset) + 95px);
+  left: calc(var(--left-offset) + -125px);
+  top: calc(var(--top-offset) + 90px);
   width: 177px;
   height: 32px;
 }
@@ -92,53 +95,53 @@
 #map-region-label-thompson_okanagan {
   position: absolute;
   left: calc(var(--left-offset) + 390px);
-  top: calc(var(--top-offset) + 245px);
+  top: calc(var(--top-offset) + 255px);
   width: 171px;
   height:32px
 }
 
 #map-region-label-vancouver_island_coast {
   position: absolute;
-  left: calc(var(--left-offset) + 0px);
+  left: calc(var(--left-offset) + -100px);
   top: calc(var(--top-offset) + 260px);
   width: 194px;
   height: 32px;
 }
 
 
-/* .map-region-label-line {
-  color: #D7D7D7;
-} */
+.map-region-label-line {
+  /* background-color: #d7d7d7; */
+} 
 
 #map-region-label-line-cariboo {
   position: absolute;
-  left: calc(var(--left-offset) + 237px);
-  top: calc(var(--top-offset) + 186px);
+  left: calc(var(--left-offset) + 240px);
+  top: calc(var(--top-offset) + 185px);
   width: 88px;
   height: 2px;
 }
 
 #map-region-label-line-kootenay {
   position: absolute;
-  left: calc(var(--left-offset) + 440px);
-  top: calc(var(--top-offset) + 296px);
-  width: 89px;
+  left: calc(var(--left-offset) + 345px);
+  top: calc(var(--top-offset) + 285px);
+  width: 85px;
   height: 2px;
 }
 
 #map-region-label-line-mainland_southwest {
   position: absolute;
-  left: calc(var(--left-offset) + 0px);
-  top: calc(var(--top-offset) + 301px);
-  width: 171px;
+  left: calc(var(--left-offset) + 70px);
+  top: calc(var(--top-offset) + 300px);
+  width: 180px;
   height: 2px;
 }
 
 #map-region-label-line-north_coast_nechako {
   position: absolute;
-  left: calc(var(--left-offset) + 0px);
-  top: calc(var(--top-offset) + 95px);
-  width: 177px;
+  left: calc(var(--left-offset) + 50px);
+  top: calc(var(--top-offset) + 80px);
+  width: 75px;
   height: 2px;
 }
 
@@ -148,22 +151,21 @@
   top: calc(var(--top-offset) + 85px);
   width: 88px;
   height: 2px;
-  color:#D7D7D7;
 }
 
 #map-region-label-line-thompson_okanagan {
   position: absolute;
-  left: calc(var(--left-offset) + 390px);
+  left: calc(var(--left-offset) + 295px);
   top: calc(var(--top-offset) + 245px);
-  width: 171px;
+  width: 80px;
   height: 2px
 }
 
 #map-region-label-line-vancouver_island_coast {
   position: absolute;
-  left: calc(var(--left-offset) + 0px);
-  top: calc(var(--top-offset) + 260px);
-  width: 194px;
+  left: calc(var(--left-offset) + 60px);
+  top: calc(var(--top-offset) + 250px);
+  width: 115px;
   height: 2px;
 }
 
