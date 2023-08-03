@@ -28,7 +28,7 @@
     bottom: 0;
     right: 0;
     z-index: 0;
-    height: 478px;
+    height: auto;
     overflow: auto;
 
     &:before {
@@ -52,5 +52,6 @@
   @include media-breakpoint-up(lg) {
     height: 100%;
     object-fit: contain;
+    object-position: right top;
   }
 }
