@@ -4,7 +4,7 @@
   background: #ccd7dc;
 
   @include media-breakpoint-up(lg) {
-    min-height: 481px;
+    height: 499px;
   }
 }
 
@@ -28,7 +28,7 @@
     bottom: 0;
     right: 0;
     z-index: 0;
-    height: auto;
+    height: 496px;
     overflow: auto;
 
     &:before {
