@@ -293,6 +293,18 @@ resource "aws_ecs_task_definition" "app" {
 			{
 				name = "JOBBOARD_GOOGLE_MAPS_KEY",
 				valueFrom = "${data.aws_secretsmanager_secret_version.creds2.arn}:gm_ref::"
+			},
+			{
+				name = "POSTGRES_ADM_USER",
+				valueFrom = "${data.aws_secretsmanager_secret_version.creds.arn}:adm_username::"
+			},
+			{
+				name = "POSTGRES_ADM_PWD",
+				valueFrom = "${data.aws_secretsmanager_secret_version.creds.arn}:adm_password::"
+			},
+			{
+				name = "DRUPAL_ADM_PWD",
+				valueFrom = "${data.aws_secretsmanager_secret_version.creds.arn}:drupal_adm_password::"
 			}
 		]
 		mountPoints = [
