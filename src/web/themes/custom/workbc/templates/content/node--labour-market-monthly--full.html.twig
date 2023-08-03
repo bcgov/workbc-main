@@ -82,7 +82,7 @@
 {% set unemployed_current_month = content.extra_field_labourmarket_unemployed_current_month %}
 {% set unemployed_previous_month = content.extra_field_labourmarket_unemployed_previous_month %}
 {% set unemployment_region_intro = content.field_unemployment_region_intro %}
-{% set unemployment_by_region = content.extra_field_labourmarket_unemployment_by_region %}
+{% set unemployment_by_region = content.extra_field_labourmarket_unemployment_by_region.0['#markup'] %}
 {% set industry_highlights_intro = content.field_industry_highlights_intro %}
 {% set employment_industries_table = content.extra_field_labourmarket_employment_industries_table %}
 
@@ -151,7 +151,7 @@
 
   <div class="lm-table-container">
     <div class="lm-label lm-label-table">{{ 'Unemployment Rate (%)'|t }}</div>
-    {{ unemployment_by_region }}
+    {{ unemployment_by_region|raw }}
   </div>
 
   <div class="lm-intro">

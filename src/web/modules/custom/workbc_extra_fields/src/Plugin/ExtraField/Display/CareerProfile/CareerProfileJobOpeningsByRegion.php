@@ -102,7 +102,9 @@ class CareerProfileJobOpeningsByRegion extends ExtraFieldDisplayFormattedBase {
     $text .= workbcInteractiveMap(WORK_BC_INTERACTIVE_MAP_2);
     $text .= "<div>";
     $text .= "<table>";
+    $text .= "<thead>";
     $text .= "<tr><th>Region</th><th>Job Openings</th><th>Avg Annual Employment Growth</th></tr>";
+    $text .= "</thead>";
     foreach ($regions as $region) {
       $text .= "<tr id='interactive-map-row-" . ssotRegionKey($region['name']) . "'><td>" . $region['name'] . "</td><td>" . $region['openings'] . "</td><td>" . $region['growth'] . "</td></tr>";
     }

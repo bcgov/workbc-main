@@ -57,18 +57,39 @@ class LabourMarketUnemploymentByRegion extends ExtraFieldDisplayFormattedBase {
 
     $header = [' ',  $current_previous_months['current_month_year'] , $current_previous_months['current_month_previous_year']];
 
-    $data = $this->getRegionValues($entity->ssot_data['monthly_labour_market_updates'][0]);
-ksm($data);
-    //Image
-    $module_handler = \Drupal::service('module_handler');
-    $module_path = $module_handler->getModule('workbc_extra_fields')->getPath();
-    $image_uri = '/' . $module_path . '/images/' . WORKBC_BC_MAP_WITH_LABELS;
+    $rows = $this->getRegionValues($entity->ssot_data['monthly_labour_market_updates'][0]);
+
+    $map = workbcInteractiveMap(WORK_BC_INTERACTIVE_MAP_4);
+
+    $content = "";
+    $content = '<div id="workbc-interactive-map-' . WORK_BC_INTERACTIVE_MAP_4 . '">';
+    $content .= workbcInteractiveMap(WORK_BC_INTERACTIVE_MAP_4);
+    $content .= "<div>";
+    $content .= "<table class='lm-table-region table'>";
+    $content .= "<thead>";
+    $content .= "<tr class='lm-header'><th></th><th>" . $current_previous_months['current_month_year'] . "</th><th>" . $current_previous_months['current_month_previous_year'] . "</th></tr>";
+    $content .= "</thead>";
+
+    foreach ($rows as $key => $region) {
+      $content .= "<tr id='interactive-map-row-" . $key . "'>";
+      $content .= "<td class='region-name'>" . $region['region'] . "</td>";
+      $content .= "<td>" . $region['current'] . "</td>";
+      $content .= "<td>" . $region['previous'] . "</td>";
+      $content .= "</tr>";      
+    }
+
+    $content .= "</table>";
+    $content .= "</div>";
+    $content .= "</div>";  
 
     //Source
     $source_text = !empty($entity->ssot_data['sources']['unemployment_pct'])?$entity->ssot_data['sources']['unemployment_pct']:WORKBC_EXTRA_FIELDS_NOT_AVAILABLE;
-    $output = '<div class="lm-source"><strong>'.$this->t("Source").': </strong>'.$source_text.'</div>';
+    $content .= '<div class="lm-source"><strong>'.$this->t("Source").': </strong>'.$source_text.'</div>';
 
-    $map = workbcInteractiveMap(WORK_BC_INTERACTIVE_MAP_4);
+
+    return [
+        '#markup' => $content,
+      ];
 
     $rows = [];
     foreach ($data as $key => $region) {
@@ -76,34 +97,18 @@ ksm($data);
 			$rows[] = array('data' => $region, 'id' => $id);
     }
 
-    return [
-      [
-        '#markup' => '<div id="workbc-interactive-map-' . WORK_BC_INTERACTIVE_MAP_4 . '">',
-      ],
-      [
-        '#markup' => $map,
-        // '#uri' => $image_uri,
-        // '#alt' => 'BC Image Map',
-      ],
-      [
-        '#theme' => 'table',
-        '#header' => $header,
-        '#rows' => $rows,
-        '#attributes' => array('class'=>array('lm-table-region')),
-        '#header_columns' => 4,
-      ],
-      [
-        '#markup' => $output
-      ],
-      [
-        '#markup' => "</div>",
-      ]      
-    ];
   }
 
   public function getRegionValues($values){
     $regions = [];
     $needle = 'unemployment_pct_';
+
+    $options = array(
+      'decimals' => 0,
+      'suffix' => '%',
+      'na_if_empty' => TRUE,
+    );
+
     if(!empty($values)){
       foreach($values as $key => $value){
         if(strpos($key, $needle) !== false){

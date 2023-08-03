@@ -64,7 +64,9 @@ class BCEmploymentByRegionTable extends ExtraFieldDisplayFormattedBase {
       $content .= workbcInteractiveMap(WORK_BC_INTERACTIVE_MAP_3);
       $content .= "<div>";
       $content .= "<table>";
+      $content .= "<thead>";
       $content .= "<tr class='table-header'><th>Region</th><th>Full-time Employment Rate</th><th>Part-time Employment Rate</th></tr>";
+      $content .= "</thead>";
       foreach ($regions as $region) {
         $nid = \Drupal::entityQuery('node')
           ->condition('title', ssotRegionName($region['region']))
