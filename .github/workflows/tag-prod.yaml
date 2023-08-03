@@ -1,9 +1,9 @@
-name: Tag-Test
+name: Tag-Prod
 
 on:
   push:
     tags: 
-      - *uat
+      - "v[0-9]+.[0-9]+-prod*"
 
 env:
   IMAGE_ID: ${{ secrets.AWS_ECR_URI }}
@@ -33,8 +33,6 @@ jobs:
 
       - name: Create Docker Tag
         run: |
-          docker pull ${{ env.IMAGE_ID }}:${GITHUB_SHA}
-          docker tag ${{ env.IMAGE_ID }}:${GITHUB_SHA} ${{ env.IMAGE_ID }}:latest-test
-          docker push ${{ env.IMAGE_ID }}:latest-test
-          docker tag ${{ env.IMAGE_ID }}:${GITHUB_SHA} ${{ env.IMAGE_ID }}:${GITHUB_REF#refs/tags/}
+          docker pull ${{ env.IMAGE_ID }}:latest-test
+          docker tag ${{ env.IMAGE_ID }}:latest-test ${{ env.IMAGE_ID }}:${GITHUB_REF#refs/tags/}
           docker push ${{ env.IMAGE_ID }}:${GITHUB_REF#refs/tags/}
