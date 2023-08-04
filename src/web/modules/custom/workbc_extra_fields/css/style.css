@@ -9,11 +9,23 @@
 .workbc-interactive-map {
   border-width: 0px;
   position: relative;
-  left: 85px;
+  left: 105px;
   top: 0px;
   width: 400px;
   height: 370px;
 
+}
+
+#workbc-interactive-map-1 .workbc-interactive-map {
+  left: 150px;
+}
+
+#workbc-interactive-map-2 .workbc-interactive-map {
+  left: 165px;
+}
+
+#workbc-interactive-map-3 .workbc-interactive-map {
+  left: 155px;
 }
 
 #interactive-map-cariboo,
