@@ -48,7 +48,7 @@ let currentRegion = [0,0,0,0,0];  // 5 maps
             currentRegion[mapNo] = regionNo;
           }
           if (currentRegion[mapNo] != 0) {
-            var element = document.querySelector("#workbc-interactive-map-" + mapNo + " .interactive-map-row-"+regions[currentRegion[mapNo]]);
+            var element = context.querySelector("#workbc-interactive-map-" + mapNo + " .interactive-map-row-"+regions[currentRegion[mapNo]]);
             element.classList.add("interactive-map-row-hilite");
           }
         });
