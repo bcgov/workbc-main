@@ -121,7 +121,7 @@ class CareerProfileLabourMarketEmploymentByRegion extends ExtraFieldDisplayForma
     $text .= "<tr><th>Region</th><th>Employment (" . $datestr . ")</th><th>% Employment</th></tr>";
     $text .= "</thead>";
     foreach ($regions as $region) {
-      $text .= "<tr id='interactive-map-row-" . ssotRegionKey($region['name']) . "'><td>" . $region['name'] . "</td><td>" . $region['employment'] . "</td><td>" . $region['percent'] . "</td></tr>";
+      $text .= "<tr class='interactive-map-row-" . ssotRegionKey($region['name']) . "'><td>" . $region['name'] . "</td><td>" . $region['employment'] . "</td><td>" . $region['percent'] . "</td></tr>";
     }
     $text .= "</table>";
     $text .= "</div>";

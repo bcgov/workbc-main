@@ -71,7 +71,7 @@ class LabourMarketUnemploymentByRegion extends ExtraFieldDisplayFormattedBase {
     $content .= "</thead>";
 
     foreach ($rows as $key => $region) {
-      $content .= "<tr id='interactive-map-row-" . $key . "'>";
+      $content .= "<tr class='interactive-map-row-" . $key . "'>";
       $content .= "<td class='region-name'>" . $region['region'] . "</td>";
       $content .= "<td>" . $region['current'] . "</td>";
       $content .= "<td>" . $region['previous'] . "</td>";

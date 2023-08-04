@@ -92,11 +92,6 @@ class CareerProfileJobOpeningsByRegion extends ExtraFieldDisplayFormattedBase {
       $regions[] = $region;
     }
 
-    // $module_handler = \Drupal::service('module_handler');
-    // $module_path = $module_handler->getModule('workbc_extra_fields')->getPath();
-
-    // $text = '<div><img src="/' . $module_path . '/images/' . WORKBC_BC_MAP_WITH_LABELS . '"></div>';
-
     $text = "";
     $text = '<div id="workbc-interactive-map-' . WORK_BC_INTERACTIVE_MAP_2 . '">';
     $text .= workbcInteractiveMap(WORK_BC_INTERACTIVE_MAP_2);
@@ -106,7 +101,7 @@ class CareerProfileJobOpeningsByRegion extends ExtraFieldDisplayFormattedBase {
     $text .= "<tr><th>Region</th><th>Job Openings</th><th>Avg Annual Employment Growth</th></tr>";
     $text .= "</thead>";
     foreach ($regions as $region) {
-      $text .= "<tr id='interactive-map-row-" . ssotRegionKey($region['name']) . "'><td>" . $region['name'] . "</td><td>" . $region['openings'] . "</td><td>" . $region['growth'] . "</td></tr>";
+      $text .= "<tr class='interactive-map-row-" . ssotRegionKey($region['name']) . "'><td>" . $region['name'] . "</td><td>" . $region['openings'] . "</td><td>" . $region['growth'] . "</td></tr>";
     }
     $text .= "</table>";
     $text .= "</div>";

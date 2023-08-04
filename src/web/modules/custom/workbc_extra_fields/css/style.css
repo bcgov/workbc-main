@@ -28,13 +28,17 @@
   left: 155px;
 }
 
-#interactive-map-cariboo,
-#interactive-map-kootenay,
-#interactive-map-mainland_southwest,
-#interactive-map-north_coast_nechako,
-#interactive-map-northeast,
-#interactive-map-thompson_okanagan,
-#interactive-map-vancouver_island_coast {
+#workbc-interactive-map-4 .workbc-interactive-map {
+  left: -5px;
+}
+
+.interactive-map-cariboo,
+.interactive-map-kootenay,
+.interactive-map-mainland_southwest,
+.interactive-map-north_coast_nechako,
+.interactive-map-northeast,
+.interactive-map-thompson_okanagan,
+.interactive-map-vancouver_island_coast {
   display: none; 
   visibility: hidden;
 }
@@ -64,7 +68,7 @@
   text-decoration: underline;
 }
 
-#map-region-label-cariboo {
+.map-region-label-cariboo {
   position: absolute;
   left: calc(var(--left-offset) + 337px);
   top: calc(var(--top-offset) + 196px);
@@ -72,7 +76,7 @@
   height: 32px;
 }
 
-#map-region-label-kootenay {
+.map-region-label-kootenay {
   position: absolute;
   left: calc(var(--left-offset) + 440px);
   top: calc(var(--top-offset) + 296px);
@@ -80,7 +84,7 @@
   height: 32px;
 }
 
-#map-region-label-mainland_southwest {
+.map-region-label-mainland_southwest {
   position: absolute;
   left: calc(var(--left-offset) + -75px);
   top: calc(var(--top-offset) + 310px);
@@ -88,7 +92,7 @@
   height: 32px;
 }
 
-#map-region-label-north_coast_nechako {
+.map-region-label-north_coast_nechako {
   position: absolute;
   left: calc(var(--left-offset) + -125px);
   top: calc(var(--top-offset) + 90px);
@@ -96,7 +100,7 @@
   height: 32px;
 }
 
-#map-region-label-northeast {
+.map-region-label-northeast {
   position: absolute;
   left: calc(var(--left-offset) + 335px);
   top: calc(var(--top-offset) + 95px);
@@ -104,7 +108,7 @@
   height: 32px;
 }
 
-#map-region-label-thompson_okanagan {
+.map-region-label-thompson_okanagan {
   position: absolute;
   left: calc(var(--left-offset) + 390px);
   top: calc(var(--top-offset) + 255px);
@@ -112,7 +116,7 @@
   height:32px
 }
 
-#map-region-label-vancouver_island_coast {
+.map-region-label-vancouver_island_coast {
   position: absolute;
   left: calc(var(--left-offset) + -100px);
   top: calc(var(--top-offset) + 260px);
@@ -125,7 +129,7 @@
   /* background-color: #d7d7d7; */
 } 
 
-#map-region-label-line-cariboo {
+.map-region-label-line-cariboo {
   position: absolute;
   left: calc(var(--left-offset) + 240px);
   top: calc(var(--top-offset) + 185px);
@@ -133,7 +137,7 @@
   height: 2px;
 }
 
-#map-region-label-line-kootenay {
+.map-region-label-line-kootenay {
   position: absolute;
   left: calc(var(--left-offset) + 345px);
   top: calc(var(--top-offset) + 285px);
@@ -141,7 +145,7 @@
   height: 2px;
 }
 
-#map-region-label-line-mainland_southwest {
+.map-region-label-line-mainland_southwest {
   position: absolute;
   left: calc(var(--left-offset) + 70px);
   top: calc(var(--top-offset) + 300px);
@@ -149,7 +153,7 @@
   height: 2px;
 }
 
-#map-region-label-line-north_coast_nechako {
+.map-region-label-line-north_coast_nechako {
   position: absolute;
   left: calc(var(--left-offset) + 50px);
   top: calc(var(--top-offset) + 80px);
@@ -157,7 +161,7 @@
   height: 2px;
 }
 
-#map-region-label-line-northeast {
+.map-region-label-line-northeast {
   position: absolute;
   left: calc(var(--left-offset) + 235px);
   top: calc(var(--top-offset) + 85px);
@@ -165,7 +169,7 @@
   height: 2px;
 }
 
-#map-region-label-line-thompson_okanagan {
+.map-region-label-line-thompson_okanagan {
   position: absolute;
   left: calc(var(--left-offset) + 295px);
   top: calc(var(--top-offset) + 245px);
@@ -173,7 +177,7 @@
   height: 2px
 }
 
-#map-region-label-line-vancouver_island_coast {
+.map-region-label-line-vancouver_island_coast {
   position: absolute;
   left: calc(var(--left-offset) + 60px);
   top: calc(var(--top-offset) + 250px);
@@ -191,49 +195,49 @@
   background-image: url(../images/transparent.gif);
 }
 
-#map-hot-spot-01 {
+.map-hot-spot-01 {
   position: absolute;
   left: calc(var(--left-offset) + 168px);
   top: calc(var(--top-offset) + 40px);
   width: 110px;
   height: 26px;
 }
-#map-hot-spot-02 {
+.map-hot-spot-02 {
   position:absolute;
   left:calc(var(--left-offset) + 170px);
   top:calc(var(--top-offset) + 66px);
   width:108px;
   height:26px;
 }
-#map-hot-spot-03 {
+.map-hot-spot-03 {
   position:absolute;
   left:calc(var(--left-offset) + 157px);
   top:calc(var(--top-offset) + 92px);
   width:121px;
   height:35px;
 }
-#map-hot-spot-04 {
+.map-hot-spot-04 {
   position:absolute;
   left:calc(var(--left-offset) + 177px);
   top:calc(var(--top-offset) + 127px);
   width:101px;
   height:16px;
 }
-#map-hot-spot-05 {
+.map-hot-spot-05 {
   position:absolute;
   left:calc(var(--left-offset) + 206px);
   top:calc(var(--top-offset) + 143px);
   width:72px;
   height:14px;
 }
-#map-hot-spot-06 {
+.map-hot-spot-06 {
   position:absolute;
   left:calc(var(--left-offset) + 231px);
   top:calc(var(--top-offset) + 157px);
   width:47px;
   height:14px;
 }
-#map-hot-spot-07 {
+.map-hot-spot-07 {
   border-width:0px;
   position:absolute;
   left:calc(var(--left-offset) + 255px);
@@ -243,7 +247,7 @@
   overflow:hidden;
   background-image:url('../images/transparent.gif');
 }
-#map-hot-spot-08 {
+.map-hot-spot-08 {
   border-width:0px;
   position:absolute;
   left:calc(var(--left-offset) + 216px);
@@ -253,7 +257,7 @@
   overflow:hidden;
   background-image:url('../images/transparent.gif');
 }
-#map-hot-spot-09 {
+.map-hot-spot-09 {
   border-width:0px;
   position:absolute;
   left:calc(var(--left-offset) + 223px);
@@ -263,7 +267,7 @@
   overflow:hidden;
   background-image:url('../images/transparent.gif');
 }
-#map-hot-spot-10 {
+.map-hot-spot-10 {
   border-width:0px;
   position:absolute;
   left:calc(var(--left-offset) + 185px);
@@ -273,7 +277,7 @@
   overflow:hidden;
   background-image:url('../images/transparent.gif');
 }
-#map-hot-spot-11 {
+.map-hot-spot-11 {
   border-width:0px;
   position:absolute;
   left:calc(var(--left-offset) + 189px);
@@ -283,7 +287,7 @@
   overflow:hidden;
   background-image:url('../images/transparent.gif');
 }
-#map-hot-spot-12 {
+.map-hot-spot-12 {
   border-width:0px;
   position:absolute;
   left:calc(var(--left-offset) + 239px);
@@ -293,7 +297,7 @@
   overflow:hidden;
   background-image:url('../images/transparent.gif');
 }
-#map-hot-spot-13 {
+.map-hot-spot-13 {
   border-width:0px;
   position:absolute;
   left:calc(var(--left-offset) + 280px);
@@ -303,7 +307,7 @@
   overflow:hidden;
   background-image:url('../images/transparent.gif');
 }
-#map-hot-spot-14 {
+.map-hot-spot-14 {
   border-width:0px;
   position:absolute;
   left:calc(var(--left-offset) + 280px);
@@ -313,7 +317,7 @@
   overflow:hidden;
   background-image:url('../images/transparent.gif');
 }
-#map-hot-spot-15 {
+.map-hot-spot-15 {
   border-width:0px;
   position:absolute;
   left:calc(var(--left-offset) + 249px);
@@ -323,7 +327,7 @@
   overflow:hidden;
   background-image:url('../images/transparent.gif');
 }
-#map-hot-spot-16 {
+.map-hot-spot-16 {
   border-width:0px;
   position:absolute;
   left:calc(var(--left-offset) + 249px);
@@ -333,7 +337,7 @@
   overflow:hidden;
   background-image:url('../images/transparent.gif');
 }
-#map-hot-spot-17 {
+.map-hot-spot-17 {
   border-width:0px;
   position:absolute;
   left:calc(var(--left-offset) + 264px);
@@ -343,7 +347,7 @@
   overflow:hidden;
   background-image:url('../images/transparent.gif');
 }
-#map-hot-spot-18 {
+.map-hot-spot-18 {
   border-width:0px;
   position:absolute;
   left:calc(var(--left-offset) + 328px);
@@ -353,7 +357,7 @@
   overflow:hidden;
   background-image:url('../images/transparent.gif');
 }
-#map-hot-spot-19 {
+.map-hot-spot-19 {
   border-width:0px;
   position:absolute;
   left:calc(var(--left-offset) + 328px);
@@ -363,7 +367,7 @@
   overflow:hidden;
   background-image:url('../images/transparent.gif');
 }
-#map-hot-spot-20 {
+.map-hot-spot-20 {
   border-width:0px;
   position:absolute;
   left:calc(var(--left-offset) + 328px);
@@ -373,7 +377,7 @@
   overflow:hidden;
   background-image:url('../images/transparent.gif');
 }
-#map-hot-spot-21 {
+.map-hot-spot-21 {
   border-width:0px;
   position:absolute;
   left:calc(var(--left-offset) + 301px);
@@ -383,7 +387,7 @@
   overflow:hidden;
   background-image:url('../images/transparent.gif');
 }
-#map-hot-spot-22 {
+.map-hot-spot-22 {
   border-width:0px;
   position:absolute;
   left:calc(var(--left-offset) + 320px);
@@ -393,7 +397,7 @@
   overflow:hidden;
   background-image:url('../images/transparent.gif');
 }
-#map-hot-spot-23 {
+.map-hot-spot-23 {
   border-width:0px;
   position:absolute;
   left:calc(var(--left-offset) + 341px);
@@ -403,7 +407,7 @@
   overflow:hidden;
   background-image:url('../images/transparent.gif');
 }
-#map-hot-spot-24 {
+.map-hot-spot-24 {
   border-width:0px;
   position:absolute;
   left:calc(var(--left-offset) + 63px);
@@ -413,7 +417,7 @@
   overflow:hidden;
   background-image:url('../images/transparent.gif');
 }
-#map-hot-spot-25 {
+.map-hot-spot-25 {
   border-width:0px;
   position:absolute;
   left:calc(var(--left-offset) + 68px);
@@ -423,7 +427,7 @@
   overflow:hidden;
   background-image:url('../images/transparent.gif');
 }
-#map-hot-spot-26 {
+.map-hot-spot-26 {
   border-width:0px;
   position:absolute;
   left:calc(var(--left-offset) + 82px);
@@ -433,7 +437,7 @@
   overflow:hidden;
   background-image:url('../images/transparent.gif');
 }
-#map-hot-spot-27 {
+.map-hot-spot-27 {
   border-width:0px;
   position:absolute;
   left:calc(var(--left-offset) + 92px);
@@ -443,7 +447,7 @@
   overflow:hidden;
   background-image:url('../images/transparent.gif');
 }
-#map-hot-spot-28 {
+.map-hot-spot-28 {
   border-width:0px;
   position:absolute;
   left:calc(var(--left-offset) + 139px);
@@ -453,7 +457,7 @@
   overflow:hidden;
   background-image:url('../images/transparent.gif');
 }
-#map-hot-spot-29 {
+.map-hot-spot-29 {
   border-width:0px;
   position:absolute;
   left:calc(var(--left-offset) + 103px);
@@ -463,7 +467,7 @@
   overflow:hidden;
   background-image:url('../images/transparent.gif');
 }
-#map-hot-spot-30 {
+.map-hot-spot-30 {
   border-width:0px;
   position:absolute;
   left:calc(var(--left-offset) + 177px);
@@ -473,7 +477,7 @@
   overflow:hidden;
   background-image:url('../images/transparent.gif');
 }
-#map-hot-spot-31 {
+.map-hot-spot-31 {
   border-width:0px;
   position:absolute;
   left:calc(var(--left-offset) + 157px);
@@ -483,7 +487,7 @@
   overflow:hidden;
   background-image:url('../images/transparent.gif');
 }
-#map-hot-spot-32 {
+.map-hot-spot-32 {
   border-width:0px;
   position:absolute;
   left:calc(var(--left-offset) + 206px);
@@ -493,7 +497,7 @@
   overflow:hidden;
   background-image:url('../images/transparent.gif');
 }
-#map-hot-spot-33 {
+.map-hot-spot-33 {
   border-width:0px;
   position:absolute;
   left:calc(var(--left-offset) + 139px);
@@ -503,7 +507,7 @@
   overflow:hidden;
   background-image:url('../images/transparent.gif');
 }
-#map-hot-spot-34 {
+.map-hot-spot-34 {
   border-width:0px;
   position:absolute;
   left:calc(var(--left-offset) + 168px);
@@ -513,7 +517,7 @@
   overflow:hidden;
   background-image:url('../images/transparent.gif');
 }
-#map-hot-spot-35 {
+.map-hot-spot-35 {
   border-width:0px;
   position:absolute;
   left:calc(var(--left-offset) + 131px);
@@ -523,7 +527,7 @@
   overflow:hidden;
   background-image:url('../images/transparent.gif');
 }
-#map-hot-spot-36 {
+.map-hot-spot-36 {
   border-width:0px;
   position:absolute;
   left:calc(var(--left-offset) + 214px);
@@ -533,7 +537,7 @@
   overflow:hidden;
   background-image:url('../images/transparent.gif');
 }
-#map-hot-spot-37 {
+.map-hot-spot-37 {
   border-width:0px;
   position:absolute;
   left:calc(var(--left-offset) + 249px);

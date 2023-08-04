@@ -43,10 +43,7 @@ class IndustryEmploymentByRegionMap extends ExtraFieldDisplayFormattedBase {
    */
   public function viewElements(ContentEntityInterface $entity) {
 
-    $module_handler = \Drupal::service('module_handler');
-    $module_path = $module_handler->getModule('workbc_extra_fields')->getPath();
-
-    $output = '<div><img src="/' . $module_path . '/images/' . WORKBC_BC_MAP_WITH_LABELS . '"></div>';
+    $output = workbcInteractiveMap(WORK_BC_INTERACTIVE_MAP_5);
 
     return [
       ['#markup' => $output],
