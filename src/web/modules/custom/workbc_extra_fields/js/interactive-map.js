@@ -39,11 +39,11 @@ let currentRegion = [0,0,0,0,0];  // 5 maps
             element2.classList.remove("interactive-map-row-hilite");
             currentRegion[mapNo] = regionNo;
           } 
-          else if (currentRegion[mapNo] == regionNo) {
-            var element2 = context.querySelector("#workbc-interactive-map-" + mapNo + " .interactive-map-row-"+regions[currentRegion[mapNo]]);
-            element2.classList.remove("interactive-map-row-hilite");    
-            currentRegion[mapNo] =  0;
-          }
+          // else if (currentRegion[mapNo] == regionNo) {
+          //   var element2 = context.querySelector("#workbc-interactive-map-" + mapNo + " .interactive-map-row-"+regions[currentRegion[mapNo]]);
+          //   element2.classList.remove("interactive-map-row-hilite");    
+          //   currentRegion[mapNo] =  0;
+          // }
           else {
             currentRegion[mapNo] = regionNo;
           }
