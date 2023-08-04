@@ -6,7 +6,7 @@
   background-color: $workbc_light_theme_background_accent;
 
   @include media-breakpoint-up(lg) {
-    min-height: 400px;
+    min-height: $workbc_hero_container_height;
   }
 }
 
@@ -20,8 +20,8 @@
     bottom: 0;
     right: 0;
     z-index: 0;
-    height: 397px;
-    width: 596px;
+    height: $workbc_hero_image_height;
+    width: $workbc_hero_image_width;
     overflow: auto;
 
     &:before {
