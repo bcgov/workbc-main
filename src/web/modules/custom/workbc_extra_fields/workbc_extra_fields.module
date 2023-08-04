@@ -612,14 +612,18 @@ function workbcInteractiveMap($map_id) {
 
   for ($i = 1; $i <= 37; $i++) {
     $id = "map-hot-spot-". str_pad($i, 2, "0", STR_PAD_LEFT);
-    $map .= '<div class="' . $id . ' map-hot-spot" tabindex="0" onmouseenter="mapHoverOn(' . $map_id . ',' . $hotspots[$i] . ')" onmouseleave="mapHoverOff(' . $map_id . ',' . $hotspots[$i] . ')" onclick="mapClick(' . $map_id . ',' . $hotspots[$i] . ')" > </div>';
+    $map .= '<div class="' . $id . ' map-hot-spot" data-interactive-map-no="' . $map_id . '" data-interactive-map-region-no="' . $hotspots[$i] . '"> </div>';
   }
+
+  // $map .= '<div class="' . $id . ' map-hot-spot" tabindex="0" onmouseenter="mapHoverOn(' . $map_id . ',' . $hotspots[$i] . ')" onmouseleave="mapHoverOff(' . $map_id . ',' . $hotspots[$i] . ')" onclick="mapClick(' . $map_id . ',' . $hotspots[$i] . ')" > </div>';
+
 
   $hotspots = ssotRegionIds();
 
   foreach ($labels as $key => $region) {
     $id = "map-region-label-" . $key;
-    $map .= '<div class="' . $id . ' map-region-label" onmouseenter="mapHoverOn(' . $map_id . ',' . $hotspots[$key] . ')" onmouseleave="mapHoverOff(' . $map_id . ',' . $hotspots[$key] . ')" onclick="mapClick(' . $map_id . ',' . $hotspots[$key] . ')">' . $region . '</div>';
+    $map .= '<div class="' . $id . ' map-hot-spot map-region-label" data-interactive-map-no="' . $map_id . '" data-interactive-map-region-no="' . $hotspots[$key] . '">' . $region . '</div>';
+    // $map .= '<div class="' . $id . ' map-region-label" onmouseenter="mapHoverOn(' . $map_id . ',' . $hotspots[$key] . ')" onmouseleave="mapHoverOff(' . $map_id . ',' . $hotspots[$key] . ')" onclick="mapClick(' . $map_id . ',' . $hotspots[$key] . ')">' . $region . '</div>';
   }
 
   foreach ($labels as $key => $region) {
