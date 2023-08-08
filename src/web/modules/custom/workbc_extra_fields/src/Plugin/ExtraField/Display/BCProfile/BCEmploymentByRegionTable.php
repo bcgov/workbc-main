@@ -60,9 +60,9 @@ class BCEmploymentByRegionTable extends ExtraFieldDisplayFormattedBase {
       );
 
       $content = "";
-      $content = '<div id="workbc-interactive-map-' . WORK_BC_INTERACTIVE_MAP_3 . '">';
-      $content .= workbcInteractiveMap(WORK_BC_INTERACTIVE_MAP_3);
-      $content .= "<div>";
+      // $content = '<div id="workbc-interactive-map-' . WORK_BC_INTERACTIVE_MAP_3 . '">';
+      // $content .= workbcInteractiveMap(WORK_BC_INTERACTIVE_MAP_3);
+      // $content .= "<div>";
       $content .= "<table>";
       $content .= "<thead>";
       $content .= "<tr class='table-header'><th>Region</th><th>Full-time Employment Rate</th><th>Part-time Employment Rate</th></tr>";
@@ -87,6 +87,7 @@ class BCEmploymentByRegionTable extends ExtraFieldDisplayFormattedBase {
         $content .= "</tr>";
       }
 
+      // $content .= "<tfoot>";
       $content .= "<tr class='bc-profile-employment-region-footer'>";
       $content .= "<td class='region-name'>B.C. Average</td>";
       $percent = ssotFormatNumber($entity->ssot_data['labour_force_survey_bc_employment']['full_time_employment_pct'], $options);
@@ -94,10 +95,10 @@ class BCEmploymentByRegionTable extends ExtraFieldDisplayFormattedBase {
       $percent = ssotFormatNumber($entity->ssot_data['labour_force_survey_bc_employment']['part_time_employment_pct'], $options);
       $content .= "<td class='part-time-rate' data-label='Part-time Employment Rate'>" . $percent . "</td>";
       $content .= "</tr>";
-
+      // $content .= "</tfoot>";
       $content .= "</table>";
-      $content .= "</div>";
-      $content .= "</div>";       
+      // $content .= "</div>";
+      // $content .= "</div>";       
       $output = $content;
     }
     else {

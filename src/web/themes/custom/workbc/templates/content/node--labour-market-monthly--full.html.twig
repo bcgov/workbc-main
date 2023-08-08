@@ -151,7 +151,18 @@
 
   <div class="lm-table-container">
     <div class="lm-label lm-label-table">{{ 'Unemployment Rate (%)'|t }}</div>
-    {{ unemployment_by_region|raw }}
+
+
+    {# Interactive Map #}
+    {% set map_no = 0 %}
+    {% set regions = region_info %}
+    
+    <div id=lm-interactive-map class="workbc-interactive-map-{{ map_no }}">
+      {% include '@workbc/includes/interactive-map.html.twig' with { map_no, regions } %}    
+      <div>
+         {{ unemployment_by_region|raw }}
+      </div>
+    </div>
   </div>
 
   <div class="lm-intro">

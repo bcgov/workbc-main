@@ -59,12 +59,12 @@ class LabourMarketUnemploymentByRegion extends ExtraFieldDisplayFormattedBase {
 
     $rows = $this->getRegionValues($entity->ssot_data['monthly_labour_market_updates'][0]);
 
-    $map = workbcInteractiveMap(WORK_BC_INTERACTIVE_MAP_4);
-
+    ksm(ssotRegionInfo());
+    
     $content = "";
-    $content = '<div id="workbc-interactive-map-' . WORK_BC_INTERACTIVE_MAP_4 . '">';
-    $content .= workbcInteractiveMap(WORK_BC_INTERACTIVE_MAP_4);
-    $content .= "<div>";
+    // $content = '<div id="workbc-interactive-map-' . WORK_BC_INTERACTIVE_MAP_4 . '">';
+    // $content .= workbcInteractiveMap(WORK_BC_INTERACTIVE_MAP_4);
+    // $content .= "<div>";
     $content .= "<table class='lm-table-region table'>";
     $content .= "<thead>";
     $content .= "<tr class='lm-header'><th></th><th>" . $current_previous_months['current_month_year'] . "</th><th>" . $current_previous_months['current_month_previous_year'] . "</th></tr>";
@@ -79,8 +79,8 @@ class LabourMarketUnemploymentByRegion extends ExtraFieldDisplayFormattedBase {
     }
 
     $content .= "</table>";
-    $content .= "</div>";
-    $content .= "</div>";  
+    // $content .= "</div>";
+    // $content .= "</div>";  
 
     //Source
     $source_text = !empty($entity->ssot_data['sources']['unemployment_pct'])?$entity->ssot_data['sources']['unemployment_pct']:WORKBC_EXTRA_FIELDS_NOT_AVAILABLE;

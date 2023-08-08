@@ -4,4 +4,3 @@ extra-fields:
       css/style.css: {}
   js:
     js/extra-fields.js: {}
-    js/interactive-map.js: {}

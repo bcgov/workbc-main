@@ -93,9 +93,9 @@ class CareerProfileJobOpeningsByRegion extends ExtraFieldDisplayFormattedBase {
     }
 
     $text = "";
-    $text = '<div id="workbc-interactive-map-' . WORK_BC_INTERACTIVE_MAP_2 . '">';
-    $text .= workbcInteractiveMap(WORK_BC_INTERACTIVE_MAP_2);
-    $text .= "<div>";
+    // $text = '<div id="workbc-interactive-map-' . WORK_BC_INTERACTIVE_MAP_2 . '">';
+    // $text .= workbcInteractiveMap(WORK_BC_INTERACTIVE_MAP_2);
+    // $text .= "<div>";
     $text .= "<table>";
     $text .= "<thead>";
     $text .= "<tr><th>Region</th><th>Job Openings</th><th>Avg Annual Employment Growth</th></tr>";
@@ -104,8 +104,8 @@ class CareerProfileJobOpeningsByRegion extends ExtraFieldDisplayFormattedBase {
       $text .= "<tr class='interactive-map-row-" . ssotRegionKey($region['name']) . "'><td>" . $region['name'] . "</td><td>" . $region['openings'] . "</td><td>" . $region['growth'] . "</td></tr>";
     }
     $text .= "</table>";
-    $text .= "</div>";
-    $text .= "</div>";    
+    // $text .= "</div>";
+    // $text .= "</div>";    
     $output = $text;
 
     return [

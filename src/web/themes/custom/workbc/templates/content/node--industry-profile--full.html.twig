@@ -398,14 +398,19 @@
                 <div class="card-profile__header">
                   <h2>{{ viewmodel['tab_sections']['labour_market_statistics']['employment_by_region_map_title'] }}</h2>
                 </div>
-                <div id="workbc-interactive-map-4">
-                  <div class="card-profile__content">
-                    <span class="card-profile__content-item">{{ viewmodel['tab_sections']['labour_market_statistics']['employment_by_region_map_markup']|raw }}</span>
-                  </div>
+
+                {# Interactive Map #}
+                {% set map_no = 0 %}
+                {% set regions = region_info %}
+
+                <div id=industry-profile-interactive-map class="workbc-interactive-map-{{ map_no }}">
+                  {% include '@workbc/includes/interactive-map.html.twig' with { map_no, regions } %}                  
+                  
                   <div class="card-profile__content">
                     <span class="card-profile__content-item">{{ viewmodel['tab_sections']['labour_market_statistics']['employment_by_region_table_markup']|raw }}</span>
                   </div>
                 </div>
+
                 <div class="card-profile__source">
                   <em>Source:</em> {{ viewmodel['tab_sections']['labour_market_statistics']['employment_by_region_source']|raw }}
                 </div>

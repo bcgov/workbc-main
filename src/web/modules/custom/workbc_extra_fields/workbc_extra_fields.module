@@ -257,14 +257,14 @@ function ssotLatestMonthlyLabourMarketUpdate($sourceData) {
 
 function ssotRegions() {
   static $regions = array(
+    "british_columbia" => REGION_BRITISH_COLUMBIA,
     "cariboo" => REGION_CARIBOO,
     "kootenay" => REGION_KOOTENAY,
-    "northeast" => REGION_NORTHEAST,
     "mainland_southwest" => REGION_MAINLAND_SOUTHWEST,
+    "north_coast_nechako" => REGION_NORTH_COAST_NECHAKO,
+    "northeast" => REGION_NORTHEAST,
     "thompson_okanagan" => REGION_THOMPSON_OKANAGAN,
     "vancouver_island_coast" => REGION_VANCOUVER_ISLAND_COAST,
-    "north_coast_nechako" => REGION_NORTH_COAST_NECHAKO,
-    "british_columbia" => REGION_BRITISH_COLUMBIA,
   );
 
   return $regions;
@@ -317,6 +317,30 @@ function ssotRegionLink($machine_name) {
   $regions = ssotRegionLinks();
   return isset($regions[$machine_name]) ? $regions[$machine_name] : "";
 }
+
+
+function ssotRegionInfo() {
+  
+  $region_info = array();
+
+  $regions = ssotRegions();
+  $id = ssotRegionIds();
+  $links = ssotRegionLinks();
+
+  foreach ($regions as $key => $name) {
+    $region = array(
+      "id" => $id[$key],
+      "key" => $key,
+      "name" => $name,
+      "link" => $links[$key],
+    );
+    $region_info[] = $region;
+  }
+  $id_values = array_column($region_info, "id"); 
+  array_multisort($id_values, SORT_ASC, $region_info);
+  return $region_info;
+}
+
 
 function ssotProcessEmploymentIndustry($ssotdata) {
 
@@ -615,15 +639,11 @@ function workbcInteractiveMap($map_id) {
     $map .= '<div class="' . $id . ' map-hot-spot" data-interactive-map-no="' . $map_id . '" data-interactive-map-region-no="' . $hotspots[$i] . '"> </div>';
   }
 
-  // $map .= '<div class="' . $id . ' map-hot-spot" tabindex="0" onmouseenter="mapHoverOn(' . $map_id . ',' . $hotspots[$i] . ')" onmouseleave="mapHoverOff(' . $map_id . ',' . $hotspots[$i] . ')" onclick="mapClick(' . $map_id . ',' . $hotspots[$i] . ')" > </div>';
-
-
   $hotspots = ssotRegionIds();
 
   foreach ($labels as $key => $region) {
     $id = "map-region-label-" . $key;
     $map .= '<div class="' . $id . ' map-hot-spot map-region-label" data-interactive-map-no="' . $map_id . '" data-interactive-map-region-no="' . $hotspots[$key] . '">' . $region . '</div>';
-    // $map .= '<div class="' . $id . ' map-region-label" onmouseenter="mapHoverOn(' . $map_id . ',' . $hotspots[$key] . ')" onmouseleave="mapHoverOff(' . $map_id . ',' . $hotspots[$key] . ')" onclick="mapClick(' . $map_id . ',' . $hotspots[$key] . ')">' . $region . '</div>';
   }
 
   foreach ($labels as $key => $region) {
