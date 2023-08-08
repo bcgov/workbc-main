@@ -100,7 +100,7 @@
               {% set column_classes = column_classes|merge(['views-field-' ~ field]) %}
             {% endfor %}
           {% endif %}
-          <td{{ column.attributes.addClass(column_classes) }}>
+          <td{{ column.attributes.addClass(column_classes) }} data-label="{{ header[key].content }}">
             {%- if column.wrapper_element -%}
               <{{ column.wrapper_element }}>
               {% for content in column.content %}
