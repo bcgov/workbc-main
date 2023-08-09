@@ -10,7 +10,7 @@
 .workbc-interactive-map {
   border-width: 0px;
   position: relative;
-  left: 105px;
+  left: 50%;
   top: 0px;
   width: 400px;
   height: 370px;
@@ -28,17 +28,14 @@
   left: 165px;
 }
 
-#lm-interactive-map .workbc-interactive-map {
-  left: 155px;
-}
+// #lm-interactive-map .workbc-interactive-map {
+//   left: 155px;
+// }
 
 #industry-profile-interactive-map .workbc-interactive-map {
   left: 165px;
 }
 
-#workbc-interactive-map-4 .workbc-interactive-map {
-  left: -5px;
-}
 
 .interactive-map-cariboo,
 .interactive-map-kootenay,
@@ -61,10 +58,16 @@
 }
 
 .interactive-map-row-hilite {
-  color: red;
-  background-color: #009CDE;
+  color: $workbc_dark_theme_text;
+  background-color: $workbc_palette_dark_tertiary;
+  &:nth-child(2n) td {
+    background-color: $workbc_palette_dark_tertiary;
+  }
 }
 
+.interactive-map-row-hilite a {
+  color: $workbc_dark_theme_text;  
+}
 
 .map-region-label {
   font-size: 14px;

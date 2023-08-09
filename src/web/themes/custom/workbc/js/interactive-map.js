@@ -50,6 +50,7 @@ let currentRegion = [0,0,0,0,0];  // capacity for up to 5 maps on a page.
           if (currentRegion[mapNo] != 0) {
             var element = context.querySelector(".workbc-interactive-map-" + mapNo + " .interactive-map-row-"+regions[currentRegion[mapNo]]);
             element.classList.add("interactive-map-row-hilite");
+            element.scrollIntoView({ block: "end" });
           }
         });
       });
