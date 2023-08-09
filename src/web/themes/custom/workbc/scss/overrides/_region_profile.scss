@@ -34,6 +34,14 @@
   }
 }
 
+.bc-profile--employment-tooltip {
+  background-image: url(../assets/images/info-tooltip-icon-white.svg);
+}
+
+.bc-profile--employment-tooltip-content {
+  color: $workbc_light_theme_text;
+}
+
 #bc-regional-employment-stats .card-profile__content {
   align-items: normal;
 }
