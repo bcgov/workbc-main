@@ -29,7 +29,7 @@ $workbc_palette_alert_primary: rgba(121, 29, 95, 1);
 
 $workbc_default_text: $workbc_palette_dark_default;
 $workbc_default_link: $workbc_palette_dark_secondary;
-$workbc_default_box_shadow: 0px 0px 15px 0px $workbc_palette_shadow_primary; 
+$workbc_default_box_shadow: 0px 0px 15px 0px $workbc_palette_shadow_primary;
 $workbc_default_bottom_shadow: 0px 5px 10px -5px $workbc_palette_shadow_primary;
 $workbc_default_inset_bottom_shadow: inset 0px -10px 10px -10px $workbc_palette_shadow_primary;
 
@@ -54,4 +54,17 @@ $workbc_text_default_size: 16px;
 $workbc_text_footnote_size: 0.9375rem;
 $workbc_text_footnote_lineheight: 1.5rem;
 $workbc_text_footnote_color: #8A8D8B;
+
+// home page hero container and image
+$workbc_home_hero_container_height: 499px;
+$workbc_home_hero_raw_image_aspect_ratio: calc(987 / 658);
+$workbc_home_hero_image_height: $workbc_home_hero_container_height - $workbc_trim_ultra_thin_size;
+$workbc_home_hero_image_width: calc($workbc_home_hero_image_height * $workbc_home_hero_raw_image_aspect_ratio);
+
+
+// primary hero container and image
+$workbc_hero_container_height: 400px;
+$workbc_hero_raw_image_aspect_ratio: calc(1200 / 800);
+$workbc_hero_image_height: $workbc_hero_container_height - $workbc_trim_ultra_thin_size;
+$workbc_hero_image_width: calc($workbc_hero_image_height * $workbc_hero_raw_image_aspect_ratio);
 

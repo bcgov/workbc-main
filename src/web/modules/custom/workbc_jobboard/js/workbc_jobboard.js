@@ -128,11 +128,9 @@
         var CheckLogoutLinkMobileExists = $(".mobile-nav__user-nav .nav-items li.new-logout-link");
 
           if(currentUser != ''){
-            //
-            if(CheckLoginLinkExists.length < 1){
-              CheckLogoutLinkExists.remove();
-              CheckLogoutLinkMobileExists.remove();
-              var appendLoginMenusM = `
+            CheckLogoutLinkExists.remove();
+            CheckLogoutLinkMobileExists.remove();
+            var appendLoginMenusM = `
 <li class="nav-item new-login-link">
   <a href="/account#/dashboard" class="nav-link">My Profile</a>
 </li>
@@ -143,7 +141,7 @@
   <a href="/account#/logout" class="nav-link" onclick="localStorage.removeItem('currentUser'); document.cookie='currentUser.username=; expires=Thu, 01 Jan 1970 00:00:00 UTC; Path=/;'; document.cookie='currentUser.email=; expires=Thu, 01 Jan 1970 00:00:00 UTC; Path=/;'; document.cookie='currentUser.firstName=; expires=Thu, 01 Jan 1970 00:00:00 UTC; Path=/;'; document.cookie='currentUser.lastName=; expires=Thu, 01 Jan 1970 00:00:00 UTC; Path=/;'; document.cookie='currentUser.id=; expires=Thu, 01 Jan 1970 00:00:00 UTC; Path=/;'; document.cookie='currentUser.token=; expires=Thu, 01 Jan 1970 00:00:00 UTC; Path=/;'; if (location.pathname === '/account') location.reload(true); else return true;">Log out</a>
 </li>
 `;
-              var appendLoginMenusD = `
+            var appendLoginMenusD = `
 <li class="nav-item new-login-link dropdown">
   <a  href="javascript:void(0)" class="nav-link dropdown-toggle" data-bs-toggle="dropdown">My Account</a>
   <ul class="dropdown-menu">
@@ -152,12 +150,13 @@
 </li>
 `;
 
-              //Desktop menu
-              $("nav.nav-user .nav-items").append(appendLoginMenusD);
+            //Desktop menu
+            CheckLoginLinkExists.remove();
+            $("nav.nav-user .nav-items").append(appendLoginMenusD);
 
-              //Mobile Menu
-              $(".mobile-nav__user-nav .nav-items").append(appendLoginMenusM);
-            }
+            //Mobile Menu
+            CheckLoginLinkMobileExists.remove();
+            $(".mobile-nav__user-nav .nav-items").append(appendLoginMenusM);
           }else{
             if(CheckLogoutLinkExists.length < 1){
               CheckLoginLinkExists.remove();

@@ -59,11 +59,16 @@ class BCEmploymentByRegionTable extends ExtraFieldDisplayFormattedBase {
         'na_if_empty' => TRUE,
       );
 
-      $content = "";
-      $content .= "<table>";
-      $content .= "<thead>";
-      $content .= "<tr class='table-header'><th>Region</th><th>Full-time Employment Rate</th><th>Part-time Employment Rate</th></tr>";
-      $content .= "</thead>";
+
+      // font color, icon color, icon positioning
+      $tooltip = '<span class="workbc-tooltip bc-profile--employment-tooltip">';
+      $tooltip .= '<div class="workbc-tooltip-content bc-profile--employment-tooltip-content">';
+      $tooltip .= "<em>Employment rate</em> refers to the percentage of the population 15 years and older that are employed in full-time or part-time work.";
+      $tooltip .= "</div>";
+      $tooltip .= "</span>";
+
+      $content = "<table>";
+      $content .= "<tr class='table-header'><th>Region</th><th>Full-time Employment Rate" . $tooltip . "</th><th>Part-time Employment Rate</th></tr>";
       foreach ($regions as $region) {
         $nid = \Drupal::entityQuery('node')
           ->condition('title', ssotRegionName($region['region']))

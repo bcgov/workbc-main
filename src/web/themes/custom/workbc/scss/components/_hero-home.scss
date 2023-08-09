@@ -1,10 +1,10 @@
 .hero-home {
   position: relative;
-  border-bottom: 3px solid $workbc_palette_dark_secondary;
+  border-bottom: $workbc_trim_ultra_thin_size solid $workbc_palette_dark_secondary;
   background: #ccd7dc;
 
   @include media-breakpoint-up(lg) {
-    min-height: 478px;
+    height: $workbc_home_hero_container_height;
   }
 }
 
@@ -19,7 +19,7 @@
 }
 
 .hero-home__image {
-  max-height: 330px;
+  height: auto;
   overflow: hidden;
 
   @include media-breakpoint-up(lg) {
@@ -28,7 +28,8 @@
     bottom: 0;
     right: 0;
     z-index: 0;
-    max-height: none;
+    height: $workbc_home_hero_image_height;
+    width: $workbc_home_hero_image_width;
     overflow: auto;
 
     &:before {
@@ -51,6 +52,7 @@
 
   @include media-breakpoint-up(lg) {
     height: 100%;
-    object-fit: cover;
+    object-fit: contain;
+    object-position: right top;
   }
 }

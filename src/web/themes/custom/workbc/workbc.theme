@@ -9,7 +9,7 @@ use Drupal\file\Entity\File;
 use Drupal\Core\Url;
 
 /**
- * Implements hook theme_preprocess_paragraph().
+ * Implements hook_theme_preprocess_paragraph().
  */
 function workbc_preprocess_paragraph(&$variables) {
   $parent = $variables['paragraph']->getParentEntity();
@@ -114,7 +114,7 @@ function workbc_get_descendant($menu) {
 
 
 /**
- * Implements hook theme_suggestions_paragraph_alter().
+ * Implements hook_theme_suggestions_paragraph_alter().
  */
 function workbc_theme_suggestions_paragraph_alter(array &$suggestions, array $variables) {
 
@@ -143,7 +143,7 @@ function workbc_form_alter(&$form, \Drupal\Core\Form\FormStateInterface $form_st
 }
 
 /**
- * Implements hook theme_preprocess_page().
+ * Implements hook_theme_preprocess_page().
  */
 function workbc_preprocess_page(&$variables) {
   // default page format
@@ -161,7 +161,7 @@ function workbc_preprocess_page(&$variables) {
 }
 
 /**
- * Implements hook theme_preprocess_node().
+ * Implements hook_theme_preprocess_node().
  */
 function workbc_preprocess_node(&$variables) {
   if ($variables['node']->bundle() === "publication" && $variables['view_mode'] === "publication") {
@@ -254,7 +254,7 @@ function workbc_preprocess_menu(&$vars) {
 
 
 /**
- * Implements hook theme_suggestions_paragraph_alter().
+ * Implements hook_theme_suggestions_paragraph_alter().
  */
 function workbc_theme_suggestions_form_element_alter(array &$suggestions, array $variables) {
   if (isset($variables['element']['#name'])) {
@@ -264,7 +264,7 @@ function workbc_theme_suggestions_form_element_alter(array &$suggestions, array 
 
 
 /**
- * Implements hook theme_preprocess_form_element().
+ * Implements hook_theme_preprocess_form_element().
  */
 function workbc_preprocess_form_element(&$variables) {
 

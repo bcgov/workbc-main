@@ -1,17 +1,17 @@
 .hero-banner {
   position: relative; // create positional context %herobanner
-  z-index: 1;
+  z-index: 0;
   border-bottom: $workbc_trim_ultra_thin_size solid
     $workbc_palette_dark_secondary;
   background-color: $workbc_light_theme_background_accent;
 
   @include media-breakpoint-up(lg) {
-    min-height: 400px;
+    min-height: $workbc_hero_container_height;
   }
 }
 
 .hero-image-wrapper {
-  max-height: 330px;
+  height: auto;
   overflow: hidden;
 
   @include media-breakpoint-up(lg) {
@@ -20,7 +20,8 @@
     bottom: 0;
     right: 0;
     z-index: 0;
-    max-height: none;
+    height: $workbc_hero_image_height;
+    width: $workbc_hero_image_width;
     overflow: auto;
 
     &:before {
@@ -46,8 +47,10 @@
   width: 100%;
 
   @include media-breakpoint-up(lg) {
+    z-index: 1;
     height: 100%;
-    object-fit: cover;
+    object-fit: contain;
+    object-position: right top;
   }
 }
 
