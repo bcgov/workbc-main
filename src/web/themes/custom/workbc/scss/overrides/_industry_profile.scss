@@ -19,3 +19,29 @@
 .industry-profile-hoo-link {
   width:378px;
 }
+
+#latest-employment-trends {
+
+  .card-profile__content-header {
+    margin-bottom: 0;
+  }
+
+  span.card-profile__content-item {
+    text-align: center;
+    display: block;
+    color: $workbc_palette_dark_tertiary;
+    font-size: 40px;
+
+    div {
+      color: $workbc_default_text;
+      font-size: 16px;
+      margin-bottom: 20px;
+    }
+
+  }
+
+  .card-profile__source {
+    padding-top: 40px;
+  }
+
+}
