@@ -109,6 +109,10 @@ $card-divider-size: calc(2 * $card-divider-size-half);
   margin-bottom: $card-padding;
 }
 
+h3.card-profile__content-header {
+  text-align: center;
+}
+
 .card-profile__content-tooltip {
   position: absolute; // relative to positional context %content-header
   top: 0;
@@ -201,7 +205,7 @@ $card-divider-size: calc(2 * $card-divider-size-half);
   font-size: 0.875rem;
   line-height: 0.875rem;
   width: 100%;
-  
+
   em {
     font-weight: bold;
     font-style: normal;
