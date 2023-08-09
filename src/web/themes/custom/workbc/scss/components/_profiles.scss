@@ -121,7 +121,13 @@
   }
 
   .profile-videos-wrapper {
-    padding: 40px 0;
+
+    padding-bottom: 40px;
+
+    @include media-breakpoint-up(lg) {
+      border: lime solid 1px;
+      padding: 40px 0;
+    }
 
     h2 {
       font-size: 1.313rem;
