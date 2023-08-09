@@ -161,23 +161,6 @@ function workbc_preprocess_page(&$variables) {
 }
 
 /**
- * Implements hook_theme_suggestions_menu_alter().
- *
- * Select an account menu template depending on whether a Job Board session exists or not.
- * We inject the Job Board menu items dynamically because the Drupal menu is cached.
- */
-function workbc_theme_suggestions_menu_alter(array &$suggestions, array $variables) {
-  if ($variables['menu_name'] === 'account') {
-    if (isset($_COOKIE['currentUser_token'])) {
-      $suggestions[] = 'menu__account__login';
-    }
-    else {
-      $suggestions[] = 'menu__account__logout';
-    }
-  }
-}
-
-/**
  * Implements hook_theme_preprocess_node().
  */
 function workbc_preprocess_node(&$variables) {
