@@ -33,20 +33,10 @@
   }
 }
 
-// Offset for Fixed Nav and Title being covered
-.page-format--sidenav h2 :target:before {
-  @include media-breakpoint-up(lg) {
-    content: "";
-    display: block;
-    height: 110px;
-    margin-top: -110px;
-  }
-}
-
-.sidenav-anchor {
+.sidenav-anchor:target {
   // add a negative vertical offset - this should prevent the anchor snapping from placing the anchored content below the fixed header
   display: block;
-  position: relative;
-  top: -100px;
+  height: 150px;
+  margin-top: -150px;
   visibility: hidden;
 }
