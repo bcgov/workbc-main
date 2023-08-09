@@ -158,7 +158,7 @@
       {# Interactive Map #}
       {% set map_no = 0 %}
       {% set regions = region_info %}
-    
+
       <div id=lm-interactive-map class="workbc-interactive-map-{{ map_no }}">
         {% include '@workbc/includes/interactive-map.html.twig' with { map_no, regions } %}    
         <div>
@@ -166,8 +166,8 @@
             <thead>
               <tr class='lm-header'>
                 <th></th>
-                <th>{{ unemployment_by_region.headers.current_month_year }}</th>
-                <th>{{ unemployment_by_region.headers.current_month_previous_year }}</th>
+                <th>{{ unemployment_by_region.header.current_month_year }}</th>
+                <th>{{ unemployment_by_region.header.current_month_previous_year }}</th>
               </tr>
             </thead>
             {% for key, region in unemployment_by_region.data %}

@@ -143,7 +143,7 @@
       employment_bc_by_region_title: content.group_bc_profile.group_labour_market_statistics.extra_field_bc_employment_by_region_table['#title'],
       employment_bc_by_region_markup: content.group_bc_profile.group_labour_market_statistics.extra_field_bc_employment_by_region_table.0['#markup'],
       employment_bc_by_region_source: content.group_bc_profile.group_labour_market_statistics.extra_field_bc_employment_region_source.0['#markup'],
-
+      employment_bc_by_region_data: content.group_bc_profile.group_labour_market_statistics.extra_field_bc_employment_by_region_table,
       uneployment_bc_title: content.group_bc_profile.group_labour_market_statistics.extra_field_bc_unemployment_rate_bc['#title'],
       uneployment_bc_markup: content.group_bc_profile.group_labour_market_statistics.extra_field_bc_unemployment_rate_bc.0['#markup'],
       uneployment_chart_title: content.group_bc_profile.group_labour_market_statistics.extra_field_bc_unemployment_rate_chart['#title'],
@@ -307,9 +307,39 @@
 
                 <div id=bc-region-interactive-map class="workbc-interactive-map-{{ map_no }}">
                   {% include '@workbc/includes/interactive-map.html.twig' with { map_no, regions } %}                  
+
                   <div>
-                    <span class="card-profile__content-item">{{ viewmodel['tab_sections']['labour_market_statistics']['employment_bc_by_region_markup']|raw }}</span>
+                    <span class="card-profile__content-item">
+
+                    {% set table_tooltip = "<em>Employment rate</em> refers to the percentage of the population 15 years and older that are employed in full-time or part-time work." %}
+                    <table>
+                      <thead>
+                        <tr class='table-header'><th>Region</th><th>Full-time Employment Rate<span class="workbc-tooltip bc-profile--employment-tooltip"><div class="workbc-tooltip-content bc-profile--employment-tooltip-content"><em>Employment rate</em> refers to the percentage of the population 15 years and older that are employed in full-time or part-time work.</div></span></th><th>Part-time Employment Rate</th></tr>
+                      </thead>
+
+                      {% for key, region in viewmodel['tab_sections']['labour_market_statistics']['employment_bc_by_region_data']['data'] %}
+                        <tr  class='interactive-map-row-{{ key }}' class='bc-profile-employment-region-row'>
+                          <td class='region-name'><a href='{{ region.link }}'>{{ region.region }}</a></td>
+                          <td class='full-time-rate' data-label='Full-time Employment Rate'>{{ region.fulltime }}</td>
+                          <td class='part-time-rate' data-label='Part-time Employment Rate'>{{ region.parttime }}</td>
+                        </tr>
+                      {% endfor %}
+
+                      {% set footer = viewmodel['tab_sections']['labour_market_statistics']['employment_bc_by_region_data']['footer'] %}
+                      <tfoot>
+                        <tr class='bc-profile-employment-region-footer'>
+                          <td class='region-name'>B.C. Average</td>
+                          <td class='full-time-rate' data-label='Full-time Employment Rate'>{{ footer.fulltime }}</td>
+                          <td class='part-time-rate' data-label='Part-time Employment Rate'>{{ footer.parttime }}</td>
+                        </tr>
+                      </tfoot>
+                    </table>
+
+                    </span>                
                   </div>
+
+
+
                 </div>
               </div>
               <div class="card-profile__source">
