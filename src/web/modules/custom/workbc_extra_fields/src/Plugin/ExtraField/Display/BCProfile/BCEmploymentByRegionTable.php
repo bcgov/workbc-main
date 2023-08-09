@@ -68,7 +68,9 @@ class BCEmploymentByRegionTable extends ExtraFieldDisplayFormattedBase {
       $tooltip .= "</span>";
 
       $content = "<table>";
+      $content .= "<thead>";
       $content .= "<tr class='table-header'><th>Region</th><th>Full-time Employment Rate" . $tooltip . "</th><th>Part-time Employment Rate</th></tr>";
+      $content .= "</thead>";
       foreach ($regions as $region) {
         $nid = \Drupal::entityQuery('node')
           ->condition('title', ssotRegionName($region['region']))
