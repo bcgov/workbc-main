@@ -58,9 +58,7 @@ class LabourMarketUnemploymentByRegion extends ExtraFieldDisplayFormattedBase {
     $header = [' ',  $current_previous_months['current_month_year'] , $current_previous_months['current_month_previous_year']];
 
     $rows = $this->getRegionValues($entity->ssot_data['monthly_labour_market_updates'][0]);
-
-    ksm(ssotRegionInfo());
-    
+   
     $content = "";
     $content .= "<table class='lm-table-region table'>";
     $content .= "<thead>";

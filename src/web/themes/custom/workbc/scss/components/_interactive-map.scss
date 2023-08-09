@@ -10,32 +10,16 @@
 .workbc-interactive-map {
   border-width: 0px;
   position: relative;
-  left: 50%;
+  left: 0px;
   top: 0px;
   width: 400px;
   height: 370px;
+  margin: 0 auto;
 }
 
 .work-interactive-map img {
   margin: 0px;
 }
-
-#workbc-interactive-map-1 .workbc-interactive-map {
-  left: 150px;
-}
-
-#bc-region-interactive-map .workbc-interactive-map {
-  left: 165px;
-}
-
-// #lm-interactive-map .workbc-interactive-map {
-//   left: 155px;
-// }
-
-#industry-profile-interactive-map .workbc-interactive-map {
-  left: 165px;
-}
-
 
 .interactive-map-cariboo,
 .interactive-map-kootenay,
