@@ -45,11 +45,9 @@ class LabourMarketUnemploymentByRegion extends ExtraFieldDisplayFormattedBase {
    */
   public function viewElements(ContentEntityInterface $entity) {
 
-    if(empty($entity->ssot_data['monthly_labour_market_updates'])){
-      $output = '<div>'. WORKBC_EXTRA_FIELDS_NOT_AVAILABLE .'</div>';
-      return [
-        ['#markup' => $output ],
-      ];
+    if(empty($entity->ssot_data['monthly_labour_market_updates'])) {
+      $data['data']['na'] = WORKBC_EXTRA_FIELDS_NOT_AVAILABLE;
+      return $data;
     }
 
     //values
@@ -59,36 +57,14 @@ class LabourMarketUnemploymentByRegion extends ExtraFieldDisplayFormattedBase {
 
     $rows = $this->getRegionValues($entity->ssot_data['monthly_labour_market_updates'][0]);
    
-    $content = "";
-    $content .= "<table class='lm-table-region table'>";
-    $content .= "<thead>";
-    $content .= "<tr class='lm-header'><th></th><th>" . $current_previous_months['current_month_year'] . "</th><th>" . $current_previous_months['current_month_previous_year'] . "</th></tr>";
-    $content .= "</thead>";
+    $data['headers'] = $current_previous_months;
 
-    foreach ($rows as $key => $region) {
-      $content .= "<tr class='interactive-map-row-" . $key . "'>";
-      $content .= "<td class='region-name'>" . $region['region'] . "</td>";
-      $content .= "<td>" . $region['current'] . "</td>";
-      $content .= "<td>" . $region['previous'] . "</td>";
-      $content .= "</tr>";      
-    }
+    $data['data'] = $rows;
 
-    $content .= "</table>";
-
-    //Source
-    $source_text = !empty($entity->ssot_data['sources']['unemployment_pct'])?$entity->ssot_data['sources']['unemployment_pct']:WORKBC_EXTRA_FIELDS_NOT_AVAILABLE;
-    $content .= '<div class="lm-source"><strong>'.$this->t("Source").': </strong>'.$source_text.'</div>';
-
-
-    return [
-        '#markup' => $content,
-      ];
-
-    $rows = [];
-    foreach ($data as $key => $region) {
-      $id='interactive-map-row-' . $key;
-			$rows[] = array('data' => $region, 'id' => $id);
-    }
+    // Source
+    $data['source']['label'] = $this->t("Source");
+    $data['source']['source'] = !empty($entity->ssot_data['sources']['unemployment_pct'])?$entity->ssot_data['sources']['unemployment_pct']:WORKBC_EXTRA_FIELDS_NOT_AVAILABLE;
+    return $data;
 
   }
 
