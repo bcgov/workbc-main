@@ -27,7 +27,7 @@ class CareerProfileSalaryInfoSalary extends ExtraFieldDisplayFormattedBase {
    */
   public function getLabel() {
 
-    return $this->t('Annual Salary');
+    return $this->t('Annual Earnings');
   }
 
   /**
