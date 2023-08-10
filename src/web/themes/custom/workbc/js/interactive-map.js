@@ -13,12 +13,12 @@ let currentRegion = [0,0,0,0,0];  // capacity for up to 5 maps on a page.
 
           var element = context.querySelector(".workbc-interactive-map-" + mapNo + " .interactive-map-" + regions[regionNo]);
           element.style.visibility = "visible";
-          element.style.display = "flex";          
+          element.style.display = "flex";
         });
 
         $('.map-hot-spot').on('mouseleave' , function() {
           let mapNo = $(this).data('interactive-map-no');
-          let regionNo = $(this).data('interactive-map-region-no');          
+          let regionNo = $(this).data('interactive-map-region-no');
 
           if (regionNo != currentRegion[mapNo]) {
             var element = context.querySelector(".workbc-interactive-map-" + mapNo + " .interactive-map-" + regions[regionNo]);
@@ -29,8 +29,8 @@ let currentRegion = [0,0,0,0,0];  // capacity for up to 5 maps on a page.
 
         $('.map-hot-spot').on('click' , function() {
           let mapNo = $(this).data('interactive-map-no');
-          let regionNo = $(this).data('interactive-map-region-no');     
-          
+          let regionNo = $(this).data('interactive-map-region-no');
+
           if (currentRegion[mapNo] != regionNo && currentRegion[mapNo] != 0) {
             var element = context.querySelector(".workbc-interactive-map-" + mapNo + " .interactive-map-" + regions[currentRegion[mapNo]]);
             element.style.visibility = "hidden";
@@ -38,10 +38,10 @@ let currentRegion = [0,0,0,0,0];  // capacity for up to 5 maps on a page.
             var element2 = context.querySelector(".workbc-interactive-map-" + mapNo + " .interactive-map-row-"+regions[currentRegion[mapNo]]);
             element2.classList.remove("interactive-map-row-hilite");
             currentRegion[mapNo] = regionNo;
-          } 
+          }
           // else if (currentRegion[mapNo] == regionNo) {
           //   var element2 = context.querySelector(".workbc-interactive-map-" + mapNo + " .interactive-map-row-"+regions[currentRegion[mapNo]]);
-          //   element2.classList.remove("interactive-map-row-hilite");    
+          //   element2.classList.remove("interactive-map-row-hilite");
           //   currentRegion[mapNo] =  0;
           // }
           else {
@@ -50,7 +50,7 @@ let currentRegion = [0,0,0,0,0];  // capacity for up to 5 maps on a page.
           if (currentRegion[mapNo] != 0) {
             var element = context.querySelector(".workbc-interactive-map-" + mapNo + " .interactive-map-row-"+regions[currentRegion[mapNo]]);
             element.classList.add("interactive-map-row-hilite");
-            element.scrollIntoView({ block: "end" });
+            element.scrollIntoView({ block: "center" });
           }
         });
       });
