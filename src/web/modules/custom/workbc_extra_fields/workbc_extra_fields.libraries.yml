@@ -1,6 +1,3 @@
 extra-fields:
-  css:
-    theme:
-      css/style.css: {}
   js:
     js/extra-fields.js: {}
