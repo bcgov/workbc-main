@@ -91,6 +91,7 @@ class LabourMarketEmploymentByAgeSexTable extends ExtraFieldDisplayFormattedBase
         'na_if_empty' => TRUE,
       );
 
+      $class = ['data-row'];
       foreach($values as $key => $value){
 
         //age values
@@ -110,7 +111,6 @@ class LabourMarketEmploymentByAgeSexTable extends ExtraFieldDisplayFormattedBase
 
           //if previous values
           if(strpos($age, 'previous') !== false) {
-            $class = ['previous_age'];
             $age = str_replace('_previous', "", $age);
             $age = str_replace('55', "55+", $age);
             $genderAgeValues[$age]['class'] = ['age-data-row'];
@@ -125,7 +125,6 @@ class LabourMarketEmploymentByAgeSexTable extends ExtraFieldDisplayFormattedBase
             ];
 
           } else {
-            $class = ['current_age'];
             $age = str_replace('55', "55+", $age);
             $genderAgeValues[$age]['class'] = ['age-data-row'];
             $genderAgeValues[$age]['data']['age'] = [
@@ -156,7 +155,6 @@ class LabourMarketEmploymentByAgeSexTable extends ExtraFieldDisplayFormattedBase
           }
           //if previous values
           if(strpos($gender, 'previous') !== false) {
-            $class = ['previous_gender'];
             $gender = str_replace('_previous', "", $gender);
             $genderAgeValues[$gender]['class'] = ['gender-data-row'];
             $genderAgeValues[$gender]['data']['gender'] = [
@@ -169,7 +167,6 @@ class LabourMarketEmploymentByAgeSexTable extends ExtraFieldDisplayFormattedBase
               'data-label' => $header[2]
             ];
           } else {
-            $class = ['current_gender'];
             $genderAgeValues[$gender]['data']['gender'] = [
               'data' => ucfirst($gender),
               'class' => ['label']

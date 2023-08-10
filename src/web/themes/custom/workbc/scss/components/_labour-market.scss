@@ -42,6 +42,38 @@
   margin: 0 auto 40px;
 }
 
+#employment-industries.lm-table-container {
+  padding: 30px 40px 20px;
+
+  @media screen and (max-width: 600px) {
+    padding: 0 0 0 0;
+
+    table {
+      margin: 0 0 0;
+    }
+
+    td {
+      padding-left: 1.5em;
+      padding-right: 1.5em;
+    }
+
+    td.label {
+      display: block;
+      padding-top: 1.5em;
+    }
+
+    td.data-row {
+      padding-bottom: 1.5em;
+    }
+
+    tr {
+      padding-top: 0;
+      padding-bottom: 0;
+    }
+  }
+
+}
+
 .lm-table-container {
   margin-bottom: 30px;
   padding: 30px 40px 20px;
@@ -68,7 +100,7 @@
   }
 
   @media screen and (max-width: 600px) {
-    table.lm-table-age-gender {
+    table.lm-table-age-gender, table.lm-table-industries {
       padding: 0 0 0 0;
       border: 0;
       width: 100%;
@@ -85,12 +117,6 @@
         width: 1px;
       }
 
-      td.lm-header {
-        display: block;
-        background-color: $workbc_dark_theme_background;
-        color: $workbc_dark_theme_text
-      }
-
       td.label {
         font-weight: normal;
         border: none;
@@ -104,16 +130,21 @@
         display: block;
       }
 
-      td.current_age, td.previous_age, td.current_gender, td.previous_gender {
+      td.label {
+        padding-bottom: 10px;
+      }
+
+      td.data-row {
         display: block;
         text-align: right;
         border: none;
         padding-bottom: 0;
         padding-left: 0;
         padding-right: 0;
+        padding-top: 5px;
       }
 
-      td.current_age::before, td.previous_age::before, td.current_gender::before, td.previous_gender::before {
+      td.data-row::before {
         /*
         * aria-label has no advantage, it won't be read inside a table
         content: attr(aria-label);
@@ -121,6 +152,14 @@
         content: attr(data-label);
         float: left;
         font-weight: bold;
+      }
+    }
+
+    table.lm-table-age-gender {
+      td.lm-header {
+        display: block;
+        background-color: $workbc_dark_theme_background;
+        color: $workbc_dark_theme_text
       }
 
       tr.gender-data-row, tr.age-data-row {
@@ -132,10 +171,6 @@
          remove bottom border of last row in each grouping
          */
         border-bottom: none;
-      }
-
-      td.previous_gender, td.previous_age {
-        padding-top: 5px;
       }
 
     }
