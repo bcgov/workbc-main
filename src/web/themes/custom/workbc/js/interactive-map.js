@@ -1,12 +1,16 @@
 let regions = ['british_columbia', 'cariboo', 'kootenay', 'mainland_southwest', 'north_coast_nechako', 'northeast','thompson_okanagan', 'vancouver_island_coast'];
-let currentRegion = [0,0,0,0,0];  // capacity for up to 5 maps on a page.
-
+let currentRegion = {};
 
 (function ($, Drupal, once) {
 	Drupal.behaviors.interactivemap = {
     attach: function (context, settings) {
 
       once('interactivemap', '.workbc-interactive-map-container', context).forEach(function() {
+        $('.map-hot-spot').each(function() {
+          let mapNo = $(this).data('interactive-map-no');
+          currentRegion[mapNo] = 0;
+        });
+
         $('.map-hot-spot').on('mouseenter' , function() {
           let mapNo = $(this).data('interactive-map-no');
           let regionNo = $(this).data('interactive-map-region-no');

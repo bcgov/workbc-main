@@ -4,9 +4,9 @@
  * Template for custom WorkBC Related Topics Component
  *
  * Available variables:
- *   - map_no (0 - 4) // allows for up to 5 independant interactive maps per page
+ *   - map_no (a numeric id)
  *   - regions
-
+ */
 #}
 
 {% set region_cariboo = 1 %}
@@ -25,7 +25,7 @@
   "05" : region_northeast,
   "06" : region_northeast,
   "07" : region_northeast,
-  "08"  : region_cariboo,
+  "08" : region_cariboo,
   "09" : region_cariboo,
   "10" : region_cariboo,
   "11" : region_cariboo,
@@ -82,7 +82,7 @@
       {% if region.id > 0 %}
         <div class="map-region-label-line-{{ region.key }}">
           <img src="/{{ directory }}/assets/images/map-line.svg">
-        </div>          
+        </div>
       {% endif %}
     {% endfor %}
 
