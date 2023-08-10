@@ -92,19 +92,23 @@ class CareerProfileJobOpeningsByRegion extends ExtraFieldDisplayFormattedBase {
       $regions[] = $region;
     }
 
-    $output = "";
-    $output .= "<table>";
-    $output .= "<thead>";
-    $output .= "<tr><th>Region</th><th>Job Openings</th><th>Avg Annual Employment Growth</th></tr>";
-    $output .= "</thead>";
-    foreach ($regions as $region) {
-      $output .= "<tr class='interactive-map-row-" . ssotRegionKey($region['name']) . "'><td>" . $region['name'] . "</td><td>" . $region['openings'] . "</td><td>" . $region['growth'] . "</td></tr>";
-    }
-    $output .= "</table>";
+    $header = ['Region', 'Job Openings', 'Avg Annual Employment Growth'];
 
-    return [
-      ['#markup' => $output],
-    ];
+    $rows = [];
+    foreach ($regions as $region) {
+      $rows[] = [
+        'data' => [$region['name'], $region['openings'], $region['growth']], 
+        'class' => 'interactive-map-row-'.ssotRegionKey($region['name']),
+      ];
+    }
+
+    $table = array(
+      '#type' => 'table',
+      '#header' => $header,
+      '#rows' => $rows,
+    ); 
+    return $table;
+
   }
 
 }

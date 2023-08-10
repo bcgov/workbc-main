@@ -87,23 +87,22 @@ class IndustryEmploymentByRegionTable extends ExtraFieldDisplayFormattedBase {
       $regions[] = $region;
     }
 
-    $content = "<div>";
-    $content .= "<table>";
-    $content .= "<thead>";
-    $content .= "<tr><th>Region</th><th>% Employment this Industry</th><th>% Employment All Industries</th></tr>";
-    $content .= "</thead>";
-    foreach ($regions as $region) {
-      $content .= "<tr  class='interactive-map-row-" . ssotRegionKey($region['name']) . "'>";
-      $content .= "<td>" . $region['name'] . "</td><td>" . $region['industry'] . "</td><td>" . $region['all'] . "</td>";
-      $content .= "</tr>";
-    }
-    $content .= "</table>";
-    $content .= "</div>";
-    $output = $content;
+    $header = ['Region', '% Employment this Industry', '% Employment All Industries'];
 
-    return [
-      ['#markup' => $output],
-    ];
+    $rows = [];
+    foreach ($regions as $region) {
+      $rows[] = [
+        'data' => [$region['name'], $region['industry'], $region['all']], 
+        'class' => 'interactive-map-row-'.ssotRegionKey($region['name']),
+      ];
+    }
+  
+    $table = array(
+      '#type' => 'table',
+      '#header' => $header,
+      '#rows' => $rows,
+    );   
+    return $table;
   }
 
 }

@@ -108,19 +108,22 @@ class CareerProfileLabourMarketEmploymentByRegion extends ExtraFieldDisplayForma
     }
 
     $datestr = ssotParseDateRange($entity->ssot_data['schema'], 'career_regional', 'cariboo_employment_current');
+    $header = ["Region", "Employment (" . $datestr . ")", "% Employment"];
 
-    $output = "<table>";
-    $output .= "<thead>";
-    $output .= "<tr><th>Region</th><th>Employment (" . $datestr . ")</th><th>% Employment</th></tr>";
-    $output .= "</thead>";
+    $rows = [];
     foreach ($regions as $region) {
-      $output .= "<tr class='interactive-map-row-" . ssotRegionKey($region['name']) . "'><td>" . $region['name'] . "</td><td>" . $region['employment'] . "</td><td>" . $region['percent'] . "</td></tr>";
+      $rows[] = [
+        'data' => [$region['name'], $region['employment'], $region['percent']], 
+        'class' => 'interactive-map-row-'.ssotRegionKey($region['name']),
+      ];
     }
-    $output .= "</table>";
-
-    return [
-      ['#markup' => $output],
-    ];
+   
+    $table = array(
+      '#type' => 'table',
+      '#header' => $header,
+      '#rows' => $rows,
+    ); 
+    return $table;
   }
 
 }

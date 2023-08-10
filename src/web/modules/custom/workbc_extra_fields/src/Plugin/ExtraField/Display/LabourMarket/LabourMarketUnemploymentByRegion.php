@@ -46,8 +46,9 @@ class LabourMarketUnemploymentByRegion extends ExtraFieldDisplayFormattedBase {
   public function viewElements(ContentEntityInterface $entity) {
 
     if(empty($entity->ssot_data['monthly_labour_market_updates'])) {
-      $data['data']['na'] = WORKBC_EXTRA_FIELDS_NOT_AVAILABLE;
-      return $data;
+      return [
+        '#markup' => WORKBC_EXTRA_FIELDS_NOT_AVAILABLE,
+      ];
     }
 
     //values
@@ -57,14 +58,34 @@ class LabourMarketUnemploymentByRegion extends ExtraFieldDisplayFormattedBase {
 
     $rows = $this->getRegionValues($entity->ssot_data['monthly_labour_market_updates'][0]);
    
+    $data = $rows;
+    ksm($data);
+    $rows = [];
+    foreach ($data as $key => $region) {
+      $rows[] = [
+        'data' => [$region['region'], $region['current'], $region['previous']], 
+        'class' => 'interactive-map-row-'. $key,
+      ];
+    }
     $data['header'] = $current_previous_months;
 
-    $data['data'] = $rows;
+    $data['data'] = $data;
 
     // Source
     $data['source']['label'] = $this->t("Source");
     $data['source']['source'] = !empty($entity->ssot_data['sources']['unemployment_pct'])?$entity->ssot_data['sources']['unemployment_pct']:WORKBC_EXTRA_FIELDS_NOT_AVAILABLE;
-    return $data;
+
+    $table = array(
+      '#type' => 'table',
+      '#header' => $header,
+      '#rows' => $rows,
+    );  
+
+    $source = array(
+      '#plain_text' => !empty($entity->ssot_data['sources']['unemployment_pct'])?$entity->ssot_data['sources']['unemployment_pct']:WORKBC_EXTRA_FIELDS_NOT_AVAILABLE
+    );
+
+    return [$table, $source];
 
   }
 

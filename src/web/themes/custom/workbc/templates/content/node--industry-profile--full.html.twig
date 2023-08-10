@@ -167,6 +167,8 @@
       employment_by_region_map_markup: content.group_industry_profile.group_labour_market_statistics.extra_field_industry_employment_by_region_map.0['#markup'],
       employment_by_region_table_title: content.group_industry_profile.group_labour_market_statistics.extra_field_industry_employment_by_region_table['#title'],
       employment_by_region_table_markup: content.group_industry_profile.group_labour_market_statistics.extra_field_industry_employment_by_region_table.0['#markup'],
+      employment_by_region_table_header: content.group_industry_profile.group_labour_market_statistics.extra_field_industry_employment_by_region_table.0['#header'],
+      employment_by_region_table_rows: content.group_industry_profile.group_labour_market_statistics.extra_field_industry_employment_by_region_table.0['#rows'],
       employment_by_region_source: content.group_industry_profile.group_labour_market_statistics.extra_field_industry_employment_region_source.0['#markup'],
 
       labour_market_outlook_title: content.group_industry_profile.group_labour_market_statistics.extra_field_labour_market_outlook_introduction['#title'],
@@ -403,11 +405,31 @@
                 {% set map_no = 0 %}
                 {% set regions = region_info %}
 
+                {% set header = viewmodel['tab_sections']['labour_market_statistics']['employment_by_region_table_header'] %}
+                {% set rows = viewmodel['tab_sections']['labour_market_statistics']['employment_by_region_table_rows'] %}
+
+
                 <div id=industry-profile-interactive-map class="workbc-interactive-map-{{ map_no }}">
                   {% include '@workbc/includes/interactive-map.html.twig' with { map_no, regions } %}                  
                   
-                  <div class="card-profile__content">
-                    <span class="card-profile__content-item">{{ viewmodel['tab_sections']['labour_market_statistics']['employment_by_region_table_markup']|raw }}</span>
+                  <div class="card-profile__content">                
+                    <span class="card-profile__content-item">
+                    
+                     <table>
+                        <thead>
+                          <tr><th>{{ header.0 }}</th><th>% Employment this Industry</th><th>% Employment All Industries</th></tr>
+                        </thead>
+                        {% for region in rows %}
+                          <tr class='{{ region.class }}'>
+                            <td>{{ region.data.0 }}</td>
+                            <td>{{ region.data.1 }}</td>
+                            <td>{{ region.data.2 }}</td>
+                          </tr>
+                        {% endfor %}
+                    </table>                    
+                    
+                    
+                    </span>
                   </div>
                 </div>
 
