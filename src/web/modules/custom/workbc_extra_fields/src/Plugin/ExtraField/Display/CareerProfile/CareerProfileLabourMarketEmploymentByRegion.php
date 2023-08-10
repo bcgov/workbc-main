@@ -108,25 +108,22 @@ class CareerProfileLabourMarketEmploymentByRegion extends ExtraFieldDisplayForma
     }
 
     $datestr = ssotParseDateRange($entity->ssot_data['schema'], 'career_regional', 'cariboo_employment_current');
+    $header = ["Region", "Employment (" . $datestr . ")", "% Employment"];
 
-    $module_handler = \Drupal::service('module_handler');
-    $module_path = $module_handler->getModule('workbc_extra_fields')->getPath();
-
-    $text = '<div><img src="/' . $module_path . '/images/' . WORKBC_BC_MAP_WITH_LABELS . '"></div>';
-    $text .= "<div>";
-    $text .= "<table>";
-    $text .= "<tr><th>Region</th><th>Employment (" . $datestr . ")</th><th>% Employment</th></tr>";
+    $rows = [];
     foreach ($regions as $region) {
-      $text .= "<tr><td>" . $region['name'] . "</td><td>" . $region['employment'] . "</td><td>" . $region['percent'] . "</td></tr>";
+      $rows[] = [
+        'data' => [$region['name'], $region['employment'], $region['percent']], 
+        'class' => 'interactive-map-row-'.ssotRegionKey($region['name']),
+      ];
     }
-    $text .= "</table>";
-    $text .= "</div>";
-
-    $output = $text;
-
-    return [
-      ['#markup' => $output],
-    ];
+   
+    $table = array(
+      '#type' => 'table',
+      '#header' => $header,
+      '#rows' => $rows,
+    ); 
+    return $table;
   }
 
 }

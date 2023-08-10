@@ -45,10 +45,9 @@ class LabourMarketUnemploymentByRegion extends ExtraFieldDisplayFormattedBase {
    */
   public function viewElements(ContentEntityInterface $entity) {
 
-    if(empty($entity->ssot_data['monthly_labour_market_updates'])){
-      $output = '<div>'. WORKBC_EXTRA_FIELDS_NOT_AVAILABLE .'</div>';
+    if(empty($entity->ssot_data['monthly_labour_market_updates'])) {
       return [
-        ['#markup' => $output ],
+        '#markup' => WORKBC_EXTRA_FIELDS_NOT_AVAILABLE,
       ];
     }
 
@@ -58,38 +57,48 @@ class LabourMarketUnemploymentByRegion extends ExtraFieldDisplayFormattedBase {
     $header = [' ',  $current_previous_months['current_month_year'] , $current_previous_months['current_month_previous_year']];
 
     $rows = $this->getRegionValues($entity->ssot_data['monthly_labour_market_updates'][0]);
+   
+    $data = $rows;
 
-    //Image
-    $module_handler = \Drupal::service('module_handler');
-    $module_path = $module_handler->getModule('workbc_extra_fields')->getPath();
-    $image_uri = '/' . $module_path . '/images/' . WORKBC_BC_MAP_WITH_LABELS;
+    $rows = [];
+    foreach ($data as $key => $region) {
+      $rows[] = [
+        'data' => [$region['region'], $region['current'], $region['previous']], 
+        'class' => 'interactive-map-row-'. $key,
+      ];
+    }
+    $data['header'] = $current_previous_months;
 
-    //Source
-    $source_text = !empty($entity->ssot_data['sources']['unemployment_pct'])?$entity->ssot_data['sources']['unemployment_pct']:WORKBC_EXTRA_FIELDS_NOT_AVAILABLE;
-    $output = '<div class="lm-source"><strong>'.$this->t("Source").': </strong>'.$source_text.'</div>';
+    $data['data'] = $data;
 
-    return [
-      [
-        '#theme' => 'image',
-        '#uri' => $image_uri,
-        '#alt' => 'BC Image Map',
-      ],
-      [
-        '#theme' => 'table',
-        '#header' => $header,
-        '#rows' => $rows,
-        '#attributes' => array('class'=>array('lm-table-region')),
-        '#header_columns' => 4,
-      ],
-      [
-        '#markup' => $output
-      ]
-    ];
+    // Source
+    $data['source']['label'] = $this->t("Source");
+    $data['source']['source'] = !empty($entity->ssot_data['sources']['unemployment_pct'])?$entity->ssot_data['sources']['unemployment_pct']:WORKBC_EXTRA_FIELDS_NOT_AVAILABLE;
+
+    $table = array(
+      '#type' => 'table',
+      '#header' => $header,
+      '#rows' => $rows,
+    );  
+
+    $source = array(
+      '#plain_text' => !empty($entity->ssot_data['sources']['unemployment_pct'])?$entity->ssot_data['sources']['unemployment_pct']:WORKBC_EXTRA_FIELDS_NOT_AVAILABLE
+    );
+
+    return [$table, $source];
+
   }
 
   public function getRegionValues($values){
     $regions = [];
     $needle = 'unemployment_pct_';
+
+    $options = array(
+      'decimals' => 0,
+      'suffix' => '%',
+      'na_if_empty' => TRUE,
+    );
+
     if(!empty($values)){
       foreach($values as $key => $value){
         if(strpos($key, $needle) !== false){

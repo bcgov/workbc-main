@@ -92,22 +92,23 @@ class CareerProfileJobOpeningsByRegion extends ExtraFieldDisplayFormattedBase {
       $regions[] = $region;
     }
 
-    $module_handler = \Drupal::service('module_handler');
-    $module_path = $module_handler->getModule('workbc_extra_fields')->getPath();
+    $header = ['Region', 'Job Openings', 'Avg Annual Employment Growth'];
 
-    $text = '<div><img src="/' . $module_path . '/images/' . WORKBC_BC_MAP_WITH_LABELS . '"></div>';
-    $text .= "<table>";
-    $text .= "<tr><th>Region</th><th>Job Openings</th><th>Avg Annual Employment Growth</th></tr>";
+    $rows = [];
     foreach ($regions as $region) {
-      $text .= "<tr><td>" . $region['name'] . "</td><td>" . $region['openings'] . "</td><td>" . $region['growth'] . "</td></tr>";
+      $rows[] = [
+        'data' => [$region['name'], $region['openings'], $region['growth']], 
+        'class' => 'interactive-map-row-'.ssotRegionKey($region['name']),
+      ];
     }
-    $text .= "</table>";
 
-    $output = $text;
+    $table = array(
+      '#type' => 'table',
+      '#header' => $header,
+      '#rows' => $rows,
+    ); 
+    return $table;
 
-    return [
-      ['#markup' => $output],
-    ];
   }
 
 }

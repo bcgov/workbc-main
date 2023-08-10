@@ -1,0 +1,92 @@
+{#
+/**
+ * @file
+ * Template for custom WorkBC Related Topics Component
+ *
+ * Available variables:
+ *   - map_no (a numeric id)
+ *   - regions
+ */
+#}
+
+{% set region_cariboo = 1 %}
+{% set region_kootenay = 2 %}
+{% set region_mainland_southwest = 3 %}
+{% set region_north_coast_nechako = 4 %}
+{% set region_northeast = 5 %}
+{% set region_thompson_okanagan = 6 %}
+{% set region_vancouver_island_coast = 7 %}
+
+{% set hotspots = {
+  "01" : region_northeast,
+  "02" : region_northeast,
+  "03" : region_northeast,
+  "04" : region_northeast,
+  "05" : region_northeast,
+  "06" : region_northeast,
+  "07" : region_northeast,
+  "08" : region_cariboo,
+  "09" : region_cariboo,
+  "10" : region_cariboo,
+  "11" : region_cariboo,
+  "12" : region_cariboo,
+  "13" : region_cariboo,
+  "14" : region_thompson_okanagan,
+  "15" : region_thompson_okanagan,
+  "16" : region_thompson_okanagan,
+  "17" : region_thompson_okanagan,
+  "18" : region_thompson_okanagan,
+  "19" : region_thompson_okanagan,
+  "20" : region_thompson_okanagan,
+  "21" : region_kootenay,
+  "22" : region_kootenay,
+  "23" : region_kootenay,
+  "24" : region_north_coast_nechako,
+  "25" : region_north_coast_nechako,
+  "26" : region_north_coast_nechako,
+  "27" : region_north_coast_nechako,
+  "28" : region_north_coast_nechako,
+  "29" : region_north_coast_nechako,
+  "30" : region_north_coast_nechako,
+  "31" : region_north_coast_nechako,
+  "32" : region_north_coast_nechako,
+  "33" : region_vancouver_island_coast,
+  "34" : region_vancouver_island_coast,
+  "35" : region_vancouver_island_coast,
+  "36" : region_mainland_southwest,
+  "37" : region_mainland_southwest,
+
+} %}
+
+<div class="workbc-interactive-map-container">
+  <div class="workbc-interactive-map">
+    <img class="map-region" src="/{{ directory }}/assets/images/map-british_columbia.png">
+
+    {% for region in regions %}
+      {% if region.id > 0 %}
+        <img class="interactive-map-{{ region.key }} map-region" src="/{{ directory }}/assets/images/map-{{ region.key }}.png">
+      {% endif %}
+    {% endfor %}
+
+    {% for hotspot_no, region_no in hotspots %}
+      <div class="map-hot-spot-{{ hotspot_no }} map-hot-spot" data-interactive-map-no="{{ map_no }}" data-interactive-map-region-no="{{ region_no }}"> </div>
+    {% endfor %}
+
+    {% for region in regions %}
+      {% if region.id > 0 %}
+        <div class="map-region-label-{{ region.key }} map-hot-spot map-region-label" data-interactive-map-no="{{ map_no }}" data-interactive-map-region-no="{{ region.id }}">{{ region.name }}</div>
+      {% endif %}
+    {% endfor %}
+
+    {% for region in regions %}
+      {% if region.id > 0 %}
+        <div class="map-region-label-line-{{ region.key }}">
+          <img src="/{{ directory }}/assets/images/map-line.svg">
+        </div>
+      {% endif %}
+    {% endfor %}
+
+  </div>
+</div>
+
+{{ attach_library('workbc/interactive-map') }}

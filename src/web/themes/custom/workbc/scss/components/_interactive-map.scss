@@ -1,0 +1,482 @@
+:root {
+  --left-offset: 0px;
+  --top-offset: 0px;
+}
+
+.workbc-interactive-map-container {
+  position: relative;
+}
+
+.workbc-interactive-map {
+  border-width: 0px;
+  position: relative;
+  left: 0px;
+  top: 0px;
+  width: 400px;
+  height: 370px;
+  margin: 0 auto;
+}
+
+.work-interactive-map img {
+  margin: 0px;
+}
+
+.interactive-map-cariboo,
+.interactive-map-kootenay,
+.interactive-map-mainland_southwest,
+.interactive-map-north_coast_nechako,
+.interactive-map-northeast,
+.interactive-map-thompson_okanagan,
+.interactive-map-vancouver_island_coast {
+  display: none; 
+  visibility: hidden;
+}
+
+.map-region {
+  border-width: 0px;
+  position: absolute;
+  left: 0px;
+  top: 0px;
+  width: 400px;
+  height: 330px;  
+}
+
+.interactive-map-row-hilite {
+  color: $workbc_dark_theme_text;
+  background-color: $workbc_palette_dark_tertiary;
+  &:nth-child(2n) td {
+    background-color: $workbc_palette_dark_tertiary;
+  }
+}
+
+.interactive-map-row-hilite a {
+  color: $workbc_dark_theme_text;  
+}
+
+.map-region-label {
+  font-size: 14px;
+  color: #2E6AB0;
+  cursor: pointer;
+}
+
+.map-region-label:hover {
+  text-decoration: underline;
+}
+
+.map-region-label-cariboo {
+  position: absolute;
+  left: calc(var(--left-offset) + 337px);
+  top: calc(var(--top-offset) + 186px);
+  width: 88px;
+  height: 32px;
+}
+
+.map-region-label-kootenay {
+  position: absolute;
+  left: calc(var(--left-offset) + 440px);
+  top: calc(var(--top-offset) + 281px);
+  width: 89px;
+  height: 32px;
+}
+
+.map-region-label-mainland_southwest {
+  position: absolute;
+  left: calc(var(--left-offset) + -75px);
+  top: calc(var(--top-offset) + 290px);
+  width: 171px;
+  height: 32px;
+}
+
+.map-region-label-north_coast_nechako {
+  position: absolute;
+  left: calc(var(--left-offset) + -125px);
+  top: calc(var(--top-offset) + 80px);
+  width: 177px;
+  height: 32px;
+}
+
+.map-region-label-northeast {
+  position: absolute;
+  left: calc(var(--left-offset) + 335px);
+  top: calc(var(--top-offset) + 85px);
+  width: 88px;
+  height: 32px;
+}
+
+.map-region-label-thompson_okanagan {
+  position: absolute;
+  left: calc(var(--left-offset) + 390px);
+  top: calc(var(--top-offset) + 235px);
+  width: 171px;
+  height:32px
+}
+
+.map-region-label-vancouver_island_coast {
+  position: absolute;
+  left: calc(var(--left-offset) + -100px);
+  top: calc(var(--top-offset) + 240px);
+  width: 194px;
+  height: 32px;
+}
+
+
+.map-region-label-line {
+  /* background-color: #d7d7d7; */
+} 
+
+.map-region-label-line-cariboo img {
+  position: absolute;
+  left: calc(var(--left-offset) + 240px);
+  top: calc(var(--top-offset) + 195px);
+  width: 88px;
+  height: 3px;
+}
+
+.map-region-label-line-kootenay img {
+  position: absolute;
+  left: calc(var(--left-offset) + 345px);
+  top: calc(var(--top-offset) + 290px);
+  width: 85px;
+  height: 3px;
+}
+
+.map-region-label-line-mainland_southwest img {
+  position: absolute;
+  left: calc(var(--left-offset) + 70px);
+  top: calc(var(--top-offset) + 300px);
+  width: 180px;
+  height: 3px;
+}
+
+.map-region-label-line-north_coast_nechako img {
+  position: absolute;
+  left: calc(var(--left-offset) + 50px);
+  top: calc(var(--top-offset) + 90px);
+  width: 75px;
+  height: 3px;
+}
+
+.map-region-label-line-northeast img {
+  position: absolute;
+  left: calc(var(--left-offset) + 235px);
+  top: calc(var(--top-offset) + 95px);
+  width: 88px;
+  height: 3px;
+}
+
+.map-region-label-line-thompson_okanagan img {
+  position: absolute;
+  left: calc(var(--left-offset) + 295px);
+  top: calc(var(--top-offset) + 245px);
+  width: 80px;
+  height: 3px
+}
+
+.map-region-label-line-vancouver_island_coast img {
+  position: absolute;
+  left: calc(var(--left-offset) + 60px);
+  top: calc(var(--top-offset) + 250px);
+  width: 115px;
+  height: 3px;
+}
+
+
+
+
+.map-hot-spot {
+  border-width: 0px;
+  overflow: hidden;
+  cursor: pointer;
+  background-image: url(../assets/images/transparent.gif);
+}
+
+.map-hot-spot-01 {
+  position: absolute;
+  left: calc(var(--left-offset) + 168px);
+  top: calc(var(--top-offset) + 20px);
+  width: 110px;
+  height: 26px;
+}
+.map-hot-spot-02 {
+  position:absolute;
+  left:calc(var(--left-offset) + 170px);
+  top:calc(var(--top-offset) + 46px);
+  width:108px;
+  height:26px;
+}
+.map-hot-spot-03 {
+  position:absolute;
+  left:calc(var(--left-offset) + 157px);
+  top:calc(var(--top-offset) + 72px);
+  width:121px;
+  height:35px;
+}
+.map-hot-spot-04 {
+  position:absolute;
+  left:calc(var(--left-offset) + 177px);
+  top:calc(var(--top-offset) + 107px);
+  width:101px;
+  height:16px;
+}
+.map-hot-spot-05 {
+  position:absolute;
+  left:calc(var(--left-offset) + 206px);
+  top:calc(var(--top-offset) + 123px);
+  width:72px;
+  height:14px;
+}
+.map-hot-spot-06 {
+  position:absolute;
+  left:calc(var(--left-offset) + 231px);
+  top:calc(var(--top-offset) + 137px);
+  width:47px;
+  height:14px;
+}
+.map-hot-spot-07 {
+  border-width:0px;
+  position:absolute;
+  left:calc(var(--left-offset) + 255px);
+  top:calc(var(--top-offset) + 151px);
+  width:25px;
+  height:12px;
+}
+.map-hot-spot-08 {
+  border-width:0px;
+  position:absolute;
+  left:calc(var(--left-offset) + 216px);
+  top:calc(var(--top-offset) + 151px);
+  width:38px;
+  height:26px;
+}
+.map-hot-spot-09 {
+  border-width:0px;
+  position:absolute;
+  left:calc(var(--left-offset) + 223px);
+  top:calc(var(--top-offset) + 176px);
+  width:57px;
+  height:26px;
+}
+.map-hot-spot-10 {
+  border-width:0px;
+  position:absolute;
+  left:calc(var(--left-offset) + 185px);
+  top:calc(var(--top-offset) + 203px);
+  width:95px;
+  height:31px;
+}
+.map-hot-spot-11 {
+  border-width:0px;
+  position:absolute;
+  left:calc(var(--left-offset) + 189px);
+  top:calc(var(--top-offset) + 234px);
+  width:50px;
+  height:17px;
+}
+.map-hot-spot-12 {
+  border-width:0px;
+  position:absolute;
+  left:calc(var(--left-offset) + 239px);
+  top:calc(var(--top-offset) + 234px);
+  width:39px;
+  height:14px;
+}
+.map-hot-spot-13 {
+  border-width:0px;
+  position:absolute;
+  left:calc(var(--left-offset) + 280px);
+  top:calc(var(--top-offset) + 198px);
+  width:24px;
+  height:14px;
+}
+.map-hot-spot-14 {
+  border-width:0px;
+  position:absolute;
+  left:calc(var(--left-offset) + 280px);
+  top:calc(var(--top-offset) + 216px);
+  width:48px;
+  height:32px;
+}
+.map-hot-spot-15 {
+  border-width:0px;
+  position:absolute;
+  left:calc(var(--left-offset) + 249px);
+  top:calc(var(--top-offset) + 248px);
+  width:79px;
+  height:20px;
+}
+.map-hot-spot-16 {
+  border-width:0px;
+  position:absolute;
+  left:calc(var(--left-offset) + 249px);
+  top:calc(var(--top-offset) + 268px);
+  width:71px;
+  height:20px;
+}
+.map-hot-spot-17 {
+  border-width:0px;
+  position:absolute;
+  left:calc(var(--left-offset) + 264px);
+  top:calc(var(--top-offset) + 288px);
+  width:37px;
+  height:24px;
+}
+.map-hot-spot-18 {
+  border-width:0px;
+  position:absolute;
+  left:calc(var(--left-offset) + 328px);
+  top:calc(var(--top-offset) + 240px);
+  width:30px;
+  height:17px;
+}
+.map-hot-spot-19 {
+  border-width:0px;
+  position:absolute;
+  left:calc(var(--left-offset) + 328px);
+  top:calc(var(--top-offset) + 228px);
+  width:13px;
+  height:12px;
+}
+.map-hot-spot-20 {
+  border-width:0px;
+  position:absolute;
+  left:calc(var(--left-offset) + 328px);
+  top:calc(var(--top-offset) + 257px);
+  width:13px;
+  height:12px;
+}
+.map-hot-spot-21 {
+  border-width:0px;
+  position:absolute;
+  left:calc(var(--left-offset) + 301px);
+  top:calc(var(--top-offset) + 288px);
+  width:94px;
+  height:20px;
+}
+.map-hot-spot-22 {
+  border-width:0px;
+  position:absolute;
+  left:calc(var(--left-offset) + 320px);
+  top:calc(var(--top-offset) + 269px);
+  width:68px;
+  height:19px;
+}
+.map-hot-spot-23 {
+  border-width:0px;
+  position:absolute;
+  left:calc(var(--left-offset) + 341px);
+  top:calc(var(--top-offset) + 257px);
+  width:35px;
+  height:12px;
+}
+.map-hot-spot-24 {
+  border-width:0px;
+  position:absolute;
+  left:calc(var(--left-offset) + 63px);
+  top:calc(var(--top-offset) + 17px);
+  width:96px;
+  height:26px;
+}
+.map-hot-spot-25 {
+  border-width:0px;
+  position:absolute;
+  left:calc(var(--left-offset) + 68px);
+  top:calc(var(--top-offset) + 43px);
+  width:100px;
+  height:26px;
+}
+.map-hot-spot-26 {
+  border-width:0px;
+  position:absolute;
+  left:calc(var(--left-offset) + 82px);
+  top:calc(var(--top-offset) + 69px);
+  width:75px;
+  height:26px;
+}
+.map-hot-spot-27 {
+  border-width:0px;
+  position:absolute;
+  left:calc(var(--left-offset) + 92px);
+  top:calc(var(--top-offset) + 95px);
+  width:65px;
+  height:26px;
+}
+.map-hot-spot-28 {
+  border-width:0px;
+  position:absolute;
+  left:calc(var(--left-offset) + 139px);
+  top:calc(var(--top-offset) + 121px);
+  width:38px;
+  height:82px;
+}
+.map-hot-spot-29 {
+  border-width:0px;
+  position:absolute;
+  left:calc(var(--left-offset) + 103px);
+  top:calc(var(--top-offset) + 121px);
+  width:36px;
+  height:85px;
+}
+.map-hot-spot-30 {
+  border-width:0px;
+  position:absolute;
+  left:calc(var(--left-offset) + 177px);
+  top:calc(var(--top-offset) + 123px);
+  width:29px;
+  height:75px;
+}
+.map-hot-spot-31 {
+  border-width:0px;
+  position:absolute;
+  left:calc(var(--left-offset) + 157px);
+  top:calc(var(--top-offset) + 108px);
+  width:20px;
+  height:13px;
+}
+.map-hot-spot-32 {
+  border-width:0px;
+  position:absolute;
+  left:calc(var(--left-offset) + 206px);
+  top:calc(var(--top-offset) + 137px);
+  width:10px;
+  height:59px;
+}
+.map-hot-spot-33 {
+  border-width:0px;
+  position:absolute;
+  left:calc(var(--left-offset) + 139px);
+  top:calc(var(--top-offset) + 206px);
+  width:46px;
+  height:45px;
+}
+.map-hot-spot-34 {
+  border-width:0px;
+  position:absolute;
+  left:calc(var(--left-offset) + 168px);
+  top:calc(var(--top-offset) + 251px);
+  width:46px;
+  height:77px;
+}
+.map-hot-spot-35 {
+  border-width:0px;
+  position:absolute;
+  left:calc(var(--left-offset) + 131px);
+  top:calc(var(--top-offset) + 251px);
+  width:37px;
+  height:43px;
+}
+.map-hot-spot-36 {
+  border-width:0px;
+  position:absolute;
+  left:calc(var(--left-offset) + 214px);
+  top:calc(var(--top-offset) + 258px);
+  width:35px;
+  height:56px;
+}
+.map-hot-spot-37 {
+  border-width:0px;
+  position:absolute;
+  left:calc(var(--left-offset) + 249px);
+  top:calc(var(--top-offset) + 288px);
+  width:15px;
+  height:26px;
+}

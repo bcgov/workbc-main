@@ -82,3 +82,8 @@ swiper-js:
 google-charts-redraw:
   js:
     js/google-charts-redraw.js: {}
+
+
+interactive-map:
+  js:
+    js/interactive-map.js: {}

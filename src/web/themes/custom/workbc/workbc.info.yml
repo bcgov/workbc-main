@@ -16,6 +16,7 @@ libraries:
   - workbc/swiper-js
   - workbc/scrollbooster
   - workbc/google-charts-redraw
+  - workbc/interactive-map
 stylesheets-remove:
   - '@bootstrap5/css/style.css'
 regions:

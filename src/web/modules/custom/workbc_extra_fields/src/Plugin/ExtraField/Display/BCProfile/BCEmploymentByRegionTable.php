@@ -59,16 +59,7 @@ class BCEmploymentByRegionTable extends ExtraFieldDisplayFormattedBase {
         'na_if_empty' => TRUE,
       );
 
-
-      // font color, icon color, icon positioning
-      $tooltip = '<span class="workbc-tooltip bc-profile--employment-tooltip">';
-      $tooltip .= '<div class="workbc-tooltip-content bc-profile--employment-tooltip-content">';
-      $tooltip .= "<em>Employment rate</em> refers to the percentage of the population 15 years and older that are employed in full-time or part-time work.";
-      $tooltip .= "</div>";
-      $tooltip .= "</span>";
-
-      $content = "<table>";
-      $content .= "<tr class='table-header'><th>Region</th><th>Full-time Employment Rate" . $tooltip . "</th><th>Part-time Employment Rate</th></tr>";
+      $rows = array();
       foreach ($regions as $region) {
         $nid = \Drupal::entityQuery('node')
           ->condition('title', ssotRegionName($region['region']))
@@ -77,35 +68,33 @@ class BCEmploymentByRegionTable extends ExtraFieldDisplayFormattedBase {
         $nid = reset($nid);
 
         $alias = \Drupal::service('path_alias.manager')->getAliasByPath('/node/'.$nid);
-        $link = "<a href='" . $alias . "'>";
-        $close = "</a>";
 
-        $content .= "<tr class='bc-profile-employment-region-row'>";
-        $content .= "<td class='region-name'>" . $link . ssotRegionName($region['region']) . $close . "</td>";
-        $percent = ssotFormatNumber($region['full_time_employment_pct'], $options);
-        $content .= "<td class='full-time-rate' data-label='Full-time Employment Rate'>" . $percent . "</td>";
-        $percent = ssotFormatNumber($region['part_time_employment_pct'], $options);
-        $content .= "<td class='part-time-rate' data-label='Part-time Employment Rate'>" . $percent . "</td>";
-        $content .= "</tr>";
+
+        $rows[] = [
+          'data' => [
+            '<a href="' . $alias . '"> ' . ssotRegionName($region['region']) . '</a>', 
+            ssotFormatNumber($region['full_time_employment_pct'], $options), 
+            ssotFormatNumber($region['part_time_employment_pct'], $options), 
+          ],
+          'class' => 'interactive-map-row-'. $region['region'],
+        ];
       }
-
-      $content .= "<tr class='bc-profile-employment-region-footer'>";
-      $content .= "<td class='region-name'>B.C. Average</td>";
-      $percent = ssotFormatNumber($entity->ssot_data['labour_force_survey_bc_employment']['full_time_employment_pct'], $options);
-      $content .= "<td class='full-time-rate' data-label='Full-time Employment Rate'>" . $percent . "</td>";
-      $percent = ssotFormatNumber($entity->ssot_data['labour_force_survey_bc_employment']['part_time_employment_pct'], $options);
-      $content .= "<td class='part-time-rate' data-label='Part-time Employment Rate'>" . $percent . "</td>";
-      $content .= "</tr>";
-
-      $content .= "</table>";
-      $output = $content;
+    
+      $header = ['Region','Full-time Employment Rate', 'Part-time Employment Rate'];
+      $footer = ['B.C. Average', ssotFormatNumber($entity->ssot_data['labour_force_survey_bc_employment']['full_time_employment_pct'], $options), ssotFormatNumber($entity->ssot_data['labour_force_survey_bc_employment']['part_time_employment_pct'], $options)];
+      $table = array(
+        '#type' => 'table',
+        '#header' => $header,
+        '#rows' => $rows,
+        '#footer' => $footer,
+      );   
+      $output = $table;
     }
     else {
-      $output = WORKBC_EXTRA_FIELDS_NOT_AVAILABLE;
+      $output = ['#markup' => WORKBC_EXTRA_FIELDS_NOT_AVAILABLE];
     }
-    return [
-      ['#markup' => $output],
-    ];
+    return $output;
   }
 
 }
+

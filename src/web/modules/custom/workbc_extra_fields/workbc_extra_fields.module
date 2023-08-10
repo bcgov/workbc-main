@@ -19,6 +19,21 @@ define ("REGION_VANCOUVER_ISLAND_COAST", "Vancouver Island/Coast");
 
 define ("REGION_BRITISH_COLUMBIA", "British Columbia");
 
+define ("REGION_CARIBOO_ID", 1);
+define ("REGION_KOOTENAY_ID", 2);
+define ("REGION_MAINLAND_SOUTHWEST_ID", 3);
+define ("REGION_NORTH_COAST_NECHAKO_ID", 4);
+define ("REGION_NORTHEAST_ID", 5);
+define ("REGION_THOMPSON_OKANAGAN_ID", 6);
+define ("REGION_VANCOUVER_ISLAND_COAST_ID", 7);
+define ("REGION_BRITISH_COLUMBIA_ID", 0);
+
+define ("WORK_BC_INTERACTIVE_MAP_1", 0);  // Career Profile Employment by Region
+define ("WORK_BC_INTERACTIVE_MAP_2", 1);  // Career Profile Job Openings by Region
+define ("WORK_BC_INTERACTIVE_MAP_3", 2);  // B.C. Region Employment by Region
+define ("WORK_BC_INTERACTIVE_MAP_4", 3);  // Labour Market Monthly Unemployment Rate
+define ("WORK_BC_INTERACTIVE_MAP_5", 4);  // Industry Profile Employment by Region
+
 define ('SSOT_PING_TIMEOUT', 5);
 
 
@@ -242,16 +257,32 @@ function ssotLatestMonthlyLabourMarketUpdate($sourceData) {
 
 function ssotRegions() {
   static $regions = array(
+    "british_columbia" => REGION_BRITISH_COLUMBIA,
     "cariboo" => REGION_CARIBOO,
     "kootenay" => REGION_KOOTENAY,
-    "northeast" => REGION_NORTHEAST,
     "mainland_southwest" => REGION_MAINLAND_SOUTHWEST,
+    "north_coast_nechako" => REGION_NORTH_COAST_NECHAKO,
+    "northeast" => REGION_NORTHEAST,
     "thompson_okanagan" => REGION_THOMPSON_OKANAGAN,
     "vancouver_island_coast" => REGION_VANCOUVER_ISLAND_COAST,
-    "north_coast_nechako" => REGION_NORTH_COAST_NECHAKO,
-    "british_columbia" => REGION_BRITISH_COLUMBIA,
   );
 
+  return $regions;
+}
+
+
+function ssotRegionIds() {
+  static $regions = array(
+    "cariboo" => REGION_CARIBOO_ID,
+    "kootenay" => REGION_KOOTENAY_ID,
+    "northeast" => REGION_NORTHEAST_ID,
+    "mainland_southwest" => REGION_MAINLAND_SOUTHWEST_ID,
+    "thompson_okanagan" => REGION_THOMPSON_OKANAGAN_ID,
+    "vancouver_island_coast" => REGION_VANCOUVER_ISLAND_COAST_ID,
+    "north_coast_nechako" => REGION_NORTH_COAST_NECHAKO_ID,
+    "british_columbia" => REGION_BRITISH_COLUMBIA_ID,
+  );
+  
   return $regions;
 }
 
@@ -286,6 +317,30 @@ function ssotRegionLink($machine_name) {
   $regions = ssotRegionLinks();
   return isset($regions[$machine_name]) ? $regions[$machine_name] : "";
 }
+
+
+function ssotRegionInfo() {
+  
+  $region_info = array();
+
+  $regions = ssotRegions();
+  $id = ssotRegionIds();
+  $links = ssotRegionLinks();
+
+  foreach ($regions as $key => $name) {
+    $region = array(
+      "id" => $id[$key],
+      "key" => $key,
+      "name" => $name,
+      "link" => $links[$key],
+    );
+    $region_info[] = $region;
+  }
+  $id_values = array_column($region_info, "id"); 
+  array_multisort($id_values, SORT_ASC, $region_info);
+  return $region_info;
+}
+
 
 function ssotProcessEmploymentIndustry($ssotdata) {
 
@@ -538,3 +593,68 @@ function epbcSetPrograms() {
   \Drupal::state()->set('epbc_education_programs', $epbcData);
   \Drupal::logger('workbc_extra_fields')->notice("Pulled latest program data from Education Planner BC.");
 }
+
+
+
+function workbcInteractiveMap($map_id) {
+  
+  $module_handler = \Drupal::service('module_handler');
+  $module_path = $module_handler->getModule('workbc_extra_fields')->getPath();
+
+  $regions = [];
+  $labels = [];
+  $temp = ssotRegions();
+  foreach ($temp as $key => $value) {
+    if ($key <> "british_columbia") {
+      $regions[] = $key;
+      $labels[$key] = $value;
+    }
+    
+  } 
+  $map = '<div class="workbc-interactive-map-container">';
+  $map .= '<div class="workbc-interactive-map">';
+  $map .= '<img class="map-region" src="/' . $module_path . '/images/map-british_columbia.png">';
+
+  foreach ($regions as $region) {
+    $map .= '<img class="interactive-map-' . $region . ' map-region" src="/' . $module_path . '/images/map-' . $region . '.png">';
+  }
+  
+  $hotspots = [0,
+               REGION_NORTHEAST_ID,REGION_NORTHEAST_ID,REGION_NORTHEAST_ID,REGION_NORTHEAST_ID,
+               REGION_NORTHEAST_ID,REGION_NORTHEAST_ID,REGION_NORTHEAST_ID,
+               REGION_CARIBOO_ID,REGION_CARIBOO_ID,REGION_CARIBOO_ID,
+               REGION_CARIBOO_ID,REGION_CARIBOO_ID,REGION_CARIBOO_ID,
+               REGION_THOMPSON_OKANAGAN_ID,REGION_THOMPSON_OKANAGAN_ID,REGION_THOMPSON_OKANAGAN_ID,
+               REGION_THOMPSON_OKANAGAN_ID,REGION_THOMPSON_OKANAGAN_ID,REGION_THOMPSON_OKANAGAN_ID,
+               REGION_THOMPSON_OKANAGAN_ID,
+               REGION_KOOTENAY_ID,REGION_KOOTENAY_ID,REGION_KOOTENAY_ID,
+               REGION_NORTH_COAST_NECHAKO_ID,REGION_NORTH_COAST_NECHAKO_ID,REGION_NORTH_COAST_NECHAKO_ID,
+               REGION_NORTH_COAST_NECHAKO_ID,REGION_NORTH_COAST_NECHAKO_ID,REGION_NORTH_COAST_NECHAKO_ID,
+               REGION_NORTH_COAST_NECHAKO_ID,REGION_NORTH_COAST_NECHAKO_ID,REGION_NORTH_COAST_NECHAKO_ID,
+               REGION_VANCOUVER_ISLAND_COAST_ID,REGION_VANCOUVER_ISLAND_COAST_ID,REGION_VANCOUVER_ISLAND_COAST_ID,
+               REGION_MAINLAND_SOUTHWEST_ID,REGION_MAINLAND_SOUTHWEST_ID];
+
+  for ($i = 1; $i <= 37; $i++) {
+    $id = "map-hot-spot-". str_pad($i, 2, "0", STR_PAD_LEFT);
+    $map .= '<div class="' . $id . ' map-hot-spot" data-interactive-map-no="' . $map_id . '" data-interactive-map-region-no="' . $hotspots[$i] . '"> </div>';
+  }
+
+  $hotspots = ssotRegionIds();
+
+  foreach ($labels as $key => $region) {
+    $id = "map-region-label-" . $key;
+    $map .= '<div class="' . $id . ' map-hot-spot map-region-label" data-interactive-map-no="' . $map_id . '" data-interactive-map-region-no="' . $hotspots[$key] . '">' . $region . '</div>';
+  }
+
+  foreach ($labels as $key => $region) {
+    $id = "map-region-label-line-" . $key;
+    $map .= '<div class="' . $id . '">';
+    $map .= '<img src="/' . $module_path . '/images/map-line.svg">';
+    $map .= '</div>';
+  }
+
+  $map .= '</div>';
+  $map .= '</div>';
+  return $map;
+}
+

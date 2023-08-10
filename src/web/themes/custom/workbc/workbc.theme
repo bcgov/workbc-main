@@ -200,8 +200,14 @@ function workbc_preprocess_node(&$variables) {
       $links[] = $link;
     }
     $variables['related_career_links'] = $links;
+
   }
 
+  // region information for interactive map
+  $types = ["career_profile", "bc_profile", "region_profile", "industry_profile", "labour_market_monthly"];
+  if (in_array($variables['node']->bundle(), $types)) {  
+    $variables['region_info'] = ssotRegionInfo();    
+  }
 
   $current_path = \Drupal::service('path.current')->getPath();
   $internal = \Drupal::service('path_alias.manager')->getAliasByPath($current_path);
