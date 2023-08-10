@@ -56,12 +56,26 @@ class LabourMarketEmploymentIndustriesTable extends ExtraFieldDisplayFormattedBa
 
     $rows = [];
     foreach($data as $values){
-      $rows[] = [$values['industry'], $values['abs'], $values['per']];
+      $rows[]['data'] = [
+        'industry' => [
+          'data' => $values['industry'],
+          'class' => ['label']
+        ],
+        'abs' => [
+          'data' => $values['abs'],
+          'data-label' => $this->t("Jobs (change since last month)"),
+          'class' => ['data-row', 'jobs-abs']
+        ],
+        'per' => [
+          'data' => $values['per'],
+          'data-label' => $this->t("Jobs (% change since last month)"),
+          'class' => ['data-row', 'jobs-per']
+        ]
+      ];
     }
 
     $source_text = !empty($entity->ssot_data['sources']['no-datapoint'])?$entity->ssot_data['sources']['no-datapoint']:WORKBC_EXTRA_FIELDS_NOT_AVAILABLE;
     $output = '<div class="lm-source"><strong>'.$this->t("Source").': </strong>'.$source_text.'</div>';
-
     return [
       [
         '#theme' => 'table',
@@ -119,7 +133,7 @@ class LabourMarketEmploymentIndustriesTable extends ExtraFieldDisplayFormattedBa
             'decimals' => 1,
             'suffix' => "%",
             'na_if_empty' => TRUE,
-          );          
+          );
           $industrysubstring = str_replace($pct_needle, "", $key);
           $industries[$industrysubstring]['industry'] = $industries_mapping[$industrysubstring];
           $industries[$industrysubstring]['per'] = ssotFormatNumber($value, $options);
