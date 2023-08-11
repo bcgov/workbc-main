@@ -68,3 +68,14 @@ $workbc_hero_raw_image_aspect_ratio: calc(1200 / 800);
 $workbc_hero_image_height: $workbc_hero_container_height - $workbc_trim_ultra_thin_size;
 $workbc_hero_image_width: calc($workbc_hero_image_height * $workbc_hero_raw_image_aspect_ratio);
 
+
+// override Bootstrap breakpoints and add XXL size for home page
+$grid-breakpoints: (
+  xs: 0,
+  sm: 600px,
+  md: 768px,
+  lg: 992px,
+  xl: 1200px,
+  xxl: 1300px
+) !default;
+

@@ -3,7 +3,7 @@
   border-bottom: $workbc_trim_ultra_thin_size solid $workbc_palette_dark_secondary;
   background: #ccd7dc;
 
-  @include media-breakpoint-up(lg) {
+  @include media-breakpoint-up(xxl) {
     height: $workbc_home_hero_container_height;
   }
 }
@@ -22,7 +22,7 @@
   height: auto;
   overflow: hidden;
 
-  @include media-breakpoint-up(xl) {
+  @include media-breakpoint-up(xxl) {
     position: absolute;
     top: 0;
     bottom: 0;
@@ -50,7 +50,7 @@
   display: block;
   width: 100%;
 
-  @include media-breakpoint-up(lg) {
+  @include media-breakpoint-up(xxl) {
     height: 100%;
     object-fit: contain;
     object-position: right top;
