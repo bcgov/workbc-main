@@ -41,8 +41,18 @@
   background-image: url(../assets/images/info-tooltip-icon-white.svg);
 }
 
+.bc-profile--employment-tooltip-mobile {
+  display: none;
+  justify-content: flex-end;
+}
+
 .bc-profile--employment-tooltip-content {
   color: $workbc_light_theme_text;
+  top: 32px;
+}
+
+.bc-profile--employment-tooltip-content em {
+  font-weight: bold;
 }
 
 #bc-regional-employment-stats .card-profile__content {
@@ -62,6 +72,11 @@
 }
 
 @media screen and (max-width: 600px) {
+  .bc-profile--employment-tooltip-mobile {
+    display: flex;
+    justify-content: flex-end;
+  }
+
   #bc-regional-employment-stats {
     table {
       border: 0;
