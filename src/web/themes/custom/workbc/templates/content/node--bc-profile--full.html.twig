@@ -316,16 +316,39 @@
                   {% set rows = viewmodel['tab_sections']['labour_market_statistics']['employment_bc_by_region_table_rows'] %}
                   {% set footer = viewmodel['tab_sections']['labour_market_statistics']['employment_bc_by_region_table_footer'] %}
 
+                  {% set tooltip = "<em>Employment rate</em> refers to the percentage of the population 15 years and older that are employed in full-time or part-time work." %}
                   <div id=bc-region-interactive-map class="workbc-interactive-map-{{ map_no }}">
                     {% include '@workbc/includes/interactive-map.html.twig' with { map_no, regions } %}                  
 
+
                     <div>
+
+                            <div class="bc-profile--employment-tooltip-mobile">
+                              <span class="workbc-tooltip bc-profile--tooltip">
+                                <div class="workbc-tooltip-content bc-profile--employment-tooltip-content">
+                                  {{ tooltip | raw }}
+                                </div>
+                              </span>                    
+                            </div>
+                            
                       <span class="card-profile__content-item">
 
-                      {% set table_tooltip = "<em>Employment rate</em> refers to the percentage of the population 15 years and older that are employed in full-time or part-time work." %}
+
+
+
                       <table>
                         <thead>
-                          <tr class='table-header'><th>{{ header.0 }}</th><th>{{ header.1 }}<span class="workbc-tooltip bc-profile--employment-tooltip"><div class="workbc-tooltip-content bc-profile--employment-tooltip-content"><em>Employment rate</em> refers to the percentage of the population 15 years and older that are employed in full-time or part-time work.</div></span></th><th>{{ header.2 }}</th></tr>
+                          <tr class='table-header'>
+                            <th>{{ header.0 }}</th>
+                            <th>{{ header.1 }}
+                              <span class="workbc-tooltip bc-profile--employment-tooltip">
+                                <div class="workbc-tooltip-content bc-profile--employment-tooltip-content">
+                                  {{ tooltip | raw }}
+                                </div>
+                              </span>
+                            </th>
+                            <th>{{ header.2 }}</th>
+                          </tr>
                         </thead>
 
                         {% for region in rows %}
