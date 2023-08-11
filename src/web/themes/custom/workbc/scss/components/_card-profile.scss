@@ -134,6 +134,15 @@ h3.card-profile__content-header {
     margin: $card-padding 0;
   }
 
+  table {
+    th {
+      padding: 20px;
+    }
+    td {
+      padding: 10px;
+    }
+  }
+
   @include media-breakpoint-up(lg) {
     overflow: initial;
   }
@@ -194,6 +203,7 @@ h3.card-profile__content-header {
 .card-profile__source {
   font-size: 0.875rem;
   line-height: 0.875rem;
+  padding-top: 5em;
 
   em {
     font-weight: bold;
