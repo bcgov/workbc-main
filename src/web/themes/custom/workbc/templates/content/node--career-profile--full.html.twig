@@ -474,7 +474,7 @@
               </div>
             </div>
 
-            <div class="card-profile">
+            <div class="card-profile employment-by-region">
               <div class="card-profile__content">
                 <h3 class="card-profile__content-header">{{ viewmodel['tab_sections']['labour_market']['employment_by_region_title'] }}</h3>
 
@@ -491,18 +491,20 @@
                       <table>
                         <thead>
                           <tr>
-                          <th>{{ header.0 }}</th>
-                          <th>{{ header.1 }}</th>
-                          <th>{{ header.2 }}</th>
+                            <th>{{ header.0 }}</th>
+                            <th>{{ header.1 }}</th>
+                            <th>{{ header.2 }}</th>
                           </tr>
                         </thead>
+                        <tbody>
                         {% for region in rows %}
                           <tr class='{{ region.class }}'>
-                            <td>{{ region.data.0 }}</td>
-                            <td>{{ region.data.1 }}</td>
-                            <td>{{ region.data.2 }}</td>
+                            <td class="region" data-label="{{ header.0 }}">{{ region.data.0 }}</td>
+                            <td class="count-employment data-row" data-label="{{ header.1 }}">{{ region.data.1 }}</td>
+                            <td class="percent-employment data-row" data-label="{{ header.2 }}">{{ region.data.2 }}</td>
                           </tr>
                         {% endfor %}
+                        </tbody>
                       </table>
                     </span>
                 </div>
@@ -513,7 +515,7 @@
               </div>
             </div>
 
-            <h2>{{ viewmodel['tab_sections']['labour_market']['outlook_introduction_title'] }}</h2>
+            <h2 class="profile-content-section__header">{{ viewmodel['tab_sections']['labour_market']['outlook_introduction_title'] }}</h2>
             <div>{{ viewmodel['tab_sections']['labour_market']['outlook_introduction_markup']|raw }}</div>
 
             <div class="card-profile">
@@ -545,7 +547,7 @@
               </div>
             </div>
 
-            <div class="card-profile">
+            <div class="card-profile job-openings-by-region">
               <div class="card-profile__content">
                 <h3 class="card-profile__content-header">{{ viewmodel['tab_sections']['labour_market']['outlook_openings_by_region_title'] }}</h3>
 
@@ -563,18 +565,20 @@
                       <table>
                         <thead>
                           <tr>
-                          <th>{{ header.0 }}</th>
-                          <th>{{ header.1 }}</th>
-                          <th>{{ header.2 }}</th>
+                            <th>{{ header.0 }}</th>
+                            <th>{{ header.1 }}</th>
+                            <th>{{ header.2 }}</th>
                           </tr>
                         </thead>
+                        <tbody>
                         {% for region in rows %}
                           <tr class='{{ region.class }}'>
-                            <td>{{ region.data.0 }}</td>
-                            <td>{{ region.data.1 }}</td>
-                            <td>{{ region.data.2 }}</td>
+                            <td class="region" data-label="{{ header.0 }}">{{ region.data.0 }}</td>
+                            <td class="count-openings data-row" data-label="{{ header.1 }}">{{ region.data.1 }}</td>
+                            <td class="percent-growth data-row" data-label="{{ header.2 }}">{{ region.data.2 }}</td>
                           </tr>
                         {% endfor %}
+                        </tbody>
                       </table>
                     </span>
                   </div>
@@ -612,7 +616,7 @@
               </div>
             </div>
 
-            <h2>{{ viewmodel['tab_sections']['industry_highlights']['insights_title'] }}</h2>
+            <h2 class="profile-content-section__header">{{ viewmodel['tab_sections']['industry_highlights']['insights_title'] }}</h2>
             <div>{{ viewmodel['tab_sections']['industry_highlights']['insights_description']|raw }}</div>
           </div>
 

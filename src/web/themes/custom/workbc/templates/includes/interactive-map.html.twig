@@ -80,7 +80,7 @@
 
     {% for region in regions %}
       {% if region.id > 0 %}
-        <div class="map-region-label-line-{{ region.key }}">
+        <div class="map-region-label-line map-region-label-line-{{ region.key }}">
           <img src="/{{ directory }}/assets/images/map-line.svg">
         </div>
       {% endif %}
