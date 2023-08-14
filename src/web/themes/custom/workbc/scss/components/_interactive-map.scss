@@ -44,9 +44,6 @@
 .interactive-map-row-hilite {
   color: $workbc_dark_theme_text;
   background-color: $workbc_palette_dark_tertiary;
-  &:nth-child(2n) td {
-    background-color: $workbc_palette_dark_tertiary;
-  }
 }
 
 .interactive-map-row-hilite a {
@@ -179,9 +176,6 @@
   width: 115px;
   height: 3px;
 }
-
-
-
 
 .map-hot-spot {
   border-width: 0px;
@@ -481,6 +475,13 @@
   height:26px;
 }
 
+.job-openings-by-region, .employment-by-region {
+
+  tr.odd td {
+    background-color: $workbc_palette_light_secondary;
+  }
+}
+
 @include media-breakpoint-down(sm) {
 
   .job-openings-by-region, .employment-by-region {
@@ -508,8 +509,6 @@
       display: none;
     }
 
-
-
     padding: 0 0 0 0;
 
     table {
@@ -518,7 +517,7 @@
       overflow-x: hidden;
 
       td {
-        padding: 0 0 0 0;
+        padding: 0.7em 1.5em 0.7em 1.5em;
         border: none;
         background: $workbc_palette_light_primary;
       }
@@ -527,7 +526,6 @@
         display: block;
         color: $workbc_palette_dark_secondary;
         font-weight: bold;
-        padding: 0.7em 0 0.7em 0;
       }
 
       td.data-row {
@@ -535,14 +533,16 @@
         text-align: right;
         padding-top: 0;
         padding-bottom: 0;
-        color: $workbc_light_theme_text;
       }
 
       td.data-row::before {
         content: attr(data-label);
         float: left;
         font-weight: bold;
-        color: $workbc_light_theme_text;
+      }
+
+      td.percent-employment {
+        padding-bottom: 0.7em;
       }
 
       tr {
@@ -550,13 +550,27 @@
         padding-top: 0;
         padding-bottom: 0.7em;
         background: $workbc_palette_light_primary;
-        margin: 0 1.5em 0 1.5em;
-        border-bottom: $workbc_trim_ultra_thin_size solid $workbc_palette_light_secondary;
+        margin: 0 0 0 0;
       }
 
-      tr:nth-last-child(1) {
-        border-bottom: none;
+      tr.horizontal-line {
+        border-top: $workbc_trim_ultra_thin_size solid $workbc_palette_light_secondary;
+        margin: 0 1.5em 0 1.5em;
+        padding: 0 0 0 0;
       }
+
+      tr.interactive-map-row-hilite {
+        background: $workbc_palette_dark_tertiary;
+
+        td {
+          color: $workbc_palette_light_primary;
+          background: $workbc_palette_dark_tertiary;
+        }
+      }
+      //
+      //tr:nth-last-child(1) {
+      //  border-bottom: none;
+      //}
     }
   }
 }
