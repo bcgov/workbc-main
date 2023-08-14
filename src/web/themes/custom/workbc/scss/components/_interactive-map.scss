@@ -504,7 +504,7 @@
   }
 
   #career-profile-interactive-map-1, #career-profile-interactive-map-2 {
-    .map-region-label-line, .map-region-label, thead {
+    .label-line, .map-region-label, thead {
       display: none;
     }
 
@@ -535,13 +535,14 @@
         text-align: right;
         padding-top: 0;
         padding-bottom: 0;
+        color: $workbc_light_theme_text;
       }
 
       td.data-row::before {
         content: attr(data-label);
-
         float: left;
         font-weight: bold;
+        color: $workbc_light_theme_text;
       }
 
       tr {
