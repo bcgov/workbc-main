@@ -41,7 +41,7 @@
   height: 330px;
 }
 
-.interactive-map-row-hilite {
+tr.interactive-map-row-hilite {
   color: $workbc_dark_theme_text;
   background-color: $workbc_palette_dark_tertiary;
 }
@@ -477,7 +477,7 @@
 
 .job-openings-by-region, .employment-by-region {
 
-  tr.odd td {
+  tr.odd {
     background-color: $workbc_palette_light_secondary;
   }
 }
