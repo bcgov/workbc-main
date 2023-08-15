@@ -696,14 +696,13 @@ function workbc_custom_post_update_1603_resources(&$sandbox = NULL) {
 
 
 /**
- * Delete image revisions from media library
+ * Delete media item revisions
  *
  * As per ticket WR-1677.
  */
 function workbc_custom_post_update_1677(&$sandbox = NULL) {
   if (!isset($sandbox['media'])) {
-    $media = \Drupal::entityQuery('media')
-    ->execute();
+    $media = \Drupal::entityQuery('media')->execute();
     $sandbox['media'] = $media;
     $sandbox['count'] = count($sandbox['media']);
   }
@@ -714,18 +713,19 @@ function workbc_custom_post_update_1677(&$sandbox = NULL) {
   if (!empty($id)) {
     $media = Media::load($id);
 
+    // current revision id
     $defaultRevision = $media->getRevisionId();
 
+    // get list of revisions for media item
     $result = $mediaStorage->getQuery()
       ->allRevisions()
       ->condition('mid', $id)
       ->sort('vid', 'DESC')
       ->execute();
-
     $revisions = array_keys($result);
 
     foreach ($revisions as $rid) {
-      $revision = $mediaStorage->loadRevision($rid);
+      // delete if non-current revision
       if ($rid <> $defaultRevision) {
         $mediaStorage->deleteRevision($rid);
       }
@@ -733,5 +733,5 @@ function workbc_custom_post_update_1677(&$sandbox = NULL) {
   }
 
   $sandbox['#finished'] = empty($sandbox['media']) ? 1 : ($sandbox['count'] - count($sandbox['media'])) / $sandbox['count'];
-  return t('[WR-1677] Deleted Media Library Image revisions.');
+  return t('[WR-1677] Delete non-current revisions for one media item.');
 }
