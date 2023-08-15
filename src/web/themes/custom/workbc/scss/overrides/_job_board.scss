@@ -2,10 +2,8 @@
   margin-bottom:30px;
 }
 .block-workbc-jobboard h2{
-  margin-bottom: 20px;
   font-weight: 700;
-  font-size: 1.15rem;
-  margin-bottom:10px;
+  margin: 30px 0 10px 0;
   font-size:21px;
   line-height: 23px;
 }
@@ -50,9 +48,15 @@
   bottom: 12px;
 }
 .jobs-data a.more-jobs{
- width:100%;
- text-align:center;
+  width:100%;
+  text-align:center;
+  background: $workbc_palette_light_primary;
 }
+
+.jobs-data a.more-jobs:hover {
+  background: $workbc_palette_light_secondary;
+}
+
 .workbc-jobboard-save-profile {
   text-align: right;
 }

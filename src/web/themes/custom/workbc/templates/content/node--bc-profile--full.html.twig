@@ -143,7 +143,7 @@
       employment_bc_by_region_title: content.group_bc_profile.group_labour_market_statistics.extra_field_bc_employment_by_region_table['#title'],
       employment_bc_by_region_markup: content.group_bc_profile.group_labour_market_statistics.extra_field_bc_employment_by_region_table.0['#markup'],
       employment_bc_by_region_table_header: content.group_bc_profile.group_labour_market_statistics.extra_field_bc_employment_by_region_table.0['#header'],
-      employment_bc_by_region_table_rows: content.group_bc_profile.group_labour_market_statistics.extra_field_bc_employment_by_region_table.0['#rows'],      
+      employment_bc_by_region_table_rows: content.group_bc_profile.group_labour_market_statistics.extra_field_bc_employment_by_region_table.0['#rows'],
       employment_bc_by_region_table_footer: content.group_bc_profile.group_labour_market_statistics.extra_field_bc_employment_by_region_table.0['#footer'],
       employment_bc_by_region_source: content.group_bc_profile.group_labour_market_statistics.extra_field_bc_employment_region_source.0['#markup'],
       employment_bc_by_region_data: content.group_bc_profile.group_labour_market_statistics.extra_field_bc_employment_by_region_table,
@@ -303,7 +303,7 @@
                 <h3 class="card-profile__content-header">
                   {{ viewmodel['tab_sections']['labour_market_statistics']['employment_bc_by_region_title'] }}
                 </h3>
-                
+
 
                 {% if viewmodel['tab_sections']['labour_market_statistics']['employment_bc_by_region_markup'] %}
                 <div>{{ viewmodel['tab_sections']['labour_market_statistics']['employment_bc_by_region_markup'] }}</div>
@@ -318,7 +318,7 @@
 
                   {% set tooltip = "<em>Employment rate</em> refers to the percentage of the population 15 years and older that are employed in full-time or part-time work." %}
                   <div id=bc-region-interactive-map class="workbc-interactive-map-{{ map_no }}">
-                    {% include '@workbc/includes/interactive-map.html.twig' with { map_no, regions } %}                  
+                    {% include '@workbc/includes/interactive-map.html.twig' with { map_no, regions } %}
 
 
                     <div>
@@ -328,9 +328,9 @@
                                 <div class="workbc-tooltip-content bc-profile--employment-tooltip-content">
                                   {{ tooltip | raw }}
                                 </div>
-                              </span>                    
+                              </span>
                             </div>
-                            
+
                       <span class="card-profile__content-item">
 
 
@@ -367,7 +367,7 @@
                           </tr>
                         </tfoot>
                       </table>
-                    </span>                
+                    </span>
                   </div>
                 {% endif %}
 
@@ -458,12 +458,14 @@
 
         <div class="profile-content-sidebar">
 
-          <div class="profile-videos-wrapper">
-            <div class="container-lg">
-              <h2>{{ viewmodel['career_videos']['introduction'] }}</h2>
-              {{ viewmodel['career_videos']['content'] }}
+          {% if (viewmodel['career_videos']['introduction'] or viewmodel['career_videos']['content']) %}
+            <div class="profile-videos-wrapper">
+              <div class="container-lg">
+                <h2>{{ viewmodel['career_videos']['introduction'] }}</h2>
+                {{ viewmodel['career_videos']['content'] }}
+              </div>
             </div>
-          </div>
+          {% endif %}
 
           <div class="career-recent-jobs-wrapper">
             <div class="container-lg">
