@@ -35,7 +35,7 @@
   background-color: $workbc_light_theme_background_accent;
 
   .profile-statistics-wrapper {
-    margin-bottom: 40px;
+    margin: 20px 20px 40px 20px;
   }
 
   .profile-details-wrapper {
@@ -122,16 +122,14 @@
 
   .profile-videos-wrapper {
 
-    padding-bottom: 40px;
-
     @include media-breakpoint-up(lg) {
-      border: lime solid 1px;
-      padding: 40px 0;
+      padding: 0;
     }
 
     h2 {
       font-size: 1.313rem;
       font-weight: bold;
+      margin: 30px 0 10px 0;
     }
 
     p {
@@ -170,6 +168,10 @@
     }
   }
 
+  .container-lg {
+    padding: 0 0;
+  }
+
   .profile-content-container {
     display: flex;
     flex-flow: row wrap;
@@ -177,7 +179,8 @@
     .profile-content-main {
       flex: 0 0 100%;
       width: 100%;
-      padding: 30px 0;
+      // padding: 30px 0;
+      padding: 0.7em 0.7em;
 
       @include media-breakpoint-up(lg) {
         flex: 0 0 75%;
@@ -226,6 +229,11 @@
     .profile-content-sidebar {
       flex: 0 0 100%;
       width: 100%;
+
+      @include media-breakpoint-down(lg) {
+        background: $workbc_palette_light_secondary;
+        padding: 0 30px 0 30px;
+      }
 
       @include media-breakpoint-up(lg) {
         flex: 0 0 25%;

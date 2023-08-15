@@ -410,11 +410,11 @@
 
 
                 <div id=industry-profile-interactive-map class="workbc-interactive-map-{{ map_no }}">
-                  {% include '@workbc/includes/interactive-map.html.twig' with { map_no, regions } %}                  
-                  
-                  <div class="card-profile__content">                
+                  {% include '@workbc/includes/interactive-map.html.twig' with { map_no, regions } %}
+
+                  <div class="card-profile__content">
                     <span class="card-profile__content-item">
-                    
+
                      <table>
                         <thead>
                           <tr><th>{{ header.0 }}</th><th>% Employment this Industry</th><th>% Employment All Industries</th></tr>
@@ -426,9 +426,9 @@
                             <td>{{ region.data.2 }}</td>
                           </tr>
                         {% endfor %}
-                    </table>                    
-                    
-                    
+                    </table>
+
+
                     </span>
                   </div>
                 </div>
@@ -502,14 +502,14 @@
         </div>
 
         <div class="profile-content-sidebar">
-
-          <div class="profile-videos-wrapper">
-            <div class="container-lg">
-              <h2>{{ viewmodel['career_videos']['introduction'] }}</h2>
-              {{ viewmodel['career_videos']['content'] }}
+          {% if (viewmodel['career_videos']['introduction'] or viewmodel['career_videos']['content']) %}
+            <div class="profile-videos-wrapper">
+              <div class="container-lg">
+                <h2>{{ viewmodel['career_videos']['introduction'] }}</h2>
+                {{ viewmodel['career_videos']['content'] }}
+              </div>
             </div>
-          </div>
-
+          {% endif %}
           <div class="career-recent-jobs-wrapper">
             <div class="container-lg">
               {{ drupal_entity('block', 'recentjobs') }}
