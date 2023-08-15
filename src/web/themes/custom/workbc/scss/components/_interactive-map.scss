@@ -28,7 +28,7 @@
 .interactive-map-northeast,
 .interactive-map-thompson_okanagan,
 .interactive-map-vancouver_island_coast {
-  display: none; 
+  display: none;
   visibility: hidden;
 }
 
@@ -38,19 +38,17 @@
   left: 0px;
   top: 0px;
   width: 400px;
-  height: 330px;  
+  height: 330px;
+  padding-right: 30px;
 }
 
-.interactive-map-row-hilite {
+tr.interactive-map-row-hilite {
   color: $workbc_dark_theme_text;
   background-color: $workbc_palette_dark_tertiary;
-  &:nth-child(2n) td {
-    background-color: $workbc_palette_dark_tertiary;
-  }
 }
 
 .interactive-map-row-hilite a {
-  color: $workbc_dark_theme_text;  
+  color: $workbc_dark_theme_text;
 }
 
 .map-region-label {
@@ -122,7 +120,7 @@
 
 .map-region-label-line {
   /* background-color: #d7d7d7; */
-} 
+}
 
 .map-region-label-line-cariboo img {
   position: absolute;
@@ -179,9 +177,6 @@
   width: 115px;
   height: 3px;
 }
-
-
-
 
 .map-hot-spot {
   border-width: 0px;
@@ -480,3 +475,110 @@
   width:15px;
   height:26px;
 }
+
+.job-openings-by-region, .employment-by-region {
+
+  tr.odd {
+    background: $workbc_palette_light_secondary;
+  }
+
+  tr.interactive-map-row-hilite {
+    background: $workbc_palette_dark_tertiary !important;
+
+    td {
+      color: $workbc_palette_light_primary;
+      background: $workbc_palette_dark_tertiary;
+    }
+  }
+}
+
+@include media-breakpoint-down(sm) {
+
+  .job-openings-by-region, .employment-by-region {
+    display: block;
+    padding: 0;
+
+    .card-profile__content {
+      display: block;
+    }
+
+    h3 {
+      display: block;
+      padding-top: 1.5em;
+    }
+
+    .card-profile__source {
+      padding-left: 1.5em;
+      padding-top: 3em;
+      padding-bottom: 1em;
+    }
+  }
+
+  #career-profile-interactive-map-1, #career-profile-interactive-map-2 {
+    .label-line, .map-region-label, thead {
+      display: none;
+    }
+
+    padding: 0 0 0 0;
+
+    table {
+      margin: 0 0 0;
+      width: 100%;
+      overflow-x: hidden;
+
+      td {
+        padding: 0.7em 1.5em 0.7em 1.5em;
+        border: none;
+        background: $workbc_palette_light_primary;
+      }
+
+      td.region {
+        display: block;
+        color: $workbc_palette_dark_secondary;
+        font-weight: bold;
+      }
+
+      td.data-row {
+        display: block;
+        text-align: right;
+        padding-top: 0;
+        padding-bottom: 0;
+      }
+
+      td.data-row::before {
+        content: attr(data-label);
+        float: left;
+        font-weight: bold;
+      }
+
+      td.percent-employment {
+        padding-bottom: 0.7em;
+      }
+
+      tr {
+        display: block;
+        padding-top: 0;
+        padding-bottom: 0.7em;
+        background: $workbc_palette_light_primary;
+        margin: 0 0 0 0;
+      }
+
+      tr.horizontal-line {
+        border-top: $workbc_trim_ultra_thin_size solid $workbc_palette_light_secondary;
+        margin: 0 1.5em 0 1.5em;
+        padding: 0 0 0 0;
+      }
+
+      tr.interactive-map-row-hilite {
+        background: $workbc_palette_dark_tertiary;
+
+        td {
+          color: $workbc_palette_light_primary;
+          background: $workbc_palette_dark_tertiary;
+        }
+      }
+    }
+  }
+}
+
+
