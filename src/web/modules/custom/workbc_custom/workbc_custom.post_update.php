@@ -706,8 +706,6 @@ function workbc_custom_post_update_1677(&$sandbox = NULL) {
     ->execute();
     $sandbox['media'] = $media;
     $sandbox['count'] = count($sandbox['media']);
-    $message = "count: " . $sandbox['count'];
-    \Drupal::logger('workbc_custom')->notice($message);
   }
 
   $mediaStorage = \Drupal::entityTypeManager()->getStorage('media');
