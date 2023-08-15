@@ -176,9 +176,13 @@
             </thead>
             {% for key, region in unemployment_by_region_table_rows %}
               <tr class='{{ region.class }} {{ cycle(['odd', 'even'], loop.index0) }}'>
-                <td class='region-name'>{{ region.data.0 }}</td>
-                <td class="current-year" data-label="{{ header.1 }}">{{ region.data.1 }}</td>
-                <td class="prior-year" data-label="{{ header.2 }}">{{ region.data.2 }}</td>
+                <td class='region'>{{ region.data.0 }}</td>
+                <td class="data-row current-year" data-label="{{ unemployment_by_region_table_header.1 }}">
+                  {{ region.data.1 }}
+                </td>
+                <td class="data-row prior-year" data-label="{{ unemployment_by_region_table_header.2 }}">
+                  {{ region.data.2 }}
+                </td>
               </tr>
               {% if not loop.last %}
                 <tr class="horizontal-line"></tr>
