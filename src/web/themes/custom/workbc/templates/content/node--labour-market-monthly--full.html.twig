@@ -164,7 +164,7 @@
       {% set regions = region_info %}
 
       <div id=lm-interactive-map class="workbc-interactive-map-{{ map_no }}">
-        {% include '@workbc/includes/interactive-map.html.twig' with { map_no, regions } %}    
+        {% include '@workbc/includes/interactive-map.html.twig' with { map_no, regions } %}
         <div>
           <table class='lm-table-region table'>
             <thead>
@@ -175,11 +175,14 @@
               </tr>
             </thead>
             {% for key, region in unemployment_by_region_table_rows %}
-            <tr class='{{ region.class }}'>
-              <td class='region-name'>{{ region.data.0 }}</td>
-              <td>{{ region.data.1 }}</td>
-              <td>{{ region.data.2 }}</td>
-            </tr>
+              <tr class='{{ region.class }} {{ cycle(['odd', 'even'], loop.index0) }}'>
+                <td class='region-name'>{{ region.data.0 }}</td>
+                <td class="current-year" data-label="{{ header.1 }}">{{ region.data.1 }}</td>
+                <td class="prior-year" data-label="{{ header.2 }}">{{ region.data.2 }}</td>
+              </tr>
+              {% if not loop.last %}
+                <tr class="horizontal-line"></tr>
+              {% endif %}
             {% endfor %}
           </table>
           <div class="lm-source"><strong>Source: </strong>{{ unemployment_by_region_table_source }}</div>
