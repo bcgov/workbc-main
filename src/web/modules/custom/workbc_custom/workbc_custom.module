@@ -149,6 +149,10 @@ function workbc_custom_form_alter(&$form, \Drupal\Core\Form\FormStateInterface $
     $form['also_delete_file']['#default_value'] = TRUE;
   }
 
+  if (preg_match("/media_.*_add_form/", $form_id) || preg_match("/media_.*_edit_form/", $form_id)) {
+    $form['revision_information']['#access'] = false;
+  }
+
 }
 
 
