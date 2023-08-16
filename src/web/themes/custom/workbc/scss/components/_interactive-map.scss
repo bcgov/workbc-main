@@ -476,7 +476,7 @@ tr.interactive-map-row-hilite {
   height:26px;
 }
 
-.job-openings-by-region, .employment-by-region {
+.job-openings-by-region, .employment-by-region, .workbc-interactive-map-0 {
 
   tr.odd {
     background: $workbc_palette_light_secondary;
@@ -493,6 +493,15 @@ tr.interactive-map-row-hilite {
 }
 
 @include media-breakpoint-down(sm) {
+
+  .lm-table-container {
+    padding: 1em 0 0 0 !important;
+
+    .lm-source {
+      padding: 0 1.5em 1.5em 1.5em;
+    }
+
+  }
 
   .job-openings-by-region, .employment-by-region {
     display: block;
@@ -514,7 +523,10 @@ tr.interactive-map-row-hilite {
     }
   }
 
-  #career-profile-interactive-map-1, #career-profile-interactive-map-2 {
+  #career-profile-interactive-map-1,
+  #career-profile-interactive-map-2,
+  #bc-region-interactive-map,
+  #industry-profile-interactive-map {
     .label-line, .map-region-label, thead {
       display: none;
     }
@@ -536,6 +548,7 @@ tr.interactive-map-row-hilite {
         display: block;
         color: $workbc_palette_dark_secondary;
         font-weight: bold;
+        border: none;
       }
 
       td.data-row {
@@ -543,6 +556,7 @@ tr.interactive-map-row-hilite {
         text-align: right;
         padding-top: 0;
         padding-bottom: 0;
+        border: none;
       }
 
       td.data-row::before {
@@ -551,7 +565,7 @@ tr.interactive-map-row-hilite {
         font-weight: bold;
       }
 
-      td.percent-employment {
+      td.percent-employment, td.prior-year {
         padding-bottom: 0.7em;
       }
 
@@ -561,6 +575,21 @@ tr.interactive-map-row-hilite {
         padding-bottom: 0.7em;
         background: $workbc_palette_light_primary;
         margin: 0 0 0 0;
+      }
+
+      tr.odd {
+        background: inherit;
+      }
+
+      tr.bc-profile-employment-region-footer {
+        background: $workbc_palette_dark_tertiary;
+        td.region {
+          color: $workbc_palette_light_primary;
+        }
+
+        td {
+          background: $workbc_palette_dark_tertiary;
+        }
       }
 
       tr.horizontal-line {
