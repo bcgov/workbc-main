@@ -476,7 +476,7 @@ tr.interactive-map-row-hilite {
   height:26px;
 }
 
-.job-openings-by-region, .employment-by-region {
+.job-openings-by-region, .employment-by-region, .workbc-interactive-map-0{
 
   tr.odd {
     background: $workbc_palette_light_secondary;
@@ -514,7 +514,7 @@ tr.interactive-map-row-hilite {
     }
   }
 
-  #career-profile-interactive-map-1, #career-profile-interactive-map-2 {
+  #career-profile-interactive-map-1, #career-profile-interactive-map-2, #bc-region-interactive-map {
     .label-line, .map-region-label, thead {
       display: none;
     }
@@ -561,6 +561,17 @@ tr.interactive-map-row-hilite {
         padding-bottom: 0.7em;
         background: $workbc_palette_light_primary;
         margin: 0 0 0 0;
+      }
+
+      tr.bc-profile-employment-region-footer {
+        background: $workbc_palette_dark_tertiary;
+        td.region {
+          color: $workbc_palette_light_primary;
+        }
+
+        td {
+          background: $workbc_palette_dark_tertiary;
+        }
       }
 
       tr.horizontal-line {
