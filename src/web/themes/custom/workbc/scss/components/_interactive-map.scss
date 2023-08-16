@@ -523,7 +523,10 @@ tr.interactive-map-row-hilite {
     }
   }
 
-  #career-profile-interactive-map-1, #career-profile-interactive-map-2, .workbc-interactive-map-0 {
+  #career-profile-interactive-map-1,
+  #career-profile-interactive-map-2,
+  #bc-region-interactive-map,
+  #industry-profile-interactive-map {
     .label-line, .map-region-label, thead {
       display: none;
     }
@@ -576,6 +579,17 @@ tr.interactive-map-row-hilite {
 
       tr.odd {
         background: inherit;
+      }
+
+      tr.bc-profile-employment-region-footer {
+        background: $workbc_palette_dark_tertiary;
+        td.region {
+          color: $workbc_palette_light_primary;
+        }
+
+        td {
+          background: $workbc_palette_dark_tertiary;
+        }
       }
 
       tr.horizontal-line {

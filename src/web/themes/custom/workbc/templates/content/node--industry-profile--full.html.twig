@@ -413,7 +413,7 @@
                   {% include '@workbc/includes/interactive-map.html.twig' with { map_no, regions } %}
 
                   <div class="card-profile__content">
-                    <span class="card-profile__content-item">
+                    <div class="card-profile__content-item">
 
                      <table>
                         <thead>
@@ -421,15 +421,18 @@
                         </thead>
                         {% for region in rows %}
                           <tr class='{{ region.class }}'>
-                            <td>{{ region.data.0 }}</td>
-                            <td>{{ region.data.1 }}</td>
-                            <td>{{ region.data.2 }}</td>
+                            <td class="region">{{ region.data.0 }}</td>
+                            <td class="data-row" data-label="% Employment this Industry">{{ region.data.1 }}</td>
+                            <td class="data-row" data-label="% Employment All Industries">{{ region.data.2 }}</td>
                           </tr>
+                          {% if not loop.last %}
+                            <tr class="horizontal-line"></tr>
+                          {% endif %}
                         {% endfor %}
                     </table>
 
 
-                    </span>
+                    </div>
                   </div>
                 </div>
 
