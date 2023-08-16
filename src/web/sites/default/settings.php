@@ -790,6 +790,9 @@ $config['jobboard']['find_job_url'] = '/search-and-prepare-job/find-jobs';
 $config['jobboard']['find_job_account_url'] = '/account';
 $config['jobboard']['sha'] = '79b4b31cd161df40475a229a4bbeb194829fe681';
 
+// File settings.
+$config['file.settings']['make_unused_managed_files_temporary'] = TRUE;
+
 /**
  * Load local development override configuration, if available.
  *

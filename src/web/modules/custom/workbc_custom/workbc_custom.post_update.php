@@ -3,6 +3,9 @@
 use Drupal\redirect\Entity\Redirect;
 use Drupal\Core\Url;
 use Drupal\file\Entity\File;
+use Drupal\media\Entity\Media;
+use Drupal\media\MediaInterface;
+use Drupal\media\MediaStorage;
 
 /**
  * Add redirections of the form http://www.workbc.ca/Job-Seekers/Career-Profiles/[NOC]
@@ -688,4 +691,47 @@ function workbc_custom_post_update_1603_resources(&$sandbox = NULL) {
 
   $sandbox['#finished'] = empty($sandbox['fields']) ? 1 : ($sandbox['count'] - count($sandbox['fields'])) / $sandbox['count'];
   return t('[WR-1603] Migrated one resource field.');
+}
+
+
+
+/**
+ * Delete media item revisions
+ *
+ * As per ticket WR-1677.
+ */
+function workbc_custom_post_update_1677(&$sandbox = NULL) {
+  if (!isset($sandbox['media'])) {
+    $media = \Drupal::entityQuery('media')->execute();
+    $sandbox['media'] = $media;
+    $sandbox['count'] = count($sandbox['media']);
+  }
+
+  $mediaStorage = \Drupal::entityTypeManager()->getStorage('media');
+
+  $id = array_pop($sandbox['media']);
+  if (!empty($id)) {
+    $media = Media::load($id);
+
+    // current revision id
+    $defaultRevision = $media->getRevisionId();
+
+    // get list of revisions for media item
+    $result = $mediaStorage->getQuery()
+      ->allRevisions()
+      ->condition('mid', $id)
+      ->sort('vid', 'DESC')
+      ->execute();
+    $revisions = array_keys($result);
+
+    foreach ($revisions as $rid) {
+      // delete if non-current revision
+      if ($rid <> $defaultRevision) {
+        $mediaStorage->deleteRevision($rid);
+      }
+    }
+  }
+
+  $sandbox['#finished'] = empty($sandbox['media']) ? 1 : ($sandbox['count'] - count($sandbox['media'])) / $sandbox['count'];
+  return t('[WR-1677] Delete non-current revisions for one media item.');
 }
