@@ -317,7 +317,7 @@ html {
 }
 
 #off-canvas.mm-menu--opened {
-  position: absolute;
+  position: fixed;
   top: 0;
   left: 0;
   z-index: 99;
