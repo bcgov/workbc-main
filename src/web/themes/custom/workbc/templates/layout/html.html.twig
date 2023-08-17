@@ -44,19 +44,17 @@
     <js-placeholder token="{{ placeholder_token }}">
   </head>
   <body{{ attributes.addClass(body_classes) }}>
-    {#
+    <div id="page">
+      {#
       Keyboard navigation/accessibility link to main content section in
       page.html.twig.
-    #}
-    <a href="#main-content" class="skip-link">
-      {{ 'Skip to main content'|t }}
-    </a>
-    <div id="page-wrapper" class="page-wrapper">
-      <div id="page">
-        {{ page_top }}
-        {{ page }}
-        {{ page_bottom }}
-      </div>
+      #}
+      <a href="#main-content" class="skip-link">
+        {{ 'Skip to main content'|t }}
+      </a>
+      {{ page_top }}
+      {{ page }}
+      {{ page_bottom }}
     </div>
     <js-bottom-placeholder token="{{ placeholder_token }}">
   </body>
