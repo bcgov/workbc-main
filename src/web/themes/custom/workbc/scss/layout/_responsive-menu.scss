@@ -311,12 +311,18 @@ html {
   transform: none;
 }
 
+
+#off-canvas:not(.mm-menu--opened) {
+  display: none;
+}
+
 #off-canvas.mm-menu--opened {
   position: absolute;
   top: 0;
   left: 0;
   z-index: 99;
 }
+
 
 .mm-wrapper--position-left {
   --mm-translate-horizontal: 0;
