@@ -40,3 +40,20 @@
   margin-top: -150px;
   visibility: hidden;
 }
+
+/*
+On screen widths less than 992px, hide the left side bar "On this
+page" block and enable the identical content under the page title.
+ */
+
+@include media-breakpoint-down(lg) {
+  aside.page-sidebar {
+    display: none;
+  }
+}
+
+@include media-breakpoint-up(lg) {
+  div.on-this-page {
+    display: none;
+  }
+}
