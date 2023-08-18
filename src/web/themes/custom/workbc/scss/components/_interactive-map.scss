@@ -438,12 +438,20 @@ tr.interactive-map-row-hilite {
 .map-hot-spot-33 {
   border-width:0px;
   position:absolute;
+  left:calc(var(--left-offset) + 50px);
+  top:calc(var(--top-offset) + 166px);
+  width:25px;
+  height:55px;
+}
+.map-hot-spot-34 {
+  border-width:0px;
+  position:absolute;
   left:calc(var(--left-offset) + 139px);
   top:calc(var(--top-offset) + 206px);
   width:46px;
   height:45px;
 }
-.map-hot-spot-34 {
+.map-hot-spot-35 {
   border-width:0px;
   position:absolute;
   left:calc(var(--left-offset) + 168px);
@@ -451,7 +459,7 @@ tr.interactive-map-row-hilite {
   width:46px;
   height:77px;
 }
-.map-hot-spot-35 {
+.map-hot-spot-36 {
   border-width:0px;
   position:absolute;
   left:calc(var(--left-offset) + 131px);
@@ -459,7 +467,7 @@ tr.interactive-map-row-hilite {
   width:37px;
   height:43px;
 }
-.map-hot-spot-36 {
+.map-hot-spot-37 {
   border-width:0px;
   position:absolute;
   left:calc(var(--left-offset) + 214px);
@@ -467,7 +475,7 @@ tr.interactive-map-row-hilite {
   width:35px;
   height:56px;
 }
-.map-hot-spot-37 {
+.map-hot-spot-38 {
   border-width:0px;
   position:absolute;
   left:calc(var(--left-offset) + 249px);
