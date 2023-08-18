@@ -297,13 +297,17 @@
               <div class="card-profile__content-small">
                 <h3 class="card-profile__content-header">{{ viewmodel['tab_sections']['labour_market_statistics']['employment_regional_title'] }}</h3>
                 <span class="card-profile__content-value">{{ viewmodel['tab_sections']['labour_market_statistics']['employment_regional_markup']|raw }}</span>
-                <span class="card-profile__content-item">{{ viewmodel['tab_sections']['labour_market_statistics']['employment_regional_ftpt_table_markup']|raw }}</span>
+                <div class="card-profile__content-item employment-bc-ftpt-table">
+                  {{ viewmodel['tab_sections']['labour_market_statistics']['employment_regional_ftpt_table_markup']|raw }}
+                </div>
               </div>
               <div class="card-profile__content-divider"></div>
               <div class="card-profile__content-small">
                 <h3 class="card-profile__content-header">{{ viewmodel['tab_sections']['labour_market_statistics']['employment_bc_title'] }}</h3>
                 <span class="card-profile__content-value">{{ viewmodel['tab_sections']['labour_market_statistics']['employment_bc_markup']|raw }}</span>
-                <span class="card-profile__content-item">{{ viewmodel['tab_sections']['labour_market_statistics']['employment_bc_ftpt_table_markup']|raw }}</span>
+                <div class="card-profile__content-item employment-bc-ftpt-table">
+                  {{ viewmodel['tab_sections']['labour_market_statistics']['employment_bc_ftpt_table_markup']|raw }}
+                </div>
               </div>
               <div class="card-profile__source">
                 <em>Source:</em> {{ viewmodel['tab_sections']['labour_market_statistics']['employment_source']|raw }}
