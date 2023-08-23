@@ -19,7 +19,7 @@ resource "aws_ecs_task_definition" "pdf-link-job" {
 
   container_definitions = jsonencode([
 	{
-		essential   = false
+		essential   = true
 		name        = "pdf"
 		image       = "${var.app_repo}/pdf:0.8"
 		networkMode = "awsvpc"
