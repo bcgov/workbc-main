@@ -70,3 +70,25 @@ resource "aws_ecs_task_definition" "pdf-link-job" {
 	}
   ])
 }
+
+resource "aws_cloudwatch_event_rule" "cron2" {
+	name = "pdf_cron_schedule"
+	schedule_expression = "rate(2 hours)"
+}
+
+resource "aws_cloudwatch_event_target" "ecs_scheduled_task2" {
+  arn      = aws_ecs_cluster.main.arn
+  rule     = aws_cloudwatch_event_rule.cron2.id
+  role_arn = aws_iam_role.workbc_events_role.arn
+
+  ecs_target {
+    task_count          = 1
+    task_definition_arn = aws_ecs_task_definition.pdf-link-job.arn
+    launch_type         = "FARGATE"
+    network_configuration {
+      assign_public_ip = false
+      security_groups  = [data.aws_security_group.app.id]
+      subnets          = module.network.aws_subnet_ids.app.ids
+    }
+  }
+}
