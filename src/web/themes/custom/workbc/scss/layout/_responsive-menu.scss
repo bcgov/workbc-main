@@ -323,11 +323,10 @@ html {
   z-index: 99;
 }
 
-a#mm-0 {
+body.mm-wrapper--opened a#mm-0 {
   position: fixed;
   height: 100%
 }
-
 
 .mm-wrapper--position-left {
   --mm-translate-horizontal: 0;
