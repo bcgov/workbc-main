@@ -1,0 +1,9 @@
+langcode: en
+status: true
+dependencies:
+  module:
+    - media
+id: media.cke_media_resize_xl
+label: 'CKE Media Resize Extra Large'
+targetEntityType: media
+cache: true

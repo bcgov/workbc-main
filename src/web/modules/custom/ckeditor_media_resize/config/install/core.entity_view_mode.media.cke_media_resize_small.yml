@@ -1,0 +1,9 @@
+langcode: en
+status: true
+dependencies:
+  module:
+    - media
+id: media.cke_media_resize_small
+label: 'CKE Media Resize Small'
+targetEntityType: media
+cache: true

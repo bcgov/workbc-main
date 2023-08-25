@@ -1,0 +1,13 @@
+name: Ckeditor Media Resize
+type: module
+description: Provides a ckeditor5 plugin that allows resizing of embedded image media
+package: Custom
+core_version_requirement: ^9.4 || ^10
+dependencies:
+  - drupal:ckeditor5
+  - drupal:media_library
+
+# Information added by Drupal.org packaging script on 2023-08-16
+version: '1.0.x-dev'
+project: 'ckeditor_media_resize'
+datestamp: 1692189127

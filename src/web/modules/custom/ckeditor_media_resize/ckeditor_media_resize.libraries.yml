@@ -1,0 +1,6 @@
+editor:
+  js:
+    js/build/mediaResize.js: { preprocess: false, minified: true }
+  dependencies:
+    - ckeditor5/ckeditor5
+    - ckeditor5/internal.drupal.ckeditor5.media

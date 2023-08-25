@@ -1,0 +1,17 @@
+
+# Plugin \Drupal\ckeditor_media_resize\Plugin\CKEditor5Plugin\MediaResize
+ckeditor5.plugin.ckeditor_media_resize_mediaResize:
+  type: mapping
+  label: Media Resize
+  mapping:
+    apply_image_styles:
+      type: boolean
+      label: 'Apply image styles'
+      constraints:
+        NotNull: [ ]
+    image_styles:
+      type: sequence
+      label: 'Resize image styles'
+      sequence:
+        type: string
+        label: 'Resize image style'

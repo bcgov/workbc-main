@@ -1,0 +1,36 @@
+/**
+ * This is necessary because the the filter_resize_media plugin runs when the
+ * saved markup is loaded into the editor and sets an inline style on the
+ * .media element that's fetched from and rendered on the server when the
+ * editor loads.
+ *
+ * Because it gets rendered on the server, we can't access that part of the
+ * markup inside the CKEditor5 drupolMedia Model, and thus we can't the
+ * inline style on the rendered part but only on the wrapping model. As a
+ * result there are 2 inline styles in the editor, so we're resetting the
+ * one on the rendered markup for correct display inside the editor.
+ */
+.drupal-media.ck-widget_with-resizer .media {
+  width: 100% !important;
+}
+
+.ck .drupal-media {
+  margin-left: 0;
+  margin-right: 0;
+  max-width: none;
+}
+
+.ck-content .drupal-media-style-align-center {
+  margin-left: auto;
+  margin-right: auto;
+}
+
+figure.align-left,
+.ck figure.drupal-media.drupal-media-style-align-left {
+  margin-right: 1rem;
+}
+
+figure.align-right,
+.ck figure.drupal-media.drupal-media-style-align-right {
+  margin-left: 1rem;
+}

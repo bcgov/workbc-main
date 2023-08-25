@@ -1,0 +1,14 @@
+langcode: en
+status: true
+dependencies: {  }
+name: cke_media_resize_medium
+label: 'CKE Media Resize Medium (width 500)'
+effects:
+  ec672983-a4ee-48e5-9712-d4f97fadfa02:
+    uuid: ec672983-a4ee-48e5-9712-d4f97fadfa02
+    id: image_scale
+    weight: 1
+    data:
+      width: 500
+      height: null
+      upscale: true

@@ -1,0 +1,14 @@
+langcode: en
+status: true
+dependencies: {  }
+name: cke_media_resize_xl
+label: 'CKE Media Resize Extra Large (width 1200)'
+effects:
+  c34ad257-454d-466e-b3e4-2c4c0107049e:
+    uuid: c34ad257-454d-466e-b3e4-2c4c0107049e
+    id: image_scale
+    weight: 1
+    data:
+      width: 1200
+      height: null
+      upscale: true
