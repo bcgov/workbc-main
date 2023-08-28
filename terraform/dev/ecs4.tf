@@ -73,7 +73,8 @@ resource "aws_ecs_task_definition" "pdf-link-job" {
 
 resource "aws_cloudwatch_event_rule" "cron2" {
 	name = "pdf_cron_schedule"
-	schedule_expression = "rate(2 hours)"
+	schedule_expression = "cron(0 2 1 * ? *)"
+	is_enabled = false
 }
 
 resource "aws_cloudwatch_event_target" "ecs_scheduled_task2" {
