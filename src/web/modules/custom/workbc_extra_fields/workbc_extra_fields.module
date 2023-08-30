@@ -428,6 +428,29 @@ function ssotIndustryName($machine_name) {
   return isset($industries[$machine_name]) ? $industries[$machine_name] : "";
 }
 
+/* 
+    custom Industry Key mapping for SSoT Monthly Labour Market Updates data.
+    The industries for the data columns do not match 1 to 1 the Industry Profiles  
+ */
+function ssotIndustryKey($industry) {
+  
+  $industries = [
+    'accommodation_and_food_services' => 'Accommodation And Food Services',
+    'agriculture' => 'Agriculture And Fishing',
+    'construction' => 'Construction',
+    'educational_services' => 'Educational Services',
+    'finance_insurance_real_estate_rental' => 'Finance, Insurance And Real Estate',
+    'health_care_and_social_assistance' => 'Health Care And Social Assistance',
+    'manufacturing' => 'Manufacturing',
+    'other_services' => 'Repair, Personal And Non-Profit Services',
+    'professional_scientific_and_technical' => 'Professional, Scientific And Technical Services',
+    'public_administration' => 'Public Administration',
+    'transportation_and_warehousing' => 'Transportation And Warehousing',
+    'utilities' => 'Utilities',
+  ];
+
+  return array_search($industry, $industries);
+}
 
 /*
    custom number format function to add '+' if required

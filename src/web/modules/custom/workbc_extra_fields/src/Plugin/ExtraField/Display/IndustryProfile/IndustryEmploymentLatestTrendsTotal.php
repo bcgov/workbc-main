@@ -47,11 +47,15 @@ class IndustryEmploymentLatestTrendsTotal extends ExtraFieldDisplayFormattedBase
       'positive_sign' => TRUE,
       'na_if_empty' => TRUE,
     );
+   
+    $industry = ssotIndustryKey($entity->ssot_data['industry_outlook']['industry']);
+
     if (!empty($entity->ssot_data) && isset($entity->ssot_data['monthly_labour_market_updates'])) {
       $sourceData = $entity->ssot_data['monthly_labour_market_updates'];
       $idx = ssotLatestMonthlyLabourMarketUpdate($entity->ssot_data['monthly_labour_market_updates']);
       $output = "<div>(change since last month)</div>";
-      $output .= ssotFormatNumber($entity->ssot_data['monthly_labour_market_updates'][$idx]['employment_change_abs_total_employment'], $options);
+      $value = isset($entity->ssot_data['monthly_labour_market_updates'][$idx]['industry_abs_' . $industry]) ? $entity->ssot_data['monthly_labour_market_updates'][$idx]['industry_abs_' . $industry] : NULL;
+      $output .= ssotFormatNumber($value, $options);
     }
     else {
       $output = WORKBC_EXTRA_FIELDS_NOT_AVAILABLE;
@@ -62,3 +66,8 @@ class IndustryEmploymentLatestTrendsTotal extends ExtraFieldDisplayFormattedBase
   }
 
 }
+
+
+
+
+
