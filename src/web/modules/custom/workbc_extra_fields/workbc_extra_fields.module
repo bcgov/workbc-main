@@ -167,7 +167,7 @@ function ssotIndustryProfile($industry) {
   $data['labour_force_survey_industry'] = querySSoT('labour_force_survey_industry?industry=eq.' . $industry)[0];
   $data['monthly_labour_market_updates'] = querySSoT('monthly_labour_market_updates');
   $data['openings_industry'] = querySSoT('openings_industry?industry=eq.' . $industry);
-  $data['sources'] = ssotSources();
+  $data['sources'] = ssotSources(TRUE);
   $data['schema'] = ssotSchema();
   return $data;
 }
@@ -208,14 +208,33 @@ function ssotSchema() {
   return $schema;
 }
 
-function ssotSources() {
+/*
+  monthly labour market update has two sources one with datapoint null and one
+  with datapoint 'unemployment_pct'. Array reduce results in returning the source
+  of datapoint 'unemployment_pct' which we don't want for Industry Profile.
+  If $nullDataPoint is passed as TRUE, only sources with null datapoint will be
+  included.
+*/
+function ssotSources($nullDataPoint = FALSE) {
+
   $sources = querySSoT('sources');
   if (!$sources) return [];
 
-  return array_reduce($sources, function($ret, $source) {
-    $ret[$source['endpoint']] = $source;
+  if ($nullDataPoint) {
+    $ret = [];
+    foreach ($sources as $source) {
+      if (is_null($source['datapoint'])) {
+        $ret[$source['endpoint']] = $source;
+      }
+    }
     return $ret;
-  }, []);
+  }
+  else {
+    return array_reduce($sources, function($ret, $source) {
+      $ret[$source['endpoint']] = $source;
+      return $ret;
+    }, []);
+  }
 }
 
 function querySSoT($url, $read_timeout = NULL) {
