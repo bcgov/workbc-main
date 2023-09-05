@@ -25,7 +25,7 @@ jobs:
           aws-region: ${{ secrets.AWS_REGION }}
           role-to-assume: ${{ secrets.AWS_ROLE_TO_ASSUME }}
           role-duration-seconds: 900
-          role-session-name: workbc-github-action
+          role-session-name: workbc-cc-github-action
           role-skip-session-tagging: true
           
       - name: Login to Amazon ECR
