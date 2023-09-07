@@ -1,21 +1,20 @@
 (function ($, Drupal, once) {
   ("use strict");
 
-  let linkList = jQuery('ul.page-left-nav__links');
+  let initSidenavAnchors = function(wrapper) {
+    let article = $('article.page-format--sidenav');
+    let headings = article.find(".node-page-content h2").not(".node-page-content .on-this-page h2");
 
-  let configureHeadingAnchor = function (index, element) {
-    var anchorid = "sideNavAnchorId_" + index;
-    var anchorText = jQuery(element).text();
+    headings.each(function (index, element) {
+      var anchorid = "sideNavAnchorId_" + index;
+      var anchorText = $(element).text();
+      let linkList = $('ul.page-left-nav__links', wrapper);
 
-    $(this).append('<a class="sidenav-anchor" id="' + anchorid + '" />');
-    linkList.append('<li><a href="#' + anchorid + '">' + anchorText + '</a></li>');
-  };
-
-  let initSidenavAnchors = function() {
-    let article = jQuery('article.page-format--sidenav');
-    let headings = article.find(".node-page-content h2");
-
-    headings.each(configureHeadingAnchor);
+      if (!$('#' + anchorid).length) {
+        $(this).append('<a class="sidenav-anchor" id="' + anchorid + '" />');
+      }
+      linkList.append('<li><a href="#' + anchorid + '">' + anchorText + '</a></li>');
+    });
   };
 
   Drupal.behaviors.sidenavAnchors = {
