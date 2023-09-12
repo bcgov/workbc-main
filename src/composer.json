@@ -233,7 +233,7 @@
                 "Add request to hook_redirect_response_alter": "patches/drupal/redirect/hook_alter_request.patch"
             },
             "drupal/gtranslate" : {
-               "Replace select language with the default/current language": "patches/drupal/gtranslate/select_default_value.patch",
+               "Remove select language option and default language highlight": "patches/drupal/gtranslate/remove_select_language.patch",
                "Select doesn't show language selected after changing pages": "patches/drupal/gtranslate/select_changed_value.patch"
             },
             "drupal/charts": {
