@@ -50,6 +50,7 @@ class IndustryEmploymentByRegionTable extends ExtraFieldDisplayFormattedBase {
     );
     $regions = array();
     if (!empty($entity->ssot_data) && isset($entity->ssot_data['labour_force_survey_industry'])) {
+
       $region = array();
       $region['name'] = t(REGION_CARIBOO);
       $region['industry'] = ssotFormatNumber($entity->ssot_data['labour_force_survey_industry']['location_cariboo_employment_this_industry_pct'], $options);
@@ -87,7 +88,9 @@ class IndustryEmploymentByRegionTable extends ExtraFieldDisplayFormattedBase {
       $regions[] = $region;
     }
 
-    $header = ['Region', '% Employment this Industry', '% Employment All Industries'];
+    $datestr = ssotParseDateRange($this->getEntity()->ssot_data['schema'], 'labour_force_survey_industry', 'total_employment');
+
+    $header = ['Region', '% Employment this Industry (' . $datestr . ')', '% Employment All Industries (' . $datestr . ')'];
 
     $rows = [];
     foreach ($regions as $region) {
