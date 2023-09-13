@@ -519,6 +519,12 @@ div#career-profile-interactive-map-2 {
   }
 }
 
+div#career-profile-interactive-map-2 {
+  table th {
+    width: 33%;
+  }
+}
+
 @include media-breakpoint-down(sm) {
 
   .lm-table-container {
