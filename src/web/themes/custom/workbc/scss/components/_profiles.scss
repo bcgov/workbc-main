@@ -213,15 +213,19 @@
       }
 
       .profile-content-section__header {
-        font-size: 1.313rem;
+        font-size: 21px;
         font-weight: normal;
+        line-height: 2em;
+        padding-top: 10px;
         padding-bottom: 15px;
         margin-bottom: 20px;
 
         @include gradient-underline;
 
-        @include media-breakpoint-up(lg) {
-          font-size: 1.875rem;
+        @include media-breakpoint-up(sm) {
+          padding-top: 30px;
+          font-size: 30px;
+          line-height: 1.5em;
         }
       }
     }
