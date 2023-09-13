@@ -500,6 +500,25 @@ tr.interactive-map-row-hilite {
   }
 }
 
+
+div#career-profile-interactive-map-1,
+div#career-profile-interactive-map-2 {
+  display: block;
+  width: 90%;
+  margin: auto;
+
+  table {
+    td, th {
+      text-align: right;
+    }
+
+    td:first-child, th:first-child {
+      text-align: left;
+    }
+
+  }
+}
+
 @include media-breakpoint-down(sm) {
 
   .lm-table-container {
