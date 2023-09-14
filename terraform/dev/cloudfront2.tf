@@ -1,9 +1,4 @@
 # cloudfront.tf
-resource "random_integer" "cf_origin_id2" {
-  min = 1
-  max = 100
-}
-
 resource "aws_cloudfront_distribution" "workbc-pdf-link-check" {
 
   count = var.cloudfront ? 1 : 0
@@ -30,7 +25,7 @@ resource "aws_cloudfront_distribution" "workbc-pdf-link-check" {
     "PUT"]
     cached_methods = ["GET", "HEAD"]
 
-    target_origin_id = random_integer.cf_origin_id2.result
+    target_origin_id = "PDF-Link-Check-Results"
 
     forwarded_values {
       query_string = true
@@ -66,7 +61,7 @@ resource "aws_cloudfront_distribution" "workbc-pdf-link-check" {
   }
 
   tags = var.common_tags
- 
+  depends_on = [aws_s3_bucket.workbc_s33]
   
 }
 
