@@ -28,11 +28,11 @@ data "aws_iam_policy_document" "allow_access_from_other_accounts_and_cloudfront"
       "${aws_s3_bucket.workbc_s33.arn}/*",
     ]
 	
-	/*condition {
+	condition {
 	  test = "StringEquals"
 	  variable = "AWS:SourceArn"
 	  values = ["${aws_cloudfront_distribution.workbc-pdf-link-check[0].arn}"]
-	}*/
+	}
   }
   
   statement {
