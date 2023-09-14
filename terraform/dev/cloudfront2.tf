@@ -62,6 +62,7 @@ resource "aws_cloudfront_distribution" "workbc-pdf-link-check" {
   }
 
   tags = var.common_tags
+  depends_on = [aws_s3_bucket.workbc_s33]
   
 }
 
