@@ -57,6 +57,10 @@ resource "aws_cloudfront_distribution" "workbc-pdf-link-check" {
     }
   }
 
+  viewer_certificate {
+    cloudfront_default_certificate = true
+  }
+
   tags = var.common_tags
   
 }
