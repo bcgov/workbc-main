@@ -13,6 +13,7 @@ dependencies:
     - paragraphs.paragraphs_type.action_cards_full_width
     - paragraphs.paragraphs_type.action_cards_icon
     - paragraphs.paragraphs_type.action_cards_publication
+    - paragraphs.paragraphs_type.content_interactive_map
     - paragraphs.paragraphs_type.content_text
     - paragraphs.paragraphs_type.content_view
   module:
@@ -41,6 +42,7 @@ settings:
       content_view: content_view
       action_cards_icon: action_cards_icon
       action_cards_publication: action_cards_publication
+      content_interactive_map: content_interactive_map
     negate: 0
     target_bundles_drag_drop:
       action_card:
@@ -79,6 +81,9 @@ settings:
       additional_duties:
         weight: 17
         enabled: false
+      content_interactive_map:
+        weight: 30
+        enabled: true
       content_text:
         weight: 20
         enabled: true

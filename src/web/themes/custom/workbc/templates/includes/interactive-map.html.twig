@@ -6,8 +6,11 @@
  * Available variables:
  *   - map_no (a numeric id)
  *   - regions
+ *   - map_type (link, table)
  */
 #}
+
+{% set map_type = map_type is null ? "table" : map_type %}
 
 {% set region_cariboo = 1 %}
 {% set region_kootenay = 2 %}
@@ -70,12 +73,12 @@
     {% endfor %}
 
     {% for hotspot_no, region_no in hotspots %}
-      <div class="map-hot-spot-{{ hotspot_no }} map-hot-spot" data-interactive-map-no="{{ map_no }}" data-interactive-map-region-no="{{ region_no }}"> </div>
+      <div class="map-hot-spot-{{ hotspot_no }} map-hot-spot" data-interactive-map-type="{{ map_type }}" data-interactive-map-no="{{ map_no }}" data-interactive-map-region-no="{{ region_no }}" data-interactive-map-region-link="{{ regions[region_no].link }}"> </div>
     {% endfor %}
 
     {% for region in regions %}
       {% if region.id > 0 %}
-        <div class="map-region-label-{{ region.key }} map-hot-spot map-region-label" data-interactive-map-no="{{ map_no }}" data-interactive-map-region-no="{{ region.id }}">{{ region.name }}</div>
+        <div class="map-region-label-{{ region.key }} map-hot-spot map-region-label" data-interactive-map-type="{{ map_type }}" data-interactive-map-no="{{ map_no }}" data-interactive-map-region-no="{{ region_no }}" data-interactive-map-region-link="{{ region.link }}">{{ region.name }}</div>
       {% endif %}
     {% endfor %}
 

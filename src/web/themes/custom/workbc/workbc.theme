@@ -72,6 +72,20 @@ function workbc_preprocess_paragraph(&$variables) {
     }
   }
 
+  if ($variables['paragraph']->bundle() == "content_interactive_map") {
+    $variables['region_info'] = ssotRegionInfo();  
+    $paragraph = $variables['paragraph'];
+    foreach ($variables['region_info'] as $key => $region) {
+      if ($region['key'] == "british_columbia") {
+        continue;
+      }
+      $field_key = substr("field_link_". $region['key'], 0, 32);
+      $test = "field_link_cariboo";
+      $url = Url::fromUri($variables['paragraph']->$field_key->uri);
+      $variables['region_info'][$key]['link'] = $url->toString();
+    }  
+  }
+
   // SPECIAL CASE
   // Override cards for "EducationPlannerBC" and "StudentAidBC" by injecting their logos.
   if (isset($variables['paragraph']->field_key)) {

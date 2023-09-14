@@ -1,0 +1,23 @@
+uuid: a79ba201-4e04-428b-b5fd-249eb8c68f54
+langcode: en
+status: true
+dependencies:
+  config:
+    - field.storage.paragraph.field_link_north_coast_nechako
+    - paragraphs.paragraphs_type.content_interactive_map
+  module:
+    - link
+id: paragraph.content_interactive_map.field_link_north_coast_nechako
+field_name: field_link_north_coast_nechako
+entity_type: paragraph
+bundle: content_interactive_map
+label: 'North Coast and Nechako Link'
+description: ''
+required: false
+translatable: false
+default_value: {  }
+default_value_callback: ''
+settings:
+  title: 1
+  link_type: 17
+field_type: link

@@ -1,0 +1,106 @@
+uuid: fb384990-cae5-4535-a5e3-5affb1199a63
+langcode: en
+status: true
+dependencies:
+  config:
+    - field.field.paragraph.content_interactive_map.field_link_cariboo
+    - field.field.paragraph.content_interactive_map.field_link_kootenay
+    - field.field.paragraph.content_interactive_map.field_link_mainland_southwest
+    - field.field.paragraph.content_interactive_map.field_link_north_coast_nechako
+    - field.field.paragraph.content_interactive_map.field_link_northeast
+    - field.field.paragraph.content_interactive_map.field_link_thompson_okanagan
+    - field.field.paragraph.content_interactive_map.field_link_vancouver_island_coas
+    - paragraphs.paragraphs_type.content_interactive_map
+  module:
+    - link
+id: paragraph.content_interactive_map.default
+targetEntityType: paragraph
+bundle: content_interactive_map
+mode: default
+content:
+  field_link_cariboo:
+    type: link
+    label: above
+    settings:
+      trim_length: 80
+      url_only: false
+      url_plain: false
+      rel: ''
+      target: ''
+    third_party_settings: {  }
+    weight: 0
+    region: content
+  field_link_kootenay:
+    type: link
+    label: above
+    settings:
+      trim_length: 80
+      url_only: false
+      url_plain: false
+      rel: ''
+      target: ''
+    third_party_settings: {  }
+    weight: 1
+    region: content
+  field_link_mainland_southwest:
+    type: link
+    label: above
+    settings:
+      trim_length: 80
+      url_only: false
+      url_plain: false
+      rel: ''
+      target: ''
+    third_party_settings: {  }
+    weight: 2
+    region: content
+  field_link_north_coast_nechako:
+    type: link
+    label: above
+    settings:
+      trim_length: 80
+      url_only: false
+      url_plain: false
+      rel: ''
+      target: ''
+    third_party_settings: {  }
+    weight: 3
+    region: content
+  field_link_northeast:
+    type: link
+    label: above
+    settings:
+      trim_length: 80
+      url_only: false
+      url_plain: false
+      rel: ''
+      target: ''
+    third_party_settings: {  }
+    weight: 4
+    region: content
+  field_link_thompson_okanagan:
+    type: link
+    label: above
+    settings:
+      trim_length: 80
+      url_only: false
+      url_plain: false
+      rel: ''
+      target: ''
+    third_party_settings: {  }
+    weight: 5
+    region: content
+  field_link_vancouver_island_coas:
+    type: link
+    label: above
+    settings:
+      trim_length: 80
+      url_only: false
+      url_plain: false
+      rel: ''
+      target: ''
+    third_party_settings: {  }
+    weight: 6
+    region: content
+hidden:
+  search_api_excerpt: true

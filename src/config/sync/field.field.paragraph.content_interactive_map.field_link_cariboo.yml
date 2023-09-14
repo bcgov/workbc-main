@@ -1,0 +1,23 @@
+uuid: e15b2ac1-e002-4849-9e31-fe6045cb4951
+langcode: en
+status: true
+dependencies:
+  config:
+    - field.storage.paragraph.field_link_cariboo
+    - paragraphs.paragraphs_type.content_interactive_map
+  module:
+    - link
+id: paragraph.content_interactive_map.field_link_cariboo
+field_name: field_link_cariboo
+entity_type: paragraph
+bundle: content_interactive_map
+label: 'Cariboo Link'
+description: ''
+required: false
+translatable: false
+default_value: {  }
+default_value_callback: ''
+settings:
+  title: 1
+  link_type: 17
+field_type: link

@@ -1,0 +1,10 @@
+uuid: fe72095c-2f3e-4c36-9fa7-64a5a098cb05
+langcode: en
+status: true
+dependencies: {  }
+id: content_interactive_map
+label: 'Content: Interactive Map'
+icon_uuid: null
+icon_default: null
+description: 'Interactive Map Component'
+behavior_plugins: {  }
