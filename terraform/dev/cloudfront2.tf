@@ -1,5 +1,4 @@
 # cloudfront.tf
-/*
 resource "aws_cloudfront_distribution" "workbc-pdf-link-check" {
 
   count = var.cloudfront ? 1 : 0
@@ -62,10 +61,10 @@ resource "aws_cloudfront_distribution" "workbc-pdf-link-check" {
   }
 
   tags = var.common_tags
-  depends_on = [aws_s3_bucket.workbc_s33]
+ 
   
 }
 
 output "cloudfront_url2" {
   value = "https://${aws_cloudfront_distribution.workbc-pdf-link-check[0].domain_name}"
-}*/
+}
