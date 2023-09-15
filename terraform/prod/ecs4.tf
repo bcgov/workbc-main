@@ -21,7 +21,7 @@ resource "aws_ecs_task_definition" "pdf-link-job" {
 	{
 		essential   = true
 		name        = "pdf"
-		image       = "${var.app_repo}/pdf:0.8"
+		image       = "${var.app_repo}/pdf:0.9"
 		networkMode = "awsvpc"
 
 		logConfiguration = {
