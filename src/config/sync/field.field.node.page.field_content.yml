@@ -12,6 +12,7 @@ dependencies:
     - paragraphs.paragraphs_type.action_cards_explore_careers
     - paragraphs.paragraphs_type.action_cards_full_width
     - paragraphs.paragraphs_type.action_cards_icon
+    - paragraphs.paragraphs_type.action_cards_icon_1_2
     - paragraphs.paragraphs_type.action_cards_publication
     - paragraphs.paragraphs_type.content_text
     - paragraphs.paragraphs_type.content_view
@@ -41,6 +42,7 @@ settings:
       content_view: content_view
       action_cards_icon: action_cards_icon
       action_cards_publication: action_cards_publication
+      action_cards_icon_1_2: action_cards_icon_1_2
     negate: 0
     target_bundles_drag_drop:
       action_card:
@@ -72,6 +74,9 @@ settings:
         enabled: true
       action_cards_icon:
         weight: 22
+        enabled: true
+      action_cards_icon_1_2:
+        weight: 28
         enabled: true
       action_cards_publication:
         weight: 25
