@@ -54,7 +54,7 @@
       {% set map_type = "link" %}
       {% set map_no = paragraph.id() %}
       {% set regions = region_info %}  
-      <div class="workbc-interactive-map-{{ map_no }}"> 
+      <div class="workbc-interactive-map-component workbc-interactive-map-{{ map_no }}"> 
         {% include '@workbc/includes/interactive-map.html.twig' with { map_no, regions, map_type } %}
       </div>
     {% endblock %}

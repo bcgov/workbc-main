@@ -64,11 +64,7 @@ let currentRegion = {};
           }
 
           if (mapType == "link") {
-            $option = "";
-            if (regionLink.indexOf('http://') != 0 && regionLink.indexOf('https://') != 0) {
-              $option = "_self";
-            }
-            window.open(regionLink, $option);
+            window.open(regionLink, "_self");
           }
         });
       });
