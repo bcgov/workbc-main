@@ -59,9 +59,19 @@ assert_options(ASSERT_ACTIVE, TRUE);
 \Drupal\Component\Assertion\Handle::register();
 
 /**
+ * Control caching in the local development environment.
+ */
+const LOCAL_CACHE_ACTIVE = TRUE;
+
+/**
  * Enable local development services.
  */
-$settings['container_yamls'][] = DRUPAL_ROOT . '/sites/development.services.yml';
+if (LOCAL_CACHE_ACTIVE) {
+  $settings['container_yamls'][] = DRUPAL_ROOT . '/sites/development.services.cache.yml';
+}
+else {
+  $settings['container_yamls'][] = DRUPAL_ROOT . '/sites/development.services.yml';
+}
 
 /**
  * Show all error messages, with backtrace information.
@@ -90,7 +100,9 @@ $config['advagg.settings']['enabled'] = FALSE;
  *
  * Only use this setting once the site has been installed.
  */
-$settings['cache']['bins']['render'] = 'cache.backend.null';
+if (!LOCAL_CACHE_ACTIVE) {
+  $settings['cache']['bins']['render'] = 'cache.backend.null';
+}
 
 /**
  * Disable caching for migrations.
@@ -112,7 +124,9 @@ $settings['cache']['bins']['render'] = 'cache.backend.null';
  *
  * Only use this setting once the site has been installed.
  */
-$settings['cache']['bins']['page'] = 'cache.backend.null';
+if (!LOCAL_CACHE_ACTIVE) {
+  $settings['cache']['bins']['page'] = 'cache.backend.null';
+}
 
 /**
  * Disable Dynamic Page Cache.
@@ -121,7 +135,9 @@ $settings['cache']['bins']['page'] = 'cache.backend.null';
  * cacheability metadata is present (and hence the expected behavior). However,
  * in the early stages of development, you may want to disable it.
  */
-$settings['cache']['bins']['dynamic_page_cache'] = 'cache.backend.null';
+if (!LOCAL_CACHE_ACTIVE) {
+  $settings['cache']['bins']['dynamic_page_cache'] = 'cache.backend.null';
+}
 
 /**
  * Allow test modules and themes to be installed.
