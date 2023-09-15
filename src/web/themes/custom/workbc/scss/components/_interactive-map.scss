@@ -539,7 +539,8 @@ tr.interactive-map-row-hilite {
   #career-profile-interactive-map-1,
   #career-profile-interactive-map-2,
   #bc-region-interactive-map,
-  #industry-profile-interactive-map {
+  #industry-profile-interactive-map,
+  .workbc-interactive-map-component {
     .label-line, .map-region-label, thead {
       display: none;
     }
