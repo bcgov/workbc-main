@@ -41,59 +41,59 @@ settings:
       content_text: content_text
       content_view: content_view
       action_cards_icon: action_cards_icon
-      action_cards_publication: action_cards_publication
       action_cards_icon_1_2: action_cards_icon_1_2
+      action_cards_publication: action_cards_publication
     negate: 0
     target_bundles_drag_drop:
       action_card:
-        weight: 11
+        weight: -35
         enabled: false
       action_card_feature:
-        weight: 12
+        weight: -34
         enabled: true
       action_card_full_width:
-        weight: 19
+        weight: -28
         enabled: false
       action_card_icon:
-        weight: 19
+        weight: -27
         enabled: false
       action_cards_1_2:
-        weight: 13
+        weight: -33
         enabled: true
       action_cards_1_3:
-        weight: 14
+        weight: -32
         enabled: true
       action_cards_1_4:
-        weight: 15
+        weight: -31
         enabled: true
       action_cards_explore_careers:
-        weight: 20
+        weight: -25
         enabled: true
       action_cards_full_width:
-        weight: 16
+        weight: -30
         enabled: true
       action_cards_icon:
-        weight: 22
+        weight: -21
         enabled: true
       action_cards_icon_1_2:
-        weight: 28
+        weight: -20
         enabled: true
       action_cards_publication:
-        weight: 25
+        weight: -19
         enabled: true
       additional_duties:
-        weight: 17
+        weight: -29
         enabled: false
       content_text:
-        weight: 20
+        weight: -24
         enabled: true
       content_view:
-        weight: 21
+        weight: -22
         enabled: true
       quote_card:
-        weight: 19
+        weight: -26
         enabled: false
       skills:
-        weight: 20
+        weight: -23
         enabled: false
 field_type: entity_reference_revisions
