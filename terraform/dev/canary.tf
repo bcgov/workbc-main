@@ -9,5 +9,4 @@ resource "aws_synthetics_canary" "workbc-monitor" {
   schedule {
     expression = "rate(5 minutes)"
   }
-  timeout_in_seconds = 200
 }
