@@ -1,5 +1,5 @@
 resource "aws_synthetics_canary" "workbc-monitor" {
-  name                 = "workbc-monitor2"
+  name                 = "workbcmonitor2"
   artifact_s3_location = "s3://cw-syn-results-873424993519-ca-central-1/canary/ca-central-1/workbcmonitor2-572-6ce5cc6d373e"
   execution_role_arn   = "arn:aws:iam::873424993519:role/service-role/CloudWatchSyntheticsRole-workbcmonitor2-572-6ce5cc6d373e"
   handler              = "apiCanaryBlueprint.handler"
