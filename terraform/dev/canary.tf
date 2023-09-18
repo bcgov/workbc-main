@@ -6,7 +6,7 @@ resource "aws_synthetics_canary" "workbc-monitor" {
   handler              = "apiCanaryBlueprint.handler"
   zip_file             = "cwsyn-workbcmonitor2-ee246144-167d-4242-852f-5305034f963f-162957ef-bb5e-4f35-9680-cb70463f5fed.zip"
   runtime_version      = "syn-nodejs-puppeteer-5.1"
-  start_canary         = 1
+  start_canary         = true
   
   run_config{
     timeout_in_seconds = 200
