@@ -13,11 +13,11 @@ entity_type: paragraph
 bundle: content_interactive_map
 label: 'Kootenay Link'
 description: ''
-required: false
+required: true
 translatable: false
 default_value: {  }
 default_value_callback: ''
 settings:
-  title: 1
-  link_type: 17
+  title: 0
+  link_type: 1
 field_type: link
