@@ -1,0 +1,33 @@
+{#
+/**
+ * @file
+ * Theme override to display a media item.
+ *
+ * Available variables:
+ * - name: Name of the media.
+ * - content: Media content.
+ *
+ * @see template_preprocess_media()
+ *
+ * @ingroup themeable
+ */
+#}
+{%
+  set classes = [
+    'media',
+    'media--type-' ~ media.bundle()|clean_class,
+    not media.isPublished() ? 'media--unpublished',
+    view_mode ? 'media--view-mode-' ~ view_mode|clean_class,
+  ]
+%}
+<article{{ attributes.addClass(classes) }}>
+  {{ title_suffix.contextual_links }}
+  {% if content %}
+    {{ content }}
+      <div class="workbc-card-video-preview">
+         <a class="use-ajax" aria-label="button", 'back to top' data-dialog-options='{"width" : "auto", "maxWidth": "1200", "height": "auto", "modal": "true", "fluid": "true", "title": "", "dialogClass": "video-library-modal"}' data-dialog-type="modal" href="/media/211">
+         <div class="workbc-card-thumbnail">{{ media_thumbnail }}</div>
+         </a>
+      </div>    
+  {% endif %}
+</article>

@@ -224,6 +224,22 @@ function workbc_preprocess_views_view_summary_unformatted(&$variables) {
   $variables['view_base_path'] = $view->getPath();
 }
 
+/**
+ * Implements template_preprocess_media().
+ */
+function workbc_preprocess_media(&$variables) {
+
+  $media = $variables['media'];
+  $thumbnailUri = $media->get('thumbnail')->entity->getFileUri();
+  if($thumbnailUri) {
+    $image = [
+      '#theme' => 'image_style',
+      '#style_name' => 'video_component',
+      '#uri' => $thumbnailUri
+    ];
+    $variables['media_thumbnail'] = render($image);
+  }  
+}
 
 /**
  * Implements hook_preprocess_html().
