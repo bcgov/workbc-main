@@ -51,53 +51,37 @@
 {%
   set classes = [
     'paragraph',
-    paragraph.field_key[0].value ? 'paragraph--key--' ~ paragraph.field_key[0].value|clean_class,    
+    paragraph.field_key[0].value ? 'paragraph--key--' ~ paragraph.field_key[0].value|clean_class,
     'paragraph--type--' ~ paragraph.bundle|clean_class,
     view_mode ? 'paragraph--view-mode--' ~ view_mode|clean_class,
-    not paragraph.isPublished() ? 'paragraph--unpublished',
-    'card-w-icon',
-    'container'
+    not paragraph.isPublished() ? 'paragraph--unpublished'
   ]
 %}
 
 {% block paragraph %}
   <div{{ attributes.addClass(classes) }}>
     {% block content %}
+      <div class="card">
+        <div class="card-body">
+          <div class="card-w-icon__icon">
+            {{ card_w_icon_icon }}
+          </div>
+          <div class="card-w-icon__content">
+            <h3 class="card-w-icon__title {{ card_w_icon_title_color }}">
+              {{ card_w_icon_title }}
+            </h3>
 
-      <div class="row">
-
-        <div class="card-w-icon__icon">
-          {{ card_w_icon_icon }}
-        </div>
-
-        <div class="col card-w-icon__content">
-
-          <h3 class="card-w-icon__title {{ card_w_icon_title_color }}">
-            {{ card_w_icon_title }}
-          </h3>
-
-          <div class="card-w-icon__desc">
-            {{ card_w_icon_desc }}
-          </div>      
-
-        </div>
-      </div>
-      <div class="row card-w-icon__link-container">
-        <div class="card-w-icon__icon-spacer"></div>
-        <div class="col">
-          {% if card_w_icon_link_url %}
-            <div>
-              <div>
-                <a class="card-w-icon__link" href="{{ card_w_icon_link_url }}">{{ card_w_icon_link_title }}</a>
-              </div>
+            <div class="card-w-icon__desc">
+              {{ card_w_icon_desc }}
             </div>
-          {% endif %} 
+          </div>
         </div>
+        {% if card_w_icon_link_url %}
+            <div class="card-footer card-w-icon__footer">
+              <a class="card-w-icon__link" href="{{ card_w_icon_link_url }}">{{ card_w_icon_link_title }}</a>
+            </div>
+        {% endif %}
       </div>
-
-
-     
-
-  {% endblock %}
+    {% endblock %}
   </div>
 {% endblock paragraph %}
