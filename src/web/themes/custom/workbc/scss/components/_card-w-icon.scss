@@ -28,7 +28,7 @@
 .card-w-icon__content {
   display: inline-block;
   width: 70%;
-  min-height: 195px;
+  min-height: 150px;
 
   @include media-breakpoint-down(sm) {
     display: block;
@@ -80,6 +80,10 @@
     font-size: 15px;
     padding-left: 0;
   }
+}
+
+.card-w-icon__desc p {
+  margin-bottom: 0;
 }
 
 .card-w-icon__footer {
