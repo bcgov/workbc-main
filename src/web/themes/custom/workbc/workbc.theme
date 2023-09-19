@@ -234,7 +234,7 @@ function workbc_preprocess_media(&$variables) {
   if($thumbnailUri) {
     $image = [
       '#theme' => 'image_style',
-      '#style_name' => 'video_component',
+      '#style_name' => '1_3_component',
       '#uri' => $thumbnailUri
     ];
     $variables['media_thumbnail'] = render($image);
