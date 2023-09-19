@@ -40,9 +40,9 @@
 #}
 
 {# Variables #}
-
 {% set card_w_icon_icon = content.field_icon[0] %}
 {% set card_w_icon_title = content.field_title[0] %}
+{% set card_w_icon_title_color = text_color %}
 {% set card_w_icon_desc = content.field_description[0] %}
 {% set card_w_icon_link_url = content.field_link[0]['#url'] %}
 {% set card_w_icon_link_title = content.field_link[0]['#title'] %}
@@ -55,29 +55,49 @@
     'paragraph--type--' ~ paragraph.bundle|clean_class,
     view_mode ? 'paragraph--view-mode--' ~ view_mode|clean_class,
     not paragraph.isPublished() ? 'paragraph--unpublished',
-    'card-w-icon'
+    'card-w-icon',
+    'container'
   ]
 %}
 
 {% block paragraph %}
   <div{{ attributes.addClass(classes) }}>
     {% block content %}
-      <div class="card-w-icon__icon">
-        {{ card_w_icon_icon }}
-      </div>
-      <div class="card-w-icon__content">
-        <h3 class="card-w-icon__title">
-          {{ card_w_icon_title }}
-        </h3>
-        <div class="card-w-icon__desc">
-          {{ card_w_icon_desc }}
+
+      <div class="row">
+
+        <div class="card-w-icon__icon">
+          {{ card_w_icon_icon }}
         </div>
-        {% if card_w_icon_link_url %}
-          <div class="card-w-icon__link-container">
-            <a class="card-w-icon__link" href="{{ card_w_icon_link_url }}">{{ card_w_icon_link_title }}</a>
-          </div>
-        {% endif %}
+
+        <div class="col card-w-icon__content">
+
+          <h3 class="card-w-icon__title {{ card_w_icon_title_color }}">
+            {{ card_w_icon_title }}
+          </h3>
+
+          <div class="card-w-icon__desc">
+            {{ card_w_icon_desc }}
+          </div>      
+
+        </div>
       </div>
+      <div class="row card-w-icon__link-container">
+        <div class="card-w-icon__icon-spacer"></div>
+        <div class="col">
+          {% if card_w_icon_link_url %}
+            <div>
+              <div>
+                <a class="card-w-icon__link" href="{{ card_w_icon_link_url }}">{{ card_w_icon_link_title }}</a>
+              </div>
+            </div>
+          {% endif %} 
+        </div>
+      </div>
+
+
+     
+
   {% endblock %}
   </div>
 {% endblock paragraph %}
