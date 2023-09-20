@@ -230,6 +230,50 @@ $container-gutter: $workbc_spacing_gutters;
   }
 }
 
+.field__item:has(article.media--type-remote-video) {
+  display: flex;
+  flex-wrap: wrap;
+}
+
+@include media-breakpoint-up(sm) {
+  article.media--type-remote-video:nth-last-of-type(-n + 2) {
+    border-bottom: none;
+  }
+}
+
+@include media-breakpoint-down(sm) {
+  article.media--type-remote-video:nth-last-of-type(1) {
+    border-bottom: none;
+  }
+}
+
+article.media--type-remote-video {
+  display: inline-block;
+  width: 50%;
+  padding-top: 20px;
+  padding-bottom: 20px;
+  border-bottom: $workbc_palette_light_secondary solid 2px;
+
+  &:nth-of-type(odd) {
+    padding-right: 20px;
+    padding-left: 0;
+  }
+
+  &:nth-of-type(even) {
+    padding-left: 20px;
+    padding-right: 0;
+  }
+
+  @include media-breakpoint-down(sm) {
+    width: 100%;
+    padding: 10px !important;
+  }
+}
+
+#drupal-modal article.media--type-remote-video {
+  width: 100%;
+}
+
 // see https://www.codeply.com/p/0CWffz76Q9 for inspiration on desktop size multiple panel view
 .workbc-card-carousel {
   .carousel {
