@@ -238,6 +238,7 @@ function workbc_preprocess_media(&$variables) {
       '#uri' => $thumbnailUri
     ];
     $variables['media_thumbnail'] = render($image);
+    $variables['media_id'] = $media->id();
   }  
 }
 
