@@ -166,6 +166,17 @@ processor_settings:
       preprocess_query: -43
   entity_status: {  }
   entity_type: {  }
+  highlight:
+    weights:
+      postprocess_query: 0
+    prefix: '<strong>'
+    suffix: '</strong>'
+    excerpt: true
+    excerpt_always: true
+    excerpt_length: 256
+    exclude_fields: {  }
+    highlight: always
+    highlight_partial: true
   html_filter:
     weights:
       preprocess_index: -47
