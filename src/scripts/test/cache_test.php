@@ -11,10 +11,14 @@
 $urls = $argv[1];
 $handle = fopen($urls, "r");
 $headers = [
-  "cache-control",
-  "x-drupal-cache",
-  "x-drupal-dynamic-cache",
-  "x-drupal-cache-max-age",
+  "Age",
+  "Cache-Control",
+  "Expires",
+  "X-Drupal-Cache",
+  "X-Drupal-Dynamic-Cache",
+  "X-Drupal-Cache-Max-Age",
+  "X-Drupal-Cache-Contexts",
+  "X-Drupal-Cache-Tags",
   "x-served-by",
   "x-cache",
   "x-cache-hits",
@@ -37,7 +41,7 @@ if ($handle) {
     $header_size = curl_getinfo($ch, CURLINFO_HEADER_SIZE);
     $response_headers = get_headers_from_curl_response(substr($response, 0, $header_size));
     fputcsv(STDOUT, array_merge([$url], array_map(function($header) use ($response_headers) {
-      return @$response_headers[$header];
+      return @$response_headers[strtolower($header)];
     }, $headers)));
     curl_close($ch);
   }
