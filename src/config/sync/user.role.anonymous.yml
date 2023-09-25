@@ -42,6 +42,7 @@ permissions:
   - 'view paragraph content action_cards_icon_1_2'
   - 'view paragraph content action_cards_publication'
   - 'view paragraph content additional_duties'
+  - 'view paragraph content content_interactive_map'
   - 'view paragraph content content_text'
   - 'view paragraph content content_view'
   - 'view paragraph content hours_of_operation'
