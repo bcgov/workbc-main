@@ -4,7 +4,7 @@
         "Read more about it at https://getcomposer.org/doc/01-basic-usage.md#installing-dependencies",
         "This file is @generated automatically"
     ],
-    "content-hash": "2cfc45b7a1c9d0ab231a2e720f05caae",
+    "content-hash": "1a70aa8e49c79651673737af2a7e0987",
     "packages": [
         {
             "name": "alchemy/zippy",
@@ -2680,17 +2680,17 @@
         },
         {
             "name": "drupal/better_social_sharing_buttons",
-            "version": "4.0.5",
+            "version": "4.0.7",
             "source": {
                 "type": "git",
                 "url": "https://git.drupalcode.org/project/better_social_sharing_buttons.git",
-                "reference": "4.0.5"
+                "reference": "4.0.7"
             },
             "dist": {
                 "type": "zip",
-                "url": "https://ftp.drupal.org/files/projects/better_social_sharing_buttons-4.0.5.zip",
-                "reference": "4.0.5",
-                "shasum": "76f9a1187cd07a1dc3f81ab855acae007255f767"
+                "url": "https://ftp.drupal.org/files/projects/better_social_sharing_buttons-4.0.7.zip",
+                "reference": "4.0.7",
+                "shasum": "45f63c1b4124c8ba9e765e8d3dc6a894b2b25b6a"
             },
             "require": {
                 "drupal/core": "^9.3 || ^10"
@@ -2698,8 +2698,8 @@
             "type": "drupal-module",
             "extra": {
                 "drupal": {
-                    "version": "4.0.5",
-                    "datestamp": "1688749447",
+                    "version": "4.0.7",
+                    "datestamp": "1694802520",
                     "security-coverage": {
                         "status": "covered",
                         "message": "Covered by Drupal's security advisory policy"
