@@ -417,13 +417,13 @@
 
                      <table>
                         <thead>
-                          <tr><th>{{ header.0 }}</th><th>% Employment this Industry</th><th>% Employment All Industries</th></tr>
+                          <tr><th>{{ header.0 }}</th><th class="industry-profile-table-header-right">{{ header.1 }}</th><th  class="industry-profile-table-header-right">{{ header.2 }}</th></tr>
                         </thead>
                         {% for region in rows %}
                           <tr class='{{ region.class }}  {{ cycle(['odd', 'even'], loop.index0) }}'>
                             <td class="region">{{ region.data.0 }}</td>
-                            <td class="data-row" data-label="% Employment this Industry">{{ region.data.1 }}</td>
-                            <td class="data-row" data-label="% Employment All Industries">{{ region.data.2 }}</td>
+                            <td class="data-row" data-label="% Employment this Industry" align="right">{{ region.data.1 }}</td>
+                            <td class="data-row" data-label="% Employment All Industries" align="right">{{ region.data.2 }}</td>
                           </tr>
                           {% if not loop.last %}
                             <tr class="horizontal-line"></tr>
