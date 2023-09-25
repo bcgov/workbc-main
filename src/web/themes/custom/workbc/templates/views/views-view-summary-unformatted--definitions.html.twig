@@ -43,7 +43,7 @@
 
   {% for letter in 'A'..'Z' %}
     {% set hasResults = (counter < max and rows[counter].link == letter) %}
-    {% set isActive = rows[counter].active %}
+    {% set isActive = rows[counter].active and hasResults %}
 
     {{ options.inline ? '<span' : '<div' }} class="{{hasResults ? '' : 'no-results'}} {{isActive ? 'is-active'}}">
 
