@@ -24,7 +24,7 @@
 
     {# Email share button #}
     {% if items.services.email %}
-      <a href="mailto:?subject={{ items.title }}&body={{ items.page_url }}" title="{{ 'Share to'|t }} Email" aria-label="{{ 'Share to'|t }} Email" class="social-sharing-buttons__button share-email" target="_blank" rel="noopener">
+      <a href="mailto:?subject=WorkBC.ca: {{ items.title }}&body=A WorkBC.ca link has been shared with you: {{ items.page_url }}" title="{{ 'Share to'|t }} Email" aria-label="{{ 'Share to'|t }} Email" class="social-sharing-buttons__button share-email" target="_blank" rel="noopener">
         <span class="visually-hidden"> Share to Email </span>
       </a>
     {% endif %}
