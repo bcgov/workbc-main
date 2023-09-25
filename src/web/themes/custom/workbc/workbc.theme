@@ -80,7 +80,6 @@ function workbc_preprocess_paragraph(&$variables) {
         continue;
       }
       $field_key = substr("field_link_". $region['key'], 0, 32);
-      $test = "field_link_cariboo";
       $url = Url::fromUri($variables['paragraph']->$field_key->uri);
       $variables['region_info'][$key]['link'] = $url->toString();
     }  
