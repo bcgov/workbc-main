@@ -72,6 +72,11 @@ function workbc_preprocess_paragraph(&$variables) {
     }
   }
 
+  if (isset($variables['paragraph']->field_color)) {
+    $variables['text_color'] = $variables['paragraph']->field_color->value;
+  }
+
+  
   // SPECIAL CASE
   // Override cards for "EducationPlannerBC" and "StudentAidBC" by injecting their logos.
   if (isset($variables['paragraph']->field_key)) {

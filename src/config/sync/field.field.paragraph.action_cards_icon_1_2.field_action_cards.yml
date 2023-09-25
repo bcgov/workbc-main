@@ -1,0 +1,79 @@
+uuid: bf2feda8-9afd-4852-80d1-edaf0d7bdb76
+langcode: en
+status: true
+dependencies:
+  config:
+    - field.storage.paragraph.field_action_cards
+    - paragraphs.paragraphs_type.action_card_icon
+    - paragraphs.paragraphs_type.action_cards_icon_1_2
+  module:
+    - entity_reference_revisions
+id: paragraph.action_cards_icon_1_2.field_action_cards
+field_name: field_action_cards
+entity_type: paragraph
+bundle: action_cards_icon_1_2
+label: 'Icon Cards'
+description: ''
+required: false
+translatable: true
+default_value: {  }
+default_value_callback: ''
+settings:
+  handler: 'default:paragraph'
+  handler_settings:
+    target_bundles:
+      action_card_icon: action_card_icon
+    negate: 0
+    target_bundles_drag_drop:
+      action_card:
+        weight: 18
+        enabled: false
+      action_card_feature:
+        weight: 19
+        enabled: false
+      action_card_full_width:
+        weight: 20
+        enabled: false
+      action_card_icon:
+        weight: 21
+        enabled: true
+      action_cards_1_2:
+        weight: 22
+        enabled: false
+      action_cards_1_3:
+        weight: 23
+        enabled: false
+      action_cards_1_4:
+        weight: 24
+        enabled: false
+      action_cards_explore_careers:
+        weight: 25
+        enabled: false
+      action_cards_full_width:
+        weight: 26
+        enabled: false
+      action_cards_icon:
+        weight: 27
+        enabled: false
+      action_cards_icon_1_2:
+        weight: 28
+        enabled: false
+      action_cards_publication:
+        weight: 29
+        enabled: false
+      additional_duties:
+        weight: 30
+        enabled: false
+      content_text:
+        weight: 31
+        enabled: false
+      content_view:
+        weight: 32
+        enabled: false
+      quote_card:
+        weight: 33
+        enabled: false
+      skills:
+        weight: 34
+        enabled: false
+field_type: entity_reference_revisions

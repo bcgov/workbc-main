@@ -39,49 +39,22 @@
  */
 #}
 
-{# Variables #}
-{% set card_w_icon_icon = content.field_icon[0] %}
-{% set card_w_icon_title = content.field_title[0] %}
-{% set card_w_icon_title_color = text_color %}
-{% set card_w_icon_desc = content.field_description[0] %}
-{% set card_w_icon_link_url = content.field_link[0]['#url'] %}
-{% set card_w_icon_link_title = content.field_link[0]['#title'] %}
-
-
 {%
   set classes = [
     'paragraph',
     paragraph.field_key[0].value ? 'paragraph--key--' ~ paragraph.field_key[0].value|clean_class,
     'paragraph--type--' ~ paragraph.bundle|clean_class,
     view_mode ? 'paragraph--view-mode--' ~ view_mode|clean_class,
-    not paragraph.isPublished() ? 'paragraph--unpublished'
+    not paragraph.isPublished() ? 'paragraph--unpublished',
+    'cards-grid',
+    'cards-grid-1-2'
   ]
 %}
 
 {% block paragraph %}
   <div{{ attributes.addClass(classes) }}>
     {% block content %}
-      <div class="card">
-        <div class="card-body">
-          <div class="card-w-icon__icon">
-            {{ card_w_icon_icon }}
-          </div>
-          <div class="card-w-icon__content">
-            <h3 class="card-w-icon__title {{ card_w_icon_title_color }}">
-              {{ card_w_icon_title }}
-            </h3>
-
-            <div class="card-w-icon__desc">
-              {{ card_w_icon_desc }}
-            </div>
-          </div>
-        </div>
-        {% if card_w_icon_link_url %}
-            <div class="card-footer card-w-icon__footer">
-              <a class="card-w-icon__link" href="{{ card_w_icon_link_url }}">{{ card_w_icon_link_title }}</a>
-            </div>
-        {% endif %}
-      </div>
+      {{ content }}
     {% endblock %}
   </div>
 {% endblock paragraph %}
