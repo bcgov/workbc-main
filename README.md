@@ -69,6 +69,30 @@ Once dependencies are in place:
 # Testing
 Refer to the [`src/scripts/test`](src/scripts/test/README.md) folder for instructions on load-testing the site.
 
+# Debugging
+The instructions here concern setting up Xdebug with Visual Studio Code. The current `docker-compose.yml` file enables Xdebug and attempts to connect the PHP container to VS Code's debugger listening on port 9003.
+
+- Install extension [PHP Debug](https://marketplace.visualstudio.com/items?itemName=xdebug.php-debug)
+- Create or edit the file `.vscode/launch.json`:
+```
+{
+  "version": "0.2.0",
+  "configurations": [
+    {
+      "name": "Listen for Xdebug",
+      "type": "php",
+      "request": "launch",
+      "port": 9003,
+      "pathMappings": {
+        "/var/www/html/": "${workspaceFolder}/src"
+      }
+    }
+  ]
+}
+```
+- Click Run > Start Debugging
+- Place a breakpoint somewhere in the Drupal code
+
 # Content migration / seeding
 - Content migrations are located in the [`workbc_custom.post_update.php`](src/web/modules/custom/workbc_custom/workbc_custom.post_update.php) file.
 - For development purposes, the script [`reset_hook_post_update.php`](src/scripts/reset_hook_post_update.php) can be used to selectively reset migration runs in order to re-run them. Usage: `drush scr scripts/reset_hook_post_update.php -- workbc_custom`.
