@@ -28,15 +28,17 @@
     background-image: url("../assets/images/social-icon-facebook-grey.svg");
 
     &:hover {
-      background-image: url("../assets/images/social-icon-facebook-blue.svg");
+      background-image: url("../assets/images/social-icon-facebook-color.svg");
     }
   }
 
   &.share-twitter {
-    background-image: url("../assets/images/social-icon-twitter-grey.svg");
+    background-image: url("../assets/images/social-icon-x-grey.svg");
+    background-size: 30px;
 
     &:hover {
-      background-image: url("../assets/images/social-icon-twitter-blue.svg");
+      background-image: url("../assets/images/social-icon-x-color.svg");
+      background-size: 30px;
     }
   }
 
@@ -44,7 +46,7 @@
     background-image: url("../assets/images/social-icon-linkedin-grey.svg");
 
     &:hover {
-      background-image: url("../assets/images/social-icon-linkedin-blue.svg");
+      background-image: url("../assets/images/social-icon-linkedin-color.svg");
     }
   }
 

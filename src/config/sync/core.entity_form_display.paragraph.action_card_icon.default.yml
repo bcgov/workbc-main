@@ -3,6 +3,7 @@ langcode: en
 status: true
 dependencies:
   config:
+    - field.field.paragraph.action_card_icon.field_color
     - field.field.paragraph.action_card_icon.field_description
     - field.field.paragraph.action_card_icon.field_icon
     - field.field.paragraph.action_card_icon.field_key
@@ -19,9 +20,15 @@ targetEntityType: paragraph
 bundle: action_card_icon
 mode: default
 content:
+  field_color:
+    type: options_select
+    weight: 2
+    region: content
+    settings: {  }
+    third_party_settings: {  }
   field_description:
     type: text_textarea
-    weight: 2
+    weight: 3
     region: content
     settings:
       rows: 5
@@ -33,12 +40,13 @@ content:
     region: content
     settings:
       media_types: {  }
+      form_mode: media_library
     third_party_settings:
       media_library_edit:
         show_edit: '1'
   field_key:
     type: string_textfield
-    weight: 4
+    weight: 5
     region: content
     settings:
       size: 60
@@ -46,7 +54,7 @@ content:
     third_party_settings: {  }
   field_link:
     type: link_default
-    weight: 3
+    weight: 4
     region: content
     settings:
       placeholder_url: ''

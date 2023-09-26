@@ -459,7 +459,7 @@ display:
           skip_access: false
           preserve_facet_query_args: false
       relationships: {  }
-      use_ajax: true
+      use_ajax: false
       header: {  }
       footer: {  }
       display_extenders: {  }
@@ -474,6 +474,7 @@ display:
       tags:
         - 'config:field.storage.node.field_noc'
         - 'config:search_api.index.career_profile_index'
+        - 'search_api_list:career_profile_index'
   page_1:
     id: page_1
     display_title: Page
@@ -494,3 +495,4 @@ display:
       tags:
         - 'config:field.storage.node.field_noc'
         - 'config:search_api.index.career_profile_index'
+        - 'search_api_list:career_profile_index'
