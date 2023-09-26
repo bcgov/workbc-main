@@ -52,7 +52,7 @@ class CareerProfileJobOpeningsByRegion extends ExtraFieldDisplayFormattedBase {
       'decimals' => 1,
       'suffix' => "%",
       'na_if_empty' => TRUE,
-    );    
+    );
     $regions = [];
     if (!empty($entity->ssot_data) && isset($entity->ssot_data['career_regional'])) {
       $region = array();
@@ -92,12 +92,12 @@ class CareerProfileJobOpeningsByRegion extends ExtraFieldDisplayFormattedBase {
       $regions[] = $region;
     }
 
-    $header = ['Region', 'Job Openings', 'Avg Annual Employment Growth'];
+    $header = ['Region', 'Job Openings', 'Avg. Annual Employment Growth'];
 
     $rows = [];
     foreach ($regions as $region) {
       $rows[] = [
-        'data' => [$region['name'], $region['openings'], $region['growth']], 
+        'data' => [$region['name'], $region['openings'], $region['growth']],
         'class' => 'interactive-map-row-'.ssotRegionKey($region['name']),
       ];
     }
@@ -106,7 +106,7 @@ class CareerProfileJobOpeningsByRegion extends ExtraFieldDisplayFormattedBase {
       '#type' => 'table',
       '#header' => $header,
       '#rows' => $rows,
-    ); 
+    );
     return $table;
 
   }
