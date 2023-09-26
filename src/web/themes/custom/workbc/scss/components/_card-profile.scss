@@ -148,6 +148,30 @@ h3.card-profile__content-header {
   }
 }
 
+#industry_highlights-content {
+
+  .card-profile__content-header {
+    padding-bottom: 30px;
+  }
+
+  .card-profile__content-item {
+    display: block;
+    width: 90%;
+
+    table {
+      td {
+        padding-left: 20px;
+        padding-right: 20px;
+      }
+
+      th:last-of-type, td:last-of-type {
+        text-align: right;
+      }
+    }
+  }
+
+}
+
 .card-profile__content-item table {
   margin-bottom: 20px;
 }

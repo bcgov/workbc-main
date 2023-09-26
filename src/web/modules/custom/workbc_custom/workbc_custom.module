@@ -101,7 +101,11 @@ function workbc_custom_views_pre_render(ViewExecutable $view) {
   if ($view->id() == 'high_opportunity_occupations') {
     $schema = ssotSchema("");
     $range = ssotParseDateRange($schema, 'high_opportunity_occupations', 'openings_forecast');
-    $view->field['openings_forecast']->options['label'] = "Job Openings to " . $range;
+    if (preg_match('/(\d{4})$/', $range, $end_of_range)) {
+      $view->field['openings_forecast']->options['label'] = "Job Openings to " . $end_of_range[0];
+    } else {
+      $view->field['openings_forecast']->options['label'] = "Job Openings";
+    }
   }
 
   if ($view->id() == 'industry_profiles') {
