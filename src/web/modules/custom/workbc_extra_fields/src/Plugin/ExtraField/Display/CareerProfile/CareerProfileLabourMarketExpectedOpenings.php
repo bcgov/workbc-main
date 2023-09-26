@@ -27,7 +27,7 @@ class CareerProfileLabourMarketExpectedOpenings extends ExtraFieldDisplayFormatt
    */
   public function getLabel() {
     $datestr = ssotParseDateRange($this->getEntity()->ssot_data['schema'], 'career_provincial', 'expected_job_openings_10y');
-    return $this->t('Expected Job Openings (:datestr)', array(":datestr" => $datestr));
+    return $this->t('Forecasted Job Openings (:datestr)', array(":datestr" => $datestr));
   }
 
   /**
@@ -47,9 +47,9 @@ class CareerProfileLabourMarketExpectedOpenings extends ExtraFieldDisplayFormatt
       'decimals' => 0,
       'no_negative' => TRUE,
       'na_if_empty' => TRUE,
-    );    
+    );
     if (!empty($entity->ssot_data) && isset($entity->ssot_data['career_provincial']['expected_job_openings_10y'])) {
-      $output = ssotFormatNumber($entity->ssot_data['career_provincial']['expected_job_openings_10y'], $options);     
+      $output = ssotFormatNumber($entity->ssot_data['career_provincial']['expected_job_openings_10y'], $options);
     }
     else {
       $output = "";

@@ -53,7 +53,7 @@ class CareerProfileLabourMarketEmploymentByRegion extends ExtraFieldDisplayForma
     $options2 = array(
       'decimals' => 0,
       'na_if_empty' => TRUE,
-    );    
+    );
     if (!empty($entity->ssot_data) && isset($entity->ssot_data['census']) && isset($entity->ssot_data['career_regional'])) {
       $total = intval($entity->ssot_data['census']['workers_employed']);
       $region = array();
@@ -66,7 +66,7 @@ class CareerProfileLabourMarketEmploymentByRegion extends ExtraFieldDisplayForma
       $region = array();
       $region['name'] = t(REGION_KOOTENAY);
       $value = $entity->ssot_data['census']['kootenay_employment_of_this_occupation'];
-      $region['percent'] = ssotFormatNumber($value, $options1); 
+      $region['percent'] = ssotFormatNumber($value, $options1);
       $value = $entity->ssot_data['career_regional']['kootenay_employment_current'];
       $region['employment'] = ssotFormatNumber($value, $options2);
       $regions[] = $region;
@@ -108,21 +108,21 @@ class CareerProfileLabourMarketEmploymentByRegion extends ExtraFieldDisplayForma
     }
 
     $datestr = ssotParseDateRange($entity->ssot_data['schema'], 'career_regional', 'cariboo_employment_current');
-    $header = ["Region", "Employment (" . $datestr . ")", "% Employment"];
+    $header = ["Region", "Employment (" . $datestr . ")", "% Employment of this Occupation"];
 
     $rows = [];
     foreach ($regions as $region) {
       $rows[] = [
-        'data' => [$region['name'], $region['employment'], $region['percent']], 
+        'data' => [$region['name'], $region['employment'], $region['percent']],
         'class' => 'interactive-map-row-'.ssotRegionKey($region['name']),
       ];
     }
-   
+
     $table = array(
       '#type' => 'table',
       '#header' => $header,
       '#rows' => $rows,
-    ); 
+    );
     return $table;
   }
 
