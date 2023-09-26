@@ -8,35 +8,38 @@
   line-height: 23px;
 }
 .jobs-data .job-title.card-plain__title {
+  font-size: 18px;
   text-transform:capitalize;
-  margin-bottom:5px;
+  margin-bottom:10px;
+  font-weight: bold;
 }
 .jobs-data .sub-title{
   margin-top:5px;
   margin-bottom:20px;
-  font-size:18px;
+  font-size:16px;
   font-weight:500;
 }
 .jobs-data .job-box.item {
   position: relative;
+  padding: 30px 20px 10px 20px;
 }
 .jobs-data .job-company {
-  font-size: 15px;
-  margin-bottom: 10px;
+  font-size: 16px;
+  margin-bottom: 15px;
   font-weight: 500;
 }
 .jobs-data .job-location {
-    margin-bottom: 20px;
+  font-size: 15px;
+  padding-bottom: 20px;
 }
 .jobs-data .job-location span{
-  margin-right:5px;
+  margin-right: 10px;
 }
 .jobs-data .job-location span img, .jobs-data .sub-title span svg{
   margin-top:-4px;
 }
 .jobs-data .job-post-date label {
   display: inline-block;
-  margin-right: 10px;
 }
 .jobs-data .job-post-date {
   font-family: 'BCSans';
