@@ -1,11 +1,15 @@
 .paragraph--key--labour-market-guide-table {
   margin-bottom: 30px;
-  padding: 30px 40px 20px;
   box-shadow: 0 0 10px #dbdbdb;
 }
 
-.paragraph--key--labour-market-guide-table h4 {
+.paragraph--key--labour-market-guide-table .field__item {
+  padding: 20px 40px 10px;
+}
+
+.paragraph--key--labour-market-guide-table h5 {
   text-align: center;
+  padding-bottom: 25px;
 }
 
 .paragraph--key--labour-market-guide-table table {
