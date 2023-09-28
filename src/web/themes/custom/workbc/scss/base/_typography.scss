@@ -5,6 +5,10 @@ body {
   color: $workbc_palette_dark_default;
 }
 
+.ui-widget {
+  font-family: "BCSans", "Noto Sans", Verdana, Arial, sans-serif;
+}
+
 p {
   margin: 0;
 }
