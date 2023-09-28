@@ -1,0 +1,26 @@
+diff --git a/search_api_autocomplete.install b/search_api_autocomplete.install
+index 3a1fa89..47a95ce 100644
+--- a/search_api_autocomplete.install
++++ b/search_api_autocomplete.install
+@@ -16,7 +16,7 @@ use Drupal\search_api_solr\SolrBackendInterface;
+ function search_api_autocomplete_requirements(string $phase): array {
+   if ($phase !== 'runtime'
+       || !interface_exists(SolrBackendInterface::class)
+-      || version_compare(SolrBackendInterface::SEARCH_API_SOLR_SCHEMA_VERSION, '4.2.5', '<')
++      || version_compare(SolrBackendInterface::SEARCH_API_SOLR_MIN_SCHEMA_VERSION, '4.2.5', '<')
+       || \Drupal::moduleHandler()->moduleExists('search_api_solr_autocomplete')) {
+     return [];
+   }
+diff --git a/src/Form/IndexOverviewForm.php b/src/Form/IndexOverviewForm.php
+index 8e6e6a4..3dcac24 100644
+--- a/src/Form/IndexOverviewForm.php
++++ b/src/Form/IndexOverviewForm.php
+@@ -133,7 +133,7 @@ class IndexOverviewForm extends FormBase {
+       if (interface_exists(SolrBackendInterface::class)
+           && $search_api_index->hasValidServer()
+           && $search_api_index->getServerInstance()->getBackend() instanceof SolrBackendInterface
+-          && version_compare(SolrBackendInterface::SEARCH_API_SOLR_SCHEMA_VERSION, '4.2.5', '>=')
++          && version_compare(SolrBackendInterface::SEARCH_API_SOLR_MIN_SCHEMA_VERSION, '4.2.5', '>=')
+           && !$this->moduleHandler->moduleExists('search_api_solr_autocomplete')) {
+         $this->messenger->addWarning($this->t('When using a Solr server as the search backend, it is recommended to enable the "Search API Solr Autocomplete" module for improved autocomplete functionality.'));
+       }

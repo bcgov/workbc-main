@@ -675,9 +675,13 @@ function workbc_custom_search_api_autocomplete_suggestions_alter(array &$suggest
     $params = $suggestion->getUrl()->getRouteParameters();
     $node = \Drupal\node\Entity\Node::load($params['node']);
     if ($node && isset($node->field_noc)) {
-      $suggestion->setLabel(
-        'NOC ' . $node->field_noc->value . ' - ' . $suggestion->getLabel()
+      $markup = 'NOC ' . $node->field_noc->value . ' - ' . $suggestion->getLabel();
+      $markup = preg_replace("/(".$alter_params['user_input'].")/i", "<strong>$1</strong>", $markup);
+      $render = array(
+        '#type' => 'markup',
+        '#markup' => $markup
       );
+      $suggestion->setRender($render);
     }
   }
 }
