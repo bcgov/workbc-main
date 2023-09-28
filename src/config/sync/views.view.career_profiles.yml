@@ -293,8 +293,8 @@ display:
           total_pages: 0
           id: 0
           tags:
-            next: ››
-            previous: ‹‹
+            next: 'Next ›'
+            previous: '‹ Previous'
             first: '« First'
             last: 'Last »'
           expose:

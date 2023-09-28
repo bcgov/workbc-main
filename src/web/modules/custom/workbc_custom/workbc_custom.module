@@ -100,7 +100,11 @@ function workbc_custom_views_pre_render(ViewExecutable $view) {
   if ($view->id() == 'high_opportunity_occupations') {
     $schema = ssotSchema("");
     $range = ssotParseDateRange($schema, 'high_opportunity_occupations', 'openings_forecast');
-    $view->field['openings_forecast']->options['label'] = "Job Openings to " . $range;
+    if (preg_match('/(\d{4})$/', $range, $end_of_range)) {
+      $view->field['openings_forecast']->options['label'] = "Job Openings to " . $end_of_range[0];
+    } else {
+      $view->field['openings_forecast']->options['label'] = "Job Openings";
+    }
   }
 
   if ($view->id() == 'industry_profiles') {
@@ -155,6 +159,19 @@ function workbc_custom_form_alter(&$form, \Drupal\Core\Form\FormStateInterface $
 
 }
 
+
+function workbc_custom_form_node_form_alter(&$form, \Drupal\Core\Form\FormStateInterface $form_state, $form_id) {
+
+    $user = \Drupal\user\Entity\User::load(\Drupal::currentUser()->id());
+
+    if (isset($form['field_content_group']) && !$user->hasPermission('bypass content groups')) {
+      $form['field_content_group']['#access'] = false;
+      if (empty($form['field_content_group']['widget']['#default_value'])) {
+        $form['field_content_group']['widget']['#default_value'] = $user->get("field_content_group")->target_id;
+      }
+    }
+ 
+}
 
 
 function workbc_custom_form_views_exposed_form_alter(&$form, \Drupal\Core\Form\FormStateInterface $form_state, $form_id) {

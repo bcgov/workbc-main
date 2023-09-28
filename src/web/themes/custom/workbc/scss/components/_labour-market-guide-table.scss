@@ -1,0 +1,49 @@
+.paragraph--key--labour-market-guide-table {
+  margin-bottom: 30px;
+  box-shadow: 0 0 10px #dbdbdb;
+}
+
+.paragraph--key--labour-market-guide-table .field__item {
+  padding: 20px 40px 10px;
+}
+
+.paragraph--key--labour-market-guide-table h5 {
+  text-align: center;
+  padding-bottom: 25px;
+}
+
+.paragraph--key--labour-market-guide-table table {
+  background-color: $workbc_palette_light_primary;
+  border: none;
+}
+
+.paragraph--key--labour-market-guide-table thead td {
+  text-align: center;
+  padding-top: 10px;
+  padding-bottom: 10px;
+}
+
+.paragraph--key--labour-market-guide-table thead td img {
+  display: block;
+  margin-left: auto;
+  margin-right: auto;
+}
+
+.paragraph--key--labour-market-guide-table .table-section-title {
+  background-color: $workbc_palette_light_secondary;
+  text-align: center;
+}
+
+.paragraph--key--labour-market-guide-table .table-section {
+  vertical-align: text-top;
+}
+
+.paragraph--key--labour-market-guide-table .table-section td {
+  background-color: $workbc_palette_light_primary;
+  border: none;
+}
+
+.paragraph--key--labour-market-guide-table img {
+  width: 72px;
+  height: 72px;
+}
