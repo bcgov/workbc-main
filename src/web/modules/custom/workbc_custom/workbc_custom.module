@@ -12,7 +12,6 @@ use Drupal\Core\Routing\TrustedRedirectResponse;
 use Drupal\Core\Breadcrumb\Breadcrumb;
 use Drupal\Core\Routing\RouteMatchInterface;
 use Drupal\views\ViewExecutable;
-use Drupal\views\Plugin\views\cache\CachePluginBase;
 use Drupal\redirect\Entity\Redirect;
 use Symfony\Component\HttpFoundation\Request;
 
@@ -684,5 +683,24 @@ function workbc_custom_entity_base_field_info_alter(&$fields, \Drupal\Core\Entit
   if ($entity_type->id() == 'node') {
     $fields['uid']->setDisplayConfigurable('view', TRUE);
     $fields['created']->setDisplayConfigurable('view', TRUE);
+  }
+}
+
+/**
+ * Implements hook_search_api_autocomplete_suggestions_alter().
+ */
+function workbc_custom_search_api_autocomplete_suggestions_alter(array &$suggestions, array $alter_params) {
+  foreach ($suggestions as &$suggestion) {
+    $params = $suggestion->getUrl()->getRouteParameters();
+    $node = \Drupal\node\Entity\Node::load($params['node']);
+    if ($node && isset($node->field_noc)) {
+      $markup = 'NOC ' . $node->field_noc->value . ' - ' . $suggestion->getLabel();
+      $markup = preg_replace("/(".$alter_params['user_input'].")/i", "<strong>$1</strong>", $markup);
+      $render = array(
+        '#type' => 'markup',
+        '#markup' => $markup
+      );
+      $suggestion->setRender($render);
+    }
   }
 }
