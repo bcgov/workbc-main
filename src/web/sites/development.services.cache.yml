@@ -34,13 +34,13 @@ parameters:
       # Disable by setting to -1.
       #
       # @default 0
-      max-age: -1
+      max-age: 0
       # Cache contexts with a high cardinality.
       #
       # Disable by setting to [].
       #
       # @default ['session', 'user']
-      contexts: []
+      contexts: ['session', 'user']
       # Tags with a high invalidation frequency.
       #
       # Disable by setting to [].
