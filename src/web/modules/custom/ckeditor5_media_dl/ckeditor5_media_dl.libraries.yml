@@ -1,0 +1,10 @@
+mediaDownloadLink:
+  js:
+    js/build/mediaDownloadLinkPlugin.js: { preprocess: false, minified: true }
+  dependencies:
+    - core/ckeditor5
+
+admin.mediaDownloadLink:
+  css:
+    theme:
+      css/mediadownloadlink.admin.css: { }
