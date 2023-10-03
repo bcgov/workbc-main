@@ -1,0 +1,16 @@
+ckeditor5_media_dl_mediaDownloadLink:
+  ckeditor5:
+    plugins:
+      - mediaDownloadLinkPlugin.MediaDownloadLink
+
+  drupal:
+    label: Media Download Link
+    library: ckeditor5_media_dl/mediaDownloadLink
+    admin_library: ckeditor5_media_dl/admin.mediaDownloadLink
+    toolbar_items:
+      mediaDownloadLink:
+        label: Media Download Link
+    elements:
+      - <media-download-link>
+      - <media-download-link uuid>
+
