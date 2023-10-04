@@ -52,9 +52,7 @@ class MediaDownloadLinkFilter extends FilterBase implements ContainerFactoryPlug
     foreach ($xpath->query('//a[@data-entity-loader="dlcke" and normalize-space(@data-uuid)!=""]') as $node) {
       /** @var \DOMElement $node */
       $uuid = $node->getAttribute('data-uuid');
-
       $media = \Drupal::service('entity.repository')->loadEntityByUuid('media', $uuid);
-      assert($media === NULL || $media instanceof MediaInterface);
       if (!$media) {
         $this->loggerFactory->get('media')->error('During replacement of dlcke media id: the media item with UUID "@uuid" does not exist.', ['@uuid' => $uuid]);
         return $result;

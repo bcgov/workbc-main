@@ -5,10 +5,11 @@ dependencies:
   config:
     - core.entity_view_mode.media.inline
   module:
+    - ckeditor5_media_dl
+    - ckeditor_media_resize
     - editor
     - linkit
     - media
-    - media_entity_dlcke
 _core:
   default_config_hash: WNeK5FbcY8pXgEpbD_KgRzlF1-5PL3BJXwqaBctPTqw
 name: 'Full HTML'
@@ -19,40 +20,40 @@ filters:
     id: filter_align
     provider: filter
     status: true
-    weight: -49
+    weight: -48
     settings: {  }
   filter_caption:
     id: filter_caption
     provider: filter
     status: true
-    weight: -48
+    weight: -47
     settings: {  }
   filter_htmlcorrector:
     id: filter_htmlcorrector
     provider: filter
     status: true
-    weight: -47
+    weight: -46
     settings: {  }
   editor_file_reference:
     id: editor_file_reference
     provider: editor
     status: true
-    weight: -46
+    weight: -45
     settings: {  }
   filter_html:
     id: filter_html
     provider: filter
-    status: false
-    weight: -43
+    status: true
+    weight: -50
     settings:
-      allowed_html: '<em> <strong> <cite> <blockquote cite> <code> <ul type> <ol start type> <li> <dl> <dt> <dd> <h2 id> <h3 id> <h4 id> <h5 id> <h6 id> <s> <sup> <sub> <img src alt data-entity-type data-entity-uuid data-align data-caption> <table> <caption> <tbody> <thead> <tfoot> <th> <td> <tr> <hr> <h1> <pre> <drupal-media data-entity-type data-entity-uuid data-view-mode data-align data-caption alt title> <p class="footnote text-footnote"> <a href hreflang data-entity-substitution data-entity-type data-entity-uuid title class="link but-primary btn btn-primary btn btn-secondary"> <u>'
+      allowed_html: '<br> <p class="text-footnote text-align-left text-align-center text-align-right text-align-justify"> <h2 class="text-align-left text-align-center text-align-right text-align-justify"> <h3 class="text-align-left text-align-center text-align-right text-align-justify"> <h4 class="text-align-left text-align-center text-align-right text-align-justify"> <h5 class="text-align-left text-align-center text-align-right text-align-justify"> <h6 class="text-align-left text-align-center text-align-right text-align-justify"> <a class data-entity-loader data-uuid rel target href data-entity-type data-entity-uuid data-entity-substitution> <strong> <em> <u> <pre class="text-align-left text-align-center text-align-right text-align-justify"> <code class="language-*"> <s> <sub> <sup> <blockquote> <ul> <ol reversed start> <li> <hr> <table> <tr> <td rowspan colspan> <th rowspan colspan> <thead> <tbody> <tfoot> <caption> <drupal-media data-entity-type data-entity-uuid alt data-caption data-align data-media-width>'
       filter_html_help: true
       filter_html_nofollow: false
   media_embed:
     id: media_embed
     provider: media
     status: true
-    weight: -44
+    weight: -42
     settings:
       default_view_mode: inline
       allowed_view_modes:
@@ -65,37 +66,43 @@ filters:
     id: linkit
     provider: linkit
     status: true
-    weight: -50
+    weight: -49
     settings:
       title: true
   filter_html_escape:
     id: filter_html_escape
     provider: filter
     status: false
-    weight: -42
+    weight: -41
     settings: {  }
   filter_url:
     id: filter_url
     provider: filter
     status: false
-    weight: -40
+    weight: -39
     settings:
       filter_url_length: 72
   filter_autop:
     id: filter_autop
     provider: filter
     status: false
-    weight: -41
+    weight: -40
     settings: {  }
   filter_html_image_secure:
     id: filter_html_image_secure
     provider: filter
     status: false
-    weight: -39
+    weight: -38
     settings: {  }
-  media_entity_dlcke_filter:
-    id: media_entity_dlcke_filter
-    provider: media_entity_dlcke
+  filter_resize_media:
+    id: filter_resize_media
+    provider: ckeditor_media_resize
     status: true
-    weight: -45
+    weight: -43
+    settings: {  }
+  filter_media_download_link:
+    id: filter_media_download_link
+    provider: ckeditor5_media_dl
+    status: true
+    weight: -44
     settings: {  }
