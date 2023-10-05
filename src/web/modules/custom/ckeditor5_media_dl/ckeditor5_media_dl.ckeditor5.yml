@@ -11,6 +11,6 @@ ckeditor5_media_dl_mediaDownloadLink:
       mediaDownloadLink:
         label: Media Download Link
     elements:
-      - <media-download-link>
-      - <media-download-link uuid>
+      - <a>
+      
 
