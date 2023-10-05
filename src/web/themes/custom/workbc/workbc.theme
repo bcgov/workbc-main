@@ -328,3 +328,26 @@ function workbc_preprocess_block(&$vars) {
     }
   }
 }
+
+
+
+/**
+ * Implements template_preprocess_views_view_fullcalendar().
+ */
+function workbc_preprocess_views_view_fullcalendar(array &$variables) {
+// ksm($variables);
+// $options = $variables['#attached']['drupalSettings']['fullCalendarView'][0]['calendar_options'];
+// ksm($options);
+// $options = json_decode($options);
+// ksm($options);
+  if (!empty($variables['#attached']['drupalSettings']['fullCalendarView'])) {
+    $calendar = $variables['#attached']['drupalSettings']['fullCalendarView'][0];
+    $calendar_options = json_decode($calendar['calendar_options']);
+    foreach ($calendar_options->events as $key => $event) {
+      if (!empty($event->url)) {
+        $calendar_options->events[$key]->url = "";
+      }
+    } 
+    $variables['#attached']['drupalSettings']['fullCalendarView'][0]['calendar_options'] = json_encode($calendar_options);
+  }
+}
