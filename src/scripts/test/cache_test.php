@@ -9,6 +9,7 @@
  * - ./cache_test.php urls.txt > cache-log.csv
  */
 $urls = $argv[1];
+$assets = [];
 $handle = fopen($urls, "r");
 $headers = [
   "Age",
@@ -22,30 +23,62 @@ $headers = [
   "x-served-by",
   "x-cache",
   "x-cache-hits",
-  "cf-cache-status",
-  "cf-ray",
-  "cf-request-id",
+  "X-Amz-Cf-Id",
+  "X-Amz-Cf-Pop"
 ];
 if ($handle) {
   fputcsv(STDOUT, array_merge(["URL"], $headers));
   while (($url = trim(fgets($handle))) !== false) {
-    $ch = curl_init();
-    curl_setopt($ch, CURLOPT_URL, $url);
-    curl_setopt($ch, CURLOPT_RETURNTRANSFER, 1);
-    curl_setopt($ch, CURLOPT_HEADER, 1);
-    $response = curl_exec($ch);
-    if (empty($response)) {
-      fwrite(STDERR, curl_error($ch) . "\n");
-      continue;
-    }
-    $header_size = curl_getinfo($ch, CURLINFO_HEADER_SIZE);
-    $response_headers = get_headers_from_curl_response(substr($response, 0, $header_size));
-    fputcsv(STDOUT, array_merge([$url], array_map(function($header) use ($response_headers) {
-      return @$response_headers[strtolower($header)];
-    }, $headers)));
-    curl_close($ch);
+    // Call each page twice to exercise the cache.
+    request($url, $headers, $assets);
+    request($url, $headers, $assets);
+    break;
   }
   fclose($handle);
+}
+foreach ($assets as $asset) {
+  if (preg_match('/^\\/[a-z]/i', $asset, $matches) > 0) {
+    $url = getenv('BASE_URL') . $asset;
+    request($url, $headers);
+    request($url, $headers);
+  }
+}
+
+function request($url, $headers, &$assets = null) {
+  $ch = curl_init();
+  curl_setopt($ch, CURLOPT_URL, $url);
+  curl_setopt($ch, CURLOPT_RETURNTRANSFER, 1);
+  curl_setopt($ch, CURLOPT_HEADER, 1);
+  $response = curl_exec($ch);
+  if (empty($response)) {
+    fwrite(STDERR, curl_error($ch) . "\n");
+    return;
+  }
+  $header_size = curl_getinfo($ch, CURLINFO_HEADER_SIZE);
+  $response_headers = get_headers_from_curl_response(substr($response, 0, $header_size));
+  fputcsv(STDOUT, array_merge([$url], array_map(function($header) use ($response_headers) {
+    return @$response_headers[strtolower($header)];
+  }, $headers)));
+
+  if (!is_null($assets)) {
+    $body = substr($response, $header_size);
+    $dom = new DOMDocument();
+    $dom->loadHTML($body, LIBXML_NOWARNING | LIBXML_NOERROR);
+    foreach ($dom->getElementsByTagName('link') as $link) {
+      $asset = $link->getAttribute('href');
+      if (!in_array($asset, $assets)) $assets[] = $asset;
+    }
+    foreach ($dom->getElementsByTagName('script') as $link) {
+      $asset = $link->getAttribute('src');
+      if (!in_array($asset, $assets)) $assets[] = $asset;
+    }
+    foreach ($dom->getElementsByTagName('img') as $link) {
+      $asset = $link->getAttribute('src');
+      if (!in_array($asset, $assets)) $assets[] = $asset;
+    }
+  }
+
+  curl_close($ch);
 }
 
 // https://stackoverflow.com/a/10590242/209184
