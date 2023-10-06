@@ -542,19 +542,134 @@ display:
           multi_type: separator
           separator: ', '
           field_api_classes: false
+        nid:
+          id: nid
+          table: node_field_data
+          field: nid
+          relationship: none
+          group_type: group
+          admin_label: ''
+          entity_type: node
+          entity_field: nid
+          plugin_id: field
+          label: ''
+          exclude: true
+          alter:
+            alter_text: false
+            text: ''
+            make_link: false
+            path: ''
+            absolute: false
+            external: false
+            replace_spaces: false
+            path_case: none
+            trim_whitespace: false
+            alt: ''
+            rel: ''
+            link_class: ''
+            prefix: ''
+            suffix: ''
+            target: ''
+            nl2br: false
+            max_length: 0
+            word_boundary: true
+            ellipsis: true
+            more_link: false
+            more_link_text: ''
+            more_link_path: ''
+            strip_tags: false
+            trim: false
+            preserve_tags: ''
+            html: false
+          element_type: ''
+          element_class: ''
+          element_label_type: ''
+          element_label_class: ''
+          element_label_colon: false
+          element_wrapper_type: ''
+          element_wrapper_class: ''
+          element_default_classes: true
+          empty: ''
+          hide_empty: false
+          empty_zero: false
+          hide_alter_empty: true
+          click_sort_column: value
+          type: number_integer
+          settings:
+            thousand_separator: ''
+            prefix_suffix: true
+          group_column: value
+          group_columns: {  }
+          group_rows: true
+          delta_limit: 0
+          delta_offset: 0
+          delta_reversed: false
+          delta_first_last: false
+          multi_type: separator
+          separator: ', '
+          field_api_classes: false
         nothing:
           id: nothing
           table: views
           field: nothing
           relationship: none
           group_type: group
-          admin_label: ''
+          admin_label: 'Global: Custom text: Grid View content'
           plugin_id: custom
           label: ''
           exclude: false
           alter:
             alter_text: true
-            text: "<div class=\"list-view\">\r\n    <div class=\"row\">\r\n        <div class=\"col-md-4\">\r\n            <div class=\"sd-date-panel\">\r\n                <div class=\"sd-top\">{{ field_start_date|striptags|trim|date('F') }} </div>\r\n                <div class=\"sd-middle\">{{ field_start_date|striptags|trim|date('d') }} </div>\r\n                <div class=\"sd-bottom\">{{ field_start_date|striptags|trim|date('Y') }} </div>\r\n            </div>\r\n        </div>\r\n        <div class=\"col-md-8\">\r\n            <div class=\"right-side\">\r\n                <div class=\"e-title\">{{ title }}</div>\r\n                <div class=\"e-sub-title\">{{ field_event_type }}</div>\r\n                <div class=\"row\">\r\n                    <div class=\"col-lg-6\">\r\n                        <div class=\"ev-date\">\r\n                          <div>{% if field_start_date|striptags|trim|date('d-m-Y') == field_end_date|striptags|trim|date('d-m-Y') %}\r\n                        {{ field_start_date|striptags|trim|date('F d') }}\r\n                        {% else %}\r\n                          {{ field_start_date|striptags|trim|date('F d') }} -\r\n                          {{ field_end_date|striptags|trim|date('F d') }}\r\n                        {% endif %}</div>\r\n                          <div>{{ field_time }} </div>\r\n                        </div>\r\n                    </div>\r\n                    <div class=\"col-lg-6\">\r\n                        <div class=\"ev-address\">\r\n                            {{ field_address }} \r\n                        </div>\r\n                    </div>\r\n                </div>\r\n                <div class=\"e-description\">\r\n                    {{ body }} \r\n                </div>\r\n                <div class=\"e-ta\">\r\n                    Target Audience: {{ field_audience }} \r\n                </div>\r\n            </div>\r\n        </div>\r\n    </div>\r\n</div>\r\n<div class=\"grid-view\">\r\n  <div class=\"grid-title\">{{ title  }}</div>\r\n  <div class=\"grid-sub-title\">{{ field_event_type }}</div>\r\n</div>"
+            text: "<div id=\"event-id-{{ nid }}\" class=\"grid-view\">\r\n  <div class=\"grid-title\">{{ title  }}</div>\r\n  <div class=\"grid-sub-title\">{{ field_event_type }}</div>\r\n</div>"
+            make_link: false
+            path: ''
+            absolute: false
+            external: false
+            replace_spaces: false
+            path_case: none
+            trim_whitespace: false
+            alt: ''
+            rel: ''
+            link_class: ''
+            prefix: ''
+            suffix: ''
+            target: ''
+            nl2br: false
+            max_length: 0
+            word_boundary: true
+            ellipsis: true
+            more_link: false
+            more_link_text: ''
+            more_link_path: ''
+            strip_tags: false
+            trim: false
+            preserve_tags: ''
+            html: false
+          element_type: ''
+          element_class: ''
+          element_label_type: ''
+          element_label_class: ''
+          element_label_colon: false
+          element_wrapper_type: ''
+          element_wrapper_class: ''
+          element_default_classes: true
+          empty: ''
+          hide_empty: false
+          empty_zero: false
+          hide_alter_empty: false
+        nothing_1:
+          id: nothing_1
+          table: views
+          field: nothing
+          relationship: none
+          group_type: group
+          admin_label: 'Global: Custom text: List View content'
+          plugin_id: custom
+          label: ''
+          exclude: false
+          alter:
+            alter_text: true
+            text: "<div id=\"event-id-{{ nid }}\" class=\"list-view \">\r\n    <div class=\"row\">\r\n        <div class=\"col-md-4\">\r\n            <div class=\"sd-date-panel\">\r\n                <div class=\"sd-top\">{{ field_start_date|striptags|trim|date('F') }} </div>\r\n                <div class=\"sd-middle\">{{ field_start_date|striptags|trim|date('d') }} </div>\r\n                <div class=\"sd-bottom\">{{ field_start_date|striptags|trim|date('Y') }} </div>\r\n            </div>\r\n        </div>\r\n        <div class=\"col-md-8\">\r\n            <div class=\"right-side\">\r\n                <div class=\"e-title\">{{ title }}</div>\r\n                <div class=\"e-sub-title\">{{ field_event_type }}</div>\r\n                <div class=\"row\">\r\n                    <div class=\"col-lg-6\">\r\n                        <div class=\"ev-date\">\r\n                          <div>{% if field_start_date|striptags|trim|date('d-m-Y') == field_end_date|striptags|trim|date('d-m-Y') %}\r\n                        {{ field_start_date|striptags|trim|date('F d') }}\r\n                        {% else %}\r\n                          {{ field_start_date|striptags|trim|date('F d') }} -\r\n                          {{ field_end_date|striptags|trim|date('F d') }}\r\n                        {% endif %}</div>\r\n                          <div>{{ field_time }} </div>\r\n                        </div>\r\n                    </div>\r\n                    <div class=\"col-lg-6\">\r\n                        <div class=\"ev-address\">\r\n                            {{ field_address }} \r\n                        </div>\r\n                    </div>\r\n                </div>\r\n                <div class=\"e-description\">\r\n                    {{ body }} \r\n                </div>\r\n                <div class=\"e-ta\">\r\n                    Target Audience: {{ field_audience }} \r\n                </div>\r\n            </div>\r\n        </div>\r\n    </div>\r\n</div>"
             make_link: false
             path: ''
             absolute: false
@@ -712,6 +827,8 @@ display:
           right_buttons: dayGridMonth
           default_view: dayGridMonth
           firstDay: '0'
+          minTime: '00:00:00'
+          maxTime: '23:59:59'
           nav_links: 1
           timeFormat: 'hh:mm a'
           allowEventOverlap: 1
@@ -721,14 +838,30 @@ display:
           languageSelector: 0
           dialogWindow: 0
           openEntityInNewTab: 0
+          dialogModal: 0
           createEventLink: 0
           eventLimit: '20'
+          slotDuration: '00:30:00'
           tax_field: ''
           vocabularies: ''
           color_bundle:
-            article: '#3a87ad'
+            bc_profile: '#3a87ad'
+            blog: '#3a87ad'
+            career_profile: '#3a87ad'
+            career_profile_introductions: '#3a87ad'
             event: '#3a87ad'
+            industry_profile: '#3a87ad'
+            industry_profile_introductions: '#3a87ad'
+            labour_market_monthly: '#3a87ad'
+            news: '#3a87ad'
             page: '#3a87ad'
+            publication: '#3a87ad'
+            region_profile: '#3a87ad'
+            region_profile_introductions: '#3a87ad'
+            related_topics_card: '#3a87ad'
+            resource: '#3a87ad'
+            success_story: '#3a87ad'
+            workbc_centre: '#3a87ad'
           rrule: ''
           duration: ''
           bundle_type: event
