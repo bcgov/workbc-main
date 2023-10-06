@@ -10,7 +10,6 @@
  */
 $urls = $argv[1];
 $assets = [];
-$handle = fopen($urls, "r");
 $headers = [
   "Age",
   "Cache-Control",
@@ -26,6 +25,11 @@ $headers = [
   "X-Amz-Cf-Id",
   "X-Amz-Cf-Pop"
 ];
+if (!getenv('BASE_URL')) {
+  fwrite(STDERR, "Warning: BASE_URL is not defined. Assets won't be fetched.\n");
+}
+
+$handle = fopen($urls, "r");
 if ($handle) {
   fputcsv(STDOUT, array_merge(["URL"], $headers));
   while (($url = trim(fgets($handle))) !== false) {
@@ -35,7 +39,7 @@ if ($handle) {
   }
   fclose($handle);
 }
-foreach ($assets as $asset) {
+if (getenv('BASE_URL')) foreach ($assets as $asset) {
   if (preg_match('/^\\/[a-z]/i', $asset, $matches) > 0) {
     $url = getenv('BASE_URL') . $asset;
     request($url, $headers);
@@ -50,7 +54,7 @@ function request($url, $headers, &$assets = null) {
   curl_setopt($ch, CURLOPT_HEADER, 1);
   $response = curl_exec($ch);
   if (empty($response)) {
-    fwrite(STDERR, curl_error($ch) . "\n");
+    fwrite(STDERR, $url . ": " . curl_error($ch) . "\n");
     return;
   }
   $header_size = curl_getinfo($ch, CURLINFO_HEADER_SIZE);
