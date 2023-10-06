@@ -32,7 +32,6 @@ if ($handle) {
     // Call each page twice to exercise the cache.
     request($url, $headers, $assets);
     request($url, $headers, $assets);
-    break;
   }
   fclose($handle);
 }
