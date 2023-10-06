@@ -97,7 +97,7 @@ display:
                 add_confirmation: false
                 label_override: 'Modify content'
                 get_bundles_from_results: true
-            11:
+            9:
               action_id: workbc_draft_node_action
               preconfiguration:
                 label_override: 'Create draft'
