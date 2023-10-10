@@ -68,10 +68,12 @@ class RegionJobOpeningsCompositionChart extends ExtraFieldDisplayFormattedBase {
         ],
         '#raw_options' => [
           'options' => [
-            'pieHole' => 0.5,
-            'width' => 600,
+            'pieHole' => 0.7,
             'height' => 350,
-            'pieSliceText' => 'percentage'
+            'pieSliceText' => 'none',
+            'legend' => [
+              'position' => 'labeled',
+            ]
           ]
         ]
       ];
