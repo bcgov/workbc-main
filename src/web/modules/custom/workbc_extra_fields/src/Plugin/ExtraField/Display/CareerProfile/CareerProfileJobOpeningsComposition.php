@@ -68,6 +68,7 @@ class CareerProfileJobOpeningsComposition extends ExtraFieldDisplayFormattedBase
             'height' => 350,
             'pieSliceText' => 'none',
             'legend' => [
+              'labeledValueText' => 'both',
               'position' => 'labeled',
             ],
           ],
