@@ -66,15 +66,17 @@ Once dependencies are in place:
 `yarn run grunt dart-sass` will compile everything starting with the style.scss, and
 `yarn run grunt watch` will start a watch on all .scss files, and compile on detecting changes.
 
-# Testing
-Refer to the [`src/scripts/test`](src/scripts/test/README.md) folder for instructions on load-testing the site.
+# Testing / debugging
 
-# Debugging
+## Load-testing
+- Refer to the [`src/scripts/test`](src/scripts/test/README.md) folder for instructions on load-testing the site.
+
+## Xdebug
 The instructions here concern setting up Xdebug with Visual Studio Code. The current `docker-compose.yml` file enables Xdebug and attempts to connect the PHP container to VS Code's debugger listening on port 9003.
 
 - Install extension [PHP Debug](https://marketplace.visualstudio.com/items?itemName=xdebug.php-debug)
 - Create or edit the file `.vscode/launch.json`:
-```
+```json
 {
   "version": "0.2.0",
   "configurations": [
@@ -92,6 +94,13 @@ The instructions here concern setting up Xdebug with Visual Studio Code. The cur
 ```
 - Click Run > Start Debugging
 - Place a breakpoint somewhere in the Drupal code
+
+## Testing the Drupal cache
+By default, caching is disabled in the local development environment. To turn it on, set
+```php
+const LOCAL_CACHE_ACTIVE = TRUE;
+```
+in the file `settings.local.php`.
 
 # Content migration / seeding
 - Content migrations are located in the [`workbc_custom.post_update.php`](src/web/modules/custom/workbc_custom/workbc_custom.post_update.php) file.
