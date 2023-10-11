@@ -64,17 +64,14 @@ class CareerProfileSkills extends ExtraFieldDisplayFormattedBase {
               ->getStorage('taxonomy_term')
               ->loadByProperties(['name' => $skill['skills_competencies'], 'vid' => 'skills']);
         $term = $terms[array_key_first($terms)];
-        $icon_url = "";
         $image = "";
         if (!$term->get('field_image')->isEmpty()) {
-          $image_id = $term->field_image->entity->getFileUri();
-          $icon_url = ImageStyle::load('skill_icon')->buildUrl($image_id);
-
           $imageUri = isset($term->get('field_image')->entity) ? $term->get('field_image')->entity->getFileUri() : null;
           if($imageUri) {
             $image = [
-              '#theme' => 'image_style',
-              '#style_name' => 'skill_icon',
+              '#theme' => 'image',
+              '#width' => '75',
+              '#height' => '75',
               '#uri' => $imageUri
             ];
             $image = render($image);
