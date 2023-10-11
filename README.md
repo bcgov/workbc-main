@@ -69,7 +69,7 @@ Once dependencies are in place:
 # Testing / debugging
 
 ## Load-testing
-- Refer to the [`src/scripts/test`](src/scripts/test/README.md) folder for instructions on load-testing the site.
+Refer to the [`src/scripts/test`](src/scripts/test/README.md) folder for instructions on load-testing the site.
 
 ## Xdebug
 The instructions here concern setting up Xdebug with Visual Studio Code. The current `docker-compose.yml` file enables Xdebug and attempts to connect the PHP container to VS Code's debugger listening on port 9003.
