@@ -10,7 +10,6 @@ dependencies:
     - search_api_solr
     - node
     - search_api
-    - paragraphs
 third_party_settings:
   search_api_solr:
     finalize: false
@@ -98,10 +97,8 @@ field_settings:
           bc_profile: search_index
           blog: search_index
           career_profile: search_index
-          career_profile_introductions: ''
           event: search_index
           industry_profile: search_index
-          labour_market_monthly: search_index
           news: search_index
           page: search_index
           publication: search_index
@@ -146,14 +143,8 @@ datasource_settings:
         - industry_profile_introductions
         - labour_market_monthly
         - region_profile_introductions
+        - related_topics_card
         - resource
-    languages:
-      default: true
-      selected: {  }
-  'entity:paragraph':
-    bundles:
-      default: true
-      selected: {  }
     languages:
       default: true
       selected: {  }

@@ -301,7 +301,7 @@ function ssotRegionIds() {
     "north_coast_nechako" => REGION_NORTH_COAST_NECHAKO_ID,
     "british_columbia" => REGION_BRITISH_COLUMBIA_ID,
   );
-  
+
   return $regions;
 }
 
@@ -339,7 +339,7 @@ function ssotRegionLink($machine_name) {
 
 
 function ssotRegionInfo() {
-  
+
   $region_info = array();
 
   $regions = ssotRegions();
@@ -355,7 +355,7 @@ function ssotRegionInfo() {
     );
     $region_info[] = $region;
   }
-  $id_values = array_column($region_info, "id"); 
+  $id_values = array_column($region_info, "id");
   array_multisort($id_values, SORT_ASC, $region_info);
   return $region_info;
 }
@@ -394,22 +394,22 @@ function ssotProcessEmploymentIndustry($ssotdata) {
 function ssotIndustries() {
 
   static $industries = array(
-    'accommodation_food_services' => 'Accommodation And Food Services',
-    'agriculture_fishing' => 'Agriculture And Fishing',
-    'business_building_other_support_services' => 'Business, Building And Other Support Services',
+    'accommodation_food_services' => 'Accommodation and Food Services',
+    'agriculture_fishing' => 'Agriculture and Fishing',
+    'business_building_other_support_services' => 'Business, Building and Other Support Services',
     'construction' => 'Construction',
     'educational_services' => 'Educational Services',
-    'finance_insurance_real_estate' => 'Finance, Insurance And Real Estate',
-    'forestry_logging_support_activities' => 'Forestry, Logging And Support Activities',
-    'health_care_social_assistance' => 'Health Care And Social Assistance',
-    'information_culture_recreation' => 'Information, Culture And Recreation',
+    'finance_insurance_real_estate' => 'Finance, Insurance and Real Estate',
+    'forestry_logging_support_activities' => 'Forestry, Logging and Support Activities',
+    'health_care_social_assistance' => 'Health Care and Social Assistance',
+    'information_culture_recreation' => 'Information, Culture and Recreation',
     'manufacturing' => 'Manufacturing',
-    'mining_oil_gas_extraction' => 'Mining And Oil And Gas Extraction',
-    'other_private_services' => 'Repair, Personal And Non-Profit Services',
-    'professional_scientific_technical_services' => 'Professional, Scientific And Technical Services',
+    'mining_oil_gas_extraction' => 'Mining and Oil and Gas Extraction',
+    'other_private_services' => 'Repair, Personal and Non-Profit Services',
+    'professional_scientific_technical_services' => 'Professional, Scientific and Technical Services',
     'public_administration' => 'Public Administration',
     'retail_trade' => 'Retail Trade',
-    'transportation_warehousing' => 'Transportation And Warehousing',
+    'transportation_warehousing' => 'Transportation and Warehousing',
     'utilities' => 'Utilities',
     'wholesale_trade' => 'Wholesale Trade',
   );
@@ -447,19 +447,21 @@ function ssotIndustryName($machine_name) {
   return isset($industries[$machine_name]) ? $industries[$machine_name] : "";
 }
 
-/* 
+/*
     custom Industry Key mapping for SSoT Monthly Labour Market Updates data.
-    The industries for the data columns do not match 1 to 1 the Industry Profiles  
+    The industries for the data columns do not match 1 to 1 the Industry Profiles
  */
 function ssotIndustryKey($industry) {
-  
+
   $industries = [
     'accommodation_and_food_services' => 'Accommodation And Food Services',
     'agriculture' => 'Agriculture And Fishing',
+    'business_building_other_support_services' => 'Business, Building And Other Support Services',
     'construction' => 'Construction',
     'educational_services' => 'Educational Services',
     'finance_insurance_real_estate_rental' => 'Finance, Insurance And Real Estate',
     'health_care_and_social_assistance' => 'Health Care And Social Assistance',
+    'information_culture_recreation' => 'Information, Culture And Recreation',
     'manufacturing' => 'Manufacturing',
     'other_services' => 'Repair, Personal And Non-Profit Services',
     'professional_scientific_and_technical' => 'Professional, Scientific And Technical Services',
@@ -468,7 +470,7 @@ function ssotIndustryKey($industry) {
     'utilities' => 'Utilities',
   ];
 
-  return array_search($industry, $industries);
+  return array_search(strtolower($industry), array_map('strtolower', $industries));
 }
 
 /*
@@ -480,12 +482,12 @@ function ssotIndustryKey($industry) {
    suffix default ""
    prefix default ""
    positive_sign TRUE, FALSE default FALSE
-   na_if_empty TRUE, FALSE default FALSE, 
+   na_if_empty TRUE, FALSE default FALSE,
    no_negative TRUE, FALSE default FALSE,
    sanity_check TRUE, FALSE default FALSE, TRUE will display "[ssot]"
  */
 function ssotFormatNumber($number, $options = []) {
-  
+
   $valid = ['decimals', 'positive_sign', 'suffix', 'prefix', 'na_if_empty', 'no_negative', 'sanity_check'];
   foreach ($options as $key => $option) {
     if (!in_array($key, $valid)) {
@@ -639,7 +641,7 @@ function epbcSetPrograms() {
 
 
 function workbcInteractiveMap($map_id) {
-  
+
   $module_handler = \Drupal::service('module_handler');
   $module_path = $module_handler->getModule('workbc_extra_fields')->getPath();
 
@@ -651,8 +653,8 @@ function workbcInteractiveMap($map_id) {
       $regions[] = $key;
       $labels[$key] = $value;
     }
-    
-  } 
+
+  }
   $map = '<div class="workbc-interactive-map-container">';
   $map .= '<div class="workbc-interactive-map">';
   $map .= '<img class="map-region" src="/' . $module_path . '/images/map-british_columbia.png">';
@@ -660,7 +662,7 @@ function workbcInteractiveMap($map_id) {
   foreach ($regions as $region) {
     $map .= '<img class="interactive-map-' . $region . ' map-region" src="/' . $module_path . '/images/map-' . $region . '.png">';
   }
-  
+
   $hotspots = [0,
                REGION_NORTHEAST_ID,REGION_NORTHEAST_ID,REGION_NORTHEAST_ID,REGION_NORTHEAST_ID,
                REGION_NORTHEAST_ID,REGION_NORTHEAST_ID,REGION_NORTHEAST_ID,
