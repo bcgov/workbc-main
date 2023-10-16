@@ -411,7 +411,7 @@ display:
           empty: false
           content:
             value: '<strong>Source:</strong> {{ industry_profile_overview_source }}'
-            format: basic_html
+            format: full_html
           tokenize: true
       display_extenders: {  }
     cache_metadata:
