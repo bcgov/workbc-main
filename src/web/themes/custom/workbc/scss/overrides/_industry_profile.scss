@@ -50,6 +50,10 @@
 
 }
 
+.hourly-earnings-note {
+  padding-bottom: 10px;
+}
+
 @include media-breakpoint-down(sm) {
   #industry-profile-interactive-map {
     .card-profile__content-item {
