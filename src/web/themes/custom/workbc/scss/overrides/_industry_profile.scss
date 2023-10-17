@@ -50,6 +50,10 @@
 
 }
 
+.hourly-earnings-note {
+  padding-bottom: 10px;
+}
+
 @include media-breakpoint-down(sm) {
   #industry-profile-interactive-map {
     .card-profile__content-item {
@@ -63,4 +67,11 @@ div#industry-profile-interactive-map {
   .card-profile {
     flex: auto;
   }
+}
+
+
+.industry-profile-hourly-earnings table td,
+.industry-profile-employment-types table td {
+  padding-top: 5px;
+  padding-bottom: 5px;
 }

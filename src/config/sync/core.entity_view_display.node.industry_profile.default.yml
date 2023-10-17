@@ -6,6 +6,7 @@ dependencies:
     - field.field.node.industry_profile.field_content_group
     - field.field.node.industry_profile.field_hero_image
     - field.field.node.industry_profile.field_hero_image_media
+    - field.field.node.industry_profile.field_hourly_earnings_note
     - field.field.node.industry_profile.field_industry_overview
     - field.field.node.industry_profile.field_introductions
     - field.field.node.industry_profile.field_job_board_id
@@ -42,6 +43,7 @@ third_party_settings:
         - field_industry_overview
         - field_key_facts
         - extra_field_hourly_earnings_introduction
+        - field_hourly_earnings_note
         - extra_field_industry_wage
         - extra_field_industry_average_wage_bc
         - extra_field_industry_wage_source
@@ -130,7 +132,7 @@ content:
   extra_field_industry_average_wage_bc:
     settings: {  }
     third_party_settings: {  }
-    weight: 27
+    weight: 28
     region: content
   extra_field_industry_bc_average_chart:
     settings: {  }
@@ -255,7 +257,7 @@ content:
   extra_field_industry_wage:
     settings: {  }
     third_party_settings: {  }
-    weight: 26
+    weight: 27
     region: content
   extra_field_industry_wage_source:
     settings: {  }
@@ -300,6 +302,14 @@ content:
       link: false
     third_party_settings: {  }
     weight: 2
+    region: content
+  field_hourly_earnings_note:
+    type: string
+    label: above
+    settings:
+      link_to_entity: false
+    third_party_settings: {  }
+    weight: 26
     region: content
   field_industry_overview:
     type: text_default
