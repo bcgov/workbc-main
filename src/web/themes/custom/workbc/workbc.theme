@@ -204,7 +204,6 @@ function workbc_preprocess_node(&$variables) {
     $variables['resources_links'] = $links;
   }
 
-
   if ($variables['node']->bundle() === "career_profile") {
     $careers = $variables['node']->get("field_related_careers")->referencedEntities();
     $links = [];
