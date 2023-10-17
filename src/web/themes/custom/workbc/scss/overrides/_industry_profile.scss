@@ -54,6 +54,15 @@
   padding-bottom: 10px;
 }
 
+.top-ten-job-openings {
+  text-align: right;
+}
+
+.card-profile__content-item table th.top-ten-job-openings {
+  padding-right: 10px;
+}
+
+
 @include media-breakpoint-down(sm) {
   #industry-profile-interactive-map {
     .card-profile__content-item {
