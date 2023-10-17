@@ -121,6 +121,7 @@
 
       hourly_earnings_title: content.group_industry_profile.group_industry_overview.extra_field_hourly_earnings_introduction['#title'],
       hourly_earnings_markup: content.group_industry_profile.group_industry_overview.extra_field_hourly_earnings_introduction.0['#text'],
+      hourly_earnings_note: content.group_industry_profile.group_industry_overview.field_hourly_earnings_note['#items'].getString(),
       hourly_earnings_average_bc_title: content.group_industry_profile.group_industry_overview.extra_field_industry_average_wage_bc['#title'],
       hourly_earnings_average_bc_markup: content.group_industry_profile.group_industry_overview.extra_field_industry_average_wage_bc.0['#markup'],
       hourly_earnings_average_national_title: content.group_industry_profile.group_industry_overview.extra_field_industry_wage['#title'],
@@ -148,7 +149,7 @@
       employment_text: content.group_industry_profile.group_labour_market_statistics.extra_field_employment_introduction.0['#text'],
 
       employment_types_title: 'Types of Employment',
-      employment_types_text__field: 'Shows % of Persons Employed for each type',
+      employment_types_text__field: 'Shows % of persons employed for each type',
       employment_types_industry_title: content.group_industry_profile.group_labour_market_statistics.extra_field_industry_employment_types_industry['#title'],
       employment_types_industry_markup: content.group_industry_profile.group_labour_market_statistics.extra_field_industry_employment_types_industry.0['#markup'],
       employment_types_bc_title: content.group_industry_profile.group_labour_market_statistics.extra_field_industry_employment_types_bc['#title'],
@@ -302,8 +303,16 @@
                   <h3 class="card-profile__content-header">{{ viewmodel['tab_sections']['industry_overview']['hourly_earnings_average_national_title'] }}</h3>
                   <span class="card-profile__content-item">{{ viewmodel['tab_sections']['industry_overview']['hourly_earnings_average_national_markup']|raw }}</span>
                 </div>
+              
                 <div class="card-profile__source">
-                  <em>Source:</em> {{ viewmodel['tab_sections']['industry_overview']['hourly_earnings_source']|raw }}
+                  {% if viewmodel['tab_sections']['industry_overview']['hourly_earnings_note'] is not empty %}
+                    <div class="hourly-earnings-note">
+                      <em>Note:</em> {{ viewmodel['tab_sections']['industry_overview']['hourly_earnings_note']|raw }}
+                    </div>
+                  {% endif %}
+                  <div>
+                    <em>Source:</em> {{ viewmodel['tab_sections']['industry_overview']['hourly_earnings_source']|raw }}
+                  </div>
                 </div>
               </div>
             </div>
@@ -357,12 +366,12 @@
                 </div>
                 <div class="card-profile__content-small">
                   <h3 class="card-profile__content-header">{{ viewmodel['tab_sections']['labour_market_statistics']['employment_types_bc_title'] }}</h3>
-                  <span class="card-profile__content-item">{{ viewmodel['tab_sections']['labour_market_statistics']['employment_types_bc_markup']|raw }}</span>
+                  <span class="card-profile__content-item industry-profile-employment-types">{{ viewmodel['tab_sections']['labour_market_statistics']['employment_types_bc_markup']|raw }}</span>
                 </div>
                 <div class="card-profile__content-divider"></div>
                 <div class="card-profile__content-small">
                   <h3 class="card-profile__content-header">{{ viewmodel['tab_sections']['labour_market_statistics']['employment_types_industry_title'] }}</h3>
-                  <span class="card-profile__content-item">{{ viewmodel['tab_sections']['labour_market_statistics']['employment_types_industry_markup']|raw }}</span>
+                  <span class="card-profile__content-item industry-profile-employment-types">{{ viewmodel['tab_sections']['labour_market_statistics']['employment_types_industry_markup']|raw }}</span>
                 </div>
                 <div class="card-profile__source">
                   <em>Source:</em> {{ viewmodel['tab_sections']['labour_market_statistics']['employment_types_source']|raw }}
