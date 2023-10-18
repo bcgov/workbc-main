@@ -185,6 +185,7 @@
       top_occupations_title: content.group_industry_profile.group_labour_market_statistics.extra_field_top_occupations_introduction['#title'],
       top_occupations_text: content.group_industry_profile.group_labour_market_statistics.extra_field_top_occupations_introduction.0['#text'],
       top_occupations_markup: content.group_industry_profile.group_labour_market_statistics.extra_field_industry_top_ten_occupations.0['#markup'],
+      top_occupations_source: content.group_industry_profile.group_labour_market_statistics.extra_field_industry_top_ten_occupations_source.0['#markup'],
     },
     resources: {
       tab: 'Resources',
@@ -494,6 +495,9 @@
                 <div class="card-profile__content">
                   <span class="card-profile__content-item">{{ viewmodel['tab_sections']['labour_market_statistics']['top_occupations_markup']|raw }}</span>
                 </div>
+                <div class="card-profile__source">
+                  <em>Source:</em> {{ viewmodel['tab_sections']['labour_market_statistics']['top_occupations_source']|raw }}
+                </div>                
               </div>
             </div>
           </div>
