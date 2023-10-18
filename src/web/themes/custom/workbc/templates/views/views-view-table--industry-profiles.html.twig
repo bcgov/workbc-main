@@ -38,8 +38,10 @@
     'cols-' ~ header|length,
     responsive ? 'responsive-enabled',
     sticky ? 'sticky-enabled',
+    'industry-overview-table',
   ]
 %}
+<div class="industry-overview-title">Industry Overview</div>
 <table{{ attributes.addClass(classes) }}>
   {% if caption_needed %}
     <caption>

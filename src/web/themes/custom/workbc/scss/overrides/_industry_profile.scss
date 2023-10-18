@@ -54,6 +54,15 @@
   padding-bottom: 10px;
 }
 
+.top-ten-job-openings {
+  text-align: right;
+}
+
+.card-profile__content-item table th.top-ten-job-openings {
+  padding-right: 10px;
+}
+
+
 @include media-breakpoint-down(sm) {
   #industry-profile-interactive-map {
     .card-profile__content-item {
@@ -69,6 +78,24 @@ div#industry-profile-interactive-map {
   }
 }
 
+
+.industry-overview-title {
+  font-weight: 700;
+  font-size: 18px;
+  text-align: center;
+  padding-bottom: 35px;
+}
+
+.industry-overview-table thead th {
+  padding-top: 10px;
+  padding-bottom: 10px;
+}
+
+.industry-overview-table p {
+  margin-bottom: 0px;
+}
+
+.industry-profile-hourly-earnings table td,
 .industry-profile-employment-types table td {
   padding-top: 5px;
   padding-bottom: 5px;
