@@ -75,13 +75,14 @@ class CareerProfileJobOpeningsByRegionNA extends ExtraFieldDisplayFormattedBase 
     }
 
     $has_null = false;
-    foreach ($regions as $key => $value) {
-      if (in_array(null, $value)) {
-        $has_null = true;
-        break;
+    foreach ($regions as $key => $region) {
+      foreach ($region as $value) {
+        if (is_null($value)) {
+          $has_null = true;
+          break 2;
+        }
       }
     }
-
     return [
       ['#markup' => $has_null ? "YES" : "NO"],
     ];
