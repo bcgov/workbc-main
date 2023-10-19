@@ -4,6 +4,7 @@
  * Iterate over a list of URLs and capture response headers into a CSV.
  *
  * Usage:
+ * - export BASE_URL=https://www.workbc.ca
  * - wget -q $BASE_URL/sitemap.xml -O sitemap.xml
  * - xmllint --xpath "//*[local-name()='loc']/text()" sitemap.xml > urls.txt
  * - ./cache_test.php urls.txt > cache-log.csv
