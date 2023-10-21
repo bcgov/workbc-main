@@ -17,6 +17,7 @@ libraries:
   - workbc/scrollbooster
   - workbc/google-charts-redraw
   - workbc/interactive-map
+  - workbc/mobile-chosen
 stylesheets-remove:
   - '@bootstrap5/css/style.css'
 regions:
