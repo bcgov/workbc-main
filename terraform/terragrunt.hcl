@@ -16,7 +16,7 @@ terraform {
     bucket = "terraform-remote-state-${local.project}-${local.environment}"
     key = "workbc-main.tfstate"
     region = "ca-central-1"
-    dynamodb_table = "terraform-remote-state-lock-${local.project}-workbc-main"
+    dynamodb_table = "terraform-remote-state-lock-${local.project}"
     encrypt = true
   }
 }
