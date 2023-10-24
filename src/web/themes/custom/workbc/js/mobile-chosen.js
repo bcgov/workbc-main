@@ -6,20 +6,21 @@ let allSelected = true;
 
       once('mobilechosen', '#edit-occupational-interest', context).forEach(function() {
 
-        var select = document.getElementById('edit-occupational-interest');
-        var option = document.createElement('option');
-        option.value = 0;
-        option.innerHTML = "All";
-        option.selected = true;
-        select.insertBefore(option, select.firstChild);
-
-        oldOptions = select && select.options;
+        if (isMobile()) {
+          var select = document.getElementById('edit-occupational-interest');
+          var option = document.createElement('option');
+          option.value = 0;
+          option.innerHTML = "All";
+          option.selected = true;
+          select.insertBefore(option, select.firstChild);
+          
+          oldOptions = select && select.options;
+        }
 
 
         $('#edit-occupational-interest').on('change' , function() {
           var select = document.getElementById('edit-occupational-interest');
           var options = select && select.options;
-;
 
           if (allSelected) {
             for (var i=0, iLen=options.length; i<iLen; i++) {
@@ -44,7 +45,10 @@ let allSelected = true;
 
         });
 
-
+        function isMobile() {
+          const regex = /Mobi|Android|webOS|iPhone|iPad|iPod|BlackBerry|IEMobile|Opera Mini/i;
+          return regex.test(navigator.userAgent);
+        }
 
       });
     }
