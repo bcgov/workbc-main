@@ -635,7 +635,7 @@
                   <li class="resource-link">
                     <div class="resource-link__title">{{ resource.title }}</div>
                     {% set resource_url = resource.uri.uri %}
-                    <a class="resource-link__href" target="_blank" href="{{ resource.uri }}">{{ resource_url|replace({"https://": ""}) }}</a>
+                    <a class="resource-link__href" target="_blank" href="{{ resource.uri }}">{{ resource_url|replace({"https://": "", "http://": ""}) }}</a>
                   </li>
                 {% endfor %}
               </ul>
