@@ -3,11 +3,9 @@ let currentRegion = {};
 
 (function ($, Drupal, once) {
 	Drupal.behaviors.interactivemap = {
-
     attach: function (context, settings) {
-      
-      once('interactivemap', '.workbc-interactive-map-container', context).forEach(function() {
 
+      once('interactivemap', '.workbc-interactive-map-container', context).forEach(function() {
         $('.map-hot-spot').each(function() {
           let mapNo = $(this).data('interactive-map-no');
           currentRegion[mapNo] = 0;
