@@ -64,14 +64,16 @@
   ]
 %}
 <div{{ attributes.addClass(classes) }}>
+<div class="occupation-interest-tooltip">
   {% if label_display in ['before', 'invisible'] %}
     {{ label }} 
     <span class="workbc-tooltip">
-      <div class="workbc-tooltip-content">
+      <span class="workbc-tooltip-content">
         {{ occupational_interest_tooltip|raw }}
-      </div>
+      </span>
     </span>
   {% endif %}
+  </div>
   {% if prefix is not empty %}
     <span class="field-prefix">{{ prefix }}</span>
   {% endif %}
