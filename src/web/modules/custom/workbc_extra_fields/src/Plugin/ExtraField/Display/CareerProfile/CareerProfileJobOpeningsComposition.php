@@ -61,14 +61,13 @@ class CareerProfileJobOpeningsComposition extends ExtraFieldDisplayFormattedBase
         ],
         'yaxis' => [
           '#type' => 'chart_yaxis',
-          '#raw_options' => [
-            'options' => [
-              'pieHole' => 0.5,
-              'width' => 600,
-              'height' => 350,
-              'pieSliceText' => 'percentage'
-            ]
-          ]
+        ],
+        '#raw_options' => [
+          'options' => [
+            'pieHole' => 0.7,
+            'height' => 350,
+            'pieSliceText' => 'none',
+          ],
         ]
       ];
       $output = \Drupal::service('renderer')->render($chart);
