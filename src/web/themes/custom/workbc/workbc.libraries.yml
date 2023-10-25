@@ -87,3 +87,8 @@ google-charts-redraw:
 interactive-map:
   js:
     js/interactive-map.js: {}
+
+
+mobile-chosen:
+  js:
+    js/mobile-chosen.js: {}

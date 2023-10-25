@@ -58,6 +58,7 @@ class RegionEmploymentGrowthForecastChart extends ExtraFieldDisplayFormattedBase
       $dates[] = $date1;
       $dates[] = $date2;
       $chart = [
+        '#chart_id' => "region-forecasted-employment-growth-rate",
         '#type' => 'chart',
         '#chart_type' => 'column',
         'series' => [
