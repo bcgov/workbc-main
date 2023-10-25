@@ -51,10 +51,15 @@ tbody {
 }
 
 @include media-breakpoint-down(sm) {
+  div.view-industry-profiles:has(.industry-overview-table) {
+    padding: 0 0 0 0;
+  }
+
   table.industry-overview-table {
     margin: 0 0 0;
     width: 100%;
     overflow-x: hidden;
+    box-shadow: rgba(0, 0, 0, 0.24) 0 3px 8px;
 
     thead {
       display: none;
