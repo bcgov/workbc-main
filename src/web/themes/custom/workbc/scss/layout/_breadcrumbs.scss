@@ -31,3 +31,20 @@
     color: $workbc_default_text;
   }
 }
+
+
+.breadcrumb-container {
+  display: flex;
+  flex-wrap: wrap;
+
+}
+
+.breadcrumb-content {
+  width: auto;
+}
+
+.save-profile-block {
+  flex-grow: 1;
+  text-align: right;
+
+}

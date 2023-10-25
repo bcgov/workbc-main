@@ -10,8 +10,8 @@
 <div class="breadcrumb-wrapper">
   {% if breadcrumb %}
     <div class="container-lg">
-      <div class="row">
-        <div class="col-8 col-md-8 d-flex align-items-center">
+      <div class="row breadcrumb-container">
+        <div class="breadcrumb-content">
           <nav aria-label="breadcrumb">
             <h2 id="system-breadcrumb" class="visually-hidden">{{ 'Breadcrumb'|t }}</h2>
             <ol class="breadcrumb">
@@ -27,11 +27,11 @@
             </ol>
           </nav>
         </div>
-        {% if save_profile_available %} 
-          <div>
+{#        {% if save_profile_available %} #}
+          <div class="save-profile-block">
             {{ drupal_entity('block', 'saveprofile') }}
           </div>
-        {% endif %} 
+{#        {% endif %} #}
       </div>
     </div>
   {% endif %}
