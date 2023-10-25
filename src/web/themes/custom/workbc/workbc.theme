@@ -330,11 +330,11 @@ function workbc_preprocess_block(&$vars) {
 
 
 function workbc_preprocess_breadcrumb(&$variables){
-
+  $types = ["career_profile", "industry_profile"];
   $node = \Drupal::routeMatch()->getParameter('node');
-  $variables['is_save_profile'] = false;
+  $variables['save_profile_available'] = false;
   if ($node) {
-    $variables['is_save_profile'] = in_array($node->bundle(), ["career_profile", "industry_profile"]);
+    $variables['save_profile_available'] = in_array($node->bundle(), $types);
   }
 
 }
