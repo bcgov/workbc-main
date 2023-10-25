@@ -27,9 +27,11 @@
             </ol>
           </nav>
         </div>
-        <div class="col-4 col-md-4">
-          {{ drupal_entity('block', 'saveprofile') }}
-        </div>
+        {% if is_save_profile %}
+          <div class="col-4 col-md-4">
+            {{ drupal_entity('block', 'saveprofile') }}
+          </div>
+        {% endif %}
       </div>
     </div>
   {% endif %}

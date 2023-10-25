@@ -327,3 +327,14 @@ function workbc_preprocess_block(&$vars) {
     }
   }
 }
+
+
+function workbc_preprocess_breadcrumb(&$variables){
+
+  $node = \Drupal::routeMatch()->getParameter('node');
+  $variables['is_save_profile'] = false;
+  if ($node) {
+    $variables['is_save_profile'] = in_array($node->bundle(), ["career_profile", "industry_profile"]);
+  }
+
+}
