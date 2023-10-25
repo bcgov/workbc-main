@@ -13,6 +13,8 @@
   flex: 1 1 auto;
 }
 
+.form-item-location input.form-autocomplete,
+.form-item-location input.form-autocomplete.ui-autocomplete-loading,
 .search-form input.form-autocomplete,
 .search-form input.form-autocomplete.ui-autocomplete-loading {
   background-image: none;
