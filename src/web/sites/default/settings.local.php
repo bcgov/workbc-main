@@ -61,7 +61,7 @@ assert_options(ASSERT_ACTIVE, TRUE);
 /**
  * Control caching in the local development environment.
  */
-const LOCAL_CACHE_ACTIVE = TRUE;
+const LOCAL_CACHE_ACTIVE = FALSE;
 
 /**
  * Enable local development services.
