@@ -2,7 +2,7 @@
 
   /**
    * @file
-   *  Calendar Listview module to create list-view feature for calendar. 
+   *  Calendar Listview module to create list-view feature for calendar.
    */
 
   use Symfony\Component\HttpFoundation\RedirectResponse;
@@ -10,9 +10,9 @@
   use Drupal\Core\Cache\Cache;
   use Drupal\node\Entity\Node;
   use Drupal\views\ViewExecutable;
-   
 
-function calendar_listview_page_attachments_alter(array &$attachments) {  
+
+function calendar_listview_page_attachments_alter(array &$attachments) {
 	$attachments['#attached']['library'][] = 'calendar_listview/calendar-listview-lib';
 }
 
@@ -71,13 +71,10 @@ function calendar_listview_theme_suggestions_page_alter(array &$suggestions, arr
 
 function calendar_listview_preprocess_node(&$variables) {
   $nid = $variables['node']->id();
-  $current_path = \Drupal::service('path_alias.manager')->getAliasByPath('/node/'.$nid);
-    $variables['#cache']['max-age'] = 0;
-    $mode = \Drupal::request()->query->get('mode');
-    $mode = (!empty($mode))? $mode : "calendar";
-    $variables['viewmode'] = $mode;
+  $mode = \Drupal::request()->query->get('mode');
+  $mode = (!empty($mode))? $mode : "calendar";
+  $variables['viewmode'] = $mode;
 }
-
 
 /**
  * {@inheritdoc}

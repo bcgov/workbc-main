@@ -170,7 +170,7 @@ function workbc_custom_form_node_form_alter(&$form, \Drupal\Core\Form\FormStateI
         $form['field_content_group']['widget']['#default_value'] = $user->get("field_content_group")->target_id;
       }
     }
- 
+
 }
 
 
@@ -664,6 +664,25 @@ function workbc_custom_system_breadcrumb_alter(Breadcrumb &$breadcrumb, RouteMat
       $breadcrumb = clone($new_breadcrumb);
 
     }
+  }
+}
+
+/**
+ * Implements hook_entity_type_build().
+ */
+function workbc_custom_entity_type_build(array &$entity_types) {
+  // Inhibit default rendering of nodes which causes uncacheable pages.
+  $entity_types['node']->set('enable_base_field_custom_preprocess_skipping', TRUE);
+}
+
+/**
+ * Implements hook_entity_base_field_info_alter().
+ */
+function workbc_custom_entity_base_field_info_alter(&$fields, \Drupal\Core\Entity\EntityTypeInterface $entity_type) {
+  // Inhibit default rendering of username/date which causes uncacheable pages.
+  if ($entity_type->id() == 'node') {
+    $fields['uid']->setDisplayConfigurable('view', TRUE);
+    $fields['created']->setDisplayConfigurable('view', TRUE);
   }
 }
 
