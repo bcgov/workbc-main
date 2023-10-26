@@ -235,7 +235,8 @@
             },
             "drupal/gtranslate" : {
                "Remove select language option and default language highlight": "patches/drupal/gtranslate/remove_select_language.patch",
-               "Select doesn't show language selected after changing pages": "patches/drupal/gtranslate/select_changed_value.patch"
+               "Select doesn't show language selected after changing pages": "patches/drupal/gtranslate/select_changed_value.patch",
+               "Block content doesn't invalidate the cache": "patches/drupal/gtranslate/block-content-cache-max-age-3316581-2.patch"
             },
             "drupal/charts": {
                 "Remember chart instances": "patches/drupal/charts/remember-charts-1.patch"
@@ -249,10 +250,7 @@
             },
             "drupal/views_infinite_scroll": {
                 "Remove repeating header": "patches/drupal/views_infinite_scroll/2899705-53.patch"
-            },
-            "drupal/search_api_autocomplete": {
-                "Fix undefined constant": "patches/drupal/search_api_autocomplete/undefined-constant-3382226-3.patch"
-            }             
+            }
         }
     }
 }
