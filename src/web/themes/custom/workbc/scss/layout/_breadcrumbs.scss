@@ -35,12 +35,14 @@
 
 .breadcrumb-container {
   display: flex;
+  align-items: center;
   flex-wrap: wrap;
 
 }
 
 .breadcrumb-content {
   width: auto;
+  margin: auto;
 }
 
 .save-profile-block {
