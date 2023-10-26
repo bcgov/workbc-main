@@ -30,6 +30,8 @@ if (!getenv('BASE_URL')) {
   fwrite(STDERR, "Warning: BASE_URL is not defined. Assets won't be fetched.\n");
 }
 
+// $pages = 0;
+
 $handle = fopen($urls, "r");
 if ($handle) {
   fputcsv(STDOUT, array_merge(["URL"], $headers));
@@ -37,6 +39,8 @@ if ($handle) {
     // Call each page twice to exercise the cache.
     request($url, $headers, $assets);
     request($url, $headers, $assets);
+
+    // if ($pages++ > 3) break;
   }
   fclose($handle);
 }
