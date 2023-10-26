@@ -1,0 +1,10 @@
+name: CKEditor 5 Media Download Link
+type: module
+description: "CKEditor 5 Media Download Link plugin"
+package: CKEditor 5
+core_version_requirement: ^9 || ^10
+dependencies:
+  - drupal:ckeditor5
+  - drupal:media
+  - drupal:media_library
+  - drupal:media_entity_download

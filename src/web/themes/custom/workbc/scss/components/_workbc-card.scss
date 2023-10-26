@@ -47,41 +47,6 @@ $container-gutter: $workbc_spacing_gutters;
       }
     }
 
-    .workbc-card-video-preview {
-
-      a,
-      button {
-        position: relative;
-        display: block;
-        margin: 0;
-        border: none;
-        width: 100%;
-        padding: 0;
-
-        &:after {
-          content: "";
-          position: absolute;
-          top: 0;
-          right: 0;
-          bottom: 0;
-          left: 0;
-          z-index: 2;
-          background: url(../assets/images/video-play-icon.svg) center center no-repeat;
-          background-size: 60px;
-        }
-
-        &:hover:after {
-          background: url(../assets/images/video-play-icon-hover.svg) center center no-repeat;
-          background-size: 60px;
-        }
-
-        img {
-          z-index: 1;
-          width: 100%;
-        }
-      }
-    }
-
     .workbc-card-details {
       background-color: $workbc_light_theme_background_accent;
       padding: 5px $card-spacing;
@@ -228,6 +193,85 @@ $container-gutter: $workbc_spacing_gutters;
 
     }
   }
+}
+
+.workbc-card-video-preview {
+
+  a,
+  button {
+    position: relative;
+    display: block;
+    margin: 0;
+    border: none;
+    width: 100%;
+    padding: 0;
+
+    &:after {
+      content: "";
+      position: absolute;
+      top: 0;
+      right: 0;
+      bottom: 0;
+      left: 0;
+      z-index: 2;
+      background: url(../assets/images/video-play-icon.svg) center center no-repeat;
+      background-size: 60px;
+    }
+
+    &:hover:after {
+      background: url(../assets/images/video-play-icon-hover.svg) center center no-repeat;
+      background-size: 60px;
+    }
+
+    img {
+      z-index: 1;
+      width: 100%;
+    }
+  }
+}
+
+.field__item:has(article.media--type-remote-video) {
+  display: flex;
+  flex-wrap: wrap;
+}
+
+@include media-breakpoint-up(sm) {
+  article.media--type-remote-video:nth-last-of-type(-n + 2) {
+    border-bottom: none;
+  }
+}
+
+@include media-breakpoint-down(sm) {
+  article.media--type-remote-video:nth-last-of-type(1) {
+    border-bottom: none;
+  }
+}
+
+article.media--type-remote-video {
+  display: inline-block;
+  width: 50%;
+  padding-top: 20px;
+  padding-bottom: 20px;
+  border-bottom: $workbc_palette_light_secondary solid 2px;
+
+  &:nth-of-type(odd) {
+    padding-right: 20px;
+    padding-left: 0;
+  }
+
+  &:nth-of-type(even) {
+    padding-left: 20px;
+    padding-right: 0;
+  }
+
+  @include media-breakpoint-down(sm) {
+    width: 100%;
+    padding: 10px !important;
+  }
+}
+
+#drupal-modal article.media--type-remote-video {
+  width: 100%;
 }
 
 // see https://www.codeply.com/p/0CWffz76Q9 for inspiration on desktop size multiple panel view

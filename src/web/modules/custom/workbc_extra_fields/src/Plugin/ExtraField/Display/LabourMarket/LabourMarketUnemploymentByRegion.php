@@ -94,7 +94,7 @@ class LabourMarketUnemploymentByRegion extends ExtraFieldDisplayFormattedBase {
     $needle = 'unemployment_pct_';
 
     $options = array(
-      'decimals' => 0,
+      'decimals' => 1,
       'suffix' => '%',
       'na_if_empty' => TRUE,
     );
@@ -112,15 +112,14 @@ class LabourMarketUnemploymentByRegion extends ExtraFieldDisplayFormattedBase {
               continue;
             }
             $regions[$regionsubstring]['region'] = Link::fromTextAndUrl(t($region_map[$regionsubstring]), Url::fromUri('internal:' . ssotRegionLink($regionsubstring), []))->toString();
-            $regions[$regionsubstring]['previous'] = !empty($value)?$value.'%': WORKBC_EXTRA_FIELDS_NOT_AVAILABLE;
+            $regions[$regionsubstring]['previous'] = ssotFormatNumber($value, $options);
           } else {
             if(empty($region_map[$regionsubstring])){
               continue;
             }
             $regions[$regionsubstring]['region'] = Link::fromTextAndUrl(t($region_map[$regionsubstring]), Url::fromUri('internal:' . ssotRegionLink($regionsubstring), []))->toString();
-            $regions[$regionsubstring]['current'] = !empty($value)?$value.'%': WORKBC_EXTRA_FIELDS_NOT_AVAILABLE;
+            $regions[$regionsubstring]['current'] = ssotFormatNumber($value, $options);
           }
-
         }
       }
     }

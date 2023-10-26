@@ -15,6 +15,12 @@
       </a>
     {% endif %}
 
+    {% if items.services.x %}
+      <a href="http://twitter.com/intent/tweet?text={{ items.title }}+{{ items.page_url }}" target="_blank" title="{{ 'Share to'|t }} X" aria-label="{{ 'Share to'|t }} X" class="social-sharing-buttons__button share-twitter" rel="noopener">
+        <span class="visually-hidden"> Share to X </span>
+      </a>
+    {% endif %}
+
     {# Linkedin share button #}
     {% if items.services.linkedin %}
       <a href="https://www.linkedin.com/sharing/share-offsite/?url={{ items.page_url }}" target="_blank" title="{{ 'Share to'|t }} Linkedin" aria-label="{{ 'Share to'|t }} Linkedin" class="social-sharing-buttons__button share-linkedin" rel="noopener">
@@ -24,7 +30,7 @@
 
     {# Email share button #}
     {% if items.services.email %}
-      <a href="mailto:?subject={{ items.title }}&body={{ items.page_url }}" title="{{ 'Share to'|t }} Email" aria-label="{{ 'Share to'|t }} Email" class="social-sharing-buttons__button share-email" target="_blank" rel="noopener">
+      <a href="mailto:?subject=WorkBC.ca: {{ items.title }}&body=A WorkBC.ca link has been shared with you: {{ items.page_url }}" title="{{ 'Share to'|t }} Email" aria-label="{{ 'Share to'|t }} Email" class="social-sharing-buttons__button share-email" target="_blank" rel="noopener">
         <span class="visually-hidden"> Share to Email </span>
       </a>
     {% endif %}

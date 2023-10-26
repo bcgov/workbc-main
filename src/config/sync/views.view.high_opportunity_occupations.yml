@@ -340,7 +340,7 @@ display:
           group_type: group
           admin_label: ''
           plugin_id: high_opportunity_occupations_hourly_wage
-          label: 'Hourly Wage'
+          label: 'Median Hourly Earnings'
           exclude: false
           alter:
             alter_text: false

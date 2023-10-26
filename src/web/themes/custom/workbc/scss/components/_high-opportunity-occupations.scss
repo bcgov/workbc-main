@@ -74,7 +74,39 @@
   margin-bottom: 40px;
   box-shadow: 0 0 10px #dbdbdb;
 
-  @media screen and (max-width: 600px) {
+  @include media-breakpoint-up(md) {
+
+    .views-field {
+      padding: 10px;
+    }
+
+    .views-field-occupation {
+      width: 25%;
+    }
+
+    .views-field-hourly-wage {
+      width: 17%;
+    }
+
+    .views-field-typical-education-background,
+    .views-field-openings-forecast,
+    .views-field-occupational-interest {
+      width: 15%;
+    }
+
+    .views-field-typical-education-background,
+    .views-field-occupational-interest {
+      text-align: center;
+    }
+
+    .views-field-openings-forecast,
+    .views-field-hourly-wage
+     {
+      text-align: right;
+    }
+  }
+
+  @include media-breakpoint-down(md) {
 
     padding: 0 0 0 0;
 
@@ -153,3 +185,12 @@
   }
 
 }
+
+.occupation-interest-tooltip {
+  width: 90%;
+  label {
+    display: inline;
+  }
+}
+
+

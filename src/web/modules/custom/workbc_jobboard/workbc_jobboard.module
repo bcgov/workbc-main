@@ -122,7 +122,6 @@ function workbc_jobboard_preprocess_node(&$variables) {
     $variables['find_job_url'] = \Drupal::config('jobboard')->get('find_job_url');
     $variables['find_job_account_url'] = \Drupal::config('jobboard')->get('find_job_account_url');
     $variables['google_maps_key'] = \Drupal::config('jobboard')->get('google_maps_key');
-    $variables['#cache']['max-age'] = 0;
     if($current_path == $variables['find_job_url']){
       $variables['elements']['#theme'] = 'node__page_jobboard_findjobs';
     }

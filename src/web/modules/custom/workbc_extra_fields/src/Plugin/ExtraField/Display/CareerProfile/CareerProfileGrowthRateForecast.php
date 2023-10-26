@@ -55,6 +55,7 @@ class CareerProfileGrowthRateForecast extends ExtraFieldDisplayFormattedBase {
       $dates[] = $date2 . "-" . $date3;
 
       $chart = [
+        '#chart_id' => 'career-forecasted-employment-growth-rate',
         '#type' => 'chart',
         '#chart_type' => 'column',
         'series' => [

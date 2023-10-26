@@ -154,7 +154,7 @@
   </div>
 
   <div class="lm-table-container">
-    <div class="lm-label lm-label-table">{{ 'Unemployment Rate (%)'|t }}</div>
+    <div class="lm-label lm-label-table">{{ 'Unemployment Rate'|t }}</div>
 
     {% if unemployment_by_region_markup %}
       <div>{{ unemployment_by_region_markup }}</div>
@@ -177,10 +177,10 @@
             {% for key, region in unemployment_by_region_table_rows %}
               <tr class='{{ region.class }} {{ cycle(['odd', 'even'], loop.index0) }}'>
                 <td class='region'>{{ region.data.0 }}</td>
-                <td class="data-row current-year" data-label="{{ unemployment_by_region_table_header.1 }}">
+                <td class="data-row current-year" data-label="{{ unemployment_by_region_table_header.1 }}" align="right">
                   {{ region.data.1 }}
                 </td>
-                <td class="data-row prior-year" data-label="{{ unemployment_by_region_table_header.2 }}">
+                <td class="data-row prior-year" data-label="{{ unemployment_by_region_table_header.2 }}" align="right">
                   {{ region.data.2 }}
                 </td>
               </tr>

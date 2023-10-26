@@ -154,8 +154,8 @@
       job_titles_list: content.group_career_profile_tabs.group_career_overview.field_job_titles['#items'],
     },
     education: {
-      tab: 'Education, Training & Skills',
-      title: content.group_career_profile_tabs.group_education_training_skills.field_education_training_skills['#title'] ?? 'Education, Training & Skills',
+      tab: 'Education, Training and Skills',
+      title: content.group_career_profile_tabs.group_education_training_skills.field_education_training_skills['#title'] ?? 'Education, Training and Skills',
       description: content.group_career_profile_tabs.group_education_training_skills.field_education_training_skills.0['#text'],
       education_programs_title: content.group_career_profile_tabs.group_education_training_skills.extra_field_education_programs['#title'],
       education_programs_list: content.group_career_profile_tabs.group_education_training_skills.extra_field_education_programs.0,
@@ -612,10 +612,10 @@
               <div class="card-profile__content">
                 <h3 class="card-profile__content-header">{{ viewmodel['tab_sections']['industry_highlights']['job_openings_title']|raw }}</h3>
 
-                <span class="card-profile__content-item">
+                <div class="card-profile__content-item">
                   {{ viewmodel['tab_sections']['industry_highlights']['job_openings_markup']|raw }}
                   <div>For additional industry information, visit the <a href="/research-labour-market/bcs-industries-and-sectors/industry-profiles">Industry Profiles</a> page.</div>
-                </span>
+                </div>
               </div>
               <div class="card-profile__source">
                 <em>Source:</em> {{ viewmodel['tab_sections']['industry_highlights']['job_openings_source']|raw }}
@@ -634,7 +634,8 @@
                 {% for resource in viewmodel['tab_sections']['resources']['resource_list'] %}
                   <li class="resource-link">
                     <div class="resource-link__title">{{ resource.title }}</div>
-                    <a class="resource-link__href" target="_blank" href="{{ resource.uri }}">{{ resource.uri }}</a>
+                    {% set resource_url = resource.uri.uri %}
+                    <a class="resource-link__href" target="_blank" href="{{ resource.uri }}">{{ resource_url|replace({"https://": "", "http://": ""}) }}</a>
                   </li>
                 {% endfor %}
               </ul>

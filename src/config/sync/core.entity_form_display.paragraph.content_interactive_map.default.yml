@@ -1,0 +1,79 @@
+uuid: d82fc913-d1dd-4121-bf3d-9011a68f0df8
+langcode: en
+status: true
+dependencies:
+  config:
+    - field.field.paragraph.content_interactive_map.field_link_cariboo
+    - field.field.paragraph.content_interactive_map.field_link_kootenay
+    - field.field.paragraph.content_interactive_map.field_link_mainland_southwest
+    - field.field.paragraph.content_interactive_map.field_link_north_coast_nechako
+    - field.field.paragraph.content_interactive_map.field_link_northeast
+    - field.field.paragraph.content_interactive_map.field_link_thompson_okanagan
+    - field.field.paragraph.content_interactive_map.field_link_vancouver_island_coas
+    - paragraphs.paragraphs_type.content_interactive_map
+  module:
+    - link
+id: paragraph.content_interactive_map.default
+targetEntityType: paragraph
+bundle: content_interactive_map
+mode: default
+content:
+  field_link_cariboo:
+    type: link_default
+    weight: 0
+    region: content
+    settings:
+      placeholder_url: ''
+      placeholder_title: ''
+    third_party_settings: {  }
+  field_link_kootenay:
+    type: link_default
+    weight: 1
+    region: content
+    settings:
+      placeholder_url: ''
+      placeholder_title: ''
+    third_party_settings: {  }
+  field_link_mainland_southwest:
+    type: link_default
+    weight: 2
+    region: content
+    settings:
+      placeholder_url: ''
+      placeholder_title: ''
+    third_party_settings: {  }
+  field_link_north_coast_nechako:
+    type: link_default
+    weight: 3
+    region: content
+    settings:
+      placeholder_url: ''
+      placeholder_title: ''
+    third_party_settings: {  }
+  field_link_northeast:
+    type: link_default
+    weight: 4
+    region: content
+    settings:
+      placeholder_url: ''
+      placeholder_title: ''
+    third_party_settings: {  }
+  field_link_thompson_okanagan:
+    type: link_default
+    weight: 5
+    region: content
+    settings:
+      placeholder_url: ''
+      placeholder_title: ''
+    third_party_settings: {  }
+  field_link_vancouver_island_coas:
+    type: link_default
+    weight: 6
+    region: content
+    settings:
+      placeholder_url: ''
+      placeholder_title: ''
+    third_party_settings: {  }
+hidden:
+  created: true
+  status: true

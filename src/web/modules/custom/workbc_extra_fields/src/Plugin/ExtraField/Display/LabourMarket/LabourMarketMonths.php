@@ -80,9 +80,6 @@ class LabourMarketMonths extends ExtraFieldDisplayFormattedBase {
       $default_value = NULL;
     }
 
-    // print $default_value; exit;
-
-    //output
     $output = '
     <div class="lm-months-text">
     '.$text.'
@@ -92,10 +89,10 @@ class LabourMarketMonths extends ExtraFieldDisplayFormattedBase {
       ['#markup' => $output ],
       [
         '#type' => 'select',
-        // '#title' => $this->t('Months'),
         '#options'=> $options,
         '#value' => $default_value,
-        '#attributes' => ['id' => 'employment-months']
+        '#attributes' => ['id' => 'employment-months'],
+        '#cache' => ['max-age' => 0]
       ]
       ];
   }
