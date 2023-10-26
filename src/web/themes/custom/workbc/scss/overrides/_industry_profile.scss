@@ -84,6 +84,11 @@ div#industry-profile-interactive-map {
   font-size: 18px;
   text-align: center;
   padding-bottom: 35px;
+
+  @include media-breakpoint-down(sm) {
+    padding-bottom: 20px;
+    padding-top: 20px;
+  }
 }
 
 .industry-overview-table thead th {
