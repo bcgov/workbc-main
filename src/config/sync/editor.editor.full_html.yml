@@ -63,6 +63,8 @@ settings:
     ckeditor5_sourceEditing:
       allowed_tags:
         - '<a class data-entity-loader data-uuid rel target>'
+        - '<tr class>'
+        - '<td class>'
     ckeditor5_list:
       reversed: true
       startIndex: true
@@ -81,13 +83,13 @@ settings:
         - cke_media_resize_medium
         - cke_media_resize_large
         - cke_media_resize_xl
-    linkit_extension:
-      linkit_enabled: true
-      linkit_profile: default
     editor_advanced_link_link:
       enabled_attributes:
         - target
         - title
+    linkit_extension:
+      linkit_enabled: true
+      linkit_profile: default
 image_upload:
   status: true
   scheme: public
