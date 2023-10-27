@@ -7,7 +7,7 @@
   padding: 20px 40px 10px;
 }
 
-.paragraph--key--labour-market-guide-table h5 {
+.paragraph--key--labour-market-guide-table h4 {
   text-align: center;
   padding-bottom: 25px;
 }
@@ -17,16 +17,10 @@
   border: none;
 }
 
-.paragraph--key--labour-market-guide-table thead td {
+.paragraph--key--labour-market-guide-table thead th {
   text-align: center;
   padding-top: 10px;
   padding-bottom: 10px;
-}
-
-.paragraph--key--labour-market-guide-table thead td img {
-  display: block;
-  margin-left: auto;
-  margin-right: auto;
 }
 
 .paragraph--key--labour-market-guide-table .table-section-title {
@@ -38,12 +32,20 @@
   vertical-align: text-top;
 }
 
-.paragraph--key--labour-market-guide-table .table-section td {
+.paragraph--key--labour-market-guide-table td {
+  vertical-align: top;
+}
+
+.paragraph--key--labour-market-guide-table tbody tr td:not(:last-of-type) {
+  border-right: none;
+}
+
+.paragraph--key--labour-market-guide-table tbody tr:nth-child(2n) td {
   background-color: $workbc_palette_light_primary;
-  border: none;
 }
 
 .paragraph--key--labour-market-guide-table img {
   width: 72px;
   height: 72px;
+  margin: auto;
 }
