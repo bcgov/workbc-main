@@ -48,6 +48,8 @@ class BCEmploymentShareGSChart extends ExtraFieldDisplayFormattedBase {
       $regions = [];
       $series1 = [];
       $series2 = [];
+      $styles1 = [];
+      $styles2 = [];
 
       foreach ($entity->ssot_data['labour_force_survey_regional_industry_province'] as $region) {
         $goods = round($region['goods']);
@@ -55,9 +57,11 @@ class BCEmploymentShareGSChart extends ExtraFieldDisplayFormattedBase {
         if ($region['region'] <> "british_columbia") {
           $regions[] = ssotRegionName($region['region']);
           $series1[] = $goods;
+          $styles1[] = 'stroke-color:#002857; stroke-width: 1;';
           $annotations1[] = $goods . "%";
           $series2[] = $services;
           $annotations2[] = $services . "%";
+          $styles2[] = 'stroke-color:#009cde; stroke-width: 1;';
         }
         else {
           $bcGoods = $goods;
@@ -70,6 +74,8 @@ class BCEmploymentShareGSChart extends ExtraFieldDisplayFormattedBase {
       $annotations1[] = $bcGoods . "%";
       $series2[] = $bcServices;
       $annotations2[] = $bcServices . "%";
+      $styles1[] = 'stroke-color:#002857; stroke-width: 1;';
+      $styles2[] = 'stroke-color:#009cde; stroke-width: 1;';
 
       $xaxis = [
         '#type' => 'chart_xaxis',
@@ -99,6 +105,11 @@ class BCEmploymentShareGSChart extends ExtraFieldDisplayFormattedBase {
           '#title' => ['role' => 'annotation'],
           '#data' => $annotations1,
         ],
+        'series_one_style' => [
+          '#type' => 'chart_data',
+          '#title' => ['role' => 'style'],
+          '#data' => $styles1,
+        ],        
         'series_two' => [
           '#type' => 'chart_data',
           '#title' => $this->t('Services'),
@@ -109,6 +120,11 @@ class BCEmploymentShareGSChart extends ExtraFieldDisplayFormattedBase {
           '#title' => ['role' => 'annotation'],
           '#data' => $annotations2,
         ],
+        'series_two_style' => [
+          '#type' => 'chart_data',
+          '#title' => ['role' => 'style'],
+          '#data' => $styles2,
+        ],           
         'x_axis' => $xaxis,
         'y_axis' => $yaxis,
         '#stacking' => TRUE,
