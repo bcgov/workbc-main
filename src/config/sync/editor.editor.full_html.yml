@@ -65,6 +65,9 @@ settings:
         - '<a class data-entity-loader data-uuid rel target>'
         - '<tr class>'
         - '<td class>'
+        - '<ul class>'
+        - '<li class>'
+        - '<span class>'
     ckeditor5_list:
       reversed: true
       startIndex: true
