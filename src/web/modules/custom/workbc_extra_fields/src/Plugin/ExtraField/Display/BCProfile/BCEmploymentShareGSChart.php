@@ -82,6 +82,7 @@ class BCEmploymentShareGSChart extends ExtraFieldDisplayFormattedBase {
 
       // Stacked column chart with two series.
       $chart = [
+        '#chart_id' => 'bc-share-of-employment',
         '#type' => 'chart',
         '#chart_type' => 'bar',
         '#colors' => array(
@@ -111,7 +112,7 @@ class BCEmploymentShareGSChart extends ExtraFieldDisplayFormattedBase {
         'x_axis' => $xaxis,
         'y_axis' => $yaxis,
         '#stacking' => TRUE,
-        '#height' => 500, '#height_units' => 'px',
+        '#height' => 650, '#height_units' => 'px',
         '#width' => 100, '#width_units' => '%',
         '#legend_position' => 'bottom',
       ];

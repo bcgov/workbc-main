@@ -749,6 +749,18 @@ function workbc_extra_fields_chart_definition_alter(array &$definition, array $e
     }
   } 
  
+  if ($definition['visualization'] == "BarChart" && $chart_id == 'bc-share-of-employment') {
+    ksm($definition['data']);
+    $definition['options']['hAxis']['gridlines']['count'] = 0;
+    $definition['options']['hAxis']['baselineColor'] = 'transparent';
+    $definition['options']['hAxis']['textPosition'] = "none";
+    $definition['options']['chartArea']['height'] = 500;
+
+    // $definition['data']/[8]
+    ksm($definition['data']);
+
+  }
+
   $definition['options']['fontName'] = "BCSans";
   $definition['options']['fontSize'] = 14;  
 }
