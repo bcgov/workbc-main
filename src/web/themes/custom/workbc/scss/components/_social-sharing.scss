@@ -65,7 +65,38 @@
       background-image: url("../assets/images/social-icon-printer-blue.svg");
     }
   }
+
+  @media print {
+    &.share-facebook {
+      background-repeat: no-repeat;
+    }
+  
+    &.share-twitter {
+      background-size: 62px;  
+      background-repeat: no-repeat; 
+      background-position-x: center;
+      background-position-y: center;
+    }
+  
+    &.share-linkedin {
+      background-size: contain;  
+      background-repeat: no-repeat;  
+    }
+  
+    &.share-email {
+      background-size: contain;  
+      background-repeat: no-repeat; 
+    }
+  
+    &.share-print {
+      background-size: contain;  
+      background-repeat: no-repeat; 
+    }
+
+  }
 }
+
+
 
 // Social Share with grey background variation
 .page-node-type-region-profile .social-sharing,
