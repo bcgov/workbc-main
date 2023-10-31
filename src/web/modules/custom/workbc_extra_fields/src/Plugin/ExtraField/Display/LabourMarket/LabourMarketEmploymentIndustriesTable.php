@@ -136,6 +136,7 @@ class LabourMarketEmploymentIndustriesTable extends ExtraFieldDisplayFormattedBa
           $options = array(
             'decimals' => 1,
             'suffix' => "%",
+            'positive_sign' => TRUE,
             'na_if_empty' => TRUE,
           );
           $industrysubstring = str_replace($pct_needle, "", $key);
