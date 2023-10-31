@@ -195,10 +195,25 @@
 }
 
 
-.occupation-interest-tooltip .workbc-tooltip-content {
-  
-  @include media-breakpoint-down(xs) {
+  .occupation-interest-tooltip .workbc-tooltip-content {
+    @include media-breakpoint-down(sm) {
     left: -80px;
+
+    &:before {
+      content: "";
+      position: absolute;
+      top: -10px;
+      left: 34%;
+      width: 16px;
+      height: 12px;
+      background-image: url(../assets/images/triangle.svg);
+      background-size: 16px 12px;
+      background-position: center;
+      background-repeat: no-repeat;
+    }
   }
 
 }
+
+
+
