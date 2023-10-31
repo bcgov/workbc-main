@@ -191,6 +191,14 @@
   label {
     display: inline;
   }
+
 }
 
 
+.occupation-interest-tooltip .workbc-tooltip-content {
+  
+  @include media-breakpoint-down(xs) {
+    left: -80px;
+  }
+
+}
