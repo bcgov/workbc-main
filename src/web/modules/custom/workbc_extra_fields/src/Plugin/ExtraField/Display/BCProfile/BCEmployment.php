@@ -28,7 +28,7 @@ class BCEmployment extends ExtraFieldDisplayFormattedBase {
   public function getLabel() {
 
     $date1 = strtotime($this->getEntity()->ssot_data['monthly_labour_market_updates']['year'] . "-" . $this->getEntity()->ssot_data['monthly_labour_market_updates']['month']. "-01", 10);
-    return $this->t("Employment (" . date("M Y", $date1) . ")");
+    return $this->t("Employment<br>(" . date("M Y", $date1) . ")");
   }
 
   /**
