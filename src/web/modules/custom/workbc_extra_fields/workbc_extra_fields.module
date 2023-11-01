@@ -732,7 +732,7 @@ function workbc_extra_fields_chart_definition_alter(array &$definition, array $e
      $colors = ["#009CDE", "#002857", "#2E6AB0"];
      foreach ($definition['data'] as $key => $value) {
        if ($key == 0) {
-         $definition['data'][0][] = ['role' => 'style']; 
+         $definition['data'][0][] = ['role' => 'style'];
        }
        else {
          if ($chart_id == "career-forecasted-job-openings") {
@@ -747,8 +747,23 @@ function workbc_extra_fields_chart_definition_alter(array &$definition, array $e
          }
       }
     }
-  } 
- 
+  }
+
   $definition['options']['fontName'] = "BCSans";
-  $definition['options']['fontSize'] = 14;  
+  $definition['options']['fontSize'] = 14;
+
+  if (
+    $definition['visualization'] == "BarChart" &&
+    in_array($chart_id, ['bc-share-of-employment', 'bc-share-of-employment-avg'])
+  ) {
+    $definition['options']['hAxis']['gridlines']['count'] = 0;
+    $definition['options']['hAxis']['baselineColor'] = 'transparent';
+    $definition['options']['hAxis']['textPosition'] = 'none';
+    $definition['options']['chartArea']['height'] = $chart_id == 'bc-share-of-employment' ? 400 : 80;
+    $definition['options']['chartArea']['width'] = '50%';
+    if ($chart_id == 'bc-share-of-employment-avg') {
+      $definition['options']['vAxis']['textStyle']['bold'] = TRUE;
+    }
+    $definition['options']['fontSize'] = 16;
+  }
 }
