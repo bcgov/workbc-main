@@ -446,9 +446,16 @@
               </div>
             </div>
 
+            {% set tooltip2 = "<em><strong>Goods and Services Sectors</strong></em> refers to goods-producing industries and services-producing industries." %}
             <div class="card-profile">
               <div class="card-profile__content">
-                <h3 class="card-profile__content-header">{{ viewmodel['tab_sections']['industry_highlights']['employment_goods_service_share_chart_title'] }}</h3>
+                <h3 class="card-profile__content-header">{{ viewmodel['tab_sections']['industry_highlights']['employment_goods_service_share_chart_title'] }}
+                  <span class="workbc-tooltip bc-profile--tooltip">
+                    <div class="workbc-tooltip-content bc-profile--tooltip-content">
+                      {{ tooltip2 | raw }}
+                    </div>
+                  </span>
+                </h3>                  
                 <span class="card-profile__content-item">{{ viewmodel['tab_sections']['industry_highlights']['employment_goods_service_share_chart_markup']|raw }}</span>
               </div>
               <div class="card-profile__source">
