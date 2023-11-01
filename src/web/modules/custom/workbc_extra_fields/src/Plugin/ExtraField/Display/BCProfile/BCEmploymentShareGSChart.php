@@ -61,10 +61,10 @@ class BCEmploymentShareGSChart extends ExtraFieldDisplayFormattedBase {
         $regions[] = $label;
         $series1[] = $goods;
         $styles1[] = "stroke-color: $colorGoods; stroke-width: 1;";
-        $annotations1[] = "$goods%";
+        $annotations1[] = "$goods%\u{00a0}";
         $tooltips1[] = "<div style=\"margin:10px\"><strong>$label</strong><br><span style=\"white-space:nowrap\">Goods: <strong>$goods%</strong></span></div>";
         $series2[] = $services;
-        $annotations2[] = "$services%";
+        $annotations2[] = "$services%\u{00a0}";
         $tooltips2[] = "<div style=\"margin:10px\"><strong>$label</strong><br><span style=\"white-space:nowrap\">Services: <strong>$services%</strong></span></div>";
         $styles2[] = "stroke-color: $colorServices; stroke-width: 1;";
       }
@@ -126,7 +126,7 @@ class BCEmploymentShareGSChart extends ExtraFieldDisplayFormattedBase {
           '#type' => 'chart_yaxis',
         ],
         '#stacking' => TRUE,
-        '#height' => 500, '#height_units' => 'px',
+        '#height' => 400, '#height_units' => 'px',
         '#width' => 100, '#width_units' => '%',
         '#legend_position' => 'none',
         '#raw_options' => [
@@ -136,7 +136,6 @@ class BCEmploymentShareGSChart extends ExtraFieldDisplayFormattedBase {
             ],
             'annotations' => [
               'textStyle' => [
-                'bold' => TRUE,
               ]
             ],
             'bar' => [
