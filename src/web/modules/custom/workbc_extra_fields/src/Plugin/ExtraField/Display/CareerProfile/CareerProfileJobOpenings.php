@@ -5,6 +5,7 @@ namespace Drupal\workbc_extra_fields\Plugin\ExtraField\Display\CareerProfile;
 use Drupal\Core\Entity\ContentEntityInterface;
 use Drupal\Core\StringTranslation\StringTranslationTrait;
 use Drupal\extra_field\Plugin\ExtraFieldDisplayFormattedBase;
+use Drupal\Component\Render\FormattableMarkup;
 
 /**
  * Example Extra field with formatted output.
@@ -27,7 +28,7 @@ class CareerProfileJobOpenings extends ExtraFieldDisplayFormattedBase {
    */
   public function getLabel() {
     $datestr = ssotParseDateRange($this->getEntity()->ssot_data['schema'], 'career_provincial', 'expected_job_openings_10y');
-    return $this->t('Job Openings<br>(:datestr)', array(":datestr" => $datestr));
+    return array('#markup' => $this->t('Job Openings') . '<br>(' . $datestr . ')');
   }
 
   /**

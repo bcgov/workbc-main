@@ -27,7 +27,7 @@ class RegionJobOpenings extends ExtraFieldDisplayFormattedBase {
    */
   public function getLabel() {
     $datestr = ssotParseDateRange($this->getEntity()->ssot_data['schema'], 'regional_labour_market_outlook', 'job_openings_10y');
-    return $this->t("Job Openings<br>(" . $datestr . ")");
+    return array('#markup' => $this->t("Job Openings") . "<br>(" . $datestr . ")");
   }
 
   /**

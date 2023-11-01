@@ -28,7 +28,7 @@ class RegionUnemploymentRate extends ExtraFieldDisplayFormattedBase {
   public function getLabel() {
 
     $date1 = strtotime($this->getEntity()->ssot_data['monthly_labour_market_updates']['year'] . "-" . $this->getEntity()->ssot_data['monthly_labour_market_updates']['month']. "-01", 10);
-    return $this->t("Unemployment Rate<br>(" . date("M Y", $date1) . ")");
+    return array('#markup' => $this->t("Unemployment Rate") . "<br>(" . date("M Y", $date1) . ")");
   }
 
   /**
