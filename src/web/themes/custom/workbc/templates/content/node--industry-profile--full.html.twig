@@ -337,10 +337,14 @@
                 </div>
               </div>
 
-              <div class="card-profile">
+              <div class="card-profile industry-table-container" id="industry-employment-age">
                 <div class="card-profile__content">
                   <h3 class="card-profile__content-header">{{ viewmodel['tab_sections']['industry_overview']['workforce_by_age_title'] }}</h3>
-                  <span class="card-profile__content-item">{{ viewmodel['tab_sections']['industry_overview']['workforce_by_age_markup']|raw }}</span>
+                  <span class="card-profile__content-item">
+                    <div>
+                      {{ viewmodel['tab_sections']['industry_overview']['workforce_by_age_markup']|raw }}
+                    </div>
+                  </span>
                 </div>
                 <div class="card-profile__source">
                   <em>Source:</em> {{ viewmodel['tab_sections']['industry_overview']['workforce_by_age_source']|raw }}
