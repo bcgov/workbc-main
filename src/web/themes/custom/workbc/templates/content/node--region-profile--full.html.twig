@@ -314,6 +314,9 @@
               </div>
             </div>
 
+            {% set bc_profile = "Visit the <a href='/region-profile/british-columbia'>British Columbia profile</a> to compare employment across regions in B.C." %}
+            <div class="bc-profile-link">{{ bc_profile | raw }}</div>
+
             <div class="card-profile">
               <div class="card-profile__content-small">
                 <h3 class="card-profile__content-header">{{ viewmodel['tab_sections']['labour_market_statistics']['uneployment_regional_title'] }}</h3>
