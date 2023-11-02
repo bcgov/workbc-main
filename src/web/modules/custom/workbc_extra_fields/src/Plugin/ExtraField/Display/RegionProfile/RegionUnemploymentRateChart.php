@@ -59,6 +59,7 @@ class RegionUnemploymentRateChart extends ExtraFieldDisplayFormattedBase {
         $years[] = $year - 11 + $i;
       }
       $chart = [
+        '#chart_id' => 'region-unemployment-rate',
         '#type' => 'chart',
         '#chart_type' => 'line',
         'series_bc' => [

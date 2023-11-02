@@ -54,6 +54,7 @@ class BCUnemploymentRateChart extends ExtraFieldDisplayFormattedBase {
         $years[] = $year - 11 + $i;
       }
       $chart = [
+        '#chart_id' => 'bc-unemployment-rate',
         '#type' => 'chart',
         '#chart_type' => 'line',
         'series' => [
