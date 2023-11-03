@@ -52,6 +52,7 @@ class CareerProfileSkills extends ExtraFieldDisplayFormattedBase {
       });
       array_multisort(
         array_column($filteredSkills, 'importance'), SORT_DESC,
+        array_column($filteredSkills, 'proficiency'), SORT_ASC,
         array_column($filteredSkills, 'skills_competencies'), SORT_ASC,
         $filteredSkills
       );
