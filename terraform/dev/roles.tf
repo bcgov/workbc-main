@@ -218,7 +218,7 @@ resource "aws_iam_role_policy" "workbc_container_s3" {
     {
       "Effect": "Allow",
       "Action": ["s3:ListBucket"],
-      "Resource": ["${aws_s3_bucket.workbc_s3.arn}"]
+      "Resource": ["${aws_s3_bucket.workbc_s3.arn}", "${aws_s3_bucket.workbc_s33.arn}"]
     },
     {
       "Effect": "Allow",
@@ -228,7 +228,7 @@ resource "aws_iam_role_policy" "workbc_container_s3" {
         "s3:DeleteObject",
 	"s3:GetObjectAttributes"
       ],
-      "Resource": ["${aws_s3_bucket.workbc_s3.arn}/*"]
+      "Resource": ["${aws_s3_bucket.workbc_s3.arn}/*", "${aws_s3_bucket.workbc_s33.arn}/*"]
     }
   ]
 }
