@@ -1,0 +1,29 @@
+uuid: cd63573c-3006-45af-81f2-ed736d7b2eeb
+langcode: en
+status: true
+dependencies:
+  config:
+    - field.storage.node.field_category
+    - node.type.success_story
+    - taxonomy.vocabulary.success_story_categories
+id: node.success_story.field_category
+field_name: field_category
+entity_type: node
+bundle: success_story
+label: Categories
+description: ''
+required: false
+translatable: false
+default_value: {  }
+default_value_callback: ''
+settings:
+  handler: 'default:taxonomy_term'
+  handler_settings:
+    target_bundles:
+      success_story_categories: success_story_categories
+    sort:
+      field: name
+      direction: asc
+    auto_create: false
+    auto_create_bundle: ''
+field_type: entity_reference
