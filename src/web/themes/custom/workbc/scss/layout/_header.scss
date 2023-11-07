@@ -5,17 +5,19 @@
   transition: all 1.3s ease-out;
 
   @include media-breakpoint-up(xl) {
-    box-shadow: none;
+    @media (hover: hover) {
+      box-shadow: none;
+    }
   }
 }
 
 .nav-fixed .header {
-  @include media-breakpoint-down(xl) {
-    position: fixed;
-    top: 0;
-    left:0;
-    width: 100%;
-    z-index: 4;
+  @media (max-width: 1200px), (hover: none) {
+      position: fixed;
+      top: 0;
+      left:0;
+      width: 100%;
+      z-index: 4;
   }
 }
 
@@ -33,14 +35,18 @@
   padding-bottom: 30px;
 
   @include media-breakpoint-up(xl) {
-    padding-top: 10px;
-    padding-bottom: 30px;
+    @media (hover: hover) {
+      padding-top: 10px;
+      padding-bottom: 30px;
+    }
   }
 }
 
 .header__logo-search-container {
   @include media-breakpoint-up(xl) {
-    display: flex;
+    @media (hover: hover) {
+      display: flex;
+    }
   }
 }
 
@@ -49,8 +55,10 @@
   width: 170px;
 
   @include media-breakpoint-up(xl) {
-    width: 260px;
-    align-self: end;
+    @media (hover: hover) {
+      width: 260px;
+      align-self: end;
+    }
   }
 
   img {
@@ -63,9 +71,11 @@
   margin-top: 20px;
 
   @include media-breakpoint-up(xl) {
-    margin-left: auto;
-    align-self: end;
-    min-width: 500px;
+    @media (hover: hover) {
+      margin-left: auto;
+      align-self: end;
+      min-width: 500px;
+    }
   }
 }
 
@@ -79,7 +89,12 @@
   top: 20px;
   right: 6px;
 
+  // only display the following if the device
+  // screen width larger than "xl" and the device
+  // recognizes the hover state
   @include media-breakpoint-up(xl) {
-    display: none;
+    @media (hover: hover) {
+      display: none;
+    }
   }
 }

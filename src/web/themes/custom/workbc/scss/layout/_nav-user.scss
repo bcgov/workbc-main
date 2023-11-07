@@ -1,8 +1,13 @@
 .nav-user {
   display: none;
 
+  // only display the following if the device
+  // screen width larger than "xl" and the device
+  // recognizes the hover state
   @include media-breakpoint-up(xl) {
-    display: flex;
+    @media (hover: hover) {
+      display: flex;
+    }
   }
 }
 
@@ -11,7 +16,9 @@
   @include list-flex-inline;
 
   @include media-breakpoint-up(xl) {
-    margin-left: auto;
+    @media (hover: hover) {
+      margin-left: auto;
+    }
   }
 }
 
