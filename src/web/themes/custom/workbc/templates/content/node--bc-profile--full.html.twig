@@ -125,6 +125,8 @@
       region_overview_title: content.group_bc_profile.group_region_overview.field_region_overview['#title'],
       region_overview_text: content.group_bc_profile.group_region_overview.field_region_overview.0['#text'],
 
+      region_overview_content: content.group_bc_profile.group_region_overview.field_content,
+
       key_facts_title: content.group_bc_profile.group_region_overview.field_key_facts['#title'],
       key_facts_text: content.group_bc_profile.group_region_overview.field_key_facts.0['#text'],
     },
@@ -271,6 +273,10 @@
           <div class="tab-pane active" id="overview-content" role="tabpanel" aria-labelledby="overview-tab">
             <h2 class="profile-content-main__header">{{ viewmodel['tab_sections']['overview']['title'] }}</h2>
             <div>{{ viewmodel['tab_sections']['overview']['description']|raw }}</div>
+
+            {% if viewmodel['tab_sections']['overview']['region_overview_content'] %}
+              {{ viewmodel['tab_sections']['overview']['region_overview_content'] }}
+            {% endif %}
 
             <div class="profile-content-section">
               <h2 class="profile-content-section__header">{{ viewmodel['tab_sections']['overview']['key_facts_title'] }}</h2>

@@ -4,6 +4,7 @@ status: true
 dependencies:
   config:
     - core.entity_view_mode.node.search_results
+    - field.field.node.bc_profile.field_content
     - field.field.node.bc_profile.field_content_group
     - field.field.node.bc_profile.field_hero_image
     - field.field.node.bc_profile.field_hero_image_media
@@ -77,6 +78,16 @@ targetEntityType: node
 bundle: bc_profile
 mode: search_results
 content:
+  created:
+    type: timestamp
+    label: hidden
+    settings:
+      date_format: medium
+      custom_date_format: ''
+      timezone: ''
+    third_party_settings: {  }
+    weight: 0
+    region: content
   extra_field_bc_employment_goods_services_share_chart:
     settings: {  }
     third_party_settings: {  }
@@ -92,6 +103,13 @@ content:
     label: hidden
     settings:
       trim_length: 275
+    third_party_settings: {  }
+    weight: 0
+    region: content
+  uid:
+    type: author
+    label: hidden
+    settings: {  }
     third_party_settings: {  }
     weight: 0
     region: content
@@ -128,6 +146,7 @@ hidden:
   extra_field_bc_unemployment_region_source: true
   extra_field_workbc_page_title: true
   extra_field_workbc_published_on: true
+  field_content: true
   field_content_group: true
   field_hero_image: true
   field_hero_image_media: true
