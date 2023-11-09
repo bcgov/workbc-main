@@ -11,6 +11,7 @@ $card-divider-size: calc(2 * $card-divider-size-half);
   padding: $card-padding;
   display: flex;
   flex-flow: column nowrap;
+  page-break-inside: avoid;
 
   @include media-breakpoint-up(lg) {
     flex-flow: row wrap;
