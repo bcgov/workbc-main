@@ -98,6 +98,8 @@ function workbc_preprocess_paragraph(&$variables) {
     switch ($key) {
       case 'education-planner-bc':
       case 'student-aid-bc':
+      case 'find-your-path-1':
+      case 'find-your-path-2':        
         $image = "$key.png";
         break;
       default:
