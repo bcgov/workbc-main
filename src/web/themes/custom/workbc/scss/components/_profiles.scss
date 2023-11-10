@@ -233,6 +233,7 @@
     .profile-content-sidebar {
       flex: 0 0 100%;
       width: 100%;
+      page-break-inside: avoid;
 
       @include media-breakpoint-down(lg) {
         background: $workbc_palette_light_secondary;

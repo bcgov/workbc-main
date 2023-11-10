@@ -58,7 +58,8 @@ $card-divider-size: calc(2 * $card-divider-size-half);
   flex-flow: column nowrap;
   align-items: center;
   flex: 1 1;
-
+  page-break-inside: avoid;
+  
   @include media-breakpoint-up(lg) {
     flex: 1 1 100%;
   }
