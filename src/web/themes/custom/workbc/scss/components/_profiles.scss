@@ -176,11 +176,19 @@
     display: flex;
     flex-flow: row wrap;
 
+    @media print {
+      display: block;
+    }
+
     .profile-content-main {
       flex: 0 0 100%;
       width: 100%;
       // padding: 30px 0;
       padding: 0.7em 0.7em;
+
+      @media print {
+        display: block;
+      }
 
       @include media-breakpoint-up(lg) {
         flex: 0 0 75%;
@@ -233,7 +241,6 @@
     .profile-content-sidebar {
       flex: 0 0 100%;
       width: 100%;
-      page-break-inside: avoid;
 
       @include media-breakpoint-down(lg) {
         background: $workbc_palette_light_secondary;
@@ -243,6 +250,11 @@
       @include media-breakpoint-up(lg) {
         flex: 0 0 25%;
         width: 25%;
+      }
+
+      @media print {
+        display: block;
+        page-break-inside: avoid;
       }
     }
   }
