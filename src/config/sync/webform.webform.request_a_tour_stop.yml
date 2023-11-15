@@ -17,7 +17,7 @@ elements: |-
     '#type': processed_text
     '#text': |
       <p>Interested in having a Find Your Fit tour stop in your community? Submit your request here.</p>
-    '#format': basic_html
+    '#format': full_html
   name:
     '#type': textfield
     '#title': Name

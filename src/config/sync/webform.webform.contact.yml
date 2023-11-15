@@ -24,7 +24,7 @@ elements: |-
       <h2>Email</h2>
 
       <p>All fields are mandatory unless otherwise noted.</p>
-    '#format': basic_html
+    '#format': full_html
   inquiry_type:
     '#type': select
     '#title': 'Inquiry Type'
