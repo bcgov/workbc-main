@@ -11,7 +11,7 @@ archive: false
 id: request_a_tour_stop
 title: 'Request a Tour Stop'
 description: 'Webform to collect Request a Tour Stop&nbsp; information'
-category: ''
+categories: {  }
 elements: |-
   introduction_text:
     '#type': processed_text
@@ -193,6 +193,8 @@ settings:
   wizard_toggle: true
   wizard_toggle_show_label: ''
   wizard_toggle_hide_label: ''
+  wizard_page_type: container
+  wizard_page_title_tag: h2
   preview: 0
   preview_label: ''
   preview_title: ''
