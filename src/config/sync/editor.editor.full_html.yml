@@ -60,6 +60,9 @@ settings:
         -
           label: Footnote
           element: '<p class="text-footnote">'
+        -
+          label: 'Content Source'
+          element: '<p class="content-source">'
     ckeditor5_sourceEditing:
       allowed_tags:
         - '<a class data-entity-loader data-uuid rel target>'

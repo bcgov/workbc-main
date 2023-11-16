@@ -211,7 +211,7 @@
   // screen width larger than "xl" and the device
   // recognizes the hover state
   @include media-breakpoint-up(xl) {
-    @media (hover: hover) {
+    @media (hover: hover) and (pointer: fine) {
       display: block;
       position: relative;
       transition: all 0.3s ease-out;
