@@ -3,6 +3,7 @@ langcode: en
 status: true
 dependencies:
   config:
+    - field.field.node.industry_profile.field_content
     - field.field.node.industry_profile.field_content_group
     - field.field.node.industry_profile.field_hero_image
     - field.field.node.industry_profile.field_hero_image_media
@@ -17,6 +18,7 @@ dependencies:
     - field.field.node.industry_profile.field_scheduled_publish
     - node.type.industry_profile
   module:
+    - entity_reference_revisions
     - field_group
     - text
     - user
@@ -41,6 +43,7 @@ third_party_settings:
     group_industry_overview:
       children:
         - field_industry_overview
+        - field_content
         - field_key_facts
         - extra_field_hourly_earnings_introduction
         - field_hourly_earnings_note
@@ -121,6 +124,16 @@ content:
     third_party_settings: {  }
     weight: 0
     region: content
+  created:
+    type: timestamp
+    label: hidden
+    settings:
+      date_format: medium
+      custom_date_format: ''
+      timezone: ''
+    third_party_settings: {  }
+    weight: 0
+    region: content
   extra_field_employment_introduction:
     settings: {  }
     third_party_settings: {  }
@@ -129,17 +142,17 @@ content:
   extra_field_hourly_earnings_introduction:
     settings: {  }
     third_party_settings: {  }
-    weight: 25
+    weight: 26
     region: content
   extra_field_industry_average_wage_bc:
     settings: {  }
     third_party_settings: {  }
-    weight: 28
+    weight: 29
     region: content
   extra_field_industry_bc_average_chart:
     settings: {  }
     third_party_settings: {  }
-    weight: 32
+    weight: 33
     region: content
   extra_field_industry_employment:
     settings: {  }
@@ -149,7 +162,7 @@ content:
   extra_field_industry_employment_by_age:
     settings: {  }
     third_party_settings: {  }
-    weight: 34
+    weight: 35
     region: content
   extra_field_industry_employment_by_region_map:
     settings: {  }
@@ -164,7 +177,7 @@ content:
   extra_field_industry_employment_by_sex:
     settings: {  }
     third_party_settings: {  }
-    weight: 31
+    weight: 32
     region: content
   extra_field_industry_employment_growth:
     settings: {  }
@@ -264,22 +277,22 @@ content:
   extra_field_industry_wage:
     settings: {  }
     third_party_settings: {  }
-    weight: 27
+    weight: 28
     region: content
   extra_field_industry_wage_source:
     settings: {  }
     third_party_settings: {  }
-    weight: 29
+    weight: 30
     region: content
   extra_field_industry_workforce_age_source:
     settings: {  }
     third_party_settings: {  }
-    weight: 35
+    weight: 36
     region: content
   extra_field_industry_workforce_gender_source:
     settings: {  }
     third_party_settings: {  }
-    weight: 33
+    weight: 34
     region: content
   extra_field_labour_market_outlook_introduction:
     settings: {  }
@@ -299,7 +312,16 @@ content:
   extra_field_workforce_introduction:
     settings: {  }
     third_party_settings: {  }
-    weight: 30
+    weight: 31
+    region: content
+  field_content:
+    type: entity_reference_revisions_entity_view
+    label: above
+    settings:
+      view_mode: default
+      link: ''
+    third_party_settings: {  }
+    weight: 24
     region: content
   field_hero_image_media:
     type: entity_reference_entity_view
@@ -316,7 +338,7 @@ content:
     settings:
       link_to_entity: false
     third_party_settings: {  }
-    weight: 26
+    weight: 27
     region: content
   field_industry_overview:
     type: text_default
@@ -338,7 +360,7 @@ content:
     label: above
     settings: {  }
     third_party_settings: {  }
-    weight: 24
+    weight: 25
     region: content
   field_resources_reference:
     type: entity_reference_entity_id
@@ -351,6 +373,13 @@ content:
     settings: {  }
     third_party_settings: {  }
     weight: 1
+    region: content
+  uid:
+    type: author
+    label: hidden
+    settings: {  }
+    third_party_settings: {  }
+    weight: 0
     region: content
 hidden:
   extra_field_industry_employment_types_can: true

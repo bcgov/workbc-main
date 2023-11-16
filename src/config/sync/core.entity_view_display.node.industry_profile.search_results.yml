@@ -4,6 +4,7 @@ status: true
 dependencies:
   config:
     - core.entity_view_mode.node.search_results
+    - field.field.node.industry_profile.field_content
     - field.field.node.industry_profile.field_content_group
     - field.field.node.industry_profile.field_hero_image
     - field.field.node.industry_profile.field_hero_image_media
@@ -80,11 +81,28 @@ targetEntityType: node
 bundle: industry_profile
 mode: search_results
 content:
+  created:
+    type: timestamp
+    label: hidden
+    settings:
+      date_format: medium
+      custom_date_format: ''
+      timezone: ''
+    third_party_settings: {  }
+    weight: 0
+    region: content
   field_industry_overview:
     type: text_trimmed
     label: hidden
     settings:
       trim_length: 275
+    third_party_settings: {  }
+    weight: 0
+    region: content
+  uid:
+    type: author
+    label: hidden
+    settings: {  }
     third_party_settings: {  }
     weight: 0
     region: content
@@ -119,6 +137,7 @@ hidden:
   extra_field_industry_job_openings_source: true
   extra_field_industry_national_wage: true
   extra_field_industry_top_ten_occupations: true
+  extra_field_industry_top_ten_occupations_source: true
   extra_field_industry_wage: true
   extra_field_industry_wage_source: true
   extra_field_industry_workforce_age_source: true
@@ -129,6 +148,7 @@ hidden:
   extra_field_workbc_page_title: true
   extra_field_workbc_published_on: true
   extra_field_workforce_introduction: true
+  field_content: true
   field_content_group: true
   field_hero_image: true
   field_hero_image_media: true

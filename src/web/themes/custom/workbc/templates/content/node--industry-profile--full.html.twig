@@ -116,6 +116,8 @@
       title: content.group_industry_profile.group_industry_overview.field_industry_overview['#title'] ?? 'Industry Overview',
       description: content.group_industry_profile.group_industry_overview.field_industry_overview.0['#text'],
 
+      industry_overview_content: content.group_industry_profile.group_industry_overview.field_content,
+
       key_facts_title: content.group_industry_profile.group_industry_overview.field_key_facts['#title'],
       key_facts_markup: content.group_industry_profile.group_industry_overview.field_key_facts.0['#text'],
 
@@ -284,6 +286,10 @@
           <div class="tab-pane active" id="industry_overview-content" role="tabpanel" aria-labelledby="industry_overview-tab">
             <h2 class="profile-content-main__header">{{ viewmodel['tab_sections']['industry_overview']['title'] }}</h2>
             <div>{{ viewmodel['tab_sections']['industry_overview']['description']|raw }}</div>
+
+            {% if viewmodel['tab_sections']['industry_overview']['industry_overview_content'] %}
+              {{ viewmodel['tab_sections']['industry_overview']['industry_overview_content'] }}
+            {% endif %}
 
             <div class="profile-content-section">
               <h2 class="profile-content-section__header">{{ viewmodel['tab_sections']['industry_overview']['key_facts_title'] }}</h2>
