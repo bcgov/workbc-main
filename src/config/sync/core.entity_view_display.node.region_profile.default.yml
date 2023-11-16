@@ -3,6 +3,7 @@ langcode: en
 status: true
 dependencies:
   config:
+    - field.field.node.region_profile.field_content
     - field.field.node.region_profile.field_content_group
     - field.field.node.region_profile.field_hero_image
     - field.field.node.region_profile.field_hero_image_media
@@ -14,6 +15,7 @@ dependencies:
     - field.field.node.region_profile.field_scheduled_publish
     - node.type.region_profile
   module:
+    - entity_reference_revisions
     - field_group
     - scheduled_publish
     - text
@@ -39,6 +41,7 @@ third_party_settings:
     group_regional_overview:
       children:
         - field_region_overview
+        - field_content
         - field_key_facts
       label: 'Regional Overview'
       parent_name: group_region_profile_tabs
@@ -110,6 +113,16 @@ mode: default
 content:
   content_moderation_control:
     settings: {  }
+    third_party_settings: {  }
+    weight: 0
+    region: content
+  created:
+    type: timestamp
+    label: hidden
+    settings:
+      date_format: medium
+      custom_date_format: ''
+      timezone: ''
     third_party_settings: {  }
     weight: 0
     region: content
@@ -293,6 +306,15 @@ content:
     third_party_settings: {  }
     weight: 23
     region: content
+  field_content:
+    type: entity_reference_revisions_entity_view
+    label: above
+    settings:
+      view_mode: default
+      link: ''
+    third_party_settings: {  }
+    weight: 27
+    region: content
   field_hero_image_media:
     type: entity_reference_entity_view
     label: above
@@ -314,7 +336,7 @@ content:
     label: above
     settings: {  }
     third_party_settings: {  }
-    weight: 27
+    weight: 28
     region: content
   field_region_overview:
     type: text_default
@@ -343,6 +365,13 @@ content:
     settings: {  }
     third_party_settings: {  }
     weight: 1
+    region: content
+  uid:
+    type: author
+    label: hidden
+    settings: {  }
+    third_party_settings: {  }
+    weight: 0
     region: content
 hidden:
   extra_field_region_employment_by_region_table: true
