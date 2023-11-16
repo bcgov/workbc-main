@@ -43,6 +43,7 @@ permissions:
   - 'access taxonomy overview'
   - 'access toolbar'
   - 'access user profiles'
+  - 'administer media file delete'
   - 'administer meta tags'
   - 'administer url aliases'
   - 'administer users'
