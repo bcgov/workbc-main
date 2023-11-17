@@ -61,3 +61,55 @@ div.ui-dialog[aria-describedby="webform-terms-of-service-terms_of_service--descr
 }
 /***** Webform request-tour-stop ends *******/
 
+
+.paragraph--key--request-tour-stop-card {
+
+  .card-body {
+    padding-bottom: 0px;
+  }
+  
+  .card-footer {
+    top: -50px;
+    border-top: none;
+    background-image: none;
+    background-color: $workbc_light_theme_background_default;
+    // padding-left: 0px;
+    padding-bottom: 20px;
+  }
+
+  .card-w-icon__content {
+    min-height: 0px;
+  }
+
+  .card-w-icon__link {
+    padding-left: 50px;
+  }
+
+  .card-w-icon__link:after {
+    background: none;
+  }
+
+  a {
+    padding: 8px 30px;
+    margin-left: 125px;
+    border: 2px solid $workbc_palette_dark_secondary;
+    border-radius: 6px;
+    vertical-align: middle;
+    font-weight: 700;
+    text-align: center;
+    text-decoration: none;
+    color: #fff;
+    background-color: $workbc_palette_dark_secondary;
+    transition: background-color 0.2s;
+
+    &:hover,
+    &:focus {
+      border: 2px solid $workbc_palette_dark_secondary;
+      color: $workbc_palette_dark_secondary;
+      background-color: $workbc_palette_light_secondary;
+      background-image: none !important;
+      text-decoration: none;
+      box-shadow: none!important;
+    }
+  }
+}
