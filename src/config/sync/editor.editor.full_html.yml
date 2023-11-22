@@ -71,6 +71,10 @@ settings:
         - '<ul class>'
         - '<li class>'
         - '<span class>'
+        - '<div class>'
+        - '<script type>'
+        - '<img alt src>'
+        - '<button class>'
     ckeditor5_list:
       reversed: true
       startIndex: true

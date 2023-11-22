@@ -10,6 +10,8 @@ dependencies:
     - editor
     - linkit
     - media
+    - media_entity_dlcke
+    - workbc_custom
 _core:
   default_config_hash: WNeK5FbcY8pXgEpbD_KgRzlF1-5PL3BJXwqaBctPTqw
 name: 'Full HTML'
@@ -43,10 +45,10 @@ filters:
   filter_html:
     id: filter_html
     provider: filter
-    status: true
-    weight: -50
+    status: false
+    weight: -41
     settings:
-      allowed_html: '<br> <p class="text-footnote content-source text-align-left text-align-center text-align-right text-align-justify"> <h2 class="text-align-left text-align-center text-align-right text-align-justify"> <h3 class="text-align-left text-align-center text-align-right text-align-justify"> <h4 class="text-align-left text-align-center text-align-right text-align-justify"> <h5 class="text-align-left text-align-center text-align-right text-align-justify"> <h6 class="text-align-left text-align-center text-align-right text-align-justify"> <a class data-entity-loader data-uuid rel target href title data-entity-type data-entity-uuid data-entity-substitution> <tr class> <td class rowspan colspan> <ul class> <li class> <span class> <strong> <em> <u> <pre class="text-align-left text-align-center text-align-right text-align-justify"> <code class="language-*"> <s> <sub> <sup> <blockquote> <ol reversed start> <hr> <table> <th rowspan colspan> <thead> <tbody> <tfoot> <caption> <drupal-media data-entity-type data-entity-uuid alt data-caption data-align data-media-width>'
+      allowed_html: '<br> <p class="text-footnote content-source text-align-left text-align-center text-align-right text-align-justify"> <h2 class="text-align-left text-align-center text-align-right text-align-justify"> <h3 class="text-align-left text-align-center text-align-right text-align-justify"> <h4 class="text-align-left text-align-center text-align-right text-align-justify"> <h5 class="text-align-left text-align-center text-align-right text-align-justify"> <h6 class="text-align-left text-align-center text-align-right text-align-justify"> <a class data-entity-loader data-uuid rel target href title data-entity-type data-entity-uuid data-entity-substitution> <tr class> <td class rowspan colspan> <ul class> <li class> <span class> <div class> <script type> <img alt src> <button class> <strong> <em> <u> <pre class="text-align-left text-align-center text-align-right text-align-justify"> <code class="language-*"> <s> <sub> <sup> <blockquote> <ol reversed start> <hr> <table> <th rowspan colspan> <thead> <tbody> <tfoot> <caption> <drupal-media data-entity-type data-entity-uuid alt data-caption data-align data-media-width>'
       filter_html_help: true
       filter_html_nofollow: false
   media_embed:
@@ -73,26 +75,26 @@ filters:
     id: filter_html_escape
     provider: filter
     status: false
-    weight: -41
+    weight: -40
     settings: {  }
   filter_url:
     id: filter_url
     provider: filter
     status: false
-    weight: -39
+    weight: -38
     settings:
       filter_url_length: 72
   filter_autop:
     id: filter_autop
     provider: filter
     status: false
-    weight: -40
+    weight: -39
     settings: {  }
   filter_html_image_secure:
     id: filter_html_image_secure
     provider: filter
     status: false
-    weight: -38
+    weight: -37
     settings: {  }
   filter_media_download_link:
     id: filter_media_download_link
@@ -106,3 +108,16 @@ filters:
     status: true
     weight: -43
     settings: {  }
+  media_entity_dlcke_filter:
+    id: media_entity_dlcke_filter
+    provider: media_entity_dlcke
+    status: false
+    weight: -36
+    settings: {  }
+  filter_allow_all:
+    id: filter_allow_all
+    provider: workbc_custom
+    status: true
+    weight: -50
+    settings:
+      allowed_html: '<br> <p class="text-footnote content-source text-align-left text-align-center text-align-right text-align-justify"> <h2 class="text-align-left text-align-center text-align-right text-align-justify"> <h3 class="text-align-left text-align-center text-align-right text-align-justify"> <h4 class="text-align-left text-align-center text-align-right text-align-justify"> <h5 class="text-align-left text-align-center text-align-right text-align-justify"> <h6 class="text-align-left text-align-center text-align-right text-align-justify"> <a class data-entity-loader data-uuid rel target href title data-entity-type data-entity-uuid data-entity-substitution> <tr class> <td class rowspan colspan> <ul class> <li class> <span class> <div class> <script type> <img alt src> <button class> <strong> <em> <u> <pre class="text-align-left text-align-center text-align-right text-align-justify"> <code class="language-*"> <s> <sub> <sup> <blockquote> <ol reversed start> <hr> <table> <th rowspan colspan> <thead> <tbody> <tfoot> <caption> <drupal-media data-entity-type data-entity-uuid alt data-caption data-align data-media-width>'
