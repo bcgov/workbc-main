@@ -2,17 +2,16 @@ let allSelected = true;
 
 (function ($, Drupal, once) {
 	Drupal.behaviors.mobilechosen = {
-    attach: function (context, settings) {
+    attach: function (context, drupalSettings) {
 
       once('mobilechosen', '#edit-occupational-interest', context).forEach(function() {
-        if (isMobile()) {
+        if (drupalSettings.isMobile) {
           var select = document.getElementById('edit-occupational-interest'); 
           select.options[0].selected = true;
         }
 
         $('#edit-occupational-interest').on('change' , function() {
-          
-          if (isMobile()) {         
+          if (drupalSettings.isMobile) {         
             var select = document.getElementById('edit-occupational-interest');
             var options = select && select.options;
 
@@ -43,11 +42,6 @@ let allSelected = true;
             }
           }
         });
-
-        function isMobile() {
-          const regex = /Mobi|Android|webOS|iPhone|iPad|iPod|BlackBerry|IEMobile|Opera Mini/i;
-          return regex.test(navigator.userAgent);
-        }
 
       });
     }
