@@ -176,25 +176,52 @@ function workbc_custom_form_node_form_alter(&$form, \Drupal\Core\Form\FormStateI
 
 function workbc_custom_form_views_exposed_form_alter(&$form, \Drupal\Core\Form\FormStateInterface $form_state, $form_id) {
 
-  if (isset($form['region'])) {
-    unset($form['region']['#options']['All']);
-  }
+  if ($form['#id'] == 'views-exposed-form-high-opportunity-occupations-block-1') {
+    if (isset($form['region'])) {
+      unset($form['region']['#options']['All']);
+    }
 
-  if (isset($form['typical_education_background'])) {
-    $form['typical_education_background']['#options']['All'] = "All";
-  }
+    if (isset($form['typical_education_background'])) {
+      $form['typical_education_background']['#options']['All'] = "All";
+    }
 
-  if (isset($form['occupational_interest'])) {
-    unset($form['occupational_interest']['#options']['All']);
-    $form['occupational_interest']['#chosen'] = true;
-  }
+    if (isset($form['occupational_interest'])) {
+      $md = \Drupal::service('mobile_detect');
+      $isMobile = $md->isMobile() && !$md->isTablet();
+      $form['occupational_interest']['#attached']['drupalSettings'] = [
+        'isMobile' => $isMobile,
+      ];
+      if ($isMobile) {
+        array_unshift($form['occupational_interest']['#options'], "All");
+      }
+      $form['occupational_interest']['#chosen'] = true;
+    }
 
-  if (isset($form['wage_rate_median'])) {
-    $form['wage_rate_median']['#options']['All'] = "All";
-  }
+    if (isset($form['wage_rate_median'])) {
+      $form['wage_rate_median']['#options']['All'] = "All";
+    }
 
+    array_unshift($form['#submit'], 'hoo_multiselect_form_submit');
+  }
 }
 
+function hoo_multiselect_form_submit(array &$form, \Drupal\Core\Form\FormStateInterface &$form_state) {
+
+  $md = \Drupal::service('mobile_detect');
+  if ($md->isMobile() && !$md->isTablet()) {
+    $selections = $form['occupational_interest']['#value'];
+    $all = empty($selections);
+    foreach ($selections as $selection) {
+      if ($selection == "0") {
+        $all = true;
+      }
+    }
+    if ($all) {
+      $form['occupational_interest']['#value'] = [0 => "0"];
+      $form_state->setValue('occupational_interest', [0 => "0"]);
+    }
+  }
+}
 
 
 /**

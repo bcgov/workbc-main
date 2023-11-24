@@ -12,10 +12,10 @@
 }
 
 .nav-fixed .header {
-  @media (max-width: 1200px), (hover: none) and (pointer: fine) {
+  @media (max-width: 1200px), (hover: none), (pointer: coarse) {
       position: fixed;
       top: 0;
-      left:0;
+      left: 0;
       width: 100%;
       z-index: 4;
   }
