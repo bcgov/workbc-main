@@ -209,7 +209,7 @@ function hoo_multiselect_form_submit(array &$form, \Drupal\Core\Form\FormStateIn
   $md = \Drupal::service('mobile_detect');
   if ($md->isMobile()) {
     $selections = $form['occupational_interest']['#value'];
-    $all = false;
+    $all = empty($selections);
     foreach ($selections as $selection) {
       if ($selection == "0") {
         $all = true;
