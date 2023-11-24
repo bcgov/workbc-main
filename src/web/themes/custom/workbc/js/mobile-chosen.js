@@ -5,7 +5,6 @@ let allSelected = true;
     attach: function (context, drupalSettings) {
 
       once('mobilechosen', '#edit-occupational-interest', context).forEach(function() {
-        console.log(drupalSettings.testMobile);
         if (drupalSettings.isMobile) {
           var select = document.getElementById('edit-occupational-interest'); 
           select.options[0].selected = true;

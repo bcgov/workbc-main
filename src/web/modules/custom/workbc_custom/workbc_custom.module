@@ -190,7 +190,6 @@ function workbc_custom_form_views_exposed_form_alter(&$form, \Drupal\Core\Form\F
       $isMobile = $md->isMobile() && !$md->isTablet();
       $form['occupational_interest']['#attached']['drupalSettings'] = [
         'isMobile' => $isMobile,
-        'testMobile' => $md->isMobile(),
       ];
       if ($isMobile) {
         array_unshift($form['occupational_interest']['#options'], "All");
