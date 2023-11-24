@@ -187,10 +187,12 @@ function workbc_custom_form_views_exposed_form_alter(&$form, \Drupal\Core\Form\F
 
     if (isset($form['occupational_interest'])) {
       $md = \Drupal::service('mobile_detect');
+      $isMobile = $md->isMobile() && !$md->isTablet();
       $form['occupational_interest']['#attached']['drupalSettings'] = [
-        'isMobile' => $md->isMobile(),
+        'isMobile' => $isMobile,
+        'testMobile' => $md->isMobile(),
       ];
-      if ($md->isMobile()) {
+      if ($isMobile) {
         array_unshift($form['occupational_interest']['#options'], "All");
       }
       $form['occupational_interest']['#chosen'] = true;
@@ -207,7 +209,7 @@ function workbc_custom_form_views_exposed_form_alter(&$form, \Drupal\Core\Form\F
 function hoo_multiselect_form_submit(array &$form, \Drupal\Core\Form\FormStateInterface &$form_state) {
 
   $md = \Drupal::service('mobile_detect');
-  if ($md->isMobile()) {
+  if ($md->isMobile() && !$md->isTablet()) {
     $selections = $form['occupational_interest']['#value'];
     $all = empty($selections);
     foreach ($selections as $selection) {
