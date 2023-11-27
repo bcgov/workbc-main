@@ -105,7 +105,7 @@ function workbc_custom_views_pre_render(ViewExecutable $view) {
     } else {
       $view->field['openings_forecast']->options['label'] = "Job Openings";
     }
-    \Drupal::logger('workbc_custom')->debug('<pre><code>' . print_r(\Drupal::request()->headers, TRUE) . '</code></pre>');
+    //\Drupal::logger('workbc_custom')->debug('<pre><code>' . print_r(\Drupal::request()->headers, TRUE) . '</code></pre>');
   }
 
   if ($view->id() == 'industry_profiles') {
