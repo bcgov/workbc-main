@@ -75,6 +75,7 @@ settings:
         - '<script type>'
         - '<img alt src>'
         - '<button class>'
+        - '<figure>'
     ckeditor5_list:
       reversed: true
       startIndex: true
