@@ -750,7 +750,7 @@ function workbc_extra_fields_chart_definition_alter(array &$definition, array $e
   }
 
   $definition['options']['fontName'] = "BCSans";
-  $definition['options']['fontSize'] = 14;
+  $definition['options']['fontSize'] = 15;
 
   if (
     $definition['visualization'] == "BarChart" &&
@@ -775,7 +775,11 @@ function workbc_extra_fields_chart_definition_alter(array &$definition, array $e
     $definition['options']['vAxis']['gridlines']['multiple'] = 2;
     $definition['options']['vAxis']['ticks'] = array(0,2,4,6,8,10,12,14,16,18,20,22,24,26,28,30);
     $definition['options']['height'] = 350;
-    $definition['options']['fontSize'] = 16;
+    $definition['options']['fontSize'] = 15;
   }
+
+  if ($definition['visualization'] == "DonutChart") {
+    $definition['options']['fontSize'] = 16;
+  }  
 
 }
