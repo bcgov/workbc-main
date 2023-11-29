@@ -616,7 +616,7 @@ display:
           reduce_duplicates: false
           vid: video_categories
           type: select
-          hierarchy: false
+          hierarchy: true
           limit: true
           error_message: true
       filter_groups:

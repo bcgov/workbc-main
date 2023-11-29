@@ -176,7 +176,7 @@ function workbc_custom_form_node_form_alter(&$form, \Drupal\Core\Form\FormStateI
 */
 function workbc_custom_form_views_exposed_form_alter(&$form, \Drupal\Core\Form\FormStateInterface $form_state, $form_id) {
 
-  if ($form['#id'] == 'views-exposed-form-high-opportunity-occupations-block-1') {
+  if ($form['#id'] === 'views-exposed-form-high-opportunity-occupations-block-1') {
     if (isset($form['region'])) {
       unset($form['region']['#options']['All']);
     }
@@ -202,6 +202,10 @@ function workbc_custom_form_views_exposed_form_alter(&$form, \Drupal\Core\Form\F
     }
 
     array_unshift($form['#submit'], 'hoo_multiselect_form_submit');
+  }
+
+  if ($form['#id'] === 'views-exposed-form-video-library-block-1') {
+    $form['#attached']['library'][] =  'workbc_custom/video-library';
   }
 }
 

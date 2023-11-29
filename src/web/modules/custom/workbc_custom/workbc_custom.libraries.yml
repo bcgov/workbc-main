@@ -1,0 +1,6 @@
+video-library:
+  js:
+    js/video-library.js: {}
+  dependencies:
+    - core/jquery
+    - core/drupalSettings
