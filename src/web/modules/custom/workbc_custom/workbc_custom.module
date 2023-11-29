@@ -206,6 +206,15 @@ function workbc_custom_form_views_exposed_form_alter(&$form, \Drupal\Core\Form\F
 
   if ($form['#id'] === 'views-exposed-form-video-library-block-1') {
     $form['#attached']['library'][] =  'workbc_custom/video-library';
+    foreach ($form['video_category']['#options'] as &$option) {
+      if (property_exists($option, 'option')) {
+        foreach ($option->option as &$opt) {
+          if (str_starts_with($opt, '-')) {
+            $opt = preg_replace('/^-/', '- ', $opt);
+          }
+        }
+      }
+    }
   }
 }
 
