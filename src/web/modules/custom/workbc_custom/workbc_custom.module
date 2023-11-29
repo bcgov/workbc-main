@@ -484,6 +484,17 @@ function workbc_custom_search_api_autocomplete_suggestions_alter(array &$suggest
 }
 
 /**
+ * Implements hook_oembed_resource_url_alter().
+ */
+function workbc_custom_oembed_resource_url_alter(array &$parsed_url, \Drupal\media\OEmbed\Provider $provider) {
+  if ($provider->getName() === 'Vimeo') {
+    unset($parsed_url['query']['maxwidth']);
+    unset($parsed_url['query']['maxheight']);
+    $parsed_url['query']['responsive'] = 'true';
+  }
+}
+
+/**
 * Get SSOT data for the High Opportunity block.
 */
 function ssotHighOpportunityOptions($parameters = null){
