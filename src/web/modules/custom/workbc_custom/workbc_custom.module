@@ -144,10 +144,6 @@ function workbc_custom_form_alter(&$form, \Drupal\Core\Form\FormStateInterface $
     }
   }
 
-  if ($form_id === 'hoo_options'){
-    $form['#attached']['library'][] =  'workbc_custom/custom-script';
-  }
-
   if ($form_id == 'media_delete_multiple_confirm_form' || preg_match("/media_.*_delete_form/", $form_id)) {
     $form['also_delete_file']['#default_value'] = TRUE;
   }
@@ -342,6 +338,9 @@ function workbc_custom_webform_element_alter(array &$element, FormStateInterface
   }
 }
 
+/**
+ * Validation function for webform element contact--name.
+ */
 function workbc_custom_webform_contact_name_validate(array &$element, FormStateInterface $form_state, array &$form) {
   $form_state->setValue('name', urlencode($form_state->getValue('name')));
 }
@@ -400,6 +399,73 @@ function workbc_custom_redirect_response_alter(TrustedRedirectResponse $response
     if (array_key_exists('searchnoc', $params)) {
       $noc = $params['searchnoc'];
       $response->setTargetUrl($response->getTargetUrl() . "#/job-search;noc=$noc;");
+    }
+  }
+}
+
+/**
+* Implements hook_system_breadcrumb_alter().
+*/
+function workbc_custom_system_breadcrumb_alter(Breadcrumb &$breadcrumb, RouteMatchInterface $route_match, array $context) {
+
+  $node = \Drupal::request()->attributes->get('node');
+  if ($node && $node instanceof Drupal\node\Entity\Node) {
+    if ($node->bundle() == 'news' && $node->field_archived->get(0)->getValue()['value'] == "1") {
+
+      $url = Url::fromUri('internal:/plan-career/news-archive');
+      $archive = Link::fromTextAndUrl("News Archive", $url);
+
+      $links = $breadcrumb->getLinks();
+
+      $last = array_key_last($links);
+      $links[] = $links[$last];
+      $links[$last] = $archive;
+
+      // $breadcrumb->setLinks() will generate an error if the object already has links set
+      // so we create a new Breadcrumb object with the links we want and clone to $breadcrumb
+      $new_breadcrumb = new Breadcrumb();
+      $new_breadcrumb->setLinks($links);
+
+      $breadcrumb = clone($new_breadcrumb);
+
+    }
+  }
+}
+
+/**
+* Implements hook_entity_type_build().
+*/
+function workbc_custom_entity_type_build(array &$entity_types) {
+  // Inhibit default rendering of nodes which causes uncacheable pages.
+  $entity_types['node']->set('enable_base_field_custom_preprocess_skipping', TRUE);
+}
+
+/**
+* Implements hook_entity_base_field_info_alter().
+*/
+function workbc_custom_entity_base_field_info_alter(&$fields, \Drupal\Core\Entity\EntityTypeInterface $entity_type) {
+  // Inhibit default rendering of username/date which causes uncacheable pages.
+  if ($entity_type->id() == 'node') {
+    $fields['uid']->setDisplayConfigurable('view', TRUE);
+    $fields['created']->setDisplayConfigurable('view', TRUE);
+  }
+}
+
+/**
+* Implements hook_search_api_autocomplete_suggestions_alter().
+*/
+function workbc_custom_search_api_autocomplete_suggestions_alter(array &$suggestions, array $alter_params) {
+  foreach ($suggestions as &$suggestion) {
+    $params = $suggestion->getUrl()->getRouteParameters();
+    $node = \Drupal\node\Entity\Node::load($params['node']);
+    if ($node && isset($node->field_noc)) {
+      $markup = $suggestion->getLabel() . ' (NOC ' . $node->field_noc->value . ')';
+      $markup = preg_replace("/(".$alter_params['user_input'].")/i", "<strong>$1</strong>", $markup);
+      $render = array(
+        '#type' => 'markup',
+        '#markup' => $markup
+      );
+      $suggestion->setRender($render);
     }
   }
 }
@@ -611,128 +677,60 @@ function getDuplicateFiles() {
         ['node', 'field_publication_media'],
         ['paragraph', 'field_image_media'],
         ['paragraph', 'field_icon'],
-        ] as $entity_field) {
-          $table = $entity_field[0] . '__' . $entity_field[1];
-          $query = $connection->select($table);
-          $query->addField($table, 'entity_id');
-          $query->condition($entity_field[1] . '_target_id', $media_id);
-          foreach ($query->execute() as $row) {
-            $d['usages'][] = [
-              'entity' => $entity_field[0],
-              'entity_id' => $row->entity_id,
-              'field' => $entity_field[1],
-              'type' => 'reference'
-            ];
-          }
-        }
-
-        // Identify the duplicate media in the link fields.
-        foreach ([
-          ['paragraph', 'field_link'],
-          ] as $entity_field) {
-            $table = $entity_field[0] . '__' . $entity_field[1];
-            $query = $connection->select($table);
-            $query->addField($table, 'entity_id');
-            $query->condition($entity_field[1] . '_uri', 'internal:/media/' . $media_id . '/download%', 'LIKE');
-            foreach ($query->execute() as $row) {
-              $d['usages'][] = [
-                'entity' => $entity_field[0],
-                'entity_id' => $row->entity_id,
-                'field' => $entity_field[1],
-                'type' => 'link'
-              ];
-            }
-          }
-
-          // Identify the duplicate media in the rich content fields.
-          foreach ($rich_text_fields as $field => $info) {
-            $table = $info['table'];
-            $query = $connection->select($table);
-            $query->addField($table, 'entity_id');
-            $query->condition(
-              $query->orConditionGroup()
-              ->condition("{$field}_value", '%' . ($media?->uuid() ?? '00000000-0000-0000-0000-000000000000') . '%', 'LIKE')
-              ->condition("{$field}_value", '%/media/' . $media_id . '/download%', 'LIKE')
-            );
-            foreach ($query->execute() as $row) {
-              $d['usages'][] = [
-                'entity' => $info['entity'],
-                'entity_id' => $row->entity_id,
-                'field' => $field,
-                'type' => 'text'
-              ];
-            }
-          }
+      ] as $entity_field) {
+        $table = $entity_field[0] . '__' . $entity_field[1];
+        $query = $connection->select($table);
+        $query->addField($table, 'entity_id');
+        $query->condition($entity_field[1] . '_target_id', $media_id);
+        foreach ($query->execute() as $row) {
+          $d['usages'][] = [
+            'entity' => $entity_field[0],
+            'entity_id' => $row->entity_id,
+            'field' => $entity_field[1],
+            'type' => 'reference'
+          ];
         }
       }
 
-      return $duplicates;
-    }
+      // Identify the duplicate media in the link fields.
+      foreach ([
+        ['paragraph', 'field_link'],
+      ] as $entity_field) {
+        $table = $entity_field[0] . '__' . $entity_field[1];
+        $query = $connection->select($table);
+        $query->addField($table, 'entity_id');
+        $query->condition($entity_field[1] . '_uri', 'internal:/media/' . $media_id . '/download%', 'LIKE');
+        foreach ($query->execute() as $row) {
+          $d['usages'][] = [
+            'entity' => $entity_field[0],
+            'entity_id' => $row->entity_id,
+            'field' => $entity_field[1],
+            'type' => 'link'
+          ];
+        }
+      }
 
-
-    /**
-    * Implements hook_system_breadcrumb_alter().
-    */
-    function workbc_custom_system_breadcrumb_alter(Breadcrumb &$breadcrumb, RouteMatchInterface $route_match, array $context) {
-
-      $node = \Drupal::request()->attributes->get('node');
-      if ($node && $node instanceof Drupal\node\Entity\Node) {
-        if ($node->bundle() == 'news' && $node->field_archived->get(0)->getValue()['value'] == "1") {
-
-          $url = Url::fromUri('internal:/plan-career/news-archive');
-          $archive = Link::fromTextAndUrl("News Archive", $url);
-
-          $links = $breadcrumb->getLinks();
-
-          $last = array_key_last($links);
-          $links[] = $links[$last];
-          $links[$last] = $archive;
-
-          // $breadcrumb->setLinks() will generate an error if the object already has links set
-          // so we create a new Breadcrumb object with the links we want and clone to $breadcrumb
-          $new_breadcrumb = new Breadcrumb();
-          $new_breadcrumb->setLinks($links);
-
-          $breadcrumb = clone($new_breadcrumb);
-
+      // Identify the duplicate media in the rich content fields.
+      foreach ($rich_text_fields as $field => $info) {
+        $table = $info['table'];
+        $query = $connection->select($table);
+        $query->addField($table, 'entity_id');
+        $query->condition(
+          $query->orConditionGroup()
+          ->condition("{$field}_value", '%' . ($media?->uuid() ?? '00000000-0000-0000-0000-000000000000') . '%', 'LIKE')
+          ->condition("{$field}_value", '%/media/' . $media_id . '/download%', 'LIKE')
+        );
+        foreach ($query->execute() as $row) {
+          $d['usages'][] = [
+            'entity' => $info['entity'],
+            'entity_id' => $row->entity_id,
+            'field' => $field,
+            'type' => 'text'
+          ];
         }
       }
     }
+  }
 
-    /**
-    * Implements hook_entity_type_build().
-    */
-    function workbc_custom_entity_type_build(array &$entity_types) {
-      // Inhibit default rendering of nodes which causes uncacheable pages.
-      $entity_types['node']->set('enable_base_field_custom_preprocess_skipping', TRUE);
-    }
-
-    /**
-    * Implements hook_entity_base_field_info_alter().
-    */
-    function workbc_custom_entity_base_field_info_alter(&$fields, \Drupal\Core\Entity\EntityTypeInterface $entity_type) {
-      // Inhibit default rendering of username/date which causes uncacheable pages.
-      if ($entity_type->id() == 'node') {
-        $fields['uid']->setDisplayConfigurable('view', TRUE);
-        $fields['created']->setDisplayConfigurable('view', TRUE);
-      }
-    }
-
-    /**
-    * Implements hook_search_api_autocomplete_suggestions_alter().
-    */
-    function workbc_custom_search_api_autocomplete_suggestions_alter(array &$suggestions, array $alter_params) {
-      foreach ($suggestions as &$suggestion) {
-        $params = $suggestion->getUrl()->getRouteParameters();
-        $node = \Drupal\node\Entity\Node::load($params['node']);
-        if ($node && isset($node->field_noc)) {
-          $markup = $suggestion->getLabel() . ' (NOC ' . $node->field_noc->value . ')';
-          $markup = preg_replace("/(".$alter_params['user_input'].")/i", "<strong>$1</strong>", $markup);
-          $render = array(
-            '#type' => 'markup',
-            '#markup' => $markup
-          );
-          $suggestion->setRender($render);
-        }
-      }
-    }
+  return $duplicates;
+}
