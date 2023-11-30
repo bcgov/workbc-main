@@ -71,6 +71,7 @@
 {% set image = content.field_image_media %}
 {% set date = content.extra_field_workbc_published_on %}
 {% set title = content.extra_field_workbc_page_title %}
+{% set call_to_action = content.field_call_to_action[0]['#context'].value %}
 
 {%
   set classes = [
@@ -88,7 +89,13 @@
       </h3>
     </div>
     <div class="featured-news__link-container">
-      <a class="featured-news__card-link" href="{{ url }}" title="{{ 'Read More'|t }}">{{ 'Read More'|t }}</a>
+    {% if (call_to_action) %}
+        {% set readmore = call_to_action %}
+    {% else %}
+        {% set readmore ="Read More" %}
+    {%  endif %}
+    
+      <a class="featured-news__card-link" href="{{ url }}" title="{{ readmore|t }}">{{ readmore|t }}</a>
     </div>
   </div>
 </div>
