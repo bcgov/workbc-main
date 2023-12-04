@@ -180,7 +180,7 @@ resource "aws_ecs_task_definition" "app" {
 	{
 		essential   = true
 		name        = "nginx"
-		image       = "${var.app_repo}/nginx:2.3a"
+		image       = "${var.app_repo}/nginx:2.3b"
 		networkMode = "awsvpc"
 
 		logConfiguration = {
