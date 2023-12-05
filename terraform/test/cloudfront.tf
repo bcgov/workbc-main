@@ -15,10 +15,14 @@ resource "aws_cloudfront_origin_access_control" "oac" {
 
 data "aws_cloudfront_cache_policy" "custom" {
     name = "WorkBC-cache-policy"
+    depends_on = [aws_cloudfront_cache_policy.custom]
+    
 }
 
 data "aws_cloudfront_origin_request_policy" "custom" {
     name = "WorkBC-origin-request-policy"
+    depends_on = [aws_cloudfront_origin_request_policy.custom]
+    
 }
 
 resource "aws_cloudfront_distribution" "workbc" {
