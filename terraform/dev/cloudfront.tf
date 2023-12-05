@@ -13,56 +13,6 @@ resource "aws_cloudfront_origin_access_control" "oac" {
   signing_protocol = "sigv4"
 }
 
-resource "aws_cloudfront_cache_policy" "custom" {
-  name	      = "WorkBC-cache-policy"
-  comment     = "WorkBC main site cache policy"
-  default_ttl = 300
-  max_ttl     = 31536000
-  min_ttl     = 1
-  parameters_in_cache_key_and_forwarded_to_origin {
-    cookies_config {
-      cookie_behavior = "all"
-    }
-    headers_config {
-      header_behavior = "none"
-    }
-    query_strings_config {
-       query_string_behavior = "all"
-    }
-    enable_accept_encoding_brotli = true
-    enable_accept_encoding_gzip = true 
-
-  }
-}
-
-resource "aws_cloudfront_origin_request_policy" "custom" {
-  name    = "WorkBC-origin-request-policy"
-  comment = "Origin request settings to test CF tablet CF mobile CF desktop"
-  cookies_config {
-    cookie_behavior = "none"
-  }
-    headers_config {
-        header_behavior = "whitelist"
-        headers {
-            items = ["CloudFront-Is-Tablet-Viewer","CloudFront-Is-Mobile-Viewer","CloudFront-Is-Desktop-Viewer"]
-        }
-    }
-        query_strings_config {
-            query_string_behavior = "none"
-        }
-
-    }
-
-data "aws_cloudfront_cache_policy" "custom" {
-    name = "WorkBC-cache-policy"
-}
-
-data "aws_cloudfront_origin_request_policy" "custom" {
-    name = "WorkBC-origin-request-policy"
-}
-
-
-
 resource "aws_cloudfront_distribution" "workbc" {
 
   count = var.cloudfront ? 1 : 0
@@ -111,8 +61,6 @@ resource "aws_cloudfront_distribution" "workbc" {
     cached_methods = ["GET", "HEAD"]
 
     target_origin_id = random_integer.cf_origin_id.result
-    cache_policy_id = aws_cloudfront_cache_policy.custom.id
-    origin_request_policy_id = aws_cloudfront_origin_request_policy.custom.id
 
 
     forwarded_values {
