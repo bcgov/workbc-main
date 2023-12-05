@@ -75,13 +75,13 @@ resource "aws_cloudfront_distribution" "workbc" {
 
 
 
-    forwarded_values {
-      query_string = true
+    # forwarded_values {
+    # query_string = true
 
-      cookies {
-        forward = "all"
-      }
-    }
+    # cookies {
+    #    forward = "all"
+    # }
+    # }
 
     viewer_protocol_policy = "redirect-to-https"
     min_ttl                = 0
