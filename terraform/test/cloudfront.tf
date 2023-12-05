@@ -13,6 +13,14 @@ resource "aws_cloudfront_origin_access_control" "oac" {
   signing_protocol = "sigv4"
 }
 
+data "aws_cloudfront_cache_policy" "custom" {
+    name = "WorkBC-cache-policy"
+}
+
+data "aws_cloudfront_origin_request_policy" "custom" {
+    name = "WorkBC-origin-request-policy"
+}
+
 resource "aws_cloudfront_distribution" "workbc" {
 
   count = var.cloudfront ? 1 : 0
@@ -29,6 +37,7 @@ resource "aws_cloudfront_distribution" "workbc" {
 
     domain_name = var.cloudfront_origin_domain
     origin_id   = random_integer.cf_origin_id.result
+
 	
 	custom_header {
 	  name = "X-Forwarded-Host"
@@ -60,6 +69,8 @@ resource "aws_cloudfront_distribution" "workbc" {
     cached_methods = ["GET", "HEAD"]
 
     target_origin_id = random_integer.cf_origin_id.result
+    cache_policy_id = aws_cloudfront_cache_policy.custom.id
+    origin_request_policy_id = aws_cloudfront_origin_request_policy.custom.id
 
     forwarded_values {
       query_string = true
