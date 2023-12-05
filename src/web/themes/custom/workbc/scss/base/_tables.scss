@@ -50,6 +50,10 @@ tbody {
   border: none;
 }
 
+table .data-align-right {
+  text-align: right;
+}
+
 @include media-breakpoint-down(sm) {
   div.view-industry-profiles:has(.industry-overview-table) {
     padding: 0 0 0 0;

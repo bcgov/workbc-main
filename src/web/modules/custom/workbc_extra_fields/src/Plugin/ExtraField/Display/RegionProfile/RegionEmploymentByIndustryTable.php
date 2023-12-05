@@ -59,16 +59,16 @@ class RegionEmploymentByIndustryTable extends ExtraFieldDisplayFormattedBase {
       );
 
       $content = "<table>";
-      $content .= "<tr><th>Industry</th><th>Employment (" . $datestr . ")</th><th>% Share of Employment for this Industry</th></tr>";
+      $content .= "<tr><th>Industry</th><th class='data-align-right'>Employment (" . $datestr . ")</th><th class='data-align-right'>% Share of Employment for this Industry</th></tr>";
       foreach ($industries as $industry) {
         $link = "<a href='" . $industry['link'] . "'>";
         $close = "</a>";
         $content .= "<tr>";
         $content .= "<td>" . $link . $industry['name'] . $close . "</td>";
         $employment = ssotFormatNumber($industry['employment'], $options1);
-        $content .= "<td>" . $employment . "</td>";
+        $content .= "<td class='data-align-right'>" . $employment . "</td>";
         $share = ssotFormatNumber($industry['share'], $options2);
-        $content .= "<td>" . $share . "</td>";
+        $content .= "<td class='data-align-right'>" . $share . "</td>";
         $content .= "</tr>";
       }
       $content .= "</table>";

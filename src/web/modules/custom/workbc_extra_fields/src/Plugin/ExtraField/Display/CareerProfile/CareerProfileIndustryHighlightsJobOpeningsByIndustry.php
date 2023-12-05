@@ -86,9 +86,9 @@ class CareerProfileIndustryHighlightsJobOpeningsByIndustry extends ExtraFieldDis
     );
     $text = "<div>";
     $text = "<table>";
-    $text .= "<tr><th>Industry</th><th>Job Openings (" . $datestr . ")</th></tr>";
+    $text .= "<tr><th>Industry</th><th class='data-align-right'>Job Openings (" . $datestr . ")</th></tr>";
     foreach ($industries as $industry) {
-      $text .= "<tr><td>" . $industry['name'] . "</td><td>" . ssotFormatNumber($industry['openings_careers'], $options) . "</td></tr>";
+      $text .= "<tr><td>" . $industry['name'] . "</td><td class='data-align-right'>" . ssotFormatNumber($industry['openings_careers'], $options) . "</td></tr>";
     }
     $text .= "</table>";
     $output = $text;
