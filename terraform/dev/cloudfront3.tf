@@ -28,9 +28,9 @@ resource "aws_cloudfront_origin_request_policy" "custom" {
     cookie_behavior = "none"
   }
     headers_config {
-        header_behavior = "whitelist"
+        header_behavior = "allExcept"
         headers {
-            items = ["CloudFront-Is-Tablet-Viewer","CloudFront-Is-Mobile-Viewer","CloudFront-Is-Desktop-Viewer"]
+            items = ["X-Forwarded-Host"]
         }
     }
         query_strings_config {
