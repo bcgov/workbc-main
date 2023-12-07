@@ -225,7 +225,6 @@ function workbc_preprocess_node(&$variables) {
   if ($variables['node']->bundle() === "blog") {
     $featured = "";
     $node = $variables['node'];
-    ksm($node);
     if ($node->hasField('body')) {
       if (!empty($node->get('body')->summary)){
         $featured = $node->get('body')->summary;
@@ -243,7 +242,7 @@ function workbc_preprocess_node(&$variables) {
         }
       }
     }
-    $variables['featured_text'] = "xXx " . $featured;
+    $variables['featured_text'] = $featured;
   }
 
   // region information for interactive map
