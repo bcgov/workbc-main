@@ -11,7 +11,6 @@ dependencies:
     - linkit
     - media
     - media_entity_dlcke
-    - workbc_custom
 _core:
   default_config_hash: WNeK5FbcY8pXgEpbD_KgRzlF1-5PL3BJXwqaBctPTqw
 name: 'Full HTML'
@@ -114,10 +113,3 @@ filters:
     status: false
     weight: -36
     settings: {  }
-  filter_allow_all:
-    id: filter_allow_all
-    provider: workbc_custom
-    status: true
-    weight: -50
-    settings:
-      allowed_html: '<br> <p class="text-footnote content-source text-align-left text-align-center text-align-right text-align-justify"> <h2 class="text-align-left text-align-center text-align-right text-align-justify"> <h3 class="text-align-left text-align-center text-align-right text-align-justify"> <h4 class="text-align-left text-align-center text-align-right text-align-justify"> <h5 class="text-align-left text-align-center text-align-right text-align-justify"> <h6 class="text-align-left text-align-center text-align-right text-align-justify"> <a class data-entity-loader data-uuid rel target href title data-entity-type data-entity-uuid data-entity-substitution> <tr class> <td class rowspan colspan> <ul class> <li class> <span class> <div class> <script type> <img alt src> <button class> <strong> <em> <u> <pre class="text-align-left text-align-center text-align-right text-align-justify"> <code class="language-*"> <s> <sub> <sup> <blockquote> <ol reversed start> <hr> <table> <th rowspan colspan> <thead> <tbody> <tfoot> <caption> <drupal-media data-entity-type data-entity-uuid alt data-caption data-align data-media-width> <figure>'
