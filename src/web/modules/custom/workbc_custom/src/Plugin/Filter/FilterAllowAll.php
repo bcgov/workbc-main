@@ -14,7 +14,7 @@ use Drupal\filter\Plugin\FilterBase;
  * @Filter(
  *   id = "filter_allow_all",
  *   title = @Translation("Allow all HTML tags & attributes and correct faulty HTML"),
- *   description = @Translation("Allows all HTML tags & attributes that are not part of the standard CkEditor 5 list.."),
+ *   description = @Translation("NO LONGER NEEDED. Allows all HTML tags & attributes that are not part of the standard CKEditor 5 list."),
  *   type = Drupal\filter\Plugin\FilterInterface::TYPE_HTML_RESTRICTOR
  * )
  */
