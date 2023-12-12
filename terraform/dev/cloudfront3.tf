@@ -30,7 +30,7 @@ resource "aws_cloudfront_origin_request_policy" "custom" {
     headers_config {
         header_behavior = "allExcept"
         headers {
-            items = ["X-Forwarded-Host"]
+            items = ["Host"]
         }
     }
         query_strings_config {
