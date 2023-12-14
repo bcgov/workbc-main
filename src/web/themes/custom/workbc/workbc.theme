@@ -235,7 +235,9 @@ function workbc_preprocess_node(&$variables) {
         }
         else {
           if (!empty($node->get('body')->value)) {
-            $featured = \Drupal\Component\Utility\Unicode::truncate($node->get('body')->value, 150, TRUE, TRUE);
+            $text = strip_tags($node->get('body')->value);
+            $text = \Drupal\Component\Utility\Unicode::truncate($text, 150, TRUE, TRUE);
+            $featured = $text;
           }
         }
       }
