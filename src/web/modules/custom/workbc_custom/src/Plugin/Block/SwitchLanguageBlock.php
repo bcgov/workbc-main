@@ -26,8 +26,7 @@ class SwitchLanguageBlock extends BlockBase {
     $renderable = array();
 
     $node = \Drupal::routeMatch()->getParameter('node');
-
-    if (!$node->get('field_multilingual_centre')->isEmpty()) {
+    if (isset($node) && !$node->get('field_multilingual_centre')->isEmpty()) {
       $target = $node->field_multilingual_centre->getValue()[0];
       $options = [];
       $link = Link::fromTextAndUrl($target['title'], Url::fromUri($target['uri'], $options))->toString();
