@@ -231,13 +231,11 @@ function workbc_preprocess_node(&$variables) {
       }
       else {
         if ($node->hasField('field_related_topics_blurb') && !empty($node->get('field_related_topics_blurb')->value)) {
-          $featured = strip_tags($node->get('field_related_topics_blurb')->value);
+          $featured = $node->get('field_related_topics_blurb')->value;
         }
         else {
           if (!empty($node->get('body')->value)) {
-            $text = strip_tags($node->get('body')->value);
-            $text = \Drupal\Component\Utility\Unicode::truncate($text, 150, TRUE, TRUE);
-            $featured = $text;
+            $featured = \Drupal\Component\Utility\Unicode::truncate($node->get('body')->value, 150, TRUE, TRUE);
           }
         }
       }
