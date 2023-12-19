@@ -21,7 +21,7 @@ id: node.labour_market_monthly.field_related_topics
 field_name: field_related_topics
 entity_type: node
 bundle: labour_market_monthly
-label: 'Related Topics'
+label: 'Featured and Browse Related Topic Cards'
 description: ''
 required: false
 translatable: true
