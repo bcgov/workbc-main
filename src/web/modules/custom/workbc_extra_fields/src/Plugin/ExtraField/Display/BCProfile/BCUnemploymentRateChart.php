@@ -111,12 +111,12 @@ class BCUnemploymentRateChart extends ExtraFieldDisplayFormattedBase {
 
           <div class='card-profile__legend-item card-profile__legend-item--low'>
             <div class='card-profile__legend-label card-profile__legend-label--low'>Low:</div>
-            <div class='card-profile__legend-value'>$lo%</div>
+            <div class='card-profile__legend-value card-profile__default-color'>$lo%</div>
           </div>
 
           <div class='card-profile__legend-item card-profile__legend-item--high'>
             <div class='card-profile__legend-label card-profile__legend-label--high'>High:</div>
-            <div class='card-profile__legend-value'>$hi%</div>
+            <div class='card-profile__legend-value card-profile__default-color'>$hi%</div>
           </div>
         </div>
       </div>
