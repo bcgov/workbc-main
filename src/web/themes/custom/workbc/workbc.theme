@@ -222,6 +222,29 @@ function workbc_preprocess_node(&$variables) {
 
   }
 
+  if ($variables['node']->bundle() === "blog") {
+    $featured = "";
+    $node = $variables['node'];
+    if ($node->hasField('body')) {
+      if (!empty($node->get('body')->summary)){
+        $featured = $node->get('body')->summary;
+      }
+      else {
+        if ($node->hasField('field_related_topics_blurb') && !empty($node->get('field_related_topics_blurb')->value)) {
+          $featured = $node->get('field_related_topics_blurb')->value;
+        }
+        else {
+          if (!empty($node->get('body')->value)) {
+            $text = strip_tags($node->get('body')->value);
+            $text = \Drupal\Component\Utility\Unicode::truncate($text, 150, TRUE, TRUE);
+            $featured = $text;
+          }
+        }
+      }
+    }
+    $variables['featured_text'] = $featured;
+  }
+
   // region information for interactive map
   $types = ["career_profile", "bc_profile", "region_profile", "industry_profile", "labour_market_monthly"];
   if (in_array($variables['node']->bundle(), $types)) {  
