@@ -153,6 +153,11 @@ function workbc_custom_form_alter(&$form, \Drupal\Core\Form\FormStateInterface $
     $form['revision_information']['#access'] = false;
   }
 
+  if ($form_id == 'node_blog_edit_form') {
+    if (isset($form['body']['widget'][0]['summary']['#description'])) {
+      $form['body']['widget'][0]['summary']['#description'] = "Leave blank to use Related Topics Blurb text.";
+    }
+  }
 }
 
 /**
