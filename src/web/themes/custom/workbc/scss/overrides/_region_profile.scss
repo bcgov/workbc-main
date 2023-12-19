@@ -100,6 +100,13 @@
   }
 }
 
+@include media-breakpoint-down(md) {
+  #bc-regional-unemployment-stats .bc-profile-mobile {
+    padding-top: 20px;
+  }
+}
+
+
 #block-workbc-content .hero-title h1 {
   font-size: 45px;
 }

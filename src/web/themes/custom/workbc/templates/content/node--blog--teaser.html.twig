@@ -71,7 +71,7 @@
 {% set image = content.field_image_media %}
 {% set date = content.extra_field_workbc_published_on %}
 {% set title = content.extra_field_workbc_page_title %}
-{% set body = content.body|render|striptags|trim %}
+{% set body = featured_text|render|striptags|trim %}
 
 {%
   set classes = [
@@ -88,7 +88,7 @@
       </h3>
       <div class="featured-blog__card-body">
         {{ body }}
-        <a class="featured-blog__card-link" href="{{ url }}" title="{{ 'Read More'|t }}">{{ 'Read More'|t }}</a>
+        <a class="featured-blog__card-link" href="{{ url }}" title="{{ 'Read more'|t }}">{{ 'Read more'|t }}</a>
       </div>
     </div>
     {{ image }}
