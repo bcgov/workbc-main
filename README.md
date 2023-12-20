@@ -13,7 +13,7 @@ This is the [WorkBC.ca](https://workbc.ca) site on Drupal.
   - `docker-compose exec php sudo chown www-data /var/www/html/config/sync`
 - Import the init data dumps:
   - `gunzip -k -c src/scripts/workbc-init.sql.gz | docker-compose exec -T postgres psql -U workbc workbc`
-  - `gunzip -k -c src/scripts/ssot-full.sql.gz | docker-compose exec -T postgres psql -U workbc ssot && docker-compose kill -s SIGUSR1 ssot`
+  - `docker-compose exec -T postgres psql -U workbc ssot < src/scripts/ssot-full.sql && docker-compose kill -s SIGUSR1 ssot`
 - Create the Solr index:
   - `docker-compose exec -u 0 solr sh -c "chown -R solr:solr /opt/solr/server/solr/workbc_dev"`
   - `docker-compose exec solr sh -c "curl -sIN 'http://localhost:8983/solr/admin/cores?action=CREATE&name=workbc_dev&configSet=workbc&instanceDir=workbc_dev'"`
