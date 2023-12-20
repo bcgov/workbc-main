@@ -63,13 +63,13 @@ class LabourMarketEmploymentIndustriesTable extends ExtraFieldDisplayFormattedBa
         ],
         'abs' => [
           'data' => $values['abs'],
-          'data-label' => $this->t("Jobs (change since last month)"),
+          'data-label' => $this->t("Employment (change since last month)"),
           'class' => ['data-row', 'jobs-abs'],
           'align' => "right"
         ],
         'per' => [
           'data' => $values['per'],
-          'data-label' => $this->t("Jobs (% change since last month)"),
+          'data-label' => $this->t("Employment (% change since last month)"),
           'class' => ['data-row', 'jobs-per'],
           'align' => "right"
         ]
