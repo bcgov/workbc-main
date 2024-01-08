@@ -60,7 +60,7 @@ class IndustryAverageWage extends ExtraFieldDisplayFormattedBase {
       $avgYouth = WORKBC_EXTRA_FIELDS_NOT_AVAILABLE;
     }
 
-    $content = '<table class="industry-profile-table">';
+    $content = '<table class="industry-profile-table" role="presentation">';
     $content .= '<tr><td>Men</td><td class="industry-profile-table-value">' . $avgMen . '</td></tr>';
     $content .= '<tr><td>Women</td><td class="industry-profile-table-value">' . $avgWomen . '</td></tr>';
     $content .= '<tr><td>Youth</td><td class="industry-profile-table-value">' . $avgYouth . '</td></tr>';
