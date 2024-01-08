@@ -13,7 +13,8 @@
     const injectFixedButton = () => {
         var container = document.createElement('div');
         container.classList.add('back-to-top');
-        container.setAttribute('role', 'none');
+        container.setAttribute('role', 'navigation');
+        container.setAttribute('aria-label', 'Back to top');
         document.body.appendChild(container);
 
         var label = document.createElement('label');
@@ -24,7 +25,6 @@
         var trigger = document.createElement('button');
         trigger.textContent = 'Back to top';
         trigger.classList.add('back-to-top__trigger', 'btn', 'btn-prefix-chevron-up');
-        trigger.setAttribute('aria-label', 'Back to top');
         trigger.addEventListener('click', scrollToTop);
         container.appendChild(trigger);
 

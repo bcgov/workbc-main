@@ -70,7 +70,9 @@ function calendar_listview_theme_suggestions_page_alter(array &$suggestions, arr
 }
 
 function calendar_listview_preprocess_node(&$variables) {
-  $variables['#cache']['max-age'] = 0;
+  if ($variables['view_mode'] === 'calendar') {
+    $variables['#cache']['max-age'] = 0;
+  }
   $mode = \Drupal::request()->query->get('mode');
   $mode = (!empty($mode))? $mode : "calendar";
   $variables['viewmode'] = $mode;

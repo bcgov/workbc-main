@@ -10,7 +10,7 @@ field_name: field_call_to_action
 entity_type: node
 bundle: news
 label: 'Call to Action'
-description: 'This call to action will appear on the landing page card for this post. Leave it empty to use the default label "Read More".'
+description: 'This call to action will appear on the landing page card for this post. Leave it empty to use the default label "Read more".'
 required: false
 translatable: true
 default_value: {  }

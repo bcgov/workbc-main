@@ -23,15 +23,33 @@ targetEntityType: node
 bundle: news
 mode: teaser
 content:
+  created:
+    type: timestamp
+    label: hidden
+    settings:
+      date_format: medium
+      custom_date_format: ''
+      timezone: ''
+    third_party_settings: {  }
+    weight: 1
+    region: content
   extra_field_workbc_page_title:
     settings: {  }
     third_party_settings: {  }
-    weight: 2
+    weight: 4
     region: content
   extra_field_workbc_published_on:
     settings: {  }
     third_party_settings: {  }
-    weight: 1
+    weight: 3
+    region: content
+  field_call_to_action:
+    type: string
+    label: above
+    settings:
+      link_to_entity: false
+    third_party_settings: {  }
+    weight: 6
     region: content
   field_image_media:
     type: entity_reference_entity_view
@@ -40,18 +58,24 @@ content:
       view_mode: action_card_1_4
       link: false
     third_party_settings: {  }
-    weight: 0
+    weight: 2
     region: content
   links:
     settings: {  }
     third_party_settings: {  }
-    weight: 3
+    weight: 5
+    region: content
+  uid:
+    type: author
+    label: hidden
+    settings: {  }
+    third_party_settings: {  }
+    weight: 0
     region: content
 hidden:
   body: true
   content_moderation_control: true
   field_archived: true
-  field_call_to_action: true
   field_content_group: true
   field_image: true
   field_published_date: true

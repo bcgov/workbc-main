@@ -17,9 +17,9 @@
             });
           }
         }
-        var pager = $(".list-full-view nav.pager").clone();
+        var pager = $(".list-full-view div.pager").clone();
         if($('.list-full-view div.pager2').length <= 0){
-          $(".list-full-view nav.pager").once().after("<div class='pager2'></div>");
+          $(".list-full-view div.pager").once().after("<div class='pager2'></div>");
           $(".list-full-view div.pager2").once().html(pager);
         }
         

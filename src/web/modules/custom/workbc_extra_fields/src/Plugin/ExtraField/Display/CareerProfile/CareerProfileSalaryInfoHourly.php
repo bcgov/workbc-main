@@ -61,9 +61,9 @@ class CareerProfileSalaryInfoHourly extends ExtraFieldDisplayFormattedBase {
     }
 
     $content = '<table>';
-    $content .= '<tr><td>High</td><td>' . $hourly1 . '</td></tr>';
-    $content .= '<tr><td>Median</td><td>' . $hourly2 . '</td></tr>';
-    $content .= '<tr><td>Low</td><td>' . $hourly3 . '</td></tr>';
+    $content .= '<tr><td>High</td><td class="card-profile__default-color">' . $hourly1 . '</td></tr>';
+    $content .= '<tr><td>Median</td><td class="card-profile__default-color">' . $hourly2 . '</td></tr>';
+    $content .= '<tr><td>Low</td><td class="card-profile__default-color">' . $hourly3 . '</td></tr>';
     $content .= '</table>';
 
     $output = $content;
