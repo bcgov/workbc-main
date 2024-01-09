@@ -60,7 +60,7 @@ class CareerProfileSalaryInfoHourly extends ExtraFieldDisplayFormattedBase {
       $hourly3 = WORKBC_EXTRA_FIELDS_NOT_AVAILABLE;
     }
 
-    $content = '<table>';
+    $content = '<table role="presentation">';
     $content .= '<tr><td>High</td><td class="card-profile__default-color">' . $hourly1 . '</td></tr>';
     $content .= '<tr><td>Median</td><td class="card-profile__default-color">' . $hourly2 . '</td></tr>';
     $content .= '<tr><td>Low</td><td class="card-profile__default-color">' . $hourly3 . '</td></tr>';

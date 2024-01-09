@@ -60,7 +60,7 @@ class IndustryEmploymentTypesCAN extends ExtraFieldDisplayFormattedBase {
       $employmentTemporary = WORKBC_EXTRA_FIELDS_NOT_AVAILABLE;
     }
 
-    $content = '<table class="industry-profile-table">';
+    $content = '<table class="industry-profile-table" role="presentation">';
     $content .= '<tr><td>Full Time</td><td class="industry-profile-table-value">' . $employmentFullTime . '</td></tr>';
     $content .= '<tr><td>Part Time</td><td class="industry-profile-table-value">' . $employmentPartTime . '</td></tr>';
     $content .= '<tr><td>Self-employed</td><td class="industry-profile-table-value">' . $employmentSelfEmployed . '</td></tr>';
