@@ -11,12 +11,12 @@
  */
 #}
 {% if items.previous or items.next %} 
-  <nav class="pager" role="navigation1" aria-labelledby="{{ heading_id }}">
+  <div class="pager"">
     <ul class="pager__items js-pager__items">
       {% if items.next %}
         <li class="pager__item pager__item--previous">
           <a href="{{ items.next.href }}" title="{{ 'Go to Previous Events'|t }}" rel="next"{{ items.next.attributes|without('href', 'title', 'rel') }}>
-            <img src="/modules/custom/calendar_listview/images/arrow-left.svg" class="icon arrow-left"/>
+            <img src="/modules/custom/calendar_listview/images/arrow-left.svg" class="icon arrow-left" alt="Arrow left icon"/>
             <span class="visually-hidden">{{ 'Previous Events'|t }}</span>
             <span aria-hidden="true">{{ items.next.text|default('››'|t) }}</span>
           </a>
@@ -24,32 +24,32 @@
       {% endif %}
       {% if items.previous %}
         <li class="pager__item pager__item--next">
-          <a href="{{ items.previous.href }}" title="{{ 'Go to Next page'|t }}" rel="prev"{{ items.previous.attributes|without('href', 'title', 'rel') }}>
+          <a href="{{ items.previous.href }}" title="{{ 'Go to Next page'|t }}" rel="prev"{{ items.previous.attributes|without('href', 'title', 'rel') }} aria-label="Next Events">
             <span class="visually-hidden">{{ 'Next Events'|t }}</span>
             <span aria-hidden="true">{{ items.previous.text|default('‹‹'|t) }}</span>
-            <img src="/modules/custom/calendar_listview/images/arrow-right.svg" class="icon arrow-right"/>
+            <img src="/modules/custom/calendar_listview/images/arrow-right.svg" class="icon arrow-right" alt="Arrow right icon"/>
           </a>
         </li>
       {% endif %}
     </ul>
     {% if not items.previous %}
       <div class="pager__item pager__item--next">
-        <a href="{{ path('<current>') }}?mode=list" title="Go to upcoming events">
+        <a href="{{ path('<current>') }}?mode=list" title="Go to upcoming events" aria-label="Next Events">
           <span>Next Events</span>
-          <img src="/modules/custom/calendar_listview/images/arrow-right.svg" class="icon arrow-right"/>
+          <img src="/modules/custom/calendar_listview/images/arrow-right.svg" class="icon arrow-right" alt="Arrow right icon"/>
         </a>
       </div>
     {% endif %}
-  </nav>
+  </div>
 {% else%}
-  <nav class="pager" role="navigation1" aria-labelledby="{{ heading_id }}">
+  <div class="pager">
     {% if not items.previous %}
       <div class="pager__item pager__item--next">
-        <a href="{{ path('<current>') }}?mode=list" title="Go to upcoming events">
+        <a href="{{ path('<current>') }}?mode=list" title="Go to upcoming events" aria-label="Next Events">
           <span>Next Events</span>
-          <img src="/modules/custom/calendar_listview/images/arrow-right.svg" class="icon arrow-right"/>
+          <img src="/modules/custom/calendar_listview/images/arrow-right.svg" class="icon arrow-right" alt="Arrow right icon"/>
         </a>
       </div>
     {% endif %}
-  </nav>
+  </div>
 {% endif %}

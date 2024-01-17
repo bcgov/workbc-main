@@ -79,6 +79,7 @@ third_party_settings:
         - extra_field_region_employment_growth_forecast_source
         - extra_field_region_top_occupations_introduction
         - extra_field_region_top_ten_occupations
+        - extra_field_region_top_ten_occupations_source
       label: 'Labour Market Statistics'
       parent_name: group_region_profile_tabs
       region: content
@@ -270,6 +271,11 @@ content:
     settings: {  }
     third_party_settings: {  }
     weight: 32
+    region: content
+  extra_field_region_top_ten_occupations_source:
+    settings: {  }
+    third_party_settings: {  }
+    weight: 33
     region: content
   extra_field_region_unemployment_rate:
     settings: {  }

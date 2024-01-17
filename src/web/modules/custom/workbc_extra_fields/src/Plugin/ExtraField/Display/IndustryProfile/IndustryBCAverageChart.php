@@ -49,6 +49,7 @@ class IndustryBCAverageChart extends ExtraFieldDisplayFormattedBase {
       $data[] = floatval($entity->ssot_data['labour_force_survey_industry']['workforce_provincial_average_pct_women']);
       $labels = [$this->t('Men'), $this->t('Women')];
       $chart = [
+        '#chart_id' => 'industry-bc-average',
         '#type' => 'chart',
         '#chart_type' => 'donut',
         'series' => [
@@ -77,7 +78,7 @@ class IndustryBCAverageChart extends ExtraFieldDisplayFormattedBase {
         ],
         '#raw_options' => [
           'options' => [
-            'pieHole' => 0.5,
+            'pieHole' => 0.7,
           ]
         ]
       ];

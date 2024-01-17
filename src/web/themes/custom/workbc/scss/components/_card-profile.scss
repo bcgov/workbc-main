@@ -210,6 +210,10 @@ h3.card-profile__content-header {
   line-height: 2.5rem;
 }
 
+.card-profile__default-color {
+  color: $workbc_default_text !important;
+}
+
 .card-profile__content-tooltip {
   a.info-tooltip {
     display: inline-block;
@@ -351,4 +355,8 @@ h3.card-profile__content-header {
 
 #labour_market-content .card-profile__source {
   padding-top: 50px;
+}
+
+.industry-profile-workforce {
+  overflow-x: unset; 
 }
