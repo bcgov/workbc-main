@@ -793,6 +793,7 @@ function workbc_extra_fields_chart_definition_alter(array &$definition, array $e
       $definition['options']['width'] = 300;
       $definition['options']['chartArea']['left'] = 0;
       $definition['options']['chartArea']['right'] = 0;
+      $definition['options']['legend']['position'] = 'bottom';
     }
   }    
 }
