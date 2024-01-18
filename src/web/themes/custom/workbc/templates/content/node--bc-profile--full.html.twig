@@ -345,22 +345,22 @@
                         <thead>
                           <tr class='table-header'>
                             <th>{{ header.0 }}</th>
-                            <th>{{ header.1 }}
+                            <th class="data-align-right">{{ header.1 }}
                               <span class="workbc-tooltip bc-profile--employment-tooltip">
                                 <div class="workbc-tooltip-content bc-profile--employment-tooltip-content">
                                   {{ tooltip | raw }}
                                 </div>
                               </span>
                             </th>
-                            <th>{{ header.2 }}</th>
+                            <th class="data-align-right">{{ header.2 }}</th>
                           </tr>
                         </thead>
 
                         {% for region in rows %}
                           <tr class='{{ region.class }} {{ cycle(['odd', 'even'], loop.index0) }} bc-profile-employment-region-row'>
                             <td class='region'>{{ region.data.0 | raw }}</td>
-                            <td class='full-time-rate data-row' data-label='Full-time Employment Rate'>{{ region.data.1 }}</td>
-                            <td class='part-time-rate data-row' data-label='Part-time Employment Rate'>{{ region.data.2 }}</td>
+                            <td class='full-time-rate data-row data-align-right' data-label='Full-time Employment Rate'>{{ region.data.1 }}</td>
+                            <td class='part-time-rate data-row data-align-right' data-label='Part-time Employment Rate'>{{ region.data.2 }}</td>
                           </tr>
                           {% if not loop.last %}
                             <tr class="horizontal-line"></tr>
@@ -370,8 +370,8 @@
                         <tfoot>
                           <tr class='bc-profile-employment-region-footer'>
                             <td class='region'>{{ footer.0 }}</td>
-                            <td class='full-time-rate data-row' data-label='Full-time Employment Rate'>{{ footer.1 }}</td>
-                            <td class='part-time-rate data-row' data-label='Part-time Employment Rate'>{{ footer.2 }}</td>
+                            <td class='full-time-rate data-row data-align-right' data-label='Full-time Employment Rate' align="right">{{ footer.1 }}</td>
+                            <td class='part-time-rate data-row data-align-right' data-label='Part-time Employment Rate' align="right">{{ footer.2 }}</td>
                           </tr>
                         </tfoot>
                       </table>
