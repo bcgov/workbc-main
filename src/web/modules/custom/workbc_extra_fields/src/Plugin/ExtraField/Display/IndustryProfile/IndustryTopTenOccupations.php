@@ -62,7 +62,7 @@ class IndustryTopTenOccupations extends ExtraFieldDisplayFormattedBase {
           $link = "";
         }
         $content .= "<tr>";
-        $content .= "<td>" . $link . $job['description'] . " (NOC " . $job['noc'] . ")</a></td>";
+        $content .= "<td class='data-align-left'>" . $link . $job['description'] . " (NOC " . $job['noc'] . ")</a></td>";
         $content .= "<td class='data-align-right'>" . ssotFormatNumber($job['openings'], $options) . "</td>";
       }
       $content .= "</table>";

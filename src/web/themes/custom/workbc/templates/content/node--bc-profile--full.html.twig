@@ -358,7 +358,7 @@
 
                         {% for region in rows %}
                           <tr class='{{ region.class }} {{ cycle(['odd', 'even'], loop.index0) }} bc-profile-employment-region-row'>
-                            <td class='region'>{{ region.data.0 | raw }}</td>
+                            <td class='region data-align-left'>{{ region.data.0 | raw }}</td>
                             <td class='full-time-rate data-row data-align-right' data-label='Full-time Employment Rate'>{{ region.data.1 }}</td>
                             <td class='part-time-rate data-row data-align-right' data-label='Part-time Employment Rate'>{{ region.data.2 }}</td>
                           </tr>
@@ -369,7 +369,7 @@
 
                         <tfoot>
                           <tr class='bc-profile-employment-region-footer'>
-                            <td class='region'>{{ footer.0 }}</td>
+                            <td class='region data-align-left'>{{ footer.0 }}</td>
                             <td class='full-time-rate data-row data-align-right' data-label='Full-time Employment Rate' align="right">{{ footer.1 }}</td>
                             <td class='part-time-rate data-row data-align-right' data-label='Part-time Employment Rate' align="right">{{ footer.2 }}</td>
                           </tr>
