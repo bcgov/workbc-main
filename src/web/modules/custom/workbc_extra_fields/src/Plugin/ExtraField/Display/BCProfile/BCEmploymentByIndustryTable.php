@@ -54,14 +54,14 @@ class BCEmploymentByIndustryTable extends ExtraFieldDisplayFormattedBase {
       );
       
       $content = '<table>';
-      $content .= "<tr><th>Industry</th><th class='data-align-right bc-employment-share'>% Share of Employment<br>for this Industry</th><th>Sector</th></tr>";
+      $content .= "<tr><th>Industry</th><th class='data-align-right bc-employment-share'>% Share of Employment<br>for this Industry</th><th class='data-align-center'>Sector</th></tr>";
       foreach ($industries as $industry) {
         $link = "<a href='" . $industry['link'] . "'>";
         $close = "</a>";
         $content .= "<tr>";
         $content .= "<td>" . $link . $industry['name'] . $close . "</td>";
         $content .= "<td class='data-align-right bc-employment-share'>" . ssotFormatNumber($industry['share'], $options) . "</td>";
-        $content .= "<td>" . $industry['sector'] . "</td>";
+        $content .= "<td class='data-align-center'>" . $industry['sector'] . "</td>";
         $content .= "</tr>";
       }
       $content .= "</table>";
