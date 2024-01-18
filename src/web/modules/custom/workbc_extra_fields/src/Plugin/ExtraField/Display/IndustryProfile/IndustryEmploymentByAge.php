@@ -85,13 +85,13 @@ class IndustryEmploymentByAge extends ExtraFieldDisplayFormattedBase {
     $content .= "<tr><th>Age Group</th><th class='data-align-right'>" . $label1 . "</th><th class='data-align-right'>" . $label2 . "</th></tr>";
     $content .= "</thead>";
     $content .= "<tbody>";
-    $content .= '<tr class="table-row "><td class="mobile-label">15 - 24 years</td>';
+    $content .= '<tr class="table-row "><td class="mobile-label data-align-left">15 - 24 years</td>';
     $content .= '<td data-label="' . $label1 . '" class="data-row data-align-right">' . $industryAvgUnder25 . '</td>';
     $content .= '<td data-label="' . $label2 . '" class="data-row data-row-last data-align-right">' . $bcAvgUnder25 . '</td></tr>';
-    $content .= '<tr class="table-row "><td class="mobile-label">25 - 54 years</td>';
+    $content .= '<tr class="table-row "><td class="mobile-label data-align-left">25 - 54 years</td>';
     $content .= '<td data-label="' . $label1 . '" class="data-row data-align-right">' . $industryAvg25thru55 . '</td>';
     $content .= '<td data-label="' . $label2 . '" class="data-row data-row-last data-align-right">' . $bcAvg25thru55 . '</td></tr>';
-    $content .= '<tr class="table-row "><td class="mobile-label">55+ years</td>';
+    $content .= '<tr class="table-row "><td class="mobile-label data-align-left">55+ years</td>';
     $content .= '<td data-label="' . $label1 . '" class="data-row data-align-right">' . $industryAvgOver55 . '</td>';
     $content .= '<td data-label="' . $label2 . '" class="data-row data-row-last data-align-right">' . $bcAvgOver55 . '</td></tr>';
     $content .= '</tbody>';
