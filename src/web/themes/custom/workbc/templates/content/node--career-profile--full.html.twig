@@ -499,9 +499,9 @@
                         <tbody>
                         {% for region in rows %}
                           <tr class='{{ region.class }} {{ cycle(['odd', 'even'], loop.index0) }}'>
-                            <td class="region" data-label="{{ header.0 }}">{{ region.data.0 }}</td>
-                            <td class="count-employment data-row" data-label="{{ header.1 }}">{{ region.data.1 }}</td>
-                            <td class="percent-employment data-row" data-label="{{ header.2 }}">{{ region.data.2 }}</td>
+                            <td class="region data-align-left" data-label="{{ header.0 }}">{{ region.data.0 }}</td>
+                            <td class="count-employment data-row data-align-right" data-label="{{ header.1 }}">{{ region.data.1 }}</td>
+                            <td class="percent-employment data-row data-align-right" data-label="{{ header.2 }}">{{ region.data.2 }}</td>
                           </tr>
                           {% if not loop.last %}
                             <tr class="horizontal-line"></tr>
@@ -576,9 +576,9 @@
                         <tbody>
                         {% for region in rows %}
                           <tr class='{{ region.class }} {{ cycle(['odd', 'even'], loop.index0) }}'>
-                            <td class="region" data-label="{{ header.0 }}">{{ region.data.0 }}</td>
-                            <td class="count-openings data-row" data-label="{{ header.1 }}">{{ region.data.1 }}</td>
-                            <td class="percent-growth data-row" data-label="{{ header.2 }}">{{ region.data.2 }}</td>
+                            <td class="region data-align-left" data-label="{{ header.0 }}">{{ region.data.0 }}</td>
+                            <td class="count-openings data-row data-align-right" data-label="{{ header.1 }}">{{ region.data.1 }}</td>
+                            <td class="percent-growth data-row data-align-right" data-label="{{ header.2 }}">{{ region.data.2 }}</td>
                           </tr>
                           {% if not loop.last %}
                             <tr class="horizontal-line"></tr>

@@ -438,9 +438,9 @@
                         </thead>
                         {% for region in rows %}
                           <tr class='{{ region.class }}  {{ cycle(['odd', 'even'], loop.index0) }}'>
-                            <td class="region">{{ region.data.0 }}</td>
-                            <td class="data-row" data-label="{{ header.1 }}" align="right">{{ region.data.1 }}</td>
-                            <td class="data-row" data-label="{{ header.2 }}" align="right">{{ region.data.2 }}</td>
+                            <td class="region data-align-left">{{ region.data.0 }}</td>
+                            <td class="data-row data-align-right" data-label="{{ header.1 }}">{{ region.data.1 }}</td>
+                            <td class="data-row data-align-right" data-label="{{ header.2 }}">{{ region.data.2 }}</td>
                           </tr>
                           {% if not loop.last %}
                             <tr class="horizontal-line"></tr>

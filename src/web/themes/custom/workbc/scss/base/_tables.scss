@@ -50,8 +50,14 @@ tbody {
   border: none;
 }
 
+table .data-align-left {
+  padding-left: 20px !important;
+  padding-right: 20px !important;
+}
+
 table .data-align-right {
   text-align: right;
+  padding-right: 20px !important;
 }
 
 table .data-align-center {
