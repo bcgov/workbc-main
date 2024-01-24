@@ -82,6 +82,18 @@ class IndustryEmploymentBySex extends ExtraFieldDisplayFormattedBase {
         ]
       ];
       $output = \Drupal::service('renderer')->render($chart);
+
+      $md = \Drupal::service('mobile_detect');
+      $isMobile = $md->isMobile() && !$md->isTablet();
+      if ($isMobile) {
+        $legend = "<div class='card-profile__legend-container'>";  // margin: auto;
+        $legend .= "<div class='card-profile__legend'>";
+        $legend .= "<div class='card-profile__legend-label card-profile__legend-label--men'>Men</div>";
+        $legend .= "<div class='card-profile__legend-label card-profile__legend-label--women'>Women</div>";
+        $legend .= "</div>";
+        $legend .= "</div>";
+        $output .= $legend;
+      }
     }
     else {
       $output = "";
