@@ -195,304 +195,83 @@ tr.interactive-map-row-hilite {
   background-image: url(../assets/images/transparent.gif);
 }
 
-.map-hot-spot-01 {
+.map-hot-spot-cariboo {
   position: absolute;
-  left: calc(var(--left-offset) + 168px);
-  top: calc(var(--top-offset) + 20px);
-  width: 110px;
-  height: 26px;
-}
-.map-hot-spot-02 {
-  position:absolute;
-  left:calc(var(--left-offset) + 170px);
-  top:calc(var(--top-offset) + 46px);
-  width:108px;
-  height:26px;
-}
-.map-hot-spot-03 {
-  position:absolute;
-  left:calc(var(--left-offset) + 157px);
-  top:calc(var(--top-offset) + 72px);
-  width:121px;
-  height:35px;
-}
-.map-hot-spot-04 {
-  position:absolute;
-  left:calc(var(--left-offset) + 177px);
-  top:calc(var(--top-offset) + 107px);
-  width:101px;
-  height:16px;
-}
-.map-hot-spot-05 {
-  position:absolute;
-  left:calc(var(--left-offset) + 206px);
-  top:calc(var(--top-offset) + 123px);
-  width:72px;
-  height:14px;
-}
-.map-hot-spot-06 {
-  position:absolute;
-  left:calc(var(--left-offset) + 231px);
-  top:calc(var(--top-offset) + 137px);
-  width:47px;
-  height:14px;
-}
-.map-hot-spot-07 {
-  border-width:0px;
-  position:absolute;
-  left:calc(var(--left-offset) + 255px);
-  top:calc(var(--top-offset) + 151px);
-  width:25px;
-  height:12px;
-}
-.map-hot-spot-08 {
-  border-width:0px;
-  position:absolute;
-  left:calc(var(--left-offset) + 216px);
-  top:calc(var(--top-offset) + 151px);
-  width:38px;
-  height:26px;
-}
-.map-hot-spot-09 {
-  border-width:0px;
-  position:absolute;
-  left:calc(var(--left-offset) + 223px);
-  top:calc(var(--top-offset) + 176px);
-  width:57px;
-  height:26px;
-}
-.map-hot-spot-10 {
-  border-width:0px;
-  position:absolute;
-  left:calc(var(--left-offset) + 185px);
-  top:calc(var(--top-offset) + 203px);
-  width:95px;
-  height:31px;
-}
-.map-hot-spot-11 {
-  border-width:0px;
-  position:absolute;
-  left:calc(var(--left-offset) + 189px);
-  top:calc(var(--top-offset) + 234px);
-  width:50px;
-  height:17px;
-}
-.map-hot-spot-12 {
-  border-width:0px;
-  position:absolute;
-  left:calc(var(--left-offset) + 239px);
-  top:calc(var(--top-offset) + 234px);
-  width:39px;
-  height:14px;
-}
-.map-hot-spot-13 {
-  border-width:0px;
-  position:absolute;
-  left:calc(var(--left-offset) + 280px);
-  top:calc(var(--top-offset) + 198px);
-  width:24px;
-  height:14px;
-}
-.map-hot-spot-14 {
-  border-width:0px;
-  position:absolute;
-  left:calc(var(--left-offset) + 280px);
-  top:calc(var(--top-offset) + 216px);
-  width:48px;
-  height:32px;
-}
-.map-hot-spot-15 {
-  border-width:0px;
-  position:absolute;
-  left:calc(var(--left-offset) + 249px);
-  top:calc(var(--top-offset) + 248px);
-  width:79px;
-  height:20px;
-}
-.map-hot-spot-16 {
-  border-width:0px;
-  position:absolute;
-  left:calc(var(--left-offset) + 249px);
-  top:calc(var(--top-offset) + 268px);
-  width:71px;
-  height:20px;
-}
-.map-hot-spot-17 {
-  border-width:0px;
-  position:absolute;
-  left:calc(var(--left-offset) + 264px);
-  top:calc(var(--top-offset) + 288px);
-  width:37px;
-  height:24px;
-}
-.map-hot-spot-18 {
-  border-width:0px;
-  position:absolute;
-  left:calc(var(--left-offset) + 328px);
-  top:calc(var(--top-offset) + 240px);
-  width:30px;
-  height:17px;
-}
-.map-hot-spot-19 {
-  border-width:0px;
-  position:absolute;
-  left:calc(var(--left-offset) + 328px);
-  top:calc(var(--top-offset) + 228px);
-  width:13px;
-  height:12px;
-}
-.map-hot-spot-20 {
-  border-width:0px;
-  position:absolute;
-  left:calc(var(--left-offset) + 328px);
-  top:calc(var(--top-offset) + 257px);
-  width:13px;
-  height:12px;
-}
-.map-hot-spot-21 {
-  border-width:0px;
-  position:absolute;
-  left:calc(var(--left-offset) + 301px);
-  top:calc(var(--top-offset) + 288px);
-  width:94px;
-  height:20px;
-}
-.map-hot-spot-22 {
-  border-width:0px;
-  position:absolute;
-  left:calc(var(--left-offset) + 320px);
-  top:calc(var(--top-offset) + 269px);
-  width:68px;
-  height:19px;
-}
-.map-hot-spot-23 {
-  border-width:0px;
-  position:absolute;
-  left:calc(var(--left-offset) + 341px);
-  top:calc(var(--top-offset) + 257px);
-  width:35px;
-  height:12px;
-}
-.map-hot-spot-24 {
-  border-width:0px;
-  position:absolute;
-  left:calc(var(--left-offset) + 63px);
-  top:calc(var(--top-offset) + 17px);
-  width:96px;
-  height:26px;
-}
-.map-hot-spot-25 {
-  border-width:0px;
-  position:absolute;
-  left:calc(var(--left-offset) + 68px);
-  top:calc(var(--top-offset) + 43px);
-  width:100px;
-  height:26px;
-}
-.map-hot-spot-26 {
-  border-width:0px;
-  position:absolute;
-  left:calc(var(--left-offset) + 82px);
-  top:calc(var(--top-offset) + 69px);
-  width:75px;
-  height:26px;
-}
-.map-hot-spot-27 {
-  border-width:0px;
-  position:absolute;
-  left:calc(var(--left-offset) + 92px);
-  top:calc(var(--top-offset) + 95px);
-  width:65px;
-  height:26px;
-}
-.map-hot-spot-28 {
-  border-width:0px;
-  position:absolute;
-  left:calc(var(--left-offset) + 139px);
-  top:calc(var(--top-offset) + 121px);
-  width:38px;
-  height:82px;
-}
-.map-hot-spot-29 {
-  border-width:0px;
-  position:absolute;
-  left:calc(var(--left-offset) + 103px);
-  top:calc(var(--top-offset) + 121px);
-  width:36px;
-  height:85px;
-}
-.map-hot-spot-30 {
-  border-width:0px;
-  position:absolute;
-  left:calc(var(--left-offset) + 177px);
-  top:calc(var(--top-offset) + 123px);
-  width:29px;
-  height:75px;
-}
-.map-hot-spot-31 {
-  border-width:0px;
-  position:absolute;
-  left:calc(var(--left-offset) + 157px);
-  top:calc(var(--top-offset) + 108px);
-  width:20px;
-  height:13px;
-}
-.map-hot-spot-32 {
-  border-width:0px;
-  position:absolute;
-  left:calc(var(--left-offset) + 206px);
-  top:calc(var(--top-offset) + 137px);
-  width:10px;
-  height:59px;
-}
-.map-hot-spot-33 {
-  border-width:0px;
-  position:absolute;
-  left:calc(var(--left-offset) + 50px);
-  top:calc(var(--top-offset) + 166px);
-  width:25px;
-  height:55px;
-}
-.map-hot-spot-34 {
-  border-width:0px;
-  position:absolute;
-  left:calc(var(--left-offset) + 139px);
-  top:calc(var(--top-offset) + 206px);
-  width:46px;
-  height:45px;
-}
-.map-hot-spot-35 {
-  border-width:0px;
-  position:absolute;
-  left:calc(var(--left-offset) + 168px);
-  top:calc(var(--top-offset) + 251px);
-  width:46px;
-  height:77px;
-}
-.map-hot-spot-36 {
-  border-width:0px;
-  position:absolute;
-  left:calc(var(--left-offset) + 131px);
-  top:calc(var(--top-offset) + 251px);
-  width:37px;
-  height:43px;
-}
-.map-hot-spot-37 {
-  border-width:0px;
-  position:absolute;
-  left:calc(var(--left-offset) + 214px);
-  top:calc(var(--top-offset) + 258px);
-  width:35px;
-  height:56px;
-}
-.map-hot-spot-38 {
-  border-width:0px;
-  position:absolute;
-  left:calc(var(--left-offset) + 249px);
-  top:calc(var(--top-offset) + 288px);
-  width:15px;
-  height:26px;
-}
+  left: calc(var(--left-offset) + 0px);
+  top: calc(var(--top-offset) + 0px);
+  width: 400px;
+  height: 330px;
+  // background-color:rgb(73, 126, 240);
+  // opacity: .35;
+  clip-path: polygon(54% 38%, 79% 67%, 78% 69%, 69% 63%, 67% 75%, 60% 75%, 54% 80%, 48% 76%, 47% 69%, 43% 64%, 56% 59%);
+}  
+
+.map-hot-spot-kootenay {
+  position: absolute;
+  left: calc(var(--left-offset) + 0px);
+  top: calc(var(--top-offset) + 0px);
+  width: 400px;
+  height: 330px;
+  // background-color:rgb(230, 187, 47);
+  // opacity: .35;
+  clip-path: polygon(74% 89%, 78% 87%, 81% 81%, 86% 80%, 89% 77%, 93% 83%, 97% 92%, 74% 95%);
+}  
+
+.map-hot-spot-mainland_southwest {
+  position: absolute;
+  left: calc(var(--left-offset) + 0px);
+  top: calc(var(--top-offset) + 0px);
+  width: 400px;
+  height: 330px;
+  // background-color:rgb(52, 212, 40);
+  // opacity: .35;
+  clip-path: polygon(59% 96%, 55% 91%, 56% 89%, 52% 85%, 55% 80%, 58% 78%, 63% 80%, 60% 85%, 65% 87%, 67% 95%);
+}  
+
+.map-hot-spot-north_coast_nechako {
+  position: absolute;
+  left: calc(var(--left-offset) + 0px);
+  top: calc(var(--top-offset) + 0px);
+  width: 400px;
+  height: 330px;
+  // background-color:rgb(79, 2, 112);
+  // opacity: .35;
+  clip-path: polygon(3% 0, 7% 10%, 14% 6%, 22% 30%, 29% 37%, 26% 53%, 15% 50%, 15% 57%, 19% 67%, 38% 65%, 38% 59%, 44% 62%, 49% 62%, 49% 59%, 55% 58%, 53% 42%, 48% 37%, 38% 31%, 46% 22%, 37% 7%);
+}  
+
+.map-hot-spot-northeast {
+  position: absolute;
+  left: calc(var(--left-offset) + 0px);
+  top: calc(var(--top-offset) + 0px);
+  width: 400px;
+  height: 330px;
+  // background-color:red;
+  // opacity: .35;
+  clip-path: polygon(38% 7%, 49% 23%, 44% 25%, 40% 31%, 55% 41%, 69% 56%, 68% 7%);
+}  
+
+.map-hot-spot-thompson_okanagan {
+  position: absolute;
+  left: calc(var(--left-offset) + 0px);
+  top: calc(var(--top-offset) + 0px);
+  width: 400px;
+  height: 330px;
+  // background-color:rgb(213, 166, 210);
+  // opacity: .35;
+  clip-path: polygon(59% 77%, 68% 76%, 69% 71%, 68% 64%, 74% 67%, 76% 70%, 80% 67%, 88% 77%, 74% 89%, 73% 95%, 67% 95%, 65% 87%, 60% 86%, 62% 81%);
+}  
+
+.map-hot-spot-vancouver_island_coast {
+  position: absolute;
+  left: calc(var(--left-offset) + 0px);
+  top: calc(var(--top-offset) + 0px);
+  width: 400px;
+  height: 330px;
+  // background-color:rgb(0, 8, 255);
+  // opacity: .35;
+  clip-path: polygon(41% 63%, 53% 82%, 56% 100%, 51% 100%, 32% 80%, 34% 66%);
+}  
+
 
 .job-openings-by-region, .employment-by-region, .workbc-interactive-map-0 {
 
