@@ -7,7 +7,7 @@ resource "aws_cloudfront_cache_policy" "custom" {
   min_ttl     = 1
   parameters_in_cache_key_and_forwarded_to_origin {
     cookies_config {
-      cookie_behavior = "all"
+      cookie_behavior = "none"
     }
     headers_config {
       header_behavior = "none"
@@ -25,7 +25,7 @@ resource "aws_cloudfront_origin_request_policy" "custom" {
   name    = "WorkBC-origin-request-policy"
   comment = "Origin request settings to test CF tablet CF mobile CF desktop"
   cookies_config {
-    cookie_behavior = "none"
+    cookie_behavior = "all"
   }
     headers_config {
         header_behavior = "allExcept"
