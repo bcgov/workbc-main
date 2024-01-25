@@ -48,6 +48,7 @@ class RegionJobOpeningsCompositionChart extends ExtraFieldDisplayFormattedBase {
       $data[] = floatval($entity->ssot_data['regional_labour_market_outlook']['replacement_of_retiring_workers_openings']);
       $data[] = floatval($entity->ssot_data['regional_labour_market_outlook']['new_jobs_due_to_economic_growth_openings']);
       $chart = [
+        '#chart_id' => 'region-composition-job-openings',
         '#type' => 'chart',
         '#chart_type' => 'donut',
         '#colors' => array(
