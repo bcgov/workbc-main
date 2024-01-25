@@ -83,7 +83,6 @@ class IndustryBCAverageChart extends ExtraFieldDisplayFormattedBase {
         ]
       ];
       $output = \Drupal::service('renderer')->render($chart);
-     
     }
     else {
       $output = "";
