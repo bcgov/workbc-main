@@ -20,8 +20,7 @@
 
   Drupal.behaviors.redrawGoogleChart = {
     attach: function (context, settings) {
-
-      $('.charts-google').each(function () {
+      $('.charts-google', context).each(function () {
         const contents = new Drupal.Charts.Contents();
         const chartId = this.id;
         const dataAttributes = contents.getData(chartId);
@@ -32,13 +31,9 @@
             dataAttributes['options'].width = 300;
             dataAttributes['options'].chartArea = {left: 0, right: 0};
             dataAttributes['options'].legend.position = 'bottom';
-            
-            console.log(dataAttributes['options']);
-            if (Drupal.googleCharts.charts.hasOwnProperty(chartId)) {
-              Drupal.googleCharts.charts[chartId].clearChart();
-            }
-            Drupal.googleCharts.drawChart(chartId, dataAttributes['visualization'], dataAttributes['data'], dataAttributes['options'])();
-          }       
+            Drupal.Charts.Contents.update(chartId, dataAttributes);
+            google.charts.setOnLoadCallback(Drupal.googleCharts.drawChart(chartId, dataAttributes['visualization'], dataAttributes['data'], dataAttributes['options']));
+          }
         }
       });
 
