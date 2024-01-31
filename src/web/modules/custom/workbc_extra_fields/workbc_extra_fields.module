@@ -124,7 +124,6 @@ function ssotBCProfile($region) {
   $data['labour_force_survey_regional_industry_region'] = querySSoT('labour_force_survey_regional_industry_region')[0];
   $data['labour_force_survey_regional_industry_province'] = querySSoT('labour_force_survey_regional_industry_province');
   $data['industry_outlook'] = querySSoT('industry_outlook');
-  $data['regional_top_industries'] = querySSoT('regional_top_industries?region=eq.' . $region);
   $data['regional_top_occupations'] = querySSoT('regional_top_occupations?region=eq.' . $region);
   $monthly_labour_market_updates = querySSoT('monthly_labour_market_updates');
   $latest = ssotLatestMonthlyLabourMarketUpdate($monthly_labour_market_updates);
@@ -149,7 +148,6 @@ function ssotRegionProfile($region) {
   $data['labour_force_survey_regional_industry_region'] = querySSoT('labour_force_survey_regional_industry_region?region=eq.' . $region)[0];
   $data['labour_force_survey_regional_industry_province'] = querySSoT('labour_force_survey_regional_industry_province');
   $data['industry_outlook'] = querySSoT('industry_outlook');
-  $data['regional_top_industries'] = querySSoT('regional_top_industries?region=eq.' . $region);
   $data['regional_top_occupations'] = querySSoT('regional_top_occupations?region=eq.' . $region);
   $monthly_labour_market_updates = querySSoT('monthly_labour_market_updates');
   $latest = ssotLatestMonthlyLabourMarketUpdate($monthly_labour_market_updates);
@@ -780,11 +778,11 @@ function workbc_extra_fields_chart_definition_alter(array &$definition, array $e
 
   if ($definition['visualization'] == "DonutChart") {
     $definition['options']['fontSize'] = 16;
-  }  
+  }
 
   if ($definition['visualization'] == "DonutChart" &&
      in_array($chart_id, ['industry-employment-by-sex', 'industry-bc-average'])
   ) {
     $definition['options']['width'] = 415;
-  }    
+  }
 }

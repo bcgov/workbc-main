@@ -43,11 +43,7 @@ class BCEmploymentByRegionTable extends ExtraFieldDisplayFormattedBase {
    */
   public function viewElements(ContentEntityInterface $entity) {
 
-    if (!empty($entity->ssot_data) && isset($entity->ssot_data['regional_top_industries'])) {
-      $datestr = ssotParseDateRange($this->getEntity()->ssot_data['schema'], 'regional_top_industries', 'openings');
-
-      $bc = $entity->ssot_data['labour_force_survey_bc_employment'];
-
+    if (!empty($entity->ssot_data) && isset($entity->ssot_data['labour_force_survey_regions_employment']) && isset($entity->ssot_data['labour_force_survey_bc_employment'])) {
       $regions = $entity->ssot_data['labour_force_survey_regions_employment'];
       usort($regions, function($a, $b) {
         return $a['region'] <=> $b['region'];
@@ -72,14 +68,14 @@ class BCEmploymentByRegionTable extends ExtraFieldDisplayFormattedBase {
 
         $rows[] = [
           'data' => [
-            '<a href="' . $alias . '"> ' . ssotRegionName($region['region']) . '</a>', 
-            ssotFormatNumber($region['full_time_employment_pct'], $options), 
-            ssotFormatNumber($region['part_time_employment_pct'], $options), 
+            '<a href="' . $alias . '"> ' . ssotRegionName($region['region']) . '</a>',
+            ssotFormatNumber($region['full_time_employment_pct'], $options),
+            ssotFormatNumber($region['part_time_employment_pct'], $options),
           ],
           'class' => 'interactive-map-row-'. $region['region'],
         ];
       }
-    
+
       $header = ['Region','Full-time Employment Rate', 'Part-time Employment Rate'];
       $footer = ['B.C. Average', ssotFormatNumber($entity->ssot_data['labour_force_survey_bc_employment']['full_time_employment_pct'], $options), ssotFormatNumber($entity->ssot_data['labour_force_survey_bc_employment']['part_time_employment_pct'], $options)];
       $table = array(
@@ -87,7 +83,7 @@ class BCEmploymentByRegionTable extends ExtraFieldDisplayFormattedBase {
         '#header' => $header,
         '#rows' => $rows,
         '#footer' => $footer,
-      );   
+      );
       $output = $table;
     }
     else {
