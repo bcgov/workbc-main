@@ -20,23 +20,34 @@
 
   Drupal.behaviors.redrawGoogleChart = {
     attach: function (context, settings) {
-      $('.charts-google', context).each(function () {
-        const contents = new Drupal.Charts.Contents();
-        const chartId = this.id;
-        const dataAttributes = contents.getData(chartId);
-
-        if (dataAttributes['visualization'] == "DonutChart") {
-          if (window.matchMedia("(max-width: 767px)").matches) {
-            // The viewport is less than 768 pixels wide
+      // Adjust the legend of the donut charts to bottom if we're on mobile.
+      if (settings.isMobile) {
+        $('.charts-google', context).each(function () {
+          const contents = new Drupal.Charts.Contents();
+          const chartId = this.id;
+          const dataAttributes = contents.getData(chartId);
+          if (dataAttributes['visualization'] == "DonutChart") {
             dataAttributes['options'].width = 300;
             dataAttributes['options'].chartArea = {left: 0, right: 0};
             dataAttributes['options'].legend.position = 'bottom';
             Drupal.Charts.Contents.update(chartId, dataAttributes);
             google.charts.setOnLoadCallback(Drupal.googleCharts.drawChart(chartId, dataAttributes['visualization'], dataAttributes['data'], dataAttributes['options']));
           }
+        });
+      }
+
+      $('.charts-google', context).on('drupalChartsConfigsInitialization', function(e) {
+        if (settings.isMobile) {
+          const dataAttributes = e.originalEvent.detail;
+          if (dataAttributes['visualization'] == 'DonutChart') {
+            dataAttributes['options'].width = 300;
+            dataAttributes['options'].chartArea = {left: 0, right: 0};
+            dataAttributes['options'].legend.position = 'bottom';
+          }
         }
       });
 
+      // Force-redraw the chart when its tab is opened.
       $('.nav-link', context).on('shown.bs.tab', function (e) {
         if (Drupal.Charts && Drupal.googleCharts) {
           $('.charts-google', $(e.target).attr('data-bs-target')).each(function () {
