@@ -1,0 +1,6 @@
+services:
+  # Name of this service.
+  Drupal\workbc_custom\EventSubscriber\ResponseEventsSubscriber:
+    # Tagged as an event_subscriber to register this subscriber with the event_dispatch service.
+    tags:
+      - { name: 'event_subscriber' }

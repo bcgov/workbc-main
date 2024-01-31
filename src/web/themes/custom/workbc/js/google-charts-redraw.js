@@ -20,23 +20,6 @@
 
   Drupal.behaviors.redrawGoogleChart = {
     attach: function (context, settings) {
-      $('.charts-google', context).each(function () {
-        const contents = new Drupal.Charts.Contents();
-        const chartId = this.id;
-        const dataAttributes = contents.getData(chartId);
-
-        if (dataAttributes['visualization'] == "DonutChart") {
-          if (window.matchMedia("(max-width: 767px)").matches) {
-            // The viewport is less than 768 pixels wide
-            dataAttributes['options'].width = 300;
-            dataAttributes['options'].chartArea = {left: 0, right: 0};
-            dataAttributes['options'].legend.position = 'bottom';
-            Drupal.Charts.Contents.update(chartId, dataAttributes);
-            google.charts.setOnLoadCallback(Drupal.googleCharts.drawChart(chartId, dataAttributes['visualization'], dataAttributes['data'], dataAttributes['options']));
-          }
-        }
-      });
-
       $('.nav-link', context).on('shown.bs.tab', function (e) {
         if (Drupal.Charts && Drupal.googleCharts) {
           $('.charts-google', $(e.target).attr('data-bs-target')).each(function () {
