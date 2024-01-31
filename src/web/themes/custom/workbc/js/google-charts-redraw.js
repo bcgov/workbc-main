@@ -1,7 +1,7 @@
 (function ($, Drupal, once) {
   ("use strict");
 
-  function redrawGoogleChart(element) {
+  function redrawGoogleChart(element, settings) {
     const contents = new Drupal.Charts.Contents();
     const chartId = element.id;
     if (Drupal.googleCharts.charts.hasOwnProperty(chartId)) {
@@ -15,7 +15,20 @@
       dataAttributes['options'].width = width;
     }
 
+    // Adjust the legend of the donut charts to bottom if we're on mobile.
+    adjustDonutChartLegend(dataAttributes, settings);
+
     Drupal.googleCharts.drawChart(chartId, dataAttributes['visualization'], dataAttributes['data'], dataAttributes['options'])();
+  }
+
+  function adjustDonutChartLegend(dataAttributes, settings) {
+    if (settings.isMobile) {
+      if (dataAttributes['visualization'] == 'DonutChart') {
+        dataAttributes['options'].width = 300;
+        dataAttributes['options'].chartArea = {left: 0, right: 0};
+        dataAttributes['options'].legend.position = 'bottom';
+      }
+    }
   }
 
   Drupal.behaviors.redrawGoogleChart = {
@@ -26,7 +39,7 @@
           const contents = new Drupal.Charts.Contents();
           const chartId = this.id;
           const dataAttributes = contents.getData(chartId);
-          if (dataAttributes['visualization'] == "DonutChart") {
+          if (dataAttributes['visualization'] == 'DonutChart') {
             dataAttributes['options'].width = 300;
             dataAttributes['options'].chartArea = {left: 0, right: 0};
             dataAttributes['options'].legend.position = 'bottom';
@@ -36,15 +49,10 @@
         });
       }
 
+      // Respond to chart initialization by adjusting the legend if needed.
       $('.charts-google', context).on('drupalChartsConfigsInitialization', function(e) {
-        if (settings.isMobile) {
-          const dataAttributes = e.originalEvent.detail;
-          if (dataAttributes['visualization'] == 'DonutChart') {
-            dataAttributes['options'].width = 300;
-            dataAttributes['options'].chartArea = {left: 0, right: 0};
-            dataAttributes['options'].legend.position = 'bottom';
-          }
-        }
+        const dataAttributes = e.originalEvent.detail;
+        adjustDonutChartLegend(dataAttributes, settings);
       });
 
       // Force-redraw the chart when its tab is opened.
@@ -52,7 +60,7 @@
         if (Drupal.Charts && Drupal.googleCharts) {
           $('.charts-google', $(e.target).attr('data-bs-target')).each(function () {
             if (this.dataset.hasOwnProperty('chart')) {
-              redrawGoogleChart(this);
+              redrawGoogleChart(this, settings);
             }
           });
         }
@@ -63,7 +71,7 @@
           Drupal.googleCharts.waitForFinalEvent(function () {
             $('.charts-google').each(function () {
               if (this.dataset.hasOwnProperty('chart')) {
-                redrawGoogleChart(this);
+                redrawGoogleChart(this, settings);
               }
             });
           }, 200, 'google-charts-redraw');
