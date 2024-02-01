@@ -117,7 +117,6 @@ function ssotBCProfile($region) {
 
   $data = array();
 
-  $data['population'] = querySSoT('population?region=eq.' . $region)[0];
   $data['regional_labour_market_outlook'] = querySSoT('regional_labour_market_outlook?region=eq.british_columbia')[0];
   $data['labour_force_survey_bc_employment'] = querySSoT('labour_force_survey_regional_employment?region=eq.british_columbia')[0];
   $data['labour_force_survey_regions_employment'] = querySSoT('labour_force_survey_regional_employment?region=neq.british_columbia');
@@ -141,7 +140,6 @@ function ssotRegionProfile($region) {
   $region = ssotRegionKey($region);
   $data = array();
 
-  $data['population'] = querySSoT('population?region=eq.' . $region)[0];
   $data['regional_labour_market_outlook'] = querySSoT('regional_labour_market_outlook?region=eq.' . $region)[0];
   $data['labour_force_survey_regional_employment'] = querySSoT('labour_force_survey_regional_employment?region=eq.' . $region)[0];
   $data['labour_force_survey_bc_employment'] = querySSoT('labour_force_survey_regional_employment?region=eq.british_columbia')[0];
