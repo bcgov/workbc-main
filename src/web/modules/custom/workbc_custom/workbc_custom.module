@@ -496,22 +496,6 @@ function workbc_custom_oembed_resource_url_alter(array &$parsed_url, \Drupal\med
 }
 
 /**
-* Get SSOT data for the High Opportunity block.
-*/
-function ssotHighOpportunityOptions($parameters = null){
-  $data = array();
-  $data['data'] = querySSoT('high_opportunity_occupations?' . $parameters);
-
-  //options
-  $data['options'] = querySSoT('high_opportunity_occupations?select=typical_education_background,region');
-
-  //schema
-  $data['schema'] = ssotSchema();
-
-  return $data;
-}
-
-/**
 * Function to get the region mappings.
 */
 function getRegionMappings() {
