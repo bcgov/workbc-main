@@ -3,5 +3,17 @@ COPY src /code
 ARG GITHUB_SHA=unknown
 ENV GITHUB_SHA=$GITHUB_SHA
 
+ARG TIMEOUT
+ARG MAX_CHILDREN
+ARG START_SERVERS
+ARG MIN_SPARE
+ARG MAX_SPARE
+RUN sed -i '/;slowlog/c\slowlog = /var/log/slow.log' /usr/local/etc/php-fpm.d/www.conf
+RUN sed -i "/;request_slowlog_timeout/c\request_slowlog_timeout = $TIMEOUT" /usr/local/etc/php-fpm.d/www.conf
+RUN sed -i "/pm.max_children = 5/c\pm.max_children = $MAX_CHILDREN" /usr/local/etc/php-fpm.d/www.conf
+RUN sed -i "/pm.start_servers = 2/c\pm.start_servers = $START_SERVERS" /usr/local/etc/php-fpm.d/www.conf
+RUN sed -i "/pm.min_spare_servers = 1/c\pm.start_servers = $MIN_SPARE" /usr/local/etc/php-fpm.d/www.conf
+RUN sed -i "/pm.max_spare_servers = 3/c\pm.start_servers = $MAX_SPARE" /usr/local/etc/php-fpm.d/www.conf
+
 RUN chmod -R g+rwX /code
 RUN cd /code && rm -rf .git && composer install && composer update
