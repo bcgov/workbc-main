@@ -41,7 +41,7 @@ third_party_settings:
       label: 'Career Profile Tabs'
       parent_name: ''
       region: content
-      weight: 12
+      weight: 15
       format_type: html_element
       format_settings:
         classes: ''
@@ -206,7 +206,7 @@ content:
   content_moderation_control:
     settings: {  }
     third_party_settings: {  }
-    weight: 0
+    weight: 2
     region: content
   created:
     type: timestamp
@@ -216,17 +216,17 @@ content:
       custom_date_format: ''
       timezone: ''
     third_party_settings: {  }
-    weight: 0
+    weight: 1
     region: content
   extra_field_annual_salary:
     settings: {  }
     third_party_settings: {  }
-    weight: 6
+    weight: 9
     region: content
   extra_field_annual_salary_source:
     settings: {  }
     third_party_settings: {  }
-    weight: 7
+    weight: 10
     region: content
   extra_field_career_employment_introduction:
     settings: {  }
@@ -241,7 +241,7 @@ content:
   extra_field_education_programs:
     settings: {  }
     third_party_settings: {  }
-    weight: 69
+    weight: 3
     region: content
   extra_field_employment_growth_rate_forecast:
     settings: {  }
@@ -256,7 +256,7 @@ content:
   extra_field_high_opportunity_occupation:
     settings: {  }
     third_party_settings: {  }
-    weight: 3
+    weight: 6
     region: content
   extra_field_industry_highlights_intro:
     settings: {  }
@@ -266,7 +266,7 @@ content:
   extra_field_job_openings:
     settings: {  }
     third_party_settings: {  }
-    weight: 8
+    weight: 11
     region: content
   extra_field_job_openings_by_industry:
     settings: {  }
@@ -311,7 +311,7 @@ content:
   extra_field_job_openings_source:
     settings: {  }
     third_party_settings: {  }
-    weight: 9
+    weight: 12
     region: content
   extra_field_labour_market_expected_openings:
     settings: {  }
@@ -356,7 +356,7 @@ content:
   extra_field_minimum_education:
     settings: {  }
     third_party_settings: {  }
-    weight: 4
+    weight: 7
     region: content
   extra_field_occupational_interests:
     settings: {  }
@@ -371,7 +371,7 @@ content:
   extra_field_profile_skills:
     settings: {  }
     third_party_settings: {  }
-    weight: 71
+    weight: 5
     region: content
   extra_field_salary_info_annual_salary:
     settings: {  }
@@ -401,7 +401,7 @@ content:
   extra_field_skills_introduction:
     settings: {  }
     third_party_settings: {  }
-    weight: 70
+    weight: 4
     region: content
   extra_field_work_environment_number_employed:
     settings: {  }
@@ -439,14 +439,14 @@ content:
       view_mode: ajaxembed
       link: false
     third_party_settings: {  }
-    weight: 11
+    weight: 14
     region: content
   field_career_videos_introduction:
     type: text_default
     label: above
     settings: {  }
     third_party_settings: {  }
-    weight: 10
+    weight: 13
     region: content
   field_duties:
     type: text_default
@@ -460,14 +460,14 @@ content:
     label: above
     settings: {  }
     third_party_settings: {  }
-    weight: 68
+    weight: 2
     region: content
   field_education_training_skills:
     type: text_default
     label: above
     settings: {  }
     third_party_settings: {  }
-    weight: 67
+    weight: 1
     region: content
   field_hero_image_media:
     type: entity_reference_entity_view
@@ -476,7 +476,7 @@ content:
       view_mode: hero_image
       link: false
     third_party_settings: {  }
-    weight: 5
+    weight: 8
     region: content
   field_insights_from_industry:
     type: text_default
@@ -499,7 +499,15 @@ content:
     settings:
       link_to_entity: false
     third_party_settings: {  }
-    weight: 2
+    weight: 4
+    region: content
+  field_noc_2016:
+    type: string
+    label: above
+    settings:
+      link_to_entity: false
+    third_party_settings: {  }
+    weight: 5
     region: content
   field_related_careers:
     type: entity_reference_label
@@ -526,7 +534,7 @@ content:
   links:
     settings: {  }
     third_party_settings: {  }
-    weight: 1
+    weight: 3
     region: content
   uid:
     type: author
@@ -541,7 +549,6 @@ hidden:
   field_content_group: true
   field_hero_image: true
   field_introductions: true
-  field_noc_2016: true
   field_resources: true
   field_scheduled_publish: true
   langcode: true

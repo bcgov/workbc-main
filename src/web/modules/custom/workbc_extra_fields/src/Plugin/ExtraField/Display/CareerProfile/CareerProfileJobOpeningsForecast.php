@@ -44,20 +44,14 @@ class CareerProfileJobOpeningsForecast extends ExtraFieldDisplayFormattedBase {
   public function viewElements(ContentEntityInterface $entity) {
 
     if (!empty($entity->ssot_data) && isset($entity->ssot_data['career_provincial'])) {
-      $entity->ssot_data['career_provincial']['job_openings_first'] = !isset($entity->ssot_data['career_provincial']['job_openings_first']) ? 0 : $entity->ssot_data['career_provincial']['job_openings_first'];
-      $entity->ssot_data['career_provincial']['job_openings_second'] = !isset($entity->ssot_data['career_provincial']['job_openings_second']) ? 0 : $entity->ssot_data['career_provincial']['job_openings_second'];
-      $entity->ssot_data['career_provincial']['job_openings_third'] = !isset($entity->ssot_data['career_provincial']['job_openings_third']) ? 0 : $entity->ssot_data['career_provincial']['job_openings_third'];
       $data = array();
-      $value = intval($entity->ssot_data['career_provincial']['job_openings_first']);
+      $value = intval($entity->ssot_data['career_provincial']['job_openings_first5y']);
       $data[] = $value < 0 ? 0 : $value;
-      $value = intval($entity->ssot_data['career_provincial']['job_openings_second']);
-      $data[] = $value < 0 ? 0 : $value;
-      $value = intval($entity->ssot_data['career_provincial']['job_openings_third']);
+      $value = intval($entity->ssot_data['career_provincial']['job_openings_second5y']);
       $data[] = $value < 0 ? 0 : $value;
       $dates = array();
-      $dates[] = ssotParseDateRange($entity->ssot_data['schema'], 'career_provincial', 'job_openings_first');
-      $dates[] = ssotParseDateRange($entity->ssot_data['schema'], 'career_provincial', 'job_openings_second');
-      $dates[] = ssotParseDateRange($entity->ssot_data['schema'], 'career_provincial', 'job_openings_third');
+      $dates[] = ssotParseDateRange($entity->ssot_data['schema'], 'career_provincial', 'job_openings_first5y');
+      $dates[] = ssotParseDateRange($entity->ssot_data['schema'], 'career_provincial', 'job_openings_second5y');
       $chart = [
         '#chart_id' => "career-forecasted-job-openings",
         '#type' => 'chart',

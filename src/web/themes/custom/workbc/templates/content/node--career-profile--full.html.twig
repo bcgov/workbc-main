@@ -108,7 +108,7 @@
     image: content.field_hero_image_media[0],
     title: label,
     description: null,
-    noc: content.field_noc['#items'].getString(),
+    noc: content.field_noc[0],
     hoo: content.extra_field_high_opportunity_occupation[0]['#markup'],
   },
   tab_sections: {
@@ -162,6 +162,7 @@
       skills_title: content.group_career_profile_tabs.group_education_training_skills.extra_field_skills_introduction['#title'],
       skills_introduction: content.group_career_profile_tabs.group_education_training_skills.extra_field_skills_introduction.0['#text'],
       skills_list: content.group_career_profile_tabs.group_education_training_skills.extra_field_profile_skills.0,
+      noc_2016: content.field_noc_2016[0],
     },
     labour_market: {
       tab: 'Labour Market Statistics',
@@ -434,7 +435,7 @@
                   <div class="card-profile__content-item">Find out more information about programs offered specifically for this career.</div>
                 </div>
                 <div class="card-profile__link-container">
-                  <a class="card-profile__link" target="_blank" href="https://www.educationplannerbc.ca/search/noc/{{viewmodel['hero']['noc']}}">Visit EducationPlannerBC</a>
+                  <a class="card-profile__link" target="_blank" href="https://www.educationplannerbc.ca/search/noc/{{viewmodel['tab_sections']['education']['noc_2016']}}">Visit EducationPlannerBC</a>
                 </div>
               </div>
             </div>
