@@ -747,7 +747,7 @@ function getDuplicateFiles() {
 function loadConcordance() {
   $path = DRUPAL_ROOT;
   $path = preg_replace('/web$/', '', $path);
-  $file = fopen($path . "/scripts/migration/data/noc_2016_2012_concordance.csv", 'r');
+  $file = fopen($path . "/scripts/migration/data/noc_2016_2021_concordance.csv", 'r');
   if($file !== FALSE){
     $concordance = [];
     while (($item = fgetcsv($file)) !== FALSE) {
