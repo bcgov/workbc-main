@@ -45,17 +45,14 @@ class BCJobOpeningsForecastChart extends ExtraFieldDisplayFormattedBase {
 
     if (!empty($entity->ssot_data) && isset($entity->ssot_data['regional_labour_market_outlook'])) {
       $data = array();
-      $data[] = round(floatval($entity->ssot_data['regional_labour_market_outlook']['job_openings_first']));
-      $data[] = round(floatval($entity->ssot_data['regional_labour_market_outlook']['job_openings_second']));
-      $data[] = round(floatval($entity->ssot_data['regional_labour_market_outlook']['job_openings_third']));
+      $data[] = round(floatval($entity->ssot_data['regional_labour_market_outlook']['job_openings_first5y']));
+      $data[] = round(floatval($entity->ssot_data['regional_labour_market_outlook']['job_openings_second5y']));
 
-      $date1 = ssotParseDateRange($entity->ssot_data['schema'], 'regional_labour_market_outlook', 'job_openings_first');
-      $date2 = ssotParseDateRange($entity->ssot_data['schema'], 'regional_labour_market_outlook', 'job_openings_second');
-      $date3 = ssotParseDateRange($entity->ssot_data['schema'], 'regional_labour_market_outlook', 'job_openings_third');
+      $date1 = ssotParseDateRange($entity->ssot_data['schema'], 'regional_labour_market_outlook', 'job_openings_first5y');
+      $date2 = ssotParseDateRange($entity->ssot_data['schema'], 'regional_labour_market_outlook', 'job_openings_second5y');
       $dates = array();
       $dates[] = $date1;
       $dates[] = $date2;
-      $dates[] = $date3;
       $chart = [
         '#type' => 'chart',
         '#chart_type' => 'column',
