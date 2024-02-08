@@ -887,287 +887,294 @@ ALTER TABLE public.labour_force_survey_industry OWNER TO workbc;
 -- Name: TABLE labour_force_survey_industry; Type: COMMENT; Schema: public; Owner: workbc
 --
 
-COMMENT ON TABLE public.labour_force_survey_industry IS '{2021}_LFS Data Sheet final > Industry Profiles';
+COMMENT ON TABLE public.labour_force_survey_industry IS 'LFS Data Sheet {2023} > Industry Profiles';
+
+
+--
+-- Name: COLUMN labour_force_survey_industry.industry; Type: COMMENT; Schema: public; Owner: workbc
+--
+
+COMMENT ON COLUMN public.labour_force_survey_industry.industry IS 'Industry';
 
 
 --
 -- Name: COLUMN labour_force_survey_industry.yoy_employment_growth_pct; Type: COMMENT; Schema: public; Owner: workbc
 --
 
-COMMENT ON COLUMN public.labour_force_survey_industry.yoy_employment_growth_pct IS 'Overview > % yoy employment growth {2020-2021}';
+COMMENT ON COLUMN public.labour_force_survey_industry.yoy_employment_growth_pct IS 'Overview > % yoy employment growth {2022-2023}';
 
 
 --
 -- Name: COLUMN labour_force_survey_industry.yoy_change_employment; Type: COMMENT; Schema: public; Owner: workbc
 --
 
-COMMENT ON COLUMN public.labour_force_survey_industry.yoy_change_employment IS 'Overview > yoy change of employment {2020-2021}';
+COMMENT ON COLUMN public.labour_force_survey_industry.yoy_change_employment IS 'Overview > yoy change of employment {2022-2023}';
 
 
 --
 -- Name: COLUMN labour_force_survey_industry.total_employment; Type: COMMENT; Schema: public; Owner: workbc
 --
 
-COMMENT ON COLUMN public.labour_force_survey_industry.total_employment IS 'Overview > Total employment {2021}';
+COMMENT ON COLUMN public.labour_force_survey_industry.total_employment IS 'Overview > Total employment {2023}';
 
 
 --
 -- Name: COLUMN labour_force_survey_industry.workforce_employment_gender_pct_men; Type: COMMENT; Schema: public; Owner: workbc
 --
 
-COMMENT ON COLUMN public.labour_force_survey_industry.workforce_employment_gender_pct_men IS 'Workforce > Employment by gender in {2021} (%) > Men';
+COMMENT ON COLUMN public.labour_force_survey_industry.workforce_employment_gender_pct_men IS 'Workforce > Employment by gender in {2023} (%) > Men';
 
 
 --
 -- Name: COLUMN labour_force_survey_industry.workforce_employment_gender_pct_women; Type: COMMENT; Schema: public; Owner: workbc
 --
 
-COMMENT ON COLUMN public.labour_force_survey_industry.workforce_employment_gender_pct_women IS 'Workforce > Employment by gender in {201} (%) > Women';
+COMMENT ON COLUMN public.labour_force_survey_industry.workforce_employment_gender_pct_women IS 'Workforce > Employment by gender in {2023} (%) > Women';
 
 
 --
 -- Name: COLUMN labour_force_survey_industry.workforce_provincial_average_pct_men; Type: COMMENT; Schema: public; Owner: workbc
 --
 
-COMMENT ON COLUMN public.labour_force_survey_industry.workforce_provincial_average_pct_men IS 'Workforce > Provincial average in {2020} (%) > Men';
+COMMENT ON COLUMN public.labour_force_survey_industry.workforce_provincial_average_pct_men IS 'Workforce > Provincial average in {2023} (%) > Men';
 
 
 --
 -- Name: COLUMN labour_force_survey_industry.workforce_provincial_average_pct_women; Type: COMMENT; Schema: public; Owner: workbc
 --
 
-COMMENT ON COLUMN public.labour_force_survey_industry.workforce_provincial_average_pct_women IS 'Workforce > Provincial average in {2020} (%) > Women';
+COMMENT ON COLUMN public.labour_force_survey_industry.workforce_provincial_average_pct_women IS 'Workforce > Provincial average in {2023} (%) > Women';
 
 
 --
 -- Name: COLUMN labour_force_survey_industry.workforce_employment_under_25_pct_previous; Type: COMMENT; Schema: public; Owner: workbc
 --
 
-COMMENT ON COLUMN public.labour_force_survey_industry.workforce_employment_under_25_pct_previous IS 'Workforce > % of employment under 25 years of age > {2016}';
+COMMENT ON COLUMN public.labour_force_survey_industry.workforce_employment_under_25_pct_previous IS 'Workforce > % of employment under 25 years of age > {2018}';
 
 
 --
 -- Name: COLUMN labour_force_survey_industry.workforce_employment_under_25_pct; Type: COMMENT; Schema: public; Owner: workbc
 --
 
-COMMENT ON COLUMN public.labour_force_survey_industry.workforce_employment_under_25_pct IS 'Workforce > % of employment under 25 years of age > {2021}';
+COMMENT ON COLUMN public.labour_force_survey_industry.workforce_employment_under_25_pct IS 'Workforce > % of employment under 25 years of age > {2023}';
 
 
 --
 -- Name: COLUMN labour_force_survey_industry.workforce_employment_under_25_pct_average; Type: COMMENT; Schema: public; Owner: workbc
 --
 
-COMMENT ON COLUMN public.labour_force_survey_industry.workforce_employment_under_25_pct_average IS 'Workforce > % of employment under 25 years of age > B.C. average {2021}';
+COMMENT ON COLUMN public.labour_force_survey_industry.workforce_employment_under_25_pct_average IS 'Workforce > % of employment under 25 years of age > B.C. average {2023}';
 
 
 --
 -- Name: COLUMN labour_force_survey_industry.workforce_employment_over_55_pct_previous; Type: COMMENT; Schema: public; Owner: workbc
 --
 
-COMMENT ON COLUMN public.labour_force_survey_industry.workforce_employment_over_55_pct_previous IS 'Workforce > % of employment 55 years and older > {2016}';
+COMMENT ON COLUMN public.labour_force_survey_industry.workforce_employment_over_55_pct_previous IS 'Workforce > % of employment 55 years and older > {2018}';
 
 
 --
 -- Name: COLUMN labour_force_survey_industry.workforce_employment_over_55_pct; Type: COMMENT; Schema: public; Owner: workbc
 --
 
-COMMENT ON COLUMN public.labour_force_survey_industry.workforce_employment_over_55_pct IS 'Workforce > % of employment 55 years and older > {2021}';
+COMMENT ON COLUMN public.labour_force_survey_industry.workforce_employment_over_55_pct IS 'Workforce > % of employment 55 years and older > {2023}';
 
 
 --
 -- Name: COLUMN labour_force_survey_industry.workforce_employment_over_55_pct_average; Type: COMMENT; Schema: public; Owner: workbc
 --
 
-COMMENT ON COLUMN public.labour_force_survey_industry.workforce_employment_over_55_pct_average IS 'Workforce > % of employment 55 years and older > B.C. average {2021}';
+COMMENT ON COLUMN public.labour_force_survey_industry.workforce_employment_over_55_pct_average IS 'Workforce > % of employment 55 years and older > B.C. average {2023}';
 
 
 --
 -- Name: COLUMN labour_force_survey_industry.employment_part_time_pct_previous; Type: COMMENT; Schema: public; Owner: workbc
 --
 
-COMMENT ON COLUMN public.labour_force_survey_industry.employment_part_time_pct_previous IS 'Employment > Part-time, % of total employment > {2016}';
+COMMENT ON COLUMN public.labour_force_survey_industry.employment_part_time_pct_previous IS 'Employment > Part-time, % of total employment > {2018}';
 
 
 --
 -- Name: COLUMN labour_force_survey_industry.employment_part_time_pct; Type: COMMENT; Schema: public; Owner: workbc
 --
 
-COMMENT ON COLUMN public.labour_force_survey_industry.employment_part_time_pct IS 'Employment > Part-time, % of total employment > {2021}';
+COMMENT ON COLUMN public.labour_force_survey_industry.employment_part_time_pct IS 'Employment > Part-time, % of total employment > {2023}';
 
 
 --
 -- Name: COLUMN labour_force_survey_industry.employment_part_time_pct_average; Type: COMMENT; Schema: public; Owner: workbc
 --
 
-COMMENT ON COLUMN public.labour_force_survey_industry.employment_part_time_pct_average IS 'Employment > Part-time, % of total employment > B.C. average {2021}';
+COMMENT ON COLUMN public.labour_force_survey_industry.employment_part_time_pct_average IS 'Employment > Part-time, % of total employment > B.C. average {2023}';
 
 
 --
 -- Name: COLUMN labour_force_survey_industry.employment_self_employment_pct_previous; Type: COMMENT; Schema: public; Owner: workbc
 --
 
-COMMENT ON COLUMN public.labour_force_survey_industry.employment_self_employment_pct_previous IS 'Employment > Self-employment, % of total employment > {2016}';
+COMMENT ON COLUMN public.labour_force_survey_industry.employment_self_employment_pct_previous IS 'Employment > Self-employment, % of total employment > {2018}';
 
 
 --
 -- Name: COLUMN labour_force_survey_industry.employment_self_employment_pct; Type: COMMENT; Schema: public; Owner: workbc
 --
 
-COMMENT ON COLUMN public.labour_force_survey_industry.employment_self_employment_pct IS 'Employment > Self-employment, % of total employment > {2021}';
+COMMENT ON COLUMN public.labour_force_survey_industry.employment_self_employment_pct IS 'Employment > Self-employment, % of total employment > {2023}';
 
 
 --
 -- Name: COLUMN labour_force_survey_industry.employment_self_employment_pct_average; Type: COMMENT; Schema: public; Owner: workbc
 --
 
-COMMENT ON COLUMN public.labour_force_survey_industry.employment_self_employment_pct_average IS 'Employment > Self-employment, % of total employment > B.C. average {2021}';
+COMMENT ON COLUMN public.labour_force_survey_industry.employment_self_employment_pct_average IS 'Employment > Self-employment, % of total employment > B.C. average {2023}';
 
 
 --
 -- Name: COLUMN labour_force_survey_industry.employment_temporary_pct_previous; Type: COMMENT; Schema: public; Owner: workbc
 --
 
-COMMENT ON COLUMN public.labour_force_survey_industry.employment_temporary_pct_previous IS 'Employment > Temporary jobs, % of total employees > {2016}';
+COMMENT ON COLUMN public.labour_force_survey_industry.employment_temporary_pct_previous IS 'Employment > Temporary jobs, % of total employees > {2018}';
 
 
 --
 -- Name: COLUMN labour_force_survey_industry.employment_temporary_pct; Type: COMMENT; Schema: public; Owner: workbc
 --
 
-COMMENT ON COLUMN public.labour_force_survey_industry.employment_temporary_pct IS 'Employment > Temporary jobs, % of total employees > {2021}';
+COMMENT ON COLUMN public.labour_force_survey_industry.employment_temporary_pct IS 'Employment > Temporary jobs, % of total employees > {2023}';
 
 
 --
 -- Name: COLUMN labour_force_survey_industry.employment_temporary_pct_average; Type: COMMENT; Schema: public; Owner: workbc
 --
 
-COMMENT ON COLUMN public.labour_force_survey_industry.employment_temporary_pct_average IS 'Employment > Temporary jobs, % of total employees > B.C. average {2021}';
+COMMENT ON COLUMN public.labour_force_survey_industry.employment_temporary_pct_average IS 'Employment > Temporary jobs, % of total employees > B.C. average {2023}';
 
 
 --
 -- Name: COLUMN labour_force_survey_industry.employment_firms_under_20_employees_pct_previous; Type: COMMENT; Schema: public; Owner: workbc
 --
 
-COMMENT ON COLUMN public.labour_force_survey_industry.employment_firms_under_20_employees_pct_previous IS 'Employment > % of workers in firms less than 20 employees > {2016}';
+COMMENT ON COLUMN public.labour_force_survey_industry.employment_firms_under_20_employees_pct_previous IS 'Employment > % of workers in firms less than 20 employees > {2018}';
 
 
 --
 -- Name: COLUMN labour_force_survey_industry.employment_firms_under_20_employees_pct; Type: COMMENT; Schema: public; Owner: workbc
 --
 
-COMMENT ON COLUMN public.labour_force_survey_industry.employment_firms_under_20_employees_pct IS 'Employment > % of workers in firms less than 20 employees > {2021}';
+COMMENT ON COLUMN public.labour_force_survey_industry.employment_firms_under_20_employees_pct IS 'Employment > % of workers in firms less than 20 employees > {2023}';
 
 
 --
 -- Name: COLUMN labour_force_survey_industry.employment_firms_under_20_employees_pct_average; Type: COMMENT; Schema: public; Owner: workbc
 --
 
-COMMENT ON COLUMN public.labour_force_survey_industry.employment_firms_under_20_employees_pct_average IS 'Employment > % of workers in firms less than 20 employees > B.C. average {2021}';
+COMMENT ON COLUMN public.labour_force_survey_industry.employment_firms_under_20_employees_pct_average IS 'Employment > % of workers in firms less than 20 employees > B.C. average {2023}';
 
 
 --
 -- Name: COLUMN labour_force_survey_industry.employment_private_sector_pct_previous; Type: COMMENT; Schema: public; Owner: workbc
 --
 
-COMMENT ON COLUMN public.labour_force_survey_industry.employment_private_sector_pct_previous IS 'Employment > Private sector employees, % of total employment > {2016}';
+COMMENT ON COLUMN public.labour_force_survey_industry.employment_private_sector_pct_previous IS 'Employment > Private sector employees, % of total employment > {2018}';
 
 
 --
 -- Name: COLUMN labour_force_survey_industry.employment_private_sector_pct; Type: COMMENT; Schema: public; Owner: workbc
 --
 
-COMMENT ON COLUMN public.labour_force_survey_industry.employment_private_sector_pct IS 'Employment > Private sector employees, % of total employment > {2021}';
+COMMENT ON COLUMN public.labour_force_survey_industry.employment_private_sector_pct IS 'Employment > Private sector employees, % of total employment > {2023}';
 
 
 --
 -- Name: COLUMN labour_force_survey_industry.employment_private_sector_pct_average; Type: COMMENT; Schema: public; Owner: workbc
 --
 
-COMMENT ON COLUMN public.labour_force_survey_industry.employment_private_sector_pct_average IS 'Employment > Private sector employees, % of total employment > B.C. average {2021}';
+COMMENT ON COLUMN public.labour_force_survey_industry.employment_private_sector_pct_average IS 'Employment > Private sector employees, % of total employment > B.C. average {2023}';
 
 
 --
 -- Name: COLUMN labour_force_survey_industry.employment_unemployment_rate_pct_previous; Type: COMMENT; Schema: public; Owner: workbc
 --
 
-COMMENT ON COLUMN public.labour_force_survey_industry.employment_unemployment_rate_pct_previous IS 'Employment > Unemployment rate (%) > {2016}';
+COMMENT ON COLUMN public.labour_force_survey_industry.employment_unemployment_rate_pct_previous IS 'Employment > Unemployment rate (%) > {2018}';
 
 
 --
 -- Name: COLUMN labour_force_survey_industry.employment_unemployment_rate_pct; Type: COMMENT; Schema: public; Owner: workbc
 --
 
-COMMENT ON COLUMN public.labour_force_survey_industry.employment_unemployment_rate_pct IS 'Employment > Unemployment rate (%) > {2021}';
+COMMENT ON COLUMN public.labour_force_survey_industry.employment_unemployment_rate_pct IS 'Employment > Unemployment rate (%) > {2023}';
 
 
 --
 -- Name: COLUMN labour_force_survey_industry.employment_unemployment_rate_pct_average; Type: COMMENT; Schema: public; Owner: workbc
 --
 
-COMMENT ON COLUMN public.labour_force_survey_industry.employment_unemployment_rate_pct_average IS 'Employment > Unemployment rate (%) > B.C. average {2021}';
+COMMENT ON COLUMN public.labour_force_survey_industry.employment_unemployment_rate_pct_average IS 'Employment > Unemployment rate (%) > B.C. average {2023}';
 
 
 --
 -- Name: COLUMN labour_force_survey_industry.earnings_men_previous; Type: COMMENT; Schema: public; Owner: workbc
 --
 
-COMMENT ON COLUMN public.labour_force_survey_industry.earnings_men_previous IS 'Earnings > Men > {2016}';
+COMMENT ON COLUMN public.labour_force_survey_industry.earnings_men_previous IS 'Earnings > Men > {2018}';
 
 
 --
 -- Name: COLUMN labour_force_survey_industry.earnings_men; Type: COMMENT; Schema: public; Owner: workbc
 --
 
-COMMENT ON COLUMN public.labour_force_survey_industry.earnings_men IS 'Earnings > Men > {2021}';
+COMMENT ON COLUMN public.labour_force_survey_industry.earnings_men IS 'Earnings > Men > {2023}';
 
 
 --
 -- Name: COLUMN labour_force_survey_industry.earnings_men_average; Type: COMMENT; Schema: public; Owner: workbc
 --
 
-COMMENT ON COLUMN public.labour_force_survey_industry.earnings_men_average IS 'Earnings > Men > B.C. average {2021}';
+COMMENT ON COLUMN public.labour_force_survey_industry.earnings_men_average IS 'Earnings > Men > B.C. average {2023}';
 
 
 --
 -- Name: COLUMN labour_force_survey_industry.earnings_women_previous; Type: COMMENT; Schema: public; Owner: workbc
 --
 
-COMMENT ON COLUMN public.labour_force_survey_industry.earnings_women_previous IS 'Earnings > Women > {2016}';
+COMMENT ON COLUMN public.labour_force_survey_industry.earnings_women_previous IS 'Earnings > Women > {2018}';
 
 
 --
 -- Name: COLUMN labour_force_survey_industry.earnings_women; Type: COMMENT; Schema: public; Owner: workbc
 --
 
-COMMENT ON COLUMN public.labour_force_survey_industry.earnings_women IS 'Earnings > Women > {2021}';
+COMMENT ON COLUMN public.labour_force_survey_industry.earnings_women IS 'Earnings > Women > {2023}';
 
 
 --
 -- Name: COLUMN labour_force_survey_industry.earnings_women_average; Type: COMMENT; Schema: public; Owner: workbc
 --
 
-COMMENT ON COLUMN public.labour_force_survey_industry.earnings_women_average IS 'Earnings > Women > B.C. average {2021}';
+COMMENT ON COLUMN public.labour_force_survey_industry.earnings_women_average IS 'Earnings > Women > B.C. average {2023}';
 
 
 --
 -- Name: COLUMN labour_force_survey_industry.earnings_youth_previous; Type: COMMENT; Schema: public; Owner: workbc
 --
 
-COMMENT ON COLUMN public.labour_force_survey_industry.earnings_youth_previous IS 'Earnings > Youth > {2016}';
+COMMENT ON COLUMN public.labour_force_survey_industry.earnings_youth_previous IS 'Earnings > Youth > {2018}';
 
 
 --
 -- Name: COLUMN labour_force_survey_industry.earnings_youth; Type: COMMENT; Schema: public; Owner: workbc
 --
 
-COMMENT ON COLUMN public.labour_force_survey_industry.earnings_youth IS 'Earnings > Youth > {2021}';
+COMMENT ON COLUMN public.labour_force_survey_industry.earnings_youth IS 'Earnings > Youth > {2023}';
 
 
 --
 -- Name: COLUMN labour_force_survey_industry.earnings_youth_average; Type: COMMENT; Schema: public; Owner: workbc
 --
 
-COMMENT ON COLUMN public.labour_force_survey_industry.earnings_youth_average IS 'Earnings > Youth > B.C. average {2021}';
+COMMENT ON COLUMN public.labour_force_survey_industry.earnings_youth_average IS 'Earnings > Youth > B.C. average {2023}';
 
 
 --
@@ -1307,7 +1314,7 @@ ALTER TABLE public.labour_force_survey_regional_employment OWNER TO workbc;
 -- Name: TABLE labour_force_survey_regional_employment; Type: COMMENT; Schema: public; Owner: workbc
 --
 
-COMMENT ON TABLE public.labour_force_survey_regional_employment IS '{2021}_LFS Data Sheet final > Regional Profiles > Table 1';
+COMMENT ON TABLE public.labour_force_survey_regional_employment IS 'LFS Data Sheet {2023} > Regional Profiles > Table 1';
 
 
 --
@@ -1356,7 +1363,7 @@ COMMENT ON COLUMN public.labour_force_survey_regional_employment.age_distributio
 -- Name: COLUMN labour_force_survey_regional_employment.total_employment_num; Type: COMMENT; Schema: public; Owner: workbc
 --
 
-COMMENT ON COLUMN public.labour_force_survey_regional_employment.total_employment_num IS 'Employment statistics > Regional total employment {2021} > Number';
+COMMENT ON COLUMN public.labour_force_survey_regional_employment.total_employment_num IS 'Employment statistics > Regional total employment {2023} > Number';
 
 
 --
@@ -1391,98 +1398,98 @@ COMMENT ON COLUMN public.labour_force_survey_regional_employment.part_time_emplo
 -- Name: COLUMN labour_force_survey_regional_employment.unemployment_rate_year_1; Type: COMMENT; Schema: public; Owner: workbc
 --
 
-COMMENT ON COLUMN public.labour_force_survey_regional_employment.unemployment_rate_year_1 IS 'Employment statistics > Unemployment rate > 10-year unemployment rate (2011-2021) > {2011}';
+COMMENT ON COLUMN public.labour_force_survey_regional_employment.unemployment_rate_year_1 IS 'Employment statistics > Unemployment rate > 10-year unemployment rate (2013-2023) > {2013}';
 
 
 --
 -- Name: COLUMN labour_force_survey_regional_employment.unemployment_rate_year_2; Type: COMMENT; Schema: public; Owner: workbc
 --
 
-COMMENT ON COLUMN public.labour_force_survey_regional_employment.unemployment_rate_year_2 IS 'Employment statistics > Unemployment rate > 10-year unemployment rate (2011-2021) > {2012}';
+COMMENT ON COLUMN public.labour_force_survey_regional_employment.unemployment_rate_year_2 IS 'Employment statistics > Unemployment rate > 10-year unemployment rate (2013-2023) > {2014}';
 
 
 --
 -- Name: COLUMN labour_force_survey_regional_employment.unemployment_rate_year_3; Type: COMMENT; Schema: public; Owner: workbc
 --
 
-COMMENT ON COLUMN public.labour_force_survey_regional_employment.unemployment_rate_year_3 IS 'Employment statistics > Unemployment rate > 10-year unemployment rate (2011-2021) > {2013}';
+COMMENT ON COLUMN public.labour_force_survey_regional_employment.unemployment_rate_year_3 IS 'Employment statistics > Unemployment rate > 10-year unemployment rate (2013-2023) > {2015}';
 
 
 --
 -- Name: COLUMN labour_force_survey_regional_employment.unemployment_rate_year_4; Type: COMMENT; Schema: public; Owner: workbc
 --
 
-COMMENT ON COLUMN public.labour_force_survey_regional_employment.unemployment_rate_year_4 IS 'Employment statistics > Unemployment rate > 10-year unemployment rate (2011-2021) > {2014}';
+COMMENT ON COLUMN public.labour_force_survey_regional_employment.unemployment_rate_year_4 IS 'Employment statistics > Unemployment rate > 10-year unemployment rate (2013-2023) > {2016}';
 
 
 --
 -- Name: COLUMN labour_force_survey_regional_employment.unemployment_rate_year_5; Type: COMMENT; Schema: public; Owner: workbc
 --
 
-COMMENT ON COLUMN public.labour_force_survey_regional_employment.unemployment_rate_year_5 IS 'Employment statistics > Unemployment rate > 10-year unemployment rate (2011-2021) > {2015}';
+COMMENT ON COLUMN public.labour_force_survey_regional_employment.unemployment_rate_year_5 IS 'Employment statistics > Unemployment rate > 10-year unemployment rate (2013-2023) > {2017}';
 
 
 --
 -- Name: COLUMN labour_force_survey_regional_employment.unemployment_rate_year_6; Type: COMMENT; Schema: public; Owner: workbc
 --
 
-COMMENT ON COLUMN public.labour_force_survey_regional_employment.unemployment_rate_year_6 IS 'Employment statistics > Unemployment rate > 10-year unemployment rate (2011-2021) > {2016}';
+COMMENT ON COLUMN public.labour_force_survey_regional_employment.unemployment_rate_year_6 IS 'Employment statistics > Unemployment rate > 10-year unemployment rate (2013-2023) > {2018}';
 
 
 --
 -- Name: COLUMN labour_force_survey_regional_employment.unemployment_rate_year_7; Type: COMMENT; Schema: public; Owner: workbc
 --
 
-COMMENT ON COLUMN public.labour_force_survey_regional_employment.unemployment_rate_year_7 IS 'Employment statistics > Unemployment rate > 10-year unemployment rate (2011-2021) > {2017}';
+COMMENT ON COLUMN public.labour_force_survey_regional_employment.unemployment_rate_year_7 IS 'Employment statistics > Unemployment rate > 10-year unemployment rate (2013-2023) > {2019}';
 
 
 --
 -- Name: COLUMN labour_force_survey_regional_employment.unemployment_rate_year_8; Type: COMMENT; Schema: public; Owner: workbc
 --
 
-COMMENT ON COLUMN public.labour_force_survey_regional_employment.unemployment_rate_year_8 IS 'Employment statistics > Unemployment rate > 10-year unemployment rate (2011-2021) > {2018}';
+COMMENT ON COLUMN public.labour_force_survey_regional_employment.unemployment_rate_year_8 IS 'Employment statistics > Unemployment rate > 10-year unemployment rate (2013-2023) > {2020}';
 
 
 --
 -- Name: COLUMN labour_force_survey_regional_employment.unemployment_rate_year_9; Type: COMMENT; Schema: public; Owner: workbc
 --
 
-COMMENT ON COLUMN public.labour_force_survey_regional_employment.unemployment_rate_year_9 IS 'Employment statistics > Unemployment rate > 10-year unemployment rate (2011-2021) > {2019}';
+COMMENT ON COLUMN public.labour_force_survey_regional_employment.unemployment_rate_year_9 IS 'Employment statistics > Unemployment rate > 10-year unemployment rate (2013-2023) > {2021}';
 
 
 --
 -- Name: COLUMN labour_force_survey_regional_employment.unemployment_rate_year_10; Type: COMMENT; Schema: public; Owner: workbc
 --
 
-COMMENT ON COLUMN public.labour_force_survey_regional_employment.unemployment_rate_year_10 IS 'Employment statistics > Unemployment rate > 10-year unemployment rate (2011-2021) > {2020}';
+COMMENT ON COLUMN public.labour_force_survey_regional_employment.unemployment_rate_year_10 IS 'Employment statistics > Unemployment rate > 10-year unemployment rate (2013-2023) > {2022}';
 
 
 --
 -- Name: COLUMN labour_force_survey_regional_employment.unemployment_rate_year_11; Type: COMMENT; Schema: public; Owner: workbc
 --
 
-COMMENT ON COLUMN public.labour_force_survey_regional_employment.unemployment_rate_year_11 IS 'Employment statistics > Unemployment rate > 10-year unemployment rate (2011-2021) > {2021}';
+COMMENT ON COLUMN public.labour_force_survey_regional_employment.unemployment_rate_year_11 IS 'Employment statistics > Unemployment rate > 10-year unemployment rate (2013-2023) > {2023}';
 
 
 --
 -- Name: COLUMN labour_force_survey_regional_employment.unemployment_rate_year_low; Type: COMMENT; Schema: public; Owner: workbc
 --
 
-COMMENT ON COLUMN public.labour_force_survey_regional_employment.unemployment_rate_year_low IS 'Employment statistics > Unemployment rate > 10-year unemployment rate (2011-2021) > Low';
+COMMENT ON COLUMN public.labour_force_survey_regional_employment.unemployment_rate_year_low IS 'Employment statistics > Unemployment rate > 10-year unemployment rate (2013-2023) > Low';
 
 
 --
 -- Name: COLUMN labour_force_survey_regional_employment.unemployment_rate_year_high; Type: COMMENT; Schema: public; Owner: workbc
 --
 
-COMMENT ON COLUMN public.labour_force_survey_regional_employment.unemployment_rate_year_high IS 'Employment statistics > Unemployment rate > 10-year unemployment rate (2011-2021) > High';
+COMMENT ON COLUMN public.labour_force_survey_regional_employment.unemployment_rate_year_high IS 'Employment statistics > Unemployment rate > 10-year unemployment rate (2013-2023) > High';
 
 
 --
 -- Name: COLUMN labour_force_survey_regional_employment.unemployment_rate_year_avg; Type: COMMENT; Schema: public; Owner: workbc
 --
 
-COMMENT ON COLUMN public.labour_force_survey_regional_employment.unemployment_rate_year_avg IS 'Employment statistics > Unemployment rate > 10-year unemployment rate (2011-2021) > Avg';
+COMMENT ON COLUMN public.labour_force_survey_regional_employment.unemployment_rate_year_avg IS 'Employment statistics > Unemployment rate > 10-year unemployment rate (2013-2023) > Avg';
 
 
 --
@@ -1520,7 +1527,7 @@ ALTER TABLE public.labour_force_survey_regional_industry_province OWNER TO workb
 -- Name: TABLE labour_force_survey_regional_industry_province; Type: COMMENT; Schema: public; Owner: workbc
 --
 
-COMMENT ON TABLE public.labour_force_survey_regional_industry_province IS '{2021}_LFS Data Sheet final > Regional Profiles > Table 3';
+COMMENT ON TABLE public.labour_force_survey_regional_industry_province IS 'LFS Data Sheet {2023} > Regional Profiles > Table 3';
 
 
 --
@@ -1660,14 +1667,14 @@ COMMENT ON COLUMN public.labour_force_survey_regional_industry_province.wholesal
 -- Name: COLUMN labour_force_survey_regional_industry_province.goods; Type: COMMENT; Schema: public; Owner: workbc
 --
 
-COMMENT ON COLUMN public.labour_force_survey_regional_industry_province.goods IS 'Goods and Services sectors > Share of employment in Goods and Service sectors {2021} > Goods';
+COMMENT ON COLUMN public.labour_force_survey_regional_industry_province.goods IS 'Goods and Services sectors > Share of employment in Goods and Service sectors {2023} > Goods';
 
 
 --
 -- Name: COLUMN labour_force_survey_regional_industry_province.services; Type: COMMENT; Schema: public; Owner: workbc
 --
 
-COMMENT ON COLUMN public.labour_force_survey_regional_industry_province.services IS 'Goods and Services sectors > Share of employment in Goods and Service sectors {2021} > Services';
+COMMENT ON COLUMN public.labour_force_survey_regional_industry_province.services IS 'Goods and Services sectors > Share of employment in Goods and Service sectors {2023} > Services';
 
 
 --
@@ -1679,7 +1686,7 @@ CREATE TABLE public.labour_force_survey_regional_industry_region (
     accommodation_food_services numeric,
     accommodation_food_services_num integer,
     agriculture_fishing numeric,
-    agriculture_fishing_num numeric,
+    agriculture_fishing_num integer,
     business_building_other_support_services numeric,
     business_building_other_support_services_num integer,
     construction numeric,
@@ -1721,7 +1728,7 @@ ALTER TABLE public.labour_force_survey_regional_industry_region OWNER TO workbc;
 -- Name: TABLE labour_force_survey_regional_industry_region; Type: COMMENT; Schema: public; Owner: workbc
 --
 
-COMMENT ON TABLE public.labour_force_survey_regional_industry_region IS '{2021}_LFS Data Sheet final > Regional Profiles > Table 2';
+COMMENT ON TABLE public.labour_force_survey_regional_industry_region IS 'LFS Data Sheet {2023} > Regional Profiles > Table 2';
 
 
 --
@@ -1735,126 +1742,252 @@ COMMENT ON COLUMN public.labour_force_survey_regional_industry_region.region IS 
 -- Name: COLUMN labour_force_survey_regional_industry_region.accommodation_food_services; Type: COMMENT; Schema: public; Owner: workbc
 --
 
-COMMENT ON COLUMN public.labour_force_survey_regional_industry_region.accommodation_food_services IS 'This region''s industries and sectors > Industry > Share of this region''s employment (%) / Share of Industry Employment within a Region (%) > Accommodation and Food Services';
+COMMENT ON COLUMN public.labour_force_survey_regional_industry_region.accommodation_food_services IS 'This region''s industries and sectors > Industry > Share of this region''s employment (%) / Share of Industry Employment within a Region (%) > Accommodation and Food Services > %';
+
+
+--
+-- Name: COLUMN labour_force_survey_regional_industry_region.accommodation_food_services_num; Type: COMMENT; Schema: public; Owner: workbc
+--
+
+COMMENT ON COLUMN public.labour_force_survey_regional_industry_region.accommodation_food_services_num IS 'This region''s industries and sectors > Industry > Share of this region''s employment (%) / Share of Industry Employment within a Region (%) > Accommodation and Food Services > #';
 
 
 --
 -- Name: COLUMN labour_force_survey_regional_industry_region.agriculture_fishing; Type: COMMENT; Schema: public; Owner: workbc
 --
 
-COMMENT ON COLUMN public.labour_force_survey_regional_industry_region.agriculture_fishing IS 'This region''s industries and sectors > Industry > Share of this region''s employment (%) / Share of Industry Employment within a Region (%) > Agriculture and Fishing';
+COMMENT ON COLUMN public.labour_force_survey_regional_industry_region.agriculture_fishing IS 'This region''s industries and sectors > Industry > Share of this region''s employment (%) / Share of Industry Employment within a Region (%) > Agriculture and Fishing > %';
+
+
+--
+-- Name: COLUMN labour_force_survey_regional_industry_region.agriculture_fishing_num; Type: COMMENT; Schema: public; Owner: workbc
+--
+
+COMMENT ON COLUMN public.labour_force_survey_regional_industry_region.agriculture_fishing_num IS 'This region''s industries and sectors > Industry > Share of this region''s employment (%) / Share of Industry Employment within a Region (%) > Agriculture and Fishing > #';
 
 
 --
 -- Name: COLUMN labour_force_survey_regional_industry_region.business_building_other_support_services; Type: COMMENT; Schema: public; Owner: workbc
 --
 
-COMMENT ON COLUMN public.labour_force_survey_regional_industry_region.business_building_other_support_services IS 'This region''s industries and sectors > Industry > Share of this region''s employment (%) / Share of Industry Employment within a Region (%) > Business, Building and Other Support Services';
+COMMENT ON COLUMN public.labour_force_survey_regional_industry_region.business_building_other_support_services IS 'This region''s industries and sectors > Industry > Share of this region''s employment (%) / Share of Industry Employment within a Region (%) > Business, Building and Other Support Services > %';
+
+
+--
+-- Name: COLUMN labour_force_survey_regional_industry_region.business_building_other_support_services_num; Type: COMMENT; Schema: public; Owner: workbc
+--
+
+COMMENT ON COLUMN public.labour_force_survey_regional_industry_region.business_building_other_support_services_num IS 'This region''s industries and sectors > Industry > Share of this region''s employment (%) / Share of Industry Employment within a Region (%) > Business, Building and Other Support Services > #';
 
 
 --
 -- Name: COLUMN labour_force_survey_regional_industry_region.construction; Type: COMMENT; Schema: public; Owner: workbc
 --
 
-COMMENT ON COLUMN public.labour_force_survey_regional_industry_region.construction IS 'This region''s industries and sectors > Industry > Share of this region''s employment (%) / Share of Industry Employment within a Region (%) > Construction';
+COMMENT ON COLUMN public.labour_force_survey_regional_industry_region.construction IS 'This region''s industries and sectors > Industry > Share of this region''s employment (%) / Share of Industry Employment within a Region (%) > Construction > %';
+
+
+--
+-- Name: COLUMN labour_force_survey_regional_industry_region.construction_num; Type: COMMENT; Schema: public; Owner: workbc
+--
+
+COMMENT ON COLUMN public.labour_force_survey_regional_industry_region.construction_num IS 'This region''s industries and sectors > Industry > Share of this region''s employment (%) / Share of Industry Employment within a Region (%) > Construction > #';
 
 
 --
 -- Name: COLUMN labour_force_survey_regional_industry_region.educational_services; Type: COMMENT; Schema: public; Owner: workbc
 --
 
-COMMENT ON COLUMN public.labour_force_survey_regional_industry_region.educational_services IS 'This region''s industries and sectors > Industry > Share of this region''s employment (%) / Share of Industry Employment within a Region (%) > Educational Services';
+COMMENT ON COLUMN public.labour_force_survey_regional_industry_region.educational_services IS 'This region''s industries and sectors > Industry > Share of this region''s employment (%) / Share of Industry Employment within a Region (%) > Educational Services > %';
+
+
+--
+-- Name: COLUMN labour_force_survey_regional_industry_region.educational_services_num; Type: COMMENT; Schema: public; Owner: workbc
+--
+
+COMMENT ON COLUMN public.labour_force_survey_regional_industry_region.educational_services_num IS 'This region''s industries and sectors > Industry > Share of this region''s employment (%) / Share of Industry Employment within a Region (%) > Educational Services > #';
 
 
 --
 -- Name: COLUMN labour_force_survey_regional_industry_region.finance_insurance_real_estate; Type: COMMENT; Schema: public; Owner: workbc
 --
 
-COMMENT ON COLUMN public.labour_force_survey_regional_industry_region.finance_insurance_real_estate IS 'This region''s industries and sectors > Industry > Share of this region''s employment (%) / Share of Industry Employment within a Region (%) > Finance, Insurance and Real Estate';
+COMMENT ON COLUMN public.labour_force_survey_regional_industry_region.finance_insurance_real_estate IS 'This region''s industries and sectors > Industry > Share of this region''s employment (%) / Share of Industry Employment within a Region (%) > Finance, Insurance and Real Estate > %';
+
+
+--
+-- Name: COLUMN labour_force_survey_regional_industry_region.finance_insurance_real_estate_num; Type: COMMENT; Schema: public; Owner: workbc
+--
+
+COMMENT ON COLUMN public.labour_force_survey_regional_industry_region.finance_insurance_real_estate_num IS 'This region''s industries and sectors > Industry > Share of this region''s employment (%) / Share of Industry Employment within a Region (%) > Finance, Insurance and Real Estate > #';
 
 
 --
 -- Name: COLUMN labour_force_survey_regional_industry_region.forestry_logging_support_activities; Type: COMMENT; Schema: public; Owner: workbc
 --
 
-COMMENT ON COLUMN public.labour_force_survey_regional_industry_region.forestry_logging_support_activities IS 'This region''s industries and sectors > Industry > Share of this region''s employment (%) / Share of Industry Employment within a Region (%) > Forestry and Logging with Support Activities';
+COMMENT ON COLUMN public.labour_force_survey_regional_industry_region.forestry_logging_support_activities IS 'This region''s industries and sectors > Industry > Share of this region''s employment (%) / Share of Industry Employment within a Region (%) > Forestry and Logging with Support Activities > %';
+
+
+--
+-- Name: COLUMN labour_force_survey_regional_industry_region.forestry_logging_support_activities_num; Type: COMMENT; Schema: public; Owner: workbc
+--
+
+COMMENT ON COLUMN public.labour_force_survey_regional_industry_region.forestry_logging_support_activities_num IS 'This region''s industries and sectors > Industry > Share of this region''s employment (%) / Share of Industry Employment within a Region (%) > Forestry and Logging with Support Activities > #';
 
 
 --
 -- Name: COLUMN labour_force_survey_regional_industry_region.health_care_social_assistance; Type: COMMENT; Schema: public; Owner: workbc
 --
 
-COMMENT ON COLUMN public.labour_force_survey_regional_industry_region.health_care_social_assistance IS 'This region''s industries and sectors > Industry > Share of this region''s employment (%) / Share of Industry Employment within a Region (%) > Health Care and Social Assistance';
+COMMENT ON COLUMN public.labour_force_survey_regional_industry_region.health_care_social_assistance IS 'This region''s industries and sectors > Industry > Share of this region''s employment (%) / Share of Industry Employment within a Region (%) > Health Care and Social Assistance > %';
+
+
+--
+-- Name: COLUMN labour_force_survey_regional_industry_region.health_care_social_assistance_num; Type: COMMENT; Schema: public; Owner: workbc
+--
+
+COMMENT ON COLUMN public.labour_force_survey_regional_industry_region.health_care_social_assistance_num IS 'This region''s industries and sectors > Industry > Share of this region''s employment (%) / Share of Industry Employment within a Region (%) > Health Care and Social Assistance > #';
 
 
 --
 -- Name: COLUMN labour_force_survey_regional_industry_region.information_culture_recreation; Type: COMMENT; Schema: public; Owner: workbc
 --
 
-COMMENT ON COLUMN public.labour_force_survey_regional_industry_region.information_culture_recreation IS 'This region''s industries and sectors > Industry > Share of this region''s employment (%) / Share of Industry Employment within a Region (%) > Information, Culture and Recreation';
+COMMENT ON COLUMN public.labour_force_survey_regional_industry_region.information_culture_recreation IS 'This region''s industries and sectors > Industry > Share of this region''s employment (%) / Share of Industry Employment within a Region (%) > Information, Culture and Recreation > %';
+
+
+--
+-- Name: COLUMN labour_force_survey_regional_industry_region.information_culture_recreation_num; Type: COMMENT; Schema: public; Owner: workbc
+--
+
+COMMENT ON COLUMN public.labour_force_survey_regional_industry_region.information_culture_recreation_num IS 'This region''s industries and sectors > Industry > Share of this region''s employment (%) / Share of Industry Employment within a Region (%) > Information, Culture and Recreation > #';
 
 
 --
 -- Name: COLUMN labour_force_survey_regional_industry_region.manufacturing; Type: COMMENT; Schema: public; Owner: workbc
 --
 
-COMMENT ON COLUMN public.labour_force_survey_regional_industry_region.manufacturing IS 'This region''s industries and sectors > Industry > Share of this region''s employment (%) / Share of Industry Employment within a Region (%) > Manufacturing';
+COMMENT ON COLUMN public.labour_force_survey_regional_industry_region.manufacturing IS 'This region''s industries and sectors > Industry > Share of this region''s employment (%) / Share of Industry Employment within a Region (%) > Manufacturing > %';
+
+
+--
+-- Name: COLUMN labour_force_survey_regional_industry_region.manufacturing_num; Type: COMMENT; Schema: public; Owner: workbc
+--
+
+COMMENT ON COLUMN public.labour_force_survey_regional_industry_region.manufacturing_num IS 'This region''s industries and sectors > Industry > Share of this region''s employment (%) / Share of Industry Employment within a Region (%) > Manufacturing > #';
 
 
 --
 -- Name: COLUMN labour_force_survey_regional_industry_region.mining_oil_gas_extraction; Type: COMMENT; Schema: public; Owner: workbc
 --
 
-COMMENT ON COLUMN public.labour_force_survey_regional_industry_region.mining_oil_gas_extraction IS 'This region''s industries and sectors > Industry > Share of this region''s employment (%) / Share of Industry Employment within a Region (%) > Mining and Oil and Gas Extraction';
+COMMENT ON COLUMN public.labour_force_survey_regional_industry_region.mining_oil_gas_extraction IS 'This region''s industries and sectors > Industry > Share of this region''s employment (%) / Share of Industry Employment within a Region (%) > Mining and Oil and Gas Extraction > %';
+
+
+--
+-- Name: COLUMN labour_force_survey_regional_industry_region.mining_oil_gas_extraction_num; Type: COMMENT; Schema: public; Owner: workbc
+--
+
+COMMENT ON COLUMN public.labour_force_survey_regional_industry_region.mining_oil_gas_extraction_num IS 'This region''s industries and sectors > Industry > Share of this region''s employment (%) / Share of Industry Employment within a Region (%) > Mining and Oil and Gas Extraction > #';
 
 
 --
 -- Name: COLUMN labour_force_survey_regional_industry_region.other_private_services; Type: COMMENT; Schema: public; Owner: workbc
 --
 
-COMMENT ON COLUMN public.labour_force_survey_regional_industry_region.other_private_services IS 'This region''s industries and sectors > Industry > Share of this region''s employment (%) / Share of Industry Employment within a Region (%) > Other Private Services';
+COMMENT ON COLUMN public.labour_force_survey_regional_industry_region.other_private_services IS 'This region''s industries and sectors > Industry > Share of this region''s employment (%) / Share of Industry Employment within a Region (%) > Other Private Services > %';
+
+
+--
+-- Name: COLUMN labour_force_survey_regional_industry_region.other_private_services_num; Type: COMMENT; Schema: public; Owner: workbc
+--
+
+COMMENT ON COLUMN public.labour_force_survey_regional_industry_region.other_private_services_num IS 'This region''s industries and sectors > Industry > Share of this region''s employment (%) / Share of Industry Employment within a Region (%) > Other Private Services > #';
 
 
 --
 -- Name: COLUMN labour_force_survey_regional_industry_region.professional_scientific_technical_services; Type: COMMENT; Schema: public; Owner: workbc
 --
 
-COMMENT ON COLUMN public.labour_force_survey_regional_industry_region.professional_scientific_technical_services IS 'This region''s industries and sectors > Industry > Share of this region''s employment (%) / Share of Industry Employment within a Region (%) > Professional, Scientific, and Technical Services';
+COMMENT ON COLUMN public.labour_force_survey_regional_industry_region.professional_scientific_technical_services IS 'This region''s industries and sectors > Industry > Share of this region''s employment (%) / Share of Industry Employment within a Region (%) > Professional, Scientific, and Technical Services > %';
+
+
+--
+-- Name: COLUMN labour_force_survey_regional_industry_region.professional_scientific_technical_services_num; Type: COMMENT; Schema: public; Owner: workbc
+--
+
+COMMENT ON COLUMN public.labour_force_survey_regional_industry_region.professional_scientific_technical_services_num IS 'This region''s industries and sectors > Industry > Share of this region''s employment (%) / Share of Industry Employment within a Region (%) > Professional, Scientific, and Technical Services > #';
 
 
 --
 -- Name: COLUMN labour_force_survey_regional_industry_region.public_administration; Type: COMMENT; Schema: public; Owner: workbc
 --
 
-COMMENT ON COLUMN public.labour_force_survey_regional_industry_region.public_administration IS 'This region''s industries and sectors > Industry > Share of this region''s employment (%) / Share of Industry Employment within a Region (%) > Public Administration';
+COMMENT ON COLUMN public.labour_force_survey_regional_industry_region.public_administration IS 'This region''s industries and sectors > Industry > Share of this region''s employment (%) / Share of Industry Employment within a Region (%) > Public Administration > %';
+
+
+--
+-- Name: COLUMN labour_force_survey_regional_industry_region.public_administration_num; Type: COMMENT; Schema: public; Owner: workbc
+--
+
+COMMENT ON COLUMN public.labour_force_survey_regional_industry_region.public_administration_num IS 'This region''s industries and sectors > Industry > Share of this region''s employment (%) / Share of Industry Employment within a Region (%) > Public Administration > #';
 
 
 --
 -- Name: COLUMN labour_force_survey_regional_industry_region.retail_trade; Type: COMMENT; Schema: public; Owner: workbc
 --
 
-COMMENT ON COLUMN public.labour_force_survey_regional_industry_region.retail_trade IS 'This region''s industries and sectors > Industry > Share of this region''s employment (%) / Share of Industry Employment within a Region (%) > Retail Trade';
+COMMENT ON COLUMN public.labour_force_survey_regional_industry_region.retail_trade IS 'This region''s industries and sectors > Industry > Share of this region''s employment (%) / Share of Industry Employment within a Region (%) > Retail Trade > %';
+
+
+--
+-- Name: COLUMN labour_force_survey_regional_industry_region.retail_trade_num; Type: COMMENT; Schema: public; Owner: workbc
+--
+
+COMMENT ON COLUMN public.labour_force_survey_regional_industry_region.retail_trade_num IS 'This region''s industries and sectors > Industry > Share of this region''s employment (%) / Share of Industry Employment within a Region (%) > Retail Trade > #';
 
 
 --
 -- Name: COLUMN labour_force_survey_regional_industry_region.transportation_warehousing; Type: COMMENT; Schema: public; Owner: workbc
 --
 
-COMMENT ON COLUMN public.labour_force_survey_regional_industry_region.transportation_warehousing IS 'This region''s industries and sectors > Industry > Share of this region''s employment (%) / Share of Industry Employment within a Region (%) > Transportation and Warehousing';
+COMMENT ON COLUMN public.labour_force_survey_regional_industry_region.transportation_warehousing IS 'This region''s industries and sectors > Industry > Share of this region''s employment (%) / Share of Industry Employment within a Region (%) > Transportation and Warehousing > %';
+
+
+--
+-- Name: COLUMN labour_force_survey_regional_industry_region.transportation_warehousing_num; Type: COMMENT; Schema: public; Owner: workbc
+--
+
+COMMENT ON COLUMN public.labour_force_survey_regional_industry_region.transportation_warehousing_num IS 'This region''s industries and sectors > Industry > Share of this region''s employment (%) / Share of Industry Employment within a Region (%) > Transportation and Warehousing > #';
 
 
 --
 -- Name: COLUMN labour_force_survey_regional_industry_region.utilities; Type: COMMENT; Schema: public; Owner: workbc
 --
 
-COMMENT ON COLUMN public.labour_force_survey_regional_industry_region.utilities IS 'This region''s industries and sectors > Industry > Share of this region''s employment (%) / Share of Industry Employment within a Region (%) > Utilities';
+COMMENT ON COLUMN public.labour_force_survey_regional_industry_region.utilities IS 'This region''s industries and sectors > Industry > Share of this region''s employment (%) / Share of Industry Employment within a Region (%) > Utilities > %';
+
+
+--
+-- Name: COLUMN labour_force_survey_regional_industry_region.utilities_num; Type: COMMENT; Schema: public; Owner: workbc
+--
+
+COMMENT ON COLUMN public.labour_force_survey_regional_industry_region.utilities_num IS 'This region''s industries and sectors > Industry > Share of this region''s employment (%) / Share of Industry Employment within a Region (%) > Utilities > #';
 
 
 --
 -- Name: COLUMN labour_force_survey_regional_industry_region.wholesale_trade; Type: COMMENT; Schema: public; Owner: workbc
 --
 
-COMMENT ON COLUMN public.labour_force_survey_regional_industry_region.wholesale_trade IS 'This region''s industries and sectors > Industry > Share of this region''s employment (%) / Share of Industry Employment within a Region (%) > Wholesale Trade';
+COMMENT ON COLUMN public.labour_force_survey_regional_industry_region.wholesale_trade IS 'This region''s industries and sectors > Industry > Share of this region''s employment (%) / Share of Industry Employment within a Region (%) > Wholesale Trade > %';
+
+
+--
+-- Name: COLUMN labour_force_survey_regional_industry_region.wholesale_trade_num; Type: COMMENT; Schema: public; Owner: workbc
+--
+
+COMMENT ON COLUMN public.labour_force_survey_regional_industry_region.wholesale_trade_num IS 'This region''s industries and sectors > Industry > Share of this region''s employment (%) / Share of Industry Employment within a Region (%) > Wholesale Trade > #';
 
 
 --
@@ -6283,25 +6416,25 @@ Wholesale Trade	33840	3.4	3.4	3.3	1	1	1
 --
 
 COPY public.labour_force_survey_industry (industry, yoy_employment_growth_pct, yoy_change_employment, total_employment, workforce_employment_gender_pct_men, workforce_employment_gender_pct_women, workforce_provincial_average_pct_men, workforce_provincial_average_pct_women, workforce_employment_under_25_pct_previous, workforce_employment_under_25_pct, workforce_employment_under_25_pct_average, workforce_employment_over_55_pct_previous, workforce_employment_over_55_pct, workforce_employment_over_55_pct_average, employment_part_time_pct_previous, employment_part_time_pct, employment_part_time_pct_average, employment_self_employment_pct_previous, employment_self_employment_pct, employment_self_employment_pct_average, employment_temporary_pct_previous, employment_temporary_pct, employment_temporary_pct_average, employment_firms_under_20_employees_pct_previous, employment_firms_under_20_employees_pct, employment_firms_under_20_employees_pct_average, employment_private_sector_pct_previous, employment_private_sector_pct, employment_private_sector_pct_average, employment_unemployment_rate_pct_previous, employment_unemployment_rate_pct, employment_unemployment_rate_pct_average, earnings_men_previous, earnings_men, earnings_men_average, earnings_women_previous, earnings_women, earnings_women_average, earnings_youth_previous, earnings_youth, earnings_youth_average, location_cariboo_employment_this_industry_pct, location_cariboo_employment_all_industries_pct, location_kootenay_employment_this_industry_pct, location_kootenay_employment_all_industries_pct, location_mainland_southwest_employment_this_industry_pct, location_mainland_southwest_employment_all_industries_pct, location_north_coast_nechako_employment_this_industry_pct, location_north_coast_nechako_employment_all_industries_pct, location_northeast_employment_this_industry_pct, location_northeast_employment_all_industries_pct, location_thompson_okanagan_employment_this_industry_pct, location_thompson_okanagan_employment_all_industries_pct, location_vancouver_island_coast_employment_this_industry_pct, location_vancouver_island_coast_employment_all_industries_pct) FROM stdin;
-Total, all industries	6.6	164600	2655700	52.46074481304365	47.53925518695637	52	48	13.421642551457102	13.134013631057725	13	21.719991848379863	22.280378054750162	22	21.398002853067048	22	22	17.509680048909722	16	16	13.384387351778654	11.591532203694547	12	37.72727272727273	36.59939772574048	37	64.16140207866313	64	62	6.1	6.5	6.5	27.55	32.72	32.72	23.13	28.29	28.29	14.94	19.27	19.27	\N	3.3	\N	3	\N	64.1	\N	1.6	\N	1.4	\N	11	\N	15.6
-Accommodation and food services	3.6	6100	174400	44.8394495412844	55.1605504587156	52	48	41.49117814456461	37.84403669724771	13	10.073989755264655	15.080275229357799	22	42.23107569721116	45.98623853211009	22	7.854297097324987	10.378440366972477	16	21.556516368128474	13.435700575815737	12	48.67201976528721	50.60780550223928	37	92.03187250996015	89.62155963302753	62	6.2	6.9	6.5	15.82	19.37	32.72	14.2	18.31	28.29	12.41	16.61	19.27	3.403797921891795	3.3	2.9021855965603724	3	61.35196464827422	64.1	2.13782395796011	1.6	1.46900752418488	1.4	11.059357458497551	11	17.675862892631073	15.6
-Agriculture and fishing	-27.1	-9000	24200	60.33057851239669	39.66942148760331	52	48	13.12741312741313	13.636363636363635	13	41.312741312741316	34.710743801652896	22	20.66182405165456	22.22222222222222	22	48.949919224555735	37.49356223175966	16	20.419693301049232	7.982832618025751	12	22.72360999194198	31.099656357388316	37	50.88852988691438	62.62660944206009	62	13.2	\N	6.5	20	18	32.72	13.2	24	28.29	\N	\N	19.27	\N	3.3	\N	3	36.84210526315789	64.1	\N	1.6	\N	1.4	5.263157894736842	11	57.89473684210527	15.6
-Business, building and other support services	10.1	9900	107600	57.899628252788105	42.100371747211895	52	48	9.37790157845868	14.684014869888475	13	29.155060352831942	29.739776951672862	22	31.383472609099343	31.13382899628253	22	31.9405756731662	26.76579925650558	16	19.099590723055933	18.401015228426395	12	55.934515688949524	51.90355329949239	37	67.40947075208913	70.53903345724908	62	5.4	4.8	6.5	18.89	24.98	32.72	17.55	23.33	28.29	14.84	20.92	19.27	1.9550909794812235	3.3	1.5098722415795587	3	66.47309330236159	64.1	0.7162214479287651	1.6	1.29694154084398	1.4	9.020518776616338	11	19.02826171118854	15.6
-Construction	-2.6	-5800	215800	85.40315106580167	14.59684893419833	52	48	11.524334251606978	14.272474513438368	13	17.355371900826444	20.342910101946245	22	9.73370064279155	9.731232622798887	22	32.96602387511478	28.498609823911025	16	13.698630136986301	9.39119170984456	12	53.21917808219179	50.90673575129533	37	66.4830119375574	70.94531974050045	62	5.8	5.2	6.5	28.2	32.37	32.72	24.42	28.68	28.29	18.58	23.66	19.27	3.2339028863789943	3.3	3.7165749589728736	3	58.66396370306014	64.1	1.6700453711748238	1.6	2.172024326672459	1.4	14.653924123950187	11	15.88956462979052	15.6
-Educational services	5.8	10400	189100	30.883130618720255	69.06398730830249	52	48	7.368421052631578	8.355367530407193	13	24.385964912280702	22.4748810153358	22	30.05847953216374	30.98889476467478	22	9.35672514619883	8.77842411422528	16	21.935483870967744	20.695652173913047	12	16.7741935483871	16	37	12.514619883040934	11.8455843469064	62	3.7	3.3	6.5	33.18	36.69	32.72	29.18	33.15	28.29	15.85	18.73	19.27	3.2290059510689884	3.3	3.2179854529424725	3	61.946219969142604	64.1	1.730218205862905	1.6	1.0800088163985013	1.4	9.907427815737272	11	18.889133788847257	15.6
-Health care and social assistance	10.8	35200	360500	22.35783633841886	77.61442441054092	52	48	6.3403416557161645	8.155339805825243	13	24.507227332457294	22.801664355062414	22	25.262812089356114	25.4368932038835	22	13.929040735873851	14.008321775312066	16	12.977099236641221	14.746692481445631	12	35.15267175572519	34.07550822846079	37	39.84888304862024	39.3619972260749	62	1.7	1.6	6.5	28.09	33.88	32.72	26.32	30.78	28.29	17.92	23.29	19.27	3.7741301583631954	3.3	3.0747890417292796	3	60.264709282163906	64.1	1.4218009478672986	1.6	0.9883250491272686	1.4	12.888683389203559	11	17.587562131545486	15.6
-Information, culture and recreation	16.7	18300	128100	56.440281030444964	43.559718969555036	52	48	20.314842578710646	13.739266198282593	13	17.916041979010494	16.939890710382514	22	25.187406296851574	24.824355971896956	22	17.541229385307343	17.408274785323968	16	24.81818181818182	23.55723746452223	12	26.81818181818182	28.192999053926204	37	72.63868065967016	75.2537080405933	62	4.1	5.8	6.5	27.02	36.21	32.72	23.04	29.45	28.29	16.58	18.78	19.27	1.5454693346347812	3.3	2.6679681145274117	3	73.40165934602246	64.1	0.569383439075972	1.6	0.6995282251504799	1.4	8.91491784610379	11	12.201073694485116	15.6
-Manufacturing	6.8	11400	179300	72.89459007250417	27.105409927495817	52	48	9.44254835039818	9.592861126603456	13	22.013651877133107	29.113218070273284	22	4.72127417519909	9.202453987730062	22	7.906712172923777	6.52537646402677	16	6.118665018541409	6.865671641791045	12	23.733003708281828	26.985074626865675	37	91.97952218430034	93.41885108756274	62	4	3	6.5	28.02	31.84	32.72	20.71	25.54	28.29	19.02	20.9	19.27	5.42644666511736	3.3	3.2186846386242154	3	66.30257959563095	64.1	2.1845224262142695	1.6	0.8598652103183826	1.4	11.81733674180804	11	10.190564722286776	15.6
-Professional, scientific and technical services	10.4	24000	254600	58.09112333071486	41.908876669285156	52	48	6.391545042778057	6.245090337784761	13	21.238047307498746	19.992144540455616	22	18.520382486160038	15.161036920659859	22	33.31655762455964	29.654359780047134	16	8.226415094339623	4.857621440536013	12	44.301886792452834	37.52093802345059	37	66.63311524911929	70.22780832678713	62	3.3	2.7	6.5	35.13	42.39	32.72	26.53	33.81	28.29	17.83	23.67	19.27	1.8491245295369008	3.3	2.143675339551628	3	74.54590083456063	64.1	0.9818360333824251	1.6	0.6218294878088693	1.4	7.331042382588775	11	12.526591392570774	15.6
-Public administration	14.2	17000	136700	50.54864667154353	49.45135332845648	52	48	3.6730945821854912	4.6086320409656185	13	21.57943067033976	20.409656181419166	22	6.519742883379247	6.803218727139723	22	\N	\N	16	10.192837465564738	13.75274323335772	12	20.385674931129476	16.166788588149235	37	\N	\N	62	1.7	1.5	6.5	37.42	40.76	32.72	32.44	36.8	28.29	21.04	25.87	19.27	3.932926829268293	3.3	2.454268292682927	3	52.5609756097561	64.1	2.317073170731707	1.6	0.9298780487804877	1.4	8.948170731707316	11	28.856707317073173	15.6
-Retail trade	10.6	30300	317000	47.034700315457414	52.965299684542586	52	48	28.17929117442668	28.454258675078865	13	18.902015288394715	19.936908517350158	22	33.981931897150794	35.29968683999709	22	7.546115148127444	7.596766774002759	16	10.839971035481536	8.937372675297365	12	16.503800217155266	15.43112513144059	37	91.20817695440388	91.03502661497012	62	4.4	3.7	6.5	20	25	32.72	16.4	20	28.29	12.4	16.3	19.27	3.266083985016757	3.3	3.154366826575541	3	64.00078859170665	64.1	1.6100414010645987	1.6	1.5048958401787473	1.4	10.166261418150754	11	16.29756193730696	15.6
-Transportation and warehousing	3.6	4900	139200	78.37643678160919	21.695402298850578	52	48	6.652512384996462	7.974137931034483	13	28.520877565463547	26.580459770114945	22	11.960368011323423	13.721264367816094	22	18.046709129511676	18.82183908045977	16	7.68566493955095	8.584070796460177	12	27.720207253886013	24.690265486725664	37	64.82661004953998	63.14655172413794	62	\N	\N	6.5	28.71	33.62	32.72	22.8	28.95	28.29	17.45	23.27	19.27	2.707959305804907	3.3	1.3614602034709755	3	69.52423698384202	64.1	2.797725912627169	1.6	1.5559545182525434	1.4	10.846798324356673	11	11.20586475164572	15.6
-Utilities	-2.7	-500	18100	74.03314917127072	25.96685082872928	52	48	0.6896551724137931	0.5524861878453038	13	25.517241379310345	22.099447513812155	22	\N	\N	22	\N	\N	16	\N	\N	12	24.82758620689655	19.337016574585633	37	12.413793103448276	11.049723756906078	62	2.8	3.6	6.5	37.67	48.25	32.72	34.39	40.78	28.29	22	\N	19.27	5.977011494252873	3.3	5.977011494252873	3	54.367816091954026	64.1	0.11494252873563218	1.6	6.436781609195402	1.4	18.39080459770115	11	8.735632183908045	15.6
-Wholesale trade	-2.9	-2600	86100	65.08120649651971	34.91879350348028	52	48	5.971769815418025	6.728538283062645	13	24.321389793702497	29.81438515081206	22	9.98914223669924	13.10128112158569	22	19.443186962426434	14.749576578756349	16	3.8887632828397014	3.240628778718259	12	15.59529198732458	21.005559584239787	37	80.55681303757355	85.1294459230583	62	1.9	3	6.5	28	31	32.72	23	27	28.29	15	19.4	19.27	2.609325924136265	3.3	1.5704276395264556	3	74.438270113554	64.1	1.087219135056777	1.6	1.5945880647499397	1.4	10.123218168639768	11	8.576950954336796	15.6
-Finance, insurance and real estate	2.4	4000	167700	46.39236732259988	53.60763267740013	52	48	6.83139534883721	4.651162790697675	13	24.055232558139537	20.75134168157424	22	14.752906976744187	15.742397137745975	22	23.473837209302324	23.553965414430532	16	7.590132827324478	5.542544886807182	12	44.686907020872866	44.02810304449648	37	70.27616279069768	65.47406082289804	62	2.9	1.4	6.5	30.42	35.63	32.72	24.97	31.93	28.29	16.07	19.91	19.27	1.901093439363817	3.3	1.3916500994035785	3	72.01789264413519	64.1	0.4348906560636183	1.6	0.9443339960238568	1.4	10.984095427435388	11	12.326043737574553	15.6
-Forestry, logging and support activities	12.8	2200	19400	78.35051546391753	21.64948453608248	52	48	11.165048543689318	10.309278350515465	13	24.271844660194173	30.927835051546392	22	8.51063829787234	10.41890440386681	22	14.676113360323889	22.145922746781114	16	19.047619047619047	11.695278969957082	12	28.06484295845998	14.27038626609442	37	73.17813765182186	64.37768240343347	62	8.4	7.2	6.5	35.54	41.86	32.72	30.31	37.48	28.29	20	23	19.27	19.226638023630503	3.3	9.559613319011815	3	15.682062298603652	64.1	9.66702470461869	1.6	2.9001074113856067	1.4	15.252416756176155	11	27.712137486573578	15.6
-Mining and oil and gas extraction	8.7	2100	26200	84.04255319148936	15.957446808510639	52	48	5.3627760252365935	4.25531914893617	13	17.350157728706623	21.27659574468085	22	1.8791946308724832	1.7529880478087652	22	6.166219839142092	3.821656050955414	16	6.908115358819584	4.769475357710652	12	7.315436241610739	6.7675159235668785	37	93.83378016085791	96.30573248407643	62	8.1	\N	6.5	38	46	32.72	35	42	28.29	27	25	19.27	6.646971935007386	3.3	25.406203840472674	3	22.599704579025108	64.1	3.5450516986706058	1.6	12.924667651403249	1.4	19.79320531757755	11	9.084194977843426	15.6
-Repair, personal and non-profit services	5	5200	109500	45.93607305936073	54.06392694063927	52	48	14.430147058823529	11.32420091324201	13	23.80514705882353	23.926940639269407	22	27.20588235294118	25.753424657534246	22	29.6875	26.027397260273972	16	14.397905759162303	9.753086419753087	12	73.56020942408377	77.53086419753086	37	70.22058823529413	73.97260273972603	62	4.3	2	6.5	24.21	30.21	32.72	20.5	24.66	28.29	15.08	19.08	19.27	2.98592620768353	3.3	3.081019399011031	3	64.35907189045264	64.1	1.3122860403195131	1.6	2.1300874857360212	1.4	12.057816660327122	11	14.07379231647014	15.6
+Total, All Industries	1.6	43896	2791792	51.8	48.2	51.8	48.2	13.9	13.3	13.3	22	21.9	21.9	21.2	20.2	20.2	17	16	16	10.8	9.5	9.5	37.2	34.1	34.1	65.6	63.7	63.7	4.6	5.2	5.2	30	38	38	25	32	32	16.5	21	21	3	3	2.9	2.9	64.5	64.5	1.6	1.6	1.3	1.3	10.9	10.9	15.8	15.8
+Accommodation And Food Services	5	9271	193542	44	56	51.8	48.2	41.8	37.6	13.3	12	10	21.9	40.7	41.1	20.2	6.9	8.3	16	21.2	15.7	9.5	46.5	43.2	34.1	93.1	91.6	63.7	4.9	4.1	5.2	16.16	23.05	38	15.41	20.65	32	13.81	18.62	21	1.9	3	3.1	2.9	63.4	64.5	1	1.6	1.4	1.3	12	10.9	17.1	15.8
+Agriculture And Fishing	5.8	1396	25604	53.7	46.3	51.8	48.2	10.1	17	13.3	39.6	40.4	21.9	24.6	27	20.2	38.9	38.8	16	18.3	14.9	9.5	53.8	51.2	34.1	61	61.2	63.7	7	5.8	5.2	21.97	27.02	38	18.13	19.04	32	15.5	20.28	21	3.1	3	1.8	2.9	49.8	64.5	0.6	1.6	0.5	1.3	25.6	10.9	18.6	15.8
+Business, Building And Other Support Services	-2.2	-1980	86458	57.3	42.7	51.8	48.2	10.9	13.1	13.3	28.1	28.7	21.9	29.2	28.9	20.2	32.8	32.7	16	11.2	8.6	9.5	58.2	54.3	34.1	65.5	65.8	63.7	4.9	5.2	5.2	22.17	26.93	38	22.01	26.43	32	16.36	21.85	21	2.5	3	2.6	2.9	62.8	64.5	1.1	1.6	0.7	1.3	13.2	10.9	17.2	15.8
+Construction	-0.5	-1146	234792	86.2	13.8	51.8	48.2	12.6	11.9	13.3	21	19.3	21.9	9.7	9.6	20.2	31.6	28.7	16	8.1	6.4	9.5	52.7	50.3	34.1	67.2	70.8	63.7	4.1	4.2	5.2	29.97	37.33	38	24.76	33.77	32	20.48	25.07	21	3.1	3	2.8	2.9	59.8	64.5	1.6	1.6	1.8	1.3	14.3	10.9	16.6	15.8
+Educational Services	8.2	16563	218021	33.1	66.9	51.8	48.2	9.1	8.4	13.3	23	22.5	21.9	30.5	26.7	20.2	11.6	8.6	16	21.6	19	9.5	18.5	12.8	34.1	12	13.5	63.7	2.9	2.8	5.2	35.96	41.95	38	31.15	37.44	32	18.76	24.85	21	2.9	3	3.3	2.9	65	64.5	1.8	1.6	1.1	1.3	10.2	10.9	15.7	15.8
+Finance, Insurance And Real Estate	7.2	11646	173500	49.8	50.2	51.8	48.2	6.3	6.7	13.3	21.9	23.8	21.9	17.2	14.1	20.2	24.1	23.2	16	4.3	2.8	9.5	45.8	39.7	34.1	70.2	69.2	63.7	1.9	1.5	5.2	36.93	44.34	38	29.64	37.66	32	17.16	27.5	21	1.6	3	1.9	2.9	73.6	64.5	0.8	1.6	0.6	1.3	8.5	10.9	13.1	15.8
+Forestry, Logging And Support Activities	-22.4	-3958	13750	82.6	17.4	51.8	48.2	4.9	10.8	13.3	30.6	34.4	21.9	7.4	7.9	20.2	11.3	18.2	16	18.6	19.3	9.5	35.4	37.4	34.1	76.7	71.7	63.7	7.3	9.2	5.2	34	39.07	38	27.96	30.62	32	22.27	26	21	19.6	3	9.3	2.9	12	64.5	13.8	1.6	4.4	1.3	13.8	10.9	27.2	15.8
+Health Care And Social Assistance	1.1	3875	372792	21.6	78.4	51.8	48.2	6.8	7.4	13.3	23.6	24.3	21.9	26.1	22.3	20.2	14.2	14	16	13	9.9	9.5	35.1	30.9	34.1	41.5	38.7	63.7	1.4	1.4	5.2	28.49	37.23	38	27.76	33.49	32	20.1	23.53	21	3.7	3	3.5	2.9	59.8	64.5	1.6	1.6	0.9	1.3	11.1	10.9	19.5	15.8
+Information, Culture And Recreation	-5.8	-8437	136771	56.1	43.9	51.8	48.2	21.8	20.3	13.3	17.7	17.6	21.9	26	27.2	20.2	17.1	19.4	16	21.1	20.5	9.5	27.5	27.5	34.1	73.4	71.1	63.7	4.5	7.6	5.2	29.03	36.6	38	23.04	30.88	32	16.83	21.07	21	1.3	3	1.9	2.9	74.3	64.5	0.8	1.6	0.6	1.3	7.8	10.9	13.3	15.8
+Manufacturing	-6.6	-12146	171896	71.3	28.7	51.8	48.2	9.2	8	13.3	25.8	26.9	21.9	7	5.9	20.2	6.8	7.8	16	4	4.3	9.5	25.4	23.9	34.1	93.1	92	63.7	2.2	4.5	5.2	31.45	37.32	38	24.34	29.89	32	20.62	23.11	21	5.2	3	3	2.9	65.1	64.5	2.2	1.6	0.8	1.3	12.6	10.9	11.1	15.8
+Mining And Oil And Gas Extraction	12	3125	29146	86.4	13.6	51.8	48.2	4.4	3.5	13.3	21	15.3	21.9	3.5	2.9	20.2	5.7	3.6	16	8	6.5	9.5	18.3	18.1	34.1	94.3	96.4	63.7	6.4	2.1	5.2	44.47	49.38	38	41.48	43.76	32	29.92	37.72	21	9.4	3	23.9	2.9	22.6	64.5	4.4	1.6	15.5	1.3	15	10.9	9.2	15.8
+Professional, Scientific And Technical Services	1.4	3958	278854	55.2	44.8	51.8	48.2	7.9	6.5	13.3	20.5	17.9	21.9	16.8	13.2	20.2	32.6	27.7	16	5.8	5.1	9.5	40.2	37.7	34.1	67.4	72.1	63.7	2.3	3.3	5.2	39.99	53.16	38	30.52	38.85	32	20.52	25.19	21	1.6	3	1.7	2.9	74.8	64.5	0.6	1.6	0.6	1.3	7.9	10.9	12.8	15.8
+Public Administration	4.7	6438	143271	45.7	54.3	51.8	48.2	4.3	4.9	13.3	23.5	19.5	21.9	6.8	5	20.2	0	0	16	9.9	12.2	9.5	14.6	15.8	34.1	0	0	63.7	1.2	1.3	5.2	39.44	45.21	38	35.59	39.79	32	23.96	27.87	21	3.2	3	2.3	2.9	53.6	64.5	1.4	1.6	0.8	1.3	9.2	10.9	29.5	15.8
+Repair, Personal And Non-Profit Services	8.7	8812	110250	45.9	54.1	51.8	48.2	14.6	12.9	13.3	21.6	21.8	21.9	23.4	26.2	20.2	29	28.6	16	6.4	6.1	9.5	74.8	67.3	34.1	71	71.4	63.7	2.2	2.8	5.2	27.44	33.4	38	19.91	27.44	32	16.01	21.68	21	3.4	3	3	2.9	64.4	64.5	1.8	1.6	1.7	1.3	10.9	10.9	14.8	15.8
+Retail Trade	1.3	4396	344542	46.4	53.6	51.8	48.2	25.8	28.4	13.3	20.6	21.9	21.9	31.5	33.4	20.2	7.1	9.2	16	9.6	9.3	9.5	38.3	39.1	34.1	91.7	89.4	63.7	3.5	3.9	5.2	21.69	26.87	38	17.16	22.93	32	13.44	18.28	21	2.9	3	2.7	2.9	63.5	64.5	1.4	1.6	1.5	1.3	11.7	10.9	16.1	15.8
+Transportation And Warehousing	-0.6	-895	141688	76.1	23.9	51.8	48.2	7.9	7.6	13.3	26.5	26.8	21.9	12.9	12.5	20.2	16.3	12.4	16	7.3	6.7	9.5	21.7	21.6	34.1	67.1	67.5	63.7	2.6	2.5	5.2	31.4	37.3	38	25.73	33.7	32	20.15	26.32	21	3.3	3	1.6	2.9	72	64.5	3.5	1.6	2	1.3	7	10.9	10.6	15.8
+Utilities	6.9	1042	16125	72.6	27.4	51.8	48.2	8.1	1.8	13.3	22.3	23.1	21.9	2.4	1.9	20.2	0.7	0	16	4.5	4.5	9.5	25.5	27.4	34.1	15.9	24.9	63.7	0.7	1	5.2	39.49	44.35	38	35.2	43.69	32	26.86	35.5	21	0.9	3	6.8	2.9	59.2	64.5	3.1	1.6	3.4	1.3	18.1	10.9	8.5	15.8
+Wholesale Trade	-1.7	-1646	92479	71.1	28.9	51.8	48.2	7.2	5.8	13.3	25.1	34.2	21.9	8.2	9.1	20.2	13.4	14	16	3.4	2.9	9.5	41.9	44.9	34.1	86.6	85.9	63.7	3.5	2.1	5.2	29.22	40.21	38	26.31	32.82	32	18.91	23.07	21	3.8	3	1.3	2.9	71.8	64.5	1.4	1.6	1.2	1.3	10.8	10.9	9.8	15.8
 \.
 
 
@@ -6310,14 +6443,14 @@ Repair, personal and non-profit services	5	5200	109500	45.93607305936073	54.0639
 --
 
 COPY public.labour_force_survey_regional_employment (region, age_distribution_0_14, age_distribution_15_24, age_distribution_25_54, age_distribution_55_64, age_distribution_65, total_employment_num, full_time_employment_pct, full_time_employment_num, part_time_employment_pct, part_time_employment_num, unemployment_rate_year_1, unemployment_rate_year_2, unemployment_rate_year_3, unemployment_rate_year_4, unemployment_rate_year_5, unemployment_rate_year_6, unemployment_rate_year_7, unemployment_rate_year_8, unemployment_rate_year_9, unemployment_rate_year_10, unemployment_rate_year_11, unemployment_rate_year_low, unemployment_rate_year_high, unemployment_rate_year_avg) FROM stdin;
-british_columbia	13.838849199538622	11.508848365375119	40.84804705065674	14.150711292176792	19.65354409225273	2655699.99999999984283	77.97190947772715	2070699.9999999998	22.02809052227285	585000.0000000000428284501261437617	7.7	6.9	6.6	6.1	6.2	6.1	5.2	4.7	4.7	8.9	6.5	4.7	8.9	6.327272727272729
-cariboo	15.769894106082278	11.910269767551371	38.16007110608817	15.23777569796394	18.921989322314246	86699.99999999999376	78.66205305651673	68200	21.33794694348327	18499.9999999999937585121107266440	7.6	7.1	6	5.9	7.1	7.4	7.4	5.6	6.3	10	6	5.6	10	6.945454545454546
-kootenay	13.973229454880832	9.913960487354982	35.365394883743505	16.06414737148682	24.683267802533855	79399.99999999999799	77.70780856423174	61700	22.29219143576826	17699.9999999999979919269521410580	8.4	7.1	5.9	6.8	7.5	7.9	7.3	5.3	5.3	9.6	6.3	5.3	9.6	7.036363636363635
-northeast	20.741896725545168	12.54954494607024	42.467096631634185	12.305100194727176	11.93636150202323	37699.99999999999994	81.16710875331565	30600	18.83289124668435	7099.9999999999999387002652519894	5.3	4	5	4.9	5.9	9.7	6.1	5.8	6.3	6.4	4.3	4	9.7	5.79090909090909
-mainland_southwest	13.848060434913705	12.167295022861603	43.440052126271574	13.367908840393977	17.17668357555914	1701300.00000000007144	78.42826074178569	1334300	21.57173925821431	367000.0000000000714408505260683031	7.5	6.9	6.7	6	6	5.5	4.6	4.4	4.7	9	6.9	4.4	9	6.2
-thompson_okanagan	13.402775313198708	10.479049643971388	35.91549522982962	15.777536159407898	24.42514365359239	292300.00000000003847	77.69414984604857	227100	22.30585015395143	65200.0000000000384710605542251151	7.9	7.1	7.1	6.3	6.5	7.8	7.1	6.2	4.9	8.6	5.9	4.9	9	6.854545454545455
-vancouver_island_coast	12.734141914228353	9.920857850762436	36.72835844947638	15.305030763824695	25.311611021708135	415100.00000000000790	75.69260419176102	314200	24.30739580823898	100900.0000000000079002842688508794	8	6.2	6.3	6.1	6.3	5.8	5	4.7	4.1	8.7	5.7	4.1	8.7	6.081818181818182
-north_coast_nechako	17.60219828358655	12.242886441926684	37.89749308058382	15.084327273451345	17.173094920451604	43199.99999999999681	80.32407407407408	34700	19.67592592592592	8499.9999999999968123379629629632	8.8	10.9	6.9	8	7	7.5	5.8	5.9	4.3	8.8	7.5	4.3	10.9	7.3999999999999995
+british_columbia	13.7	11.6	41	13.8	19.9	2790726.817042606516	79.8	2227000	20.2	563726.8170426065162	6.6	6.2	6.2	6.1	5.3	4.6	4.8	9.1	6.6	4.6	5.2	4.6	9.1	5.9
+cariboo	15.7	11.7	38	14.8	19.7	84713.750000000000	80	67771	20	16942.750000000000	5.8	5.8	7	7.5	7.6	5.9	6.6	10.3	6.3	5	6.9	5	10.3	6.8
+kootenay	13.9	9.9	35.5	15.5	25.1	80942.633637548892	76.7	62083	23.3	18859.6336375488918	5.6	6.9	8.8	8.4	7.6	5.8	5.2	9.9	6	4.4	5.3	4.4	9.9	6.7
+northeast	20.7	12.6	42.1	12.1	12.5	36129.789864029666	80.9	29229	19.1	6900.7898640296662060	4.7	5.1	5.9	9.9	6.9	6	6.5	7	4.3	3.5	5.1	3.5	9.9	5.9
+mainland_southwest	13.7	12.3	43.6	13.1	17.3	1802147.459727385378	80.7	1454333	19.3	347814.4597273853780	6.8	6.1	5.9	5.5	4.6	4.1	4.7	9.2	6.9	4.7	5.5	4.1	9.2	5.8
+thompson_okanagan	13.3	10.6	36.1	15.2	24.7	303087.563451776650	78.8	238833	21.2	64254.5634517766498	7	6.8	6.6	7.7	7.4	6.4	5.2	8.6	6.4	5.3	4.2	4.2	8.6	6.5
+vancouver_island_coast	12.7	9.9	36.9	14.9	25.6	441378.906250000000	76.8	338979	23.2	102399.9062500000000	6.5	6.4	6.2	5.7	5.1	4.7	4.4	8.9	5.9	4.1	4.2	4.1	8.9	5.6
+north_coast_nechako	17.6	12.2	37.9	14.6	17.7	43411.407766990291	82.4	35771	17.6	7640.4077669902912160	6.6	7.8	7	7.7	6.1	6.4	4.6	8.5	7.5	4.4	6.4	4.4	8.5	6.6
 \.
 
 
@@ -6326,14 +6459,14 @@ north_coast_nechako	17.60219828358655	12.242886441926684	37.89749308058382	15.08
 --
 
 COPY public.labour_force_survey_regional_industry_province (region, accommodation_food_services, agriculture_fishing, business_building_other_support_services, construction, educational_services, finance_insurance_real_estate, forestry_logging_support_activities, health_care_social_assistance, information_culture_recreation, manufacturing, mining_oil_gas_extraction, other_private_services, professional_scientific_technical_services, public_administration, retail_trade, transportation_warehousing, utilities, wholesale_trade, goods, services) FROM stdin;
-british_columbia	\N	\N	\N	\N	\N	\N	\N	\N	\N	\N	\N	\N	\N	\N	\N	\N	\N	\N	18	82
-cariboo	3.403797921891795	\N	1.9550909794812235	3.2339028863789943	3.2290059510689884	1.901093439363817	19.226638023630503	3.7741301583631954	1.5454693346347812	5.42644666511736	6.646971935007386	2.98592620768353	1.8491245295369008	3.932926829268293	3.266083985016757	2.707959305804907	5.977011494252873	2.609325924136265	27.19128329297821	72.80871670702179
-kootenay	2.9021855965603724	\N	1.5098722415795587	3.7165749589728736	3.2179854529424725	1.3916500994035785	9.559613319011815	3.0747890417292796	2.6679681145274117	3.2186846386242154	25.406203840472674	3.081019399011031	2.143675339551628	2.454268292682927	3.154366826575541	1.3614602034709755	5.977011494252873	1.5704276395264556	30.27183953549749	69.72816046450251
-northeast	1.46900752418488	\N	1.29694154084398	2.172024326672459	1.0800088163985013	0.9443339960238568	2.9001074113856067	0.9883250491272686	0.6995282251504799	0.8598652103183826	12.924667651403249	2.1300874857360212	0.6218294878088693	0.9298780487804877	1.5048958401787473	1.5559545182525434	6.436781609195402	1.5945880647499397	31.239484015703873	68.76051598429613
-mainland_southwest	61.35196464827422	36.84210526315789	66.47309330236159	58.66396370306014	61.946219969142604	72.01789264413519	15.682062298603652	60.264709282163906	73.40165934602246	66.30257959563095	22.599704579025108	64.35907189045264	74.54590083456063	52.5609756097561	64.00078859170665	69.52423698384202	54.367816091954026	74.438270113554	15.694740867762988	84.30525913223701
-thompson_okanagan	11.059357458497551	5.263157894736842	9.020518776616338	14.653924123950187	9.907427815737272	10.984095427435388	15.252416756176155	12.888683389203559	8.91491784610379	11.81733674180804	19.79320531757755	12.057816660327122	7.331042382588775	8.948170731707316	10.166261418150754	10.846798324356673	18.39080459770115	10.123218168639768	22.404095760023075	77.59590423997692
-vancouver_island_coast	17.675862892631073	57.89473684210527	19.02826171118854	15.88956462979052	18.889133788847257	12.326043737574553	27.712137486573578	17.587562131545486	12.201073694485116	10.190564722286776	9.084194977843426	14.07379231647014	12.526591392570774	28.856707317073173	16.29756193730696	11.20586475164572	8.735632183908045	8.576950954336796	15.22930194805195	84.77069805194806
-north_coast_nechako	2.13782395796011	\N	0.7162214479287651	1.6700453711748238	1.730218205862905	0.4348906560636183	9.66702470461869	1.4218009478672986	0.569383439075972	2.1845224262142695	3.5450516986706058	1.3122860403195131	0.9818360333824251	2.317073170731707	1.6100414010645987	2.797725912627169	0.11494252873563218	1.087219135056777	24.91280518186348	75.08719481813652
+british_columbia	\N	\N	\N	\N	\N	\N	\N	\N	\N	\N	\N	\N	\N	\N	\N	\N	\N	\N	17.5	81.9
+cariboo	1.9	3.1	2.5	3.1	2.9	1.6	19.6	3.7	1.3	5.2	9.4	1.6	3.2	3.4	2.9	3.3	0.9	3.8	26.7	72.1
+kootenay	3.1	1.8	2.6	2.8	3.3	1.9	9.3	3.5	1.9	3	23.9	1.7	2.3	3	2.7	1.6	6.8	1.3	26.4	71.8
+northeast	1.4	0.5	0.7	1.8	1.1	0.6	4.4	0.9	0.6	0.8	15.5	0.6	0.8	1.7	1.5	2	3.4	1.2	31.5	67.5
+mainland_southwest	63.4	49.8	62.8	59.8	65	73.6	12	59.8	74.3	65.1	22.6	74.8	53.6	64.4	63.5	72	59.2	71.8	15.7	83.8
+thompson_okanagan	12	25.6	13.2	14.3	10.2	8.5	13.8	11.1	7.8	12.6	15	7.9	9.2	10.9	11.7	7	18.1	10.8	23.3	75.8
+vancouver_island_coast	17.1	18.6	17.2	16.6	15.7	13.1	27.2	19.5	13.3	11.1	9.2	12.8	29.5	14.8	16.1	10.6	8.5	9.8	15.9	83.7
+north_coast_nechako	1	0.6	1.1	1.6	1.8	0.8	13.8	1.6	0.8	2.2	4.4	0.6	1.4	1.8	1.4	3.5	3.1	1.4	25.8	73.4
 \.
 
 
@@ -6342,14 +6475,14 @@ north_coast_nechako	2.13782395796011	\N	0.7162214479287651	1.6700453711748238	1.
 --
 
 COPY public.labour_force_survey_regional_industry_region (region, accommodation_food_services, accommodation_food_services_num, agriculture_fishing, agriculture_fishing_num, business_building_other_support_services, business_building_other_support_services_num, construction, construction_num, educational_services, educational_services_num, finance_insurance_real_estate, finance_insurance_real_estate_num, forestry_logging_support_activities, forestry_logging_support_activities_num, health_care_social_assistance, health_care_social_assistance_num, information_culture_recreation, information_culture_recreation_num, manufacturing, manufacturing_num, mining_oil_gas_extraction, mining_oil_gas_extraction_num, other_private_services, other_private_services_num, professional_scientific_technical_services, professional_scientific_technical_services_num, public_administration, public_administration_num, retail_trade, retail_trade_num, transportation_warehousing, transportation_warehousing_num, utilities, utilities_num, wholesale_trade, wholesale_trade_num) FROM stdin;
-british_columbia	6.56844978936716	174400	\N	\N	4.052622908380598	107600	8.126426772728342	215800	7.11837016466232	189000	6.313493837910773	167700	0.7303507409412189	19400	13.5730703756874	360500	4.8221976418535695	128100	6.751233594565123	179300	1.0621857177598393	28200	4.124795054639022	109500	9.587912734461415	254600	5.146187820165839	136700	11.93742988711335	317000	5.243463321644583	139300	0.6824974700524817	18100	3.246962101778416	86200
-cariboo	6.850961538461539	5900	\N	\N	2.4278846153846154	2100	8.052884615384617	7000	7.043269230769231	6100	3.6778846153846154	3200	4.302884615384615	3700	15.697115384615385	13600	2.283653846153846	2000	11.225961538461538	9700	2.1634615384615383	1900	3.7740384615384612	3300	5.4326923076923075	4700	6.201923076923077	5400	11.947115384615385	10400	4.350961538461538	3800	1.25	1100	2.5961538461538463	2300
-kootenay	6.377952755905512	5100	\N	\N	2.047244094488189	1600	10.104986876640421	8000	7.664041994750656	6100	2.9396325459317585	2300	2.335958005249344	1900	13.963254593175852	11100	4.304461942257218	3400	7.270341207349082	5800	9.028871391076116	7200	4.251968503937007	3400	6.876640419947506	5500	4.225721784776903	3400	12.598425196850393	10000	2.388451443569554	1900	1.3648293963254594	1100	1.7060367454068242	1400
-northeast	6.803097345132743	2600	\N	\N	3.7057522123893807	1400	12.444690265486726	4700	5.420353982300885	2000	4.20353982300885	1600	1.4933628318584071	600	9.45796460176991	3600	2.3783185840707963	900	4.092920353982301	1500	9.679203539823009	3600	6.1946902654867255	2300	4.20353982300885	1600	3.3738938053097343	1300	12.665929203539822	4800	5.752212389380531	2200	3.0973451327433628	1200	3.650442477876106	1400
-mainland_southwest	6.29064057506031	107000	\N	\N	4.2051897478600555	71500	7.441740855487931	126600	6.883334762003894	117100	7.097635346126058	120800	0.17878791589620505	3000	12.768641089381713	217200	5.525281346052583	94000	6.987423617148945	118900	0.3747198785221832	6400	4.143961009539438	70500	11.157100696783044	189800	4.222333794589829	71800	11.926133650090007	202900	5.690598939518252	96800	0.5792238645130479	9900	3.7729148553164915	64200
-thompson_okanagan	6.599672154515003	19300	\N	\N	3.3212173045399473	9700	10.818901004917683	31600	6.407241108972989	18700	6.3003349725607585	18400	1.0120447580357779	3000	15.893378946618203	46500	3.905637516926805	11400	7.248236048749199	21200	1.9100563038985103	5600	4.518566032356923	13200	6.385859881690542	18700	4.183593471598603	12200	11.025586201981326	32200	5.16712992659112	15100	1.140332121730454	3300	2.986244743781626	8700
-vancouver_island_coast	7.427481682224229	30800	0.11040851149252233	500	4.933253036234066	20500	8.260564087122352	34300	8.60182675900833	35700	4.978420154571916	20700	1.2947907256850346	5400	15.27150456689752	63400	3.7639265281541703	15600	4.401284753588277	18300	0.6172839506172839	2600	3.7137408411121147	15400	7.683428686138713	31900	9.500150557061126	39400	12.44605038642979	51700	3.758907959449965	15600	0.3814112215196226	1600	1.781591889992974	7400
-north_coast_nechako	8.618199325950892	3700	\N	\N	1.7814155031295138	800	8.329321136254213	3600	7.558979297063072	3300	1.685122773230621	700	4.333172845450169	1900	11.844005777563794	5100	1.685122773230621	700	9.051516610495907	3900	2.311025517573423	1000	3.322099181511796	1400	5.777563793933558	2500	7.31824747231584	3200	11.795859412614346	5100	9.003370245546462	3900	0.04814636494944632	0	2.1665864227250844	900
+british_columbia	7	193479	0.9	25604	3.1	86479	8.4	234792	7.8	218062	6.2	173562	0.5	13729	13.4	372812	4.9	136875	6.2	171854	1	29146	10	278833	5.1	143292	4	110229	12.4	344500	5.1	141646	0.6	16146	3.3	92479
+cariboo	4.4	3708	0.9	792	2.5	2146	8.8	7396	7.6	6375	3.3	2771	3.2	2688	16.2	13646	2.1	1792	10.7	8979	3.2	2729	5.2	4396	5.4	4542	4.5	3771	12	10146	5.6	4708	0.2	146	4.1	3479
+kootenay	7.4	5938	0.6	458	2.8	2208	8.3	6625	8.9	7167	4	3229	1.6	1271	16.3	13042	3.3	2667	6.4	5146	8.7	6979	6.1	4875	4.1	3312	4.1	3292	11.8	9438	2.9	2312	1.4	1104	1.5	1188
+northeast	7.5	2708	0.3	125	1.6	562	11.8	4250	6.9	2479	2.7	979	1.7	604	9	3229	2.3	833	3.9	1417	12.6	4521	4.5	1604	3.2	1167	5.3	1917	14.4	5167	7.7	2771	1.5	542	3.1	1125
+mainland_southwest	6.8	122729	0.7	12750	3	54292	7.8	140458	7.9	141708	7.1	127708	0.1	1646	12.4	222875	5.7	101646	6.2	111958	0.4	6583	11.6	208688	4.3	76812	3.9	70958	12.2	218896	5.7	101958	0.5	9562	3.7	66354
+thompson_okanagan	7.7	23271	2.2	6562	3.8	11417	11.1	33458	7.3	22167	4.9	14750	0.6	1896	13.7	41396	3.5	10667	7.2	21625	1.4	4375	7.3	21896	4.4	13146	4	12021	13.4	40312	3.3	9875	1	2917	3.3	10000
+vancouver_island_coast	7.5	33125	1.1	4771	3.4	14917	8.8	38896	7.8	34271	5.2	22792	0.8	3729	16.5	72833	4.1	18188	4.3	19021	0.6	2688	8.1	35688	9.6	42250	3.7	16292	12.6	55583	3.4	15021	0.3	1375	2.1	9062
+north_coast_nechako	4.6	2000	0.3	146	2.2	938	8.6	3708	9	3896	3.1	1333	4.4	1896	13.4	5792	2.5	1083	8.6	3708	2.9	1271	3.9	1688	4.8	2062	4.6	1979	11.5	4958	11.6	5000	1.2	500	2.9	1271
 \.
 
 
