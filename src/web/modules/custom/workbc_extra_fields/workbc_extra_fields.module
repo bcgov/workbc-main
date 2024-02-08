@@ -169,18 +169,22 @@ function ssotIndustryProfile($industry) {
 }
 
 function ssotCareerProfile($noc) {
+
   $data = array();
-  $data['wages'] = querySSoT('wages?noc=eq.' . $noc)[0];
-  $data['career_provincial'] = querySSoT('career_provincial?noc=eq.' . $noc)[0];
-  $data['career_regional'] = querySSoT('career_regional?noc=eq.' . $noc)[0];
-  $data['census'] = querySSoT('census?noc=eq.' . $noc)[0];
-  $data['education'] = querySSoT('education?noc=eq.' . $noc)[0];
-  $data['skills'] = querySSoT('skills?noc=eq.' . $noc);
-  $data['openings_careers'] = querySSoT('openings_careers?noc=eq.' . $noc)[0];
-  $data['high_opportunity_occupations'] = querySSoT('high_opportunity_occupations?noc=eq.' . $noc);
-  $data['occupational_interests'] = querySSoT('occupational_interests?noc=eq.' . $noc);
+  if (!empty(querySSoT('wages?noc=eq.' . $noc))) {
+    $data['wages'] = querySSoT('wages?noc=eq.' . $noc)[0];
+    $data['career_provincial'] = querySSoT('career_provincial?noc=eq.' . $noc)[0];
+    $data['career_regional'] = querySSoT('career_regional?noc=eq.' . $noc)[0];
+    $data['census'] = querySSoT('census?noc=eq.' . $noc)[0];
+    $data['education'] = querySSoT('education?noc=eq.' . $noc)[0];
+    $data['skills'] = querySSoT('skills?noc=eq.' . $noc);
+    $data['openings_careers'] = querySSoT('openings_careers?noc=eq.' . $noc)[0];
+    $data['high_opportunity_occupations'] = querySSoT('high_opportunity_occupations?noc=eq.' . $noc);
+    $data['occupational_interests'] = querySSoT('occupational_interests?noc=eq.' . $noc);
+  }
   $data['sources'] = ssotSources();
   $data['schema'] = ssotSchema();
+
   return $data;
 }
 

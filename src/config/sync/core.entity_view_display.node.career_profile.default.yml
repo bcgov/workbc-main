@@ -17,6 +17,7 @@ dependencies:
     - field.field.node.career_profile.field_introductions
     - field.field.node.career_profile.field_job_titles
     - field.field.node.career_profile.field_noc
+    - field.field.node.career_profile.field_noc_2016
     - field.field.node.career_profile.field_related_careers
     - field.field.node.career_profile.field_resources
     - field.field.node.career_profile.field_resources_reference
@@ -162,6 +163,16 @@ mode: default
 content:
   content_moderation_control:
     settings: {  }
+    third_party_settings: {  }
+    weight: 0
+    region: content
+  created:
+    type: timestamp
+    label: hidden
+    settings:
+      date_format: medium
+      custom_date_format: ''
+      timezone: ''
     third_party_settings: {  }
     weight: 0
     region: content
@@ -448,6 +459,14 @@ content:
     third_party_settings: {  }
     weight: 2
     region: content
+  field_noc_2016:
+    type: string
+    label: above
+    settings:
+      link_to_entity: false
+    third_party_settings: {  }
+    weight: 82
+    region: content
   field_related_careers:
     type: entity_reference_label
     label: hidden
@@ -483,6 +502,13 @@ content:
     settings: {  }
     third_party_settings: {  }
     weight: 1
+    region: content
+  uid:
+    type: author
+    label: hidden
+    settings: {  }
+    third_party_settings: {  }
+    weight: 0
     region: content
 hidden:
   extra_field_workbc_page_title: true

@@ -735,3 +735,236 @@ function workbc_custom_post_update_1677(&$sandbox = NULL) {
   $sandbox['#finished'] = empty($sandbox['media']) ? 1 : ($sandbox['count'] - count($sandbox['media'])) / $sandbox['count'];
   return t('[WR-1677] Delete non-current revisions for one media item.');
 }
+
+
+/**
+ * NOC 2021 data migration.
+ *
+ * As per ticket NOC-227.
+ */
+function workbc_custom_post_update_227_noc_migration(&$sandbox = NULL) {
+  if (!isset($sandbox['concordance'])) {
+    $sandbox['concordance'] = loadConcordance();
+    $sandbox['count'] = count($sandbox['concordance']);
+    $sandbox['last_noc'] = 0;
+    $sandbox['last_noc_2016'] = 0;
+    $sandbox['last_noc_nid'] = 0;
+    $sandbox['last_noc_type'] = "";
+    $sandbox['noc_map'] = [];
+    $sandbox['lookup'] = [];
+
+    // create lookup map for checking if creating a split is necessary.  
+    // no split required if an existing career profile will be updated to this 
+    // NOC 2021 number later in the migration
+    foreach ($sandbox['concordance'] as $key => $noc) {
+      if ($noc[0] <> "0000" && !empty($noc[3])) {
+        $sandbox['lookup'][$noc[3]] = $noc[0];
+      }
+    }
+  }
+
+  $langcode = \Drupal::languageManager()->getCurrentLanguage()->getId();
+
+  $message = "No action taken.";
+  $noc = array_shift($sandbox['concordance']);
+  if (!empty($noc)) {
+
+    // split
+    if ($noc[0] ==  "0000") {
+      // assumes all split NOCs immediately follow the original NOC in concordance
+      // only create split if doesn't already exist or will be created later in the migration
+      if (!isset($sandbox['noc_map'][$noc[3]]) && !array_key_exists($noc[3], $sandbox['lookup'])) {
+        // load source node
+        $node = \Drupal::entityTypeManager()->getStorage('node')->load($sandbox['last_noc_nid']);
+
+        // clone node and update
+        $split = $node->createDuplicate();
+        $split->field_noc = $noc[3];
+        $split->title = $noc[4];
+        $split->created = time();
+        $split->setPublished(TRUE);
+        $split->set('moderation_state', 'published');
+        $split->save();
+
+        $sandbox['noc_map'][$split->field_noc->value] = ['noc2016' => $split->field_noc_2016->value, 'nid' => $split->id()];
+
+        if ($sandbox['last_noc_type'] == "merge") {
+          $message = "NOC 2021 data migration: Split after Merge " . $node->field_noc_2016->value . " -> " . $split->field_noc->value;
+        }
+        else {
+          $message = "NOC 2021 data migration: Split " . $node->field_noc_2016->value . " -> " . $split->field_noc->value;
+        }
+      }
+      else {
+        if (isset($sandbox['noc_map'][$noc[3]])) {
+          $message = "NOC 2021 data migration: Split already exists " . $sandbox['last_noc_2016'] . " -> " . $noc[3];
+        }
+        else {
+          $message = "NOC 2021 data migration: Split not required " . $sandbox['last_noc_2016'] . " -> " . $noc[3];
+        }
+      }
+    }
+    else {
+      $connection = \Drupal::database();
+      $query = $connection->select('node__field_noc');
+      $query->condition('node__field_noc.bundle', 'career_profile');
+      $query->condition('node__field_noc.field_noc_value', $noc[0]);
+      $query->addField('node__field_noc', 'entity_id');
+      $query->addField('node__field_noc', 'field_noc_value');
+      $record = $query->execute()->fetchObject();
+
+      $node = \Drupal::entityTypeManager()->getStorage('node')->load($record->entity_id);
+
+      $node->field_noc_2016 = $node->field_noc;
+      $node->field_noc = $noc[3];
+
+      // if record for NOC 2021 already exists merge
+      if (isset($sandbox['noc_map'][$noc[3]])) {
+        $node->setPublished(FALSE);
+        $node->set('moderation_state', 'archived');
+        $node->title = "[ARCHIVED] " . $node->title->value;
+        
+        $message = "NOC 2021 data migration: Merge " . $node->field_noc_2016->value . " -> " . $node->field_noc->value;
+        $sandbox['last_noc_type'] = "merge";
+
+        // save old path alias
+        $old_path = \Drupal::service('path_alias.manager')->getAliasByPath('/node/' . $node->id(), $langcode);
+        $node->save();
+
+        $old_path = ltrim($old_path, '/');
+        // redirect to NOC profile this NOC is merging with
+        Redirect::create([
+          'redirect_source' => $old_path,
+          'redirect_redirect' => 'internal:/node/'. $sandbox['noc_map'][$noc[3]]['nid'],
+          'language' => 'und',
+          'status_code' => '301',
+        ])->save();
+
+      }
+      // else update
+      else {
+        $node->title = $noc[4];
+
+        $sandbox['noc_map'][$node->field_noc->value] = ['noc2016' => $node->field_noc_2016->value, 'nid' => $node->id()];
+        $sandbox['last_noc_type'] = "update";
+
+        $message = "NOC 2021 data migration: Update " . $node->field_noc_2016->value . " -> " . $node->field_noc->value;
+      
+        // save old path alias
+        $old_path = \Drupal::service('path_alias.manager')->getAliasByPath('/node/' . $node->id(), $langcode);
+        $node->save();
+        // get new path alias
+        $new_path = \Drupal::service('path_alias.manager')->getAliasByPath('/node/' . $node->id(), $langcode);
+        //create redirect if different
+        if ($new_path <> $old_path) {
+          $old_path = ltrim($old_path, '/');
+          Redirect::create([
+            'redirect_source' => $old_path,
+            'redirect_redirect' => 'internal:/node/'.$node->id(),
+            'language' => 'und',
+            'status_code' => '301',
+          ])->save();
+        }
+      }
+
+      // save noc and nid in case needed for split
+      $sandbox['last_noc'] = $noc[3];
+      $sandbox['last_noc_2016'] = $noc[0];
+      $sandbox['last_noc_nid'] = $node->id();
+    }
+  }
+
+  $sandbox['#finished'] = empty($sandbox['concordance']) ? 1 : ($sandbox['count'] - count($sandbox['concordance'])) / $sandbox['count'];
+  return t("[NOC-227] $message");
+}
+
+
+/**
+ * NOC 2021 taxonomy migration.
+ *
+ * As per ticket NOC-227.
+ */
+function workbc_custom_post_update_227_taxonomy_migration() {
+
+  $updates = array ();
+  $updates[] = array (
+    'old' => 'Judgment and decision-making',
+    'new' => 'Judgment and decision making',
+  );
+  $updates[] = array (
+    'old' => 'Numeracy',
+    'new' => 'Mathematics',
+  );
+  $updates[] = array (
+    'old' => 'Operation monitoring',
+    'new' => 'Operations monitoring',
+  );
+
+  foreach ($updates as $update) {
+    $terms = \Drupal::entityTypeManager()
+    ->getStorage('taxonomy_term')
+    ->loadByProperties(['name' => $update['old'], 'vid' => 'skills']);
+    $term = $terms[array_key_first($terms)];
+    if ($term) {
+      $term->name = $update['new'];
+      $term->save();
+    }
+  }
+
+  $updates = array();
+  $updates[] = array(
+    'old' => 'Apprenticeship Certificate',
+    'teer' => '0',
+    'description' => 'Management responsibilities'
+  );
+  $updates[] = array(
+    'old' => 'Degree',
+    'teer' => '1',
+    'description' => "Completion of a university degree (bachelor's, master's, or doctorate); or Previous experience and expertise in subject matter knowledge from a related occupation found in TEER category 2 (when applicable).",
+  );
+  $updates[] = array(
+    'old' => 'Diploma/Certificate Excluding Apprenticeship',
+    'teer' => '2',
+    'description' => "Completion of a post-secondary education program of two to three years at community college, institute of technology, or CÉGEP; or Completion of an apprenticeship training program of two to five years; or Occupations with supervisory or significant safety (e.g. police officers and firefighters) responsibilities; or Several years of experience in a related occupation from TEER category 3 (when applicable).",
+  );
+  $updates[] = array(
+    'old' => 'High School',
+    'teer' => '3',
+    'description' => "Completion of a post-secondary education program of less than two years at community college, institute of technology or CÉGEP; or Completion of an apprenticeship training program of less than two years; or More than six months of on-the-job training, training courses or specific work experience with some secondary school education; or Several years of experience in a related occupation from TEER category 4 (when applicable).",
+  );
+  $updates[] = array(
+    'old' => 'Less than High School',
+    'teer' => '4',
+    'description' => "Completion of secondary school; or Several weeks of on-the-job training with some secondary school education; or Experience in a related occupation from TEER category 5 (when applicable).",
+  );
+  $updates[] = array(
+    'old' => '',
+    'teer' => '5',
+    'description' => "Short work demonstration and no formal educational requirements",
+  );
+
+  foreach ($updates as $update) {
+    if (!empty($update['old'])) {
+      $terms = \Drupal::entityTypeManager()
+      ->getStorage('taxonomy_term')
+      ->loadByProperties(['name' => $update['old'], 'vid' => 'education']);
+      $term = $terms[array_key_first($terms)];
+      if ($term) {
+        $term->name = "TEER " . $update['teer'];
+        $term->field_teer = $update['teer'];
+        $term->description = $update['description'];
+        $term->save();
+      }
+    }
+    else {
+      // create new term
+      $term = \Drupal\taxonomy\Entity\Term::create([
+        'name' => 'TEER ' . $update['teer'],
+        'vid' => 'education',
+        'description' => $update['description'],
+        'field_teer' => $update['teer'],
+      ])->save();
+    }
+  }
+  return t('[NOC-227] NOC 2021 taxonomy migration.');
+}

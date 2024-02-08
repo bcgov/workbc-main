@@ -57,14 +57,18 @@ class CareerProfileSkills extends ExtraFieldDisplayFormattedBase {
         $filteredSkills
       );
       $limitedSkills = array_slice($filteredSkills, 0, 10);
-
       $output = "";
       foreach ($limitedSkills as $skill) {
-
         $terms = \Drupal::entityTypeManager()
               ->getStorage('taxonomy_term')
               ->loadByProperties(['name' => $skill['skills_competencies'], 'vid' => 'skills']);
         $term = $terms[array_key_first($terms)];
+        if (!$term) {
+          $message = 'Taxonomy Skills term "%term" is missing.';
+          $values = array('%term' => $skill['skills_competencies']);
+          \Drupal::logger('workbc_extra_fields')->notice($message, $values);
+          continue;
+        }
         $image = "";
         if (!$term->get('field_image')->isEmpty()) {
           $imageUri = isset($term->get('field_image')->entity) ? $term->get('field_image')->entity->getFileUri() : null;
