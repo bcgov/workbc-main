@@ -8019,181 +8019,76 @@ north_coast_nechako	73310	Railway and yard locomotive engineers	260
 --
 
 COPY public.skills (noc, skills_competencies, importance, importance_description, proficiency, proficiency_description) FROM stdin;
-00011	Critical Thinking	81.25	Extremely important	63.3571428571429	Medium proficiency
-00011	Complex Problem Solving	79.75	Very important	65.1428571428571	Medium proficiency
-00011	Judgment and Decision Making	79.75	Very important	69.6428571428571	High proficiency
-00011	Speaking	79.75	Very important	64.2857142857143	Medium proficiency
-00011	Social Perceptiveness	76.625	Very important	58.0714285714286	Medium proficiency
-00011	Active Listening	76.5	Very important	63.4285714285714	Medium proficiency
-00011	Reading Comprehension	76.5	Very important	64.2857142857143	Medium proficiency
-00011	Writing	76.5	Very important	61.6428571428571	Medium proficiency
-00011	Coordination	75	Very important	64.2857142857143	Medium proficiency
-00011	Persuasion	75	Very important	64.2857142857143	Medium proficiency
-00011	Systems Analysis	75	Very important	67	High proficiency
-00011	Systems Evaluation	75	Very important	65.1428571428571	Medium proficiency
-00011	Monitoring	73.375	Very important	67.8571428571429	High proficiency
-00011	Active Learning	71.875	Very important	61.6428571428571	Medium proficiency
-00011	Time Management	67.25	Very important	61.6428571428571	Medium proficiency
-00011	Management of Personnel Resources	67.125	Very important	67	High proficiency
-00011	Negotiation	65.5	Very important	56.2142857142857	Medium proficiency
-00011	Management of Financial Resources	62.5	Very important	61.5714285714286	Medium proficiency
-00011	Learning Strategies	56.25	Important	54.5	Medium proficiency
-00011	Instructing	54.625	Important	51.8571428571429	Medium proficiency
-00011	Service Orientation	54.625	Important	47.3571428571429	Medium proficiency
-00011	Management of Material Resources	51.625	Important	52.6428571428571	Medium proficiency
-00011	Mathematics	51.625	Important	48.1428571428572	Medium proficiency
-00011	Operations Analysis	50	Important	52.6428571428571	Medium proficiency
-00011	Science	25	Less important	21.4285714285714	Basic proficiency
-00011	Operations Monitoring	23.5	Less important	25	Basic proficiency
-00011	Operation and Control	21.875	Less important	17.8571428571429	Basic proficiency
-00011	Quality Control Analysis	20.375	Less important	17.8571428571429	Basic proficiency
-00011	Technology Design	20.375	Less important	13.3571428571429	Basic proficiency
-00011	Programming	18.75	Less important	12.4285714285714	Basic proficiency
-00011	Equipment Selection	3	Less important	6.21428571428571	Basic proficiency
-00011	Equipment Maintenance	0	Not required	0	Not required
-00011	Installation	0	Not required	0	Not required
-00011	Repairing	0	Not required	0	Not required
-00011	Troubleshooting	0	Not required	0	Not required
-00012	Critical Thinking	81.25	Extremely important	63.3571428571429	Medium proficiency
-00012	Complex Problem Solving	79.75	Very important	65.1428571428571	Medium proficiency
-00012	Judgment and Decision Making	79.75	Very important	69.6428571428571	High proficiency
-00012	Speaking	79.75	Very important	64.2857142857143	Medium proficiency
-00012	Social Perceptiveness	76.625	Very important	58.0714285714286	Medium proficiency
-00012	Active Listening	76.5	Very important	63.4285714285714	Medium proficiency
-00012	Reading Comprehension	76.5	Very important	64.2857142857143	Medium proficiency
-00012	Writing	76.5	Very important	61.6428571428571	Medium proficiency
-00012	Coordination	75	Very important	64.2857142857143	Medium proficiency
-00012	Persuasion	75	Very important	64.2857142857143	Medium proficiency
-00012	Systems Analysis	75	Very important	67	High proficiency
-00012	Systems Evaluation	75	Very important	65.1428571428571	Medium proficiency
-00012	Monitoring	73.375	Very important	67.8571428571429	High proficiency
-00012	Active Learning	71.875	Very important	61.6428571428571	Medium proficiency
-00012	Time Management	67.25	Very important	61.6428571428571	Medium proficiency
-00012	Management of Personnel Resources	67.125	Very important	67	High proficiency
-00012	Negotiation	65.5	Very important	56.2142857142857	Medium proficiency
-00012	Management of Financial Resources	62.5	Very important	61.5714285714286	Medium proficiency
-00012	Learning Strategies	56.25	Important	54.5	Medium proficiency
-00012	Instructing	54.625	Important	51.8571428571429	Medium proficiency
-00012	Service Orientation	54.625	Important	47.3571428571429	Medium proficiency
-00012	Management of Material Resources	51.625	Important	52.6428571428571	Medium proficiency
-00012	Mathematics	51.625	Important	48.1428571428572	Medium proficiency
-00012	Operations Analysis	50	Important	52.6428571428571	Medium proficiency
-00012	Science	25	Less important	21.4285714285714	Basic proficiency
-00012	Operations Monitoring	23.5	Less important	25	Basic proficiency
-00012	Operation and Control	21.875	Less important	17.8571428571429	Basic proficiency
-00012	Quality Control Analysis	20.375	Less important	17.8571428571429	Basic proficiency
-00012	Technology Design	20.375	Less important	13.3571428571429	Basic proficiency
-00012	Programming	18.75	Less important	12.4285714285714	Basic proficiency
-00012	Equipment Selection	3	Less important	6.21428571428571	Basic proficiency
-00012	Equipment Maintenance	0	Not required	0	Not required
-00012	Installation	0	Not required	0	Not required
-00012	Repairing	0	Not required	0	Not required
-00012	Troubleshooting	0	Not required	0	Not required
-00013	Critical Thinking	78.125	Very important	60.6785714285714	Medium proficiency
-00013	Speaking	78.125	Very important	60.7142857142857	Medium proficiency
-00013	Social Perceptiveness	75.8125	Very important	57.6071428571429	Medium proficiency
-00013	Active Listening	75.75	Very important	60.7142857142857	Medium proficiency
-00013	Reading Comprehension	75	Very important	61.1428571428572	Medium proficiency
-00013	Complex Problem Solving	74.25	Very important	58.4642857142857	Medium proficiency
-00013	Coordination	74.25	Very important	60.7142857142857	Medium proficiency
-00013	Judgment and Decision Making	74.25	Very important	62.5	Medium proficiency
-00013	Monitoring	74.1875	Very important	62.9285714285714	Medium proficiency
-00013	Writing	71.0625	Very important	58.9642857142857	Medium proficiency
-00013	Persuasion	70.375	Very important	58.9285714285714	Medium proficiency
-00013	Active Learning	69.5625	Very important	57.6071428571429	Medium proficiency
-00013	Time Management	69.5625	Very important	58.5	Medium proficiency
-00013	Management of Personnel Resources	67.9375	Very important	62.0714285714286	Medium proficiency
-00013	Systems Evaluation	67.1875	Very important	57.5714285714286	Medium proficiency
-00013	Negotiation	67.125	Very important	53.5357142857143	Medium proficiency
-00013	Systems Analysis	66.375	Very important	56.2857142857143	Medium proficiency
-00013	Instructing	58.5625	Important	51.3928571428571	Medium proficiency
-00013	Management of Financial Resources	58.5625	Important	55.7857142857143	Medium proficiency
-00013	Service Orientation	58.5625	Important	48.2142857142857	Medium proficiency
-00013	Learning Strategies	54.6875	Important	52.7142857142857	Medium proficiency
-00013	Management of Material Resources	53.9375	Important	50.8571428571429	Medium proficiency
-00013	Operations Analysis	52.3125	Important	51.3214285714286	Medium proficiency
-00013	Mathematics	45.375	Important	43.7142857142857	Medium proficiency
-00013	Operations Monitoring	28.9375	Less important	28.5714285714286	Basic proficiency
-00013	Science	27.375	Less important	23.6428571428571	Basic proficiency
-00013	Quality Control Analysis	25.8125	Less important	22.2857142857143	Basic proficiency
-00013	Technology Design	21.9375	Less important	14.6785714285714	Basic proficiency
-00013	Programming	18.75	Less important	13.3571428571429	Basic proficiency
-00013	Operation and Control	17.1875	Less important	15.1785714285714	Basic proficiency
-00013	Troubleshooting	10.125	Less important	7.14285714285714	Basic proficiency
-00013	Equipment Selection	1.5	Less important	3.10714285714286	Basic proficiency
-00013	Equipment Maintenance	0	Not required	0	Not required
-00013	Installation	0	Not required	0	Not required
-00013	Repairing	0	Not required	0	Not required
-00014	Critical Thinking	78.1666666666667	Very important	61.2857142857143	Medium proficiency
-00014	Speaking	78.1666666666667	Very important	61.9047619047619	Medium proficiency
-00014	Social Perceptiveness	76.0833333333333	Very important	57.7619047619048	Medium proficiency
-00014	Active Listening	76	Very important	61.3333333333333	Medium proficiency
-00014	Coordination	75	Very important	61.3333333333333	Medium proficiency
-00014	Reading Comprehension	75	Very important	61.9047619047619	Medium proficiency
-00014	Complex Problem Solving	74	Very important	61.2857142857143	Medium proficiency
-00014	Judgment and Decision Making	74	Very important	64.2857142857143	Medium proficiency
-00014	Monitoring	73.9166666666667	Very important	64.2857142857143	Medium proficiency
-00014	Persuasion	69.8333333333333	Very important	59.5238095238095	Medium proficiency
-00014	Writing	69.75	Very important	59.5714285714286	Medium proficiency
-00014	Active Learning	68.75	Very important	58.3333333333333	Medium proficiency
-00014	Time Management	67.75	Very important	58.952380952381	Medium proficiency
-00014	Systems Analysis	66.6666666666667	Very important	58.952380952381	Medium proficiency
-00014	Systems Evaluation	66.6666666666667	Very important	58.2857142857143	Medium proficiency
-00014	Management of Personnel Resources	65.5833333333333	Very important	63.1428571428572	Medium proficiency
-00014	Negotiation	65.5	Very important	54.7142857142857	Medium proficiency
-00014	Management of Financial Resources	59.3333333333334	Important	57.1428571428571	Medium proficiency
-00014	Service Orientation	55.1666666666667	Important	46.4285714285714	Medium proficiency
-00014	Learning Strategies	54.1666666666667	Important	51.8095238095238	Medium proficiency
-00014	Instructing	54.0833333333334	Important	50.0476190476191	Medium proficiency
-00014	Management of Material Resources	53.1666666666666	Important	50.5714285714286	Medium proficiency
-00014	Operations Analysis	47.9166666666667	Important	49.952380952381	Medium proficiency
-00014	Mathematics	45.9166666666667	Important	44	Medium proficiency
-00014	Operations Monitoring	30.25	Less important	29.1428571428571	Basic proficiency
-00014	Quality Control Analysis	25.0833333333333	Less important	22	Basic proficiency
-00014	Science	24	Less important	19.6190476190476	Basic proficiency
-00014	Operation and Control	22.9166666666667	Less important	20.2380952380952	Basic proficiency
-00014	Technology Design	20.9166666666667	Less important	14.2380952380952	Basic proficiency
-00014	Programming	16.6666666666667	Less important	11.2380952380952	Basic proficiency
-00014	Troubleshooting	8.33333333333333	Less important	6.57142857142857	Basic proficiency
-00014	Equipment Selection	2	Less important	4.14285714285714	Basic proficiency
-00014	Equipment Maintenance	0	Not required	0	Not required
-00014	Installation	0	Not required	0	Not required
-00014	Repairing	0	Not required	0	Not required
-00015	Critical Thinking	81.25	Extremely important	63.3571428571429	Medium proficiency
-00015	Complex Problem Solving	79.75	Very important	65.1428571428571	Medium proficiency
-00015	Judgment and Decision Making	79.75	Very important	69.6428571428571	High proficiency
-00015	Speaking	79.75	Very important	64.2857142857143	Medium proficiency
-00015	Social Perceptiveness	76.625	Very important	58.0714285714286	Medium proficiency
-00015	Active Listening	76.5	Very important	63.4285714285714	Medium proficiency
-00015	Reading Comprehension	76.5	Very important	64.2857142857143	Medium proficiency
-00015	Writing	76.5	Very important	61.6428571428571	Medium proficiency
-00015	Coordination	75	Very important	64.2857142857143	Medium proficiency
-00015	Persuasion	75	Very important	64.2857142857143	Medium proficiency
-00015	Systems Analysis	75	Very important	67	High proficiency
-00015	Systems Evaluation	75	Very important	65.1428571428571	Medium proficiency
-00015	Monitoring	73.375	Very important	67.8571428571429	High proficiency
-00015	Active Learning	71.875	Very important	61.6428571428571	Medium proficiency
-00015	Time Management	67.25	Very important	61.6428571428571	Medium proficiency
-00015	Management of Personnel Resources	67.125	Very important	67	High proficiency
-00015	Negotiation	65.5	Very important	56.2142857142857	Medium proficiency
-00015	Management of Financial Resources	62.5	Very important	61.5714285714286	Medium proficiency
-00015	Learning Strategies	56.25	Important	54.5	Medium proficiency
-00015	Instructing	54.625	Important	51.8571428571429	Medium proficiency
-00015	Service Orientation	54.625	Important	47.3571428571429	Medium proficiency
-00015	Management of Material Resources	51.625	Important	52.6428571428571	Medium proficiency
-00015	Mathematics	51.625	Important	48.1428571428572	Medium proficiency
-00015	Operations Analysis	50	Important	52.6428571428571	Medium proficiency
-00015	Science	25	Less important	21.4285714285714	Basic proficiency
-00015	Operations Monitoring	23.5	Less important	25	Basic proficiency
-00015	Operation and Control	21.875	Less important	17.8571428571429	Basic proficiency
-00015	Quality Control Analysis	20.375	Less important	17.8571428571429	Basic proficiency
-00015	Technology Design	20.375	Less important	13.3571428571429	Basic proficiency
-00015	Programming	18.75	Less important	12.4285714285714	Basic proficiency
-00015	Equipment Selection	3	Less important	6.21428571428571	Basic proficiency
-00015	Equipment Maintenance	0	Not required	0	Not required
-00015	Installation	0	Not required	0	Not required
-00015	Repairing	0	Not required	0	Not required
-00015	Troubleshooting	0	Not required	0	Not required
+00010	Critical Thinking	\N	\N	\N	\N
+00010	Complex Problem Solving	\N	\N	\N	\N
+00010	Judgment and Decision Making	\N	\N	\N	\N
+00010	Speaking	\N	\N	\N	\N
+00010	Social Perceptiveness	\N	\N	\N	\N
+00010	Active Listening	\N	\N	\N	\N
+00010	Reading Comprehension	\N	\N	\N	\N
+00010	Writing	\N	\N	\N	\N
+00010	Coordination	\N	\N	\N	\N
+00010	Persuasion	\N	\N	\N	\N
+00010	Systems Analysis	\N	\N	\N	\N
+00010	Systems Evaluation	\N	\N	\N	\N
+00010	Monitoring	\N	\N	\N	\N
+00010	Active Learning	\N	\N	\N	\N
+00010	Time Management	\N	\N	\N	\N
+00010	Management of Personnel Resources	\N	\N	\N	\N
+00010	Negotiation	\N	\N	\N	\N
+00010	Management of Financial Resources	\N	\N	\N	\N
+00010	Learning Strategies	\N	\N	\N	\N
+00010	Instructing	\N	\N	\N	\N
+00010	Service Orientation	\N	\N	\N	\N
+00010	Management of Material Resources	\N	\N	\N	\N
+00010	Mathematics	\N	\N	\N	\N
+00010	Operations Analysis	\N	\N	\N	\N
+00010	Science	\N	\N	\N	\N
+00010	Operations Monitoring	\N	\N	\N	\N
+00010	Operation and Control	\N	\N	\N	\N
+00010	Quality Control Analysis	\N	\N	\N	\N
+00010	Technology Design	\N	\N	\N	\N
+00010	Programming	\N	\N	\N	\N
+00010	Equipment Selection	\N	\N	\N	\N
+00010	Equipment Maintenance	\N	\N	\N	\N
+00010	Installation	\N	\N	\N	\N
+00010	Repairing	\N	\N	\N	\N
+00010	Troubleshooting	\N	\N	\N	\N
+00018	Critical Thinking	\N	\N	\N	\N
+00018	Complex Problem Solving	\N	\N	\N	\N
+00018	Judgment and Decision Making	\N	\N	\N	\N
+00018	Speaking	\N	\N	\N	\N
+00018	Social Perceptiveness	\N	\N	\N	\N
+00018	Active Listening	\N	\N	\N	\N
+00018	Reading Comprehension	\N	\N	\N	\N
+00018	Writing	\N	\N	\N	\N
+00018	Coordination	\N	\N	\N	\N
+00018	Persuasion	\N	\N	\N	\N
+00018	Systems Analysis	\N	\N	\N	\N
+00018	Systems Evaluation	\N	\N	\N	\N
+00018	Monitoring	\N	\N	\N	\N
+00018	Active Learning	\N	\N	\N	\N
+00018	Time Management	\N	\N	\N	\N
+00018	Management of Personnel Resources	\N	\N	\N	\N
+00018	Negotiation	\N	\N	\N	\N
+00018	Management of Financial Resources	\N	\N	\N	\N
+00018	Learning Strategies	\N	\N	\N	\N
+00018	Instructing	\N	\N	\N	\N
+00018	Service Orientation	\N	\N	\N	\N
+00018	Management of Material Resources	\N	\N	\N	\N
+00018	Mathematics	\N	\N	\N	\N
+00018	Operations Analysis	\N	\N	\N	\N
+00018	Science	\N	\N	\N	\N
+00018	Operations Monitoring	\N	\N	\N	\N
+00018	Operation and Control	\N	\N	\N	\N
+00018	Quality Control Analysis	\N	\N	\N	\N
+00018	Technology Design	\N	\N	\N	\N
+00018	Programming	\N	\N	\N	\N
+00018	Equipment Selection	\N	\N	\N	\N
+00018	Equipment Maintenance	\N	\N	\N	\N
+00018	Installation	\N	\N	\N	\N
+00018	Repairing	\N	\N	\N	\N
+00018	Troubleshooting	\N	\N	\N	\N
 10010	Critical Thinking	76	Very important	61.9047619047619	Medium proficiency
 10010	Reading Comprehension	76	Very important	61.3333333333333	Medium proficiency
 10010	Active Listening	74	Very important	60.7142857142857	Medium proficiency
@@ -8323,7 +8218,6 @@ COPY public.skills (noc, skills_competencies, importance, importance_description
 10019	Mathematics	34.375	Less important	34.3571428571429	Medium proficiency
 10019	Operations Analysis	34.375	Less important	30.3928571428571	Basic proficiency
 10019	Management of Material Resources	32.8125	Less important	29	Basic proficiency
-11109	Systems Analysis	53.1	Important	47.8857142857143	Medium proficiency
 10019	Operations Monitoring	21.875	Less important	20.5357142857143	Basic proficiency
 10019	Quality Control Analysis	20.25	Less important	17.7857142857143	Basic proficiency
 10019	Technology Design	17.1875	Less important	12.5	Basic proficiency
@@ -8386,6 +8280,7 @@ COPY public.skills (noc, skills_competencies, importance, importance_description
 10021	Systems Evaluation	57.25	Important	53.5714285714286	Medium proficiency
 10021	Social Perceptiveness	56.1666666666667	Important	51.1904761904762	Medium proficiency
 10021	Systems Analysis	55.25	Important	53.5714285714286	Medium proficiency
+22312	Coordination	\N	\N	\N	\N
 10021	Management of Personnel Resources	55.1666666666667	Important	53	Medium proficiency
 10021	Persuasion	54.1666666666667	Important	52.3809523809524	Medium proficiency
 10021	Service Orientation	52.0833333333333	Important	44.6190476190476	Medium proficiency
@@ -8475,7 +8370,6 @@ COPY public.skills (noc, skills_competencies, importance, importance_description
 10029	Equipment Maintenance	5.16666666666668	Less important	6.26190476190476	Basic proficiency
 10029	Repairing	4.66666666666668	Less important	5.95238095238095	Basic proficiency
 10029	Installation	0	Not required	0	Not required
-11109	Instructing	51.9	Important	45.7142857142857	Medium proficiency
 10030	Active Listening	75	Very important	57.1428571428571	Medium proficiency
 10030	Coordination	75	Very important	55.4285714285714	Medium proficiency
 10030	Monitoring	75	Very important	57.1428571428571	Medium proficiency
@@ -8546,6 +8440,41 @@ COPY public.skills (noc, skills_competencies, importance, importance_description
 11100	Equipment Maintenance	0	Not required	0	Not required
 11100	Installation	0	Not required	0	Not required
 11100	Repairing	0	Not required	0	Not required
+11101	Critical Thinking	\N	\N	\N	\N
+11101	Complex Problem Solving	\N	\N	\N	\N
+11101	Judgment and Decision Making	\N	\N	\N	\N
+11101	Speaking	\N	\N	\N	\N
+11101	Social Perceptiveness	\N	\N	\N	\N
+11101	Active Listening	\N	\N	\N	\N
+11101	Reading Comprehension	\N	\N	\N	\N
+11101	Writing	\N	\N	\N	\N
+11101	Coordination	\N	\N	\N	\N
+11101	Persuasion	\N	\N	\N	\N
+11101	Systems Analysis	\N	\N	\N	\N
+11101	Systems Evaluation	\N	\N	\N	\N
+11101	Monitoring	\N	\N	\N	\N
+11101	Active Learning	\N	\N	\N	\N
+11101	Time Management	\N	\N	\N	\N
+11101	Management of Personnel Resources	\N	\N	\N	\N
+11101	Negotiation	\N	\N	\N	\N
+11101	Management of Financial Resources	\N	\N	\N	\N
+11101	Learning Strategies	\N	\N	\N	\N
+11101	Instructing	\N	\N	\N	\N
+11101	Service Orientation	\N	\N	\N	\N
+11101	Management of Material Resources	\N	\N	\N	\N
+11101	Mathematics	\N	\N	\N	\N
+11101	Operations Analysis	\N	\N	\N	\N
+11101	Science	\N	\N	\N	\N
+11101	Operations Monitoring	\N	\N	\N	\N
+11101	Operation and Control	\N	\N	\N	\N
+11101	Quality Control Analysis	\N	\N	\N	\N
+11101	Technology Design	\N	\N	\N	\N
+11101	Programming	\N	\N	\N	\N
+11101	Equipment Selection	\N	\N	\N	\N
+11101	Equipment Maintenance	\N	\N	\N	\N
+11101	Installation	\N	\N	\N	\N
+11101	Repairing	\N	\N	\N	\N
+11101	Troubleshooting	\N	\N	\N	\N
 11102	Reading Comprehension	75	Very important	60	Medium proficiency
 11102	Critical Thinking	74.35	Very important	61.0285714285714	Medium proficiency
 11102	Active Listening	73.75	Very important	57.8285714285714	Medium proficiency
@@ -8630,6 +8559,8 @@ COPY public.skills (noc, skills_competencies, importance, importance_description
 11109	Monitoring	56.3	Important	48.8857142857143	Medium proficiency
 11109	Persuasion	54.4	Important	47.4857142857143	Medium proficiency
 11109	Time Management	54.35	Important	47.1142857142857	Medium proficiency
+11109	Systems Analysis	53.1	Important	47.8857142857143	Medium proficiency
+11109	Instructing	51.9	Important	45.7142857142857	Medium proficiency
 11109	Service Orientation	51.25	Important	45.7142857142857	Medium proficiency
 11109	Systems Evaluation	51.25	Important	47.1428571428571	Medium proficiency
 11109	Learning Strategies	50.05	Important	45	Medium proficiency
@@ -8748,6 +8679,7 @@ COPY public.skills (noc, skills_competencies, importance, importance_description
 11202	Operations Monitoring	20.28125	Less important	18.1071428571429	Basic proficiency
 11202	Quality Control Analysis	14.0625	Less important	11.8392857142857	Basic proficiency
 11202	Science	14.0625	Less important	11.6071428571429	Basic proficiency
+22312	Persuasion	\N	\N	\N	\N
 11202	Operation and Control	5.84375	Less important	5.125	Basic proficiency
 11202	Troubleshooting	0.750000000000001	Less important	0.892857142857143	Basic proficiency
 11202	Equipment Selection	0.374999999999998	Less important	0.214285714285714	Basic proficiency
@@ -8904,6 +8836,7 @@ COPY public.skills (noc, skills_competencies, importance, importance_description
 12100	Social Perceptiveness	56.25	Important	44.5714285714286	Medium proficiency
 12100	Time Management	56.25	Important	42.8571428571429	Medium proficiency
 12100	Active Learning	53	Important	44.5714285714286	Medium proficiency
+22312	Systems Analysis	\N	\N	\N	\N
 12100	Judgment and Decision Making	53	Important	41.1428571428571	Medium proficiency
 12100	Monitoring	53	Important	51.7142857142857	Medium proficiency
 12100	Negotiation	50	Important	37.4285714285714	Medium proficiency
@@ -8981,6 +8914,7 @@ COPY public.skills (noc, skills_competencies, importance, importance_description
 12102	Coordination	51.5	Important	44.5714285714286	Medium proficiency
 12102	Management of Personnel Resources	51.5	Important	42.8571428571429	Medium proficiency
 12102	Service Orientation	51.5	Important	41	Medium proficiency
+22312	Systems Evaluation	\N	\N	\N	\N
 12102	Management of Material Resources	50	Important	45.5	Medium proficiency
 12102	Mathematics	48.5	Important	42	Medium proficiency
 12102	Instructing	46.875	Important	43.7857142857143	Medium proficiency
@@ -9058,6 +8992,7 @@ COPY public.skills (noc, skills_competencies, importance, importance_description
 12104	Operations Monitoring	23.15	Less important	17.5142857142857	Basic proficiency
 12104	Management of Financial Resources	17.55	Less important	12.8571428571429	Basic proficiency
 12104	Operation and Control	15.05	Less important	12.8571428571429	Basic proficiency
+22312	Monitoring	\N	\N	\N	\N
 12104	Quality Control Analysis	14.95	Less important	11.7714285714286	Basic proficiency
 12104	Management of Material Resources	14.35	Less important	10.6857142857143	Basic proficiency
 12104	Programming	12.5	Less important	8.57142857142857	Basic proficiency
@@ -9091,7 +9026,6 @@ COPY public.skills (noc, skills_competencies, importance, importance_description
 12110	Negotiation	18.75	Less important	15.2142857142857	Basic proficiency
 12110	Operations Monitoring	17.25	Less important	16.9285714285714	Basic proficiency
 12110	Mathematics	17.125	Less important	11.5714285714286	Basic proficiency
-12201	Writing	67.125	Very important	50.9285714285714	Medium proficiency
 12110	Management of Personnel Resources	15.625	Less important	11.5714285714286	Basic proficiency
 12110	Operation and Control	10.875	Less important	10.7142857142857	Basic proficiency
 12110	Troubleshooting	9.375	Less important	5.35714285714286	Basic proficiency
@@ -9249,6 +9183,7 @@ COPY public.skills (noc, skills_competencies, importance, importance_description
 12201	Reading Comprehension	70.25	Very important	58	Medium proficiency
 12201	Active Listening	68.75	Very important	58.0714285714286	Medium proficiency
 12201	Critical Thinking	67.25	Very important	57.1428571428571	Medium proficiency
+12201	Writing	67.125	Very important	50.9285714285714	Medium proficiency
 12201	Judgment and Decision Making	60.875	Very important	49.0714285714286	Medium proficiency
 12201	Complex Problem Solving	54.75	Important	44.7142857142857	Medium proficiency
 12201	Social Perceptiveness	54.75	Important	45.5714285714286	Medium proficiency
@@ -9371,6 +9306,7 @@ COPY public.skills (noc, skills_competencies, importance, importance_description
 13100	Mathematics	43.75	Important	36.0571428571429	Medium proficiency
 13100	Systems Evaluation	43.1	Important	39.6	Medium proficiency
 13100	Management of Financial Resources	33.8	Less important	31.0857142857143	Basic proficiency
+22312	Active Learning	\N	\N	\N	\N
 13100	Management of Material Resources	33.15	Less important	27.5142857142857	Basic proficiency
 13100	Operations Analysis	31.25	Less important	31.0857142857143	Basic proficiency
 13100	Quality Control Analysis	28.1	Less important	25	Basic proficiency
@@ -9448,6 +9384,7 @@ COPY public.skills (noc, skills_competencies, importance, importance_description
 13102	Operations Analysis	6.25	Less important	5.42857142857143	Basic proficiency
 13102	Equipment Maintenance	0	Not required	0	Not required
 13102	Equipment Selection	0	Not required	0	Not required
+22312	Time Management	\N	\N	\N	\N
 13102	Installation	0	Not required	0	Not required
 13102	Management of Material Resources	0	Not required	0	Not required
 13102	Operation and Control	0	Not required	0	Not required
@@ -9527,6 +9464,7 @@ COPY public.skills (noc, skills_competencies, importance, importance_description
 13112	Active Listening	75	Very important	54.4285714285714	Medium proficiency
 13112	Reading Comprehension	68.75	Very important	50.8571428571429	Medium proficiency
 13112	Speaking	62.5	Very important	48.1428571428572	Medium proficiency
+22312	Management of Personnel Resources	\N	\N	\N	\N
 13112	Writing	62.5	Very important	47.2857142857143	Medium proficiency
 13112	Critical Thinking	51.5	Important	43.7142857142857	Medium proficiency
 13112	Monitoring	51.5	Important	41.1428571428571	Medium proficiency
@@ -9756,6 +9694,7 @@ COPY public.skills (noc, skills_competencies, importance, importance_description
 14103	Systems Evaluation	35.1875	Less important	34.8571428571429	Medium proficiency
 14103	Mathematics	29.75	Less important	29.8928571428571	Basic proficiency
 14103	Programming	15.625	Less important	10.2857142857143	Basic proficiency
+22312	Negotiation	\N	\N	\N	\N
 14103	Quality Control Analysis	14.8125	Less important	11.5714285714286	Basic proficiency
 14103	Technology Design	14.8125	Less important	11.1785714285714	Basic proficiency
 14103	Management of Financial Resources	14.0625	Less important	12.5	Basic proficiency
@@ -10140,6 +10079,7 @@ COPY public.skills (noc, skills_competencies, importance, importance_description
 14402	Service Orientation	40.5	Important	35.7142857142857	Medium proficiency
 14402	Management of Personnel Resources	37.5	Less important	34	Medium proficiency
 14402	Learning Strategies	34.5	Less important	30.2857142857143	Basic proficiency
+22312	Management of Financial Resources	\N	\N	\N	\N
 14402	Management of Financial Resources	31.25	Less important	30.2857142857143	Basic proficiency
 14402	Quality Control Analysis	31.25	Less important	26.8571428571429	Basic proficiency
 14402	Instructing	28	Less important	30.2857142857143	Basic proficiency
@@ -10217,6 +10157,7 @@ COPY public.skills (noc, skills_competencies, importance, importance_description
 14404	Management of Financial Resources	21.875	Less important	16.0714285714286	Basic proficiency
 14404	Technology Design	18.75	Less important	10.7142857142857	Basic proficiency
 14404	Troubleshooting	18.75	Less important	15.1428571428571	Basic proficiency
+22312	Learning Strategies	\N	\N	\N	\N
 14404	Programming	14.125	Less important	9	Basic proficiency
 14404	Operation and Control	10.875	Less important	8.07142857142857	Basic proficiency
 14404	Science	7.75	Less important	5.28571428571429	Basic proficiency
@@ -10751,6 +10692,7 @@ COPY public.skills (noc, skills_competencies, importance, importance_description
 21201	Repairing	0	Not required	0	Not required
 21202	Active Listening	78	Very important	62.5714285714286	Medium proficiency
 21202	Judgment and Decision Making	78	Very important	60.7142857142857	Medium proficiency
+22312	Instructing	\N	\N	\N	\N
 21202	Speaking	78	Very important	60.7142857142857	Medium proficiency
 21202	Critical Thinking	75	Very important	60.7142857142857	Medium proficiency
 21202	Reading Comprehension	75	Very important	62.5714285714286	Medium proficiency
@@ -10828,6 +10770,7 @@ COPY public.skills (noc, skills_competencies, importance, importance_description
 21210	Active Learning	69.6428571428572	Very important	62.7551020408163	Medium proficiency
 21210	Speaking	69.25	Very important	58.9183673469388	Medium proficiency
 21210	Writing	67	Very important	61	Medium proficiency
+22312	Service Orientation	\N	\N	\N	\N
 21210	Systems Analysis	61.6428571428572	Very important	54.8571428571429	Medium proficiency
 21210	Systems Evaluation	61.1428571428572	Very important	54.3469387755102	Medium proficiency
 21210	Science	60.2142857142857	Very important	55.0816326530612	Medium proficiency
@@ -11055,6 +10998,7 @@ COPY public.skills (noc, skills_competencies, importance, importance_description
 21230	Learning Strategies	34.5	Less important	37.4285714285714	Medium proficiency
 21230	Operations Monitoring	31.25	Less important	30.2857142857143	Basic proficiency
 21230	Service Orientation	31.25	Less important	41.1428571428571	Medium proficiency
+22312	Management of Material Resources	\N	\N	\N	\N
 21230	Troubleshooting	31.25	Less important	23.1428571428571	Basic proficiency
 21230	Negotiation	28	Less important	30.2857142857143	Basic proficiency
 21230	Management of Financial Resources	25	Less important	21.4285714285714	Basic proficiency
@@ -11088,7 +11032,6 @@ COPY public.skills (noc, skills_competencies, importance, importance_description
 21231	Management of Personnel Resources	47	Important	51.7142857142857	Medium proficiency
 21231	Persuasion	43.75	Important	50	Medium proficiency
 21231	Service Orientation	43.75	Important	41.1428571428571	Medium proficiency
-21321	Mathematics	56	Important	53.4047619047619	Medium proficiency
 21231	Operations Monitoring	40.5	Important	39.2857142857143	Medium proficiency
 21231	Management of Financial Resources	37.5	Less important	41.1428571428571	Medium proficiency
 21231	Negotiation	37.5	Less important	37.4285714285714	Medium proficiency
@@ -11391,6 +11334,7 @@ COPY public.skills (noc, skills_competencies, importance, importance_description
 21321	Systems Evaluation	62.2083333333333	Very important	55.3809523809524	Medium proficiency
 21321	Active Learning	61.9166666666667	Very important	57.1666666666667	Medium proficiency
 21321	Systems Analysis	60.9166666666667	Very important	55.0476190476191	Medium proficiency
+21321	Mathematics	56	Important	53.4047619047619	Medium proficiency
 21321	Time Management	53.9166666666667	Important	47.1904761904762	Medium proficiency
 21321	Science	53.875	Important	49.4285714285714	Medium proficiency
 21321	Social Perceptiveness	53.125	Important	45.9761904761905	Medium proficiency
@@ -11817,6 +11761,7 @@ COPY public.skills (noc, skills_competencies, importance, importance_description
 22113	Operations Monitoring	50	Important	37.4285714285714	Medium proficiency
 22113	Systems Evaluation	50	Important	46.4285714285714	Medium proficiency
 22113	Time Management	50	Important	42.8571428571429	Medium proficiency
+22312	Mathematics	\N	\N	\N	\N
 22113	Learning Strategies	47	Important	42.8571428571429	Medium proficiency
 22113	Negotiation	47	Important	41.1428571428571	Medium proficiency
 22113	Operation and Control	47	Important	41.1428571428571	Medium proficiency
@@ -11971,6 +11916,7 @@ COPY public.skills (noc, skills_competencies, importance, importance_description
 22212	Management of Financial Resources	23	Less important	17.8095238095238	Basic proficiency
 22212	Operation and Control	12	Less important	8.61904761904762	Basic proficiency
 22212	Equipment Selection	10.3333333333333	Less important	8.04761904761905	Basic proficiency
+22312	Operations Analysis	\N	\N	\N	\N
 22212	Equipment Maintenance	2.08333333333333	Less important	1.80952380952381	Basic proficiency
 22212	Installation	2.08333333333333	Less important	1.80952380952381	Basic proficiency
 22212	Repairing	1	Less important	1.19047619047619	Basic proficiency
@@ -12123,6 +12069,7 @@ COPY public.skills (noc, skills_competencies, importance, importance_description
 22222	Programming	65.5	Very important	53.5714285714286	Medium proficiency
 22222	Complex Problem Solving	59.5	Important	44.5714285714286	Medium proficiency
 22222	Quality Control Analysis	59.5	Important	51.7142857142857	Medium proficiency
+22312	Science	\N	\N	\N	\N
 22222	Systems Evaluation	56.25	Important	50	Medium proficiency
 22222	Active Learning	53	Important	44.5714285714286	Medium proficiency
 22222	Judgment and Decision Making	53	Important	51.7142857142857	Medium proficiency
@@ -12276,6 +12223,7 @@ COPY public.skills (noc, skills_competencies, importance, importance_description
 22233	Service Orientation	48.5	Important	40.2142857142857	Medium proficiency
 22233	Social Perceptiveness	48.5	Important	42	Medium proficiency
 22233	Operations Monitoring	46.875	Important	41.0714285714286	Medium proficiency
+22312	Operations Monitoring	\N	\N	\N	\N
 22233	Science	42.125	Important	34.8571428571429	Medium proficiency
 22233	Management of Personnel Resources	40.625	Important	38.4285714285714	Medium proficiency
 22233	Operations Analysis	37.5	Less important	37.5	Medium proficiency
@@ -12499,6 +12447,23 @@ COPY public.skills (noc, skills_competencies, importance, importance_description
 22311	Operations Analysis	20.6	Less important	19.4714285714286	Basic proficiency
 22311	Technology Design	20.375	Less important	18.4142857142857	Basic proficiency
 22311	Programming	17.475	Less important	12.5	Basic proficiency
+22312	Critical Thinking	\N	\N	\N	\N
+22312	Complex Problem Solving	\N	\N	\N	\N
+22312	Judgment and Decision Making	\N	\N	\N	\N
+22312	Speaking	\N	\N	\N	\N
+22312	Social Perceptiveness	\N	\N	\N	\N
+22312	Active Listening	\N	\N	\N	\N
+22312	Reading Comprehension	\N	\N	\N	\N
+22312	Writing	\N	\N	\N	\N
+22312	Operation and Control	\N	\N	\N	\N
+22312	Quality Control Analysis	\N	\N	\N	\N
+22312	Technology Design	\N	\N	\N	\N
+22312	Programming	\N	\N	\N	\N
+22312	Equipment Selection	\N	\N	\N	\N
+22312	Equipment Maintenance	\N	\N	\N	\N
+22312	Installation	\N	\N	\N	\N
+22312	Repairing	\N	\N	\N	\N
+22312	Troubleshooting	\N	\N	\N	\N
 22313	Equipment Maintenance	72	Very important	57.1428571428571	Medium proficiency
 22313	Repairing	72	Very important	57.1428571428571	Medium proficiency
 22313	Troubleshooting	72	Very important	57.1428571428571	Medium proficiency
@@ -12839,7 +12804,6 @@ COPY public.skills (noc, skills_competencies, importance, importance_description
 31120	Operations Analysis	43.75	Important	45.5	Medium proficiency
 31120	Operations Monitoring	37.5	Less important	33	Medium proficiency
 31120	Quality Control Analysis	35.875	Less important	37.5	Medium proficiency
-31200	Equipment Maintenance	0	Not required	0	Not required
 31120	Management of Material Resources	32.875	Less important	31.2142857142857	Basic proficiency
 31120	Management of Financial Resources	26.625	Less important	26.7857142857143	Basic proficiency
 31120	Programming	18.75	Less important	16	Basic proficiency
@@ -12917,6 +12881,7 @@ COPY public.skills (noc, skills_competencies, importance, importance_description
 31200	Equipment Selection	2	Less important	2.38095238095238	Basic proficiency
 31200	Operation and Control	1	Less important	1.19047619047619	Basic proficiency
 31200	Troubleshooting	1	Less important	0.571428571428571	Basic proficiency
+31200	Equipment Maintenance	0	Not required	0	Not required
 31200	Installation	0	Not required	0	Not required
 31200	Repairing	0	Not required	0	Not required
 31201	Active Listening	75	Very important	58.8571428571429	Medium proficiency
@@ -13258,6 +13223,7 @@ COPY public.skills (noc, skills_competencies, importance, importance_description
 32100	Systems Evaluation	37.5	Less important	34	Medium proficiency
 32100	Operation and Control	34.5	Less important	28.5714285714286	Basic proficiency
 32100	Equipment Selection	28	Less important	19.7142857142857	Basic proficiency
+43100	Management of Material Resources	\N	\N	\N	\N
 32100	Operations Analysis	28	Less important	26.8571428571429	Basic proficiency
 32100	Systems Analysis	28	Less important	32.1428571428571	Basic proficiency
 32100	Management of Material Resources	25	Less important	21.4285714285714	Basic proficiency
@@ -13335,6 +13301,7 @@ COPY public.skills (noc, skills_competencies, importance, importance_description
 32102	Systems Evaluation	22	Less important	25	Basic proficiency
 32102	Operations Analysis	18.75	Less important	17.8571428571429	Basic proficiency
 32102	Science	15.5	Less important	8.85714285714286	Basic proficiency
+43100	Mathematics	\N	\N	\N	\N
 32102	Management of Financial Resources	9.5	Less important	7.14285714285714	Basic proficiency
 32102	Technology Design	9.5	Less important	7.14285714285714	Basic proficiency
 32102	Programming	3	Less important	1.71428571428571	Basic proficiency
@@ -13486,6 +13453,7 @@ COPY public.skills (noc, skills_competencies, importance, importance_description
 32111	Service Orientation	53	Important	42.8571428571429	Medium proficiency
 32111	Social Perceptiveness	53	Important	42.8571428571429	Medium proficiency
 32111	Writing	53	Important	44.5714285714286	Medium proficiency
+43100	Operations Analysis	\N	\N	\N	\N
 32111	Active Learning	50	Important	42.8571428571429	Medium proficiency
 32111	Coordination	50	Important	42.8571428571429	Medium proficiency
 32111	Instructing	50	Important	42.8571428571429	Medium proficiency
@@ -13641,6 +13609,7 @@ COPY public.skills (noc, skills_competencies, importance, importance_description
 32122	Management of Personnel Resources	43.75	Important	35.7142857142857	Medium proficiency
 32122	Quality Control Analysis	43.75	Important	42.8571428571429	Medium proficiency
 32122	Equipment Maintenance	40.5	Important	37.4285714285714	Medium proficiency
+43100	Science	\N	\N	\N	\N
 32122	Negotiation	37.5	Less important	39.2857142857143	Medium proficiency
 32122	Systems Analysis	34.5	Less important	35.7142857142857	Medium proficiency
 32122	Equipment Selection	31.25	Less important	30.2857142857143	Basic proficiency
@@ -13717,6 +13686,7 @@ COPY public.skills (noc, skills_competencies, importance, importance_description
 32124	Operation and Control	28.125	Less important	26.0892857142857	Basic proficiency
 32124	Management of Material Resources	23.03125	Less important	23.1964285714286	Basic proficiency
 32124	Technology Design	22.6875	Less important	17.4285714285714	Basic proficiency
+32200	Repairing	0	Not required	0	Not required
 32124	Operations Analysis	20.65625	Less important	18.5178571428571	Basic proficiency
 32124	Management of Financial Resources	19.5	Less important	17.6428571428571	Basic proficiency
 32124	Repairing	15.25	Less important	12.0535714285714	Basic proficiency
@@ -13793,7 +13763,6 @@ COPY public.skills (noc, skills_competencies, importance, importance_description
 32200	Equipment Selection	6.85	Less important	4.97142857142857	Basic proficiency
 32200	Equipment Maintenance	0	Not required	0	Not required
 32200	Installation	0	Not required	0	Not required
-32200	Repairing	0	Not required	0	Not required
 32201	Active Listening	65.5	Very important	46.4285714285714	Medium proficiency
 32201	Speaking	65.5	Very important	51.7142857142857	Medium proficiency
 32201	Service Orientation	56.25	Important	44.5714285714286	Medium proficiency
@@ -13872,6 +13841,7 @@ COPY public.skills (noc, skills_competencies, importance, importance_description
 33100	Monitoring	51.5	Important	42.8571428571429	Medium proficiency
 33100	Complex Problem Solving	50	Important	41.1428571428571	Medium proficiency
 33100	Judgment and Decision Making	50	Important	38.3571428571429	Medium proficiency
+43100	Operations Monitoring	\N	\N	\N	\N
 33100	Social Perceptiveness	50	Important	39.2857142857143	Medium proficiency
 33100	Time Management	50	Important	40.1428571428571	Medium proficiency
 33100	Writing	48.5	Important	42	Medium proficiency
@@ -14024,6 +13994,7 @@ COPY public.skills (noc, skills_competencies, importance, importance_description
 33109	Systems Analysis	38.25	Less important	34.9375	Medium proficiency
 33109	Systems Evaluation	37.109375	Less important	34.7946428571429	Medium proficiency
 33109	Quality Control Analysis	36.921875	Less important	32.8125	Basic proficiency
+43100	Operation and Control	\N	\N	\N	\N
 33109	Negotiation	35.359375	Less important	32.5714285714286	Basic proficiency
 33109	Management of Personnel Resources	33.78125	Less important	32.125	Basic proficiency
 33109	Mathematics	33.5625	Less important	33.5892857142857	Medium proficiency
@@ -14100,6 +14071,7 @@ COPY public.skills (noc, skills_competencies, importance, importance_description
 40011	Mathematics	31.25	Less important	30.2857142857143	Basic proficiency
 40011	Operations Monitoring	31.25	Less important	32.1428571428571	Basic proficiency
 40011	Quality Control Analysis	31.25	Less important	30.2857142857143	Basic proficiency
+43100	Quality Control Analysis	\N	\N	\N	\N
 40011	Troubleshooting	22	Less important	17.8571428571429	Basic proficiency
 40011	Operation and Control	15.5	Less important	14.2857142857143	Basic proficiency
 40011	Technology Design	12.5	Less important	10.7142857142857	Basic proficiency
@@ -14144,7 +14116,6 @@ COPY public.skills (noc, skills_competencies, importance, importance_description
 40012	Installation	0	Not required	0	Not required
 40012	Repairing	0	Not required	0	Not required
 40012	Science	0	Not required	0	Not required
-40042	Instructing	53	Important	46.4285714285714	Medium proficiency
 40019	Active Listening	75	Very important	57.1428571428571	Medium proficiency
 40019	Speaking	75	Very important	57.7619047619048	Medium proficiency
 40019	Reading Comprehension	74	Very important	58.3333333333333	Medium proficiency
@@ -14330,6 +14301,7 @@ COPY public.skills (noc, skills_competencies, importance, importance_description
 40041	Time Management	59.375	Important	49.0714285714286	Medium proficiency
 40041	Writing	59.375	Important	53.5714285714286	Medium proficiency
 40041	Persuasion	57.875	Important	48.2142857142857	Medium proficiency
+43100	Technology Design	\N	\N	\N	\N
 40041	Active Learning	57.75	Important	48.1428571428572	Medium proficiency
 40041	Complex Problem Solving	57.75	Important	50	Medium proficiency
 40041	Judgment and Decision Making	57.75	Important	48.2142857142857	Medium proficiency
@@ -14372,6 +14344,7 @@ COPY public.skills (noc, skills_competencies, importance, importance_description
 40042	Management of Material Resources	56.25	Important	46.4285714285714	Medium proficiency
 40042	Service Orientation	56.25	Important	44.5714285714286	Medium proficiency
 40042	Writing	56.25	Important	55.4285714285714	Medium proficiency
+40042	Instructing	53	Important	46.4285714285714	Medium proficiency
 40042	Management of Financial Resources	53	Important	48.2857142857143	Medium proficiency
 40042	Learning Strategies	50	Important	46.4285714285714	Medium proficiency
 40042	Systems Analysis	50	Important	42.8571428571429	Medium proficiency
@@ -14632,6 +14605,7 @@ COPY public.skills (noc, skills_competencies, importance, importance_description
 41221	Operation and Control	6.3	Less important	5.71428571428571	Basic proficiency
 41221	Equipment Selection	6.2	Less important	3.91428571428571	Basic proficiency
 41221	Repairing	1.9	Less important	1.08571428571429	Basic proficiency
+41311	Monitoring	68.75	Very important	55.4285714285714	Medium proficiency
 41221	Equipment Maintenance	1.25	Less important	0.714285714285714	Basic proficiency
 41221	Installation	0	Not required	0	Not required
 41300	Active Listening	83.3333333333333	Extremely important	64.2857142857143	Medium proficiency
@@ -14705,6 +14679,7 @@ COPY public.skills (noc, skills_competencies, importance, importance_description
 41301	Installation	0.480769230769223	Less important	0.274725274725275	Basic proficiency
 41301	Repairing	0.230769230769223	Less important	0.274725274725275	Basic proficiency
 41302	Speaking	90.5	Extremely important	67.8571428571429	High proficiency
+41311	Writing	68.75	Very important	55.4285714285714	Medium proficiency
 41302	Active Listening	84.5	Extremely important	64.2857142857143	Medium proficiency
 41302	Service Orientation	81.25	Extremely important	60.7142857142857	Medium proficiency
 41302	Social Perceptiveness	81.25	Extremely important	76.8571428571429	High proficiency
@@ -14780,8 +14755,6 @@ COPY public.skills (noc, skills_competencies, importance, importance_description
 41311	Critical Thinking	72	Very important	57.1428571428571	Medium proficiency
 41311	Reading Comprehension	72	Very important	58.8571428571429	Medium proficiency
 41311	Complex Problem Solving	68.75	Very important	48.2857142857143	Medium proficiency
-41311	Monitoring	68.75	Very important	55.4285714285714	Medium proficiency
-41311	Writing	68.75	Very important	55.4285714285714	Medium proficiency
 41311	Judgment and Decision Making	65.5	Very important	53.5714285714286	Medium proficiency
 41311	Active Learning	59.5	Important	46.4285714285714	Medium proficiency
 41311	Time Management	59.5	Important	48.2857142857143	Medium proficiency
@@ -14935,6 +14908,7 @@ COPY public.skills (noc, skills_competencies, importance, importance_description
 41401	Service Orientation	46.875	Important	41.1428571428571	Medium proficiency
 41401	Management of Personnel Resources	40.5	Important	35.7142857142857	Medium proficiency
 41401	Management of Financial Resources	37.5	Less important	33.0714285714286	Medium proficiency
+43100	Instructing	\N	\N	\N	\N
 41401	Negotiation	36	Less important	39.2857142857143	Medium proficiency
 41401	Operations Analysis	34.375	Less important	35.7142857142857	Medium proficiency
 41401	Science	29.75	Less important	34.7857142857143	Medium proficiency
@@ -15202,7 +15176,6 @@ COPY public.skills (noc, skills_competencies, importance, importance_description
 42100	Writing	62	Very important	50.2857142857143	Medium proficiency
 42100	Complex Problem Solving	61.4583333333333	Very important	46.4285714285714	Medium proficiency
 42100	Judgment and Decision Making	60.875	Very important	49.9761904761905	Medium proficiency
-42200	Service Orientation	50	Important	42	Medium proficiency
 42100	Active Learning	60.4166666666667	Very important	46.7380952380952	Medium proficiency
 42100	Monitoring	58.8333333333333	Important	50.2857142857143	Medium proficiency
 42100	Coordination	57.2916666666667	Important	47.6428571428571	Medium proficiency
@@ -15265,6 +15238,41 @@ COPY public.skills (noc, skills_competencies, importance, importance_description
 42101	Operations Analysis	16.75	Less important	17.8571428571429	Basic proficiency
 42101	Programming	15.5833333333333	Less important	11.3333333333333	Basic proficiency
 42101	Installation	5.25	Less important	4.19047619047619	Basic proficiency
+42102	Critical Thinking	\N	\N	\N	\N
+42102	Complex Problem Solving	\N	\N	\N	\N
+42102	Judgment and Decision Making	\N	\N	\N	\N
+42102	Speaking	\N	\N	\N	\N
+42102	Social Perceptiveness	\N	\N	\N	\N
+42102	Active Listening	\N	\N	\N	\N
+42102	Reading Comprehension	\N	\N	\N	\N
+42102	Writing	\N	\N	\N	\N
+42102	Coordination	\N	\N	\N	\N
+42102	Persuasion	\N	\N	\N	\N
+42102	Systems Analysis	\N	\N	\N	\N
+42102	Systems Evaluation	\N	\N	\N	\N
+42102	Monitoring	\N	\N	\N	\N
+42102	Active Learning	\N	\N	\N	\N
+42102	Time Management	\N	\N	\N	\N
+42102	Management of Personnel Resources	\N	\N	\N	\N
+42102	Negotiation	\N	\N	\N	\N
+42102	Management of Financial Resources	\N	\N	\N	\N
+42102	Learning Strategies	\N	\N	\N	\N
+42102	Instructing	\N	\N	\N	\N
+42102	Service Orientation	\N	\N	\N	\N
+42102	Management of Material Resources	\N	\N	\N	\N
+42102	Mathematics	\N	\N	\N	\N
+42102	Operations Analysis	\N	\N	\N	\N
+42102	Science	\N	\N	\N	\N
+42102	Operations Monitoring	\N	\N	\N	\N
+42102	Operation and Control	\N	\N	\N	\N
+42102	Quality Control Analysis	\N	\N	\N	\N
+42102	Technology Design	\N	\N	\N	\N
+42102	Programming	\N	\N	\N	\N
+42102	Equipment Selection	\N	\N	\N	\N
+42102	Equipment Maintenance	\N	\N	\N	\N
+42102	Installation	\N	\N	\N	\N
+42102	Repairing	\N	\N	\N	\N
+42102	Troubleshooting	\N	\N	\N	\N
 42200	Reading Comprehension	73.4375	Very important	58.0357142857143	Medium proficiency
 42200	Active Listening	71.875	Very important	59.7857142857143	Medium proficiency
 42200	Speaking	68.6875	Very important	55.7857142857143	Medium proficiency
@@ -15277,6 +15285,7 @@ COPY public.skills (noc, skills_competencies, importance, importance_description
 42200	Active Learning	53.0625	Important	46.8214285714286	Medium proficiency
 42200	Time Management	53.0625	Important	45.5357142857143	Medium proficiency
 42200	Coordination	50	Important	42.4285714285714	Medium proficiency
+42200	Service Orientation	50	Important	42	Medium proficiency
 42200	Persuasion	41.4375	Important	39.2857142857143	Medium proficiency
 42200	Learning Strategies	38.3125	Less important	34.7857142857143	Medium proficiency
 42200	Negotiation	37.4375	Less important	37.5	Medium proficiency
@@ -15295,6 +15304,7 @@ COPY public.skills (noc, skills_competencies, importance, importance_description
 42200	Quality Control Analysis	8.5625	Less important	6.21428571428572	Basic proficiency
 42200	Operation and Control	3.125	Less important	2.67857142857143	Basic proficiency
 42200	Equipment Selection	2.375	Less important	1.78571428571429	Basic proficiency
+43100	Service Orientation	\N	\N	\N	\N
 42200	Equipment Maintenance	1.5625	Less important	0.892857142857143	Basic proficiency
 42200	Repairing	1.5625	Less important	0.892857142857143	Basic proficiency
 42200	Troubleshooting	1.5625	Less important	1.78571428571429	Basic proficiency
@@ -15439,6 +15449,31 @@ COPY public.skills (noc, skills_competencies, importance, importance_description
 42204	Installation	0	Not required	0	Not required
 42204	Repairing	0	Not required	0	Not required
 42204	Troubleshooting	0	Not required	0	Not required
+43100	Critical Thinking	\N	\N	\N	\N
+43100	Complex Problem Solving	\N	\N	\N	\N
+43100	Judgment and Decision Making	\N	\N	\N	\N
+43100	Speaking	\N	\N	\N	\N
+43100	Social Perceptiveness	\N	\N	\N	\N
+43100	Active Listening	\N	\N	\N	\N
+43100	Reading Comprehension	\N	\N	\N	\N
+43100	Writing	\N	\N	\N	\N
+43100	Coordination	\N	\N	\N	\N
+43100	Persuasion	\N	\N	\N	\N
+43100	Systems Analysis	\N	\N	\N	\N
+43100	Systems Evaluation	\N	\N	\N	\N
+43100	Monitoring	\N	\N	\N	\N
+43100	Active Learning	\N	\N	\N	\N
+43100	Time Management	\N	\N	\N	\N
+43100	Management of Personnel Resources	\N	\N	\N	\N
+43100	Negotiation	\N	\N	\N	\N
+43100	Management of Financial Resources	\N	\N	\N	\N
+43100	Learning Strategies	\N	\N	\N	\N
+43100	Programming	\N	\N	\N	\N
+43100	Equipment Selection	\N	\N	\N	\N
+43100	Equipment Maintenance	\N	\N	\N	\N
+43100	Installation	\N	\N	\N	\N
+43100	Repairing	\N	\N	\N	\N
+43100	Troubleshooting	\N	\N	\N	\N
 43109	Active Listening	73.6388888888889	Very important	57.3174603174603	Medium proficiency
 43109	Speaking	72.5833333333333	Very important	57.7142857142857	Medium proficiency
 43109	Reading Comprehension	72.2222222222222	Very important	61.1111111111111	Medium proficiency
@@ -15505,7 +15540,6 @@ COPY public.skills (noc, skills_competencies, importance, importance_description
 43200	Programming	10.875	Less important	8.92857142857143	Basic proficiency
 43200	Science	9.4375	Less important	7.10714285714286	Basic proficiency
 43200	Operations Analysis	7	Less important	6.67857142857143	Basic proficiency
-44101	Time Management	51.5	Important	40.1428571428571	Medium proficiency
 43200	Equipment Selection	2.3125	Less important	3.14285714285714	Basic proficiency
 43200	Equipment Maintenance	0.750000000000001	Less important	0.892857142857143	Basic proficiency
 43200	Installation	0	Not required	0	Not required
@@ -15615,6 +15649,41 @@ COPY public.skills (noc, skills_competencies, importance, importance_description
 43203	Equipment Maintenance	0.600000000000001	Less important	0.714285714285714	Basic proficiency
 43203	Installation	0.600000000000001	Less important	0.342857142857143	Basic proficiency
 43203	Repairing	0	Not required	0	Not required
+43204	Critical Thinking	\N	\N	\N	\N
+43204	Complex Problem Solving	\N	\N	\N	\N
+43204	Judgment and Decision Making	\N	\N	\N	\N
+43204	Speaking	\N	\N	\N	\N
+43204	Social Perceptiveness	\N	\N	\N	\N
+43204	Active Listening	\N	\N	\N	\N
+43204	Reading Comprehension	\N	\N	\N	\N
+43204	Writing	\N	\N	\N	\N
+43204	Coordination	\N	\N	\N	\N
+43204	Persuasion	\N	\N	\N	\N
+43204	Systems Analysis	\N	\N	\N	\N
+43204	Systems Evaluation	\N	\N	\N	\N
+43204	Monitoring	\N	\N	\N	\N
+43204	Active Learning	\N	\N	\N	\N
+43204	Time Management	\N	\N	\N	\N
+43204	Management of Personnel Resources	\N	\N	\N	\N
+43204	Negotiation	\N	\N	\N	\N
+43204	Management of Financial Resources	\N	\N	\N	\N
+43204	Learning Strategies	\N	\N	\N	\N
+43204	Instructing	\N	\N	\N	\N
+43204	Service Orientation	\N	\N	\N	\N
+43204	Management of Material Resources	\N	\N	\N	\N
+43204	Mathematics	\N	\N	\N	\N
+43204	Operations Analysis	\N	\N	\N	\N
+43204	Science	\N	\N	\N	\N
+43204	Operations Monitoring	\N	\N	\N	\N
+43204	Operation and Control	\N	\N	\N	\N
+43204	Quality Control Analysis	\N	\N	\N	\N
+43204	Technology Design	\N	\N	\N	\N
+43204	Programming	\N	\N	\N	\N
+43204	Equipment Selection	\N	\N	\N	\N
+43204	Equipment Maintenance	\N	\N	\N	\N
+43204	Installation	\N	\N	\N	\N
+43204	Repairing	\N	\N	\N	\N
+43204	Troubleshooting	\N	\N	\N	\N
 44100	Monitoring	68.75	Very important	50	Medium proficiency
 44100	Social Perceptiveness	65.625	Very important	50.9285714285714	Medium proficiency
 44100	Service Orientation	64.125	Very important	48.2142857142857	Medium proficiency
@@ -15658,6 +15727,7 @@ COPY public.skills (noc, skills_competencies, importance, importance_description
 44101	Speaking	54.625	Important	42	Medium proficiency
 44101	Reading Comprehension	51.625	Important	42.8571428571429	Medium proficiency
 44101	Instructing	51.5	Important	38.4285714285714	Medium proficiency
+44101	Time Management	51.5	Important	40.1428571428571	Medium proficiency
 44101	Coordination	50	Important	42	Medium proficiency
 44101	Judgment and Decision Making	50	Important	39.2857142857143	Medium proficiency
 44101	Writing	50	Important	40.2142857142857	Medium proficiency
@@ -15684,6 +15754,41 @@ COPY public.skills (noc, skills_competencies, importance, importance_description
 44101	Installation	0	Not required	0	Not required
 44101	Programming	0	Not required	0	Not required
 44101	Repairing	0	Not required	0	Not required
+44200	Critical Thinking	\N	\N	\N	\N
+44200	Complex Problem Solving	\N	\N	\N	\N
+44200	Judgment and Decision Making	\N	\N	\N	\N
+44200	Speaking	\N	\N	\N	\N
+44200	Social Perceptiveness	\N	\N	\N	\N
+44200	Active Listening	\N	\N	\N	\N
+44200	Reading Comprehension	\N	\N	\N	\N
+44200	Writing	\N	\N	\N	\N
+44200	Coordination	\N	\N	\N	\N
+44200	Persuasion	\N	\N	\N	\N
+44200	Systems Analysis	\N	\N	\N	\N
+44200	Systems Evaluation	\N	\N	\N	\N
+44200	Monitoring	\N	\N	\N	\N
+44200	Active Learning	\N	\N	\N	\N
+44200	Time Management	\N	\N	\N	\N
+44200	Management of Personnel Resources	\N	\N	\N	\N
+44200	Negotiation	\N	\N	\N	\N
+44200	Management of Financial Resources	\N	\N	\N	\N
+44200	Learning Strategies	\N	\N	\N	\N
+44200	Instructing	\N	\N	\N	\N
+44200	Service Orientation	\N	\N	\N	\N
+44200	Management of Material Resources	\N	\N	\N	\N
+44200	Mathematics	\N	\N	\N	\N
+44200	Operations Analysis	\N	\N	\N	\N
+44200	Science	\N	\N	\N	\N
+44200	Operations Monitoring	\N	\N	\N	\N
+44200	Operation and Control	\N	\N	\N	\N
+44200	Quality Control Analysis	\N	\N	\N	\N
+44200	Technology Design	\N	\N	\N	\N
+44200	Programming	\N	\N	\N	\N
+44200	Equipment Selection	\N	\N	\N	\N
+44200	Equipment Maintenance	\N	\N	\N	\N
+44200	Installation	\N	\N	\N	\N
+44200	Repairing	\N	\N	\N	\N
+44200	Troubleshooting	\N	\N	\N	\N
 45100	Speaking	63.6136363636364	Very important	49.3376623376623	Medium proficiency
 45100	Critical Thinking	63.0909090909091	Very important	52.2727272727273	Medium proficiency
 45100	Active Listening	62.25	Very important	50.3246753246753	Medium proficiency
@@ -15703,6 +15808,7 @@ COPY public.skills (noc, skills_competencies, importance, importance_description
 45100	Negotiation	41.75	Important	36.5194805194805	Medium proficiency
 45100	Instructing	40.6363636363636	Important	39.4415584415584	Medium proficiency
 45100	Learning Strategies	40.6363636363636	Important	37.3376623376623	Medium proficiency
+51100	Science	3	Less important	3.57142857142857	Basic proficiency
 45100	Mathematics	37.2045454545454	Less important	33.2727272727273	Medium proficiency
 45100	Management of Personnel Resources	36.0681818181818	Less important	33.4675324675325	Medium proficiency
 45100	Operations Monitoring	33.25	Less important	30.038961038961	Basic proficiency
@@ -15857,7 +15963,7 @@ COPY public.skills (noc, skills_competencies, importance, importance_description
 51100	Equipment Selection	3	Less important	5.42857142857143	Basic proficiency
 51100	Installation	3	Less important	3.57142857142857	Basic proficiency
 51100	Operation and Control	3	Less important	5.42857142857143	Basic proficiency
-51100	Science	3	Less important	3.57142857142857	Basic proficiency
+85120	Programming	\N	\N	\N	\N
 51100	Repairing	0	Not required	0	Not required
 51101	Active Listening	72	Very important	58.0714285714286	Medium proficiency
 51101	Reading Comprehension	70.25	Very important	62.4285714285714	Medium proficiency
@@ -16092,6 +16198,7 @@ COPY public.skills (noc, skills_competencies, importance, importance_description
 51114	Mathematics	25	Less important	17.8571428571429	Basic proficiency
 51114	Operations Monitoring	25	Less important	19.7142857142857	Basic proficiency
 51114	Quality Control Analysis	25	Less important	17.8571428571429	Basic proficiency
+85120	Equipment Selection	\N	\N	\N	\N
 51114	Technology Design	22	Less important	14.2857142857143	Basic proficiency
 51114	Operations Analysis	15.5	Less important	10.7142857142857	Basic proficiency
 51114	Management of Financial Resources	6.25	Less important	5.42857142857143	Basic proficiency
@@ -16245,6 +16352,7 @@ COPY public.skills (noc, skills_competencies, importance, importance_description
 52100	Repairing	3	Less important	1.71428571428571	Basic proficiency
 52100	Installation	0	Not required	0	Not required
 52110	Active Listening	68.75	Very important	46.4285714285714	Medium proficiency
+85120	Equipment Maintenance	\N	\N	\N	\N
 52110	Coordination	56.25	Important	53.5714285714286	Medium proficiency
 52110	Judgment and Decision Making	56.25	Important	44.5714285714286	Medium proficiency
 52110	Reading Comprehension	56.25	Important	46.4285714285714	Medium proficiency
@@ -16398,6 +16506,7 @@ COPY public.skills (noc, skills_competencies, importance, importance_description
 52114	Coordination	52.375	Important	50	Medium proficiency
 52114	Persuasion	48.5	Important	43.7857142857143	Medium proficiency
 52114	Negotiation	47.75	Important	42	Medium proficiency
+53122	Time Management	47	Important	39.2857142857143	Medium proficiency
 52114	Service Orientation	46.125	Important	41.0714285714286	Medium proficiency
 52114	Management of Personnel Resources	35.125	Less important	33.8571428571429	Medium proficiency
 52114	Instructing	33.625	Less important	32.1428571428571	Basic proficiency
@@ -16474,6 +16583,7 @@ COPY public.skills (noc, skills_competencies, importance, importance_description
 52120	Negotiation	40.625	Important	39.75	Medium proficiency
 52120	Systems Evaluation	39.0625	Less important	39.7142857142857	Medium proficiency
 52120	Instructing	38.25	Less important	37.0714285714286	Medium proficiency
+85120	Installation	\N	\N	\N	\N
 52120	Management of Personnel Resources	36.8125	Less important	34.3928571428571	Medium proficiency
 52120	Management of Financial Resources	29.75	Less important	29.9642857142857	Basic proficiency
 52120	Quality Control Analysis	28.9375	Less important	25.0357142857143	Basic proficiency
@@ -16707,7 +16817,7 @@ COPY public.skills (noc, skills_competencies, importance, importance_description
 53122	Speaking	50	Important	41.1428571428571	Medium proficiency
 53122	Complex Problem Solving	47	Important	41.1428571428571	Medium proficiency
 53122	Social Perceptiveness	47	Important	39.2857142857143	Medium proficiency
-53122	Time Management	47	Important	39.2857142857143	Medium proficiency
+85120	Repairing	\N	\N	\N	\N
 53122	Writing	47	Important	39.2857142857143	Medium proficiency
 53122	Monitoring	43.75	Important	41.1428571428571	Medium proficiency
 53122	Operations Analysis	40.5	Important	39.2857142857143	Medium proficiency
@@ -16785,6 +16895,7 @@ COPY public.skills (noc, skills_competencies, importance, importance_description
 53124	Operations Analysis	39	Less important	33.9285714285714	Medium proficiency
 53124	Coordination	38.3125	Less important	32.6071428571429	Basic proficiency
 53124	Management of Material Resources	34.4375	Less important	27.6785714285714	Basic proficiency
+53202	Installation	0	Not required	0	Not required
 53124	Quality Control Analysis	33.625	Less important	29.9285714285714	Basic proficiency
 53124	Learning Strategies	32.0625	Less important	32.1428571428571	Basic proficiency
 53124	Mathematics	30.4375	Less important	27.2142857142857	Basic proficiency
@@ -16862,6 +16973,7 @@ COPY public.skills (noc, skills_competencies, importance, importance_description
 53200	Mathematics	28	Less important	21.4285714285714	Basic proficiency
 53200	Systems Analysis	28	Less important	30.2857142857143	Basic proficiency
 53200	Operations Analysis	25	Less important	28.5714285714286	Basic proficiency
+85120	Troubleshooting	\N	\N	\N	\N
 53200	Quality Control Analysis	25	Less important	19.7142857142857	Basic proficiency
 53200	Equipment Maintenance	22	Less important	12.5714285714286	Basic proficiency
 53200	Technology Design	22	Less important	12.5714285714286	Basic proficiency
@@ -16939,7 +17051,6 @@ COPY public.skills (noc, skills_competencies, importance, importance_description
 53202	Equipment Maintenance	3	Less important	1.71428571428571	Basic proficiency
 53202	Equipment Selection	3	Less important	1.71428571428571	Basic proficiency
 53202	Operation and Control	3	Less important	1.71428571428571	Basic proficiency
-53202	Installation	0	Not required	0	Not required
 53202	Management of Financial Resources	0	Not required	0	Not required
 53202	Management of Material Resources	0	Not required	0	Not required
 53202	Programming	0	Not required	0	Not required
@@ -17402,6 +17513,7 @@ COPY public.skills (noc, skills_competencies, importance, importance_description
 62029	Active Listening	72	Very important	53.5714285714286	Medium proficiency
 62029	Critical Thinking	72	Very important	53.5714285714286	Medium proficiency
 62029	Management of Personnel Resources	68.75	Very important	51.7142857142857	Medium proficiency
+63202	Active Learning	50	Important	42.8571428571429	Medium proficiency
 62029	Social Perceptiveness	68.75	Very important	53.5714285714286	Medium proficiency
 62029	Speaking	68.75	Very important	53.5714285714286	Medium proficiency
 62029	Coordination	65.5	Very important	50	Medium proficiency
@@ -17785,7 +17897,6 @@ COPY public.skills (noc, skills_competencies, importance, importance_description
 63201	Programming	1.5	Less important	0.857142857142857	Basic proficiency
 63201	Installation	0	Not required	0	Not required
 63202	Monitoring	56.25	Important	41.1428571428571	Medium proficiency
-63202	Active Learning	50	Important	42.8571428571429	Medium proficiency
 63202	Active Listening	50	Important	39.2857142857143	Medium proficiency
 63202	Coordination	50	Important	41.1428571428571	Medium proficiency
 63202	Critical Thinking	50	Important	42.8571428571429	Medium proficiency
@@ -18171,6 +18282,7 @@ COPY public.skills (noc, skills_competencies, importance, importance_description
 64301	Science	0	Not required	0	Not required
 64310	Active Listening	78	Very important	57.1428571428571	Medium proficiency
 64310	Service Orientation	78	Very important	57.1428571428571	Medium proficiency
+64312	Writing	54.1666666666667	Important	44.047619047619	Medium proficiency
 64310	Reading Comprehension	75	Very important	53.5714285714286	Medium proficiency
 64310	Speaking	75	Very important	44.5714285714286	Medium proficiency
 64310	Social Perceptiveness	68.75	Very important	44.5714285714286	Medium proficiency
@@ -18248,7 +18360,6 @@ COPY public.skills (noc, skills_competencies, importance, importance_description
 64312	Coordination	55.1666666666667	Important	44.047619047619	Medium proficiency
 64312	Time Management	55.1666666666667	Important	44.047619047619	Medium proficiency
 64312	Monitoring	54.1666666666667	Important	44.047619047619	Medium proficiency
-64312	Writing	54.1666666666667	Important	44.047619047619	Medium proficiency
 64312	Persuasion	51.0833333333333	Important	43.4761904761905	Medium proficiency
 64312	Complex Problem Solving	51	Important	42.8571428571429	Medium proficiency
 64312	Negotiation	51	Important	44.6666666666667	Medium proficiency
@@ -18400,6 +18511,7 @@ COPY public.skills (noc, skills_competencies, importance, importance_description
 64321	Learning Strategies	28.0833333333333	Less important	29.7142857142857	Basic proficiency
 64321	Operations Monitoring	20.8333333333333	Less important	16.7142857142857	Basic proficiency
 64321	Quality Control Analysis	20.8333333333333	Less important	20.8095238095238	Basic proficiency
+64400	Programming	6.25	Less important	5.42857142857143	Basic proficiency
 64321	Systems Evaluation	20.8333333333333	Less important	14.8571428571429	Basic proficiency
 64321	Systems Analysis	19.8333333333333	Less important	17.8571428571429	Basic proficiency
 64321	Management of Financial Resources	14.5833333333333	Less important	9.52380952380953	Basic proficiency
@@ -18477,7 +18589,6 @@ COPY public.skills (noc, skills_competencies, importance, importance_description
 64400	Management of Material Resources	12.5	Less important	12.5714285714286	Basic proficiency
 64400	Troubleshooting	12.5	Less important	8.85714285714286	Basic proficiency
 64400	Technology Design	9.5	Less important	7.14285714285714	Basic proficiency
-64400	Programming	6.25	Less important	5.42857142857143	Basic proficiency
 64400	Operations Analysis	3	Less important	3.57142857142857	Basic proficiency
 64400	Equipment Maintenance	0	Not required	0	Not required
 64400	Equipment Selection	0	Not required	0	Not required
@@ -18939,6 +19050,41 @@ COPY public.skills (noc, skills_competencies, importance, importance_description
 65220	Programming	4.625	Less important	2.64285714285714	Basic proficiency
 65220	Repairing	3.125	Less important	1.78571428571429	Basic proficiency
 65220	Installation	1.5	Less important	0.857142857142857	Basic proficiency
+65229	Critical Thinking	\N	\N	\N	\N
+65229	Complex Problem Solving	\N	\N	\N	\N
+65229	Judgment and Decision Making	\N	\N	\N	\N
+65229	Speaking	\N	\N	\N	\N
+65229	Social Perceptiveness	\N	\N	\N	\N
+65229	Active Listening	\N	\N	\N	\N
+65229	Reading Comprehension	\N	\N	\N	\N
+65229	Writing	\N	\N	\N	\N
+65229	Coordination	\N	\N	\N	\N
+65229	Persuasion	\N	\N	\N	\N
+65229	Systems Analysis	\N	\N	\N	\N
+65229	Systems Evaluation	\N	\N	\N	\N
+65229	Monitoring	\N	\N	\N	\N
+65229	Active Learning	\N	\N	\N	\N
+65229	Time Management	\N	\N	\N	\N
+65229	Management of Personnel Resources	\N	\N	\N	\N
+65229	Negotiation	\N	\N	\N	\N
+65229	Management of Financial Resources	\N	\N	\N	\N
+65229	Learning Strategies	\N	\N	\N	\N
+65229	Instructing	\N	\N	\N	\N
+65229	Service Orientation	\N	\N	\N	\N
+65229	Management of Material Resources	\N	\N	\N	\N
+65229	Mathematics	\N	\N	\N	\N
+65229	Operations Analysis	\N	\N	\N	\N
+65229	Science	\N	\N	\N	\N
+65229	Operations Monitoring	\N	\N	\N	\N
+65229	Operation and Control	\N	\N	\N	\N
+65229	Quality Control Analysis	\N	\N	\N	\N
+65229	Technology Design	\N	\N	\N	\N
+65229	Programming	\N	\N	\N	\N
+65229	Equipment Selection	\N	\N	\N	\N
+65229	Equipment Maintenance	\N	\N	\N	\N
+65229	Installation	\N	\N	\N	\N
+65229	Repairing	\N	\N	\N	\N
+65229	Troubleshooting	\N	\N	\N	\N
 65310	Service Orientation	63.5	Very important	46.4285714285714	Medium proficiency
 65310	Active Listening	58.3333333333333	Important	41.0476190476191	Medium proficiency
 65310	Social Perceptiveness	58.3333333333333	Important	40.4285714285714	Medium proficiency
@@ -19297,6 +19443,7 @@ COPY public.skills (noc, skills_competencies, importance, importance_description
 72010	Critical Thinking	66.5833333333333	Very important	51.8095238095238	Medium proficiency
 72010	Monitoring	65.6666666666667	Very important	51.8095238095238	Medium proficiency
 72010	Reading Comprehension	61.5	Very important	52.952380952381	Medium proficiency
+72012	Writing	54.75	Important	46.4285714285714	Medium proficiency
 72010	Judgment and Decision Making	60.4166666666667	Very important	46.4285714285714	Medium proficiency
 72010	Social Perceptiveness	59.3333333333334	Important	51.2380952380952	Medium proficiency
 72010	Instructing	54.1666666666667	Important	45.8095238095238	Medium proficiency
@@ -19371,7 +19518,6 @@ COPY public.skills (noc, skills_competencies, importance, importance_description
 72012	Instructing	56.25	Important	46.4285714285714	Medium proficiency
 72012	Negotiation	54.75	Important	47.2857142857143	Medium proficiency
 72012	Persuasion	54.75	Important	47.2857142857143	Medium proficiency
-72012	Writing	54.75	Important	46.4285714285714	Medium proficiency
 72012	Social Perceptiveness	54.625	Important	49.1428571428571	Medium proficiency
 72012	Active Learning	53.125	Important	45.5	Medium proficiency
 72012	Complex Problem Solving	53	Important	48.2142857142857	Medium proficiency
@@ -19447,6 +19593,7 @@ COPY public.skills (noc, skills_competencies, importance, importance_description
 72014	Writing	53.1666666666666	Important	47.6190476190476	Medium proficiency
 72014	Complex Problem Solving	53	Important	49.3809523809524	Medium proficiency
 72014	Operations Monitoring	52.1666666666667	Important	44.6666666666667	Medium proficiency
+72023	Repairing	12.5	Less important	14.2857142857143	Basic proficiency
 72014	Learning Strategies	52	Important	46.4285714285714	Medium proficiency
 72014	Service Orientation	51.0833333333333	Important	43.4285714285714	Medium proficiency
 72014	Systems Analysis	49	Important	47.6190476190476	Medium proficiency
@@ -19598,7 +19745,6 @@ COPY public.skills (noc, skills_competencies, importance, importance_description
 72023	Troubleshooting	28.125	Less important	29.4285714285714	Basic proficiency
 72023	Management of Financial Resources	23.375	Less important	22.3571428571429	Basic proficiency
 72023	Equipment Maintenance	14	Less important	14.2857142857143	Basic proficiency
-72023	Repairing	12.5	Less important	14.2857142857143	Basic proficiency
 72023	Programming	11	Less important	6.28571428571429	Basic proficiency
 72023	Technology Design	9.5	Less important	5.42857142857143	Basic proficiency
 72023	Science	9.375	Less important	5.35714285714286	Basic proficiency
@@ -20290,6 +20436,7 @@ COPY public.skills (noc, skills_competencies, importance, importance_description
 72311	Coordination	43.75	Important	35.7142857142857	Medium proficiency
 72311	Social Perceptiveness	40.5	Important	34	Medium proficiency
 72311	Management of Personnel Resources	37.5	Less important	34	Medium proficiency
+72321	Equipment Selection	23.375	Less important	17	Basic proficiency
 72311	Service Orientation	34.5	Less important	28.5714285714286	Basic proficiency
 72311	Writing	34.5	Less important	34	Medium proficiency
 72311	Instructing	31.25	Less important	32.1428571428571	Basic proficiency
@@ -20366,7 +20513,6 @@ COPY public.skills (noc, skills_competencies, importance, importance_description
 72321	Management of Material Resources	25	Less important	17.8571428571429	Basic proficiency
 72321	Systems Analysis	25	Less important	23.2142857142857	Basic proficiency
 72321	Systems Evaluation	25	Less important	23.2142857142857	Basic proficiency
-72321	Equipment Selection	23.375	Less important	17	Basic proficiency
 72321	Management of Financial Resources	18.75	Less important	11.5714285714286	Basic proficiency
 72321	Repairing	17.125	Less important	17	Basic proficiency
 72321	Technology Design	15.625	Less important	11.5714285714286	Basic proficiency
@@ -20675,6 +20821,7 @@ COPY public.skills (noc, skills_competencies, importance, importance_description
 72411	Installation	39	Less important	32.1428571428571	Basic proficiency
 72411	Persuasion	37.5	Less important	31.2142857142857	Basic proficiency
 72411	Writing	34.5	Less important	32.1428571428571	Basic proficiency
+72421	Negotiation	31.25	Less important	27.6428571428571	Basic proficiency
 72411	Equipment Maintenance	34.25	Less important	32.1428571428571	Basic proficiency
 72411	Instructing	32.875	Less important	34.7857142857143	Medium proficiency
 72411	Learning Strategies	32.875	Less important	30.2857142857143	Basic proficiency
@@ -20752,7 +20899,6 @@ COPY public.skills (noc, skills_competencies, importance, importance_description
 72421	Learning Strategies	35.875	Less important	34.7857142857143	Medium proficiency
 72421	Instructing	34.375	Less important	38.4285714285714	Medium proficiency
 72421	Mathematics	34.25	Less important	33.9285714285714	Medium proficiency
-72421	Negotiation	31.25	Less important	27.6428571428571	Basic proficiency
 72421	Management of Material Resources	28	Less important	25	Basic proficiency
 72421	Management of Financial Resources	23.5	Less important	21.4285714285714	Basic proficiency
 72421	Science	23.375	Less important	24.0714285714286	Basic proficiency
@@ -22051,6 +22197,7 @@ COPY public.skills (noc, skills_competencies, importance, importance_description
 74204	Management of Financial Resources	19.2916666666667	Less important	13.6904761904762	Basic proficiency
 74204	Management of Material Resources	19.2916666666667	Less important	15.5	Basic proficiency
 74204	Technology Design	16.6666666666667	Less important	11.2857142857143	Basic proficiency
+75201	Technology Design	11.8125	Less important	6.75	Basic proficiency
 74204	Operations Analysis	12.5	Less important	9.80952380952381	Basic proficiency
 74204	Science	11.9583333333333	Less important	10.4285714285714	Basic proficiency
 74204	Programming	6.75	Less important	4.73809523809524	Basic proficiency
@@ -22128,6 +22275,7 @@ COPY public.skills (noc, skills_competencies, importance, importance_description
 75101	Speaking	60.0555555555555	Very important	45.0634920634921	Medium proficiency
 75101	Reading Comprehension	56.25	Important	48.8253968253968	Medium proficiency
 75101	Critical Thinking	55.2222222222222	Important	45.2698412698413	Medium proficiency
+85120	Quality Control Analysis	\N	\N	\N	\N
 75101	Social Perceptiveness	53.4722222222222	Important	42.047619047619	Medium proficiency
 75101	Coordination	52.7777777777778	Important	44.6666666666667	Medium proficiency
 75101	Monitoring	52.75	Important	44.6190476190476	Medium proficiency
@@ -22176,7 +22324,6 @@ COPY public.skills (noc, skills_competencies, importance, importance_description
 75110	Quality Control Analysis	39.15	Less important	34.7619047619048	Medium proficiency
 75110	Repairing	36.6666666666667	Less important	31.5238095238095	Basic proficiency
 75110	Equipment Maintenance	36.4666666666667	Less important	30.9333333333333	Basic proficiency
-82020	Negotiation	54.75	Important	47.2857142857143	Medium proficiency
 75110	Equipment Selection	35.2166666666667	Less important	27.952380952381	Basic proficiency
 75110	Service Orientation	34.9833333333333	Less important	31.1714285714286	Basic proficiency
 75110	Instructing	33.1333333333333	Less important	30.7047619047619	Basic proficiency
@@ -22230,6 +22377,41 @@ COPY public.skills (noc, skills_competencies, importance, importance_description
 75119	Science	11.3333333333333	Less important	7.71428571428572	Basic proficiency
 75119	Programming	8.33333333333333	Less important	5.38095238095238	Basic proficiency
 75119	Management of Financial Resources	8.25	Less important	5.95238095238095	Basic proficiency
+75200	Critical Thinking	\N	\N	\N	\N
+75200	Complex Problem Solving	\N	\N	\N	\N
+75200	Judgment and Decision Making	\N	\N	\N	\N
+75200	Speaking	\N	\N	\N	\N
+75200	Social Perceptiveness	\N	\N	\N	\N
+75200	Active Listening	\N	\N	\N	\N
+75200	Reading Comprehension	\N	\N	\N	\N
+75200	Writing	\N	\N	\N	\N
+75200	Coordination	\N	\N	\N	\N
+75200	Persuasion	\N	\N	\N	\N
+75200	Systems Analysis	\N	\N	\N	\N
+75200	Systems Evaluation	\N	\N	\N	\N
+75200	Monitoring	\N	\N	\N	\N
+75200	Active Learning	\N	\N	\N	\N
+75200	Time Management	\N	\N	\N	\N
+75200	Management of Personnel Resources	\N	\N	\N	\N
+75200	Negotiation	\N	\N	\N	\N
+75200	Management of Financial Resources	\N	\N	\N	\N
+75200	Learning Strategies	\N	\N	\N	\N
+75200	Instructing	\N	\N	\N	\N
+75200	Service Orientation	\N	\N	\N	\N
+75200	Management of Material Resources	\N	\N	\N	\N
+75200	Mathematics	\N	\N	\N	\N
+75200	Operations Analysis	\N	\N	\N	\N
+75200	Science	\N	\N	\N	\N
+75200	Operations Monitoring	\N	\N	\N	\N
+75200	Operation and Control	\N	\N	\N	\N
+75200	Quality Control Analysis	\N	\N	\N	\N
+75200	Technology Design	\N	\N	\N	\N
+75200	Programming	\N	\N	\N	\N
+75200	Equipment Selection	\N	\N	\N	\N
+75200	Equipment Maintenance	\N	\N	\N	\N
+75200	Installation	\N	\N	\N	\N
+75200	Repairing	\N	\N	\N	\N
+75200	Troubleshooting	\N	\N	\N	\N
 75201	Speaking	62.4375	Very important	41.5357142857143	Medium proficiency
 75201	Active Listening	59.375	Important	42.4285714285714	Medium proficiency
 75201	Service Orientation	53.875	Important	39.7142857142857	Medium proficiency
@@ -22259,7 +22441,6 @@ COPY public.skills (noc, skills_competencies, importance, importance_description
 75201	Equipment Maintenance	17.1875	Less important	13.3928571428571	Basic proficiency
 75201	Management of Financial Resources	17.125	Less important	12.9642857142857	Basic proficiency
 75201	Operations Analysis	12.5	Less important	8.46428571428572	Basic proficiency
-75201	Technology Design	11.8125	Less important	6.75	Basic proficiency
 75201	Repairing	10.125	Less important	8.46428571428572	Basic proficiency
 75201	Equipment Selection	5.4375	Less important	5.35714285714286	Basic proficiency
 75201	Programming	3.875	Less important	2.21428571428571	Basic proficiency
@@ -22326,7 +22507,6 @@ COPY public.skills (noc, skills_competencies, importance, importance_description
 75211	Persuasion	25	Less important	23.2142857142857	Basic proficiency
 75211	Mathematics	23.5	Less important	24.1428571428571	Basic proficiency
 75211	Negotiation	23.5	Less important	22.2857142857143	Basic proficiency
-82020	Persuasion	54.75	Important	47.2857142857143	Medium proficiency
 75211	Systems Analysis	22	Less important	23.2142857142857	Basic proficiency
 75211	Systems Evaluation	22	Less important	21.4285714285714	Basic proficiency
 75211	Management of Material Resources	20.375	Less important	15.1428571428571	Basic proficiency
@@ -22479,7 +22659,6 @@ COPY public.skills (noc, skills_competencies, importance, importance_description
 80022	Critical Thinking	72	Very important	55.2857142857143	Medium proficiency
 80022	Speaking	71.75	Very important	53.5714285714286	Medium proficiency
 80022	Monitoring	69.75	Very important	53	Medium proficiency
-82020	Writing	54.75	Important	46.4285714285714	Medium proficiency
 80022	Judgment and Decision Making	68.75	Very important	51.2857142857143	Medium proficiency
 80022	Time Management	65.75	Very important	51.1428571428572	Medium proficiency
 80022	Active Listening	64.5	Very important	52.4285714285714	Medium proficiency
@@ -22557,6 +22736,9 @@ COPY public.skills (noc, skills_competencies, importance, importance_description
 82020	Reading Comprehension	61	Very important	52.6428571428571	Medium proficiency
 82020	Judgment and Decision Making	57.875	Important	46.4285714285714	Medium proficiency
 82020	Instructing	56.25	Important	46.4285714285714	Medium proficiency
+82020	Negotiation	54.75	Important	47.2857142857143	Medium proficiency
+82020	Persuasion	54.75	Important	47.2857142857143	Medium proficiency
+82020	Writing	54.75	Important	46.4285714285714	Medium proficiency
 82020	Social Perceptiveness	54.625	Important	49.1428571428571	Medium proficiency
 82020	Active Learning	53.125	Important	45.5	Medium proficiency
 82020	Complex Problem Solving	53	Important	48.2142857142857	Medium proficiency
@@ -22871,6 +23053,7 @@ COPY public.skills (noc, skills_competencies, importance, importance_description
 84100	Reading Comprehension	47	Important	37.4285714285714	Medium proficiency
 84100	Social Perceptiveness	47	Important	34	Medium proficiency
 84100	Repairing	43.75	Important	42.8571428571429	Medium proficiency
+85120	Technology Design	\N	\N	\N	\N
 84100	Complex Problem Solving	40.5	Important	35.7142857142857	Medium proficiency
 84100	Equipment Selection	37.5	Less important	34	Medium proficiency
 84100	Judgment and Decision Making	34.5	Less important	32.1428571428571	Basic proficiency
@@ -23314,6 +23497,33 @@ COPY public.skills (noc, skills_competencies, importance, importance_description
 85111	Science	6.25	Less important	3.57142857142857	Basic proficiency
 85111	Operations Analysis	3	Less important	1.71428571428571	Basic proficiency
 85111	Programming	0	Not required	0	Not required
+85120	Critical Thinking	\N	\N	\N	\N
+85120	Complex Problem Solving	\N	\N	\N	\N
+85120	Judgment and Decision Making	\N	\N	\N	\N
+85120	Speaking	\N	\N	\N	\N
+85120	Social Perceptiveness	\N	\N	\N	\N
+85120	Active Listening	\N	\N	\N	\N
+85120	Reading Comprehension	\N	\N	\N	\N
+85120	Writing	\N	\N	\N	\N
+85120	Coordination	\N	\N	\N	\N
+85120	Persuasion	\N	\N	\N	\N
+85120	Systems Analysis	\N	\N	\N	\N
+85120	Systems Evaluation	\N	\N	\N	\N
+85120	Monitoring	\N	\N	\N	\N
+85120	Active Learning	\N	\N	\N	\N
+85120	Time Management	\N	\N	\N	\N
+85120	Management of Personnel Resources	\N	\N	\N	\N
+85120	Negotiation	\N	\N	\N	\N
+85120	Management of Financial Resources	\N	\N	\N	\N
+85120	Learning Strategies	\N	\N	\N	\N
+85120	Instructing	\N	\N	\N	\N
+85120	Service Orientation	\N	\N	\N	\N
+85120	Management of Material Resources	\N	\N	\N	\N
+85120	Mathematics	\N	\N	\N	\N
+85120	Operations Analysis	\N	\N	\N	\N
+85120	Science	\N	\N	\N	\N
+85120	Operations Monitoring	\N	\N	\N	\N
+85120	Operation and Control	\N	\N	\N	\N
 85121	Operation and Control	53	Important	37.4285714285714	Medium proficiency
 85121	Critical Thinking	47	Important	26.8571428571429	Basic proficiency
 85121	Speaking	47	Important	26.8571428571429	Basic proficiency
@@ -23467,7 +23677,6 @@ COPY public.skills (noc, skills_competencies, importance, importance_description
 92011	Active Learning	53	Important	44.5714285714286	Medium proficiency
 92011	Complex Problem Solving	53	Important	51.7142857142857	Medium proficiency
 92011	Learning Strategies	53	Important	44.5714285714286	Medium proficiency
-92021	Science	12.5	Less important	8.85714285714286	Basic proficiency
 92011	Operations Monitoring	53	Important	48.2857142857143	Medium proficiency
 92011	Systems Analysis	53	Important	42.8571428571429	Medium proficiency
 92011	Writing	53	Important	51.7142857142857	Medium proficiency
@@ -23697,6 +23906,7 @@ COPY public.skills (noc, skills_competencies, importance, importance_description
 92021	Equipment Maintenance	28	Less important	30.2857142857143	Basic proficiency
 92021	Management of Material Resources	28	Less important	37.4285714285714	Medium proficiency
 92021	Technology Design	25	Less important	17.8571428571429	Basic proficiency
+92021	Science	12.5	Less important	8.85714285714286	Basic proficiency
 92021	Programming	6.25	Less important	5.42857142857143	Basic proficiency
 92021	Installation	3	Less important	1.71428571428571	Basic proficiency
 92022	Active Listening	72	Very important	57.1428571428571	Medium proficiency
@@ -24300,6 +24510,7 @@ COPY public.skills (noc, skills_competencies, importance, importance_description
 94110	Critical Thinking	56.25	Important	42.8571428571429	Medium proficiency
 94110	Reading Comprehension	53.9375	Important	42.8928571428571	Medium proficiency
 94110	Active Listening	52.375	Important	41.9642857142857	Medium proficiency
+94121	Writing	39.875	Less important	36.1785714285714	Medium proficiency
 94110	Complex Problem Solving	52.375	Important	40.6428571428572	Medium proficiency
 94110	Speaking	52.25	Important	38.4285714285714	Medium proficiency
 94110	Judgment and Decision Making	51.625	Important	39.2857142857143	Medium proficiency
@@ -24450,7 +24661,6 @@ COPY public.skills (noc, skills_competencies, importance, importance_description
 94121	Equipment Maintenance	44.5625	Important	36.5714285714286	Medium proficiency
 94121	Active Learning	43	Important	36.1785714285714	Medium proficiency
 94121	Troubleshooting	42.25	Important	36.5714285714286	Medium proficiency
-94121	Writing	39.875	Less important	36.1785714285714	Medium proficiency
 94121	Management of Personnel Resources	35.1875	Less important	31.2857142857143	Basic proficiency
 94121	Repairing	35.1875	Less important	31.2142857142857	Basic proficiency
 94121	Learning Strategies	35.125	Less important	34.3571428571429	Medium proficiency
@@ -24764,7 +24974,6 @@ COPY public.skills (noc, skills_competencies, importance, importance_description
 94140	Social Perceptiveness	44.5	Important	35.4065934065934	Medium proficiency
 94140	Writing	42.5961538461539	Important	37.3736263736264	Medium proficiency
 94140	Active Learning	41.8653846153846	Important	35.8461538461538	Medium proficiency
-94142	Writing	25	Less important	26.7619047619048	Basic proficiency
 94140	Troubleshooting	39.1730769230769	Less important	34.6043956043956	Medium proficiency
 94140	Equipment Maintenance	35.5576923076923	Less important	30.7582417582418	Basic proficiency
 94140	Instructing	34.8076923076923	Less important	34.7362637362637	Medium proficiency
@@ -24840,6 +25049,7 @@ COPY public.skills (noc, skills_competencies, importance, importance_description
 94142	Management of Personnel Resources	27.0833333333333	Less important	24.3809523809524	Basic proficiency
 94142	Mathematics	27.0833333333333	Less important	23.2380952380952	Basic proficiency
 94142	Troubleshooting	26	Less important	22.047619047619	Basic proficiency
+94142	Writing	25	Less important	26.7619047619048	Basic proficiency
 94142	Negotiation	22.9166666666667	Less important	17.8095238095238	Basic proficiency
 94142	Persuasion	22.9166666666667	Less important	19.6190476190476	Basic proficiency
 94142	Equipment Selection	21.8333333333333	Less important	16.6666666666667	Basic proficiency
@@ -25443,6 +25653,7 @@ COPY public.skills (noc, skills_competencies, importance, importance_description
 95100	Management of Material Resources	20.375	Less important	11.6428571428571	Basic proficiency
 95100	Equipment Selection	20.25	Less important	17	Basic proficiency
 95100	Systems Analysis	20.25	Less important	14.2857142857143	Basic proficiency
+95102	Installation	5.75	Less important	4.76190476190476	Basic proficiency
 95100	Management of Financial Resources	17.125	Less important	9.78571428571429	Basic proficiency
 95100	Operations Analysis	10.875	Less important	7.14285714285714	Basic proficiency
 95100	Science	6.25	Less important	4.5	Basic proficiency
@@ -25518,7 +25729,6 @@ COPY public.skills (noc, skills_competencies, importance, importance_description
 95102	Management of Financial Resources	16.625	Less important	11.2857142857143	Basic proficiency
 95102	Programming	10.9166666666667	Less important	6.83333333333333	Basic proficiency
 95102	Technology Design	10.9166666666667	Less important	6.54761904761905	Basic proficiency
-95102	Installation	5.75	Less important	4.76190476190476	Basic proficiency
 95103	Operations Monitoring	51.625	Important	42	Medium proficiency
 95103	Monitoring	48.5	Important	37.5714285714286	Medium proficiency
 95103	Active Listening	45.375	Important	33	Medium proficiency
@@ -25739,7 +25949,7 @@ COPY public.skills (noc, skills_competencies, importance, importance_description
 COPY public.sources (endpoint, label, datapoint, filename, sheet, range, author, date) FROM stdin;
 wages	B.C. Labour Market Information Office, derived from 2023 Job Bank Wage data	\N	WorkBC_2023_Wage_Data_Jan29_24	Sheet1	A2-G513	\N	2024/01/29
 titles	\N	\N	Common Job Titles revised - July 18 2017 (RA)	Sheet1	A2-D7490	\N	2017/07/18
-skills	\N	\N	Top skills by NOC2021 occupations__Jan22_24	Top skills NOC2021	A2-G17711	\N	2024/01/22
+skills	\N	\N	Top skills by NOC2021 occupations_Feb12_24	Sheet 1	A2-G17921	\N	2024/02/12
 openings_careers	B.C. Labour Market Outlook	\N	Job_Openings_by_Industry_LMO_2023_Jan22_24	Career Profiles	A5-Q515	\N	2024/01/22
 education	\N	\N	All_Occupations'_TEERs_2023_Jan22_24	Sheet 1	A2-D513	\N	2024/01/22
 census	2021 Census	\N	2021_Census_Jan18_23	Career Profiles	A5-R516	\N	2023/01/18
