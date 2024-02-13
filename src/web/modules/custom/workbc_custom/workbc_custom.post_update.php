@@ -761,6 +761,9 @@ function workbc_custom_post_update_227_noc_migration(&$sandbox = NULL) {
         $sandbox['lookup'][$noc[3]] = $noc[0];
       }
     }
+
+    // save original Career Profile paths for post migration validation.
+    saveCareerProfilePaths();
   }
 
   $langcode = \Drupal::languageManager()->getCurrentLanguage()->getId();
@@ -816,14 +819,14 @@ function workbc_custom_post_update_227_noc_migration(&$sandbox = NULL) {
       $node = \Drupal::entityTypeManager()->getStorage('node')->load($record->entity_id);
 
       $node->field_noc_2016 = $node->field_noc;
-      $node->field_noc = $noc[3];
 
       // if record for NOC 2021 already exists merge
       if (isset($sandbox['noc_map'][$noc[3]])) {
         $node->setPublished(FALSE);
         $node->set('moderation_state', 'archived');
         $node->title = "[ARCHIVED] " . $node->title->value;
-        
+        $node->field_noc = "";
+
         $message = "NOC 2021 data migration: Merge " . $node->field_noc_2016->value . " -> " . $node->field_noc->value;
         $sandbox['last_noc_type'] = "merge";
 
@@ -843,6 +846,7 @@ function workbc_custom_post_update_227_noc_migration(&$sandbox = NULL) {
       }
       // else update
       else {
+        $node->field_noc = $noc[3];
         $node->title = $noc[4];
 
         $sandbox['noc_map'][$node->field_noc->value] = ['noc2016' => $node->field_noc_2016->value, 'nid' => $node->id()];

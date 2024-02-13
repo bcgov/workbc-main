@@ -45,3 +45,11 @@ workbc_custom.collection_notice:
     _controller: '\Drupal\workbc_custom\Controller\CollectionNoticeModalController::modal'
   requirements:
     _permission: 'access content'
+
+workbc_custom.report_noc2021_validation:
+  path: '/admin/reports/noc2021-validation'
+  defaults:
+    _controller: '\Drupal\workbc_custom\Controller\ReportsController::noc2021_validation'
+    _title: 'NOC 2021 Migration Validation'
+  requirements:
+    _permission: 'administer workbc_custom settings'
