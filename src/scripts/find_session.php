@@ -4,7 +4,7 @@
  * Retrieve session entry for given cookie.
  * https://drupal.stackexchange.com/a/231726/767
  *
- * Usage: drush scr scripts/find_session.php --cookie=<URL-decoded value of SESSxxxx cookie>
+ * Usage: drush scr scripts/find_session.php -- --cookie=<URL-decoded value of SESSxxxx cookie>
  */
 use Drupal\Component\Utility\Crypt;
 
