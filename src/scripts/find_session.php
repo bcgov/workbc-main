@@ -18,16 +18,19 @@ catch (Exception $e) {
   die($getopt->getHelpText() . PHP_EOL);
 }
 $cookie = trim($getopt->getOption('cookie'));
+$sid = Crypt::hashBase64($cookie);
 
 function read($sid) {
   $data = '';
   if (!empty($sid)) {
     // Read the session data from the database.
     $connection = \Drupal::database();
-    $query = $connection->queryRange('SELECT session FROM {sessions} WHERE sid = :sid', 0, 1, [':sid' => Crypt::hashBase64($sid)]);
+    $query = $connection->queryRange('SELECT session FROM {sessions} WHERE sid = :sid', 0, 1, [':sid' => $sid]);
     $data = (string) $query->fetchField();
   }
   return $data;
 }
 
-var_dump(read($cookie));
+echo "Cookie value: $cookie\n";
+echo "Session sid: $sid\n";
+echo "Session data: " . var_export(read($sid), TRUE) . "\n";
