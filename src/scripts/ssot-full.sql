@@ -6535,11 +6535,6 @@ COPY public.monthly_labour_market_updates (year, month, total_employed, total_un
 --
 
 COPY public.occupational_interests (noc, options, occupational_interest) FROM stdin;
-00011	Primary	Enterprising
-00012	Primary	Enterprising
-00013	Primary	Enterprising
-00014	Primary	Enterprising
-00015	Primary	Enterprising
 10010	Primary	Enterprising
 10011	Primary	Enterprising
 10012	Primary	Enterprising
@@ -6997,8 +6992,7 @@ COPY public.occupational_interests (noc, options, occupational_interest) FROM st
 65210	Primary	Realistic
 65211	Primary	Enterprising
 65220	Primary	Realistic
-65310	Primary	Realistic
-65310	Secondary	Social
+65310	Primary	Realistic, Social
 65311	Primary	Realistic
 65312	Primary	Realistic
 65320	Primary	Realistic
@@ -25956,7 +25950,7 @@ census	2021 Census	\N	2021_Census_Jan18_23	Career Profiles	A5-R516	\N	2023/01/18
 career_regional	B.C. Labour Market Outlook	\N	WorkBC_Career_Profile_Data_2023__Jan22_24	Regional Outlook	A5-AC516	\N	2024/01/22
 career_provincial	B.C. Labour Market Outlook	\N	WorkBC_Career_Profile_Data_2023__Jan22_24	Provincial Outlook	A4-K515	\N	2024/01/22
 high_opportunity_occupations	\N	\N	HOO_BC_and_Region_for_new_tool_2023_Jan22_24	Sheet1	A2-O850	B.C. Labour Market Information Office	2024/01/22
-occupational_interests	\N	\N	Occupational_Interests_2023_Feb8_24	Sheet1	A2-C1519	\N	2024/02/08
+occupational_interests	\N	\N	Occupational_Interests_2023_Feb13_24	Sheet1	A2-C1537	\N	2024/02/13
 monthly_labour_market_updates	Labour Force Survey (monthly, seasonally adjusted)	\N	REFRESH_WorkBC LMS _<YYYY> <MMM> FINAL	Sheet3	\N	\N	2023/04/14
 monthly_labour_market_updates	Monthly Labour Force Survey, 3-month moving average, seasonally unadjusted	unemployment_pct	REFRESH_WorkBC LMS _<YYYY> <MMM> FINAL	Sheet3	\N	\N	2023/04/14
 industry_outlook	B.C. Labour Market Outlook	\N	WorkBC_Industry_Profile_2023__Jan24_24	BC	A3-H20	\N	2024/01/24
