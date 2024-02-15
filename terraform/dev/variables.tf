@@ -99,6 +99,12 @@ variable "service_names" {
   type        = list(string)
 }
 
+variable "service_names2" {
+  description = "List of service names to use as subdomains"
+  default     = ["pgadmin"]
+  type        = list(string)
+}
+
 variable "alb_name" {
   description = "Name of the internal alb"
   default     = "default"
