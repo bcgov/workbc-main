@@ -324,24 +324,24 @@ resource "aws_ecs_task_definition" "app" {
 				condition = "COMPLETE"
 			}
 		]
-	}/*,
+	},
 	{
 		essential   = false
-		name        = "pdf"
-		image       = "${var.app_repo}/pdf:0.8"
+		name        = "pgadmin"
+		image       = "dpage/pgadmin4:latest"
 		networkMode = "awsvpc"
 
 		logConfiguration = {
 			logDriver = "awslogs"
 			options = {
 				awslogs-create-group  = "true"
-				awslogs-group         = "/ecs/${var.app_name}/pdf"
+				awslogs-group         = "/ecs/${var.app_name}/pgadmin"
 				awslogs-region        = var.aws_region
 				awslogs-stream-prefix = "ecs"
 			}
 		}
 
-		environment = [
+		/*environment = [
 			{
 				name = "POSTGRES_PORT",
 				value = "5432"
@@ -371,10 +371,10 @@ resource "aws_ecs_task_definition" "app" {
 				containerPath = "/contents",
 				sourceVolume = "contents"
 			}
-		]
+		]*/
 		volumesFrom = []
 
-	}*/
+	}
   ])
 }
 
