@@ -398,7 +398,7 @@ resource "aws_ecs_service" "main" {
   load_balancer {
     target_group_arn = aws_alb_target_group.pgadmin.id
     container_name   = "pgadmin"
-    container_port   = "80"
+    container_port   = 80
   }
 
   depends_on = [data.aws_alb_listener.front_end, aws_iam_role_policy_attachment.ecs_task_execution_role]
