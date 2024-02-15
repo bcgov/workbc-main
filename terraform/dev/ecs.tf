@@ -341,37 +341,23 @@ resource "aws_ecs_task_definition" "app" {
 			}
 		}
 
-		/*environment = [
+		environment = [
 			{
-				name = "POSTGRES_PORT",
-				value = "5432"
-			},
-			{
-				name = "POSTGRES_DB",
-				value = "drupal"
-			},
+				name = "PGADMIN_DEFAULT_EMAIL",
+				value = "wdst.techs@gov.bc.ca"
+			}/*,
 			{
 				name = "POSTGRES_HOST",
 				value = "${data.aws_rds_cluster.postgres.endpoint}"
-			}			
+			}	*/		
 		]
 		secrets = [
 			{
-				name = "POSTGRES_USER",
-				valueFrom = "${data.aws_secretsmanager_secret_version.creds.arn}:username::"
-			},
-			{
-				name = "POSTGRES_PASSWORD",
+				name = "PGADMIN_DEFAULT_PASSWORD",
 				valueFrom = "${data.aws_secretsmanager_secret_version.creds.arn}:password::"
 			}
 		]
 
-		mountPoints = [
-			{
-				containerPath = "/contents",
-				sourceVolume = "contents"
-			}
-		]*/
 		volumesFrom = []
 
 	}
