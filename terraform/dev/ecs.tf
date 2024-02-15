@@ -340,7 +340,13 @@ resource "aws_ecs_task_definition" "app" {
 				awslogs-stream-prefix = "ecs"
 			}
 		}
-
+		portMappings = [
+			{
+				hostPort = 80
+				protocol = "tcp"
+				containerPort = 80
+			}
+		]
 		environment = [
 			{
 				name = "PGADMIN_DEFAULT_EMAIL",
