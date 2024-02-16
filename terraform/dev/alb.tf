@@ -70,7 +70,7 @@ resource "aws_alb_target_group" "pgadmin" {
     healthy_threshold   = "5"
     interval            = "30"
     protocol            = "HTTPS"
-    matcher             = "200"
+    matcher             = "302"
     timeout             = "5"
     #path                = var.health_check_path
     unhealthy_threshold = "2"
