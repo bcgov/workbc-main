@@ -61,7 +61,7 @@ resource "aws_lb_listener_rule" "host_based_weighted_routing" {
 resource "aws_alb_target_group" "pgadmin" {
   name                 = "pgadmin-target-group-${substr(uuid(), 0, 3)}"
   port                 = 80
-  protocol             = "HTTPS"
+  protocol             = "HTTP"
   vpc_id               = module.network.aws_vpc.id
   target_type          = "ip"
   deregistration_delay = 30
@@ -69,7 +69,7 @@ resource "aws_alb_target_group" "pgadmin" {
   health_check {
     healthy_threshold   = "5"
     interval            = "30"
-    protocol            = "HTTPS"
+    protocol            = "HTTP"
     matcher             = "302"
     timeout             = "5"
     #path                = var.health_check_path
