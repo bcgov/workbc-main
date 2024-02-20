@@ -592,7 +592,7 @@ display:
             placeholder: ''
           is_grouped: true
           group_info:
-            label: 'Education Level'
+            label: 'TEER Level'
             description: ''
             identifier: teer
             optional: true
