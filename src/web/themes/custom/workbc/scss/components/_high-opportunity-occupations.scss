@@ -89,13 +89,13 @@
       width: 17%;
     }
 
-    .views-field-typical-education-background,
+    .views-field-teer,
     .views-field-openings-forecast,
     .views-field-occupational-interest {
       width: 15%;
     }
 
-    .views-field-typical-education-background,
+    .views-field-teer,
     .views-field-occupational-interest {
       text-align: center;
     }
@@ -139,7 +139,7 @@
         display: block;
       }
 
-      td.views-field-typical-education-background,
+      td.views-field-teer,
       td.views-field-hourly-wage,
       td.views-field-openings-forecast,
       td.views-field-occupational-interest {
@@ -151,7 +151,7 @@
         padding-right: 30px;
       }
 
-      td.views-field-typical-education-background::before,
+      td.views-field-teer::before,
       td.views-field-hourly-wage::before,
       td.views-field-openings-forecast::before,
       td.views-field-occupational-interest::before {

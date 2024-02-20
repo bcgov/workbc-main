@@ -363,3 +363,24 @@ function workbc_preprocess_breadcrumb(&$variables){
     $variables['save_profile_available'] = in_array($node->bundle(), $types);
   }
 }
+
+
+function workbc_preprocess_views_view_field(&$variables) {
+
+  $view = $variables['view'];
+  $field = $variables['field'];
+  if($view->storage->id() == "high_opportunity_occupations" && $field->field == "teer") {
+    $vocabulary = 'taxonomy_term';
+    $terms = \Drupal::entityTypeManager()->getStorage($vocabulary)->loadByProperties([
+        'vid' => 'education',
+        'field_teer' => $variables['output'],
+    ]);
+    $term = $terms[array_key_first($terms)];
+    if ($term) {
+      $variables['output'] = $term->getName();
+    }
+    else {
+      $output = "N/A";
+    }
+  }
+}

@@ -105,7 +105,6 @@ function workbc_custom_views_pre_render(ViewExecutable $view) {
     } else {
       $view->field['openings_forecast']->options['label'] = "Job Openings";
     }
-    //\Drupal::logger('workbc_custom')->debug('<pre><code>' . print_r(\Drupal::request()->headers, TRUE) . '</code></pre>');
   }
 
   if ($view->id() == 'industry_profiles') {
@@ -186,8 +185,8 @@ function workbc_custom_form_views_exposed_form_alter(&$form, \Drupal\Core\Form\F
       unset($form['region']['#options']['All']);
     }
 
-    if (isset($form['typical_education_background'])) {
-      $form['typical_education_background']['#options']['All'] = "All";
+    if (isset($form['teer'])) {
+      $form['teer']['#options']['All'] = "All";
     }
 
     if (isset($form['occupational_interest'])) {
