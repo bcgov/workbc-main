@@ -827,7 +827,7 @@ function workbc_custom_post_update_227_noc_migration(&$sandbox = NULL) {
         $node->title = "[ARCHIVED] " . $node->title->value;
         $node->field_noc = "";
 
-        $message = "NOC 2021 data migration: Merge " . $node->field_noc_2016->value . " -> " . $node->field_noc->value;
+        $message = "NOC 2021 data migration: Merge " . $node->field_noc_2016->value . " -> " . $noc[3];
         $sandbox['last_noc_type'] = "merge";
 
         // save old path alias
