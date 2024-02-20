@@ -42,10 +42,20 @@ class CareerProfileMinimumEducation extends ExtraFieldDisplayFormattedBase {
    * {@inheritdoc}
    */
   public function viewElements(ContentEntityInterface $entity) {
-
-    if (!empty($entity->ssot_data) && isset($entity->ssot_data['education']['typical_education_background'])) {
-        $output = $entity->ssot_data['education']['typical_education_background'];
-    }
+    if (!empty($entity->ssot_data) && isset($entity->ssot_data['education']['teer'])) {
+        $vocabulary = 'taxonomy_term';
+        $terms = \Drupal::entityTypeManager()->getStorage($vocabulary)->loadByProperties([
+            'vid' => 'education',
+            'field_teer' => $entity->ssot_data['education']['teer'],
+        ]);
+        $term = $terms[array_key_first($terms)];
+        if ($term) {
+          $output = $term->getName();
+        }
+        else {
+          $output = WORKBC_EXTRA_FIELDS_NOT_AVAILABLE;
+        }
+      }
     else {
         $output = WORKBC_EXTRA_FIELDS_NOT_AVAILABLE;
     }
