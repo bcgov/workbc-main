@@ -43,7 +43,9 @@ class CareerProfileGrowthRateForecast extends ExtraFieldDisplayFormattedBase {
    */
   public function viewElements(ContentEntityInterface $entity) {
 
-    if (!empty($entity->ssot_data) && isset($entity->ssot_data['career_provincial'])) {
+    if (!empty($entity->ssot_data) && isset($entity->ssot_data['career_provincial']) &&
+        !is_null($entity->ssot_data['career_provincial']['forecasted_average_employment_growth_rate_first5y']) &&
+        !is_null($entity->ssot_data['career_provincial']['forecasted_average_employment_growth_rate_second5y'])) {
       $data = array();
       $data[] = floatval($entity->ssot_data['career_provincial']['forecasted_average_employment_growth_rate_first5y']);
       $data[] = floatval($entity->ssot_data['career_provincial']['forecasted_average_employment_growth_rate_second5y']);

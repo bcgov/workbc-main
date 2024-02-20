@@ -43,7 +43,9 @@ class CareerProfileJobOpeningsForecast extends ExtraFieldDisplayFormattedBase {
    */
   public function viewElements(ContentEntityInterface $entity) {
 
-    if (!empty($entity->ssot_data) && isset($entity->ssot_data['career_provincial'])) {
+    if (!empty($entity->ssot_data) && isset($entity->ssot_data['career_provincial']) &&
+        !is_null($entity->ssot_data['career_provincial']['job_openings_first5y']) &&
+        !is_null($entity->ssot_data['career_provincial']['job_openings_second5y'])) {
       $data = array();
       $value = intval($entity->ssot_data['career_provincial']['job_openings_first5y']);
       $data[] = $value < 0 ? 0 : $value;
