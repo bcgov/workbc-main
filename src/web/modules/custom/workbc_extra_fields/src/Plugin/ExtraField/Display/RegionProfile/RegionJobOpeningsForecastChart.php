@@ -58,7 +58,7 @@ class RegionJobOpeningsForecastChart extends ExtraFieldDisplayFormattedBase {
         '#chart_type' => 'column',
         'series' => [
           '#type' => 'chart_data',
-          '#title' => $this->t('Openings'),
+          '#title' => $this->t('Forecasted Job Openings'),
           '#data' => $data,
         ],
         'series_annotation' => [

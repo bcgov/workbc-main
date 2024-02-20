@@ -60,7 +60,7 @@ class BCJobOpeningsForecastChart extends ExtraFieldDisplayFormattedBase {
         'series' => [
           '#type' => 'chart_data',
           '#data' => $data,
-          '#title' => t('Openings'),
+          '#title' => t('Forecasted Job Openings'),
         ],
         'series_annotation' => [
           '#type' => 'chart_data',

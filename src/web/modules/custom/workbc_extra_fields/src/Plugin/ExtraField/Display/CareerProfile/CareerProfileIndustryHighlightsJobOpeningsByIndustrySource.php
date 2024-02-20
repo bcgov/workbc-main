@@ -44,7 +44,7 @@ class CareerProfileIndustryHighlightsJobOpeningsByIndustrySource extends ExtraFi
   public function viewElements(ContentEntityInterface $entity) {
 
     if (!empty($entity->ssot_data) && isset($entity->ssot_data['sources']['openings_careers']) && isset($entity->ssot_data['sources']['census'])) {
-      $output = $entity->ssot_data['sources']['census']['label'] . " and " . $entity->ssot_data['sources']['openings_careers']['label'];
+      $output = $entity->ssot_data['sources']['openings_careers']['label'];
     }
     else {
       $output = "";

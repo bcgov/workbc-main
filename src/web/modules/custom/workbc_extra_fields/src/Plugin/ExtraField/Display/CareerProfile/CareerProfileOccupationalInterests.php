@@ -60,9 +60,11 @@ class CareerProfileOccupationalInterests extends ExtraFieldDisplayFormattedBase 
             $output[] = \Drupal::service('renderer')->render($pre_render);
         }
     }
+    else {
+      $output[] = "<div class='career-occupational-interests-not-available'>" . WORKBC_EXTRA_FIELDS_DATA_NOT_AVAILABLE . "</div>";
+    }
     return [
       array_map(function($o) { return ['#markup' => $o]; }, $output),
     ];
   }
-
 }

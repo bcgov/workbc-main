@@ -450,9 +450,13 @@
                     {{ skill|raw }}
                   {% endfor %}
                 </div>
-                <div class="static-load-more-button-container">
-                  <button data-static-load-more-trigger class="btn btn-secondary">Show More</button>
-                </div>
+                {% if viewmodel['tab_sections']['education']['skills_list']['#markup'] is not empty %}
+                  <div class="static-load-more-button-container">
+                    <button data-static-load-more-trigger class="btn btn-secondary">Show More</button>
+                  </div>
+                {% else %}
+                  <div class="career-skills-not-available">Data not available</div>
+                {% endif %}
               </div>
             </div>
           </div>
