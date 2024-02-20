@@ -32,13 +32,13 @@ resource "aws_efs_access_point" "pgadmin" {
   
 }
 
-resource "aws_efs_mount_target" "data_azA2" {
+resource "aws_efs_mount_target" "data_azA3" {
   file_system_id  = aws_efs_file_system.pgadmin.id
   subnet_id       = sort(module.network.aws_subnet_ids.data.ids)[0]
   security_groups = [data.aws_security_group.app.id]
 }
 
-resource "aws_efs_mount_target" "data_azB2" {
+resource "aws_efs_mount_target" "data_azB3" {
   file_system_id  = aws_efs_file_system.pgadmin.id
   subnet_id       = sort(module.network.aws_subnet_ids.data.ids)[1]
   security_groups = [data.aws_security_group.app.id]
