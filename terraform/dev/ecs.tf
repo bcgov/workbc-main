@@ -29,6 +29,13 @@ resource "aws_ecs_task_definition" "app" {
     }
   }
   volume {
+    name = "pgadmin_data"
+    efs_volume_configuration  {
+        file_system_id = aws_efs_file_system.workbc.id
+	root_directory = "/pgadata"
+    }
+  }
+  volume {
     name = "app"
   }
 
@@ -351,11 +358,7 @@ resource "aws_ecs_task_definition" "app" {
 			{
 				name = "PGADMIN_DEFAULT_EMAIL",
 				value = "wdst.techs@gov.bc.ca"
-			}/*,
-			{
-				name = "POSTGRES_HOST",
-				value = "${data.aws_rds_cluster.postgres.endpoint}"
-			}	*/		
+			}	
 		]
 		secrets = [
 			{
@@ -364,6 +367,12 @@ resource "aws_ecs_task_definition" "app" {
 			}
 		]
 
+		mountPoints = [
+			{
+				containerPath = "/var/lib/pgadmin",
+				sourceVolume = "pgadmin_data"
+			}
+		]
 		volumesFrom = []
 
 	}
