@@ -291,7 +291,7 @@ display:
           group_type: group
           admin_label: ''
           plugin_id: numeric
-          label: 'Education Requirements'
+          label: 'TEER Requirements'
           exclude: false
           alter:
             alter_text: false
