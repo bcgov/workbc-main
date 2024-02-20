@@ -28,13 +28,13 @@ resource "aws_ecs_task_definition" "app" {
         file_system_id = aws_efs_file_system.workbc.id
     }
   }
-  volume {
+  /*volume {
     name = "pgadmin_data"
     efs_volume_configuration  {
         file_system_id = aws_efs_file_system.workbc.id
 	root_directory = "/pgadata"
     }
-  }
+  }*/
   volume {
     name = "app"
   }
@@ -367,12 +367,12 @@ resource "aws_ecs_task_definition" "app" {
 			}
 		]
 
-		mountPoints = [
+		/*mountPoints = [
 			{
 				containerPath = "/var/lib/pgadmin",
 				sourceVolume = "pgadmin_data"
 			}
-		]
+		]*/
 		volumesFrom = []
 
 	}
