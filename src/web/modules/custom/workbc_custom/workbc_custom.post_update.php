@@ -969,7 +969,7 @@ function workbc_custom_post_update_227_taxonomy_migration() {
     else {
       // create new term
       $term = \Drupal\taxonomy\Entity\Term::create([
-        'name' => 'TEER ' . $update['teer'],
+        'name' => $update['term'],
         'vid' => 'education',
         'description' => $update['description'],
         'field_teer' => $update['teer'],
