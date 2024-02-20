@@ -89,19 +89,19 @@
       icon_class: 'profile-information-salary',
       title: content.extra_field_annual_salary['#title'],
       value: content.extra_field_annual_salary.0['#markup'],
-      source: content.extra_field_annual_salary_source.0['#markup'],
+      source: "<em>Source:</em> " ~ content.extra_field_annual_salary_source.0['#markup'],
     },
     minimum_education: {
       icon_class: 'profile-information-education',
       title: content.extra_field_minimum_education['#title'],
       value: content.extra_field_minimum_education.0['#markup'],
-      source: null
+      source: content.extra_field_minimum_education.0['#infotip'],
     },
     job_openings: {
       icon_class: 'profile-information-jobs',
       title: content.extra_field_job_openings['#title'],
       value: content.extra_field_job_openings.0['#markup'],
-      source: content.extra_field_job_openings_source.0['#markup']
+      source: "<em>Source:</em> " ~ content.extra_field_job_openings_source.0['#markup']
     },
   },
   hero: {
@@ -289,7 +289,7 @@
           </div>
           {% if statistic['source'] %}
             <div class="profile-information-card-infotip">
-              <a tabindex="0" class="btn btn-link info-tooltip" role="button" data-bs-toggle="popover" data-bs-container="body" data-bs-trigger="click hover" data-bs-placement="bottom" data-bs-custom-class="workbc-popover" title="hidden title" data-bs-html="true" data-bs-content="<em>Source:</em> {{ statistic['source'] }}"></a>
+              <a tabindex="0" class="btn btn-link info-tooltip" role="button" data-bs-toggle="popover" data-bs-container="body" data-bs-trigger="click hover" data-bs-placement="bottom" data-bs-custom-class="workbc-popover" title="hidden title" data-bs-html="true" data-bs-content="{{ statistic['source'] }}"></a>
             </div>
           {% endif %}
         </div>

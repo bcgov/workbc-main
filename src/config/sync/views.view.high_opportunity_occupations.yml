@@ -291,7 +291,7 @@ display:
           group_type: group
           admin_label: ''
           plugin_id: numeric
-          label: 'TEER Requirements'
+          label: 'Training, Education, Experience and Responsibilities'
           exclude: false
           alter:
             alter_text: false
@@ -592,7 +592,7 @@ display:
             placeholder: ''
           is_grouped: true
           group_info:
-            label: 'TEER Level'
+            label: 'Training, Education, Experience and Responsibilities'
             description: ''
             identifier: teer
             optional: true
@@ -603,40 +603,47 @@ display:
             default_group_multiple: {  }
             group_items:
               1:
-                title: 'TEER 0'
+                title: 'TEER 0 - Management'
                 operator: '='
                 value:
                   min: ''
                   max: ''
                   value: '0'
               2:
-                title: 'TEER 1'
+                title: 'TEER 1 - University Degree'
                 operator: '='
                 value:
                   min: ''
                   max: ''
                   value: '1'
               3:
-                title: 'TEER 2'
+                title: 'TEER 2 - College, Diploma or Apprenticeship, 2 or more years'
                 operator: '='
                 value:
                   min: ''
                   max: ''
                   value: '2'
               4:
-                title: 'TEER 3'
+                title: 'TEER 3 - College, Diploma or Apprenticeship, less than 2 years'
                 operator: '='
                 value:
                   min: ''
                   max: ''
                   value: '3'
               5:
-                title: 'TEER 4'
+                title: 'TEER 4 - High School Diploma'
                 operator: '='
                 value:
                   min: ''
                   max: ''
                   value: '4'
+              6:
+                title: 'TEER 5 - No Formal Education'
+                operator: '='
+                value:
+                  min: ''
+                  max: ''
+                  value: '5'
         region:
           id: region
           table: high_opportunity_occupations
