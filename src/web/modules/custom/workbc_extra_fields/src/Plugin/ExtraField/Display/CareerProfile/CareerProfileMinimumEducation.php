@@ -11,8 +11,8 @@ use Drupal\extra_field\Plugin\ExtraFieldDisplayFormattedBase;
  *
  * @ExtraFieldDisplay(
  *   id = "minimum_education",
- *   label = @Translation("Typical Education Background"),
- *   description = @Translation("Minimum Education Background"),
+ *   label = @Translation("TEER"),
+ *   description = @Translation("Training, Education, Experience and Responsibilities"),
  *   bundles = {
  *     "node.career_profile",
  *   }
@@ -27,7 +27,7 @@ class CareerProfileMinimumEducation extends ExtraFieldDisplayFormattedBase {
    */
   public function getLabel() {
 
-    return $this->t('Typical Education Background');
+    return $this->t('Training, Education, Experience and Responsibilities');
   }
 
   /**
