@@ -872,6 +872,9 @@ function noc2021ProcessValidation() {
   $results = noc2021ValidateProfileCount();
   $errors = array_merge($errors, $results);
 
+  $results = noc2021ValidateProfileHasContent();
+  $errors = array_merge($errors, $results);
+
   $results = noc2021ValidateProfiles();
   $errors = array_merge($errors, $results);
 
@@ -929,6 +932,30 @@ function profilesExists($noc2021, $nodes) {
   }
   return $found;
 }
+
+
+function noc2021ValidateProfileHasContent() {
+
+  $errors = [];
+
+  $nids = \Drupal::entityQuery('node')
+  ->condition('status', 1)
+  ->condition('type', 'career_profile')
+  ->execute();
+
+  $profiles = \Drupal\node\Entity\Node::loadMultiple($nids);
+
+  foreach ($profiles as $profile) {
+    if (empty($profile->field_career_overview->value) ||
+        empty($profile->field_duties->value) ||
+        empty($profile->field_education_training_skills->value)) {
+      $errors[] = "Missing content NOC #: " . $profile->field_noc->value;
+    }
+  }
+
+  return $errors;
+}
+
 
 function noc2021ValidateProfiles() {
   
