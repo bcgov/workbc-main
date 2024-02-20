@@ -5,3 +5,11 @@ example.my_page:
     _title: 'ssotFormatNumber Test Page'
   requirements:
     _permission: 'access administration pages'
+
+example.my_page:
+  path: '/admin/test/chart'
+  defaults:
+    _controller: '\Drupal\workbc_extra_fields\Controller\TestPageController::chartTestPage'
+    _title: 'Chart Test Page'
+  requirements:
+    _permission: 'access administration pages'    

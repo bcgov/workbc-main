@@ -592,12 +592,6 @@
                 </div>
               </div>
 
-              {% if viewmodel['tab_sections']['labour_market']['outlook_openings_by_region_na'] == 'YES' %}
-                <div class="card-profile__na">
-                  <em>N/A:</em> Data is not available for this region.
-                </div>
-              {% endif %}
-
               <div class="card-profile__source">
                 <em>Source:</em> {{ viewmodel['tab_sections']['labour_market']['outlook_openings_by_region_source']|raw }}
               </div>

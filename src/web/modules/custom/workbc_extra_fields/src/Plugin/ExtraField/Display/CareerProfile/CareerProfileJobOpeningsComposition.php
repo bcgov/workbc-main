@@ -74,7 +74,7 @@ class CareerProfileJobOpeningsComposition extends ExtraFieldDisplayFormattedBase
       $output = \Drupal::service('renderer')->render($chart);
     }
     else {
-      $output = "";
+      $output = '<div class="workbc-data-not-available-350">' . WORKBC_EXTRA_FIELDS_DATA_NOT_AVAILABLE . "</div>";
     }
 
     return [

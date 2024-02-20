@@ -121,6 +121,79 @@ class TestPageController extends ControllerBase {
   }
 
 
+  public function chartTestPage() {
+
+    $data = array();
+    $data[] = 1.3;
+    $data[] = 2.7;
+    $date1 = '2023-2028';
+    $date2 = '2028-2033';
+    $dates[] = $date1;
+    $dates[] = $date2;
+
+    $chart = [
+      '#chart_id' => 'test-page-chart',
+      '#type' => 'chart',
+      '#chart_type' => 'column',
+      'series' => [
+        '#type' => 'chart_data',
+        '#title' => $this->t('Forecasted Employment Growth Rate'),
+        '#data' => $data,
+      ],
+      // 'series_annotation' => [
+      //   '#type' => 'chart_data',
+      //   '#title' => ['role' => 'annotation'],
+      //   '#data' => array_map(function($v) {
+      //     $options = array(
+      //       'decimals' => 1,
+      //       'suffix' => "%",
+      //       'positive_sign' => TRUE,
+      //     );
+      //     return ssotFormatNumber($v, $options);
+      //   }, $data),          
+      // ],
+      // 'series_tooltip' => [
+      //   '#type' => 'chart_data',
+      //   '#title' => ['type' => 'string', 'role' => 'tooltip', 'p' => ['html' => true]],
+      //   '#data' => array_map(function($v, $d) {
+      //     $tooltip = "Forecasted Employment Growth Rate: ";
+      //     $options = array(
+      //       'decimals' => 1,
+      //       'suffix' => "%",
+      //       'positive_sign' => TRUE,
+      //     );
+      //     // $tooltip = $d . " Forecasted Employment Growth Rate: ";
+      //     // $tooltip .= ssotFormatNumber($v, $options);            
+      //     $tooltip = "<b>" . $d . "<br></b> Forecasted Employment Growth Rate: ";
+      //     $tooltip .= "<b>" . ssotFormatNumber($v, $options) . "</b>";
+      //     return $tooltip;
+      //   }, $data, $dates),          
+      // ],        
+      'xaxis' => [
+        '#type' => 'chart_xaxis',
+        '#labels' => $dates,
+      ],
+      'yaxis' => [
+        '#type' => 'chart_yaxis',
+        '#raw_options' => [
+          'textPosition' => 'out',
+          'gridlines' => [
+            'count' => 1,
+          ],
+          'minValue' => 0,
+        ]
+      ],
+      '#legend_position' => 'none',
+    ];
+    $content = \Drupal::service('renderer')->render($chart);
+
+
+    return [
+      '#markup' => $content,
+    ];
+  }
+
+
   function createRow($number, $options) {
     $result = ssotFormatNumber($number, $options);
     $info = json_encode($options);

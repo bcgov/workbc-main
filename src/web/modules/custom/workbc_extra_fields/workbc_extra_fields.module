@@ -4,7 +4,8 @@ use GuzzleHttp\Client;
 use GuzzleHttp\Exception\RequestException;
 use Drupal\views\ViewExecutable;
 
-define ("WORKBC_EXTRA_FIELDS_NOT_AVAILABLE", "N/A");
+define ("WORKBC_EXTRA_FIELDS_NOT_AVAILABLE", "Not available");
+define ("WORKBC_EXTRA_FIELDS_DATA_NOT_AVAILABLE", "Data not available");
 
 define ("WORKBC_BC_MAP_WITH_LABELS", "bc-map-labels.png");
 define ("WORKBC_BC_MAP", "bc-map.png");
@@ -728,23 +729,23 @@ function workbcInteractiveMap($map_id) {
  */
 function workbc_extra_fields_chart_definition_alter(array &$definition, array $element, $chart_id) {
 
-   if ($definition['visualization'] == "ColumnChart") {
-     $colors = ["#009CDE", "#002857", "#2E6AB0"];
-     foreach ($definition['data'] as $key => $value) {
-       if ($key == 0) {
-         $definition['data'][0][] = ['role' => 'style'];
-       }
+  if ($definition['visualization'] == "ColumnChart") {
+    $colors = ["#009CDE", "#002857", "#2E6AB0"];
+    foreach ($definition['data'] as $key => $value) {
+      if ($key == 0) {
+        $definition['data'][0][] = ['role' => 'style'];
+      }
+      else {
+        if ($chart_id == "career-forecasted-job-openings") {
+          $definition['data'][$key][] = $colors[$key % 3];
+        }
+        else if ($chart_id == "career-forecasted-employment-growth-rate" ||
+                 $chart_id == "region-forecasted-employment-growth-rate") {
+          $definition['data'][$key][] = ($key % 2) ? "#002857" : "#2E6AB0";
+        }
        else {
-         if ($chart_id == "career-forecasted-job-openings") {
-           $definition['data'][$key][] = $colors[$key % 3];
-         }
-         else if ($chart_id == "career-forecasted-employment-growth-rate" ||
-                  $chart_id == "region-forecasted-employment-growth-rate") {
-           $definition['data'][$key][] = ($key % 2) ? "#002857" : "#2E6AB0";
-         }
-         else {
-           $definition['data'][$key][] = ($key % 2) ? "#2E6AB0" : "#002857";
-         }
+         $definition['data'][$key][] = ($key % 2) ? "#2E6AB0" : "#002857";
+        }
       }
     }
   }
@@ -787,4 +788,24 @@ function workbc_extra_fields_chart_definition_alter(array &$definition, array $e
   ) {
     $definition['options']['width'] = 415;
   }
+
+
+  if ($chart_id == "career-composition-job-openings" ||
+      $chart_id == "region-composition-job-openings" ||
+      $chart_id == "bc-composition-job-openings") {
+    $definition['options']['tooltip']['text'] = "percentage";
+  }
+
+  if ($chart_id == "career-forecasted-employment-growth-rate") {
+    // $definition['options']['vAxis']['format'] = "#'%'";
+  }
+
+  if ($chart_id = "test-page-chart") {
+    // $definition['options']['vAxis']['format'] = "percent";
+    $definition['options']['vAxis']['format'] = "#'%'";
+    // $definition['options']['vAxis']['isHtml'] = TRUE;
+
+  }
+
 }
+

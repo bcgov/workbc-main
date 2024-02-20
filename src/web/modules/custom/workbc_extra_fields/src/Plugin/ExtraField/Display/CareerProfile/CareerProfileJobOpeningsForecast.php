@@ -67,7 +67,6 @@ class CareerProfileJobOpeningsForecast extends ExtraFieldDisplayFormattedBase {
           '#data' => array_map(function($v) {
             $options = array(
               'decimals' => 0,
-              'positive_sign' => TRUE,
               'na_if_empty' => TRUE,
             );
             return ssotFormatNumber($v, $options);
@@ -92,7 +91,7 @@ class CareerProfileJobOpeningsForecast extends ExtraFieldDisplayFormattedBase {
       $output = \Drupal::service('renderer')->render($chart);
     }
     else {
-      $output = "";
+      $output = '<div class="workbc-data-not-available-200">' . WORKBC_EXTRA_FIELDS_DATA_NOT_AVAILABLE . "</div>";
     }
 
     return [
