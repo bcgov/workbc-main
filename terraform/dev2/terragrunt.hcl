@@ -11,13 +11,13 @@ locals {
 }
 
 generate "dev_tfvars" {
-  path              = "dev.auto.tfvars"
+  path              = "dev2.auto.tfvars"
   if_exists         = "overwrite"
   disable_signature = true
   contents          = <<-EOF
     alb_name = "default"
     cloudfront = true
-    cloudfront_origin_domain = "workbc.${local.project}-dev.nimbus.cloud.gov.bc.ca"
+    cloudfront_origin_domain = "workbc.${local.project}-dev2.nimbus.cloud.gov.bc.ca"
     service_names = ["workbc"]
   EOF
 }
