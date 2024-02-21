@@ -617,14 +617,14 @@ display:
                   max: ''
                   value: '1'
               3:
-                title: 'TEER 2 - College, Diploma or Apprenticeship, 2 or more years'
+                title: 'TEER 2 - College Diploma or Apprenticeship, 2 or more years'
                 operator: '='
                 value:
                   min: ''
                   max: ''
                   value: '2'
               4:
-                title: 'TEER 3 - College, Diploma or Apprenticeship, less than 2 years'
+                title: 'TEER 3 - College Diploma or Apprenticeship, less than 2 years'
                 operator: '='
                 value:
                   min: ''

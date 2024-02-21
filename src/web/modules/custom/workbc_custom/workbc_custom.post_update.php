@@ -931,13 +931,13 @@ function workbc_custom_post_update_227_taxonomy_migration() {
   $updates[] = array(
     'old' => 'Diploma/Certificate Excluding Apprenticeship',
     'teer' => '2',
-    'term' => 'TEER 2 - College, Diploma or Apprenticeship, 2 or more years',
+    'term' => 'TEER 2 - College Diploma or Apprenticeship, 2 or more years',
     'description' => "Completion of a post-secondary education program of two to three years at community college, institute of technology, or CÉGEP; or Completion of an apprenticeship training program of two to five years; or Occupations with supervisory or significant safety (e.g. police officers and firefighters) responsibilities; or Several years of experience in a related occupation from TEER category 3 (when applicable).",
   );
   $updates[] = array(
     'old' => 'High School',
     'teer' => '3',
-    'term' => 'TEER 3 - College, Diploma or Apprenticeship, less than 2 years',
+    'term' => 'TEER 3 - College Diploma or Apprenticeship, less than 2 years',
     'description' => "Completion of a post-secondary education program of less than two years at community college, institute of technology or CÉGEP; or Completion of an apprenticeship training program of less than two years; or More than six months of on-the-job training, training courses or specific work experience with some secondary school education; or Several years of experience in a related occupation from TEER category 4 (when applicable).",
   );
   $updates[] = array(
