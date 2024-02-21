@@ -125,6 +125,8 @@
       region_overview_title: content.group_bc_profile.group_region_overview.field_region_overview['#title'],
       region_overview_text: content.group_bc_profile.group_region_overview.field_region_overview.0['#text'],
 
+      region_overview_content: content.group_bc_profile.group_region_overview.field_content,
+
       key_facts_title: content.group_bc_profile.group_region_overview.field_key_facts['#title'],
       key_facts_text: content.group_bc_profile.group_region_overview.field_key_facts.0['#text'],
     },
@@ -272,6 +274,10 @@
             <h2 class="profile-content-main__header">{{ viewmodel['tab_sections']['overview']['title'] }}</h2>
             <div>{{ viewmodel['tab_sections']['overview']['description']|raw }}</div>
 
+            {% if viewmodel['tab_sections']['overview']['region_overview_content'] %}
+              {{ viewmodel['tab_sections']['overview']['region_overview_content'] }}
+            {% endif %}
+
             <div class="profile-content-section">
               <h2 class="profile-content-section__header">{{ viewmodel['tab_sections']['overview']['key_facts_title'] }}</h2>
               <div>{{ viewmodel['tab_sections']['overview']['key_facts_text']|raw }}</div>
@@ -339,22 +345,22 @@
                         <thead>
                           <tr class='table-header'>
                             <th>{{ header.0 }}</th>
-                            <th>{{ header.1 }}
+                            <th class="data-align-right">{{ header.1 }}
                               <span class="workbc-tooltip bc-profile--employment-tooltip">
                                 <div class="workbc-tooltip-content bc-profile--employment-tooltip-content">
                                   {{ tooltip | raw }}
                                 </div>
                               </span>
                             </th>
-                            <th>{{ header.2 }}</th>
+                            <th class="data-align-right">{{ header.2 }}</th>
                           </tr>
                         </thead>
 
                         {% for region in rows %}
                           <tr class='{{ region.class }} {{ cycle(['odd', 'even'], loop.index0) }} bc-profile-employment-region-row'>
-                            <td class='region'>{{ region.data.0 | raw }}</td>
-                            <td class='full-time-rate data-row' data-label='Full-time Employment Rate'>{{ region.data.1 }}</td>
-                            <td class='part-time-rate data-row' data-label='Part-time Employment Rate'>{{ region.data.2 }}</td>
+                            <td class='region data-align-left'>{{ region.data.0 | raw }}</td>
+                            <td class='full-time-rate data-row data-align-right' data-label='Full-time Employment Rate'>{{ region.data.1 }}</td>
+                            <td class='part-time-rate data-row data-align-right' data-label='Part-time Employment Rate'>{{ region.data.2 }}</td>
                           </tr>
                           {% if not loop.last %}
                             <tr class="horizontal-line"></tr>
@@ -363,9 +369,9 @@
 
                         <tfoot>
                           <tr class='bc-profile-employment-region-footer'>
-                            <td class='region'>{{ footer.0 }}</td>
-                            <td class='full-time-rate data-row' data-label='Full-time Employment Rate'>{{ footer.1 }}</td>
-                            <td class='part-time-rate data-row' data-label='Part-time Employment Rate'>{{ footer.2 }}</td>
+                            <td class='region data-align-left'>{{ footer.0 }}</td>
+                            <td class='full-time-rate data-row data-align-right' data-label='Full-time Employment Rate' align="right">{{ footer.1 }}</td>
+                            <td class='part-time-rate data-row data-align-right' data-label='Part-time Employment Rate' align="right">{{ footer.2 }}</td>
                           </tr>
                         </tfoot>
                       </table>
@@ -382,7 +388,7 @@
               </div>
             </div>
 
-            <div class="card-profile">
+            <div class="card-profile"  id="bc-regional-unemployment-stats">
               <div class="card-profile__content">
                 <h3 class="card-profile__content-header">{{ viewmodel['tab_sections']['labour_market_statistics']['uneployment_bc_title'] }}
                   <span class="workbc-tooltip bc-profile--tooltip">
@@ -394,7 +400,7 @@
                 <span class="card-profile__content-value">{{ viewmodel['tab_sections']['labour_market_statistics']['uneployment_bc_markup']|raw }}</span>
               </div>
               <div class="card-profile__content">
-                <h3 class="card-profile__content-header">{{ viewmodel['tab_sections']['labour_market_statistics']['uneployment_chart_title'] }}</h3>
+                <h3 class="card-profile__content-header bc-profile-mobile">{{ viewmodel['tab_sections']['labour_market_statistics']['uneployment_chart_title'] }}</h3>
                 <span class="card-profile__content-value">{{ viewmodel['tab_sections']['labour_market_statistics']['uneployment_chart_markup']|raw }}</span>
               </div>
               <div class="card-profile__source">
@@ -446,9 +452,16 @@
               </div>
             </div>
 
+            {% set tooltip2 = "<em><strong>Goods and Services Sectors</strong></em> refers to goods-producing industries and services-producing industries." %}
             <div class="card-profile">
               <div class="card-profile__content">
-                <h3 class="card-profile__content-header">{{ viewmodel['tab_sections']['industry_highlights']['employment_goods_service_share_chart_title'] }}</h3>
+                <h3 class="card-profile__content-header">{{ viewmodel['tab_sections']['industry_highlights']['employment_goods_service_share_chart_title'] }}
+                  <span class="workbc-tooltip bc-profile--tooltip">
+                    <div class="workbc-tooltip-content bc-profile--tooltip-content">
+                      {{ tooltip2 | raw }}
+                    </div>
+                  </span>
+                </h3>                  
                 <span class="card-profile__content-item">{{ viewmodel['tab_sections']['industry_highlights']['employment_goods_service_share_chart_markup']|raw }}</span>
               </div>
               <div class="card-profile__source">

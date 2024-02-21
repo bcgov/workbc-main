@@ -116,11 +116,14 @@
       title: content.group_industry_profile.group_industry_overview.field_industry_overview['#title'] ?? 'Industry Overview',
       description: content.group_industry_profile.group_industry_overview.field_industry_overview.0['#text'],
 
+      industry_overview_content: content.group_industry_profile.group_industry_overview.field_content,
+
       key_facts_title: content.group_industry_profile.group_industry_overview.field_key_facts['#title'],
       key_facts_markup: content.group_industry_profile.group_industry_overview.field_key_facts.0['#text'],
 
       hourly_earnings_title: content.group_industry_profile.group_industry_overview.extra_field_hourly_earnings_introduction['#title'],
       hourly_earnings_markup: content.group_industry_profile.group_industry_overview.extra_field_hourly_earnings_introduction.0['#text'],
+      hourly_earnings_note: content.group_industry_profile.group_industry_overview.field_hourly_earnings_note['#items'].getString(),
       hourly_earnings_average_bc_title: content.group_industry_profile.group_industry_overview.extra_field_industry_average_wage_bc['#title'],
       hourly_earnings_average_bc_markup: content.group_industry_profile.group_industry_overview.extra_field_industry_average_wage_bc.0['#markup'],
       hourly_earnings_average_national_title: content.group_industry_profile.group_industry_overview.extra_field_industry_wage['#title'],
@@ -148,7 +151,7 @@
       employment_text: content.group_industry_profile.group_labour_market_statistics.extra_field_employment_introduction.0['#text'],
 
       employment_types_title: 'Types of Employment',
-      employment_types_text__field: 'Shows % of Persons Employed for each type',
+      employment_types_text__field: 'Shows % of persons employed for each type',
       employment_types_industry_title: content.group_industry_profile.group_labour_market_statistics.extra_field_industry_employment_types_industry['#title'],
       employment_types_industry_markup: content.group_industry_profile.group_labour_market_statistics.extra_field_industry_employment_types_industry.0['#markup'],
       employment_types_bc_title: content.group_industry_profile.group_labour_market_statistics.extra_field_industry_employment_types_bc['#title'],
@@ -184,6 +187,7 @@
       top_occupations_title: content.group_industry_profile.group_labour_market_statistics.extra_field_top_occupations_introduction['#title'],
       top_occupations_text: content.group_industry_profile.group_labour_market_statistics.extra_field_top_occupations_introduction.0['#text'],
       top_occupations_markup: content.group_industry_profile.group_labour_market_statistics.extra_field_industry_top_ten_occupations.0['#markup'],
+      top_occupations_source: content.group_industry_profile.group_labour_market_statistics.extra_field_industry_top_ten_occupations_source.0['#markup'],
     },
     resources: {
       tab: 'Resources',
@@ -283,6 +287,10 @@
             <h2 class="profile-content-main__header">{{ viewmodel['tab_sections']['industry_overview']['title'] }}</h2>
             <div>{{ viewmodel['tab_sections']['industry_overview']['description']|raw }}</div>
 
+            {% if viewmodel['tab_sections']['industry_overview']['industry_overview_content'] %}
+              {{ viewmodel['tab_sections']['industry_overview']['industry_overview_content'] }}
+            {% endif %}
+
             <div class="profile-content-section">
               <h2 class="profile-content-section__header">{{ viewmodel['tab_sections']['industry_overview']['key_facts_title'] }}</h2>
               <div>{{ viewmodel['tab_sections']['industry_overview']['key_facts_markup']|raw }}</div>
@@ -295,15 +303,23 @@
               <div class="card-profile">
                 <div class="card-profile__content-small">
                   <h3 class="card-profile__content-header">{{ viewmodel['tab_sections']['industry_overview']['hourly_earnings_average_bc_title'] }}</h3>
-                  <span class="card-profile__content-item">{{ viewmodel['tab_sections']['industry_overview']['hourly_earnings_average_bc_markup']|raw }}</span>
+                  <span class="card-profile__content-item industry-profile-hourly-earnings">{{ viewmodel['tab_sections']['industry_overview']['hourly_earnings_average_bc_markup']|raw }}</span>
                 </div>
                 <div class="card-profile__content-divider"></div>
                 <div class="card-profile__content-small">
                   <h3 class="card-profile__content-header">{{ viewmodel['tab_sections']['industry_overview']['hourly_earnings_average_national_title'] }}</h3>
-                  <span class="card-profile__content-item">{{ viewmodel['tab_sections']['industry_overview']['hourly_earnings_average_national_markup']|raw }}</span>
+                  <span class="card-profile__content-item industry-profile-hourly-earnings">{{ viewmodel['tab_sections']['industry_overview']['hourly_earnings_average_national_markup']|raw }}</span>
                 </div>
+              
                 <div class="card-profile__source">
-                  <em>Source:</em> {{ viewmodel['tab_sections']['industry_overview']['hourly_earnings_source']|raw }}
+                  {% if viewmodel['tab_sections']['industry_overview']['hourly_earnings_note'] is not empty %}
+                    <div class="hourly-earnings-note">
+                      <em>Note:</em> {{ viewmodel['tab_sections']['industry_overview']['hourly_earnings_note']|raw }}
+                    </div>
+                  {% endif %}
+                  <div>
+                    <em>Source:</em> {{ viewmodel['tab_sections']['industry_overview']['hourly_earnings_source']|raw }}
+                  </div>
                 </div>
               </div>
             </div>
@@ -315,22 +331,26 @@
               <div class="card-profile">
                 <div class="card-profile__content-small">
                   <h3 class="card-profile__content-header">{{ viewmodel['tab_sections']['industry_overview']['workforce_by_gender_national_title'] }}</h3>
-                  <span class="card-profile__content-item">{{ viewmodel['tab_sections']['industry_overview']['workforce_by_gender_national_markup']|raw }}</span>
+                  <span class="card-profile__content-item industry-profile-workforce">{{ viewmodel['tab_sections']['industry_overview']['workforce_by_gender_national_markup']|raw }}</span>
                 </div>
                 <div class="card-profile__content-divider"></div>
                 <div class="card-profile__content-small">
                   <h3 class="card-profile__content-header">{{ viewmodel['tab_sections']['industry_overview']['workforce_by_gender_bc_average_title'] }}</h3>
-                  <span class="card-profile__content-item">{{ viewmodel['tab_sections']['industry_overview']['workforce_by_gender_bc_average_markup']|raw }}</span>
+                  <span class="card-profile__content-item industry-profile-workforce">{{ viewmodel['tab_sections']['industry_overview']['workforce_by_gender_bc_average_markup']|raw }}</span>
                 </div>
                 <div class="card-profile__source">
                   <em>Source:</em> {{ viewmodel['tab_sections']['industry_overview']['workforce_by_gender_source']|raw }}
                 </div>
               </div>
 
-              <div class="card-profile">
+              <div class="card-profile industry-table-container" id="industry-employment-age">
                 <div class="card-profile__content">
                   <h3 class="card-profile__content-header">{{ viewmodel['tab_sections']['industry_overview']['workforce_by_age_title'] }}</h3>
-                  <span class="card-profile__content-item">{{ viewmodel['tab_sections']['industry_overview']['workforce_by_age_markup']|raw }}</span>
+                  <span class="card-profile__content-item">
+                    <div>
+                      {{ viewmodel['tab_sections']['industry_overview']['workforce_by_age_markup']|raw }}
+                    </div>
+                  </span>
                 </div>
                 <div class="card-profile__source">
                   <em>Source:</em> {{ viewmodel['tab_sections']['industry_overview']['workforce_by_age_source']|raw }}
@@ -357,12 +377,12 @@
                 </div>
                 <div class="card-profile__content-small">
                   <h3 class="card-profile__content-header">{{ viewmodel['tab_sections']['labour_market_statistics']['employment_types_bc_title'] }}</h3>
-                  <span class="card-profile__content-item">{{ viewmodel['tab_sections']['labour_market_statistics']['employment_types_bc_markup']|raw }}</span>
+                  <span class="card-profile__content-item industry-profile-employment-types">{{ viewmodel['tab_sections']['labour_market_statistics']['employment_types_bc_markup']|raw }}</span>
                 </div>
                 <div class="card-profile__content-divider"></div>
                 <div class="card-profile__content-small">
                   <h3 class="card-profile__content-header">{{ viewmodel['tab_sections']['labour_market_statistics']['employment_types_industry_title'] }}</h3>
-                  <span class="card-profile__content-item">{{ viewmodel['tab_sections']['labour_market_statistics']['employment_types_industry_markup']|raw }}</span>
+                  <span class="card-profile__content-item industry-profile-employment-types">{{ viewmodel['tab_sections']['labour_market_statistics']['employment_types_industry_markup']|raw }}</span>
                 </div>
                 <div class="card-profile__source">
                   <em>Source:</em> {{ viewmodel['tab_sections']['labour_market_statistics']['employment_types_source']|raw }}
@@ -370,9 +390,6 @@
               </div>
             </div>
 
-            <div class="profile-content-section">
-              <div>{{ viewmodel['tab_sections']['industry_overview']['hourly_earnings_markup']|raw }}</div>
-            </div>
 
             <div class="profile-content-section" id="latest-employment-trends">
               <div class="card-profile">
@@ -417,13 +434,13 @@
 
                      <table>
                         <thead>
-                          <tr><th>{{ header.0 }}</th><th>% Employment this Industry</th><th>% Employment All Industries</th></tr>
+                          <tr><th>{{ header.0 }}</th><th class="industry-profile-table-header-right">{{ header.1 }}</th><th  class="industry-profile-table-header-right">{{ header.2 }}</th></tr>
                         </thead>
                         {% for region in rows %}
                           <tr class='{{ region.class }}  {{ cycle(['odd', 'even'], loop.index0) }}'>
-                            <td class="region">{{ region.data.0 }}</td>
-                            <td class="data-row" data-label="% Employment this Industry">{{ region.data.1 }}</td>
-                            <td class="data-row" data-label="% Employment All Industries">{{ region.data.2 }}</td>
+                            <td class="region data-align-left">{{ region.data.0 }}</td>
+                            <td class="data-row data-align-right" data-label="{{ header.1 }}">{{ region.data.1 }}</td>
+                            <td class="data-row data-align-right" data-label="{{ header.2 }}">{{ region.data.2 }}</td>
                           </tr>
                           {% if not loop.last %}
                             <tr class="horizontal-line"></tr>
@@ -485,6 +502,9 @@
                 <div class="card-profile__content">
                   <span class="card-profile__content-item">{{ viewmodel['tab_sections']['labour_market_statistics']['top_occupations_markup']|raw }}</span>
                 </div>
+                <div class="card-profile__source">
+                  <em>Source:</em> {{ viewmodel['tab_sections']['labour_market_statistics']['top_occupations_source']|raw }}
+                </div>                
               </div>
             </div>
           </div>

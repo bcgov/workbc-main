@@ -52,7 +52,7 @@ class IndustryTopTenOccupations extends ExtraFieldDisplayFormattedBase {
         'na_if_empty' => TRUE,
       );
       $content = "<table>";
-      $content .= "<tr><th>Top Ten Occupations</th><th>Job Openings<br>(" . $datestr . ")</th></tr>";
+      $content .= "<tr><th>Top Ten Occupations</th><th class='top-ten-job-openings data-align-right'>Job Openings<br>(" . $datestr . ")</th></tr>";
       foreach ($entity->ssot_data['openings_industry'] as $job) {
         if ($nid = $this->nodeID($job['noc'])) {
           $alias = \Drupal::service('path_alias.manager')->getAliasByPath('/node/'.$nid);
@@ -62,8 +62,8 @@ class IndustryTopTenOccupations extends ExtraFieldDisplayFormattedBase {
           $link = "";
         }
         $content .= "<tr>";
-        $content .= "<td>" . $link . $job['description'] . " (NOC " . $job['noc'] . ")</a></td>";
-        $content .= "<td>" . ssotFormatNumber($job['openings'], $options) . "</td>";
+        $content .= "<td class='data-align-left'>" . $link . $job['description'] . " (NOC " . $job['noc'] . ")</a></td>";
+        $content .= "<td class='data-align-right'>" . ssotFormatNumber($job['openings'], $options) . "</td>";
       }
       $content .= "</table>";
       $content .= "<a class='btn-primary industry-profile-hoo-link' href='/research-labour-market/high-opportunity-occupations'>View all high opportunity occupations</a>";

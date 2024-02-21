@@ -13,7 +13,7 @@ This is the [WorkBC.ca](https://workbc.ca) site on Drupal.
   - `docker-compose exec php sudo chown www-data /var/www/html/config/sync`
 - Import the init data dumps:
   - `gunzip -k -c src/scripts/workbc-init.sql.gz | docker-compose exec -T postgres psql -U workbc workbc`
-  - `gunzip -k -c src/scripts/ssot-full.sql.gz | docker-compose exec -T postgres psql -U workbc ssot && docker-compose kill -s SIGUSR1 ssot`
+  - `docker-compose exec -T postgres psql -U workbc ssot < src/scripts/ssot-full.sql && docker-compose kill -s SIGUSR1 ssot`
 - Create the Solr index:
   - `docker-compose exec -u 0 solr sh -c "chown -R solr:solr /opt/solr/server/solr/workbc_dev"`
   - `docker-compose exec solr sh -c "curl -sIN 'http://localhost:8983/solr/admin/cores?action=CREATE&name=workbc_dev&configSet=workbc&instanceDir=workbc_dev'"`
@@ -66,8 +66,41 @@ Once dependencies are in place:
 `yarn run grunt dart-sass` will compile everything starting with the style.scss, and
 `yarn run grunt watch` will start a watch on all .scss files, and compile on detecting changes.
 
-# Testing
+# Testing / debugging
+
+## Load-testing
 Refer to the [`src/scripts/test`](src/scripts/test/README.md) folder for instructions on load-testing the site.
+
+## Xdebug
+The instructions here concern setting up Xdebug with Visual Studio Code. The current `docker-compose.yml` file enables Xdebug and attempts to connect the PHP container to VS Code's debugger listening on port 9003.
+
+- Install extension [PHP Debug](https://marketplace.visualstudio.com/items?itemName=xdebug.php-debug)
+- Create or edit the file `.vscode/launch.json`:
+```json
+{
+  "version": "0.2.0",
+  "configurations": [
+    {
+      "name": "Listen for Xdebug",
+      "type": "php",
+      "request": "launch",
+      "port": 9003,
+      "pathMappings": {
+        "/var/www/html/": "${workspaceFolder}/src"
+      }
+    }
+  ]
+}
+```
+- Click Run > Start Debugging
+- Place a breakpoint somewhere in the Drupal code
+
+## Testing the Drupal cache
+By default, caching is disabled in the local development environment. To turn it on, set
+```php
+const LOCAL_CACHE_ACTIVE = TRUE;
+```
+in the file `settings.local.php`.
 
 # Content migration / seeding
 - Content migrations are located in the [`workbc_custom.post_update.php`](src/web/modules/custom/workbc_custom/workbc_custom.post_update.php) file.

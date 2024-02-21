@@ -13,10 +13,11 @@ archive: false
 id: workbc_order_form
 title: 'WorkBC Resource Order Form'
 description: 'Webform for ordering WorkBC publications.'
-category: ''
+categories: {  }
 elements: |-
   workbc_order_form_intro:
     '#type': webform_markup
+    '#access': false
     '#markup': 'Order your WorkBC publications for free to your door. WorkBC Resources will only be shipped within British Columbia.'
   publications:
     '#type': webform_publication_composite
@@ -157,6 +158,8 @@ settings:
   wizard_toggle: true
   wizard_toggle_show_label: ''
   wizard_toggle_hide_label: ''
+  wizard_page_type: container
+  wizard_page_title_tag: h2
   preview: 0
   preview_label: ''
   preview_title: ''

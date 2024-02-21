@@ -22,6 +22,10 @@
   font-size: 18px;
   color:  $workbc_palette_dark_default;
 
+  @include media-breakpoint-down(sm) {
+    padding: 12px 35px;    
+  }
+
   &:hover {
     background-color: #8eadbb;
     border: 3px solid #8eadbb;

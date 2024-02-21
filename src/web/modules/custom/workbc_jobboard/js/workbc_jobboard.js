@@ -119,7 +119,7 @@
         }
       });
 
-      $(window, context).once('jobboard').on('hashchange load jobboardlogin', function (e) {
+      $(window, context).once('jobboard').on('hashchange load jobboardlogin dialog:aftercreate', function (e) {
         var currentUser = readCookie('currentUser.username');
         var CheckLoginLinkExists = $("nav.nav-user .nav-items li.new-login-link");
         var CheckLogoutLinkExists = $("nav.nav-user .nav-items li.new-logout-link");

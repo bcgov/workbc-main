@@ -28,15 +28,17 @@
     background-image: url("../assets/images/social-icon-facebook-grey.svg");
 
     &:hover {
-      background-image: url("../assets/images/social-icon-facebook-blue.svg");
+      background-image: url("../assets/images/social-icon-facebook-color.svg");
     }
   }
 
   &.share-twitter {
-    background-image: url("../assets/images/social-icon-twitter-grey.svg");
+    background-image: url("../assets/images/social-icon-x-grey.svg");
+    background-size: 30px;
 
     &:hover {
-      background-image: url("../assets/images/social-icon-twitter-blue.svg");
+      background-image: url("../assets/images/social-icon-x-color.svg");
+      background-size: 30px;
     }
   }
 
@@ -44,7 +46,7 @@
     background-image: url("../assets/images/social-icon-linkedin-grey.svg");
 
     &:hover {
-      background-image: url("../assets/images/social-icon-linkedin-blue.svg");
+      background-image: url("../assets/images/social-icon-linkedin-color.svg");
     }
   }
 
@@ -62,6 +64,35 @@
     &:hover {
       background-image: url("../assets/images/social-icon-printer-blue.svg");
     }
+  }
+
+  @media print {
+    &.share-facebook {
+      background-repeat: no-repeat;
+    }
+  
+    &.share-twitter {
+      background-size: 62px;  
+      background-repeat: no-repeat; 
+      background-position-x: center;
+      background-position-y: center;
+    }
+  
+    &.share-linkedin {
+      background-size: contain;  
+      background-repeat: no-repeat;  
+    }
+  
+    &.share-email {
+      background-size: contain;  
+      background-repeat: no-repeat; 
+    }
+  
+    &.share-print {
+      background-size: contain;  
+      background-repeat: no-repeat; 
+    }
+
   }
 }
 

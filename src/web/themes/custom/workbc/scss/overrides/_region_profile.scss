@@ -18,7 +18,6 @@
 
 .region-profile-table-value {
   font-weight: bold;
-  color: #009CDE;
 }
 
 .bc-profile-employment-region-footer {
@@ -100,8 +99,26 @@
   }
 }
 
+@include media-breakpoint-down(md) {
+  #bc-regional-unemployment-stats .bc-profile-mobile {
+    padding-top: 20px;
+  }
+}
+
+
 #block-workbc-content .hero-title h1 {
   font-size: 45px;
 }
 
+#labour_market_statistics-content .workbc-tooltip {
+  top: -5px;
+}
 
+.bc-profile-link {
+  padding-left: 10px;
+  padding-bottom: 15px;
+}
+
+.bc-employment-share {
+  padding-left: 0px !important;
+}

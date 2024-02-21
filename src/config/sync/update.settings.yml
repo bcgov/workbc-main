@@ -10,6 +10,5 @@ fetch:
 notification:
   emails:
     - AEST.InformationSecurity@gov.bc.ca
-    - requestIT@gov.bc.ca
     - WDST.Techs@gov.bc.ca
   threshold: security

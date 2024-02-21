@@ -125,6 +125,8 @@
       region_overview_title: content.group_region_profile_tabs.group_regional_overview.field_region_overview['#title'],
       region_overview_text: content.group_region_profile_tabs.group_regional_overview.field_region_overview.0['#text'],
 
+      region_overview_content: content.group_region_profile_tabs.group_regional_overview.field_content,
+
       key_facts_title: content.group_region_profile_tabs.group_regional_overview.field_key_facts['#title'],
       key_facts_text: content.group_region_profile_tabs.group_regional_overview.field_key_facts.0['#text'],
     },
@@ -174,6 +176,7 @@
       top_occupations_title: content.group_region_profile_tabs.group_labour_market_statistics.extra_field_region_top_occupations_introduction['#title'],
       top_occupations_text: content.group_region_profile_tabs.group_labour_market_statistics.extra_field_region_top_occupations_introduction.0['#text'],
       top_occupations_markup: content.group_region_profile_tabs.group_labour_market_statistics.extra_field_region_top_ten_occupations.0['#markup'],
+      top_occupations_source: content.group_region_profile_tabs.group_labour_market_statistics.extra_field_region_top_ten_occupations_source.0['#markup'],
 
     },
     industry_highlights: {
@@ -278,6 +281,10 @@
             <h2 class="profile-content-main__header">{{ viewmodel['tab_sections']['overview']['title'] }}</h2>
             <div>{{ viewmodel['tab_sections']['overview']['description']|raw }}</div>
 
+            {% if viewmodel['tab_sections']['overview']['region_overview_content'] %}
+              {{ viewmodel['tab_sections']['overview']['region_overview_content'] }}
+            {% endif %}
+
             <div class="profile-content-section">
               <h2 class="profile-content-section__header">{{ viewmodel['tab_sections']['overview']['key_facts_title'] }}</h2>
               <div>{{ viewmodel['tab_sections']['overview']['key_facts_text']|raw }}</div>
@@ -314,6 +321,9 @@
               </div>
             </div>
 
+            {% set bc_profile = "Visit the <a href='/region-profile/british-columbia'>British Columbia profile</a> to compare employment across regions in B.C." %}
+            <div class="bc-profile-link">{{ bc_profile | raw }}</div>
+
             <div class="card-profile">
               <div class="card-profile__content-small">
                 <h3 class="card-profile__content-header">{{ viewmodel['tab_sections']['labour_market_statistics']['uneployment_regional_title'] }}</h3>
@@ -324,8 +334,16 @@
                 <h3 class="card-profile__content-header">{{ viewmodel['tab_sections']['labour_market_statistics']['uneployment_bc_title'] }}</h3>
                 <span class="card-profile__content-value">{{ viewmodel['tab_sections']['labour_market_statistics']['uneployment_bc_markup']|raw }}</span>
               </div>
+              {% set tooltip = "Unemployment rate refers to the percentage of the population 15 years and older that are not employed." %}
               <div class="card-profile__content">
-                <h3 class="card-profile__content-header">{{ viewmodel['tab_sections']['labour_market_statistics']['uneployment_chart_title'] }}</h3>
+                <h3 class="card-profile__content-header">
+                  {{ viewmodel['tab_sections']['labour_market_statistics']['uneployment_chart_title'] }}
+                  <span class="workbc-tooltip">
+                    <div class="workbc-tooltip-content">
+                      {{ tooltip | raw }}
+                    </div>
+                  </span>
+                </h3>
                 <span class="card-profile__content-value">{{ viewmodel['tab_sections']['labour_market_statistics']['uneployment_chart_markup']|raw }}</span>
               </div>
               <div class="card-profile__source">
@@ -389,6 +407,9 @@
             <div class="card-profile">
               <div class="card-profile__content">
                 <span class="card-profile__content-item">{{ viewmodel['tab_sections']['labour_market_statistics']['top_occupations_markup']|raw }}</span>
+              </div>
+              <div class="card-profile__source">
+                <em>Source:</em> {{ viewmodel['tab_sections']['labour_market_statistics']['top_occupations_source']|raw }}
               </div>
             </div>
 

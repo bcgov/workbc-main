@@ -68,7 +68,8 @@
   }
 
   &.footer__social-link--twitter {
-    background-image: url(../assets/images/social-icon-twitter.svg);
+    background-image: url(../assets/images/social-icon-x.svg);
+    background-size: 32px;
   }
 
   &.footer__social-link--youtube {
@@ -77,6 +78,7 @@
 
   &.footer__social-link--facebook {
     background-image: url(../assets/images/social-icon-facebook.svg);
+    background-size: 20px;
   }
 
   &.footer__social-link--linkedin {

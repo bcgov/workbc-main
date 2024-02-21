@@ -4,9 +4,11 @@ status: true
 dependencies:
   config:
     - core.entity_view_mode.node.teaser
+    - field.field.node.industry_profile.field_content
     - field.field.node.industry_profile.field_content_group
     - field.field.node.industry_profile.field_hero_image
     - field.field.node.industry_profile.field_hero_image_media
+    - field.field.node.industry_profile.field_hourly_earnings_note
     - field.field.node.industry_profile.field_industry_overview
     - field.field.node.industry_profile.field_introductions
     - field.field.node.industry_profile.field_job_board_id
@@ -28,10 +30,27 @@ content:
     third_party_settings: {  }
     weight: -20
     region: content
+  created:
+    type: timestamp
+    label: hidden
+    settings:
+      date_format: medium
+      custom_date_format: ''
+      timezone: ''
+    third_party_settings: {  }
+    weight: 0
+    region: content
   links:
     settings: {  }
     third_party_settings: {  }
     weight: 100
+    region: content
+  uid:
+    type: author
+    label: hidden
+    settings: {  }
+    third_party_settings: {  }
+    weight: 0
     region: content
 hidden:
   extra_field_employment_introduction: true
@@ -63,6 +82,7 @@ hidden:
   extra_field_industry_job_openings_source: true
   extra_field_industry_national_wage: true
   extra_field_industry_top_ten_occupations: true
+  extra_field_industry_top_ten_occupations_source: true
   extra_field_industry_wage: true
   extra_field_industry_wage_source: true
   extra_field_industry_workforce_age_source: true
@@ -73,9 +93,11 @@ hidden:
   extra_field_workbc_page_title: true
   extra_field_workbc_published_on: true
   extra_field_workforce_introduction: true
+  field_content: true
   field_content_group: true
   field_hero_image: true
   field_hero_image_media: true
+  field_hourly_earnings_note: true
   field_industry_overview: true
   field_introductions: true
   field_job_board_id: true

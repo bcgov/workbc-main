@@ -49,6 +49,7 @@ class IndustryEmploymentBySex extends ExtraFieldDisplayFormattedBase {
       $data[] = floatval($entity->ssot_data['labour_force_survey_industry']['workforce_employment_gender_pct_women']);
       $labels = [$this->t('Men'), $this->t('Women')];
       $chart = [
+        '#chart_id' => 'industry-employment-by-sex',
         '#type' => 'chart',
         '#chart_type' => 'donut',
         'series' => [
@@ -76,7 +77,7 @@ class IndustryEmploymentBySex extends ExtraFieldDisplayFormattedBase {
         ],
         '#raw_options' => [
           'options' => [
-            'pieHole' => 0.5,
+            'pieHole' => 0.7,
           ]
         ]
       ];

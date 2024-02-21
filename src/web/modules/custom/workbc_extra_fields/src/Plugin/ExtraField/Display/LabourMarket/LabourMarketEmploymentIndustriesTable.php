@@ -63,13 +63,15 @@ class LabourMarketEmploymentIndustriesTable extends ExtraFieldDisplayFormattedBa
         ],
         'abs' => [
           'data' => $values['abs'],
-          'data-label' => $this->t("Jobs (change since last month)"),
-          'class' => ['data-row', 'jobs-abs']
+          'data-label' => $this->t("Employment (change since last month)"),
+          'class' => ['data-row', 'jobs-abs'],
+          'align' => "right"
         ],
         'per' => [
           'data' => $values['per'],
-          'data-label' => $this->t("Jobs (% change since last month)"),
-          'class' => ['data-row', 'jobs-per']
+          'data-label' => $this->t("Employment (% change since last month)"),
+          'class' => ['data-row', 'jobs-per'],
+          'align' => "right"
         ]
       ];
     }
@@ -99,10 +101,12 @@ class LabourMarketEmploymentIndustriesTable extends ExtraFieldDisplayFormattedBa
     $industries_mapping = [
       'accommodation_and_food_services' => 'Accommodation and food services',
       'agriculture' => 'Agriculture',
+      'business_building_other_support_services' => 'Business, building and other support services',
       'construction' => 'Construction',
       'educational_services' => 'Educational services',
       'finance_insurance_real_estate_rental' => 'Finance, insurance, real estate, rental and leasing',
       'health_care_and_social_assistance' => 'Health care and social assistance',
+      'information_culture_recreation' => 'Information, culture and recreation',
       'manufacturing' => 'Manufacturing',
       'other_primary' => 'Other Primary',
       'other_services' => 'Other services (except public administration)',
@@ -132,6 +136,7 @@ class LabourMarketEmploymentIndustriesTable extends ExtraFieldDisplayFormattedBa
           $options = array(
             'decimals' => 1,
             'suffix' => "%",
+            'positive_sign' => TRUE,
             'na_if_empty' => TRUE,
           );
           $industrysubstring = str_replace($pct_needle, "", $key);
@@ -140,6 +145,9 @@ class LabourMarketEmploymentIndustriesTable extends ExtraFieldDisplayFormattedBa
         }
       }
     }
+    usort($industries, function ($a, $b) {
+      return strnatcmp($a['industry'], $b['industry']);
+    });
     return $industries;
   }
 

@@ -12,96 +12,100 @@ use Drupal\Core\Routing\TrustedRedirectResponse;
 use Drupal\Core\Breadcrumb\Breadcrumb;
 use Drupal\Core\Routing\RouteMatchInterface;
 use Drupal\views\ViewExecutable;
-use Drupal\views\Plugin\views\cache\CachePluginBase;
 use Drupal\redirect\Entity\Redirect;
 use Symfony\Component\HttpFoundation\Request;
 
 
 /**
- * Implements hook_theme().
- */
+* Implements hook_theme().
+*/
+function workbc_custom_theme($existing, $type, $theme, $path) {
+  return [
+    'related_topics_block' => [
+      'variables' => [
+        'related_topics' => array(
+          'image' => NULL,
+          'top_level_parent' => NULL,
+          'title' => NULL,
+          'body' => NULL,
+          'action' => NULL,
+        ),
+      ],
+    ],
+    'explore_careers_block' => [
+      'variables' => [
+        'explore_careers' => array(
+          'title' => NULL,
+          'body' => NULL,
+          'title_1' => NULL,
+          'body_1' => NULL,
+          'action_1' => NULL,
+          'tooltip_1' => NULL,
+          'title_2' => NULL,
+          'body_2' => NULL,
+          'action_2' => NULL,
+        ),
+      ],
+    ],
+    'career_events_block' => [
+      'variables' => [
+        'career_events' => array(
+          'list' => NULL,
+          'calendar' => NULL,
+        ),
+      ],
+    ],
+  ];
+}
 
- function workbc_custom_theme($existing, $type, $theme, $path) {
-   return [
-     'related_topics_block' => [
-       'variables' => [
-           'related_topics' => array(
-               'image' => NULL,
-               'top_level_parent' => NULL,
-               'title' => NULL,
-               'body' => NULL,
-               'action' => NULL,
-           ),
-       ],
-     ],
-     'explore_careers_block' => [
-       'variables' => [
-           'explore_careers' => array(
-               'title' => NULL,
-               'body' => NULL,
-               'title_1' => NULL,
-               'body_1' => NULL,
-               'action_1' => NULL,
-               'tooltip_1' => NULL,
-               'title_2' => NULL,
-               'body_2' => NULL,
-               'action_2' => NULL,
-           ),
-       ],
-     ],
-     'career_events_block' => [
-       'variables' => [
-           'career_events' => array(
-             'list' => NULL,
-             'calendar' => NULL,
-           ),
-       ],
-     ],
-   ];
- }
-
- /**
-  * Implements hook_views_data_alter().
-  */
- function workbc_custom_views_data_alter(array &$data) {
+/**
+* Implements hook_views_data_alter().
+*/
+function workbc_custom_views_data_alter(array &$data) {
 
   $data['node_field_data']['workbc_nodes_granular_dates'] = [
-     'title' => t('WorkBC node granular date filter'),
-     'filter' => [
-       'title' => t('WorkBC node granular date filter'),
-       'help' => t('WorkBC node granular date filter.'),
-       'field' => 'title',
-       'id' => 'workbc_node_granular_date_filter',
-     ],
-   ];
+    'title' => t('WorkBC node granular date filter'),
+    'filter' => [
+      'title' => t('WorkBC node granular date filter'),
+      'help' => t('WorkBC node granular date filter.'),
+      'field' => 'title',
+      'id' => 'workbc_node_granular_date_filter',
+    ],
+  ];
 
-   $data['high_opportunity_occupations']['career_link'] = [
+  $data['high_opportunity_occupations']['career_link'] = [
     'title' => 'Career Profile link',
     'help' => 'Requires high opportunity occupation NOC field to be included in view.',
     'field' => [
       'id' => 'high_opportunity_occupations_career_link',
     ],
-   ];
+  ];
 
-   $data['high_opportunity_occupations']['hourly_wage'] = [
+  $data['high_opportunity_occupations']['hourly_wage'] = [
     'title' => 'Hourly Wage',
     'help' => 'Provides formatted hourly wage.',
     'field' => [
       'id' => 'high_opportunity_occupations_hourly_wage',
     ],
-   ];
+  ];
 
-   $data['high_opportunity_occupations']['table']['base']['field'] = 'noc';
- }
+  $data['high_opportunity_occupations']['table']['base']['field'] = 'noc';
+}
 
-
-
+/**
+* Implements hook_views_pre_render().
+*/
 function workbc_custom_views_pre_render(ViewExecutable $view) {
 
   if ($view->id() == 'high_opportunity_occupations') {
     $schema = ssotSchema("");
     $range = ssotParseDateRange($schema, 'high_opportunity_occupations', 'openings_forecast');
-    $view->field['openings_forecast']->options['label'] = "Job Openings to " . $range;
+    if (preg_match('/(\d{4})$/', $range, $end_of_range)) {
+      $view->field['openings_forecast']->options['label'] = "Job Openings to " . $end_of_range[0];
+    } else {
+      $view->field['openings_forecast']->options['label'] = "Job Openings";
+    }
+    //\Drupal::logger('workbc_custom')->debug('<pre><code>' . print_r(\Drupal::request()->headers, TRUE) . '</code></pre>');
   }
 
   if ($view->id() == 'industry_profiles') {
@@ -116,10 +120,9 @@ function workbc_custom_views_pre_render(ViewExecutable $view) {
 
 }
 
-
 /**
- * Implements hook_form_alter().
- */
+* Implements hook_form_alter().
+*/
 function workbc_custom_form_alter(&$form, \Drupal\Core\Form\FormStateInterface $form_state, $form_id) {
 
   // hide password and disable editing of username and email
@@ -141,10 +144,6 @@ function workbc_custom_form_alter(&$form, \Drupal\Core\Form\FormStateInterface $
     }
   }
 
-  if ($form_id === 'hoo_options'){
-    $form['#attached']['library'][] =  'workbc_custom/custom-script';
-  }
-
   if ($form_id == 'media_delete_multiple_confirm_form' || preg_match("/media_.*_delete_form/", $form_id)) {
     $form['also_delete_file']['#default_value'] = TRUE;
   }
@@ -154,36 +153,96 @@ function workbc_custom_form_alter(&$form, \Drupal\Core\Form\FormStateInterface $
     $form['revision_information']['#access'] = false;
   }
 
+  if ($form_id == 'node_blog_edit_form') {
+    if (isset($form['body']['widget'][0]['summary']['#description'])) {
+      $form['body']['widget'][0]['summary']['#description'] = "Leave blank to use Related Topics Blurb text.";
+    }
+  }
 }
-
-
-
-function workbc_custom_form_views_exposed_form_alter(&$form, \Drupal\Core\Form\FormStateInterface $form_state, $form_id) {
-
-  if (isset($form['region'])) {
-    unset($form['region']['#options']['All']);
-  }
-
-  if (isset($form['typical_education_background'])) {
-    $form['typical_education_background']['#options']['All'] = "All";
-  }
-
-  if (isset($form['occupational_interest'])) {
-    unset($form['occupational_interest']['#options']['All']);
-    $form['occupational_interest']['#chosen'] = true;
-  }
-
-  if (isset($form['wage_rate_median'])) {
-    $form['wage_rate_median']['#options']['All'] = "All";
-  }
-
-}
-
-
 
 /**
- * Implements hook_entity_form_mode_alter().
- */
+* Implements hook_form_FORM_ID_alter() for node_form_alter.
+*/
+function workbc_custom_form_node_form_alter(&$form, \Drupal\Core\Form\FormStateInterface $form_state, $form_id) {
+
+  $user = \Drupal\user\Entity\User::load(\Drupal::currentUser()->id());
+
+  if (isset($form['field_content_group']) && !$user->hasPermission('bypass content groups')) {
+    $form['field_content_group']['#access'] = false;
+    if (empty($form['field_content_group']['widget']['#default_value'])) {
+      $form['field_content_group']['widget']['#default_value'] = $user->get("field_content_group")->target_id;
+    }
+  }
+
+}
+
+/**
+* Implements hook_form_FORM_ID_alter() for views_exposed.
+*/
+function workbc_custom_form_views_exposed_form_alter(&$form, \Drupal\Core\Form\FormStateInterface $form_state, $form_id) {
+
+  if ($form['#id'] === 'views-exposed-form-high-opportunity-occupations-block-1') {
+    if (isset($form['region'])) {
+      unset($form['region']['#options']['All']);
+    }
+
+    if (isset($form['typical_education_background'])) {
+      $form['typical_education_background']['#options']['All'] = "All";
+    }
+
+    if (isset($form['occupational_interest'])) {
+      $md = \Drupal::service('mobile_detect');
+      if ($md->isMobile() && !$md->isTablet()) {
+        array_unshift($form['occupational_interest']['#options'], "All");
+      }
+      $form['occupational_interest']['#chosen'] = true;
+    }
+
+    if (isset($form['wage_rate_median'])) {
+      $form['wage_rate_median']['#options']['All'] = "All";
+    }
+
+    array_unshift($form['#submit'], 'hoo_multiselect_form_submit');
+  }
+
+  if ($form['#id'] === 'views-exposed-form-video-library-block-1') {
+    $form['#attached']['library'][] =  'workbc_custom/video-library';
+    foreach ($form['video_category']['#options'] as &$option) {
+      if (property_exists($option, 'option')) {
+        foreach ($option->option as &$opt) {
+          if (str_starts_with($opt, '-')) {
+            $opt = preg_replace('/^-/', '- ', $opt);
+          }
+        }
+      }
+    }
+  }
+}
+
+/**
+* Submit function for views-exposed-form-high-opportunity-occupations-block-1.
+*/
+function hoo_multiselect_form_submit(array &$form, \Drupal\Core\Form\FormStateInterface &$form_state) {
+
+  $md = \Drupal::service('mobile_detect');
+  if ($md->isMobile() && !$md->isTablet()) {
+    $selections = $form['occupational_interest']['#value'];
+    $all = empty($selections);
+    foreach ($selections as $selection) {
+      if ($selection == "0") {
+        $all = true;
+      }
+    }
+    if ($all) {
+      $form['occupational_interest']['#value'] = [0 => "0"];
+      $form_state->setValue('occupational_interest', [0 => "0"]);
+    }
+  }
+}
+
+/**
+* Implements hook_entity_form_mode_alter().
+*/
 function workbc_custom_entity_form_mode_alter(&$form_mode, Drupal\Core\Entity\EntityInterface $entity) {
   if ($entity->getEntityTypeId() === 'media' && \Drupal::request()->query->get('form_mode')) {
     $form_mode = \Drupal::request()->query->get('form_mode');
@@ -191,9 +250,9 @@ function workbc_custom_entity_form_mode_alter(&$form_mode, Drupal\Core\Entity\En
 }
 
 /**
- * Implements hook_node_access().
- *
- */
+* Implements hook_node_access().
+*
+*/
 function workbc_custom_node_access(NodeInterface $node, $op, AccountInterface $account) {
 
   // we only allow update/delete of node if user is a member of the same content group
@@ -202,8 +261,8 @@ function workbc_custom_node_access(NodeInterface $node, $op, AccountInterface $a
     if (!$account->hasPermission("bypass content groups")) {
       $user = \Drupal\user\Entity\User::load($account->id());
       if (!isset($user->field_content_group->target_id) ||
-          !isset($node->field_content_group->target_id) ||
-          $user->field_content_group->target_id <> $node->field_content_group->target_id) {
+      !isset($node->field_content_group->target_id) ||
+      $user->field_content_group->target_id <> $node->field_content_group->target_id) {
         return  AccessResult::forbidden();
       }
     }
@@ -211,10 +270,9 @@ function workbc_custom_node_access(NodeInterface $node, $op, AccountInterface $a
   return AccessResult::neutral();
 }
 
-
 /**
- * Implements hook_node_presave().
- */
+* Implements hook_node_presave().
+*/
 function workbc_custom_node_presave(NodeInterface $entity) {
 
   // if this is a new node and user doesn't have bypass content groups hasPermission
@@ -237,8 +295,8 @@ function workbc_custom_node_presave(NodeInterface $entity) {
 }
 
 /**
- * Implements hook_user_access().
- */
+* Implements hook_user_access().
+*/
 function workbc_custom_user_access(EntityInterface $entity, $operation, AccountInterface $account) {
 
   // users without "bypass content groups" permission can only update/delete
@@ -247,10 +305,10 @@ function workbc_custom_user_access(EntityInterface $entity, $operation, AccountI
     if (!\Drupal::currentUser()->hasPermission('bypass content groups')) {
       $admin = \Drupal\user\Entity\User::load(\Drupal::currentUser()->id());
       if (!isset($admin->field_content_group->target_id) ||
-          is_null($admin->field_content_group) ||
-          !isset($entity->field_content_group->target_id) ||
-          is_null($entity->field_content_group) ||
-          $admin->field_content_group->target_id <> $entity->field_content_group->target_id) {
+      is_null($admin->field_content_group) ||
+      !isset($entity->field_content_group->target_id) ||
+      is_null($entity->field_content_group) ||
+      $admin->field_content_group->target_id <> $entity->field_content_group->target_id) {
         return  AccessResult::forbidden();
       }
     }
@@ -260,8 +318,8 @@ function workbc_custom_user_access(EntityInterface $entity, $operation, AccountI
 }
 
 /**
- * Implements hook_entity_operation_alter().
- */
+* Implements hook_entity_operation_alter().
+*/
 function workbc_custom_entity_operation_alter(array &$operations, EntityInterface $entity) {
 
   // remove role operation, roles can be changed via edit tab.
@@ -274,8 +332,8 @@ function workbc_custom_entity_operation_alter(array &$operations, EntityInterfac
 }
 
 /**
- * Implements hook_menu_local_tasks_alter().
- */
+* Implements hook_menu_local_tasks_alter().
+*/
 function workbc_custom_menu_local_tasks_alter(&$data, $route_name) {
 
   // remove role tab, roles can be changed via edit tab.
@@ -286,23 +344,26 @@ function workbc_custom_menu_local_tasks_alter(&$data, $route_name) {
 }
 
 /**
- * Implements hook_webform_element_alter().
- */
+* Implements hook_webform_element_alter().
+*/
 function workbc_custom_webform_element_alter(array &$element, FormStateInterface $form_state, array $context) {
   if (isset($element['#webform_id']) && $element['#webform_id'] === 'contact--name') {
     $element['#element_validate'][] = 'workbc_custom_webform_contact_name_validate';
   }
 }
 
+/**
+ * Validation function for webform element contact--name.
+ */
 function workbc_custom_webform_contact_name_validate(array &$element, FormStateInterface $form_state, array &$form) {
   $form_state->setValue('name', urlencode($form_state->getValue('name')));
 }
 
 /**
- * Implements hook_form_FORM_ID_alter() for config_admin_import_form.
- *
- * Show export link for each modified config item.
- */
+* Implements hook_form_FORM_ID_alter() for config_admin_import_form.
+*
+* Show export link for each modified config item.
+*/
 function workbc_custom_form_config_admin_import_form_alter(&$form, FormStateInterface $form_state, $form_id) {
   $configs = [];
   foreach (\Drupal::service('entity_type.manager')->getDefinitions() as $entity_type => $definition) {
@@ -342,10 +403,10 @@ function workbc_custom_form_config_admin_import_form_alter(&$form, FormStateInte
 }
 
 /**
- * Implements hook_redirect_response_alter().
- *
- * Capture a Find Jobs redirect and add the noc argument if searchNOC is present.
- */
+* Implements hook_redirect_response_alter().
+*
+* Capture a Find Jobs redirect and add the noc argument if searchNOC is present.
+*/
 function workbc_custom_redirect_response_alter(TrustedRedirectResponse $response, Redirect $redirect, Request $request) {
   if (!empty($request->query)) {
     $params = array_change_key_case($request->query->all(), CASE_LOWER);
@@ -357,8 +418,86 @@ function workbc_custom_redirect_response_alter(TrustedRedirectResponse $response
 }
 
 /**
- * Get SSOT data for the High Opportunity block.
+* Implements hook_system_breadcrumb_alter().
+*/
+function workbc_custom_system_breadcrumb_alter(Breadcrumb &$breadcrumb, RouteMatchInterface $route_match, array $context) {
+
+  $node = \Drupal::request()->attributes->get('node');
+  if ($node && $node instanceof Drupal\node\Entity\Node) {
+    if ($node->bundle() == 'news' && $node->field_archived->get(0)->getValue()['value'] == "1") {
+
+      $url = Url::fromUri('internal:/plan-career/news-archive');
+      $archive = Link::fromTextAndUrl("News Archive", $url);
+
+      $links = $breadcrumb->getLinks();
+
+      $last = array_key_last($links);
+      $links[] = $links[$last];
+      $links[$last] = $archive;
+
+      // $breadcrumb->setLinks() will generate an error if the object already has links set
+      // so we create a new Breadcrumb object with the links we want and clone to $breadcrumb
+      $new_breadcrumb = new Breadcrumb();
+      $new_breadcrumb->setLinks($links);
+
+      $breadcrumb = clone($new_breadcrumb);
+
+    }
+  }
+}
+
+/**
+* Implements hook_entity_type_build().
+*/
+function workbc_custom_entity_type_build(array &$entity_types) {
+  // Inhibit default rendering of nodes which causes uncacheable pages.
+  $entity_types['node']->set('enable_base_field_custom_preprocess_skipping', TRUE);
+}
+
+/**
+* Implements hook_entity_base_field_info_alter().
+*/
+function workbc_custom_entity_base_field_info_alter(&$fields, \Drupal\Core\Entity\EntityTypeInterface $entity_type) {
+  // Inhibit default rendering of username/date which causes uncacheable pages.
+  if ($entity_type->id() == 'node') {
+    $fields['uid']->setDisplayConfigurable('view', TRUE);
+    $fields['created']->setDisplayConfigurable('view', TRUE);
+  }
+}
+
+/**
+* Implements hook_search_api_autocomplete_suggestions_alter().
+*/
+function workbc_custom_search_api_autocomplete_suggestions_alter(array &$suggestions, array $alter_params) {
+  foreach ($suggestions as &$suggestion) {
+    $params = $suggestion->getUrl()->getRouteParameters();
+    $node = \Drupal\node\Entity\Node::load($params['node']);
+    if ($node && isset($node->field_noc)) {
+      $markup = $suggestion->getLabel() . ' (NOC ' . $node->field_noc->value . ')';
+      $markup = preg_replace("/(".$alter_params['user_input'].")/i", "<strong>$1</strong>", $markup);
+      $render = array(
+        '#type' => 'markup',
+        '#markup' => $markup
+      );
+      $suggestion->setRender($render);
+    }
+  }
+}
+
+/**
+ * Implements hook_oembed_resource_url_alter().
  */
+function workbc_custom_oembed_resource_url_alter(array &$parsed_url, \Drupal\media\OEmbed\Provider $provider) {
+  if ($provider->getName() === 'Vimeo') {
+    unset($parsed_url['query']['maxwidth']);
+    unset($parsed_url['query']['maxheight']);
+    $parsed_url['query']['responsive'] = 'true';
+  }
+}
+
+/**
+* Get SSOT data for the High Opportunity block.
+*/
 function ssotHighOpportunityOptions($parameters = null){
   $data = array();
   $data['data'] = querySSoT('high_opportunity_occupations?' . $parameters);
@@ -373,8 +512,8 @@ function ssotHighOpportunityOptions($parameters = null){
 }
 
 /**
- * Function to get the region mappings.
- */
+* Function to get the region mappings.
+*/
 function getRegionMappings() {
   $region_map = [
     'all' => 'All regions',
@@ -414,17 +553,17 @@ function getRichTextFields($entities = ['node', 'paragraph']) {
 }
 
 /**
- * Function to identify rich text content fields that contain unmanaged files.
- *
- * We iterate on all text fields for nodes/paragraphs whose format is full_html,
- * Identify the field's data table,
- * Query all its rows,
- * Match each value column with:
- * - a file entity type signature (data-entity-type="file")
- * - a straight file reference (src="%/sites/default/files/XXX")
- * For each match, we attempt to identify an existing media record,
- *   by querying the file_managed x file_usage tables to match the file uuid or path, respectively.
- */
+* Function to identify rich text content fields that contain unmanaged files.
+*
+* We iterate on all text fields for nodes/paragraphs whose format is full_html,
+* Identify the field's data table,
+* Query all its rows,
+* Match each value column with:
+* - a file entity type signature (data-entity-type="file")
+* - a straight file reference (src="%/sites/default/files/XXX")
+* For each match, we attempt to identify an existing media record,
+*   by querying the file_managed x file_usage tables to match the file uuid or path, respectively.
+*/
 function getUnmanagedFiles() {
   $rich_text_fields = getRichTextFields();
   $results = [];
@@ -442,9 +581,9 @@ function getUnmanagedFiles() {
       if (preg_match_all('/<img\s[^>]*data-entity-type="file" data-entity-uuid="([a-z0-9-]+)"\s[^>]*src="(\/sites\/default\/files\/[^"]+)"[^>]*\/>/', $row->{"{$field}_value"}, $matches, PREG_SET_ORDER) > 0) {
         foreach ($matches as $match) {
           $file = $connection->query("
-            select fm.fid, fu.id
-            from file_managed fm left join file_usage fu on fu.fid = fm.fid and fu.type = 'media'
-            where fm.uuid = :uuid
+          select fm.fid, fu.id
+          from file_managed fm left join file_usage fu on fu.fid = fm.fid and fu.type = 'media'
+          where fm.uuid = :uuid
           ", [':uuid' => $match[1]])->fetchObject();
           $row_matches[] = [
             'type' => 'img',
@@ -460,9 +599,9 @@ function getUnmanagedFiles() {
         foreach ($matches as $match) {
           $path = explode('#', urldecode($match[1]))[0];
           $file = $connection->query("
-            select fm.fid, fu.id
-            from file_managed fm left join file_usage fu on fu.fid = fm.fid and fu.type = 'media'
-            where fm.uri ilike :uri
+          select fm.fid, fu.id
+          from file_managed fm left join file_usage fu on fu.fid = fm.fid and fu.type = 'media'
+          where fm.uri ilike :uri
           ", [':uri' => preg_replace('/(https:\/\/www\.workbc\.ca)?\/sites\/default\/files\//', 'public://', $path)])->fetchObject();
           $row_matches[] = [
             'type' => 'href',
@@ -513,14 +652,14 @@ function getUnmanagedFiles() {
 }
 
 /**
- * Function to find duplicate files in the Drupal public file directory.
- */
+* Function to find duplicate files in the Drupal public file directory.
+*/
 function getDuplicateFiles() {
   $connection = \Drupal::database();
   $files = $connection->query("
-    select fm.fid, fm.sha1, fm.uri, fu.id as media_id
-    from {file_managed} fm left join {file_usage} fu on fu.fid = fm.fid and fu.type = 'media'
-    where sha1 is not null
+  select fm.fid, fm.sha1, fm.uri, fu.id as media_id
+  from {file_managed} fm left join {file_usage} fu on fu.fid = fm.fid and fu.type = 'media'
+  where sha1 is not null
   ");
   $duplicates = [];
   foreach ($files as $file) {
@@ -619,34 +758,4 @@ function getDuplicateFiles() {
   }
 
   return $duplicates;
-}
-
-
-/**
- * Implements hook_system_breadcrumb_alter().
- */
-function workbc_custom_system_breadcrumb_alter(Breadcrumb &$breadcrumb, RouteMatchInterface $route_match, array $context) {
-
-  $node = \Drupal::request()->attributes->get('node');
-  if ($node && $node instanceof Drupal\node\Entity\Node) {
-    if ($node->bundle() == 'news' && $node->field_archived->get(0)->getValue()['value'] == "1") {
-
-      $url = Url::fromUri('internal:/plan-career/news-archive');
-      $archive = Link::fromTextAndUrl("News Archive", $url);
-
-      $links = $breadcrumb->getLinks();
-
-      $last = array_key_last($links);
-      $links[] = $links[$last];
-      $links[$last] = $archive;
-
-      // $breadcrumb->setLinks() will generate an error if the object already has links set
-      // so we create a new Breadcrumb object with the links we want and clone to $breadcrumb
-      $new_breadcrumb = new Breadcrumb();
-      $new_breadcrumb->setLinks($links);
-
-      $breadcrumb = clone($new_breadcrumb);
-
-    }
-  }
 }

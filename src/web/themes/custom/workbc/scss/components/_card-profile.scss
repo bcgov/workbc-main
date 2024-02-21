@@ -11,6 +11,7 @@ $card-divider-size: calc(2 * $card-divider-size-half);
   padding: $card-padding;
   display: flex;
   flex-flow: column nowrap;
+  page-break-inside: avoid;
 
   @include media-breakpoint-up(lg) {
     flex-flow: row wrap;
@@ -57,7 +58,8 @@ $card-divider-size: calc(2 * $card-divider-size-half);
   flex-flow: column nowrap;
   align-items: center;
   flex: 1 1;
-
+  page-break-inside: avoid;
+  
   @include media-breakpoint-up(lg) {
     flex: 1 1 100%;
   }
@@ -148,6 +150,26 @@ h3.card-profile__content-header {
   }
 }
 
+#industry_highlights-content {
+
+  .card-profile__content-header {
+    padding-bottom: 30px;
+  }
+
+  .card-profile__content-item {
+    display: block;
+    width: 90%;
+
+    table {
+      td {
+        padding-left: 20px;
+        padding-right: 20px;
+      }
+    }
+  }
+
+}
+
 .card-profile__content-item table {
   margin-bottom: 20px;
 }
@@ -182,6 +204,10 @@ h3.card-profile__content-header {
   color: $workbc_palette_dark_tertiary;
   font-size: 2.5rem;
   line-height: 2.5rem;
+}
+
+.card-profile__default-color {
+  color: $workbc_default_text !important;
 }
 
 .card-profile__content-tooltip {
@@ -325,4 +351,8 @@ h3.card-profile__content-header {
 
 #labour_market-content .card-profile__source {
   padding-top: 50px;
+}
+
+.industry-profile-workforce {
+  overflow-x: unset; 
 }

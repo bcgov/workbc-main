@@ -53,7 +53,7 @@ class BCFTPTEmploymentTable extends ExtraFieldDisplayFormattedBase {
       $fulltime = ssotFormatNumber($value, $options);
       $value = $entity->ssot_data['labour_force_survey_bc_employment']['part_time_employment_pct'];
       $parttime = ssotFormatNumber($value, $options);
-      $content = "<table class='region-profile-table'>";
+      $content = "<table class='region-profile-table' role='presentation'>";
       $content .= "<tr><td>Full-time employment (average):</td><td class='region-profile-table-value'>" . $fulltime . "</td></tr>";
       $content .= "<tr><td>Part-time employment (average):</td><td class='region-profile-table-value'>" . $parttime . "</td></tr>";
       $content .= "</table>";

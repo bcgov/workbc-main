@@ -1,49 +1,96 @@
-.card-w-icon {
-  padding: 30px 20px;
-  margin-bottom: 24px;
-  box-shadow: 0 0 15px 0 rgba(0, 0, 0, 0.15);
-  text-align: center;
 
-  @include media-breakpoint-up(md) {
-    display: flex;
-    align-items: center;
-    column-gap: 20px;
-    text-align: left;
-    padding: 0;
+.paragraph--type--action-cards-icon,
+.paragraph--type--action-cards-icon-1-2 {
+  .paragraph--type--action-card-icon .card {
+    box-shadow: 0 0 15px 0 rgba(0, 0, 0, 0.15);
+
+    @include media-breakpoint-down(lg) {
+      margin-top: 20px;
+      margin-bottom: 20px;
+    }
   }
-}
 
-.card-w-icon__icon {
-  display: inline-block;
-  width: 110px;
-  height: 110px;
+  .card-w-icon__icon {
+    display: inline-block;
+    width: 120px;
+    height: 110px;
+    padding-right: 20px;
+    vertical-align: top;
 
-  @include media-breakpoint-up(md) {
-    display: block;
-    flex: 0 1 20%;
-    margin: 20px;
+    @include media-breakpoint-down(sm) {
+      display: block;
+      width: 100%;
+    }
   }
-}
 
-.card-w-icon__content {
-  padding: 40px 0;
-
-  @include media-breakpoint-up(md) {
-    flex: 0 1 70%;
+  .card-w-icon__icon svg {
+    width: 100%;
+    height: 100%;
   }
-}
 
-.card-w-icon__icon svg {
-  width: 100%;
-  height: 100%;
-}
+  .card-w-icon__content {
+    display: inline-block;
+    width: 70%;
+    min-height: 150px;
 
-.card-w-icon__title {
-  margin-bottom: 20px;
-  font-size: 1.1rem;
-  font-weight: 700;
-}
+    @include media-breakpoint-down(sm) {
+      display: block;
+      width: 100%;
+      min-height: unset;
+    }
+  }
 
-.card-w-icon__link {
-  @include link-chevron;
+  .card-w-icon__title {
+    margin-bottom: 25px;
+    font-size: 21px;
+    font-weight: 700;
+
+    @include media-breakpoint-down(sm) {
+      padding-top: 15px;
+    }
+  }
+
+  .card-w-icon__title.purple {
+    color: #880364
+  }
+
+  .card-w-icon__title.green {
+    color: #216C06
+  }
+
+  .card-w-icon__title.blue {
+    color: #229CDE
+  }
+
+  .card-w-icon__title.orange {
+    color: #D95700
+  }
+
+  .card-w-icon__title.violet {
+    color: #720D8E
+  }
+
+  .card-w-icon__title.navy {
+    color: #002857
+  }
+
+  .card-w-icon__link {
+    font-size: 16px;
+    padding-left: 125px;
+    @include link-chevron;
+
+    @include media-breakpoint-down(sm) {
+      font-size: 15px;
+      padding-left: 0;
+    }
+  }
+
+  .card-w-icon__desc p {
+    margin-bottom: 0;
+  }
+
+  .card-w-icon__footer {
+    border-top: 1px solid #E8E9EA;
+    background-image: linear-gradient(#FFFFFF,#F2F8FC);
+  }
 }

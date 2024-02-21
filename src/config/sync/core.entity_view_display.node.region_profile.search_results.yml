@@ -4,6 +4,7 @@ status: true
 dependencies:
   config:
     - core.entity_view_mode.node.search_results
+    - field.field.node.region_profile.field_content
     - field.field.node.region_profile.field_content_group
     - field.field.node.region_profile.field_hero_image
     - field.field.node.region_profile.field_hero_image_media
@@ -79,6 +80,16 @@ targetEntityType: node
 bundle: region_profile
 mode: search_results
 content:
+  created:
+    type: timestamp
+    label: hidden
+    settings:
+      date_format: medium
+      custom_date_format: ''
+      timezone: ''
+    third_party_settings: {  }
+    weight: 0
+    region: content
   extra_field_labour_market_outlook_introduction:
     settings: {  }
     third_party_settings: {  }
@@ -107,6 +118,13 @@ content:
     settings: {  }
     third_party_settings: {  }
     weight: 12
+    region: content
+  uid:
+    type: author
+    label: hidden
+    settings: {  }
+    third_party_settings: {  }
+    weight: 0
     region: content
 hidden:
   content_moderation_control: true
@@ -148,6 +166,7 @@ hidden:
   extra_field_region_unemployment_region_source: true
   extra_field_workbc_page_title: true
   extra_field_workbc_published_on: true
+  field_content: true
   field_content_group: true
   field_hero_image: true
   field_hero_image_media: true

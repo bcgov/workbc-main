@@ -2,11 +2,12 @@
 
 variable "target_env" {
   description = "AWS workload account env (e.g. dev, test, prod, sandbox, unclass)"
+  default = "dev"
 }
 
-variable "target_aws_account_id" {
-  description = "AWS workload account id"
-}
+#variable "target_aws_account_id" {
+#  description = "AWS workload account id"
+#}
 
 variable "aws_region" {
   description = "The AWS region things are created in"
@@ -95,6 +96,12 @@ variable "common_tags" {
 variable "service_names" {
   description = "List of service names to use as subdomains"
   default     = ["workbc"]
+  type        = list(string)
+}
+
+variable "service_names2" {
+  description = "List of service names to use as subdomains"
+  default     = ["pgadmin"]
   type        = list(string)
 }
 

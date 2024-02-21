@@ -72,6 +72,24 @@ function workbc_preprocess_paragraph(&$variables) {
     }
   }
 
+  if ($variables['paragraph']->bundle() == "content_interactive_map") {
+    $variables['region_info'] = ssotRegionInfo();  
+    $paragraph = $variables['paragraph'];
+    foreach ($variables['region_info'] as $key => $region) {
+      if ($region['key'] == "british_columbia") {
+        continue;
+      }
+      $field_key = substr("field_link_". $region['key'], 0, 32);
+      $url = Url::fromUri($variables['paragraph']->$field_key->uri);
+      $variables['region_info'][$key]['link'] = $url->toString();
+    }  
+  }
+
+  if (isset($variables['paragraph']->field_color)) {
+    $variables['text_color'] = $variables['paragraph']->field_color->value;
+  }
+
+  
   // SPECIAL CASE
   // Override cards for "EducationPlannerBC" and "StudentAidBC" by injecting their logos.
   if (isset($variables['paragraph']->field_key)) {
@@ -80,6 +98,8 @@ function workbc_preprocess_paragraph(&$variables) {
     switch ($key) {
       case 'education-planner-bc':
       case 'student-aid-bc':
+      case 'find-your-path-1':
+      case 'find-your-path-2':        
         $image = "$key.png";
         break;
       default:
@@ -186,7 +206,6 @@ function workbc_preprocess_node(&$variables) {
     $variables['resources_links'] = $links;
   }
 
-
   if ($variables['node']->bundle() === "career_profile") {
     $careers = $variables['node']->get("field_related_careers")->referencedEntities();
     $links = [];
@@ -201,6 +220,29 @@ function workbc_preprocess_node(&$variables) {
     }
     $variables['related_career_links'] = $links;
 
+  }
+
+  if ($variables['node']->bundle() === "blog") {
+    $featured = "";
+    $node = $variables['node'];
+    if ($node->hasField('body')) {
+      if (!empty($node->get('body')->summary)){
+        $featured = $node->get('body')->summary;
+      }
+      else {
+        if ($node->hasField('field_related_topics_blurb') && !empty($node->get('field_related_topics_blurb')->value)) {
+          $featured = $node->get('field_related_topics_blurb')->value;
+        }
+        else {
+          if (!empty($node->get('body')->value)) {
+            $text = strip_tags($node->get('body')->value);
+            $text = \Drupal\Component\Utility\Unicode::truncate($text, 150, TRUE, TRUE);
+            $featured = $text;
+          }
+        }
+      }
+    }
+    $variables['featured_text'] = $featured;
   }
 
   // region information for interactive map
@@ -224,6 +266,23 @@ function workbc_preprocess_views_view_summary_unformatted(&$variables) {
   $variables['view_base_path'] = $view->getPath();
 }
 
+/**
+ * Implements template_preprocess_media().
+ */
+function workbc_preprocess_media(&$variables) {
+
+  $media = $variables['media'];
+  $thumbnailUri = $media->get('thumbnail')->entity->getFileUri();
+  if($thumbnailUri) {
+    $image = [
+      '#theme' => 'image_style',
+      '#style_name' => '1_3_component',
+      '#uri' => $thumbnailUri
+    ];
+    $variables['media_thumbnail'] = render($image);
+    $variables['media_id'] = $media->id();
+  }  
+}
 
 /**
  * Implements hook_preprocess_html().
@@ -291,5 +350,16 @@ function workbc_preprocess_block(&$vars) {
         }
       }
     }
+  }
+}
+
+
+function workbc_preprocess_breadcrumb(&$variables){
+  $types = ["career_profile", "industry_profile"];
+  $node = \Drupal::routeMatch()->getParameter('node');
+  
+  $variables['save_profile_available'] = false;
+  if ($node) {
+    $variables['save_profile_available'] = in_array($node->bundle(), $types);
   }
 }

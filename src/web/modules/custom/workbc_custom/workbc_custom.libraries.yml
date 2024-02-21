@@ -1,6 +1,6 @@
-custom-script:
+video-library:
   js:
-    js/custom-script.js: {}
+    js/video-library.js: {}
   dependencies:
     - core/jquery
     - core/drupalSettings

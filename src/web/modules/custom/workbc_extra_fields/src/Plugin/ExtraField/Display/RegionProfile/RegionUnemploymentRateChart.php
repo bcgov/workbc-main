@@ -59,6 +59,7 @@ class RegionUnemploymentRateChart extends ExtraFieldDisplayFormattedBase {
         $years[] = $year - 11 + $i;
       }
       $chart = [
+        '#chart_id' => 'region-unemployment-rate',
         '#type' => 'chart',
         '#chart_type' => 'line',
         'series_bc' => [
@@ -144,12 +145,12 @@ class RegionUnemploymentRateChart extends ExtraFieldDisplayFormattedBase {
 
           <div class='card-profile__legend-item card-profile__legend-item--low'>
             <div class='card-profile__legend-label card-profile__legend-label--low'>Low:</div>
-            <div class='card-profile__legend-value'>$regionLo%</div>
+            <div class='card-profile__legend-value card-profile__default-color'>$regionLo%</div>
           </div>
 
           <div class='card-profile__legend-item card-profile__legend-item--high'>
             <div class='card-profile__legend-label card-profile__legend-label--high'>High:</div>
-            <div class='card-profile__legend-value'>$regionHi%</div>
+            <div class='card-profile__legend-value card-profile__default-color'>$regionHi%</div>
           </div>
         </div>
 
@@ -158,12 +159,12 @@ class RegionUnemploymentRateChart extends ExtraFieldDisplayFormattedBase {
 
           <div class='card-profile__legend-item card-profile__legend-item--low'>
             <div class='card-profile__legend-label card-profile__legend-label--low'>Low:</div>
-            <div class='card-profile__legend-value'>$bcLo%</div>
+            <div class='card-profile__legend-value card-profile__default-color'>$bcLo%</div>
           </div>
 
           <div class='card-profile__legend-item card-profile__legend-item--high'>
             <div class='card-profile__legend-label card-profile__legend-label--high'>High:</div>
-            <div class='card-profile__legend-value'>$bcHi%</div>
+            <div class='card-profile__legend-value card-profile__default-color'>$bcHi%</div>
           </div>
         </div>
       </div>

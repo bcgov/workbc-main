@@ -121,6 +121,7 @@ class LabourMarketEmploymentByAgeSexTable extends ExtraFieldDisplayFormattedBase
             $genderAgeValues[$age]['data']['previous'] = [
               'data' => ssotFormatNumber($value, $options),
               'class' => $class,
+              'align' => "right",              
               'data-label' => $header[2]
             ];
 
@@ -134,6 +135,7 @@ class LabourMarketEmploymentByAgeSexTable extends ExtraFieldDisplayFormattedBase
             $genderAgeValues[$age]['data']['current'] = [
               'data' => ssotFormatNumber($value, $options),
               'class' => $class,
+              'align' => "right",              
               'data-label' => $header[1]
             ];
           }
@@ -164,6 +166,7 @@ class LabourMarketEmploymentByAgeSexTable extends ExtraFieldDisplayFormattedBase
             $genderAgeValues[$gender]['data']['previous'] = [
               'data' => ssotFormatNumber($value, $options),
               'class' => $class,
+              'align' => "right",
               'data-label' => $header[2]
             ];
           } else {
@@ -174,6 +177,7 @@ class LabourMarketEmploymentByAgeSexTable extends ExtraFieldDisplayFormattedBase
             $genderAgeValues[$gender]['data']['current'] = [
               'data' => ssotFormatNumber($value, $options),
               'class' => $class,
+              'align' => "right",
               'data-label' => $header[1]
             ];
           }

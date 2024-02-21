@@ -340,7 +340,7 @@ display:
           group_type: group
           admin_label: ''
           plugin_id: high_opportunity_occupations_hourly_wage
-          label: 'Hourly Wage'
+          label: 'Median Hourly Earnings'
           exclude: false
           alter:
             alter_text: false
@@ -523,7 +523,7 @@ display:
         type: none
         options: {  }
       cache:
-        type: tag
+        type: none
         options: {  }
       empty: {  }
       sorts:

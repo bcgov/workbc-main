@@ -1,10 +1,111 @@
 th#view-industry-profile-job-growth-rate-table-column,
 th#view-industry-profile-job-growth-table-column,
 th#view-industry-profile-total-employment-table-column {
-  padding: 30px 5px 30px 5px;
-  text-align: center;
+  padding: 10px 15px 10px 5px;
+  text-align: right;
+}
+
+th#view-title-table-column {
+  padding-left: 20px;
 }
 
 .ssot-years {
    white-space: nowrap;
+}
+
+
+
+@media screen and (max-width: 600px) {
+  #industry-employment-age.industry-table-container {
+      padding: 0 0 0 0;
+  
+      table {
+        margin: 0 0 0;
+      }
+  
+      td {
+        padding-left: 1.5em;
+        padding-right: 1.5em;
+      }
+  
+      tr {
+        padding-top: 0;
+        padding-bottom: 0;
+      }
+
+      tbody tr {
+        background-color: $workbc_palette_light_secondary;
+      }
+
+      tbody tr:nth-child(2n) td {
+        background-color: $workbc_palette_light_primary;
+      }
+
+  }
+
+  #industry-employment-age .card-profile__content {
+    align-items: stretch;
+  }
+
+  #industry-employment-age .card-profile__content-header {
+    padding-top: 20px;
+  }
+
+  #industry-employment-age .card-profile__source {
+    padding-top: 2em;
+    padding-bottom: 1em;
+    padding-left: 20px;
+  }
+
+  .industry-table-employment-age {
+    padding: 0 0 0 0;
+    border: 0;
+    width: 100%;
+    overflow-x: hidden;
+
+    thead {
+      border: none;
+      clip: rect(0 0 0 0);
+      height: 1px;
+      margin: -1px;
+      overflow: hidden;
+      padding: 20px 0 20px 0;
+      position: absolute;
+      width: 1px;
+    }
+    
+    td.mobile-label {
+      display: block;
+      font-weight: normal;
+      border: none;
+      padding: 1.5em 1.5em 1em 1.5em;
+    }
+
+    tr {
+      padding: 1em 0 1em 0;
+      display: block;
+    }
+
+    td.data-row {
+      display: block;
+      text-align: right;
+      border: none;
+      padding: 5px 1.5em 0 1.5em;
+    }
+
+    td.data-row::before {
+      /*
+      * aria-label has no advantage, it won't be read inside a table
+      content: attr(aria-label);
+      */
+      content: attr(data-label);
+      float: left;
+      font-weight: bold;
+    }
+
+    td.data-row-last {
+      padding-bottom: 20px;
+    }
+    
+  }
 }

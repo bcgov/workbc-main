@@ -218,7 +218,7 @@ resource "aws_iam_role_policy" "workbc_container_s3" {
     {
       "Effect": "Allow",
       "Action": ["s3:ListBucket"],
-      "Resource": ["arn:aws:s3:::workbc-backup-restore-bucket"]
+      "Resource": ["arn:aws:s3:::workbc-backup-restore-bucket", "arn:aws:s3:::workbc-pdf-link-check-bucket"]
     },
     {
       "Effect": "Allow",
@@ -228,7 +228,7 @@ resource "aws_iam_role_policy" "workbc_container_s3" {
         "s3:DeleteObject",
 	"s3:GetObjectAttributes"
       ],
-      "Resource": ["arn:aws:s3:::workbc-backup-restore-bucket/*"]
+      "Resource": ["arn:aws:s3:::workbc-backup-restore-bucket/*", "arn:aws:s3:::workbc-pdf-link-check-bucket/*"]
     }
   ]
 }

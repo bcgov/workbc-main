@@ -3,9 +3,11 @@ langcode: en
 status: true
 dependencies:
   config:
+    - field.field.node.industry_profile.field_content
     - field.field.node.industry_profile.field_content_group
     - field.field.node.industry_profile.field_hero_image
     - field.field.node.industry_profile.field_hero_image_media
+    - field.field.node.industry_profile.field_hourly_earnings_note
     - field.field.node.industry_profile.field_industry_overview
     - field.field.node.industry_profile.field_introductions
     - field.field.node.industry_profile.field_job_board_id
@@ -20,6 +22,7 @@ dependencies:
     - content_moderation
     - media_library
     - media_library_edit
+    - paragraphs
     - path
     - scheduled_publish
     - text
@@ -35,9 +38,28 @@ content:
     region: content
     settings: {  }
     third_party_settings: {  }
+  field_content:
+    type: paragraphs
+    weight: 13
+    region: content
+    settings:
+      title: Section
+      title_plural: Sections
+      edit_mode: closed
+      closed_mode: summary
+      autocollapse: none
+      closed_mode_threshold: 0
+      add_mode: select
+      form_display_mode: default
+      default_paragraph_type: _none
+      features:
+        add_above: '0'
+        collapse_edit_all: collapse_edit_all
+        duplicate: duplicate
+    third_party_settings: {  }
   field_content_group:
     type: options_select
-    weight: 15
+    weight: 17
     region: content
     settings: {  }
     third_party_settings: {  }
@@ -51,6 +73,14 @@ content:
     third_party_settings:
       media_library_edit:
         show_edit: '1'
+  field_hourly_earnings_note:
+    type: string_textfield
+    weight: 15
+    region: content
+    settings:
+      size: 60
+      placeholder: ''
+    third_party_settings: {  }
   field_industry_overview:
     type: text_textarea
     weight: 12
@@ -61,7 +91,7 @@ content:
     third_party_settings: {  }
   field_introductions:
     type: entity_reference_autocomplete
-    weight: 17
+    weight: 19
     region: content
     settings:
       match_operator: CONTAINS
@@ -71,7 +101,7 @@ content:
     third_party_settings: {  }
   field_job_board_id:
     type: string_textfield
-    weight: 18
+    weight: 20
     region: content
     settings:
       size: 60
@@ -79,7 +109,7 @@ content:
     third_party_settings: {  }
   field_job_board_save_profile_id:
     type: string_textfield
-    weight: 19
+    weight: 21
     region: content
     settings:
       size: 60
@@ -87,7 +117,7 @@ content:
     third_party_settings: {  }
   field_key_facts:
     type: text_textarea
-    weight: 13
+    weight: 14
     region: content
     settings:
       rows: 5
@@ -95,7 +125,7 @@ content:
     third_party_settings: {  }
   field_resources_reference:
     type: entity_reference_autocomplete
-    weight: 14
+    weight: 16
     region: content
     settings:
       match_operator: CONTAINS
@@ -105,7 +135,7 @@ content:
     third_party_settings: {  }
   field_scheduled_publish:
     type: scheduled_publish
-    weight: 16
+    weight: 18
     region: content
     settings: {  }
     third_party_settings: {  }

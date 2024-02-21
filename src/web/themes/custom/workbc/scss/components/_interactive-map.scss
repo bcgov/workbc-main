@@ -1,10 +1,14 @@
 :root {
-  --left-offset: 0px;
+  --left-offset: -15px;
   --top-offset: 0px;
 }
 
 .workbc-interactive-map-container {
   position: relative;
+}
+
+.workbc-interactive-map-component img {
+  aspect-ratio: 400/330;
 }
 
 .workbc-interactive-map {
@@ -15,6 +19,12 @@
   width: 400px;
   height: 370px;
   margin: 0 auto;
+
+  @media print {
+    width: 800px !important;
+    left: 200px;
+  }
+
 }
 
 .work-interactive-map img {
@@ -500,6 +510,32 @@ tr.interactive-map-row-hilite {
   }
 }
 
+
+div#career-profile-interactive-map-1,
+div#career-profile-interactive-map-2 {
+  display: block;
+  width: 90%;
+  margin: auto;
+
+  table {
+    td, th {
+      text-align: right;
+    }
+
+    td:first-child, th:first-child {
+      text-align: left;
+    }
+
+  }
+}
+
+div#career-profile-interactive-map-1,
+div#career-profile-interactive-map-2 {
+  table th {
+    width: 33%;
+  }
+}
+
 @include media-breakpoint-down(sm) {
 
   .lm-table-container {
@@ -535,7 +571,8 @@ tr.interactive-map-row-hilite {
   #career-profile-interactive-map-1,
   #career-profile-interactive-map-2,
   #bc-region-interactive-map,
-  #industry-profile-interactive-map {
+  #industry-profile-interactive-map,
+  .workbc-interactive-map-component {
     .label-line, .map-region-label, thead {
       display: none;
     }

@@ -50,7 +50,7 @@ class RegionTopTenOccupations extends ExtraFieldDisplayFormattedBase {
     if (!empty($entity->ssot_data) && isset($entity->ssot_data['regional_top_occupations'])) {
       $datestr = ssotParseDateRange($this->getEntity()->ssot_data['schema'], 'regional_top_occupations', 'openings');
       $content = "<table>";
-      $content .= "<tr><th>Top Ten Occupations</th><th>Job Openings (" . $datestr . ")</th></tr>";
+      $content .= "<tr><th>Top Ten Occupations</th><th class='data-align-right'>Job Openings (" . $datestr . ")</th></tr>";
       foreach ($entity->ssot_data['regional_top_occupations'] as $job) {
         if ($nid = $this->nodeID($job['noc'])) {
           $alias = \Drupal::service('path_alias.manager')->getAliasByPath('/node/'.$nid);
@@ -60,8 +60,8 @@ class RegionTopTenOccupations extends ExtraFieldDisplayFormattedBase {
           $link = "";
         }
         $content .= "<tr>";
-        $content .= "<td>" . $link . $job['occupation'] . " (NOC " . $job['noc'] . ")</a></td>";
-        $content .= "<td>" . ssotFormatNumber($job['openings'], $options) . "</td>";
+        $content .= "<td class='data-align-left'>" . $link . $job['occupation'] . " (NOC " . $job['noc'] . ")</a></td>";
+        $content .= "<td class='data-align-right'>" . ssotFormatNumber($job['openings'], $options) . "</td>";
       }
       $content .= "</table>";
       $output = $content;

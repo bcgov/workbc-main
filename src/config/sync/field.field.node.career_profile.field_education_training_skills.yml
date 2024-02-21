@@ -11,7 +11,7 @@ id: node.career_profile.field_education_training_skills
 field_name: field_education_training_skills
 entity_type: node
 bundle: career_profile
-label: 'Education, Training & Skills'
+label: 'Education, Training and Skills'
 description: ''
 required: false
 translatable: false

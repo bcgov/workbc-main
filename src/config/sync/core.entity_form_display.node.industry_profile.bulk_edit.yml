@@ -4,9 +4,11 @@ status: true
 dependencies:
   config:
     - core.entity_form_mode.node.bulk_edit
+    - field.field.node.industry_profile.field_content
     - field.field.node.industry_profile.field_content_group
     - field.field.node.industry_profile.field_hero_image
     - field.field.node.industry_profile.field_hero_image_media
+    - field.field.node.industry_profile.field_hourly_earnings_note
     - field.field.node.industry_profile.field_industry_overview
     - field.field.node.industry_profile.field_introductions
     - field.field.node.industry_profile.field_job_board_id
@@ -29,8 +31,10 @@ content:
     third_party_settings: {  }
 hidden:
   created: true
+  field_content: true
   field_hero_image: true
   field_hero_image_media: true
+  field_hourly_earnings_note: true
   field_industry_overview: true
   field_introductions: true
   field_job_board_id: true

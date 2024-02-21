@@ -17,9 +17,9 @@
             });
           }
         }
-        var pager = $(".list-full-view nav.pager").clone();
+        var pager = $(".list-full-view div.pager").clone();
         if($('.list-full-view div.pager2').length <= 0){
-          $(".list-full-view nav.pager").once().after("<div class='pager2'></div>");
+          $(".list-full-view div.pager").once().after("<div class='pager2'></div>");
           $(".list-full-view div.pager2").once().html(pager);
         }
         
@@ -57,21 +57,36 @@
       $(".fc-tue span").once().append("s");
       $(".fc-thu span").once().append("rs");
       $(".fc-day-grid-event").once().click(function(){
+
+        var id = $(this).find('.grid-view')[0].id.replace('event-id-', '');
+        var events = JSON.parse(settings.fullCalendarView[0].calendar_options).events;
+
         var content = '';
-        var content = $(this).find('.list-view').clone();
+        for (const key in events) {
+          if (events[key].eid == id) {
+            content = events[key].des;
+          }
+        }
+        
         $(".fc-day-grid-event").removeClass("active");
         $(this).addClass("active");
         if($(".calendar-full-view .bottom-buttons").height() > 100){
+          $('html, body').animate({ scrollTop: $(document).height() }, 250);
           $(".calendar-full-view .bottom-buttons").slideUp( "slow", function(){
             $(".calendar-full-view .bottom-buttons").html(content);
             $( ".calendar-full-view .bottom-buttons" ).slideDown( "slow");
           });
         }else{
-          $('html, body').animate({ scrollTop: $(document).height() }, 2000);
+          $('html, body').animate({ scrollTop: $(document).height() }, 250);
           $( ".calendar-full-view .bottom-buttons" ).slideUp();
-          $(".calendar-full-view .bottom-buttons").html($(this).find('.list-view').clone());
+          $(".calendar-full-view .bottom-buttons").html(content);
           $( ".calendar-full-view .bottom-buttons" ).slideDown( "slow");
         }
+
+        var element = context.querySelector(".list-view");
+        if (element != null) {            
+          element.scrollIntoView(alignToTop);
+        }        
       });
     }
   }

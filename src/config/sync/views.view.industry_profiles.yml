@@ -386,6 +386,59 @@ display:
             group_items: {  }
       style:
         type: table
+        options:
+          grouping: {  }
+          row_class: ''
+          default_row_class: true
+          columns:
+            industry_profile_overview_source: industry_profile_overview_source
+            title: title
+            industry_profile_job_growth_rate: industry_profile_job_growth_rate
+            industry_profile_job_growth: industry_profile_job_growth
+            industry_profile_total_employment: industry_profile_total_employment
+          default: '-1'
+          info:
+            industry_profile_overview_source:
+              sortable: false
+              default_sort_order: asc
+              align: ''
+              separator: ''
+              empty_column: false
+              responsive: ''
+            title:
+              sortable: false
+              default_sort_order: asc
+              align: ''
+              separator: ''
+              empty_column: false
+              responsive: ''
+            industry_profile_job_growth_rate:
+              sortable: false
+              default_sort_order: asc
+              align: views-align-right
+              separator: ''
+              empty_column: false
+              responsive: ''
+            industry_profile_job_growth:
+              sortable: false
+              default_sort_order: asc
+              align: views-align-right
+              separator: ''
+              empty_column: false
+              responsive: ''
+            industry_profile_total_employment:
+              sortable: false
+              default_sort_order: asc
+              align: views-align-right
+              separator: ''
+              empty_column: false
+              responsive: ''
+          override: true
+          sticky: false
+          summary: ''
+          empty_table: false
+          caption: ''
+          description: ''
       row:
         type: fields
       query:
@@ -411,7 +464,7 @@ display:
           empty: false
           content:
             value: '<strong>Source:</strong> {{ industry_profile_overview_source }}'
-            format: basic_html
+            format: full_html
           tokenize: true
       display_extenders: {  }
     cache_metadata:

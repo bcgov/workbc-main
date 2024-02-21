@@ -207,15 +207,20 @@
 .nav-main {
   display: none;
 
+  // only display the desktop menu if the device
+  // screen width larger than "xl" and the device
+  // recognizes the hover state
   @include media-breakpoint-up(xl) {
-    display: block;
-    position: relative;
-    transition: all 0.3s ease-out;
-    z-index: 3;
-    height: 80px;
-    padding: 0;
-    margin: 0;
-    box-shadow: $workbc_default_bottom_shadow;
+    @media (hover: hover) and (pointer: fine) {
+      display: block;
+      position: relative;
+      transition: all 0.3s ease-out;
+      z-index: 3;
+      height: 80px;
+      padding: 0;
+      margin: 0;
+      box-shadow: $workbc_default_bottom_shadow;
+    }
   }
 
   .container {
