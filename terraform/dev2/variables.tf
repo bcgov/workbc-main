@@ -5,9 +5,9 @@ variable "target_env" {
   default = "dev"
 }
 
-variable "target_aws_account_id" {
-  description = "AWS workload account id"
-}
+#variable "target_aws_account_id" {
+#  description = "AWS workload account id"
+#}
 
 variable "aws_region" {
   description = "The AWS region things are created in"
