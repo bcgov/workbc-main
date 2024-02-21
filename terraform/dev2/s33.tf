@@ -3,12 +3,14 @@
 resource "aws_s3_bucket" "workbc_s33" {
   bucket = "workbc-pdf-link-check-bucket"
 }
+*/
 
 /*resource "aws_s3_bucket_acl" "workbc_s33_acl" {
   bucket = aws_s3_bucket.workbc_s33.id
   acl    = "private"
 }*/
 
+/*
 resource "aws_s3_bucket_policy" "allow_access_from_other_accounts_and_cloudfront" {
   bucket = aws_s3_bucket.workbc_s33.id
   policy = data.aws_iam_policy_document.allow_access_from_other_accounts_and_cloudfront.json

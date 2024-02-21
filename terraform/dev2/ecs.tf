@@ -92,7 +92,7 @@ resource "aws_ecs_task_definition" "app" {
 			},
 			{
 				name = "POSTGRES_DB",
-				value = "drupal"
+				value = "drupal-noc"
 			},
 			{
 				name = "AWS_BUILD_NAME",
@@ -246,7 +246,7 @@ resource "aws_ecs_task_definition" "app" {
 			},
 			{
 				name = "POSTGRES_DB",
-				value = "drupal"
+				value = "drupal-noc"
 			},
 			{
 				name = "AWS_BUILD_NAME",
@@ -348,7 +348,7 @@ resource "aws_ecs_task_definition" "app" {
 			},
 			{
 				name = "POSTGRES_DB",
-				value = "drupal"
+				value = "drupal-noc"
 			},
 			{
 				name = "POSTGRES_HOST",
