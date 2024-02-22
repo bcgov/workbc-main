@@ -6,7 +6,7 @@ data "aws_alb" "main" {
   name = var.alb_name
 }
 
-data "aws_alb" "ssot2" {
+data "aws_alb" "ssot" {
   name = "ssot-lb2"
 }
 
