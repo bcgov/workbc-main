@@ -38,7 +38,7 @@ resource "aws_cloudfront_distribution" "workbc2" {
   origin {
         domain_name = aws_s3_bucket.workbc_s32_dev2.bucket_regional_domain_name
 	origin_id = "SDPR-Contents"
-	origin_access_control_id = aws_cloudfront_origin_access_control.oac.id
+	origin_access_control_id = data.aws_cloudfront_origin_access_control.oac.id
   }
 
   enabled         = true
