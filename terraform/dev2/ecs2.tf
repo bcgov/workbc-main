@@ -1,6 +1,6 @@
 # ecs.tf
 
-resource "aws_ecs_cluster" "solr" {
+resource "aws_ecs_cluster" "solr2" {
   name               = "solr-cluster2"
   capacity_providers = ["FARGATE_SPOT"]
 
@@ -12,7 +12,7 @@ resource "aws_ecs_cluster" "solr" {
   tags = var.common_tags
 }
 
-resource "aws_ecs_task_definition" "solr" {
+resource "aws_ecs_task_definition" "solr2" {
   count                    = local.create_ecs_service
   family                   = "solr-task2"
   execution_role_arn       = data.aws_iam_role.ecs_task_execution_role.arn
@@ -77,11 +77,11 @@ resource "aws_ecs_task_definition" "solr" {
   ])
 }
 
-resource "aws_ecs_service" "solr" {
+resource "aws_ecs_service" "solr2" {
   count                             = local.create_ecs_service
   name                              = "solr-service2"
-  cluster                           = aws_ecs_cluster.solr.id
-  task_definition                   = aws_ecs_task_definition.solr[count.index].arn
+  cluster                           = aws_ecs_cluster.solr2.id
+  task_definition                   = aws_ecs_task_definition.solr2[count.index].arn
   desired_count                     = var.app_count
   enable_ecs_managed_tags           = true
   propagate_tags                    = "TASK_DEFINITION"

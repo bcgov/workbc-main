@@ -20,7 +20,7 @@ resource "aws_ecs_task_definition" "cron-job" {
 			logDriver = "awslogs"
 			options = {
 				awslogs-create-group  = "true"
-				awslogs-group         = "/ecs/workbc-cron-runner"
+				awslogs-group         = "/ecs/workbc-cron-runner2"
 				awslogs-region        = var.aws_region
 				awslogs-stream-prefix = "ecs"
 			}

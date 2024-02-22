@@ -25,7 +25,7 @@ data "aws_iam_policy_document" "allow_access_from_cloudfront" {
     actions = ["s3:GetObject"]
 
     resources = [
-      "${aws_s3_bucket.workbc_s32_dev2.arn}/*",
+      "${aws_s3_bucket.workbc_s32_dev2.arn}",
     ]
 	
 	condition {

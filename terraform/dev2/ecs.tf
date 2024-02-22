@@ -117,10 +117,10 @@ resource "aws_ecs_task_definition" "app" {
 			{
 				name = "PROJECT_ENVIRONMENT",
 				value = "aws-dev"
-			}/*,
+			},
 			{
 				name = "REDIS_HOST",
-				value = "${aws_elasticache_replication_group.workbc_redis_rg.primary_endpoint_address}"
+				value = "${aws_elasticache_replication_group.workbc2_redis_rg.primary_endpoint_address}"
 			},
 			{
 				name = "REDIS_PORT",
@@ -128,8 +128,8 @@ resource "aws_ecs_task_definition" "app" {
 			},
 			{
 				name = "CF_DIST_ID",
-				value = "${aws_cloudfront_distribution.workbc[0].id}"
-			}*/
+				value = "${aws_cloudfront_distribution.workbc2[0].id}"
+			}
 		]
 		secrets = [
 			{
@@ -271,15 +271,15 @@ resource "aws_ecs_task_definition" "app" {
 			{
 				name = "PROJECT_ENVIRONMENT",
 				value = "aws-dev"
-			}/*,
+			},
 			{
 				name = "REDIS_HOST",
-				value = "${aws_elasticache_replication_group.workbc_redis_rg.primary_endpoint_address}"
+				value = "${aws_elasticache_replication_group.workbc2_redis_rg.primary_endpoint_address}"
 			},
 			{
 				name = "REDIS_PORT",
 				value = "6379"
-			}*/
+			}
 		]
 		secrets = [
 			{
