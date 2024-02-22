@@ -15,8 +15,8 @@ resource "aws_ecs_cluster" "main" {
 resource "aws_ecs_task_definition" "app" {
   count                    = local.create_ecs_service
   family                   = "workbc-task2"
-  execution_role_arn       = aws_iam_role.ecs_task_execution_role.arn
-  task_role_arn            = aws_iam_role.workbc_container_role.arn
+  execution_role_arn       = data.aws_iam_role.ecs_task_execution_role.arn
+  task_role_arn            = data.aws_iam_role.workbc_container_role.arn
   network_mode             = "awsvpc"
   requires_compatibilities = ["FARGATE"]
   cpu                      = var.fargate_cpu
@@ -25,7 +25,7 @@ resource "aws_ecs_task_definition" "app" {
   volume {
     name = "contents"
     efs_volume_configuration  {
-        file_system_id = aws_efs_file_system.workbc.id
+        file_system_id = aws_efs_file_system.workbc2.id
     }
   }
   volume {
@@ -117,7 +117,7 @@ resource "aws_ecs_task_definition" "app" {
 			{
 				name = "PROJECT_ENVIRONMENT",
 				value = "aws-dev"
-			},
+			}/*,
 			{
 				name = "REDIS_HOST",
 				value = "${aws_elasticache_replication_group.workbc_redis_rg.primary_endpoint_address}"
@@ -129,7 +129,7 @@ resource "aws_ecs_task_definition" "app" {
 			{
 				name = "CF_DIST_ID",
 				value = "${aws_cloudfront_distribution.workbc[0].id}"
-			}
+			}*/
 		]
 		secrets = [
 			{
@@ -271,7 +271,7 @@ resource "aws_ecs_task_definition" "app" {
 			{
 				name = "PROJECT_ENVIRONMENT",
 				value = "aws-dev"
-			},
+			}/*,
 			{
 				name = "REDIS_HOST",
 				value = "${aws_elasticache_replication_group.workbc_redis_rg.primary_endpoint_address}"
@@ -279,7 +279,7 @@ resource "aws_ecs_task_definition" "app" {
 			{
 				name = "REDIS_PORT",
 				value = "6379"
-			}
+			}*/
 		]
 		secrets = [
 			{

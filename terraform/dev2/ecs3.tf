@@ -1,8 +1,8 @@
 	
 resource "aws_ecs_task_definition" "cron-job" {
   family                   = "workbc-drupal-cron-task2"
-  execution_role_arn       = aws_iam_role.ecs_task_execution_role.arn
-  task_role_arn            = aws_iam_role.workbc_container_role.arn
+  execution_role_arn       = data.aws_iam_role.ecs_task_execution_role.arn
+  task_role_arn            = data.aws_iam_role.workbc_container_role.arn
   network_mode             = "awsvpc"
   requires_compatibilities = ["FARGATE"]
   cpu                      = var.fargate_cpu

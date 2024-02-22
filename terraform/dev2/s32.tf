@@ -3,7 +3,7 @@ resource "aws_s3_bucket" "workbc_s32_dev2" {
 }
 
 resource "aws_s3_bucket_acl" "workbc_s32_acl" {
-  bucket = aws_s3_bucket.wworkbc_s32_dev2.id
+  bucket = aws_s3_bucket.workbc_s32_dev2.id
   acl    = "private"
 }
 
@@ -31,7 +31,7 @@ data "aws_iam_policy_document" "allow_access_from_cloudfront" {
 	condition {
 	  test = "StringEquals"
 	  variable = "AWS:SourceArn"
-	  values = ["${aws_cloudfront_distribution.workbc2[0].arn}"]
+	  #values = ["${aws_cloudfront_distribution.workbc2[0].arn}"]
 	}
   }
 	
