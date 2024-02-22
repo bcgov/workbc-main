@@ -47,7 +47,7 @@ resource "aws_cloudwatch_event_rule" "cron" {
 resource "aws_cloudwatch_event_target" "ecs_scheduled_task" {
   arn      = aws_ecs_cluster.main.arn
   rule     = aws_cloudwatch_event_rule.cron.id
-  role_arn = aws_iam_role.workbc_events_role.arn
+  role_arn = data.aws_iam_role.workbc_events_role.arn
 
   ecs_target {
     task_count          = 1
