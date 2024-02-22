@@ -5,12 +5,8 @@ resource "random_integer" "cf_origin_id" {
   max = 100
 }
 
-resource "aws_cloudfront_origin_access_control" "oac" {
+data "aws_cloudfront_origin_access_control" "oac" {
   name = "oac"
-  description = "OAC Policy"
-  origin_access_control_origin_type = "s3"
-  signing_behavior = "always"
-  signing_protocol = "sigv4"
 }
 
 resource "aws_cloudfront_distribution" "workbc2" {
