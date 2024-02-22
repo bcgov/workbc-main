@@ -22,13 +22,13 @@ data "aws_iam_role" "ecs_task_execution_role" {
 }
 
 # ECS task execution role policy attachment
-data "aws_iam_role_policy_attachment" "ecs_task_execution_role" {
+resource "aws_iam_role_policy_attachment" "ecs_task_execution_role" {
   role       = aws_iam_role.ecs_task_execution_role.name
   policy_arn = "arn:aws:iam::aws:policy/service-role/AmazonECSTaskExecutionRolePolicy"
 }
 
 /*
-data "aws_iam_role_policy" "ecs_task_execution_kms" {
+resource "aws_iam_role_policy" "ecs_task_execution_kms" {
   name   = "ecs_task_execution_kms"
   role   = aws_iam_role.ecs_task_execution_role.id
   policy = <<-EOF
@@ -53,7 +53,7 @@ data "aws_iam_role_policy" "ecs_task_execution_kms" {
   EOF
 }
 
-data "aws_iam_role_policy" "ecs_task_execution_cwlogs" {
+resource "aws_iam_role_policy" "ecs_task_execution_cwlogs" {
   name = "ecs_task_execution_cwlogs"
   role = aws_iam_role.ecs_task_execution_role.id
 
@@ -79,7 +79,7 @@ EOF
 data "aws_iam_role" "workbc_container_role" {
   name = "workbc_container_role"
 
-  assume_role_policy = <<EOF
+  /*assume_role_policy = <<EOF
 {
   "Version": "2012-10-17",
   "Statement": [
@@ -96,10 +96,11 @@ data "aws_iam_role" "workbc_container_role" {
 EOF
 
   tags = var.common_tags
+  */
 }
 
 /*
-data "aws_iam_role_policy" "workbc_container_cwlogs" {
+resource "aws_iam_role_policy" "workbc_container_cwlogs" {
   name = "workbc_container_cwlogs"
   role = aws_iam_role.workbc_container_role.id
 
@@ -124,7 +125,7 @@ data "aws_iam_role_policy" "workbc_container_cwlogs" {
   EOF
 }
 
-data "aws_iam_role_policy" "workbc_container_efs" {
+resource "aws_iam_role_policy" "workbc_container_efs" {
   name   = "workbc_container_efs"
   role   = aws_iam_role.workbc_container_role.id
   policy = <<-EOF
@@ -146,7 +147,7 @@ data "aws_iam_role_policy" "workbc_container_efs" {
   EOF
 }
 
-data "aws_iam_role_policy" "workbc_container_start_task" {
+resource "aws_iam_role_policy" "workbc_container_start_task" {
   name = "workbc_container_start_task"
   role = aws_iam_role.workbc_container_role.id
 
@@ -165,7 +166,7 @@ data "aws_iam_role_policy" "workbc_container_start_task" {
   EOF  
 }
 
-data "aws_iam_role_policy" "workbc_container_ssm" {
+resource "aws_iam_role_policy" "workbc_container_ssm" {
   name = "workbc_container_ssm"
   role = aws_iam_role.workbc_container_role.id
 
@@ -188,7 +189,7 @@ data "aws_iam_role_policy" "workbc_container_ssm" {
   EOF  
 }
 
-data "aws_iam_role_policy" "workbc_container_ses" {
+resource "aws_iam_role_policy" "workbc_container_ses" {
   name = "workbc_container_ses"
   role = aws_iam_role.workbc_container_role.id
 
@@ -211,7 +212,7 @@ data "aws_iam_role_policy" "workbc_container_ses" {
   EOF  
 }
 
-data "aws_iam_role_policy" "workbc_container_s3" {
+resource "aws_iam_role_policy" "workbc_container_s3" {
 	name = "workbc_container_s3"
 	role = aws_iam_role.workbc_container_role.id
 	policy = jsonencode(
@@ -221,7 +222,7 @@ data "aws_iam_role_policy" "workbc_container_s3" {
     {
       "Effect": "Allow",
       "Action": ["s3:ListBucket"],
-      "Resource": ["${aws_s3_bucket.workbc_s3.arn}"]
+      "Resource": ["${aws_s3_bucket.workbc_s3.arn}", "${aws_s3_bucket.workbc_s33.arn}"]
     },
     {
       "Effect": "Allow",
@@ -231,14 +232,14 @@ data "aws_iam_role_policy" "workbc_container_s3" {
         "s3:DeleteObject",
 	"s3:GetObjectAttributes"
       ],
-      "Resource": ["${aws_s3_bucket.workbc_s3.arn}/*"]
+      "Resource": ["${aws_s3_bucket.workbc_s3.arn}/*", "${aws_s3_bucket.workbc_s33.arn}/*"]
     }
   ]
 }
   )
 }
 
-data "aws_iam_role_policy" "workbc_container_cf" {
+resource "aws_iam_role_policy" "workbc_container_cf" {
   name = "workbc_container_cf"
   role = aws_iam_role.workbc_container_role.id
 
@@ -259,6 +260,7 @@ data "aws_iam_role_policy" "workbc_container_cf" {
 
 data "aws_iam_role" "workbc_events_role" {
 	name = "workbc_events_role"
+  /*
 	assume_role_policy = jsonencode({
     "Version": "2012-10-17",
     "Statement": [
@@ -271,10 +273,11 @@ data "aws_iam_role" "workbc_events_role" {
         }
     ]
 	})
+  */
 }
 
 /*
-data "aws_iam_role_policy" "events_ecs" {
+resource "aws_iam_role_policy" "events_ecs" {
 	name = "EventBridgeECSPolicy_WorkBC"
 	role = aws_iam_role.workbc_events_role.id
 	policy = jsonencode({
