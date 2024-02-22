@@ -17,7 +17,6 @@ dependencies:
     - node.type.blog
   module:
     - text
-    - user
 id: node.blog.full
 targetEntityType: node
 bundle: blog
@@ -55,6 +54,7 @@ content:
     weight: 1
     region: content
 hidden:
+  created: true
   extra_field_workbc_page_title: true
   field_call_to_action: true
   field_content_group: true
@@ -66,3 +66,4 @@ hidden:
   field_tags: true
   langcode: true
   search_api_excerpt: true
+  uid: true
