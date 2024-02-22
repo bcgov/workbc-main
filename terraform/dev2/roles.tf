@@ -27,6 +27,7 @@ data "aws_iam_role_policy_attachment" "ecs_task_execution_role" {
   policy_arn = "arn:aws:iam::aws:policy/service-role/AmazonECSTaskExecutionRolePolicy"
 }
 
+/*
 data "aws_iam_role_policy" "ecs_task_execution_kms" {
   name   = "ecs_task_execution_kms"
   role   = aws_iam_role.ecs_task_execution_role.id
@@ -73,6 +74,7 @@ data "aws_iam_role_policy" "ecs_task_execution_cwlogs" {
   }
 EOF
 }
+*/
 
 data "aws_iam_role" "workbc_container_role" {
   name = "workbc_container_role"
@@ -96,6 +98,7 @@ EOF
   tags = var.common_tags
 }
 
+/*
 data "aws_iam_role_policy" "workbc_container_cwlogs" {
   name = "workbc_container_cwlogs"
   role = aws_iam_role.workbc_container_role.id
@@ -252,6 +255,7 @@ data "aws_iam_role_policy" "workbc_container_cf" {
   }
   EOF  
 }
+*/
 
 data "aws_iam_role" "workbc_events_role" {
 	name = "workbc_events_role"
@@ -269,6 +273,7 @@ data "aws_iam_role" "workbc_events_role" {
 	})
 }
 
+/*
 data "aws_iam_role_policy" "events_ecs" {
 	name = "EventBridgeECSPolicy_WorkBC"
 	role = aws_iam_role.workbc_events_role.id
@@ -301,3 +306,4 @@ data "aws_iam_role_policy" "events_ecs" {
 
 	})
 }
+*/
