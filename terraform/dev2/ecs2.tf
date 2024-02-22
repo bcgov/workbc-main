@@ -105,12 +105,12 @@ resource "aws_ecs_service" "solr" {
   }
 
   load_balancer {
-    target_group_arn = aws_alb_target_group.solr.id
+    target_group_arn = aws_alb_target_group.solr2.id
     container_name   = "solr"
     container_port   = 8983
   }
 
-  depends_on = [aws_alb_listener.solr, aws_iam_role_policy_attachment.ecs_task_execution_role]
+  depends_on = [aws_alb_listener.solr2, aws_iam_role_policy_attachment.ecs_task_execution_role]
 
   tags = var.common_tags
 }
