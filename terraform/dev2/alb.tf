@@ -7,7 +7,7 @@ data "aws_alb" "main" {
 }
 
 data "aws_alb" "ssot" {
-  name = "ssot-lb2"
+  name = "ssot-lb"
 }
 
 # Redirect all traffic from the ALB to the target group
