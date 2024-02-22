@@ -5,9 +5,14 @@ resource "random_integer" "cf_origin_id" {
   max = 100
 }
 
-data "aws_cloudfront_origin_access_control" "oac" {
-  name = "oac"
+resource "aws_cloudfront_origin_access_control" "oac-noc" {
+  name = "oac-noc"
+  description = "OAC Policy"
+  origin_access_control_origin_type = "s3"
+  signing_behavior = "always"
+  signing_protocol = "sigv4"
 }
+
 
 resource "aws_cloudfront_distribution" "workbc2" {
 
@@ -38,7 +43,7 @@ resource "aws_cloudfront_distribution" "workbc2" {
   origin {
         domain_name = aws_s3_bucket.workbc_s32_dev2.bucket_regional_domain_name
 	origin_id = "SDPR-Contents"
-	origin_access_control_id = data.aws_cloudfront_origin_access_control.oac.id
+	origin_access_control_id = aws_cloudfront_origin_access_control.oac-noc.id
   }
 
   enabled         = true
