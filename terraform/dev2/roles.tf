@@ -16,9 +16,9 @@ data "aws_iam_policy_document" "ecs_task_execution_role" {
 # ECS task execution role
 data "aws_iam_role" "ecs_task_execution_role" {
   name               = var.ecs_task_execution_role_name
-  assume_role_policy = data.aws_iam_policy_document.ecs_task_execution_role.json
+  #assume_role_policy = data.aws_iam_policy_document.ecs_task_execution_role.json
 
-  tags = var.common_tags
+  #tags = var.common_tags
 }
 
 # ECS task execution role policy attachment
