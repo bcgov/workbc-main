@@ -55,7 +55,7 @@ resource "aws_ecs_task_definition" "app" {
 			logDriver = "awslogs"
 			options = {
 				awslogs-create-group  = "true"
-				awslogs-group         = "/ecs/${var.app_name}/init"
+				awslogs-group         = "/ecs/${var.app_name}-noc/init"
 				awslogs-region        = var.aws_region
 				awslogs-stream-prefix = "ecs"
 			}
@@ -71,7 +71,7 @@ resource "aws_ecs_task_definition" "app" {
 			logDriver = "awslogs"
 			options = {
 				awslogs-create-group  = "true"
-				awslogs-group         = "/ecs/${var.app_name}/drupal"
+				awslogs-group         = "/ecs/${var.app_name}-noc/drupal"
 				awslogs-region        = var.aws_region
 				awslogs-stream-prefix = "ecs"
 			}
@@ -92,7 +92,7 @@ resource "aws_ecs_task_definition" "app" {
 			},
 			{
 				name = "POSTGRES_DB",
-				value = "drupal-noc"
+				value = "drupal_noc"
 			},
 			{
 				name = "AWS_BUILD_NAME",
@@ -134,11 +134,11 @@ resource "aws_ecs_task_definition" "app" {
 		secrets = [
 			{
 				name = "POSTGRES_USER",
-				valueFrom = "${data.aws_secretsmanager_secret_version.creds.arn}:username::"
+				valueFrom = "${data.aws_secretsmanager_secret_version.creds.arn}:noc_username::"
 			},
 			{
 				name = "POSTGRES_PASSWORD",
-				valueFrom = "${data.aws_secretsmanager_secret_version.creds.arn}:password::"
+				valueFrom = "${data.aws_secretsmanager_secret_version.creds.arn}:noc_password::"
 			},
 			{
 				name = "POSTGRES_ADM_USER",
@@ -187,7 +187,7 @@ resource "aws_ecs_task_definition" "app" {
 			logDriver = "awslogs"
 			options = {
 				awslogs-create-group  = "true"
-				awslogs-group         = "/ecs/${var.app_name}/nginx"
+				awslogs-group         = "/ecs/${var.app_name}-noc/nginx"
 				awslogs-region        = var.aws_region
 				awslogs-stream-prefix = "ecs"
 			}
@@ -231,7 +231,7 @@ resource "aws_ecs_task_definition" "app" {
 			logDriver = "awslogs"
 			options = {
 				awslogs-create-group  = "true"
-				awslogs-group         = "/ecs/${var.app_name}/drush"
+				awslogs-group         = "/ecs/${var.app_name}-noc/drush"
 				awslogs-region        = var.aws_region
 				awslogs-stream-prefix = "ecs"
 			}
@@ -246,7 +246,7 @@ resource "aws_ecs_task_definition" "app" {
 			},
 			{
 				name = "POSTGRES_DB",
-				value = "drupal-noc"
+				value = "drupal_noc"
 			},
 			{
 				name = "AWS_BUILD_NAME",
@@ -284,11 +284,11 @@ resource "aws_ecs_task_definition" "app" {
 		secrets = [
 			{
 				name = "POSTGRES_USER",
-				valueFrom = "${data.aws_secretsmanager_secret_version.creds.arn}:username::"
+				valueFrom = "${data.aws_secretsmanager_secret_version.creds.arn}:noc_username::"
 			},
 			{
 				name = "POSTGRES_PASSWORD",
-				valueFrom = "${data.aws_secretsmanager_secret_version.creds.arn}:password::"
+				valueFrom = "${data.aws_secretsmanager_secret_version.creds.arn}:noc_password::"
 			},
 			{
 				name = "JOBBOARD_GOOGLE_MAPS_KEY",
@@ -335,7 +335,7 @@ resource "aws_ecs_task_definition" "app" {
 			logDriver = "awslogs"
 			options = {
 				awslogs-create-group  = "true"
-				awslogs-group         = "/ecs/${var.app_name}/pdf"
+				awslogs-group         = "/ecs/${var.app_name}-noc/pdf"
 				awslogs-region        = var.aws_region
 				awslogs-stream-prefix = "ecs"
 			}
@@ -348,7 +348,7 @@ resource "aws_ecs_task_definition" "app" {
 			},
 			{
 				name = "POSTGRES_DB",
-				value = "drupal-noc"
+				value = "drupal_noc"
 			},
 			{
 				name = "POSTGRES_HOST",
@@ -358,11 +358,11 @@ resource "aws_ecs_task_definition" "app" {
 		secrets = [
 			{
 				name = "POSTGRES_USER",
-				valueFrom = "${data.aws_secretsmanager_secret_version.creds.arn}:username::"
+				valueFrom = "${data.aws_secretsmanager_secret_version.creds.arn}:noc_username::"
 			},
 			{
 				name = "POSTGRES_PASSWORD",
-				valueFrom = "${data.aws_secretsmanager_secret_version.creds.arn}:password::"
+				valueFrom = "${data.aws_secretsmanager_secret_version.creds.arn}:noc_password::"
 			}
 		]
 

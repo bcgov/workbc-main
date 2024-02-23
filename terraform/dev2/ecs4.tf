@@ -43,7 +43,7 @@ resource "aws_ecs_task_definition" "pdf-link-job" {
 			},
 			{
 				name = "POSTGRES_DB",
-				value = "drupal"
+				value = "drupal_noc"
 			},
 			{
 				name = "POSTGRES_HOST",
@@ -53,11 +53,11 @@ resource "aws_ecs_task_definition" "pdf-link-job" {
 		secrets = [
 			{
 				name = "POSTGRES_USER",
-				valueFrom = "${data.aws_secretsmanager_secret_version.creds.arn}:username::"
+				valueFrom = "${data.aws_secretsmanager_secret_version.creds.arn}:noc_username::"
 			},
 			{
 				name = "POSTGRES_PASSWORD",
-				valueFrom = "${data.aws_secretsmanager_secret_version.creds.arn}:password::"
+				valueFrom = "${data.aws_secretsmanager_secret_version.creds.arn}:noc_password::"
 			}
 		]
 
