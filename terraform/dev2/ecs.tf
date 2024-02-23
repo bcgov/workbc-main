@@ -134,11 +134,11 @@ resource "aws_ecs_task_definition" "app" {
 		secrets = [
 			{
 				name = "POSTGRES_USER",
-				valueFrom = "${data.aws_secretsmanager_secret_version.creds.arn}:noc_username::"
+				valueFrom = "${data.aws_secretsmanager_secret_version.creds.arn}:username::"
 			},
 			{
 				name = "POSTGRES_PASSWORD",
-				valueFrom = "${data.aws_secretsmanager_secret_version.creds.arn}:noc_password::"
+				valueFrom = "${data.aws_secretsmanager_secret_version.creds.arn}:password::"
 			},
 			{
 				name = "POSTGRES_ADM_USER",
@@ -284,11 +284,11 @@ resource "aws_ecs_task_definition" "app" {
 		secrets = [
 			{
 				name = "POSTGRES_USER",
-				valueFrom = "${data.aws_secretsmanager_secret_version.creds.arn}:noc_username::"
+				valueFrom = "${data.aws_secretsmanager_secret_version.creds.arn}:username::"
 			},
 			{
 				name = "POSTGRES_PASSWORD",
-				valueFrom = "${data.aws_secretsmanager_secret_version.creds.arn}:noc_password::"
+				valueFrom = "${data.aws_secretsmanager_secret_version.creds.arn}:password::"
 			},
 			{
 				name = "JOBBOARD_GOOGLE_MAPS_KEY",
@@ -358,11 +358,11 @@ resource "aws_ecs_task_definition" "app" {
 		secrets = [
 			{
 				name = "POSTGRES_USER",
-				valueFrom = "${data.aws_secretsmanager_secret_version.creds.arn}:noc_username::"
+				valueFrom = "${data.aws_secretsmanager_secret_version.creds.arn}:username::"
 			},
 			{
 				name = "POSTGRES_PASSWORD",
-				valueFrom = "${data.aws_secretsmanager_secret_version.creds.arn}:noc_password::"
+				valueFrom = "${data.aws_secretsmanager_secret_version.creds.arn}:password::"
 			}
 		]
 
