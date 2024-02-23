@@ -116,7 +116,7 @@ resource "aws_ecs_task_definition" "app" {
 			},
 			{
 				name = "PROJECT_ENVIRONMENT",
-				value = "aws-dev"
+				value = "aws-dev-noc"
 			},
 			{
 				name = "REDIS_HOST",
@@ -270,7 +270,7 @@ resource "aws_ecs_task_definition" "app" {
 			},
 			{
 				name = "PROJECT_ENVIRONMENT",
-				value = "aws-dev"
+				value = "aws-dev-noc"
 			},
 			{
 				name = "REDIS_HOST",
