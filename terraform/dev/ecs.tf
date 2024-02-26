@@ -107,7 +107,7 @@ resource "aws_ecs_task_definition" "app" {
 			},
 			{
 				name = "POSTGRES_SSOT",
-				value = "ssot2"
+				value = "ssot"
 			},
 			{
 				name = "AWS_BUILD_NAME",
@@ -265,7 +265,7 @@ resource "aws_ecs_task_definition" "app" {
 			},
 			{
 				name = "POSTGRES_SSOT",
-				value = "ssot2"
+				value = "ssot"
 			},
 			{
 				name = "AWS_BUILD_NAME",
