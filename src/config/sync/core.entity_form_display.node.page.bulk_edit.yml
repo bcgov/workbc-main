@@ -17,6 +17,7 @@ dependencies:
     - field.field.node.page.field_related_topics_blurb
     - field.field.node.page.field_related_topics_image
     - field.field.node.page.field_scheduled_publish
+    - field.field.node.page.field_tags
     - field.field.node.page.view_mode_selection
     - node.type.page
 _core:
@@ -51,6 +52,7 @@ hidden:
   field_related_topics_blurb: true
   field_related_topics_image: true
   field_scheduled_publish: true
+  field_tags: true
   langcode: true
   moderation_state: true
   path: true

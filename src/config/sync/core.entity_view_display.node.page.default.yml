@@ -16,6 +16,7 @@ dependencies:
     - field.field.node.page.field_related_topics_blurb
     - field.field.node.page.field_related_topics_image
     - field.field.node.page.field_scheduled_publish
+    - field.field.node.page.field_tags
     - field.field.node.page.view_mode_selection
     - node.type.page
   module:
@@ -41,6 +42,16 @@ content:
     region: content
   content_moderation_control:
     settings: {  }
+    third_party_settings: {  }
+    weight: 0
+    region: content
+  created:
+    type: timestamp
+    label: hidden
+    settings:
+      date_format: medium
+      custom_date_format: ''
+      timezone: ''
     third_party_settings: {  }
     weight: 0
     region: content
@@ -97,10 +108,25 @@ content:
     third_party_settings: {  }
     weight: 5
     region: content
+  field_tags:
+    type: entity_reference_label
+    label: above
+    settings:
+      link: true
+    third_party_settings: {  }
+    weight: 8
+    region: content
   links:
     settings: {  }
     third_party_settings: {  }
     weight: 1
+    region: content
+  uid:
+    type: author
+    label: hidden
+    settings: {  }
+    third_party_settings: {  }
+    weight: 0
     region: content
 hidden:
   extra_field_workbc_page_title: true
