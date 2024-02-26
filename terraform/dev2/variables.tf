@@ -32,7 +32,7 @@ variable "ecs_task_execution_role_name" {
 variable "app_name" {
   description = "Name of the application"
   type        = string
-  default     = "workbc"
+  default     = "workbc2"
 }
 
 variable "app_image" {
@@ -89,19 +89,13 @@ variable "fargate_memory" {
 variable "common_tags" {
   description = "Common tags for created resources"
   default = {
-    Application = "WorkBC"
+    Application = "WorkBC2"
   }
 }
 
 variable "service_names" {
   description = "List of service names to use as subdomains"
   default     = ["workbc"]
-  type        = list(string)
-}
-
-variable "service_names2" {
-  description = "List of service names to use as subdomains"
-  default     = ["pgadmin"]
   type        = list(string)
 }
 

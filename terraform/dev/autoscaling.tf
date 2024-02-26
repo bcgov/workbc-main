@@ -54,7 +54,7 @@ resource "aws_appautoscaling_policy" "down" {
 }
 
 # CloudWatch alarm that triggers the autoscaling up policy
-resource "aws_cloudwatch_metric_alarm" "service_cpu_high" {
+/*resource "aws_cloudwatch_metric_alarm" "service_cpu_high" {
   count               = local.create_ecs_service
   alarm_name          = "ecs_cpu_utilization_high"
   comparison_operator = "GreaterThanOrEqualToThreshold"
@@ -73,10 +73,10 @@ resource "aws_cloudwatch_metric_alarm" "service_cpu_high" {
   alarm_actions = [aws_appautoscaling_policy.up[count.index].arn]
 
   tags = var.common_tags
-}
+}*/
 
 # CloudWatch alarm that triggers the autoscaling down policy
-resource "aws_cloudwatch_metric_alarm" "service_cpu_low" {
+/*resource "aws_cloudwatch_metric_alarm" "service_cpu_low" {
   count               = local.create_ecs_service
   alarm_name          = "ecs_cpu_utilization_low"
   comparison_operator = "LessThanOrEqualToThreshold"
@@ -84,6 +84,50 @@ resource "aws_cloudwatch_metric_alarm" "service_cpu_low" {
   metric_name         = "CPUUtilization"
   namespace           = "AWS/ECS"
   period              = "60"
+  statistic           = "Average"
+  threshold           = "10"
+
+  dimensions = {
+    ClusterName = aws_ecs_cluster.main.name
+    ServiceName = aws_ecs_service.main[count.index].name
+  }
+
+  alarm_actions = [aws_appautoscaling_policy.down[count.index].arn]
+
+  tags = var.common_tags
+}*/
+
+# CloudWatch alarm that triggers the autoscaling up policy
+resource "aws_cloudwatch_metric_alarm" "service_memory_high" {
+  count               = local.create_ecs_service
+  alarm_name          = "ecs_memory_utilization_high"
+  comparison_operator = "GreaterThanOrEqualToThreshold"
+  evaluation_periods  = "2"
+  metric_name         = "MemoryUtilization"
+  namespace           = "AWS/ECS"
+  period              = "30"
+  statistic           = "Average"
+  threshold           = "75"
+
+  dimensions = {
+    ClusterName = aws_ecs_cluster.main.name
+    ServiceName = aws_ecs_service.main[count.index].name
+  }
+
+  alarm_actions = [aws_appautoscaling_policy.up[count.index].arn]
+
+  tags = var.common_tags
+}
+
+# CloudWatch alarm that triggers the autoscaling down policy
+resource "aws_cloudwatch_metric_alarm" "service_memory_low" {
+  count               = local.create_ecs_service
+  alarm_name          = "ecs_memory_utilization_low"
+  comparison_operator = "LessThanOrEqualToThreshold"
+  evaluation_periods  = "2"
+  metric_name         = "MemoryUtilization"
+  namespace           = "AWS/ECS"
+  period              = "30"
   statistic           = "Average"
   threshold           = "10"
 

@@ -63,6 +63,10 @@ resource "aws_ecs_task_definition" "solr" {
 			{
 				name = "SOLR_CORE_NAME",
 				value = "workbc"
+			},
+			{
+				name = "SOLR_JAVA_MEM",
+				value = "-Xms4g -Xmx7g"
 			}
 		]
 
