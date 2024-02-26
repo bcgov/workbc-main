@@ -106,6 +106,10 @@ resource "aws_ecs_task_definition" "app" {
 				value = "drupal"
 			},
 			{
+				name = "POSTGRES_SSOT",
+				value = "ssot"
+			},
+			{
 				name = "AWS_BUILD_NAME",
 				value = "aws"
 			},
@@ -258,6 +262,10 @@ resource "aws_ecs_task_definition" "app" {
 			{
 				name = "POSTGRES_DB",
 				value = "drupal"
+			},
+			{
+				name = "POSTGRES_SSOT",
+				value = "ssot"
 			},
 			{
 				name = "AWS_BUILD_NAME",
