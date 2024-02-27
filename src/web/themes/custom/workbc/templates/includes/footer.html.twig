@@ -14,14 +14,17 @@
       <div class="footer__resize">
         {{ drupal_block('text_resize_block', wrapper=false) }}
       </div>
-      <div class="footer__translate">
+      <div class="footer__translate_container">
         {{ drupal_block('gtranslate_block', wrapper=false) }}
+        <div class="footer__translate_disclaimer">
+          <b>Disclaimer:</b> If you are viewing this page in a language other than English, it was machine-translated. The author of the page cannot confirm the accuracy of translated content.
+        </div>
       </div>
     </div>
     <div class="footer__bottom">
       <div class="footer__logo">
         <a href="http://www2.gov.bc.ca/" alt="British Columbia" title="British Columbia" class="site-logo__link" target="_blank">
-          <img src="/{{ directory }}/assets/images/logo-bc.svg" alt="{{ 'British Columbia logo'|t }}" />
+          <img src="/{{ directory }}/assets/images/logo-bc.png" alt="{{ 'British Columbia logo'|t }}" />
         </a>
       </div>
       <div class="footer__copyright">
