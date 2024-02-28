@@ -1,7 +1,7 @@
 # ecs.tf
 
-resource "aws_ecs_cluster" "solr" {
-  name               = "solr-cluster"
+resource "aws_ecs_cluster" "solr2" {
+  name               = "solr-cluster2"
   capacity_providers = ["FARGATE_SPOT"]
 
   default_capacity_provider_strategy {
@@ -12,11 +12,11 @@ resource "aws_ecs_cluster" "solr" {
   tags = var.common_tags
 }
 
-resource "aws_ecs_task_definition" "solr" {
+resource "aws_ecs_task_definition" "solr2" {
   count                    = local.create_ecs_service
-  family                   = "solr-task"
-  execution_role_arn       = aws_iam_role.ecs_task_execution_role.arn
-  task_role_arn            = aws_iam_role.workbc_container_role.arn
+  family                   = "solr-task2"
+  execution_role_arn       = data.aws_iam_role.ecs_task_execution_role.arn
+  task_role_arn            = data.aws_iam_role.workbc_container_role.arn
   network_mode             = "awsvpc"
   requires_compatibilities = ["FARGATE"]
   cpu                      = var.fargate_cpu
@@ -25,11 +25,11 @@ resource "aws_ecs_task_definition" "solr" {
   volume {
     name = "data"
     efs_volume_configuration  {
-        file_system_id = aws_efs_file_system.solr.id
+        file_system_id = aws_efs_file_system.solr2.id
 	transit_encryption = "ENABLED"
 	authorization_config {
 	    iam = "ENABLED"
-	    access_point_id = aws_efs_access_point.solr.id
+	    access_point_id = aws_efs_access_point.solr2.id
 	}
     }
   }
@@ -45,7 +45,7 @@ resource "aws_ecs_task_definition" "solr" {
 			logDriver = "awslogs"
 			options = {
 				awslogs-create-group  = "true"
-				awslogs-group         = "/ecs/${var.app_name}/solr"
+				awslogs-group         = "/ecs/${var.app_name}-noc/solr2"
 				awslogs-region        = var.aws_region
 				awslogs-stream-prefix = "ecs"
 			}
@@ -63,10 +63,6 @@ resource "aws_ecs_task_definition" "solr" {
 			{
 				name = "SOLR_CORE_NAME",
 				value = "workbc"
-			},
-			{
-				name = "SOLR_JAVA_MEM",
-				value = "-Xms4g -Xmx7g"
 			}
 		]
 
@@ -76,16 +72,16 @@ resource "aws_ecs_task_definition" "solr" {
 				sourceVolume = "data"
 			}
 		]
-		volumesFrom = []
-	 }	
+		volumesFrom = []	
+	}
   ])
 }
 
-resource "aws_ecs_service" "solr" {
+resource "aws_ecs_service" "solr2" {
   count                             = local.create_ecs_service
-  name                              = "solr-service"
-  cluster                           = aws_ecs_cluster.solr.id
-  task_definition                   = aws_ecs_task_definition.solr[count.index].arn
+  name                              = "solr-service2"
+  cluster                           = aws_ecs_cluster.solr2.id
+  task_definition                   = aws_ecs_task_definition.solr2[count.index].arn
   desired_count                     = var.app_count
   enable_ecs_managed_tags           = true
   propagate_tags                    = "TASK_DEFINITION"
@@ -109,12 +105,12 @@ resource "aws_ecs_service" "solr" {
   }
 
   load_balancer {
-    target_group_arn = aws_alb_target_group.solr.id
+    target_group_arn = aws_alb_target_group.solr2.id
     container_name   = "solr"
     container_port   = 8983
   }
 
-  depends_on = [aws_alb_listener.solr, aws_iam_role_policy_attachment.ecs_task_execution_role]
+  depends_on = [aws_alb_listener.solr2, aws_iam_role_policy_attachment.ecs_task_execution_role]
 
   tags = var.common_tags
 }
