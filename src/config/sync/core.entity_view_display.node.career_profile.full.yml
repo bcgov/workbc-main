@@ -74,6 +74,7 @@ third_party_settings:
         - extra_field_occupational_interests_int
         - extra_field_occupational_interests
         - field_job_titles
+        - extra_field_job_titles
       label: 'Career Overview'
       parent_name: group_career_profile_tabs
       region: content
@@ -313,6 +314,11 @@ content:
     third_party_settings: {  }
     weight: 12
     region: content
+  extra_field_job_titles:
+    settings: {  }
+    third_party_settings: {  }
+    weight: 28
+    region: content
   extra_field_labour_market_expected_openings:
     settings: {  }
     third_party_settings: {  }
@@ -361,12 +367,12 @@ content:
   extra_field_occupational_interests:
     settings: {  }
     third_party_settings: {  }
-    weight: 27
+    weight: 26
     region: content
   extra_field_occupational_interests_int:
     settings: {  }
     third_party_settings: {  }
-    weight: 26
+    weight: 25
     region: content
   extra_field_profile_skills:
     settings: {  }
@@ -411,12 +417,12 @@ content:
   extra_field_work_environment_percent_fulltime:
     settings: {  }
     third_party_settings: {  }
-    weight: 22
+    weight: 21
     region: content
   extra_field_work_environment_source:
     settings: {  }
     third_party_settings: {  }
-    weight: 23
+    weight: 22
     region: content
   field_career_overview:
     type: text_default
@@ -430,7 +436,7 @@ content:
     label: hidden
     settings: {  }
     third_party_settings: {  }
-    weight: 24
+    weight: 23
     region: content
   field_career_videos:
     type: entity_reference_entity_view
@@ -491,7 +497,7 @@ content:
     settings:
       link_to_entity: false
     third_party_settings: {  }
-    weight: 28
+    weight: 27
     region: content
   field_noc:
     type: string
@@ -515,7 +521,7 @@ content:
     settings:
       link: true
     third_party_settings: {  }
-    weight: 25
+    weight: 24
     region: content
   field_resources_reference:
     type: entity_reference_entity_id

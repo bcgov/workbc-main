@@ -18,6 +18,6 @@ generate "dev_tfvars" {
     alb_name = "default"
     cloudfront = true
     cloudfront_origin_domain = "workbc-noc.${local.project}-dev.nimbus.cloud.gov.bc.ca"
-    service_names = ["workbc"]
+    service_names = ["workbc-noc"]
   EOF
 }
