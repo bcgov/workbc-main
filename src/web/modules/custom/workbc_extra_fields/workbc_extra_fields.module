@@ -602,6 +602,8 @@ function epbcGetPrograms($nocid) {
 
 
 function epbcSetPrograms() {
+  // Disable for now.
+  return;
 
   if (!extension_loaded("soap")) {
     \Drupal::logger('workbc_extra_fields')->warning("SOAP extension not loaded. Cannot pull program data from Education Planner BC.");

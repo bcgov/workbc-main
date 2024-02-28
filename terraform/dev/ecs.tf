@@ -29,6 +29,17 @@ resource "aws_ecs_task_definition" "app" {
     }
   }
   volume {
+    name = "pgadmin_data"
+    efs_volume_configuration  {
+        file_system_id = aws_efs_file_system.pgadmin.id
+	transit_encryption = "ENABLED"
+	authorization_config {
+	    iam = "ENABLED"
+	    access_point_id = aws_efs_access_point.pgadmin.id
+	}
+    }
+  }
+  volume {
     name = "app"
   }
 
@@ -93,6 +104,10 @@ resource "aws_ecs_task_definition" "app" {
 			{
 				name = "POSTGRES_DB",
 				value = "drupal"
+			},
+			{
+				name = "POSTGRES_SSOT",
+				value = "ssot"
 			},
 			{
 				name = "AWS_BUILD_NAME",
@@ -249,6 +264,10 @@ resource "aws_ecs_task_definition" "app" {
 				value = "drupal"
 			},
 			{
+				name = "POSTGRES_SSOT",
+				value = "ssot"
+			},
+			{
 				name = "AWS_BUILD_NAME",
 				value = "aws"
 			},
@@ -324,57 +343,51 @@ resource "aws_ecs_task_definition" "app" {
 				condition = "COMPLETE"
 			}
 		]
-	}/*,
+	},
 	{
 		essential   = false
-		name        = "pdf"
-		image       = "${var.app_repo}/pdf:0.8"
+		name        = "pgadmin"
+		image       = "dpage/pgadmin4:latest"
 		networkMode = "awsvpc"
 
 		logConfiguration = {
 			logDriver = "awslogs"
 			options = {
 				awslogs-create-group  = "true"
-				awslogs-group         = "/ecs/${var.app_name}/pdf"
+				awslogs-group         = "/ecs/${var.app_name}/pgadmin"
 				awslogs-region        = var.aws_region
 				awslogs-stream-prefix = "ecs"
 			}
 		}
-
+		portMappings = [
+			{
+				hostPort = 80
+				protocol = "tcp"
+				containerPort = 80
+			}
+		]
 		environment = [
 			{
-				name = "POSTGRES_PORT",
-				value = "5432"
-			},
-			{
-				name = "POSTGRES_DB",
-				value = "drupal"
-			},
-			{
-				name = "POSTGRES_HOST",
-				value = "${data.aws_rds_cluster.postgres.endpoint}"
-			}			
+				name = "PGADMIN_DEFAULT_EMAIL",
+				value = "wdst.techs@gov.bc.ca"
+			}	
 		]
 		secrets = [
 			{
-				name = "POSTGRES_USER",
-				valueFrom = "${data.aws_secretsmanager_secret_version.creds.arn}:username::"
-			},
-			{
-				name = "POSTGRES_PASSWORD",
+				name = "PGADMIN_DEFAULT_PASSWORD",
 				valueFrom = "${data.aws_secretsmanager_secret_version.creds.arn}:password::"
 			}
 		]
 
 		mountPoints = [
 			{
-				containerPath = "/contents",
-				sourceVolume = "contents"
+				containerPath = "/var/lib/pgadmin",
+				sourceVolume = "pgadmin_data"
 			}
 		]
 		volumesFrom = []
 
-	}*/
+	}
   ])
 }
 
@@ -407,6 +420,12 @@ resource "aws_ecs_service" "main" {
     target_group_arn = aws_alb_target_group.app.id
     container_name   = "nginx"
     container_port   = var.app_port
+  }
+
+  load_balancer {
+    target_group_arn = aws_alb_target_group.pgadmin.id
+    container_name   = "pgadmin"
+    container_port   = 80
   }
 
   depends_on = [data.aws_alb_listener.front_end, aws_iam_role_policy_attachment.ecs_task_execution_role]

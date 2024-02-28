@@ -4,6 +4,7 @@ status: true
 dependencies:
   config:
     - field.storage.node.field_noc
+    - field.storage.node.field_noc_2016
     - search_api.server.solr
     - core.entity_view_mode.node.search_index
   module:
@@ -70,6 +71,15 @@ field_settings:
     dependencies:
       config:
         - field.storage.node.field_noc
+  field_noc_2016:
+    label: 'NOC 2016'
+    datasource_id: 'entity:node'
+    property_path: field_noc_2016
+    type: 'solr_text_custom:ngram'
+    boost: !!float 3
+    dependencies:
+      config:
+        - field.storage.node.field_noc_2016
   nid:
     label: ID
     datasource_id: 'entity:node'
@@ -155,6 +165,7 @@ processor_settings:
   content_access:
     weights:
       preprocess_query: -43
+  custom_value: {  }
   entity_status: {  }
   entity_type: {  }
   highlight:
@@ -175,6 +186,7 @@ processor_settings:
     all_fields: true
     fields:
       - field_noc
+      - field_noc_2016
       - rendered_item
       - title
     title: true

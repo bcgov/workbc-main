@@ -54,16 +54,16 @@ resource "aws_appautoscaling_policy" "down" {
 }
 
 # CloudWatch alarm that triggers the autoscaling up policy
-resource "aws_cloudwatch_metric_alarm" "service_memory_high" {
+resource "aws_cloudwatch_metric_alarm" "service_cpu_high" {
   count               = local.create_ecs_service
-  alarm_name          = "ecs_memory_utilization_high"
+  alarm_name          = "ecs_cpu_utilization_high"
   comparison_operator = "GreaterThanOrEqualToThreshold"
   evaluation_periods  = "2"
-  metric_name         = "MemoryUtilization"
+  metric_name         = "CPUUtilization"
   namespace           = "AWS/ECS"
-  period              = "30"
+  period              = "60"
   statistic           = "Average"
-  threshold           = "75"
+  threshold           = "85"
 
   dimensions = {
     ClusterName = aws_ecs_cluster.main.name
@@ -76,14 +76,14 @@ resource "aws_cloudwatch_metric_alarm" "service_memory_high" {
 }
 
 # CloudWatch alarm that triggers the autoscaling down policy
-resource "aws_cloudwatch_metric_alarm" "service_memory_low" {
+resource "aws_cloudwatch_metric_alarm" "service_cpu_low" {
   count               = local.create_ecs_service
-  alarm_name          = "ecs_memory_utilization_low"
+  alarm_name          = "ecs_cpu_utilization_low"
   comparison_operator = "LessThanOrEqualToThreshold"
   evaluation_periods  = "2"
-  metric_name         = "MemoryUtilization"
+  metric_name         = "CPUUtilization"
   namespace           = "AWS/ECS"
-  period              = "30"
+  period              = "60"
   statistic           = "Average"
   threshold           = "10"
 

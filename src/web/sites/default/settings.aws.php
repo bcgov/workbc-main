@@ -2,6 +2,7 @@
 
 $base_urls = [
     'aws-dev' => 'https://dev.workbc.ca',
+    'aws-dev-noc' => 'https://devnoc.workbc.ca',
     'aws-test' => 'https://test.workbc.ca',
     'aws-prod' => 'https://www.workbc.ca',
 ];
@@ -21,7 +22,7 @@ $databases['default']['default'] = array (
     'driver' => 'pgsql',
 );
 $databases['ssot']['default'] = array (
-    'database' => 'ssot',
+    'database' => getenv('POSTGRES_SSOT') ?? 'ssot',
     'username' => getenv('POSTGRES_ADM_USER'),
     'password' => getenv('POSTGRES_ADM_PWD'),
     'prefix' => '',
