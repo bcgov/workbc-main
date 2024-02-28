@@ -150,8 +150,8 @@
       occupational_interests_intro: content.group_career_profile_tabs.group_career_overview.extra_field_occupational_interests_int.0['#text'],
       occupational_interests_items: content.group_career_profile_tabs.group_career_overview.extra_field_occupational_interests.0,
 
-      job_titles_title: content.group_career_profile_tabs.group_career_overview.field_job_titles['#title'],
-      job_titles_list: content.group_career_profile_tabs.group_career_overview.field_job_titles['#items'],
+      job_titles_title: content.group_career_profile_tabs.group_career_overview.extra_field_job_titles['#title'],
+      job_titles_list: content.group_career_profile_tabs.group_career_overview.extra_field_job_titles.0,
     },
     education: {
       tab: 'Education, Training and Skills',
@@ -401,11 +401,7 @@
                    data-static-more-text="View more"
                    data-static-less-text="View less">
                 <div data-static-load-more-items class="career-content-job-titles">
-                {% for row in viewmodel['tab_sections']['career_overview']['job_titles_list'] %}
-                  {% for jobtitle in row %}
-                    <div class="job-title-item">{{ jobtitle.value }}</div>
-                  {% endfor %}
-                {% endfor %}
+                  {{ viewmodel['tab_sections']['career_overview']['job_titles_list'] }}
                 </div>
                 <div class="static-load-more-button-container megamenu-splash__actions">
                   <a class="action-link pointer" data-static-load-more-trigger></a>
