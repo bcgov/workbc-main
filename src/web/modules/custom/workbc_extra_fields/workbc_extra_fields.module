@@ -392,6 +392,8 @@ function ssotProcessEmploymentIndustry($ssotdata) {
     );
   }
 
+  $sort_values = array_column($data, "name");
+  array_multisort($sort_values, SORT_ASC, $data);
   return $data;
 }
 
