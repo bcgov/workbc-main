@@ -38,7 +38,7 @@
         background-repeat: no-repeat;
     }
     .profile-information-card-content {
-        flex: 0 0 50%;
+        flex: 0 0 65%;
         display: flex;
         flex-flow: column nowrap;
         justify-content: center;
@@ -85,6 +85,7 @@
     .profile-information-card-content {
         .profile-information-card-value {
             font-size: 1rem;
+            line-height: 1.5;
         }
     }
 }

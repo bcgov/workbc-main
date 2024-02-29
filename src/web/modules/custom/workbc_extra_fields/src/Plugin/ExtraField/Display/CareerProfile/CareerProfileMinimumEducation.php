@@ -27,7 +27,7 @@ class CareerProfileMinimumEducation extends ExtraFieldDisplayFormattedBase {
    */
   public function getLabel() {
 
-    return $this->t('TEER');
+    return $this->t('Training, Education, Experience and Responsibilities');
   }
 
   /**
@@ -67,12 +67,12 @@ class CareerProfileMinimumEducation extends ExtraFieldDisplayFormattedBase {
           <h5>
           Training, Education, Experience, and Responsibilities (TEER)
           </h5>
-          TEER 0 - Management<br/>
-          TEER 1 - University Degree</br>
-          TEER 2 - College Diploma or Apprenticeship, 2 or more years<br/>
-          TEER 3 - College Diploma or Apprenticeship, less than 2 years</br>
-          TEER 4 - High School Diploma<br/>
-          TEER 5 - No Formal Education<br/>
+          Management<br/>
+          University Degree</br>
+          College Diploma or Apprenticeship, 2 or more years<br/>
+          College Diploma or Apprenticeship, less than 2 years</br>
+          High School Diploma<br/>
+          No Formal Education<br/>
         </div>
         END
       ],

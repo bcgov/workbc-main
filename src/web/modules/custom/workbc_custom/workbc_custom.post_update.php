@@ -919,37 +919,37 @@ function workbc_custom_post_update_227_taxonomy_migration() {
   $updates[] = array(
     'old' => 'Apprenticeship Certificate',
     'teer' => '0',
-    'term' => 'TEER 0 - Management',
+    'term' => 'Management',
     'description' => 'Management responsibilities'
   );
   $updates[] = array(
     'old' => 'Degree',
     'teer' => '1',
-    'term' => 'TEER 1 - University Degree',
+    'term' => 'University Degree',
     'description' => "Completion of a university degree (bachelor's, master's, or doctorate); or Previous experience and expertise in subject matter knowledge from a related occupation found in TEER category 2 (when applicable).",
   );
   $updates[] = array(
     'old' => 'Diploma/Certificate Excluding Apprenticeship',
     'teer' => '2',
-    'term' => 'TEER 2 - College Diploma or Apprenticeship, 2 or more years',
+    'term' => 'College Diploma or Apprenticeship, 2 or more years',
     'description' => "Completion of a post-secondary education program of two to three years at community college, institute of technology, or CÉGEP; or Completion of an apprenticeship training program of two to five years; or Occupations with supervisory or significant safety (e.g. police officers and firefighters) responsibilities; or Several years of experience in a related occupation from TEER category 3 (when applicable).",
   );
   $updates[] = array(
     'old' => 'High School',
     'teer' => '3',
-    'term' => 'TEER 3 - College Diploma or Apprenticeship, less than 2 years',
+    'term' => 'College Diploma or Apprenticeship, less than 2 years',
     'description' => "Completion of a post-secondary education program of less than two years at community college, institute of technology or CÉGEP; or Completion of an apprenticeship training program of less than two years; or More than six months of on-the-job training, training courses or specific work experience with some secondary school education; or Several years of experience in a related occupation from TEER category 4 (when applicable).",
   );
   $updates[] = array(
     'old' => 'Less than High School',
     'teer' => '4',
-    'term' => 'TEER 4 - High School Diploma',
+    'term' => 'High School Diploma',
     'description' => "Completion of secondary school; or Several weeks of on-the-job training with some secondary school education; or Experience in a related occupation from TEER category 5 (when applicable).",
   );
   $updates[] = array(
     'old' => '',
     'teer' => '5',
-    'term' => 'TEER 5 - No Formal Education',
+    'term' => 'No Formal Education',
     'description' => "Short work demonstration and no formal educational requirements",
   );
 
