@@ -67,12 +67,14 @@ class CareerProfileMinimumEducation extends ExtraFieldDisplayFormattedBase {
           <h5>
           Training, Education, Experience, and Responsibilities (TEER)
           </h5>
-          Management<br/>
-          University Degree</br>
-          College Diploma or Apprenticeship, 2 or more years<br/>
-          College Diploma or Apprenticeship, less than 2 years</br>
-          High School Diploma<br/>
-          No Formal Education<br/>
+          <ul>
+          <li>Management</li>
+          <li>University Degree</li>
+          <li>College Diploma or Apprenticeship, 2 or more years</li>
+          <li>College Diploma or Apprenticeship, less than 2 years</li>
+          <li>High School Diploma</li>
+          <li>No Formal Education</li>
+          </ul>
         </div>
         END
       ],
