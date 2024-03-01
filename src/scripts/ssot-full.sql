@@ -68,6 +68,23 @@ DROP TABLE public.career_regional;
 DROP TABLE public.career_provincial;
 DROP FUNCTION public.pgrst_watch();
 DROP EXTENSION citext;
+-- *not* dropping schema, since initdb creates it
+--
+-- Name: public; Type: SCHEMA; Schema: -; Owner: workbc
+--
+
+-- *not* creating schema, since initdb creates it
+
+
+ALTER SCHEMA public OWNER TO workbc;
+
+--
+-- Name: SCHEMA public; Type: COMMENT; Schema: -; Owner: workbc
+--
+
+COMMENT ON SCHEMA public IS '';
+
+
 --
 -- Name: citext; Type: EXTENSION; Schema: -; Owner: -
 --
@@ -6726,6 +6743,7 @@ COPY public.monthly_labour_market_updates (year, month, total_employed, total_un
 2023	10	2810200	160100	161400	385300	1811300	613600	381700	1820800	611800	1339400	1471000	1347200	1467100	-0.1	-4000	1.1	23400	-4.7	-27500	0	5.4	-0.2	65.2	0.2	5.4	0.6	65.4	4547600	782200	2821400	529400	143100	145500	69900	56200	5.2	4.4	2817500	4.3	3.9	447300	5.7	4.5	1826300	3.2	4.9	297400	5.7	4.9	78000	5.7	4.3	87800	6.8	4.8	43600	5.1	\N	37100	\N	\N	\N	\N	0.7	1300	11.1	2600	4.6	10200	-3	-6700	-1.9	-3400	0.6	2100	-1.5	-2400	-2.9	-1600	-0.3	-300	1.9	5600	1.4	2000	-0.4	-600	-4.7	-800	-0.3	-1500	-4.2	-3800	-5	-6700
 2023	11	2819300	156300	160100	382700	1828300	608200	385300	1811300	613600	1342000	1477300	1339400	1471000	0.3	9000	0.3	6500	0.4	2500	-0.1	5.3	0	65.2	0	5.4	-0.2	65.2	4557400	783500	2828800	530200	143200	145700	69900	56200	4.9	4.4	2823900	3.9	3.1	448300	5.3	4.1	1833600	3.1	3.9	293000	6.9	6.1	79900	5.5	4.2	87100	6.7	5	44300	\N	\N	37600	\N	\N	\N	\N	-2.1	-4000	-3.4	-900	-0.1	-300	-1.1	-2400	-0.8	-1400	3.1	11700	11.5	18800	-6.9	-3700	-1.2	-1400	-4.2	-12600	1.5	2100	-0.1	-200	-2.5	-400	-0.3	-1100	1.5	1300	2.7	3500
 2023	12	2837000	167600	156300	384800	1838700	613500	382700	1828300	608200	1353400	1483600	1342000	1477300	0.6	17700	1	23100	-0.9	-5300	0.3	5.6	0.5	65.7	-0.1	5.3	0	65.2	4566900	784600	2836000	531000	143300	145800	69900	56300	4.9	5.2	2824000	3.8	4.5	451400	5.3	5.5	1833500	3.4	4.6	288900	7.1	6	81000	5.6	4.5	86800	5.9	6.1	44800	4.1	4.1	37600	\N	\N	\N	\N	-0.6	-1100	-11.1	-2800	-0.3	-700	-1.1	-2300	1.1	2000	3.2	12300	-2.8	-5100	3	1500	1.5	1800	2.2	6400	-0.8	-1100	1.8	2600	-21.7	-3400	0.7	3100	-9.9	-8700	10.1	13200
+2024	1	2835300	162500	167600	386300	1833400	615600	384800	1838700	613500	1349800	1485500	1353400	1483600	-0.1	-2600	-1	-19600	3	17000	-0.2	5.4	-0.4	65.3	0.3	5.6	0.5	65.7	4579100	786200	2845200	532000	143500	146000	69900	56300	5.2	4.4	2814100	4.2	2.9	451200	5.4	4.5	1823500	4.8	4.3	287500	7.3	3.5	82000	6.6	6.1	86400	6.2	4.7	45300	4.5	\N	38200	\N	\N	\N	\N	-0.8	-1500	-3.5	-800	-1.5	-3500	1	2200	0.6	1100	-0.4	-1600	-1.3	-2200	-1.6	-800	2.3	2700	-0.3	-1000	3	4400	1.6	2400	17.1	2100	-1.9	-8500	11.2	9000	-4.5	-6600
 \.
 
 
@@ -25733,7 +25751,7 @@ COPY public.skills (noc, skills_competencies, importance, importance_description
 COPY public.sources (endpoint, label, datapoint, filename, sheet, range, author, date) FROM stdin;
 wages	B.C. Labour Market Information Office, derived from 2022 Job Bank Wage data	\N	WorkBC_2022_Wage_Data - UPDATED June 28 2023.xlsx	Sheet1	A2-G501	\N	2023/06/28
 titles	\N	\N	Common Job Titles revised - July 18 2017 (RA).xlsx	Sheet1	A2-D7490	\N	\N
-skills	\N	\N	UPDATED FINAL Skills Data for Career Profiles (updated April16 19).xlsx	Sheet1	A2-F17396	\N	\N
+skills	\N	\N	UPDATED FINAL Skills Data for Career Profiles (updated Sept 12 23).xlsx	Sheet1	A2-F17396	\N	2023/09/12
 openings_careers	B.C. Labour Market Outlook	\N	Job Openings by Industry_2016 Census_2022 LMO_Draft.xlsx	Career Profiles	A5-Q504	\N	2023/03/14
 education	\N	\N	All Occupation's Education Background 2021.xlsx	Sheet1	A2-C501	\N	\N
 census	2016 Census	\N	2016 Census.xlsx	Career Profiles	A5-R504	\N	\N
@@ -25741,8 +25759,8 @@ career_regional	B.C. Labour Market Outlook	\N	3.3.1_WorkBC_Career_Profile_Data_2
 career_provincial	B.C. Labour Market Outlook	\N	3.3.1_WorkBC_Career_Profile_Data_2022-2032.xlsx	Provincial Outlook	A4-L503	\N	2023/03/06
 high_opportunity_occupations	\N	\N	2022 HOO BC and Region for new tool - Wage data median wage UPDATED July 2023.xlsx	Sheet1	A2-O866	B.C. Labour Market Information Office	2023/07/13
 occupational_interests	\N	\N	Occupational Interests_updated_March_10_2023.xlsx	Occ Interest_Stack	A2-C1501	\N	2023/03/10
-monthly_labour_market_updates	Labour Force Survey (monthly, seasonally adjusted)	\N	REFRESH_WorkBC LMS _<YYYY> <MMM> FINAL.xlsx	Sheet3	\N	\N	2023/04/14
-monthly_labour_market_updates	Monthly Labour Force Survey, 3-month moving average, seasonally unadjusted	unemployment_pct	REFRESH_WorkBC LMS _<YYYY> <MMM> FINAL.xlsx	Sheet3	\N	\N	2023/04/14
+monthly_labour_market_updates	Labour Force Survey (monthly, seasonally adjusted)	\N	REFRESH_WorkBC LMS _<YYYY> <MMM> FINAL.xlsx	Sheet3	\N	\N	2024/02/01
+monthly_labour_market_updates	Monthly Labour Force Survey, 3-month moving average, seasonally unadjusted	unemployment_pct	REFRESH_WorkBC LMS _<YYYY> <MMM> FINAL.xlsx	Sheet3	\N	\N	\N
 industry_outlook	B.C. Labour Market Outlook	\N	3.3.2_WorkBC_Industry_Profile_2022-2032_revised_Feb24.xlsx	BC	A4-K21	\N	2023/03/06
 openings_industry	\N	\N	2022 top_10_careers_by_aggregate_industry.xlsx	Sheet 1	A2-D181	\N	\N
 cities	\N	\N	Key Cities.xlsx	Regional District & Key Cities	A2-E30	\N	\N
@@ -25750,7 +25768,7 @@ labour_force_survey_industry	2021 Labour Force Survey	\N	2021_LFS Data Sheet fin
 labour_force_survey_regional_employment	2021 Labour Force Survey	\N	2021_LFS Data Sheet finalv3.xlsx	Regional Profiles	A6-V13	BC Labour Market Information Office	2022/08/22
 labour_force_survey_regional_industry_region	2021 Labour Force Survey	\N	2021_LFS Data Sheet finalv3.xlsx	Regional Profiles	A20-S27	BC Labour Market Information Office	2022/08/22
 labour_force_survey_regional_industry_province	2021 Labour Force Survey	\N	2021_LFS Data Sheet finalv3.xlsx	Regional Profiles	A34-U41	BC Labour Market Information Office	2022/08/09
-population	\N	\N	2021 BC Population Distribution.xlsx	Region Population Estimates	A3-B11	Statistics Canada\r\nDemographic Analysis Section, BC Stats\r\nMinistry of Citizens’ Services\r\nGovernment of British Columbia	2023/02/06
+population	\N	\N	2021 BC Population Distribution.xlsx	Region Population Estimates	A3-B11	Statistics Canada\nDemographic Analysis Section, BC Stats\nMinistry of Citizens’ Services\nGovernment of British Columbia	2023/02/06
 regional_labour_market_outlook	B.C. Labour Market Outlook	\N	3.3.3_WorkBC_Regional_Profile_Data_2022-2032_Updated_March92022.xlsx	Regional Profiles - LMO	A5-P12	\N	2023/03/09
 regional_top_industries	B.C. Labour Market Outlook	\N	3.3.3_WorkBC_Regional_Profile_Data_2022-2032_Updated_March92022.xlsx	Top Industries	A5-D98	\N	2023/03/09
 regional_top_occupations	B.C. Labour Market Outlook	\N	3.3.3_WorkBC_Regional_Profile_Data_2022-2032_Updated_March92022.xlsx	Top Occupation	A5-E98	\N	2023/03/09
@@ -33954,9 +33972,10 @@ CREATE INDEX titles_noc_idx ON public.titles USING btree (noc);
 
 
 --
--- Name: SCHEMA public; Type: ACL; Schema: -; Owner: pg_database_owner
+-- Name: SCHEMA public; Type: ACL; Schema: -; Owner: workbc
 --
 
+REVOKE USAGE ON SCHEMA public FROM PUBLIC;
 GRANT USAGE ON SCHEMA public TO ssot_readonly;
 
 
