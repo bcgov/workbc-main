@@ -63,6 +63,23 @@ DROP TABLE public.career_regional;
 DROP TABLE public.career_provincial;
 DROP FUNCTION public.pgrst_watch();
 DROP EXTENSION citext;
+-- *not* dropping schema, since initdb creates it
+--
+-- Name: public; Type: SCHEMA; Schema: -; Owner: workbc
+--
+
+-- *not* creating schema, since initdb creates it
+
+
+ALTER SCHEMA public OWNER TO workbc;
+
+--
+-- Name: SCHEMA public; Type: COMMENT; Schema: -; Owner: workbc
+--
+
+COMMENT ON SCHEMA public IS '';
+
+
 --
 -- Name: citext; Type: EXTENSION; Schema: -; Owner: -
 --
@@ -2802,6 +2819,62 @@ CREATE TABLE public.nocs (
 ALTER TABLE public.nocs OWNER TO workbc;
 
 --
+-- Name: TABLE nocs; Type: COMMENT; Schema: public; Owner: workbc
+--
+
+COMMENT ON TABLE public.nocs IS 'NOC 2021 Hierarchy';
+
+
+--
+-- Name: COLUMN nocs.noc2021; Type: COMMENT; Schema: public; Owner: workbc
+--
+
+COMMENT ON COLUMN public.nocs.noc2021 IS 'NOC 2021';
+
+
+--
+-- Name: COLUMN nocs.label_en; Type: COMMENT; Schema: public; Owner: workbc
+--
+
+COMMENT ON COLUMN public.nocs.label_en IS 'English label';
+
+
+--
+-- Name: COLUMN nocs.label_fr; Type: COMMENT; Schema: public; Owner: workbc
+--
+
+COMMENT ON COLUMN public.nocs.label_fr IS 'French label';
+
+
+--
+-- Name: COLUMN nocs.type; Type: COMMENT; Schema: public; Owner: workbc
+--
+
+COMMENT ON COLUMN public.nocs.type IS 'Type: 1 (Broad category), 2 (Major group), 3 (Minor group), 4 (Unit group)';
+
+
+--
+-- Name: COLUMN nocs.teer_level; Type: COMMENT; Schema: public; Owner: workbc
+--
+
+COMMENT ON COLUMN public.nocs.teer_level IS 'TEER level';
+
+
+--
+-- Name: COLUMN nocs.parent_noc; Type: COMMENT; Schema: public; Owner: workbc
+--
+
+COMMENT ON COLUMN public.nocs.parent_noc IS 'Parent NOC';
+
+
+--
+-- Name: COLUMN nocs.noc2016; Type: COMMENT; Schema: public; Owner: workbc
+--
+
+COMMENT ON COLUMN public.nocs.noc2016 IS 'Equivalent NOC 2016 codes (comma-separated)';
+
+
+--
 -- Name: occupational_interests; Type: TABLE; Schema: public; Owner: workbc
 --
 
@@ -2818,7 +2891,7 @@ ALTER TABLE public.occupational_interests OWNER TO workbc;
 -- Name: TABLE occupational_interests; Type: COMMENT; Schema: public; Owner: workbc
 --
 
-COMMENT ON TABLE public.occupational_interests IS 'NOC 2021';
+COMMENT ON TABLE public.occupational_interests IS 'Occupational Interests {2023}';
 
 
 --
@@ -5709,6 +5782,7 @@ COPY public.high_opportunity_occupations (noc, occupation, openings_forecast, wa
 32124	Pharmacy technicians	30	16.75	21	29.85	43798	Social, Realistic	Active Listening	Speaking	Reading Comprehension	2	cariboo
 32201	Massage therapists	50	35592	43600	81000	43600	Social, Realistic	Active Listening	Speaking	Service Orientation	2	cariboo
 33100	Dental assistants and dental laboratory assistants	60	20	27	35	56311	Realistic, Conventional	Active Listening	Reading Comprehension	Speaking	3	cariboo
+60010	Corporate sales managers	580	20	56.25	96.15	117315	Enterprising	Persuasion	Active Listening	Speaking	0	thompson_okanagan
 33101	Medical laboratory assistants and related technical occupations	60	22	25.51	32.97	53204	Realistic, Conventional, Investigative	Active Listening	Speaking	Critical Thinking	3	cariboo
 33102	Nurse aides, orderlies and patient service associates	490	20	25	26	52140	Social, Conventional	Service Orientation	Social Perceptiveness	Active Listening	3	cariboo
 33103	Pharmacy technical assistants and pharmacy assistants	40	16.75	25	31.5	52140	Realistic, Social, Conventional	Active Listening	Speaking	Reading Comprehension	3	cariboo
@@ -5921,6 +5995,7 @@ COPY public.high_opportunity_occupations (noc, occupation, openings_forecast, wa
 62100	Technical sales specialists - wholesale trade	40	19.71	32	60.58	66739	Enterprising	Speaking	Active Listening	Persuasion	2	northeast
 63100	Insurance agents and brokers	30	18.97	28	45.45	58397	Enterprising	Active Listening	Speaking	Reading Comprehension	3	northeast
 63101	Real estate agents and salespersons	40	35592	58400	159000	58400	Enterprising	Active Listening	Speaking	Coordination	3	northeast
+42101	Firefighters	360	30	47.56	59	99191	Realistic	Critical Thinking	Active Listening	Speaking	2	vancouver_island_coast
 63102	Financial sales representatives	30	19.23	28.85	51.28	60170	Conventional	Speaking	Active Listening	Reading Comprehension	3	northeast
 70010	Construction managers	110	30	44.71	65.75	93247	Enterprising	Coordination	Management of Personnel Resources	Active Listening	0	northeast
 70011	Home building and renovation managers	90	35592	52000	108000	52000	Enterprising	Coordination	Management of Personnel Resources	Active Listening	0	northeast
@@ -6165,7 +6240,6 @@ COPY public.high_opportunity_occupations (noc, occupation, openings_forecast, wa
 43201	Correctional service officers	150	26.7	35	46.63	72996	Enterprising, Realistic	Social Perceptiveness	Active Listening	Monitoring	3	thompson_okanagan
 43202	By-law enforcement and other regulatory officers	80	30	35	43.96	72996	Conventional	Active Listening	Speaking	Critical Thinking	3	thompson_okanagan
 51120	Producers, directors, choreographers and related occupations	210	20.75	33.35	58.33	69555	Enterprising, Artistic	Active Listening	Speaking	Critical Thinking	1	thompson_okanagan
-60010	Corporate sales managers	580	20	56.25	96.15	117315	Enterprising	Persuasion	Active Listening	Speaking	0	thompson_okanagan
 60020	Retail and wholesale trade managers	4610	19	34.97	68.99	72933	Enterprising	Active Listening	Speaking	Coordination	0	thompson_okanagan
 60031	Accommodation service managers	490	18.5	30.77	60.1	64174	Enterprising	Active Listening	Social Perceptiveness	Speaking	0	thompson_okanagan
 60040	Managers in customer and personal services	340	20	26	46.15	54226	Enterprising	Speaking	Coordination	Service Orientation	0	thompson_okanagan
@@ -6285,7 +6359,6 @@ COPY public.high_opportunity_occupations (noc, occupation, openings_forecast, wa
 41321	Career development practitioners and career counsellors (except education)	150	21.5	27	33.79	56311	Social	Active Listening	Social Perceptiveness	Speaking	1	vancouver_island_coast
 41400	Natural and applied science policy researchers, consultants and program officers	500	29	39.56	57.69	82506	Enterprising, Conventional, Investigative	Reading Comprehension	Active Listening	Speaking	1	vancouver_island_coast
 42100	Police officers (except commissioned)	640	31	45.89	57.69	95708	Enterprising, Realistic, Conventional	Active Listening	Speaking	Critical Thinking	2	vancouver_island_coast
-42101	Firefighters	360	30	47.56	59	99191	Realistic	Critical Thinking	Active Listening	Speaking	2	vancouver_island_coast
 42202	Early childhood educators and assistants	2310	16.75	20	26	41712	Social	Active Listening	Social Perceptiveness	Speaking	2	vancouver_island_coast
 43200	Sheriffs and bailiffs	60	28.13	33.68	42.6	70243	Enterprising, Conventional, Realistic	Social Perceptiveness	Speaking	Active Listening	3	vancouver_island_coast
 43201	Correctional service officers	190	26.7	35	46.63	72996	Enterprising, Realistic	Social Perceptiveness	Active Listening	Monitoring	3	vancouver_island_coast
@@ -6537,6 +6610,7 @@ COPY public.monthly_labour_market_updates (year, month, total_employed, total_un
 2023	10	2810200	160100	161400	385300	1811300	613600	381700	1820800	611800	1339400	1471000	1347200	1467100	-0.1	-4000	1.1	23400	-4.7	-27500	0	5.4	-0.2	65.2	0.2	5.4	0.6	65.4	4547600	782200	2821400	529400	143100	145500	69900	56200	5.2	4.4	2817500	4.3	3.9	447300	5.7	4.5	1826300	3.2	4.9	297400	5.7	4.9	78000	5.7	4.3	87800	6.8	4.8	43600	5.1	\N	37100	\N	\N	\N	\N	0.7	1300	11.1	2600	4.6	10200	-3	-6700	-1.9	-3400	0.6	2100	-1.5	-2400	-2.9	-1600	-0.3	-300	1.9	5600	1.4	2000	-0.4	-600	-4.7	-800	-0.3	-1500	-4.2	-3800	-5	-6700
 2023	11	2819300	156300	160100	382700	1828300	608200	385300	1811300	613600	1342000	1477300	1339400	1471000	0.3	9000	0.3	6500	0.4	2500	-0.1	5.3	0	65.2	0	5.4	-0.2	65.2	4557400	783500	2828800	530200	143200	145700	69900	56200	4.9	4.4	2823900	3.9	3.1	448300	5.3	4.1	1833600	3.1	3.9	293000	6.9	6.1	79900	5.5	4.2	87100	6.7	5	44300	\N	\N	37600	\N	\N	\N	\N	-2.1	-4000	-3.4	-900	-0.1	-300	-1.1	-2400	-0.8	-1400	3.1	11700	11.5	18800	-6.9	-3700	-1.2	-1400	-4.2	-12600	1.5	2100	-0.1	-200	-2.5	-400	-0.3	-1100	1.5	1300	2.7	3500
 2023	12	2837000	167600	156300	384800	1838700	613500	382700	1828300	608200	1353400	1483600	1342000	1477300	0.6	17700	1	23100	-0.9	-5300	0.3	5.6	0.5	65.7	-0.1	5.3	0	65.2	4566900	784600	2836000	531000	143300	145800	69900	56300	4.9	5.2	2824000	3.8	4.5	451400	5.3	5.5	1833500	3.4	4.6	288900	7.1	6	81000	5.6	4.5	86800	5.9	6.1	44800	4.1	4.1	37600	\N	\N	\N	\N	-0.6	-1100	-11.1	-2800	-0.3	-700	-1.1	-2300	1.1	2000	3.2	12300	-2.8	-5100	3	1500	1.5	1800	2.2	6400	-0.8	-1100	1.8	2600	-21.7	-3400	0.7	3100	-9.9	-8700	10.1	13200
+2024	1	2835300	162500	167600	386300	1833400	615600	384800	1838700	613500	1349800	1485500	1353400	1483600	-0.1	-2600	-1	-19600	3	17000	-0.2	5.4	-0.4	65.3	0.3	5.6	0.5	65.7	4579100	786200	2845200	532000	143500	146000	69900	56300	5.2	4.4	2814100	4.2	2.9	451200	5.4	4.5	1823500	4.8	4.3	287500	7.3	3.5	82000	6.6	6.1	86400	6.2	4.7	45300	4.5	\N	38200	\N	\N	\N	\N	-0.8	-1500	-3.5	-800	-1.5	-3500	1	2200	0.6	1100	-0.4	-1600	-1.3	-2200	-1.6	-800	2.3	2700	-0.3	-1000	3	4400	1.6	2400	17.1	2100	-1.9	-8500	11.2	9000	-4.5	-6600
 \.
 
 
@@ -6852,7 +6926,7 @@ COPY public.nocs (noc2021, label_en, label_fr, type, teer_level, parent_noc, noc
 7320	Building maintenance installers, services and repairers	Préposés à l’entretien général d'édifice, d'installation et de réparation	3	3	73	673
 6531	Cleaners	Nettoyeurs / nettoyeuses	3	5	65	\N
 6532	Service support and related occupations	Personnel de services de soutien et personnel assimilé	3	5	65	674
-11100	Financial auditors and accountants	Vérificateurs / vérificatrices et comptables	4	1	11	1111,1114
+11201	Professional occupations in business management consulting	Professionnels / professionnelles des services-conseils en gestion aux entreprises	4	1	112	1122
 7201	Contractors and supervisors, technical industrial, electrical and construction trades and related workers	Entrepreneurs / entrepreneuses et contremaîtres / contremaîtresses du personnel des métiers industriels, de la construction, de l'électricité et du personnel assimilé	3	2	72	720
 7210	Machining, technical metal forming, shaping and erecting trades	Personnel des métiers d'usinage, du formage, du profilage et du montage du métal	3	2	72	723
 7220	Electrical trades and technical electrical power line and telecommunications workers	Électriciens / électriciennes et monteurs / monteuses de lignes d'électricité et de télécommunications	3	2	72	724
@@ -6921,520 +6995,516 @@ COPY public.nocs (noc2021, label_en, label_fr, type, teer_level, parent_noc, noc
 9421	Furniture, wood, plastic and other products assemblers, finishers and inspectors	Monteurs / monteuses, finisseurs / finisseuses et inspecteurs / inspectrices de meubles, de bois, de plastique et d'autres produits	3	\N	94	953
 9414	Machine operators and related workers in food, beverage and associated products processing	Opérateurs / opératrices de machines et personnel assimilé dans la transformation des aliments et boissons et produits connexes	3	\N	94	961
 9510	Labourers in processing, manufacturing and utilities	Manoeuvres dans la transformation, la fabrication et les services d'utilité publique	3	\N	95	\N
-00010	Legislators	Membres des corps législatifs	4	0	00	0011
-00011	Senior government managers and officials	Cadres supérieurs / cadres supérieures - administration publique	4	0	00	0012
-00012	Senior managers - financial, communications and other business services	Cadres supérieurs / cadres supérieures - services financiers, communications et autres services aux entreprises	4	0	00	0013
-00013	Senior managers - health, education, social and community services and membership organizations	Cadres supérieurs / cadres supérieures - santé, enseignement, services sociaux et communautaires et associations mutuelles	4	0	00	0014
-00014	Senior managers - trade, broadcasting and other services	Cadres supérieurs / cadres supérieures - commerce, radiotélédiffusion et autres services	4	0	00	0015
-00015	Senior managers - construction, transportation, production and utilities	Cadres supérieurs / cadres supérieures - construction, transport, production et services d'utilité publique	4	0	00	0016
-10010	Financial managers	Directeurs financiers / directrices financières	4	0	10	0111
-10011	Human resources managers	Directeurs / directrices des ressources humaines	4	0	10	0112
-10012	Purchasing managers	Directeurs / directrices des achats	4	0	10	0113
-10019	Other administrative services managers	Directeurs / directrices d'autres services administratifs	4	0	10	0114,1227
-10020	Insurance, real estate and financial brokerage managers	Directeurs / directrices des assurances, de l'immobilier et du courtage financier	4	0	10	0121
-10021	Banking, credit and other investment managers	Directeurs / directrices de banque, du crédit et d'autres services de placements	4	0	10	0122
-10022	Advertising, marketing and public relations managers	Directeurs / directrices de la publicité, du marketing et des relations publiques	4	0	10	0124,1123
-10029	Other business services managers	Directeurs / directrices d'autres services aux entreprises	4	0	10	0125
-10030	Telecommunication carriers managers	Directeurs / directrices d'entreprises de télécommunications	4	0	10	0131
-11101	Financial and investment analysts	Analystes financiers / analystes financières et analystes en placements	4	1	11	1112
-11102	Financial advisors	Conseillers financiers / conseillères financières	4	1	11	1114
-11103	Securities agents, investment dealers and brokers	Agents / agentes en valeurs, agents / agentes en placements et négociateurs / négociatrices en valeurs	4	1	11	1113
-11109	Other financial officers	Autres agents financiers / agentes financières	4	1	11	1114
-11200	Human resources professionals	Professionnels / professionnelles en ressources humaines	4	1	11	1121,0112
-11201	Professional occupations in business management consulting	Professionnels / professionnelles des services-conseils en gestion aux entreprises	4	1	11	1122
-11202	Professional occupations in advertising, marketing and public relations	Professionnels / professionnelles en publicité, en marketing et en relations publiques	4	1	11	1123,4163
-12010	Supervisors, general office and administrative support workers	Superviseurs / superviseures de commis de bureau et du personnel de soutien administratif	4	2	12	1211
-12011	Supervisors, finance and insurance office workers	Superviseurs / superviseures de commis de finance et d'assurance	4	2	12	1212
-12012	Supervisors, library, correspondence and related information workers	Superviseurs / superviseures de commis de bibliothèque, de correspondanciers et d'autres commis à l'information	4	2	12	1213
-12013	Supervisors, supply chain, tracking and scheduling coordination occupations	Superviseurs / superviseures du personnel de coordination de la chaîne d'approvisionnement, du suivi et des horaires	4	2	12	1215
-12100	Executive assistants	Adjoints / adjointes de direction	4	2	12	1222
-12101	Human resources and recruitment officers	Agents / agentes des ressources humaines et de recrutement	4	2	12	1223
-12102	Procurement and purchasing agents and officers	Agents / agentes en approvisionnement aux achats	4	2	12	1225
-12103	Conference and event planners	Planificateurs / planificatrices de congrès et d'événements	4	2	12	1226
-12104	Employment insurance and revenue officers	Agents / agentes d'assurance-emploi et du revenu	4	2	12	1228
-12110	Court reporters, medical transcriptionists and related occupations	Sténographes judiciaires, transcripteurs médicaux / transcriptrices médicales et personnel assimilé	4	2	12	1251
-12111	Health information management occupations	Personnel en gestion de l’information sur la santé	4	2	12	1252
-12112	Records management technicians	Techniciens / techniciennes à la gestion des documents	4	2	12	1253
-12113	Statistical officers and related research support occupations	Agents / agentes de statistiques et professions connexes du soutien de la recherche	4	2	12	1254
-12200	Accounting technicians and bookkeepers	Techniciens / techniciennes en comptabilité et teneurs / teneuses de livres	4	2	12	1311
-12201	Insurance adjusters and claims examiners	Experts / expertes en sinistres et rédacteurs / rédactrices sinistres	4	2	12	1312
-12202	Insurance underwriters	Assureurs / assureuses	4	2	12	1313
-12203	Assessors, business valuators and appraisers	Estimateurs / estimatrices, évaluateurs / évaluatrices d'entreprise et autres évaluateurs / évaluatrices	4	2	12	1314
-13100	Administrative officers	Agents / agentes d'administration	4	3	13	1221
-13101	Property administrators	Agents / agentes de gestion immobilière	4	3	13	1224
-13102	Payroll administrators	Administrateurs / administratrices de la paye	4	3	13	1432
-13110	Administrative assistants	Adjoints administratifs / adjointes administratives	4	3	13	0112,1241
-13111	Legal administrative assistants	Adjoints administratifs juridiques / adjointes administratives juridiques	4	3	13	1242
-13112	Medical administrative assistants	Adjoints administratifs médicaux / adjointes administratives médicales	4	3	13	1243
-13200	Customs, ship and other brokers	Courtiers / courtières en douanes, courtiers maritimes / courtières maritimes et autres courtiers / courtières	4	3	13	1315
-13201	Production and transportation logistics coordinators	Coordonnateur / coordonnatrice de la logistique de la production et du transport	4	3	13	1215,1523
-14100	General office support workers	Employés / employées de bureau - soutien général	4	4	14	1411
-14101	Receptionists	Réceptionnistes	4	4	14	1414
-14102	Personnel clerks	Commis des services du personnel	4	4	14	1415
-14103	Court clerks and related court services occupations	Commis des services judiciaires et autres professions des services judiciaires	4	4	14	1416,1227
-14110	Survey interviewers and statistical clerks	Intervieweurs / intervieweuses pour enquêtes et commis aux statistiques	4	4	14	1454
-14111	Data entry clerks	Commis à la saisie de données	4	4	14	1422
-14112	Desktop publishing operators and related occupations	Opérateurs / opératrices d'équipement d'éditique et personnel assimilé	4	4	14	1423
-14200	Accounting and related clerks	Commis à la comptabilité et personnel assimilé	4	4	14	1431
-14201	Banking, insurance and other financial clerks	Commis de banque, d'assurance et d'autres services financiers	4	4	14	1434
-14202	Collection clerks	Commis de recouvrement	4	4	14	1435
-14300	Library assistants and clerks	Commis et assistants / assistantes dans les bibliothèques	4	4	14	1451
-14301	Correspondence, publication and regulatory clerks	Correspondanciers / correspondancières et commis aux publications et aux règlements	4	4	14	1452
-14400	Shippers and receivers	Expéditeurs / expéditrices et réceptionnaires	4	4	14	1521
-14401	Storekeepers and partspersons	Magasiniers / magasinières et commis aux pièces	4	4	14	1522
-14402	Production logistics workers	Travailleurs / travailleuses de la logistique de la production	4	4	14	1523
-14403	Purchasing and inventory control workers	Commis aux achats et au contrôle de l'inventaire	4	4	14	1524
-14404	Dispatchers	Répartiteurs / répartitrices	4	4	14	1525
-14405	Transportation route and crew schedulers	Horairistes de trajets et d'équipages	4	4	14	1526
-20010	Engineering managers	Directeurs / directrices des services de génie	4	0	20	0211
-20011	Architecture and science managers	Directeurs / directrices des services d'architecture et de sciences	4	0	20	0212
-20012	Computer and information systems managers	Gestionnaires des systèmes informatiques	4	0	20	0213
-21100	Physicists and astronomers	Physiciens / physiciennes et astronomes	4	1	21	2111
-21101	Chemists	Chimistes	4	1	21	2112
-21102	Geoscientists and oceanographers	Géoscientifiques et océanographes	4	1	21	2113
-21103	Meteorologists and climatologists	Météorologues et climatologues	4	1	21	2114
-21109	Other professional occupations in physical sciences	Autres professionnels / professionnelles des sciences physiques	4	1	21	2115
-21110	Biologists and related scientists	Biologistes et personnel scientifique assimilé	4	1	21	2121,4165
-21111	Forestry professionals	Professionnels / professionnelles des sciences forestières	4	1	21	2122
-21112	Agricultural representatives, consultants and specialists	Agronomes, conseillers / conseillères et spécialistes en agriculture	4	1	21	2123
-21120	Public and environmental health and safety professionals	Professionnels / professionnelles de la santé et sécurité publique et environnementale	4	1	21	0112,2263
-21200	Architects	Architectes	4	1	21	2151
-21201	Landscape architects	Architectes paysagistes	4	1	21	2152
-21202	Urban and land use planners	Urbanistes et planificateurs / planificatrices de l'utilisation des sols	4	1	21	2153
-21203	Land surveyors	Arpenteurs-géomètres / arpenteuses-géomètres	4	1	21	2154
-21210	Mathematicians, statisticians and actuaries	Mathématiciens / mathématiciennes, statisticiens / statisticiennes et actuaires	4	1	21	2161
-21211	Data scientists	Scientifiques de données	4	1	21	2171,2172,2173
-21220	Cybersecurity specialists	Spécialistes de la cybersécurité	4	1	21	2171
-21221	Business system specialists	Spécialistes des systèmes commerciaux	4	1	21	2171
-21222	Information systems specialists	Spécialistes en informatique	4	1	21	2171
-21223	Database analysts and data administrators	Analystes de bases de données et administrateurs / administratrices de données	4	1	21	2172
-21230	Computer systems developers and programmers	Développeurs / développeuses et programmeurs / programmeuses de systèmes informatiques	4	1	21	2174
-21231	Software engineers and designers	Ingénieurs / ingénieures et concepteurs / conceptrices en logiciel	4	1	21	2173
-21232	Software developers and programmers	Développeurs / développeuses et programmeurs / programmeuses de logiciels	4	1	21	2174
-21233	Web designers	Concepteurs / conceptrices Web	4	1	21	2171,2175
-21234	Web developers and programmers	Développeurs / développeuses et programmeurs / programmeuses Web	4	1	21	2174,2175
-21300	Civil engineers	Ingénieurs civils / ingénieures civiles	4	1	21	2131
-21301	Mechanical engineers	Ingénieurs mécaniciens / ingénieures mécaniciennes	4	1	21	2132
-21310	Electrical and electronics engineers	Ingénieurs électriciens et électroniciens / ingénieures électriciennes et électroniciennes	4	1	21	2133
-21311	Computer engineers (except software engineers and designers)	Ingénieurs informaticiens / ingénieures informaticiennes (sauf ingénieurs / ingénieures et concepteurs / conceptrices en logiciel)	4	1	21	2147
-21320	Chemical engineers	Ingénieurs chimistes / ingénieures chimistes	4	1	21	2134
-21321	Industrial and manufacturing engineers	Ingénieurs / ingénieures d'industrie et de fabrication	4	1	21	2141
-21322	Metallurgical and materials engineers	Ingénieurs / ingénieures métallurgistes et des matériaux	4	1	21	2142
-21330	Mining engineers	Ingénieurs miniers / ingénieures minières	4	1	21	2143
-21331	Geological engineers	Ingénieurs / ingénieures géologiques	4	1	21	2144
-21332	Petroleum engineers	Ingénieurs / ingénieures de l'extraction et du raffinage du pétrole	4	1	21	2145
-21390	Aerospace engineers	Ingénieurs / ingénieures en aérospatiale	4	1	21	2146
-21399	Other professional engineers	Autres ingénieurs / ingénieures	4	1	21	2148
-22100	Chemical technologists and technicians	Technologues et techniciens / techniciennes en chimie	4	2	22	2211
-22101	Geological and mineral technologists and technicians	Technologues et techniciens / techniciennes en géologie et en minéralogie	4	2	22	2212
-22110	Biological technologists and technicians	Technologues et techniciens / techniciennes en biologie	4	2	22	2221
-22111	Agricultural and fish products inspectors	Inspecteurs / inspectrices des produits agricoles et de la pêche	4	2	22	2222
-22112	Forestry technologists and technicians	Technologues et techniciens / techniciennes en sciences forestières	4	2	22	2223
-22113	Conservation and fishery officers	Techniciens / techniciennes du milieu naturel et de la pêche	4	2	22	2224
-22114	Landscape and horticulture technicians and specialists	Techniciens / techniciennes et spécialistes de l'aménagement paysager et de l'horticulture	4	2	22	2225
-22210	Architectural technologists and technicians	Technologues et techniciens / techniciennes en architecture	4	2	22	2251
-22211	Industrial designers	Designers industriels / designers industrielles	4	2	22	2252
-22212	Drafting technologists and technicians	Technologues et techniciens / techniciennes en dessin	4	2	22	2253
-22213	Land survey technologists and technicians	Technologues et techniciens / techniciennes en arpentage	4	2	22	2254
-22214	Technical occupations in geomatics and meteorology	Personnel technique en géomatique et en météorologie	4	2	22	2255
-22220	Computer network and web technicians	Techniciens / techniciennes de réseau informatique et Web	4	2	22	2281
-22221	User support technicians	Agents / agentes de soutien aux utilisateurs	4	2	22	2282
-22222	Information systems testing technicians	Évaluateurs / évaluatrices de systèmes informatiques	4	2	22	2283
-22230	Non-destructive testers and inspectors	Vérificateurs / vérificatrices et inspecteurs / inspectrices des essais non destructifs	4	2	22	2261
-22231	Engineering inspectors and regulatory officers	Inspecteurs / inspectrices d'ingénierie et officiers / officières de réglementation	4	2	22	2262
-22232	Occupational health and safety specialists	Spécialistes de l'hygiène et de la sécurité au travail	4	2	22	2263,0112
-22233	Construction inspectors	Inspecteurs / inspectrices en construction	4	2	22	2264
-22300	Civil engineering technologists and technicians	Technologues et techniciens / techniciennes en génie civil	4	2	22	2231
-22301	Mechanical engineering technologists and technicians	Technologues et techniciens / techniciennes en génie mécanique	4	2	22	2232
-22302	Industrial engineering and manufacturing technologists and technicians	Technologues et techniciens / techniciennes en génie industriel et en génie de fabrication	4	2	22	2233
-22303	Construction estimators	Estimateurs / estimatrices en construction	4	2	22	2234
-22310	Electrical and electronics engineering technologists and technicians	Technologues et techniciens / techniciennes en génie électrique et électronique	4	2	22	2241
-22311	Electronic service technicians (household and business equipment)	Électroniciens / électroniciennes d'entretien (biens domestiques et commerciaux)	4	2	22	2242,7445
-22312	Industrial instrument technicians and mechanics	Techniciens / techniciennes et mécaniciens / mécaniciennes d'instruments industriels	4	2	22	2243
-22313	Aircraft instrument, electrical and avionics mechanics, technicians and inspectors	Mécaniciens / mécaniciennes, techniciens / techniciennes et contrôleurs / contrôleuses d'avionique et d'instruments et d'appareillages électriques d'aéronefs	4	2	22	2244
-30010	Managers in health care	Directeurs / directrices des soins de santé	4	0	30	0311
-31100	Specialists in clinical and laboratory medicine	Spécialistes en médecine clinique et de laboratoire	4	1	31	3111
-31101	Specialists in surgery	Spécialistes en chirurgie	4	1	31	3111
-31102	General practitioners and family physicians	Omnipraticiens / omnipraticiennes et médecins en médecine familiale	4	1	31	3112
-31103	Veterinarians	Vétérinaires	4	1	31	3114
-31110	Dentists	Dentistes	4	1	31	3113
-31111	Optometrists	Optométristes	4	1	31	3121
-31112	Audiologists and speech-language pathologists	Audiologistes et orthophonistes	4	1	31	3141
-31120	Pharmacists	Pharmaciens / pharmaciennes	4	1	31	3131
-31121	Dietitians and nutritionists	Diététistes et nutritionnistes	4	1	31	3132
-31200	Psychologists	Psychologues	4	1	31	4151
-31201	Chiropractors	Chiropraticiens / chiropraticiennes	4	1	31	3122
-31202	Physiotherapists	Physiothérapeutes	4	1	31	3142
-31203	Occupational therapists	Ergothérapeutes	4	1	31	3143
-31204	Kinesiologists and other professional occupations in therapy and assessment	Kinésiologues et autres professionnels / professionnelles en thérapie et en diagnostic	4	1	31	3144
-31209	Other professional occupations in health diagnosing and treating	Autres professionnels / professionnelles en diagnostic et en traitement de la santé	4	1	31	3125
-31300	Nursing coordinators and supervisors	Coordonnateurs / coordonnatrices et superviseurs / superviseures des soins infirmiers	4	1	31	3011
-31301	Registered nurses and registered psychiatric nurses	Infirmiers autorisés / infirmières autorisées et infirmiers psychiatriques autorisés / infirmières psychiatriques autorisées	4	1	31	3012
-31302	Nurse practitioners	Infirmiers praticiens / infirmières praticiennes	4	1	31	3124
-31303	Physicians assistants, midwives and allied health professionals	Adjoints au médecin, sages-femmes et professionnels paramédicaux	4	1	31	3124,3125,3212,4153
-32100	Opticians	Opticiens / opticiennes d'ordonnances	4	2	32	3231
-32101	Licensed practical nurses	Infirmiers auxiliaires / infirmières auxiliaires	4	2	32	3233
-32102	Paramedical occupations	Personnel ambulancier et paramédical	4	2	32	3234
-32103	Respiratory therapists, clinical perfusionists and cardiopulmonary technologists	Inhalothérapeutes, perfusionnistes cardiovasculaires et technologues cardiopulmonaires	4	2	32	3124,3214
-32104	Animal health technologists and veterinary technicians	Technologues en santé animale et techniciens / techniciennes vétérinaires	4	2	32	3213
-32109	Other technical occupations in therapy and assessment	Autre personnel technique en thérapie et en diagnostic	4	2	32	3142,3237,3414
-32110	Denturists	Denturologistes	4	2	32	3221
-32111	Dental hygienists and dental therapists	Hygiénistes et thérapeutes dentaires	4	2	32	3222
-32112	Dental technologists and technicians	Technologues et techniciens / techniciennes dentaires	4	2	32	3223
-32120	Medical laboratory technologists	Technologues de laboratoires médicaux	4	2	32	3211,3212
-32121	Medical radiation technologists	Technologues en radiation médicale	4	2	32	3215
-32122	Medical sonographers	Technologues en échographie	4	2	32	3216
-32123	Cardiology technologists and electrophysiological diagnostic technologists	Technologues en cardiologie et technologues en électrophysiologie diagnostique	4	2	32	3217
-32124	Pharmacy technicians	Techniciens / techniciennes en pharmacie	4	2	32	3219
-32129	Other medical technologists and technicians	Autres technologues et techniciens / techniciennes des sciences de la santé	4	2	32	3219
-32200	Traditional Chinese medicine practitioners and acupuncturists	Praticiens / praticiennes en médecine traditionnelle chinoise et acupuncteurs / acupunctrices	4	2	32	3232
-32201	Massage therapists	Massothérapeutes	4	2	32	3236
-32209	Other practitioners of natural healing	Autres praticiens / praticiennes des médecines douces	4	2	32	3232
-33100	Dental assistants and dental laboratory assistants	Assistants / assistantes dentaires et auxiliaires dans les laboratoires dentaires	4	3	33	3223,3411
-33101	Medical laboratory assistants and related technical occupations	Assistants / assistantes de laboratoires médicaux et préposés / préposées techniques reliés	4	3	33	3212
-33102	Nurse aides, orderlies and patient service associates	Aides-infirmiers / aides-infirmières, aides-soignants / aides-soignantes et préposés / préposées aux bénéficiaires	4	3	33	3413
-33103	Pharmacy technical assistants and pharmacy assistants	Assistants techniques / assistantes techniques en pharmacie et assistants / assistantes en pharmacie	4	3	33	3219,3414
-33109	Other assisting occupations in support of health services	Autre personnel de soutien des services de santé	4	3	33	3237,3414
-40010	Government managers - health and social policy development and program administration	Gestionnaires de la fonction publique - élaboration de politiques et administration de programmes sociaux et de santé	4	0	40	0411
-40011	Government managers - economic analysis, policy development and program administration	Gestionnaires de la fonction publique - analyse économique, élaboration de politiques et administration de programmes	4	0	40	0412
-40012	Government managers - education policy development and program administration	Gestionnaires de la fonction publique - élaboration de politiques en matière d'éducation et administration de programmes	4	0	40	0413
-40019	Other managers in public administration	Autres gestionnaires de la fonction publique	4	0	40	0414
-40020	Administrators - post-secondary education and vocational training	Administrateurs / administratrices - enseignement postsecondaire et formation professionnelle	4	0	40	0421
-40021	School principals and administrators of elementary and secondary education	Directeurs / directrices d'école et administrateurs / administratrices de programmes d'enseignement aux niveaux primaire et secondaire	4	0	40	0422
-40030	Managers in social, community and correctional services	Directeurs / directrices des services sociaux, communautaires et correctionnels	4	0	40	0423
-40040	Commissioned police officers and related occupations in public protection services	Officiers / officières de direction des services de police et professions connexes des services de la protection du public	4	0	40	0431,0433
-40041	Fire chiefs and senior firefighting officers	Chefs et officiers supérieurs / officières supérieures des services d'incendie	4	0	40	0432
-40042	Commissioned officers of the Canadian Armed Forces	Officiers / officières de direction des Forces armées canadiennes	4	0	40	0433
-41100	Judges	Juges	4	1	41	4111
-41101	Lawyers and Quebec notaries	Avocats / avocates (partout au Canada) et notaires (au Québec)	4	1	41	4112
-41200	University professors and lecturers	Professeurs / professeures et chargés / chargées de cours au niveau universitaire	4	1	41	4011
-41201	Post-secondary teaching and research assistants	Assistants / assistantes d'enseignement et de recherche au niveau postsecondaire	4	1	41	4012
-41210	College and other vocational instructors	Enseignants / enseignantes au niveau collégial et autres instructeurs / instructrices en formation professionnelle	4	1	41	4021
-41220	Secondary school teachers	Enseignants / enseignantes au niveau secondaire	4	1	41	4031
-41221	Elementary school and kindergarten teachers	Enseignants / enseignantes aux niveaux primaire et préscolaire	4	1	41	4032
-41300	Social workers	Travailleurs sociaux / travailleuses sociales	4	1	41	4152
-41301	Therapists in counselling and related specialized therapies	Thérapeutes en counseling et thérapies spécialisées connexes	4	1	41	4151,3144,4153
-41302	Religious leaders	Chefs religieux	4	1	41	4154
-41310	Police investigators and other investigative occupations	Enquêteurs / enquêteuses de police et autres professions d’enquête	4	1	41	0431,4311,4165
-41311	Probation and parole officers	Agents / agentes de probation et de libération conditionnelle	4	1	41	4155
-41320	Educational counsellors	Conseillers / conseillères en information scolaire	4	1	41	4033
-41321	Career development practitioners and career counsellors (except education)	Conseillers / conseillères en développement de carrière et conseillers / conseillères en orientation (sauf éducation)	4	1	41	4153,4156
-41400	Natural and applied science policy researchers, consultants and program officers	Recherchistes, experts-conseils / expertes-conseils et agents / agentes de programmes, en sciences naturelles et appliquées	4	1	41	4161
-41401	Economists and economic policy researchers and analysts	Économistes, recherchistes et analystes des politiques économiques	4	1	41	4162
-41402	Business development officers and market researchers and analysts	Agents / agentes de développement économique et recherchistes et analystes en marketing	4	1	41	4163
-41403	Social policy researchers, consultants and program officers	Recherchistes, experts-conseils / expertes-conseils et agents / agentes de programmes en politiques sociales	4	1	41	4164
-41404	Health policy researchers, consultants and program officers	Recherchistes, experts-conseils / expertes-conseils et agents / agentes de programmes en politiques de la santé	4	1	41	4165
-41405	Education policy researchers, consultants and program officers	Recherchistes, experts-conseils / expertes-conseils et agents / agentes de programmes en politiques de l'enseignement	4	1	41	4166
-41406	Recreation, sports and fitness policy researchers, consultants and program officers	Recherchistes, experts-conseils / expertes-conseils et agents / agentes de programme en sports, en loisirs et en conditionnement physique	4	1	41	4167
-41407	Program officers unique to government	Agents / agentes de programmes propres au gouvernement	4	1	41	4168
-41409	Other professional occupations in social science	Autres professionnels / professionnelles des sciences sociales	4	1	41	4169
-42100	Police officers (except commissioned)	Policiers / policières (sauf cadres supérieurs)	4	2	42	4311,4313
-42101	Firefighters	Pompiers / pompières	4	2	42	4312
-42102	Specialized members of the Canadian Armed Forces	Membres spécialisés des Forces armées canadiennes	4	2	42	4313
-42200	Paralegal and related occupations	Techniciens / techniciennes juridiques et personnel assimilé	4	2	42	4211,1227
-42201	Social and community service workers	Travailleurs / travailleuses des services sociaux et communautaires	4	2	42	4212,4155
-42202	Early childhood educators and assistants	Éducateurs / éducatrices et aides-éducateurs / aides-éducatrices de la petite enfance	4	2	42	4214
-42203	Instructors of persons with disabilities	Instructeurs / instructrices pour personnes ayant une déficience	4	2	42	4215
-42204	Religion workers	Travailleurs / travailleuses de la religion	4	2	42	4217
-43100	Elementary and secondary school teacher assistants	Aides-enseignants / aides-enseignantes aux niveaux primaire et secondaire	4	3	43	4413
-43109	Other instructors	Autres instructeurs / instructrices	4	3	43	4216
-43200	Sheriffs and bailiffs	Shérifs et huissiers / huissières de justice	4	3	43	4421
-43201	Correctional service officers	Agents / agentes de services correctionnels	4	3	43	4422
-43202	By-law enforcement and other regulatory officers	Agents / agentes d'application de règlements municipaux et autres agents / agentes de réglementation	4	3	43	4423
-43203	Border services, customs, and immigration officers	Agents / agentes de services frontaliers, des douanes, et de l’immigration	4	3	43	1228
-43204	Operations Members of the Canadian Armed Forces	Membres des opérations des Forces armées canadiennes	4	3	43	4313
-44100	Home child care providers	Gardiens / gardiennes d'enfants en milieu familial	4	4	44	4411
-44101	Home support workers, caregivers and related occupations	Aides de maintien à domicile, aides familiaux / familiales et personnel assimilé	4	4	44	4412
-44200	Primary combat members of the Canadian Armed Forces	Combattants / combattantes de première ligne des Forces armées canadiennes	4	4	44	4313
-45100	Student monitors, crossing guards and related occupations	Surveillants / surveillantes d’élèves, brigadiers / brigadières et autres professions connexes	4	5	45	4413,6541
-50010	Library, archive, museum and art gallery managers	Directeurs / directrices de bibliothèques, des archives, de musées et de galeries d'art	4	0	50	0511
-50011	Managers - publishing, motion pictures, broadcasting and performing arts	Directeurs / directrices - édition, cinéma, radiotélédiffusion et arts de la scène	4	0	50	0512
-50012	Recreation, sports and fitness program and service directors	Directeurs / directrices de programmes et de services de sports, de loisirs et de conditionnement physique	4	0	50	0513
-51100	Librarians	Bibliothécaires	4	1	51	5111
-51101	Conservators and curators	Restaurateurs / restauratrices et conservateurs / conservatrices	4	1	51	5112
-51102	Archivists	Archivistes	4	1	51	5113
-51110	Editors	Réviseurs / réviseures, rédacteurs-réviseurs / rédactrices-réviseures et chefs du service des nouvelles	4	1	51	5122
-51111	Authors and writers (except technical)	Auteurs / auteures, écrivains / écrivaines et rédacteurs / rédactrices (sauf techniques)	4	1	51	5121
-51112	Technical writers	Rédacteurs / rédactrices techniques	4	1	51	5121
-51113	Journalists	Journalistes	4	1	51	5123
-51114	Translators, terminologists and interpreters	Traducteurs / traductrices, terminologues et interprètes	4	1	51	5125
-51120	Producers, directors, choreographers and related occupations	Producteurs / productrices, réalisateurs / réalisatrices, chorégraphes et personnel assimilé	4	1	51	5131
-51121	Conductors, composers and arrangers	Chefs d'orchestre, compositeurs / compositrices et arrangeurs / arrangeuses	4	1	51	5132
-51122	Musicians and singers	Musiciens / musiciennes et chanteurs / chanteuses	4	1	51	5133
-52100	Library and public archive technicians	Techniciens / techniciennes dans les bibliothèques et les services d'archives publiques	4	2	52	5211
-52110	Film and video camera operators	Cadreurs / cadreuses de films et cadreurs / cadreuses vidéo	4	2	52	5222
-52111	Graphic arts technicians	Techniciens / techniciennes en graphisme	4	2	52	5223
-52112	Broadcast technicians	Techniciens / techniciennes en radiotélédiffusion	4	2	52	5224
-52113	Audio and video recording technicians	Techniciens / techniciennes en enregistrement audio et vidéo	4	2	52	5225
-52114	Announcers and other broadcasters	Annonceurs / annonceuses et autres communicateurs / communicatrices	4	2	52	5231
-52119	Other technical and coordinating occupations in motion pictures, broadcasting and the performing arts	Autre personnel technique et personnel de coordination du cinéma, de la radiotélédiffusion et des arts de la scène	4	2	52	5226
-52120	Graphic designers and illustrators	Designers graphiques et illustrateurs / illustratrices	4	2	52	5241
-52121	Interior designers and interior decorators	Designers d'intérieur et décorateurs / décoratrices d'intérieur	4	2	52	5242
-53100	Registrars, restorers, interpreters and other occupations related to museum and art galleries	Registraires, restaurateurs / restauratrices, interprètes et autres travailleurs / travailleuses dans les domaines apparentés des musées et des galeries d'art	4	3	53	5212
-53110	Photographers	Photographes	4	3	53	5221
-53111	Motion pictures, broadcasting, photography and performing arts assistants and operators	Assistants / assistantes et opérateurs / opératrices du domaine du cinéma, de la radiotélédiffusion, de la photographie et des arts de la scène	4	3	53	5227
-53120	Dancers	Danseurs / danseuses	4	3	53	5134
-53121	Actors, comedians and circus performers	Acteurs / actrices, comédiens / comédiennes et artistes de cirque	4	3	53	5135,5232
-53122	Painters, sculptors and other visual artists	Peintres, sculpteurs / sculpteures et autres artistes des arts visuels	4	3	53	5136
-53123	Theatre, fashion, exhibit and other creative designers	Ensembliers / ensemblières de théâtre, dessinateurs / dessinatrices de mode, concepteurs / conceptrices d'expositions et autres concepteurs / conceptrices artistiques	4	3	53	5243
-53124	Artisans and craftspersons	Artisans / artisanes	4	3	53	5244
-53125	Patternmakers - textile, leather and fur products	Patronniers / patronnières de produits textiles et d'articles en cuir et en fourrure	4	3	53	5245
-53200	Athletes	Athlètes	4	3	53	5251
-53201	Coaches	Entraîneurs / entraîneuses	4	3	53	5252
-53202	Sports officials and referees	Arbitres et officiels / officielles de sports	4	3	53	5253
-54100	Program leaders and instructors in recreation, sport and fitness	Animateurs / animatrices et responsables de programmes de sports, de loisirs et de conditionnement physique	4	4	54	5254
-55109	Other performers	Autres artistes de spectacle	4	5	55	5232
-60010	Corporate sales managers	Directeurs / directrices des ventes corporatives	4	0	60	0601
-60020	Retail and wholesale trade managers	Directeurs / directrices - commerce de détail et de gros	4	0	60	0621
-60030	Restaurant and food service managers	Directeurs / directrices de la restauration et des services alimentaires	4	0	60	0631
-60031	Accommodation service managers	Directeurs / directrices des services d'hébergement	4	0	60	0632
-60040	Managers in customer and personal services	Directeurs / directrices du service à la clientèle et des services personnels	4	0	60	0651
-62010	Retail sales supervisors	Superviseurs / superviseures des ventes - commerce de détail	4	2	62	5243,6211
-62020	Food service supervisors	Superviseurs / superviseures des services alimentaires	4	2	62	6311
-62021	Executive housekeepers	Gouvernants principaux / gouvernantes principales	4	2	62	6312
-65320	Dry cleaning, laundry and related occupations	Personnel de blanchisseries et d'établissements de nettoyage à sec et personnel assimilé	4	5	65	6741
-62022	Accommodation, travel, tourism and related services supervisors	Superviseurs / superviseures des services d'hébergement, de voyages, de tourisme et des services connexes	4	2	62	6313
-62023	Customer and information services supervisors	Superviseurs / superviseures des services d'information et des services à la clientèle	4	2	62	6314
-62024	Cleaning supervisors	Surveillants / surveillantes des services de nettoyage	4	2	62	6315
-62029	Other services supervisors	Surveillants / surveillantes des autres services	4	2	62	6316
-62100	Technical sales specialists - wholesale trade	Spécialistes des ventes techniques - commerce de gros	4	2	62	6221,6411
-62101	Retail and wholesale buyers	Acheteurs / acheteuses des commerces de détail et de gros	4	2	62	6222
-62200	Chefs	Chefs	4	2	62	6321
-62201	Funeral directors and embalmers	Directeurs / directrices de funérailles et embaumeurs / embaumeuses	4	2	62	6346
-62202	Jewellers, jewellery and watch repairers and related occupations	Bijoutiers / bijoutières, réparateurs / réparatrices de bijoux, horlogers-rhabilleurs / horlogères-rhabilleuses et personnel assimilé	4	2	62	6344
-63100	Insurance agents and brokers	Agents / agentes et courtiers / courtières d'assurance	4	3	63	6231
-63101	Real estate agents and salespersons	Agents / agentes et vendeurs / vendeuses en immobilier	4	3	63	6232
-63102	Financial sales representatives	Représentants / représentantes des ventes financières	4	3	63	6235
-63200	Cooks	Cuisiniers / cuisinières	4	3	63	6322
-63201	Butchers - retail and wholesale	Bouchers / bouchères - commerce de gros et de détail	4	3	63	6331
-63202	Bakers	Boulangers-pâtissiers / boulangères-pâtissières	4	3	63	6332
-63210	Hairstylists and barbers	Coiffeurs / coiffeuses et barbiers	4	3	63	6341
-63211	Estheticians, electrologists and related occupations	Esthéticiens / esthéticiennes, électrolystes et personnel assimilé	4	3	63	6562
-63220	Shoe repairers and shoemakers	Cordonniers / cordonnières et fabricants / fabricantes de chaussures	4	3	63	6343
-63221	Upholsterers	Tapissiers-garnisseurs / tapissières-garnisseuses	4	3	63	6345
-64100	Retail salespersons and visual merchandisers	Vendeurs / vendeuses et décorateur-étalagistes / décoratrices-étalagistes en commerce de détail	4	4	64	5243,6421
-64101	Sales and account representatives - wholesale trade (non-technical)	Représentants / représentantes des ventes et des comptes - commerce de gros (non-technique)	4	4	64	6411
-64200	Tailors, dressmakers, furriers and milliners	Tailleurs / tailleuses, couturiers / couturières, fourreurs / fourreuses et modistes	4	4	64	6342
-64201	Image, social and other personal consultants	Conseillers / conseillères imagistes, conseillers mondains / conseillères mondaines et autres conseillers / conseillères en soins personnalisés	4	4	64	6561
-64300	Maîtres d'hôtel and hosts / hostesses	Maîtres d'hôtel et hôtes / hôtesses	4	4	64	6511
-64301	Bartenders	Barmans / barmaids	4	4	64	6512
-64310	Travel counsellors	Conseillers / conseillères en voyages	4	4	64	6521
-64311	Pursers and flight attendants	Commissaires et agents / agentes de bord	4	4	64	6522
-64312	Airline ticket and service agents	Agents / agentes à la billetterie et aux services aériens	4	4	64	6523
-64313	Ground and water transport ticket agents, cargo service representatives and related clerks	Agents / agentes à la billetterie, représentants / représentantes du service en matière de fret et personnel assimilé dans le transport routier et maritime	4	4	64	6524
-64314	Hotel front desk clerks	Réceptionnistes d'hôtel	4	4	64	6525
-64320	Tour and travel guides	Guides touristiques et guides itinérants / guides itinérantes	4	4	64	6531
-64321	Casino workers	Travailleurs / travailleuses dans les casinos	4	4	64	6533
-64322	Outdoor sport and recreational guides	Guides d'activités récréatives et sportives de plein air	4	4	64	6532
-64400	Customer services representatives - financial institutions	Représentants / représentantes au service à la clientèle - institutions financières	4	4	64	6551
-64401	Postal services representatives	Représentants / représentantes des services postaux	4	4	64	1511
-64409	Other customer and information services representatives	Autres préposés / autres préposées aux services d'information et aux services à la clientèle	4	4	64	1123,6552
-64410	Security guards and related security service occupations	Agents / agentes de sécurité et personnel assimilé des services de sécurité	4	4	64	6541
-65100	Cashiers	Caissiers / caissières	4	5	65	6611
-65101	Service station attendants	Préposés / préposées de stations-service	4	5	65	6621
-65102	Store shelf stockers, clerks and order fillers	Garnisseurs / garnisseuses de tablettes, commis et préposés / préposées aux commandes dans les magasins	4	5	65	6622
-65109	Other sales related occupations	Autre personnel assimilé des ventes	4	5	65	6623
-65200	Food and beverage servers	Serveurs / serveuses d'aliments et de boissons	4	5	65	6513
-65201	Food counter attendants, kitchen helpers and related support occupations	Serveurs / serveuses au comptoir, aides de cuisine et personnel de soutien assimilé	4	5	65	6711
-65202	Meat cutters and fishmongers - retail and wholesale	Coupeurs / coupeuses de viande et poissonniers / poissonnières - commerce de gros et de détail	4	5	65	6331
-65210	Support occupations in accommodation, travel and facilities set-up services	Personnel de soutien en services d'hébergement, de voyage et en services de montage d'installation	4	5	65	6721
-65211	Operators and attendants in amusement, recreation and sport	Opérateurs / opératrices et préposés / préposées aux sports, aux loisirs et dans les parcs d'attractions	4	5	65	6316,6722
-65220	Pet groomers and animal care workers	Soigneurs / soigneuses d'animaux et travailleurs / travailleuses en soins des animaux	4	5	65	6563
-65229	Other support occupations in personal services	Autre professions de soutien dans les services personnels	4	5	65	6564
-65310	Light duty cleaners	Préposés / préposées à l'entretien ménager et au nettoyage - travaux légers	4	5	65	6731,4412
-65311	Specialized cleaners	Nettoyeurs spécialisés / nettoyeuses spécialisées	4	5	65	6732
-65312	Janitors, caretakers and heavy-duty cleaners	Concierges et nettoyeurs / nettoyeuses – gros travaux	4	5	65	6733
-65329	Other service support occupations	Autre personnel de soutien en service	4	5	65	6541,6742
-70010	Construction managers	Directeurs / directrices de la construction	4	0	70	0711
-70011	Home building and renovation managers	Gestionnaires en construction et rénovation domiciliaire	4	0	70	0712
-70012	Facility operation and maintenance managers	Directeurs / directrices de l'exploitation et de l'entretien d'immeubles	4	0	70	0714,6221
-70020	Managers in transportation	Directeurs / directrices des transports	4	0	70	0731
-70021	Postal and courier services managers	Directeurs / directrices des services postaux et de messageries	4	0	70	0132
-72010	Contractors and supervisors, machining, metal forming, shaping and erecting trades and related occupations	Entrepreneurs / entrepreneuses et contremaîtres / contremaîtresses des machinistes et du personnel des métiers du formage, du profilage et du montage des métaux et personnel assimilé	4	2	72	7201
-72011	Contractors and supervisors, electrical trades and telecommunications occupations	Entrepreneurs / entrepreneuses et contremaîtres / contremaîtresses en électricité et en télécommunications	4	2	72	7202
-72012	Contractors and supervisors, pipefitting trades	Entrepreneurs / entrepreneuses et contremaîtres / contremaîtresses en tuyauterie	4	2	72	7203
-72013	Contractors and supervisors, carpentry trades	Entrepreneurs / entrepreneuses et contremaîtres / contremaîtresses en charpenterie	4	2	72	7204
-72014	Contractors and supervisors, other construction trades, installers, repairers and servicers	Entrepreneurs / entrepreneuses et contremaîtres / contremaîtresses des autres métiers de la construction et des services de réparation et d'installation	4	2	72	7205
-72020	Contractors and supervisors, mechanic trades	Entrepreneurs / entrepreneuses et contremaîtres / contremaîtresses en mécanique	4	2	72	7301
-72021	Contractors and supervisors, heavy equipment operator crews	Entrepreneurs / entrepreneuses et contremaîtres / contremaîtresses des équipes d'opérateurs d'équipement lourd	4	2	72	7302
-72022	Supervisors, printing and related occupations	Surveillants / surveillantes de l'imprimerie et du personnel assimilé	4	2	72	7303
-72023	Supervisors, railway transport operations	Surveillants / surveillantes des opérations du transport ferroviaire	4	2	72	7304
-72024	Supervisors, motor transport and other ground transit operators	Surveillants / surveillantes du transport routier et du transport en commun	4	2	72	7305
-72025	Supervisors, mail and message distribution occupations	Superviseurs / superviseures de services postaux et de messageries	4	2	72	1214
-72100	Machinists and machining and tooling inspectors	Machinistes et vérificateurs / vérificatrices d'usinage et d'outillage	4	2	72	7231
-72101	Tool and die makers	Outilleurs-ajusteurs / outilleuses-ajusteuses	4	2	72	7232
-72102	Sheet metal workers	Tôliers / tôlières	4	2	72	7233
-72103	Boilermakers	Chaudronniers / chaudronnières	4	2	72	7234
-72104	Structural metal and platework fabricators and fitters	Assembleurs / assembleuses et ajusteurs / ajusteuses de plaques et de charpentes métalliques	4	2	72	7235
-72105	Ironworkers	Monteurs / monteuses de charpentes métalliques	4	2	72	7236
-72106	Welders and related machine operators	Soudeurs / soudeuses et opérateurs / opératrices de machines à souder et à braser	4	2	72	7237
-72200	Electricians (except industrial and power system)	Électriciens / électriciennes (sauf électriciens industriels / électriciennes industrielles et de réseaux électriques)	4	2	72	7241
-72201	Industrial electricians	Électriciens industriels / électriciennes industrielles	4	2	72	7242
-72202	Power system electricians	Électriciens / électriciennes de réseaux électriques	4	2	72	7243
-72203	Electrical power line and cable workers	Monteurs / monteuses de lignes électriques et de câbles	4	2	72	7244
-72204	Telecommunications line and cable installers and repairers	Installateurs / installatrices et réparateurs / réparatrices de lignes et de câbles de télécommunications	4	2	72	7245,7247
-72205	Telecommunications equipment installation and cable television service technicians	Techniciens / techniciennes en installation de matériel de télécommunication et en services de câblodistribution	4	2	72	7246,7247
-72300	Plumbers	Plombiers / plombières	4	2	72	7251
-72301	Steamfitters, pipefitters and sprinkler system installers	Tuyauteurs / tuyauteuses, monteurs / monteuses d'appareils de chauffage et poseurs / poseuses de gicleurs	4	2	72	7252
-72302	Gas fitters	Monteurs / monteuses d'installations au gaz	4	2	72	7253
-72310	Carpenters	Charpentiers-menuisiers / charpentières-menuisières	4	2	72	7271
-72311	Cabinetmakers	Ébénistes	4	2	72	7272
-72320	Bricklayers	Briqueteurs-maçons / briqueteuses-maçonnes	4	2	72	7281
-72321	Insulators	Calorifugeurs / calorifugeuses	4	2	72	7293
-72400	Construction millwrights and industrial mechanics	Mécaniciens / mécaniciennes de chantier et mécaniciens industriels / mécaniciennes industrielles	4	2	72	7311
-72401	Heavy-duty equipment mechanics	Mécaniciens / mécaniciennes d'équipement lourd	4	2	72	7312
-72402	Heating, refrigeration and air conditioning mechanics	Mécaniciens / mécaniciennes en chauffage, réfrigération et climatisation	4	2	72	7313
-72403	Railway carmen / women	Réparateurs / réparatrices de wagons	4	2	72	7314
-72404	Aircraft mechanics and aircraft inspectors	Mécaniciens / mécaniciennes et contrôleurs / contrôleuses d'aéronefs	4	2	72	7315
-72405	Machine fitters	Ajusteurs / ajusteuses de machines	4	2	72	7316
-72406	Elevator constructors and mechanics	Constructeurs / constructrices et mécaniciens / mécaniciennes d'ascenseurs	4	2	72	7318
-72410	Automotive service technicians, truck and bus mechanics and mechanical repairers	Mécaniciens / mécaniciennes et réparateurs / réparatrices de véhicules automobiles, de camions et d'autobus	4	2	72	7321
-72411	Auto body collision, refinishing and glass technicians and damage repair estimators	Techniciens / techniciennes en collision, en carrosserie, en peinture et en glace de véhicule automobile et estimateurs / estimatrices de dommages	4	2	72	7322
-72420	Oil and solid fuel heating mechanics	Installateurs / installatrices de brûleurs à l'huile et à combustibles solides	4	2	72	7331
-72421	Appliance servicers and repairers	Réparateurs / réparatrices et préposés / préposées à l'entretien d'appareils	4	2	72	7332
-72422	Electrical mechanics	Électromécaniciens / électromécaniciennes	4	2	72	7333
-72423	Motorcycle, all-terrain vehicle and other related mechanics	Mécaniciens / mécaniciennes de motocyclettes, de véhicules tout-terrain et personnel mécanicien assimilé	4	2	72	7334,7384
-72429	Other small engine and small equipment repairers	Autres réparateurs / réparatrices de petits moteurs et de petits équipements	4	2	72	7335
-72500	Crane operators	Grutiers / grutières	4	2	72	7371
-72501	Water well drillers	Foreurs / foreuses de puits d'eau	4	2	72	7373
-72600	Air pilots, flight engineers and flying instructors	Pilotes, navigateurs / navigatrices et instructeurs / instructrices de pilotage du transport aérien	4	2	72	2271,8252
-72601	Air traffic controllers and related occupations	Contrôleurs aériens / contrôleuses aériennes et personnel assimilé	4	2	72	2272
-72602	Deck officers, water transport	Officiers / officières de pont du transport par voies navigables	4	2	72	2273
-72603	Engineer officers, water transport	Officiers mécaniciens / officières mécaniciennes du transport par voies navigables	4	2	72	2274
-72604	Railway traffic controllers and marine traffic regulators	Contrôleurs / contrôleuses de la circulation ferroviaire et régulateurs / régulatrices de la circulation maritime	4	2	72	2275
-72999	Other technical trades and related occupations	Autres métiers techniques et personnel assimilé	4	2	72	7384
-73100	Concrete finishers	Finisseurs / finisseuses de béton	4	3	73	7282
-73101	Tilesetters	Carreleurs / carreleuses	4	3	73	7283
-73102	Plasterers, drywall installers and finishers and lathers	Plâtriers / plâtrières, poseurs / poseuses et finisseurs / finisseuses de systèmes intérieurs et latteurs / latteuses	4	3	73	7284
-73110	Roofers and shinglers	Couvreurs / couvreuses et poseurs / poseuses de bardeaux	4	3	73	7291
-73111	Glaziers	Vitriers / vitrières	4	3	73	7292
-73112	Painters and decorators (except interior decorators)	Peintres et décorateurs / décoratrices (sauf décorateurs / décoratrices d'intérieur)	4	3	73	7294
-73113	Floor covering installers	Poseurs / poseuses de revêtements d'intérieur	4	3	73	7295
-73200	Residential and commercial installers and servicers	Personnel d'installation, d'entretien et de réparation d'équipement résidentiel et commercial	4	3	73	7441
-73201	General building maintenance workers and building superintendents	Préposés à l’entretien général et surintendants / surintendantes	4	3	73	6733
-73202	Pest controllers and fumigators	Fumigateurs / fumigatrices et préposés / préposées au contrôle de la vermine	4	3	73	7444
-73209	Other repairers and servicers	Autres réparateurs / réparatrices et préposés / préposées à l'entretien	4	3	73	7445
-73300	Transport truck drivers	Conducteurs / conductrices de camions de transport	4	3	73	7511
-73301	Bus drivers, subway operators and other transit operators	Conducteurs / conductrices d'autobus et opérateurs / opératrices de métro et autres transports en commun	4	3	73	7512
-73310	Railway and yard locomotive engineers	Mécaniciens / mécaniciennes de locomotive et de cour de triage	4	3	73	7361
-73311	Railway conductors and brakemen / women	Chefs de train et serre-freins	4	3	73	7362
-73400	Heavy equipment operators	Conducteurs / conductrices d'équipement lourd	4	3	73	7521
-73401	Printing press operators	Opérateurs / opératrices de presses à imprimer	4	3	73	7381
-73402	Drillers and blasters - surface mining, quarrying and construction	Foreurs / foreuses et dynamiteurs / dynamiteuses de mines à ciel ouvert, de carrières et de chantiers de construction	4	3	73	7372
-74100	Mail and parcel sorters and related occupations	Trieurs / trieuses de courrier et de colis et professions connexes	4	4	74	1511
-74101	Letter carriers	Facteurs / factrices	4	4	74	1512
-74102	Couriers and messengers	Messagers / messagères	4	4	74	1513,7514
-74200	Railway yard and track maintenance workers	Ouvriers / ouvrières de gares de triage et à l'entretien de la voie ferrée	4	4	74	7531
-74201	Water transport deck and engine room crew	Matelots de pont et matelots de salle des machines du transport par voies navigables	4	4	74	7532
-74202	Air transport ramp attendants	Agents / agentes de piste dans le transport aérien	4	4	74	7534,1215
-74203	Automotive and heavy truck and equipment parts installers and servicers	Préposés / préposées à la pose et à l'entretien des pièces mécaniques d'automobiles et de camions et équipements lourds	4	4	74	7535
-74204	Utility maintenance workers	Personnel d'entretien des services publics	4	4	74	7442,7522
-74205	Public works maintenance equipment operators and related workers	Conducteurs / conductrices de machinerie d'entretien public et personnel assimilé	4	4	74	7522
-75100	Longshore workers	Débardeurs / débardeuses	4	5	75	7451
-75101	Material handlers	Manutentionnaires	4	5	75	6221,7452
-75110	Construction trades helpers and labourers	Aides de soutien des métiers et manoeuvres en construction	4	5	75	7371,7611
-75119	Other trades helpers and labourers	Autres manoeuvres et aides de soutien de métiers	4	5	75	7612
-75200	Taxi and limousine drivers and chauffeurs	Chauffeurs / chauffeuses de taxi, chauffeurs / chauffeuses de limousine et chauffeurs / chauffeuses	4	5	75	7513
-75201	Delivery service drivers and door-to-door distributors	Chauffeurs-livreurs / chauffeuses-livreuses de services de livraison et distributeurs / distributrices porte-à-porte	4	5	75	7514,1513
-75210	Boat and cable ferry operators and related occupations	Opérateurs / opératrices de bateau à moteur, de bac à câble et personnel assimilé	4	5	75	7533
-75211	Railway and motor transport labourers	Manoeuvres dans le transport ferroviaire et routier	4	5	75	7622
-75212	Public works and maintenance labourers	Manoeuvres à l'entretien des travaux publics	4	5	75	7621
-80010	Managers in natural resources production and fishing	Directeurs / directrices de l'exploitation des ressources naturelles et de la pêche	4	0	80	0811
-80020	Managers in agriculture	Gestionnaires en agriculture	4	0	80	0821
-80021	Managers in horticulture	Gestionnaires en horticulture	4	0	80	0822
-80022	Managers in aquaculture	Gestionnaires en aquaculture	4	0	80	0823
-82010	Supervisors, logging and forestry	Surveillants / surveillantes de l'exploitation forestière	4	2	82	8211
-82020	Supervisors, mining and quarrying	Surveillants / surveillantes de l'exploitation des mines et des carrières	4	2	82	8221
-82021	Contractors and supervisors, oil and gas drilling and services	Entrepreneurs / entrepreneuses et surveillants / surveillantes du forage et des services reliés à l'extraction de pétrole et de gaz	4	3	82	8222
-82030	Agricultural service contractors and farm supervisors	Ouvriers spécialisés / ouvrières spécialisées dans l’élevage et opérateurs / opératrices de machineries agricoles	4	2	82	8252
-82031	Contractors and supervisors, landscaping, grounds maintenance and horticulture services	Entrepreneurs / entrepreneuses et superviseurs / superviseures des services de l'aménagement paysager, de l'entretien des terrains et de l'horticulture	4	2	82	8255
-83100	Underground production and development miners	Mineurs / mineuses d'extraction et de préparation, mines souterraines	4	3	83	8231
-83101	Oil and gas well drillers, servicers, testers and related workers	Foreurs / foreuses et personnel de mise à l'essai et des autres services reliés à l'extraction de pétrole et de gaz	4	3	83	8232
-83110	Logging machinery operators	Conducteurs / conductrices de machines d'abattage d'arbres	4	3	83	8241
-83120	Fishing masters and officers	Capitaines et officiers / officières de bâtiments de pêche	4	3	83	8261
-83121	Fishermen / women	Pêcheurs indépendants / pêcheuses indépendantes	4	3	83	8262
-84100	Underground mine service and support workers	Travailleurs / travailleuses d'entretien et de soutien des mines souterraines	4	4	84	8411
-84101	Oil and gas well drilling and related workers and services operators	Travailleurs / travailleuses du forage et de l'entretien des puits de pétrole et de gaz et personnel assimilé	4	4	84	8412
-84110	Chain saw and skidder operators	Opérateurs / opératrices de scies à chaîne et d'engins de débardage	4	4	84	8421
-84111	Silviculture and forestry workers	Ouvriers / ouvrières en sylviculture et en exploitation forestière	4	4	84	8422
-84120	Specialized livestock workers and farm machinery operators	Ouvriers spécialisés / ouvrières spécialisées dans l’élevage et opérateurs / opératrices de machineries agricoles	4	4	84	8252,8431
-84121	Fishing vessel deckhands	Matelots de pont sur les bateaux de pêche	4	4	84	8441
-85100	Livestock labourers	Manoeuvres aux soins du bétail	4	5	85	8431,8252
-85101	Harvesting labourers	Manoeuvres à la récolte	4	5	85	8431,8611
-85102	Aquaculture and marine harvest labourers	Manoeuvres de l'aquaculture et de la mariculture	4	5	85	8613
-85103	Nursery and greenhouse labourers	Manoeuvres de pépinières et de serres	4	5	85	8432
-85104	Trappers and hunters	Trappeurs / trappeuses et chasseurs / chasseuses	4	5	85	8442
-85110	Mine labourers	Manoeuvres des mines	4	5	85	8614
-85111	Oil and gas drilling, servicing and related labourers	Manoeuvres de forage et d'entretien des puits de pétrole et de gaz, et personnel assimilé	4	5	85	8615
-85120	Logging and forestry labourers	Manoeuvres de l'exploitation forestière	4	5	85	8616
-85121	Landscaping and grounds maintenance labourers	Manoeuvres en aménagement paysager et en entretien des terrains	4	5	85	8612
-90010	Manufacturing managers	Directeurs / directrices de la fabrication	4	0	90	0911
-90011	Utilities managers	Directeurs / directrices des services d'utilité publique	4	0	90	0912
-92010	Supervisors, mineral and metal processing	Surveillants / surveillantes dans la transformation des métaux et des minerais	4	2	92	9211
-92011	Supervisors, petroleum, gas and chemical processing and utilities	Surveillants / surveillantes dans le raffinage du pétrole, dans le traitement du gaz et des produits chimiques et dans les services d'utilité publique	4	2	92	9212
-92012	Supervisors, food and beverage processing	Surveillants / surveillantes dans la transformation des aliments et des boissons	4	2	92	9213
-92013	Supervisors, plastic and rubber products manufacturing	Surveillants / surveillantes dans la fabrication de produits en caoutchouc et en plastique	4	2	92	9214
-92014	Supervisors, forest products processing	Surveillants / surveillantes dans la transformation des produits forestiers	4	2	92	9215
-92015	Supervisors, textile, fabric, fur and leather products processing and manufacturing	Surveillants / surveillantes dans la transformation et la fabrication de produits textiles, de tissus, de fourrure et de cuir	4	2	92	9217
-92020	Supervisors, motor vehicle assembling	Surveillants / surveillantes dans la fabrication de véhicules automobiles	4	2	92	9221
-92021	Supervisors, electronics and electrical products manufacturing	Surveillants / surveillantes dans la fabrication de matériel électronique et d'appareils électriques	4	2	92	9222,9223
-92022	Supervisors, furniture and fixtures manufacturing	Surveillants / surveillantes dans la fabrication de meubles et d'accessoires	4	2	92	9224
-92023	Supervisors, other mechanical and metal products manufacturing	Surveillants / surveillantes dans la fabrication d'autres produits métalliques et de pièces mécaniques	4	2	92	9226
-92024	Supervisors, other products manufacturing and assembly	Surveillants / surveillantes dans la fabrication et le montage de produits divers	4	2	92	9227
-92100	Power engineers and power systems operators	Mécaniciens / mécaniciennes de centrales et opérateurs / opératrices de réseaux électriques	4	2	92	9241
-92101	Water and waste treatment plant operators	Opérateurs / opératrices d'installations du traitement de l'eau et des déchets	4	2	92	9243
-93100	Central control and process operators, mineral and metal processing	Opérateurs / opératrices de poste central de contrôle et de conduite de procédés industriels dans le traitement des métaux et des minerais	4	3	93	9231
-93101	Central control and process operators, petroleum, gas and chemical processing	Opérateurs / opératrices de salle de commande centrale et de conduite de procédés industriels dans le raffinage du pétrole et le traitement du gaz et des produits chimiques	4	3	93	9232
-93102	Pulping, papermaking and coating control operators	Opérateurs / opératrices au contrôle de la réduction en pâte des pâtes et papiers, de la fabrication du papier et du couchage	4	3	93	9235
-93200	Aircraft assemblers and aircraft assembly inspectors	Monteurs / monteuses d'aéronefs et contrôleurs / contrôleuses de montage d'aéronefs	4	3	93	9521
-94100	Machine operators, mineral and metal processing	Opérateurs / opératrices de machines dans le traitement des métaux et des minerais	4	4	94	9411
-94101	Foundry workers	Ouvriers / ouvrières de fonderies	4	4	94	9412
-94102	Glass forming and finishing machine operators and glass cutters	Opérateurs / opératrices de machines à former et à finir le verre et coupeurs / coupeuses de verre	4	4	94	9413
-94103	Concrete, clay and stone forming operators	Opérateurs / opératrices de machines dans le façonnage et la finition des produits en béton, en argile ou en pierre	4	4	94	9414
-94104	Inspectors and testers, mineral and metal processing	Contrôleurs / contrôleuses et essayeurs / essayeuses dans la transformation des métaux et des minerais	4	4	94	9415
-94105	Metalworking and forging machine operators	Opérateurs / opératrices de machines à forger et à travailler les métaux	4	4	94	9416
-94106	Machining tool operators	Opérateurs / opératrices de machines d'usinage	4	4	94	9417
-94107	Machine operators of other metal products	Opérateurs / opératrices de machines d'autres produits métalliques	4	4	94	9418
-94110	Chemical plant machine operators	Opérateurs / opératrices d'installations de traitement des produits chimiques	4	4	94	9421
-94111	Plastics processing machine operators	Opérateurs / opératrices de machines de traitement des matières plastiques	4	4	94	9422
-94112	Rubber processing machine operators and related workers	Opérateurs / opératrices de machines de transformation du caoutchouc et personnel assimilé	4	4	94	9423
-94120	Sawmill machine operators	Opérateurs / opératrices de machines à scier dans les scieries	4	4	94	9431
-94121	Pulp mill, papermaking and finishing machine operators	Opérateurs / opératrices de machines dans la fabrication et la finition du papier dans les usines de pâte à papier	4	4	94	9432,9433
-94122	Paper converting machine operators	Opérateurs / opératrices de machines à façonner le papier	4	4	94	9435
-94123	Lumber graders and other wood processing inspectors and graders	Classeurs / classeuses de bois d'oeuvre et autres vérificateurs / vérificatrices et classeurs / classeuses dans la transformation du bois	4	4	94	9436
-94124	Woodworking machine operators	Opérateurs / opératrices de machines à travailler le bois	4	4	94	9437
-94129	Other wood processing machine operators	Autres opérateurs / opératrices de machines dans la transformation du bois	4	4	94	9434
-94130	Textile fibre and yarn, hide and pelt processing machine operators and workers	Opérateurs / opératrices de machines et travailleurs / travailleuses de traitement des fibres et des fils textiles, du cuir et des peaux	4	4	94	9441
-94131	Weavers, knitters and other fabric making occupations	Tisseurs / tisseuses, tricoteurs / tricoteuses et autres opérateurs / opératrices de machines textiles	4	4	94	9442
-94132	Industrial sewing machine operators	Opérateurs / opératrices de machines à coudre industrielles	4	4	94	9446
-94133	Inspectors and graders, textile, fabric, fur and leather products manufacturing	Contrôleurs / contrôleuses et trieurs / trieuses dans la fabrication de produits textiles, de tissus, de fourrure et de cuir	4	4	94	9447
-94140	Process control and machine operators, food and beverage processing	Opérateurs / opératrices de machines et de procédés industriels dans la transformation des aliments et des boissons	4	4	94	9461
-94141	Industrial butchers and meat cutters, poultry preparers and related workers	Bouchers industriels / bouchères industrielles, dépeceurs-découpeurs / dépeceuses-découpeuses de viande, préparateurs / préparatrices de volaille et personnel assimilé	4	4	94	9462
-94142	Fish and seafood plant workers	Ouvriers / ouvrières dans les usines de transformation du poisson et de fruits de mer	4	4	94	9463,9618
-94143	Testers and graders, food and beverage processing	Échantillonneurs / échantillonneuses et trieurs / trieuses dans la transformation des aliments et des boissons	4	4	94	9465
-94150	Plateless printing equipment operators	Opérateurs / opératrices d'équipement d'impression sans plaque	4	4	94	9471
-94151	Camera, platemaking and other prepress occupations	Photograveurs-clicheurs / photograveuses-clicheuses, photograveurs-reporteurs / photograveuses-reporteuses et autre personnel de prépresse	4	4	94	9472
-94152	Binding and finishing machine operators	Opérateurs / opératrices de machines à relier et de finition	4	4	94	9473
-94153	Photographic and film processors	Développeurs / développeuses de films et de photographies	4	4	94	9474
-94200	Motor vehicle assemblers, inspectors and testers	Assembleurs / assembleuses, contrôleurs / contrôleuses et vérificateurs / vérificatrices de véhicules automobiles	4	4	94	9522
-94201	Electronics assemblers, fabricators, inspectors and testers	Assembleurs / assembleuses, monteurs / monteuses, contrôleurs / contrôleuses et vérificateurs / vérificatrices de matériel électronique	4	4	94	9523
-94202	Assemblers and inspectors, electrical appliance, apparatus and equipment manufacturing	Monteurs / monteuses et contrôleurs / contrôleuses dans la fabrication de matériel, d'appareils et d'accessoires électriques	4	4	94	9524
-94203	Assemblers, fabricators and inspectors, industrial electrical motors and transformers	Assembleurs / assembleuses, monteurs / monteuses et contrôleurs / contrôleuses dans la fabrication de transformateurs et de moteurs électriques industriels	4	4	94	9525
-94204	Mechanical assemblers and inspectors	Monteurs / monteuses et contrôleurs / contrôleuses de matériel mécanique	4	4	94	9526
-94205	Machine operators and inspectors, electrical apparatus manufacturing	Opérateurs / opératrices de machines et contrôleurs / contrôleuses dans la fabrication d'appareils électriques	4	4	94	9527
-94210	Furniture and fixture assemblers, finishers, refinishers and inspectors	Monteurs / monteuses, finisseurs / finisseuses, restaurateurs / restauratrices et contrôleurs / contrôleuses de meubles et d’accessoires	4	4	94	9532,9534
-94211	Assemblers and inspectors of other wood products	Monteurs / monteuses et contrôleurs / contrôleuses d'autres produits en bois	4	4	94	9533
-94212	Plastic products assemblers, finishers and inspectors	Assembleurs / assembleuses, finisseurs / finisseuses et contrôleurs / contrôleuses de produits en plastique	4	4	94	9535
-94213	Industrial painters, coaters and metal finishing process operators	Peintres, enduiseurs / enduiseuses et opérateurs / opératrices de procédés dans le finissage du métal - secteur industriel	4	4	94	9536
-94219	Other products assemblers, finishers and inspectors	Monteurs / monteuses, finisseurs / finisseuses et contrôleurs / contrôleuses de produits divers	4	4	94	9531,9537
-95100	Labourers in mineral and metal processing	Manoeuvres dans le traitement des métaux et des minerais	4	5	95	9611
-95101	Labourers in metal fabrication	Manoeuvres en métallurgie	4	5	95	9612
-95102	Labourers in chemical products processing and utilities	Manoeuvres dans le traitement des produits chimiques et les services d'utilité publique	4	5	95	9613,9421
-95103	Labourers in wood, pulp and paper processing	Manoeuvres dans le traitement des pâtes et papiers et la transformation du bois	4	5	95	9614
-95104	Labourers in rubber and plastic products manufacturing	Manoeuvres dans la fabrication des produits en caoutchouc et en plastique	4	5	95	9615
-95105	Labourers in textile processing and cutting	Manoeuvres dans la fabrication et la coupe des produits du textile	4	5	95	9616,9441,9445
-95106	Labourers in food and beverage processing	Manoeuvres dans la transformation des aliments et des boissons	4	5	95	9617
-95107	Labourers in fish and seafood processing	Manoeuvres dans la transformation du poisson et des fruits de mer	4	5	95	9618
+00010	Legislators	Membres des corps législatifs	4	0	000	0011
+00018	Senior managers - public and private sector	Cadres supérieurs / cadres supérieures - secteurs publique et privé	4	0	000	0012
+10010	Financial managers	Directeurs financiers / directrices financières	4	0	100	0111
+10011	Human resources managers	Directeurs / directrices des ressources humaines	4	0	100	0112
+10012	Purchasing managers	Directeurs / directrices des achats	4	0	100	0113
+10019	Other administrative services managers	Directeurs / directrices d'autres services administratifs	4	0	100	0114,1227
+10020	Insurance, real estate and financial brokerage managers	Directeurs / directrices des assurances, de l'immobilier et du courtage financier	4	0	100	0121
+10021	Banking, credit and other investment managers	Directeurs / directrices de banque, du crédit et d'autres services de placements	4	0	100	0122
+10022	Advertising, marketing and public relations managers	Directeurs / directrices de la publicité, du marketing et des relations publiques	4	0	100	0124,1123
+10029	Other business services managers	Directeurs / directrices d'autres services aux entreprises	4	0	100	0125
+10030	Telecommunication carriers managers	Directeurs / directrices d'entreprises de télécommunications	4	0	100	0131
+11100	Financial auditors and accountants	Vérificateurs / vérificatrices et comptables	4	1	111	1111,1114
+11101	Financial and investment analysts	Analystes financiers / analystes financières et analystes en placements	4	1	111	1112
+11102	Financial advisors	Conseillers financiers / conseillères financières	4	1	111	1114
+11103	Securities agents, investment dealers and brokers	Agents / agentes en valeurs, agents / agentes en placements et négociateurs / négociatrices en valeurs	4	1	111	1113
+11109	Other financial officers	Autres agents financiers / agentes financières	4	1	111	1114
+11200	Human resources professionals	Professionnels / professionnelles en ressources humaines	4	1	112	1121,0112
+11202	Professional occupations in advertising, marketing and public relations	Professionnels / professionnelles en publicité, en marketing et en relations publiques	4	1	112	1123,4163
+12010	Supervisors, general office and administrative support workers	Superviseurs / superviseures de commis de bureau et du personnel de soutien administratif	4	2	120	1211
+12011	Supervisors, finance and insurance office workers	Superviseurs / superviseures de commis de finance et d'assurance	4	2	120	1212
+12012	Supervisors, library, correspondence and related information workers	Superviseurs / superviseures de commis de bibliothèque, de correspondanciers et d'autres commis à l'information	4	2	120	1213
+12013	Supervisors, supply chain, tracking and scheduling coordination occupations	Superviseurs / superviseures du personnel de coordination de la chaîne d'approvisionnement, du suivi et des horaires	4	2	120	1215
+12100	Executive assistants	Adjoints / adjointes de direction	4	2	121	1222
+12101	Human resources and recruitment officers	Agents / agentes des ressources humaines et de recrutement	4	2	121	1223
+12102	Procurement and purchasing agents and officers	Agents / agentes en approvisionnement aux achats	4	2	121	1225
+12103	Conference and event planners	Planificateurs / planificatrices de congrès et d'événements	4	2	121	1226
+12104	Employment insurance and revenue officers	Agents / agentes d'assurance-emploi et du revenu	4	2	121	1228
+12110	Court reporters, medical transcriptionists and related occupations	Sténographes judiciaires, transcripteurs médicaux / transcriptrices médicales et personnel assimilé	4	2	121	1251
+12111	Health information management occupations	Personnel en gestion de l’information sur la santé	4	2	121	1252
+12112	Records management technicians	Techniciens / techniciennes à la gestion des documents	4	2	121	1253
+12113	Statistical officers and related research support occupations	Agents / agentes de statistiques et professions connexes du soutien de la recherche	4	2	121	1254
+12200	Accounting technicians and bookkeepers	Techniciens / techniciennes en comptabilité et teneurs / teneuses de livres	4	2	122	1311
+12201	Insurance adjusters and claims examiners	Experts / expertes en sinistres et rédacteurs / rédactrices sinistres	4	2	122	1312
+12202	Insurance underwriters	Assureurs / assureuses	4	2	122	1313
+12203	Assessors, business valuators and appraisers	Estimateurs / estimatrices, évaluateurs / évaluatrices d'entreprise et autres évaluateurs / évaluatrices	4	2	122	1314
+13100	Administrative officers	Agents / agentes d'administration	4	3	131	1221
+13101	Property administrators	Agents / agentes de gestion immobilière	4	3	131	1224
+13102	Payroll administrators	Administrateurs / administratrices de la paye	4	3	131	1432
+13110	Administrative assistants	Adjoints administratifs / adjointes administratives	4	3	131	0112,1241
+13111	Legal administrative assistants	Adjoints administratifs juridiques / adjointes administratives juridiques	4	3	131	1242
+13112	Medical administrative assistants	Adjoints administratifs médicaux / adjointes administratives médicales	4	3	131	1243
+13200	Customs, ship and other brokers	Courtiers / courtières en douanes, courtiers maritimes / courtières maritimes et autres courtiers / courtières	4	3	132	1315
+13201	Production and transportation logistics coordinators	Coordonnateur / coordonnatrice de la logistique de la production et du transport	4	3	132	1215,1523
+14100	General office support workers	Employés / employées de bureau - soutien général	4	4	141	1411
+14101	Receptionists	Réceptionnistes	4	4	141	1414
+14102	Personnel clerks	Commis des services du personnel	4	4	141	1415
+14103	Court clerks and related court services occupations	Commis des services judiciaires et autres professions des services judiciaires	4	4	141	1416,1227
+14110	Survey interviewers and statistical clerks	Intervieweurs / intervieweuses pour enquêtes et commis aux statistiques	4	4	141	1454
+14111	Data entry clerks	Commis à la saisie de données	4	4	141	1422
+14112	Desktop publishing operators and related occupations	Opérateurs / opératrices d'équipement d'éditique et personnel assimilé	4	4	141	1423
+14200	Accounting and related clerks	Commis à la comptabilité et personnel assimilé	4	4	142	1431
+14201	Banking, insurance and other financial clerks	Commis de banque, d'assurance et d'autres services financiers	4	4	142	1434
+14202	Collection clerks	Commis de recouvrement	4	4	142	1435
+14300	Library assistants and clerks	Commis et assistants / assistantes dans les bibliothèques	4	4	143	1451
+14301	Correspondence, publication and regulatory clerks	Correspondanciers / correspondancières et commis aux publications et aux règlements	4	4	143	1452
+14400	Shippers and receivers	Expéditeurs / expéditrices et réceptionnaires	4	4	144	1521
+14401	Storekeepers and partspersons	Magasiniers / magasinières et commis aux pièces	4	4	144	1522
+14402	Production logistics workers	Travailleurs / travailleuses de la logistique de la production	4	4	144	1523
+14403	Purchasing and inventory control workers	Commis aux achats et au contrôle de l'inventaire	4	4	144	1524
+14404	Dispatchers	Répartiteurs / répartitrices	4	4	144	1525
+14405	Transportation route and crew schedulers	Horairistes de trajets et d'équipages	4	4	144	1526
+20010	Engineering managers	Directeurs / directrices des services de génie	4	0	200	0211
+20011	Architecture and science managers	Directeurs / directrices des services d'architecture et de sciences	4	0	200	0212
+20012	Computer and information systems managers	Gestionnaires des systèmes informatiques	4	0	200	0213
+21100	Physicists and astronomers	Physiciens / physiciennes et astronomes	4	1	211	2111
+21101	Chemists	Chimistes	4	1	211	2112
+21102	Geoscientists and oceanographers	Géoscientifiques et océanographes	4	1	211	2113
+21103	Meteorologists and climatologists	Météorologues et climatologues	4	1	211	2114
+21109	Other professional occupations in physical sciences	Autres professionnels / professionnelles des sciences physiques	4	1	211	2115
+21110	Biologists and related scientists	Biologistes et personnel scientifique assimilé	4	1	211	2121,4165
+21111	Forestry professionals	Professionnels / professionnelles des sciences forestières	4	1	211	2122
+21112	Agricultural representatives, consultants and specialists	Agronomes, conseillers / conseillères et spécialistes en agriculture	4	1	211	2123
+21120	Public and environmental health and safety professionals	Professionnels / professionnelles de la santé et sécurité publique et environnementale	4	1	211	0112,2263
+21200	Architects	Architectes	4	1	212	2151
+21201	Landscape architects	Architectes paysagistes	4	1	212	2152
+21202	Urban and land use planners	Urbanistes et planificateurs / planificatrices de l'utilisation des sols	4	1	212	2153
+21203	Land surveyors	Arpenteurs-géomètres / arpenteuses-géomètres	4	1	212	2154
+21210	Mathematicians, statisticians and actuaries	Mathématiciens / mathématiciennes, statisticiens / statisticiennes et actuaires	4	1	212	2161
+21211	Data scientists	Scientifiques de données	4	1	212	2171,2172,2173
+21220	Cybersecurity specialists	Spécialistes de la cybersécurité	4	1	212	2171
+21221	Business system specialists	Spécialistes des systèmes commerciaux	4	1	212	2171
+21222	Information systems specialists	Spécialistes en informatique	4	1	212	2171
+21223	Database analysts and data administrators	Analystes de bases de données et administrateurs / administratrices de données	4	1	212	2172
+21230	Computer systems developers and programmers	Développeurs / développeuses et programmeurs / programmeuses de systèmes informatiques	4	1	212	2174
+21231	Software engineers and designers	Ingénieurs / ingénieures et concepteurs / conceptrices en logiciel	4	1	212	2173
+21232	Software developers and programmers	Développeurs / développeuses et programmeurs / programmeuses de logiciels	4	1	212	2174
+21233	Web designers	Concepteurs / conceptrices Web	4	1	212	2171,2175
+21234	Web developers and programmers	Développeurs / développeuses et programmeurs / programmeuses Web	4	1	212	2174,2175
+21300	Civil engineers	Ingénieurs civils / ingénieures civiles	4	1	213	2131
+21301	Mechanical engineers	Ingénieurs mécaniciens / ingénieures mécaniciennes	4	1	213	2132
+21310	Electrical and electronics engineers	Ingénieurs électriciens et électroniciens / ingénieures électriciennes et électroniciennes	4	1	213	2133
+21311	Computer engineers (except software engineers and designers)	Ingénieurs informaticiens / ingénieures informaticiennes (sauf ingénieurs / ingénieures et concepteurs / conceptrices en logiciel)	4	1	213	2147
+21320	Chemical engineers	Ingénieurs chimistes / ingénieures chimistes	4	1	213	2134
+21321	Industrial and manufacturing engineers	Ingénieurs / ingénieures d'industrie et de fabrication	4	1	213	2141
+21322	Metallurgical and materials engineers	Ingénieurs / ingénieures métallurgistes et des matériaux	4	1	213	2142
+21330	Mining engineers	Ingénieurs miniers / ingénieures minières	4	1	213	2143
+21331	Geological engineers	Ingénieurs / ingénieures géologiques	4	1	213	2144
+21332	Petroleum engineers	Ingénieurs / ingénieures de l'extraction et du raffinage du pétrole	4	1	213	2145
+21390	Aerospace engineers	Ingénieurs / ingénieures en aérospatiale	4	1	213	2146
+21399	Other professional engineers	Autres ingénieurs / ingénieures	4	1	213	2148
+22100	Chemical technologists and technicians	Technologues et techniciens / techniciennes en chimie	4	2	221	2211
+22101	Geological and mineral technologists and technicians	Technologues et techniciens / techniciennes en géologie et en minéralogie	4	2	221	2212
+22110	Biological technologists and technicians	Technologues et techniciens / techniciennes en biologie	4	2	221	2221
+22111	Agricultural and fish products inspectors	Inspecteurs / inspectrices des produits agricoles et de la pêche	4	2	221	2222
+22112	Forestry technologists and technicians	Technologues et techniciens / techniciennes en sciences forestières	4	2	221	2223
+22113	Conservation and fishery officers	Techniciens / techniciennes du milieu naturel et de la pêche	4	2	221	2224
+22114	Landscape and horticulture technicians and specialists	Techniciens / techniciennes et spécialistes de l'aménagement paysager et de l'horticulture	4	2	221	2225
+22210	Architectural technologists and technicians	Technologues et techniciens / techniciennes en architecture	4	2	222	2251
+22211	Industrial designers	Designers industriels / designers industrielles	4	2	222	2252
+22212	Drafting technologists and technicians	Technologues et techniciens / techniciennes en dessin	4	2	222	2253
+22213	Land survey technologists and technicians	Technologues et techniciens / techniciennes en arpentage	4	2	222	2254
+22214	Technical occupations in geomatics and meteorology	Personnel technique en géomatique et en météorologie	4	2	222	2255
+22220	Computer network and web technicians	Techniciens / techniciennes de réseau informatique et Web	4	2	222	2281
+22221	User support technicians	Agents / agentes de soutien aux utilisateurs	4	2	222	2282
+22222	Information systems testing technicians	Évaluateurs / évaluatrices de systèmes informatiques	4	2	222	2283
+22230	Non-destructive testers and inspectors	Vérificateurs / vérificatrices et inspecteurs / inspectrices des essais non destructifs	4	2	222	2261
+22231	Engineering inspectors and regulatory officers	Inspecteurs / inspectrices d'ingénierie et officiers / officières de réglementation	4	2	222	2262
+22232	Occupational health and safety specialists	Spécialistes de l'hygiène et de la sécurité au travail	4	2	222	2263,0112
+22233	Construction inspectors	Inspecteurs / inspectrices en construction	4	2	222	2264
+22300	Civil engineering technologists and technicians	Technologues et techniciens / techniciennes en génie civil	4	2	223	2231
+22301	Mechanical engineering technologists and technicians	Technologues et techniciens / techniciennes en génie mécanique	4	2	223	2232
+22302	Industrial engineering and manufacturing technologists and technicians	Technologues et techniciens / techniciennes en génie industriel et en génie de fabrication	4	2	223	2233
+22303	Construction estimators	Estimateurs / estimatrices en construction	4	2	223	2234
+22310	Electrical and electronics engineering technologists and technicians	Technologues et techniciens / techniciennes en génie électrique et électronique	4	2	223	2241
+22311	Electronic service technicians (household and business equipment)	Électroniciens / électroniciennes d'entretien (biens domestiques et commerciaux)	4	2	223	2242,7445
+22312	Industrial instrument technicians and mechanics	Techniciens / techniciennes et mécaniciens / mécaniciennes d'instruments industriels	4	2	223	2243
+22313	Aircraft instrument, electrical and avionics mechanics, technicians and inspectors	Mécaniciens / mécaniciennes, techniciens / techniciennes et contrôleurs / contrôleuses d'avionique et d'instruments et d'appareillages électriques d'aéronefs	4	2	223	2244
+30010	Managers in health care	Directeurs / directrices des soins de santé	4	0	300	0311
+31100	Specialists in clinical and laboratory medicine	Spécialistes en médecine clinique et de laboratoire	4	1	311	3111
+31101	Specialists in surgery	Spécialistes en chirurgie	4	1	311	3111
+31102	General practitioners and family physicians	Omnipraticiens / omnipraticiennes et médecins en médecine familiale	4	1	311	3112
+31103	Veterinarians	Vétérinaires	4	1	311	3114
+31110	Dentists	Dentistes	4	1	311	3113
+31111	Optometrists	Optométristes	4	1	311	3121
+31112	Audiologists and speech-language pathologists	Audiologistes et orthophonistes	4	1	311	3141
+31120	Pharmacists	Pharmaciens / pharmaciennes	4	1	311	3131
+31121	Dietitians and nutritionists	Diététistes et nutritionnistes	4	1	311	3132
+31200	Psychologists	Psychologues	4	1	312	4151
+31201	Chiropractors	Chiropraticiens / chiropraticiennes	4	1	312	3122
+31202	Physiotherapists	Physiothérapeutes	4	1	312	3142
+31203	Occupational therapists	Ergothérapeutes	4	1	312	3143
+31204	Kinesiologists and other professional occupations in therapy and assessment	Kinésiologues et autres professionnels / professionnelles en thérapie et en diagnostic	4	1	312	3144
+31209	Other professional occupations in health diagnosing and treating	Autres professionnels / professionnelles en diagnostic et en traitement de la santé	4	1	312	3125
+31300	Nursing coordinators and supervisors	Coordonnateurs / coordonnatrices et superviseurs / superviseures des soins infirmiers	4	1	313	3011
+31301	Registered nurses and registered psychiatric nurses	Infirmiers autorisés / infirmières autorisées et infirmiers psychiatriques autorisés / infirmières psychiatriques autorisées	4	1	313	3012
+31302	Nurse practitioners	Infirmiers praticiens / infirmières praticiennes	4	1	313	3124
+31303	Physicians assistants, midwives and allied health professionals	Adjoints au médecin, sages-femmes et professionnels paramédicaux	4	1	313	3124,3125,3212,4153
+32100	Opticians	Opticiens / opticiennes d'ordonnances	4	2	321	3231
+32101	Licensed practical nurses	Infirmiers auxiliaires / infirmières auxiliaires	4	2	321	3233
+32102	Paramedical occupations	Personnel ambulancier et paramédical	4	2	321	3234
+32103	Respiratory therapists, clinical perfusionists and cardiopulmonary technologists	Inhalothérapeutes, perfusionnistes cardiovasculaires et technologues cardiopulmonaires	4	2	321	3124,3214
+32104	Animal health technologists and veterinary technicians	Technologues en santé animale et techniciens / techniciennes vétérinaires	4	2	321	3213
+32109	Other technical occupations in therapy and assessment	Autre personnel technique en thérapie et en diagnostic	4	2	321	3142,3237,3414
+32110	Denturists	Denturologistes	4	2	321	3221
+32111	Dental hygienists and dental therapists	Hygiénistes et thérapeutes dentaires	4	2	321	3222
+32112	Dental technologists and technicians	Technologues et techniciens / techniciennes dentaires	4	2	321	3223
+32120	Medical laboratory technologists	Technologues de laboratoires médicaux	4	2	321	3211,3212
+32121	Medical radiation technologists	Technologues en radiation médicale	4	2	321	3215
+32122	Medical sonographers	Technologues en échographie	4	2	321	3216
+32123	Cardiology technologists and electrophysiological diagnostic technologists	Technologues en cardiologie et technologues en électrophysiologie diagnostique	4	2	321	3217
+32124	Pharmacy technicians	Techniciens / techniciennes en pharmacie	4	2	321	3219
+32129	Other medical technologists and technicians	Autres technologues et techniciens / techniciennes des sciences de la santé	4	2	321	3219
+32200	Traditional Chinese medicine practitioners and acupuncturists	Praticiens / praticiennes en médecine traditionnelle chinoise et acupuncteurs / acupunctrices	4	2	322	3232
+32201	Massage therapists	Massothérapeutes	4	2	322	3236
+32209	Other practitioners of natural healing	Autres praticiens / praticiennes des médecines douces	4	2	322	3232
+33100	Dental assistants and dental laboratory assistants	Assistants / assistantes dentaires et auxiliaires dans les laboratoires dentaires	4	3	331	3223,3411
+33101	Medical laboratory assistants and related technical occupations	Assistants / assistantes de laboratoires médicaux et préposés / préposées techniques reliés	4	3	331	3212
+33102	Nurse aides, orderlies and patient service associates	Aides-infirmiers / aides-infirmières, aides-soignants / aides-soignantes et préposés / préposées aux bénéficiaires	4	3	331	3413
+33103	Pharmacy technical assistants and pharmacy assistants	Assistants techniques / assistantes techniques en pharmacie et assistants / assistantes en pharmacie	4	3	331	3219,3414
+33109	Other assisting occupations in support of health services	Autre personnel de soutien des services de santé	4	3	331	3237,3414
+40010	Government managers - health and social policy development and program administration	Gestionnaires de la fonction publique - élaboration de politiques et administration de programmes sociaux et de santé	4	0	400	0411
+40011	Government managers - economic analysis, policy development and program administration	Gestionnaires de la fonction publique - analyse économique, élaboration de politiques et administration de programmes	4	0	400	0412
+43204	Operations Members of the Canadian Armed Forces	Membres des opérations des Forces armées canadiennes	4	3	432	4313
+40012	Government managers - education policy development and program administration	Gestionnaires de la fonction publique - élaboration de politiques en matière d'éducation et administration de programmes	4	0	400	0413
+40019	Other managers in public administration	Autres gestionnaires de la fonction publique	4	0	400	0414
+40020	Administrators - post-secondary education and vocational training	Administrateurs / administratrices - enseignement postsecondaire et formation professionnelle	4	0	400	0421
+40021	School principals and administrators of elementary and secondary education	Directeurs / directrices d'école et administrateurs / administratrices de programmes d'enseignement aux niveaux primaire et secondaire	4	0	400	0422
+40030	Managers in social, community and correctional services	Directeurs / directrices des services sociaux, communautaires et correctionnels	4	0	400	0423
+40040	Commissioned police officers and related occupations in public protection services	Officiers / officières de direction des services de police et professions connexes des services de la protection du public	4	0	400	0431,0433
+40041	Fire chiefs and senior firefighting officers	Chefs et officiers supérieurs / officières supérieures des services d'incendie	4	0	400	0432
+40042	Commissioned officers of the Canadian Armed Forces	Officiers / officières de direction des Forces armées canadiennes	4	0	400	0433
+41100	Judges	Juges	4	1	411	4111
+41101	Lawyers and Quebec notaries	Avocats / avocates (partout au Canada) et notaires (au Québec)	4	1	411	4112
+41200	University professors and lecturers	Professeurs / professeures et chargés / chargées de cours au niveau universitaire	4	1	412	4011
+41201	Post-secondary teaching and research assistants	Assistants / assistantes d'enseignement et de recherche au niveau postsecondaire	4	1	412	4012
+41210	College and other vocational instructors	Enseignants / enseignantes au niveau collégial et autres instructeurs / instructrices en formation professionnelle	4	1	412	4021
+41220	Secondary school teachers	Enseignants / enseignantes au niveau secondaire	4	1	412	4031
+41221	Elementary school and kindergarten teachers	Enseignants / enseignantes aux niveaux primaire et préscolaire	4	1	412	4032
+41300	Social workers	Travailleurs sociaux / travailleuses sociales	4	1	413	4152
+41301	Therapists in counselling and related specialized therapies	Thérapeutes en counseling et thérapies spécialisées connexes	4	1	413	4151,3144,4153
+41302	Religious leaders	Chefs religieux	4	1	413	4154
+41310	Police investigators and other investigative occupations	Enquêteurs / enquêteuses de police et autres professions d’enquête	4	1	413	0431,4311,4165
+41311	Probation and parole officers	Agents / agentes de probation et de libération conditionnelle	4	1	413	4155
+41320	Educational counsellors	Conseillers / conseillères en information scolaire	4	1	413	4033
+41321	Career development practitioners and career counsellors (except education)	Conseillers / conseillères en développement de carrière et conseillers / conseillères en orientation (sauf éducation)	4	1	413	4153,4156
+41400	Natural and applied science policy researchers, consultants and program officers	Recherchistes, experts-conseils / expertes-conseils et agents / agentes de programmes, en sciences naturelles et appliquées	4	1	414	4161
+41401	Economists and economic policy researchers and analysts	Économistes, recherchistes et analystes des politiques économiques	4	1	414	4162
+41402	Business development officers and market researchers and analysts	Agents / agentes de développement économique et recherchistes et analystes en marketing	4	1	414	4163
+41403	Social policy researchers, consultants and program officers	Recherchistes, experts-conseils / expertes-conseils et agents / agentes de programmes en politiques sociales	4	1	414	4164
+41404	Health policy researchers, consultants and program officers	Recherchistes, experts-conseils / expertes-conseils et agents / agentes de programmes en politiques de la santé	4	1	414	4165
+41405	Education policy researchers, consultants and program officers	Recherchistes, experts-conseils / expertes-conseils et agents / agentes de programmes en politiques de l'enseignement	4	1	414	4166
+41406	Recreation, sports and fitness policy researchers, consultants and program officers	Recherchistes, experts-conseils / expertes-conseils et agents / agentes de programme en sports, en loisirs et en conditionnement physique	4	1	414	4167
+41407	Program officers unique to government	Agents / agentes de programmes propres au gouvernement	4	1	414	4168
+41409	Other professional occupations in social science	Autres professionnels / professionnelles des sciences sociales	4	1	414	4169
+42100	Police officers (except commissioned)	Policiers / policières (sauf cadres supérieurs)	4	2	421	4311,4313
+42101	Firefighters	Pompiers / pompières	4	2	421	4312
+42102	Specialized members of the Canadian Armed Forces	Membres spécialisés des Forces armées canadiennes	4	2	421	4313
+42200	Paralegal and related occupations	Techniciens / techniciennes juridiques et personnel assimilé	4	2	422	4211,1227
+42201	Social and community service workers	Travailleurs / travailleuses des services sociaux et communautaires	4	2	422	4212,4155
+42202	Early childhood educators and assistants	Éducateurs / éducatrices et aides-éducateurs / aides-éducatrices de la petite enfance	4	2	422	4214
+42203	Instructors of persons with disabilities	Instructeurs / instructrices pour personnes ayant une déficience	4	2	422	4215
+42204	Religion workers	Travailleurs / travailleuses de la religion	4	2	422	4217
+43100	Elementary and secondary school teacher assistants	Aides-enseignants / aides-enseignantes aux niveaux primaire et secondaire	4	3	431	4413
+43109	Other instructors	Autres instructeurs / instructrices	4	3	431	4216
+43200	Sheriffs and bailiffs	Shérifs et huissiers / huissières de justice	4	3	432	4421
+43201	Correctional service officers	Agents / agentes de services correctionnels	4	3	432	4422
+43202	By-law enforcement and other regulatory officers	Agents / agentes d'application de règlements municipaux et autres agents / agentes de réglementation	4	3	432	4423
+43203	Border services, customs, and immigration officers	Agents / agentes de services frontaliers, des douanes, et de l’immigration	4	3	432	1228
+44100	Home child care providers	Gardiens / gardiennes d'enfants en milieu familial	4	4	441	4411
+44101	Home support workers, caregivers and related occupations	Aides de maintien à domicile, aides familiaux / familiales et personnel assimilé	4	4	441	4412
+44200	Primary combat members of the Canadian Armed Forces	Combattants / combattantes de première ligne des Forces armées canadiennes	4	4	442	4313
+45100	Student monitors, crossing guards and related occupations	Surveillants / surveillantes d’élèves, brigadiers / brigadières et autres professions connexes	4	5	451	4413,6541
+50010	Library, archive, museum and art gallery managers	Directeurs / directrices de bibliothèques, des archives, de musées et de galeries d'art	4	0	500	0511
+50011	Managers - publishing, motion pictures, broadcasting and performing arts	Directeurs / directrices - édition, cinéma, radiotélédiffusion et arts de la scène	4	0	500	0512
+50012	Recreation, sports and fitness program and service directors	Directeurs / directrices de programmes et de services de sports, de loisirs et de conditionnement physique	4	0	500	0513
+51100	Librarians	Bibliothécaires	4	1	511	5111
+51101	Conservators and curators	Restaurateurs / restauratrices et conservateurs / conservatrices	4	1	511	5112
+51102	Archivists	Archivistes	4	1	511	5113
+51110	Editors	Réviseurs / réviseures, rédacteurs-réviseurs / rédactrices-réviseures et chefs du service des nouvelles	4	1	511	5122
+51111	Authors and writers (except technical)	Auteurs / auteures, écrivains / écrivaines et rédacteurs / rédactrices (sauf techniques)	4	1	511	5121
+51112	Technical writers	Rédacteurs / rédactrices techniques	4	1	511	5121
+51113	Journalists	Journalistes	4	1	511	5123
+51114	Translators, terminologists and interpreters	Traducteurs / traductrices, terminologues et interprètes	4	1	511	5125
+51120	Producers, directors, choreographers and related occupations	Producteurs / productrices, réalisateurs / réalisatrices, chorégraphes et personnel assimilé	4	1	511	5131
+51121	Conductors, composers and arrangers	Chefs d'orchestre, compositeurs / compositrices et arrangeurs / arrangeuses	4	1	511	5132
+51122	Musicians and singers	Musiciens / musiciennes et chanteurs / chanteuses	4	1	511	5133
+52100	Library and public archive technicians	Techniciens / techniciennes dans les bibliothèques et les services d'archives publiques	4	2	521	5211
+52110	Film and video camera operators	Cadreurs / cadreuses de films et cadreurs / cadreuses vidéo	4	2	521	5222
+52111	Graphic arts technicians	Techniciens / techniciennes en graphisme	4	2	521	5223
+52112	Broadcast technicians	Techniciens / techniciennes en radiotélédiffusion	4	2	521	5224
+52113	Audio and video recording technicians	Techniciens / techniciennes en enregistrement audio et vidéo	4	2	521	5225
+52114	Announcers and other broadcasters	Annonceurs / annonceuses et autres communicateurs / communicatrices	4	2	521	5231
+52119	Other technical and coordinating occupations in motion pictures, broadcasting and the performing arts	Autre personnel technique et personnel de coordination du cinéma, de la radiotélédiffusion et des arts de la scène	4	2	521	5226
+52120	Graphic designers and illustrators	Designers graphiques et illustrateurs / illustratrices	4	2	521	5241
+52121	Interior designers and interior decorators	Designers d'intérieur et décorateurs / décoratrices d'intérieur	4	2	521	5242
+53100	Registrars, restorers, interpreters and other occupations related to museum and art galleries	Registraires, restaurateurs / restauratrices, interprètes et autres travailleurs / travailleuses dans les domaines apparentés des musées et des galeries d'art	4	3	531	5212
+53110	Photographers	Photographes	4	3	531	5221
+53111	Motion pictures, broadcasting, photography and performing arts assistants and operators	Assistants / assistantes et opérateurs / opératrices du domaine du cinéma, de la radiotélédiffusion, de la photographie et des arts de la scène	4	3	531	5227
+53120	Dancers	Danseurs / danseuses	4	3	531	5134
+53121	Actors, comedians and circus performers	Acteurs / actrices, comédiens / comédiennes et artistes de cirque	4	3	531	5135,5232
+53122	Painters, sculptors and other visual artists	Peintres, sculpteurs / sculpteures et autres artistes des arts visuels	4	3	531	5136
+53123	Theatre, fashion, exhibit and other creative designers	Ensembliers / ensemblières de théâtre, dessinateurs / dessinatrices de mode, concepteurs / conceptrices d'expositions et autres concepteurs / conceptrices artistiques	4	3	531	5243
+53124	Artisans and craftspersons	Artisans / artisanes	4	3	531	5244
+53125	Patternmakers - textile, leather and fur products	Patronniers / patronnières de produits textiles et d'articles en cuir et en fourrure	4	3	531	5245
+53200	Athletes	Athlètes	4	3	532	5251
+53201	Coaches	Entraîneurs / entraîneuses	4	3	532	5252
+53202	Sports officials and referees	Arbitres et officiels / officielles de sports	4	3	532	5253
+54100	Program leaders and instructors in recreation, sport and fitness	Animateurs / animatrices et responsables de programmes de sports, de loisirs et de conditionnement physique	4	4	541	5254
+55109	Other performers	Autres artistes de spectacle	4	5	551	5232
+60010	Corporate sales managers	Directeurs / directrices des ventes corporatives	4	0	600	0601
+60020	Retail and wholesale trade managers	Directeurs / directrices - commerce de détail et de gros	4	0	600	0621
+60030	Restaurant and food service managers	Directeurs / directrices de la restauration et des services alimentaires	4	0	600	0631
+60031	Accommodation service managers	Directeurs / directrices des services d'hébergement	4	0	600	0632
+60040	Managers in customer and personal services	Directeurs / directrices du service à la clientèle et des services personnels	4	0	600	0651
+62010	Retail sales supervisors	Superviseurs / superviseures des ventes - commerce de détail	4	2	620	5243,6211
+62020	Food service supervisors	Superviseurs / superviseures des services alimentaires	4	2	620	6311
+62021	Executive housekeepers	Gouvernants principaux / gouvernantes principales	4	2	620	6312
+62022	Accommodation, travel, tourism and related services supervisors	Superviseurs / superviseures des services d'hébergement, de voyages, de tourisme et des services connexes	4	2	620	6313
+62023	Customer and information services supervisors	Superviseurs / superviseures des services d'information et des services à la clientèle	4	2	620	6314
+62024	Cleaning supervisors	Surveillants / surveillantes des services de nettoyage	4	2	620	6315
+62029	Other services supervisors	Surveillants / surveillantes des autres services	4	2	620	6316
+62100	Technical sales specialists - wholesale trade	Spécialistes des ventes techniques - commerce de gros	4	2	621	6221,6411
+62101	Retail and wholesale buyers	Acheteurs / acheteuses des commerces de détail et de gros	4	2	621	6222
+62200	Chefs	Chefs	4	2	622	6321
+62201	Funeral directors and embalmers	Directeurs / directrices de funérailles et embaumeurs / embaumeuses	4	2	622	6346
+62202	Jewellers, jewellery and watch repairers and related occupations	Bijoutiers / bijoutières, réparateurs / réparatrices de bijoux, horlogers-rhabilleurs / horlogères-rhabilleuses et personnel assimilé	4	2	622	6344
+63100	Insurance agents and brokers	Agents / agentes et courtiers / courtières d'assurance	4	3	631	6231
+63101	Real estate agents and salespersons	Agents / agentes et vendeurs / vendeuses en immobilier	4	3	631	6232
+63102	Financial sales representatives	Représentants / représentantes des ventes financières	4	3	631	6235
+63200	Cooks	Cuisiniers / cuisinières	4	3	632	6322
+63201	Butchers - retail and wholesale	Bouchers / bouchères - commerce de gros et de détail	4	3	632	6331
+63202	Bakers	Boulangers-pâtissiers / boulangères-pâtissières	4	3	632	6332
+63210	Hairstylists and barbers	Coiffeurs / coiffeuses et barbiers	4	3	632	6341
+63211	Estheticians, electrologists and related occupations	Esthéticiens / esthéticiennes, électrolystes et personnel assimilé	4	3	632	6562
+63220	Shoe repairers and shoemakers	Cordonniers / cordonnières et fabricants / fabricantes de chaussures	4	3	632	6343
+63221	Upholsterers	Tapissiers-garnisseurs / tapissières-garnisseuses	4	3	632	6345
+64100	Retail salespersons and visual merchandisers	Vendeurs / vendeuses et décorateur-étalagistes / décoratrices-étalagistes en commerce de détail	4	4	641	5243,6421
+64101	Sales and account representatives - wholesale trade (non-technical)	Représentants / représentantes des ventes et des comptes - commerce de gros (non-technique)	4	4	641	6411
+64200	Tailors, dressmakers, furriers and milliners	Tailleurs / tailleuses, couturiers / couturières, fourreurs / fourreuses et modistes	4	4	642	6342
+64201	Image, social and other personal consultants	Conseillers / conseillères imagistes, conseillers mondains / conseillères mondaines et autres conseillers / conseillères en soins personnalisés	4	4	642	6561
+64300	Maîtres d'hôtel and hosts / hostesses	Maîtres d'hôtel et hôtes / hôtesses	4	4	643	6511
+64301	Bartenders	Barmans / barmaids	4	4	643	6512
+64310	Travel counsellors	Conseillers / conseillères en voyages	4	4	643	6521
+64311	Pursers and flight attendants	Commissaires et agents / agentes de bord	4	4	643	6522
+64312	Airline ticket and service agents	Agents / agentes à la billetterie et aux services aériens	4	4	643	6523
+64313	Ground and water transport ticket agents, cargo service representatives and related clerks	Agents / agentes à la billetterie, représentants / représentantes du service en matière de fret et personnel assimilé dans le transport routier et maritime	4	4	643	6524
+64314	Hotel front desk clerks	Réceptionnistes d'hôtel	4	4	643	6525
+64320	Tour and travel guides	Guides touristiques et guides itinérants / guides itinérantes	4	4	643	6531
+64321	Casino workers	Travailleurs / travailleuses dans les casinos	4	4	643	6533
+64322	Outdoor sport and recreational guides	Guides d'activités récréatives et sportives de plein air	4	4	643	6532
+64400	Customer services representatives - financial institutions	Représentants / représentantes au service à la clientèle - institutions financières	4	4	644	6551
+64401	Postal services representatives	Représentants / représentantes des services postaux	4	4	644	1511
+64409	Other customer and information services representatives	Autres préposés / autres préposées aux services d'information et aux services à la clientèle	4	4	644	1123,6552
+64410	Security guards and related security service occupations	Agents / agentes de sécurité et personnel assimilé des services de sécurité	4	4	644	6541
+65100	Cashiers	Caissiers / caissières	4	5	651	6611
+65101	Service station attendants	Préposés / préposées de stations-service	4	5	651	6621
+65102	Store shelf stockers, clerks and order fillers	Garnisseurs / garnisseuses de tablettes, commis et préposés / préposées aux commandes dans les magasins	4	5	651	6622
+65109	Other sales related occupations	Autre personnel assimilé des ventes	4	5	651	6623
+65200	Food and beverage servers	Serveurs / serveuses d'aliments et de boissons	4	5	652	6513
+65201	Food counter attendants, kitchen helpers and related support occupations	Serveurs / serveuses au comptoir, aides de cuisine et personnel de soutien assimilé	4	5	652	6711
+65202	Meat cutters and fishmongers - retail and wholesale	Coupeurs / coupeuses de viande et poissonniers / poissonnières - commerce de gros et de détail	4	5	652	6331
+65210	Support occupations in accommodation, travel and facilities set-up services	Personnel de soutien en services d'hébergement, de voyage et en services de montage d'installation	4	5	652	6721
+65211	Operators and attendants in amusement, recreation and sport	Opérateurs / opératrices et préposés / préposées aux sports, aux loisirs et dans les parcs d'attractions	4	5	652	6316,6722
+65220	Pet groomers and animal care workers	Soigneurs / soigneuses d'animaux et travailleurs / travailleuses en soins des animaux	4	5	652	6563
+65229	Other support occupations in personal services	Autre professions de soutien dans les services personnels	4	5	652	6564
+65310	Light duty cleaners	Préposés / préposées à l'entretien ménager et au nettoyage - travaux légers	4	5	653	6731,4412
+65311	Specialized cleaners	Nettoyeurs spécialisés / nettoyeuses spécialisées	4	5	653	6732
+65312	Janitors, caretakers and heavy-duty cleaners	Concierges et nettoyeurs / nettoyeuses – gros travaux	4	5	653	6733
+65320	Dry cleaning, laundry and related occupations	Personnel de blanchisseries et d'établissements de nettoyage à sec et personnel assimilé	4	5	653	6741
+65329	Other service support occupations	Autre personnel de soutien en service	4	5	653	6541,6742
+70010	Construction managers	Directeurs / directrices de la construction	4	0	700	0711
+70011	Home building and renovation managers	Gestionnaires en construction et rénovation domiciliaire	4	0	700	0712
+70012	Facility operation and maintenance managers	Directeurs / directrices de l'exploitation et de l'entretien d'immeubles	4	0	700	0714,6221
+70020	Managers in transportation	Directeurs / directrices des transports	4	0	700	0731
+70021	Postal and courier services managers	Directeurs / directrices des services postaux et de messageries	4	0	700	0132
+72010	Contractors and supervisors, machining, metal forming, shaping and erecting trades and related occupations	Entrepreneurs / entrepreneuses et contremaîtres / contremaîtresses des machinistes et du personnel des métiers du formage, du profilage et du montage des métaux et personnel assimilé	4	2	720	7201
+72011	Contractors and supervisors, electrical trades and telecommunications occupations	Entrepreneurs / entrepreneuses et contremaîtres / contremaîtresses en électricité et en télécommunications	4	2	720	7202
+72012	Contractors and supervisors, pipefitting trades	Entrepreneurs / entrepreneuses et contremaîtres / contremaîtresses en tuyauterie	4	2	720	7203
+72013	Contractors and supervisors, carpentry trades	Entrepreneurs / entrepreneuses et contremaîtres / contremaîtresses en charpenterie	4	2	720	7204
+72014	Contractors and supervisors, other construction trades, installers, repairers and servicers	Entrepreneurs / entrepreneuses et contremaîtres / contremaîtresses des autres métiers de la construction et des services de réparation et d'installation	4	2	720	7205
+72020	Contractors and supervisors, mechanic trades	Entrepreneurs / entrepreneuses et contremaîtres / contremaîtresses en mécanique	4	2	720	7301
+72021	Contractors and supervisors, heavy equipment operator crews	Entrepreneurs / entrepreneuses et contremaîtres / contremaîtresses des équipes d'opérateurs d'équipement lourd	4	2	720	7302
+72022	Supervisors, printing and related occupations	Surveillants / surveillantes de l'imprimerie et du personnel assimilé	4	2	720	7303
+72023	Supervisors, railway transport operations	Surveillants / surveillantes des opérations du transport ferroviaire	4	2	720	7304
+72024	Supervisors, motor transport and other ground transit operators	Surveillants / surveillantes du transport routier et du transport en commun	4	2	720	7305
+72025	Supervisors, mail and message distribution occupations	Superviseurs / superviseures de services postaux et de messageries	4	2	720	1214
+72100	Machinists and machining and tooling inspectors	Machinistes et vérificateurs / vérificatrices d'usinage et d'outillage	4	2	721	7231
+72101	Tool and die makers	Outilleurs-ajusteurs / outilleuses-ajusteuses	4	2	721	7232
+72102	Sheet metal workers	Tôliers / tôlières	4	2	721	7233
+72103	Boilermakers	Chaudronniers / chaudronnières	4	2	721	7234
+72104	Structural metal and platework fabricators and fitters	Assembleurs / assembleuses et ajusteurs / ajusteuses de plaques et de charpentes métalliques	4	2	721	7235
+72105	Ironworkers	Monteurs / monteuses de charpentes métalliques	4	2	721	7236
+72106	Welders and related machine operators	Soudeurs / soudeuses et opérateurs / opératrices de machines à souder et à braser	4	2	721	7237
+72200	Electricians (except industrial and power system)	Électriciens / électriciennes (sauf électriciens industriels / électriciennes industrielles et de réseaux électriques)	4	2	722	7241
+72201	Industrial electricians	Électriciens industriels / électriciennes industrielles	4	2	722	7242
+72202	Power system electricians	Électriciens / électriciennes de réseaux électriques	4	2	722	7243
+72203	Electrical power line and cable workers	Monteurs / monteuses de lignes électriques et de câbles	4	2	722	7244
+72204	Telecommunications line and cable installers and repairers	Installateurs / installatrices et réparateurs / réparatrices de lignes et de câbles de télécommunications	4	2	722	7245,7247
+72205	Telecommunications equipment installation and cable television service technicians	Techniciens / techniciennes en installation de matériel de télécommunication et en services de câblodistribution	4	2	722	7246,7247
+72300	Plumbers	Plombiers / plombières	4	2	723	7251
+72301	Steamfitters, pipefitters and sprinkler system installers	Tuyauteurs / tuyauteuses, monteurs / monteuses d'appareils de chauffage et poseurs / poseuses de gicleurs	4	2	723	7252
+72302	Gas fitters	Monteurs / monteuses d'installations au gaz	4	2	723	7253
+72310	Carpenters	Charpentiers-menuisiers / charpentières-menuisières	4	2	723	7271
+72311	Cabinetmakers	Ébénistes	4	2	723	7272
+72320	Bricklayers	Briqueteurs-maçons / briqueteuses-maçonnes	4	2	723	7281
+72321	Insulators	Calorifugeurs / calorifugeuses	4	2	723	7293
+72400	Construction millwrights and industrial mechanics	Mécaniciens / mécaniciennes de chantier et mécaniciens industriels / mécaniciennes industrielles	4	2	724	7311
+72401	Heavy-duty equipment mechanics	Mécaniciens / mécaniciennes d'équipement lourd	4	2	724	7312
+72402	Heating, refrigeration and air conditioning mechanics	Mécaniciens / mécaniciennes en chauffage, réfrigération et climatisation	4	2	724	7313
+72403	Railway carmen / women	Réparateurs / réparatrices de wagons	4	2	724	7314
+72404	Aircraft mechanics and aircraft inspectors	Mécaniciens / mécaniciennes et contrôleurs / contrôleuses d'aéronefs	4	2	724	7315
+72405	Machine fitters	Ajusteurs / ajusteuses de machines	4	2	724	7316
+72406	Elevator constructors and mechanics	Constructeurs / constructrices et mécaniciens / mécaniciennes d'ascenseurs	4	2	724	7318
+72410	Automotive service technicians, truck and bus mechanics and mechanical repairers	Mécaniciens / mécaniciennes et réparateurs / réparatrices de véhicules automobiles, de camions et d'autobus	4	2	724	7321
+75212	Public works and maintenance labourers	Manoeuvres à l'entretien des travaux publics	4	5	752	7621
+72411	Auto body collision, refinishing and glass technicians and damage repair estimators	Techniciens / techniciennes en collision, en carrosserie, en peinture et en glace de véhicule automobile et estimateurs / estimatrices de dommages	4	2	724	7322
+72420	Oil and solid fuel heating mechanics	Installateurs / installatrices de brûleurs à l'huile et à combustibles solides	4	2	724	7331
+72421	Appliance servicers and repairers	Réparateurs / réparatrices et préposés / préposées à l'entretien d'appareils	4	2	724	7332
+72422	Electrical mechanics	Électromécaniciens / électromécaniciennes	4	2	724	7333
+72423	Motorcycle, all-terrain vehicle and other related mechanics	Mécaniciens / mécaniciennes de motocyclettes, de véhicules tout-terrain et personnel mécanicien assimilé	4	2	724	7334,7384
+72429	Other small engine and small equipment repairers	Autres réparateurs / réparatrices de petits moteurs et de petits équipements	4	2	724	7335
+72500	Crane operators	Grutiers / grutières	4	2	725	7371
+72501	Water well drillers	Foreurs / foreuses de puits d'eau	4	2	725	7373
+72600	Air pilots, flight engineers and flying instructors	Pilotes, navigateurs / navigatrices et instructeurs / instructrices de pilotage du transport aérien	4	2	726	2271,8252
+72601	Air traffic controllers and related occupations	Contrôleurs aériens / contrôleuses aériennes et personnel assimilé	4	2	726	2272
+72602	Deck officers, water transport	Officiers / officières de pont du transport par voies navigables	4	2	726	2273
+72603	Engineer officers, water transport	Officiers mécaniciens / officières mécaniciennes du transport par voies navigables	4	2	726	2274
+72604	Railway traffic controllers and marine traffic regulators	Contrôleurs / contrôleuses de la circulation ferroviaire et régulateurs / régulatrices de la circulation maritime	4	2	726	2275
+72999	Other technical trades and related occupations	Autres métiers techniques et personnel assimilé	4	2	729	7384
+73100	Concrete finishers	Finisseurs / finisseuses de béton	4	3	731	7282
+73101	Tilesetters	Carreleurs / carreleuses	4	3	731	7283
+73102	Plasterers, drywall installers and finishers and lathers	Plâtriers / plâtrières, poseurs / poseuses et finisseurs / finisseuses de systèmes intérieurs et latteurs / latteuses	4	3	731	7284
+73110	Roofers and shinglers	Couvreurs / couvreuses et poseurs / poseuses de bardeaux	4	3	731	7291
+73111	Glaziers	Vitriers / vitrières	4	3	731	7292
+73112	Painters and decorators (except interior decorators)	Peintres et décorateurs / décoratrices (sauf décorateurs / décoratrices d'intérieur)	4	3	731	7294
+73113	Floor covering installers	Poseurs / poseuses de revêtements d'intérieur	4	3	731	7295
+73200	Residential and commercial installers and servicers	Personnel d'installation, d'entretien et de réparation d'équipement résidentiel et commercial	4	3	732	7441
+73201	General building maintenance workers and building superintendents	Préposés à l’entretien général et surintendants / surintendantes	4	3	732	6733
+73202	Pest controllers and fumigators	Fumigateurs / fumigatrices et préposés / préposées au contrôle de la vermine	4	3	732	7444
+73209	Other repairers and servicers	Autres réparateurs / réparatrices et préposés / préposées à l'entretien	4	3	732	7445
+73300	Transport truck drivers	Conducteurs / conductrices de camions de transport	4	3	733	7511
+73301	Bus drivers, subway operators and other transit operators	Conducteurs / conductrices d'autobus et opérateurs / opératrices de métro et autres transports en commun	4	3	733	7512
+73310	Railway and yard locomotive engineers	Mécaniciens / mécaniciennes de locomotive et de cour de triage	4	3	733	7361
+73311	Railway conductors and brakemen / women	Chefs de train et serre-freins	4	3	733	7362
+73400	Heavy equipment operators	Conducteurs / conductrices d'équipement lourd	4	3	734	7521
+73401	Printing press operators	Opérateurs / opératrices de presses à imprimer	4	3	734	7381
+73402	Drillers and blasters - surface mining, quarrying and construction	Foreurs / foreuses et dynamiteurs / dynamiteuses de mines à ciel ouvert, de carrières et de chantiers de construction	4	3	734	7372
+74100	Mail and parcel sorters and related occupations	Trieurs / trieuses de courrier et de colis et professions connexes	4	4	741	1511
+74101	Letter carriers	Facteurs / factrices	4	4	741	1512
+74102	Couriers and messengers	Messagers / messagères	4	4	741	1513,7514
+74200	Railway yard and track maintenance workers	Ouvriers / ouvrières de gares de triage et à l'entretien de la voie ferrée	4	4	742	7531
+74201	Water transport deck and engine room crew	Matelots de pont et matelots de salle des machines du transport par voies navigables	4	4	742	7532
+74202	Air transport ramp attendants	Agents / agentes de piste dans le transport aérien	4	4	742	7534,1215
+74203	Automotive and heavy truck and equipment parts installers and servicers	Préposés / préposées à la pose et à l'entretien des pièces mécaniques d'automobiles et de camions et équipements lourds	4	4	742	7535
+74204	Utility maintenance workers	Personnel d'entretien des services publics	4	4	742	7442,7522
+74205	Public works maintenance equipment operators and related workers	Conducteurs / conductrices de machinerie d'entretien public et personnel assimilé	4	4	742	7522
+75100	Longshore workers	Débardeurs / débardeuses	4	5	751	7451
+75101	Material handlers	Manutentionnaires	4	5	751	6221,7452
+75110	Construction trades helpers and labourers	Aides de soutien des métiers et manoeuvres en construction	4	5	751	7371,7611
+75119	Other trades helpers and labourers	Autres manoeuvres et aides de soutien de métiers	4	5	751	7612
+75200	Taxi and limousine drivers and chauffeurs	Chauffeurs / chauffeuses de taxi, chauffeurs / chauffeuses de limousine et chauffeurs / chauffeuses	4	5	752	7513
+75201	Delivery service drivers and door-to-door distributors	Chauffeurs-livreurs / chauffeuses-livreuses de services de livraison et distributeurs / distributrices porte-à-porte	4	5	752	7514,1513
+75210	Boat and cable ferry operators and related occupations	Opérateurs / opératrices de bateau à moteur, de bac à câble et personnel assimilé	4	5	752	7533
+75211	Railway and motor transport labourers	Manoeuvres dans le transport ferroviaire et routier	4	5	752	7622
+80010	Managers in natural resources production and fishing	Directeurs / directrices de l'exploitation des ressources naturelles et de la pêche	4	0	800	0811
+80020	Managers in agriculture	Gestionnaires en agriculture	4	0	800	0821
+80021	Managers in horticulture	Gestionnaires en horticulture	4	0	800	0822
+80022	Managers in aquaculture	Gestionnaires en aquaculture	4	0	800	0823
+82010	Supervisors, logging and forestry	Surveillants / surveillantes de l'exploitation forestière	4	2	820	8211
+82020	Supervisors, mining and quarrying	Surveillants / surveillantes de l'exploitation des mines et des carrières	4	2	820	8221
+82021	Contractors and supervisors, oil and gas drilling and services	Entrepreneurs / entrepreneuses et surveillants / surveillantes du forage et des services reliés à l'extraction de pétrole et de gaz	4	3	820	8222
+82030	Agricultural service contractors and farm supervisors	Ouvriers spécialisés / ouvrières spécialisées dans l’élevage et opérateurs / opératrices de machineries agricoles	4	2	820	8252
+82031	Contractors and supervisors, landscaping, grounds maintenance and horticulture services	Entrepreneurs / entrepreneuses et superviseurs / superviseures des services de l'aménagement paysager, de l'entretien des terrains et de l'horticulture	4	2	820	8255
+83100	Underground production and development miners	Mineurs / mineuses d'extraction et de préparation, mines souterraines	4	3	831	8231
+83101	Oil and gas well drillers, servicers, testers and related workers	Foreurs / foreuses et personnel de mise à l'essai et des autres services reliés à l'extraction de pétrole et de gaz	4	3	831	8232
+83110	Logging machinery operators	Conducteurs / conductrices de machines d'abattage d'arbres	4	3	831	8241
+83120	Fishing masters and officers	Capitaines et officiers / officières de bâtiments de pêche	4	3	831	8261
+83121	Fishermen / women	Pêcheurs indépendants / pêcheuses indépendantes	4	3	831	8262
+84100	Underground mine service and support workers	Travailleurs / travailleuses d'entretien et de soutien des mines souterraines	4	4	841	8411
+84101	Oil and gas well drilling and related workers and services operators	Travailleurs / travailleuses du forage et de l'entretien des puits de pétrole et de gaz et personnel assimilé	4	4	841	8412
+84110	Chain saw and skidder operators	Opérateurs / opératrices de scies à chaîne et d'engins de débardage	4	4	841	8421
+84111	Silviculture and forestry workers	Ouvriers / ouvrières en sylviculture et en exploitation forestière	4	4	841	8422
+84120	Specialized livestock workers and farm machinery operators	Ouvriers spécialisés / ouvrières spécialisées dans l’élevage et opérateurs / opératrices de machineries agricoles	4	4	841	8252,8431
+84121	Fishing vessel deckhands	Matelots de pont sur les bateaux de pêche	4	4	841	8441
+85100	Livestock labourers	Manoeuvres aux soins du bétail	4	5	851	8431,8252
+85101	Harvesting labourers	Manoeuvres à la récolte	4	5	851	8431,8611
+85102	Aquaculture and marine harvest labourers	Manoeuvres de l'aquaculture et de la mariculture	4	5	851	8613
+85103	Nursery and greenhouse labourers	Manoeuvres de pépinières et de serres	4	5	851	8432
+85104	Trappers and hunters	Trappeurs / trappeuses et chasseurs / chasseuses	4	5	851	8442
+85110	Mine labourers	Manoeuvres des mines	4	5	851	8614
+85111	Oil and gas drilling, servicing and related labourers	Manoeuvres de forage et d'entretien des puits de pétrole et de gaz, et personnel assimilé	4	5	851	8615
+85120	Logging and forestry labourers	Manoeuvres de l'exploitation forestière	4	5	851	8616
+85121	Landscaping and grounds maintenance labourers	Manoeuvres en aménagement paysager et en entretien des terrains	4	5	851	8612
+90010	Manufacturing managers	Directeurs / directrices de la fabrication	4	0	900	0911
+90011	Utilities managers	Directeurs / directrices des services d'utilité publique	4	0	900	0912
+92010	Supervisors, mineral and metal processing	Surveillants / surveillantes dans la transformation des métaux et des minerais	4	2	920	9211
+92011	Supervisors, petroleum, gas and chemical processing and utilities	Surveillants / surveillantes dans le raffinage du pétrole, dans le traitement du gaz et des produits chimiques et dans les services d'utilité publique	4	2	920	9212
+92012	Supervisors, food and beverage processing	Surveillants / surveillantes dans la transformation des aliments et des boissons	4	2	920	9213
+92013	Supervisors, plastic and rubber products manufacturing	Surveillants / surveillantes dans la fabrication de produits en caoutchouc et en plastique	4	2	920	9214
+92014	Supervisors, forest products processing	Surveillants / surveillantes dans la transformation des produits forestiers	4	2	920	9215
+92015	Supervisors, textile, fabric, fur and leather products processing and manufacturing	Surveillants / surveillantes dans la transformation et la fabrication de produits textiles, de tissus, de fourrure et de cuir	4	2	920	9217
+92020	Supervisors, motor vehicle assembling	Surveillants / surveillantes dans la fabrication de véhicules automobiles	4	2	920	9221
+92021	Supervisors, electronics and electrical products manufacturing	Surveillants / surveillantes dans la fabrication de matériel électronique et d'appareils électriques	4	2	920	9222,9223
+92022	Supervisors, furniture and fixtures manufacturing	Surveillants / surveillantes dans la fabrication de meubles et d'accessoires	4	2	920	9224
+92023	Supervisors, other mechanical and metal products manufacturing	Surveillants / surveillantes dans la fabrication d'autres produits métalliques et de pièces mécaniques	4	2	920	9226
+92024	Supervisors, other products manufacturing and assembly	Surveillants / surveillantes dans la fabrication et le montage de produits divers	4	2	920	9227
+92100	Power engineers and power systems operators	Mécaniciens / mécaniciennes de centrales et opérateurs / opératrices de réseaux électriques	4	2	921	9241
+92101	Water and waste treatment plant operators	Opérateurs / opératrices d'installations du traitement de l'eau et des déchets	4	2	921	9243
+93100	Central control and process operators, mineral and metal processing	Opérateurs / opératrices de poste central de contrôle et de conduite de procédés industriels dans le traitement des métaux et des minerais	4	3	931	9231
+93101	Central control and process operators, petroleum, gas and chemical processing	Opérateurs / opératrices de salle de commande centrale et de conduite de procédés industriels dans le raffinage du pétrole et le traitement du gaz et des produits chimiques	4	3	931	9232
+93102	Pulping, papermaking and coating control operators	Opérateurs / opératrices au contrôle de la réduction en pâte des pâtes et papiers, de la fabrication du papier et du couchage	4	3	931	9235
+93200	Aircraft assemblers and aircraft assembly inspectors	Monteurs / monteuses d'aéronefs et contrôleurs / contrôleuses de montage d'aéronefs	4	3	932	9521
+94100	Machine operators, mineral and metal processing	Opérateurs / opératrices de machines dans le traitement des métaux et des minerais	4	4	941	9411
+94101	Foundry workers	Ouvriers / ouvrières de fonderies	4	4	941	9412
+94102	Glass forming and finishing machine operators and glass cutters	Opérateurs / opératrices de machines à former et à finir le verre et coupeurs / coupeuses de verre	4	4	941	9413
+94103	Concrete, clay and stone forming operators	Opérateurs / opératrices de machines dans le façonnage et la finition des produits en béton, en argile ou en pierre	4	4	941	9414
+94104	Inspectors and testers, mineral and metal processing	Contrôleurs / contrôleuses et essayeurs / essayeuses dans la transformation des métaux et des minerais	4	4	941	9415
+94105	Metalworking and forging machine operators	Opérateurs / opératrices de machines à forger et à travailler les métaux	4	4	941	9416
+94106	Machining tool operators	Opérateurs / opératrices de machines d'usinage	4	4	941	9417
+94107	Machine operators of other metal products	Opérateurs / opératrices de machines d'autres produits métalliques	4	4	941	9418
+94110	Chemical plant machine operators	Opérateurs / opératrices d'installations de traitement des produits chimiques	4	4	941	9421
+94111	Plastics processing machine operators	Opérateurs / opératrices de machines de traitement des matières plastiques	4	4	941	9422
+94112	Rubber processing machine operators and related workers	Opérateurs / opératrices de machines de transformation du caoutchouc et personnel assimilé	4	4	941	9423
+94120	Sawmill machine operators	Opérateurs / opératrices de machines à scier dans les scieries	4	4	941	9431
+94121	Pulp mill, papermaking and finishing machine operators	Opérateurs / opératrices de machines dans la fabrication et la finition du papier dans les usines de pâte à papier	4	4	941	9432,9433
+94122	Paper converting machine operators	Opérateurs / opératrices de machines à façonner le papier	4	4	941	9435
+94123	Lumber graders and other wood processing inspectors and graders	Classeurs / classeuses de bois d'oeuvre et autres vérificateurs / vérificatrices et classeurs / classeuses dans la transformation du bois	4	4	941	9436
+94124	Woodworking machine operators	Opérateurs / opératrices de machines à travailler le bois	4	4	941	9437
+94129	Other wood processing machine operators	Autres opérateurs / opératrices de machines dans la transformation du bois	4	4	941	9434
+94130	Textile fibre and yarn, hide and pelt processing machine operators and workers	Opérateurs / opératrices de machines et travailleurs / travailleuses de traitement des fibres et des fils textiles, du cuir et des peaux	4	4	941	9441
+94131	Weavers, knitters and other fabric making occupations	Tisseurs / tisseuses, tricoteurs / tricoteuses et autres opérateurs / opératrices de machines textiles	4	4	941	9442
+94132	Industrial sewing machine operators	Opérateurs / opératrices de machines à coudre industrielles	4	4	941	9446
+94133	Inspectors and graders, textile, fabric, fur and leather products manufacturing	Contrôleurs / contrôleuses et trieurs / trieuses dans la fabrication de produits textiles, de tissus, de fourrure et de cuir	4	4	941	9447
+94140	Process control and machine operators, food and beverage processing	Opérateurs / opératrices de machines et de procédés industriels dans la transformation des aliments et des boissons	4	4	941	9461
+94141	Industrial butchers and meat cutters, poultry preparers and related workers	Bouchers industriels / bouchères industrielles, dépeceurs-découpeurs / dépeceuses-découpeuses de viande, préparateurs / préparatrices de volaille et personnel assimilé	4	4	941	9462
+94142	Fish and seafood plant workers	Ouvriers / ouvrières dans les usines de transformation du poisson et de fruits de mer	4	4	941	9463,9618
+94143	Testers and graders, food and beverage processing	Échantillonneurs / échantillonneuses et trieurs / trieuses dans la transformation des aliments et des boissons	4	4	941	9465
+94150	Plateless printing equipment operators	Opérateurs / opératrices d'équipement d'impression sans plaque	4	4	941	9471
+94151	Camera, platemaking and other prepress occupations	Photograveurs-clicheurs / photograveuses-clicheuses, photograveurs-reporteurs / photograveuses-reporteuses et autre personnel de prépresse	4	4	941	9472
+94152	Binding and finishing machine operators	Opérateurs / opératrices de machines à relier et de finition	4	4	941	9473
+94153	Photographic and film processors	Développeurs / développeuses de films et de photographies	4	4	941	9474
+94200	Motor vehicle assemblers, inspectors and testers	Assembleurs / assembleuses, contrôleurs / contrôleuses et vérificateurs / vérificatrices de véhicules automobiles	4	4	942	9522
+94201	Electronics assemblers, fabricators, inspectors and testers	Assembleurs / assembleuses, monteurs / monteuses, contrôleurs / contrôleuses et vérificateurs / vérificatrices de matériel électronique	4	4	942	9523
+94202	Assemblers and inspectors, electrical appliance, apparatus and equipment manufacturing	Monteurs / monteuses et contrôleurs / contrôleuses dans la fabrication de matériel, d'appareils et d'accessoires électriques	4	4	942	9524
+94203	Assemblers, fabricators and inspectors, industrial electrical motors and transformers	Assembleurs / assembleuses, monteurs / monteuses et contrôleurs / contrôleuses dans la fabrication de transformateurs et de moteurs électriques industriels	4	4	942	9525
+94204	Mechanical assemblers and inspectors	Monteurs / monteuses et contrôleurs / contrôleuses de matériel mécanique	4	4	942	9526
+94205	Machine operators and inspectors, electrical apparatus manufacturing	Opérateurs / opératrices de machines et contrôleurs / contrôleuses dans la fabrication d'appareils électriques	4	4	942	9527
+94210	Furniture and fixture assemblers, finishers, refinishers and inspectors	Monteurs / monteuses, finisseurs / finisseuses, restaurateurs / restauratrices et contrôleurs / contrôleuses de meubles et d’accessoires	4	4	942	9532,9534
+94211	Assemblers and inspectors of other wood products	Monteurs / monteuses et contrôleurs / contrôleuses d'autres produits en bois	4	4	942	9533
+94212	Plastic products assemblers, finishers and inspectors	Assembleurs / assembleuses, finisseurs / finisseuses et contrôleurs / contrôleuses de produits en plastique	4	4	942	9535
+94213	Industrial painters, coaters and metal finishing process operators	Peintres, enduiseurs / enduiseuses et opérateurs / opératrices de procédés dans le finissage du métal - secteur industriel	4	4	942	9536
+94219	Other products assemblers, finishers and inspectors	Monteurs / monteuses, finisseurs / finisseuses et contrôleurs / contrôleuses de produits divers	4	4	942	9531,9537
+95100	Labourers in mineral and metal processing	Manoeuvres dans le traitement des métaux et des minerais	4	5	951	9611
+95101	Labourers in metal fabrication	Manoeuvres en métallurgie	4	5	951	9612
+95102	Labourers in chemical products processing and utilities	Manoeuvres dans le traitement des produits chimiques et les services d'utilité publique	4	5	951	9613,9421
+95103	Labourers in wood, pulp and paper processing	Manoeuvres dans le traitement des pâtes et papiers et la transformation du bois	4	5	951	9614
+95104	Labourers in rubber and plastic products manufacturing	Manoeuvres dans la fabrication des produits en caoutchouc et en plastique	4	5	951	9615
+95105	Labourers in textile processing and cutting	Manoeuvres dans la fabrication et la coupe des produits du textile	4	5	951	9616,9441,9445
+95106	Labourers in food and beverage processing	Manoeuvres dans la transformation des aliments et des boissons	4	5	951	9617
+95107	Labourers in fish and seafood processing	Manoeuvres dans la transformation du poisson et des fruits de mer	4	5	951	9618
 \.
 
 
@@ -26860,8 +26930,8 @@ career_regional	B.C. Labour Market Outlook	\N	WorkBC_Career_Profile_Data_2023__J
 career_provincial	B.C. Labour Market Outlook	\N	WorkBC_Career_Profile_Data_2023__Jan22_24	Provincial Outlook	A4-K515	\N	2024/01/22
 high_opportunity_occupations	\N	\N	HOO_BC_and_Region_for_new_tool_2023_Jan22_24	Sheet1	A2-O850	B.C. Labour Market Information Office	2024/01/22
 occupational_interests	\N	\N	Occupational_Interests_2023_Feb23_24	Sheet1	A2-C1537	\N	2024/02/23
-monthly_labour_market_updates	Labour Force Survey (monthly, seasonally adjusted)	\N	REFRESH_WorkBC LMS _<YYYY> <MMM> FINAL	Sheet3	\N	\N	2023/04/14
-monthly_labour_market_updates	Monthly Labour Force Survey, 3-month moving average, seasonally unadjusted	unemployment_pct	REFRESH_WorkBC LMS _<YYYY> <MMM> FINAL	Sheet3	\N	\N	2023/04/14
+monthly_labour_market_updates	Labour Force Survey (monthly, seasonally adjusted)	\N	REFRESH_WorkBC LMS _<YYYY> <MMM> FINAL	Sheet3	\N	\N	2024/02/01
+monthly_labour_market_updates	Monthly Labour Force Survey, 3-month moving average, seasonally unadjusted	unemployment_pct	REFRESH_WorkBC LMS _<YYYY> <MMM> FINAL	Sheet3	\N	\N	\N
 industry_outlook	B.C. Labour Market Outlook	\N	WorkBC_Industry_Profile_2023__Jan24_24	BC	A3-H20	\N	2024/01/24
 openings_industry	\N	\N	top_10_careers_by_aggregate_industry_2023__Jan22_24	Sheet 1	A2-D181	\N	2024/01/22
 labour_force_survey_industry	2023 Labour Force Survey	\N	2023_LFS_data_sheet_Feb6_24	Industry Profiles	A5-BC23	BC Labour Market Information Office	2024/02/06
@@ -26870,6 +26940,7 @@ labour_force_survey_regional_industry_region	2023 Labour Force Survey	\N	2023_LF
 labour_force_survey_regional_industry_province	2023 Labour Force Survey	\N	2023_LFS_data_sheet_Feb6_24	Regional Profiles	A35-U42	BC Labour Market Information Office	2024/02/06
 regional_labour_market_outlook	B.C. Labour Market Outlook	\N	WorkBC_Regional_Profile_Data_2023__Jan24_24	Regional Profiles - LMO	A5-L12	\N	2024/01/24
 regional_top_occupations	B.C. Labour Market Outlook	\N	WorkBC_Regional_Profile_Data_2023__Jan24_24	Top Occupation	A5-D73	\N	2024/01/24
+nocs	\N	\N	NOC2021/*	\N	\N	\N	2024/01/28
 \.
 
 
@@ -31711,6 +31782,7 @@ COPY public.wages (noc, occupation_title, esdc_wage_rate_low, esdc_wage_rate_med
 14401	Storekeepers and partspersons	20	26.51	42	55289.25600000001	Estimated median employment income based on 2023 Job Bank median hourly wage rate (median annual salary = hourly wage rate x 40 (hours per week) x 52.14 (weeks per year))
 14402	Production logistics workers	16.91	27.99	46.65	58375.943999999996	Estimated median employment income based on 2023 Job Bank median hourly wage rate (median annual salary = hourly wage rate x 40 (hours per week) x 52.14 (weeks per year))
 14403	Purchasing and inventory control workers	17	24	42.5	50054.4	Estimated median employment income based on 2023 Job Bank median hourly wage rate (median annual salary = hourly wage rate x 40 (hours per week) x 52.14 (weeks per year))
+72501	Water well drillers	\N	\N	\N	73000	2021 Census (Full-time full year median employment income)
 14404	Dispatchers	17.75	28	38.46	58396.8	Estimated median employment income based on 2023 Job Bank median hourly wage rate (median annual salary = hourly wage rate x 40 (hours per week) x 52.14 (weeks per year))
 14405	Transportation route and crew schedulers	19.32	29.73	47.81	62004.888000000006	Estimated median employment income based on 2023 Job Bank median hourly wage rate (median annual salary = hourly wage rate x 40 (hours per week) x 52.14 (weeks per year))
 20010	Engineering managers	42	60	88.94	125136	Estimated median employment income based on 2023 Job Bank median hourly wage rate (median annual salary = hourly wage rate x 40 (hours per week) x 52.14 (weeks per year))
@@ -31741,6 +31813,7 @@ COPY public.wages (noc, occupation_title, esdc_wage_rate_low, esdc_wage_rate_med
 21233	Web designers	22	30.29	49.23	63172.82399999999	Estimated median employment income based on 2023 Job Bank median hourly wage rate (median annual salary = hourly wage rate x 40 (hours per week) x 52.14 (weeks per year))
 21234	Web developers and programmers	16.75	36.72	61.43	76583.232	Estimated median employment income based on 2023 Job Bank median hourly wage rate (median annual salary = hourly wage rate x 40 (hours per week) x 52.14 (weeks per year))
 21300	Civil engineers	27.44	52.85	88	110223.96	Estimated median employment income based on 2023 Job Bank median hourly wage rate (median annual salary = hourly wage rate x 40 (hours per week) x 52.14 (weeks per year))
+83120	Fishing masters and officers	\N	\N	\N	53600	2021 Census (Full-time full year median employment income)
 21301	Mechanical engineers	24.04	38.46	74.52	80212.176	Estimated median employment income based on 2023 Job Bank median hourly wage rate (median annual salary = hourly wage rate x 40 (hours per week) x 52.14 (weeks per year))
 21310	Electrical and electronics engineers	28.85	48.72	72.12	101610.432	Estimated median employment income based on 2023 Job Bank median hourly wage rate (median annual salary = hourly wage rate x 40 (hours per week) x 52.14 (weeks per year))
 21311	Computer engineers (except software engineers and designers)	25.85	42	61.54	87595.2	Estimated median employment income based on 2023 Job Bank median hourly wage rate (median annual salary = hourly wage rate x 40 (hours per week) x 52.14 (weeks per year))
@@ -31798,6 +31871,7 @@ COPY public.wages (noc, occupation_title, esdc_wage_rate_low, esdc_wage_rate_med
 32103	Respiratory therapists, clinical perfusionists and cardiopulmonary technologists	33.81	38.5	50	80295.6	Estimated median employment income based on 2023 Job Bank median hourly wage rate (median annual salary = hourly wage rate x 40 (hours per week) x 52.14 (weeks per year))
 32104	Animal health technologists and veterinary technicians	16.75	21	26	43797.6	Estimated median employment income based on 2023 Job Bank median hourly wage rate (median annual salary = hourly wage rate x 40 (hours per week) x 52.14 (weeks per year))
 32109	Other technical occupations in therapy and assessment	18	24	36.06	50054.4	Estimated median employment income based on 2023 Job Bank median hourly wage rate (median annual salary = hourly wage rate x 40 (hours per week) x 52.14 (weeks per year))
+14112	Desktop publishing operators and related occupations	\N	\N	\N	56400	2021 Census (Full-time full year median employment income)
 32111	Dental hygienists and dental therapists	37.5	48	55	100108.8	Estimated median employment income based on 2023 Job Bank median hourly wage rate (median annual salary = hourly wage rate x 40 (hours per week) x 52.14 (weeks per year))
 32112	Dental technologists and technicians	25	26	33	54225.6	Estimated median employment income based on 2023 Job Bank median hourly wage rate (median annual salary = hourly wage rate x 40 (hours per week) x 52.14 (weeks per year))
 32120	Medical laboratory technologists	25	37	46	77167.2	Estimated median employment income based on 2023 Job Bank median hourly wage rate (median annual salary = hourly wage rate x 40 (hours per week) x 52.14 (weeks per year))
@@ -31854,6 +31928,7 @@ COPY public.wages (noc, occupation_title, esdc_wage_rate_low, esdc_wage_rate_med
 43100	Elementary and secondary school teacher assistants	20.98	27	30.17	56311.2	Estimated median employment income based on 2023 Job Bank median hourly wage rate (median annual salary = hourly wage rate x 40 (hours per week) x 52.14 (weeks per year))
 43109	Other instructors	16.75	17	35	35455.2	Estimated median employment income based on 2023 Job Bank median hourly wage rate (median annual salary = hourly wage rate x 40 (hours per week) x 52.14 (weeks per year))
 43200	Sheriffs and bailiffs	28.13	33.68	42.6	70243.008	Estimated median employment income based on 2023 Job Bank median hourly wage rate (median annual salary = hourly wage rate x 40 (hours per week) x 52.14 (weeks per year))
+80020	Managers in agriculture	\N	\N	\N	28000	2021 Census (Full-time full year median employment income)
 43201	Correctional service officers	26.7	35	46.63	72996	Estimated median employment income based on 2023 Job Bank median hourly wage rate (median annual salary = hourly wage rate x 40 (hours per week) x 52.14 (weeks per year))
 43202	By-law enforcement and other regulatory officers	30	35	43.96	72996	Estimated median employment income based on 2023 Job Bank median hourly wage rate (median annual salary = hourly wage rate x 40 (hours per week) x 52.14 (weeks per year))
 43203	Border services, customs, and immigration officers	28.15	36	56.41	75081.6	Estimated median employment income based on 2023 Job Bank median hourly wage rate (median annual salary = hourly wage rate x 40 (hours per week) x 52.14 (weeks per year))
@@ -31913,6 +31988,7 @@ COPY public.wages (noc, occupation_title, esdc_wage_rate_low, esdc_wage_rate_med
 62200	Chefs	16.75	20.41	28.13	42567.096	Estimated median employment income based on 2023 Job Bank median hourly wage rate (median annual salary = hourly wage rate x 40 (hours per week) x 52.14 (weeks per year))
 62201	Funeral directors and embalmers	21.24	30.69	45.37	64007.064000000006	Estimated median employment income based on 2023 Job Bank median hourly wage rate (median annual salary = hourly wage rate x 40 (hours per week) x 52.14 (weeks per year))
 63100	Insurance agents and brokers	18.97	28	45.45	58396.8	Estimated median employment income based on 2023 Job Bank median hourly wage rate (median annual salary = hourly wage rate x 40 (hours per week) x 52.14 (weeks per year))
+55109	Other performers	\N	\N	\N	46000	2021 Census (Full-time full year median employment income)
 63102	Financial sales representatives	19.23	28.85	51.28	60169.56	Estimated median employment income based on 2023 Job Bank median hourly wage rate (median annual salary = hourly wage rate x 40 (hours per week) x 52.14 (weeks per year))
 63200	Cooks	16.75	18	24	37540.8	Estimated median employment income based on 2023 Job Bank median hourly wage rate (median annual salary = hourly wage rate x 40 (hours per week) x 52.14 (weeks per year))
 63201	Butchers - retail and wholesale	16.75	23	24.5	47968.8	Estimated median employment income based on 2023 Job Bank median hourly wage rate (median annual salary = hourly wage rate x 40 (hours per week) x 52.14 (weeks per year))
@@ -31942,6 +32018,7 @@ COPY public.wages (noc, occupation_title, esdc_wage_rate_low, esdc_wage_rate_med
 65101	Service station attendants	16.75	16.75	19	34933.8	Estimated median employment income based on 2023 Job Bank median hourly wage rate (median annual salary = hourly wage rate x 40 (hours per week) x 52.14 (weeks per year))
 65102	Store shelf stockers, clerks and order fillers	16.75	16.75	24	34933.8	Estimated median employment income based on 2023 Job Bank median hourly wage rate (median annual salary = hourly wage rate x 40 (hours per week) x 52.14 (weeks per year))
 65109	Other sales related occupations	16.75	16.75	28.85	34933.8	Estimated median employment income based on 2023 Job Bank median hourly wage rate (median annual salary = hourly wage rate x 40 (hours per week) x 52.14 (weeks per year))
+94101	Foundry workers	\N	\N	\N	74500	2021 Census (Full-time full year median employment income)
 65200	Food and beverage servers	16.75	18	28	37540.8	Estimated median employment income based on 2023 Job Bank median hourly wage rate (median annual salary = hourly wage rate x 40 (hours per week) x 52.14 (weeks per year))
 65201	Food counter attendants, kitchen helpers and related support occupations	16.75	16.75	20.97	34933.8	Estimated median employment income based on 2023 Job Bank median hourly wage rate (median annual salary = hourly wage rate x 40 (hours per week) x 52.14 (weeks per year))
 65202	Meat cutters and fishmongers - retail and wholesale	16.75	23	31.5	47968.8	Estimated median employment income based on 2023 Job Bank median hourly wage rate (median annual salary = hourly wage rate x 40 (hours per week) x 52.14 (weeks per year))
@@ -31970,6 +32047,7 @@ COPY public.wages (noc, occupation_title, esdc_wage_rate_low, esdc_wage_rate_med
 72024	Supervisors, motor transport and other ground transit operators	16.83	30	43.5	62568	Estimated median employment income based on 2023 Job Bank median hourly wage rate (median annual salary = hourly wage rate x 40 (hours per week) x 52.14 (weeks per year))
 72025	Supervisors, mail and message distribution occupations	25	25.15	34.67	52452.840000000004	Estimated median employment income based on 2023 Job Bank median hourly wage rate (median annual salary = hourly wage rate x 40 (hours per week) x 52.14 (weeks per year))
 72100	Machinists and machining and tooling inspectors	21	34	44	70910.4	Estimated median employment income based on 2023 Job Bank median hourly wage rate (median annual salary = hourly wage rate x 40 (hours per week) x 52.14 (weeks per year))
+93200	Aircraft assemblers and aircraft assembly inspectors	\N	\N	\N	67000	2021 Census (Full-time full year median employment income)
 72101	Tool and die makers	\N	36.57	\N	76270.39199999999	Estimated median employment income based on 2023 Job Bank median hourly wage rate (median annual salary = hourly wage rate x 40 (hours per week) x 52.14 (weeks per year))
 72102	Sheet metal workers	21.19	30	42.38	62568	Estimated median employment income based on 2023 Job Bank median hourly wage rate (median annual salary = hourly wage rate x 40 (hours per week) x 52.14 (weeks per year))
 72103	Boilermakers	43	45.76	51.7	95437.056	Estimated median employment income based on 2023 Job Bank median hourly wage rate (median annual salary = hourly wage rate x 40 (hours per week) x 52.14 (weeks per year))
@@ -32057,6 +32135,7 @@ COPY public.wages (noc, occupation_title, esdc_wage_rate_low, esdc_wage_rate_med
 83101	Oil and gas well drillers, servicers, testers and related workers	32	51	65.16	106365.6	Estimated median employment income based on 2023 Job Bank median hourly wage rate (median annual salary = hourly wage rate x 40 (hours per week) x 52.14 (weeks per year))
 83110	Logging machinery operators	25	34.3	39	71536.08	Estimated median employment income based on 2023 Job Bank median hourly wage rate (median annual salary = hourly wage rate x 40 (hours per week) x 52.14 (weeks per year))
 83121	Fishermen/women	20	37.5	67.66	78210	Estimated median employment income based on 2023 Job Bank median hourly wage rate (median annual salary = hourly wage rate x 40 (hours per week) x 52.14 (weeks per year))
+62202	Jewellers, jewellery and watch repairers and related occupations	\N	\N	\N	34800	2021 Census (Full-time full year median employment income)
 84100	Underground mine service and support workers	16.75	44.64	56.23	93101.184	Estimated median employment income based on 2023 Job Bank median hourly wage rate (median annual salary = hourly wage rate x 40 (hours per week) x 52.14 (weeks per year))
 84101	Oil and gas well drilling and related workers and services operators	25	35	41	72996	Estimated median employment income based on 2023 Job Bank median hourly wage rate (median annual salary = hourly wage rate x 40 (hours per week) x 52.14 (weeks per year))
 84110	Chain saw and skidder operators	27	33.42	39.79	69700.75200000001	Estimated median employment income based on 2023 Job Bank median hourly wage rate (median annual salary = hourly wage rate x 40 (hours per week) x 52.14 (weeks per year))
@@ -32086,6 +32165,7 @@ COPY public.wages (noc, occupation_title, esdc_wage_rate_low, esdc_wage_rate_med
 92023	Supervisors, other mechanical and metal products manufacturing	25	34.89	50	72766.584	Estimated median employment income based on 2023 Job Bank median hourly wage rate (median annual salary = hourly wage rate x 40 (hours per week) x 52.14 (weeks per year))
 92024	Supervisors, other products manufacturing and assembly	25	34.62	52	72203.472	Estimated median employment income based on 2023 Job Bank median hourly wage rate (median annual salary = hourly wage rate x 40 (hours per week) x 52.14 (weeks per year))
 92100	Power engineers and power systems operators	31	45	60	93852	Estimated median employment income based on 2023 Job Bank median hourly wage rate (median annual salary = hourly wage rate x 40 (hours per week) x 52.14 (weeks per year))
+63220	Shoe repairers and shoemakers	\N	\N	\N	24600	2021 Census (Full-time full year median employment income)
 92101	Water and waste treatment plant operators	28	31.68	42.67	66071.808	Estimated median employment income based on 2023 Job Bank median hourly wage rate (median annual salary = hourly wage rate x 40 (hours per week) x 52.14 (weeks per year))
 93100	Central control and process operators, mineral and metal processing	36	41.17	45	85864.15200000002	Estimated median employment income based on 2023 Job Bank median hourly wage rate (median annual salary = hourly wage rate x 40 (hours per week) x 52.14 (weeks per year))
 93101	Central control and process operators, petroleum, gas and chemical processing	35	48.69	54	101547.864	Estimated median employment income based on 2023 Job Bank median hourly wage rate (median annual salary = hourly wage rate x 40 (hours per week) x 52.14 (weeks per year))
@@ -32114,6 +32194,7 @@ COPY public.wages (noc, occupation_title, esdc_wage_rate_low, esdc_wage_rate_med
 94150	Plateless printing equipment operators	16.75	21.43	33.97	44694.408	Estimated median employment income based on 2023 Job Bank median hourly wage rate (median annual salary = hourly wage rate x 40 (hours per week) x 52.14 (weeks per year))
 94151	Camera, platemaking and other prepress occupations	\N	25.47	\N	53120.231999999996	Estimated median employment income based on 2023 Job Bank median hourly wage rate (median annual salary = hourly wage rate x 40 (hours per week) x 52.14 (weeks per year))
 94152	Binding and finishing machine operators	17	21	25.75	43797.6	Estimated median employment income based on 2023 Job Bank median hourly wage rate (median annual salary = hourly wage rate x 40 (hours per week) x 52.14 (weeks per year))
+72405	Machine fitters	\N	\N	\N	88000	2021 Census (Full-time full year median employment income)
 94200	Motor vehicle assemblers, inspectors and testers	17	21	31.15	43797.6	Estimated median employment income based on 2023 Job Bank median hourly wage rate (median annual salary = hourly wage rate x 40 (hours per week) x 52.14 (weeks per year))
 94201	Electronics assemblers, fabricators, inspectors and testers	17.5	20.83	34.62	43443.047999999995	Estimated median employment income based on 2023 Job Bank median hourly wage rate (median annual salary = hourly wage rate x 40 (hours per week) x 52.14 (weeks per year))
 94202	Assemblers and inspectors, electrical appliance, apparatus and equipment manufacturing	17	19.5	30	40669.2	Estimated median employment income based on 2023 Job Bank median hourly wage rate (median annual salary = hourly wage rate x 40 (hours per week) x 52.14 (weeks per year))
@@ -32148,16 +32229,6 @@ COPY public.wages (noc, occupation_title, esdc_wage_rate_low, esdc_wage_rate_med
 51122	Musicians and singers	35592	35592	76000	35592	2023 Wage Bank Data (Median employment income from 2021 Census)
 63101	Real estate agents and salespersons	35592	58400	159000	58400	2023 Wage Bank Data (Median employment income from 2021 Census)
 70011	Home building and renovation managers	35592	52000	108000	52000	2023 Wage Bank Data (Median employment income from 2021 Census)
-14112	Desktop publishing operators and related occupations	\N	\N	\N	56400	2021 Census (Full-time full year median employment income)
-80020	Managers in agriculture	\N	\N	\N	28000	2021 Census (Full-time full year median employment income)
-55109	Other performers	\N	\N	\N	46000	2021 Census (Full-time full year median employment income)
-62202	Jewellers, jewellery and watch repairers and related occupations	\N	\N	\N	34800	2021 Census (Full-time full year median employment income)
-63220	Shoe repairers and shoemakers	\N	\N	\N	24600	2021 Census (Full-time full year median employment income)
-72405	Machine fitters	\N	\N	\N	88000	2021 Census (Full-time full year median employment income)
-72501	Water well drillers	\N	\N	\N	73000	2021 Census (Full-time full year median employment income)
-83120	Fishing masters and officers	\N	\N	\N	53600	2021 Census (Full-time full year median employment income)
-93200	Aircraft assemblers and aircraft assembly inspectors	\N	\N	\N	67000	2021 Census (Full-time full year median employment income)
-94101	Foundry workers	\N	\N	\N	74500	2021 Census (Full-time full year median employment income)
 94104	Inspectors and testers, mineral and metal processing	\N	\N	\N	59600	2021 Census (Full-time full year median employment income)
 94122	Paper converting machine operators	\N	\N	\N	60000	2021 Census (Full-time full year median employment income)
 94153	Photographic and film processors	\N	\N	\N	44800	2021 Census (Full-time full year median employment income)
@@ -32337,9 +32408,10 @@ CREATE INDEX titles_noc_idx ON public.titles USING btree (noc);
 
 
 --
--- Name: SCHEMA public; Type: ACL; Schema: -; Owner: pg_database_owner
+-- Name: SCHEMA public; Type: ACL; Schema: -; Owner: workbc
 --
 
+REVOKE USAGE ON SCHEMA public FROM PUBLIC;
 GRANT USAGE ON SCHEMA public TO ssot_readonly;
 
 
