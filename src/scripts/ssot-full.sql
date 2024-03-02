@@ -48,6 +48,8 @@ DROP TABLE public.regional_labour_market_outlook;
 DROP TABLE public.openings_industry;
 DROP TABLE public.openings_careers;
 DROP TABLE public.occupational_interests;
+DROP VIEW public.nocs_nocs;
+DROP VIEW public.nocs_categories;
 DROP TABLE public.nocs;
 DROP TABLE public.monthly_labour_market_updates;
 DROP TABLE public.labour_force_survey_regional_industry_region;
@@ -2806,13 +2808,13 @@ COMMENT ON COLUMN public.monthly_labour_market_updates.industry_abs_information_
 --
 
 CREATE TABLE public.nocs (
-    noc2021 text NOT NULL,
+    noc_2021 text NOT NULL,
     label_en text,
     label_fr text,
-    type integer,
+    noc_level integer,
     teer_level integer,
     parent_noc text,
-    noc2016 text
+    noc_2016 text
 );
 
 
@@ -2826,10 +2828,10 @@ COMMENT ON TABLE public.nocs IS 'NOC 2021 Hierarchy';
 
 
 --
--- Name: COLUMN nocs.noc2021; Type: COMMENT; Schema: public; Owner: workbc
+-- Name: COLUMN nocs.noc_2021; Type: COMMENT; Schema: public; Owner: workbc
 --
 
-COMMENT ON COLUMN public.nocs.noc2021 IS 'NOC 2021';
+COMMENT ON COLUMN public.nocs.noc_2021 IS 'NOC 2021';
 
 
 --
@@ -2847,17 +2849,17 @@ COMMENT ON COLUMN public.nocs.label_fr IS 'French label';
 
 
 --
--- Name: COLUMN nocs.type; Type: COMMENT; Schema: public; Owner: workbc
+-- Name: COLUMN nocs.noc_level; Type: COMMENT; Schema: public; Owner: workbc
 --
 
-COMMENT ON COLUMN public.nocs.type IS 'Type: 1 (Broad category), 2 (Major group), 3 (Minor group), 4 (Unit group)';
+COMMENT ON COLUMN public.nocs.noc_level IS 'NOC level: 1 (Broad category), 2 (Major group), 3 (Minor group), 4 (Unit group)';
 
 
 --
 -- Name: COLUMN nocs.teer_level; Type: COMMENT; Schema: public; Owner: workbc
 --
 
-COMMENT ON COLUMN public.nocs.teer_level IS 'TEER level';
+COMMENT ON COLUMN public.nocs.teer_level IS 'TEER level (0-5)';
 
 
 --
@@ -2868,11 +2870,40 @@ COMMENT ON COLUMN public.nocs.parent_noc IS 'Parent NOC';
 
 
 --
--- Name: COLUMN nocs.noc2016; Type: COMMENT; Schema: public; Owner: workbc
+-- Name: COLUMN nocs.noc_2016; Type: COMMENT; Schema: public; Owner: workbc
 --
 
-COMMENT ON COLUMN public.nocs.noc2016 IS 'Equivalent NOC 2016 codes (comma-separated)';
+COMMENT ON COLUMN public.nocs.noc_2016 IS 'Equivalent NOC 2016 codes (comma-separated)';
 
+
+--
+-- Name: nocs_categories; Type: VIEW; Schema: public; Owner: workbc
+--
+
+CREATE VIEW public.nocs_categories AS
+ SELECT nocs.noc_2021,
+    nocs.label_en AS label,
+    nocs.noc_level AS level
+   FROM public.nocs
+  WHERE (nocs.noc_level < 4);
+
+
+ALTER TABLE public.nocs_categories OWNER TO workbc;
+
+--
+-- Name: nocs_nocs; Type: VIEW; Schema: public; Owner: workbc
+--
+
+CREATE VIEW public.nocs_nocs AS
+ SELECT nocs.noc_2021,
+    nocs.label_en AS label,
+    nocs.label_fr,
+    nocs.noc_2016
+   FROM public.nocs
+  WHERE (nocs.noc_level = 4);
+
+
+ALTER TABLE public.nocs_nocs OWNER TO workbc;
 
 --
 -- Name: occupational_interests; Type: TABLE; Schema: public; Owner: workbc
@@ -6618,7 +6649,7 @@ COPY public.monthly_labour_market_updates (year, month, total_employed, total_un
 -- Data for Name: nocs; Type: TABLE DATA; Schema: public; Owner: workbc
 --
 
-COPY public.nocs (noc2021, label_en, label_fr, type, teer_level, parent_noc, noc2016) FROM stdin;
+COPY public.nocs (noc_2021, label_en, label_fr, noc_level, teer_level, parent_noc, noc_2016) FROM stdin;
 0	Legislative and senior management occupations	Membres des corps législatifs et cadres supérieurs/cadres supérieures	1	\N	\N	0
 1	Business, finance and administration occupations	Affaires, finance et administration	1	\N	\N	1
 2	Natural and applied sciences and related occupations	Sciences naturelles et appliquées et domaines apparentés	1	\N	\N	2
@@ -6996,7 +7027,7 @@ COPY public.nocs (noc2021, label_en, label_fr, type, teer_level, parent_noc, noc
 9414	Machine operators and related workers in food, beverage and associated products processing	Opérateurs / opératrices de machines et personnel assimilé dans la transformation des aliments et boissons et produits connexes	3	\N	94	961
 9510	Labourers in processing, manufacturing and utilities	Manoeuvres dans la transformation, la fabrication et les services d'utilité publique	3	\N	95	\N
 00010	Legislators	Membres des corps législatifs	4	0	000	0011
-00018	Senior managers - public and private sector	Cadres supérieurs / cadres supérieures - secteurs publique et privé	4	0	000	0012
+00018	Senior managers - public and private sector	Cadres supérieurs / cadres supérieures - secteur public et privé	4	0	000	0012
 10010	Financial managers	Directeurs financiers / directrices financières	4	0	100	0111
 10011	Human resources managers	Directeurs / directrices des ressources humaines	4	0	100	0112
 10012	Purchasing managers	Directeurs / directrices des achats	4	0	100	0113
@@ -7505,6 +7536,7 @@ COPY public.nocs (noc2021, label_en, label_fr, type, teer_level, parent_noc, noc
 95105	Labourers in textile processing and cutting	Manoeuvres dans la fabrication et la coupe des produits du textile	4	5	951	9616,9441,9445
 95106	Labourers in food and beverage processing	Manoeuvres dans la transformation des aliments et des boissons	4	5	951	9617
 95107	Labourers in fish and seafood processing	Manoeuvres dans la transformation du poisson et des fruits de mer	4	5	951	9618
+95109	Other labourers in processing, manufacturing and utilities	Autres manoeuvres des services de transformation, de fabrication et d'utilité publique	4	5	951	9619
 \.
 
 
@@ -32504,6 +32536,20 @@ GRANT SELECT ON TABLE public.monthly_labour_market_updates TO ssot_readonly;
 --
 
 GRANT SELECT ON TABLE public.nocs TO ssot_readonly;
+
+
+--
+-- Name: TABLE nocs_categories; Type: ACL; Schema: public; Owner: workbc
+--
+
+GRANT SELECT ON TABLE public.nocs_categories TO ssot_readonly;
+
+
+--
+-- Name: TABLE nocs_nocs; Type: ACL; Schema: public; Owner: workbc
+--
+
+GRANT SELECT ON TABLE public.nocs_nocs TO ssot_readonly;
 
 
 --
