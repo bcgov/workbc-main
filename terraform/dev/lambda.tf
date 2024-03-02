@@ -78,18 +78,18 @@ data "archive_file" "lambda_source_package" {
   # `data` source and not a `resource` anymore.
   # Use `depends_on` to wait for the "install dependencies"
   # task to be completed.
-  depends_on = [null_resource.canary_install_dependencies]
+  depends_on = [null_resource.lambda_install_dependencies]
 }
 
-resource "null_resource" "lamda_install_dependencies" {
+resource "null_resource" "lambda_install_dependencies" {
   provisioner "local-exec" {
     command = "pip3 install -r ${path.module}/python/requirements.txt -t ${path.module}/ --upgrade"
   }
   # Only re-run this if the dependencies or their versions
   # have changed since the last deployment with Terraform
-  triggers = {
-    dependencies_versions = filemd5("${path.module}/requirements.txt")
-  }
+  #triggers = {
+  #  dependencies_versions = filemd5("${path.module}/requirements.txt")
+  #}
 }
 
 resource "aws_lambda_function" "healthcheck" {
