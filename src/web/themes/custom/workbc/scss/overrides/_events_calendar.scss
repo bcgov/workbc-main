@@ -4,7 +4,17 @@
   @include media-breakpoint-down(lg) {
     padding-top: 50px;
   }
+}
 
+.view-event-calendar-listview .view-empty {
+  padding-top: 75px;
+  padding-bottom: 10px;
+  text-align: center;
+  font-size: 15px;
+
+  @include media-breakpoint-down(lg) {
+    padding-bottom: 0px;
+  }
 }
 
 .event-cal .pager ul.pager__items {
