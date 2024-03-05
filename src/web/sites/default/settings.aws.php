@@ -22,7 +22,7 @@ $databases['default']['default'] = array (
     'driver' => 'pgsql',
 );
 $databases['ssot']['default'] = array (
-    'database' => 'ssot',
+    'database' => getenv('POSTGRES_SSOT') ?? 'ssot',
     'username' => getenv('POSTGRES_ADM_USER'),
     'password' => getenv('POSTGRES_ADM_PWD'),
     'prefix' => '',

@@ -79,19 +79,24 @@ class CareerProfileIndustryHighlightsJobOpeningsByIndustry extends ExtraFieldDis
       }
     }
 
-    $datestr = ssotParseDateRange($this->getEntity()->ssot_data['schema'], 'openings_careers', 'industry_1_openings');
+    if (!empty($industries)) {
+      $datestr = ssotParseDateRange($this->getEntity()->ssot_data['schema'], 'openings_careers', 'industry_1_openings');
 
-    $options = array(
-      'na_if_empty' => TRUE,
-    );
-    $text = "<div>";
-    $text = "<table>";
-    $text .= "<tr><th>Industry</th><th class='data-align-right'>Job Openings (" . $datestr . ")</th></tr>";
-    foreach ($industries as $industry) {
-      $text .= "<tr><td>" . $industry['name'] . "</td><td class='data-align-right'>" . ssotFormatNumber($industry['openings_careers'], $options) . "</td></tr>";
+      $options = array(
+        'na_if_empty' => TRUE,
+      );
+      $text = "<div>";
+      $text = "<table>";
+      $text .= "<tr><th>Industry</th><th class='data-align-right'>Job Openings (" . $datestr . ")</th></tr>";
+      foreach ($industries as $industry) {
+        $text .= "<tr><td>" . $industry['name'] . "</td><td class='data-align-right'>" . ssotFormatNumber($industry['openings_careers'], $options) . "</td></tr>";
+      }
+      $text .= "</table>";
+      $output = $text;
     }
-    $text .= "</table>";
-    $output = $text;
+    else {
+      $output = "<div class='career-forecasted-by-industry-not-available'>" . WORKBC_EXTRA_FIELDS_DATA_NOT_AVAILABLE . "</div>";
+    }
 
     return [
       ['#markup' => $output],

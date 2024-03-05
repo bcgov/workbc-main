@@ -26,3 +26,9 @@ workbc_custom.report_environment:
   parent: system.admin_reports
   route_name: workbc_custom.report_environment
   description: 'Report of system environment.'
+
+workbc_custom.report_noc2021_validation:
+  title: 'WorkBC NOC 2021 Migration Validation'
+  parent: system.admin_reports
+  route_name: workbc_custom.report_noc2021_validation
+  description: 'Report of NOC 2021 migration validation results.'

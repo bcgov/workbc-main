@@ -17,6 +17,7 @@ dependencies:
     - field.field.node.career_profile.field_introductions
     - field.field.node.career_profile.field_job_titles
     - field.field.node.career_profile.field_noc
+    - field.field.node.career_profile.field_noc_2016
     - field.field.node.career_profile.field_related_careers
     - field.field.node.career_profile.field_resources
     - field.field.node.career_profile.field_resources_reference
@@ -140,6 +141,14 @@ content:
   field_noc:
     type: string_textfield
     weight: 8
+    region: content
+    settings:
+      size: 60
+      placeholder: ''
+    third_party_settings: {  }
+  field_noc_2016:
+    type: string_textfield
+    weight: 28
     region: content
     settings:
       size: 60

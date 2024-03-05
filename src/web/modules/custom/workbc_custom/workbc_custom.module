@@ -105,7 +105,6 @@ function workbc_custom_views_pre_render(ViewExecutable $view) {
     } else {
       $view->field['openings_forecast']->options['label'] = "Job Openings";
     }
-    //\Drupal::logger('workbc_custom')->debug('<pre><code>' . print_r(\Drupal::request()->headers, TRUE) . '</code></pre>');
   }
 
   if ($view->id() == 'industry_profiles') {
@@ -186,8 +185,8 @@ function workbc_custom_form_views_exposed_form_alter(&$form, \Drupal\Core\Form\F
       unset($form['region']['#options']['All']);
     }
 
-    if (isset($form['typical_education_background'])) {
-      $form['typical_education_background']['#options']['All'] = "All";
+    if (isset($form['teer'])) {
+      $form['teer']['#options']['All'] = "All";
     }
 
     if (isset($form['occupational_interest'])) {
@@ -496,22 +495,6 @@ function workbc_custom_oembed_resource_url_alter(array &$parsed_url, \Drupal\med
 }
 
 /**
-* Get SSOT data for the High Opportunity block.
-*/
-function ssotHighOpportunityOptions($parameters = null){
-  $data = array();
-  $data['data'] = querySSoT('high_opportunity_occupations?' . $parameters);
-
-  //options
-  $data['options'] = querySSoT('high_opportunity_occupations?select=typical_education_background,region');
-
-  //schema
-  $data['schema'] = ssotSchema();
-
-  return $data;
-}
-
-/**
 * Function to get the region mappings.
 */
 function getRegionMappings() {
@@ -758,4 +741,407 @@ function getDuplicateFiles() {
   }
 
   return $duplicates;
+}
+
+function loadConcordance() {
+  $path = DRUPAL_ROOT;
+  $path = preg_replace('/web$/', '', $path);
+  $file = fopen($path . "/scripts/migration/data/noc_2016_2021_concordance.csv", 'r');
+  if($file !== FALSE){
+    $concordance = [];
+    while (($item = fgetcsv($file)) !== FALSE) {
+      if ($item) {
+        $concordance[] = $item;
+      }
+    }
+    fclose($file);
+
+    // drop header row
+    array_shift($concordance);
+
+    // convert NOC into 4 & 5 digit strings
+    foreach ($concordance as $key => $noc) {
+      if ($noc) {
+        $concordance[$key][0] = str_pad($noc[0], 4, "0", STR_PAD_LEFT);
+        $concordance[$key][3] = str_pad($noc[3], 5, "0", STR_PAD_LEFT);
+      }
+    }
+  }
+  return empty($concordance) ? false : $concordance;
+}
+
+function saveCareerProfilePaths() {
+
+  $nids = \Drupal::entityQuery('node')
+  ->condition('status', 1)
+  ->condition('type', 'career_profile')
+  ->execute();
+
+  $nodes = \Drupal\node\Entity\Node::loadMultiple($nids);
+
+  $paths = [];
+
+  foreach ($nodes as $node) {
+    $paths[$node->field_noc->value] = \Drupal::service('path_alias.manager')->getAliasByPath('/node/'.$node->id());
+  }
+  
+  $filePath = DRUPAL_ROOT . "/" . \Drupal\Core\StreamWrapper\PublicStream::basePath(\Drupal::getContainer()->getParameter('site.path'));
+
+  $csv = fopen($filePath . "/noc2016_career_profile_urls.csv", "w");
+  fwrite($csv, "noc2016,path\n");
+  foreach ($paths as $key => $path) {
+    $line = '"' . $key . '",' . $path . "\n";
+    fwrite($csv, $line);
+  }
+  fclose($csv);
+}
+
+function loadCareerProfilePaths() {
+
+  $filePath = DRUPAL_ROOT . "/" . \Drupal\Core\StreamWrapper\PublicStream::basePath(\Drupal::getContainer()->getParameter('site.path'));
+
+  $file = fopen($filePath . "/noc2016_career_profile_urls.csv", "r");
+  if($file !== FALSE){
+    $oldPaths = [];
+    while (($item = fgetcsv($file)) !== FALSE) {
+      if ($item) {
+        $oldPaths[] = array (
+          'noc' => $item[0],
+          'path' => $item[1],
+        );
+      }
+    }
+    fclose($file);
+
+    // drop header row
+    array_shift($oldPaths);
+    return $oldPaths;
+  }
+  else {
+    return false;
+  }
+}
+
+function load2021to2016map() {
+  $path = DRUPAL_ROOT;
+  $path = preg_replace('/web$/', '', $path);
+  $file = fopen($path . "/scripts/migration/data/noc_2021_2016_concordance.csv", "r");
+  if($file !== FALSE){
+    $raw = [];
+    while (($item = fgetcsv($file)) !== FALSE) {
+      if ($item) {
+        $raw[] = $item;
+      }
+    }
+    fclose($file);
+
+    // drop header row
+    array_shift($raw);
+
+    $map = [];
+    $prev = "";
+    // convert NOC into 4 & 5 digit strings
+    foreach ($raw as $key => $noc) {
+      if ($noc) {
+        $noc2021 = str_pad($noc[0], 5, "0", STR_PAD_LEFT);
+        $noc2016 = str_pad($noc[3], 4, "0", STR_PAD_LEFT);
+        $title = $noc[1];
+        if ($noc2021 <> "00000") {
+          $map[$noc2021] = array(
+            'noc2021' => $noc2021,
+            'title2021' => $title,
+            'noc2016' => array($noc2016),
+            'title2016' => $noc[4],
+          );
+          $prev = $noc2021;
+        }
+        else {
+          // add NOC 2016 number to array of NOC 2016 numbers associated with this NOC 2021 profile
+          $map[$prev]['noc2016'][] = $noc2016;
+        }
+      }
+    }
+  }
+  return $map;
+}
+
+
+function noc2021ProcessValidation() {
+  $errors = [];
+  
+  $results = noc2021ValidateProfileCount();
+  $errors = array_merge($errors, $results);
+
+  $results = noc2021ValidateProfileHasContent();
+  $errors = array_merge($errors, $results);
+
+  $results = noc2021ValidateProfiles();
+  $errors = array_merge($errors, $results);
+
+  $results = noc2021ValidateProfilePaths();
+  $errors = array_merge($errors, $results);
+  
+  $results = noc2021ValidateProfileRedirects();
+  $errors = array_merge($errors, $results);
+  
+  $results = noc2021ValidateUnpublishedProfiles();
+  $errors = array_merge($errors, $results);
+
+  $results = noc2021ValidateUnpublishedProfileRedirects();
+  $errors = array_merge($errors, $results);
+
+  return $errors;
+}
+
+
+function noc2021ValidateProfileCount() {
+
+  $map = load2021to2016map();
+
+  $total = count($map);
+
+  $errors = [];
+
+  $nids = \Drupal::entityQuery('node')
+  ->condition('status', 1)
+  ->condition('type', 'career_profile')
+  ->execute();
+
+  if (count($nids) <> $total) {
+    $errors[] = "Invalid number of Career Profiles: " . count($nids) . ". Expecting " . $total;
+  }
+
+  $nodes = \Drupal\node\Entity\Node::loadMultiple($nids);
+
+  foreach ($map as $profile) {
+    if (!profilesExists($profile['noc2021'], $nodes)) {
+      $errors[] = "Missing NOC #: " . $profile['noc2021'] . " - Career Profile not found in database.";
+    }
+  }
+
+  return $errors;
+}
+
+function profilesExists($noc2021, $nodes) {
+  $found = false;
+  foreach ($nodes as $node) {
+    if ($node->field_noc->value == $noc2021) {
+      $found = true;
+      break;
+    }
+  }
+  return $found;
+}
+
+
+function noc2021ValidateProfileHasContent() {
+
+  $errors = [];
+
+  $nids = \Drupal::entityQuery('node')
+  ->condition('status', 1)
+  ->condition('type', 'career_profile')
+  ->execute();
+
+  $profiles = \Drupal\node\Entity\Node::loadMultiple($nids);
+
+  foreach ($profiles as $profile) {
+    if (empty($profile->field_career_overview->value) ||
+        empty($profile->field_duties->value) ||
+        empty($profile->field_education_training_skills->value)) {
+      $errors[] = "Missing content NOC #: " . $profile->field_noc->value;
+    }
+  }
+
+  return $errors;
+}
+
+
+function noc2021ValidateProfiles() {
+  
+  $map = load2021to2016map();
+
+  $errors = [];
+
+  $nids = \Drupal::entityQuery('node')
+  ->condition('status', 1)
+  ->condition('type', 'career_profile')
+  ->execute();
+
+  $nodes = \Drupal\node\Entity\Node::loadMultiple($nids);
+
+  foreach ($nodes as $node) {
+    if (strlen($node->field_noc->value) <> 5) {
+      $errors[] = "Invalid NOC #: " . $node->field_noc->value . " (Node ID: " . $node->id() . ")";
+    }
+    else if ($map[$node->field_noc->value]) {
+      if ($node->title->value <> $map[$node->field_noc->value]['title2021']) {
+        $errors[] = "Invalid Title: '" . $node->title->value . "' - Expected title: '" . $map[$node->field_noc->value]['title2021'] . "' (NOC #: " . $node->field_noc->value . " Node ID: " . $node->id() . ")";
+      }
+    }
+    else {
+      $errors[] = "Invalid NOC #: " . $node->field_noc->value . " (Node ID: " . $node->id() . ")";
+    }
+
+    if (!in_array($node->field_noc_2016->value, $map[$node->field_noc->value]['noc2016'])) {
+      $errors[] = "NOC 2016 #: " . $node->field_noc_2016->value . " does not correspond with NOC 2021 #: " . $node->field_noc->value;
+    }
+
+  }
+  return $errors;
+}
+
+function noc2021ValidateProfileRedirects() {
+  
+  $map = load2021to2016map();
+
+  $oldPaths = loadCareerProfilePaths();
+
+  $errors = [];
+
+  $nids = \Drupal::entityQuery('node')
+  ->condition('status', 1)
+  ->condition('type', 'career_profile')
+  ->execute();
+
+  $nodes = \Drupal\node\Entity\Node::loadMultiple($nids);
+
+  $newPaths = [];
+  foreach ($nodes as $node) {
+    $newPaths[] = array(
+      'noc' => $node->field_noc->value,
+      'path' => \Drupal::service('path_alias.manager')->getAliasByPath('/node/'.$node->id()),
+    );
+  }
+
+  // check all old paths either work for an existing NOC 2021 Career Profile or redirects to one.
+  foreach ($oldPaths as $oldPath) {
+    $noc2021 = findNoc($oldPath['path'], $newPaths);
+    if (!$noc2021) {
+      $searchPath = substr($oldPath['path'],1);
+      $database = \Drupal::database();
+      $result = $database->select('redirect', 'r')
+                ->fields('r', ['rid', 'type', 'redirect_source__path', 'redirect_redirect__uri'])
+                ->condition('r.redirect_source__path', $searchPath, '=')
+                ->execute()->fetchObject();
+      if (!$result) {
+        $errors[] = "NOC 2016 #: " . $oldPath['noc'] . " path (" . $oldPath['path'] . ") has no redirection";
+      }
+      else {
+        $nid = str_replace("internal:/node/", "", $result->redirect_redirect__uri);
+        $redirect = \Drupal\node\Entity\Node::load($nid);
+        if ($redirect->status->getString() == 0 || $redirect->bundle() <> "career_profile") {
+          $errors[] = "NOC 2016 #: " . $oldPath['noc'] . " path (" . $oldPath['path'] . ") is redirecting to an invalid node (" . $nid . ")";
+        }    
+      }
+    }
+  }
+  return $errors;
+}
+
+
+function noc2021ValidateProfilePaths() {
+  
+  $errors = [];
+
+  $nids = \Drupal::entityQuery('node')
+  ->condition('status', 1)
+  ->condition('type', 'career_profile')
+  ->execute();
+
+  $nodes = \Drupal\node\Entity\Node::loadMultiple($nids);
+
+  foreach ($nodes as $node) {
+    $alias = \Drupal::service('path_alias.manager')->getAliasByPath('/node/'.$node->id());
+    if (preg_match("/-\d$/", $alias)) {
+      $errors[] = "NOC #: " . $node->field_noc->value . " url contains trailing '-#': " . $alias;
+    }  
+  }
+  return $errors;
+}
+
+function noc2021ValidateUnpublishedProfiles() {
+  
+  $map = load2021to2016map();
+
+  $errors = [];
+
+  $nids = \Drupal::entityQuery('node')
+  ->condition('status', 0)
+  ->condition('type', 'career_profile')
+  ->execute();
+
+  $nodes = \Drupal\node\Entity\Node::loadMultiple($nids);
+
+  foreach ($nodes as $node) {
+    if (!empty($node->field_noc->value)) {
+      $errors[] = "Invalid NOC #: " . $node->field_noc->value . " Unpublished profiles should have empty NOC field"  . " (Node ID: " . $node->id() . ")"; 
+    }
+    if (strlen($node->field_noc_2016->value) <> 4) {
+      $errors[] = "Invalid NOC #: " . $node->field_noc_2016->value . " Unpublished profile NOC 2016 fields should have a 4 digit number (Node ID: " . $node->id() . ")"; 
+    }
+  }
+  return $errors;
+}
+
+function noc2021ValidateUnpublishedProfileRedirects() {
+  
+  $map = load2021to2016map();
+
+  $oldPaths = loadCareerProfilePaths();
+
+  $errors = [];
+
+  $nids = \Drupal::entityQuery('node')
+  ->condition('status', 0)
+  ->condition('type', 'career_profile')
+  ->execute();
+
+  $lFirst = true;
+  $nodes = \Drupal\node\Entity\Node::loadMultiple($nids);
+  foreach ($nodes as $node) { 
+    $expectedURL = substr(findPath($node->field_noc_2016->value, $oldPaths),1);
+
+    $database = \Drupal::database();
+    $result = $database->select('redirect', 'r')
+              ->fields('r', ['rid', 'type', 'redirect_source__path', 'redirect_redirect__uri'])
+              ->condition('r.redirect_source__path', $expectedURL, '=')
+              ->execute()->fetchObject();
+
+    if (!$result) {
+      $errors[] = "Missing redirect for unpublished profile. Expected URL: '" . $expectedURL . "' (Node ID: " . $node->id() . ")"; 
+    }
+    else {
+      $nid = str_replace("internal:/node/", "", $result->redirect_redirect__uri);
+      $ref = \Drupal\node\Entity\Node::load($nid);
+      if (!in_array($node->field_noc_2016->value, $map[$ref->field_noc->value]['noc2016'])) {
+        $errors[] = "Unpublished profile: " . $node->field_noc_2016->value . " is not associated with the profile (" . $ref->field_noc->value . ") it is being redirected to";
+      }
+    }
+  }
+  return $errors;
+}
+
+// find NOC by path
+function findNoc($search, $nocs) {
+  $result = false;
+  foreach ($nocs as $noc) {
+    if ($search == $noc['path']) {
+      $result = $noc['noc'];
+      break;
+    }
+  }
+  return $result;
+}
+
+// find path by NOC
+function findPath($search, $nocs) {
+  $result = "";
+  foreach ($nocs as $noc) {
+    if ($search == $noc['noc']) {
+      $result = $noc['path'];
+      break;
+    }
+  }
+  return $result;
 }

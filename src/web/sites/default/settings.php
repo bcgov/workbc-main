@@ -831,6 +831,7 @@ if (file_exists($app_root . '/' . $site_path . '/settings.aws.php') && getenv('A
 
 if (in_array(getenv('PROJECT_ENVIRONMENT'), [
   'dev',
+  'aws-dev-noc',
   'aws-dev',
   'local'
 ])) {

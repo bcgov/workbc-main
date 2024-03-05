@@ -43,18 +43,17 @@ class CareerProfileJobOpeningsForecast extends ExtraFieldDisplayFormattedBase {
    */
   public function viewElements(ContentEntityInterface $entity) {
 
-    if (!empty($entity->ssot_data) && isset($entity->ssot_data['career_provincial'])) {
+    if (!empty($entity->ssot_data) && isset($entity->ssot_data['career_provincial']) &&
+        !is_null($entity->ssot_data['career_provincial']['job_openings_first5y']) &&
+        !is_null($entity->ssot_data['career_provincial']['job_openings_second5y'])) {
       $data = array();
-      $value = intval($entity->ssot_data['career_provincial']['job_openings_first']);
+      $value = intval($entity->ssot_data['career_provincial']['job_openings_first5y']);
       $data[] = $value < 0 ? 0 : $value;
-      $value = intval($entity->ssot_data['career_provincial']['job_openings_second']);
-      $data[] = $value < 0 ? 0 : $value;
-      $value = intval($entity->ssot_data['career_provincial']['job_openings_third']);
+      $value = intval($entity->ssot_data['career_provincial']['job_openings_second5y']);
       $data[] = $value < 0 ? 0 : $value;
       $dates = array();
-      $dates[] = ssotParseDateRange($entity->ssot_data['schema'], 'career_provincial', 'job_openings_first');
-      $dates[] = ssotParseDateRange($entity->ssot_data['schema'], 'career_provincial', 'job_openings_second');
-      $dates[] = ssotParseDateRange($entity->ssot_data['schema'], 'career_provincial', 'job_openings_third');
+      $dates[] = ssotParseDateRange($entity->ssot_data['schema'], 'career_provincial', 'job_openings_first5y');
+      $dates[] = ssotParseDateRange($entity->ssot_data['schema'], 'career_provincial', 'job_openings_second5y');
       $chart = [
         '#chart_id' => "career-forecasted-job-openings",
         '#type' => 'chart',
@@ -70,7 +69,6 @@ class CareerProfileJobOpeningsForecast extends ExtraFieldDisplayFormattedBase {
           '#data' => array_map(function($v) {
             $options = array(
               'decimals' => 0,
-              'positive_sign' => TRUE,
               'na_if_empty' => TRUE,
             );
             return ssotFormatNumber($v, $options);
@@ -95,7 +93,7 @@ class CareerProfileJobOpeningsForecast extends ExtraFieldDisplayFormattedBase {
       $output = \Drupal::service('renderer')->render($chart);
     }
     else {
-      $output = "";
+      $output = '<div class="workbc-data-not-available-200">' . WORKBC_EXTRA_FIELDS_DATA_NOT_AVAILABLE . "</div>";
     }
 
     return [

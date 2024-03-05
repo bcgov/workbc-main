@@ -10,15 +10,15 @@ use Drupal\extra_field\Plugin\ExtraFieldDisplayFormattedBase;
  * Example Extra field with formatted output.
  *
  * @ExtraFieldDisplay(
- *   id = "labour_market_region_employment_source",
- *   label = @Translation("Labour Market Info - Source: Employment by Region"),
- *   description = @Translation("Provenance metadata for field Labour Market Info - Employment by Region."),
+ *   id = "job_titles",
+ *   label = @Translation("Job Titles"),
+ *   description = @Translation("List of Job Titles."),
  *   bundles = {
  *     "node.career_profile",
  *   }
  * )
  */
-class CareerProfileLabourMarketEmploymentByRegionSource extends ExtraFieldDisplayFormattedBase {
+class CareerProfileJobTitles extends ExtraFieldDisplayFormattedBase {
 
   use StringTranslationTrait;
 
@@ -27,7 +27,7 @@ class CareerProfileLabourMarketEmploymentByRegionSource extends ExtraFieldDispla
    */
   public function getLabel() {
 
-    return $this->t('Source: Employment by Region');
+    return $this->t('Job Titles');
   }
 
   /**
@@ -43,8 +43,11 @@ class CareerProfileLabourMarketEmploymentByRegionSource extends ExtraFieldDispla
    */
   public function viewElements(ContentEntityInterface $entity) {
 
-    if (!empty($entity->ssot_data) && isset($entity->ssot_data['sources']['census']) && isset($entity->ssot_data['sources']['career_regional'])) {
-      $output = $entity->ssot_data['sources']['census']['label'];
+    if (!empty($entity->ssot_data) && isset($entity->ssot_data['titles'])) {
+      $output = '';
+      foreach ($entity->ssot_data['titles'] as $key => $jobTitle) {
+        $output .= '<div class="job-title-item">' . $jobTitle['commonjobtitle'] . '</div>';
+      }
     }
     else {
       $output = WORKBC_EXTRA_FIELDS_NOT_AVAILABLE;

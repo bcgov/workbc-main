@@ -89,26 +89,26 @@
       icon_class: 'profile-information-salary',
       title: content.extra_field_annual_salary['#title'],
       value: content.extra_field_annual_salary.0['#markup'],
-      source: content.extra_field_annual_salary_source.0['#markup'],
+      source: "<em>Source:</em> " ~ content.extra_field_annual_salary_source.0['#markup'],
     },
     minimum_education: {
       icon_class: 'profile-information-education',
       title: content.extra_field_minimum_education['#title'],
       value: content.extra_field_minimum_education.0['#markup'],
-      source: null
+      source: content.extra_field_minimum_education.0['#infotip'],
     },
     job_openings: {
       icon_class: 'profile-information-jobs',
       title: content.extra_field_job_openings['#title'],
       value: content.extra_field_job_openings.0['#markup'],
-      source: content.extra_field_job_openings_source.0['#markup']
+      source: "<em>Source:</em> " ~ content.extra_field_job_openings_source.0['#markup']
     },
   },
   hero: {
     image: content.field_hero_image_media[0],
     title: label,
     description: null,
-    noc: content.field_noc['#items'].getString(),
+    noc: content.field_noc[0],
     hoo: content.extra_field_high_opportunity_occupation[0]['#markup'],
   },
   tab_sections: {
@@ -150,8 +150,8 @@
       occupational_interests_intro: content.group_career_profile_tabs.group_career_overview.extra_field_occupational_interests_int.0['#text'],
       occupational_interests_items: content.group_career_profile_tabs.group_career_overview.extra_field_occupational_interests.0,
 
-      job_titles_title: content.group_career_profile_tabs.group_career_overview.field_job_titles['#title'],
-      job_titles_list: content.group_career_profile_tabs.group_career_overview.field_job_titles['#items'],
+      job_titles_title: content.group_career_profile_tabs.group_career_overview.extra_field_job_titles['#title'],
+      job_titles_list: content.group_career_profile_tabs.group_career_overview.extra_field_job_titles.0,
     },
     education: {
       tab: 'Education, Training and Skills',
@@ -162,6 +162,7 @@
       skills_title: content.group_career_profile_tabs.group_education_training_skills.extra_field_skills_introduction['#title'],
       skills_introduction: content.group_career_profile_tabs.group_education_training_skills.extra_field_skills_introduction.0['#text'],
       skills_list: content.group_career_profile_tabs.group_education_training_skills.extra_field_profile_skills.0,
+      noc_2016: content.field_noc_2016[0],
     },
     labour_market: {
       tab: 'Labour Market Statistics',
@@ -288,7 +289,7 @@
           </div>
           {% if statistic['source'] %}
             <div class="profile-information-card-infotip">
-              <a tabindex="0" class="btn btn-link info-tooltip" role="button" data-bs-toggle="popover" data-bs-container="body" data-bs-trigger="click hover" data-bs-placement="bottom" data-bs-custom-class="workbc-popover" title="hidden title" data-bs-html="true" data-bs-content="<em>Source:</em> {{ statistic['source'] }}"></a>
+              <a tabindex="0" class="btn btn-link info-tooltip" role="button" data-bs-toggle="popover" data-bs-container="body" data-bs-trigger="click hover" data-bs-placement="bottom" data-bs-custom-class="workbc-popover" title="hidden title" data-bs-html="true" data-bs-content="{{ statistic['source'] }}"></a>
             </div>
           {% endif %}
         </div>
@@ -400,11 +401,7 @@
                    data-static-more-text="View more"
                    data-static-less-text="View less">
                 <div data-static-load-more-items class="career-content-job-titles">
-                {% for row in viewmodel['tab_sections']['career_overview']['job_titles_list'] %}
-                  {% for jobtitle in row %}
-                    <div class="job-title-item">{{ jobtitle.value }}</div>
-                  {% endfor %}
-                {% endfor %}
+                  {{ viewmodel['tab_sections']['career_overview']['job_titles_list'] }}
                 </div>
                 <div class="static-load-more-button-container megamenu-splash__actions">
                   <a class="action-link pointer" data-static-load-more-trigger></a>
@@ -434,7 +431,7 @@
                   <div class="card-profile__content-item">Find out more information about programs offered specifically for this career.</div>
                 </div>
                 <div class="card-profile__link-container">
-                  <a class="card-profile__link" target="_blank" href="https://www.educationplannerbc.ca/search/noc/{{viewmodel['hero']['noc']}}">Visit EducationPlannerBC</a>
+                  <a class="card-profile__link" target="_blank" href="https://www.educationplannerbc.ca/search/noc/{{viewmodel['tab_sections']['education']['noc_2016']}}">Visit EducationPlannerBC</a>
                 </div>
               </div>
             </div>
@@ -449,9 +446,13 @@
                     {{ skill|raw }}
                   {% endfor %}
                 </div>
-                <div class="static-load-more-button-container">
-                  <button data-static-load-more-trigger class="btn btn-secondary">Show More</button>
-                </div>
+                {% if viewmodel['tab_sections']['education']['skills_list']['#markup'] is not empty %}
+                  <div class="static-load-more-button-container">
+                    <button data-static-load-more-trigger class="btn btn-secondary">Show More</button>
+                  </div>
+                {% else %}
+                  <div class="career-skills-not-available">Data not available</div>
+                {% endif %}
               </div>
             </div>
           </div>
@@ -590,12 +591,6 @@
                   </div>
                 </div>
               </div>
-
-              {% if viewmodel['tab_sections']['labour_market']['outlook_openings_by_region_na'] == 'YES' %}
-                <div class="card-profile__na">
-                  <em>N/A:</em> Data is not available for this region.
-                </div>
-              {% endif %}
 
               <div class="card-profile__source">
                 <em>Source:</em> {{ viewmodel['tab_sections']['labour_market']['outlook_openings_by_region_source']|raw }}

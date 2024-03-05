@@ -18,6 +18,7 @@ dependencies:
     - field.field.node.career_profile.field_introductions
     - field.field.node.career_profile.field_job_titles
     - field.field.node.career_profile.field_noc
+    - field.field.node.career_profile.field_noc_2016
     - field.field.node.career_profile.field_related_careers
     - field.field.node.career_profile.field_resources
     - field.field.node.career_profile.field_resources_reference
@@ -32,9 +33,26 @@ targetEntityType: node
 bundle: career_profile
 mode: teaser
 content:
+  created:
+    type: timestamp
+    label: hidden
+    settings:
+      date_format: medium
+      custom_date_format: ''
+      timezone: ''
+    third_party_settings: {  }
+    weight: 0
+    region: content
   field_career_overview:
     type: text_default
     label: visually_hidden
+    settings: {  }
+    third_party_settings: {  }
+    weight: 0
+    region: content
+  uid:
+    type: author
+    label: hidden
     settings: {  }
     third_party_settings: {  }
     weight: 0
@@ -43,6 +61,7 @@ hidden:
   content_moderation_control: true
   extra_field_annual_salary: true
   extra_field_annual_salary_source: true
+  extra_field_career_employment_introduction: true
   extra_field_career_videos_introduction: true
   extra_field_education_programs: true
   extra_field_employment_growth_rate_forecast: true
@@ -95,6 +114,7 @@ hidden:
   field_introductions: true
   field_job_titles: true
   field_noc: true
+  field_noc_2016: true
   field_related_careers: true
   field_resources: true
   field_resources_reference: true

@@ -1,4 +1,4 @@
-uuid: 0b79c7bd-1a67-4dc6-bf09-873a2e676e16
+uuid: 6974331c-4dd8-4acc-97eb-be19f51b9c8e
 langcode: en
 status: true
 dependencies:
@@ -8,8 +8,8 @@ dependencies:
 third_party_settings:
   field_permissions:
     permission_type: public
-id: node.field_job_titles
-field_name: field_job_titles
+id: node.field_noc_2016
+field_name: field_noc_2016
 entity_type: node
 type: string
 settings:
@@ -18,7 +18,7 @@ settings:
   is_ascii: false
 module: core
 locked: false
-cardinality: -1
+cardinality: 1
 translatable: true
 indexes: {  }
 persist_with_no_fields: false
