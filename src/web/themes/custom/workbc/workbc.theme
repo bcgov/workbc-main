@@ -363,3 +363,16 @@ function workbc_preprocess_breadcrumb(&$variables){
     $variables['save_profile_available'] = in_array($node->bundle(), $types);
   }
 }
+
+
+function workbc_preprocess_views_mini_pager(&$variables) {
+
+  if ($variables['theme_hook_original'] == "views_mini_pager__event_calendar_listview__block_1") {
+    $element = $variables['element'];
+    $pager_manager = \Drupal::service('pager.manager');
+    $pager = $pager_manager->getPager($element);
+    ksm($pager);
+    $variables['is_empty_list'] = $pager->getTotalItems() == 0;
+    ksm($variables);
+  }
+}
