@@ -6,7 +6,7 @@ resource "random_integer" "cf_origin_id" {
 }
 
 resource "aws_cloudfront_origin_access_control" "oac-noc" {
-  name = "oac"
+  name = "oac-noc"
   description = "OAC Policy"
   origin_access_control_origin_type = "s3"
   signing_behavior = "always"
@@ -161,6 +161,6 @@ resource "aws_cloudfront_distribution" "workbc2" {
 }
 
 output "cloudfront_url" {
-  value = "https://${aws_cloudfront_distribution.workbc[0].domain_name}"
+  value = "https://${aws_cloudfront_distribution.workbc2[0].domain_name}"
 }
 
