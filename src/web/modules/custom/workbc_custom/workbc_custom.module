@@ -484,6 +484,16 @@ function workbc_custom_search_api_autocomplete_suggestions_alter(array &$suggest
 }
 
 /**
+* Implements hook_search_api_query_alter().
+*/
+function workbc_custom_search_api_query_alter($query) {
+  if ($query->hasTag('search_api_autocomplete')) {
+    // Set the processing level to basic to prevent highlighting processor from working during autocomplete queries.
+    $query->setProcessingLevel(\Drupal\search_api\Query\QueryInterface::PROCESSING_BASIC);
+  }
+}
+
+/**
  * Implements hook_oembed_resource_url_alter().
  */
 function workbc_custom_oembed_resource_url_alter(array &$parsed_url, \Drupal\media\OEmbed\Provider $provider) {

@@ -1556,6 +1556,20 @@ display:
             items_per_page_options_all_label: '- All -'
             offset: false
             offset_label: Offset
+      empty:
+        area:
+          id: area
+          table: views
+          field: area
+          relationship: none
+          group_type: group
+          admin_label: ''
+          plugin_id: text
+          empty: true
+          content:
+            value: 'No upcoming events'
+            format: full_html
+          tokenize: false
       sorts:
         field_start_date_value:
           id: field_start_date_value
@@ -1694,6 +1708,7 @@ display:
           1: AND
           2: OR
       defaults:
+        empty: false
         pager: false
         fields: false
         sorts: false
