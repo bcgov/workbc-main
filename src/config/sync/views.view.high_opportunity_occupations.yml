@@ -603,7 +603,7 @@ display:
             default_group_multiple: {  }
             group_items:
               1:
-                title: Management
+                title: 'Management'
                 operator: '='
                 value:
                   min: ''
