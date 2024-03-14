@@ -53,3 +53,11 @@ workbc_custom.report_noc2021_validation:
     _title: 'NOC 2021 Migration Validation'
   requirements:
     _permission: 'administer workbc_custom settings'
+
+workbc_custom.career_profile_by_noc:
+  path: '/career/{noc}'
+  defaults:
+    _controller: '\Drupal\workbc_custom\Controller\CareerProfileController::career_profile_noc'
+    _title: 'Display Career Profile by NOC #'
+  requirements:
+    _permission: 'access content'

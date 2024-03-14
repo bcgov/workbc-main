@@ -35,6 +35,7 @@ ALTER TABLE ONLY public.labour_force_survey_regional_industry_province DROP CONS
 ALTER TABLE ONLY public.labour_force_survey_regional_employment DROP CONSTRAINT labour_force_survey_regional_employment_pkey;
 ALTER TABLE ONLY public.labour_force_survey_industry DROP CONSTRAINT labour_force_survey_industry_pkey;
 ALTER TABLE ONLY public.industry_outlook DROP CONSTRAINT industry_outlook_pkey;
+ALTER TABLE ONLY public.industries DROP CONSTRAINT industries_pkey;
 ALTER TABLE ONLY public.education DROP CONSTRAINT education_pkey;
 ALTER TABLE ONLY public.census DROP CONSTRAINT census_pkey;
 ALTER TABLE ONLY public.career_regional DROP CONSTRAINT career_regional_pkey;
@@ -57,6 +58,7 @@ DROP TABLE public.labour_force_survey_regional_industry_province;
 DROP TABLE public.labour_force_survey_regional_employment;
 DROP TABLE public.labour_force_survey_industry;
 DROP TABLE public.industry_outlook;
+DROP TABLE public.industries;
 DROP TABLE public.high_opportunity_occupations;
 DROP VIEW public.education_teers;
 DROP TABLE public.education;
@@ -755,6 +757,55 @@ COMMENT ON COLUMN public.high_opportunity_occupations.teer IS 'TEER';
 --
 
 COMMENT ON COLUMN public.high_opportunity_occupations.region IS 'Geography';
+
+
+--
+-- Name: industries; Type: TABLE; Schema: public; Owner: workbc
+--
+
+CREATE TABLE public.industries (
+    key text NOT NULL,
+    name text,
+    type text,
+    naics text
+);
+
+
+ALTER TABLE public.industries OWNER TO workbc;
+
+--
+-- Name: TABLE industries; Type: COMMENT; Schema: public; Owner: workbc
+--
+
+COMMENT ON TABLE public.industries IS 'Industry Profiles';
+
+
+--
+-- Name: COLUMN industries.key; Type: COMMENT; Schema: public; Owner: workbc
+--
+
+COMMENT ON COLUMN public.industries.key IS 'Industry key';
+
+
+--
+-- Name: COLUMN industries.name; Type: COMMENT; Schema: public; Owner: workbc
+--
+
+COMMENT ON COLUMN public.industries.name IS 'Industry name';
+
+
+--
+-- Name: COLUMN industries.type; Type: COMMENT; Schema: public; Owner: workbc
+--
+
+COMMENT ON COLUMN public.industries.type IS 'Sector type';
+
+
+--
+-- Name: COLUMN industries.naics; Type: COMMENT; Schema: public; Owner: workbc
+--
+
+COMMENT ON COLUMN public.industries.naics IS 'NAICS code(s)';
 
 
 --
@@ -6496,6 +6547,32 @@ COPY public.high_opportunity_occupations (noc, occupation, openings_forecast, wa
 93100	Central control and process operators, mineral and metal processing	40	36	41.17	45	85864	Realistic	Operations Monitoring	Operation and Control	Monitoring	3	north_coast_nechako
 93101	Central control and process operators, petroleum, gas and chemical processing	70	35	48.69	54	101548	Realistic	Operations Monitoring	Operation and Control	Monitoring	3	north_coast_nechako
 94120	Sawmill machine operators	50	17	32	37	66739	Realistic	Operation and Control	Operations Monitoring	Critical Thinking	4	north_coast_nechako
+\.
+
+
+--
+-- Data for Name: industries; Type: TABLE DATA; Schema: public; Owner: workbc
+--
+
+COPY public.industries (key, name, type, naics) FROM stdin;
+accommodation_food_services	Accommodation and Food Services	Services	72
+agriculture_fishing	Agriculture and Fishing	Goods	11
+business_building_other_support_services	Business, Building and Other Support Services	Services	56
+construction	Construction	Goods	23
+educational_services	Educational Services	Services	61
+finance_insurance_real_estate	Finance, Insurance and Real Estate	Services	52,53
+forestry_logging_support_activities	Forestry and Logging with Support Activities	Goods	115,113
+health_care_social_assistance	Health Care and Social Assistance	Services	62
+information_culture_recreation	Information, Culture and Recreation	Services	71,51
+manufacturing	Manufacturing	Goods	31,32,33
+utilities	Utilities	Goods	22
+mining_oil_gas_extraction	Mining and Oil and Gas Extraction	Goods	21
+other_private_services	Repair, Personal and Non-Profit Services	Services	81
+professional_scientific_technical_services	Professional, Scientific, and Technical Services	Services	54
+public_administration	Public Administration	Services	91
+transportation_warehousing	Transportation and Warehousing	Services	48,49
+wholesale_trade	Wholesale Trade	Services	41,42,43,44,45
+retail_trade	Retail Trade	Services	\N
 \.
 
 
@@ -32304,6 +32381,14 @@ ALTER TABLE ONLY public.education
 
 
 --
+-- Name: industries industries_pkey; Type: CONSTRAINT; Schema: public; Owner: workbc
+--
+
+ALTER TABLE ONLY public.industries
+    ADD CONSTRAINT industries_pkey PRIMARY KEY (key);
+
+
+--
 -- Name: industry_outlook industry_outlook_pkey; Type: CONSTRAINT; Schema: public; Owner: workbc
 --
 
@@ -32487,6 +32572,13 @@ GRANT SELECT ON TABLE public.education_teers TO ssot_readonly;
 --
 
 GRANT SELECT ON TABLE public.high_opportunity_occupations TO ssot_readonly;
+
+
+--
+-- Name: TABLE industries; Type: ACL; Schema: public; Owner: workbc
+--
+
+GRANT SELECT ON TABLE public.industries TO ssot_readonly;
 
 
 --
