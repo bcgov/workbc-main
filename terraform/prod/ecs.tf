@@ -104,7 +104,7 @@ resource "aws_ecs_task_definition" "app" {
 			},
 			{
 				name = "POSTGRES_HOST",
-				value = "${data.aws_rds_cluster.postgres.endpoint}"
+				value = "${aws_rds_cluster.postgres2.endpoint}"
 			},
 			{
 				name = "SSOT_URL",
@@ -264,7 +264,7 @@ resource "aws_ecs_task_definition" "app" {
 			},
 			{
 				name = "POSTGRES_HOST",
-				value = "${data.aws_rds_cluster.postgres.endpoint}"
+				value = "${aws_rds_cluster.postgres2.endpoint}"
 			},
 			{
 				name = "SSOT_URL",
