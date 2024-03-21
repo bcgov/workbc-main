@@ -11,6 +11,7 @@ resource "aws_rds_cluster" "postgres2" {
   cluster_identifier      = "workbc-postgres-cluster"
   engine                  = "aurora-postgresql"
   engine_version          = "13.8"
+  engine_mode             = "provisioned"
   master_username         = local.db_creds.adm_username
   master_password         = local.db_creds.adm_password
   backup_retention_period = 5
@@ -21,7 +22,7 @@ resource "aws_rds_cluster" "postgres2" {
   vpc_security_group_ids  = [data.aws_security_group.data.id]
   skip_final_snapshot     = true
   final_snapshot_identifier = "workbc-finalsnapshot"
-  multi_az = true
+  #multi_az = true
   
   serverlessv2_scaling_configuration {
     max_capacity = 16.0
