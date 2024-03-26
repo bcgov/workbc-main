@@ -1,5 +1,5 @@
 #cloudfront.tf
-
+/*
 resource "aws_cloudfront_cache_policy" "custom" {
   name	      = "WorkBC-NOC-cache-policy"
   comment     = "WorkBC main site cache policy"
@@ -38,4 +38,4 @@ resource "aws_cloudfront_origin_request_policy" "custom" {
             query_string_behavior = "none"
         }
 
-    }
+    }*/
