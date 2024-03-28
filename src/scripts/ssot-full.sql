@@ -27050,7 +27050,9 @@ labour_force_survey_regional_industry_region	2023 Labour Force Survey	\N	2023_LF
 labour_force_survey_regional_industry_province	2023 Labour Force Survey	\N	2023_LFS_data_sheet_Feb6_24	Regional Profiles	A35-U42	BC Labour Market Information Office	2024/02/06
 regional_labour_market_outlook	B.C. Labour Market Outlook	\N	WorkBC_Regional_Profile_Data_2023__Jan24_24	Regional Profiles - LMO	A5-L12	\N	2024/01/24
 regional_top_occupations	B.C. Labour Market Outlook	\N	WorkBC_Regional_Profile_Data_2023__Jan24_24	Top Occupation	A5-D73	\N	2024/01/24
+\N	\N	\N	WorkBC_Career_Trek_2023__Mar27_24	LMO	A2-H185	\N	2024/03/27
 nocs	\N	\N	NOC2021/*	\N	\N	\N	2024/01/28
+industries	\N	\N	EDM/*	\N	\N	\N	2024/03/26
 \.
 
 
