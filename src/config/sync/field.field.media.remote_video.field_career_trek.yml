@@ -1,0 +1,23 @@
+uuid: b4cd78c3-7a78-462f-9e63-b4ed01840184
+langcode: en
+status: true
+dependencies:
+  config:
+    - field.storage.media.field_career_trek
+    - media.type.remote_video
+  module:
+    - link
+id: media.remote_video.field_career_trek
+field_name: field_career_trek
+entity_type: media
+bundle: remote_video
+label: 'Career Trek'
+description: ''
+required: false
+translatable: false
+default_value: {  }
+default_value_callback: ''
+settings:
+  title: 1
+  link_type: 17
+field_type: link

@@ -4,6 +4,7 @@ status: true
 dependencies:
   config:
     - core.entity_view_mode.media.media_library
+    - field.field.media.remote_video.field_career_trek
     - field.field.media.remote_video.field_category
     - field.field.media.remote_video.field_description
     - field.field.media.remote_video.field_duration
@@ -11,7 +12,7 @@ dependencies:
     - image.style.1_3_component
     - media.type.remote_video
   module:
-    - image
+    - svg_image
 _core:
   default_config_hash: '-Rhy5VOFbfUBJ2-X5RA_fw5NipHP2lhdMZU886jRlts'
 id: media.remote_video.media_library
@@ -32,6 +33,7 @@ content:
     region: content
 hidden:
   created: true
+  field_career_trek: true
   field_category: true
   field_description: true
   field_duration: true
