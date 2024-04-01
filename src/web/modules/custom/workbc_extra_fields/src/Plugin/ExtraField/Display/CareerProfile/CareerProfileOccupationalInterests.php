@@ -46,17 +46,13 @@ class CareerProfileOccupationalInterests extends ExtraFieldDisplayFormattedBase 
     $output = [];
     if (!empty($entity->ssot_data) && !empty($entity->ssot_data['occupational_interests'])) {
         foreach ($entity->ssot_data['occupational_interests'] as $interest) {
-            if (!preg_match('/([[:alpha:]]+)\s+/', $interest['occupational_interest'], $term)) {
-                \Drupal::logger('workbc_extra_fields')->error("Could not parse occupational interest labeled {$interest['occupational_interest']}.");
-                continue;
-            }
             $entity_type = 'taxonomy_term';
             $entity = \Drupal::entityTypeManager()->getStorage($entity_type)->loadByProperties([
                 'vid' => 'occupational_interests',
-                'name' => $term[1]
+                'name' => $interest['occupational_interest']
             ]);
             if (empty($entity)) {
-                \Drupal::logger('workbc_extra_fields')->error("Could not find occupational interest labeled {$term[1]}.");
+                \Drupal::logger('workbc_extra_fields')->error("Could not find occupational interest labeled {$interest['occupational_interest']}.");
                 continue;
             }
             $view_builder = \Drupal::entityTypeManager()->getViewBuilder($entity_type);
@@ -64,9 +60,11 @@ class CareerProfileOccupationalInterests extends ExtraFieldDisplayFormattedBase 
             $output[] = \Drupal::service('renderer')->render($pre_render);
         }
     }
+    else {
+      $output[] = "<div class='career-occupational-interests-not-available'>" . WORKBC_EXTRA_FIELDS_DATA_NOT_AVAILABLE . "</div>";
+    }
     return [
       array_map(function($o) { return ['#markup' => $o]; }, $output),
     ];
   }
-
 }

@@ -31,7 +31,7 @@ resource "aws_ecs_task_definition" "cron-job" {
 			{
 				name = "Cron_Url",
         #Todo
-				value = "https://workbc.b89n0c-dev.nimbus.cloud.gov.bc.ca/cron/vNlYnxjqJe1cK9KaV4DO8LNiaHrIGA9z8PfluY11h-uW79PBFQ9vsS9EVnC-Bsy6ZnBE9luRqA"
+				value = "https://workbc-noc.b89n0c-dev.nimbus.cloud.gov.bc.ca/cron/vNlYnxjqJe1cK9KaV4DO8LNiaHrIGA9z8PfluY11h-uW79PBFQ9vsS9EVnC-Bsy6ZnBE9luRqA"
 			}
 		]
 	}
@@ -40,7 +40,7 @@ resource "aws_ecs_task_definition" "cron-job" {
 }
 
 resource "aws_cloudwatch_event_rule" "cron" {
-	name = "drupal_cron_schedule"
+	name = "drupal_cron_schedule2"
 	schedule_expression = "rate(5 minutes)"
 }
 

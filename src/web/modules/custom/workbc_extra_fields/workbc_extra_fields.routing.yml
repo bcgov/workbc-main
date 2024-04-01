@@ -1,7 +1,0 @@
-example.my_page:
-  path: '/admin/test/ssotFormatNumber'
-  defaults:
-    _controller: '\Drupal\workbc_extra_fields\Controller\TestPageController::ssotFormatNumberTestPage'
-    _title: 'ssotFormatNumber Test Page'
-  requirements:
-    _permission: 'access administration pages'

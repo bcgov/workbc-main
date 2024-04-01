@@ -44,12 +44,18 @@ class CareerProfileJobOpenings extends ExtraFieldDisplayFormattedBase {
    */
   public function viewElements(ContentEntityInterface $entity) {
 
+    
     $options = array(
       'decimals' => 0,
       'na_if_empty' => TRUE,
       'no_negative' => TRUE,
     );
-    $output = ssotFormatNumber($entity->ssot_data['career_provincial']['expected_job_openings_10y'], $options);
+    if (!empty($entity->ssot_data) && isset($entity->ssot_data['career_provincial'])) {
+      $output = ssotFormatNumber($entity->ssot_data['career_provincial']['expected_job_openings_10y'], $options);
+    }
+    else {
+      $output = WORKBC_EXTRA_FIELDS_NOT_AVAILABLE;
+    }
 
     return [
       ['#markup' => $output],

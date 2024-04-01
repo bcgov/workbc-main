@@ -52,7 +52,7 @@ class CareerProfileLabourMarketExpectedOpenings extends ExtraFieldDisplayFormatt
       $output = ssotFormatNumber($entity->ssot_data['career_provincial']['expected_job_openings_10y'], $options);
     }
     else {
-      $output = "";
+      $output = WORKBC_EXTRA_FIELDS_NOT_AVAILABLE;
     }
 
     return [

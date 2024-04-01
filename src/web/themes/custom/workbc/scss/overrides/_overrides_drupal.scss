@@ -5,3 +5,5 @@
 .alert-status {
   margin-bottom: 0;
 }
+
+svg > g > g.google-visualization-tooltip { pointer-events: none }

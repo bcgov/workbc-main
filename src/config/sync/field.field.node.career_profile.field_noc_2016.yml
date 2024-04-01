@@ -1,15 +1,15 @@
-uuid: d2c8d0e2-7a48-4f6b-ad04-dbf307814deb
+uuid: 77926ced-1e6f-45f7-9180-8206864977d9
 langcode: en
 status: true
 dependencies:
   config:
-    - field.storage.node.field_job_titles
+    - field.storage.node.field_noc_2016
     - node.type.career_profile
-id: node.career_profile.field_job_titles
-field_name: field_job_titles
+id: node.career_profile.field_noc_2016
+field_name: field_noc_2016
 entity_type: node
 bundle: career_profile
-label: '[DEPRECATED] Job Titles'
+label: 'NOC 2016'
 description: ''
 required: false
 translatable: false

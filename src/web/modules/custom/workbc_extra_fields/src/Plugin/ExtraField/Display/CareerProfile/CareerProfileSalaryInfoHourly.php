@@ -49,7 +49,7 @@ class CareerProfileSalaryInfoHourly extends ExtraFieldDisplayFormattedBase {
       'prefix' => "$",
       'na_if_empty' => TRUE,
     );
-    if (!empty($entity->ssot_data) && abs($entity->ssot_data['wages']['esdc_wage_rate_median'] - $entity->ssot_data['wages']['calculated_median_annual_salary']) > PHP_FLOAT_EPSILON) {
+    if (!empty($entity->ssot_data) && isset($entity->ssot_data['wages']) && abs($entity->ssot_data['wages']['esdc_wage_rate_median'] - $entity->ssot_data['wages']['calculated_median_annual_salary']) > PHP_FLOAT_EPSILON) {
       $hourly1 = ssotFormatNumber($entity->ssot_data['wages']['esdc_wage_rate_high'], $options);
       $hourly2 = ssotFormatNumber($entity->ssot_data['wages']['esdc_wage_rate_median'], $options);
       $hourly3 = ssotFormatNumber($entity->ssot_data['wages']['esdc_wage_rate_low'], $options);

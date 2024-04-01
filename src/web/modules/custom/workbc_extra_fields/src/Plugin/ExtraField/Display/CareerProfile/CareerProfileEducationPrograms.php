@@ -43,7 +43,7 @@ class CareerProfileEducationPrograms extends ExtraFieldDisplayFormattedBase {
    */
   public function viewElements(ContentEntityInterface $entity) {
 
-    $noc = $entity->get("field_noc")->getString();
+    $noc = $entity->get("field_noc_2016")->getString();
 
     $programs = epbcGetPrograms($noc);
     $text = "";

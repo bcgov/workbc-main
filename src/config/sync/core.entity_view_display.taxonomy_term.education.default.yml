@@ -1,0 +1,32 @@
+uuid: 42eb8639-2e62-4cd5-a5f3-8ec87576c6f3
+langcode: en
+status: true
+dependencies:
+  config:
+    - field.field.taxonomy_term.education.field_teer
+    - taxonomy.vocabulary.education
+  module:
+    - text
+id: taxonomy_term.education.default
+targetEntityType: taxonomy_term
+bundle: education
+mode: default
+content:
+  description:
+    type: text_default
+    label: hidden
+    settings: {  }
+    third_party_settings: {  }
+    weight: 0
+    region: content
+  field_teer:
+    type: string
+    label: above
+    settings:
+      link_to_entity: false
+    third_party_settings: {  }
+    weight: 1
+    region: content
+hidden:
+  langcode: true
+  search_api_excerpt: true

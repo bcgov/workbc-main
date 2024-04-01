@@ -2,10 +2,10 @@
 
 resource "aws_ecs_cluster" "main" {
   name               = "workbc-cluster"
-  capacity_providers = ["FARGATE_SPOT"]
+  capacity_providers = ["FARGATE"]
 
   default_capacity_provider_strategy {
-    capacity_provider = "FARGATE_SPOT"
+    capacity_provider = "FARGATE"
     weight            = 100
   }
 
@@ -93,6 +93,10 @@ resource "aws_ecs_task_definition" "app" {
 			{
 				name = "POSTGRES_DB",
 				value = "drupal"
+			},
+			{
+				name = "POSTGRES_SSOT",
+				value = "ssot"
 			},
 			{
 				name = "AWS_BUILD_NAME",
@@ -251,6 +255,10 @@ resource "aws_ecs_task_definition" "app" {
 				value = "drupal"
 			},
 			{
+				name = "POSTGRES_SSOT",
+				value = "ssot"
+			},
+			{
 				name = "AWS_BUILD_NAME",
 				value = "aws"
 			},
@@ -344,7 +352,7 @@ resource "aws_ecs_service" "main" {
 
 
   capacity_provider_strategy {
-    capacity_provider = "FARGATE_SPOT"
+    capacity_provider = "FARGATE"
     weight            = 100
   }
 
