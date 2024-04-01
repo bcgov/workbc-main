@@ -58,7 +58,6 @@ function workbc_extra_fields_node_view(array &$build, \Drupal\Core\Entity\Entity
         $year = \Drupal::request()->query->get('year');
         $month = \Drupal::request()->query->get('month');
         $entity->ssot_data = ssotLabourMarketMonthly($year,$month);
-
         break;
       case "career_profile":
         $entity->ssot_data = ssotCareerProfile($entity->get("field_noc")->getString());
@@ -98,14 +97,15 @@ function ssotLabourMarketMonthly($year = null, $month = null){
   else {
     $currentYear = $data['monthly_labour_market_updates'][0]['year'];
     $currentMonth = $data['monthly_labour_market_updates'][0]['month'];
-    $data['current_previous_months_names']= ssotGetPreviousMonthYear($currentMonth, $currentYear);
+    $data['current_previous_months_names'] = ssotGetPreviousMonthYear($currentMonth, $currentYear);
   }
+  $data['industries'] = querySSoT('industries');
 
   // Source metadata.
   $endpoint = 'monthly_labour_market_updates';
   $sources = querySSoT('sources?endpoint=eq.' . $endpoint);
   foreach($sources as $source) {
-    $datapoint = !empty($source['datapoint'])?$source['datapoint']:'no-datapoint';
+    $datapoint = !empty($source['datapoint'])?$source['datapoint'] : 'no-datapoint';
     $data['sources'][$datapoint] = $source['label'];
   }
 
@@ -124,6 +124,7 @@ function ssotBCProfile($region) {
   $data['labour_force_survey_regional_industry_region'] = querySSoT('labour_force_survey_regional_industry_region')[0];
   $data['labour_force_survey_regional_industry_province'] = querySSoT('labour_force_survey_regional_industry_province');
   $data['industry_outlook'] = querySSoT('industry_outlook');
+  $data['industries'] = querySSoT('industries');
   $data['regional_top_occupations'] = querySSoT('regional_top_occupations?region=eq.' . $region);
   $monthly_labour_market_updates = querySSoT('monthly_labour_market_updates');
   $latest = ssotLatestMonthlyLabourMarketUpdate($monthly_labour_market_updates);
@@ -147,6 +148,7 @@ function ssotRegionProfile($region) {
   $data['labour_force_survey_regional_industry_region'] = querySSoT('labour_force_survey_regional_industry_region?region=eq.' . $region)[0];
   $data['labour_force_survey_regional_industry_province'] = querySSoT('labour_force_survey_regional_industry_province');
   $data['industry_outlook'] = querySSoT('industry_outlook');
+  $data['industries'] = querySSoT('industries');
   $data['regional_top_occupations'] = querySSoT('regional_top_occupations?region=eq.' . $region);
   $monthly_labour_market_updates = querySSoT('monthly_labour_market_updates');
   $latest = ssotLatestMonthlyLabourMarketUpdate($monthly_labour_market_updates);
@@ -163,6 +165,7 @@ function ssotIndustryProfile($industry) {
   $data['industry_outlook'] = querySSoT('industry_outlook?industry=eq.' . $industry)[0];
   $data['labour_force_survey_industry'] = querySSoT('labour_force_survey_industry?industry=eq.' . $industry)[0];
   $data['monthly_labour_market_updates'] = querySSoT('monthly_labour_market_updates');
+  $data['industries'] = querySSoT('industries');
   $data['openings_industry'] = querySSoT('openings_industry?industry=eq.' . $industry);
   $data['sources'] = ssotSources(TRUE);
   $data['schema'] = ssotSchema();
@@ -182,10 +185,12 @@ function ssotCareerProfile($noc) {
     $data['high_opportunity_occupations'] = querySSoT('high_opportunity_occupations?noc=eq.' . $noc);
     $data['occupational_interests'] = querySSoT('occupational_interests?noc=eq.' . $noc);
     $data['titles'] = querySSoT('titles?noc=eq.' . $noc);
-  }
-  if (!empty(querySSoT('openings_careers?noc=eq.' . $noc))) {
-    $data['openings_careers'] = querySSoT('openings_careers?noc=eq.' . $noc)[0];
-  }
+    $opening_careers = querySSoT('openings_careers?noc=eq.' . $noc);
+    if (!empty($opening_careers)) {
+      $data['openings_careers'] = $opening_careers[0];
+    }
+    }
+  $data['industries'] = querySSoT('industries');
   $data['sources'] = ssotSources();
   $data['schema'] = ssotSchema();
 
@@ -445,12 +450,6 @@ function ssotIndustrySectors() {
     'wholesale_trade' => 'Services',
   );
   return $industries;
-}
-
-function ssotIndustryName($machine_name) {
-
-  $industries = ssotIndustries();
-  return isset($industries[$machine_name]) ? $industries[$machine_name] : "";
 }
 
 /*
