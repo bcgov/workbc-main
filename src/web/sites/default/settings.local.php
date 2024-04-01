@@ -269,6 +269,9 @@ $config['search_api.server.solr'] = [
   ],
 ];
 
+// Career Trek configuration
+$config['workbc']['careertrek_url'] = getenv('CAREERTREK_URL');
+
 ini_set('memory_limit', '1G');
 if (class_exists('Kint')) {
   // Set the max_depth to prevent out-of-memory.
