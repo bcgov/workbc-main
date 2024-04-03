@@ -1155,3 +1155,26 @@ function findPath($search, $nocs) {
   }
   return $result;
 }
+
+
+function loadCareerTrek() {
+  $careerTrek = [];
+
+  $path = DRUPAL_ROOT;
+  $path = preg_replace('/web$/', '', $path);
+  $file = fopen($path . "/scripts/migration/data/career_trek.csv", 'r');
+  if($file !== FALSE) {
+    while (($item = fgetcsv($file)) !== FALSE) {
+      if ($item) {
+        $item[0] = substr($item[0], 1);
+        $item[1] = substr($item[1], 1);
+        $careerTrek[] = $item;
+      }
+    }
+    fclose($file);
+  }
+  return $careerTrek;
+}
+
+
+
