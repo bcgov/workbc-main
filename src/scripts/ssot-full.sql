@@ -7623,6 +7623,7 @@ COPY public.nocs (noc_2021, label_en, label_fr, noc_level, teer_level, parent_no
 --
 
 COPY public.occupational_interests (noc, options, occupational_interest) FROM stdin;
+00010	Primary	Enterprising
 10010	Primary	Enterprising
 10011	Primary	Enterprising
 10012	Primary	Enterprising
@@ -7634,6 +7635,9 @@ COPY public.occupational_interests (noc, options, occupational_interest) FROM st
 10030	Primary	Enterprising
 11100	Primary	Conventional
 11100	Secondary	Enterprising
+11101	Primary	Conventional
+11101	Secondary	Investigative
+11101	Tertiary	Enterprising
 11102	Primary	Enterprising
 11102	Secondary	Conventional
 11103	Primary	Enterprising
@@ -7808,6 +7812,8 @@ COPY public.occupational_interests (noc, options, occupational_interest) FROM st
 22303	Secondary	Enterprising
 22310	Primary	Realistic
 22311	Primary	Realistic
+22312	Primary	Realistic
+22312	Secondary	Conventional
 22313	Primary	Realistic
 30010	Primary	Enterprising
 31100	Primary	Investigative
@@ -7938,6 +7944,7 @@ COPY public.occupational_interests (noc, options, occupational_interest) FROM st
 42203	Primary	Social
 42204	Primary	Social
 42204	Secondary	Enterprising
+43100	Primary	Social
 43109	Primary	Conventional
 43109	Secondary	Enterprising
 43200	Primary	Enterprising
@@ -8051,7 +8058,7 @@ COPY public.occupational_interests (noc, options, occupational_interest) FROM st
 64201	Secondary	Enterprising
 64300	Primary	Enterprising
 64301	Primary	Conventional
-64301	Secondary	Enterprise
+64301	Secondary	Enterprising
 64310	Primary	Enterprising
 64311	Primary	Enterprising
 64312	Primary	Conventional
@@ -8182,6 +8189,7 @@ COPY public.occupational_interests (noc, options, occupational_interest) FROM st
 75101	Primary	Realistic
 75110	Primary	Realistic
 75119	Primary	Realistic
+75200	Primary	Realistic
 75201	Primary	Realistic
 75210	Primary	Realistic
 75211	Primary	Realistic
@@ -27039,7 +27047,7 @@ census	2021 Census	\N	2021_Census_Jan18_23	Career Profiles	A5-R516	\N	2023/01/18
 career_regional	B.C. Labour Market Outlook	\N	WorkBC_Career_Profile_Data_2023__Jan22_24	Regional Outlook	A5-AC516	\N	2024/01/22
 career_provincial	B.C. Labour Market Outlook	\N	WorkBC_Career_Profile_Data_2023__Jan22_24	Provincial Outlook	A4-K515	\N	2024/01/22
 high_opportunity_occupations	\N	\N	HOO_BC_and_Region_for_new_tool_2023_Jan22_24	Sheet1	A2-O850	B.C. Labour Market Information Office	2024/01/22
-occupational_interests	\N	\N	Occupational_Interests_2023_Feb23_24	Sheet1	A2-C1537	\N	2024/02/23
+occupational_interests	\N	\N	Occupational_Interests_2023_Apr5_24	Sheet1	A2-C1537	\N	2024/04/05
 monthly_labour_market_updates	Labour Force Survey (monthly, seasonally adjusted)	\N	REFRESH_WorkBC LMS _<YYYY> <MMM> FINAL	Sheet3	\N	\N	2024/03/15
 monthly_labour_market_updates	Monthly Labour Force Survey, 3-month moving average, seasonally unadjusted	unemployment_pct	REFRESH_WorkBC LMS _<YYYY> <MMM> FINAL	Sheet3	\N	\N	\N
 industry_outlook	B.C. Labour Market Outlook	\N	WorkBC_Industry_Profile_2023__Jan24_24	BC	A3-H20	\N	2024/01/24
