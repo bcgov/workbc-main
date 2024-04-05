@@ -997,43 +997,34 @@ function workbc_custom_post_update_14_wbcams_migration(&$sandbox = NULL) {
   $message = "No action taken.";
   $career = array_shift($sandbox['career_trek']);
   if (!empty($career)) {
-    if ($career[2] <> "NEW") {
-      $query = $connection->select('node__field_noc');
-      $query->condition('node__field_noc.bundle', 'career_profile');
-      $query->condition('node__field_noc.field_noc_value', $career[1]);
-      $query->addField('node__field_noc', 'entity_id');
+    if ($career[2] <> "NEW") {   
+      $database = \Drupal::database();
+
+      $query = $database->select('media_field_data', 'm');
+      $orGroup = $query->orConditionGroup();
+      $orGroup->condition('m.name', '%(Episode '.$career[2].')', 'LIKE');
+      $orGroup->condition('m.name', '%('.$career[2].')', 'LIKE');
+      $query->condition($orGroup);
+      $query->condition('m.bundle', 'remote_video', '=');
+      $query->fields('m', ['mid', 'name', 'status', 'created']);
 
       $record = $query->execute()->fetchObject();
-
       if ($record) {
-        $node = \Drupal::entityTypeManager()->getStorage('node')->load($record->entity_id);
-
-        $videos = $node->field_career_videos->getValue();
-        if (!empty($videos)) {
-          $lFound = false;
-          // loop thru Career Profile Career Trek videos
-          foreach ($videos as $video) {            
-            $media = Drupal\media\Entity\Media::load($video['target_id']);
-            $episode = "(Episode " . $career[2] . ")";
-
-            // update Career Trek link if match
-            if (str_ends_with($media->name->value, $episode)) {
-              $target_url = rtrim(\Drupal::config('workbc')->get('careertrek_url'), '/') . "/episode/" .  $career[2];
-              $media->field_career_trek = $target_url;
-              $media->save();
-              $lFound = true;
-              $message = "[" . $career[1] . "] Remote Video: " . $media->name->value . " link updated - " . $target_url;
-            }
-          }
-          if (!$lFound) {
-            $message = "[" . $career[1] . "] No matching career trek videos found";
-          }
+        $media = Drupal\media\Entity\Media::load($record->mid);
+        if ($media) {
+          $target_url = rtrim(\Drupal::config('workbc')->get('careertrek_url'), '/') . "/episode/" .  $career[2];
+          $media->field_career_trek = $target_url;
+          $media->save();
+          $message = "Episode " . $career[2] . " Remote Video: " . $media->name->value . " link updated - " . $target_url;
         }
         else {
-          $message = "[" . $career[1] . "] No career trek videos found";
+          $message = $search . " - Media " . $record->mid . " not found";
         }
       }
-    }       
+      else {
+        $message = $search . " - Episode not found";
+      }
+    }      
   }
   
   $sandbox['#finished'] = empty($sandbox['career_trek']) ? 1 : ($sandbox['count'] - count($sandbox['career_trek'])) / $sandbox['count'];

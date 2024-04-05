@@ -54,6 +54,14 @@ workbc_custom.report_noc2021_validation:
   requirements:
     _permission: 'administer workbc_custom settings'
 
+workbc_custom.report_career_trek_validation:
+  path: '/admin/reports/career-trek-validation'
+  defaults:
+    _controller: '\Drupal\workbc_custom\Controller\ReportsController::career_trek_validation'
+    _title: 'Career Trek Link Validation'
+  requirements:
+    _permission: 'administer workbc_custom settings'
+
 workbc_custom.career_profile_by_noc:
   path: '/career/{noc}'
   defaults:

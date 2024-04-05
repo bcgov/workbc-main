@@ -14,6 +14,7 @@ use Drupal\Core\Routing\RouteMatchInterface;
 use Drupal\views\ViewExecutable;
 use Drupal\redirect\Entity\Redirect;
 use Symfony\Component\HttpFoundation\Request;
+use Drupal\media\Entity\Media;
 
 
 /**
@@ -1177,4 +1178,34 @@ function loadCareerTrek() {
 }
 
 
+function careerTrekProcessValidation() {
+  $errors = [];
+  $maxVideos = 174;
 
+  $careerTrek = loadCareerTrek();
+
+  $ids = \Drupal::entityQuery('media')
+  ->condition('bundle', 'remote_video')
+  ->execute();
+
+  $total = 0;
+
+  $results = Media::loadMultiple($ids);
+  foreach ($results as $media) {
+    $name = $media->name->value;
+    preg_match('/\(Episode \d*\)/', $name, $output1);
+    preg_match('/\(\d*\)/', $name, $output2);
+    if (!empty($output1) || !empty($output2)) {
+      $total++;
+      if (empty($media->field_career_trek->uri)) {
+        $errors[] = $media->name->value . " missing Career Trek link";
+      }
+    }
+  }
+
+  if ($total <> $maxVideos) {
+    $errors[] = $actual . " Career Trek videos found, should be " . $maxVideos;
+  }
+
+  return $errors;
+}
