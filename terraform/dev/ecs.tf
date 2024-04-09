@@ -144,7 +144,12 @@ resource "aws_ecs_task_definition" "app" {
 			{
 				name = "CF_DIST_ID",
 				value = "${aws_cloudfront_distribution.workbc[0].id}"
+			},
+			{
+				name = "CAREERTREK_URL",
+				value = "https://dev.careertrekbc.ca"
 			}
+
 		]
 		secrets = [
 			{
