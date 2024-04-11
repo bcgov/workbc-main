@@ -989,6 +989,7 @@ function workbc_custom_post_update_227_taxonomy_migration() {
 function workbc_custom_post_update_14_wbcams_migration(&$sandbox = NULL) {
   if (!isset($sandbox['career_trek'])) {
     $sandbox['career_trek'] = loadCareerTrek();
+    $sandbox['career_trek_urls'] = loadCareerTrekUrls();
     $sandbox['count'] = count($sandbox['career_trek']);
   }
 
@@ -1012,7 +1013,9 @@ function workbc_custom_post_update_14_wbcams_migration(&$sandbox = NULL) {
       if ($record) {
         $media = Drupal\media\Entity\Media::load($record->mid);
         if ($media) {
-          $target_url = rtrim(\Drupal::config('workbc')->get('careertrek_url'), '/') . "/episode/" .  $career[2];
+          
+          $episode = isset($sandbox['career_trek_urls'][$career[2]]) ? $sandbox['career_trek_urls'][$career[2]] : $career[2];
+          $target_url = rtrim(\Drupal::config('workbc')->get('careertrek_url'), '/') . "/episode/" .  $episode;
           $media->field_career_trek = $target_url;
           $media->save();
           $message = "Episode " . $career[2] . " Remote Video: " . $media->name->value . " link updated - " . $target_url;

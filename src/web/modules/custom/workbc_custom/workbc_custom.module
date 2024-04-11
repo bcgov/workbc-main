@@ -1178,6 +1178,24 @@ function loadCareerTrek() {
 }
 
 
+function loadCareerTrekUrls() {
+  $careerTrek = [];
+
+  $path = DRUPAL_ROOT;
+  $path = preg_replace('/web$/', '', $path);
+  $file = fopen($path . "/scripts/migration/data/career_trek_urls.csv", 'r');
+  if($file !== FALSE) {
+    while (($item = fgetcsv($file)) !== FALSE) {
+      if ($item) {
+        $careerTrekUrls[$item[0]] = $item[1];
+      }
+    }
+    fclose($file);
+  }
+  return $careerTrekUrls;
+}
+
+
 function careerTrekProcessValidation() {
   $errors = [];
   $maxVideos = 174;
