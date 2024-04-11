@@ -286,7 +286,7 @@ function workbc_preprocess_media(&$variables) {
   if ($media->bundle() == "remote_video") {
     if (!$media->field_career_trek->isEmpty()) {
       $url = $media->field_career_trek->uri;
-      if (substr($media->field_career_trek->uri, 0, 9) == "/episode/") {
+      if (str_starts_with($media->field_career_trek->uri, "/episode/")) {
         $url = rtrim(\Drupal::config('workbc')->get('careertrek_url'), '/') . $url;
       }
       $variables['media_career_trek'] = $url;
