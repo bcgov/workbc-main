@@ -1222,7 +1222,7 @@ function careerTrekProcessValidation() {
   }
 
   if ($total <> $maxVideos) {
-    $errors[] = $actual . " Career Trek videos found, should be " . $maxVideos;
+    $errors[] = $total . " Career Trek videos found, should be " . $maxVideos;
   }
 
   return $errors;
