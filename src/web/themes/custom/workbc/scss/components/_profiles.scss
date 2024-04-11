@@ -142,10 +142,11 @@
       }
     }
 
-    a {
+    .profile-video a {
       display: inline-block;
       position: relative;
-      margin-bottom: 10px;
+      margin-top: 15px;
+      margin-bottom: 5px;
 
       &:after {
         content: "";
@@ -166,8 +167,13 @@
         background-size: 60px;
       }
     }
+
   }
 
+  .field--name-field-career-videos-introduction p {
+    margin-bottom: 15px;
+  }
+  
   .container-lg {
     padding: 0 0;
   }

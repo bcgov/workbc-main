@@ -14,6 +14,7 @@ use Drupal\Core\Routing\RouteMatchInterface;
 use Drupal\views\ViewExecutable;
 use Drupal\redirect\Entity\Redirect;
 use Symfony\Component\HttpFoundation\Request;
+use Drupal\media\Entity\Media;
 
 
 /**
@@ -1154,4 +1155,75 @@ function findPath($search, $nocs) {
     }
   }
   return $result;
+}
+
+
+function loadCareerTrek() {
+  $careerTrek = [];
+
+  $path = DRUPAL_ROOT;
+  $path = preg_replace('/web$/', '', $path);
+  $file = fopen($path . "/scripts/migration/data/career_trek.csv", 'r');
+  if($file !== FALSE) {
+    while (($item = fgetcsv($file)) !== FALSE) {
+      if ($item) {
+        $item[0] = substr($item[0], 1);
+        $item[1] = substr($item[1], 1);
+        $careerTrek[] = $item;
+      }
+    }
+    fclose($file);
+  }
+  return $careerTrek;
+}
+
+
+function loadCareerTrekUrls() {
+  $careerTrek = [];
+
+  $path = DRUPAL_ROOT;
+  $path = preg_replace('/web$/', '', $path);
+  $file = fopen($path . "/scripts/migration/data/career_trek_urls.csv", 'r');
+  if($file !== FALSE) {
+    while (($item = fgetcsv($file)) !== FALSE) {
+      if ($item) {
+        $careerTrekUrls[$item[0]] = $item[1];
+      }
+    }
+    fclose($file);
+  }
+  return $careerTrekUrls;
+}
+
+
+function careerTrekProcessValidation() {
+  $errors = [];
+  $maxVideos = 174;
+
+  $careerTrek = loadCareerTrek();
+
+  $ids = \Drupal::entityQuery('media')
+  ->condition('bundle', 'remote_video')
+  ->execute();
+
+  $total = 0;
+
+  $results = Media::loadMultiple($ids);
+  foreach ($results as $media) {
+    $name = $media->name->value;
+    preg_match('/\(Episode \d*\)/', $name, $output1);
+    preg_match('/\(\d*\)/', $name, $output2);
+    if (!empty($output1) || !empty($output2)) {
+      $total++;
+      if (empty($media->field_career_trek->uri)) {
+        $errors[] = $media->name->value . " missing Career Trek link";
+      }
+    }
+  }
+
+  if ($total <> $maxVideos) {
+    $errors[] = $total . " Career Trek videos found, should be " . $maxVideos;
+  }
+
+  return $errors;
 }
