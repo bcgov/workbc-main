@@ -6996,6 +6996,7 @@ COPY public.monthly_labour_market_updates (year, month, total_employed, total_un
 2023	12	2837000	167600	156300	384800	1838700	613500	382700	1828300	608200	1353400	1483600	1342000	1477300	0.6	17700	1	23100	-0.9	-5300	0.3	5.6	0.5	65.7	-0.1	5.3	0	65.2	4566900	784600	2836000	531000	143300	145800	69900	56300	4.9	5.2	2824000	3.8	4.5	451400	5.3	5.5	1833500	3.4	4.6	288900	7.1	6	81000	5.6	4.5	86800	5.9	6.1	44800	4.1	4.1	37600	\N	\N	\N	\N	-0.6	-1100	-11.1	-2800	-0.3	-700	-1.1	-2300	1.1	2000	3.2	12300	-2.8	-5100	3	1500	1.5	1800	2.2	6400	-0.8	-1100	1.8	2600	-21.7	-3400	0.7	3100	-9.9	-8700	10.1	13200
 2024	1	2835300	162500	167600	386300	1833400	615600	384800	1838700	613500	1349800	1485500	1353400	1483600	-0.1	-2600	-1	-19600	3	17000	-0.2	5.4	-0.4	65.3	0.3	5.6	0.5	65.7	4579100	786200	2845200	532000	143500	146000	69900	56300	5.2	4.4	2814100	4.2	2.9	451200	5.4	4.5	1823500	4.8	4.3	287500	7.3	3.5	82000	6.6	6.1	86400	6.2	4.7	45300	4.5	\N	38200	\N	\N	\N	\N	-0.8	-1500	-3.5	-800	-1.5	-3500	1	2200	0.6	1100	-0.4	-1600	-1.3	-2200	-1.6	-800	2.3	2700	-0.3	-1000	3	4400	1.6	2400	17.1	2100	-1.9	-8500	11.2	9000	-4.5	-6600
 2024	2	2841200	154700	162500	383300	1841400	616500	386300	1833400	615600	1353500	1487800	1349800	1485500	0.2	5900	0.7	15500	-1.6	-9100	-0.2	5.2	-0.3	65	-0.2	5.4	-0.4	65.3	4592100	788000	2854700	533200	143700	146300	69900	56400	5.3	4.6	2812300	4.2	3.4	451900	5.3	4.8	1820100	6	4.2	286000	6.8	2.9	84600	6.6	6.6	86100	6.2	5.9	45700	5.7	4.1	38000	\N	\N	\N	\N	-1.5	-2700	-20.4	-4500	1.6	3600	1.1	2500	1.2	2200	0.5	2100	-0.5	-800	2.4	1200	-0.9	-1100	-0.5	-1500	0.5	700	-0.7	-1000	2.1	300	-1.3	-5600	3.7	3300	5.2	7300
+2024	3	2847800	167300	154700	381800	1835800	630200	383300	1841400	616500	1358600	1489100	1353500	1487800	0.2	6600	0.9	20100	-2.4	13700	0.3	5.5	0.3	65.3	-0.2	5.2	-0.3	65	4606200	789800	2865000	534500	143900	146500	69900	56500	5.5	4.6	2816200	4.6	3.4	456500	5.4	4.8	1818800	6.7	4.2	285900	7	2.9	84900	6.5	6.6	86300	6.5	5.9	45900	6.9	4.1	37900	\N	\N	\N	\N	-2.9	-5200	0	0	0.3	800	-1.5	-3300	3.2	5800	2.6	10300	2	3500	2.1	1100	0.2	200	-1.3	-3800	0.5	800	-2.4	-3700	17	2500	1.1	4700	-1.6	-1500	-3.9	-5800
 \.
 
 
@@ -27324,8 +27325,8 @@ career_regional	B.C. Labour Market Outlook	\N	WorkBC_Career_Profile_Data_2023_Ap
 career_provincial	B.C. Labour Market Outlook	\N	WorkBC_Career_Profile_Data_2023_Apr5_24	Provincial Outlook	A4-K515	\N	2024/04/05
 high_opportunity_occupations	\N	\N	HOO_BC_and_Region_for_new_tool_2023_Jan22_24	Sheet1	A2-O850	B.C. Labour Market Information Office	2024/01/22
 occupational_interests	\N	\N	Occupational_Interests_2023_Apr5_24	Sheet1	A2-C1537	\N	2024/04/05
-monthly_labour_market_updates	Labour Force Survey (monthly, seasonally adjusted)	\N	REFRESH_WorkBC LMS _<YYYY> <MMM> FINAL	Sheet3	\N	\N	2024/03/15
-monthly_labour_market_updates	Monthly Labour Force Survey, 3-month moving average, seasonally unadjusted	unemployment_pct	REFRESH_WorkBC LMS _<YYYY> <MMM> FINAL	Sheet3	\N	\N	\N
+monthly_labour_market_updates	Labour Force Survey (monthly, seasonally adjusted)	\N	REFRESH_WorkBC LMS _<YYYY> <MMM> FINAL	Sheet3	\N	\N	2024/04/12
+monthly_labour_market_updates	Monthly Labour Force Survey, 3-month moving average, seasonally unadjusted	unemployment_pct	REFRESH_WorkBC LMS _<YYYY> <MMM> FINAL	Sheet3	\N	\N	2024/04/12
 industry_outlook	B.C. Labour Market Outlook	\N	WorkBC_Industry_Profile_2023__Jan24_24	BC	A3-H20	\N	2024/04/09
 openings_industry	\N	\N	top_10_careers_by_aggregate_industry_2023__Jan22_24	Sheet 1	A2-D181	\N	2024/04/09
 labour_force_survey_industry	2023 Labour Force Survey	\N	2023_LFS_data_sheet_Feb6_24	Industry Profiles	A5-BC23	BC Labour Market Information Office	2024/04/09
