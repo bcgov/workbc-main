@@ -25,6 +25,7 @@ DROP INDEX public.high_opportunity_occupations_wage_idx;
 DROP INDEX public.high_opportunity_occupations_teer_idx;
 DROP INDEX public.high_opportunity_occupations_region_idx;
 DROP INDEX public.high_opportunity_occupations_interest_idx;
+DROP INDEX public.career_trek_noc_2021_idx;
 ALTER TABLE ONLY public.wages DROP CONSTRAINT wages_pkey;
 ALTER TABLE ONLY public.regional_top_occupations DROP CONSTRAINT regional_top_occupations_pkey;
 ALTER TABLE ONLY public.regional_labour_market_outlook DROP CONSTRAINT regional_labour_market_outlook_pkey;
@@ -38,6 +39,7 @@ ALTER TABLE ONLY public.industry_outlook DROP CONSTRAINT industry_outlook_pkey;
 ALTER TABLE ONLY public.industries DROP CONSTRAINT industries_pkey;
 ALTER TABLE ONLY public.education DROP CONSTRAINT education_pkey;
 ALTER TABLE ONLY public.census DROP CONSTRAINT census_pkey;
+ALTER TABLE ONLY public.career_trek DROP CONSTRAINT career_trek_pkey;
 ALTER TABLE ONLY public.career_regional DROP CONSTRAINT career_regional_pkey;
 ALTER TABLE ONLY public.career_provincial DROP CONSTRAINT career_provincial_pkey;
 DROP TABLE public.wages;
@@ -63,6 +65,7 @@ DROP TABLE public.high_opportunity_occupations;
 DROP VIEW public.education_teers;
 DROP TABLE public.education;
 DROP TABLE public.census;
+DROP TABLE public.career_trek;
 DROP TABLE public.career_regional;
 DROP TABLE public.career_provincial;
 DROP FUNCTION public.pgrst_watch();
@@ -126,6 +129,7 @@ CREATE TABLE public.career_provincial (
     description text,
     forecasted_average_employment_growth_rate_first5y numeric,
     forecasted_average_employment_growth_rate_second5y numeric,
+    forecasted_average_employment_growth_rate_10y numeric,
     job_openings_first5y integer,
     job_openings_second5y integer,
     expected_job_openings_10y integer,
@@ -171,6 +175,13 @@ COMMENT ON COLUMN public.career_provincial.forecasted_average_employment_growth_
 --
 
 COMMENT ON COLUMN public.career_provincial.forecasted_average_employment_growth_rate_second5y IS 'Forecasted average employment growth rate (%) {2028-2033}';
+
+
+--
+-- Name: COLUMN career_provincial.forecasted_average_employment_growth_rate_10y; Type: COMMENT; Schema: public; Owner: workbc
+--
+
+COMMENT ON COLUMN public.career_provincial.forecasted_average_employment_growth_rate_10y IS 'Forecasted average employment growth rate (%) {2023-2033}';
 
 
 --
@@ -421,6 +432,79 @@ COMMENT ON COLUMN public.career_regional.vancouver_island_coast_annual_employmen
 --
 
 COMMENT ON COLUMN public.career_regional.vancouver_island_coast_expected_number_of_job_openings_10y IS 'Vancouver Island/Coast > Expected number of job openings {2023-2033}';
+
+
+--
+-- Name: career_trek; Type: TABLE; Schema: public; Owner: workbc
+--
+
+CREATE TABLE public.career_trek (
+    episode_num integer NOT NULL,
+    episode_title text,
+    noc_2021 text,
+    title_2021 text,
+    noc_2016 text,
+    title_2016 text,
+    youtube_link text
+);
+
+
+ALTER TABLE public.career_trek OWNER TO workbc;
+
+--
+-- Name: TABLE career_trek; Type: COMMENT; Schema: public; Owner: workbc
+--
+
+COMMENT ON TABLE public.career_trek IS 'WorkBC Career Trek Data {2023}';
+
+
+--
+-- Name: COLUMN career_trek.episode_num; Type: COMMENT; Schema: public; Owner: workbc
+--
+
+COMMENT ON COLUMN public.career_trek.episode_num IS 'Sr No';
+
+
+--
+-- Name: COLUMN career_trek.episode_title; Type: COMMENT; Schema: public; Owner: workbc
+--
+
+COMMENT ON COLUMN public.career_trek.episode_title IS 'Occupation (Career Trek job title)';
+
+
+--
+-- Name: COLUMN career_trek.noc_2021; Type: COMMENT; Schema: public; Owner: workbc
+--
+
+COMMENT ON COLUMN public.career_trek.noc_2021 IS 'NOC 2021';
+
+
+--
+-- Name: COLUMN career_trek.title_2021; Type: COMMENT; Schema: public; Owner: workbc
+--
+
+COMMENT ON COLUMN public.career_trek.title_2021 IS 'NOC Title (2021) Updates';
+
+
+--
+-- Name: COLUMN career_trek.noc_2016; Type: COMMENT; Schema: public; Owner: workbc
+--
+
+COMMENT ON COLUMN public.career_trek.noc_2016 IS 'NOC 2016';
+
+
+--
+-- Name: COLUMN career_trek.title_2016; Type: COMMENT; Schema: public; Owner: workbc
+--
+
+COMMENT ON COLUMN public.career_trek.title_2016 IS 'NOC Title (2016)';
+
+
+--
+-- Name: COLUMN career_trek.youtube_link; Type: COMMENT; Schema: public; Owner: workbc
+--
+
+COMMENT ON COLUMN public.career_trek.youtube_link IS 'YouTube video link/URL';
 
 
 --
@@ -3617,519 +3701,519 @@ COMMENT ON COLUMN public.wages.source_information IS 'Source Information';
 -- Data for Name: career_provincial; Type: TABLE DATA; Schema: public; Owner: workbc
 --
 
-COPY public.career_provincial (noc, description, forecasted_average_employment_growth_rate_first5y, forecasted_average_employment_growth_rate_second5y, job_openings_first5y, job_openings_second5y, expected_job_openings_10y, replacement_of_retiring_workers_10y_pct, replacement_of_retiring_workers_10y, new_jobs_due_to_economic_growth_10y_pct, new_jobs_due_to_economic_growth_10y) FROM stdin;
-00010	Legislators	1.2	1.6	340	340	680	73.3	500	26.700000000000003	180
-00018	Senior managers - public and private sector	1.3	1.4000000000000001	9680	10380	20060	74.5	14940	25.5	5120
-10010	Financial managers	0.8999999999999999	1.0999999999999999	1700	1820	3510	71.7	2520	28.299999999999997	990
-10011	Human resources managers	1.3	1.2	1540	1830	3370	72.6	2450	27.400000000000002	920
-10012	Purchasing managers	0.8	1	800	940	1740	80.60000000000001	1410	19.400000000000002	340
-10019	Other administrative services managers	1.0999999999999999	1.3	1500	1800	3300	73.1	2410	26.900000000000002	880
-10020	Insurance, real estate and financial brokerage managers	0.5	1	1470	1720	3190	82.89999999999999	2650	17.1	540
-10021	Banking, credit and other investment managers	-0.1	0.7000000000000001	1330	2030	3360	91.4	3070	8.6	290
-10022	Advertising, marketing and public relations managers	1.5	1.5	2440	3160	5590	53.800000000000004	3010	46.2	2590
-10029	Other business services managers	1.0999999999999999	1	790	840	1630	76.7	1250	23.3	380
-10030	Telecommunication carriers managers	0.5	0.8	220	290	510	83	430	17	90
-11100	Financial auditors and accountants	0.8999999999999999	1	5070	5200	10270	68.60000000000001	7040	31.4	3230
-11101	Financial and investment analysts	0.2	0.8	590	820	1410	78.60000000000001	1110	21.4	300
-11102	Financial advisors	-0.1	0.8	1620	2320	3940	86.9	3430	13.100000000000001	510
-11103	Securities agents, investment dealers and brokers	-0.3	0.6	380	450	830	93.8	780	6.2	50
-11109	Other financial officers	-0.2	0.7000000000000001	510	760	1270	90.2	1150	9.8	120
-11200	Human resources professionals	1.0999999999999999	1.2	1860	2110	3970	66.7	2650	33.300000000000004	1320
-11201	Professional occupations in business management consulting	1.7000000000000002	1.5	2780	2610	5390	59.099999999999994	3190	40.9	2200
-11202	Professional occupations in advertising, marketing and public relations	1.4000000000000001	1.4000000000000001	3460	3970	7430	51.4	3820	48.6	3610
-12010	Supervisors, general office and administrative support workers	1.2	1.2	570	650	1210	73.2	890	26.8	320
-12011	Supervisors, finance and insurance office workers	0.8999999999999999	1	450	510	960	79.2	760	20.8	200
-12012	Supervisors, library, correspondence and related information workers	0.8	1.0999999999999999	130	130	260	85.2	220	14.799999999999999	40
-12013	Supervisors, supply chain, tracking and scheduling coordination occupations	1	1	700	820	1520	71.7	1090	28.299999999999997	430
-12100	Executive assistants	1	1.2	1230	1480	2720	73.2	1990	26.8	730
-12101	Human resources and recruitment officers	1.2	1.4000000000000001	730	960	1680	65.5	1100	34.5	580
-12102	Procurement and purchasing agents and officers	0.8999999999999999	1	1200	1390	2590	77.10000000000001	2000	22.900000000000002	590
-12103	Conference and event planners	1.0999999999999999	1.0999999999999999	480	590	1070	65.60000000000001	700	34.4	370
-12104	Employment insurance and revenue officers	1.2	1.3	850	1050	1910	72.39999999999999	1380	27.6	530
-12110	Court reporters, medical transcriptionists and related occupations	1.3	1.2	300	250	550	70.89999999999999	390	29.099999999999998	160
-12111	Health information management occupations	1.4000000000000001	2	140	150	290	66.7	190	33.300000000000004	100
-12112	Records management technicians	1.7000000000000002	1.7000000000000002	40	40	80	55.300000000000004	40	44.800000000000004	40
-12113	Statistical officers and related research support occupations	1.3	1.5	60	80	140	44.2	60	55.800000000000004	80
-12200	Accounting technicians and bookkeepers	0.8	0.8999999999999999	5360	4640	10000	76.9	7690	23.1	2310
-12201	Insurance adjusters and claims examiners	0.8	1.2	730	830	1560	72	1130	28.000000000000004	440
-12202	Insurance underwriters	0.8	1.2	270	320	580	69.3	400	30.7	180
-12203	Assessors, business valuators and appraisers	0.7000000000000001	0.8999999999999999	320	320	640	73.9	470	26.1	170
-13100	Administrative officers	1.0999999999999999	1.0999999999999999	8760	9770	18530	74.4	13780	25.6	4750
-13101	Property administrators	0.8	1	2220	2280	4500	80.10000000000001	3610	19.900000000000002	890
-13102	Payroll administrators	0.8999999999999999	1.0999999999999999	1230	1240	2460	73	1800	27	660
-13110	Administrative assistants	1	1.0999999999999999	5770	6180	11940	69.5	8300	30.5	3640
-13111	Legal administrative assistants	0.8	0.8	1210	1220	2430	69.69999999999999	1690	30.3	740
-13112	Medical administrative assistants	1.7999999999999998	1.7000000000000002	960	990	1950	52.7	1030	47.3	920
-13200	Customs, ship and other brokers	1.7000000000000002	1.0999999999999999	160	130	290	57.49999999999999	170	42.4	120
-13201	Production and transportation logistics coordinators	1	0.8999999999999999	960	1010	1970	68.10000000000001	1340	31.900000000000002	630
-14100	General office support workers	1.0999999999999999	1.3	5410	5570	10980	65.60000000000001	7200	34.4	3780
-14101	Receptionists	1.4000000000000001	1.4000000000000001	4400	4380	8780	55.7	4890	44.3	3890
-14102	Personnel clerks	1	1.3	290	320	610	66.10000000000001	400	33.900000000000006	210
-14103	Court clerks and related court services occupations	0.7000000000000001	1	90	110	200	71.5	140	28.4	60
-14110	Survey interviewers and statistical clerks	1.2	1.0999999999999999	250	200	450	68.10000000000001	310	31.8	140
-14111	Data entry clerks	0.6	-0.2	720	450	1170	94.5	1110	5.5	60
-14112	Desktop publishing operators and related occupations	0.7000000000000001	0.5	10	10	10	80.5	10	19.400000000000002	0
-14200	Accounting and related clerks	0.8999999999999999	1	4590	4400	8990	73.4	6600	26.6	2390
-14201	Banking, insurance and other financial clerks	0.4	0.8999999999999999	370	400	760	79.9	610	20.1	150
-14202	Collection clerks	0.8999999999999999	1	200	200	400	72.6	290	27.400000000000002	110
-14300	Library assistants and clerks	0.7000000000000001	0.7000000000000001	190	170	360	75.1	270	24.9	90
-14301	Correspondence, publication and regulatory clerks	1	1.2	480	520	990	68.4	680	31.6	310
-14400	Shippers and receivers	0.8	1	2190	2300	4490	69.8	3130	30.2	1360
-14401	Storekeepers and partspersons	1	0.8	1000	900	1890	71.39999999999999	1350	28.599999999999998	540
-14402	Production logistics workers	0.8999999999999999	1.3	180	200	380	70.1	260	29.9	110
-14403	Purchasing and inventory control workers	0.8999999999999999	1.0999999999999999	720	770	1490	66.8	1000	33.2	500
-14404	Dispatchers	0.8999999999999999	1.0999999999999999	510	610	1120	64.9	730	35.099999999999994	390
-14405	Transportation route and crew schedulers	1.3	1	90	90	180	68	130	32	60
-20010	Engineering managers	1.7000000000000002	1.6	1140	1320	2460	65.3	1610	34.699999999999996	850
-20011	Architecture and science managers	1.3	1.3	480	560	1040	72.5	750	27.500000000000004	290
-20012	Computer and information systems managers	2.7	2.8000000000000003	3890	5010	8900	53.300000000000004	4740	46.7	4160
-21100	Physicists and astronomers	1.6	1.7000000000000002	90	100	180	52.5	100	47.5	90
-21101	Chemists	1.3	1.2	290	310	600	58.599999999999994	350	41.4	250
-21102	Geoscientists and oceanographers	1.7000000000000002	1.0999999999999999	570	450	1010	62	630	38	390
-21103	Meteorologists and climatologists	1.0999999999999999	1.2	20	20	40	67.7	30	32.300000000000004	10
-21109	Other professional occupations in physical sciences	1.9	0.8999999999999999	10	10	10	59.599999999999994	10	40.5	10
-21110	Biologists and related scientists	1.2	1.0999999999999999	850	940	1790	58.199999999999996	1040	41.8	750
-21111	Forestry professionals	-0.7000000000000001	0.3	330	440	770	100	830	0	-60
-21112	Agricultural representatives, consultants and specialists	0.8	0.8999999999999999	60	60	120	73.8	90	26.1	30
-21120	Public and environmental health and safety professionals	1.0999999999999999	1.2	490	520	1000	66.10000000000001	660	33.900000000000006	340
-21200	Architects	2	1.7000000000000002	800	730	1530	45.1	690	54.900000000000006	840
-21201	Landscape architects	1.9	1.7000000000000002	60	60	130	45	60	55.1	70
-21202	Urban and land use planners	1.2	1.4000000000000001	540	600	1140	63.5	730	36.5	420
-21203	Land surveyors	1.6	1.4000000000000001	240	240	490	57.49999999999999	280	42.5	210
-21210	Mathematicians, statisticians and actuaries	1.5	1.3	120	130	250	53.800000000000004	130	46.2	110
-21211	Data scientists	2.4	2.5	360	470	840	27.500000000000004	230	72.5	610
-21220	Cybersecurity specialists	2.1999999999999997	2.4	330	400	730	45.4	330	54.6	400
-21221	Business systems specialists	1.9	2.1999999999999997	880	1080	1960	47.5	930	52.5	1030
-21222	Information systems specialists	2.8000000000000003	2.9000000000000004	4360	5010	9370	42.699999999999996	4000	57.3	5370
-21223	Database analysts and data administrators	1.9	2.1	650	710	1360	54.2	740	45.800000000000004	620
-21230	Computer systems developers and programmers	2.9000000000000004	3	1110	1270	2380	40.1	960	59.9	1430
-21231	Software engineers and designers	3.1	3.2	5460	6860	12330	31.7	3910	68.30000000000001	8410
-21232	Software developers and programmers	3.5000000000000004	3.5000000000000004	4380	5350	9730	27.1	2640	72.89999999999999	7090
-21233	Web designers	3.6999999999999997	3.5999999999999996	790	960	1750	24.099999999999998	420	75.9	1330
-21234	Web developers and programmers	3.5000000000000004	3.4000000000000004	2330	2900	5230	21.2	1110	78.8	4120
-21300	Civil engineers	1.7000000000000002	1.4000000000000001	2080	1920	4010	55.400000000000006	2220	44.6	1790
-21301	Mechanical engineers	1.4000000000000001	1.4000000000000001	1030	1120	2150	52.2	1120	47.8	1030
-21310	Electrical and electronics engineers	1.6	1.5	1450	1440	2890	56.599999999999994	1640	43.4	1250
-21311	Computer engineers (except software engineers and designers)	2.4	2.6	750	880	1630	46.9	770	53.1	870
-21320	Chemical engineers	1.0999999999999999	0.8999999999999999	170	160	330	61.3	200	38.7	130
-21321	Industrial and manufacturing engineers	1.2	1.3	240	270	510	60.699999999999996	310	39.300000000000004	200
-21322	Metallurgical and materials engineers	1.4000000000000001	1.4000000000000001	50	50	100	55.1	60	44.9	50
-21330	Mining engineers	1.4000000000000001	1	100	90	190	51.2	100	48.8	100
-21331	Geological engineers	2.1	1.7000000000000002	220	200	420	39.2	160	60.8	260
-21332	Petroleum engineers	2.1999999999999997	0.8	30	20	40	64	30	36	20
-21390	Aerospace engineers	1.0999999999999999	0.8999999999999999	50	50	100	70.7	70	29.299999999999997	30
-21399	Other professional engineers	0.8	1.3	250	310	560	63.3	350	36.7	210
-22100	Chemical technologists and technicians	1.3	1	180	170	360	68.7	240	31.3	110
-22101	Geological and mineral technologists and technicians	1.3	0.8	270	220	490	73.8	360	26.200000000000003	130
-22110	Biological technologists and technicians	0.8999999999999999	0.8999999999999999	170	190	370	62.9	230	37.1	140
-22111	Agricultural and fish products inspectors	1.3	1.2	90	100	190	63.5	120	36.5	70
-22112	Forestry technologists and technicians	-1.0999999999999999	0.1	180	350	530	100	680	0	-150
-22113	Conservation and fishery officers	0.8999999999999999	0.8999999999999999	130	140	270	76.4	210	23.599999999999998	60
-22114	Landscape and horticulture technicians and specialists	1	1	740	740	1480	65.9	980	34.1	510
-22210	Architectural technologists and technicians	1.9	1.6	380	360	740	43.8	320	56.2	420
-22211	Industrial designers	1.7999999999999998	1.9	280	310	590	46.7	280	53.300000000000004	320
-22212	Drafting technologists and technicians	1.4000000000000001	1.3	830	810	1640	58.599999999999994	960	41.4	680
-22213	Land survey technologists and technicians	1.6	1.7000000000000002	80	90	180	54.900000000000006	100	45.1	80
-22214	Technical occupations in geomatics and meteorology	0.8999999999999999	1.2	370	410	780	73.1	570	26.900000000000002	210
-22220	Computer network and web technicians	2.1	2.3	1890	2250	4130	48.8	2020	51.2	2120
-22221	User support technicians	2.4	2.5	1870	2190	4060	43.3	1760	56.699999999999996	2300
-22222	Information systems testing technicians	3.2	3.3000000000000003	370	430	800	34.2	270	65.8	530
-22230	Non-destructive testers and inspectors	1.7999999999999998	1.3	110	110	210	56.3	120	43.7	90
-22231	Engineering inspectors and regulatory officers	1.5	1.3	120	110	230	63.6	150	36.4	80
-22232	Occupational health and safety specialists	1	1	490	500	990	73.1	720	26.900000000000002	270
-22233	Construction inspectors	1.3	1	630	550	1180	71.6	850	28.4	340
-22300	Civil engineering technologists and technicians	1.6	1.4000000000000001	550	540	1090	58.5	640	41.5	450
-22301	Mechanical engineering technologists and technicians	1.0999999999999999	1.3	640	650	1290	68.10000000000001	880	31.900000000000002	410
-22302	Industrial engineering and manufacturing technologists and technicians	0.5	0.8	230	270	490	78.60000000000001	390	21.4	110
-22303	Construction estimators	0.8999999999999999	0.5	610	500	1120	76.3	850	23.7	270
-22310	Electrical and electronics engineering technologists and technicians	1.2	1.2	1100	1060	2150	69.39999999999999	1500	30.599999999999998	660
-22311	Electronic service technicians (household and business equipment)	1.2	1.3	1490	1520	3010	63.1	1900	36.9	1110
-22312	Industrial instrument technicians and mechanics	0.6	0.1	140	110	240	85.3	210	14.7	40
-22313	Aircraft instrument, electrical and avionics mechanics, technicians and inspectors	1.4000000000000001	0.8999999999999999	140	130	280	64.60000000000001	180	35.4	100
-30010	Managers in health care	1.7000000000000002	1.9	1660	2000	3660	66	2410	34	1240
-31100	Specialists in clinical and laboratory medicine	1.7000000000000002	2	1150	1360	2510	47.199999999999996	1190	52.800000000000004	1330
-31101	Specialists in surgery	1.7999999999999998	2	370	390	760	51.2	390	48.8	370
-31102	General practitioners and family physicians	1.7999999999999998	1.7999999999999998	1820	1820	3640	50.4	1840	49.6	1810
-31103	Veterinarians	0.7000000000000001	0.8	280	290	570	77.9	440	22.1	130
-31110	Dentists	2	1.5	840	750	1590	54.900000000000006	880	45.1	720
-31111	Optometrists	2	1.6	200	190	390	59.099999999999994	230	40.9	160
-31112	Audiologists and speech-language pathologists	1.5	1.6	330	340	670	59.199999999999996	400	40.8	270
-31120	Pharmacists	1.3	1.7000000000000002	1060	1330	2390	52.7	1260	47.3	1130
-31121	Dietitians and nutritionists	1.6	1.9	320	370	690	54.800000000000004	380	45.2	310
-31200	Psychologists	1.7999999999999998	1.6	460	410	870	55.2	480	44.800000000000004	390
-31201	Chiropractors	1.9	1.5	330	300	630	60.4	380	39.6	250
-31202	Physiotherapists	1.7999999999999998	1.7999999999999998	930	1020	1950	51.800000000000004	1010	48.199999999999996	940
-31203	Occupational therapists	1.7000000000000002	1.9	550	670	1210	48.8	590	51.2	620
-31204	Kinesiologists and other professional occupations in therapy and assessment	1.7999999999999998	1.7000000000000002	300	320	620	36.6	230	63.4	390
-31209	Other professional occupations in health diagnosing and treating	2	1.6	180	190	370	54.7	200	45.300000000000004	170
-31300	Nursing coordinators and supervisors	1.7000000000000002	2.1	520	660	1180	63	750	37	440
-31301	Registered nurses and registered psychiatric nurses	1.5	2.1	11030	13740	24770	52.5	13020	47.5	11750
-31302	Nurse practitioners	1.6	2	130	170	290	45.800000000000004	130	54.2	160
-31303	Physician assistants, midwives and allied health professionals	1.6	1.9	60	70	120	55.1	70	44.9	50
-32100	Opticians	1.4000000000000001	1.4000000000000001	330	310	640	66.5	420	33.5	210
-32101	Licensed practical nurses	1.7000000000000002	2	1980	2300	4280	51.6	2210	48.4	2070
-32102	Paramedical occupations	1.6	1.5	720	750	1480	56.3	830	43.7	650
-32103	Respiratory therapists, clinical perfusionists and cardiopulmonary technologists	1.4000000000000001	2.1999999999999997	340	460	800	51.7	410	48.3	380
-32104	Animal health technologists and veterinary technicians	0.7000000000000001	0.8	350	430	790	66.8	530	33.2	260
-32109	Other technical occupations in therapy and assessment	1.6	1.7999999999999998	410	480	890	50	440	50	440
-32110	Denturists	1.7999999999999998	1.5	40	40	80	48.5	40	51.5	40
-32111	Dental hygienists and dental therapists	1.9	1.5	770	780	1550	56.699999999999996	880	43.3	670
-32112	Dental technologists and technicians	1.2	0.8999999999999999	190	160	340	71.89999999999999	250	28.1	100
-32120	Medical laboratory technologists	1.6	2	660	770	1430	56.3	810	43.7	630
-32121	Medical radiation technologists	1.4000000000000001	2	580	790	1370	51.7	710	48.3	660
-32122	Medical sonographers	1.5	2	220	250	470	55.300000000000004	260	44.7	210
-32123	Cardiology technologists and electrophysiological diagnostic technologists	1.5	2.1999999999999997	130	180	310	50.4	160	49.6	150
-32124	Pharmacy technicians	1.3	1.7999999999999998	480	630	1100	54.7	600	45.300000000000004	500
-32129	Other medical technologists and technicians	1.3	1.4000000000000001	70	70	150	58.9	90	41.099999999999994	60
-32200	Traditional Chinese medicine practitioners and acupuncturists	2.1	1.5	300	280	570	49.8	290	50.2	290
-32201	Massage therapists	1.9	1.5	1360	1370	2740	55.60000000000001	1520	44.4	1210
-32209	Other practitioners of natural healing	1.9	1.5	180	180	360	51.6	190	48.5	180
-33100	Dental assistants and dental laboratory assistants	1.9	1.5	1170	1150	2320	52.800000000000004	1220	47.199999999999996	1100
-33101	Medical laboratory assistants and related technical occupations	1.6	1.7999999999999998	740	880	1620	50.6	820	49.4	800
-33102	Nurse aides, orderlies and patient service associates	1.7999999999999998	1.9	11100	11370	22480	56.00000000000001	12580	44	9900
-33103	Pharmacy technical assistants and pharmacy assistants	1.3	1.5	550	670	1220	48.199999999999996	590	51.800000000000004	630
-33109	Other assisting occupations in support of health services	1.6	1.7999999999999998	1110	1170	2280	53.2	1220	46.800000000000004	1070
-40010	Government managers - health and social policy development and program administration	0.8999999999999999	1.0999999999999999	270	330	590	78.9	470	21.099999999999998	130
-40011	Government managers - economic analysis, policy development and program administration	0.8999999999999999	1.2	380	460	840	79.7	670	20.3	170
-40012	Government managers - education policy development and program administration	0.8999999999999999	1.3	50	60	120	74.2	90	25.8	30
-40019	Other managers in public administration	0.8999999999999999	1.3	140	160	300	78	230	22	70
-40020	Administrators - post-secondary education and vocational training	0.8999999999999999	1.0999999999999999	770	870	1640	78.5	1280	21.5	350
-40021	School principals and administrators of elementary and secondary education	1	1.0999999999999999	1210	1360	2570	81.2	2090	18.8	480
-40030	Managers in social, community and correctional services	1.0999999999999999	1.4000000000000001	1310	1600	2920	71	2070	28.999999999999996	850
-40040	Commissioned police officers and related occupations in public protection services	1.0999999999999999	1.6	60	60	120	83.2	100	16.8	20
-40041	Fire chiefs and senior firefighting officers	1.2	1.7999999999999998	180	200	380	80.7	310	19.3	70
-40042	Commissioned officers of the Canadian Armed Forces	0.8	1	270	330	600	76.7	460	23.3	140
-41100	Judges	0.8	1.0999999999999999	100	90	190	82.6	160	17.4	30
-41101	Lawyers and Quebec notaries	0.8999999999999999	0.8	2100	2020	4120	67.60000000000001	2780	32.4	1330
-41200	University professors and lecturers	1.0999999999999999	0.8	2190	1980	4170	72.7	3030	27.3	1140
-41201	Post-secondary teaching and research assistants	1	0.8999999999999999	1120	1240	2360	51.4	1210	48.6	1150
-41210	College and other vocational instructors	0.8999999999999999	1.4000000000000001	2630	2880	5520	69.8	3850	30.2	1660
-41220	Secondary school teachers	1.0999999999999999	1.0999999999999999	3420	3590	7010	68.60000000000001	4810	31.4	2200
-41221	Elementary school and kindergarten teachers	1.0999999999999999	1.0999999999999999	6120	6490	12610	69	8690	31	3910
-41300	Social workers	1.3	1.6	1570	1800	3370	58.699999999999996	1980	41.3	1390
-41301	Therapists in counselling and related specialized therapies	1.7000000000000002	1.7000000000000002	1880	1890	3770	54.900000000000006	2070	45.1	1700
-41302	Religious leaders	1.3	1.3	840	790	1630	58.3	950	41.699999999999996	680
-41310	Police investigators and other investigative occupations	1.0999999999999999	1.4000000000000001	130	140	270	75.5	200	24.5	70
-41311	Probation and parole officers	0.7000000000000001	1	130	160	290	73.8	220	26.200000000000003	80
-41320	Educational counsellors	1	1.0999999999999999	900	910	1810	71.2	1280	28.799999999999997	520
-41321	Career development practitioners and career counsellors (except education)	1.3	1.3	370	360	740	66.9	490	33.1	240
-41400	Natural and applied science policy researchers, consultants and program officers	1.3	1.2	870	910	1780	61.3	1090	38.7	690
-41401	Economists and economic policy researchers and analysts	0.8999999999999999	1.0999999999999999	290	330	620	65.4	410	34.599999999999994	210
-41402	Business development officers and market researchers and analysts	1.5	1.5	990	1120	2110	53.400000000000006	1130	46.6	990
-41403	Social policy researchers, consultants and program officers	1.0999999999999999	1.2	890	970	1860	64.8	1200	35.199999999999996	650
-41404	Health policy researchers, consultants and program officers	1.4000000000000001	1.5	760	820	1580	58.099999999999994	920	41.9	660
-41405	Education policy researchers, consultants and program officers	1	1.3	680	720	1410	65.2	920	34.8	490
-41406	Recreation, sports and fitness policy researchers, consultants and program officers	1.0999999999999999	1.2	300	340	630	64.1	410	35.9	230
-41407	Program officers unique to government	1	1.2	190	190	380	70.7	270	29.2	110
-41409	Other professional occupations in social science	1.0999999999999999	1.0999999999999999	200	210	400	62.9	250	37.1	150
-42100	Police officers (except commissioned)	1.0999999999999999	1.4000000000000001	1990	2370	4360	66.8	2910	33.2	1450
-42101	Firefighters	1	1.7000000000000002	850	1110	1960	64.7	1270	35.3	690
-42102	Specialized members of the Canadian Armed Forces	0.4	0.7000000000000001	30	30	60	84.2	50	15.8	10
-42200	Paralegals and related occupations	0.8999999999999999	1.2	820	910	1730	68.89999999999999	1190	31.1	540
-42201	Social and community service workers	1.6	1.7000000000000002	7340	7590	14930	56.39999999999999	8420	43.6	6510
-42202	Early childhood educators and assistants	3.4000000000000004	2.9000000000000004	6060	6250	12310	33.4	4110	66.60000000000001	8210
-42203	Instructors of persons with disabilities	1.4000000000000001	1.6	290	340	630	46.9	290	53.1	330
-42204	Religion workers	1.2	1.4000000000000001	180	190	370	57.099999999999994	210	42.9	160
-43100	Elementary and secondary school teacher assistants	1	1	3460	3650	7110	68.89999999999999	4890	31.1	2210
-43109	Other instructors	0.8999999999999999	1.5	1220	1400	2620	59.3	1550	40.699999999999996	1060
-43200	Sheriffs and bailiffs	0.7000000000000001	1	100	110	200	72.39999999999999	150	27.6	60
-43201	Correctional service officers	1	1.0999999999999999	580	640	1230	69	850	31	380
-43202	By-law enforcement and other regulatory officers	1	1.4000000000000001	280	320	600	65.9	400	34.1	210
-43203	Border services, customs, and immigration officers	1.2	1.3	250	300	550	59.699999999999996	330	40.300000000000004	220
-43204	Operations members of the Canadian Armed Forces	0.7000000000000001	0.8999999999999999	400	460	870	77.3	670	22.7	200
-44100	Home child care providers	-0.7000000000000001	-2.1999999999999997	520	-110	410	100	1530	0	-1120
-44101	Home support workers, caregivers and related occupations	1.7000000000000002	1.7000000000000002	1970	1870	3830	58.099999999999994	2230	41.9	1610
-44200	Primary combat members of the Canadian Armed Forces	1	1.2	30	40	70	48.199999999999996	40	51.800000000000004	40
-45100	Student monitors, crossing guards and related occupations	1.0999999999999999	1.0999999999999999	410	370	780	72.3	570	27.700000000000003	220
-50010	Library, archive, museum and art gallery managers	0.6	0.8999999999999999	170	190	360	84.1	300	15.9	60
-50011	Managers - publishing, motion pictures, broadcasting and performing arts	1.7000000000000002	1	400	400	800	69.6	550	30.4	240
-50012	Recreation, sports and fitness program and service directors	0.8999999999999999	1	510	620	1130	74.8	850	25.2	290
-51100	Librarians	0.1	0.8	110	140	250	86.7	220	13.3	30
-51101	Conservators and curators	1	1	60	60	120	63.800000000000004	70	36.199999999999996	40
-51102	Archivists	0.5	1	20	20	30	80.2	30	19.8	10
-51110	Editors	1	0.8999999999999999	390	380	770	75.6	580	24.4	190
-51111	Authors and writers (except technical)	1.3	1.0999999999999999	930	760	1680	65.3	1100	34.699999999999996	580
-51112	Technical writers	1.9	2.1	260	290	550	53.1	290	46.9	260
-51113	Journalists	0.6	0.5	180	160	340	82.1	280	17.9	60
-51114	Translators, terminologists and interpreters	1	0.8999999999999999	290	270	550	70.39999999999999	390	29.599999999999998	160
-51120	Producers, directors, choreographers and related occupations	2.1999999999999997	1.2	1490	1410	2900	59.199999999999996	1720	40.8	1180
-51121	Conductors, composers and arrangers	1.2	1	100	80	190	61.199999999999996	110	38.800000000000004	70
-51122	Musicians and singers	0.8999999999999999	1.3	1030	1080	2110	62.6	1320	37.4	790
-52100	Library and public archive technicians	0.6	1.0999999999999999	170	170	340	79.7	270	20.3	70
-52110	Film and video camera operators	2.3	1.2	230	190	420	50	210	50	210
-52111	Graphic arts technicians	2.7	1.6	690	630	1310	36.5	480	63.5	830
-52112	Broadcast technicians	0.3	0.8	20	20	40	85.7	30	14.299999999999999	10
-52113	Audio and video recording technicians	2	1.2	570	490	1060	51.9	550	48.1	510
-52114	Announcers and other broadcasters	0.4	0.8	50	60	110	78.60000000000001	80	21.4	20
-52119	Other technical and coordinating occupations in motion pictures, broadcasting and the performing arts	2.1999999999999997	1.3	1420	1230	2650	52.1	1380	47.9	1270
-52120	Graphic designers and illustrators	1.7999999999999998	1.4000000000000001	2830	2940	5770	45.800000000000004	2640	54.2	3130
-52121	Interior designers and interior decorators	1	0.8	890	850	1730	71.39999999999999	1240	28.599999999999998	500
-53100	Registrars, restorers, interpreters and other occupations related to museum and art galleries	0.8	0.8999999999999999	110	110	220	67	150	32.9	70
-53110	Photographers	0.8	0.8999999999999999	330	390	730	60.099999999999994	440	39.800000000000004	290
-53111	Motion pictures, broadcasting, photography and performing arts assistants and operators	2.8000000000000003	1	1030	690	1720	47.4	810	52.6	900
-53120	Dancers	0.8	1.4000000000000001	140	210	360	46.400000000000006	170	53.6	190
-53121	Actors, comedians and circus performers	1.7999999999999998	1	690	540	1230	54.6	670	45.4	560
-53122	Painters, sculptors and other visual artists	0.8999999999999999	0.8999999999999999	830	710	1540	73.2	1130	26.8	410
-53123	Theatre, fashion, exhibit and other creative designers	1.3	0.8999999999999999	430	400	830	62	510	38	320
-53124	Artisans and craftspersons	0.7000000000000001	0.7000000000000001	670	590	1260	79.5	1000	20.5	260
-53125	Patternmakers - textile, leather and fur products	0.7000000000000001	0.4	30	20	50	86.3	40	13.8	10
-53200	Athletes	1	0.8999999999999999	90	110	200	60.4	120	39.6	80
-53201	Coaches	1	1.2	480	570	1050	59.9	630	40.1	420
-53202	Sports officials and referees	0.8999999999999999	1	20	20	30	53.400000000000006	20	46.6	10
-54100	Program leaders and instructors in recreation, sport and fitness	1	1.0999999999999999	2260	2610	4870	56.00000000000001	2730	44	2140
-55109	Other performers	1.0999999999999999	0.8999999999999999	120	130	250	66.9	170	33.1	80
-60010	Corporate sales managers	1.5	1.6	2290	2890	5180	63.2	3270	36.8	1910
-60020	Retail and wholesale trade managers	0.8	1	14010	16030	30040	77	23130	23	6910
-60030	Restaurant and food service managers	1.3	1.3	4550	5350	9900	65.3	6460	34.699999999999996	3430
-60031	Accommodation service managers	1.2	1.4000000000000001	1660	1760	3410	70.6	2410	29.4	1000
-60040	Managers in customer and personal services	1.2	1.0999999999999999	1100	1220	2310	71.39999999999999	1650	28.599999999999998	660
-62010	Retail sales supervisors	0.7000000000000001	1	1480	1900	3390	71.89999999999999	2430	28.1	950
-62020	Food service supervisors	1.3	1.3	1450	1840	3290	52.1	1710	47.9	1580
-62021	Executive housekeepers	1.2	1.4000000000000001	80	90	160	73.4	120	26.6	40
-62022	Accommodation, travel, tourism and related services supervisors	1.4000000000000001	1.2	140	160	300	62.8	190	37.2	110
-62023	Customer and information services supervisors	0.8999999999999999	1.2	130	190	320	69	220	31	100
-62024	Cleaning supervisors	1.0999999999999999	1	380	400	770	74.3	570	25.7	200
-62029	Other services supervisors	0.8999999999999999	0.8	210	220	430	74.3	320	25.7	110
-62100	Technical sales specialists - wholesale trade	0.8	0.8	1470	1640	3110	78.60000000000001	2450	21.4	670
-62101	Retail and wholesale buyers	0.8	0.8999999999999999	860	980	1840	75	1380	25	460
-62200	Chefs	1.4000000000000001	1.3	2520	2760	5280	58.5	3090	41.5	2190
-62201	Funeral directors and embalmers	1.5	1.2	80	80	160	60.5	100	39.5	60
-62202	Jewellers, jewellery and watch repairers and related occupations	0.8	0.8	130	110	240	76.6	180	23.3	50
-63100	Insurance agents and brokers	0.8	1.0999999999999999	2260	2480	4740	71.6	3390	28.4	1340
-63101	Real estate agents and salespersons	0.6	1	3180	3330	6500	73.6	4780	26.400000000000002	1720
-63102	Financial sales representatives	-0.3	0.7000000000000001	670	1160	1840	90.9	1670	9.1	170
-63200	Cooks	1.3	1.3	4350	4440	8790	56.00000000000001	4920	44	3870
-63201	Butchers - retail and wholesale	0.7000000000000001	1	140	160	300	68.2	200	31.8	90
-63202	Bakers	1.3	1.4000000000000001	1620	1750	3380	59.5	2010	40.5	1370
-63210	Hairstylists and barbers	1.3	1.3	2210	2290	4490	56.89999999999999	2550	43.1	1940
-63211	Estheticians, electrologists and related occupations	1.3	1.3	1380	1660	3030	51.800000000000004	1570	48.199999999999996	1460
-63220	Shoe repairers and shoemakers	1	1	40	30	70	78	60	22	20
-63221	Upholsterers	1.0999999999999999	0.8999999999999999	70	60	140	71.1	100	28.9	40
-64100	Retail salespersons and visual merchandisers	0.7000000000000001	1	13660	14320	27970	66.4	18580	33.6	9400
-64101	Sales and account representatives - wholesale trade (non-technical)	0.8	0.8	1920	1830	3750	75	2810	25	940
-64200	Tailors, dressmakers, furriers and milliners	1	0.8999999999999999	440	370	800	77.10000000000001	620	22.900000000000002	180
-64201	Image, social and other personal consultants	1.0999999999999999	1.2	60	50	110	70.1	80	29.9	30
-64300	Maîtres d'hôtel and hosts/hostesses	1.3	1.3	300	350	650	21.3	140	78.7	510
-64301	Bartenders	1.2	1.2	440	530	970	42	410	57.99999999999999	560
-64310	Travel counsellors	2	0.6	1370	810	2180	66.3	1450	33.7	730
-64311	Pursers and flight attendants	1.9	1	420	330	750	66.60000000000001	500	33.4	250
-64312	Airline ticket and service agents	1.7999999999999998	1	620	500	1110	66.4	740	33.6	380
-64313	Ground and water transport ticket agents, cargo service representatives and related clerks	0.8999999999999999	1	80	90	170	72.2	120	27.800000000000004	50
-64314	Hotel front desk clerks	1.4000000000000001	1.4000000000000001	530	580	1100	47.4	520	52.6	580
-64320	Tour and travel guides	2	0.8999999999999999	100	70	170	52.6	90	47.4	80
-64321	Casino workers	1.2	1	100	100	190	63.5	120	36.5	70
-64322	Outdoor sport and recreational guides	1.7000000000000002	0.8999999999999999	70	50	120	56.2	70	43.8	50
-64400	Customer services representatives - financial institutions	-0.3	0.7000000000000001	440	870	1310	91.2	1200	8.799999999999999	110
-64401	Postal services representatives	1.6	1.6	210	210	410	62.1	260	37.9	160
-64409	Other customer and information services representatives	1	1.0999999999999999	3990	4470	8460	62	5240	38	3220
-64410	Security guards and related security service occupations	0.8999999999999999	0.8	2220	1770	3990	71.2	2840	28.799999999999997	1150
-65100	Cashiers	0.7000000000000001	1	5260	6080	11340	60.8	6890	39.2	4450
-65101	Service station attendants	0.7000000000000001	0.8999999999999999	120	130	250	67.4	170	32.6	80
-65102	Store shelf stockers, clerks and order fillers	0.7000000000000001	1	3580	4150	7730	65.10000000000001	5030	34.9	2700
-65109	Other sales related occupations	0.8999999999999999	1	440	450	880	61	540	39	340
-65200	Food and beverage servers	1.3	1.2	2490	2880	5370	42.199999999999996	2270	57.8	3110
-65201	Food counter attendants, kitchen helpers and related support occupations	1.3	1.3	7530	8140	15680	45.1	7060	54.900000000000006	8610
-65202	Meat cutters and fishmongers - retail and wholesale	0.6	1	180	190	380	75.1	280	24.9	90
-65210	Support occupations in accommodation, travel and facilities set-up services	1.0999999999999999	1	80	90	170	57.3	100	42.699999999999996	70
-65211	Operators and attendants in amusement, recreation and sport	0.8999999999999999	1	700	670	1370	60.099999999999994	830	39.900000000000006	550
-65220	Pet groomers and animal care workers	1.3	1.2	610	620	1220	53.2	650	46.800000000000004	570
-65229	Other support occupations in personal services	1.6	1.5	140	140	270	61.9	170	38.1	100
-65310	Light duty cleaners	1.2	1.0999999999999999	6630	6120	12750	69.3	8840	30.7	3920
-65311	Specialized cleaners	0.7000000000000001	0.7000000000000001	720	710	1420	72.5	1030	27.500000000000004	390
-65312	Janitors, caretakers and heavy-duty cleaners	1	0.8999999999999999	3720	3240	6960	74.7	5200	25.3	1760
-65320	Dry cleaning, laundry and related occupations	1.4000000000000001	1.4000000000000001	590	540	1140	67.30000000000001	770	32.7	370
-65329	Other service support occupations	1.3	1.0999999999999999	370	330	700	52.900000000000006	370	47.099999999999994	330
-70010	Construction managers	0.7000000000000001	0.5	3550	3720	7270	82.6	6000	17.4	1270
-70011	Home building and renovation managers	1.0999999999999999	0.5	2420	2240	4670	80.10000000000001	3740	19.900000000000002	930
-70012	Facility operation and maintenance managers	0.8	1	3380	3610	6980	80.30000000000001	5610	19.7	1380
-70020	Managers in transportation	1	0.8999999999999999	1350	1500	2850	76.7	2190	23.3	670
-70021	Postal and courier services managers	2.1	1.7999999999999998	200	210	410	62.6	260	37.4	150
-72010	Contractors and supervisors, machining, metal forming, shaping and erecting trades and related occupations	0.3	0.5	300	340	640	89.9	580	10.100000000000001	60
-72011	Contractors and supervisors, electrical trades and telecommunications occupations	0.8	0.3	730	740	1460	85	1240	15	220
-72012	Contractors and supervisors, pipefitting trades	0.8	0.3	180	180	350	71.89999999999999	260	28.1	100
-72013	Contractors and supervisors, carpentry trades	0.8	0.5	470	500	970	76.3	740	23.7	230
-72014	Contractors and supervisors, other construction trades, installers, repairers and servicers	0.8	0.4	1710	1730	3440	82.89999999999999	2850	17.1	590
-72020	Contractors and supervisors, mechanic trades	0.8	0.7000000000000001	620	660	1290	81.39999999999999	1050	18.6	240
-72021	Contractors and supervisors, heavy equipment operator crews	0.6	0.4	1310	1360	2670	87.4	2330	12.6	340
-72022	Supervisors, printing and related occupations	0.7000000000000001	0.2	20	20	40	87.9	40	12.2	10
-72023	Supervisors, railway transport operations	0.8	0	60	50	100	93.60000000000001	100	6.4	10
-72024	Supervisors, motor transport and other ground transit operators	0.8999999999999999	0.8	270	270	540	78.9	430	21.099999999999998	110
-72025	Supervisors, mail and message distribution occupations	2	1.6	270	270	540	69.3	370	30.7	160
-72100	Machinists and machining and tooling inspectors	-0.1	0.7000000000000001	440	570	1010	90.3	920	9.700000000000001	100
-72101	Tool and die makers	-0.5	0.8	50	50	100	96.7	100	3.3000000000000003	0
-72102	Sheet metal workers	0.6	0.3	300	300	600	77.8	460	22.2	130
-72103	Boilermakers	0	0.2	30	30	60	97.7	60	2.3	0
-72104	Structural metal and platework fabricators and fitters	-0.2	0.6	200	280	480	95.3	460	4.7	20
-72105	Ironworkers	0.4	0.2	190	190	380	86.1	320	13.900000000000002	50
-72106	Welders and related machine operators	0.5	0.7000000000000001	1240	1430	2670	77.3	2070	22.7	610
-72200	Electricians (except industrial and power system)	0.8	0.4	1520	1340	2850	63.6	1810	36.4	1040
-72201	Industrial electricians	0.4	0.3	510	480	990	88.6	880	11.4	110
-72202	Power system electricians	0.3	0.3	80	90	170	91.10000000000001	150	8.9	10
-72203	Electrical power line and cable workers	0.3	0.3	180	200	380	90.3	340	9.700000000000001	40
-72204	Telecommunications line and cable installers and repairers	0.4	0.3	150	160	310	86.3	270	13.700000000000001	40
-72205	Telecommunications equipment installation and cable television service technicians	0.4	0.4	360	390	750	86.9	650	13.100000000000001	100
-72300	Plumbers	0.8	0.3	1120	990	2110	73.1	1540	26.900000000000002	570
-72301	Steamfitters, pipefitters and sprinkler system installers	0.5	0.3	300	280	580	83.8	480	16.2	90
-72302	Gas fitters	0.6	0.4	160	140	290	83.2	240	16.8	50
-72310	Carpenters	0.7000000000000001	0.6	4220	4260	8480	75.9	6440	24.099999999999998	2040
-72311	Cabinetmakers	0.3	0.2	370	320	680	93.60000000000001	640	6.4	40
-72320	Bricklayers	0.7000000000000001	0.4	230	200	430	79.2	340	20.8	90
-72321	Insulators	0.8	0.3	160	130	290	77.2	220	22.8	70
-72400	Construction millwrights and industrial mechanics	0.2	0.4	1310	1260	2570	91.7	2360	8.3	210
-72401	Heavy-duty equipment mechanics	0.8	0.6	1230	1110	2340	76.2	1790	23.799999999999997	560
-72402	Heating, refrigeration and air conditioning mechanics	0.8	0.5	440	400	840	72.8	610	27.200000000000003	230
-72403	Railway carmen/women	1.3	-0.1	60	40	100	82.39999999999999	90	17.599999999999998	20
-72404	Aircraft mechanics and aircraft inspectors	1.6	1	900	760	1660	65.8	1090	34.2	570
-72405	Machine fitters	-0.3	1.4000000000000001	10	10	20	83.3	10	16.7	0
-72406	Elevator constructors and mechanics	0.7000000000000001	0.2	190	160	350	84.5	300	15.5	50
-72410	Automotive service technicians, truck and bus mechanics and mechanical repairers	0.5	0.6	2500	2620	5120	79.5	4070	20.5	1050
-72411	Auto body collision, refinishing and glass technicians and damage repair estimators	0	0.5	550	630	1170	91.5	1070	8.5	100
-72420	Oil and solid fuel heating mechanics	1.4000000000000001	0.4	10	10	20	79.80000000000001	20	20.200000000000003	0
-72421	Appliance servicers and repairers	1	1.2	160	160	320	70.7	230	29.299999999999997	90
-72422	Electrical mechanics	0.7000000000000001	0.7000000000000001	60	60	120	82.6	100	17.4	20
-72423	Motorcycle, all-terrain vehicle and other related mechanics	0.8	1	240	250	490	70.89999999999999	340	29.099999999999998	140
-72429	Other small engine and small equipment repairers	1.4000000000000001	1	30	30	60	64.5	40	35.4	20
-72500	Crane operators	0.8999999999999999	0.5	420	350	770	77	590	23	180
-72501	Water well drillers	-1.5	0.8999999999999999	0	0	0	100	0	0	0
-72600	Air pilots, flight engineers and flying instructors	1.6	1	860	760	1630	63.2	1030	36.8	600
-72601	Air traffic controllers and related occupations	1.7000000000000002	1	220	200	430	63.6	270	36.4	160
-72602	Deck officers, water transport	0.3	1.2	320	440	760	75.7	580	24.3	190
-72603	Engineer officers, water transport	1.3	1.0999999999999999	40	40	80	71.39999999999999	60	28.499999999999996	20
-72604	Railway traffic controllers and marine traffic regulators	0.5	0.2	30	30	60	88.7	60	11.3	10
-72999	Other technical trades and related occupations	0	0.5	230	260	490	92.9	460	7.1	30
-73100	Concrete finishers	0.8	0.2	190	150	340	79.3	270	20.7	70
-73101	Tilesetters	0.8999999999999999	0.2	310	260	570	82.1	460	17.9	100
-73102	Plasterers, drywall installers and finishers and lathers	0.8999999999999999	0.4	630	520	1140	76.4	870	23.599999999999998	270
-73110	Roofers and shinglers	0.8999999999999999	0.7000000000000001	420	440	850	70.5	600	29.5	250
-73111	Glaziers	0.6	0.3	180	180	360	78.7	290	21.3	80
-73112	Painters and decorators (except interior decorators)	0.8	0.4	1220	1010	2230	78.60000000000001	1750	21.4	480
-73113	Floor covering installers	0.7000000000000001	0.4	280	250	530	77.8	410	22.2	120
-73200	Residential and commercial installers and servicers	0.8	0.4	960	870	1840	73.4	1350	26.6	490
-73201	General building maintenance workers and building superintendents	1.0999999999999999	1.0999999999999999	3010	2540	5560	73.4	4080	26.6	1480
-73202	Pest controllers and fumigators	1	0.7000000000000001	110	90	210	77	160	23	50
-73209	Other repairers and servicers	0.8	0.8999999999999999	260	260	520	65.8	340	34.2	180
-73300	Transport truck drivers	0.4	0.7000000000000001	7140	7300	14440	83.39999999999999	12050	16.6	2390
-73301	Bus drivers, subway operators and other transit operators	1.4000000000000001	1	2270	1800	4060	72.1	2930	27.900000000000002	1130
-73310	Railway and yard locomotive engineers	1.5	0	420	350	770	82.5	640	17.5	140
-73311	Railway conductors and brakemen/women	1.6	-0.1	290	220	510	75.8	390	24.2	120
-73400	Heavy equipment operators	0.7000000000000001	0.4	2360	1990	4350	83.5	3630	16.5	720
-73401	Printing press operators	0.3	0.1	230	180	410	96.3	400	3.6999999999999997	20
-73402	Drillers and blasters - surface mining, quarrying and construction	1	0.4	100	80	180	75.4	140	24.6	40
-74100	Mail and parcel sorters and related occupations	2.3	1.7999999999999998	830	750	1570	55.2	870	44.800000000000004	710
-74101	Letter carriers	1.9	1.7000000000000002	1240	1200	2430	61	1480	39	950
-74102	Couriers and messengers	1.9	1.6	1170	1100	2270	55.00000000000001	1250	45	1020
-74200	Railway yard and track maintenance workers	1.5	-0.1	200	150	340	77.5	270	22.5	80
-74201	Water transport deck and engine room crew	0.4	1.2	140	210	350	69	240	31	110
-74202	Air transport ramp attendants	2.1	1.0999999999999999	450	370	820	58.5	480	41.5	340
-74203	Automotive and heavy truck and equipment parts installers and servicers	0.7000000000000001	0.6	170	200	370	60.4	220	39.6	150
-74204	Utility maintenance workers	0.6	0.7000000000000001	100	100	200	80.80000000000001	160	19.2	40
-74205	Public works maintenance equipment operators and related workers	1	0.8999999999999999	230	230	450	72.39999999999999	330	27.6	130
-75100	Longshore workers	2.4	1.3	970	790	1760	52	920	48	850
-75101	Material handlers	1	1.2	4960	5690	10650	64.1	6830	35.9	3820
-75110	Construction trades helpers and labourers	0.8	0.4	4140	3840	7980	75.8	6050	24.2	1930
-75119	Other trades helpers and labourers	0.7000000000000001	0.5	130	130	260	72.2	190	27.800000000000004	70
-75200	Taxi and limousine drivers and chauffeurs	1.4000000000000001	1	1400	1240	2650	67.2	1780	32.800000000000004	870
-75201	Delivery service drivers and door-to-door distributors	1.5	1.3	3070	2930	6000	54.6	3270	45.4	2730
-75210	Boat and cable ferry operators and related occupations	0.5	1.3	210	260	470	72.2	340	27.800000000000004	130
-75211	Railway and motor transport labourers	0.7000000000000001	0.8	80	90	170	75.1	120	24.9	40
-75212	Public works and maintenance labourers	1	1.2	540	590	1140	66.10000000000001	750	33.900000000000006	390
-80010	Managers in natural resources production and fishing	0.4	0.2	500	480	980	93.8	920	6.2	60
-80020	Managers in agriculture	0.1	0.2	1450	1270	2720	95.89999999999999	2610	4.1000000000000005	110
-80021	Managers in horticulture	0.3	0.2	150	130	280	93.2	260	6.800000000000001	20
-80022	Managers in aquaculture	1	0.6	80	80	160	81.2	130	18.8	30
-82010	Supervisors, logging and forestry	-1.0999999999999999	0	170	280	450	100	560	0	-110
-82020	Supervisors, mining and quarrying	1.7000000000000002	0.2	320	260	570	77	440	23	130
-82021	Contractors and supervisors, oil and gas drilling and services	1.4000000000000001	0.3	190	170	370	80.7	300	19.3	70
-82030	Agricultural service contractors and farm supervisors	0	0	30	40	70	100	70	0	0
-82031	Contractors and supervisors, landscaping, grounds maintenance and horticulture services	1	0.7000000000000001	670	710	1390	77.9	1080	22.1	310
-83100	Underground production and development miners	3.1	0.2	400	170	570	59	340	41	240
-83101	Oil and gas well drillers, servicers, testers and related workers	2	0.5	140	90	240	58.699999999999996	140	41.3	100
-83110	Logging machinery operators	-2.1999999999999997	-0.2	90	280	370	100	620	0	-250
-83120	Fishing masters and officers	0.7000000000000001	-0.7000000000000001	30	20	40	100	40	0	0
-83121	Fishermen/women	0.5	-0.8	60	40	100	100	110	0	-10
-84100	Underground mine service and support workers	2.7	0.1	100	50	150	65.3	100	34.599999999999994	50
-84101	Oil and gas well drilling and related workers and services operators	1.3	0.1	50	20	80	62.1	50	37.9	30
-84110	Chain saw and skidder operators	-1.9	-0.1	-30	240	210	100	510	0	-310
-84111	Silviculture and forestry workers	-1	0.2	20	190	210	100	310	0	-100
-84120	Specialized livestock workers and farm machinery operators	0.2	0.3	270	270	540	93.60000000000001	510	6.4	40
-84121	Fishing vessel deckhands	0.8	-0.8999999999999999	40	20	60	100	70	0	-10
-85100	Livestock labourers	0.3	0.4	190	200	390	86.5	330	13.5	50
-85101	Harvesting labourers	0.1	0	180	160	330	100	350	0	-20
-85102	Aquaculture and marine harvest labourers	0.7000000000000001	0.5	50	50	100	78.9	80	21.099999999999998	20
-85103	Nursery and greenhouse labourers	-0.2	0.2	240	320	550	100	600	0	-40
-85104	Trappers and hunters	\N	\N	\N	\N	\N	\N	\N	\N	\N
-85110	Mine labourers	2.1	0.2	120	50	170	55.50000000000001	100	44.5	80
-85111	Oil and gas drilling, servicing and related labourers	1.7000000000000002	0.3	100	50	150	53.7	80	46.2	70
-85120	Logging and forestry labourers	-2	-0.3	-100	100	0	0	240	100	-240
-85121	Landscaping and grounds maintenance labourers	1	0.8999999999999999	2650	2690	5340	64.2	3420	35.8	1910
-90010	Manufacturing managers	0.1	0.5	2010	2440	4450	92.30000000000001	4110	7.7	340
-90011	Utilities managers	0.8	0.6	390	410	800	86.2	690	13.8	110
-92010	Supervisors, mineral and metal processing	0.7000000000000001	-0.1	100	90	190	92	180	8	20
-92011	Supervisors, petroleum, gas and chemical processing and utilities	0.7000000000000001	0.6	240	250	490	85.6	420	14.399999999999999	70
-92012	Supervisors, food and beverage processing	1.3	1.2	370	440	810	64.4	520	35.6	290
-92013	Supervisors, plastic and rubber products manufacturing	0.4	0.2	40	40	80	92.7	70	7.3	10
-92014	Supervisors, forest products processing	-2	-0.4	110	230	340	100	510	0	-170
-92015	Supervisors, textile, fabric, fur and leather products processing and manufacturing	0.4	0.8	20	20	40	86.2	40	13.8	10
-92020	Supervisors, motor vehicle assembling	1.3	0.7000000000000001	30	30	50	77	40	23	10
-92021	Supervisors, electronics and electrical products manufacturing	0.5	0.5	60	60	110	89	100	11	10
-92022	Supervisors, furniture and fixtures manufacturing	0.5	0.1	10	10	20	88.9	20	11	0
-92023	Supervisors, other mechanical and metal products manufacturing	0.1	0.8	20	30	60	87.4	50	12.7	10
-92024	Supervisors, other products manufacturing and assembly	0.3	0.3	20	30	50	89.8	50	10.2	10
-92100	Power engineers and power systems operators	0.4	0.5	1220	1300	2520	88.6	2240	11.4	290
-92101	Water and waste treatment plant operators	0.7000000000000001	0.6	310	330	640	81.89999999999999	530	18.099999999999998	120
-93100	Central control and process operators, mineral and metal processing	2.1999999999999997	-0.1	220	160	370	80.2	300	19.8	70
-93101	Central control and process operators, petroleum, gas and chemical processing	1.7000000000000002	0.2	530	400	930	75.7	700	24.3	220
-93102	Pulping, papermaking and coating control operators	-1.5	-0.6	20	30	60	100	80	0	-20
-93200	Aircraft assemblers and aircraft assembly inspectors	0.5	0.6	10	10	20	86	20	14.000000000000002	0
-94100	Machine operators, mineral and metal processing	1.5	0	150	70	220	76.8	170	23.200000000000003	50
-94101	Foundry workers	-0.5	0.4	20	20	30	100	30	0	0
-94102	Glass forming and finishing machine operators and glass cutters	0.1	0.1	20	30	50	96.5	50	3.5000000000000004	0
-94103	Concrete, clay and stone forming operators	0.5	0.1	50	50	90	86.6	80	13.4	10
-94104	Inspectors and testers, mineral and metal processing	-0.4	0.4	20	20	40	100	40	0	0
-94105	Metalworking and forging machine operators	0	0.4	100	120	220	93.7	210	6.3	10
-94106	Machining tool operators	-0.3	0.6	30	50	80	96.39999999999999	80	3.5999999999999996	0
-94107	Machine operators of other metal products	-0.7000000000000001	0.1	10	10	20	100	20	0	0
-94110	Chemical plant machine operators	0.8	0.3	60	50	110	81.8	90	18.2	20
-94111	Plastics processing machine operators	0.4	0.1	120	100	220	92.7	200	7.3	20
-94112	Rubber processing machine operators and related workers	0.4	0.4	30	20	50	87.7	40	12.3	10
-94120	Sawmill machine operators	-2.3	-0.3	100	280	370	100	640	0	-260
-94121	Pulp mill, papermaking and finishing machine operators	-2.4	-0.5	30	130	150	100	330	0	-180
-94122	Paper converting machine operators	-2.3	-0.8	0	20	20	100	60	0	-30
-94123	Lumber graders and other wood processing inspectors and graders	-2.6	-0.4	10	110	130	100	260	0	-140
-94124	Woodworking machine operators	-1	0	60	90	150	100	190	0	-40
-94129	Other wood processing machine operators	-2	-0.5	40	80	120	100	200	0	-80
-94130	Textile fibre and yarn, hide and pelt processing machine operators and workers	0.8	0.4	20	20	40	75.2	30	24.7	10
-94131	Weavers, knitters and other fabric making occupations	0.5	0.3	20	20	40	85.7	30	14.299999999999999	10
-94132	Industrial sewing machine operators	0.5	0.5	320	280	600	89	540	11	70
-94133	Inspectors and graders, textile, fabric, fur and leather products manufacturing	0.6	0.5	30	20	50	80.80000000000001	40	19.2	10
-94140	Process control and machine operators, food and beverage processing	1	1	1060	1150	2210	65.8	1450	34.2	750
-94141	Industrial butchers and meat cutters, poultry preparers and related workers	1.3	1.6	340	390	730	60.9	450	39.1	290
-94142	Fish and seafood plant workers	1.7999999999999998	1.4000000000000001	280	240	520	65.8	340	34.2	180
-94143	Testers and graders, food and beverage processing	1.2	1.2	150	150	300	60.099999999999994	180	39.900000000000006	120
-94150	Plateless printing equipment operators	0.2	0.3	100	90	200	94.6	190	5.4	10
-94151	Camera, platemaking and other prepress occupations	0.5	0.1	20	20	40	90.7	40	9.3	0
-94152	Binding and finishing machine operators	0.5	0.1	50	40	90	91.7	90	8.3	10
-94153	Photographic and film processors	1.3	1.2	60	60	120	63.1	80	36.9	40
-94200	Motor vehicle assemblers, inspectors and testers	-0.2	0.8	150	200	350	90.7	310	9.3	30
-94201	Electronics assemblers, fabricators, inspectors and testers	0.7000000000000001	0.8999999999999999	220	230	450	75.4	340	24.6	110
-94202	Assemblers and inspectors, electrical appliance, apparatus and equipment manufacturing	0.5	0.8	70	70	140	82.89999999999999	120	17.1	20
-94203	Assemblers, fabricators and inspectors, industrial electrical motors and transformers	0.6	0.2	10	10	20	82.39999999999999	10	17.599999999999998	0
-94204	Mechanical assemblers and inspectors	0	1.4000000000000001	130	190	320	79.3	250	20.7	70
-94205	Machine operators and inspectors, electrical apparatus manufacturing	0.6	0.2	20	20	40	89.60000000000001	40	10.299999999999999	0
-94210	Furniture and fixture assemblers, finishers, refinishers and inspectors	0.5	0.3	230	200	430	84.6	360	15.4	70
-94211	Assemblers and inspectors of other wood products	-1.7999999999999998	-0.2	30	110	140	100	260	0	-120
-94212	Plastic products assemblers, finishers and inspectors	0.5	0.4	40	40	90	85.8	70	14.2	10
-94213	Industrial painters, coaters and metal finishing process operators	0.5	0.5	260	250	510	85.39999999999999	440	14.6	70
-94219	Other products assemblers, finishers and inspectors	0.8999999999999999	0.5	450	380	830	78.60000000000001	650	21.4	180
-95100	Labourers in mineral and metal processing	0.2	0.3	140	140	280	92.2	260	7.8	20
-95101	Labourers in metal fabrication	-0.3	0.2	130	160	290	100	300	0	-20
-95102	Labourers in chemical products processing and utilities	0.8999999999999999	0.8	130	130	260	74.6	200	25.4	70
-95103	Labourers in wood, pulp and paper processing	-2.1	-0.5	90	590	670	100	1430	0	-750
-95104	Labourers in rubber and plastic products manufacturing	0.4	0.2	60	60	120	85	100	15	20
-95105	Labourers in textile processing and cutting	0.7000000000000001	0.6	90	90	180	79.5	150	20.5	40
-95106	Labourers in food and beverage processing	1.4000000000000001	1.4000000000000001	3040	3060	6100	61.8	3770	38.2	2330
-95107	Labourers in fish and seafood processing	1.6	1.2	200	170	380	68.5	260	31.5	120
-95109	Other labourers in processing, manufacturing and utilities	0.5	0.7000000000000001	1140	1250	2390	78.3	1870	21.7	520
+COPY public.career_provincial (noc, description, forecasted_average_employment_growth_rate_first5y, forecasted_average_employment_growth_rate_second5y, forecasted_average_employment_growth_rate_10y, job_openings_first5y, job_openings_second5y, expected_job_openings_10y, replacement_of_retiring_workers_10y_pct, replacement_of_retiring_workers_10y, new_jobs_due_to_economic_growth_10y_pct, new_jobs_due_to_economic_growth_10y) FROM stdin;
+00010	Legislators	1.2	1.6	\N	340	340	680	73.3	500	26.700000000000003	180
+00018	Senior managers - public and private sector	1.3	1.4000000000000001	1.3	9680	10380	20060	74.5	14940	25.5	5120
+10010	Financial managers	0.8999999999999999	1.0999999999999999	\N	1700	1820	3510	71.7	2520	28.299999999999997	990
+10011	Human resources managers	1.3	1.2	1.3	1540	1830	3370	72.6	2450	27.400000000000002	920
+10012	Purchasing managers	0.8	1	\N	800	940	1740	80.60000000000001	1410	19.400000000000002	340
+10019	Other administrative services managers	1.0999999999999999	1.3	\N	1500	1800	3300	73.1	2410	26.900000000000002	880
+10020	Insurance, real estate and financial brokerage managers	0.5	1	\N	1470	1720	3190	82.89999999999999	2650	17.1	540
+10021	Banking, credit and other investment managers	-0.1	0.7000000000000001	0.3	1330	2030	3360	91.4	3070	8.6	290
+10022	Advertising, marketing and public relations managers	1.5	1.5	1.5	2440	3160	5590	53.800000000000004	3010	46.2	2590
+10029	Other business services managers	1.0999999999999999	1	\N	790	840	1630	76.7	1250	23.3	380
+10030	Telecommunication carriers managers	0.5	0.8	\N	220	290	510	83	430	17	90
+11100	Financial auditors and accountants	0.8999999999999999	1	1	5070	5200	10270	68.60000000000001	7040	31.4	3230
+11101	Financial and investment analysts	0.2	0.8	\N	590	820	1410	78.60000000000001	1110	21.4	300
+11102	Financial advisors	-0.1	0.8	\N	1620	2320	3940	86.9	3430	13.100000000000001	510
+11103	Securities agents, investment dealers and brokers	-0.3	0.6	\N	380	450	830	93.8	780	6.2	50
+11109	Other financial officers	-0.2	0.7000000000000001	\N	510	760	1270	90.2	1150	9.8	120
+11200	Human resources professionals	1.0999999999999999	1.2	1.2	1860	2110	3970	66.7	2650	33.300000000000004	1320
+11201	Professional occupations in business management consulting	1.7000000000000002	1.5	\N	2780	2610	5390	59.099999999999994	3190	40.9	2200
+11202	Professional occupations in advertising, marketing and public relations	1.4000000000000001	1.4000000000000001	1.4	3460	3970	7430	51.4	3820	48.6	3610
+12010	Supervisors, general office and administrative support workers	1.2	1.2	\N	570	650	1210	73.2	890	26.8	320
+12011	Supervisors, finance and insurance office workers	0.8999999999999999	1	\N	450	510	960	79.2	760	20.8	200
+12012	Supervisors, library, correspondence and related information workers	0.8	1.0999999999999999	\N	130	130	260	85.2	220	14.799999999999999	40
+12013	Supervisors, supply chain, tracking and scheduling coordination occupations	1	1	\N	700	820	1520	71.7	1090	28.299999999999997	430
+12100	Executive assistants	1	1.2	1.1	1230	1480	2720	73.2	1990	26.8	730
+12101	Human resources and recruitment officers	1.2	1.4000000000000001	\N	730	960	1680	65.5	1100	34.5	580
+12102	Procurement and purchasing agents and officers	0.8999999999999999	1	\N	1200	1390	2590	77.10000000000001	2000	22.900000000000002	590
+12103	Conference and event planners	1.0999999999999999	1.0999999999999999	1.1	480	590	1070	65.60000000000001	700	34.4	370
+12104	Employment insurance and revenue officers	1.2	1.3	\N	850	1050	1910	72.39999999999999	1380	27.6	530
+12110	Court reporters, medical transcriptionists and related occupations	1.3	1.2	\N	300	250	550	70.89999999999999	390	29.099999999999998	160
+12111	Health information management occupations	1.4000000000000001	2	\N	140	150	290	66.7	190	33.300000000000004	100
+12112	Records management technicians	1.7000000000000002	1.7000000000000002	\N	40	40	80	55.300000000000004	40	44.800000000000004	40
+12113	Statistical officers and related research support occupations	1.3	1.5	\N	60	80	140	44.2	60	55.800000000000004	80
+12200	Accounting technicians and bookkeepers	0.8	0.8999999999999999	0.8	5360	4640	10000	76.9	7690	23.1	2310
+12201	Insurance adjusters and claims examiners	0.8	1.2	\N	730	830	1560	72	1130	28.000000000000004	440
+12202	Insurance underwriters	0.8	1.2	\N	270	320	580	69.3	400	30.7	180
+12203	Assessors, business valuators and appraisers	0.7000000000000001	0.8999999999999999	\N	320	320	640	73.9	470	26.1	170
+13100	Administrative officers	1.0999999999999999	1.0999999999999999	1.1	8760	9770	18530	74.4	13780	25.6	4750
+13101	Property administrators	0.8	1	\N	2220	2280	4500	80.10000000000001	3610	19.900000000000002	890
+13102	Payroll administrators	0.8999999999999999	1.0999999999999999	\N	1230	1240	2460	73	1800	27	660
+13110	Administrative assistants	1	1.0999999999999999	\N	5770	6180	11940	69.5	8300	30.5	3640
+13111	Legal administrative assistants	0.8	0.8	0.8	1210	1220	2430	69.69999999999999	1690	30.3	740
+13112	Medical administrative assistants	1.7999999999999998	1.7000000000000002	1.8	960	990	1950	52.7	1030	47.3	920
+13200	Customs, ship and other brokers	1.7000000000000002	1.0999999999999999	1.4	160	130	290	57.49999999999999	170	42.4	120
+13201	Production and transportation logistics coordinators	1	0.8999999999999999	\N	960	1010	1970	68.10000000000001	1340	31.900000000000002	630
+14100	General office support workers	1.0999999999999999	1.3	1.2	5410	5570	10980	65.60000000000001	7200	34.4	3780
+14101	Receptionists	1.4000000000000001	1.4000000000000001	1.4	4400	4380	8780	55.7	4890	44.3	3890
+14102	Personnel clerks	1	1.3	\N	290	320	610	66.10000000000001	400	33.900000000000006	210
+14103	Court clerks and related court services occupations	0.7000000000000001	1	\N	90	110	200	71.5	140	28.4	60
+14110	Survey interviewers and statistical clerks	1.2	1.0999999999999999	\N	250	200	450	68.10000000000001	310	31.8	140
+14111	Data entry clerks	0.6	-0.2	\N	720	450	1170	94.5	1110	5.5	60
+14112	Desktop publishing operators and related occupations	0.7000000000000001	0.5	\N	10	10	10	80.5	10	19.400000000000002	0
+14200	Accounting and related clerks	0.8999999999999999	1	0.9	4590	4400	8990	73.4	6600	26.6	2390
+14201	Banking, insurance and other financial clerks	0.4	0.8999999999999999	\N	370	400	760	79.9	610	20.1	150
+14202	Collection clerks	0.8999999999999999	1	\N	200	200	400	72.6	290	27.400000000000002	110
+14300	Library assistants and clerks	0.7000000000000001	0.7000000000000001	\N	190	170	360	75.1	270	24.9	90
+14301	Correspondence, publication and regulatory clerks	1	1.2	\N	480	520	990	68.4	680	31.6	310
+14400	Shippers and receivers	0.8	1	0.9	2190	2300	4490	69.8	3130	30.2	1360
+14401	Storekeepers and partspersons	1	0.8	\N	1000	900	1890	71.39999999999999	1350	28.599999999999998	540
+14402	Production logistics workers	0.8999999999999999	1.3	\N	180	200	380	70.1	260	29.9	110
+14403	Purchasing and inventory control workers	0.8999999999999999	1.0999999999999999	\N	720	770	1490	66.8	1000	33.2	500
+14404	Dispatchers	0.8999999999999999	1.0999999999999999	\N	510	610	1120	64.9	730	35.099999999999994	390
+14405	Transportation route and crew schedulers	1.3	1	\N	90	90	180	68	130	32	60
+20010	Engineering managers	1.7000000000000002	1.6	1.6	1140	1320	2460	65.3	1610	34.699999999999996	850
+20011	Architecture and science managers	1.3	1.3	\N	480	560	1040	72.5	750	27.500000000000004	290
+20012	Computer and information systems managers	2.7	2.8000000000000003	2.7	3890	5010	8900	53.300000000000004	4740	46.7	4160
+21100	Physicists and astronomers	1.6	1.7000000000000002	\N	90	100	180	52.5	100	47.5	90
+21101	Chemists	1.3	1.2	1.3	290	310	600	58.599999999999994	350	41.4	250
+21102	Geoscientists and oceanographers	1.7000000000000002	1.0999999999999999	1.4	570	450	1010	62	630	38	390
+21103	Meteorologists and climatologists	1.0999999999999999	1.2	\N	20	20	40	67.7	30	32.300000000000004	10
+21109	Other professional occupations in physical sciences	1.9	0.8999999999999999	\N	10	10	10	59.599999999999994	10	40.5	10
+21110	Biologists and related scientists	1.2	1.0999999999999999	1.1	850	940	1790	58.199999999999996	1040	41.8	750
+21111	Forestry professionals	-0.7000000000000001	0.3	-0.2	330	440	770	100	830	0	-60
+21112	Agricultural representatives, consultants and specialists	0.8	0.8999999999999999	\N	60	60	120	73.8	90	26.1	30
+21120	Public and environmental health and safety professionals	1.0999999999999999	1.2	\N	490	520	1000	66.10000000000001	660	33.900000000000006	340
+21200	Architects	2	1.7000000000000002	1.8	800	730	1530	45.1	690	54.900000000000006	840
+21201	Landscape architects	1.9	1.7000000000000002	1.8	60	60	130	45	60	55.1	70
+21202	Urban and land use planners	1.2	1.4000000000000001	1.3	540	600	1140	63.5	730	36.5	420
+21203	Land surveyors	1.6	1.4000000000000001	1.5	240	240	490	57.49999999999999	280	42.5	210
+21210	Mathematicians, statisticians and actuaries	1.5	1.3	\N	120	130	250	53.800000000000004	130	46.2	110
+21211	Data scientists	2.4	2.5	\N	360	470	840	27.500000000000004	230	72.5	610
+21220	Cybersecurity specialists	2.1999999999999997	2.4	\N	330	400	730	45.4	330	54.6	400
+21221	Business systems specialists	1.9	2.1999999999999997	\N	880	1080	1960	47.5	930	52.5	1030
+21222	Information systems specialists	2.8000000000000003	2.9000000000000004	2.9	4360	5010	9370	42.699999999999996	4000	57.3	5370
+21223	Database analysts and data administrators	1.9	2.1	\N	650	710	1360	54.2	740	45.800000000000004	620
+21230	Computer systems developers and programmers	2.9000000000000004	3	\N	1110	1270	2380	40.1	960	59.9	1430
+21231	Software engineers and designers	3.1	3.2	3.1	5460	6860	12330	31.7	3910	68.30000000000001	8410
+21232	Software developers and programmers	3.5000000000000004	3.5000000000000004	3.5	4380	5350	9730	27.1	2640	72.89999999999999	7090
+21233	Web designers	3.6999999999999997	3.5999999999999996	\N	790	960	1750	24.099999999999998	420	75.9	1330
+21234	Web developers and programmers	3.5000000000000004	3.4000000000000004	3.5	2330	2900	5230	21.2	1110	78.8	4120
+21300	Civil engineers	1.7000000000000002	1.4000000000000001	1.5	2080	1920	4010	55.400000000000006	2220	44.6	1790
+21301	Mechanical engineers	1.4000000000000001	1.4000000000000001	1.4	1030	1120	2150	52.2	1120	47.8	1030
+21310	Electrical and electronics engineers	1.6	1.5	1.5	1450	1440	2890	56.599999999999994	1640	43.4	1250
+21311	Computer engineers (except software engineers and designers)	2.4	2.6	\N	750	880	1630	46.9	770	53.1	870
+21320	Chemical engineers	1.0999999999999999	0.8999999999999999	\N	170	160	330	61.3	200	38.7	130
+21321	Industrial and manufacturing engineers	1.2	1.3	\N	240	270	510	60.699999999999996	310	39.300000000000004	200
+21322	Metallurgical and materials engineers	1.4000000000000001	1.4000000000000001	\N	50	50	100	55.1	60	44.9	50
+21330	Mining engineers	1.4000000000000001	1	\N	100	90	190	51.2	100	48.8	100
+21331	Geological engineers	2.1	1.7000000000000002	\N	220	200	420	39.2	160	60.8	260
+21332	Petroleum engineers	2.1999999999999997	0.8	\N	30	20	40	64	30	36	20
+21390	Aerospace engineers	1.0999999999999999	0.8999999999999999	\N	50	50	100	70.7	70	29.299999999999997	30
+21399	Other professional engineers	0.8	1.3	\N	250	310	560	63.3	350	36.7	210
+22100	Chemical technologists and technicians	1.3	1	1.1	180	170	360	68.7	240	31.3	110
+22101	Geological and mineral technologists and technicians	1.3	0.8	1.1	270	220	490	73.8	360	26.200000000000003	130
+22110	Biological technologists and technicians	0.8999999999999999	0.8999999999999999	\N	170	190	370	62.9	230	37.1	140
+22111	Agricultural and fish products inspectors	1.3	1.2	\N	90	100	190	63.5	120	36.5	70
+22112	Forestry technologists and technicians	-1.0999999999999999	0.1	\N	180	350	530	100	680	0	-150
+22113	Conservation and fishery officers	0.8999999999999999	0.8999999999999999	0.9	130	140	270	76.4	210	23.599999999999998	60
+22114	Landscape and horticulture technicians and specialists	1	1	1	740	740	1480	65.9	980	34.1	510
+22210	Architectural technologists and technicians	1.9	1.6	\N	380	360	740	43.8	320	56.2	420
+22211	Industrial designers	1.7999999999999998	1.9	\N	280	310	590	46.7	280	53.300000000000004	320
+22212	Drafting technologists and technicians	1.4000000000000001	1.3	1.4	830	810	1640	58.599999999999994	960	41.4	680
+22213	Land survey technologists and technicians	1.6	1.7000000000000002	\N	80	90	180	54.900000000000006	100	45.1	80
+22214	Technical occupations in geomatics and meteorology	0.8999999999999999	1.2	\N	370	410	780	73.1	570	26.900000000000002	210
+22220	Computer network and web technicians	2.1	2.3	2.2	1890	2250	4130	48.8	2020	51.2	2120
+22221	User support technicians	2.4	2.5	2.4	1870	2190	4060	43.3	1760	56.699999999999996	2300
+22222	Information systems testing technicians	3.2	3.3000000000000003	\N	370	430	800	34.2	270	65.8	530
+22230	Non-destructive testers and inspectors	1.7999999999999998	1.3	\N	110	110	210	56.3	120	43.7	90
+22231	Engineering inspectors and regulatory officers	1.5	1.3	\N	120	110	230	63.6	150	36.4	80
+22232	Occupational health and safety specialists	1	1	1	490	500	990	73.1	720	26.900000000000002	270
+22233	Construction inspectors	1.3	1	1.1	630	550	1180	71.6	850	28.4	340
+22300	Civil engineering technologists and technicians	1.6	1.4000000000000001	\N	550	540	1090	58.5	640	41.5	450
+22301	Mechanical engineering technologists and technicians	1.0999999999999999	1.3	\N	640	650	1290	68.10000000000001	880	31.900000000000002	410
+22302	Industrial engineering and manufacturing technologists and technicians	0.5	0.8	\N	230	270	490	78.60000000000001	390	21.4	110
+22303	Construction estimators	0.8999999999999999	0.5	\N	610	500	1120	76.3	850	23.7	270
+22310	Electrical and electronics engineering technologists and technicians	1.2	1.2	1.2	1100	1060	2150	69.39999999999999	1500	30.599999999999998	660
+22311	Electronic service technicians (household and business equipment)	1.2	1.3	1.3	1490	1520	3010	63.1	1900	36.9	1110
+22312	Industrial instrument technicians and mechanics	0.6	0.1	0.4	140	110	240	85.3	210	14.7	40
+22313	Aircraft instrument, electrical and avionics mechanics, technicians and inspectors	1.4000000000000001	0.8999999999999999	\N	140	130	280	64.60000000000001	180	35.4	100
+30010	Managers in health care	1.7000000000000002	1.9	\N	1660	2000	3660	66	2410	34	1240
+31100	Specialists in clinical and laboratory medicine	1.7000000000000002	2	1.9	1150	1360	2510	47.199999999999996	1190	52.800000000000004	1330
+31101	Specialists in surgery	1.7999999999999998	2	\N	370	390	760	51.2	390	48.8	370
+31102	General practitioners and family physicians	1.7999999999999998	1.7999999999999998	1.8	1820	1820	3640	50.4	1840	49.6	1810
+31103	Veterinarians	0.7000000000000001	0.8	0.8	280	290	570	77.9	440	22.1	130
+31110	Dentists	2	1.5	1.8	840	750	1590	54.900000000000006	880	45.1	720
+31111	Optometrists	2	1.6	1.8	200	190	390	59.099999999999994	230	40.9	160
+31112	Audiologists and speech-language pathologists	1.5	1.6	1.6	330	340	670	59.199999999999996	400	40.8	270
+31120	Pharmacists	1.3	1.7000000000000002	1.5	1060	1330	2390	52.7	1260	47.3	1130
+31121	Dietitians and nutritionists	1.6	1.9	1.7	320	370	690	54.800000000000004	380	45.2	310
+31200	Psychologists	1.7999999999999998	1.6	1.7	460	410	870	55.2	480	44.800000000000004	390
+31201	Chiropractors	1.9	1.5	1.7	330	300	630	60.4	380	39.6	250
+31202	Physiotherapists	1.7999999999999998	1.7999999999999998	1.8	930	1020	1950	51.800000000000004	1010	48.199999999999996	940
+31203	Occupational therapists	1.7000000000000002	1.9	1.8	550	670	1210	48.8	590	51.2	620
+31204	Kinesiologists and other professional occupations in therapy and assessment	1.7999999999999998	1.7000000000000002	\N	300	320	620	36.6	230	63.4	390
+31209	Other professional occupations in health diagnosing and treating	2	1.6	\N	180	190	370	54.7	200	45.300000000000004	170
+31300	Nursing coordinators and supervisors	1.7000000000000002	2.1	\N	520	660	1180	63	750	37	440
+31301	Registered nurses and registered psychiatric nurses	1.5	2.1	1.8	11030	13740	24770	52.5	13020	47.5	11750
+31302	Nurse practitioners	1.6	2	1.8	130	170	290	45.800000000000004	130	54.2	160
+31303	Physician assistants, midwives and allied health professionals	1.6	1.9	1.7	60	70	120	55.1	70	44.9	50
+32100	Opticians	1.4000000000000001	1.4000000000000001	1.4	330	310	640	66.5	420	33.5	210
+32101	Licensed practical nurses	1.7000000000000002	2	1.8	1980	2300	4280	51.6	2210	48.4	2070
+32102	Paramedical occupations	1.6	1.5	1.6	720	750	1480	56.3	830	43.7	650
+32103	Respiratory therapists, clinical perfusionists and cardiopulmonary technologists	1.4000000000000001	2.1999999999999997	1.8	340	460	800	51.7	410	48.3	380
+32104	Animal health technologists and veterinary technicians	0.7000000000000001	0.8	0.8	350	430	790	66.8	530	33.2	260
+32109	Other technical occupations in therapy and assessment	1.6	1.7999999999999998	\N	410	480	890	50	440	50	440
+32110	Denturists	1.7999999999999998	1.5	\N	40	40	80	48.5	40	51.5	40
+32111	Dental hygienists and dental therapists	1.9	1.5	1.7	770	780	1550	56.699999999999996	880	43.3	670
+32112	Dental technologists and technicians	1.2	0.8999999999999999	\N	190	160	340	71.89999999999999	250	28.1	100
+32120	Medical laboratory technologists	1.6	2	1.8	660	770	1430	56.3	810	43.7	630
+32121	Medical radiation technologists	1.4000000000000001	2	\N	580	790	1370	51.7	710	48.3	660
+32122	Medical sonographers	1.5	2	1.8	220	250	470	55.300000000000004	260	44.7	210
+32123	Cardiology technologists and electrophysiological diagnostic technologists	1.5	2.1999999999999997	\N	130	180	310	50.4	160	49.6	150
+32124	Pharmacy technicians	1.3	1.7999999999999998	\N	480	630	1100	54.7	600	45.300000000000004	500
+32129	Other medical technologists and technicians	1.3	1.4000000000000001	\N	70	70	150	58.9	90	41.099999999999994	60
+32200	Traditional Chinese medicine practitioners and acupuncturists	2.1	1.5	1.8	300	280	570	49.8	290	50.2	290
+32201	Massage therapists	1.9	1.5	1.7	1360	1370	2740	55.60000000000001	1520	44.4	1210
+32209	Other practitioners of natural healing	1.9	1.5	\N	180	180	360	51.6	190	48.5	180
+33100	Dental assistants and dental laboratory assistants	1.9	1.5	1.7	1170	1150	2320	52.800000000000004	1220	47.199999999999996	1100
+33101	Medical laboratory assistants and related technical occupations	1.6	1.7999999999999998	\N	740	880	1620	50.6	820	49.4	800
+33102	Nurse aides, orderlies and patient service associates	1.7999999999999998	1.9	1.8	11100	11370	22480	56.00000000000001	12580	44	9900
+33103	Pharmacy technical assistants and pharmacy assistants	1.3	1.5	\N	550	670	1220	48.199999999999996	590	51.800000000000004	630
+33109	Other assisting occupations in support of health services	1.6	1.7999999999999998	\N	1110	1170	2280	53.2	1220	46.800000000000004	1070
+40010	Government managers - health and social policy development and program administration	0.8999999999999999	1.0999999999999999	\N	270	330	590	78.9	470	21.099999999999998	130
+40011	Government managers - economic analysis, policy development and program administration	0.8999999999999999	1.2	\N	380	460	840	79.7	670	20.3	170
+40012	Government managers - education policy development and program administration	0.8999999999999999	1.3	\N	50	60	120	74.2	90	25.8	30
+40019	Other managers in public administration	0.8999999999999999	1.3	\N	140	160	300	78	230	22	70
+40020	Administrators - post-secondary education and vocational training	0.8999999999999999	1.0999999999999999	\N	770	870	1640	78.5	1280	21.5	350
+40021	School principals and administrators of elementary and secondary education	1	1.0999999999999999	1	1210	1360	2570	81.2	2090	18.8	480
+40030	Managers in social, community and correctional services	1.0999999999999999	1.4000000000000001	1.3	1310	1600	2920	71	2070	28.999999999999996	850
+40040	Commissioned police officers and related occupations in public protection services	1.0999999999999999	1.6	\N	60	60	120	83.2	100	16.8	20
+40041	Fire chiefs and senior firefighting officers	1.2	1.7999999999999998	\N	180	200	380	80.7	310	19.3	70
+40042	Commissioned officers of the Canadian Armed Forces	0.8	1	\N	270	330	600	76.7	460	23.3	140
+41100	Judges	0.8	1.0999999999999999	\N	100	90	190	82.6	160	17.4	30
+41101	Lawyers and Quebec notaries	0.8999999999999999	0.8	0.9	2100	2020	4120	67.60000000000001	2780	32.4	1330
+41200	University professors and lecturers	1.0999999999999999	0.8	0.9	2190	1980	4170	72.7	3030	27.3	1140
+41201	Post-secondary teaching and research assistants	1	0.8999999999999999	\N	1120	1240	2360	51.4	1210	48.6	1150
+41210	College and other vocational instructors	0.8999999999999999	1.4000000000000001	1.2	2630	2880	5520	69.8	3850	30.2	1660
+41220	Secondary school teachers	1.0999999999999999	1.0999999999999999	\N	3420	3590	7010	68.60000000000001	4810	31.4	2200
+41221	Elementary school and kindergarten teachers	1.0999999999999999	1.0999999999999999	1.1	6120	6490	12610	69	8690	31	3910
+41300	Social workers	1.3	1.6	1.5	1570	1800	3370	58.699999999999996	1980	41.3	1390
+41301	Therapists in counselling and related specialized therapies	1.7000000000000002	1.7000000000000002	1.7	1880	1890	3770	54.900000000000006	2070	45.1	1700
+41302	Religious leaders	1.3	1.3	\N	840	790	1630	58.3	950	41.699999999999996	680
+41310	Police investigators and other investigative occupations	1.0999999999999999	1.4000000000000001	\N	130	140	270	75.5	200	24.5	70
+41311	Probation and parole officers	0.7000000000000001	1	\N	130	160	290	73.8	220	26.200000000000003	80
+41320	Educational counsellors	1	1.0999999999999999	\N	900	910	1810	71.2	1280	28.799999999999997	520
+41321	Career development practitioners and career counsellors (except education)	1.3	1.3	1.3	370	360	740	66.9	490	33.1	240
+41400	Natural and applied science policy researchers, consultants and program officers	1.3	1.2	1.2	870	910	1780	61.3	1090	38.7	690
+41401	Economists and economic policy researchers and analysts	0.8999999999999999	1.0999999999999999	1	290	330	620	65.4	410	34.599999999999994	210
+41402	Business development officers and market researchers and analysts	1.5	1.5	\N	990	1120	2110	53.400000000000006	1130	46.6	990
+41403	Social policy researchers, consultants and program officers	1.0999999999999999	1.2	1.2	890	970	1860	64.8	1200	35.199999999999996	650
+41404	Health policy researchers, consultants and program officers	1.4000000000000001	1.5	\N	760	820	1580	58.099999999999994	920	41.9	660
+41405	Education policy researchers, consultants and program officers	1	1.3	\N	680	720	1410	65.2	920	34.8	490
+41406	Recreation, sports and fitness policy researchers, consultants and program officers	1.0999999999999999	1.2	\N	300	340	630	64.1	410	35.9	230
+41407	Program officers unique to government	1	1.2	\N	190	190	380	70.7	270	29.2	110
+41409	Other professional occupations in social science	1.0999999999999999	1.0999999999999999	\N	200	210	400	62.9	250	37.1	150
+42100	Police officers (except commissioned)	1.0999999999999999	1.4000000000000001	1.3	1990	2370	4360	66.8	2910	33.2	1450
+42101	Firefighters	1	1.7000000000000002	1.3	850	1110	1960	64.7	1270	35.3	690
+42102	Specialized members of the Canadian Armed Forces	0.4	0.7000000000000001	\N	30	30	60	84.2	50	15.8	10
+42200	Paralegals and related occupations	0.8999999999999999	1.2	1	820	910	1730	68.89999999999999	1190	31.1	540
+42201	Social and community service workers	1.6	1.7000000000000002	1.6	7340	7590	14930	56.39999999999999	8420	43.6	6510
+42202	Early childhood educators and assistants	3.4000000000000004	2.9000000000000004	3.2	6060	6250	12310	33.4	4110	66.60000000000001	8210
+42203	Instructors of persons with disabilities	1.4000000000000001	1.6	\N	290	340	630	46.9	290	53.1	330
+42204	Religion workers	1.2	1.4000000000000001	\N	180	190	370	57.099999999999994	210	42.9	160
+43100	Elementary and secondary school teacher assistants	1	1	1	3460	3650	7110	68.89999999999999	4890	31.1	2210
+43109	Other instructors	0.8999999999999999	1.5	\N	1220	1400	2620	59.3	1550	40.699999999999996	1060
+43200	Sheriffs and bailiffs	0.7000000000000001	1	\N	100	110	200	72.39999999999999	150	27.6	60
+43201	Correctional service officers	1	1.0999999999999999	\N	580	640	1230	69	850	31	380
+43202	By-law enforcement and other regulatory officers	1	1.4000000000000001	\N	280	320	600	65.9	400	34.1	210
+43203	Border services, customs, and immigration officers	1.2	1.3	1.3	250	300	550	59.699999999999996	330	40.300000000000004	220
+43204	Operations members of the Canadian Armed Forces	0.7000000000000001	0.8999999999999999	\N	400	460	870	77.3	670	22.7	200
+44100	Home child care providers	-0.7000000000000001	-2.1999999999999997	-1.4	520	-110	410	100	1530	0	-1120
+44101	Home support workers, caregivers and related occupations	1.7000000000000002	1.7000000000000002	1.7	1970	1870	3830	58.099999999999994	2230	41.9	1610
+44200	Primary combat members of the Canadian Armed Forces	1	1.2	\N	30	40	70	48.199999999999996	40	51.800000000000004	40
+45100	Student monitors, crossing guards and related occupations	1.0999999999999999	1.0999999999999999	\N	410	370	780	72.3	570	27.700000000000003	220
+50010	Library, archive, museum and art gallery managers	0.6	0.8999999999999999	\N	170	190	360	84.1	300	15.9	60
+50011	Managers - publishing, motion pictures, broadcasting and performing arts	1.7000000000000002	1	\N	400	400	800	69.6	550	30.4	240
+50012	Recreation, sports and fitness program and service directors	0.8999999999999999	1	1	510	620	1130	74.8	850	25.2	290
+51100	Librarians	0.1	0.8	0.4	110	140	250	86.7	220	13.3	30
+51101	Conservators and curators	1	1	\N	60	60	120	63.800000000000004	70	36.199999999999996	40
+51102	Archivists	0.5	1	\N	20	20	30	80.2	30	19.8	10
+51110	Editors	1	0.8999999999999999	1	390	380	770	75.6	580	24.4	190
+51111	Authors and writers (except technical)	1.3	1.0999999999999999	1.2	930	760	1680	65.3	1100	34.699999999999996	580
+51112	Technical writers	1.9	2.1	\N	260	290	550	53.1	290	46.9	260
+51113	Journalists	0.6	0.5	0.6	180	160	340	82.1	280	17.9	60
+51114	Translators, terminologists and interpreters	1	0.8999999999999999	\N	290	270	550	70.39999999999999	390	29.599999999999998	160
+51120	Producers, directors, choreographers and related occupations	2.1999999999999997	1.2	1.7	1490	1410	2900	59.199999999999996	1720	40.8	1180
+51121	Conductors, composers and arrangers	1.2	1	\N	100	80	190	61.199999999999996	110	38.800000000000004	70
+51122	Musicians and singers	0.8999999999999999	1.3	\N	1030	1080	2110	62.6	1320	37.4	790
+52100	Library and public archive technicians	0.6	1.0999999999999999	\N	170	170	340	79.7	270	20.3	70
+52110	Film and video camera operators	2.3	1.2	1.7	230	190	420	50	210	50	210
+52111	Graphic arts technicians	2.7	1.6	\N	690	630	1310	36.5	480	63.5	830
+52112	Broadcast technicians	0.3	0.8	\N	20	20	40	85.7	30	14.299999999999999	10
+52113	Audio and video recording technicians	2	1.2	1.6	570	490	1060	51.9	550	48.1	510
+52114	Announcers and other broadcasters	0.4	0.8	\N	50	60	110	78.60000000000001	80	21.4	20
+52119	Other technical and coordinating occupations in motion pictures, broadcasting and the performing arts	2.1999999999999997	1.3	1.7	1420	1230	2650	52.1	1380	47.9	1270
+52120	Graphic designers and illustrators	1.7999999999999998	1.4000000000000001	1.6	2830	2940	5770	45.800000000000004	2640	54.2	3130
+52121	Interior designers and interior decorators	1	0.8	0.9	890	850	1730	71.39999999999999	1240	28.599999999999998	500
+53100	Registrars, restorers, interpreters and other occupations related to museum and art galleries	0.8	0.8999999999999999	\N	110	110	220	67	150	32.9	70
+53110	Photographers	0.8	0.8999999999999999	0.9	330	390	730	60.099999999999994	440	39.800000000000004	290
+53111	Motion pictures, broadcasting, photography and performing arts assistants and operators	2.8000000000000003	1	1.9	1030	690	1720	47.4	810	52.6	900
+53120	Dancers	0.8	1.4000000000000001	\N	140	210	360	46.400000000000006	170	53.6	190
+53121	Actors, comedians and circus performers	1.7999999999999998	1	\N	690	540	1230	54.6	670	45.4	560
+53122	Painters, sculptors and other visual artists	0.8999999999999999	0.8999999999999999	\N	830	710	1540	73.2	1130	26.8	410
+53123	Theatre, fashion, exhibit and other creative designers	1.3	0.8999999999999999	1.1	430	400	830	62	510	38	320
+53124	Artisans and craftspersons	0.7000000000000001	0.7000000000000001	\N	670	590	1260	79.5	1000	20.5	260
+53125	Patternmakers - textile, leather and fur products	0.7000000000000001	0.4	\N	30	20	50	86.3	40	13.8	10
+53200	Athletes	1	0.8999999999999999	\N	90	110	200	60.4	120	39.6	80
+53201	Coaches	1	1.2	\N	480	570	1050	59.9	630	40.1	420
+53202	Sports officials and referees	0.8999999999999999	1	\N	20	20	30	53.400000000000006	20	46.6	10
+54100	Program leaders and instructors in recreation, sport and fitness	1	1.0999999999999999	1.1	2260	2610	4870	56.00000000000001	2730	44	2140
+55109	Other performers	1.0999999999999999	0.8999999999999999	\N	120	130	250	66.9	170	33.1	80
+60010	Corporate sales managers	1.5	1.6	1.5	2290	2890	5180	63.2	3270	36.8	1910
+60020	Retail and wholesale trade managers	0.8	1	0.9	14010	16030	30040	77	23130	23	6910
+60030	Restaurant and food service managers	1.3	1.3	1.3	4550	5350	9900	65.3	6460	34.699999999999996	3430
+60031	Accommodation service managers	1.2	1.4000000000000001	\N	1660	1760	3410	70.6	2410	29.4	1000
+60040	Managers in customer and personal services	1.2	1.0999999999999999	\N	1100	1220	2310	71.39999999999999	1650	28.599999999999998	660
+62010	Retail sales supervisors	0.7000000000000001	1	0.9	1480	1900	3390	71.89999999999999	2430	28.1	950
+62020	Food service supervisors	1.3	1.3	1.3	1450	1840	3290	52.1	1710	47.9	1580
+62021	Executive housekeepers	1.2	1.4000000000000001	\N	80	90	160	73.4	120	26.6	40
+62022	Accommodation, travel, tourism and related services supervisors	1.4000000000000001	1.2	\N	140	160	300	62.8	190	37.2	110
+62023	Customer and information services supervisors	0.8999999999999999	1.2	\N	130	190	320	69	220	31	100
+62024	Cleaning supervisors	1.0999999999999999	1	\N	380	400	770	74.3	570	25.7	200
+62029	Other services supervisors	0.8999999999999999	0.8	\N	210	220	430	74.3	320	25.7	110
+62100	Technical sales specialists - wholesale trade	0.8	0.8	0.8	1470	1640	3110	78.60000000000001	2450	21.4	670
+62101	Retail and wholesale buyers	0.8	0.8999999999999999	\N	860	980	1840	75	1380	25	460
+62200	Chefs	1.4000000000000001	1.3	1.3	2520	2760	5280	58.5	3090	41.5	2190
+62201	Funeral directors and embalmers	1.5	1.2	\N	80	80	160	60.5	100	39.5	60
+62202	Jewellers, jewellery and watch repairers and related occupations	0.8	0.8	\N	130	110	240	76.6	180	23.3	50
+63100	Insurance agents and brokers	0.8	1.0999999999999999	1	2260	2480	4740	71.6	3390	28.4	1340
+63101	Real estate agents and salespersons	0.6	1	0.8	3180	3330	6500	73.6	4780	26.400000000000002	1720
+63102	Financial sales representatives	-0.3	0.7000000000000001	0.2	670	1160	1840	90.9	1670	9.1	170
+63200	Cooks	1.3	1.3	1.3	4350	4440	8790	56.00000000000001	4920	44	3870
+63201	Butchers - retail and wholesale	0.7000000000000001	1	0.8	140	160	300	68.2	200	31.8	90
+63202	Bakers	1.3	1.4000000000000001	1.3	1620	1750	3380	59.5	2010	40.5	1370
+63210	Hairstylists and barbers	1.3	1.3	1.3	2210	2290	4490	56.89999999999999	2550	43.1	1940
+63211	Estheticians, electrologists and related occupations	1.3	1.3	1.3	1380	1660	3030	51.800000000000004	1570	48.199999999999996	1460
+63220	Shoe repairers and shoemakers	1	1	\N	40	30	70	78	60	22	20
+63221	Upholsterers	1.0999999999999999	0.8999999999999999	\N	70	60	140	71.1	100	28.9	40
+64100	Retail salespersons and visual merchandisers	0.7000000000000001	1	0.9	13660	14320	27970	66.4	18580	33.6	9400
+64101	Sales and account representatives - wholesale trade (non-technical)	0.8	0.8	0.8	1920	1830	3750	75	2810	25	940
+64200	Tailors, dressmakers, furriers and milliners	1	0.8999999999999999	\N	440	370	800	77.10000000000001	620	22.900000000000002	180
+64201	Image, social and other personal consultants	1.0999999999999999	1.2	\N	60	50	110	70.1	80	29.9	30
+64300	Maîtres d'hôtel and hosts/hostesses	1.3	1.3	\N	300	350	650	21.3	140	78.7	510
+64301	Bartenders	1.2	1.2	\N	440	530	970	42	410	57.99999999999999	560
+64310	Travel counsellors	2	0.6	\N	1370	810	2180	66.3	1450	33.7	730
+64311	Pursers and flight attendants	1.9	1	\N	420	330	750	66.60000000000001	500	33.4	250
+64312	Airline ticket and service agents	1.7999999999999998	1	\N	620	500	1110	66.4	740	33.6	380
+64313	Ground and water transport ticket agents, cargo service representatives and related clerks	0.8999999999999999	1	\N	80	90	170	72.2	120	27.800000000000004	50
+64314	Hotel front desk clerks	1.4000000000000001	1.4000000000000001	\N	530	580	1100	47.4	520	52.6	580
+64320	Tour and travel guides	2	0.8999999999999999	\N	100	70	170	52.6	90	47.4	80
+64321	Casino workers	1.2	1	\N	100	100	190	63.5	120	36.5	70
+64322	Outdoor sport and recreational guides	1.7000000000000002	0.8999999999999999	\N	70	50	120	56.2	70	43.8	50
+64400	Customer services representatives - financial institutions	-0.3	0.7000000000000001	\N	440	870	1310	91.2	1200	8.799999999999999	110
+64401	Postal services representatives	1.6	1.6	\N	210	210	410	62.1	260	37.9	160
+64409	Other customer and information services representatives	1	1.0999999999999999	\N	3990	4470	8460	62	5240	38	3220
+64410	Security guards and related security service occupations	0.8999999999999999	0.8	0.8	2220	1770	3990	71.2	2840	28.799999999999997	1150
+65100	Cashiers	0.7000000000000001	1	\N	5260	6080	11340	60.8	6890	39.2	4450
+65101	Service station attendants	0.7000000000000001	0.8999999999999999	\N	120	130	250	67.4	170	32.6	80
+65102	Store shelf stockers, clerks and order fillers	0.7000000000000001	1	\N	3580	4150	7730	65.10000000000001	5030	34.9	2700
+65109	Other sales related occupations	0.8999999999999999	1	\N	440	450	880	61	540	39	340
+65200	Food and beverage servers	1.3	1.2	1.3	2490	2880	5370	42.199999999999996	2270	57.8	3110
+65201	Food counter attendants, kitchen helpers and related support occupations	1.3	1.3	\N	7530	8140	15680	45.1	7060	54.900000000000006	8610
+65202	Meat cutters and fishmongers - retail and wholesale	0.6	1	\N	180	190	380	75.1	280	24.9	90
+65210	Support occupations in accommodation, travel and facilities set-up services	1.0999999999999999	1	\N	80	90	170	57.3	100	42.699999999999996	70
+65211	Operators and attendants in amusement, recreation and sport	0.8999999999999999	1	\N	700	670	1370	60.099999999999994	830	39.900000000000006	550
+65220	Pet groomers and animal care workers	1.3	1.2	\N	610	620	1220	53.2	650	46.800000000000004	570
+65229	Other support occupations in personal services	1.6	1.5	\N	140	140	270	61.9	170	38.1	100
+65310	Light duty cleaners	1.2	1.0999999999999999	\N	6630	6120	12750	69.3	8840	30.7	3920
+65311	Specialized cleaners	0.7000000000000001	0.7000000000000001	\N	720	710	1420	72.5	1030	27.500000000000004	390
+65312	Janitors, caretakers and heavy-duty cleaners	1	0.8999999999999999	\N	3720	3240	6960	74.7	5200	25.3	1760
+65320	Dry cleaning, laundry and related occupations	1.4000000000000001	1.4000000000000001	\N	590	540	1140	67.30000000000001	770	32.7	370
+65329	Other service support occupations	1.3	1.0999999999999999	\N	370	330	700	52.900000000000006	370	47.099999999999994	330
+70010	Construction managers	0.7000000000000001	0.5	0.6	3550	3720	7270	82.6	6000	17.4	1270
+70011	Home building and renovation managers	1.0999999999999999	0.5	0.8	2420	2240	4670	80.10000000000001	3740	19.900000000000002	930
+70012	Facility operation and maintenance managers	0.8	1	0.9	3380	3610	6980	80.30000000000001	5610	19.7	1380
+70020	Managers in transportation	1	0.8999999999999999	\N	1350	1500	2850	76.7	2190	23.3	670
+70021	Postal and courier services managers	2.1	1.7999999999999998	\N	200	210	410	62.6	260	37.4	150
+72010	Contractors and supervisors, machining, metal forming, shaping and erecting trades and related occupations	0.3	0.5	\N	300	340	640	89.9	580	10.100000000000001	60
+72011	Contractors and supervisors, electrical trades and telecommunications occupations	0.8	0.3	\N	730	740	1460	85	1240	15	220
+72012	Contractors and supervisors, pipefitting trades	0.8	0.3	\N	180	180	350	71.89999999999999	260	28.1	100
+72013	Contractors and supervisors, carpentry trades	0.8	0.5	\N	470	500	970	76.3	740	23.7	230
+72014	Contractors and supervisors, other construction trades, installers, repairers and servicers	0.8	0.4	\N	1710	1730	3440	82.89999999999999	2850	17.1	590
+72020	Contractors and supervisors, mechanic trades	0.8	0.7000000000000001	\N	620	660	1290	81.39999999999999	1050	18.6	240
+72021	Contractors and supervisors, heavy equipment operator crews	0.6	0.4	\N	1310	1360	2670	87.4	2330	12.6	340
+72022	Supervisors, printing and related occupations	0.7000000000000001	0.2	\N	20	20	40	87.9	40	12.2	10
+72023	Supervisors, railway transport operations	0.8	0	\N	60	50	100	93.60000000000001	100	6.4	10
+72024	Supervisors, motor transport and other ground transit operators	0.8999999999999999	0.8	\N	270	270	540	78.9	430	21.099999999999998	110
+72025	Supervisors, mail and message distribution occupations	2	1.6	\N	270	270	540	69.3	370	30.7	160
+72100	Machinists and machining and tooling inspectors	-0.1	0.7000000000000001	0.3	440	570	1010	90.3	920	9.700000000000001	100
+72101	Tool and die makers	-0.5	0.8	\N	50	50	100	96.7	100	3.3000000000000003	0
+72102	Sheet metal workers	0.6	0.3	0.5	300	300	600	77.8	460	22.2	130
+72103	Boilermakers	0	0.2	\N	30	30	60	97.7	60	2.3	0
+72104	Structural metal and platework fabricators and fitters	-0.2	0.6	\N	200	280	480	95.3	460	4.7	20
+72105	Ironworkers	0.4	0.2	0.3	190	190	380	86.1	320	13.900000000000002	50
+72106	Welders and related machine operators	0.5	0.7000000000000001	0.6	1240	1430	2670	77.3	2070	22.7	610
+72200	Electricians (except industrial and power system)	0.8	0.4	0.6	1520	1340	2850	63.6	1810	36.4	1040
+72201	Industrial electricians	0.4	0.3	\N	510	480	990	88.6	880	11.4	110
+72202	Power system electricians	0.3	0.3	\N	80	90	170	91.10000000000001	150	8.9	10
+72203	Electrical power line and cable workers	0.3	0.3	\N	180	200	380	90.3	340	9.700000000000001	40
+72204	Telecommunications line and cable installers and repairers	0.4	0.3	\N	150	160	310	86.3	270	13.700000000000001	40
+72205	Telecommunications equipment installation and cable television service technicians	0.4	0.4	\N	360	390	750	86.9	650	13.100000000000001	100
+72300	Plumbers	0.8	0.3	0.6	1120	990	2110	73.1	1540	26.900000000000002	570
+72301	Steamfitters, pipefitters and sprinkler system installers	0.5	0.3	0.4	300	280	580	83.8	480	16.2	90
+72302	Gas fitters	0.6	0.4	0.5	160	140	290	83.2	240	16.8	50
+72310	Carpenters	0.7000000000000001	0.6	0.6	4220	4260	8480	75.9	6440	24.099999999999998	2040
+72311	Cabinetmakers	0.3	0.2	\N	370	320	680	93.60000000000001	640	6.4	40
+72320	Bricklayers	0.7000000000000001	0.4	\N	230	200	430	79.2	340	20.8	90
+72321	Insulators	0.8	0.3	\N	160	130	290	77.2	220	22.8	70
+72400	Construction millwrights and industrial mechanics	0.2	0.4	0.3	1310	1260	2570	91.7	2360	8.3	210
+72401	Heavy-duty equipment mechanics	0.8	0.6	0.7	1230	1110	2340	76.2	1790	23.799999999999997	560
+72402	Heating, refrigeration and air conditioning mechanics	0.8	0.5	0.7	440	400	840	72.8	610	27.200000000000003	230
+72403	Railway carmen/women	1.3	-0.1	\N	60	40	100	82.39999999999999	90	17.599999999999998	20
+72404	Aircraft mechanics and aircraft inspectors	1.6	1	1.3	900	760	1660	65.8	1090	34.2	570
+72405	Machine fitters	-0.3	1.4000000000000001	\N	10	10	20	83.3	10	16.7	0
+72406	Elevator constructors and mechanics	0.7000000000000001	0.2	\N	190	160	350	84.5	300	15.5	50
+72410	Automotive service technicians, truck and bus mechanics and mechanical repairers	0.5	0.6	0.6	2500	2620	5120	79.5	4070	20.5	1050
+72411	Auto body collision, refinishing and glass technicians and damage repair estimators	0	0.5	\N	550	630	1170	91.5	1070	8.5	100
+72420	Oil and solid fuel heating mechanics	1.4000000000000001	0.4	\N	10	10	20	79.80000000000001	20	20.200000000000003	0
+72421	Appliance servicers and repairers	1	1.2	\N	160	160	320	70.7	230	29.299999999999997	90
+72422	Electrical mechanics	0.7000000000000001	0.7000000000000001	\N	60	60	120	82.6	100	17.4	20
+72423	Motorcycle, all-terrain vehicle and other related mechanics	0.8	1	\N	240	250	490	70.89999999999999	340	29.099999999999998	140
+72429	Other small engine and small equipment repairers	1.4000000000000001	1	\N	30	30	60	64.5	40	35.4	20
+72500	Crane operators	0.8999999999999999	0.5	\N	420	350	770	77	590	23	180
+72501	Water well drillers	-1.5	0.8999999999999999	\N	0	0	0	100	0	0	0
+72600	Air pilots, flight engineers and flying instructors	1.6	1	1.3	860	760	1630	63.2	1030	36.8	600
+72601	Air traffic controllers and related occupations	1.7000000000000002	1	\N	220	200	430	63.6	270	36.4	160
+72602	Deck officers, water transport	0.3	1.2	0.8	320	440	760	75.7	580	24.3	190
+72603	Engineer officers, water transport	1.3	1.0999999999999999	\N	40	40	80	71.39999999999999	60	28.499999999999996	20
+72604	Railway traffic controllers and marine traffic regulators	0.5	0.2	0.4	30	30	60	88.7	60	11.3	10
+72999	Other technical trades and related occupations	0	0.5	\N	230	260	490	92.9	460	7.1	30
+73100	Concrete finishers	0.8	0.2	\N	190	150	340	79.3	270	20.7	70
+73101	Tilesetters	0.8999999999999999	0.2	\N	310	260	570	82.1	460	17.9	100
+73102	Plasterers, drywall installers and finishers and lathers	0.8999999999999999	0.4	\N	630	520	1140	76.4	870	23.599999999999998	270
+73110	Roofers and shinglers	0.8999999999999999	0.7000000000000001	\N	420	440	850	70.5	600	29.5	250
+73111	Glaziers	0.6	0.3	\N	180	180	360	78.7	290	21.3	80
+73112	Painters and decorators (except interior decorators)	0.8	0.4	\N	1220	1010	2230	78.60000000000001	1750	21.4	480
+73113	Floor covering installers	0.7000000000000001	0.4	\N	280	250	530	77.8	410	22.2	120
+73200	Residential and commercial installers and servicers	0.8	0.4	\N	960	870	1840	73.4	1350	26.6	490
+73201	General building maintenance workers and building superintendents	1.0999999999999999	1.0999999999999999	\N	3010	2540	5560	73.4	4080	26.6	1480
+73202	Pest controllers and fumigators	1	0.7000000000000001	\N	110	90	210	77	160	23	50
+73209	Other repairers and servicers	0.8	0.8999999999999999	\N	260	260	520	65.8	340	34.2	180
+73300	Transport truck drivers	0.4	0.7000000000000001	0.5	7140	7300	14440	83.39999999999999	12050	16.6	2390
+73301	Bus drivers, subway operators and other transit operators	1.4000000000000001	1	1.2	2270	1800	4060	72.1	2930	27.900000000000002	1130
+73310	Railway and yard locomotive engineers	1.5	0	\N	420	350	770	82.5	640	17.5	140
+73311	Railway conductors and brakemen/women	1.6	-0.1	0.8	290	220	510	75.8	390	24.2	120
+73400	Heavy equipment operators	0.7000000000000001	0.4	0.5	2360	1990	4350	83.5	3630	16.5	720
+73401	Printing press operators	0.3	0.1	\N	230	180	410	96.3	400	3.6999999999999997	20
+73402	Drillers and blasters - surface mining, quarrying and construction	1	0.4	\N	100	80	180	75.4	140	24.6	40
+74100	Mail and parcel sorters and related occupations	2.3	1.7999999999999998	\N	830	750	1570	55.2	870	44.800000000000004	710
+74101	Letter carriers	1.9	1.7000000000000002	\N	1240	1200	2430	61	1480	39	950
+74102	Couriers and messengers	1.9	1.6	1.8	1170	1100	2270	55.00000000000001	1250	45	1020
+74200	Railway yard and track maintenance workers	1.5	-0.1	\N	200	150	340	77.5	270	22.5	80
+74201	Water transport deck and engine room crew	0.4	1.2	0.8	140	210	350	69	240	31	110
+74202	Air transport ramp attendants	2.1	1.0999999999999999	\N	450	370	820	58.5	480	41.5	340
+74203	Automotive and heavy truck and equipment parts installers and servicers	0.7000000000000001	0.6	\N	170	200	370	60.4	220	39.6	150
+74204	Utility maintenance workers	0.6	0.7000000000000001	\N	100	100	200	80.80000000000001	160	19.2	40
+74205	Public works maintenance equipment operators and related workers	1	0.8999999999999999	\N	230	230	450	72.39999999999999	330	27.6	130
+75100	Longshore workers	2.4	1.3	1.8	970	790	1760	52	920	48	850
+75101	Material handlers	1	1.2	\N	4960	5690	10650	64.1	6830	35.9	3820
+75110	Construction trades helpers and labourers	0.8	0.4	\N	4140	3840	7980	75.8	6050	24.2	1930
+75119	Other trades helpers and labourers	0.7000000000000001	0.5	\N	130	130	260	72.2	190	27.800000000000004	70
+75200	Taxi and limousine drivers and chauffeurs	1.4000000000000001	1	\N	1400	1240	2650	67.2	1780	32.800000000000004	870
+75201	Delivery service drivers and door-to-door distributors	1.5	1.3	\N	3070	2930	6000	54.6	3270	45.4	2730
+75210	Boat and cable ferry operators and related occupations	0.5	1.3	\N	210	260	470	72.2	340	27.800000000000004	130
+75211	Railway and motor transport labourers	0.7000000000000001	0.8	\N	80	90	170	75.1	120	24.9	40
+75212	Public works and maintenance labourers	1	1.2	\N	540	590	1140	66.10000000000001	750	33.900000000000006	390
+80010	Managers in natural resources production and fishing	0.4	0.2	0.3	500	480	980	93.8	920	6.2	60
+80020	Managers in agriculture	0.1	0.2	0.1	1450	1270	2720	95.89999999999999	2610	4.1000000000000005	110
+80021	Managers in horticulture	0.3	0.2	\N	150	130	280	93.2	260	6.800000000000001	20
+80022	Managers in aquaculture	1	0.6	\N	80	80	160	81.2	130	18.8	30
+82010	Supervisors, logging and forestry	-1.0999999999999999	0	\N	170	280	450	100	560	0	-110
+82020	Supervisors, mining and quarrying	1.7000000000000002	0.2	\N	320	260	570	77	440	23	130
+82021	Contractors and supervisors, oil and gas drilling and services	1.4000000000000001	0.3	0.9	190	170	370	80.7	300	19.3	70
+82030	Agricultural service contractors and farm supervisors	0	0	\N	30	40	70	100	70	0	0
+82031	Contractors and supervisors, landscaping, grounds maintenance and horticulture services	1	0.7000000000000001	\N	670	710	1390	77.9	1080	22.1	310
+83100	Underground production and development miners	3.1	0.2	\N	400	170	570	59	340	41	240
+83101	Oil and gas well drillers, servicers, testers and related workers	2	0.5	\N	140	90	240	58.699999999999996	140	41.3	100
+83110	Logging machinery operators	-2.1999999999999997	-0.2	\N	90	280	370	100	620	0	-250
+83120	Fishing masters and officers	0.7000000000000001	-0.7000000000000001	\N	30	20	40	100	40	0	0
+83121	Fishermen/women	0.5	-0.8	\N	60	40	100	100	110	0	-10
+84100	Underground mine service and support workers	2.7	0.1	\N	100	50	150	65.3	100	34.599999999999994	50
+84101	Oil and gas well drilling and related workers and services operators	1.3	0.1	\N	50	20	80	62.1	50	37.9	30
+84110	Chain saw and skidder operators	-1.9	-0.1	\N	-30	240	210	100	510	0	-310
+84111	Silviculture and forestry workers	-1	0.2	-0.4	20	190	210	100	310	0	-100
+84120	Specialized livestock workers and farm machinery operators	0.2	0.3	\N	270	270	540	93.60000000000001	510	6.4	40
+84121	Fishing vessel deckhands	0.8	-0.8999999999999999	\N	40	20	60	100	70	0	-10
+85100	Livestock labourers	0.3	0.4	\N	190	200	390	86.5	330	13.5	50
+85101	Harvesting labourers	0.1	0	\N	180	160	330	100	350	0	-20
+85102	Aquaculture and marine harvest labourers	0.7000000000000001	0.5	\N	50	50	100	78.9	80	21.099999999999998	20
+85103	Nursery and greenhouse labourers	-0.2	0.2	0	240	320	550	100	600	0	-40
+85104	Trappers and hunters	\N	\N	\N	\N	\N	\N	\N	\N	\N	\N
+85110	Mine labourers	2.1	0.2	\N	120	50	170	55.50000000000001	100	44.5	80
+85111	Oil and gas drilling, servicing and related labourers	1.7000000000000002	0.3	\N	100	50	150	53.7	80	46.2	70
+85120	Logging and forestry labourers	-2	-0.3	\N	-100	100	0	0	240	100	-240
+85121	Landscaping and grounds maintenance labourers	1	0.8999999999999999	0.9	2650	2690	5340	64.2	3420	35.8	1910
+90010	Manufacturing managers	0.1	0.5	\N	2010	2440	4450	92.30000000000001	4110	7.7	340
+90011	Utilities managers	0.8	0.6	0.7	390	410	800	86.2	690	13.8	110
+92010	Supervisors, mineral and metal processing	0.7000000000000001	-0.1	\N	100	90	190	92	180	8	20
+92011	Supervisors, petroleum, gas and chemical processing and utilities	0.7000000000000001	0.6	\N	240	250	490	85.6	420	14.399999999999999	70
+92012	Supervisors, food and beverage processing	1.3	1.2	\N	370	440	810	64.4	520	35.6	290
+92013	Supervisors, plastic and rubber products manufacturing	0.4	0.2	\N	40	40	80	92.7	70	7.3	10
+92014	Supervisors, forest products processing	-2	-0.4	\N	110	230	340	100	510	0	-170
+92015	Supervisors, textile, fabric, fur and leather products processing and manufacturing	0.4	0.8	\N	20	20	40	86.2	40	13.8	10
+92020	Supervisors, motor vehicle assembling	1.3	0.7000000000000001	\N	30	30	50	77	40	23	10
+92021	Supervisors, electronics and electrical products manufacturing	0.5	0.5	\N	60	60	110	89	100	11	10
+92022	Supervisors, furniture and fixtures manufacturing	0.5	0.1	\N	10	10	20	88.9	20	11	0
+92023	Supervisors, other mechanical and metal products manufacturing	0.1	0.8	\N	20	30	60	87.4	50	12.7	10
+92024	Supervisors, other products manufacturing and assembly	0.3	0.3	\N	20	30	50	89.8	50	10.2	10
+92100	Power engineers and power systems operators	0.4	0.5	0.5	1220	1300	2520	88.6	2240	11.4	290
+92101	Water and waste treatment plant operators	0.7000000000000001	0.6	0.7	310	330	640	81.89999999999999	530	18.099999999999998	120
+93100	Central control and process operators, mineral and metal processing	2.1999999999999997	-0.1	\N	220	160	370	80.2	300	19.8	70
+93101	Central control and process operators, petroleum, gas and chemical processing	1.7000000000000002	0.2	\N	530	400	930	75.7	700	24.3	220
+93102	Pulping, papermaking and coating control operators	-1.5	-0.6	\N	20	30	60	100	80	0	-20
+93200	Aircraft assemblers and aircraft assembly inspectors	0.5	0.6	\N	10	10	20	86	20	14.000000000000002	0
+94100	Machine operators, mineral and metal processing	1.5	0	\N	150	70	220	76.8	170	23.200000000000003	50
+94101	Foundry workers	-0.5	0.4	\N	20	20	30	100	30	0	0
+94102	Glass forming and finishing machine operators and glass cutters	0.1	0.1	\N	20	30	50	96.5	50	3.5000000000000004	0
+94103	Concrete, clay and stone forming operators	0.5	0.1	\N	50	50	90	86.6	80	13.4	10
+94104	Inspectors and testers, mineral and metal processing	-0.4	0.4	\N	20	20	40	100	40	0	0
+94105	Metalworking and forging machine operators	0	0.4	\N	100	120	220	93.7	210	6.3	10
+94106	Machining tool operators	-0.3	0.6	0.1	30	50	80	96.39999999999999	80	3.5999999999999996	0
+94107	Machine operators of other metal products	-0.7000000000000001	0.1	\N	10	10	20	100	20	0	0
+94110	Chemical plant machine operators	0.8	0.3	\N	60	50	110	81.8	90	18.2	20
+94111	Plastics processing machine operators	0.4	0.1	\N	120	100	220	92.7	200	7.3	20
+94112	Rubber processing machine operators and related workers	0.4	0.4	\N	30	20	50	87.7	40	12.3	10
+94120	Sawmill machine operators	-2.3	-0.3	-1.3	100	280	370	100	640	0	-260
+94121	Pulp mill, papermaking and finishing machine operators	-2.4	-0.5	\N	30	130	150	100	330	0	-180
+94122	Paper converting machine operators	-2.3	-0.8	\N	0	20	20	100	60	0	-30
+94123	Lumber graders and other wood processing inspectors and graders	-2.6	-0.4	\N	10	110	130	100	260	0	-140
+94124	Woodworking machine operators	-1	0	\N	60	90	150	100	190	0	-40
+94129	Other wood processing machine operators	-2	-0.5	\N	40	80	120	100	200	0	-80
+94130	Textile fibre and yarn, hide and pelt processing machine operators and workers	0.8	0.4	\N	20	20	40	75.2	30	24.7	10
+94131	Weavers, knitters and other fabric making occupations	0.5	0.3	\N	20	20	40	85.7	30	14.299999999999999	10
+94132	Industrial sewing machine operators	0.5	0.5	\N	320	280	600	89	540	11	70
+94133	Inspectors and graders, textile, fabric, fur and leather products manufacturing	0.6	0.5	\N	30	20	50	80.80000000000001	40	19.2	10
+94140	Process control and machine operators, food and beverage processing	1	1	\N	1060	1150	2210	65.8	1450	34.2	750
+94141	Industrial butchers and meat cutters, poultry preparers and related workers	1.3	1.6	\N	340	390	730	60.9	450	39.1	290
+94142	Fish and seafood plant workers	1.7999999999999998	1.4000000000000001	\N	280	240	520	65.8	340	34.2	180
+94143	Testers and graders, food and beverage processing	1.2	1.2	\N	150	150	300	60.099999999999994	180	39.900000000000006	120
+94150	Plateless printing equipment operators	0.2	0.3	\N	100	90	200	94.6	190	5.4	10
+94151	Camera, platemaking and other prepress occupations	0.5	0.1	\N	20	20	40	90.7	40	9.3	0
+94152	Binding and finishing machine operators	0.5	0.1	\N	50	40	90	91.7	90	8.3	10
+94153	Photographic and film processors	1.3	1.2	\N	60	60	120	63.1	80	36.9	40
+94200	Motor vehicle assemblers, inspectors and testers	-0.2	0.8	\N	150	200	350	90.7	310	9.3	30
+94201	Electronics assemblers, fabricators, inspectors and testers	0.7000000000000001	0.8999999999999999	\N	220	230	450	75.4	340	24.6	110
+94202	Assemblers and inspectors, electrical appliance, apparatus and equipment manufacturing	0.5	0.8	\N	70	70	140	82.89999999999999	120	17.1	20
+94203	Assemblers, fabricators and inspectors, industrial electrical motors and transformers	0.6	0.2	\N	10	10	20	82.39999999999999	10	17.599999999999998	0
+94204	Mechanical assemblers and inspectors	0	1.4000000000000001	\N	130	190	320	79.3	250	20.7	70
+94205	Machine operators and inspectors, electrical apparatus manufacturing	0.6	0.2	\N	20	20	40	89.60000000000001	40	10.299999999999999	0
+94210	Furniture and fixture assemblers, finishers, refinishers and inspectors	0.5	0.3	0.4	230	200	430	84.6	360	15.4	70
+94211	Assemblers and inspectors of other wood products	-1.7999999999999998	-0.2	\N	30	110	140	100	260	0	-120
+94212	Plastic products assemblers, finishers and inspectors	0.5	0.4	\N	40	40	90	85.8	70	14.2	10
+94213	Industrial painters, coaters and metal finishing process operators	0.5	0.5	\N	260	250	510	85.39999999999999	440	14.6	70
+94219	Other products assemblers, finishers and inspectors	0.8999999999999999	0.5	0.7	450	380	830	78.60000000000001	650	21.4	180
+95100	Labourers in mineral and metal processing	0.2	0.3	\N	140	140	280	92.2	260	7.8	20
+95101	Labourers in metal fabrication	-0.3	0.2	\N	130	160	290	100	300	0	-20
+95102	Labourers in chemical products processing and utilities	0.8999999999999999	0.8	\N	130	130	260	74.6	200	25.4	70
+95103	Labourers in wood, pulp and paper processing	-2.1	-0.5	-1.3	90	590	670	100	1430	0	-750
+95104	Labourers in rubber and plastic products manufacturing	0.4	0.2	\N	60	60	120	85	100	15	20
+95105	Labourers in textile processing and cutting	0.7000000000000001	0.6	\N	90	90	180	79.5	150	20.5	40
+95106	Labourers in food and beverage processing	1.4000000000000001	1.4000000000000001	1.4	3040	3060	6100	61.8	3770	38.2	2330
+95107	Labourers in fish and seafood processing	1.6	1.2	\N	200	170	380	68.5	260	31.5	120
+95109	Other labourers in processing, manufacturing and utilities	0.5	0.7000000000000001	\N	1140	1250	2390	78.3	1870	21.7	520
 \.
 
 
@@ -4650,6 +4734,198 @@ COPY public.career_regional (noc, description, cariboo_employment_current, carib
 95106	Labourers in food and beverage processing	180	1.5	40	210	1	60	11440	1.5	5220	40	-0.8999999999999999	0	\N	\N	\N	1820	1.0999999999999999	520	670	1.4000000000000001	250
 95107	Labourers in fish and seafood processing	\N	\N	\N	\N	\N	\N	440	1.5	250	50	-0.4	10	\N	\N	\N	\N	\N	\N	260	1.5	110
 95109	Other labourers in processing, manufacturing and utilities	210	-0.5	40	190	0.7000000000000001	60	6110	0.5	1740	60	1.7000000000000002	30	50	1.2	20	830	0.7000000000000001	230	800	1.0999999999999999	270
+\.
+
+
+--
+-- Data for Name: career_trek; Type: TABLE DATA; Schema: public; Owner: workbc
+--
+
+COPY public.career_trek (episode_num, episode_title, noc_2021, title_2021, noc_2016, title_2016, youtube_link) FROM stdin;
+94	Chief Financial Officer	00018	Senior managers - public and private sector	0015	Senior Managers - Trade, Broadcasting And Other Services, N.e.c.	https://youtu.be/B4ztw5v9CzY
+98	Human Resources Manager	10011	Human resources managers	0112	Human Resources Managers	https://youtu.be/B8Lubga0tNA
+110	Account Manager	10021	Banking, credit and other investment managers	0122	Banking, Credit And Other Investment Managers	https://youtu.be/iBQlSfAHDoY
+9	Sales Coordinator	10022	Advertising, marketing and public relations managers	0124	Advertising, Marketing And Public Relations Managers	https://youtu.be/52xU5UoWp7c
+10	Sr. Manager of Communications	10022	Advertising, marketing and public relations managers	0124	Advertising, Marketing And Public Relations Managers	https://youtu.be/SOngj24r4IU
+108	Chartered Professional Accountant	11100	Financial auditors and accountants	1111	Financial Auditors And Accountants	https://youtu.be/s9Tk7nraMcM
+14	Human Resource Specialist	11200	Human resources professionals	1121	Human Resources Professionals	https://youtu.be/lbuYUY0FfIo
+99	Advertising Marketer	11202	Professional occupations in advertising, marketing and public relations	1123	Professional Occupations In Advertising, Marketing And Public Relations	https://youtu.be/zXBY9QH_dhU
+118	Executive Assistant	12100	Executive assistants	1222	Executive Assistants	https://youtu.be/mnti-_qFxA8
+11	Event Planner	12103	Conference and event planners	1226	Conference And Event Planners	https://youtu.be/VZzto0mEJ_o
+111	Bookkeeper	12200	Accounting technicians and bookkeepers	1311	Accounting Technicians And Bookkeepers	https://youtu.be/uoWPgJrJbmU
+145	Production  Manager	13100	Administrative officers	1221	Administrative Officers	https://youtu.be/lJJfYtIeev8
+141	Legal Administrative Assistant	13111	Legal administrative assistants	1242	Legal Administrative Assistants	https://youtu.be/2cS63-hyf4Y
+160	Medical Office Assistant	13112	Medical administrative assistants	1243	Medical Administrative Assistant	https://youtu.be/w3tpMweWq-s
+86	Customs Broker	13200	Customs, ship and other brokers	1315	Customs, Ship And Other Brokers	https://youtu.be/zToLB35zBv8
+131	General Office Support Worker	14100	General office support workers	1411	General Office Support Workers	https://youtu.be/4867Bc9ktDw
+96	Receptionist	14101	Receptionists	1414	Receptionists	https://youtu.be/gCizwITonaY
+116	Accounting Clerk	14200	Accounting and related clerks	1431	Accounting And Related Clerks	https://youtu.be/aWn7mULLowQ
+8	Lead Hand - Warehouse Department	14400	Shippers and receivers	1521	Shippers And Receivers	https://youtu.be/PISPgBrwUAo
+149	Engineer Manager	20010	Engineering managers	0211	Engineer Managers	https://youtu.be/8zYTf-IqDMk
+182	Computer and information systems managers	20012	Computer and information systems managers	0213	Computer And information Systems Managers	https://youtu.be/GYV76mxDL4Q
+142	Chemistry Lab Manager	21101	Chemists	2112	Chemists	https://youtu.be/mgi-iWMq1eY
+52	Geologist	21102	Geoscientists and oceanographers	2113	Geoscientists And Oceanographers	https://youtu.be/cc6cISY752M
+36	Biologist	21110	Biologists and related scientists	2121	Biologists And Related Scientists	https://youtu.be/Ji8bLaBa_YQ
+3	Researcher	21110	Biologists and related scientists	4165	Health Policy Researchers, Consultants And Program Officers	https://youtu.be/hOpgJ8bRAhg
+69	Forester	21111	Forestry professionals	2122	Forestry Professionals	https://youtu.be/cNQCUbei8to
+115	Architect	21200	Architects	2151	Architects	https://youtu.be/5mA9sIMvTzE
+172	Landscaped Architect	21201	Landscape architects	2152	Landscape Architects	https://youtu.be/VgEZ7jSAah0
+78	Community Planner	21202	Urban and land use planners	2153	Urban And Land Use Planners	https://youtu.be/qvViXTAe3Ts
+65	Land Surveyor	21203	Land surveyors	2154	Land Surveyors	https://youtu.be/nsaQ3iQ66QU
+48	Information Systems Professional	21222	Information systems specialists	2171	Information Systems Analysts And Consultants	https://youtu.be/l9Zbx-yJHN4
+2	Software Engineer	21231	Software engineers and designers	2173	Software Engineers And Designers	https://youtu.be/obTfVrY5KLc
+113	Software Developer	21232	Software developers and programmers	2174	Computer Programmers And Interactive Media Developers	https://youtu.be/i-SNbWdyCLg
+181	Virtual Reality Software Developer	21232	Software developers and programmers	2174	Computer programmers and interactive media developers	https://youtu.be/8OoS_PLEMm0
+88	Web Developer	21234	Web developers and programmers	2175	Web Designers And Developers	https://youtu.be/WmJ8NqHAh6M
+112	Web Developer	21234	Web developers and programmers	2175	Web Designers And Developers	https://youtu.be/n1XvWSkQBqA
+49	Civil Engineer	21300	Civil engineers	2131	Civil Engineers	https://youtu.be/I0qke6LOHro
+178	Civil Engineer	21300	Civil engineers	2131	Civil Engineers	https://youtu.be/SmOXVn0NRjk
+150	Robotics Engineer	21301	Mechanical engineers	2132	Mechanical Engineers	https://youtu.be/7kr-Bhk_X94
+119	Electrical Engineer	21310	Electrical and electronics engineers	2133	Electrical And Electronics Engineers	https://youtu.be/V3gjgqxN238
+85	Brew Master	22100	Chemical technologists and technicians	2211	Chemical Technologists And Technicians	https://youtu.be/1zYHWQrQDZ4
+16	Geological Technician	22101	Geological and mineral technologists and technicians	2212	Geological And Mineral Technologists And Technicians	https://youtu.be/wGlZIT2twbg
+84	Conservation Officer	22113	Conservation and fishery officers	2224	Conservation And Fishery Officers	https://youtu.be/JdxOcGs7MBw
+55	Landscape Horticulturalist	22114	Landscape and horticulture technicians and specialists	2225	Landscape And Horticulture Technicians And Specialists	https://youtu.be/fl00YEWdYDI
+133	Drafting Technician	22212	Drafting technologists and technicians	2253	Drafting Technologists And Technicians	https://youtu.be/-zpx84KT_8s
+121	Computer Network Technician	22220	Computer network and web technicians	2281	Computer Network Technicians	https://youtu.be/ISMsrEsaOWs
+127	User Support Technician	22221	User support technicians	2282	User Support Technicians	https://youtu.be/Udl63UA2U0c
+140	Health and Safety Consultant	22232	Occupational health and safety specialists	2263	Inspectors In Public And Environmental Health And Occupational Health And Safety	https://youtu.be/LmvZ_XMUuUc
+62	Building Inspector	22233	Construction inspectors	2264	Construction Inspectors	https://youtu.be/RYbZHeNApSU
+109	Welder	72106	Welders and related machine operators	7237	Welders And Related Machine Operators	https://youtu.be/wM6gG_woqmk
+153	Electrical Technologist	22310	Electrical and electronics engineering technologists and technicians	2241	Electrical and Electronics Engineering Technologists And Technicians	https://youtu.be/QkT9WoAm8mU
+168	Audio Visual Technician Project Manager	22311	Electronic service technicians (household and business equipment)	2242	Electronic Service Technicians (Household and Business Equipment)	https://youtu.be/upD9AaYOcUo
+59	Instrument Mechanic	22312	Industrial instrument technicians and mechanics	2243	Industrial Instrument Technicians And Mechanics	https://youtu.be/hfKsTV4sbFI
+135	Psychiatrist	31100	Specialists in clinical and laboratory medicine	3111	Specialist Physicians	https://youtu.be/isFI0eqGFBg
+50	General Practitioner	31102	General practitioners and family physicians	3112	General Practitioners And Family Physicians	https://youtu.be/hWtpNEZ4C10
+174	Veterinarian	31103	Veterinarians	3114	Veterinarian	https://youtu.be/mI2Swv-T610
+7	Dentist	31110	Dentists	3113	Dentists	https://youtu.be/2wAZjF3xlaw
+157	Optometrist	31111	Optometrists	3121	Optometrist	https://youtu.be/7Vj2pUT0JQU
+167	Audiologist	31112	Audiologists and speech-language pathologists	3141	Audiologist And Speech Language Pathologist	https://youtu.be/0OdAhEoNp9E
+40	Pharmacist	31120	Pharmacists	3131	Pharmacists	https://youtu.be/m4OX-t2m01w
+66	Dietitian	31121	Dietitians and nutritionists	3132	Dietitians And Nutritionists	https://youtu.be/JX3mPYjW7cs
+170	Registered Dietitian	31121	Dietitians and nutritionists	3132	Dietitian/Nutritionist	https://youtu.be/zhCAWGHIZSM
+38	Clinical Psychologist	31200	Psychologists	4151	Psychologists	https://youtu.be/inD3woCw1Xs
+151	Chiropractor	31201	Chiropractors	3122	Chiropractor	https://youtu.be/rv3kkqkpFfw
+34	Physiotherapist	31202	Physiotherapists	3142	Physiotherapists	https://youtu.be/bAztsMnE_Fk
+51	Occupational Therapist	31203	Occupational therapists	3143	Occupational Therapists	https://youtu.be/cyryORXanjo
+39	Registered Nurse	31301	Registered nurses and registered psychiatric nurses	3012	Registered Nurses And Registered Psychiatric Nurses	https://youtu.be/afZwxA4A2A4
+117	Nurse Practitioner	31302	Nurse practitioners	3124	Allied Primary Health Practitioners	https://youtu.be/uSxv2k_PlqY
+5	Midwife	31303	Physician assistants, midwives and allied health professionals	3124	Allied Primary Health Practitioners	https://youtu.be/ix9DzmPuv58
+114	Optician	32100	Opticians	3231	Opticians	https://youtu.be/z3SdQ3g0PR0
+101	Licensed Practical Nurse	32101	Licensed practical nurses	3233	Licensed Practical Nurses	https://youtu.be/fUdiEP-FD9g
+21	Paramedic	32102	Paramedical occupations	3234	Paramedical Occupations	https://youtu.be/njRyrPjYQx4
+102	Respiratory Therapist	32103	Respiratory therapists, clinical perfusionists and cardiopulmonary technologists	3214	Respiratory Therapists, Clinical Perfusionists And Cardiopulmonary Technologists	https://youtu.be/t8YWz8o5HYQ
+46	Registered Animal Health Technician	32104	Animal health technologists and veterinary technicians	3213	Animal Health Technologists And Veterinary Technicians	https://youtu.be/qu-lmIlWJfE
+126	Dental Hygienist	32111	Dental hygienists and dental therapists	3222	Dental Hygienists And Dental Therapists	https://youtu.be/iyO906A2Iwo
+63	Medical Laboratory Technologist	32120	Medical laboratory technologists	3211	Medical Laboratory Technologists	https://youtu.be/124t9bcW6ms
+158	Medical Laboratory Technologist	32120	Medical laboratory technologists	3211	Medical Laboratory Technologist	https://youtu.be/eym_kFvGDQc
+122	Medical Sonographer	32122	Medical sonographers	3216	Medical Sonographers	https://youtu.be/IHDU67A0uAM
+166	Acupuncturist	32200	Traditional Chinese medicine practitioners and acupuncturists	3232	Practitioners Of Natural Healing	https://youtu.be/2uBZhsMRmrc
+77	Registered Massage Therapist	32201	Massage therapists	3236	Massage Therapists	https://youtu.be/LvjN5sAEnLI
+33	Dental Assistant	33100	Dental assistants and dental laboratory assistants	3411	Dental Assistants	https://youtu.be/ciX-LlzGJfU
+12	Patient Care Attendant	33102	Nurse aides, orderlies and patient service associates	3413	Nurse Aides, Orderlies And Patient Service Associates	https://youtu.be/tWXThcDKYjY
+31	School Principal	40021	School principals and administrators of elementary and secondary education	0422	School Principals And Administrators of Elementary And Secondary Education	https://youtu.be/fbPrT9g2GmY
+171	Director of Counselling	40030	Managers in social, community and correctional services	0423	Managers in Social, Community and Correctional Services	https://youtu.be/lZU3XmxNgAc
+45	Lawyer	41101	Lawyers and Quebec notaries	4112	Lawyers And Quebec Notaries	https://youtu.be/NidOHUKzVMQ
+97	University Professor	41200	University professors and lecturers	4011	University Professors And Lecturers	https://youtu.be/-D8kxS8BQfw
+68	Vocational Instructor	41210	College and other vocational instructors	4021	College And Other Vocational Instructors	https://youtu.be/bjF7yRE0RH8
+179	Kindergarten Teacher	41221	Elementary school and kindergarten teachers	4032	Elementary school And Kindergarten Teachers	https://youtu.be/D6QlqkQu5mU
+28	Social Development Worker	41300	Social workers	4152	Social Workers	https://youtu.be/_VHlBeBn9gQ
+180	Service Accessibility Manager	41300	Social workers	4152	Social workers	https://youtu.be/vtgOv5ap5IA
+47	Registered Clinical Counsellor	41301	Therapists in counselling and related specialized therapies	4153	Family, Marriage And Other Related Counsellors	https://youtu.be/Mhynjl3e_Yc
+75	Employment Case Manager	41321	Career development practitioners and career counsellors (except education)	4156	Employment Counsellors	https://youtu.be/MSqphLKFG_c
+129	Natural Science Policy Program Manager	41400	Natural and applied science policy researchers, consultants and program officers	4161	Natural And Applied Science Policy Researchers, Consultants And Program Officers	https://youtu.be/ibMhoXvmItc
+89	Chief Economist	41401	Economists and economic policy researchers and analysts	4162	Economists And Economic Policy Researchers And Analysts	https://youtu.be/lklBAFlCvwU
+139	Social Policy Consultant	41403	Social policy researchers, consultants and program officers	4164	Social Policy Researchers, Consultants And Program Officers	https://youtu.be/EaE0PMmxN1M
+100	Police Officer	42100	Police officers (except commissioned)	4311	Police Officers (Except Commissioned)	https://youtu.be/rx1iBH9-hLs
+64	Firefighter	42101	Firefighters	4312	Firefighters	https://youtu.be/LgMvz1gp-QI
+44	Paralegal	42200	Paralegals and related occupations	4211	Paralegal And Related Occupations	https://youtu.be/s6DEu9--TAg
+103	Social and Community Service Worker	42201	Social and community service workers	4212	Social And Community Service Workers	https://youtu.be/n2QZK3uSk5Y
+23	Early Childhood Educator	42202	Early childhood educators and assistants	4214	Early Childhood Educators And Assistants	https://youtu.be/-qxLEZwlUHs
+183	Early Childhood Educator	42202	Early childhood educators and assistants	4214	Early childhood educators And assistants	https://youtu.be/Itg5PS29BKU
+147	Teacher's Assistant	43100	Elementary and secondary school teacher assistants	4413	Elementary And Secondary School Teacher Assistants	https://youtu.be/OzgnNfkXuho
+4	Program Advisor	43203	Border services, customs, and immigration officers	1228	Employment Insurance, Immigration, Border Services And Revenue Officers	https://youtu.be/F9b2s14K9cc
+136	Home Child Care Provider	44100	Home child care providers	4411	Home Child Care Providers	https://youtu.be/ZWeY7fy2iyM
+130	Home Support Worker	44101	Home support workers, caregivers and related occupations	4412	Home Support Workers, Housekeepers And Related Occupations	https://youtu.be/PJu38LNOtRg
+137	Recreation Director	50012	Recreation, sports and fitness program and service directors	0513	Recreation, Sports And Fitness Program And Service Directors	https://youtu.be/QLRs7dnvn0E
+83	Librarian	51100	Librarians	5111	Librarians	https://youtu.be/OxebUahoL5w
+132	Managing Editor	51110	Editors	5122	Editors	https://youtu.be/UsLsx3o55Wk
+123	Author	51111	Authors and writers (except technical)	5121	Authors And Writers	https://youtu.be/WEZU4d9Szqo
+82	Journalist	51113	Journalists	5123	Journalists	https://youtu.be/T4YaKm0NyX8
+92	Producer	51120	Producers, directors, choreographers and related occupations	5131	Producers, Directors, Choreographers And Related Occupations	https://youtu.be/OXvsdJs1v0o
+93	Camera Operator	52110	Film and video camera operators	5222	Film And Video Camera Operators	https://youtu.be/Vnl2WRaqu5g
+134	Audio Video Technician	52113	Audio and video recording technicians	5225	Audio And Video Recording Technicians	https://youtu.be/kELGabgwMQk
+90	Special Effects Makeup	52119	Other technical and coordinating occupations in motion pictures, broadcasting and the performing arts	5226	Other Technical And Co-Ordinating Occupations In Motion Pictures, Broadcasting And The Performing Arts	https://youtu.be/0U9LpYQjiuc
+81	Graphic Designer	52120	Graphic designers and illustrators	5241	Graphic Designers And Illustrators	https://youtu.be/pOz68qngB34
+148	Interior Designer	52121	Interior designers and interior decorators	5242	Interior Designer	https://youtu.be/SiWm2NWTBH0
+154	Photographer	53110	Photographers	5221	Photographer	https://youtu.be/tF8OwRNAugY
+120	Boom Operator	53111	Motion pictures, broadcasting, photography and performing arts assistants and operators	5227	Support Occupations In Motion Pictures, Broadcasting, Photography And The Performing Arts	https://youtu.be/9qSjMOb9Vj0
+91	Fashion Designer	53123	Theatre, fashion, exhibit and other creative designers	5243	Theatre, Fashion, Exhibit And Other Creative Designers	https://youtu.be/IfCgW_rmOo0
+67	Certified Personal Trainer	54100	Program leaders and instructors in recreation, sport and fitness	5254	Program Leaders And Instructors In Recreation, Sport And Fitness	https://youtu.be/dMRmQban5ak
+164	Corporate Sales Manager	60010	Corporate sales managers	0601	Corporate Sales Manager	https://youtu.be/VSHGg7LogAw
+107	Retail Manager	60020	Retail and wholesale trade managers	0621	Retail And Wholesale Trade Managers	https://youtu.be/AT9TaZqWmT0
+30	Restaurant Manager	60030	Restaurant and food service managers	0631	Restaurant And Food Service Managers	https://youtu.be/rb_2YXACcYk
+124	Retail Sales Supervisor	62010	Retail sales supervisors	6211	Retail Sales Supervisors	https://youtu.be/deNr7yOyK2Y
+156	Operations Manager	62020	Food service supervisors	6311	Food Services Supervisor	https://youtu.be/VFhY-BSijjw
+152	Technical Sales Consultant	62100	Technical sales specialists - wholesale trade	6221	Technical Sales Specialist - Wholesale Trade	https://youtu.be/1nH0ruOZOyA
+104	Chef	62200	Chefs	6321	Chefs	https://youtu.be/e2EZ5Zv0nfg
+128	Insurance Broker	63100	Insurance agents and brokers	6231	Insurance Agents And Brokers	https://youtu.be/0iRvVzxuJmc
+80	Real Estate Agent	63101	Real estate agents and salespersons	6232	Real Estate Agents And Salespersons	https://youtu.be/oubdrAb3LsM
+162	Financial Sales Representative	63102	Financial sales representatives	6235	Financial Sales Representative	https://youtu.be/i0z8tL3a22g
+41	Cook	63200	Cooks	6322	Cooks	https://youtu.be/3gYAN-cJa-k
+74	Butcher	63201	Butchers - retail and wholesale	6331	Butchers, Meat Cutters And Fishmongers - Retail And Wholesale	https://youtu.be/ea37cSOY86s
+42	Baker	63202	Bakers	6332	Bakers	https://youtu.be/x0rYO5ig2bo
+61	Hairstylist	63210	Hairstylists and barbers	6341	Hairstylists And Barbers	https://youtu.be/BDIptsGxLUk
+177	Barber	63210	Hairstylists and barbers	6341	Hairstylist And Barber	https://youtu.be/P_qh9m4lkcY
+138	Tattoo Artist	63211	Estheticians, electrologists and related occupations	6562	Estheticians, Electrologists And Related Occupations	https://youtu.be/M4HnqVyH0gQ
+37	Retail Salesperson	64100	Retail salespersons and visual merchandisers	6421	Retail Salespersons	https://youtu.be/i0rUVZmINAw
+144	Account Manager	64101	Sales and account representatives - wholesale trade (non-technical)	6411	Sales And Account Representatives - Wholesale Trade (Non-Technical)	https://youtu.be/tN1H0hxjJTs
+146	Security Officer	64410	Security guards and related security service occupations	6541	Security Guards And Related Security Service Occupations	https://youtu.be/bV9-O1aLyrs
+43	Food and Beverage Server	65200	Food and beverage servers	6513	Food And Beverage Servers	https://youtu.be/ahlciXcDh2A
+106	Construction Manager	70010	Construction managers	0711	Construction Managers	https://youtu.be/3NsPnDWtLg0
+143	Home and Building Renovations Manager	70011	Home building and renovation managers	0712	Home Building And Renovation Managers	https://youtu.be/nXfp3Ef5SPQ
+76	Facility Operation and Maintenance Manager	70012	Facility operation and maintenance managers	0714	Facility Operation And Maintenance Managers	https://youtu.be/7XXDoaZtQ60
+57	Machinist	72100	Machinists and machining and tooling inspectors	7231	Machinists And Machining And Tooling Inspectors	https://youtu.be/nYfzgVnJHN0
+165	Sheet Metal Worker	72102	Sheet metal workers	7233	Sheet Metal Worker	https://youtu.be/HbtQrE984Uc
+54	Iron Worker	72105	Ironworkers	7236	Ironworkers	https://youtu.be/KzSmE6zthKA
+27	Electrician	72200	Electricians (except industrial and power system)	7241	Electricians (Except Industrial And Power System)	https://youtu.be/cjsMfu9Qj9Q
+184	Electrician	72200	Electricians (except industrial and power system)	7241	Electricians (Except Industrial And Power System)	https://youtu.be/Iphb6H8B9W4
+163	Plumber	72300	Plumbers	7251	Plumber	https://youtu.be/U6JMEzevvyc
+56	Pipefitter	72301	Steamfitters, pipefitters and sprinkler system installers	7252	Steamfitters, Pipefitters And Sprinkler System Installers	https://youtu.be/h67AieE95yk
+161	Gas Fitter	72302	Gas fitters	7253	Gas Fitter	https://youtu.be/emqjb08a6zY
+25	Carpenter	72310	Carpenters	7271	Carpenters	https://youtu.be/oIUK0ItCIQo
+105	Construction Millwright	72400	Construction millwrights and industrial mechanics	7311	Construction Millwrights And Industrial Mechanics	https://youtu.be/PykipkwcOIU
+60	Heavy-Duty Equipment Mechanic	72401	Heavy-duty equipment mechanics	7312	Heavy-Duty Equipment Mechanics	https://youtu.be/BtZGjIzCFNk
+58	Refrigeration and Air Conditioning Mechanic	72402	Heating, refrigeration and air conditioning mechanics	7313	Refrigeration And Air Conditioning Mechanics	https://youtu.be/AlYSO5XpYCc
+169	Aircraft maintenance engineer	72404	Aircraft mechanics and aircraft inspectors	7315	Aircraft Mechanics And Aircraft Inspectors	https://youtu.be/KfGd0MlS71E
+17	Automotive Technician	72410	Automotive service technicians, truck and bus mechanics and mechanical repairers	7321	Automotive Service Technicians, Truck And Bus Mechanics And Mechanical Repairers	https://youtu.be/VJSxZsZEVCY
+175	Electric Vehicle Mechanic	72410	Automotive service technicians, truck and bus mechanics and mechanical repairers	7321	Automotive Service Technicians, Truck And Bus Mechanics And Mechanical Repairers	https://youtu.be/bDwZ-kyw6dU
+32	Helicopter Pilot	72600	Air pilots, flight engineers and flying instructors	2271	Air Pilots, Flight Engineers And Flying Instructors	https://youtu.be/wNSbw_NYxgI
+71	Tug Master	72602	Deck officers, water transport	2273	Deck Officers, Water Transport	https://youtu.be/Rhe9vH8cXPI
+70	Deputy Harbour Master	72604	Railway traffic controllers and marine traffic regulators	2275	Railway Traffic Controllers And Marine Traffic Regulators	https://youtu.be/YrqUwYmN4yA
+22	Truck Driver	73300	Transport truck drivers	7511	Transport Truck Drivers	https://youtu.be/A81nvDdP5KY
+1	Bus Driver	73301	Bus drivers, subway operators and other transit operators	7512	Bus Drivers, Subway Operators And Other Transit Operators	https://youtu.be/yYUbhKgdJRE
+95	Conductor	73311	Railway conductors and brakemen/women	7362	Railway Conductors And Brakemen/Women	https://youtu.be/-nSmJnTBjhE
+19	Heavy Equipment Operator	73400	Heavy equipment operators	7521	Heavy Equipment Operators (Except Crane)	https://youtu.be/mVeIwGbDlMc
+176	Heavy Equipment Operator	73400	Heavy equipment operators	7521	Heavy Equipment Operators (Except Crane)	https://youtu.be/ncKk5MYe3No
+6	Courier	74102	Couriers and messengers	1513	Couriers, Messengers And Door-To-Door Distributors	https://youtu.be/MRnjyXvIIQQ
+72	Deck Hand	74201	Water transport deck and engine room crew	7532	Water Transport Deck And Engine Room Crew	https://youtu.be/gqQlVrcHm7s
+20	Longshore Worker	75100	Longshore workers	7451	Longshore Workers	https://youtu.be/40hRk0VPE2c
+18	Mine Manager	80010	Managers in natural resources production and fishing	0811	Managers In Natural Resources Production And Fishing	https://youtu.be/ObcqWez2ruI
+35	Vineyard Manager	80020	Managers in agriculture	0821	Managers In Agriculture	https://youtu.be/NUAG0a02Coc
+15	Well Site Supervisor	82021	Contractors and supervisors, oil and gas drilling and services	8222	Contractors And Supervisors, Oil And Gas Drilling And Services	https://youtu.be/RcRcdYLPy1M
+73	Silviculture	84111	Silviculture and forestry workers	8422	Silviculture And Forestry Workers	https://youtu.be/ZwI2cJrmPVQ
+159	Nursery and Greenhouse Worker	85103	Nursery and greenhouse labourers	8432	Nursery and Greenhouse Workers	https://youtu.be/8zt55n163xc
+29	Grounds Maintenance Worker	85121	Landscaping and grounds maintenance labourers	8612	Landscaping And Grounds Maintenance Labourers	https://youtu.be/Z_ifQaIiaUk
+155	Compost Coordinator	90011	Utilities managers	0912	Utilities Managers	https://youtu.be/VdawKA9V8Yk
+53	Power Engineer	92100	Power engineers and power systems operators	9241	Power Engineers And Power Systems Operators	https://youtu.be/_OmTDEtFTAY
+173	Water Treatment Plant Supervisor	92101	Water and waste treatment plant operators	9243	Water And Waste Treatment Plant Operators	https://youtu.be/7ZXRvtCZvZI
+125	CNC Machine Operators	94106	Machining tool operators	9417	Machining Tool Operators	https://youtu.be/Ptsj6-V-qu8
+26	Sawmill Operator	94120	Sawmill machine operators	9431	Sawmill Machine Operators	https://youtu.be/i6dKpSqR2qA
+87	Designer, Furniture Maker	94210	Furniture and fixture assemblers, finishers, refinishers and inspectors	9532	Furniture And Fixture Assemblers And Inspectors	https://youtu.be/9mm9PWMEbmM
+79	Boat Builder	94219	Other products assemblers, finishers and inspectors	9531	Boat Assemblers And Inspectors	https://youtu.be/Qq_mClkGTPA
+24	Mill Worker	95103	Labourers in wood, pulp and paper processing	9614	Labourers In Wood, Pulp And Paper Processing	https://youtu.be/UutVLyqbqls
+13	Packaging Associate	95106	Labourers in food and beverage processing	9617	Labourers In Food, Beverage And Associated Products Processing	https://youtu.be/DjaICqD6akg
 \.
 
 
@@ -6581,22 +6857,22 @@ retail_trade	Retail Trade	Services	\N
 --
 
 COPY public.industry_outlook (industry, openings, share_total_employment_pct_first, share_total_employment_pct_second, share_total_employment_pct_third, annual_employment_growth_rate_pct_first5y, annual_employment_growth_rate_pct_second5y, annual_employment_growth_rate_pct_10y) FROM stdin;
-Accommodation And Food Services	60720	6.8	6.9	6.9	1.3	1.3	1.3
-Agriculture And Fishing	6610	1	0.9	0.9	0.2	0	0.1
-Business, Building And Other Support Services	34590	3.6	3.6	3.5	1.0999999999999999	0.6	0.8
+Accommodation and Food Services	60720	6.8	6.9	6.9	1.3	1.3	1.3
+Agriculture and Fishing	6610	1	0.9	0.9	0.2	0	0.1
+Business, Building and Other Support Services	34590	3.6	3.6	3.5	1.0999999999999999	0.6	0.8
 Construction	66640	8.4	8.2	7.9	0.7000000000000001	0.3	0.5
 Educational Services	70530	7.1	7	7	1	1.0999999999999999	1.0999999999999999
-Finance, Insurance And Real Estate	50770	5.9	5.7	5.6	0.2	0.8999999999999999	0.5
-Forestry, Logging And Support Activities	2120	0.6	0.5	0.5	-2.1999999999999997	-0.3	-1.3
-Health Care And Social Assistance	166260	13.7	14.1	14.6	1.7999999999999998	1.9	1.7999999999999998
-Information, Culture And Recreation	44210	5.1	5.1	5	1.0999999999999999	0.8	0.8999999999999999
+Finance, Insurance and Real Estate	50770	5.9	5.7	5.6	0.2	0.8999999999999999	0.5
+Forestry and Logging with Support Activities	2120	0.6	0.5	0.5	-2.1999999999999997	-0.3	-1.3
+Health Care and Social Assistance	166260	13.7	14.1	14.6	1.7999999999999998	1.9	1.7999999999999998
+Information, Culture and Recreation	44210	5.1	5.1	5	1.0999999999999999	0.8	0.8999999999999999
 Manufacturing	50750	6.5	6.2	6	0.1	0.5	0.3
-Mining And Oil And Gas Extraction	10940	1	1	1	1.7999999999999998	0.2	1
-Professional, Scientific And Technical Services	142360	9.8	10.5	11.2	2.6	2.4	2.5
+Mining and Oil and Gas Extraction	10940	1	1	1	1.7999999999999998	0.2	1
+Professional, Scientific, and Technical Services	142360	9.8	10.5	11.2	2.6	2.4	2.5
 Public Administration	54550	5	5	5	1	1.3	1.0999999999999999
-Repair, Personal And Non-Profit Services	36990	4	4	3.9	1	1	1
+Repair, Personal and Non-Profit Services	36990	4	4	3.9	1	1	1
 Retail Trade	103750	12.1	11.9	11.8	0.8	1	0.8999999999999999
-Transportation And Warehousing	56800	5.3	5.4	5.3	1.3	1	1.2
+Transportation and Warehousing	56800	5.3	5.4	5.3	1.3	1	1.2
 Utilities	5080	0.6	0.6	0.6	0.5	0.4	0.5
 Wholesale Trade	33840	3.4	3.4	3.3	1	1	1
 \.
@@ -6608,22 +6884,22 @@ Wholesale Trade	33840	3.4	3.4	3.3	1	1	1
 
 COPY public.labour_force_survey_industry (industry, yoy_employment_growth_pct, yoy_change_employment, total_employment, workforce_employment_gender_pct_men, workforce_employment_gender_pct_women, workforce_provincial_average_pct_men, workforce_provincial_average_pct_women, workforce_employment_under_25_pct_previous, workforce_employment_under_25_pct, workforce_employment_under_25_pct_average, workforce_employment_over_55_pct_previous, workforce_employment_over_55_pct, workforce_employment_over_55_pct_average, employment_part_time_pct_previous, employment_part_time_pct, employment_part_time_pct_average, employment_self_employment_pct_previous, employment_self_employment_pct, employment_self_employment_pct_average, employment_temporary_pct_previous, employment_temporary_pct, employment_temporary_pct_average, employment_firms_under_20_employees_pct_previous, employment_firms_under_20_employees_pct, employment_firms_under_20_employees_pct_average, employment_private_sector_pct_previous, employment_private_sector_pct, employment_private_sector_pct_average, employment_unemployment_rate_pct_previous, employment_unemployment_rate_pct, employment_unemployment_rate_pct_average, earnings_men_previous, earnings_men, earnings_men_average, earnings_women_previous, earnings_women, earnings_women_average, earnings_youth_previous, earnings_youth, earnings_youth_average, location_cariboo_employment_this_industry_pct, location_cariboo_employment_all_industries_pct, location_kootenay_employment_this_industry_pct, location_kootenay_employment_all_industries_pct, location_mainland_southwest_employment_this_industry_pct, location_mainland_southwest_employment_all_industries_pct, location_north_coast_nechako_employment_this_industry_pct, location_north_coast_nechako_employment_all_industries_pct, location_northeast_employment_this_industry_pct, location_northeast_employment_all_industries_pct, location_thompson_okanagan_employment_this_industry_pct, location_thompson_okanagan_employment_all_industries_pct, location_vancouver_island_coast_employment_this_industry_pct, location_vancouver_island_coast_employment_all_industries_pct) FROM stdin;
 Total, All Industries	1.6	43896	2791792	51.8	48.2	51.8	48.2	13.9	13.3	13.3	22	21.9	21.9	21.2	20.2	20.2	17	16	16	10.8	9.5	9.5	37.2	34.1	34.1	65.6	63.7	63.7	4.6	5.2	5.2	30	38	38	25	32	32	16.5	21	21	3	3	2.9	2.9	64.5	64.5	1.6	1.6	1.3	1.3	10.9	10.9	15.8	15.8
-Accommodation And Food Services	5	9271	193542	44	56	51.8	48.2	41.8	37.6	13.3	12	10	21.9	40.7	41.1	20.2	6.9	8.3	16	21.2	15.7	9.5	46.5	43.2	34.1	93.1	91.6	63.7	4.9	4.1	5.2	16.16	23.05	38	15.41	20.65	32	13.81	18.62	21	1.9	3	3.1	2.9	63.4	64.5	1	1.6	1.4	1.3	12	10.9	17.1	15.8
-Agriculture And Fishing	5.8	1396	25604	53.7	46.3	51.8	48.2	10.1	17	13.3	39.6	40.4	21.9	24.6	27	20.2	38.9	38.8	16	18.3	14.9	9.5	53.8	51.2	34.1	61	61.2	63.7	7	5.8	5.2	21.97	27.02	38	18.13	19.04	32	15.5	20.28	21	3.1	3	1.8	2.9	49.8	64.5	0.6	1.6	0.5	1.3	25.6	10.9	18.6	15.8
-Business, Building And Other Support Services	-2.2	-1980	86458	57.3	42.7	51.8	48.2	10.9	13.1	13.3	28.1	28.7	21.9	29.2	28.9	20.2	32.8	32.7	16	11.2	8.6	9.5	58.2	54.3	34.1	65.5	65.8	63.7	4.9	5.2	5.2	22.17	26.93	38	22.01	26.43	32	16.36	21.85	21	2.5	3	2.6	2.9	62.8	64.5	1.1	1.6	0.7	1.3	13.2	10.9	17.2	15.8
+Accommodation and Food Services	5	9271	193542	44	56	51.8	48.2	41.8	37.6	13.3	12	10	21.9	40.7	41.1	20.2	6.9	8.3	16	21.2	15.7	9.5	46.5	43.2	34.1	93.1	91.6	63.7	4.9	4.1	5.2	16.16	23.05	38	15.41	20.65	32	13.81	18.62	21	1.9	3	3.1	2.9	63.4	64.5	1	1.6	1.4	1.3	12	10.9	17.1	15.8
+Agriculture and Fishing	5.8	1396	25604	53.7	46.3	51.8	48.2	10.1	17	13.3	39.6	40.4	21.9	24.6	27	20.2	38.9	38.8	16	18.3	14.9	9.5	53.8	51.2	34.1	61	61.2	63.7	7	5.8	5.2	21.97	27.02	38	18.13	19.04	32	15.5	20.28	21	3.1	3	1.8	2.9	49.8	64.5	0.6	1.6	0.5	1.3	25.6	10.9	18.6	15.8
+Business, Building and Other Support Services	-2.2	-1980	86458	57.3	42.7	51.8	48.2	10.9	13.1	13.3	28.1	28.7	21.9	29.2	28.9	20.2	32.8	32.7	16	11.2	8.6	9.5	58.2	54.3	34.1	65.5	65.8	63.7	4.9	5.2	5.2	22.17	26.93	38	22.01	26.43	32	16.36	21.85	21	2.5	3	2.6	2.9	62.8	64.5	1.1	1.6	0.7	1.3	13.2	10.9	17.2	15.8
 Construction	-0.5	-1146	234792	86.2	13.8	51.8	48.2	12.6	11.9	13.3	21	19.3	21.9	9.7	9.6	20.2	31.6	28.7	16	8.1	6.4	9.5	52.7	50.3	34.1	67.2	70.8	63.7	4.1	4.2	5.2	29.97	37.33	38	24.76	33.77	32	20.48	25.07	21	3.1	3	2.8	2.9	59.8	64.5	1.6	1.6	1.8	1.3	14.3	10.9	16.6	15.8
 Educational Services	8.2	16563	218021	33.1	66.9	51.8	48.2	9.1	8.4	13.3	23	22.5	21.9	30.5	26.7	20.2	11.6	8.6	16	21.6	19	9.5	18.5	12.8	34.1	12	13.5	63.7	2.9	2.8	5.2	35.96	41.95	38	31.15	37.44	32	18.76	24.85	21	2.9	3	3.3	2.9	65	64.5	1.8	1.6	1.1	1.3	10.2	10.9	15.7	15.8
-Finance, Insurance And Real Estate	7.2	11646	173500	49.8	50.2	51.8	48.2	6.3	6.7	13.3	21.9	23.8	21.9	17.2	14.1	20.2	24.1	23.2	16	4.3	2.8	9.5	45.8	39.7	34.1	70.2	69.2	63.7	1.9	1.5	5.2	36.93	44.34	38	29.64	37.66	32	17.16	27.5	21	1.6	3	1.9	2.9	73.6	64.5	0.8	1.6	0.6	1.3	8.5	10.9	13.1	15.8
-Forestry, Logging And Support Activities	-22.4	-3958	13750	82.6	17.4	51.8	48.2	4.9	10.8	13.3	30.6	34.4	21.9	7.4	7.9	20.2	11.3	18.2	16	18.6	19.3	9.5	35.4	37.4	34.1	76.7	71.7	63.7	7.3	9.2	5.2	34	39.07	38	27.96	30.62	32	22.27	26	21	19.6	3	9.3	2.9	12	64.5	13.8	1.6	4.4	1.3	13.8	10.9	27.2	15.8
-Health Care And Social Assistance	1.1	3875	372792	21.6	78.4	51.8	48.2	6.8	7.4	13.3	23.6	24.3	21.9	26.1	22.3	20.2	14.2	14	16	13	9.9	9.5	35.1	30.9	34.1	41.5	38.7	63.7	1.4	1.4	5.2	28.49	37.23	38	27.76	33.49	32	20.1	23.53	21	3.7	3	3.5	2.9	59.8	64.5	1.6	1.6	0.9	1.3	11.1	10.9	19.5	15.8
-Information, Culture And Recreation	-5.8	-8437	136771	56.1	43.9	51.8	48.2	21.8	20.3	13.3	17.7	17.6	21.9	26	27.2	20.2	17.1	19.4	16	21.1	20.5	9.5	27.5	27.5	34.1	73.4	71.1	63.7	4.5	7.6	5.2	29.03	36.6	38	23.04	30.88	32	16.83	21.07	21	1.3	3	1.9	2.9	74.3	64.5	0.8	1.6	0.6	1.3	7.8	10.9	13.3	15.8
+Finance, Insurance and Real Estate	7.2	11646	173500	49.8	50.2	51.8	48.2	6.3	6.7	13.3	21.9	23.8	21.9	17.2	14.1	20.2	24.1	23.2	16	4.3	2.8	9.5	45.8	39.7	34.1	70.2	69.2	63.7	1.9	1.5	5.2	36.93	44.34	38	29.64	37.66	32	17.16	27.5	21	1.6	3	1.9	2.9	73.6	64.5	0.8	1.6	0.6	1.3	8.5	10.9	13.1	15.8
+Forestry and Logging with Support Activities	-22.4	-3958	13750	82.6	17.4	51.8	48.2	4.9	10.8	13.3	30.6	34.4	21.9	7.4	7.9	20.2	11.3	18.2	16	18.6	19.3	9.5	35.4	37.4	34.1	76.7	71.7	63.7	7.3	9.2	5.2	34	39.07	38	27.96	30.62	32	22.27	26	21	19.6	3	9.3	2.9	12	64.5	13.8	1.6	4.4	1.3	13.8	10.9	27.2	15.8
+Health Care and Social Assistance	1.1	3875	372792	21.6	78.4	51.8	48.2	6.8	7.4	13.3	23.6	24.3	21.9	26.1	22.3	20.2	14.2	14	16	13	9.9	9.5	35.1	30.9	34.1	41.5	38.7	63.7	1.4	1.4	5.2	28.49	37.23	38	27.76	33.49	32	20.1	23.53	21	3.7	3	3.5	2.9	59.8	64.5	1.6	1.6	0.9	1.3	11.1	10.9	19.5	15.8
+Information, Culture and Recreation	-5.8	-8437	136771	56.1	43.9	51.8	48.2	21.8	20.3	13.3	17.7	17.6	21.9	26	27.2	20.2	17.1	19.4	16	21.1	20.5	9.5	27.5	27.5	34.1	73.4	71.1	63.7	4.5	7.6	5.2	29.03	36.6	38	23.04	30.88	32	16.83	21.07	21	1.3	3	1.9	2.9	74.3	64.5	0.8	1.6	0.6	1.3	7.8	10.9	13.3	15.8
 Manufacturing	-6.6	-12146	171896	71.3	28.7	51.8	48.2	9.2	8	13.3	25.8	26.9	21.9	7	5.9	20.2	6.8	7.8	16	4	4.3	9.5	25.4	23.9	34.1	93.1	92	63.7	2.2	4.5	5.2	31.45	37.32	38	24.34	29.89	32	20.62	23.11	21	5.2	3	3	2.9	65.1	64.5	2.2	1.6	0.8	1.3	12.6	10.9	11.1	15.8
-Mining And Oil And Gas Extraction	12	3125	29146	86.4	13.6	51.8	48.2	4.4	3.5	13.3	21	15.3	21.9	3.5	2.9	20.2	5.7	3.6	16	8	6.5	9.5	18.3	18.1	34.1	94.3	96.4	63.7	6.4	2.1	5.2	44.47	49.38	38	41.48	43.76	32	29.92	37.72	21	9.4	3	23.9	2.9	22.6	64.5	4.4	1.6	15.5	1.3	15	10.9	9.2	15.8
-Professional, Scientific And Technical Services	1.4	3958	278854	55.2	44.8	51.8	48.2	7.9	6.5	13.3	20.5	17.9	21.9	16.8	13.2	20.2	32.6	27.7	16	5.8	5.1	9.5	40.2	37.7	34.1	67.4	72.1	63.7	2.3	3.3	5.2	39.99	53.16	38	30.52	38.85	32	20.52	25.19	21	1.6	3	1.7	2.9	74.8	64.5	0.6	1.6	0.6	1.3	7.9	10.9	12.8	15.8
+Mining and Oil and Gas Extraction	12	3125	29146	86.4	13.6	51.8	48.2	4.4	3.5	13.3	21	15.3	21.9	3.5	2.9	20.2	5.7	3.6	16	8	6.5	9.5	18.3	18.1	34.1	94.3	96.4	63.7	6.4	2.1	5.2	44.47	49.38	38	41.48	43.76	32	29.92	37.72	21	9.4	3	23.9	2.9	22.6	64.5	4.4	1.6	15.5	1.3	15	10.9	9.2	15.8
+Professional, Scientific, and Technical Services	1.4	3958	278854	55.2	44.8	51.8	48.2	7.9	6.5	13.3	20.5	17.9	21.9	16.8	13.2	20.2	32.6	27.7	16	5.8	5.1	9.5	40.2	37.7	34.1	67.4	72.1	63.7	2.3	3.3	5.2	39.99	53.16	38	30.52	38.85	32	20.52	25.19	21	1.6	3	1.7	2.9	74.8	64.5	0.6	1.6	0.6	1.3	7.9	10.9	12.8	15.8
 Public Administration	4.7	6438	143271	45.7	54.3	51.8	48.2	4.3	4.9	13.3	23.5	19.5	21.9	6.8	5	20.2	0	0	16	9.9	12.2	9.5	14.6	15.8	34.1	0	0	63.7	1.2	1.3	5.2	39.44	45.21	38	35.59	39.79	32	23.96	27.87	21	3.2	3	2.3	2.9	53.6	64.5	1.4	1.6	0.8	1.3	9.2	10.9	29.5	15.8
-Repair, Personal And Non-Profit Services	8.7	8812	110250	45.9	54.1	51.8	48.2	14.6	12.9	13.3	21.6	21.8	21.9	23.4	26.2	20.2	29	28.6	16	6.4	6.1	9.5	74.8	67.3	34.1	71	71.4	63.7	2.2	2.8	5.2	27.44	33.4	38	19.91	27.44	32	16.01	21.68	21	3.4	3	3	2.9	64.4	64.5	1.8	1.6	1.7	1.3	10.9	10.9	14.8	15.8
+Repair, Personal and Non-Profit Services	8.7	8812	110250	45.9	54.1	51.8	48.2	14.6	12.9	13.3	21.6	21.8	21.9	23.4	26.2	20.2	29	28.6	16	6.4	6.1	9.5	74.8	67.3	34.1	71	71.4	63.7	2.2	2.8	5.2	27.44	33.4	38	19.91	27.44	32	16.01	21.68	21	3.4	3	3	2.9	64.4	64.5	1.8	1.6	1.7	1.3	10.9	10.9	14.8	15.8
 Retail Trade	1.3	4396	344542	46.4	53.6	51.8	48.2	25.8	28.4	13.3	20.6	21.9	21.9	31.5	33.4	20.2	7.1	9.2	16	9.6	9.3	9.5	38.3	39.1	34.1	91.7	89.4	63.7	3.5	3.9	5.2	21.69	26.87	38	17.16	22.93	32	13.44	18.28	21	2.9	3	2.7	2.9	63.5	64.5	1.4	1.6	1.5	1.3	11.7	10.9	16.1	15.8
-Transportation And Warehousing	-0.6	-895	141688	76.1	23.9	51.8	48.2	7.9	7.6	13.3	26.5	26.8	21.9	12.9	12.5	20.2	16.3	12.4	16	7.3	6.7	9.5	21.7	21.6	34.1	67.1	67.5	63.7	2.6	2.5	5.2	31.4	37.3	38	25.73	33.7	32	20.15	26.32	21	3.3	3	1.6	2.9	72	64.5	3.5	1.6	2	1.3	7	10.9	10.6	15.8
+Transportation and Warehousing	-0.6	-895	141688	76.1	23.9	51.8	48.2	7.9	7.6	13.3	26.5	26.8	21.9	12.9	12.5	20.2	16.3	12.4	16	7.3	6.7	9.5	21.7	21.6	34.1	67.1	67.5	63.7	2.6	2.5	5.2	31.4	37.3	38	25.73	33.7	32	20.15	26.32	21	3.3	3	1.6	2.9	72	64.5	3.5	1.6	2	1.3	7	10.9	10.6	15.8
 Utilities	6.9	1042	16125	72.6	27.4	51.8	48.2	8.1	1.8	13.3	22.3	23.1	21.9	2.4	1.9	20.2	0.7	0	16	4.5	4.5	9.5	25.5	27.4	34.1	15.9	24.9	63.7	0.7	1	5.2	39.49	44.35	38	35.2	43.69	32	26.86	35.5	21	0.9	3	6.8	2.9	59.2	64.5	3.1	1.6	3.4	1.3	18.1	10.9	8.5	15.8
 Wholesale Trade	-1.7	-1646	92479	71.1	28.9	51.8	48.2	7.2	5.8	13.3	25.1	34.2	21.9	8.2	9.1	20.2	13.4	14	16	3.4	2.9	9.5	41.9	44.9	34.1	86.6	85.9	63.7	3.5	2.1	5.2	29.22	40.21	38	26.31	32.82	32	18.91	23.07	21	3.8	3	1.3	2.9	71.8	64.5	1.4	1.6	1.2	1.3	10.8	10.9	9.8	15.8
 \.
@@ -6720,6 +6996,7 @@ COPY public.monthly_labour_market_updates (year, month, total_employed, total_un
 2023	12	2837000	167600	156300	384800	1838700	613500	382700	1828300	608200	1353400	1483600	1342000	1477300	0.6	17700	1	23100	-0.9	-5300	0.3	5.6	0.5	65.7	-0.1	5.3	0	65.2	4566900	784600	2836000	531000	143300	145800	69900	56300	4.9	5.2	2824000	3.8	4.5	451400	5.3	5.5	1833500	3.4	4.6	288900	7.1	6	81000	5.6	4.5	86800	5.9	6.1	44800	4.1	4.1	37600	\N	\N	\N	\N	-0.6	-1100	-11.1	-2800	-0.3	-700	-1.1	-2300	1.1	2000	3.2	12300	-2.8	-5100	3	1500	1.5	1800	2.2	6400	-0.8	-1100	1.8	2600	-21.7	-3400	0.7	3100	-9.9	-8700	10.1	13200
 2024	1	2835300	162500	167600	386300	1833400	615600	384800	1838700	613500	1349800	1485500	1353400	1483600	-0.1	-2600	-1	-19600	3	17000	-0.2	5.4	-0.4	65.3	0.3	5.6	0.5	65.7	4579100	786200	2845200	532000	143500	146000	69900	56300	5.2	4.4	2814100	4.2	2.9	451200	5.4	4.5	1823500	4.8	4.3	287500	7.3	3.5	82000	6.6	6.1	86400	6.2	4.7	45300	4.5	\N	38200	\N	\N	\N	\N	-0.8	-1500	-3.5	-800	-1.5	-3500	1	2200	0.6	1100	-0.4	-1600	-1.3	-2200	-1.6	-800	2.3	2700	-0.3	-1000	3	4400	1.6	2400	17.1	2100	-1.9	-8500	11.2	9000	-4.5	-6600
 2024	2	2841200	154700	162500	383300	1841400	616500	386300	1833400	615600	1353500	1487800	1349800	1485500	0.2	5900	0.7	15500	-1.6	-9100	-0.2	5.2	-0.3	65	-0.2	5.4	-0.4	65.3	4592100	788000	2854700	533200	143700	146300	69900	56400	5.3	4.6	2812300	4.2	3.4	451900	5.3	4.8	1820100	6	4.2	286000	6.8	2.9	84600	6.6	6.6	86100	6.2	5.9	45700	5.7	4.1	38000	\N	\N	\N	\N	-1.5	-2700	-20.4	-4500	1.6	3600	1.1	2500	1.2	2200	0.5	2100	-0.5	-800	2.4	1200	-0.9	-1100	-0.5	-1500	0.5	700	-0.7	-1000	2.1	300	-1.3	-5600	3.7	3300	5.2	7300
+2024	3	2847800	167300	154700	381800	1835800	630200	383300	1841400	616500	1358600	1489100	1353500	1487800	0.2	6600	0.9	20100	-2.4	13700	0.3	5.5	0.3	65.3	-0.2	5.2	-0.3	65	4606200	789800	2865000	534500	143900	146500	69900	56500	5.5	4.6	2816200	4.6	3.4	456500	5.4	4.8	1818800	6.7	4.2	285900	7	2.9	84900	6.5	6.6	86300	6.5	5.9	45900	6.9	4.1	37900	\N	\N	\N	\N	-2.9	-5200	0	0	0.3	800	-1.5	-3300	3.2	5800	2.6	10300	2	3500	2.1	1100	0.2	200	-1.3	-3800	0.5	800	-2.4	-3700	17	2500	1.1	4700	-1.6	-1500	-3.9	-5800
 \.
 
 
@@ -7623,6 +7900,7 @@ COPY public.nocs (noc_2021, label_en, label_fr, noc_level, teer_level, parent_no
 --
 
 COPY public.occupational_interests (noc, options, occupational_interest) FROM stdin;
+00010	Primary	Enterprising
 10010	Primary	Enterprising
 10011	Primary	Enterprising
 10012	Primary	Enterprising
@@ -7634,6 +7912,9 @@ COPY public.occupational_interests (noc, options, occupational_interest) FROM st
 10030	Primary	Enterprising
 11100	Primary	Conventional
 11100	Secondary	Enterprising
+11101	Primary	Conventional
+11101	Secondary	Investigative
+11101	Tertiary	Enterprising
 11102	Primary	Enterprising
 11102	Secondary	Conventional
 11103	Primary	Enterprising
@@ -7808,6 +8089,8 @@ COPY public.occupational_interests (noc, options, occupational_interest) FROM st
 22303	Secondary	Enterprising
 22310	Primary	Realistic
 22311	Primary	Realistic
+22312	Primary	Realistic
+22312	Secondary	Conventional
 22313	Primary	Realistic
 30010	Primary	Enterprising
 31100	Primary	Investigative
@@ -7938,6 +8221,7 @@ COPY public.occupational_interests (noc, options, occupational_interest) FROM st
 42203	Primary	Social
 42204	Primary	Social
 42204	Secondary	Enterprising
+43100	Primary	Social
 43109	Primary	Conventional
 43109	Secondary	Enterprising
 43200	Primary	Enterprising
@@ -8051,7 +8335,7 @@ COPY public.occupational_interests (noc, options, occupational_interest) FROM st
 64201	Secondary	Enterprising
 64300	Primary	Enterprising
 64301	Primary	Conventional
-64301	Secondary	Enterprise
+64301	Secondary	Enterprising
 64310	Primary	Enterprising
 64311	Primary	Enterprising
 64312	Primary	Conventional
@@ -8182,6 +8466,7 @@ COPY public.occupational_interests (noc, options, occupational_interest) FROM st
 75101	Primary	Realistic
 75110	Primary	Realistic
 75119	Primary	Realistic
+75200	Primary	Realistic
 75201	Primary	Realistic
 75210	Primary	Realistic
 75211	Primary	Realistic
@@ -8301,517 +8586,517 @@ COPY public.occupational_interests (noc, options, occupational_interest) FROM st
 --
 
 COPY public.openings_careers (noc, description, industry_1_name, industry_1_percent, industry_1_openings, industry_2_name, industry_2_percent, industry_2_openings, industry_3_name, industry_3_percent, industry_3_openings, industry_4_name, industry_4_percent, industry_4_openings, industry_5_name, industry_5_percent, industry_5_openings) FROM stdin;
-00010	Legislators	Public Administration	78	530	Health Care And Social Assistance	10	70	Educational Services	9	60	Repair, Personal And Non-Profit Services	2	10	Professional, Scientific And Technical Services	1	10
-00018	Senior managers - public and private sector	Professional, Scientific And Technical Services	51	5930	Finance, Insurance And Real Estate	13	1540	Construction	13	1460	Health Care And Social Assistance	12	1450	Manufacturing	11	1250
-10010	Financial managers	Professional, Scientific And Technical Services	39	900	Finance, Insurance And Real Estate	22	500	Public Administration	18	410	Health Care And Social Assistance	11	250	Retail Trade	10	240
-10011	Human resources managers	Professional, Scientific And Technical Services	36	660	Public Administration	21	390	Health Care And Social Assistance	19	340	Manufacturing	13	240	Retail Trade	11	210
-10012	Purchasing managers	Wholesale Trade	26	290	Manufacturing	21	240	Public Administration	18	210	Retail Trade	18	200	Professional, Scientific And Technical Services	17	190
-10019	Other administrative services managers	Public Administration	84	2390	Professional, Scientific And Technical Services	7.000000000000001	200	Health Care And Social Assistance	4	100	Accommodation And Food Services	3	90	Retail Trade	3	80
-10020	Insurance, real estate and financial brokerage managers	Finance, Insurance And Real Estate	96	3060	Construction	2	70	Professional, Scientific And Technical Services	1	30	Business, Building And Other Support Services	0	10	Health Care And Social Assistance	0	10
-10021	Banking, credit and other investment managers	Finance, Insurance And Real Estate	80	2540	Retail Trade	13	410	Professional, Scientific And Technical Services	5	150	Business, Building And Other Support Services	2	50	Wholesale Trade	2	50
-10022	Advertising, marketing and public relations managers	Professional, Scientific And Technical Services	60	2460	Retail Trade	17	710	Information, Culture And Recreation	11	430	Repair, Personal And Non-Profit Services	7.000000000000001	270	Manufacturing	5	220
-10029	Other business services managers	Professional, Scientific And Technical Services	43	470	Business, Building And Other Support Services	28.999999999999996	330	Construction	10	110	Transportation And Warehousing	9	100	Information, Culture And Recreation	8	90
-10030	Telecommunication carriers managers	Information, Culture And Recreation	76	380	Professional, Scientific And Technical Services	15	80	Construction	4	20	Retail Trade	2	10	Wholesale Trade	2	10
-11100	Financial auditors and accountants	Professional, Scientific And Technical Services	66	5040	Public Administration	12	960	Finance, Insurance And Real Estate	10	790	Manufacturing	6	480	Retail Trade	5	390
-11101	Financial and investment analysts	Finance, Insurance And Real Estate	62	740	Public Administration	15	180	Professional, Scientific And Technical Services	15	170	Health Care And Social Assistance	5	60	Retail Trade	3	40
-11102	Financial advisors	Finance, Insurance And Real Estate	87	3310	Professional, Scientific And Technical Services	9	360	Health Care And Social Assistance	2	60	Public Administration	1	40	Retail Trade	1	30
-11103	Securities agents, investment dealers and brokers	Finance, Insurance And Real Estate	96	800	Professional, Scientific And Technical Services	2	20	Retail Trade	1	0	Transportation And Warehousing	1	0	Construction	0	0
-11109	Other financial officers	Finance, Insurance And Real Estate	84	1050	Public Administration	9	110	Professional, Scientific And Technical Services	5	60	Health Care And Social Assistance	1	20	Business, Building And Other Support Services	1	10
-11200	Human resources professionals	Professional, Scientific And Technical Services	28.000000000000004	780	Public Administration	26	730	Health Care And Social Assistance	20	560	Repair, Personal And Non-Profit Services	16	440	Educational Services	9	240
-11201	Professional occupations in business management consulting	Professional, Scientific And Technical Services	75	3350	Public Administration	8	350	Health Care And Social Assistance	6	290	Finance, Insurance And Real Estate	6	280	Information, Culture And Recreation	4	190
-11202	Professional occupations in advertising, marketing and public relations	Professional, Scientific And Technical Services	62	3390	Information, Culture And Recreation	11	570	Retail Trade	10	520	Repair, Personal And Non-Profit Services	9	490	Educational Services	9	470
-12010	Supervisors, general office and administrative support workers	Health Care And Social Assistance	31	250	Public Administration	30	250	Transportation And Warehousing	17	140	Professional, Scientific And Technical Services	13	110	Wholesale Trade	10	80
-12011	Supervisors, finance and insurance office workers	Finance, Insurance And Real Estate	37	200	Professional, Scientific And Technical Services	23	130	Public Administration	18	100	Transportation And Warehousing	12	70	Retail Trade	10	50
-12012	Supervisors, library, correspondence and related information workers	Public Administration	80	210	Information, Culture And Recreation	12	30	Health Care And Social Assistance	4	10	Professional, Scientific And Technical Services	2	10	Manufacturing	2	10
-12013	Supervisors, supply chain, tracking and scheduling coordination occupations	Transportation And Warehousing	30	380	Retail Trade	23	290	Wholesale Trade	23	290	Manufacturing	18	230	Public Administration	6	70
-12100	Executive assistants	Public Administration	30	560	Professional, Scientific And Technical Services	26	480	Finance, Insurance And Real Estate	18	340	Health Care And Social Assistance	15	280	Educational Services	12	220
-12101	Human resources and recruitment officers	Professional, Scientific And Technical Services	31	410	Business, Building And Other Support Services	28.000000000000004	370	Health Care And Social Assistance	21	280	Public Administration	13	170	Educational Services	7.000000000000001	90
-12102	Procurement and purchasing agents and officers	Public Administration	28.999999999999996	490	Manufacturing	23	380	Professional, Scientific And Technical Services	20	330	Wholesale Trade	18	300	Construction	10	170
-12103	Conference and event planners	Repair, Personal And Non-Profit Services	34	270	Information, Culture And Recreation	28.999999999999996	230	Educational Services	13	100	Professional, Scientific And Technical Services	13	100	Business, Building And Other Support Services	11	80
-12104	Employment insurance and revenue officers	Public Administration	100	1900	Educational Services	0	10	\N	\N	\N	\N	\N	\N	\N	\N	\N
-12110	Court reporters, medical transcriptionists and related occupations	Business, Building And Other Support Services	52	290	Health Care And Social Assistance	32	180	Professional, Scientific And Technical Services	9	50	Public Administration	5	30	Educational Services	2	10
-12111	Health information management occupations	Health Care And Social Assistance	85	250	Public Administration	10	30	Professional, Scientific And Technical Services	4	10	Information, Culture And Recreation	1	0	\N	\N	\N
-12112	Records management technicians	Professional, Scientific And Technical Services	43	30	Public Administration	34	30	Business, Building And Other Support Services	8	10	Utilities	8	10	Health Care And Social Assistance	7.000000000000001	10
-12113	Statistical officers and related research support occupations	Professional, Scientific And Technical Services	63	80	Health Care And Social Assistance	17	20	Public Administration	9	10	Retail Trade	5	10	Finance, Insurance And Real Estate	5	10
-12200	Accounting technicians and bookkeepers	Professional, Scientific And Technical Services	56.99999999999999	3900	Construction	15	1040	Retail Trade	10	700	Finance, Insurance And Real Estate	9	630	Health Care And Social Assistance	8	560
-12201	Insurance adjusters and claims examiners	Finance, Insurance And Real Estate	98	1530	Public Administration	1	20	Transportation And Warehousing	0	10	Health Care And Social Assistance	0	0	Repair, Personal And Non-Profit Services	0	0
-12202	Insurance underwriters	Finance, Insurance And Real Estate	100	580	\N	\N	\N	\N	\N	\N	\N	\N	\N	\N	\N	\N
-12203	Assessors, business valuators and appraisers	Finance, Insurance And Real Estate	59	360	Public Administration	24	150	Professional, Scientific And Technical Services	10	60	Repair, Personal And Non-Profit Services	4	20	Retail Trade	3	20
-13100	Administrative officers	Health Care And Social Assistance	30	3550	Professional, Scientific And Technical Services	24	2770	Educational Services	17	1920	Public Administration	15	1780	Construction	14.000000000000002	1630
-13101	Property administrators	Finance, Insurance And Real Estate	80	3290	Health Care And Social Assistance	7.000000000000001	280	Construction	5	220	Public Administration	4	160	Business, Building And Other Support Services	4	140
-13102	Payroll administrators	Professional, Scientific And Technical Services	28.000000000000004	390	Health Care And Social Assistance	26	370	Public Administration	17	240	Retail Trade	15	220	Educational Services	13	190
-13110	Administrative assistants	Health Care And Social Assistance	26	2060	Educational Services	24	1900	Professional, Scientific And Technical Services	19	1540	Public Administration	17	1350	Finance, Insurance And Real Estate	14.000000000000002	1120
-13111	Legal administrative assistants	Professional, Scientific And Technical Services	77	1820	Finance, Insurance And Real Estate	14.000000000000002	330	Public Administration	7.000000000000001	170	Repair, Personal And Non-Profit Services	1	30	Educational Services	1	20
-13112	Medical administrative assistants	Health Care And Social Assistance	96	1850	Professional, Scientific And Technical Services	1	30	Public Administration	1	20	Retail Trade	1	20	Repair, Personal And Non-Profit Services	0	10
-13200	Customs, ship and other brokers	Transportation And Warehousing	91	260	Retail Trade	7.000000000000001	20	Wholesale Trade	1	0	Finance, Insurance And Real Estate	1	0	\N	\N	\N
-13201	Production and transportation logistics coordinators	Transportation And Warehousing	38	560	Manufacturing	20	300	Information, Culture And Recreation	16	240	Professional, Scientific And Technical Services	13	190	Retail Trade	13	190
-14100	General office support workers	Health Care And Social Assistance	46	3360	Public Administration	22	1640	Professional, Scientific And Technical Services	13	950	Educational Services	10	710	Retail Trade	10	700
-14101	Receptionists	Health Care And Social Assistance	74	5570	Repair, Personal And Non-Profit Services	8	590	Professional, Scientific And Technical Services	8	590	Retail Trade	6	430	Information, Culture And Recreation	4	300
-14102	Personnel clerks	Health Care And Social Assistance	52	250	Public Administration	18	90	Educational Services	14.000000000000002	70	Business, Building And Other Support Services	9	40	Professional, Scientific And Technical Services	7.000000000000001	40
+64321	Casino workers	Information, Culture and Recreation	100	190	\N	\N	\N	\N	\N	\N	\N	\N	\N	\N	\N	\N
 14103	Court clerks and related court services occupations	Public Administration	100	200	\N	\N	\N	\N	\N	\N	\N	\N	\N	\N	\N	\N
-14110	Survey interviewers and statistical clerks	Public Administration	71	310	Professional, Scientific And Technical Services	17	80	Business, Building And Other Support Services	6	30	Utilities	5	20	Health Care And Social Assistance	2	10
-14111	Data entry clerks	Health Care And Social Assistance	33	260	Professional, Scientific And Technical Services	26	200	Public Administration	17	130	Finance, Insurance And Real Estate	12	100	Retail Trade	12	100
-14112	Desktop publishing operators and related occupations	Transportation And Warehousing	49	10	Manufacturing	37	0	Information, Culture And Recreation	14.000000000000002	0	\N	\N	\N	\N	\N	\N
-14200	Accounting and related clerks	Professional, Scientific And Technical Services	42	2090	Retail Trade	16	790	Wholesale Trade	14.000000000000002	720	Construction	14.000000000000002	710	Finance, Insurance And Real Estate	14.000000000000002	690
-14201	Banking, insurance and other financial clerks	Finance, Insurance And Real Estate	93	690	Public Administration	4	30	Professional, Scientific And Technical Services	1	10	Business, Building And Other Support Services	1	10	Repair, Personal And Non-Profit Services	1	10
-14202	Collection clerks	Business, Building And Other Support Services	27	80	Professional, Scientific And Technical Services	22	70	Finance, Insurance And Real Estate	18	60	Public Administration	17	50	Wholesale Trade	16	50
-14300	Library assistants and clerks	Information, Culture And Recreation	96	350	Professional, Scientific And Technical Services	2	10	Educational Services	1	0	\N	\N	\N	\N	\N	\N
-14301	Correspondence, publication and regulatory clerks	Public Administration	53	420	Health Care And Social Assistance	16	130	Professional, Scientific And Technical Services	14.000000000000002	110	Transportation And Warehousing	9	70	Finance, Insurance And Real Estate	7.000000000000001	60
-14400	Shippers and receivers	Retail Trade	39	1600	Wholesale Trade	25	1030	Manufacturing	18	710	Transportation And Warehousing	14.000000000000002	570	Professional, Scientific And Technical Services	4	150
-14401	Storekeepers and partspersons	Retail Trade	50	810	Wholesale Trade	28.999999999999996	480	Health Care And Social Assistance	8	140	Manufacturing	7.000000000000001	110	Repair, Personal And Non-Profit Services	6	90
-14402	Production logistics workers	Health Care And Social Assistance	32	100	Professional, Scientific And Technical Services	21	60	Manufacturing	18	50	Retail Trade	15	40	Transportation And Warehousing	14.000000000000002	40
-14403	Purchasing and inventory control workers	Retail Trade	42	510	Wholesale Trade	19	230	Manufacturing	19	230	Health Care And Social Assistance	12	140	Professional, Scientific And Technical Services	8	100
-14404	Dispatchers	Public Administration	39	370	Transportation And Warehousing	36	350	Health Care And Social Assistance	12	110	Construction	7.000000000000001	60	Business, Building And Other Support Services	6	60
-14405	Transportation route and crew schedulers	Transportation And Warehousing	76	130	Health Care And Social Assistance	12	20	Professional, Scientific And Technical Services	6	10	Business, Building And Other Support Services	4	10	Public Administration	2	0
-20010	Engineering managers	Professional, Scientific And Technical Services	72	1510	Manufacturing	14.000000000000002	280	Public Administration	7.000000000000001	140	Transportation And Warehousing	4	80	Construction	3	70
-20011	Architecture and science managers	Professional, Scientific And Technical Services	54	490	Public Administration	14.000000000000002	120	Educational Services	13	120	Manufacturing	10	90	Health Care And Social Assistance	9	80
-20012	Computer and information systems managers	Professional, Scientific And Technical Services	82	6240	Information, Culture And Recreation	6	490	Public Administration	5	350	Retail Trade	4	340	Educational Services	3	220
-21100	Physicists and astronomers	Professional, Scientific And Technical Services	62	110	Health Care And Social Assistance	19	30	Public Administration	10	20	Educational Services	6	10	Manufacturing	3	10
-21101	Chemists	Professional, Scientific And Technical Services	52	290	Manufacturing	19	110	Health Care And Social Assistance	14.000000000000002	80	Public Administration	10	50	Wholesale Trade	6	30
-21102	Geoscientists and oceanographers	Professional, Scientific And Technical Services	62	610	Mining And Oil And Gas Extraction	31	300	Public Administration	6	50	Construction	1	10	Manufacturing	1	10
-21103	Meteorologists and climatologists	Public Administration	83	30	Professional, Scientific And Technical Services	9	0	Utilities	9	0	\N	\N	\N	\N	\N	\N
-21109	Other professional occupations in physical sciences	Professional, Scientific And Technical Services	52	10	Mining And Oil And Gas Extraction	48	10	\N	\N	\N	\N	\N	\N	\N	\N	\N
-21110	Biologists and related scientists	Professional, Scientific And Technical Services	55.00000000000001	860	Public Administration	21	340	Health Care And Social Assistance	10	160	Manufacturing	9	150	Educational Services	5	70
-21111	Forestry professionals	Professional, Scientific And Technical Services	42	310	Forestry, Logging And Support Activities	28.999999999999996	220	Public Administration	19	140	Manufacturing	9	70	Educational Services	1	10
-21112	Agricultural representatives, consultants and specialists	Professional, Scientific And Technical Services	45	50	Public Administration	21	20	Agriculture And Fishing	16	20	Wholesale Trade	9	10	Business, Building And Other Support Services	8	10
-21120	Public and environmental health and safety professionals	Public Administration	33	250	Health Care And Social Assistance	31	240	Professional, Scientific And Technical Services	22	170	Manufacturing	9	70	Mining And Oil And Gas Extraction	6	50
-21200	Architects	Professional, Scientific And Technical Services	96	1460	Construction	2	30	Public Administration	1	10	Finance, Insurance And Real Estate	1	10	Retail Trade	0	10
-21201	Landscape architects	Professional, Scientific And Technical Services	92	120	Public Administration	7.000000000000001	10	Business, Building And Other Support Services	1	0	\N	\N	\N	\N	\N	\N
-21202	Urban and land use planners	Public Administration	57.99999999999999	560	Professional, Scientific And Technical Services	27	260	Transportation And Warehousing	7.000000000000001	70	Information, Culture And Recreation	4	40	Construction	4	40
-21203	Land surveyors	Professional, Scientific And Technical Services	85	410	Construction	9	40	Public Administration	5	30	Repair, Personal And Non-Profit Services	1	0	Utilities	1	0
-21210	Mathematicians, statisticians and actuaries	Professional, Scientific And Technical Services	43	100	Health Care And Social Assistance	17	40	Finance, Insurance And Real Estate	16	40	Educational Services	12	30	Public Administration	11	30
-21211	Data scientists	Professional, Scientific And Technical Services	85	650	Finance, Insurance And Real Estate	6	50	Information, Culture And Recreation	4	30	Public Administration	3	20	Retail Trade	3	20
-21220	Cybersecurity specialists	Professional, Scientific And Technical Services	77	500	Public Administration	9	60	Finance, Insurance And Real Estate	6	40	Information, Culture And Recreation	5	30	Business, Building And Other Support Services	3	20
-21221	Business systems specialists	Professional, Scientific And Technical Services	66	1130	Public Administration	11	180	Health Care And Social Assistance	10	170	Finance, Insurance And Real Estate	6	110	Information, Culture And Recreation	6	100
-21222	Information systems specialists	Professional, Scientific And Technical Services	83	6980	Public Administration	6	480	Health Care And Social Assistance	5	440	Information, Culture And Recreation	3	260	Finance, Insurance And Real Estate	3	210
-21223	Database analysts and data administrators	Professional, Scientific And Technical Services	67	720	Public Administration	14.000000000000002	150	Information, Culture And Recreation	7.000000000000001	80	Educational Services	6	60	Retail Trade	6	60
-21230	Computer systems developers and programmers	Professional, Scientific And Technical Services	85	1830	Public Administration	5	110	Information, Culture And Recreation	4	90	Retail Trade	3	60	Finance, Insurance And Real Estate	3	50
-21231	Software engineers and designers	Professional, Scientific And Technical Services	86	10280	Retail Trade	6	720	Information, Culture And Recreation	4	450	Wholesale Trade	3	350	Manufacturing	1	140
-21232	Software developers and programmers	Professional, Scientific And Technical Services	93	8710	Information, Culture And Recreation	3	250	Retail Trade	2	200	Wholesale Trade	1	110	Finance, Insurance And Real Estate	1	110
-21233	Web designers	Professional, Scientific And Technical Services	94	1600	Retail Trade	4	60	Educational Services	1	20	Health Care And Social Assistance	1	10	Public Administration	1	10
-21234	Web developers and programmers	Professional, Scientific And Technical Services	93	4660	Retail Trade	3	170	Information, Culture And Recreation	1	70	Educational Services	1	60	Public Administration	1	50
-21300	Civil engineers	Professional, Scientific And Technical Services	76	2930	Public Administration	11	410	Construction	8	330	Utilities	3	130	Transportation And Warehousing	2	60
-21301	Mechanical engineers	Professional, Scientific And Technical Services	72	1390	Manufacturing	19	360	Transportation And Warehousing	3	60	Wholesale Trade	3	60	Construction	3	60
-21310	Electrical and electronics engineers	Professional, Scientific And Technical Services	73	1920	Manufacturing	10	270	Utilities	9	240	Wholesale Trade	4	100	Construction	4	100
-21311	Computer engineers (except software engineers and designers)	Professional, Scientific And Technical Services	80	1180	Information, Culture And Recreation	9	140	Wholesale Trade	4	60	Manufacturing	3	50	Public Administration	3	40
-21320	Chemical engineers	Professional, Scientific And Technical Services	60	190	Manufacturing	30	90	Public Administration	4	10	Mining And Oil And Gas Extraction	3	10	Wholesale Trade	3	10
-21321	Industrial and manufacturing engineers	Professional, Scientific And Technical Services	55.00000000000001	250	Manufacturing	33	150	Wholesale Trade	5	20	Retail Trade	4	20	Construction	4	20
-21322	Metallurgical and materials engineers	Professional, Scientific And Technical Services	69	70	Manufacturing	20	20	Mining And Oil And Gas Extraction	9	10	Educational Services	3	0	\N	\N	\N
-21330	Mining engineers	Professional, Scientific And Technical Services	56.99999999999999	110	Mining And Oil And Gas Extraction	37	70	Business, Building And Other Support Services	4	10	Wholesale Trade	1	0	Manufacturing	1	0
-21331	Geological engineers	Professional, Scientific And Technical Services	97	410	Public Administration	2	10	Mining And Oil And Gas Extraction	1	10	\N	\N	\N	\N	\N	\N
-21332	Petroleum engineers	Professional, Scientific And Technical Services	63	30	Mining And Oil And Gas Extraction	37	20	\N	\N	\N	\N	\N	\N	\N	\N	\N
-21390	Aerospace engineers	Manufacturing	43	50	Transportation And Warehousing	34	40	Professional, Scientific And Technical Services	20	20	Public Administration	3	0	\N	\N	\N
-21399	Other professional engineers	Transportation And Warehousing	41	210	Professional, Scientific And Technical Services	38	200	Public Administration	9	50	Manufacturing	7.000000000000001	40	Health Care And Social Assistance	5	30
-22100	Chemical technologists and technicians	Professional, Scientific And Technical Services	49	160	Manufacturing	37	120	Retail Trade	5	20	Educational Services	4	10	Public Administration	4	10
-22101	Geological and mineral technologists and technicians	Mining And Oil And Gas Extraction	45	210	Professional, Scientific And Technical Services	42	190	Manufacturing	6	30	Public Administration	5	20	Construction	2	10
-22110	Biological technologists and technicians	Public Administration	32	110	Professional, Scientific And Technical Services	31	100	Agriculture And Fishing	24	80	Manufacturing	11	40	Educational Services	3	10
-22111	Agricultural and fish products inspectors	Public Administration	60	110	Professional, Scientific And Technical Services	17	30	Manufacturing	10	20	Wholesale Trade	9	20	Transportation And Warehousing	5	10
-22112	Forestry technologists and technicians	Forestry, Logging And Support Activities	36	190	Professional, Scientific And Technical Services	36	190	Public Administration	21	110	Manufacturing	4	20	Information, Culture And Recreation	2	10
-22113	Conservation and fishery officers	Public Administration	76	210	Information, Culture And Recreation	11	30	Agriculture And Fishing	9	30	Repair, Personal And Non-Profit Services	2	10	Educational Services	1	0
-22114	Landscape and horticulture technicians and specialists	Business, Building And Other Support Services	54	730	Information, Culture And Recreation	19	250	Public Administration	14.000000000000002	180	Professional, Scientific And Technical Services	10	130	Agriculture And Fishing	4	50
-22210	Architectural technologists and technicians	Professional, Scientific And Technical Services	93	680	Construction	4	30	Public Administration	1	10	Accommodation And Food Services	1	10	Educational Services	1	0
-22211	Industrial designers	Professional, Scientific And Technical Services	77	440	Retail Trade	10	60	Manufacturing	9	50	Construction	2	10	Wholesale Trade	2	10
-22212	Drafting technologists and technicians	Professional, Scientific And Technical Services	82	1240	Construction	8	130	Manufacturing	6	100	Utilities	2	30	Wholesale Trade	2	30
-22213	Land survey technologists and technicians	Professional, Scientific And Technical Services	88	160	Public Administration	9	20	Construction	3	10	\N	\N	\N	\N	\N	\N
-22214	Technical occupations in geomatics and meteorology	Professional, Scientific And Technical Services	57.99999999999999	420	Public Administration	35	250	Forestry, Logging And Support Activities	2	20	Utilities	2	20	Transportation And Warehousing	2	20
-22220	Computer network and web technicians	Professional, Scientific And Technical Services	71	2460	Educational Services	8	290	Information, Culture And Recreation	7.000000000000001	250	Public Administration	7.000000000000001	250	Health Care And Social Assistance	6	190
-22221	User support technicians	Professional, Scientific And Technical Services	78	2700	Information, Culture And Recreation	7.000000000000001	260	Public Administration	6	200	Educational Services	6	200	Retail Trade	4	120
-22222	Information systems testing technicians	Professional, Scientific And Technical Services	92	700	Information, Culture And Recreation	3	30	Finance, Insurance And Real Estate	2	20	Wholesale Trade	2	10	Health Care And Social Assistance	1	10
-22230	Non-destructive testers and inspectors	Professional, Scientific And Technical Services	72	150	Mining And Oil And Gas Extraction	14.000000000000002	30	Manufacturing	6	10	Construction	5	10	Transportation And Warehousing	3	10
-22231	Engineering inspectors and regulatory officers	Professional, Scientific And Technical Services	38	80	Public Administration	31	70	Manufacturing	17	40	Transportation And Warehousing	8	20	Utilities	6	10
-22232	Occupational health and safety specialists	Professional, Scientific And Technical Services	30	190	Public Administration	20	130	Construction	19	120	Finance, Insurance And Real Estate	17	100	Health Care And Social Assistance	14.000000000000002	90
-22233	Construction inspectors	Professional, Scientific And Technical Services	41	450	Public Administration	28.999999999999996	310	Construction	24	260	Mining And Oil And Gas Extraction	4	40	Finance, Insurance And Real Estate	4	40
-22300	Civil engineering technologists and technicians	Professional, Scientific And Technical Services	69	730	Public Administration	20	210	Construction	7.000000000000001	80	Utilities	3	30	Business, Building And Other Support Services	1	10
-22301	Mechanical engineering technologists and technicians	Professional, Scientific And Technical Services	52	580	Manufacturing	27	300	Construction	10	110	Transportation And Warehousing	6	70	Wholesale Trade	4	50
-22302	Industrial engineering and manufacturing technologists and technicians	Manufacturing	50	230	Professional, Scientific And Technical Services	26	120	Construction	11	50	Public Administration	7.000000000000001	30	Wholesale Trade	6	30
-22303	Construction estimators	Construction	73	780	Professional, Scientific And Technical Services	13	140	Manufacturing	7.000000000000001	70	Wholesale Trade	4	50	Retail Trade	3	30
-22310	Electrical and electronics engineering technologists and technicians	Professional, Scientific And Technical Services	38	560	Health Care And Social Assistance	21	310	Manufacturing	18	260	Construction	14.000000000000002	200	Utilities	10	140
-22311	Electronic service technicians (household and business equipment)	Professional, Scientific And Technical Services	37	800	Retail Trade	19	410	Repair, Personal And Non-Profit Services	18	390	Wholesale Trade	15	330	Business, Building And Other Support Services	12	270
-22312	Industrial instrument technicians and mechanics	Mining And Oil And Gas Extraction	40	80	Manufacturing	28.000000000000004	60	Professional, Scientific And Technical Services	18	40	Construction	9	20	Public Administration	5	10
-22313	Aircraft instrument, electrical and avionics mechanics, technicians and inspectors	Transportation And Warehousing	72	200	Manufacturing	16	50	Public Administration	9	20	Professional, Scientific And Technical Services	2	10	\N	\N	\N
-30010	Managers in health care	Health Care And Social Assistance	99	3630	Public Administration	0	10	Professional, Scientific And Technical Services	0	10	Wholesale Trade	0	10	Repair, Personal And Non-Profit Services	0	0
-31100	Specialists in clinical and laboratory medicine	Health Care And Social Assistance	100	2510	Manufacturing	0	0	\N	\N	\N	\N	\N	\N	\N	\N	\N
-31101	Specialists in surgery	Health Care And Social Assistance	99	760	Educational Services	1	0	\N	\N	\N	\N	\N	\N	\N	\N	\N
-31102	General practitioners and family physicians	Health Care And Social Assistance	99	3590	Educational Services	1	40	Professional, Scientific And Technical Services	0	10	\N	\N	\N	\N	\N	\N
-31103	Veterinarians	Professional, Scientific And Technical Services	93	530	Public Administration	6	40	Agriculture And Fishing	1	0	\N	\N	\N	\N	\N	\N
-31110	Dentists	Health Care And Social Assistance	100	1590	Educational Services	0	0	Public Administration	0	0	\N	\N	\N	\N	\N	\N
-31111	Optometrists	Health Care And Social Assistance	96	380	Retail Trade	4	10	\N	\N	\N	\N	\N	\N	\N	\N	\N
-31112	Audiologists and speech-language pathologists	Health Care And Social Assistance	75	500	Educational Services	22	150	Retail Trade	2	20	Public Administration	1	0	\N	\N	\N
-31120	Pharmacists	Retail Trade	70	1660	Health Care And Social Assistance	28.000000000000004	670	Professional, Scientific And Technical Services	1	30	Public Administration	1	20	Manufacturing	0	10
-31121	Dietitians and nutritionists	Health Care And Social Assistance	90	600	Retail Trade	4	20	Professional, Scientific And Technical Services	3	20	Wholesale Trade	2	10	Accommodation And Food Services	1	10
-31200	Psychologists	Health Care And Social Assistance	78	670	Educational Services	17	150	Public Administration	3	30	Professional, Scientific And Technical Services	2	10	Repair, Personal And Non-Profit Services	0	0
-31201	Chiropractors	Health Care And Social Assistance	99	630	Construction	1	0	\N	\N	\N	\N	\N	\N	\N	\N	\N
-31202	Physiotherapists	Health Care And Social Assistance	99	1920	Educational Services	1	10	Information, Culture And Recreation	0	10	Repair, Personal And Non-Profit Services	0	0	Finance, Insurance And Real Estate	0	0
-31203	Occupational therapists	Health Care And Social Assistance	97	1180	Educational Services	2	30	Finance, Insurance And Real Estate	1	10	Professional, Scientific And Technical Services	0	0	\N	\N	\N
-31204	Kinesiologists and other professional occupations in therapy and assessment	Health Care And Social Assistance	87	530	Information, Culture And Recreation	10	60	Educational Services	2	10	Repair, Personal And Non-Profit Services	1	0	Finance, Insurance And Real Estate	1	0
-31209	Other professional occupations in health diagnosing and treating	Health Care And Social Assistance	100	370	\N	\N	\N	\N	\N	\N	\N	\N	\N	\N	\N	\N
-31300	Nursing coordinators and supervisors	Health Care And Social Assistance	100	1180	\N	\N	\N	\N	\N	\N	\N	\N	\N	\N	\N	\N
-31301	Registered nurses and registered psychiatric nurses	Health Care And Social Assistance	98	24150	Public Administration	1	190	Educational Services	0	100	Professional, Scientific And Technical Services	0	70	Repair, Personal And Non-Profit Services	0	70
-31302	Nurse practitioners	Health Care And Social Assistance	99	290	Educational Services	1	0	\N	\N	\N	\N	\N	\N	\N	\N	\N
-31303	Physician assistants, midwives and allied health professionals	Health Care And Social Assistance	91	110	Educational Services	7.000000000000001	10	Public Administration	2	0	\N	\N	\N	\N	\N	\N
-32100	Opticians	Retail Trade	70	450	Health Care And Social Assistance	28.000000000000004	180	Manufacturing	1	10	\N	\N	\N	\N	\N	\N
-32101	Licensed practical nurses	Health Care And Social Assistance	99	4220	Retail Trade	1	20	Public Administration	0	20	Educational Services	0	10	Repair, Personal And Non-Profit Services	0	0
-32102	Paramedical occupations	Health Care And Social Assistance	95	1380	Public Administration	3	40	Wholesale Trade	1	10	Educational Services	1	10	Transportation And Warehousing	1	10
-32103	Respiratory therapists, clinical perfusionists and cardiopulmonary technologists	Health Care And Social Assistance	98	780	Retail Trade	1	10	Information, Culture And Recreation	1	0	Wholesale Trade	0	0	\N	\N	\N
-32104	Animal health technologists and veterinary technicians	Professional, Scientific And Technical Services	97	760	Educational Services	1	10	Repair, Personal And Non-Profit Services	1	10	Public Administration	0	0	Health Care And Social Assistance	0	0
-32109	Other technical occupations in therapy and assessment	Health Care And Social Assistance	89	790	Retail Trade	7.000000000000001	60	Educational Services	3	30	Professional, Scientific And Technical Services	1	10	Business, Building And Other Support Services	0	0
-32110	Denturists	Health Care And Social Assistance	96	70	Manufacturing	4	0	\N	\N	\N	\N	\N	\N	\N	\N	\N
-32111	Dental hygienists and dental therapists	Health Care And Social Assistance	99	1540	Accommodation And Food Services	0	0	Business, Building And Other Support Services	0	0	Educational Services	0	0	Repair, Personal And Non-Profit Services	0	0
-32112	Dental technologists and technicians	Health Care And Social Assistance	56.99999999999999	190	Manufacturing	37	130	Wholesale Trade	6	20	\N	\N	\N	\N	\N	\N
-32120	Medical laboratory technologists	Health Care And Social Assistance	98	1400	Professional, Scientific And Technical Services	1	20	Educational Services	0	0	Public Administration	0	0	Manufacturing	0	0
-32121	Medical radiation technologists	Health Care And Social Assistance	99	1360	Wholesale Trade	1	10	Professional, Scientific And Technical Services	0	0	Public Administration	0	0	Educational Services	0	0
-32122	Medical sonographers	Health Care And Social Assistance	99	460	Professional, Scientific And Technical Services	1	0	\N	\N	\N	\N	\N	\N	\N	\N	\N
-32123	Cardiology technologists and electrophysiological diagnostic technologists	Health Care And Social Assistance	100	310	\N	\N	\N	\N	\N	\N	\N	\N	\N	\N	\N	\N
-32124	Pharmacy technicians	Retail Trade	56.99999999999999	630	Health Care And Social Assistance	43	470	\N	\N	\N	\N	\N	\N	\N	\N	\N
-32129	Other medical technologists and technicians	Health Care And Social Assistance	69	100	Manufacturing	19	30	Accommodation And Food Services	9	10	Retail Trade	4	10	\N	\N	\N
-32200	Traditional Chinese medicine practitioners and acupuncturists	Health Care And Social Assistance	95	550	Repair, Personal And Non-Profit Services	3	10	Retail Trade	1	10	Educational Services	1	0	Business, Building And Other Support Services	0	0
-32201	Massage therapists	Health Care And Social Assistance	86	2360	Repair, Personal And Non-Profit Services	11	300	Accommodation And Food Services	1	30	Educational Services	1	30	Professional, Scientific And Technical Services	0	10
-32209	Other practitioners of natural healing	Health Care And Social Assistance	77	280	Repair, Personal And Non-Profit Services	10	40	Retail Trade	10	40	Information, Culture And Recreation	2	10	Professional, Scientific And Technical Services	1	0
-33100	Dental assistants and dental laboratory assistants	Health Care And Social Assistance	98	2250	Manufacturing	1	30	Educational Services	0	10	Business, Building And Other Support Services	0	10	Construction	0	10
-33101	Medical laboratory assistants and related technical occupations	Health Care And Social Assistance	97	1570	Professional, Scientific And Technical Services	2	30	Educational Services	0	10	Retail Trade	0	0	Information, Culture And Recreation	0	0
-33102	Nurse aides, orderlies and patient service associates	Health Care And Social Assistance	95	20960	Repair, Personal And Non-Profit Services	4	970	Transportation And Warehousing	0	70	Business, Building And Other Support Services	0	60	Information, Culture And Recreation	0	60
-33103	Pharmacy technical assistants and pharmacy assistants	Retail Trade	93	1130	Health Care And Social Assistance	7.000000000000001	80	Professional, Scientific And Technical Services	0	0	Business, Building And Other Support Services	0	0	Manufacturing	0	0
-33109	Other assisting occupations in support of health services	Health Care And Social Assistance	94	2110	Retail Trade	3	70	Professional, Scientific And Technical Services	1	20	Business, Building And Other Support Services	1	20	Wholesale Trade	1	20
-40010	Government managers - health and social policy development and program administration	Public Administration	94	560	Health Care And Social Assistance	5	30	Professional, Scientific And Technical Services	1	10	\N	\N	\N	\N	\N	\N
-40011	Government managers - economic analysis, policy development and program administration	Public Administration	94	790	Professional, Scientific And Technical Services	2	10	Business, Building And Other Support Services	2	10	Educational Services	1	10	Wholesale Trade	1	10
-40012	Government managers - education policy development and program administration	Public Administration	89	100	Educational Services	11	10	\N	\N	\N	\N	\N	\N	\N	\N	\N
-40019	Other managers in public administration	Public Administration	100	300	\N	\N	\N	\N	\N	\N	\N	\N	\N	\N	\N	\N
-40020	Administrators - post-secondary education and vocational training	Educational Services	95	1530	Repair, Personal And Non-Profit Services	2	20	Professional, Scientific And Technical Services	1	20	Public Administration	1	20	Health Care And Social Assistance	1	10
-40021	School principals and administrators of elementary and secondary education	Educational Services	100	2570	\N	\N	\N	\N	\N	\N	\N	\N	\N	\N	\N	\N
-40030	Managers in social, community and correctional services	Health Care And Social Assistance	71	2020	Repair, Personal And Non-Profit Services	15	420	Public Administration	9	240	Educational Services	3	90	Professional, Scientific And Technical Services	2	50
-40040	Commissioned police officers and related occupations in public protection services	Public Administration	100	120	\N	\N	\N	\N	\N	\N	\N	\N	\N	\N	\N	\N
-40041	Fire chiefs and senior firefighting officers	Public Administration	100	380	\N	\N	\N	\N	\N	\N	\N	\N	\N	\N	\N	\N
-40042	Commissioned officers of the Canadian Armed Forces	Public Administration	98	590	Health Care And Social Assistance	1	10	Business, Building And Other Support Services	1	0	\N	\N	\N	\N	\N	\N
-41100	Judges	Public Administration	97	180	Professional, Scientific And Technical Services	3	10	\N	\N	\N	\N	\N	\N	\N	\N	\N
-41101	Lawyers and Quebec notaries	Professional, Scientific And Technical Services	83	3260	Public Administration	12	460	Finance, Insurance And Real Estate	3	100	Repair, Personal And Non-Profit Services	2	80	Health Care And Social Assistance	1	30
-41200	University professors and lecturers	Educational Services	100	4150	Public Administration	0	20	\N	\N	\N	\N	\N	\N	\N	\N	\N
-41201	Post-secondary teaching and research assistants	Educational Services	92	2150	Professional, Scientific And Technical Services	4	90	Health Care And Social Assistance	3	70	Public Administration	1	10	Retail Trade	0	10
-41210	College and other vocational instructors	Educational Services	80	4040	Health Care And Social Assistance	8	400	Professional, Scientific And Technical Services	6	290	Public Administration	3	180	Repair, Personal And Non-Profit Services	3	130
-41220	Secondary school teachers	Educational Services	99	6960	Public Administration	0	30	Health Care And Social Assistance	0	10	Repair, Personal And Non-Profit Services	0	10	Manufacturing	0	0
-41221	Elementary school and kindergarten teachers	Educational Services	99	12540	Public Administration	0	30	Repair, Personal And Non-Profit Services	0	10	Health Care And Social Assistance	0	10	Professional, Scientific And Technical Services	0	10
-41300	Social workers	Health Care And Social Assistance	75	2480	Public Administration	18	610	Finance, Insurance And Real Estate	4	120	Repair, Personal And Non-Profit Services	2	60	Educational Services	2	60
-41301	Therapists in counselling and related specialized therapies	Health Care And Social Assistance	94	3520	Public Administration	2	80	Professional, Scientific And Technical Services	2	60	Educational Services	1	50	Repair, Personal And Non-Profit Services	1	40
-41302	Religious leaders	Repair, Personal And Non-Profit Services	95	1540	Health Care And Social Assistance	2	40	Professional, Scientific And Technical Services	1	20	Public Administration	1	20	Educational Services	1	10
-41310	Police investigators and other investigative occupations	Public Administration	100	270	\N	\N	\N	\N	\N	\N	\N	\N	\N	\N	\N	\N
 41311	Probation and parole officers	Public Administration	100	290	\N	\N	\N	\N	\N	\N	\N	\N	\N	\N	\N	\N
-41320	Educational counsellors	Educational Services	94	1670	Health Care And Social Assistance	3	50	Public Administration	2	30	Professional, Scientific And Technical Services	1	30	Repair, Personal And Non-Profit Services	1	10
-41321	Career development practitioners and career counsellors (except education)	Health Care And Social Assistance	52	340	Business, Building And Other Support Services	27	180	Repair, Personal And Non-Profit Services	8	50	Finance, Insurance And Real Estate	7.000000000000001	50	Public Administration	6	40
-41400	Natural and applied science policy researchers, consultants and program officers	Professional, Scientific And Technical Services	50	770	Public Administration	39	600	Repair, Personal And Non-Profit Services	5	70	Health Care And Social Assistance	4	60	Educational Services	3	50
-41401	Economists and economic policy researchers and analysts	Public Administration	44	240	Professional, Scientific And Technical Services	28.999999999999996	160	Finance, Insurance And Real Estate	20	110	Health Care And Social Assistance	4	20	Educational Services	3	20
-41402	Business development officers and market researchers and analysts	Professional, Scientific And Technical Services	66	990	Public Administration	8	130	Retail Trade	8	130	Manufacturing	8	130	Business, Building And Other Support Services	8	120
-41403	Social policy researchers, consultants and program officers	Public Administration	47	830	Professional, Scientific And Technical Services	26	460	Health Care And Social Assistance	19	330	Repair, Personal And Non-Profit Services	6	100	Finance, Insurance And Real Estate	3	40
-41404	Health policy researchers, consultants and program officers	Health Care And Social Assistance	60	910	Public Administration	15	230	Professional, Scientific And Technical Services	14.000000000000002	210	Repair, Personal And Non-Profit Services	7.000000000000001	100	Educational Services	4	60
-41405	Education policy researchers, consultants and program officers	Educational Services	72	970	Public Administration	8	110	Health Care And Social Assistance	8	110	Professional, Scientific And Technical Services	7.000000000000001	90	Repair, Personal And Non-Profit Services	4	60
-41406	Recreation, sports and fitness policy researchers, consultants and program officers	Information, Culture And Recreation	60	370	Health Care And Social Assistance	23	150	Public Administration	9	50	Repair, Personal And Non-Profit Services	4	20	Educational Services	4	20
-41407	Program officers unique to government	Public Administration	96	370	Transportation And Warehousing	1	10	Repair, Personal And Non-Profit Services	1	10	Professional, Scientific And Technical Services	1	0	\N	\N	\N
-41409	Other professional occupations in social science	Professional, Scientific And Technical Services	47	180	Public Administration	25	90	Health Care And Social Assistance	15	60	Information, Culture And Recreation	7.000000000000001	30	Educational Services	5	20
-42100	Police officers (except commissioned)	Public Administration	99	4320	Educational Services	0	10	Transportation And Warehousing	0	0	Wholesale Trade	0	0	Professional, Scientific And Technical Services	0	0
-42101	Firefighters	Public Administration	96	1840	Transportation And Warehousing	2	40	Manufacturing	1	20	Construction	1	20	Retail Trade	0	10
+52112	Broadcast technicians	Information, Culture and Recreation	100	40	\N	\N	\N	\N	\N	\N	\N	\N	\N	\N	\N	\N
+32100	Opticians	Retail Trade	70	450	Health Care and Social Assistance	28.000000000000004	180	Manufacturing	1	10	\N	\N	\N	\N	\N	\N
+94152	Binding and finishing machine operators	Manufacturing	90	90	Retail Trade	10	10	\N	\N	\N	\N	\N	\N	\N	\N	\N
 42102	Specialized members of the Canadian Armed Forces	Public Administration	100	60	\N	\N	\N	\N	\N	\N	\N	\N	\N	\N	\N	\N
-42200	Paralegals and related occupations	Public Administration	84	1450	Professional, Scientific And Technical Services	15	250	Finance, Insurance And Real Estate	1	10	Educational Services	0	0	Repair, Personal And Non-Profit Services	0	0
-42201	Social and community service workers	Health Care And Social Assistance	84	12250	Public Administration	6	860	Repair, Personal And Non-Profit Services	5	690	Educational Services	4	600	Information, Culture And Recreation	1	130
-42202	Early childhood educators and assistants	Health Care And Social Assistance	86	10490	Educational Services	10	1230	Information, Culture And Recreation	2	230	Repair, Personal And Non-Profit Services	1	170	Public Administration	1	80
-42203	Instructors of persons with disabilities	Health Care And Social Assistance	69	430	Educational Services	28.000000000000004	180	Professional, Scientific And Technical Services	1	10	Information, Culture And Recreation	1	0	Repair, Personal And Non-Profit Services	1	0
-42204	Religion workers	Repair, Personal And Non-Profit Services	73	270	Health Care And Social Assistance	18	70	Educational Services	6	20	Professional, Scientific And Technical Services	2	10	Public Administration	1	0
-43100	Elementary and secondary school teacher assistants	Educational Services	99	7070	Health Care And Social Assistance	0	20	Public Administration	0	10	Accommodation And Food Services	0	10	Professional, Scientific And Technical Services	0	0
-43109	Other instructors	Educational Services	92	2290	Professional, Scientific And Technical Services	3	70	Health Care And Social Assistance	3	70	Business, Building And Other Support Services	2	40	Repair, Personal And Non-Profit Services	1	40
-43200	Sheriffs and bailiffs	Public Administration	84	170	Professional, Scientific And Technical Services	10	20	Business, Building And Other Support Services	6	10	\N	\N	\N	\N	\N	\N
-43201	Correctional service officers	Public Administration	96	1180	Business, Building And Other Support Services	2	30	Health Care And Social Assistance	1	10	Repair, Personal And Non-Profit Services	1	10	\N	\N	\N
-43202	By-law enforcement and other regulatory officers	Public Administration	85	490	Repair, Personal And Non-Profit Services	6	40	Information, Culture And Recreation	5	30	Professional, Scientific And Technical Services	2	10	Business, Building And Other Support Services	2	10
-43203	Border services, customs, and immigration officers	Public Administration	99	540	Professional, Scientific And Technical Services	1	10	\N	\N	\N	\N	\N	\N	\N	\N	\N
+53200	Athletes	Information, Culture and Recreation	98	200	Educational Services	2	0	\N	\N	\N	\N	\N	\N	\N	\N	\N
+65101	Service station attendants	Retail Trade	100	250	\N	\N	\N	\N	\N	\N	\N	\N	\N	\N	\N	\N
+70021	Postal and courier services managers	Transportation and Warehousing	100	410	\N	\N	\N	\N	\N	\N	\N	\N	\N	\N	\N	\N
+80022	Managers in aquaculture	Agriculture and Fishing	100	160	\N	\N	\N	\N	\N	\N	\N	\N	\N	\N	\N	\N
+92020	Supervisors, motor vehicle assembling	Manufacturing	100	50	\N	\N	\N	\N	\N	\N	\N	\N	\N	\N	\N	\N
+12104	Employment insurance and revenue officers	Public Administration	100	1900	Educational Services	0	10	\N	\N	\N	\N	\N	\N	\N	\N	\N
+83121	Fishermen/women	Agriculture and Fishing	95	100	Wholesale Trade	5	10	\N	\N	\N	\N	\N	\N	\N	\N	\N
+21301	Mechanical engineers	Professional, Scientific, and Technical Services	72	1390	Manufacturing	19	360	Transportation and Warehousing	3	60	Wholesale Trade	3	60	Construction	3	60
+12202	Insurance underwriters	Finance, Insurance and Real Estate	100	580	\N	\N	\N	\N	\N	\N	\N	\N	\N	\N	\N	\N
+83120	Fishing masters and officers	Agriculture and Fishing	100	40	\N	\N	\N	\N	\N	\N	\N	\N	\N	\N	\N	\N
+94101	Foundry workers	Manufacturing	100	30	\N	\N	\N	\N	\N	\N	\N	\N	\N	\N	\N	\N
+94122	Paper converting machine operators	Manufacturing	100	20	\N	\N	\N	\N	\N	\N	\N	\N	\N	\N	\N	\N
+21109	Other professional occupations in physical sciences	Professional, Scientific, and Technical Services	52	10	Mining and Oil and Gas Extraction	48	10	\N	\N	\N	\N	\N	\N	\N	\N	\N
+40019	Other managers in public administration	Public Administration	100	300	\N	\N	\N	\N	\N	\N	\N	\N	\N	\N	\N	\N
+41310	Police investigators and other investigative occupations	Public Administration	100	270	\N	\N	\N	\N	\N	\N	\N	\N	\N	\N	\N	\N
+00010	Legislators	Public Administration	78	530	Health Care and Social Assistance	10	70	Educational Services	9	60	Repair, Personal and Non-Profit Services	2	10	Professional, Scientific, and Technical Services	1	10
+00018	Senior managers - public and private sector	Professional, Scientific, and Technical Services	51	5930	Finance, Insurance and Real Estate	13	1540	Construction	13	1460	Health Care and Social Assistance	12	1450	Manufacturing	11	1250
+10010	Financial managers	Professional, Scientific, and Technical Services	39	900	Finance, Insurance and Real Estate	22	500	Public Administration	18	410	Health Care and Social Assistance	11	250	Retail Trade	10	240
+10011	Human resources managers	Professional, Scientific, and Technical Services	36	660	Public Administration	21	390	Health Care and Social Assistance	19	340	Manufacturing	13	240	Retail Trade	11	210
+10012	Purchasing managers	Wholesale Trade	26	290	Manufacturing	21	240	Public Administration	18	210	Retail Trade	18	200	Professional, Scientific, and Technical Services	17	190
+10019	Other administrative services managers	Public Administration	84	2390	Professional, Scientific, and Technical Services	7.000000000000001	200	Health Care and Social Assistance	4	100	Accommodation and Food Services	3	90	Retail Trade	3	80
+10020	Insurance, real estate and financial brokerage managers	Finance, Insurance and Real Estate	96	3060	Construction	2	70	Professional, Scientific, and Technical Services	1	30	Business, Building and Other Support Services	0	10	Health Care and Social Assistance	0	10
+10021	Banking, credit and other investment managers	Finance, Insurance and Real Estate	80	2540	Retail Trade	13	410	Professional, Scientific, and Technical Services	5	150	Business, Building and Other Support Services	2	50	Wholesale Trade	2	50
+21103	Meteorologists and climatologists	Public Administration	83	30	Professional, Scientific, and Technical Services	9	0	Utilities	9	0	\N	\N	\N	\N	\N	\N
+10022	Advertising, marketing and public relations managers	Professional, Scientific, and Technical Services	60	2460	Retail Trade	17	710	Information, Culture and Recreation	11	430	Repair, Personal and Non-Profit Services	7.000000000000001	270	Manufacturing	5	220
+10029	Other business services managers	Professional, Scientific, and Technical Services	43	470	Business, Building and Other Support Services	28.999999999999996	330	Construction	10	110	Transportation and Warehousing	9	100	Information, Culture and Recreation	8	90
+10030	Telecommunication carriers managers	Information, Culture and Recreation	76	380	Professional, Scientific, and Technical Services	15	80	Construction	4	20	Retail Trade	2	10	Wholesale Trade	2	10
+11100	Financial auditors and accountants	Professional, Scientific, and Technical Services	66	5040	Public Administration	12	960	Finance, Insurance and Real Estate	10	790	Manufacturing	6	480	Retail Trade	5	390
+11101	Financial and investment analysts	Finance, Insurance and Real Estate	62	740	Public Administration	15	180	Professional, Scientific, and Technical Services	15	170	Health Care and Social Assistance	5	60	Retail Trade	3	40
+11102	Financial advisors	Finance, Insurance and Real Estate	87	3310	Professional, Scientific, and Technical Services	9	360	Health Care and Social Assistance	2	60	Public Administration	1	40	Retail Trade	1	30
+11103	Securities agents, investment dealers and brokers	Finance, Insurance and Real Estate	96	800	Professional, Scientific, and Technical Services	2	20	Retail Trade	1	0	Transportation and Warehousing	1	0	Construction	0	0
+11109	Other financial officers	Finance, Insurance and Real Estate	84	1050	Public Administration	9	110	Professional, Scientific, and Technical Services	5	60	Health Care and Social Assistance	1	20	Business, Building and Other Support Services	1	10
+11200	Human resources professionals	Professional, Scientific, and Technical Services	28.000000000000004	780	Public Administration	26	730	Health Care and Social Assistance	20	560	Repair, Personal and Non-Profit Services	16	440	Educational Services	9	240
+11201	Professional occupations in business management consulting	Professional, Scientific, and Technical Services	75	3350	Public Administration	8	350	Health Care and Social Assistance	6	290	Finance, Insurance and Real Estate	6	280	Information, Culture and Recreation	4	190
+22213	Land survey technologists and technicians	Professional, Scientific, and Technical Services	88	160	Public Administration	9	20	Construction	3	10	\N	\N	\N	\N	\N	\N
+11202	Professional occupations in advertising, marketing and public relations	Professional, Scientific, and Technical Services	62	3390	Information, Culture and Recreation	11	570	Retail Trade	10	520	Repair, Personal and Non-Profit Services	9	490	Educational Services	9	470
+12010	Supervisors, general office and administrative support workers	Health Care and Social Assistance	31	250	Public Administration	30	250	Transportation and Warehousing	17	140	Professional, Scientific, and Technical Services	13	110	Wholesale Trade	10	80
+12011	Supervisors, finance and insurance office workers	Finance, Insurance and Real Estate	37	200	Professional, Scientific, and Technical Services	23	130	Public Administration	18	100	Transportation and Warehousing	12	70	Retail Trade	10	50
+12012	Supervisors, library, correspondence and related information workers	Public Administration	80	210	Information, Culture and Recreation	12	30	Health Care and Social Assistance	4	10	Professional, Scientific, and Technical Services	2	10	Manufacturing	2	10
+12013	Supervisors, supply chain, tracking and scheduling coordination occupations	Transportation and Warehousing	30	380	Retail Trade	23	290	Wholesale Trade	23	290	Manufacturing	18	230	Public Administration	6	70
+12100	Executive assistants	Public Administration	30	560	Professional, Scientific, and Technical Services	26	480	Finance, Insurance and Real Estate	18	340	Health Care and Social Assistance	15	280	Educational Services	12	220
+12101	Human resources and recruitment officers	Professional, Scientific, and Technical Services	31	410	Business, Building and Other Support Services	28.000000000000004	370	Health Care and Social Assistance	21	280	Public Administration	13	170	Educational Services	7.000000000000001	90
+12102	Procurement and purchasing agents and officers	Public Administration	28.999999999999996	490	Manufacturing	23	380	Professional, Scientific, and Technical Services	20	330	Wholesale Trade	18	300	Construction	10	170
+12103	Conference and event planners	Repair, Personal and Non-Profit Services	34	270	Information, Culture and Recreation	28.999999999999996	230	Educational Services	13	100	Professional, Scientific, and Technical Services	13	100	Business, Building and Other Support Services	11	80
+12110	Court reporters, medical transcriptionists and related occupations	Business, Building and Other Support Services	52	290	Health Care and Social Assistance	32	180	Professional, Scientific, and Technical Services	9	50	Public Administration	5	30	Educational Services	2	10
+12111	Health information management occupations	Health Care and Social Assistance	85	250	Public Administration	10	30	Professional, Scientific, and Technical Services	4	10	Information, Culture and Recreation	1	0	\N	\N	\N
+12112	Records management technicians	Professional, Scientific, and Technical Services	43	30	Public Administration	34	30	Business, Building and Other Support Services	8	10	Utilities	8	10	Health Care and Social Assistance	7.000000000000001	10
+12113	Statistical officers and related research support occupations	Professional, Scientific, and Technical Services	63	80	Health Care and Social Assistance	17	20	Public Administration	9	10	Retail Trade	5	10	Finance, Insurance and Real Estate	5	10
+12200	Accounting technicians and bookkeepers	Professional, Scientific, and Technical Services	56.99999999999999	3900	Construction	15	1040	Retail Trade	10	700	Finance, Insurance and Real Estate	9	630	Health Care and Social Assistance	8	560
+12201	Insurance adjusters and claims examiners	Finance, Insurance and Real Estate	98	1530	Public Administration	1	20	Transportation and Warehousing	0	10	Health Care and Social Assistance	0	0	Repair, Personal and Non-Profit Services	0	0
+12203	Assessors, business valuators and appraisers	Finance, Insurance and Real Estate	59	360	Public Administration	24	150	Professional, Scientific, and Technical Services	10	60	Repair, Personal and Non-Profit Services	4	20	Retail Trade	3	20
+13100	Administrative officers	Health Care and Social Assistance	30	3550	Professional, Scientific, and Technical Services	24	2770	Educational Services	17	1920	Public Administration	15	1780	Construction	14.000000000000002	1630
+13101	Property administrators	Finance, Insurance and Real Estate	80	3290	Health Care and Social Assistance	7.000000000000001	280	Construction	5	220	Public Administration	4	160	Business, Building and Other Support Services	4	140
+13102	Payroll administrators	Professional, Scientific, and Technical Services	28.000000000000004	390	Health Care and Social Assistance	26	370	Public Administration	17	240	Retail Trade	15	220	Educational Services	13	190
+31112	Audiologists and speech-language pathologists	Health Care and Social Assistance	75	500	Educational Services	22	150	Retail Trade	2	20	Public Administration	1	0	\N	\N	\N
+13110	Administrative assistants	Health Care and Social Assistance	26	2060	Educational Services	24	1900	Professional, Scientific, and Technical Services	19	1540	Public Administration	17	1350	Finance, Insurance and Real Estate	14.000000000000002	1120
+13111	Legal administrative assistants	Professional, Scientific, and Technical Services	77	1820	Finance, Insurance and Real Estate	14.000000000000002	330	Public Administration	7.000000000000001	170	Repair, Personal and Non-Profit Services	1	30	Educational Services	1	20
+13112	Medical administrative assistants	Health Care and Social Assistance	96	1850	Professional, Scientific, and Technical Services	1	30	Public Administration	1	20	Retail Trade	1	20	Repair, Personal and Non-Profit Services	0	10
+13200	Customs, ship and other brokers	Transportation and Warehousing	91	260	Retail Trade	7.000000000000001	20	Wholesale Trade	1	0	Finance, Insurance and Real Estate	1	0	\N	\N	\N
+13201	Production and transportation logistics coordinators	Transportation and Warehousing	38	560	Manufacturing	20	300	Information, Culture and Recreation	16	240	Professional, Scientific, and Technical Services	13	190	Retail Trade	13	190
+14100	General office support workers	Health Care and Social Assistance	46	3360	Public Administration	22	1640	Professional, Scientific, and Technical Services	13	950	Educational Services	10	710	Retail Trade	10	700
+14101	Receptionists	Health Care and Social Assistance	74	5570	Repair, Personal and Non-Profit Services	8	590	Professional, Scientific, and Technical Services	8	590	Retail Trade	6	430	Information, Culture and Recreation	4	300
+14102	Personnel clerks	Health Care and Social Assistance	52	250	Public Administration	18	90	Educational Services	14.000000000000002	70	Business, Building and Other Support Services	9	40	Professional, Scientific, and Technical Services	7.000000000000001	40
+40041	Fire chiefs and senior firefighting officers	Public Administration	100	380	\N	\N	\N	\N	\N	\N	\N	\N	\N	\N	\N	\N
+14110	Survey interviewers and statistical clerks	Public Administration	71	310	Professional, Scientific, and Technical Services	17	80	Business, Building and Other Support Services	6	30	Utilities	5	20	Health Care and Social Assistance	2	10
+14111	Data entry clerks	Health Care and Social Assistance	33	260	Professional, Scientific, and Technical Services	26	200	Public Administration	17	130	Finance, Insurance and Real Estate	12	100	Retail Trade	12	100
+14112	Desktop publishing operators and related occupations	Transportation and Warehousing	49	10	Manufacturing	37	0	Information, Culture and Recreation	14.000000000000002	0	\N	\N	\N	\N	\N	\N
+14200	Accounting and related clerks	Professional, Scientific, and Technical Services	42	2090	Retail Trade	16	790	Wholesale Trade	14.000000000000002	720	Construction	14.000000000000002	710	Finance, Insurance and Real Estate	14.000000000000002	690
+14201	Banking, insurance and other financial clerks	Finance, Insurance and Real Estate	93	690	Public Administration	4	30	Professional, Scientific, and Technical Services	1	10	Business, Building and Other Support Services	1	10	Repair, Personal and Non-Profit Services	1	10
+14202	Collection clerks	Business, Building and Other Support Services	27	80	Professional, Scientific, and Technical Services	22	70	Finance, Insurance and Real Estate	18	60	Public Administration	17	50	Wholesale Trade	16	50
+14300	Library assistants and clerks	Information, Culture and Recreation	96	350	Professional, Scientific, and Technical Services	2	10	Educational Services	1	0	\N	\N	\N	\N	\N	\N
+14301	Correspondence, publication and regulatory clerks	Public Administration	53	420	Health Care and Social Assistance	16	130	Professional, Scientific, and Technical Services	14.000000000000002	110	Transportation and Warehousing	9	70	Finance, Insurance and Real Estate	7.000000000000001	60
+14400	Shippers and receivers	Retail Trade	39	1600	Wholesale Trade	25	1030	Manufacturing	18	710	Transportation and Warehousing	14.000000000000002	570	Professional, Scientific, and Technical Services	4	150
+14401	Storekeepers and partspersons	Retail Trade	50	810	Wholesale Trade	28.999999999999996	480	Health Care and Social Assistance	8	140	Manufacturing	7.000000000000001	110	Repair, Personal and Non-Profit Services	6	90
+21310	Electrical and electronics engineers	Professional, Scientific, and Technical Services	73	1920	Manufacturing	10	270	Utilities	9	240	Wholesale Trade	4	100	Construction	4	100
+14402	Production logistics workers	Health Care and Social Assistance	32	100	Professional, Scientific, and Technical Services	21	60	Manufacturing	18	50	Retail Trade	15	40	Transportation and Warehousing	14.000000000000002	40
+14403	Purchasing and inventory control workers	Retail Trade	42	510	Wholesale Trade	19	230	Manufacturing	19	230	Health Care and Social Assistance	12	140	Professional, Scientific, and Technical Services	8	100
+14404	Dispatchers	Public Administration	39	370	Transportation and Warehousing	36	350	Health Care and Social Assistance	12	110	Construction	7.000000000000001	60	Business, Building and Other Support Services	6	60
+14405	Transportation route and crew schedulers	Transportation and Warehousing	76	130	Health Care and Social Assistance	12	20	Professional, Scientific, and Technical Services	6	10	Business, Building and Other Support Services	4	10	Public Administration	2	0
+20010	Engineering managers	Professional, Scientific, and Technical Services	72	1510	Manufacturing	14.000000000000002	280	Public Administration	7.000000000000001	140	Transportation and Warehousing	4	80	Construction	3	70
+20011	Architecture and science managers	Professional, Scientific, and Technical Services	54	490	Public Administration	14.000000000000002	120	Educational Services	13	120	Manufacturing	10	90	Health Care and Social Assistance	9	80
+20012	Computer and information systems managers	Professional, Scientific, and Technical Services	82	6240	Information, Culture and Recreation	6	490	Public Administration	5	350	Retail Trade	4	340	Educational Services	3	220
+21100	Physicists and astronomers	Professional, Scientific, and Technical Services	62	110	Health Care and Social Assistance	19	30	Public Administration	10	20	Educational Services	6	10	Manufacturing	3	10
+21101	Chemists	Professional, Scientific, and Technical Services	52	290	Manufacturing	19	110	Health Care and Social Assistance	14.000000000000002	80	Public Administration	10	50	Wholesale Trade	6	30
+21102	Geoscientists and oceanographers	Professional, Scientific, and Technical Services	62	610	Mining and Oil and Gas Extraction	31	300	Public Administration	6	50	Construction	1	10	Manufacturing	1	10
+21110	Biologists and related scientists	Professional, Scientific, and Technical Services	55.00000000000001	860	Public Administration	21	340	Health Care and Social Assistance	10	160	Manufacturing	9	150	Educational Services	5	70
+21111	Forestry professionals	Professional, Scientific, and Technical Services	42	310	Forestry and Logging with Support Activities	28.999999999999996	220	Public Administration	19	140	Manufacturing	9	70	Educational Services	1	10
+21112	Agricultural representatives, consultants and specialists	Professional, Scientific, and Technical Services	45	50	Public Administration	21	20	Agriculture and Fishing	16	20	Wholesale Trade	9	10	Business, Building and Other Support Services	8	10
+21120	Public and environmental health and safety professionals	Public Administration	33	250	Health Care and Social Assistance	31	240	Professional, Scientific, and Technical Services	22	170	Manufacturing	9	70	Mining and Oil and Gas Extraction	6	50
+21200	Architects	Professional, Scientific, and Technical Services	96	1460	Construction	2	30	Public Administration	1	10	Finance, Insurance and Real Estate	1	10	Retail Trade	0	10
+21201	Landscape architects	Professional, Scientific, and Technical Services	92	120	Public Administration	7.000000000000001	10	Business, Building and Other Support Services	1	0	\N	\N	\N	\N	\N	\N
+21202	Urban and land use planners	Public Administration	57.99999999999999	560	Professional, Scientific, and Technical Services	27	260	Transportation and Warehousing	7.000000000000001	70	Information, Culture and Recreation	4	40	Construction	4	40
+21203	Land surveyors	Professional, Scientific, and Technical Services	85	410	Construction	9	40	Public Administration	5	30	Repair, Personal and Non-Profit Services	1	0	Utilities	1	0
+21210	Mathematicians, statisticians and actuaries	Professional, Scientific, and Technical Services	43	100	Health Care and Social Assistance	17	40	Finance, Insurance and Real Estate	16	40	Educational Services	12	30	Public Administration	11	30
+21211	Data scientists	Professional, Scientific, and Technical Services	85	650	Finance, Insurance and Real Estate	6	50	Information, Culture and Recreation	4	30	Public Administration	3	20	Retail Trade	3	20
+32101	Licensed practical nurses	Health Care and Social Assistance	99	4220	Retail Trade	1	20	Public Administration	0	20	Educational Services	0	10	Repair, Personal and Non-Profit Services	0	0
+21220	Cybersecurity specialists	Professional, Scientific, and Technical Services	77	500	Public Administration	9	60	Finance, Insurance and Real Estate	6	40	Information, Culture and Recreation	5	30	Business, Building and Other Support Services	3	20
+21221	Business systems specialists	Professional, Scientific, and Technical Services	66	1130	Public Administration	11	180	Health Care and Social Assistance	10	170	Finance, Insurance and Real Estate	6	110	Information, Culture and Recreation	6	100
+21222	Information systems specialists	Professional, Scientific, and Technical Services	83	6980	Public Administration	6	480	Health Care and Social Assistance	5	440	Information, Culture and Recreation	3	260	Finance, Insurance and Real Estate	3	210
+21223	Database analysts and data administrators	Professional, Scientific, and Technical Services	67	720	Public Administration	14.000000000000002	150	Information, Culture and Recreation	7.000000000000001	80	Educational Services	6	60	Retail Trade	6	60
+21230	Computer systems developers and programmers	Professional, Scientific, and Technical Services	85	1830	Public Administration	5	110	Information, Culture and Recreation	4	90	Retail Trade	3	60	Finance, Insurance and Real Estate	3	50
+21231	Software engineers and designers	Professional, Scientific, and Technical Services	86	10280	Retail Trade	6	720	Information, Culture and Recreation	4	450	Wholesale Trade	3	350	Manufacturing	1	140
+21232	Software developers and programmers	Professional, Scientific, and Technical Services	93	8710	Information, Culture and Recreation	3	250	Retail Trade	2	200	Wholesale Trade	1	110	Finance, Insurance and Real Estate	1	110
+21233	Web designers	Professional, Scientific, and Technical Services	94	1600	Retail Trade	4	60	Educational Services	1	20	Health Care and Social Assistance	1	10	Public Administration	1	10
+21234	Web developers and programmers	Professional, Scientific, and Technical Services	93	4660	Retail Trade	3	170	Information, Culture and Recreation	1	70	Educational Services	1	60	Public Administration	1	50
+21300	Civil engineers	Professional, Scientific, and Technical Services	76	2930	Public Administration	11	410	Construction	8	330	Utilities	3	130	Transportation and Warehousing	2	60
+73202	Pest controllers and fumigators	Business, Building and Other Support Services	100	210	\N	\N	\N	\N	\N	\N	\N	\N	\N	\N	\N	\N
+21311	Computer engineers (except software engineers and designers)	Professional, Scientific, and Technical Services	80	1180	Information, Culture and Recreation	9	140	Wholesale Trade	4	60	Manufacturing	3	50	Public Administration	3	40
+21320	Chemical engineers	Professional, Scientific, and Technical Services	60	190	Manufacturing	30	90	Public Administration	4	10	Mining and Oil and Gas Extraction	3	10	Wholesale Trade	3	10
+21321	Industrial and manufacturing engineers	Professional, Scientific, and Technical Services	55.00000000000001	250	Manufacturing	33	150	Wholesale Trade	5	20	Retail Trade	4	20	Construction	4	20
+21322	Metallurgical and materials engineers	Professional, Scientific, and Technical Services	69	70	Manufacturing	20	20	Mining and Oil and Gas Extraction	9	10	Educational Services	3	0	\N	\N	\N
+21330	Mining engineers	Professional, Scientific, and Technical Services	56.99999999999999	110	Mining and Oil and Gas Extraction	37	70	Business, Building and Other Support Services	4	10	Wholesale Trade	1	0	Manufacturing	1	0
+21331	Geological engineers	Professional, Scientific, and Technical Services	97	410	Public Administration	2	10	Mining and Oil and Gas Extraction	1	10	\N	\N	\N	\N	\N	\N
+21332	Petroleum engineers	Professional, Scientific, and Technical Services	63	30	Mining and Oil and Gas Extraction	37	20	\N	\N	\N	\N	\N	\N	\N	\N	\N
+21390	Aerospace engineers	Manufacturing	43	50	Transportation and Warehousing	34	40	Professional, Scientific, and Technical Services	20	20	Public Administration	3	0	\N	\N	\N
+21399	Other professional engineers	Transportation and Warehousing	41	210	Professional, Scientific, and Technical Services	38	200	Public Administration	9	50	Manufacturing	7.000000000000001	40	Health Care and Social Assistance	5	30
+22100	Chemical technologists and technicians	Professional, Scientific, and Technical Services	49	160	Manufacturing	37	120	Retail Trade	5	20	Educational Services	4	10	Public Administration	4	10
+85102	Aquaculture and marine harvest labourers	Agriculture and Fishing	86	80	Manufacturing	8	10	Public Administration	5	10	\N	\N	\N	\N	\N	\N
+22101	Geological and mineral technologists and technicians	Mining and Oil and Gas Extraction	45	210	Professional, Scientific, and Technical Services	42	190	Manufacturing	6	30	Public Administration	5	20	Construction	2	10
+22110	Biological technologists and technicians	Public Administration	32	110	Professional, Scientific, and Technical Services	31	100	Agriculture and Fishing	24	80	Manufacturing	11	40	Educational Services	3	10
+22111	Agricultural and fish products inspectors	Public Administration	60	110	Professional, Scientific, and Technical Services	17	30	Manufacturing	10	20	Wholesale Trade	9	20	Transportation and Warehousing	5	10
+22112	Forestry technologists and technicians	Forestry and Logging with Support Activities	36	190	Professional, Scientific, and Technical Services	36	190	Public Administration	21	110	Manufacturing	4	20	Information, Culture and Recreation	2	10
+22113	Conservation and fishery officers	Public Administration	76	210	Information, Culture and Recreation	11	30	Agriculture and Fishing	9	30	Repair, Personal and Non-Profit Services	2	10	Educational Services	1	0
+22114	Landscape and horticulture technicians and specialists	Business, Building and Other Support Services	54	730	Information, Culture and Recreation	19	250	Public Administration	14.000000000000002	180	Professional, Scientific, and Technical Services	10	130	Agriculture and Fishing	4	50
+22210	Architectural technologists and technicians	Professional, Scientific, and Technical Services	93	680	Construction	4	30	Public Administration	1	10	Accommodation and Food Services	1	10	Educational Services	1	0
+22211	Industrial designers	Professional, Scientific, and Technical Services	77	440	Retail Trade	10	60	Manufacturing	9	50	Construction	2	10	Wholesale Trade	2	10
+22212	Drafting technologists and technicians	Professional, Scientific, and Technical Services	82	1240	Construction	8	130	Manufacturing	6	100	Utilities	2	30	Wholesale Trade	2	30
+22214	Technical occupations in geomatics and meteorology	Professional, Scientific, and Technical Services	57.99999999999999	420	Public Administration	35	250	Forestry and Logging with Support Activities	2	20	Utilities	2	20	Transportation and Warehousing	2	20
+22220	Computer network and web technicians	Professional, Scientific, and Technical Services	71	2460	Educational Services	8	290	Information, Culture and Recreation	7.000000000000001	250	Public Administration	7.000000000000001	250	Health Care and Social Assistance	6	190
+22221	User support technicians	Professional, Scientific, and Technical Services	78	2700	Information, Culture and Recreation	7.000000000000001	260	Public Administration	6	200	Educational Services	6	200	Retail Trade	4	120
+22222	Information systems testing technicians	Professional, Scientific, and Technical Services	92	700	Information, Culture and Recreation	3	30	Finance, Insurance and Real Estate	2	20	Wholesale Trade	2	10	Health Care and Social Assistance	1	10
+22230	Non-destructive testers and inspectors	Professional, Scientific, and Technical Services	72	150	Mining and Oil and Gas Extraction	14.000000000000002	30	Manufacturing	6	10	Construction	5	10	Transportation and Warehousing	3	10
+22231	Engineering inspectors and regulatory officers	Professional, Scientific, and Technical Services	38	80	Public Administration	31	70	Manufacturing	17	40	Transportation and Warehousing	8	20	Utilities	6	10
+22232	Occupational health and safety specialists	Professional, Scientific, and Technical Services	30	190	Public Administration	20	130	Construction	19	120	Finance, Insurance and Real Estate	17	100	Health Care and Social Assistance	14.000000000000002	90
+22233	Construction inspectors	Professional, Scientific, and Technical Services	41	450	Public Administration	28.999999999999996	310	Construction	24	260	Mining and Oil and Gas Extraction	4	40	Finance, Insurance and Real Estate	4	40
+22300	Civil engineering technologists and technicians	Professional, Scientific, and Technical Services	69	730	Public Administration	20	210	Construction	7.000000000000001	80	Utilities	3	30	Business, Building and Other Support Services	1	10
+22301	Mechanical engineering technologists and technicians	Professional, Scientific, and Technical Services	52	580	Manufacturing	27	300	Construction	10	110	Transportation and Warehousing	6	70	Wholesale Trade	4	50
+22302	Industrial engineering and manufacturing technologists and technicians	Manufacturing	50	230	Professional, Scientific, and Technical Services	26	120	Construction	11	50	Public Administration	7.000000000000001	30	Wholesale Trade	6	30
+22303	Construction estimators	Construction	73	780	Professional, Scientific, and Technical Services	13	140	Manufacturing	7.000000000000001	70	Wholesale Trade	4	50	Retail Trade	3	30
+22310	Electrical and electronics engineering technologists and technicians	Professional, Scientific, and Technical Services	38	560	Health Care and Social Assistance	21	310	Manufacturing	18	260	Construction	14.000000000000002	200	Utilities	10	140
+22311	Electronic service technicians (household and business equipment)	Professional, Scientific, and Technical Services	37	800	Retail Trade	19	410	Repair, Personal and Non-Profit Services	18	390	Wholesale Trade	15	330	Business, Building and Other Support Services	12	270
+22312	Industrial instrument technicians and mechanics	Mining and Oil and Gas Extraction	40	80	Manufacturing	28.000000000000004	60	Professional, Scientific, and Technical Services	18	40	Construction	9	20	Public Administration	5	10
+22313	Aircraft instrument, electrical and avionics mechanics, technicians and inspectors	Transportation and Warehousing	72	200	Manufacturing	16	50	Public Administration	9	20	Professional, Scientific, and Technical Services	2	10	\N	\N	\N
+30010	Managers in health care	Health Care and Social Assistance	99	3630	Public Administration	0	10	Professional, Scientific, and Technical Services	0	10	Wholesale Trade	0	10	Repair, Personal and Non-Profit Services	0	0
+31100	Specialists in clinical and laboratory medicine	Health Care and Social Assistance	100	2510	Manufacturing	0	0	\N	\N	\N	\N	\N	\N	\N	\N	\N
+31101	Specialists in surgery	Health Care and Social Assistance	99	760	Educational Services	1	0	\N	\N	\N	\N	\N	\N	\N	\N	\N
+31102	General practitioners and family physicians	Health Care and Social Assistance	99	3590	Educational Services	1	40	Professional, Scientific, and Technical Services	0	10	\N	\N	\N	\N	\N	\N
+31103	Veterinarians	Professional, Scientific, and Technical Services	93	530	Public Administration	6	40	Agriculture and Fishing	1	0	\N	\N	\N	\N	\N	\N
+31110	Dentists	Health Care and Social Assistance	100	1590	Educational Services	0	0	Public Administration	0	0	\N	\N	\N	\N	\N	\N
+31111	Optometrists	Health Care and Social Assistance	96	380	Retail Trade	4	10	\N	\N	\N	\N	\N	\N	\N	\N	\N
+31120	Pharmacists	Retail Trade	70	1660	Health Care and Social Assistance	28.000000000000004	670	Professional, Scientific, and Technical Services	1	30	Public Administration	1	20	Manufacturing	0	10
+31121	Dietitians and nutritionists	Health Care and Social Assistance	90	600	Retail Trade	4	20	Professional, Scientific, and Technical Services	3	20	Wholesale Trade	2	10	Accommodation and Food Services	1	10
+31200	Psychologists	Health Care and Social Assistance	78	670	Educational Services	17	150	Public Administration	3	30	Professional, Scientific, and Technical Services	2	10	Repair, Personal and Non-Profit Services	0	0
+31201	Chiropractors	Health Care and Social Assistance	99	630	Construction	1	0	\N	\N	\N	\N	\N	\N	\N	\N	\N
+31202	Physiotherapists	Health Care and Social Assistance	99	1920	Educational Services	1	10	Information, Culture and Recreation	0	10	Repair, Personal and Non-Profit Services	0	0	Finance, Insurance and Real Estate	0	0
+31203	Occupational therapists	Health Care and Social Assistance	97	1180	Educational Services	2	30	Finance, Insurance and Real Estate	1	10	Professional, Scientific, and Technical Services	0	0	\N	\N	\N
+31204	Kinesiologists and other professional occupations in therapy and assessment	Health Care and Social Assistance	87	530	Information, Culture and Recreation	10	60	Educational Services	2	10	Repair, Personal and Non-Profit Services	1	0	Finance, Insurance and Real Estate	1	0
+31209	Other professional occupations in health diagnosing and treating	Health Care and Social Assistance	100	370	\N	\N	\N	\N	\N	\N	\N	\N	\N	\N	\N	\N
+31300	Nursing coordinators and supervisors	Health Care and Social Assistance	100	1180	\N	\N	\N	\N	\N	\N	\N	\N	\N	\N	\N	\N
+31301	Registered nurses and registered psychiatric nurses	Health Care and Social Assistance	98	24150	Public Administration	1	190	Educational Services	0	100	Professional, Scientific, and Technical Services	0	70	Repair, Personal and Non-Profit Services	0	70
+31302	Nurse practitioners	Health Care and Social Assistance	99	290	Educational Services	1	0	\N	\N	\N	\N	\N	\N	\N	\N	\N
+31303	Physician assistants, midwives and allied health professionals	Health Care and Social Assistance	91	110	Educational Services	7.000000000000001	10	Public Administration	2	0	\N	\N	\N	\N	\N	\N
+32102	Paramedical occupations	Health Care and Social Assistance	95	1380	Public Administration	3	40	Wholesale Trade	1	10	Educational Services	1	10	Transportation and Warehousing	1	10
+32103	Respiratory therapists, clinical perfusionists and cardiopulmonary technologists	Health Care and Social Assistance	98	780	Retail Trade	1	10	Information, Culture and Recreation	1	0	Wholesale Trade	0	0	\N	\N	\N
+32104	Animal health technologists and veterinary technicians	Professional, Scientific, and Technical Services	97	760	Educational Services	1	10	Repair, Personal and Non-Profit Services	1	10	Public Administration	0	0	Health Care and Social Assistance	0	0
+32109	Other technical occupations in therapy and assessment	Health Care and Social Assistance	89	790	Retail Trade	7.000000000000001	60	Educational Services	3	30	Professional, Scientific, and Technical Services	1	10	Business, Building and Other Support Services	0	0
+32110	Denturists	Health Care and Social Assistance	96	70	Manufacturing	4	0	\N	\N	\N	\N	\N	\N	\N	\N	\N
+32111	Dental hygienists and dental therapists	Health Care and Social Assistance	99	1540	Accommodation and Food Services	0	0	Business, Building and Other Support Services	0	0	Educational Services	0	0	Repair, Personal and Non-Profit Services	0	0
+32112	Dental technologists and technicians	Health Care and Social Assistance	56.99999999999999	190	Manufacturing	37	130	Wholesale Trade	6	20	\N	\N	\N	\N	\N	\N
+32120	Medical laboratory technologists	Health Care and Social Assistance	98	1400	Professional, Scientific, and Technical Services	1	20	Educational Services	0	0	Public Administration	0	0	Manufacturing	0	0
+32121	Medical radiation technologists	Health Care and Social Assistance	99	1360	Wholesale Trade	1	10	Professional, Scientific, and Technical Services	0	0	Public Administration	0	0	Educational Services	0	0
+32122	Medical sonographers	Health Care and Social Assistance	99	460	Professional, Scientific, and Technical Services	1	0	\N	\N	\N	\N	\N	\N	\N	\N	\N
+32123	Cardiology technologists and electrophysiological diagnostic technologists	Health Care and Social Assistance	100	310	\N	\N	\N	\N	\N	\N	\N	\N	\N	\N	\N	\N
+32124	Pharmacy technicians	Retail Trade	56.99999999999999	630	Health Care and Social Assistance	43	470	\N	\N	\N	\N	\N	\N	\N	\N	\N
+32129	Other medical technologists and technicians	Health Care and Social Assistance	69	100	Manufacturing	19	30	Accommodation and Food Services	9	10	Retail Trade	4	10	\N	\N	\N
+32200	Traditional Chinese medicine practitioners and acupuncturists	Health Care and Social Assistance	95	550	Repair, Personal and Non-Profit Services	3	10	Retail Trade	1	10	Educational Services	1	0	Business, Building and Other Support Services	0	0
+32201	Massage therapists	Health Care and Social Assistance	86	2360	Repair, Personal and Non-Profit Services	11	300	Accommodation and Food Services	1	30	Educational Services	1	30	Professional, Scientific, and Technical Services	0	10
+32209	Other practitioners of natural healing	Health Care and Social Assistance	77	280	Repair, Personal and Non-Profit Services	10	40	Retail Trade	10	40	Information, Culture and Recreation	2	10	Professional, Scientific, and Technical Services	1	0
+33100	Dental assistants and dental laboratory assistants	Health Care and Social Assistance	98	2250	Manufacturing	1	30	Educational Services	0	10	Business, Building and Other Support Services	0	10	Construction	0	10
+33101	Medical laboratory assistants and related technical occupations	Health Care and Social Assistance	97	1570	Professional, Scientific, and Technical Services	2	30	Educational Services	0	10	Retail Trade	0	0	Information, Culture and Recreation	0	0
+33102	Nurse aides, orderlies and patient service associates	Health Care and Social Assistance	95	20960	Repair, Personal and Non-Profit Services	4	970	Transportation and Warehousing	0	70	Business, Building and Other Support Services	0	60	Information, Culture and Recreation	0	60
+33103	Pharmacy technical assistants and pharmacy assistants	Retail Trade	93	1130	Health Care and Social Assistance	7.000000000000001	80	Professional, Scientific, and Technical Services	0	0	Business, Building and Other Support Services	0	0	Manufacturing	0	0
+33109	Other assisting occupations in support of health services	Health Care and Social Assistance	94	2110	Retail Trade	3	70	Professional, Scientific, and Technical Services	1	20	Business, Building and Other Support Services	1	20	Wholesale Trade	1	20
+40010	Government managers - health and social policy development and program administration	Public Administration	94	560	Health Care and Social Assistance	5	30	Professional, Scientific, and Technical Services	1	10	\N	\N	\N	\N	\N	\N
+40011	Government managers - economic analysis, policy development and program administration	Public Administration	94	790	Professional, Scientific, and Technical Services	2	10	Business, Building and Other Support Services	2	10	Educational Services	1	10	Wholesale Trade	1	10
+40012	Government managers - education policy development and program administration	Public Administration	89	100	Educational Services	11	10	\N	\N	\N	\N	\N	\N	\N	\N	\N
+40020	Administrators - post-secondary education and vocational training	Educational Services	95	1530	Repair, Personal and Non-Profit Services	2	20	Professional, Scientific, and Technical Services	1	20	Public Administration	1	20	Health Care and Social Assistance	1	10
+40021	School principals and administrators of elementary and secondary education	Educational Services	100	2570	\N	\N	\N	\N	\N	\N	\N	\N	\N	\N	\N	\N
+40030	Managers in social, community and correctional services	Health Care and Social Assistance	71	2020	Repair, Personal and Non-Profit Services	15	420	Public Administration	9	240	Educational Services	3	90	Professional, Scientific, and Technical Services	2	50
+40040	Commissioned police officers and related occupations in public protection services	Public Administration	100	120	\N	\N	\N	\N	\N	\N	\N	\N	\N	\N	\N	\N
+40042	Commissioned officers of the Canadian Armed Forces	Public Administration	98	590	Health Care and Social Assistance	1	10	Business, Building and Other Support Services	1	0	\N	\N	\N	\N	\N	\N
+41100	Judges	Public Administration	97	180	Professional, Scientific, and Technical Services	3	10	\N	\N	\N	\N	\N	\N	\N	\N	\N
+41101	Lawyers and Quebec notaries	Professional, Scientific, and Technical Services	83	3260	Public Administration	12	460	Finance, Insurance and Real Estate	3	100	Repair, Personal and Non-Profit Services	2	80	Health Care and Social Assistance	1	30
+41200	University professors and lecturers	Educational Services	100	4150	Public Administration	0	20	\N	\N	\N	\N	\N	\N	\N	\N	\N
+41201	Post-secondary teaching and research assistants	Educational Services	92	2150	Professional, Scientific, and Technical Services	4	90	Health Care and Social Assistance	3	70	Public Administration	1	10	Retail Trade	0	10
+41210	College and other vocational instructors	Educational Services	80	4040	Health Care and Social Assistance	8	400	Professional, Scientific, and Technical Services	6	290	Public Administration	3	180	Repair, Personal and Non-Profit Services	3	130
+41220	Secondary school teachers	Educational Services	99	6960	Public Administration	0	30	Health Care and Social Assistance	0	10	Repair, Personal and Non-Profit Services	0	10	Manufacturing	0	0
+41221	Elementary school and kindergarten teachers	Educational Services	99	12540	Public Administration	0	30	Repair, Personal and Non-Profit Services	0	10	Health Care and Social Assistance	0	10	Professional, Scientific, and Technical Services	0	10
+41300	Social workers	Health Care and Social Assistance	75	2480	Public Administration	18	610	Finance, Insurance and Real Estate	4	120	Repair, Personal and Non-Profit Services	2	60	Educational Services	2	60
+41301	Therapists in counselling and related specialized therapies	Health Care and Social Assistance	94	3520	Public Administration	2	80	Professional, Scientific, and Technical Services	2	60	Educational Services	1	50	Repair, Personal and Non-Profit Services	1	40
+41302	Religious leaders	Repair, Personal and Non-Profit Services	95	1540	Health Care and Social Assistance	2	40	Professional, Scientific, and Technical Services	1	20	Public Administration	1	20	Educational Services	1	10
+41320	Educational counsellors	Educational Services	94	1670	Health Care and Social Assistance	3	50	Public Administration	2	30	Professional, Scientific, and Technical Services	1	30	Repair, Personal and Non-Profit Services	1	10
+41321	Career development practitioners and career counsellors (except education)	Health Care and Social Assistance	52	340	Business, Building and Other Support Services	27	180	Repair, Personal and Non-Profit Services	8	50	Finance, Insurance and Real Estate	7.000000000000001	50	Public Administration	6	40
+41400	Natural and applied science policy researchers, consultants and program officers	Professional, Scientific, and Technical Services	50	770	Public Administration	39	600	Repair, Personal and Non-Profit Services	5	70	Health Care and Social Assistance	4	60	Educational Services	3	50
+41401	Economists and economic policy researchers and analysts	Public Administration	44	240	Professional, Scientific, and Technical Services	28.999999999999996	160	Finance, Insurance and Real Estate	20	110	Health Care and Social Assistance	4	20	Educational Services	3	20
+41402	Business development officers and market researchers and analysts	Professional, Scientific, and Technical Services	66	990	Public Administration	8	130	Retail Trade	8	130	Manufacturing	8	130	Business, Building and Other Support Services	8	120
+41403	Social policy researchers, consultants and program officers	Public Administration	47	830	Professional, Scientific, and Technical Services	26	460	Health Care and Social Assistance	19	330	Repair, Personal and Non-Profit Services	6	100	Finance, Insurance and Real Estate	3	40
+41404	Health policy researchers, consultants and program officers	Health Care and Social Assistance	60	910	Public Administration	15	230	Professional, Scientific, and Technical Services	14.000000000000002	210	Repair, Personal and Non-Profit Services	7.000000000000001	100	Educational Services	4	60
+60030	Restaurant and food service managers	Accommodation and Food Services	94	9270	Information, Culture and Recreation	4	420	Retail Trade	1	80	Manufacturing	0	40	Health Care and Social Assistance	0	30
+41405	Education policy researchers, consultants and program officers	Educational Services	72	970	Public Administration	8	110	Health Care and Social Assistance	8	110	Professional, Scientific, and Technical Services	7.000000000000001	90	Repair, Personal and Non-Profit Services	4	60
+41406	Recreation, sports and fitness policy researchers, consultants and program officers	Information, Culture and Recreation	60	370	Health Care and Social Assistance	23	150	Public Administration	9	50	Repair, Personal and Non-Profit Services	4	20	Educational Services	4	20
+41407	Program officers unique to government	Public Administration	96	370	Transportation and Warehousing	1	10	Repair, Personal and Non-Profit Services	1	10	Professional, Scientific, and Technical Services	1	0	\N	\N	\N
+41409	Other professional occupations in social science	Professional, Scientific, and Technical Services	47	180	Public Administration	25	90	Health Care and Social Assistance	15	60	Information, Culture and Recreation	7.000000000000001	30	Educational Services	5	20
+42100	Police officers (except commissioned)	Public Administration	99	4320	Educational Services	0	10	Transportation and Warehousing	0	0	Wholesale Trade	0	0	Professional, Scientific, and Technical Services	0	0
+42101	Firefighters	Public Administration	96	1840	Transportation and Warehousing	2	40	Manufacturing	1	20	Construction	1	20	Retail Trade	0	10
+42200	Paralegals and related occupations	Public Administration	84	1450	Professional, Scientific, and Technical Services	15	250	Finance, Insurance and Real Estate	1	10	Educational Services	0	0	Repair, Personal and Non-Profit Services	0	0
+42201	Social and community service workers	Health Care and Social Assistance	84	12250	Public Administration	6	860	Repair, Personal and Non-Profit Services	5	690	Educational Services	4	600	Information, Culture and Recreation	1	130
+42202	Early childhood educators and assistants	Health Care and Social Assistance	86	10490	Educational Services	10	1230	Information, Culture and Recreation	2	230	Repair, Personal and Non-Profit Services	1	170	Public Administration	1	80
+42203	Instructors of persons with disabilities	Health Care and Social Assistance	69	430	Educational Services	28.000000000000004	180	Professional, Scientific, and Technical Services	1	10	Information, Culture and Recreation	1	0	Repair, Personal and Non-Profit Services	1	0
+42204	Religion workers	Repair, Personal and Non-Profit Services	73	270	Health Care and Social Assistance	18	70	Educational Services	6	20	Professional, Scientific, and Technical Services	2	10	Public Administration	1	0
+43100	Elementary and secondary school teacher assistants	Educational Services	99	7070	Health Care and Social Assistance	0	20	Public Administration	0	10	Accommodation and Food Services	0	10	Professional, Scientific, and Technical Services	0	0
+43109	Other instructors	Educational Services	92	2290	Professional, Scientific, and Technical Services	3	70	Health Care and Social Assistance	3	70	Business, Building and Other Support Services	2	40	Repair, Personal and Non-Profit Services	1	40
+43200	Sheriffs and bailiffs	Public Administration	84	170	Professional, Scientific, and Technical Services	10	20	Business, Building and Other Support Services	6	10	\N	\N	\N	\N	\N	\N
+43201	Correctional service officers	Public Administration	96	1180	Business, Building and Other Support Services	2	30	Health Care and Social Assistance	1	10	Repair, Personal and Non-Profit Services	1	10	\N	\N	\N
+43202	By-law enforcement and other regulatory officers	Public Administration	85	490	Repair, Personal and Non-Profit Services	6	40	Information, Culture and Recreation	5	30	Professional, Scientific, and Technical Services	2	10	Business, Building and Other Support Services	2	10
+43203	Border services, customs, and immigration officers	Public Administration	99	540	Professional, Scientific, and Technical Services	1	10	\N	\N	\N	\N	\N	\N	\N	\N	\N
 43204	Operations members of the Canadian Armed Forces	Public Administration	100	870	\N	\N	\N	\N	\N	\N	\N	\N	\N	\N	\N	\N
-44100	Home child care providers	Repair, Personal And Non-Profit Services	75	310	Health Care And Social Assistance	23	100	Educational Services	1	0	Professional, Scientific And Technical Services	0	0	Information, Culture And Recreation	0	0
-44101	Home support workers, caregivers and related occupations	Health Care And Social Assistance	89	3310	Repair, Personal And Non-Profit Services	8	310	Public Administration	1	40	Business, Building And Other Support Services	1	30	Professional, Scientific And Technical Services	1	30
+44100	Home child care providers	Repair, Personal and Non-Profit Services	75	310	Health Care and Social Assistance	23	100	Educational Services	1	0	Professional, Scientific, and Technical Services	0	0	Information, Culture and Recreation	0	0
+44101	Home support workers, caregivers and related occupations	Health Care and Social Assistance	89	3310	Repair, Personal and Non-Profit Services	8	310	Public Administration	1	40	Business, Building and Other Support Services	1	30	Professional, Scientific, and Technical Services	1	30
 44200	Primary combat members of the Canadian Armed Forces	Public Administration	100	70	\N	\N	\N	\N	\N	\N	\N	\N	\N	\N	\N	\N
 45100	Student monitors, crossing guards and related occupations	Educational Services	100	780	\N	\N	\N	\N	\N	\N	\N	\N	\N	\N	\N	\N
-50010	Library, archive, museum and art gallery managers	Information, Culture And Recreation	85	310	Retail Trade	11	40	Educational Services	2	10	Public Administration	2	10	Professional, Scientific And Technical Services	1	0
-50011	Managers - publishing, motion pictures, broadcasting and performing arts	Information, Culture And Recreation	81	640	Professional, Scientific And Technical Services	13	100	Educational Services	3	20	Repair, Personal And Non-Profit Services	1	10	Retail Trade	1	10
-50012	Recreation, sports and fitness program and service directors	Information, Culture And Recreation	81	910	Educational Services	6	70	Health Care And Social Assistance	5	60	Public Administration	4	50	Repair, Personal And Non-Profit Services	4	40
-51100	Librarians	Information, Culture And Recreation	100	250	\N	\N	\N	\N	\N	\N	\N	\N	\N	\N	\N	\N
-51101	Conservators and curators	Information, Culture And Recreation	84	100	Professional, Scientific And Technical Services	6	10	Public Administration	4	0	Retail Trade	4	0	Educational Services	2	0
-51102	Archivists	Public Administration	45	20	Information, Culture And Recreation	35	10	Educational Services	20	10	\N	\N	\N	\N	\N	\N
-51110	Editors	Information, Culture And Recreation	46	320	Professional, Scientific And Technical Services	26	180	Business, Building And Other Support Services	14.000000000000002	100	Educational Services	8	50	Public Administration	7.000000000000001	50
-51111	Authors and writers (except technical)	Information, Culture And Recreation	62	990	Professional, Scientific And Technical Services	27	440	Retail Trade	5	70	Educational Services	3	60	Repair, Personal And Non-Profit Services	3	40
-51112	Technical writers	Professional, Scientific And Technical Services	75	370	Educational Services	9	40	Information, Culture And Recreation	8	40	Manufacturing	5	20	Public Administration	4	20
-51113	Journalists	Information, Culture And Recreation	87	290	Professional, Scientific And Technical Services	5	20	Retail Trade	5	20	Educational Services	2	10	Business, Building And Other Support Services	1	0
-51114	Translators, terminologists and interpreters	Professional, Scientific And Technical Services	81	430	Educational Services	9	50	Public Administration	4	20	Business, Building And Other Support Services	3	20	Information, Culture And Recreation	3	10
-51120	Producers, directors, choreographers and related occupations	Information, Culture And Recreation	80	2270	Professional, Scientific And Technical Services	15	420	Educational Services	3	90	Repair, Personal And Non-Profit Services	1	30	Retail Trade	1	30
-51121	Conductors, composers and arrangers	Information, Culture And Recreation	69	130	Repair, Personal And Non-Profit Services	20	40	Educational Services	9	20	Retail Trade	2	0	\N	\N	\N
-51122	Musicians and singers	Educational Services	69	1410	Information, Culture And Recreation	26	540	Repair, Personal And Non-Profit Services	2	50	Retail Trade	2	40	Professional, Scientific And Technical Services	1	30
-52100	Library and public archive technicians	Educational Services	62	210	Information, Culture And Recreation	28.999999999999996	100	Public Administration	7.000000000000001	20	Professional, Scientific And Technical Services	3	10	\N	\N	\N
-52110	Film and video camera operators	Information, Culture And Recreation	80	330	Professional, Scientific And Technical Services	15	60	Educational Services	3	10	Business, Building And Other Support Services	1	0	Retail Trade	1	0
-52111	Graphic arts technicians	Information, Culture And Recreation	55.00000000000001	720	Professional, Scientific And Technical Services	42	550	Retail Trade	1	10	Manufacturing	1	10	Wholesale Trade	1	10
-52112	Broadcast technicians	Information, Culture And Recreation	100	40	\N	\N	\N	\N	\N	\N	\N	\N	\N	\N	\N	\N
-52113	Audio and video recording technicians	Information, Culture And Recreation	73	720	Professional, Scientific And Technical Services	15	140	Educational Services	7.000000000000001	70	Repair, Personal And Non-Profit Services	3	30	Retail Trade	2	20
-52114	Announcers and other broadcasters	Information, Culture And Recreation	84	90	Educational Services	6	10	Repair, Personal And Non-Profit Services	5	10	Professional, Scientific And Technical Services	5	0	\N	\N	\N
-52119	Other technical and coordinating occupations in motion pictures, broadcasting and the performing arts	Information, Culture And Recreation	66	1560	Health Care And Social Assistance	13	310	Professional, Scientific And Technical Services	13	300	Educational Services	4	100	Public Administration	4	100
-52120	Graphic designers and illustrators	Professional, Scientific And Technical Services	55.00000000000001	2920	Information, Culture And Recreation	36	1900	Retail Trade	5	250	Manufacturing	3	170	Wholesale Trade	2	100
-52121	Interior designers and interior decorators	Professional, Scientific And Technical Services	73	1170	Construction	13	210	Retail Trade	10	160	Manufacturing	3	40	Wholesale Trade	2	30
-53100	Registrars, restorers, interpreters and other occupations related to museum and art galleries	Information, Culture And Recreation	73	150	Public Administration	13	30	Business, Building And Other Support Services	6	10	Retail Trade	5	10	Educational Services	3	10
-53110	Photographers	Professional, Scientific And Technical Services	82	580	Information, Culture And Recreation	10	70	Retail Trade	5	40	Educational Services	2	10	Public Administration	1	10
-53111	Motion pictures, broadcasting, photography and performing arts assistants and operators	Information, Culture And Recreation	93	1550	Professional, Scientific And Technical Services	4	70	Repair, Personal And Non-Profit Services	1	20	Educational Services	1	10	Retail Trade	1	10
-53120	Dancers	Educational Services	84	300	Information, Culture And Recreation	16	60	\N	\N	\N	\N	\N	\N	\N	\N	\N
-53121	Actors, comedians and circus performers	Information, Culture And Recreation	90	1080	Educational Services	5	70	Professional, Scientific And Technical Services	4	50	Retail Trade	1	10	Health Care And Social Assistance	0	10
-63202	Bakers	Manufacturing	55.00000000000001	1840	Retail Trade	26	880	Accommodation And Food Services	17	550	Wholesale Trade	1	50	Professional, Scientific And Technical Services	1	20
-53122	Painters, sculptors and other visual artists	Information, Culture And Recreation	75	1100	Educational Services	14.000000000000002	210	Professional, Scientific And Technical Services	6	80	Retail Trade	4	60	Repair, Personal And Non-Profit Services	1	20
-53123	Theatre, fashion, exhibit and other creative designers	Information, Culture And Recreation	38	300	Retail Trade	30	240	Professional, Scientific And Technical Services	24	200	Manufacturing	6	40	Wholesale Trade	2	20
-53124	Artisans and craftspersons	Information, Culture And Recreation	39	440	Retail Trade	33	370	Manufacturing	19	210	Educational Services	5	60	Professional, Scientific And Technical Services	4	40
-53125	Patternmakers - textile, leather and fur products	Manufacturing	54	30	Retail Trade	23	10	Repair, Personal And Non-Profit Services	12	10	Professional, Scientific And Technical Services	11	10	\N	\N	\N
-53200	Athletes	Information, Culture And Recreation	98	200	Educational Services	2	0	\N	\N	\N	\N	\N	\N	\N	\N	\N
-53201	Coaches	Educational Services	43	430	Information, Culture And Recreation	39	400	Health Care And Social Assistance	7.000000000000001	70	Professional, Scientific And Technical Services	7.000000000000001	70	Repair, Personal And Non-Profit Services	3	30
-53202	Sports officials and referees	Information, Culture And Recreation	55.00000000000001	10	Educational Services	13	0	Public Administration	11	0	Repair, Personal And Non-Profit Services	10	0	Transportation And Warehousing	10	0
-54100	Program leaders and instructors in recreation, sport and fitness	Information, Culture And Recreation	63	2940	Educational Services	18	860	Health Care And Social Assistance	12	540	Repair, Personal And Non-Profit Services	5	260	Public Administration	2	90
-55109	Other performers	Information, Culture And Recreation	72	180	Professional, Scientific And Technical Services	18	40	Retail Trade	6	20	Repair, Personal And Non-Profit Services	2	10	Accommodation And Food Services	2	0
-60010	Corporate sales managers	Professional, Scientific And Technical Services	43	1870	Wholesale Trade	26	1120	Retail Trade	15	650	Manufacturing	10	440	Finance, Insurance And Real Estate	5	230
-60020	Retail and wholesale trade managers	Retail Trade	80	23440	Wholesale Trade	18	5440	Professional, Scientific And Technical Services	1	200	Repair, Personal And Non-Profit Services	1	170	Manufacturing	1	170
-60030	Restaurant and food service managers	Accommodation And Food Services	94	9270	Information, Culture And Recreation	4	420	Retail Trade	1	80	Manufacturing	0	40	Health Care And Social Assistance	0	30
-60031	Accommodation service managers	Accommodation And Food Services	93	3090	Information, Culture And Recreation	3	90	Health Care And Social Assistance	2	80	Business, Building And Other Support Services	1	40	Finance, Insurance And Real Estate	1	30
-60040	Managers in customer and personal services	Repair, Personal And Non-Profit Services	49	1000	Business, Building And Other Support Services	28.999999999999996	590	Educational Services	10	210	Information, Culture And Recreation	9	180	Retail Trade	3	60
-62010	Retail sales supervisors	Retail Trade	91	2910	Wholesale Trade	4	130	Information, Culture And Recreation	2	60	Accommodation And Food Services	1	50	Professional, Scientific And Technical Services	1	40
-62020	Food service supervisors	Accommodation And Food Services	90	2840	Health Care And Social Assistance	5	140	Retail Trade	3	90	Manufacturing	2	60	Wholesale Trade	1	30
-62021	Executive housekeepers	Accommodation And Food Services	89	150	Health Care And Social Assistance	4	10	Repair, Personal And Non-Profit Services	4	10	Business, Building And Other Support Services	3	0	\N	\N	\N
-62022	Accommodation, travel, tourism and related services supervisors	Accommodation And Food Services	54	160	Information, Culture And Recreation	24	70	Transportation And Warehousing	12	30	Business, Building And Other Support Services	9	30	Repair, Personal And Non-Profit Services	1	0
-62023	Customer and information services supervisors	Professional, Scientific And Technical Services	33	70	Finance, Insurance And Real Estate	20	40	Business, Building And Other Support Services	18	40	Retail Trade	16	40	Public Administration	12	30
-62024	Cleaning supervisors	Business, Building And Other Support Services	37	250	Accommodation And Food Services	36	250	Educational Services	12	80	Health Care And Social Assistance	11	80	Retail Trade	4	30
-62029	Other services supervisors	Business, Building And Other Support Services	54	220	Information, Culture And Recreation	21	80	Repair, Personal And Non-Profit Services	14.000000000000002	60	Public Administration	7.000000000000001	30	Retail Trade	4	20
-62100	Technical sales specialists - wholesale trade	Wholesale Trade	63	1650	Professional, Scientific And Technical Services	10	250	Retail Trade	9	250	Construction	9	240	Manufacturing	9	240
-62101	Retail and wholesale buyers	Retail Trade	61	1030	Wholesale Trade	23	390	Manufacturing	6	100	Professional, Scientific And Technical Services	6	100	Information, Culture And Recreation	5	80
-62200	Chefs	Accommodation And Food Services	86	4390	Health Care And Social Assistance	7.000000000000001	340	Manufacturing	4	190	Retail Trade	2	110	Information, Culture And Recreation	2	100
-62201	Funeral directors and embalmers	Repair, Personal And Non-Profit Services	100	160	\N	\N	\N	\N	\N	\N	\N	\N	\N	\N	\N	\N
-62202	Jewellers, jewellery and watch repairers and related occupations	Retail Trade	66	150	Repair, Personal And Non-Profit Services	12	30	Manufacturing	11	30	Professional, Scientific And Technical Services	6	10	Information, Culture And Recreation	5	10
-63100	Insurance agents and brokers	Finance, Insurance And Real Estate	98	4610	Professional, Scientific And Technical Services	1	70	Retail Trade	0	20	Business, Building And Other Support Services	0	10	Transportation And Warehousing	0	10
-63101	Real estate agents and salespersons	Finance, Insurance And Real Estate	99	6360	Professional, Scientific And Technical Services	0	30	Retail Trade	0	20	Wholesale Trade	0	20	Educational Services	0	20
-63102	Financial sales representatives	Finance, Insurance And Real Estate	92	1650	Professional, Scientific And Technical Services	3	60	Retail Trade	2	30	Wholesale Trade	2	30	Transportation And Warehousing	1	20
-63200	Cooks	Accommodation And Food Services	85	7160	Health Care And Social Assistance	10	880	Retail Trade	2	180	Information, Culture And Recreation	2	150	Manufacturing	1	100
-63201	Butchers - retail and wholesale	Retail Trade	82	240	Wholesale Trade	15	40	Accommodation And Food Services	2	0	Business, Building And Other Support Services	1	0	Agriculture And Fishing	0	0
-63210	Hairstylists and barbers	Repair, Personal And Non-Profit Services	98	4360	Business, Building And Other Support Services	1	30	Professional, Scientific And Technical Services	1	30	Retail Trade	0	20	Health Care And Social Assistance	0	10
-63211	Estheticians, electrologists and related occupations	Repair, Personal And Non-Profit Services	91	2670	Retail Trade	6	160	Health Care And Social Assistance	2	60	Professional, Scientific And Technical Services	1	30	Accommodation And Food Services	1	30
-63220	Shoe repairers and shoemakers	Repair, Personal And Non-Profit Services	59	40	Retail Trade	27	20	Manufacturing	14.000000000000002	10	\N	\N	\N	\N	\N	\N
-63221	Upholsterers	Repair, Personal And Non-Profit Services	68	90	Manufacturing	13	20	Transportation And Warehousing	11	10	Retail Trade	6	10	Construction	2	0
-64100	Retail salespersons and visual merchandisers	Retail Trade	83	21290	Wholesale Trade	6	1660	Information, Culture And Recreation	4	1110	Manufacturing	4	1070	Professional, Scientific And Technical Services	2	620
-64101	Sales and account representatives - wholesale trade (non-technical)	Wholesale Trade	59	1800	Manufacturing	17	530	Retail Trade	10	300	Professional, Scientific And Technical Services	8	250	Transportation And Warehousing	6	180
-64200	Tailors, dressmakers, furriers and milliners	Repair, Personal And Non-Profit Services	42	320	Retail Trade	26	200	Manufacturing	20	150	Information, Culture And Recreation	6	50	Professional, Scientific And Technical Services	6	40
-64201	Image, social and other personal consultants	Retail Trade	28.999999999999996	30	Repair, Personal And Non-Profit Services	24	20	Information, Culture And Recreation	17	20	Professional, Scientific And Technical Services	17	20	Health Care And Social Assistance	13	10
-64300	Maîtres d'hôtel and hosts/hostesses	Accommodation And Food Services	97	630	Information, Culture And Recreation	1	10	Educational Services	1	0	Health Care And Social Assistance	1	0	Professional, Scientific And Technical Services	0	0
-64301	Bartenders	Accommodation And Food Services	90	870	Information, Culture And Recreation	5	50	Manufacturing	3	30	Repair, Personal And Non-Profit Services	2	10	Retail Trade	1	10
-64310	Travel counsellors	Business, Building And Other Support Services	97	2090	Information, Culture And Recreation	1	30	Transportation And Warehousing	1	20	Accommodation And Food Services	1	20	Retail Trade	0	10
-64311	Pursers and flight attendants	Transportation And Warehousing	98	730	Retail Trade	1	10	Accommodation And Food Services	1	10	Information, Culture And Recreation	0	0	\N	\N	\N
-64312	Airline ticket and service agents	Transportation And Warehousing	93	1020	Business, Building And Other Support Services	4	50	Accommodation And Food Services	2	20	Wholesale Trade	1	10	Repair, Personal And Non-Profit Services	0	0
-64313	Ground and water transport ticket agents, cargo service representatives and related clerks	Transportation And Warehousing	82	140	Business, Building And Other Support Services	13	20	Professional, Scientific And Technical Services	3	10	Repair, Personal And Non-Profit Services	2	0	\N	\N	\N
-64314	Hotel front desk clerks	Accommodation And Food Services	100	1100	Educational Services	0	0	Agriculture And Fishing	0	0	\N	\N	\N	\N	\N	\N
-64320	Tour and travel guides	Business, Building And Other Support Services	74	120	Information, Culture And Recreation	14.000000000000002	20	Accommodation And Food Services	5	10	Transportation And Warehousing	4	10	Educational Services	3	0
-64321	Casino workers	Information, Culture And Recreation	100	190	\N	\N	\N	\N	\N	\N	\N	\N	\N	\N	\N	\N
-64322	Outdoor sport and recreational guides	Information, Culture And Recreation	40	50	Accommodation And Food Services	27	30	Agriculture And Fishing	16	20	Business, Building And Other Support Services	13	20	Transportation And Warehousing	3	0
-64400	Customer services representatives - financial institutions	Finance, Insurance And Real Estate	93	1190	Retail Trade	3	40	Information, Culture And Recreation	1	10	Public Administration	1	10	Accommodation And Food Services	1	10
-64401	Postal services representatives	Transportation And Warehousing	94	390	Public Administration	3	10	Finance, Insurance And Real Estate	1	10	Business, Building And Other Support Services	1	10	\N	\N	\N
-64409	Other customer and information services representatives	Retail Trade	30	1570	Professional, Scientific And Technical Services	23	1210	Information, Culture And Recreation	18	910	Business, Building And Other Support Services	15	770	Wholesale Trade	14.000000000000002	700
-64410	Security guards and related security service occupations	Business, Building And Other Support Services	77	2660	Information, Culture And Recreation	7.000000000000001	230	Retail Trade	6	210	Public Administration	5	190	Transportation And Warehousing	5	180
-65100	Cashiers	Retail Trade	77	8360	Accommodation And Food Services	17	1800	Finance, Insurance And Real Estate	2	240	Information, Culture And Recreation	2	230	Manufacturing	2	210
-65101	Service station attendants	Retail Trade	100	250	\N	\N	\N	\N	\N	\N	\N	\N	\N	\N	\N	\N
-65102	Store shelf stockers, clerks and order fillers	Retail Trade	92	6930	Wholesale Trade	4	290	Transportation And Warehousing	2	140	Manufacturing	2	120	Accommodation And Food Services	1	50
-65109	Other sales related occupations	Retail Trade	73	540	Professional, Scientific And Technical Services	11	80	Wholesale Trade	6	50	Information, Culture And Recreation	6	40	Business, Building And Other Support Services	5	40
-65200	Food and beverage servers	Accommodation And Food Services	95	5060	Information, Culture And Recreation	4	220	Health Care And Social Assistance	1	30	Manufacturing	0	20	Retail Trade	0	10
-65201	Food counter attendants, kitchen helpers and related support occupations	Accommodation And Food Services	81	12210	Health Care And Social Assistance	10	1560	Retail Trade	5	770	Manufacturing	3	430	Information, Culture And Recreation	1	200
-65202	Meat cutters and fishmongers - retail and wholesale	Retail Trade	98	370	Accommodation And Food Services	2	10	\N	\N	\N	\N	\N	\N	\N	\N	\N
-65210	Support occupations in accommodation, travel and facilities set-up services	Transportation And Warehousing	64	100	Accommodation And Food Services	25	40	Finance, Insurance And Real Estate	4	10	Professional, Scientific And Technical Services	4	10	Information, Culture And Recreation	3	10
-65211	Operators and attendants in amusement, recreation and sport	Information, Culture And Recreation	82	1070	Accommodation And Food Services	8	110	Public Administration	5	70	Finance, Insurance And Real Estate	2	30	Health Care And Social Assistance	2	30
-65220	Pet groomers and animal care workers	Repair, Personal And Non-Profit Services	84	990	Retail Trade	8	90	Professional, Scientific And Technical Services	4	50	Information, Culture And Recreation	3	40	Health Care And Social Assistance	1	20
-65229	Other support occupations in personal services	Repair, Personal And Non-Profit Services	52	140	Health Care And Social Assistance	34	90	Professional, Scientific And Technical Services	8	20	Educational Services	3	10	Information, Culture And Recreation	3	10
-65310	Light duty cleaners	Business, Building And Other Support Services	40	4520	Health Care And Social Assistance	25	2810	Accommodation And Food Services	24	2780	Repair, Personal And Non-Profit Services	9	1020	Manufacturing	2	210
-65311	Specialized cleaners	Business, Building And Other Support Services	35	460	Retail Trade	31	400	Repair, Personal And Non-Profit Services	26	340	Construction	5	60	Transportation And Warehousing	4	60
-65312	Janitors, caretakers and heavy-duty cleaners	Business, Building And Other Support Services	43	2320	Educational Services	36	1980	Health Care And Social Assistance	11	590	Public Administration	5	280	Accommodation And Food Services	5	270
-65320	Dry cleaning, laundry and related occupations	Repair, Personal And Non-Profit Services	50	550	Health Care And Social Assistance	32	350	Accommodation And Food Services	16	180	Manufacturing	2	20	Business, Building And Other Support Services	1	10
-65329	Other service support occupations	Retail Trade	28.000000000000004	170	Repair, Personal And Non-Profit Services	26	160	Health Care And Social Assistance	24	150	Information, Culture And Recreation	17	100	Business, Building And Other Support Services	5	30
-70010	Construction managers	Construction	86	5690	Professional, Scientific And Technical Services	9	570	Finance, Insurance And Real Estate	2	150	Public Administration	2	130	Utilities	2	100
-70011	Home building and renovation managers	Construction	99	4630	Business, Building And Other Support Services	0	20	Professional, Scientific And Technical Services	0	10	Agriculture And Fishing	0	10	Transportation And Warehousing	0	10
-70012	Facility operation and maintenance managers	Finance, Insurance And Real Estate	46	1980	Transportation And Warehousing	19	820	Information, Culture And Recreation	18	780	Health Care And Social Assistance	9	400	Business, Building And Other Support Services	8	360
-70020	Managers in transportation	Transportation And Warehousing	73	1830	Wholesale Trade	10	260	Professional, Scientific And Technical Services	6	150	Retail Trade	6	140	Public Administration	4	110
-70021	Postal and courier services managers	Transportation And Warehousing	100	410	\N	\N	\N	\N	\N	\N	\N	\N	\N	\N	\N	\N
-72010	Contractors and supervisors, machining, metal forming, shaping and erecting trades and related occupations	Construction	43	260	Manufacturing	40	240	Repair, Personal And Non-Profit Services	11	60	Wholesale Trade	4	20	Transportation And Warehousing	3	20
-72011	Contractors and supervisors, electrical trades and telecommunications occupations	Construction	85	1170	Information, Culture And Recreation	6	90	Utilities	5	70	Transportation And Warehousing	2	20	Wholesale Trade	2	20
-72012	Contractors and supervisors, pipefitting trades	Construction	93	320	Professional, Scientific And Technical Services	2	10	Manufacturing	2	10	Mining And Oil And Gas Extraction	2	10	Retail Trade	2	10
-72013	Contractors and supervisors, carpentry trades	Construction	92	890	Manufacturing	5	50	Information, Culture And Recreation	1	10	Professional, Scientific And Technical Services	1	10	Business, Building And Other Support Services	1	10
-72014	Contractors and supervisors, other construction trades, installers, repairers and servicers	Construction	87	2720	Business, Building And Other Support Services	5	150	Manufacturing	4	110	Retail Trade	3	90	Public Administration	1	40
-72020	Contractors and supervisors, mechanic trades	Construction	39	420	Transportation And Warehousing	19	200	Repair, Personal And Non-Profit Services	17	180	Retail Trade	16	170	Manufacturing	10	110
-72021	Contractors and supervisors, heavy equipment operator crews	Construction	74	1840	Transportation And Warehousing	15	380	Public Administration	6	140	Business, Building And Other Support Services	3	70	Mining And Oil And Gas Extraction	2	50
-72022	Supervisors, printing and related occupations	Manufacturing	84	40	Information, Culture And Recreation	16	10	\N	\N	\N	\N	\N	\N	\N	\N	\N
-72023	Supervisors, railway transport operations	Transportation And Warehousing	91	90	Public Administration	9	10	\N	\N	\N	\N	\N	\N	\N	\N	\N
-72024	Supervisors, motor transport and other ground transit operators	Transportation And Warehousing	80	370	Wholesale Trade	7.000000000000001	30	Public Administration	5	20	Business, Building And Other Support Services	5	20	Retail Trade	4	20
-72025	Supervisors, mail and message distribution occupations	Transportation And Warehousing	94	500	Retail Trade	3	20	Professional, Scientific And Technical Services	1	10	Repair, Personal And Non-Profit Services	1	10	\N	\N	\N
-72100	Machinists and machining and tooling inspectors	Manufacturing	73	680	Wholesale Trade	8	80	Professional, Scientific And Technical Services	8	70	Repair, Personal And Non-Profit Services	6	60	Transportation And Warehousing	4	40
-72101	Tool and die makers	Manufacturing	78	80	Retail Trade	8	10	Transportation And Warehousing	5	10	Professional, Scientific And Technical Services	5	10	Construction	4	0
-72102	Sheet metal workers	Construction	78	460	Manufacturing	15	90	Wholesale Trade	3	20	Transportation And Warehousing	3	20	Professional, Scientific And Technical Services	1	0
-72103	Boilermakers	Manufacturing	64	40	Construction	28.999999999999996	20	Repair, Personal And Non-Profit Services	6	0	\N	\N	\N	\N	\N	\N
-72104	Structural metal and platework fabricators and fitters	Manufacturing	74	330	Construction	10	40	Repair, Personal And Non-Profit Services	9	40	Professional, Scientific And Technical Services	4	20	Wholesale Trade	4	20
-72105	Ironworkers	Construction	80	290	Manufacturing	10	40	Repair, Personal And Non-Profit Services	5	20	Wholesale Trade	3	10	Transportation And Warehousing	1	0
-72106	Welders and related machine operators	Manufacturing	38	920	Repair, Personal And Non-Profit Services	35	840	Construction	13	310	Mining And Oil And Gas Extraction	9	200	Wholesale Trade	5	120
-72200	Electricians (except industrial and power system)	Construction	88	2280	Transportation And Warehousing	4	100	Educational Services	3	90	Health Care And Social Assistance	3	70	Public Administration	2	60
-72201	Industrial electricians	Manufacturing	44	410	Mining And Oil And Gas Extraction	26	240	Construction	21	200	Transportation And Warehousing	6	60	Wholesale Trade	3	30
-72202	Power system electricians	Utilities	74	120	Construction	21	40	Information, Culture And Recreation	3	10	Manufacturing	2	0	\N	\N	\N
+50010	Library, archive, museum and art gallery managers	Information, Culture and Recreation	85	310	Retail Trade	11	40	Educational Services	2	10	Public Administration	2	10	Professional, Scientific, and Technical Services	1	0
+50011	Managers - publishing, motion pictures, broadcasting and performing arts	Information, Culture and Recreation	81	640	Professional, Scientific, and Technical Services	13	100	Educational Services	3	20	Repair, Personal and Non-Profit Services	1	10	Retail Trade	1	10
+50012	Recreation, sports and fitness program and service directors	Information, Culture and Recreation	81	910	Educational Services	6	70	Health Care and Social Assistance	5	60	Public Administration	4	50	Repair, Personal and Non-Profit Services	4	40
+51100	Librarians	Information, Culture and Recreation	100	250	\N	\N	\N	\N	\N	\N	\N	\N	\N	\N	\N	\N
+51101	Conservators and curators	Information, Culture and Recreation	84	100	Professional, Scientific, and Technical Services	6	10	Public Administration	4	0	Retail Trade	4	0	Educational Services	2	0
+51102	Archivists	Public Administration	45	20	Information, Culture and Recreation	35	10	Educational Services	20	10	\N	\N	\N	\N	\N	\N
+51110	Editors	Information, Culture and Recreation	46	320	Professional, Scientific, and Technical Services	26	180	Business, Building and Other Support Services	14.000000000000002	100	Educational Services	8	50	Public Administration	7.000000000000001	50
+51111	Authors and writers (except technical)	Information, Culture and Recreation	62	990	Professional, Scientific, and Technical Services	27	440	Retail Trade	5	70	Educational Services	3	60	Repair, Personal and Non-Profit Services	3	40
+51112	Technical writers	Professional, Scientific, and Technical Services	75	370	Educational Services	9	40	Information, Culture and Recreation	8	40	Manufacturing	5	20	Public Administration	4	20
+51113	Journalists	Information, Culture and Recreation	87	290	Professional, Scientific, and Technical Services	5	20	Retail Trade	5	20	Educational Services	2	10	Business, Building and Other Support Services	1	0
+51114	Translators, terminologists and interpreters	Professional, Scientific, and Technical Services	81	430	Educational Services	9	50	Public Administration	4	20	Business, Building and Other Support Services	3	20	Information, Culture and Recreation	3	10
+72012	Contractors and supervisors, pipefitting trades	Construction	93	320	Professional, Scientific, and Technical Services	2	10	Manufacturing	2	10	Mining and Oil and Gas Extraction	2	10	Retail Trade	2	10
+51120	Producers, directors, choreographers and related occupations	Information, Culture and Recreation	80	2270	Professional, Scientific, and Technical Services	15	420	Educational Services	3	90	Repair, Personal and Non-Profit Services	1	30	Retail Trade	1	30
+51121	Conductors, composers and arrangers	Information, Culture and Recreation	69	130	Repair, Personal and Non-Profit Services	20	40	Educational Services	9	20	Retail Trade	2	0	\N	\N	\N
+51122	Musicians and singers	Educational Services	69	1410	Information, Culture and Recreation	26	540	Repair, Personal and Non-Profit Services	2	50	Retail Trade	2	40	Professional, Scientific, and Technical Services	1	30
+52100	Library and public archive technicians	Educational Services	62	210	Information, Culture and Recreation	28.999999999999996	100	Public Administration	7.000000000000001	20	Professional, Scientific, and Technical Services	3	10	\N	\N	\N
+52110	Film and video camera operators	Information, Culture and Recreation	80	330	Professional, Scientific, and Technical Services	15	60	Educational Services	3	10	Business, Building and Other Support Services	1	0	Retail Trade	1	0
+52111	Graphic arts technicians	Information, Culture and Recreation	55.00000000000001	720	Professional, Scientific, and Technical Services	42	550	Retail Trade	1	10	Manufacturing	1	10	Wholesale Trade	1	10
+52113	Audio and video recording technicians	Information, Culture and Recreation	73	720	Professional, Scientific, and Technical Services	15	140	Educational Services	7.000000000000001	70	Repair, Personal and Non-Profit Services	3	30	Retail Trade	2	20
+52114	Announcers and other broadcasters	Information, Culture and Recreation	84	90	Educational Services	6	10	Repair, Personal and Non-Profit Services	5	10	Professional, Scientific, and Technical Services	5	0	\N	\N	\N
+52119	Other technical and coordinating occupations in motion pictures, broadcasting and the performing arts	Information, Culture and Recreation	66	1560	Health Care and Social Assistance	13	310	Professional, Scientific, and Technical Services	13	300	Educational Services	4	100	Public Administration	4	100
+52120	Graphic designers and illustrators	Professional, Scientific, and Technical Services	55.00000000000001	2920	Information, Culture and Recreation	36	1900	Retail Trade	5	250	Manufacturing	3	170	Wholesale Trade	2	100
+52121	Interior designers and interior decorators	Professional, Scientific, and Technical Services	73	1170	Construction	13	210	Retail Trade	10	160	Manufacturing	3	40	Wholesale Trade	2	30
+92015	Supervisors, textile, fabric, fur and leather products processing and manufacturing	Manufacturing	75	30	Wholesale Trade	13	10	Retail Trade	12	10	\N	\N	\N	\N	\N	\N
+53100	Registrars, restorers, interpreters and other occupations related to museum and art galleries	Information, Culture and Recreation	73	150	Public Administration	13	30	Business, Building and Other Support Services	6	10	Retail Trade	5	10	Educational Services	3	10
+53110	Photographers	Professional, Scientific, and Technical Services	82	580	Information, Culture and Recreation	10	70	Retail Trade	5	40	Educational Services	2	10	Public Administration	1	10
+53111	Motion pictures, broadcasting, photography and performing arts assistants and operators	Information, Culture and Recreation	93	1550	Professional, Scientific, and Technical Services	4	70	Repair, Personal and Non-Profit Services	1	20	Educational Services	1	10	Retail Trade	1	10
+53120	Dancers	Educational Services	84	300	Information, Culture and Recreation	16	60	\N	\N	\N	\N	\N	\N	\N	\N	\N
+53121	Actors, comedians and circus performers	Information, Culture and Recreation	90	1080	Educational Services	5	70	Professional, Scientific, and Technical Services	4	50	Retail Trade	1	10	Health Care and Social Assistance	0	10
+63202	Bakers	Manufacturing	55.00000000000001	1840	Retail Trade	26	880	Accommodation and Food Services	17	550	Wholesale Trade	1	50	Professional, Scientific, and Technical Services	1	20
+53122	Painters, sculptors and other visual artists	Information, Culture and Recreation	75	1100	Educational Services	14.000000000000002	210	Professional, Scientific, and Technical Services	6	80	Retail Trade	4	60	Repair, Personal and Non-Profit Services	1	20
+53123	Theatre, fashion, exhibit and other creative designers	Information, Culture and Recreation	38	300	Retail Trade	30	240	Professional, Scientific, and Technical Services	24	200	Manufacturing	6	40	Wholesale Trade	2	20
+53124	Artisans and craftspersons	Information, Culture and Recreation	39	440	Retail Trade	33	370	Manufacturing	19	210	Educational Services	5	60	Professional, Scientific, and Technical Services	4	40
+53125	Patternmakers - textile, leather and fur products	Manufacturing	54	30	Retail Trade	23	10	Repair, Personal and Non-Profit Services	12	10	Professional, Scientific, and Technical Services	11	10	\N	\N	\N
+53201	Coaches	Educational Services	43	430	Information, Culture and Recreation	39	400	Health Care and Social Assistance	7.000000000000001	70	Professional, Scientific, and Technical Services	7.000000000000001	70	Repair, Personal and Non-Profit Services	3	30
+53202	Sports officials and referees	Information, Culture and Recreation	55.00000000000001	10	Educational Services	13	0	Public Administration	11	0	Repair, Personal and Non-Profit Services	10	0	Transportation and Warehousing	10	0
+54100	Program leaders and instructors in recreation, sport and fitness	Information, Culture and Recreation	63	2940	Educational Services	18	860	Health Care and Social Assistance	12	540	Repair, Personal and Non-Profit Services	5	260	Public Administration	2	90
+55109	Other performers	Information, Culture and Recreation	72	180	Professional, Scientific, and Technical Services	18	40	Retail Trade	6	20	Repair, Personal and Non-Profit Services	2	10	Accommodation and Food Services	2	0
+60010	Corporate sales managers	Professional, Scientific, and Technical Services	43	1870	Wholesale Trade	26	1120	Retail Trade	15	650	Manufacturing	10	440	Finance, Insurance and Real Estate	5	230
+60020	Retail and wholesale trade managers	Retail Trade	80	23440	Wholesale Trade	18	5440	Professional, Scientific, and Technical Services	1	200	Repair, Personal and Non-Profit Services	1	170	Manufacturing	1	170
+60031	Accommodation service managers	Accommodation and Food Services	93	3090	Information, Culture and Recreation	3	90	Health Care and Social Assistance	2	80	Business, Building and Other Support Services	1	40	Finance, Insurance and Real Estate	1	30
+60040	Managers in customer and personal services	Repair, Personal and Non-Profit Services	49	1000	Business, Building and Other Support Services	28.999999999999996	590	Educational Services	10	210	Information, Culture and Recreation	9	180	Retail Trade	3	60
+62010	Retail sales supervisors	Retail Trade	91	2910	Wholesale Trade	4	130	Information, Culture and Recreation	2	60	Accommodation and Food Services	1	50	Professional, Scientific, and Technical Services	1	40
+62020	Food service supervisors	Accommodation and Food Services	90	2840	Health Care and Social Assistance	5	140	Retail Trade	3	90	Manufacturing	2	60	Wholesale Trade	1	30
+62021	Executive housekeepers	Accommodation and Food Services	89	150	Health Care and Social Assistance	4	10	Repair, Personal and Non-Profit Services	4	10	Business, Building and Other Support Services	3	0	\N	\N	\N
+62022	Accommodation, travel, tourism and related services supervisors	Accommodation and Food Services	54	160	Information, Culture and Recreation	24	70	Transportation and Warehousing	12	30	Business, Building and Other Support Services	9	30	Repair, Personal and Non-Profit Services	1	0
+62023	Customer and information services supervisors	Professional, Scientific, and Technical Services	33	70	Finance, Insurance and Real Estate	20	40	Business, Building and Other Support Services	18	40	Retail Trade	16	40	Public Administration	12	30
+62024	Cleaning supervisors	Business, Building and Other Support Services	37	250	Accommodation and Food Services	36	250	Educational Services	12	80	Health Care and Social Assistance	11	80	Retail Trade	4	30
+62029	Other services supervisors	Business, Building and Other Support Services	54	220	Information, Culture and Recreation	21	80	Repair, Personal and Non-Profit Services	14.000000000000002	60	Public Administration	7.000000000000001	30	Retail Trade	4	20
+62100	Technical sales specialists - wholesale trade	Wholesale Trade	63	1650	Professional, Scientific, and Technical Services	10	250	Retail Trade	9	250	Construction	9	240	Manufacturing	9	240
+62101	Retail and wholesale buyers	Retail Trade	61	1030	Wholesale Trade	23	390	Manufacturing	6	100	Professional, Scientific, and Technical Services	6	100	Information, Culture and Recreation	5	80
+62200	Chefs	Accommodation and Food Services	86	4390	Health Care and Social Assistance	7.000000000000001	340	Manufacturing	4	190	Retail Trade	2	110	Information, Culture and Recreation	2	100
+62201	Funeral directors and embalmers	Repair, Personal and Non-Profit Services	100	160	\N	\N	\N	\N	\N	\N	\N	\N	\N	\N	\N	\N
+62202	Jewellers, jewellery and watch repairers and related occupations	Retail Trade	66	150	Repair, Personal and Non-Profit Services	12	30	Manufacturing	11	30	Professional, Scientific, and Technical Services	6	10	Information, Culture and Recreation	5	10
+63100	Insurance agents and brokers	Finance, Insurance and Real Estate	98	4610	Professional, Scientific, and Technical Services	1	70	Retail Trade	0	20	Business, Building and Other Support Services	0	10	Transportation and Warehousing	0	10
+63101	Real estate agents and salespersons	Finance, Insurance and Real Estate	99	6360	Professional, Scientific, and Technical Services	0	30	Retail Trade	0	20	Wholesale Trade	0	20	Educational Services	0	20
+63102	Financial sales representatives	Finance, Insurance and Real Estate	92	1650	Professional, Scientific, and Technical Services	3	60	Retail Trade	2	30	Wholesale Trade	2	30	Transportation and Warehousing	1	20
+63200	Cooks	Accommodation and Food Services	85	7160	Health Care and Social Assistance	10	880	Retail Trade	2	180	Information, Culture and Recreation	2	150	Manufacturing	1	100
+63201	Butchers - retail and wholesale	Retail Trade	82	240	Wholesale Trade	15	40	Accommodation and Food Services	2	0	Business, Building and Other Support Services	1	0	Agriculture and Fishing	0	0
+63210	Hairstylists and barbers	Repair, Personal and Non-Profit Services	98	4360	Business, Building and Other Support Services	1	30	Professional, Scientific, and Technical Services	1	30	Retail Trade	0	20	Health Care and Social Assistance	0	10
+63211	Estheticians, electrologists and related occupations	Repair, Personal and Non-Profit Services	91	2670	Retail Trade	6	160	Health Care and Social Assistance	2	60	Professional, Scientific, and Technical Services	1	30	Accommodation and Food Services	1	30
+63220	Shoe repairers and shoemakers	Repair, Personal and Non-Profit Services	59	40	Retail Trade	27	20	Manufacturing	14.000000000000002	10	\N	\N	\N	\N	\N	\N
+63221	Upholsterers	Repair, Personal and Non-Profit Services	68	90	Manufacturing	13	20	Transportation and Warehousing	11	10	Retail Trade	6	10	Construction	2	0
+64100	Retail salespersons and visual merchandisers	Retail Trade	83	21290	Wholesale Trade	6	1660	Information, Culture and Recreation	4	1110	Manufacturing	4	1070	Professional, Scientific, and Technical Services	2	620
+64101	Sales and account representatives - wholesale trade (non-technical)	Wholesale Trade	59	1800	Manufacturing	17	530	Retail Trade	10	300	Professional, Scientific, and Technical Services	8	250	Transportation and Warehousing	6	180
+64200	Tailors, dressmakers, furriers and milliners	Repair, Personal and Non-Profit Services	42	320	Retail Trade	26	200	Manufacturing	20	150	Information, Culture and Recreation	6	50	Professional, Scientific, and Technical Services	6	40
+64201	Image, social and other personal consultants	Retail Trade	28.999999999999996	30	Repair, Personal and Non-Profit Services	24	20	Information, Culture and Recreation	17	20	Professional, Scientific, and Technical Services	17	20	Health Care and Social Assistance	13	10
+64300	Maîtres d'hôtel and hosts/hostesses	Accommodation and Food Services	97	630	Information, Culture and Recreation	1	10	Educational Services	1	0	Health Care and Social Assistance	1	0	Professional, Scientific, and Technical Services	0	0
+64301	Bartenders	Accommodation and Food Services	90	870	Information, Culture and Recreation	5	50	Manufacturing	3	30	Repair, Personal and Non-Profit Services	2	10	Retail Trade	1	10
+64310	Travel counsellors	Business, Building and Other Support Services	97	2090	Information, Culture and Recreation	1	30	Transportation and Warehousing	1	20	Accommodation and Food Services	1	20	Retail Trade	0	10
+64311	Pursers and flight attendants	Transportation and Warehousing	98	730	Retail Trade	1	10	Accommodation and Food Services	1	10	Information, Culture and Recreation	0	0	\N	\N	\N
+64312	Airline ticket and service agents	Transportation and Warehousing	93	1020	Business, Building and Other Support Services	4	50	Accommodation and Food Services	2	20	Wholesale Trade	1	10	Repair, Personal and Non-Profit Services	0	0
+72011	Contractors and supervisors, electrical trades and telecommunications occupations	Construction	85	1170	Information, Culture and Recreation	6	90	Utilities	5	70	Transportation and Warehousing	2	20	Wholesale Trade	2	20
+64313	Ground and water transport ticket agents, cargo service representatives and related clerks	Transportation and Warehousing	82	140	Business, Building and Other Support Services	13	20	Professional, Scientific, and Technical Services	3	10	Repair, Personal and Non-Profit Services	2	0	\N	\N	\N
+64314	Hotel front desk clerks	Accommodation and Food Services	100	1100	Educational Services	0	0	Agriculture and Fishing	0	0	\N	\N	\N	\N	\N	\N
+64320	Tour and travel guides	Business, Building and Other Support Services	74	120	Information, Culture and Recreation	14.000000000000002	20	Accommodation and Food Services	5	10	Transportation and Warehousing	4	10	Educational Services	3	0
+64322	Outdoor sport and recreational guides	Information, Culture and Recreation	40	50	Accommodation and Food Services	27	30	Agriculture and Fishing	16	20	Business, Building and Other Support Services	13	20	Transportation and Warehousing	3	0
+64400	Customer services representatives - financial institutions	Finance, Insurance and Real Estate	93	1190	Retail Trade	3	40	Information, Culture and Recreation	1	10	Public Administration	1	10	Accommodation and Food Services	1	10
+64401	Postal services representatives	Transportation and Warehousing	94	390	Public Administration	3	10	Finance, Insurance and Real Estate	1	10	Business, Building and Other Support Services	1	10	\N	\N	\N
+64409	Other customer and information services representatives	Retail Trade	30	1570	Professional, Scientific, and Technical Services	23	1210	Information, Culture and Recreation	18	910	Business, Building and Other Support Services	15	770	Wholesale Trade	14.000000000000002	700
+64410	Security guards and related security service occupations	Business, Building and Other Support Services	77	2660	Information, Culture and Recreation	7.000000000000001	230	Retail Trade	6	210	Public Administration	5	190	Transportation and Warehousing	5	180
+65100	Cashiers	Retail Trade	77	8360	Accommodation and Food Services	17	1800	Finance, Insurance and Real Estate	2	240	Information, Culture and Recreation	2	230	Manufacturing	2	210
+65102	Store shelf stockers, clerks and order fillers	Retail Trade	92	6930	Wholesale Trade	4	290	Transportation and Warehousing	2	140	Manufacturing	2	120	Accommodation and Food Services	1	50
+65109	Other sales related occupations	Retail Trade	73	540	Professional, Scientific, and Technical Services	11	80	Wholesale Trade	6	50	Information, Culture and Recreation	6	40	Business, Building and Other Support Services	5	40
+65200	Food and beverage servers	Accommodation and Food Services	95	5060	Information, Culture and Recreation	4	220	Health Care and Social Assistance	1	30	Manufacturing	0	20	Retail Trade	0	10
+65201	Food counter attendants, kitchen helpers and related support occupations	Accommodation and Food Services	81	12210	Health Care and Social Assistance	10	1560	Retail Trade	5	770	Manufacturing	3	430	Information, Culture and Recreation	1	200
+65202	Meat cutters and fishmongers - retail and wholesale	Retail Trade	98	370	Accommodation and Food Services	2	10	\N	\N	\N	\N	\N	\N	\N	\N	\N
+65210	Support occupations in accommodation, travel and facilities set-up services	Transportation and Warehousing	64	100	Accommodation and Food Services	25	40	Finance, Insurance and Real Estate	4	10	Professional, Scientific, and Technical Services	4	10	Information, Culture and Recreation	3	10
+65211	Operators and attendants in amusement, recreation and sport	Information, Culture and Recreation	82	1070	Accommodation and Food Services	8	110	Public Administration	5	70	Finance, Insurance and Real Estate	2	30	Health Care and Social Assistance	2	30
+65220	Pet groomers and animal care workers	Repair, Personal and Non-Profit Services	84	990	Retail Trade	8	90	Professional, Scientific, and Technical Services	4	50	Information, Culture and Recreation	3	40	Health Care and Social Assistance	1	20
+65229	Other support occupations in personal services	Repair, Personal and Non-Profit Services	52	140	Health Care and Social Assistance	34	90	Professional, Scientific, and Technical Services	8	20	Educational Services	3	10	Information, Culture and Recreation	3	10
+65310	Light duty cleaners	Business, Building and Other Support Services	40	4520	Health Care and Social Assistance	25	2810	Accommodation and Food Services	24	2780	Repair, Personal and Non-Profit Services	9	1020	Manufacturing	2	210
+65311	Specialized cleaners	Business, Building and Other Support Services	35	460	Retail Trade	31	400	Repair, Personal and Non-Profit Services	26	340	Construction	5	60	Transportation and Warehousing	4	60
+65312	Janitors, caretakers and heavy-duty cleaners	Business, Building and Other Support Services	43	2320	Educational Services	36	1980	Health Care and Social Assistance	11	590	Public Administration	5	280	Accommodation and Food Services	5	270
+65320	Dry cleaning, laundry and related occupations	Repair, Personal and Non-Profit Services	50	550	Health Care and Social Assistance	32	350	Accommodation and Food Services	16	180	Manufacturing	2	20	Business, Building and Other Support Services	1	10
+65329	Other service support occupations	Retail Trade	28.000000000000004	170	Repair, Personal and Non-Profit Services	26	160	Health Care and Social Assistance	24	150	Information, Culture and Recreation	17	100	Business, Building and Other Support Services	5	30
+70010	Construction managers	Construction	86	5690	Professional, Scientific, and Technical Services	9	570	Finance, Insurance and Real Estate	2	150	Public Administration	2	130	Utilities	2	100
+70011	Home building and renovation managers	Construction	99	4630	Business, Building and Other Support Services	0	20	Professional, Scientific, and Technical Services	0	10	Agriculture and Fishing	0	10	Transportation and Warehousing	0	10
+70012	Facility operation and maintenance managers	Finance, Insurance and Real Estate	46	1980	Transportation and Warehousing	19	820	Information, Culture and Recreation	18	780	Health Care and Social Assistance	9	400	Business, Building and Other Support Services	8	360
+70020	Managers in transportation	Transportation and Warehousing	73	1830	Wholesale Trade	10	260	Professional, Scientific, and Technical Services	6	150	Retail Trade	6	140	Public Administration	4	110
+72402	Heating, refrigeration and air conditioning mechanics	Construction	82	600	Wholesale Trade	5	40	Repair, Personal and Non-Profit Services	5	40	Manufacturing	4	30	Educational Services	4	30
+72010	Contractors and supervisors, machining, metal forming, shaping and erecting trades and related occupations	Construction	43	260	Manufacturing	40	240	Repair, Personal and Non-Profit Services	11	60	Wholesale Trade	4	20	Transportation and Warehousing	3	20
+72013	Contractors and supervisors, carpentry trades	Construction	92	890	Manufacturing	5	50	Information, Culture and Recreation	1	10	Professional, Scientific, and Technical Services	1	10	Business, Building and Other Support Services	1	10
+72014	Contractors and supervisors, other construction trades, installers, repairers and servicers	Construction	87	2720	Business, Building and Other Support Services	5	150	Manufacturing	4	110	Retail Trade	3	90	Public Administration	1	40
+72020	Contractors and supervisors, mechanic trades	Construction	39	420	Transportation and Warehousing	19	200	Repair, Personal and Non-Profit Services	17	180	Retail Trade	16	170	Manufacturing	10	110
+72021	Contractors and supervisors, heavy equipment operator crews	Construction	74	1840	Transportation and Warehousing	15	380	Public Administration	6	140	Business, Building and Other Support Services	3	70	Mining and Oil and Gas Extraction	2	50
+72022	Supervisors, printing and related occupations	Manufacturing	84	40	Information, Culture and Recreation	16	10	\N	\N	\N	\N	\N	\N	\N	\N	\N
+72023	Supervisors, railway transport operations	Transportation and Warehousing	91	90	Public Administration	9	10	\N	\N	\N	\N	\N	\N	\N	\N	\N
+72024	Supervisors, motor transport and other ground transit operators	Transportation and Warehousing	80	370	Wholesale Trade	7.000000000000001	30	Public Administration	5	20	Business, Building and Other Support Services	5	20	Retail Trade	4	20
+72025	Supervisors, mail and message distribution occupations	Transportation and Warehousing	94	500	Retail Trade	3	20	Professional, Scientific, and Technical Services	1	10	Repair, Personal and Non-Profit Services	1	10	\N	\N	\N
+72100	Machinists and machining and tooling inspectors	Manufacturing	73	680	Wholesale Trade	8	80	Professional, Scientific, and Technical Services	8	70	Repair, Personal and Non-Profit Services	6	60	Transportation and Warehousing	4	40
+72101	Tool and die makers	Manufacturing	78	80	Retail Trade	8	10	Transportation and Warehousing	5	10	Professional, Scientific, and Technical Services	5	10	Construction	4	0
+72102	Sheet metal workers	Construction	78	460	Manufacturing	15	90	Wholesale Trade	3	20	Transportation and Warehousing	3	20	Professional, Scientific, and Technical Services	1	0
+72103	Boilermakers	Manufacturing	64	40	Construction	28.999999999999996	20	Repair, Personal and Non-Profit Services	6	0	\N	\N	\N	\N	\N	\N
+72104	Structural metal and platework fabricators and fitters	Manufacturing	74	330	Construction	10	40	Repair, Personal and Non-Profit Services	9	40	Professional, Scientific, and Technical Services	4	20	Wholesale Trade	4	20
+72105	Ironworkers	Construction	80	290	Manufacturing	10	40	Repair, Personal and Non-Profit Services	5	20	Wholesale Trade	3	10	Transportation and Warehousing	1	0
+72106	Welders and related machine operators	Manufacturing	38	920	Repair, Personal and Non-Profit Services	35	840	Construction	13	310	Mining and Oil and Gas Extraction	9	200	Wholesale Trade	5	120
+72200	Electricians (except industrial and power system)	Construction	88	2280	Transportation and Warehousing	4	100	Educational Services	3	90	Health Care and Social Assistance	3	70	Public Administration	2	60
+72201	Industrial electricians	Manufacturing	44	410	Mining and Oil and Gas Extraction	26	240	Construction	21	200	Transportation and Warehousing	6	60	Wholesale Trade	3	30
+72202	Power system electricians	Utilities	74	120	Construction	21	40	Information, Culture and Recreation	3	10	Manufacturing	2	0	\N	\N	\N
 72203	Electrical power line and cable workers	Utilities	70	270	Construction	28.999999999999996	110	Manufacturing	1	0	\N	\N	\N	\N	\N	\N
-72204	Telecommunications line and cable installers and repairers	Information, Culture And Recreation	55.00000000000001	170	Construction	34	110	Professional, Scientific And Technical Services	6	20	Manufacturing	4	10	Retail Trade	1	0
-72205	Telecommunications equipment installation and cable television service technicians	Information, Culture And Recreation	63	450	Construction	25	180	Professional, Scientific And Technical Services	8	60	Public Administration	2	20	Health Care And Social Assistance	2	10
-72300	Plumbers	Construction	94	1910	Health Care And Social Assistance	2	50	Educational Services	2	40	Public Administration	1	30	Manufacturing	1	20
-72301	Steamfitters, pipefitters and sprinkler system installers	Construction	65	350	Manufacturing	18	100	Mining And Oil And Gas Extraction	10	50	Repair, Personal And Non-Profit Services	5	30	Utilities	2	10
-72302	Gas fitters	Construction	64	190	Utilities	21	60	Retail Trade	9	30	Mining And Oil And Gas Extraction	4	10	Wholesale Trade	1	0
-72310	Carpenters	Construction	93	7410	Information, Culture And Recreation	2	150	Manufacturing	2	150	Educational Services	2	120	Public Administration	1	100
-72311	Cabinetmakers	Manufacturing	62	410	Construction	33	220	Professional, Scientific And Technical Services	2	20	Educational Services	2	10	Retail Trade	1	10
-72320	Bricklayers	Construction	94	400	Business, Building And Other Support Services	4	20	Educational Services	1	0	Retail Trade	1	0	Professional, Scientific And Technical Services	1	0
+72204	Telecommunications line and cable installers and repairers	Information, Culture and Recreation	55.00000000000001	170	Construction	34	110	Professional, Scientific, and Technical Services	6	20	Manufacturing	4	10	Retail Trade	1	0
+72205	Telecommunications equipment installation and cable television service technicians	Information, Culture and Recreation	63	450	Construction	25	180	Professional, Scientific, and Technical Services	8	60	Public Administration	2	20	Health Care and Social Assistance	2	10
+72300	Plumbers	Construction	94	1910	Health Care and Social Assistance	2	50	Educational Services	2	40	Public Administration	1	30	Manufacturing	1	20
+72301	Steamfitters, pipefitters and sprinkler system installers	Construction	65	350	Manufacturing	18	100	Mining and Oil and Gas Extraction	10	50	Repair, Personal and Non-Profit Services	5	30	Utilities	2	10
+72302	Gas fitters	Construction	64	190	Utilities	21	60	Retail Trade	9	30	Mining and Oil and Gas Extraction	4	10	Wholesale Trade	1	0
+72310	Carpenters	Construction	93	7410	Information, Culture and Recreation	2	150	Manufacturing	2	150	Educational Services	2	120	Public Administration	1	100
+72311	Cabinetmakers	Manufacturing	62	410	Construction	33	220	Professional, Scientific, and Technical Services	2	20	Educational Services	2	10	Retail Trade	1	10
+72320	Bricklayers	Construction	94	400	Business, Building and Other Support Services	4	20	Educational Services	1	0	Retail Trade	1	0	Professional, Scientific, and Technical Services	1	0
 72321	Insulators	Construction	93	270	Manufacturing	4	10	Retail Trade	1	0	Wholesale Trade	1	0	Educational Services	1	0
-72400	Construction millwrights and industrial mechanics	Manufacturing	52	1050	Mining And Oil And Gas Extraction	20	390	Construction	11	220	Repair, Personal And Non-Profit Services	9	190	Transportation And Warehousing	9	180
-72401	Heavy-duty equipment mechanics	Repair, Personal And Non-Profit Services	28.999999999999996	550	Wholesale Trade	24	460	Mining And Oil And Gas Extraction	20	380	Transportation And Warehousing	14.000000000000002	270	Construction	13	240
-72402	Heating, refrigeration and air conditioning mechanics	Construction	82	600	Wholesale Trade	5	40	Repair, Personal And Non-Profit Services	5	40	Manufacturing	4	30	Educational Services	4	30
-72403	Railway carmen/women	Transportation And Warehousing	100	100	\N	\N	\N	\N	\N	\N	\N	\N	\N	\N	\N	\N
-72404	Aircraft mechanics and aircraft inspectors	Transportation And Warehousing	85	1370	Manufacturing	10	160	Public Administration	3	50	Repair, Personal And Non-Profit Services	1	20	Wholesale Trade	1	20
+72400	Construction millwrights and industrial mechanics	Manufacturing	52	1050	Mining and Oil and Gas Extraction	20	390	Construction	11	220	Repair, Personal and Non-Profit Services	9	190	Transportation and Warehousing	9	180
+72401	Heavy-duty equipment mechanics	Repair, Personal and Non-Profit Services	28.999999999999996	550	Wholesale Trade	24	460	Mining and Oil and Gas Extraction	20	380	Transportation and Warehousing	14.000000000000002	270	Construction	13	240
+72403	Railway carmen/women	Transportation and Warehousing	100	100	\N	\N	\N	\N	\N	\N	\N	\N	\N	\N	\N	\N
+72404	Aircraft mechanics and aircraft inspectors	Transportation and Warehousing	85	1370	Manufacturing	10	160	Public Administration	3	50	Repair, Personal and Non-Profit Services	1	20	Wholesale Trade	1	20
 72405	Machine fitters	Manufacturing	67	10	Public Administration	33	10	\N	\N	\N	\N	\N	\N	\N	\N	\N
 72406	Elevator constructors and mechanics	Construction	100	350	\N	\N	\N	\N	\N	\N	\N	\N	\N	\N	\N	\N
-72410	Automotive service technicians, truck and bus mechanics and mechanical repairers	Repair, Personal And Non-Profit Services	49	2200	Retail Trade	30	1340	Transportation And Warehousing	13	560	Wholesale Trade	5	220	Public Administration	3	140
-72411	Auto body collision, refinishing and glass technicians and damage repair estimators	Repair, Personal And Non-Profit Services	87	980	Retail Trade	6	70	Transportation And Warehousing	3	40	Manufacturing	2	30	Health Care And Social Assistance	1	10
-72420	Oil and solid fuel heating mechanics	Construction	69	10	Mining And Oil And Gas Extraction	31	10	\N	\N	\N	\N	\N	\N	\N	\N	\N
-72421	Appliance servicers and repairers	Repair, Personal And Non-Profit Services	68	210	Retail Trade	19	60	Construction	7.000000000000001	20	Manufacturing	4	10	Wholesale Trade	2	10
-72422	Electrical mechanics	Utilities	37	40	Repair, Personal And Non-Profit Services	33	40	Wholesale Trade	11	10	Manufacturing	10	10	Construction	9	10
-72423	Motorcycle, all-terrain vehicle and other related mechanics	Retail Trade	43	190	Transportation And Warehousing	20	90	Repair, Personal And Non-Profit Services	20	90	Wholesale Trade	11	50	Information, Culture And Recreation	6	30
-72429	Other small engine and small equipment repairers	Repair, Personal And Non-Profit Services	62	30	Wholesale Trade	14.000000000000002	10	Retail Trade	12	10	Manufacturing	6	0	Business, Building And Other Support Services	6	0
-72500	Crane operators	Construction	52	370	Transportation And Warehousing	25	180	Manufacturing	10	70	Retail Trade	7.000000000000001	50	Wholesale Trade	6	40
+72410	Automotive service technicians, truck and bus mechanics and mechanical repairers	Repair, Personal and Non-Profit Services	49	2200	Retail Trade	30	1340	Transportation and Warehousing	13	560	Wholesale Trade	5	220	Public Administration	3	140
+85101	Harvesting labourers	Agriculture and Fishing	87	290	Business, Building and Other Support Services	13	40	\N	\N	\N	\N	\N	\N	\N	\N	\N
+72411	Auto body collision, refinishing and glass technicians and damage repair estimators	Repair, Personal and Non-Profit Services	87	980	Retail Trade	6	70	Transportation and Warehousing	3	40	Manufacturing	2	30	Health Care and Social Assistance	1	10
+72420	Oil and solid fuel heating mechanics	Construction	69	10	Mining and Oil and Gas Extraction	31	10	\N	\N	\N	\N	\N	\N	\N	\N	\N
+72421	Appliance servicers and repairers	Repair, Personal and Non-Profit Services	68	210	Retail Trade	19	60	Construction	7.000000000000001	20	Manufacturing	4	10	Wholesale Trade	2	10
+72422	Electrical mechanics	Utilities	37	40	Repair, Personal and Non-Profit Services	33	40	Wholesale Trade	11	10	Manufacturing	10	10	Construction	9	10
+72423	Motorcycle, all-terrain vehicle and other related mechanics	Retail Trade	43	190	Transportation and Warehousing	20	90	Repair, Personal and Non-Profit Services	20	90	Wholesale Trade	11	50	Information, Culture and Recreation	6	30
+72429	Other small engine and small equipment repairers	Repair, Personal and Non-Profit Services	62	30	Wholesale Trade	14.000000000000002	10	Retail Trade	12	10	Manufacturing	6	0	Business, Building and Other Support Services	6	0
+72500	Crane operators	Construction	52	370	Transportation and Warehousing	25	180	Manufacturing	10	70	Retail Trade	7.000000000000001	50	Wholesale Trade	6	40
 72501	Water well drillers	Construction	100	0	\N	\N	\N	\N	\N	\N	\N	\N	\N	\N	\N	\N
-72600	Air pilots, flight engineers and flying instructors	Transportation And Warehousing	92	1470	Educational Services	4	70	Public Administration	2	30	Professional, Scientific And Technical Services	1	20	Manufacturing	1	20
-72601	Air traffic controllers and related occupations	Transportation And Warehousing	94	400	Public Administration	4	20	Educational Services	2	10	\N	\N	\N	\N	\N	\N
-72602	Deck officers, water transport	Transportation And Warehousing	81	620	Public Administration	16	120	Professional, Scientific And Technical Services	2	20	Retail Trade	1	0	Construction	0	0
-72603	Engineer officers, water transport	Transportation And Warehousing	76	60	Professional, Scientific And Technical Services	10	10	Public Administration	9	10	Agriculture And Fishing	5	0	\N	\N	\N
-72604	Railway traffic controllers and marine traffic regulators	Transportation And Warehousing	88	60	Public Administration	12	10	\N	\N	\N	\N	\N	\N	\N	\N	\N
-72999	Other technical trades and related occupations	Business, Building And Other Support Services	56.00000000000001	210	Manufacturing	15	60	Agriculture And Fishing	11	40	Construction	10	40	Professional, Scientific And Technical Services	8	30
-73100	Concrete finishers	Construction	94	320	Public Administration	3	10	Manufacturing	2	10	Business, Building And Other Support Services	1	0	\N	\N	\N
-73101	Tilesetters	Construction	99	560	Manufacturing	1	0	Agriculture And Fishing	0	0	\N	\N	\N	\N	\N	\N
-73102	Plasterers, drywall installers and finishers and lathers	Construction	97	1090	Information, Culture And Recreation	1	10	Business, Building And Other Support Services	1	10	Accommodation And Food Services	1	10	Manufacturing	1	10
-73110	Roofers and shinglers	Construction	55.00000000000001	370	Business, Building And Other Support Services	19	130	Retail Trade	9	60	Transportation And Warehousing	8	60	Accommodation And Food Services	8	50
-73111	Glaziers	Construction	74	260	Manufacturing	11	40	Retail Trade	7.000000000000001	20	Repair, Personal And Non-Profit Services	6	20	Wholesale Trade	2	10
-73112	Painters and decorators (except interior decorators)	Construction	94	1990	Educational Services	3	70	Business, Building And Other Support Services	1	30	Retail Trade	1	20	Health Care And Social Assistance	1	20
-73113	Floor covering installers	Construction	91	480	Retail Trade	8	40	Business, Building And Other Support Services	1	0	\N	\N	\N	\N	\N	\N
-73200	Residential and commercial installers and servicers	Construction	73	1170	Manufacturing	9	140	Retail Trade	8	120	Business, Building And Other Support Services	7.000000000000001	110	Wholesale Trade	4	70
-73201	General building maintenance workers and building superintendents	Business, Building And Other Support Services	27	950	Health Care And Social Assistance	21	720	Accommodation And Food Services	21	710	Finance, Insurance And Real Estate	17	580	Construction	14.000000000000002	500
-73202	Pest controllers and fumigators	Business, Building And Other Support Services	100	210	\N	\N	\N	\N	\N	\N	\N	\N	\N	\N	\N	\N
-73209	Other repairers and servicers	Retail Trade	62	290	Repair, Personal And Non-Profit Services	22	100	Wholesale Trade	9	40	Information, Culture And Recreation	4	20	Public Administration	3	10
-73300	Transport truck drivers	Transportation And Warehousing	71	8280	Construction	10	1130	Wholesale Trade	7.000000000000001	850	Mining And Oil And Gas Extraction	6	750	Manufacturing	5	620
-73301	Bus drivers, subway operators and other transit operators	Transportation And Warehousing	84	3290	Educational Services	11	430	Retail Trade	3	110	Business, Building And Other Support Services	2	60	Health Care And Social Assistance	1	40
-73310	Railway and yard locomotive engineers	Transportation And Warehousing	91	700	Professional, Scientific And Technical Services	5	40	Manufacturing	2	10	Wholesale Trade	1	10	Construction	1	0
-73311	Railway conductors and brakemen/women	Transportation And Warehousing	100	510	\N	\N	\N	\N	\N	\N	\N	\N	\N	\N	\N	\N
-73400	Heavy equipment operators	Construction	49	1900	Mining And Oil And Gas Extraction	34	1310	Transportation And Warehousing	11	420	Business, Building And Other Support Services	4	140	Manufacturing	3	120
-73401	Printing press operators	Manufacturing	88	350	Information, Culture And Recreation	5	20	Transportation And Warehousing	3	10	Retail Trade	3	10	Professional, Scientific And Technical Services	2	10
-73402	Drillers and blasters - surface mining, quarrying and construction	Construction	53	100	Mining And Oil And Gas Extraction	46	80	Forestry, Logging And Support Activities	1	0	\N	\N	\N	\N	\N	\N
-74100	Mail and parcel sorters and related occupations	Transportation And Warehousing	97	1510	Retail Trade	2	30	Public Administration	1	10	Finance, Insurance And Real Estate	0	10	Business, Building And Other Support Services	0	10
-74101	Letter carriers	Transportation And Warehousing	100	2420	Utilities	0	0	Professional, Scientific And Technical Services	0	0	\N	\N	\N	\N	\N	\N
-74102	Couriers and messengers	Transportation And Warehousing	90	2000	Retail Trade	4	100	Health Care And Social Assistance	3	60	Professional, Scientific And Technical Services	2	40	Business, Building And Other Support Services	1	10
-74200	Railway yard and track maintenance workers	Transportation And Warehousing	98	340	Construction	2	10	\N	\N	\N	\N	\N	\N	\N	\N	\N
-74201	Water transport deck and engine room crew	Transportation And Warehousing	76	260	Public Administration	19	60	Manufacturing	3	10	Professional, Scientific And Technical Services	1	0	Retail Trade	1	0
-74202	Air transport ramp attendants	Transportation And Warehousing	98	800	Business, Building And Other Support Services	1	10	Construction	1	0	Retail Trade	0	0	\N	\N	\N
-74203	Automotive and heavy truck and equipment parts installers and servicers	Retail Trade	71	250	Repair, Personal And Non-Profit Services	17	60	Mining And Oil And Gas Extraction	6	20	Information, Culture And Recreation	4	10	Wholesale Trade	2	10
-74204	Utility maintenance workers	Utilities	42	80	Public Administration	24	40	Professional, Scientific And Technical Services	17	30	Construction	13	20	Educational Services	5	10
-74205	Public works maintenance equipment operators and related workers	Business, Building And Other Support Services	59	250	Public Administration	19	80	Transportation And Warehousing	11	50	Wholesale Trade	6	30	Construction	4	20
-75100	Longshore workers	Transportation And Warehousing	99	1740	Professional, Scientific And Technical Services	1	10	Repair, Personal And Non-Profit Services	0	10	Information, Culture And Recreation	0	0	\N	\N	\N
-75101	Material handlers	Transportation And Warehousing	28.000000000000004	2700	Professional, Scientific And Technical Services	22	2150	Retail Trade	22	2140	Wholesale Trade	16	1540	Manufacturing	12	1130
-75110	Construction trades helpers and labourers	Construction	87	6420	Transportation And Warehousing	5	390	Business, Building And Other Support Services	4	270	Manufacturing	2	170	Public Administration	2	130
-75119	Other trades helpers and labourers	Construction	44	100	Repair, Personal And Non-Profit Services	19	40	Retail Trade	18	40	Professional, Scientific And Technical Services	12	30	Transportation And Warehousing	7.000000000000001	10
-75200	Taxi and limousine drivers and chauffeurs	Transportation And Warehousing	89	2220	Health Care And Social Assistance	4	100	Information, Culture And Recreation	3	70	Repair, Personal And Non-Profit Services	2	50	Retail Trade	2	50
-75201	Delivery service drivers and door-to-door distributors	Transportation And Warehousing	56.99999999999999	3100	Retail Trade	16	880	Accommodation And Food Services	13	680	Wholesale Trade	9	490	Manufacturing	5	250
-75210	Boat and cable ferry operators and related occupations	Transportation And Warehousing	87	380	Public Administration	4	20	Information, Culture And Recreation	4	20	Manufacturing	3	10	Health Care And Social Assistance	2	10
-75211	Railway and motor transport labourers	Transportation And Warehousing	61	90	Professional, Scientific And Technical Services	14.000000000000002	20	Public Administration	14.000000000000002	20	Construction	7.000000000000001	10	Retail Trade	4	10
-75212	Public works and maintenance labourers	Public Administration	57.99999999999999	560	Business, Building And Other Support Services	25	240	Construction	6	60	Manufacturing	6	60	Wholesale Trade	4	40
-80010	Managers in natural resources production and fishing	Mining And Oil And Gas Extraction	64	570	Forestry, Logging And Support Activities	19	170	Manufacturing	7.000000000000001	60	Professional, Scientific And Technical Services	6	60	Wholesale Trade	4	30
-80020	Managers in agriculture	Agriculture And Fishing	92	2360	Manufacturing	3	70	Repair, Personal And Non-Profit Services	2	60	Professional, Scientific And Technical Services	2	50	Retail Trade	1	40
-80021	Managers in horticulture	Agriculture And Fishing	91	250	Retail Trade	6	20	Construction	2	0	Business, Building And Other Support Services	1	0	\N	\N	\N
-80022	Managers in aquaculture	Agriculture And Fishing	100	160	\N	\N	\N	\N	\N	\N	\N	\N	\N	\N	\N	\N
-82010	Supervisors, logging and forestry	Forestry, Logging And Support Activities	49	190	Construction	17	70	Mining And Oil And Gas Extraction	15	60	Manufacturing	10	40	Transportation And Warehousing	9	40
-82020	Supervisors, mining and quarrying	Mining And Oil And Gas Extraction	88	510	Construction	8	40	Professional, Scientific And Technical Services	3	20	Business, Building And Other Support Services	1	10	\N	\N	\N
-82021	Contractors and supervisors, oil and gas drilling and services	Mining And Oil And Gas Extraction	93	340	Professional, Scientific And Technical Services	5	20	Construction	2	10	Manufacturing	0	0	\N	\N	\N
-82030	Agricultural service contractors and farm supervisors	Agriculture And Fishing	97	70	Business, Building And Other Support Services	3	0	\N	\N	\N	\N	\N	\N	\N	\N	\N
-82031	Contractors and supervisors, landscaping, grounds maintenance and horticulture services	Business, Building And Other Support Services	84	1130	Public Administration	5	70	Agriculture And Fishing	5	60	Information, Culture And Recreation	4	50	Construction	2	30
-83100	Underground production and development miners	Mining And Oil And Gas Extraction	98	560	Manufacturing	2	10	Professional, Scientific And Technical Services	1	0	\N	\N	\N	\N	\N	\N
-83101	Oil and gas well drillers, servicers, testers and related workers	Mining And Oil And Gas Extraction	73	170	Professional, Scientific And Technical Services	16	40	Manufacturing	5	10	Transportation And Warehousing	4	10	Health Care And Social Assistance	2	0
-83110	Logging machinery operators	Forestry, Logging And Support Activities	89	330	Manufacturing	6	20	Agriculture And Fishing	2	10	Construction	2	10	Transportation And Warehousing	1	0
-83120	Fishing masters and officers	Agriculture And Fishing	100	40	\N	\N	\N	\N	\N	\N	\N	\N	\N	\N	\N	\N
-83121	Fishermen/women	Agriculture And Fishing	95	100	Wholesale Trade	5	10	\N	\N	\N	\N	\N	\N	\N	\N	\N
-84100	Underground mine service and support workers	Mining And Oil And Gas Extraction	100	150	\N	\N	\N	\N	\N	\N	\N	\N	\N	\N	\N	\N
-84101	Oil and gas well drilling and related workers and services operators	Mining And Oil And Gas Extraction	91	70	Transportation And Warehousing	7.000000000000001	10	Professional, Scientific And Technical Services	5	0	Utilities	2	0	Construction	-5	0
-84110	Chain saw and skidder operators	Forestry, Logging And Support Activities	60	100	Business, Building And Other Support Services	18	30	Retail Trade	10	20	Construction	6	10	Transportation And Warehousing	6	10
-84111	Silviculture and forestry workers	Public Administration	54	110	Business, Building And Other Support Services	19	40	Forestry, Logging And Support Activities	18	40	Professional, Scientific And Technical Services	6	10	Health Care And Social Assistance	3	10
-84120	Specialized livestock workers and farm machinery operators	Agriculture And Fishing	79	390	Information, Culture And Recreation	12	60	Professional, Scientific And Technical Services	4	20	Educational Services	3	20	Retail Trade	2	10
-84121	Fishing vessel deckhands	Agriculture And Fishing	100	60	\N	\N	\N	\N	\N	\N	\N	\N	\N	\N	\N	\N
-85100	Livestock labourers	Agriculture And Fishing	59	210	Manufacturing	22	80	Information, Culture And Recreation	13	50	Repair, Personal And Non-Profit Services	3	10	Wholesale Trade	3	10
-85101	Harvesting labourers	Agriculture And Fishing	87	290	Business, Building And Other Support Services	13	40	\N	\N	\N	\N	\N	\N	\N	\N	\N
-85102	Aquaculture and marine harvest labourers	Agriculture And Fishing	86	80	Manufacturing	8	10	Public Administration	5	10	\N	\N	\N	\N	\N	\N
-85103	Nursery and greenhouse labourers	Agriculture And Fishing	73	390	Retail Trade	16	80	Wholesale Trade	5	30	Business, Building And Other Support Services	4	20	Manufacturing	2	10
-85110	Mine labourers	Mining And Oil And Gas Extraction	97	170	Professional, Scientific And Technical Services	3	10	\N	\N	\N	\N	\N	\N	\N	\N	\N
-85111	Oil and gas drilling, servicing and related labourers	Mining And Oil And Gas Extraction	89	130	Transportation And Warehousing	3	0	Finance, Insurance And Real Estate	3	0	Repair, Personal And Non-Profit Services	3	0	Business, Building And Other Support Services	2	0
-85120	Logging and forestry labourers	Agriculture And Fishing	36	0	Public Administration	20	0	Wholesale Trade	18	0	Transportation And Warehousing	17	0	Business, Building And Other Support Services	9	0
-85121	Landscaping and grounds maintenance labourers	Business, Building And Other Support Services	64	3000	Information, Culture And Recreation	20	930	Public Administration	11	500	Educational Services	3	160	Repair, Personal And Non-Profit Services	3	130
-90010	Manufacturing managers	Manufacturing	97	4310	Wholesale Trade	1	60	Professional, Scientific And Technical Services	1	20	Construction	1	20	Business, Building And Other Support Services	0	10
-90011	Utilities managers	Utilities	55.00000000000001	390	Business, Building And Other Support Services	23	160	Public Administration	9	70	Wholesale Trade	9	60	Construction	4	30
-92010	Supervisors, mineral and metal processing	Manufacturing	89	170	Mining And Oil And Gas Extraction	5	10	Wholesale Trade	4	10	Construction	2	0	\N	\N	\N
-92011	Supervisors, petroleum, gas and chemical processing and utilities	Utilities	40	150	Manufacturing	24	90	Wholesale Trade	14.000000000000002	60	Mining And Oil And Gas Extraction	12	40	Business, Building And Other Support Services	9	40
-92012	Supervisors, food and beverage processing	Manufacturing	84	670	Wholesale Trade	9	70	Retail Trade	3	20	Accommodation And Food Services	2	20	Agriculture And Fishing	2	10
+72600	Air pilots, flight engineers and flying instructors	Transportation and Warehousing	92	1470	Educational Services	4	70	Public Administration	2	30	Professional, Scientific, and Technical Services	1	20	Manufacturing	1	20
+72601	Air traffic controllers and related occupations	Transportation and Warehousing	94	400	Public Administration	4	20	Educational Services	2	10	\N	\N	\N	\N	\N	\N
+72602	Deck officers, water transport	Transportation and Warehousing	81	620	Public Administration	16	120	Professional, Scientific, and Technical Services	2	20	Retail Trade	1	0	Construction	0	0
+72603	Engineer officers, water transport	Transportation and Warehousing	76	60	Professional, Scientific, and Technical Services	10	10	Public Administration	9	10	Agriculture and Fishing	5	0	\N	\N	\N
+72604	Railway traffic controllers and marine traffic regulators	Transportation and Warehousing	88	60	Public Administration	12	10	\N	\N	\N	\N	\N	\N	\N	\N	\N
+72999	Other technical trades and related occupations	Business, Building and Other Support Services	56.00000000000001	210	Manufacturing	15	60	Agriculture and Fishing	11	40	Construction	10	40	Professional, Scientific, and Technical Services	8	30
+73100	Concrete finishers	Construction	94	320	Public Administration	3	10	Manufacturing	2	10	Business, Building and Other Support Services	1	0	\N	\N	\N
+73101	Tilesetters	Construction	99	560	Manufacturing	1	0	Agriculture and Fishing	0	0	\N	\N	\N	\N	\N	\N
+73102	Plasterers, drywall installers and finishers and lathers	Construction	97	1090	Information, Culture and Recreation	1	10	Business, Building and Other Support Services	1	10	Accommodation and Food Services	1	10	Manufacturing	1	10
+73110	Roofers and shinglers	Construction	55.00000000000001	370	Business, Building and Other Support Services	19	130	Retail Trade	9	60	Transportation and Warehousing	8	60	Accommodation and Food Services	8	50
+73111	Glaziers	Construction	74	260	Manufacturing	11	40	Retail Trade	7.000000000000001	20	Repair, Personal and Non-Profit Services	6	20	Wholesale Trade	2	10
+73112	Painters and decorators (except interior decorators)	Construction	94	1990	Educational Services	3	70	Business, Building and Other Support Services	1	30	Retail Trade	1	20	Health Care and Social Assistance	1	20
+73113	Floor covering installers	Construction	91	480	Retail Trade	8	40	Business, Building and Other Support Services	1	0	\N	\N	\N	\N	\N	\N
+73200	Residential and commercial installers and servicers	Construction	73	1170	Manufacturing	9	140	Retail Trade	8	120	Business, Building and Other Support Services	7.000000000000001	110	Wholesale Trade	4	70
+73201	General building maintenance workers and building superintendents	Business, Building and Other Support Services	27	950	Health Care and Social Assistance	21	720	Accommodation and Food Services	21	710	Finance, Insurance and Real Estate	17	580	Construction	14.000000000000002	500
+73209	Other repairers and servicers	Retail Trade	62	290	Repair, Personal and Non-Profit Services	22	100	Wholesale Trade	9	40	Information, Culture and Recreation	4	20	Public Administration	3	10
+73300	Transport truck drivers	Transportation and Warehousing	71	8280	Construction	10	1130	Wholesale Trade	7.000000000000001	850	Mining and Oil and Gas Extraction	6	750	Manufacturing	5	620
+73301	Bus drivers, subway operators and other transit operators	Transportation and Warehousing	84	3290	Educational Services	11	430	Retail Trade	3	110	Business, Building and Other Support Services	2	60	Health Care and Social Assistance	1	40
+73310	Railway and yard locomotive engineers	Transportation and Warehousing	91	700	Professional, Scientific, and Technical Services	5	40	Manufacturing	2	10	Wholesale Trade	1	10	Construction	1	0
+73311	Railway conductors and brakemen/women	Transportation and Warehousing	100	510	\N	\N	\N	\N	\N	\N	\N	\N	\N	\N	\N	\N
+73400	Heavy equipment operators	Construction	49	1900	Mining and Oil and Gas Extraction	34	1310	Transportation and Warehousing	11	420	Business, Building and Other Support Services	4	140	Manufacturing	3	120
+73401	Printing press operators	Manufacturing	88	350	Information, Culture and Recreation	5	20	Transportation and Warehousing	3	10	Retail Trade	3	10	Professional, Scientific, and Technical Services	2	10
+73402	Drillers and blasters - surface mining, quarrying and construction	Construction	53	100	Mining and Oil and Gas Extraction	46	80	Forestry and Logging with Support Activities	1	0	\N	\N	\N	\N	\N	\N
+94106	Machining tool operators	Manufacturing	93	80	Construction	7.000000000000001	10	\N	\N	\N	\N	\N	\N	\N	\N	\N
+74100	Mail and parcel sorters and related occupations	Transportation and Warehousing	97	1510	Retail Trade	2	30	Public Administration	1	10	Finance, Insurance and Real Estate	0	10	Business, Building and Other Support Services	0	10
+74101	Letter carriers	Transportation and Warehousing	100	2420	Utilities	0	0	Professional, Scientific, and Technical Services	0	0	\N	\N	\N	\N	\N	\N
+74102	Couriers and messengers	Transportation and Warehousing	90	2000	Retail Trade	4	100	Health Care and Social Assistance	3	60	Professional, Scientific, and Technical Services	2	40	Business, Building and Other Support Services	1	10
+74200	Railway yard and track maintenance workers	Transportation and Warehousing	98	340	Construction	2	10	\N	\N	\N	\N	\N	\N	\N	\N	\N
+74201	Water transport deck and engine room crew	Transportation and Warehousing	76	260	Public Administration	19	60	Manufacturing	3	10	Professional, Scientific, and Technical Services	1	0	Retail Trade	1	0
+74202	Air transport ramp attendants	Transportation and Warehousing	98	800	Business, Building and Other Support Services	1	10	Construction	1	0	Retail Trade	0	0	\N	\N	\N
+74203	Automotive and heavy truck and equipment parts installers and servicers	Retail Trade	71	250	Repair, Personal and Non-Profit Services	17	60	Mining and Oil and Gas Extraction	6	20	Information, Culture and Recreation	4	10	Wholesale Trade	2	10
+74204	Utility maintenance workers	Utilities	42	80	Public Administration	24	40	Professional, Scientific, and Technical Services	17	30	Construction	13	20	Educational Services	5	10
+74205	Public works maintenance equipment operators and related workers	Business, Building and Other Support Services	59	250	Public Administration	19	80	Transportation and Warehousing	11	50	Wholesale Trade	6	30	Construction	4	20
+75100	Longshore workers	Transportation and Warehousing	99	1740	Professional, Scientific, and Technical Services	1	10	Repair, Personal and Non-Profit Services	0	10	Information, Culture and Recreation	0	0	\N	\N	\N
+75101	Material handlers	Transportation and Warehousing	28.000000000000004	2700	Professional, Scientific, and Technical Services	22	2150	Retail Trade	22	2140	Wholesale Trade	16	1540	Manufacturing	12	1130
+75110	Construction trades helpers and labourers	Construction	87	6420	Transportation and Warehousing	5	390	Business, Building and Other Support Services	4	270	Manufacturing	2	170	Public Administration	2	130
+75119	Other trades helpers and labourers	Construction	44	100	Repair, Personal and Non-Profit Services	19	40	Retail Trade	18	40	Professional, Scientific, and Technical Services	12	30	Transportation and Warehousing	7.000000000000001	10
+75200	Taxi and limousine drivers and chauffeurs	Transportation and Warehousing	89	2220	Health Care and Social Assistance	4	100	Information, Culture and Recreation	3	70	Repair, Personal and Non-Profit Services	2	50	Retail Trade	2	50
+75201	Delivery service drivers and door-to-door distributors	Transportation and Warehousing	56.99999999999999	3100	Retail Trade	16	880	Accommodation and Food Services	13	680	Wholesale Trade	9	490	Manufacturing	5	250
+75210	Boat and cable ferry operators and related occupations	Transportation and Warehousing	87	380	Public Administration	4	20	Information, Culture and Recreation	4	20	Manufacturing	3	10	Health Care and Social Assistance	2	10
+75211	Railway and motor transport labourers	Transportation and Warehousing	61	90	Professional, Scientific, and Technical Services	14.000000000000002	20	Public Administration	14.000000000000002	20	Construction	7.000000000000001	10	Retail Trade	4	10
+75212	Public works and maintenance labourers	Public Administration	57.99999999999999	560	Business, Building and Other Support Services	25	240	Construction	6	60	Manufacturing	6	60	Wholesale Trade	4	40
+80010	Managers in natural resources production and fishing	Mining and Oil and Gas Extraction	64	570	Forestry and Logging with Support Activities	19	170	Manufacturing	7.000000000000001	60	Professional, Scientific, and Technical Services	6	60	Wholesale Trade	4	30
+80020	Managers in agriculture	Agriculture and Fishing	92	2360	Manufacturing	3	70	Repair, Personal and Non-Profit Services	2	60	Professional, Scientific, and Technical Services	2	50	Retail Trade	1	40
+80021	Managers in horticulture	Agriculture and Fishing	91	250	Retail Trade	6	20	Construction	2	0	Business, Building and Other Support Services	1	0	\N	\N	\N
+82010	Supervisors, logging and forestry	Forestry and Logging with Support Activities	49	190	Construction	17	70	Mining and Oil and Gas Extraction	15	60	Manufacturing	10	40	Transportation and Warehousing	9	40
+82020	Supervisors, mining and quarrying	Mining and Oil and Gas Extraction	88	510	Construction	8	40	Professional, Scientific, and Technical Services	3	20	Business, Building and Other Support Services	1	10	\N	\N	\N
+82021	Contractors and supervisors, oil and gas drilling and services	Mining and Oil and Gas Extraction	93	340	Professional, Scientific, and Technical Services	5	20	Construction	2	10	Manufacturing	0	0	\N	\N	\N
+82030	Agricultural service contractors and farm supervisors	Agriculture and Fishing	97	70	Business, Building and Other Support Services	3	0	\N	\N	\N	\N	\N	\N	\N	\N	\N
+82031	Contractors and supervisors, landscaping, grounds maintenance and horticulture services	Business, Building and Other Support Services	84	1130	Public Administration	5	70	Agriculture and Fishing	5	60	Information, Culture and Recreation	4	50	Construction	2	30
+83100	Underground production and development miners	Mining and Oil and Gas Extraction	98	560	Manufacturing	2	10	Professional, Scientific, and Technical Services	1	0	\N	\N	\N	\N	\N	\N
+83101	Oil and gas well drillers, servicers, testers and related workers	Mining and Oil and Gas Extraction	73	170	Professional, Scientific, and Technical Services	16	40	Manufacturing	5	10	Transportation and Warehousing	4	10	Health Care and Social Assistance	2	0
+83110	Logging machinery operators	Forestry and Logging with Support Activities	89	330	Manufacturing	6	20	Agriculture and Fishing	2	10	Construction	2	10	Transportation and Warehousing	1	0
+84100	Underground mine service and support workers	Mining and Oil and Gas Extraction	100	150	\N	\N	\N	\N	\N	\N	\N	\N	\N	\N	\N	\N
+84101	Oil and gas well drilling and related workers and services operators	Mining and Oil and Gas Extraction	91	70	Transportation and Warehousing	7.000000000000001	10	Professional, Scientific, and Technical Services	5	0	Utilities	2	0	Construction	-5	0
+84110	Chain saw and skidder operators	Forestry and Logging with Support Activities	60	100	Business, Building and Other Support Services	18	30	Retail Trade	10	20	Construction	6	10	Transportation and Warehousing	6	10
+84111	Silviculture and forestry workers	Public Administration	54	110	Business, Building and Other Support Services	19	40	Forestry and Logging with Support Activities	18	40	Professional, Scientific, and Technical Services	6	10	Health Care and Social Assistance	3	10
+84120	Specialized livestock workers and farm machinery operators	Agriculture and Fishing	79	390	Information, Culture and Recreation	12	60	Professional, Scientific, and Technical Services	4	20	Educational Services	3	20	Retail Trade	2	10
+84121	Fishing vessel deckhands	Agriculture and Fishing	100	60	\N	\N	\N	\N	\N	\N	\N	\N	\N	\N	\N	\N
+85100	Livestock labourers	Agriculture and Fishing	59	210	Manufacturing	22	80	Information, Culture and Recreation	13	50	Repair, Personal and Non-Profit Services	3	10	Wholesale Trade	3	10
+85103	Nursery and greenhouse labourers	Agriculture and Fishing	73	390	Retail Trade	16	80	Wholesale Trade	5	30	Business, Building and Other Support Services	4	20	Manufacturing	2	10
+85110	Mine labourers	Mining and Oil and Gas Extraction	97	170	Professional, Scientific, and Technical Services	3	10	\N	\N	\N	\N	\N	\N	\N	\N	\N
+85111	Oil and gas drilling, servicing and related labourers	Mining and Oil and Gas Extraction	89	130	Transportation and Warehousing	3	0	Finance, Insurance and Real Estate	3	0	Repair, Personal and Non-Profit Services	3	0	Business, Building and Other Support Services	2	0
+85120	Logging and forestry labourers	Agriculture and Fishing	36	0	Public Administration	20	0	Wholesale Trade	18	0	Transportation and Warehousing	17	0	Business, Building and Other Support Services	9	0
+85121	Landscaping and grounds maintenance labourers	Business, Building and Other Support Services	64	3000	Information, Culture and Recreation	20	930	Public Administration	11	500	Educational Services	3	160	Repair, Personal and Non-Profit Services	3	130
+90010	Manufacturing managers	Manufacturing	97	4310	Wholesale Trade	1	60	Professional, Scientific, and Technical Services	1	20	Construction	1	20	Business, Building and Other Support Services	0	10
+90011	Utilities managers	Utilities	55.00000000000001	390	Business, Building and Other Support Services	23	160	Public Administration	9	70	Wholesale Trade	9	60	Construction	4	30
+92010	Supervisors, mineral and metal processing	Manufacturing	89	170	Mining and Oil and Gas Extraction	5	10	Wholesale Trade	4	10	Construction	2	0	\N	\N	\N
+92011	Supervisors, petroleum, gas and chemical processing and utilities	Utilities	40	150	Manufacturing	24	90	Wholesale Trade	14.000000000000002	60	Mining and Oil and Gas Extraction	12	40	Business, Building and Other Support Services	9	40
+92012	Supervisors, food and beverage processing	Manufacturing	84	670	Wholesale Trade	9	70	Retail Trade	3	20	Accommodation and Food Services	2	20	Agriculture and Fishing	2	10
 92013	Supervisors, plastic and rubber products manufacturing	Manufacturing	92	70	Retail Trade	8	10	\N	\N	\N	\N	\N	\N	\N	\N	\N
-92014	Supervisors, forest products processing	Manufacturing	77	260	Retail Trade	6	20	Forestry, Logging And Support Activities	6	20	Wholesale Trade	6	20	Construction	4	10
-92015	Supervisors, textile, fabric, fur and leather products processing and manufacturing	Manufacturing	75	30	Wholesale Trade	13	10	Retail Trade	12	10	\N	\N	\N	\N	\N	\N
-92020	Supervisors, motor vehicle assembling	Manufacturing	100	50	\N	\N	\N	\N	\N	\N	\N	\N	\N	\N	\N	\N
-92021	Supervisors, electronics and electrical products manufacturing	Manufacturing	75	90	Professional, Scientific And Technical Services	9	10	Wholesale Trade	6	10	Retail Trade	5	10	Repair, Personal And Non-Profit Services	5	10
+92014	Supervisors, forest products processing	Manufacturing	77	260	Retail Trade	6	20	Forestry and Logging with Support Activities	6	20	Wholesale Trade	6	20	Construction	4	10
+92021	Supervisors, electronics and electrical products manufacturing	Manufacturing	75	90	Professional, Scientific, and Technical Services	9	10	Wholesale Trade	6	10	Retail Trade	5	10	Repair, Personal and Non-Profit Services	5	10
 92022	Supervisors, furniture and fixtures manufacturing	Manufacturing	100	20	\N	\N	\N	\N	\N	\N	\N	\N	\N	\N	\N	\N
-92023	Supervisors, other mechanical and metal products manufacturing	Manufacturing	87	50	Transportation And Warehousing	7.000000000000001	0	Construction	6	0	\N	\N	\N	\N	\N	\N
-92024	Supervisors, other products manufacturing and assembly	Manufacturing	60	30	Retail Trade	22	10	Professional, Scientific And Technical Services	9	0	Wholesale Trade	7.000000000000001	0	Information, Culture And Recreation	3	0
-92100	Power engineers and power systems operators	Manufacturing	42	690	Mining And Oil And Gas Extraction	16	260	Public Administration	14.000000000000002	230	Utilities	14.000000000000002	230	Health Care And Social Assistance	14.000000000000002	230
-92101	Water and waste treatment plant operators	Utilities	63	370	Public Administration	21	120	Business, Building And Other Support Services	8	50	Professional, Scientific And Technical Services	5	30	Mining And Oil And Gas Extraction	3	20
-93100	Central control and process operators, mineral and metal processing	Manufacturing	72	270	Mining And Oil And Gas Extraction	20	80	Construction	4	10	Professional, Scientific And Technical Services	2	10	Information, Culture And Recreation	2	10
-93101	Central control and process operators, petroleum, gas and chemical processing	Mining And Oil And Gas Extraction	57.99999999999999	460	Manufacturing	21	170	Utilities	10	80	Public Administration	6	50	Wholesale Trade	4	40
+92023	Supervisors, other mechanical and metal products manufacturing	Manufacturing	87	50	Transportation and Warehousing	7.000000000000001	0	Construction	6	0	\N	\N	\N	\N	\N	\N
+92024	Supervisors, other products manufacturing and assembly	Manufacturing	60	30	Retail Trade	22	10	Professional, Scientific, and Technical Services	9	0	Wholesale Trade	7.000000000000001	0	Information, Culture and Recreation	3	0
+92100	Power engineers and power systems operators	Manufacturing	42	690	Mining and Oil and Gas Extraction	16	260	Public Administration	14.000000000000002	230	Utilities	14.000000000000002	230	Health Care and Social Assistance	14.000000000000002	230
+92101	Water and waste treatment plant operators	Utilities	63	370	Public Administration	21	120	Business, Building and Other Support Services	8	50	Professional, Scientific, and Technical Services	5	30	Mining and Oil and Gas Extraction	3	20
+93100	Central control and process operators, mineral and metal processing	Manufacturing	72	270	Mining and Oil and Gas Extraction	20	80	Construction	4	10	Professional, Scientific, and Technical Services	2	10	Information, Culture and Recreation	2	10
+93101	Central control and process operators, petroleum, gas and chemical processing	Mining and Oil and Gas Extraction	57.99999999999999	460	Manufacturing	21	170	Utilities	10	80	Public Administration	6	50	Wholesale Trade	4	40
 93102	Pulping, papermaking and coating control operators	Manufacturing	100	60	\N	\N	\N	\N	\N	\N	\N	\N	\N	\N	\N	\N
 93200	Aircraft assemblers and aircraft assembly inspectors	Manufacturing	100	20	\N	\N	\N	\N	\N	\N	\N	\N	\N	\N	\N	\N
-94100	Machine operators, mineral and metal processing	Manufacturing	54	120	Mining And Oil And Gas Extraction	31	70	Wholesale Trade	5	10	Professional, Scientific And Technical Services	5	10	Construction	4	10
-94101	Foundry workers	Manufacturing	100	30	\N	\N	\N	\N	\N	\N	\N	\N	\N	\N	\N	\N
+94100	Machine operators, mineral and metal processing	Manufacturing	54	120	Mining and Oil and Gas Extraction	31	70	Wholesale Trade	5	10	Professional, Scientific, and Technical Services	5	10	Construction	4	10
 94102	Glass forming and finishing machine operators and glass cutters	Manufacturing	89	50	Retail Trade	6	0	Construction	5	0	\N	\N	\N	\N	\N	\N
-94103	Concrete, clay and stone forming operators	Manufacturing	54	50	Construction	30	30	Mining And Oil And Gas Extraction	6	10	Wholesale Trade	6	10	Retail Trade	4	0
-94104	Inspectors and testers, mineral and metal processing	Manufacturing	69	20	Professional, Scientific And Technical Services	20	10	Construction	11	0	\N	\N	\N	\N	\N	\N
-94105	Metalworking and forging machine operators	Manufacturing	68	150	Wholesale Trade	21	50	Construction	7.000000000000001	20	Retail Trade	2	0	Business, Building And Other Support Services	2	0
-94106	Machining tool operators	Manufacturing	93	80	Construction	7.000000000000001	10	\N	\N	\N	\N	\N	\N	\N	\N	\N
+94103	Concrete, clay and stone forming operators	Manufacturing	54	50	Construction	30	30	Mining and Oil and Gas Extraction	6	10	Wholesale Trade	6	10	Retail Trade	4	0
+94104	Inspectors and testers, mineral and metal processing	Manufacturing	69	20	Professional, Scientific, and Technical Services	20	10	Construction	11	0	\N	\N	\N	\N	\N	\N
+94105	Metalworking and forging machine operators	Manufacturing	68	150	Wholesale Trade	21	50	Construction	7.000000000000001	20	Retail Trade	2	0	Business, Building and Other Support Services	2	0
 94107	Machine operators of other metal products	Manufacturing	65	10	Wholesale Trade	35	10	\N	\N	\N	\N	\N	\N	\N	\N	\N
-94110	Chemical plant machine operators	Manufacturing	53	60	Retail Trade	18	20	Wholesale Trade	14.000000000000002	20	Mining And Oil And Gas Extraction	9	10	Professional, Scientific And Technical Services	6	10
+94110	Chemical plant machine operators	Manufacturing	53	60	Retail Trade	18	20	Wholesale Trade	14.000000000000002	20	Mining and Oil and Gas Extraction	9	10	Professional, Scientific, and Technical Services	6	10
 94111	Plastics processing machine operators	Manufacturing	86	190	Wholesale Trade	12	30	Retail Trade	2	0	\N	\N	\N	\N	\N	\N
 94112	Rubber processing machine operators and related workers	Manufacturing	53	20	Retail Trade	24	10	Wholesale Trade	23	10	\N	\N	\N	\N	\N	\N
-94120	Sawmill machine operators	Manufacturing	72	270	Wholesale Trade	12	40	Forestry, Logging And Support Activities	7.000000000000001	30	Transportation And Warehousing	7.000000000000001	20	Construction	3	10
-94121	Pulp mill, papermaking and finishing machine operators	Manufacturing	92	140	Wholesale Trade	6	10	Forestry, Logging And Support Activities	1	0	\N	\N	\N	\N	\N	\N
-94122	Paper converting machine operators	Manufacturing	100	20	\N	\N	\N	\N	\N	\N	\N	\N	\N	\N	\N	\N
-94123	Lumber graders and other wood processing inspectors and graders	Manufacturing	62	80	Wholesale Trade	17	20	Forestry, Logging And Support Activities	15	20	Business, Building And Other Support Services	7.000000000000001	10	\N	\N	\N
-94124	Woodworking machine operators	Manufacturing	78	110	Construction	9	10	Professional, Scientific And Technical Services	6	10	Information, Culture And Recreation	4	10	Business, Building And Other Support Services	3	0
-94129	Other wood processing machine operators	Manufacturing	76	90	Wholesale Trade	22	30	Forestry, Logging And Support Activities	2	0	\N	\N	\N	\N	\N	\N
-94130	Textile fibre and yarn, hide and pelt processing machine operators and workers	Manufacturing	49	20	Information, Culture And Recreation	16	10	Retail Trade	16	10	Professional, Scientific And Technical Services	11	0	Repair, Personal And Non-Profit Services	8	0
-94131	Weavers, knitters and other fabric making occupations	Manufacturing	60	20	Retail Trade	23	10	Professional, Scientific And Technical Services	16	10	\N	\N	\N	\N	\N	\N
-94132	Industrial sewing machine operators	Manufacturing	63	350	Retail Trade	23	130	Wholesale Trade	7.000000000000001	40	Repair, Personal And Non-Profit Services	5	30	Professional, Scientific And Technical Services	3	20
-94133	Inspectors and graders, textile, fabric, fur and leather products manufacturing	Manufacturing	47	20	Retail Trade	34	20	Wholesale Trade	12	10	Transportation And Warehousing	6	0	\N	\N	\N
-94140	Process control and machine operators, food and beverage processing	Manufacturing	84	1780	Wholesale Trade	6	130	Accommodation And Food Services	5	100	Transportation And Warehousing	3	60	Retail Trade	2	40
-94141	Industrial butchers and meat cutters, poultry preparers and related workers	Manufacturing	88	640	Retail Trade	10	70	Accommodation And Food Services	1	10	Agriculture And Fishing	1	10	\N	\N	\N
-94142	Fish and seafood plant workers	Manufacturing	83	430	Agriculture And Fishing	9	50	Wholesale Trade	8	40	Business, Building And Other Support Services	1	0	\N	\N	\N
-94143	Testers and graders, food and beverage processing	Manufacturing	78	230	Wholesale Trade	14.000000000000002	40	Retail Trade	5	10	Accommodation And Food Services	2	10	Professional, Scientific And Technical Services	1	0
-94150	Plateless printing equipment operators	Manufacturing	65	130	Retail Trade	20	40	Wholesale Trade	7.000000000000001	10	Professional, Scientific And Technical Services	5	10	Finance, Insurance And Real Estate	2	0
-94151	Camera, platemaking and other prepress occupations	Manufacturing	90	40	Professional, Scientific And Technical Services	10	0	\N	\N	\N	\N	\N	\N	\N	\N	\N
-94152	Binding and finishing machine operators	Manufacturing	90	90	Retail Trade	10	10	\N	\N	\N	\N	\N	\N	\N	\N	\N
-94153	Photographic and film processors	Retail Trade	56.00000000000001	70	Repair, Personal And Non-Profit Services	15	20	Professional, Scientific And Technical Services	14.000000000000002	20	Information, Culture And Recreation	9	10	Manufacturing	6	10
-94200	Motor vehicle assemblers, inspectors and testers	Manufacturing	66	220	Repair, Personal And Non-Profit Services	13	40	Retail Trade	13	40	Wholesale Trade	5	20	Construction	3	10
-94201	Electronics assemblers, fabricators, inspectors and testers	Manufacturing	60	260	Professional, Scientific And Technical Services	25	110	Wholesale Trade	7.000000000000001	30	Retail Trade	4	20	Construction	4	20
-94202	Assemblers and inspectors, electrical appliance, apparatus and equipment manufacturing	Manufacturing	71	100	Construction	18	30	Wholesale Trade	6	10	Professional, Scientific And Technical Services	5	10	\N	\N	\N
+94120	Sawmill machine operators	Manufacturing	72	270	Wholesale Trade	12	40	Forestry and Logging with Support Activities	7.000000000000001	30	Transportation and Warehousing	7.000000000000001	20	Construction	3	10
+94121	Pulp mill, papermaking and finishing machine operators	Manufacturing	92	140	Wholesale Trade	6	10	Forestry and Logging with Support Activities	1	0	\N	\N	\N	\N	\N	\N
+94123	Lumber graders and other wood processing inspectors and graders	Manufacturing	62	80	Wholesale Trade	17	20	Forestry and Logging with Support Activities	15	20	Business, Building and Other Support Services	7.000000000000001	10	\N	\N	\N
+94124	Woodworking machine operators	Manufacturing	78	110	Construction	9	10	Professional, Scientific, and Technical Services	6	10	Information, Culture and Recreation	4	10	Business, Building and Other Support Services	3	0
+94129	Other wood processing machine operators	Manufacturing	76	90	Wholesale Trade	22	30	Forestry and Logging with Support Activities	2	0	\N	\N	\N	\N	\N	\N
+94130	Textile fibre and yarn, hide and pelt processing machine operators and workers	Manufacturing	49	20	Information, Culture and Recreation	16	10	Retail Trade	16	10	Professional, Scientific, and Technical Services	11	0	Repair, Personal and Non-Profit Services	8	0
+94131	Weavers, knitters and other fabric making occupations	Manufacturing	60	20	Retail Trade	23	10	Professional, Scientific, and Technical Services	16	10	\N	\N	\N	\N	\N	\N
+94132	Industrial sewing machine operators	Manufacturing	63	350	Retail Trade	23	130	Wholesale Trade	7.000000000000001	40	Repair, Personal and Non-Profit Services	5	30	Professional, Scientific, and Technical Services	3	20
+94133	Inspectors and graders, textile, fabric, fur and leather products manufacturing	Manufacturing	47	20	Retail Trade	34	20	Wholesale Trade	12	10	Transportation and Warehousing	6	0	\N	\N	\N
+94140	Process control and machine operators, food and beverage processing	Manufacturing	84	1780	Wholesale Trade	6	130	Accommodation and Food Services	5	100	Transportation and Warehousing	3	60	Retail Trade	2	40
+94141	Industrial butchers and meat cutters, poultry preparers and related workers	Manufacturing	88	640	Retail Trade	10	70	Accommodation and Food Services	1	10	Agriculture and Fishing	1	10	\N	\N	\N
+94142	Fish and seafood plant workers	Manufacturing	83	430	Agriculture and Fishing	9	50	Wholesale Trade	8	40	Business, Building and Other Support Services	1	0	\N	\N	\N
+94143	Testers and graders, food and beverage processing	Manufacturing	78	230	Wholesale Trade	14.000000000000002	40	Retail Trade	5	10	Accommodation and Food Services	2	10	Professional, Scientific, and Technical Services	1	0
+94150	Plateless printing equipment operators	Manufacturing	65	130	Retail Trade	20	40	Wholesale Trade	7.000000000000001	10	Professional, Scientific, and Technical Services	5	10	Finance, Insurance and Real Estate	2	0
+94151	Camera, platemaking and other prepress occupations	Manufacturing	90	40	Professional, Scientific, and Technical Services	10	0	\N	\N	\N	\N	\N	\N	\N	\N	\N
+94153	Photographic and film processors	Retail Trade	56.00000000000001	70	Repair, Personal and Non-Profit Services	15	20	Professional, Scientific, and Technical Services	14.000000000000002	20	Information, Culture and Recreation	9	10	Manufacturing	6	10
+94200	Motor vehicle assemblers, inspectors and testers	Manufacturing	66	220	Repair, Personal and Non-Profit Services	13	40	Retail Trade	13	40	Wholesale Trade	5	20	Construction	3	10
+94201	Electronics assemblers, fabricators, inspectors and testers	Manufacturing	60	260	Professional, Scientific, and Technical Services	25	110	Wholesale Trade	7.000000000000001	30	Retail Trade	4	20	Construction	4	20
+94202	Assemblers and inspectors, electrical appliance, apparatus and equipment manufacturing	Manufacturing	71	100	Construction	18	30	Wholesale Trade	6	10	Professional, Scientific, and Technical Services	5	10	\N	\N	\N
 94203	Assemblers, fabricators and inspectors, industrial electrical motors and transformers	Manufacturing	53	10	Construction	27	0	Wholesale Trade	20	0	\N	\N	\N	\N	\N	\N
-94204	Mechanical assemblers and inspectors	Manufacturing	82	250	Wholesale Trade	7.000000000000001	20	Repair, Personal And Non-Profit Services	5	10	Retail Trade	4	10	Construction	2	10
+94204	Mechanical assemblers and inspectors	Manufacturing	82	250	Wholesale Trade	7.000000000000001	20	Repair, Personal and Non-Profit Services	5	10	Retail Trade	4	10	Construction	2	10
 94205	Machine operators and inspectors, electrical apparatus manufacturing	Manufacturing	81	30	Retail Trade	19	10	\N	\N	\N	\N	\N	\N	\N	\N	\N
-94210	Furniture and fixture assemblers, finishers, refinishers and inspectors	Manufacturing	62	260	Construction	13	60	Retail Trade	12	50	Repair, Personal And Non-Profit Services	10	40	Wholesale Trade	4	20
-94211	Assemblers and inspectors of other wood products	Manufacturing	45	60	Retail Trade	20	30	Construction	16	20	Wholesale Trade	13	20	Transportation And Warehousing	6	10
-94212	Plastic products assemblers, finishers and inspectors	Manufacturing	76	70	Wholesale Trade	11	10	Retail Trade	8	10	Repair, Personal And Non-Profit Services	5	0	\N	\N	\N
-94213	Industrial painters, coaters and metal finishing process operators	Manufacturing	64	310	Construction	17	80	Transportation And Warehousing	11	50	Wholesale Trade	5	20	Retail Trade	3	10
-94219	Other products assemblers, finishers and inspectors	Manufacturing	76	540	Retail Trade	9	70	Information, Culture And Recreation	5	40	Construction	5	40	Repair, Personal And Non-Profit Services	5	30
-95100	Labourers in mineral and metal processing	Manufacturing	63	170	Wholesale Trade	28.000000000000004	70	Mining And Oil And Gas Extraction	3	10	Construction	3	10	Business, Building And Other Support Services	3	10
-95101	Labourers in metal fabrication	Manufacturing	79	210	Wholesale Trade	7.000000000000001	20	Repair, Personal And Non-Profit Services	6	20	Retail Trade	4	10	Public Administration	4	10
-95102	Labourers in chemical products processing and utilities	Manufacturing	31	70	Retail Trade	22	50	Business, Building And Other Support Services	19	40	Wholesale Trade	14.000000000000002	30	Professional, Scientific And Technical Services	13	30
-95103	Labourers in wood, pulp and paper processing	Manufacturing	75	450	Wholesale Trade	9	50	Retail Trade	6	30	Transportation And Warehousing	5	30	Construction	5	30
-95104	Labourers in rubber and plastic products manufacturing	Manufacturing	85	90	Repair, Personal And Non-Profit Services	6	10	Wholesale Trade	3	0	Transportation And Warehousing	3	0	Retail Trade	3	0
-95105	Labourers in textile processing and cutting	Manufacturing	48	90	Retail Trade	24	40	Professional, Scientific And Technical Services	12	20	Wholesale Trade	9	20	Repair, Personal And Non-Profit Services	6	10
-95106	Labourers in food and beverage processing	Manufacturing	80	4700	Wholesale Trade	11	630	Retail Trade	6	330	Agriculture And Fishing	2	90	Transportation And Warehousing	2	90
-95107	Labourers in fish and seafood processing	Manufacturing	75	280	Agriculture And Fishing	10	40	Wholesale Trade	9	30	Transportation And Warehousing	3	10	Business, Building And Other Support Services	3	10
-95109	Other labourers in processing, manufacturing and utilities	Manufacturing	42	820	Wholesale Trade	24	470	Retail Trade	13	250	Business, Building And Other Support Services	12	230	Transportation And Warehousing	9	170
+94210	Furniture and fixture assemblers, finishers, refinishers and inspectors	Manufacturing	62	260	Construction	13	60	Retail Trade	12	50	Repair, Personal and Non-Profit Services	10	40	Wholesale Trade	4	20
+94211	Assemblers and inspectors of other wood products	Manufacturing	45	60	Retail Trade	20	30	Construction	16	20	Wholesale Trade	13	20	Transportation and Warehousing	6	10
+94212	Plastic products assemblers, finishers and inspectors	Manufacturing	76	70	Wholesale Trade	11	10	Retail Trade	8	10	Repair, Personal and Non-Profit Services	5	0	\N	\N	\N
+94213	Industrial painters, coaters and metal finishing process operators	Manufacturing	64	310	Construction	17	80	Transportation and Warehousing	11	50	Wholesale Trade	5	20	Retail Trade	3	10
+94219	Other products assemblers, finishers and inspectors	Manufacturing	76	540	Retail Trade	9	70	Information, Culture and Recreation	5	40	Construction	5	40	Repair, Personal and Non-Profit Services	5	30
+95100	Labourers in mineral and metal processing	Manufacturing	63	170	Wholesale Trade	28.000000000000004	70	Mining and Oil and Gas Extraction	3	10	Construction	3	10	Business, Building and Other Support Services	3	10
+95101	Labourers in metal fabrication	Manufacturing	79	210	Wholesale Trade	7.000000000000001	20	Repair, Personal and Non-Profit Services	6	20	Retail Trade	4	10	Public Administration	4	10
+95102	Labourers in chemical products processing and utilities	Manufacturing	31	70	Retail Trade	22	50	Business, Building and Other Support Services	19	40	Wholesale Trade	14.000000000000002	30	Professional, Scientific, and Technical Services	13	30
+95103	Labourers in wood, pulp and paper processing	Manufacturing	75	450	Wholesale Trade	9	50	Retail Trade	6	30	Transportation and Warehousing	5	30	Construction	5	30
+95104	Labourers in rubber and plastic products manufacturing	Manufacturing	85	90	Repair, Personal and Non-Profit Services	6	10	Wholesale Trade	3	0	Transportation and Warehousing	3	0	Retail Trade	3	0
+95105	Labourers in textile processing and cutting	Manufacturing	48	90	Retail Trade	24	40	Professional, Scientific, and Technical Services	12	20	Wholesale Trade	9	20	Repair, Personal and Non-Profit Services	6	10
+95106	Labourers in food and beverage processing	Manufacturing	80	4700	Wholesale Trade	11	630	Retail Trade	6	330	Agriculture and Fishing	2	90	Transportation and Warehousing	2	90
+95107	Labourers in fish and seafood processing	Manufacturing	75	280	Agriculture and Fishing	10	40	Wholesale Trade	9	30	Transportation and Warehousing	3	10	Business, Building and Other Support Services	3	10
+95109	Other labourers in processing, manufacturing and utilities	Manufacturing	42	820	Wholesale Trade	24	470	Retail Trade	13	250	Business, Building and Other Support Services	12	230	Transportation and Warehousing	9	170
 \.
 
 
@@ -8820,36 +9105,37 @@ COPY public.openings_careers (noc, description, industry_1_name, industry_1_perc
 --
 
 COPY public.openings_industry (industry, noc, description, openings) FROM stdin;
-Accommodation And Food Services	65201	Food counter attendants, kitchen helpers and related support occupations	12210
-Accommodation And Food Services	60030	Restaurant and food service managers	9270
-Accommodation And Food Services	63200	Cooks	7160
-Accommodation And Food Services	65200	Food and beverage servers	5060
-Accommodation And Food Services	62200	Chefs	4390
-Accommodation And Food Services	60031	Accommodation service managers	3090
-Accommodation And Food Services	62020	Food service supervisors	2840
-Accommodation And Food Services	65310	Light duty cleaners	2780
-Accommodation And Food Services	65100	Cashiers	1800
-Accommodation And Food Services	64314	Hotel front desk clerks	1100
-Agriculture And Fishing	80020	Managers in agriculture	2360
-Agriculture And Fishing	84120	Specialized livestock workers and farm machinery operators	390
-Agriculture And Fishing	85103	Nursery and greenhouse labourers	390
-Agriculture And Fishing	85101	Harvesting labourers	290
-Agriculture And Fishing	80021	Managers in horticulture	250
-Agriculture And Fishing	85100	Livestock labourers	210
-Agriculture And Fishing	80022	Managers in aquaculture	160
-Agriculture And Fishing	00018	Senior managers - public and private sector	120
-Agriculture And Fishing	12200	Accounting technicians and bookkeepers	100
-Agriculture And Fishing	73300	Transport truck drivers	100
-Business, Building And Other Support Services	65310	Light duty cleaners	4520
-Business, Building And Other Support Services	85121	Landscaping and grounds maintenance labourers	3000
-Business, Building And Other Support Services	64410	Security guards and related security service occupations	2660
-Business, Building And Other Support Services	65312	Janitors, caretakers and heavy-duty cleaners	2320
-Business, Building And Other Support Services	64310	Travel counsellors	2090
-Business, Building And Other Support Services	82031	Contractors and supervisors, landscaping, grounds maintenance and horticulture services	1130
-Business, Building And Other Support Services	73201	General building maintenance workers and building superintendents	950
-Business, Building And Other Support Services	00018	Senior managers - public and private sector	810
-Business, Building And Other Support Services	64409	Other customer and information services representatives	770
-Business, Building And Other Support Services	22114	Landscape and horticulture technicians and specialists	730
+Manufacturing	63202	Bakers	1840
+Accommodation and Food Services	65201	Food counter attendants, kitchen helpers and related support occupations	12210
+Accommodation and Food Services	60030	Restaurant and food service managers	9270
+Accommodation and Food Services	63200	Cooks	7160
+Accommodation and Food Services	65200	Food and beverage servers	5060
+Accommodation and Food Services	62200	Chefs	4390
+Accommodation and Food Services	60031	Accommodation service managers	3090
+Accommodation and Food Services	62020	Food service supervisors	2840
+Accommodation and Food Services	65310	Light duty cleaners	2780
+Accommodation and Food Services	65100	Cashiers	1800
+Accommodation and Food Services	64314	Hotel front desk clerks	1100
+Agriculture and Fishing	80020	Managers in agriculture	2360
+Agriculture and Fishing	84120	Specialized livestock workers and farm machinery operators	390
+Agriculture and Fishing	85103	Nursery and greenhouse labourers	390
+Agriculture and Fishing	85101	Harvesting labourers	290
+Agriculture and Fishing	80021	Managers in horticulture	250
+Agriculture and Fishing	85100	Livestock labourers	210
+Agriculture and Fishing	80022	Managers in aquaculture	160
+Agriculture and Fishing	00018	Senior managers - public and private sector	120
+Agriculture and Fishing	12200	Accounting technicians and bookkeepers	100
+Agriculture and Fishing	73300	Transport truck drivers	100
+Business, Building and Other Support Services	65310	Light duty cleaners	4520
+Business, Building and Other Support Services	85121	Landscaping and grounds maintenance labourers	3000
+Business, Building and Other Support Services	64410	Security guards and related security service occupations	2660
+Business, Building and Other Support Services	65312	Janitors, caretakers and heavy-duty cleaners	2320
+Business, Building and Other Support Services	64310	Travel counsellors	2090
+Business, Building and Other Support Services	82031	Contractors and supervisors, landscaping, grounds maintenance and horticulture services	1130
+Business, Building and Other Support Services	73201	General building maintenance workers and building superintendents	950
+Business, Building and Other Support Services	00018	Senior managers - public and private sector	810
+Business, Building and Other Support Services	64409	Other customer and information services representatives	770
+Business, Building and Other Support Services	22114	Landscape and horticulture technicians and specialists	730
 Construction	72310	Carpenters	7410
 Construction	75110	Construction trades helpers and labourers	6420
 Construction	70010	Construction managers	5690
@@ -8864,55 +9150,55 @@ Educational Services	41221	Elementary school and kindergarten teachers	12540
 Educational Services	43100	Elementary and secondary school teacher assistants	7070
 Educational Services	41220	Secondary school teachers	6960
 Educational Services	41200	University professors and lecturers	4150
+Retail Trade	31120	Pharmacists	1660
 Educational Services	41210	College and other vocational instructors	4040
 Educational Services	40021	School principals and administrators of elementary and secondary education	2570
 Educational Services	43109	Other instructors	2290
 Educational Services	41201	Post-secondary teaching and research assistants	2150
 Educational Services	65312	Janitors, caretakers and heavy-duty cleaners	1980
 Educational Services	13100	Administrative officers	1920
-Finance, Insurance And Real Estate	63101	Real estate agents and salespersons	6360
-Finance, Insurance And Real Estate	63100	Insurance agents and brokers	4610
-Finance, Insurance And Real Estate	11102	Financial advisors	3310
-Finance, Insurance And Real Estate	13101	Property administrators	3290
-Finance, Insurance And Real Estate	10020	Insurance, real estate and financial brokerage managers	3060
-Finance, Insurance And Real Estate	10021	Banking, credit and other investment managers	2540
-Finance, Insurance And Real Estate	70012	Facility operation and maintenance managers	1980
-Finance, Insurance And Real Estate	63102	Financial sales representatives	1650
-Finance, Insurance And Real Estate	00018	Senior managers - public and private sector	1540
-Finance, Insurance And Real Estate	12201	Insurance adjusters and claims examiners	1530
-Forestry, Logging And Support Activities	83110	Logging machinery operators	330
-Forestry, Logging And Support Activities	73300	Transport truck drivers	240
-Forestry, Logging And Support Activities	21111	Forestry professionals	220
-Forestry, Logging And Support Activities	82010	Supervisors, logging and forestry	190
-Forestry, Logging And Support Activities	22112	Forestry technologists and technicians	190
-Forestry, Logging And Support Activities	80010	Managers in natural resources production and fishing	170
-Forestry, Logging And Support Activities	84110	Chain saw and skidder operators	100
-Forestry, Logging And Support Activities	92100	Power engineers and power systems operators	100
-Forestry, Logging And Support Activities	13100	Administrative officers	60
-Forestry, Logging And Support Activities	72401	Heavy-duty equipment mechanics	60
-Health Care And Social Assistance	31301	Registered nurses and registered psychiatric nurses	24150
-Health Care And Social Assistance	33102	Nurse aides, orderlies and patient service associates	20960
-Health Care And Social Assistance	42201	Social and community service workers	12250
-Health Care And Social Assistance	42202	Early childhood educators and assistants	10490
-Health Care And Social Assistance	14101	Receptionists	5570
-Health Care And Social Assistance	32101	Licensed practical nurses	4220
-Health Care And Social Assistance	30010	Managers in health care	3630
-Health Care And Social Assistance	31102	General practitioners and family physicians	3590
-Health Care And Social Assistance	13100	Administrative officers	3550
-Health Care And Social Assistance	41301	Therapists in counselling and related specialized therapies	3520
-Information, Culture And Recreation	54100	Program leaders and instructors in recreation, sport and fitness	2940
-Information, Culture And Recreation	51120	Producers, directors, choreographers and related occupations	2270
-Information, Culture And Recreation	52120	Graphic designers and illustrators	1900
-Information, Culture And Recreation	52119	Other technical and coordinating occupations in motion pictures, broadcasting and the performing arts	1560
-Information, Culture And Recreation	53111	Motion pictures, broadcasting, photography and performing arts assistants and operators	1550
-Information, Culture And Recreation	64100	Retail salespersons and visual merchandisers	1110
-Information, Culture And Recreation	53122	Painters, sculptors and other visual artists	1100
-Information, Culture And Recreation	53121	Actors, comedians and circus performers	1080
-Information, Culture And Recreation	65211	Operators and attendants in amusement, recreation and sport	1070
-Information, Culture And Recreation	51111	Authors and writers (except technical)	990
+Finance, Insurance and Real Estate	63101	Real estate agents and salespersons	6360
+Finance, Insurance and Real Estate	63100	Insurance agents and brokers	4610
+Finance, Insurance and Real Estate	11102	Financial advisors	3310
+Finance, Insurance and Real Estate	13101	Property administrators	3290
+Finance, Insurance and Real Estate	10020	Insurance, real estate and financial brokerage managers	3060
+Finance, Insurance and Real Estate	10021	Banking, credit and other investment managers	2540
+Finance, Insurance and Real Estate	70012	Facility operation and maintenance managers	1980
+Finance, Insurance and Real Estate	63102	Financial sales representatives	1650
+Finance, Insurance and Real Estate	00018	Senior managers - public and private sector	1540
+Finance, Insurance and Real Estate	12201	Insurance adjusters and claims examiners	1530
+Forestry and Logging with Support Activities	83110	Logging machinery operators	330
+Forestry and Logging with Support Activities	73300	Transport truck drivers	240
+Forestry and Logging with Support Activities	21111	Forestry professionals	220
+Forestry and Logging with Support Activities	82010	Supervisors, logging and forestry	190
+Forestry and Logging with Support Activities	22112	Forestry technologists and technicians	190
+Forestry and Logging with Support Activities	80010	Managers in natural resources production and fishing	170
+Forestry and Logging with Support Activities	84110	Chain saw and skidder operators	100
+Forestry and Logging with Support Activities	92100	Power engineers and power systems operators	100
+Forestry and Logging with Support Activities	13100	Administrative officers	60
+Forestry and Logging with Support Activities	72401	Heavy-duty equipment mechanics	60
+Health Care and Social Assistance	31301	Registered nurses and registered psychiatric nurses	24150
+Health Care and Social Assistance	33102	Nurse aides, orderlies and patient service associates	20960
+Health Care and Social Assistance	42201	Social and community service workers	12250
+Health Care and Social Assistance	42202	Early childhood educators and assistants	10490
+Health Care and Social Assistance	14101	Receptionists	5570
+Health Care and Social Assistance	32101	Licensed practical nurses	4220
+Health Care and Social Assistance	30010	Managers in health care	3630
+Health Care and Social Assistance	31102	General practitioners and family physicians	3590
+Health Care and Social Assistance	13100	Administrative officers	3550
+Health Care and Social Assistance	41301	Therapists in counselling and related specialized therapies	3520
+Information, Culture and Recreation	54100	Program leaders and instructors in recreation, sport and fitness	2940
+Information, Culture and Recreation	51120	Producers, directors, choreographers and related occupations	2270
+Information, Culture and Recreation	52120	Graphic designers and illustrators	1900
+Information, Culture and Recreation	52119	Other technical and coordinating occupations in motion pictures, broadcasting and the performing arts	1560
+Information, Culture and Recreation	53111	Motion pictures, broadcasting, photography and performing arts assistants and operators	1550
+Information, Culture and Recreation	64100	Retail salespersons and visual merchandisers	1110
+Information, Culture and Recreation	53122	Painters, sculptors and other visual artists	1100
+Information, Culture and Recreation	53121	Actors, comedians and circus performers	1080
+Information, Culture and Recreation	65211	Operators and attendants in amusement, recreation and sport	1070
+Information, Culture and Recreation	51111	Authors and writers (except technical)	990
 Manufacturing	95106	Labourers in food and beverage processing	4700
 Manufacturing	90010	Manufacturing managers	4310
-Manufacturing	63202	Bakers	1840
 Manufacturing	94140	Process control and machine operators, food and beverage processing	1780
 Manufacturing	00018	Senior managers - public and private sector	1250
 Manufacturing	75101	Material handlers	1130
@@ -8920,26 +9206,26 @@ Manufacturing	64100	Retail salespersons and visual merchandisers	1070
 Manufacturing	72400	Construction millwrights and industrial mechanics	1050
 Manufacturing	72106	Welders and related machine operators	920
 Manufacturing	95109	Other labourers in processing, manufacturing and utilities	820
-Mining And Oil And Gas Extraction	73400	Heavy equipment operators	1310
-Mining And Oil And Gas Extraction	73300	Transport truck drivers	750
-Mining And Oil And Gas Extraction	80010	Managers in natural resources production and fishing	570
-Mining And Oil And Gas Extraction	83100	Underground production and development miners	560
-Mining And Oil And Gas Extraction	82020	Supervisors, mining and quarrying	510
-Mining And Oil And Gas Extraction	93101	Central control and process operators, petroleum, gas and chemical processing	460
-Mining And Oil And Gas Extraction	72400	Construction millwrights and industrial mechanics	390
-Mining And Oil And Gas Extraction	72401	Heavy-duty equipment mechanics	380
-Mining And Oil And Gas Extraction	00018	Senior managers - public and private sector	350
-Mining And Oil And Gas Extraction	82021	Contractors and supervisors, oil and gas drilling and services	340
-Professional, Scientific And Technical Services	21231	Software engineers and designers	10280
-Professional, Scientific And Technical Services	21232	Software developers and programmers	8710
-Professional, Scientific And Technical Services	21222	Information systems specialists	6980
-Professional, Scientific And Technical Services	20012	Computer and information systems managers	6240
-Professional, Scientific And Technical Services	00018	Senior managers - public and private sector	5930
-Professional, Scientific And Technical Services	11100	Financial auditors and accountants	5040
-Professional, Scientific And Technical Services	21234	Web developers and programmers	4660
-Professional, Scientific And Technical Services	12200	Accounting technicians and bookkeepers	3900
-Professional, Scientific And Technical Services	11202	Professional occupations in advertising, marketing and public relations	3390
-Professional, Scientific And Technical Services	11201	Professional occupations in business management consulting	3350
+Mining and Oil and Gas Extraction	73400	Heavy equipment operators	1310
+Mining and Oil and Gas Extraction	73300	Transport truck drivers	750
+Mining and Oil and Gas Extraction	80010	Managers in natural resources production and fishing	570
+Mining and Oil and Gas Extraction	83100	Underground production and development miners	560
+Mining and Oil and Gas Extraction	82020	Supervisors, mining and quarrying	510
+Mining and Oil and Gas Extraction	93101	Central control and process operators, petroleum, gas and chemical processing	460
+Mining and Oil and Gas Extraction	72400	Construction millwrights and industrial mechanics	390
+Mining and Oil and Gas Extraction	72401	Heavy-duty equipment mechanics	380
+Mining and Oil and Gas Extraction	00018	Senior managers - public and private sector	350
+Mining and Oil and Gas Extraction	82021	Contractors and supervisors, oil and gas drilling and services	340
+Professional, Scientific, and Technical Services	21231	Software engineers and designers	10280
+Professional, Scientific, and Technical Services	21232	Software developers and programmers	8710
+Professional, Scientific, and Technical Services	21222	Information systems specialists	6980
+Professional, Scientific, and Technical Services	20012	Computer and information systems managers	6240
+Professional, Scientific, and Technical Services	00018	Senior managers - public and private sector	5930
+Professional, Scientific, and Technical Services	11100	Financial auditors and accountants	5040
+Professional, Scientific, and Technical Services	21234	Web developers and programmers	4660
+Professional, Scientific, and Technical Services	12200	Accounting technicians and bookkeepers	3900
+Professional, Scientific, and Technical Services	11202	Professional occupations in advertising, marketing and public relations	3390
+Professional, Scientific, and Technical Services	11201	Professional occupations in business management consulting	3350
 Public Administration	42100	Police officers (except commissioned)	4320
 Public Administration	10019	Other administrative services managers	2390
 Public Administration	12104	Employment insurance and revenue officers	1900
@@ -8950,36 +9236,35 @@ Public Administration	42200	Paralegals and related occupations	1450
 Public Administration	13110	Administrative assistants	1350
 Public Administration	00018	Senior managers - public and private sector	1200
 Public Administration	43201	Correctional service officers	1180
-Repair, Personal And Non-Profit Services	63210	Hairstylists and barbers	4360
-Repair, Personal And Non-Profit Services	63211	Estheticians, electrologists and related occupations	2670
-Repair, Personal And Non-Profit Services	72410	Automotive service technicians, truck and bus mechanics and mechanical repairers	2200
-Repair, Personal And Non-Profit Services	41302	Religious leaders	1540
-Repair, Personal And Non-Profit Services	00018	Senior managers - public and private sector	1170
-Repair, Personal And Non-Profit Services	13100	Administrative officers	1060
-Repair, Personal And Non-Profit Services	65310	Light duty cleaners	1020
-Repair, Personal And Non-Profit Services	60040	Managers in customer and personal services	1000
-Repair, Personal And Non-Profit Services	65220	Pet groomers and animal care workers	990
-Repair, Personal And Non-Profit Services	72411	Auto body collision, refinishing and glass technicians and damage repair estimators	980
+Repair, Personal and Non-Profit Services	63210	Hairstylists and barbers	4360
+Repair, Personal and Non-Profit Services	63211	Estheticians, electrologists and related occupations	2670
+Repair, Personal and Non-Profit Services	72410	Automotive service technicians, truck and bus mechanics and mechanical repairers	2200
+Repair, Personal and Non-Profit Services	41302	Religious leaders	1540
+Repair, Personal and Non-Profit Services	00018	Senior managers - public and private sector	1170
+Repair, Personal and Non-Profit Services	13100	Administrative officers	1060
+Repair, Personal and Non-Profit Services	65310	Light duty cleaners	1020
+Repair, Personal and Non-Profit Services	60040	Managers in customer and personal services	1000
+Repair, Personal and Non-Profit Services	65220	Pet groomers and animal care workers	990
+Repair, Personal and Non-Profit Services	72411	Auto body collision, refinishing and glass technicians and damage repair estimators	980
 Retail Trade	60020	Retail and wholesale trade managers	23440
 Retail Trade	64100	Retail salespersons and visual merchandisers	21290
 Retail Trade	65100	Cashiers	8360
 Retail Trade	65102	Store shelf stockers, clerks and order fillers	6930
 Retail Trade	62010	Retail sales supervisors	2910
 Retail Trade	75101	Material handlers	2140
-Retail Trade	31120	Pharmacists	1660
 Retail Trade	14400	Shippers and receivers	1600
 Retail Trade	64409	Other customer and information services representatives	1570
 Retail Trade	72410	Automotive service technicians, truck and bus mechanics and mechanical repairers	1340
-Transportation And Warehousing	73300	Transport truck drivers	8280
-Transportation And Warehousing	73301	Bus drivers, subway operators and other transit operators	3290
-Transportation And Warehousing	75201	Delivery service drivers and door-to-door distributors	3100
-Transportation And Warehousing	75101	Material handlers	2700
-Transportation And Warehousing	74101	Letter carriers	2420
-Transportation And Warehousing	75200	Taxi and limousine drivers and chauffeurs	2220
-Transportation And Warehousing	74102	Couriers and messengers	2000
-Transportation And Warehousing	70020	Managers in transportation	1830
-Transportation And Warehousing	75100	Longshore workers	1740
-Transportation And Warehousing	74100	Mail and parcel sorters and related occupations	1510
+Transportation and Warehousing	73300	Transport truck drivers	8280
+Transportation and Warehousing	73301	Bus drivers, subway operators and other transit operators	3290
+Transportation and Warehousing	75201	Delivery service drivers and door-to-door distributors	3100
+Transportation and Warehousing	75101	Material handlers	2700
+Transportation and Warehousing	74101	Letter carriers	2420
+Transportation and Warehousing	75200	Taxi and limousine drivers and chauffeurs	2220
+Transportation and Warehousing	74102	Couriers and messengers	2000
+Transportation and Warehousing	70020	Managers in transportation	1830
+Transportation and Warehousing	75100	Longshore workers	1740
+Transportation and Warehousing	74100	Mail and parcel sorters and related occupations	1510
 Utilities	90011	Utilities managers	390
 Utilities	92101	Water and waste treatment plant operators	370
 Utilities	72203	Electrical power line and cable workers	270
@@ -27033,24 +27318,24 @@ COPY public.sources (endpoint, label, datapoint, filename, sheet, range, author,
 wages	B.C. Labour Market Information Office, derived from 2023 Job Bank Wage data	\N	WorkBC_2023_Wage_Data_Jan29_24	Sheet1	A2-G513	\N	2024/01/29
 titles	\N	\N	2021NOC_CommonJobTitles_IllustrativeListing_Feb16_2024	CommonJobTitles_NOC2021_fina	A2-D4768	\N	2024/02/16
 skills	\N	\N	Top skills by NOC2021 occupations_Feb12_24	Sheet 1	A2-G17921	\N	2024/02/12
-openings_careers	B.C. Labour Market Outlook	\N	Job_Openings_by_Industry_LMO_2023_Jan22_24	Career Profiles	A5-Q515	\N	2024/01/22
+openings_careers	B.C. Labour Market Outlook	\N	Job_Openings_by_Industry_LMO_2023_Jan22_24	Career Profiles	A5-Q515	\N	2024/04/09
 education	\N	\N	All_Occupations'_TEERs_2023_Jan22_24	Sheet 1	A2-D513	\N	2024/01/22
 census	2021 Census	\N	2021_Census_Jan18_23	Career Profiles	A5-R516	\N	2023/01/18
-career_regional	B.C. Labour Market Outlook	\N	WorkBC_Career_Profile_Data_2023__Jan22_24	Regional Outlook	A5-AC516	\N	2024/01/22
-career_provincial	B.C. Labour Market Outlook	\N	WorkBC_Career_Profile_Data_2023__Jan22_24	Provincial Outlook	A4-K515	\N	2024/01/22
+career_regional	B.C. Labour Market Outlook	\N	WorkBC_Career_Profile_Data_2023_Apr5_24	Regional Outlook	A5-AC516	\N	2024/04/05
+career_provincial	B.C. Labour Market Outlook	\N	WorkBC_Career_Profile_Data_2023_Apr5_24	Provincial Outlook	A4-K515	\N	2024/04/05
 high_opportunity_occupations	\N	\N	HOO_BC_and_Region_for_new_tool_2023_Jan22_24	Sheet1	A2-O850	B.C. Labour Market Information Office	2024/01/22
-occupational_interests	\N	\N	Occupational_Interests_2023_Feb23_24	Sheet1	A2-C1537	\N	2024/02/23
-monthly_labour_market_updates	Labour Force Survey (monthly, seasonally adjusted)	\N	REFRESH_WorkBC LMS _<YYYY> <MMM> FINAL	Sheet3	\N	\N	2024/03/15
-monthly_labour_market_updates	Monthly Labour Force Survey, 3-month moving average, seasonally unadjusted	unemployment_pct	REFRESH_WorkBC LMS _<YYYY> <MMM> FINAL	Sheet3	\N	\N	\N
-industry_outlook	B.C. Labour Market Outlook	\N	WorkBC_Industry_Profile_2023__Jan24_24	BC	A3-H20	\N	2024/01/24
-openings_industry	\N	\N	top_10_careers_by_aggregate_industry_2023__Jan22_24	Sheet 1	A2-D181	\N	2024/01/22
-labour_force_survey_industry	2023 Labour Force Survey	\N	2023_LFS_data_sheet_Feb6_24	Industry Profiles	A5-BC23	BC Labour Market Information Office	2024/02/06
+occupational_interests	\N	\N	Occupational_Interests_2023_Apr5_24	Sheet1	A2-C1537	\N	2024/04/05
+monthly_labour_market_updates	Labour Force Survey (monthly, seasonally adjusted)	\N	REFRESH_WorkBC LMS _<YYYY> <MMM> FINAL	Sheet3	\N	\N	2024/04/12
+monthly_labour_market_updates	Monthly Labour Force Survey, 3-month moving average, seasonally unadjusted	unemployment_pct	REFRESH_WorkBC LMS _<YYYY> <MMM> FINAL	Sheet3	\N	\N	2024/04/12
+industry_outlook	B.C. Labour Market Outlook	\N	WorkBC_Industry_Profile_2023__Jan24_24	BC	A3-H20	\N	2024/04/09
+openings_industry	\N	\N	top_10_careers_by_aggregate_industry_2023__Jan22_24	Sheet 1	A2-D181	\N	2024/04/09
+labour_force_survey_industry	2023 Labour Force Survey	\N	2023_LFS_data_sheet_Feb6_24	Industry Profiles	A5-BC23	BC Labour Market Information Office	2024/04/09
 labour_force_survey_regional_employment	2023 Labour Force Survey	\N	2023_LFS_data_sheet_Feb6_24	Regional Profiles	A6-V13	BC Labour Market Information Office	2024/02/06
 labour_force_survey_regional_industry_region	2023 Labour Force Survey	\N	2023_LFS_data_sheet_Feb6_24	Regional Profiles	A21-AK28	BC Labour Market Information Office	2024/02/06
 labour_force_survey_regional_industry_province	2023 Labour Force Survey	\N	2023_LFS_data_sheet_Feb6_24	Regional Profiles	A35-U42	BC Labour Market Information Office	2024/02/06
 regional_labour_market_outlook	B.C. Labour Market Outlook	\N	WorkBC_Regional_Profile_Data_2023__Jan24_24	Regional Profiles - LMO	A5-L12	\N	2024/01/24
 regional_top_occupations	B.C. Labour Market Outlook	\N	WorkBC_Regional_Profile_Data_2023__Jan24_24	Top Occupation	A5-D73	\N	2024/01/24
-\N	\N	\N	WorkBC_Career_Trek_2023__Mar27_24	LMO	A2-H185	\N	2024/03/27
+career_trek	\N	\N	WorkBC_Career_Trek_2023__Apr10_24	LMO	A2-G185	\N	2024/04/10
 nocs	\N	\N	NOC2021/*	\N	\N	\N	2024/01/28
 industries	\N	\N	EDM/*	\N	\N	\N	2024/03/26
 \.
@@ -32368,6 +32653,14 @@ ALTER TABLE ONLY public.career_regional
 
 
 --
+-- Name: career_trek career_trek_pkey; Type: CONSTRAINT; Schema: public; Owner: workbc
+--
+
+ALTER TABLE ONLY public.career_trek
+    ADD CONSTRAINT career_trek_pkey PRIMARY KEY (episode_num);
+
+
+--
 -- Name: census census_pkey; Type: CONSTRAINT; Schema: public; Owner: workbc
 --
 
@@ -32472,6 +32765,13 @@ ALTER TABLE ONLY public.wages
 
 
 --
+-- Name: career_trek_noc_2021_idx; Type: INDEX; Schema: public; Owner: workbc
+--
+
+CREATE INDEX career_trek_noc_2021_idx ON public.career_trek USING btree (noc_2021);
+
+
+--
 -- Name: high_opportunity_occupations_interest_idx; Type: INDEX; Schema: public; Owner: workbc
 --
 
@@ -32547,6 +32847,13 @@ GRANT SELECT ON TABLE public.career_provincial TO ssot_readonly;
 --
 
 GRANT SELECT ON TABLE public.career_regional TO ssot_readonly;
+
+
+--
+-- Name: TABLE career_trek; Type: ACL; Schema: public; Owner: workbc
+--
+
+GRANT SELECT ON TABLE public.career_trek TO ssot_readonly;
 
 
 --
