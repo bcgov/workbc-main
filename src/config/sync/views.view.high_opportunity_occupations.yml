@@ -603,7 +603,7 @@ display:
             default_group_multiple: {  }
             group_items:
               1:
-                title: 'Management'
+                title: Management
                 operator: '='
                 value:
                   min: ''
@@ -856,7 +856,7 @@ display:
                   value: ''
               5:
                 title: '$50.00+ per hour'
-                operator: '>'
+                operator: '>='
                 value:
                   min: ''
                   max: ''
