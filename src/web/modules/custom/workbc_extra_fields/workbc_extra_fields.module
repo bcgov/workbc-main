@@ -158,7 +158,10 @@ function ssotRegionProfile($region) {
 }
 
 
-function ssotIndustryProfile($industry) {
+function ssotIndustryProfile($industryName) {
+  $industries = ssotIndustries();
+  $industry = array_search($industryName, $industries);
+
   $data = array();
   $data['industry_outlook'] = querySSoT('industry_outlook?industry=eq.' . $industry)[0];
   $data['labour_force_survey_industry'] = querySSoT('labour_force_survey_industry?industry=eq.' . $industry)[0];
