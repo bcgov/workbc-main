@@ -49,31 +49,31 @@ class CareerProfileIndustryHighlightsJobOpeningsByIndustry extends ExtraFieldDis
     if (!empty($entity->ssot_data) && isset($entity->ssot_data['openings_careers'])) {
       if (!is_null($entity->ssot_data['openings_careers']['industry_1_percent'])) {
         $industry = [];
-        $industry['name'] = $entity->ssot_data['openings_careers']['industry_1_name'];
+        $industry['name'] = ssotIndustryName($entity->ssot_data['openings_careers']['industry_1_name']);
         $industry['openings_careers'] = $entity->ssot_data['openings_careers']['industry_1_openings'];
         $industries[] = $industry;
       }
       if (!is_null($entity->ssot_data['openings_careers']['industry_2_percent'])) {
         $industry = [];
-        $industry['name'] = $entity->ssot_data['openings_careers']['industry_2_name'];
+        $industry['name'] = ssotIndustryName($entity->ssot_data['openings_careers']['industry_2_name']);
         $industry['openings_careers'] = $entity->ssot_data['openings_careers']['industry_2_openings'];
         $industries[] = $industry;
       }
       if (!is_null($entity->ssot_data['openings_careers']['industry_3_percent'])) {
         $industry = [];
-        $industry['name'] = $entity->ssot_data['openings_careers']['industry_3_name'];
+        $industry['name'] =ssotIndustryName($entity->ssot_data['openings_careers']['industry_3_name']);
         $industry['openings_careers'] = $entity->ssot_data['openings_careers']['industry_3_openings'];
         $industries[] = $industry;
       }
       if (!is_null($entity->ssot_data['openings_careers']['industry_4_percent'])) {
         $industry = [];
-        $industry['name'] = $entity->ssot_data['openings_careers']['industry_4_name'];
+        $industry['name'] = ssotIndustryName($entity->ssot_data['openings_careers']['industry_4_name']);
         $industry['openings_careers'] = $entity->ssot_data['openings_careers']['industry_4_openings'];
         $industries[] = $industry;
       }
       if (!is_null($entity->ssot_data['openings_careers']['industry_5_percent'])) {
         $industry = [];
-        $industry['name'] = $entity->ssot_data['openings_careers']['industry_5_name'];
+        $industry['name'] = ssotIndustryName($entity->ssot_data['openings_careers']['industry_5_name']);
         $industry['openings_careers'] = $entity->ssot_data['openings_careers']['industry_5_openings'];
         $industries[] = $industry;
       }
