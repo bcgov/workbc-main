@@ -271,6 +271,7 @@ function workbc_preprocess_views_view_summary_unformatted(&$variables) {
  */
 function workbc_preprocess_media(&$variables) {
 
+
   $media = $variables['media'];
   $thumbnailUri = $media->get('thumbnail')->entity->getFileUri();
   if($thumbnailUri) {
@@ -281,6 +282,15 @@ function workbc_preprocess_media(&$variables) {
     ];
     $variables['media_thumbnail'] = render($image);
     $variables['media_id'] = $media->id();
+  }
+  if ($media->bundle() == "remote_video") {
+    if (!$media->field_career_trek->isEmpty()) {
+      $url = $media->field_career_trek->uri;
+      if (str_starts_with($media->field_career_trek->uri, "/episode/")) {
+        $url = rtrim(\Drupal::config('workbc')->get('careertrek_url'), '/') . $url;
+      }
+      $variables['media_career_trek'] = $url;
+    }
   }
 }
 
