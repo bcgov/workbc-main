@@ -14,13 +14,13 @@ resource "aws_cloudfront_origin_access_control" "oac-noc" {
 }
 
 data "aws_cloudfront_cache_policy" "custom" {
-    name = "WorkBC-NOC-cache-policy"
-    depends_on = [aws_cloudfront_cache_policy.custom]
+    name = "WorkBC-cache-policy"
+    #depends_on = [aws_cloudfront_cache_policy.custom]
 }
 
 data "aws_cloudfront_origin_request_policy" "custom" {
-    name = "WorkBC-NOC-origin-request-policy"
-    depends_on = [aws_cloudfront_origin_request_policy.custom]
+    name = "WorkBC-origin-request-policy"
+    #depends_on = [aws_cloudfront_origin_request_policy.custom]
 }
 
 
@@ -72,8 +72,8 @@ resource "aws_cloudfront_distribution" "workbc2" {
     cached_methods = ["GET", "HEAD"]
 
     target_origin_id = random_integer.cf_origin_id.result
-    cache_policy_id = aws_cloudfront_cache_policy.custom.id
-    origin_request_policy_id = aws_cloudfront_origin_request_policy.custom.id
+    cache_policy_id = data.aws_cloudfront_cache_policy.custom.id
+    origin_request_policy_id = data.aws_cloudfront_origin_request_policy.custom.id
 
 
 

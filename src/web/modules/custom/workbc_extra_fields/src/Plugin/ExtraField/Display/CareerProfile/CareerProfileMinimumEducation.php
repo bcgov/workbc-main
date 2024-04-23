@@ -65,7 +65,7 @@ class CareerProfileMinimumEducation extends ExtraFieldDisplayFormattedBase {
         '#infotip' => <<<END
         <div class="profile-information-education--tooltip-content">
           <h5>
-          Training, Education, Experience, and Responsibilities (TEER)
+          Training, Education, Experience and Responsibilities (TEER)
           </h5>
           <ul>
           <li>Management</li>
