@@ -142,7 +142,7 @@ class WorkbcJobboardSidebar extends BlockBase{
         $parameters["SearchLocations"][] =[
           "Region" => $field_job_board_id
         ];
-        $field_job_board_id  = str_replace(" ", "", ucwords(str_replace(["-", '/'], " ",$field_job_board_id)));
+        $field_job_board_id  = str_replace(" ", "", ucwords(str_replace(["-", '/', "&"], " ",$field_job_board_id)));
         $view_more_link_parameters = "region=$field_job_board_id";
       }
       else if($type == 'workbc_centre'){

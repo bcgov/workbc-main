@@ -1,0 +1,184 @@
+#0015,#00018,94,"Senior Managers - Trade, Broadcasting And Other Services, N.e.c.","Senior managers - public and private sector","Chief Financial Officer",1.3,20060
+#0112,#10011,98,"Human Resources Managers","Human resources managers","Human Resources Manager",1.3,3370
+#0122,#10021,110,"Banking, Credit And Other Investment Managers","Banking, credit and other investment managers","Account Manager",0.3,3360
+#0124,#10022,9,"Advertising, Marketing And Public Relations Managers","Advertising, marketing and public relations managers","Sales Coordinator",1.5,5590
+#0124,#10022,10,"Advertising, Marketing And Public Relations Managers","Advertising, marketing and public relations managers","Sr. Manager of Communications",1.5,5590
+#1111,#11100,108,"Financial Auditors And Accountants","Financial auditors and accountants","Chartered Professional Accountant",1,10270
+#1121,#11200,14,"Human Resources Professionals","Human resources professionals","Human Resource Specialist",1.2,3970
+#1123,#11202,99,"Professional Occupations In Advertising, Marketing And Public Relations","Professional occupations in advertising, marketing and public relations","Advertising Marketer",1.4,7430
+#1222,#12100,118,"Executive Assistants","Executive assistants","Executive Assistant",1.1,2720
+#1226,#12103,11,"Conference And Event Planners","Conference and event planners","Event Planner",1.1,1070
+#1311,#12200,111,"Accounting Technicians And Bookkeepers","Accounting technicians and bookkeepers",Bookkeeper,0.8,10000
+#1221,#13100,145,"Administrative Officers","Administrative officers","Production  Manager",1.1,18530
+#1242,#13111,141,"Legal Administrative Assistants","Legal administrative assistants","Legal Administrative Assistant",0.8,2430
+#1243,#13112,160,"Medical Administrative Assistant","Medical administrative assistants","Medical Office Assistant",1.8,1950
+#1315,#13200,86,"Customs, Ship And Other Brokers","Customs, ship and other brokers","Customs Broker",1.4,290
+#1411,#14100,131,"General Office Support Workers","General office support workers","General Office Support Worker",1.2,10980
+#1414,#14101,96,Receptionists,Receptionists,Receptionist,1.4,8780
+#1431,#14200,116,"Accounting And Related Clerks","Accounting and related clerks","Accounting Clerk",0.9,8990
+#1521,#14400,8,"Shippers And Receivers","Shippers and receivers","Lead Hand - Warehouse Department",0.9,4490
+#0211,#20010,149,"Engineer Managers","Engineering managers","Engineer Manager",1.6,2460
+#0213,#20012,NEW,"Computer And information Systems Managers","Computer and information systems managers","Sr. Full Stack Development Engineer",2.7,8900
+#2112,#21101,142,Chemists,Chemists,"Chemistry Lab Manager",1.3,600
+#2113,#21102,52,"Geoscientists And Oceanographers","Geoscientists and oceanographers",Geologist,1.4,1010
+#2121,#21110,36,"Biologists And Related Scientists","Biologists and related scientists",Biologist,1.1,1790
+#4165,#21110,3,"Health Policy Researchers, Consultants And Program Officers","Biologists and related scientists",Researcher,1.1,1790
+#2122,#21111,69,"Forestry Professionals","Forestry professionals",Forester,-0.2,770
+#2151,#21200,115,Architects,Architects,Architect,1.8,1530
+#2152,#21201,172,"Landscape Architects","Landscape architects","Landscaped Architect",1.8,130
+#2153,#21202,78,"Urban And Land Use Planners","Urban and land use planners","Community Planner",1.3,1140
+#2154,#21203,65,"Land Surveyors","Land surveyors","Land Surveyor",1.5,490
+#2171,#21222,48,"Information Systems Analysts And Consultants","Information systems specialists","Information Systems Professional",2.9,9370
+#2173,#21231,2,"Software Engineers And Designers","Software engineers and designers","Software Engineer",3.1,12330
+#2174,#21232,113,"Computer Programmers And Interactive Media Developers","Software developers and programmers","Software Developer",3.5,9730
+#2174,#21232,NEW,"Computer programmers and interactive media developers","Software developers and programmers","Virtual Reality DevOps Engineer",3.5,9730
+#2175,#21234,88,"Web Designers And Developers","Web developers and programmers","Web Developer",3.5,5230
+#2175,#21234,112,"Web Designers And Developers","Web developers and programmers","Web Developer",3.5,5230
+#2131,#21300,49,"Civil Engineers","Civil engineers","Civil Engineer",1.5,4010
+#2131,#21300,NEW,"Civil Engineers","Civil engineers","Civil Engineer",1.5,4010
+#2132,#21301,150,"Mechanical Engineers","Mechanical engineers","Robotics Engineer",1.4,2150
+#2133,#21310,119,"Electrical And Electronics Engineers","Electrical and electronics engineers","Electrical Engineer",1.5,2890
+#2211,#22100,85,"Chemical Technologists And Technicians","Chemical technologists and technicians","Brew Master",1.1,360
+#2212,#22101,16,"Geological And Mineral Technologists And Technicians","Geological and mineral technologists and technicians","Geological Technician",1.1,490
+#2224,#22113,84,"Conservation And Fishery Officers","Conservation and fishery officers","Conservation Officer",0.9,270
+#2225,#22114,55,"Landscape And Horticulture Technicians And Specialists","Landscape and horticulture technicians and specialists","Landscape Horticulturalist",1,1480
+#2253,#22212,133,"Drafting Technologists And Technicians","Drafting technologists and technicians","Drafting Technician",1.4,1640
+#2281,#22220,121,"Computer Network Technicians","Computer network and web technicians","Computer Network Technician",2.2,4130
+#2282,#22221,127,"User Support Technicians","User support technicians","User Support Technician",2.4,4060
+#2263,#22232,140,"Inspectors In Public And Environmental Health And Occupational Health And Safety","Occupational health and safety specialists","Health and Safety Consultant",1,990
+#2264,#22233,62,"Construction Inspectors","Construction inspectors","Building Inspector",1.1,1180
+#2241,#22310,153,"Electrical and Electronics Engineering Technologists And Technicians","Electrical and electronics engineering technologists and technicians","Electrical Technologist",1.2,2150
+#2242,#22311,168,"Electronic Service Technicians (Household and Business Equipment)","Electronic service technicians (household and business equipment)","Audio Visual Technician Project Manager",1.3,3010
+#2243,#22312,59,"Industrial Instrument Technicians And Mechanics","Industrial instrument technicians and mechanics","Instrument Mechanic",0.4,240
+#3111,#31100,135,"Specialist Physicians","Specialists in clinical and laboratory medicine",Psychiatrist,1.9,2510
+#3112,#31102,50,"General Practitioners And Family Physicians","General practitioners and family physicians","General Practitioner",1.8,3640
+#3114,#31103,174,Veterinarian,Veterinarians,Veterinarian,0.8,570
+#3113,#31110,7,Dentists,Dentists,Dentist,1.8,1590
+#3121,#31111,157,Optometrist,Optometrists,Optometrist,1.8,390
+#3141,#31112,167,"Audiologist And Speech Language Pathologist","Audiologists and speech-language pathologists",Audiologist,1.6,670
+#3131,#31120,40,Pharmacists,Pharmacists,Pharmacist,1.5,2390
+#3132,#31121,66,"Dietitians And Nutritionists","Dietitians and nutritionists",Dietitian,1.7,690
+#3132,#31121,170,Dietitian/Nutritionist,"Dietitians and nutritionists","Registered Dietitian",1.7,690
+#4151,#31200,38,Psychologists,Psychologists,"Clinical Psychologist",1.7,870
+#3122,#31201,151,Chiropractor,Chiropractors,Chiropractor,1.7,630
+#3142,#31202,34,Physiotherapists,Physiotherapists,Physiotherapist,1.8,1950
+#3143,#31203,51,"Occupational Therapists","Occupational therapists","Occupational Therapist",1.8,1210
+#3012,#31301,39,"Registered Nurses And Registered Psychiatric Nurses","Registered nurses and registered psychiatric nurses","Registered Nurse",1.8,24770
+#3124,#31302,117,"Allied Primary Health Practitioners","Nurse practitioners","Nurse Practitioner",1.8,290
+#3124,#31303,5,"Allied Primary Health Practitioners","Physician assistants, midwives and allied health professionals",Midwife,1.7,120
+#3231,#32100,114,Opticians,Opticians,Optician,1.4,640
+#3233,#32101,101,"Licensed Practical Nurses","Licensed practical nurses","Licensed Practical Nurse",1.8,4280
+#3234,#32102,21,"Paramedical Occupations","Paramedical occupations",Paramedic,1.6,1480
+#3214,#32103,102,"Respiratory Therapists, Clinical Perfusionists And Cardiopulmonary Technologists","Respiratory therapists, clinical perfusionists and cardiopulmonary technologists","Respiratory Therapist",1.8,800
+#3213,#32104,46,"Animal Health Technologists And Veterinary Technicians","Animal health technologists and veterinary technicians","Registered Animal Health Technician",0.8,790
+#3222,#32111,126,"Dental Hygienists And Dental Therapists","Dental hygienists and dental therapists","Dental Hygienist",1.7,1550
+#3211,#32120,63,"Medical Laboratory Technologists","Medical laboratory technologists","Medical Laboratory Technologist",1.8,1430
+#3211,#32120,158,"Medical Laboratory Technologist","Medical laboratory technologists","Medical Laboratory Technologist",1.8,1430
+#3216,#32122,122,"Medical Sonographers","Medical sonographers","Medical Sonographer",1.8,470
+#3232,#32200,166,"Practitioners Of Natural Healing","Traditional Chinese medicine practitioners and acupuncturists",Acupuncturist,1.8,570
+#3236,#32201,77,"Massage Therapists","Massage therapists","Registered Massage Therapist",1.7,2740
+#3411,#33100,33,"Dental Assistants","Dental assistants and dental laboratory assistants","Dental Assistant",1.7,2320
+#3413,#33102,12,"Nurse Aides, Orderlies And Patient Service Associates","Nurse aides, orderlies and patient service associates","Patient Care Attendant",1.8,22480
+#0422,#40021,31,"School Principals And Administrators of Elementary And Secondary Education","School principals and administrators of elementary and secondary education","School Principal",1,2570
+#0423,#40030,171,"Managers in Social, Community and Correctional Services","Managers in social, community and correctional services","Director of Counselling",1.3,2920
+#4112,#41101,45,"Lawyers And Quebec Notaries","Lawyers and Quebec notaries",Lawyer,0.9,4120
+#4011,#41200,97,"University Professors And Lecturers","University professors and lecturers","University Professor",0.9,4170
+#4021,#41210,68,"College And Other Vocational Instructors","College and other vocational instructors","Vocational Instructor",1.2,5520
+#4032,#41221,NEW,"Elementary school And Kindergarten Teachers","Elementary school and kindergarten teachers","Kindergarten Teacher",1.1,12610
+#4152,#41300,28,"Social Workers","Social workers","Social Development Worker",1.5,3370
+#4152,#41300,NEW,"Social workers","Social workers","Service Accessibility Manager",1.5,3370
+#4153,#41301,47,"Family, Marriage And Other Related Counsellors","Therapists in counselling and related specialized therapies","Registered Clinical Counsellor",1.7,3770
+#4156,#41321,75,"Employment Counsellors","Career development practitioners and career counsellors (except education)","Employment Case Manager",1.3,740
+#4161,#41400,129,"Natural And Applied Science Policy Researchers, Consultants And Program Officers","Natural and applied science policy researchers, consultants and program officers","Natural Science Policy Program Manager",1.2,1780
+#4162,#41401,89,"Economists And Economic Policy Researchers And Analysts","Economists and economic policy researchers and analysts","Chief Economist",1,620
+#4164,#41403,139,"Social Policy Researchers, Consultants And Program Officers","Social policy researchers, consultants and program officers","Social Policy Consultant",1.2,1860
+#4311,#42100,100,"Police Officers (Except Commissioned)","Police officers (except commissioned)","Police Officer",1.3,4360
+#4312,#42101,64,Firefighters,Firefighters,Firefighter,1.3,1960
+#4211,#42200,44,"Paralegal And Related Occupations","Paralegals and related occupations",Paralegal,1,1730
+#4212,#42201,103,"Social And Community Service Workers","Social and community service workers","Social and Community Service Worker",1.6,14930
+#4214,#42202,23,"Early Childhood Educators And Assistants","Early childhood educators and assistants","Early Childhood Educator",3.2,12310
+#4214,#42202,NEW,"Early childhood educators And assistants","Early childhood educators and assistants","Early Childhood Educator",3.2,12310
+#4413,#43100,147,"Elementary And Secondary School Teacher Assistants","Elementary and secondary school teacher assistants","Teacher's Assistant",1,7110
+#1228,#43203,4,"Employment Insurance, Immigration, Border Services And Revenue Officers","Border services, customs, and immigration officers","Program Advisor",1.3,550
+#4411,#44100,136,"Home Child Care Providers","Home child care providers","Home Child Care Provider",-1.4,410
+#4412,#44101,130,"Home Support Workers, Housekeepers And Related Occupations","Home support workers, caregivers and related occupations","Home Support Worker",1.7,3830
+#0513,#50012,137,"Recreation, Sports And Fitness Program And Service Directors","Recreation, sports and fitness program and service directors","Recreation Director",1,1130
+#5111,#51100,83,Librarians,Librarians,Librarian,0.4,250
+#5122,#51110,132,Editors,Editors,"Managing Editor",1,770
+#5121,#51111,123,"Authors And Writers","Authors and writers (except technical)",Author,1.2,1680
+#5123,#51113,82,Journalists,Journalists,Journalist,0.6,340
+#5131,#51120,92,"Producers, Directors, Choreographers And Related Occupations","Producers, directors, choreographers and related occupations",Producer,1.7,2900
+#5222,#52110,93,"Film And Video Camera Operators","Film and video camera operators","Camera Operator",1.7,420
+#5225,#52113,134,"Audio And Video Recording Technicians","Audio and video recording technicians","Audio Video Technician",1.6,1060
+#5226,#52119,90,"Other Technical And Co-Ordinating Occupations In Motion Pictures, Broadcasting And The Performing Arts","Other technical and coordinating occupations in motion pictures, broadcasting and the performing arts","Special Effects Makeup",1.7,2650
+#5241,#52120,81,"Graphic Designers And Illustrators","Graphic designers and illustrators","Graphic Designer",1.6,5770
+#5242,#52121,148,"Interior Designer","Interior designers and interior decorators","Interior Designer",0.9,1730
+#5221,#53110,154,Photographer,Photographers,Photographer,0.9,730
+#5227,#53111,120,"Support Occupations In Motion Pictures, Broadcasting, Photography And The Performing Arts","Motion pictures, broadcasting, photography and performing arts assistants and operators","Boom Operator",1.9,1720
+#5243,#53123,91,"Theatre, Fashion, Exhibit And Other Creative Designers","Theatre, fashion, exhibit and other creative designers","Fashion Designer",1.1,830
+#5254,#54100,67,"Program Leaders And Instructors In Recreation, Sport And Fitness","Program leaders and instructors in recreation, sport and fitness","Certified Personal Trainer",1.1,4870
+#0601,#60010,164,"Corporate Sales Manager","Corporate sales managers","Corporate Sales Manager",1.5,5180
+#0621,#60020,107,"Retail And Wholesale Trade Managers","Retail and wholesale trade managers","Retail Manager",0.9,30040
+#0631,#60030,30,"Restaurant And Food Service Managers","Restaurant and food service managers","Restaurant Manager",1.3,9900
+#6211,#62010,124,"Retail Sales Supervisors","Retail sales supervisors","Retail Sales Supervisor",0.9,3390
+#6311,#62020,156,"Food Services Supervisor","Food service supervisors","Operations Manager",1.3,3290
+#6221,#62100,152,"Technical Sales Specialist - Wholesale Trade","Technical sales specialists - wholesale trade","Technical Sales Consultant",0.8,3110
+#6321,#62200,104,Chefs,Chefs,Chef,1.3,5280
+#6231,#63100,128,"Insurance Agents And Brokers","Insurance agents and brokers","Insurance Broker",1,4740
+#6232,#63101,80,"Real Estate Agents And Salespersons","Real estate agents and salespersons","Real Estate Agent",0.8,6500
+#6235,#63102,162,"Financial Sales Representative","Financial sales representatives","Financial Sales Representative",0.2,1840
+#6322,#63200,41,Cooks,Cooks,Cook,1.3,8790
+#6331,#63201,74,"Butchers, Meat Cutters And Fishmongers - Retail And Wholesale","Butchers - retail and wholesale",Butcher,0.8,300
+#6332,#63202,42,Bakers,Bakers,Baker,1.3,3380
+#6341,#63210,61,"Hairstylists And Barbers","Hairstylists and barbers",Hairstylist,1.3,4490
+#6341,#63210,NEW,"Hairstylist And Barber","Hairstylists and barbers",Barber,1.3,4490
+#6562,#63211,138,"Estheticians, Electrologists And Related Occupations","Estheticians, electrologists and related occupations","Tattoo Artist",1.3,3030
+#6421,#64100,37,"Retail Salespersons","Retail salespersons and visual merchandisers","Retail Salesperson",0.9,27970
+#6411,#64101,144,"Sales And Account Representatives - Wholesale Trade (Non-Technical)","Sales and account representatives - wholesale trade (non-technical)","Account Manager",0.8,3750
+#6541,#64410,146,"Security Guards And Related Security Service Occupations","Security guards and related security service occupations","Security Officer",0.8,3990
+#6513,#65200,43,"Food And Beverage Servers","Food and beverage servers","Food and Beverage Server",1.3,5370
+#0711,#70010,106,"Construction Managers","Construction managers","Construction Manager",0.6,7270
+#0712,#70011,143,"Home Building And Renovation Managers","Home building and renovation managers","Home and Building Renovations Manager",0.8,4670
+#0714,#70012,76,"Facility Operation And Maintenance Managers","Facility operation and maintenance managers","Facility Operation and Maintenance Manager",0.9,6980
+#7231,#72100,57,"Machinists And Machining And Tooling Inspectors","Machinists and machining and tooling inspectors",Machinist,0.3,1010
+#7233,#72102,165,"Sheet Metal Worker","Sheet metal workers","Sheet Metal Worker",0.5,600
+#7236,#72105,54,Ironworkers,Ironworkers,"Iron Worker",0.3,380
+#7237,#72106,109,"Welders And Related Machine Operators","Welders and related machine operators",Welder,0.6,2670
+#7241,#72200,27,"Electricians (Except Industrial And Power System)","Electricians (except industrial and power system)",Electrician,0.6,2850
+#7241,#72200,NEW,"Electricians (Except Industrial And Power System)","Electricians (except industrial and power system)",Electrician,0.6,2850
+#7251,#72300,163,Plumber,Plumbers,Plumber,0.6,2110
+#7252,#72301,56,"Steamfitters, Pipefitters And Sprinkler System Installers","Steamfitters, pipefitters and sprinkler system installers",Pipefitter,0.4,580
+#7253,#72302,161,"Gas Fitter","Gas fitters","Gas Fitter",0.5,290
+#7271,#72310,25,Carpenters,Carpenters,Carpenter,0.6,8480
+#7311,#72400,105,"Construction Millwrights And Industrial Mechanics","Construction millwrights and industrial mechanics","Construction Millwright",0.3,2570
+#7312,#72401,60,"Heavy-Duty Equipment Mechanics","Heavy-duty equipment mechanics","Heavy-Duty Equipment Mechanic",0.7,2340
+#7313,#72402,58,"Refrigeration And Air Conditioning Mechanics","Heating, refrigeration and air conditioning mechanics","Refrigeration and Air Conditioning Mechanic",0.7,840
+#7315,#72404,169,"Aircraft Mechanics And Aircraft Inspectors","Aircraft mechanics and aircraft inspectors","Aircraft maintenance engineer",1.3,1660
+#7321,#72410,17,"Automotive Service Technicians, Truck And Bus Mechanics And Mechanical Repairers","Automotive service technicians, truck and bus mechanics and mechanical repairers","Automotive Technician",0.6,5120
+#7321,#72410,NEW,"Automotive Service Technicians, Truck And Bus Mechanics And Mechanical Repairers","Automotive service technicians, truck and bus mechanics and mechanical repairers","EV Mechanic",0.6,5120
+#2271,#72600,32,"Air Pilots, Flight Engineers And Flying Instructors","Air pilots, flight engineers and flying instructors","Helicopter Pilot",1.3,1630
+#2273,#72602,71,"Deck Officers, Water Transport","Deck officers, water transport","Tug Master",0.8,760
+#2275,#72604,70,"Railway Traffic Controllers And Marine Traffic Regulators","Railway traffic controllers and marine traffic regulators","Deputy Harbour Master",0.4,60
+#7511,#73300,22,"Transport Truck Drivers","Transport truck drivers","Truck Driver",0.5,14440
+#7512,#73301,1,"Bus Drivers, Subway Operators And Other Transit Operators","Bus drivers, subway operators and other transit operators","Bus Driver",1.2,4060
+#7362,#73311,95,"Railway Conductors And Brakemen/Women","Railway conductors and brakemen/women",Conductor,0.8,510
+#7521,#73400,19,"Heavy Equipment Operators (Except Crane)","Heavy equipment operators","Heavy Equipment Operator",0.5,4350
+#7521,#73400,NEW,"Heavy Equipment Operators (Except Crane)","Heavy equipment operators","Heavy Equipment Operator",0.5,4350
+#1513,#74102,6,"Couriers, Messengers And Door-To-Door Distributors","Couriers and messengers",Courier,1.8,2270
+#7532,#74201,72,"Water Transport Deck And Engine Room Crew","Water transport deck and engine room crew","Deck Hand",0.8,350
+#7451,#75100,20,"Longshore Workers","Longshore workers","Longshore Worker",1.8,1760
+#0811,#80010,18,"Managers In Natural Resources Production And Fishing","Managers in natural resources production and fishing","Mine Manager",0.3,980
+#0821,#80020,35,"Managers In Agriculture","Managers in agriculture","Vineyard Manager",0.1,2720
+#8222,#82021,15,"Contractors And Supervisors, Oil And Gas Drilling And Services","Contractors and supervisors, oil and gas drilling and services","Well Site Supervisor",0.9,370
+#8422,#84111,73,"Silviculture And Forestry Workers","Silviculture and forestry workers",Silviculture,-0.4,210
+#8432,#85103,159,"Nursery and Greenhouse Workers","Nursery and greenhouse labourers","Nursery and Greenhouse Worker",0,550
+#8612,#85121,29,"Landscaping And Grounds Maintenance Labourers","Landscaping and grounds maintenance labourers","Grounds Maintenance Worker",0.9,5340
+#0912,#90011,155,"Utilities Managers","Utilities managers","Compost Coordinator",0.7,800
+#9241,#92100,53,"Power Engineers And Power Systems Operators","Power engineers and power systems operators","Power Engineer",0.5,2520
+#9243,#92101,173,"Water And Waste Treatment Plant Operators","Water and waste treatment plant operators","Water Treatment Plant Supervisor",0.7,640
+#9417,#94106,125,"Machining Tool Operators","Machining tool operators","CNC Machine Operators",0.1,80
+#9431,#94120,26,"Sawmill Machine Operators","Sawmill machine operators","Sawmill Operator",-1.3,370
+#9532,#94210,87,"Furniture And Fixture Assemblers And Inspectors","Furniture and fixture assemblers, finishers, refinishers and inspectors","Designer, Furniture Maker",0.4,430
+#9531,#94219,79,"Boat Assemblers And Inspectors","Other products assemblers, finishers and inspectors","Boat Builder",0.7,830
+#9614,#95103,24,"Labourers In Wood, Pulp And Paper Processing","Labourers in wood, pulp and paper processing","Mill Worker",-1.3,670
+#9617,#95106,13,"Labourers In Food, Beverage And Associated Products Processing","Labourers in food and beverage processing","Packaging Associate",1.4,6100

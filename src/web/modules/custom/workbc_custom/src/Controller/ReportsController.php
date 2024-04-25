@@ -134,4 +134,27 @@ class ReportsController extends ControllerBase {
     ];
   }
 
+ 
+  public function career_trek_validation() {
+
+    $errors = careerTrekProcessValidation();
+   
+    if (empty($errors)) {
+      $markup = "<p>No validation errors found.</p>";
+    }
+    else {
+      $markup = "";
+      foreach ($errors as $error) {
+        $markup .= "<p>" . $error . "</p>";
+      }
+    }
+
+    return [
+      '#type' => 'markup',
+      '#markup' => $markup,
+    ];
+  }
+
 }
+
+
