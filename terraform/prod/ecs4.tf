@@ -45,7 +45,7 @@ resource "aws_ecs_task_definition" "pdf-link-job" {
 			},
 			{
 				name = "POSTGRES_HOST",
-				value = "${data.aws_rds_cluster.postgres.endpoint}"
+				value = "${aws_rds_cluster.postgres2.endpoint}"
 			}			
 		]
 		secrets = [
