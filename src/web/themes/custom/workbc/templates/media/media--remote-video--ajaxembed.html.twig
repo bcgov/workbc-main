@@ -33,4 +33,10 @@
 {% set media_thumb = content.thumbnail %}
 {% set media_mid = content.field_media_oembed_video['#object'].fields['mid'].value|striptags|trim %}
 
-<a class="use-ajax" data-dialog-options='{"width" : "auto", "maxWidth": "1200", "height": "auto", "modal": "true", "fluid": "true", "title": "", "dialogClass": "video-library-modal"}' data-dialog-type="modal" href="/media/{{ media_mid }}"><div class="workbc-card-thumbnail">{{ media_thumb }}</div></a>
+<span class="profile-video">
+<a class="use-ajax" data-dialog-options='{"width" : "auto", "maxWidth": "1200", "height": "auto", "modal": "true", "fluid": "true", "title": "", "dialogClass": "video-library-modal"}' data-dialog-type="modal" href="/media/{{ media_mid }}" aria-label="Career Trek Video"><div class="workbc-card-thumbnail">{{ media_thumb }}</div></a>
+</span>
+
+{% if media_career_trek is not empty %}
+  <a class="career-trek-link" href="{{ media_career_trek }}" rel="nofollow noopener" target="_blank">WorkBC's Career Trek</a>
+{% endif %}

@@ -978,3 +978,58 @@ function workbc_custom_post_update_227_taxonomy_migration() {
   }
   return t('[NOC-227] NOC 2021 taxonomy migration.');
 }
+
+
+
+/**
+ * Career Trek link data migration.
+ *
+ * As per ticket WBCAMS-14.
+ */
+function workbc_custom_post_update_14_wbcams_migration(&$sandbox = NULL) {
+  if (!isset($sandbox['career_trek'])) {
+    $sandbox['career_trek'] = loadCareerTrek();
+    $sandbox['career_trek_urls'] = loadCareerTrekUrls();
+    $sandbox['count'] = count($sandbox['career_trek']);
+  }
+
+  $connection = \Drupal::database();
+
+  $message = "No action taken.";
+  $career = array_shift($sandbox['career_trek']);
+  if (!empty($career)) {
+    if ($career[2] <> "NEW") {   
+      $database = \Drupal::database();
+
+      $query = $database->select('media_field_data', 'm');
+      $orGroup = $query->orConditionGroup();
+      $orGroup->condition('m.name', '%(Episode '.$career[2].')', 'LIKE');
+      $orGroup->condition('m.name', '%('.$career[2].')', 'LIKE');
+      $query->condition($orGroup);
+      $query->condition('m.bundle', 'remote_video', '=');
+      $query->fields('m', ['mid', 'name', 'status', 'created']);
+
+      $record = $query->execute()->fetchObject();
+      if ($record) {
+        $media = Drupal\media\Entity\Media::load($record->mid);
+        if ($media) {
+          
+          $episode = isset($sandbox['career_trek_urls'][$career[2]]) ? $sandbox['career_trek_urls'][$career[2]] : $career[2];
+          $target_url = rtrim(\Drupal::config('workbc')->get('careertrek_url'), '/') . "/episode/" .  $episode;
+          $media->field_career_trek = $target_url;
+          $media->save();
+          $message = "Episode " . $career[2] . " Remote Video: " . $media->name->value . " link updated - " . $target_url;
+        }
+        else {
+          $message = $search . " - Media " . $record->mid . " not found";
+        }
+      }
+      else {
+        $message = $search . " - Episode not found";
+      }
+    }      
+  }
+  
+  $sandbox['#finished'] = empty($sandbox['career_trek']) ? 1 : ($sandbox['count'] - count($sandbox['career_trek'])) / $sandbox['count'];
+  return t("[WBCAMS-14] $message");
+}

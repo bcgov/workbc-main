@@ -13,15 +13,15 @@ resource "aws_cloudfront_origin_access_control" "oac" {
   signing_protocol = "sigv4"
 }
 
-data "aws_cloudfront_cache_policy" "custom" {
-    name = "WorkBC-cache-policy"
-    depends_on = [aws_cloudfront_cache_policy.custom]
-}
+#data "aws_cloudfront_cache_policy" "custom" {
+#    name = "WorkBC-cache-policy"
+#    depends_on = [aws_cloudfront_cache_policy.custom]
+#}
 
-data "aws_cloudfront_origin_request_policy" "custom" {
-    name = "WorkBC-origin-request-policy"
-    depends_on = [aws_cloudfront_origin_request_policy.custom]
-}
+#data "aws_cloudfront_origin_request_policy" "custom" {
+#    name = "WorkBC-origin-request-policy"
+#    depends_on = [aws_cloudfront_origin_request_policy.custom]
+#}
 
 
 resource "aws_cloudfront_distribution" "workbc" {
@@ -157,7 +157,9 @@ resource "aws_cloudfront_distribution" "workbc" {
 	
     # Associate the CloudFront distribution with the existing WAF web ACL by ARN
     # This regulates users' frequent access to the website
-    web_acl_id = "arn:aws:wafv2:us-east-1:873424993519:global/webacl/workbc-dev-waf/2bc96095-ff24-4602-95fe-484051c3271e"	 
+    web_acl_id = "arn:aws:wafv2:us-east-1:873424993519:global/webacl/workbc-dev-waf/2bc96095-ff24-4602-95fe-484051c3271e"
+
+    depends_on = [aws_cloudfront_cache_policy.custom, aws_cloudfront_origin_request_policy.custom]
 }
 
 output "cloudfront_url" {

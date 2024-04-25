@@ -137,7 +137,7 @@ resource "aws_ecs_task_definition" "app" {
 			{
 				name = "CAREERTREK_URL",
 				value = "https://dev.careertrekbc.ca"
-			}			
+			}
 		]
 		secrets = [
 			{
@@ -365,7 +365,7 @@ resource "aws_ecs_task_definition" "app" {
 			{
 				name = "POSTGRES_HOST",
 				value = "${data.aws_rds_cluster.postgres.endpoint}"
-			}			
+			}
 		]
 		secrets = [
 			{

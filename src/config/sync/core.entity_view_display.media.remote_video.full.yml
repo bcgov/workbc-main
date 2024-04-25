@@ -4,6 +4,7 @@ status: true
 dependencies:
   config:
     - core.entity_view_mode.media.full
+    - field.field.media.remote_video.field_career_trek
     - field.field.media.remote_video.field_category
     - field.field.media.remote_video.field_description
     - field.field.media.remote_video.field_duration
@@ -29,6 +30,7 @@ content:
     region: content
 hidden:
   created: true
+  field_career_trek: true
   field_category: true
   field_description: true
   field_duration: true

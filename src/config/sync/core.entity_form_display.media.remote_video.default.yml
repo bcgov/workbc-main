@@ -3,6 +3,7 @@ langcode: en
 status: true
 dependencies:
   config:
+    - field.field.media.remote_video.field_career_trek
     - field.field.media.remote_video.field_category
     - field.field.media.remote_video.field_description
     - field.field.media.remote_video.field_duration
@@ -10,6 +11,7 @@ dependencies:
     - media.type.remote_video
   module:
     - duration_field
+    - link
     - media
     - path
     - text
@@ -25,6 +27,14 @@ content:
     weight: 6
     region: content
     settings: {  }
+    third_party_settings: {  }
+  field_career_trek:
+    type: link_default
+    weight: 26
+    region: content
+    settings:
+      placeholder_url: ''
+      placeholder_title: ''
     third_party_settings: {  }
   field_category:
     type: options_buttons
