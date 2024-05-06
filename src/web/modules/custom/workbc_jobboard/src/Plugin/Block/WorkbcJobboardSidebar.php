@@ -160,11 +160,17 @@ class WorkbcJobboardSidebar extends BlockBase{
         $parameters["PageSize"]= $config['job_board_results_to_show_horizontal_view']??4;
       }
 
+
       $WorkBcJobboardController = new WorkBcJobboardController();
       $recent_jobs = $WorkBcJobboardController->getPosts($parameters);
       if($recent_jobs['response'] == 200){
         $total_result = $recent_jobs['data']['count']??0;
         foreach($recent_jobs['data']['result'] as $key => $job){
+
+          // if (str_starts_with($job['City'], "Virtual job based in")) {
+          //   $job['City'] = str_replace("job based in ", "(", $job['City']) . ")";
+          // }
+
           $jobs[$key]['externalUrl'] = $job['ExternalSource']['Source'][0]['Url']??'';
           $jobs[$key]['jobTitle'] = $job['Title'];
           $jobs[$key]['jobId'] = $job['JobId'];

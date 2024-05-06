@@ -159,8 +159,7 @@ function ssotRegionProfile($region) {
 
 
 function ssotIndustryProfile($industryName) {
-  $industries = ssotIndustries();
-  $industry = array_search($industryName, $industries);
+  $industry = ssotIndustryKey($industryName);
 
   $data = array();
   $data['industry_outlook'] = querySSoT('industry_outlook?industry=eq.' . $industry)[0];
@@ -375,21 +374,20 @@ function ssotProcessEmploymentIndustry($ssotdata) {
   }
 
   $industries = ssotIndustries();
-  $sectors = ssotIndustrySectors();
 
   $data = [];
-  foreach ($industries as $key => $name) {
+  foreach ($industries as $key => $industry) {
     $nid = \Drupal::entityQuery('node')
-      ->condition('title', $name)
+      ->condition('title', $industry['name'])
       ->sort('nid', 'DESC')
       ->execute();
     $nid = reset($nid);
 
     $data[] = array(
       'key' => $key,
-      'name' => $name,
+      'name' => $industry['name'],
       'share' => $ssotdata[$key],
-      'sector' => $sectors[$key],
+      'sector' => $industry['type'],
       'employment' => $ssotdata[$key."_num"],
       'link' => \Drupal::service('path_alias.manager')->getAliasByPath('/node/'. $nid),
     );
@@ -402,81 +400,44 @@ function ssotProcessEmploymentIndustry($ssotdata) {
 
 function ssotIndustries() {
 
-  static $industries = array(
-    'accommodation_food_services' => 'Accommodation and Food Services',
-    'agriculture_fishing' => 'Agriculture and Fishing',
-    'business_building_other_support_services' => 'Business, Building and Other Support Services',
-    'construction' => 'Construction',
-    'educational_services' => 'Educational Services',
-    'finance_insurance_real_estate' => 'Finance, Insurance and Real Estate',
-    'forestry_logging_support_activities' => 'Forestry, Logging and Support Activities',
-    'health_care_social_assistance' => 'Health Care and Social Assistance',
-    'information_culture_recreation' => 'Information, Culture and Recreation',
-    'manufacturing' => 'Manufacturing',
-    'mining_oil_gas_extraction' => 'Mining and Oil and Gas Extraction',
-    'other_private_services' => 'Repair, Personal and Non-Profit Services',
-    'professional_scientific_technical_services' => 'Professional, Scientific and Technical Services',
-    'public_administration' => 'Public Administration',
-    'retail_trade' => 'Retail Trade',
-    'transportation_warehousing' => 'Transportation and Warehousing',
-    'utilities' => 'Utilities',
-    'wholesale_trade' => 'Wholesale Trade',
-  );
+  $industries = array_column(querySSoT('industries'), NULL, 'key');
   return $industries;
 }
 
-function ssotIndustrySectors() {
-
-  static $industries = array(
-    'accommodation_food_services' => 'Services',
-    'agriculture_fishing' => 'Goods',
-    'business_building_other_support_services' => 'Services',
-    'construction' => 'Goods',
-    'educational_services' => 'Services',
-    'finance_insurance_real_estate' => 'Services',
-    'forestry_logging_support_activities' => 'Goods',
-    'health_care_social_assistance' => 'Services',
-    'information_culture_recreation' => 'Services',
-    'manufacturing' => 'Goods',
-    'mining_oil_gas_extraction' => 'Goods',
-    'other_private_services' => 'Services',
-    'professional_scientific_technical_services' => 'Services',
-    'public_administration' => 'Services',
-    'retail_trade' => 'Services',
-    'transportation_warehousing' => 'Services',
-    'utilities' => 'Goods',
-    'wholesale_trade' => 'Services',
-  );
-  return $industries;
-}
-
-function ssotIndustryName($machine_name) {
-
+function ssotIndustry($machine_name) {
   $industries = ssotIndustries();
-  return isset($industries[$machine_name]) ? $industries[$machine_name] : "";
+  return ($industries[$machine_name]);
 }
+
+function ssotIndustryKey($industry_name) {
+  $industries = ssotIndustries();
+  $index = array_search($industry_name, array_column($industries, 'name'));
+  $keys = array_keys($industries);
+  return $keys[$index]  ;
+}
+
 
 /*
     custom Industry Key mapping for SSoT Monthly Labour Market Updates data.
     The industries for the data columns do not match 1 to 1 the Industry Profiles
  */
-function ssotIndustryKey($industry) {
+function ssotIndustryLMMKey($industry) {
 
   $industries = [
-    'accommodation_and_food_services' => 'Accommodation And Food Services',
-    'agriculture' => 'Agriculture And Fishing',
-    'business_building_other_support_services' => 'Business, Building And Other Support Services',
-    'construction' => 'Construction',
-    'educational_services' => 'Educational Services',
-    'finance_insurance_real_estate_rental' => 'Finance, Insurance And Real Estate',
-    'health_care_and_social_assistance' => 'Health Care And Social Assistance',
-    'information_culture_recreation' => 'Information, Culture And Recreation',
-    'manufacturing' => 'Manufacturing',
-    'other_services' => 'Repair, Personal And Non-Profit Services',
-    'professional_scientific_and_technical' => 'Professional, Scientific And Technical Services',
-    'public_administration' => 'Public Administration',
-    'transportation_and_warehousing' => 'Transportation And Warehousing',
-    'utilities' => 'Utilities',
+    'accommodation_and_food_services' => 'accommodation_food_services',
+    'agriculture' => 'agriculture_fishing',
+    'business_building_other_support_services' => 'business_building_other_support_services',
+    'construction' => 'construction',
+    'educational_services' => 'educational_services',
+    'finance_insurance_real_estate_rental' => 'finance_insurance_real_estate',
+    'health_care_and_social_assistance' => 'health_care_social_assistance',
+    'information_culture_recreation' => 'information_culture_recreation',
+    'manufacturing' => 'manufacturing',
+    'other_services' => 'other_private_services',
+    'professional_scientific_and_technical' => 'professional_scientific_technical_services',
+    'public_administration' => 'public_administration',
+    'transportation_and_warehousing' => 'transportation_warehousing',
+    'utilities' => 'utilities',
   ];
 
   return array_search(strtolower($industry), array_map('strtolower', $industries));
