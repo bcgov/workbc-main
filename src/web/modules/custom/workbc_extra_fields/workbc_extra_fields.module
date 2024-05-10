@@ -58,7 +58,6 @@ function workbc_extra_fields_node_view(array &$build, \Drupal\Core\Entity\Entity
         $year = \Drupal::request()->query->get('year');
         $month = \Drupal::request()->query->get('month');
         $entity->ssot_data = ssotLabourMarketMonthly($year,$month);
-
         break;
       case "career_profile":
         $entity->ssot_data = ssotCareerProfile($entity->get("field_noc")->getString());
@@ -98,14 +97,15 @@ function ssotLabourMarketMonthly($year = null, $month = null){
   else {
     $currentYear = $data['monthly_labour_market_updates'][0]['year'];
     $currentMonth = $data['monthly_labour_market_updates'][0]['month'];
-    $data['current_previous_months_names']= ssotGetPreviousMonthYear($currentMonth, $currentYear);
+    $data['current_previous_months_names'] = ssotGetPreviousMonthYear($currentMonth, $currentYear);
   }
+  $data['industries'] = array_column(querySSoT('industries'), NULL, 'key');
 
   // Source metadata.
   $endpoint = 'monthly_labour_market_updates';
   $sources = querySSoT('sources?endpoint=eq.' . $endpoint);
   foreach($sources as $source) {
-    $datapoint = !empty($source['datapoint'])?$source['datapoint']:'no-datapoint';
+    $datapoint = !empty($source['datapoint'])?$source['datapoint'] : 'no-datapoint';
     $data['sources'][$datapoint] = $source['label'];
   }
 
@@ -124,6 +124,7 @@ function ssotBCProfile($region) {
   $data['labour_force_survey_regional_industry_region'] = querySSoT('labour_force_survey_regional_industry_region')[0];
   $data['labour_force_survey_regional_industry_province'] = querySSoT('labour_force_survey_regional_industry_province');
   $data['industry_outlook'] = querySSoT('industry_outlook');
+  $data['industries'] = array_column(querySSoT('industries'), NULL, 'key');
   $data['regional_top_occupations'] = querySSoT('regional_top_occupations?region=eq.' . $region);
   $monthly_labour_market_updates = querySSoT('monthly_labour_market_updates');
   $latest = ssotLatestMonthlyLabourMarketUpdate($monthly_labour_market_updates);
@@ -147,6 +148,7 @@ function ssotRegionProfile($region) {
   $data['labour_force_survey_regional_industry_region'] = querySSoT('labour_force_survey_regional_industry_region?region=eq.' . $region)[0];
   $data['labour_force_survey_regional_industry_province'] = querySSoT('labour_force_survey_regional_industry_province');
   $data['industry_outlook'] = querySSoT('industry_outlook');
+  $data['industries'] = array_column(querySSoT('industries'), NULL, 'key');
   $data['regional_top_occupations'] = querySSoT('regional_top_occupations?region=eq.' . $region);
   $monthly_labour_market_updates = querySSoT('monthly_labour_market_updates');
   $latest = ssotLatestMonthlyLabourMarketUpdate($monthly_labour_market_updates);
@@ -159,12 +161,12 @@ function ssotRegionProfile($region) {
 
 
 function ssotIndustryProfile($industryName) {
-  $industry = ssotIndustryKey($industryName);
-
   $data = array();
+  $data['monthly_labour_market_updates'] = querySSoT('monthly_labour_market_updates');
+  $data['industries'] = array_column(querySSoT('industries'), NULL, 'key');
+  $industry = ssotIndustryKey($industryName, $data['industries']);
   $data['industry_outlook'] = querySSoT('industry_outlook?industry=eq.' . $industry)[0];
   $data['labour_force_survey_industry'] = querySSoT('labour_force_survey_industry?industry=eq.' . $industry)[0];
-  $data['monthly_labour_market_updates'] = querySSoT('monthly_labour_market_updates');
   $data['openings_industry'] = querySSoT('openings_industry?industry=eq.' . $industry);
   $data['sources'] = ssotSources(TRUE);
   $data['schema'] = ssotSchema();
@@ -184,10 +186,12 @@ function ssotCareerProfile($noc) {
     $data['high_opportunity_occupations'] = querySSoT('high_opportunity_occupations?noc=eq.' . $noc);
     $data['occupational_interests'] = querySSoT('occupational_interests?noc=eq.' . $noc);
     $data['titles'] = querySSoT('titles?noc=eq.' . $noc);
+    $opening_careers = querySSoT('openings_careers?noc=eq.' . $noc);
+    if (!empty($opening_careers)) {
+      $data['openings_careers'] = $opening_careers[0];
+    }
   }
-  if (!empty(querySSoT('openings_careers?noc=eq.' . $noc))) {
-    $data['openings_careers'] = querySSoT('openings_careers?noc=eq.' . $noc)[0];
-  }
+  $data['industries'] = array_column(querySSoT('industries'), NULL, 'key');
   $data['sources'] = ssotSources();
   $data['schema'] = ssotSchema();
 
@@ -373,10 +377,8 @@ function ssotProcessEmploymentIndustry($ssotdata) {
     return [];
   }
 
-  $industries = ssotIndustries();
-
   $data = [];
-  foreach ($industries as $key => $industry) {
+  foreach ($ssotdata['industries'] as $key => $industry) {
     $nid = \Drupal::entityQuery('node')
       ->condition('title', $industry['name'])
       ->sort('nid', 'DESC')
@@ -398,49 +400,36 @@ function ssotProcessEmploymentIndustry($ssotdata) {
   return $data;
 }
 
-function ssotIndustries() {
-
-  $industries = array_column(querySSoT('industries'), NULL, 'key');
-  return $industries;
-}
-
-function ssotIndustry($machine_name) {
-  $industries = ssotIndustries();
-  return ($industries[$machine_name]);
-}
-
-function ssotIndustryKey($industry_name) {
-  $industries = ssotIndustries();
+function ssotIndustryKey($industry_name, $industries) {
   $index = array_search($industry_name, array_column($industries, 'name'));
   $keys = array_keys($industries);
-  return $keys[$index]  ;
+  return $keys[$index];
 }
 
-
 /*
-    custom Industry Key mapping for SSoT Monthly Labour Market Updates data.
-    The industries for the data columns do not match 1 to 1 the Industry Profiles
+    Custom Industry Key mapping for Labour Market Monthly updates data.
+    The industries for the data columns do not match 1 to 1 the Industry Profiles.
  */
 function ssotIndustryLMMKey($industry) {
 
   $industries = [
-    'accommodation_and_food_services' => 'accommodation_food_services',
-    'agriculture' => 'agriculture_fishing',
+    'accommodation_food_services' => 'accommodation_and_food_services',
+    'agriculture_fishing' => 'agriculture',
     'business_building_other_support_services' => 'business_building_other_support_services',
     'construction' => 'construction',
     'educational_services' => 'educational_services',
-    'finance_insurance_real_estate_rental' => 'finance_insurance_real_estate',
-    'health_care_and_social_assistance' => 'health_care_social_assistance',
+    'finance_insurance_real_estate' => 'finance_insurance_real_estate_rental',
+    'health_care_social_assistance' => 'health_care_and_social_assistance',
     'information_culture_recreation' => 'information_culture_recreation',
     'manufacturing' => 'manufacturing',
-    'other_services' => 'other_private_services',
-    'professional_scientific_and_technical' => 'professional_scientific_technical_services',
+    'other_private_services' => 'other_services',
+    'professional_scientific_technical_services' => 'professional_scientific_and_technical',
     'public_administration' => 'public_administration',
-    'transportation_and_warehousing' => 'transportation_warehousing',
+    'transportation_warehousing' => 'transportation_and_warehousing',
     'utilities' => 'utilities',
   ];
 
-  return array_search(strtolower($industry), array_map('strtolower', $industries));
+  return $industries[$industry] ?? NULL;
 }
 
 /*

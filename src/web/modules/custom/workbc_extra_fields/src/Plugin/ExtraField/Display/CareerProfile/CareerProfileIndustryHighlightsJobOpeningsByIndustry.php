@@ -43,7 +43,7 @@ class CareerProfileIndustryHighlightsJobOpeningsByIndustry extends ExtraFieldDis
    */
   public function viewElements(ContentEntityInterface $entity) {
 
-    $industryInfo = ssotIndustries();
+    $industryInfo = $entity->ssot_data['industries'];
     $industries = [];
 
     if (!empty($entity->ssot_data) && isset($entity->ssot_data['openings_careers'])) {
