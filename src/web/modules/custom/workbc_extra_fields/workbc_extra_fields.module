@@ -100,6 +100,7 @@ function ssotLabourMarketMonthly($year = null, $month = null){
     $data['current_previous_months_names'] = ssotGetPreviousMonthYear($currentMonth, $currentYear);
   }
   $data['industries'] = array_column(querySSoT('industries'), NULL, 'key');
+  $data['schema'] = ssotSchema();
 
   // Source metadata.
   $endpoint = 'monthly_labour_market_updates';
@@ -162,11 +163,11 @@ function ssotRegionProfile($region) {
 
 function ssotIndustryProfile($industryName) {
   $data = array();
-  $data['monthly_labour_market_updates'] = querySSoT('monthly_labour_market_updates');
   $data['industries'] = array_column(querySSoT('industries'), NULL, 'key');
   $industry = ssotIndustryKey($industryName, $data['industries']);
   $data['industry_outlook'] = querySSoT('industry_outlook?industry=eq.' . $industry)[0];
   $data['labour_force_survey_industry'] = querySSoT('labour_force_survey_industry?industry=eq.' . $industry)[0];
+  $data['monthly_labour_market_updates'] = querySSoT('monthly_labour_market_updates');
   $data['openings_industry'] = querySSoT('openings_industry?industry=eq.' . $industry);
   $data['sources'] = ssotSources(TRUE);
   $data['schema'] = ssotSchema();
@@ -373,7 +374,8 @@ function ssotRegionInfo() {
 
 function ssotProcessEmploymentIndustry($ssotdata) {
 
-  if (empty($ssotdata)) {
+  $employment_industry = $ssotdata['labour_force_survey_regional_industry_region'];
+  if (empty($employment_industry)) {
     return [];
   }
 
@@ -388,9 +390,9 @@ function ssotProcessEmploymentIndustry($ssotdata) {
     $data[] = array(
       'key' => $key,
       'name' => $industry['name'],
-      'share' => $ssotdata[$key],
+      'share' => $employment_industry[$key],
       'sector' => $industry['type'],
-      'employment' => $ssotdata[$key."_num"],
+      'employment' => $employment_industry[$key."_num"],
       'link' => \Drupal::service('path_alias.manager')->getAliasByPath('/node/'. $nid),
     );
   }
@@ -404,32 +406,6 @@ function ssotIndustryKey($industry_name, $industries) {
   $index = array_search($industry_name, array_column($industries, 'name'));
   $keys = array_keys($industries);
   return $keys[$index];
-}
-
-/*
-    Custom Industry Key mapping for Labour Market Monthly updates data.
-    The industries for the data columns do not match 1 to 1 the Industry Profiles.
- */
-function ssotIndustryLMMKey($industry) {
-
-  $industries = [
-    'accommodation_food_services' => 'accommodation_and_food_services',
-    'agriculture_fishing' => 'agriculture',
-    'business_building_other_support_services' => 'business_building_other_support_services',
-    'construction' => 'construction',
-    'educational_services' => 'educational_services',
-    'finance_insurance_real_estate' => 'finance_insurance_real_estate_rental',
-    'health_care_social_assistance' => 'health_care_and_social_assistance',
-    'information_culture_recreation' => 'information_culture_recreation',
-    'manufacturing' => 'manufacturing',
-    'other_private_services' => 'other_services',
-    'professional_scientific_technical_services' => 'professional_scientific_and_technical',
-    'public_administration' => 'public_administration',
-    'transportation_warehousing' => 'transportation_and_warehousing',
-    'utilities' => 'utilities',
-  ];
-
-  return $industries[$industry] ?? NULL;
 }
 
 /*

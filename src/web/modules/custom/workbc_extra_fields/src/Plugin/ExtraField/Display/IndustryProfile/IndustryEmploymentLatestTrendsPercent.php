@@ -50,7 +50,7 @@ class IndustryEmploymentLatestTrendsPercent extends ExtraFieldDisplayFormattedBa
       'na_if_empty' => TRUE,
     );
 
-    $industry = ssotIndustryLMMKey($entity->ssot_data['industry_outlook']['industry']);
+    $industry = $entity->ssot_data['industry_outlook']['industry'];
 
     if (!empty($entity->ssot_data) && isset($entity->ssot_data['monthly_labour_market_updates'])) {
       $idx = ssotLatestMonthlyLabourMarketUpdate($entity->ssot_data['monthly_labour_market_updates']);

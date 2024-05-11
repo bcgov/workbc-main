@@ -46,7 +46,7 @@ class RegionEmploymentByIndustryTable extends ExtraFieldDisplayFormattedBase {
     if (!empty($entity->ssot_data) && isset($entity->ssot_data['labour_force_survey_regional_industry_region'])) {
       $datestr = ssotParseDateRange($this->getEntity()->ssot_data['schema'], 'labour_force_survey_regional_industry_region');
 
-      $industries = ssotProcessEmploymentIndustry($entity->ssot_data['labour_force_survey_regional_industry_region']);
+      $industries = ssotProcessEmploymentIndustry($entity->ssot_data);
 
       $options1 = array(
         'decimals' => 0,
