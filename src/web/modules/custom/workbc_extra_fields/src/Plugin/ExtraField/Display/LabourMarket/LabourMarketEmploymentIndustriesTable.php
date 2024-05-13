@@ -50,9 +50,8 @@ class LabourMarketEmploymentIndustriesTable extends ExtraFieldDisplayFormattedBa
       ];
     }
 
-    $data = $entity->ssot_data['monthly_labour_market_updates'][0];
     $header = [$this->t('Industry'), $this->t("Employment (change since last month)"),$this->t("Employment (% change since last month)")];
-    $data = $this->getIndustryHighlights($data);
+    $data = $this->getIndustryHighlights($entity->ssot_data);
 
     $rows = [];
     foreach($data as $values){
@@ -93,42 +92,26 @@ class LabourMarketEmploymentIndustriesTable extends ExtraFieldDisplayFormattedBa
     ];
   }
 
-  public function getIndustryHighlights($values){
+  public function getIndustryHighlights($ssot_data){
     $industries = [];
-    $needle = 'industry_abs_';
+    $abs_needle = 'industry_abs_';
     $pct_needle = 'industry_pct_';
 
-    $industries_mapping = [
-      'accommodation_and_food_services' => 'Accommodation and food services',
-      'agriculture' => 'Agriculture',
-      'business_building_other_support_services' => 'Business, building and other support services',
-      'construction' => 'Construction',
-      'educational_services' => 'Educational services',
-      'finance_insurance_real_estate_rental' => 'Finance, insurance, real estate, rental and leasing',
-      'health_care_and_social_assistance' => 'Health care and social assistance',
-      'information_culture_recreation' => 'Information, culture and recreation',
-      'manufacturing' => 'Manufacturing',
-      'other_primary' => 'Other Primary',
-      'other_services' => 'Other services (except public administration)',
-      'professional_scientific_and_technical' =>'Professional, scientific and technical services',
-      'public_administration' =>'Public administration',
-      'transportation_and_warehousing' =>'Transportation and warehousing',
-      'utilities' => 'Utilities',
-      'wholesale_and_retail_trade' => 'Wholesale and retail trade'
-    ];
-
     //inform decimal format round off done.
+    $schema = $ssot_data['schema'];
+    $values = $ssot_data['monthly_labour_market_updates'][0];
     if(!empty($values)){
       foreach($values as $key => $value){
         //absolute value
-        if(strpos($key, $needle) !== false){
+        if(strpos($key, $abs_needle) !== false){
           $options = array(
             'decimals' => 0,
             'positive_sign' => TRUE,
             'na_if_empty' => TRUE,
           );
-          $industrysubstring = str_replace($needle, "", $key);
-          $industries[$industrysubstring]['industry'] = $industries_mapping[$industrysubstring];
+          $industrysubstring = str_replace($abs_needle, "", $key);
+          $industry = explode('>', $schema['definitions']['monthly_labour_market_updates']['properties'][$key]['description'])[1];
+          $industries[$industrysubstring]['industry'] = trim($industry);
           $industries[$industrysubstring]['abs'] = ssotFormatNumber($value, $options);
         }
         //percentage value
@@ -140,7 +123,8 @@ class LabourMarketEmploymentIndustriesTable extends ExtraFieldDisplayFormattedBa
             'na_if_empty' => TRUE,
           );
           $industrysubstring = str_replace($pct_needle, "", $key);
-          $industries[$industrysubstring]['industry'] = $industries_mapping[$industrysubstring];
+          $industry = explode('>', $schema['definitions']['monthly_labour_market_updates']['properties'][$key]['description'])[1];
+          $industries[$industrysubstring]['industry'] = trim($industry);
           $industries[$industrysubstring]['per'] = ssotFormatNumber($value, $options);
         }
       }
