@@ -48,10 +48,9 @@ class IndustryEmploymentLatestTrendsTotal extends ExtraFieldDisplayFormattedBase
       'na_if_empty' => TRUE,
     );
 
-    $industry = ssotIndustryKey(ssotIndustryName($entity->ssot_data['industry_outlook']['industry']));
+    $industry = $entity->ssot_data['industry_outlook']['industry'];
 
     if (!empty($entity->ssot_data) && isset($entity->ssot_data['monthly_labour_market_updates'])) {
-      $sourceData = $entity->ssot_data['monthly_labour_market_updates'];
       $idx = ssotLatestMonthlyLabourMarketUpdate($entity->ssot_data['monthly_labour_market_updates']);
       $output = "<div>(change since last month)</div>";
       $value = isset($entity->ssot_data['monthly_labour_market_updates'][$idx]['industry_abs_' . $industry]) ? $entity->ssot_data['monthly_labour_market_updates'][$idx]['industry_abs_' . $industry] : NULL;

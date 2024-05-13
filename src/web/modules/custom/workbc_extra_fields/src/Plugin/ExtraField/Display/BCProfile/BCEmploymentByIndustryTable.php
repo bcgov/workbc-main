@@ -44,15 +44,14 @@ class BCEmploymentByIndustryTable extends ExtraFieldDisplayFormattedBase {
   public function viewElements(ContentEntityInterface $entity) {
 
     if (!empty($entity->ssot_data) && isset($entity->ssot_data['labour_force_survey_regional_industry_region'])) {
-      $datestr = ssotParseDateRange($this->getEntity()->ssot_data['schema'], 'labour_force_survey_regional_industry_region', 'openings');
-      $industries = ssotProcessEmploymentIndustry($entity->ssot_data['labour_force_survey_regional_industry_region']);
+      $industries = ssotProcessEmploymentIndustry($entity->ssot_data);
 
       $options = array(
         'decimals' => 1,
         'suffix' => "%",
         'na_if_empty' => TRUE,
       );
-      
+
       $content = '<table>';
       $content .= "<tr><th>Industry</th><th class='data-align-right bc-employment-share'>% Share of Employment<br>for this Industry</th><th class='data-align-center'>Sector</th></tr>";
       foreach ($industries as $industry) {
