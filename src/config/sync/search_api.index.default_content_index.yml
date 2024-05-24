@@ -20,8 +20,8 @@ third_party_settings:
     highlighter:
       maxAnalyzedChars: 51200
       fragmenter: gap
-      usePhraseHighlighter: true
-      highlightMultiTerm: true
+      usePhraseHighlighter: false
+      highlightMultiTerm: false
       preserveMulti: false
       regex:
         slop: 0.5
@@ -174,11 +174,13 @@ processor_settings:
     prefix: '<strong>'
     suffix: '</strong>'
     excerpt: true
-    excerpt_always: true
+    excerpt_always: false
     excerpt_length: 256
-    exclude_fields: {  }
-    highlight: always
-    highlight_partial: true
+    exclude_fields:
+      - field_noc
+      - field_noc_2016
+    highlight: server
+    highlight_partial: false
   html_filter:
     weights:
       preprocess_index: -47
