@@ -790,7 +790,7 @@ $settings['container_yamls'][] = 'modules/contrib/redis/example.services.yml';
 // Job Board settings.
 $config['jobboard']['find_job_url'] = '/search-and-prepare-job/find-jobs';
 $config['jobboard']['find_job_account_url'] = '/account';
-$config['jobboard']['sha'] = 'c61a5546af8ebc0da9c44642d8538f03ee0a0e06';
+$config['jobboard']['sha'] = 'db1021f0525ac87906337c93f25d645eac20b85d';
 
 // File settings.
 $config['file.settings']['make_unused_managed_files_temporary'] = TRUE;
