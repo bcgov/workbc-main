@@ -103,7 +103,7 @@ class WorkbcJobboardSidebar extends BlockBase{
       $theme = 'recent_jobs';
 
       if($type == 'career_profile') {
-        $noc_value = ($node->get('field_noc_2016')->getValue())? $node->get('field_noc_2016')->getValue(): '';
+        $noc_value = ($node->get('field_noc')->getValue())? $node->get('field_noc')->getValue(): '';
         $noc_value = (!empty($noc_value) && isset($noc_value[0]['value']))? $noc_value[0]['value'] :'';
         $parameters["SearchNocField"] ="$noc_value";
         $view_more_link_parameters = "noc=$noc_value";

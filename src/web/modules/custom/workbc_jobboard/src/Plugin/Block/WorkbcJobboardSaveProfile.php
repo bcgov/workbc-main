@@ -25,7 +25,7 @@ class WorkbcJobboardSaveProfile extends BlockBase {
     $type = $node->bundle();
     switch ($type) {
       case 'career_profile':
-        $profile_id = $node?->get('field_noc_2016')?->value ?? '';
+        $profile_id = $node?->get('field_noc')?->value ?? '';
         $status = \Drupal::config('jobboard')->get('jobboard_api_url_frontend') . '/api/career-profiles/status/' . $profile_id;
         $save = \Drupal::config('jobboard')->get('jobboard_api_url_frontend') . '/api/career-profiles/save/' . $profile_id;
         $storage_key = 'tmpSavedCareerProfile';

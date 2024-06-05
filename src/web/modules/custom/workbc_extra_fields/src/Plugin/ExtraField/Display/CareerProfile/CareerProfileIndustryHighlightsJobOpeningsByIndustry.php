@@ -43,37 +43,37 @@ class CareerProfileIndustryHighlightsJobOpeningsByIndustry extends ExtraFieldDis
    */
   public function viewElements(ContentEntityInterface $entity) {
 
-
+    $industryInfo = $entity->ssot_data['industries'];
     $industries = [];
 
     if (!empty($entity->ssot_data) && isset($entity->ssot_data['openings_careers'])) {
       if (!is_null($entity->ssot_data['openings_careers']['industry_1_percent'])) {
         $industry = [];
-        $industry['name'] = ssotIndustryName($entity->ssot_data['openings_careers']['industry_1_name']);
+        $industry['name'] = $industryInfo[$entity->ssot_data['openings_careers']['industry_1_name']]['name'];
         $industry['openings_careers'] = $entity->ssot_data['openings_careers']['industry_1_openings'];
         $industries[] = $industry;
       }
       if (!is_null($entity->ssot_data['openings_careers']['industry_2_percent'])) {
         $industry = [];
-        $industry['name'] = ssotIndustryName($entity->ssot_data['openings_careers']['industry_2_name']);
+        $industry['name'] = $industryInfo[$entity->ssot_data['openings_careers']['industry_2_name']]['name'];
         $industry['openings_careers'] = $entity->ssot_data['openings_careers']['industry_2_openings'];
         $industries[] = $industry;
       }
       if (!is_null($entity->ssot_data['openings_careers']['industry_3_percent'])) {
         $industry = [];
-        $industry['name'] =ssotIndustryName($entity->ssot_data['openings_careers']['industry_3_name']);
+        $industry['name'] = $industryInfo[$entity->ssot_data['openings_careers']['industry_3_name']]['name'];
         $industry['openings_careers'] = $entity->ssot_data['openings_careers']['industry_3_openings'];
         $industries[] = $industry;
       }
       if (!is_null($entity->ssot_data['openings_careers']['industry_4_percent'])) {
         $industry = [];
-        $industry['name'] = ssotIndustryName($entity->ssot_data['openings_careers']['industry_4_name']);
+        $industry['name'] = $industryInfo[$entity->ssot_data['openings_careers']['industry_4_name']]['name'];
         $industry['openings_careers'] = $entity->ssot_data['openings_careers']['industry_4_openings'];
         $industries[] = $industry;
       }
       if (!is_null($entity->ssot_data['openings_careers']['industry_5_percent'])) {
         $industry = [];
-        $industry['name'] = ssotIndustryName($entity->ssot_data['openings_careers']['industry_5_name']);
+        $industry['name'] = $industryInfo[$entity->ssot_data['openings_careers']['industry_5_name']]['name'];
         $industry['openings_careers'] = $entity->ssot_data['openings_careers']['industry_5_openings'];
         $industries[] = $industry;
       }
@@ -82,7 +82,6 @@ class CareerProfileIndustryHighlightsJobOpeningsByIndustry extends ExtraFieldDis
     $openings = array_sum(array_column($industries,'openings_careers'));
     if (!empty($industries) && $openings > 0) {
       $datestr = ssotParseDateRange($this->getEntity()->ssot_data['schema'], 'openings_careers', 'industry_1_openings');
-
       $options = array(
         'na_if_empty' => TRUE,
       );
