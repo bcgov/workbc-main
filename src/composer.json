@@ -251,6 +251,9 @@
             },
             "drupal/views_infinite_scroll": {
                 "Remove repeating header": "patches/drupal/views_infinite_scroll/2899705-53.patch"
+            },
+            "drupal/search_api_autocomplete": {
+                "Fix DeprecationHelper": "patches/drupal/search_api_autocomplete/deprecation-helper.patch"
             }
         }
     }
