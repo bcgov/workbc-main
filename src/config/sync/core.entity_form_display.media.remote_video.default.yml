@@ -28,14 +28,6 @@ content:
     region: content
     settings: {  }
     third_party_settings: {  }
-  field_career_trek:
-    type: link_default
-    weight: 26
-    region: content
-    settings:
-      placeholder_url: ''
-      placeholder_title: ''
-    third_party_settings: {  }
   field_category:
     type: options_buttons
     weight: 4
@@ -102,4 +94,5 @@ content:
       size: 60
       placeholder: ''
     third_party_settings: {  }
-hidden: {  }
+hidden:
+  field_career_trek: true

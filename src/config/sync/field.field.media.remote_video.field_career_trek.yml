@@ -12,7 +12,7 @@ field_name: field_career_trek
 entity_type: media
 bundle: remote_video
 label: '[DEPRECATED] Career Trek URL'
-description: ''
+description: 'DO NOT USE! \r\n\r\nThis is a legacy field that points to the Career Trek site which has been decommissioned.'
 required: false
 translatable: false
 default_value: {  }
