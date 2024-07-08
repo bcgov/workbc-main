@@ -1,4 +1,4 @@
-uuid: 606fa7d2-3118-4cf0-a366-cd07cdbbf994
+uuid: ff8f5c1e-eb46-4fae-b4b3-c49b48bf8fd3
 langcode: en
 status: true
 dependencies:
@@ -10,10 +10,10 @@ field_name: field_metatag_description
 entity_type: node
 bundle: blog
 label: 'Metatag Description'
-description: ''
+description: 'Description to be used for metatags. Limited to 160 characters.'
 required: false
-translatable: true
+translatable: false
 default_value: {  }
 default_value_callback: ''
 settings: {  }
-field_type: string_long
+field_type: string

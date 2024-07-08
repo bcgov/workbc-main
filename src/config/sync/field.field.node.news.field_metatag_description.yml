@@ -1,4 +1,4 @@
-uuid: 863146df-a90c-47b2-901d-86b96bc8515e
+uuid: 8f31ccc3-7c21-4d0a-bc3f-fdafec93978e
 langcode: en
 status: true
 dependencies:
@@ -10,10 +10,10 @@ field_name: field_metatag_description
 entity_type: node
 bundle: news
 label: 'Metatag Description'
-description: ''
+description: 'Description to be used for metatags. Limited to 160 characters.'
 required: false
 translatable: true
 default_value: {  }
 default_value_callback: ''
 settings: {  }
-field_type: string_long
+field_type: string

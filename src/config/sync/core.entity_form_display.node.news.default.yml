@@ -78,11 +78,11 @@ content:
       media_library_edit:
         show_edit: '1'
   field_metatag_description:
-    type: string_textarea
+    type: string_textfield
     weight: 14
     region: content
     settings:
-      rows: 5
+      size: 160
       placeholder: ''
     third_party_settings: {  }
   field_published_date:

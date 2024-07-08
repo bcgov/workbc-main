@@ -16,6 +16,7 @@ dependencies:
     - field.field.node.success_story.field_scheduled_publish
     - field.field.node.success_story.field_subtitle
     - field.field.node.success_story.field_tags
+    - field.field.node.success_story.field_test
     - node.type.success_story
 id: node.success_story.bulk_edit
 targetEntityType: node
@@ -41,6 +42,7 @@ hidden:
   field_scheduled_publish: true
   field_subtitle: true
   field_tags: true
+  field_test: true
   langcode: true
   moderation_state: true
   path: true

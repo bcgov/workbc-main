@@ -103,11 +103,11 @@ content:
     settings: {  }
     third_party_settings: {  }
   field_metatag_description:
-    type: string_textarea
+    type: string_textfield
     weight: 15
     region: content
     settings:
-      rows: 5
+      size: 160
       placeholder: ''
     third_party_settings: {  }
   field_multilingual_centre:
