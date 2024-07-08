@@ -11,7 +11,7 @@ id: media.remote_video.field_career_trek
 field_name: field_career_trek
 entity_type: media
 bundle: remote_video
-label: 'Career Trek URL'
+label: '[DEPRECATED] Career Trek URL'
 description: ''
 required: false
 translatable: false
