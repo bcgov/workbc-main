@@ -1,0 +1,28 @@
+diff --git a/src/Controller/AutocompleteController.php b/src/Controller/AutocompleteController.php
+index d2bd4a2..8153687 100644
+--- a/src/Controller/AutocompleteController.php
++++ b/src/Controller/AutocompleteController.php
+@@ -157,12 +157,17 @@ class AutocompleteController extends ControllerBase implements ContainerInjectio
+         if ($build) {
+           // Render the label.
+           try {
+-            $label = DeprecationHelper::backwardsCompatibleCall(
+-              \Drupal::VERSION,
+-              '10.3.0',
+-              fn () => $this->renderer->renderInIsolation($build),
+-              fn () => $this->renderer->renderPlain($build),
+-            );
++            if (!class_exists(DeprecationHelper::class)) {
++              $label = $this->renderer->renderPlain($build);
++            }
++            else {
++              $label = DeprecationHelper::backwardsCompatibleCall(
++                \Drupal::VERSION,
++                '10.3.0',
++                fn () => $this->renderer->renderInIsolation($build),
++                fn () => $this->renderer->renderPlain($build),
++              );
++            }
+           }
+           catch (\Exception $e) {
+             Error::logException($this->logger, $e, '%type while rendering an autocomplete suggestion: @message in %function (line %line of %file).');

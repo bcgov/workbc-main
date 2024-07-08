@@ -11,7 +11,7 @@ id: node.success_story.field_image
 field_name: field_image
 entity_type: node
 bundle: success_story
-label: 'Image (DO NOT USE)'
+label: '[DEPRECATED] Image'
 description: "DO NOT USE! \r\n\r\nThis is a legacy field that has been replaced by the newer <b>Image</b> field which pulls the content from the Media Library."
 required: false
 translatable: true
