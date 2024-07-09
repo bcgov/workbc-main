@@ -484,6 +484,48 @@ function workbc_custom_search_api_autocomplete_suggestions_alter(array &$suggest
   }
 }
 
+
+/**
+ * Implements hook_metatags_attachments_alter().
+ */
+
+function workbc_custom_metatags_attachments_alter(array &$metatag_attachments) {
+  $tags = $metatag_attachments['#attached']['html_head'];
+
+  $found = false;
+  foreach ($tags as $key => $tag) {
+    if ($tag[1] == 'description') {
+      $found = true;
+    }
+  }
+
+  if (!$found) {
+    $node = \Drupal::routeMatch()->getParameter('node');
+    $description = $node->title->value;
+    if ($node->hasField('body')) {
+      if (!empty($node->get('body')->value)) {
+        $text = strip_tags($node->get('body')->value);
+        $text = str_replace(array("\r", "\n"), ' ', $text);
+        $text = preg_replace('/\s+/', ' ', $text);
+        $description = \Drupal\Component\Utility\Unicode::truncate($text, 160, TRUE, FALSE);
+      }
+    }
+    
+    $tag = [
+      [
+        '#tag' => 'meta',
+        '#attributes' => [
+          'name' => 'description',
+          'content' => $description,
+        ],
+      ],
+      'description'
+    ];
+    $metatag_attachments['#attached']['html_head'][] = $tag;
+  }
+}
+
+
 /**
 * Implements hook_search_api_query_alter().
 */
