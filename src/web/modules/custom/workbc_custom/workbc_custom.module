@@ -503,11 +503,16 @@ function workbc_custom_metatags_attachments_alter(array &$metatag_attachments) {
     $node = \Drupal::routeMatch()->getParameter('node');
     $description = $node->title->value;
     if ($node->hasField('body')) {
-      if (!empty($node->get('body')->value)) {
-        $text = strip_tags($node->get('body')->value);
-        $text = str_replace(array("\r", "\n"), ' ', $text);
-        $text = preg_replace('/\s+/', ' ', $text);
-        $description = \Drupal\Component\Utility\Unicode::truncate($text, 160, TRUE, FALSE);
+      if (!empty($node->get('body')->summary)){
+        $description = \Drupal\Component\Utility\Unicode::truncate($node->get('body')->summary, 160, TRUE, FALSE);
+      }
+      else {
+        if (!empty($node->get('body')->value)) {
+          $text = strip_tags($node->get('body')->value);
+          $text = str_replace(array("\r", "\n"), ' ', $text);
+          $text = preg_replace('/\s+/', ' ', $text);
+          $description = \Drupal\Component\Utility\Unicode::truncate($text, 160, TRUE, FALSE);
+        }
       }
     }
     
