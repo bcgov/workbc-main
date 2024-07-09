@@ -15,7 +15,6 @@ dependencies:
     - field.field.node.success_story.field_scheduled_publish
     - field.field.node.success_story.field_subtitle
     - field.field.node.success_story.field_tags
-    - field.field.node.success_story.field_test
     - node.type.success_story
   module:
     - scheduled_publish
@@ -101,14 +100,6 @@ content:
       text_pattern: '%moderation_state% - %date%'
     third_party_settings: {  }
     weight: 8
-    region: content
-  field_test:
-    type: string
-    label: above
-    settings:
-      link_to_entity: false
-    third_party_settings: {  }
-    weight: 12
     region: content
   links:
     settings: {  }
