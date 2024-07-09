@@ -509,7 +509,6 @@ function workbc_custom_metatags_attachments_alter(array &$metatag_attachments) {
       else {
         if (!empty($node->get('body')->value)) {
           $text = strip_tags($node->get('body')->value);
-          $text = str_replace(array("\r", "\n"), ' ', $text);
           $text = preg_replace('/\s+/', ' ', $text);
           $description = \Drupal\Component\Utility\Unicode::truncate($text, 160, TRUE, FALSE);
         }
