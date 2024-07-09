@@ -506,6 +506,34 @@ function workbc_custom_oembed_resource_url_alter(array &$parsed_url, \Drupal\med
 }
 
 /**
+ * Implements hook_preprocess_page().
+ */
+function workbc_custom_preprocess_page(&$vars) {
+  // Inject feedback component for specific pages.
+  $path = \Drupal::service('path.current')->getPath();
+  $alias = \Drupal::service('path_alias.manager')->getAliasByPath($path);
+  if (in_array($alias, [
+    '/search-and-prepare-job/find-jobs',
+    '/discover-employment-services/online-employment-services'
+  ])) {
+    $vars['page']['content']['feedback'] = [
+      '#type' => 'markup',
+      '#markup' => '<div id="feedback_wrapper"></div>',
+      '#attached' => [
+        'library' => [
+          'workbc_custom/feedback'
+        ],
+        'drupalSettings' => [
+          'feedback' => [
+            'path' => $alias
+          ]
+        ]
+      ]
+    ];
+  }
+}
+
+/**
 * Function to get the region mappings.
 */
 function getRegionMappings() {
