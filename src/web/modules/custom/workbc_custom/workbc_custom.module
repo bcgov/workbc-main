@@ -795,7 +795,7 @@ function saveCareerProfilePaths() {
   foreach ($nodes as $node) {
     $paths[$node->field_noc->value] = \Drupal::service('path_alias.manager')->getAliasByPath('/node/'.$node->id());
   }
-  
+
   $filePath = DRUPAL_ROOT . "/" . \Drupal\Core\StreamWrapper\PublicStream::basePath(\Drupal::getContainer()->getParameter('site.path'));
 
   $csv = fopen($filePath . "/noc2016_career_profile_urls.csv", "w");
@@ -879,7 +879,7 @@ function load2021to2016map() {
 
 function noc2021ProcessValidation() {
   $errors = [];
-  
+
   $results = noc2021ValidateProfileCount();
   $errors = array_merge($errors, $results);
 
@@ -891,10 +891,10 @@ function noc2021ProcessValidation() {
 
   $results = noc2021ValidateProfilePaths();
   $errors = array_merge($errors, $results);
-  
+
   $results = noc2021ValidateProfileRedirects();
   $errors = array_merge($errors, $results);
-  
+
   $results = noc2021ValidateUnpublishedProfiles();
   $errors = array_merge($errors, $results);
 
@@ -969,7 +969,7 @@ function noc2021ValidateProfileHasContent() {
 
 
 function noc2021ValidateProfiles() {
-  
+
   $map = load2021to2016map();
 
   $errors = [];
@@ -1003,7 +1003,7 @@ function noc2021ValidateProfiles() {
 }
 
 function noc2021ValidateProfileRedirects() {
-  
+
   $map = load2021to2016map();
 
   $oldPaths = loadCareerProfilePaths();
@@ -1043,7 +1043,7 @@ function noc2021ValidateProfileRedirects() {
         $redirect = \Drupal\node\Entity\Node::load($nid);
         if ($redirect->status->getString() == 0 || $redirect->bundle() <> "career_profile") {
           $errors[] = "NOC 2016 #: " . $oldPath['noc'] . " path (" . $oldPath['path'] . ") is redirecting to an invalid node (" . $nid . ")";
-        }    
+        }
       }
     }
   }
@@ -1052,7 +1052,7 @@ function noc2021ValidateProfileRedirects() {
 
 
 function noc2021ValidateProfilePaths() {
-  
+
   $errors = [];
 
   $nids = \Drupal::entityQuery('node')
@@ -1066,13 +1066,13 @@ function noc2021ValidateProfilePaths() {
     $alias = \Drupal::service('path_alias.manager')->getAliasByPath('/node/'.$node->id());
     if (preg_match("/-\d$/", $alias)) {
       $errors[] = "NOC #: " . $node->field_noc->value . " url contains trailing '-#': " . $alias;
-    }  
+    }
   }
   return $errors;
 }
 
 function noc2021ValidateUnpublishedProfiles() {
-  
+
   $map = load2021to2016map();
 
   $errors = [];
@@ -1086,17 +1086,17 @@ function noc2021ValidateUnpublishedProfiles() {
 
   foreach ($nodes as $node) {
     if (!empty($node->field_noc->value)) {
-      $errors[] = "Invalid NOC #: " . $node->field_noc->value . " Unpublished profiles should have empty NOC field"  . " (Node ID: " . $node->id() . ")"; 
+      $errors[] = "Invalid NOC #: " . $node->field_noc->value . " Unpublished profiles should have empty NOC field"  . " (Node ID: " . $node->id() . ")";
     }
     if (strlen($node->field_noc_2016->value) <> 4) {
-      $errors[] = "Invalid NOC #: " . $node->field_noc_2016->value . " Unpublished profile NOC 2016 fields should have a 4 digit number (Node ID: " . $node->id() . ")"; 
+      $errors[] = "Invalid NOC #: " . $node->field_noc_2016->value . " Unpublished profile NOC 2016 fields should have a 4 digit number (Node ID: " . $node->id() . ")";
     }
   }
   return $errors;
 }
 
 function noc2021ValidateUnpublishedProfileRedirects() {
-  
+
   $map = load2021to2016map();
 
   $oldPaths = loadCareerProfilePaths();
@@ -1110,7 +1110,7 @@ function noc2021ValidateUnpublishedProfileRedirects() {
 
   $lFirst = true;
   $nodes = \Drupal\node\Entity\Node::loadMultiple($nids);
-  foreach ($nodes as $node) { 
+  foreach ($nodes as $node) {
     $expectedURL = substr(findPath($node->field_noc_2016->value, $oldPaths),1);
 
     $database = \Drupal::database();
@@ -1120,7 +1120,7 @@ function noc2021ValidateUnpublishedProfileRedirects() {
               ->execute()->fetchObject();
 
     if (!$result) {
-      $errors[] = "Missing redirect for unpublished profile. Expected URL: '" . $expectedURL . "' (Node ID: " . $node->id() . ")"; 
+      $errors[] = "Missing redirect for unpublished profile. Expected URL: '" . $expectedURL . "' (Node ID: " . $node->id() . ")";
     }
     else {
       $nid = str_replace("internal:/node/", "", $result->redirect_redirect__uri);
@@ -1193,37 +1193,4 @@ function loadCareerTrekUrls() {
     fclose($file);
   }
   return $careerTrekUrls;
-}
-
-
-function careerTrekProcessValidation() {
-  $errors = [];
-  $maxVideos = 174;
-
-  $careerTrek = loadCareerTrek();
-
-  $ids = \Drupal::entityQuery('media')
-  ->condition('bundle', 'remote_video')
-  ->execute();
-
-  $total = 0;
-
-  $results = Media::loadMultiple($ids);
-  foreach ($results as $media) {
-    $name = $media->name->value;
-    preg_match('/\(Episode \d*\)/', $name, $output1);
-    preg_match('/\(\d*\)/', $name, $output2);
-    if (!empty($output1) || !empty($output2)) {
-      $total++;
-      if (empty($media->field_career_trek->uri)) {
-        $errors[] = $media->name->value . " missing Career Trek link";
-      }
-    }
-  }
-
-  if ($total <> $maxVideos) {
-    $errors[] = $total . " Career Trek videos found, should be " . $maxVideos;
-  }
-
-  return $errors;
 }

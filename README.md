@@ -60,7 +60,7 @@ See https://developer.gov.bc.ca/Typography for more details.
 
 ## Development
 The `php` Docker container has `yarn`, `grunt`, and `grunt-dart-sass` set up for compilation.
-You will need to either `make install` or `yarn install` from `src/` to install all of the dependencies first.
+You will need to `yarn install` from `src/` to install all of the dependencies first.
 
 Once dependencies are in place:
 `yarn run grunt dart-sass` will compile everything starting with the style.scss, and
