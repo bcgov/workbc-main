@@ -10,6 +10,7 @@ dependencies:
     - field.field.node.page.field_hero_image_media
     - field.field.node.page.field_hero_text
     - field.field.node.page.field_language
+    - field.field.node.page.field_metatag_description
     - field.field.node.page.field_multilingual_centre
     - field.field.node.page.field_page_format
     - field.field.node.page.field_related_topics
@@ -97,13 +98,21 @@ content:
     third_party_settings: {  }
   field_language:
     type: options_select
-    weight: 18
+    weight: 19
     region: content
     settings: {  }
     third_party_settings: {  }
+  field_metatag_description:
+    type: string_textfield
+    weight: 15
+    region: content
+    settings:
+      size: 160
+      placeholder: ''
+    third_party_settings: {  }
   field_multilingual_centre:
     type: link_default
-    weight: 19
+    weight: 20
     region: content
     settings:
       placeholder_url: ''
@@ -127,7 +136,7 @@ content:
     third_party_settings: {  }
   field_related_topics_blurb:
     type: text_textarea
-    weight: 16
+    weight: 17
     region: content
     settings:
       rows: 5
@@ -135,7 +144,7 @@ content:
     third_party_settings: {  }
   field_related_topics_image:
     type: media_library_widget
-    weight: 17
+    weight: 18
     region: content
     settings:
       media_types: {  }
@@ -143,7 +152,7 @@ content:
     third_party_settings: {  }
   field_scheduled_publish:
     type: scheduled_publish
-    weight: 20
+    weight: 21
     region: content
     settings: {  }
     third_party_settings: {  }
@@ -166,7 +175,7 @@ content:
     third_party_settings: {  }
   moderation_state:
     type: moderation_state_default
-    weight: 15
+    weight: 16
     region: content
     settings: {  }
     third_party_settings: {  }
@@ -203,7 +212,7 @@ content:
     settings: {  }
     third_party_settings: {  }
   url_redirects:
-    weight: 21
+    weight: 22
     region: content
     settings: {  }
     third_party_settings: {  }
