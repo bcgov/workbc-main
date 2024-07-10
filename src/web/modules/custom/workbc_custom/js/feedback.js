@@ -4,6 +4,18 @@
   Drupal.behaviors.feedback = {
     attach: function (context, settings) {
       $(once('feedback', document.body)).each(function() {
+        // Add function to test for visibility.
+        // https://stackoverflow.com/a/40658647/209184
+        $.fn.isInViewport = function () {
+          let elementTop = $(this).offset().top;
+          let elementBottom = elementTop + $(this).outerHeight();
+
+          let viewportTop = $(window).scrollTop();
+          let viewportBottom = viewportTop + $(window).height();
+
+          return elementBottom > viewportTop && elementTop < viewportBottom;
+        };
+
         // Check to see if Snowplow is present on the page. If not, don't display the feedback box
         if (window.snowplow) {
           // Add the container to the body.
@@ -11,16 +23,28 @@
           container.id = 'feedback_wrapper';
           document.body.appendChild(container);
 
-          // Set up the activation triggers.
-          window.setTimeout(function() {
-            feedback_reset();
-          }, 0);
+          // Set up the activation triggers:
+          // - Upon clicking on given selectors if any.
+          if (settings.feedback.click_selector) {
+            $(document).on('click', settings.feedback.click_selector, feedback_show);
+          }
+
+          // - Upon scrolling to page bottom.
+          $(window).scroll(function () {
+            if ($('.footer').isInViewport()) {
+              feedback_show();
+            }
+          });
+
+          // - After being on the page for a given timeout if anu.
+          if (settings.feedback.timeout) {
+            window.setTimeout(feedback_show, settings.feedback.timeout);
+          }
         }
       });
     }
   }
 })(jQuery, Drupal, once);
-
 
 // Define list of options in Thumbs Up response (max 32 characters each)
 let up_list = ['Clear navigation', 'User friendly design', 'Right amount of information', 'Help/Support', 'Reliable content', 'Search function', 'Other'];
@@ -30,7 +54,18 @@ let up_text = 'Great! What did you like about the service?';
 let down_list = ['Poor navigation', 'Confusing layout', 'Not enough information', 'Mobile experience', 'Inaccurate search', 'Lack of support', 'Other'];
 // Define text to display after clicking thumbs down
 let down_text = 'Tell us how we can improve?';
+// How many times did we show / submit the modal?
+let show_count = 0;
+let submit_count = 0;
 
+// Show modal according to rules of showing.
+function feedback_show() {
+  if (show_count < 1) {
+    console.log('showing');
+    feedback_reset();
+    show_count++;
+  }
+}
 
 // Define Feedback box to display
 let feedback_box = `<div class="feedback_box" id="feedback_box">
@@ -91,7 +126,6 @@ function feedback_list_select(id) {
 	}
 }
 
-
 // Submit feedback (including Snowplow call and thank you message)
 function feedback_submit() {
 	// Send Snowplow call of either "Thumbs Up List" or "Thumbs Down List". Along with a list is selected we'll also include the list of selected options.
@@ -110,6 +144,7 @@ function feedback_submit() {
 	});
 	document.getElementById("feedback_title").innerHTML = 'Your feedback is valuable';
 	document.getElementById("feedback_body").innerHTML = '<div class="feedback_thankyou"><h4>Thank you</h4><img src="/modules/custom/workbc_custom/icons/Thankyou_illustration.svg" alt="Thank you"><p>Your feedback will help us improve WorkBC.ca website.</p></div>';
+  submit_count++;
 }
 
 // Reset the form either on load or when hitting "Back"
