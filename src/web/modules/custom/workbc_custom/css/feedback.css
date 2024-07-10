@@ -1,25 +1,22 @@
 #feedback_wrapper {
   position: fixed;
-  bottom: 0;
-  right: 0;
-  z-index: 1000;
+  bottom: 1px;
+  right: 1px;
+  z-index: 20;
 }
-
 .feedback_box {
   flex-shrink: 0;
-  font-family: "BC Sans";
-  width: 350px;
+  width: 400px;
   box-shadow: 0 0 5px rgba(0, 0, 0, 0.2);
   border-radius: 10px 10px 0px 0px;
   border: 1px solid #474543;
-  font-family: "BC Sans";
   line-height: normal;
-  position: relative;
+  background: #fff;
 }
 .feedback_head {
   border-radius: 10px 10px 0px 0px;
   width: 100%;
-  background: #053662;
+  background: #002857;
   color: white;
 }
 .feedback_head h3 {
@@ -48,13 +45,27 @@
   width: 50%;
   padding: 10px;
   border-top: 1px solid #474543;
+  font-weight: bold;
 }
-.feedback_item.first {
+.green {
+  color: #42814a;
+}
+.red {
+  color: #ce3e39;
+}
+.feedback_item img {
+  padding-bottom: 4px;
+}
+.feedback_item:first-child {
   border-right: 1px solid #474543;
 }
 .feedback_selected {
   padding: 20px 20px;
   text-align: center;
+  font-weight: bold;
+}
+.feedback_selected img {
+  padding-bottom: 4px;
 }
 .feedback_list {
   padding: 20px 20px;
@@ -63,8 +74,9 @@
 .icon {
   font-size: 3em;
 }
-.red { color: rgb(255, 0, 0); }
-.selected { font-size: 130%; cursor: auto; }
+.selected {
+  font-size: 130%; cursor: auto;
+}
 button.feedback_list_item {
   border: 0.6px solid #9F9D9C;
   background: #fff;
@@ -79,9 +91,13 @@ button.feedback_list_item {
   border-radius: 5px;
   cursor: pointer;
 }
-.feedback_list_item.button_selected { background: grey;}
-
-div.feedback_submit { width: 100%; margin-top: 1em;}
+.feedback_list_item.button_selected {
+  background: grey;
+}
+div.feedback_submit {
+  width: 100%;
+  margin-top: 1em;
+}
 .feedback_back {
   position: absolute;
   left: 20px;
@@ -94,7 +110,7 @@ button.feedback_submit_button {
   right: 20px;
   bottom: 10px;
   padding: 5px 10px;
-  background: #053662;
+  background: #002857;
   border-radius: 5px;
 }
 .feedback_corner {

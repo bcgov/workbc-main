@@ -3,12 +3,18 @@
 (function ($, Drupal, once) {
   Drupal.behaviors.feedback = {
     attach: function (context, settings) {
-      $(once('feedback', '#feedback_wrapper', context)).each(function() {
-        // check to see if Snowplow is present on the page. If not, don't display the feedback box
+      $(once('feedback', document.body)).each(function() {
+        // Check to see if Snowplow is present on the page. If not, don't display the feedback box
         if (window.snowplow) {
+          // Add the container to the body.
+          const container = document.createElement('div');
+          container.id = 'feedback_wrapper';
+          document.body.appendChild(container);
+
+          // Set up the activation triggers.
           window.setTimeout(function() {
             feedback_reset();
-          }, 5000);
+          }, 0);
         }
       });
     }
@@ -37,14 +43,11 @@ let feedback_box = `<div class="feedback_box" id="feedback_box">
 	</div>
 	<table class="feedback_action" id="feedback_action">
 		<tr>
-			<td onclick="feedback_thumb('up')" class="feedback_item first" id="rating_up"><img src="/modules/custom/workbc_custom/icons/Thumbs_up_icon.svg" alt="Great"/><br/>Great</td>
-			<td onclick="feedback_thumb('down')" class="feedback_item" id="rating_down"><img src="/modules/custom/workbc_custom/icons/Thumbs_down_icon.svg" alt="Not good"/><br/>Not good</td>
+			<td onclick="feedback_thumb('up')" class="feedback_item green" id="rating_up"><img src="/modules/custom/workbc_custom/icons/Thumbs_up_icon.svg" alt="Great"/><br/>Great</td>
+			<td onclick="feedback_thumb('down')" class="feedback_item red" id="rating_down"><img src="/modules/custom/workbc_custom/icons/Thumbs_down_icon.svg" alt="Not good"/><br/>Not good</td>
 		</tr>
 	</table>
 </div>`;
-
-var other;
-
 
 // Choose thumbs up or down then present list of items and send initial Snowplow call
 function feedback_thumb(selected) {
@@ -52,12 +55,12 @@ function feedback_thumb(selected) {
 		feedback_list = up_list;
 		feedback_text = up_text;
 		feedback_action = 'Thumbs Up';
-		feedback_selected = '<img src="/modules/custom/workbc_custom/icons/Thumbs_up_illustration.svg" alt="Great"/><br/>Great';
+		feedback_selected = '<span class="green"><img src="/modules/custom/workbc_custom/icons/Thumbs_up_illustration.svg" alt="Great"/><br/>Great</span>';
 	} else {
 		feedback_list = down_list;
 		feedback_text = down_text;
 		feedback_action = 'Thumbs Down';
-		feedback_selected = '<img src="/modules/custom/workbc_custom/icons/Thumbs_down_illustration.svg" alt="Not good"/><br/>Not good';
+		feedback_selected = '<span class="red"><img src="/modules/custom/workbc_custom/icons/Thumbs_down_illustration.svg" alt="Not good"/><br/>Not good</span>';
 	}
 	// Rewrite the body for list feedback
 	document.getElementById("feedback_body").innerHTML +='<div class="feedback_selected">' + feedback_selected + '</div><div id="feedback_list" class="feedback_list"></div> <div id="feedback_submit" class="feedback_submit"><div class="feedback_back"><a href="#" onclick="feedback_reset();return false;">Back</a></div><button class="feedback_submit_button" onclick="feedback_submit()">Submit</button></div>';
@@ -81,10 +84,10 @@ function feedback_thumb(selected) {
 
 // Toggle selection of feedback list options
 function feedback_list_select(id) {
-	if ($('#' + id).hasClass('button_selected'))
-		$('#' + id).removeClass('button_selected');
+	if (jQuery('#' + id).hasClass('button_selected'))
+		jQuery('#' + id).removeClass('button_selected');
 	else {
-		$('#' + id).addClass('button_selected');
+		jQuery('#' + id).addClass('button_selected');
 	}
 }
 
@@ -107,7 +110,6 @@ function feedback_submit() {
 	});
 	document.getElementById("feedback_title").innerHTML = 'Your feedback is valuable';
 	document.getElementById("feedback_body").innerHTML = '<div class="feedback_thankyou"><h4>Thank you</h4><img src="/modules/custom/workbc_custom/icons/Thankyou_illustration.svg" alt="Thank you"><p>Your feedback will help us improve WorkBC.ca website.</p></div>';
-
 }
 
 // Reset the form either on load or when hitting "Back"
