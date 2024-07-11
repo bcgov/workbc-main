@@ -552,6 +552,28 @@ function workbc_custom_oembed_resource_url_alter(array &$parsed_url, \Drupal\med
 }
 
 /**
+ * Implements hook_page_attachments().
+ */
+function workbc_custom_page_attachments(array &$attachments) {
+  // Inject feedback component for specific pages.
+  $path = \Drupal::service('path.current')->getPath();
+  $alias = \Drupal::service('path_alias.manager')->getAliasByPath($path);
+  if (in_array($alias, [
+    '/search-and-prepare-job/find-jobs',
+    '/discover-employment-services/online-employment-services'
+  ])) {
+    $attachments['#attached']['library'][] = 'workbc_custom/feedback';
+    $attachments['#attached']['drupalSettings']['feedback'] = [
+      'triggers' => [
+        'timeout' => $alias == '/discover-employment-services/online-employment-services' ? 30000 : 90000,
+        'click_selector' => $alias == '/search-and-prepare-job/find-jobs' ? '.find-jobs-btn' : false,
+        'scroll' => $alias == '/discover-employment-services/online-employment-services',
+      ]
+    ];
+  }
+}
+
+/**
 * Function to get the region mappings.
 */
 function getRegionMappings() {
