@@ -21,7 +21,8 @@
 }
 .feedback_head h3 {
   margin: 0;
-  padding: 10px 20px;
+  padding: 14px 20px;
+  font-size: 1rem;
 }
 .feedback_body {
   width: 100%;
@@ -30,6 +31,7 @@
 .feedback_body h4 {
   padding: 20px 20px;
   margin: 0;
+  font-size: 1rem;
 }
 .feedback_action {
   width: 100%;
@@ -39,6 +41,9 @@
 }
 .feedback_thankyou {
   text-align: center;
+}
+.feedback_thankyou img {
+  padding-bottom: 20px;
 }
 .feedback_item {
   cursor: pointer;
@@ -69,6 +74,7 @@
 }
 .feedback_list {
   padding: 20px 20px;
+  padding-bottom: 40px;
   margin: 0;
 }
 .icon {
@@ -82,14 +88,14 @@ button.feedback_list_item {
   background: #fff;
   box-shadow: 0px 1px 4px 0px rgba(0, 0, 0, 0.15);
   display: inline-flex;
-  padding: 5px 23px;
+  padding: 5px;
   justify-content: center;
   align-items: center;
   gap: 10px;
   margin: 10px;
-  margin-bottom: 20px;
   border-radius: 5px;
   cursor: pointer;
+  font-size: 14px;
 }
 .feedback_list_item.button_selected {
   background: grey;
