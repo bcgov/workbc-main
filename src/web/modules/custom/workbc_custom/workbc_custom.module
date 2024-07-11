@@ -518,8 +518,11 @@ function workbc_custom_page_attachments(array &$attachments) {
   ])) {
     $attachments['#attached']['library'][] = 'workbc_custom/feedback';
     $attachments['#attached']['drupalSettings']['feedback'] = [
-      'timeout' => $alias == '/discover-employment-services/online-employment-services' ? 30000 : false,
-      'click_selector' => $alias == '/search-and-prepare-job/find-jobs' ? '.find-jobs-btn' : false,
+      'triggers' => [
+        'timeout' => $alias == '/discover-employment-services/online-employment-services' ? 30000 : 90000,
+        'click_selector' => $alias == '/search-and-prepare-job/find-jobs' ? '.find-jobs-btn' : false,
+        'scroll' => $alias == '/discover-employment-services/online-employment-services',
+      ]
     ];
   }
 }

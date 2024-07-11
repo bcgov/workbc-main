@@ -25,20 +25,22 @@
 
           // Set up the activation triggers:
           // - Upon clicking on given selectors if any.
-          if (settings.feedback.click_selector) {
-            $(document).on('click', settings.feedback.click_selector, feedback_show);
+          if (settings.feedback.triggers.click_selector) {
+            $(document).on('click', settings.feedback.triggers.click_selector, feedback_show);
           }
 
-          // - Upon scrolling to page bottom.
-          $(window).scroll(function () {
-            if ($('.footer').isInViewport()) {
-              feedback_show();
-            }
-          });
+          // - Upon scrolling to page bottom if specified.
+          if (settings.feedback.triggers.scroll) {
+            $(window).scroll(function () {
+              if ($('.footer').isInViewport()) {
+                feedback_show();
+              }
+            });
+          }
 
           // - After being on the page for a given timeout if anu.
-          if (settings.feedback.timeout) {
-            window.setTimeout(feedback_show, settings.feedback.timeout);
+          if (settings.feedback.triggers.timeout) {
+            window.setTimeout(feedback_show, settings.feedback.triggers.timeout);
           }
         }
       });

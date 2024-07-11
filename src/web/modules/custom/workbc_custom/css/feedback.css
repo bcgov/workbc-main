@@ -23,6 +23,7 @@
   margin: 0;
   padding: 14px 20px;
   font-size: 1rem;
+  font-weight: bold;
 }
 .feedback_body {
   width: 100%;
