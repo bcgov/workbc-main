@@ -12,6 +12,7 @@
   border: 1px solid #474543;
   line-height: normal;
   background: #fff;
+  font-weight: bold;
 }
 .feedback_head {
   border-radius: 10px 10px 0px 0px;
@@ -33,6 +34,7 @@
   padding: 20px 20px;
   margin: 0;
   font-size: 1rem;
+  font-weight: bold;
 }
 .feedback_action {
   width: 100%;
@@ -42,9 +44,11 @@
 }
 .feedback_thankyou {
   text-align: center;
+  padding: 30px 30px 60px 30px;
 }
 .feedback_thankyou img {
-  padding-bottom: 20px;
+  padding-top: 30px;
+  padding-bottom: 30px;
 }
 .feedback_item {
   cursor: pointer;
@@ -97,6 +101,7 @@ button.feedback_list_item {
   border-radius: 5px;
   cursor: pointer;
   font-size: 14px;
+  font-weight: normal;
 }
 .feedback_list_item.button_selected {
   background: grey;
