@@ -5,6 +5,7 @@ dependencies: {  }
 id: node__success_story
 label: 'Content: Success Story'
 tags:
+  description: '[node:field_metatag_description]'
   keywords: '[node:field_tags]'
   og_image: '[node:field_image:1_2_component]'
   twitter_cards_image: '[node:field_image:1_2_component]'

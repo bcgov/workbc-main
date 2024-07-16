@@ -13,5 +13,3 @@ docker-compose exec php drush bamr default_db private_files $1
 docker-compose exec php drush upwd admin 'password'
 docker-compose exec php scripts/sync.sh -y
 docker-compose exec php drush en -y devel views_ui
-docker-compose exec -T postgres psql -U workbc ssot < src/scripts/workbc-reset.sql
-docker-compose exec -T postgres psql -U workbc ssot < src/scripts/ssot-full.sql && docker-compose kill -s SIGUSR1 ssot
