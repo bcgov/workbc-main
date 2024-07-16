@@ -14,6 +14,14 @@ workbc_custom.admin_settings:
   requirements:
     _permission: 'administer workbc_custom settings'
 
+workbc_custom.ssot_lmmu:
+  path: '/admin/config/workbc/ssot_lmmu'
+  defaults:
+    _title: 'SSOT Labour Market Monthly Update'
+    _form: '\Drupal\workbc_custom\Form\SsotUploadLmmuForm'
+  requirements:
+    _permission: 'administer workbc_custom settings'
+
 workbc_custom.report_unmanaged_files:
   path: '/admin/reports/unmanaged_files'
   defaults:

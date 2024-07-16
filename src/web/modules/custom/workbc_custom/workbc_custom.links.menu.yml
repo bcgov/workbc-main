@@ -9,6 +9,12 @@ workbc_custom.admin_settings:
   route_name: workbc_custom.admin_settings
   description: 'Administer WorkBC-specific configuration.'
 
+workbc_custom.ssot_lmmu:
+  title: 'SSOT LMMU'
+  parent: workbc_custom.admin_index
+  route_name: workbc_custom.ssot_lmmu
+  description: 'Upload new data sheet to the SSOT Labout Market Monthly Update.'
+
 workbc_custom.report_unmanaged_files:
   title: 'WorkBC unmanaged files'
   parent: system.admin_reports
