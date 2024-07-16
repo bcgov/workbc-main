@@ -156,7 +156,7 @@
         "drupal/views_database_connector": "^2.0",
         "drupal/views_infinite_scroll": "^2.0",
         "drupal/viewsreference": "^1.8",
-        "drupal/webform": "^6.2",
+        "drupal/webform": "^6.2 <6.2.4",
         "drush/drush": "^11.0",
         "frdh/mmenu-js": "^9.2.0",
         "google/charts": "45",
