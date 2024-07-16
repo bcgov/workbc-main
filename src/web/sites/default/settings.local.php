@@ -37,7 +37,15 @@ $databases['ssot']['default'] = [
   'prefix' => '',
   'username' => 'workbc',
 ];
-
+$databases['ssot']['lmmu'] = [
+  'database' => 'ssot',
+  'driver' => 'pgsql',
+  'host' => 'postgres',
+  'password' => 'workbc',
+  'port' => 5432,
+  'prefix' => '',
+  'username' => 'workbc',
+];
 
 /**
  * Assertions.
