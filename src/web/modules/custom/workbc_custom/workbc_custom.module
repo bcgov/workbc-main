@@ -501,31 +501,33 @@ function workbc_custom_metatags_attachments_alter(array &$metatag_attachments) {
 
   if (!$found) {
     $node = \Drupal::routeMatch()->getParameter('node');
-    $description = $node->title->value;
-    if ($node->hasField('body')) {
-      if (!empty($node->get('body')->summary)){
-        $description = \Drupal\Component\Utility\Unicode::truncate($node->get('body')->summary, 160, TRUE, FALSE);
-      }
-      else {
-        if (!empty($node->get('body')->value)) {
-          $text = strip_tags($node->get('body')->value);
-          $text = preg_replace('/\s+/', ' ', $text);
-          $description = \Drupal\Component\Utility\Unicode::truncate($text, 160, TRUE, FALSE);
+    if ($node){
+      $description = $node->title->value;
+      if ($node->hasField('body')) {
+        if (!empty($node->get('body')->summary)){
+          $description = \Drupal\Component\Utility\Unicode::truncate($node->get('body')->summary, 160, TRUE, FALSE);
+        }
+        else {
+          if (!empty($node->get('body')->value)) {
+            $text = strip_tags($node->get('body')->value);
+            $text = preg_replace('/\s+/', ' ', $text);
+            $description = \Drupal\Component\Utility\Unicode::truncate($text, 160, TRUE, FALSE);
+          }
         }
       }
-    }
-    
-    $tag = [
-      [
-        '#tag' => 'meta',
-        '#attributes' => [
-          'name' => 'description',
-          'content' => $description,
+      
+      $tag = [
+        [
+          '#tag' => 'meta',
+          '#attributes' => [
+            'name' => 'description',
+            'content' => $description,
+          ],
         ],
-      ],
-      'description'
-    ];
-    $metatag_attachments['#attached']['html_head'][] = $tag;
+        'description'
+      ];
+      $metatag_attachments['#attached']['html_head'][] = $tag;
+    }
   }
 }
 
