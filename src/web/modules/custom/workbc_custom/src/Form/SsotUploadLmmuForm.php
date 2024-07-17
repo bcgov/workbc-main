@@ -7,6 +7,7 @@ use Drupal\Core\Form\FormStateInterface;
 use Drupal\file\Entity\File;
 use PhpOffice\PhpSpreadsheet\Spreadsheet;
 use PhpOffice\PhpSpreadsheet\Worksheet;
+use PhpOffice\PhpSpreadsheet\Shared\Date as ExcelDate;
 
 /**
 * Class SsotUploadLmmuForm.
@@ -14,6 +15,8 @@ use PhpOffice\PhpSpreadsheet\Worksheet;
 * @package Drupal\workbc_custom\Form
 */
 class SsotUploadLmmuForm extends FormBase {
+  private $monthly_labour_market_updates;
+
   /**
    * {@inheritdoc}
    */
@@ -101,6 +104,7 @@ class SsotUploadLmmuForm extends FormBase {
     });
     if (empty($sheet)) {
       $form_state->setErrorByName('lmmu', "Tab \"Sheet3\" is not found. Please ensure that the tab containing LMMU information is called \"Sheet3\".");
+      return;
     }
     else {
       $sheet = reset($sheet);
@@ -109,8 +113,8 @@ class SsotUploadLmmuForm extends FormBase {
     // Validate and fill the monthly_labour_market_updates values.
     // @see https://github.com/bcgov/workbc-ssot/blob/master/migration/load/updates/monthly_labour_market_updates.load
     $monthly_labour_market_updates = [
-      'year' => ['value' => $form_state->getValue('year')],
-      'month' => ['value' => $form_state->getValue('month')],
+      'year' => ['value' => intval($form_state->getValue('year'))],
+      'month' => ['value' => intval($form_state->getValue('month'))],
 
       'total_employed' => ['cell' => 'B3'],
       'total_unemployed' => ['cell' => 'B37'],
@@ -218,13 +222,19 @@ class SsotUploadLmmuForm extends FormBase {
     ];
     foreach ($monthly_labour_market_updates as $key => $action) {
       if (array_key_exists('value', $action)) {
-        $monthly_labour_market_updates[$key] = $action['value'];
+        $value = $printed_value = $action['value'];
       }
       else if (array_key_exists('cell', $action)) {
-        $monthly_labour_market_updates[$key] = $sheet->getCell($action['cell'])->getValue();
+        $value = $sheet->getCell($action['cell'])->getValue();
+        $printed_value = $sheet->getCell($action['cell'])->getValueString();
+      }
+      if (empty($action['ignore'])) {
+        $monthly_labour_market_updates[$key] = $value;
       }
     }
 
+    // Remember the value for submission.
+    $this->monthly_labour_market_updates = $monthly_labour_market_updates;
   }
 
   /**
@@ -232,5 +242,6 @@ class SsotUploadLmmuForm extends FormBase {
    */
   public function submitForm(array &$form, FormStateInterface $form_state)
   {
+    ksm($this->monthly_labour_market_updates);
   }
 }
