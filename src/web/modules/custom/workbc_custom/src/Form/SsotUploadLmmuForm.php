@@ -9,13 +9,22 @@ use PhpOffice\PhpSpreadsheet\Spreadsheet;
 use PhpOffice\PhpSpreadsheet\Worksheet;
 use PhpOffice\PhpSpreadsheet\Shared\Date as ExcelDate;
 
+// @see https://stackoverflow.com/a/2430144/209184
+function number_precision($value) {
+  return strlen(substr(strrchr($value, "."), 1));
+}
+
+function is_number_integer($value) {
+  return abs($value - round($value)) <= PHP_FLOAT_EPSILON;
+}
+
 /**
 * Class SsotUploadLmmuForm.
 *
 * @package Drupal\workbc_custom\Form
 */
 class SsotUploadLmmuForm extends FormBase {
-  private $monthly_labour_market_updates;
+  private $monthly_labour_market_updates = NULL;
 
   /**
    * {@inheritdoc}
@@ -112,128 +121,197 @@ class SsotUploadLmmuForm extends FormBase {
 
     // Validate and fill the monthly_labour_market_updates values.
     // @see https://github.com/bcgov/workbc-ssot/blob/master/migration/load/updates/monthly_labour_market_updates.load
-    $monthly_labour_market_updates = [
+    $monthly_labour_market_updates = [];
+    $errors = [];
+    $validations = [
       'year' => ['value' => intval($form_state->getValue('year'))],
       'month' => ['value' => intval($form_state->getValue('month'))],
 
-      'total_employed' => ['cell' => 'B3'],
-      'total_unemployed' => ['cell' => 'B37'],
-      'total_unemployed_previous' => ['cell' => 'A37'],
+      'total_employed' => ['cell' => 'B3', 'type' => 'abs'],
+      'total_unemployed' => ['cell' => 'B37', 'type' => 'abs'],
+      'total_unemployed_previous' => ['cell' => 'A37', 'type' => 'abs'],
 
-      'employment_by_age_group_15_24' => ['cell' => 'C8'],
-      'employment_by_age_group_25_54' => ['cell' => 'C9'],
-      'employment_by_age_group_55' => ['cell' => 'C10'],
-      'employment_by_age_group_15_24_previous' => ['cell' => 'B8'],
-      'employment_by_age_group_25_54_previous' => ['cell' => 'B9'],
-      'employment_by_age_group_55_previous' => ['cell' => 'B10'],
+      'employment_by_age_group_15_24' => ['cell' => 'C8', 'type' => 'abs'],
+      'employment_by_age_group_25_54' => ['cell' => 'C9', 'type' => 'abs'],
+      'employment_by_age_group_55' => ['cell' => 'C10', 'type' => 'abs'],
+      'employment_by_age_group_15_24_previous' => ['cell' => 'B8', 'type' => 'abs'],
+      'employment_by_age_group_25_54_previous' => ['cell' => 'B9', 'type' => 'abs'],
+      'employment_by_age_group_55_previous' => ['cell' => 'B10', 'type' => 'abs'],
 
-      'employment_by_gender_women' => ['cell' => 'C12'],
-      'employment_by_gender_men' => ['cell' => 'C13'],
-      'employment_by_gender_women_previous' => ['cell' => 'B12'],
-      'employment_by_gender_men_previous' => ['cell' => 'B13'],
+      'employment_by_gender_women' => ['cell' => 'C12', 'type' => 'abs'],
+      'employment_by_gender_men' => ['cell' => 'C13', 'type' => 'abs'],
+      'employment_by_gender_women_previous' => ['cell' => 'B12', 'type' => 'abs'],
+      'employment_by_gender_men_previous' => ['cell' => 'B13', 'type' => 'abs'],
 
-      'employment_change_pct_total_employment' => ['cell' => 'B18'],
-      'employment_change_abs_total_employment' => ['cell' => 'C18'],
-      'employment_change_pct_full_time_jobs' => ['cell' => 'B19'],
-      'employment_change_abs_full_time_jobs' => ['cell' => 'C19'],
-      'employment_change_pct_part_time_jobs' => ['cell' => 'B20'],
-      'employment_change_abs_part_time_jobs' => ['cell' => 'C20'],
+      'employment_change_pct_total_employment' => ['cell' => 'B18', 'type' => 'chg_pct'],
+      'employment_change_abs_total_employment' => ['cell' => 'C18', 'type' => 'chg_abs', 'related' => 'employment_change_pct_total_employment'],
+      'employment_change_pct_full_time_jobs' => ['cell' => 'B19', 'type' => 'chg_pct'],
+      'employment_change_abs_full_time_jobs' => ['cell' => 'C19', 'type' => 'chg_abs', 'related' => 'employment_change_pct_full_time_jobs'],
+      'employment_change_pct_part_time_jobs' => ['cell' => 'B20', 'type' => 'chg_pct'],
+      'employment_change_abs_part_time_jobs' => ['cell' => 'C20', 'type' => 'chg_abs', 'related' => 'employment_change_pct_part_time_jobs'],
 
-      'employment_rate_change_pct_unemployment' => ['cell' => 'B22'],
-      'employment_rate_pct_unemployment' => ['cell' => 'C22'],
-      'employment_rate_change_pct_participation' => ['cell' => 'B23'],
-      'employment_rate_pct_participation' => ['cell' => 'C23'],
-      'employment_rate_change_pct_unemployment_previous' => ['cell' => 'E22'],
-      'employment_rate_pct_unemployment_previous' => ['cell' => 'F22'],
-      'employment_rate_change_pct_participation_previous' => ['cell' => 'E23'],
-      'employment_rate_pct_participation_previous' => ['cell' => 'F23'],
+      'employment_rate_change_pct_unemployment' => ['cell' => 'B22', 'type' => 'chg_pct'],
+      'employment_rate_pct_unemployment' => ['cell' => 'C22', 'type' => 'pct'],
+      'employment_rate_change_pct_participation' => ['cell' => 'B23', 'type' => 'chg_pct'],
+      'employment_rate_pct_participation' => ['cell' => 'C23', 'type' => 'pct'],
+      'employment_rate_change_pct_unemployment_previous' => ['cell' => 'E22', 'type' => 'chg_pct'],
+      'employment_rate_pct_unemployment_previous' => ['cell' => 'F22', 'type' => 'pct'],
+      'employment_rate_change_pct_participation_previous' => ['cell' => 'E23', 'type' => 'chg_pct'],
+      'employment_rate_pct_participation_previous' => ['cell' => 'F23', 'type' => 'pct'],
 
-      'population_british_columbia' => ['cell' => 'B26'],
-      'population_vancouver_island_coast' => ['cell' => 'B27'],
-      'population_mainland_southwest' => ['cell' => 'B28'],
-      'population_thompson_okanagan' => ['cell' => 'B29'],
-      'population_kootenay' => ['cell' => 'B30'],
-      'population_cariboo' => ['cell' => 'B31'],
-      'population_north_coast_nechako' => ['cell' => 'B32'],
-      'population_northeast' => ['cell' => 'B33'],
+      'population_british_columbia' => ['cell' => 'B26', 'type' => 'abs'],
+      'population_vancouver_island_coast' => ['cell' => 'B27', 'type' => 'abs'],
+      'population_mainland_southwest' => ['cell' => 'B28', 'type' => 'abs'],
+      'population_thompson_okanagan' => ['cell' => 'B29', 'type' => 'abs'],
+      'population_kootenay' => ['cell' => 'B30', 'type' => 'abs'],
+      'population_cariboo' => ['cell' => 'B31', 'type' => 'abs'],
+      'population_north_coast_nechako' => ['cell' => 'B32', 'type' => 'abs'],
+      'population_northeast' => ['cell' => 'B33', 'type' => 'abs'],
 
-      'unemployment_pct_british_columbia' => ['cell' => 'B41'],
-      'unemployment_pct_british_columbia_previous' => ['cell' => 'E41'],
-      'total_jobs_british_columbia' => ['cell' => 'C41'],
-      'unemployment_pct_vancouver_island_coast' => ['cell' => 'B42'],
-      'unemployment_pct_vancouver_island_coast_previous' => ['cell' => 'E42'],
-      'total_jobs_vancouver_island_coast' => ['cell' => 'C42'],
-      'unemployment_pct_mainland_southwest' => ['cell' => 'B43'],
-      'unemployment_pct_mainland_southwest_previous' => ['cell' => 'E43'],
-      'total_jobs_mainland_southwest' => ['cell' => 'C43'],
-      'unemployment_pct_thompson_okanagan' => ['cell' => 'B44'],
-      'unemployment_pct_thompson_okanagan_previous' => ['cell' => 'E44'],
-      'total_jobs_thompson_okanagan' => ['cell' => 'C44'],
-      'unemployment_pct_kootenay' => ['cell' => 'B45'],
-      'unemployment_pct_kootenay_previous' => ['cell' => 'E45'],
-      'total_jobs_kootenay' => ['cell' => 'C45'],
-      'unemployment_pct_cariboo' => ['cell' => 'B46'],
-      'unemployment_pct_cariboo_previous' => ['cell' => 'E46'],
-      'total_jobs_cariboo' => ['cell' => 'C46'],
-      'unemployment_pct_north_coast_nechako' => ['cell' => 'B47'],
-      'unemployment_pct_north_coast_nechako_previous' => ['cell' => 'E47'],
-      'total_jobs_north_coast_nechako' => ['cell' => 'C47'],
-      'unemployment_pct_northeast' => ['cell' => 'B48'],
-      'unemployment_pct_northeast_previous' => ['cell' => 'E48'],
-      'total_jobs_northeast' => ['cell' => 'C48'],
+      'unemployment_pct_british_columbia' => ['cell' => 'B41', 'type' => 'pct'],
+      'unemployment_pct_british_columbia_previous' => ['cell' => 'E41', 'type' => 'pct'],
+      'total_jobs_british_columbia' => ['cell' => 'C41', 'type' => 'abs'],
+      'unemployment_pct_vancouver_island_coast' => ['cell' => 'B42', 'type' => 'pct'],
+      'unemployment_pct_vancouver_island_coast_previous' => ['cell' => 'E42', 'type' => 'pct'],
+      'total_jobs_vancouver_island_coast' => ['cell' => 'C42', 'type' => 'abs'],
+      'unemployment_pct_mainland_southwest' => ['cell' => 'B43', 'type' => 'pct'],
+      'unemployment_pct_mainland_southwest_previous' => ['cell' => 'E43', 'type' => 'pct'],
+      'total_jobs_mainland_southwest' => ['cell' => 'C43', 'type' => 'abs'],
+      'unemployment_pct_thompson_okanagan' => ['cell' => 'B44', 'type' => 'pct'],
+      'unemployment_pct_thompson_okanagan_previous' => ['cell' => 'E44', 'type' => 'pct'],
+      'total_jobs_thompson_okanagan' => ['cell' => 'C44', 'type' => 'abs'],
+      'unemployment_pct_kootenay' => ['cell' => 'B45', 'type' => 'pct'],
+      'unemployment_pct_kootenay_previous' => ['cell' => 'E45', 'type' => 'pct'],
+      'total_jobs_kootenay' => ['cell' => 'C45', 'type' => 'abs'],
+      'unemployment_pct_cariboo' => ['cell' => 'B46', 'type' => 'pct'],
+      'unemployment_pct_cariboo_previous' => ['cell' => 'E46', 'type' => 'pct'],
+      'total_jobs_cariboo' => ['cell' => 'C46', 'type' => 'abs'],
+      'unemployment_pct_north_coast_nechako' => ['cell' => 'B47', 'type' => 'pct'],
+      'unemployment_pct_north_coast_nechako_previous' => ['cell' => 'E47', 'type' => 'pct'],
+      'total_jobs_north_coast_nechako' => ['cell' => 'C47', 'type' => 'abs'],
+      'unemployment_pct_northeast' => ['cell' => 'B48', 'type' => 'pct'],
+      'unemployment_pct_northeast_previous' => ['cell' => 'E48', 'type' => 'pct'],
+      'total_jobs_northeast' => ['cell' => 'C48', 'type' => 'abs'],
 
       'city_unemployment_pct_kelowna' => ['value' => NULL],
       'city_unemployment_pct_abbotsford_mission' => ['value' => NULL],
       'city_unemployment_pct_vancouver' => ['value' => NULL],
       'city_unemployment_pct_victoria' => ['value' => NULL],
 
-      'industry_pct_accommodation_and_food_services' => ['cell' => 'B59'],
-      'industry_abs_accommodation_and_food_services' => ['cell' => 'C59'],
-      'industry_pct_agriculture' => ['cell' => 'B60'],
-      'industry_abs_agriculture' => ['cell' => 'C60'],
-      'industry_pct_construction' => ['cell' => 'B61'],
-      'industry_abs_construction' => ['cell' => 'C61'],
-      'industry_pct_educational_services' => ['cell' => 'B62'],
-      'industry_abs_educational_services' => ['cell' => 'C62'],
-      'industry_pct_finance_insurance_real_estate_rental' => ['cell' => 'B63'],
-      'industry_abs_finance_insurance_real_estate_rental' => ['cell' => 'C63'],
-      'industry_pct_health_care_and_social_assistance' => ['cell' => 'B64'],
-      'industry_abs_health_care_and_social_assistance' => ['cell' => 'C64'],
-      'industry_pct_manufacturing' => ['cell' => 'B65'],
-      'industry_abs_manufacturing' => ['cell' => 'C65'],
-      'industry_pct_other_primary' => ['cell' => 'B66'],
-      'industry_abs_other_primary' => ['cell' => 'C66'],
-      'industry_pct_other_services' => ['cell' => 'B67'],
-      'industry_abs_other_services' => ['cell' => 'C67'],
-      'industry_pct_professional_scientific_and_technical' => ['cell' => 'B68'],
-      'industry_abs_professional_scientific_and_technical' => ['cell' => 'C68'],
-      'industry_pct_public_administration' => ['cell' => 'B69'],
-      'industry_abs_public_administration' => ['cell' => 'C69'],
-      'industry_pct_transportation_and_warehousing' => ['cell' => 'B70'],
-      'industry_abs_transportation_and_warehousing' => ['cell' => 'C70'],
-      'industry_pct_utilities' => ['cell' => 'B71'],
-      'industry_abs_utilities' => ['cell' => 'C71'],
-      'industry_pct_wholesale_and_retail_trade' => ['cell' => 'B72'],
-      'industry_abs_wholesale_and_retail_trade' => ['cell' => 'C72'],
-      'industry_pct_business_building_other_support_services' => ['cell' => 'B73'],
-      'industry_abs_business_building_other_support_services' => ['cell' => 'C73'],
-      'industry_pct_information_culture_recreation' => ['cell' => 'B74'],
-      'industry_abs_information_culture_recreation' => ['cell' => 'C74']
+      'industry_pct_accommodation_and_food_services' => ['cell' => 'B59', 'type' => 'chg_pct'],
+      'industry_abs_accommodation_and_food_services' => ['cell' => 'C59', 'type' => 'chg_abs', 'related' => 'industry_pct_accommodation_and_food_services'],
+      'industry_pct_agriculture' => ['cell' => 'B60', 'type' => 'chg_pct'],
+      'industry_abs_agriculture' => ['cell' => 'C60', 'type' => 'chg_abs', 'related' => 'industry_pct_agriculture'],
+      'industry_pct_construction' => ['cell' => 'B61', 'type' => 'chg_pct'],
+      'industry_abs_construction' => ['cell' => 'C61', 'type' => 'chg_abs', 'related' => 'industry_pct_construction'],
+      'industry_pct_educational_services' => ['cell' => 'B62', 'type' => 'chg_pct'],
+      'industry_abs_educational_services' => ['cell' => 'C62', 'type' => 'chg_abs', 'related' => 'industry_pct_educational_services'],
+      'industry_pct_finance_insurance_real_estate_rental' => ['cell' => 'B63', 'type' => 'chg_pct'],
+      'industry_abs_finance_insurance_real_estate_rental' => ['cell' => 'C63', 'type' => 'chg_abs', 'related' => 'industry_pct_finance_insurance_real_estate_rental'],
+      'industry_pct_health_care_and_social_assistance' => ['cell' => 'B64', 'type' => 'chg_pct'],
+      'industry_abs_health_care_and_social_assistance' => ['cell' => 'C64', 'type' => 'chg_abs', 'related' => 'industry_pct_health_care_and_social_assistance'],
+      'industry_pct_manufacturing' => ['cell' => 'B65', 'type' => 'chg_pct'],
+      'industry_abs_manufacturing' => ['cell' => 'C65', 'type' => 'chg_abs', 'related' => 'industry_pct_manufacturing'],
+      'industry_pct_other_primary' => ['cell' => 'B66', 'type' => 'chg_pct'],
+      'industry_abs_other_primary' => ['cell' => 'C66', 'type' => 'chg_abs', 'related' => 'industry_pct_other_primary'],
+      'industry_pct_other_services' => ['cell' => 'B67', 'type' => 'chg_pct'],
+      'industry_abs_other_services' => ['cell' => 'C67', 'type' => 'chg_abs', 'related' => 'industry_pct_other_services'],
+      'industry_pct_professional_scientific_and_technical' => ['cell' => 'B68', 'type' => 'chg_pct'],
+      'industry_abs_professional_scientific_and_technical' => ['cell' => 'C68', 'type' => 'chg_abs', 'related' => 'industry_pct_professional_scientific_and_technical'],
+      'industry_pct_public_administration' => ['cell' => 'B69', 'type' => 'chg_pct'],
+      'industry_abs_public_administration' => ['cell' => 'C69', 'type' => 'chg_abs', 'related' => 'industry_pct_public_administration'],
+      'industry_pct_transportation_and_warehousing' => ['cell' => 'B70', 'type' => 'chg_pct'],
+      'industry_abs_transportation_and_warehousing' => ['cell' => 'C70', 'type' => 'chg_abs', 'related' => 'industry_pct_transportation_and_warehousing'],
+      'industry_pct_utilities' => ['cell' => 'B71', 'type' => 'chg_pct'],
+      'industry_abs_utilities' => ['cell' => 'C71', 'type' => 'chg_abs', 'related' => 'industry_pct_utilities'],
+      'industry_pct_wholesale_and_retail_trade' => ['cell' => 'B72', 'type' => 'chg_pct'],
+      'industry_abs_wholesale_and_retail_trade' => ['cell' => 'C72', 'type' => 'chg_abs', 'related' => 'industry_pct_wholesale_and_retail_trade'],
+      'industry_pct_business_building_other_support_services' => ['cell' => 'B73', 'type' => 'chg_pct'],
+      'industry_abs_business_building_other_support_services' => ['cell' => 'C73', 'type' => 'chg_abs', 'related' => 'industry_pct_business_building_other_support_services'],
+      'industry_pct_information_culture_recreation' => ['cell' => 'B74', 'type' => 'chg_pct'],
+      'industry_abs_information_culture_recreation' => ['cell' => 'C74', 'type' => 'chg_abs', 'related' => 'industry_pct_information_culture_recreation']
     ];
-    foreach ($monthly_labour_market_updates as $key => $action) {
+    foreach ($validations as $key => $action) {
       if (array_key_exists('value', $action)) {
-        $value = $printed_value = $action['value'];
+        $value = $action['value'];
       }
       else if (array_key_exists('cell', $action)) {
         $value = $sheet->getCell($action['cell'])->getValue();
-        $printed_value = $sheet->getCell($action['cell'])->getValueString();
+      }
+      if (array_key_exists('type', $action)) {
+        switch ($action['type']) {
+          case 'abs':
+            if (!is_numeric($value)) {
+              // TODO check for required value.
+              $value = NULL;
+            }
+            else {
+              $value = floatval($value);
+              if ($value < 0 || !is_number_integer($value)) {
+                $errors[] = "Cell {$action['cell']} is expected to contain a positive absolute value, but found $value instead. Please correct the value.";
+              }
+            }
+            break;
+          case 'pct':
+            if (!is_numeric($value)) {
+              // TODO check for required value.
+              $value = NULL;
+            }
+            else {
+              $value = floatval($value);
+              if ($value < 0 || number_precision($value) > 1 || $value > 100) {
+                $errors[] = "Cell {$action['cell']} is expected to contain a positive percentage value with a single decimal, but found $value instead. Please correct the value.";
+              }
+            }
+            break;
+          case 'chg_pct':
+            if (!is_numeric($value)) {
+              // TODO check for required value.
+              $value = NULL;
+            }
+            else {
+              $value = floatval($value);
+              if (number_precision($value) > 1 || $value > 100) {
+                $errors[] = "Cell {$action['cell']} is expected to contain a change(+/-) percentage value with a single decimal, but found $value instead. Please correct the value.";
+              }
+            }
+            break;
+          case 'chg_abs':
+            if (!is_numeric($value)) {
+              // TODO check for required value.
+              $value = NULL;
+            }
+            else {
+              $value = floatval($value);
+              if (!is_number_integer($value)) {
+                $errors[] = "Cell {$action['cell']} is expected to contain a change(+/-) absolute value, but found $value instead. Please correct the value.";
+              }
+            }
+            if (array_key_exists('related', $action)) {
+              $related_value = $monthly_labour_market_updates[$action['related']];
+              if (!(
+                (is_null($related_value) && is_null($value)) ||
+                ($related_value * $value >= 0)
+              )) {
+                $related_cell = $validations[$action['related']]['cell'];
+                $errors[] = "Cells {$action['cell']} and {$related_cell} are expected to have the same numeric sign(+/-), but found $value and $related_value instead. Please correct the values.";
+              }
+            }
+            break;
+          }
       }
       if (empty($action['ignore'])) {
         $monthly_labour_market_updates[$key] = $value;
       }
     }
 
-    // Remember the value for submission.
+    // Display errors if any.
+    if (!empty($errors)) {
+      $form_state->setErrorByName('lmms', $errors[0]);
+      return;
+    }
+
+    // Good to go: Remember the value for submission.
     $this->monthly_labour_market_updates = $monthly_labour_market_updates;
   }
 
