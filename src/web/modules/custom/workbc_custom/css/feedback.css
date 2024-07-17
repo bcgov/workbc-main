@@ -1,12 +1,12 @@
 #feedback_wrapper {
   position: fixed;
-  bottom: 1px;
-  right: 1px;
+  bottom: 0;
+  right: 0;
   z-index: 20;
 }
 #feedback_wrapper .feedback_box {
   flex-shrink: 0;
-  width: 345px;
+  width: 350px;
   box-shadow: 0 0 5px rgba(0, 0, 0, 0.2);
   border-radius: 10px 10px 0px 0px;
   border: 1px solid #474543;
@@ -44,6 +44,9 @@
 #feedback_wrapper .feedback_thankyou {
   text-align: center;
   padding: 30px 30px 60px 30px;
+}
+#feedback_wrapper .feedback_thankyou h4 {
+  font-weight: bold;
 }
 #feedback_wrapper .feedback_thankyou img {
   padding-top: 30px;
