@@ -64,19 +64,31 @@ let submit_count = 0;
 
 // Define Feedback box to display
 let feedback_box = `<div class="feedback_box" id="feedback_box">
-	<div class="feedback_head">
-		<div class="feedback_corner" id="feedback_corner"><a href="#" onclick="feedback_close();return false;"><img src="/modules/custom/workbc_custom/icons/Cross_icon.svg" alt="Close"></div></a>
-	<h3 id="feedback_title">We'd love to hear from you</h3>
-	</div>
-	<div class="feedback_body" id="feedback_body">
-		<h4>How was your experience with the WorkBC.ca website?</h4>
-	</div>
-	<table class="feedback_action" id="feedback_action">
-		<tr>
-			<td onclick="feedback_thumb('up')" class="feedback_item green" id="rating_up"><img src="/modules/custom/workbc_custom/icons/Thumbs_up_icon.svg" alt="Great"/><br/>Great</td>
-			<td onclick="feedback_thumb('down')" class="feedback_item red" id="rating_down"><img src="/modules/custom/workbc_custom/icons/Thumbs_down_icon.svg" alt="Not good"/><br/>Not good</td>
-		</tr>
-	</table>
+  <div class="feedback_head">
+    <div class="feedback_corner" id="feedback_corner">
+      <a href="#" onclick="feedback_close();return false;">
+        <img src="/modules/custom/workbc_custom/icons/Cross_icon.svg" alt="Close" title="Close">
+      </a>
+    </div>
+    <h3 id="feedback_title">We'd love to hear from you</h3>
+  </div>
+  <div class="feedback_body" id="feedback_body">
+    <h4>How was your experience with the WorkBC.ca website?</h4>
+  </div>
+  <table class="feedback_action" id="feedback_action">
+    <tr>
+      <td class="feedback_item green" id="rating_up">
+        <a href="#" onclick="feedback_thumb('up');return false;">
+          <img src="/modules/custom/workbc_custom/icons/Thumbs_up_icon.svg" alt="Great" title="Great"/><br/>Great
+        </a>
+      </td>
+      <td class="feedback_item red" id="rating_down">
+        <a href="#" onclick="feedback_thumb('down');return false;">
+          <img src="/modules/custom/workbc_custom/icons/Thumbs_down_icon.svg" alt="Not good" title="Not good"/><br/>Not good
+        </a>
+      </td>
+    </tr>
+  </table>
 </div>`;
 
 // Choose thumbs up or down then present list of items and send initial Snowplow call
