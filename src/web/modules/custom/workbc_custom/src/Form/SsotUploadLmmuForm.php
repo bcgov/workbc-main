@@ -9,6 +9,7 @@ use PhpOffice\PhpSpreadsheet\Spreadsheet;
 use PhpOffice\PhpSpreadsheet\Worksheet;
 use PhpOffice\PhpSpreadsheet\Shared\Date as ExcelDate;
 use \Drupal\Core\Datetime\DateHelper;
+use \Drupal\Core\Url;
 
 // @see https://stackoverflow.com/a/2430144/209184
 function number_precision($value) {
@@ -197,34 +198,34 @@ class SsotUploadLmmuForm extends FormBase {
       'city_unemployment_pct_vancouver' => ['value' => NULL],
       'city_unemployment_pct_victoria' => ['value' => NULL],
 
-      'industry_pct_accommodation_and_food_services' => ['cell' => 'B59', 'type' => 'chg_pct'],
-      'industry_abs_accommodation_and_food_services' => ['cell' => 'C59', 'type' => 'chg_abs', 'related' => 'industry_pct_accommodation_and_food_services'],
-      'industry_pct_agriculture' => ['cell' => 'B60', 'type' => 'chg_pct'],
-      'industry_abs_agriculture' => ['cell' => 'C60', 'type' => 'chg_abs', 'related' => 'industry_pct_agriculture'],
+      'industry_pct_accommodation_food_services' => ['cell' => 'B59', 'type' => 'chg_pct'],
+      'industry_abs_accommodation_food_services' => ['cell' => 'C59', 'type' => 'chg_abs', 'related' => 'industry_pct_accommodation_food_services'],
+      'industry_pct_agriculture_fishing' => ['cell' => 'B60', 'type' => 'chg_pct'],
+      'industry_abs_agriculture_fishing' => ['cell' => 'C60', 'type' => 'chg_abs', 'related' => 'industry_pct_agriculture_fishing'],
       'industry_pct_construction' => ['cell' => 'B61', 'type' => 'chg_pct'],
       'industry_abs_construction' => ['cell' => 'C61', 'type' => 'chg_abs', 'related' => 'industry_pct_construction'],
       'industry_pct_educational_services' => ['cell' => 'B62', 'type' => 'chg_pct'],
       'industry_abs_educational_services' => ['cell' => 'C62', 'type' => 'chg_abs', 'related' => 'industry_pct_educational_services'],
-      'industry_pct_finance_insurance_real_estate_rental' => ['cell' => 'B63', 'type' => 'chg_pct'],
-      'industry_abs_finance_insurance_real_estate_rental' => ['cell' => 'C63', 'type' => 'chg_abs', 'related' => 'industry_pct_finance_insurance_real_estate_rental'],
-      'industry_pct_health_care_and_social_assistance' => ['cell' => 'B64', 'type' => 'chg_pct'],
-      'industry_abs_health_care_and_social_assistance' => ['cell' => 'C64', 'type' => 'chg_abs', 'related' => 'industry_pct_health_care_and_social_assistance'],
+      'industry_pct_finance_insurance_real_estate' => ['cell' => 'B63', 'type' => 'chg_pct'],
+      'industry_abs_finance_insurance_real_estate' => ['cell' => 'C63', 'type' => 'chg_abs', 'related' => 'industry_pct_finance_insurance_real_estate'],
+      'industry_pct_health_care_social_assistance' => ['cell' => 'B64', 'type' => 'chg_pct'],
+      'industry_abs_health_care_social_assistance' => ['cell' => 'C64', 'type' => 'chg_abs', 'related' => 'industry_pct_health_care_social_assistance'],
       'industry_pct_manufacturing' => ['cell' => 'B65', 'type' => 'chg_pct'],
       'industry_abs_manufacturing' => ['cell' => 'C65', 'type' => 'chg_abs', 'related' => 'industry_pct_manufacturing'],
       'industry_pct_other_primary' => ['cell' => 'B66', 'type' => 'chg_pct'],
       'industry_abs_other_primary' => ['cell' => 'C66', 'type' => 'chg_abs', 'related' => 'industry_pct_other_primary'],
-      'industry_pct_other_services' => ['cell' => 'B67', 'type' => 'chg_pct'],
-      'industry_abs_other_services' => ['cell' => 'C67', 'type' => 'chg_abs', 'related' => 'industry_pct_other_services'],
-      'industry_pct_professional_scientific_and_technical' => ['cell' => 'B68', 'type' => 'chg_pct'],
-      'industry_abs_professional_scientific_and_technical' => ['cell' => 'C68', 'type' => 'chg_abs', 'related' => 'industry_pct_professional_scientific_and_technical'],
+      'industry_pct_other_private_services' => ['cell' => 'B67', 'type' => 'chg_pct'],
+      'industry_abs_other_private_services' => ['cell' => 'C67', 'type' => 'chg_abs', 'related' => 'industry_pct_other_private_services'],
+      'industry_pct_professional_scientific_technical_services' => ['cell' => 'B68', 'type' => 'chg_pct'],
+      'industry_abs_professional_scientific_technical_services' => ['cell' => 'C68', 'type' => 'chg_abs', 'related' => 'industry_pct_professional_scientific_technical_services'],
       'industry_pct_public_administration' => ['cell' => 'B69', 'type' => 'chg_pct'],
       'industry_abs_public_administration' => ['cell' => 'C69', 'type' => 'chg_abs', 'related' => 'industry_pct_public_administration'],
-      'industry_pct_transportation_and_warehousing' => ['cell' => 'B70', 'type' => 'chg_pct'],
-      'industry_abs_transportation_and_warehousing' => ['cell' => 'C70', 'type' => 'chg_abs', 'related' => 'industry_pct_transportation_and_warehousing'],
+      'industry_pct_transportation_warehousing' => ['cell' => 'B70', 'type' => 'chg_pct'],
+      'industry_abs_transportation_warehousing' => ['cell' => 'C70', 'type' => 'chg_abs', 'related' => 'industry_pct_transportation_warehousing'],
       'industry_pct_utilities' => ['cell' => 'B71', 'type' => 'chg_pct'],
       'industry_abs_utilities' => ['cell' => 'C71', 'type' => 'chg_abs', 'related' => 'industry_pct_utilities'],
-      'industry_pct_wholesale_and_retail_trade' => ['cell' => 'B72', 'type' => 'chg_pct'],
-      'industry_abs_wholesale_and_retail_trade' => ['cell' => 'C72', 'type' => 'chg_abs', 'related' => 'industry_pct_wholesale_and_retail_trade'],
+      'industry_pct_wholesale_retail_trade' => ['cell' => 'B72', 'type' => 'chg_pct'],
+      'industry_abs_wholesale_retail_trade' => ['cell' => 'C72', 'type' => 'chg_abs', 'related' => 'industry_pct_wholesale_retail_trade'],
       'industry_pct_business_building_other_support_services' => ['cell' => 'B73', 'type' => 'chg_pct'],
       'industry_abs_business_building_other_support_services' => ['cell' => 'C73', 'type' => 'chg_abs', 'related' => 'industry_pct_business_building_other_support_services'],
       'industry_pct_information_culture_recreation' => ['cell' => 'B74', 'type' => 'chg_pct'],
@@ -339,6 +340,32 @@ class SsotUploadLmmuForm extends FormBase {
    */
   public function submitForm(array &$form, FormStateInterface $form_state)
   {
-    ksm($this->monthly_labour_market_updates);
+    $ssot = \Drupal\Core\Database\Database::getConnection('lmmu','ssot');
+    try {
+      $check = $ssot->query("SELECT 1 FROM {monthly_labour_market_updates} WHERE year=:year AND month=:month", [
+        ':year' => $this->monthly_labour_market_updates['year'],
+        ':month' => $this->monthly_labour_market_updates['month'],
+      ])->fetchAll();
+      if (empty($check)) {
+        $result = $ssot->insert('monthly_labour_market_updates')
+          ->fields($this->monthly_labour_market_updates)
+          ->execute();
+      }
+      else {
+        $result = $ssot->update('monthly_labour_market_updates')
+          ->fields($this->monthly_labour_market_updates)
+          ->condition('year', $this->monthly_labour_market_updates['year'])
+          ->condition('month', $this->monthly_labour_market_updates['month'])
+          ->execute();
+      }
+      \Drupal::messenger()->addMessage(t('Labour Market Monthly Update successfully updated for @month @year. <a href="@url">Click here</a> to see it!', [
+        '@year' => $this->monthly_labour_market_updates['year'],
+        '@month' =>  DateHelper::monthNames(true)[$this->monthly_labour_market_updates['month']],
+        '@url' => Url::fromUri('internal:/research-labour-market/bcs-economy/labour-market-monthly-update')->toString()
+      ]));
+    }
+    catch (\Exception $e) {
+      \Drupal::messenger()->addError($e->getMessage());
+    }
   }
 }
