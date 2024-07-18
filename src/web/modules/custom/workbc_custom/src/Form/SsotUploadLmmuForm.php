@@ -8,6 +8,7 @@ use Drupal\file\Entity\File;
 use PhpOffice\PhpSpreadsheet\Spreadsheet;
 use PhpOffice\PhpSpreadsheet\Worksheet;
 use PhpOffice\PhpSpreadsheet\Shared\Date as ExcelDate;
+use \Drupal\Core\Datetime\DateHelper;
 
 // @see https://stackoverflow.com/a/2430144/209184
 function number_precision($value) {
@@ -16,6 +17,15 @@ function number_precision($value) {
 
 function is_number_integer($value) {
   return abs($value - round($value)) <= PHP_FLOAT_EPSILON;
+}
+
+function array_push_key(&$array, $key, $value) {
+  if (array_key_exists($key, $array)) {
+    $array[$key][] = $value;
+  }
+  else {
+    $array[$key] = [$value];
+  }
 }
 
 /**
@@ -53,20 +63,7 @@ class SsotUploadLmmuForm extends FormBase {
       '#title' => $this->t('Month'),
       '#required' => true,
       '#default_value' => idate('m'),
-      '#options' => [
-        1 => 'January',
-        2 => 'February',
-        3 => 'March',
-        4 => 'April',
-        5 => 'May',
-        6 => 'June',
-        7 => 'July',
-        8 => 'August',
-        9 => 'September',
-        10 => 'October',
-        11 => 'November',
-        12 => 'December'
-      ]
+      '#options' => DateHelper::monthNames(true)
     ];
 
     $form['#attributes']['enctype'] = 'multipart/form-data';
@@ -94,6 +91,8 @@ class SsotUploadLmmuForm extends FormBase {
   public function validateForm(array &$form, FormStateInterface $form_state)
   {
     $file = File::load(reset($form_state->getValue('lmmu')));
+    if (empty($file)) return;
+
     $path = \Drupal::service('file_system')->realpath($file->getFileUri());
     $name = basename($path);
     try {
@@ -103,7 +102,7 @@ class SsotUploadLmmuForm extends FormBase {
       \Drupal::logger('workbc')->error('Error validating @name: @error', [
         '@name' => $name, '@error' => $e->getMessage()
       ]);
-      $form_state->setErrorByName('lmmu', "This spreadsheet file is likely invalid. Please refer to the logs for more information.");
+      $form_state->setErrorByName('lmmu', "❌ This spreadsheet file is likely invalid. Please refer to the logs for more information.");
       return;
     }
 
@@ -112,7 +111,7 @@ class SsotUploadLmmuForm extends FormBase {
       return strtolower($sheet->getTitle()) == 'sheet3';
     });
     if (empty($sheet)) {
-      $form_state->setErrorByName('lmmu', "Tab \"Sheet3\" is not found. Please ensure that the tab containing LMMU information is called \"Sheet3\".");
+      $form_state->setErrorByName('lmmu', "❌ Tab \"Sheet3\" is not found. Please ensure that the tab containing LMMU information is called \"Sheet3\".");
       return;
     }
     else {
@@ -124,8 +123,8 @@ class SsotUploadLmmuForm extends FormBase {
     $monthly_labour_market_updates = [];
     $errors = [];
     $validations = [
-      'year' => ['value' => intval($form_state->getValue('year'))],
-      'month' => ['value' => intval($form_state->getValue('month'))],
+      'year' => ['value' => intval($form_state->getValue('year')), 'cell' => 'A3', 'type' => 'date_year'],
+      'month' => ['value' => intval($form_state->getValue('month')), 'cell' => 'A3', 'type' => 'date_month'],
 
       'total_employed' => ['cell' => 'B3', 'type' => 'abs'],
       'total_unemployed' => ['cell' => 'B37', 'type' => 'abs'],
@@ -232,14 +231,30 @@ class SsotUploadLmmuForm extends FormBase {
       'industry_abs_information_culture_recreation' => ['cell' => 'C74', 'type' => 'chg_abs', 'related' => 'industry_pct_information_culture_recreation']
     ];
     foreach ($validations as $key => $action) {
+      // Set the value. An explicit value overrides the cell value.
       if (array_key_exists('value', $action)) {
         $value = $action['value'];
       }
       else if (array_key_exists('cell', $action)) {
         $value = $sheet->getCell($action['cell'])->getValue();
       }
+
+      // Perform validations.
       if (array_key_exists('type', $action)) {
         switch ($action['type']) {
+          case 'date_year':
+            $date = ExcelDate::excelToDateTimeObject($sheet->getCell($action['cell'])->getValue());
+            if ($date->format('Y') != $value) {
+              array_push_key($errors, $key, "Selected year $value is expected to correspond to the date in cell {$action['cell']}, but found {$date->format('Y')} instead. Please verify that you are uploading the right sheet and/or correct the selection.");
+            }
+            break;
+          case 'date_month':
+            $date = ExcelDate::excelToDateTimeObject($sheet->getCell($action['cell'])->getValue());
+            $monthName = DateHelper::monthNames(true)[$value];
+            if ($date->format('n') != $value) {
+              array_push_key($errors, $key, "Selected month $monthName is expected to correspond to the date in cell {$action['cell']}, but found {$date->format('F')} instead. Please verify that you are uploading the right sheet and/or correct the selection.");
+            }
+            break;
           case 'abs':
             if (!is_numeric($value)) {
               // TODO check for required value.
@@ -248,7 +263,7 @@ class SsotUploadLmmuForm extends FormBase {
             else {
               $value = floatval($value);
               if ($value < 0 || !is_number_integer($value)) {
-                $errors[] = "Cell {$action['cell']} is expected to contain a positive absolute value, but found $value instead. Please correct the value.";
+                array_push_key($errors, $key, "Cell {$action['cell']} is expected to contain a positive absolute value, but found $value instead. Please correct the value.");
               }
             }
             break;
@@ -260,7 +275,7 @@ class SsotUploadLmmuForm extends FormBase {
             else {
               $value = floatval($value);
               if ($value < 0 || number_precision($value) > 1 || $value > 100) {
-                $errors[] = "Cell {$action['cell']} is expected to contain a positive percentage value with a single decimal, but found $value instead. Please correct the value.";
+                array_push_key($errors, $key, "Cell {$action['cell']} is expected to contain a positive percentage value with a single decimal, but found $value instead. Please correct the value.");
               }
             }
             break;
@@ -272,7 +287,7 @@ class SsotUploadLmmuForm extends FormBase {
             else {
               $value = floatval($value);
               if (number_precision($value) > 1 || $value > 100) {
-                $errors[] = "Cell {$action['cell']} is expected to contain a change(+/-) percentage value with a single decimal, but found $value instead. Please correct the value.";
+                array_push_key($errors, $key, "Cell {$action['cell']} is expected to contain a change(+/-) percentage value with a single decimal, but found $value instead. Please correct the value.");
               }
             }
             break;
@@ -284,7 +299,7 @@ class SsotUploadLmmuForm extends FormBase {
             else {
               $value = floatval($value);
               if (!is_number_integer($value)) {
-                $errors[] = "Cell {$action['cell']} is expected to contain a change(+/-) absolute value, but found $value instead. Please correct the value.";
+                array_push_key($errors, $key, "Cell {$action['cell']} is expected to contain a change(+/-) absolute value, but found $value instead. Please correct the value.");
               }
             }
             if (array_key_exists('related', $action)) {
@@ -294,7 +309,7 @@ class SsotUploadLmmuForm extends FormBase {
                 ($related_value * $value >= 0)
               )) {
                 $related_cell = $validations[$action['related']]['cell'];
-                $errors[] = "Cells {$action['cell']} and {$related_cell} are expected to have the same numeric sign(+/-), but found $value and $related_value instead. Please correct the values.";
+                array_push_key($errors, $key, "Cells {$related_cell} and {$action['cell']} are expected to have the same numeric sign(+/-), but found $related_value and $value instead. Please correct the values.");
               }
             }
             break;
@@ -307,7 +322,11 @@ class SsotUploadLmmuForm extends FormBase {
 
     // Display errors if any.
     if (!empty($errors)) {
-      $form_state->setErrorByName('lmms', $errors[0]);
+      $all_errors = array_merge(...array_values($errors));
+      foreach ($all_errors as $error) {
+        \Drupal::messenger()->addError("❌ $error");
+      }
+      $form_state->setErrorByName('lmms', 'Please re-upload the sheet once the errors above have been corrected.');
       return;
     }
 
