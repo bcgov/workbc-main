@@ -8,6 +8,8 @@ use Drupal\file\Entity\File;
 use PhpOffice\PhpSpreadsheet\Shared\Date as ExcelDate;
 use \Drupal\Core\Datetime\DateHelper;
 use \Drupal\Core\Url;
+use GuzzleHttp\Client;
+use GuzzleHttp\Exception\RequestException;
 
 // @see https://stackoverflow.com/a/2430144/209184
 function number_precision($value) {
@@ -459,32 +461,79 @@ class SsotUploadLmmuForm extends ConfirmFormBase {
     }
 
     $this->monthly_labour_market_updates = $form_state->get('monthly_labour_market_updates');
-    $ssot = \Drupal\Core\Database\Database::getConnection('lmmu','ssot');
-    try {
-      $check = $ssot->query("SELECT 1 FROM {monthly_labour_market_updates} WHERE year=:year AND month=:month", [
-        ':year' => $this->monthly_labour_market_updates['year'],
-        ':month' => $this->monthly_labour_market_updates['month'],
-      ])->fetchAll();
-      if (empty($check)) {
-        $ssot->insert('monthly_labour_market_updates')
-          ->fields($this->monthly_labour_market_updates)
-          ->execute();
-      }
-      else {
-        $ssot->update('monthly_labour_market_updates')
-          ->fields($this->monthly_labour_market_updates)
-          ->condition('year', $this->monthly_labour_market_updates['year'])
-          ->condition('month', $this->monthly_labour_market_updates['month'])
-          ->execute();
-      }
+    $year = $this->monthly_labour_market_updates['year'];
+    $month = $this->monthly_labour_market_updates['month'];
+    $check = json_decode($this->ssot("monthly_labour_market_updates?year=eq.$year&month=eq.$month")->getBody(), true);
+    if (empty($check)) {
+      $result = $this->ssot('monthly_labour_market_updates', NULL, 'POST', json_encode($this->monthly_labour_market_updates));
+    }
+    else {
+      $result = $this->ssot("monthly_labour_market_updates?year=eq.$year&month=eq.$month", NULL, 'PATCH', json_encode($this->monthly_labour_market_updates));
+    }
+    if ($result->getStatusCode() < 300) {
       \Drupal::messenger()->addMessage(t('Labour Market Monthly Update successfully updated for <strong>@month @year</strong>. <a href="@url">Click here</a> to see it!', [
         '@year' => $this->monthly_labour_market_updates['year'],
         '@month' =>  DateHelper::monthNames(true)[$this->monthly_labour_market_updates['month']],
         '@url' => Url::fromUri('internal:/research-labour-market/bcs-economy/labour-market-monthly-update')->toString()
       ]));
     }
-    catch (\Exception $e) {
-      \Drupal::messenger()->addError($e->getMessage());
+    else {
+      \Drupal::messenger()->addError(t('❌ An error occurred while updating Labour Market Monthly Update. Please refer to the logs for more information.'));
+      \Drupal::logger('workbc')->error(json_decode($result->getBody(), true));
+    }
+
+    // $ssot = \Drupal\Core\Database\Database::getConnection('lmmu','ssot');
+    // try {
+    //   $check = $ssot->query("SELECT 1 FROM {monthly_labour_market_updates} WHERE year=:year AND month=:month", [
+    //     ':year' => $this->monthly_labour_market_updates['year'],
+    //     ':month' => $this->monthly_labour_market_updates['month'],
+    //   ])->fetchAll();
+    //   if (empty($check)) {
+    //     $ssot->insert('monthly_labour_market_updates')
+    //       ->fields($this->monthly_labour_market_updates)
+    //       ->execute();
+    //   }
+    //   else {
+    //     $ssot->update('monthly_labour_market_updates')
+    //       ->fields($this->monthly_labour_market_updates)
+    //       ->condition('year', $this->monthly_labour_market_updates['year'])
+    //       ->condition('month', $this->monthly_labour_market_updates['month'])
+    //       ->execute();
+    //   }
+    //   \Drupal::messenger()->addMessage(t('Labour Market Monthly Update successfully updated for <strong>@month @year</strong>. <a href="@url">Click here</a> to see it!', [
+    //     '@year' => $this->monthly_labour_market_updates['year'],
+    //     '@month' =>  DateHelper::monthNames(true)[$this->monthly_labour_market_updates['month']],
+    //     '@url' => Url::fromUri('internal:/research-labour-market/bcs-economy/labour-market-monthly-update')->toString()
+    //   ]));
+    // }
+    // catch (\Exception $e) {
+    //   \Drupal::messenger()->addError($e->getMessage());
+    // }
+  }
+
+  function ssot($url, $read_timeout = NULL, $method = 'GET', $body = null) {
+    $ssot = rtrim(\Drupal::config('workbc')->get('ssot_url'), '/');
+    $client = new Client();
+    try {
+      $options = [];
+      if ($read_timeout) {
+        $options['read_timeout'] = $read_timeout;
+      }
+      switch (strtolower($method)) {
+        case 'get':
+          $response = $client->get($ssot . '/' . $url, $options);
+          break;
+        case 'post':
+        case 'patch':
+          $options['body'] = $body;
+          $response = $client->request($method, $ssot . '/' . $url, $options);
+          break;
+      }
+      return $response;
+    }
+    catch (RequestException $e) {
+      \Drupal::logger('workbc')->error($e->getMessage());
+      return NULL;
     }
   }
 }
