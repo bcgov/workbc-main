@@ -344,7 +344,7 @@ services:
     environment:
       PGRST_DB_URI: postgres://workbc:workbc@postgres:5432/ssot
       PGRST_DB_SCHEMA: public
-      PGRST_DB_ANON_ROLE: ssot_readonly
+      PGRST_DB_ANON_ROLE: ssot_lmmu
       PGRST_OPENAPI_SERVER_PROXY_URI: http://localhost:3000
     depends_on:
       - postgres

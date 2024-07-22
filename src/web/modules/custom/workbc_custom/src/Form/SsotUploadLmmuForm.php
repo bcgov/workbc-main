@@ -35,7 +35,7 @@ function array_key_push(&$array, $key, $value) {
 class SsotUploadLmmuForm extends ConfirmFormBase {
   private $monthly_labour_market_updates = NULL;
 
-  private $validations = [
+  public $validations = [
     'year' => ['value' => ['form_state_key' => 'year'], 'cell' => 'A3', 'type' => 'date_year'],
     'month' => ['value' => ['form_state_key' => 'month'], 'cell' => 'A3', 'type' => 'date_month'],
 
@@ -143,7 +143,7 @@ class SsotUploadLmmuForm extends ConfirmFormBase {
     'industry_pct_information_culture_recreation' => ['cell' => 'B74', 'type' => 'chg_pct'],
     'industry_abs_information_culture_recreation' => ['cell' => 'C74', 'type' => 'chg_abs', 'related' => 'industry_pct_information_culture_recreation']
   ];
-  private $descriptions = [
+  public $descriptions = [
     'abs' => 'Absolute value, positive, no decimals.',
     'pct' => 'Percentage value (0-100), positive, single decimal place.',
     'chg_abs' => 'Change absolute value (+/-), no decimals.',

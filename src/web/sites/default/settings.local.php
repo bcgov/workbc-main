@@ -41,10 +41,10 @@ $databases['ssot']['lmmu'] = [
   'database' => 'ssot',
   'driver' => 'pgsql',
   'host' => 'postgres',
-  'password' => 'workbc',
+  'password' => 'ssot_lmmu',
   'port' => 5432,
   'prefix' => '',
-  'username' => 'workbc',
+  'username' => 'ssot_lmmu',
 ];
 
 /**
