@@ -28,6 +28,7 @@
 #feedback_wrapper .feedback_body {
   width: 100%;
   margin: 0;
+  text-align: center;
 }
 #feedback_wrapper .feedback_body h4 {
   padding: 20px 20px;
