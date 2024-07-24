@@ -5,9 +5,10 @@ namespace Drupal\workbc_custom\Form;
 use Drupal\Core\Form\ConfirmFormBase;
 use Drupal\Core\Form\FormStateInterface;
 use Drupal\file\Entity\File;
+use PhpOffice\PhpSpreadsheet\IOFactory;
 use PhpOffice\PhpSpreadsheet\Shared\Date as ExcelDate;
-use \Drupal\Core\Datetime\DateHelper;
-use \Drupal\Core\Url;
+use Drupal\Core\Datetime\DateHelper;
+use Drupal\Core\Url;
 use GuzzleHttp\Client;
 use GuzzleHttp\Exception\RequestException;
 
@@ -152,7 +153,8 @@ class SsotUploadLmmuForm extends ConfirmFormBase {
     'chg_pct' => 'Change percentage (+/-) (0-50), single decimal place.',
     'date_year' => 'Sheet year corresponds to selected year.',
     'date_month' => 'Sheet month corresponds to selected month.',
-    'related' => 'Both values agree in numeric sign (+/-).'
+    'related' => 'Both values agree in numeric sign (+/-).',
+    'blank' => 'A blank cell value will be shown as "Not available".',
   ];
 
   /**
@@ -171,12 +173,21 @@ class SsotUploadLmmuForm extends ConfirmFormBase {
     foreach ($this->monthly_labour_market_updates as $key => $value) {
       $validation = $this->validations[$key];
       if (!empty($validation['type']) && !empty($validation['cell'])) {
-        \Drupal::messenger()->addMessage($this->t('✅ Cell @cell (<strong>@key = @value</strong>) conforms to: <em>@explanation</em>', [
-          '@cell' => $validation['cell'],
-          '@key' => $key,
-          '@value' => $value,
-          '@explanation' => $this->t($this->descriptions[$validation['type']])
-        ]));
+        if (is_null($value)) {
+          \Drupal::messenger()->addMessage($this->t('❗Cell @cell (<strong>@key is blank</strong>) has a warning: <em>@explanation</em>', [
+            '@cell' => $validation['cell'],
+            '@key' => $key,
+            '@explanation' => $this->t($this->descriptions['blank'])
+          ]));
+        }
+        else {
+          \Drupal::messenger()->addMessage($this->t('✅ Cell @cell (<strong>@key = @value</strong>) conforms to: <em>@explanation</em>', [
+            '@cell' => $validation['cell'],
+            '@key' => $key,
+            '@value' => $value,
+            '@explanation' => $this->t($this->descriptions[$validation['type']])
+          ]));
+        }
       }
       if (!empty($validation['related']) && !empty($validation['cell'])) {
         \Drupal::messenger()->addMessage($this->t('✅ Cells @cell1 (<strong>@key1 = @value1</strong>) and @cell2 (<strong>@key2 = @value2</strong>) conform to: <em>@explanation</em>', [
@@ -274,7 +285,7 @@ class SsotUploadLmmuForm extends ConfirmFormBase {
     $path = \Drupal::service('file_system')->realpath($file->getFileUri());
     $name = basename($path);
     try {
-      $spreadsheet = \PhpOffice\PhpSpreadsheet\IOFactory::load($path);
+      $spreadsheet = IOFactory::load($path);
     }
     catch (\Exception $e) {
       \Drupal::logger('workbc')->error('Error validating @name: @error', [
