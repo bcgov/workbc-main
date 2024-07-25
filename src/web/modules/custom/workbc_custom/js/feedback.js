@@ -53,30 +53,42 @@
 // Define list of options in Thumbs Up response (max 32 characters each)
 let up_list = ['Clear navigation', 'User friendly design', 'Right amount of information', 'Help/Support', 'Reliable content', 'Search function', 'Other'];
 // Define text to display after clicking thumbs up
-let up_text = 'Great! What did you like about the service?';
+let up_text = 'Awesome! What did you like about the website?';
 // Define list of options in Thumbs Down response (max 32 characters each)
 let down_list = ['Poor navigation', 'Confusing layout', 'Not enough information', 'Mobile experience', 'Inaccurate search', 'Lack of support', 'Other'];
 // Define text to display after clicking thumbs down
-let down_text = 'Tell us how we can improve?';
+let down_text = 'We\'re sorry to hear that. How can we improve?';
 // How many times did we show / submit the modal?
 let show_count = 0;
 let submit_count = 0;
 
 // Define Feedback box to display
 let feedback_box = `<div class="feedback_box" id="feedback_box">
-	<div class="feedback_head">
-		<div class="feedback_corner" id="feedback_corner"><a href="#" onclick="feedback_close();return false;"><img src="/modules/custom/workbc_custom/icons/Cross_icon.svg" alt="Close"></div></a>
-	<h3 id="feedback_title">We'd love to hear from you</h3>
-	</div>
-	<div class="feedback_body" id="feedback_body">
-		<h4>How was your experience with the WorkBC.ca website?</h4>
-	</div>
-	<table class="feedback_action" id="feedback_action">
-		<tr>
-			<td onclick="feedback_thumb('up')" class="feedback_item green" id="rating_up"><img src="/modules/custom/workbc_custom/icons/Thumbs_up_icon.svg" alt="Great"/><br/>Great</td>
-			<td onclick="feedback_thumb('down')" class="feedback_item red" id="rating_down"><img src="/modules/custom/workbc_custom/icons/Thumbs_down_icon.svg" alt="Not good"/><br/>Not good</td>
-		</tr>
-	</table>
+  <div class="feedback_head">
+    <div class="feedback_corner" id="feedback_corner">
+      <a href="#" onclick="feedback_close();return false;">
+        <img src="/modules/custom/workbc_custom/icons/Cross_icon.svg" alt="Close" title="Close">
+      </a>
+    </div>
+    <h3 id="feedback_title">We'd like to hear from you</h3>
+  </div>
+  <div class="feedback_body" id="feedback_body">
+    <h4>How was your experience with the WorkBC.ca website?</h4>
+  </div>
+  <table class="feedback_action" id="feedback_action">
+    <tr>
+      <td class="feedback_item green" id="rating_up">
+        <a href="#" onclick="feedback_thumb('up');return false;">
+          <img src="/modules/custom/workbc_custom/icons/Thumbs_up_icon.svg" alt="Great" title="Great"/><br/>Great
+        </a>
+      </td>
+      <td class="feedback_item red" id="rating_down">
+        <a href="#" onclick="feedback_thumb('down');return false;">
+          <img src="/modules/custom/workbc_custom/icons/Thumbs_down_icon.svg" alt="Not good" title="Not good"/><br/>Not good
+        </a>
+      </td>
+    </tr>
+  </table>
 </div>`;
 
 // Choose thumbs up or down then present list of items and send initial Snowplow call
@@ -138,7 +150,7 @@ function feedback_submit() {
     }
   });
   document.getElementById("feedback_title").innerHTML = 'Your feedback is valuable';
-  document.getElementById("feedback_body").innerHTML = '<div class="feedback_thankyou"><h4>Thank you</h4><img src="/modules/custom/workbc_custom/icons/Thankyou_illustration.svg" alt="Thank you"><p>Your feedback will help us improve WorkBC.ca website.</p></div>';
+  document.getElementById("feedback_body").innerHTML = '<div class="feedback_thankyou"><h4>Thank you!</h4><img src="/modules/custom/workbc_custom/icons/Thankyou_illustration.svg" alt="Thank you"><p>Your feedback will help us improve WorkBC.ca website.</p></div>';
   submit_count++;
 }
 
