@@ -12,6 +12,13 @@ foreach ($form->validations as $key => $validation) {
       $form->descriptions[$validation['type']]
     ]);
   }
+  if (!array_key_exists('value', $validation)) {
+    fputcsv(STDOUT, [
+      $validation['cell'],
+      $key,
+      $form->descriptions['blank']
+    ]);
+  }
   if (array_key_exists('related', $validation)) {
     fputcsv(STDOUT, [
       $form->validations[$validation['related']]['cell'] . ', ' . $validation['cell'],

@@ -174,7 +174,7 @@ class SsotUploadLmmuForm extends ConfirmFormBase {
       $validation = $this->validations[$key];
       if (!empty($validation['type']) && !empty($validation['cell'])) {
         if (is_null($value)) {
-          \Drupal::messenger()->addMessage($this->t('❗Cell @cell (<strong>@key is blank</strong>) has a warning: <em>@explanation</em>', [
+          \Drupal::messenger()->addMessage($this->t('❗Cell @cell (<strong>@key</strong> is <strong>blank</strong>) has a warning: <em>@explanation</em>', [
             '@cell' => $validation['cell'],
             '@key' => $key,
             '@explanation' => $this->t($this->descriptions['blank'])
@@ -481,7 +481,7 @@ class SsotUploadLmmuForm extends ConfirmFormBase {
     else {
       $result = $this->ssot("monthly_labour_market_updates?year=eq.$year&month=eq.$month", NULL, 'PATCH', json_encode($this->monthly_labour_market_updates));
     }
-    if ($result->getStatusCode() < 300) {
+    if ($result && $result->getStatusCode() < 300) {
       \Drupal::messenger()->addMessage(t('Labour Market Monthly Update successfully updated for <strong>@month @year</strong>. <a href="@url">Click here</a> to see it!', [
         '@year' => $this->monthly_labour_market_updates['year'],
         '@month' =>  DateHelper::monthNames(true)[$this->monthly_labour_market_updates['month']],
@@ -490,7 +490,9 @@ class SsotUploadLmmuForm extends ConfirmFormBase {
     }
     else {
       \Drupal::messenger()->addError(t('❌ An error occurred while updating Labour Market Monthly Update. Please refer to the logs for more information.'));
-      \Drupal::logger('workbc')->error(json_decode($result->getBody(), true));
+      if ($result) {
+        \Drupal::logger('workbc')->error(json_decode($result->getBody(), true));
+      }
     }
 
     // $ssot = \Drupal\Core\Database\Database::getConnection('lmmu','ssot');
