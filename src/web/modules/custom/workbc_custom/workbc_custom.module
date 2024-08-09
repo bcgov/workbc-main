@@ -14,8 +14,7 @@ use Drupal\Core\Routing\RouteMatchInterface;
 use Drupal\views\ViewExecutable;
 use Drupal\redirect\Entity\Redirect;
 use Symfony\Component\HttpFoundation\Request;
-use Drupal\media\Entity\Media;
-
+use Drupal\Core\StreamWrapper\StreamWrapperManager;
 
 /**
 * Implements hook_theme().
@@ -251,7 +250,6 @@ function workbc_custom_entity_form_mode_alter(&$form_mode, Drupal\Core\Entity\En
 
 /**
 * Implements hook_node_access().
-*
 */
 function workbc_custom_node_access(NodeInterface $node, $op, AccountInterface $account) {
 
@@ -504,6 +502,22 @@ function workbc_custom_oembed_resource_url_alter(array &$parsed_url, \Drupal\med
     $parsed_url['query']['responsive'] = 'true';
   }
 }
+
+/**
+ * Implements hook_file_download().
+ */
+function workbc_custom_file_download($uri) {
+  $scheme = StreamWrapperManager::getScheme($uri);
+  $target = StreamWrapperManager::getTarget($uri);
+  if ($scheme === 'private' && str_starts_with($target, 'ssot/')) {
+    $filename = basename($target);
+    return [
+      'Content-disposition' => "attachment; filename=\"$filename\"",
+    ];
+  }
+}
+
+/************************************* HELPER FUNCTIONS *************************************/
 
 /**
 * Function to get the region mappings.
@@ -1004,8 +1018,6 @@ function noc2021ValidateProfiles() {
 
 function noc2021ValidateProfileRedirects() {
 
-  $map = load2021to2016map();
-
   $oldPaths = loadCareerProfilePaths();
 
   $errors = [];
@@ -1072,8 +1084,6 @@ function noc2021ValidateProfilePaths() {
 }
 
 function noc2021ValidateUnpublishedProfiles() {
-
-  $map = load2021to2016map();
 
   $errors = [];
 
@@ -1179,7 +1189,7 @@ function loadCareerTrek() {
 
 
 function loadCareerTrekUrls() {
-  $careerTrek = [];
+  $careerTrekUrls = [];
 
   $path = DRUPAL_ROOT;
   $path = preg_replace('/web$/', '', $path);

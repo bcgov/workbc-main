@@ -108,11 +108,6 @@ class SsotUploadLmmuForm extends ConfirmFormBase {
     'unemployment_pct_northeast_previous' => ['cell' => 'E48', 'type' => 'pct'],
     'total_jobs_northeast' => ['cell' => 'C48', 'type' => 'abs'],
 
-    'city_unemployment_pct_kelowna' => ['value' => NULL],
-    'city_unemployment_pct_abbotsford_mission' => ['value' => NULL],
-    'city_unemployment_pct_vancouver' => ['value' => NULL],
-    'city_unemployment_pct_victoria' => ['value' => NULL],
-
     'industry_pct_accommodation_food_services' => ['cell' => 'B59', 'type' => 'chg_pct'],
     'industry_abs_accommodation_food_services' => ['cell' => 'C59', 'type' => 'chg_abs', 'related' => 'industry_pct_accommodation_food_services'],
     'industry_pct_agriculture_fishing' => ['cell' => 'B60', 'type' => 'chg_pct'],
@@ -288,7 +283,7 @@ class SsotUploadLmmuForm extends ConfirmFormBase {
       $spreadsheet = IOFactory::load($path);
     }
     catch (\Exception $e) {
-      \Drupal::logger('workbc')->error('Error validating @name: @error', [
+      \Drupal::logger('workbc_ssot')->error('Error validating @name: @error', [
         '@name' => $name, '@error' => $e->getMessage()
       ]);
       $form_state->setErrorByName('lmmu', $this->t('❌ This spreadsheet file is likely invalid. Please refer to the logs for more information.'));
@@ -458,6 +453,7 @@ class SsotUploadLmmuForm extends ConfirmFormBase {
 
     // Good to go: Remember the value for submission.
     $form_state->set('monthly_labour_market_updates', $monthly_labour_market_updates);
+    $form_state->set('file_id', $file->id());
   }
 
   /**
@@ -487,41 +483,22 @@ class SsotUploadLmmuForm extends ConfirmFormBase {
         '@month' =>  DateHelper::monthNames(true)[$this->monthly_labour_market_updates['month']],
         '@url' => Url::fromUri('internal:/research-labour-market/bcs-economy/labour-market-monthly-update')->toString()
       ]));
+      $file = \Drupal\file\Entity\File::load($form_state->get('file_id'));
+      $file->setPermanent();
+      $file->save();
+      \Drupal::logger('workbc_ssot')->info(t('Labour Market Monthly Update successfully updated for <strong>@month @year</strong> with file <a href="@uri">@filename</a>.', [
+        '@year' => $this->monthly_labour_market_updates['year'],
+        '@month' =>  DateHelper::monthNames(true)[$this->monthly_labour_market_updates['month']],
+        '@uri' => \Drupal::service('file_url_generator')->generateAbsoluteString($file->getFileUri()),
+        '@filename' => $file->getFilename(),
+      ]));
     }
     else {
       \Drupal::messenger()->addError(t('❌ An error occurred while updating Labour Market Monthly Update. Please refer to the logs for more information.'));
       if ($result) {
-        \Drupal::logger('workbc')->error(json_decode($result->getBody(), true));
+        \Drupal::logger('workbc_ssot')->error(json_decode($result->getBody(), true));
       }
     }
-
-    // $ssot = \Drupal\Core\Database\Database::getConnection('lmmu','ssot');
-    // try {
-    //   $check = $ssot->query("SELECT 1 FROM {monthly_labour_market_updates} WHERE year=:year AND month=:month", [
-    //     ':year' => $this->monthly_labour_market_updates['year'],
-    //     ':month' => $this->monthly_labour_market_updates['month'],
-    //   ])->fetchAll();
-    //   if (empty($check)) {
-    //     $ssot->insert('monthly_labour_market_updates')
-    //       ->fields($this->monthly_labour_market_updates)
-    //       ->execute();
-    //   }
-    //   else {
-    //     $ssot->update('monthly_labour_market_updates')
-    //       ->fields($this->monthly_labour_market_updates)
-    //       ->condition('year', $this->monthly_labour_market_updates['year'])
-    //       ->condition('month', $this->monthly_labour_market_updates['month'])
-    //       ->execute();
-    //   }
-    //   \Drupal::messenger()->addMessage(t('Labour Market Monthly Update successfully updated for <strong>@month @year</strong>. <a href="@url">Click here</a> to see it!', [
-    //     '@year' => $this->monthly_labour_market_updates['year'],
-    //     '@month' =>  DateHelper::monthNames(true)[$this->monthly_labour_market_updates['month']],
-    //     '@url' => Url::fromUri('internal:/research-labour-market/bcs-economy/labour-market-monthly-update')->toString()
-    //   ]));
-    // }
-    // catch (\Exception $e) {
-    //   \Drupal::messenger()->addError($e->getMessage());
-    // }
   }
 
   function ssot($url, $read_timeout = NULL, $method = 'GET', $body = null) {
@@ -545,7 +522,7 @@ class SsotUploadLmmuForm extends ConfirmFormBase {
       return $response;
     }
     catch (RequestException $e) {
-      \Drupal::logger('workbc')->error($e->getMessage());
+      \Drupal::logger('workbc_ssot')->error($e->getMessage());
       return NULL;
     }
   }
