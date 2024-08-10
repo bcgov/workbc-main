@@ -59,11 +59,11 @@ class SsotUploadLmmuForm extends ConfirmFormBase {
     'employment_by_gender_men_previous' => ['cell' => 'B13', 'type' => 'abs'],
 
     'employment_change_pct_total_employment' => ['cell' => 'B18', 'type' => 'chg_pct'],
-    'employment_change_abs_total_employment' => ['cell' => 'C18', 'type' => 'chg_abs', 'related' => 'employment_change_pct_total_employment'],
+    'employment_change_abs_total_employment' => ['cell' => 'C18', 'type' => 'chg_abs', 'related_sign' => 'employment_change_pct_total_employment'],
     'employment_change_pct_full_time_jobs' => ['cell' => 'B19', 'type' => 'chg_pct'],
-    'employment_change_abs_full_time_jobs' => ['cell' => 'C19', 'type' => 'chg_abs', 'related' => 'employment_change_pct_full_time_jobs'],
+    'employment_change_abs_full_time_jobs' => ['cell' => 'C19', 'type' => 'chg_abs', 'related_sign' => 'employment_change_pct_full_time_jobs'],
     'employment_change_pct_part_time_jobs' => ['cell' => 'B20', 'type' => 'chg_pct'],
-    'employment_change_abs_part_time_jobs' => ['cell' => 'C20', 'type' => 'chg_abs', 'related' => 'employment_change_pct_part_time_jobs'],
+    'employment_change_abs_part_time_jobs' => ['cell' => 'C20', 'type' => 'chg_abs', 'related_sign' => 'employment_change_pct_part_time_jobs'],
 
     'employment_rate_change_pct_unemployment' => ['cell' => 'B22', 'type' => 'chg_pct'],
     'employment_rate_pct_unemployment' => ['cell' => 'C22', 'type' => 'pct'],
@@ -109,37 +109,37 @@ class SsotUploadLmmuForm extends ConfirmFormBase {
     'total_jobs_northeast' => ['cell' => 'C48', 'type' => 'abs'],
 
     'industry_pct_accommodation_food_services' => ['cell' => 'B59', 'type' => 'chg_pct'],
-    'industry_abs_accommodation_food_services' => ['cell' => 'C59', 'type' => 'chg_abs', 'related' => 'industry_pct_accommodation_food_services'],
+    'industry_abs_accommodation_food_services' => ['cell' => 'C59', 'type' => 'chg_abs', 'related_sign' => 'industry_pct_accommodation_food_services'],
     'industry_pct_agriculture_fishing' => ['cell' => 'B60', 'type' => 'chg_pct'],
-    'industry_abs_agriculture_fishing' => ['cell' => 'C60', 'type' => 'chg_abs', 'related' => 'industry_pct_agriculture_fishing'],
+    'industry_abs_agriculture_fishing' => ['cell' => 'C60', 'type' => 'chg_abs', 'related_sign' => 'industry_pct_agriculture_fishing'],
     'industry_pct_construction' => ['cell' => 'B61', 'type' => 'chg_pct'],
-    'industry_abs_construction' => ['cell' => 'C61', 'type' => 'chg_abs', 'related' => 'industry_pct_construction'],
+    'industry_abs_construction' => ['cell' => 'C61', 'type' => 'chg_abs', 'related_sign' => 'industry_pct_construction'],
     'industry_pct_educational_services' => ['cell' => 'B62', 'type' => 'chg_pct'],
-    'industry_abs_educational_services' => ['cell' => 'C62', 'type' => 'chg_abs', 'related' => 'industry_pct_educational_services'],
+    'industry_abs_educational_services' => ['cell' => 'C62', 'type' => 'chg_abs', 'related_sign' => 'industry_pct_educational_services'],
     'industry_pct_finance_insurance_real_estate' => ['cell' => 'B63', 'type' => 'chg_pct'],
-    'industry_abs_finance_insurance_real_estate' => ['cell' => 'C63', 'type' => 'chg_abs', 'related' => 'industry_pct_finance_insurance_real_estate'],
+    'industry_abs_finance_insurance_real_estate' => ['cell' => 'C63', 'type' => 'chg_abs', 'related_sign' => 'industry_pct_finance_insurance_real_estate'],
     'industry_pct_health_care_social_assistance' => ['cell' => 'B64', 'type' => 'chg_pct'],
-    'industry_abs_health_care_social_assistance' => ['cell' => 'C64', 'type' => 'chg_abs', 'related' => 'industry_pct_health_care_social_assistance'],
+    'industry_abs_health_care_social_assistance' => ['cell' => 'C64', 'type' => 'chg_abs', 'related_sign' => 'industry_pct_health_care_social_assistance'],
     'industry_pct_manufacturing' => ['cell' => 'B65', 'type' => 'chg_pct'],
-    'industry_abs_manufacturing' => ['cell' => 'C65', 'type' => 'chg_abs', 'related' => 'industry_pct_manufacturing'],
+    'industry_abs_manufacturing' => ['cell' => 'C65', 'type' => 'chg_abs', 'related_sign' => 'industry_pct_manufacturing'],
     'industry_pct_other_primary' => ['cell' => 'B66', 'type' => 'chg_pct'],
-    'industry_abs_other_primary' => ['cell' => 'C66', 'type' => 'chg_abs', 'related' => 'industry_pct_other_primary'],
+    'industry_abs_other_primary' => ['cell' => 'C66', 'type' => 'chg_abs', 'related_sign' => 'industry_pct_other_primary'],
     'industry_pct_other_private_services' => ['cell' => 'B67', 'type' => 'chg_pct'],
-    'industry_abs_other_private_services' => ['cell' => 'C67', 'type' => 'chg_abs', 'related' => 'industry_pct_other_private_services'],
+    'industry_abs_other_private_services' => ['cell' => 'C67', 'type' => 'chg_abs', 'related_sign' => 'industry_pct_other_private_services'],
     'industry_pct_professional_scientific_technical_services' => ['cell' => 'B68', 'type' => 'chg_pct'],
-    'industry_abs_professional_scientific_technical_services' => ['cell' => 'C68', 'type' => 'chg_abs', 'related' => 'industry_pct_professional_scientific_technical_services'],
+    'industry_abs_professional_scientific_technical_services' => ['cell' => 'C68', 'type' => 'chg_abs', 'related_sign' => 'industry_pct_professional_scientific_technical_services'],
     'industry_pct_public_administration' => ['cell' => 'B69', 'type' => 'chg_pct'],
-    'industry_abs_public_administration' => ['cell' => 'C69', 'type' => 'chg_abs', 'related' => 'industry_pct_public_administration'],
+    'industry_abs_public_administration' => ['cell' => 'C69', 'type' => 'chg_abs', 'related_sign' => 'industry_pct_public_administration'],
     'industry_pct_transportation_warehousing' => ['cell' => 'B70', 'type' => 'chg_pct'],
-    'industry_abs_transportation_warehousing' => ['cell' => 'C70', 'type' => 'chg_abs', 'related' => 'industry_pct_transportation_warehousing'],
+    'industry_abs_transportation_warehousing' => ['cell' => 'C70', 'type' => 'chg_abs', 'related_sign' => 'industry_pct_transportation_warehousing'],
     'industry_pct_utilities' => ['cell' => 'B71', 'type' => 'chg_pct'],
-    'industry_abs_utilities' => ['cell' => 'C71', 'type' => 'chg_abs', 'related' => 'industry_pct_utilities'],
+    'industry_abs_utilities' => ['cell' => 'C71', 'type' => 'chg_abs', 'related_sign' => 'industry_pct_utilities'],
     'industry_pct_wholesale_retail_trade' => ['cell' => 'B72', 'type' => 'chg_pct'],
-    'industry_abs_wholesale_retail_trade' => ['cell' => 'C72', 'type' => 'chg_abs', 'related' => 'industry_pct_wholesale_retail_trade'],
+    'industry_abs_wholesale_retail_trade' => ['cell' => 'C72', 'type' => 'chg_abs', 'related_sign' => 'industry_pct_wholesale_retail_trade'],
     'industry_pct_business_building_other_support_services' => ['cell' => 'B73', 'type' => 'chg_pct'],
-    'industry_abs_business_building_other_support_services' => ['cell' => 'C73', 'type' => 'chg_abs', 'related' => 'industry_pct_business_building_other_support_services'],
+    'industry_abs_business_building_other_support_services' => ['cell' => 'C73', 'type' => 'chg_abs', 'related_sign' => 'industry_pct_business_building_other_support_services'],
     'industry_pct_information_culture_recreation' => ['cell' => 'B74', 'type' => 'chg_pct'],
-    'industry_abs_information_culture_recreation' => ['cell' => 'C74', 'type' => 'chg_abs', 'related' => 'industry_pct_information_culture_recreation']
+    'industry_abs_information_culture_recreation' => ['cell' => 'C74', 'type' => 'chg_abs', 'related_sign' => 'industry_pct_information_culture_recreation']
   ];
   public $descriptions = [
     'abs' => 'Absolute value, positive, no decimals.',
@@ -148,7 +148,7 @@ class SsotUploadLmmuForm extends ConfirmFormBase {
     'chg_pct' => 'Change percentage (+/-) (0-50), single decimal place.',
     'date_year' => 'Sheet year corresponds to selected year.',
     'date_month' => 'Sheet month corresponds to selected month.',
-    'related' => 'Both values agree in numeric sign (+/-).',
+    'related_sign' => 'Both values agree in numeric sign (+/-).',
     'blank' => 'A blank cell value will be shown as "Not available".',
   ];
 
@@ -184,15 +184,15 @@ class SsotUploadLmmuForm extends ConfirmFormBase {
           ]));
         }
       }
-      if (!empty($validation['related']) && !empty($validation['cell'])) {
+      if (!empty($validation['related_sign']) && !empty($validation['cell'])) {
         \Drupal::messenger()->addMessage($this->t('✅ Cells @cell1 (<strong>@key1 = @value1</strong>) and @cell2 (<strong>@key2 = @value2</strong>) conform to: <em>@explanation</em>', [
           '@cell2' => $validation['cell'],
           '@key2' => $key,
           '@value2' => $value,
-          '@cell1' => $this->validations[$validation['related']]['cell'],
-          '@key1' => $validation['related'],
-          '@value1' => $this->monthly_labour_market_updates[$validation['related']],
-          '@explanation' => $this->t($this->descriptions['related'])
+          '@cell1' => $this->validations[$validation['related_sign']]['cell'],
+          '@key1' => $validation['related_sign'],
+          '@value1' => $this->monthly_labour_market_updates[$validation['related_sign']],
+          '@explanation' => $this->t($this->descriptions['related_sign'])
         ]));
       }
     }
@@ -415,20 +415,20 @@ class SsotUploadLmmuForm extends ConfirmFormBase {
                 ]));
               }
             }
-            if (array_key_exists('related', $validation)) {
-              $related_value = $monthly_labour_market_updates[$validation['related']];
+            if (array_key_exists('related_sign', $validation)) {
+              $related_value = $monthly_labour_market_updates[$validation['related_sign']];
               if (!(
                 (is_null($related_value) && is_null($value)) ||
                 ($related_value * $value >= 0)
               )) {
                 array_key_push($errors, $key, $this->t('❌ Cells @cell1 (<strong>@key1 = @value1</strong>) and @cell2 (<strong>@key2 = @value2</strong>) do not conform to: <em>@explanation</em> @suggestion', [
-                  '@cell1' => $this->validations[$validation['related']]['cell'],
-                  '@key1' => $validation['related'],
-                  '@value1' => $monthly_labour_market_updates[$validation['related']],
+                  '@cell1' => $this->validations[$validation['related_sign']]['cell'],
+                  '@key1' => $validation['related_sign'],
+                  '@value1' => $monthly_labour_market_updates[$validation['related_sign']],
                   '@cell2' => $validation['cell'],
                   '@key2' => $key,
                   '@value2' => $value,
-                  '@explanation' => $this->t($this->descriptions['related']),
+                  '@explanation' => $this->t($this->descriptions['related_sign']),
                   '@suggestion' => $this->t('Please correct the values.'),
                 ]));
               }
