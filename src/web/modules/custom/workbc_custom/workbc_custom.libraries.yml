@@ -4,3 +4,15 @@ video-library:
   dependencies:
     - core/jquery
     - core/drupalSettings
+
+feedback:
+  js:
+    js/feedback.js: {}
+  css:
+    theme:
+      css/feedback.css: {}
+  dependencies:
+    - core/jquery
+    - core/drupalSettings
+    - core/once
+    - core/drupal

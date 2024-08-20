@@ -482,6 +482,54 @@ function workbc_custom_search_api_autocomplete_suggestions_alter(array &$suggest
   }
 }
 
+
+/**
+ * Implements hook_metatags_attachments_alter().
+ */
+
+function workbc_custom_metatags_attachments_alter(array &$metatag_attachments) {
+  $tags = $metatag_attachments['#attached']['html_head'];
+
+  $found = false;
+  foreach ($tags as $key => $tag) {
+    if ($tag[1] == 'description') {
+      $found = true;
+    }
+  }
+
+  if (!$found) {
+    $node = \Drupal::routeMatch()->getParameter('node');
+    if ($node){
+      $description = $node->title->value;
+      if ($node->hasField('body')) {
+        if (!empty($node->get('body')->summary)){
+          $description = \Drupal\Component\Utility\Unicode::truncate($node->get('body')->summary, 160, TRUE, FALSE);
+        }
+        else {
+          if (!empty($node->get('body')->value)) {
+            $text = strip_tags($node->get('body')->value);
+            $text = preg_replace('/\s+/', ' ', $text);
+            $description = \Drupal\Component\Utility\Unicode::truncate($text, 160, TRUE, FALSE);
+          }
+        }
+      }
+
+      $tag = [
+        [
+          '#tag' => 'meta',
+          '#attributes' => [
+            'name' => 'description',
+            'content' => $description,
+          ],
+        ],
+        'description'
+      ];
+      $metatag_attachments['#attached']['html_head'][] = $tag;
+    }
+  }
+}
+
+
 /**
 * Implements hook_search_api_query_alter().
 */
@@ -513,6 +561,28 @@ function workbc_custom_file_download($uri) {
     $filename = basename($target);
     return [
       'Content-disposition' => "attachment; filename=\"$filename\"",
+    ];
+  }
+}
+
+/*
+ * Implements hook_page_attachments().
+ */
+function workbc_custom_page_attachments(array &$attachments) {
+  // Inject feedback component for specific pages.
+  $path = \Drupal::service('path.current')->getPath();
+  $alias = \Drupal::service('path_alias.manager')->getAliasByPath($path);
+  if (in_array($alias, [
+    '/search-and-prepare-job/find-jobs',
+    '/discover-employment-services/online-employment-services'
+  ])) {
+    $attachments['#attached']['library'][] = 'workbc_custom/feedback';
+    $attachments['#attached']['drupalSettings']['feedback'] = [
+      'triggers' => [
+        'timeout' => $alias == '/discover-employment-services/online-employment-services' ? 30000 : 90000,
+        'click_selector' => $alias == '/search-and-prepare-job/find-jobs' ? '.find-jobs-btn' : false,
+        'scroll' => $alias == '/discover-employment-services/online-employment-services',
+      ]
     ];
   }
 }

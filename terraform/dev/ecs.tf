@@ -175,6 +175,14 @@ resource "aws_ecs_task_definition" "app" {
 			{
 				name = "DRUPAL_ADM_PWD",
 				valueFrom = "${data.aws_secretsmanager_secret_version.creds.arn}:drupal_adm_password::"
+			},
+			{
+				name = "LMMU_PWD",
+				valueFrom = "${data.aws_secretsmanager_secret_version.creds.arn}:lmmu_password::"
+			},
+		        {
+				name = "LMMU_USERNAME",
+				valueFrom = "${data.aws_secretsmanager_secret_version.creds.arn}:lmmu_username::"
 			}
 		]
 
