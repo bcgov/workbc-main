@@ -269,13 +269,21 @@ class SsotUploadLmmuForm extends ConfirmFormBase {
    */
   public function validateForm(array &$form, FormStateInterface $form_state)
   {
-    // Confirmation step.
+    // Don't validate on ajax request.
+    if (\Drupal::request()->request->get('_drupal_ajax')) {
+      return;
+    }
+
+    // Don't validate on confirmation step.
     if ($form_state->get('confirmation')) {
       return;
     }
 
+    // Don't validate on missing file.
     $file = File::load(reset($form_state->getValue('lmmu')));
-    if (empty($file)) return;
+    if (empty($file)) {
+      return;
+    }
 
     $path = \Drupal::service('file_system')->realpath($file->getFileUri());
     $name = basename($path);
@@ -480,7 +488,7 @@ class SsotUploadLmmuForm extends ConfirmFormBase {
     if ($result && $result->getStatusCode() < 300) {
       \Drupal::messenger()->addMessage(t('Labour Market Monthly Update successfully updated for <strong>@month @year</strong>. <a href="@url">Click here</a> to see it!', [
         '@year' => $this->monthly_labour_market_updates['year'],
-        '@month' =>  DateHelper::monthNames(true)[$this->monthly_labour_market_updates['month']],
+        '@month' => DateHelper::monthNames(true)[$this->monthly_labour_market_updates['month']],
         '@url' => Url::fromUri('internal:/research-labour-market/bcs-economy/labour-market-monthly-update')->toString()
       ]));
       $file = \Drupal\file\Entity\File::load($form_state->get('file_id'));
@@ -488,7 +496,7 @@ class SsotUploadLmmuForm extends ConfirmFormBase {
       $file->save();
       \Drupal::logger('workbc_ssot')->info(t('Labour Market Monthly Update successfully updated for <strong>@month @year</strong> with file <a href="@uri">@filename</a>.', [
         '@year' => $this->monthly_labour_market_updates['year'],
-        '@month' =>  DateHelper::monthNames(true)[$this->monthly_labour_market_updates['month']],
+        '@month' => DateHelper::monthNames(true)[$this->monthly_labour_market_updates['month']],
         '@uri' => \Drupal::service('file_url_generator')->generateAbsoluteString($file->getFileUri()),
         '@filename' => $file->getFilename(),
       ]));
