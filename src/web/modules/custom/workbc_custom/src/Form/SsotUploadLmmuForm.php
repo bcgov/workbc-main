@@ -36,7 +36,8 @@ function array_key_push(&$array, $key, $value) {
 * @package Drupal\workbc_custom\Form
 */
 class SsotUploadLmmuForm extends ConfirmFormBase {
-  private $monthly_labour_market_updates = NULL;
+  private $monthly_labour_market_updates = null;
+  private $previous_month = null;
 
   public $validations = [
     'year' => ['value' => ['form_state_key' => 'year'], 'cell' => 'A3', 'type' => 'date_year'],
@@ -65,10 +66,10 @@ class SsotUploadLmmuForm extends ConfirmFormBase {
     'employment_change_abs_full_time_jobs' => ['cell' => 'C19', 'type' => 'chg_abs', 'same_sign' => 'employment_change_pct_full_time_jobs'],
     'employment_change_pct_part_time_jobs' => ['cell' => 'B20', 'type' => 'chg_pct'],
     'employment_change_abs_part_time_jobs' => ['cell' => 'C20', 'type' => 'chg_abs', 'same_sign' => 'employment_change_pct_part_time_jobs'],
-    'employment_change_pct_total_employment' => ['cell' => 'B18', 'type' => 'chg_pct'],
+    'employment_change_pct_total_employment' => ['cell' => 'B18', 'type' => 'chg_pct', 'previous_month_change_pct' => 'total_employed'],
     'employment_change_abs_total_employment' => ['cell' => 'C18', 'type' => 'chg_abs', 'same_sign' => 'employment_change_pct_total_employment', 'sum' => [
       ['employment_change_abs_full_time_jobs', 'employment_change_abs_part_time_jobs']
-    ]],
+    ], 'previous_month_change_abs' => 'total_employed'],
 
     'employment_rate_change_pct_unemployment' => ['cell' => 'B22', 'type' => 'chg_pct'],
     'employment_rate_pct_unemployment' => ['cell' => 'C22', 'type' => 'pct'],
@@ -157,6 +158,8 @@ class SsotUploadLmmuForm extends ConfirmFormBase {
     'blank' => 'A blank cell value will be shown as "Not available".',
     'sum' => 'The sum of the cell values matches the total value.',
     'previous_month' => 'The value matches the previous month\'s value.',
+    'previous_month_change_abs' => 'The value matches the absolute difference between the given cell\'s prior month value and current month value.',
+    'previous_month_change_pct' => 'The value matches the difference percentage between the given cell\'s prior month value and current month value.',
   ];
 
   /**
@@ -220,14 +223,65 @@ class SsotUploadLmmuForm extends ConfirmFormBase {
         }
       }
       if (!empty($validation['previous_month']) && !empty($validation['cell'])) {
-        \Drupal::messenger()->addMessage($this->t('✅ Cell @cell (<strong>@key = @value</strong>) and previous month cell @cell_previous (<strong>@key_previous</strong>) conform to: <em>@explanation</em>', [
+        \Drupal::messenger()->addMessage($this->t('✅ Cell @cell (<strong>@key = @value</strong>) and previous month cell @cell_previous (<strong>@key_previous = @value_previous</strong>) conform to: <em>@explanation</em>', [
           '@cell' => $validation['cell'],
           '@key' => $key,
           '@value' => $value ?? 'N/A',
           '@cell_previous' => $this->validations[$validation['previous_month']]['cell'],
           '@key_previous' => $validation['previous_month'],
+          '@value_previous' => $this->previous_month[$validation['previous_month']] ?? 'N/A',
           '@explanation' => $this->t($this->descriptions['previous_month']),
         ]));
+      }
+      if (!empty($this->previous_month) && !empty($validation['previous_month_change_abs']) && !empty($validation['cell'])) {
+        $previous_value = $this->previous_month[$validation['previous_month_change_abs']];
+        $current_value = $this->monthly_labour_market_updates[$validation['previous_month_change_abs']];
+        $diff = $current_value - $previous_value;
+        if (abs($diff - $value) > PHP_FLOAT_EPSILON) {
+          \Drupal::messenger()->addMessage($this->t('❗Cell @cell (<strong>@key = @value</strong>) and monthly difference in @cell_previous (<strong>absolute difference = @diff</strong>) do not conform to: <em>@explanation</em>', [
+            '@cell' => $validation['cell'],
+            '@key' => $key,
+            '@value' => $value ?? 'N/A',
+            '@cell_previous' => $this->validations[$validation['previous_month_change_abs']]['cell'],
+            '@diff' => $diff,
+            '@explanation' => $this->t($this->descriptions['previous_month_change_abs']),
+          ]));
+        }
+        else {
+          \Drupal::messenger()->addMessage($this->t('✅ Cell @cell (<strong>@key = @value</strong>) and monthly difference in @cell_previous (<strong>absolute difference = @diff</strong>) conform to: <em>@explanation</em>', [
+            '@cell' => $validation['cell'],
+            '@key' => $key,
+            '@value' => $value ?? 'N/A',
+            '@cell_previous' => $this->validations[$validation['previous_month_change_abs']]['cell'],
+            '@diff' => $diff,
+            '@explanation' => $this->t($this->descriptions['previous_month_change_abs']),
+          ]));
+        }
+      }
+      if (!empty($this->previous_month) && !empty($validation['previous_month_change_pct']) && !empty($validation['cell'])) {
+        $previous_value = $this->previous_month[$validation['previous_month_change_pct']];
+        $current_value = $this->monthly_labour_market_updates[$validation['previous_month_change_pct']];
+        $diff = round(($current_value - $previous_value) * 100 / $current_value, 1);
+        if (abs($diff - $value) > PHP_FLOAT_EPSILON) {
+          \Drupal::messenger()->addMessage($this->t('❗Cell @cell (<strong>@key = @value</strong>) and monthly difference in @cell_previous (<strong>difference percentage = @diff</strong>) do not conform to: <em>@explanation</em>', [
+            '@cell' => $validation['cell'],
+            '@key' => $key,
+            '@value' => $value ?? 'N/A',
+            '@cell_previous' => $this->validations[$validation['previous_month_change_pct']]['cell'],
+            '@diff' => $diff,
+            '@explanation' => $this->t($this->descriptions['previous_month_change_pct']),
+          ]));
+        }
+        else {
+          \Drupal::messenger()->addMessage($this->t('✅ Cell @cell (<strong>@key = @value</strong>) and monthly difference in @cell_previous (<strong>difference percentage = @diff</strong>) conform to: <em>@explanation</em>', [
+            '@cell' => $validation['cell'],
+            '@key' => $key,
+            '@value' => $value ?? 'N/A',
+            '@cell_previous' => $this->validations[$validation['previous_month_change_pct']]['cell'],
+            '@diff' => $diff,
+            '@explanation' => $this->t($this->descriptions['previous_month_change_pct']),
+          ]));
+        }
       }
     }
     return $this->t('This action will update the SSOT Labour Market Monthly Update for <strong>@month @year</strong>.', [
@@ -260,6 +314,7 @@ class SsotUploadLmmuForm extends ConfirmFormBase {
     // Confirmation step.
     if ($form_state->get('confirmation')) {
       $this->monthly_labour_market_updates = $form_state->get('monthly_labour_market_updates');
+      $this->previous_month = $form_state->get('previous_month');
       return parent::buildForm($form, $form_state);
     }
 
@@ -554,6 +609,7 @@ class SsotUploadLmmuForm extends ConfirmFormBase {
 
     // Good to go: Remember the value for submission.
     $form_state->set('monthly_labour_market_updates', $monthly_labour_market_updates);
+    $form_state->set('previous_month', $previous_month);
     $form_state->set('file_id', $file->id());
   }
 
