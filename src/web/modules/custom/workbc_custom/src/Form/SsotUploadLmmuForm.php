@@ -42,28 +42,33 @@ class SsotUploadLmmuForm extends ConfirmFormBase {
     'year' => ['value' => ['form_state_key' => 'year'], 'cell' => 'A3', 'type' => 'date_year'],
     'month' => ['value' => ['form_state_key' => 'month'], 'cell' => 'A3', 'type' => 'date_month'],
 
-    'total_employed' => ['cell' => 'B3', 'type' => 'abs'],
-    'total_unemployed' => ['cell' => 'B37', 'type' => 'abs'],
-    'total_unemployed_previous' => ['cell' => 'A37', 'type' => 'abs'],
-
     'employment_by_age_group_15_24' => ['cell' => 'C8', 'type' => 'abs'],
     'employment_by_age_group_25_54' => ['cell' => 'C9', 'type' => 'abs'],
     'employment_by_age_group_55' => ['cell' => 'C10', 'type' => 'abs'],
-    'employment_by_age_group_15_24_previous' => ['cell' => 'B8', 'type' => 'abs'],
-    'employment_by_age_group_25_54_previous' => ['cell' => 'B9', 'type' => 'abs'],
-    'employment_by_age_group_55_previous' => ['cell' => 'B10', 'type' => 'abs'],
+    'employment_by_age_group_15_24_previous' => ['cell' => 'B8', 'type' => 'abs', 'previous_month' => 'employment_by_age_group_15_24'],
+    'employment_by_age_group_25_54_previous' => ['cell' => 'B9', 'type' => 'abs', 'previous_month' => 'employment_by_age_group_25_54'],
+    'employment_by_age_group_55_previous' => ['cell' => 'B10', 'type' => 'abs', 'previous_month' => 'employment_by_age_group_55'],
 
     'employment_by_gender_women' => ['cell' => 'C12', 'type' => 'abs'],
     'employment_by_gender_men' => ['cell' => 'C13', 'type' => 'abs'],
-    'employment_by_gender_women_previous' => ['cell' => 'B12', 'type' => 'abs'],
-    'employment_by_gender_men_previous' => ['cell' => 'B13', 'type' => 'abs'],
+    'employment_by_gender_women_previous' => ['cell' => 'B12', 'type' => 'abs', 'previous_month' => 'employment_by_gender_women'],
+    'employment_by_gender_men_previous' => ['cell' => 'B13', 'type' => 'abs', 'previous_month' => 'employment_by_gender_men'],
 
-    'employment_change_pct_total_employment' => ['cell' => 'B18', 'type' => 'chg_pct'],
-    'employment_change_abs_total_employment' => ['cell' => 'C18', 'type' => 'chg_abs', 'related_sign' => 'employment_change_pct_total_employment'],
+    'total_unemployed' => ['cell' => 'B37', 'type' => 'abs'],
+    'total_unemployed_previous' => ['cell' => 'A37', 'type' => 'abs', 'previous_month' => 'total_unemployed'],
+    'total_employed' => ['cell' => 'B3', 'type' => 'abs', 'sum' => [
+      ['employment_by_age_group_15_24', 'employment_by_age_group_25_54', 'employment_by_age_group_55'],
+      ['employment_by_gender_women', 'employment_by_gender_men']
+    ]],
+
     'employment_change_pct_full_time_jobs' => ['cell' => 'B19', 'type' => 'chg_pct'],
-    'employment_change_abs_full_time_jobs' => ['cell' => 'C19', 'type' => 'chg_abs', 'related_sign' => 'employment_change_pct_full_time_jobs'],
+    'employment_change_abs_full_time_jobs' => ['cell' => 'C19', 'type' => 'chg_abs', 'same_sign' => 'employment_change_pct_full_time_jobs'],
     'employment_change_pct_part_time_jobs' => ['cell' => 'B20', 'type' => 'chg_pct'],
-    'employment_change_abs_part_time_jobs' => ['cell' => 'C20', 'type' => 'chg_abs', 'related_sign' => 'employment_change_pct_part_time_jobs'],
+    'employment_change_abs_part_time_jobs' => ['cell' => 'C20', 'type' => 'chg_abs', 'same_sign' => 'employment_change_pct_part_time_jobs'],
+    'employment_change_pct_total_employment' => ['cell' => 'B18', 'type' => 'chg_pct'],
+    'employment_change_abs_total_employment' => ['cell' => 'C18', 'type' => 'chg_abs', 'same_sign' => 'employment_change_pct_total_employment', 'sum' => [
+      ['employment_change_abs_full_time_jobs', 'employment_change_abs_part_time_jobs']
+    ]],
 
     'employment_rate_change_pct_unemployment' => ['cell' => 'B22', 'type' => 'chg_pct'],
     'employment_rate_pct_unemployment' => ['cell' => 'C22', 'type' => 'pct'],
@@ -109,37 +114,37 @@ class SsotUploadLmmuForm extends ConfirmFormBase {
     'total_jobs_northeast' => ['cell' => 'C48', 'type' => 'abs'],
 
     'industry_pct_accommodation_food_services' => ['cell' => 'B59', 'type' => 'chg_pct'],
-    'industry_abs_accommodation_food_services' => ['cell' => 'C59', 'type' => 'chg_abs', 'related_sign' => 'industry_pct_accommodation_food_services'],
+    'industry_abs_accommodation_food_services' => ['cell' => 'C59', 'type' => 'chg_abs', 'same_sign' => 'industry_pct_accommodation_food_services'],
     'industry_pct_agriculture_fishing' => ['cell' => 'B60', 'type' => 'chg_pct'],
-    'industry_abs_agriculture_fishing' => ['cell' => 'C60', 'type' => 'chg_abs', 'related_sign' => 'industry_pct_agriculture_fishing'],
+    'industry_abs_agriculture_fishing' => ['cell' => 'C60', 'type' => 'chg_abs', 'same_sign' => 'industry_pct_agriculture_fishing'],
     'industry_pct_construction' => ['cell' => 'B61', 'type' => 'chg_pct'],
-    'industry_abs_construction' => ['cell' => 'C61', 'type' => 'chg_abs', 'related_sign' => 'industry_pct_construction'],
+    'industry_abs_construction' => ['cell' => 'C61', 'type' => 'chg_abs', 'same_sign' => 'industry_pct_construction'],
     'industry_pct_educational_services' => ['cell' => 'B62', 'type' => 'chg_pct'],
-    'industry_abs_educational_services' => ['cell' => 'C62', 'type' => 'chg_abs', 'related_sign' => 'industry_pct_educational_services'],
+    'industry_abs_educational_services' => ['cell' => 'C62', 'type' => 'chg_abs', 'same_sign' => 'industry_pct_educational_services'],
     'industry_pct_finance_insurance_real_estate' => ['cell' => 'B63', 'type' => 'chg_pct'],
-    'industry_abs_finance_insurance_real_estate' => ['cell' => 'C63', 'type' => 'chg_abs', 'related_sign' => 'industry_pct_finance_insurance_real_estate'],
+    'industry_abs_finance_insurance_real_estate' => ['cell' => 'C63', 'type' => 'chg_abs', 'same_sign' => 'industry_pct_finance_insurance_real_estate'],
     'industry_pct_health_care_social_assistance' => ['cell' => 'B64', 'type' => 'chg_pct'],
-    'industry_abs_health_care_social_assistance' => ['cell' => 'C64', 'type' => 'chg_abs', 'related_sign' => 'industry_pct_health_care_social_assistance'],
+    'industry_abs_health_care_social_assistance' => ['cell' => 'C64', 'type' => 'chg_abs', 'same_sign' => 'industry_pct_health_care_social_assistance'],
     'industry_pct_manufacturing' => ['cell' => 'B65', 'type' => 'chg_pct'],
-    'industry_abs_manufacturing' => ['cell' => 'C65', 'type' => 'chg_abs', 'related_sign' => 'industry_pct_manufacturing'],
+    'industry_abs_manufacturing' => ['cell' => 'C65', 'type' => 'chg_abs', 'same_sign' => 'industry_pct_manufacturing'],
     'industry_pct_other_primary' => ['cell' => 'B66', 'type' => 'chg_pct'],
-    'industry_abs_other_primary' => ['cell' => 'C66', 'type' => 'chg_abs', 'related_sign' => 'industry_pct_other_primary'],
+    'industry_abs_other_primary' => ['cell' => 'C66', 'type' => 'chg_abs', 'same_sign' => 'industry_pct_other_primary'],
     'industry_pct_other_private_services' => ['cell' => 'B67', 'type' => 'chg_pct'],
-    'industry_abs_other_private_services' => ['cell' => 'C67', 'type' => 'chg_abs', 'related_sign' => 'industry_pct_other_private_services'],
+    'industry_abs_other_private_services' => ['cell' => 'C67', 'type' => 'chg_abs', 'same_sign' => 'industry_pct_other_private_services'],
     'industry_pct_professional_scientific_technical_services' => ['cell' => 'B68', 'type' => 'chg_pct'],
-    'industry_abs_professional_scientific_technical_services' => ['cell' => 'C68', 'type' => 'chg_abs', 'related_sign' => 'industry_pct_professional_scientific_technical_services'],
+    'industry_abs_professional_scientific_technical_services' => ['cell' => 'C68', 'type' => 'chg_abs', 'same_sign' => 'industry_pct_professional_scientific_technical_services'],
     'industry_pct_public_administration' => ['cell' => 'B69', 'type' => 'chg_pct'],
-    'industry_abs_public_administration' => ['cell' => 'C69', 'type' => 'chg_abs', 'related_sign' => 'industry_pct_public_administration'],
+    'industry_abs_public_administration' => ['cell' => 'C69', 'type' => 'chg_abs', 'same_sign' => 'industry_pct_public_administration'],
     'industry_pct_transportation_warehousing' => ['cell' => 'B70', 'type' => 'chg_pct'],
-    'industry_abs_transportation_warehousing' => ['cell' => 'C70', 'type' => 'chg_abs', 'related_sign' => 'industry_pct_transportation_warehousing'],
+    'industry_abs_transportation_warehousing' => ['cell' => 'C70', 'type' => 'chg_abs', 'same_sign' => 'industry_pct_transportation_warehousing'],
     'industry_pct_utilities' => ['cell' => 'B71', 'type' => 'chg_pct'],
-    'industry_abs_utilities' => ['cell' => 'C71', 'type' => 'chg_abs', 'related_sign' => 'industry_pct_utilities'],
+    'industry_abs_utilities' => ['cell' => 'C71', 'type' => 'chg_abs', 'same_sign' => 'industry_pct_utilities'],
     'industry_pct_wholesale_retail_trade' => ['cell' => 'B72', 'type' => 'chg_pct'],
-    'industry_abs_wholesale_retail_trade' => ['cell' => 'C72', 'type' => 'chg_abs', 'related_sign' => 'industry_pct_wholesale_retail_trade'],
+    'industry_abs_wholesale_retail_trade' => ['cell' => 'C72', 'type' => 'chg_abs', 'same_sign' => 'industry_pct_wholesale_retail_trade'],
     'industry_pct_business_building_other_support_services' => ['cell' => 'B73', 'type' => 'chg_pct'],
-    'industry_abs_business_building_other_support_services' => ['cell' => 'C73', 'type' => 'chg_abs', 'related_sign' => 'industry_pct_business_building_other_support_services'],
+    'industry_abs_business_building_other_support_services' => ['cell' => 'C73', 'type' => 'chg_abs', 'same_sign' => 'industry_pct_business_building_other_support_services'],
     'industry_pct_information_culture_recreation' => ['cell' => 'B74', 'type' => 'chg_pct'],
-    'industry_abs_information_culture_recreation' => ['cell' => 'C74', 'type' => 'chg_abs', 'related_sign' => 'industry_pct_information_culture_recreation']
+    'industry_abs_information_culture_recreation' => ['cell' => 'C74', 'type' => 'chg_abs', 'same_sign' => 'industry_pct_information_culture_recreation']
   ];
   public $descriptions = [
     'abs' => 'Absolute value, positive, no decimals.',
@@ -148,8 +153,10 @@ class SsotUploadLmmuForm extends ConfirmFormBase {
     'chg_pct' => 'Change percentage (+/-) (0-50), single decimal place.',
     'date_year' => 'Sheet year corresponds to selected year.',
     'date_month' => 'Sheet month corresponds to selected month.',
-    'related_sign' => 'Both values agree in numeric sign (+/-).',
+    'same_sign' => 'Both values agree in numeric sign (+/-).',
     'blank' => 'A blank cell value will be shown as "Not available".',
+    'sum' => 'The sum of the cell values matches the total value.',
+    'previous_month' => 'The value matches the previous month\'s value.',
   ];
 
   /**
@@ -184,15 +191,42 @@ class SsotUploadLmmuForm extends ConfirmFormBase {
           ]));
         }
       }
-      if (!empty($validation['related_sign']) && !empty($validation['cell'])) {
+      if (!empty($validation['same_sign']) && !empty($validation['cell'])) {
         \Drupal::messenger()->addMessage($this->t('✅ Cells @cell1 (<strong>@key1 = @value1</strong>) and @cell2 (<strong>@key2 = @value2</strong>) conform to: <em>@explanation</em>', [
           '@cell2' => $validation['cell'],
           '@key2' => $key,
-          '@value2' => $value,
-          '@cell1' => $this->validations[$validation['related_sign']]['cell'],
-          '@key1' => $validation['related_sign'],
-          '@value1' => $this->monthly_labour_market_updates[$validation['related_sign']],
-          '@explanation' => $this->t($this->descriptions['related_sign'])
+          '@value2' => $value ?? 'N/A',
+          '@cell1' => $this->validations[$validation['same_sign']]['cell'],
+          '@key1' => $validation['same_sign'],
+          '@value1' => $this->monthly_labour_market_updates[$validation['same_sign']] ?? 'N/A',
+          '@explanation' => $this->t($this->descriptions['same_sign'])
+        ]));
+      }
+      if (!empty($validation['sum']) && !empty($validation['cell'])) {
+        foreach ($validation['sum'] as $sum_keys) {
+          $sum = array_sum(array_map(function($sum_key) {
+            return $this->monthly_labour_market_updates[$sum_key] ?? 0;
+          }, $sum_keys));
+          \Drupal::messenger()->addMessage($this->t('✅ Cell @cell (<strong>@key = @value</strong>) and cells @cells (<strong>sum = @sum</strong>) conform to: <em>@explanation</em>', [
+            '@cell' => $validation['cell'],
+            '@key' => $key,
+            '@value' => $value ?? 'N/A',
+            '@cells' => implode(' + ', array_map(function($sum_key) {
+              return $this->validations[$sum_key]['cell'];
+            }, $sum_keys)),
+            '@sum' => $sum,
+            '@explanation' => $this->t($this->descriptions['sum']),
+          ]));
+        }
+      }
+      if (!empty($validation['previous_month']) && !empty($validation['cell'])) {
+        \Drupal::messenger()->addMessage($this->t('✅ Cell @cell (<strong>@key = @value</strong>) and previous month cell @cell_previous (<strong>@key_previous</strong>) conform to: <em>@explanation</em>', [
+          '@cell' => $validation['cell'],
+          '@key' => $key,
+          '@value' => $value ?? 'N/A',
+          '@cell_previous' => $this->validations[$validation['previous_month']]['cell'],
+          '@key_previous' => $validation['previous_month'],
+          '@explanation' => $this->t($this->descriptions['previous_month']),
         ]));
       }
     }
@@ -213,7 +247,8 @@ class SsotUploadLmmuForm extends ConfirmFormBase {
   /**
    * {@inheritdoc}
    */
-  public function getCancelUrl() {
+  public function getCancelUrl()
+  {
     return new Url('workbc_custom.ssot_lmmu');
   }
 
@@ -310,6 +345,19 @@ class SsotUploadLmmuForm extends ConfirmFormBase {
       $sheet = reset($sheet);
     }
 
+    // Get the previous month dataset to compare some cells.
+    $date = ExcelDate::excelToDateTimeObject($sheet->getCell('A3')->getValue());
+    $previous_year = $date->format('Y') + 0;
+    $previous_month = $date->format('n') - 1;
+    if ($previous_month == 0) {
+      $previous_month = 12;
+      $previous_year -= 1;
+    }
+    $previous_month = json_decode($this->ssot("monthly_labour_market_updates?year=eq.$previous_year&month=eq.$previous_month")->getBody(), true);
+    if (!empty($previous_month)) {
+      $previous_month = reset($previous_month);
+    }
+
     // Validate and fill the monthly_labour_market_updates values.
     // @see https://github.com/bcgov/workbc-ssot/blob/master/migration/load/updates/monthly_labour_market_updates.load
     $monthly_labour_market_updates = [];
@@ -328,7 +376,7 @@ class SsotUploadLmmuForm extends ConfirmFormBase {
         $value = $sheet->getCell($validation['cell'])->getValue();
       }
 
-      // Perform validations.
+      // Perform validations based on type.
       if (array_key_exists('type', $validation)) {
         switch ($validation['type']) {
           case 'date_year':
@@ -345,7 +393,6 @@ class SsotUploadLmmuForm extends ConfirmFormBase {
             break;
           case 'date_month':
             $date = ExcelDate::excelToDateTimeObject($sheet->getCell($validation['cell'])->getValue());
-            $monthName = DateHelper::monthNames(true)[$value];
             if ($date->format('n') != $value) {
               array_key_push($errors, $key, $this->t('❌ Cell @cell (<strong>@key = @value</strong>) does not conform to: <em>@explanation</em> @suggestion', [
                 '@cell' => $validation['cell'],
@@ -423,27 +470,73 @@ class SsotUploadLmmuForm extends ConfirmFormBase {
                 ]));
               }
             }
-            if (array_key_exists('related_sign', $validation)) {
-              $related_value = $monthly_labour_market_updates[$validation['related_sign']];
-              if (!(
-                (is_null($related_value) && is_null($value)) ||
-                ($related_value * $value >= 0)
-              )) {
-                array_key_push($errors, $key, $this->t('❌ Cells @cell1 (<strong>@key1 = @value1</strong>) and @cell2 (<strong>@key2 = @value2</strong>) do not conform to: <em>@explanation</em> @suggestion', [
-                  '@cell1' => $this->validations[$validation['related_sign']]['cell'],
-                  '@key1' => $validation['related_sign'],
-                  '@value1' => $monthly_labour_market_updates[$validation['related_sign']],
-                  '@cell2' => $validation['cell'],
-                  '@key2' => $key,
-                  '@value2' => $value,
-                  '@explanation' => $this->t($this->descriptions['related_sign']),
-                  '@suggestion' => $this->t('Please correct the values.'),
-                ]));
-              }
-            }
             break;
           }
       }
+
+      // Perform inter-cell same sign validation.
+      if (array_key_exists('same_sign', $validation)) {
+        $related_value = $monthly_labour_market_updates[$validation['same_sign']];
+        if (!(
+          (is_null($related_value) && is_null($value)) ||
+          ($related_value * $value >= 0)
+        )) {
+          array_key_push($errors, $key, $this->t('❌ Cells @cell1 (<strong>@key1 = @value1</strong>) and @cell2 (<strong>@key2 = @value2</strong>) do not conform to: <em>@explanation</em> @suggestion', [
+            '@cell1' => $this->validations[$validation['same_sign']]['cell'],
+            '@key1' => $validation['same_sign'],
+            '@value1' => $monthly_labour_market_updates[$validation['same_sign']],
+            '@cell2' => $validation['cell'],
+            '@key2' => $key,
+            '@value2' => $value ?? 'N/A',
+            '@explanation' => $this->t($this->descriptions['same_sign']),
+            '@suggestion' => $this->t('Please correct the values.'),
+          ]));
+        }
+      }
+
+      // Perform inter-cell sum validation.
+      if (array_key_exists('sum', $validation)) {
+        foreach ($validation['sum'] as $sum_keys) {
+          $sum = array_sum(array_map(function($sum_key) use ($monthly_labour_market_updates) {
+            return $monthly_labour_market_updates[$sum_key] ?? 0;
+          }, $sum_keys));
+          if (abs($sum - ($value ?? 0)) > 100) {
+            array_key_push($errors, $key, $this->t('❌ Cell @cell (<strong>@key = @value</strong>) and cells @cells (<strong>sum = @sum</strong>) do not conform to: <em>@explanation</em> @suggestion', [
+              '@cell' => $validation['cell'],
+              '@key' => $key,
+              '@value' => $value ?? 'N/A',
+              '@cells' => implode(' + ', array_map(function($sum_key) {
+                return $this->validations[$sum_key]['cell'];
+              }, $sum_keys)),
+              '@sum' => $sum,
+              '@explanation' => $this->t($this->descriptions['sum']),
+              '@suggestion' => $this->t('Please correct the values.'),
+            ]));
+          }
+        }
+      }
+
+      // Perform inter-sheet previous month validation.
+      if (!empty($previous_month) && array_key_exists('previous_month', $validation)) {
+        $previous_value = $previous_month[$validation['previous_month']];
+        if (!(
+          (is_null($previous_value) && is_null($value)) ||
+          ($previous_value == $value)
+        )) {
+          array_key_push($errors, $key, $this->t('❌ Cell @cell (<strong>@key = @value</strong>) and previous month cell @cell_previous (<strong>@key_previous = @value_previous</strong>) do not conform to: <em>@explanation</em> @suggestion', [
+            '@cell' => $validation['cell'],
+            '@key' => $key,
+            '@value' => $value ?? 'N/A',
+            '@cell_previous' => $this->validations[$validation['previous_month']]['cell'],
+            '@key_previous' => $validation['previous_month'],
+            '@value_previous' => $previous_value ?? 'N/A',
+            '@explanation' => $this->t($this->descriptions['previous_month']),
+            '@suggestion' => $this->t('Please correct the value.'),
+          ]));
+        }
+      }
+
+      // Set the value.
       if (empty($validation['ignore'])) {
         $monthly_labour_market_updates[$key] = $value;
       }
@@ -509,7 +602,8 @@ class SsotUploadLmmuForm extends ConfirmFormBase {
     }
   }
 
-  function ssot($url, $read_timeout = NULL, $method = 'GET', $body = null) {
+  function ssot($url, $read_timeout = NULL, $method = 'GET', $body = null)
+  {
     $ssot = rtrim(\Drupal::config('workbc')->get('ssot_url'), '/');
     $client = new Client();
     try {
