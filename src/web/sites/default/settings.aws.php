@@ -31,16 +31,6 @@ $databases['ssot']['default'] = array (
     'namespace' => 'Drupal\\Core\\Database\\Driver\\pgsql',
     'driver' => 'pgsql',
 );
-$databases['ssot']['lmmu'] = array (
-  'database' => getenv('POSTGRES_SSOT') ?? 'ssot',
-  'username' => getenv('LMMU_USERNAME'),
-  'password' => getenv('LMMU_PWD'),
-  'prefix' => '',
-  'host' => getenv('POSTGRES_HOST'),
-  'port' => getenv('POSTGRES_PORT'),
-  'namespace' => 'Drupal\\Core\\Database\\Driver\\pgsql',
-  'driver' => 'pgsql',
-);
 $settings['hash_salt'] = json_encode($databases);
 
 $settings['file_private_path'] = '/app/private';
