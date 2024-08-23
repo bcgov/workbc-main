@@ -1,0 +1,17 @@
+<?php
+
+use Drupal\Core\StreamWrapper\StreamWrapperManager;
+
+/**
+ * Implements hook_file_download().
+ */
+function workbc_custom_file_download($uri) {
+  $scheme = StreamWrapperManager::getScheme($uri);
+  $target = StreamWrapperManager::getTarget($uri);
+  if ($scheme === 'private' && str_starts_with($target, 'ssot/')) {
+    $filename = basename($target);
+    return [
+      'Content-disposition' => "attachment; filename=\"$filename\"",
+    ];
+  }
+}

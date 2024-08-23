@@ -157,7 +157,7 @@ class SsotUploadLmmuForm extends ConfirmFormBase {
     'same_sign' => 'Both values agree in numeric sign (+/-).',
     'blank' => 'A blank cell value will be shown as "Not available".',
     'sum' => 'The sum of the cell values matches the total value.',
-    'previous_month' => 'The value matches the previous month\'s value.',
+    'previous_month' => 'The value matches the given cell\'s prior month value.',
     'previous_month_change_abs' => 'The value matches the absolute difference between the given cell\'s prior month value and current month value.',
     'previous_month_change_pct' => 'The value matches the difference percentage between the given cell\'s prior month value and current month value.',
   ];
@@ -602,11 +602,6 @@ class SsotUploadLmmuForm extends ConfirmFormBase {
             '@suggestion' => $this->t('Please correct the value.'),
           ]));
         }
-      }
-
-      // Set the value.
-      if (empty($validation['ignore'])) {
-        $monthly_labour_market_updates[$key] = $value;
       }
     }
 

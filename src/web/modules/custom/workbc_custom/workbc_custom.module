@@ -14,7 +14,6 @@ use Drupal\Core\Routing\RouteMatchInterface;
 use Drupal\views\ViewExecutable;
 use Drupal\redirect\Entity\Redirect;
 use Symfony\Component\HttpFoundation\Request;
-use Drupal\Core\StreamWrapper\StreamWrapperManager;
 
 /**
 * Implements hook_theme().
@@ -548,20 +547,6 @@ function workbc_custom_oembed_resource_url_alter(array &$parsed_url, \Drupal\med
     unset($parsed_url['query']['maxwidth']);
     unset($parsed_url['query']['maxheight']);
     $parsed_url['query']['responsive'] = 'true';
-  }
-}
-
-/**
- * Implements hook_file_download().
- */
-function workbc_custom_file_download($uri) {
-  $scheme = StreamWrapperManager::getScheme($uri);
-  $target = StreamWrapperManager::getTarget($uri);
-  if ($scheme === 'private' && str_starts_with($target, 'ssot/')) {
-    $filename = basename($target);
-    return [
-      'Content-disposition' => "attachment; filename=\"$filename\"",
-    ];
   }
 }
 
