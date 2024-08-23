@@ -1,0 +1,7 @@
+workbc_ssot.lmmu:
+  path: '/admin/config/workbc/ssot/lmmu'
+  defaults:
+    _title: 'SSoT: Labour Market Monthly Update'
+    _form: '\Drupal\workbc_ssot\Form\SsotUploadLmmuForm'
+  requirements:
+    _permission: 'administer ssot settings'

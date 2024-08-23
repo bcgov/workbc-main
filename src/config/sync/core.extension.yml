@@ -152,6 +152,7 @@ module:
   workbc_extra_fields: 0
   workbc_jobboard: 0
   workbc_menu: 0
+  workbc_ssot: 0
   workflows: 0
   pathauto: 1
   webform_bootstrap: 1

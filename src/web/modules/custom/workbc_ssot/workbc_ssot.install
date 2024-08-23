@@ -1,0 +1,77 @@
+<?php
+
+use Drupal\Core\Database\Database;
+
+/**
+ * Implements hook_schema().
+ */
+function workbc_ssot_schema(){
+  $schema['workbc_ssot_log'] = [
+    'description' => 'Stores the SSoT operations log.',
+    'fields' => [
+      'oid' => [
+        'description' => 'Primary identifier for operation log entry.',
+        'type' => 'serial',
+        'not null' => true,
+      ],
+      'timestamp' => [
+        'type' => 'int',
+        'not null' => true,
+        'default' => 0,
+        'description' => 'Unix timestamp of when operation occurred.',
+      ],
+      'uid' => [
+        'type' => 'int',
+        'unsigned' => true,
+        'not null' => true,
+        'default' => 0,
+        'description' => 'The {users}.uid of the user who performed the operation.',
+      ],
+      'dataset_name' => [
+        'type' => 'varchar',
+        'length' => 255,
+        'not null' => true,
+        'default' => '',
+        'description' => 'The dataset (aka SSoT endpoint) that was updated.',
+      ],
+      'dataset_period' => [
+        'type' => 'varchar',
+        'length' => 255,
+        'not null' => true,
+        'default' => '',
+        'description' => 'The date period of the dataset.',
+      ],
+      'file_id' => [
+        'type' => 'int',
+        'unsigned' => true,
+        'not null' => true,
+        'default' => 0,
+        'description' => 'The {file_managed}.fid of the uploaded spreadsheet.',
+      ],
+      'file_timestamp' => [
+        'type' => 'int',
+        'unsigned' => true,
+        'not null' => true,
+        'default' => 0,
+        'description' => 'Unix timestamp (client-side) of the uploaded spreadsheet.',
+      ],
+      'notes' => [
+        'type' => 'text',
+        'not null' => true,
+        'size' => 'big',
+        'default' => '',
+        'description' => 'Notes about the operation.',
+      ],
+    ],
+    'primary key' => array('oid'),
+    'foreign keys' => [
+      'user' => [
+        'table' => 'users',
+        'columns' => [
+          'uid' => 'uid',
+        ],
+      ],
+    ],
+  ];
+  return $schema;
+}

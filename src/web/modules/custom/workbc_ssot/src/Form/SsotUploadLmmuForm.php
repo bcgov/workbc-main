@@ -1,6 +1,6 @@
 <?php
 
-namespace Drupal\workbc_custom\Form;
+namespace Drupal\workbc_ssot\Form;
 
 use Drupal\Core\Form\ConfirmFormBase;
 use Drupal\Core\Form\FormStateInterface;
@@ -33,7 +33,7 @@ function array_key_push(&$array, $key, $value) {
 /**
 * Class SsotUploadLmmuForm.
 *
-* @package Drupal\workbc_custom\Form
+* @package Drupal\workbc_ssot\Form
 */
 class SsotUploadLmmuForm extends ConfirmFormBase {
   private $monthly_labour_market_updates = null;
@@ -303,7 +303,7 @@ class SsotUploadLmmuForm extends ConfirmFormBase {
    */
   public function getCancelUrl()
   {
-    return new Url('workbc_custom.ssot_lmmu');
+    return new Url('workbc_ssot.lmmu');
   }
 
   /**
@@ -336,7 +336,7 @@ class SsotUploadLmmuForm extends ConfirmFormBase {
     ];
 
     $form['#attributes']['enctype'] = 'multipart/form-data';
-    $form['lmmu'] = array(
+    $form['lmmu'] = [
       '#type' => 'managed_file',
       '#name' => 'lmmu',
       '#title' => $this->t('LMMU Spreadsheet'),
@@ -344,12 +344,25 @@ class SsotUploadLmmuForm extends ConfirmFormBase {
       '#description' => $this->t('Please upload your Labour Market Monthly Update spreadsheet (Excel .xlsx format).'),
       '#upload_validators' => ['file_validate_extensions' => ['xlsx']],
       '#upload_location' => 'private://ssot/',
-    );
+    ];
 
-    $form['submit_upload'] = array(
+    $form['timestamp'] = [
+      '#type' => 'datetime',
+      '#title' => $this->t('Timestamp'),
+      '#required' => true,
+      '#description' => $this->t('Please provide the timestamp of the spreadsheet, as it appears in your File Explorer.'),
+    ];
+
+    $form['notes'] = [
+      '#type' => 'textarea',
+      '#title' => $this->t('Notes'),
+      '#description' => $this->t('Please provide any additional notes or comments, including the work ticket nummber.'),
+    ];
+
+    $form['submit_upload'] = [
       '#type' => 'submit',
       '#value' => $this->t('Submit')
-    );
+    ];
 
     return $form;
   }
@@ -607,6 +620,8 @@ class SsotUploadLmmuForm extends ConfirmFormBase {
       return;
     }
 
+    ksm($form_state->getValue('timestamp'));
+
     // Good to go: Remember the value for submission.
     $form_state->set('monthly_labour_market_updates', $monthly_labour_market_updates);
     $form_state->set('previous_month', $previous_month);
@@ -643,9 +658,25 @@ class SsotUploadLmmuForm extends ConfirmFormBase {
       $file = \Drupal\file\Entity\File::load($form_state->get('file_id'));
       $file->setPermanent();
       $file->save();
+
+      // Save to the SSoT operations log.
+      /** @var \Drupal\Core\Database\Connection $connection */
+      $connection = \Drupal::service('database');
+      $result = $connection->insert('workbc_ssot_log')
+      ->fields([
+        'uid' => \Drupal::currentUser()->id(),
+        'timestamp' => \Drupal::time()->getRequestTime(),
+        'dataset_name' => 'monthly_labour_market_updates',
+        'dataset_period' => $year . '/' . str_pad($month, 2, '0', STR_PAD_LEFT),
+        'file_id' => $file->id(),
+        'file_timestamp' => $form_state->getValue('timestamp'),
+        'notes' => $form_state->getValue('notes'),
+      ])
+      ->execute();
+
       \Drupal::logger('workbc_ssot')->info(t('Labour Market Monthly Update successfully updated for <strong>@month @year</strong> with file <a href="@uri">@filename</a>.', [
-        '@year' => $this->monthly_labour_market_updates['year'],
-        '@month' => DateHelper::monthNames(true)[$this->monthly_labour_market_updates['month']],
+        '@year' => $year,
+        '@month' => DateHelper::monthNames(true)[$month],
         '@uri' => \Drupal::service('file_url_generator')->generateAbsoluteString($file->getFileUri()),
         '@filename' => $file->getFilename(),
       ]));

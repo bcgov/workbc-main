@@ -1,0 +1,5 @@
+name: WorkBC SSoT
+type: module
+description: Integrates SSoT into WorkBC.
+core_version_requirement: ^8 || ^9
+package: WorkBC

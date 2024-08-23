@@ -1,0 +1,11 @@
+workbc_ssot.main:
+  title: 'SSoT'
+  parent: workbc_custom.admin_index
+  route_name: workbc_ssot.lmmu
+  description: 'SSoT administration'
+
+workbc_ssot.lmmu:
+  title: 'Labour Market Monthly Update'
+  parent: workbc_ssot.main
+  route_name: workbc_ssot.lmmu
+  description: 'Upload a new data sheet to the SSoT Labout Market Monthly Update.'
