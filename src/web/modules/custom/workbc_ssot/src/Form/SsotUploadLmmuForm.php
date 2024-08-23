@@ -603,6 +603,9 @@ class SsotUploadLmmuForm extends ConfirmFormBase {
           ]));
         }
       }
+
+      // Set the value.
+      $monthly_labour_market_updates[$key] = $value;
     }
 
     // Display errors if any.
@@ -666,7 +669,7 @@ class SsotUploadLmmuForm extends ConfirmFormBase {
         'uid' => \Drupal::currentUser()->id(),
         'timestamp' => \Drupal::time()->getRequestTime(),
         'dataset_name' => 'monthly_labour_market_updates',
-        'dataset_period' => $year . '/' . str_pad($month, 2, '0', STR_PAD_LEFT),
+        'dataset_period' => \DateTime::createFromFormat('d-m-Y', "01-$month-$year")->getTimestamp(),
         'file_id' => $file->id(),
         'file_timestamp' => $form_state->get('timestamp'),
         'notes' => $form_state->get('notes'),

@@ -104,16 +104,17 @@ function workbc_ssot_views_data() {
       'title' => t('Period'),
       'help' => t('Date period of the dataset.'),
       'field' => [
-        'id' => 'standard',
+        'id' => 'date',
+        'click sortable' => true,
       ],
       'argument' => [
-        'id' => 'string',
+        'id' => 'date',
       ],
       'filter' => [
-        'id' => 'string',
+        'id' => 'date',
       ],
       'sort' => [
-        'id' => 'standard',
+        'id' => 'date',
       ],
     ],
     'file_id' => [

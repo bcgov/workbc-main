@@ -35,10 +35,10 @@ function workbc_ssot_schema(){
         'description' => 'The dataset (aka SSoT endpoint) that was updated.',
       ],
       'dataset_period' => [
-        'type' => 'varchar',
-        'length' => 255,
+        'type' => 'int',
+        'unsigned' => true,
         'not null' => true,
-        'default' => '',
+        'default' => 0,
         'description' => 'The date period of the dataset.',
       ],
       'file_id' => [
