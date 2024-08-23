@@ -473,7 +473,7 @@ class SsotUploadLmmuForm extends ConfirmFormBase {
             break;
           case 'abs':
             if (!is_numeric($value)) {
-              $value = NULL;
+              $value = null;
             }
             else {
               $value = floatval($value);
@@ -490,7 +490,7 @@ class SsotUploadLmmuForm extends ConfirmFormBase {
             break;
           case 'pct':
             if (!is_numeric($value)) {
-              $value = NULL;
+              $value = null;
             }
             else {
               $value = floatval($value);
@@ -507,7 +507,7 @@ class SsotUploadLmmuForm extends ConfirmFormBase {
             break;
           case 'chg_pct':
             if (!is_numeric($value)) {
-              $value = NULL;
+              $value = null;
             }
             else {
               $value = floatval($value);
@@ -524,7 +524,7 @@ class SsotUploadLmmuForm extends ConfirmFormBase {
             break;
           case 'chg_abs':
             if (!is_numeric($value)) {
-              $value = NULL;
+              $value = null;
             }
             else {
               $value = floatval($value);
@@ -644,19 +644,21 @@ class SsotUploadLmmuForm extends ConfirmFormBase {
     $month = $this->monthly_labour_market_updates['month'];
     $check = json_decode($this->ssot("monthly_labour_market_updates?year=eq.$year&month=eq.$month")->getBody(), true);
     if (empty($check)) {
-      $result = $this->ssot('monthly_labour_market_updates', NULL, 'POST', json_encode($this->monthly_labour_market_updates));
+      $result = $this->ssot('monthly_labour_market_updates', null, 'POST', json_encode($this->monthly_labour_market_updates));
     }
     else {
-      $result = $this->ssot("monthly_labour_market_updates?year=eq.$year&month=eq.$month", NULL, 'PATCH', json_encode($this->monthly_labour_market_updates));
+      $result = $this->ssot("monthly_labour_market_updates?year=eq.$year&month=eq.$month", null, 'PATCH', json_encode($this->monthly_labour_market_updates));
     }
     if ($result && $result->getStatusCode() < 300) {
-      \Drupal::messenger()->addMessage(t('Labour Market Monthly Update successfully updated for <strong>@month @year</strong>. <a href="@url">Click here</a> to see it!', [
-        '@year' => $year,
-        '@month' => DateHelper::monthNames(true)[$month],
-        '@url' => Url::fromUri('internal:/research-labour-market/bcs-economy/labour-market-monthly-update', [
-          'query' => ['month' => $month, 'year' => $year]
-        ])->toString()
+      // Update sources date.
+      $result = $this->ssot('sources?endpoint=eq.monthly_labour_market_updates&datapoint=is.null', null, 'PATCH', json_encode([
+        'date' => date('Y/m/d')
       ]));
+      if ($result && $result->getStatusCode() >= 300) {
+        \Drupal::logger('workbc_ssot')->error(json_decode($result->getBody(), true));
+      }
+
+      // Mark the file as permanent.
       $file = \Drupal\file\Entity\File::load($form_state->get('file_id'));
       $file->setPermanent();
       $file->save();
@@ -676,6 +678,13 @@ class SsotUploadLmmuForm extends ConfirmFormBase {
       ])
       ->execute();
 
+      \Drupal::messenger()->addMessage(t('Labour Market Monthly Update successfully updated for <strong>@month @year</strong>. <a href="@url">Click here</a> to see it!', [
+        '@year' => $year,
+        '@month' => DateHelper::monthNames(true)[$month],
+        '@url' => Url::fromUri('internal:/research-labour-market/bcs-economy/labour-market-monthly-update', [
+          'query' => ['month' => $month, 'year' => $year]
+        ])->toString()
+      ]));
       \Drupal::logger('workbc_ssot')->info(t('Labour Market Monthly Update successfully updated for <strong>@month @year</strong> with file <a href="@uri">@filename</a>.', [
         '@year' => $year,
         '@month' => DateHelper::monthNames(true)[$month],
@@ -691,7 +700,7 @@ class SsotUploadLmmuForm extends ConfirmFormBase {
     }
   }
 
-  function ssot($url, $read_timeout = NULL, $method = 'GET', $body = null)
+  function ssot($url, $read_timeout = null, $method = 'GET', $body = null)
   {
     $ssot = rtrim(\Drupal::config('workbc')->get('ssot_url'), '/');
     $client = new Client();
@@ -714,7 +723,7 @@ class SsotUploadLmmuForm extends ConfirmFormBase {
     }
     catch (RequestException $e) {
       \Drupal::logger('workbc_ssot')->error($e->getMessage());
-      return NULL;
+      return null;
     }
   }
 }
