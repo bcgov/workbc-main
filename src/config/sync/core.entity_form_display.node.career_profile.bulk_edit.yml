@@ -23,6 +23,7 @@ dependencies:
     - field.field.node.career_profile.field_resources
     - field.field.node.career_profile.field_resources_reference
     - field.field.node.career_profile.field_scheduled_publish
+    - field.field.node.career_profile.field_skills
     - field.field.node.career_profile.field_work_environment
     - node.type.career_profile
 id: node.career_profile.bulk_edit
@@ -56,6 +57,7 @@ hidden:
   field_resources: true
   field_resources_reference: true
   field_scheduled_publish: true
+  field_skills: true
   field_work_environment: true
   langcode: true
   moderation_state: true

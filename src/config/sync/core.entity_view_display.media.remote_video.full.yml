@@ -9,6 +9,8 @@ dependencies:
     - field.field.media.remote_video.field_description
     - field.field.media.remote_video.field_duration
     - field.field.media.remote_video.field_media_oembed_video
+    - field.field.media.remote_video.field_recently_added
+    - field.field.media.remote_video.field_weight
     - media.type.remote_video
   module:
     - media
@@ -34,7 +36,9 @@ hidden:
   field_category: true
   field_description: true
   field_duration: true
+  field_recently_added: true
   field_title: true
+  field_weight: true
   langcode: true
   name: true
   search_api_excerpt: true

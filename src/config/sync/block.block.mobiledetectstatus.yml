@@ -1,0 +1,24 @@
+uuid: 95684a4e-771f-437f-94e6-595aa3598b91
+langcode: en
+status: false
+dependencies:
+  module:
+    - mobile_detect
+  theme:
+    - workbc
+id: mobiledetectstatus
+theme: workbc
+region: content_bottom
+weight: 0
+provider: null
+plugin: mobile_detect_status_block
+settings:
+  id: mobile_detect_status_block
+  label: 'Mobile Detect Status'
+  label_display: visible
+  provider: mobile_detect
+visibility:
+  mobile_detect_device_type:
+    id: mobile_detect_device_type
+    negate: null
+    devices: {  }

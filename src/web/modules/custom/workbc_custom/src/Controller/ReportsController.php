@@ -10,6 +10,13 @@ namespace Drupal\workbc_custom\Controller;
 use Drupal\Core\Controller\ControllerBase;
 use Drupal\Core\Link;
 use Drupal\Core\Url;
+use Drupal\node\Entity\Node;
+use Drupal\taxonomy\Entity\Term;
+
+use Drupal\media\Entity\Media;
+use Drupal\media\MediaInterface;
+use Drupal\media\MediaStorage;
+
 
 class ReportsController extends ControllerBase {
   public function unmanaged_files() {
@@ -149,6 +156,128 @@ class ReportsController extends ControllerBase {
       }
     }
 
+    return [
+      '#type' => 'markup',
+      '#markup' => $markup,
+    ];
+  }
+
+
+  public function wbcams542() {
+
+    $markup = "WBCAMS-542 Test Routine";
+
+    // Load the whole taxonomy tree using values.
+    // $manager = \Drupal::entityTypeManager()->getStorage('taxonomy_term');
+    // $taxonomy_tree = $manager->loadTree(
+    //     'video_categories', // The taxonomy term vocabulary machine name.
+    //     0,                 // The "tid" of parent using "0" to get all.
+    //     NULL,                 // Get all available levels.
+    //     TRUE               // Get full load of taxonomy term entity.
+    //     );
+
+    // $results_terms = [];
+
+    // ksm($taxonomy_tree);
+    // $ctr = 0;
+    // foreach ($taxonomy_tree as $term) {
+    //   if ($ctr < 3) {
+    //     ksm("----- start -----");
+    //     ksm($term->getName());
+    //     ksm($term->parent);
+    //     ksm("------ end ------");
+    //     $ctr++;
+    //   }
+    // }
+
+
+    $database = \Drupal::database();
+
+    $query = $database->select('media_field_data', 'm');
+    $query->condition('m.bundle', 'remote_video', '=');
+    $query->fields('m', ['mid', 'name', 'status', 'created']);
+
+    $records = $query->execute();
+    foreach ($records as $record) {
+      $media = Media::load($record->mid);
+      if ($media) {    
+        if (is_null($media->field_weight->value)) {
+          $media->field_weight = 0;
+          $media->save();
+          $message = "Remote Video: " . $media->name->value . " - weight set to 0";
+        }
+        else {
+          $message = "Remote Video: " . $media->name->value . " - weight already set";
+        }
+      }
+      else {
+        $message = $search . " - Media " . $record->mid . " not found";
+      }
+    }
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+//   // Filtering asking for parents first level hasn't got any parent.
+//   if(empty($manager->loadParents($term->id()))) {
+//     // We need a normalized version of the string without accents nor diacritics
+//     $results_terms[] = preg_replace('/[\x{0300}-\x{036f}]/u', "", Normalizer::normalize($term->getName() , Normalizer::FORM_D));
+//   }
+// }
+
+    //     // load career profiles
+    //     $connection = \Drupal::database();
+    //     $query = $connection->select('node__field_noc');
+    //     $query->condition('node__field_noc.bundle', 'career_profile');
+    //     $query->addField('node__field_noc', 'entity_id');
+    //     $query->addField('node__field_noc', 'field_noc_value');
+    //     $query->orderBy("entity_id");
+    //     $sandbox['career_profiles'] = $query->execute()->fetchAll();
+    //     $sandbox['count'] = count($sandbox['career_profiles']);
+
+    //     ksm($sandbox);
+    //     foreach ($sandbox['career_profiles'] as $career) {
+    //       $node = Node::load($career->entity_id);
+    //       $ssot_data = ssotCareerProfile($node->get("field_noc")->getString());
+    //       $skills = $ssot_data['skills'];
+
+    //       if (!is_null($skills[0]['importance'])) {       
+    //         $list = [];
+    //         foreach ($skills as $skill) {
+    //           $term = \Drupal::entityTypeManager()->getStorage('taxonomy_term')->loadByProperties(['name' => $skill]);
+    //           $term = reset($term);
+    //           $list[] = $term->id();
+    //         }
+    //         $node->field_skills = $list;                   
+    //       }
+    //       else {
+    //         $node->field_skills = [];
+    //       }
+    //       $node->save(); 
+    //     }
+    // // if (empty($errors)) {
+    // //   $markup = "<p>No validation errors found.</p>";
+    // // }
+    // // else {
+    // //   $markup = "";
+    // //   foreach ($errors as $error) {
+    // //     $markup .= "<p>" . $error . "</p>";
+    // //   }
+    // // }
+  
     return [
       '#type' => 'markup',
       '#markup' => $markup,

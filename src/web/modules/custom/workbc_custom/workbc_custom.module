@@ -15,7 +15,7 @@ use Drupal\views\ViewExecutable;
 use Drupal\redirect\Entity\Redirect;
 use Symfony\Component\HttpFoundation\Request;
 use Drupal\media\Entity\Media;
-
+use Drupal\views\Plugin\views\query\QueryPluginBase;
 
 /**
 * Implements hook_theme().
@@ -71,6 +71,19 @@ function workbc_custom_views_data_alter(array &$data) {
       'help' => t('WorkBC node granular date filter.'),
       'field' => 'title',
       'id' => 'workbc_node_granular_date_filter',
+    ],
+  ];
+
+  $data['node__field_skills']['field_skills_target_id'] = [
+    'title' => t('WorkBC Top 6 Skills filter'),
+    'group' => 'Content',    
+    'filter' => [
+      'title' => 'Skills (Top Skills filter)',
+      'id' => 'workbc_taxonomy_index_tid_filter',
+      'hierarchy table' => 'taxonomy_term__parent',
+      'numeric' => TRUE,
+      'skip base' => 'taxonomy_term_field_data',
+      'allow empty' => TRUE,
     ],
   ];
 
@@ -552,6 +565,29 @@ function workbc_custom_oembed_resource_url_alter(array &$parsed_url, \Drupal\med
     $parsed_url['query']['responsive'] = 'true';
   }
 }
+
+
+/**
+ * Implements hook_views_query_alter().
+ */
+function workbc_custom_views_query_alter(ViewExecutable $view, QueryPluginBase $query) {
+
+  // use GroupBy to ensure Video only appears once.
+  if ($view->id() == 'video_library') {
+    // ksm($query->where);
+    // if (isset($query->where[0])) {
+    //   ksm("in here");
+
+    //   $query->addWhere(0, 'field_career_videos_media_field_data__node__field_skills.delta', 6, '<');
+    // }
+    // $query->where[1]['conditions'][2]['field'] = 'field_career_videos_media_field_data__node__field_skills.delta';
+    $query->addField('media_field_data', 'mid', '', ['function' => 'groupby']);
+    $query->addGroupBy('media_field_data.mid');
+    // ksm($query->where);
+  }
+}
+
+
 
 /**
  * Implements hook_page_attachments().

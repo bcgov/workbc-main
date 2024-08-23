@@ -36,8 +36,8 @@ elements: |-
     '#empty_option': '—Select Inquiry Type'
     '#required': true
   name:
-    '#title': 'Your Name'
     '#type': textfield
+    '#title': 'Your Full Name'
     '#required': true
     '#default_value': '[current-user:display-name]'
   email:

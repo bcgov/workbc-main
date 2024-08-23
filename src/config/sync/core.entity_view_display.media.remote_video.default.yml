@@ -8,6 +8,8 @@ dependencies:
     - field.field.media.remote_video.field_description
     - field.field.media.remote_video.field_duration
     - field.field.media.remote_video.field_media_oembed_video
+    - field.field.media.remote_video.field_recently_added
+    - field.field.media.remote_video.field_weight
     - media.type.remote_video
   module:
     - link
@@ -39,6 +41,25 @@ content:
       max_height: 675
     third_party_settings: {  }
     weight: 0
+    region: content
+  field_recently_added:
+    type: boolean
+    label: above
+    settings:
+      format: default
+      format_custom_false: ''
+      format_custom_true: ''
+    third_party_settings: {  }
+    weight: 2
+    region: content
+  field_weight:
+    type: number_integer
+    label: above
+    settings:
+      thousand_separator: ''
+      prefix_suffix: true
+    third_party_settings: {  }
+    weight: 3
     region: content
 hidden:
   created: true

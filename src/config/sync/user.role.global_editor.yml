@@ -81,6 +81,7 @@ permissions:
   - 'create paragraph content action_cards_explore_careers'
   - 'create paragraph content action_cards_full_width'
   - 'create paragraph content action_cards_icon'
+  - 'create paragraph content action_cards_icon_1_2'
   - 'create paragraph content additional_duties'
   - 'create paragraph content content_interactive_map'
   - 'create paragraph content content_text'

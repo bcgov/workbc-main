@@ -18,6 +18,7 @@ dependencies:
     - node.type.success_story
     - node.type.workbc_centre
     - taxonomy.vocabulary.content_groups
+    - taxonomy.vocabulary.success_story_categories
   module:
     - actions_permissions
     - content_lock
@@ -56,6 +57,7 @@ permissions:
   - 'break content lock'
   - 'bypass content groups'
   - 'create terms in content_groups'
+  - 'create terms in success_story_categories'
   - 'create url aliases'
   - 'delete any bc_profile content'
   - 'delete any blog content'
@@ -91,6 +93,7 @@ permissions:
   - 'edit own field_organization'
   - 'edit own field_title'
   - 'edit terms in content_groups'
+  - 'edit terms in success_story_categories'
   - 'execute entity:break_lock node'
   - 'override bc_profile authored by option'
   - 'override blog authored by option'

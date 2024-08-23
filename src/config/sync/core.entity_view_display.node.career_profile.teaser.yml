@@ -23,6 +23,7 @@ dependencies:
     - field.field.node.career_profile.field_resources
     - field.field.node.career_profile.field_resources_reference
     - field.field.node.career_profile.field_scheduled_publish
+    - field.field.node.career_profile.field_skills
     - field.field.node.career_profile.field_work_environment
     - node.type.career_profile
   module:
@@ -78,6 +79,7 @@ hidden:
   extra_field_job_openings_forecast: true
   extra_field_job_openings_forecast_source: true
   extra_field_job_openings_source: true
+  extra_field_job_titles: true
   extra_field_labour_market_expected_openings: true
   extra_field_labour_market_expected_openings_source: true
   extra_field_labour_market_introduction: true
@@ -119,6 +121,7 @@ hidden:
   field_resources: true
   field_resources_reference: true
   field_scheduled_publish: true
+  field_skills: true
   field_work_environment: true
   langcode: true
   links: true

@@ -365,7 +365,6 @@ function workbc_preprocess_breadcrumb(&$variables){
   }
 }
 
-
 function workbc_preprocess_views_view_field(&$variables) {
 
   $view = $variables['view'];

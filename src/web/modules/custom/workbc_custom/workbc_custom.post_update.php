@@ -6,6 +6,8 @@ use Drupal\file\Entity\File;
 use Drupal\media\Entity\Media;
 use Drupal\media\MediaInterface;
 use Drupal\media\MediaStorage;
+use Drupal\node\Entity\Node;
+use Drupal\taxonomy\Entity\Term;
 
 /**
  * Add redirections of the form http://www.workbc.ca/Job-Seekers/Career-Profiles/[NOC]
@@ -1032,4 +1034,95 @@ function workbc_custom_post_update_14_wbcams_migration(&$sandbox = NULL) {
   
   $sandbox['#finished'] = empty($sandbox['career_trek']) ? 1 : ($sandbox['count'] - count($sandbox['career_trek'])) / $sandbox['count'];
   return t("[WBCAMS-14] $message");
+}
+
+
+/**
+ * Assign Skills to Career Profiles.
+ *
+ * As per ticket WBCAMS-542.
+ */
+function workbc_custom_post_update_542_career_profile_skills(&$sandbox = NULL) {
+  if (!isset($sandbox['career_profiles'])) {
+    // load career profiles
+    $connection = \Drupal::database();
+    $query = $connection->select('node__field_noc');
+    $query->condition('node__field_noc.bundle', 'career_profile');
+    $query->addField('node__field_noc', 'entity_id');
+    $query->addField('node__field_noc', 'field_noc_value');
+    $sandbox['career_profiles'] = $query->execute()->fetchAll();
+    $sandbox['count'] = count($sandbox['career_profiles']);
+  }
+
+  $message = "No action taken.";
+  $career = array_shift($sandbox['career_profiles']);
+  if (!empty($career)) {
+      $database = \Drupal::database();
+
+      $message = "Career Profile ";
+      
+      $node = Node::load($career->entity_id);
+      $ssot_data = ssotCareerProfile($node->get("field_noc")->getString());
+      $skills = $ssot_data['skills'];
+
+      if (!is_null($skills[0]['importance'])) {       
+        $list = [];
+        foreach ($skills as $skill) {
+          $term = \Drupal::entityTypeManager()->getStorage('taxonomy_term')->loadByProperties(['name' => $skill]);
+          $term = reset($term);
+          $list[] = $term->id();
+        }
+        $node->field_skills = $list;                  
+        $message = "NOC: " . $node->get("field_noc")->getString() . " - Skills updated";
+      }
+      else {
+        $node->field_skills = [];
+        $message = "NOC: " . $node->get("field_noc")->getString() . " - No skills associated with Career Profile";
+      }
+      $node->save();
+  }
+  
+  $sandbox['#finished'] = empty($sandbox['career_profiles']) ? 1 : ($sandbox['count'] - count($sandbox['career_profiles'])) / $sandbox['count'];
+  return t("[WBCAMS-542] $message");
+}
+
+
+/**
+ * Assign Weight to Media - Remote Video.
+ *
+ * As per ticket WBCAMS-521.
+ */
+function workbc_custom_post_update_521_media_weights(&$sandbox = NULL) {
+  if (!isset($sandbox['videos'])) {
+    // load remote videos
+    $database = \Drupal::database();
+
+    $query = $database->select('media_field_data', 'm');
+    $query->condition('m.bundle', 'remote_video', '=');
+    $query->fields('m', ['mid', 'name', 'status', 'created']);
+    $sandbox['videos'] = $query->execute()->fetchAll();
+    $sandbox['count'] = count($sandbox['videos']);
+  }
+
+  $message = "No action taken.";
+  $video = array_shift($sandbox['videos']);
+
+  $media = Media::load($video->mid);
+  if ($media) {    
+    if (is_null($media->field_weight->value)) {
+      $media->field_weight = 0;
+      $media->save();
+      $message = "Remote Video: " . $media->name->value . " - weight set to 0";
+    }
+    else {
+      $message = "Remote Video: " . $media->name->value . " - weight already set";
+    }
+  }
+  else {
+    $message = $search . " - Media " . $record->mid . " not found";
+  }
+
+  
+  $sandbox['#finished'] = empty($sandbox['videos']) ? 1 : ($sandbox['count'] - count($sandbox['videos'])) / $sandbox['count'];
+  return t("[WBCAMS-521] $message");
 }

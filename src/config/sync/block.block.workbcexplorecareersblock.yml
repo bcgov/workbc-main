@@ -23,7 +23,7 @@ settings:
   title: 'Career Profiles'
   body: 'Explore our 500 career profiles to find job expectations, education requirements, salary and more.'
   title_1: 'Search by keyword(s)'
-  body_1: 'Look up a career profile by entering a keyword(s) from the job title, or by entering the five-digit NOC number.'
+  body_1: 'Look up a career profile by entering a keyword(s) from the job title, or by entering the four-digit NOC number.'
   title_2: 'Search by A-Z'
   body_2: "Use the A-Z profile search to find career profiles that are organized alphabetically by title. \r\n \r\n"
   tooltip_1: 'The National Occupational Classification System (NOC) classifies all occupations in Canada.'
