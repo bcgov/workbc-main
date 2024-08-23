@@ -9,7 +9,7 @@ dependencies:
     - user
     - workbc_ssot
 id: ssot_log
-label: 'SSoT Operations Log'
+label: 'SSoT Upload Log'
 module: views
 description: ''
 tag: ''
@@ -22,7 +22,7 @@ display:
     display_plugin: default
     position: 0
     display_options:
-      title: 'SSoT: Operations Log'
+      title: 'SSoT: Upload log'
       fields:
         timestamp:
           id: timestamp
@@ -415,7 +415,7 @@ display:
           group_type: group
           admin_label: ''
           plugin_id: date
-          label: 'Spreadsheet Timestamp'
+          label: 'Spreadsheet timestamp'
           exclude: false
           alter:
             alter_text: false
@@ -495,25 +495,80 @@ display:
         type: tag
         options: {  }
       empty: {  }
-      sorts:
-        timestamp:
-          id: timestamp
-          table: workbc_ssot_log
-          field: timestamp
-          relationship: none
-          group_type: group
-          admin_label: ''
-          plugin_id: date
-          order: DESC
-          expose:
-            label: ''
-            field_identifier: ''
-          exposed: false
-          granularity: second
+      sorts: {  }
       arguments: {  }
       filters: {  }
       style:
         type: table
+        options:
+          grouping: {  }
+          row_class: ''
+          default_row_class: true
+          columns:
+            timestamp: timestamp
+            name: name
+            dataset_name: dataset_name
+            dataset_period: dataset_period
+            notes: notes
+            filename: filename
+            file_timestamp: file_timestamp
+          default: timestamp
+          info:
+            timestamp:
+              sortable: true
+              default_sort_order: desc
+              align: ''
+              separator: ''
+              empty_column: false
+              responsive: ''
+            name:
+              sortable: true
+              default_sort_order: asc
+              align: ''
+              separator: ''
+              empty_column: false
+              responsive: ''
+            dataset_name:
+              sortable: false
+              default_sort_order: asc
+              align: ''
+              separator: ''
+              empty_column: false
+              responsive: ''
+            dataset_period:
+              sortable: true
+              default_sort_order: desc
+              align: ''
+              separator: ''
+              empty_column: false
+              responsive: ''
+            notes:
+              sortable: false
+              default_sort_order: asc
+              align: ''
+              separator: ''
+              empty_column: false
+              responsive: ''
+            filename:
+              sortable: false
+              default_sort_order: asc
+              align: ''
+              separator: ''
+              empty_column: false
+              responsive: ''
+            file_timestamp:
+              sortable: true
+              default_sort_order: desc
+              align: ''
+              separator: ''
+              empty_column: false
+              responsive: ''
+          override: true
+          sticky: false
+          summary: ''
+          empty_table: false
+          caption: ''
+          description: ''
       row:
         type: fields
       query:
@@ -564,7 +619,7 @@ display:
       path: admin/config/workbc/ssot/log
       menu:
         type: normal
-        title: 'Operations Log'
+        title: 'Upload log'
         description: 'View the log of all SSoT operations.'
         weight: 0
         expanded: false

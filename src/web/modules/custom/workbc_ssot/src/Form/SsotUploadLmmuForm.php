@@ -620,12 +620,12 @@ class SsotUploadLmmuForm extends ConfirmFormBase {
       return;
     }
 
-    ksm($form_state->getValue('timestamp'));
-
     // Good to go: Remember the value for submission.
     $form_state->set('monthly_labour_market_updates', $monthly_labour_market_updates);
     $form_state->set('previous_month', $previous_month);
     $form_state->set('file_id', $file->id());
+    $form_state->set('notes', $form_state->getValue('notes'));
+    $form_state->set('timestamp', $form_state->getValue('timestamp')->getTimestamp());
   }
 
   /**
@@ -651,9 +651,11 @@ class SsotUploadLmmuForm extends ConfirmFormBase {
     }
     if ($result && $result->getStatusCode() < 300) {
       \Drupal::messenger()->addMessage(t('Labour Market Monthly Update successfully updated for <strong>@month @year</strong>. <a href="@url">Click here</a> to see it!', [
-        '@year' => $this->monthly_labour_market_updates['year'],
-        '@month' => DateHelper::monthNames(true)[$this->monthly_labour_market_updates['month']],
-        '@url' => Url::fromUri('internal:/research-labour-market/bcs-economy/labour-market-monthly-update')->toString()
+        '@year' => $year,
+        '@month' => DateHelper::monthNames(true)[$month],
+        '@url' => Url::fromUri('internal:/research-labour-market/bcs-economy/labour-market-monthly-update', [
+          'query' => ['month' => $month, 'year' => $year]
+        ])->toString()
       ]));
       $file = \Drupal\file\Entity\File::load($form_state->get('file_id'));
       $file->setPermanent();
@@ -669,8 +671,8 @@ class SsotUploadLmmuForm extends ConfirmFormBase {
         'dataset_name' => 'monthly_labour_market_updates',
         'dataset_period' => $year . '/' . str_pad($month, 2, '0', STR_PAD_LEFT),
         'file_id' => $file->id(),
-        'file_timestamp' => $form_state->getValue('timestamp'),
-        'notes' => $form_state->getValue('notes'),
+        'file_timestamp' => $form_state->get('timestamp'),
+        'notes' => $form_state->get('notes'),
       ])
       ->execute();
 
