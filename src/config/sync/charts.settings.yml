@@ -68,6 +68,3 @@ charts_default_settings:
 advanced:
   requirements:
     cdn: true
-dependencies:
-  module:
-    - charts_google

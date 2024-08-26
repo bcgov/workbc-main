@@ -23,7 +23,6 @@ settings:
   webform_id: contact
   default_data: ''
   redirect: false
-  lazy: false
 visibility:
   request_path:
     id: request_path

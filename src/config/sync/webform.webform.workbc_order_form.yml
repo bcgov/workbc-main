@@ -18,7 +18,7 @@ elements: |-
   workbc_order_form_intro:
     '#type': webform_markup
     '#access': false
-    '#markup': '<p>Order your WorkBC publications for free to your door. WorkBC Resources will only be shipped within British Columbia.</p>'
+    '#markup': 'Order your WorkBC publications for free to your door. WorkBC Resources will only be shipped within British Columbia.'
   publications:
     '#type': webform_publication_composite
     '#title': Publications
