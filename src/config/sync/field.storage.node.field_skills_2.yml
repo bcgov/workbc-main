@@ -1,12 +1,12 @@
-uuid: ea418fef-2edf-4aed-8347-eff86467fc29
+uuid: eb013bae-9e88-484e-85ab-75fbce09779b
 langcode: en
 status: true
 dependencies:
   module:
     - node
     - taxonomy
-id: node.field_skills
-field_name: field_skills
+id: node.field_skills_2
+field_name: field_skills_2
 entity_type: node
 type: entity_reference
 settings:

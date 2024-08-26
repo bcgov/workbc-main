@@ -23,7 +23,7 @@ dependencies:
     - field.field.node.career_profile.field_resources
     - field.field.node.career_profile.field_resources_reference
     - field.field.node.career_profile.field_scheduled_publish
-    - field.field.node.career_profile.field_skills
+    - field.field.node.career_profile.field_skills_2
     - field.field.node.career_profile.field_work_environment
     - node.type.career_profile
   module:
@@ -121,7 +121,7 @@ hidden:
   field_resources: true
   field_resources_reference: true
   field_scheduled_publish: true
-  field_skills: true
+  field_skills_2: true
   field_work_environment: true
   langcode: true
   links: true

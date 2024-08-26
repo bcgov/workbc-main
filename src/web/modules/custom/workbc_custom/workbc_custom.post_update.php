@@ -1000,7 +1000,7 @@ function workbc_custom_post_update_14_wbcams_migration(&$sandbox = NULL) {
   $message = "No action taken.";
   $career = array_shift($sandbox['career_trek']);
   if (!empty($career)) {
-    if ($career[2] <> "NEW") {   
+    if ($career[2] <> "NEW") {
       $database = \Drupal::database();
 
       $query = $database->select('media_field_data', 'm');
@@ -1015,7 +1015,7 @@ function workbc_custom_post_update_14_wbcams_migration(&$sandbox = NULL) {
       if ($record) {
         $media = Drupal\media\Entity\Media::load($record->mid);
         if ($media) {
-          
+
           $episode = isset($sandbox['career_trek_urls'][$career[2]]) ? $sandbox['career_trek_urls'][$career[2]] : $career[2];
           $target_url = rtrim(\Drupal::config('workbc')->get('careertrek_url'), '/') . "/episode/" .  $episode;
           $media->field_career_trek = $target_url;
@@ -1029,9 +1029,9 @@ function workbc_custom_post_update_14_wbcams_migration(&$sandbox = NULL) {
       else {
         $message = $search . " - Episode not found";
       }
-    }      
+    }
   }
-  
+
   $sandbox['#finished'] = empty($sandbox['career_trek']) ? 1 : ($sandbox['count'] - count($sandbox['career_trek'])) / $sandbox['count'];
   return t("[WBCAMS-14] $message");
 }
@@ -1060,28 +1060,28 @@ function workbc_custom_post_update_542_career_profile_skills(&$sandbox = NULL) {
       $database = \Drupal::database();
 
       $message = "Career Profile ";
-      
+
       $node = Node::load($career->entity_id);
       $ssot_data = ssotCareerProfile($node->get("field_noc")->getString());
       $skills = $ssot_data['skills'];
 
-      if (!is_null($skills[0]['importance'])) {       
+      if (!is_null($skills[0]['importance'])) {
         $list = [];
         foreach ($skills as $skill) {
           $term = \Drupal::entityTypeManager()->getStorage('taxonomy_term')->loadByProperties(['name' => $skill]);
           $term = reset($term);
           $list[] = $term->id();
         }
-        $node->field_skills = $list;                  
+        $node->field_skills_2 = $list;
         $message = "NOC: " . $node->get("field_noc")->getString() . " - Skills updated";
       }
       else {
-        $node->field_skills = [];
+        $node->field_skills_2 = [];
         $message = "NOC: " . $node->get("field_noc")->getString() . " - No skills associated with Career Profile";
       }
       $node->save();
   }
-  
+
   $sandbox['#finished'] = empty($sandbox['career_profiles']) ? 1 : ($sandbox['count'] - count($sandbox['career_profiles'])) / $sandbox['count'];
   return t("[WBCAMS-542] $message");
 }
@@ -1108,7 +1108,7 @@ function workbc_custom_post_update_521_media_weights(&$sandbox = NULL) {
   $video = array_shift($sandbox['videos']);
 
   $media = Media::load($video->mid);
-  if ($media) {    
+  if ($media) {
     if (is_null($media->field_weight->value)) {
       $media->field_weight = 0;
       $media->save();
@@ -1122,7 +1122,7 @@ function workbc_custom_post_update_521_media_weights(&$sandbox = NULL) {
     $message = $search . " - Media " . $record->mid . " not found";
   }
 
-  
+
   $sandbox['#finished'] = empty($sandbox['videos']) ? 1 : ($sandbox['count'] - count($sandbox['videos'])) / $sandbox['count'];
   return t("[WBCAMS-521] $message");
 }
