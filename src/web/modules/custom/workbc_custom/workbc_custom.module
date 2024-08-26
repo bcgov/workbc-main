@@ -76,7 +76,7 @@ function workbc_custom_views_data_alter(array &$data) {
 
   $data['node__field_skills']['field_skills_target_id'] = [
     'title' => t('WorkBC Top 6 Skills filter'),
-    'group' => 'Content',    
+    'group' => 'Content',
     'filter' => [
       'title' => 'Skills (Top Skills filter)',
       'id' => 'workbc_taxonomy_index_tid_filter',
@@ -137,7 +137,6 @@ function workbc_custom_views_pre_render(ViewExecutable $view) {
 * Implements hook_form_alter().
 */
 function workbc_custom_form_alter(&$form, \Drupal\Core\Form\FormStateInterface $form_state, $form_id) {
-
   // hide password and disable editing of username and email
   // maintenance of this info is handled by keycloak
   if ($form_id === 'user_form') {
@@ -190,7 +189,7 @@ function workbc_custom_form_node_form_alter(&$form, \Drupal\Core\Form\FormStateI
 }
 
 /**
-* Implements hook_form_FORM_ID_alter() for views_exposed.
+* Implements hook_form_FORM_ID_alter() for views_exposed_form.
 */
 function workbc_custom_form_views_exposed_form_alter(&$form, \Drupal\Core\Form\FormStateInterface $form_state, $form_id) {
 
@@ -219,22 +218,29 @@ function workbc_custom_form_views_exposed_form_alter(&$form, \Drupal\Core\Form\F
   }
 
   if ($form['#id'] === 'views-exposed-form-video-library-block-1') {
-    $form['#attached']['library'][] =  'workbc_custom/video-library';
-    foreach ($form['video_category']['#options'] as &$option) {
-      if (property_exists($option, 'option')) {
-        foreach ($option->option as &$opt) {
-          if (str_starts_with($opt, '-')) {
-            $opt = preg_replace('/^-/', '- ', $opt);
-          }
-        }
-      }
-    }
+    $form['field_recently_added_value']['#type'] = 'hidden';
+    $form['actions']['recent'] = [
+      '#value' => 'Recently added',
+      '#type' => 'submit',
+      '#weight' => 100,
+      '#id' => 'link-recently-added'
+    ];
+    array_unshift($form['#submit'], 'video_library_exposed_form_submit');
   }
 }
 
 /**
-* Submit function for views-exposed-form-high-opportunity-occupations-block-1.
-*/
+ * Submit function for views-exposed-form-video-library-block-1.
+ */
+function video_library_exposed_form_submit(array &$form, \Drupal\Core\Form\FormStateInterface &$form_state) {
+  if ($form_state->getValue('op') === 'Recently added') {
+    $form_state->setValue('field_recently_added_value', 1);
+  }
+}
+
+/**
+ * Submit function for views-exposed-form-high-opportunity-occupations-block-1.
+ */
 function hoo_multiselect_form_submit(array &$form, \Drupal\Core\Form\FormStateInterface &$form_state) {
 
   $md = \Drupal::service('mobile_detect');
@@ -528,7 +534,7 @@ function workbc_custom_metatags_attachments_alter(array &$metatag_attachments) {
           }
         }
       }
-      
+
       $tag = [
         [
           '#tag' => 'meta',
