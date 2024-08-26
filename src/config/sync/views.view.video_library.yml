@@ -631,10 +631,10 @@ display:
           hierarchy: true
           limit: true
           error_message: true
-        field_skills_target_id:
-          id: field_skills_target_id
-          table: node__field_skills
-          field: field_skills_target_id
+        field_skills_2_target_id:
+          id: field_skills_2_target_id
+          table: node__field_skills_2
+          field: field_skills_2_target_id
           relationship: reverse__node__field_career_videos
           group_type: group
           admin_label: ''
@@ -644,14 +644,14 @@ display:
           group: 1
           exposed: true
           expose:
-            operator_id: field_skills_target_id_op
+            operator_id: field_skills_2_target_id_op
             label: Skills
             description: ''
             use_operator: false
-            operator: field_skills_target_id_op
+            operator: field_skills_2_target_id_op
             operator_limit_selection: false
             operator_list: {  }
-            identifier: field_skills_target_id
+            identifier: field_skills_2_target_id
             required: false
             remember: false
             multiple: false

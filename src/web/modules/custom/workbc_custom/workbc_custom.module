@@ -74,7 +74,7 @@ function workbc_custom_views_data_alter(array &$data) {
     ],
   ];
 
-  $data['node__field_skills']['field_skills_target_id'] = [
+  $data['node__field_skills_2']['field_skills_2_target_id'] = [
     'title' => t('WorkBC Top 6 Skills filter'),
     'group' => 'Content',
     'filter' => [
@@ -239,7 +239,7 @@ function video_library_exposed_form_submit(array &$form, \Drupal\Core\Form\FormS
     $form_state->setValues([
       'combine' => '',
       'video_category' => 'All',
-      'field_skills_target_id' => 'All',
+      'field_skills_2_target_id' => 'All',
       'field_recently_added_value' => 1,
     ]);
   }
@@ -587,16 +587,8 @@ function workbc_custom_views_query_alter(ViewExecutable $view, QueryPluginBase $
 
   // use GroupBy to ensure Video only appears once.
   if ($view->id() == 'video_library') {
-    // ksm($query->where);
-    // if (isset($query->where[0])) {
-    //   ksm("in here");
-
-    //   $query->addWhere(0, 'field_career_videos_media_field_data__node__field_skills.delta', 6, '<');
-    // }
-    // $query->where[1]['conditions'][2]['field'] = 'field_career_videos_media_field_data__node__field_skills.delta';
     $query->addField('media_field_data', 'mid', '', ['function' => 'groupby']);
     $query->addGroupBy('media_field_data.mid');
-    // ksm($query->where);
   }
 }
 

@@ -61,11 +61,3 @@ workbc_custom.career_profile_by_noc:
     _title: 'Display Career Profile by NOC #'
   requirements:
     _permission: 'access content'
-
-workbc_custom.report_wbcams_542:
-  path: '/admin/reports/wbcams-542'
-  defaults:
-    _controller: '\Drupal\workbc_custom\Controller\ReportsController::wbcams542'
-    _title: 'WBCAMS-542 Test'
-  requirements:
-    _permission: 'administer workbc_custom settings'
