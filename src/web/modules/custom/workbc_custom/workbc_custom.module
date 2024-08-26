@@ -234,7 +234,14 @@ function workbc_custom_form_views_exposed_form_alter(&$form, \Drupal\Core\Form\F
  */
 function video_library_exposed_form_submit(array &$form, \Drupal\Core\Form\FormStateInterface &$form_state) {
   if ($form_state->getValue('op') === 'Recently added') {
-    $form_state->setValue('field_recently_added_value', 1);
+    $form_state->setRebuild();
+    $form_state->setRedirect('<current>');
+    $form_state->setValues([
+      'combine' => '',
+      'video_category' => 'All',
+      'field_skills_target_id' => 'All',
+      'field_recently_added_value' => 1,
+    ]);
   }
 }
 
