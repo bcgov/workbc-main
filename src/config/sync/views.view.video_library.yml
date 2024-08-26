@@ -645,7 +645,7 @@ display:
           exposed: true
           expose:
             operator_id: field_skills_target_id_op
-            label: Skill
+            label: Skills
             description: ''
             use_operator: false
             operator: field_skills_target_id_op
