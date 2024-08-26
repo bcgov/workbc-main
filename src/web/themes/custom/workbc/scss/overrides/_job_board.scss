@@ -135,8 +135,15 @@
     padding: 1rem 0 0;
   }
 
-  #link-recently-added {
+  #edit-recently-added {
     float: right;
+  }
+
+  #edit-recently-added, #edit-reset {
+    @include btn-border;
+    color: #2e6ab0;
+    text-decoration: none;
+    background-color: transparent;
   }
 }
 

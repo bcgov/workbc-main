@@ -223,7 +223,7 @@ function workbc_custom_form_views_exposed_form_alter(&$form, \Drupal\Core\Form\F
       '#value' => 'Recently added',
       '#type' => 'submit',
       '#weight' => 100,
-      '#id' => 'link-recently-added'
+      '#id' => 'edit-recently-added'
     ];
     array_unshift($form['#submit'], 'video_library_exposed_form_submit');
   }
