@@ -173,5 +173,22 @@ function workbc_ssot_views_data() {
         'id' => 'standard',
       ],
     ],
+    'latest' => [
+      'title' => t('Latest'),
+      'help' => t('Whether or not this upload is the latest for the dataset/period.'),
+      'field' => [
+        'id' => 'boolean',
+      ],
+      'filter' => [
+        'id' => 'boolean',
+        'label' => t('Latest'),
+        'type' => 'yes-no',
+        'accept null' => TRUE,
+        'use_equal' => TRUE,
+      ],
+      'sort' => [
+        'id' => 'standard',
+      ],
+    ],
   ]];
 }

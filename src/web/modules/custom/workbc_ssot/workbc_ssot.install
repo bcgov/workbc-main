@@ -62,6 +62,13 @@ function workbc_ssot_schema(){
         'default' => '',
         'description' => 'Notes about the operation.',
       ],
+      'latest' => [
+        'type' => 'int',
+        'unsgiend' => true,
+        'not null' => true,
+        'default' => true,
+        'description' => 'Is this the latest upload for this dataset/period?',
+      ],
     ],
     'primary key' => array('oid'),
     'foreign keys' => [

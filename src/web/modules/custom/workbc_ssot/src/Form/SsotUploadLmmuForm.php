@@ -664,16 +664,25 @@ class SsotUploadLmmuForm extends ConfirmFormBase {
       // Save to the SSoT operations log.
       /** @var \Drupal\Core\Database\Connection $connection */
       $connection = \Drupal::service('database');
-      $result = $connection->insert('workbc_ssot_log')
+      $period = \DateTime::createFromFormat('d-m-Y H:i:s', "01-$month-$year 00:00:00")->getTimestamp();
+      $log_id = $connection->insert('workbc_ssot_log')
       ->fields([
         'uid' => \Drupal::currentUser()->id(),
         'timestamp' => \Drupal::time()->getRequestTime(),
         'dataset_name' => 'monthly_labour_market_updates',
-        'dataset_period' => \DateTime::createFromFormat('d-m-Y', "01-$month-$year")->getTimestamp(),
+        'dataset_period' => $period,
         'file_id' => $file->id(),
         'file_timestamp' => $form_state->get('timestamp'),
         'notes' => $form_state->get('notes'),
       ])
+      ->execute();
+      $result = $connection->update('workbc_ssot_log')
+      ->fields([
+        'latest' => 0,
+      ])
+      ->condition('dataset_name', 'monthly_labour_market_updates')
+      ->condition('dataset_period', $period)
+      ->condition('oid', $log_id, '<>')
       ->execute();
 
       \Drupal::messenger()->addMessage(t('Labour Market Monthly Update successfully updated for <strong>@month @year</strong>. <a href="@url">Click here</a> to see it!', [

@@ -5,7 +5,7 @@ use Drupal\Core\StreamWrapper\StreamWrapperManager;
 /**
  * Implements hook_file_download().
  */
-function workbc_custom_file_download($uri) {
+function workbc_ssot_file_download($uri) {
   $scheme = StreamWrapperManager::getScheme($uri);
   $target = StreamWrapperManager::getTarget($uri);
   if ($scheme === 'private' && str_starts_with($target, 'ssot/')) {
@@ -14,4 +14,31 @@ function workbc_custom_file_download($uri) {
       'Content-disposition' => "attachment; filename=\"$filename\"",
     ];
   }
+}
+
+/**
+ * Implements hook_element_info_alter().
+ */
+function workbc_ssot_element_info_alter(array &$types) {
+  $types['datetime']['#process'][] = 'workbc_ssot_process_element';
+}
+
+/**
+ * Element process callback for datetime fields.
+ */
+function workbc_ssot_process_element($element) {
+  $element['time']['#attributes']['title'] = t('Enter a valid time - e.g. @format', [
+    '@format' => (new \DateTime())->format('h:i'),
+  ]);
+  if ($element['#date_time_element'] !== 'none') {
+    $element['#date_time_format'] = 'H:i';
+  }
+  if (!empty($element['time']['#value'])) {
+    $parts = explode(':', $element['time']['#value']);
+    $parts = array_splice($parts, 0, 2);
+    $element['time']['#value'] = implode(':', $parts);
+  }
+  // Remove seconds in browsers that support HTML5 type=date.
+  $element['time']['#attributes']['step'] = 60;
+  return $element;
 }
