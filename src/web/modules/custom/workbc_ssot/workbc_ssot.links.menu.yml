@@ -1,8 +1,8 @@
 workbc_ssot.main:
   title: 'SSoT'
   parent: workbc_custom.admin_index
-  route_name: workbc_ssot.lmmu
-  description: 'SSoT administration'
+  route_name: view.ssot_log.page_1
+  description: 'SSoT administration.'
 
 workbc_ssot.lmmu:
   title: 'Labour Market Monthly Update'

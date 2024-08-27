@@ -22,7 +22,7 @@ display:
     display_plugin: default
     position: 0
     display_options:
-      title: 'SSoT: Upload log'
+      title: 'SSoT: Upload Log'
       fields:
         timestamp:
           id: timestamp
@@ -190,6 +190,59 @@ display:
           hide_empty: false
           empty_zero: false
           hide_alter_empty: true
+        latest:
+          id: latest
+          table: workbc_ssot_log
+          field: latest
+          relationship: none
+          group_type: group
+          admin_label: ''
+          plugin_id: boolean
+          label: 'Latest?'
+          exclude: false
+          alter:
+            alter_text: false
+            text: ''
+            make_link: false
+            path: ''
+            absolute: false
+            external: false
+            replace_spaces: false
+            path_case: none
+            trim_whitespace: false
+            alt: ''
+            rel: ''
+            link_class: ''
+            prefix: ''
+            suffix: ''
+            target: ''
+            nl2br: false
+            max_length: 0
+            word_boundary: true
+            ellipsis: true
+            more_link: false
+            more_link_text: ''
+            more_link_path: ''
+            strip_tags: false
+            trim: false
+            preserve_tags: ''
+            html: false
+          element_type: ''
+          element_class: ''
+          element_label_type: ''
+          element_label_class: ''
+          element_label_colon: true
+          element_wrapper_type: ''
+          element_wrapper_class: ''
+          element_default_classes: true
+          empty: ''
+          hide_empty: false
+          empty_zero: false
+          hide_alter_empty: true
+          type: yes-no
+          type_custom_true: ''
+          type_custom_false: ''
+          not: false
         dataset_period:
           id: dataset_period
           table: workbc_ssot_log
@@ -198,7 +251,7 @@ display:
           group_type: group
           admin_label: ''
           plugin_id: standard
-          label: Period
+          label: Month/Year
           exclude: false
           alter:
             alter_text: false
@@ -484,7 +537,7 @@ display:
         type: basic
         options:
           submit_button: Apply
-          reset_button: false
+          reset_button: true
           reset_button_label: Reset
           exposed_sorts_label: 'Sort by'
           expose_sort_order: true
@@ -497,10 +550,116 @@ display:
       cache:
         type: tag
         options: {  }
-      empty: {  }
+      empty:
+        area:
+          id: area
+          table: views
+          field: area
+          relationship: none
+          group_type: group
+          admin_label: ''
+          plugin_id: text
+          empty: true
+          content:
+            value: 'No entries found.'
+            format: full_html
+          tokenize: false
       sorts: {  }
       arguments: {  }
-      filters: {  }
+      filters:
+        notes:
+          id: notes
+          table: workbc_ssot_log
+          field: notes
+          relationship: none
+          group_type: group
+          admin_label: ''
+          plugin_id: string
+          operator: word
+          value: ''
+          group: 1
+          exposed: true
+          expose:
+            operator_id: notes_op
+            label: Notes
+            description: ''
+            use_operator: false
+            operator: notes_op
+            operator_limit_selection: false
+            operator_list: {  }
+            identifier: notes
+            required: false
+            remember: false
+            multiple: false
+            remember_roles:
+              authenticated: authenticated
+              anonymous: '0'
+              content_editor: '0'
+              content_approver: '0'
+              workbc_administrator: '0'
+              global_editor: '0'
+              global_approver: '0'
+              workbc_global_administrator: '0'
+              administrator: '0'
+            placeholder: ''
+          is_grouped: false
+          group_info:
+            label: ''
+            description: ''
+            identifier: ''
+            optional: true
+            widget: select
+            multiple: false
+            remember: false
+            default_group: All
+            default_group_multiple: {  }
+            group_items: {  }
+        latest:
+          id: latest
+          table: workbc_ssot_log
+          field: latest
+          relationship: none
+          group_type: group
+          admin_label: ''
+          plugin_id: boolean
+          operator: '='
+          value: All
+          group: 1
+          exposed: true
+          expose:
+            operator_id: ''
+            label: 'Latest?'
+            description: ''
+            use_operator: false
+            operator: latest_op
+            operator_limit_selection: false
+            operator_list: {  }
+            identifier: latest
+            required: false
+            remember: false
+            multiple: false
+            remember_roles:
+              authenticated: authenticated
+              anonymous: '0'
+              content_editor: '0'
+              content_approver: '0'
+              workbc_administrator: '0'
+              global_editor: '0'
+              global_approver: '0'
+              workbc_global_administrator: '0'
+              administrator: '0'
+          is_grouped: false
+          group_info:
+            label: ''
+            description: ''
+            identifier: ''
+            optional: true
+            widget: select
+            multiple: false
+            remember: false
+            default_group: All
+            default_group_multiple: {  }
+            group_items: {  }
       style:
         type: table
         options:
@@ -609,6 +768,7 @@ display:
       contexts:
         - 'languages:language_content'
         - 'languages:language_interface'
+        - url
         - url.query_args
         - user.permissions
       tags: {  }
@@ -622,9 +782,9 @@ display:
       path: admin/config/workbc/ssot/log
       menu:
         type: normal
-        title: 'Upload log'
+        title: 'Upload Log'
         description: 'View the log of all SSoT operations.'
-        weight: 0
+        weight: -100
         expanded: false
         menu_name: admin
         parent: workbc_ssot.main
@@ -634,6 +794,7 @@ display:
       contexts:
         - 'languages:language_content'
         - 'languages:language_interface'
+        - url
         - url.query_args
         - user.permissions
       tags: {  }
