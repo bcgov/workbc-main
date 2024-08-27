@@ -1,0 +1,25 @@
+uuid: 8b6208ab-b412-4245-9fcb-e2d90b423341
+langcode: en
+status: true
+dependencies:
+  config:
+    - field.storage.media.field_weight
+    - media.type.remote_video
+id: media.remote_video.field_weight
+field_name: field_weight
+entity_type: media
+bundle: remote_video
+label: Weight
+description: ''
+required: false
+translatable: false
+default_value:
+  -
+    value: 0
+default_value_callback: ''
+settings:
+  min: null
+  max: null
+  prefix: ''
+  suffix: ''
+field_type: integer

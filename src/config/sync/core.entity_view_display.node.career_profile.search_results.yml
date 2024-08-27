@@ -23,6 +23,7 @@ dependencies:
     - field.field.node.career_profile.field_resources
     - field.field.node.career_profile.field_resources_reference
     - field.field.node.career_profile.field_scheduled_publish
+    - field.field.node.career_profile.field_skills_2
     - field.field.node.career_profile.field_work_environment
     - node.type.career_profile
   module:
@@ -36,7 +37,7 @@ third_party_settings:
       label: 'Career Profile Tabs'
       parent_name: ''
       region: hidden
-      weight: 13
+      weight: 67
       format_type: tabs
       format_settings:
         classes: ''
@@ -49,7 +50,7 @@ third_party_settings:
       label: 'Career Overview'
       parent_name: ''
       region: hidden
-      weight: 14
+      weight: 68
       format_type: tab
       format_settings:
         classes: ''
@@ -62,7 +63,7 @@ third_party_settings:
       label: 'Education, Training & Skills'
       parent_name: ''
       region: hidden
-      weight: 61
+      weight: 69
       format_type: tab
       format_settings:
         classes: ''
@@ -75,7 +76,7 @@ third_party_settings:
       label: 'Labour Market Statistics'
       parent_name: ''
       region: hidden
-      weight: 62
+      weight: 70
       format_type: tab
       format_settings:
         classes: ''
@@ -88,7 +89,7 @@ third_party_settings:
       label: 'Industry Highlights'
       parent_name: ''
       region: hidden
-      weight: 63
+      weight: 71
       format_type: tab
       format_settings:
         classes: ''
@@ -101,7 +102,7 @@ third_party_settings:
       label: Resources
       parent_name: ''
       region: hidden
-      weight: 64
+      weight: 72
       format_type: tab
       format_settings:
         classes: ''
@@ -122,7 +123,7 @@ content:
       custom_date_format: ''
       timezone: ''
     third_party_settings: {  }
-    weight: 0
+    weight: 1
     region: content
   extra_field_career_videos_introduction:
     settings: {  }
@@ -140,7 +141,7 @@ content:
     settings:
       trim_length: 275
     third_party_settings: {  }
-    weight: 0
+    weight: 2
     region: content
   uid:
     type: author
@@ -168,6 +169,7 @@ hidden:
   extra_field_job_openings_forecast: true
   extra_field_job_openings_forecast_source: true
   extra_field_job_openings_source: true
+  extra_field_job_titles: true
   extra_field_labour_market_expected_openings: true
   extra_field_labour_market_expected_openings_source: true
   extra_field_labour_market_introduction: true
@@ -209,6 +211,7 @@ hidden:
   field_resources: true
   field_resources_reference: true
   field_scheduled_publish: true
+  field_skills_2: true
   field_work_environment: true
   langcode: true
   links: true

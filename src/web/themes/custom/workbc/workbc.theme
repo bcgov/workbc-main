@@ -258,6 +258,8 @@ function workbc_preprocess_node(&$variables) {
 }
 
 /**
+ * Implements template_preprocess_views_view_summary_unformatted().
+ *
  * Prepares "view_base_path" variables for unformatted summary view templates
  * for use with glossary All option.
  */
@@ -286,7 +288,7 @@ function workbc_preprocess_media(&$variables) {
 }
 
 /**
- * Implements hook_preprocess_html().
+ * Implements template_preprocess_html().
  */
 function workbc_preprocess_html(&$vars) {
   // Get the current path
@@ -298,7 +300,7 @@ function workbc_preprocess_html(&$vars) {
 }
 
 /**
- * Implements hook_preprocess_menu().
+ * Implements template_preprocess_menu().
  */
 function workbc_preprocess_menu(&$vars) {
   if ($vars['menu_name'] === 'footer') {
@@ -312,7 +314,6 @@ function workbc_preprocess_menu(&$vars) {
   }
 }
 
-
 /**
  * Implements hook_theme_suggestions_paragraph_alter().
  */
@@ -322,9 +323,8 @@ function workbc_theme_suggestions_form_element_alter(array &$suggestions, array 
   }
 }
 
-
 /**
- * Implements hook_theme_preprocess_form_element().
+ * Implements template_preprocess_form_element().
  */
 function workbc_preprocess_form_element(&$variables) {
 
@@ -336,9 +336,8 @@ function workbc_preprocess_form_element(&$variables) {
 
 }
 
-
 /**
- * Implements hook_preprocess_block().
+ * Implements template_preprocess_block().
  */
 function workbc_preprocess_block(&$vars) {
   if ($vars['plugin_id'] === 'side_nav_block') {
@@ -354,7 +353,9 @@ function workbc_preprocess_block(&$vars) {
   }
 }
 
-
+/**
+ * Implements template_preprocess_breadcrumb().
+ */
 function workbc_preprocess_breadcrumb(&$variables){
   $types = ["career_profile", "industry_profile"];
   $node = \Drupal::routeMatch()->getParameter('node');
@@ -365,7 +366,9 @@ function workbc_preprocess_breadcrumb(&$variables){
   }
 }
 
-
+/**
+ * Implements template_preprocess_views_view_field().
+ */
 function workbc_preprocess_views_view_field(&$variables) {
 
   $view = $variables['view'];

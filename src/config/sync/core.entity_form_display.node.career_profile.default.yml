@@ -22,6 +22,7 @@ dependencies:
     - field.field.node.career_profile.field_resources
     - field.field.node.career_profile.field_resources_reference
     - field.field.node.career_profile.field_scheduled_publish
+    - field.field.node.career_profile.field_skills_2
     - field.field.node.career_profile.field_work_environment
     - node.type.career_profile
     - workflows.workflow.editorial
@@ -255,3 +256,4 @@ content:
 hidden:
   field_hero_image: true
   field_resources: true
+  field_skills_2: true

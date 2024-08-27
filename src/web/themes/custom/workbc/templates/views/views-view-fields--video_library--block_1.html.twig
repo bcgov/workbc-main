@@ -31,7 +31,6 @@
  * @ingroup themeable
  */
 #}
-
 <div class="workbc-card">
    <div class="workbc-card-container">
       <div class="workbc-card-video-preview">
@@ -39,7 +38,7 @@
       </div>
 
       <div class="workbc-card-details">
-         <div class="workbc-card-categories">{{ fields.field_category.content }}</div>
+         <div class="workbc-card-categories"><a href="/career/{{ fields.field_noc.content|striptags }}">View career profile NOC {{ fields.field_noc.content|raw }}</a></div>
          <div class="workbc-card-duration">{{ fields.field_duration.content }}</div>
       </div>
 
