@@ -1068,7 +1068,7 @@ function workbc_custom_post_update_542_career_profile_skills(&$sandbox = NULL) {
       if (!is_null($skills[0]['importance'])) {
         $list = [];
         foreach ($skills as $skill) {
-          $term = \Drupal::entityTypeManager()->getStorage('taxonomy_term')->loadByProperties(['name' => $skill]);
+          $term = \Drupal::entityTypeManager()->getStorage('taxonomy_term')->loadByProperties(['name' => $skill['skills_competencies']]);
           $term = reset($term);
           $list[] = $term->id();
         }
