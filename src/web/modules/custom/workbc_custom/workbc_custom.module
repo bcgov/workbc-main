@@ -136,7 +136,7 @@ function workbc_custom_views_pre_render(ViewExecutable $view) {
 /**
 * Implements hook_form_alter().
 */
-function workbc_custom_form_alter(&$form, \Drupal\Core\Form\FormStateInterface $form_state, $form_id) {
+function workbc_custom_form_alter(&$form, FormStateInterface $form_state, $form_id) {
   // hide password and disable editing of username and email
   // maintenance of this info is handled by keycloak
   if ($form_id === 'user_form') {
@@ -175,7 +175,7 @@ function workbc_custom_form_alter(&$form, \Drupal\Core\Form\FormStateInterface $
 /**
 * Implements hook_form_FORM_ID_alter() for node_form_alter.
 */
-function workbc_custom_form_node_form_alter(&$form, \Drupal\Core\Form\FormStateInterface $form_state, $form_id) {
+function workbc_custom_form_node_form_alter(&$form, FormStateInterface $form_state, $form_id) {
 
   $user = \Drupal\user\Entity\User::load(\Drupal::currentUser()->id());
 
@@ -191,7 +191,7 @@ function workbc_custom_form_node_form_alter(&$form, \Drupal\Core\Form\FormStateI
 /**
 * Implements hook_form_FORM_ID_alter() for views_exposed_form.
 */
-function workbc_custom_form_views_exposed_form_alter(&$form, \Drupal\Core\Form\FormStateInterface $form_state, $form_id) {
+function workbc_custom_form_views_exposed_form_alter(&$form, FormStateInterface $form_state, $form_id) {
 
   if ($form['#id'] === 'views-exposed-form-high-opportunity-occupations-block-1') {
     if (isset($form['region'])) {
@@ -225,22 +225,20 @@ function workbc_custom_form_views_exposed_form_alter(&$form, \Drupal\Core\Form\F
       '#weight' => 100,
       '#id' => 'edit-recently-added'
     ];
-    array_unshift($form['#submit'], 'video_library_exposed_form_submit');
+    $form['#submit'][] = 'video_library_exposed_form_submit';
   }
 }
 
 /**
  * Submit function for views-exposed-form-video-library-block-1.
  */
-function video_library_exposed_form_submit(array &$form, \Drupal\Core\Form\FormStateInterface &$form_state) {
+function video_library_exposed_form_submit(array &$form, FormStateInterface &$form_state) {
   if ($form_state->getValue('op') === 'Recently added') {
-    $form_state->setRebuild();
-    $form_state->setRedirect('<current>');
-    $form_state->setValues([
-      'combine' => '',
-      'video_category' => 'All',
-      'field_skills_2_target_id' => 'All',
-      'field_recently_added_value' => 1,
+    $form_state->disableRedirect(FALSE);
+    $form_state->setRedirect('<current>', [], [
+      'query' => [
+        'field_recently_added_value' => 1
+      ]
     ]);
   }
 }
@@ -248,7 +246,7 @@ function video_library_exposed_form_submit(array &$form, \Drupal\Core\Form\FormS
 /**
  * Submit function for views-exposed-form-high-opportunity-occupations-block-1.
  */
-function hoo_multiselect_form_submit(array &$form, \Drupal\Core\Form\FormStateInterface &$form_state) {
+function hoo_multiselect_form_submit(array &$form, FormStateInterface &$form_state) {
 
   $md = \Drupal::service('mobile_detect');
   if ($md->isMobile() && !$md->isTablet()) {
