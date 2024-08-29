@@ -356,7 +356,10 @@ class SsotUploadLmmuForm extends ConfirmFormBase {
     $form['notes'] = [
       '#type' => 'textarea',
       '#title' => $this->t('Notes'),
-      '#description' => $this->t('Please provide any additional notes or comments, including the work ticket nummber.'),
+      '#description' => $this->t('Please provide any additional notes or comments, including the work ticket nummber. Limited to 250 characters.'),
+      '#attributes' => [
+        'maxlength' => 250,
+      ]
     ];
 
     $form['submit_upload'] = [
