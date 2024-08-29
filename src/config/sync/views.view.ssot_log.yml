@@ -784,7 +784,7 @@ display:
         type: normal
         title: 'Upload Log'
         description: 'View the log of all SSoT operations.'
-        weight: -100
+        weight: 100
         expanded: false
         menu_name: admin
         parent: workbc_ssot.main

@@ -1,9 +1,9 @@
-workbc_ssot.main:
-  route_name: view.ssot_log.page_1
-  title: 'Upload Log'
-  base_route: workbc_ssot.main
-
 workbc_ssot.lmmu:
   route_name: workbc_ssot.lmmu
   title: 'Labour Market Monthly Update'
-  base_route: workbc_ssot.main
+  base_route: workbc_ssot.lmmu
+
+workbc_ssot.log:
+  route_name: view.ssot_log.page_1
+  title: 'Upload Log'
+  base_route: workbc_ssot.lmmu
