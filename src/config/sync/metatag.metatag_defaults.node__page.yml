@@ -5,4 +5,5 @@ dependencies: {  }
 id: node__page
 label: 'Content: Page'
 tags:
+  description: '[node:field_metatag_description]'
   keywords: '[node:field_tags]'
