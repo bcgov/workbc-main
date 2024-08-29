@@ -4,3 +4,9 @@ services:
     # Tagged as an event_subscriber to register this subscriber with the event_dispatch service.
     tags:
       - { name: 'event_subscriber' }
+
+  placeholder_strategy.big_pipe_disable:
+    public: false
+    class: Drupal\workbc_custom\Render\Placeholder\BigPipeDisableStrategy
+    decorates: placeholder_strategy.big_pipe
+    arguments: ['@placeholder_strategy.big_pipe_disable.inner', '@session_configuration', '@request_stack', '@current_route_match']
