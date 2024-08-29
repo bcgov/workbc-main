@@ -653,7 +653,7 @@ class SsotUploadLmmuForm extends ConfirmFormBase {
     if ($result && $result->getStatusCode() < 300) {
       // Update sources date.
       $result = $this->ssot('sources?endpoint=eq.monthly_labour_market_updates&datapoint=is.null', null, 'PATCH', json_encode([
-        'date' => date('Y/m/d')
+        'date' => date(\DateTimeInterface::ATOM)
       ]));
       if ($result && $result->getStatusCode() >= 300) {
         \Drupal::logger('workbc_ssot')->error(json_decode($result->getBody(), true));
