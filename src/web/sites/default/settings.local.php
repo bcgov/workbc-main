@@ -38,7 +38,6 @@ $databases['ssot']['default'] = [
   'username' => 'workbc',
 ];
 
-
 /**
  * Assertions.
  *

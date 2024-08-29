@@ -12,7 +12,7 @@ workbc_custom.admin_settings:
     _title: 'WorkBC settings'
     _form: '\Drupal\workbc_custom\Form\AdminSettingsForm'
   requirements:
-    _permission: 'administer workbc_custom settings'
+    _permission: 'administer workbc settings'
 
 workbc_custom.report_unmanaged_files:
   path: '/admin/reports/unmanaged_files'
@@ -20,7 +20,7 @@ workbc_custom.report_unmanaged_files:
     _controller: '\Drupal\workbc_custom\Controller\ReportsController::unmanaged_files'
     _title: 'WorkBC unmanaged files'
   requirements:
-    _permission: 'administer workbc_custom settings'
+    _permission: 'administer workbc settings'
 
 workbc_custom.report_duplicate_files:
   path: '/admin/reports/duplicate_files'
@@ -28,7 +28,7 @@ workbc_custom.report_duplicate_files:
     _controller: '\Drupal\workbc_custom\Controller\ReportsController::duplicate_files'
     _title: 'WorkBC duplicate files'
   requirements:
-    _permission: 'administer workbc_custom settings'
+    _permission: 'administer workbc settings'
 
 workbc_custom.report_environment:
   path: '/admin/reports/environment'
@@ -36,7 +36,7 @@ workbc_custom.report_environment:
     _controller: '\Drupal\workbc_custom\Controller\ReportsController::environment'
     _title: 'WorkBC environment'
   requirements:
-    _permission: 'administer workbc_custom settings'
+    _permission: 'administer workbc settings'
 
 workbc_custom.collection_notice:
   path: 'collection-notice'
@@ -52,7 +52,7 @@ workbc_custom.report_noc2021_validation:
     _controller: '\Drupal\workbc_custom\Controller\ReportsController::noc2021_validation'
     _title: 'NOC 2021 Migration Validation'
   requirements:
-    _permission: 'administer workbc_custom settings'
+    _permission: 'administer workbc settings'
 
 workbc_custom.career_profile_by_noc:
   path: '/career/{noc}'
