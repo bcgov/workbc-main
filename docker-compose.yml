@@ -38,7 +38,7 @@ services:
 #      PHP_FPM_GROUP: wodby
 #      COLUMNS: 80 # Set 80 columns for docker exec -it.
 #      # Read instructions at https://wodby.com/docs/stacks/php/local/#xdebug
-      PHP_XDEBUG: 1
+#      PHP_XDEBUG: 1
       PHP_XDEBUG_MODE: debug
       PHP_XDEBUG_START_WITH_REQUEST: yes
 #      PHP_IDE_CONFIG: serverName=my-ide
@@ -344,7 +344,7 @@ services:
     environment:
       PGRST_DB_URI: postgres://workbc:workbc@postgres:5432/ssot
       PGRST_DB_SCHEMA: public
-      PGRST_DB_ANON_ROLE: ssot_readonly
+      PGRST_DB_ANON_ROLE: ssot_lmmu
       PGRST_OPENAPI_SERVER_PROXY_URI: http://localhost:3000
     depends_on:
       - postgres
@@ -359,19 +359,19 @@ services:
     depends_on:
       - ssot
 
-  test:
-    build:
-      context: ./src/scripts/test
-#    container_name: "${PROJECT_NAME}_test"
-    network_mode: host
-    stdin_open: true
-    tty: true
-    ports:
-      - "8089:8089"
-    environment:
-      BASE_URL: http://workbc.docker.localhost:8000
-    volumes:
-    - ./src/scripts/test:/app:cached
+#   test:
+#     build:
+#       context: ./src/scripts/test
+# #    container_name: "${PROJECT_NAME}_test"
+#     network_mode: host
+#     stdin_open: true
+#     tty: true
+#     ports:
+#       - "8089:8089"
+#     environment:
+#       BASE_URL: http://workbc.docker.localhost:8000
+#     volumes:
+#     - ./src/scripts/test:/app:cached
 
 volumes:
   pgdata:
