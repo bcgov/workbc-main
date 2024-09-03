@@ -10,6 +10,13 @@ namespace Drupal\workbc_custom\Controller;
 use Drupal\Core\Controller\ControllerBase;
 use Drupal\Core\Link;
 use Drupal\Core\Url;
+use Drupal\node\Entity\Node;
+use Drupal\taxonomy\Entity\Term;
+
+use Drupal\media\Entity\Media;
+use Drupal\media\MediaInterface;
+use Drupal\media\MediaStorage;
+
 
 class ReportsController extends ControllerBase {
   public function unmanaged_files() {
@@ -117,7 +124,7 @@ class ReportsController extends ControllerBase {
   public function noc2021_validation() {
 
     $errors = noc2021ProcessValidation();
-   
+
     if (empty($errors)) {
       $markup = "<p>No validation errors found.</p>";
     }
@@ -134,11 +141,11 @@ class ReportsController extends ControllerBase {
     ];
   }
 
- 
+
   public function career_trek_validation() {
 
     $errors = careerTrekProcessValidation();
-   
+
     if (empty($errors)) {
       $markup = "<p>No validation errors found.</p>";
     }
@@ -154,7 +161,4 @@ class ReportsController extends ControllerBase {
       '#markup' => $markup,
     ];
   }
-
 }
-
-
