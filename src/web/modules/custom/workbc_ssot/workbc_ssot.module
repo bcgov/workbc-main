@@ -1,6 +1,12 @@
 <?php
 
 use Drupal\Core\StreamWrapper\StreamWrapperManager;
+use Drupal\Core\Url;
+
+const SSOT_ROUTES = [
+  'workbc_ssot.lmmu',
+  'view.ssot_log.page_1'
+];
 
 /**
  * Implements hook_file_download().
@@ -41,4 +47,17 @@ function workbc_ssot_process_element($element) {
   // Remove seconds in browsers that support HTML5 type=date.
   $element['time']['#attributes']['step'] = 60;
   return $element;
+}
+
+/**
+ * Implements hook_menu_links_discovered_alter().
+ */
+function workbc_ssot_menu_links_discovered_alter(&$links) {
+  if (empty(\Drupal::config('workbc')->get('features.ssot_upload'))) {
+    foreach ($links as $key => $link) {
+      if (array_key_exists('route_name', $link) && in_array($link['route_name'], SSOT_ROUTES)) {
+        unset($links[$key]);
+      }
+    }
+  }
 }

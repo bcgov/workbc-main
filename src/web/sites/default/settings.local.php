@@ -271,6 +271,9 @@ $config['search_api.server.solr'] = [
 // Career Trek configuration
 $config['workbc']['careertrek_url'] = getenv('CAREERTREK_URL') ?: 'https://careertrekbc.ca';
 
+// Enable/disable features
+$config['workbc']['features']['ssot_upload'] = TRUE;
+
 ini_set('memory_limit', '1G');
 if (class_exists('Kint')) {
   // Set the max_depth to prevent out-of-memory.
