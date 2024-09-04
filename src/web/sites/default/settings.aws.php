@@ -40,7 +40,7 @@ $config['system.mail']['interface']['default'] = 'ses_mail';
 $config['system.mail']['interface']['webform'] = 'ses_mail';
 
 // Single Source of Truth (SSoT) configuration.
-$config['workbc']['ssot_url'] = getenv('PROJECT_ENVIRONMENT') === 'aws-dev-noc' ? 'http://internal-ssot-lb-935724506.ca-central-1.elb.amazonaws.com:3000/' : getenv('SSOT_URL');
+$config['workbc']['ssot_url'] = getenv('SSOT_URL');
 
 $config['jobboard']['jobboard_api_url_frontend'] = getenv('JOBBOARD_API_URL');
 $config['jobboard']['jobboard_api_url_backend'] = getenv('JOBBOARD_API_INTERNAL_URL');
