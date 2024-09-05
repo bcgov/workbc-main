@@ -161,6 +161,7 @@
         "frdh/mmenu-js": "^9.2.0",
         "google/charts": "45",
         "jjj/chosen": "2.2.1",
+        "phpoffice/phpspreadsheet": "^2.2",
         "ulrichsg/getopt-php": "^4.0",
         "vlucas/phpdotenv": "^5.1",
         "webflo/drupal-finder": "^1.2"
@@ -247,7 +248,8 @@
             },
             "drupal/core": {
                 "Media library add form mode": "patches/drupal/core/3323232-29.patch",
-                "Media library CKEditor embed": "patches/drupal/core/ckeditor-media.patch"
+                "Media library CKEditor embed": "patches/drupal/core/ckeditor-media.patch",
+                "Big Pipe handles redirects": "patches/drupal/core/big-pipe.patch"
             },
             "drupal/views_infinite_scroll": {
                 "Remove repeating header": "patches/drupal/views_infinite_scroll/2899705-53.patch"

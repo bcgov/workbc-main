@@ -1,0 +1,5 @@
+services:
+  workbc_ssot.route_subscriber:
+    class: Drupal\workbc_ssot\Routing\SSotFeatureRouteSubscriber
+    tags:
+      - { name: event_subscriber }
