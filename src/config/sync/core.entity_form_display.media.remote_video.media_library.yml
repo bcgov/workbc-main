@@ -9,6 +9,8 @@ dependencies:
     - field.field.media.remote_video.field_description
     - field.field.media.remote_video.field_duration
     - field.field.media.remote_video.field_media_oembed_video
+    - field.field.media.remote_video.field_recently_added
+    - field.field.media.remote_video.field_weight
     - media.type.remote_video
 _core:
   default_config_hash: TBgPW-uaXRaICBwLaVc16rXpRiLSknDIdF9q0XL7qso
@@ -31,6 +33,8 @@ hidden:
   field_description: true
   field_duration: true
   field_media_oembed_video: true
+  field_recently_added: true
+  field_weight: true
   name: true
   path: true
   status: true

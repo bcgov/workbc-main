@@ -8,10 +8,11 @@ dependencies:
     - field.field.media.remote_video.field_description
     - field.field.media.remote_video.field_duration
     - field.field.media.remote_video.field_media_oembed_video
+    - field.field.media.remote_video.field_recently_added
+    - field.field.media.remote_video.field_weight
     - media.type.remote_video
   module:
     - duration_field
-    - link
     - media
     - path
     - text
@@ -54,6 +55,20 @@ content:
     region: content
     settings:
       size: 60
+      placeholder: ''
+    third_party_settings: {  }
+  field_recently_added:
+    type: boolean_checkbox
+    weight: 26
+    region: content
+    settings:
+      display_label: true
+    third_party_settings: {  }
+  field_weight:
+    type: number
+    weight: 27
+    region: content
+    settings:
       placeholder: ''
     third_party_settings: {  }
   langcode:

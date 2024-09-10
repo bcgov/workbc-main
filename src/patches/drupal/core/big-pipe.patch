@@ -1,0 +1,52 @@
+diff --git a/core/modules/big_pipe/src/Render/BigPipe.php b/core/modules/big_pipe/src/Render/BigPipe.php
+index 133c86534e..dd23626935 100644
+--- a/core/modules/big_pipe/src/Render/BigPipe.php
++++ b/core/modules/big_pipe/src/Render/BigPipe.php
+@@ -5,12 +5,15 @@
+ use Drupal\Component\Utility\Crypt;
+ use Drupal\Component\Utility\Html;
+ use Drupal\Core\Ajax\AjaxResponse;
++use Drupal\Core\Ajax\RedirectCommand;
+ use Drupal\Core\Ajax\ReplaceCommand;
+ use Drupal\Core\Asset\AttachedAssets;
+ use Drupal\Core\Asset\AttachedAssetsInterface;
+ use Drupal\Core\Config\ConfigFactoryInterface;
++use Drupal\Core\Form\EnforcedResponseException;
+ use Drupal\Core\Render\HtmlResponse;
+ use Drupal\Core\Render\RendererInterface;
++use Symfony\Component\HttpFoundation\RedirectResponse;
+ use Symfony\Contracts\EventDispatcher\EventDispatcherInterface;
+ use Symfony\Component\HttpFoundation\Request;
+ use Symfony\Component\HttpFoundation\RequestStack;
+@@ -546,6 +549,31 @@ protected function sendPlaceholders(array $placeholders, array $placeholder_orde
+       try {
+         $elements = $this->renderPlaceholder($placeholder_id, $placeholder_render_array);
+       }
++      // Handle enforced redirect responses.
++      // A typical use case where this might happen are forms using GET as
++      // #method that are build inside a lazy builder.
++      catch (EnforcedResponseException $e) {
++        $response = $e->getResponse();
++        if (!$response instanceof RedirectResponse) {
++          throw $e;
++        }
++
++        $ajax_response = new AjaxResponse();
++        $ajax_response->addCommand(new RedirectCommand($response->getTargetUrl()));
++        $ajax_response = $this->filterEmbeddedResponse($fake_request, $ajax_response);
++
++        $json = $ajax_response->getContent();
++        $output = <<<EOF
++    <script type="application/vnd.drupal-ajax" data-big-pipe-replacement-for-placeholder-with-id="$placeholder_id">
++    $json
++    </script>
++EOF;
++        $this->sendChunk($output);
++
++        // Send the stop signal.
++        $this->sendChunk("\n" . static::STOP_SIGNAL . "\n");
++        break;
++      }
+       catch (\Exception $e) {
+         if ($this->configFactory->get('system.logging')->get('error_level') === ERROR_REPORTING_DISPLAY_VERBOSE) {
+           throw $e;
