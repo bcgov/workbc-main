@@ -275,7 +275,6 @@ function workbc_custom_entity_form_mode_alter(&$form_mode, Drupal\Core\Entity\En
 
 /**
 * Implements hook_node_access().
-*
 */
 function workbc_custom_node_access(NodeInterface $node, $op, AccountInterface $account) {
 
@@ -613,6 +612,8 @@ function workbc_custom_page_attachments(array &$attachments) {
     ];
   }
 }
+
+/************************************* HELPER FUNCTIONS *************************************/
 
 /**
 * Function to get the region mappings.
@@ -1113,8 +1114,6 @@ function noc2021ValidateProfiles() {
 
 function noc2021ValidateProfileRedirects() {
 
-  $map = load2021to2016map();
-
   $oldPaths = loadCareerProfilePaths();
 
   $errors = [];
@@ -1181,8 +1180,6 @@ function noc2021ValidateProfilePaths() {
 }
 
 function noc2021ValidateUnpublishedProfiles() {
-
-  $map = load2021to2016map();
 
   $errors = [];
 
@@ -1288,7 +1285,7 @@ function loadCareerTrek() {
 
 
 function loadCareerTrekUrls() {
-  $careerTrek = [];
+  $careerTrekUrls = [];
 
   $path = DRUPAL_ROOT;
   $path = preg_replace('/web$/', '', $path);

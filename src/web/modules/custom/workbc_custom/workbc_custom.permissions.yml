@@ -1,4 +1,7 @@
 bypass content groups:
   title: 'Bypass content group permission check'
   description: 'Users with this permission are able to bypass content group permission checking.'
-  
+
+administer workbc settings:
+  title: 'Administer WorkBC settings'
+  description: 'Users with this permission are able to administer WorkBC settings, expect for SSoT settings.'
