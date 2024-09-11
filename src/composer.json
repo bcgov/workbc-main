@@ -72,6 +72,7 @@
         "aws/aws-sdk-php": "~3.0",
         "composer/installers": "^1.9",
         "cweagans/composer-patches": "^1.7",
+        "czproject/git-php": "^4.3",
         "drupal/address": "^1.10",
         "drupal/admin_toolbar": "^3.1",
         "drupal/advagg": "^5.0",
