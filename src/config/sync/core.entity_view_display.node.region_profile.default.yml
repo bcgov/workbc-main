@@ -11,6 +11,7 @@ dependencies:
     - field.field.node.region_profile.field_introductions
     - field.field.node.region_profile.field_job_board_id
     - field.field.node.region_profile.field_key_facts
+    - field.field.node.region_profile.field_metatag_description
     - field.field.node.region_profile.field_region_overview
     - field.field.node.region_profile.field_scheduled_publish
     - node.type.region_profile
@@ -343,6 +344,14 @@ content:
     settings: {  }
     third_party_settings: {  }
     weight: 28
+    region: content
+  field_metatag_description:
+    type: string
+    label: above
+    settings:
+      link_to_entity: false
+    third_party_settings: {  }
+    weight: 34
     region: content
   field_region_overview:
     type: text_default

@@ -12,6 +12,7 @@ dependencies:
     - field.field.node.workbc_centre.field_hero_image
     - field.field.node.workbc_centre.field_hero_image_media
     - field.field.node.workbc_centre.field_job_board_id
+    - field.field.node.workbc_centre.field_metatag_description
     - field.field.node.workbc_centre.field_multilingual_centre
     - field.field.node.workbc_centre.field_phone
     - field.field.node.workbc_centre.field_related_topics
@@ -62,6 +63,16 @@ mode: default
 content:
   content_moderation_control:
     settings: {  }
+    third_party_settings: {  }
+    weight: 0
+    region: content
+  created:
+    type: timestamp
+    label: hidden
+    settings:
+      date_format: medium
+      custom_date_format: ''
+      timezone: ''
     third_party_settings: {  }
     weight: 0
     region: content
@@ -127,6 +138,14 @@ content:
     third_party_settings: {  }
     weight: 9
     region: content
+  field_metatag_description:
+    type: string
+    label: above
+    settings:
+      link_to_entity: false
+    third_party_settings: {  }
+    weight: 19
+    region: content
   field_multilingual_centre:
     type: link
     label: hidden
@@ -179,6 +198,13 @@ content:
     settings: {  }
     third_party_settings: {  }
     weight: 8
+    region: content
+  uid:
+    type: author
+    label: hidden
+    settings: {  }
+    third_party_settings: {  }
+    weight: 0
     region: content
 hidden:
   extra_field_workbc_page_title: true

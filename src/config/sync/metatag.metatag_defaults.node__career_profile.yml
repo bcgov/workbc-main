@@ -1,0 +1,8 @@
+uuid: a0d138c6-915f-468e-8bf0-e2e07d202d56
+langcode: en
+status: true
+dependencies: {  }
+id: node__career_profile
+label: 'Content: Career Profile'
+tags:
+  description: '[node:field_metatag_description]'

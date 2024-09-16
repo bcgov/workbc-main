@@ -1,0 +1,8 @@
+uuid: 376f262a-5c64-472c-9e44-201b42820be9
+langcode: en
+status: true
+dependencies: {  }
+id: node__bc_profile
+label: 'Content: BC Profile'
+tags:
+  description: '[node:field_metatag_description]'

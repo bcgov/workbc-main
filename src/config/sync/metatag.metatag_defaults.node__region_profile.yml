@@ -1,0 +1,8 @@
+uuid: ae25df2c-f8e1-4f09-9351-983ac905d3a3
+langcode: en
+status: true
+dependencies: {  }
+id: node__region_profile
+label: 'Content: Region Profile'
+tags:
+  description: '[node:field_metatag_description]'

@@ -1,0 +1,8 @@
+uuid: dfb874e7-b266-4f00-bdbf-b294989978e4
+langcode: en
+status: true
+dependencies: {  }
+id: node__workbc_centre
+label: 'Content: WorkBC Centre'
+tags:
+  description: '[node:field_metatag_description]'

@@ -13,6 +13,7 @@ dependencies:
     - field.field.node.industry_profile.field_job_board_id
     - field.field.node.industry_profile.field_job_board_save_profile_id
     - field.field.node.industry_profile.field_key_facts
+    - field.field.node.industry_profile.field_metatag_description
     - field.field.node.industry_profile.field_resources
     - field.field.node.industry_profile.field_resources_reference
     - field.field.node.industry_profile.field_scheduled_publish
@@ -361,6 +362,14 @@ content:
     settings: {  }
     third_party_settings: {  }
     weight: 25
+    region: content
+  field_metatag_description:
+    type: string
+    label: above
+    settings:
+      link_to_entity: false
+    third_party_settings: {  }
+    weight: 43
     region: content
   field_resources_reference:
     type: entity_reference_entity_id
