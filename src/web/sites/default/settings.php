@@ -795,6 +795,7 @@ $config['jobboard']['sha'] = 'ed922428a5da171ed7463d27f111bbd55a4b0d2d';
 // SSoT settings.
 $config['workbc']['ssot_repo'] = [
   'name' => 'bcgov/workbc-ssot',
+  'path' => 'migration/data',
   'branches' => [
     'dev' => 'noc',
     'local' => 'noc',
