@@ -4,7 +4,7 @@
         "Read more about it at https://getcomposer.org/doc/01-basic-usage.md#installing-dependencies",
         "This file is @generated automatically"
     ],
-    "content-hash": "a620c5607db54bc9b26471d47bc7fea6",
+    "content-hash": "fa465f523fdbecdaf705391ad0c24b57",
     "packages": [
         {
             "name": "alchemy/zippy",
@@ -1230,58 +1230,6 @@
                 "source": "https://github.com/cweagans/composer-patches/tree/1.7.3"
             },
             "time": "2022-12-20T22:53:13+00:00"
-        },
-        {
-            "name": "czproject/git-php",
-            "version": "v4.3.0",
-            "source": {
-                "type": "git",
-                "url": "https://github.com/czproject/git-php.git",
-                "reference": "f7fe85cc526c5f8e7ed809f7f9c68f2696940a8a"
-            },
-            "dist": {
-                "type": "zip",
-                "url": "https://api.github.com/repos/czproject/git-php/zipball/f7fe85cc526c5f8e7ed809f7f9c68f2696940a8a",
-                "reference": "f7fe85cc526c5f8e7ed809f7f9c68f2696940a8a",
-                "shasum": ""
-            },
-            "require": {
-                "php": ">=5.6.0"
-            },
-            "require-dev": {
-                "nette/tester": "^2.0"
-            },
-            "type": "library",
-            "autoload": {
-                "classmap": [
-                    "src/"
-                ]
-            },
-            "notification-url": "https://packagist.org/downloads/",
-            "license": [
-                "BSD-3-Clause"
-            ],
-            "authors": [
-                {
-                    "name": "Jan Pecha",
-                    "email": "janpecha@email.cz"
-                }
-            ],
-            "description": "Library for work with Git repository in PHP.",
-            "keywords": [
-                "git"
-            ],
-            "support": {
-                "issues": "https://github.com/czproject/git-php/issues",
-                "source": "https://github.com/czproject/git-php/tree/v4.3.0"
-            },
-            "funding": [
-                {
-                    "url": "https://www.janpecha.cz/donate/git-php/",
-                    "type": "other"
-                }
-            ],
-            "time": "2024-08-05T13:28:31+00:00"
         },
         {
             "name": "dflydev/dot-access-configuration",
@@ -6826,6 +6774,89 @@
             "homepage": "https://www.drupal.org/project/published_corrected_date",
             "support": {
                 "source": "https://git.drupalcode.org/project/published_corrected_date"
+            }
+        },
+        {
+            "name": "drupal/queue_ui",
+            "version": "3.1.4",
+            "source": {
+                "type": "git",
+                "url": "https://git.drupalcode.org/project/queue_ui.git",
+                "reference": "3.1.4"
+            },
+            "dist": {
+                "type": "zip",
+                "url": "https://ftp.drupal.org/files/projects/queue_ui-3.1.4.zip",
+                "reference": "3.1.4",
+                "shasum": "a701e551683b2b026f4223ac81a6f5a3c34eedcb"
+            },
+            "require": {
+                "drupal/core": "^9.2 || ^10"
+            },
+            "require-dev": {
+                "drupal/queue_order": "^2"
+            },
+            "type": "drupal-module",
+            "extra": {
+                "drupal": {
+                    "version": "3.1.4",
+                    "datestamp": "1708276956",
+                    "security-coverage": {
+                        "status": "covered",
+                        "message": "Covered by Drupal's security advisory policy"
+                    }
+                },
+                "drush": {
+                    "services": {
+                        "drush.services.yml": "^9 || ^10 || ^11"
+                    }
+                }
+            },
+            "notification-url": "https://packages.drupal.org/8/downloads",
+            "license": [
+                "GPL-2.0+"
+            ],
+            "authors": [
+                {
+                    "name": "floretan",
+                    "homepage": "https://www.drupal.org/user/2743951",
+                    "role": "Maintainer"
+                },
+                {
+                    "name": "coltrane",
+                    "homepage": "https://www.drupal.org/user/91990",
+                    "role": "Maintainer"
+                },
+                {
+                    "name": "tsphethean",
+                    "homepage": "https://www.drupal.org/user/66163",
+                    "role": "Maintainer"
+                },
+                {
+                    "name": "bceyssens",
+                    "homepage": "https://www.drupal.org/user/2811585",
+                    "role": "Maintainer"
+                },
+                {
+                    "name": "voleger",
+                    "homepage": "https://www.drupal.org/user/881620",
+                    "role": "Maintainer"
+                },
+                {
+                    "name": "voleger",
+                    "homepage": "https://www.drupal.org/user/3260314"
+                }
+            ],
+            "description": "Interface and manager for Drupal queues.",
+            "homepage": "https://www.drupal.org/project/queue_ui",
+            "keywords": [
+                "drupal",
+                "php",
+                "queue"
+            ],
+            "support": {
+                "source": "https://git.drupalcode.org/project/queue_ui",
+                "issues": "https://www.drupal.org/project/issues/queue_ui"
             }
         },
         {
