@@ -792,6 +792,21 @@ $config['jobboard']['find_job_url'] = '/search-and-prepare-job/find-jobs';
 $config['jobboard']['find_job_account_url'] = '/account';
 $config['jobboard']['sha'] = 'ed922428a5da171ed7463d27f111bbd55a4b0d2d';
 
+// SSoT settings.
+$config['workbc']['ssot_repo'] = [
+  'name' => 'bcgov/workbc-ssot',
+  'branches' => [
+    'dev' => 'noc',
+    'local' => 'noc',
+    'aws-dev' => 'noc',
+    'aws-dev-noc' => 'noc',
+    'aws-test' => 'noc',
+    'aws-prod' => 'master',
+  ],
+  'token' => getenv('GITHUB_API_TOKEN'),
+  'committer' => 'WorkBC SSoT Uploader',
+];
+
 // File settings.
 $config['file.settings']['make_unused_managed_files_temporary'] = TRUE;
 

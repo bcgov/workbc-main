@@ -3,3 +3,6 @@ services:
     class: Drupal\workbc_ssot\Routing\SSotFeatureRouteSubscriber
     tags:
       - { name: event_subscriber }
+
+  workbc_ssot.queue_worker:
+    class: Drupal\workbc_ssot\Plugin\QueueWorker\SsotUploader
