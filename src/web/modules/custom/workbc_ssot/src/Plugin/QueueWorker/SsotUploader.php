@@ -47,10 +47,13 @@ class SsotUploader extends QueueWorkerBase implements ContainerFactoryPluginInte
    * {@inheritdoc}
    *
    * Upload the given LMMU sheet to the correct location in the workbc-ssot repo.
+   * Use the GitHub API for repository contents https://docs.github.com/en/rest/repos/contents?apiVersion=2022-11-28
    */
   public function processItem($data) {
     $file = File::load($data['file_id']);
     $sheet = $file->getFilename();
+    $repo = \Drupal::config('workbc')->get('ssot_repo');
+    $filepath = \Drupal::service('file_system')->realpath($file->getFileUri());
     \Drupal::logger('workbc')->notice('Uploading SSoT LMMU sheet @sheet for @month/@year.', [
       '@sheet' => $sheet,
       '@month' => $data['month'],
@@ -58,11 +61,20 @@ class SsotUploader extends QueueWorkerBase implements ContainerFactoryPluginInte
     ]);
     Timer::start('ssot_uploader');
 
-    $repo = \Drupal::config('workbc')->get('ssot_repo');
-    $this->github("https://api.github.com/repos/{$repo['name']}/contents/{$repo['path']}/{$sheet}", [
+    // First get the sha of the existing file if any.
+    try {
+      $existing = $this->github("https://api.github.com/repos/{$repo['name']}/contents/{$repo['path']}/{$sheet}?ref=" . $repo['branches'][getenv('PROJECT_ENVIRONMENT')], 'GET', $repo['token']);
+      $sha = json_decode($existing->getBody())->sha;
+    }
+    catch (\Exception $e) {
+      $sha = null;
+    }
+
+    // Create / update the file.
+    $this->github("https://api.github.com/repos/{$repo['name']}/contents/{$repo['path']}/{$sheet}", 'PUT', $repo['token'], [
       'branch' => $repo['branches'][getenv('PROJECT_ENVIRONMENT')],
-//      'sha' => hash_file('sha256', \Drupal::service('file_system')->realpath($file->getFileUri())),
-      'content' => base64_encode(file_get_contents(\Drupal::service('file_system')->realpath($file->getFileUri()))),
+      'sha' => $sha,
+      'content' => base64_encode(file_get_contents($filepath)),
       'committer' => [
         'name' => $repo['committer'],
         'email' => \Drupal::config('system.site')->get('mail'),
@@ -72,7 +84,7 @@ class SsotUploader extends QueueWorkerBase implements ContainerFactoryPluginInte
         'email' => \Drupal::config('system.site')->get('mail'),
       ],
       'message' => $data['notes'],
-    ], $repo['token']);
+    ]);
 
     Timer::stop('ssot_uploader');
     \Drupal::logger('workbc')->notice('Done uploading SSoT LMMU sheet @sheet in @time.', [
@@ -81,16 +93,18 @@ class SsotUploader extends QueueWorkerBase implements ContainerFactoryPluginInte
     ]);
   }
 
-  private function github($endpoint, $body, $token) {
+  private function github($endpoint, $method, $token, $body = null) {
     $client = new Client();
     $options = [
-      'json' => $body,
       'headers' => [
         'Accept' => 'application/vnd.github+json',
         'Authorization' => "Bearer {$token}",
         'X-GitHub-Api-Version' => '2022-11-28',
       ]
     ];
-    return $client->request('PUT', $endpoint, $options);
+    if (!empty($body)) {
+      $options['json'] = $body;
+    }
+    return $client->request($method, $endpoint, $options);
   }
 }
