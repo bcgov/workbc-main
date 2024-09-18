@@ -53,4 +53,4 @@ $settings['redis.connection']['port'] = getenv('REDIS_PORT');
 $config['workbc']['careertrek_url'] = getenv('CAREERTREK_URL');
 
 // Enable/disable features
-$config['workbc']['features']['ssot_upload'] = FALSE;
+$config['workbc']['features']['ssot_upload'] = TRUE;

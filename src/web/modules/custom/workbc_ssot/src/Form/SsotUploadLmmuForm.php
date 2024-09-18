@@ -284,7 +284,7 @@ class SsotUploadLmmuForm extends ConfirmFormBase {
         }
       }
     }
-    return $this->t('This action will update the SSOT Labour Market Monthly Update for <strong>@month @year</strong>.', [
+    return $this->t('This action will update the SSoT Labour Market Monthly Update for <strong>@month @year</strong>.', [
       '@month' => DateHelper::monthNames(true)[$this->monthly_labour_market_updates['month']],
       '@year' => $this->monthly_labour_market_updates['year']
     ]);
@@ -660,7 +660,7 @@ class SsotUploadLmmuForm extends ConfirmFormBase {
       }
 
       // Mark the file as permanent.
-      $file = \Drupal\file\Entity\File::load($form_state->get('file_id'));
+      $file = File::load($form_state->get('file_id'));
       $file->setPermanent();
       $file->save();
 
@@ -687,6 +687,15 @@ class SsotUploadLmmuForm extends ConfirmFormBase {
       ->condition('dataset_period', $period)
       ->condition('oid', $log_id, '<>')
       ->execute();
+
+      // Enqueue a job to update the SSoT repo.
+      \Drupal::queue('ssot_uploader')->createItem([
+        'file_id' => $form_state->get('file_id'),
+        'month' => $month,
+        'year' => $year,
+        'notes' => $form_state->get('notes'),
+        'uid' => \Drupal::currentUser()->id(),
+      ]);
 
       \Drupal::messenger()->addMessage(t('Labour Market Monthly Update successfully updated for <strong>@month @year</strong>. <a href="@url">Click here</a> to see it!', [
         '@year' => $year,
