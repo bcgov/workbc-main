@@ -163,6 +163,10 @@ resource "aws_ecs_task_definition" "app" {
 			{
 				name = "DRUPAL_ADM_PWD",
 				valueFrom = "${data.aws_secretsmanager_secret_version.creds.arn}:drupal_adm_password::"
+			},
+			{
+				name = "GITHUB_API_TOKEN",
+				valueFrom = "${data.aws_secretsmanager_secret_version.creds.arn}:github_api_token::"
 			}
 		]
 
