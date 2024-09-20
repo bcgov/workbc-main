@@ -66,7 +66,7 @@ resource "aws_ecs_task_definition" "app" {
 		name        = "drupal"
 		image       = var.app_image
 		networkMode = "awsvpc"
-		
+
 		logConfiguration = {
 			logDriver = "awslogs"
 			options = {
@@ -75,7 +75,7 @@ resource "aws_ecs_task_definition" "app" {
 				awslogs-region        = var.aws_region
 				awslogs-stream-prefix = "ecs"
 			}
-		}		
+		}
 
 		portMappings = [
 			{
@@ -84,7 +84,7 @@ resource "aws_ecs_task_definition" "app" {
 				containerPort = 9000
 			}
 		]
-		
+
 		environment = [
 			{
 				name = "POSTGRES_PORT",
@@ -137,7 +137,7 @@ resource "aws_ecs_task_definition" "app" {
 			{
 				name = "CAREERTREK_URL",
 				value = "https://test.careertrekbc.ca"
-			}	
+			}
 		]
 		secrets = [
 			{
@@ -167,7 +167,17 @@ resource "aws_ecs_task_definition" "app" {
 			{
 				name = "GITHUB_API_TOKEN",
 				valueFrom = "${data.aws_secretsmanager_secret_version.creds.arn}:github_api_token::"
+			},
+			{
+				name = "LMMU_PWD",
+				valueFrom = "${data.aws_secretsmanager_secret_version.creds.arn}:lmmu_password::"
+			},
+		        {
+				name = "LMMU_USERNAME",
+				valueFrom = "${data.aws_secretsmanager_secret_version.creds.arn}:lmmu_username::"
 			}
+
+
 		]
 
 		mountPoints = [
@@ -181,7 +191,7 @@ resource "aws_ecs_task_definition" "app" {
 			}
 		]
 		volumesFrom = []
-		
+
 		dependsOn = [
 			{
 				containerName = "init"
@@ -194,7 +204,7 @@ resource "aws_ecs_task_definition" "app" {
 		name        = "nginx"
 		image       = "${var.app_repo}/nginx:2.3"
 		networkMode = "awsvpc"
-		
+
 		logConfiguration = {
 			logDriver = "awslogs"
 			options = {
@@ -203,7 +213,7 @@ resource "aws_ecs_task_definition" "app" {
 				awslogs-region        = var.aws_region
 				awslogs-stream-prefix = "ecs"
 			}
-		}		
+		}
 
 		portMappings = [
 			{
@@ -224,7 +234,7 @@ resource "aws_ecs_task_definition" "app" {
 			}
 		]
 		volumesFrom = []
-		
+
 		dependsOn = [
 			{
 				containerName = "init"
@@ -238,7 +248,7 @@ resource "aws_ecs_task_definition" "app" {
 		name        = "drush"
 		image       = var.app_image
 		networkMode = "awsvpc"
-		
+
 		logConfiguration = {
 			logDriver = "awslogs"
 			options = {
