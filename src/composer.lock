@@ -4,7 +4,7 @@
         "Read more about it at https://getcomposer.org/doc/01-basic-usage.md#installing-dependencies",
         "This file is @generated automatically"
     ],
-    "content-hash": "ae0c1ce12197037163467519fc04c17c",
+    "content-hash": "fa465f523fdbecdaf705391ad0c24b57",
     "packages": [
         {
             "name": "alchemy/zippy",
@@ -186,16 +186,16 @@
         },
         {
             "name": "aws/aws-sdk-php",
-            "version": "3.321.8",
+            "version": "3.322.2",
             "source": {
                 "type": "git",
                 "url": "https://github.com/aws/aws-sdk-php.git",
-                "reference": "df456658bdc2ad84a00cf35a7b5af874fdcc7a53"
+                "reference": "6a329cf111a4e54f2ca0e87ce07dd0b9e0befdad"
             },
             "dist": {
                 "type": "zip",
-                "url": "https://api.github.com/repos/aws/aws-sdk-php/zipball/df456658bdc2ad84a00cf35a7b5af874fdcc7a53",
-                "reference": "df456658bdc2ad84a00cf35a7b5af874fdcc7a53",
+                "url": "https://api.github.com/repos/aws/aws-sdk-php/zipball/6a329cf111a4e54f2ca0e87ce07dd0b9e0befdad",
+                "reference": "6a329cf111a4e54f2ca0e87ce07dd0b9e0befdad",
                 "shasum": ""
             },
             "require": {
@@ -278,9 +278,9 @@
             "support": {
                 "forum": "https://forums.aws.amazon.com/forum.jspa?forumID=80",
                 "issues": "https://github.com/aws/aws-sdk-php/issues",
-                "source": "https://github.com/aws/aws-sdk-php/tree/3.321.8"
+                "source": "https://github.com/aws/aws-sdk-php/tree/3.322.2"
             },
-            "time": "2024-09-10T18:18:03+00:00"
+            "time": "2024-09-20T18:08:53+00:00"
         },
         {
             "name": "chi-teck/drupal-code-generator",
@@ -2468,7 +2468,7 @@
                     "role": "Contributors"
                 },
                 {
-                    "name": "NickDickinsonWilde",
+                    "name": "nickdickinsonwilde",
                     "homepage": "https://www.drupal.org/user/3094661"
                 },
                 {
@@ -2484,7 +2484,7 @@
                     "homepage": "https://www.drupal.org/user/3589086"
                 },
                 {
-                    "name": "Wim Leers",
+                    "name": "wim leers",
                     "homepage": "https://www.drupal.org/user/99777"
                 }
             ],
@@ -4715,7 +4715,7 @@
                     "homepage": "https://www.drupal.org/user/279352"
                 },
                 {
-                    "name": "Neslee Canil Pinto",
+                    "name": "neslee canil pinto",
                     "homepage": "https://www.drupal.org/user/3580850"
                 }
             ],
@@ -4826,6 +4826,10 @@
                 {
                     "name": "hydra",
                     "homepage": "https://www.drupal.org/user/647364"
+                },
+                {
+                    "name": "joevagyok",
+                    "homepage": "https://www.drupal.org/user/2876343"
                 },
                 {
                     "name": "jyve",
@@ -5097,17 +5101,17 @@
         },
         {
             "name": "drupal/fullcalendar_view",
-            "version": "5.2.2",
+            "version": "5.2.3",
             "source": {
                 "type": "git",
                 "url": "https://git.drupalcode.org/project/fullcalendar_view.git",
-                "reference": "5.2.2"
+                "reference": "5.2.3"
             },
             "dist": {
                 "type": "zip",
-                "url": "https://ftp.drupal.org/files/projects/fullcalendar_view-5.2.2.zip",
-                "reference": "5.2.2",
-                "shasum": "d51ef0c53854c7cbaef8e598cd25c45c1dc6f3ab"
+                "url": "https://ftp.drupal.org/files/projects/fullcalendar_view-5.2.3.zip",
+                "reference": "5.2.3",
+                "shasum": "4840371fa77d335038651c6e56885671eba6d5da"
             },
             "require": {
                 "drupal/core": "^9.2.0 || ^10 || ^11"
@@ -5115,8 +5119,8 @@
             "type": "drupal-module",
             "extra": {
                 "drupal": {
-                    "version": "5.2.2",
-                    "datestamp": "1725153975",
+                    "version": "5.2.3",
+                    "datestamp": "1726662266",
                     "security-coverage": {
                         "status": "covered",
                         "message": "Covered by Drupal's security advisory policy"
@@ -5756,7 +5760,7 @@
             ],
             "authors": [
                 {
-                    "name": "Cellar Door",
+                    "name": "cellar door",
                     "homepage": "https://www.drupal.org/user/658076"
                 },
                 {
@@ -6338,7 +6342,7 @@
                     "role": "Developer"
                 },
                 {
-                    "name": "Dave Reid",
+                    "name": "dave reid",
                     "homepage": "https://www.drupal.org/user/53892"
                 }
             ],
@@ -6777,6 +6781,89 @@
             }
         },
         {
+            "name": "drupal/queue_ui",
+            "version": "3.1.4",
+            "source": {
+                "type": "git",
+                "url": "https://git.drupalcode.org/project/queue_ui.git",
+                "reference": "3.1.4"
+            },
+            "dist": {
+                "type": "zip",
+                "url": "https://ftp.drupal.org/files/projects/queue_ui-3.1.4.zip",
+                "reference": "3.1.4",
+                "shasum": "a701e551683b2b026f4223ac81a6f5a3c34eedcb"
+            },
+            "require": {
+                "drupal/core": "^9.2 || ^10"
+            },
+            "require-dev": {
+                "drupal/queue_order": "^2"
+            },
+            "type": "drupal-module",
+            "extra": {
+                "drupal": {
+                    "version": "3.1.4",
+                    "datestamp": "1708276956",
+                    "security-coverage": {
+                        "status": "covered",
+                        "message": "Covered by Drupal's security advisory policy"
+                    }
+                },
+                "drush": {
+                    "services": {
+                        "drush.services.yml": "^9 || ^10 || ^11"
+                    }
+                }
+            },
+            "notification-url": "https://packages.drupal.org/8/downloads",
+            "license": [
+                "GPL-2.0+"
+            ],
+            "authors": [
+                {
+                    "name": "floretan",
+                    "homepage": "https://www.drupal.org/user/2743951",
+                    "role": "Maintainer"
+                },
+                {
+                    "name": "coltrane",
+                    "homepage": "https://www.drupal.org/user/91990",
+                    "role": "Maintainer"
+                },
+                {
+                    "name": "tsphethean",
+                    "homepage": "https://www.drupal.org/user/66163",
+                    "role": "Maintainer"
+                },
+                {
+                    "name": "bceyssens",
+                    "homepage": "https://www.drupal.org/user/2811585",
+                    "role": "Maintainer"
+                },
+                {
+                    "name": "voleger",
+                    "homepage": "https://www.drupal.org/user/881620",
+                    "role": "Maintainer"
+                },
+                {
+                    "name": "voleger",
+                    "homepage": "https://www.drupal.org/user/3260314"
+                }
+            ],
+            "description": "Interface and manager for Drupal queues.",
+            "homepage": "https://www.drupal.org/project/queue_ui",
+            "keywords": [
+                "drupal",
+                "php",
+                "queue"
+            ],
+            "support": {
+                "source": "https://git.drupalcode.org/project/queue_ui",
+                "issues": "https://www.drupal.org/project/issues/queue_ui"
+            }
+        },
+        {
             "name": "drupal/recaptcha",
             "version": "3.2.0",
             "source": {
@@ -7127,7 +7214,11 @@
                     "role": "Maintainer"
                 },
                 {
-                    "name": "JeroenT",
+                    "name": "benjy",
+                    "homepage": "https://www.drupal.org/user/1852732"
+                },
+                {
+                    "name": "jeroent",
                     "homepage": "https://www.drupal.org/user/2228934"
                 }
             ],
@@ -7415,7 +7506,7 @@
                     "homepage": "https://www.drupal.org/user/124705"
                 },
                 {
-                    "name": "Nick_vh",
+                    "name": "nick_vh",
                     "homepage": "https://www.drupal.org/user/122682"
                 }
             ],
@@ -7469,7 +7560,7 @@
                     "homepage": "https://www.drupal.org/user/56348"
                 },
                 {
-                    "name": "Neslee Canil Pinto",
+                    "name": "neslee canil pinto",
                     "homepage": "https://www.drupal.org/user/3580850"
                 }
             ],
@@ -7786,6 +7877,10 @@
                 {
                     "name": "lostkoder",
                     "homepage": "https://www.drupal.org/user/3545132"
+                },
+                {
+                    "name": "sickness29",
+                    "homepage": "https://www.drupal.org/user/2586096"
                 }
             ],
             "description": "Provides 'Time Field' and 'Time Range Field'.",
@@ -8103,7 +8198,7 @@
                     "homepage": "https://www.drupal.org/u/graber"
                 },
                 {
-                    "name": "Graber",
+                    "name": "graber",
                     "homepage": "https://www.drupal.org/user/1599440"
                 },
                 {
@@ -8407,7 +8502,7 @@
                     "role": "Contributor"
                 },
                 {
-                    "name": "Liam Morland",
+                    "name": "liam morland",
                     "homepage": "https://www.drupal.org/user/493050"
                 },
                 {
@@ -9608,20 +9703,20 @@
         },
         {
             "name": "longwave/laminas-diactoros",
-            "version": "2.14.2",
+            "version": "2.14.3",
             "source": {
                 "type": "git",
                 "url": "https://github.com/longwave/laminas-diactoros.git",
-                "reference": "ae4f0becf249ae8eea8f2f8f9fb927104e55a885"
+                "reference": "2bd6b47a090ae924ecc298657d01f8a462f7507b"
             },
             "dist": {
                 "type": "zip",
-                "url": "https://api.github.com/repos/longwave/laminas-diactoros/zipball/ae4f0becf249ae8eea8f2f8f9fb927104e55a885",
-                "reference": "ae4f0becf249ae8eea8f2f8f9fb927104e55a885",
+                "url": "https://api.github.com/repos/longwave/laminas-diactoros/zipball/2bd6b47a090ae924ecc298657d01f8a462f7507b",
+                "reference": "2bd6b47a090ae924ecc298657d01f8a462f7507b",
                 "shasum": ""
             },
             "require": {
-                "php": "^7.3 || ~8.0.0 || ~8.1.0 || ~8.2.0",
+                "php": "^7.3 || ~8.0.0 || ~8.1.0 || ~8.2.0 || ~8.3.0",
                 "psr/http-factory": "^1.0",
                 "psr/http-message": "^1.0"
             },
@@ -9700,7 +9795,7 @@
                 "rss": "https://github.com/laminas/laminas-diactoros/releases.atom",
                 "source": "https://github.com/laminas/laminas-diactoros"
             },
-            "time": "2023-04-26T21:27:14+00:00"
+            "time": "2024-09-11T14:26:18+00:00"
         },
         {
             "name": "maennchen/zipstream-php",
@@ -10083,16 +10178,16 @@
         },
         {
             "name": "nikic/php-parser",
-            "version": "v5.1.0",
+            "version": "v5.2.0",
             "source": {
                 "type": "git",
                 "url": "https://github.com/nikic/PHP-Parser.git",
-                "reference": "683130c2ff8c2739f4822ff7ac5c873ec529abd1"
+                "reference": "23c79fbbfb725fb92af9bcf41065c8e9a0d49ddb"
             },
             "dist": {
                 "type": "zip",
-                "url": "https://api.github.com/repos/nikic/PHP-Parser/zipball/683130c2ff8c2739f4822ff7ac5c873ec529abd1",
-                "reference": "683130c2ff8c2739f4822ff7ac5c873ec529abd1",
+                "url": "https://api.github.com/repos/nikic/PHP-Parser/zipball/23c79fbbfb725fb92af9bcf41065c8e9a0d49ddb",
+                "reference": "23c79fbbfb725fb92af9bcf41065c8e9a0d49ddb",
                 "shasum": ""
             },
             "require": {
@@ -10135,9 +10230,9 @@
             ],
             "support": {
                 "issues": "https://github.com/nikic/PHP-Parser/issues",
-                "source": "https://github.com/nikic/PHP-Parser/tree/v5.1.0"
+                "source": "https://github.com/nikic/PHP-Parser/tree/v5.2.0"
             },
-            "time": "2024-07-01T20:03:41+00:00"
+            "time": "2024-09-15T16:40:33+00:00"
         },
         {
             "name": "pear/archive_tar",
@@ -11156,16 +11251,16 @@
         },
         {
             "name": "squizlabs/php_codesniffer",
-            "version": "3.10.2",
+            "version": "3.10.3",
             "source": {
                 "type": "git",
                 "url": "https://github.com/PHPCSStandards/PHP_CodeSniffer.git",
-                "reference": "86e5f5dd9a840c46810ebe5ff1885581c42a3017"
+                "reference": "62d32998e820bddc40f99f8251958aed187a5c9c"
             },
             "dist": {
                 "type": "zip",
-                "url": "https://api.github.com/repos/PHPCSStandards/PHP_CodeSniffer/zipball/86e5f5dd9a840c46810ebe5ff1885581c42a3017",
-                "reference": "86e5f5dd9a840c46810ebe5ff1885581c42a3017",
+                "url": "https://api.github.com/repos/PHPCSStandards/PHP_CodeSniffer/zipball/62d32998e820bddc40f99f8251958aed187a5c9c",
+                "reference": "62d32998e820bddc40f99f8251958aed187a5c9c",
                 "shasum": ""
             },
             "require": {
@@ -11232,7 +11327,7 @@
                     "type": "open_collective"
                 }
             ],
-            "time": "2024-07-21T23:26:44+00:00"
+            "time": "2024-09-18T10:38:58+00:00"
         },
         {
             "name": "stack/builder",
@@ -17105,16 +17200,16 @@
         },
         {
             "name": "phpunit/phpunit",
-            "version": "9.6.20",
+            "version": "9.6.21",
             "source": {
                 "type": "git",
                 "url": "https://github.com/sebastianbergmann/phpunit.git",
-                "reference": "49d7820565836236411f5dc002d16dd689cde42f"
+                "reference": "de6abf3b6f8dd955fac3caad3af7a9504e8c2ffa"
             },
             "dist": {
                 "type": "zip",
-                "url": "https://api.github.com/repos/sebastianbergmann/phpunit/zipball/49d7820565836236411f5dc002d16dd689cde42f",
-                "reference": "49d7820565836236411f5dc002d16dd689cde42f",
+                "url": "https://api.github.com/repos/sebastianbergmann/phpunit/zipball/de6abf3b6f8dd955fac3caad3af7a9504e8c2ffa",
+                "reference": "de6abf3b6f8dd955fac3caad3af7a9504e8c2ffa",
                 "shasum": ""
             },
             "require": {
@@ -17129,7 +17224,7 @@
                 "phar-io/manifest": "^2.0.4",
                 "phar-io/version": "^3.2.1",
                 "php": ">=7.3",
-                "phpunit/php-code-coverage": "^9.2.31",
+                "phpunit/php-code-coverage": "^9.2.32",
                 "phpunit/php-file-iterator": "^3.0.6",
                 "phpunit/php-invoker": "^3.1.1",
                 "phpunit/php-text-template": "^2.0.4",
@@ -17188,7 +17283,7 @@
             "support": {
                 "issues": "https://github.com/sebastianbergmann/phpunit/issues",
                 "security": "https://github.com/sebastianbergmann/phpunit/security/policy",
-                "source": "https://github.com/sebastianbergmann/phpunit/tree/9.6.20"
+                "source": "https://github.com/sebastianbergmann/phpunit/tree/9.6.21"
             },
             "funding": [
                 {
@@ -17204,7 +17299,7 @@
                     "type": "tidelift"
                 }
             ],
-            "time": "2024-07-10T11:45:39+00:00"
+            "time": "2024-09-19T10:50:18+00:00"
         },
         {
             "name": "react/promise",

@@ -284,7 +284,7 @@ class SsotUploadLmmuForm extends ConfirmFormBase {
         }
       }
     }
-    return $this->t('This action will update the SSOT Labour Market Monthly Update for <strong>@month @year</strong>.', [
+    return $this->t('This action will update the SSoT Labour Market Monthly Update for <strong>@month @year</strong>.', [
       '@month' => DateHelper::monthNames(true)[$this->monthly_labour_market_updates['month']],
       '@year' => $this->monthly_labour_market_updates['year']
     ]);
@@ -417,16 +417,25 @@ class SsotUploadLmmuForm extends ConfirmFormBase {
     }
 
     // Get the previous month dataset to compare some cells.
-    $date = ExcelDate::excelToDateTimeObject($sheet->getCell('A3')->getValue());
-    $previous_year = $date->format('Y') + 0;
-    $previous_month = $date->format('n') - 1;
-    if ($previous_month == 0) {
-      $previous_month = 12;
-      $previous_year -= 1;
+    try {
+      $date = ExcelDate::excelToDateTimeObject($sheet->getCell('A3')->getValue());
+      $previous_year = $date->format('Y') + 0;
+      $previous_month = $date->format('n') - 1;
+      if ($previous_month == 0) {
+        $previous_month = 12;
+        $previous_year -= 1;
+      }
+      $previous_month = json_decode($this->ssot("monthly_labour_market_updates?year=eq.$previous_year&month=eq.$previous_month")->getBody(), true);
+      if (!empty($previous_month)) {
+        $previous_month = reset($previous_month);
+      }
     }
-    $previous_month = json_decode($this->ssot("monthly_labour_market_updates?year=eq.$previous_year&month=eq.$previous_month")->getBody(), true);
-    if (!empty($previous_month)) {
-      $previous_month = reset($previous_month);
+    catch (\TypeError $e) {
+      \Drupal::logger('workbc_ssot')->error('Error validating @name: @error', [
+        '@name' => $name, '@error' => $e->getMessage()
+      ]);
+      $form_state->setErrorByName('lmmu', $this->t('❌ This spreadsheet file is likely invalid. Please refer to the logs for more information.'));
+      return;
     }
 
     // Validate and fill the monthly_labour_market_updates values.
@@ -451,8 +460,13 @@ class SsotUploadLmmuForm extends ConfirmFormBase {
       if (array_key_exists('type', $validation)) {
         switch ($validation['type']) {
           case 'date_year':
-            $date = ExcelDate::excelToDateTimeObject($sheet->getCell($validation['cell'])->getValue());
-            if ($date->format('Y') != $value) {
+            try {
+              $date = ExcelDate::excelToDateTimeObject($sheet->getCell($validation['cell'])->getValue());
+            }
+            catch (\TypeError $e) {
+              $date = null;
+            }
+            if (!empty($date) && $date->format('Y') != $value) {
               array_key_push($errors, $key, $this->t('❌ Cell @cell (<strong>@key = @value</strong>) does not conform to: <em>@explanation</em> @suggestion', [
                 '@cell' => $validation['cell'],
                 '@key' => $key,
@@ -463,8 +477,13 @@ class SsotUploadLmmuForm extends ConfirmFormBase {
             }
             break;
           case 'date_month':
-            $date = ExcelDate::excelToDateTimeObject($sheet->getCell($validation['cell'])->getValue());
-            if ($date->format('n') != $value) {
+            try {
+              $date = ExcelDate::excelToDateTimeObject($sheet->getCell($validation['cell'])->getValue());
+            }
+            catch (\TypeError $e) {
+              $date = null;
+            }
+            if (!empty($date) && $date->format('n') != $value) {
               array_key_push($errors, $key, $this->t('❌ Cell @cell (<strong>@key = @value</strong>) does not conform to: <em>@explanation</em> @suggestion', [
                 '@cell' => $validation['cell'],
                 '@key' => $key,
@@ -660,7 +679,7 @@ class SsotUploadLmmuForm extends ConfirmFormBase {
       }
 
       // Mark the file as permanent.
-      $file = \Drupal\file\Entity\File::load($form_state->get('file_id'));
+      $file = File::load($form_state->get('file_id'));
       $file->setPermanent();
       $file->save();
 
@@ -687,6 +706,15 @@ class SsotUploadLmmuForm extends ConfirmFormBase {
       ->condition('dataset_period', $period)
       ->condition('oid', $log_id, '<>')
       ->execute();
+
+      // Enqueue a job to update the SSoT repo.
+      \Drupal::queue('ssot_uploader')->createItem([
+        'file_id' => $form_state->get('file_id'),
+        'month' => $month,
+        'year' => $year,
+        'notes' => $form_state->get('notes'),
+        'uid' => \Drupal::currentUser()->id(),
+      ]);
 
       \Drupal::messenger()->addMessage(t('Labour Market Monthly Update successfully updated for <strong>@month @year</strong>. <a href="@url">Click here</a> to see it!', [
         '@year' => $year,
