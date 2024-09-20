@@ -31,7 +31,7 @@ third_party_settings:
       label: 'Region Profile Tabs'
       parent_name: ''
       region: content
-      weight: 12
+      weight: 14
       format_type: tabs
       format_settings:
         classes: ''
@@ -116,7 +116,7 @@ content:
   content_moderation_control:
     settings: {  }
     third_party_settings: {  }
-    weight: 0
+    weight: 2
     region: content
   created:
     type: timestamp
@@ -126,7 +126,7 @@ content:
       custom_date_format: ''
       timezone: ''
     third_party_settings: {  }
-    weight: 0
+    weight: 1
     region: content
   extra_field_labour_market_outlook_introduction:
     settings: {  }
@@ -141,7 +141,7 @@ content:
   extra_field_region_employment:
     settings: {  }
     third_party_settings: {  }
-    weight: 5
+    weight: 7
     region: content
   extra_field_region_employment_bc:
     settings: {  }
@@ -196,7 +196,7 @@ content:
   extra_field_region_employment_source:
     settings: {  }
     third_party_settings: {  }
-    weight: 6
+    weight: 8
     region: content
   extra_field_region_ft_pt_employment_table:
     settings: {  }
@@ -211,7 +211,7 @@ content:
   extra_field_region_job_openings:
     settings: {  }
     third_party_settings: {  }
-    weight: 10
+    weight: 12
     region: content
   extra_field_region_job_openings_composition_chart:
     settings: {  }
@@ -241,7 +241,7 @@ content:
   extra_field_region_job_openings_source:
     settings: {  }
     third_party_settings: {  }
-    weight: 11
+    weight: 13
     region: content
   extra_field_region_labour_market_outlook_introduction:
     settings: {  }
@@ -256,12 +256,12 @@ content:
   extra_field_region_population:
     settings: {  }
     third_party_settings: {  }
-    weight: 3
+    weight: 5
     region: content
   extra_field_region_population_source:
     settings: {  }
     third_party_settings: {  }
-    weight: 4
+    weight: 6
     region: content
   extra_field_region_top_occupations_introduction:
     settings: {  }
@@ -281,7 +281,7 @@ content:
   extra_field_region_unemployment_rate:
     settings: {  }
     third_party_settings: {  }
-    weight: 7
+    weight: 9
     region: content
   extra_field_region_unemployment_rate_bc:
     settings: {  }
@@ -301,7 +301,7 @@ content:
   extra_field_region_unemployment_rate_source:
     settings: {  }
     third_party_settings: {  }
-    weight: 9
+    weight: 11
     region: content
   extra_field_region_unemployment_region_source:
     settings: {  }
@@ -329,7 +329,7 @@ content:
       view_mode: hero_image
       link: false
     third_party_settings: {  }
-    weight: 2
+    weight: 4
     region: content
   field_industry_highlights_intro:
     type: text_default
@@ -345,14 +345,6 @@ content:
     third_party_settings: {  }
     weight: 28
     region: content
-  field_metatag_description:
-    type: string
-    label: above
-    settings:
-      link_to_entity: false
-    third_party_settings: {  }
-    weight: 34
-    region: content
   field_region_overview:
     type: text_default
     label: above
@@ -367,7 +359,7 @@ content:
       date_format: html_datetime
       text_pattern: '%moderation_state% - %date%'
     third_party_settings: {  }
-    weight: 8
+    weight: 10
     region: content
   field_top_occupations_intro:
     type: text_default
@@ -379,7 +371,7 @@ content:
   links:
     settings: {  }
     third_party_settings: {  }
-    weight: 1
+    weight: 3
     region: content
   uid:
     type: author
@@ -398,5 +390,6 @@ hidden:
   field_hero_image: true
   field_introductions: true
   field_job_board_id: true
+  field_metatag_description: true
   langcode: true
   search_api_excerpt: true

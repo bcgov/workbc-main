@@ -453,14 +453,6 @@ content:
     third_party_settings: {  }
     weight: 28
     region: content
-  field_metatag_description:
-    type: string
-    label: above
-    settings:
-      link_to_entity: false
-    third_party_settings: {  }
-    weight: 82
-    region: content
   field_noc:
     type: string
     label: above
@@ -527,6 +519,7 @@ hidden:
   field_content_group: true
   field_hero_image: true
   field_introductions: true
+  field_metatag_description: true
   field_resources: true
   field_skills_2: true
   langcode: true
