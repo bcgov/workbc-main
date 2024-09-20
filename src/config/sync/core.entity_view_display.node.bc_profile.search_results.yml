@@ -12,6 +12,7 @@ dependencies:
     - field.field.node.bc_profile.field_introductions
     - field.field.node.bc_profile.field_job_board_id
     - field.field.node.bc_profile.field_key_facts
+    - field.field.node.bc_profile.field_metatag_description
     - field.field.node.bc_profile.field_region_overview
     - field.field.node.bc_profile.field_scheduled_publish
     - node.type.bc_profile
@@ -154,6 +155,7 @@ hidden:
   field_introductions: true
   field_job_board_id: true
   field_key_facts: true
+  field_metatag_description: true
   field_scheduled_publish: true
   langcode: true
   links: true

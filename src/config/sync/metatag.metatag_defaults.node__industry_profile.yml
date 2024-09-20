@@ -1,0 +1,8 @@
+uuid: d31c3876-423e-4440-bd3a-38bf62c76b65
+langcode: en
+status: true
+dependencies: {  }
+id: node__industry_profile
+label: 'Content: Industry Profile'
+tags:
+  description: '[node:field_metatag_description]'
