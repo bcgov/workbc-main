@@ -271,6 +271,10 @@ $config['search_api.server.solr'] = [
 // Career Trek configuration
 $config['workbc']['careertrek_url'] = getenv('CAREERTREK_URL') ?: 'https://careertrekbc.ca';
 
+// SSoT settings.
+$config['workbc']['ssot_repo']['name'] = 'infojunkie/workbc-ssot';
+$config['workbc']['ssot_repo']['branches']['dev'] = 'dev';
+
 // Enable/disable features
 $config['workbc']['features']['ssot_upload'] = TRUE;
 

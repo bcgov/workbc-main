@@ -1,0 +1,8 @@
+uuid: 2e3853e0-4fa3-4229-8d17-fdfdea75e4aa
+langcode: en
+status: true
+dependencies: {  }
+id: node__labour_market_monthly
+label: 'Content: Labour Market Monthly'
+tags:
+  description: '[node:field_metatag_description]'
