@@ -19,7 +19,6 @@ dependencies:
     - node.type.success_story
   module:
     - text
-    - user
 id: node.success_story.full
 targetEntityType: node
 bundle: success_story
@@ -30,12 +29,12 @@ content:
     label: visually_hidden
     settings: {  }
     third_party_settings: {  }
-    weight: 3
+    weight: 4
     region: content
   content_moderation_control:
     settings: {  }
     third_party_settings: {  }
-    weight: 0
+    weight: 1
     region: content
   created:
     type: timestamp
@@ -54,19 +53,12 @@ content:
       view_mode: post_image
       link: false
     third_party_settings: {  }
-    weight: 2
+    weight: 3
     region: content
   links:
     settings: {  }
     third_party_settings: {  }
-    weight: 1
-    region: content
-  uid:
-    type: author
-    label: hidden
-    settings: {  }
-    third_party_settings: {  }
-    weight: 0
+    weight: 2
     region: content
 hidden:
   extra_field_workbc_page_title: true
@@ -83,3 +75,4 @@ hidden:
   field_tags: true
   langcode: true
   search_api_excerpt: true
+  uid: true
