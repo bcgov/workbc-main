@@ -14,6 +14,7 @@ dependencies:
     - field.field.node.region_profile.field_metatag_description
     - field.field.node.region_profile.field_region_overview
     - field.field.node.region_profile.field_scheduled_publish
+    - field.field.node.region_profile.field_tags
     - node.type.region_profile
     - workflows.workflow.editorial
   module:
@@ -107,7 +108,7 @@ content:
     third_party_settings: {  }
   field_metatag_description:
     type: string_textfield
-    weight: 26
+    weight: 21
     region: content
     settings:
       size: 60
@@ -126,6 +127,16 @@ content:
     weight: 17
     region: content
     settings: {  }
+    third_party_settings: {  }
+  field_tags:
+    type: entity_reference_autocomplete_tags
+    weight: 20
+    region: content
+    settings:
+      match_operator: CONTAINS
+      match_limit: 10
+      size: 60
+      placeholder: ''
     third_party_settings: {  }
   langcode:
     type: language_select

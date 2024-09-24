@@ -15,6 +15,7 @@ dependencies:
     - field.field.node.bc_profile.field_metatag_description
     - field.field.node.bc_profile.field_region_overview
     - field.field.node.bc_profile.field_scheduled_publish
+    - field.field.node.bc_profile.field_tags
     - node.type.bc_profile
   module:
     - user
@@ -94,5 +95,6 @@ hidden:
   field_metatag_description: true
   field_region_overview: true
   field_scheduled_publish: true
+  field_tags: true
   langcode: true
   search_api_excerpt: true

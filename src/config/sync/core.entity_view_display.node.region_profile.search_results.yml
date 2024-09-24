@@ -15,6 +15,7 @@ dependencies:
     - field.field.node.region_profile.field_metatag_description
     - field.field.node.region_profile.field_region_overview
     - field.field.node.region_profile.field_scheduled_publish
+    - field.field.node.region_profile.field_tags
     - node.type.region_profile
   module:
     - field_group
@@ -178,6 +179,7 @@ hidden:
   field_key_facts: true
   field_metatag_description: true
   field_scheduled_publish: true
+  field_tags: true
   langcode: true
   links: true
   search_api_excerpt: true

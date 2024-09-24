@@ -1,0 +1,29 @@
+uuid: 3bfe7e86-8c96-40b7-88a4-6f31c7688110
+langcode: en
+status: true
+dependencies:
+  config:
+    - field.storage.node.field_tags
+    - node.type.industry_profile
+    - taxonomy.vocabulary.tags
+id: node.industry_profile.field_tags
+field_name: field_tags
+entity_type: node
+bundle: industry_profile
+label: Tags
+description: ''
+required: false
+translatable: true
+default_value: {  }
+default_value_callback: ''
+settings:
+  handler: 'default:taxonomy_term'
+  handler_settings:
+    target_bundles:
+      tags: tags
+    sort:
+      field: name
+      direction: asc
+    auto_create: false
+    auto_create_bundle: ''
+field_type: entity_reference

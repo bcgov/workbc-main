@@ -17,6 +17,7 @@ dependencies:
     - field.field.node.workbc_centre.field_phone
     - field.field.node.workbc_centre.field_related_topics
     - field.field.node.workbc_centre.field_scheduled_publish
+    - field.field.node.workbc_centre.field_tags
     - field.field.node.workbc_centre.field_website
     - field.field.node.workbc_centre.field_working_hours
     - node.type.workbc_centre
@@ -147,6 +148,16 @@ content:
     weight: 17
     region: content
     settings: {  }
+    third_party_settings: {  }
+  field_tags:
+    type: entity_reference_autocomplete_tags
+    weight: 25
+    region: content
+    settings:
+      match_operator: CONTAINS
+      match_limit: 10
+      size: 60
+      placeholder: ''
     third_party_settings: {  }
   field_website:
     type: link_default

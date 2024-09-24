@@ -6,3 +6,4 @@ id: node__bc_profile
 label: 'Content: BC Profile'
 tags:
   description: '[node:field_metatag_description]'
+  keywords: '[node:field_tags]'

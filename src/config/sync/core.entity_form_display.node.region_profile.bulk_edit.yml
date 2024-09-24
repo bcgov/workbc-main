@@ -15,6 +15,7 @@ dependencies:
     - field.field.node.region_profile.field_metatag_description
     - field.field.node.region_profile.field_region_overview
     - field.field.node.region_profile.field_scheduled_publish
+    - field.field.node.region_profile.field_tags
     - node.type.region_profile
 id: node.region_profile.bulk_edit
 targetEntityType: node
@@ -39,6 +40,7 @@ hidden:
   field_metatag_description: true
   field_region_overview: true
   field_scheduled_publish: true
+  field_tags: true
   langcode: true
   moderation_state: true
   path: true

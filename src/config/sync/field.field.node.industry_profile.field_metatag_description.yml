@@ -10,7 +10,7 @@ field_name: field_metatag_description
 entity_type: node
 bundle: industry_profile
 label: 'Metatag Description'
-description: ''
+description: 'Description to be used for metatags. Limited to 160 characters.'
 required: false
 translatable: true
 default_value: {  }
