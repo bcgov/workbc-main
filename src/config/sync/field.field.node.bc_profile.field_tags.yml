@@ -10,8 +10,8 @@ id: node.bc_profile.field_tags
 field_name: field_tags
 entity_type: node
 bundle: bc_profile
-label: Tags
-description: ''
+label: 'Metatag Keywords'
+description: 'Keywords to be used for metatags.'
 required: false
 translatable: true
 default_value: {  }
