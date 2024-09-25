@@ -18,6 +18,7 @@ dependencies:
     - field.field.node.workbc_centre.field_phone
     - field.field.node.workbc_centre.field_related_topics
     - field.field.node.workbc_centre.field_scheduled_publish
+    - field.field.node.workbc_centre.field_tags
     - field.field.node.workbc_centre.field_website
     - field.field.node.workbc_centre.field_working_hours
     - node.type.workbc_centre
@@ -93,6 +94,7 @@ hidden:
   field_phone: true
   field_related_topics: true
   field_scheduled_publish: true
+  field_tags: true
   field_website: true
   field_working_hours: true
   langcode: true

@@ -18,6 +18,7 @@ dependencies:
     - field.field.node.industry_profile.field_resources
     - field.field.node.industry_profile.field_resources_reference
     - field.field.node.industry_profile.field_scheduled_publish
+    - field.field.node.industry_profile.field_tags
     - node.type.industry_profile
   module:
     - user
@@ -108,5 +109,6 @@ hidden:
   field_resources: true
   field_resources_reference: true
   field_scheduled_publish: true
+  field_tags: true
   langcode: true
   search_api_excerpt: true
