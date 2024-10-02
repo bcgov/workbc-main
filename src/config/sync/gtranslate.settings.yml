@@ -1,114 +1,137 @@
 _core:
-  default_config_hash: QfRxCsHzZ8_TOqax9jYAfQvj5Kq9Ve7vl4pVziKemhA
-gtranslate_method: onfly
-gtranslate_pro: 0
-gtranslate_enterprise: 0
-gtranslate_analytics: 0
-gtranslate_look: dropdown
-gtranslate_flag_size: '16'
-gtranslate_new_window: 0
-gtranslate_main_lang: en
-gtranslate_af: '1'
-gtranslate_sq: '1'
-gtranslate_ar: '1'
-gtranslate_hy: '1'
-gtranslate_az: '1'
-gtranslate_eu: '1'
-gtranslate_be: '1'
-gtranslate_bg: '1'
-gtranslate_ca: '1'
-gtranslate_zh-CN: '1'
-gtranslate_zh-TW: '1'
-gtranslate_hr: '1'
-gtranslate_cs: '1'
-gtranslate_da: '1'
-gtranslate_nl: '2'
-gtranslate_en: '2'
-gtranslate_et: '1'
-gtranslate_tl: '1'
-gtranslate_fi: '1'
-gtranslate_fr: '2'
-gtranslate_gl: '1'
-gtranslate_ka: '1'
-gtranslate_de: '2'
-gtranslate_el: '1'
-gtranslate_ht: '1'
-gtranslate_iw: '1'
-gtranslate_hi: '1'
-gtranslate_hu: '1'
-gtranslate_is: '1'
-gtranslate_id: '1'
-gtranslate_ga: '1'
-gtranslate_it: '2'
-gtranslate_ja: '1'
-gtranslate_ko: '1'
-gtranslate_lv: '1'
-gtranslate_lt: '1'
-gtranslate_mk: '1'
-gtranslate_ms: '1'
-gtranslate_mt: '1'
-gtranslate_no: '1'
-gtranslate_fa: '1'
-gtranslate_pl: '1'
-gtranslate_pt: '2'
-gtranslate_ro: '1'
-gtranslate_ru: '2'
-gtranslate_sr: '1'
-gtranslate_sk: '1'
-gtranslate_sl: '1'
-gtranslate_es: '2'
-gtranslate_sw: '1'
-gtranslate_sv: '1'
-gtranslate_th: '1'
-gtranslate_tr: '1'
-gtranslate_uk: '1'
-gtranslate_ur: '1'
-gtranslate_vi: '1'
-gtranslate_cy: '1'
-gtranslate_yi: '1'
-gtranslate_bn: '1'
-gtranslate_bs: '1'
-gtranslate_ceb: '1'
-gtranslate_eo: '1'
-gtranslate_gu: '1'
-gtranslate_ha: '1'
-gtranslate_hmn: '1'
-gtranslate_ig: '1'
-gtranslate_jw: '1'
-gtranslate_kn: '1'
-gtranslate_km: '1'
-gtranslate_lo: '1'
-gtranslate_la: '1'
-gtranslate_mi: '1'
-gtranslate_mr: '1'
-gtranslate_mn: '1'
-gtranslate_ne: '1'
-gtranslate_pa: '1'
-gtranslate_so: '1'
-gtranslate_ta: '1'
-gtranslate_te: '1'
-gtranslate_yo: '1'
-gtranslate_zu: '1'
-gtranslate_my: '0'
-gtranslate_ny: '0'
-gtranslate_kk: '0'
-gtranslate_mg: '0'
-gtranslate_ml: '0'
-gtranslate_si: '0'
-gtranslate_st: '0'
-gtranslate_su: '0'
-gtranslate_tg: '0'
-gtranslate_uz: '0'
-gtranslate_am: '0'
-gtranslate_co: '0'
-gtranslate_haw: '0'
-gtranslate_ku: '0'
-gtranslate_ky: '0'
-gtranslate_lb: '0'
-gtranslate_ps: '0'
-gtranslate_sm: '0'
-gtranslate_gd: '0'
-gtranslate_sn: '0'
-gtranslate_sd: '0'
-gtranslate_fy: '0'
-gtranslate_xh: '0'
+  default_config_hash: 6Vv7P3pQThR3GfLZC4SY_L8O5usil2RSOpIaLeEx6VI
+source_lang: en
+widget_look: dropdown
+url_structure: none
+flag_size: '32'
+flag_style: 2d
+globe_size: '60'
+color_scheme: light
+alt_flags:
+  usa: 0
+  canada: 0
+  mexico: 0
+  argentina: 0
+  colombia: 0
+  brazil: 0
+  quebec: 0
+wrapper_selector: .gtranslate_wrapper
+float_position: bottom-left
+float_switcher_open_direction: top
+position: inline
+switcher_open_direction: bottom
+native_language_names: 1
+detect_browser_language: 0
+enable_cdn: 1
+add_new_line: 1
+select_language_label: 'Select Language'
+custom_domains: 0
+custom_domains_config: ''
+custom_css: ''
+languages:
+  en: en
+  ar: ar
+  bg: bg
+  zh-CN: zh-CN
+  zh-TW: zh-TW
+  hr: hr
+  cs: cs
+  da: da
+  nl: nl
+  fi: fi
+  fr: fr
+  de: de
+  el: el
+  hi: hi
+  it: it
+  ja: ja
+  ko: ko
+  'no': 'no'
+  pl: pl
+  pt: pt
+  ro: ro
+  ru: ru
+  es: es
+  sv: sv
+  ca: ca
+  tl: tl
+  iw: iw
+  id: id
+  lv: lv
+  lt: lt
+  sr: sr
+  sk: sk
+  sl: sl
+  uk: uk
+  vi: vi
+  sq: sq
+  et: et
+  gl: gl
+  hu: hu
+  mt: mt
+  th: th
+  tr: tr
+  fa: fa
+  af: af
+  ms: ms
+  sw: sw
+  ga: ga
+  cy: cy
+  be: be
+  is: is
+  mk: mk
+  yi: yi
+  hy: hy
+  az: az
+  eu: eu
+  ka: ka
+  ht: ht
+  ur: ur
+  bn: bn
+  bs: bs
+  ceb: ceb
+  eo: eo
+  gu: gu
+  ha: ha
+  hmn: hmn
+  ig: ig
+  jw: jw
+  kn: kn
+  km: km
+  lo: lo
+  la: la
+  mi: mi
+  mr: mr
+  mn: mn
+  ne: ne
+  pa: pa
+  so: so
+  ta: ta
+  te: te
+  yo: yo
+  zu: zu
+  my: 0
+  ny: 0
+  kk: 0
+  mg: 0
+  ml: 0
+  si: 0
+  st: 0
+  su: 0
+  tg: 0
+  uz: 0
+  am: 0
+  co: 0
+  haw: 0
+  ku: 0
+  ky: 0
+  lb: 0
+  ps: 0
+  sm: 0
+  gd: 0
+  sn: 0
+  sd: 0
+  fy: 0
+  xh: 0
+flag_languages:
+  en: en

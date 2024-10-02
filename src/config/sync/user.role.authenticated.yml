@@ -3,17 +3,17 @@ langcode: en
 status: true
 dependencies:
   config:
-    - filter.format.webform_default
     - media.type.audio
     - media.type.document
     - media.type.icon
     - media.type.image
     - media.type.remote_video
     - media.type.video
+    - search_api_autocomplete.search.search_career_profiles
+    - search_api_autocomplete.search.search_site_content
   module:
     - contact
     - field_permissions
-    - filter
     - media
     - media_entity_download
     - paragraphs_type_permissions
@@ -98,15 +98,16 @@ permissions:
   - 'update paragraph content action_cards_explore_careers'
   - 'update paragraph content action_cards_full_width'
   - 'update paragraph content action_cards_icon'
+  - 'update paragraph content action_cards_icon_1_2'
   - 'update paragraph content action_cards_publication'
   - 'update paragraph content additional_duties'
+  - 'update paragraph content content_interactive_map'
   - 'update paragraph content content_text'
   - 'update paragraph content content_view'
   - 'update paragraph content quote_card'
   - 'update paragraph content skills'
   - 'use search_api_autocomplete for search_career_profiles'
   - 'use search_api_autocomplete for search_site_content'
-  - 'use text format webform_default'
   - 'use views bulk edit'
   - 'view all media revisions'
   - 'view field_content'

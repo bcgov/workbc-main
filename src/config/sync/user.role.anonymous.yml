@@ -2,6 +2,9 @@ uuid: b1f357ae-893b-40cc-8310-c4d06e89e014
 langcode: en
 status: true
 dependencies:
+  config:
+    - search_api_autocomplete.search.search_career_profiles
+    - search_api_autocomplete.search.search_site_content
   module:
     - contact
     - field_permissions

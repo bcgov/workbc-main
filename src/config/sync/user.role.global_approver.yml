@@ -27,6 +27,7 @@ dependencies:
     - workflows.workflow.editorial
   module:
     - actions_permissions
+    - content_lock
     - content_moderation
     - field_permissions
     - file
@@ -54,6 +55,7 @@ permissions:
   - 'administer nodes'
   - 'administer redirect settings'
   - 'administer redirects'
+  - 'break content lock'
   - 'bypass content groups'
   - 'bypass node access'
   - 'create audio media'
@@ -186,7 +188,13 @@ permissions:
   - 'edit own workbc_centre content'
   - 'execute entity:break_lock media'
   - 'execute entity:publish_action media'
+  - 'execute entity:publish_action node'
+  - 'execute entity:publish_action taxonomy_term'
+  - 'execute entity:save_action file'
   - 'execute entity:save_action media'
+  - 'execute entity:save_action menu_link_content'
+  - 'execute entity:save_action node'
+  - 'execute entity:save_action taxonomy_term'
   - 'execute entity:unpublish_action media'
   - 'execute workbc_draft_node_action node'
   - 'execute workbc_publish_node_action node'

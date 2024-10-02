@@ -3,20 +3,20 @@ _core:
 iconset: social-icons--no-color
 services:
   facebook: facebook
-  twitter: twitter
+  whatsapp: '0'
+  facebook_messenger: '0'
   email: email
+  pinterest: '0'
   linkedin: linkedin
+  tumblr: '0'
+  reddit: '0'
+  evernote: '0'
   print: print
-  whatsapp: 0
-  facebook_messenger: 0
-  pinterest: 0
+  copy: '0'
+  twitter: twitter
   digg: 0
-  tumblr: 0
-  reddit: 0
-  evernote: 0
-  copy: 0
 width: 28px
 radius: 3px
 print_css: ''
 facebook_app_id: ''
-node_field: 0
+node_field: false

@@ -23,6 +23,7 @@ settings:
   webform_id: funding_questionnaire
   default_data: ''
   redirect: false
+  lazy: false
 visibility:
   request_path:
     id: request_path
