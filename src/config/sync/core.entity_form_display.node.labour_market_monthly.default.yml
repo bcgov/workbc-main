@@ -9,8 +9,10 @@ dependencies:
     - field.field.node.labour_market_monthly.field_hero_image_media
     - field.field.node.labour_market_monthly.field_hero_text
     - field.field.node.labour_market_monthly.field_industry_highlights_intro
+    - field.field.node.labour_market_monthly.field_metatag_description
     - field.field.node.labour_market_monthly.field_related_topics
     - field.field.node.labour_market_monthly.field_scheduled_publish
+    - field.field.node.labour_market_monthly.field_tags
     - field.field.node.labour_market_monthly.field_unemployment_introduction
     - field.field.node.labour_market_monthly.field_unemployment_region_intro
     - node.type.labour_market_monthly
@@ -74,6 +76,14 @@ content:
       rows: 5
       placeholder: ''
     third_party_settings: {  }
+  field_metatag_description:
+    type: string_textfield
+    weight: 21
+    region: content
+    settings:
+      size: 60
+      placeholder: ''
+    third_party_settings: {  }
   field_related_topics:
     type: entity_reference_autocomplete
     weight: 16
@@ -89,6 +99,16 @@ content:
     weight: 18
     region: content
     settings: {  }
+    third_party_settings: {  }
+  field_tags:
+    type: entity_reference_autocomplete_tags
+    weight: 20
+    region: content
+    settings:
+      match_operator: CONTAINS
+      match_limit: 10
+      size: 60
+      placeholder: ''
     third_party_settings: {  }
   field_unemployment_introduction:
     type: text_textarea

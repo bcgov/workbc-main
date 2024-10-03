@@ -11,8 +11,10 @@ dependencies:
     - field.field.node.bc_profile.field_introductions
     - field.field.node.bc_profile.field_job_board_id
     - field.field.node.bc_profile.field_key_facts
+    - field.field.node.bc_profile.field_metatag_description
     - field.field.node.bc_profile.field_region_overview
     - field.field.node.bc_profile.field_scheduled_publish
+    - field.field.node.bc_profile.field_tags
     - node.type.bc_profile
   module:
     - entity_reference_revisions
@@ -30,7 +32,7 @@ third_party_settings:
       label: 'BC Profile'
       parent_name: ''
       region: content
-      weight: 11
+      weight: 13
       format_type: tabs
       format_settings:
         classes: ''
@@ -109,7 +111,7 @@ content:
   content_moderation_control:
     settings: {  }
     third_party_settings: {  }
-    weight: 0
+    weight: 2
     region: content
   created:
     type: timestamp
@@ -119,7 +121,7 @@ content:
       custom_date_format: ''
       timezone: ''
     third_party_settings: {  }
-    weight: 0
+    weight: 1
     region: content
   extra_field_BC_ft_pt_employment_table:
     settings: {  }
@@ -129,7 +131,7 @@ content:
   extra_field_bc_employment:
     settings: {  }
     third_party_settings: {  }
-    weight: 5
+    weight: 7
     region: content
   extra_field_bc_employment_bc:
     settings: {  }
@@ -189,12 +191,12 @@ content:
   extra_field_bc_employment_source:
     settings: {  }
     third_party_settings: {  }
-    weight: 6
+    weight: 8
     region: content
   extra_field_bc_job_openings:
     settings: {  }
     third_party_settings: {  }
-    weight: 9
+    weight: 11
     region: content
   extra_field_bc_job_openings_composition_chart:
     settings: {  }
@@ -224,7 +226,7 @@ content:
   extra_field_bc_job_openings_source:
     settings: {  }
     third_party_settings: {  }
-    weight: 10
+    weight: 12
     region: content
   extra_field_bc_labour_market_outlook_introduction:
     settings: {  }
@@ -239,17 +241,17 @@ content:
   extra_field_bc_population:
     settings: {  }
     third_party_settings: {  }
-    weight: 3
+    weight: 5
     region: content
   extra_field_bc_population_source:
     settings: {  }
     third_party_settings: {  }
-    weight: 4
+    weight: 6
     region: content
   extra_field_bc_unemployment_rate:
     settings: {  }
     third_party_settings: {  }
-    weight: 7
+    weight: 9
     region: content
   extra_field_bc_unemployment_rate_bc:
     settings: {  }
@@ -264,7 +266,7 @@ content:
   extra_field_bc_unemployment_rate_source:
     settings: {  }
     third_party_settings: {  }
-    weight: 8
+    weight: 10
     region: content
   extra_field_bc_unemployment_region_source:
     settings: {  }
@@ -287,7 +289,7 @@ content:
       view_mode: hero_image
       link: false
     third_party_settings: {  }
-    weight: 2
+    weight: 4
     region: content
   field_industry_highlights_intro:
     type: text_default
@@ -302,7 +304,7 @@ content:
     settings:
       link_to_entity: false
     third_party_settings: {  }
-    weight: 13
+    weight: 15
     region: content
   field_key_facts:
     type: text_default
@@ -325,12 +327,12 @@ content:
       date_format: html_datetime
       text_pattern: '%moderation_state% - %date%'
     third_party_settings: {  }
-    weight: 12
+    weight: 14
     region: content
   links:
     settings: {  }
     third_party_settings: {  }
-    weight: 1
+    weight: 3
     region: content
   uid:
     type: author
@@ -346,5 +348,7 @@ hidden:
   field_content_group: true
   field_hero_image: true
   field_introductions: true
+  field_metatag_description: true
+  field_tags: true
   langcode: true
   search_api_excerpt: true

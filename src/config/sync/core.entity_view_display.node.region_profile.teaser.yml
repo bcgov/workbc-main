@@ -12,8 +12,10 @@ dependencies:
     - field.field.node.region_profile.field_introductions
     - field.field.node.region_profile.field_job_board_id
     - field.field.node.region_profile.field_key_facts
+    - field.field.node.region_profile.field_metatag_description
     - field.field.node.region_profile.field_region_overview
     - field.field.node.region_profile.field_scheduled_publish
+    - field.field.node.region_profile.field_tags
     - node.type.region_profile
   module:
     - user
@@ -80,6 +82,7 @@ hidden:
   extra_field_region_population_source: true
   extra_field_region_top_occupations_introduction: true
   extra_field_region_top_ten_occupations: true
+  extra_field_region_top_ten_occupations_source: true
   extra_field_region_unemployment_rate: true
   extra_field_region_unemployment_rate_bc: true
   extra_field_region_unemployment_rate_chart: true
@@ -96,7 +99,9 @@ hidden:
   field_introductions: true
   field_job_board_id: true
   field_key_facts: true
+  field_metatag_description: true
   field_region_overview: true
   field_scheduled_publish: true
+  field_tags: true
   langcode: true
   search_api_excerpt: true

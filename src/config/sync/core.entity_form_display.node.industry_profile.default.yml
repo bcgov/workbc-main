@@ -13,9 +13,11 @@ dependencies:
     - field.field.node.industry_profile.field_job_board_id
     - field.field.node.industry_profile.field_job_board_save_profile_id
     - field.field.node.industry_profile.field_key_facts
+    - field.field.node.industry_profile.field_metatag_description
     - field.field.node.industry_profile.field_resources
     - field.field.node.industry_profile.field_resources_reference
     - field.field.node.industry_profile.field_scheduled_publish
+    - field.field.node.industry_profile.field_tags
     - node.type.industry_profile
     - workflows.workflow.editorial
   module:
@@ -123,6 +125,14 @@ content:
       rows: 5
       placeholder: ''
     third_party_settings: {  }
+  field_metatag_description:
+    type: string_textfield
+    weight: 23
+    region: content
+    settings:
+      size: 60
+      placeholder: ''
+    third_party_settings: {  }
   field_resources_reference:
     type: entity_reference_autocomplete
     weight: 16
@@ -138,6 +148,16 @@ content:
     weight: 18
     region: content
     settings: {  }
+    third_party_settings: {  }
+  field_tags:
+    type: entity_reference_autocomplete_tags
+    weight: 22
+    region: content
+    settings:
+      match_operator: CONTAINS
+      match_limit: 10
+      size: 60
+      placeholder: ''
     third_party_settings: {  }
   langcode:
     type: language_select
