@@ -237,6 +237,9 @@
                 "Ignore query strings": "patches/drupal/redirect/2976930-redirect-hashes-created-when-not-retaining-the-query-string-2.patch",
                 "Add request to hook_redirect_response_alter": "patches/drupal/redirect/hook_alter_request.patch"
             },
+            "drupal/gtranslate" : {
+                "Remove select language option": "patches/drupal/gtranslate/remove_select_language.patch"
+             },            
             "drupal/charts": {
                 "Remember chart instances": "patches/drupal/charts/remember-charts-1.patch"
             },

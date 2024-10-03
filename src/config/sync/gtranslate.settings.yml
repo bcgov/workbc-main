@@ -22,7 +22,7 @@ position: inline
 switcher_open_direction: bottom
 native_language_names: 0
 detect_browser_language: 0
-enable_cdn: 1
+enable_cdn: 0
 add_new_line: 1
 select_language_label: 'Select Language'
 custom_domains: 0
