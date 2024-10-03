@@ -17,7 +17,7 @@ init-popovers:
     - core/drupal
     - core/jquery
     - core/once
-    - core/popperjs
+    - popperjs/popperjs
 
 back-to-top:
   js:
