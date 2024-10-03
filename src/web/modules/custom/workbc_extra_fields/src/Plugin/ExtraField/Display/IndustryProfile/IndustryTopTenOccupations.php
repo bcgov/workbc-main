@@ -81,7 +81,8 @@ class IndustryTopTenOccupations extends ExtraFieldDisplayFormattedBase {
   private function nodeID($noc) {
     $query = \Drupal::entityQuery('node')
         ->condition('status', 1)
-        ->condition('field_noc.value', $noc);
+        ->condition('field_noc.value', $noc)
+        ->accessCheck(false);
     $nids = $query->execute();
     return !empty($nids) ? reset($nids) : false;
   }

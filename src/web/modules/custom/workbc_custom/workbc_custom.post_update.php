@@ -704,7 +704,7 @@ function workbc_custom_post_update_1603_resources(&$sandbox = NULL) {
  */
 function workbc_custom_post_update_1677(&$sandbox = NULL) {
   if (!isset($sandbox['media'])) {
-    $media = \Drupal::entityQuery('media')->execute();
+    $media = \Drupal::entityQuery('media')->accessCheck(false)->execute();
     $sandbox['media'] = $media;
     $sandbox['count'] = count($sandbox['media']);
   }
@@ -723,6 +723,7 @@ function workbc_custom_post_update_1677(&$sandbox = NULL) {
       ->allRevisions()
       ->condition('mid', $id)
       ->sort('vid', 'DESC')
+      ->accessCheck(false)
       ->execute();
     $revisions = array_keys($result);
 

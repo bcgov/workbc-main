@@ -48,7 +48,6 @@ permissions:
   - 'view paragraph content content_interactive_map'
   - 'view paragraph content content_text'
   - 'view paragraph content content_view'
-  - 'view paragraph content hours_of_operation'
   - 'view paragraph content quote_card'
   - 'view paragraph content skills'
   - 'view published sitewide alert entities'

@@ -61,7 +61,8 @@ class MediaEntityDLCKE extends CKEditorPluginBase implements CKEditorPluginConfi
    * {@inheritdoc}
    */
   public function getFile() {
-    return drupal_get_path('module', 'media_entity_dlcke') . '/js/plugins/mediaentitydlcke/plugin.js';
+    $path = Drupal\Core\Extension\ExtensionPathResolver::getPath('module', 'media_entity_dlcke');
+    return $path . '/js/plugins/mediaentitydlcke/plugin.js';
   }
 
   /**
@@ -81,7 +82,8 @@ class MediaEntityDLCKE extends CKEditorPluginBase implements CKEditorPluginConfi
    * {@inheritdoc}
    */
   public function getButtons() {
-    $path = drupal_get_path('module', 'media_entity_dlcke') . '/js/plugins/mediaentitydlcke';
+    $path = Drupal\Core\Extension\ExtensionPathResolver::getPath('module', 'media_entity_dlcke');
+    $path .= '/js/plugins/mediaentitydlcke';
     return [
       'MediaEntityDLCKE' => [
         'label' => $this->t('Media Library download link'),

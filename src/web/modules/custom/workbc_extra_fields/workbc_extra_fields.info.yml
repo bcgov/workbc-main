@@ -3,7 +3,7 @@ type: module
 description: 'Provides Extra Fields plugin for WorkBC.'
 package: WorkBC
 core: 8.x
-core_version_requirement: ^8 || ^9
+core_version_requirement: ^8 || ^9 || ^10
 dependencies:
   - extra_field:extra_field
   - published_corrected_date:published_corrected_date
