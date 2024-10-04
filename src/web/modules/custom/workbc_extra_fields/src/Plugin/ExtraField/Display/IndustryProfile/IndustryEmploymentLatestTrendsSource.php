@@ -43,8 +43,8 @@ class IndustryEmploymentLatestTrendsSource extends ExtraFieldDisplayFormattedBas
    */
   public function viewElements(ContentEntityInterface $entity) {
 
-    if (!empty($entity->ssot_data) && isset($entity->ssot_data['sources']['monthly_labour_market_updates'])) {
-      $output = $entity->ssot_data['sources']['monthly_labour_market_updates']['label'];
+    if (!empty($entity->ssot_data) && isset($entity->ssot_data['sources']['monthly_labour_market_updates.unemployment_pct'])) {
+      $output = $entity->ssot_data['sources']['monthly_labour_market_updates.unemployment_pct']['label'];
     }
     else {
       $output = WORKBC_EXTRA_FIELDS_NOT_AVAILABLE;

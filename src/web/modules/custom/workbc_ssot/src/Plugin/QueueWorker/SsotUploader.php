@@ -86,6 +86,19 @@ class SsotUploader extends QueueWorkerBase implements ContainerFactoryPluginInte
       'message' => $data['notes'],
     ]);
 
+    // Trigger the GitHub workflow.
+    $this->github("https://api.github.com/repos/{$repo['name']}/dispatches", 'POST', $repo['token'], [
+      'event_type' => 'monthly_labour_market_update',
+      'client_payload' => [
+        'branch' => $repo['branches'][getenv('PROJECT_ENVIRONMENT')],
+        'filename' => $sheet,
+        'year' => $data['year'],
+        'month' => $data['month'],
+        'date' => $data['date'],
+        'notes' => $data['notes'],
+      ]
+    ]);
+
     Timer::stop('ssot_uploader');
     \Drupal::logger('workbc')->notice('Done uploading SSoT LMMU sheet @sheet in @time.', [
       '@sheet' => $sheet,
