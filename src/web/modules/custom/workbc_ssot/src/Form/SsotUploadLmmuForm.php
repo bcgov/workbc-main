@@ -10,7 +10,7 @@ use PhpOffice\PhpSpreadsheet\Shared\Date as ExcelDate;
 use Drupal\Core\Datetime\DateHelper;
 use Drupal\Core\Url;
 use GuzzleHttp\Client;
-use GuzzleHttp\Exception\RequestException;
+use Drupal\Core\Datetime\DrupalDateTime;
 
 // @see https://stackoverflow.com/a/2430144/209184
 function number_precision($value) {
@@ -350,6 +350,8 @@ class SsotUploadLmmuForm extends ConfirmFormBase {
       '#type' => 'datetime',
       '#title' => $this->t('Timestamp'),
       '#required' => true,
+      '#default_value' => new DrupalDateTime(),
+      '#date_year_range' => '2020:+0',
       '#description' => $this->t('Please provide the timestamp of the spreadsheet, as it appears in your File Explorer.'),
     ];
 
@@ -386,11 +388,21 @@ class SsotUploadLmmuForm extends ConfirmFormBase {
     }
 
     // Don't validate on missing file.
+    if (empty($form_state->getValue('lmmu'))) {
+      return;
+    }
     $file = File::load(reset($form_state->getValue('lmmu')));
     if (empty($file)) {
       return;
     }
 
+    // Check that the file date is not in the future.
+    if ($form_state->getValue('timestamp')->getTimestamp() > time()) {
+      $form_state->setErrorByName('timestamp', $this->t('❌ The spreadsheet timestamp cannot be in the future. Please correct the date/time in this field.'));
+      return;
+    }
+
+    // Check that the file is a spreadsheet.
     $path = \Drupal::service('file_system')->realpath($file->getFileUri());
     $name = basename($path);
     try {
