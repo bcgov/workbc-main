@@ -26,7 +26,7 @@ class ResponseEventsSubscriber implements EventSubscriberInterface {
    */
   public function onResponse(\Symfony\Component\HttpKernel\Event\ResponseEvent $event) {
     // Only act upon the master request and not sub-requests.
-    if ($event->isMasterRequest()) {
+    if ($event->isMainRequest()) {
       $response = $event->getResponse();
       // Only act if the response is one that is able to have attachments.
       if ($response instanceof AttachmentsInterface) {
