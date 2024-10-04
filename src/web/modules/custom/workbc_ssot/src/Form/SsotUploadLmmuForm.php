@@ -10,7 +10,7 @@ use PhpOffice\PhpSpreadsheet\Shared\Date as ExcelDate;
 use Drupal\Core\Datetime\DateHelper;
 use Drupal\Core\Url;
 use GuzzleHttp\Client;
-use GuzzleHttp\Exception\RequestException;
+use Drupal\Core\Datetime\DrupalDateTime;
 
 // @see https://stackoverflow.com/a/2430144/209184
 function number_precision($value) {
@@ -350,6 +350,8 @@ class SsotUploadLmmuForm extends ConfirmFormBase {
       '#type' => 'datetime',
       '#title' => $this->t('Timestamp'),
       '#required' => true,
+      '#default_value' => new DrupalDateTime(),
+      '#date_year_range' => '2020:+0',
       '#description' => $this->t('Please provide the timestamp of the spreadsheet, as it appears in your File Explorer.'),
     ];
 
@@ -386,11 +388,21 @@ class SsotUploadLmmuForm extends ConfirmFormBase {
     }
 
     // Don't validate on missing file.
+    if (empty($form_state->getValue('lmmu'))) {
+      return;
+    }
     $file = File::load(reset($form_state->getValue('lmmu')));
     if (empty($file)) {
       return;
     }
 
+    // Check that the file date is not in the future.
+    if ($form_state->getValue('timestamp')->getTimestamp() > time()) {
+      $form_state->setErrorByName('timestamp', $this->t('❌ The spreadsheet timestamp cannot be in the future. Please correct the date/time in this field.'));
+      return;
+    }
+
+    // Check that the file is a spreadsheet.
     $path = \Drupal::service('file_system')->realpath($file->getFileUri());
     $name = basename($path);
     try {
@@ -662,48 +674,57 @@ class SsotUploadLmmuForm extends ConfirmFormBase {
     $this->monthly_labour_market_updates = $form_state->get('monthly_labour_market_updates');
     $year = $this->monthly_labour_market_updates['year'];
     $month = $this->monthly_labour_market_updates['month'];
-    $check = json_decode($this->ssot("monthly_labour_market_updates?year=eq.$year&month=eq.$month")->getBody(), true);
-    if (empty($check)) {
-      $result = $this->ssot('monthly_labour_market_updates', null, 'POST', json_encode($this->monthly_labour_market_updates));
-    }
-    else {
-      $result = $this->ssot("monthly_labour_market_updates?year=eq.$year&month=eq.$month", null, 'PATCH', json_encode($this->monthly_labour_market_updates));
-    }
-    if ($result && $result->getStatusCode() < 300) {
-      // Update sources date.
-      $result = $this->ssot('sources?endpoint=eq.monthly_labour_market_updates&datapoint=is.null', null, 'PATCH', json_encode([
-        'date' => date(\DateTimeInterface::ATOM)
-      ]));
-      if ($result && $result->getStatusCode() >= 300) {
-        \Drupal::logger('workbc_ssot')->error(json_decode($result->getBody(), true));
+    $month_with_zero = str_pad(strval($month), 2, '0', STR_PAD_LEFT);
+    $ssot_date = date('Y/m/d H:i', $form_state->get('timestamp'));
+    $ssot_period = "$year/$month_with_zero/01 08:00";
+
+    try {
+      $file = File::load($form_state->get('file_id'));
+
+      // Update the monthly_labour_market_updates and sources.
+      $check = json_decode($this->ssot("monthly_labour_market_updates?year=eq.$year&month=eq.$month")->getBody(), true);
+      if (empty($check)) {
+        $this->ssot('monthly_labour_market_updates', null, 'POST', json_encode($this->monthly_labour_market_updates));
+        $this->ssot('sources', null, 'POST', json_encode([
+          'period' => $ssot_period,
+          'date' => $ssot_date,
+          'filename' => $file->getFilename(),
+          'endpoint' => 'monthly_labour_market_updates',
+        ]));
+      }
+      else {
+        $this->ssot("monthly_labour_market_updates?year=eq.$year&month=eq.$month", null, 'PATCH', json_encode($this->monthly_labour_market_updates));
+        $this->ssot("sources?endpoint=eq.monthly_labour_market_updates&period=eq.$ssot_period", null, 'PATCH', json_encode([
+          'date' => $ssot_date,
+          'filename' => $file->getFilename(),
+        ]));
       }
 
       // Mark the file as permanent.
-      $file = File::load($form_state->get('file_id'));
       $file->setPermanent();
       $file->save();
 
       // Save to the SSoT operations log.
       /** @var \Drupal\Core\Database\Connection $connection */
       $connection = \Drupal::service('database');
-      $period = \DateTime::createFromFormat('d-m-Y H:i:s', "01-$month-$year 00:00:00")->getTimestamp();
+      $log_period = \DateTime::createFromFormat('d-m-Y H:i:s', "01-$month-$year 00:00:00")->getTimestamp();
       $log_id = $connection->insert('workbc_ssot_log')
       ->fields([
         'uid' => \Drupal::currentUser()->id(),
         'timestamp' => \Drupal::time()->getRequestTime(),
         'dataset_name' => 'monthly_labour_market_updates',
-        'dataset_period' => $period,
+        'dataset_period' => $log_period,
         'file_id' => $file->id(),
         'file_timestamp' => $form_state->get('timestamp'),
         'notes' => $form_state->get('notes'),
       ])
       ->execute();
-      $result = $connection->update('workbc_ssot_log')
+      $connection->update('workbc_ssot_log')
       ->fields([
         'latest' => 0,
       ])
       ->condition('dataset_name', 'monthly_labour_market_updates')
-      ->condition('dataset_period', $period)
+      ->condition('dataset_period', $log_period)
       ->condition('oid', $log_id, '<>')
       ->execute();
 
@@ -714,6 +735,7 @@ class SsotUploadLmmuForm extends ConfirmFormBase {
         'year' => $year,
         'notes' => $form_state->get('notes'),
         'uid' => \Drupal::currentUser()->id(),
+        'date' => $ssot_date,
       ]);
 
       \Drupal::messenger()->addMessage(t('Labour Market Monthly Update successfully updated for <strong>@month @year</strong>. <a href="@url">Click here</a> to see it!', [
@@ -730,38 +752,30 @@ class SsotUploadLmmuForm extends ConfirmFormBase {
         '@filename' => $file->getFilename(),
       ]));
     }
-    else {
+    catch (\Exception $e) {
       \Drupal::messenger()->addError(t('❌ An error occurred while updating Labour Market Monthly Update. Please refer to the logs for more information.'));
-      if ($result) {
-        \Drupal::logger('workbc_ssot')->error(json_decode($result->getBody(), true));
-      }
+      \Drupal::logger('workbc_ssot')->error($e->getMessage());
     }
   }
 
   function ssot($url, $read_timeout = null, $method = 'GET', $body = null)
   {
-    $ssot = rtrim(\Drupal::config('workbc')->get('ssot_url'), '/');
+    $ssot = rtrim(\Drupal::config('workbc')->get('ssot_url'), '/') . '/';
     $client = new Client();
-    try {
-      $options = [];
-      if ($read_timeout) {
-        $options['read_timeout'] = $read_timeout;
-      }
-      switch (strtolower($method)) {
-        case 'get':
-          $response = $client->get($ssot . '/' . $url, $options);
-          break;
-        case 'post':
-        case 'patch':
-          $options['body'] = $body;
-          $response = $client->request($method, $ssot . '/' . $url, $options);
-          break;
-      }
-      return $response;
+    $options = [];
+    if ($read_timeout) {
+      $options['read_timeout'] = $read_timeout;
     }
-    catch (RequestException $e) {
-      \Drupal::logger('workbc_ssot')->error($e->getMessage());
-      return null;
+    switch (strtoupper($method)) {
+      case 'GET':
+        $response = $client->get($ssot . $url, $options);
+        break;
+      case 'POST':
+      case 'PATCH':
+        $options['body'] = $body;
+        $response = $client->request($method, $ssot . $url, $options);
+        break;
     }
+    return $response;
   }
 }
