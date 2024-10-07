@@ -1,4 +1,4 @@
-(function ($, Drupal, once) {
+(function (Drupal, $, once) {
   ("use strict");
 
   // this set of functions is intended to cause popovers to close if the user clicks anywhere outside of them
@@ -33,8 +33,8 @@
 
   Drupal.behaviors.initPopoverBehavior = {
     attach: function (context, settings) {
-      $(document, context).once('initPopoverBehavior').each(initPopovers);
+      $(once('initPopoverBehavior', '.info-tooltip', context)).each(initPopovers);
     },
   };
 
-})(jQuery, Drupal, once);
+})(Drupal, jQuery, once);
