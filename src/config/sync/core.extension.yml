@@ -28,11 +28,9 @@ module:
   chosen: 0
   chosen_field: 0
   chosen_lib: 0
-  ckeditor: 0
   ckeditor5: 0
   ckeditor5_media_dl: 0
   ckeditor_media_resize: 0
-  color: 0
   comment: 0
   config: 0
   config_filter: 0
@@ -111,7 +109,6 @@ module:
   pgsql: 0
   published_corrected_date: 0
   queue_ui: 0
-  rdf: 0
   recaptcha: 0
   redirect: 0
   redis: 0
@@ -161,8 +158,7 @@ module:
   paragraphs: 11
   standard: 1000
 theme:
-  stable: 0
-  classy: 0
+  stable9: 0
   bootstrap5: 0
   workbc: 0
   claro: 0

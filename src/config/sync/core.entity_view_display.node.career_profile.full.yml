@@ -17,6 +17,7 @@ dependencies:
     - field.field.node.career_profile.field_insights_from_industry
     - field.field.node.career_profile.field_introductions
     - field.field.node.career_profile.field_job_titles
+    - field.field.node.career_profile.field_metatag_description
     - field.field.node.career_profile.field_noc
     - field.field.node.career_profile.field_noc_2016
     - field.field.node.career_profile.field_related_careers
@@ -24,6 +25,7 @@ dependencies:
     - field.field.node.career_profile.field_resources_reference
     - field.field.node.career_profile.field_scheduled_publish
     - field.field.node.career_profile.field_skills_2
+    - field.field.node.career_profile.field_tags
     - field.field.node.career_profile.field_work_environment
     - node.type.career_profile
   module:
@@ -556,8 +558,10 @@ hidden:
   field_content_group: true
   field_hero_image: true
   field_introductions: true
+  field_metatag_description: true
   field_resources: true
   field_scheduled_publish: true
   field_skills_2: true
+  field_tags: true
   langcode: true
   search_api_excerpt: true

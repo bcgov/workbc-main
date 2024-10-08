@@ -12,10 +12,12 @@ dependencies:
     - field.field.node.workbc_centre.field_hero_image
     - field.field.node.workbc_centre.field_hero_image_media
     - field.field.node.workbc_centre.field_job_board_id
+    - field.field.node.workbc_centre.field_metatag_description
     - field.field.node.workbc_centre.field_multilingual_centre
     - field.field.node.workbc_centre.field_phone
     - field.field.node.workbc_centre.field_related_topics
     - field.field.node.workbc_centre.field_scheduled_publish
+    - field.field.node.workbc_centre.field_tags
     - field.field.node.workbc_centre.field_website
     - field.field.node.workbc_centre.field_working_hours
     - node.type.workbc_centre
@@ -108,6 +110,14 @@ content:
       size: 60
       placeholder: ''
     third_party_settings: {  }
+  field_metatag_description:
+    type: string_textfield
+    weight: 26
+    region: content
+    settings:
+      size: 60
+      placeholder: ''
+    third_party_settings: {  }
   field_multilingual_centre:
     type: link_default
     weight: 24
@@ -138,6 +148,16 @@ content:
     weight: 17
     region: content
     settings: {  }
+    third_party_settings: {  }
+  field_tags:
+    type: entity_reference_autocomplete_tags
+    weight: 25
+    region: content
+    settings:
+      match_operator: CONTAINS
+      match_limit: 10
+      size: 60
+      placeholder: ''
     third_party_settings: {  }
   field_website:
     type: link_default
