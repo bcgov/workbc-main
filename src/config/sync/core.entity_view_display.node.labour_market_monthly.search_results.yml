@@ -10,8 +10,10 @@ dependencies:
     - field.field.node.labour_market_monthly.field_hero_image_media
     - field.field.node.labour_market_monthly.field_hero_text
     - field.field.node.labour_market_monthly.field_industry_highlights_intro
+    - field.field.node.labour_market_monthly.field_metatag_description
     - field.field.node.labour_market_monthly.field_related_topics
     - field.field.node.labour_market_monthly.field_scheduled_publish
+    - field.field.node.labour_market_monthly.field_tags
     - field.field.node.labour_market_monthly.field_unemployment_introduction
     - field.field.node.labour_market_monthly.field_unemployment_region_intro
     - node.type.labour_market_monthly
@@ -22,6 +24,16 @@ targetEntityType: node
 bundle: labour_market_monthly
 mode: search_results
 content:
+  created:
+    type: timestamp
+    label: hidden
+    settings:
+      date_format: medium
+      custom_date_format: ''
+      timezone: ''
+    third_party_settings: {  }
+    weight: 0
+    region: content
   extra_field_labourmarket_employment_by_age:
     settings: {  }
     third_party_settings: {  }
@@ -57,6 +69,13 @@ content:
     third_party_settings: {  }
     weight: 14
     region: content
+  uid:
+    type: author
+    label: hidden
+    settings: {  }
+    third_party_settings: {  }
+    weight: 0
+    region: content
 hidden:
   content_moderation_control: true
   extra_field_labourmarket_employment: true
@@ -76,8 +95,10 @@ hidden:
   field_hero_image_media: true
   field_hero_text: true
   field_industry_highlights_intro: true
+  field_metatag_description: true
   field_related_topics: true
   field_scheduled_publish: true
+  field_tags: true
   field_unemployment_introduction: true
   field_unemployment_region_intro: true
   langcode: true

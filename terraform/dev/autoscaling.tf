@@ -62,7 +62,7 @@ resource "aws_appautoscaling_policy" "down" {
   metric_name         = "CPUUtilization"
   namespace           = "AWS/ECS"
   period              = "60"
-  statistic           = "Average"
+  statistic           = "Maximum"
   threshold           = "85"
 
   dimensions = {
@@ -106,7 +106,7 @@ resource "aws_cloudwatch_metric_alarm" "service_memory_high" {
   metric_name         = "MemoryUtilization"
   namespace           = "AWS/ECS"
   period              = "30"
-  statistic           = "Average"
+  statistic           = "Maximum"
   threshold           = "75"
 
   dimensions = {

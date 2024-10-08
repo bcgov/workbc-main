@@ -1,0 +1,19 @@
+uuid: ae02b291-d733-4767-bb3f-6e989c5cbacf
+langcode: en
+status: true
+dependencies:
+  config:
+    - field.storage.node.field_metatag_description
+    - node.type.region_profile
+id: node.region_profile.field_metatag_description
+field_name: field_metatag_description
+entity_type: node
+bundle: region_profile
+label: 'Metatag Description'
+description: 'Description to be used for metatags. Limited to 160 characters.'
+required: false
+translatable: true
+default_value: {  }
+default_value_callback: ''
+settings: {  }
+field_type: string

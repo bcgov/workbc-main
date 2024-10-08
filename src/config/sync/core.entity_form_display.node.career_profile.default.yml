@@ -16,6 +16,7 @@ dependencies:
     - field.field.node.career_profile.field_insights_from_industry
     - field.field.node.career_profile.field_introductions
     - field.field.node.career_profile.field_job_titles
+    - field.field.node.career_profile.field_metatag_description
     - field.field.node.career_profile.field_noc
     - field.field.node.career_profile.field_noc_2016
     - field.field.node.career_profile.field_related_careers
@@ -23,6 +24,7 @@ dependencies:
     - field.field.node.career_profile.field_resources_reference
     - field.field.node.career_profile.field_scheduled_publish
     - field.field.node.career_profile.field_skills_2
+    - field.field.node.career_profile.field_tags
     - field.field.node.career_profile.field_work_environment
     - node.type.career_profile
     - workflows.workflow.editorial
@@ -139,6 +141,14 @@ content:
       size: 60
       placeholder: ''
     third_party_settings: {  }
+  field_metatag_description:
+    type: string_textfield
+    weight: 30
+    region: content
+    settings:
+      size: 60
+      placeholder: ''
+    third_party_settings: {  }
   field_noc:
     type: string_textfield
     weight: 8
@@ -180,6 +190,16 @@ content:
     weight: 27
     region: content
     settings: {  }
+    third_party_settings: {  }
+  field_tags:
+    type: entity_reference_autocomplete_tags
+    weight: 29
+    region: content
+    settings:
+      match_operator: CONTAINS
+      match_limit: 10
+      size: 60
+      placeholder: ''
     third_party_settings: {  }
   field_work_environment:
     type: text_textarea
