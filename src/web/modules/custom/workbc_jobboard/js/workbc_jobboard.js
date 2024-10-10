@@ -1,4 +1,4 @@
-(function ($, Drupal, once) {
+(function (Drupal, $, once) {
 	Drupal.behaviors.jobboard = {
     attach: function (context, settings){
       once('jobboard', '.block-workbc-jobboard', context).forEach(function() {
@@ -119,7 +119,7 @@
         }
       });
 
-      $(window, context).once('jobboard').on('hashchange load jobboardlogin dialog:aftercreate', function (e) {
+      let navUserMenu = function () {      
         var currentUser = readCookie('currentUser.username');
         var CheckLoginLinkExists = $("nav.nav-user .nav-items li.new-login-link");
         var CheckLogoutLinkExists = $("nav.nav-user .nav-items li.new-logout-link");
@@ -173,7 +173,15 @@
               $(".mobile-nav__user-nav .nav-items").append(appendLogoutMenus);
             }
           }
+      };
+
+      once('jobboard', 'html', context).forEach(function() {
+        window.addEventListener('load', navUserMenu);
+        window.addEventListener('hashchange', navUserMenu);
+        window.addEventListener('jobboardlogin', navUserMenu);
+        window.addEventListener('dialog:aftercreate', navUserMenu);    
       });
+
       $('.dropdown .dropdown-toggle').click(function(){
          if($(this).parent().hasClass('open')){
              $(this).parent().removeClass('open');
@@ -185,7 +193,7 @@
       });
     }
   }
-})(jQuery, Drupal, once);
+})(Drupal, jQuery, once);
 
 
 if (window.location.hash) {

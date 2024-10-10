@@ -1,7 +1,8 @@
-(function ($, Drupal) {
+(function (Drupal, $, once) {
   Drupal.behaviors.cv = {
     attach: function (context, settings) {
-      $(document).once().ready(function(){
+
+      $(document).ready(function(){
         var all_class = $('.view-display-id-block_1 .pager__items').children().length;
         if($('body').hasClass("path-calendar")){
           var cfv = $(".calendar-full-view .fc-body .fc-week");
@@ -19,45 +20,62 @@
         }
         var pager = $(".list-full-view div.pager").clone();
         if($('.list-full-view div.pager2').length <= 0){
-          $(".list-full-view div.pager").once().after("<div class='pager2'></div>");
-          $(".list-full-view div.pager2").once().html(pager);
+          $(once("cv", ".list-full-view div.pager")).after("<div class='pager2'></div>");
+          $(once("cv", ".list-full-view div.pager2")).html(pager);      
         }
         
         var dcv = $(".js-drupal-fullcalendar .fc-header-toolbar");
         if(typeof dcv.attr('class') !== "undefined"){
           var pagerCalendarView = dcv.clone();
           if($('.js-drupal-fullcalendar div.pager2').length <= 0){
-            $(".fc-view-container").once().after("<div class='pager2'></div>");
-            $(".js-drupal-fullcalendar div.pager2").once().html(pagerCalendarView);
-            $(".js-drupal-fullcalendar div.pager2 .fc-center").hide();
+            $(once("cv", ".fc-view-container")).after("<div class='pager2'></div>");
+            $(once("cv", ".js-drupal-fullcalendar div.pager2")).html(pagerCalendarView);
+            $(".js-drupal-fullcalendar div.pager2 .fc-center").hide();         
           }
         }
         
-        $('.pager2 .fc-next-button').once().click(function(){
-          $('.fc-toolbar .fc-next-button:first').trigger("click");
-        });
-        $('.pager2 .fc-prev-button').once().click(function(){
+        // $('.pager2 .fc-next-button').once().click(function(){
+        //   $('.fc-toolbar .fc-next-button:first').trigger("click");
+        // });
+        // $('.pager2 .fc-prev-button').once().click(function(){
+        //   $('.fc-toolbar .fc-prev-button:first').trigger("click");
+        // });
+
+        if($('.pager2 .fc-next-button').length > 0){
+          console.log("found");
+          console.log($('.pager2 .fc-next-button'));
+          $(once('cv', '.pager2 .fc-next-button', context)).click(function(){
+            console.log("next click");
+            $('.fc-toolbar .fc-next-button:first').trigger("click");
+          });
+        }
+
+        $('.pager2 .fc-prev-button').click(function(){
+          console.log("prev click");
           $('.fc-toolbar .fc-prev-button:first').trigger("click");
-        });
+        });   
+
+
         if (window.innerWidth < 500) {
-          $(".fc-day-header.fc-sun").once().text("S");
-          $(".fc-day-header.fc-mon").once().text("M");
-          $(".fc-day-header.fc-tue").once().text("T");
-          $(".fc-day-header.fc-wed").once().text("W");
-          $(".fc-day-header.fc-thu").once().text("T");
-          $(".fc-day-header.fc-fri").once().text("F");
-          $(".fc-day-header.fc-sat").once().text("S");
+          $(once("cv", ".fc-day-header.fc-sun")).text("S");
+          $(once("cv", ".fc-day-header.fc-mon")).text("M");
+          $(once("cv", ".fc-day-header.fc-tue")).text("T");
+          $(once("cv", ".fc-day-header.fc-wed")).text("W");
+          $(once("cv", ".fc-day-header.fc-thu")).text("T");
+          $(once("cv", ".fc-day-header.fc-fri")).text("F");
+          $(once("cv", ".fc-day-header.fc-sat")).text("S");
         }
       });
-      
-      $(".fc-prev-button").once().append("Previous Month");
-      $(".fc-prev-button").attr("aria-label","Previous Month");
-      $(".fc-next-button").once().prepend("Next Month");
-      $(".fc-next-button").attr("aria-label","Next Month");
-      $(".fc-tue span").once().append("s");
-      $(".fc-thu span").once().append("rs");
-      $(".fc-day-grid-event").once().click(function(){
 
+      $(once("cv", ".fc-prev-button")).append("Previous Month");
+      $(".fc-prev-button").attr("aria-label","Previous Month");
+      $(once("cv", ".fc-next-button")).prepend("Next Month");
+      $(".fc-next-button").attr("aria-label","Next Month");
+
+      $(once("cv", ".fc-tue span")).append("s");
+      $(once("cv", ".fc-thu span")).append("rs");
+
+      $(once("cv", ".fc-day-grid-event")).click(function(){
         var id = $(this).find('.grid-view')[0].id.replace('event-id-', '');
         var events = JSON.parse(settings.fullCalendarView[0].calendar_options).events;
 
@@ -90,4 +108,4 @@
       });
     }
   }
-})(jQuery, Drupal);
+})(Drupal, jQuery, once);
