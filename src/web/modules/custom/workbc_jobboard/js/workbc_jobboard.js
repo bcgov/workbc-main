@@ -2,9 +2,9 @@
 	Drupal.behaviors.jobboard = {
     attach: function (context, settings){
       once('jobboard', '.block-workbc-jobboard', context).forEach(function() {
-        $('a').filter(function() {
+        $(once('jobboard', 'a', context)).filter(function() {
           return this.hostname && this.hostname !== location.hostname;
-        }).once('jobboard').click(function(e) {
+        }).click(function(e) {
           var url = $(this).attr('href');
           let domain = (new URL(url));
           domain = domain.hostname.replace('www.','');
@@ -17,7 +17,7 @@
             };
           }
         });
-        $(".region-map-select select", context).once('jobboard').on("change", function(){
+        $(once("jobboard", ".region-map-select select", context)).on("change", function(){
           if($(this).val() != ""){
             window.location.href=$(this).val();
           }
