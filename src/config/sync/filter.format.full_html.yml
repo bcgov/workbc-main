@@ -95,12 +95,6 @@ filters:
     status: false
     weight: -37
     settings: {  }
-  media_entity_dlcke_filter:
-    id: media_entity_dlcke_filter
-    provider: media_entity_dlcke
-    status: false
-    weight: -36
-    settings: {  }
   filter_media_download_link:
     id: filter_media_download_link
     provider: ckeditor5_media_dl
