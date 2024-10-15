@@ -10,7 +10,6 @@ dependencies:
     - editor
     - linkit
     - media
-    - media_entity_dlcke
     - workbc_custom
 _core:
   default_config_hash: WNeK5FbcY8pXgEpbD_KgRzlF1-5PL3BJXwqaBctPTqw

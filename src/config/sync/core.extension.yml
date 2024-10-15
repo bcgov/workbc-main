@@ -84,7 +84,6 @@ module:
   log_stdout: 0
   mail_login: 0
   media: 0
-  media_entity_dlcke: 0
   media_entity_download: 0
   media_file_delete: 0
   media_library: 0
