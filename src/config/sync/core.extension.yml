@@ -133,6 +133,7 @@ module:
   time_field: 0
   token: 0
   toolbar: 0
+  tour: 0
   twig_tweak: 0
   update: 0
   upgrade_status: 0
