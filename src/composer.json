@@ -250,6 +250,9 @@
             "drupal/media_library_edit": {
                 "Media library edit form mode": "patches/drupal/media_library_edit/form_mode.patch"
             },
+            "drupal/core": {
+                "Media library add form mode": "patches/drupal/core/core-10.3-3323232.patch"
+            },            
             "drupal/views_infinite_scroll": {
                 "Remove repeating header": "patches/drupal/views_infinite_scroll/2899705-53.patch"
             },
