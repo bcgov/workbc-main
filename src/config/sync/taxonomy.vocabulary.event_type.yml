@@ -6,3 +6,4 @@ name: 'Event Type'
 vid: event_type
 description: 'Types of career events'
 weight: 0
+new_revision: false

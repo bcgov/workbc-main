@@ -32,8 +32,8 @@ dependencies:
     - contextual
     - file
     - filter
+    - help
     - media
-    - media_file_delete
     - node
     - paragraphs_type_permissions
     - redirect
@@ -52,6 +52,7 @@ permissions:
   - 'access content overview'
   - 'access contextual links'
   - 'access files overview'
+  - 'access help pages'
   - 'access media overview'
   - 'access toolbar'
   - 'access tour'
@@ -107,6 +108,7 @@ permissions:
   - 'delete media'
   - 'delete own audio media'
   - 'delete own document media'
+  - 'delete own files'
   - 'delete own icon media'
   - 'delete own image media'
   - 'delete own remote_video media'

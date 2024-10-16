@@ -29,7 +29,7 @@ dependencies:
     - contextual
     - file
     - filter
-    - media_file_delete
+    - help
     - node
     - paragraphs_type_permissions
     - path
@@ -49,6 +49,7 @@ permissions:
   - 'access content overview'
   - 'access contextual links'
   - 'access files overview'
+  - 'access help pages'
   - 'access toolbar'
   - 'access tour'
   - 'administer url aliases'
@@ -86,6 +87,7 @@ permissions:
   - 'create url aliases'
   - 'create workbc_centre content'
   - 'delete any file'
+  - 'delete own files'
   - 'delete paragraph content action_card'
   - 'delete paragraph content action_card_feature'
   - 'delete paragraph content action_card_full_width'

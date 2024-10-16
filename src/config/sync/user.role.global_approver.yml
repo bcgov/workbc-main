@@ -32,7 +32,6 @@ dependencies:
     - field_permissions
     - file
     - media
-    - media_file_delete
     - node
     - redirect
     - scheduled_publish
@@ -122,6 +121,7 @@ permissions:
   - 'delete own career_profile_introductions content'
   - 'delete own document media'
   - 'delete own event content'
+  - 'delete own files'
   - 'delete own icon media'
   - 'delete own image media'
   - 'delete own industry_profile content'

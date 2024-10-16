@@ -25,8 +25,8 @@ dependencies:
     - content_lock
     - content_moderation
     - field_permissions
+    - file
     - filter
-    - media_file_delete
     - metatag
     - node
     - override_node_options
@@ -88,6 +88,7 @@ permissions:
   - 'delete industry_profile revisions'
   - 'delete labour_market_monthly revisions'
   - 'delete news revisions'
+  - 'delete own files'
   - 'delete page revisions'
   - 'delete publication revisions'
   - 'delete region_profile revisions'
