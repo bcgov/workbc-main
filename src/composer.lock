@@ -4,7 +4,7 @@
         "Read more about it at https://getcomposer.org/doc/01-basic-usage.md#installing-dependencies",
         "This file is @generated automatically"
     ],
-    "content-hash": "325f07fd5fef8b5bf1439928907598a4",
+    "content-hash": "326c97122dd250b629e8474d282757de",
     "packages": [
         {
             "name": "asm89/stack-cors",
@@ -2833,27 +2833,30 @@
         },
         {
             "name": "drupal/config_ignore",
-            "version": "2.4.0",
+            "version": "3.3.0",
             "source": {
                 "type": "git",
                 "url": "https://git.drupalcode.org/project/config_ignore.git",
-                "reference": "8.x-2.4"
+                "reference": "8.x-3.3"
             },
             "dist": {
                 "type": "zip",
-                "url": "https://ftp.drupal.org/files/projects/config_ignore-8.x-2.4.zip",
-                "reference": "8.x-2.4",
-                "shasum": "e0e45dde2d6927c5d26de59f352792fb6cf26554"
+                "url": "https://ftp.drupal.org/files/projects/config_ignore-8.x-3.3.zip",
+                "reference": "8.x-3.3",
+                "shasum": "4446811ecb023820a57c227d35c034e0d4363a70"
             },
             "require": {
-                "drupal/config_filter": "^1 || ^2",
-                "drupal/core": "^8 || ^9 || ^10"
+                "drupal/core": "^8.8 || ^9 || ^10 || ^11"
+            },
+            "require-dev": {
+                "drupal/config_filter": "^1.8||^2.2",
+                "drush/drush": "^10 || ^11 || ^12"
             },
             "type": "drupal-module",
             "extra": {
                 "drupal": {
-                    "version": "8.x-2.4",
-                    "datestamp": "1676045435",
+                    "version": "8.x-3.3",
+                    "datestamp": "1713299496",
                     "security-coverage": {
                         "status": "covered",
                         "message": "Covered by Drupal's security advisory policy"
@@ -2881,12 +2884,11 @@
                     "homepage": "https://www.drupal.org/user/413139"
                 }
             ],
-            "description": "Ignore certain configuration during import.",
+            "description": "Ignore certain configuration during import and export.",
             "homepage": "http://drupal.org/project/config_ignore",
             "support": {
                 "source": "https://git.drupalcode.org/project/config_ignore",
-                "issues": "https://drupal.org/project/config_ignore",
-                "irc": "irc://irc.freenode.org/drupal-contribute"
+                "issues": "http://drupal.org/project/config_ignore"
             }
         },
         {
@@ -3355,26 +3357,29 @@
         },
         {
             "name": "drupal/country",
-            "version": "1.1.0",
+            "version": "2.0.1",
             "source": {
                 "type": "git",
                 "url": "https://git.drupalcode.org/project/country.git",
-                "reference": "8.x-1.1"
+                "reference": "2.0.1"
             },
             "dist": {
                 "type": "zip",
-                "url": "https://ftp.drupal.org/files/projects/country-8.x-1.1.zip",
-                "reference": "8.x-1.1",
-                "shasum": "07f64573e29620d193e3fb4cfc0ae01f5b6a35ea"
+                "url": "https://ftp.drupal.org/files/projects/country-2.0.1.zip",
+                "reference": "2.0.1",
+                "shasum": "eaf65ad195d7459e8d8c6ce320d5903e09e33e71"
             },
             "require": {
                 "drupal/core": "^8 || ^9 || ^10"
             },
+            "suggest": {
+                "ext-intl": "Needed to extend capability with the sorting of non-English languages."
+            },
             "type": "drupal-module",
             "extra": {
                 "drupal": {
-                    "version": "8.x-1.1",
-                    "datestamp": "1674487460",
+                    "version": "2.0.1",
+                    "datestamp": "1714120326",
                     "security-coverage": {
                         "status": "covered",
                         "message": "Covered by Drupal's security advisory policy"
@@ -5880,17 +5885,17 @@
         },
         {
             "name": "drupal/paragraphs_edit",
-            "version": "2.0.0",
+            "version": "3.0.0",
             "source": {
                 "type": "git",
                 "url": "https://git.drupalcode.org/project/paragraphs_edit.git",
-                "reference": "8.x-2.0"
+                "reference": "3.0.0"
             },
             "dist": {
                 "type": "zip",
-                "url": "https://ftp.drupal.org/files/projects/paragraphs_edit-8.x-2.0.zip",
-                "reference": "8.x-2.0",
-                "shasum": "3b4a7634aecfc35bf45adf86b27d500660887df1"
+                "url": "https://ftp.drupal.org/files/projects/paragraphs_edit-3.0.0.zip",
+                "reference": "3.0.0",
+                "shasum": "b8a832b1f39c3e484c480e0b387f867cc9546bbd"
             },
             "require": {
                 "drupal/core": "^8 || ^9 || ^10",
@@ -5899,8 +5904,8 @@
             "type": "drupal-module",
             "extra": {
                 "drupal": {
-                    "version": "8.x-2.0",
-                    "datestamp": "1651758518",
+                    "version": "3.0.0",
+                    "datestamp": "1700662822",
                     "security-coverage": {
                         "status": "covered",
                         "message": "Covered by Drupal's security advisory policy"
