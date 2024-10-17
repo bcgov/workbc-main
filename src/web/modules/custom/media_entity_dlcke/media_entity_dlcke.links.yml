@@ -1,6 +1,0 @@
-media_entity_dlcke.media_entity_dlcke_config:
-  title: 'Media Entity DLCKE Configuration'
-  route_name: media_entity_dlcke.media_entity_dlcke_config
-  description: 'Configure downloads for media entities.'
-  parent: system.admin_config_media
-  weight: 99

@@ -1,7 +1,0 @@
-filter_settings.media_entity_dlcke_filter:
-  type: filter
-  label: 'DLCKE Filter filter'
-  mapping:
-    example:
-      type: string
-      label: Example

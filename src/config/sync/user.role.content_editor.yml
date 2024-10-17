@@ -30,6 +30,7 @@ dependencies:
     - file
     - filter
     - help
+    - media_file_delete
     - node
     - paragraphs_type_permissions
     - path
@@ -37,7 +38,6 @@ dependencies:
     - system
     - taxonomy
     - toolbar
-    - tour
 _core:
   default_config_hash: Wur9kcEOwY1Jal81NssKnz3RhVJxAvBwyWQBGcA_1Go
 id: content_editor
@@ -51,8 +51,7 @@ permissions:
   - 'access files overview'
   - 'access help pages'
   - 'access toolbar'
-  - 'access tour'
-  - 'administer url aliases'
+  - 'administer media file delete'
   - 'create bc_profile content'
   - 'create blog content'
   - 'create career_profile content'
