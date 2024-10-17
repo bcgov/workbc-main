@@ -4,7 +4,6 @@ module:
   actions_permissions: 0
   address: 0
   admin_toolbar: 0
-  admin_toolbar_links_access_filter: 0
   admin_toolbar_search: 0
   admin_toolbar_tools: 0
   advagg: 0
@@ -133,7 +132,6 @@ module:
   time_field: 0
   token: 0
   toolbar: 0
-  tour: 0
   twig_tweak: 0
   update: 0
   user: 0
