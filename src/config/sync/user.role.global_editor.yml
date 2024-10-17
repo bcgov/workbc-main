@@ -40,7 +40,6 @@ dependencies:
     - system
     - taxonomy
     - toolbar
-    - tour
     - workbc_custom
 id: global_editor
 label: 'Global Editor'
@@ -53,7 +52,6 @@ permissions:
   - 'access files overview'
   - 'access media overview'
   - 'access toolbar'
-  - 'access tour'
   - 'administer media file delete'
   - 'administer redirect settings'
   - 'administer redirects'

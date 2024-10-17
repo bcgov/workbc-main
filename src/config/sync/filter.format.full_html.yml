@@ -10,7 +10,6 @@ dependencies:
     - editor
     - linkit
     - media
-    - media_entity_dlcke
     - workbc_custom
 _core:
   default_config_hash: WNeK5FbcY8pXgEpbD_KgRzlF1-5PL3BJXwqaBctPTqw
@@ -107,12 +106,6 @@ filters:
     provider: ckeditor_media_resize
     status: true
     weight: -43
-    settings: {  }
-  media_entity_dlcke_filter:
-    id: media_entity_dlcke_filter
-    provider: media_entity_dlcke
-    status: false
-    weight: -36
     settings: {  }
   filter_allow_all:
     id: filter_allow_all
