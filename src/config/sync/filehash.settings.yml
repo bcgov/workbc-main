@@ -1,5 +1,10 @@
 _core:
   default_config_hash: WAgY4LdETVKr_71oC9P3AOSNYbUzqZOiUgmknKIpv4o
+dedupe: 1
+rehash: false
+original: false
+dedupe_original: false
+mime_types: {  }
 algos:
   blake2b_128: '0'
   blake2b_160: '0'
@@ -19,8 +24,3 @@ algos:
   sha3_256: '0'
   sha3_384: '0'
   sha3_512: '0'
-dedupe: 1
-rehash: false
-original: false
-dedupe_original: false
-mime_types: {  }
