@@ -34,6 +34,7 @@ dependencies:
     - filter
     - help
     - media
+    - media_file_delete
     - node
     - paragraphs_type_permissions
     - redirect
@@ -41,7 +42,6 @@ dependencies:
     - system
     - taxonomy
     - toolbar
-    - tour
     - workbc_custom
 id: global_editor
 label: 'Global Editor'
@@ -55,7 +55,7 @@ permissions:
   - 'access help pages'
   - 'access media overview'
   - 'access toolbar'
-  - 'access tour'
+  - 'administer media file delete'
   - 'administer redirect settings'
   - 'administer redirects'
   - 'break content lock'

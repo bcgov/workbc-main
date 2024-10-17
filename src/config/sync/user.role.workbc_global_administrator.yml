@@ -27,6 +27,7 @@ dependencies:
     - field_permissions
     - file
     - filter
+    - media_file_delete
     - metatag
     - node
     - override_node_options
@@ -50,6 +51,7 @@ permissions:
   - 'access toolbar'
   - 'access user profiles'
   - 'admin queue_ui'
+  - 'administer media file delete'
   - 'administer meta tags'
   - 'administer ssot settings'
   - 'administer url aliases'
