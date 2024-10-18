@@ -855,6 +855,7 @@ if (in_array(getenv('PROJECT_ENVIRONMENT'), [
     'devel',
     'devel_generate',
     'devel_kint_extras',
+    'devel_php',
     'webform_devel',
     'views_ui',
     'webform_ui',
