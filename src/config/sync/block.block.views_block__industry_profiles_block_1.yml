@@ -5,6 +5,7 @@ dependencies:
   config:
     - views.view.industry_profiles
   module:
+    - mobile_detect
     - system
     - views
   theme:
@@ -27,3 +28,7 @@ visibility:
     id: request_path
     negate: false
     pages: /research-labour-market/bcs-industries-and-sectors/industry-profiles
+  mobile_detect_device_type:
+    id: mobile_detect_device_type
+    negate: null
+    devices: {  }

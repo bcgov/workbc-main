@@ -45,6 +45,7 @@ class WebformPublicationComposite extends WebformCompositeBase {
     $query->condition('field_hardcopy_available', 1);
     $query->condition('type', 'publication');
     $query->sort('title', 'ASC');
+    $query->accessCheck(false);
     $entity_ids = $query->execute();
     $nodes = \Drupal::entityTypeManager()->getStorage('node')->loadMultiple($entity_ids);
 

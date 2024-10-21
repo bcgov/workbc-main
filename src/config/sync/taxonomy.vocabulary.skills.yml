@@ -6,3 +6,4 @@ name: Skills
 vid: skills
 description: 'Skills associated with career profiles'
 weight: 0
+new_revision: false

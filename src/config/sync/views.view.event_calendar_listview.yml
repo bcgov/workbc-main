@@ -847,6 +847,7 @@ display:
         type: mini
         options:
           offset: 0
+          pagination_heading_level: h4
           items_per_page: 3
           total_pages: null
           id: 0
@@ -1501,7 +1502,7 @@ display:
           exclude: false
           alter:
             alter_text: true
-            text: '{{ field_start_date|striptags|trim|date(''F Y'') }}'
+            text: "{{ field_start_date|striptags|trim|date('F Y') }}"
             make_link: false
             path: ''
             absolute: false
@@ -1542,6 +1543,7 @@ display:
         type: mini
         options:
           offset: 0
+          pagination_heading_level: h4
           items_per_page: 3
           total_pages: null
           id: 0
@@ -2255,7 +2257,7 @@ display:
           exclude: false
           alter:
             alter_text: true
-            text: '{{ field_start_date|striptags|trim|date(''F Y'') }}'
+            text: "{{ field_start_date|striptags|trim|date('F Y') }}"
             make_link: false
             path: ''
             absolute: false

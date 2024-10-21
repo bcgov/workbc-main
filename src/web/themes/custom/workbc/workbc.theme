@@ -282,7 +282,7 @@ function workbc_preprocess_media(&$variables) {
       '#style_name' => '1_3_component',
       '#uri' => $thumbnailUri
     ];
-    $variables['media_thumbnail'] = render($image);
+    $variables['media_thumbnail'] = \Drupal::service('renderer')->render($image);
     $variables['media_id'] = $media->id();
   }
 }

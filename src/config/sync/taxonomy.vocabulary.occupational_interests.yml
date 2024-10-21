@@ -6,3 +6,4 @@ name: 'Occupational Interests'
 vid: occupational_interests
 description: 'Occupational Interests associated with career profiles.'
 weight: 0
+new_revision: false

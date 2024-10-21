@@ -1,0 +1,104 @@
+diff --git a/devel.libraries.yml b/devel.libraries.yml
+index ee32ae9..6303a56 100644
+--- a/devel.libraries.yml
++++ b/devel.libraries.yml
+@@ -15,3 +15,8 @@ devel-table-filter:
+   js: {}
+   dependencies:
+     - system/drupal.system.modules
++
++kint-resources:
++  version: 0
++  js:
++    public://kint/kint.js: { minified: true }
+\ No newline at end of file
+diff --git a/devel.module b/devel.module
+index 11bba62..27d56c3 100644
+--- a/devel.module
++++ b/devel.module
+@@ -18,6 +18,7 @@ define('DEVEL_ERROR_HANDLER_BACKTRACE_DPM', 4);
+
+ use Drupal\Core\Database\Query\AlterableInterface;
+ use Drupal\Core\Entity\EntityInterface;
++use Drupal\Core\File\FileSystemInterface;
+ use Drupal\Core\Form\FormStateInterface;
+ use Drupal\Core\Logger\RfcLogLevel;
+ use Drupal\Core\Menu\LocalTaskDefault;
+@@ -28,6 +29,7 @@ use Drupal\Core\StringTranslation\TranslatableMarkup;
+ use Drupal\Core\Url;
+ use Drupal\Core\Utility\Error;
+ use Drupal\devel\EntityTypeInfo;
++use Drupal\devel\Plugin\Devel\Dumper\Kint;
+ use Drupal\devel\ToolbarHandler;
+
+ /**
+@@ -452,11 +454,29 @@ if (!function_exists('ksm')) {
+       $name = '__ARGS__';
+     }
+
++    $session = \Drupal::request()->getSession();
++    $libraries = $session->get('devel_attached_libraries', []);
++    $libraries['devel/kint-resources'] = TRUE;
++    $session->set('devel_attached_libraries', $libraries);
++
+     return \Drupal::service('devel.dumper')->message($args, $name, MessengerInterface::TYPE_STATUS, 'kint');
+   }
+
+ }
+
++/**
++ * Implements hook_preprocess_HOOK().
++ */
++function devel_preprocess_html(&$variables) {
++  $session = \Drupal::request()->getSession();
++  if ($libraries = $session->get('devel_attached_libraries', [])) {
++    foreach (array_keys($libraries) as $library) {
++      $variables['#attached']['library'][] = $library;
++    }
++    $session->remove('devel_attached_libraries');
++  }
++}
++
+ /**
+  * Wrapper for DevelDumperManager::message().
+  *
+@@ -745,3 +765,26 @@ function devel_query_debug_alter(AlterableInterface $query) {
+     dpq($query);
+   }
+ }
++
++/**
++ * Implements hook_library_info_alter().
++ */
++function devel_library_info_alter(&$libraries, $extension) {
++  if ($extension != 'devel' || !defined('KINT_DIR')) {
++    return;
++  }
++  $kint_resources_source_dir = KINT_DIR . '/resources/compiled/';
++  $kint_public_dir = 'public://kint/';
++  $file_system = \Drupal::service('file_system');
++  $file_system->prepareDirectory($kint_public_dir, FileSystemInterface::MODIFY_PERMISSIONS | FileSystemInterface::CREATE_DIRECTORY);
++  $scripts = [
++    'shared.js',
++    'rich.js',
++    'microtime.js',
++  ];
++  $contents = '';
++  foreach ($scripts as $script) {
++    $contents .= file_get_contents($kint_resources_source_dir . $script);
++  }
++  $file_system->saveData($contents, $kint_public_dir . 'kint.js', TRUE);
++}
+diff --git a/src/Plugin/Devel/Dumper/Kint.php b/src/Plugin/Devel/Dumper/Kint.php
+index a4082ff..4281183 100644
+--- a/src/Plugin/Devel/Dumper/Kint.php
++++ b/src/Plugin/Devel/Dumper/Kint.php
+@@ -40,6 +40,8 @@ class Kint extends DevelDumperBase {
+     \Kint::$aliases = $this->getInternalFunctions();
+
+     RichRenderer::$folder = FALSE;
++    // Don't add scripts so we can add them separately via #attached.
++    unset(RichRenderer::$pre_render_sources['script']);
+     BlacklistPlugin::$shallow_blacklist[] = ContainerInterface::class;
+   }
+

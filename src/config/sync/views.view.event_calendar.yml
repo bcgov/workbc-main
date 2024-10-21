@@ -827,8 +827,6 @@ display:
           right_buttons: dayGridMonth
           default_view: dayGridMonth
           firstDay: '0'
-          minTime: '00:00:00'
-          maxTime: '23:59:59'
           nav_links: 1
           timeFormat: 'hh:mm a'
           allowEventOverlap: 1
@@ -838,10 +836,8 @@ display:
           languageSelector: 0
           dialogWindow: 0
           openEntityInNewTab: 0
-          dialogModal: 0
           createEventLink: 0
           eventLimit: '20'
-          slotDuration: '00:30:00'
           tax_field: ''
           vocabularies: ''
           color_bundle:
@@ -863,7 +859,11 @@ display:
             success_story: '#3a87ad'
             workbc_centre: '#3a87ad'
           rrule: ''
+          dialogModal: false
           duration: ''
+          slotDuration: '00:30:00'
+          minTime: '00:00:00'
+          maxTime: '23:59:59'
           bundle_type: event
           classes: ''
       row:

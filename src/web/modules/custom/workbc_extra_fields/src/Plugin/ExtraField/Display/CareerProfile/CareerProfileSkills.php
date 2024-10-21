@@ -79,7 +79,7 @@ class CareerProfileSkills extends ExtraFieldDisplayFormattedBase {
               '#height' => '75',
               '#uri' => $imageUri
             ];
-            $image = render($image);
+            $image = \Drupal::service('renderer')->render($image);
           }
         }
 
