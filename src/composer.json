@@ -262,6 +262,9 @@
             },
             "drupal/devel": {
                 "Fix Kint": "patches/drupal/devel/devel-ksm.patch"
+            },
+            "drupal/ckeditor_media_resize" : {
+                "No HTML Filter required": "patches/drupal/ckeditor_media_resize/3401311_no_html_filter_required.patch"
             }
         }
     }

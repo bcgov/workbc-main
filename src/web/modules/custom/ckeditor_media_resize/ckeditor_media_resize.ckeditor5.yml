@@ -10,6 +10,7 @@ ckeditor_media_resize_mediaResize:
             name: 'resizeMediaImage:original'
             value: null
         toolbar: [resizeMediaImage]
+        dataAttribute: data-media-width
   drupal:
     label: Media image resize
     library: ckeditor_media_resize/editor

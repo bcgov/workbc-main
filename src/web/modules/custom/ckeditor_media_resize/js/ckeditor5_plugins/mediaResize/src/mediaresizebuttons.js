@@ -1,5 +1,5 @@
 import { Plugin, icons } from 'ckeditor5/src/core';
-import { ButtonView, DropdownButtonView, Model, createDropdown, addListToDropdown } from 'ckeditor5/src/ui';
+import { ButtonView, DropdownButtonView, ViewModel, createDropdown, addListToDropdown } from 'ckeditor5/src/ui'
 import { CKEditorError, Collection } from 'ckeditor5/src/utils';
 
 import MediaResizeEditing from './mediaresizeediting';
@@ -209,7 +209,7 @@ export default class MediaResizeButtons extends Plugin {
 			const optionValueWithUnit = option.value ? option.value + this._resizeUnit : null;
 			const definition = {
 				type: 'button',
-				model: new Model( {
+				model: new ViewModel( {
 					commandName: 'resizeMediaImage',
 					commandValue: optionValueWithUnit,
 					label: this._getOptionLabelValue( option ),
