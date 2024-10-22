@@ -12,7 +12,7 @@ third_party_settings:
 name: 'Industry Profile Introductions'
 type: industry_profile_introductions
 description: 'Introductory blurbs used in Industry Profiles.'
-help: ''
+help: null
 new_revision: true
 preview_mode: 1
 display_submitted: true

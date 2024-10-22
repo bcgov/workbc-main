@@ -423,6 +423,7 @@ display:
         type: full
         options:
           offset: 0
+          pagination_heading_level: h4
           items_per_page: 12
           total_pages: null
           id: 0
@@ -542,7 +543,7 @@ display:
           exposed: true
           expose:
             operator_id: combine_op
-            label: Search by keyword
+            label: 'Search by keyword'
             description: ''
             use_operator: false
             operator: combine_op

@@ -1,9 +1,0 @@
-name: Media entity download Link (CKEditor)
-type: module
-description: This module provides a plugin for CKEditor to link text to a media entity using the Media entity download path.
-core_version_requirement: ^9 || ^10
-package: Media
-dependencies:
-  - drupal:media
-  - drupal:media_library
-  - drupal:media_entity_download

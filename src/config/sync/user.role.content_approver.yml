@@ -25,7 +25,6 @@ dependencies:
     - content_moderation
     - field_permissions
     - file
-    - media_file_delete
     - node
     - scheduled_publish
     - sitewide_alert
@@ -93,6 +92,7 @@ permissions:
   - 'delete own career_profile content'
   - 'delete own career_profile_introductions content'
   - 'delete own event content'
+  - 'delete own files'
   - 'delete own industry_profile content'
   - 'delete own industry_profile_introductions content'
   - 'delete own labour_market_monthly content'

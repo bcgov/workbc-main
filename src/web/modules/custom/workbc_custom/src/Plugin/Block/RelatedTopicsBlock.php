@@ -112,7 +112,7 @@ class RelatedTopicsBlock extends BlockBase {
           '#style_name' => 'related_topics',
           '#uri' => $imageUri
         ];
-        return render($image);
+        return \Drupal::service('renderer')->render($image);
       }
     }
     else if ($node->hasField('field_hero_image_media') && !$node->get('field_hero_image_media')->isEmpty()) {
@@ -125,7 +125,7 @@ class RelatedTopicsBlock extends BlockBase {
           '#style_name' => 'related_topics',
           '#uri' => $imageUri
         ];
-        return render($image);
+        return \Drupal::service('renderer')->render($image);
       }
     }
     else if ($node->hasField('field_image_media') && !$node->get('field_image_media')->isEmpty()) {
@@ -138,7 +138,7 @@ class RelatedTopicsBlock extends BlockBase {
           '#style_name' => 'related_topics',
           '#uri' => $imageUri
         ];
-        return render($image);
+        return \Drupal::service('renderer')->render($image);
       }
     }
     return '';

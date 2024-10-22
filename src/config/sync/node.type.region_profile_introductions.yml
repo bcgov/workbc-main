@@ -12,7 +12,7 @@ third_party_settings:
 name: 'Region Profile Introductions'
 type: region_profile_introductions
 description: 'Introductory blurbs used in BC and Region Profiles.'
-help: ''
+help: null
 new_revision: true
 preview_mode: 1
 display_submitted: true

@@ -1,10 +1,10 @@
-(function ($, Drupal, once) {
+(function (Drupal, $, once) {
 	Drupal.behaviors.jobboard = {
     attach: function (context, settings){
       once('jobboard', '.block-workbc-jobboard', context).forEach(function() {
-        $('a').filter(function() {
+        $(once('jobboard', 'a', context)).filter(function() {
           return this.hostname && this.hostname !== location.hostname;
-        }).once('jobboard').click(function(e) {
+        }).click(function(e) {
           var url = $(this).attr('href');
           let domain = (new URL(url));
           domain = domain.hostname.replace('www.','');
@@ -17,7 +17,7 @@
             };
           }
         });
-        $(".region-map-select select", context).once('jobboard').on("change", function(){
+        $(once("jobboard", ".region-map-select select", context)).on("change", function(){
           if($(this).val() != ""){
             window.location.href=$(this).val();
           }
@@ -119,7 +119,7 @@
         }
       });
 
-      $(window, context).once('jobboard').on('hashchange load jobboardlogin dialog:aftercreate', function (e) {
+      let navUserMenu = function () {      
         var currentUser = readCookie('currentUser.username');
         var CheckLoginLinkExists = $("nav.nav-user .nav-items li.new-login-link");
         var CheckLogoutLinkExists = $("nav.nav-user .nav-items li.new-logout-link");
@@ -173,7 +173,15 @@
               $(".mobile-nav__user-nav .nav-items").append(appendLogoutMenus);
             }
           }
+      };
+
+      once('jobboard', 'html', context).forEach(function() {
+        window.addEventListener('load', navUserMenu);
+        window.addEventListener('hashchange', navUserMenu);
+        window.addEventListener('jobboardlogin', navUserMenu);
+        window.addEventListener('dialog:aftercreate', navUserMenu);    
       });
+
       $('.dropdown .dropdown-toggle').click(function(){
          if($(this).parent().hasClass('open')){
              $(this).parent().removeClass('open');
@@ -185,7 +193,7 @@
       });
     }
   }
-})(jQuery, Drupal, once);
+})(Drupal, jQuery, once);
 
 
 if (window.location.hash) {

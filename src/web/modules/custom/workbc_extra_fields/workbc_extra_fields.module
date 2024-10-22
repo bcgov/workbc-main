@@ -369,6 +369,7 @@ function ssotProcessEmploymentIndustry($ssotdata) {
     $nid = \Drupal::entityQuery('node')
       ->condition('title', $industry['name'])
       ->sort('nid', 'DESC')
+      ->accessCheck(false)
       ->execute();
     $nid = reset($nid);
 

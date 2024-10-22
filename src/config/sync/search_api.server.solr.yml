@@ -32,8 +32,8 @@ name: Solr
 description: ''
 backend: search_api_solr
 backend_config:
-  retrieve_data: true
-  highlight_data: true
+  retrieve_data: false
+  highlight_data: false
   site_hash: false
   server_prefix: ''
   domain: generic
@@ -41,7 +41,7 @@ backend_config:
   connector: standard
   connector_config:
     scheme: http
-    host: internal-solr-lb-1277807414.ca-central-1.elb.amazonaws.com
+    host: internal-solr-lb-127438646.ca-central-1.elb.amazonaws.com
     port: 8983
     path: /
     core: workbc

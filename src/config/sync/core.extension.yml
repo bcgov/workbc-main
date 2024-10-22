@@ -105,6 +105,7 @@ module:
   path: 0
   path_alias: 0
   pgsql: 0
+  popperjs: 0
   published_corrected_date: 0
   queue_ui: 0
   recaptcha: 0
@@ -134,6 +135,7 @@ module:
   toolbar: 0
   twig_tweak: 0
   update: 0
+  upgrade_status: 0
   user: 0
   views_autosubmit: 0
   views_bulk_edit: 0

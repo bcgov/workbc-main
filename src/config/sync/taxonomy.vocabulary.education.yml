@@ -6,3 +6,4 @@ name: Education
 vid: education
 description: 'Education level'
 weight: 0
+new_revision: false

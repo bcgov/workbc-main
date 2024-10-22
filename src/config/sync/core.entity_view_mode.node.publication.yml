@@ -6,5 +6,6 @@ dependencies:
     - node
 id: node.publication
 label: Publication
+description: ''
 targetEntityType: node
 cache: true

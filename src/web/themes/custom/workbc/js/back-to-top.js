@@ -1,4 +1,4 @@
-(function ($, Drupal) {
+(function (Drupal, $, once) {
     ("use strict");
 
     const scrollToTop = () => {
@@ -47,8 +47,8 @@
 
     Drupal.behaviors.back_to_top = {
       attach: function (context, settings) {
-        $(document, context).once('back_to_top').each(initScrollToTopTrigger);
+        $(once('back_to_top', 'html', context)).each(initScrollToTopTrigger);
       },
     };
 
-  })(jQuery, Drupal);
+  })(Drupal, jQuery, once);

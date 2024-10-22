@@ -382,7 +382,7 @@ $settings['reverse_proxy_addresses'] = array($_SERVER['REMOTE_ADDR']);
  * @see \Symfony\Component\HttpFoundation\Request::HEADER_FORWARDED
  * @see \Symfony\Component\HttpFoundation\Request::setTrustedProxies
  */
-$settings['reverse_proxy_trusted_headers'] = \Symfony\Component\HttpFoundation\Request::HEADER_X_FORWARDED_ALL | \Symfony\Component\HttpFoundation\Request::HEADER_FORWARDED;
+$settings['reverse_proxy_trusted_headers'] = \Symfony\Component\HttpFoundation\Request::HEADER_X_FORWARDED_FOR | \Symfony\Component\HttpFoundation\Request::HEADER_X_FORWARDED_HOST | \Symfony\Component\HttpFoundation\Request::HEADER_X_FORWARDED_PORT | \Symfony\Component\HttpFoundation\Request::HEADER_X_FORWARDED_PROTO | \Symfony\Component\HttpFoundation\Request::HEADER_FORWARDED;
 
 
 /**
@@ -855,6 +855,7 @@ if (in_array(getenv('PROJECT_ENVIRONMENT'), [
     'devel',
     'devel_generate',
     'devel_kint_extras',
+    'devel_php',
     'webform_devel',
     'views_ui',
     'webform_ui',
