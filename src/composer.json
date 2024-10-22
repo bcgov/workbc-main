@@ -155,7 +155,7 @@
         "drupal/upgrade_status": "^4.3",
         "drupal/views_autosubmit": "^1.4",
         "drupal/views_bulk_edit": "^3.0",
-        "drupal/views_bulk_operations": "^4.1",
+        "drupal/views_bulk_operations": "~4.2.7",
         "drupal/views_database_connector": "^2.0",
         "drupal/views_infinite_scroll": "^2.0",
         "drupal/viewsreference": "^2.0@beta",

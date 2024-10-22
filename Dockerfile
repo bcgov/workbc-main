@@ -8,6 +8,7 @@ ARG START_SERVERS
 ARG MIN_SPARE
 ARG MAX_SPARE
 ARG SPAWN_RATE
+ENV COMPOSER_ALLOW_SUPERUSER=1
 RUN sed -i '/;slowlog/c\slowlog = /var/log/slow.log' /usr/local/etc/php-fpm.d/www.conf
 RUN sed -i "/;request_slowlog_timeout/c\request_slowlog_timeout = $TIMEOUT" /usr/local/etc/php-fpm.d/www.conf
 RUN sed -i "/pm.max_children = 5/c\pm.max_children = $MAX_CHILDREN" /usr/local/etc/php-fpm.d/www.conf
