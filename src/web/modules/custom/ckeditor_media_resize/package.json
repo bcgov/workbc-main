@@ -9,9 +9,9 @@
     "build": "webpack"
   },
   "devDependencies": {
-    "@ckeditor/ckeditor5-dev-utils": "^30.0.0",
-    "@ckeditor/ckeditor5-image": "^38.0.1",
-    "ckeditor5": "~35.1.0",
+    "@ckeditor/ckeditor5-dev-utils": "^40.2.2",
+    "@ckeditor/ckeditor5-image": "^41.3.1",
+    "ckeditor5": "~41.3.1",
     "css-loader": "^6.8.1",
     "raw-loader": "^4.0.2",
     "style-loader": "^3.3.3",

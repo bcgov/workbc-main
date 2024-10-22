@@ -106,7 +106,7 @@ export default class MediaResizeHandles extends Plugin {
 						editingView.change( writer => {
 							writer.removeClass( RESIZED_IMAGE_CLASS, widgetView );
 						} );
-
+            editor.execute( 'resizeMediaImage', { width: null } ); // Reset the width. @todo Should not be necessary.
 						editor.execute( 'resizeMediaImage', { width: newValue } );
 					}
 				} );
