@@ -49,8 +49,5 @@ $config['jobboard']['google_maps_key'] = getenv('JOBBOARD_GOOGLE_MAPS_KEY');
 $settings['redis.connection']['host'] = getenv('REDIS_HOST');
 $settings['redis.connection']['port'] = getenv('REDIS_PORT');
 
-// Career Trek configuration
-$config['workbc']['careertrek_url'] = getenv('CAREERTREK_URL');
-
 // Enable/disable features
 $config['workbc']['features']['ssot_upload'] = TRUE;
