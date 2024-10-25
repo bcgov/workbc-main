@@ -268,10 +268,6 @@ $config['search_api.server.solr'] = [
   ],
 ];
 
-// SSoT settings.
-$config['workbc']['ssot_repo']['name'] = 'infojunkie/workbc-ssot';
-$config['workbc']['ssot_repo']['branches']['dev'] = 'dev';
-
 // Enable/disable features
 $config['workbc']['features']['ssot_upload'] = TRUE;
 
