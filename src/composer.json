@@ -94,7 +94,7 @@
         "drupal/core-composer-scaffold": "~10.3.6",
         "drupal/core-project-message": "~10.3.6",
         "drupal/core-recommended": "~10.3.6",
-        "drupal/country": "^2.0",
+        "drupal/country": "^2.1",
         "drupal/crop": "^2.2",
         "drupal/devel": "~5.2.1",
         "drupal/devel_kint_extras": "^1.1",
