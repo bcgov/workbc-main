@@ -21,7 +21,6 @@ dependencies:
     - taxonomy.vocabulary.success_story_categories
     - workflows.workflow.editorial
   module:
-    - actions_permissions
     - content_lock
     - content_moderation
     - field_permissions
@@ -104,7 +103,6 @@ permissions:
   - 'edit own field_title'
   - 'edit terms in content_groups'
   - 'edit terms in success_story_categories'
-  - 'execute entity:break_lock node'
   - 'override bc_profile authored by option'
   - 'override blog authored by option'
   - 'override career_profile authored by option'
