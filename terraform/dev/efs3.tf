@@ -28,8 +28,7 @@ resource "aws_efs_access_point" "pgadmin" {
         Name        = "pgadmin-data"
     },
     var.common_tags
-  )
-  
+  )  
 }
 
 resource "aws_efs_mount_target" "data_azA3" {
