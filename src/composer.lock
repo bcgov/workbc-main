@@ -4,7 +4,7 @@
         "Read more about it at https://getcomposer.org/doc/01-basic-usage.md#installing-dependencies",
         "This file is @generated automatically"
     ],
-    "content-hash": "3ac503cb01d097c9d34c6612a80d7b23",
+    "content-hash": "548a63d5e030b4f558c0668887ff468c",
     "packages": [
         {
             "name": "asm89/stack-cors",
@@ -2769,17 +2769,17 @@
         },
         {
             "name": "drupal/ckeditor_media_resize",
-            "version": "1.0.0-beta2",
+            "version": "1.0.0",
             "source": {
                 "type": "git",
                 "url": "https://git.drupalcode.org/project/ckeditor_media_resize.git",
-                "reference": "1.0.0-beta2"
+                "reference": "1.0.0"
             },
             "dist": {
                 "type": "zip",
-                "url": "https://ftp.drupal.org/files/projects/ckeditor_media_resize-1.0.0-beta2.zip",
-                "reference": "1.0.0-beta2",
-                "shasum": "f6f0509b8996a4f749df864950528ce4a1101932"
+                "url": "https://ftp.drupal.org/files/projects/ckeditor_media_resize-1.0.0.zip",
+                "reference": "1.0.0",
+                "shasum": "0e700e53a9aaedbd7586d3fc995201bed14e12a8"
             },
             "require": {
                 "drupal/core": "^10.3.0 || ^11"
@@ -2787,11 +2787,11 @@
             "type": "drupal-module",
             "extra": {
                 "drupal": {
-                    "version": "1.0.0-beta2",
-                    "datestamp": "1724065951",
+                    "version": "1.0.0",
+                    "datestamp": "1730224770",
                     "security-coverage": {
-                        "status": "not-covered",
-                        "message": "Beta releases are not covered by Drupal security advisories."
+                        "status": "covered",
+                        "message": "Covered by Drupal's security advisory policy"
                     }
                 }
             },
@@ -2810,7 +2810,7 @@
                     "homepage": "https://www.drupal.org/user/1336864"
                 },
                 {
-                    "name": "Tim Bozeman",
+                    "name": "tim bozeman",
                     "homepage": "https://www.drupal.org/user/2241356"
                 }
             ],
@@ -19395,7 +19395,6 @@
     "stability-flags": {
         "drupal/advagg": 15,
         "drupal/block_visibility_conditions": 20,
-        "drupal/ckeditor_media_resize": 10,
         "drupal/menu_breadcrumb": 15,
         "drupal/viewsreference": 10
     },
