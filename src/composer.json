@@ -86,7 +86,7 @@
         "drupal/captcha": "^2.0",
         "drupal/charts": "^5.0",
         "drupal/chosen": "^4.0",
-        "drupal/ckeditor_media_resize": "^1.0@beta",
+        "drupal/ckeditor_media_resize": "^1.0",
         "drupal/config_filter": "^2.7",
         "drupal/config_ignore": "^3.3",
         "drupal/content_lock": "^2.2",
