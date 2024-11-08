@@ -24,6 +24,7 @@ dependencies:
     - taxonomy.vocabulary.tags
     - workflows.workflow.editorial
   module:
+    - actions_permissions
     - content_moderation
     - contextual
     - file
@@ -120,6 +121,8 @@ permissions:
   - 'edit own bc_profile content'
   - 'edit terms in definitions'
   - 'edit terms in tags'
+  - 'execute workbc_draft_node_action node'
+  - 'execute workbc_review_node_action node'
   - 'update paragraph content action_card'
   - 'update paragraph content action_card_feature'
   - 'update paragraph content action_cards_1_2'

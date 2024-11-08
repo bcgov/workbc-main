@@ -26,6 +26,7 @@ dependencies:
     - taxonomy.vocabulary.tags
     - workflows.workflow.editorial
   module:
+    - actions_permissions
     - content_lock
     - content_moderation
     - contextual
@@ -153,6 +154,12 @@ permissions:
   - 'edit own remote_video media'
   - 'edit own video media'
   - 'edit terms in tags'
+  - 'execute entity:break_lock media'
+  - 'execute entity:publish_action media'
+  - 'execute entity:save_action media'
+  - 'execute entity:unpublish_action media'
+  - 'execute workbc_draft_node_action node'
+  - 'execute workbc_review_node_action node'
   - 'update any media'
   - 'update media'
   - 'update paragraph content action_card'
