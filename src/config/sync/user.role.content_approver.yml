@@ -21,6 +21,7 @@ dependencies:
     - taxonomy.vocabulary.definitions
     - workflows.workflow.editorial
   module:
+    - actions_permissions
     - content_moderation
     - field_permissions
     - file
@@ -142,6 +143,9 @@ permissions:
   - 'edit own success_story content'
   - 'edit own workbc_centre content'
   - 'edit terms in definitions'
+  - 'execute workbc_draft_node_action node'
+  - 'execute workbc_publish_node_action node'
+  - 'execute workbc_review_node_action node'
   - 'revert all revisions'
   - 'revert bc_profile revisions'
   - 'revert blog revisions'
