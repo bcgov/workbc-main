@@ -20,6 +20,7 @@ libraries:
   - workbc/google-charts-redraw
   - workbc/interactive-map
   - workbc/mobile-chosen
+  - workbc/nav-tabs
 stylesheets-remove:
   - '@bootstrap5/css/style.css'
 regions:

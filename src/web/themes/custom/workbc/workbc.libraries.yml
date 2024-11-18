@@ -83,12 +83,18 @@ google-charts-redraw:
   js:
     js/google-charts-redraw.js: {}
 
-
 interactive-map:
   js:
     js/interactive-map.js: {}
 
-
 mobile-chosen:
   js:
     js/mobile-chosen.js: {}
+
+nav-tabs:
+  js:
+    js/nav-tabs.js: {}
+  dependencies:
+    - core/drupal
+    - core/jquery
+    - core/once
