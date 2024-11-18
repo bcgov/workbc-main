@@ -368,6 +368,11 @@ content:
     third_party_settings: {  }
     weight: 14
     region: content
+  extra_field_search_index_noc:
+    settings: {  }
+    third_party_settings: {  }
+    weight: 17
+    region: content
   extra_field_skills_introduction:
     settings: {  }
     third_party_settings: {  }
