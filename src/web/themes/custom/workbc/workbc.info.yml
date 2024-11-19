@@ -20,8 +20,8 @@ libraries:
   - workbc/google-charts-redraw
   - workbc/interactive-map
   - workbc/mobile-chosen
-stylesheets-remove:
-  - '@bootstrap5/css/style.css'
+libraries-override:
+  bootstrap5/global-styling: true
 regions:
   header: Header
   content_top: 'Main Content Top'
