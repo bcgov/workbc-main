@@ -21,7 +21,7 @@ libraries:
   - workbc/interactive-map
   - workbc/mobile-chosen
 libraries-override:
-  bootstrap5/global-styling: true
+  bootstrap5/global-styling: false
 regions:
   header: Header
   content_top: 'Main Content Top'
