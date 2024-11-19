@@ -22,6 +22,10 @@ libraries:
   - workbc/mobile-chosen
 libraries-override:
   bootstrap5/global-styling: false
+  bootstrap5/dialog:
+    css:
+      component:
+        css/components/dialog.css: false
 regions:
   header: Header
   content_top: 'Main Content Top'
