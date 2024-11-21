@@ -20,9 +20,12 @@ libraries:
   - workbc/google-charts-redraw
   - workbc/interactive-map
   - workbc/mobile-chosen
-  - workbc/nav-tabs
-stylesheets-remove:
-  - '@bootstrap5/css/style.css'
+libraries-override:
+  bootstrap5/global-styling: false
+  bootstrap5/dialog:
+    css:
+      component:
+        css/components/dialog.css: false
 regions:
   header: Header
   content_top: 'Main Content Top'

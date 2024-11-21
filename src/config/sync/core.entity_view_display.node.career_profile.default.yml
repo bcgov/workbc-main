@@ -368,11 +368,6 @@ content:
     third_party_settings: {  }
     weight: 14
     region: content
-  extra_field_search_index_noc:
-    settings: {  }
-    third_party_settings: {  }
-    weight: 17
-    region: content
   extra_field_skills_introduction:
     settings: {  }
     third_party_settings: {  }
@@ -529,6 +524,8 @@ content:
     region: content
 hidden:
   extra_field_job_titles: true
+  extra_field_search_index_job_titles: true
+  extra_field_search_index_noc: true
   extra_field_workbc_page_title: true
   extra_field_workbc_published_on: true
   field_content_group: true
