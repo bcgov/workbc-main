@@ -4,7 +4,7 @@
         "Read more about it at https://getcomposer.org/doc/01-basic-usage.md#installing-dependencies",
         "This file is @generated automatically"
     ],
-    "content-hash": "a33fb880ebfa7e4929f98129e63a1b9e",
+    "content-hash": "03ede99b9f0e4bed42d86985198579c4",
     "packages": [
         {
             "name": "asm89/stack-cors",
@@ -4108,6 +4108,50 @@
             "support": {
                 "source": "https://git.drupalcode.org/project/exclude_node_title",
                 "issues": "https://www.drupal.org/project/issues/exclude_node_title"
+            }
+        },
+        {
+            "name": "drupal/expand_collapse_formatter",
+            "version": "2.0.3",
+            "source": {
+                "type": "git",
+                "url": "https://git.drupalcode.org/project/expand_collapse_formatter.git",
+                "reference": "2.0.3"
+            },
+            "dist": {
+                "type": "zip",
+                "url": "https://ftp.drupal.org/files/projects/expand_collapse_formatter-2.0.3.zip",
+                "reference": "2.0.3",
+                "shasum": "6f63b8278dc004f2e7de0372c19b81c83b2da429"
+            },
+            "require": {
+                "drupal/core": "^8.8 || ^9 || ^10 || ^11"
+            },
+            "type": "drupal-module",
+            "extra": {
+                "drupal": {
+                    "version": "2.0.3",
+                    "datestamp": "1723586209",
+                    "security-coverage": {
+                        "status": "covered",
+                        "message": "Covered by Drupal's security advisory policy"
+                    }
+                }
+            },
+            "notification-url": "https://packages.drupal.org/8/downloads",
+            "license": [
+                "GPL-2.0-or-later"
+            ],
+            "authors": [
+                {
+                    "name": "andileco",
+                    "homepage": "https://www.drupal.org/user/2054544"
+                }
+            ],
+            "description": "A formatter to expand and collapse text area fields.",
+            "homepage": "https://www.drupal.org/project/expand_collapse_formatter",
+            "support": {
+                "source": "https://git.drupalcode.org/project/expand_collapse_formatter"
             }
         },
         {
