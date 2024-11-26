@@ -1,0 +1,21 @@
+uuid: 9c4aa54a-9427-4789-84e7-c56d48d7aae8
+langcode: en
+status: true
+dependencies:
+  config:
+    - field.storage.paragraph.field_lmo_charts_tables
+    - paragraphs.paragraphs_type.lmo_charts_tables
+  module:
+    - options
+id: paragraph.lmo_charts_tables.field_lmo_charts_tables
+field_name: field_lmo_charts_tables
+entity_type: paragraph
+bundle: lmo_charts_tables
+label: 'LMO Charts & Tables'
+description: ''
+required: false
+translatable: false
+default_value: {  }
+default_value_callback: ''
+settings: {  }
+field_type: list_string

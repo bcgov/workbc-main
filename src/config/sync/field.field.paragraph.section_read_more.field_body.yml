@@ -1,0 +1,22 @@
+uuid: 84e33d19-2a16-49b5-93a5-f7902ca9ff55
+langcode: en
+status: true
+dependencies:
+  config:
+    - field.storage.paragraph.field_body
+    - paragraphs.paragraphs_type.section_read_more
+  module:
+    - text
+id: paragraph.section_read_more.field_body
+field_name: field_body
+entity_type: paragraph
+bundle: section_read_more
+label: Body
+description: ''
+required: false
+translatable: false
+default_value: {  }
+default_value_callback: ''
+settings:
+  allowed_formats: {  }
+field_type: text_long

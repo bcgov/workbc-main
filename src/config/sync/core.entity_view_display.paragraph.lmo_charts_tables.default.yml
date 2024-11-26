@@ -1,0 +1,23 @@
+uuid: 8a720c73-88a5-4a9d-aedc-726d403ad7ac
+langcode: en
+status: true
+dependencies:
+  config:
+    - field.field.paragraph.lmo_charts_tables.field_lmo_charts_tables
+    - paragraphs.paragraphs_type.lmo_charts_tables
+  module:
+    - options
+id: paragraph.lmo_charts_tables.default
+targetEntityType: paragraph
+bundle: lmo_charts_tables
+mode: default
+content:
+  field_lmo_charts_tables:
+    type: list_default
+    label: hidden
+    settings: {  }
+    third_party_settings: {  }
+    weight: 0
+    region: content
+hidden:
+  search_api_excerpt: true

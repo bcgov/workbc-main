@@ -1,0 +1,97 @@
+uuid: 68a418e3-9b03-49f2-9cfc-ca23ed28e0b8
+langcode: en
+status: true
+dependencies:
+  config:
+    - field.storage.paragraph.field_content
+    - paragraphs.paragraphs_type.action_card
+    - paragraphs.paragraphs_type.content_text
+    - paragraphs.paragraphs_type.lmo_charts_tables
+    - paragraphs.paragraphs_type.lmo_tab
+    - paragraphs.paragraphs_type.section_read_more
+  module:
+    - entity_reference_revisions
+id: paragraph.lmo_tab.field_content
+field_name: field_content
+entity_type: paragraph
+bundle: lmo_tab
+label: content
+description: ''
+required: false
+translatable: false
+default_value: {  }
+default_value_callback: ''
+settings:
+  handler: 'default:paragraph'
+  handler_settings:
+    target_bundles:
+      action_card: action_card
+      content_text: content_text
+      lmo_charts_tables: lmo_charts_tables
+      section_read_more: section_read_more
+    negate: 0
+    target_bundles_drag_drop:
+      action_card:
+        weight: 22
+        enabled: true
+      action_card_feature:
+        weight: 23
+        enabled: false
+      action_card_full_width:
+        weight: 24
+        enabled: false
+      action_card_icon:
+        weight: 25
+        enabled: false
+      action_cards_1_2:
+        weight: 26
+        enabled: false
+      action_cards_1_3:
+        weight: 27
+        enabled: false
+      action_cards_1_4:
+        weight: 28
+        enabled: false
+      action_cards_explore_careers:
+        weight: 29
+        enabled: false
+      action_cards_full_width:
+        weight: 30
+        enabled: false
+      action_cards_icon:
+        weight: 31
+        enabled: false
+      action_cards_icon_1_2:
+        weight: 32
+        enabled: false
+      action_cards_publication:
+        weight: 33
+        enabled: false
+      additional_duties:
+        weight: 34
+        enabled: false
+      content_interactive_map:
+        weight: 35
+        enabled: false
+      content_text:
+        weight: 36
+        enabled: true
+      content_view:
+        weight: 37
+        enabled: false
+      lmo_charts_tables:
+        weight: 38
+        enabled: true
+      lmo_tab:
+        weight: 39
+        enabled: false
+      quote_card:
+        weight: 40
+        enabled: false
+      section_read_more:
+        weight: 41
+        enabled: true
+      skills:
+        weight: 42
+        enabled: false
+field_type: entity_reference_revisions

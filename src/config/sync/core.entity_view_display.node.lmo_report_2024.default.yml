@@ -1,0 +1,34 @@
+uuid: 9b45f942-65dd-4ea9-bc84-bffa9c62d257
+langcode: en
+status: true
+dependencies:
+  config:
+    - field.field.node.lmo_report_2024.body
+    - field.field.node.lmo_report_2024.field_content
+    - node.type.lmo_report_2024
+  module:
+    - entity_reference_revisions
+id: node.lmo_report_2024.default
+targetEntityType: node
+bundle: lmo_report_2024
+mode: default
+content:
+  field_content:
+    type: entity_reference_revisions_entity_view
+    label: above
+    settings:
+      view_mode: default
+      link: ''
+    third_party_settings: {  }
+    weight: 0
+    region: content
+hidden:
+  body: true
+  created: true
+  extra_field_labourmarketoutlook_test: true
+  extra_field_workbc_page_title: true
+  extra_field_workbc_published_on: true
+  langcode: true
+  links: true
+  search_api_excerpt: true
+  uid: true

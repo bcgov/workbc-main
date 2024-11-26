@@ -1,0 +1,25 @@
+uuid: 58e22d4a-fabf-44bb-b35f-b2be353a3b58
+langcode: en
+status: true
+dependencies:
+  config:
+    - core.entity_view_mode.paragraph.action_card_explore_careers
+    - field.field.paragraph.lmo_tab.field_content
+    - field.field.paragraph.lmo_tab.field_title
+    - paragraphs.paragraphs_type.lmo_tab
+id: paragraph.lmo_tab.action_card_explore_careers
+targetEntityType: paragraph
+bundle: lmo_tab
+mode: action_card_explore_careers
+content:
+  field_title:
+    type: string
+    label: above
+    settings:
+      link_to_entity: false
+    third_party_settings: {  }
+    weight: 1
+    region: content
+hidden:
+  field_content: true
+  search_api_excerpt: true

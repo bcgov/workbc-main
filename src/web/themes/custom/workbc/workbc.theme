@@ -388,3 +388,79 @@ function workbc_preprocess_views_view_field(&$variables) {
     }
   }
 }
+
+
+/**
+ * Implements template_preprocess_block().
+ */
+function workbc_preprocess_field(&$variables) {
+  if ($variables['field_name'] === 'field_lmo_charts_tables') {
+    // ksm($variables['element']);
+    $node = \Drupal::routeMatch()->getParameter('node');
+    // ksm($node);
+    $chart = $variables['element']['#items'];
+    $value = $chart->getValue()[0]['value'];   
+    // ksm($value);  
+    $variables['chart_table_result'] = getFigure($value);
+  }
+}
+
+
+function getFigure($value) {
+  $output = "n/a";
+  if ($value == 'chart_2') {
+    $data = array();
+    $data[] = 483380;
+    $data[] = 514130;
+
+    $date1 = "2023-2028";
+    $date2 = "2029-2033";
+    $dates = array();
+    $dates[] = $date1;
+    $dates[] = $date2;
+    $chart = [
+      '#type' => 'chart',
+      '#chart_type' => 'column',
+      '#colors' => ['#2E6AB0'],
+      'series' => [
+        '#type' => 'chart_data',
+        '#data' => $data,
+        '#title' => t('Forecasted Job Openings'),
+      ],
+      'series_annotation' => [
+        '#type' => 'chart_data',
+        '#title' => ['role' => 'annotation'],
+        '#data' => $data,
+      ],
+      'xaxis' => [
+        '#type' => 'chart_xaxis',
+        '#labels' => $dates,
+      ],
+      'yaxis' => [
+        '#type' => 'chart_yaxis',
+        '#raw_options' => [
+          'textPosition' => 'none',
+          'gridlines' => [
+            'count' => 1,
+          ],
+          'minValue' => 0,
+        ]
+      ],
+      '#legend_position' => 'none',
+    ];
+    $output = \Drupal::service('renderer')->render($chart);   
+  }
+
+  if ($value == 'table_1') {
+    $table = "<div>"; 
+    $table .= "<table>" ;
+    $table .= "<tr><td>234</td><td>123</td></tr>" ;
+    $table .= "<tr><td>256</td><td>423</td></tr>" ;
+    $table .= "</table>";
+    $table .= "</div>";
+    $markup = array('#markup' => $table);
+    $output = \Drupal::service('renderer')->render($markup);  
+  }  
+
+  return $output;
+}

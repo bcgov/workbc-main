@@ -1,0 +1,10 @@
+uuid: 6ebb7c6b-6b1e-4a79-80f4-3a66fa13c9d3
+langcode: en
+status: true
+dependencies: {  }
+id: section_read_more
+label: 'Section: Read more'
+icon_uuid: null
+icon_default: null
+description: ''
+behavior_plugins: {  }

@@ -1,0 +1,36 @@
+uuid: 5f1fc238-8923-47c4-938a-6ddfcc28b61e
+langcode: en
+status: true
+dependencies:
+  module:
+    - options
+    - paragraphs
+id: paragraph.field_lmo_charts_tables
+field_name: field_lmo_charts_tables
+entity_type: paragraph
+type: list_string
+settings:
+  allowed_values:
+    -
+      value: chart_1
+      label: 'Chart 1'
+    -
+      value: chart_2
+      label: 'Chart 2'
+    -
+      value: chart_3
+      label: 'Chart 3'
+    -
+      value: table_1
+      label: 'Table 1'
+    -
+      value: table_2
+      label: 'Table 2'
+  allowed_values_function: ''
+module: options
+locked: false
+cardinality: 1
+translatable: true
+indexes: {  }
+persist_with_no_fields: false
+custom_storage: false
