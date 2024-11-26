@@ -4,7 +4,12 @@ status: true
 dependencies:
   config:
     - field.field.node.lmo_report_2024.body
-    - field.field.node.lmo_report_2024.field_content
+    - field.field.node.lmo_report_2024.field_lmo_2024_education
+    - field.field.node.lmo_report_2024.field_lmo_2024_featured_topics
+    - field.field.node.lmo_report_2024.field_lmo_2024_industry_outlook
+    - field.field.node.lmo_report_2024.field_lmo_2024_labour_market
+    - field.field.node.lmo_report_2024.field_lmo_2024_occupational_outl
+    - field.field.node.lmo_report_2024.field_lmo_2024_regional_outlook
     - node.type.lmo_report_2024
   module:
     - entity_reference_revisions
@@ -13,7 +18,34 @@ targetEntityType: node
 bundle: lmo_report_2024
 mode: default
 content:
-  field_content:
+  field_lmo_2024_education:
+    type: entity_reference_revisions_entity_view
+    label: above
+    settings:
+      view_mode: default
+      link: ''
+    third_party_settings: {  }
+    weight: 2
+    region: content
+  field_lmo_2024_featured_topics:
+    type: entity_reference_revisions_entity_view
+    label: above
+    settings:
+      view_mode: default
+      link: ''
+    third_party_settings: {  }
+    weight: 1
+    region: content
+  field_lmo_2024_industry_outlook:
+    type: entity_reference_revisions_entity_view
+    label: above
+    settings:
+      view_mode: default
+      link: ''
+    third_party_settings: {  }
+    weight: 3
+    region: content
+  field_lmo_2024_labour_market:
     type: entity_reference_revisions_entity_view
     label: above
     settings:
@@ -21,6 +53,24 @@ content:
       link: ''
     third_party_settings: {  }
     weight: 0
+    region: content
+  field_lmo_2024_occupational_outl:
+    type: entity_reference_revisions_entity_view
+    label: above
+    settings:
+      view_mode: default
+      link: ''
+    third_party_settings: {  }
+    weight: 5
+    region: content
+  field_lmo_2024_regional_outlook:
+    type: entity_reference_revisions_entity_view
+    label: above
+    settings:
+      view_mode: default
+      link: ''
+    third_party_settings: {  }
+    weight: 4
     region: content
 hidden:
   body: true

@@ -1,13 +1,14 @@
-uuid: 89a875eb-20e8-4583-acbc-c64bf59f8076
+uuid: 77ee1e9d-1430-43a2-b733-452b9eed2f30
 langcode: en
 status: true
 dependencies:
   module:
     - entity_reference_revisions
+    - node
     - paragraphs
-id: paragraph.field_content
-field_name: field_content
-entity_type: paragraph
+id: node.field_lmo_2024_featured_topics
+field_name: field_lmo_2024_featured_topics
+entity_type: node
 type: entity_reference_revisions
 settings:
   target_type: paragraph

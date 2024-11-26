@@ -1,4 +1,4 @@
-uuid: da4b500d-dc4a-487e-9eff-94af48127b2f
+uuid: 617ddafa-4079-4193-be3b-af6f819845cb
 langcode: en
 status: true
 dependencies:
@@ -6,8 +6,8 @@ dependencies:
     - entity_reference_revisions
     - node
     - paragraphs
-id: node.field_lmo_tabs
-field_name: field_lmo_tabs
+id: node.field_lmo_2024_education
+field_name: field_lmo_2024_education
 entity_type: node
 type: entity_reference_revisions
 settings:

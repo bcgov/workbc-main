@@ -5,7 +5,12 @@ dependencies:
   config:
     - core.entity_view_mode.node.teaser
     - field.field.node.lmo_report_2024.body
-    - field.field.node.lmo_report_2024.field_content
+    - field.field.node.lmo_report_2024.field_lmo_2024_education
+    - field.field.node.lmo_report_2024.field_lmo_2024_featured_topics
+    - field.field.node.lmo_report_2024.field_lmo_2024_industry_outlook
+    - field.field.node.lmo_report_2024.field_lmo_2024_labour_market
+    - field.field.node.lmo_report_2024.field_lmo_2024_occupational_outl
+    - field.field.node.lmo_report_2024.field_lmo_2024_regional_outlook
     - node.type.lmo_report_2024
   module:
     - text
@@ -55,8 +60,14 @@ content:
     weight: 0
     region: content
 hidden:
+  extra_field_labourmarketoutlook_test: true
   extra_field_workbc_page_title: true
   extra_field_workbc_published_on: true
-  field_content: true
+  field_lmo_2024_education: true
+  field_lmo_2024_featured_topics: true
+  field_lmo_2024_industry_outlook: true
+  field_lmo_2024_labour_market: true
+  field_lmo_2024_occupational_outl: true
+  field_lmo_2024_regional_outlook: true
   langcode: true
   search_api_excerpt: true

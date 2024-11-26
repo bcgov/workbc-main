@@ -1,18 +1,21 @@
-uuid: 2c8c0850-34d3-42c8-a22e-ee3423192012
+uuid: 838b71c2-2828-4557-8e82-c6a7e8eb3025
 langcode: en
 status: true
 dependencies:
   config:
-    - field.storage.node.field_lmo_tabs
-    - node.type.lmo_report_2025
-    - paragraphs.paragraphs_type.lmo_tab
+    - field.storage.node.field_lmo_2024_labour_market
+    - node.type.lmo_report_2024
+    - paragraphs.paragraphs_type.action_card
+    - paragraphs.paragraphs_type.content_text
+    - paragraphs.paragraphs_type.lmo_charts_tables
+    - paragraphs.paragraphs_type.section_read_more
   module:
     - entity_reference_revisions
-id: node.lmo_report_2025.field_lmo_tabs
-field_name: field_lmo_tabs
+id: node.lmo_report_2024.field_lmo_2024_labour_market
+field_name: field_lmo_2024_labour_market
 entity_type: node
-bundle: lmo_report_2025
-label: 'LMO Tabs'
+bundle: lmo_report_2024
+label: 'Labour Market Outlook tab'
 description: ''
 required: false
 translatable: false
@@ -22,70 +25,70 @@ settings:
   handler: 'default:paragraph'
   handler_settings:
     target_bundles:
-      lmo_tab: lmo_tab
+      action_card: action_card
+      content_text: content_text
+      lmo_charts_tables: lmo_charts_tables
+      section_read_more: section_read_more
     negate: 0
     target_bundles_drag_drop:
       action_card:
+        weight: 21
+        enabled: true
+      action_card_feature:
         weight: 22
         enabled: false
-      action_card_feature:
+      action_card_full_width:
         weight: 23
         enabled: false
-      action_card_full_width:
+      action_card_icon:
         weight: 24
         enabled: false
-      action_card_icon:
+      action_cards_1_2:
         weight: 25
         enabled: false
-      action_cards_1_2:
+      action_cards_1_3:
         weight: 26
         enabled: false
-      action_cards_1_3:
+      action_cards_1_4:
         weight: 27
         enabled: false
-      action_cards_1_4:
+      action_cards_explore_careers:
         weight: 28
         enabled: false
-      action_cards_explore_careers:
+      action_cards_full_width:
         weight: 29
         enabled: false
-      action_cards_full_width:
+      action_cards_icon:
         weight: 30
         enabled: false
-      action_cards_icon:
+      action_cards_icon_1_2:
         weight: 31
         enabled: false
-      action_cards_icon_1_2:
+      action_cards_publication:
         weight: 32
         enabled: false
-      action_cards_publication:
+      additional_duties:
         weight: 33
         enabled: false
-      additional_duties:
+      content_interactive_map:
         weight: 34
         enabled: false
-      content_interactive_map:
-        weight: 35
-        enabled: false
       content_text:
+        weight: 35
+        enabled: true
+      content_view:
         weight: 36
         enabled: false
-      content_view:
-        weight: 37
-        enabled: false
       lmo_charts_tables:
-        weight: 38
-        enabled: false
-      lmo_tab:
-        weight: 39
+        weight: 37
         enabled: true
       quote_card:
-        weight: 40
+        weight: 38
         enabled: false
       section_read_more:
-        weight: 41
-        enabled: false
+        weight: 39
+        enabled: true
       skills:
-        weight: 42
+        weight: 40
         enabled: false
 field_type: entity_reference_revisions
