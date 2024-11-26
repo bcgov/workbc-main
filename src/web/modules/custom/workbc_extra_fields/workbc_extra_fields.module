@@ -54,10 +54,9 @@ function workbc_extra_fields_node_view(array &$build, \Drupal\Core\Entity\Entity
 
     switch($entity->bundle()) {
       case "labour_market_monthly":
-        //Example: http://localhost:3000/monthly_labour_market_updates?year=eq.2022&month=eq.1
         $year = \Drupal::request()->query->get('year');
         $month = \Drupal::request()->query->get('month');
-        $entity->ssot_data = ssotLabourMarketMonthly($year,$month);
+        $entity->ssot_data = ssotLabourMarketMonthly($year, $month);
         break;
       case "career_profile":
         $entity->ssot_data = ssotCareerProfile($entity->get("field_noc")->getString());
@@ -71,18 +70,39 @@ function workbc_extra_fields_node_view(array &$build, \Drupal\Core\Entity\Entity
       case "bc_profile":
         $entity->ssot_data = ssotBCProfile($entity->getTitle());
         break;
+      case "lmo_report_2024":
+        $entity->ssot_data = ssotLabourMarketYearly();
+        break;
     }
   }
 }
 
+function ssotLabourMarketYearly() {
+  return [
+    'lmo_report_2024_job_openings_10y' => querySSoT('lmo_report_2024_job_openings_10y'),
+    'lmo_report_2024_job_openings_annual' => querySSoT('lmo_report_2024_job_openings_annual'),
+    'lmo_report_2024_job_openings_teers' => querySSoT('lmo_report_2024_job_openings_teers'),
+    'lmo_report_2024_job_openings_industries' => querySSoT('lmo_report_2024_job_openings_industries'),
+    'lmo_report_2024_job_openings_broad_categories' => querySSoT('lmo_report_2024_job_openings_broad_categories'),
+    'lmo_report_2024_job_openings_regions' => querySSoT('lmo_report_2024_job_openings_regions'),
+    'lmo_report_2024_job_openings_vancouver_island_coast' => querySSoT('lmo_report_2024_job_openings_vancouver_island_coast'),
+    'lmo_report_2024_job_openings_mainland_southwest' => querySSoT('lmo_report_2024_job_openings_mainland_southwest'),
+    'lmo_report_2024_job_openings_thompson_okanagan' => querySSoT('lmo_report_2024_job_openings_thompson_okanagan'),
+    'lmo_report_2024_job_openings_kootenay' => querySSoT('lmo_report_2024_job_openings_kootenay'),
+    'lmo_report_2024_job_openings_cariboo' => querySSoT('lmo_report_2024_job_openings_cariboo'),
+    'lmo_report_2024_job_openings_north_coast_nechako' => querySSoT('lmo_report_2024_job_openings_north_coast_nechako'),
+    'lmo_report_2024_job_openings_northeast' => querySSoT('lmo_report_2024_job_openings_northeast')
+  ];
+}
 
-function ssotLabourMarketMonthly($year = null, $month = null){
+function ssotLabourMarketMonthly($year = null, $month = null) {
   $data = array();
 
   // Months years data for select list element on top of the page.
   $data['monthly_labour_market_updates_months_years'] = querySSoT('monthly_labour_market_updates?select=year%2Cmonth&order=year.desc%2Cmonth.desc');
 
   // Full data query.
+  // http://localhost:3000/monthly_labour_market_updates?year=eq.2022&month=eq.1
   $parameters = 'order=year.desc%2Cmonth.desc';
   if(!empty($year)) {
     $parameters .= '&year=eq.' . $year;
@@ -233,7 +253,7 @@ function ssotSources() {
   }, []);
 }
 
-function querySSoT($url, $read_timeout = NULL) {
+function querySSoT($endpoint, $read_timeout = NULL) {
   $ssot = rtrim(\Drupal::config('workbc')->get('ssot_url'), '/');
   $client = new Client();
   try {
@@ -241,7 +261,7 @@ function querySSoT($url, $read_timeout = NULL) {
     if ($read_timeout) {
       $options['read_timeout'] = $read_timeout;
     }
-    $response = $client->get($ssot . '/' . $url, $options);
+    $response = $client->get($ssot . '/' . $endpoint, $options);
     $result = json_decode($response->getBody(), TRUE);
     return $result;
   }
