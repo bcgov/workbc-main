@@ -3,7 +3,7 @@ langcode: en
 status: true
 dependencies:
   config:
-    - field.field.paragraph.section_read_more.field_body
+    - field.field.paragraph.section_read_more.field_content
     - field.field.paragraph.section_read_more.field_title
     - paragraphs.paragraphs_type.section_read_more
   module:
@@ -13,13 +13,15 @@ targetEntityType: paragraph
 bundle: section_read_more
 mode: default
 content:
-  field_body:
-    type: text_textarea
+  field_content:
+    type: text_textarea_with_summary
     weight: 1
     region: content
     settings:
-      rows: 5
+      rows: 9
+      summary_rows: 3
       placeholder: ''
+      show_summary: false
     third_party_settings: {  }
   field_title:
     type: string_textfield

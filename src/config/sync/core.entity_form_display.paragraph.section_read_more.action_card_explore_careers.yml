@@ -4,7 +4,7 @@ status: true
 dependencies:
   config:
     - core.entity_form_mode.paragraph.action_card_explore_careers
-    - field.field.paragraph.section_read_more.field_body
+    - field.field.paragraph.section_read_more.field_content
     - field.field.paragraph.section_read_more.field_title
     - paragraphs.paragraphs_type.section_read_more
 id: paragraph.section_read_more.action_card_explore_careers
@@ -22,5 +22,5 @@ content:
     third_party_settings: {  }
 hidden:
   created: true
-  field_body: true
+  field_content: true
   status: true

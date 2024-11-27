@@ -21,7 +21,7 @@
   Drupal.behaviors.redrawGoogleChart = {
     attach: function (context, settings) {
       $('.nav-link', context).on('shown.bs.tab', function (e) {
-        if (Drupal.Charts && Drupal.googleCharts) {
+        if (Drupal.Charts && Drupal.googleCharts && google.visualization) {
           $('.charts-google', $(e.target).attr('data-bs-target')).each(function () {
             if (this.dataset.hasOwnProperty('chart')) {
               redrawGoogleChart(this);

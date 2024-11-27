@@ -4,7 +4,6 @@ status: true
 dependencies:
   config:
     - core.entity_view_mode.node.teaser
-    - field.field.node.lmo_report_2024.body
     - field.field.node.lmo_report_2024.field_lmo_2024_education
     - field.field.node.lmo_report_2024.field_lmo_2024_featured_topics
     - field.field.node.lmo_report_2024.field_lmo_2024_industry_outlook
@@ -13,21 +12,12 @@ dependencies:
     - field.field.node.lmo_report_2024.field_lmo_2024_regional_outlook
     - node.type.lmo_report_2024
   module:
-    - text
     - user
 id: node.lmo_report_2024.teaser
 targetEntityType: node
 bundle: lmo_report_2024
 mode: teaser
 content:
-  body:
-    type: text_summary_or_trimmed
-    label: hidden
-    settings:
-      trim_length: 600
-    third_party_settings: {  }
-    weight: 101
-    region: content
   created:
     type: timestamp
     label: hidden
@@ -61,6 +51,7 @@ content:
     region: content
 hidden:
   extra_field_labourmarketoutlook_test: true
+  extra_field_lmo_report_2024_bc_job_openings_composition_chart: true
   extra_field_workbc_page_title: true
   extra_field_workbc_published_on: true
   field_lmo_2024_education: true

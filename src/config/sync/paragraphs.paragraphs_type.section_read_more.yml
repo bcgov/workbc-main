@@ -3,8 +3,8 @@ langcode: en
 status: true
 dependencies: {  }
 id: section_read_more
-label: 'Section: Read more'
+label: 'Card: Read More'
 icon_uuid: null
 icon_default: null
-description: ''
+description: 'A full-width card that displays content that can be summarized and expanded.'
 behavior_plugins: {  }
