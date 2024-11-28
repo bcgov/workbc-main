@@ -5,7 +5,7 @@ dependencies:
   config:
     - field.storage.node.field_lmo_2024_featured_topics
     - node.type.lmo_report_2024
-    - paragraphs.paragraphs_type.action_card
+    - paragraphs.paragraphs_type.action_card_full_width
     - paragraphs.paragraphs_type.content_text
     - paragraphs.paragraphs_type.lmo_charts_tables
     - paragraphs.paragraphs_type.section_read_more
@@ -25,7 +25,7 @@ settings:
   handler: 'default:paragraph'
   handler_settings:
     target_bundles:
-      action_card: action_card
+      action_card_full_width: action_card_full_width
       content_text: content_text
       lmo_charts_tables: lmo_charts_tables
       section_read_more: section_read_more
@@ -33,13 +33,13 @@ settings:
     target_bundles_drag_drop:
       action_card:
         weight: 21
-        enabled: true
+        enabled: false
       action_card_feature:
         weight: 22
         enabled: false
       action_card_full_width:
         weight: 23
-        enabled: false
+        enabled: true
       action_card_icon:
         weight: 24
         enabled: false
