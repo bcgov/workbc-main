@@ -19,7 +19,7 @@ mode: default
 content:
   field_lmo_2024_education:
     type: entity_reference_revisions_entity_view
-    label: above
+    label: visually_hidden
     settings:
       view_mode: default
       link: ''
@@ -28,7 +28,7 @@ content:
     region: content
   field_lmo_2024_featured_topics:
     type: entity_reference_revisions_entity_view
-    label: above
+    label: visually_hidden
     settings:
       view_mode: default
       link: ''
@@ -37,7 +37,7 @@ content:
     region: content
   field_lmo_2024_industry_outlook:
     type: entity_reference_revisions_entity_view
-    label: above
+    label: visually_hidden
     settings:
       view_mode: default
       link: ''
@@ -46,7 +46,7 @@ content:
     region: content
   field_lmo_2024_labour_market:
     type: entity_reference_revisions_entity_view
-    label: above
+    label: visually_hidden
     settings:
       view_mode: default
       link: ''
@@ -55,7 +55,7 @@ content:
     region: content
   field_lmo_2024_occupational_outl:
     type: entity_reference_revisions_entity_view
-    label: above
+    label: visually_hidden
     settings:
       view_mode: default
       link: ''
@@ -64,7 +64,7 @@ content:
     region: content
   field_lmo_2024_regional_outlook:
     type: entity_reference_revisions_entity_view
-    label: above
+    label: visually_hidden
     settings:
       view_mode: default
       link: ''

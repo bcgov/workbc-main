@@ -15,7 +15,7 @@ mode: default
 content:
   field_content:
     type: expand_collapse_formatter
-    label: above
+    label: visually_hidden
     settings:
       trim_length: 300
       default_state: collapsed
