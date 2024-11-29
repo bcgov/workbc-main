@@ -15,7 +15,7 @@ id: node.lmo_report_2024.field_lmo_2024_occupational_outl
 field_name: field_lmo_2024_occupational_outl
 entity_type: node
 bundle: lmo_report_2024
-label: 'Occupational Outlook tab'
+label: 'Occupational Outlook'
 description: ''
 required: false
 translatable: false

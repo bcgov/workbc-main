@@ -82,6 +82,8 @@ hidden:
   extra_field_lmo_report_2024_bc_job_openings_composition_chart: true
   extra_field_workbc_page_title: true
   extra_field_workbc_published_on: true
+  field_hero_image_media: true
+  field_hero_text: true
   langcode: true
   links: true
   search_api_excerpt: true

@@ -82,6 +82,10 @@
 
 {# dump(content) #}
 
+{% set title = label %}
+{% set hero_image = content.field_hero_image_media[0] %}
+{% set hero_text = content.field_hero_text[0] %}
+
 {# This viewmodel is intended to collect all of the incoming variables in one place, and the remainder of the template should
  refer only to this viewmodel (or Drupal/Twig generics like loop, directory, etc #}
 {% set viewmodel = {
@@ -122,8 +126,9 @@
 }
 %}
 
-<div class="profile-header">
-</div>
+{% if hero_image or hero_text %}
+  {% include '@workbc/includes/hero.html.twig' %}
+{% endif %}
 
 {# Breadcrumbs #}
 {% include '@workbc/includes/breadcrumbs.html.twig' %}

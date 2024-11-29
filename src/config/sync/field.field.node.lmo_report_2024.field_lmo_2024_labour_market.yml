@@ -15,7 +15,7 @@ id: node.lmo_report_2024.field_lmo_2024_labour_market
 field_name: field_lmo_2024_labour_market
 entity_type: node
 bundle: lmo_report_2024
-label: 'Labour Market Outlook tab'
+label: 'Labour Market Outlook'
 description: ''
 required: false
 translatable: false

@@ -15,7 +15,7 @@ id: node.lmo_report_2024.field_lmo_2024_regional_outlook
 field_name: field_lmo_2024_regional_outlook
 entity_type: node
 bundle: lmo_report_2024
-label: 'Regional Outlook tab'
+label: 'Regional Outlook'
 description: ''
 required: false
 translatable: false

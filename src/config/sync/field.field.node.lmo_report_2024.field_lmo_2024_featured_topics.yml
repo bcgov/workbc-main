@@ -15,7 +15,7 @@ id: node.lmo_report_2024.field_lmo_2024_featured_topics
 field_name: field_lmo_2024_featured_topics
 entity_type: node
 bundle: lmo_report_2024
-label: 'Featured Topics tab'
+label: 'Featured Topics'
 description: ''
 required: false
 translatable: false

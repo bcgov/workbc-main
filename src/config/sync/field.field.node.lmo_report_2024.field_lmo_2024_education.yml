@@ -15,7 +15,7 @@ id: node.lmo_report_2024.field_lmo_2024_education
 field_name: field_lmo_2024_education
 entity_type: node
 bundle: lmo_report_2024
-label: 'Education and Training tab'
+label: 'Education and Training'
 description: ''
 required: false
 translatable: false

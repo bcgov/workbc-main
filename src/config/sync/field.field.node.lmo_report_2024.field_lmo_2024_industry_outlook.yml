@@ -15,7 +15,7 @@ id: node.lmo_report_2024.field_lmo_2024_industry_outlook
 field_name: field_lmo_2024_industry_outlook
 entity_type: node
 bundle: lmo_report_2024
-label: 'Industry Outlook tab'
+label: 'Industry Outlook'
 description: ''
 required: false
 translatable: false
