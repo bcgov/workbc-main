@@ -17,6 +17,11 @@ targetEntityType: node
 bundle: lmo_report_2024
 mode: default
 content:
+  extra_field_lmo_report_2024_job_openings_10y_chart:
+    settings: {  }
+    third_party_settings: {  }
+    weight: 6
+    region: content
   field_lmo_2024_education:
     type: entity_reference_revisions_entity_view
     label: visually_hidden

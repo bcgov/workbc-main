@@ -3,8 +3,8 @@ langcode: en
 status: true
 dependencies: {  }
 id: lmo_charts_tables
-label: 'LMO Charts & Tables'
+label: 'SSoT: LMO 2024 Charts and Tables'
 icon_uuid: null
 icon_default: null
-description: ''
+description: 'SSoT datasets for the Labour Market Outlook, 2024 Edition.'
 behavior_plugins: {  }

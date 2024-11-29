@@ -1,6 +1,6 @@
 <?php
 
-namespace Drupal\workbc_extra_fields\Plugin\ExtraField\Display\LabourMarketYearly;
+namespace Drupal\workbc_extra_fields\Plugin\ExtraField\Display\LabourMarketOutlook;
 
 use Drupal\Core\Entity\ContentEntityInterface;
 use Drupal\Core\StringTranslation\StringTranslationTrait;
@@ -10,11 +10,11 @@ use Drupal\extra_field\Plugin\ExtraFieldDisplayFormattedBase;
  * Example Extra field with formatted output.
  *
  * @ExtraFieldDisplay(
- *   id = "lmo_report_2024_bc_job_openings_composition_chart",
+ *   id = "lmo_report_2024_job_openings_10y_chart",
  *   label = @Translation("Figure 1.1-1. Job Openings, B.C., 2024-2034"),
  *   description = @Translation("An extra field to display job openings forecast chart."),
  *   bundles = {
- *     "node.lmo_report_2024",
+ *     "paragraph.lmo_charts_tables",
  *   }
  * )
  */
@@ -42,8 +42,14 @@ class BCJobOpeningsCompositionChart extends ExtraFieldDisplayFormattedBase {
   /**
    * {@inheritdoc}
    */
-  public function viewElements(ContentEntityInterface $entity) {
+  public function viewElements(ContentEntityInterface $paragraph) {
 
+    // Don't display if this field is not selected in the parent paragraph.
+    if ($this->getPluginId() != $paragraph->get('field_lmo_charts_tables')->value) {
+      return null;
+    }
+
+    $entity = $paragraph->getParentEntity();
     if (!empty($entity->ssot_data) && isset($entity->ssot_data['lmo_report_2024_job_openings_10y'])) {
       $data = array();
       $data[] = floatval(array_find($entity->ssot_data['lmo_report_2024_job_openings_10y'], function($entry) {

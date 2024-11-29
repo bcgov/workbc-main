@@ -5,19 +5,16 @@ dependencies:
   config:
     - field.field.paragraph.lmo_charts_tables.field_lmo_charts_tables
     - paragraphs.paragraphs_type.lmo_charts_tables
-  module:
-    - options
 id: paragraph.lmo_charts_tables.default
 targetEntityType: paragraph
 bundle: lmo_charts_tables
 mode: default
 content:
-  field_lmo_charts_tables:
-    type: list_default
-    label: hidden
+  extra_field_lmo_report_2024_job_openings_10y_chart:
     settings: {  }
     third_party_settings: {  }
     weight: 0
     region: content
 hidden:
+  field_lmo_charts_tables: true
   search_api_excerpt: true

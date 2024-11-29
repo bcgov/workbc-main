@@ -11,9 +11,9 @@ id: paragraph.lmo_charts_tables.field_lmo_charts_tables
 field_name: field_lmo_charts_tables
 entity_type: paragraph
 bundle: lmo_charts_tables
-label: 'LMO Charts & Tables'
+label: 'Chart / Table to insert'
 description: ''
-required: false
+required: true
 translatable: false
 default_value: {  }
 default_value_callback: ''
