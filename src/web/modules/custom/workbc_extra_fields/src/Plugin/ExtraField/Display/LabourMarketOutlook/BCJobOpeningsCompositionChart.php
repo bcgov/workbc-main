@@ -27,7 +27,7 @@ class BCJobOpeningsCompositionChart extends ExtraFieldDisplayFormattedBase {
    */
   public function getLabel() {
 
-    $label = $this->getEntity()->ssot_data['schema']['definitions']['lmo_report_2024_job_openings_10y']['description'];
+    $label = $this->getEntity()->getParentEntity()->ssot_data['schema']['definitions']['lmo_report_2024_job_openings_10y']['description'];
     return trim(explode('>', $label)[1]);
   }
 
