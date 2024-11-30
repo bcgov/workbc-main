@@ -6,6 +6,7 @@ dependencies:
     - field.storage.node.field_lmo_2024_education
     - node.type.lmo_report_2024
     - paragraphs.paragraphs_type.action_card_full_width
+    - paragraphs.paragraphs_type.content_interactive_map
     - paragraphs.paragraphs_type.content_text
     - paragraphs.paragraphs_type.lmo_charts_tables
     - paragraphs.paragraphs_type.section_read_more
@@ -26,6 +27,7 @@ settings:
   handler_settings:
     target_bundles:
       action_card_full_width: action_card_full_width
+      content_interactive_map: content_interactive_map
       content_text: content_text
       lmo_charts_tables: lmo_charts_tables
       section_read_more: section_read_more
@@ -72,7 +74,7 @@ settings:
         enabled: false
       content_interactive_map:
         weight: 35
-        enabled: false
+        enabled: true
       content_text:
         weight: 36
         enabled: true

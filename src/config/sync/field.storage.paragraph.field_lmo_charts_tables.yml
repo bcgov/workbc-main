@@ -25,7 +25,7 @@ settings:
       label: 'Figure 4.1-1. Job Openings by Main Occupational Group, B.C., 2024-2034'
     -
       value: lmo_report_2024_job_openings_regions_table
-      label: 'Table 5-1. Employment and Job Openings by Development Region, 2024-2034'
+      label: 'Figure 5-1. Total Job Openings by Development Region, B.C., 2024-2034'
     -
       value: lmo_report_2024_job_openings_vancouver_island_coast_table
       label: 'Table 5.1-1. Top five industries by total job openings, 2024-2034 - Vancouver Island/Coast'

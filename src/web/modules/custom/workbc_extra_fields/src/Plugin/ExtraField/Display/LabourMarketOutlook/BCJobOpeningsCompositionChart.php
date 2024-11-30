@@ -59,7 +59,7 @@ class BCJobOpeningsCompositionChart extends ExtraFieldDisplayFormattedBase {
         return $entry['key'] === 'expansion';
       })['amount']);
       $chart = [
-        '#chart_id' => 'lmo-report-2024-bc-composition-job-openings',
+        '#chart_id' => 'lmo_report_2024_job_openings_10y_chart',
         '#type' => 'chart',
         '#chart_type' => 'donut',
         '#colors' => array(

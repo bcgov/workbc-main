@@ -182,7 +182,7 @@ function workbc_extra_fields_chart_definition_alter(array &$definition, array $e
     "career-composition-job-openings",
     "region-composition-job-openings",
     "bc-composition-job-openings",
-    "lmo-report-2024-bc-composition-job-openings"
+    "lmo_report_2024_job_openings_10y_chart"
   ])) {
     $definition['options']['tooltip']['text'] = "percentage";
   }
