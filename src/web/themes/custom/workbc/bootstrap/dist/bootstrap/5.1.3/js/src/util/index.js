@@ -25,8 +25,10 @@ const toType = obj => {
  */
 
 const getUID = prefix => {
+  const array = new Uint32Array(1);
   do {
-    prefix += Math.floor(Math.random() * MAX_UID)
+    window.crypto.getRandomValues(array);
+    prefix += array[0] % MAX_UID;
   } while (document.getElementById(prefix))
 
   return prefix
