@@ -15,32 +15,47 @@ content:
     third_party_settings: {  }
     weight: 0
     region: content
-  extra_field_lmo_report_2024_job_openings_cariboo_table:
-    settings: {  }
-    third_party_settings: {  }
-    weight: 6
-    region: content
-  extra_field_lmo_report_2024_job_openings_kootenay_table:
-    settings: {  }
-    third_party_settings: {  }
-    weight: 5
-    region: content
-  extra_field_lmo_report_2024_job_openings_mainland_southwest_table:
+  extra_field_lmo_report_2024_job_openings_broad_categories_chart:
     settings: {  }
     third_party_settings: {  }
     weight: 3
     region: content
-  extra_field_lmo_report_2024_job_openings_north_coast_nechako_table:
+  extra_field_lmo_report_2024_job_openings_cariboo_table:
     settings: {  }
     third_party_settings: {  }
-    weight: 7
+    weight: 9
     region: content
-  extra_field_lmo_report_2024_job_openings_northeast_table:
+  extra_field_lmo_report_2024_job_openings_industries_chart:
+    settings: {  }
+    third_party_settings: {  }
+    weight: 2
+    region: content
+  extra_field_lmo_report_2024_job_openings_kootenay_table:
     settings: {  }
     third_party_settings: {  }
     weight: 8
     region: content
+  extra_field_lmo_report_2024_job_openings_mainland_southwest_table:
+    settings: {  }
+    third_party_settings: {  }
+    weight: 6
+    region: content
+  extra_field_lmo_report_2024_job_openings_north_coast_nechako_table:
+    settings: {  }
+    third_party_settings: {  }
+    weight: 10
+    region: content
+  extra_field_lmo_report_2024_job_openings_northeast_table:
+    settings: {  }
+    third_party_settings: {  }
+    weight: 11
+    region: content
   extra_field_lmo_report_2024_job_openings_regions_table:
+    settings: {  }
+    third_party_settings: {  }
+    weight: 4
+    region: content
+  extra_field_lmo_report_2024_job_openings_teers_chart:
     settings: {  }
     third_party_settings: {  }
     weight: 1
@@ -48,7 +63,7 @@ content:
   extra_field_lmo_report_2024_job_openings_thompson_okanagan_table:
     settings: {  }
     third_party_settings: {  }
-    weight: 4
+    weight: 7
     region: content
   extra_field_lmo_report_2024_job_openings_vancouver_island_coast:
     settings: {  }
@@ -58,7 +73,7 @@ content:
   extra_field_lmo_report_2024_job_openings_vancouver_island_coast_table:
     settings: {  }
     third_party_settings: {  }
-    weight: 2
+    weight: 5
     region: content
 hidden:
   field_lmo_charts_tables: true

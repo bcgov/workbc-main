@@ -12,7 +12,7 @@ use Drupal\extra_field\Plugin\ExtraFieldDisplayFormattedBase;
  * @ExtraFieldDisplay(
  *   id = "lmo_report_2024_job_openings_10y_chart",
  *   label = @Translation("Figure 1.1-1. Job Openings, B.C., 2024-2034"),
- *   description = @Translation("An extra field to display job openings forecast chart."),
+ *   description = @Translation("An extra field to display job openings chart."),
  *   bundles = {
  *     "paragraph.lmo_charts_tables",
  *   }
