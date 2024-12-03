@@ -51,7 +51,48 @@ class JobOpeningsTeersChart extends ExtraFieldDisplayFormattedBase {
 
     $entity = $paragraph->getParentEntity();
     if (!empty($entity->ssot_data) && isset($entity->ssot_data['lmo_report_2024_job_openings_teers'])) {
-      $output = 'TODO';
+      $data = array_map(function($entry) {
+        return $entry['openings_rounded'];
+      }, array_filter($entity->ssot_data['lmo_report_2024_job_openings_teers'], function ($entry) {
+        return $entry['teer'] !== 'Total';
+      }));
+      $chart = [
+        '#chart_id' => 'lmo_report_2024_job_openings_teers_chart',
+        '#type' => 'chart',
+        '#chart_type' => 'donut',
+        '#colors' => array(
+          '#70ad47',
+          '#5b9bd5',
+          '#ffc000',
+          '#43682b',
+          '#255e91',
+          '#997300'
+        ),
+        'series' => [
+          '#type' => 'chart_data',
+          '#title' => $this->t('Job Openings by TEER, B.C., 2024-2034'),
+          '#data' => $data,
+        ],
+        'xaxis' => [
+          '#type' => 'chart_xaxis',
+          '#labels' => array_map(function($entry) {
+            return $entry['teer'];
+          }, array_filter($entity->ssot_data['lmo_report_2024_job_openings_teers'], function ($entry) {
+            return $entry['teer'] !== 'Total';
+          })),
+        ],
+        'yaxis' => [
+          '#type' => 'chart_yaxis',
+        ],
+        '#raw_options' => [
+          'options' => [
+            'pieHole' => 0.7,
+            'height' => 350,
+            'pieSliceText' => 'none',
+          ]
+        ]
+      ];
+      $output = \Drupal::service('renderer')->render($chart);
     }
     else {
       $output = WORKBC_EXTRA_FIELDS_NOT_AVAILABLE;
