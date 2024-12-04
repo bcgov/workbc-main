@@ -1,0 +1,21 @@
+uuid: 66728303-241f-44ae-adbf-74877c38ef02
+langcode: en
+status: true
+dependencies:
+  config:
+    - field.field.paragraph.lmo_charts_tables.field_lmo_charts_tables
+    - paragraphs.paragraphs_type.lmo_charts_tables
+id: paragraph.lmo_charts_tables.default
+targetEntityType: paragraph
+bundle: lmo_charts_tables
+mode: default
+content:
+  field_lmo_charts_tables:
+    type: options_select
+    weight: 0
+    region: content
+    settings: {  }
+    third_party_settings: {  }
+hidden:
+  created: true
+  status: true

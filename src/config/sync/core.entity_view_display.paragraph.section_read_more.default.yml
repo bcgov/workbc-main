@@ -1,0 +1,38 @@
+uuid: 8089ae3b-f568-44ca-80c5-1a834c93afa2
+langcode: en
+status: true
+dependencies:
+  config:
+    - field.field.paragraph.section_read_more.field_content
+    - field.field.paragraph.section_read_more.field_title
+    - paragraphs.paragraphs_type.section_read_more
+  module:
+    - expand_collapse_formatter
+id: paragraph.section_read_more.default
+targetEntityType: paragraph
+bundle: section_read_more
+mode: default
+content:
+  field_content:
+    type: expand_collapse_formatter
+    label: visually_hidden
+    settings:
+      trim_length: 300
+      default_state: collapsed
+      link_text_open: 'Show more'
+      link_text_close: 'Show less'
+      link_class_open: action-link
+      link_class_close: action-link
+    third_party_settings: {  }
+    weight: 1
+    region: content
+  field_title:
+    type: string
+    label: visually_hidden
+    settings:
+      link_to_entity: false
+    third_party_settings: {  }
+    weight: 0
+    region: content
+hidden:
+  search_api_excerpt: true

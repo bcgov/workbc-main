@@ -1,0 +1,26 @@
+uuid: d3d9ca82-e4a2-48ac-90cd-42cc007bae7a
+langcode: en
+status: true
+dependencies:
+  config:
+    - field.storage.paragraph.field_content
+    - filter.format.full_html
+    - paragraphs.paragraphs_type.section_read_more
+  module:
+    - text
+id: paragraph.section_read_more.field_content
+field_name: field_content
+entity_type: paragraph
+bundle: section_read_more
+label: Content
+description: ''
+required: true
+translatable: false
+default_value: {  }
+default_value_callback: ''
+settings:
+  display_summary: true
+  required_summary: false
+  allowed_formats:
+    - full_html
+field_type: text_with_summary
