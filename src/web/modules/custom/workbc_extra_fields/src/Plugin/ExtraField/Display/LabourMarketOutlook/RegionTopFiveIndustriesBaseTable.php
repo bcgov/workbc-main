@@ -53,7 +53,8 @@ class RegionTopFiveIndustriesBaseTable extends ExtraFieldDisplayFormattedBase {
         'na_if_empty' => TRUE,
       );
 
-      $output = <<<END
+      $output = '<div id="' . $this->getRegion() . '">';
+      $output .= <<<END
       <table>
         <thead>
           <tr>
@@ -80,7 +81,7 @@ class RegionTopFiveIndustriesBaseTable extends ExtraFieldDisplayFormattedBase {
         $output .= '<td class="data-align-right">' . ssotFormatNumber($industry['openings'], $options1) . '</td>';
         $output .= '</tr>';
       }
-      $output .= '</tbody></table>';
+      $output .= '</tbody></table></div>';
     }
     else {
       $output = WORKBC_EXTRA_FIELDS_NOT_AVAILABLE;
@@ -91,4 +92,8 @@ class RegionTopFiveIndustriesBaseTable extends ExtraFieldDisplayFormattedBase {
   private function getDatasetName() {
     return str_replace('_table', '', $this->getPluginId());
   }
+
+  private function getRegion() {
+    return str_replace('lmo_report_2024_job_openings_', '', $this->getDatasetName());
+  }  
 }
