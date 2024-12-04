@@ -60,6 +60,7 @@ class BCEmploymentByRegionTable extends ExtraFieldDisplayFormattedBase {
         $nid = \Drupal::entityQuery('node')
           ->condition('title', ssotRegionName($region['region']))
           ->sort('nid', 'DESC')
+          ->accessCheck(false)
           ->execute();
         $nid = reset($nid);
 

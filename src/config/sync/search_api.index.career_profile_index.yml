@@ -6,6 +6,7 @@ dependencies:
     - field.storage.node.field_noc
     - field.storage.node.field_noc_2016
     - search_api.server.solr
+    - core.entity_view_mode.node.career_profile_search_index
   module:
     - search_api_solr
     - node
@@ -66,7 +67,7 @@ field_settings:
     datasource_id: 'entity:node'
     property_path: field_noc
     type: 'solr_text_custom:ngram'
-    boost: !!float 3
+    boost: 3.0
     dependencies:
       config:
         - field.storage.node.field_noc
@@ -75,7 +76,7 @@ field_settings:
     datasource_id: 'entity:node'
     property_path: field_noc_2016
     type: 'solr_text_custom:ngram'
-    boost: !!float 2
+    boost: 2.0
     dependencies:
       config:
         - field.storage.node.field_noc_2016
@@ -86,6 +87,16 @@ field_settings:
     indexed_locked: true
     type_locked: true
     hidden: true
+  rendered_item:
+    label: 'Rendered HTML output'
+    property_path: rendered_item
+    type: 'solr_text_custom:ngram'
+    configuration:
+      roles:
+        - anonymous
+      view_mode:
+        'entity:node':
+          career_profile: career_profile_search_index
   status:
     label: 'Publishing status'
     datasource_id: 'entity:node'
@@ -101,7 +112,7 @@ field_settings:
     datasource_id: 'entity:node'
     property_path: title
     type: 'solr_text_custom:ngram'
-    boost: !!float 5
+    boost: 5.0
     dependencies:
       module:
         - node
@@ -142,6 +153,7 @@ processor_settings:
     fields:
       - field_noc
       - field_noc_2016
+      - rendered_item
       - title
     title: true
     alt: true

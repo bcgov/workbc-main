@@ -6,5 +6,6 @@ dependencies:
     - paragraphs
 id: paragraph.action_card_1_2
 label: 'Action Card: 1/2'
+description: ''
 targetEntityType: paragraph
 cache: true

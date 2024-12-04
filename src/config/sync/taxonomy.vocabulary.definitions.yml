@@ -6,3 +6,4 @@ name: Definitions
 vid: definitions
 description: 'List of terms with definitions'
 weight: 0
+new_revision: false

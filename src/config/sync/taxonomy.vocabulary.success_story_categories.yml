@@ -4,5 +4,6 @@ status: true
 dependencies: {  }
 name: 'Success Story Categories'
 vid: success_story_categories
-description: ''
+description: null
 weight: 0
+new_revision: false

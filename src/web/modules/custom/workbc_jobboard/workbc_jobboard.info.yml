@@ -1,6 +1,6 @@
 name: WorkBC Job Board
 type: module
 description: 'Provides a Recent job results'
-core_version_requirement: ^8 || ^9
+core_version_requirement: ^8 || ^9 || ^10
 libraries:
   - workbc_jobboard/workbc-jobboard

@@ -176,6 +176,15 @@ content:
       date_format: medium
       custom_date_format: ''
       timezone: ''
+      tooltip:
+        date_format: long
+        custom_date_format: ''
+      time_diff:
+        enabled: false
+        future_format: '@interval hence'
+        past_format: '@interval ago'
+        granularity: 2
+        refresh: 60
     third_party_settings: {  }
     weight: 1
     region: content
@@ -515,6 +524,8 @@ content:
     region: content
 hidden:
   extra_field_job_titles: true
+  extra_field_search_index_job_titles: true
+  extra_field_search_index_noc: true
   extra_field_workbc_page_title: true
   extra_field_workbc_published_on: true
   field_content_group: true

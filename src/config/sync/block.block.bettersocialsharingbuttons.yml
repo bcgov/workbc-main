@@ -18,25 +18,24 @@ settings:
   label: 'Better Social Sharing Buttons'
   label_display: '0'
   provider: better_social_sharing_buttons
+  iconset: social-icons--no-color
   services:
     facebook: facebook
-    twitter: twitter
+    x: x
+    whatsapp: '0'
+    facebook_messenger: '0'
     email: email
+    pinterest: '0'
     linkedin: linkedin
+    tumblr: '0'
+    reddit: '0'
+    evernote: '0'
     print: print
-    whatsapp: 0
-    facebook_messenger: 0
-    pinterest: 0
-    digg: 0
-    tumblr: 0
-    reddit: 0
-    evernote: 0
-    copy: 0
-  iconset: social-icons--no-color
-  facebook_app_id: ''
-  print_css: ''
+    copy: '0'
   width: 35px
   radius: 3px
+  print_css: ''
+  facebook_app_id: ''
 visibility:
   request_path:
     id: request_path

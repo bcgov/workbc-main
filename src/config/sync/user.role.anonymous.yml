@@ -2,6 +2,9 @@ uuid: b1f357ae-893b-40cc-8310-c4d06e89e014
 langcode: en
 status: true
 dependencies:
+  config:
+    - search_api_autocomplete.search.search_career_profiles
+    - search_api_autocomplete.search.search_site_content
   module:
     - contact
     - field_permissions
@@ -45,7 +48,6 @@ permissions:
   - 'view paragraph content content_interactive_map'
   - 'view paragraph content content_text'
   - 'view paragraph content content_view'
-  - 'view paragraph content hours_of_operation'
   - 'view paragraph content quote_card'
   - 'view paragraph content skills'
   - 'view published sitewide alert entities'

@@ -48,7 +48,7 @@ class SesMailerTest extends UnitTestCase {
 
     $this->client = $this->getMockBuilder(SesClient::class)
       ->disableOriginalConstructor()
-      ->setMethods(['sendEmail'])
+      ->addMethods(['sendEmail'])
       ->getMock();
 
     $this->logger = $this->createMock(LoggerInterface::class);

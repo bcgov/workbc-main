@@ -27,10 +27,12 @@ dependencies:
     - workflows.workflow.editorial
   module:
     - actions_permissions
+    - content_lock
     - content_moderation
     - contextual
     - file
     - filter
+    - help
     - media
     - media_file_delete
     - node
@@ -50,11 +52,13 @@ permissions:
   - 'access content overview'
   - 'access contextual links'
   - 'access files overview'
+  - 'access help pages'
   - 'access media overview'
   - 'access toolbar'
   - 'administer media file delete'
   - 'administer redirect settings'
   - 'administer redirects'
+  - 'break content lock'
   - 'bypass content groups'
   - 'create audio media'
   - 'create bc_profile content'
@@ -72,6 +76,7 @@ permissions:
   - 'create page content'
   - 'create paragraph content action_card'
   - 'create paragraph content action_card_feature'
+  - 'create paragraph content action_card_full_width'
   - 'create paragraph content action_card_icon'
   - 'create paragraph content action_cards_1_2'
   - 'create paragraph content action_cards_1_3'
@@ -79,10 +84,10 @@ permissions:
   - 'create paragraph content action_cards_explore_careers'
   - 'create paragraph content action_cards_full_width'
   - 'create paragraph content action_cards_icon'
+  - 'create paragraph content action_cards_icon_1_2'
   - 'create paragraph content additional_duties'
   - 'create paragraph content content_interactive_map'
   - 'create paragraph content content_text'
-  - 'create paragraph content hours_of_operation'
   - 'create paragraph content quote_card'
   - 'create paragraph content skills'
   - 'create publication content'
@@ -103,19 +108,23 @@ permissions:
   - 'delete media'
   - 'delete own audio media'
   - 'delete own document media'
+  - 'delete own files'
   - 'delete own icon media'
   - 'delete own image media'
   - 'delete own remote_video media'
   - 'delete own video media'
   - 'delete paragraph content action_card'
   - 'delete paragraph content action_card_feature'
+  - 'delete paragraph content action_card_full_width'
+  - 'delete paragraph content action_card_icon'
   - 'delete paragraph content action_cards_1_2'
   - 'delete paragraph content action_cards_1_3'
   - 'delete paragraph content action_cards_1_4'
   - 'delete paragraph content action_cards_full_width'
+  - 'delete paragraph content action_cards_icon'
+  - 'delete paragraph content action_cards_icon_1_2'
   - 'delete paragraph content additional_duties'
   - 'delete paragraph content content_interactive_map'
-  - 'delete paragraph content hours_of_operation'
   - 'delete paragraph content quote_card'
   - 'delete paragraph content skills'
   - 'edit any audio media'
@@ -160,10 +169,10 @@ permissions:
   - 'update paragraph content action_cards_1_4'
   - 'update paragraph content action_cards_full_width'
   - 'update paragraph content additional_duties'
-  - 'update paragraph content hours_of_operation'
   - 'update paragraph content quote_card'
   - 'update paragraph content skills'
   - 'use editorial transition create_new_draft'
+  - 'use editorial transition publish'
   - 'use editorial transition send_for_review'
   - 'use text format full_html'
   - 'view all media revisions'

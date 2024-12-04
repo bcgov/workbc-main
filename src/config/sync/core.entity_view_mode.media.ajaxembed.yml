@@ -6,5 +6,6 @@ dependencies:
     - media
 id: media.ajaxembed
 label: AjaxEmbed
+description: ''
 targetEntityType: media
 cache: true

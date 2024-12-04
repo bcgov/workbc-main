@@ -6,5 +6,6 @@ dependencies:
     - node
 id: node.search_results
 label: 'Search Results'
+description: ''
 targetEntityType: node
 cache: true

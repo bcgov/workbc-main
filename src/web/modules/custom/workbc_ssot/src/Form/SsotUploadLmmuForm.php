@@ -91,7 +91,7 @@ class SsotUploadLmmuForm extends ConfirmFormBase {
 
     'unemployment_pct_british_columbia' => ['cell' => 'B41', 'type' => 'pct'],
     'unemployment_pct_british_columbia_previous' => ['cell' => 'E41', 'type' => 'pct'],
-    'total_jobs_british_columbia' => ['cell' => 'C41', 'type' => 'abs'],
+    'total_jobs_british_columbia' => ['cell' => 'C41', 'type' => 'abs', 'equal' => 'total_employed'],
     'unemployment_pct_vancouver_island_coast' => ['cell' => 'B42', 'type' => 'pct'],
     'unemployment_pct_vancouver_island_coast_previous' => ['cell' => 'E42', 'type' => 'pct'],
     'total_jobs_vancouver_island_coast' => ['cell' => 'C42', 'type' => 'abs'],
@@ -157,6 +157,7 @@ class SsotUploadLmmuForm extends ConfirmFormBase {
     'same_sign' => 'Both values agree in numeric sign (+/-).',
     'blank' => 'A blank cell value will be shown as "Not available".',
     'sum' => 'The sum of the cell values matches the total value.',
+    'equal' => 'Both values are equal.',
     'previous_month' => 'The value matches the given cell\'s prior month value.',
     'previous_month_change_abs' => 'The value matches the absolute difference between the given cell\'s prior month value and current month value.',
     'previous_month_change_pct' => 'The value matches the difference percentage between the given cell\'s prior month value and current month value.',
@@ -203,6 +204,17 @@ class SsotUploadLmmuForm extends ConfirmFormBase {
           '@key1' => $validation['same_sign'],
           '@value1' => $this->monthly_labour_market_updates[$validation['same_sign']] ?? 'N/A',
           '@explanation' => $this->t($this->descriptions['same_sign'])
+        ]));
+      }
+      if (!empty($validation['equal']) && !empty($validation['cell'])) {
+        \Drupal::messenger()->addMessage($this->t('✅ Cells @cell1 (<strong>@key1 = @value1</strong>) and @cell2 (<strong>@key2 = @value2</strong>) conform to: <em>@explanation</em>', [
+          '@cell2' => $validation['cell'],
+          '@key2' => $key,
+          '@value2' => $value ?? 'N/A',
+          '@cell1' => $this->validations[$validation['equal']]['cell'],
+          '@key1' => $validation['equal'],
+          '@value1' => $this->monthly_labour_market_updates[$validation['equal']] ?? 'N/A',
+          '@explanation' => $this->t($this->descriptions['equal'])
         ]));
       }
       if (!empty($validation['sum']) && !empty($validation['cell'])) {
@@ -586,11 +598,31 @@ class SsotUploadLmmuForm extends ConfirmFormBase {
           array_key_push($errors, $key, $this->t('❌ Cells @cell1 (<strong>@key1 = @value1</strong>) and @cell2 (<strong>@key2 = @value2</strong>) do not conform to: <em>@explanation</em> @suggestion', [
             '@cell1' => $this->validations[$validation['same_sign']]['cell'],
             '@key1' => $validation['same_sign'],
-            '@value1' => $monthly_labour_market_updates[$validation['same_sign']],
+            '@value1' => $related_value,
             '@cell2' => $validation['cell'],
             '@key2' => $key,
             '@value2' => $value ?? 'N/A',
             '@explanation' => $this->t($this->descriptions['same_sign']),
+            '@suggestion' => $this->t('Please correct the values.'),
+          ]));
+        }
+      }
+
+      // Perform inter-cell equality validation.
+      if (array_key_exists('equal', $validation)) {
+        $related_value = $monthly_labour_market_updates[$validation['equal']];
+        if (!(
+          (is_null($related_value) && is_null($value)) ||
+          (abs($value - $related_value) <= PHP_FLOAT_EPSILON)
+        )) {
+          array_key_push($errors, $key, $this->t('❌ Cells @cell1 (<strong>@key1 = @value1</strong>) and @cell2 (<strong>@key2 = @value2</strong>) do not conform to: <em>@explanation</em> @suggestion', [
+            '@cell1' => $this->validations[$validation['equal']]['cell'],
+            '@key1' => $validation['equal'],
+            '@value1' => $related_value,
+            '@cell2' => $validation['cell'],
+            '@key2' => $key,
+            '@value2' => $value ?? 'N/A',
+            '@explanation' => $this->t($this->descriptions['equal']),
             '@suggestion' => $this->t('Please correct the values.'),
           ]));
         }

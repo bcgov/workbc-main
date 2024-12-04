@@ -27,11 +27,11 @@ dependencies:
     - workflows.workflow.editorial
   module:
     - actions_permissions
+    - content_lock
     - content_moderation
     - field_permissions
     - file
     - media
-    - media_file_delete
     - node
     - redirect
     - scheduled_publish
@@ -54,6 +54,7 @@ permissions:
   - 'administer nodes'
   - 'administer redirect settings'
   - 'administer redirects'
+  - 'break content lock'
   - 'bypass content groups'
   - 'bypass node access'
   - 'create audio media'
@@ -120,6 +121,7 @@ permissions:
   - 'delete own career_profile_introductions content'
   - 'delete own document media'
   - 'delete own event content'
+  - 'delete own files'
   - 'delete own icon media'
   - 'delete own image media'
   - 'delete own industry_profile content'
@@ -186,7 +188,13 @@ permissions:
   - 'edit own workbc_centre content'
   - 'execute entity:break_lock media'
   - 'execute entity:publish_action media'
+  - 'execute entity:publish_action node'
+  - 'execute entity:publish_action taxonomy_term'
+  - 'execute entity:save_action file'
   - 'execute entity:save_action media'
+  - 'execute entity:save_action menu_link_content'
+  - 'execute entity:save_action node'
+  - 'execute entity:save_action taxonomy_term'
   - 'execute entity:unpublish_action media'
   - 'execute workbc_draft_node_action node'
   - 'execute workbc_publish_node_action node'

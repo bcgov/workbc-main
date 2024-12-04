@@ -856,10 +856,10 @@ display:
                   value: ''
               5:
                 title: '$50.00+ per hour'
-                operator: '>='
+                operator: between
                 value:
-                  min: ''
-                  max: ''
+                  min: '50'
+                  max: '2500'
                   value: '50'
       filter_groups:
         operator: AND

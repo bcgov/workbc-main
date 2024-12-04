@@ -896,6 +896,7 @@ function saveCareerProfilePaths() {
   $nids = \Drupal::entityQuery('node')
   ->condition('status', 1)
   ->condition('type', 'career_profile')
+  ->accessCheck(false)
   ->execute();
 
   $nodes = \Drupal\node\Entity\Node::loadMultiple($nids);
@@ -1026,6 +1027,7 @@ function noc2021ValidateProfileCount() {
   $nids = \Drupal::entityQuery('node')
   ->condition('status', 1)
   ->condition('type', 'career_profile')
+  ->accessCheck(false)
   ->execute();
 
   if (count($nids) <> $total) {
@@ -1062,6 +1064,7 @@ function noc2021ValidateProfileHasContent() {
   $nids = \Drupal::entityQuery('node')
   ->condition('status', 1)
   ->condition('type', 'career_profile')
+  ->accessCheck(false)
   ->execute();
 
   $profiles = \Drupal\node\Entity\Node::loadMultiple($nids);
@@ -1087,6 +1090,7 @@ function noc2021ValidateProfiles() {
   $nids = \Drupal::entityQuery('node')
   ->condition('status', 1)
   ->condition('type', 'career_profile')
+  ->accessCheck(false)
   ->execute();
 
   $nodes = \Drupal\node\Entity\Node::loadMultiple($nids);
@@ -1121,6 +1125,7 @@ function noc2021ValidateProfileRedirects() {
   $nids = \Drupal::entityQuery('node')
   ->condition('status', 1)
   ->condition('type', 'career_profile')
+  ->accessCheck(false)
   ->execute();
 
   $nodes = \Drupal\node\Entity\Node::loadMultiple($nids);
@@ -1166,6 +1171,7 @@ function noc2021ValidateProfilePaths() {
   $nids = \Drupal::entityQuery('node')
   ->condition('status', 1)
   ->condition('type', 'career_profile')
+  ->accessCheck(false)
   ->execute();
 
   $nodes = \Drupal\node\Entity\Node::loadMultiple($nids);
@@ -1186,6 +1192,7 @@ function noc2021ValidateUnpublishedProfiles() {
   $nids = \Drupal::entityQuery('node')
   ->condition('status', 0)
   ->condition('type', 'career_profile')
+  ->accessCheck(false)
   ->execute();
 
   $nodes = \Drupal\node\Entity\Node::loadMultiple($nids);
@@ -1212,6 +1219,7 @@ function noc2021ValidateUnpublishedProfileRedirects() {
   $nids = \Drupal::entityQuery('node')
   ->condition('status', 0)
   ->condition('type', 'career_profile')
+  ->accessCheck(false)
   ->execute();
 
   $lFirst = true;

@@ -3896,7 +3896,7 @@
   enabled:
     value: '1'
   title:
-    value: 'B.C.''s Economy'
+    value: "B.C.'s Economy"
   description: false
   menu_name:
     value: main
