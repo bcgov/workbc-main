@@ -388,3 +388,12 @@ function workbc_preprocess_views_view_field(&$variables) {
     }
   }
 }
+
+
+function workbc_preprocess_field(&$variables) {
+
+  // region information for interactive map
+  if ($variables['field_name'] == "extra_field_lmo_report_2024_job_openings_regions_table") {
+    $variables['region_info'] = ssotRegionInfo();
+  }
+}
