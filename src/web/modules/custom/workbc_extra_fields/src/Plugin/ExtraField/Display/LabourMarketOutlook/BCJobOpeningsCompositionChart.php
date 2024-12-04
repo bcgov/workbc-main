@@ -53,10 +53,10 @@ class BCJobOpeningsCompositionChart extends ExtraFieldDisplayFormattedBase {
     if (!empty($entity->ssot_data) && isset($entity->ssot_data['lmo_report_2024_job_openings_10y'])) {
       $data = array();
       $data[] = floatval(array_find($entity->ssot_data['lmo_report_2024_job_openings_10y'], function($entry) {
-        return $entry['key'] === 'replacement';
+        return $entry['key'] === 'expansion';
       })['amount']);
       $data[] = floatval(array_find($entity->ssot_data['lmo_report_2024_job_openings_10y'], function($entry) {
-        return $entry['key'] === 'expansion';
+        return $entry['key'] === 'replacement';
       })['amount']);
       $chart = [
         '#chart_id' => 'lmo_report_2024_job_openings_10y_chart',
@@ -73,7 +73,7 @@ class BCJobOpeningsCompositionChart extends ExtraFieldDisplayFormattedBase {
         ],
         'xaxis' => [
           '#type' => 'chart_xaxis',
-          '#labels' => [$this->t('Replacement'), $this->t('Expansion')],
+          '#labels' => [$this->t('Expansion'), $this->t('Replacement')],
         ],
         'yaxis' => [
           '#type' => 'chart_yaxis',

@@ -60,14 +60,14 @@ class JobOpeningsOccupationGroupsChart extends ExtraFieldDisplayFormattedBase {
         $expansion = round($category['expansion']);
         $label = $category['name'];
         $regions[] = $label;
-        $series1[] = $replacement;
-        $styles1[] = "stroke-color: $colorReplacement; stroke-width: 1;";
-        $annotations1[] = "$replacement\u{00a0}";
-        $tooltips1[] = "<div style=\"margin:10px\"><strong>$label</strong><br><span style=\"white-space:nowrap\">Replacement: <strong>$replacement</strong></span></div>";
-        $series2[] = $expansion;
-        $annotations2[] = "$expansion\u{00a0}";
-        $tooltips2[] = "<div style=\"margin:10px\"><strong>$label</strong><br><span style=\"white-space:nowrap\">Expansion: <strong>$expansion</strong></span></div>";
-        $styles2[] = "stroke-color: $colorExpansion; stroke-width: 1;";
+        $series2[] = $replacement;
+        $styles2[] = "stroke-color: $colorReplacement; stroke-width: 1;";
+        $annotations2[] = "$replacement\u{00a0}";
+        $tooltips2[] = "<div style=\"margin:10px\"><strong>$label</strong><br><span style=\"white-space:nowrap\">Replacement: <strong>$replacement</strong></span></div>";
+        $series1[] = $expansion;
+        $annotations1[] = "$expansion\u{00a0}";
+        $tooltips1[] = "<div style=\"margin:10px\"><strong>$label</strong><br><span style=\"white-space:nowrap\">Expansion: <strong>$expansion</strong></span></div>";
+        $styles1[] = "stroke-color: $colorExpansion; stroke-width: 1;";
       }
 
       // Stacked column chart with two series.
@@ -76,12 +76,12 @@ class JobOpeningsOccupationGroupsChart extends ExtraFieldDisplayFormattedBase {
         '#type' => 'chart',
         '#chart_type' => 'bar',
         '#colors' => array(
+          $colorExpansion,
           $colorReplacement,
-          $colorExpansion
         ),
         'series_one' => [
           '#type' => 'chart_data',
-          '#title' => $this->t('Replacement'),
+          '#title' => $this->t('Expansion'),
           '#data' => array_slice($series1, 0, -1),
         ],
         'series_one_annotations' => [
@@ -101,7 +101,7 @@ class JobOpeningsOccupationGroupsChart extends ExtraFieldDisplayFormattedBase {
         ],
         'series_two' => [
           '#type' => 'chart_data',
-          '#title' => $this->t('Expansion'),
+          '#title' => $this->t('Replacement'),
           '#data' => array_slice($series2, 0, -1),
         ],
         'series_two_annotations' => [
