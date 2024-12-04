@@ -80,8 +80,8 @@ class BCJobOpeningsRegionTable extends ExtraFieldDisplayFormattedBase {
         <tbody>
       END;
       foreach ($entity->ssot_data['lmo_report_2024_job_openings_regions'] as $region) {
-        $output .= '<tr class="interactive-map-row-'.ssotRegionKey($region['name']) . '">';
-        $output .= '<td class="data-align-left">' . $region['name'] . '</td>';
+        $output .= '<tr class="interactive-map-row-'. $region['region'] . '">';
+        $output .= '<td class="data-align-left">' . ssotRegionName($region['region']) . '</td>';
         $output .= '<td class="data-align-right">' . ssotFormatNumber($region['employment'], $options1) . '</td>';
         $output .= '<td class="data-align-right">' . ssotFormatNumber($region['growth_rate'], $options2) . '</td>';
         $output .= '<td class="data-align-right">' . ssotFormatNumber($region['expansion'], $options1) . '</td>';
