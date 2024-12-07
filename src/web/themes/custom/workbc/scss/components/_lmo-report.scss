@@ -1,0 +1,21 @@
+.page-node-type-lmo-report-2024 {
+
+  .tab-pane.active {
+    @include media-breakpoint-up(lg) {
+      display: flex;
+      gap: 20px;
+    }
+  }
+
+  .node-page-content {
+    @include media-breakpoint-up(lg) {
+      flex: 1 0 80%;
+    }
+  }
+
+  .page-sidebar {
+    @include media-breakpoint-up(lg) {
+      flex: 1 0 20%;
+    }
+  }
+}

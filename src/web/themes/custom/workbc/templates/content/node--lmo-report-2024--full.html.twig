@@ -80,11 +80,13 @@
   ]
 %}
 
-{# dump(content) #}
-
 {% set title = label %}
 {% set hero_image = content.field_hero_image_media[0] %}
 {% set hero_text = content.field_hero_text[0] %}
+
+{% set left_block %}
+  {{ drupal_entity('block', 'sidenavblock') }}
+{% endset %}
 
 {# This viewmodel is intended to collect all of the incoming variables in one place, and the remainder of the template should
  refer only to this viewmodel (or Drupal/Twig generics like loop, directory, etc #}
@@ -104,7 +106,7 @@
     education_training: {
       tab: 'Education and Training',
       title: content.field_lmo_2024_education['#title'],
-      content: content.field_lmo_2024_education,  
+      content: content.field_lmo_2024_education,
     },
     industry_outlook: {
       tab: 'Industry Outlook',
@@ -120,7 +122,7 @@
       tab: 'Occupational Outlook',
       title: content.field_lmo_2024_occupational_outl['#title'],
       content: content.field_lmo_2024_occupational_outl,
-    },    
+    },
   },
   links: content.links,
 }
@@ -157,33 +159,57 @@
         <div class="tab-content profile-content-main">
 
           <div class="tab-pane active" id="labour_market_outlook-content" role="tabpanel" aria-labelledby="labour_market_outlook-tab">
-            <h2 class="profile-content_main__header">{{ viewmodel['tab_sections']['labour_market_outlook']['title'] }}</h2>
-            <div>{{ viewmodel['tab_sections']['labour_market_outlook']['content'] }}</div>
+            <aside class="page-sidebar" role="complementary" aria-label="Sidebar">{{ left_block }}</aside>
+            <div class="node-page-content">
+              <div class="on-this-page">{{ left_block }}</div>
+              <h2 class="profile-content-main__header">{{ viewmodel['tab_sections']['labour_market_outlook']['title'] }}</h2>
+              <div>{{ viewmodel['tab_sections']['labour_market_outlook']['content'] }}</div>
+            </div>
           </div>
 
           <div class="tab-pane" id="featured_topics-content" role="tabpanel" aria-labelledby="featured_topics-tab">
-            <h2 class="profile-content-main__header">{{ viewmodel['tab_sections']['featured_topics']['title'] }}</h2>
-            <div>{{ viewmodel['tab_sections']['featured_topics']['content'] }}</div>
+            <aside class="page-sidebar" role="complementary" aria-label="Sidebar">{{ left_block }}</aside>
+            <div class="node-page-content">
+              <div class="on-this-page">{{ left_block }}</div>
+              <h2 class="profile-content-main__header">{{ viewmodel['tab_sections']['featured_topics']['title'] }}</h2>
+              <div>{{ viewmodel['tab_sections']['featured_topics']['content'] }}</div>
+            </div>
           </div>
 
           <div class="tab-pane" id="education_training-content" role="tabpanel" aria-labelledby="education_training-tab">
-            <h2 class="profile-content-main__header">{{ viewmodel['tab_sections']['education_training']['title'] }}</h2>
-            <div>{{ viewmodel['tab_sections']['education_training']['content'] }}</div>
+            <aside class="page-sidebar" role="complementary" aria-label="Sidebar">{{ left_block }}</aside>
+            <div class="node-page-content">
+              <div class="on-this-page">{{ left_block }}</div>
+              <h2 class="profile-content-main__header">{{ viewmodel['tab_sections']['education_training']['title'] }}</h2>
+              <div>{{ viewmodel['tab_sections']['education_training']['content'] }}</div>
+            </div>
           </div>
 
           <div class="tab-pane" id="industry_outlook-content" role="tabpanel" aria-labelledby="industry_outlook-tab">
-            <h2 class="profile-content-main__header">{{ viewmodel['tab_sections']['industry_outlook']['title'] }}</h2>
-            <div>{{ viewmodel['tab_sections']['industry_outlook']['content'] }}</div>
+            <aside class="page-sidebar" role="complementary" aria-label="Sidebar">{{ left_block }}</aside>
+            <div class="node-page-content">
+              <div class="on-this-page">{{ left_block }}</div>
+              <h2 class="profile-content-main__header">{{ viewmodel['tab_sections']['industry_outlook']['title'] }}</h2>
+              <div>{{ viewmodel['tab_sections']['industry_outlook']['content'] }}</div>
+            </div>
           </div>
 
           <div class="tab-pane" id="regional_outlook-content" role="tabpanel" aria-labelledby="regional_outlook-tab">
-            <h2 class="profile-content-main__header">{{ viewmodel['tab_sections']['regional_outlook']['title'] }}</h2>
-            <div>{{ viewmodel['tab_sections']['regional_outlook']['content'] }}</div>
+            <aside class="page-sidebar" role="complementary" aria-label="Sidebar">{{ left_block }}</aside>
+            <div class="node-page-content">
+              <div class="on-this-page">{{ left_block }}</div>
+              <h2 class="profile-content-main__header">{{ viewmodel['tab_sections']['regional_outlook']['title'] }}</h2>
+              <div>{{ viewmodel['tab_sections']['regional_outlook']['content'] }}</div>
+            </div>
           </div>
 
           <div class="tab-pane" id="occupational_outlook-content" role="tabpanel" aria-labelledby="occupational_outlook-tab">
-            <h2 class="profile-content-main__header">{{ viewmodel['tab_sections']['occupational_outlook']['title'] }}</h2>
-            <div>{{ viewmodel['tab_sections']['occupational_outlook']['content'] }}</div>
+            <aside class="page-sidebar" role="complementary" aria-label="Sidebar">{{ left_block }}</aside>
+            <div class="node-page-content">
+              <div class="on-this-page">{{ left_block }}</div>
+              <h2 class="profile-content-main__header">{{ viewmodel['tab_sections']['occupational_outlook']['title'] }}</h2>
+              <div>{{ viewmodel['tab_sections']['occupational_outlook']['content'] }}</div>
+            </div>
           </div>
 
         </div>
