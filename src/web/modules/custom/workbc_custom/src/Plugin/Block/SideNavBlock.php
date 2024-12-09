@@ -16,7 +16,7 @@ use Drupal\Core\Session\AccountInterface;
  *
  * @Block(
  *  id = "side_nav_block",
- *  label = "Side Navigation for Page content type",
+ *  label = "Side Navigation",
  *  admin_label = @Translation("Side Navigation Block"),
  *  category = @Translation("WorkBC"),
  * )
@@ -92,10 +92,7 @@ class SideNavBlock extends BlockBase implements ContainerFactoryPluginInterface 
     if (empty($node)) {
       return AccessResult::forbidden();
     }
-    if (!$node->hasField("field_page_format")) {
-      return AccessResult::forbidden();
-    }
-    if ($node->field_page_format->value <> "sidenav") {
+    if ($node->hasField("field_page_format") && $node->field_page_format->value <> "sidenav") {
       return AccessResult::forbidden();
     }
     return AccessResult::allowedIfHasPermission($account, 'access content');

@@ -376,8 +376,8 @@ function workbc_preprocess_views_view_field(&$variables) {
   if($view->storage->id() == "high_opportunity_occupations" && $field->field == "teer") {
     $vocabulary = 'taxonomy_term';
     $terms = \Drupal::entityTypeManager()->getStorage($vocabulary)->loadByProperties([
-        'vid' => 'education',
-        'field_teer' => $variables['output'],
+      'vid' => 'education',
+      'field_teer' => $variables['output'],
     ]);
     $term = $terms[array_key_first($terms)];
     if ($term) {
@@ -386,5 +386,14 @@ function workbc_preprocess_views_view_field(&$variables) {
     else {
       $variables['output'] = WORKBC_EXTRA_FIELDS_NOT_AVAILABLE;
     }
+  }
+}
+
+
+function workbc_preprocess_field(&$variables) {
+
+  // region information for interactive map
+  if ($variables['field_name'] == "extra_field_lmo_report_2024_job_openings_regions_table") {
+    $variables['region_info'] = ssotRegionInfo();
   }
 }

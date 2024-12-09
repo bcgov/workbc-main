@@ -1,0 +1,10 @@
+uuid: 6ebb7c6b-6b1e-4a79-80f4-3a66fa13c9d3
+langcode: en
+status: true
+dependencies: {  }
+id: section_read_more
+label: 'Card: Read More'
+icon_uuid: null
+icon_default: null
+description: 'A full-width card that displays content that can be summarized and expanded.'
+behavior_plugins: {  }

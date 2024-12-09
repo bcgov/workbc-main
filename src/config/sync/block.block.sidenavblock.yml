@@ -25,4 +25,5 @@ visibility:
     context_mapping:
       node: '@node.node_route_context:node'
     bundles:
+      lmo_report_2024: lmo_report_2024
       page: page

@@ -2,11 +2,11 @@
   ("use strict");
 
   let initSidenavAnchors = function(wrapper) {
-    let article = $('article.page-format--sidenav');
-    let headings = article.find(".node-page-content h2").not(".node-page-content .on-this-page h2");
+    let article = $('article.page-format--sidenav').add($(wrapper).parents('.tab-pane'));
+    let headings = article.find(".node-page-content h2").not(".node-page-content .on-this-page h2").not(".node-page-content .profile-content-main__header");
 
     headings.each(function (index, element) {
-      var anchorid = "sideNavAnchorId_" + index;
+      var anchorid = (article.attr('id') ?? 'page') + '-sidenav-anchor-' + index;
       var anchorText = $(element).text();
       let linkList = $('ul.page-left-nav__links', wrapper);
 

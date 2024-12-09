@@ -1,0 +1,18 @@
+uuid: f45e74a3-85ed-4be9-8567-868821f018b8
+langcode: en
+status: true
+dependencies:
+  module:
+    - menu_ui
+third_party_settings:
+  menu_ui:
+    available_menus:
+      - main
+    parent: 'main:'
+name: 'LMO Report 2024'
+type: lmo_report_2024
+description: null
+help: null
+new_revision: true
+preview_mode: 1
+display_submitted: true
