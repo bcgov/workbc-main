@@ -267,6 +267,9 @@
             },
             "drupal/ckeditor_media_resize" : {
                 "No HTML Filter required": "patches/drupal/ckeditor_media_resize/3401311_no_html_filter_required.patch"
+            },
+            "drupal/expand_collapse_formatter" : {
+                "Support summary": "patches/drupal/expand_collapse_formatter/support_summary.patch"
             }
         }
     }
