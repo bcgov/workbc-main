@@ -3,6 +3,8 @@ langcode: en
 status: true
 dependencies:
   config:
+    - field.field.node.lmo_report_2024.field_hero_image_media
+    - field.field.node.lmo_report_2024.field_hero_text
     - field.field.node.lmo_report_2024.field_lmo_2024_education
     - field.field.node.lmo_report_2024.field_lmo_2024_featured_topics
     - field.field.node.lmo_report_2024.field_lmo_2024_industry_outlook
@@ -12,6 +14,7 @@ dependencies:
     - node.type.lmo_report_2024
   module:
     - entity_reference_revisions
+    - text
 id: node.lmo_report_2024.default
 targetEntityType: node
 bundle: lmo_report_2024
@@ -21,6 +24,21 @@ content:
     settings: {  }
     third_party_settings: {  }
     weight: 6
+    region: content
+  field_hero_image_media:
+    type: entity_reference_label
+    label: above
+    settings:
+      link: true
+    third_party_settings: {  }
+    weight: 6
+    region: content
+  field_hero_text:
+    type: text_default
+    label: above
+    settings: {  }
+    third_party_settings: {  }
+    weight: 7
     region: content
   field_lmo_2024_education:
     type: entity_reference_revisions_entity_view
@@ -82,8 +100,6 @@ hidden:
   extra_field_lmo_report_2024_bc_job_openings_composition_chart: true
   extra_field_workbc_page_title: true
   extra_field_workbc_published_on: true
-  field_hero_image_media: true
-  field_hero_text: true
   langcode: true
   links: true
   search_api_excerpt: true
