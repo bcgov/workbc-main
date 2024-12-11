@@ -562,6 +562,7 @@ content:
     weight: 0
     region: content
 hidden:
+  extra_field_search_index_job_titles: true
   extra_field_search_index_noc: true
   extra_field_workbc_page_title: true
   extra_field_workbc_published_on: true
