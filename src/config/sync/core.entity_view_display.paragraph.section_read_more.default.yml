@@ -19,8 +19,8 @@ content:
     settings:
       trim_length: 300
       default_state: collapsed
-      link_text_open: 'Show more'
-      link_text_close: 'Show less'
+      link_text_open: 'Read more'
+      link_text_close: 'Read less'
       link_class_open: action-link
       link_class_close: action-link
     third_party_settings: {  }
