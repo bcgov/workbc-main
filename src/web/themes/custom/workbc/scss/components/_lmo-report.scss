@@ -18,4 +18,25 @@
       flex: 1 0 20%;
     }
   }
+
+
+  .paragraph--type--content-text {
+    padding: 0px;
+
+    h2 {
+      font-size: 21px;
+      font-weight: normal;
+      line-height: 2em;
+      padding-bottom: 15px;
+      margin-bottom: 20px;
+      
+      @include gradient-underline;
+      
+      @include media-breakpoint-up(sm) {
+        font-size: 30px;
+        line-height: 1.5em;
+      }
+    }
+  }
+
 }
