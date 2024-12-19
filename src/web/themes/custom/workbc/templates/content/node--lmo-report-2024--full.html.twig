@@ -94,14 +94,9 @@
   title: label,
   tab_sections: {
     labour_market_outlook: {
-      tab: 'Labour Market Outlook',
+      tab: 'Overview',
       title: content.field_lmo_2024_labour_market['#title'],
       content: content.field_lmo_2024_labour_market,
-    },
-    featured_topics: {
-      tab: 'Featured Topics',
-      title: content.field_lmo_2024_featured_topics['#title'],
-      content: content.field_lmo_2024_featured_topics,
     },
     education_training: {
       tab: 'Education and Training',
@@ -122,6 +117,16 @@
       tab: 'Occupational Outlook',
       title: content.field_lmo_2024_occupational_outl['#title'],
       content: content.field_lmo_2024_occupational_outl,
+    },
+    featured_topics: {
+      tab: 'Featured Topics',
+      title: content.field_lmo_2024_featured_topics['#title'],
+      content: content.field_lmo_2024_featured_topics,
+    },
+    definitions_methodology: {
+      tab: 'Definitions and Methodology',
+      title: content.field_lmo_2024_definitions_methodology['#title'],
+      content: content.field_lmo_2024_definitions_methodology,
     },
   },
   links: content.links,
@@ -167,15 +172,6 @@
             </div>
           </div>
 
-          <div class="tab-pane" id="featured_topics-content" role="tabpanel" aria-labelledby="featured_topics-tab">
-            <aside class="page-sidebar" role="complementary" aria-label="Sidebar">{{ left_block }}</aside>
-            <div class="node-page-content">
-              <div class="on-this-page">{{ left_block }}</div>
-              <h2 class="profile-content-main__header">{{ viewmodel['tab_sections']['featured_topics']['title'] }}</h2>
-              <div>{{ viewmodel['tab_sections']['featured_topics']['content'] }}</div>
-            </div>
-          </div>
-
           <div class="tab-pane" id="education_training-content" role="tabpanel" aria-labelledby="education_training-tab">
             <aside class="page-sidebar" role="complementary" aria-label="Sidebar">{{ left_block }}</aside>
             <div class="node-page-content">
@@ -209,6 +205,24 @@
               <div class="on-this-page">{{ left_block }}</div>
               <h2 class="profile-content-main__header">{{ viewmodel['tab_sections']['occupational_outlook']['title'] }}</h2>
               <div>{{ viewmodel['tab_sections']['occupational_outlook']['content'] }}</div>
+            </div>
+          </div>
+
+          <div class="tab-pane" id="featured_topics-content" role="tabpanel" aria-labelledby="featured_topics-tab">
+            <aside class="page-sidebar" role="complementary" aria-label="Sidebar">{{ left_block }}</aside>
+            <div class="node-page-content">
+              <div class="on-this-page">{{ left_block }}</div>
+              <h2 class="profile-content-main__header">{{ viewmodel['tab_sections']['featured_topics']['title'] }}</h2>
+              <div>{{ viewmodel['tab_sections']['featured_topics']['content'] }}</div>
+            </div>
+          </div>
+
+          <div class="tab-pane" id="definitions_methodology-content" role="tabpanel" aria-labelledby="definitions_methodology-tab">
+            <aside class="page-sidebar" role="complementary" aria-label="Sidebar">{{ left_block }}</aside>
+            <div class="node-page-content">
+              <div class="on-this-page">{{ left_block }}</div>
+              <h2 class="profile-content-main__header">{{ viewmodel['tab_sections']['definitions_methodology']['title'] }}</h2>
+              <div>{{ viewmodel['tab_sections']['definitions_methodology']['content'] }}</div>
             </div>
           </div>
 

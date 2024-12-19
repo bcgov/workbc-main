@@ -15,7 +15,7 @@ id: node.lmo_report_2024.field_lmo_2024_labour_market
 field_name: field_lmo_2024_labour_market
 entity_type: node
 bundle: lmo_report_2024
-label: 'Labour Market Outlook'
+label: Overview
 description: ''
 required: false
 translatable: false
@@ -72,7 +72,7 @@ settings:
         enabled: false
       content_interactive_map:
         weight: 34
-        enabled: true
+        enabled: false
       content_text:
         weight: 35
         enabled: true
