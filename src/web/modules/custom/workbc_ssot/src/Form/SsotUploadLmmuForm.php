@@ -91,7 +91,7 @@ class SsotUploadLmmuForm extends ConfirmFormBase {
 
     'unemployment_pct_british_columbia' => ['cell' => 'B41', 'type' => 'pct'],
     'unemployment_pct_british_columbia_previous' => ['cell' => 'E41', 'type' => 'pct'],
-    'total_jobs_british_columbia' => ['cell' => 'C41', 'type' => 'abs'],
+    'total_jobs_british_columbia' => ['cell' => 'C41', 'type' => 'abs', 'equal' => 'total_employed'],
     'unemployment_pct_vancouver_island_coast' => ['cell' => 'B42', 'type' => 'pct'],
     'unemployment_pct_vancouver_island_coast_previous' => ['cell' => 'E42', 'type' => 'pct'],
     'total_jobs_vancouver_island_coast' => ['cell' => 'C42', 'type' => 'abs'],
