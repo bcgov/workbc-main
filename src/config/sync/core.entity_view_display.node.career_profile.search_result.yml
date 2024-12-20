@@ -198,6 +198,8 @@ hidden:
   extra_field_salary_info_hourly_rate: true
   extra_field_salary_info_source: true
   extra_field_salary_introduction: true
+  extra_field_search_index_job_titles: true
+  extra_field_search_index_noc: true
   extra_field_skills_introduction: true
   extra_field_work_environment_number_employed: true
   extra_field_work_environment_percent_fulltime: true
