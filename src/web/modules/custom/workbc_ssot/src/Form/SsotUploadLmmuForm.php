@@ -30,6 +30,9 @@ function array_key_push(&$array, $key, $value) {
   }
 }
 
+const LMMU_TAB = 'Sheet3';
+const LMMU_LABEL = 'Labour Force Survey (monthly, seasonally adjusted)';
+
 /**
 * Class SsotUploadLmmuForm.
 *
@@ -428,12 +431,13 @@ class SsotUploadLmmuForm extends ConfirmFormBase {
       return;
     }
 
-    // Look for tab called "Sheet3".
+    // Look for LMMU tab in the spreadsheet.
     $sheet = array_filter($spreadsheet->getAllSheets(), function($sheet) {
-      return strtolower($sheet->getTitle()) == 'sheet3';
+      return strtolower($sheet->getTitle()) == strtolower(LMMU_TAB);
     });
     if (empty($sheet)) {
-      $form_state->setErrorByName('lmmu', $this->t('❌ Tab "Sheet3" is not found. Please ensure that the tab containing LMMU information is called "Sheet3".'));
+      $s = LMMU_TAB;
+      $form_state->setErrorByName('lmmu', $this->t("❌ Tab \"$s\" is not found. Please ensure that the tab containing LMMU information is called \"$s\"."));
       return;
     }
     else {
@@ -722,6 +726,8 @@ class SsotUploadLmmuForm extends ConfirmFormBase {
           'date' => $ssot_date,
           'filename' => $file->getFilename(),
           'endpoint' => 'monthly_labour_market_updates',
+          'sheet' => LMMU_TAB,
+          'label' => LMMU_LABEL
         ]));
       }
       else {
@@ -729,6 +735,8 @@ class SsotUploadLmmuForm extends ConfirmFormBase {
         $this->ssot("sources?endpoint=eq.monthly_labour_market_updates&period=eq.$ssot_period", null, 'PATCH', json_encode([
           'date' => $ssot_date,
           'filename' => $file->getFilename(),
+          'sheet' => LMMU_TAB,
+          'label' => LMMU_LABEL
         ]));
       }
 
