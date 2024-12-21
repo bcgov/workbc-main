@@ -11,7 +11,7 @@ use Drupal\extra_field\Plugin\ExtraFieldDisplayFormattedBase;
  *
  * @ExtraFieldDisplay(
  *   id = "lmo_report_2024_job_openings_regions_table",
- *   label = @Translation("Figure 5-1. Total Job Openings by Development Region, B.C., 2024-2034"),
+ *   label = @Translation("Total Job Openings by Development Region (2024-2034)"),
  *   description = @Translation("An extra field to display job openings regional table."),
  *   bundles = {
  *     "paragraph.lmo_charts_tables",
@@ -26,9 +26,7 @@ class BCJobOpeningsRegionTable extends ExtraFieldDisplayFormattedBase {
    * {@inheritdoc}
    */
   public function getLabel() {
-
-    $label = $this->getEntity()->getParentEntity()->ssot_data['schema']['definitions']['lmo_report_2024_job_openings_regions']['description'];
-    return trim(explode('>', $label)[1]);
+    return $this->pluginDefinition['label'];
   }
 
   /**

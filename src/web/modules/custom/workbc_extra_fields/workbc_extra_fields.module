@@ -226,7 +226,8 @@ function ssotLabourMarketYearly() {
     'lmo_report_2024_job_openings_kootenay' => querySSoT('lmo_report_2024_job_openings_kootenay'),
     'lmo_report_2024_job_openings_cariboo' => querySSoT('lmo_report_2024_job_openings_cariboo'),
     'lmo_report_2024_job_openings_north_coast_nechako' => querySSoT('lmo_report_2024_job_openings_north_coast_nechako'),
-    'lmo_report_2024_job_openings_northeast' => querySSoT('lmo_report_2024_job_openings_northeast')
+    'lmo_report_2024_job_openings_northeast' => querySSoT('lmo_report_2024_job_openings_northeast'),
+    'sources' => querySSoT('sources?endpoint=eq.lmo_report_2024_job_openings_10y')[0]
   ];
 }
 

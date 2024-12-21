@@ -17,9 +17,7 @@ class RegionTopFiveIndustriesBaseTable extends ExtraFieldDisplayFormattedBase {
    * {@inheritdoc}
    */
   public function getLabel() {
-
-    $label = $this->getEntity()->getParentEntity()->ssot_data['schema']['definitions'][$this->getDatasetName()]['description'];
-    return trim(explode('>', $label)[1]);
+    return $this->pluginDefinition['label'];
   }
 
   /**
@@ -95,5 +93,5 @@ class RegionTopFiveIndustriesBaseTable extends ExtraFieldDisplayFormattedBase {
 
   private function getRegion() {
     return str_replace('lmo_report_2024_job_openings_', '', $this->getDatasetName());
-  }  
+  }
 }

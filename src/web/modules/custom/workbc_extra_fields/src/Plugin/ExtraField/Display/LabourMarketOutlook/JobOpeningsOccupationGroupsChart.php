@@ -11,7 +11,7 @@ use Drupal\extra_field\Plugin\ExtraFieldDisplayFormattedBase;
  *
  * @ExtraFieldDisplay(
  *   id = "lmo_report_2024_job_openings_broad_categories_chart",
- *   label = @Translation("Figure 4.1-1: Job Openings by Main Occupational Group, B.C., 2024-2034"),
+ *   label = @Translation("Job Openings by Main Occupational Group (2024-2034)"),
  *   description = @Translation("An extra field to display job openings chart."),
  *   bundles = {
  *     "paragraph.lmo_charts_tables",
@@ -26,9 +26,7 @@ class JobOpeningsOccupationGroupsChart extends ExtraFieldDisplayFormattedBase {
    * {@inheritdoc}
    */
   public function getLabel() {
-
-    $label = $this->getEntity()->getParentEntity()->ssot_data['schema']['definitions']['lmo_report_2024_job_openings_broad_categories']['description'];
-    return trim(explode('>', $label)[1]);
+    return $this->pluginDefinition['label'];
   }
 
   /**
@@ -146,6 +144,10 @@ class JobOpeningsOccupationGroupsChart extends ExtraFieldDisplayFormattedBase {
         ]
       ];
       $output = \Drupal::service('renderer')->render($chart);
+      $source_text = $entity->ssot_data['sources']['label'] ?? WORKBC_EXTRA_FIELDS_NOT_AVAILABLE;
+      $output .= <<<END
+      <div class="lm-source"><strong>Source:</strong>&nbsp;$source_text</div>
+      END;
     }
     else {
       $output = WORKBC_EXTRA_FIELDS_NOT_AVAILABLE;

@@ -93,7 +93,7 @@
 {% set viewmodel = {
   title: label,
   tab_sections: {
-    labour_market_outlook: {
+    overview: {
       tab: 'Overview',
       title: content.field_lmo_2024_labour_market['#title'],
       content: content.field_lmo_2024_labour_market,
@@ -163,12 +163,12 @@
       <div class="profile-content-container">
         <div class="tab-content profile-content-main">
 
-          <div class="tab-pane active" id="labour_market_outlook-content" role="tabpanel" aria-labelledby="labour_market_outlook-tab">
+          <div class="tab-pane active" id="overview-content" role="tabpanel" aria-labelledby="overview-tab">
             <aside class="page-sidebar" role="complementary" aria-label="Sidebar">{{ left_block }}</aside>
             <div class="node-page-content">
               <div class="on-this-page">{{ left_block }}</div>
               <h2 class="profile-content-main__header">{{ viewmodel['tab_sections']['labour_market_outlook']['title'] }}</h2>
-              <div>{{ viewmodel['tab_sections']['labour_market_outlook']['content'] }}</div>
+              <div>{{ viewmodel['tab_sections']['overview']['content'] }}</div>
             </div>
           </div>
 
