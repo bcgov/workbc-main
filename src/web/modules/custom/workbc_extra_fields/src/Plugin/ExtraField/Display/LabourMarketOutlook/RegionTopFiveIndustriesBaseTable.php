@@ -80,6 +80,10 @@ class RegionTopFiveIndustriesBaseTable extends ExtraFieldDisplayFormattedBase {
         $output .= '</tr>';
       }
       $output .= '</tbody></table></div>';
+      $source_text = $entity->ssot_data['sources']['label'] ?? WORKBC_EXTRA_FIELDS_NOT_AVAILABLE;
+      $output .= <<<END
+      <div class="lm-source"><strong>Source:</strong>&nbsp;$source_text</div>
+      END;
     }
     else {
       $output = WORKBC_EXTRA_FIELDS_NOT_AVAILABLE;
