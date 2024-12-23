@@ -103,11 +103,18 @@ function ssotLabourMarketMonthly($year = null, $month = null){
   $data['schema'] = ssotSchema();
 
   // Source metadata.
-  $endpoint = 'monthly_labour_market_updates';
-  $sources = querySSoT('sources?endpoint=eq.' . $endpoint);
+  // We read all monthly_labour_market_updates entries because we need to find the following:
+  // - The entry for any non-empty datapoint
+  // - The entry for the current period
+  $sources = querySSoT('sources?endpoint=eq.monthly_labour_market_updates');
+  $period = "$currentYear-" . str_pad($currentMonth, 2, '0', STR_PAD_LEFT);
   foreach($sources as $source) {
-    $datapoint = !empty($source['datapoint'])?$source['datapoint'] : 'no-datapoint';
-    $data['sources'][$datapoint] = $source['label'];
+    if (!empty($source['datapoint'])) {
+      $data['sources'][$source['datapoint']] = $source['label'];
+    }
+    else if (str_starts_with($source['period'], $period)) {
+      $data['sources']['no-datapoint'] = $source['label'];
+    }
   }
 
   return $data;
