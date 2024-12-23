@@ -433,7 +433,7 @@ class SsotUploadLmmuForm extends ConfirmFormBase {
 
     // Look for LMMU tab in the spreadsheet.
     $sheet = array_filter($spreadsheet->getAllSheets(), function($sheet) {
-      return strtolower($sheet->getTitle()) == strtolower(LMMU_TAB);
+      return strcasecmp($sheet->getTitle(), LMMU_TAB) === 0;
     });
     if (empty($sheet)) {
       $s = LMMU_TAB;
