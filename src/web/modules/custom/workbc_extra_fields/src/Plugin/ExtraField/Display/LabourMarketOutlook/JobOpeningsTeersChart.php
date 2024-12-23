@@ -68,7 +68,6 @@ class JobOpeningsTeersChart extends ExtraFieldDisplayFormattedBase {
         ),
         'series' => [
           '#type' => 'chart_data',
-          '#title' => $this->t('Job Openings by TEER, B.C., 2024-2034'),
           '#data' => $data,
         ],
         'xaxis' => [
