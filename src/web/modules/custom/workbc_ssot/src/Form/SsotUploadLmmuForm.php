@@ -30,6 +30,9 @@ function array_key_push(&$array, $key, $value) {
   }
 }
 
+const LMMU_TAB = 'Sheet3';
+const LMMU_LABEL = 'Labour Force Survey (monthly, seasonally adjusted)';
+
 /**
 * Class SsotUploadLmmuForm.
 *
@@ -376,6 +379,13 @@ class SsotUploadLmmuForm extends ConfirmFormBase {
       ]
     ];
 
+    $form['repo'] = [
+      '#type' => 'checkbox',
+      '#title' => $this->t('Update SSoT repo'),
+      '#default_value' => TRUE,
+      '#description' => $this->t('Check this box OFF if the <code>workbc-ssot</code> repo should NOT be updated with the spreadsheet you are uploading now. For example, if you are testing the upload functionality with a throwaway spreadsheet that should not be saved in the SSoT.'),
+    ];
+
     $form['submit_upload'] = [
       '#type' => 'submit',
       '#value' => $this->t('Submit')
@@ -428,12 +438,13 @@ class SsotUploadLmmuForm extends ConfirmFormBase {
       return;
     }
 
-    // Look for tab called "Sheet3".
+    // Look for LMMU tab in the spreadsheet.
     $sheet = array_filter($spreadsheet->getAllSheets(), function($sheet) {
-      return strtolower($sheet->getTitle()) == 'sheet3';
+      return strcasecmp($sheet->getTitle(), LMMU_TAB) === 0;
     });
     if (empty($sheet)) {
-      $form_state->setErrorByName('lmmu', $this->t('❌ Tab "Sheet3" is not found. Please ensure that the tab containing LMMU information is called "Sheet3".'));
+      $s = LMMU_TAB;
+      $form_state->setErrorByName('lmmu', $this->t("❌ Tab \"$s\" is not found. Please ensure that the tab containing LMMU information is called \"$s\"."));
       return;
     }
     else {
@@ -690,6 +701,7 @@ class SsotUploadLmmuForm extends ConfirmFormBase {
     $form_state->set('file_id', $file->id());
     $form_state->set('notes', $form_state->getValue('notes'));
     $form_state->set('timestamp', $form_state->getValue('timestamp')->getTimestamp());
+    $form_state->set('repo', $form_state->getValue(('repo')));
   }
 
   /**
@@ -722,6 +734,8 @@ class SsotUploadLmmuForm extends ConfirmFormBase {
           'date' => $ssot_date,
           'filename' => $file->getFilename(),
           'endpoint' => 'monthly_labour_market_updates',
+          'sheet' => LMMU_TAB,
+          'label' => LMMU_LABEL
         ]));
       }
       else {
@@ -729,6 +743,8 @@ class SsotUploadLmmuForm extends ConfirmFormBase {
         $this->ssot("sources?endpoint=eq.monthly_labour_market_updates&period=eq.$ssot_period", null, 'PATCH', json_encode([
           'date' => $ssot_date,
           'filename' => $file->getFilename(),
+          'sheet' => LMMU_TAB,
+          'label' => LMMU_LABEL
         ]));
       }
 
@@ -761,14 +777,16 @@ class SsotUploadLmmuForm extends ConfirmFormBase {
       ->execute();
 
       // Enqueue a job to update the SSoT repo.
-      \Drupal::queue('ssot_uploader')->createItem([
-        'file_id' => $form_state->get('file_id'),
-        'month' => $month,
-        'year' => $year,
-        'notes' => $form_state->get('notes'),
-        'uid' => \Drupal::currentUser()->id(),
-        'date' => $ssot_date,
-      ]);
+      if ($form_state->get('repo')) {
+        \Drupal::queue('ssot_uploader')->createItem([
+          'file_id' => $form_state->get('file_id'),
+          'month' => $month,
+          'year' => $year,
+          'notes' => $form_state->get('notes'),
+          'uid' => \Drupal::currentUser()->id(),
+          'date' => $ssot_date,
+        ]);
+      }
 
       \Drupal::messenger()->addMessage(t('Labour Market Monthly Update successfully updated for <strong>@month @year</strong>. <a href="@url">Click here</a> to see it!', [
         '@year' => $year,
