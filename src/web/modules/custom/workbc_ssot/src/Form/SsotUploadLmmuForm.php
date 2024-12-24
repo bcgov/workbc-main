@@ -379,6 +379,13 @@ class SsotUploadLmmuForm extends ConfirmFormBase {
       ]
     ];
 
+    $form['repo'] = [
+      '#type' => 'checkbox',
+      '#title' => $this->t('Update SSoT repo'),
+      '#default_value' => TRUE,
+      '#description' => $this->t('Check this box OFF if the <code>workbc-ssot</code> repo should NOT be updated with the spreadsheet you are uploading now. For example, if you are testing the upload functionality with a throwaway spreadsheet that should not be saved in the SSoT.'),
+    ];
+
     $form['submit_upload'] = [
       '#type' => 'submit',
       '#value' => $this->t('Submit')
@@ -694,6 +701,7 @@ class SsotUploadLmmuForm extends ConfirmFormBase {
     $form_state->set('file_id', $file->id());
     $form_state->set('notes', $form_state->getValue('notes'));
     $form_state->set('timestamp', $form_state->getValue('timestamp')->getTimestamp());
+    $form_state->set('repo', $form_state->getValue(('repo')));
   }
 
   /**
@@ -769,14 +777,16 @@ class SsotUploadLmmuForm extends ConfirmFormBase {
       ->execute();
 
       // Enqueue a job to update the SSoT repo.
-      \Drupal::queue('ssot_uploader')->createItem([
-        'file_id' => $form_state->get('file_id'),
-        'month' => $month,
-        'year' => $year,
-        'notes' => $form_state->get('notes'),
-        'uid' => \Drupal::currentUser()->id(),
-        'date' => $ssot_date,
-      ]);
+      if ($form_state->get('repo')) {
+        \Drupal::queue('ssot_uploader')->createItem([
+          'file_id' => $form_state->get('file_id'),
+          'month' => $month,
+          'year' => $year,
+          'notes' => $form_state->get('notes'),
+          'uid' => \Drupal::currentUser()->id(),
+          'date' => $ssot_date,
+        ]);
+      }
 
       \Drupal::messenger()->addMessage(t('Labour Market Monthly Update successfully updated for <strong>@month @year</strong>. <a href="@url">Click here</a> to see it!', [
         '@year' => $year,
