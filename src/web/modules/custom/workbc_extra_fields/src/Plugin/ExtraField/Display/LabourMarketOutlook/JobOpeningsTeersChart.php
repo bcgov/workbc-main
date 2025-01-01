@@ -84,7 +84,7 @@ class JobOpeningsTeersChart extends ExtraFieldDisplayFormattedBase {
         '#raw_options' => [
           'options' => [
             'pieHole' => 0.7,
-            'height' => 350,
+            'height' => 400,
             'pieSliceText' => 'none',
           ]
         ]
