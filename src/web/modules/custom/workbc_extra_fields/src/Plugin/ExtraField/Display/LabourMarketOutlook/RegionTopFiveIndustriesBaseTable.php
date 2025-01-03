@@ -53,7 +53,7 @@ class RegionTopFiveIndustriesBaseTable extends ExtraFieldDisplayFormattedBase {
 
       $output = '<div id="' . $this->getRegion() . '">';
       $output .= <<<END
-      <table>
+      <table class="lmo-report">
         <thead>
           <tr>
             <th rowspan="2" class="data-align-left">Industry</th>
@@ -71,12 +71,12 @@ class RegionTopFiveIndustriesBaseTable extends ExtraFieldDisplayFormattedBase {
       END;
       foreach ($entity->ssot_data[$this->getDatasetName()] as $industry) {
         $output .= '<tr>';
-        $output .= '<td class="data-align-left">' . $industry['industry'] . '</td>';
-        $output .= '<td class="data-align-right">' . ssotFormatNumber($industry['employment'], $options1) . '</td>';
-        $output .= '<td class="data-align-right">' . ssotFormatNumber($industry['growth_rate'], $options2) . '</td>';
-        $output .= '<td class="data-align-right">' . ssotFormatNumber($industry['expansion'], $options1) . '</td>';
-        $output .= '<td class="data-align-right">' . ssotFormatNumber($industry['replacement'], $options1) . '</td>';
-        $output .= '<td class="data-align-right">' . ssotFormatNumber($industry['openings'], $options1) . '</td>';
+        $output .= '<td class="data-align-left lmo-report-industry" data-label="Industry">' . $industry['industry'] . '</td>';
+        $output .= '<td class="data-align-right lmo-report-employment" data-label="Employment (2024)">' . ssotFormatNumber($industry['employment'], $options1) . '</td>';
+        $output .= '<td class="data-align-right lmo-report-growth" data-label="Annual Employment Growth Rate (2024-2034)">' . ssotFormatNumber($industry['growth_rate'], $options2) . '</td>';
+        $output .= '<td class="data-align-right lmo-report-expansion" data-label="Job Openings by Expansion (2024-2034)">' . ssotFormatNumber($industry['expansion'], $options1) . '</td>';
+        $output .= '<td class="data-align-right lmo-report-replacement" data-label="Job Openings by Replacement (2024-2034)">' . ssotFormatNumber($industry['replacement'], $options1) . '</td>';
+        $output .= '<td class="data-align-right lmo-report-openings" data-label="Total Job Openings (2024-2034)">' . ssotFormatNumber($industry['openings'], $options1) . '</td>';
         $output .= '</tr>';
       }
       $output .= '</tbody></table></div>';
