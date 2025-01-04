@@ -11,7 +11,7 @@ use Drupal\extra_field\Plugin\ExtraFieldDisplayFormattedBase;
  *
  * @ExtraFieldDisplay(
  *   id = "lmo_report_2024_job_openings_industries_chart",
- *   label = @Translation("Top Ten Major Industry Groups by Job Openings (2024-2034)"),
+ *   label = @Translation("Top Ten Major Industry Groups by Job Openings, B.C. (2024-2034)"),
  *   description = @Translation("An extra field to display job openings chart."),
  *   bundles = {
  *     "paragraph.lmo_charts_tables",
@@ -49,6 +49,8 @@ class JobOpeningsIndustryGroupsChart extends ExtraFieldDisplayFormattedBase {
 
     $entity = $paragraph->getParentEntity();
     if (!empty($entity->ssot_data) && isset($entity->ssot_data['lmo_report_2024_job_openings_industries'])) {
+
+      // Bar chart for desktop.
       $colorReplacement = '#002857';
       $colorExpansion = '#009cde';
 
@@ -145,7 +147,44 @@ class JobOpeningsIndustryGroupsChart extends ExtraFieldDisplayFormattedBase {
           ]
         ]
       ];
-      $output = \Drupal::service('renderer')->render($chart);
+      $output = '<div class="lmo-desktop">';
+      $output .= \Drupal::service('renderer')->render($chart);
+      $output .= '</div>';
+
+      // Table for mobile.
+      $options1 = array(
+        'decimals' => 0,
+        'na_if_empty' => TRUE,
+      );
+
+      $output .= <<<END
+      <table class="lmo-mobile lmo-report">
+        <thead>
+          <tr>
+            <th class="data-align-left">Industry</th>
+            <th class="data-align-right">Expansion</th>
+            <th class="data-align-right">Replacement</th>
+            <th class="data-align-right">Total Job Openings</th>
+          </tr>
+        </thead>
+        <tbody>
+      END;
+      foreach ($entity->ssot_data['lmo_report_2024_job_openings_industries'] as $entry) {
+        if (in_array($entry['industry'], ['top_3', 'top_5'])) continue;
+
+        $replacement = round($entry['replacement']);
+        $expansion = round($entry['expansion']);
+        $openings = round($entry['openings']);
+
+        $output .= '<tr>';
+        $output .= '<td class="data-align-left lmo-report-industry-group" data-label="Industry">' . $entry['name'] . '</td>';
+        $output .= '<td class="data-align-right lmo-report-expansion" data-label="Expansion">' . ssotFormatNumber($expansion, $options1) . '</td>';
+        $output .= '<td class="data-align-right lmo-report-replacement" data-label="Replacement">' . ssotFormatNumber($replacement, $options1) . '</td>';
+        $output .= '<td class="data-align-right lmo-report-openings" data-label="Total Job Openings">' . ssotFormatNumber($openings, $options1) . '</td>';
+        $output .= '</tr>';
+      }
+      $output .= '</tbody></table>';
+
       $source_text = $entity->ssot_data['sources']['label'] ?? WORKBC_EXTRA_FIELDS_NOT_AVAILABLE;
       $output .= <<<END
       <div class="lm-source"><strong>Source:</strong>&nbsp;$source_text</div>

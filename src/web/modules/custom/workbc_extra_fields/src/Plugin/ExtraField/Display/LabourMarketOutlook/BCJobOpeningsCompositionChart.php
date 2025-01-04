@@ -11,7 +11,7 @@ use Drupal\extra_field\Plugin\ExtraFieldDisplayFormattedBase;
  *
  * @ExtraFieldDisplay(
  *   id = "lmo_report_2024_job_openings_10y_chart",
- *   label = @Translation("Job Openings (2024-2034)"),
+ *   label = @Translation("Job Openings, B.C. (2024-2034)"),
  *   description = @Translation("An extra field to display job openings chart."),
  *   bundles = {
  *     "paragraph.lmo_charts_tables",
@@ -49,13 +49,14 @@ class BCJobOpeningsCompositionChart extends ExtraFieldDisplayFormattedBase {
 
     $entity = $paragraph->getParentEntity();
     if (!empty($entity->ssot_data) && isset($entity->ssot_data['lmo_report_2024_job_openings_10y'])) {
-      $data = array();
-      $data[] = floatval(array_find($entity->ssot_data['lmo_report_2024_job_openings_10y'], function($entry) {
-        return $entry['key'] === 'expansion';
-      })['amount']);
-      $data[] = floatval(array_find($entity->ssot_data['lmo_report_2024_job_openings_10y'], function($entry) {
-        return $entry['key'] === 'replacement';
-      })['amount']);
+      $data = [
+        floatval(array_find($entity->ssot_data['lmo_report_2024_job_openings_10y'], function($entry) {
+          return $entry['key'] === 'expansion';
+        })['amount']),
+        floatval(array_find($entity->ssot_data['lmo_report_2024_job_openings_10y'], function($entry) {
+          return $entry['key'] === 'replacement';
+        })['amount'])
+      ];
       $chart = [
         '#chart_id' => 'lmo_report_2024_job_openings_10y_chart',
         '#type' => 'chart',

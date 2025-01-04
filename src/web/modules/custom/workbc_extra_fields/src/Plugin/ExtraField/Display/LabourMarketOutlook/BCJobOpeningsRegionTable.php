@@ -11,7 +11,7 @@ use Drupal\extra_field\Plugin\ExtraFieldDisplayFormattedBase;
  *
  * @ExtraFieldDisplay(
  *   id = "lmo_report_2024_job_openings_regions_table",
- *   label = @Translation("Total Job Openings by Development Region (2024-2034)"),
+ *   label = @Translation("Total Job Openings by Development Region, B.C. (2024-2034)"),
  *   description = @Translation("An extra field to display job openings regional table."),
  *   bundles = {
  *     "paragraph.lmo_charts_tables",
@@ -81,10 +81,10 @@ class BCJobOpeningsRegionTable extends ExtraFieldDisplayFormattedBase {
         $region_name = ssotRegionName($region['region']);
         $output .= '<tr class="interactive-map-row-'. $region['region'] . '">';
         if ($region['region'] <> "british_columbia") {
-          $output .= '<td class="data-align-left lmo-report-region"><a href="#' . $region['region']  . '">' . $region_name . '</a></td>';
+          $output .= '<td class="data-align-left lmo-report-region" data-label="Regions"><a href="#' . $region['region']  . '">' . $region_name . '</a></td>';
         }
         else {
-          $output .= '<td class="data-align-left lmo-report-region">' . $region_name . '</td>';
+          $output .= '<td class="data-align-left lmo-report-region" data-label="Regions">' . $region_name . '</td>';
         }
         $output .= '<td class="data-align-right lmo-report-employment" data-label="Employment (2024)">' . ssotFormatNumber($region['employment'], $options1) . '</td>';
         $output .= '<td class="data-align-right lmo-report-growth" data-label="Annual Employment Growth Rate (2024-2034)">' . ssotFormatNumber($region['growth_rate'], $options2) . '</td>';

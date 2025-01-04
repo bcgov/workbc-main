@@ -50,6 +50,18 @@
     }
   }
 
+  @include media-breakpoint-up(md) {
+    .lmo-mobile {
+      display: none;
+    }
+  }
+
+  @include media-breakpoint-down(md) {
+    .lmo-desktop {
+      display: none;
+    }
+  }
+
   table.lmo-report {
 
     @include media-breakpoint-down(md) {
@@ -76,7 +88,10 @@
         }
       }
 
-      td.lmo-report-region {
+      td.lmo-report-region,
+      td.lmo-report-teer,
+      td.lmo-report-occupation-group,
+      td.lmo-report-industry-group {
         display: block;
         font-weight: normal;
         border: none;
@@ -90,6 +105,7 @@
       td.lmo-report-growth,
       td.lmo-report-expansion,
       td.lmo-report-replacement,
+      td.lmo-report-percentage,
       td.lmo-report-openings {
         display: block;
         text-align: right;
@@ -104,6 +120,7 @@
       td.lmo-report-growth::before,
       td.lmo-report-expansion::before,
       td.lmo-report-replacement::before,
+      td.lmo-report-percentage::before,
       td.lmo-report-openings::before {
         content: attr(data-label);
         float: left;
