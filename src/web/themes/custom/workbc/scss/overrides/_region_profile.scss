@@ -122,3 +122,13 @@
 .bc-employment-share {
   padding-left: 0px !important;
 }
+
+
+.node--type-bc-profile,
+.node--type-region-profile {
+
+  .profile-information-card-content {
+    flex: 0 0 50%;
+  }
+
+}
