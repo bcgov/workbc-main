@@ -51,24 +51,36 @@ class JobOpeningsIndustryGroupsChart extends ExtraFieldDisplayFormattedBase {
     if (!empty($entity->ssot_data) && isset($entity->ssot_data['lmo_report_2024_job_openings_industries'])) {
 
       // Bar chart for desktop.
+      $options1 = array(
+        'decimals' => 0,
+        'na_if_empty' => TRUE,
+      );
+      $options2 = array(
+        'decimals' => 1,
+        'suffix' => '%',
+        'na_if_empty' => TRUE,
+      );
+
       $colorReplacement = '#002857';
       $colorExpansion = '#009cde';
 
       $data = $entity->ssot_data['lmo_report_2024_job_openings_industries'];
       foreach ($data as $category) {
-        if (in_array($category['industry'], ['top_3', 'top_5'])) continue;
+        if (in_array($category['industry'], ['top_3', 'top_5', 'all_industries'])) continue;
 
-        $replacement = round($category['replacement']);
-        $expansion = round($category['expansion']);
+        $replacement = ssotFormatNumber($category['replacement'], $options1);
+        $expansion = ssotFormatNumber($category['expansion'], $options1);
+        $replacement_pct = ssotFormatNumber(100 * $category['replacement_fraction'], $options2);
+        $expansion_pct = ssotFormatNumber(100 * $category['expansion_fraction'], $options2);
         $label = $category['name'];
         $regions[] = $label;
-        $series2[] = $replacement;
+        $series2[] = $category['replacement'];
         $styles2[] = "stroke-color: $colorReplacement; stroke-width: 1;";
         $annotations2[] = "$replacement\u{00a0}";
-        $tooltips2[] = "<div style=\"margin:10px\"><strong>$label</strong><br><span style=\"white-space:nowrap\">Replacement: <strong>$replacement</strong></span></div>";
-        $series1[] = $expansion;
+        $tooltips2[] = "<div style=\"margin:10px\"><strong>$label</strong><br><span style=\"white-space:nowrap\">Replacement: <strong>$replacement ($replacement_pct)</strong></span></div>";
+        $series1[] = $category['expansion'];
         $annotations1[] = "$expansion\u{00a0}";
-        $tooltips1[] = "<div style=\"margin:10px\"><strong>$label</strong><br><span style=\"white-space:nowrap\">Expansion: <strong>$expansion</strong></span></div>";
+        $tooltips1[] = "<div style=\"margin:10px\"><strong>$label</strong><br><span style=\"white-space:nowrap\">Expansion: <strong>$expansion ($expansion_pct)</strong></span></div>";
         $styles1[] = "stroke-color: $colorExpansion; stroke-width: 1;";
       }
 
@@ -84,56 +96,58 @@ class JobOpeningsIndustryGroupsChart extends ExtraFieldDisplayFormattedBase {
         'series_one' => [
           '#type' => 'chart_data',
           '#title' => $this->t('Expansion'),
-          '#data' => array_slice($series1, 0, -1),
+          '#data' => $series1,
         ],
         'series_one_annotations' => [
           '#type' => 'chart_data',
           '#title' => ['role' => 'annotation'],
-          '#data' => array_slice($annotations1, 0, -1),
+          '#data' => $annotations1,
         ],
         'series_one_style' => [
           '#type' => 'chart_data',
           '#title' => ['role' => 'style'],
-          '#data' => array_slice($styles1, 0, -1),
+          '#data' => $styles1,
         ],
         'series_one_tooltips' => [
           '#type' => 'chart_data',
           '#title' => ['role' => 'tooltip', 'p' => ['html' => TRUE]],
-          '#data' => array_slice($tooltips1, 0, -1),
+          '#data' => $tooltips1,
         ],
         'series_two' => [
           '#type' => 'chart_data',
           '#title' => $this->t('Replacement'),
-          '#data' => array_slice($series2, 0, -1),
+          '#data' => $series2,
         ],
         'series_two_annotations' => [
           '#type' => 'chart_data',
           '#title' => ['role' => 'annotation'],
-          '#data' => array_slice($annotations2, 0, -1),
+          '#data' => $annotations2,
         ],
         'series_two_style' => [
           '#type' => 'chart_data',
           '#title' => ['role' => 'style'],
-          '#data' => array_slice($styles2, 0, -1),
+          '#data' => $styles2,
         ],
         'series_two_tooltips' => [
           '#type' => 'chart_data',
           '#title' => ['role' => 'tooltip', 'p' => ['html' => TRUE]],
-          '#data' => array_slice($tooltips2, 0, -1),
+          '#data' => $tooltips2,
         ],
         'x_axis' => [
           '#type' => 'chart_xaxis',
-          '#labels' => array_slice($regions, 0, -1),
+          '#labels' => $regions,
         ],
         'y_axis' => [
           '#type' => 'chart_yaxis',
         ],
         '#stacking' => TRUE,
-        '#height' => 400, '#height_units' => 'px',
-        '#width' => 100, '#width_units' => '',
-        '#legend_position' => 'none',
+        '#height' => 1500, '#height_units' => 'px',
+        '#width' => 100, '#width_units' => '%',
+        '#legend_position' => 'bottom',
         '#raw_options' => [
           'options' => [
+            'fontSize' => 14,
+            'height' => 1500,
             'tooltip' => [
               'isHtml' => TRUE,
             ],

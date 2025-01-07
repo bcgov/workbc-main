@@ -51,6 +51,16 @@ class JobOpeningsOccupationGroupsChart extends ExtraFieldDisplayFormattedBase {
     if (!empty($entity->ssot_data) && isset($entity->ssot_data['lmo_report_2024_job_openings_broad_categories'])) {
 
       // Bar chart for desktop.
+      $options1 = array(
+        'decimals' => 0,
+        'na_if_empty' => TRUE,
+      );
+      $options2 = array(
+        'decimals' => 1,
+        'suffix' => '%',
+        'na_if_empty' => TRUE,
+      );
+
       $colorReplacement = '#002857';
       $colorExpansion = '#009cde';
 
@@ -58,23 +68,25 @@ class JobOpeningsOccupationGroupsChart extends ExtraFieldDisplayFormattedBase {
       foreach ($data as $category) {
         if (!is_numeric($category['category'])) continue;
 
-        $replacement = round($category['replacement']);
-        $expansion = round($category['expansion']);
+        $replacement = ssotFormatNumber($category['replacement'], $options1);
+        $expansion = ssotFormatNumber($category['expansion'], $options1);
+        $replacement_pct = ssotFormatNumber(100 * $category['replacement_fraction'], $options2);
+        $expansion_pct = ssotFormatNumber(100 * $category['expansion_fraction'], $options2);
         $label = $category['name'];
         $regions[] = $label;
-        $series2[] = $replacement;
+        $series2[] = $category['replacement'];
         $styles2[] = "stroke-color: $colorReplacement; stroke-width: 1;";
         $annotations2[] = "$replacement\u{00a0}";
-        $tooltips2[] = "<div style=\"margin:10px\"><strong>$label</strong><br><span style=\"white-space:nowrap\">Replacement: <strong>$replacement</strong></span></div>";
-        $series1[] = $expansion;
+        $tooltips2[] = "<div style=\"margin:10px\"><strong>$label</strong><br><span style=\"white-space:nowrap\">Replacement: <strong>$replacement ($replacement_pct)</strong></span></div>";
+        $series1[] = $category['expansion'];
         $annotations1[] = "$expansion\u{00a0}";
-        $tooltips1[] = "<div style=\"margin:10px\"><strong>$label</strong><br><span style=\"white-space:nowrap\">Expansion: <strong>$expansion</strong></span></div>";
+        $tooltips1[] = "<div style=\"margin:10px\"><strong>$label</strong><br><span style=\"white-space:nowrap\">Expansion: <strong>$expansion ($expansion_pct)</strong></span></div>";
         $styles1[] = "stroke-color: $colorExpansion; stroke-width: 1;";
       }
 
       // Stacked column chart with two series.
       $chart = [
-        '#chart_id' => 'bc-share-of-employment',
+        '#chart_id' => 'lmo_report_2024_job_openings_broad_categories_chart',
         '#type' => 'chart',
         '#chart_type' => 'bar',
         '#colors' => array(
@@ -129,11 +141,12 @@ class JobOpeningsOccupationGroupsChart extends ExtraFieldDisplayFormattedBase {
           '#type' => 'chart_yaxis',
         ],
         '#stacking' => TRUE,
-        '#height' => 400, '#height_units' => 'px',
-        '#width' => 100, '#width_units' => '',
-        '#legend_position' => 'none',
+        '#height' => 700, '#height_units' => 'px',
+        '#width' => 100, '#width_units' => '%',
+        '#legend_position' => 'bottom',
         '#raw_options' => [
           'options' => [
+            'height' => 700,
             'tooltip' => [
               'isHtml' => TRUE,
             ],
