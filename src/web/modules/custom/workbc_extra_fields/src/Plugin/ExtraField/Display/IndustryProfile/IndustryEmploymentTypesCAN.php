@@ -43,12 +43,8 @@ class IndustryEmploymentTypesCAN extends ExtraFieldDisplayFormattedBase {
    */
   public function viewElements(ContentEntityInterface $entity) {
 
-    if (!empty($entity->ssot_data) && isset($entity->ssot_data['labour_force_survey_industryx'])) {
-      $ft = 100;
-      $ft -= $entity->ssot_data['labour_force_survey_industry']['employment_part_time_pct'];
-      $ft -= $entity->ssot_data['labour_force_survey_industry']['employment_self_employment_pct'];
-      $ft -= $entity->ssot_data['labour_force_survey_industry']['employment_temporary_pct'];
-      $employmentFullTime = $ft . '%';
+    if (!empty($entity->ssot_data) && isset($entity->ssot_data['labour_force_survey_industry'])) {
+      $employmentFullTime = (100 - $entity->ssot_data['labour_force_survey_industry']['employment_part_time_pct']) . '%';
       $employmentPartTime = $entity->ssot_data['labour_force_survey_industry']['employment_part_time_pct'] . '%';
       $employmentSelfEmployed = $entity->ssot_data['labour_force_survey_industry']['employment_self_employment_pct'] . '%';
       $employmentTemporary =  $entity->ssot_data['labour_force_survey_industry']['employment_temporary_pct'] . '%';
