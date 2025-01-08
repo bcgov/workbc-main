@@ -48,6 +48,14 @@
         line-height: 1.5em;
       }
     }
+
+    .media--type-image {
+      padding-bottom: 15px;
+    }
+
+    p {
+      
+    }
   }
 
   @include media-breakpoint-up(md) {
@@ -129,6 +137,28 @@
       }
     }
 
+  }
+
+
+
+  .paragraph--type--lmo-charts-tables {
+    position: relative; // begin positional context %card-profile
+    margin-bottom: 24px;
+    box-shadow: 0 0 15px 0 rgba(0, 0, 0, 0.15);
+    padding: $card-padding 40px $card-padding 40px;
+    display: flex;
+    flex-flow: column nowrap;
+    page-break-inside: avoid;
+  
+
+    .field__label {
+      text-align: center;
+      font-size: 18px;
+    }
+
+    .lmo-report-table .field__label {
+      padding-bottom: 50px;
+    }
   }
 
 }
