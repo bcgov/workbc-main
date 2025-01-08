@@ -13,6 +13,8 @@ dependencies:
     - field.field.node.lmo_report_2024.field_lmo_2024_labour_market
     - field.field.node.lmo_report_2024.field_lmo_2024_occupational_outl
     - field.field.node.lmo_report_2024.field_lmo_2024_regional_outlook
+    - field.field.node.lmo_report_2024.field_metatag_description
+    - field.field.node.lmo_report_2024.field_tags
     - node.type.lmo_report_2024
   module:
     - user
@@ -66,5 +68,7 @@ hidden:
   field_lmo_2024_labour_market: true
   field_lmo_2024_occupational_outl: true
   field_lmo_2024_regional_outlook: true
+  field_metatag_description: true
+  field_tags: true
   langcode: true
   search_api_excerpt: true
