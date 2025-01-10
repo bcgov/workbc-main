@@ -49,13 +49,10 @@
       }
     }
 
-    .media--type-image {
+    img.img-fluid {
       padding-bottom: 15px;
     }
 
-    p {
-      
-    }
   }
 
   @include media-breakpoint-up(md) {
