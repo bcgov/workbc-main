@@ -135,8 +135,26 @@
         padding-left: 1.5em;
         font-weight: bold;
       }
+
     }
 
+    .data-align-center {
+      text-align: center !important;
+    }
+
+    .lmo-report-job-openings-header {
+      border-bottom: 2px solid white;
+    }    
+
+    .lmo-region-job-openings-footer {
+      font-weight: bold;
+      background-color: $workbc_palette_dark_tertiary;
+      color: $workbc_dark_theme_text;
+
+      td {
+        padding: 20px;
+      }
+    }
   }
 
 

@@ -76,7 +76,7 @@ class BCEmploymentByRegionTable extends ExtraFieldDisplayFormattedBase {
           'class' => 'interactive-map-row-'. $region['region'],
         ];
       }
-
+ksm($rows);
       $header = ['Region','Full-time Employment Rate', 'Part-time Employment Rate'];
       $footer = ['B.C. Average', ssotFormatNumber($entity->ssot_data['labour_force_survey_bc_employment']['full_time_employment_pct'], $options), ssotFormatNumber($entity->ssot_data['labour_force_survey_bc_employment']['part_time_employment_pct'], $options)];
       $table = array(

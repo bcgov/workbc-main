@@ -67,7 +67,7 @@ class BCJobOpeningsRegionTable extends ExtraFieldDisplayFormattedBase {
             <th rowspan="2" class="data-align-left">Region</th>
             <th rowspan="2" class="data-align-right">Employment (2024)</th>
             <th rowspan="2" class="data-align-right">Annual Employment Growth Rate (2024-2034)</th>
-            <th colspan="3" class="data-align-center">Job Openings (2024-2034)</th>
+            <th colspan="3" class="lmo-report-job-openings-header data-align-center">Job Openings (2024-2034)</th>
           </tr>
           <tr>
             <th class="data-align-right">Expansion</th>
@@ -79,21 +79,34 @@ class BCJobOpeningsRegionTable extends ExtraFieldDisplayFormattedBase {
       END;
       foreach ($entity->ssot_data['lmo_report_2024_job_openings_regions'] as $region) {
         $region_name = ssotRegionName($region['region']);
-        $output .= '<tr class="interactive-map-row-'. $region['region'] . '">';
         if ($region['region'] <> "british_columbia") {
+          $output .= '<tr class="interactive-map-row-'. $region['region'] . '">';
           $output .= '<td class="data-align-left lmo-report-region" data-label="Regions"><a href="#' . $region['region']  . '">' . $region_name . '</a></td>';
+          $output .= '<td class="data-align-right lmo-report-employment" data-label="Employment (2024)">' . ssotFormatNumber($region['employment'], $options1) . '</td>';
+          $output .= '<td class="data-align-right lmo-report-growth" data-label="Annual Employment Growth Rate (2024-2034)">' . ssotFormatNumber($region['growth_rate'], $options2) . '</td>';
+          $output .= '<td class="data-align-right lmo-report-expansion" data-label="Job Openings by Expansion (2024-2034)">' . ssotFormatNumber($region['expansion'], $options1) . '</td>';
+          $output .= '<td class="data-align-right lmo-report-replacement" data-label="Job Openings by Replacement (2024-2034)">' . ssotFormatNumber($region['replacement'], $options1) . '</td>';
+          $output .= '<td class="data-align-right lmo-report-openings" data-label="Total Job Openings (2024-2034)">' . ssotFormatNumber($region['openings'], $options1) . '</td>';
+          $output .= '</tr>';
         }
         else {
-          $output .= '<td class="data-align-left lmo-report-region" data-label="Regions">' . $region_name . '</td>';
+          $bc_data = $region;
         }
-        $output .= '<td class="data-align-right lmo-report-employment" data-label="Employment (2024)">' . ssotFormatNumber($region['employment'], $options1) . '</td>';
-        $output .= '<td class="data-align-right lmo-report-growth" data-label="Annual Employment Growth Rate (2024-2034)">' . ssotFormatNumber($region['growth_rate'], $options2) . '</td>';
-        $output .= '<td class="data-align-right lmo-report-expansion" data-label="Job Openings by Expansion (2024-2034)">' . ssotFormatNumber($region['expansion'], $options1) . '</td>';
-        $output .= '<td class="data-align-right lmo-report-replacement" data-label="Job Openings by Replacement (2024-2034)">' . ssotFormatNumber($region['replacement'], $options1) . '</td>';
-        $output .= '<td class="data-align-right lmo-report-openings" data-label="Total Job Openings (2024-2034)">' . ssotFormatNumber($region['openings'], $options1) . '</td>';
-        $output .= '</tr>';
       }
-      $output .= '</tbody></table>';
+      $output .= '</tbody>';
+
+      $output .= '<tfoot class="lmo-region-job-openings-footer">';
+      $output .= '<tr class="interactive-map-row-'. $region['region'] . '">';
+      $output .= '<td class="data-align-left lmo-report-region" data-label="Regions">' . $region_name . '</td>';
+      $output .= '<td class="data-align-right lmo-report-employment" data-label="Employment (2024)">' . ssotFormatNumber($region['employment'], $options1) . '</td>';
+      $output .= '<td class="data-align-right lmo-report-growth" data-label="Annual Employment Growth Rate (2024-2034)">' . ssotFormatNumber($region['growth_rate'], $options2) . '</td>';
+      $output .= '<td class="data-align-right lmo-report-expansion" data-label="Job Openings by Expansion (2024-2034)">' . ssotFormatNumber($region['expansion'], $options1) . '</td>';
+      $output .= '<td class="data-align-right lmo-report-replacement" data-label="Job Openings by Replacement (2024-2034)">' . ssotFormatNumber($region['replacement'], $options1) . '</td>';
+      $output .= '<td class="data-align-right lmo-report-openings" data-label="Total Job Openings (2024-2034)">' . ssotFormatNumber($region['openings'], $options1) . '</td>';
+      $output .= '</tr>';
+      $output .= '</tfoot>';
+
+      $output .= '</table>';
       $source_text = $entity->ssot_data['sources']['label'] ?? WORKBC_EXTRA_FIELDS_NOT_AVAILABLE;
       $output .= <<<END
       <div class="lm-source"><strong>Source:</strong>&nbsp;$source_text</div>
