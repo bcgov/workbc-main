@@ -76,10 +76,9 @@ class JobOpeningsOccupationGroupsChart extends ExtraFieldDisplayFormattedBase {
         $regions[] = $label;
         $series2[] = $category['replacement'];
         $styles2[] = "stroke-color: $colorReplacement; stroke-width: 1;";
-        $annotations2[] = "$replacement\u{00a0}";
+        $annotations2[] = "$expansion | $replacement";
         $tooltips2[] = "<div style=\"margin:10px\"><strong>$label</strong><br><span style=\"white-space:nowrap\">Replacement: <strong>$replacement ($replacement_pct)</strong></span></div>";
         $series1[] = $category['expansion'];
-        $annotations1[] = "$expansion\u{00a0}";
         $tooltips1[] = "<div style=\"margin:10px\"><strong>$label</strong><br><span style=\"white-space:nowrap\">Expansion: <strong>$expansion ($expansion_pct)</strong></span></div>";
         $styles1[] = "stroke-color: $colorExpansion; stroke-width: 1;";
       }
@@ -97,11 +96,6 @@ class JobOpeningsOccupationGroupsChart extends ExtraFieldDisplayFormattedBase {
           '#type' => 'chart_data',
           '#title' => $this->t('Expansion'),
           '#data' => array_slice($series1, 0, -1),
-        ],
-        'series_one_annotations' => [
-          '#type' => 'chart_data',
-          '#title' => ['role' => 'annotation'],
-          '#data' => array_slice($annotations1, 0, -1),
         ],
         'series_one_style' => [
           '#type' => 'chart_data',
@@ -151,6 +145,8 @@ class JobOpeningsOccupationGroupsChart extends ExtraFieldDisplayFormattedBase {
               'isHtml' => TRUE,
             ],
             'annotations' => [
+              'alwaysOutside' => TRUE,
+              'stem' => ['color' => 'transparent'],
               'textStyle' => [
               ]
             ],
