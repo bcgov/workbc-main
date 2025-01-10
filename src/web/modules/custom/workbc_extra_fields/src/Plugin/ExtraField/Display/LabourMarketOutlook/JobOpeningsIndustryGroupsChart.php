@@ -135,13 +135,19 @@ class JobOpeningsIndustryGroupsChart extends ExtraFieldDisplayFormattedBase {
           '#type' => 'chart_yaxis',
         ],
         '#stacking' => TRUE,
-        '#height' => 1500, '#height_units' => 'px',
+        '#height' => 1000, '#height_units' => 'px',
         '#width' => 100, '#width_units' => '%',
         '#legend_position' => 'bottom',
         '#raw_options' => [
           'options' => [
+            'chartArea' => [
+              'left' => 150,
+              'top' => 60,
+              'width' => '60%',
+              'height' => '85%',
+            ],
             'fontSize' => 14,
-            'height' => 1500,
+            'height' => 1000,
             'tooltip' => [
               'isHtml' => TRUE,
             ],
@@ -152,12 +158,12 @@ class JobOpeningsIndustryGroupsChart extends ExtraFieldDisplayFormattedBase {
               ]
             ],
             'bar' => [
-              'groupWidth' => '75%'
+              'groupWidth' => '35'
             ],
           ]
         ]
       ];
-      $output = '<div class="lmo-desktop">';
+      $output = '<div class="lmo-desktop" style="height: 1000px;">';
       $output .= \Drupal::service('renderer')->render($chart);
       $output .= '</div>';
 

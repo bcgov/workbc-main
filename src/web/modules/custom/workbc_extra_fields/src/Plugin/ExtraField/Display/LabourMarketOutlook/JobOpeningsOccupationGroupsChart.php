@@ -140,6 +140,12 @@ class JobOpeningsOccupationGroupsChart extends ExtraFieldDisplayFormattedBase {
         '#legend_position' => 'bottom',
         '#raw_options' => [
           'options' => [
+            'chartArea' => [
+              'left' => 200,
+              'top' => 50,
+              'width' => '60%',
+              'height' => '85%',
+            ],
             'height' => 700,
             'tooltip' => [
               'isHtml' => TRUE,
@@ -151,7 +157,7 @@ class JobOpeningsOccupationGroupsChart extends ExtraFieldDisplayFormattedBase {
               ]
             ],
             'bar' => [
-              'groupWidth' => '75%'
+              'groupWidth' => '35'
             ],
           ]
         ]

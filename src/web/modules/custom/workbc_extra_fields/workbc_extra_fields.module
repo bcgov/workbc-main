@@ -204,8 +204,7 @@ function workbc_extra_fields_chart_definition_alter(array &$definition, array $e
     $definition['options']['hAxis']['baselineColor'] = 'transparent';
     $definition['options']['hAxis']['textPosition'] = 'none';
     $definition['options']['hAxis']['viewWindow']['min'] = -5000;
-    $definition['options']['fontSize'] = 12.5;
-    $definition['options']['annotations']['textStyle']['fontSize'] = 14;
+    $definition['options']['fontSize'] = 14;
   }
 }
 
