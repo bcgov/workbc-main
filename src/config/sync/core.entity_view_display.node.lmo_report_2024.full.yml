@@ -13,6 +13,8 @@ dependencies:
     - field.field.node.lmo_report_2024.field_lmo_2024_labour_market
     - field.field.node.lmo_report_2024.field_lmo_2024_occupational_outl
     - field.field.node.lmo_report_2024.field_lmo_2024_regional_outlook
+    - field.field.node.lmo_report_2024.field_metatag_description
+    - field.field.node.lmo_report_2024.field_tags
     - node.type.lmo_report_2024
   module:
     - entity_reference_revisions
@@ -112,6 +114,8 @@ hidden:
   extra_field_lmo_report_2024_bc_job_openings_composition_chart: true
   extra_field_workbc_page_title: true
   extra_field_workbc_published_on: true
+  field_metatag_description: true
+  field_tags: true
   langcode: true
   search_api_excerpt: true
   uid: true

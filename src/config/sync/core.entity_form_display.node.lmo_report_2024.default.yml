@@ -12,6 +12,8 @@ dependencies:
     - field.field.node.lmo_report_2024.field_lmo_2024_labour_market
     - field.field.node.lmo_report_2024.field_lmo_2024_occupational_outl
     - field.field.node.lmo_report_2024.field_lmo_2024_regional_outlook
+    - field.field.node.lmo_report_2024.field_metatag_description
+    - field.field.node.lmo_report_2024.field_tags
     - node.type.lmo_report_2024
   module:
     - content_moderation
@@ -189,6 +191,24 @@ content:
         collapse_edit_all: collapse_edit_all
         convert: '0'
         duplicate: duplicate
+    third_party_settings: {  }
+  field_metatag_description:
+    type: string_textfield
+    weight: 21
+    region: content
+    settings:
+      size: 60
+      placeholder: ''
+    third_party_settings: {  }
+  field_tags:
+    type: entity_reference_autocomplete_tags
+    weight: 20
+    region: content
+    settings:
+      match_operator: CONTAINS
+      match_limit: 10
+      size: 60
+      placeholder: ''
     third_party_settings: {  }
   langcode:
     type: language_select
