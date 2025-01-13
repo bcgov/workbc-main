@@ -76,7 +76,7 @@ class JobOpeningsIndustryGroupsChart extends ExtraFieldDisplayFormattedBase {
         $regions[] = $label;
         $series2[] = $category['replacement'];
         $styles2[] = "stroke-color: $colorReplacement; stroke-width: 1;";
-        $annotations2[] = "$expansion | $replacement";
+        $annotations2[] = "$expansion / $replacement";
         $tooltips2[] = "<div style=\"margin:10px\"><strong>$label</strong><br><span style=\"white-space:nowrap\">Replacement: <strong>$replacement ($replacement_pct)</strong></span></div>";
         $series1[] = $category['expansion'];
         $tooltips1[] = "<div style=\"margin:10px\"><strong>$label</strong><br><span style=\"white-space:nowrap\">Expansion: <strong>$expansion ($expansion_pct)</strong></span></div>";
@@ -154,8 +154,7 @@ class JobOpeningsIndustryGroupsChart extends ExtraFieldDisplayFormattedBase {
             'annotations' => [
               'alwaysOutside' => TRUE,
               'stem' => ['color' => 'transparent'],
-              'textStyle' => [
-              ]
+              'textStyle' => ['color' => 'black'],
             ],
             'bar' => [
               'groupWidth' => '35'
