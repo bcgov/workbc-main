@@ -77,17 +77,17 @@ class BCJobOpeningsCompositionChart extends ExtraFieldDisplayFormattedBase {
         'yaxis' => [
           '#type' => 'chart_yaxis',
         ],
-        '#legend_position' => 'bottom',
+        '#legend_position' => 'right',
         '#raw_options' => [
           'options' => [
             'chartArea' => [
-              'left' => '20%',
-              'top' => '20%',
-              'width' => '60%',
-              'height' => '60%',
+              'left' => '10%',
+              'top' => '10%',
+              'width' => '80%',
+              'height' => '80%',
             ],
             'pieHole' => 0.7,
-            'height' => 350,
+            'height' => 300,
             'pieSliceText' => 'none',
           ]
         ]
