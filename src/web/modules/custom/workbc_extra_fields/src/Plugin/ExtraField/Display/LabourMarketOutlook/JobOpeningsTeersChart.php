@@ -83,8 +83,15 @@ class JobOpeningsTeersChart extends ExtraFieldDisplayFormattedBase {
         'yaxis' => [
           '#type' => 'chart_yaxis',
         ],
+        '#legend_position' => 'right',
         '#raw_options' => [
           'options' => [
+            'chartArea' => [
+              'left' => '15%',
+              'top' => '15%',
+              'width' => '70%',
+              'height' => '70%',
+            ],
             'pieHole' => 0.7,
             'height' => 400,
             'pieSliceText' => 'none',
