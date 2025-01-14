@@ -144,14 +144,16 @@
     }    
 
     .lmo-region-job-openings-footer {
-      font-weight: bold;
       background-color: $workbc_palette_dark_tertiary;
       color: $workbc_dark_theme_text;
 
       td {
         padding: 20px;
+        font-weight: bold;
       }
+
     }
+    
   }
 
 

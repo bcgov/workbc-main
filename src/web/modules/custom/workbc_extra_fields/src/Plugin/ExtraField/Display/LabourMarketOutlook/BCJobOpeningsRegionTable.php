@@ -95,8 +95,8 @@ class BCJobOpeningsRegionTable extends ExtraFieldDisplayFormattedBase {
       }
       $output .= '</tbody>';
 
-      $output .= '<tfoot class="lmo-region-job-openings-footer">';
-      $output .= '<tr class="interactive-map-row-'. $region['region'] . '">';
+      $output .= '<tfoot>';
+      $output .= '<tr class="lmo-region-job-openings-footer interactive-map-row-'. $region['region'] . '">';
       $output .= '<td class="data-align-left lmo-report-region" data-label="Regions">' . $region_name . '</td>';
       $output .= '<td class="data-align-right lmo-report-employment" data-label="Employment (2024)">' . ssotFormatNumber($region['employment'], $options1) . '</td>';
       $output .= '<td class="data-align-right lmo-report-growth" data-label="Annual Employment Growth Rate (2024-2034)">' . ssotFormatNumber($region['growth_rate'], $options2) . '</td>';
