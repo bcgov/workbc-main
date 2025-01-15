@@ -1,8 +1,9 @@
-uuid: 9b45f942-65dd-4ea9-bc84-bffa9c62d257
+uuid: 025ba533-094b-4795-83aa-30562c47cfa2
 langcode: en
 status: true
 dependencies:
   config:
+    - core.entity_view_mode.node.search_index
     - field.field.node.lmo_report_2024.field_hero_image_media
     - field.field.node.lmo_report_2024.field_hero_text
     - field.field.node.lmo_report_2024.field_lmo_2024_definitions_metho
@@ -18,23 +19,20 @@ dependencies:
   module:
     - entity_reference_revisions
     - text
-id: node.lmo_report_2024.default
+id: node.lmo_report_2024.search_index
 targetEntityType: node
 bundle: lmo_report_2024
-mode: default
+mode: search_index
 content:
   extra_field_lmo_report_2024_job_openings_10y_chart:
     settings: {  }
     third_party_settings: {  }
     weight: 6
     region: content
-  field_hero_image_media:
-    type: entity_reference_label
-    label: above
-    settings:
-      link: true
+  extra_field_lmo_search_index_keywords:
+    settings: {  }
     third_party_settings: {  }
-    weight: 7
+    weight: 0
     region: content
   field_hero_text:
     type: text_default
@@ -50,7 +48,7 @@ content:
       view_mode: default
       link: ''
     third_party_settings: {  }
-    weight: 6
+    weight: 7
     region: content
   field_lmo_2024_education:
     type: entity_reference_revisions_entity_view
@@ -59,7 +57,7 @@ content:
       view_mode: default
       link: ''
     third_party_settings: {  }
-    weight: 1
+    weight: 2
     region: content
   field_lmo_2024_featured_topics:
     type: entity_reference_revisions_entity_view
@@ -68,7 +66,7 @@ content:
       view_mode: default
       link: ''
     third_party_settings: {  }
-    weight: 5
+    weight: 6
     region: content
   field_lmo_2024_industry_outlook:
     type: entity_reference_revisions_entity_view
@@ -77,7 +75,7 @@ content:
       view_mode: default
       link: ''
     third_party_settings: {  }
-    weight: 2
+    weight: 3
     region: content
   field_lmo_2024_labour_market:
     type: entity_reference_revisions_entity_view
@@ -86,7 +84,7 @@ content:
       view_mode: default
       link: ''
     third_party_settings: {  }
-    weight: 0
+    weight: 1
     region: content
   field_lmo_2024_occupational_outl:
     type: entity_reference_revisions_entity_view
@@ -95,7 +93,7 @@ content:
       view_mode: default
       link: ''
     third_party_settings: {  }
-    weight: 4
+    weight: 5
     region: content
   field_lmo_2024_regional_outlook:
     type: entity_reference_revisions_entity_view
@@ -104,7 +102,7 @@ content:
       view_mode: default
       link: ''
     third_party_settings: {  }
-    weight: 3
+    weight: 4
     region: content
 hidden:
   created: true
@@ -112,6 +110,7 @@ hidden:
   extra_field_lmo_report_2024_bc_job_openings_composition_chart: true
   extra_field_workbc_page_title: true
   extra_field_workbc_published_on: true
+  field_hero_image_media: true
   field_metatag_description: true
   field_tags: true
   langcode: true
