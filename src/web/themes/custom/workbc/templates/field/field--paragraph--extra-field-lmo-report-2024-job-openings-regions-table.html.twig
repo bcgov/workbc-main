@@ -60,7 +60,7 @@
 {% set map_no = 0 %}
 {% set regions = region_info %}
 
-<div id=career-profile-interactive-map-1 class="workbc-interactive-map-{{ map_no }}">
+<div class="workbc-interactive-map-{{ map_no }}">
   {% include '@workbc/includes/interactive-map.html.twig' with { map_no, regions } %}
 
   {% for item in items %}

@@ -127,6 +127,7 @@ class JobOpeningsTeersChart extends ExtraFieldDisplayFormattedBase {
       foreach ($entity->ssot_data['lmo_report_2024_job_openings_teers'] as $entry) {
         if ($entry['teer'] === 'Total') continue;
         $output .= '<tr>';
+        $output .= '<td class="data-align-left lmo-mobile">Training, Education, Experience and Responsibilities</td>';
         $output .= '<td class="data-align-left lmo-report-teer" data-label="Training, Education, Experience and Responsibilities">' . $entry['teer'] . '</td>';
         $output .= '<td class="data-align-right lmo-report-openings" data-label="Job Openings">' . ssotFormatNumber($entry['openings_rounded'], $options1) . '</td>';
         $output .= '<td class="data-align-right lmo-report-percentage" data-label="% of Total">' . ssotFormatNumber(100 * $entry['fraction'], $options2) . '</td>';

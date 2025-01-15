@@ -29,6 +29,10 @@ back-to-top:
 mobile-nav:
   js:
     js/mobile-nav.js: {}
+  dependencies:
+    - core/drupal
+    - core/jquery
+    - core/once
 
 nav:
   js:

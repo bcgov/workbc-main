@@ -192,6 +192,7 @@ class JobOpeningsIndustryGroupsChart extends ExtraFieldDisplayFormattedBase {
         $openings = round($entry['openings']);
 
         $output .= '<tr>';
+        $output .= '<td class="data-align-left lmo-mobile">Industry</td>';
         $output .= '<td class="data-align-left lmo-report-industry-group" data-label="Industry">' . $entry['name'] . '</td>';
         $output .= '<td class="data-align-right lmo-report-expansion" data-label="Expansion">' . ssotFormatNumber($expansion, $options1) . '</td>';
         $output .= '<td class="data-align-right lmo-report-replacement" data-label="Replacement">' . ssotFormatNumber($replacement, $options1) . '</td>';

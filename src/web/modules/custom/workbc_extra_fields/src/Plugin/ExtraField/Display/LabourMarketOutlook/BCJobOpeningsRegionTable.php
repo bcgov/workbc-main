@@ -81,6 +81,7 @@ class BCJobOpeningsRegionTable extends ExtraFieldDisplayFormattedBase {
         $region_name = ssotRegionName($region['region']);
         if ($region['region'] <> "british_columbia") {
           $output .= '<tr class="interactive-map-row-'. $region['region'] . '">';
+          $output .= '<td class="data-align-left lmo-mobile">Regions</td>';
           $output .= '<td class="data-align-left lmo-report-region" data-label="Regions"><a href="#' . $region['region']  . '">' . $region_name . '</a></td>';
           $output .= '<td class="data-align-right lmo-report-employment" data-label="Employment (2024)">' . ssotFormatNumber($region['employment'], $options1) . '</td>';
           $output .= '<td class="data-align-right lmo-report-growth" data-label="Annual Employment Growth Rate (2024-2034)">' . ssotFormatNumber($region['growth_rate'], $options2) . '</td>';
