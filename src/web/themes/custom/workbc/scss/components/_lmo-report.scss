@@ -65,12 +65,19 @@
     .lmo-desktop {
       display: none;
     }
+
+    .workbc-interactive-map {
+      .label-line {
+        display: none;
+      }
+      .map-region-label {
+        display: none;
+      }
+    }
   }
 
   table.lmo-report {
-
     @include media-breakpoint-down(md) {
-
       padding: 0 0 0 0;
       border: 0;
       width: 100%;
@@ -89,23 +96,43 @@
         display: block;
         &:not(:last-child) {
           margin-bottom: 3px;
-          border-bottom: 1px solid black;
+          border-bottom: 2px solid lightgray;
         }
       }
 
+      td {
+        background-color: inherit;
+      }
+
+      tr:first-child td.lmo-mobile {
+        background-color: $workbc_dark_theme_background;
+        color: $workbc_dark_theme_text;
+        display: block;
+        font-weight: bold;
+        border: none;
+        margin-top: 1.0em;
+        padding-left: 1.5em !important;
+        padding-top: 1.0em;
+        padding-bottom: 1.0em;
+      }
+      tr:not(:first-child) td.lmo-mobile {
+        display: none;
+      }
+
+      td.lmo-report-industry,
       td.lmo-report-region,
       td.lmo-report-teer,
       td.lmo-report-occupation-group,
       td.lmo-report-industry-group {
         display: block;
-        font-weight: normal;
+        font-weight: bold;
+        color: $workbc_default_link;
         border: none;
-        padding-left: 1.5em;
-        padding-top: 1.5em;
-        padding-bottom: 1.5em;
+        padding-left: 1.5em !important;
+        padding-top: 1.0em;
+        padding-bottom: 1.0em;
       }
 
-      td.lmo-report-industry,
       td.lmo-report-employment,
       td.lmo-report-growth,
       td.lmo-report-expansion,
@@ -115,12 +142,11 @@
         display: block;
         text-align: right;
         border: none;
-        padding-bottom: 1.5em;
-        padding-left: 0 !important;
-        padding-right: 30px;
+        padding-bottom: 1.0em;
+        padding-left: 1.5em;
+        padding-right: 1.5em;
       }
 
-      td.lmo-report-industry::before,
       td.lmo-report-employment::before,
       td.lmo-report-growth::before,
       td.lmo-report-expansion::before,
@@ -129,10 +155,10 @@
       td.lmo-report-openings::before {
         content: attr(data-label);
         float: left;
-        padding-left: 1.5em;
         font-weight: bold;
+        text-align: left;
+        width: 80%;
       }
-
     }
 
     .data-align-center {
@@ -141,22 +167,22 @@
 
     .lmo-report-job-openings-header {
       border-bottom: 2px solid white;
-    }    
+    }
 
     .lmo-region-job-openings-footer {
       background-color: $workbc_palette_dark_tertiary;
       color: $workbc_dark_theme_text;
 
       td {
-        padding: 20px;
         font-weight: bold;
+        color: $workbc_dark_theme_text;
+
+        @include media-breakpoint-up(md) {
+          padding: 20px;
+        }
       }
-
     }
-    
   }
-
-
 
   .paragraph--type--lmo-charts-tables {
     position: relative; // begin positional context %card-profile
@@ -166,7 +192,6 @@
     display: flex;
     flex-flow: column nowrap;
     page-break-inside: avoid;
-  
 
     .field__label {
       text-align: center;
@@ -177,5 +202,4 @@
       padding-bottom: 50px;
     }
   }
-
 }
