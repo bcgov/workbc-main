@@ -202,4 +202,8 @@
       padding-bottom: 50px;
     }
   }
+
+  .paragraph:first-child .profile-content-section__header {
+    padding-top: 0 !important;
+  }
 }
