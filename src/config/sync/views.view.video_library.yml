@@ -646,7 +646,7 @@ display:
           exposed: true
           expose:
             operator_id: field_skills_2_target_id_op
-            label: Skills
+            label: Skillx
             description: ''
             use_operator: false
             operator: field_skills_2_target_id_op
@@ -720,6 +720,44 @@ display:
               global_approver: '0'
               workbc_global_administrator: '0'
               administrator: '0'
+          is_grouped: false
+          group_info:
+            label: ''
+            description: ''
+            identifier: ''
+            optional: true
+            widget: select
+            multiple: false
+            remember: false
+            default_group: All
+            default_group_multiple: {  }
+            group_items: {  }
+        field_exclude_from_video_page_value:
+          id: field_exclude_from_video_page_value
+          table: media__field_exclude_from_video_page
+          field: field_exclude_from_video_page_value
+          relationship: none
+          group_type: group
+          admin_label: ''
+          plugin_id: boolean
+          operator: '='
+          value: '0'
+          group: 1
+          exposed: false
+          expose:
+            operator_id: ''
+            label: ''
+            description: ''
+            use_operator: false
+            operator: ''
+            operator_limit_selection: false
+            operator_list: {  }
+            identifier: ''
+            required: false
+            remember: false
+            multiple: false
+            remember_roles:
+              authenticated: authenticated
           is_grouped: false
           group_info:
             label: ''
