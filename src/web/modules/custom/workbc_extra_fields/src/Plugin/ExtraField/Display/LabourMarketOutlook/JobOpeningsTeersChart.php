@@ -61,12 +61,12 @@ class JobOpeningsTeersChart extends ExtraFieldDisplayFormattedBase {
         '#type' => 'chart',
         '#chart_type' => 'donut',
         '#colors' => array(
-          '#009EE4',
-          '#EB4B00',
-          '#7C0093',
-          '#006E00',
-          '#950067',
-          '#002A59'
+          '#002a59',
+          '#81b216',
+          '#720d8e',
+          '#d95700',
+          '#880364',
+          '#216c06'
         ),
         'series' => [
           '#type' => 'chart_data',
