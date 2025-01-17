@@ -49,15 +49,11 @@ class JobOpeningsIndustryGroupsChart extends ExtraFieldDisplayFormattedBase {
 
     $entity = $paragraph->getParentEntity();
     if (!empty($entity->ssot_data) && isset($entity->ssot_data['lmo_report_2024_job_openings_industries'])) {
+      $clean_string_service = \Drupal::service('pathauto.alias_cleaner');
 
       // Bar chart for desktop.
       $options1 = array(
         'decimals' => 0,
-        'na_if_empty' => TRUE,
-      );
-      $options2 = array(
-        'decimals' => 1,
-        'suffix' => '%',
         'na_if_empty' => TRUE,
       );
 
@@ -68,8 +64,6 @@ class JobOpeningsIndustryGroupsChart extends ExtraFieldDisplayFormattedBase {
       foreach (array_slice($data, 0, 10) as $category) {
         $replacement = ssotFormatNumber($category['replacement'], $options1);
         $expansion = ssotFormatNumber($category['expansion'], $options1);
-        $replacement_pct = ssotFormatNumber(100 * $category['replacement_fraction'], $options2);
-        $expansion_pct = ssotFormatNumber(100 * $category['expansion_fraction'], $options2);
         $label = $category['name'];
         $regions[] = $label;
         $series2[] = $category['replacement'];
@@ -79,6 +73,7 @@ class JobOpeningsIndustryGroupsChart extends ExtraFieldDisplayFormattedBase {
         $series1[] = $category['expansion'];
         $tooltips1[] = "<div style=\"margin:10px\"><strong>$label</strong><br><span style=\"white-space:nowrap\">Expansion: <strong>$expansion</strong></span></div>";
         $styles1[] = "stroke-color: $colorExpansion; stroke-width: 1;";
+        $links[] = '/industry-profile/' . $clean_string_service->cleanString($label);
       }
 
       // Stacked column chart with two series.
@@ -138,6 +133,7 @@ class JobOpeningsIndustryGroupsChart extends ExtraFieldDisplayFormattedBase {
         '#legend_position' => 'bottom',
         '#raw_options' => [
           'options' => [
+            'links' => $links,
             'chartArea' => [
               'left' => 150,
               'top' => 60,
