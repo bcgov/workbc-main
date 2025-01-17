@@ -65,9 +65,7 @@ class JobOpeningsIndustryGroupsChart extends ExtraFieldDisplayFormattedBase {
       $colorExpansion = '#009cde';
 
       $data = $entity->ssot_data['lmo_report_2024_job_openings_industries'];
-      foreach ($data as $category) {
-        if (in_array($category['industry'], ['top_3', 'top_5', 'all_industries'])) continue;
-
+      foreach (array_slice($data, 0, 10) as $category) {
         $replacement = ssotFormatNumber($category['replacement'], $options1);
         $expansion = ssotFormatNumber($category['expansion'], $options1);
         $replacement_pct = ssotFormatNumber(100 * $category['replacement_fraction'], $options2);
@@ -77,9 +75,9 @@ class JobOpeningsIndustryGroupsChart extends ExtraFieldDisplayFormattedBase {
         $series2[] = $category['replacement'];
         $styles2[] = "stroke-color: $colorReplacement; stroke-width: 1;";
         $annotations2[] = "$expansion / $replacement";
-        $tooltips2[] = "<div style=\"margin:10px\"><strong>$label</strong><br><span style=\"white-space:nowrap\">Replacement: <strong>$replacement ($replacement_pct)</strong></span></div>";
+        $tooltips2[] = "<div style=\"margin:10px\"><strong>$label</strong><br><span style=\"white-space:nowrap\">Replacement: <strong>$replacement</strong></span></div>";
         $series1[] = $category['expansion'];
-        $tooltips1[] = "<div style=\"margin:10px\"><strong>$label</strong><br><span style=\"white-space:nowrap\">Expansion: <strong>$expansion ($expansion_pct)</strong></span></div>";
+        $tooltips1[] = "<div style=\"margin:10px\"><strong>$label</strong><br><span style=\"white-space:nowrap\">Expansion: <strong>$expansion</strong></span></div>";
         $styles1[] = "stroke-color: $colorExpansion; stroke-width: 1;";
       }
 
@@ -135,7 +133,7 @@ class JobOpeningsIndustryGroupsChart extends ExtraFieldDisplayFormattedBase {
           '#type' => 'chart_yaxis',
         ],
         '#stacking' => TRUE,
-        '#height' => 1000, '#height_units' => 'px',
+        '#height' => 700, '#height_units' => 'px',
         '#width' => 100, '#width_units' => '%',
         '#legend_position' => 'bottom',
         '#raw_options' => [
@@ -147,7 +145,7 @@ class JobOpeningsIndustryGroupsChart extends ExtraFieldDisplayFormattedBase {
               'height' => '85%',
             ],
             'fontSize' => 14,
-            'height' => 1000,
+            'height' => 700,
             'tooltip' => [
               'isHtml' => TRUE,
             ],
