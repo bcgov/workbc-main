@@ -55,11 +55,6 @@ class JobOpeningsOccupationGroupsChart extends ExtraFieldDisplayFormattedBase {
         'decimals' => 0,
         'na_if_empty' => TRUE,
       );
-      $options2 = array(
-        'decimals' => 1,
-        'suffix' => '%',
-        'na_if_empty' => TRUE,
-      );
 
       $colorReplacement = '#002857';
       $colorExpansion = '#009cde';
@@ -70,10 +65,8 @@ class JobOpeningsOccupationGroupsChart extends ExtraFieldDisplayFormattedBase {
 
         $replacement = ssotFormatNumber($category['replacement'], $options1);
         $expansion = ssotFormatNumber($category['expansion'], $options1);
-        $replacement_pct = ssotFormatNumber(100 * $category['replacement_fraction'], $options2);
-        $expansion_pct = ssotFormatNumber(100 * $category['expansion_fraction'], $options2);
         $label = $category['name'];
-        $regions[] = $label;
+        $labels[] = $label;
         $series2[] = $category['replacement'];
         $styles2[] = "stroke-color: $colorReplacement; stroke-width: 1;";
         $annotations2[] = "$expansion / $replacement";
@@ -95,41 +88,41 @@ class JobOpeningsOccupationGroupsChart extends ExtraFieldDisplayFormattedBase {
         'series_one' => [
           '#type' => 'chart_data',
           '#title' => $this->t('Expansion'),
-          '#data' => array_slice($series1, 0, -1),
+          '#data' => $series1,
         ],
         'series_one_style' => [
           '#type' => 'chart_data',
           '#title' => ['role' => 'style'],
-          '#data' => array_slice($styles1, 0, -1),
+          '#data' => $styles1,
         ],
         'series_one_tooltips' => [
           '#type' => 'chart_data',
           '#title' => ['role' => 'tooltip', 'p' => ['html' => TRUE]],
-          '#data' => array_slice($tooltips1, 0, -1),
+          '#data' => $tooltips1,
         ],
         'series_two' => [
           '#type' => 'chart_data',
           '#title' => $this->t('Replacement'),
-          '#data' => array_slice($series2, 0, -1),
+          '#data' => $series2,
         ],
         'series_two_annotations' => [
           '#type' => 'chart_data',
           '#title' => ['role' => 'annotation'],
-          '#data' => array_slice($annotations2, 0, -1),
+          '#data' => $annotations2,
         ],
         'series_two_style' => [
           '#type' => 'chart_data',
           '#title' => ['role' => 'style'],
-          '#data' => array_slice($styles2, 0, -1),
+          '#data' => $styles2,
         ],
         'series_two_tooltips' => [
           '#type' => 'chart_data',
           '#title' => ['role' => 'tooltip', 'p' => ['html' => TRUE]],
-          '#data' => array_slice($tooltips2, 0, -1),
+          '#data' => $tooltips2,
         ],
         'x_axis' => [
           '#type' => 'chart_xaxis',
-          '#labels' => array_slice($regions, 0, -1),
+          '#labels' => $labels,
         ],
         'y_axis' => [
           '#type' => 'chart_yaxis',
