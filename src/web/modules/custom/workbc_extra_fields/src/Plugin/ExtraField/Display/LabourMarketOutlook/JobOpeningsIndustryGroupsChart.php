@@ -133,7 +133,7 @@ class JobOpeningsIndustryGroupsChart extends ExtraFieldDisplayFormattedBase {
         '#legend_position' => 'bottom',
         '#raw_options' => [
           'options' => [
-            'links' => $links,
+            //'links' => $links,
             'chartArea' => [
               'left' => 150,
               'top' => 60,
