@@ -191,18 +191,35 @@ function workbc_extra_fields_chart_definition_alter(array &$definition, array $e
   }
 
   if ($chart_id === 'lmo_report_2024_job_openings_industries_chart') {
-    $definition['options']['hAxis']['gridlines']['count'] = 0;
+    $definition['options']['hAxis']['gridlines']['color'] = 'transparent';
+    $definition['options']['hAxis']['ticks'] = [
+      0,
+      ['v' => 40000, 'f' => '40,000'],
+      ['v' => 80000, 'f' => '80,000'],
+      ['v' => 120000, 'f' => '120,000'],
+      ['v' => 160000, 'f' => '160,000'],
+      ['v' => 200000, 'f' => '200,000'],
+    ];
     $definition['options']['hAxis']['baselineColor'] = 'transparent';
-    $definition['options']['hAxis']['textPosition'] = 'none';
+    $definition['options']['hAxis']['textPosition'] = 'out';
     $definition['options']['hAxis']['viewWindow']['min'] = -5000;
-    $definition['options']['hAxis']['viewWindow']['max'] = 180000;
+    $definition['options']['hAxis']['viewWindow']['max'] = 200000;
     $definition['options']['fontSize'] = 14;
   }
 
   if ($chart_id === 'lmo_report_2024_job_openings_broad_categories_chart') {
-    $definition['options']['hAxis']['gridlines']['count'] = 0;
+    $definition['options']['hAxis']['gridlines']['color'] = 'transparent';
+    $definition['options']['hAxis']['ticks'] = [
+      0,
+      ['v' => 50000, 'f' => '50,000'],
+      ['v' => 100000, 'f' => '100,000'],
+      ['v' => 150000, 'f' => '150,000'],
+      ['v' => 200000, 'f' => '200,000'],
+      ['v' => 250000, 'f' => '250,000'],
+      ['v' => 300000, 'f' => '300,000'],
+    ];
     $definition['options']['hAxis']['baselineColor'] = 'transparent';
-    $definition['options']['hAxis']['textPosition'] = 'none';
+    $definition['options']['hAxis']['textPosition'] = 'out';
     $definition['options']['hAxis']['viewWindow']['min'] = -5000;
     $definition['options']['fontSize'] = 14;
   }

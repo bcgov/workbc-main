@@ -137,7 +137,7 @@ class JobOpeningsOccupationGroupsChart extends ExtraFieldDisplayFormattedBase {
               'left' => 200,
               'top' => 50,
               'width' => '60%',
-              'height' => '85%',
+              'height' => '80%',
             ],
             'height' => 700,
             'tooltip' => [

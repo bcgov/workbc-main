@@ -137,8 +137,8 @@ class JobOpeningsIndustryGroupsChart extends ExtraFieldDisplayFormattedBase {
             'chartArea' => [
               'left' => 150,
               'top' => 60,
-              'width' => '60%',
-              'height' => '85%',
+              'width' => '65%',
+              'height' => '80%',
             ],
             'fontSize' => 14,
             'height' => 700,
