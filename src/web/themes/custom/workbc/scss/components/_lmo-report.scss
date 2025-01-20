@@ -206,4 +206,22 @@
   .paragraph:first-child .profile-content-section__header {
     padding-top: 0 !important;
   }
+
+  .paragraph--key--occupational-categories {
+    table {
+      margin-bottom: 24px;
+      box-shadow: 0 0 15px 0 rgba(0, 0, 0, .15);
+      padding: 24px;
+
+      tr td {
+        background-color: white;
+      }
+      td {
+        text-align: center;
+        vertical-align: top;
+        width: 20%;
+        border: none;
+      }
+    }
+  }
 }
