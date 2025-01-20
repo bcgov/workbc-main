@@ -270,6 +270,9 @@
             },
             "drupal/expand_collapse_formatter" : {
                 "Support summary": "patches/drupal/expand_collapse_formatter/support_summary.patch"
+            },
+            "drupal/responsive_menu": {
+                "Toolbar dependency": "patches/drupal/responsive_menu/3404945-toolbar-dependency.patch"
             }
         }
     }

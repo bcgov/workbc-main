@@ -213,10 +213,24 @@
       box-shadow: 0 0 15px 0 rgba(0, 0, 0, .15);
       padding: 24px;
 
-      tr td {
-        background-color: white;
+      tr:first-child td {
+        padding-top: 30px;
       }
+
+      tr:last-child td {
+        padding-bottom: 30px;
+      }
+
       td {
+        &:first-child {
+          padding-left: 30px;
+        }
+
+        &:last-child {
+          padding-right: 30px;
+        }
+
+        background-color: white;
         text-align: center;
         vertical-align: top;
         width: 20%;

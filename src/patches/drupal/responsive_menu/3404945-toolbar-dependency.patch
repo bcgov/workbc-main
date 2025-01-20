@@ -1,0 +1,10 @@
+diff --git a/responsive_menu.libraries.yml b/responsive_menu.libraries.yml
+index 703eb4f594..d5aaa563db 100644
+--- a/responsive_menu.libraries.yml
++++ b/responsive_menu.libraries.yml
+@@ -57,3 +57,5 @@ responsive_menu.toolbar:
+   version: VERSION
+   js:
+     js/views/ToolbarVisualView.js: {}
++  dependencies:
++    - toolbar/toolbar
