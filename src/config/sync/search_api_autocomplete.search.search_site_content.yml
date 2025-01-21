@@ -7,7 +7,6 @@ dependencies:
     - views.view.search_site_content
   module:
     - views
-    - search_api_autocomplete
 id: search_site_content
 label: 'Search: Site Content'
 index_id: default_content_index
@@ -32,6 +31,7 @@ suggester_settings:
         region_profile: ''
         success_story: ''
         workbc_centre: ''
+    suggest_keys: false
 suggester_weights:
   live_results: 0
 suggester_limits: {  }

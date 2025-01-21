@@ -1,0 +1,241 @@
+.page-node-type-lmo-report-2024 {
+
+  .tab-pane.active {
+    @include media-breakpoint-up(lg) {
+      display: flex;
+      gap: 20px;
+    }
+  }
+
+  .node-page-content {
+    @include media-breakpoint-up(lg) {
+      flex: 1 0 80%;
+    }
+  }
+
+  .page-sidebar {
+    @include media-breakpoint-up(lg) {
+      flex: 1 0 20%;
+    }
+  }
+
+  .workbc-profile {
+    .profile-content-container {
+      .profile-content-main {
+        @include media-breakpoint-up(lg) {
+          flex: 0 0 100%;
+          width: 100%;
+          padding-right: 20px;
+        }
+      }
+    }
+  }
+
+  .paragraph--type--content-text {
+    padding: 0px;
+
+    h2 {
+      font-size: 21px;
+      font-weight: normal;
+      line-height: 2em;
+      padding-bottom: 15px;
+      margin-bottom: 20px;
+
+      @include gradient-underline;
+
+      @include media-breakpoint-up(sm) {
+        font-size: 30px;
+        line-height: 1.5em;
+      }
+    }
+
+    img.img-fluid {
+      padding-bottom: 15px;
+    }
+
+  }
+
+  @include media-breakpoint-up(md) {
+    .lmo-mobile {
+      display: none;
+    }
+  }
+
+  @include media-breakpoint-down(md) {
+    .lmo-desktop {
+      display: none;
+    }
+
+    .workbc-interactive-map {
+      .label-line {
+        display: none;
+      }
+      .map-region-label {
+        display: none;
+      }
+    }
+  }
+
+  table.lmo-report {
+    @include media-breakpoint-down(md) {
+      padding: 0 0 0 0;
+      border: 0;
+      width: 100%;
+      overflow-x: hidden;
+
+      thead {
+        display: none;
+      }
+
+      tbody td {
+        padding: 0 0 0 0;
+      }
+
+      tbody tr {
+        padding: 0 0 0 0;
+        display: block;
+        &:not(:last-child) {
+          margin-bottom: 3px;
+          border-bottom: 2px solid lightgray;
+        }
+      }
+
+      td {
+        background-color: inherit;
+      }
+
+      tr:first-child td.lmo-mobile {
+        background-color: $workbc_dark_theme_background;
+        color: $workbc_dark_theme_text;
+        display: block;
+        font-weight: bold;
+        border: none;
+        margin-top: 1.0em;
+        padding-left: 1.5em !important;
+        padding-top: 1.0em;
+        padding-bottom: 1.0em;
+      }
+      tr:not(:first-child) td.lmo-mobile {
+        display: none;
+      }
+
+      td.lmo-report-industry,
+      td.lmo-report-region,
+      td.lmo-report-teer,
+      td.lmo-report-occupation-group,
+      td.lmo-report-industry-group {
+        display: block;
+        font-weight: bold;
+        color: $workbc_default_link;
+        border: none;
+        padding-left: 1.5em !important;
+        padding-top: 1.0em;
+        padding-bottom: 1.0em;
+      }
+
+      td.lmo-report-employment,
+      td.lmo-report-growth,
+      td.lmo-report-expansion,
+      td.lmo-report-replacement,
+      td.lmo-report-percentage,
+      td.lmo-report-openings {
+        display: block;
+        text-align: right;
+        border: none;
+        padding-bottom: 1.0em;
+        padding-left: 1.5em;
+        padding-right: 1.5em;
+      }
+
+      td.lmo-report-employment::before,
+      td.lmo-report-growth::before,
+      td.lmo-report-expansion::before,
+      td.lmo-report-replacement::before,
+      td.lmo-report-percentage::before,
+      td.lmo-report-openings::before {
+        content: attr(data-label);
+        float: left;
+        font-weight: bold;
+        text-align: left;
+        width: 80%;
+      }
+    }
+
+    .data-align-center {
+      text-align: center !important;
+    }
+
+    .lmo-report-job-openings-header {
+      border-bottom: 2px solid white;
+    }
+
+    .lmo-region-job-openings-footer {
+      background-color: $workbc_palette_dark_tertiary;
+      color: $workbc_dark_theme_text;
+
+      td {
+        font-weight: bold;
+        color: $workbc_dark_theme_text;
+
+        @include media-breakpoint-up(md) {
+          padding: 20px;
+        }
+      }
+    }
+  }
+
+  .paragraph--type--lmo-charts-tables {
+    position: relative; // begin positional context %card-profile
+    margin-bottom: 24px;
+    box-shadow: 0 0 15px 0 rgba(0, 0, 0, 0.15);
+    padding: $card-padding 40px $card-padding 40px;
+    display: flex;
+    flex-flow: column nowrap;
+    page-break-inside: avoid;
+
+    .field__label {
+      text-align: center;
+      font-size: 18px;
+    }
+
+    .lmo-report-table .field__label {
+      padding-bottom: 50px;
+    }
+  }
+
+  .paragraph:first-child .profile-content-section__header {
+    padding-top: 0 !important;
+  }
+
+  .paragraph--key--occupational-categories {
+    table {
+      margin-bottom: 24px;
+      box-shadow: 0 0 15px 0 rgba(0, 0, 0, .15);
+      padding: 24px;
+
+      tr:first-child td {
+        padding-top: 30px;
+      }
+
+      tr:last-child td {
+        padding-bottom: 30px;
+      }
+
+      td {
+        &:first-child {
+          padding-left: 30px;
+        }
+
+        &:last-child {
+          padding-right: 30px;
+        }
+
+        background-color: white;
+        text-align: center;
+        vertical-align: top;
+        width: 20%;
+        border: none;
+      }
+    }
+  }
+}

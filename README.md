@@ -13,7 +13,12 @@ This is the [WorkBC.ca](https://workbc.ca) site on Drupal.
   - `docker-compose exec php sudo chown www-data /var/www/html/config/sync`
 - Import the init data dumps:
   - `gunzip -k -c src/scripts/workbc-init.sql.gz | docker-compose exec -T postgres psql -U workbc workbc`
-  - Restore the SSOT data dump as per the [`workbc-ssot` README](https://github.com/bcgov/workbc-ssot?tab=readme-ov-file#development)
+  - Restore the SSOT data dump as per the [`workbc-ssot` README](https://github.com/bcgov/workbc-ssot?tab=readme-ov-file#development). Assuming your SSOT repo lives at `../workbc-ssot`:
+  ```bash
+  docker-compose exec -T postgres psql --username workbc ssot < ../workbc-ssot/ssot-reset.sql \
+  && gunzip -k -c ../workbc-ssot/ssot-full.sql.gz | docker-compose exec -T postgres psql --username workbc ssot \
+  && docker-compose kill -s SIGUSR1 ssot
+  ```
 - Create the Solr index:
   - `docker-compose exec -u 0 solr sh -c "chown -R solr:solr /opt/solr/server/solr/workbc_dev"`
   - `docker-compose exec solr sh -c "curl -sIN 'http://localhost:8983/solr/admin/cores?action=CREATE&name=workbc_dev&configSet=workbc&instanceDir=workbc_dev'"`

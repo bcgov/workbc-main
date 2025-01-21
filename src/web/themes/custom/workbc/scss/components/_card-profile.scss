@@ -27,6 +27,10 @@ $card-divider-size: calc(2 * $card-divider-size-half);
     flex: 1 1 100%;
   }
 
+  a.info-tooltip {
+    display: inline-block;
+  }
+
   h2 {
     flex: 0 0;
     display: block;
@@ -59,7 +63,7 @@ $card-divider-size: calc(2 * $card-divider-size-half);
   align-items: center;
   flex: 1 1;
   page-break-inside: avoid;
-  
+
   @include media-breakpoint-up(lg) {
     flex: 1 1 100%;
   }
@@ -354,7 +358,7 @@ h3.card-profile__content-header {
 }
 
 .industry-profile-workforce {
-  overflow-x: unset; 
+  overflow-x: unset;
 }
 
 .workbc-data-not-available-200 {

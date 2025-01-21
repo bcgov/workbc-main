@@ -37,13 +37,21 @@ define ("WORK_BC_INTERACTIVE_MAP_5", 4);  // Industry Profile Employment by Regi
 
 define ('SSOT_PING_TIMEOUT', 5);
 
+// Define function array_find which is only available in PHP 8 >= 8.4.0.
+// https://www.php.net/manual/en/function.array-find.php
+if (!function_exists('array_find')) {
+  function array_find(array $array, callable $callback): mixed {
+    $found = array_filter($array, $callback, ARRAY_FILTER_USE_BOTH);
+    return reset($found) ?? null;
+  }
+}
 
-/*
-
-we use hook_entity_view instead of hook_entity_load as we only need to load data from SSoT
-for the node that is being displayed, not for nodes that are being referenced.
-
-*/
+/**
+ * Implements hook_node_view().
+ *
+ * We use hook_entity_view instead of hook_entity_load as we only need to load data from SSoT
+ * for the node that is being displayed, not for nodes that are being referenced.
+ */
 function workbc_extra_fields_node_view(array &$build, \Drupal\Core\Entity\EntityInterface $entity, \Drupal\Core\Entity\Display\EntityViewDisplayInterface $display, $view_mode) {
 
   if ($view_mode === "full" || $view_mode === "search_index" || $view_mode === "career_profile_search_index") {
@@ -54,10 +62,9 @@ function workbc_extra_fields_node_view(array &$build, \Drupal\Core\Entity\Entity
 
     switch($entity->bundle()) {
       case "labour_market_monthly":
-        //Example: http://localhost:3000/monthly_labour_market_updates?year=eq.2022&month=eq.1
         $year = \Drupal::request()->query->get('year');
         $month = \Drupal::request()->query->get('month');
-        $entity->ssot_data = ssotLabourMarketMonthly($year,$month);
+        $entity->ssot_data = ssotLabourMarketMonthly($year, $month);
         break;
       case "career_profile":
         $entity->ssot_data = ssotCareerProfile($entity->get("field_noc")->getString());
@@ -71,18 +78,204 @@ function workbc_extra_fields_node_view(array &$build, \Drupal\Core\Entity\Entity
       case "bc_profile":
         $entity->ssot_data = ssotBCProfile($entity->getTitle());
         break;
+      case "lmo_report_2024":
+        $entity->ssot_data = ssotLabourMarketYearly();
+        break;
     }
   }
 }
 
+/**
+ * Implements hook_page_attachments_alter().
+ */
+function workbc_extra_fields_page_attachments_alter(array &$attachments) {
+  $attachments['#attached']['library'][] = 'workbc_extra_fields/extra-fields';
+}
 
-function ssotLabourMarketMonthly($year = null, $month = null){
+/**
+ * Implements hook_chart_definition_alter().
+ *
+ * Alter an individual chart's raw library representation.
+ *
+ * This hook is called AFTER hook_chart_alter(), after Charts module has
+ * converted the renderable into the chart definition that will be used by the
+ * library. Note that the structure of $definition will differ based on the
+ * charting library used. Switching charting libraries may cause your code
+ * to break when using this hook.
+ *
+ * Even though this hook may be fragile, it may provide developers with access
+ * to library-specific functionality.
+ *
+ * @param array $definition
+ *   The chart definition to be modified. The raw values are passed directly to
+ *   the charting library.
+ * @param array $element
+ *   The chart renderable. This may be used for reference (or read to add
+ *   support for new properties), but any changes to this variable will not
+ *   have an effect on output.
+ * @param string $chart_id
+ *   The chart ID, derived from the $chart['#chart_id'] property. Note that not
+ *   all charts may have a $chart_id.
+ */
+function workbc_extra_fields_chart_definition_alter(array &$definition, array $element, $chart_id) {
+
+  $definition['options']['fontName'] = 'BCSans';
+  $definition['options']['fontSize'] = 15;
+
+  if ($definition['visualization'] === 'ColumnChart') {
+    $colors = ['#009CDE', '#002857', '#2E6AB0'];
+    foreach ($definition['data'] as $key => $value) {
+      if ($key === 0) {
+        $definition['data'][0][] = ['role' => 'style'];
+      }
+      else {
+        if ($chart_id === 'career-forecasted-job-openings') {
+          $definition['data'][$key][] = $colors[$key % 3];
+        }
+        else if (in_array($chart_id, [
+          'career-forecasted-employment-growth-rate',
+          'region-forecasted-employment-growth-rate'
+        ])) {
+          $definition['data'][$key][] = ($key % 2) ? '#002857' : '#2E6AB0';
+        }
+       else {
+         $definition['data'][$key][] = ($key % 2) ? '#2E6AB0' : '#002857';
+        }
+      }
+    }
+  }
+
+  if ($definition['visualization'] === 'BarChart' && in_array($chart_id, [
+    'bc-share-of-employment',
+    'bc-share-of-employment-avg'
+  ])) {
+    $definition['options']['hAxis']['gridlines']['count'] = 0;
+    $definition['options']['hAxis']['baselineColor'] = 'transparent';
+    $definition['options']['hAxis']['textPosition'] = 'none';
+    $definition['options']['chartArea']['height'] = $chart_id === 'bc-share-of-employment' ? 400 : 80;
+    $definition['options']['chartArea']['width'] = '50%';
+    if ($chart_id == 'bc-share-of-employment-avg') {
+      $definition['options']['vAxis']['textStyle']['bold'] = TRUE;
+    }
+    $definition['options']['fontSize'] = 16;
+  }
+
+  if ($definition['visualization'] === 'LineChart' && in_array($chart_id, [
+    'bc-unemployment-rate',
+    'region-unemployment-rate'
+  ])) {
+    $definition['options']['hAxis']['gridlines']['count'] = 0;
+    $definition['options']['vAxis']['gridlines']['multiple'] = 2;
+    $definition['options']['vAxis']['ticks'] = array(0,2,4,6,8,10,12,14,16,18,20,22,24,26,28,30);
+    $definition['options']['height'] = 350;
+    $definition['options']['fontSize'] = 15;
+  }
+
+  if ($definition['visualization'] === 'DonutChart') {
+    $definition['options']['fontSize'] = 16;
+  }
+
+  if ($definition['visualization'] === 'DonutChart' && in_array($chart_id, [
+    'industry-employment-by-sex',
+    'industry-bc-average'
+  ])) {
+    $definition['options']['width'] = 415;
+  }
+
+  if (in_array($chart_id, [
+    'career-composition-job-openings',
+    'region-composition-job-openings',
+    'bc-composition-job-openings',
+  ])) {
+    $definition['options']['tooltip']['text'] = 'percentage';
+  }
+
+  if ($chart_id === 'lmo_report_2024_job_openings_industries_chart') {
+    $definition['options']['hAxis']['gridlines']['color'] = 'transparent';
+    $definition['options']['hAxis']['ticks'] = [
+      0,
+      ['v' => 40000, 'f' => '40,000'],
+      ['v' => 80000, 'f' => '80,000'],
+      ['v' => 120000, 'f' => '120,000'],
+      ['v' => 160000, 'f' => '160,000'],
+      ['v' => 200000, 'f' => '200,000'],
+    ];
+    $definition['options']['hAxis']['baselineColor'] = 'transparent';
+    $definition['options']['hAxis']['textPosition'] = 'out';
+    $definition['options']['hAxis']['viewWindow']['min'] = -5000;
+    $definition['options']['hAxis']['viewWindow']['max'] = 200000;
+    $definition['options']['fontSize'] = 14;
+  }
+
+  if ($chart_id === 'lmo_report_2024_job_openings_broad_categories_chart') {
+    $definition['options']['hAxis']['gridlines']['color'] = 'transparent';
+    $definition['options']['hAxis']['ticks'] = [
+      0,
+      ['v' => 50000, 'f' => '50,000'],
+      ['v' => 100000, 'f' => '100,000'],
+      ['v' => 150000, 'f' => '150,000'],
+      ['v' => 200000, 'f' => '200,000'],
+      ['v' => 250000, 'f' => '250,000'],
+      ['v' => 300000, 'f' => '300,000'],
+    ];
+    $definition['options']['hAxis']['baselineColor'] = 'transparent';
+    $definition['options']['hAxis']['textPosition'] = 'out';
+    $definition['options']['hAxis']['viewWindow']['min'] = -5000;
+    $definition['options']['fontSize'] = 14;
+  }
+}
+
+/**
+ * Implements hook_views_pre_render().
+ *
+ * Populate view results with SSoT data here so API is called only once per row.
+ */
+function workbc_extra_fields_views_pre_render(ViewExecutable $view) {
+
+  if ($view->id() == "industry_profiles") {
+    foreach($view->result as $key => $result) {
+      $view->result[$key]->ssot_data = ssotIndustryProfile($result->node_field_data_title);
+    }
+  }
+}
+
+/**
+ * Implements hook_cron().
+ */
+function workbc_extra_fields_cron() {
+  epbcSetPrograms();
+}
+
+/************************* SSOT FUNCTIONS ****************************/
+
+function ssotLabourMarketYearly() {
+  return [
+    'schema' => ssotSchema(),
+    'lmo_report_2024_job_openings_10y' => querySSoT('lmo_report_2024_job_openings_10y'),
+    'lmo_report_2024_job_openings_annual' => querySSoT('lmo_report_2024_job_openings_annual'),
+    'lmo_report_2024_job_openings_teers' => querySSoT('lmo_report_2024_job_openings_teers'),
+    'lmo_report_2024_job_openings_industries' => querySSoT('lmo_report_2024_job_openings_industries'),
+    'lmo_report_2024_job_openings_broad_categories' => querySSoT('lmo_report_2024_job_openings_broad_categories'),
+    'lmo_report_2024_job_openings_regions' => querySSoT('lmo_report_2024_job_openings_regions'),
+    'lmo_report_2024_job_openings_vancouver_island_coast' => querySSoT('lmo_report_2024_job_openings_vancouver_island_coast'),
+    'lmo_report_2024_job_openings_mainland_southwest' => querySSoT('lmo_report_2024_job_openings_mainland_southwest'),
+    'lmo_report_2024_job_openings_thompson_okanagan' => querySSoT('lmo_report_2024_job_openings_thompson_okanagan'),
+    'lmo_report_2024_job_openings_kootenay' => querySSoT('lmo_report_2024_job_openings_kootenay'),
+    'lmo_report_2024_job_openings_cariboo' => querySSoT('lmo_report_2024_job_openings_cariboo'),
+    'lmo_report_2024_job_openings_north_coast_nechako' => querySSoT('lmo_report_2024_job_openings_north_coast_nechako'),
+    'lmo_report_2024_job_openings_northeast' => querySSoT('lmo_report_2024_job_openings_northeast'),
+    'sources' => querySSoT('sources?endpoint=eq.lmo_report_2024_job_openings_10y')[0]
+  ];
+}
+
+function ssotLabourMarketMonthly($year = null, $month = null) {
   $data = array();
 
   // Months years data for select list element on top of the page.
   $data['monthly_labour_market_updates_months_years'] = querySSoT('monthly_labour_market_updates?select=year%2Cmonth&order=year.desc%2Cmonth.desc');
 
   // Full data query.
+  // http://localhost:3000/monthly_labour_market_updates?year=eq.2022&month=eq.1
   $parameters = 'order=year.desc%2Cmonth.desc';
   if(!empty($year)) {
     $parameters .= '&year=eq.' . $year;
@@ -103,11 +296,18 @@ function ssotLabourMarketMonthly($year = null, $month = null){
   $data['schema'] = ssotSchema();
 
   // Source metadata.
-  $endpoint = 'monthly_labour_market_updates';
-  $sources = querySSoT('sources?endpoint=eq.' . $endpoint);
+  // We read all monthly_labour_market_updates entries because we need to find the following:
+  // - The entry for any non-empty datapoint
+  // - The entry for the current period
+  $sources = querySSoT('sources?endpoint=eq.monthly_labour_market_updates');
+  $period = "$currentYear-" . str_pad($currentMonth, 2, '0', STR_PAD_LEFT);
   foreach($sources as $source) {
-    $datapoint = !empty($source['datapoint'])?$source['datapoint'] : 'no-datapoint';
-    $data['sources'][$datapoint] = $source['label'];
+    if (!empty($source['datapoint'])) {
+      $data['sources'][$source['datapoint']] = $source['label'];
+    }
+    else if (str_starts_with($source['period'], $period)) {
+      $data['sources']['no-datapoint'] = $source['label'];
+    }
   }
 
   return $data;
@@ -136,8 +336,6 @@ function ssotBCProfile($region) {
   return $data;
 }
 
-
-
 function ssotRegionProfile($region) {
 
   $region = ssotRegionKey($region);
@@ -159,7 +357,6 @@ function ssotRegionProfile($region) {
   $data['region'] = $region;
   return $data;
 }
-
 
 function ssotIndustryProfile($industryName) {
   $data = array();
@@ -199,7 +396,6 @@ function ssotCareerProfile($noc) {
   return $data;
 }
 
-
 function ssotParseDateRange($schema, $section, $field = "") {
 
   $match = "";
@@ -233,7 +429,7 @@ function ssotSources() {
   }, []);
 }
 
-function querySSoT($url, $read_timeout = NULL) {
+function querySSoT($endpoint, $read_timeout = NULL) {
   $ssot = rtrim(\Drupal::config('workbc')->get('ssot_url'), '/');
   $client = new Client();
   try {
@@ -241,7 +437,7 @@ function querySSoT($url, $read_timeout = NULL) {
     if ($read_timeout) {
       $options['read_timeout'] = $read_timeout;
     }
-    $response = $client->get($ssot . '/' . $url, $options);
+    $response = $client->get($ssot . '/' . $endpoint, $options);
     $result = json_decode($response->getBody(), TRUE);
     return $result;
   }
@@ -249,11 +445,6 @@ function querySSoT($url, $read_timeout = NULL) {
     \Drupal::logger('workbc_extra_fields')->error($e->getMessage());
     return NULL;
   }
-}
-
-
-function workbc_extra_fields_page_attachments_alter(array &$attachments) {
-  $attachments['#attached']['library'][] = 'workbc_extra_fields/extra-fields';
 }
 
 function ssotLatestMonthlyLabourMarketUpdate($sourceData) {
@@ -268,7 +459,6 @@ function ssotLatestMonthlyLabourMarketUpdate($sourceData) {
   }
   return $latestIdx;
 }
-
 
 function ssotRegions() {
   static $regions = array(
@@ -285,7 +475,6 @@ function ssotRegions() {
   return $regions;
 }
 
-
 function ssotRegionIds() {
   static $regions = array(
     "cariboo" => REGION_CARIBOO_ID,
@@ -300,8 +489,6 @@ function ssotRegionIds() {
 
   return $regions;
 }
-
-
 
 function ssotRegionKey($region) {
   $key = array_search ($region, ssotRegions());
@@ -333,7 +520,6 @@ function ssotRegionLink($machine_name) {
   return isset($regions[$machine_name]) ? $regions[$machine_name] : "";
 }
 
-
 function ssotRegionInfo() {
 
   $region_info = array();
@@ -355,7 +541,6 @@ function ssotRegionInfo() {
   array_multisort($id_values, SORT_ASC, $region_info);
   return $region_info;
 }
-
 
 function ssotProcessEmploymentIndustry($ssotdata) {
 
@@ -456,7 +641,6 @@ function ssotFormatNumber($number, $options = []) {
 /**
  * Get Current and Previous Month Year.
  */
-
 function ssotGetPreviousMonthYear($currentMonth, $currentYear) {
 
     if(empty($currentMonth) || empty($currentYear)){
@@ -485,25 +669,6 @@ function ssotGetPreviousMonthYear($currentMonth, $currentYear) {
     return $data;
 }
 
-/*
-   populate view results with SSoT data here so API is called only
-   once per row.
- */
-
-function workbc_extra_fields_views_pre_render(ViewExecutable $view) {
-
-  if ($view->id() == "industry_profiles") {
-    foreach($view->result as $key => $result) {
-      $view->result[$key]->ssot_data = ssotIndustryProfile($result->node_field_data_title);
-    }
-  }
-}
-
-function workbc_extra_fields_cron() {
-  epbcSetPrograms();
-}
-
-
 function epbcGetPrograms($nocid) {
 
   $data = \Drupal::state()->get('epbc_education_programs', []);
@@ -517,7 +682,6 @@ function epbcGetPrograms($nocid) {
   }
   return $programs;
 }
-
 
 function epbcSetPrograms() {
   // Disable for now.
@@ -560,8 +724,6 @@ function epbcSetPrograms() {
   \Drupal::state()->set('epbc_education_programs', $epbcData);
   \Drupal::logger('workbc_extra_fields')->notice("Pulled latest program data from Education Planner BC.");
 }
-
-
 
 function workbcInteractiveMap($map_id) {
 
@@ -624,110 +786,3 @@ function workbcInteractiveMap($map_id) {
   $map .= '</div>';
   return $map;
 }
-
-
-/**
- * Alter an individual chart's raw library representation.
- *
- * This hook is called AFTER hook_chart_alter(), after Charts module has
- * converted the renderable into the chart definition that will be used by the
- * library. Note that the structure of $definition will differ based on the
- * charting library used. Switching charting libraries may cause your code
- * to break when using this hook.
- *
- * Even though this hook may be fragile, it may provide developers with access
- * to library-specific functionality.
- *
- * @param array $definition
- *   The chart definition to be modified. The raw values are passed directly to
- *   the charting library.
- * @param array $element
- *   The chart renderable. This may be used for reference (or read to add
- *   support for new properties), but any changes to this variable will not
- *   have an effect on output.
- * @param string $chart_id
- *   The chart ID, derived from the $chart['#chart_id'] property. Note that not
- *   all charts may have a $chart_id.
- */
-function workbc_extra_fields_chart_definition_alter(array &$definition, array $element, $chart_id) {
-
-  if ($definition['visualization'] == "ColumnChart") {
-    $colors = ["#009CDE", "#002857", "#2E6AB0"];
-    foreach ($definition['data'] as $key => $value) {
-      if ($key == 0) {
-        $definition['data'][0][] = ['role' => 'style'];
-      }
-      else {
-        if ($chart_id == "career-forecasted-job-openings") {
-          $definition['data'][$key][] = $colors[$key % 3];
-        }
-        else if ($chart_id == "career-forecasted-employment-growth-rate" ||
-                 $chart_id == "region-forecasted-employment-growth-rate") {
-          $definition['data'][$key][] = ($key % 2) ? "#002857" : "#2E6AB0";
-        }
-       else {
-         $definition['data'][$key][] = ($key % 2) ? "#2E6AB0" : "#002857";
-        }
-      }
-    }
-  }
-
-  $definition['options']['fontName'] = "BCSans";
-  $definition['options']['fontSize'] = 15;
-
-  if (
-    $definition['visualization'] == "BarChart" &&
-    in_array($chart_id, ['bc-share-of-employment', 'bc-share-of-employment-avg'])
-  ) {
-    $definition['options']['hAxis']['gridlines']['count'] = 0;
-    $definition['options']['hAxis']['baselineColor'] = 'transparent';
-    $definition['options']['hAxis']['textPosition'] = 'none';
-    $definition['options']['chartArea']['height'] = $chart_id == 'bc-share-of-employment' ? 400 : 80;
-    $definition['options']['chartArea']['width'] = '50%';
-    if ($chart_id == 'bc-share-of-employment-avg') {
-      $definition['options']['vAxis']['textStyle']['bold'] = TRUE;
-    }
-    $definition['options']['fontSize'] = 16;
-  }
-
-  if (
-    $definition['visualization'] == "LineChart"  &&
-    in_array($chart_id, ['bc-unemployment-rate', 'region-unemployment-rate'])
-  ) {
-    $definition['options']['hAxis']['gridlines']['count'] = 0;
-    $definition['options']['vAxis']['gridlines']['multiple'] = 2;
-    $definition['options']['vAxis']['ticks'] = array(0,2,4,6,8,10,12,14,16,18,20,22,24,26,28,30);
-    $definition['options']['height'] = 350;
-    $definition['options']['fontSize'] = 15;
-  }
-
-  if ($definition['visualization'] == "DonutChart") {
-    $definition['options']['fontSize'] = 16;
-  }
-
-  if ($definition['visualization'] == "DonutChart" &&
-     in_array($chart_id, ['industry-employment-by-sex', 'industry-bc-average'])
-  ) {
-    $definition['options']['width'] = 415;
-  }
-
-
-  if ($chart_id == "career-composition-job-openings" ||
-      $chart_id == "region-composition-job-openings" ||
-      $chart_id == "bc-composition-job-openings") {
-    $definition['options']['tooltip']['text'] = "percentage";
-  }
-
-  if ($chart_id == "career-forecasted-employment-growth-rate") {
-    // $definition['options']['vAxis']['format'] = "#'%'";
-  }
-
-  if ($chart_id = "test-page-chart") {
-    // $definition['options']['vAxis']['format'] = "percent";
-    $definition['options']['vAxis']['format'] = "#'%'";
-    // $definition['options']['vAxis']['isHtml'] = TRUE;
-
-  }
-
-}
-

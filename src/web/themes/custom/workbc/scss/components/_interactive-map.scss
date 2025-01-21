@@ -406,7 +406,8 @@ div#career-profile-interactive-map-2 {
         background: inherit;
       }
 
-      tr.bc-profile-employment-region-footer {
+      tr.bc-profile-employment-region-footer,
+      tr.lmo-region-job-openings-footer {
         background: $workbc_palette_dark_tertiary;
         td.region {
           color: $workbc_palette_light_primary;

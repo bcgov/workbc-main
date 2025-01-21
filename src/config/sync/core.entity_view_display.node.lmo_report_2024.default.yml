@@ -1,0 +1,120 @@
+uuid: 9b45f942-65dd-4ea9-bc84-bffa9c62d257
+langcode: en
+status: true
+dependencies:
+  config:
+    - field.field.node.lmo_report_2024.field_hero_image_media
+    - field.field.node.lmo_report_2024.field_hero_text
+    - field.field.node.lmo_report_2024.field_lmo_2024_definitions_metho
+    - field.field.node.lmo_report_2024.field_lmo_2024_education
+    - field.field.node.lmo_report_2024.field_lmo_2024_featured_topics
+    - field.field.node.lmo_report_2024.field_lmo_2024_industry_outlook
+    - field.field.node.lmo_report_2024.field_lmo_2024_labour_market
+    - field.field.node.lmo_report_2024.field_lmo_2024_occupational_outl
+    - field.field.node.lmo_report_2024.field_lmo_2024_regional_outlook
+    - field.field.node.lmo_report_2024.field_metatag_description
+    - field.field.node.lmo_report_2024.field_tags
+    - node.type.lmo_report_2024
+  module:
+    - entity_reference_revisions
+    - text
+id: node.lmo_report_2024.default
+targetEntityType: node
+bundle: lmo_report_2024
+mode: default
+content:
+  extra_field_lmo_report_2024_job_openings_10y_chart:
+    settings: {  }
+    third_party_settings: {  }
+    weight: 6
+    region: content
+  field_hero_image_media:
+    type: entity_reference_label
+    label: above
+    settings:
+      link: true
+    third_party_settings: {  }
+    weight: 7
+    region: content
+  field_hero_text:
+    type: text_default
+    label: above
+    settings: {  }
+    third_party_settings: {  }
+    weight: 8
+    region: content
+  field_lmo_2024_definitions_metho:
+    type: entity_reference_revisions_entity_view
+    label: above
+    settings:
+      view_mode: default
+      link: ''
+    third_party_settings: {  }
+    weight: 6
+    region: content
+  field_lmo_2024_education:
+    type: entity_reference_revisions_entity_view
+    label: visually_hidden
+    settings:
+      view_mode: default
+      link: ''
+    third_party_settings: {  }
+    weight: 1
+    region: content
+  field_lmo_2024_featured_topics:
+    type: entity_reference_revisions_entity_view
+    label: visually_hidden
+    settings:
+      view_mode: default
+      link: ''
+    third_party_settings: {  }
+    weight: 5
+    region: content
+  field_lmo_2024_industry_outlook:
+    type: entity_reference_revisions_entity_view
+    label: visually_hidden
+    settings:
+      view_mode: default
+      link: ''
+    third_party_settings: {  }
+    weight: 2
+    region: content
+  field_lmo_2024_labour_market:
+    type: entity_reference_revisions_entity_view
+    label: visually_hidden
+    settings:
+      view_mode: default
+      link: ''
+    third_party_settings: {  }
+    weight: 0
+    region: content
+  field_lmo_2024_occupational_outl:
+    type: entity_reference_revisions_entity_view
+    label: visually_hidden
+    settings:
+      view_mode: default
+      link: ''
+    third_party_settings: {  }
+    weight: 4
+    region: content
+  field_lmo_2024_regional_outlook:
+    type: entity_reference_revisions_entity_view
+    label: visually_hidden
+    settings:
+      view_mode: default
+      link: ''
+    third_party_settings: {  }
+    weight: 3
+    region: content
+hidden:
+  created: true
+  extra_field_labourmarketoutlook_test: true
+  extra_field_lmo_report_2024_bc_job_openings_composition_chart: true
+  extra_field_workbc_page_title: true
+  extra_field_workbc_published_on: true
+  field_metatag_description: true
+  field_tags: true
+  langcode: true
+  links: true
+  search_api_excerpt: true
+  uid: true

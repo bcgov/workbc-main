@@ -1,11 +1,11 @@
-(function ($) {
+(function ($, Drupal, once) {
   ("use strict");
 
   // Mobile Nav Close
   Drupal.behaviors.mobileNavClose = {
     attach: function (context, settings) {
-      var mobileNavClose = $(".mobile-nav-close", context);
-      var offCanvas = document.querySelector("#off-canvas");
+      var mobileNavClose = $(once("mobileNavClose", ".mobile-nav-close", context));
+      var offCanvas = $("#off-canvas")[0];
       var mmenuApi = offCanvas.mmApi;
 
       mobileNavClose.click(function () {
@@ -15,4 +15,4 @@
       });
     },
   };
-})(jQuery);
+})(jQuery, Drupal, once);

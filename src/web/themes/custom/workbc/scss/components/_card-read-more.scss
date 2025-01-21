@@ -1,0 +1,17 @@
+.card-read-more {
+  margin-bottom: 24px;
+  box-shadow: 0 0 15px 0 rgba(0, 0, 0, 0.15);
+  padding: 24px;
+
+  @include media-breakpoint-up(xl) {
+    margin-right: 5px;
+  }
+
+  .ec-toggle-link {
+    margin-top: 25px;
+  }
+}
+
+.card-read-more__link {
+  @include btn-border;
+}

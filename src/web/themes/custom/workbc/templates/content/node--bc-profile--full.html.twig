@@ -258,7 +258,7 @@
         <ul class="nav nav-tabs profile-content-tab-list scroll" id="profile-content-tabs" role="tablist">
           {% for key, tab in viewmodel['tab_sections'] %}
             <li class="nav-item" role="presentation">
-              <a class="nav-link profile-content-tab-button{{ loop.first ? ' active'}}" id="{{key}}-tab" data-bs-toggle="tab" data-bs-target="#{{key}}-content" aria-controls="{{key}}-content" aria-selected="true" role="tab" href="#">{{tab['tab']}}</a>
+              <a class="nav-link profile-content-tab-button{{ loop.first ? ' active'}}" id="{{key}}-tab" data-bs-toggle="tab" data-bs-target="#{{key}}-content" aria-controls="{{key}}-content" aria-selected="true" role="tab" href="#{{key}}">{{tab['tab']}}</a>
             </li>
           {% endfor %}
         </ul>
@@ -461,7 +461,7 @@
                       {{ tooltip2 | raw }}
                     </div>
                   </span>
-                </h3>                  
+                </h3>
                 <span class="card-profile__content-item">{{ viewmodel['tab_sections']['industry_highlights']['employment_goods_service_share_chart_markup']|raw }}</span>
               </div>
               <div class="card-profile__source">

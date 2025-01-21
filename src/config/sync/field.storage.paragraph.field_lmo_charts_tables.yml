@@ -1,0 +1,57 @@
+uuid: 5f1fc238-8923-47c4-938a-6ddfcc28b61e
+langcode: en
+status: true
+dependencies:
+  module:
+    - options
+    - paragraphs
+id: paragraph.field_lmo_charts_tables
+field_name: field_lmo_charts_tables
+entity_type: paragraph
+type: list_string
+settings:
+  allowed_values:
+    -
+      value: lmo_report_2024_job_openings_10y_chart
+      label: 'Figure 1.1-1. Job Openings, B.C., 2024-2034'
+    -
+      value: lmo_report_2024_job_openings_teers_chart
+      label: 'Figure 2-1. Job Openings by TEER, B.C., 2024-2034'
+    -
+      value: lmo_report_2024_job_openings_industries_chart
+      label: 'Figure 3-1. Top Ten Major Industry Groups by Job Openings, B.C., 2024-34'
+    -
+      value: lmo_report_2024_job_openings_broad_categories_chart
+      label: 'Figure 4.1-1. Job Openings by Main Occupational Group, B.C., 2024-2034'
+    -
+      value: lmo_report_2024_job_openings_regions_table
+      label: 'Figure 5-1. Total Job Openings by Development Region, B.C., 2024-2034'
+    -
+      value: lmo_report_2024_job_openings_vancouver_island_coast_table
+      label: 'Table 5.1-1. Top five industries by total job openings, 2024-2034 - Vancouver Island/Coast'
+    -
+      value: lmo_report_2024_job_openings_mainland_southwest_table
+      label: 'Table 5.2-1. Top five industries by total job openings, 2024-2034 - Mainland/Southwest'
+    -
+      value: lmo_report_2024_job_openings_thompson_okanagan_table
+      label: 'Table 5.3-1. Top five industries by total job openings, 2024-2034 - Thompson-Okanagan'
+    -
+      value: lmo_report_2024_job_openings_kootenay_table
+      label: 'Table 5.4-1. Top five industries by total job openings, 2024-2034 - Kootenay'
+    -
+      value: lmo_report_2024_job_openings_cariboo_table
+      label: 'Table 5.5-1. Top five industries by total job openings, 2024-2034 - Cariboo'
+    -
+      value: lmo_report_2024_job_openings_north_coast_nechako_table
+      label: 'Table 5.6-1. Top five industries by total job openings, 2024-2034 - North Coast and Nechako'
+    -
+      value: lmo_report_2024_job_openings_northeast_table
+      label: 'Table 5.7-1. Top five industries by total job openings, 2024-2034 - Northeast'
+  allowed_values_function: ''
+module: options
+locked: false
+cardinality: 1
+translatable: true
+indexes: {  }
+persist_with_no_fields: false
+custom_storage: false
