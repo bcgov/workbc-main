@@ -236,6 +236,13 @@
         width: 20%;
         border: none;
       }
+
+      @include media-breakpoint-down(lg) {
+        td {
+          display: block;
+          width: 100%;
+        }
+      }
     }
   }
 }
