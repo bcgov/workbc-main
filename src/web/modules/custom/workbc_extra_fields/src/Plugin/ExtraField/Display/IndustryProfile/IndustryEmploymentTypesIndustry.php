@@ -50,8 +50,10 @@ class IndustryEmploymentTypesIndustry extends ExtraFieldDisplayFormattedBase {
       'na_if_empty' => TRUE,
     );
     if (!empty($entity->ssot_data) && isset($entity->ssot_data['labour_force_survey_industry'])) {
-      $employmentFullTime = ssotFormatNumber(100 - $entity->ssot_data['labour_force_survey_industry']['employment_part_time_pct'], $options);
-      $employmentPartTime = ssotFormatNumber($entity->ssot_data['labour_force_survey_industry']['employment_part_time_pct'], $options);
+      $pt = round($entity->ssot_data['labour_force_survey_industry']['employment_part_time_pct']);
+      $ft = 100 - $pt;
+      $employmentFullTime = ssotFormatNumber($ft, $options);
+      $employmentPartTime = ssotFormatNumber($pt, $options);
       $employmentSelfEmployed = ssotFormatNumber($entity->ssot_data['labour_force_survey_industry']['employment_self_employment_pct'], $options);
       $employmentTemporary =  ssotFormatNumber($entity->ssot_data['labour_force_survey_industry']['employment_temporary_pct'], $options);
     }
