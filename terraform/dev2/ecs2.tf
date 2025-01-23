@@ -3,6 +3,7 @@
 resource "aws_ecs_cluster" "solr2" {
   name               = "solr-cluster2"
   #capacity_providers = ["FARGATE_SPOT"]
+}
 
 resource "aws_ecs_cluster_capacity_providers" "solr2" {
     cluster_name =  aws_ecs_cluster.main.name
