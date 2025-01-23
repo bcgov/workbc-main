@@ -102,6 +102,7 @@
 
       td {
         background-color: inherit;
+        clear: both;
       }
 
       tr:first-child td.lmo-mobile {
@@ -157,6 +158,8 @@
         float: left;
         font-weight: bold;
         text-align: left;
+        width: 65%;
+        padding-bottom: 1.0em;
       }
     }
 

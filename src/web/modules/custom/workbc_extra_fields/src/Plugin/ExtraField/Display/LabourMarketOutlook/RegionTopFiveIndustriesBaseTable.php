@@ -70,7 +70,7 @@ class RegionTopFiveIndustriesBaseTable extends ExtraFieldDisplayFormattedBase {
         <tbody>
       END;
       foreach ($entity->ssot_data[$this->getDatasetName()] as $industry) {
-        $output .= '<tr>';
+        $output .= '<tr class="clearfix">';
         $output .= '<td class="data-align-left lmo-mobile">Industry</td>';
         $output .= '<td class="data-align-left lmo-report-industry" data-label="Industry">' . $industry['industry'] . '</td>';
         $output .= '<td class="data-align-right lmo-report-employment" data-label="Employment (2024)">' . ssotFormatNumber($industry['employment'], $options1) . '</td>';
