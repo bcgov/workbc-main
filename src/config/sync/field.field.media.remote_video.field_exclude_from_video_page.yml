@@ -13,7 +13,9 @@ label: "Don't show on Career Trek page"
 description: ''
 required: false
 translatable: false
-default_value: {  }
+default_value:
+  -
+    value: 0
 default_value_callback: ''
 settings:
   on_label: "Don't Show"
