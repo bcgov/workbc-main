@@ -14,7 +14,7 @@ resource "aws_ecs_cluster_capacity_providers" "main" {
       capacity_provider = "FARGATE_SPOT"	
   }
 
-  tags = var.common_tags
+  #tags = var.common_tags
 }
 
 resource "aws_ecs_task_definition" "app" {
