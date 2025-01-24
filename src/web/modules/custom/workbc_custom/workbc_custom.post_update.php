@@ -1127,3 +1127,4 @@ function workbc_custom_post_update_521_media_weights(&$sandbox = NULL) {
   $sandbox['#finished'] = empty($sandbox['videos']) ? 1 : ($sandbox['count'] - count($sandbox['videos'])) / $sandbox['count'];
   return t("[WBCAMS-521] $message");
 }
+
