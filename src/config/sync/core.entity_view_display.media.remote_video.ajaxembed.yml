@@ -8,6 +8,7 @@ dependencies:
     - field.field.media.remote_video.field_category
     - field.field.media.remote_video.field_description
     - field.field.media.remote_video.field_duration
+    - field.field.media.remote_video.field_exclude_from_video_page
     - field.field.media.remote_video.field_media_oembed_video
     - field.field.media.remote_video.field_recently_added
     - field.field.media.remote_video.field_weight
@@ -35,12 +36,12 @@ content:
     settings:
       image_link: ''
       image_style: ''
+      image_loading:
+        attribute: lazy
       svg_attributes:
         width: null
         height: null
       svg_render_as_image: true
-      image_loading:
-        attribute: lazy
     third_party_settings: {  }
     weight: 1
     region: content
@@ -50,6 +51,7 @@ hidden:
   field_category: true
   field_description: true
   field_duration: true
+  field_exclude_from_video_page: true
   field_recently_added: true
   field_title: true
   field_weight: true

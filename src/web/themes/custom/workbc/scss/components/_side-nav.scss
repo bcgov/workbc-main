@@ -36,8 +36,8 @@
 .sidenav-anchor:target {
   // add a negative vertical offset - this should prevent the anchor snapping from placing the anchored content below the fixed header
   display: block;
-  height: 150px;
-  margin-top: -150px;
+  height: 80px;
+  margin-top: -80px;
   visibility: hidden;
 }
 
