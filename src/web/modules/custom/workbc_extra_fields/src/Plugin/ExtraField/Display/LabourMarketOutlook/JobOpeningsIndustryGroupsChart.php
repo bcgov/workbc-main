@@ -60,8 +60,8 @@ class JobOpeningsIndustryGroupsChart extends ExtraFieldDisplayFormattedBase {
       $colorReplacement = '#002857';
       $colorExpansion = '#009cde';
 
-      $data = $entity->ssot_data['lmo_report_2024_job_openings_industries'];
-      foreach (array_slice($data, 0, 10) as $category) {
+      $data = array_slice($entity->ssot_data['lmo_report_2024_job_openings_industries'], 0, 10);
+      foreach ($data as $category) {
         $replacement = ssotFormatNumber($category['replacement'], $options1);
         $expansion = ssotFormatNumber($category['expansion'], $options1);
         $label = $category['name'];
@@ -178,9 +178,7 @@ class JobOpeningsIndustryGroupsChart extends ExtraFieldDisplayFormattedBase {
         </thead>
         <tbody>
       END;
-      foreach ($entity->ssot_data['lmo_report_2024_job_openings_industries'] as $entry) {
-        if (in_array($entry['industry'], ['top_3', 'top_5'])) continue;
-
+      foreach ($data as $entry) {
         $replacement = round($entry['replacement']);
         $expansion = round($entry['expansion']);
         $openings = round($entry['openings']);

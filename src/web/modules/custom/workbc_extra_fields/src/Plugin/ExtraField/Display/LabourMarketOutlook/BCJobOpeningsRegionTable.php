@@ -80,7 +80,7 @@ class BCJobOpeningsRegionTable extends ExtraFieldDisplayFormattedBase {
       foreach ($entity->ssot_data['lmo_report_2024_job_openings_regions'] as $i => $region) {
         $region_name = ssotRegionName($region['region']);
         if ($region['region'] <> "british_columbia") {
-          $output .= '<tr class="interactive-map-row-'. $region['region'] . '">';
+          $output .= '<tr class="clearfix interactive-map-row-'. $region['region'] . '">';
           $output .= '<td class="data-align-left lmo-mobile">Regions</td>';
           $output .= '<td class="data-align-left lmo-report-region" data-label="Regions"><a href="#regional_outlook-content-sidenav-anchor-' . $i . '">' . $region_name . '</a></td>';
           $output .= '<td class="data-align-right lmo-report-employment" data-label="Employment (2024)">' . ssotFormatNumber($region['employment'], $options1) . '</td>';
@@ -94,7 +94,7 @@ class BCJobOpeningsRegionTable extends ExtraFieldDisplayFormattedBase {
       $output .= '</tbody>';
 
       $output .= '<tfoot>';
-      $output .= '<tr class="lmo-region-job-openings-footer interactive-map-row-'. $region['region'] . '">';
+      $output .= '<tr class="clearfix lmo-region-job-openings-footer interactive-map-row-'. $region['region'] . '">';
       $output .= '<td class="data-align-left lmo-report-region" data-label="Regions">' . $region_name . '</td>';
       $output .= '<td class="data-align-right lmo-report-employment" data-label="Employment (2024)">' . ssotFormatNumber($region['employment'], $options1) . '</td>';
       $output .= '<td class="data-align-right lmo-report-growth" data-label="Annual Employment Growth Rate (2024-2034)">' . ssotFormatNumber($region['growth_rate'], $options2) . '</td>';

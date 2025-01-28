@@ -102,6 +102,7 @@
 
       td {
         background-color: inherit;
+        clear: both;
       }
 
       tr:first-child td.lmo-mobile {
@@ -157,7 +158,8 @@
         float: left;
         font-weight: bold;
         text-align: left;
-        width: 80%;
+        width: 65%;
+        padding-bottom: 1.0em;
       }
     }
 
@@ -235,6 +237,13 @@
         vertical-align: top;
         width: 20%;
         border: none;
+      }
+
+      @include media-breakpoint-down(lg) {
+        td {
+          display: block;
+          width: 100%;
+        }
       }
     }
   }
