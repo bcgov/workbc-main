@@ -266,7 +266,7 @@ resource "aws_ecs_task_definition" "app" {
 
 		entryPoint = ["sh", "-c"]
 
-		command = ["drush cr; drush updb -y --no-post-updates; drush cim -y; drush updb -y; drush cr"]
+		command = ["drush cr; drush updb -y; drush cim -y; drush deploy:hook -y; drush cr;"]
 
 		environment = [
 			{
