@@ -1,0 +1,22 @@
+<?php
+
+function workbc_menu_entity_insert(\Drupal\Core\Entity\EntityInterface $entity) {
+
+  if ($entity->getEntityTypeId() == "menu_link_content") {
+    \Drupal::service('cache.render')->invalidateAll();
+  }
+}
+
+function workbc_menu_entity_update(\Drupal\Core\Entity\EntityInterface $entity) {
+
+  if ($entity->getEntityTypeId() == "menu_link_content") {
+    \Drupal::service('cache.render')->invalidateAll();
+  }
+}
+
+function workbc_menu_entity_delete(\Drupal\Core\Entity\EntityInterface $entity) {
+
+  if ($entity->getEntityTypeId() == "menu_link_content") {
+    \Drupal::service('cache.render')->invalidateAll();
+  }
+}
