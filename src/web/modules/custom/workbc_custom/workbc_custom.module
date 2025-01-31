@@ -591,9 +591,9 @@ function workbc_custom_views_query_alter(ViewExecutable $view, QueryPluginBase $
 
 
 /**
- * Implements hook_page_attachments().
+ * Implements hook_page_attachments_alter().
  */
-function workbc_custom_page_attachments(array &$attachments) {
+function workbc_custom_page_attachments_alter(array &$attachments) {
   // Inject GDX Feedback Component for specific pages.
   $path = \Drupal::service('path.current')->getPath();
   $alias = \Drupal::service('path_alias.manager')->getAliasByPath($path);

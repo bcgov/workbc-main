@@ -77,6 +77,8 @@ class AdminSettingsForm extends ConfigFormBase {
   * {@inheritdoc}
   */
   public function submitForm(array &$form, FormStateInterface $form_state) {
+    // Clear the theme registry to force hook_page_attachments_alter to be called for the feedback component :-(
+    \Drupal::service('theme.registry')->reset();
     $config = $this->config('workbc_custom.settings');
     $config->set('show_feedback', $form_state->getValue('show_feedback'));
     $config->set('collectionsettings', $form_state->getValue('collectionsettings'));
