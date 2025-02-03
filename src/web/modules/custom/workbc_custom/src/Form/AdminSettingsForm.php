@@ -34,37 +34,29 @@ class AdminSettingsForm extends ConfigFormBase {
   public function buildForm(array $form, FormStateInterface $form_state) {
     $config = $this->config('workbc_custom.settings');
 
-    $form['pathsettings'] = [
-      '#tree' => TRUE,
-      '#type' => 'details',
-      '#title' => $this->t('Path settings'),
-      '#open' => TRUE,
-    ];
-
-    $form['pathsettings']['order_form'] = [
-      '#type' => 'textfield',
-      '#title' => $this->t('Publications Order Form path'),
-      '#default_value' => $config->get('pathsettings.order_form'),
+    $form['show_feedback'] = [
+      '#type' => 'checkbox',
+      '#title' => $this->t('Show GDX feedback component'),
+      '#default_value' => $config->get('show_feedback'),
     ];
 
     $form['collectionsettings'] = [
       '#tree' => TRUE,
       '#type' => 'details',
-      '#title' => $this->t('Collection Notice settings'),
+      '#title' => $this->t('Collection notice'),
       '#open' => TRUE,
     ];
 
-    $text = $config->get('collectionsettings.notice');
-    if (is_null($text) || !isset($text['value'])) {
-      $text['value'] = "";
-      $text['format'] = "basic_html";
+    $notice = $config->get('collectionsettings.notice');
+    if (is_null($notice) || !isset($notice['value'])) {
+      $notice['value'] = '';
+      $notice['format'] = 'basic_html';
     }
-
     $form['collectionsettings']['notice'] = [
       '#type' => 'text_format',
-      '#title' => $this->t('Collection Notice text'),
-      '#default_value' => $text['value'],
-      '#format' => $text['format'],
+      '#title' => $this->t('Notice text'),
+      '#default_value' => $notice['value'],
+      '#format' => $notice['format'],
     ];
 
     $form['reports'] = [
@@ -85,8 +77,10 @@ class AdminSettingsForm extends ConfigFormBase {
   * {@inheritdoc}
   */
   public function submitForm(array &$form, FormStateInterface $form_state) {
+    // Clear the theme registry to force hook_page_attachments_alter to be called for the feedback component :-(
+    \Drupal::service('theme.registry')->reset();
     $config = $this->config('workbc_custom.settings');
-    $config->set('pathsettings', $form_state->getValue('pathsettings'));
+    $config->set('show_feedback', $form_state->getValue('show_feedback'));
     $config->set('collectionsettings', $form_state->getValue('collectionsettings'));
     $config->save();
     parent::submitForm($form, $form_state);
