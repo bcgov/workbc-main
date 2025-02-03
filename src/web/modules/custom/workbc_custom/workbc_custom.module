@@ -14,7 +14,6 @@ use Drupal\Core\Routing\RouteMatchInterface;
 use Drupal\views\ViewExecutable;
 use Drupal\redirect\Entity\Redirect;
 use Symfony\Component\HttpFoundation\Request;
-use Drupal\media\Entity\Media;
 use Drupal\views\Plugin\views\query\QueryPluginBase;
 
 /**
@@ -592,22 +591,24 @@ function workbc_custom_views_query_alter(ViewExecutable $view, QueryPluginBase $
 
 
 /**
- * Implements hook_page_attachments().
+ * Implements hook_page_attachments_alter().
  */
-function workbc_custom_page_attachments(array &$attachments) {
-  // Inject feedback component for specific pages.
+function workbc_custom_page_attachments_alter(array &$attachments) {
+  // Inject GDX Feedback Component for specific pages.
   $path = \Drupal::service('path.current')->getPath();
   $alias = \Drupal::service('path_alias.manager')->getAliasByPath($path);
-  if (in_array($alias, [
-    '/search-and-prepare-job/find-jobs',
-    '/discover-employment-services/online-employment-services'
+  $config = \Drupal::config('workbc_custom.settings');
+  $paths = \Drupal::config('workbc')->get('paths');
+  if ($config->get('show_feedback') && in_array($alias, [
+    $paths['find_jobs'],
+    $paths['online_employment_services']
   ])) {
     $attachments['#attached']['library'][] = 'workbc_custom/feedback';
     $attachments['#attached']['drupalSettings']['feedback'] = [
       'triggers' => [
-        'timeout' => $alias == '/discover-employment-services/online-employment-services' ? 30000 : 90000,
-        'click_selector' => $alias == '/search-and-prepare-job/find-jobs' ? '.find-jobs-btn' : false,
-        'scroll' => $alias == '/discover-employment-services/online-employment-services',
+        'timeout' => $alias == $paths['online_employment_services'] ? 30000 : 90000,
+        'click_selector' => $alias == $paths['find_jobs'] ? '.find-jobs-btn' : false,
+        'scroll' => $alias == $paths['online_employment_services'],
       ]
     ];
   }

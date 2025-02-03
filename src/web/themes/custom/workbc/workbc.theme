@@ -185,8 +185,8 @@ function workbc_preprocess_page(&$variables) {
  */
 function workbc_preprocess_node(&$variables) {
   if ($variables['node']->bundle() === "publication" && $variables['view_mode'] === "publication") {
-    $config = \Drupal::config('workbc_custom.settings');
-    $variables['order_form_path'] = $config->get('pathsettings.order_form');
+    $paths = \Drupal::config('workbc')->get('paths');
+    $variables['order_form_path'] = $paths['order_form'];
     $media = $variables['content']['field_publication_media'][0]['#media'];
     if (!empty($media->field_media_document[0])) {
       $fid = $media->field_media_document[0]->getValue()['target_id'];
