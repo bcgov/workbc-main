@@ -16,10 +16,10 @@ suggester_settings:
     highlight:
       enabled: false
       field: ''
+    suggest_keys: false
     view_modes:
       'entity:node':
         career_profile: ''
-    suggest_keys: false
 suggester_weights:
   live_results: 0
 suggester_limits: {  }
