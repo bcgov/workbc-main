@@ -16,6 +16,7 @@ suggester_settings:
     highlight:
       enabled: false
       field: ''
+    suggest_keys: false
     view_modes:
       'entity:node':
         bc_profile: ''
@@ -31,7 +32,6 @@ suggester_settings:
         region_profile: ''
         success_story: ''
         workbc_centre: ''
-    suggest_keys: false
 suggester_weights:
   live_results: 0
 suggester_limits: {  }

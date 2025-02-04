@@ -110,6 +110,7 @@ hidden:
   created: true
   extra_field_labourmarketoutlook_test: true
   extra_field_lmo_report_2024_bc_job_openings_composition_chart: true
+  extra_field_lmo_search_index_keywords: true
   extra_field_workbc_page_title: true
   extra_field_workbc_published_on: true
   field_metatag_description: true
