@@ -3,6 +3,7 @@
 resource "aws_ecs_cluster" "main" {
   name               = "workbc-cluster"
   tags = var.common_tags
+
 }
 
 resource "aws_ecs_cluster_capacity_providers" "main" {
