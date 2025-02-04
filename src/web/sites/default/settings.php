@@ -808,6 +808,13 @@ $config['workbc']['ssot_repo'] = [
   'committer' => 'WorkBC SSoT Uploader',
 ];
 
+// Path settings.
+$config['workbc']['paths'] = [
+  'order_form' => '/plan-career/publications/workbc-order-form',
+  'find_jobs' => '/search-and-prepare-job/find-jobs',
+  'online_employment_services' => '/discover-employment-services/online-employment-services',
+];
+
 // File settings.
 $config['file.settings']['make_unused_managed_files_temporary'] = TRUE;
 
