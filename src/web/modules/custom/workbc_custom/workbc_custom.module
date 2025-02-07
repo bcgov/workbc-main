@@ -15,6 +15,54 @@ use Drupal\views\ViewExecutable;
 use Drupal\redirect\Entity\Redirect;
 use Symfony\Component\HttpFoundation\Request;
 use Drupal\views\Plugin\views\query\QueryPluginBase;
+use Drupal\Core\Datetime\DrupalDateTime;
+use Drupal\Core\Cache\Cache;
+
+/**
+ * Implements hook_cron.
+ *
+ */
+function workbc_custom_cron() {
+
+  if (\Drupal::moduleHandler()->moduleExists('sitewide_alert')) {
+    workbc_sitewide_alert_cache_clear();
+  }
+}
+
+/** 
+ * Clear Sitewide Alert cache if a visible alert has been added or removed.
+ */
+
+function workbc_sitewide_alert_cache_clear() {
+
+  $stateActiveVisible = \Drupal::state()->get('workbc.active_visible_alerts', []);
+
+  $sitewideAlertStorage = \Drupal::entityTypeManager()->getStorage('sitewide_alert');
+
+  $sitewideAlertIds = $sitewideAlertStorage
+    ->getQuery()
+    ->condition('status', 1)
+    ->accessCheck()
+    ->execute();
+
+  $requestDateTime = new \DateTime();
+
+  $sitewideAlerts = $sitewideAlertStorage->loadMultiple($sitewideAlertIds);
+  $activeVisible = [];
+  foreach ($sitewideAlerts as $key => $alert) {
+    if (!$alert->isScheduled() || ($alert->isScheduled() && $alert->isScheduledToShowAt($requestDateTime))) {
+      $activeVisible[] = $key;
+    }
+  }
+
+  if ($stateActiveVisible !== $activeVisible) {
+    Cache::invalidateTags(['sitewide_alert_list']);
+    \Drupal::state()->set('workbc.active_visible_alerts', $activeVisible);
+  }
+
+}
+
+
 
 /**
 * Implements hook_theme().
