@@ -20,7 +20,6 @@ use Drupal\Core\Cache\Cache;
 
 /**
  * Implements hook_cron.
- *
  */
 function workbc_custom_cron() {
 
@@ -32,7 +31,6 @@ function workbc_custom_cron() {
 /** 
  * Clear Sitewide Alert cache if a visible alert has been added or removed.
  */
-
 function workbc_sitewide_alert_cache_clear() {
 
   $stateActiveVisible = \Drupal::state()->get('workbc.active_visible_alerts', []);
