@@ -8,11 +8,11 @@ resource "aws_ecs_cluster" "main" {
 
 resource "aws_ecs_cluster_capacity_providers" "main" {
     cluster_name =  aws_ecs_cluster.main.name
-    capacity_providers = ["FARGATE_SPOT"]
+    capacity_providers = ["FARGATE"]
 
     default_capacity_provider_strategy {
       weight            = 100
-      capacity_provider = "FARGATE_SPOT"	
+      capacity_provider = "FARGATE"	
   }
 
   #tags = var.common_tags
