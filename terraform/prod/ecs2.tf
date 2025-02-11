@@ -6,7 +6,7 @@ resource "aws_ecs_cluster" "solr" {
 }
 
 resource "aws_ecs_cluster_capacity_providers" "solr" {
-  cluster_name =  aws_ecs_cluster.main.name
+  cluster_name =  aws_ecs_cluster.solr.name
   capacity_providers = ["FARGATE_SPOT"]
 
   default_capacity_provider_strategy {
