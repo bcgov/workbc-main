@@ -40,6 +40,7 @@ function workbc_sitewide_alert_cache_clear() {
   $sitewideAlertIds = $sitewideAlertStorage
     ->getQuery()
     ->condition('status', 1)
+    ->condition('scheduled_alert', 1)
     ->accessCheck()
     ->execute();
 
@@ -48,7 +49,7 @@ function workbc_sitewide_alert_cache_clear() {
   $sitewideAlerts = $sitewideAlertStorage->loadMultiple($sitewideAlertIds);
   $activeVisible = [];
   foreach ($sitewideAlerts as $key => $alert) {
-    if (!$alert->isScheduled() || ($alert->isScheduled() && $alert->isScheduledToShowAt($requestDateTime))) {
+    if ($alert->isScheduledToShowAt($requestDateTime)) {
       $activeVisible[] = $key;
     }
   }
