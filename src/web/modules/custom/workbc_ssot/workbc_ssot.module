@@ -1,12 +1,83 @@
 <?php
 
 use Drupal\Core\StreamWrapper\StreamWrapperManager;
-use Drupal\Core\Url;
+use GuzzleHttp\Client;
+use GuzzleHttp\Exception\RequestException;
+use Psr\Http\Message\ResponseInterface;
 
 const SSOT_ROUTES = [
   'workbc_ssot.lmmu',
   'view.ssot_log.page_1'
 ];
+
+const SSOT_DATASETS = [
+  'wages' => [
+    'noc_key' => 'noc',
+    'fields' => 'noc,calculated_median_annual_salary',
+  ],
+  'career_provincial' => [
+    'noc_key' => 'noc',
+    'fields' => 'noc,expected_job_openings_10y',
+  ],
+];
+
+/**
+ * Implements hook_cron.
+ *
+ * Get the latest datasets from SSOT.
+ */
+function workbc_ssot_cron() {
+  // Retrieve the local state, making sure we set any modified datasets to null.
+  $local_dates = array_merge(array_combine(
+    array_keys(SSOT_DATASETS),
+    array_fill(0, count(SSOT_DATASETS), null)
+  ), \Drupal::state()->get('workbc.ssot_dates', []));
+
+  // Get the latest update dates from SSOT.
+  $result = ssot(
+    'sources?' . http_build_query([
+      'select' => 'endpoint,date',
+      'endpoint' => 'in.("' . join('","', array_keys(SSOT_DATASETS)) . '")'
+    ])
+  );
+  if (!$result) return;
+  $ssot_dates = json_decode($result->getBody());
+
+  // Compare each local date with remote date, scheduling a download job if needed.
+  $datasets = [];
+  foreach ($ssot_dates as $ssot_date) {
+    $date1 = DateTimeImmutable::createFromFormat(DateTimeInterface::ATOM, $ssot_date->date);
+    if (!$date1) {
+      \Drupal::logger('workbc')->error('Error parsing date @date for SSOT dataset @dataset: @errors', [
+        '@date' => $ssot_date->date,
+        '@dataset' => $ssot_date->endpoint,
+        '@errors' => print_r(DateTimeImmutable::getLastErrors()),
+      ]);
+      continue;
+    }
+    $date2 = empty($local_dates[$ssot_date->endpoint]) ? false : DateTimeImmutable::createFromFormat(DateTimeInterface::ATOM, $local_dates[$ssot_date->endpoint]);
+    if (!$date2 || $date2 < $date1) {
+      \Drupal::logger('workbc')->notice('Found an update for SSOT dataset @dataset. Adding to download job.', [
+        '@dataset' => $ssot_date->endpoint
+      ]);
+      $datasets[] = [
+        'endpoint' => $ssot_date->endpoint,
+        'ssot_date' => $ssot_date->date,
+      ];
+    }
+    else {
+      \Drupal::logger('workbc')->notice('No update for SSOT dataset @dataset.', [
+        '@dataset' => $ssot_date->endpoint
+      ]);
+    }
+  }
+  if (!empty($datasets)) {
+    Drupal::queue('ssot_downloader')->createItem([
+      'local_dates' => $local_dates,
+      'datasets' => $datasets,
+    ]);
+  }
+}
 
 /**
  * Implements hook_file_download().
@@ -59,5 +130,27 @@ function workbc_ssot_menu_links_discovered_alter(&$links) {
         unset($links[$key]);
       }
     }
+  }
+}
+
+function ssot($endpoint, $method = 'GET', $options = [], $body = null): ResponseInterface | null {
+  $ssot = \Drupal::config('workbc')->get('ssot_url');
+  $client = new Client();
+  try {
+    switch (strtolower($method)) {
+      case 'get':
+        $response = $client->get($ssot . '/' . $endpoint, $options);
+        break;
+      case 'post':
+      case 'patch':
+        $options['body'] = $body;
+        $response = $client->request($method, $ssot . '/' . $endpoint, $options);
+        break;
+    }
+    return $response;
+  }
+  catch (RequestException $e) {
+    \Drupal::logger('workbc')->error($e->getMessage());
+    return null;
   }
 }

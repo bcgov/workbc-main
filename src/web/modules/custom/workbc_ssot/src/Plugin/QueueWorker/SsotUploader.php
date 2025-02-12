@@ -7,7 +7,6 @@ use Symfony\Component\DependencyInjection\ContainerInterface;
 use Drupal\Core\Plugin\ContainerFactoryPluginInterface;
 use Drupal\Component\Utility\Timer;
 use GuzzleHttp\Client;
-use GuzzleHttp\Exception\RequestException;
 use Drupal\file\Entity\File;
 use Drupal\user\Entity\User;
 
