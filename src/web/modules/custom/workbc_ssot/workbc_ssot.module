@@ -121,7 +121,10 @@ function workbc_ssot_cache_clear() {
       'endpoint' => 'in.("' . join('","', SSOT_DATASETS) . '")'
     ])
   );
-  if (!$result) return;
+  if (!$result) {
+    \Drupal::logger('workbc')->error("workbc_ssot_cache_clear() - ssot query returned empty result");
+    return;
+  }
 
   $ssot_dates = json_decode($result->getBody(), true);
 
