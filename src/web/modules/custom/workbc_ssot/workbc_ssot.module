@@ -94,7 +94,7 @@ function workbc_ssot_menu_links_discovered_alter(&$links) {
  * Implements hook_cron.
  *
  */
-function workbc_custom_cron() {
+function workbc_ssot_cron() {
   workbc_ssot_cache_clear();
 }
 
