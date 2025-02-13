@@ -2,11 +2,38 @@
 
 use Drupal\Core\StreamWrapper\StreamWrapperManager;
 use Drupal\Core\Url;
+use GuzzleHttp\Client;
+use GuzzleHttp\Exception\RequestException;
+use Psr\Http\Message\ResponseInterface;
 
 const SSOT_ROUTES = [
   'workbc_ssot.lmmu',
   'view.ssot_log.page_1'
 ];
+
+const SSOT_DATASETS = [
+  'career_provincial',
+  'career_regional',
+  'census',
+  'education',
+  'high_opportunity_occupations',
+  'industries',
+  'industry_outlook',
+  'labour_force_survey_industry',
+  'labour_force_survey_regional_employment',
+  'labour_force_survey_regional_industry_province',
+  'labour_force_survey_regional_industry_region',
+  'monthly_labour_market_updates',
+  'occupational_interests',
+  'openings_careers',
+  'openings_industry',
+  'regional_labour_market_outlook',
+  'regional_top_occupations',
+  'skills',
+  'titles',
+  'wages'
+];
+
 
 /**
  * Implements hook_file_download().
@@ -59,5 +86,95 @@ function workbc_ssot_menu_links_discovered_alter(&$links) {
         unset($links[$key]);
       }
     }
+  }
+}
+
+
+/**
+ * Implements hook_cron.
+ *
+ */
+function workbc_ssot_cron() {
+  workbc_ssot_cache_clear();
+}
+
+
+/**
+ * clears render cache if ssot data has been updated.
+ *
+ */
+function workbc_ssot_cache_clear() {
+
+  $local_dates = [];
+  foreach (SSOT_DATASETS as $dataset) {
+    $key = 'workbc.ssot_update_date.' . $dataset;
+    $local_dates[] = [
+      'endpoint' => $dataset, 
+      'date' => \Drupal::state()->get($key)
+    ];    
+  }
+
+  // Get the latest update dates from SSOT.
+  $result = ssot(
+    'sources?' . http_build_query([
+      'select' => 'endpoint,date',
+      'endpoint' => 'in.("' . join('","', SSOT_DATASETS) . '")'
+    ])
+  );
+  if (!$result) {
+    \Drupal::logger('workbc')->error("workbc_ssot_cache_clear() - ssot query returned empty result");
+    return;
+  }
+
+  $ssot_dates = json_decode($result->getBody(), true);
+
+  // sort results by descending date order
+  $sort_values = array_column($ssot_dates, "date");
+  array_multisort($sort_values, SORT_DESC, $ssot_dates);
+
+  // remove all LMMU elements except the first (most recent) one with a valid date
+  $keep = true;
+  foreach ($ssot_dates as $key => $value) {
+    if ($value['endpoint'] == "monthly_labour_market_updates") {
+      if (is_null($value['date']) || !$keep) {
+        unset($ssot_dates[$key]);
+      }
+      else {
+        $keep = false;
+      }
+    }
+  }
+  $sort_values = array_column($ssot_dates, "endpoint");
+  array_multisort($sort_values, SORT_ASC, $ssot_dates);
+
+  if($local_dates !== $ssot_dates) {
+    \Drupal\Core\Cache\Cache::invalidateTags(['rendered']);
+    foreach ($ssot_dates as $dataset) {
+      \Drupal::state()->set('workbc.ssot_update_date.' . $dataset['endpoint'], $dataset['date']);
+    }
+  }
+}
+
+
+function ssot($endpoint, $method = 'GET', $options = [], $body = null): ResponseInterface | null {
+
+  $ssot = \Drupal::config('workbc')->get('ssot_url');
+  $client = new Client();
+  try {
+    switch (strtolower($method)) {
+      case 'get':
+        $response = $client->get($ssot . '/' . $endpoint, $options);
+        break;
+      case 'post':
+      case 'patch':
+        $options['body'] = $body;
+        $response = $client->request($method, $ssot . '/' . $endpoint, $options);
+        break;
+    }
+    return $response;
+  }
+  catch (RequestException $e) {
+    \Drupal::logger('workbc')->error($e->getMessage());
+    return null;
   }
 }
