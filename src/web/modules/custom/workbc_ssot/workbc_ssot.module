@@ -122,13 +122,14 @@ function workbc_ssot_cache_clear() {
     ])
   );
   if (!$result) return;
+
   $ssot_dates = json_decode($result->getBody(), true);
 
   // sort results by descending date order
   $sort_values = array_column($ssot_dates, "date");
   array_multisort($sort_values, SORT_DESC, $ssot_dates);
 
-  // remove all LMMU elements except the first one with a valid date
+  // remove all LMMU elements except the first (most recent) one with a valid date
   $keep = true;
   foreach ($ssot_dates as $key => $value) {
     if ($value['endpoint'] == "monthly_labour_market_updates") {
