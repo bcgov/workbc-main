@@ -57,14 +57,14 @@ class LabourMarketUnemployedPreviousMonth extends ExtraFieldDisplayFormattedBase
     $options = array(
       'decimals' => 0,
       'na_if_empty' => TRUE,
-    ); 
+    );
     $total_unemployed = ssotFormatNumber($data['total_unemployed_previous'], $options);
     $options = array(
       'decimals' => 1,
       'suffix' => "%",
       'na_if_empty' => TRUE,
-    );     
-    $unemployed_rate_value =  ssotFormatNumber($data['employment_rate_pct_unemployment_previous'], $options); 
+    );
+    $unemployed_rate_value =  ssotFormatNumber($data['employment_rate_pct_unemployment_previous'], $options);
     $unemployed_part_value = ssotFormatNumber($data['employment_rate_pct_participation_previous'], $options);
     $information_text_tooltip = '
                   <div class="workbc-tooltip-content lm-tooltip-content">
@@ -83,7 +83,7 @@ class LabourMarketUnemployedPreviousMonth extends ExtraFieldDisplayFormattedBase
         <div class="lm-data-item-label">'.$this->t("Unemployment Rate").'</div><div class="lm-data-item-value">'.$unemployed_rate_value.'</div></div>
       <div class="lm-data-item lm-has-tooltip">
         <div class="lm-data-item-label">'.$this->t("Participation Rate").'</div>
-        <div class="lm-data-item-value">'.$unemployed_part_value.' <span class="workbc-tooltip">'.$information_text_tooltip.'</span></div>
+        <div class="lm-data-item-value">'.$unemployed_part_value.' <span class="workbc-tooltip lm-tooltip">'.$information_text_tooltip.'</span></div>
       </div>
     </div>
     </div>
