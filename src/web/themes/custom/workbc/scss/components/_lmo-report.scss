@@ -55,13 +55,13 @@
 
   }
 
-  @include media-breakpoint-up(md) {
+  @include media-breakpoint-up(lg) {
     .lmo-mobile {
       display: none;
     }
   }
 
-  @include media-breakpoint-down(md) {
+  @include media-breakpoint-down(lg) {
     .lmo-desktop {
       display: none;
     }
@@ -77,7 +77,16 @@
   }
 
   table.lmo-report {
-    @include media-breakpoint-down(md) {
+    @include media-breakpoint-up(lg) {
+      table-layout: fixed;
+      hyphenate-character: '';
+
+      .clearfix::after {
+        content: none;
+      }
+    }
+
+    @include media-breakpoint-down(lg) {
       padding: 0 0 0 0;
       border: 0;
       width: 100%;
@@ -173,7 +182,7 @@
         font-weight: bold;
         color: $workbc_dark_theme_text;
 
-        @include media-breakpoint-up(md) {
+        @include media-breakpoint-up(lg) {
           padding: 20px;
         }
       }
@@ -192,9 +201,6 @@
     .field__label {
       text-align: center;
       font-size: 18px;
-    }
-
-    .lmo-report-table .field__label {
       margin-bottom: 20px;
     }
   }

@@ -64,7 +64,7 @@ class BCJobOpeningsRegionTable extends ExtraFieldDisplayFormattedBase {
       <table class="lmo-report">
         <thead>
           <tr>
-            <th rowspan="2" class="data-align-left">Region</th>
+            <th width="20%" rowspan="2" class="data-align-left">Region</th>
             <th rowspan="2" class="data-align-right">Employment (2024)</th>
             <th rowspan="2" class="data-align-right">Annual Employment Growth Rate (2024-2034)</th>
             <th colspan="3" class="lmo-report-job-openings-header data-align-center">Job Openings (2024-2034)</th>
@@ -79,6 +79,10 @@ class BCJobOpeningsRegionTable extends ExtraFieldDisplayFormattedBase {
       END;
       foreach ($entity->ssot_data['lmo_report_2024_job_openings_regions'] as $i => $region) {
         $region_name = ssotRegionName($region['region']);
+
+        // Special case: Inject &shy; after '/' to avoid long columns.
+        $region_name = str_replace('/', '/&shy;', $region_name);
+
         if ($region['region'] <> "british_columbia") {
           $output .= '<tr class="clearfix interactive-map-row-'. $region['region'] . '">';
           $output .= '<td class="data-align-left lmo-mobile">Regions</td>';
