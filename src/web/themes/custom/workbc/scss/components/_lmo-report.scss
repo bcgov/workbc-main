@@ -87,20 +87,17 @@
         display: none;
       }
 
-      tbody td {
-        padding: 0 0 0 0;
-      }
-
-      tbody tr {
+      tr {
         padding: 0 0 0 0;
         display: block;
+        padding-bottom: .7em;
         &:not(:last-child) {
-          margin-bottom: 3px;
           border-bottom: 2px solid lightgray;
         }
       }
 
       td {
+        padding: 0 0 0 0;
         background-color: inherit;
         clear: both;
       }
@@ -111,7 +108,6 @@
         display: block;
         font-weight: bold;
         border: none;
-        margin-top: 1.0em;
         padding-left: 1.5em !important;
         padding-top: 1.0em;
         padding-bottom: 1.0em;
@@ -143,7 +139,6 @@
         display: block;
         text-align: right;
         border: none;
-        padding-bottom: 1.0em;
         padding-left: 1.5em;
         padding-right: 1.5em;
       }
@@ -159,7 +154,6 @@
         font-weight: bold;
         text-align: left;
         width: 65%;
-        padding-bottom: 1.0em;
       }
     }
 
@@ -190,7 +184,7 @@
     position: relative; // begin positional context %card-profile
     margin-bottom: 24px;
     box-shadow: 0 0 15px 0 rgba(0, 0, 0, 0.15);
-    padding: $card-padding 40px $card-padding 40px;
+    padding: $card-padding 5% $card-padding 5%;
     display: flex;
     flex-flow: column nowrap;
     page-break-inside: avoid;
@@ -201,7 +195,7 @@
     }
 
     .lmo-report-table .field__label {
-      padding-bottom: 50px;
+      margin-bottom: 20px;
     }
   }
 
