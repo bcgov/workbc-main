@@ -19,7 +19,6 @@ dependencies:
     - datetime
     - scheduled_publish
     - text
-    - user
 id: node.blog.default
 targetEntityType: node
 bundle: blog
@@ -30,41 +29,22 @@ content:
     label: hidden
     settings: {  }
     third_party_settings: {  }
-    weight: 7
+    weight: 5
     region: content
   content_moderation_control:
     settings: {  }
     third_party_settings: {  }
-    weight: 2
-    region: content
-  created:
-    type: timestamp
-    label: hidden
-    settings:
-      date_format: medium
-      custom_date_format: ''
-      timezone: ''
-      tooltip:
-        date_format: long
-        custom_date_format: ''
-      time_diff:
-        enabled: false
-        future_format: '@interval hence'
-        past_format: '@interval ago'
-        granularity: 2
-        refresh: 60
-    third_party_settings: {  }
-    weight: 1
+    weight: 0
     region: content
   extra_field_workbc_page_title:
     settings: {  }
     third_party_settings: {  }
-    weight: 3
+    weight: 1
     region: content
   extra_field_workbc_published_on:
     settings: {  }
     third_party_settings: {  }
-    weight: 5
+    weight: 3
     region: content
   field_call_to_action:
     type: string
@@ -72,7 +52,7 @@ content:
     settings:
       link_to_entity: false
     third_party_settings: {  }
-    weight: 10
+    weight: 8
     region: content
   field_image_media:
     type: entity_reference_entity_view
@@ -81,7 +61,7 @@ content:
       view_mode: post_image
       link: false
     third_party_settings: {  }
-    weight: 6
+    weight: 4
     region: content
   field_published_date:
     type: datetime_default
@@ -90,14 +70,14 @@ content:
       timezone_override: ''
       format_type: medium
     third_party_settings: {  }
-    weight: 11
+    weight: 9
     region: content
   field_related_topics_blurb:
     type: text_default
     label: above
     settings: {  }
     third_party_settings: {  }
-    weight: 8
+    weight: 6
     region: content
   field_related_topics_image:
     type: entity_reference_label
@@ -105,7 +85,7 @@ content:
     settings:
       link: true
     third_party_settings: {  }
-    weight: 12
+    weight: 10
     region: content
   field_scheduled_publish:
     type: scheduled_publish_generic_formatter
@@ -114,24 +94,19 @@ content:
       date_format: html_datetime
       text_pattern: '%moderation_state% - %date%'
     third_party_settings: {  }
-    weight: 9
+    weight: 7
     region: content
   links:
     settings: {  }
     third_party_settings: {  }
-    weight: 4
-    region: content
-  uid:
-    type: author
-    label: hidden
-    settings: {  }
-    third_party_settings: {  }
-    weight: 0
+    weight: 2
     region: content
 hidden:
+  created: true
   field_content_group: true
   field_image: true
   field_metatag_description: true
   field_tags: true
   langcode: true
   search_api_excerpt: true
+  uid: true
