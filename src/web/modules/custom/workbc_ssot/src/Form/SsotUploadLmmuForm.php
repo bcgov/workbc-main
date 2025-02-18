@@ -801,6 +801,8 @@ class SsotUploadLmmuForm extends ConfirmFormBase {
         '@uri' => \Drupal::service('file_url_generator')->generateAbsoluteString($file->getFileUri()),
         '@filename' => $file->getFilename(),
       ]));
+
+      \Drupal\Core\Cache\Cache::invalidateTags(['rendered']);
     }
     catch (\Exception $e) {
       \Drupal::messenger()->addError(t('❌ An error occurred while updating Labour Market Monthly Update. Please refer to the logs for more information.'));
