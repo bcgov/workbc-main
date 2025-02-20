@@ -4,7 +4,7 @@
         "Read more about it at https://getcomposer.org/doc/01-basic-usage.md#installing-dependencies",
         "This file is @generated automatically"
     ],
-    "content-hash": "cbaecbd2cbaa805b8930d61d8af693ae",
+    "content-hash": "bf27f1d629e941c0e274e170e5ed3097",
     "packages": [
         {
             "name": "asm89/stack-cors",
@@ -5580,6 +5580,53 @@
                 "source": "https://git.drupalcode.org/project/mail_login",
                 "issues": "http://drupal.org/project/issues/mail_login",
                 "email": "mqanneh@gmail.com"
+            }
+        },
+        {
+            "name": "drupal/manage_state",
+            "version": "1.0.2",
+            "source": {
+                "type": "git",
+                "url": "https://git.drupalcode.org/project/manage_state.git",
+                "reference": "1.0.2"
+            },
+            "dist": {
+                "type": "zip",
+                "url": "https://ftp.drupal.org/files/projects/manage_state-1.0.2.zip",
+                "reference": "1.0.2",
+                "shasum": "818d93132aaf1f5ed5925da35569f6f050953ded"
+            },
+            "require": {
+                "drupal/core": "^8.8 || ^9 || ^10",
+                "symfony/var-dumper": "^4 || ^5 || ^6"
+            },
+            "type": "drupal-module",
+            "extra": {
+                "drupal": {
+                    "version": "1.0.2",
+                    "datestamp": "1687524935",
+                    "security-coverage": {
+                        "status": "covered",
+                        "message": "Covered by Drupal's security advisory policy"
+                    }
+                }
+            },
+            "notification-url": "https://packages.drupal.org/8/downloads",
+            "license": [
+                "GPL-2.0-or-later"
+            ],
+            "authors": [
+                {
+                    "name": "George Anderson (geoanders)",
+                    "homepage": "https://www.drupal.org/u/geoanders",
+                    "role": "Maintainer"
+                }
+            ],
+            "description": "Manage data stored in State API system.",
+            "homepage": "https://drupal.org/project/manage_state",
+            "support": {
+                "source": "https://git.drupalcode.org/project/manage_state",
+                "issues": "https://drupal.org/project/issues/manage_state"
             }
         },
         {

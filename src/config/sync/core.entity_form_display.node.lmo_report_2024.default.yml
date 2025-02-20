@@ -15,6 +15,7 @@ dependencies:
     - field.field.node.lmo_report_2024.field_metatag_description
     - field.field.node.lmo_report_2024.field_tags
     - node.type.lmo_report_2024
+    - workflows.workflow.editorial
   module:
     - content_moderation
     - media_library
@@ -154,7 +155,7 @@ content:
     third_party_settings: {  }
   field_lmo_2024_occupational_outl:
     type: paragraphs
-    weight: 17
+    weight: 16
     region: content
     settings:
       title: Paragraph
@@ -174,7 +175,7 @@ content:
     third_party_settings: {  }
   field_lmo_2024_regional_outlook:
     type: paragraphs
-    weight: 16
+    weight: 17
     region: content
     settings:
       title: Paragraph

@@ -19,6 +19,38 @@ const SSOT_DATASETS = [
     'noc_key' => 'noc',
     'fields' => 'noc,expected_job_openings_10y',
   ],
+  'career_regional' => [],
+  'census' => [],
+  'education' => [],
+  'high_opportunity_occupations' => [],
+  'industries' => [],
+  'industry_outlook' => [],
+  'labour_force_survey_industry' => [],
+  'labour_force_survey_regional_employment' => [],
+  'labour_force_survey_regional_industry_province' => [],
+  'labour_force_survey_regional_industry_region' => [],
+  'monthly_labour_market_updates' => [],
+  'occupational_interests' => [],
+  'openings_careers' => [],
+  'openings_industry' => [],
+  'regional_labour_market_outlook' => [],
+  'regional_top_occupations' => [],
+  'skills' => [],
+  'titles' => [],
+  'fyp_categories_interests' => [],
+  'lmo_report_2024_job_openings_10y' => [],
+  'lmo_report_2024_job_openings_annual' => [],
+  'lmo_report_2024_job_openings_teers' => [],
+  'lmo_report_2024_job_openings_industries' => [],
+  'lmo_report_2024_job_openings_broad_categories' => [],
+  'lmo_report_2024_job_openings_regions' => [],
+  'lmo_report_2024_job_openings_vancouver_island_coast' => [],
+  'lmo_report_2024_job_openings_mainland_southwest' => [],
+  'lmo_report_2024_job_openings_thompson_okanagan' =>[],
+  'lmo_report_2024_job_openings_kootenay' => [],
+  'lmo_report_2024_job_openings_cariboo' => [],
+  'lmo_report_2024_job_openings_north_coast_nechako' => [],
+  'lmo_report_2024_job_openings_northeast' => [],
 ];
 
 /**
@@ -37,7 +69,8 @@ function workbc_ssot_cron() {
   $result = ssot(
     'sources?' . http_build_query([
       'select' => 'endpoint,date',
-      'endpoint' => 'in.("' . join('","', array_keys(SSOT_DATASETS)) . '")'
+      'endpoint' => 'in.("' . join('","', array_keys(SSOT_DATASETS)) . '")',
+      'order' => 'date.desc'
     ])
   );
   if (!$result) return;
@@ -46,6 +79,7 @@ function workbc_ssot_cron() {
   // Compare each local date with remote date, scheduling a download job if needed.
   $datasets = [];
   foreach ($ssot_dates as $ssot_date) {
+    if (empty($ssot_date->date)) continue;
     $date1 = DateTimeImmutable::createFromFormat(DateTimeInterface::ATOM, $ssot_date->date);
     if (!$date1) {
       \Drupal::logger('workbc')->error('Error parsing date @date for SSOT dataset @dataset: @errors', [
@@ -56,14 +90,14 @@ function workbc_ssot_cron() {
       continue;
     }
     $date2 = empty($local_dates[$ssot_date->endpoint]) ? false : DateTimeImmutable::createFromFormat(DateTimeInterface::ATOM, $local_dates[$ssot_date->endpoint]);
-    if (!$date2 || $date2 < $date1) {
-      \Drupal::logger('workbc')->notice('Found an update for SSOT dataset @dataset. Adding to download job.', [
+    if (empty($date2) || $date2 < $date1) {
+      // Some datasets have multiple entries. Pick the latest date and ignore the rest.
+      if (array_key_exists($ssot_date->endpoint, $datasets) && $date1 <= DateTimeImmutable::createFromFormat(DateTimeInterface::ATOM, $datasets[$ssot_date->endpoint]->date)) continue;
+
+      \Drupal::logger('workbc')->notice('Found an update for SSOT dataset @dataset.', [
         '@dataset' => $ssot_date->endpoint
       ]);
-      $datasets[] = [
-        'endpoint' => $ssot_date->endpoint,
-        'ssot_date' => $ssot_date->date,
-      ];
+      $datasets[$ssot_date->endpoint] = $ssot_date;
     }
     else {
       \Drupal::logger('workbc')->notice('No update for SSOT dataset @dataset.', [
@@ -71,11 +105,25 @@ function workbc_ssot_cron() {
       ]);
     }
   }
+
   if (!empty($datasets)) {
-    Drupal::queue('ssot_downloader')->createItem([
-      'local_dates' => $local_dates,
-      'datasets' => $datasets,
-    ]);
+    // Clear the rendered cache to force pages to refresh their virtual fields with updated data points.
+    \Drupal\Core\Cache\Cache::invalidateTags(['rendered']);
+
+    foreach ($datasets as $dataset) {
+      // Enqueue a job to update the career profiles with each qualifying updated dataset.
+      if (false/*array_key_exists('noc_key', $dataset)*/) {
+        Drupal::queue('ssot_downloader')->createItem([
+          'dataset' => $dataset,
+        ]);
+      }
+      // Otherwise, just update the local date to reflect the latest date.
+      else {
+        $local_dates[$dataset->endpoint] = $dataset->date;
+      }
+    }
+
+    \Drupal::state()->set('workbc.ssot_dates', $local_dates);
   }
 }
 

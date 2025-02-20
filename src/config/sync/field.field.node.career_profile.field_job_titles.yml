@@ -10,7 +10,7 @@ field_name: field_job_titles
 entity_type: node
 bundle: career_profile
 label: '[DEPRECATED] Job Titles'
-description: ''
+description: "DO NOT USE!\r\n"
 required: false
 translatable: false
 default_value: {  }

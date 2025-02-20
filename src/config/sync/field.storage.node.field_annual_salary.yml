@@ -1,20 +1,19 @@
-uuid: 0b79c7bd-1a67-4dc6-bf09-873a2e676e16
+uuid: 0f8332df-c6fd-45dd-97d4-df82378a254a
 langcode: en
 status: true
 dependencies:
   module:
     - node
-id: node.field_job_titles
-field_name: field_job_titles
+id: node.field_annual_salary
+field_name: field_annual_salary
 entity_type: node
-type: string
+type: decimal
 settings:
-  max_length: 255
-  case_sensitive: false
-  is_ascii: false
+  precision: 10
+  scale: 2
 module: core
 locked: false
-cardinality: -1
+cardinality: 1
 translatable: true
 indexes: {  }
 persist_with_no_fields: false

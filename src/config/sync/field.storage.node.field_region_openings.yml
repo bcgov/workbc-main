@@ -1,20 +1,19 @@
-uuid: 0b79c7bd-1a67-4dc6-bf09-873a2e676e16
+uuid: ad440e19-2471-40e2-b953-f38298ee0326
 langcode: en
 status: true
 dependencies:
   module:
     - node
-id: node.field_job_titles
-field_name: field_job_titles
+id: node.field_region_openings
+field_name: field_region_openings
 entity_type: node
-type: string
+type: integer
 settings:
-  max_length: 255
-  case_sensitive: false
-  is_ascii: false
+  unsigned: false
+  size: normal
 module: core
 locked: false
-cardinality: -1
+cardinality: 8
 translatable: true
 indexes: {  }
 persist_with_no_fields: false

@@ -49,10 +49,8 @@ class SsotDownloader extends QueueWorkerBase implements ContainerFactoryPluginIn
    * Update the local dataset update date.
    */
   public function processItem($data) {
-    \Drupal::logger('workbc_ssot')->notice('Updating SSoT datasets: @datasets', [
-      '@datasets' => join(', ', array_map(function($dataset) {
-        return $dataset['endpoint'];
-      }, $data['datasets']))
+    \Drupal::logger('workbc_ssot')->notice('Updating SSoT datasets: @dataset', [
+      '@dataset' => $data['dataset']->endpoint
     ]);
     Timer::start('ssot_downloader');
 
@@ -62,13 +60,14 @@ class SsotDownloader extends QueueWorkerBase implements ContainerFactoryPluginIn
       'type' => 'career_profile',
     ]);
 
-    // Load all updated datasets.
+    // Load updated dataset.
+    // Code can adapt to multiple datasets, so we're storing loaded dataset(s) in an array.
     $updated_datasets = [];
-    foreach ($data['datasets'] as &$dataset) {
-      $metadata = SSOT_DATASETS[$dataset['endpoint']];
+    foreach ([$data['dataset']] as $dataset) {
+      $metadata = SSOT_DATASETS[$dataset->endpoint];
 
       // Formulate SSOT query given dataset information.
-      $endpoint = $dataset['endpoint'] . '?' . http_build_query(array_merge(
+      $endpoint = $dataset->endpoint . '?' . http_build_query(array_merge(
         ['select' => $metadata['fields']],
         array_key_exists('filters', $metadata) ? $metadata['filters'] : [],
         array_key_exists('order', $metadata) ? ['order' => $metadata['order']] : [],
@@ -76,7 +75,7 @@ class SsotDownloader extends QueueWorkerBase implements ContainerFactoryPluginIn
       $result = ssot($endpoint);
       if (!$result) {
         \Drupal::logger('workbc_ssot')->warning('Error fetching SSoT dataset @dataset at @endpoint. Ignoring.', [
-          '@dataset' => $dataset['endpoint'],
+          '@dataset' => $dataset->endpoint,
           '@endpoint' => $endpoint,
         ]);
         continue;
@@ -88,7 +87,7 @@ class SsotDownloader extends QueueWorkerBase implements ContainerFactoryPluginIn
         return $entries;
       }, []);
 
-      // update each career with the dataset-specific update function.
+      // Update each career with the dataset-specific update function.
       $method = 'update_' . $dataset['endpoint'];
       $missing_nocs = [];
       foreach ($careers as &$career) {
@@ -108,7 +107,7 @@ class SsotDownloader extends QueueWorkerBase implements ContainerFactoryPluginIn
       }
 
       // Indicate we have updated this dataset.
-      $updated_datasets[$dataset['endpoint']] = $dataset['ssot_date'];
+      $updated_datasets[$dataset['endpoint']] = $dataset->date;
     }
 
     // Save the careers.
@@ -121,14 +120,17 @@ class SsotDownloader extends QueueWorkerBase implements ContainerFactoryPluginIn
     }
 
     // Update local date for updated datasets.
-    $local_dates = $data['local_dates'];
+    $local_dates = array_merge(array_combine(
+      array_keys(SSOT_DATASETS),
+      array_fill(0, count(SSOT_DATASETS), null)
+    ), \Drupal::state()->get('workbc.ssot_dates', []));
     foreach ($updated_datasets as $endpoint => $ssot_date) {
       $local_dates[$endpoint] = $ssot_date;
     }
     \Drupal::state()->set('workbc.ssot_dates', $local_dates);
 
     Timer::stop('ssot_downloader');
-    \Drupal::logger('workbc')->notice('Updated SSOT datasets in @time: @datasets', [
+    \Drupal::logger('workbc')->notice('Updated following SSOT datasets in @time: @datasets', [
       '@datasets' => join(', ', array_keys($updated_datasets)),
       '@time' => Timer::read('ssot_downloader') . 'ms'
     ]);

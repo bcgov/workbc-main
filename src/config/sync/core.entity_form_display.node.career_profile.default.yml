@@ -3,6 +3,7 @@ langcode: en
 status: true
 dependencies:
   config:
+    - field.field.node.career_profile.field_annual_salary
     - field.field.node.career_profile.field_career_overview
     - field.field.node.career_profile.field_career_pathways
     - field.field.node.career_profile.field_career_videos
@@ -11,6 +12,7 @@ dependencies:
     - field.field.node.career_profile.field_duties
     - field.field.node.career_profile.field_education_programs
     - field.field.node.career_profile.field_education_training_skills
+    - field.field.node.career_profile.field_epbc_categories
     - field.field.node.career_profile.field_hero_image
     - field.field.node.career_profile.field_hero_image_media
     - field.field.node.career_profile.field_insights_from_industry
@@ -19,12 +21,14 @@ dependencies:
     - field.field.node.career_profile.field_metatag_description
     - field.field.node.career_profile.field_noc
     - field.field.node.career_profile.field_noc_2016
+    - field.field.node.career_profile.field_region_openings
     - field.field.node.career_profile.field_related_careers
     - field.field.node.career_profile.field_resources
     - field.field.node.career_profile.field_resources_reference
     - field.field.node.career_profile.field_scheduled_publish
     - field.field.node.career_profile.field_skills_2
     - field.field.node.career_profile.field_tags
+    - field.field.node.career_profile.field_teer
     - field.field.node.career_profile.field_work_environment
     - node.type.career_profile
     - workflows.workflow.editorial
@@ -47,6 +51,13 @@ content:
     region: content
     settings: {  }
     third_party_settings: {  }
+  field_annual_salary:
+    type: number
+    weight: 30
+    region: content
+    settings:
+      placeholder: ''
+    third_party_settings: {  }
   field_career_overview:
     type: text_textarea
     weight: 11
@@ -57,7 +68,7 @@ content:
     third_party_settings: {  }
   field_career_pathways:
     type: text_textarea
-    weight: 17
+    weight: 16
     region: content
     settings:
       rows: 5
@@ -81,7 +92,7 @@ content:
     third_party_settings: {  }
   field_content_group:
     type: options_select
-    weight: 26
+    weight: 25
     region: content
     settings: {  }
     third_party_settings: {  }
@@ -95,7 +106,7 @@ content:
     third_party_settings: {  }
   field_education_programs:
     type: text_textarea
-    weight: 20
+    weight: 19
     region: content
     settings:
       rows: 5
@@ -103,10 +114,20 @@ content:
     third_party_settings: {  }
   field_education_training_skills:
     type: text_textarea
-    weight: 19
+    weight: 18
     region: content
     settings:
       rows: 5
+      placeholder: ''
+    third_party_settings: {  }
+  field_epbc_categories:
+    type: entity_reference_autocomplete
+    weight: 33
+    region: content
+    settings:
+      match_operator: CONTAINS
+      match_limit: 10
+      size: 60
       placeholder: ''
     third_party_settings: {  }
   field_hero_image_media:
@@ -121,7 +142,7 @@ content:
         show_edit: '1'
   field_insights_from_industry:
     type: text_textarea
-    weight: 21
+    weight: 20
     region: content
     settings:
       rows: 5
@@ -129,21 +150,13 @@ content:
     third_party_settings: {  }
   field_introductions:
     type: options_select
-    weight: 23
+    weight: 22
     region: content
     settings: {  }
     third_party_settings: {  }
-  field_job_titles:
-    type: string_textfield
-    weight: 15
-    region: content
-    settings:
-      size: 60
-      placeholder: ''
-    third_party_settings: {  }
   field_metatag_description:
     type: string_textfield
-    weight: 30
+    weight: 29
     region: content
     settings:
       size: 60
@@ -159,15 +172,22 @@ content:
     third_party_settings: {  }
   field_noc_2016:
     type: string_textfield
-    weight: 28
+    weight: 27
     region: content
     settings:
       size: 60
       placeholder: ''
     third_party_settings: {  }
+  field_region_openings:
+    type: number
+    weight: 31
+    region: content
+    settings:
+      placeholder: ''
+    third_party_settings: {  }
   field_related_careers:
     type: entity_reference_autocomplete
-    weight: 18
+    weight: 17
     region: content
     settings:
       match_operator: CONTAINS
@@ -177,7 +197,7 @@ content:
     third_party_settings: {  }
   field_resources_reference:
     type: entity_reference_autocomplete
-    weight: 22
+    weight: 21
     region: content
     settings:
       match_operator: CONTAINS
@@ -187,13 +207,13 @@ content:
     third_party_settings: {  }
   field_scheduled_publish:
     type: scheduled_publish
-    weight: 27
+    weight: 26
     region: content
     settings: {  }
     third_party_settings: {  }
   field_tags:
     type: entity_reference_autocomplete_tags
-    weight: 29
+    weight: 28
     region: content
     settings:
       match_operator: CONTAINS
@@ -201,9 +221,15 @@ content:
       size: 60
       placeholder: ''
     third_party_settings: {  }
+  field_teer:
+    type: options_select
+    weight: 32
+    region: content
+    settings: {  }
+    third_party_settings: {  }
   field_work_environment:
     type: text_textarea
-    weight: 16
+    weight: 15
     region: content
     settings:
       rows: 5
@@ -218,7 +244,7 @@ content:
     third_party_settings: {  }
   moderation_state:
     type: moderation_state_default
-    weight: 25
+    weight: 24
     region: content
     settings: {  }
     third_party_settings: {  }
@@ -269,11 +295,12 @@ content:
     settings: {  }
     third_party_settings: {  }
   url_redirects:
-    weight: 24
+    weight: 23
     region: content
     settings: {  }
     third_party_settings: {  }
 hidden:
   field_hero_image: true
+  field_job_titles: true
   field_resources: true
   field_skills_2: true
