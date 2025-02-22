@@ -208,6 +208,6 @@ class SsotDownloader extends QueueWorkerBase implements ContainerFactoryPluginIn
       });
       $categories[] = ['target_id' => $term->id()];
     }
-    $career->set('field_epbc_categories', $categories);
+    $career->set('field_cst_categories', $categories);
   }
 }
