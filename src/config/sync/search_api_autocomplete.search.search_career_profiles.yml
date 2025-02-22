@@ -7,7 +7,6 @@ dependencies:
     - views.view.search_career_profiles
   module:
     - views
-    - search_api_autocomplete
 id: search_career_profiles
 label: 'Search: Career Profiles'
 index_id: career_profile_index
@@ -17,6 +16,7 @@ suggester_settings:
     highlight:
       enabled: false
       field: ''
+    suggest_keys: false
     view_modes:
       'entity:node':
         career_profile: ''

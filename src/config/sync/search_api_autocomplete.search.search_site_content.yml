@@ -7,7 +7,6 @@ dependencies:
     - views.view.search_site_content
   module:
     - views
-    - search_api_autocomplete
 id: search_site_content
 label: 'Search: Site Content'
 index_id: default_content_index
@@ -17,6 +16,7 @@ suggester_settings:
     highlight:
       enabled: false
       field: ''
+    suggest_keys: false
     view_modes:
       'entity:node':
         bc_profile: ''

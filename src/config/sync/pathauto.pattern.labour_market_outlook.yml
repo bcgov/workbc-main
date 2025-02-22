@@ -1,0 +1,22 @@
+uuid: 688c395c-e44d-4264-806b-81fa393c2f2d
+langcode: en
+status: true
+dependencies:
+  module:
+    - node
+id: labour_market_outlook
+label: 'Labour Market Outlook'
+type: 'canonical_entities:node'
+pattern: '[node:title]'
+selection_criteria:
+  194c6722-8715-4119-80a7-8d17b48bcafe:
+    id: 'entity_bundle:node'
+    negate: false
+    uuid: 194c6722-8715-4119-80a7-8d17b48bcafe
+    context_mapping:
+      node: node
+    bundles:
+      lmo_report_2024: lmo_report_2024
+selection_logic: and
+weight: -5
+relationships: {  }

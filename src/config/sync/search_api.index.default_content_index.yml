@@ -3,14 +3,13 @@ langcode: en
 status: true
 dependencies:
   config:
+    - core.entity_view_mode.node.search_index
     - field.storage.node.field_noc
     - field.storage.node.field_noc_2016
     - search_api.server.solr
-    - core.entity_view_mode.node.search_index
   module:
-    - search_api_solr
     - node
-    - search_api
+    - search_api_solr
 third_party_settings:
   search_api_solr:
     finalize: false
@@ -46,6 +45,7 @@ third_party_settings:
     term_modifiers:
       slop: 3
       fuzzy: 1
+      fuzzy_analyzer: true
     advanced:
       index_prefix: ''
       collection: ''
@@ -104,11 +104,13 @@ field_settings:
         - anonymous
       view_mode:
         'entity:node':
+          ':default': ''
           bc_profile: search_index
           blog: search_index
           career_profile: search_index
           event: search_index
           industry_profile: search_index
+          lmo_report_2024: search_index
           news: search_index
           page: search_index
           publication: search_index
@@ -209,6 +211,7 @@ tracker_settings:
     indexing_order: fifo
 options:
   cron_limit: 50
+  delete_on_fail: true
   index_directly: true
   track_changes_in_references: true
 server: solr

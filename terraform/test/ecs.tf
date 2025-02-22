@@ -2,14 +2,19 @@
 
 resource "aws_ecs_cluster" "main" {
   name               = "workbc-cluster"
-  capacity_providers = ["FARGATE_SPOT"]
+  # capacity_providers = ["FARGATE_SPOT"]
+}
 
-  default_capacity_provider_strategy {
-    capacity_provider = "FARGATE_SPOT"
-    weight            = 100
+resource "aws_ecs_cluster_capacity_providers" "main" {
+    cluster_name =  aws_ecs_cluster.main.name
+    capacity_providers = ["FARGATE_SPOT"]
+
+    default_capacity_provider_strategy {
+      weight            = 100
+      capacity_provider = "FARGATE_SPOT"	
   }
 
-  tags = var.common_tags
+  #tags = var.common_tags
 }
 
 resource "aws_ecs_task_definition" "app" {
@@ -261,7 +266,7 @@ resource "aws_ecs_task_definition" "app" {
 
 		entryPoint = ["sh", "-c"]
 
-		command = ["drush cr; drush updb -y --no-post-updates; drush cim -y; drush updb -y; drush cr"]
+		command = ["drush cr; drush updb -y; drush cim -y; drush deploy:hook -y; drush cr;"]
 
 		environment = [
 			{

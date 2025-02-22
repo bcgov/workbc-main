@@ -2,14 +2,18 @@
 
 resource "aws_ecs_cluster" "solr" {
   name               = "solr-cluster"
+  tags = var.common_tags
+}
+
+resource "aws_ecs_cluster_capacity_providers" "solr" {
+  cluster_name =  aws_ecs_cluster.solr.name
   capacity_providers = ["FARGATE_SPOT"]
 
   default_capacity_provider_strategy {
     capacity_provider = "FARGATE_SPOT"
     weight            = 100
   }
-
-  tags = var.common_tags
+  
 }
 
 resource "aws_ecs_task_definition" "solr" {

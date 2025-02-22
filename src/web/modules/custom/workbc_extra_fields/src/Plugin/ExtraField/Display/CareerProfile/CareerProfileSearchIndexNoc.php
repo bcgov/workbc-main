@@ -42,8 +42,7 @@ class CareerProfileSearchIndexNoc extends ExtraFieldDisplayFormattedBase {
    * {@inheritdoc}
    */
   public function viewElements(ContentEntityInterface $entity) {
-    // ksm("Search Index");
-    $output = $entity->get("field_noc")->value;;
+    $output = $entity->get("field_noc")->value;
     return [
       ['#markup' => $output],
     ];

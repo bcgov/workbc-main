@@ -11,6 +11,7 @@ dependencies:
     - node.type.industry_profile
     - node.type.industry_profile_introductions
     - node.type.labour_market_monthly
+    - node.type.lmo_report_2024
     - node.type.news
     - node.type.page
     - node.type.publication
@@ -108,6 +109,7 @@ type_settings:
       - industry_profile
       - industry_profile_introductions
       - labour_market_monthly
+      - lmo_report_2024
       - news
       - page
       - publication

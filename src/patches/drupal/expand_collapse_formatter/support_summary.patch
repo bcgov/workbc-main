@@ -1,0 +1,77 @@
+diff --git a/expand_collapse_formatter.module b/expand_collapse_formatter.module
+index 3f80411..6ca9df8 100644
+--- a/expand_collapse_formatter.module
++++ b/expand_collapse_formatter.module
+@@ -57,6 +57,7 @@ function expand_collapse_formatter_theme($existing, $type, $theme, $path) {
+         'link_class_open' => NULL,
+         'link_class_close' => NULL,
+         'value' => NULL,
++        'summary' => NULL,
+       ],
+       'template' => 'expand-collapse-formatter',
+     ],
+diff --git a/js/expand_collapse_formatter.js b/js/expand_collapse_formatter.js
+index 4fe18ea..600331c 100644
+--- a/js/expand_collapse_formatter.js
++++ b/js/expand_collapse_formatter.js
+@@ -46,13 +46,15 @@
+   Drupal.ExpandCollapseFormatter = function ecfConstructor(field, delta) {
+     this.id = `expand-collapse-${delta}`;
+     this.content = field.querySelector('.ec-content');
++    this.summary = field.querySelector('.ec-content-summary');
+     this.trimLength = field.getAttribute('data-trim-length');
+     this.state = field.getAttribute('data-default-state');
+     this.linkTextOpen = field.getAttribute('data-link-text-open');
+     this.linkTextClose = field.getAttribute('data-link-text-close');
+     this.linkClassOpen = field.getAttribute('data-link-class-open');
+     this.linkClassClose = field.getAttribute('data-link-class-close');
+-    this.text = this.content.innerText;
++    this.text = this.content.innerText.trim();
++    this.summaryText = this.summary.innerText.trim();
+     this.html = this.content.innerHTML;
+     this.showMore = Drupal.t(this.linkTextOpen);
+     this.showLess = Drupal.t(this.linkTextClose);
+@@ -61,7 +63,7 @@
+     field.setAttribute('id', this.id);
+ 
+     // Create a read more link and initiate the toggle.
+-    if (this.text.length > this.trimLength) {
++    if (this.summaryText.length > 0 || this.text.length > this.trimLength) {
+       this.toggleLink = document.createElement('a');
+       this.toggleLink.innerHTML = this.showMore;
+       this.toggleLink.setAttribute('href', `#${this.id}`);
+@@ -89,7 +91,7 @@
+ 
+       if (this.state === 'expanded') {
+         // Trim the content to a predefined number of characters.
+-        content = this.trimText(this.html);
++        content = this.summaryText.length > 0 ? this.summaryText : this.trimText(this.html);
+ 
+         linkText = this.showMore;
+         linkClass = `ec-toggle-link ${this.linkClassOpen}`;
+diff --git a/src/Plugin/Field/FieldFormatter/ExpandCollapseFormatter.php b/src/Plugin/Field/FieldFormatter/ExpandCollapseFormatter.php
+index 7bbfa61..5071945 100644
+--- a/src/Plugin/Field/FieldFormatter/ExpandCollapseFormatter.php
++++ b/src/Plugin/Field/FieldFormatter/ExpandCollapseFormatter.php
+@@ -125,6 +125,7 @@ class ExpandCollapseFormatter extends FormatterBase {
+       $element[$delta] = [
+         '#theme' => 'expand_collapse_formatter',
+         '#value' => $output,
++        '#summary' => $item->summary,
+         '#trim_length' => $this->getSetting('trim_length'),
+         '#default_state' => $this->getSetting('default_state'),
+         '#link_text_open' => $this->getSetting('link_text_open'),
+diff --git a/templates/expand-collapse-formatter.html.twig b/templates/expand-collapse-formatter.html.twig
+index af89005..2bd2f75 100644
+--- a/templates/expand-collapse-formatter.html.twig
++++ b/templates/expand-collapse-formatter.html.twig
+@@ -1,6 +1,9 @@
+ <div id="{{ id }}" class="expand-collapse" data-trim-length="{{ trim_length }}" data-default-state="{{ default_state }}"
+      data-link-text-open="{{ link_text_open|t }}" data-link-text-close="{{ link_text_close|t }}"
+      data-link-class-open="{{ link_class_open }}" data-link-class-close="{{ link_class_close }}">
++    <div class="ec-content-summary" style="display: none">
++        {{ summary }}
++    </div>
+     <div class="ec-content">
+         {{ value }}
+     </div>

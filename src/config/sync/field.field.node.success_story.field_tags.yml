@@ -10,8 +10,8 @@ id: node.success_story.field_tags
 field_name: field_tags
 entity_type: node
 bundle: success_story
-label: Tags
-description: 'Separate tags with commas.'
+label: 'Metatag Keywords'
+description: 'Keywords to be used for metatags.'
 required: false
 translatable: true
 default_value: {  }

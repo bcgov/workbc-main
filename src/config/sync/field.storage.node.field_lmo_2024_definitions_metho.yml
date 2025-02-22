@@ -1,0 +1,21 @@
+uuid: b68d1c7f-d84a-4df5-95d6-ab7e2d0d7205
+langcode: en
+status: true
+dependencies:
+  module:
+    - entity_reference_revisions
+    - node
+    - paragraphs
+id: node.field_lmo_2024_definitions_metho
+field_name: field_lmo_2024_definitions_metho
+entity_type: node
+type: entity_reference_revisions
+settings:
+  target_type: paragraph
+module: entity_reference_revisions
+locked: false
+cardinality: -1
+translatable: true
+indexes: {  }
+persist_with_no_fields: false
+custom_storage: false

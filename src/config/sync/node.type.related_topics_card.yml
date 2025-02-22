@@ -11,7 +11,7 @@ third_party_settings:
     parent: 'main:'
 name: 'Related Topics Card'
 type: related_topics_card
-description: 'Related Topic Card for external links'
+description: 'Related topics for external links only. The internal related topics are directly referenced on the page itself.'
 help: null
 new_revision: true
 preview_mode: 1

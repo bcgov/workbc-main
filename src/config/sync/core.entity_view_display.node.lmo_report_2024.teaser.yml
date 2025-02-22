@@ -1,0 +1,75 @@
+uuid: fe80bb96-cee1-44c6-b515-ba5169009038
+langcode: en
+status: true
+dependencies:
+  config:
+    - core.entity_view_mode.node.teaser
+    - field.field.node.lmo_report_2024.field_hero_image_media
+    - field.field.node.lmo_report_2024.field_hero_text
+    - field.field.node.lmo_report_2024.field_lmo_2024_definitions_metho
+    - field.field.node.lmo_report_2024.field_lmo_2024_education
+    - field.field.node.lmo_report_2024.field_lmo_2024_featured_topics
+    - field.field.node.lmo_report_2024.field_lmo_2024_industry_outlook
+    - field.field.node.lmo_report_2024.field_lmo_2024_labour_market
+    - field.field.node.lmo_report_2024.field_lmo_2024_occupational_outl
+    - field.field.node.lmo_report_2024.field_lmo_2024_regional_outlook
+    - field.field.node.lmo_report_2024.field_metatag_description
+    - field.field.node.lmo_report_2024.field_tags
+    - node.type.lmo_report_2024
+  module:
+    - user
+id: node.lmo_report_2024.teaser
+targetEntityType: node
+bundle: lmo_report_2024
+mode: teaser
+content:
+  created:
+    type: timestamp
+    label: hidden
+    settings:
+      date_format: medium
+      custom_date_format: ''
+      timezone: ''
+      tooltip:
+        date_format: long
+        custom_date_format: ''
+      time_diff:
+        enabled: false
+        future_format: '@interval hence'
+        past_format: '@interval ago'
+        granularity: 2
+        refresh: 60
+    third_party_settings: {  }
+    weight: 0
+    region: content
+  links:
+    settings: {  }
+    third_party_settings: {  }
+    weight: 100
+    region: content
+  uid:
+    type: author
+    label: hidden
+    settings: {  }
+    third_party_settings: {  }
+    weight: 0
+    region: content
+hidden:
+  extra_field_labourmarketoutlook_test: true
+  extra_field_lmo_report_2024_bc_job_openings_composition_chart: true
+  extra_field_lmo_search_index_keywords: true
+  extra_field_workbc_page_title: true
+  extra_field_workbc_published_on: true
+  field_hero_image_media: true
+  field_hero_text: true
+  field_lmo_2024_definitions_metho: true
+  field_lmo_2024_education: true
+  field_lmo_2024_featured_topics: true
+  field_lmo_2024_industry_outlook: true
+  field_lmo_2024_labour_market: true
+  field_lmo_2024_occupational_outl: true
+  field_lmo_2024_regional_outlook: true
+  field_metatag_description: true
+  field_tags: true
+  langcode: true
+  search_api_excerpt: true

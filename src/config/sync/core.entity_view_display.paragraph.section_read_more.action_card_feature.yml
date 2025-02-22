@@ -1,0 +1,25 @@
+uuid: 81905987-ec93-4193-99be-8f2f2465f737
+langcode: en
+status: true
+dependencies:
+  config:
+    - core.entity_view_mode.paragraph.action_card_feature
+    - field.field.paragraph.section_read_more.field_content
+    - field.field.paragraph.section_read_more.field_title
+    - paragraphs.paragraphs_type.section_read_more
+id: paragraph.section_read_more.action_card_feature
+targetEntityType: paragraph
+bundle: section_read_more
+mode: action_card_feature
+content:
+  field_title:
+    type: string
+    label: above
+    settings:
+      link_to_entity: false
+    third_party_settings: {  }
+    weight: 0
+    region: content
+hidden:
+  field_content: true
+  search_api_excerpt: true
