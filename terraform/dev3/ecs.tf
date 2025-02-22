@@ -1,29 +1,27 @@
 # ecs.tf
 
 resource "aws_ecs_cluster" "main" {
-  name               = "workbc-cluster"
-  tags = var.common_tags
-
+  name               = "workbc-cluster3"
+  #capacity_providers = ["FARGATE_SPOT"]
 }
 
 resource "aws_ecs_cluster_capacity_providers" "main" {
     cluster_name =  aws_ecs_cluster.main.name
-    capacity_providers = ["FARGATE"]
+    capacity_providers = ["FARGATE_SPOT"]
 
     default_capacity_provider_strategy {
       weight            = 100
-      capacity_provider = "FARGATE"	
+      capacity_provider = "FARGATE_SPOT"	
   }
 
   #tags = var.common_tags
 }
 
-
 resource "aws_ecs_task_definition" "app" {
   count                    = local.create_ecs_service
-  family                   = "workbc-task"
-  execution_role_arn       = aws_iam_role.ecs_task_execution_role.arn
-  task_role_arn            = aws_iam_role.workbc_container_role.arn
+  family                   = "workbc-task3"
+  execution_role_arn       = data.aws_iam_role.ecs_task_execution_role.arn
+  task_role_arn            = data.aws_iam_role.workbc_container_role.arn
   network_mode             = "awsvpc"
   requires_compatibilities = ["FARGATE"]
   cpu                      = var.fargate_cpu
@@ -32,7 +30,7 @@ resource "aws_ecs_task_definition" "app" {
   volume {
     name = "contents"
     efs_volume_configuration  {
-        file_system_id = aws_efs_file_system.workbc.id
+        file_system_id = aws_efs_file_system.workbc3.id
     }
   }
   volume {
@@ -62,7 +60,7 @@ resource "aws_ecs_task_definition" "app" {
 			logDriver = "awslogs"
 			options = {
 				awslogs-create-group  = "true"
-				awslogs-group         = "/ecs/${var.app_name}/init"
+				awslogs-group         = "/ecs/${var.app_name}-dev3/init"
 				awslogs-region        = var.aws_region
 				awslogs-stream-prefix = "ecs"
 			}
@@ -73,16 +71,16 @@ resource "aws_ecs_task_definition" "app" {
 		name        = "drupal"
 		image       = var.app_image
 		networkMode = "awsvpc"
-		
+
 		logConfiguration = {
 			logDriver = "awslogs"
 			options = {
 				awslogs-create-group  = "true"
-				awslogs-group         = "/ecs/${var.app_name}/drupal"
+				awslogs-group         = "/ecs/${var.app_name}-dev3/drupal"
 				awslogs-region        = var.aws_region
 				awslogs-stream-prefix = "ecs"
 			}
-		}		
+		}
 
 		portMappings = [
 			{
@@ -91,7 +89,7 @@ resource "aws_ecs_task_definition" "app" {
 				containerPort = 9000
 			}
 		]
-		
+
 		environment = [
 			{
 				name = "POSTGRES_PORT",
@@ -99,7 +97,7 @@ resource "aws_ecs_task_definition" "app" {
 			},
 			{
 				name = "POSTGRES_DB",
-				value = "drupal"
+				value = "drupal_dev3"
 			},
 			{
 				name = "POSTGRES_SSOT",
@@ -111,7 +109,7 @@ resource "aws_ecs_task_definition" "app" {
 			},
 			{
 				name = "POSTGRES_HOST",
-				value = "${aws_rds_cluster.postgres2.endpoint}"
+				value = "${data.aws_rds_cluster.postgres.endpoint}"
 			},
 			{
 				name = "SSOT_URL",
@@ -127,11 +125,11 @@ resource "aws_ecs_task_definition" "app" {
 			},
 			{
 				name = "PROJECT_ENVIRONMENT",
-				value = "aws-prod"
+				value = "aws-dev3"
 			},
 			{
 				name = "REDIS_HOST",
-				value = "${aws_elasticache_replication_group.workbc_redis_rg.primary_endpoint_address}"
+				value = "${aws_elasticache_replication_group.workbc3_redis_rg.primary_endpoint_address}"
 			},
 			{
 				name = "REDIS_PORT",
@@ -139,12 +137,8 @@ resource "aws_ecs_task_definition" "app" {
 			},
 			{
 				name = "CF_DIST_ID",
-				value = "${aws_cloudfront_distribution.workbc[0].id}"
-			},
-			{
-				name = "CAREERTREK_URL",
-				value = "https://careertrekbc.ca"
-			}	
+				value = "${aws_cloudfront_distribution.workbc3[0].id}"
+			}
 		]
 		secrets = [
 			{
@@ -162,7 +156,7 @@ resource "aws_ecs_task_definition" "app" {
 			{
 				name = "POSTGRES_ADM_PWD",
 				valueFrom = "${data.aws_secretsmanager_secret_version.creds.arn}:adm_password::"
-			},			
+			},
 			{
 				name = "JOBBOARD_GOOGLE_MAPS_KEY",
 				valueFrom = "${data.aws_secretsmanager_secret_version.creds2.arn}:gm_ref::"
@@ -172,16 +166,16 @@ resource "aws_ecs_task_definition" "app" {
 				valueFrom = "${data.aws_secretsmanager_secret_version.creds.arn}:drupal_adm_password::"
 			},
 			{
-				name = "GITHUB_API_TOKEN",
-				valueFrom = "${data.aws_secretsmanager_secret_version.creds.arn}:github_api_token::"
-			},
-			{
 				name = "LMMU_PWD",
 				valueFrom = "${data.aws_secretsmanager_secret_version.creds.arn}:lmmu_password::"
 			},
 		        {
 				name = "LMMU_USERNAME",
 				valueFrom = "${data.aws_secretsmanager_secret_version.creds.arn}:lmmu_username::"
+			},
+			{
+				name = "GITHUB_API_TOKEN",
+				valueFrom = "${data.aws_secretsmanager_secret_version.creds.arn}:github_api_token::"
 			}
 		]
 
@@ -196,7 +190,7 @@ resource "aws_ecs_task_definition" "app" {
 			}
 		]
 		volumesFrom = []
-		
+
 		dependsOn = [
 			{
 				containerName = "init"
@@ -207,18 +201,18 @@ resource "aws_ecs_task_definition" "app" {
 	{
 		essential   = true
 		name        = "nginx"
-		image       = "${var.app_repo}/nginx:2.3"
+		image       = "${var.app_repo}/nginx:2.2"
 		networkMode = "awsvpc"
-		
+
 		logConfiguration = {
 			logDriver = "awslogs"
 			options = {
 				awslogs-create-group  = "true"
-				awslogs-group         = "/ecs/${var.app_name}/nginx"
+				awslogs-group         = "/ecs/${var.app_name}-dev3/nginx"
 				awslogs-region        = var.aws_region
 				awslogs-stream-prefix = "ecs"
 			}
-		}		
+		}
 
 		portMappings = [
 			{
@@ -239,7 +233,7 @@ resource "aws_ecs_task_definition" "app" {
 			}
 		]
 		volumesFrom = []
-		
+
 		dependsOn = [
 			{
 				containerName = "init"
@@ -253,21 +247,19 @@ resource "aws_ecs_task_definition" "app" {
 		name        = "drush"
 		image       = var.app_image
 		networkMode = "awsvpc"
-		
+
 		logConfiguration = {
 			logDriver = "awslogs"
 			options = {
 				awslogs-create-group  = "true"
-				awslogs-group         = "/ecs/${var.app_name}/drush"
+				awslogs-group         = "/ecs/${var.app_name}-dev3/drush"
 				awslogs-region        = var.aws_region
 				awslogs-stream-prefix = "ecs"
 			}
 		}
 
 		entryPoint = ["sh", "-c"]
-
 		command = ["drush cr; drush updb -y; drush cim -y; drush deploy:hook -y; drush cr;"]
-
 		environment = [
 			{
 				name = "POSTGRES_PORT",
@@ -275,7 +267,7 @@ resource "aws_ecs_task_definition" "app" {
 			},
 			{
 				name = "POSTGRES_DB",
-				value = "drupal"
+				value = "drupal_dev3"
 			},
 			{
 				name = "POSTGRES_SSOT",
@@ -287,7 +279,7 @@ resource "aws_ecs_task_definition" "app" {
 			},
 			{
 				name = "POSTGRES_HOST",
-				value = "${aws_rds_cluster.postgres2.endpoint}"
+				value = "${data.aws_rds_cluster.postgres.endpoint}"
 			},
 			{
 				name = "SSOT_URL",
@@ -303,11 +295,11 @@ resource "aws_ecs_task_definition" "app" {
 			},
 			{
 				name = "PROJECT_ENVIRONMENT",
-				value = "aws-prod"
+				value = "aws-dev3"
 			},
 			{
 				name = "REDIS_HOST",
-				value = "${aws_elasticache_replication_group.workbc_redis_rg.primary_endpoint_address}"
+				value = "${aws_elasticache_replication_group.workbc3_redis_rg.primary_endpoint_address}"
 			},
 			{
 				name = "REDIS_PORT",
@@ -357,16 +349,66 @@ resource "aws_ecs_task_definition" "app" {
 				condition = "COMPLETE"
 			}
 		]
-	}
+	}/*,
+	{
+		essential   = false
+		name        = "pdf"
+		image       = "${var.app_repo}/pdf:0.8"
+		networkMode = "awsvpc"
+
+		logConfiguration = {
+			logDriver = "awslogs"
+			options = {
+				awslogs-create-group  = "true"
+				awslogs-group         = "/ecs/${var.app_name}-dev3/pdf"
+				awslogs-region        = var.aws_region
+				awslogs-stream-prefix = "ecs"
+			}
+		}
+
+		environment = [
+			{
+				name = "POSTGRES_PORT",
+				value = "5432"
+			},
+			{
+				name = "POSTGRES_DB",
+				value = "drupal_dev3"
+			},
+			{
+				name = "POSTGRES_HOST",
+				value = "${data.aws_rds_cluster.postgres.endpoint}"
+			}
+		]
+		secrets = [
+			{
+				name = "POSTGRES_USER",
+				valueFrom = "${data.aws_secretsmanager_secret_version.creds.arn}:username::"
+			},
+			{
+				name = "POSTGRES_PASSWORD",
+				valueFrom = "${data.aws_secretsmanager_secret_version.creds.arn}:password::"
+			}
+		]
+
+		mountPoints = [
+			{
+				containerPath = "/contents",
+				sourceVolume = "contents"
+			}
+		]
+		volumesFrom = []
+
+	}*/
   ])
 }
 
 resource "aws_ecs_service" "main" {
   count                             = local.create_ecs_service
-  name                              = "workbc-service"
+  name                              = "workbc-service3"
   cluster                           = aws_ecs_cluster.main.id
   task_definition                   = aws_ecs_task_definition.app[count.index].arn
-  desired_count                     = 2
+  desired_count                     = var.app_count
   enable_ecs_managed_tags           = true
   propagate_tags                    = "TASK_DEFINITION"
   health_check_grace_period_seconds = 60
@@ -375,7 +417,7 @@ resource "aws_ecs_service" "main" {
 
 
   capacity_provider_strategy {
-    capacity_provider = "FARGATE"
+    capacity_provider = "FARGATE_SPOT"
     weight            = 100
   }
 
@@ -393,6 +435,5 @@ resource "aws_ecs_service" "main" {
   }
 
   depends_on = [data.aws_alb_listener.front_end, aws_iam_role_policy_attachment.ecs_task_execution_role]
-
   tags = var.common_tags
 }
