@@ -156,21 +156,21 @@ class SsotDownloader extends QueueWorkerBase implements ContainerFactoryPluginIn
   }
 
   private function update_career_provincial($endpoint, $entry, &$career) {
-    $openings = array_merge(array_fill(0, 8, 0), $career->get('field_region_openings')->getValue());
-    $openings[REGION_BRITISH_COLUMBIA_ID] = reset($entry)['expected_job_openings_10y'];
+    $openings = $career->get('field_region_openings')->getValue() ?? array_fill(0, 8, 0);
+    $openings[REGION_BRITISH_COLUMBIA_ID] = reset($entry)['expected_job_openings_10y'] ?? 0;
     $career->set('field_region_openings', $openings);
   }
 
   private function update_career_regional($endpoint, $entries, &$career) {
-    $openings = array_merge(array_fill(0, 8, 0), $career->get('field_region_openings')->getValue());
+    $openings = $career->get('field_region_openings')->getValue() ?? array_fill(0, 8, 0);
     $entry = reset($entries);
-    $openings[REGION_CARIBOO_ID] = $entry['cariboo_expected_number_of_job_openings_10y'];
-    $openings[REGION_KOOTENAY_ID] = $entry['kootenay_expected_number_of_job_openings_10y'];
-    $openings[REGION_MAINLAND_SOUTHWEST_ID] = $entry['mainland_southwest_expected_number_of_job_openings_10y'];
-    $openings[REGION_NORTH_COAST_NECHAKO_ID] = $entry['north_coast_nechako_expected_number_of_job_openings_10y'];
-    $openings[REGION_NORTHEAST_ID] = $entry['northeast_expected_number_of_job_openings_10y'];
-    $openings[REGION_THOMPSON_OKANAGAN_ID] = $entry['thompson_okanagan_expected_number_of_job_openings_10y'];
-    $openings[REGION_VANCOUVER_ISLAND_COAST_ID] = $entry['vancouver_island_coast_expected_number_of_job_openings_10y'];
+    $openings[REGION_CARIBOO_ID] = $entry['cariboo_expected_number_of_job_openings_10y'] ?? 0;
+    $openings[REGION_KOOTENAY_ID] = $entry['kootenay_expected_number_of_job_openings_10y'] ?? 0;
+    $openings[REGION_MAINLAND_SOUTHWEST_ID] = $entry['mainland_southwest_expected_number_of_job_openings_10y'] ?? 0;
+    $openings[REGION_NORTH_COAST_NECHAKO_ID] = $entry['north_coast_nechako_expected_number_of_job_openings_10y'] ?? 0;
+    $openings[REGION_NORTHEAST_ID] = $entry['northeast_expected_number_of_job_openings_10y'] ?? 0;
+    $openings[REGION_THOMPSON_OKANAGAN_ID] = $entry['thompson_okanagan_expected_number_of_job_openings_10y'] ?? 0;
+    $openings[REGION_VANCOUVER_ISLAND_COAST_ID] = $entry['vancouver_island_coast_expected_number_of_job_openings_10y'] ?? 0;
     $career->set('field_region_openings', $openings);
   }
 
