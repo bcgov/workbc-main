@@ -1,16 +1,15 @@
 uuid: 0430f4ea-cf1f-4bae-adc5-8c0cf880bc4e
 langcode: en
-status: true
+status: false
 dependencies:
   config:
+    - core.entity_view_mode.node.career_profile_search_index
     - field.storage.node.field_noc
     - field.storage.node.field_noc_2016
     - search_api.server.solr
-    - core.entity_view_mode.node.career_profile_search_index
   module:
-    - search_api_solr
     - node
-    - search_api
+    - search_api_solr
 third_party_settings:
   search_api_solr:
     finalize: false
@@ -173,6 +172,7 @@ tracker_settings:
     indexing_order: fifo
 options:
   cron_limit: 50
+  delete_on_fail: true
   index_directly: true
   track_changes_in_references: true
 server: solr

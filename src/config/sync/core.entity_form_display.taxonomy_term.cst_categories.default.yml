@@ -1,0 +1,63 @@
+uuid: b17d06c8-6898-4293-8a7b-2ab9ac7e5d15
+langcode: en
+status: true
+dependencies:
+  config:
+    - field.field.taxonomy_term.cst_categories.field_region
+    - taxonomy.vocabulary.cst_categories
+  module:
+    - path
+    - text
+id: taxonomy_term.cst_categories.default
+targetEntityType: taxonomy_term
+bundle: cst_categories
+mode: default
+content:
+  description:
+    type: text_textarea
+    weight: 2
+    region: content
+    settings:
+      rows: 5
+      placeholder: ''
+    third_party_settings: {  }
+  field_region:
+    type: options_select
+    weight: 1
+    region: content
+    settings: {  }
+    third_party_settings: {  }
+  langcode:
+    type: language_select
+    weight: 3
+    region: content
+    settings:
+      include_locked: true
+    third_party_settings: {  }
+  name:
+    type: string_textfield
+    weight: 0
+    region: content
+    settings:
+      size: 60
+      placeholder: ''
+    third_party_settings: {  }
+  path:
+    type: path
+    weight: 5
+    region: content
+    settings: {  }
+    third_party_settings: {  }
+  simple_sitemap:
+    weight: 4
+    region: content
+    settings: {  }
+    third_party_settings: {  }
+  status:
+    type: boolean_checkbox
+    weight: 6
+    region: content
+    settings:
+      display_label: true
+    third_party_settings: {  }
+hidden: {  }

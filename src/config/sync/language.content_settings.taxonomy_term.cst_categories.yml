@@ -1,0 +1,11 @@
+uuid: 92cfb30c-b03b-4602-8c3e-7a9702fa756f
+langcode: en
+status: true
+dependencies:
+  config:
+    - taxonomy.vocabulary.cst_categories
+id: taxonomy_term.cst_categories
+target_entity_type_id: taxonomy_term
+target_bundle: cst_categories
+default_langcode: site_default
+language_alterable: false

@@ -1,0 +1,21 @@
+uuid: 0818e6d5-42db-4b0a-ac39-8eeb6dbe9325
+langcode: en
+status: true
+dependencies:
+  config:
+    - field.storage.taxonomy_term.field_region
+    - taxonomy.vocabulary.cst_categories
+  module:
+    - options
+id: taxonomy_term.cst_categories.field_region
+field_name: field_region
+entity_type: taxonomy_term
+bundle: cst_categories
+label: Region
+description: ''
+required: true
+translatable: false
+default_value: {  }
+default_value_callback: ''
+settings: {  }
+field_type: list_integer

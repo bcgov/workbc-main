@@ -1,0 +1,9 @@
+uuid: 7d9b508d-2959-4776-aa24-3f71abb8cf7a
+langcode: en
+status: true
+dependencies: {  }
+name: 'CST Categories'
+vid: cst_categories
+description: 'Occupational categories originally used in Career Search Tool and ported to Explore Career filters.'
+weight: 0
+new_revision: false

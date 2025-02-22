@@ -10,6 +10,7 @@ define ("WORKBC_EXTRA_FIELDS_DATA_NOT_AVAILABLE", "Data not available");
 define ("WORKBC_BC_MAP_WITH_LABELS", "bc-map-labels.png");
 define ("WORKBC_BC_MAP", "bc-map.png");
 
+define ("REGION_BRITISH_COLUMBIA", "British Columbia");
 define ("REGION_CARIBOO", "Cariboo");
 define ("REGION_KOOTENAY", "Kootenay");
 define ("REGION_MAINLAND_SOUTHWEST", "Mainland/Southwest");
@@ -18,8 +19,7 @@ define ("REGION_NORTHEAST", "Northeast");
 define ("REGION_THOMPSON_OKANAGAN", "Thompson-Okanagan");
 define ("REGION_VANCOUVER_ISLAND_COAST", "Vancouver Island/Coast");
 
-define ("REGION_BRITISH_COLUMBIA", "British Columbia");
-
+define ("REGION_BRITISH_COLUMBIA_ID", 0);
 define ("REGION_CARIBOO_ID", 1);
 define ("REGION_KOOTENAY_ID", 2);
 define ("REGION_MAINLAND_SOUTHWEST_ID", 3);
@@ -27,7 +27,6 @@ define ("REGION_NORTH_COAST_NECHAKO_ID", 4);
 define ("REGION_NORTHEAST_ID", 5);
 define ("REGION_THOMPSON_OKANAGAN_ID", 6);
 define ("REGION_VANCOUVER_ISLAND_COAST_ID", 7);
-define ("REGION_BRITISH_COLUMBIA_ID", 0);
 
 define ("WORK_BC_INTERACTIVE_MAP_1", 0);  // Career Profile Employment by Region
 define ("WORK_BC_INTERACTIVE_MAP_2", 1);  // Career Profile Job Openings by Region
@@ -477,14 +476,14 @@ function ssotRegions() {
 
 function ssotRegionIds() {
   static $regions = array(
+    "british_columbia" => REGION_BRITISH_COLUMBIA_ID,
     "cariboo" => REGION_CARIBOO_ID,
     "kootenay" => REGION_KOOTENAY_ID,
-    "northeast" => REGION_NORTHEAST_ID,
     "mainland_southwest" => REGION_MAINLAND_SOUTHWEST_ID,
+    "north_coast_nechako" => REGION_NORTH_COAST_NECHAKO_ID,
+    "northeast" => REGION_NORTHEAST_ID,
     "thompson_okanagan" => REGION_THOMPSON_OKANAGAN_ID,
     "vancouver_island_coast" => REGION_VANCOUVER_ISLAND_COAST_ID,
-    "north_coast_nechako" => REGION_NORTH_COAST_NECHAKO_ID,
-    "british_columbia" => REGION_BRITISH_COLUMBIA_ID,
   );
 
   return $regions;

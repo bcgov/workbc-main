@@ -11,11 +11,11 @@ use Drupal\file\Entity\File;
 use Drupal\user\Entity\User;
 
 /**
- * SSOT data fetcher.
+ * SSOT data updater.
  *
  * @QueueWorker(
  *   id = "ssot_uploader",
- *   title = @Translation("SSoT Uploader"),
+ *   title = @Translation("SSOT Uploader"),
  *   cron = {"time" = 60}
  * )
  */

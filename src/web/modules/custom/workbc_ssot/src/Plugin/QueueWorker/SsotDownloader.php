@@ -12,13 +12,15 @@ use Drupal\Component\Utility\Timer;
  *
  * @QueueWorker(
  *   id = "ssot_downloader",
- *   title = @Translation("SSoT Downloader"),
+ *   title = @Translation("SSOT Downloader"),
  *   cron = {"time" = 60}
  * )
  */
 class SsotDownloader extends QueueWorkerBase implements ContainerFactoryPluginInterface {
 
-  private Array $levels;
+  private $epbc_categories;
+  private $cst_categories;
+  private $cst_regions;
 
   /**
   * Main constructor.
@@ -49,8 +51,10 @@ class SsotDownloader extends QueueWorkerBase implements ContainerFactoryPluginIn
    * Update the local dataset update date.
    */
   public function processItem($data) {
-    \Drupal::logger('workbc_ssot')->notice('Updating SSoT datasets: @dataset', [
-      '@dataset' => $data['dataset']->endpoint
+    \Drupal::logger('workbc_ssot')->notice('Updating SSOT datasets: @datasets', [
+      '@datasets' => join(', ', array_map(function($dataset) {
+        return $dataset->endpoint;
+      }, $data['datasets']))
     ]);
     Timer::start('ssot_downloader');
 
@@ -60,10 +64,9 @@ class SsotDownloader extends QueueWorkerBase implements ContainerFactoryPluginIn
       'type' => 'career_profile',
     ]);
 
-    // Load updated dataset.
-    // Code can adapt to multiple datasets, so we're storing loaded dataset(s) in an array.
+    // Load updated datasets.
     $updated_datasets = [];
-    foreach ([$data['dataset']] as $dataset) {
+    foreach ($data['datasets'] as $dataset) {
       $metadata = SSOT_DATASETS[$dataset->endpoint];
 
       // Formulate SSOT query given dataset information.
@@ -74,7 +77,7 @@ class SsotDownloader extends QueueWorkerBase implements ContainerFactoryPluginIn
       ));
       $result = ssot($endpoint);
       if (!$result) {
-        \Drupal::logger('workbc_ssot')->warning('Error fetching SSoT dataset @dataset at @endpoint. Ignoring.', [
+        \Drupal::logger('workbc_ssot')->warning('Error fetching SSOT dataset @dataset at @endpoint. Ignoring.', [
           '@dataset' => $dataset->endpoint,
           '@endpoint' => $endpoint,
         ]);
@@ -83,41 +86,53 @@ class SsotDownloader extends QueueWorkerBase implements ContainerFactoryPluginIn
 
       // Index the dataset by NOC.
       $entries = array_reduce(json_decode($result->getBody(), true), function($entries, $entry) use($metadata) {
-        $entries[$entry[$metadata['noc_key']]] = $entry;
+        $noc = $entry[$metadata['noc_key']];
+        if (array_key_exists($noc, $entries)) {
+          $entries[$noc][] = $entry;
+        }
+        else {
+          $entries[$noc] = [$entry];
+        }
         return $entries;
       }, []);
 
       // Update each career with the dataset-specific update function.
-      $method = 'update_' . $dataset['endpoint'];
+      $method = 'update_' . $dataset->endpoint;
       $missing_nocs = [];
       foreach ($careers as &$career) {
         $noc = $career->get('field_noc')->value;
+        if (empty($noc)) {
+          continue;
+        }
         if (!array_key_exists($noc, $entries)) {
           $missing_nocs[] = $noc;
           continue;
         }
         $entry = $entries[$noc];
-        $this->$method($dataset['endpoint'], $entry, $career);
+        $this->$method($dataset->endpoint, $entry, $career);
       }
       if (!empty($missing_nocs)) {
         \Drupal::logger('workbc_ssot')->warning('Could not find the following NOCs in dataset @dataset: @nocs', [
           '@nocs' => join(', ', $missing_nocs),
-          '@dataset' => $dataset['endpoint'],
+          '@dataset' => $dataset->endpoint,
         ]);
       }
 
       // Indicate we have updated this dataset.
-      $updated_datasets[$dataset['endpoint']] = $dataset->date;
+      $updated_datasets[$dataset->endpoint] = $dataset->date;
     }
 
     // Save the careers.
+    print("Saving careers");
     foreach ($careers as &$career) {
+      print(".");
       $career->setNewRevision(true);
       $career->setRevisionLogMessage('Updating SSOT datasets: ' . join(', ', array_keys($updated_datasets)));
       $career->setRevisionCreationTime(time());
       $career->setRevisionUserId(1);
       $career->save();
     }
+    print("\n");
 
     // Update local date for updated datasets.
     $local_dates = array_merge(array_combine(
@@ -130,17 +145,69 @@ class SsotDownloader extends QueueWorkerBase implements ContainerFactoryPluginIn
     \Drupal::state()->set('workbc.ssot_dates', $local_dates);
 
     Timer::stop('ssot_downloader');
-    \Drupal::logger('workbc')->notice('Updated following SSOT datasets in @time: @datasets', [
+    \Drupal::logger('workbc_ssot')->notice('Updated following SSOT datasets in @time: @datasets', [
       '@datasets' => join(', ', array_keys($updated_datasets)),
       '@time' => Timer::read('ssot_downloader') . 'ms'
     ]);
   }
 
   private function update_wages($endpoint, $entry, &$career) {
-    $career->set('field_annual_salary', $entry['calculated_median_annual_salary']);
+    $career->set('field_annual_salary', reset($entry)['calculated_median_annual_salary']);
   }
 
   private function update_career_provincial($endpoint, $entry, &$career) {
-    $career->set('field_job_openings', $entry['expected_job_openings_10y']);
+    $openings = array_merge(array_fill(0, 8, 0), $career->get('field_region_openings')->getValue());
+    $openings[REGION_BRITISH_COLUMBIA_ID] = reset($entry)['expected_job_openings_10y'];
+    $career->set('field_region_openings', $openings);
+  }
+
+  private function update_career_regional($endpoint, $entries, &$career) {
+    $openings = array_merge(array_fill(0, 8, 0), $career->get('field_region_openings')->getValue());
+    $entry = reset($entries);
+    $openings[REGION_CARIBOO_ID] = $entry['cariboo_expected_number_of_job_openings_10y'];
+    $openings[REGION_KOOTENAY_ID] = $entry['kootenay_expected_number_of_job_openings_10y'];
+    $openings[REGION_MAINLAND_SOUTHWEST_ID] = $entry['mainland_southwest_expected_number_of_job_openings_10y'];
+    $openings[REGION_NORTH_COAST_NECHAKO_ID] = $entry['north_coast_nechako_expected_number_of_job_openings_10y'];
+    $openings[REGION_NORTHEAST_ID] = $entry['northeast_expected_number_of_job_openings_10y'];
+    $openings[REGION_THOMPSON_OKANAGAN_ID] = $entry['thompson_okanagan_expected_number_of_job_openings_10y'];
+    $openings[REGION_VANCOUVER_ISLAND_COAST_ID] = $entry['vancouver_island_coast_expected_number_of_job_openings_10y'];
+    $career->set('field_region_openings', $openings);
+  }
+
+  private function update_fyp_categories_interests($endpoint, $entries, &$career) {
+    if (!isset($this->epbc_categories)) {
+      $this->epbc_categories = \Drupal::entityTypeManager()->getStorage('taxonomy_term')->loadTree('epbc_categories');
+    }
+    $categories = [];
+    foreach ($entries as $entry) {
+      $parent = array_search_func($this->epbc_categories, function ($k, $v) use ($entry) {
+        return $v->name === $entry['category'];
+      });
+      $term = array_search_func($this->epbc_categories, function ($k, $v) use ($entry, $parent) {
+        return $v->name === $entry['interest'] && $v->parents[0] === $parent->tid;
+      });
+      $categories[] = ['target_id' => $term->tid];
+    }
+    $career->set('field_epbc_categories', $categories);
+  }
+
+  private function update_education($endpoint, $entry, &$career) {
+    $career->set('field_teer', reset($entry)['teer']);
+  }
+
+  private function update_career_search_groups($endpoint, $entries, &$career) {
+    if (!isset($this->cst_categories)) {
+      $this->cst_categories = \Drupal::entityTypeManager()->getStorage('taxonomy_term')->loadTree('cst_categories', 0, null, true);
+      $this->cst_regions = array_combine(array_values(ssotRegions()), array_values(ssotRegionIds()));
+    }
+    $categories = [];
+    $cst_regions = $this->cst_regions;
+    foreach ($entries as $entry) {
+      $term = array_search_func($this->cst_categories, function ($k, $v) use ($entry, $cst_regions) {
+        return $v->name->value === $entry['occupational_category'] && $v->field_region->value == $cst_regions[$entry['region']];
+      });
+      $categories[] = ['target_id' => $term->id()];
+    }
+    $career->set('field_epbc_categories', $categories);
   }
 }

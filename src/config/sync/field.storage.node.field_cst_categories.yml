@@ -1,12 +1,12 @@
-uuid: 3ea7a334-025a-42cd-a3d8-1589e7cf1ec0
+uuid: 5812951b-d90f-445f-92d0-084597199afc
 langcode: en
 status: true
 dependencies:
   module:
     - node
     - taxonomy
-id: node.field_epbc_categories
-field_name: field_epbc_categories
+id: node.field_cst_categories
+field_name: field_cst_categories
 entity_type: node
 type: entity_reference
 settings:

@@ -1,0 +1,45 @@
+uuid: c0ebdff4-1abd-4669-8c69-f9743ec82fc2
+langcode: en
+status: true
+dependencies:
+  module:
+    - options
+    - taxonomy
+id: taxonomy_term.field_region
+field_name: field_region
+entity_type: taxonomy_term
+type: list_integer
+settings:
+  allowed_values:
+    -
+      value: 0
+      label: 'British Columbia'
+    -
+      value: 1
+      label: Cariboo
+    -
+      value: 2
+      label: Kootenay
+    -
+      value: 3
+      label: Mainland/Southwest
+    -
+      value: 4
+      label: 'North Coast and Nechako'
+    -
+      value: 5
+      label: Northeast
+    -
+      value: 6
+      label: Thompson-Okanagan
+    -
+      value: 7
+      label: 'Vancouver Island/Coast'
+  allowed_values_function: ''
+module: options
+locked: false
+cardinality: 1
+translatable: true
+indexes: {  }
+persist_with_no_fields: false
+custom_storage: false
