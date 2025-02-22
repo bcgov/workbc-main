@@ -58,18 +58,35 @@ function workbc_ssot_deploy_923_cst_categories(&$sandbox = NULL) {
     }
     $sandbox['terms'] = json_decode($result->getBody());
     $sandbox['count'] = count($sandbox['terms']);
+    $sandbox['categories'] = [];
   }
 
   $entry = array_shift($sandbox['terms']);
+  if (!array_key_exists($entry->occupational_category, $sandbox['categories'])) {
+    $term = Drupal::entityTypeManager()
+      ->getStorage('taxonomy_term')
+      ->create([
+        'vid' => 'cst_categories',
+        'name' => $entry->occupational_category,
+      ]);
+    $term->save();
+    $sandbox['categories'][$entry->occupational_category] = [
+      'tid' => $term->id(),
+      'depth' => 0,
+    ];
+  }
   $term = Drupal::entityTypeManager()
     ->getStorage('taxonomy_term')
     ->create([
       'vid' => 'cst_categories',
-      'name' => $entry->occupational_category,
+      'name' => "$entry->occupational_category / $entry->region",
+      'parent' => $sandbox['categories'][$entry->occupational_category]['tid'],
+      'weight' => $sandbox['categories'][$entry->occupational_category]['depth'],
       'field_region' => array_combine(array_values(ssotRegions()), array_values(ssotRegionIds()))[$entry->region]
     ]);
   $term->save();
   $message = "Created term $entry->occupational_category / $entry->region.";
+  $sandbox['categories'][$entry->occupational_category]['depth']++;
   $sandbox['#finished'] = empty($sandbox['terms']) ? 1 : ($sandbox['count'] - count($sandbox['terms'])) / $sandbox['count'];
   return t("[WBCAMS-923] $message");
 }

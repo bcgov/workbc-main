@@ -20,7 +20,6 @@ class SsotDownloader extends QueueWorkerBase implements ContainerFactoryPluginIn
 
   private $epbc_categories;
   private $cst_categories;
-  private $cst_regions;
 
   /**
   * Main constructor.
@@ -197,16 +196,17 @@ class SsotDownloader extends QueueWorkerBase implements ContainerFactoryPluginIn
 
   private function update_career_search_groups($endpoint, $entries, &$career) {
     if (!isset($this->cst_categories)) {
-      $this->cst_categories = \Drupal::entityTypeManager()->getStorage('taxonomy_term')->loadTree('cst_categories', 0, null, true);
-      $this->cst_regions = array_combine(array_values(ssotRegions()), array_values(ssotRegionIds()));
+      $this->cst_categories = \Drupal::entityTypeManager()->getStorage('taxonomy_term')->loadTree('cst_categories');
     }
     $categories = [];
-    $cst_regions = $this->cst_regions;
     foreach ($entries as $entry) {
-      $term = array_search_func($this->cst_categories, function ($k, $v) use ($entry, $cst_regions) {
-        return $v->name->value === $entry['occupational_category'] && $v->field_region->value == $cst_regions[$entry['region']];
+      $parent = array_search_func($this->cst_categories, function ($k, $v) use ($entry) {
+        return $v->name === $entry['occupational_category'];
       });
-      $categories[] = ['target_id' => $term->id()];
+      $term = array_search_func($this->cst_categories, function ($k, $v) use ($entry, $parent) {
+        return $v->name === ($entry['occupational_category'] . ' / ' . $entry['region']) && $v->parents[0] === $parent->tid;
+      });
+      $categories[] = ['target_id' => $term->tid];
     }
     $career->set('field_cst_categories', $categories);
   }
