@@ -11,7 +11,7 @@ use Drupal\extra_field\Plugin\ExtraFieldDisplayFormattedBase;
  *
  * @ExtraFieldDisplay(
  *   id = "lmo_report_2024_job_openings_regions_table",
- *   label = @Translation("Total Job Openings by Development Region, B.C. (2024-2034)"),
+ *   label = @Translation("Employment and Job Openings by Development Region, B.C. (2024-2034)"),
  *   description = @Translation("An extra field to display job openings regional table."),
  *   bundles = {
  *     "paragraph.lmo_charts_tables",
