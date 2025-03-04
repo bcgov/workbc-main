@@ -73,6 +73,28 @@ function workbc_custom_views_data_alter(array &$data) {
     ],
   ];
 
+  $data['node__field_cst_categories']['field_cst_categories_target_id'] = [
+    'title' => t('WorkBC node CST Category filter'),
+    'group' => 'Content',
+    'filter' => [
+      'title' => t('WorkBC node CST Category filter'),
+      'help' => t('Filter nodes by CST Category by region & parent term.'),
+      'field' => 'field_cst_categories_target_id',
+      'id' => 'workbc_node_cst_category_filter',
+    ],
+  ];
+
+  $data['node__field_region_openings']['delta'] = [
+    'title' => t('WorkBC Region Openings delta filter'),
+    'group' => 'Content',
+    'filter' => [
+      'title' => t('WorkBC Region Openings delta filter'),
+      'help' => t('Filter nodes by Region Openings delta.'),
+      'field' => 'delta',
+      'id' => 'workbc_node_region_delta_filter',
+    ],
+  ];
+
   $data['node__field_skills_2']['field_skills_2_target_id'] = [
     'title' => t('WorkBC Top 6 Skills filter'),
     'group' => 'Content',
@@ -103,6 +125,28 @@ function workbc_custom_views_data_alter(array &$data) {
   ];
 
   $data['high_opportunity_occupations']['table']['base']['field'] = 'noc';
+
+
+
+
+  // if (isset($data['node__field_cst_categories'])) {
+  //   $cst_categories = $data['node__field_cst_categories']['field_cst_categories_target_id'];
+
+  //   // Create a new views argument for reading slug arguments and interpreting
+  //   // them as taxonomy terms.
+  //   $data['node__field_cst_categories']['field_cst_categories_target_id'] = [
+  //     'group' => $cst_categories['group'],
+  //     'title' => t('CST Category ID by Region & CST Category parent'),
+  //     'title short' => t('CST Categories'),
+  //     'argument' => [
+  //       'table' => 'node__field_cst_categories',
+  //       'field' => 'field_cst_categories_target_id',
+  //       'id' => 'custom_cst_category',
+  //       'zero is null' => TRUE,
+  //     ],
+  //   ];
+  // }
+
 }
 
 /**
