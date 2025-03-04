@@ -126,27 +126,6 @@ function workbc_custom_views_data_alter(array &$data) {
 
   $data['high_opportunity_occupations']['table']['base']['field'] = 'noc';
 
-
-
-
-  // if (isset($data['node__field_cst_categories'])) {
-  //   $cst_categories = $data['node__field_cst_categories']['field_cst_categories_target_id'];
-
-  //   // Create a new views argument for reading slug arguments and interpreting
-  //   // them as taxonomy terms.
-  //   $data['node__field_cst_categories']['field_cst_categories_target_id'] = [
-  //     'group' => $cst_categories['group'],
-  //     'title' => t('CST Category ID by Region & CST Category parent'),
-  //     'title short' => t('CST Categories'),
-  //     'argument' => [
-  //       'table' => 'node__field_cst_categories',
-  //       'field' => 'field_cst_categories_target_id',
-  //       'id' => 'custom_cst_category',
-  //       'zero is null' => TRUE,
-  //     ],
-  //   ];
-  // }
-
 }
 
 /**
