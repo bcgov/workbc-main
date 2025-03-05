@@ -96,7 +96,12 @@
         display: none;
       }
 
-      tr {
+
+      tbody td {
+        padding: 0 0 0 0;
+      }
+
+      tbody tr {
         padding: 0 0 0 0;
         display: block;
         padding-bottom: .7em;
@@ -106,7 +111,6 @@
       }
 
       td {
-        padding: 0 0 0 0;
         background-color: inherit;
         clear: both;
       }
@@ -143,11 +147,11 @@
       td.lmo-report-growth,
       td.lmo-report-expansion,
       td.lmo-report-replacement,
-      td.lmo-report-percentage,
       td.lmo-report-openings {
         display: block;
         text-align: right;
         border: none;
+        padding-bottom: 1.0em;
         padding-left: 1.5em;
         padding-right: 1.5em;
       }
@@ -156,14 +160,36 @@
       td.lmo-report-growth::before,
       td.lmo-report-expansion::before,
       td.lmo-report-replacement::before,
-      td.lmo-report-percentage::before,
       td.lmo-report-openings::before {
         content: attr(data-label);
         float: left;
         font-weight: bold;
         text-align: left;
+        padding-bottom: 0.75em;
         width: 65%;
       }
+
+
+      td.lmo-report-percentage, 
+      td.lmo-report-teer-openings {
+        display: block;
+        text-align: right;
+        border: none;
+        padding-left: 1.5em;
+        padding-right: 1.5em;
+      }
+
+      td.lmo-report-percentage::before,
+      td.lmo-report-teer-openings::before {
+        content: attr(data-label);
+        float: left;
+        font-weight: bold;
+        text-align: left;
+        padding-bottom: 0.5em;
+        width: 65%;
+      }
+
+
     }
 
     .data-align-center {
