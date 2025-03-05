@@ -44,9 +44,13 @@
   cursor: pointer;
 
   &:hover .workbc-tooltip-content {
-      display: block;
-    }
+    display: block;
   }
+
+  &:hover .workbc-tooltip-content-right {
+    display: block;
+  }  
+}
 
 .workbc-tooltip-content {
   display: none;
@@ -85,6 +89,36 @@
       left: 10%;
     }
   }
+}
+
+.workbc-tooltip-content-right {
+  display: none;
+  position: absolute;
+  z-index: 1;
+  text-align: left;
+  top: 28px;
+  left: -195px;
+  width: 240px;
+  padding: 10px;
+  background-color: #fff;
+  border: 2px solid $workbc_palette_dark_secondary;
+  border-radius: 6px;
+  font-weight: 400;
+  font-size: 16px;
+
+  &:before {
+    content: "";
+    position: absolute;
+    top: -10px;
+    left: 82%;
+    width: 16px;
+    height: 12px;
+    background-image: url(../assets/images/triangle.svg);
+    background-size: 16px 12px;
+    background-position: center;
+    background-repeat: no-repeat;
+  }
+
 }
 
 .bc-profile--tooltip-content {
