@@ -55,6 +55,14 @@ function workbc_custom_theme($existing, $type, $theme, $path) {
         ),
       ],
     ],
+    'career_exploration_block' => [
+      'variables' => [
+        'career_exploration' => array(
+          'title' => NULL,
+          'epbc' => NULL,
+        ),
+      ],
+    ],
   ];
 }
 

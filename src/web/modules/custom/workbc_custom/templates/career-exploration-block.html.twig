@@ -1,0 +1,29 @@
+{#
+/**
+* @file
+* Template for custom WorkBC Career Exploration page
+*
+* Available variables:
+* - career_exploration
+*   - categories
+*   - interests
+#}
+
+
+
+{% if career_exploration %}
+
+  <div>
+    {% for key, epbc in career_exploration.categories %}    
+      <p>
+      <h5>{{ epbc }}</h5>
+      <ul>
+        {% for interest in career_exploration.interests[key] %}
+          <li>{{ interest }}</li>
+        {% endfor %}
+      </ul>
+      </p>
+    {% endfor %}
+  </div>
+
+{% endif %}
