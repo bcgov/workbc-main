@@ -56,6 +56,12 @@ resource "aws_cloudfront_distribution" "workbc" {
 	origin_access_control_id = aws_cloudfront_origin_access_control.oac.id
   }
 
+origin {
+      domain_name = aws_s3_bucket.workbc_s32.bucket_regional_domain_name
+      origin_id = "Maintenance-Window"
+      origin_access_control_id = aws_cloudfront_origin_access_control.oac.id
+}
+
   enabled         = true
   is_ipv6_enabled = true
   comment         = "WorkBC"
