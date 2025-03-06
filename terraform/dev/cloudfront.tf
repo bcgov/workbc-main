@@ -78,7 +78,7 @@ origin {
     "PUT"]
     cached_methods = ["GET", "HEAD"]
 
-error_response {
+custom_error_response {
       error_code = 403
       response_page_path = "/indexmaintenance.html"
       response_code = 200
