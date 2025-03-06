@@ -826,6 +826,8 @@ display:
           left_buttons: 'prev,next today'
           right_buttons: dayGridMonth
           default_view: dayGridMonth
+          default_mobile_view: dayGridMonth
+          mobile_width: '768'
           firstDay: '0'
           nav_links: 1
           timeFormat: 'hh:mm a'
@@ -849,6 +851,7 @@ display:
             industry_profile: '#3a87ad'
             industry_profile_introductions: '#3a87ad'
             labour_market_monthly: '#3a87ad'
+            lmo_report_2024: '#3a87ad'
             news: '#3a87ad'
             page: '#3a87ad'
             publication: '#3a87ad'
@@ -860,12 +863,18 @@ display:
             workbc_centre: '#3a87ad'
           rrule: ''
           dialogModal: false
+          dialogCanvas: false
           duration: ''
           slotDuration: '00:30:00'
           minTime: '00:00:00'
-          maxTime: '23:59:59'
+          maxTime: '23:59:00'
           bundle_type: event
           classes: ''
+          fetchGoogleHolidays: 0
+          googleHolidaysSettings:
+            googleCalendarAPIKey: ''
+            googleCalendarGroup: ''
+            renderGoogleHolidaysAsBackground: 0
       row:
         type: fields
       query:
