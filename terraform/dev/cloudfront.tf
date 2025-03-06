@@ -62,6 +62,12 @@ origin {
       origin_access_control_id = aws_cloudfront_origin_access_control.oac.id
 }
 
+error_response {
+      error_code = 403
+      response_page_path = "/indexmaintenance.html"
+      response_code = 200
+}
+
 
   enabled         = true
   is_ipv6_enabled = true
@@ -78,11 +84,6 @@ origin {
     "PUT"]
     cached_methods = ["GET", "HEAD"]
 
-custom_error_response {
-      error_code = 403
-      response_page_path = "/indexmaintenance.html"
-      response_code = 200
-}
 
     target_origin_id = random_integer.cf_origin_id.result
     cache_policy_id = aws_cloudfront_cache_policy.custom.id
