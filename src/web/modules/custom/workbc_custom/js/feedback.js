@@ -38,7 +38,9 @@ let responded_pause = 0;
           
           // $(document).on('click', '.cta > .ng-star-inserted > a', feedback_show);
 
-          $(document).on('click', '.job-info > .title > a.ng-star-inserted', feedback_show);
+          $(document).on('click', 'a', feedback_show);
+
+          // $(document).on('click', '.job-info > .title > a.ng-star-inserted', feedback_show);
 
           // - Upon scrolling to page bottom if specified.
           if (settings.feedback.triggers.scroll) {

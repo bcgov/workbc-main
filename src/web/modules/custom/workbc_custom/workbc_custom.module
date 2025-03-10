@@ -658,8 +658,8 @@ function workbc_custom_page_attachments_alter(array &$attachments) {
         'scroll' => $alias == $paths['online_employment_services'],
       ],
       'settings' => [
-        'dismissed_pause' => 7,
-        'responded_pause' => 30,
+        'dismissed_pause' => 0,
+        'responded_pause' => 0,
       ]
     ];
   }
