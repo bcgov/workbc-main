@@ -45,8 +45,9 @@
         if (triggerEl.length && !triggerEl.hasClass('active')) {
           bootstrap.Tab.getOrCreateInstance(triggerEl[0]).show();
           document.querySelector(".profile-content-tabs").scrollIntoView({
-            behavior: 'smooth'
-          });          
+            behavior: 'smooth',
+            block: 'center'
+          });
         }
       });
     },
