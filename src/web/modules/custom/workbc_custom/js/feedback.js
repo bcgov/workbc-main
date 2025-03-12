@@ -37,8 +37,9 @@ let responded_pause = 0;
           }
           
           // $(document).on('click', '.cta > .ng-star-inserted > a', feedback_show);
+          // $(document).on('click', 'a', feedback_show);
 
-          $(document).on('click', 'a', feedback_show);
+          setTimeout(() => { $(document).on('click', 'a', feedback_show); }, 10000);
 
           // $(document).on('click', '.job-info > .title > a.ng-star-inserted', feedback_show);
 
@@ -55,6 +56,7 @@ let responded_pause = 0;
           if (settings.feedback.triggers.timeout) {
             window.setTimeout(feedback_show, settings.feedback.triggers.timeout);
           }
+
         }
       });
     }
