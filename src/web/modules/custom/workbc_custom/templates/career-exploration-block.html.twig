@@ -13,10 +13,13 @@
 
 {% if career_exploration %}
 
+  <div>{{ career_exploration.categories[1161] }}</div>
+  <div>{{ career_exploration.categories[1175] }}</div>
+  <div>{{ career_exploration.categories[1187] }}</div>
   <div>
     {% for key, epbc in career_exploration.categories %}    
       <p>
-      <h5>{{ epbc }}</h5>
+      <h5>{{ epbc }} - {{ key }}</h5>
       <ul>
         {% for interest in career_exploration.interests[key] %}
           <li>{{ interest }}</li>
