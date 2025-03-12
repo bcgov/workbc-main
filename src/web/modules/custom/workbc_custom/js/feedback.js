@@ -41,6 +41,7 @@ let responded_pause = 0;
 
           setTimeout(() => { $(document).on('click', 'a', feedback_show); }, 10000);
 
+          // trigger feedback when Job title is clicked
           // $(document).on('click', '.job-info > .title > a.ng-star-inserted', feedback_show);
 
           // - Upon scrolling to page bottom if specified.
