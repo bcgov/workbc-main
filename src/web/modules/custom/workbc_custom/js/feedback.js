@@ -35,11 +35,13 @@ let responded_pause = 0;
           if (settings.feedback.triggers.click_selector) {
             $(document).on('click', settings.feedback.triggers.click_selector, feedback_show);
           }
-          
+
           // $(document).on('click', '.cta > .ng-star-inserted > a', feedback_show);
           // $(document).on('click', 'a', feedback_show);
 
-          setTimeout(() => { $(document).on('click', 'a', feedback_show); }, 10000);
+          setTimeout(() => {
+            $('lib-jb-a-link a').on('click', null, feedback_show);
+          }, 1000);
 
           // trigger feedback when Job title is clicked
           // $(document).on('click', '.job-info > .title > a.ng-star-inserted', feedback_show);
@@ -105,12 +107,12 @@ let feedback_box = `<div class="feedback_box" id="feedback_box">
         <a href="#" onclick="feedback_thumb('rating_2');return false;">
           <img src="/modules/custom/workbc_custom/icons/NotGreat_2.svg" alt="Not Great 2" title="Not Great 2"/>
         </a>
-      </td>      
+      </td>
       <td class="feedback_item yellow" id="rating_neutral">
         <a href="#" onclick="feedback_thumb('rating_3');return false;">
           <img src="/modules/custom/workbc_custom/icons/Neutral_3.svg" alt="Neutral" title="Neutral"/>
         </a>
-      </td>      
+      </td>
       <td class="feedback_item green" id="rating_great_4">
         <a href="#" onclick="feedback_thumb('rating_4');return false;">
           <img src="/modules/custom/workbc_custom/icons/Great_4.svg" alt="Great" title="Great"/>
@@ -149,19 +151,19 @@ function feedback_thumb(selected) {
       feedback_text = neutral_text;
       feedback_action = 'Neutral 3';
       feedback_selected = '<span class="yellow"><img src="/modules/custom/workbc_custom/icons/Neutral_3.svg" alt="Neutral"/><br/>Neutral</span>';
-      break;   
+      break;
     case "rating_4":
       feedback_list = up_list;
       feedback_text = up_text;
       feedback_action = 'Great 4';
       feedback_selected = '<span class="green"><img src="/modules/custom/workbc_custom/icons/Great_4.svg" alt="Great"/><br/>Great</span>';
-      break;   
+      break;
     case "rating_5":
       feedback_list = up_list;
       feedback_text = up_text;
       feedback_action = 'Great 5';
       feedback_selected = '<span class="green"><img src="/modules/custom/workbc_custom/icons/Great_5.svg" alt="Great"/><br/>Great</span>';
-      break;        
+      break;
   }
 
   // Rewrite the body for list feedback
@@ -260,6 +262,7 @@ function feedback_close() {
 
 // Show modal according to rules of showing.
 function feedback_show() {
+  alert('HI');
   if (!isFeedbackPaused()) {
     if (show_count < 1) {
       feedback_reset();
