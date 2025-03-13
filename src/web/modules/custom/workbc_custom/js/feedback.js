@@ -36,9 +36,9 @@ let responded_pause = 0;
             $(document).on('click', settings.feedback.triggers.click_selector, feedback_show);
           }
 
-          setTimeout(() => {
+          setInterval(() => {
             $('lib-jb-a-link a').on('click', null, feedback_show);
-          }, 1000);
+          }, 500);
 
           // trigger feedback when Job title is clicked
           $(document).on('click', '.job-info > .title > a.ng-star-inserted', feedback_show);
