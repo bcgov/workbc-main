@@ -36,15 +36,12 @@ let responded_pause = 0;
             $(document).on('click', settings.feedback.triggers.click_selector, feedback_show);
           }
 
-          // $(document).on('click', '.cta > .ng-star-inserted > a', feedback_show);
-          // $(document).on('click', 'a', feedback_show);
-
           setTimeout(() => {
             $('lib-jb-a-link a').on('click', null, feedback_show);
           }, 1000);
 
           // trigger feedback when Job title is clicked
-          // $(document).on('click', '.job-info > .title > a.ng-star-inserted', feedback_show);
+          $(document).on('click', '.job-info > .title > a.ng-star-inserted', feedback_show);
 
           // - Upon scrolling to page bottom if specified.
           if (settings.feedback.triggers.scroll) {
@@ -262,7 +259,6 @@ function feedback_close() {
 
 // Show modal according to rules of showing.
 function feedback_show() {
-  alert('HI');
   if (!isFeedbackPaused()) {
     if (show_count < 1) {
       feedback_reset();
