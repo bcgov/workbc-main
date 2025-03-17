@@ -8,13 +8,20 @@
     let items = container.children('[data-static-load-more-items]').first().children();
     let trigger = container.find('[data-static-load-more-trigger]').first();
 
-    items.slice(initialCount).hide();
+    // Hide the extra items: Either the ones outside the initial count, ...
+    if (Number.isInteger(initialCount)) {
+      items.slice(initialCount).hide();
+    }
+    // ... or the ones with "illustrative" flag = 0.
+    else {
+      items.filter(`[data-${initialCount}='0']`).hide();
+    }
 
     trigger.on('click', function() { loadMore(container) });
 
-    // if moreText parameter is populated, update link text, otherwise default to using
+    // If moreText parameter is populated, update link text, otherwise default to using
     // the text between the anchor tags.  ie: "<a ...>Show more</a>"
-    if(moreText) {
+    if (moreText) {
       trigger.text(moreText)
     }
 
@@ -30,13 +37,13 @@
     hiddenItems.slice(0, stepCount).show();
     let trigger = container.find('[data-static-load-more-trigger]').first();
 
-    // if lessText is not set, hide the 'show less' link
-    if(hiddenItems.length <= stepCount && ! lessText) {
+    // If lessText is not set, hide the 'show less' link
+    if (hiddenItems.length <= stepCount && ! lessText) {
       trigger.hide();
     }
 
-    // if lessText is populated, display the 'show less' link text
-    if(hiddenItems.length <= stepCount && lessText) {
+    // If lessText is populated, display the 'show less' link text
+    if (hiddenItems.length <= stepCount && lessText) {
       trigger.on('click', function() { showLess(container) });
       trigger.text(lessText);
     }
@@ -48,9 +55,17 @@
     let initialCount = container.data('static-load-more-initial');
     let trigger = container.find('[data-static-load-more-trigger]').first();
     let items = container.children('[data-static-load-more-items]').first().children();
-    items.slice(initialCount).hide();
-    container.show();
 
+    // Hide the extra items: Either the ones outside the initial count, ...
+    if (Number.isInteger(initialCount)) {
+      items.slice(initialCount).hide();
+    }
+    // ... or the ones with "illustrative" flag = 0.
+    else {
+      items.filter(`[data-${initialCount}='0']`).hide();
+    }
+
+    container.show();
     trigger.on('click', function() { loadMore(container) });
     trigger.text(moreText)
   }
