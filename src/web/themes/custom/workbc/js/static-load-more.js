@@ -65,6 +65,12 @@
       items.filter(`[data-${initialCount}='0']`).hide();
     }
 
+    // Scroll back to the container.
+    containerJquery.get(0).scrollIntoView({
+      behavior: 'smooth',
+      block: 'center'
+    });
+
     container.show();
     trigger.on('click', function() { loadMore(container) });
     trigger.text(moreText)
