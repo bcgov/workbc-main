@@ -1,6 +1,8 @@
 (function ($, Drupal, once) {
   ("use strict");
 
+  let scrollTop = null;
+
   let initialize = function (containerJquery) {
     let container = $(containerJquery);
     let initialCount = container.data('static-load-more-initial');
@@ -44,6 +46,9 @@
 
     // If lessText is populated, display the 'show less' link text
     if (hiddenItems.length <= stepCount && lessText) {
+      scrollTop = document.documentElement.scrollTop || document.body.scrollTop;
+
+      trigger.off('click');
       trigger.on('click', function() { showLess(container) });
       trigger.text(lessText);
     }
@@ -66,12 +71,18 @@
     }
 
     // Scroll back to the container.
-    containerJquery.get(0).scrollIntoView({
-      behavior: 'smooth',
-      block: 'center'
-    });
+    if (scrollTop) {
+      document.documentElement.scrollTop = document.body.scrollTop = scrollTop;
+    }
+    else {
+      containerJquery.get(0).scrollIntoView({
+        behavior: 'smooth',
+        block: 'center'
+      });
+    }
 
     container.show();
+    trigger.off('click');
     trigger.on('click', function() { loadMore(container) });
     trigger.text(moreText)
   }
