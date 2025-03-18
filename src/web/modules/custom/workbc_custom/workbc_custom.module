@@ -653,9 +653,13 @@ function workbc_custom_page_attachments_alter(array &$attachments) {
     $attachments['#attached']['library'][] = 'workbc_custom/feedback';
     $attachments['#attached']['drupalSettings']['feedback'] = [
       'triggers' => [
-        'timeout' => $alias == $paths['online_employment_services'] ? 30000 : 90000,
+        'timeout' => $alias == $paths['online_employment_services'] ? 30000 : 120000,
         'click_selector' => $alias == $paths['find_jobs'] ? '.find-jobs-btn' : false,
         'scroll' => $alias == $paths['online_employment_services'],
+      ],
+      'settings' => [
+        'dismissed_pause' => 7,
+        'responded_pause' => 30,
       ]
     ];
   }
