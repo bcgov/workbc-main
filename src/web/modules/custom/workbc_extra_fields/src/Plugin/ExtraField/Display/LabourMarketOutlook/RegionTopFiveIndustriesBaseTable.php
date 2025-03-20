@@ -56,7 +56,7 @@ class RegionTopFiveIndustriesBaseTable extends ExtraFieldDisplayFormattedBase {
       <table class="lmo-report">
         <thead>
           <tr>
-            <th rowspan="2" class="data-align-left">Industry</th>
+            <th width="20%" rowspan="2" class="data-align-left">Industry</th>
             <th rowspan="2" class="data-align-right">Employment (2024)</th>
             <th rowspan="2" class="data-align-right">Annual Employment Growth Rate (2024-2034)</th>
             <th colspan="3" class="lmo-report-job-openings-header data-align-center">Job Openings (2024-2034)</th>

@@ -30,7 +30,6 @@ dependencies:
     - link
     - scheduled_publish
     - text
-    - user
 third_party_settings:
   field_group:
     group_address_contact_informatio:
@@ -43,7 +42,7 @@ third_party_settings:
       label: 'Address & Contact Information'
       parent_name: ''
       region: content
-      weight: 5
+      weight: 3
       format_type: html_element
       format_settings:
         classes: ''
@@ -65,31 +64,12 @@ content:
   content_moderation_control:
     settings: {  }
     third_party_settings: {  }
-    weight: 2
-    region: content
-  created:
-    type: timestamp
-    label: hidden
-    settings:
-      date_format: medium
-      custom_date_format: ''
-      timezone: ''
-      tooltip:
-        date_format: long
-        custom_date_format: ''
-      time_diff:
-        enabled: false
-        future_format: '@interval hence'
-        past_format: '@interval ago'
-        granularity: 2
-        refresh: 60
-    third_party_settings: {  }
-    weight: 1
+    weight: 0
     region: content
   extra_field_wbcc_recent_jobs:
     settings: {  }
     third_party_settings: {  }
-    weight: 9
+    weight: 7
     region: content
   field_address:
     type: address_default
@@ -103,7 +83,7 @@ content:
     label: hidden
     settings: {  }
     third_party_settings: {  }
-    weight: 7
+    weight: 5
     region: content
   field_content:
     type: entity_reference_revisions_entity_view
@@ -112,7 +92,7 @@ content:
       view_mode: default
       link: ''
     third_party_settings: {  }
-    weight: 8
+    weight: 6
     region: content
   field_email:
     type: basic_string
@@ -138,7 +118,7 @@ content:
       view_mode: hero_image
       link: false
     third_party_settings: {  }
-    weight: 4
+    weight: 2
     region: content
   field_job_board_id:
     type: string
@@ -146,7 +126,7 @@ content:
     settings:
       link_to_entity: false
     third_party_settings: {  }
-    weight: 11
+    weight: 9
     region: content
   field_multilingual_centre:
     type: link
@@ -158,7 +138,7 @@ content:
       rel: ''
       target: ''
     third_party_settings: {  }
-    weight: 12
+    weight: 10
     region: content
   field_phone:
     type: string
@@ -175,7 +155,7 @@ content:
       date_format: html_datetime
       text_pattern: '%moderation_state% - %date%'
     third_party_settings: {  }
-    weight: 3
+    weight: 1
     region: content
   field_website:
     type: link
@@ -194,21 +174,15 @@ content:
     label: hidden
     settings: {  }
     third_party_settings: {  }
-    weight: 6
+    weight: 4
     region: content
   links:
     settings: {  }
     third_party_settings: {  }
-    weight: 10
-    region: content
-  uid:
-    type: author
-    label: hidden
-    settings: {  }
-    third_party_settings: {  }
-    weight: 0
+    weight: 8
     region: content
 hidden:
+  created: true
   extra_field_workbc_page_title: true
   extra_field_workbc_published_on: true
   field_content_group: true
@@ -218,3 +192,4 @@ hidden:
   field_tags: true
   langcode: true
   search_api_excerpt: true
+  uid: true
