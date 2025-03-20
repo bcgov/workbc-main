@@ -829,7 +829,7 @@ display:
           default_mobile_view: dayGridMonth
           mobile_width: '768'
           firstDay: '0'
-          nav_links: 1
+          nav_links: 0
           timeFormat: 'hh:mm a'
           allowEventOverlap: 1
           updateAllowed: 0
