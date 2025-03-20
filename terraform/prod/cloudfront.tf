@@ -140,6 +140,22 @@ custom_error_response {
 	viewer_protocol_policy = "redirect-to-https"
   }
 
+    ordered_cache_behavior {
+        path_pattern = "/indexmaintenance.html"
+        allowed_methods = [
+        "DELETE",
+        "GET",
+        "HEAD",
+        "OPTIONS",
+        "PATCH",
+        "POST",
+        "PUT"]
+        cached_methods = ["GET", "HEAD"]
+        target_origin_id = "SDPR-Contents"
+	cache_policy_id = "658327ea-f89d-4fab-a63d-7e88639e58f6"
+	viewer_protocol_policy = "redirect-to-https"
+  }
+
   price_class = "PriceClass_100"
 
   restrictions {
