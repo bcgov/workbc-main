@@ -58,8 +58,8 @@
       $(once("cv", ".fc-next-button")).prepend("Next Month");
       $(".fc-next-button").attr("aria-label","Next Month");
 
-      $(once("cv", ".fc-tue span")).append("s");
-      $(once("cv", ".fc-thu span")).append("rs");
+      $(once("cv", ".fc-day-header.fc-tue span")).append("s");
+      $(once("cv", ".fc-day-header.fc-thu span")).append("rs");
 
       $(once("cv", ".fc-day-grid-event")).click(function(){
         var id = $(this).find('.grid-view')[0].id.replace('event-id-', '');

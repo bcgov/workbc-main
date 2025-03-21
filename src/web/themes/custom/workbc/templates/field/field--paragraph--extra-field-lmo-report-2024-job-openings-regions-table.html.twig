@@ -54,7 +54,15 @@
 %}
 
 
-<h3 class="card-profile__content-header">{{ label }}</h3>
+<h3 class="card-profile__content-header">{{ label }}
+
+  <span class="workbc-tooltip">
+    <div class="workbc-tooltip-content-right">
+      {{ 'Total of regions may not sum to the B.C. total due to rounding.'|t }}
+    </div>
+  </span>
+
+</h3>
 
 {# Interactive Map #}
 {% set map_no = 0 %}

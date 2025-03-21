@@ -382,7 +382,7 @@ function ssotCareerProfile($noc) {
     $data['skills'] = querySSoT('skills?noc=eq.' . $noc);
     $data['high_opportunity_occupations'] = querySSoT('high_opportunity_occupations?noc=eq.' . $noc);
     $data['occupational_interests'] = querySSoT('occupational_interests?noc=eq.' . $noc);
-    $data['titles'] = querySSoT('titles?noc=eq.' . $noc);
+    $data['titles'] = querySSoT('titles?order=commonjobtitle.asc&noc=eq.' . $noc);
     $opening_careers = querySSoT('openings_careers?noc=eq.' . $noc);
     if (!empty($opening_careers)) {
       $data['openings_careers'] = $opening_careers[0];

@@ -1,6 +1,5 @@
 <?php
 
-use Drupal\Core\Config\Schema\Undefined;
 use Drupal\Core\StreamWrapper\StreamWrapperManager;
 use GuzzleHttp\Client;
 use GuzzleHttp\Exception\RequestException;
@@ -198,7 +197,9 @@ function workbc_ssot_menu_links_discovered_alter(&$links) {
   }
 }
 
+
 function ssot($endpoint, $method = 'GET', $options = [], $body = null): ResponseInterface | null {
+
   $ssot = \Drupal::config('workbc')->get('ssot_url');
   $client = new Client();
   try {

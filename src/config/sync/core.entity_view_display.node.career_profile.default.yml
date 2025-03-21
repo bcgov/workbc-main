@@ -9,7 +9,6 @@ dependencies:
     - field.field.node.career_profile.field_career_videos
     - field.field.node.career_profile.field_career_videos_introduction
     - field.field.node.career_profile.field_content_group
-    - field.field.node.career_profile.field_cst_categories
     - field.field.node.career_profile.field_duties
     - field.field.node.career_profile.field_education_programs
     - field.field.node.career_profile.field_education_training_skills
@@ -414,14 +413,6 @@ content:
     settings: {  }
     third_party_settings: {  }
     weight: 10
-    region: content
-  field_cst_categories:
-    type: entity_reference_label
-    label: above
-    settings:
-      link: true
-    third_party_settings: {  }
-    weight: 86
     region: content
   field_duties:
     type: text_default

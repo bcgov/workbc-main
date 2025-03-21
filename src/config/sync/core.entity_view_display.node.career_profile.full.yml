@@ -10,7 +10,6 @@ dependencies:
     - field.field.node.career_profile.field_career_videos
     - field.field.node.career_profile.field_career_videos_introduction
     - field.field.node.career_profile.field_content_group
-    - field.field.node.career_profile.field_cst_categories
     - field.field.node.career_profile.field_duties
     - field.field.node.career_profile.field_education_programs
     - field.field.node.career_profile.field_education_training_skills
@@ -573,7 +572,6 @@ hidden:
   extra_field_workbc_published_on: true
   field_annual_salary: true
   field_content_group: true
-  field_cst_categories: true
   field_epbc_categories: true
   field_hero_image: true
   field_introductions: true
