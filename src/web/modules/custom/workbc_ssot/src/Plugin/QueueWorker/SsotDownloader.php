@@ -193,21 +193,4 @@ class SsotDownloader extends QueueWorkerBase implements ContainerFactoryPluginIn
   private function update_education($endpoint, $entry, &$career) {
     $career->set('field_teer', reset($entry)['teer']);
   }
-
-  private function update_career_search_groups($endpoint, $entries, &$career) {
-    if (!isset($this->cst_categories)) {
-      $this->cst_categories = \Drupal::entityTypeManager()->getStorage('taxonomy_term')->loadTree('cst_categories');
-    }
-    $categories = [];
-    foreach ($entries as $entry) {
-      $parent = array_search_func($this->cst_categories, function ($k, $v) use ($entry) {
-        return $v->name === $entry['occupational_category'];
-      });
-      $term = array_search_func($this->cst_categories, function ($k, $v) use ($entry, $parent) {
-        return $v->name === ($entry['occupational_category'] . ' / ' . $entry['region']) && $v->parents[0] === $parent->tid;
-      });
-      $categories[] = ['target_id' => $term->tid];
-    }
-    $career->set('field_cst_categories', $categories);
-  }
 }

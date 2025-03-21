@@ -33,10 +33,6 @@ const SSOT_DATASETS = [
     'noc_key' => 'noc_2021',
     'fields' => 'noc_2021,category,interest'
   ],
-  'career_search_groups' => [
-    'noc_key' => 'noc',
-    'fields' => 'noc,occupational_category,region',
-  ],
   'high_opportunity_occupations' => [],
   'industries' => [],
   'industry_outlook' => [],
