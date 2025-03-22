@@ -1,12 +1,14 @@
 uuid: 2da0ef9e-222b-498a-9522-01e8829a0f33
 langcode: en
-status: false
+status: true
 dependencies:
   config:
     - field.storage.node.field_region_openings
     - node.type.career_profile
+    - taxonomy.vocabulary.epbc_categories
   module:
     - node
+    - taxonomy
     - user
     - workbc_custom
 id: explore_careers
@@ -215,7 +217,7 @@ display:
           exposed: true
           expose:
             operator_id: ''
-            label: '[SSOT] Region Openings'
+            label: Regions
             description: ''
             use_operator: false
             operator: delta_op
@@ -250,6 +252,59 @@ display:
             default_group: All
             default_group_multiple: {  }
             group_items: {  }
+        field_epbc_categories_target_id:
+          id: field_epbc_categories_target_id
+          table: node__field_epbc_categories
+          field: field_epbc_categories_target_id
+          relationship: none
+          group_type: group
+          admin_label: ''
+          plugin_id: taxonomy_index_tid
+          operator: or
+          value: {  }
+          group: 1
+          exposed: true
+          expose:
+            operator_id: field_epbc_categories_target_id_op
+            label: Categories
+            description: ''
+            use_operator: false
+            operator: field_epbc_categories_target_id_op
+            operator_limit_selection: false
+            operator_list: {  }
+            identifier: field_epbc_categories_target_id
+            required: false
+            remember: false
+            multiple: true
+            remember_roles:
+              authenticated: authenticated
+              anonymous: '0'
+              content_editor: '0'
+              content_approver: '0'
+              workbc_administrator: '0'
+              global_editor: '0'
+              global_approver: '0'
+              workbc_global_administrator: '0'
+              administrator: '0'
+            reduce: false
+          is_grouped: false
+          group_info:
+            label: ''
+            description: ''
+            identifier: ''
+            optional: true
+            widget: select
+            multiple: false
+            remember: false
+            default_group: All
+            default_group_multiple: {  }
+            group_items: {  }
+          reduce_duplicates: false
+          vid: epbc_categories
+          type: select
+          hierarchy: true
+          limit: true
+          error_message: true
       filter_groups:
         operator: AND
         groups:
@@ -287,7 +342,7 @@ display:
     position: 1
     display_options:
       display_extenders: {  }
-      path: explore-careers
+      path: plan-career/explore-careers/search
     cache_metadata:
       max-age: -1
       contexts:
