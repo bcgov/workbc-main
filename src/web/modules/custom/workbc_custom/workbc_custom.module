@@ -102,6 +102,14 @@ function workbc_custom_theme($existing, $type, $theme, $path) {
         ),
       ],
     ],
+    'career_exploration_block' => [
+      'variables' => [
+        'career_exploration' => array(
+          'title' => NULL,
+          'epbc' => NULL,
+        ),
+      ],
+    ],
   ];
 }
 
@@ -117,6 +125,28 @@ function workbc_custom_views_data_alter(array &$data) {
       'help' => t('WorkBC node granular date filter.'),
       'field' => 'title',
       'id' => 'workbc_node_granular_date_filter',
+    ],
+  ];
+
+  $data['node__field_cst_categories']['field_cst_categories_target_id'] = [
+    'title' => t('WorkBC node CST Category filter'),
+    'group' => 'Content',
+    'filter' => [
+      'title' => t('WorkBC node CST Category filter'),
+      'help' => t('Filter nodes by CST Category by region & parent term.'),
+      'field' => 'field_cst_categories_target_id',
+      'id' => 'workbc_node_cst_category_filter',
+    ],
+  ];
+
+  $data['node__field_region_openings']['delta'] = [
+    'title' => t('WorkBC Region Openings delta filter'),
+    'group' => 'Content',
+    'filter' => [
+      'title' => t('WorkBC Region Openings delta filter'),
+      'help' => t('Filter nodes by Region Openings delta.'),
+      'field' => 'delta',
+      'id' => 'workbc_node_region_delta_filter',
     ],
   ];
 
@@ -150,6 +180,7 @@ function workbc_custom_views_data_alter(array &$data) {
   ];
 
   $data['high_opportunity_occupations']['table']['base']['field'] = 'noc';
+
 }
 
 /**
@@ -662,6 +693,9 @@ function workbc_custom_page_attachments_alter(array &$attachments) {
         'responded_pause' => 30,
       ]
     ];
+  }
+  if ($alias == $paths['career_exploration']) {
+    $attachments['#attached']['library'][] = 'workbc_custom/exploregrid';
   }
 }
 

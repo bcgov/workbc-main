@@ -813,6 +813,7 @@ $config['workbc']['paths'] = [
   'order_form' => '/plan-career/publications/workbc-order-form',
   'find_jobs' => '/search-and-prepare-job/find-jobs',
   'online_employment_services' => '/discover-employment-services/online-employment-services',
+  'career_exploration' => '/career-exploration',
 ];
 
 // File settings.
