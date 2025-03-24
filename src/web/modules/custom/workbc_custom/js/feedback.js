@@ -65,8 +65,10 @@ let trigger = null;
 
           // - After being on the page for a given timeout if anu.
           if (settings.feedback.triggers.timeout) {
-            trigger = 'Page timeout';
-            window.setTimeout(feedback_show, settings.feedback.triggers.timeout);
+            window.setTimeout(() => {
+              trigger = 'Page timeout';
+              feedback_show();
+            }, settings.feedback.triggers.timeout);
           }
 
         }
