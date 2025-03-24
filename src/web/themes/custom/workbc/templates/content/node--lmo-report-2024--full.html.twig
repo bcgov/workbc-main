@@ -108,15 +108,15 @@
       title: content.field_lmo_2024_industry_outlook['#title'],
       content: content.field_lmo_2024_industry_outlook,
     },
-    regional_outlook: {
-      tab: 'Regional Outlook',
-      title: content.field_lmo_2024_regional_outlook['#title'],
-      content: content.field_lmo_2024_regional_outlook,
-    },
     occupational_outlook: {
       tab: 'Occupational Outlook',
       title: content.field_lmo_2024_occupational_outl['#title'],
       content: content.field_lmo_2024_occupational_outl,
+    },
+    regional_outlook: {
+      tab: 'Regional Outlook',
+      title: content.field_lmo_2024_regional_outlook['#title'],
+      content: content.field_lmo_2024_regional_outlook,
     },
     featured_topics: {
       tab: 'Featured Topics',
@@ -190,21 +190,21 @@
             </div>
           </div>
 
-          <div class="tab-pane" id="regional_outlook-content" role="tabpanel" aria-labelledby="regional_outlook-tab">
-            <aside class="page-sidebar" role="complementary" aria-label="Sidebar">{{ left_block }}</aside>
-            <div class="node-page-content">
-              <div class="on-this-page">{{ left_block }}</div>
-              <h2 class="profile-content-main__header">{{ viewmodel['tab_sections']['regional_outlook']['title'] }}</h2>
-              <div>{{ viewmodel['tab_sections']['regional_outlook']['content'] }}</div>
-            </div>
-          </div>
-
           <div class="tab-pane" id="occupational_outlook-content" role="tabpanel" aria-labelledby="occupational_outlook-tab">
             <aside class="page-sidebar" role="complementary" aria-label="Sidebar">{{ left_block }}</aside>
             <div class="node-page-content">
               <div class="on-this-page">{{ left_block }}</div>
               <h2 class="profile-content-main__header">{{ viewmodel['tab_sections']['occupational_outlook']['title'] }}</h2>
               <div>{{ viewmodel['tab_sections']['occupational_outlook']['content'] }}</div>
+            </div>
+          </div>
+
+          <div class="tab-pane" id="regional_outlook-content" role="tabpanel" aria-labelledby="regional_outlook-tab">
+            <aside class="page-sidebar" role="complementary" aria-label="Sidebar">{{ left_block }}</aside>
+            <div class="node-page-content">
+              <div class="on-this-page">{{ left_block }}</div>
+              <h2 class="profile-content-main__header">{{ viewmodel['tab_sections']['regional_outlook']['title'] }}</h2>
+              <div>{{ viewmodel['tab_sections']['regional_outlook']['content'] }}</div>
             </div>
           </div>
 

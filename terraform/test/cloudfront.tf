@@ -57,6 +57,18 @@ resource "aws_cloudfront_distribution" "workbc" {
 	  origin_access_control_id = aws_cloudfront_origin_access_control.oac.id
   }
 
+origin {
+      domain_name = aws_s3_bucket.workbc_s32.bucket_regional_domain_name
+      origin_id = "Maintenance-Window"
+      origin_access_control_id = aws_cloudfront_origin_access_control.oac.id
+}
+
+custom_error_response {
+      error_code = 403
+      response_page_path = "/indexmaintenance.html"
+      response_code = 200
+}
+
   enabled         = true
   is_ipv6_enabled = true
   comment         = "WorkBC"
@@ -111,6 +123,22 @@ resource "aws_cloudfront_distribution" "workbc" {
   
     ordered_cache_behavior {
         path_pattern = "/WorkBC-Template/*"
+        allowed_methods = [
+        "DELETE",
+        "GET",
+        "HEAD",
+        "OPTIONS",
+        "PATCH",
+        "POST",
+        "PUT"]
+        cached_methods = ["GET", "HEAD"]
+        target_origin_id = "SDPR-Contents"
+	cache_policy_id = "658327ea-f89d-4fab-a63d-7e88639e58f6"
+	viewer_protocol_policy = "redirect-to-https"
+  }
+
+    ordered_cache_behavior {
+        path_pattern = "/indexmaintenance.html"
         allowed_methods = [
         "DELETE",
         "GET",

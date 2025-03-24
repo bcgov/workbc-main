@@ -321,6 +321,23 @@
             <h2 class="profile-content-main__header">{{ viewmodel['tab_sections']['career_overview']['title'] }}</h2>
             <div>{{ viewmodel['tab_sections']['career_overview']['description']|raw }}</div>
 
+            <div class="profile-content-section" id="job-titles">
+              <h2 class="profile-content-section__header">{{ viewmodel['tab_sections']['career_overview']['job_titles_title'] }}</h2>
+
+              <div data-static-load-more-container
+                   data-static-load-more-initial="illustrative"
+                   data-static-load-more-step="2000"
+                   data-static-more-text="View more"
+                   data-static-less-text="View less">
+                <div data-static-load-more-items class="career-content-job-titles">
+                  {{ viewmodel['tab_sections']['career_overview']['job_titles_list'] }}
+                </div>
+                <div class="static-load-more-button-container megamenu-splash__actions">
+                  <a class="action-link pointer" data-static-load-more-trigger></a>
+                </div>
+              </div>
+            </div>
+
             <div class="profile-content-section">
               <h2 class="profile-content-section__header">{{ viewmodel['tab_sections']['career_overview']['duties_title'] }}</h2>
               <div>{{ viewmodel['tab_sections']['career_overview']['duties_description']|raw }}</div>
@@ -389,23 +406,6 @@
                 {% for interest in viewmodel['tab_sections']['career_overview']['occupational_interests_items'] %}
                   {{ interest }}
                 {% endfor %}
-              </div>
-            </div>
-
-            <div class="profile-content-section" id="job-titles">
-              <h2 class="profile-content-section__header">{{ viewmodel['tab_sections']['career_overview']['job_titles_title'] }}</h2>
-
-              <div data-static-load-more-container
-                   data-static-load-more-initial="6"
-                   data-static-load-more-step="200"
-                   data-static-more-text="View more"
-                   data-static-less-text="View less">
-                <div data-static-load-more-items class="career-content-job-titles">
-                  {{ viewmodel['tab_sections']['career_overview']['job_titles_list'] }}
-                </div>
-                <div class="static-load-more-button-container megamenu-splash__actions">
-                  <a class="action-link pointer" data-static-load-more-trigger></a>
-                </div>
               </div>
             </div>
 
