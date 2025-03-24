@@ -32,32 +32,29 @@ let trigger = null;
           document.body.appendChild(container);
 
           // Set up the activation triggers:
-          // - Upon clicking on given selectors if any.
+          // - Upon clicking on job selectors.
           if (settings.feedback.triggers.click_selector) {
-            $(document).on('click', settings.feedback.triggers.click_selector, () => {
-              trigger = 'Find jobs';
-              feedback_show();
-          });
-          }
 
-          setInterval(() => {
-            $('lib-jb-a-link a').on('click', null, () => {
-              trigger = 'Save job';
+            // Save job selector.
+            setInterval(() => {
+              $('lib-jb-a-link a').on('click', null, () => {
+                trigger = 'save_job_click';
+                feedback_show();
+              });
+            }, 500);
+
+            // View job selector.
+            $(document).on('click', '.job-info > .title > a.ng-star-inserted', () => {
+              trigger = 'job_click';
               feedback_show();
             });
-          }, 500);
-
-          // trigger feedback when Job title is clicked
-          $(document).on('click', '.job-info > .title > a.ng-star-inserted', () => {
-            trigger = 'View job details';
-            feedback_show();
-          });
+          }
 
           // - Upon scrolling to page bottom if specified.
           if (settings.feedback.triggers.scroll) {
             $(window).scroll(function () {
               if ($('.footer').isInViewport()) {
-                trigger = 'Scroll to page bottom';
+                trigger = 'scroll_to_footer';
                 feedback_show();
               }
             });
@@ -65,8 +62,9 @@ let trigger = null;
 
           // - After being on the page for a given timeout if anu.
           if (settings.feedback.triggers.timeout) {
+            const time = settings.feedback.triggers.timeout / 1000;
             window.setTimeout(() => {
-              trigger = 'Page timeout';
+              trigger = `time_on_page_${time}s`;
               feedback_show();
             }, settings.feedback.triggers.timeout);
           }
