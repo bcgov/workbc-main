@@ -167,6 +167,7 @@
         "frdh/mmenu-js": "^9.2.0",
         "google/charts": "45",
         "jjj/chosen": "2.2.1",
+        "kint-php/kint": "^5.1.0",
         "phpoffice/phpspreadsheet": "^3.2",
         "ulrichsg/getopt-php": "^4.0",
         "vlucas/phpdotenv": "^5.1",

@@ -28,7 +28,7 @@ function workbc_custom_cron() {
   }
 }
 
-/** 
+/**
  * Clear Sitewide Alert cache if a visible alert has been added or removed.
  */
 function workbc_sitewide_alert_cache_clear() {
@@ -653,9 +653,13 @@ function workbc_custom_page_attachments_alter(array &$attachments) {
     $attachments['#attached']['library'][] = 'workbc_custom/feedback';
     $attachments['#attached']['drupalSettings']['feedback'] = [
       'triggers' => [
-        'timeout' => $alias == $paths['online_employment_services'] ? 30000 : 90000,
-        'click_selector' => $alias == $paths['find_jobs'] ? '.find-jobs-btn' : false,
+        'timeout' => $alias == $paths['online_employment_services'] ? 30000 : 120000,
+        'click_selector' => $alias == $paths['find_jobs'],
         'scroll' => $alias == $paths['online_employment_services'],
+      ],
+      'settings' => [
+        'dismissed_pause' => 7,
+        'responded_pause' => 30,
       ]
     ];
   }

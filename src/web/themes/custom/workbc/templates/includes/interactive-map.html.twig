@@ -21,26 +21,13 @@
 {% set region_vancouver_island_coast = 7 %}
 
 <div class="workbc-interactive-map-container">
-  <div class="workbc-interactive-map">
-    <img class="map-region" src="/{{ directory }}/assets/images/map-british_columbia.png" alt="Map of BC">
+  <div class="workbc-interactive-map" data-interactive-map-type="{{ map_type }}"  data-interactive-map-no="{{ map_no }}">    
+
+    {% include '@workbc/assets/images/bc-map-2025.svg' %}
 
     {% for region in regions %}
       {% if region.id > 0 %}
-        <img class="interactive-map-{{ region.key }} map-region" src="/{{ directory }}/assets/images/map-{{ region.key }}.png" alt="Map of BC highlighting {{ region.name }} region">
-      {% endif %}
-    {% endfor %}
-
-    <div class="map-hot-spot-cariboo map-hot-spot" data-interactive-map-type="{{ map_type }}" data-interactive-map-no="{{ map_no }}" data-interactive-map-region-no="1" data-interactive-map-region-link="{{ regions[1].link }}" aria-label="Cariboo Region"> </div>
-    <div class="map-hot-spot-kootenay map-hot-spot" data-interactive-map-type="{{ map_type }}" data-interactive-map-no="{{ map_no }}" data-interactive-map-region-no="2" data-interactive-map-region-link="{{ regions[2].link }}" aria-label="Kootenay Region"> </div>
-    <div class="map-hot-spot-mainland_southwest map-hot-spot" data-interactive-map-type="{{ map_type }}" data-interactive-map-no="{{ map_no }}" data-interactive-map-region-no="3" data-interactive-map-region-link="{{ regions[3].link }}" aria-label="Mainland/Southwest Region"> </div>    
-    <div class="map-hot-spot-north_coast_nechako map-hot-spot" data-interactive-map-type="{{ map_type }}" data-interactive-map-no="{{ map_no }}" data-interactive-map-region-no="4" data-interactive-map-region-link="{{ regions[4].link }}" aria-label="North Coast and Nechako Region"> </div>
-    <div class="map-hot-spot-northeast map-hot-spot" data-interactive-map-type="{{ map_type }}" data-interactive-map-no="{{ map_no }}" data-interactive-map-region-no="5" data-interactive-map-region-link="{{ regions[5].link }}" aria-label="Northeast Region"> </div>
-    <div class="map-hot-spot-thompson_okanagan map-hot-spot" data-interactive-map-type="{{ map_type }}" data-interactive-map-no="{{ map_no }}" data-interactive-map-region-no="6" data-interactive-map-region-link="{{ regions[6].link }}" aria-label="Thompson-Okanagan Region"> </div>
-    <div class="map-hot-spot-vancouver_island_coast map-hot-spot" data-interactive-map-type="{{ map_type }}" data-interactive-map-no="{{ map_no }}" data-interactive-map-region-no="7" data-interactive-map-region-link="{{ regions[7].link }}" aria-label="Vancouver Island/Coast Region"> </div>
-    
-    {% for region in regions %}
-      {% if region.id > 0 %}
-        <div class="map-region-label-{{ region.key }} map-hot-spot map-region-label" data-interactive-map-type="{{ map_type }}" data-interactive-map-no="{{ map_no }}" data-interactive-map-region-no="{{ region.id }}" data-interactive-map-region-link="{{ region.link }}" aria-disabled="true">{{ region.name }}</div>
+        <div class="map-region-label-{{ region.key }} map-region-label" data-interactive-map-type="{{ map_type }}" data-interactive-map-no="{{ map_no }}" data-interactive-map-region-no="{{ region.id }}" data-interactive-map-region-link="{{ region.link }}" aria-disabled="true">{{ region.name }}</div>
       {% endif %}
     {% endfor %}
 
