@@ -1,6 +1,7 @@
 /// GDX Snowplow Feedback Code
 let dismissed_pause = 0;
 let responded_pause = 0;
+let trigger = null;
 
 (function ($, Drupal, once) {
   Drupal.behaviors.feedback = {
@@ -31,22 +32,29 @@ let responded_pause = 0;
           document.body.appendChild(container);
 
           // Set up the activation triggers:
-          // - Upon clicking on given selectors if any.
+          // - Upon clicking on job selectors.
           if (settings.feedback.triggers.click_selector) {
-            $(document).on('click', settings.feedback.triggers.click_selector, feedback_show);
+
+            // Save job selector.
+            setInterval(() => {
+              $('lib-jb-a-link a').on('click', null, () => {
+                trigger = 'save_job_click';
+                feedback_show();
+              });
+            }, 500);
+
+            // View job selector.
+            $(document).on('click', '.job-info > .title > a.ng-star-inserted', () => {
+              trigger = 'job_click';
+              feedback_show();
+            });
           }
-
-          setInterval(() => {
-            $('lib-jb-a-link a').on('click', null, feedback_show);
-          }, 500);
-
-          // trigger feedback when Job title is clicked
-          $(document).on('click', '.job-info > .title > a.ng-star-inserted', feedback_show);
 
           // - Upon scrolling to page bottom if specified.
           if (settings.feedback.triggers.scroll) {
             $(window).scroll(function () {
               if ($('.footer').isInViewport()) {
+                trigger = 'scroll_to_footer';
                 feedback_show();
               }
             });
@@ -54,7 +62,11 @@ let responded_pause = 0;
 
           // - After being on the page for a given timeout if anu.
           if (settings.feedback.triggers.timeout) {
-            window.setTimeout(feedback_show, settings.feedback.triggers.timeout);
+            const time = settings.feedback.triggers.timeout / 1000;
+            window.setTimeout(() => {
+              trigger = `time_on_page_${time}s`;
+              feedback_show();
+            }, settings.feedback.triggers.timeout);
           }
 
         }
@@ -134,31 +146,31 @@ function feedback_thumb(selected) {
     case "rating_1":
       feedback_list = down_list;
       feedback_text = down_text;
-      feedback_action = 'Not Great 1';
+      feedback_action = 'Rating 1';
       feedback_selected = '<span class="red"><img src="/modules/custom/workbc_custom/icons/NotGreat_1.svg" alt="Not Great"/><br/>Not Great</span>';
       break;
     case "rating_2":
       feedback_list = down_list;
       feedback_text = down_text;
-      feedback_action = 'Not Great 2';
+      feedback_action = 'Rating 2';
       feedback_selected = '<span class="red"><img src="/modules/custom/workbc_custom/icons/NotGreat_2.svg" alt="Not Great"/><br/>Not Great</span>';
       break;
     case "rating_3":
       feedback_list = neutral_list;
       feedback_text = neutral_text;
-      feedback_action = 'Neutral 3';
+      feedback_action = 'Rating 3';
       feedback_selected = '<span class="yellow"><img src="/modules/custom/workbc_custom/icons/Neutral_3.svg" alt="Neutral"/><br/>Neutral</span>';
       break;
     case "rating_4":
       feedback_list = up_list;
       feedback_text = up_text;
-      feedback_action = 'Great 4';
+      feedback_action = 'Rating 4';
       feedback_selected = '<span class="green"><img src="/modules/custom/workbc_custom/icons/Great_4.svg" alt="Great"/><br/>Great</span>';
       break;
     case "rating_5":
       feedback_list = up_list;
       feedback_text = up_text;
-      feedback_action = 'Great 5';
+      feedback_action = 'Rating 5';
       feedback_selected = '<span class="green"><img src="/modules/custom/workbc_custom/icons/Great_5.svg" alt="Great"/><br/>Great</span>';
       break;
   }
@@ -178,9 +190,10 @@ function feedback_thumb(selected) {
   // Send Snowplow call of either "Thumbs Up" or "Thumbs Down". When a list is selected we'll also include the list of selected options.
   // Note that later there will be more tracking fields added to this call.
   window.snowplow('trackSelfDescribingEvent', {
-    schema: 'iglu:ca.bc.gov.feedback/feedback_action/jsonschema/1-0-0',
+    schema: 'iglu:ca.bc.gov.feedback/feedback_action/jsonschema/2-0-0',
     data: {
-      action: feedback_action
+      action: feedback_action,
+      trigger
     }
   });
 }
@@ -204,10 +217,11 @@ function feedback_submit() {
     feedback_selected_list.push(feedback_selected_items[i].value);
   }
   window.snowplow('trackSelfDescribingEvent', {
-    schema: 'iglu:ca.bc.gov.feedback/feedback_action/jsonschema/1-0-0',
+    schema: 'iglu:ca.bc.gov.feedback/feedback_action/jsonschema/2-0-0',
     data: {
       action: feedback_action + ' List',
-      list: feedback_selected_list
+      list: feedback_selected_list,
+      trigger
     }
   });
   document.getElementById("feedback_title").innerHTML = 'Your feedback is valuable';
@@ -218,9 +232,10 @@ function feedback_submit() {
 // When initial loading the form send a Snowplow call and reset the form
 function feedback_load() {
   window.snowplow('trackSelfDescribingEvent', {
-    schema: 'iglu:ca.bc.gov.feedback/feedback_action/jsonschema/1-0-0',
+    schema: 'iglu:ca.bc.gov.feedback/feedback_action/jsonschema/2-0-0',
     data: {
-      action: 'Load'
+      action: 'Load',
+      trigger
     }
   });
   // Don't show the modal here because we show based on triggers.
@@ -229,9 +244,10 @@ function feedback_load() {
 // When clicking "Back" send a Snowplow call and reset the form
 function feedback_back() {
   window.snowplow('trackSelfDescribingEvent', {
-    schema: 'iglu:ca.bc.gov.feedback/feedback_action/jsonschema/1-0-0',
+    schema: 'iglu:ca.bc.gov.feedback/feedback_action/jsonschema/2-0-0',
     data: {
-      action: 'Back'
+      action: 'Back',
+      trigger
     }
   });
   feedback_reset();
@@ -249,9 +265,10 @@ function feedback_close() {
     setFeedbackPause(dismissed_pause);
   }
   window.snowplow('trackSelfDescribingEvent', {
-    schema: 'iglu:ca.bc.gov.feedback/feedback_action/jsonschema/1-0-0',
+    schema: 'iglu:ca.bc.gov.feedback/feedback_action/jsonschema/2-0-0',
     data: {
-      action: 'Close'
+      action: 'Close',
+      trigger
     }
   });
   document.getElementById("feedback_wrapper").innerHTML = "";
@@ -263,6 +280,14 @@ function feedback_show() {
     if (show_count < 1) {
       feedback_reset();
       show_count++;
+
+      window.snowplow('trackSelfDescribingEvent', {
+        schema: 'iglu:ca.bc.gov.feedback/feedback_action/jsonschema/2-0-0',
+        data: {
+          action: 'Triggered',
+          trigger
+        }
+      });
     }
   }
 }
