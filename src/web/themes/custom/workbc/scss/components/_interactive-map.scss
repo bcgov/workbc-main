@@ -25,7 +25,7 @@
     left: 200px;
   }
  
-  @include media-breakpoint-down(lg) {
+  @include media-breakpoint-down(sm) {
     width: 100%;
   }
 }
@@ -136,7 +136,7 @@ tr.interactive-map-row-hilite {
 
 .map-region-label-thompson_okanagan {
   position: absolute;
-  left: calc(var(--left-offset) + 390px);
+  left: calc(var(--left-offset) + 380px);
   top: calc(var(--top-offset) + 235px);
   width: 171px;
   height:32px
