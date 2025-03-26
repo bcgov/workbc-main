@@ -122,16 +122,13 @@ class SsotDownloader extends QueueWorkerBase implements ContainerFactoryPluginIn
     }
 
     // Save the careers.
-    print("Saving careers");
     foreach ($careers as &$career) {
-      print(".");
       $career->setNewRevision(true);
       $career->setRevisionLogMessage('Updating SSOT datasets: ' . join(', ', array_keys($updated_datasets)));
       $career->setRevisionCreationTime(time());
       $career->setRevisionUserId(1);
       $career->save();
     }
-    print("\n");
 
     // Update local date for updated datasets.
     $local_dates = array_merge(array_combine(

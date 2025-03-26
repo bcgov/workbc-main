@@ -38,6 +38,7 @@ class ExploreCareersGridForm extends FormBase {
       $form[$category_label][$category->tid] = [
         '#type' => 'checkbox',
         '#title' => $this->t('Select all areas of interest'),
+        '#attributes' => ['class' => ['grid-all']]
       ];
       $areas = array_filter($terms, function ($term) use ($category) {
         return $term->depth === 1 && $term->parents[0] === $category->tid;
@@ -46,6 +47,7 @@ class ExploreCareersGridForm extends FormBase {
         $form[$category_label][$area->tid] = [
           '#type' => 'checkbox',
           '#title' => $area->name,
+          '#attributes' => ['class' => ['grid-term']]
         ];
       }
     }
@@ -60,6 +62,13 @@ class ExploreCareersGridForm extends FormBase {
   * {@inheritdoc}
   */
   public function submitForm(array &$form, FormStateInterface $form_state) {
-    $form_state->setRedirect('view.explore_careers.page_1');
+    $terms = array_keys(array_filter($form_state->getValues(), function($v, $k) {
+      return is_int($k) && $v === 1;
+    }, ARRAY_FILTER_USE_BOTH));
+    $form_state->setRedirect('view.explore_careers.page_1', [], [
+      'query' => [
+        'field_epbc_categories_target_id' => $terms,
+      ]
+    ]);
   }
 }
