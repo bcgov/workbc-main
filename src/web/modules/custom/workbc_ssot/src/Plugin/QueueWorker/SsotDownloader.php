@@ -76,7 +76,7 @@ class SsotDownloader extends QueueWorkerBase implements ContainerFactoryPluginIn
       ));
       $result = ssot($endpoint);
       if (!$result) {
-        \Drupal::logger('workbc_ssot')->warning('Error fetching SSOT dataset @dataset at @endpoint. Ignoring.', [
+        \Drupal::logger('workbc_ssot')->error('Error fetching SSOT dataset @dataset at @endpoint. Skipping.', [
           '@dataset' => $dataset->endpoint,
           '@endpoint' => $endpoint,
         ]);
@@ -98,7 +98,7 @@ class SsotDownloader extends QueueWorkerBase implements ContainerFactoryPluginIn
       // Update each career with the dataset-specific update function.
       $method = 'update_' . $dataset->endpoint;
       if (!method_exists($this, $method)) {
-        \Drupal::logger('workbc_ssot')->warning('Could not find the method @method for dataset @dataset. Skipping.', [
+        \Drupal::logger('workbc_ssot')->error('Could not find the method @method for dataset @dataset. Skipping.', [
           '@method' => $method,
           '@dataset' => $dataset->endpoint,
         ]);
