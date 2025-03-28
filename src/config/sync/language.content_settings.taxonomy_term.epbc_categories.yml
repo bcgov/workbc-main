@@ -1,0 +1,11 @@
+uuid: 92839166-87a4-4475-8ced-02e919d044b9
+langcode: en
+status: true
+dependencies:
+  config:
+    - taxonomy.vocabulary.epbc_categories
+id: taxonomy_term.epbc_categories
+target_entity_type_id: taxonomy_term
+target_bundle: epbc_categories
+default_langcode: site_default
+language_alterable: false
