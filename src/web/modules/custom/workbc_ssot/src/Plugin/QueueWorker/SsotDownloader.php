@@ -97,6 +97,14 @@ class SsotDownloader extends QueueWorkerBase implements ContainerFactoryPluginIn
 
       // Update each career with the dataset-specific update function.
       $method = 'update_' . $dataset->endpoint;
+      if (!method_exists($this, $method)) {
+        \Drupal::logger('workbc_ssot')->warning('Could not find the method @method for dataset @dataset. Skipping.', [
+          '@method' => $method,
+          '@dataset' => $dataset->endpoint,
+        ]);
+        continue;
+      }
+
       $missing_nocs = [];
       foreach ($careers as &$career) {
         $noc = $career->get('field_noc')->value;
@@ -147,13 +155,13 @@ class SsotDownloader extends QueueWorkerBase implements ContainerFactoryPluginIn
     ]);
   }
 
-  private function update_wages($endpoint, $entry, &$career) {
-    $career->set('field_annual_salary', reset($entry)['calculated_median_annual_salary']);
+  private function update_wages($endpoint, $entries, &$career) {
+    $career->set('field_annual_salary', reset($entries)['calculated_median_annual_salary']);
   }
 
-  private function update_career_provincial($endpoint, $entry, &$career) {
+  private function update_career_provincial($endpoint, $entries, &$career) {
     $openings = $career->get('field_region_openings')->getValue() ?? array_fill(0, 8, 0);
-    $openings[REGION_BRITISH_COLUMBIA_ID] = reset($entry)['expected_job_openings_10y'] ?? 0;
+    $openings[REGION_BRITISH_COLUMBIA_ID] = reset($entries)['expected_job_openings_10y'] ?? 0;
     $career->set('field_region_openings', $openings);
   }
 
@@ -187,7 +195,11 @@ class SsotDownloader extends QueueWorkerBase implements ContainerFactoryPluginIn
     $career->set('field_epbc_categories', $categories);
   }
 
-  private function update_education($endpoint, $entry, &$career) {
-    $career->set('field_teer', reset($entry)['teer']);
+  private function update_education($endpoint, $entries, &$career) {
+    $career->set('field_teer', reset($entries)['teer']);
+  }
+
+  private function update_titles($endpoint, $entries, &$career) {
+    $career->set('field_job_titles', array_column($entries, 'commonjobtitle'));
   }
 }

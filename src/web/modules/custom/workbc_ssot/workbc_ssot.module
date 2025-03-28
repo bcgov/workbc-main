@@ -46,7 +46,10 @@ const SSOT_DATASETS = [
   'regional_labour_market_outlook' => [],
   'regional_top_occupations' => [],
   'skills' => [],
-  'titles' => [],
+  'titles' => [
+    'noc_key' => 'noc',
+    'fields' => 'noc,commonjobtitle'
+  ],
   'lmo_report_2024_job_openings_10y' => [],
   'lmo_report_2024_job_openings_annual' => [],
   'lmo_report_2024_job_openings_teers' => [],

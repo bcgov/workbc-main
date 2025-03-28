@@ -8,6 +8,7 @@ dependencies:
     - taxonomy.vocabulary.epbc_categories
   module:
     - node
+    - options
     - taxonomy
     - user
     - workbc_custom
@@ -159,7 +160,20 @@ display:
       cache:
         type: tag
         options: {  }
-      empty: {  }
+      empty:
+        area:
+          id: area
+          table: views
+          field: area
+          relationship: none
+          group_type: group
+          admin_label: ''
+          plugin_id: text
+          empty: true
+          content:
+            value: 'No results founds'
+            format: full_html
+          tokenize: false
       sorts:
         created:
           id: created
@@ -217,7 +231,7 @@ display:
           exposed: true
           expose:
             operator_id: ''
-            label: Regions
+            label: 'Job Openings by Region'
             description: ''
             use_operator: false
             operator: delta_op
@@ -305,6 +319,106 @@ display:
           hierarchy: true
           limit: true
           error_message: true
+        field_teer_value:
+          id: field_teer_value
+          table: node__field_teer
+          field: field_teer_value
+          relationship: none
+          group_type: group
+          admin_label: ''
+          plugin_id: list_field
+          operator: or
+          value: {  }
+          group: 1
+          exposed: true
+          expose:
+            operator_id: field_teer_value_op
+            label: Teer
+            description: ''
+            use_operator: false
+            operator: field_teer_value_op
+            operator_limit_selection: false
+            operator_list: {  }
+            identifier: field_teer_value
+            required: false
+            remember: false
+            multiple: false
+            remember_roles:
+              authenticated: authenticated
+              anonymous: '0'
+              content_editor: '0'
+              content_approver: '0'
+              workbc_administrator: '0'
+              global_editor: '0'
+              global_approver: '0'
+              workbc_global_administrator: '0'
+              administrator: '0'
+            reduce: false
+          is_grouped: false
+          group_info:
+            label: ''
+            description: ''
+            identifier: ''
+            optional: true
+            widget: select
+            multiple: false
+            remember: false
+            default_group: All
+            default_group_multiple: {  }
+            group_items: {  }
+          reduce_duplicates: false
+        field_annual_salary_value:
+          id: field_annual_salary_value
+          table: node__field_annual_salary
+          field: field_annual_salary_value
+          relationship: none
+          group_type: group
+          admin_label: ''
+          plugin_id: numeric
+          operator: between
+          value:
+            min: ''
+            max: ''
+            value: ''
+          group: 1
+          exposed: true
+          expose:
+            operator_id: field_annual_salary_value_op
+            label: 'Annual Earnings'
+            description: ''
+            use_operator: false
+            operator: field_annual_salary_value_op
+            operator_limit_selection: false
+            operator_list: {  }
+            identifier: field_annual_salary_value
+            required: false
+            remember: false
+            multiple: false
+            remember_roles:
+              authenticated: authenticated
+              anonymous: '0'
+              content_editor: '0'
+              content_approver: '0'
+              workbc_administrator: '0'
+              global_editor: '0'
+              global_approver: '0'
+              workbc_global_administrator: '0'
+              administrator: '0'
+            min_placeholder: ''
+            max_placeholder: ''
+            placeholder: ''
+          is_grouped: false
+          group_info:
+            label: ''
+            description: ''
+            identifier: ''
+            optional: true
+            widget: select
+            multiple: false
+            remember: false
+            default_group: All
+            default_group_multiple: {  }
+            group_items: {  }
       filter_groups:
         operator: AND
         groups:
@@ -341,6 +455,7 @@ display:
     display_plugin: page
     position: 1
     display_options:
+      enabled: false
       display_extenders: {  }
       path: plan-career/explore-careers/search
     cache_metadata:

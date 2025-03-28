@@ -9,8 +9,8 @@ id: node.career_profile.field_job_titles
 field_name: field_job_titles
 entity_type: node
 bundle: career_profile
-label: '[DEPRECATED] Job Titles'
-description: "DO NOT USE!\r\n"
+label: '[SSOT] Job Titles'
+description: 'AUTOMATICALLY POPULATED FROM SSOT.'
 required: false
 translatable: false
 default_value: {  }
