@@ -1,0 +1,23 @@
+uuid: 62e4b940-9aff-4e04-8797-d9752a4939de
+langcode: en
+status: true
+dependencies:
+  config:
+    - field.storage.node.field_region_openings
+    - node.type.career_profile
+id: node.career_profile.field_region_openings
+field_name: field_region_openings
+entity_type: node
+bundle: career_profile
+label: '[SSOT] Region Openings'
+description: "AUTOMATICALLY POPULATED FROM SSOT.\r\n\r\n<p>Job openings for regions in the following order:</p>\r\n<ul>\r\n<li>British Columbia</li>\r\n<li>Cariboo</li>\r\n<li>Kootenay</li>\r\n<li>Mainland/Southwest</li>\r\n<li>North Coast and Nechako</li>\r\n<li>Northeast</li>\r\n<li>Thompson-Okanagan</li>\r\n<li>Vancouver Island/Coast</li>\r\n</ul>"
+required: false
+translatable: false
+default_value: {  }
+default_value_callback: ''
+settings:
+  min: null
+  max: null
+  prefix: ''
+  suffix: ''
+field_type: integer

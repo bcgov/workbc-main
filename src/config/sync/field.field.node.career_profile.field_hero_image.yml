@@ -6,13 +6,18 @@ dependencies:
     - field.storage.node.field_hero_image
     - node.type.career_profile
   module:
+    - filehash
     - image
+third_party_settings:
+  filehash:
+    dedupe: 0
+    dedupe_original: false
 id: node.career_profile.field_hero_image
 field_name: field_hero_image
 entity_type: node
 bundle: career_profile
 label: '[DEPRECATED] Hero Image'
-description: "DO NOT USE! \r\n\r\nThis is a legacy field that has been replaced by the newer <b>Hero Image</b> field which pulls the content from the Media Library."
+description: "DO NOT USE!\r\n\r\n<p>This is a legacy field that has been replaced by the newer <b>Hero Image</b> field which pulls the content from the Media Library.</p>"
 required: false
 translatable: true
 default_value: {  }

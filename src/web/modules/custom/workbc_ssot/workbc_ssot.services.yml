@@ -6,3 +6,6 @@ services:
 
   workbc_ssot.queue_worker:
     class: Drupal\workbc_ssot\Plugin\QueueWorker\SsotUploader
+
+  workbc_ssot.queue_worker_dl:
+    class: Drupal\workbc_ssot\Plugin\QueueWorker\SsotDownloader

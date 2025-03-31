@@ -102,6 +102,14 @@ function workbc_custom_theme($existing, $type, $theme, $path) {
         ),
       ],
     ],
+    'career_exploration_block' => [
+      'variables' => [
+        'career_exploration' => array(
+          'title' => NULL,
+          'epbc' => NULL,
+        ),
+      ],
+    ],
   ];
 }
 
@@ -117,6 +125,17 @@ function workbc_custom_views_data_alter(array &$data) {
       'help' => t('WorkBC node granular date filter.'),
       'field' => 'title',
       'id' => 'workbc_node_granular_date_filter',
+    ],
+  ];
+
+  $data['node__field_region_openings']['delta'] = [
+    'title' => t('WorkBC Region Openings delta filter'),
+    'group' => 'Content',
+    'filter' => [
+      'title' => t('WorkBC Region Openings delta filter'),
+      'help' => t('Filter nodes by Region Openings delta.'),
+      'field' => 'delta',
+      'id' => 'workbc_node_region_delta_filter',
     ],
   ];
 
@@ -150,6 +169,17 @@ function workbc_custom_views_data_alter(array &$data) {
   ];
 
   $data['high_opportunity_occupations']['table']['base']['field'] = 'noc';
+
+  $data['node_field_data']['keyword_search'] = [
+    'title' => 'Keyword Search API',
+    'group' => 'Content',
+    'filter' => [
+      'title' => 'Keyword Search API',
+      'help' => 'Provides a way to use Search API in a regular content view.',
+      'field' => 'nid',
+      'id' => 'workbc_node_keyword_search',
+    ],
+  ];
 }
 
 /**
@@ -662,6 +692,9 @@ function workbc_custom_page_attachments_alter(array &$attachments) {
         'responded_pause' => 30,
       ]
     ];
+  }
+  if ($alias == $paths['career_exploration']) {
+    $attachments['#attached']['library'][] = 'workbc_custom/exploregrid';
   }
 }
 
