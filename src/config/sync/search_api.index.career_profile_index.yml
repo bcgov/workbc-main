@@ -3,8 +3,12 @@ langcode: en
 status: true
 dependencies:
   config:
+    - field.storage.node.field_annual_salary
+    - field.storage.node.field_epbc_categories
     - field.storage.node.field_job_titles
     - field.storage.node.field_noc
+    - field.storage.node.field_region_openings
+    - field.storage.node.field_teer
     - search_api.server.solr
   module:
     - node
@@ -60,6 +64,22 @@ name: 'Career profiles index'
 description: ''
 read_only: false
 field_settings:
+  field_annual_salary:
+    label: '[SSOT] Annual Salary'
+    datasource_id: 'entity:node'
+    property_path: field_annual_salary
+    type: decimal
+    dependencies:
+      config:
+        - field.storage.node.field_annual_salary
+  field_epbc_categories:
+    label: '[SSOT] EPBC Categories'
+    datasource_id: 'entity:node'
+    property_path: field_epbc_categories
+    type: integer
+    dependencies:
+      config:
+        - field.storage.node.field_epbc_categories
   field_job_titles:
     label: '[SSOT] Job Titles'
     datasource_id: 'entity:node'
@@ -76,6 +96,22 @@ field_settings:
     dependencies:
       config:
         - field.storage.node.field_noc
+  field_region_openings:
+    label: '[SSOT] Region Openings'
+    datasource_id: 'entity:node'
+    property_path: field_region_openings
+    type: integer
+    dependencies:
+      config:
+        - field.storage.node.field_region_openings
+  field_teer:
+    label: '[SSOT] TEER'
+    datasource_id: 'entity:node'
+    property_path: field_teer
+    type: integer
+    dependencies:
+      config:
+        - field.storage.node.field_teer
   node_grants:
     label: 'Node access information'
     property_path: search_api_node_grants

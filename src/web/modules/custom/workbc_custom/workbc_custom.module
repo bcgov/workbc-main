@@ -128,17 +128,6 @@ function workbc_custom_views_data_alter(array &$data) {
     ],
   ];
 
-  $data['node__field_cst_categories']['field_cst_categories_target_id'] = [
-    'title' => t('WorkBC node CST Category filter'),
-    'group' => 'Content',
-    'filter' => [
-      'title' => t('WorkBC node CST Category filter'),
-      'help' => t('Filter nodes by CST Category by region & parent term.'),
-      'field' => 'field_cst_categories_target_id',
-      'id' => 'workbc_node_cst_category_filter',
-    ],
-  ];
-
   $data['node__field_region_openings']['delta'] = [
     'title' => t('WorkBC Region Openings delta filter'),
     'group' => 'Content',
@@ -181,6 +170,16 @@ function workbc_custom_views_data_alter(array &$data) {
 
   $data['high_opportunity_occupations']['table']['base']['field'] = 'noc';
 
+  $data['node_field_data']['keyword_search'] = [
+    'title' => 'Keyword Search API',
+    'group' => 'Content',
+    'filter' => [
+      'title' => 'Keyword Search API',
+      'help' => 'Provides a way to use Search API in a regular content view.',
+      'field' => 'nid',
+      'id' => 'workbc_node_keyword_search',
+    ],
+  ];
 }
 
 /**
