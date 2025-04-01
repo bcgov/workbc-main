@@ -52,27 +52,6 @@ class WorkBCRegionOpeningsDeltaFilter extends FilterPluginBase {
 
   }
 
-
-  /**
-   * It generates all the years that will be selectable.
-   *
-   * @param bool $emptyOption
-   *   Add (or not) the empty option.
-   *
-   * @return array
-   *   Array with all years.
-   */
-  private function getCstCategoryOptions() {
-    $return = [];
-
-    $terms = \Drupal::entityTypeManager()->getStorage('taxonomy_term')->loadTree('cst_categories', 0, 1, TRUE);
-
-    foreach ($terms as $term) {
-      $return[$term->id()] = $term->getName();
-    }
-    return $return;
-  }
-
   /**
    * {@inheritdoc}
    */
@@ -87,7 +66,6 @@ class WorkBCRegionOpeningsDeltaFilter extends FilterPluginBase {
     }
 
   }
-
 
   /**
    * Security filter.

@@ -11,7 +11,7 @@ use Drupal\views\Plugin\views\filter\StringFilter;
  *
  * @ViewsFilter("workbc_node_keyword_search")
  */
-class WorkBCNodeKeywordSearch extends StringFilter {
+class WorkBCKeywordSearch extends StringFilter {
 
   /**
    * {@inheritdoc}

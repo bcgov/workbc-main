@@ -474,18 +474,67 @@ display:
             min_placeholder: ''
             max_placeholder: ''
             placeholder: ''
-          is_grouped: false
+          is_grouped: true
           group_info:
-            label: ''
+            label: 'Annual Earnings'
             description: ''
-            identifier: ''
+            identifier: field_annual_salary_value
             optional: true
             widget: select
             multiple: false
             remember: false
             default_group: All
             default_group_multiple: {  }
-            group_items: {  }
+            group_items:
+              1:
+                title: 'Less than $40,000'
+                operator: '<'
+                value:
+                  min: ''
+                  max: ''
+                  value: '40000'
+              2:
+                title: '$40,000 - $59,999'
+                operator: between
+                value:
+                  min: '40000'
+                  max: '59999'
+                  value: ''
+              3:
+                title: '$60,000 - $79,999'
+                operator: between
+                value:
+                  min: '60000'
+                  max: '79999'
+                  value: '60000'
+              4:
+                title: '$80,000 - $99,999'
+                operator: between
+                value:
+                  min: '80000'
+                  max: '99999'
+                  value: ''
+              5:
+                title: '$100,000 - $119,999'
+                operator: between
+                value:
+                  min: '100000'
+                  max: '119999'
+                  value: ''
+              6:
+                title: '$120,000 - $140,000'
+                operator: between
+                value:
+                  min: '120000'
+                  max: '140000'
+                  value: ''
+              7:
+                title: 'Over $140,000 '
+                operator: '>'
+                value:
+                  min: ''
+                  max: ''
+                  value: '140000'
         keyword_search:
           id: keyword_search
           table: node_field_data

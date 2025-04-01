@@ -171,10 +171,10 @@ function workbc_custom_views_data_alter(array &$data) {
   $data['high_opportunity_occupations']['table']['base']['field'] = 'noc';
 
   $data['node_field_data']['keyword_search'] = [
-    'title' => 'Keyword Search API',
+    'title' => 'WorkBC Career Keyword Search',
     'group' => 'Content',
     'filter' => [
-      'title' => 'Keyword Search API',
+      'title' => 'WorkBC Career Keyword Search',
       'help' => 'Provides a way to use Search API in a regular content view.',
       'field' => 'nid',
       'id' => 'workbc_node_keyword_search',
@@ -187,6 +187,7 @@ function workbc_custom_views_data_alter(array &$data) {
 */
 function workbc_custom_views_pre_render(ViewExecutable $view) {
 
+  // TODO: Don't re-read the schema for SSOT at each rendering.
   if ($view->id() == 'high_opportunity_occupations') {
     $schema = ssotSchema("");
     $range = ssotParseDateRange($schema, 'high_opportunity_occupations', 'openings_forecast');
@@ -197,6 +198,7 @@ function workbc_custom_views_pre_render(ViewExecutable $view) {
     }
   }
 
+  // TODO: Don't re-read the schema for SSOT at each rendering.
   if ($view->id() == 'industry_profiles') {
     $schema = ssotSchema("");
     $datestr = ssotParseDateRange($schema, 'labour_force_survey_industry', 'yoy_employment_growth_pct');
