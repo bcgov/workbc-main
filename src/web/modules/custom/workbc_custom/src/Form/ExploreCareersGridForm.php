@@ -50,11 +50,11 @@ class ExploreCareersGridForm extends FormBase {
           '#attributes' => ['class' => ['grid-term']]
         ];
       }
+      $form[$category_label]['submit'] = [
+        '#type' => 'submit',
+        '#value' => t('Explore'),
+      ];
     }
-    $form['submit'] = [
-      '#type' => 'submit',
-      '#value' => t('Search'),
-    ];
     return $form;
   }
 
