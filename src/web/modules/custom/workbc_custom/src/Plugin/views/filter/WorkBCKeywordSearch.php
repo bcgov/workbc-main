@@ -48,7 +48,6 @@ class WorkBCKeywordSearch extends StringFilter {
       else {
         $this->query->addWhere(0, 'node_field_data.nid', [0], 'IN');
       }
-
     }
   }
 
@@ -78,6 +77,8 @@ class WorkBCKeywordSearch extends StringFilter {
     // @see hook_search_api_query_TAG_alter()
     // @see hook_search_api_results_TAG_alter()
     $query->addTag('explore_careers_search');
+
+    $query->setOption('limit', 1000);
 
     // Execute the search.
     $results = $query->execute();
