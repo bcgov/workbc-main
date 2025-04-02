@@ -45,6 +45,10 @@ class WorkBCKeywordSearch extends StringFilter {
       if (!empty($nids)) {
         $this->query->addWhere(0, 'node_field_data.nid', $nids, 'IN');
       }
+      else {
+        $this->query->addWhere(0, 'node_field_data.nid', [0], 'IN');
+      }
+
     }
   }
 
@@ -59,12 +63,12 @@ class WorkBCKeywordSearch extends StringFilter {
 
     // Change the parse mode for the search.
     $parse_mode = \Drupal::service('plugin.manager.search_api.parse_mode')
-      ->createInstance('terms');
+      ->createInstance('direct');  // terms
     $parse_mode->setConjunction('OR');
     $query->setParseMode($parse_mode);
 
     // Set fulltext search keywords and fields.
-    $query->keys($this->value);
+    $query->keys(strtoupper($this->value));
     $query->setFulltextFields(['title', 'field_noc', 'field_job_titles']);
 
     // Add sorting.
