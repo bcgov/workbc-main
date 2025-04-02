@@ -63,7 +63,7 @@ class WorkBCKeywordSearch extends StringFilter {
 
     // Change the parse mode for the search.
     $parse_mode = \Drupal::service('plugin.manager.search_api.parse_mode')
-      ->createInstance('direct');  // terms
+      ->createInstance('direct');
     $parse_mode->setConjunction('OR');
     $query->setParseMode($parse_mode);
 
@@ -77,7 +77,7 @@ class WorkBCKeywordSearch extends StringFilter {
     // Set one or more tags for the query.
     // @see hook_search_api_query_TAG_alter()
     // @see hook_search_api_results_TAG_alter()
-    $query->addTag('workbc_explore_careers_search');
+    $query->addTag('explore_careers_search');
 
     // Execute the search.
     $results = $query->execute();
