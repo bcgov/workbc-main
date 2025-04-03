@@ -183,6 +183,17 @@ function workbc_custom_views_data_alter(array &$data) {
 }
 
 /**
+ * Implements hook_views_plugins_filter_alter().
+ */
+function workbc_custom_views_plugins_filter_alter(array &$plugins) {
+  foreach (['taxonomy_index_tid'] as $plugin) {
+    if (isset($plugins[$plugin])) {
+      $plugins[$plugin]['class'] = $plugins['workbc_custom_' . $plugin]['class'];
+    }
+  }
+}
+
+/**
 * Implements hook_views_pre_render().
 */
 function workbc_custom_views_pre_render(ViewExecutable $view) {

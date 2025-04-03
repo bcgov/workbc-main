@@ -347,7 +347,7 @@ display:
           exposed: true
           expose:
             operator_id: field_epbc_categories_target_id_op
-            label: Categories
+            label: 'Areas of Interest'
             description: ''
             use_operator: false
             operator: field_epbc_categories_target_id_op
@@ -368,6 +368,12 @@ display:
               workbc_global_administrator: '0'
               administrator: '0'
             reduce: false
+            chosen_override: 1
+            disable_search: 0
+            search_contains: 0
+            placeholder_text_multiple: ''
+            placeholder_text_single: ''
+            no_results_text: ''
           is_grouped: false
           group_info:
             label: ''
@@ -382,7 +388,7 @@ display:
             group_items: {  }
           reduce_duplicates: false
           vid: epbc_categories
-          type: select
+          type: epbc
           hierarchy: true
           limit: true
           error_message: true

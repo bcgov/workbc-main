@@ -55,6 +55,10 @@ class ExploreCareersGridForm extends FormBase {
         '#value' => t('Explore'),
       ];
     }
+    $form['terms'] = [
+      '#type' => 'value',
+      '#value' => $terms,
+    ];
     return $form;
   }
 
@@ -62,12 +66,19 @@ class ExploreCareersGridForm extends FormBase {
   * {@inheritdoc}
   */
   public function submitForm(array &$form, FormStateInterface $form_state) {
-    $terms = array_keys(array_filter($form_state->getValues(), function($v, $k) {
-      return is_int($k) && $v === 1;
+    $terms = $form_state->getValue('terms');
+    $categories = array_filter($terms, function ($term) {
+      return $term->depth === 0;
+    });
+    $selection = array_keys(array_filter($form_state->getValues(), function($v, $k) use($categories) {
+      return is_int($k) && $v === 1 && !in_array($k, array_column($categories, 'tid'));
     }, ARRAY_FILTER_USE_BOTH));
     $form_state->setRedirect('view.explore_careers.page_1', [], [
       'query' => [
-        'field_epbc_categories_target_id' => $terms,
+        'field_epbc_categories_target_id' => $selection,
+        'category' => array_search_func($terms, function($k, $v) use ($selection) {
+          return $selection[0] == $v->tid;
+        })->parents[0],
       ]
     ]);
   }
