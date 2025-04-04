@@ -23,7 +23,6 @@ class ExploreCareersGridForm extends FormBase {
    * {@inheritdoc}
    */
   public function buildForm(array $form, FormStateInterface $form_state) {
-    // load Parent terms
     $clean_string_service = \Drupal::service('pathauto.alias_cleaner');
     $terms = \Drupal::entityTypeManager()->getStorage('taxonomy_term')->loadTree('epbc_categories');
     $categories = array_filter($terms, function ($term) {

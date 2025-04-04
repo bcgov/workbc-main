@@ -76,6 +76,10 @@ class WorkBCTaxonomyIndexTid extends TaxonomyIndexTid {
       '#title' => $this->t('Occupational Categories'),
       '#options' => array_column(array_filter($vocabulary, function($v) { return $v->depth === 0; }), 'name', 'tid'),
       '#default_value' => $default_category,
+      '#ajax' => [
+        'callback' => [self::class, 'categoryCallback'],
+        'wrapper' => 'category-container',
+      ],
     ];
 
     $form['value'] = [
@@ -84,8 +88,16 @@ class WorkBCTaxonomyIndexTid extends TaxonomyIndexTid {
       '#title' => $this->t('Areas of Interest'),
       '#options' => array_column(array_filter($vocabulary, function($v) use ($default_category) { return $v->parents[0] == $default_category; }), 'name', 'tid'),
       '#default_value' => $default_value,
+      '#prefix' => '<div id="category-container">',
+      '#suffix' => '</div>',
+      '#chosen' => true,
     ];
   }
+
+  public static function categoryCallback(array &$form, FormStateInterface $form_state) {
+    return $form['field_epbc_categories_target_id'];
+  }
+
 
   private function getParentTid($tid, $vocabulary) {
     $term = array_search_func($vocabulary, function ($k, $v) use ($tid) {
