@@ -3,6 +3,7 @@
 namespace Drupal\workbc_custom\Plugin\views\filter;
 
 use Drupal\views\Plugin\views\filter\StringFilter;
+use Drupal\Core\Form\FormStateInterface;
 
 /**
  * Filters by given list of node title options.
@@ -25,6 +26,66 @@ class WorkBCKeywordSearch extends StringFilter {
         'values' => 1,
       ],
     ];
+  }
+
+  /**
+   * Provide a simple textfield for equality.
+   */
+  protected function valueForm(&$form, FormStateInterface $form_state) {
+    // We have to make some choices when creating this as an exposed
+    // filter form. For example, if the operator is locked and thus
+    // not rendered, we can't render dependencies; instead we only
+    // render the form items we need.
+    $which = 'all';
+    if (!empty($form['operator'])) {
+      $source = ':input[name="options[operator]"]';
+    }
+    if ($exposed = $form_state->get('exposed')) {
+      $identifier = $this->options['expose']['identifier'];
+
+      if (empty($this->options['expose']['use_operator']) || empty($this->options['expose']['operator_id'])) {
+        // Exposed and locked.
+        $which = in_array($this->operator, $this->operatorValues(1)) ? 'value' : 'none';
+      }
+      else {
+        $source = ':input[name="' . $this->options['expose']['operator_id'] . '"]';
+      }
+    }
+
+    if ($which == 'all' || $which == 'value') {
+      $form['value'] = [
+        '#type' => 'search_api_autocomplete',
+        '#search_id' => 'search_career_profiles',
+        '#title' => $this->t('Value'),
+        '#size' => 30,
+        '#default_value' => $this->value,
+      ];
+      if (!empty($this->options['expose']['placeholder'])) {
+        $form['value']['#attributes']['placeholder'] = $this->options['expose']['placeholder'];
+      }
+      $user_input = $form_state->getUserInput();
+      if ($exposed && !isset($user_input[$identifier])) {
+        $user_input[$identifier] = $this->value;
+        $form_state->setUserInput($user_input);
+      }
+
+      if ($which == 'all') {
+        // Setup #states for all operators with one value.
+        foreach ($this->operatorValues(1) as $operator) {
+          $form['value']['#states']['visible'][] = [
+            $source => ['value' => $operator],
+          ];
+        }
+      }
+    }
+
+    if (!isset($form['value'])) {
+      // Ensure there is something in the 'value'.
+      $form['value'] = [
+        '#type' => 'value',
+        '#value' => NULL,
+      ];
+    }
   }
 
   /**

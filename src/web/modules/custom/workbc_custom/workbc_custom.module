@@ -15,7 +15,6 @@ use Drupal\views\ViewExecutable;
 use Drupal\redirect\Entity\Redirect;
 use Symfony\Component\HttpFoundation\Request;
 use Drupal\views\Plugin\views\query\QueryPluginBase;
-use Drupal\Core\Datetime\DrupalDateTime;
 use Drupal\Core\Cache\Cache;
 
 /**

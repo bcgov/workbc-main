@@ -27,7 +27,8 @@ class ExploreCareersSearchForm extends FormBase {
       '#markup' => 'Find a career profile by job title, occupation title, or NOC code (i)',
     ];
     $form['keywords'] = [
-      '#type' => 'textfield',
+      '#type' => 'search_api_autocomplete',
+      '#search_id' => 'search_career_profiles',
       '#default_value' => $form_state->getValue('keywords'),
       '#help' => $this->t('Enter a keyword or NOC code'),
     ];
