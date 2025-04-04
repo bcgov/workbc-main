@@ -2,7 +2,6 @@
 
 namespace Drupal\workbc_custom\Plugin\views\filter;
 
-use Drupal\Component\Utility\Html;
 use Drupal\Core\Form\FormStateInterface;
 use Drupal\Core\Session\AccountInterface;
 use Drupal\taxonomy\Plugin\views\filter\TaxonomyIndexTid;
@@ -58,35 +57,25 @@ class WorkBCTaxonomyIndexTid extends TaxonomyIndexTid {
     // - Refreshing exposed filter - both field_epbc_categories_target_id and category are set in URL
     // - AJAX callback from category - ajax_form is set in URL
     $category_value = null;
-    $category_identifier = 'category';
+    $category_identifier = 'term_node_tid_depth';
     $exposed_input = $this->view->getExposedInput()[$category_identifier] ?? null;
-    if ($exposed_input) {
+    if (!empty($exposed_input)) {
       $category_value = $exposed_input;
     }
     $interest_value = (array) $this->value;
     if (empty($interest_value)) {
       $value_identifier = $this->options['expose']['identifier'];
       $exposed_input = $this->view->getExposedInput()[$value_identifier] ?? [];
-      if ($exposed_input) {
+      if (!empty($exposed_input)) {
         $interest_value = (array) $exposed_input;
       }
     }
-
-    $form['category'] = [
-      '#type' => 'select',
-      '#title' => $this->t('Occupational Categories'),
-      '#options' => array_column(array_filter($vocabulary, function($v) { return $v->depth === 0; }), 'name', 'tid'),
-      '#default_value' => $category_value,
-      '#ajax' => [
-        'callback' => [self::class, 'categoryCallback'],
-        'wrapper' => 'category-container',
-      ],
-    ];
 
     $form['value'] = [
       '#type' => 'select',
       '#multiple' => true,
       '#title' => $this->t('Areas of Interest'),
+      '#disabled' => empty($category_value),
       '#options' => array_column(array_filter($vocabulary, function($v) use ($category_value) { return $v->parents[0] == $category_value; }), 'name', 'tid'),
       '#default_value' => $interest_value,
       '#prefix' => '<div id="category-container">',
@@ -96,6 +85,7 @@ class WorkBCTaxonomyIndexTid extends TaxonomyIndexTid {
   }
 
   public static function categoryCallback(array &$form, FormStateInterface $form_state) {
+    // TODO: The form label goes missing.
     return $form['field_epbc_categories_target_id'];
   }
 }

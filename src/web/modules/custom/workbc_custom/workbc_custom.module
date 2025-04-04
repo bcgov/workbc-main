@@ -238,13 +238,13 @@ function workbc_custom_form_alter(&$form, FormStateInterface $form_state, $form_
       $form['field_content_group']['#disabled'] = true;
     }
     // allow edit if super user
-    if ($user->id() == 1) {
+    if ($user->id() === 1) {
       $form['account']['name']['#disabled'] = false;
       $form['account']['mail']['#disabled'] = false;
     }
   }
 
-  if ($form_id == 'media_delete_multiple_confirm_form' || preg_match("/media_.*_delete_form/", $form_id)) {
+  if ($form_id === 'media_delete_multiple_confirm_form' || preg_match("/media_.*_delete_form/", $form_id)) {
     $form['also_delete_file']['#default_value'] = TRUE;
   }
 
@@ -253,9 +253,23 @@ function workbc_custom_form_alter(&$form, FormStateInterface $form_state, $form_
     $form['revision_information']['#access'] = false;
   }
 
-  if ($form_id == 'node_blog_edit_form') {
+  if ($form_id === 'node_blog_edit_form') {
     if (isset($form['body']['widget'][0]['summary']['#description'])) {
       $form['body']['widget'][0]['summary']['#description'] = "Leave blank to use Related Topics Blurb text.";
+    }
+  }
+
+  if ($form_id === 'views_exposed_form') {
+    if ($form_state->getStorage()['view']->id() === 'explore_careers') {
+      $terms = \Drupal::entityTypeManager()->getStorage('taxonomy_term')->loadTree('epbc_categories');
+      $categories = array_filter($terms, function ($term) {
+        return $term->depth === 0;
+      });
+      $form['term_node_tid_depth']['#options'] = ['All' => t('- Any -')] + array_column($categories, 'name', 'tid');
+      $form['term_node_tid_depth']['#ajax'] = [
+        'callback' => [Drupal\workbc_custom\Plugin\views\filter\WorkBCTaxonomyIndexTid::class, 'categoryCallback'],
+        'wrapper' => 'category-container',
+      ];
     }
   }
 }
