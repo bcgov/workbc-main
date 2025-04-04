@@ -53,21 +53,22 @@ class WorkBCTaxonomyIndexTid extends TaxonomyIndexTid {
       return;
     }
 
-    // Get default value for parent and child.
-    $default_value = (array) $this->value;
-    if (empty($default_value)) {
-      $identifier = $this->options['expose']['identifier'];
-      $exposed_input = $this->view->getExposedInput()[$identifier] ?? [];
-      if ($exposed_input) {
-        $default_value = (array) $exposed_input;
-      }
+    // Get starting values for parent and child. There are 3 cases to handle:
+    // - Coming from grid form - both field_epbc_categories_target_id and category are set in URL
+    // - Refreshing exposed filter - both field_epbc_categories_target_id and category are set in URL
+    // - AJAX callback from category - ajax_form is set in URL
+    $category_value = null;
+    $category_identifier = 'category';
+    $exposed_input = $this->view->getExposedInput()[$category_identifier] ?? null;
+    if ($exposed_input) {
+      $category_value = $exposed_input;
     }
-    $default_category = !empty($default_value) ? $this->getParentTid($default_value[0], $vocabulary) : null;
-    if (empty($default_category)) {
-      $identifier = 'category';
-      $exposed_input = $this->view->getExposedInput()[$identifier] ?? null;
+    $interest_value = (array) $this->value;
+    if (empty($interest_value)) {
+      $value_identifier = $this->options['expose']['identifier'];
+      $exposed_input = $this->view->getExposedInput()[$value_identifier] ?? [];
       if ($exposed_input) {
-        $default_category = $exposed_input;
+        $interest_value = (array) $exposed_input;
       }
     }
 
@@ -75,7 +76,7 @@ class WorkBCTaxonomyIndexTid extends TaxonomyIndexTid {
       '#type' => 'select',
       '#title' => $this->t('Occupational Categories'),
       '#options' => array_column(array_filter($vocabulary, function($v) { return $v->depth === 0; }), 'name', 'tid'),
-      '#default_value' => $default_category,
+      '#default_value' => $category_value,
       '#ajax' => [
         'callback' => [self::class, 'categoryCallback'],
         'wrapper' => 'category-container',
@@ -86,8 +87,8 @@ class WorkBCTaxonomyIndexTid extends TaxonomyIndexTid {
       '#type' => 'select',
       '#multiple' => true,
       '#title' => $this->t('Areas of Interest'),
-      '#options' => array_column(array_filter($vocabulary, function($v) use ($default_category) { return $v->parents[0] == $default_category; }), 'name', 'tid'),
-      '#default_value' => $default_value,
+      '#options' => array_column(array_filter($vocabulary, function($v) use ($category_value) { return $v->parents[0] == $category_value; }), 'name', 'tid'),
+      '#default_value' => $interest_value,
       '#prefix' => '<div id="category-container">',
       '#suffix' => '</div>',
       '#chosen' => true,
@@ -97,13 +98,4 @@ class WorkBCTaxonomyIndexTid extends TaxonomyIndexTid {
   public static function categoryCallback(array &$form, FormStateInterface $form_state) {
     return $form['field_epbc_categories_target_id'];
   }
-
-
-  private function getParentTid($tid, $vocabulary) {
-    $term = array_search_func($vocabulary, function ($k, $v) use ($tid) {
-      return $v->tid == $tid;
-    });
-    return $term ? $term->parents[0] : null;
-  }
-
 }
