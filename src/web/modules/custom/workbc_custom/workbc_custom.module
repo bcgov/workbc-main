@@ -60,8 +60,6 @@ function workbc_sitewide_alert_cache_clear() {
 
 }
 
-
-
 /**
 * Implements hook_theme().
 */
@@ -182,17 +180,6 @@ function workbc_custom_views_data_alter(array &$data) {
 }
 
 /**
- * Implements hook_views_plugins_filter_alter().
- */
-function workbc_custom_views_plugins_filter_alter(array &$plugins) {
-  foreach (['taxonomy_index_tid'] as $plugin) {
-    if (isset($plugins[$plugin])) {
-      $plugins[$plugin]['class'] = $plugins['workbc_custom_' . $plugin]['class'];
-    }
-  }
-}
-
-/**
 * Implements hook_views_pre_render().
 */
 function workbc_custom_views_pre_render(ViewExecutable $view) {
@@ -258,20 +245,6 @@ function workbc_custom_form_alter(&$form, FormStateInterface $form_state, $form_
       $form['body']['widget'][0]['summary']['#description'] = "Leave blank to use Related Topics Blurb text.";
     }
   }
-
-  if ($form_id === 'views_exposed_form') {
-    if ($form_state->getStorage()['view']->id() === 'explore_careers') {
-      $terms = \Drupal::entityTypeManager()->getStorage('taxonomy_term')->loadTree('epbc_categories');
-      $categories = array_filter($terms, function ($term) {
-        return $term->depth === 0;
-      });
-      $form['term_node_tid_depth']['#options'] = ['All' => t('- Any -')] + array_column($categories, 'name', 'tid');
-      $form['term_node_tid_depth']['#ajax'] = [
-        'callback' => [Drupal\workbc_custom\Plugin\views\filter\WorkBCTaxonomyIndexTid::class, 'categoryCallback'],
-        'wrapper' => 'category-container',
-      ];
-    }
-  }
 }
 
 /**
@@ -329,6 +302,42 @@ function workbc_custom_form_views_exposed_form_alter(&$form, FormStateInterface 
     ];
     $form['#submit'][] = 'video_library_exposed_form_submit';
   }
+
+  if ($form['#id'] === 'views-exposed-form-explore-careers-page-1') {
+    $terms = \Drupal::entityTypeManager()->getStorage('taxonomy_term')->loadTree('epbc_categories');
+    $categories = array_filter($terms, function ($term) {
+      return $term->depth === 0;
+    });
+
+    // Get starting values for parent and child. There are 3 cases to handle:
+    // - Coming from grid form - both field_epbc_categories_target_id and category are set in URL
+    // - Refreshing exposed filter - both field_epbc_categories_target_id and category are set in URL
+    // - AJAX callback from category - ajax_form is set in URL
+    $category_value = $form_state->getValue('term_node_tid_depth', $form_state->getUserInput()['term_node_tid_depth'] ?? null);
+    $interest_value = $form_state->getValue('field_epbc_categories_target_id', $form_state->getUserInput()['field_epbc_categories_target_id'] ?? []);
+
+    // Adjust the values for the EPBC category and areas of interest filters based on values above.
+    // Set up the AJAX callback to dynamically update the 2nd level select dropwdown.
+    $form['term_node_tid_depth']['#options'] = ['All' => t('- Any -')] + array_column($categories, 'name', 'tid');
+    $form['term_node_tid_depth']['#ajax'] = [
+      'callback' => 'workbc_custom_category_callback',
+      'wrapper' => 'category-container',
+    ];
+    $form['field_epbc_categories_target_id']['#chosen'] = true;
+    $form['field_epbc_categories_target_id']['#prefix'] = '<div id="category-container">';
+    $form['field_epbc_categories_target_id']['#suffix'] = '</div>';
+    $form['field_epbc_categories_target_id']['#disabled'] = empty($category_value);
+    $form['field_epbc_categories_target_id']['#options'] = array_column(array_filter($terms, function($t) use ($category_value) { return $t->parents[0] == $category_value; }), 'name', 'tid');
+    $form['field_epbc_categories_target_id']['#default_value'] = $interest_value;
+  }
+}
+
+/**
+ * AJAX callback function to replace the EPBC categories 2nd level select dropdown.
+ */
+function workbc_custom_category_callback(array &$form, FormStateInterface $form_state) {
+  // TODO: The form label goes missing.
+  return $form['field_epbc_categories_target_id'];
 }
 
 /**
@@ -599,7 +608,7 @@ function workbc_custom_search_api_autocomplete_suggestions_alter(array &$suggest
     $node = \Drupal\node\Entity\Node::load($params['node']);
     if ($node && isset($node->field_noc)) {
       $markup = $suggestion->getLabel() . ' (NOC ' . $node->field_noc->value . ')';
-      $markup = preg_replace("/(".$alter_params['user_input'].")/i", "<strong>$1</strong>", $markup);
+      $markup = preg_replace("/(". preg_quote($alter_params['user_input']) .")/i", "<strong>$1</strong>", $markup);
       $render = array(
         '#type' => 'markup',
         '#markup' => $markup
@@ -609,11 +618,9 @@ function workbc_custom_search_api_autocomplete_suggestions_alter(array &$suggest
   }
 }
 
-
 /**
  * Implements hook_metatags_attachments_alter().
  */
-
 function workbc_custom_metatags_attachments_alter(array &$metatag_attachments) {
   $tags = $metatag_attachments['#attached']['html_head'];
 

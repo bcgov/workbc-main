@@ -381,7 +381,7 @@ display:
             default_group: All
             default_group_multiple: {  }
             group_items: {  }
-          reduce_duplicates: false
+          reduce_duplicates: true
           vid: epbc_categories
           type: select
           hierarchy: true
@@ -441,7 +441,7 @@ display:
             default_group: All
             default_group_multiple: {  }
             group_items: {  }
-          reduce_duplicates: false
+          reduce_duplicates: true
           vid: epbc_categories
           type: epbc
           hierarchy: true

@@ -103,12 +103,7 @@ class WorkBCKeywordSearch extends StringFilter {
         return;
       }
       $nids = $this->search($this->value);
-      if (!empty($nids)) {
-        $this->query->addWhere(0, 'node_field_data.nid', $nids, 'IN');
-      }
-      else {
-        $this->query->addWhere(0, 'node_field_data.nid', [0], 'IN');
-      }
+      $this->query->addWhere(0, 'node_field_data.nid', empty($nids) ? [0] : $nids, 'IN');
     }
   }
 
