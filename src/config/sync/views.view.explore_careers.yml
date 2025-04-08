@@ -242,22 +242,60 @@ display:
             format: full_html
           tokenize: false
       sorts:
-        created:
-          id: created
+        title:
+          id: title
           table: node_field_data
-          field: created
+          field: title
           relationship: none
           group_type: group
           admin_label: ''
           entity_type: node
-          entity_field: created
-          plugin_id: date
-          order: DESC
+          entity_field: title
+          plugin_id: standard
+          order: ASC
           expose:
-            label: ''
-            field_identifier: ''
-          exposed: false
-          granularity: second
+            label: 'Occupation Title'
+            field_identifier: title
+          exposed: true
+        field_teer_value:
+          id: field_teer_value
+          table: node__field_teer
+          field: field_teer_value
+          relationship: none
+          group_type: group
+          admin_label: ''
+          plugin_id: standard
+          order: ASC
+          expose:
+            label: TEER
+            field_identifier: field_teer_value
+          exposed: true
+        field_region_openings_value:
+          id: field_region_openings_value
+          table: node__field_region_openings
+          field: field_region_openings_value
+          relationship: none
+          group_type: group
+          admin_label: ''
+          plugin_id: standard
+          order: ASC
+          expose:
+            label: 'Job Openings'
+            field_identifier: field_region_openings_value
+          exposed: true
+        field_annual_salary_value:
+          id: field_annual_salary_value
+          table: node__field_annual_salary
+          field: field_annual_salary_value
+          relationship: none
+          group_type: group
+          admin_label: ''
+          plugin_id: standard
+          order: ASC
+          expose:
+            label: 'Annual Earnings'
+            field_identifier: field_annual_salary_value
+          exposed: true
       arguments: {  }
       filters:
         status:
@@ -693,6 +731,8 @@ display:
         - 'languages:language_content'
         - 'languages:language_interface'
         - url
+        - 'url.query_args:sort_by'
+        - 'url.query_args:sort_order'
         - 'user.node_grants:view'
         - user.permissions
       tags:
@@ -713,6 +753,8 @@ display:
         - 'languages:language_content'
         - 'languages:language_interface'
         - url
+        - 'url.query_args:sort_by'
+        - 'url.query_args:sort_order'
         - 'user.node_grants:view'
         - user.permissions
       tags:

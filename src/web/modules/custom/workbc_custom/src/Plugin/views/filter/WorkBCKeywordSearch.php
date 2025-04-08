@@ -56,6 +56,11 @@ class WorkBCKeywordSearch extends StringFilter {
       $form['value'] = [
         '#type' => 'search_api_autocomplete',
         '#search_id' => 'search_career_profiles',
+        // '#additional_data' => [
+        //   'display' => 'page_1',
+        //   'arguments' => 0,
+        //   'filter' => 'search',
+        // ],
         '#title' => $this->t('Value'),
         '#size' => 30,
         '#default_value' => $this->value,
