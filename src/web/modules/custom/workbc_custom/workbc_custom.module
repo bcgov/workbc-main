@@ -313,16 +313,31 @@ function workbc_custom_form_views_exposed_form_alter(&$form, FormStateInterface 
     // - Coming from grid form - both field_epbc_categories_target_id and category are set in URL
     // - Refreshing exposed filter - both field_epbc_categories_target_id and category are set in URL
     // - AJAX callback from category - ajax_form is set in URL
-    $category_value = $form_state->getValue('term_node_tid_depth', $form_state->getUserInput()['term_node_tid_depth'] ?? null);
-    $interest_value = $form_state->getValue('field_epbc_categories_target_id', $form_state->getUserInput()['field_epbc_categories_target_id'] ?? []);
+    $input = $form_state->getUserInput();
+    $category_value = $form_state->getValue('term_node_tid_depth', $input['term_node_tid_depth'] ?? null);
+    $interest_value = $form_state->getValue('field_epbc_categories_target_id', $input['field_epbc_categories_target_id'] ?? []);
+    $hide_category = array_key_exists('hide_category', $input) ? $input['hide_category'] : false;
 
     // Adjust the values for the EPBC category and areas of interest filters based on values above.
     // Set up the AJAX callback to dynamically update the 2nd level select dropwdown.
-    $form['term_node_tid_depth']['#options'] = ['All' => t('- Any -')] + array_column($categories, 'name', 'tid');
-    $form['term_node_tid_depth']['#ajax'] = [
-      'callback' => 'workbc_custom_category_callback',
-      'wrapper' => 'category-container',
+    $form['hide_category'] = [
+      '#type' => 'hidden',
+      '#value' => $hide_category,
     ];
+    if ($hide_category) {
+      $form['term_node_tid_depth']['#type'] = 'hidden';
+      $form['term_node_tid_depth']['#value'] = $category_value;
+      $form_state->getStorage()['view']->getDisplay()->setOption('title', 'Results for ' . array_column(array_filter($categories, function ($term) use($category_value) {
+        return $term->tid == $category_value;
+      }), 'name')[0]);
+    }
+    else {
+      $form['term_node_tid_depth']['#options'] = ['All' => t('- Any -')] + array_column($categories, 'name', 'tid');
+      $form['term_node_tid_depth']['#ajax'] = [
+        'callback' => 'workbc_custom_category_callback',
+        'wrapper' => 'category-container',
+      ];
+    }
     $form['field_epbc_categories_target_id']['#chosen'] = true;
     $form['field_epbc_categories_target_id']['#prefix'] = '<div id="category-container">';
     $form['field_epbc_categories_target_id']['#suffix'] = '</div>';

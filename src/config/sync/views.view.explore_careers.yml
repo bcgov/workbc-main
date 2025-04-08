@@ -27,7 +27,7 @@ display:
     display_plugin: default
     position: 0
     display_options:
-      title: 'Explore Careers'
+      title: 'Your Results'
       fields:
         title:
           id: title
@@ -662,6 +662,19 @@ display:
           query_tags: {  }
       relationships: {  }
       header:
+        area:
+          id: area
+          table: views
+          field: area
+          relationship: none
+          group_type: group
+          admin_label: ''
+          plugin_id: text
+          empty: false
+          content:
+            value: '<h2>[view:title]</h2>'
+            format: full_html
+          tokenize: false
         result:
           id: result
           table: views
@@ -671,7 +684,7 @@ display:
           admin_label: ''
           plugin_id: result
           empty: true
-          content: "<h2>Your Results</h2>\r\n\r\nWe found @total career profiles."
+          content: 'We found @total careers'
       footer: {  }
       display_extenders: {  }
     cache_metadata:

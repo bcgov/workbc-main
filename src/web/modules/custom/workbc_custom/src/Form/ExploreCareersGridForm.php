@@ -74,6 +74,7 @@ class ExploreCareersGridForm extends FormBase {
     }, ARRAY_FILTER_USE_BOTH));
     $form_state->setRedirect('view.explore_careers.page_1', [], [
       'query' => [
+        'hide_category' => true,
         'field_epbc_categories_target_id' => $selection,
         'term_node_tid_depth' => array_search_func($terms, function($k, $v) use ($selection) {
           return $selection[0] == $v->tid;

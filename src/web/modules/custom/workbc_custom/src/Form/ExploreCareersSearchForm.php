@@ -45,6 +45,7 @@ class ExploreCareersSearchForm extends FormBase {
   public function submitForm(array &$form, FormStateInterface $form_state) {
     $form_state->setRedirect('view.explore_careers.page_1', [], [
       'query' => [
+        'hide_category' => false,
         'keyword_search' => $form_state->getValue('keywords'),
       ]
     ]);
