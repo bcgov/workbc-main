@@ -419,12 +419,12 @@ display:
             default_group: All
             default_group_multiple: {  }
             group_items: {  }
-          reduce_duplicates: true
+          reduce_duplicates: false
           vid: epbc_categories
           type: select
           hierarchy: true
           limit: true
-          error_message: true
+          error_message: false
           depth: 1
         field_epbc_categories_target_id:
           id: field_epbc_categories_target_id
@@ -479,12 +479,12 @@ display:
             default_group: All
             default_group_multiple: {  }
             group_items: {  }
-          reduce_duplicates: true
+          reduce_duplicates: false
           vid: epbc_categories
           type: epbc
           hierarchy: true
           limit: true
-          error_message: true
+          error_message: false
         field_teer_value:
           id: field_teer_value
           table: node__field_teer
@@ -695,7 +695,7 @@ display:
         options:
           query_comment: ''
           disable_sql_rewrite: false
-          distinct: false
+          distinct: true
           replica: false
           query_tags: {  }
       relationships: {  }
