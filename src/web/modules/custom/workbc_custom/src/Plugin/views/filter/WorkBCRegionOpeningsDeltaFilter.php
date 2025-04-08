@@ -112,18 +112,7 @@ class WorkBCRegionOpeningsDeltaFilter extends FilterPluginBase {
    *   Array with all regions.
    */
   private function getRegionOptions($emptyOption = FALSE) {
-
-		$regions = [];
-		$regions[0] = "British Columbia";
-		$regions[1] = "Cariboo";
-		$regions[2] = "Kootenay";
-		$regions[3] = "Mainland/Southwest";
-		$regions[4] = "North Coast and Nechako";
-		$regions[5] = "Northeast";
-		$regions[6] = "Thompson-Okanagan";
-		$regions[7] = "Vancouver Island/Coast";
-
-    return $regions;
+    return array_combine(array_values(ssotRegionIds()), array_values(ssotRegions()));
   }
 
 }
