@@ -337,6 +337,7 @@ function workbc_custom_form_views_exposed_form_alter(&$form, FormStateInterface 
         'callback' => 'workbc_custom_category_callback',
         'wrapper' => 'category-container',
       ];
+      $form_state->getStorage()['view']->getDisplay()->setOption('title', 'Your Results');
     }
     $form['field_epbc_categories_target_id']['#chosen'] = true;
     $form['field_epbc_categories_target_id']['#prefix'] = '<div id="category-container">';
@@ -574,8 +575,8 @@ function workbc_custom_system_breadcrumb_alter(Breadcrumb &$breadcrumb, RouteMat
   $node = \Drupal::request()->attributes->get('node');
   if ($node && $node instanceof Drupal\node\Entity\Node) {
     if ($node->bundle() == 'news' && $node->field_archived->get(0)->getValue()['value'] == "1") {
-
-      $url = Url::fromUri('internal:/plan-career/news-archive');
+      $paths = \Drupal::config('workbc')->get('paths');
+      $url = Url::fromUri('internal:' . $paths['news_archive']);
       $archive = Link::fromTextAndUrl("News Archive", $url);
 
       $links = $breadcrumb->getLinks();
