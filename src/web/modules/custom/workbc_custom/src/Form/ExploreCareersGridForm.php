@@ -52,6 +52,7 @@ class ExploreCareersGridForm extends FormBase {
       $form[$category_label]['submit'] = [
         '#type' => 'submit',
         '#value' => t('Explore'),
+        '#suffix' => '<span class="error hidden">Please select an area of interest before proceeding.</span>',
       ];
     }
     $form['terms'] = [
@@ -59,6 +60,18 @@ class ExploreCareersGridForm extends FormBase {
       '#value' => $terms,
     ];
     return $form;
+  }
+
+  /**
+  * {@inheritdoc}
+  */
+  public function validateForm(array &$form, FormStateInterface $form_state) {
+    $selection = array_keys(array_filter($form_state->getValues(), function($v, $k) {
+      return is_int($k) && $v === 1;
+    }, ARRAY_FILTER_USE_BOTH));
+    if (empty($selection)) {
+      $form_state->setError($form, 'Please select an area of interest before proceeding.');
+    }
   }
 
   /**

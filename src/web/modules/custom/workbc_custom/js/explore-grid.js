@@ -13,6 +13,16 @@
       $(once('explore-grid', 'details')).on('toggle', function() {
         if (this.open) {
           $(this).siblings('details').removeAttr('open');
+          $(this).siblings('details').find('input:checkbox').prop('checked', false);
+        }
+      });
+      $(once('explore-grid', '#workbc-custom-explore-careers-grid-form')).on('submit', function(e) {
+        const parent = $(this).find('details[open]');
+        if (parent.length > 0) {
+          if (!parent.find('input:checkbox:checked').length) {
+            parent.find('.error').removeClass('hidden');
+            e.preventDefault();
+          }
         }
       });
     }
