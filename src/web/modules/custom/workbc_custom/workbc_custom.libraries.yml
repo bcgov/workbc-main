@@ -10,7 +10,7 @@ feedback:
     - core/once
     - core/drupal
 
-exploregrid:
+explore-grid:
   js:
     js/explore-grid.js: {}
   css:
@@ -20,4 +20,4 @@ exploregrid:
     - core/jquery
     - core/drupalSettings
     - core/once
-    - core/drupal      
+    - core/drupal

@@ -743,7 +743,7 @@ function workbc_custom_page_attachments_alter(array &$attachments) {
     ];
   }
   if ($alias == $paths['career_exploration']) {
-    $attachments['#attached']['library'][] = 'workbc_custom/exploregrid';
+    $attachments['#attached']['library'][] = 'workbc_custom/explore-grid';
   }
 }
 
