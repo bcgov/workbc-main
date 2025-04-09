@@ -1,5 +1,5 @@
 (function ($, Drupal, once) {
-  Drupal.behaviors.feedback = {
+  Drupal.behaviors.exploreGrid = {
     attach: function (context, settings) {
       $(once('explore-grid', '#workbc-custom-explore-careers-grid-form .grid-all')).change(function() {
         const checked = $(this).is(':checked');
