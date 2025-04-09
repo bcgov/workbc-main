@@ -345,6 +345,27 @@ function workbc_custom_form_views_exposed_form_alter(&$form, FormStateInterface 
     $form['field_epbc_categories_target_id']['#disabled'] = empty($category_value);
     $form['field_epbc_categories_target_id']['#options'] = array_column(array_filter($terms, function($t) use ($category_value) { return $t->parents[0] == $category_value; }), 'name', 'tid');
     $form['field_epbc_categories_target_id']['#default_value'] = $interest_value;
+
+    // Capture the reset button to maintain the hide_category argument.
+    $form['#submit'][] = 'workbc_custom_category_reset';
+  }
+}
+
+/**
+ * Submit callback function for reset button.
+ */
+function workbc_custom_category_reset(array &$form, FormStateInterface $form_state) {
+  $input = $form_state->getUserInput();
+  if (
+    array_key_exists('op', $input) &&
+    array_key_exists('hide_category', $input) &&
+    array_key_exists('term_node_tid_depth', $input) &&
+    $input['op'] === 'Clear all filters'
+  ) {
+    $form_state->setRedirect('<current>', [], ['query' => [
+      'hide_category' => empty($input['hide_category']) ? 0 : 1,
+      'term_node_tid_depth' => empty($input['hide_category']) ? 'All' : $input['term_node_tid_depth']
+    ]]);
   }
 }
 
