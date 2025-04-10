@@ -12,8 +12,10 @@
       });
       $(once('explore-grid', 'details')).on('toggle', function() {
         if (this.open) {
+          const top = this.getBoundingClientRect().top;
           $(this).siblings('details').removeAttr('open');
           $(this).siblings('details').find('input:checkbox').prop('checked', false);
+          window.scrollTo({ top: window.scrollY - (top - this.getBoundingClientRect().top), behavior: 'instant' });
         }
       });
       $(once('explore-grid', '#workbc-custom-explore-careers-grid-form')).on('submit', function(e) {

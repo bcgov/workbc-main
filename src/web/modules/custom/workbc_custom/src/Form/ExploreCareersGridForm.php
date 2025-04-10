@@ -36,7 +36,7 @@ class ExploreCareersGridForm extends FormBase {
       ];
       $form[$category_label][$category->tid] = [
         '#type' => 'checkbox',
-        '#title' => $this->t('Select all areas of interest'),
+        '#title' => $this->t('Select all areas'),
         '#attributes' => ['class' => ['grid-all']]
       ];
       $areas = array_filter($terms, function ($term) use ($category) {
