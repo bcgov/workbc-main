@@ -459,6 +459,8 @@ display:
           bypass_access: false
           skip_access: false
           preserve_facet_query_args: false
+          query_tags:
+            - explore_careers_search
       relationships: {  }
       use_ajax: false
       header: {  }

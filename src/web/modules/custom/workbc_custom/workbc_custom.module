@@ -712,6 +712,24 @@ function workbc_custom_search_api_query_alter($query) {
 }
 
 /**
+* Implements hook_search_api_query_TAG_alter() for explore_careers_search.
+*/
+function workbc_custom_search_api_query_explore_careers_search_alter($query) {
+  // Adjust the query before it is sent to Solr:
+  $keys =& $query->getKeys();
+  if (empty($keys)) return;
+
+  // 1. Upcase keywords to activate AND / OR.
+  $keys = strtoupper($keys);
+
+  // 2. Automatically add + in front of each keyword
+  // ONLY WORKS WHEN THERE ARE NO SPECIAL QUERY CHARS!
+  if (!preg_match('/"|\(|\)|\sAND\s|\sOR\s/i', $keys)) {
+    $keys = preg_replace('/\b(\w+)\b/i', '+$1', $keys);
+  }
+}
+
+/**
  * Implements hook_oembed_resource_url_alter().
  */
 function workbc_custom_oembed_resource_url_alter(array &$parsed_url, \Drupal\media\OEmbed\Provider $provider) {
