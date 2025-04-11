@@ -724,7 +724,7 @@ function workbc_custom_search_api_query_explore_careers_search_alter($query) {
 
   // 2. Automatically add + in front of each keyword
   // ONLY WORKS WHEN THERE ARE NO SPECIAL QUERY CHARS!
-  if (!preg_match('/"|\(|\)|\sAND\s|\sOR\s/i', $keys)) {
+  if (!preg_match('/"|\(|\)|\sAND\s|\sOR\s|&&|\|\||\+/i', $keys)) {
     $keys = preg_replace('/\b(\w+)\b/i', '+$1', $keys);
   }
 }

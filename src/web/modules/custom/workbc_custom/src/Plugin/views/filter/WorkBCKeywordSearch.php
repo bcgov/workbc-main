@@ -4,6 +4,7 @@ namespace Drupal\workbc_custom\Plugin\views\filter;
 
 use Drupal\views\Plugin\views\filter\StringFilter;
 use Drupal\Core\Form\FormStateInterface;
+use Drupal\search_api_solr\SearchApiSolrException;
 
 /**
  * Filters by given list of node title options.
@@ -133,16 +134,20 @@ class WorkBCKeywordSearch extends StringFilter {
 
     // Add sorting.
     $query->sort('search_api_relevance', 'DESC');
+    $query->setOption('limit', 1000);
 
     // Set one or more tags for the query.
     // @see hook_search_api_query_TAG_alter()
     // @see hook_search_api_results_TAG_alter()
     $query->addTag('explore_careers_search');
 
-    $query->setOption('limit', 1000);
-
     // Execute the search.
-    $results = $query->execute();
+    try {
+      $results = $query->execute();
+    }
+    catch (SearchApiSolrException $e) {
+      $results = null;
+    }
     return array_values(array_filter(array_map(function($r) {
       if (preg_match('/entity:node\/(\d+):/', $r->getId(), $match)) {
         return $match[1];
@@ -150,5 +155,4 @@ class WorkBCKeywordSearch extends StringFilter {
       return false;
     }, $results ? $results->getResultItems() : [])));
   }
-
 }
