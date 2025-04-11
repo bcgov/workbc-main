@@ -19,7 +19,6 @@ use Drupal\Component\Utility\Timer;
 class SsotDownloader extends QueueWorkerBase implements ContainerFactoryPluginInterface {
 
   private $epbc_categories;
-  private $cst_categories;
 
   /**
   * Main constructor.
