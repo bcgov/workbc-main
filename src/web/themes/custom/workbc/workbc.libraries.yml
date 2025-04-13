@@ -26,6 +26,20 @@ back-to-top:
     - core/drupal
     - core/jquery
 
+view-switcher:
+  js:
+    js/view-switcher.js: {}
+  dependencies:
+    - core/drupal
+    - core/jquery
+
+icon-append:
+  js:
+    js/icon-append.js: {}
+  dependencies:
+    - core/drupal
+    - core/jquery
+
 mobile-nav:
   js:
     js/mobile-nav.js: {}
@@ -41,6 +55,15 @@ nav:
 related-topics-carousel:
   js:
     js/related-topics-carousel.js: {}
+  dependencies:
+    - core/drupal
+    - core/jquery
+    - core/once
+    - workbc/swiper-js
+
+video-banner-carousel:
+  js:
+    js/video-banner-carousel.js: {}
   dependencies:
     - core/drupal
     - core/jquery

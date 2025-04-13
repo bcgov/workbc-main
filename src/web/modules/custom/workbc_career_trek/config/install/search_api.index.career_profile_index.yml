@@ -1,0 +1,371 @@
+uuid: 0430f4ea-cf1f-4bae-adc5-8c0cf880bc4e
+langcode: en
+status: true
+dependencies:
+  config:
+    - core.entity_view_mode.node.career_profile_search_index
+    - field.storage.media.field_category
+    - field.storage.media.field_description
+    - field.storage.media.field_duration
+    - field.storage.media.field_exclude_from_video_page
+    - field.storage.media.field_media_oembed_video
+    - field.storage.media.field_weight
+    - field.storage.node.field_career_videos
+    - field.storage.node.field_noc
+    - field.storage.node.field_noc_2016
+    - field.storage.node.field_related_careers
+    - field.storage.node.field_skills_2
+    - search_api.server.solr_search
+  module:
+    - file
+    - media
+    - node
+    - search_api_solr
+    - taxonomy
+    - workbc_career_trek
+third_party_settings:
+  search_api_solr:
+    finalize: false
+    commit_before_finalize: false
+    commit_after_finalize: false
+    debug_finalize: false
+    highlighter:
+      maxAnalyzedChars: 51200
+      fragmenter: gap
+      usePhraseHighlighter: true
+      highlightMultiTerm: true
+      preserveMulti: false
+      regex:
+        slop: 0.5
+        pattern: blank
+        maxAnalyzedChars: 10000
+      highlight:
+        mergeContiguous: false
+        requireFieldMatch: false
+        snippets: 3
+        fragsize: 0
+    mlt:
+      mintf: 1
+      mindf: 1
+      maxdf: 0
+      maxdfpct: 0
+      minwl: 0
+      maxwl: 0
+      maxqt: 100
+      maxntp: 2000
+      boost: false
+      interestingTerms: none
+    term_modifiers:
+      slop: 3
+      fuzzy: 1
+      fuzzy_analyzer: true
+    advanced:
+      index_prefix: ''
+      collection: ''
+      timezone: ''
+    multilingual:
+      limit_to_content_language: false
+      include_language_independent: true
+      use_language_undefined_as_fallback_language: false
+      specific_languages:
+        en: '0'
+      use_universal_collation: false
+id: career_profile_index
+name: 'Career profiles index'
+description: ''
+read_only: false
+field_settings:
+  annual_salary:
+    label: 'Annual Salary'
+    property_path: custom_value
+    type: integer
+    configuration:
+      value: '0'
+  bundle:
+    label: 'Career Videos » Media » Media type'
+    datasource_id: 'entity:node'
+    property_path: 'field_career_videos:entity:bundle'
+    type: string
+    dependencies:
+      config:
+        - field.storage.node.field_career_videos
+      module:
+        - media
+  custom_location:
+    label: 'Custom Location'
+    property_path: custom_api_field
+    type: string
+    configuration:
+      value: ''
+  field_category:
+    label: 'Career Videos » Media » Categories'
+    datasource_id: 'entity:node'
+    property_path: 'field_career_videos:entity:field_category'
+    type: integer
+    dependencies:
+      config:
+        - field.storage.media.field_category
+        - field.storage.node.field_career_videos
+      module:
+        - media
+  field_description:
+    label: 'Career Videos » Media » Description'
+    datasource_id: 'entity:node'
+    property_path: 'field_career_videos:entity:field_description'
+    type: text
+    dependencies:
+      config:
+        - field.storage.media.field_description
+        - field.storage.node.field_career_videos
+      module:
+        - media
+  field_exclude_from_video_page:
+    label: "Career Videos » Media » Don't show on Career Trek page"
+    datasource_id: 'entity:node'
+    property_path: 'field_career_videos:entity:field_exclude_from_video_page'
+    type: boolean
+    dependencies:
+      config:
+        - field.storage.media.field_exclude_from_video_page
+        - field.storage.node.field_career_videos
+      module:
+        - media
+  field_media_oembed_video:
+    label: 'Career Videos » Media » Video URL'
+    datasource_id: 'entity:node'
+    property_path: 'field_career_videos:entity:field_media_oembed_video'
+    type: string
+    dependencies:
+      config:
+        - field.storage.media.field_media_oembed_video
+        - field.storage.node.field_career_videos
+      module:
+        - media
+  field_noc:
+    label: NOC
+    datasource_id: 'entity:node'
+    property_path: field_noc
+    type: 'solr_text_custom:ngram'
+    boost: 3.0
+    dependencies:
+      config:
+        - field.storage.node.field_noc
+  field_noc_1:
+    label: NOC
+    datasource_id: 'entity:node'
+    property_path: field_noc
+    type: string
+    dependencies:
+      config:
+        - field.storage.node.field_noc
+  field_noc_2016:
+    label: 'NOC 2016'
+    datasource_id: 'entity:node'
+    property_path: field_noc_2016
+    type: 'solr_text_custom:ngram'
+    boost: 2.0
+    dependencies:
+      config:
+        - field.storage.node.field_noc_2016
+  field_related_careers:
+    label: 'Related Careers'
+    datasource_id: 'entity:node'
+    property_path: field_related_careers
+    type: integer
+    dependencies:
+      config:
+        - field.storage.node.field_related_careers
+  field_skills_2:
+    label: Skills
+    datasource_id: 'entity:node'
+    property_path: field_skills_2
+    type: integer
+    dependencies:
+      config:
+        - field.storage.node.field_skills_2
+  field_weight:
+    label: 'Career Videos » Media » Weight'
+    datasource_id: 'entity:node'
+    property_path: 'field_career_videos:entity:field_weight'
+    type: integer
+    dependencies:
+      config:
+        - field.storage.media.field_weight
+        - field.storage.node.field_career_videos
+      module:
+        - media
+  mid:
+    label: 'Career Videos » Media » ID'
+    datasource_id: 'entity:node'
+    property_path: 'field_career_videos:entity:mid'
+    type: integer
+    dependencies:
+      config:
+        - field.storage.node.field_career_videos
+      module:
+        - media
+  minimum_education:
+    label: 'Minimum Education'
+    property_path: custom_value
+    type: string
+    configuration:
+      value: '0'
+  name:
+    label: 'Career Videos » Media » Categories » Taxonomy term » Name'
+    datasource_id: 'entity:node'
+    property_path: 'field_career_videos:entity:field_category:entity:name'
+    type: string
+    dependencies:
+      config:
+        - field.storage.media.field_category
+        - field.storage.node.field_career_videos
+      module:
+        - media
+        - taxonomy
+  name_1:
+    label: 'Career Videos » Media » Name'
+    datasource_id: 'entity:node'
+    property_path: 'field_career_videos:entity:name'
+    type: string
+    dependencies:
+      config:
+        - field.storage.node.field_career_videos
+      module:
+        - media
+  name_2:
+    label: 'Skills » Taxonomy term » Name'
+    datasource_id: 'entity:node'
+    property_path: 'field_skills_2:entity:name'
+    type: string
+    dependencies:
+      config:
+        - field.storage.node.field_skills_2
+      module:
+        - taxonomy
+  region_api_field:
+    label: 'Region API Field'
+    property_path: region_api_field
+    type: string
+    configuration:
+      value: ''
+  regions:
+    label: Regions
+    datasource_id: 'entity:node'
+    property_path: title
+    type: string
+    dependencies:
+      module:
+        - node
+  rendered_item:
+    label: 'Rendered HTML output'
+    property_path: rendered_item
+    type: 'solr_text_custom:ngram'
+    configuration:
+      roles:
+        - anonymous
+      view_mode:
+        'entity:node':
+          career_profile: career_profile_search_index
+  seconds:
+    label: 'Career Videos » Media » Duration » Seconds'
+    datasource_id: 'entity:node'
+    property_path: 'field_career_videos:entity:field_duration:seconds'
+    type: integer
+    dependencies:
+      config:
+        - field.storage.media.field_duration
+        - field.storage.node.field_career_videos
+      module:
+        - media
+  status:
+    label: 'Publishing status'
+    datasource_id: 'entity:node'
+    property_path: status
+    type: boolean
+    dependencies:
+      module:
+        - node
+  status_1:
+    label: 'Career Videos » Media » Published'
+    datasource_id: 'entity:node'
+    property_path: 'field_career_videos:entity:status'
+    type: boolean
+    dependencies:
+      config:
+        - field.storage.node.field_career_videos
+      module:
+        - media
+  thumbnail:
+    label: 'Career Videos » Media » Thumbnail'
+    datasource_id: 'entity:node'
+    property_path: 'field_career_videos:entity:thumbnail'
+    type: integer
+    dependencies:
+      config:
+        - field.storage.node.field_career_videos
+      module:
+        - media
+  title:
+    label: Title
+    datasource_id: 'entity:node'
+    property_path: title
+    type: 'solr_text_custom:ngram'
+    boost: 5.0
+    dependencies:
+      module:
+        - node
+  uid:
+    label: 'Author ID'
+    datasource_id: 'entity:node'
+    property_path: uid
+    type: integer
+    dependencies:
+      module:
+        - node
+  url:
+    label: 'Career Videos » Media » Thumbnail » File » URI » Root-relative file URL'
+    datasource_id: 'entity:node'
+    property_path: 'field_career_videos:entity:thumbnail:entity:uri:url'
+    type: string
+    dependencies:
+      config:
+        - field.storage.node.field_career_videos
+      module:
+        - file
+        - media
+datasource_settings:
+  'entity:node':
+    bundles:
+      default: false
+      selected:
+        - career_profile
+    languages:
+      default: true
+      selected: {  }
+processor_settings:
+  add_url: {  }
+  aggregated_field: {  }
+  auto_aggregated_fulltext_field: {  }
+  custom_api_processor:
+    weights:
+      preprocess_index: -10
+  custom_value: {  }
+  entity_type: {  }
+  language_with_fallback: {  }
+  regions_processor:
+    weights:
+      preprocess_index: -10
+  rendered_item: {  }
+  solr_date_range:
+    weights:
+      preprocess_index: 0
+  solr_dummy_fields: {  }
+tracker_settings:
+  default:
+    indexing_order: fifo
+options:
+  cron_limit: 50
+  delete_on_fail: true
+  index_directly: true
+  track_changes_in_references: true
+server: solr_search

@@ -1,0 +1,19 @@
+uuid: 5fee0a21-8bff-408a-a641-973abd0af37e
+langcode: en
+status: true
+dependencies:
+  config:
+    - field.storage.paragraph.field_key
+    - paragraphs.paragraphs_type.section_icons_1_3
+id: paragraph.section_icons_1_3.field_key
+field_name: field_key
+entity_type: paragraph
+bundle: section_icons_1_3
+label: 'Card key'
+description: 'This field is for internal use only and should not be edited.'
+required: false
+translatable: false
+default_value: {  }
+default_value_callback: ''
+settings: {  }
+field_type: string

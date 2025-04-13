@@ -1,0 +1,5 @@
+name: WorkBC Career Trek
+type: module
+description: Career Trek WorkBC.
+core_version_requirement: ^8 || ^9 || ^10
+package: WorkBC

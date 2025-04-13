@@ -1,0 +1,16 @@
+<div class="related-carrer">
+    <div class="workbc-card-video-preview">
+        <a class="use-ajax" aria-label="button", 'back to top' data-dialog-options='{"width" : "auto", "maxWidth": "1200", "height": "auto", "modal": "true", "fluid": "true", "title": "", "dialogClass": "video-library-modal"}' data-dialog-type="modal" href="/media/{{ fields.mid.content|striptags|trim }}"><div class="workbc-card-thumbnail">{{ fields.thumbnail.content }}</div></a>
+    </div>
+    <div class="workbc-card-content">
+        <div class="title">
+            {{ fields.title.content }}
+        </div>
+        <div class="category">
+            {{ fields.name.content }}
+        </div>
+        <div class="city-location">
+            {{ fields.custom_location.content }}
+        </div>
+    </div>
+</div>
