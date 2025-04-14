@@ -740,7 +740,6 @@ function workbc_custom_oembed_resource_url_alter(array &$parsed_url, \Drupal\med
   }
 }
 
-
 /**
  * Implements hook_views_query_alter().
  */
@@ -752,8 +751,6 @@ function workbc_custom_views_query_alter(ViewExecutable $view, QueryPluginBase $
     $query->addGroupBy('media_field_data.mid');
   }
 }
-
-
 
 /**
  * Implements hook_page_attachments_alter().
@@ -791,6 +788,7 @@ function workbc_custom_page_attachments_alter(array &$attachments) {
 /**
 * Function to get the region mappings.
 */
+// TODO Merge this into the SSOT functions.
 function getRegionMappings() {
   $region_map = [
     'all' => 'All regions',

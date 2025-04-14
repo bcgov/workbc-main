@@ -89,7 +89,7 @@ class ExploreCareersGridForm extends FormBase {
       'query' => [
         'hide_category' => 1,
         'field_epbc_categories_target_id' => $selection,
-        'term_node_tid_depth' => array_search_func($terms, function($k, $v) use ($selection) {
+        'term_node_tid_depth' => array_find($terms, function($v) use ($selection) {
           return $selection[0] == $v->tid;
         })->parents[0],
       ]

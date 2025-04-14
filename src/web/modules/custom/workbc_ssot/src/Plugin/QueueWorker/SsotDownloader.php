@@ -183,10 +183,10 @@ class SsotDownloader extends QueueWorkerBase implements ContainerFactoryPluginIn
     }
     $categories = [];
     foreach ($entries as $entry) {
-      $parent = array_search_func($this->epbc_categories, function ($k, $v) use ($entry) {
+      $parent = array_find($this->epbc_categories, function ($v) use ($entry) {
         return $v->name === $entry['category'];
       });
-      $term = array_search_func($this->epbc_categories, function ($k, $v) use ($entry, $parent) {
+      $term = array_find($this->epbc_categories, function ($v) use ($entry, $parent) {
         return $v->name === $entry['interest'] && $v->parents[0] === $parent->tid;
       });
       $categories[] = ['target_id' => $term->tid];
