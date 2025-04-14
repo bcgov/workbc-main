@@ -68,7 +68,7 @@ class SsotDownloader extends QueueWorkerBase implements ContainerFactoryPluginIn
       $metadata = SSOT_DATASETS[$dataset->endpoint];
 
       // Formulate SSOT query given dataset information.
-      $endpoint = $dataset->endpoint . '?' . http_build_query(array_merge(
+      $endpoint = (array_key_exists('endpoint', $metadata) ? $metadata['endpoint'] : $dataset->endpoint) . '?' . http_build_query(array_merge(
         ['select' => $metadata['fields']],
         array_key_exists('filters', $metadata) ? $metadata['filters'] : [],
         array_key_exists('order', $metadata) ? ['order' => $metadata['order']] : [],

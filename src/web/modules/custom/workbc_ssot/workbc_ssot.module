@@ -30,7 +30,8 @@ const SSOT_DATASETS = [
   ],
   'fyp_categories_interests' => [
     'noc_key' => 'noc_2021',
-    'fields' => 'noc_2021,category,interest'
+    'fields' => 'noc_2021,category,interest',
+    'endpoint' => 'fyp_categories_interests_nocs'
   ],
   'high_opportunity_occupations' => [],
   'industries' => [],
