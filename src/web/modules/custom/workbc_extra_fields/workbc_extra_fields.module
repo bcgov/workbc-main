@@ -44,7 +44,7 @@ define ('SSOT_PING_TIMEOUT', 5);
  */
 function workbc_extra_fields_node_view(array &$build, \Drupal\Core\Entity\EntityInterface $entity, \Drupal\Core\Entity\Display\EntityViewDisplayInterface $display, $view_mode) {
 
-  if ($view_mode === "full" || $view_mode === "search_index" || $view_mode === "career_profile_search_index") {
+  if ($view_mode === "full") {
     if (!querySSoT('', SSOT_PING_TIMEOUT)) {
       $entity->ssot_data = NULL;
       return;
