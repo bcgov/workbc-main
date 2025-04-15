@@ -746,7 +746,7 @@ display:
     display_options:
       enabled: true
       display_extenders: {  }
-      path: plan-career/explore-careers/search
+      path: plan-career/explore-careers/career-profiles/search
     cache_metadata:
       max-age: -1
       contexts:
