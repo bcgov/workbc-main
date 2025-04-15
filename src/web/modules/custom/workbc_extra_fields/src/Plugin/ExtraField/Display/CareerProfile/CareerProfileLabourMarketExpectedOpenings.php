@@ -26,7 +26,7 @@ class CareerProfileLabourMarketExpectedOpenings extends ExtraFieldDisplayFormatt
    * {@inheritdoc}
    */
   public function getLabel() {
-    $datestr = ssotParseDateRange($this->getEntity()->ssot_data['schema'], 'career_provincial', 'expected_job_openings_10y');
+    $datestr = empty($this->getEntity()->ssot_data) ? '' : ssotParseDateRange($this->getEntity()->ssot_data['schema'], 'career_provincial', 'expected_job_openings_10y');
     return $this->t('Forecasted Job Openings (:datestr)', array(":datestr" => $datestr));
   }
 

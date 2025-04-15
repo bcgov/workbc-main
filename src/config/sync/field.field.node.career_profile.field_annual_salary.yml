@@ -1,0 +1,23 @@
+uuid: f4b08539-46c6-4c3b-9803-df1e7852168f
+langcode: en
+status: true
+dependencies:
+  config:
+    - field.storage.node.field_annual_salary
+    - node.type.career_profile
+id: node.career_profile.field_annual_salary
+field_name: field_annual_salary
+entity_type: node
+bundle: career_profile
+label: '[SSOT] Annual Salary'
+description: 'AUTOMATICALLY POPULATED FROM SSOT.'
+required: false
+translatable: false
+default_value: {  }
+default_value_callback: ''
+settings:
+  min: null
+  max: null
+  prefix: $
+  suffix: ''
+field_type: decimal

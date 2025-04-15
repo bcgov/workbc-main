@@ -1,0 +1,29 @@
+uuid: 1cce6afd-dafc-4090-941b-aecde42e1865
+langcode: en
+status: true
+dependencies:
+  config:
+    - field.storage.node.field_epbc_categories
+    - node.type.career_profile
+    - taxonomy.vocabulary.epbc_categories
+id: node.career_profile.field_epbc_categories
+field_name: field_epbc_categories
+entity_type: node
+bundle: career_profile
+label: '[SSOT] EPBC Categories'
+description: "AUTOMATICALLY POPULATED FROM SSOT.\r\n"
+required: false
+translatable: false
+default_value: {  }
+default_value_callback: ''
+settings:
+  handler: 'default:taxonomy_term'
+  handler_settings:
+    target_bundles:
+      epbc_categories: epbc_categories
+    sort:
+      field: name
+      direction: asc
+    auto_create: false
+    auto_create_bundle: ''
+field_type: entity_reference

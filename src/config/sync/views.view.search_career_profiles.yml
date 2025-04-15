@@ -394,7 +394,7 @@ display:
           group_type: group
           admin_label: ''
           plugin_id: search_api_fulltext
-          operator: and
+          operator: or
           value: ''
           group: 1
           exposed: true
@@ -414,16 +414,16 @@ display:
               authenticated: authenticated
               anonymous: '0'
               content_editor: '0'
-              content_publisher: '0'
-              global_publisher: '0'
-              global_editor: '0'
-              content_lead: '0'
+              content_approver: '0'
               workbc_administrator: '0'
+              global_editor: '0'
+              global_approver: '0'
               workbc_global_administrator: '0'
               administrator: '0'
             expose_fields: false
             placeholder: 'Enter job title, keyword(s) or NOC'
             searched_fields_id: search_api_fulltext_searched_fields
+            value_maxlength: 128
           is_grouped: false
           group_info:
             label: ''
@@ -436,7 +436,7 @@ display:
             default_group: All
             default_group_multiple: {  }
             group_items: {  }
-          parse_mode: terms
+          parse_mode: direct
           min_length: null
           fields: {  }
       style:
@@ -459,6 +459,8 @@ display:
           bypass_access: false
           skip_access: false
           preserve_facet_query_args: false
+          query_tags:
+            - explore_careers_search
       relationships: {  }
       use_ajax: false
       header: {  }
