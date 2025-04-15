@@ -28,20 +28,35 @@ class ExploreCareersGridForm extends FormBase {
     $categories = array_filter($terms, function ($term) {
       return $term->depth === 0;
     });
+
+
     foreach ($categories as $category) {
+      $areas = array_filter($terms, function ($term) use ($category) {
+        return $term->depth === 1 && $term->parents[0] === $category->tid;
+      });
+
       $category_label = $clean_string_service->cleanString($category->name);
+      $form[$category_label . "-tile"] = [
+        '#markup' => $this->generateTile($category->name, count($areas)),
+        '#attributes' => ['id' => 'category-id-'.$category_label,
+                          'data-category-id' => $category_label,
+        ],
+        '#prefix' => '<div id="category-' . $category_label . '" class="grid-item" data-category-id="' . $category_label . '">',
+        '#suffix' => '</div>',
+      ];
+      
       $form[$category_label] = [
-        '#type' => 'details',
-        '#title' => $category->name,
+        '#type' => 'fieldset',
+        '#attributes' => ['id' => 'selector-'.$category_label,
+                          'class' => ['fullwidth', 'is-hidden'],
+        ],
       ];
       $form[$category_label][$category->tid] = [
         '#type' => 'checkbox',
         '#title' => $this->t('Select all areas'),
         '#attributes' => ['class' => ['grid-all']]
       ];
-      $areas = array_filter($terms, function ($term) use ($category) {
-        return $term->depth === 1 && $term->parents[0] === $category->tid;
-      });
+
       foreach ($areas as $area) {
         $form[$category_label][$area->tid] = [
           '#type' => 'checkbox',
@@ -94,5 +109,16 @@ class ExploreCareersGridForm extends FormBase {
         })->parents[0],
       ]
     ]);
+  }
+
+
+  private function generateTile($label, $areasCount) {
+    $markup = '<div class="tile">';
+    $markup .= '<div class="tile-info tile-icon">[icon]</div>';
+    $markup .= '<div class="tile-info tile-label">' . $label . '</div>';
+    $markup .= '<div class="tile-info tile-areas">' . $areasCount . " areas of interest</div>";
+    $markup .= '<div class="tile-info tile-plus">+</div>';
+    $markup .= '</div>';
+    return $markup;
   }
 }
