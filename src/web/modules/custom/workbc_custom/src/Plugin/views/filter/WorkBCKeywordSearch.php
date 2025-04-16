@@ -56,9 +56,9 @@ class WorkBCKeywordSearch extends StringFilter {
     if ($which == 'all' || $which == 'value') {
       $form['value'] = [
         '#type' => 'search_api_autocomplete',
-        '#search_id' => 'search_career_profiles',
+        '#search_id' => 'explore_careers_autocomplete',
         '#additional_data' => [
-          'display' => 'page_1',
+          'display' => 'block_1',
           'arguments' => [],
           'filter' => 'search',
         ],
