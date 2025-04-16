@@ -1,0 +1,20 @@
+uuid: 3ea7a334-025a-42cd-a3d8-1589e7cf1ec0
+langcode: en
+status: true
+dependencies:
+  module:
+    - node
+    - taxonomy
+id: node.field_epbc_categories
+field_name: field_epbc_categories
+entity_type: node
+type: entity_reference
+settings:
+  target_type: taxonomy_term
+module: core
+locked: false
+cardinality: -1
+translatable: true
+indexes: {  }
+persist_with_no_fields: false
+custom_storage: false

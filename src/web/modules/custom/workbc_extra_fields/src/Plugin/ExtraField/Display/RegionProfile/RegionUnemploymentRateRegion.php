@@ -26,8 +26,7 @@ class RegionUnemploymentRateRegion extends ExtraFieldDisplayFormattedBase {
    * {@inheritdoc}
    */
   public function getLabel() {
-
-    $datestr = ssotParseDateRange($this->getEntity()->ssot_data['schema'], 'labour_force_survey_regional_employment', 'unemployment_rate_year_11');
+    $datestr = empty($this->getEntity()->ssot_data) ? '' : ssotParseDateRange($this->getEntity()->ssot_data['schema'], 'labour_force_survey_regional_employment', 'unemployment_rate_year_11');
     return $this->t('Unemployment Rate for this Region (' . $datestr . ')');
   }
 

@@ -26,7 +26,7 @@ class RegionEmploymentRegion extends ExtraFieldDisplayFormattedBase {
    * {@inheritdoc}
    */
   public function getLabel() {
-    $datestr = ssotParseDateRange($this->getEntity()->ssot_data['schema'], 'labour_force_survey_regional_employment', 'total_employment_num');
+    $datestr = empty($this->getEntity()->ssot_data) ? '' : ssotParseDateRange($this->getEntity()->ssot_data['schema'], 'labour_force_survey_regional_employment', 'total_employment_num');
     return $this->t("Employment for this Region (" . $datestr . ")");
   }
 

@@ -1,0 +1,39 @@
+uuid: b680621e-f7c4-44e5-a10f-d5d6aee34c4f
+langcode: en
+status: true
+dependencies:
+  module:
+    - node
+    - options
+id: node.field_teer
+field_name: field_teer
+entity_type: node
+type: list_integer
+settings:
+  allowed_values:
+    -
+      value: 0
+      label: Management
+    -
+      value: 1
+      label: 'University Degree'
+    -
+      value: 2
+      label: 'College Diploma or Apprenticeship, 2 or more years'
+    -
+      value: 3
+      label: 'College Diploma or Apprenticeship, less than 2 years'
+    -
+      value: 4
+      label: 'High School Diploma'
+    -
+      value: 5
+      label: 'No Formal Education'
+  allowed_values_function: ''
+module: options
+locked: false
+cardinality: 1
+translatable: true
+indexes: {  }
+persist_with_no_fields: false
+custom_storage: false

@@ -12,4 +12,4 @@ gunzip -k -c src/scripts/workbc-init.sql.gz | docker-compose exec -T postgres ps
 docker-compose exec php drush bamr default_db private_files $1
 docker-compose exec php drush upwd admin 'password'
 docker-compose exec php scripts/sync.sh -y
-docker-compose exec php drush en -y devel devel_php devel_kint_extras views_ui dblog
+docker-compose exec php drush en -y devel devel_php devel_kint_extras views_ui dblog manage_state webform_ui

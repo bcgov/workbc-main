@@ -26,7 +26,7 @@ class BCJobOpeningsForecast extends ExtraFieldDisplayFormattedBase {
    * {@inheritdoc}
    */
   public function getLabel() {
-    $datestr = ssotParseDateRange($this->getEntity()->ssot_data['schema'], 'regional_labour_market_outlook', 'job_openings_10y');
+    $datestr = empty($this->getEntity()->ssot_data) ? '' : ssotParseDateRange($this->getEntity()->ssot_data['schema'], 'regional_labour_market_outlook', 'job_openings_10y');
     return $this->t("Total Forecasted Job Openings (" . $datestr . ")");
 
   }

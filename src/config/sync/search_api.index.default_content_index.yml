@@ -4,8 +4,8 @@ status: true
 dependencies:
   config:
     - core.entity_view_mode.node.search_index
+    - field.storage.node.field_job_titles
     - field.storage.node.field_noc
-    - field.storage.node.field_noc_2016
     - search_api.server.solr
   module:
     - node
@@ -62,6 +62,15 @@ name: 'Site content index'
 description: ''
 read_only: false
 field_settings:
+  field_job_titles:
+    label: '[SSOT] Job Titles'
+    datasource_id: 'entity:node'
+    property_path: field_job_titles
+    type: 'solr_text_custom:ngram'
+    boost: 5.0
+    dependencies:
+      config:
+        - field.storage.node.field_job_titles
   field_noc:
     label: NOC
     datasource_id: 'entity:node'
@@ -71,15 +80,6 @@ field_settings:
     dependencies:
       config:
         - field.storage.node.field_noc
-  field_noc_2016:
-    label: 'NOC 2016'
-    datasource_id: 'entity:node'
-    property_path: field_noc_2016
-    type: 'solr_text_custom:ngram'
-    boost: 3.0
-    dependencies:
-      config:
-        - field.storage.node.field_noc_2016
   nid:
     label: ID
     datasource_id: 'entity:node'
@@ -189,8 +189,8 @@ processor_settings:
       preprocess_query: -46
     all_fields: true
     fields:
+      - field_job_titles
       - field_noc
-      - field_noc_2016
       - rendered_item
       - title
     title: true

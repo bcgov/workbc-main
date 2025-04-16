@@ -1,0 +1,21 @@
+uuid: 72053ee1-747e-4027-b524-a3941eda10ea
+langcode: en
+status: true
+dependencies:
+  config:
+    - field.storage.node.field_teer
+    - node.type.career_profile
+  module:
+    - options
+id: node.career_profile.field_teer
+field_name: field_teer
+entity_type: node
+bundle: career_profile
+label: '[SSOT] TEER'
+description: 'AUTOMATICALLY POPULATED FROM SSOT.'
+required: false
+translatable: false
+default_value: {  }
+default_value_callback: ''
+settings: {  }
+field_type: list_integer
