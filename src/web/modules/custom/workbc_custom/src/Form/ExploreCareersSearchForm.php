@@ -28,7 +28,12 @@ class ExploreCareersSearchForm extends FormBase {
     ];
     $form['keywords'] = [
       '#type' => 'search_api_autocomplete',
-      '#search_id' => 'search_career_profiles',
+      '#search_id' => 'explore_careers_autocomplete',
+      '#additional_data' => [
+        'display' => 'block_1',
+        'arguments' => [],
+        'filter' => 'search',
+      ],
       '#default_value' => $form_state->getValue('keywords'),
       '#help' => $this->t('Enter a keyword or NOC code'),
     ];

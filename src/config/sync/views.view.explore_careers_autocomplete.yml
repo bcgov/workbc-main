@@ -1,4 +1,4 @@
-uuid: 707c8465-c95f-477f-aa47-1a3b26585836
+uuid: 145d1c8a-6d20-4651-82ed-1fdd0f5012f6
 langcode: en
 status: true
 dependencies:
@@ -7,10 +7,10 @@ dependencies:
     - search_api.index.career_profile_index
   module:
     - search_api
-id: search_career_profiles
-label: 'Search: Career Profiles'
+id: explore_careers_autocomplete
+label: 'Explore Careers Autocomplete'
 module: views
-description: ''
+description: 'View used to provide predictive results (autocomplete) to the Explore Careers search.'
 tag: ''
 base_table: search_api_index_career_profile_index
 base_field: search_api_id
@@ -21,7 +21,7 @@ display:
     display_plugin: default
     position: 0
     display_options:
-      title: 'Search Career Profiles'
+      title: 'Explore Careers Autocomplete'
       fields:
         search_api_relevance:
           id: search_api_relevance
@@ -394,7 +394,7 @@ display:
           group_type: group
           admin_label: ''
           plugin_id: search_api_fulltext
-          operator: and
+          operator: or
           value: ''
           group: 1
           exposed: true
@@ -414,16 +414,16 @@ display:
               authenticated: authenticated
               anonymous: '0'
               content_editor: '0'
-              content_publisher: '0'
-              global_publisher: '0'
-              global_editor: '0'
-              content_lead: '0'
+              content_approver: '0'
               workbc_administrator: '0'
+              global_editor: '0'
+              global_approver: '0'
               workbc_global_administrator: '0'
               administrator: '0'
             expose_fields: false
             placeholder: 'Enter job title, keyword(s) or NOC'
             searched_fields_id: search_api_fulltext_searched_fields
+            value_maxlength: 128
           is_grouped: false
           group_info:
             label: ''
@@ -436,7 +436,7 @@ display:
             default_group: All
             default_group_multiple: {  }
             group_items: {  }
-          parse_mode: terms
+          parse_mode: direct
           min_length: null
           fields: {  }
       style:
@@ -459,6 +459,8 @@ display:
           bypass_access: false
           skip_access: false
           preserve_facet_query_args: false
+          query_tags:
+            - explore_careers_search
       relationships: {  }
       use_ajax: false
       header: {  }
@@ -476,15 +478,13 @@ display:
         - 'config:field.storage.node.field_noc'
         - 'config:search_api.index.career_profile_index'
         - 'search_api_list:career_profile_index'
-  page_1:
-    id: page_1
-    display_title: Page
-    display_plugin: page
-    position: 1
+  block_1:
+    id: block_1
+    display_title: Block
+    display_plugin: block
+    position: 2
     display_options:
-      exposed_block: true
       display_extenders: {  }
-      path: search-career-profiles
     cache_metadata:
       max-age: -1
       contexts:
