@@ -1,0 +1,85 @@
+#workbc-custom-explore-careers-grid-form {
+  display: grid;
+  grid-auto-flow: dense;
+  grid-template-columns:  repeat(4, minmax(0, 1fr));
+  grid-gap: 10px;
+
+  .grid-item {
+    border: 2px solid black;
+    padding: 5px;
+  }
+
+  .tile {
+    display: flex;
+    flex-direction: column;
+    width: 100%;
+
+    .tile-info {
+      text-align: center;
+    }
+  }
+
+  .fullwidth {
+    grid-column: 1 / -1;
+    margin: 0px 0px 0px 0px;
+  }
+  
+  .is-hidden {
+    display: none !important;
+  }
+
+
+  .fieldset-wrapper {
+    width: 100%;
+    display: grid;
+    grid-auto-flow: dense;
+    grid-template-columns:  repeat(2, minmax(0, 1fr));
+
+    
+    .form-type-checkbox {
+      border: 1px solid rgba(0,0,0,.125);
+      padding: 5px 10px 5px 10px;
+      margin-left: 5px;
+      margin-right: 5px;
+    }
+
+    .form-type-checkbox:first-child {
+      grid-column-end: span 2;
+    }
+
+    /* .form-type-checkbox:nth-child {
+      grid-area: main;
+    } */
+
+    .form-submit {
+      grid-column-end: span 2;
+      margin-top: 20px;
+      margin-bottom: 5px;
+      width: fit-content;
+    }
+
+    .form-item {
+      margin-top: 5px;
+      margin-bottom: 5px;
+    }
+  }
+
+}
+
+.workbc-custom-explore-careers-grid-form {
+  h2 {
+    padding-bottom: 25px;
+  }
+}
+
+
+.workbc-custom-explore-careers-search-form {
+  margin-top: 25px;
+  padding-top: 25px;
+  padding-bottom: 25px;
+  background-color: #f2f2f2;
+
+  h2 {
+    padding-bottom: 15px;
+  }
+}
