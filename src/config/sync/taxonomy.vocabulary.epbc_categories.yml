@@ -1,0 +1,9 @@
+uuid: ff4f74d9-7c16-4dc5-9f39-94870958faa0
+langcode: en
+status: true
+dependencies: {  }
+name: 'EPBC Categories'
+vid: epbc_categories
+description: 'Career categories used in EducationPlannerBC. '
+weight: 0
+new_revision: false

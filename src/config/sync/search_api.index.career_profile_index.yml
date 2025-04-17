@@ -3,14 +3,12 @@ langcode: en
 status: true
 dependencies:
   config:
+    - field.storage.node.field_job_titles
     - field.storage.node.field_noc
-    - field.storage.node.field_noc_2016
     - search_api.server.solr
-    - core.entity_view_mode.node.career_profile_search_index
   module:
-    - search_api_solr
     - node
-    - search_api
+    - search_api_solr
 third_party_settings:
   search_api_solr:
     finalize: false
@@ -62,24 +60,22 @@ name: 'Career profiles index'
 description: ''
 read_only: false
 field_settings:
+  field_job_titles:
+    label: '[SSOT] Job Titles'
+    datasource_id: 'entity:node'
+    property_path: field_job_titles
+    type: 'solr_text_custom:ngram'
+    dependencies:
+      config:
+        - field.storage.node.field_job_titles
   field_noc:
     label: NOC
     datasource_id: 'entity:node'
     property_path: field_noc
     type: 'solr_text_custom:ngram'
-    boost: 3.0
     dependencies:
       config:
         - field.storage.node.field_noc
-  field_noc_2016:
-    label: 'NOC 2016'
-    datasource_id: 'entity:node'
-    property_path: field_noc_2016
-    type: 'solr_text_custom:ngram'
-    boost: 2.0
-    dependencies:
-      config:
-        - field.storage.node.field_noc_2016
   node_grants:
     label: 'Node access information'
     property_path: search_api_node_grants
@@ -87,16 +83,6 @@ field_settings:
     indexed_locked: true
     type_locked: true
     hidden: true
-  rendered_item:
-    label: 'Rendered HTML output'
-    property_path: rendered_item
-    type: 'solr_text_custom:ngram'
-    configuration:
-      roles:
-        - anonymous
-      view_mode:
-        'entity:node':
-          career_profile: career_profile_search_index
   status:
     label: 'Publishing status'
     datasource_id: 'entity:node'
@@ -112,7 +98,6 @@ field_settings:
     datasource_id: 'entity:node'
     property_path: title
     type: 'solr_text_custom:ngram'
-    boost: 5.0
     dependencies:
       module:
         - node
@@ -151,9 +136,8 @@ processor_settings:
       preprocess_query: -46
     all_fields: true
     fields:
+      - field_job_titles
       - field_noc
-      - field_noc_2016
-      - rendered_item
       - title
     title: true
     alt: true
@@ -173,6 +157,7 @@ tracker_settings:
     indexing_order: fifo
 options:
   cron_limit: 50
+  delete_on_fail: true
   index_directly: true
   track_changes_in_references: true
 server: solr

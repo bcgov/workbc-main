@@ -1,0 +1,24 @@
+diff --git a/core/modules/views/src/Plugin/views/filter/NumericFilter.php b/core/modules/views/src/Plugin/views/filter/NumericFilter.php
+index 2e34e069cf..b118866cbd 100644
+--- a/core/modules/views/src/Plugin/views/filter/NumericFilter.php
++++ b/core/modules/views/src/Plugin/views/filter/NumericFilter.php
+@@ -436,16 +436,16 @@ public function acceptExposedInput($input) {
+     if (empty($this->options['expose']['required'])) {
+       // We have to do some of our own checking for non-required filters.
+       $info = $this->operators();
+-      if (!empty($info[$this->operator]['values'])) {
++      if (isset($info[$this->operator]['values'])) {
+         switch ($info[$this->operator]['values']) {
+           case 1:
+-            if ($value['value'] === '') {
++            if (isset($value['value']) && $value['value'] === '') {
+               return FALSE;
+             }
+             break;
+
+           case 2:
+-            if ($value['min'] === '' && $value['max'] === '') {
++            if (isset($value['min'], $value['max']) && $value['min'] === '' && $value['max'] === '') {
+               return FALSE;
+             }
+             break;

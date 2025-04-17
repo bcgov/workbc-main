@@ -46,7 +46,7 @@ class CareerProfileJobTitles extends ExtraFieldDisplayFormattedBase {
     if (!empty($entity->ssot_data) && isset($entity->ssot_data['titles'])) {
       $output = '';
       foreach ($entity->ssot_data['titles'] as $key => $jobTitle) {
-        $output .= '<div class="job-title-item">' . $jobTitle['commonjobtitle'] . '</div>';
+        $output .= '<div data-illustrative="' . $jobTitle['illustrative'] .'" class="job-title-item">' . $jobTitle['commonjobtitle'] . '</div>';
       }
     }
     else {

@@ -5,4 +5,5 @@ package: WorkBC
 dependencies:
   - field
   - duration_field
+  - views
 core_version_requirement: ^9 || ^10
