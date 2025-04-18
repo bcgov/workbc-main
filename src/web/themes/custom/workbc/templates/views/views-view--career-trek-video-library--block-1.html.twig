@@ -40,82 +40,92 @@
   ]
 %}
 <div{{ attributes.addClass(classes) }}>
-  {{ title_prefix }}
-  {% if title %}
-    {{ title }}
-  {% endif %}
-  {{ title_suffix }}
-  {% if attachment_before %}
-    <div class="attachment attachment-before">
-      {{ attachment_before }}
-    </div>
-  {% endif %}
-  <div class="col-12 row justify-content-between mt-3 mb-3">
-    <div class="col-4">
-      {% if career_trek_config('logo') %}
-        <img src="{{ career_trek_config('logo') }}" alt="Career Trek Logo">
-      {% endif %}
-    </div>
-    <div class="col-6">
-        <div class="toggle-icon d-flex justify-content-end">
-            <div class="grid">
-              {% if career_trek_config('toggle_icon_grid') %}
-                {{ career_trek_config('toggle_icon_grid') }}
-              {% endif %}
-            </div>
-            <div class="list">
-              {% if career_trek_config('toggle_icon_list') %}
-                {{ career_trek_config('toggle_icon_list') }}
-              {% endif %}
-            </div>
-        </div>
-    </div>
-  </div>
-  <div class="col-12 row"> 
-    <div class="col-4">
-        {% if exposed %}
-            <div class="view-filters">
-                {% if header %}
-                  <div class="view-header">
-                    {{ header }}
-                  </div>
+  <div class="career-top-banner">
+    <div class="col-12 row justify-content-between mt-3 align-items-center container-fluid mx-auto">
+      <div class="col-3">
+        {% if career_trek_config('logo') %}
+          <img src="{{ career_trek_config('logo') }}" alt="Career Trek Logo">
+        {% endif %}
+      </div>
+      <div class="col-6">
+          <div class="toggle-icon d-flex justify-content-end">
+              <div class="grid active">
+                {% if career_trek_config('toggle_icon_grid') %}
+                  {{ career_trek_config('toggle_icon_grid') }}
                 {% endif %}
-                {{ exposed }}
-                {{ drupal_block('simple_block:find_resources_for_educators') }}
-            </div>
-        {% endif %}
-    </div>
-    <div class="col-8">
-        {% if rows %}
-            <div class="view-content">
-            {{ rows }}
-            </div>
-        {% elseif empty %}
-            <div class="view-empty">
-            {{ empty }}
-            </div>
-        {% endif %}
+              </div>
+              <div class="list">
+                {% if career_trek_config('toggle_icon_list') %}
+                  {{ career_trek_config('toggle_icon_list') }}
+                {% endif %}
+              </div>
+          </div>
+      </div>
     </div>
   </div>
-  {% if pager %}
-    {{ pager }}
-  {% endif %}
-  {% if attachment_after %}
-    <div class="attachment attachment-after">
-      {{ attachment_after }}
+  <div class="container-fluid">
+    {{ title_prefix }}
+    {% if title %}
+      {{ title }}
+    {% endif %}
+    {{ title_suffix }}
+    {% if attachment_before %}
+      <div class="attachment attachment-before">
+        {{ attachment_before }}
+      </div>
+    {% endif %}
+    <div class="col-12 row">
+      <div class="col-lg-3 career-trek-sidebar">
+          {% if exposed %}
+              <div class="view-filters">
+                  {{ exposed|merge({'header': header}) }}
+                  {{ drupal_block('simple_block:find_resources_for_educators') }}
+              </div>
+          {% endif %}
+      </div>
+      <div class="col-lg-9">
+          {% if search_view %}
+            {% set formatted_values = search_view|join(', ') %}
+            <div class="search-text">
+              <h2>{{ career_trek_config('searching_text') }} {{ formatted_values }}</h2>
+            </div>
+          {% else %}
+            {{ drupal_entity('block', 'workbc_views_block__career_trek_video_library_block_2') }}
+          {% endif %}
+          {% if rows %}
+            {% if not search_view %}
+              <h2>{{ view_title }}</h2>
+            {% endif %}
+              <div class="view-content result-view">
+              {{ rows }}
+              </div>
+          {% elseif empty %}
+              <div class="view-empty">
+              {{ empty }}
+              </div>
+          {% endif %}
+      </div>
     </div>
-  {% endif %}
-  {% if more %}
-    {{ more }}
-  {% endif %}
-  {% if footer %}
-    <div class="view-footer">
-      {{ footer }}
-    </div>
-  {% endif %}
-  {% if feed_icons %}
-    <div class="feed-icons">
-      {{ feed_icons }}
-    </div>
-  {% endif %}
+    {% if pager %}
+      {{ pager }}
+    {% endif %}
+    {% if attachment_after %}
+      <div class="attachment attachment-after">
+        {{ attachment_after }}
+      </div>
+    {% endif %}
+    {% if more %}
+      {{ more }}
+    {% endif %}
+    {% if footer %}
+      <div class="view-footer">
+        {{ footer }}
+      </div>
+    {% endif %}
+    {% if feed_icons %}
+      <div class="feed-icons">
+        {{ feed_icons }}
+      </div>
+    {% endif %}
+  </div>
 </div>

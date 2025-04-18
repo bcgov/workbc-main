@@ -70,6 +70,26 @@ video-banner-carousel:
     - core/once
     - workbc/swiper-js
 
+career-inner-video:
+  js:
+    js/career-inner-video.js: {}
+  dependencies:
+    - core/drupal
+    - core/jquery
+    - core/once
+
+range-slider:
+  css:
+    theme:
+      css/jquery.range.css: {}
+  js:
+    js/jquery.range.js: {}
+    js/range-slider.js: {}
+  dependencies:
+    - core/drupal
+    - core/jquery
+    - core/once
+
 scrollbooster:
   js:
     '//unpkg.com/scrollbooster@3.0.2/dist/scrollbooster.min.js': { type: module, minified: true }

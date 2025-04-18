@@ -88,6 +88,7 @@ third_party_settings:
         - extra_field_education_programs
         - extra_field_skills_introduction
         - extra_field_profile_skills
+        - extra_field_profile_location
       label: 'Education, Training & Skills'
       parent_name: group_career_profile_tabs
       region: content
@@ -338,6 +339,11 @@ content:
     third_party_settings: {  }
     weight: 26
     region: content
+  extra_field_profile_location:
+    settings: {  }
+    third_party_settings: {  }
+    weight: 72
+    region: content
   extra_field_profile_skills:
     settings: {  }
     third_party_settings: {  }
@@ -477,7 +483,7 @@ content:
     settings:
       link_to_entity: false
     third_party_settings: {  }
-    weight: 16
+    weight: 17
     region: content
   field_related_careers:
     type: entity_reference_label
@@ -501,7 +507,7 @@ content:
       date_format: html_datetime
       text_pattern: '%moderation_state% - %date%'
     third_party_settings: {  }
-    weight: 15
+    weight: 16
     region: content
   field_work_environment:
     type: text_default

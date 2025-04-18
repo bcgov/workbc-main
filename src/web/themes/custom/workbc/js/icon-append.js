@@ -10,9 +10,18 @@
         });
         once('iconAppend', '.plan-careercareer-trek-videos .node-page-content .js-form-item-search-api-fulltext span', context).forEach(function (element) {
           element.onclick = function () {
-            $(`.plan-careercareer-trek-videos .node-page-content input[value="Apply"]`).trigger("click");
+            $(`.plan-careercareer-trek-videos .node-page-content input[value="Apply Filters"]`).trigger("click");
           };
         });
+
+      once('iconAppendDate','.career-profile-content .block-workbc-jobboard .job-footer .job-post-date', context).forEach(function (element) {
+          $(element).prepend(
+            `<span><svg width="12" height="24" viewBox="0 0 13 15" fill="none" xmlns="http://www.w3.org/2000/svg"><path d="M2.625 1.2251C2.625 0.760254 3.00781 0.350098 3.5 0.350098C3.96484 0.350098 4.375 0.760254 4.375 1.2251V2.1001H7.875V1.2251C7.875 0.760254 8.25781 0.350098 8.75 0.350098C9.21484 0.350098 9.625 0.760254 9.625 1.2251V2.1001H10.9375C11.6484 2.1001 12.25 2.70166 12.25 3.4126V4.7251H0V3.4126C0 2.70166 0.574219 2.1001 1.3125 2.1001H2.625V1.2251ZM12.25 5.6001V13.0376C12.25 13.7759 11.6484 14.3501 10.9375 14.3501H1.3125C0.574219 14.3501 0 13.7759 0 13.0376V5.6001H12.25Z" fill="#2E6AB0"/></svg></span>`
+          );
+      });
+
+
+
       },
     };
   

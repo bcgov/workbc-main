@@ -97,7 +97,26 @@ field_settings:
     type: string
     configuration:
       value: ''
+  field_career_videos:
+    label: 'Career Videos'
+    datasource_id: 'entity:node'
+    property_path: field_career_videos
+    type: integer
+    dependencies:
+      config:
+        - field.storage.node.field_career_videos
   field_category:
+    label: 'Career Videos » Media » Categories'
+    datasource_id: 'entity:node'
+    property_path: 'field_career_videos:entity:field_category'
+    type: integer
+    dependencies:
+      config:
+        - field.storage.media.field_category
+        - field.storage.node.field_career_videos
+      module:
+        - media
+  field_category_1:
     label: 'Career Videos » Media » Categories'
     datasource_id: 'entity:node'
     property_path: 'field_career_videos:entity:field_category'

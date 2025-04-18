@@ -7,5 +7,5 @@ dependencies:
 id: find_resources_for_educators
 title: 'Find resources for educators'
 content:
-  value: '<div class="find-resources"><div class="find-resources-image-wrapper"><div style="width:33px;"><drupal-media data-entity-type="media" data-entity-uuid="b107b692-8142-4eb3-a998-b25ad2891723">&nbsp;</drupal-media></div><div class="find-resources-wrapper"><h4>Find resources for educators&nbsp;</h4><p class="find-resources-description">Description of what this functionality allows the user to do specifically</p><p><a class="find-resources-links">View Resources for Educators</a></p></div></div></div>'
+  value: '<div class="find-resources"><div class="find-resources-image-wrapper"><div class="find-resources-media-wrapper"><drupal-media data-entity-type="media" data-entity-uuid="b107b692-8142-4eb3-a998-b25ad2891723">&nbsp;</drupal-media></div><div class="find-resources-wrapper"><h4>Find resources for educators&nbsp;</h4><p class="find-resources-description">Description of what this functionality allows the user to do specifically</p><p><a class="find-resources-links">View Resources for Educators</a></p></div></div></div>'
   format: full_html

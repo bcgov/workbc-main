@@ -96,7 +96,8 @@
     view_mode ? 'node--view-mode-' ~ view_mode|clean_class,
     page_format ? 'page-format--' ~ page_format|clean_class,
     'page-container',
-    'container-lg',
+    not is_career_trek ? 'container-lg',
+    is_career_trek ? 'career-bg',
   ]
 %}
 
@@ -163,16 +164,24 @@
         </div>
       </div>        
     {% else %}
-      {% if page_body %}
-        {{ page_body }}
+      {% if is_career_trek %}
+        <div class="light-wrapper">
+        <div class="container-lg">
       {% endif %}
+        {% if page_body %}
+          {{ page_body }}
+        {% endif %}
 
-      {% if page_content %}
-        {% for key, content in page_content %}
-          {% if key|number_format and content['#paragraph'].getType() != "banner_video" %}
-            {{ content }}
-          {% endif %}
-        {% endfor %}
+        {% if page_content %}
+          {% for key, content in page_content %}
+            {% if key|number_format and content['#paragraph'].getType() != "banner_video" %}
+              {{ content }}
+            {% endif %}
+          {% endfor %}
+        {% endif %}
+      {% if is_career_trek %}
+        </div>
+        </div>
       {% endif %}
     {% endif %}
 

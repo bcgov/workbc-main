@@ -6,6 +6,7 @@ dependencies:
     - field.storage.media.field_description
     - field.storage.media.field_media_oembed_video
     - field.storage.media.field_weight
+    - field.storage.node.field_career_videos
     - field.storage.node.field_noc
     - search_api.index.career_profile_index
     - taxonomy.vocabulary.skills
@@ -820,15 +821,15 @@ display:
           use_highlighting: false
           multi_type: separator
           multi_separator: ', '
-        custom_location:
-          id: custom_location
+        region_api_field:
+          id: region_api_field
           table: search_api_index_career_profile_index
-          field: custom_location
+          field: region_api_field
           relationship: none
           group_type: group
           admin_label: ''
           plugin_id: search_api
-          label: Location
+          label: ''
           exclude: false
           alter:
             alter_text: false
@@ -873,12 +874,155 @@ display:
           use_highlighting: false
           multi_type: separator
           multi_separator: ', '
+        custom_location:
+          id: custom_location
+          table: search_api_index_career_profile_index
+          field: custom_location
+          relationship: none
+          group_type: group
+          admin_label: ''
+          plugin_id: search_api
+          label: ''
+          exclude: false
+          alter:
+            alter_text: true
+            text: 'Filmed In {{ custom_location }}'
+            make_link: false
+            path: ''
+            absolute: false
+            external: false
+            replace_spaces: false
+            path_case: none
+            trim_whitespace: false
+            alt: ''
+            rel: ''
+            link_class: ''
+            prefix: ''
+            suffix: ''
+            target: ''
+            nl2br: false
+            max_length: 0
+            word_boundary: true
+            ellipsis: true
+            more_link: false
+            more_link_text: ''
+            more_link_path: ''
+            strip_tags: false
+            trim: false
+            preserve_tags: ''
+            html: false
+          element_type: ''
+          element_class: ''
+          element_label_type: ''
+          element_label_class: ''
+          element_label_colon: false
+          element_wrapper_type: ''
+          element_wrapper_class: ''
+          element_default_classes: true
+          empty: ''
+          hide_empty: false
+          empty_zero: false
+          hide_alter_empty: true
+          link_to_item: false
+          use_highlighting: false
+          multi_type: separator
+          multi_separator: ', '
+        field_career_videos:
+          id: field_career_videos
+          table: search_api_datasource_career_profile_index_entity_node
+          field: field_career_videos
+          relationship: none
+          group_type: group
+          admin_label: ''
+          entity_type: node
+          plugin_id: search_api_field
+          label: ''
+          exclude: false
+          alter:
+            alter_text: false
+            text: ''
+            make_link: false
+            path: ''
+            absolute: false
+            external: false
+            replace_spaces: false
+            path_case: none
+            trim_whitespace: false
+            alt: ''
+            rel: ''
+            link_class: ''
+            prefix: ''
+            suffix: ''
+            target: ''
+            nl2br: false
+            max_length: 0
+            word_boundary: true
+            ellipsis: true
+            more_link: false
+            more_link_text: ''
+            more_link_path: ''
+            strip_tags: false
+            trim: false
+            preserve_tags: ''
+            html: false
+          element_type: ''
+          element_class: ''
+          element_label_type: ''
+          element_label_class: ''
+          element_label_colon: false
+          element_wrapper_type: ''
+          element_wrapper_class: ''
+          element_default_classes: true
+          empty: ''
+          hide_empty: false
+          empty_zero: false
+          hide_alter_empty: true
+          click_sort_column: target_id
+          type: entity_reference_entity_view
+          settings:
+            view_mode: career_trek_video
+          group_column: target_id
+          group_columns: {  }
+          group_rows: true
+          delta_limit: 1
+          delta_offset: 0
+          delta_reversed: false
+          delta_first_last: false
+          multi_type: separator
+          separator: ', '
+          field_api_classes: false
+          field_rendering: true
+          fallback_handler: search_api_entity
+          fallback_options:
+            link_to_item: false
+            use_highlighting: false
+            multi_type: separator
+            multi_separator: ', '
+            display_methods:
+              audio:
+                display_method: label
+                view_mode: default
+              document:
+                display_method: label
+                view_mode: default
+              icon:
+                display_method: label
+                view_mode: default
+              image:
+                display_method: label
+                view_mode: default
+              remote_video:
+                display_method: label
+                view_mode: default
+              video:
+                display_method: label
+                view_mode: default
       pager:
         type: infinite_scroll
         options:
           offset: 0
           pagination_heading_level: h4
-          items_per_page: 12
+          items_per_page: 24
           total_pages: null
           id: 0
           tags:
@@ -899,9 +1043,9 @@ display:
       exposed_form:
         type: bef
         options:
-          submit_button: Apply
-          reset_button: false
-          reset_button_label: Reset
+          submit_button: 'Apply Filters'
+          reset_button: true
+          reset_button_label: 'Clear All Filters'
           exposed_sorts_label: 'Sort by'
           expose_sort_order: true
           sort_asc_label: Asc
@@ -918,7 +1062,7 @@ display:
               allow_secondary: false
               secondary_label: 'Advanced options'
               secondary_open: false
-              reset_button_always_show: false
+              reset_button_always_show: true
               autosubmit_textfield_minimum_length: 3
             filter:
               search_api_fulltext:
@@ -938,7 +1082,7 @@ display:
                   rewrite:
                     filter_rewrite_values: ''
                     filter_rewrite_values_key: false
-                  collapsible: false
+                  collapsible: true
                   collapsible_disable_automatic_open: false
                   is_secondary: false
                 select_all_none: false
@@ -951,16 +1095,16 @@ display:
                   rewrite:
                     filter_rewrite_values: ''
                     filter_rewrite_values_key: false
-                  collapsible: false
+                  collapsible: true
                   collapsible_disable_automatic_open: false
                   is_secondary: false
                 select_all_none: false
-                select_all_none_nested: true
+                select_all_none_nested: false
                 display_inline: false
               annual_salary:
                 plugin_id: bef_sliders
                 advanced:
-                  collapsible: false
+                  collapsible: true
                   collapsible_disable_automatic_open: false
                   is_secondary: false
                 min: '10000'
@@ -976,32 +1120,12 @@ display:
                   rewrite:
                     filter_rewrite_values: ''
                     filter_rewrite_values_key: false
-                  collapsible: false
+                  collapsible: true
                   collapsible_disable_automatic_open: false
                   is_secondary: false
                 select_all_none: false
                 select_all_none_nested: false
                 display_inline: false
-              regions:
-                plugin_id: bef
-                advanced:
-                  placeholder_text: ''
-                  rewrite:
-                    filter_rewrite_values: ''
-                    filter_rewrite_values_key: false
-                  collapsible: false
-                  collapsible_disable_automatic_open: false
-                  is_secondary: false
-                select_all_none: false
-                select_all_none_nested: false
-                display_inline: false
-              minimum_education_1:
-                plugin_id: default
-                advanced:
-                  placeholder_text: ''
-                  collapsible: false
-                  collapsible_disable_automatic_open: false
-                  is_secondary: false
               region_api_field:
                 plugin_id: bef
                 advanced:
@@ -1009,7 +1133,7 @@ display:
                   rewrite:
                     filter_rewrite_values: ''
                     filter_rewrite_values_key: false
-                  collapsible: false
+                  collapsible: true
                   collapsible_disable_automatic_open: false
                   is_secondary: false
                 select_all_none: false
@@ -1021,7 +1145,20 @@ display:
       cache:
         type: search_api_none
         options: {  }
-      empty: {  }
+      empty:
+        area:
+          id: area
+          table: views
+          field: area
+          relationship: none
+          group_type: group
+          admin_label: ''
+          plugin_id: text
+          empty: true
+          content:
+            value: "<div class=\"text-center\">\r\n<h3>No Videos found</h3>\r\n<p>Please reduce the amount of filters you have selected to broaden your search</p>\r\n</div>"
+            format: full_html
+          tokenize: false
       sorts: {  }
       arguments:
         field_weight:
@@ -1242,7 +1379,7 @@ display:
           exposed: true
           expose:
             operator_id: field_category_op
-            label: 'Career Categories'
+            label: 'Career Category'
             description: ''
             use_operator: false
             operator: field_category_op
@@ -1323,12 +1460,12 @@ display:
             placeholder: ''
           is_grouped: true
           group_info:
-            label: 'Minimum Education'
+            label: 'Education and Training'
             description: ''
             identifier: minimum_education_all
             optional: true
             widget: radios
-            multiple: true
+            multiple: false
             remember: false
             default_group: All
             default_group_multiple: {  }
@@ -1392,7 +1529,7 @@ display:
           exposed: true
           expose:
             operator_id: annual_salary_op
-            label: 'Annual Salary'
+            label: 'Salary Range'
             description: ''
             use_operator: false
             operator: annual_salary_op
@@ -1509,58 +1646,6 @@ display:
             multiple: false
             remember_roles:
               authenticated: authenticated
-            min_placeholder: ''
-            max_placeholder: ''
-            placeholder: ''
-          is_grouped: false
-          group_info:
-            label: ''
-            description: ''
-            identifier: ''
-            optional: true
-            widget: select
-            multiple: false
-            remember: false
-            default_group: All
-            default_group_multiple: {  }
-            group_items: {  }
-        minimum_education_1:
-          id: minimum_education_1
-          table: search_api_index_career_profile_index
-          field: minimum_education
-          relationship: none
-          group_type: group
-          admin_label: ''
-          plugin_id: search_api_string
-          operator: '='
-          value:
-            min: ''
-            max: ''
-            value: ''
-          group: 1
-          exposed: true
-          expose:
-            operator_id: minimum_education_1_op
-            label: 'Minimum Education'
-            description: ''
-            use_operator: false
-            operator: minimum_education_1_op
-            operator_limit_selection: false
-            operator_list: {  }
-            identifier: minimum_education_1
-            required: false
-            remember: false
-            multiple: false
-            remember_roles:
-              authenticated: authenticated
-              anonymous: '0'
-              content_editor: '0'
-              content_approver: '0'
-              workbc_administrator: '0'
-              global_editor: '0'
-              global_approver: '0'
-              workbc_global_administrator: '0'
-              administrator: '0'
             min_placeholder: ''
             max_placeholder: ''
             placeholder: ''
@@ -1694,7 +1779,7 @@ display:
           columns: 1
           automatic_width: false
           alignment: vertical
-          row_class_custom: 'col-4 mb-5 switcher-column grid-view'
+          row_class_custom: 'col-lg-4 mb-3 switcher-column grid-view career-grid'
           row_class_default: false
           col_class_custom: 'row switcher-row'
           col_class_default: false
@@ -1719,7 +1804,7 @@ display:
           admin_label: ''
           plugin_id: result
           empty: true
-          content: 'Displaying @start - @end of @total'
+          content: 'Showing @end of @total'
       footer: {  }
       display_extenders: {  }
     cache_metadata:
@@ -1734,6 +1819,7 @@ display:
         - 'config:field.storage.media.field_description'
         - 'config:field.storage.media.field_media_oembed_video'
         - 'config:field.storage.media.field_weight'
+        - 'config:field.storage.node.field_career_videos'
         - 'config:field.storage.node.field_noc'
         - 'config:search_api.index.career_profile_index'
         - 'search_api_list:career_profile_index'
@@ -1757,6 +1843,7 @@ display:
         - 'config:field.storage.media.field_description'
         - 'config:field.storage.media.field_media_oembed_video'
         - 'config:field.storage.media.field_weight'
+        - 'config:field.storage.node.field_career_videos'
         - 'config:field.storage.node.field_noc'
         - 'config:search_api.index.career_profile_index'
         - 'search_api_list:career_profile_index'

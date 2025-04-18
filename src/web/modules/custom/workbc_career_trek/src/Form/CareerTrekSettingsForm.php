@@ -4,6 +4,7 @@ namespace Drupal\workbc_career_trek\Form;
 
 use Drupal\Core\Form\ConfigFormBase;
 use Drupal\Core\Form\FormStateInterface;
+use Drupal\file\Entity\File;
 
 class CareerTrekSettingsForm extends ConfigFormBase {
 
@@ -86,6 +87,12 @@ class CareerTrekSettingsForm extends ConfigFormBase {
         'file_validate_extensions' => ['svg'],
       ],
     ];
+    $form['searching_text'] = [
+      '#type' => 'textfield',
+      '#title' => $this->t('Searching text'),
+      '#default_value' => $config->get('searching_text'),
+      '#description' => $this->t('Enter the searching text'),
+    ];
 
     return parent::buildForm($form, $form_state);
   }
@@ -95,7 +102,21 @@ class CareerTrekSettingsForm extends ConfigFormBase {
    */
   public function submitForm(array &$form, FormStateInterface $form_state) {
     $config = $this->configFactory->getEditable('workbc_career_trek.settings');
-    
+    if(empty($config->get('logo')) && !empty($form_state->getValue('logo')) && $config->get('logo') != $form_state->getValue('logo')) {
+      $file = File::load(current($form_state->getValue('logo')));
+      $file->setPermanent();
+      $file->save();
+    }
+    if(empty($config->get('toggle_icon_grid')) && !empty($form_state->getValue('toggle_icon_grid')) && $config->get('toggle_icon_grid') != $form_state->getValue('toggle_icon_grid')) {
+      $file = File::load(current($form_state->getValue('toggle_icon_grid')));
+      $file->setPermanent();
+      $file->save();
+    }
+    if(empty($config->get('toggle_icon_list')) && !empty($form_state->getValue('toggle_icon_list')) && $config->get('toggle_icon_list') != $form_state->getValue('toggle_icon_list')) {
+      $file = File::load(current($form_state->getValue('toggle_icon_list')));
+      $file->setPermanent();
+      $file->save();
+    }
     // Save all form values to configuration
     $config->set('title', $form_state->getValue('title'))
           ->set('logo', $form_state->getValue('logo'))
@@ -103,6 +124,7 @@ class CareerTrekSettingsForm extends ConfigFormBase {
           ->set('back_button_title', $form_state->getValue('title'))
           ->set('toggle_icon_grid', $form_state->getValue('toggle_icon_grid'))
           ->set('toggle_icon_list', $form_state->getValue('toggle_icon_list'))
+          ->set('searching_text', $form_state->getValue('searching_text'))
           ->save();
 
     parent::submitForm($form, $form_state);

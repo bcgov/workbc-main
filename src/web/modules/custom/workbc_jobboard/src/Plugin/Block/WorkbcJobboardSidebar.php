@@ -74,6 +74,7 @@ class WorkbcJobboardSidebar extends BlockBase{
     $this->configuration['job_board_results_to_show'] = $values['job_board_results_to_show'];
     $this->configuration['job_board_results_to_show_horizontal_view'] = $values['job_board_results_to_show_horizontal_view'];
     $this->configuration['job_board_no_result_text'] = $values['job_board_no_result_text'];
+    $this->configuration['job_board_read_more_button_title'] = $values['job_board_read_more_button_title'];
   }
 
   /**

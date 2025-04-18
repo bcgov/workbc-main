@@ -76,8 +76,8 @@ class RegionsProcessor extends ProcessorPluginBase {
   protected function fetchRegionDataFromApi($id) {
     try {
       $ssot = ssotCareerProfile($id);
-      if (!empty($ssot['carrer_trek'][0])) {
-        return $ssot['carrer_trek'][0]['region'] ?? '';
+      if (!empty($ssot['career_trek'][0])) {
+        return $ssot['career_trek'][0]['region'] ?? '';
       }
     }
     catch (\Exception $e) {

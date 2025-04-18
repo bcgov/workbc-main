@@ -13,6 +13,8 @@ libraries:
   - workbc/view-switcher
   - workbc/icon-append
   - workbc/video-banner-carousel
+  - workbc/range-slider
+  - workbc/career-inner-video
   - workbc/sidenav-anchors
   - workbc/mobile-nav
   - workbc/nav

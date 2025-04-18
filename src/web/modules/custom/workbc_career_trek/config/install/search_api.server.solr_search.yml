@@ -44,7 +44,7 @@ backend_config:
     host: 192.168.181.8
     port: 8983
     path: /
-    core: CarrerTrek
+    core: CarrerTrek1
     timeout: 5
     index_timeout: 5
     optimize_timeout: 10

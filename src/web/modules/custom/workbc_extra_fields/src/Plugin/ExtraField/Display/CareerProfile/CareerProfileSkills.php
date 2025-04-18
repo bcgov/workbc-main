@@ -71,15 +71,20 @@ class CareerProfileSkills extends ExtraFieldDisplayFormattedBase {
         }
         $image = "";
         if (!$term->get('field_image')->isEmpty()) {
-          $imageUri = isset($term->get('field_image')->entity) ? $term->get('field_image')->entity->getFileUri() : null;
-          if($imageUri) {
-            $image = [
-              '#theme' => 'image',
-              '#width' => '75',
-              '#height' => '75',
-              '#uri' => $imageUri
-            ];
-            $image = \Drupal::service('renderer')->render($image);
+          // $imageUri = isset($term->get('field_image')->entity) ? $term->get('field_image')->entity->getFileUri() : null;
+          // if($imageUri) {
+          //   $image = [
+          //     '#theme' => 'image',
+          //     '#width' => '75',
+          //     '#height' => '75',
+          //     '#uri' => $imageUri
+          //   ];
+          //   $image = \Drupal::service('renderer')->render($image);
+          $file = $term->get('field_image')->entity;
+          if ($file) {
+            $uri = $file->getFileUri();
+            $real_path = \Drupal::service('file_system')->realpath($uri);
+            $image = file_get_contents($real_path);
           }
         }
 

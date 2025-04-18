@@ -1,27 +1,51 @@
 <?php
+use Drupal\taxonomy\Entity\Term;
 
 /**
- * Implements hook_form_FORM_ID_alter() to update the textfield to the multiple checkbox field in the view exposed filter.
+ * Implements hook_views_pre_view().
  */
-function workbc_career_trek_form_views_exposed_form_alter(&$form, \Drupal\Core\Form\FormStateInterface $form_state, $form_id) {
-    // Check if this is the specific view and display you want to alter.
-    if ($form['#id'] == 'views-exposed-form-career-trek-video-library-block-1') {
-      // Check if the specific filter exists in the form.
-      if (isset($form['minimum_education_1'])) {
-        $clone = $form['regions'];
-        unset($form['minimum_education_1']);
-        $clone['#name'] = 'minimum_education_1';
-        $clone['#options'] = [
-          0 => 'Management',
-          1 => 'University Degree',
-          2 => 'College Diploma or Apprenticeship, 2 or more years',
-          3 => 'College Diploma or Apprenticeship, less than 2 years',
-          4 => 'High School Diploma',
-          5 => 'No Formal Education'
-        ];
-        $form['minimum_education_all'] = $clone;
+function workbc_career_trek_preprocess_views_view(&$variables) {
+  // Check if it's the view you want to target
+  $view = $variables['view'];
+  if ($view->id() == 'career_trek_video_library' && $view->current_display == 'block_1') {
+    // Get the exposed filter input value
+    $values = [];
+    $filters = $view->display_handler->getOption('filters');
+    if ($exposed = $view->getExposedInput()) {
+      foreach ($exposed as $key => $expose) {
+        if ($key == "field_category" || $key == "field_skills_2") {
+          foreach($expose as $row) {
+            $term = Term::load($row);
+            if ($term && !empty($term->getName())) {
+              $values[] = $term->getName();
+            }
+          }
+        } elseif ($key == "minimum_education_all") {
+          $title = $filters['minimum_education']['group_info']['group_items'][$expose]['title'] ?? '';
+          if (!empty($title)) {
+            $values[] = $title;
+          }
+        } elseif ($key == "regions") {
+          $title = $filters['region_api_field']['group_info']['group_items'][$expose]['title'] ?? '';
+          if (!empty($title)) {
+            $values[] = $title;
+          }
+        } elseif ($key == "annual_salary") {
+          $min = $expose['min'] ?? '';
+          $max = $expose['max'] ?? '';
+          if (!empty($min) || !empty($max)) {
+            $values[] = "Min: " . $min . " - Max: " . $max;
+          }
+        } else {
+          if (!empty($expose) && $expose != "Clear All Filters") {
+            $values[] = $expose;
+          }
+        }
       }
+      $variables['search_view'] = array_filter($values);
     }
+    $variables['view_title'] = $view->getTitle();
+  }
 }
 
 /**

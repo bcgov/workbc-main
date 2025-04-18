@@ -76,8 +76,8 @@ class CustomApiProcessor extends ProcessorPluginBase {
   protected function fetchDataFromApi($id) {
     try {
       $ssot = ssotCareerProfile($id);
-      if (!empty($ssot['carrer_trek'][0])) {
-        return $ssot['carrer_trek'][0]['location'] ?? '';
+      if (!empty($ssot['career_trek'][0])) {
+        return $ssot['career_trek'][0]['location'] ?? '';
       }
     }
     catch (\Exception $e) {
