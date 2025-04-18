@@ -41,7 +41,7 @@ resource "aws_ecs_task_definition" "solr3" {
   {
 		essential   = true
 		name        = "solr"
-		image       = "${var.app_repo}/solr:0.1"
+		image       = "${var.app_repo}/solr:0.3"
 		networkMode = "awsvpc"
 		
 		logConfiguration = {
@@ -66,6 +66,10 @@ resource "aws_ecs_task_definition" "solr3" {
 			{
 				name = "SOLR_CORE_NAME",
 				value = "workbc"
+			},
+			{
+				name = "SOLR_CORE_NAME2",
+				value = "CareerTrek"
 			}
 		]
 
