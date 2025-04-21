@@ -13,9 +13,6 @@ feedback:
 explore-grid:
   js:
     js/explore-grid.js: {}
-  css:
-    theme:
-      css/explore-grid.css: {}
   dependencies:
     - core/jquery
     - core/drupalSettings
