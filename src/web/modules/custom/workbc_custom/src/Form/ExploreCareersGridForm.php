@@ -30,14 +30,17 @@ class ExploreCareersGridForm extends FormBase {
     });
 
 
-    foreach ($categories as $category) {
+    $arrows = ['arrow--1', 'arrow--2', 'arrow--3', 'arrow--4'];
+    $pos = 0;
+    foreach ($categories as $key => $category) {
       $areas = array_filter($terms, function ($term) use ($category) {
         return $term->depth === 1 && $term->parents[0] === $category->tid;
       });
 
       $category_label = $clean_string_service->cleanString($category->name);
+
       $form[$category_label . "-tile"] = [
-        '#markup' => $this->generateTile($category->name, count($areas)),
+        '#markup' => $this->generateTile($category_label, $category->name, count($areas)),
         '#attributes' => ['id' => 'category-id-'.$category_label,
                           'data-category-id' => $category_label,
         ],
@@ -48,9 +51,21 @@ class ExploreCareersGridForm extends FormBase {
       $form[$category_label] = [
         '#type' => 'fieldset',
         '#attributes' => ['id' => 'selector-'.$category_label,
-                          'class' => ['fullwidth', 'is-hidden'],
+                          'class' => ['areas-of-interest', 'fullwidth', 'is-hidden', $arrows[$pos]]
         ],
       ];
+      $pos++;
+      if ($pos > 3) {
+        $pos = 0;
+      }
+      $markup = '<div class="areas-of-interest-help">Choose areas that interest you within ' . $category->name . '</div>';
+      $markup .= '<div class="areas-of-interest-close"><img src="/modules/custom/workbc_custom/icons/Cross_icon.svg" alt="close" title="close"/></div>';
+
+      
+      $form[$category_label]['help'] = [
+        '#markup' => '<div class="areas-of-interest-help">Choose areas that interest you within ' . $category->name . '</div>',
+      ];
+
       $form[$category_label][$category->tid] = [
         '#type' => 'checkbox',
         '#title' => $this->t('Select all areas'),
@@ -67,8 +82,13 @@ class ExploreCareersGridForm extends FormBase {
       $form[$category_label]['submit'] = [
         '#type' => 'submit',
         '#value' => t('Explore'),
-        '#suffix' => '<span class="error hidden">Please select an area of interest before proceeding.</span>',
+        '#prefix' => '<div class="areas-of-interest-submit">',
+        '#suffix' => '<span class="error hidden">Choose one or more options within ' . $category->name . '</span></div>',
       ];
+
+      $form[$category_label]['close'] = [
+        '#markup' => '<div class="areas-of-interest-close"><img src="/modules/custom/workbc_custom/icons/Cross_icon.svg" alt="close" title="close"/></div>',
+      ];      
     }
     $form['terms'] = [
       '#type' => 'value',
@@ -112,13 +132,19 @@ class ExploreCareersGridForm extends FormBase {
   }
 
 
-  private function generateTile($label, $areasCount) {
+  private function generateTile($category_label, $category_name, $areasCount) {
     $markup = '<div class="tile">';
-    $markup .= '<div class="tile-info tile-icon">[icon]</div>';
-    $markup .= '<div class="tile-info tile-label">' . $label . '</div>';
-    $markup .= '<div class="tile-info tile-areas">' . $areasCount . " areas of interest</div>";
-    $markup .= '<div class="tile-info tile-plus">+</div>';
+    $markup .= '<div class="tile-info tile-icon">';
+    $markup .= '<img src="/modules/custom/workbc_custom/icons/epbc/' . $category_label . '.svg" alt="' . $category_name . '" title="' . $category_name . '"/>';
     $markup .= '</div>';
+    $markup .= '<div class="tile-info tile-name">' . $category_name . '</div>';
+    $markup .= '<div class="tile-group">';
+    $markup .= '<div class="tile-info tile-areas">' . $areasCount . " Areas of interest</div>";
+    $markup .= '<div class="tile-info tile-expand"><img src="/modules/custom/workbc_custom/icons/expand.svg" alt="expand" title="expand"/></div>';
+    $markup .= '</div>';
+    $markup .= '</div>';    
     return $markup;
   }
+
+
 }
