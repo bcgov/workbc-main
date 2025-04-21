@@ -770,7 +770,9 @@ $settings['trusted_host_patterns'] = [
   '^aws-test\.workbc\.ca$',
   '^aws-prod\.workbc\.ca$',
   '^dev\.workbc\.ca$',
-  '^devnoc\.workbc\.ca$',
+  //'^devnoc\.workbc\.ca$',
+  '^dev2\.workbc\.ca$',
+  '^dev3\.workbc\.ca$',
   '^test\.workbc\.ca$',
   //'^www2\.workbc\.ca$',
   '^www\.workbc\.ca$',
@@ -778,7 +780,9 @@ $settings['trusted_host_patterns'] = [
   '^aws\.workbc\.ca$',
   '^workbc\.b89n0c-prod\.nimbus\.cloud\.gov\.bc\.ca$',
   '^workbc\.b89n0c-dev\.nimbus\.cloud\.gov\.bc\.ca$',
-  '^workbc-noc\.b89n0c-dev\.nimbus\.cloud\.gov\.bc\.ca$',
+  //'^workbc-noc\.b89n0c-dev\.nimbus\.cloud\.gov\.bc\.ca$',
+  '^workbc-dev2\.b89n0c-dev\.nimbus\.cloud\.gov\.bc\.ca$',
+  '^workbc-dev3\.b89n0c-dev\.nimbus\.cloud\.gov\.bc\.ca$',
   '^workbc\.b89n0c-test\.nimbus\.cloud\.gov\.bc\.ca$',
 ];
 
@@ -801,6 +805,8 @@ $config['workbc']['ssot_repo'] = [
     'local' => 'noc',
     'aws-dev' => 'noc',
     'aws-dev-noc' => 'noc',
+    'aws-dev2' => 'noc',
+    'aws-dev3' => 'noc',
     'aws-test' => 'ams',
     'aws-prod' => 'master',
   ],
@@ -857,7 +863,9 @@ if (file_exists($app_root . '/' . $site_path . '/settings.aws.php') && getenv('A
 if (in_array(getenv('PROJECT_ENVIRONMENT'), [
   'dev',
   'aws-dev-noc',
+  'aws-dev2',
   'aws-dev',
+  'aws-dev3',
   'local'
 ])) {
   $settings['config_exclude_modules'] = [
