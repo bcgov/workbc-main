@@ -717,7 +717,7 @@ function workbc_custom_search_api_query_alter($query) {
 function workbc_custom_search_api_query_explore_careers_search_alter($query) {
   // Adjust the query before it is sent to Solr:
   $keys =& $query->getKeys();
-  if (empty($keys)) return;
+  if (empty($keys) || !is_string($keys)) return;
 
   // 1. Upcase keywords to activate AND / OR.
   $keys = strtoupper($keys);
