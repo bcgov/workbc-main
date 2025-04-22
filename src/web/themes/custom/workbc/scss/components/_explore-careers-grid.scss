@@ -26,7 +26,7 @@
       img {
         width: 35px;
         height: 35px;
-        margin:auto;   
+        margin:auto;
       }
     }
 
@@ -64,49 +64,49 @@
   #category-education {
     border-top: 10px solid #870264;
   }
-  
+
   #category-engineering-and-architecture {
     border-top: 10px solid #80B317;
   }
-  
+
   #category-hospitality-tourism-and-recreation {
     border-top: 10px solid #029CDE;
   }
-  
+
   #category-labour-and-technical-skills {
     border-top: 10px solid #2E6AB0;
   }
-  
+
   #category-law-and-justice {
     border-top: 10px solid #DA5700;
-  }  
+  }
 
   #category-mathematics-and-technology {
     border-top: 10px solid #029CDE;
   }
-  
+
   #category-medicine-and-health {
     border-top: 10px solid #870264;
   }
-  
+
   #category-performing-creative-and-fine-arts {
     border-top: 10px solid #80B317;
   }
- 
+
   #category-physical-and-natural-sciences {
     border-top: 10px solid #E7BF3E;
   }
-  
+
   #category-trades {
-    border-top: 10px solid #2E6AB0; 
-  }  
- 
+    border-top: 10px solid #2E6AB0;
+  }
+
   .areas-of-interest {
     grid-column: 1 / -1;
     margin: 0px 0px 0px 0px;
     box-shadow: 0 0 15px 0 rgba(0,0,0,.15);
   }
-  
+
   .is-hidden {
     display: none !important;
   }
@@ -118,7 +118,7 @@
     grid-auto-flow: dense;
     grid-template-columns:  repeat(2, minmax(0, 1fr));
     position: relative;
-    
+
     .form-type-checkbox {
       border: 1px solid rgba(0,0,0,.125);
       padding: 5px 10px 5px 10px;
@@ -128,7 +128,7 @@
 
     .form-type-checkbox:has(input:checked) {
       border: 2px solid $workbc_palette_dark_secondary;
-      padding: 4px 9px 4px 9px; 
+      padding: 4px 9px 4px 9px;
     }
 
     .form-check-input {
@@ -136,7 +136,8 @@
       background-clip: padding-box;
       -webkit-box-shadow: inset 0px 0px 0px 2px $workbc_palette_light_primary;
       -moz-box-shadow: inset 0px 0px 0px 2px $workbc_palette_light_primary;
-      box-shadow: inset 0px 0px 0px 2px $workbc_palette_light_primary;;
+      box-shadow: inset 0px 0px 0px 2px $workbc_palette_light_primary;
+      margin-right: 5px;
     }
 
     .form-check-input:checked {
@@ -179,7 +180,7 @@
           position: relative;
           top: 3px;
           margin-right: 5px;
-        }         
+        }
       }
     }
 
