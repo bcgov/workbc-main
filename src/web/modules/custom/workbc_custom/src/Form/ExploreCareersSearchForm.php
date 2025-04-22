@@ -23,8 +23,15 @@ class ExploreCareersSearchForm extends FormBase {
    * {@inheritdoc}
    */
   public function buildForm(array $form, FormStateInterface $form_state) {
+
+    $tooltip = '<span class="workbc-tooltip explore-careers--tooltip">';
+    $tooltip .= '<div class="workbc-tooltip-content explore-careers--tooltip-content">';
+    $tooltip .= 'The National Occupational Classification System (NOC) is Canada’s national system for describing occupations. Each occupation is assigned a unique five-digit NOC code.';
+    $tooltip .= '</div>';
+    $tooltip .= '</span>';
+
     $form['text'] = [
-      '#markup' => 'Find a career profile by job title, occupation title, or NOC code (i)',
+      '#markup' => 'Find a career profile by job title, occupation title, or NOC code ' . $tooltip,
     ];
     $form['keywords'] = [
       '#type' => 'search_api_autocomplete',
@@ -36,6 +43,7 @@ class ExploreCareersSearchForm extends FormBase {
       ],
       '#default_value' => $form_state->getValue('keywords'),
       '#help' => $this->t('Enter a keyword or NOC code'),
+      '#attributes' => ['placeholder' => 'Keyword / NOC code'],
     ];
     $form['submit'] = [
       '#type' => 'submit',
