@@ -30,7 +30,7 @@ class ExploreCareersGridForm extends FormBase {
     });
 
 
-    $arrows = ['arrow--1', 'arrow--2', 'arrow--3', 'arrow--4'];
+    $arrows = ['arrow-1', 'arrow-2', 'arrow-3', 'arrow-4'];
     $pos = 0;
     foreach ($categories as $key => $category) {
       $areas = array_filter($terms, function ($term) use ($category) {
