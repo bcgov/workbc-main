@@ -4,6 +4,8 @@ use Drupal\Core\StreamWrapper\StreamWrapperManager;
 use GuzzleHttp\Client;
 use GuzzleHttp\Exception\RequestException;
 use Psr\Http\Message\ResponseInterface;
+use Drupal\Core\Entity\ContentEntityInterface;
+use Drupal\field\Entity\FieldStorageConfig;
 
 const SSOT_ROUTES = [
   'workbc_ssot.lmmu',
@@ -642,4 +644,18 @@ function ssotGetPreviousMonthYear($currentMonth, $currentYear) {
   $data['previous_month_year'] = $previousMonthName. ' ' . $previousYear;
 
   return $data;
+}
+
+/**
+ * Get canonical TEER values.
+ */
+function ssotTEERValues(FieldStorageConfig $definition, ContentEntityInterface $entity = NULL, $cacheable) {
+  return [
+    0 => 'Management',
+    1 => 'University degree',
+    2 => 'College diploma or apprenticeship, 2 or more years',
+    3 => 'College diploma or apprenticeship, less than 2 years',
+    4 => 'High school diploma',
+    5 => 'No formal education'
+  ];
 }
