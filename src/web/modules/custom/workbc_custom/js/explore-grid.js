@@ -19,13 +19,13 @@ let currentOpen = null;
         const parent = $(this).closest('.fieldset-wrapper');
         $(parent).find('.grid-term').prop('checked', checked);
       });
-      
+
       $(once('explore-grid', '#workbc-custom-explore-careers-grid-form .grid-term')).change(function() {
         const parent = $(this).closest('.fieldset-wrapper');
         $(parent).find('.grid-all').prop('checked', false);
       });
 
-      $(once('explore-grid', '#workbc-custom-explore-careers-grid-form .grid-item')).on("click", function() {
+      $(once('explore-grid', '#workbc-custom-explore-careers-grid-form .occupational-category')).on("click", function() {
         let catId = $(this).data('category-id');
         if (currentOpen !== null && currentOpen !== catId) {
           closePreviousAreaOfInterest($(this));
@@ -39,7 +39,7 @@ let currentOpen = null;
         }
         else {
           $(cat).find('.tile-expand img').attr('src', '/modules/custom/workbc_custom/icons/collapse.svg');
-        } 
+        }
         currentOpen = catId;
       });
 
@@ -60,9 +60,27 @@ let currentOpen = null;
       $('#edit-keywords').keypress(function(event) {
         if (event.keyCode == '13') {
           event.preventDefault();
-        }        
+        }
       });
 
+      once('explore-grid', 'html', context).forEach(function() {
+        window.addEventListener('click', function(e){
+          element = document.getElementsByClassName('is-selected')[0];
+          if (typeof element !== 'undefined') {
+            let outside = true;
+            elements = document.getElementsByClassName('grid-item');
+            for ( var i = 0; i < elements.length; ++i ) {
+              if (elements[i].contains(e.target)) {
+                outside = false;
+                break;
+              }
+            }
+            if (outside){
+              closePreviousAreaOfInterest($(element));
+            }
+          }
+        });
+      });
     }
   }
 })(jQuery, Drupal, once);

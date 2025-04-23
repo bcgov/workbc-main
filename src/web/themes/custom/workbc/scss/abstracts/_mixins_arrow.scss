@@ -1,4 +1,4 @@
-@mixin css-arrow($height: 10px, $border: 2px, $color: #efefef, $border-color: #999, $position: 50%) {
+@mixin css-arrow($height: 10px, $border: 2px, $color: #efefef, $border-color: #999, $position: 25%) {
   $border-shift: $border;
   
   @if $border > 0px {
