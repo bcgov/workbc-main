@@ -29,7 +29,7 @@ settings:
     -
       value: 5
       label: 'No Formal Education'
-  allowed_values_function: ''
+  allowed_values_function: ssotTEERValues
 module: options
 locked: false
 cardinality: 1

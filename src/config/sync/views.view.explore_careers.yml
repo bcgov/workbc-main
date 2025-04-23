@@ -319,31 +319,29 @@ display:
           value:
             career_profile: career_profile
           group: 1
-        delta:
-          id: delta
-          table: node__field_region_openings
-          field: delta
+        keyword_search:
+          id: keyword_search
+          table: node_field_data
+          field: keyword_search
           relationship: none
           group_type: group
           admin_label: ''
-          plugin_id: numeric
-          operator: '='
-          value:
-            min: ''
-            max: ''
-            value: '0'
+          entity_type: node
+          plugin_id: workbc_node_keyword_search
+          operator: matches
+          value: ''
           group: 1
           exposed: true
           expose:
             operator_id: ''
-            label: 'Job Openings by Region'
+            label: ''
             description: ''
             use_operator: false
-            operator: delta_op
+            operator: keyword_search_op
             operator_limit_selection: false
             operator_list: {  }
-            identifier: delta
-            required: true
+            identifier: keyword_search
+            required: false
             remember: false
             multiple: false
             remember_roles:
@@ -356,8 +354,6 @@ display:
               global_approver: '0'
               workbc_global_administrator: '0'
               administrator: '0'
-            min_placeholder: ''
-            max_placeholder: ''
             placeholder: ''
           is_grouped: false
           group_info:
@@ -386,7 +382,7 @@ display:
           exposed: true
           expose:
             operator_id: term_node_tid_depth_op
-            label: Category
+            label: 'Occupational category'
             description: ''
             use_operator: false
             operator: term_node_tid_depth_op
@@ -440,7 +436,7 @@ display:
           exposed: true
           expose:
             operator_id: field_epbc_categories_target_id_op
-            label: 'Areas of Interest'
+            label: 'Areas of interest'
             description: ''
             use_operator: false
             operator: field_epbc_categories_target_id_op
@@ -499,7 +495,7 @@ display:
           exposed: true
           expose:
             operator_id: field_teer_value_op
-            label: Teer
+            label: 'Training, Education, Experience and Responsibilities'
             description: ''
             use_operator: false
             operator: field_teer_value_op
@@ -508,7 +504,7 @@ display:
             identifier: field_teer_value
             required: false
             remember: false
-            multiple: false
+            multiple: true
             remember_roles:
               authenticated: authenticated
               anonymous: '0'
@@ -546,7 +542,7 @@ display:
             min: ''
             max: ''
             value: ''
-          group: 1
+          group: 2
           exposed: true
           expose:
             operator_id: field_annual_salary_value_op
@@ -559,7 +555,7 @@ display:
             identifier: field_annual_salary_value
             required: false
             remember: false
-            multiple: false
+            multiple: true
             remember_roles:
               authenticated: authenticated
               anonymous: '0'
@@ -575,88 +571,83 @@ display:
             placeholder: ''
           is_grouped: true
           group_info:
-            label: 'Annual Earnings'
+            label: 'Annual earnings'
             description: ''
             identifier: field_annual_salary_value
             optional: true
             widget: select
-            multiple: false
+            multiple: true
             remember: false
             default_group: All
             default_group_multiple: {  }
             group_items:
               1:
-                title: 'Less than $40,000'
+                title: 'Less than $50,000'
                 operator: '<'
                 value:
                   min: ''
                   max: ''
-                  value: '40000'
+                  value: '50000'
               2:
-                title: '$40,000 - $59,999'
+                title: '$50,000 - $69,999'
                 operator: between
                 value:
-                  min: '40000'
-                  max: '59999'
+                  min: '50000'
+                  max: '69999'
                   value: ''
               3:
-                title: '$60,000 - $79,999'
+                title: '$70,000 - $99,999'
                 operator: between
                 value:
-                  min: '60000'
-                  max: '79999'
+                  min: '70000'
+                  max: '99999'
                   value: '60000'
               4:
-                title: '$80,000 - $99,999'
-                operator: between
-                value:
-                  min: '80000'
-                  max: '99999'
-                  value: ''
-              5:
-                title: '$100,000 - $119,999'
+                title: '$100,000 - $119,000'
                 operator: between
                 value:
                   min: '100000'
-                  max: '119999'
+                  max: '119000'
                   value: ''
-              6:
+              5:
                 title: '$120,000 - $140,000'
                 operator: between
                 value:
                   min: '120000'
                   max: '140000'
                   value: ''
-              7:
+              6:
                 title: 'Over $140,000 '
                 operator: '>'
                 value:
                   min: ''
                   max: ''
                   value: '140000'
-        keyword_search:
-          id: keyword_search
-          table: node_field_data
-          field: keyword_search
+        delta:
+          id: delta
+          table: node__field_region_openings
+          field: delta
           relationship: none
           group_type: group
           admin_label: ''
-          entity_type: node
-          plugin_id: workbc_node_keyword_search
-          operator: matches
-          value: ''
+          plugin_id: numeric
+          operator: '='
+          value:
+            min: ''
+            max: ''
+            value: '0'
           group: 1
           exposed: true
           expose:
             operator_id: ''
-            label: 'Keyword Search'
-            description: 'Enter NOC, career title or job title'
+            label: 'Job openings by region'
+            description: ''
             use_operator: false
-            operator: keyword_search_op
+            operator: delta_op
             operator_limit_selection: false
             operator_list: {  }
-            identifier: keyword_search
-            required: false
+            identifier: delta
+            required: true
             remember: false
             multiple: false
             remember_roles:
@@ -669,6 +660,8 @@ display:
               global_approver: '0'
               workbc_global_administrator: '0'
               administrator: '0'
+            min_placeholder: ''
+            max_placeholder: ''
             placeholder: ''
           is_grouped: false
           group_info:
@@ -686,6 +679,7 @@ display:
         operator: AND
         groups:
           1: AND
+          2: OR
       style:
         type: table
       row:
@@ -721,8 +715,8 @@ display:
           group_type: group
           admin_label: ''
           plugin_id: result
-          empty: true
-          content: 'We found @total careers'
+          empty: false
+          content: 'Displaying @total career profiles'
       footer: {  }
       display_extenders: {  }
     cache_metadata:

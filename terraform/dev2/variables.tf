@@ -95,7 +95,7 @@ variable "common_tags" {
 
 variable "service_names" {
   description = "List of service names to use as subdomains"
-  default     = ["workbc-noc"]
+  default     = ["workbc-dev2"]
   type        = list(string)
 }
 

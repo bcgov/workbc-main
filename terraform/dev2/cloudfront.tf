@@ -5,8 +5,8 @@ resource "random_integer" "cf_origin_id" {
   max = 100
 }
 
-resource "aws_cloudfront_origin_access_control" "oac-noc" {
-  name = "oac-noc"
+resource "aws_cloudfront_origin_access_control" "oac-dev2" {
+  name = "oac-dev2"
   description = "OAC Policy"
   origin_access_control_origin_type = "s3"
   signing_behavior = "always"
@@ -45,7 +45,8 @@ resource "aws_cloudfront_distribution" "workbc2" {
 	  name = "X-Forwarded-Host"
 	  #value = "aws.workbc.ca"
 	  #value = "aws-dev.workbc.ca"
-    value = "devnoc.workbc.ca"	
+    #value = "devnoc.workbc.ca"	
+    value = "dev2.workbc.ca"
 	}
 	
   }
@@ -53,7 +54,7 @@ resource "aws_cloudfront_distribution" "workbc2" {
   origin {
         domain_name = aws_s3_bucket.workbc_s32_dev2.bucket_regional_domain_name
 	origin_id = "SDPR-Contents"
-	origin_access_control_id = aws_cloudfront_origin_access_control.oac-noc.id
+	origin_access_control_id = aws_cloudfront_origin_access_control.oac-dev2.id
   }
 
   enabled         = true
@@ -147,7 +148,8 @@ resource "aws_cloudfront_distribution" "workbc2" {
   
   #aliases = ["aws.workbc.ca"]
   #aliases = ["aws-dev.workbc.ca", "aws.workbc.ca"]
-  aliases = ["devnoc.workbc.ca"]	
+  #aliases = ["devnoc.workbc.ca"]	
+  aliases = ["dev2.workbc.ca"]	
 
   viewer_certificate {
     acm_certificate_arn = "arn:aws:acm:us-east-1:873424993519:certificate/1e340149-4680-45d0-9897-5a628ff04d07"

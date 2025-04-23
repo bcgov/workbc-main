@@ -346,6 +346,10 @@ function workbc_custom_form_views_exposed_form_alter(&$form, FormStateInterface 
     $form['field_epbc_categories_target_id']['#options'] = array_column(array_filter($terms, function($t) use ($category_value) { return $t->parents[0] == $category_value; }), 'name', 'tid');
     $form['field_epbc_categories_target_id']['#default_value'] = $interest_value;
 
+    // Other customizations.
+    $form['field_teer_value']['#chosen'] = true;
+    $form['field_annual_salary_value']['#chosen'] = true;
+
     // Capture the reset button to maintain the hide_category argument.
     $form['#submit'][] = 'workbc_custom_category_reset';
   }
@@ -717,7 +721,7 @@ function workbc_custom_search_api_query_alter($query) {
 function workbc_custom_search_api_query_explore_careers_search_alter($query) {
   // Adjust the query before it is sent to Solr:
   $keys =& $query->getKeys();
-  if (empty($keys)) return;
+  if (empty($keys) || !is_string($keys)) return;
 
   // 1. Upcase keywords to activate AND / OR.
   $keys = strtoupper($keys);
