@@ -5,9 +5,11 @@ dependencies:
   config:
     - field.storage.node.field_annual_salary
     - field.storage.node.field_region_openings
+    - field.storage.node.field_teer
     - node.type.career_profile
     - taxonomy.vocabulary.epbc_categories
   module:
+    - better_exposed_filters
     - node
     - options
     - taxonomy
@@ -39,16 +41,34 @@ display:
           entity_type: node
           entity_field: title
           plugin_id: field
-          label: Title
+          label: 'Occupation title'
           exclude: false
           alter:
             alter_text: false
+            text: ''
             make_link: false
+            path: ''
             absolute: false
+            external: false
+            replace_spaces: false
+            path_case: none
+            trim_whitespace: false
+            alt: ''
+            rel: ''
+            link_class: ''
+            prefix: ''
+            suffix: ''
+            target: ''
+            nl2br: false
+            max_length: 0
             word_boundary: false
             ellipsis: false
+            more_link: false
+            more_link_text: ''
+            more_link_path: ''
             strip_tags: false
             trim: false
+            preserve_tags: ''
             html: false
           element_type: ''
           element_class: ''
@@ -84,7 +104,7 @@ display:
           group_type: group
           admin_label: ''
           plugin_id: field
-          label: 'Job Openings'
+          label: 'Job openings'
           exclude: false
           alter:
             alter_text: false
@@ -148,7 +168,7 @@ display:
           group_type: group
           admin_label: ''
           plugin_id: field
-          label: 'Annual Earnings'
+          label: 'Annual earnings'
           exclude: false
           alter:
             alter_text: false
@@ -206,12 +226,74 @@ display:
           multi_type: separator
           separator: ', '
           field_api_classes: false
+        field_teer:
+          id: field_teer
+          table: node__field_teer
+          field: field_teer
+          relationship: none
+          group_type: group
+          admin_label: ''
+          plugin_id: field
+          label: 'Training, Education, Experience and Responsibilities'
+          exclude: false
+          alter:
+            alter_text: false
+            text: ''
+            make_link: false
+            path: ''
+            absolute: false
+            external: false
+            replace_spaces: false
+            path_case: none
+            trim_whitespace: false
+            alt: ''
+            rel: ''
+            link_class: ''
+            prefix: ''
+            suffix: ''
+            target: ''
+            nl2br: false
+            max_length: 0
+            word_boundary: true
+            ellipsis: true
+            more_link: false
+            more_link_text: ''
+            more_link_path: ''
+            strip_tags: false
+            trim: false
+            preserve_tags: ''
+            html: false
+          element_type: ''
+          element_class: ''
+          element_label_type: ''
+          element_label_class: ''
+          element_label_colon: true
+          element_wrapper_type: ''
+          element_wrapper_class: ''
+          element_default_classes: true
+          empty: ''
+          hide_empty: false
+          empty_zero: false
+          hide_alter_empty: true
+          click_sort_column: value
+          type: list_default
+          settings: {  }
+          group_column: value
+          group_columns: {  }
+          group_rows: true
+          delta_limit: 0
+          delta_offset: 0
+          delta_reversed: false
+          delta_first_last: false
+          multi_type: separator
+          separator: ', '
+          field_api_classes: false
       pager:
         type: none
         options:
           offset: 0
       exposed_form:
-        type: basic
+        type: bef
         options:
           submit_button: 'Refine your results'
           reset_button: true
@@ -220,6 +302,92 @@ display:
           expose_sort_order: true
           sort_asc_label: Asc
           sort_desc_label: Desc
+          text_input_required: 'Select any filter and click on Apply to see results'
+          text_input_required_format: full_html
+          bef:
+            general:
+              autosubmit: false
+              autosubmit_exclude_textfield: false
+              autosubmit_textfield_delay: 500
+              autosubmit_textfield_minimum_length: 3
+              autosubmit_hide: false
+              input_required: false
+              allow_secondary: false
+              secondary_label: 'Advanced options'
+              secondary_open: false
+              reset_button_always_show: false
+            sort:
+              plugin_id: default
+              advanced:
+                combine: true
+                combine_rewrite: "Occupation title Asc|Occupation title (A-Z)\r\nOccupation title Desc|Occupation title (Z-A)\r\nJob openings Asc|Job openings (low-high)\r\nJob openings Desc|Job openings (high-low)\r\nAnnual earnings Asc|Annual earnings (low-high)\r\nAnnual earnings Desc|Annual earnings (high-low)\r\nTraining, Education, Experience and Responsibilities Desc|Training, Education, Experience and Responsibilities (less-more)\r\nTraining, Education, Experience and Responsibilities Asc|Training, Education, Experience and Responsibilities (more-less)\r\n"
+                reset: true
+                reset_label: Relevance
+                collapsible: false
+                collapsible_label: 'Sort options'
+                is_secondary: false
+            filter:
+              keyword_search:
+                plugin_id: default
+                advanced:
+                  collapsible: false
+                  collapsible_disable_automatic_open: false
+                  is_secondary: false
+                  hide_label: false
+              term_node_tid_depth:
+                plugin_id: default
+                advanced:
+                  sort_options: false
+                  rewrite:
+                    filter_rewrite_values: ''
+                    filter_rewrite_values_key: false
+                  collapsible: false
+                  collapsible_disable_automatic_open: false
+                  is_secondary: false
+                  hide_label: false
+              field_epbc_categories_target_id:
+                plugin_id: default
+                advanced:
+                  sort_options: false
+                  rewrite:
+                    filter_rewrite_values: ''
+                    filter_rewrite_values_key: false
+                  collapsible: false
+                  collapsible_disable_automatic_open: false
+                  is_secondary: false
+                  hide_label: false
+              field_teer_value:
+                plugin_id: default
+                advanced:
+                  sort_options: false
+                  rewrite:
+                    filter_rewrite_values: ''
+                    filter_rewrite_values_key: false
+                  collapsible: false
+                  collapsible_disable_automatic_open: false
+                  is_secondary: false
+                  hide_label: false
+              field_annual_salary_value:
+                plugin_id: default
+                advanced:
+                  rewrite:
+                    filter_rewrite_values: ''
+                    filter_rewrite_values_key: false
+                  collapsible: false
+                  collapsible_disable_automatic_open: false
+                  is_secondary: false
+                  hide_label: false
+              delta:
+                plugin_id: default
+                advanced:
+                  sort_options: false
+                  rewrite:
+                    filter_rewrite_values: ''
+                    filter_rewrite_values_key: false
+                  collapsible: false
+                  collapsible_disable_automatic_open: false
+                  is_secondary: false
+                  hide_label: false
       access:
         type: perm
         options:
@@ -254,21 +422,8 @@ display:
           plugin_id: standard
           order: ASC
           expose:
-            label: 'Occupation Title'
+            label: 'Occupation title'
             field_identifier: title
-          exposed: true
-        field_teer_value:
-          id: field_teer_value
-          table: node__field_teer
-          field: field_teer_value
-          relationship: none
-          group_type: group
-          admin_label: ''
-          plugin_id: standard
-          order: ASC
-          expose:
-            label: TEER
-            field_identifier: field_teer_value
           exposed: true
         field_region_openings_value:
           id: field_region_openings_value
@@ -280,7 +435,7 @@ display:
           plugin_id: standard
           order: ASC
           expose:
-            label: 'Job Openings'
+            label: 'Job openings'
             field_identifier: field_region_openings_value
           exposed: true
         field_annual_salary_value:
@@ -293,8 +448,21 @@ display:
           plugin_id: standard
           order: ASC
           expose:
-            label: 'Annual Earnings'
+            label: 'Annual earnings'
             field_identifier: field_annual_salary_value
+          exposed: true
+        field_teer_value:
+          id: field_teer_value
+          table: node__field_teer
+          field: field_teer_value
+          relationship: none
+          group_type: group
+          admin_label: ''
+          plugin_id: standard
+          order: DESC
+          expose:
+            label: 'Training, Education, Experience and Responsibilities'
+            field_identifier: field_teer_value
           exposed: true
       arguments: {  }
       filters:
@@ -732,6 +900,7 @@ display:
       tags:
         - 'config:field.storage.node.field_annual_salary'
         - 'config:field.storage.node.field_region_openings'
+        - 'config:field.storage.node.field_teer'
   page_1:
     id: page_1
     display_title: Page
@@ -754,3 +923,4 @@ display:
       tags:
         - 'config:field.storage.node.field_annual_salary'
         - 'config:field.storage.node.field_region_openings'
+        - 'config:field.storage.node.field_teer'
