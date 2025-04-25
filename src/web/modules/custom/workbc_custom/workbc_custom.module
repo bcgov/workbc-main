@@ -176,6 +176,12 @@ function workbc_custom_views_data_alter(array &$data) {
       'field' => 'nid',
       'id' => 'workbc_node_keyword_search',
     ],
+    'sort' => [
+      'title' => 'WorkBC Career Keyword Search',
+      'help' => 'Provides a way to sort the content according to Search API result ordering.',
+      'field' => 'nid',
+      'id' => 'workbc_node_keyword_search',
+    ],
   ];
 }
 

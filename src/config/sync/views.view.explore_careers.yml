@@ -4,6 +4,7 @@ status: true
 dependencies:
   config:
     - field.storage.node.field_annual_salary
+    - field.storage.node.field_noc
     - field.storage.node.field_region_openings
     - field.storage.node.field_teer
     - node.type.career_profile
@@ -31,6 +32,69 @@ display:
     display_options:
       title: 'Your Results'
       fields:
+        field_noc:
+          id: field_noc
+          table: node__field_noc
+          field: field_noc
+          relationship: none
+          group_type: group
+          admin_label: ''
+          plugin_id: field
+          label: NOC
+          exclude: false
+          alter:
+            alter_text: false
+            text: ''
+            make_link: false
+            path: ''
+            absolute: false
+            external: false
+            replace_spaces: false
+            path_case: none
+            trim_whitespace: false
+            alt: ''
+            rel: ''
+            link_class: ''
+            prefix: ''
+            suffix: ''
+            target: ''
+            nl2br: false
+            max_length: 0
+            word_boundary: true
+            ellipsis: true
+            more_link: false
+            more_link_text: ''
+            more_link_path: ''
+            strip_tags: false
+            trim: false
+            preserve_tags: ''
+            html: false
+          element_type: ''
+          element_class: ''
+          element_label_type: ''
+          element_label_class: ''
+          element_label_colon: true
+          element_wrapper_type: ''
+          element_wrapper_class: ''
+          element_default_classes: true
+          empty: ''
+          hide_empty: false
+          empty_zero: false
+          hide_alter_empty: true
+          click_sort_column: value
+          type: string
+          settings:
+            link_to_entity: false
+          group_column: value
+          group_columns: {  }
+          group_rows: true
+          delta_limit: 0
+          delta_offset: 0
+          delta_reversed: false
+          delta_first_last: false
+          multi_type: separator
+          separator: ', '
+          field_api_classes: false
         title:
           id: title
           table: node_field_data
@@ -298,7 +362,7 @@ display:
           submit_button: 'Refine your results'
           reset_button: true
           reset_button_label: 'Clear all filters'
-          exposed_sorts_label: 'Sort by'
+          exposed_sorts_label: 'Sort profiles by'
           expose_sort_order: true
           sort_asc_label: Asc
           sort_desc_label: Desc
@@ -393,7 +457,7 @@ display:
         options:
           perm: 'access content'
       cache:
-        type: tag
+        type: none
         options: {  }
       empty:
         area:
@@ -410,6 +474,20 @@ display:
             format: full_html
           tokenize: false
       sorts:
+        keyword_search:
+          id: keyword_search
+          table: node_field_data
+          field: keyword_search
+          relationship: none
+          group_type: group
+          admin_label: ''
+          entity_type: node
+          plugin_id: workbc_node_keyword_search
+          order: ASC
+          expose:
+            label: ''
+            field_identifier: ''
+          exposed: false
         title:
           id: title
           table: node_field_data
@@ -459,7 +537,7 @@ display:
           group_type: group
           admin_label: ''
           plugin_id: standard
-          order: DESC
+          order: ASC
           expose:
             label: 'Training, Education, Experience and Responsibilities'
             field_identifier: field_teer_value
@@ -888,7 +966,7 @@ display:
       footer: {  }
       display_extenders: {  }
     cache_metadata:
-      max-age: -1
+      max-age: 0
       contexts:
         - 'languages:language_content'
         - 'languages:language_interface'
@@ -899,6 +977,7 @@ display:
         - user.permissions
       tags:
         - 'config:field.storage.node.field_annual_salary'
+        - 'config:field.storage.node.field_noc'
         - 'config:field.storage.node.field_region_openings'
         - 'config:field.storage.node.field_teer'
   page_1:
@@ -911,7 +990,7 @@ display:
       display_extenders: {  }
       path: plan-career/explore-careers/career-profiles/search
     cache_metadata:
-      max-age: -1
+      max-age: 0
       contexts:
         - 'languages:language_content'
         - 'languages:language_interface'
@@ -922,5 +1001,6 @@ display:
         - user.permissions
       tags:
         - 'config:field.storage.node.field_annual_salary'
+        - 'config:field.storage.node.field_noc'
         - 'config:field.storage.node.field_region_openings'
         - 'config:field.storage.node.field_teer'
