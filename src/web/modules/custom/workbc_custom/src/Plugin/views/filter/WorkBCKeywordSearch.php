@@ -7,7 +7,7 @@ use Drupal\Core\Form\FormStateInterface;
 use Drupal\search_api_solr\SearchApiSolrException;
 
 /**
- * Filters by given list of node title options.
+ * Filters by Search API keywords.
  *
  * @ingroup views_filter_handlers
  *
@@ -110,6 +110,7 @@ class WorkBCKeywordSearch extends StringFilter {
       }
       $nids = $this->search($this->value);
       $this->query->addWhere(0, 'node_field_data.nid', empty($nids) ? [0] : $nids, 'IN');
+      $this->view->search_api_results = array_combine($nids, array_keys($nids));
     }
   }
 
