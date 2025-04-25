@@ -41,7 +41,7 @@ resource "aws_ecs_task_definition" "solr3" {
   {
 		essential   = true
 		name        = "solr"
-		image       = "${var.app_repo}/solr:0.3"
+		image       = "${var.app_repo}/solr:0.5"
 		networkMode = "awsvpc"
 		
 		logConfiguration = {
