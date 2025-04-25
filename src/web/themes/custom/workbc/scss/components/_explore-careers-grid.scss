@@ -4,7 +4,11 @@
   grid-template-columns:  repeat(4, minmax(0, 1fr));
   grid-gap: 20px;
 
-  .grid-item {
+  @include media-breakpoint-down(sm) {
+    grid-template-columns: auto;
+  }
+
+  .occupational-category {
     box-shadow: 0 0 15px 0 rgba(0,0,0,.15);
     padding: 5px;
   }
@@ -156,6 +160,7 @@
     .areas-of-interest-help {
       padding-top: 5px;
       padding-bottom: 20px;
+      padding-right: 15px;
     }
 
     .areas-of-interest-close {
@@ -215,19 +220,35 @@ $border-size: 1px;
 $border-color: rgba(0,0,0,.15);
 $background: $workbc_palette_light_primary;
 
-.arrow--1 {
-  @include css-arrow($arrow-height, $border-size, $background, $border-color, 12%);
+.arrow-1 {
+  @include css-arrow($arrow-height, $border-size, $background, $border-color, 50%);
+
+  @include media-breakpoint-up(md) {
+    @include css-arrow($arrow-height, $border-size, $background, $border-color, 12%);
+  }
 }
 
-.arrow--2 {
-  @include css-arrow($arrow-height, $border-size, $background, $border-color, 37%);
+.arrow-2 {
+  @include css-arrow($arrow-height, $border-size, $background, $border-color, 50%);
+
+  @include media-breakpoint-up(md) {
+    @include css-arrow($arrow-height, $border-size, $background, $border-color, 37%);
+  }
 }
 
-.arrow--3 {
-  @include css-arrow($arrow-height, $border-size, $background, $border-color, 63%);
+.arrow-3 {
+  @include css-arrow($arrow-height, $border-size, $background, $border-color, 50%);
+
+  @include media-breakpoint-up(md) {
+    @include css-arrow($arrow-height, $border-size, $background, $border-color, 63%);
+  }
 }
 
-.arrow--4 {
-  @include css-arrow($arrow-height, $border-size, $background, $border-color, 88%);
+.arrow-4 {
+  @include css-arrow($arrow-height, $border-size, $background, $border-color, 50%);
+
+  @include media-breakpoint-up(md) {
+    @include css-arrow($arrow-height, $border-size, $background, $border-color, 88%);
+  }
 }
 

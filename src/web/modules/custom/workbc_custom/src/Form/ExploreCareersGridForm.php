@@ -30,7 +30,7 @@ class ExploreCareersGridForm extends FormBase {
     });
 
 
-    $arrows = ['arrow--1', 'arrow--2', 'arrow--3', 'arrow--4'];
+    $arrows = ['arrow-1', 'arrow-2', 'arrow-3', 'arrow-4'];
     $pos = 0;
     foreach ($categories as $key => $category) {
       $areas = array_filter($terms, function ($term) use ($category) {
@@ -44,14 +44,14 @@ class ExploreCareersGridForm extends FormBase {
         '#attributes' => ['id' => 'category-id-'.$category_label,
                           'data-category-id' => $category_label,
         ],
-        '#prefix' => '<div id="category-' . $category_label . '" class="grid-item" data-category-id="' . $category_label . '">',
+        '#prefix' => '<div id="category-' . $category_label . '" class="grid-item occupational-category" data-category-id="' . $category_label . '">',
         '#suffix' => '</div>',
       ];
-      
+
       $form[$category_label] = [
         '#type' => 'fieldset',
         '#attributes' => ['id' => 'selector-'.$category_label,
-                          'class' => ['areas-of-interest', 'fullwidth', 'is-hidden', $arrows[$pos]]
+                          'class' => ['grid-item', 'areas-of-interest', 'fullwidth', 'is-hidden', $arrows[$pos]]
         ],
       ];
       $pos++;
@@ -61,7 +61,7 @@ class ExploreCareersGridForm extends FormBase {
       $markup = '<div class="areas-of-interest-help">Choose areas that interest you within ' . $category->name . '</div>';
       $markup .= '<div class="areas-of-interest-close"><img src="/modules/custom/workbc_custom/icons/Cross_icon.svg" alt="close" title="close"/></div>';
 
-      
+
       $form[$category_label]['help'] = [
         '#markup' => '<div class="areas-of-interest-help">Choose areas that interest you within ' . $category->name . '</div>',
       ];
@@ -88,7 +88,7 @@ class ExploreCareersGridForm extends FormBase {
 
       $form[$category_label]['close'] = [
         '#markup' => '<div class="areas-of-interest-close"><img src="/modules/custom/workbc_custom/icons/Cross_icon.svg" alt="close" title="close"/></div>',
-      ];      
+      ];
     }
     $form['terms'] = [
       '#type' => 'value',
@@ -142,7 +142,7 @@ class ExploreCareersGridForm extends FormBase {
     $markup .= '<div class="tile-info tile-areas">' . $areasCount . " Areas of interest</div>";
     $markup .= '<div class="tile-info tile-expand"><img src="/modules/custom/workbc_custom/icons/expand.svg" alt="expand" title="expand"/></div>';
     $markup .= '</div>';
-    $markup .= '</div>';    
+    $markup .= '</div>';
     return $markup;
   }
 
