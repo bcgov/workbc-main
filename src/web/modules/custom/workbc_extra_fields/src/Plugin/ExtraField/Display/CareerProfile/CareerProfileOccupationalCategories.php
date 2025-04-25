@@ -10,15 +10,15 @@ use Drupal\extra_field\Plugin\ExtraFieldDisplayFormattedBase;
  * Example Extra field with formatted output.
  *
  * @ExtraFieldDisplay(
- *   id = "profile_location",
- *   label = @Translation("Profile Location"),
- *   description = @Translation("An extra field to display career Location."),
+ *   id = "occupational_categories",
+ *   label = @Translation("Occupational Categories"),
+ *   description = @Translation("An extra field to display career occupational categories."),
  *   bundles = {
  *     "node.career_profile",
  *   }
  * )
  */
-class CareerProfileLocation extends ExtraFieldDisplayFormattedBase {
+class CareerProfileOccupationalCategories extends ExtraFieldDisplayFormattedBase {
 
   use StringTranslationTrait;
 
@@ -27,7 +27,7 @@ class CareerProfileLocation extends ExtraFieldDisplayFormattedBase {
    */
   public function getLabel() {
 
-    return $this->t('');
+    return $this->t('Occupational Categories');
   }
 
   /**
@@ -35,15 +35,16 @@ class CareerProfileLocation extends ExtraFieldDisplayFormattedBase {
    */
   public function getLabelDisplay() {
 
-    return 'above';
+    return 'hidden';
   }
 
   /**
    * {@inheritdoc}
    */
   public function viewElements(ContentEntityInterface $entity) {
-    if (!empty($entity->ssot_data) && isset($entity->ssot_data['career_trek'][0]['location'])) {
-      $output = $entity->ssot_data['career_trek'][0]['location'] . " BC";
+
+    if (!empty($entity->ssot_data) && isset($entity->ssot_data['occupational_category'][0]['category'])) {
+      $output = $entity->ssot_data['occupational_category'][0]['category'];
     }
     else {
       $output = WORKBC_EXTRA_FIELDS_NOT_AVAILABLE;

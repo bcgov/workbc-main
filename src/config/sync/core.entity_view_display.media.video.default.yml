@@ -18,8 +18,8 @@ content:
     type: file_video
     label: visually_hidden
     settings:
-      controls: true
-      autoplay: false
+      controls: false
+      autoplay: true
       loop: false
       multiple_file_display_type: tags
       muted: false

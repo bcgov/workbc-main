@@ -241,7 +241,8 @@ field_settings:
     label: 'Career Videos » Media » Categories » Taxonomy term » Name'
     datasource_id: 'entity:node'
     property_path: 'field_career_videos:entity:field_category:entity:name'
-    type: string
+    type: text
+    boost: 21.0
     dependencies:
       config:
         - field.storage.media.field_category
@@ -277,6 +278,12 @@ field_settings:
     dependencies:
       module:
         - node
+  occupational_category_api_field:
+    label: 'Occupational Category Field'
+    property_path: occupational_category_api_field
+    type: string
+    configuration:
+      value: ''
   region_api_field:
     label: 'Region API Field'
     property_path: region_api_field
@@ -387,6 +394,9 @@ processor_settings:
   custom_value: {  }
   entity_type: {  }
   language_with_fallback: {  }
+  occupational_category_processor:
+    weights:
+      preprocess_index: -10
   regions_processor:
     weights:
       preprocess_index: -10
@@ -395,6 +405,9 @@ processor_settings:
     weights:
       preprocess_index: 0
   solr_dummy_fields: {  }
+  workbc_numeric_prefix:
+    weights:
+      preprocess_query: 0
 tracker_settings:
   default:
     indexing_order: fifo

@@ -75,7 +75,7 @@ class CareerTrekTwigExtension extends AbstractExtension {
       return NULL; // Return NULL if no valid file exists.
     }
     // For 'toggle_icon_grid' and 'toggle_icon_list', return the SVG content.
-    elseif ($key === 'toggle_icon_grid' || $key === 'toggle_icon_list') {
+    elseif ($key === 'toggle_icon_grid' || $key === 'toggle_icon_list' || $key === 'responsive_toggle_icon') {
       $fid = $config->get($key);
       if (!empty($fid) && is_array($fid)) {
         $fid = reset($fid); // Get the first file ID if it's an array.

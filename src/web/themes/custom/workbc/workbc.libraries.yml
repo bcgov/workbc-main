@@ -78,6 +78,14 @@ career-inner-video:
     - core/jquery
     - core/once
 
+career-trek-back-button:
+  js:
+    js/career-trek-back-button.js: {}
+  dependencies:
+    - core/drupal
+    - core/jquery
+    - core/once
+
 range-slider:
   css:
     theme:

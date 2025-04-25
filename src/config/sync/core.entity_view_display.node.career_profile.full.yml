@@ -44,7 +44,7 @@ third_party_settings:
       label: 'Career Profile Tabs'
       parent_name: ''
       region: content
-      weight: 16
+      weight: 17
       format_type: html_element
       format_settings:
         classes: ''
@@ -376,6 +376,11 @@ content:
     third_party_settings: {  }
     weight: 7
     region: content
+  extra_field_occupational_categories:
+    settings: {  }
+    third_party_settings: {  }
+    weight: 15
+    region: content
   extra_field_occupational_interests:
     settings: {  }
     third_party_settings: {  }
@@ -462,7 +467,7 @@ content:
       view_mode: career_trek_node
       link: false
     third_party_settings: {  }
-    weight: 15
+    weight: 16
     region: content
   field_career_videos_introduction:
     type: text_default

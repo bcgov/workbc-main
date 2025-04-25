@@ -385,6 +385,7 @@ function ssotCareerProfile($noc) {
     $data['occupational_interests'] = querySSoT('occupational_interests?noc=eq.' . $noc);
     $data['titles'] = querySSoT('titles?noc=eq.' . $noc);
     $data['career_trek'] = querySSoT('career_trek?noc_2021=eq.' . $noc);
+    $data['occupational_category'] = querySSoT('fyp_categories_interests_nocs?noc_2021=eq.' . $noc);
     $opening_careers = querySSoT('openings_careers?noc=eq.' . $noc);
     if (!empty($opening_careers)) {
       $data['openings_careers'] = $opening_careers[0];

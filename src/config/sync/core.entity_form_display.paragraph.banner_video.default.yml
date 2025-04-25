@@ -4,11 +4,14 @@ status: true
 dependencies:
   config:
     - field.field.paragraph.banner_video.field_banner_description
+    - field.field.paragraph.banner_video.field_banner_image
     - field.field.paragraph.banner_video.field_banner_title
     - field.field.paragraph.banner_video.field_banner_video
+    - image.style.thumbnail
     - paragraphs.paragraphs_type.banner_video
   module:
     - media_library
+    - svg_image
     - text
 id: paragraph.banner_video.default
 targetEntityType: paragraph
@@ -22,6 +25,14 @@ content:
     settings:
       rows: 5
       placeholder: ''
+    third_party_settings: {  }
+  field_banner_image:
+    type: image_image
+    weight: 3
+    region: content
+    settings:
+      progress_indicator: throbber
+      preview_image_style: thumbnail
     third_party_settings: {  }
   field_banner_title:
     type: string_textfield

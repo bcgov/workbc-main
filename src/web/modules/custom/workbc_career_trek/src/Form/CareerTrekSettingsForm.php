@@ -30,10 +30,10 @@ class CareerTrekSettingsForm extends ConfigFormBase {
   public function buildForm(array $form, FormStateInterface $form_state) {
     $config = $this->config('workbc_career_trek.settings');
 
-    $form['title'] = [
+    $form['main_title'] = [
       '#type' => 'textfield',
       '#title' => $this->t('Title'),
-      '#default_value' => $config->get('title'),
+      '#default_value' => $config->get('main_title'),
     ];
 
     $form['logo'] = [
@@ -87,11 +87,44 @@ class CareerTrekSettingsForm extends ConfigFormBase {
         'file_validate_extensions' => ['svg'],
       ],
     ];
+    $form['responsive_toggle_icon'] = [
+      '#type' => 'managed_file',
+      '#title' => $this->t('Responsive Toggle Icon'),
+      '#default_value' => $config->get('responsive_toggle_icon'),
+      '#upload_location' => 'public://career_trek_icons/',
+      '#upload_validators' => [
+        'file_validate_extensions' => ['svg'],
+      ],
+    ];
     $form['searching_text'] = [
       '#type' => 'textfield',
       '#title' => $this->t('Searching text'),
       '#default_value' => $config->get('searching_text'),
       '#description' => $this->t('Enter the searching text'),
+    ];
+    $form['in_demand_title'] = [
+      '#type' => 'textfield',
+      '#title' => $this->t('In Demand Title'),
+      '#default_value' => $config->get('in_demand_title'),
+      '#description' => $this->t('Enter the demand title'),
+    ];
+    $form['latest_career_title'] = [
+      '#type' => 'textfield',
+      '#title' => $this->t('Latest Career Title'),
+      '#default_value' => $config->get('latest_career_title'),
+      '#description' => $this->t('Enter the latest career title'),
+    ];
+    $form['filter_title'] = [
+      '#type' => 'textfield',
+      '#title' => $this->t('Filter Title'),
+      '#default_value' => $config->get('filter_title'),
+      '#description' => $this->t('Enter the Filter title'),
+    ];
+    $form['related_careers_title'] = [
+      '#type' => 'textfield',
+      '#title' => $this->t('Related Title'),
+      '#default_value' => $config->get('related_careers_title'),
+      '#description' => $this->t('Enter the Related title'),
     ];
 
     return parent::buildForm($form, $form_state);
@@ -102,30 +135,47 @@ class CareerTrekSettingsForm extends ConfigFormBase {
    */
   public function submitForm(array &$form, FormStateInterface $form_state) {
     $config = $this->configFactory->getEditable('workbc_career_trek.settings');
-    if(empty($config->get('logo')) && !empty($form_state->getValue('logo')) && $config->get('logo') != $form_state->getValue('logo')) {
-      $file = File::load(current($form_state->getValue('logo')));
-      $file->setPermanent();
-      $file->save();
+    
+    // Handle file updates
+    $fileFields = ['logo', 'toggle_icon_grid', 'toggle_icon_list', 'responsive_toggle_icon'];
+    foreach ($fileFields as $field) {
+      $oldValue = $config->get($field);
+      $newValue = $form_state->getValue($field);
+      
+      if (!empty($oldValue) && $oldValue != $newValue) {
+        if ($oldFile = File::load(current($oldValue))) {
+          $oldFile->delete();
+        }
+      }
+      if (!empty($newValue) && $oldValue != $newValue) {
+        $file = File::load(current($newValue));
+        $file->setPermanent();
+        $file->save();
+        $file_usage = \Drupal::service('file.usage');
+        $file_usage->add($file, 'workbc_career_trek', 'managed_file', current($newValue));
+  
+      }
     }
-    if(empty($config->get('toggle_icon_grid')) && !empty($form_state->getValue('toggle_icon_grid')) && $config->get('toggle_icon_grid') != $form_state->getValue('toggle_icon_grid')) {
-      $file = File::load(current($form_state->getValue('toggle_icon_grid')));
-      $file->setPermanent();
-      $file->save();
+
+    // Save all form values
+    $fields = [
+      'main_title' => 'main_title',
+      'logo' => 'logo',
+      'back_button_url' => 'url',
+      'back_button_title' => 'title',
+      'toggle_icon_grid' => 'toggle_icon_grid',
+      'toggle_icon_list' => 'toggle_icon_list',
+      'searching_text' => 'searching_text',
+      'in_demand_title' => 'in_demand_title',
+      'latest_career_title' => 'latest_career_title',
+      'filter_title' => 'filter_title',
+      'responsive_toggle_icon' => 'responsive_toggle_icon',
+      'related_careers_title' => 'related_careers_title',
+    ];
+    foreach ($fields as $formKey => $configKey) {
+      $config->set($formKey, $form_state->getValue($configKey));
     }
-    if(empty($config->get('toggle_icon_list')) && !empty($form_state->getValue('toggle_icon_list')) && $config->get('toggle_icon_list') != $form_state->getValue('toggle_icon_list')) {
-      $file = File::load(current($form_state->getValue('toggle_icon_list')));
-      $file->setPermanent();
-      $file->save();
-    }
-    // Save all form values to configuration
-    $config->set('title', $form_state->getValue('title'))
-          ->set('logo', $form_state->getValue('logo'))
-          ->set('back_button_url', $form_state->getValue('url'))
-          ->set('back_button_title', $form_state->getValue('title'))
-          ->set('toggle_icon_grid', $form_state->getValue('toggle_icon_grid'))
-          ->set('toggle_icon_list', $form_state->getValue('toggle_icon_list'))
-          ->set('searching_text', $form_state->getValue('searching_text'))
-          ->save();
+    $config->save();
 
     parent::submitForm($form, $form_state);
   }

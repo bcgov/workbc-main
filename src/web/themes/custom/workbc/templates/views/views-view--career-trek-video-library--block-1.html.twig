@@ -41,25 +41,27 @@
 %}
 <div{{ attributes.addClass(classes) }}>
   <div class="career-top-banner">
-    <div class="col-12 row justify-content-between mt-3 align-items-center container-fluid mx-auto">
-      <div class="col-3">
-        {% if career_trek_config('logo') %}
-          <img src="{{ career_trek_config('logo') }}" alt="Career Trek Logo">
-        {% endif %}
-      </div>
-      <div class="col-6">
-          <div class="toggle-icon d-flex justify-content-end">
-              <div class="grid active">
-                {% if career_trek_config('toggle_icon_grid') %}
-                  {{ career_trek_config('toggle_icon_grid') }}
-                {% endif %}
-              </div>
-              <div class="list">
-                {% if career_trek_config('toggle_icon_list') %}
-                  {{ career_trek_config('toggle_icon_list') }}
-                {% endif %}
-              </div>
-          </div>
+    <div class="container-fluid">
+      <div class="row justify-content-between mt-3 align-items-center">
+        <div class="col-8">
+          {% if career_trek_config('logo') %}
+            <img src="{{ career_trek_config('logo') }}" alt="Career Trek Logo">
+          {% endif %}
+        </div>
+        <div class="col-4">
+            <div class="toggle-icon d-flex justify-content-end">
+                <div class="grid active">
+                  {% if career_trek_config('toggle_icon_grid') %}
+                    {{ career_trek_config('toggle_icon_grid') }}
+                  {% endif %}
+                </div>
+                <div class="list">
+                  {% if career_trek_config('toggle_icon_list') %}
+                    {{ career_trek_config('toggle_icon_list') }}
+                  {% endif %}
+                </div>
+            </div>
+        </div>
       </div>
     </div>
   </div>
@@ -74,28 +76,40 @@
         {{ attachment_before }}
       </div>
     {% endif %}
-    <div class="col-12 row">
-      <div class="col-lg-3 career-trek-sidebar">
+    <div class="row"> 
+      <div class="col-xl-3 career-trek-sidebar">
           {% if exposed %}
-              <div class="view-filters">
-                  {{ exposed|merge({'header': header}) }}
-                  {{ drupal_block('simple_block:find_resources_for_educators') }}
+              <div class="responsive-filter-video-btn">
+                  <button>{{ career_trek_config('filter_title') }}</button>
+              </div>
+              <div class="career-trek-sidebar-panel">
+                <div class="career-sidebar-close-btn text-right">
+                  {% if career_trek_config('responsive_toggle_icon') %}
+                    {{ career_trek_config('responsive_toggle_icon') }}
+                  {% endif %}
+                </div>
+                <div class="view-filters">
+                    {{ exposed|merge({'header': header}) }}
+                    {{ drupal_block('simple_block:find_resources_for_educators') }}
+                </div>
               </div>
           {% endif %}
       </div>
-      <div class="col-lg-9">
+      <div class="col-xl-9">
           {% if search_view %}
             {% set formatted_values = search_view|join(', ') %}
             <div class="search-text">
               <h2>{{ career_trek_config('searching_text') }} {{ formatted_values }}</h2>
             </div>
           {% else %}
+            <h2>{{ career_trek_config('in_demand_title') }}</h2>
             {{ drupal_entity('block', 'workbc_views_block__career_trek_video_library_block_2') }}
           {% endif %}
           {% if rows %}
             {% if not search_view %}
-              <h2>{{ view_title }}</h2>
+              <h2>{{ career_trek_config('latest_career_title') }}</h2>
             {% endif %}
+
               <div class="view-content result-view">
               {{ rows }}
               </div>

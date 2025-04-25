@@ -379,8 +379,8 @@ display:
           label: ''
           exclude: false
           alter:
-            alter_text: false
-            text: ''
+            alter_text: true
+            text: 'Filmed in {{ custom_location }} BC'
             make_link: false
             path: ''
             absolute: false
@@ -516,6 +516,59 @@ display:
               video:
                 display_method: label
                 view_mode: default
+        occupational_category_api_field:
+          id: occupational_category_api_field
+          table: search_api_index_career_profile_index
+          field: occupational_category_api_field
+          relationship: none
+          group_type: group
+          admin_label: ''
+          plugin_id: search_api
+          label: ''
+          exclude: false
+          alter:
+            alter_text: false
+            text: ''
+            make_link: false
+            path: ''
+            absolute: false
+            external: false
+            replace_spaces: false
+            path_case: none
+            trim_whitespace: false
+            alt: ''
+            rel: ''
+            link_class: ''
+            prefix: ''
+            suffix: ''
+            target: ''
+            nl2br: false
+            max_length: 0
+            word_boundary: true
+            ellipsis: true
+            more_link: false
+            more_link_text: ''
+            more_link_path: ''
+            strip_tags: false
+            trim: false
+            preserve_tags: ''
+            html: false
+          element_type: ''
+          element_class: ''
+          element_label_type: ''
+          element_label_class: ''
+          element_label_colon: false
+          element_wrapper_type: ''
+          element_wrapper_class: ''
+          element_default_classes: true
+          empty: ''
+          hide_empty: false
+          empty_zero: false
+          hide_alter_empty: true
+          link_to_item: false
+          use_highlighting: false
+          multi_type: separator
+          multi_separator: ', '
       pager:
         type: some
         options:
@@ -537,17 +590,28 @@ display:
       cache:
         type: search_api_none
         options: {  }
-      empty: {  }
-      sorts: {  }
-      arguments:
-        field_category:
-          id: field_category
-          table: search_api_index_career_profile_index
-          field: field_category
+      empty:
+        area_text_custom:
+          id: area_text_custom
+          table: views
+          field: area_text_custom
           relationship: none
           group_type: group
           admin_label: ''
-          plugin_id: search_api_term
+          plugin_id: text_custom
+          empty: true
+          content: "<div class=\"no-result-text\">\r\n<img src=\"/themes/custom/workbc/assets/images/clear-filter.svg\">\r\n<h3>No related videos found</h3>\r\n</div>"
+          tokenize: false
+      sorts: {  }
+      arguments:
+        occupational_category_api_field:
+          id: occupational_category_api_field
+          table: search_api_index_career_profile_index
+          field: occupational_category_api_field
+          relationship: none
+          group_type: group
+          admin_label: ''
+          plugin_id: search_api
           default_action: 'not found'
           exception:
             value: all
@@ -656,20 +720,7 @@ display:
           preserve_facet_query_args: false
           query_tags: {  }
       relationships: {  }
-      header:
-        area:
-          id: area
-          table: views
-          field: area
-          relationship: none
-          group_type: group
-          admin_label: ''
-          plugin_id: text
-          empty: false
-          content:
-            value: '<h3>Related Careers Videos</h3>'
-            format: full_html
-          tokenize: false
+      header: {  }
       footer: {  }
       display_extenders: {  }
     cache_metadata:

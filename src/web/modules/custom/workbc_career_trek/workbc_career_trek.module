@@ -13,14 +13,23 @@ function workbc_career_trek_preprocess_views_view(&$variables) {
     $filters = $view->display_handler->getOption('filters');
     if ($exposed = $view->getExposedInput()) {
       foreach ($exposed as $key => $expose) {
-        if ($key == "field_category" || $key == "field_skills_2") {
+        if ($key == "field_skills_2") {
           foreach($expose as $row) {
             $term = Term::load($row);
             if ($term && !empty($term->getName())) {
               $values[] = $term->getName();
             }
           }
-        } elseif ($key == "minimum_education_all") {
+        } elseif ($key == "occupational_category_api_field") {
+          foreach($expose as $exp) {
+            $title = $filters['occupational_category_api_field']['group_info']['group_items'][$exp]['title'] ?? '';
+            if (!empty($title)) {
+              $values[] = $title;
+            }
+          }
+
+        }
+         elseif ($key == "minimum_education_all") {
           $title = $filters['minimum_education']['group_info']['group_items'][$expose]['title'] ?? '';
           if (!empty($title)) {
             $values[] = $title;
@@ -31,13 +40,22 @@ function workbc_career_trek_preprocess_views_view(&$variables) {
             $values[] = $title;
           }
         } elseif ($key == "annual_salary") {
-          $min = $expose['min'] ?? '';
-          $max = $expose['max'] ?? '';
-          if (!empty($min) || !empty($max)) {
-            $values[] = "Min: " . $min . " - Max: " . $max;
+
+          if(isset($expose['value']) && !empty($expose['value']) && $exposed['annual_salary_op'] != "between") {
+            $min = $expose['value'];
+            $max = 140000 .  "+";
+            if (!empty($min) || !empty($max)) {
+              $values[] = "Salary $" . $min . " - $" . $max;
+            }
+          }else{
+            $min = $expose['min'] ?? '';
+            $max = $expose['max'] ?? '';
+            if (!empty($min) || !empty($max)) {
+              $values[] = "Salary $" . $min . " - $" . $max;
+            }
           }
         } else {
-          if (!empty($expose) && $expose != "Clear All Filters") {
+          if (!empty($expose) && $key != "reset" && $key != "annual_salary_op") {
             $values[] = $expose;
           }
         }
@@ -54,7 +72,7 @@ function workbc_career_trek_preprocess_views_view(&$variables) {
 function workbc_career_trek_uninstall() {
     // Load the entity type manager service.
     $entity_type_manager = \Drupal::entityTypeManager();
-  
+
     // Load and remove paragraph items of type 'section_icons_1_3' before removing its fields and type.
     $paragraph_items = $entity_type_manager->getStorage('paragraph')->loadByProperties(['type' => 'section_icons_1_3']);
     foreach ($paragraph_items as $paragraph_item) {
@@ -67,7 +85,7 @@ function workbc_career_trek_uninstall() {
       }
       $paragraph_type->delete();
     }
-  
+
     // Load and remove paragraph items of type 'banner_video' before deleting its fields and type.
     $paragraph_items = $entity_type_manager->getStorage('paragraph')->loadByProperties(['type' => 'banner_video']);
     foreach ($paragraph_items as $paragraph_item) {
@@ -81,7 +99,7 @@ function workbc_career_trek_uninstall() {
       }
       $paragraph_type->delete();
     }
-  
+
     // Load the paragraph type 'banner_video' and delete its fields.
     if ($paragraph_type = $entity_type_manager->getStorage('paragraphs_type')->load('banner_video')) {
       $field_storage_definitions = $entity_type_manager->getStorage('field_storage_config')->loadByProperties(['entity_type' => 'paragraph', 'bundle' => 'banner_video']);
