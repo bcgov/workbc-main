@@ -30,7 +30,7 @@ class WorkBCSearchApiRelevance extends SortPluginBase {
     // Reorder in case no sort order was specified (aka Relevance).
     // This is detected by all exposed sorts being activated (probably due to Views bug).
     $order = $this->view->build_info['query']->getOrderBy();
-    if (count($order) > 1) {
+    if (empty($order)) {
       usort($values, function($a, $b) {
         return $this->view->search_api_results[$a->nid] - $this->view->search_api_results[$b->nid];
       });

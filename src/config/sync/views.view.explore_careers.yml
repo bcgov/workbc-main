@@ -384,8 +384,8 @@ display:
               plugin_id: default
               advanced:
                 combine: true
-                combine_rewrite: "Occupation title Asc|Occupation title (A-Z)\r\nOccupation title Desc|Occupation title (Z-A)\r\nJob openings Asc|Job openings (low-high)\r\nJob openings Desc|Job openings (high-low)\r\nAnnual earnings Asc|Annual earnings (low-high)\r\nAnnual earnings Desc|Annual earnings (high-low)\r\nTraining, Education, Experience and Responsibilities Desc|Training, Education, Experience and Responsibilities (less-more)\r\nTraining, Education, Experience and Responsibilities Asc|Training, Education, Experience and Responsibilities (more-less)\r\n"
-                reset: true
+                combine_rewrite: "Relevance Asc|Relevance\r\nRelevance Desc|\r\nOccupation title Asc|Occupation title (A-Z)\r\nOccupation title Desc|Occupation title (Z-A)\r\nJob openings Asc|Job openings (low-high)\r\nJob openings Desc|Job openings (high-low)\r\nAnnual earnings Asc|Annual earnings (low-high)\r\nAnnual earnings Desc|Annual earnings (high-low)\r\nTraining, Education, Experience and Responsibilities Desc|Training, Education, Experience and Responsibilities (less-more)\r\nTraining, Education, Experience and Responsibilities Asc|Training, Education, Experience and Responsibilities (more-less)\r\n"
+                reset: false
                 reset_label: Relevance
                 collapsible: false
                 collapsible_label: 'Sort options'
@@ -485,9 +485,9 @@ display:
           plugin_id: workbc_node_keyword_search
           order: ASC
           expose:
-            label: ''
-            field_identifier: ''
-          exposed: false
+            label: Relevance
+            field_identifier: keyword_search
+          exposed: true
         title:
           id: title
           table: node_field_data
