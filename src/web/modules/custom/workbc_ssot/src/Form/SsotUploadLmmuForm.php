@@ -431,7 +431,7 @@ class SsotUploadLmmuForm extends ConfirmFormBase {
       $spreadsheet = IOFactory::load($path);
     }
     catch (\Exception $e) {
-      \Drupal::logger('workbc_ssot')->error('Error validating @name: @error', [
+      \Drupal::logger('workbc')->error('Error validating @name: @error', [
         '@name' => $name, '@error' => $e->getMessage()
       ]);
       $form_state->setErrorByName('lmmu', $this->t('❌ This spreadsheet file is likely invalid. Please refer to the logs for more information.'));
@@ -466,7 +466,7 @@ class SsotUploadLmmuForm extends ConfirmFormBase {
       }
     }
     catch (\TypeError $e) {
-      \Drupal::logger('workbc_ssot')->error('Error validating @name: @error', [
+      \Drupal::logger('workbc')->error('Error validating @name: @error', [
         '@name' => $name, '@error' => $e->getMessage()
       ]);
       $form_state->setErrorByName('lmmu', $this->t('❌ This spreadsheet file is likely invalid. Please refer to the logs for more information.'));
@@ -795,7 +795,7 @@ class SsotUploadLmmuForm extends ConfirmFormBase {
           'query' => ['month' => $month, 'year' => $year]
         ])->toString()
       ]));
-      \Drupal::logger('workbc_ssot')->info(t('Labour Market Monthly Update successfully updated for <strong>@month @year</strong> with file <a href="@uri">@filename</a>.', [
+      \Drupal::logger('workbc')->info(t('Labour Market Monthly Update successfully updated for <strong>@month @year</strong> with file <a href="@uri">@filename</a>.', [
         '@year' => $year,
         '@month' => DateHelper::monthNames(true)[$month],
         '@uri' => \Drupal::service('file_url_generator')->generateAbsoluteString($file->getFileUri()),
@@ -806,7 +806,7 @@ class SsotUploadLmmuForm extends ConfirmFormBase {
     }
     catch (\Exception $e) {
       \Drupal::messenger()->addError(t('❌ An error occurred while updating Labour Market Monthly Update. Please refer to the logs for more information.'));
-      \Drupal::logger('workbc_ssot')->error($e->getMessage());
+      \Drupal::logger('workbc')->error($e->getMessage());
     }
   }
 

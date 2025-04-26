@@ -108,9 +108,12 @@ class WorkBCKeywordSearch extends StringFilter {
       if (empty($this->value) || empty($this->value[0])) {
         return;
       }
-      $nids = $this->search($this->value);
-      $this->query->addWhere(0, 'node_field_data.nid', empty($nids) ? [0] : $nids, 'IN');
-      $this->view->search_api_results = array_combine($nids, array_keys($nids));
+      $this->view->search_api_results = $this->search($this->value);
+      $this->query->addWhere(
+        0, 'node_field_data.nid',
+        empty($this->view->search_api_results) ? [0] : array_column($this->view->search_api_results, 'nid'),
+        'IN'
+      );
     }
   }
 
@@ -121,6 +124,12 @@ class WorkBCKeywordSearch extends StringFilter {
    */
   private function search() {
     $index = \Drupal\search_api\Entity\Index::load('career_profile_index');
+    $processor = \Drupal::getContainer()
+      ->get('search_api.plugin_helper')
+      ->createProcessorPlugin($index, 'highlight', [
+        'highlight_partial' => true,
+      ]);
+    $index->addProcessor($processor);
     $query = $index->query();
 
     // Change the parse mode for the search.
@@ -147,11 +156,15 @@ class WorkBCKeywordSearch extends StringFilter {
       $results = $query->execute();
     }
     catch (SearchApiSolrException $e) {
-      $results = null;
+      \Drupal::logger('workbc')->error($e->getMessage());
+      return [];
     }
-    return array_values(array_filter(array_map(function($r) {
-      if (preg_match('/entity:node\/(\d+):/', $r->getId(), $match)) {
-        return $match[1];
+    return array_values(array_filter(array_map(function($item) {
+      if (preg_match('/entity:node\/(\d+):/', $item->getId(), $match)) {
+        return [
+          'nid' => $match[1],
+          'excerpt' => $item->getExcerpt()
+        ];
       }
       return false;
     }, $results ? $results->getResultItems() : [])));
