@@ -114,11 +114,6 @@ function workbc_ssot_cron() {
       ]);
       $datasets[$ssot_date->endpoint] = $ssot_date;
     }
-    else {
-      \Drupal::logger('workbc')->notice('No update for SSOT dataset @dataset.', [
-        '@dataset' => $ssot_date->endpoint
-      ]);
-    }
   }
 
   if (!empty($datasets)) {
@@ -575,7 +570,7 @@ function ssotFormatNumber($number, $options = []) {
   $valid = ['decimals', 'positive_sign', 'suffix', 'prefix', 'na_if_empty', 'no_negative', 'sanity_check'];
   foreach ($options as $key => $option) {
     if (!in_array($key, $valid)) {
-      \Drupal::logger('workbc_extra_fields')->error("invalid option: @option", ['@option' => $key]);
+      \Drupal::logger('workbc')->error("invalid option: @option", ['@option' => $key]);
     }
   }
 

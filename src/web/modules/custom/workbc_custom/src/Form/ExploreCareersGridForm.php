@@ -83,7 +83,7 @@ class ExploreCareersGridForm extends FormBase {
         '#type' => 'submit',
         '#value' => t('Explore'),
         '#prefix' => '<div class="areas-of-interest-submit">',
-        '#suffix' => '<span class="error hidden">Choose one or more options within ' . $category->name . '</span></div>',
+        '#suffix' => '<span class="error hidden"><span class="error-group"><span class="error-icon"></span><span class="error-text">Choose one or more options within ' . $category->name . '</span></span></span></div>',
       ];
 
       $form[$category_label]['close'] = [

@@ -49,7 +49,7 @@ class SsotDownloader extends QueueWorkerBase implements ContainerFactoryPluginIn
    * Update the local dataset update date.
    */
   public function processItem($data) {
-    \Drupal::logger('workbc_ssot')->notice('Updating SSOT datasets: @datasets', [
+    \Drupal::logger('workbc')->notice('Updating SSOT datasets: @datasets', [
       '@datasets' => join(', ', array_map(function($dataset) {
         return $dataset->endpoint;
       }, $data['datasets']))
@@ -75,7 +75,7 @@ class SsotDownloader extends QueueWorkerBase implements ContainerFactoryPluginIn
       ));
       $result = ssot($endpoint);
       if (!$result) {
-        \Drupal::logger('workbc_ssot')->error('Error fetching SSOT dataset @dataset at @endpoint. Skipping.', [
+        \Drupal::logger('workbc')->error('Error fetching SSOT dataset @dataset at @endpoint. Skipping.', [
           '@dataset' => $dataset->endpoint,
           '@endpoint' => $endpoint,
         ]);
@@ -97,7 +97,7 @@ class SsotDownloader extends QueueWorkerBase implements ContainerFactoryPluginIn
       // Update each career with the dataset-specific update function.
       $method = 'update_' . $dataset->endpoint;
       if (!method_exists($this, $method)) {
-        \Drupal::logger('workbc_ssot')->error('Could not find the method @method for dataset @dataset. Skipping.', [
+        \Drupal::logger('workbc')->error('Could not find the method @method for dataset @dataset. Skipping.', [
           '@method' => $method,
           '@dataset' => $dataset->endpoint,
         ]);
@@ -118,7 +118,7 @@ class SsotDownloader extends QueueWorkerBase implements ContainerFactoryPluginIn
         $this->$method($dataset->endpoint, $entry, $career);
       }
       if (!empty($missing_nocs)) {
-        \Drupal::logger('workbc_ssot')->warning('Could not find the following NOCs in dataset @dataset: @nocs', [
+        \Drupal::logger('workbc')->warning('Could not find the following NOCs in dataset @dataset: @nocs', [
           '@nocs' => join(', ', $missing_nocs),
           '@dataset' => $dataset->endpoint,
         ]);
@@ -148,7 +148,7 @@ class SsotDownloader extends QueueWorkerBase implements ContainerFactoryPluginIn
     \Drupal::state()->set('workbc.ssot_dates', $local_dates);
 
     Timer::stop('ssot_downloader');
-    \Drupal::logger('workbc_ssot')->notice('Updated following SSOT datasets in @time: @datasets', [
+    \Drupal::logger('workbc')->notice('Updated following SSOT datasets in @time: @datasets', [
       '@datasets' => join(', ', array_keys($updated_datasets)),
       '@time' => Timer::read('ssot_downloader') . 'ms'
     ]);

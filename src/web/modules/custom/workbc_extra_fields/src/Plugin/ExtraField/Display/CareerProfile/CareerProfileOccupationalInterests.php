@@ -52,7 +52,7 @@ class CareerProfileOccupationalInterests extends ExtraFieldDisplayFormattedBase 
                 'name' => $interest['occupational_interest']
             ]);
             if (empty($entity)) {
-                \Drupal::logger('workbc_extra_fields')->error("Could not find occupational interest labeled {$interest['occupational_interest']}.");
+                \Drupal::logger('workbc')->error("Could not find occupational interest labeled {$interest['occupational_interest']}.");
                 continue;
             }
             $view_builder = \Drupal::entityTypeManager()->getViewBuilder($entity_type);
