@@ -345,6 +345,10 @@
     padding-bottom: 15px;
   }
 
+  .button {
+    margin: 0px;
+  }
+
   @include media-breakpoint-down(sm) {
     .workbc-tooltip-content {
       left: -40px;
