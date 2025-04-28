@@ -588,11 +588,11 @@ display:
             operator_list: {  }
             identifier: keyword_search
             required: false
-            remember: false
+            remember: true
             multiple: false
             remember_roles:
+              anonymous: anonymous
               authenticated: authenticated
-              anonymous: '0'
               content_editor: '0'
               content_approver: '0'
               workbc_administrator: '0'
@@ -636,11 +636,11 @@ display:
             operator_list: {  }
             identifier: term_node_tid_depth
             required: false
-            remember: false
+            remember: true
             multiple: false
             remember_roles:
+              anonymous: anonymous
               authenticated: authenticated
-              anonymous: '0'
               content_editor: '0'
               content_approver: '0'
               workbc_administrator: '0'
@@ -690,11 +690,11 @@ display:
             operator_list: {  }
             identifier: field_epbc_categories_target_id
             required: false
-            remember: false
+            remember: true
             multiple: true
             remember_roles:
+              anonymous: anonymous
               authenticated: authenticated
-              anonymous: '0'
               content_editor: '0'
               content_approver: '0'
               workbc_administrator: '0'
@@ -749,11 +749,11 @@ display:
             operator_list: {  }
             identifier: field_teer_value
             required: false
-            remember: false
+            remember: true
             multiple: true
             remember_roles:
+              anonymous: anonymous
               authenticated: authenticated
-              anonymous: '0'
               content_editor: '0'
               content_approver: '0'
               workbc_administrator: '0'
@@ -823,7 +823,7 @@ display:
             optional: true
             widget: select
             multiple: true
-            remember: false
+            remember: true
             default_group: All
             default_group_multiple: {  }
             group_items:
@@ -894,11 +894,11 @@ display:
             operator_list: {  }
             identifier: delta
             required: true
-            remember: false
+            remember: true
             multiple: false
             remember_roles:
+              anonymous: anonymous
               authenticated: authenticated
-              anonymous: '0'
               content_editor: '0'
               content_approver: '0'
               workbc_administrator: '0'
