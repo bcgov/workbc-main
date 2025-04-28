@@ -214,6 +214,7 @@
     display: grid;
     grid-auto-flow: dense;
     grid-template-columns:  repeat(2, minmax(0, 1fr));
+    grid-gap: 10px;
     position: relative;
 
     @include media-breakpoint-down(sm) {
@@ -223,8 +224,8 @@
     .form-type-checkbox {
       border: 1px solid rgba(0,0,0,.125);
       padding: 5px 10px 5px 10px;
-      margin-left: 5px;
-      margin-right: 5px;
+      margin-left: 0px;
+      margin-right: 0px;
     }
 
     .form-type-checkbox:has(input:checked) {
@@ -321,9 +322,14 @@
     }
 
     .form-item {
-      margin-top: 5px;
-      margin-bottom: 5px;
+      margin: 0px;
+
+      @include media-breakpoint-down(sm) {
+        margin-top: 5px;
+        margin-bottom: 5px;
+      }
     }
+
   }
 
 }
@@ -343,6 +349,10 @@
 
   h2 {
     padding-bottom: 15px;
+  }
+
+  .button {
+    margin: 0px;
   }
 
   @include media-breakpoint-down(sm) {
