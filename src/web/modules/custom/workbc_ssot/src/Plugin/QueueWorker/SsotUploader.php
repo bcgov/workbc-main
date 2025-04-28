@@ -53,7 +53,7 @@ class SsotUploader extends QueueWorkerBase implements ContainerFactoryPluginInte
     $sheet = $file->getFilename();
     $repo = \Drupal::config('workbc')->get('ssot_repo');
     $filepath = \Drupal::service('file_system')->realpath($file->getFileUri());
-    \Drupal::logger('workbc_ssot')->notice('Uploading SSoT LMMU sheet @sheet for @month/@year.', [
+    \Drupal::logger('workbc')->notice('Uploading SSoT LMMU sheet @sheet for @month/@year.', [
       '@sheet' => $sheet,
       '@month' => $data['month'],
       '@year' => $data['year'],
@@ -99,7 +99,7 @@ class SsotUploader extends QueueWorkerBase implements ContainerFactoryPluginInte
     ]);
 
     Timer::stop('ssot_uploader');
-    \Drupal::logger('workbc_ssot')->notice('Done uploading SSoT LMMU sheet @sheet in @time.', [
+    \Drupal::logger('workbc')->notice('Done uploading SSoT LMMU sheet @sheet in @time.', [
       '@sheet' => $sheet,
       '@time' => Timer::read('ssot_uploader') . 'ms'
     ]);

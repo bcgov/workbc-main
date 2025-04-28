@@ -139,9 +139,8 @@ function workbc_jobboard_cron() {
   $total_jobs = $WorkBcJobboardController->getPosts(['getTotalJobs'=>true], 'getTotalJobs', 'get');
   if (isset($total_jobs['data'])) {
     \Drupal::state()->set('jobboard_total_jobs', $total_jobs['data']);
-    \Drupal::logger('workbc_jobboard')->notice('Pulled total jobs from Job Board API.');
   }
   else {
-    \Drupal::logger('workbc_jobboard')->warning('Could not pull total jobs from Job Board API.');
+    \Drupal::logger('workbc')->warning('Could not pull total jobs from Job Board API.');
   }
 }

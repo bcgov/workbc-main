@@ -333,6 +333,8 @@ function workbc_custom_form_views_exposed_form_alter(&$form, FormStateInterface 
     if ($hide_category) {
       $form['term_node_tid_depth']['#type'] = 'hidden';
       $form['term_node_tid_depth']['#value'] = $category_value;
+      $form['term_node_tid_depth']['#multiple'] = false;
+      $form['term_node_tid_depth']['#attributes']['type'] = 'hidden';
       $form_state->getStorage()['view']->getDisplay()->setOption('title', 'Results for ' . array_column(array_filter($categories, function ($term) use($category_value) {
         return $term->tid == $category_value;
       }), 'name')[0]);
