@@ -7,5 +7,5 @@ dependencies:
 id: find_resources_for_educators
 title: 'Find resources for educators'
 content:
-  value: '<div class="find-resources"><div class="find-resources-image-wrapper"><div class="find-resources-media-wrapper"><drupal-media data-entity-type="media" data-entity-uuid="5d0dd62b-24e7-4cba-9195-8c632450bd4c">&nbsp;</drupal-media></div><div class="find-resources-wrapper"><h4>Find resources for educators&nbsp;</h4><p class="find-resources-description">Description of what this functionality allows the user to do specifically</p><p><a class="find-resources-links" href="https://careereducation.workbc.ca/" target="_blank">View Resources for Educators</a></p></div></div></div>'
+  value: '<div class="find-resources"><div class="find-resources-image-wrapper"><div class="find-resources-media-wrapper"><img class="img-fluid image-style-inline-w-content" loading="lazy" src="/themes/custom/workbc/assets/images/books.png" width="33" height="34" alt="Books"></div><div class="find-resources-wrapper"><h4>Find resources for educators&nbsp;</h4><p class="find-resources-description">Description of what this functionality allows the user to do specifically</p><p><a class="find-resources-links" href="https://careereducation.workbc.ca/" target="_blank">View Resources for Educators</a></p></div></div></div>'
   format: full_html
