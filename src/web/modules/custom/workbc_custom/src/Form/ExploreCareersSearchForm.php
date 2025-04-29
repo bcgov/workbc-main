@@ -31,7 +31,7 @@ class ExploreCareersSearchForm extends FormBase {
     $tooltip .= '</span>';
 
     $form['text'] = [
-      '#markup' => 'Find a career profile by job title, occupation title, or NOC code ' . $tooltip,
+      '#markup' => 'Find a career profile by job title, occupation title, or NOC code. ' . $tooltip,
     ];
     $form['keywords'] = [
       '#type' => 'search_api_autocomplete',
