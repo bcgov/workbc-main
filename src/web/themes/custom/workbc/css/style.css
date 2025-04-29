@@ -15243,7 +15243,7 @@ app-filter .job-search-filters .navbar .navbar-nav .nav-item > .dropdown-menu {
   background-color: transparent; }
 .plan-careercareer-trek-videos .career-top-banner {
   padding: 10px 0px;
-  z-index: 9999;
+  z-index: 499;
   position: sticky;
   top: 0px;
   background: #fff; }
@@ -15848,12 +15848,12 @@ app-filter .job-search-filters .navbar .navbar-nav .nav-item > .dropdown-menu {
   position: relative; }
 
 .profile-video iframe {
-  position: absolute;
   top: 0;
   left: 0;
   width: 100%;
   height: 100%;
-  z-index: -1; }
+  z-index: -1;
+  display: none; }
 
 .profile-video img {
   position: relative;
@@ -15861,9 +15861,6 @@ app-filter .job-search-filters .navbar .navbar-nav .nav-item > .dropdown-menu {
 
 .profile-video.active .workbc-card-thumbnail, .media-library-view--widget .view-header a.profile-video.is-active .workbc-card-thumbnail {
   opacity: 0; }
-
-.profile-video.active iframe, .media-library-view--widget .view-header a.profile-video.is-active iframe {
-  z-index: 1; }
 
 .plan-careercareer-trek-videos .salary-range-search .form-item .details-wrapper.card-body, .plan-careercareer-trek-videos .salary-range-search fieldset.form-item > .details-wrapper.fieldset-wrapper, .plan-careercareer-trek-videos .salary-range-search .form-item .form-item-upload > div.details-wrapper, .plan-careercareer-trek-videos .salary-range-search .form-item .form-type-managed-file > div.details-wrapper, .plan-careercareer-trek-videos .salary-range-search .form-item .view-media-library .media-library-views-form .media-library-item--grid .details-wrapper.views-field-rendered-entity, .view-media-library .media-library-views-form .media-library-item--grid .plan-careercareer-trek-videos .salary-range-search .form-item .details-wrapper.views-field-rendered-entity, .plan-careercareer-trek-videos .salary-range-search .form-item .media-library-selection .media-library-item.media-library-item--grid > div.details-wrapper, .media-library-selection .plan-careercareer-trek-videos .salary-range-search .form-item .media-library-item.media-library-item--grid > div.details-wrapper,
 .plan-careercareer-trek-videos .salary-range-search .form-item .media-library-selection .media-library-item.media-library-item--grid article.details-wrapper,
