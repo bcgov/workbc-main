@@ -1,5 +1,5 @@
 :root {
-  --left-offset: -15px;
+  --left-offset: 0px;
   --top-offset: 0px;
 }
 
@@ -24,23 +24,46 @@
     width: 800px !important;
     left: 200px;
   }
-
+ 
+  @include media-breakpoint-down(sm) {
+    width: 100%;
+  }
 }
+
+.workbc-interactive-map-container {
+  padding-bottom: 8px;
+}
+
+
+.workbc-interactive-map svg {
+  width: 400px;
+  height: 340px;
+
+  @include media-breakpoint-down(lg) {
+    width: 100%;
+  }
+}
+
+.workbc-interactive-map {
+  .bc-map-region {
+    fill: #002857;
+  }
+
+  .bc-map-region:hover {
+    fill: #009cde;
+  }
+
+  .active {
+    fill: #009cde;
+  }
+}
+
+
 
 .work-interactive-map img {
   margin: 0px;
 }
 
-.interactive-map-cariboo,
-.interactive-map-kootenay,
-.interactive-map-mainland_southwest,
-.interactive-map-north_coast_nechako,
-.interactive-map-northeast,
-.interactive-map-thompson_okanagan,
-.interactive-map-vancouver_island_coast {
-  display: none;
-  visibility: hidden;
-}
 
 .map-region {
   border-width: 0px;
@@ -113,7 +136,7 @@ tr.interactive-map-row-hilite {
 
 .map-region-label-thompson_okanagan {
   position: absolute;
-  left: calc(var(--left-offset) + 390px);
+  left: calc(var(--left-offset) + 380px);
   top: calc(var(--top-offset) + 235px);
   width: 171px;
   height:32px
@@ -186,90 +209,6 @@ tr.interactive-map-row-hilite {
   top: calc(var(--top-offset) + 250px);
   width: 115px;
   height: 3px;
-}
-
-.map-hot-spot {
-  border-width: 0px;
-  overflow: hidden;
-  cursor: pointer;
-  background-image: url(../assets/images/transparent.gif);
-}
-
-.map-hot-spot-cariboo {
-  position: absolute;
-  left: calc(var(--left-offset) + 0px);
-  top: calc(var(--top-offset) + 0px);
-  width: 400px;
-  height: 330px;
-  // background-color:rgb(73, 126, 240);
-  // opacity: .35;
-  clip-path: polygon(54% 38%, 79% 67%, 78% 69%, 69% 63%, 67% 75%, 60% 75%, 54% 80%, 48% 76%, 47% 69%, 43% 64%, 56% 59%);
-}
-
-.map-hot-spot-kootenay {
-  position: absolute;
-  left: calc(var(--left-offset) + 0px);
-  top: calc(var(--top-offset) + 0px);
-  width: 400px;
-  height: 330px;
-  // background-color:rgb(230, 187, 47);
-  // opacity: .35;
-  clip-path: polygon(74% 89%, 78% 87%, 81% 81%, 86% 80%, 89% 77%, 93% 83%, 97% 92%, 74% 95%);
-}
-
-.map-hot-spot-mainland_southwest {
-  position: absolute;
-  left: calc(var(--left-offset) + 0px);
-  top: calc(var(--top-offset) + 0px);
-  width: 400px;
-  height: 330px;
-  // background-color:rgb(52, 212, 40);
-  // opacity: .35;
-  clip-path: polygon(59% 96%, 55% 91%, 56% 89%, 52% 85%, 55% 80%, 58% 78%, 63% 80%, 60% 85%, 65% 87%, 67% 95%);
-}
-
-.map-hot-spot-north_coast_nechako {
-  position: absolute;
-  left: calc(var(--left-offset) + 0px);
-  top: calc(var(--top-offset) + 0px);
-  width: 400px;
-  height: 330px;
-  // background-color:rgb(79, 2, 112);
-  // opacity: .35;
-  clip-path: polygon(3% 0, 7% 10%, 14% 6%, 22% 30%, 29% 37%, 26% 53%, 15% 50%, 15% 57%, 19% 67%, 38% 65%, 38% 59%, 44% 62%, 49% 62%, 49% 59%, 55% 58%, 53% 42%, 48% 37%, 38% 31%, 46% 22%, 37% 7%);
-}
-
-.map-hot-spot-northeast {
-  position: absolute;
-  left: calc(var(--left-offset) + 0px);
-  top: calc(var(--top-offset) + 0px);
-  width: 400px;
-  height: 330px;
-  // background-color:red;
-  // opacity: .35;
-  clip-path: polygon(38% 7%, 49% 23%, 44% 25%, 40% 31%, 55% 41%, 69% 56%, 68% 7%);
-}
-
-.map-hot-spot-thompson_okanagan {
-  position: absolute;
-  left: calc(var(--left-offset) + 0px);
-  top: calc(var(--top-offset) + 0px);
-  width: 400px;
-  height: 330px;
-  // background-color:rgb(213, 166, 210);
-  // opacity: .35;
-  clip-path: polygon(59% 77%, 68% 76%, 69% 71%, 68% 64%, 74% 67%, 76% 70%, 80% 67%, 88% 77%, 74% 89%, 73% 95%, 67% 95%, 65% 87%, 60% 86%, 62% 81%);
-}
-
-.map-hot-spot-vancouver_island_coast {
-  position: absolute;
-  left: calc(var(--left-offset) + 0px);
-  top: calc(var(--top-offset) + 0px);
-  width: 400px;
-  height: 330px;
-  // background-color:rgb(0, 8, 255);
-  // opacity: .35;
-  clip-path: polygon(41% 63%, 53% 82%, 56% 100%, 51% 100%, 32% 80%, 34% 66%);
 }
 
 
@@ -435,4 +374,3 @@ div#career-profile-interactive-map-2 {
     }
   }
 }
-

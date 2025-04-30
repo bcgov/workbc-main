@@ -21,7 +21,6 @@ dependencies:
     - field_group
     - scheduled_publish
     - text
-    - user
 third_party_settings:
   field_group:
     group_region_profile_tabs:
@@ -32,7 +31,7 @@ third_party_settings:
       label: 'Region Profile Tabs'
       parent_name: ''
       region: content
-      weight: 14
+      weight: 12
       format_type: tabs
       format_settings:
         classes: ''
@@ -117,26 +116,7 @@ content:
   content_moderation_control:
     settings: {  }
     third_party_settings: {  }
-    weight: 2
-    region: content
-  created:
-    type: timestamp
-    label: hidden
-    settings:
-      date_format: medium
-      custom_date_format: ''
-      timezone: ''
-      tooltip:
-        date_format: long
-        custom_date_format: ''
-      time_diff:
-        enabled: false
-        future_format: '@interval hence'
-        past_format: '@interval ago'
-        granularity: 2
-        refresh: 60
-    third_party_settings: {  }
-    weight: 1
+    weight: 0
     region: content
   extra_field_labour_market_outlook_introduction:
     settings: {  }
@@ -151,7 +131,7 @@ content:
   extra_field_region_employment:
     settings: {  }
     third_party_settings: {  }
-    weight: 7
+    weight: 5
     region: content
   extra_field_region_employment_bc:
     settings: {  }
@@ -206,7 +186,7 @@ content:
   extra_field_region_employment_source:
     settings: {  }
     third_party_settings: {  }
-    weight: 8
+    weight: 6
     region: content
   extra_field_region_ft_pt_employment_table:
     settings: {  }
@@ -221,7 +201,7 @@ content:
   extra_field_region_job_openings:
     settings: {  }
     third_party_settings: {  }
-    weight: 12
+    weight: 10
     region: content
   extra_field_region_job_openings_composition_chart:
     settings: {  }
@@ -251,7 +231,7 @@ content:
   extra_field_region_job_openings_source:
     settings: {  }
     third_party_settings: {  }
-    weight: 13
+    weight: 11
     region: content
   extra_field_region_labour_market_outlook_introduction:
     settings: {  }
@@ -266,12 +246,12 @@ content:
   extra_field_region_population:
     settings: {  }
     third_party_settings: {  }
-    weight: 5
+    weight: 3
     region: content
   extra_field_region_population_source:
     settings: {  }
     third_party_settings: {  }
-    weight: 6
+    weight: 4
     region: content
   extra_field_region_top_occupations_introduction:
     settings: {  }
@@ -291,7 +271,7 @@ content:
   extra_field_region_unemployment_rate:
     settings: {  }
     third_party_settings: {  }
-    weight: 9
+    weight: 7
     region: content
   extra_field_region_unemployment_rate_bc:
     settings: {  }
@@ -311,7 +291,7 @@ content:
   extra_field_region_unemployment_rate_source:
     settings: {  }
     third_party_settings: {  }
-    weight: 11
+    weight: 9
     region: content
   extra_field_region_unemployment_region_source:
     settings: {  }
@@ -339,7 +319,7 @@ content:
       view_mode: hero_image
       link: false
     third_party_settings: {  }
-    weight: 4
+    weight: 2
     region: content
   field_industry_highlights_intro:
     type: text_default
@@ -369,7 +349,7 @@ content:
       date_format: html_datetime
       text_pattern: '%moderation_state% - %date%'
     third_party_settings: {  }
-    weight: 10
+    weight: 8
     region: content
   field_top_occupations_intro:
     type: text_default
@@ -381,16 +361,10 @@ content:
   links:
     settings: {  }
     third_party_settings: {  }
-    weight: 3
-    region: content
-  uid:
-    type: author
-    label: hidden
-    settings: {  }
-    third_party_settings: {  }
-    weight: 0
+    weight: 1
     region: content
 hidden:
+  created: true
   extra_field_region_employment_by_region_table: true
   extra_field_region_employment_shart_goods_services_chart: true
   extra_field_region_population_bc: true
@@ -404,3 +378,4 @@ hidden:
   field_tags: true
   langcode: true
   search_api_excerpt: true
+  uid: true

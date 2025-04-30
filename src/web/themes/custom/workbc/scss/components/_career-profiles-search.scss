@@ -25,7 +25,8 @@
   width: 100%;
   display: list-item;
   list-style-type: disc;
-  list-style-position: inside;
+  list-style-position: outside;
+  padding-right: 20px;
 }
 
 #job-titles .pointer:hover {
