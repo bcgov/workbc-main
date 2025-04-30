@@ -66,9 +66,9 @@
             const $salaryOp = $('.plan-careercareer-trek-videos .view-career-trek-video-library .career-videos-filters .salary-range-search select[name="annual_salary_op"]');
             if (min && max) {
               $(`#annual-salary`).jRange('setValue', `${min},${max}`);
-              
+
             }
-  
+
             if ($valueInput.val()) {
               $salaryOp.val('>');
               $minInput.val(min);
@@ -79,6 +79,9 @@
             }
             if(max != 140000) {
               $maxInput.val(max);
+              if(min == 10000) {
+                $minInput.val(min);
+              }
             }
             if(min != 10000) {
               $minInput.val(min);
@@ -89,7 +92,7 @@
             $('fieldset[data-drupal-selector="edit-annual-salary-wrapper"] input[name^="annual_salary"]').val('');
           });
         });
-        
+
       }
     }
   };

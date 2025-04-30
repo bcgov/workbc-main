@@ -29,7 +29,7 @@ function workbc_career_trek_preprocess_views_view(&$variables) {
               $values[] = $title;
             }
           }
-
+          
         }
          elseif ($key == "minimum_education_all") {
           $title = $filters['minimum_education']['group_info']['group_items'][$expose]['title'] ?? '';
@@ -74,7 +74,7 @@ function workbc_career_trek_preprocess_views_view(&$variables) {
 function workbc_career_trek_uninstall() {
     // Load the entity type manager service.
     $entity_type_manager = \Drupal::entityTypeManager();
-
+  
     // Load and remove paragraph items of type 'section_icons_1_3' before removing its fields and type.
     $paragraph_items = $entity_type_manager->getStorage('paragraph')->loadByProperties(['type' => 'section_icons_1_3']);
     foreach ($paragraph_items as $paragraph_item) {
@@ -87,7 +87,7 @@ function workbc_career_trek_uninstall() {
       }
       $paragraph_type->delete();
     }
-
+  
     // Load and remove paragraph items of type 'banner_video' before deleting its fields and type.
     $paragraph_items = $entity_type_manager->getStorage('paragraph')->loadByProperties(['type' => 'banner_video']);
     foreach ($paragraph_items as $paragraph_item) {
@@ -101,7 +101,7 @@ function workbc_career_trek_uninstall() {
       }
       $paragraph_type->delete();
     }
-
+  
     // Load the paragraph type 'banner_video' and delete its fields.
     if ($paragraph_type = $entity_type_manager->getStorage('paragraphs_type')->load('banner_video')) {
       $field_storage_definitions = $entity_type_manager->getStorage('field_storage_config')->loadByProperties(['entity_type' => 'paragraph', 'bundle' => 'banner_video']);
@@ -290,5 +290,17 @@ function workbc_career_trek_preprocess_breadcrumb(&$variables) {
         $breadcrumb[count($breadcrumb) - 1]['text'] = $title;
       }
     }
+  }
+}
+
+/**
+ * Implements hook_form_FORM_ID_alter().
+ * Alter the exposed filter form for the Career Trek Video Library block.
+ */
+function workbc_career_trek_form_views_exposed_form_alter(&$form, \Drupal\Core\Form\FormStateInterface $form_state, $form_id) {
+  if($form['#id'] == "views-exposed-form-career-trek-video-library-block-1") {
+    $form['annual_salary_wrapper']['#type'] = 'details';
+    $form['annual_salary_wrapper']['#title'] = $form['annual_salary_wrapper']['annual_salary_wrapper']['#title'];
+    $form['annual_salary_wrapper']['#description'] = $form['annual_salary_wrapper']['annual_salary_wrapper']['#description'];
   }
 }

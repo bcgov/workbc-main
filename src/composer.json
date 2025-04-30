@@ -78,7 +78,7 @@
         "drupal/auto_username": "^1.2",
         "drupal/backup_migrate": "^5.0",
         "drupal/backup_migrate_aws_s3": "^5.0",
-        "drupal/better_exposed_filters": "^6.0",
+        "drupal/better_exposed_filters": "^7.0",
         "drupal/better_social_sharing_buttons": "^4.0",
         "drupal/block_visibility_conditions": "1.x-dev#89c578b252af0d99c832af5b6c6ee4d52b6490d1",
         "drupal/bootstrap5": "^3.0",
