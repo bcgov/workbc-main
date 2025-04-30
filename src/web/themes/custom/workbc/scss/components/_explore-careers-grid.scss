@@ -364,15 +364,20 @@
 .workbc-custom-explore-careers-search-form {
   margin-top: 25px;
   padding-top: 25px;
-  padding-bottom: 25px;
+  padding-bottom: 100px;
   background-color: $workbc_palette_light_secondary;
 
   h2 {
     padding-bottom: 15px;
   }
 
+  .form-item-keywords {
+    display: inline-block;
+    width: 80%;
+  }
+
   .button {
-    margin: 0px;
+    display: inline-block;
   }
 
   @include media-breakpoint-down(lg) {
