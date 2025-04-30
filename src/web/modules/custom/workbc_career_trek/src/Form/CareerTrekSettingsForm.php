@@ -4,7 +4,6 @@ namespace Drupal\workbc_career_trek\Form;
 
 use Drupal\Core\Form\ConfigFormBase;
 use Drupal\Core\Form\FormStateInterface;
-use Drupal\file\Entity\File;
 
 class CareerTrekSettingsForm extends ConfigFormBase {
 
@@ -30,6 +29,15 @@ class CareerTrekSettingsForm extends ConfigFormBase {
   public function buildForm(array $form, FormStateInterface $form_state) {
     $config = $this->config('workbc_career_trek.settings');
 
+    // Get the path to the module.
+    $moduleHandler = \Drupal::service('module_handler');
+    $modulePath = '/' . $moduleHandler->getModule('workbc_career_trek')->getPath();
+
+    $default_logo_path = $modulePath . '/assets/images/carrerTrekLogo.png';
+    $default_icon_grid_path = $modulePath . '/assets/icons/grid_icon.svg';
+    $default_list_icon_path = $modulePath . '/assets/icons/list_icon.svg';
+    $default_toggle_icon_path = $modulePath . '/assets/icons/close.svg';
+
     $form['main_title'] = [
       '#type' => 'textfield',
       '#title' => $this->t('Title'),
@@ -37,16 +45,23 @@ class CareerTrekSettingsForm extends ConfigFormBase {
     ];
 
     $form['logo'] = [
-      '#type' => 'managed_file',
-      '#title' => $this->t('Logo'),
-      '#default_value' => $config->get('logo'),
-      '#upload_location' => 'public://career_trek_logos/',
-      '#upload_validators' => [
-        'file_validate_extensions' => ['png jpg jpeg'],
-        'file_validate_size' => [25600000], // 25MB max
-        'file_validate_name_length' => [255],
-      ],
-      '#description' => $this->t('Allowed extensions: png, jpg, jpeg. Maximum file size: 25MB.'),
+      '#type' => 'hidden',
+      '#value' => $default_logo_path,
+    ];
+
+    $form['toggle_icon_grid'] = [
+      '#type' => 'hidden',
+      '#value' => $default_icon_grid_path,
+    ];
+
+    $form['toggle_icon_list'] = [
+      '#type' => 'hidden',
+      '#value' => $default_list_icon_path,
+    ];
+
+    $form['responsive_toggle_icon'] = [
+      '#type' => 'hidden',
+      '#value' => $default_toggle_icon_path,
     ];
 
     $form['back_button'] = [
@@ -68,34 +83,6 @@ class CareerTrekSettingsForm extends ConfigFormBase {
       '#description' => $this->t('Enter the text to display on the back button'),
     ];
 
-    $form['toggle_icon_grid'] = [
-      '#type' => 'managed_file',
-      '#title' => $this->t('Toggle Icon Grid'),
-      '#default_value' => $config->get('toggle_icon_grid'),
-      '#upload_location' => 'public://career_trek_icons/',
-      '#upload_validators' => [
-        'file_validate_extensions' => ['svg'],
-      ],
-    ];
-
-    $form['toggle_icon_list'] = [
-      '#type' => 'managed_file',
-      '#title' => $this->t('Toggle Icon List'),
-      '#default_value' => $config->get('toggle_icon_list'),
-      '#upload_location' => 'public://career_trek_icons/',
-      '#upload_validators' => [
-        'file_validate_extensions' => ['svg'],
-      ],
-    ];
-    $form['responsive_toggle_icon'] = [
-      '#type' => 'managed_file',
-      '#title' => $this->t('Responsive Toggle Icon'),
-      '#default_value' => $config->get('responsive_toggle_icon'),
-      '#upload_location' => 'public://career_trek_icons/',
-      '#upload_validators' => [
-        'file_validate_extensions' => ['svg'],
-      ],
-    ];
     $form['searching_text'] = [
       '#type' => 'textfield',
       '#title' => $this->t('Searching text'),
@@ -142,28 +129,7 @@ class CareerTrekSettingsForm extends ConfigFormBase {
   public function submitForm(array &$form, FormStateInterface $form_state) {
     $config = $this->configFactory->getEditable('workbc_career_trek.settings');
 
-    // Handle file updates
-    $fileFields = ['logo', 'toggle_icon_grid', 'toggle_icon_list', 'responsive_toggle_icon'];
-    foreach ($fileFields as $field) {
-      $oldValue = $config->get($field);
-      $newValue = $form_state->getValue($field);
-
-      if (!empty($oldValue) && $oldValue != $newValue) {
-        if ($oldFile = File::load(current($oldValue))) {
-          $oldFile->delete();
-        }
-      }
-      if (!empty($newValue) && $oldValue != $newValue) {
-        $file = File::load(current($newValue));
-        $file->setPermanent();
-        $file->save();
-        $file_usage = \Drupal::service('file.usage');
-        $file_usage->add($file, 'workbc_career_trek', 'managed_file', current($newValue));
-
-      }
-    }
-
-    // Save all form values
+    // Save all form values, using the hidden value for managed_file fields
     $fields = [
       'main_title' => 'main_title',
       'logo' => 'logo',

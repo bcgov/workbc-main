@@ -886,7 +886,7 @@ display:
           exclude: false
           alter:
             alter_text: true
-            text: 'Filmed in {{ custom_location }} BC'
+            text: 'Filmed in {{ custom_location }}'
             make_link: false
             path: ''
             absolute: false

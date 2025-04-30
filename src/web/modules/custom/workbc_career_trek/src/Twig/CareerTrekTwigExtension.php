@@ -5,8 +5,6 @@ namespace Drupal\workbc_career_trek\Twig;
 use Twig\Extension\AbstractExtension;
 use Twig\TwigFunction;
 use Drupal\Core\Config\ConfigFactoryInterface;
-use Drupal\file\Entity\File;
-use Drupal\Core\File\FileUrlGeneratorInterface;
 
 /**
  * Provides custom Twig functions for Career Trek.
@@ -21,23 +19,13 @@ class CareerTrekTwigExtension extends AbstractExtension {
   protected $configFactory;
 
   /**
-   * The file URL generator service.
-   *
-   * @var \Drupal\Core\File\FileUrlGeneratorInterface
-   */
-  protected $fileUrlGenerator;
-
-  /**
    * Constructs a new CareerTrekTwigExtension object.
    *
    * @param \Drupal\Core\Config\ConfigFactoryInterface $configFactory
    *   The config factory.
-   * @param \Drupal\Core\File\FileUrlGeneratorInterface $fileUrlGenerator
-   *   The file URL generator service.
    */
-  public function __construct(ConfigFactoryInterface $configFactory, FileUrlGeneratorInterface $fileUrlGenerator) {
+  public function __construct(ConfigFactoryInterface $configFactory) {
     $this->configFactory = $configFactory;
-    $this->fileUrlGenerator = $fileUrlGenerator;
   }
 
   /**
@@ -80,37 +68,35 @@ class CareerTrekTwigExtension extends AbstractExtension {
    */
   public function getCareerTrekConfig($key) {
     $config = $this->configFactory->get('workbc_career_trek.settings');
-    // If the key is 'logo', retrieve the file URL.
+    // If the key is 'logo', retrieve the file URL (now stored as an absolute path).
     if ($key === 'logo') {
-      $fid = $config->get($key);
-      if (!empty($fid) && is_array($fid)) {
-        $fid = reset($fid); // Get the first file ID if it's an array.
+      $path = $config->get($key);
+      if (!empty($path)) {
+        // If the path is relative to the Drupal root, prepend base_path().
+        // If it's already absolute (starts with /), just return as is.
+        global $base_url;
+        // Remove leading slash if present to avoid double slashes.
+        $url = $base_url . (strpos($path, '/') === 0 ? $path : '/' . $path);
+        return $url;
       }
-      if ($fid) {
-        $file = File::load($fid);
-        if ($file) {
-          return $this->fileUrlGenerator->generateAbsoluteString($file->getFileUri());
-        }
-      }
-      return NULL; // Return NULL if no valid file exists.
+      return NULL;
     }
-    // For 'toggle_icon_grid' and 'toggle_icon_list', return the SVG content.
+    // For 'toggle_icon_grid', 'toggle_icon_list', 'responsive_toggle_icon', return the SVG content from the path.
     elseif ($key === 'toggle_icon_grid' || $key === 'toggle_icon_list' || $key === 'responsive_toggle_icon') {
-      $fid = $config->get($key);
-      if (!empty($fid) && is_array($fid)) {
-        $fid = reset($fid); // Get the first file ID if it's an array.
-      }
-      if ($fid) {
-        $file = File::load($fid);
-        if ($file) {
-          $file_uri = $file->getFileUri();
-          $file_content = file_get_contents($file_uri);
+      $path = $config->get($key);
+      if (!empty($path)) {
+        // The path is absolute from the Drupal root, e.g. "/themes/custom/..."
+        // Build the full filesystem path.
+        $drupal_root = \Drupal::root();
+        $file_path = $drupal_root . $path;
+        if (file_exists($file_path)) {
+          $file_content = file_get_contents($file_path);
           if ($file_content) {
-            return new \Twig\Markup($file_content, 'UTF-8'); // Return the SVG content as a Twig Markup object.
+            return new \Twig\Markup($file_content, 'UTF-8');
           }
         }
       }
-      return NULL; // Return NULL if no valid file exists.
+      return NULL;
     }
 
     return $config->get($key);

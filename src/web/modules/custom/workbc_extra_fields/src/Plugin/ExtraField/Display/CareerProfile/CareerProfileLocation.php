@@ -43,7 +43,7 @@ class CareerProfileLocation extends ExtraFieldDisplayFormattedBase {
    */
   public function viewElements(ContentEntityInterface $entity) {
     if (!empty($entity->ssot_data) && isset($entity->ssot_data['career_trek'][0]['location'])) {
-      $output = $entity->ssot_data['career_trek'][0]['location'] . " BC";
+      $output = $entity->ssot_data['career_trek'][0]['location'];
     }
     else {
       $output = WORKBC_EXTRA_FIELDS_NOT_AVAILABLE;

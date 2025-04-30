@@ -118,11 +118,11 @@
               {{ empty }}
               </div>
           {% endif %}
+          {% if pager %}
+            {{ pager }}
+          {% endif %}
       </div>
     </div>
-    {% if pager %}
-      {{ pager }}
-    {% endif %}
     {% if attachment_after %}
       <div class="attachment attachment-after">
         {{ attachment_after }}
