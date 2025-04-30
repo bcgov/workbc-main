@@ -668,7 +668,7 @@ display:
           click_sort_column: value
           type: string
           settings:
-            link_to_entity: true
+            link_to_entity: false
           group_column: value
           group_columns: {  }
           group_rows: true
@@ -2519,7 +2519,7 @@ display:
           click_sort_column: value
           type: string
           settings:
-            link_to_entity: true
+            link_to_entity: false
           group_column: value
           group_columns: {  }
           group_rows: true
@@ -3220,42 +3220,42 @@ display:
                 value:
                   min: ''
                   max: ''
-                  value: '1'
+                  value: '0'
               2:
                 title: 'University Degree'
                 operator: '='
                 value:
                   min: ''
                   max: ''
-                  value: '2'
+                  value: '1'
               3:
                 title: 'College Diploma or Apprenticeship, 2 or more years'
                 operator: '='
                 value:
                   min: ''
                   max: ''
-                  value: '3'
+                  value: '2'
               4:
                 title: 'College Diploma or Apprenticeship, less than 2 years'
                 operator: '='
                 value:
                   min: ''
                   max: ''
-                  value: '4'
+                  value: '3'
               5:
                 title: 'High School Diploma'
                 operator: '='
                 value:
                   min: ''
                   max: ''
-                  value: '5'
+                  value: '4'
               6:
                 title: 'No Formal Education'
                 operator: '='
                 value:
                   min: ''
                   max: ''
-                  value: '6'
+                  value: '5'
         annual_salary:
           id: annual_salary
           table: search_api_index_career_profile_index
@@ -3450,19 +3450,19 @@ display:
             default_group_multiple: {  }
             group_items:
               1:
-                title: 'British Columbia'
+                title: Cariboo
                 operator: '='
                 value:
                   min: ''
                   max: ''
-                  value: 'British Columbia'
+                  value: Cariboo
               2:
-                title: 'Vancouver Island/Coast'
+                title: Kootenay
                 operator: '='
                 value:
                   min: ''
                   max: ''
-                  value: 'Vancouver Island/Coast'
+                  value: Kootenay
               3:
                 title: Mainland/Southwest
                 operator: '='
@@ -3471,40 +3471,33 @@ display:
                   max: ''
                   value: Mainland/Southwest
               4:
-                title: Thompson-Okanagan
-                operator: '='
-                value:
-                  min: ''
-                  max: ''
-                  value: Thompson-Okanagan
-              5:
-                title: Kootenay
-                operator: '='
-                value:
-                  min: ''
-                  max: ''
-                  value: Kootenay
-              6:
-                title: Cariboo
-                operator: '='
-                value:
-                  min: ''
-                  max: ''
-                  value: Cariboo
-              7:
                 title: 'North Coast and Nechako'
                 operator: '='
                 value:
                   min: ''
                   max: ''
-                  value: 'North Coast and Nechako'
-              8:
+                  value: 'North Coast & Nechako'
+              5:
                 title: Northeast
                 operator: '='
                 value:
                   min: ''
                   max: ''
                   value: Northeast
+              6:
+                title: Thompson-Okanagan
+                operator: '='
+                value:
+                  min: ''
+                  max: ''
+                  value: Thompson-Okanagan
+              7:
+                title: 'Vancouver Island/Coast'
+                operator: '='
+                value:
+                  min: ''
+                  max: ''
+                  value: 'Vancouver Island/Coast'
         occupational_category_api_field:
           id: occupational_category_api_field
           table: search_api_index_career_profile_index

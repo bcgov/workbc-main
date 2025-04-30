@@ -1,17 +1,19 @@
 title: 'Back To All Videos'
 logo:
-  - '2597'
+  - '2594'
 back_button_url: /plan-career/career-trek-videos
 back_button_title: 'Back To All Videos'
 toggle_icon_grid:
-  - '2630'
+  - '2633'
 toggle_icon_list:
-  - '2631'
+  - '2634'
 searching_text: 'Career Video Matching:'
 in_demand_title: 'Featured Videos'
 latest_career_title: 'Most recent videos'
 filter_title: 'Filter Videos'
+url: null
 responsive_toggle_icon:
-  - '2632'
+  - '2636'
 related_careers_title: 'Related Careers Videos'
 main_title: 'Career Trek'
+url_skills_future_workforce: /plan-career/skills-future-workforce

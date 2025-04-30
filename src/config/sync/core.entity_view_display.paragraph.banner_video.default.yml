@@ -4,10 +4,12 @@ status: true
 dependencies:
   config:
     - field.field.paragraph.banner_video.field_banner_description
+    - field.field.paragraph.banner_video.field_banner_image
     - field.field.paragraph.banner_video.field_banner_title
     - field.field.paragraph.banner_video.field_banner_video
     - paragraphs.paragraphs_type.banner_video
   module:
+    - svg_image
     - text
 id: paragraph.banner_video.default
 targetEntityType: paragraph
@@ -20,6 +22,14 @@ content:
     settings: {  }
     third_party_settings: {  }
     weight: 1
+    region: content
+  field_banner_image:
+    type: image_url
+    label: above
+    settings:
+      image_style: ''
+    third_party_settings: {  }
+    weight: 3
     region: content
   field_banner_title:
     type: string

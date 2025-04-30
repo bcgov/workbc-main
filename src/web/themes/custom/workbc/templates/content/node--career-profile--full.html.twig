@@ -1,365 +1,676 @@
 {#
-    /**
-     * @file
-     * Theme override to display a node.
-     *
-     * Available variables:
-     * - node: The node entity with limited access to object properties and methods.
-     *   Only method names starting with "get", "has", or "is" and a few common
-     *   methods such as "id", "label", and "bundle" are available. For example:
-     *   - node.getCreatedTime() will return the node creation timestamp.
-     *   - node.hasField('field_example') returns TRUE if the node bundle includes
-     *     field_example. (This does not indicate the presence of a value in this
-     *     field.)
-     *   - node.isPublished() will return whether the node is published or not.
-     *   Calling other methods, such as node.delete(), will result in an exception.
-     *   See \Drupal\node\Entity\Node for a full list of public properties and
-     *   methods for the node object.
-     * - label: (optional) The title of the node.
-     * - content: All node items. Use {{ content }} to print them all,
-     *   or print a subset such as {{ content.field_example }}. Use
-     *   {{ content|without('field_example') }} to temporarily suppress the printing
-     *   of a given child element.
-     * - author_picture: The node author user entity, rendered using the "compact"
-     *   view mode.
-     * - metadata: Metadata for this node.
-     * - date: (optional) Themed creation date field.
-     * - author_name: (optional) Themed author name field.
-     * - url: Direct URL of the current node.
-     * - display_submitted: Whether submission information should be displayed.
-     * - attributes: HTML attributes for the containing element.
-     *   The attributes.class element may contain one or more of the following
-     *   classes:
-     *   - node: The current template type (also known as a "theming hook").
-     *   - node--type-[type]: The current node type. For example, if the node is an
-     *     "Article" it would result in "node--type-article". Note that the machine
-     *     name will often be in a short form of the human readable label.
-     *   - node--view-mode-[view_mode]: The View Mode of the node; for example, a
-     *     teaser would result in: "node--view-mode-teaser", and
-     *     full: "node--view-mode-full".
-     *   The following are controlled through the node publishing options.
-     *   - node--promoted: Appears on nodes promoted to the front page.
-     *   - node--sticky: Appears on nodes ordered above other non-sticky nodes in
-     *     teaser listings.
-     *   - node--unpublished: Appears on unpublished nodes visible only to site
-     *     admins.
-     * - title_attributes: Same as attributes, except applied to the main title
-     *   tag that appears in the template.
-     * - content_attributes: Same as attributes, except applied to the main
-     *   content tag that appears in the template.
-     * - author_attributes: Same as attributes, except applied to the author of
-     *   the node tag that appears in the template.
-     * - title_prefix: Additional output populated by modules, intended to be
-     *   displayed in front of the main title tag that appears in the template.
-     * - title_suffix: Additional output populated by modules, intended to be
-     *   displayed after the main title tag that appears in the template.
-     * - view_mode: View mode; for example, "teaser" or "full".
-     * - teaser: Flag for the teaser state. Will be true if view_mode is 'teaser'.
-     * - page: Flag for the full page state. Will be true if view_mode is 'full'.
-     * - readmore: Flag for more state. Will be true if the teaser content of the
-     *   node cannot hold the main body content.
-     * - logged_in: Flag for authenticated user status. Will be true when the
-     *   current user is a logged-in member.
-     * - is_admin: Flag for admin user status. Will be true when the current user
-     *   is an administrator.
-     *
-     * @see template_preprocess_node()
-     *
-     */
-    #}
+/**
+ * @file
+ * Theme override to display a node.
+ *
+ * Available variables:
+ * - node: The node entity with limited access to object properties and methods.
+ *   Only method names starting with "get", "has", or "is" and a few common
+ *   methods such as "id", "label", and "bundle" are available. For example:
+ *   - node.getCreatedTime() will return the node creation timestamp.
+ *   - node.hasField('field_example') returns TRUE if the node bundle includes
+ *     field_example. (This does not indicate the presence of a value in this
+ *     field.)
+ *   - node.isPublished() will return whether the node is published or not.
+ *   Calling other methods, such as node.delete(), will result in an exception.
+ *   See \Drupal\node\Entity\Node for a full list of public properties and
+ *   methods for the node object.
+ * - label: (optional) The title of the node.
+ * - content: All node items. Use {{ content }} to print them all,
+ *   or print a subset such as {{ content.field_example }}. Use
+ *   {{ content|without('field_example') }} to temporarily suppress the printing
+ *   of a given child element.
+ * - author_picture: The node author user entity, rendered using the "compact"
+ *   view mode.
+ * - metadata: Metadata for this node.
+ * - date: (optional) Themed creation date field.
+ * - author_name: (optional) Themed author name field.
+ * - url: Direct URL of the current node.
+ * - display_submitted: Whether submission information should be displayed.
+ * - attributes: HTML attributes for the containing element.
+ *   The attributes.class element may contain one or more of the following
+ *   classes:
+ *   - node: The current template type (also known as a "theming hook").
+ *   - node--type-[type]: The current node type. For example, if the node is an
+ *     "Article" it would result in "node--type-article". Note that the machine
+ *     name will often be in a short form of the human readable label.
+ *   - node--view-mode-[view_mode]: The View Mode of the node; for example, a
+ *     teaser would result in: "node--view-mode-teaser", and
+ *     full: "node--view-mode-full".
+ *   The following are controlled through the node publishing options.
+ *   - node--promoted: Appears on nodes promoted to the front page.
+ *   - node--sticky: Appears on nodes ordered above other non-sticky nodes in
+ *     teaser listings.
+ *   - node--unpublished: Appears on unpublished nodes visible only to site
+ *     admins.
+ * - title_attributes: Same as attributes, except applied to the main title
+ *   tag that appears in the template.
+ * - content_attributes: Same as attributes, except applied to the main
+ *   content tag that appears in the template.
+ * - author_attributes: Same as attributes, except applied to the author of
+ *   the node tag that appears in the template.
+ * - title_prefix: Additional output populated by modules, intended to be
+ *   displayed in front of the main title tag that appears in the template.
+ * - title_suffix: Additional output populated by modules, intended to be
+ *   displayed after the main title tag that appears in the template.
+ * - view_mode: View mode; for example, "teaser" or "full".
+ * - teaser: Flag for the teaser state. Will be true if view_mode is 'teaser'.
+ * - page: Flag for the full page state. Will be true if view_mode is 'full'.
+ * - readmore: Flag for more state. Will be true if the teaser content of the
+ *   node cannot hold the main body content.
+ * - logged_in: Flag for authenticated user status. Will be true when the
+ *   current user is a logged-in member.
+ * - is_admin: Flag for admin user status. Will be true when the current user
+ *   is an administrator.
+ *
+ * @see template_preprocess_node()
+ *
+ */
+#}
 
-    {%
-      set classes = [
-        'node',
-        'node--type-' ~ node.bundle|clean_class,
-        node.isPromoted() ? 'node--promoted',
-        node.isSticky() ? 'node--sticky',
-        not node.isPublished() ? 'node--unpublished',
-        view_mode ? 'node--view-mode-' ~ view_mode|clean_class,
-        'workbc-profile',
-      ]
-    %}
+{%
+  set classes = [
+    'node',
+    'node--type-' ~ node.bundle|clean_class,
+    node.isPromoted() ? 'node--promoted',
+    node.isSticky() ? 'node--sticky',
+    not node.isPublished() ? 'node--unpublished',
+    view_mode ? 'node--view-mode-' ~ view_mode|clean_class,
+    'workbc-profile',
+  ]
+%}
 
-    {# This viewmodel is intended to collect all of the incoming variables in one place, and the remainder of the template should
-     refer only to this viewmodel (or Drupal/Twig generics like loop, directory, etc #}
-    {% set viewmodel = {
-      title: label,
-      top_statistics: {
-        annual_salary: {
-          icon_class: 'profile-information-salary',
-          title: content.extra_field_annual_salary['#title'],
-          value: content.extra_field_annual_salary.0['#markup'],
-          source: "<em>Source:</em> " ~ content.extra_field_annual_salary_source.0['#markup'],
-        },
-        minimum_education: {
-          icon_class: 'profile-information-education',
-          title: content.extra_field_minimum_education['#title'],
-          value: content.extra_field_minimum_education.0['#markup'],
-          source: content.extra_field_minimum_education.0['#infotip'],
-        },
-        job_openings: {
-          icon_class: 'profile-information-jobs',
-          title: content.extra_field_job_openings['#title'],
-          value: content.extra_field_job_openings.0['#markup'],
-          source: "<em>Source:</em> " ~ content.extra_field_job_openings_source.0['#markup']
-        },
-      },
-      hero: {
-        image: content.field_hero_image_media[0],
-        title: label,
-        description: null,
-        noc: content.field_noc[0],
-        hoo: content.extra_field_high_opportunity_occupation[0]['#markup'],
-      },
-      tab_sections: {
-        career_overview: {
-          tab: 'Career Overview',
-          title: content.group_career_profile_tabs.group_career_overview.field_career_overview['#title'] ?? 'Career Overview',
-          description: content.group_career_profile_tabs.group_career_overview.field_career_overview.0['#text'],
+{# This viewmodel is intended to collect all of the incoming variables in one place, and the remainder of the template should
+ refer only to this viewmodel (or Drupal/Twig generics like loop, directory, etc #}
+{% set viewmodel = {
+  title: label,
+  top_statistics: {
+    annual_salary: {
+      icon_class: 'profile-information-salary',
+      title: content.extra_field_annual_salary['#title'],
+      value: content.extra_field_annual_salary.0['#markup'],
+      source: "<em>Source:</em> " ~ content.extra_field_annual_salary_source.0['#markup'],
+    },
+    minimum_education: {
+      icon_class: 'profile-information-education',
+      title: content.extra_field_minimum_education['#title'],
+      value: content.extra_field_minimum_education.0['#markup'],
+      source: content.extra_field_minimum_education.0['#infotip'],
+    },
+    job_openings: {
+      icon_class: 'profile-information-jobs',
+      title: content.extra_field_job_openings['#title'],
+      value: content.extra_field_job_openings.0['#markup'],
+      source: "<em>Source:</em> " ~ content.extra_field_job_openings_source.0['#markup']
+    },
+  },
+  hero: {
+    image: content.field_hero_image_media[0],
+    title: label,
+    description: null,
+    noc: content.field_noc[0],
+    hoo: content.extra_field_high_opportunity_occupation[0]['#markup'],
+  },
+  tab_sections: {
+    career_overview: {
+      tab: 'Career Overview',
+      title: content.group_career_profile_tabs.group_career_overview.field_career_overview['#title'] ?? 'Career Overview',
+      description: content.group_career_profile_tabs.group_career_overview.field_career_overview.0['#text'],
 
-          duties_title: content.group_career_profile_tabs.group_career_overview.field_duties['#title'],
-          duties_description: content.group_career_profile_tabs.group_career_overview.field_duties.0['#text'],
+      duties_title: content.group_career_profile_tabs.group_career_overview.field_duties['#title'],
+      duties_description: content.group_career_profile_tabs.group_career_overview.field_duties.0['#text'],
 
-          salary_title: content.group_career_profile_tabs.group_career_overview.extra_field_salary_introduction['#title'],
-          salary_description: content.group_career_profile_tabs.group_career_overview.extra_field_salary_introduction.0['#text'],
+      salary_title: content.group_career_profile_tabs.group_career_overview.extra_field_salary_introduction['#title'],
+      salary_description: content.group_career_profile_tabs.group_career_overview.extra_field_salary_introduction.0['#text'],
 
-          salary_annual_salary_title: content.group_career_profile_tabs.group_career_overview.extra_field_salary_info_annual_salary['#title'],
-          salary_annual_salary_markup: content.group_career_profile_tabs.group_career_overview.extra_field_salary_info_annual_salary.0['#markup'],
-          salary_annual_salary_note: content.group_career_profile_tabs.group_career_overview.extra_field_salary_info_annual_salary_note.0['#markup'],
+      salary_annual_salary_title: content.group_career_profile_tabs.group_career_overview.extra_field_salary_info_annual_salary['#title'],
+      salary_annual_salary_markup: content.group_career_profile_tabs.group_career_overview.extra_field_salary_info_annual_salary.0['#markup'],
+      salary_annual_salary_note: content.group_career_profile_tabs.group_career_overview.extra_field_salary_info_annual_salary_note.0['#markup'],
 
-          salary_provincial_hourly_rate_title: content.group_career_profile_tabs.group_career_overview.extra_field_salary_info_hourly_rate['#title'],
-          salary_provincial_hourly_rate_markup: content.group_career_profile_tabs.group_career_overview.extra_field_salary_info_hourly_rate.0['#markup'],
+      salary_provincial_hourly_rate_title: content.group_career_profile_tabs.group_career_overview.extra_field_salary_info_hourly_rate['#title'],
+      salary_provincial_hourly_rate_markup: content.group_career_profile_tabs.group_career_overview.extra_field_salary_info_hourly_rate.0['#markup'],
 
-          salary_source: content.group_career_profile_tabs.group_career_overview.extra_field_salary_info_source.0['#markup'],
+      salary_source: content.group_career_profile_tabs.group_career_overview.extra_field_salary_info_source.0['#markup'],
 
-          work_environment_title: content.group_career_profile_tabs.group_career_overview.field_work_environment['#title'],
-          work_environment_description: content.group_career_profile_tabs.group_career_overview.field_work_environment.0['#text'],
-          work_environment_workers_employed_title: content.group_career_profile_tabs.group_career_overview.extra_field_work_environment_number_employed['#title'],
-          work_environment_workers_employed_markup: content.group_career_profile_tabs.group_career_overview.extra_field_work_environment_number_employed.0['#markup'],
-          work_environment_percent_fulltime_title: content.group_career_profile_tabs.group_career_overview.extra_field_work_environment_percent_fulltime['#title'],
-          work_environment_percent_fulltime_markup: content.group_career_profile_tabs.group_career_overview.extra_field_work_environment_percent_fulltime.0['#markup'],
-          work_environment_source: content.group_career_profile_tabs.group_career_overview.extra_field_work_environment_source.0['#markup'],
+      work_environment_title: content.group_career_profile_tabs.group_career_overview.field_work_environment['#title'],
+      work_environment_description: content.group_career_profile_tabs.group_career_overview.field_work_environment.0['#text'],
+      work_environment_workers_employed_title: content.group_career_profile_tabs.group_career_overview.extra_field_work_environment_number_employed['#title'],
+      work_environment_workers_employed_markup: content.group_career_profile_tabs.group_career_overview.extra_field_work_environment_number_employed.0['#markup'],
+      work_environment_percent_fulltime_title: content.group_career_profile_tabs.group_career_overview.extra_field_work_environment_percent_fulltime['#title'],
+      work_environment_percent_fulltime_markup: content.group_career_profile_tabs.group_career_overview.extra_field_work_environment_percent_fulltime.0['#markup'],
+      work_environment_source: content.group_career_profile_tabs.group_career_overview.extra_field_work_environment_source.0['#markup'],
 
-          career_pathways_title: content.group_career_profile_tabs.group_career_overview.field_career_pathways['#title'],
-          career_pathways_description: content.group_career_profile_tabs.group_career_overview.field_career_pathways.0['#text'],
+      career_pathways_title: content.group_career_profile_tabs.group_career_overview.field_career_pathways['#title'],
+      career_pathways_description: content.group_career_profile_tabs.group_career_overview.field_career_pathways.0['#text'],
 
-          related_careers_title: content.group_career_profile_tabs.group_career_overview.field_related_careers['#title'],
-          related_careers_list: related_career_links,
+      related_careers_title: content.group_career_profile_tabs.group_career_overview.field_related_careers['#title'],
+      related_careers_list: related_career_links,
 
-          occupational_interests_title: content.group_career_profile_tabs.group_career_overview.extra_field_occupational_interests_int['#title'],
-          occupational_interests_intro: content.group_career_profile_tabs.group_career_overview.extra_field_occupational_interests_int.0['#text'],
-          occupational_interests_items: content.group_career_profile_tabs.group_career_overview.extra_field_occupational_interests.0,
+      occupational_interests_title: content.group_career_profile_tabs.group_career_overview.extra_field_occupational_interests_int['#title'],
+      occupational_interests_intro: content.group_career_profile_tabs.group_career_overview.extra_field_occupational_interests_int.0['#text'],
+      occupational_interests_items: content.group_career_profile_tabs.group_career_overview.extra_field_occupational_interests.0,
 
-          job_titles_title: content.group_career_profile_tabs.group_career_overview.extra_field_job_titles['#title'],
-          job_titles_list: content.group_career_profile_tabs.group_career_overview.extra_field_job_titles.0,
-        },
-        education: {
-          tab: 'Education, Training and Skills',
-          title: content.group_career_profile_tabs.group_education_training_skills.field_education_training_skills['#title'] ?? 'Education, Training and Skills',
-          description: content.group_career_profile_tabs.group_education_training_skills.field_education_training_skills.0['#text'],
-          education_programs_title: content.group_career_profile_tabs.group_education_training_skills.extra_field_education_programs['#title'],
-          education_programs_list: content.group_career_profile_tabs.group_education_training_skills.extra_field_education_programs.0,
-          skills_title: content.group_career_profile_tabs.group_education_training_skills.extra_field_skills_introduction['#title'],
-          skills_introduction: content.group_career_profile_tabs.group_education_training_skills.extra_field_skills_introduction.0['#text'],
-          skills_list: content.group_career_profile_tabs.group_education_training_skills.extra_field_profile_skills.0,
-          noc_2016: content.field_noc_2016[0],
-        },
-        labour_market: {
-          tab: 'Labour Market Statistics',
-          title: content.group_career_profile_tabs.group_labour_market_statistics.extra_field_labour_market_statistics_i['#title'] ?? 'Labour Market Statistics',
-          description: content.group_career_profile_tabs.group_labour_market_statistics.extra_field_labour_market_statistics_i.0['#text'],
+      job_titles_title: content.group_career_profile_tabs.group_career_overview.extra_field_job_titles['#title'],
+      job_titles_list: content.group_career_profile_tabs.group_career_overview.extra_field_job_titles.0,
+    },
+    education: {
+      tab: 'Education, Training and Skills',
+      title: content.group_career_profile_tabs.group_education_training_skills.field_education_training_skills['#title'] ?? 'Education, Training and Skills',
+      description: content.group_career_profile_tabs.group_education_training_skills.field_education_training_skills.0['#text'],
+      education_programs_title: content.group_career_profile_tabs.group_education_training_skills.extra_field_education_programs['#title'],
+      education_programs_list: content.group_career_profile_tabs.group_education_training_skills.extra_field_education_programs.0,
+      skills_title: content.group_career_profile_tabs.group_education_training_skills.extra_field_skills_introduction['#title'],
+      skills_introduction: content.group_career_profile_tabs.group_education_training_skills.extra_field_skills_introduction.0['#text'],
+      skills_list: content.group_career_profile_tabs.group_education_training_skills.extra_field_profile_skills.0,
+      noc_2016: content.field_noc_2016[0],
+    },
+    labour_market: {
+      tab: 'Labour Market Statistics',
+      title: content.group_career_profile_tabs.group_labour_market_statistics.extra_field_labour_market_statistics_i['#title'] ?? 'Labour Market Statistics',
+      description: content.group_career_profile_tabs.group_labour_market_statistics.extra_field_labour_market_statistics_i.0['#text'],
 
-          employment_title: content.group_career_profile_tabs.group_labour_market_statistics.extra_field_career_employment_introduction['#title'] ?? "Employment",
-          employment_introduction: content.group_career_profile_tabs.group_labour_market_statistics.extra_field_career_employment_introduction.0['#text'],
+      employment_title: content.group_career_profile_tabs.group_labour_market_statistics.extra_field_career_employment_introduction['#title'] ?? "Employment",
+      employment_introduction: content.group_career_profile_tabs.group_labour_market_statistics.extra_field_career_employment_introduction.0['#text'],
 
-          employment_number_title: content.group_career_profile_tabs.group_labour_market_statistics.extra_field_labour_market_number_employed['#title'],
-          employment_number_markup: content.group_career_profile_tabs.group_labour_market_statistics.extra_field_labour_market_number_employed.0['#markup'],
-          employment_number_source: content.group_career_profile_tabs.group_labour_market_statistics.extra_field_labour_market_number_employed_source.0['#markup'],
+      employment_number_title: content.group_career_profile_tabs.group_labour_market_statistics.extra_field_labour_market_number_employed['#title'],
+      employment_number_markup: content.group_career_profile_tabs.group_labour_market_statistics.extra_field_labour_market_number_employed.0['#markup'],
+      employment_number_source: content.group_career_profile_tabs.group_labour_market_statistics.extra_field_labour_market_number_employed_source.0['#markup'],
 
-          employment_by_region_title: content.group_career_profile_tabs.group_labour_market_statistics.extra_field_labour_market_region_employment['#title'],
-          employment_by_region_table_header: content.group_career_profile_tabs.group_labour_market_statistics.extra_field_labour_market_region_employment.0['#header'],
-          employment_by_region_table_rows: content.group_career_profile_tabs.group_labour_market_statistics.extra_field_labour_market_region_employment.0['#rows'],
-          employment_by_region_source: content.group_career_profile_tabs.group_labour_market_statistics.extra_field_labour_market_region_employment_source.0['#markup'],
+      employment_by_region_title: content.group_career_profile_tabs.group_labour_market_statistics.extra_field_labour_market_region_employment['#title'],
+      employment_by_region_table_header: content.group_career_profile_tabs.group_labour_market_statistics.extra_field_labour_market_region_employment.0['#header'],
+      employment_by_region_table_rows: content.group_career_profile_tabs.group_labour_market_statistics.extra_field_labour_market_region_employment.0['#rows'],
+      employment_by_region_source: content.group_career_profile_tabs.group_labour_market_statistics.extra_field_labour_market_region_employment_source.0['#markup'],
 
-          outlook_introduction_title: content.group_career_profile_tabs.group_labour_market_statistics.extra_field_labour_market_introduction['#title'],
-          outlook_introduction_markup: content.group_career_profile_tabs.group_labour_market_statistics.extra_field_labour_market_introduction.0['#text'],
+      outlook_introduction_title: content.group_career_profile_tabs.group_labour_market_statistics.extra_field_labour_market_introduction['#title'],
+      outlook_introduction_markup: content.group_career_profile_tabs.group_labour_market_statistics.extra_field_labour_market_introduction.0['#text'],
 
-          outlook_openings_expected_title: content.group_career_profile_tabs.group_labour_market_statistics.extra_field_labour_market_expected_openings['#title'],
-          outlook_openings_expected_markup: content.group_career_profile_tabs.group_labour_market_statistics.extra_field_labour_market_expected_openings.0['#markup'],
-          outlook_openings_expected_source: content.group_career_profile_tabs.group_labour_market_statistics.extra_field_labour_market_expected_openings_source.0['#markup'],
+      outlook_openings_expected_title: content.group_career_profile_tabs.group_labour_market_statistics.extra_field_labour_market_expected_openings['#title'],
+      outlook_openings_expected_markup: content.group_career_profile_tabs.group_labour_market_statistics.extra_field_labour_market_expected_openings.0['#markup'],
+      outlook_openings_expected_source: content.group_career_profile_tabs.group_labour_market_statistics.extra_field_labour_market_expected_openings_source.0['#markup'],
 
-          outlook_openings_forecast_title: content.group_career_profile_tabs.group_labour_market_statistics.extra_field_job_openings_forecast['#title'],
-          outlook_openings_forecast_markup: content.group_career_profile_tabs.group_labour_market_statistics.extra_field_job_openings_forecast.0['#markup'],
-          outlook_openings_forecast_growth_rate_title: content.group_career_profile_tabs.group_labour_market_statistics.extra_field_employment_growth_rate_forecast['#title'],
-          outlook_openings_forecast_growth_rate_markup: content.group_career_profile_tabs.group_labour_market_statistics.extra_field_employment_growth_rate_forecast.0['#markup'],
-          outlook_openings_forecast_composition_title: content.group_career_profile_tabs.group_labour_market_statistics.extra_field_job_openings_composition['#title'],
-          outlook_openings_forecast_composition_markup: content.group_career_profile_tabs.group_labour_market_statistics.extra_field_job_openings_composition.0['#markup'],
-          outlook_openings_forecast_source: content.group_career_profile_tabs.group_labour_market_statistics.extra_field_job_openings_forecast_source.0['#markup'],
+      outlook_openings_forecast_title: content.group_career_profile_tabs.group_labour_market_statistics.extra_field_job_openings_forecast['#title'],
+      outlook_openings_forecast_markup: content.group_career_profile_tabs.group_labour_market_statistics.extra_field_job_openings_forecast.0['#markup'],
+      outlook_openings_forecast_growth_rate_title: content.group_career_profile_tabs.group_labour_market_statistics.extra_field_employment_growth_rate_forecast['#title'],
+      outlook_openings_forecast_growth_rate_markup: content.group_career_profile_tabs.group_labour_market_statistics.extra_field_employment_growth_rate_forecast.0['#markup'],
+      outlook_openings_forecast_composition_title: content.group_career_profile_tabs.group_labour_market_statistics.extra_field_job_openings_composition['#title'],
+      outlook_openings_forecast_composition_markup: content.group_career_profile_tabs.group_labour_market_statistics.extra_field_job_openings_composition.0['#markup'],
+      outlook_openings_forecast_source: content.group_career_profile_tabs.group_labour_market_statistics.extra_field_job_openings_forecast_source.0['#markup'],
 
-          outlook_openings_by_region_title: content.group_career_profile_tabs.group_labour_market_statistics.extra_field_job_openings_by_region['#title'],
-          outlook_openings_by_region_table_header: content.group_career_profile_tabs.group_labour_market_statistics.extra_field_job_openings_by_region.0['#header'],
-          outlook_openings_by_region_table_rows: content.group_career_profile_tabs.group_labour_market_statistics.extra_field_job_openings_by_region.0['#rows'],
-          outlook_openings_by_region_na: content.group_career_profile_tabs.group_labour_market_statistics.extra_field_job_openings_by_region_na[0]['#markup'],
-          outlook_openings_by_region_source: content.group_career_profile_tabs.group_labour_market_statistics.extra_field_job_openings_by_region_source.0['#markup'],
+      outlook_openings_by_region_title: content.group_career_profile_tabs.group_labour_market_statistics.extra_field_job_openings_by_region['#title'],
+      outlook_openings_by_region_table_header: content.group_career_profile_tabs.group_labour_market_statistics.extra_field_job_openings_by_region.0['#header'],
+      outlook_openings_by_region_table_rows: content.group_career_profile_tabs.group_labour_market_statistics.extra_field_job_openings_by_region.0['#rows'],
+      outlook_openings_by_region_na: content.group_career_profile_tabs.group_labour_market_statistics.extra_field_job_openings_by_region_na[0]['#markup'],
+      outlook_openings_by_region_source: content.group_career_profile_tabs.group_labour_market_statistics.extra_field_job_openings_by_region_source.0['#markup'],
 
-        },
-        industry_highlights: {
-          tab: 'Industry Highlights',
-          title: content.group_career_profile_tabs.group_industry_highlights.extra_field_industry_highlights_intro['#title'] ?? 'Industry Highlights',
-          description: content.group_career_profile_tabs.group_industry_highlights.extra_field_industry_highlights_intro.0['#text'],
-          job_openings_title: content.group_career_profile_tabs.group_industry_highlights.extra_field_job_openings_by_industry['#title'],
-          job_openings_markup: content.group_career_profile_tabs.group_industry_highlights.extra_field_job_openings_by_industry.0['#markup'],
-          job_openings_source: content.group_career_profile_tabs.group_industry_highlights.extra_field_job_openings_by_industry_source.0['#markup'],
-          insights_title: content.group_career_profile_tabs.group_industry_highlights.field_insights_from_industry['#title'],
-          insights_description: content.group_career_profile_tabs.group_industry_highlights.field_insights_from_industry.0['#text'],
-        },
-        resources: {
-          tab: 'Resources',
-          title: content.group_career_profile_tabs.group_resources.field_resources['#title'] ?? 'Resources',
-          resource_list: resources_links,
-        },
-      },
-      career_videos: {
-        introduction: content.field_career_videos_introduction,
-        content: content.field_career_videos.0,
-      },
-      links: content.links,
-    }
-    %}
+    },
+    industry_highlights: {
+      tab: 'Industry Highlights',
+      title: content.group_career_profile_tabs.group_industry_highlights.extra_field_industry_highlights_intro['#title'] ?? 'Industry Highlights',
+      description: content.group_career_profile_tabs.group_industry_highlights.extra_field_industry_highlights_intro.0['#text'],
+      job_openings_title: content.group_career_profile_tabs.group_industry_highlights.extra_field_job_openings_by_industry['#title'],
+      job_openings_markup: content.group_career_profile_tabs.group_industry_highlights.extra_field_job_openings_by_industry.0['#markup'],
+      job_openings_source: content.group_career_profile_tabs.group_industry_highlights.extra_field_job_openings_by_industry_source.0['#markup'],
+      insights_title: content.group_career_profile_tabs.group_industry_highlights.field_insights_from_industry['#title'],
+      insights_description: content.group_career_profile_tabs.group_industry_highlights.field_insights_from_industry.0['#text'],
+    },
+    resources: {
+      tab: 'Resources',
+      title: content.group_career_profile_tabs.group_resources.field_resources['#title'] ?? 'Resources',
+      resource_list: resources_links,
+    },
+  },
+  career_videos: {
+    introduction: content.field_career_videos_introduction,
+    content: content.field_career_videos,
+  },
+  links: content.links,
+}
+%}
 
-    <div class="profile-header">
-      <div class="top-video-row">
-        <div class="container-lg">
-          <div class="top-banner row align-items-center">
-            <div class="col-md-4 col-2 back-btton">
-              <a href="{{ career_trek_config('back_button_url') }}" class="desktop-back-btn">
-                {{ career_trek_config('back_button_title') }}
-              </a>
-              <a href="{{ career_trek_config('back_button_url') }}" class="mobile-back-btn">
-                <svg width="8" height="14" viewBox="0 0 8 14" fill="none" xmlns="http://www.w3.org/2000/svg">
-                  <path d="M0.46875 6.46875L6.46875 0.5C6.75 0.1875 7.21875 0.1875 7.53125 0.5C7.8125 0.78125 7.8125 1.25 7.53125 1.53125L2.03125 7L7.5 12.5C7.8125 12.7812 7.8125 13.25 7.5 13.5312C7.21875 13.8438 6.75 13.8438 6.46875 13.5312L0.46875 7.53125C0.15625 7.25 0.15625 6.78125 0.46875 6.46875Z" fill="#2E6AB0"/>
-                </svg>
-              </a>
+<div class="profile-header">
+
+  {% if viewmodel['hero']['image'] or viewmodel['hero']['description'] %}
+    <div class="profile-header-banner hero-banner hero-banner-profile">
+
+      <div class="hero-image-wrapper">
+        {{ viewmodel['hero']['image'] }}
+      </div>
+
+      <div class="hero-content-container container-lg">
+        <div class="hero-content-wrapper">
+          <div class="hero-title">
+            <h1>{{ viewmodel['hero']['title'] }}</h1>
+          </div>
+
+          <div class="hero-noc">(NOC {{ viewmodel['hero']['noc'] }})</div>
+
+          {% if viewmodel['hero']['hoo'] == 'YES' %}
+            <div class="hero-hoo">
+              <img src="/{{ directory }}/assets/images/hoo-icon.svg" alt="{{ 'High opportunity occupation'|t }}" />
+              <span>{{ 'High opportunity occupation'|t }}</span>
             </div>
-            <div class="col-md-4 col-6 logo-wrapper text-center">
-              {% if career_trek_config('logo') %}
-                <img src="{{ career_trek_config('logo') }}" alt="Career Trek Logo">
-              {% endif %}
-            </div>
-            <div class="col-md-4 col-4 social-media">
-              <div class="desktop-social-btn">
-                {# Social Sharing #}
-                {% include '@workbc/includes/social-sharing.html.twig' %}
-              </div>
-              <div class="mobile-social-btn">
-                    <a href="{{ career_trek_config('back_button_url') }}">
-                        Share
-                    </a>
-              </div>
-            </div>
+          {% endif %}
+
+          <div class="hero-content">
+            {{ viewmodel['hero']['description'] }}
           </div>
         </div>
       </div>
 
+    </div>
+  {% endif %}
 
+</div>
 
+{# Breadcrumbs #}
+{% include '@workbc/includes/breadcrumbs.html.twig' %}
 
-      {# Breadcrumbs #}
-      {% include '@workbc/includes/breadcrumbs.html.twig' %}
-      <div class="career-profile-node">
+{# Social Sharing #}
+{% include '@workbc/includes/social-sharing.html.twig' %}
 
-      <div class="container">
-          {{ viewmodel['career_videos']['content'] }}
-          <div class="row career-profile-content">
-              <div class="col-lg-8">
-                  <div class="title-wrapper career-title">
-                    {{ viewmodel['title'] }}
-                  </div>
-                  <div class="d-flex flex-wrap career-banner-bottom">
-                      <div class="noc-category d-inline-flex">
-                          <svg width="16" height="24" viewBox="0 0 16 15" fill="none" xmlns="http://www.w3.org/2000/svg">
-                           <path d="M5.75 1.5C5.59375 1.5 5.5 1.625 5.5 1.75V3H10.5V1.75C10.5 1.625 10.375 1.5 10.25 1.5H5.75ZM4 1.75C4 0.8125 4.78125 0 5.75 0H10.25C11.1875 0 12 0.8125 12 1.75V3H14C15.0938 3 16 3.90625 16 5V8H10H6H0V5C0 3.90625 0.875 3 2 3H4V1.75ZM16 9V13C16 14.125 15.0938 15 14 15H2C0.875 15 0 14.125 0 13V9H6V10C6 10.5625 6.4375 11 7 11H9C9.53125 11 10 10.5625 10 10V9H16Z" fill="#002857"/>
-                          </svg>
-                          {{ content.extra_field_occupational_categories }}
-                      </div>
-                      <div class="noc-title d-inline-flex align-items-center">
-                          <svg width="14" height="24" viewBox="0 0 14 14" fill="none" xmlns="http://www.w3.org/2000/svg">
-                            <path d="M0 1.5C0 0.6875 0.65625 0 1.5 0.03125H6.15625C6.6875 0.03125 7.1875 0.21875 7.5625 0.59375L13.0625 6.09375C13.8438 6.875 13.8438 8.15625 13.0625 8.9375L8.90625 13.0938C8.125 13.875 6.84375 13.875 6.0625 13.0938L0.5625 7.59375C0.1875 7.21875 0 6.71875 0 6.1875V1.5ZM3.5 2.5C2.9375 2.5 2.5 2.96875 2.5 3.5C2.5 4.0625 2.9375 4.5 3.5 4.5C4.03125 4.5 4.5 4.0625 4.5 3.5C4.5 2.96875 4.03125 2.5 3.5 2.5Z" fill="#002857"/>
-                          </svg>
-                          NOC {{ viewmodel['hero']['noc'] }}
-                      </div>
-                      <div class="d-inline-flex align-items-center">
-                          <svg width="18" height="24" viewBox="0 0 18 12" fill="none" xmlns="http://www.w3.org/2000/svg">
-                              <path d="M0 2C0 0.90625 0.875 0 2 0H10C11.0938 0 12 0.90625 12 2V10C12 11.125 11.0938 12 10 12H2C0.875 12 0 11.125 0 10V2ZM17.4688 1.125C17.7812 1.3125 18 1.65625 18 2V10C18 10.375 17.7812 10.7188 17.4688 10.9062C17.125 11.0625 16.75 11.0625 16.4375 10.8438L13.4375 8.84375L13 8.5625V8V4V3.46875L13.4375 3.1875L16.4375 1.1875C16.75 0.96875 17.125 0.96875 17.4688 1.125Z" fill="#002857"/>
-                          </svg>
-                          Filmed in&nbsp;{{ content.extra_field_profile_location }}
-                      </div>
-                  </div>
-                  <div class="description">
-                      {{ viewmodel['tab_sections']['career_overview']['description']|raw }}
-                  </div>
-                  <h2>
-                    What to Know
-                  </h2>
-                  <div class="profile-statistics-wrapper">
-                    <div class="container-lg profile-information-card-deck">
+<article{{ attributes.addClass(classes) }}>
 
-                      {% for key, statistic in viewmodel['top_statistics'] %}
+  <div class="profile-statistics-wrapper">
+    <div class="container-lg profile-information-card-deck">
 
-                        <div class="profile-information-card {{ statistic['icon_class'] }}">
-                          <div class="profile-information-card-icon">
-                          </div>
-                          <div class="profile-information-card-content">
-                            <div class="profile-information-card-title">
-                              {{ statistic['title'] }}
-                            </div>
-                            <div class="profile-information-card-value">
-                              {{ statistic['value'] }}
-                            </div>
-                          </div>
-                          {% if statistic['source'] %}
-                            <div class="profile-information-card-infotip">
-                              <a tabindex="0" class="btn btn-link info-tooltip" role="button" data-bs-toggle="popover" data-bs-container="body" data-bs-trigger="click hover" data-bs-placement="bottom" data-bs-custom-class="workbc-popover" title="hidden title" data-bs-html="true" data-bs-content="{{ statistic['source'] }}"></a>
-                            </div>
-                          {% endif %}
-                        </div>
+      {% for statistic in viewmodel['top_statistics'] %}
 
-                      {% endfor %}
-
-                    </div>
-                  </div>
-                  <div class="profile-content-section">
-                    <h2 class="profile-content-section__header">{{ viewmodel['tab_sections']['education']['skills_title'] }}</h2>
-                    <div class="profile-content-paragraph">{{ viewmodel['tab_sections']['education']['skills_introduction']|raw }}</div>
-
-                    <div data-static-load-more-container data-static-load-more-initial="3" data-static-load-more-step="7" data-static-more-text="Show More" data-static-less-text="Show Less">
-                      <div data-static-load-more-items class="career-skills-row">
-                        {% for skill in viewmodel['tab_sections']['education']['skills_list'] %}
-                          {{ skill|raw }}
-                        {% endfor %}
-                      </div>
-                      {% if viewmodel['tab_sections']['education']['skills_list']['#markup'] is not empty %}
-                        <div class="static-load-more-button-container">
-                          <a href="#" class="btn btn-secondary">View Full Career Profile</a>
-                        </div>
-                      {% else %}
-                        <div class="career-skills-not-available">Data not available</div>
-                      {% endif %}
-                    </div>
-                  </div>
-                  <div class="career-recent-jobs-wrapper">
-                      {{ drupal_entity('block', 'workbc_recentjobs') }}
-                  </div>
-              </div>
-              <div class="col-lg-4">
-                  {{ drupal_view('related_careers_videos', 'block_1', content.extra_field_occupational_categories|render|striptags|trim) }}
-              </div>
+        <div class="profile-information-card {{ statistic['icon_class'] }}">
+          <div class="profile-information-card-icon">
           </div>
+          <div class="profile-information-card-content">
+            <div class="profile-information-card-title">
+              {{ statistic['title'] }}
+            </div>
+            <div class="profile-information-card-value">
+              {{ statistic['value'] }}
+              {# {{ statistic['value']|length > 30 ? statistic['value']|slice(0, 30)|split(' ')|slice(0, -1)|join(' ') ~ ' …' : statistic['value'] }} #}
+            </div>
+          </div>
+          {% if statistic['source'] %}
+            <div class="profile-information-card-infotip">
+              <a tabindex="0" class="btn btn-link info-tooltip" role="button" data-bs-toggle="popover" data-bs-container="body" data-bs-trigger="click hover" data-bs-placement="bottom" data-bs-custom-class="workbc-popover" title="hidden title" data-bs-html="true" data-bs-content="{{ statistic['source'] }}"></a>
+            </div>
+          {% endif %}
+        </div>
+
+      {% endfor %}
+
+    </div>
+  </div>
+
+  <div class="profile-details-wrapper">
+    <div class="profile-content-tabs ">
+      <div class="container-lg scroll-container">
+        <ul class="nav nav-tabs profile-content-tab-list scroll" id="profile-content-tabs" role="tablist">
+          {% for key, tab in viewmodel['tab_sections'] %}
+            <li class="nav-item" role="presentation">
+              <a class="nav-link profile-content-tab-button{{ loop.first ? ' active'}}" id="{{key}}-tab" data-bs-toggle="tab" data-bs-target="#{{key}}-content" aria-controls="{{key}}-content" aria-selected="true" role="tab" href="#{{key}}">{{tab['tab']}}</a>
+            </li>
+          {% endfor %}
+        </ul>
       </div>
-      </div>
+      <div class="container-lg scroll-affordance-shim"></div>
     </div>
 
-    {{ attach_library('workbc/init-popovers') }}
-    {{ attach_library('workbc/scrollbooster') }}
-    {{ attach_library('workbc/static-load-more') }}
-    {{ attach_library('workbc/google-charts-redraw') }}
+    <div class="container-lg">
+      <div class="profile-content-container">
+        <div class="tab-content profile-content-main">
+
+          <div class="tab-pane active" id="career_overview-content" role="tabpanel" aria-labelledby="career_overview-tab">
+            <h2 class="profile-content-main__header">{{ viewmodel['tab_sections']['career_overview']['title'] }}</h2>
+            <div>{{ viewmodel['tab_sections']['career_overview']['description']|raw }}</div>
+
+            <div class="profile-content-section">
+              <h2 class="profile-content-section__header">{{ viewmodel['tab_sections']['career_overview']['duties_title'] }}</h2>
+              <div>{{ viewmodel['tab_sections']['career_overview']['duties_description']|raw }}</div>
+            </div>
+
+            <div class="profile-content-section">
+              <h2 class="profile-content-section__header">{{ viewmodel['tab_sections']['career_overview']['salary_title'] }}</h2>
+              <div>{{ viewmodel['tab_sections']['career_overview']['salary_description']|raw }}</div>
+
+              <div class="card-profile">
+                <div class="card-profile__content-small">
+                  <h3 class="card-profile__content-header">{{ viewmodel['tab_sections']['career_overview']['salary_annual_salary_title'] }}<a tabindex="0" class="btn btn-link info-tooltip card-profile__content-tooltip" role="button" data-bs-toggle="popover" data-bs-container="body" data-bs-trigger="click hover" data-bs-placement="bottom" data-bs-custom-class="workbc-popover" title="hidden title" data-bs-html="true" data-bs-content="{{ viewmodel['tab_sections']['career_overview']['salary_annual_salary_note']|raw }}"></a></h3>
+                  <span class="card-profile__content-value">{{ viewmodel['tab_sections']['career_overview']['salary_annual_salary_markup']|raw }}</span>
+                </div>
+                <div class="card-profile__content-divider"></div>
+                <div class="card-profile__content-small">
+                  <h3 class="card-profile__content-header">{{ viewmodel['tab_sections']['career_overview']['salary_provincial_hourly_rate_title'] }}</h3>
+                  <span class="card-profile__content-table">{{ viewmodel['tab_sections']['career_overview']['salary_provincial_hourly_rate_markup']|raw }}</span>
+                </div>
+                <div class="card-profile__source">
+                  <em>Source:</em> {{ viewmodel['tab_sections']['career_overview']['salary_source']|raw }}
+                </div>
+              </div>
+            </div>
+
+            <div class="profile-content-section">
+              <h2 class="profile-content-section__header">{{ viewmodel['tab_sections']['career_overview']['work_environment_title'] }}</h2>
+              <div class="card-profile">
+                <div class="card-profile__content-small">
+                  <h3 class="card-profile__content-header">{{ viewmodel['tab_sections']['career_overview']['work_environment_workers_employed_title'] }}</h3>
+                  <span class="card-profile__content-value">{{ viewmodel['tab_sections']['career_overview']['work_environment_workers_employed_markup']|raw }}</span>
+                </div>
+                <div class="card-profile__content-divider"></div>
+                <div class="card-profile__content-small">
+                  <h3 class="card-profile__content-header">{{ viewmodel['tab_sections']['career_overview']['work_environment_percent_fulltime_title'] }}</h3>
+                  <span class="card-profile__content-value">{{ viewmodel['tab_sections']['career_overview']['work_environment_percent_fulltime_markup']|raw }}</span>
+                </div>
+                <div class="card-profile__source">
+                  <em>Source:</em> {{ viewmodel['tab_sections']['career_overview']['work_environment_source']|raw }}
+                </div>
+              </div>
+              {{ viewmodel['tab_sections']['career_overview']['work_environment_description']|raw }}
+            </div>
+
+            <div class="profile-content-section">
+              <h2 class="profile-content-section__header">{{ viewmodel['tab_sections']['career_overview']['career_pathways_title'] }}</h2>
+              {{ viewmodel['tab_sections']['career_overview']['career_pathways_description']|raw }}
+            </div>
+
+            <div class="profile-content-section">
+              <h2 class="profile-content-section__header">{{ viewmodel['tab_sections']['career_overview']['related_careers_title'] }}</h2>
+
+                {% for career in viewmodel['tab_sections']['career_overview']['related_careers_list'] %}
+                  <div class="related-careers-link">
+                    <a href="{{ career.uri }}"><span class="related-careers-link-title">{{ career.title }}</span> (NOC {{career.noc }})</a>
+                  </div>
+                {% endfor %}
+              </ul>
+
+            </div>
+
+            <div class="profile-content-section">
+              <h2 class="profile-content-section__header">{{ viewmodel['tab_sections']['career_overview']['occupational_interests_title'] }}</h2>
+              {{ viewmodel['tab_sections']['career_overview']['occupational_interests_intro']|raw }}
+              <div class="card-occupational-interest-deck">
+                {% for interest in viewmodel['tab_sections']['career_overview']['occupational_interests_items'] %}
+                  {{ interest }}
+                {% endfor %}
+              </div>
+            </div>
+
+            <div class="profile-content-section" id="job-titles">
+              <h2 class="profile-content-section__header">{{ viewmodel['tab_sections']['career_overview']['job_titles_title'] }}</h2>
+
+              <div data-static-load-more-container
+                   data-static-load-more-initial="6"
+                   data-static-load-more-step="200"
+                   data-static-more-text="View more"
+                   data-static-less-text="View less">
+                <div data-static-load-more-items class="career-content-job-titles">
+                  {{ viewmodel['tab_sections']['career_overview']['job_titles_list'] }}
+                </div>
+                <div class="static-load-more-button-container megamenu-splash__actions">
+                  <a class="action-link pointer" data-static-load-more-trigger></a>
+                </div>
+              </div>
+            </div>
+
+          </div>
+
+          <div class="tab-pane" id="education-content" role="tabpanel" aria-labelledby="education-tab">
+            <h2 class="profile-content-main__header">{{ viewmodel['tab_sections']['education']['title'] }}</h2>
+            <div>{{ viewmodel['tab_sections']['education']['description']|raw }}</div>
+
+            <div class="profile-content-section">
+              <h2 class="profile-content-section__header">{{ viewmodel['tab_sections']['education']['education_programs_title'] }}</h2>
+              <div>{{ viewmodel['tab_sections']['education']['education_programs_list']|raw }}</div>
+
+              {% for program in viewmodel['tab_sections']['education']['education_programs_list'] %}
+                {{ program.0['#markup']|raw }}
+              {% endfor %}
+
+              <div class="card-profile">
+                <div class="card-profile__header">
+                  <img src="/{{ directory }}/assets/images/logo-educationplannerbc.png" alt="EducationPlannerBC Logo" />
+                </div>
+                <div class="card-profile__content-left">
+                  <div class="card-profile__content-item">Find out more information about programs offered specifically for this career.</div>
+                </div>
+                <div class="card-profile__link-container">
+                  <a class="card-profile__link" target="_blank" href="https://www.educationplannerbc.ca/search/noc/{{viewmodel['tab_sections']['education']['noc_2016']}}">Visit EducationPlannerBC</a>
+                </div>
+              </div>
+            </div>
+
+            <div class="profile-content-section">
+              <h2 class="profile-content-section__header">{{ viewmodel['tab_sections']['education']['skills_title'] }}</h2>
+              <div>{{ viewmodel['tab_sections']['education']['skills_introduction']|raw }}</div>
+
+              <div data-static-load-more-container data-static-load-more-initial="3" data-static-load-more-step="7" data-static-more-text="Show More" data-static-less-text="Show Less">
+                <div data-static-load-more-items>
+                  {% for skill in viewmodel['tab_sections']['education']['skills_list'] %}
+                    {{ skill|raw }}
+                  {% endfor %}
+                </div>
+                {% if viewmodel['tab_sections']['education']['skills_list']['#markup'] is not empty %}
+                  <div class="static-load-more-button-container">
+                    <button data-static-load-more-trigger class="btn btn-secondary">Show More</button>
+                  </div>
+                {% else %}
+                  <div class="career-skills-not-available">Data not available</div>
+                {% endif %}
+              </div>
+            </div>
+          </div>
+
+          <div class="tab-pane" id="labour_market-content" role="tabpanel" aria-labelledby="labour_market-tab">
+            <h2 class="profile-content-main__header">{{ viewmodel['tab_sections']['labour_market']['title'] }}</h2>
+            <div>{{ viewmodel['tab_sections']['labour_market']['description']|raw }}</div>
+
+
+            <h2 class="profile-content-section__header">{{ viewmodel['tab_sections']['labour_market']['employment_title'] }}</h2>
+            <div>{{ viewmodel['tab_sections']['labour_market']['employment_introduction']|raw }}</div>
+
+            <div class="card-profile">
+              <div class="card-profile__content">
+                <h3 class="card-profile__content-header">{{ viewmodel['tab_sections']['labour_market']['employment_number_title'] }}</h3>
+                <span class="card-profile__content-value">{{ viewmodel['tab_sections']['labour_market']['employment_number_markup']|raw }}</span>
+              </div>
+              <div class="card-profile__source">
+                <em>Source:</em> {{ viewmodel['tab_sections']['labour_market']['employment_number_source']|raw }}
+              </div>
+            </div>
+
+            <div class="card-profile employment-by-region">
+              <div class="card-profile__content">
+                <h3 class="card-profile__content-header">{{ viewmodel['tab_sections']['labour_market']['employment_by_region_title'] }}</h3>
+
+                {# Interactive Map #}
+                {% set map_no = 0 %}
+                {% set regions = region_info %}
+
+                {% set header = viewmodel['tab_sections']['labour_market']['employment_by_region_table_header'] %}
+                {% set rows = viewmodel['tab_sections']['labour_market']['employment_by_region_table_rows'] %}
+
+                <div id=career-profile-interactive-map-1 class="workbc-interactive-map-{{ map_no }}">
+                  {% include '@workbc/includes/interactive-map.html.twig' with { map_no, regions } %}
+                    <span class="card-profile__content-item">
+                      <table>
+                        <thead>
+                          <tr>
+                            <th>{{ header.0 }}</th>
+                            <th>{{ header.1 }}</th>
+                            <th>{{ header.2 }}</th>
+                          </tr>
+                        </thead>
+                        <tbody>
+                        {% for region in rows %}
+                          <tr class='{{ region.class }} {{ cycle(['odd', 'even'], loop.index0) }}'>
+                            <td class="region data-align-left" data-label="{{ header.0 }}">{{ region.data.0 }}</td>
+                            <td class="count-employment data-row data-align-right" data-label="{{ header.1 }}">{{ region.data.1 }}</td>
+                            <td class="percent-employment data-row data-align-right" data-label="{{ header.2 }}">{{ region.data.2 }}</td>
+                          </tr>
+                          {% if not loop.last %}
+                            <tr class="horizontal-line"></tr>
+                          {% endif %}
+                        {% endfor %}
+                        </tbody>
+                      </table>
+                    </span>
+                </div>
+
+              </div>
+              <div class="card-profile__source">
+                <em>Source:</em> {{ viewmodel['tab_sections']['labour_market']['employment_by_region_source']|raw }}
+              </div>
+            </div>
+
+            <h2 class="profile-content-section__header">{{ viewmodel['tab_sections']['labour_market']['outlook_introduction_title'] }}</h2>
+            <div>{{ viewmodel['tab_sections']['labour_market']['outlook_introduction_markup']|raw }}</div>
+
+            <div class="card-profile">
+              <div class="card-profile__content">
+                <h3 class="card-profile__content-header">{{ viewmodel['tab_sections']['labour_market']['outlook_openings_expected_title'] }}</h3>
+                <span class="card-profile__content-value">{{ viewmodel['tab_sections']['labour_market']['outlook_openings_expected_markup']|raw }}</span>
+              </div>
+              <div class="card-profile__source">
+                <em>Source:</em> {{ viewmodel['tab_sections']['labour_market']['outlook_openings_expected_source']|raw }}
+              </div>
+            </div>
+
+            <div class="card-profile">
+              <div class="card-profile__content-small">
+                <h3 class="card-profile__content-header">{{ viewmodel['tab_sections']['labour_market']['outlook_openings_forecast_title'] }}</h3>
+                <span class="card-profile__content-item">{{ viewmodel['tab_sections']['labour_market']['outlook_openings_forecast_markup']|raw }}</span>
+              </div>
+              <div class="card-profile__content-divider"></div>
+              <div class="card-profile__content-small">
+                <h3 class="card-profile__content-header">{{ viewmodel['tab_sections']['labour_market']['outlook_openings_forecast_growth_rate_title'] }}</h3>
+                <span class="card-profile__content-item">{{ viewmodel['tab_sections']['labour_market']['outlook_openings_forecast_growth_rate_markup']|raw }}</span>
+              </div>
+              <div class="card-profile__content">
+                <h3 class="card-profile__content-header">{{ viewmodel['tab_sections']['labour_market']['outlook_openings_forecast_composition_title'] }}</h3>
+                <span class="card-profile__content-item">{{ viewmodel['tab_sections']['labour_market']['outlook_openings_forecast_composition_markup']|raw }}</span>
+              </div>
+              <div class="card-profile__source">
+                <em>Source:</em> {{ viewmodel['tab_sections']['labour_market']['outlook_openings_forecast_source']|raw }}
+              </div>
+            </div>
+
+            <div class="card-profile job-openings-by-region">
+              <div class="card-profile__content">
+                <h3 class="card-profile__content-header">{{ viewmodel['tab_sections']['labour_market']['outlook_openings_by_region_title'] }}</h3>
+
+                {# Interactive Map #}
+                {% set map_no = 1 %}
+                {% set regions = region_info %}
+
+                {% set header = viewmodel['tab_sections']['labour_market']['outlook_openings_by_region_table_header'] %}
+                {% set rows = viewmodel['tab_sections']['labour_market']['outlook_openings_by_region_table_rows'] %}
+
+                <div id=career-profile-interactive-map-2 class="workbc-interactive-map-{{ map_no }}">
+                  {% include '@workbc/includes/interactive-map.html.twig' with { map_no, regions } %}
+                  <div>
+                    <span class="card-profile__content-item">
+                      <table>
+                        <thead>
+                          <tr>
+                            <th>{{ header.0 }}</th>
+                            <th>{{ header.1 }}</th>
+                            <th>{{ header.2 }}</th>
+                          </tr>
+                        </thead>
+                        <tbody>
+                        {% for region in rows %}
+                          <tr class='{{ region.class }} {{ cycle(['odd', 'even'], loop.index0) }}'>
+                            <td class="region data-align-left" data-label="{{ header.0 }}">{{ region.data.0 }}</td>
+                            <td class="count-openings data-row data-align-right" data-label="{{ header.1 }}">{{ region.data.1 }}</td>
+                            <td class="percent-growth data-row data-align-right" data-label="{{ header.2 }}">{{ region.data.2 }}</td>
+                          </tr>
+                          {% if not loop.last %}
+                            <tr class="horizontal-line"></tr>
+                          {% endif %}
+                        {% endfor %}
+                        </tbody>
+                      </table>
+                    </span>
+                  </div>
+                </div>
+              </div>
+
+              <div class="card-profile__source">
+                <em>Source:</em> {{ viewmodel['tab_sections']['labour_market']['outlook_openings_by_region_source']|raw }}
+              </div>
+            </div>
+
+          </div>
+
+          <div class="tab-pane" id="industry_highlights-content" role="tabpanel" aria-labelledby="industry_highlights-tab">
+            <h2 class="profile-content-main__header">{{ viewmodel['tab_sections']['industry_highlights']['title'] }}</h2>
+            <div>{{ viewmodel['tab_sections']['industry_highlights']['description']|raw }}</div>
+
+            <div class="card-profile">
+              <div class="card-profile__content">
+                <h3 class="card-profile__content-header">{{ viewmodel['tab_sections']['industry_highlights']['job_openings_title']|raw }}</h3>
+
+                <div class="card-profile__content-item">
+                  {{ viewmodel['tab_sections']['industry_highlights']['job_openings_markup']|raw }}
+                  <div>For additional industry information, visit the <a href="/research-labour-market/bcs-industries-and-sectors/industry-profiles">Industry Profiles</a> page.</div>
+                </div>
+              </div>
+              <div class="card-profile__source">
+                <em>Source:</em> {{ viewmodel['tab_sections']['industry_highlights']['job_openings_source']|raw }}
+              </div>
+            </div>
+
+            <h2 class="profile-content-section__header">{{ viewmodel['tab_sections']['industry_highlights']['insights_title'] }}</h2>
+            <div>{{ viewmodel['tab_sections']['industry_highlights']['insights_description']|raw }}</div>
+          </div>
+
+          <div class="tab-pane" id="resources-content" role="tabpanel" aria-labelledby="resources-tab">
+            <h2 class="profile-content-main__header">{{ viewmodel['tab_sections']['resources']['title'] }}</h2>
+
+            {% if resources_links %}
+              <ul class="resource-link-list">
+                {% for resource in viewmodel['tab_sections']['resources']['resource_list'] %}
+                  <li class="resource-link">
+                    <div class="resource-link__title">{{ resource.title }}</div>
+                    {% set resource_url = resource.uri.uri %}
+                    <a class="resource-link__href" target="_blank" href="{{ resource.uri }}">{{ resource_url|replace({"https://": "", "http://": ""}) }}</a>
+                  </li>
+                {% endfor %}
+              </ul>
+            {% else %}
+              <p>Resource information is currently not available.</p>
+            {% endif %}
+          </div>
+
+        </div>
+
+        <div class="profile-content-sidebar">
+
+          {% if (viewmodel['career_videos']['introduction'] or viewmodel['career_videos']['content']) %}
+            <div class="profile-videos-wrapper">
+              <div class="container-lg">
+                <h2>{{ viewmodel['career_videos']['introduction'] }}</h2>
+                {{ viewmodel['career_videos']['content'] }}
+              </div>
+            </div>
+          {% endif %}
+
+          <div class="career-recent-jobs-wrapper">
+            <div class="container-lg">
+              {{ drupal_entity('block', 'recentjobs') }}
+            </div>
+          </div>
+
+        </div>
+      </div>
+    </div>
+  </div>
+</article>
+
+{% if related|striptags|trim %}
+  <div class="container-lg px-1">
+    {{ related }}
+  </div>
+{% endif %}
+
+{{ attach_library('workbc/init-popovers') }}
+{{ attach_library('workbc/scrollbooster') }}
+{{ attach_library('workbc/static-load-more') }}
+{{ attach_library('workbc/google-charts-redraw') }}

@@ -11,3 +11,7 @@ services:
       - '@file_url_generator'
     tags:
       - { name: twig.extension }
+  workbc_career_trek.title_subscriber:
+    class: Drupal\workbc_career_trek\EventSubscriber\CareerTrekTitleSubscriber
+    tags:
+      - { name: event_subscriber }

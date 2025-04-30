@@ -127,6 +127,12 @@ class CareerTrekSettingsForm extends ConfigFormBase {
       '#description' => $this->t('Enter the Related title'),
     ];
 
+    $form['url_skills_future_workforce'] = [
+      '#type' => 'textfield',
+      '#title' => $this->t('Skill Future Url'),
+      '#default_value' => $config->get('url_skills_future_workforce'),
+      '#description' => $this->t('Enter the Related title'),
+    ];
     return parent::buildForm($form, $form_state);
   }
 
@@ -135,13 +141,13 @@ class CareerTrekSettingsForm extends ConfigFormBase {
    */
   public function submitForm(array &$form, FormStateInterface $form_state) {
     $config = $this->configFactory->getEditable('workbc_career_trek.settings');
-    
+
     // Handle file updates
     $fileFields = ['logo', 'toggle_icon_grid', 'toggle_icon_list', 'responsive_toggle_icon'];
     foreach ($fileFields as $field) {
       $oldValue = $config->get($field);
       $newValue = $form_state->getValue($field);
-      
+
       if (!empty($oldValue) && $oldValue != $newValue) {
         if ($oldFile = File::load(current($oldValue))) {
           $oldFile->delete();
@@ -153,7 +159,7 @@ class CareerTrekSettingsForm extends ConfigFormBase {
         $file->save();
         $file_usage = \Drupal::service('file.usage');
         $file_usage->add($file, 'workbc_career_trek', 'managed_file', current($newValue));
-  
+
       }
     }
 
@@ -171,6 +177,7 @@ class CareerTrekSettingsForm extends ConfigFormBase {
       'filter_title' => 'filter_title',
       'responsive_toggle_icon' => 'responsive_toggle_icon',
       'related_careers_title' => 'related_careers_title',
+      'url_skills_future_workforce' => 'url_skills_future_workforce',
     ];
     foreach ($fields as $formKey => $configKey) {
       $config->set($formKey, $form_state->getValue($configKey));

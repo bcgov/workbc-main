@@ -35,9 +35,9 @@ class SearchApiIndexAlterSubscriber implements EventSubscriberInterface {
                 $fields['annual_salary']->setValues([$ssot['wages']['calculated_median_annual_salary']]);
             }
             if(isset($ssot['education']['teer']) && !empty($ssot['education']['teer'])) {
-                
+
                 $fields['minimum_education']->setValues([
-                    $ssot['education']['teer']
+                    "" . $ssot['education']['teer'] . ""
                 ]);
             }
         }

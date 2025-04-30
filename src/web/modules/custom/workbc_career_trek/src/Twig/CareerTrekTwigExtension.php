@@ -46,7 +46,27 @@ class CareerTrekTwigExtension extends AbstractExtension {
   public function getFunctions() {
     return [
       new TwigFunction('career_trek_config', [$this, 'getCareerTrekConfig']),
+      new TwigFunction('render_career_trek_job_posting', [$this, 'getCareerTrekJobPosting']),
     ];
+  }
+
+  public function getCareerTrekJobPosting($node_id, $block_id) {
+    $entity_type_manager = \Drupal::entityTypeManager();
+    $node_storage = $entity_type_manager->getStorage('node');
+    $node = $node_storage->load($node_id);
+    if ($node) {
+      $blocks = \Drupal::service('entity_type.manager')
+        ->getStorage('block')
+        ->load($block_id);
+
+      if ($blocks) {
+        $renderer = \Drupal::service('renderer');
+        $blocks->getPlugin()->setConfigurationValue('node_id', $node_id);
+        $build = $blocks->getPlugin()->build();
+        return $renderer->render($build);
+      }
+    }
+    return '';
   }
 
   /**

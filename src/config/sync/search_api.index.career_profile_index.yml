@@ -173,7 +173,7 @@ field_settings:
     datasource_id: 'entity:node'
     property_path: field_noc
     type: 'solr_text_custom:ngram'
-    boost: 3.0
+    boost: 2.0
     dependencies:
       config:
         - field.storage.node.field_noc
@@ -181,7 +181,8 @@ field_settings:
     label: NOC
     datasource_id: 'entity:node'
     property_path: field_noc
-    type: string
+    type: 'solr_text_custom:ngram'
+    boost: 2.0
     dependencies:
       config:
         - field.storage.node.field_noc

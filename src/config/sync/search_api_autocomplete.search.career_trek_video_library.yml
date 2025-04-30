@@ -1,14 +1,14 @@
-uuid: aa9d845f-cf0a-4464-897b-c8e2a1db2b2d
+uuid: 44be1787-d43e-4865-a13a-58918ba24a41
 langcode: en
 status: true
 dependencies:
   config:
     - search_api.index.career_profile_index
-    - views.view.search_career_profiles
+    - views.view.career_trek_video_library
   module:
     - views
-id: search_career_profiles
-label: 'Search: Career Profiles'
+id: career_trek_video_library
+label: 'Career Trek Video Library'
 index_id: career_profile_index
 suggester_settings:
   live_results:
@@ -20,11 +20,16 @@ suggester_settings:
     view_modes:
       'entity:node':
         career_profile: ''
+  server:
+    fields: {  }
 suggester_weights:
   live_results: 0
-suggester_limits: {  }
+  server: 0
+suggester_limits:
+  live_results: 10
+  server: 10
 search_settings:
-  'views:search_career_profiles':
+  'views:career_trek_video_library':
     displays:
       default: true
       selected: {  }
@@ -34,4 +39,4 @@ options:
   show_count: false
   delay: null
   submit_button_selector: ':submit'
-  autosubmit: true
+  autosubmit: false
