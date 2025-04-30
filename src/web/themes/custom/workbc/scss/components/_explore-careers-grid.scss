@@ -1,0 +1,431 @@
+
+
+#workbc-custom-explore-careers-grid-form {
+  display: grid;
+  grid-auto-flow: dense;
+  grid-template-columns:  repeat(4, minmax(0, 1fr));
+  grid-gap: 20px;
+
+  @include media-breakpoint-down(lg) {
+    grid-template-columns: auto;
+  }
+
+  .occupational-category {
+    box-shadow: 0 0 15px 0 rgba(0,0,0,.15);
+
+    padding-top: 10%;
+    padding-left: 30px;
+    padding-right: 30px;
+    aspect-ratio: 1;
+
+    @include media-breakpoint-down(lg) {
+      padding-top: 0px;
+      padding-left: 0px;
+      padding-right: 5px;
+      aspect-ratio: inherit;
+    }
+  }
+
+  .tile {
+    display: flex;
+    flex-direction: column;
+    width: 100%;
+    height: 100%;
+
+    @include media-breakpoint-down(lg) {
+      flex-direction: row;
+      align-items: center;
+    }
+
+    .tile-info {
+      text-align: center;
+
+      @include media-breakpoint-down(lg) {
+        text-align: left;
+      }
+    }
+
+    .tile-icon {
+      padding-top: 0px;
+      padding-bottom: 0px;
+
+      img {
+        width: 42px;
+        height: 42px;
+        margin:auto;
+      }
+
+      @include media-breakpoint-down(lg) {
+        padding-top: 0px;
+        padding-bottom: 0px;
+        padding-left: 10px;
+        padding-right: 15px;
+
+        img {
+          width: 24px;
+          height: 24px;
+          margin: 0px;
+        }
+      }
+
+    }
+
+    .tile-name {
+      font-size: 1.35vw;
+      line-height: 125%;
+      font-weight: bold;
+      margin-top: 10%;
+      margin-bottom: 20px;
+
+      @include media-breakpoint-down(lg) {
+        font-size: 1.125rem;
+        line-height: 1.375rem;
+        margin-top: 0px;
+        margin-bottom: 0px;
+        margin-right: auto;
+      }
+    }
+
+    .tile-areas {
+
+      @include media-breakpoint-down(lg) {
+        display: none;
+      }
+    }
+
+    .tile-group {
+      margin-top: auto;
+    }
+
+    .tile-expand {
+      padding-top: 10%;
+      padding-bottom: 15%;
+
+      img {
+        width: 16px;
+        height: 16px;
+        margin: auto;
+      }
+
+      @include media-breakpoint-down(lg) {
+        padding-right: 20px;
+        padding-left: 20px;
+
+        img {
+          margin-left: auto;
+        }
+      }
+
+    }
+  }
+
+  $grid-item-border-top: 8px;
+  $grid-item-border-top-mobile: 5px;
+
+  #category-business {
+    border-top: $grid-item-border-top solid #DA5700;
+    @include media-breakpoint-down(lg) {
+      border-top: inherit;
+      border-left: $grid-item-border-top-mobile solid #DA5700;
+    }
+  }
+
+  #category-community-and-support-services {
+    border-top: $grid-item-border-top solid #E7BF3E;
+    @include media-breakpoint-down(lg) {
+      border-top: inherit;
+      border-left: $grid-item-border-top-mobile solid #E7BF3E;
+    }
+  }
+
+  #category-education {
+    border-top: $grid-item-border-top solid #870264;
+    @include media-breakpoint-down(lg) {
+      border-top: inherit;
+      border-left: $grid-item-border-top-mobile solid #870264;
+    }
+  }
+
+  #category-engineering-and-architecture {
+    border-top: $grid-item-border-top solid #80B317;
+    @include media-breakpoint-down(lg) {
+      border-top: inherit;
+      border-left: $grid-item-border-top-mobile solid #80B317;
+    }
+  }
+
+  #category-hospitality-tourism-and-recreation {
+    border-top: $grid-item-border-top solid #029CDE;
+    @include media-breakpoint-down(lg) {
+      border-top: inherit;
+      border-left: $grid-item-border-top-mobile solid #029CDE;
+    }
+  }
+
+  #category-labour-and-technical-skills {
+    border-top: $grid-item-border-top solid #2E6AB0;
+    @include media-breakpoint-down(lg) {
+      border-top: inherit;
+      border-left: $grid-item-border-top-mobile solid #2E6AB0;
+    }
+  }
+
+  #category-law-and-justice {
+    border-top: $grid-item-border-top solid #DA5700;
+    @include media-breakpoint-down(lg) {
+      border-top: inherit;
+      border-left: $grid-item-border-top-mobile solid #DA5700;
+    }
+  }
+
+  #category-mathematics-and-technology {
+    border-top: $grid-item-border-top solid #029CDE;
+    @include media-breakpoint-down(lg) {
+      border-top: inherit;
+      border-left: $grid-item-border-top-mobile solid #029CDE;
+    }
+  }
+
+  #category-medicine-and-health {
+    border-top: $grid-item-border-top solid #870264;
+    @include media-breakpoint-down(lg) {
+      border-top: inherit;
+      border-left: $grid-item-border-top-mobile solid #870264;
+    }
+  }
+
+  #category-performing-creative-and-fine-arts {
+    border-top: $grid-item-border-top solid #80B317;
+    @include media-breakpoint-down(lg) {
+      border-top: inherit;
+      border-left: $grid-item-border-top-mobile solid #80B317;
+    }
+  }
+
+  #category-physical-and-natural-sciences {
+    border-top: $grid-item-border-top solid #E7BF3E;
+    @include media-breakpoint-down(lg) {
+      border-top: inherit;
+      border-left: $grid-item-border-top-mobile solid #E7BF3E;
+    }
+  }
+
+  #category-trades {
+    border-top: $grid-item-border-top solid #2E6AB0;
+    @include media-breakpoint-down(lg) {
+      border-top: inherit;
+      border-left: $grid-item-border-top-mobile solid #2E6AB0;
+    }
+  }
+
+  .areas-of-interest {
+    grid-column: 1 / -1;
+    margin: 0px 0px 0px 0px;
+    box-shadow: 0 0 15px 0 rgba(0,0,0,.15);
+  }
+
+  .is-hidden {
+    display: none !important;
+  }
+
+
+  .fieldset-wrapper {
+    width: 100%;
+    display: grid;
+    grid-auto-flow: dense;
+    grid-template-columns:  repeat(2, minmax(0, 1fr));
+    grid-gap: 10px;
+    position: relative;
+
+    @include media-breakpoint-down(lg) {
+      display: block;
+    }
+
+    .form-type-checkbox {
+      border: 1px solid rgba(0,0,0,.125);
+      padding: 5px 10px 5px 10px;
+      margin-left: 0px;
+      margin-right: 0px;
+    }
+
+    .form-type-checkbox:has(input:checked) {
+      border: 2px solid $workbc_palette_dark_secondary;
+      padding: 4px 9px 4px 9px;
+    }
+
+    .form-check-input {
+      border-color: $workbc_palette_dark_secondary;
+      background-clip: padding-box;
+      -webkit-box-shadow: inset 0px 0px 0px 2px $workbc_palette_light_primary;
+      -moz-box-shadow: inset 0px 0px 0px 2px $workbc_palette_light_primary;
+      box-shadow: inset 0px 0px 0px 2px $workbc_palette_light_primary;
+      margin-right: 5px;
+    }
+
+    .form-check-input:checked {
+      background-image: none;
+      background-color: $workbc_palette_dark_secondary;
+    }
+
+    :nth-child(1) {
+      grid-column-end: span 2;
+      @include media-breakpoint-down(lg) {
+        grid-column-end: span 1;
+      }
+    }
+
+    :nth-child(2) {
+      grid-column-end: span 2;
+      @include media-breakpoint-down(lg) {
+        grid-column-end: span 1;
+      }
+    }
+
+    .areas-of-interest-help {
+      padding-top: 5px;
+      padding-bottom: 20px;
+      padding-right: 15px;
+    }
+
+    .areas-of-interest-close {
+      @include media-breakpoint-down(lg) {
+        display: none;
+      }
+
+      img {
+        width: 16px;
+        height: 16px;
+        position: absolute;
+        filter: brightness(0) saturate(100%);
+        top: 15px;
+        right: 15px;
+      }
+    }
+    .areas-of-interest-submit {
+      grid-column-end: span 2;
+      margin-top: 20px;
+      margin-bottom: 5px;
+
+      .error {
+        color: #CD1B21;
+
+        .error-icon {
+          content: url(../assets/images/alert.svg);
+          position: relative;
+          top: 3px;
+          margin-right: 5px;
+        }
+
+      }
+
+      @include media-breakpoint-down(lg) {
+        display: flex;
+        flex-direction: column-reverse;
+
+        .error {
+
+          .error-group {
+            display: flex;
+            align-items: center;
+            margin-bottom: 20px;
+          }
+
+          .error-icon {
+            margin-right: 15px;
+          }
+        }
+
+        input {
+          margin-right: auto;
+        }
+      }
+    }
+
+    .form-item {
+      margin: 0px;
+
+      @include media-breakpoint-down(lg) {
+        margin-top: 5px;
+        margin-bottom: 5px;
+      }
+    }
+
+  }
+
+}
+
+.workbc-custom-explore-careers-grid-form {
+  h2 {
+    padding-bottom: 25px;
+  }
+}
+
+.workbc-custom-explore-careers-search-form {
+  margin-top: 25px;
+  padding-top: 25px;
+  padding-bottom: 100px;
+  background-color: $workbc_palette_light_secondary;
+
+  h2 {
+    padding-bottom: 15px;
+  }
+
+  .single-row {
+    display: flex;
+    align-items: center;
+    width: 100%;
+  }
+
+  .form-item-keywords {
+    width: 80%;
+    flex: 1;
+  }
+
+  @include media-breakpoint-down(lg) {
+    .workbc-tooltip-content {
+      left: -40px;
+
+      &:before {
+        left: 18%;
+      }
+    }
+  }
+}
+
+$arrow-height: 15px;
+$border-size: 1px;
+$border-color: rgba(0,0,0,.15);
+$background: $workbc_palette_light_primary;
+
+.arrow-1 {
+  @include css-arrow($arrow-height, $border-size, $background, $border-color, 50%);
+
+  @include media-breakpoint-up(md) {
+    @include css-arrow($arrow-height, $border-size, $background, $border-color, 12%);
+  }
+}
+
+.arrow-2 {
+  @include css-arrow($arrow-height, $border-size, $background, $border-color, 50%);
+
+  @include media-breakpoint-up(md) {
+    @include css-arrow($arrow-height, $border-size, $background, $border-color, 37%);
+  }
+}
+
+.arrow-3 {
+  @include css-arrow($arrow-height, $border-size, $background, $border-color, 50%);
+
+  @include media-breakpoint-up(md) {
+    @include css-arrow($arrow-height, $border-size, $background, $border-color, 63%);
+  }
+}
+
+.arrow-4 {
+  @include css-arrow($arrow-height, $border-size, $background, $border-color, 50%);
+
+  @include media-breakpoint-up(md) {
+    @include css-arrow($arrow-height, $border-size, $background, $border-color, 88%);
+  }
+}
+

@@ -3,6 +3,8 @@
 $base_urls = [
     'aws-dev' => 'https://dev.workbc.ca',
     'aws-dev-noc' => 'https://devnoc.workbc.ca',
+    'aws-dev2' => 'https://dev2.workbc.ca',
+    'aws-dev3' => 'https://dev3.workbc.ca',
     'aws-test' => 'https://test.workbc.ca',
     'aws-prod' => 'https://www.workbc.ca',
 ];

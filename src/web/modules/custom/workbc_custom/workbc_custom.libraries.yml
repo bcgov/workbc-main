@@ -9,3 +9,12 @@ feedback:
     - core/drupalSettings
     - core/once
     - core/drupal
+
+explore-grid:
+  js:
+    js/explore-grid.js: {}
+  dependencies:
+    - core/jquery
+    - core/drupalSettings
+    - core/once
+    - core/drupal

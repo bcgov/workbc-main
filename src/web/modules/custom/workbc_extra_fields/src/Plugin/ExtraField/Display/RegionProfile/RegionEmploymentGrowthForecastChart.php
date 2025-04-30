@@ -26,12 +26,16 @@ class RegionEmploymentGrowthForecastChart extends ExtraFieldDisplayFormattedBase
    * {@inheritdoc}
    */
   public function getLabel() {
-
-    $date1 = ssotParseDateRange($this->getEntity()->ssot_data['schema'], 'regional_labour_market_outlook', 'forecasted_employment_growth_rate_first5y');
-    $date2 = ssotParseDateRange($this->getEntity()->ssot_data['schema'], 'regional_labour_market_outlook', 'forecasted_employment_growth_rate_second5y');
-    $date1 = explode("-", $date1);
-    $date2 = explode("-", $date2);
-    $datestr = $date1[0] . " - " . $date2[1];
+    if (!empty($this->getEntity()->ssot_data)) {
+      $date1 = ssotParseDateRange($this->getEntity()->ssot_data['schema'], 'regional_labour_market_outlook', 'forecasted_employment_growth_rate_first5y');
+      $date2 = ssotParseDateRange($this->getEntity()->ssot_data['schema'], 'regional_labour_market_outlook', 'forecasted_employment_growth_rate_second5y');
+      $date1 = explode("-", $date1);
+      $date2 = explode("-", $date2);
+      $datestr = $date1[0] . " - " . $date2[1];
+    }
+    else {
+      $datestr = '';
+    }
     return $this->t('Forecasted Employment Growth Rate (' . $datestr . ')');
   }
 

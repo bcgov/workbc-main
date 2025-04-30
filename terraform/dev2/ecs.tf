@@ -60,7 +60,7 @@ resource "aws_ecs_task_definition" "app" {
 			logDriver = "awslogs"
 			options = {
 				awslogs-create-group  = "true"
-				awslogs-group         = "/ecs/${var.app_name}-noc/init"
+				awslogs-group         = "/ecs/${var.app_name}-dev2/init"
 				awslogs-region        = var.aws_region
 				awslogs-stream-prefix = "ecs"
 			}
@@ -76,7 +76,7 @@ resource "aws_ecs_task_definition" "app" {
 			logDriver = "awslogs"
 			options = {
 				awslogs-create-group  = "true"
-				awslogs-group         = "/ecs/${var.app_name}-noc/drupal"
+				awslogs-group         = "/ecs/${var.app_name}-dev2/drupal"
 				awslogs-region        = var.aws_region
 				awslogs-stream-prefix = "ecs"
 			}
@@ -125,7 +125,7 @@ resource "aws_ecs_task_definition" "app" {
 			},
 			{
 				name = "PROJECT_ENVIRONMENT",
-				value = "aws-dev-noc"
+				value = "aws-dev2"
 			},
 			{
 				name = "REDIS_HOST",
@@ -208,7 +208,7 @@ resource "aws_ecs_task_definition" "app" {
 			logDriver = "awslogs"
 			options = {
 				awslogs-create-group  = "true"
-				awslogs-group         = "/ecs/${var.app_name}-noc/nginx"
+				awslogs-group         = "/ecs/${var.app_name}-dev2/nginx"
 				awslogs-region        = var.aws_region
 				awslogs-stream-prefix = "ecs"
 			}
@@ -252,7 +252,7 @@ resource "aws_ecs_task_definition" "app" {
 			logDriver = "awslogs"
 			options = {
 				awslogs-create-group  = "true"
-				awslogs-group         = "/ecs/${var.app_name}-noc/drush"
+				awslogs-group         = "/ecs/${var.app_name}-dev2/drush"
 				awslogs-region        = var.aws_region
 				awslogs-stream-prefix = "ecs"
 			}
@@ -295,7 +295,7 @@ resource "aws_ecs_task_definition" "app" {
 			},
 			{
 				name = "PROJECT_ENVIRONMENT",
-				value = "aws-dev-noc"
+				value = "aws-dev2"
 			},
 			{
 				name = "REDIS_HOST",
@@ -360,7 +360,7 @@ resource "aws_ecs_task_definition" "app" {
 			logDriver = "awslogs"
 			options = {
 				awslogs-create-group  = "true"
-				awslogs-group         = "/ecs/${var.app_name}-noc/pdf"
+				awslogs-group         = "/ecs/${var.app_name}-dev2/pdf"
 				awslogs-region        = var.aws_region
 				awslogs-stream-prefix = "ecs"
 			}

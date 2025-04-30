@@ -63,7 +63,7 @@ class WorkBcJobboardController extends ControllerBase {
       return $result;
     }
     catch (RequestException $e) {
-      \Drupal::logger('workbc_jobboard')->error($e->getMessage());
+      \Drupal::logger('workbc')->error($e->getMessage());
       return NULL;
     }
   }
