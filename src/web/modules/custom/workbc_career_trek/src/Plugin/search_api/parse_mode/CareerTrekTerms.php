@@ -28,6 +28,16 @@ class CareerTrekTerms extends ParseModePluginBase {
     if (!Unicode::validateUtf8($keys)) {
       return $ret;
     }
+
+    // If $keys is only a number string, add only the numeric match and return.
+    if (ctype_digit($keys)) {
+      $ret[] = [
+        '#full_numeric_prefix' => TRUE,
+        'value' => $keys,
+      ];
+      return $ret;
+    }
+
     // Split the keys into tokens. Any whitespace is considered as a delimiter
     // for tokens. This covers ASCII white spaces as well as multi-byte "spaces"
     // which for example are common in Japanese.
@@ -87,21 +97,39 @@ class CareerTrekTerms extends ParseModePluginBase {
           $ret['#conjunction'] = 'AND';
           continue;
         }
-        // Handle 'or' and commas as OR conjunctions.
+        // Handle 'or' and commas as OR conjunctions, including tokens ending with a comma.
+        // If the token contains a comma and is not just a comma, split it into parts.
+        if (strpos($token, ',') !== FALSE && strlen($token) > 1) {
+          $parts = explode(',', $token);
+          // If there are exactly two parts, e.g., "baker,22311"
+          if (count($parts) == 2) {
+            $ret[] = trim($parts[0]);
+            $ret[] = trim($parts[1]);
+          }
+          else {
+            // If more than two parts, add each non-empty part.
+            foreach ($parts as $part) {
+              $part = trim($part);
+              if ($part !== '') {
+                $ret[] = $part;
+              }
+            }
+          }
+          $ret['#conjunction'] = 'OR';
+          continue;
+        }
+        // Handle 'or' and ',' as OR conjunctions.
         if (strtolower($token) === 'or' || $token === ',') {
           $ret['#conjunction'] = 'OR';
           continue;
         }
-        // New condition: match numeric tokens strictly as "starts with full string"
+        // Only add numeric token as full_numeric_prefix if the original $keys is not just a number string.
         if (ctype_digit($token)) {
-            $ret[] = [
-              '#full_numeric_prefix' => TRUE,
-              'value' => $token,
-            ];
-          }
+          $ret[] = $token;
+        }
         else {
-            $ret[] = $token;
-        }          
+          $ret[] = $token;
+        }
       }
 
       // If negation was set, change the last added keyword to be negated.

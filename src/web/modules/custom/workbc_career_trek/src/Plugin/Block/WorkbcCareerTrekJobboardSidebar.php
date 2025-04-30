@@ -133,13 +133,6 @@ class WorkbcCareerTrekJobboardSidebar extends BlockBase{
           $api_url = \Drupal::config('jobboard')->get('jobboard_api_url_backend');
           \Drupal::logger('workbc_jobboard')->error('Error '. $recent_jobs['response'].': Unable to connect to Job Board API. '.$api_url);
         }
-        $node_storage = \Drupal::entityTypeManager()->getStorage('node');
-        $nodes = $node_storage->loadByProperties(['field_noc' => '00018']);
-        $node = reset($nodes);
-        $url_alias = '';
-        if ($node instanceof \Drupal\node\NodeInterface) {
-          $url_alias = \Drupal::service('path_alias.manager')->getAliasByPath('/node/' . $node->id());
-        }
         return [
           '#type' => 'markup',
           '#markup' => 'Explore recent job postings.',
@@ -153,7 +146,7 @@ class WorkbcCareerTrekJobboardSidebar extends BlockBase{
           '#readmore_label' => (isset($config['job_board_read_more_button_title'])) ?$config['job_board_read_more_button_title'] : 'View more jobs',
           '#no_result_text' => $no_result_text_val,
           '#noc' => (isset($view_more_link_parameters)) ? $view_more_link_parameters : '',
-          '#find_job_url'=>$url_alias,
+          '#find_job_url'=>\Drupal::config('jobboard')->get('find_job_url'),
         ];
       }
     }

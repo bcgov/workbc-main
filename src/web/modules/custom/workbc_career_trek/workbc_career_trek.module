@@ -171,7 +171,9 @@ function workbc_career_trek_views_query_alter(ViewExecutable $view, $query) {
                 REGEXP_REPLACE(
                   REGEXP_REPLACE(
                     REPLACE(
-                      REPLACE(node_field_data.title, ',', ''),  -- remove commas
+                      REPLACE(
+                        REPLACE(node_field_data.title, '/', ''),
+                        ',', ''),
                       ' ',
                       '-'
                     ),

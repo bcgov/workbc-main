@@ -34,7 +34,7 @@
 <div class="workbc-card">
    <div class="workbc-card-container">
       <div class="workbc-card-video-preview">
-         <a href="/plan-career/career-trek-videos/{{ fields.title.content|striptags|trim|lower|replace({',': ''})|split(' ')|filter(v => v != '' and v != '-')|join('-') }}">
+         <a href="/plan-career/career-trek-videos/{{ fields.title.content|replace({'/': ''})|striptags|trim|lower|replace({',': ''})|split(' ')|filter(v => v != '' and v != '-')|join('-') }}">
          {{ fields.field_career_videos.content }}
          </a>
       </div>
@@ -46,7 +46,7 @@
 
       <div class="workbc-card-content">
          <div class="workbc-card-title">
-            <a href="/plan-career/career-trek-videos/{{ fields.title.content|striptags|trim|lower|replace({',': ''})|split(' ')|filter(v => v != '' and v != '-')|join('-') }}">
+            <a href="/plan-career/career-trek-videos/{{ fields.title.content|replace({'/': ''})|striptags|trim|lower|replace({',': ''})|split(' ')|filter(v => v != '' and v != '-')|join('-') }}">
             {{ fields.title.content }}
             </a>
          </div>

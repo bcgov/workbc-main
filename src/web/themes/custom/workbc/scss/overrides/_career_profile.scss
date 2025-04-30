@@ -241,7 +241,7 @@
         &[open] summary .summary::before {
           content: "-";
         }
-        
+
       }
 
       div[data-drupal-selector="edit-actions"] {
@@ -452,17 +452,17 @@
 
       .workbc-card-container {
         .workbc-card-details {
-          padding: 0px; 
+          padding: 0px;
           column-gap: 0px;
         }
 
         .workbc-card-content {
-          .workbc-card-title a {  
+          .workbc-card-title a {
             color: #333333;
             font-size: 14px;
             line-height:21px;
             text-decoration: none;
-            text-transform: capitalize;
+            // text-transform: capitalize;
           }
 
           .workbc-card-description {
@@ -537,9 +537,9 @@
     }
   }
 
-  .swiper-horizontal > .swiper-pagination-bullets, 
-  .swiper-pagination-bullets.swiper-pagination-horizontal, 
-  .swiper-pagination-custom, 
+  .swiper-horizontal > .swiper-pagination-bullets,
+  .swiper-pagination-bullets.swiper-pagination-horizontal,
+  .swiper-pagination-custom,
   .swiper-pagination-fraction {
     bottom: 20px;
   }
@@ -788,7 +788,7 @@
             color:#333333;
           }
         }
-        
+
       }
         .scale {
           max-width:84%;
@@ -797,7 +797,7 @@
             ins {
               font-size: 14px;
               color: #767676;
-        
+
             &::before {
                 content: '$';
                 font-size: 14px;
@@ -807,7 +807,7 @@
           }
         }
 
-      
+
     }
 
     .form-item {
@@ -917,7 +917,7 @@
   .career-profile-content {
     margin-top: 24px;
 
-    
+
       .jobs-data {
         max-width: 100%;
 
@@ -1265,7 +1265,7 @@
   .plan-careercareer-trek-videos .career-trek-row .hero-content-container .hero-content-wrapper {
     max-width: 489px;
     margin-right: -155px;
-  } 
+  }
 
   .plan-careercareer-trek-videos .career-trek-row .hero-content-container .hero-title {
     font-size: 30px;

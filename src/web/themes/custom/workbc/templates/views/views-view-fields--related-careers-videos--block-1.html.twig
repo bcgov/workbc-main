@@ -1,12 +1,14 @@
 <div class="related-carrer">
     <div class="workbc-card-video-preview">
-        <a href="/career-profiles/{{ fields.title.content|striptags|trim|lower|replace({' ': '-'})|replace({',': ''}) }}">
+        <a href="/plan-career/career-trek-videos/{{ fields.title.content|replace({'/': ''})|striptags|trim|lower|replace({',': ''})|split(' ')|filter(v => v != '' and v != '-')|join('-') }}">
             <div class="workbc-card-thumbnail">{{ fields.field_career_videos.content }}</div>
         </a>
     </div>
     <div class="workbc-card-content">
         <div class="title">
-            {{ fields.title.content }}
+            <a href="/plan-career/career-trek-videos/{{ fields.title.content|replace({'/': ''})|striptags|trim|lower|replace({',': ''})|split(' ')|filter(v => v != '' and v != '-')|join('-') }}">
+                {{ fields.title.content }}
+            </a>
         </div>
         <div class="category">
             {{ fields.occupational_category_api_field.content }}
