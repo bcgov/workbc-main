@@ -63,24 +63,6 @@ let currentOpen = null;
         }
       });
 
-      once('explore-grid', 'html', context).forEach(function() {
-        window.addEventListener('click', function(e){
-          element = document.getElementsByClassName('is-selected')[0];
-          if (typeof element !== 'undefined') {
-            let outside = true;
-            elements = document.getElementsByClassName('grid-item');
-            for ( var i = 0; i < elements.length; ++i ) {
-              if (elements[i].contains(e.target)) {
-                outside = false;
-                break;
-              }
-            }
-            if (outside){
-              closePreviousAreaOfInterest($(element));
-            }
-          }
-        });
-      });
     }
   }
 })(jQuery, Drupal, once);

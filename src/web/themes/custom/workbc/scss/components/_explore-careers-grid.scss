@@ -1,16 +1,29 @@
+
+
 #workbc-custom-explore-careers-grid-form {
   display: grid;
   grid-auto-flow: dense;
   grid-template-columns:  repeat(4, minmax(0, 1fr));
   grid-gap: 20px;
 
-  @include media-breakpoint-down(sm) {
+  @include media-breakpoint-down(lg) {
     grid-template-columns: auto;
   }
 
   .occupational-category {
     box-shadow: 0 0 15px 0 rgba(0,0,0,.15);
-    padding: 5px;
+
+    padding-top: 10%;
+    padding-left: 30px;
+    padding-right: 30px;
+    aspect-ratio: 1;
+
+    @include media-breakpoint-down(lg) {
+      padding-top: 0px;
+      padding-left: 0px;
+      padding-right: 5px;
+      aspect-ratio: inherit;
+    }
   }
 
   .tile {
@@ -19,7 +32,7 @@
     width: 100%;
     height: 100%;
 
-    @include media-breakpoint-down(sm) {
+    @include media-breakpoint-down(lg) {
       flex-direction: row;
       align-items: center;
     }
@@ -27,22 +40,22 @@
     .tile-info {
       text-align: center;
 
-      @include media-breakpoint-down(sm) {
+      @include media-breakpoint-down(lg) {
         text-align: left;
       }
     }
 
     .tile-icon {
-      padding-top: 15px;
-      padding-bottom: 25px;
+      padding-top: 0px;
+      padding-bottom: 0px;
 
       img {
-        width: 35px;
-        height: 35px;
+        width: 42px;
+        height: 42px;
         margin:auto;
       }
 
-      @include media-breakpoint-down(sm) {
+      @include media-breakpoint-down(lg) {
         padding-top: 0px;
         padding-bottom: 0px;
         padding-left: 10px;
@@ -58,20 +71,24 @@
     }
 
     .tile-name {
-      font-size: 1.125rem;
-      line-height: 1.125rem;
+      font-size: 1.35vw;
+      line-height: 125%;
       font-weight: bold;
+      margin-top: 10%;
       margin-bottom: 20px;
 
-      @include media-breakpoint-down(sm) {
+      @include media-breakpoint-down(lg) {
+        font-size: 1.125rem;
         line-height: 1.375rem;
+        margin-top: 0px;
         margin-bottom: 0px;
         margin-right: auto;
       }
     }
 
     .tile-areas {
-      @include media-breakpoint-down(sm) {
+
+      @include media-breakpoint-down(lg) {
         display: none;
       }
     }
@@ -81,8 +98,8 @@
     }
 
     .tile-expand {
-      padding-top: 20px;
-      padding-bottom: 20px;
+      padding-top: 10%;
+      padding-bottom: 15%;
 
       img {
         width: 16px;
@@ -90,9 +107,9 @@
         margin: auto;
       }
 
-      @include media-breakpoint-down(sm) {
-        padding-right: 10px;
-        padding-left: 15px;
+      @include media-breakpoint-down(lg) {
+        padding-right: 20px;
+        padding-left: 20px;
 
         img {
           margin-left: auto;
@@ -102,99 +119,102 @@
     }
   }
 
+  $grid-item-border-top: 8px;
+  $grid-item-border-top-mobile: 5px;
+
   #category-business {
-    border-top: 10px solid #DA5700;
-    @include media-breakpoint-down(sm) {
+    border-top: $grid-item-border-top solid #DA5700;
+    @include media-breakpoint-down(lg) {
       border-top: inherit;
-      border-left: 5px solid #DA5700;
+      border-left: $grid-item-border-top-mobile solid #DA5700;
     }
   }
 
   #category-community-and-support-services {
-    border-top: 10px solid #E7BF3E;
-    @include media-breakpoint-down(sm) {
+    border-top: $grid-item-border-top solid #E7BF3E;
+    @include media-breakpoint-down(lg) {
       border-top: inherit;
-      border-left: 5px solid #E7BF3E;
+      border-left: $grid-item-border-top-mobile solid #E7BF3E;
     }
   }
 
   #category-education {
-    border-top: 10px solid #870264;
-    @include media-breakpoint-down(sm) {
+    border-top: $grid-item-border-top solid #870264;
+    @include media-breakpoint-down(lg) {
       border-top: inherit;
-      border-left: 5px solid #870264;
+      border-left: $grid-item-border-top-mobile solid #870264;
     }
   }
 
   #category-engineering-and-architecture {
-    border-top: 10px solid #80B317;
-    @include media-breakpoint-down(sm) {
+    border-top: $grid-item-border-top solid #80B317;
+    @include media-breakpoint-down(lg) {
       border-top: inherit;
-      border-left: 5px solid #80B317;
+      border-left: $grid-item-border-top-mobile solid #80B317;
     }
   }
 
   #category-hospitality-tourism-and-recreation {
-    border-top: 10px solid #029CDE;
-    @include media-breakpoint-down(sm) {
+    border-top: $grid-item-border-top solid #029CDE;
+    @include media-breakpoint-down(lg) {
       border-top: inherit;
-      border-left: 5px solid #029CDE;
+      border-left: $grid-item-border-top-mobile solid #029CDE;
     }
   }
 
   #category-labour-and-technical-skills {
-    border-top: 10px solid #2E6AB0;
-    @include media-breakpoint-down(sm) {
+    border-top: $grid-item-border-top solid #2E6AB0;
+    @include media-breakpoint-down(lg) {
       border-top: inherit;
-      border-left: 5px solid #2E6AB0;
+      border-left: $grid-item-border-top-mobile solid #2E6AB0;
     }
   }
 
   #category-law-and-justice {
-    border-top: 10px solid #DA5700;
-    @include media-breakpoint-down(sm) {
+    border-top: $grid-item-border-top solid #DA5700;
+    @include media-breakpoint-down(lg) {
       border-top: inherit;
-      border-left: 5px solid #DA5700;
+      border-left: $grid-item-border-top-mobile solid #DA5700;
     }
   }
 
   #category-mathematics-and-technology {
-    border-top: 10px solid #029CDE;
-    @include media-breakpoint-down(sm) {
+    border-top: $grid-item-border-top solid #029CDE;
+    @include media-breakpoint-down(lg) {
       border-top: inherit;
-      border-left: 5px solid #029CDE;
+      border-left: $grid-item-border-top-mobile solid #029CDE;
     }
   }
 
   #category-medicine-and-health {
-    border-top: 10px solid #870264;
-    @include media-breakpoint-down(sm) {
+    border-top: $grid-item-border-top solid #870264;
+    @include media-breakpoint-down(lg) {
       border-top: inherit;
-      border-left: 5px solid #870264;
+      border-left: $grid-item-border-top-mobile solid #870264;
     }
   }
 
   #category-performing-creative-and-fine-arts {
-    border-top: 10px solid #80B317;
-    @include media-breakpoint-down(sm) {
+    border-top: $grid-item-border-top solid #80B317;
+    @include media-breakpoint-down(lg) {
       border-top: inherit;
-      border-left: 5px solid #80B317;
+      border-left: $grid-item-border-top-mobile solid #80B317;
     }
   }
 
   #category-physical-and-natural-sciences {
-    border-top: 10px solid #E7BF3E;
-    @include media-breakpoint-down(sm) {
+    border-top: $grid-item-border-top solid #E7BF3E;
+    @include media-breakpoint-down(lg) {
       border-top: inherit;
-      border-left: 5px solid #E7BF3E;
+      border-left: $grid-item-border-top-mobile solid #E7BF3E;
     }
   }
 
   #category-trades {
-    border-top: 10px solid #2E6AB0;
-    @include media-breakpoint-down(sm) {
+    border-top: $grid-item-border-top solid #2E6AB0;
+    @include media-breakpoint-down(lg) {
       border-top: inherit;
-      border-left: 5px solid #2E6AB0;
+      border-left: $grid-item-border-top-mobile solid #2E6AB0;
     }
   }
 
@@ -217,7 +237,7 @@
     grid-gap: 10px;
     position: relative;
 
-    @include media-breakpoint-down(sm) {
+    @include media-breakpoint-down(lg) {
       display: block;
     }
 
@@ -249,14 +269,14 @@
 
     :nth-child(1) {
       grid-column-end: span 2;
-      @include media-breakpoint-down(sm) {
+      @include media-breakpoint-down(lg) {
         grid-column-end: span 1;
       }
     }
 
     :nth-child(2) {
       grid-column-end: span 2;
-      @include media-breakpoint-down(sm) {
+      @include media-breakpoint-down(lg) {
         grid-column-end: span 1;
       }
     }
@@ -268,7 +288,7 @@
     }
 
     .areas-of-interest-close {
-      @include media-breakpoint-down(sm) {
+      @include media-breakpoint-down(lg) {
         display: none;
       }
 
@@ -298,7 +318,7 @@
 
       }
 
-      @include media-breakpoint-down(sm) {
+      @include media-breakpoint-down(lg) {
         display: flex;
         flex-direction: column-reverse;
 
@@ -324,7 +344,7 @@
     .form-item {
       margin: 0px;
 
-      @include media-breakpoint-down(sm) {
+      @include media-breakpoint-down(lg) {
         margin-top: 5px;
         margin-bottom: 5px;
       }
@@ -355,7 +375,7 @@
     margin: 0px;
   }
 
-  @include media-breakpoint-down(sm) {
+  @include media-breakpoint-down(lg) {
     .workbc-tooltip-content {
       left: -40px;
 

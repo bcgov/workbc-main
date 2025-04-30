@@ -31,7 +31,7 @@ class ExploreCareersSearchForm extends FormBase {
     $tooltip .= '</span>';
 
     $form['text'] = [
-      '#markup' => 'Find a career profile by job title, occupation title, or NOC code ' . $tooltip,
+      '#markup' => 'Find a career profile by job title, occupation title, or NOC code. ' . $tooltip,
     ];
     $form['keywords'] = [
       '#type' => 'search_api_autocomplete',
@@ -42,8 +42,7 @@ class ExploreCareersSearchForm extends FormBase {
         'filter' => 'search',
       ],
       '#default_value' => $form_state->getValue('keywords'),
-      '#help' => $this->t('Enter a keyword or NOC code'),
-      '#attributes' => ['placeholder' => 'Keyword / NOC code'],
+      '#attributes' => ['placeholder' => $this->t('Enter a keyword or NOC code')],
     ];
     $form['submit'] = [
       '#type' => 'submit',
