@@ -360,19 +360,25 @@
   }
 }
 
-
 .workbc-custom-explore-careers-search-form {
   margin-top: 25px;
   padding-top: 25px;
-  padding-bottom: 25px;
+  padding-bottom: 100px;
   background-color: $workbc_palette_light_secondary;
 
   h2 {
     padding-bottom: 15px;
   }
 
-  .button {
-    margin: 0px;
+  .single-row {
+    display: flex;
+    align-items: center;
+    width: 100%;
+  }
+
+  .form-item-keywords {
+    width: 80%;
+    flex: 1;
   }
 
   @include media-breakpoint-down(lg) {
@@ -385,7 +391,6 @@
     }
   }
 }
-
 
 $arrow-height: 15px;
 $border-size: 1px;
