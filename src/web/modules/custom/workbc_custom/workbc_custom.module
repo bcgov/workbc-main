@@ -729,8 +729,14 @@ function workbc_custom_search_api_query_alter($query) {
 * Implements hook_search_api_query_TAG_alter() for explore_careers_search.
 */
 function workbc_custom_search_api_query_explore_careers_search_alter($query) {
-  // Adjust the query before it is sent to Solr:
+  // Adjust the query before it is sent to Solr.
   $keys =& $query->getKeys();
+
+  // Special case: Getting a single 0 confuses the index.
+  if (is_array($keys) && array_key_exists(0, $keys) && $keys[0] === '0') {
+    $query->abort();
+    return;
+  }
   if (empty($keys) || !is_string($keys)) return;
 
   // 1. Upcase keywords to activate AND / OR.
