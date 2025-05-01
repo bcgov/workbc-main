@@ -43,7 +43,6 @@ class CareerProfileLabourMarketEmploymentByRegion extends ExtraFieldDisplayForma
    */
   public function viewElements(ContentEntityInterface $entity) {
 
-    $names = ["Cariboo", "Kootenay", "Mainland/Southwest", "Nort Coast & Nechako", "Northeast", "Thompson-Okanagan", "Vancouver Island-Coast"];
     $regions = [];
     $options1 = array(
       'decimals' => 1,
@@ -55,7 +54,6 @@ class CareerProfileLabourMarketEmploymentByRegion extends ExtraFieldDisplayForma
       'na_if_empty' => TRUE,
     );
     if (!empty($entity->ssot_data) && isset($entity->ssot_data['census']) && isset($entity->ssot_data['career_regional'])) {
-      $total = intval($entity->ssot_data['census']['workers_employed']);
       $region = array();
       $region['name'] = t(REGION_CARIBOO);
       $value = $entity->ssot_data['census']['cariboo_employment_of_this_occupation'];
@@ -107,7 +105,6 @@ class CareerProfileLabourMarketEmploymentByRegion extends ExtraFieldDisplayForma
       $regions[] = $region;
     }
 
-    $datestr = ssotParseDateRange($entity->ssot_data['schema'], 'career_regional', 'cariboo_employment_current');
     $header = ["Region", "Employment", "% Employment of this Occupation"];
 
     $rows = [];

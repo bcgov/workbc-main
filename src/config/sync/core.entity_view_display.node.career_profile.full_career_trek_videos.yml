@@ -4,6 +4,7 @@ status: true
 dependencies:
   config:
     - core.entity_view_mode.node.full_career_trek_videos
+    - field.field.node.career_profile.field_annual_salary
     - field.field.node.career_profile.field_career_overview
     - field.field.node.career_profile.field_career_pathways
     - field.field.node.career_profile.field_career_videos
@@ -12,6 +13,7 @@ dependencies:
     - field.field.node.career_profile.field_duties
     - field.field.node.career_profile.field_education_programs
     - field.field.node.career_profile.field_education_training_skills
+    - field.field.node.career_profile.field_epbc_categories
     - field.field.node.career_profile.field_hero_image
     - field.field.node.career_profile.field_hero_image_media
     - field.field.node.career_profile.field_insights_from_industry
@@ -20,12 +22,14 @@ dependencies:
     - field.field.node.career_profile.field_metatag_description
     - field.field.node.career_profile.field_noc
     - field.field.node.career_profile.field_noc_2016
+    - field.field.node.career_profile.field_region_openings
     - field.field.node.career_profile.field_related_careers
     - field.field.node.career_profile.field_resources
     - field.field.node.career_profile.field_resources_reference
     - field.field.node.career_profile.field_scheduled_publish
     - field.field.node.career_profile.field_skills_2
     - field.field.node.career_profile.field_tags
+    - field.field.node.career_profile.field_teer
     - field.field.node.career_profile.field_work_environment
     - node.type.career_profile
   module:
@@ -91,6 +95,7 @@ third_party_settings:
         - extra_field_education_programs
         - extra_field_skills_introduction
         - extra_field_profile_skills
+        - extra_field_career_trek_profile_skills
       label: 'Education, Training & Skills'
       parent_name: group_career_profile_tabs
       region: content
@@ -196,6 +201,11 @@ content:
     settings: {  }
     third_party_settings: {  }
     weight: 62
+    region: content
+  extra_field_career_trek_profile_skills:
+    settings: {  }
+    third_party_settings: {  }
+    weight: 72
     region: content
   extra_field_career_videos_introduction:
     settings: {  }
@@ -345,7 +355,7 @@ content:
   extra_field_profile_location:
     settings: {  }
     third_party_settings: {  }
-    weight: 16
+    weight: 15
     region: content
   extra_field_profile_skills:
     settings: {  }
@@ -567,8 +577,12 @@ hidden:
   extra_field_search_index_noc: true
   extra_field_workbc_page_title: true
   extra_field_workbc_published_on: true
+  field_annual_salary: true
   field_content_group: true
+  field_epbc_categories: true
   field_hero_image: true
+  field_region_openings: true
   field_resources: true
+  field_teer: true
   langcode: true
   search_api_excerpt: true

@@ -239,6 +239,11 @@
             "drupal/core": "-p2"
         },
         "patches": {
+            "drupal/core": {
+                "Media library add form mode": "patches/drupal/core/core-10.3-3323232.patch",
+                "NumericFilter warning fix": "patches/drupal/core/core-10.3-3418238.patch",
+                "Views exposed form AJAX callback": "patches/drupal/core/core-10.3-2842525.patch"
+            },
             "drupal/backup_migrate": {
                 "PostgreSQL support": "patches/drupal/backup_migrate/0003-postgresql-support.patch",
                 "Directory restore": "patches/drupal/backup_migrate/backup-migrate-restore-public-files-3245802-3.patch"
@@ -255,10 +260,6 @@
             },
             "drupal/media_library_edit": {
                 "Media library edit form mode": "patches/drupal/media_library_edit/form_mode.patch"
-            },
-            "drupal/core": {
-                "Media library add form mode": "patches/drupal/core/core-10.3-3323232.patch",
-				"Showing warning in the NumericFilter": "patches/drupal/core/core-numeric-filter-warning.patch"
             },
             "drupal/views_infinite_scroll": {
                 "Remove repeating header": "patches/drupal/views_infinite_scroll/2899705-53.patch"

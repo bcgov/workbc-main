@@ -75,7 +75,7 @@ class OccupationalCategoryProcessor extends ProcessorPluginBase {
    */
   protected function fetchOccupationalCategoryDataFromApi($id) {
     try {
-      $ssot = ssotCareerProfile($id);
+      $ssot = ssotFullCareerProfile($id);
       if (!empty($ssot['occupational_category'][0])) {
         return $ssot['occupational_category'][0]['category'] ?? '';
       }

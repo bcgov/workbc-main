@@ -62,7 +62,6 @@
         }
       });
 
-      const contents = new Drupal.Charts.Contents();
       once('click-google-charts-item', '.charts-google').forEach(function (element) {
         if (element.dataset.hasOwnProperty('chart')) {
           interactGoogleChart(element);

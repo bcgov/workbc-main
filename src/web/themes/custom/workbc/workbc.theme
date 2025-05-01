@@ -259,7 +259,7 @@ function workbc_preprocess_node(&$variables) {
 }
 
 /**
- * Implements template_preprocess_views_view_summary_unformatted().
+ * Implements hook_preprocess_views_view_summary_unformatted().
  *
  * Prepares "view_base_path" variables for unformatted summary view templates
  * for use with glossary All option.
@@ -270,7 +270,7 @@ function workbc_preprocess_views_view_summary_unformatted(&$variables) {
 }
 
 /**
- * Implements template_preprocess_media().
+ * Implements hook_preprocess_media().
  */
 function workbc_preprocess_media(&$variables) {
 
@@ -289,7 +289,7 @@ function workbc_preprocess_media(&$variables) {
 }
 
 /**
- * Implements template_preprocess_html().
+ * Implements hook_preprocess_html().
  */
 function workbc_preprocess_html(&$vars) {
   // Get the current path
@@ -301,7 +301,7 @@ function workbc_preprocess_html(&$vars) {
 }
 
 /**
- * Implements template_preprocess_menu().
+ * Implements hook_preprocess_menu().
  */
 function workbc_preprocess_menu(&$vars) {
   if ($vars['menu_name'] === 'footer') {
@@ -325,7 +325,7 @@ function workbc_theme_suggestions_form_element_alter(array &$suggestions, array 
 }
 
 /**
- * Implements template_preprocess_form_element().
+ * Implements hook_preprocess_form_element().
  */
 function workbc_preprocess_form_element(&$variables) {
 
@@ -338,7 +338,7 @@ function workbc_preprocess_form_element(&$variables) {
 }
 
 /**
- * Implements template_preprocess_block().
+ * Implements hook_preprocess_block().
  */
 function workbc_preprocess_block(&$vars) {
   if ($vars['plugin_id'] === 'side_nav_block') {
@@ -355,7 +355,7 @@ function workbc_preprocess_block(&$vars) {
 }
 
 /**
- * Implements template_preprocess_breadcrumb().
+ * Implements hook_preprocess_breadcrumb().
  */
 function workbc_preprocess_breadcrumb(&$variables){
   $types = ["career_profile", "industry_profile"];
@@ -368,7 +368,7 @@ function workbc_preprocess_breadcrumb(&$variables){
 }
 
 /**
- * Implements template_preprocess_views_view_field().
+ * Implements hook_preprocess_views_view_field().
  */
 function workbc_preprocess_views_view_field(&$variables) {
 
@@ -390,17 +390,19 @@ function workbc_preprocess_views_view_field(&$variables) {
   }
 }
 
-
+/**
+ * Implements hook_preprocess_field().
+ */
 function workbc_preprocess_field(&$variables) {
 
-  if ($variables['field_type'] == "extra_field" && 
+  if ($variables['field_type'] == "extra_field" &&
       str_starts_with($variables['field_name'], "extra_field_lmo_report_2024")) {
     if (str_ends_with($variables['field_name'], "table")) {
       $variables['attributes']['class'][] = "lmo-report-table";
     }
     if (str_ends_with($variables['field_name'], "chart")) {
       $variables['attributes']['class'][] = "lmo-report-chart";
-    }       
+    }
   }
   // region information for interactive map
   if ($variables['field_name'] == "extra_field_lmo_report_2024_job_openings_regions_table") {
@@ -425,5 +427,32 @@ function workbc_theme_suggestions_details_alter(array &$suggestions, array $vari
   if(isset($variables['element']) && isset($variables['element']['#title'])) {
     $title = strtolower(str_replace(" ", "__", $variables['element']['#title']));
     $suggestions[] = $variables['theme_hook_original'] . "__" . $title;
+  }
+}
+/**
+ * Implements hook_theme_suggestions_page_alter().
+ */
+function workbc_theme_suggestions_page_alter(array &$suggestions, array $variables) {
+  if ($template = \Drupal::request()->get('template')){
+      $suggestions[] = 'page__'.$template;
+  }
+}
+
+/**
+ * Implements hook_theme_suggestions_html_alter().
+ */
+function workbc_theme_suggestions_html_alter(array &$suggestions, array $variables) {
+  if ($template = \Drupal::request()->get('template')){
+      $suggestions[] = 'html__'.$template;
+  }
+}
+
+/**
+ * Implements hook_page_attachments_alter().
+ */
+function workbc_page_attachments_alter(array &$attachments){
+  if (\Drupal::request()->get('template') == 'embed') {
+    //Remove all libraries
+    unset($attachments['#attached']['library']);
   }
 }

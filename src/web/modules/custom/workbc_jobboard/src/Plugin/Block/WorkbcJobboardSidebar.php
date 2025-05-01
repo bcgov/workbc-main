@@ -178,7 +178,7 @@ class WorkbcJobboardSidebar extends BlockBase{
       else {
         $no_result_text_val = 'Unable to connect to Job Board API.';
         $api_url = \Drupal::config('jobboard')->get('jobboard_api_url_backend');
-        \Drupal::logger('workbc_jobboard')->error('Error '. $recent_jobs['response'].': Unable to connect to Job Board API. '.$api_url);
+        \Drupal::logger('workbc')->error($recent_jobs['response']);
       }
       return [
         '#type' => 'markup',
