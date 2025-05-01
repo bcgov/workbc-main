@@ -72,7 +72,7 @@ field_settings:
     label: NOC
     datasource_id: 'entity:node'
     property_path: field_noc
-    type: 'solr_text_custom:ngram'
+    type: 'solr_text_custom:edge'
     dependencies:
       config:
         - field.storage.node.field_noc
