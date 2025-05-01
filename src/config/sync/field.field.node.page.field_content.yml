@@ -14,9 +14,11 @@ dependencies:
     - paragraphs.paragraphs_type.action_cards_icon
     - paragraphs.paragraphs_type.action_cards_icon_1_2
     - paragraphs.paragraphs_type.action_cards_publication
+    - paragraphs.paragraphs_type.banner_video
     - paragraphs.paragraphs_type.content_interactive_map
     - paragraphs.paragraphs_type.content_text
     - paragraphs.paragraphs_type.content_view
+    - paragraphs.paragraphs_type.section_icons_1_3
   module:
     - entity_reference_revisions
 id: node.page.field_content
@@ -45,6 +47,8 @@ settings:
       action_cards_icon_1_2: action_cards_icon_1_2
       action_cards_publication: action_cards_publication
       content_interactive_map: content_interactive_map
+      banner_video: banner_video
+      section_icons_1_3: section_icons_1_3
     negate: 0
     target_bundles_drag_drop:
       action_card:
@@ -86,6 +90,9 @@ settings:
       additional_duties:
         weight: -29
         enabled: false
+      banner_video:
+        weight: 36
+        enabled: true
       content_interactive_map:
         weight: 30
         enabled: true
@@ -95,8 +102,17 @@ settings:
       content_view:
         weight: -22
         enabled: true
+      lmo_charts_tables:
+        weight: 40
+        enabled: false
       quote_card:
         weight: -26
+        enabled: false
+      section_icons_1_3:
+        weight: 42
+        enabled: true
+      section_read_more:
+        weight: 43
         enabled: false
       skills:
         weight: -23

@@ -1,0 +1,7 @@
+workbc_career_trek.settings_form:
+  path: '/admin/config/workbc-career-trek/settings'
+  defaults:
+    _form: '\Drupal\workbc_career_trek\Form\CareerTrekSettingsForm'
+    _title: 'Career Trek Settings'
+  requirements:
+    _permission: 'administer site configuration'

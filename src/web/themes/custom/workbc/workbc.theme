@@ -255,6 +255,7 @@ function workbc_preprocess_node(&$variables) {
   $internal = \Drupal::service('path_alias.manager')->getAliasByPath($current_path);
   $variables['is_front'] = $internal == \Drupal::configFactory()->get('system.site')->get('page.front');
   $variables['is_contact'] = $internal == "/contact-us";
+  $variables['is_career_trek'] = $internal == "/plan-career/career-trek-videos";
 }
 
 /**
@@ -409,6 +410,25 @@ function workbc_preprocess_field(&$variables) {
   }
 }
 
+/*
+ * Implements hook_theme_suggestions_HOOK_alter()
+ */
+function workbc_theme_suggestions_fieldset_alter(array &$suggestions, array $variables) {
+  if(isset($variables['element']) && isset($variables['element']['#title'])) {
+    $title = strtolower(str_replace(" ", "__", $variables['element']['#title']));
+    $suggestions[] = $variables['theme_hook_original'] . "__" . $title;
+  }
+}
+
+/*
+ * Implements hook_theme_suggestions_HOOK_alter()
+ */
+function workbc_theme_suggestions_details_alter(array &$suggestions, array $variables) {
+  if(isset($variables['element']) && isset($variables['element']['#title'])) {
+    $title = strtolower(str_replace(" ", "__", $variables['element']['#title']));
+    $suggestions[] = $variables['theme_hook_original'] . "__" . $title;
+  }
+}
 /**
  * Implements hook_theme_suggestions_page_alter().
  */

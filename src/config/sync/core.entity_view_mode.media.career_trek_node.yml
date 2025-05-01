@@ -1,0 +1,11 @@
+uuid: 070d46da-8502-4823-9e8a-d09e4c60d9ef
+langcode: en
+status: true
+dependencies:
+  module:
+    - media
+id: media.career_trek_node
+label: 'Career Trek Node'
+description: ''
+targetEntityType: media
+cache: true

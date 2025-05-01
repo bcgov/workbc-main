@@ -48,7 +48,7 @@ third_party_settings:
       label: 'Career Profile Tabs'
       parent_name: ''
       region: content
-      weight: 12
+      weight: 15
       format_type: tabs
       format_settings:
         classes: ''
@@ -92,6 +92,7 @@ third_party_settings:
         - extra_field_education_programs
         - extra_field_skills_introduction
         - extra_field_profile_skills
+        - extra_field_profile_location
       label: 'Education, Training & Skills'
       parent_name: group_career_profile_tabs
       region: content
@@ -313,6 +314,11 @@ content:
     third_party_settings: {  }
     weight: 4
     region: content
+  extra_field_occupational_categories:
+    settings: {  }
+    third_party_settings: {  }
+    weight: 14
+    region: content
   extra_field_occupational_interests:
     settings: {  }
     third_party_settings: {  }
@@ -322,6 +328,11 @@ content:
     settings: {  }
     third_party_settings: {  }
     weight: 26
+    region: content
+  extra_field_profile_location:
+    settings: {  }
+    third_party_settings: {  }
+    weight: 72
     region: content
   extra_field_profile_skills:
     settings: {  }
@@ -481,7 +492,7 @@ content:
     settings:
       link_to_entity: false
     third_party_settings: {  }
-    weight: 14
+    weight: 17
     region: content
   field_region_openings:
     type: number_integer
@@ -514,7 +525,7 @@ content:
       date_format: html_datetime
       text_pattern: '%moderation_state% - %date%'
     third_party_settings: {  }
-    weight: 13
+    weight: 16
     region: content
   field_teer:
     type: list_default
@@ -537,6 +548,7 @@ content:
     region: content
 hidden:
   created: true
+  extra_field_career_trek_profile_skills: true
   extra_field_job_titles: true
   extra_field_search_index_job_titles: true
   extra_field_search_index_noc: true
