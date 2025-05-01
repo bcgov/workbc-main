@@ -1,0 +1,71 @@
+.plan-careerexplore-careerscareer-profilessearch {
+  #block-bettersocialsharingbuttons {
+    background-color: $workbc_palette_light_secondary;
+  }
+
+  .node-page-content {
+    display: none;
+  }
+
+}
+
+.view-id-explore_careers {
+
+  .explore-careers-filter {
+    background-color: $workbc_palette_light_secondary;
+  }
+
+  .views-exposed-form .form--inline {
+    position: relative;
+  }
+
+  .form-item-sort-bef-combine {
+    position: absolute;
+    right: 5px;
+    bottom: -90px;
+    width: 40%;
+  }
+
+  label {
+    display: block;
+  }
+
+  .form-control {
+    border: 2px solid $workbc_palette_dark_secondary;
+    border-radius: 0;
+    line-height: 1.95;
+  }
+
+  .form-item-field-epbc-categories-target-id {
+    width: 48%;
+  }
+
+  .form-item-field-teer-value {
+    width: 48%;
+  }
+
+  .form-item-delta {
+    width: 25%;
+  }
+
+  .form-item-field-annual-salary-value {
+    width: 25%;
+  }
+
+  .form-actions {
+    // padding-bottom: 10px;
+  }
+
+  #edit-reset-explore-careers {
+    @include btn-border;
+    color: #2e6ab0;
+    text-decoration: none;
+    background-color: $workbc_palette_light_primary;
+    padding: 10px 64px;
+  }
+
+  .explore-careers-sort {
+    padding-top: 15px;
+    padding-bottom: 50px;
+  }
+}

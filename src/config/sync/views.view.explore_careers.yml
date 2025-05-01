@@ -939,6 +939,7 @@ display:
           replica: false
           query_tags: {  }
       relationships: {  }
+      css_class: ''
       header:
         area:
           id: area
@@ -953,17 +954,29 @@ display:
             value: '<h2>[view:title]</h2>'
             format: full_html
           tokenize: false
-        result:
-          id: result
-          table: views
-          field: result
-          relationship: none
-          group_type: group
-          admin_label: ''
-          plugin_id: result
-          empty: false
-          content: 'Displaying @total career profiles'
       footer: {  }
+      display_extenders: {  }
+    cache_metadata:
+      max-age: 0
+      contexts:
+        - 'languages:language_content'
+        - 'languages:language_interface'
+        - url
+        - 'url.query_args:sort_by'
+        - 'url.query_args:sort_order'
+        - 'user.node_grants:view'
+        - user.permissions
+      tags:
+        - 'config:field.storage.node.field_annual_salary'
+        - 'config:field.storage.node.field_noc'
+        - 'config:field.storage.node.field_region_openings'
+        - 'config:field.storage.node.field_teer'
+  block_1:
+    id: block_1
+    display_title: Block
+    display_plugin: block
+    position: 2
+    display_options:
       display_extenders: {  }
     cache_metadata:
       max-age: 0
@@ -986,7 +999,10 @@ display:
     display_plugin: page
     position: 1
     display_options:
-      enabled: true
+      enabled: false
+      defaults:
+        css_class: false
+      css_class: container-lg
       display_extenders: {  }
       path: plan-career/explore-careers/career-profiles/search
     cache_metadata:

@@ -309,7 +309,10 @@ function workbc_custom_form_views_exposed_form_alter(&$form, FormStateInterface 
     $form['#submit'][] = 'video_library_exposed_form_submit';
   }
 
-  if ($form['#id'] === 'views-exposed-form-explore-careers-page-1') {
+  if ($form['#id'] === 'views-exposed-form-explore-careers-page-1' ||
+      $form['#id'] === 'views-exposed-form-explore-careers-block-1')  {
+  $route = \Drupal::routeMatch()->getRouteName();
+
     $terms = \Drupal::entityTypeManager()->getStorage('taxonomy_term')->loadTree('epbc_categories');
     $categories = array_filter($terms, function ($term) {
       return $term->depth === 0;
@@ -331,6 +334,8 @@ function workbc_custom_form_views_exposed_form_alter(&$form, FormStateInterface 
       '#value' => $hide_category,
     ];
     if ($hide_category) {
+      $form['keyword_search']['#access'] = false;
+
       $form['term_node_tid_depth'] = [
         '#type' => 'hidden',
         '#value' => $category_value,

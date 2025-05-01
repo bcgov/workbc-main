@@ -122,99 +122,106 @@
   $grid-item-border-top: 8px;
   $grid-item-border-top-mobile: 5px;
 
+  $grid-color-orange: #DA5700;
+  $grid-color-gold : #E7BF3E;
+  $grid-color-purple: #880364;
+  $grid-color-green : #81B216;
+  $grid-color-blue: #2E6AB0;
+  $grid-color-lite-blue: #029CDE;
+
   #category-business {
-    border-top: $grid-item-border-top solid #DA5700;
+    border-top: $grid-item-border-top solid $grid-color-orange;
     @include media-breakpoint-down(lg) {
       border-top: inherit;
-      border-left: $grid-item-border-top-mobile solid #DA5700;
+      border-left: $grid-item-border-top-mobile solid $grid-color-orange;
     }
   }
 
   #category-community-and-support-services {
-    border-top: $grid-item-border-top solid #E7BF3E;
+    border-top: $grid-item-border-top solid $grid-color-gold;
     @include media-breakpoint-down(lg) {
       border-top: inherit;
-      border-left: $grid-item-border-top-mobile solid #E7BF3E;
+      border-left: $grid-item-border-top-mobile solid $grid-color-gold;
     }
   }
 
   #category-education {
-    border-top: $grid-item-border-top solid #870264;
+    border-top: $grid-item-border-top solid $grid-color-purple;
     @include media-breakpoint-down(lg) {
       border-top: inherit;
-      border-left: $grid-item-border-top-mobile solid #870264;
+      border-left: $grid-item-border-top-mobile solid $grid-color-purple;
     }
   }
 
   #category-engineering-and-architecture {
-    border-top: $grid-item-border-top solid #80B317;
+    border-top: $grid-item-border-top solid $grid-color-green;
     @include media-breakpoint-down(lg) {
       border-top: inherit;
-      border-left: $grid-item-border-top-mobile solid #80B317;
+      border-left: $grid-item-border-top-mobile solid $grid-color-green;
     }
   }
 
   #category-hospitality-tourism-and-recreation {
-    border-top: $grid-item-border-top solid #029CDE;
+    border-top: $grid-item-border-top solid $grid-color-lite-blue;
     @include media-breakpoint-down(lg) {
       border-top: inherit;
-      border-left: $grid-item-border-top-mobile solid #029CDE;
+      border-left: $grid-item-border-top-mobile solid $grid-color-lite-blue;
     }
   }
 
   #category-labour-and-technical-skills {
-    border-top: $grid-item-border-top solid #2E6AB0;
+    border-top: $grid-item-border-top solid $grid-color-blue;
     @include media-breakpoint-down(lg) {
       border-top: inherit;
-      border-left: $grid-item-border-top-mobile solid #2E6AB0;
+      border-left: $grid-item-border-top-mobile solid $grid-color-blue;
     }
   }
 
   #category-law-and-justice {
-    border-top: $grid-item-border-top solid #DA5700;
+    border-top: $grid-item-border-top solid $grid-color-orange;
     @include media-breakpoint-down(lg) {
       border-top: inherit;
-      border-left: $grid-item-border-top-mobile solid #DA5700;
+      border-left: $grid-item-border-top-mobile solid $grid-color-orange;
     }
   }
 
   #category-mathematics-and-technology {
-    border-top: $grid-item-border-top solid #029CDE;
+    border-top: $grid-item-border-top solid $grid-color-lite-blue;
     @include media-breakpoint-down(lg) {
       border-top: inherit;
-      border-left: $grid-item-border-top-mobile solid #029CDE;
+      border-left: $grid-item-border-top-mobile solid $grid-color-lite-blue;
     }
   }
 
   #category-medicine-and-health {
-    border-top: $grid-item-border-top solid #870264;
+    border-top: $grid-item-border-top solid $grid-color-purple;
     @include media-breakpoint-down(lg) {
       border-top: inherit;
-      border-left: $grid-item-border-top-mobile solid #870264;
+      border-left: $grid-item-border-top-mobile solid $grid-color-purple;
     }
   }
 
   #category-performing-creative-and-fine-arts {
-    border-top: $grid-item-border-top solid #80B317;
+    border-top: $grid-item-border-top solid $grid-color-green;
     @include media-breakpoint-down(lg) {
       border-top: inherit;
-      border-left: $grid-item-border-top-mobile solid #80B317;
+      border-left: $grid-item-border-top-mobile solid $grid-color-green;
     }
   }
 
   #category-physical-and-natural-sciences {
-    border-top: $grid-item-border-top solid #E7BF3E;
+    border-top: $grid-item-border-top solid $grid-color-gold;
     @include media-breakpoint-down(lg) {
       border-top: inherit;
-      border-left: $grid-item-border-top-mobile solid #E7BF3E;
+      border-left: $grid-item-border-top-mobile solid $grid-color-gold;
     }
   }
 
   #category-trades {
-    border-top: $grid-item-border-top solid #2E6AB0;
+    border-top: $grid-item-border-top solid $grid-color-blue;
     @include media-breakpoint-down(lg) {
       border-top: inherit;
-      border-left: $grid-item-border-top-mobile solid #2E6AB0;
+      border-left: $grid-item-border-top-mobile solid $grid-color-blue;
     }
   }
 

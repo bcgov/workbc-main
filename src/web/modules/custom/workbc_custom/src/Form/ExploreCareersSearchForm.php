@@ -4,6 +4,7 @@ namespace Drupal\workbc_custom\Form;
 
 use Drupal\Core\Form\FormBase;
 use Drupal\Core\Form\FormStateInterface;
+use Drupal\Core\Url;
 
 /**
  * Class ExploreCareersSearchForm
@@ -57,7 +58,9 @@ class ExploreCareersSearchForm extends FormBase {
   * {@inheritdoc}
   */
   public function submitForm(array &$form, FormStateInterface $form_state) {
-    $form_state->setRedirect('view.explore_careers.page_1', [], [
+    $url = URL::fromUserInput('/plan-career/explore-careers/career-profiles/search');
+
+    $form_state->setRedirect($url->getRouteName(), $url->getRouteParameters(), [
       'query' => [
         'hide_category' => 0,
         'keyword_search' => $form_state->getValue('keywords'),

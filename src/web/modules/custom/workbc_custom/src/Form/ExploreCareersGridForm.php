@@ -4,6 +4,7 @@ namespace Drupal\workbc_custom\Form;
 
 use Drupal\Core\Form\FormBase;
 use Drupal\Core\Form\FormStateInterface;
+use Drupal\Core\Url;
 
 /**
  * Class ExploreCareersGridForm
@@ -120,7 +121,10 @@ class ExploreCareersGridForm extends FormBase {
     $selection = array_keys(array_filter($form_state->getValues(), function($v, $k) use($categories) {
       return is_int($k) && $v === 1 && !in_array($k, array_column($categories, 'tid'));
     }, ARRAY_FILTER_USE_BOTH));
-    $form_state->setRedirect('view.explore_careers.page_1', [], [
+
+    $url = URL::fromUserInput('/plan-career/explore-careers/career-profiles/search');
+
+    $form_state->setRedirect($url->getRouteName(), $url->getRouteParameters(), [
       'query' => [
         'hide_category' => 1,
         'field_epbc_categories_target_id' => $selection,
