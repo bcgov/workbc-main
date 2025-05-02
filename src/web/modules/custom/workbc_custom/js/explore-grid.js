@@ -3,10 +3,10 @@ let currentOpen = null;
 (function ($, Drupal, once) {
 
   function closePreviousAreaOfInterest(area) {
-    let cat = document.querySelectorAll("#category-"+currentOpen);
+    const cat = document.querySelectorAll("#category-"+currentOpen);
     $(cat).removeClass('is-selected');
     $(cat).find('.tile-expand img').attr('src', '/modules/custom/workbc_custom/icons/expand.svg');
-    let areas = document.querySelectorAll("#selector-"+currentOpen);
+    const areas = document.querySelectorAll("#selector-"+currentOpen);
     $(areas).addClass('is-hidden');
     $(areas).find('.error').addClass('hidden');
     $(area).siblings("#selector-"+currentOpen).find('input:checkbox').prop('checked', false);
@@ -26,12 +26,13 @@ let currentOpen = null;
       });
 
       $(once('explore-grid', '#workbc-custom-explore-careers-grid-form .occupational-category')).on("click", function() {
-        let catId = $(this).data('category-id');
+        const catId = $(this).data('category-id');
+        const top = this.getBoundingClientRect().top;
         if (currentOpen !== null && currentOpen !== catId) {
           closePreviousAreaOfInterest($(this));
         }
-        let cat = document.querySelectorAll("#category-"+catId);
-        let areas = document.querySelectorAll("#selector-"+catId);
+        const cat = document.querySelectorAll("#category-"+catId);
+        const areas = document.querySelectorAll("#selector-"+catId);
         $(this).toggleClass('is-selected');
         $(areas).toggleClass('is-hidden');
         if ($(areas).hasClass('is-hidden')) {
@@ -40,6 +41,7 @@ let currentOpen = null;
         else {
           $(cat).find('.tile-expand img').attr('src', '/modules/custom/workbc_custom/icons/collapse.svg');
         }
+        window.scrollTo({ top: window.scrollY - (top - this.getBoundingClientRect().top), behavior: 'instant' });
         currentOpen = catId;
       });
 
