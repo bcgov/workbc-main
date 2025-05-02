@@ -311,8 +311,6 @@ function workbc_custom_form_views_exposed_form_alter(&$form, FormStateInterface 
 
   if ($form['#id'] === 'views-exposed-form-explore-careers-page-1' ||
       $form['#id'] === 'views-exposed-form-explore-careers-block-1')  {
-  $route = \Drupal::routeMatch()->getRouteName();
-
     $terms = \Drupal::entityTypeManager()->getStorage('taxonomy_term')->loadTree('epbc_categories');
     $categories = array_filter($terms, function ($term) {
       return $term->depth === 0;

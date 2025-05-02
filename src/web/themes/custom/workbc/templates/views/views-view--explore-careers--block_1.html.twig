@@ -39,6 +39,7 @@
     dom_id ? 'js-view-dom-id-' ~ dom_id,
   ]
 %}
+
 <div{{ attributes.addClass(classes) }}>
 
   {{ title_prefix }}
@@ -51,7 +52,19 @@
     <div class="container-lg">
       {% if header %}
         <div class="view-header">
-          {{ header }}
+          <div>
+            {{ header }}
+          </div>
+          <div class="view-header-links">
+            {% if hide_category %}
+            <div>
+              <a href="/plan-career/explore-careers/career-profiles">Select another Occupations Category</a>
+            </div>
+            {% endif %}
+            <div>
+              <a href="/plan-career/explore-careers/career-profiles/search">View all 512 Careers</a>
+            </div>
+          </div>
         </div>
       {% endif %}
 
@@ -64,45 +77,45 @@
   </div>
   <div class="explore-careers-sort">
     <div class="container-lg">
-      <h2>We found {{ career_profiles_total }} Career Profiles</h2>
+      <h2 class="career-profiles-found-title">We found {{ career_profiles_total }} Career Profiles</h2>
     </div>
   </div>
-  {% if attachment_before %}
-    <div class="attachment attachment-before">
-      <div class="container-lg">
+
+  <div class="container-lg">
+    {% if attachment_before %}
+      <div class="attachment attachment-before">
         {{ attachment_before }}
       </div>
-    </div>
-  {% endif %}
+    {% endif %}
 
-  {% if rows %}
-    <div class="view-content">
-      <div class="container-lg">
+    {% if rows %}
+      <div class="view-content">
         {{ rows }}
       </div>
-    </div>
-  {% elseif empty %}
-    <div class="view-empty">
-      <div class="container-lg">
+    {% elseif empty %}
+      <div class="view-empty">
         {{ empty }}
       </div>
-    </div>
-  {% endif %}
+    {% endif %}
 
-  {% if pager %}
-    {{ pager }}
-  {% endif %}
-  {% if attachment_after %}
-    <div class="attachment attachment-after">
-      {{ attachment_after }}
-    </div>
-  {% endif %}
-  {% if more %}
-    {{ more }}
-  {% endif %}
-  {% if footer %}
-    <div class="view-footer">
-      {{ footer }}
-    </div>
-  {% endif %}
+    {% if pager %}
+      {{ pager }}
+    {% endif %}
+
+    {% if attachment_after %}
+      <div class="attachment attachment-after">
+        {{ attachment_after }}
+      </div>
+    {% endif %}
+
+    {% if more %}
+      {{ more }}
+    {% endif %}
+
+    {% if footer %}
+      <div class="view-footer">
+        {{ footer }}
+      </div>
+    {% endif %}
+  </div>
 </div>

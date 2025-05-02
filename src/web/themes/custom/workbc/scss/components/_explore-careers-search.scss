@@ -15,15 +15,24 @@
     background-color: $workbc_palette_light_secondary;
   }
 
-  .views-exposed-form .form--inline {
-    position: relative;
+  .view-header {
+    display: flex;
+    flex-direction: row;
+    justify-content: space-between;
+    align-items: center;
   }
 
-  .form-item-sort-bef-combine {
-    position: absolute;
-    right: 5px;
-    bottom: -90px;
-    width: 40%;
+  .view-header-links {
+    display: flex;
+    flex-direction: row;
+
+    a {
+      padding-left: 25px;
+      text-decoration: underline;
+    }
+  }
+  .views-exposed-form .form--inline {
+    position: relative;
   }
 
   label {
@@ -36,24 +45,49 @@
     line-height: 1.95;
   }
 
+  .form-item {
+    margin-right: 0;
+  }
+
+  .form-item-keyword-search {
+    width: 50%;
+    margin-right: 20px;
+  }
+
+  .form-item-term-node-tid-depth {
+    width: 50%;
+  }
+
   .form-item-field-epbc-categories-target-id {
-    width: 48%;
+    width: 50%;
   }
 
   .form-item-field-teer-value {
-    width: 48%;
-  }
-
-  .form-item-delta {
-    width: 25%;
+    width: 50%;
   }
 
   .form-item-field-annual-salary-value {
     width: 25%;
+    padding-left: 1%;
   }
 
-  .form-actions {
-    // padding-bottom: 10px;
+  .form-item-delta {
+    width: 25%;
+    padding-left: 1%;
+  }
+
+  .form-item-sort-bef-combine {
+    position: absolute;
+    right: 0px;
+    bottom: -140px;
+    width: 40%;
+  }
+
+  .career-profiles-found-title {
+    @include gradient-underline;
+    margin-bottom: $workbc_spacing_default;
+    font-size: 2rem;
+    width: 50%
   }
 
   #edit-reset-explore-careers {
@@ -66,6 +100,57 @@
 
   .explore-careers-sort {
     padding-top: 15px;
-    padding-bottom: 50px;
+    padding-bottom: 60px;
   }
+
+
+
+  .views-row {
+    display: flex;
+    flex-direction: row;
+    box-shadow: 0 0 15px 0 rgba(0,0,0,.15);
+    margin-bottom: 25px;
+    padding: 25px 20px;
+
+
+    a {
+      @include btn-blue;
+      padding: 10px 35px;
+    }
+
+    .card-left {
+      width: 50%;
+      margin-right: 10px;
+      display: flex;
+      flex-direction: column;
+
+      .career-profile-link {
+        margin-top: auto;
+      }
+    }
+
+    .card-right {
+      width: 50%;
+      margin-left: 10px;
+
+      .card-stats-container {
+        display: flex;
+        flex-direction: row;
+      }
+
+      img {
+        width: 42px;
+        height: 42px;
+        margin: 5px;
+      }
+    }
+
+    .field-content {
+      font-weight: bold;
+    }
+  }
+
+
+
+
 }
