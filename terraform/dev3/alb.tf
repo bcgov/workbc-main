@@ -59,7 +59,7 @@ resource "aws_lb_listener_rule" "host_based_weighted_routing" {
   condition {
     http_header {
       http_header_name = "WorkBC-Source"
-      values = "cloudfront"
+      values = var.source_token
     }
   }
     
