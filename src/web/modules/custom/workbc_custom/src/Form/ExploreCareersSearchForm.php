@@ -43,7 +43,7 @@ class ExploreCareersSearchForm extends FormBase {
         'filter' => 'search',
       ],
       '#default_value' => $form_state->getValue('keywords'),
-      '#attributes' => ['placeholder' => $this->t('Enter a keyword or NOC code')],
+      '#attributes' => ['placeholder' => $this->t('Keyword / NOC code')],
     ];
     $form['submit'] = [
       '#type' => 'submit',

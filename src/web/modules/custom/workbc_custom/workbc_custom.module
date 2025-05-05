@@ -742,10 +742,15 @@ function workbc_custom_search_api_query_explore_careers_search_alter($query) {
   }
   if (empty($keys) || !is_string($keys)) return;
 
-  // 1. Upcase keywords to activate AND / OR.
+  // Upcase keywords to activate AND / OR.
   $keys = strtoupper($keys);
 
-  // 2. Automatically add + in front of each keyword
+  // Only keep NOC field if the query is purely numerical.
+  if (preg_match('/\d+/i', $keys)) {
+    $query->setFullTextFields(['field_noc']);
+  }
+
+  // Automatically add + in front of each keyword
   // ONLY WORKS WHEN THERE ARE NO SPECIAL QUERY CHARS!
   if (!preg_match('/"|\(|\)|\sAND\s|\sOR\s|&&|\|\||\+/i', $keys)) {
     $keys = preg_replace('/\b(\w+)\b/i', '+$1', $keys);
