@@ -20,18 +20,41 @@
     flex-direction: row;
     justify-content: space-between;
     align-items: center;
+
+    @include media-breakpoint-down(lg) {
+      flex-direction: column;
+      align-items: start;
+    }
   }
 
   .view-header-links {
     display: flex;
     flex-direction: row;
 
+    @include media-breakpoint-down(lg) {
+      flex-direction: column;
+      padding-top: 5px;
+      padding-bottom: 5px;
+    }
+
+    .view-header-link {
+      @include media-breakpoint-down(lg) {
+        padding-top: 5px;
+        padding-bottom: 5px;
+      }
+    }
+
     a {
       padding-left: 25px;
       text-decoration: underline;
+
+      @include media-breakpoint-down(lg) {
+        padding-left: 0px;
+      }
     }
   }
-  .views-exposed-form .form--inline {
+
+    .views-exposed-form .form--inline {
     position: relative;
   }
 
@@ -52,28 +75,54 @@
   .form-item-keyword-search {
     width: 50%;
     margin-right: 20px;
+
+    @include media-breakpoint-down(lg) {
+      width: 100%;
+    }
   }
 
   .form-item-term-node-tid-depth {
     width: 50%;
+
+    @include media-breakpoint-down(lg) {
+      width: 100%;
+    }
   }
 
   .form-item-field-epbc-categories-target-id {
     width: 50%;
+
+    @include media-breakpoint-down(lg) {
+      width: 100%;
+    }
   }
 
   .form-item-field-teer-value {
     width: 50%;
+
+    @include media-breakpoint-down(lg) {
+      width: 100%;
+    }
   }
 
   .form-item-field-annual-salary-value {
     width: 25%;
     padding-left: 1%;
+
+    @include media-breakpoint-down(lg) {
+      width: 100%;
+      padding-left: 0px;
+    }
   }
 
   .form-item-delta {
     width: 25%;
     padding-left: 1%;
+
+    @include media-breakpoint-down(lg) {
+      width: 100%;
+      padding-left: 0px;
+    }
   }
 
   .form-item-sort-bef-combine {
@@ -81,13 +130,23 @@
     right: 0px;
     bottom: -140px;
     width: 40%;
+
+    @include media-breakpoint-down(lg) {
+      left: 0px;
+      bottom: -210px;
+      width: 100%;
+    }
   }
 
   .career-profiles-found-title {
     @include gradient-underline;
     margin-bottom: $workbc_spacing_default;
     font-size: 2rem;
-    width: 50%
+    width: 50%;
+
+    @include media-breakpoint-down(lg) {
+      width: 100%;
+    }
   }
 
   #edit-reset-explore-careers {
@@ -96,11 +155,25 @@
     text-decoration: none;
     background-color: $workbc_palette_light_primary;
     padding: 10px 64px;
+
+    @include media-breakpoint-down(lg) {
+      padding: 10px 10px;
+    }
+  }
+
+  .form-submit {
+    @include media-breakpoint-down(lg) {
+      padding: 10px 10px;
+    }
   }
 
   .explore-careers-sort {
     padding-top: 15px;
     padding-bottom: 60px;
+
+    @include media-breakpoint-down(lg) {
+      padding-bottom: 90px;
+    }
   }
 
 
@@ -112,6 +185,9 @@
     margin-bottom: 25px;
     padding: 25px 20px;
 
+    @include media-breakpoint-down(lg) {
+      flex-direction: column;
+    }
 
     a {
       @include btn-blue;
@@ -124,8 +200,16 @@
       display: flex;
       flex-direction: column;
 
+      @include media-breakpoint-down(lg) {
+        width: 100%;
+      }
+
       .career-profile-link {
         margin-top: auto;
+
+        @include media-breakpoint-down(lg) {
+          display: none;
+        }
       }
     }
 
@@ -133,16 +217,41 @@
       width: 50%;
       margin-left: 10px;
 
+      @include media-breakpoint-down(lg) {
+        width: 100%;
+        margin-left: 0px;
+      }
+
       .card-stats-container {
         display: flex;
         flex-direction: row;
         align-items: center;
+
+        @include media-breakpoint-down(lg) {
+          align-items: start;
+          margin-top: 10px;
+        }
       }
 
       img {
         width: 42px;
         height: 42px;
         margin: 10px 20px;
+
+        @include media-breakpoint-down(lg) {
+          margin-top: 0px;
+          margin-left: 0px;
+        }
+      }
+
+      .career-profile-link {
+        display: none;
+        margin-top: auto;
+        padding-top: 25px;
+
+        @include media-breakpoint-down(lg) {
+          display: block;
+        }
       }
     }
 
