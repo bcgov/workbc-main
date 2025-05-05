@@ -69,14 +69,13 @@
     }
 
     .tile-name {
-      font-size: 1.35vw;
+      font-size: 21px;
       line-height: 125%;
       font-weight: bold;
       margin-top: 10%;
       margin-bottom: 0px;
 
       @include media-breakpoint-down(lg) {
-        font-size: 1.125rem;
         line-height: 1.375rem;
         margin-top: 0px;
         margin-bottom: 0px;
@@ -378,22 +377,24 @@
 .workbc-custom-explore-careers-search-form {
   margin-top: 25px;
   padding-top: 25px;
-  padding-bottom: 100px;
+  padding-bottom: 25px;
   background-color: $workbc_palette_light_secondary;
 
   h2 {
     padding-bottom: 15px;
   }
 
-  .single-row {
-    display: flex;
-    align-items: center;
-    width: 100%;
-  }
-
   .form-item-keywords {
-    width: 80%;
-    flex: 1;
+    width: 50%;
+
+    @include media-breakpoint-down(lg) {
+      width: 100%;
+    }
+}
+
+  .form-submit {
+    margin-top: 10px;
+    margin-left: 0;
   }
 
   @include media-breakpoint-down(lg) {

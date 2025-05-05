@@ -58,13 +58,6 @@ let currentOpen = null;
           }
         }
       });
-
-      $('#edit-keywords').keypress(function(event) {
-        if (event.keyCode == '13') {
-          event.preventDefault();
-        }
-      });
-
     }
   }
 })(jQuery, Drupal, once);
