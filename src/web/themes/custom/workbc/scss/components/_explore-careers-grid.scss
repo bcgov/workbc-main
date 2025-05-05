@@ -386,7 +386,11 @@
 
   .form-item-keywords {
     width: 50%;
-  }
+
+    @include media-breakpoint-down(lg) {
+      width: 100%;
+    }
+}
 
   .form-submit {
     margin-top: 10px;
