@@ -278,7 +278,7 @@ display:
           settings:
             thousand_separator: ','
             decimal_separator: .
-            scale: 2
+            scale: 0
             prefix_suffix: true
           group_column: value
           group_columns: {  }
