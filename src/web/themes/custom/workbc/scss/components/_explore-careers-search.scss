@@ -60,7 +60,11 @@
     display: grid;
     grid-auto-flow: dense;
     grid-template-columns: repeat(4, minmax(0, 1fr));
-    grid-gap: 10px;
+    grid-column-gap: 10px;
+
+    @include media-breakpoint-down(lg) {
+      grid-column-gap: 0px;
+    }
   }
 
   label {
@@ -78,69 +82,78 @@
   }
 
   .form-item-keyword-search {
-    display: grid;
     grid-column-end: span 4;
     width: 50%;
-    // margin-right: 20px;
+    padding-right: 5px;
+
+    @include media-breakpoint-down(lg) {
+      grid-column-end: span 4;
+      width: 100%;
+      padding-right: 0px;
+    }
+  }
+
+  .form-item-term-node-tid-depth {
+    grid-column-end: span 2;
+
+    @include media-breakpoint-down(lg) {
+      grid-column-end: span 4;
+    }
+  }
+
+  .show-occupational-category #category-container {
+    grid-column-end: span 2;
+
+    @include media-breakpoint-down(lg) {
+      grid-column-end: span 4;
+    }
+  }
+
+  .hide-occupational-category #category-container {
+    grid-column-end: span 4;
+    width: 50%;
+
+    .form-item-field-epbc-categories-target-id {
+      grid-column-end: span 2;
+      padding-right: 5px;
+
+      @include media-breakpoint-down(lg) {
+        grid-column-end: span 4;
+        padding-right: 0px;
+      }
+    }
 
     @include media-breakpoint-down(lg) {
       width: 100%;
     }
   }
 
-  .form-item-term-node-tid-depth {
-    display: grid;
-    grid-column-end: span 2;
-    // width: 50%;
-
-    // @include media-breakpoint-down(lg) {
-    //   width: 100%;
-    // }
-  }
-
-  // .form-item-field-epbc-categories-target-id {
-  #category-container {
-    display: grid;
-    grid-column-end: span 2;
-    // width: 50%;
-
-    // @include media-breakpoint-down(lg) {
-    //   width: 100%;
-    // }
-  }
-
   .form-item-field-teer-value {
-    display: grid;
     grid-column-end: span 2;
-    // width: 50%;
 
-    // @include media-breakpoint-down(lg) {
-    //   width: 100%;
-    // }
+    @include media-breakpoint-down(lg) {
+      grid-column-end: span 4;
+      width: 100%;
+      padding-right: 0px;
+    }
   }
 
   .form-item-field-annual-salary-value {
-    display: grid;
     grid-column-end: span 1;
-    // width: 25%;
-    // padding-left: 1%;
 
-    // @include media-breakpoint-down(lg) {
-    //   width: 100%;
-    //   padding-left: 0px;
-    // }
+    @include media-breakpoint-down(lg) {
+      grid-column-end: span 4;
+      width: 100%;
+    }
   }
 
   .form-item-delta {
-    display: grid;
     grid-column-end: span 1;
-    // width: 25%;
-    // padding-left: 1%;
 
-    // @include media-breakpoint-down(lg) {
-    //   width: 100%;
-    //   padding-left: 0px;
-    // }
+    @include media-breakpoint-down(lg) {
+      grid-column-end: span 4;
+      width: 100%;
+    }
   }
 
   #edit-actions--2 {
@@ -168,7 +181,7 @@
     width: 50%;
 
     @include media-breakpoint-down(lg) {
-      width: 100%;
+      width: 95%;
     }
   }
 
