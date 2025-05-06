@@ -54,8 +54,17 @@
     }
   }
 
-    .views-exposed-form .form--inline {
+  .views-exposed-form .form--inline {
     position: relative;
+
+    display: grid;
+    grid-auto-flow: dense;
+    grid-template-columns: repeat(4, minmax(0, 1fr));
+    grid-column-gap: 10px;
+
+    @include media-breakpoint-down(lg) {
+      grid-column-gap: 0px;
+    }
   }
 
   label {
@@ -73,24 +82,46 @@
   }
 
   .form-item-keyword-search {
+    grid-column-end: span 4;
     width: 50%;
-    margin-right: 20px;
+    padding-right: 5px;
 
     @include media-breakpoint-down(lg) {
+      grid-column-end: span 4;
       width: 100%;
+      padding-right: 0px;
     }
   }
 
   .form-item-term-node-tid-depth {
-    width: 50%;
+    grid-column-end: span 2;
 
     @include media-breakpoint-down(lg) {
-      width: 100%;
+      grid-column-end: span 4;
     }
   }
 
-  .form-item-field-epbc-categories-target-id {
+  .show-occupational-category #category-container {
+    grid-column-end: span 2;
+
+    @include media-breakpoint-down(lg) {
+      grid-column-end: span 4;
+    }
+  }
+
+  .hide-occupational-category #category-container {
+    grid-column-end: span 4;
     width: 50%;
+
+    .form-item-field-epbc-categories-target-id {
+      grid-column-end: span 2;
+      padding-right: 5px;
+
+      @include media-breakpoint-down(lg) {
+        grid-column-end: span 4;
+        padding-right: 0px;
+      }
+    }
 
     @include media-breakpoint-down(lg) {
       width: 100%;
@@ -98,31 +129,36 @@
   }
 
   .form-item-field-teer-value {
-    width: 50%;
+    grid-column-end: span 2;
 
     @include media-breakpoint-down(lg) {
+      grid-column-end: span 4;
       width: 100%;
+      padding-right: 0px;
     }
   }
 
   .form-item-field-annual-salary-value {
-    width: 25%;
-    padding-left: 1%;
+    grid-column-end: span 1;
 
     @include media-breakpoint-down(lg) {
+      grid-column-end: span 4;
       width: 100%;
-      padding-left: 0px;
     }
   }
 
   .form-item-delta {
-    width: 25%;
-    padding-left: 1%;
+    grid-column-end: span 1;
 
     @include media-breakpoint-down(lg) {
+      grid-column-end: span 4;
       width: 100%;
-      padding-left: 0px;
     }
+  }
+
+  #edit-actions--2 {
+    display: flex;
+    grid-column-end: span 4;
   }
 
   .form-item-sort-bef-combine {
@@ -145,7 +181,7 @@
     width: 50%;
 
     @include media-breakpoint-down(lg) {
-      width: 100%;
+      width: 95%;
     }
   }
 

@@ -68,8 +68,15 @@
         </div>
       {% endif %}
 
+
+      {% if hide_category %}
+        {% set category_class = "hide-occupational-category" %}
+      {% else %}
+        {% set category_class = "show-occupational-category" %}
+      {% endif %}
+
       {% if exposed %}
-        <div class="view-filters">
+        <div class="view-filters {{ category_class }}">
           {{ exposed }}
         </div>
       {% endif %}
