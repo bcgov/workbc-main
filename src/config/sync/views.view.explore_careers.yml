@@ -523,7 +523,7 @@ display:
           plugin_id: text
           empty: true
           content:
-            value: 'No results founds'
+            value: "<p class=\"no-results\"><strong>There are no results matching your search criteria.</strong></p>\r\n<p class=\"search-suggestions\">Search suggestions:</p>\r\n<ul class=\"suggestions-list\">\r\n<li>Check your spelling</li>\r\n<li>Use broader search terms</li>\r\n<li>Try words that are similar</li>\r\n<li>Replace abbreviations with the entire word</li>\r\n<li>Remove filters to broaden your search</li>\r\n<li>Use 'and' to find results that contain all words</li>\r\n<li>Use 'or' to find results that contain either word</li>\r\n<li>Use double quotation marks (\" \") to find an exact match</li>\r\n</ul>"
             format: full_html
           tokenize: false
       sorts:

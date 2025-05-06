@@ -180,6 +180,8 @@
     }
   }
 
+
+
   .career-profiles-found-title {
     @include gradient-underline;
     margin-bottom: $workbc_spacing_default;
@@ -217,8 +219,6 @@
       padding-bottom: 90px;
     }
   }
-
-
 
   .views-row {
     display: flex;
@@ -303,6 +303,29 @@
   }
 
 
+  .view-empty {
+    margin-bottom: 50px;
+
+    .no-results {
+      margin: 10px 0px;
+    }
+
+    .search-suggestions {
+      margin-bottom: 5px;
+    }
+
+  }
+}
 
 
+.zero-found .form-item-sort-bef-combine {
+  display: none;
+}
+
+.zero-found .explore-careers-sort {
+  padding-bottom: 20px;
+
+  @include media-breakpoint-down(lg) {
+    padding-bottom: 20px;
+  }
 }
