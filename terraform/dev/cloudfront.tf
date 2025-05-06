@@ -47,7 +47,7 @@ resource "aws_cloudfront_distribution" "workbc" {
 	}
 	custom_header {
 	  name = "WorkBC-Source"
-          value = "cloudfront"	
+          value = var.source_token
 	}
 	
   }
