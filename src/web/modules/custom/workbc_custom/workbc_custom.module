@@ -663,6 +663,7 @@ function workbc_custom_search_api_autocomplete_suggestions_alter(array &$suggest
     if ($node && isset($node->field_noc)) {
       $markup = $suggestion->getLabel() . ' (NOC ' . $node->field_noc->value . ')';
       $markup = preg_replace("/(". preg_quote($alter_params['user_input']) .")/i", "<strong>$1</strong>", $markup);
+      $markup = '<div class="search-api-autocomplete-suggestion"><span class="autocomplete-suggestion-label">' . $markup . '</span></div>';
       $render = array(
         '#type' => 'markup',
         '#markup' => $markup
