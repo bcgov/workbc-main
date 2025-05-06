@@ -73,6 +73,7 @@ field_settings:
     datasource_id: 'entity:node'
     property_path: field_noc
     type: 'solr_text_custom:edge'
+    boost: 5.0
     dependencies:
       config:
         - field.storage.node.field_noc
@@ -98,6 +99,7 @@ field_settings:
     datasource_id: 'entity:node'
     property_path: title
     type: 'solr_text_custom:ngram'
+    boost: 3.0
     dependencies:
       module:
         - node
