@@ -322,6 +322,7 @@ function workbc_custom_form_views_exposed_form_alter(&$form, FormStateInterface 
       '#type' => 'hidden',
       '#value' => $hide_category,
     ];
+
     if ($hide_category) {
       $form['keyword_search']['#access'] = false;
 
@@ -337,7 +338,7 @@ function workbc_custom_form_views_exposed_form_alter(&$form, FormStateInterface 
       $uri = \Drupal\Component\Utility\UrlHelper::parse(\Drupal::request()->getRequestUri());
       $uri['query']['form_id'] = $form['#id'];
       $uri['query']['ajax_form'] = 1;
-      $form['term_node_tid_depth']['#options'] = ['All' => t('- Any -')] + array_column($categories, 'name', 'tid');
+      $form['term_node_tid_depth']['#options'] = ['All' => t('All')] + array_column($categories, 'name', 'tid');
       $form['term_node_tid_depth']['#ajax'] = [
         'callback' => 'workbc_custom_category_callback',
         'wrapper' => 'category-container',
