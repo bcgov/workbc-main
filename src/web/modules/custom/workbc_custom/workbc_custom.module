@@ -298,17 +298,6 @@ function workbc_custom_form_views_exposed_form_alter(&$form, FormStateInterface 
     array_unshift($form['#submit'], 'hoo_multiselect_form_submit');
   }
 
-  if ($form['#id'] === 'views-exposed-form-video-library-block-1') {
-    $form['field_recently_added_value']['#type'] = 'hidden';
-    $form['actions']['recent'] = [
-      '#value' => 'Recently added',
-      '#type' => 'submit',
-      '#weight' => 100,
-      '#id' => 'edit-recently-added'
-    ];
-    $form['#submit'][] = 'video_library_exposed_form_submit';
-  }
-
   if (in_array($form['#id'], [
     'views-exposed-form-explore-careers-page-1',
     'views-exposed-form-explore-careers-block-1'
@@ -397,20 +386,6 @@ function workbc_custom_category_reset(array &$form, FormStateInterface $form_sta
  */
 function workbc_custom_category_callback(array &$form, FormStateInterface $form_state) {
   return $form['field_epbc_categories_target_id'];
-}
-
-/**
- * Submit function for views-exposed-form-video-library-block-1.
- */
-function video_library_exposed_form_submit(array &$form, FormStateInterface &$form_state) {
-  if ($form_state->getValue('op') === 'Recently added') {
-    $form_state->disableRedirect(FALSE);
-    $form_state->setRedirect('<current>', [], [
-      'query' => [
-        'field_recently_added_value' => 1
-      ]
-    ]);
-  }
 }
 
 /**
@@ -760,29 +735,6 @@ function workbc_custom_search_api_query_explore_careers_search_alter($query) {
   // ONLY WORKS WHEN THERE ARE NO SPECIAL QUERY CHARS!
   if (!preg_match('/"|\(|\)|\sAND\s|\sOR\s|&&|\|\||\+/i', $keys)) {
     $keys = preg_replace('/\b(\w+)\b/i', '+$1', $keys);
-  }
-}
-
-/**
- * Implements hook_oembed_resource_url_alter().
- */
-function workbc_custom_oembed_resource_url_alter(array &$parsed_url, \Drupal\media\OEmbed\Provider $provider) {
-  if ($provider->getName() === 'Vimeo') {
-    unset($parsed_url['query']['maxwidth']);
-    unset($parsed_url['query']['maxheight']);
-    $parsed_url['query']['responsive'] = 'true';
-  }
-}
-
-/**
- * Implements hook_views_query_alter().
- */
-function workbc_custom_views_query_alter(ViewExecutable $view, QueryPluginBase $query) {
-
-  // use GroupBy to ensure Video only appears once.
-  if ($view->id() == 'video_library') {
-    $query->addField('media_field_data', 'mid', '', ['function' => 'groupby']);
-    $query->addGroupBy('media_field_data.mid');
   }
 }
 
