@@ -309,8 +309,10 @@ function workbc_custom_form_views_exposed_form_alter(&$form, FormStateInterface 
     $form['#submit'][] = 'video_library_exposed_form_submit';
   }
 
-  if ($form['#id'] === 'views-exposed-form-explore-careers-page-1' ||
-      $form['#id'] === 'views-exposed-form-explore-careers-block-1')  {
+  if (in_array($form['#id'], [
+    'views-exposed-form-explore-careers-page-1',
+    'views-exposed-form-explore-careers-block-1'
+  ])) {
     $terms = \Drupal::entityTypeManager()->getStorage('taxonomy_term')->loadTree('epbc_categories');
     $categories = array_filter($terms, function ($term) {
       return $term->depth === 0;
@@ -343,10 +345,15 @@ function workbc_custom_form_views_exposed_form_alter(&$form, FormStateInterface 
       }), 'name')[0]);
     }
     else {
+      $uri = \Drupal\Component\Utility\UrlHelper::parse(\Drupal::request()->getRequestUri());
+      $uri['query']['form_id'] = $form['#id'];
+      $uri['query']['ajax_form'] = 1;
       $form['term_node_tid_depth']['#options'] = ['All' => t('- Any -')] + array_column($categories, 'name', 'tid');
       $form['term_node_tid_depth']['#ajax'] = [
         'callback' => 'workbc_custom_category_callback',
         'wrapper' => 'category-container',
+        'url' => Url::fromUri('internal:' . $uri['path']),
+        'options' => ['query' => $uri['query'], 'fragment' => $uri['fragment']]
       ];
       $form_state->getStorage()['view']->getDisplay()->setOption('title', 'Your Results');
     }
@@ -389,7 +396,6 @@ function workbc_custom_category_reset(array &$form, FormStateInterface $form_sta
  * AJAX callback function to replace the EPBC categories 2nd level select dropdown.
  */
 function workbc_custom_category_callback(array &$form, FormStateInterface $form_state) {
-  // TODO: The form label goes missing.
   return $form['field_epbc_categories_target_id'];
 }
 

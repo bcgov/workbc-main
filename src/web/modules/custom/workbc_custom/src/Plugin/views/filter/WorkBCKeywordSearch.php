@@ -105,7 +105,7 @@ class WorkBCKeywordSearch extends StringFilter {
     }
     else {
       // Exposed value.
-      if (empty($this->value) || empty($this->value[0])) {
+      if (empty($this->value) && $this->value != 0) {
         return;
       }
       $this->view->search_api_results = $this->search($this->value);
