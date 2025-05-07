@@ -170,17 +170,19 @@
   .form-item-sort-bef-combine {
     position: absolute;
     right: 0px;
-    bottom: -140px;
+    bottom: 0px;
     width: 40%;
 
     @include media-breakpoint-down(lg) {
-      left: 0px;
-      bottom: -210px;
+      position: inherit;
+      grid-column-end: span 4;
       width: 100%;
     }
   }
 
-
+  .zero-found .form-item-sort-bef-combine {
+    display: none;
+  }
 
   .career-profiles-found-title {
     @include gradient-underline;
@@ -213,10 +215,10 @@
 
   .explore-careers-sort {
     padding-top: 15px;
-    padding-bottom: 60px;
+    padding-bottom: 20px;
 
     @include media-breakpoint-down(lg) {
-      padding-bottom: 90px;
+      padding-bottom: 0px;
     }
   }
 
@@ -318,14 +320,4 @@
 }
 
 
-.zero-found .form-item-sort-bef-combine {
-  display: none;
-}
 
-.zero-found .explore-careers-sort {
-  padding-bottom: 20px;
-
-  @include media-breakpoint-down(lg) {
-    padding-bottom: 20px;
-  }
-}

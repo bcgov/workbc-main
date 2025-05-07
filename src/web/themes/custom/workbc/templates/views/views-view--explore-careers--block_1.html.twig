@@ -37,7 +37,6 @@
     'view-id-' ~ id,
     'view-display-id-' ~ display_id,
     dom_id ? 'js-view-dom-id-' ~ dom_id,
-    career_profiles_total == 0 ? 'zero-found',
   ]
 %}
 
@@ -76,8 +75,12 @@
         {% set category_class = "show-occupational-category" %}
       {% endif %}
 
+      {% if career_profiles_total == 0 %}
+        {% set zero_class = "zero-found" %}
+      {% endif %}
+
       {% if exposed %}
-        <div class="view-filters {{ category_class }}">
+        <div class="view-filters {{ category_class }} {{ zero_class }}">
           {{ exposed }}
         </div>
       {% endif %}
