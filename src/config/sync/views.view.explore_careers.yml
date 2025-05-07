@@ -168,7 +168,7 @@ display:
           group_type: group
           admin_label: ''
           plugin_id: field
-          label: 'Job openings'
+          label: 'Job openings (2024-2034)'
           exclude: false
           alter:
             alter_text: false
