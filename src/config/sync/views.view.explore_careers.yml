@@ -412,9 +412,9 @@ display:
       exposed_form:
         type: bef
         options:
-          submit_button: 'Refine your results'
+          submit_button: 'Refine results'
           reset_button: true
-          reset_button_label: 'Clear all filters'
+          reset_button_label: 'Clear all'
           exposed_sorts_label: 'Sort profiles by'
           expose_sort_order: true
           sort_asc_label: Asc
