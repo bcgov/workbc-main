@@ -345,7 +345,7 @@ function workbc_custom_form_views_exposed_form_alter(&$form, FormStateInterface 
         'url' => Url::fromUri('internal:' . $uri['path']),
         'options' => ['query' => $uri['query'], 'fragment' => $uri['fragment']]
       ];
-      $form_state->getStorage()['view']->getDisplay()->setOption('title', 'Your Results');
+      $form_state->getStorage()['view']->getDisplay()->setOption('title', 'Your results');
     }
     $form['field_epbc_categories_target_id']['#chosen'] = true;
     $form['field_epbc_categories_target_id']['#prefix'] = '<div id="category-container">';

@@ -30,7 +30,7 @@ display:
     display_plugin: default
     position: 0
     display_options:
-      title: 'Your Results'
+      title: 'Your results'
       fields:
         field_noc:
           id: field_noc
