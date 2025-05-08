@@ -1,0 +1,94 @@
+uuid: 87af2e02-1da8-4380-bf9d-e2df1ca67658
+langcode: en
+status: true
+dependencies:
+  config:
+    - field.storage.paragraph.field_accordion_entry
+    - paragraphs.paragraphs_type.content_accordion_entry
+    - paragraphs.paragraphs_type.section_accordion
+  module:
+    - entity_reference_revisions
+id: paragraph.section_accordion.field_accordion_entry
+field_name: field_accordion_entry
+entity_type: paragraph
+bundle: section_accordion
+label: 'Accordion Entry'
+description: ''
+required: false
+translatable: false
+default_value: {  }
+default_value_callback: ''
+settings:
+  handler: 'default:paragraph'
+  handler_settings:
+    target_bundles:
+      content_accordion_entry: content_accordion_entry
+    negate: 0
+    target_bundles_drag_drop:
+      action_card:
+        weight: 23
+        enabled: false
+      action_card_feature:
+        weight: 24
+        enabled: false
+      action_card_full_width:
+        weight: 25
+        enabled: false
+      action_card_icon:
+        weight: 26
+        enabled: false
+      action_cards_1_2:
+        weight: 27
+        enabled: false
+      action_cards_1_3:
+        weight: 28
+        enabled: false
+      action_cards_1_4:
+        weight: 29
+        enabled: false
+      action_cards_explore_careers:
+        weight: 30
+        enabled: false
+      action_cards_full_width:
+        weight: 31
+        enabled: false
+      action_cards_icon:
+        weight: 32
+        enabled: false
+      action_cards_icon_1_2:
+        weight: 33
+        enabled: false
+      action_cards_publication:
+        weight: 34
+        enabled: false
+      additional_duties:
+        weight: 35
+        enabled: false
+      content_accordion_entry:
+        weight: 36
+        enabled: true
+      content_interactive_map:
+        weight: 37
+        enabled: false
+      content_text:
+        weight: 38
+        enabled: false
+      content_view:
+        weight: 39
+        enabled: false
+      lmo_charts_tables:
+        weight: 40
+        enabled: false
+      quote_card:
+        weight: 41
+        enabled: false
+      section_accordion:
+        weight: 42
+        enabled: false
+      section_read_more:
+        weight: 43
+        enabled: false
+      skills:
+        weight: 44
+        enabled: false
+field_type: entity_reference_revisions
