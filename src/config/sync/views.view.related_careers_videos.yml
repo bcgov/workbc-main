@@ -5,7 +5,7 @@ dependencies:
   config:
     - field.storage.node.field_career_videos
     - image.style.career_trek_node_banner
-    - search_api.index.career_profile_index
+    - search_api.index.career_profile_index_sub
   module:
     - search_api
     - svg_image
@@ -14,7 +14,7 @@ label: 'Related Careers Videos'
 module: views
 description: ''
 tag: ''
-base_table: search_api_index_career_profile_index
+base_table: search_api_index_career_profile_index_sub
 base_field: search_api_id
 display:
   default:
@@ -27,7 +27,7 @@ display:
       fields:
         annual_salary:
           id: annual_salary
-          table: search_api_index_career_profile_index
+          table: search_api_index_career_profile_index_sub
           field: annual_salary
           relationship: none
           group_type: group
@@ -82,7 +82,7 @@ display:
           multi_separator: ', '
         regions:
           id: regions
-          table: search_api_index_career_profile_index
+          table: search_api_index_career_profile_index_sub
           field: regions
           relationship: none
           group_type: group
@@ -152,7 +152,7 @@ display:
             multi_separator: ', '
         title:
           id: title
-          table: search_api_datasource_career_profile_index_entity_node
+          table: search_api_datasource_career_profile_index_sub_entity_node
           field: title
           relationship: none
           group_type: group
@@ -223,7 +223,7 @@ display:
             multi_separator: ', '
         name:
           id: name
-          table: search_api_index_career_profile_index
+          table: search_api_index_career_profile_index_sub
           field: name
           relationship: none
           group_type: group
@@ -293,7 +293,7 @@ display:
             multi_separator: ', '
         thumbnail:
           id: thumbnail
-          table: search_api_index_career_profile_index
+          table: search_api_index_career_profile_index_sub
           field: thumbnail
           relationship: none
           group_type: group
@@ -370,7 +370,7 @@ display:
             multi_separator: ', '
         custom_location:
           id: custom_location
-          table: search_api_index_career_profile_index
+          table: search_api_index_career_profile_index_sub
           field: custom_location
           relationship: none
           group_type: group
@@ -423,12 +423,12 @@ display:
           multi_separator: ', '
         mid:
           id: mid
-          table: search_api_index_career_profile_index
+          table: search_api_index_career_profile_index_sub
           field: mid
           plugin_id: search_api_field
         field_career_videos:
           id: field_career_videos
-          table: search_api_datasource_career_profile_index_entity_node
+          table: search_api_datasource_career_profile_index_sub_entity_node
           field: field_career_videos
           relationship: none
           group_type: group
@@ -518,7 +518,7 @@ display:
                 view_mode: default
         occupational_category_api_field:
           id: occupational_category_api_field
-          table: search_api_index_career_profile_index
+          table: search_api_index_career_profile_index_sub
           field: occupational_category_api_field
           relationship: none
           group_type: group
@@ -606,7 +606,7 @@ display:
       arguments:
         occupational_category_api_field:
           id: occupational_category_api_field
-          table: search_api_index_career_profile_index
+          table: search_api_index_career_profile_index_sub
           field: occupational_category_api_field
           relationship: none
           group_type: group
@@ -636,7 +636,7 @@ display:
           not: false
         nid:
           id: nid
-          table: search_api_index_career_profile_index
+          table: search_api_index_career_profile_index_sub
           field: nid
           relationship: none
           group_type: group
@@ -666,7 +666,7 @@ display:
       filters:
         field_weight:
           id: field_weight
-          table: search_api_index_career_profile_index
+          table: search_api_index_career_profile_index_sub
           field: field_weight
           relationship: none
           group_type: group
@@ -732,8 +732,8 @@ display:
         - 'user.node_grants:view'
       tags:
         - 'config:field.storage.node.field_career_videos'
-        - 'config:search_api.index.career_profile_index'
-        - 'search_api_list:career_profile_index'
+        - 'config:search_api.index.career_profile_index_sub'
+        - 'search_api_list:career_profile_index_sub'
   block_1:
     id: block_1
     display_title: Block
@@ -750,5 +750,5 @@ display:
         - 'user.node_grants:view'
       tags:
         - 'config:field.storage.node.field_career_videos'
-        - 'config:search_api.index.career_profile_index'
-        - 'search_api_list:career_profile_index'
+        - 'config:search_api.index.career_profile_index_sub'
+        - 'search_api_list:career_profile_index_sub'

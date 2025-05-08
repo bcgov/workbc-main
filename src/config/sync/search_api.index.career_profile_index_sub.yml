@@ -1,8 +1,9 @@
-uuid: 0430f4ea-cf1f-4bae-adc5-8c0cf880bc4e
+uuid: 0430f4ea-cf1f-4bae-adc5-8c0cf880ax4e
 langcode: en
 status: true
 dependencies:
   config:
+    - core.entity_view_mode.node.career_profile_search_index
     - field.storage.media.field_category
     - field.storage.media.field_description
     - field.storage.media.field_duration
@@ -10,12 +11,11 @@ dependencies:
     - field.storage.media.field_media_oembed_video
     - field.storage.media.field_weight
     - field.storage.node.field_career_videos
-    - field.storage.node.field_job_titles
     - field.storage.node.field_noc
     - field.storage.node.field_noc_2016
     - field.storage.node.field_related_careers
     - field.storage.node.field_skills_2
-    - search_api.server.solr
+    - search_api.server.solr_search
   module:
     - file
     - media
@@ -70,17 +70,17 @@ third_party_settings:
       specific_languages:
         en: '0'
       use_universal_collation: false
-id: career_profile_index
-name: 'Career profiles index'
+id: career_profile_index_sub
+name: 'Solr Search Career profiles index'
 description: ''
 read_only: false
 field_settings:
   annual_salary:
     label: 'Annual Salary'
     property_path: custom_value
-    type: string
+    type: integer
     configuration:
-      value: ''
+      value: '0'
   bundle:
     label: 'Career Videos » Media » Media type'
     datasource_id: 'entity:node'
@@ -157,14 +157,6 @@ field_settings:
         - field.storage.node.field_career_videos
       module:
         - media
-  field_job_titles:
-    label: '[SSOT] Job Titles'
-    datasource_id: 'entity:node'
-    property_path: field_job_titles
-    type: 'solr_text_custom:ngram'
-    dependencies:
-      config:
-        - field.storage.node.field_job_titles
   field_media_oembed_video:
     label: 'Career Videos » Media » Video URL'
     datasource_id: 'entity:node'
@@ -181,6 +173,7 @@ field_settings:
     datasource_id: 'entity:node'
     property_path: field_noc
     type: 'solr_text_custom:ngram'
+    boost: 2.0
     dependencies:
       config:
         - field.storage.node.field_noc
@@ -188,7 +181,8 @@ field_settings:
     label: NOC
     datasource_id: 'entity:node'
     property_path: field_noc
-    type: string
+    type: 'solr_text_custom:ngram'
+    boost: 2.0
     dependencies:
       config:
         - field.storage.node.field_noc
@@ -196,7 +190,8 @@ field_settings:
     label: 'NOC 2016'
     datasource_id: 'entity:node'
     property_path: field_noc_2016
-    type: string
+    type: 'solr_text_custom:ngram'
+    boost: 2.0
     dependencies:
       config:
         - field.storage.node.field_noc_2016
@@ -242,12 +237,13 @@ field_settings:
     property_path: custom_value
     type: string
     configuration:
-      value: ''
+      value: '0'
   name:
     label: 'Career Videos » Media » Categories » Taxonomy term » Name'
     datasource_id: 'entity:node'
     property_path: 'field_career_videos:entity:field_category:entity:name'
-    type: string
+    type: text
+    boost: 21.0
     dependencies:
       config:
         - field.storage.media.field_category
@@ -283,13 +279,6 @@ field_settings:
     dependencies:
       module:
         - node
-  node_grants:
-    label: 'Node access information'
-    property_path: search_api_node_grants
-    type: string
-    indexed_locked: true
-    type_locked: true
-    hidden: true
   occupational_category_api_field:
     label: 'Occupational Category Field'
     property_path: occupational_category_api_field
@@ -302,6 +291,24 @@ field_settings:
     type: string
     configuration:
       value: ''
+  regions:
+    label: Regions
+    datasource_id: 'entity:node'
+    property_path: title
+    type: string
+    dependencies:
+      module:
+        - node
+  rendered_item:
+    label: 'Rendered HTML output'
+    property_path: rendered_item
+    type: 'solr_text_custom:ngram'
+    configuration:
+      roles:
+        - anonymous
+      view_mode:
+        'entity:node':
+          career_profile: career_profile_search_index
   seconds:
     label: 'Career Videos » Media » Duration » Seconds'
     datasource_id: 'entity:node'
@@ -318,8 +325,6 @@ field_settings:
     datasource_id: 'entity:node'
     property_path: status
     type: boolean
-    indexed_locked: true
-    type_locked: true
     dependencies:
       module:
         - node
@@ -348,6 +353,7 @@ field_settings:
     datasource_id: 'entity:node'
     property_path: title
     type: 'solr_text_custom:ngram'
+    boost: 5.0
     dependencies:
       module:
         - node
@@ -356,8 +362,6 @@ field_settings:
     datasource_id: 'entity:node'
     property_path: uid
     type: integer
-    indexed_locked: true
-    type_locked: true
     dependencies:
       module:
         - node
@@ -385,46 +389,11 @@ processor_settings:
   add_url: {  }
   aggregated_field: {  }
   auto_aggregated_fulltext_field: {  }
-  content_access:
-    weights:
-      preprocess_query: -43
   custom_api_processor:
     weights:
       preprocess_index: -10
   custom_value: {  }
-  entity_status: {  }
   entity_type: {  }
-  html_filter:
-    weights:
-      preprocess_index: -47
-      preprocess_query: -46
-    all_fields: true
-    fields:
-      - annual_salary
-      - bundle
-      - custom_location
-      - field_description
-      - field_job_titles
-      - field_media_oembed_video
-      - field_noc
-      - field_noc_1
-      - field_noc_2016
-      - minimum_education
-      - name
-      - name_1
-      - name_2
-      - occupational_category_api_field
-      - region_api_field
-      - title
-      - url
-    title: true
-    alt: true
-    tags:
-      b: 2
-      h1: 5
-      h2: 3
-      h3: 2
-      strong: 2
   language_with_fallback: {  }
   occupational_category_processor:
     weights:
@@ -436,6 +405,7 @@ processor_settings:
   solr_date_range:
     weights:
       preprocess_index: 0
+  solr_dummy_fields: {  }
   workbc_numeric_prefix:
     weights:
       preprocess_query: 0
@@ -447,4 +417,4 @@ options:
   delete_on_fail: true
   index_directly: true
   track_changes_in_references: true
-server: solr
+server: solr_search

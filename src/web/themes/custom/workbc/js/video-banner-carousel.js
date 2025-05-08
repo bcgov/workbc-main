@@ -17,14 +17,14 @@
       once('swiperCarousel', '.swiper-video-banner', context).forEach(initSwiperCarousel);
       const video = document.querySelector('.hero-video .media--type-video video');
       const videoButton = document.querySelector('.video-button');
-      
+
       if (video && videoButton) {
         // Remove audio from video
         video.muted = true;
-        
+
         // Handle video end event
         video.addEventListener('ended', () => {
-          video.style.display = 'none';
+          // video.style.display = 'none';
           $('.career-trek-row').addClass('video-stop')
         });
 
@@ -40,7 +40,7 @@
         // Delay video start by 3 seconds
         setTimeout(() => {
           const playPromise = video.play();
-          
+
           if (playPromise !== undefined) {
             playPromise.then(() => {
               // Video started playing successfully

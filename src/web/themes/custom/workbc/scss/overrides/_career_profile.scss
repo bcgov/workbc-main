@@ -1193,7 +1193,7 @@
 //   opacity:0.8;
 // }
 .plan-careercareer-trek-videos .career-trek-row.video-stop::after{
-  background:transparent;
+  background: linear-gradient(to right, #002957 0%, #052C5B 38%, rgba(0, 41, 86, 0.38) 51%);
 }
 .plan-careercareer-trek-videos .hero-banner{
   border:none;
@@ -1249,7 +1249,19 @@
 .plan-careercareer-trek-videos .view-career-trek-video-library .career-videos-filters details[open] summary{
   padding-bottom:4px;
 }
+.plan-careercareer-trek-videos .career-trek-row .hero-image-wrapper{
+  width:100%;
+}
+.plan-careercareer-trek-videos .career-trek-row .hero-image-wrapper,.plan-careercareer-trek-videos .view-banner-video.view-display-id-block_1 .hero-banner{
+  height:auto;
+  min-height:auto;
+}
 // Responsive styles
+@media screen and (max-width: 1440px) {
+  .plan-careercareer-trek-videos .career-trek-row .hero-content-container{
+    padding: 80px 0px;
+  }
+}
 @media screen and (max-width: 1200px) {
   .career-bg {
     h3.card-w-icon__title {
@@ -1320,6 +1332,9 @@
     width: 48%;
     margin:0;
   }
+  .plan-careercareer-trek-videos .career-trek-row{
+    background-position: bottom;
+  }
 }
 
 @media screen and (max-width: 992px) {
@@ -1328,7 +1343,7 @@
       flex-direction: column-reverse;
 
       .hero-content-container {
-        padding: 12px;
+        padding:0px;
         justify-content: flex-start;
         margin-bottom: 60px;
 
@@ -1343,9 +1358,9 @@
       }
     }
 
-    .hero-image-wrapper {
-      height: 350px;
-    }
+    // .hero-image-wrapper {
+    //   height: 350px;
+    // }
   }
   .plan-careercareer-trek-videos .career-trek-row .hero-image-wrapper video{
     display:block !important;
@@ -1493,6 +1508,13 @@
 }
 @media screen and (max-width:380px) {
   .plan-careercareer-trek-videos .career-trek-row .hero-content-container{
-    padding:12px 0px;
+    padding:0px;
+    margin-bottom:35px;
+  }
+}
+@media screen and (max-width:365px) {
+  .plan-careercareer-trek-videos .career-trek-row .hero-content-container .hero-title {
+    font-size: 24px;
+    line-height: 33px;
   }
 }
