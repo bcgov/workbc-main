@@ -213,6 +213,25 @@ function workbc_custom_views_pre_render(ViewExecutable $view) {
   }
 
 }
+/**
+ * Implements hook_views_query_alter().
+ */
+function workbc_custom_views_query_alter(ViewExecutable $view, QueryPluginBase $query) {
+  if ($view->id() == 'explore_careers') {
+    foreach ($query->where as &$condition_group) {
+      foreach ($condition_group['conditions'] as &$condition) {
+        // Filter out zero job openings when Region is not BC.
+        if ($condition['field'] == 'node__field_region_openings.delta' && $condition['value'] != REGION_BRITISH_COLUMBIA_ID) {
+          $condition_group['conditions'][] = [
+            'field' => 'node__field_region_openings.field_region_openings_value',
+            'value' => '0',
+            'operator' => '>'
+          ];
+        }
+      }
+    }
+  }
+}
 
 /**
 * Implements hook_form_alter().
@@ -311,7 +330,7 @@ function workbc_custom_form_views_exposed_form_alter(&$form, FormStateInterface 
     // - Coming from grid form - both field_epbc_categories_target_id and category are set in URL
     // - Refreshing exposed filter - both field_epbc_categories_target_id and category are set in URL
     // - AJAX callback from category - ajax_form is set in URL
-    $input = $form_state->getUserInput();
+    $input =& $form_state->getUserInput();
     $category_value = $form_state->getValue('term_node_tid_depth', $input['term_node_tid_depth'] ?? null);
     $interest_value = $form_state->getValue('field_epbc_categories_target_id', $input['field_epbc_categories_target_id'] ?? []);
     $hide_category = array_key_exists('hide_category', $input) ? $input['hide_category'] : false;
@@ -354,7 +373,10 @@ function workbc_custom_form_views_exposed_form_alter(&$form, FormStateInterface 
     $form['field_epbc_categories_target_id']['#options'] = array_column(array_filter($terms, function($t) use ($category_value) {
       return $t->parents[0] == $category_value;
     }), 'name', 'tid');
-    $form['field_epbc_categories_target_id']['#default_value'] = $interest_value;
+    $form['field_epbc_categories_target_id']['#default_value'] =
+      $input['field_epbc_categories_target_id'] = array_filter($interest_value, function($t) use($form) {
+        return in_array($t, array_keys($form['field_epbc_categories_target_id']['#options']));
+      });
 
     // Other customizations.
     $form['field_teer_value']['#chosen'] = true;
