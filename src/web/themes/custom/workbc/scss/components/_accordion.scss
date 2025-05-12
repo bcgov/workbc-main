@@ -19,10 +19,12 @@
     font-size: 1.125rem;
   }
 
-  .field--name-field-icon svg {
-    width: 45px;
-    height: 45px;
-    margin-right: 15px;
+  .field--name-field-icon {
+    svg, img {
+      width: 45px;
+      height: 45px;
+      margin-right: 15px;
+    }
   }
 
 }
