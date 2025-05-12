@@ -15,7 +15,7 @@ function workbc_career_trek_preprocess_views_view(&$variables) {
     $filters = $view->display_handler->getOption('filters');
     if ($exposed = $view->getExposedInput()) {
       foreach ($exposed as $key => $expose) {
-        if ($key == "field_skills_2") {
+        if ($key == "skills") {
           foreach($expose as $row) {
             $term = Term::load($row);
             if ($term && !empty($term->getName())) {
@@ -204,6 +204,9 @@ function workbc_career_trek_node_view(array &$build, \Drupal\Core\Entity\EntityI
 
   if ($view_mode === "full_career_trek_videos") {
     if($entity->bundle() == "career_profile") {
+      $current_uri = \Drupal::request()->getRequestUri();
+      $episode_number = explode('/', $current_uri);
+      $entity->episode_number = end($episode_number);
       $entity->ssot_data = ssotFullCareerProfile($entity->get("field_noc")->getString());
     }
   }
@@ -281,11 +284,33 @@ function workbc_career_trek_preprocess_breadcrumb(&$variables) {
   $route_match = \Drupal::service('current_route_match');
   $route_name = $route_match->getRouteName();
 
-  if ($route_name === 'view.career_trek_videos.page_1') {
-    $arg = $route_match->getRawParameter('arg_0');
-    if ($arg) {
-      $title = ucwords(str_replace('-', ' ', $arg));
-      $breadcrumb = &$variables['breadcrumb'];
+  // Only for the specific view route.
+  if ($route_name === 'view.career_trek_node.page_1') {
+    $arg0 = $route_match->getRawParameter('arg_0');
+    $arg1 = $route_match->getRawParameter('arg_1');
+    $breadcrumb = &$variables['breadcrumb'];
+
+    // Load the view and get the result for the current display.
+    $view = \Drupal\views\Views::getView('career_trek_node');
+    if ($view && isset($arg0)) {
+      $view->setDisplay('page_1');
+      $view->setArguments([$arg0, $arg1]);
+      $view->execute();
+
+      // Try to get the title field value from the result.
+      $title = '';
+      if (!empty($view->result)) {
+
+        // Try to get the title field from the first result row.
+        $row = $view->result[0];
+        // Try to get the field value, fallback to arg0 if not found.
+        if (isset($row->{'ssot_title|ssot_title'}) && is_array($row->{'ssot_title|ssot_title'}) && !empty($row->{'ssot_title|ssot_title'})) {
+          // The value is usually in the first element of the array.
+          $title = $row->{'ssot_title|ssot_title'}[0];
+        }
+      }
+
+      // Add the title to the last breadcrumb item.
       if (!empty($breadcrumb)) {
         $breadcrumb[count($breadcrumb) - 1]['text'] = $title;
       }
@@ -302,5 +327,20 @@ function workbc_career_trek_form_views_exposed_form_alter(&$form, \Drupal\Core\F
     $form['annual_salary_wrapper']['#type'] = 'details';
     $form['annual_salary_wrapper']['#title'] = $form['annual_salary_wrapper']['annual_salary_wrapper']['#title'];
     $form['annual_salary_wrapper']['#description'] = $form['annual_salary_wrapper']['annual_salary_wrapper']['#description'];
+    $clone = $form['occupational_category_api_field'];
+    $clone['#group'] = "skills_collapsible";
+    $terms = \Drupal::entityTypeManager()
+      ->getStorage('taxonomy_term')
+      ->loadTree('skills');
+      $options = [];
+    foreach ($terms as $term) {
+      $options[$term->tid] = $term->name;
+    }
+    $clone['#options'] = $options;
+    $form['skills'] = $clone;
+    $form['search_api_fulltext']['#attributes']['class'][] = 'custom-autocomplete';
+    $form['#attached']['library'][] = 'workbc_career_trek/career_trek_autocomplete';
+
   }
+
 }

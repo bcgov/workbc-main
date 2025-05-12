@@ -35,11 +35,11 @@
         // Update the .update-result text
         $('.plan-careercareer-trek-videos .result-summary .update-result').text(totalCount);
       });
-      once('viewSwitcher', '.career-videos-filters details', context).forEach(function (element, index) {
-        if (index < 2) {
-          element.setAttribute('open', '');
-        }
-      });
+      // once('viewSwitcher', '.career-videos-filters details', context).forEach(function (element, index) {
+      //   if (index < 2) {
+      //     element.setAttribute('open', '');
+      //   }
+      // });
 
 
       once('viewSwitcher', '.career-trek-sidebar .responsive-filter-video-btn', context).forEach(function (element) {

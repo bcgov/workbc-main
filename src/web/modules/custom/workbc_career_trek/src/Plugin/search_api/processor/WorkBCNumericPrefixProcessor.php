@@ -33,7 +33,7 @@ class WorkBCNumericPrefixProcessor extends ProcessorPluginBase {
     foreach ($keys as $key) {
       if (is_array($key) && !empty($key['#full_numeric_prefix']) && isset($key['value'])) {
         // Add a condition that only matches when the field starts with the numeric value.
-        $query->addCondition("field_noc", $key['value'], 'STARTS_WITH', ['operator' => 'OR']);
+        $query->addCondition("career_noc", $key['value'], 'STARTS_WITH', ['operator' => 'OR']);
 
       }
     }

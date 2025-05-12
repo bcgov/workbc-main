@@ -185,7 +185,7 @@ content:
       past_format: '@interval ago'
       granularity: 2
     third_party_settings: {  }
-    weight: 18
+    weight: 17
     region: content
   extra_field_annual_salary:
     settings: {  }
@@ -340,7 +340,7 @@ content:
   extra_field_occupational_categories:
     settings: {  }
     third_party_settings: {  }
-    weight: 19
+    weight: 18
     region: content
   extra_field_occupational_interests:
     settings: {  }
@@ -352,6 +352,11 @@ content:
     third_party_settings: {  }
     weight: 25
     region: content
+  extra_field_profile_description:
+    settings: {  }
+    third_party_settings: {  }
+    weight: 23
+    region: content
   extra_field_profile_location:
     settings: {  }
     third_party_settings: {  }
@@ -361,6 +366,21 @@ content:
     settings: {  }
     third_party_settings: {  }
     weight: 71
+    region: content
+  extra_field_profile_thumbnail:
+    settings: {  }
+    third_party_settings: {  }
+    weight: 26
+    region: content
+  extra_field_profile_title:
+    settings: {  }
+    third_party_settings: {  }
+    weight: 24
+    region: content
+  extra_field_profile_video_url:
+    settings: {  }
+    third_party_settings: {  }
+    weight: 25
     region: content
   extra_field_salary_info_annual_salary:
     settings: {  }
@@ -479,7 +499,7 @@ content:
     label: above
     settings: {  }
     third_party_settings: {  }
-    weight: 20
+    weight: 19
     region: content
   field_job_titles:
     type: string
@@ -497,7 +517,7 @@ content:
       suffix: '</strong>'
       strict: false
     third_party_settings: {  }
-    weight: 21
+    weight: 20
     region: content
   field_noc:
     type: string
@@ -544,14 +564,14 @@ content:
     label: above
     settings: {  }
     third_party_settings: {  }
-    weight: 22
+    weight: 21
     region: content
   field_tags:
     type: simple_block_rendered_entity
     label: above
     settings: {  }
     third_party_settings: {  }
-    weight: 23
+    weight: 22
     region: content
   field_work_environment:
     type: text_default
@@ -570,7 +590,7 @@ content:
     label: above
     settings: {  }
     third_party_settings: {  }
-    weight: 17
+    weight: 16
     region: content
 hidden:
   extra_field_search_index_job_titles: true

@@ -5,20 +5,21 @@ namespace Drupal\workbc_extra_fields\Plugin\ExtraField\Display\CareerProfile;
 use Drupal\Core\Entity\ContentEntityInterface;
 use Drupal\Core\StringTranslation\StringTranslationTrait;
 use Drupal\extra_field\Plugin\ExtraFieldDisplayFormattedBase;
+use Drupal\image\Entity\ImageStyle;
 
 /**
  * Example Extra field with formatted output.
  *
  * @ExtraFieldDisplay(
- *   id = "profile_location",
- *   label = @Translation("Profile Location"),
- *   description = @Translation("An extra field to display career Location."),
+ *   id = "profile_thumbnail",
+ *   label = @Translation("Profile Thumbnail"),
+ *   description = @Translation("An extra field to display Thumbnail."),
  *   bundles = {
  *     "node.career_profile",
  *   }
  * )
  */
-class CareerProfileLocation extends ExtraFieldDisplayFormattedBase {
+class CareerProfileThumbnail extends ExtraFieldDisplayFormattedBase {
 
   use StringTranslationTrait;
 
@@ -38,6 +39,7 @@ class CareerProfileLocation extends ExtraFieldDisplayFormattedBase {
     return 'above';
   }
 
+
   /**
    * {@inheritdoc}
    */
@@ -45,15 +47,20 @@ class CareerProfileLocation extends ExtraFieldDisplayFormattedBase {
     if (!empty($entity->ssot_data) && isset($entity->ssot_data['career_trek'])) {
       foreach($entity->ssot_data['career_trek'] as $career_trek) {
         if($career_trek['episode_num'] == $entity->episode_number) {
-          $output = $career_trek['location'];
+          $data = explode('/', $career_trek['youtube_link']);
+          $video_id = end($data);
+          $destination = 'public://career_trek_thumbnails/' . $video_id . '.jpg';
+          $output = \Drupal::service('file_url_generator')->transformRelative($destination);
         }
       }
-    }else {
+    }
+    else {
       $output = WORKBC_EXTRA_FIELDS_NOT_AVAILABLE;
     }
     return [
       ['#markup' => $output],
     ];
+
   }
 
 }

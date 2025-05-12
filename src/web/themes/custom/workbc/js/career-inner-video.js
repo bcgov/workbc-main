@@ -4,8 +4,8 @@
     Drupal.behaviors.careerInnerVideo = {
       attach: function (context, settings) {
         // Autoplay on video click
-        once('careerInnerVideo', '.profile-video', context).forEach(function (element) {
-          element.onclick = function () {
+        $('.profile-video', context).each(function () {
+          this.onclick = function () {
             $(this).addClass('active');
             
               

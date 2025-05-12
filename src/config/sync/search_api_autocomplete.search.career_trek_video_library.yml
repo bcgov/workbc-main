@@ -1,6 +1,6 @@
 uuid: 44be1787-d43e-4865-a13a-58918ba24a41
 langcode: en
-status: true
+status: false
 dependencies:
   config:
     - search_api.index.career_profile_index_sub
