@@ -1,0 +1,28 @@
+
+.paragraph--type--section-accordion {
+  padding: 20px 0 0;
+  margin-bottom: 30px;
+}
+
+.workbc-accordion-component {
+
+  .accordion-button:not(.collapsed) {
+    background-color: #F2F2F2;
+  }
+
+  .accordion-button:focus {
+    box-shadow: none;
+  }
+
+  .field--name-field-title .field__item {
+    font-weight: bold;
+    font-size: 1.125rem;
+  }
+
+  .field--name-field-icon svg {
+    width: 45px;
+    height: 45px;
+    margin-right: 15px;
+  }
+
+}

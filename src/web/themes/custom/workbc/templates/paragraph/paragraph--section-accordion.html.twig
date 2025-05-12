@@ -44,29 +44,16 @@
     paragraph.field_key[0].value ? 'paragraph--key--' ~ paragraph.field_key[0].value|clean_class,
     'paragraph--type--' ~ paragraph.bundle|clean_class,
     view_mode ? 'paragraph--view-mode--' ~ view_mode|clean_class,
-    not paragraph.isPublished() ? 'paragraph--unpublished',
-    'accordion-item',
+    not paragraph.isPublished() ? 'paragraph--unpublished'
   ]
 %}
-{%
-  set parent = "#accordion-component-" ~ section_accordion_id
-%}
-
 {% block paragraph %}
   <div{{ attributes.addClass(classes) }}>
+    <div class="accordion accordion-flush workbc-accordion-component" id="accordion-component-{{ section_accordion_id }}">
     {% block content %}
-      <div class="accordion-header" id="header-{{ paragraph.id() }}">
-        <button class="accordion-button collapsed" type="button" data-bs-toggle="collapse" data-bs-target="#collapse-{{ paragraph.id() }}" aria-expanded="false" aria-controls="collapse-{{ paragraph.id() }}">
-          {{ content.field_icon }}
-          {{ content.field_title }}
-        </button>
-      </div>
-      <div id="collapse-{{ paragraph.id() }}" class="accordion-collapse collapse" aria-labelledby="header-{{ paragraph.id() }}" data-bs-parent="{{ parent }}">
-        <div class="accordion-body">
-          {{ content.field_body }}
-        </div>
-      </div>
-
+      {{ content }}
     {% endblock %}
+    </div>
   </div>
 {% endblock paragraph %}
+

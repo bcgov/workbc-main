@@ -13,6 +13,7 @@ use Drupal\Core\Url;
  */
 function workbc_preprocess_paragraph(&$variables) {
   $parent = $variables['paragraph']->getParentEntity();
+
   if ($parent->bundle() == 'action_cards_full_width') {
     $align = $parent->field_alignment->value;
     $list = $parent->field_action_cards->getValue();
@@ -42,6 +43,21 @@ function workbc_preprocess_paragraph(&$variables) {
       }
     }
   }
+
+  static $first = false;
+
+  if ($parent->bundle() == 'section_accordion') {
+    if ($first) {
+      ksm($parent);
+      $first = false;
+    }
+    $variables['section_accordion_id'] = $parent->id();
+  }
+
+  if ($variables['paragraph']->bundle() == "section_accordion") {
+    $variables['section_accordion_id'] = $variables['paragraph']->id();
+  }
+
 
   // Find parent menu item for cards with links.
   $menu_link_manager = \Drupal::service('plugin.manager.menu.link');
@@ -392,14 +408,14 @@ function workbc_preprocess_views_view_field(&$variables) {
 
 function workbc_preprocess_field(&$variables) {
 
-  if ($variables['field_type'] == "extra_field" && 
+  if ($variables['field_type'] == "extra_field" &&
       str_starts_with($variables['field_name'], "extra_field_lmo_report_2024")) {
     if (str_ends_with($variables['field_name'], "table")) {
       $variables['attributes']['class'][] = "lmo-report-table";
     }
     if (str_ends_with($variables['field_name'], "chart")) {
       $variables['attributes']['class'][] = "lmo-report-chart";
-    }       
+    }
   }
   // region information for interactive map
   if ($variables['field_name'] == "extra_field_lmo_report_2024_job_openings_regions_table") {
