@@ -162,7 +162,7 @@
           {{ drupal_entity('block', 'onlinechat') }}
           {{ drupal_entity('block', 'visitaworkbccentre') }}
         </div>
-      </div>        
+      </div>
     {% else %}
       {% if is_career_trek %}
         <div class="light-wrapper">
@@ -174,7 +174,7 @@
 
         {% if page_content %}
           {% for key, content in page_content %}
-            {% if key|number_format and content['#paragraph'].getType() != "banner_video" %}
+            {% if (key|number_format or key == 0) and content['#paragraph'].getType() != "banner_video" %}
               {{ content }}
             {% endif %}
           {% endfor %}
