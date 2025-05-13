@@ -1,7 +1,7 @@
 (function ($, Drupal, once) {
   ("use strict");
 
-  let initSwiperCarousel = function() {
+  let initBannerSwiperCarousel = function() {
     const initSlideCount = jQuery('.swiper-video-banner .swiper-slide').length;
 
     const swiper = new Swiper('.swiper-video-banner',{
@@ -12,16 +12,16 @@
     });
   };
 
-  Drupal.behaviors.swiperCarousel = {
+  Drupal.behaviors.bannerSwiperCarousel = {
     attach: function (context, settings) {
-      once('swiperCarousel', '.swiper-video-banner', context).forEach(initSwiperCarousel);
+      once('bannerSwiperCarousel', '.swiper-video-banner', context).forEach(initBannerSwiperCarousel);
       const video = document.querySelector('.hero-video .media--type-video video');
       const videoButton = document.querySelector('.video-button');
-      
+
       if (video && videoButton) {
         // Remove audio from video
         video.muted = true;
-        
+
         // Handle video end event
         video.addEventListener('ended', () => {
           // video.style.display = 'none';
@@ -42,7 +42,7 @@
         // Delay video start by 3 seconds
         setTimeout(() => {
           const playPromise = video.play();
-          
+
           if (playPromise !== undefined) {
             playPromise.then(() => {
               // Video started playing successfully
