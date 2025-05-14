@@ -1004,7 +1004,7 @@ display:
           group_type: group
           admin_label: ''
           plugin_id: text
-          empty: false
+          empty: true
           content:
             value: '<h2>[view:title]</h2>'
             format: full_html
