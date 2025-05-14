@@ -73,6 +73,27 @@ class SearchApiIndexAlterSubscriber implements EventSubscriberInterface {
                     $fields['minimum_education']->addValue("$teer");
                   }
                 }
+                $occupational_category = querySSoT('fyp_categories_interests_nocs?noc_2021=eq.' . $noc_id);
+                if(!empty($occupational_category)) {
+                  $occupational_category = $occupational_category[0]['category'];
+                  $fields = $reuse_item->getFields();
+                  if (isset($fields['occupational_category_api_field'])) {
+                    // Blank out previous values, then add the new value.
+                    $fields['occupational_category_api_field']->setValues([]);
+                    $fields['occupational_category_api_field']->addValue("$occupational_category");
+                  }
+                }
+
+                $annual_salary = querySSoT('wages?noc=eq.' . $noc_id);
+                if(!empty($annual_salary)) {
+                  $annual_salary = $annual_salary[0]['calculated_median_annual_salary'];
+                  $fields = $reuse_item->getFields();
+                  if (isset($fields['annual_salary'])) {
+                    // Blank out previous values, then add the new value.
+                    $fields['annual_salary']->setValues([]);
+                    $fields['annual_salary']->addValue($annual_salary);
+                  }
+                }
                 // Overwrite the fields for this SSOT record.
                 $this->setItemEpisodeNum($reuse_item, $episode_num, $ssot_row);
                 $this->setItemUniqueId($reuse_item, $unique_key);
