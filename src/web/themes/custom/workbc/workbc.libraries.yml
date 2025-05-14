@@ -87,6 +87,10 @@ google-charts-redraw:
   js:
     js/google-charts-redraw.js: {}
 
+accordion-scroll:
+  js:
+    js/accordion-scroll.js: {}
+
 interactive-map:
   js:
     js/interactive-map.js: {}
