@@ -1,23 +1,20 @@
-
 (function ($, Drupal, once) {
-	Drupal.behaviors.accordion = {
+  ("use strict");
+
+  Drupal.behaviors.accordionScroll = {
     attach: function (context, settings) {
-
-      const delay = 200;
-
-      once('accordionscroll', 'html', context).forEach(function() {
-        $('.accordion-header').on('click', function() {
-          const top = this.getBoundingClientRect().top;
-          const height = this.getBoundingClientRect().height;
-          setTimeout(() => {
-            if (this.getBoundingClientRect().top < 85) {
-              window.scrollTo({ top: window.scrollY - (top - this.getBoundingClientRect().top) - height, behavior: 'smooth' });
-            }
-          }, delay);
-
-        });
+      let top = null;
+      const accordions = once('accordion-scroll', '.workbc-accordion-component .accordion-item', context);
+      $(accordions).on('show.bs.collapse', function (e) {
+        if (!$('.accordion-collapse', this).hasClass('show')) {
+          top = this.getBoundingClientRect().top;
+        }
       });
-
+      $(accordions).on('shown.bs.collapse', function (e) {
+        if ($('.accordion-collapse', this).hasClass('show') && top) {
+          window.scrollTo({ top: window.scrollY - (top - this.getBoundingClientRect().top), behavior: 'instant' });
+        }
+      });
     }
   }
 })(jQuery, Drupal, once);
