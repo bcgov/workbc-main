@@ -45,8 +45,11 @@ resource "aws_cloudfront_distribution" "workbc" {
 	
 	custom_header {
 	  name = "X-Forwarded-Host"
-	  #value = "aws-test.workbc.ca"
 	  value = "test.workbc.ca"
+	}
+	custom_header {
+	  name = "WorkBC-Source"
+	  value = var.source_token	
 	}
 	
   }
