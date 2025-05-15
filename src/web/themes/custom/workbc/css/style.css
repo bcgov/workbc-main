@@ -15973,6 +15973,9 @@ app-filter .job-search-filters .navbar .navbar-nav .nav-item > .dropdown-menu {
   color: #002857;
   margin-bottom: 8px; }
 
+.plan-careercareer-trek-videos .video-button {
+  display: none; }
+
 .plan-careercareer-trek-videos.nav-fixed .nav-main,
 .path-plan-career.nav-fixed .nav-main {
   position: inherit; }
