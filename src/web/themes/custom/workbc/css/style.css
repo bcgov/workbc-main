@@ -16458,6 +16458,9 @@ app-filter .job-search-filters .navbar .navbar-nav .nav-item > .dropdown-menu {
 .plan-careercareer-trek-videos .swiper-video-banner .swiper-wrapper {
   transform: translate3d(0px, 0, 0) !important; }
 
+.workbc-profile .profile-videos-wrapper .profile-video a {
+  width: 100%; }
+
 @media screen and (max-width: 1440px) {
   .plan-careercareer-trek-videos .career-trek-row .hero-content-container {
     padding: 80px 0px; } }

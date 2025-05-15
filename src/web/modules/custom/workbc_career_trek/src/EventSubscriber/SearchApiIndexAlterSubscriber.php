@@ -73,14 +73,17 @@ class SearchApiIndexAlterSubscriber implements EventSubscriberInterface {
                     $fields['minimum_education']->addValue("$teer");
                   }
                 }
-                $occupational_category = querySSoT('fyp_categories_interests_nocs?noc_2021=eq.' . $noc_id);
-                if(!empty($occupational_category)) {
-                  $occupational_category = $occupational_category[0]['category'];
+                $occupational_categories = querySSoT('fyp_categories_interests_nocs?noc_2021=eq.' . $noc_id);
+                if (!empty($occupational_categories) && is_array($occupational_categories)) {
                   $fields = $reuse_item->getFields();
                   if (isset($fields['occupational_category_api_field'])) {
-                    // Blank out previous values, then add the new value.
+                    // Blank out previous values, then add all categories as values.
                     $fields['occupational_category_api_field']->setValues([]);
-                    $fields['occupational_category_api_field']->addValue("$occupational_category");
+                    foreach ($occupational_categories as $cat_row) {
+                      if (!empty($cat_row['category'])) {
+                        $fields['occupational_category_api_field']->addValue($cat_row['category']);
+                      }
+                    }
                   }
                 }
 
@@ -91,7 +94,7 @@ class SearchApiIndexAlterSubscriber implements EventSubscriberInterface {
                   if (isset($fields['annual_salary'])) {
                     // Blank out previous values, then add the new value.
                     $fields['annual_salary']->setValues([]);
-                    $fields['annual_salary']->addValue($annual_salary);
+                    $fields['annual_salary']->addValue((string)$annual_salary);
                   }
                 }
                 // Overwrite the fields for this SSOT record.

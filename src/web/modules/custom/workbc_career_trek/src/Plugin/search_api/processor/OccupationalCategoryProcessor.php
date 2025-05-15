@@ -34,6 +34,7 @@ class OccupationalCategoryProcessor extends ProcessorPluginBase {
         'label' => $this->t('Occupational Category Field'),
         'description' => $this->t('An occupational category field fetched from the Career Trek API.'),
         'type' => 'string',
+        'is_list' => TRUE, // Mark as multi-value
         'processor_id' => $this->getPluginId(),
       ];
       $properties['occupational_category_api_field'] = new CustomValueProperty($definition);
@@ -55,9 +56,11 @@ class OccupationalCategoryProcessor extends ProcessorPluginBase {
 
       if ($identifier) {
         $api_data = $this->fetchOccupationalCategoryDataFromApi($identifier);
-        if (!empty($api_data)) {
+        if (!empty($api_data) && is_array($api_data)) {
           foreach ($fields as $field) {
-            $field->addValue((string) $api_data);
+            foreach ($api_data as $category) {
+              $field->addValue((string) $category);
+            }
           }
         }
       }
@@ -70,21 +73,26 @@ class OccupationalCategoryProcessor extends ProcessorPluginBase {
    * @param string $id
    *   The identifier (e.g., NOC code).
    *
-   * @return string
-   *   The occupational category string or empty string if not found.
+   * @return array
+   *   An array of occupational category strings, or empty array if not found.
    */
   protected function fetchOccupationalCategoryDataFromApi($id) {
+    $categories = [];
     try {
       $ssot = ssotFullCareerProfile($id);
-      if (!empty($ssot['occupational_category'][0])) {
-        return $ssot['occupational_category'][0]['category'] ?? '';
+      if (!empty($ssot['occupational_category']) && is_array($ssot['occupational_category'])) {
+        foreach ($ssot['occupational_category'] as $cat) {
+          if (!empty($cat['category'])) {
+            $categories[] = $cat['category'];
+          }
+        }
       }
     }
     catch (\Exception $e) {
       \Drupal::logger('workbc_career_trek')->error('API error: @message', ['@message' => $e->getMessage()]);
     }
 
-    return '';
+    return $categories;
   }
 
 }
