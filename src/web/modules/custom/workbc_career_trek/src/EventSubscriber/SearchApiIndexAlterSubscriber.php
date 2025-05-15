@@ -97,6 +97,40 @@ class SearchApiIndexAlterSubscriber implements EventSubscriberInterface {
                     $fields['annual_salary']->addValue((string)$annual_salary);
                   }
                 }
+                $skills_data = querySSoT('skills?noc=eq.' . $noc_id);
+                if (!empty($skills_data) && is_array($skills_data)) {
+                  // Sort skills by importance descending
+                  usort($skills_data, function($a, $b) {
+                    return $b['importance'] <=> $a['importance'];
+                  });
+
+                  $skill_ids = [];
+                  $count = 0;
+                  foreach ($skills_data as $skill) {
+                    if ($count >= 6) {
+                      break;
+                    }
+                    if (!empty($skill['skills_competencies'])) {
+                      $term_name = $skill['skills_competencies'];
+                      $term = \Drupal::entityTypeManager()
+                        ->getStorage('taxonomy_term')
+                        ->loadByProperties(['name' => $term_name, 'vid' => 'skills']);
+                      if (!empty($term)) {
+                        $term_entity = reset($term);
+                        $skill_ids[] = $term_entity->id();
+                        $count++;
+                      }
+                    }
+                  }
+                  // Set the skills field if it exists
+                  $fields = $reuse_item->getFields();
+                  if (isset($fields['skills'])) {
+                    $fields['skills']->setValues([]);
+                    foreach ($skill_ids as $skill_id) {
+                      $fields['skills']->addValue($skill_id);
+                    }
+                  }
+                }
                 // Overwrite the fields for this SSOT record.
                 $this->setItemEpisodeNum($reuse_item, $episode_num, $ssot_row);
                 $this->setItemUniqueId($reuse_item, $unique_key);
