@@ -6,5 +6,5 @@ id: section_accordion
 label: 'Section: Accordion'
 icon_uuid: null
 icon_default: null
-description: 'A section of accordion entries'
+description: 'A section of accordion entries.'
 behavior_plugins: {  }

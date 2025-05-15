@@ -27,7 +27,7 @@ content:
     third_party_settings: {  }
   field_icon:
     type: media_library_widget
-    weight: 2
+    weight: 3
     region: content
     settings:
       media_types: {  }
@@ -37,7 +37,7 @@ content:
         show_edit: '1'
   field_key:
     type: string_textfield
-    weight: 3
+    weight: 4
     region: content
     settings:
       size: 60

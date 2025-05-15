@@ -49,11 +49,11 @@
   ]
 %}
 {%
-  set parent = "#accordion-component-" ~ section_accordion_id
+  set parent = keep_open ? '' : 'data-bs-parent="#accordion-component-' ~ section_accordion_id ~ '"'
 %}
 
 {% block paragraph %}
-  <div{{ attributes.addClass(classes) }}>
+  <div{{ attributes.addClass(classes) }} data-keep-open="{{ keep_open ? 1 : 0 }}">
     {% block content %}
       <div class="accordion-header" id="header-{{ paragraph.id() }}">
         <button class="accordion-button collapsed" type="button" data-bs-toggle="collapse" data-bs-target="#collapse-{{ paragraph.id() }}" aria-expanded="false" aria-controls="collapse-{{ paragraph.id() }}">
@@ -61,7 +61,7 @@
           {{ content.field_title }}
         </button>
       </div>
-      <div id="collapse-{{ paragraph.id() }}" class="accordion-collapse collapse" aria-labelledby="header-{{ paragraph.id() }}" data-bs-parent="{{ parent }}">
+      <div id="collapse-{{ paragraph.id() }}" class="accordion-collapse collapse" aria-labelledby="header-{{ paragraph.id() }}" {{ parent }}>
         <div class="accordion-body">
           {{ content.field_body }}
         </div>

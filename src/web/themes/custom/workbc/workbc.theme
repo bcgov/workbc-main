@@ -48,6 +48,7 @@ function workbc_preprocess_paragraph(&$variables) {
 
   if ($parent->bundle() == 'section_accordion') {
     $variables['section_accordion_id'] = $parent->id();
+    $variables['keep_open'] = boolval($parent->field_keep_open->value);
   }
 
   if ($variables['paragraph']->bundle() == "section_accordion") {

@@ -3,7 +3,7 @@
 
   Drupal.behaviors.accordionScroll = {
     attach: function (context, settings) {
-      const accordions = once('accordion-scroll', '.workbc-accordion-component .accordion-item', context);
+      const accordions = once('accordion-scroll', '.workbc-accordion-component .accordion-item[data-keep-open="0"]', context);
       $(accordions).on('show.bs.collapse', function (e) {
         const top = this.getBoundingClientRect().top;
         const siblings = $(this).siblings().find('.collapse.show, .collapse.collapsing');
