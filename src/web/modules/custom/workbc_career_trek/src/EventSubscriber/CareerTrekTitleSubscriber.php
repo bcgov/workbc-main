@@ -33,18 +33,18 @@ class CareerTrekTitleSubscriber implements EventSubscriberInterface {
     if ($route_name === 'view.career_trek_node.page_1') {
       $arg0 = $route_match->getRawParameter('arg_0');
       $arg1 = $route_match->getRawParameter('arg_1');
-  
+
       // Load the view and get the result for the current display.
       $view = \Drupal\views\Views::getView('career_trek_node');
       if ($view && isset($arg0)) {
         $view->setDisplay('page_1');
         $view->setArguments([$arg0, $arg1]);
         $view->execute();
-  
+
         // Try to get the title field value from the result.
         $title = '';
         if (!empty($view->result)) {
-  
+
           // Try to get the title field from the first result row.
           $row = $view->result[0];
           // Try to get the field value, fallback to arg0 if not found.

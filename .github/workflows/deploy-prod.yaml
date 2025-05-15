@@ -61,5 +61,6 @@ jobs:
         working-directory: ${{ env.TG_SRC_PATH }}/${{ env.TFC_WORKSPACE }}
         env:
           app_image: ${{ env.IMAGE_ID }}:${{ github.event.workflow_run.head_branch}}
-          LICENSE_PLATE: ${{ secrets.MY_LICENSE_PLATE }}          
+          LICENSE_PLATE: ${{ secrets.MY_LICENSE_PLATE }}
+          TF_VAR_source_token: ${{ secrets.SOURCE_TOKEN }}
         run: terragrunt run-all apply --terragrunt-non-interactive

@@ -42,7 +42,6 @@
         // Delay video start by 3 seconds
         setTimeout(() => {
           const playPromise = video.play();
-
           if (playPromise !== undefined) {
             playPromise.then(() => {
               // Video started playing successfully

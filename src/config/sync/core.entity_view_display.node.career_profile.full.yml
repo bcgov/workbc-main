@@ -468,7 +468,7 @@ content:
     type: entity_reference_entity_view
     label: above
     settings:
-      view_mode: ajaxembed
+      view_mode: career_trek_node
       link: false
     third_party_settings: {  }
     weight: 16

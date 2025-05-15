@@ -29,7 +29,7 @@ function workbc_career_trek_preprocess_views_view(&$variables) {
               $values[] = $title;
             }
           }
-          
+
         }
          elseif ($key == "minimum_education_all") {
           $title = $filters['minimum_education']['group_info']['group_items'][$expose]['title'] ?? '';
@@ -74,7 +74,7 @@ function workbc_career_trek_preprocess_views_view(&$variables) {
 function workbc_career_trek_uninstall() {
     // Load the entity type manager service.
     $entity_type_manager = \Drupal::entityTypeManager();
-  
+
     // Load and remove paragraph items of type 'section_icons_1_3' before removing its fields and type.
     $paragraph_items = $entity_type_manager->getStorage('paragraph')->loadByProperties(['type' => 'section_icons_1_3']);
     foreach ($paragraph_items as $paragraph_item) {
@@ -87,7 +87,7 @@ function workbc_career_trek_uninstall() {
       }
       $paragraph_type->delete();
     }
-  
+
     // Load and remove paragraph items of type 'banner_video' before deleting its fields and type.
     $paragraph_items = $entity_type_manager->getStorage('paragraph')->loadByProperties(['type' => 'banner_video']);
     foreach ($paragraph_items as $paragraph_item) {
@@ -101,7 +101,7 @@ function workbc_career_trek_uninstall() {
       }
       $paragraph_type->delete();
     }
-  
+
     // Load the paragraph type 'banner_video' and delete its fields.
     if ($paragraph_type = $entity_type_manager->getStorage('paragraphs_type')->load('banner_video')) {
       $field_storage_definitions = $entity_type_manager->getStorage('field_storage_config')->loadByProperties(['entity_type' => 'paragraph', 'bundle' => 'banner_video']);

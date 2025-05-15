@@ -18,7 +18,7 @@
           $('fieldset[data-drupal-selector="edit-annual-salary-wrapper"] .fieldset-wrapper').prepend('<div id="annual-salary"></div>');
           setTimeout(resizeSlider, 100);
         }
-        
+
       });
       $('.responsive-filter-video-btn', context).on('click', function () {
         setTimeout(resizeSlider, 100);
