@@ -3,16 +3,15 @@
 
   Drupal.behaviors.accordionScroll = {
     attach: function (context, settings) {
-      let top = null;
       const accordions = once('accordion-scroll', '.workbc-accordion-component .accordion-item', context);
       $(accordions).on('show.bs.collapse', function (e) {
-        if (!$('.accordion-collapse', this).hasClass('show')) {
-          top = this.getBoundingClientRect().top;
-        }
-      });
-      $(accordions).on('shown.bs.collapse', function (e) {
-        if ($('.accordion-collapse', this).hasClass('show') && top) {
-          window.scrollTo({ top: window.scrollY - (top - this.getBoundingClientRect().top), behavior: 'instant' });
+        const top = this.getBoundingClientRect().top;
+        const siblings = $(this).siblings().find('.collapse.show, .collapse.collapsing');
+        if (siblings.length) {
+          const rect = siblings[0].getBoundingClientRect();
+          if (rect.top < top && top < rect.height + 80) {
+            window.scrollTo({ top: window.scrollY - rect.height, behavior: 'instant' });
+          }
         }
       });
     }
