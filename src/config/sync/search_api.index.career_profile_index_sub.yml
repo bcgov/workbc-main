@@ -64,7 +64,7 @@ field_settings:
   annual_salary:
     label: 'Annual Salary'
     property_path: annual_salary
-    type: string
+    type: decimal
     configuration:
       value: ''
   career_description:

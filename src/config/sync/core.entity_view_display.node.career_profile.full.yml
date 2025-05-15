@@ -468,7 +468,7 @@ content:
     type: entity_reference_entity_view
     label: above
     settings:
-      view_mode: career_trek_node
+      view_mode: ajaxembed
       link: false
     third_party_settings: {  }
     weight: 16
@@ -577,6 +577,10 @@ content:
     region: content
 hidden:
   extra_field_career_trek_profile_skills: true
+  extra_field_profile_description: true
+  extra_field_profile_thumbnail: true
+  extra_field_profile_title: true
+  extra_field_profile_video_url: true
   extra_field_search_index_job_titles: true
   extra_field_search_index_noc: true
   extra_field_workbc_page_title: true
