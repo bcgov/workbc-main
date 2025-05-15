@@ -7,6 +7,7 @@ dependencies:
     - search_api_autocomplete.search.search_site_content
   module:
     - contact
+    - field_permissions
     - media
     - media_entity_download
     - paragraphs_type_permissions
@@ -28,7 +29,9 @@ permissions:
   - 'download media'
   - 'use search_api_autocomplete for search_career_profiles'
   - 'use search_api_autocomplete for search_site_content'
+  - 'view field_content'
   - 'view media'
+  - 'view own field_content'
   - 'view paragraph content action_card'
   - 'view paragraph content action_card_feature'
   - 'view paragraph content action_card_full_width'
@@ -42,11 +45,13 @@ permissions:
   - 'view paragraph content action_cards_icon_1_2'
   - 'view paragraph content action_cards_publication'
   - 'view paragraph content additional_duties'
+  - 'view paragraph content content_accordion_entry'
   - 'view paragraph content content_interactive_map'
   - 'view paragraph content content_text'
   - 'view paragraph content content_view'
   - 'view paragraph content lmo_charts_tables'
   - 'view paragraph content quote_card'
+  - 'view paragraph content section_accordion'
   - 'view paragraph content section_read_more'
   - 'view paragraph content skills'
   - 'view published sitewide alert entities'

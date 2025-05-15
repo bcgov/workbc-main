@@ -7,12 +7,15 @@
 
 use Drupal\file\Entity\File;
 use Drupal\Core\Url;
+use Drupal\Core\Render\Markup;
+use Drupal\Component\Utility\Html;
 
 /**
  * Implements hook_theme_preprocess_paragraph().
  */
 function workbc_preprocess_paragraph(&$variables) {
   $parent = $variables['paragraph']->getParentEntity();
+
   if ($parent->bundle() == 'action_cards_full_width') {
     $align = $parent->field_alignment->value;
     $list = $parent->field_action_cards->getValue();
@@ -41,6 +44,14 @@ function workbc_preprocess_paragraph(&$variables) {
         }
       }
     }
+  }
+
+  if ($parent->bundle() == 'section_accordion') {
+    $variables['section_accordion_id'] = $parent->id();
+  }
+
+  if ($variables['paragraph']->bundle() == "section_accordion") {
+    $variables['section_accordion_id'] = $variables['paragraph']->id();
   }
 
   // Find parent menu item for cards with links.
@@ -273,7 +284,6 @@ function workbc_preprocess_views_view_summary_unformatted(&$variables) {
  */
 function workbc_preprocess_media(&$variables) {
 
-
   $media = $variables['media'];
   $thumbnailUri = $media->get('thumbnail')->entity->getFileUri();
   if($thumbnailUri) {
@@ -284,6 +294,18 @@ function workbc_preprocess_media(&$variables) {
     ];
     $variables['media_thumbnail'] = \Drupal::service('renderer')->render($image);
     $variables['media_id'] = $media->id();
+  }
+
+  if ($media->bundle() == "icon") {
+    $altText = $variables['content']['field_media_image_1']['#items']->alt;
+    if (isset($variables['elements']['field_media_image_1'][0]['#markup'])) {
+      $svgRaw = (string) $variables['elements']['field_media_image_1'][0]['#markup'];
+      $replace = '$1 aria-label="' . HTML::escape($altText) . '"$2';
+      $svgRaw = preg_replace('/(<svg.*)(>)/i', $replace, $svgRaw);
+      $markup = Markup::create(trim($svgRaw));
+      $render = array('#markup' => $markup);
+      $variables['content']['field_media_image_1'][0]['#markup'] = \Drupal::service('renderer')->render($render);
+    }
   }
 }
 
@@ -392,14 +414,14 @@ function workbc_preprocess_views_view_field(&$variables) {
 
 function workbc_preprocess_field(&$variables) {
 
-  if ($variables['field_type'] == "extra_field" && 
+  if ($variables['field_type'] == "extra_field" &&
       str_starts_with($variables['field_name'], "extra_field_lmo_report_2024")) {
     if (str_ends_with($variables['field_name'], "table")) {
       $variables['attributes']['class'][] = "lmo-report-table";
     }
     if (str_ends_with($variables['field_name'], "chart")) {
       $variables['attributes']['class'][] = "lmo-report-chart";
-    }       
+    }
   }
   // region information for interactive map
   if ($variables['field_name'] == "extra_field_lmo_report_2024_job_openings_regions_table") {
