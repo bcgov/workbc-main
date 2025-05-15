@@ -12,7 +12,7 @@ dependencies:
     - field.field.media.remote_video.field_media_oembed_video
     - field.field.media.remote_video.field_recently_added
     - field.field.media.remote_video.field_weight
-    - image.style.image.style.career_trek_video_library_480_x_270
+    - image.style.career_trek_video_library_480_x_270
     - media.type.remote_video
   module:
     - svg_image
@@ -28,7 +28,7 @@ content:
     label: hidden
     settings:
       image_link: ''
-      image_style: image.style.career_trek_video_library_480_x_270
+      image_style: career_trek_video_library_480_x_270
       image_loading:
         attribute: lazy
       svg_attributes:

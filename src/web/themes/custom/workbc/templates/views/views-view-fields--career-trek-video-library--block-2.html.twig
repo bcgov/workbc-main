@@ -34,8 +34,13 @@
 <div class="workbc-card">
    <div class="workbc-card-container">
       <div class="workbc-card-video-preview">
-         <a href="/plan-career/career-trek-videos/{{ fields.title.content|striptags|trim|lower|replace({',': ''})|split(' ')|filter(v => v != '' and v != '-')|join('-') }}"><div class="workbc-card-thumbnail">{{ fields.field_career_videos.content }}</div></a>
-         {{ fields.view_node.url }}
+         <a href="/plan-career/career-trek-videos/{{ fields.career_noc.content|striptags|trim }}/{{ fields.episode_num.content|striptags|trim }}">
+            <div class="workbc-card-thumbnail">
+               <div class="field field--name-thumbnail field--type-image field--label-hidden field__item">
+                  <img loading="lazy" src="{{ file_url(fields.thumbnail.content|striptags|trim|image_style('career_trek_video_library_480_x_270')) }}" width="480" height="270" alt="{{ fields.episode_title.content|striptags|trim }}" class="img-fluid image-style-career-trek-video-library-480-x-270" data-once="workbcCardImageCheck">
+               </div>
+            </div>
+         </a>
       </div>
 
       <div class="workbc-card-details">
@@ -45,8 +50,8 @@
 
       <div class="workbc-card-content">
          <div class="workbc-card-title">
-            <a href="/plan-career/career-trek-videos/{{ fields.title.content|striptags|trim|lower|replace({',': ''})|split(' ')|filter(v => v != '' and v != '-')|join('-') }}">
-               {{ fields.title.content }}
+            <a href="/plan-career/career-trek-videos/{{ fields.career_noc.content|striptags|trim }}/{{ fields.episode_num.content|striptags|trim }}">
+               {{ fields.ssot_title.content|striptags|trim }}
             </a>
          </div>
          <div class="workbc-card-description">{{ fields.occupational_category_api_field.content }}</div>

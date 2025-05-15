@@ -10,15 +10,15 @@ use Drupal\extra_field\Plugin\ExtraFieldDisplayFormattedBase;
  * Example Extra field with formatted output.
  *
  * @ExtraFieldDisplay(
- *   id = "profile_location",
- *   label = @Translation("Profile Location"),
- *   description = @Translation("An extra field to display career Location."),
+ *   id = "profile_title",
+ *   label = @Translation("Profile Title"),
+ *   description = @Translation("An extra field to display career Title."),
  *   bundles = {
  *     "node.career_profile",
  *   }
  * )
  */
-class CareerProfileLocation extends ExtraFieldDisplayFormattedBase {
+class CareerProfileTitle extends ExtraFieldDisplayFormattedBase {
 
   use StringTranslationTrait;
 
@@ -45,7 +45,7 @@ class CareerProfileLocation extends ExtraFieldDisplayFormattedBase {
     if (!empty($entity->ssot_data) && isset($entity->ssot_data['career_trek'])) {
       foreach($entity->ssot_data['career_trek'] as $career_trek) {
         if($career_trek['episode_num'] == $entity->episode_number) {
-          $output = $career_trek['location'];
+          $output = $career_trek['title_2021'];
         }
       }
     }else {

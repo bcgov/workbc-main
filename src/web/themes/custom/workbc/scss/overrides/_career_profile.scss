@@ -545,7 +545,7 @@
   }
 }
 
-.view-career-trek-videos {
+.view-career-trek-node {
   .career-profile-node {
     .workbc-career-profile-videos {
       .workbc-card-thumbnail img {
@@ -633,8 +633,11 @@
     }
   }
 }
-
-.nav-fixed {
+.plan-careercareer-trek-videos .video-button {
+  display: none;
+}
+.plan-careercareer-trek-videos.nav-fixed ,
+.path-plan-career.nav-fixed {
   .nav-main {
     position: inherit;
   }
@@ -676,14 +679,14 @@
   }
 }
 
-.total-results {
+.plan-careercareer-trek-videos .total-results {
   font-size: 16px;
   line-height: 24px;
   color: #333333;
   font-weight: 400;
 }
 
-.career-bg {
+.plan-careercareer-trek-videos .career-bg {
   .heading {
     h3 {
       font-size: 30px;
@@ -1079,7 +1082,7 @@
   }
 }
 
-.career-title span{
+.view-career-trek-node .career-title span{
   display: block;
   font-size: 35px;
   line-height: 38px;
@@ -1087,10 +1090,10 @@
   margin-bottom: 10px;
   font-weight: 700;
 }
-.profile-video{
+.view-career-trek-node .profile-video{
   position:relative;
 }
-.profile-video iframe{
+.view-career-trek-node .profile-video iframe{
   // position: absolute;
     top: 0;
     left: 0;
@@ -1099,14 +1102,14 @@
     z-index:-1;
     display: none;
 }
-.profile-video img{
+.view-career-trek-node .profile-video img{
   position:relative;
   z-index:1;
 }
-.profile-video.active .workbc-card-thumbnail{
+.view-career-trek-node .profile-video.active .workbc-card-thumbnail{
   opacity:0;
 }
-.profile-video.active iframe{
+.view-career-trek-node .profile-video.active iframe{
   // z-index:1;
 }
 .plan-careercareer-trek-videos .salary-range-search .form-item .details-wrapper.card-body{
@@ -1140,13 +1143,13 @@
 .top-banner .logo-wrapper img{
   max-width:100%;
 }
-.view-career-trek-videos .top-video-row .back-btton .mobile-back-btn{
+.view-career-trek-node .top-video-row .back-btton .mobile-back-btn{
   display:none;
 }
-.view-career-trek-videos .top-video-row .mobile-social-btn{
+.view-career-trek-node .top-video-row .mobile-social-btn{
   display:none;
 }
-.view-career-trek-videos .top-video-row .mobile-social-btn a{
+.view-career-trek-node .top-video-row .mobile-social-btn a{
   background: transparent;
   border: 3px solid #2E6AB0;
   color: #2E6AB0;
@@ -1171,13 +1174,13 @@
 .view-career-trek-video-library.view-display-id-block_1 .grid-view .workbc-card .workbc-card-container .workbc-card-video-preview{
   border-radius:8px 8px 0px 0px;
 }
-.view-career-trek-videos .profile-information-card.profile-information-salary{
+.view-career-trek-node .profile-information-card.profile-information-salary{
   order:1
 }
-.view-career-trek-videos .profile-information-card.profile-information-jobs{
+.view-career-trek-node .profile-information-card.profile-information-jobs{
   order:2
 }
-.view-career-trek-videos .profile-information-card.profile-information-education{
+.view-career-trek-node .profile-information-card.profile-information-education{
     order:3
 }
 .career-bg .paragraph--type--section-icons-1-3 .paragraph--type--action-card-icon .card-w-icon__desc{
@@ -1193,7 +1196,7 @@
 //   opacity:0.8;
 // }
 .plan-careercareer-trek-videos .career-trek-row.video-stop::after{
-  background:transparent;
+  background: linear-gradient(to right, #002957 0%, #052C5B 38%, rgba(0, 41, 86, 0.38) 51%);
 }
 .plan-careercareer-trek-videos .hero-banner{
   border:none;
@@ -1249,7 +1252,40 @@
 .plan-careercareer-trek-videos .view-career-trek-video-library .career-videos-filters details[open] summary{
   padding-bottom:4px;
 }
+.plan-careercareer-trek-videos .career-trek-row .hero-image-wrapper{
+  width:100%;
+}
+.plan-careercareer-trek-videos .career-trek-row .hero-image-wrapper,.plan-careercareer-trek-videos .view-banner-video.view-display-id-block_1 .hero-banner{
+  height:auto;
+  min-height:auto;
+}
+.plan-careercareer-trek-videos .career-trek-row svg{
+  cursor:pointer;
+}
+.plan-careercareer-trek-videos .career-trek-row svg.play{
+  width: 33px;
+  height: 32px;
+  stroke-width: 8px;
+  stroke:#fff;
+  bottom:24px;
+  right:22px;
+}
+.plan-careercareer-trek-videos .view-banner-video.view-display-id-block_1 .swiper-pagination-bullets{
+  width:auto;
+  left:47%;
+}
+.plan-careercareer-trek-videos .swiper-video-banner .swiper-wrapper {
+  transform: translate3d(0px, 0, 0) !important;
+}
+.workbc-profile .profile-videos-wrapper .profile-video a {
+  width: 100%;
+}
 // Responsive styles
+@media screen and (max-width: 1440px) {
+  .plan-careercareer-trek-videos .career-trek-row .hero-content-container{
+    padding: 80px 0px;
+  }
+}
 @media screen and (max-width: 1200px) {
   .career-bg {
     h3.card-w-icon__title {
@@ -1320,6 +1356,9 @@
     width: 48%;
     margin:0;
   }
+  .plan-careercareer-trek-videos .career-trek-row{
+    background-position: bottom;
+  }
 }
 
 @media screen and (max-width: 992px) {
@@ -1328,7 +1367,7 @@
       flex-direction: column-reverse;
 
       .hero-content-container {
-        padding: 12px;
+        padding:0px;
         justify-content: flex-start;
         margin-bottom: 60px;
 
@@ -1343,9 +1382,9 @@
       }
     }
 
-    .hero-image-wrapper {
-      height: 350px;
-    }
+    // .hero-image-wrapper {
+    //   height: 350px;
+    // }
   }
   .plan-careercareer-trek-videos .career-trek-row .hero-image-wrapper video{
     display:block !important;
@@ -1373,7 +1412,7 @@
   .plan-careercareer-trek-videos .career-bg .section-icons-3 .card-body{
     justify-content:flex-start;
   }
-  .view-career-trek-videos .career-inner-banner .field--type-image::after{
+  .view-career-trek-node .career-inner-banner .field--type-image::after{
     background-size: 64px;
   }
   .plan-careercareer-trek-videos .view-career-trek-video-library .row.switcher-row .workbc-card .workbc-card-container .workbc-card-content .workbc-card-description{
@@ -1433,22 +1472,22 @@
   .career-profile-node .career-profile-content .career-skills-row .career-profiles-skill{
     width:100%
   }
-  .view-career-trek-videos .top-video-row .back-btton .desktop-back-btn{
+  .view-career-trek-node .top-video-row .back-btton .desktop-back-btn{
     display:none;
   }
-  .view-career-trek-videos .top-video-row .back-btton .mobile-back-btn{
+  .view-career-trek-node .top-video-row .back-btton .mobile-back-btn{
     display:block;
     background: unset;
     padding: 0;
   }
-  .view-career-trek-videos .top-video-row .desktop-social-btn{
+  .view-career-trek-node .top-video-row .desktop-social-btn{
     display:none;
   }
-  .view-career-trek-videos .top-video-row .mobile-social-btn{
+  .view-career-trek-node .top-video-row .mobile-social-btn{
     display:block;
     text-align:right;
   }
-  .view-career-trek-videos .top-video-row .top-banner{
+  .view-career-trek-node .top-video-row .top-banner{
     padding:10px 0px;
   }
   .career-title span,.career-profile-node h2{
@@ -1458,10 +1497,10 @@
   .career-profile-node .career-profile-content .jobs-data .job-box.item{
     width:100%;
   }
-  .view-career-trek-videos .career-profile-node .workbc-card-video-preview a::after{
+  .view-career-trek-node .career-profile-node .workbc-card-video-preview a::after{
     background-size:85px;
   }
-  .view-career-trek-videos .career-profile-node article.media--type-remote-video{
+  .view-career-trek-node .career-profile-node article.media--type-remote-video{
     padding:0 !important;
   }
   .plan-careercareer-trek-videos .view-id-career_trek_video_library.view-display-id-block_1 .list-column .workbc-card .workbc-card-content{
@@ -1493,6 +1532,13 @@
 }
 @media screen and (max-width:380px) {
   .plan-careercareer-trek-videos .career-trek-row .hero-content-container{
-    padding:12px 0px;
+    padding:0px;
+    margin-bottom:35px;
+  }
+}
+@media screen and (max-width:365px) {
+  .plan-careercareer-trek-videos .career-trek-row .hero-content-container .hero-title {
+    font-size: 24px;
+    line-height: 33px;
   }
 }

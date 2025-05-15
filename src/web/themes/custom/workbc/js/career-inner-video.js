@@ -1,50 +1,39 @@
 (function ($, Drupal, once) {
     "use strict";
-  
+
     Drupal.behaviors.careerInnerVideo = {
       attach: function (context, settings) {
         // Autoplay on video click
-        once('careerInnerVideo', '.profile-video', context).forEach(function (element) {
-          element.onclick = function () {
-            $(this).addClass('active');
-            
-              
-            const iframe = $(this).find('iframe');
-            $('.profile-video')[0].offsetHeight;
+        $('.profile-video', context).each(function () {
+          $(this).addClass('active');
 
-            setTimeout(() => {
-                iframe.css({
-                    'position': 'absolute',
-                    'display': 'block',
-                    'z-index': '1'
-                })
-            }, 200);
-            // Force reflow
 
-            if (iframe.length) {
-            //   let src = iframe.attr('src') || '';
-            //   if (!src.includes('autoplay=1')) {
-            //     const connector = src.includes('?') ? '&' : '?';
-            //     const newSrc = `${src}${connector}autoplay=1&mute=1`;
-  
-            //     iframe.attr('src', newSrc);
-            //     iframe.attr('allow', 'autoplay; encrypted-media'); // <-- THIS IS KEY
-            //     console.log("YouTube autoplay triggered");
-            //   }
-            } else {
-              console.warn('No iframe found inside .profile-video');
-            }
-          };
+          const iframe = $(this).find('iframe');
+          $('.profile-video')[0].offsetHeight;
+
+          setTimeout(() => {
+              iframe.css({
+                  'position': 'absolute',
+                  'display': 'block',
+                  'z-index': '1'
+              })
+          }, 200);
+          // Force reflow
+
+          if (iframe.length) {
+          } else {
+            console.warn('No iframe found inside .profile-video');
+          }
         });
-  
+
         // Sticky scroll behavior
         const $topVideoRow = $('.top-video-row', context);
         if ($topVideoRow.length) {
           const originalOffsetTop = $topVideoRow.offset().top;
-  
+
           $(window).on('scroll.careerInnerVideoSticky', function () {
             const scrollTop = $(window).scrollTop();
-  
+
             if (scrollTop >= originalOffsetTop) {
               $topVideoRow.css({
                 'position': 'sticky',
@@ -64,4 +53,3 @@
       }
     };
   })(jQuery, Drupal, once);
-  

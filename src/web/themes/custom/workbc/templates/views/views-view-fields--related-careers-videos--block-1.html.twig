@@ -1,13 +1,34 @@
 <div class="related-carrer">
     <div class="workbc-card-video-preview">
+<<<<<<< HEAD
+        <a href="/plan-career/career-trek-videos/{{ fields.career_noc.content|striptags|trim }}/{{ fields.episode_num.content|striptags|trim }}">
+            <div class="workbc-card-thumbnail">
+               <div class="field field--name-thumbnail field--type-image field--label-hidden field__item">
+                    <img
+                        loading="lazy"
+                        src="{{ file_url(fields.thumbnail.content|striptags|trim|image_style('career_trek_node_banner')) }}"
+                        width="760"
+                        height="400"
+                        alt=""
+                        class="img-fluid image-style-career-trek-node-banner"
+                    />
+               </div>
+            </div>
+=======
         <a href="/plan-career/career-trek-videos/{{ fields.title.content|replace({'/': ''})|striptags|trim|lower|replace({',': ''})|split(' ')|filter(v => v != '' and v != '-')|join('-') }}">
             <div class="workbc-card-thumbnail">{{ fields.field_career_videos.content }}</div>
+>>>>>>> 4dd5b88a77be3bf9455b3564204ee6f1a623f17c
         </a>
     </div>
     <div class="workbc-card-content">
         <div class="title">
+<<<<<<< HEAD
+            <a href="/plan-career/career-trek-videos/{{ fields.career_noc.content|striptags|trim }}/{{ fields.episode_num.content|striptags|trim }}">
+                {{ fields.ssot_title.content }}
+=======
             <a href="/plan-career/career-trek-videos/{{ fields.title.content|replace({'/': ''})|striptags|trim|lower|replace({',': ''})|split(' ')|filter(v => v != '' and v != '-')|join('-') }}">
                 {{ fields.title.content }}
+>>>>>>> 4dd5b88a77be3bf9455b3564204ee6f1a623f17c
             </a>
         </div>
         <div class="category">

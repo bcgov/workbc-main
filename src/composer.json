@@ -145,7 +145,7 @@
         "drupal/responsive_menu": "^4.4",
         "drupal/role_delegation": "^1.2",
         "drupal/scheduled_publish": "^4.0",
-        "drupal/search_api": "^1.37",
+        "drupal/search_api": "1.37",
         "drupal/search_api_autocomplete": "^1.10",
         "drupal/search_api_solr": "^4.3",
         "drupal/simple_block": "^1.3",

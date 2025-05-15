@@ -5,3 +5,11 @@ workbc_career_trek.settings_form:
     _title: 'Career Trek Settings'
   requirements:
     _permission: 'administer site configuration'
+
+workbc_career_trek.suggestions:
+  path: '/career-trek/search-autocomplete/suggestions'
+  defaults:
+    _controller: '\Drupal\workbc_career_trek\Controller\AutocompleteController::getSuggestions'
+    _title: 'Search Autocomplete Suggestions'
+  requirements:
+    _permission: 'access content'

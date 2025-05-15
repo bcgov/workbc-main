@@ -35,11 +35,11 @@
         // Update the .update-result text
         $('.plan-careercareer-trek-videos .result-summary .update-result').text(totalCount);
       });
-      once('viewSwitcher', '.career-videos-filters details', context).forEach(function (element, index) {
-        if (index < 2) {
-          element.setAttribute('open', '');
-        }
-      });
+      // once('viewSwitcher', '.career-videos-filters details', context).forEach(function (element, index) {
+      //   if (index < 2) {
+      //     element.setAttribute('open', '');
+      //   }
+      // });
 
 
       once('viewSwitcher', '.career-trek-sidebar .responsive-filter-video-btn', context).forEach(function (element) {
@@ -47,7 +47,7 @@
             $(this).siblings('.career-trek-sidebar-panel').addClass('active');
         };
       });
-    
+
       once('viewSwitcher', '.career-trek-sidebar .career-sidebar-close-btn', context).forEach(function (element) {
           element.onclick = function () {
               $(this).closest('.career-trek-sidebar-panel').removeClass('active');
@@ -67,10 +67,10 @@
           };
         });
       };
-      
+
       // Run on initial load
       checkCardImages(context);
-      
+
       // Run on ajaxComplete for infinite scroll
       $(document).ajaxComplete(function() {
         checkCardImages(document);

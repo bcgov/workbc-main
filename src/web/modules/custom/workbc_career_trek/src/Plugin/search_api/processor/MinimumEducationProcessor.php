@@ -12,16 +12,16 @@ use Drupal\search_api\Processor\ProcessorPluginBase;
  * Adds occupational category data from a custom API to the indexed data.
  *
  * @SearchApiProcessor(
- *   id = "occupational_category_processor",
- *   label = @Translation("Occupational Category Processor"),
- *   description = @Translation("Pulls occupational category data from an external API and indexes it."),
+ *   id = "minimum_education_processor",
+ *   label = @Translation("Minimum Education Processor"),
+ *   description = @Translation("Pulls Minimum Education data from an external API and indexes it."),
  *   stages = {
  *     "add_properties" = 0,
  *     "preprocess_index" = -10
  *   }
  * )
  */
-class OccupationalCategoryProcessor extends ProcessorPluginBase {
+class MinimumEducationProcessor extends ProcessorPluginBase {
 
   /**
    * {@inheritdoc}
@@ -31,13 +31,12 @@ class OccupationalCategoryProcessor extends ProcessorPluginBase {
 
     if (!$datasource) {
       $definition = [
-        'label' => $this->t('Occupational Category Field'),
-        'description' => $this->t('An occupational category field fetched from the Career Trek API.'),
+        'label' => $this->t('Minimum Education'),
+        'description' => $this->t('A Minimum Education field fetched from the Career Trek API.'),
         'type' => 'string',
-        'is_list' => TRUE, // Mark as multi-value
         'processor_id' => $this->getPluginId(),
       ];
-      $properties['occupational_category_api_field'] = new CustomValueProperty($definition);
+      $properties['minimum_education'] = new CustomValueProperty($definition);
     }
 
     return $properties;
@@ -48,19 +47,17 @@ class OccupationalCategoryProcessor extends ProcessorPluginBase {
    */
   public function addFieldValues(ItemInterface $item) {
     $fields = $this->getFieldsHelper()
-      ->filterForPropertyPath($item->getFields(), NULL, 'occupational_category_api_field');
+      ->filterForPropertyPath($item->getFields(), NULL, 'minimum_education');
 
     $entity = $item->getOriginalObject()->getValue();
     if ($entity instanceof EntityInterface && $entity->hasField('field_noc')) {
       $identifier = $entity->get('field_noc')->value;
 
       if ($identifier) {
-        $api_data = $this->fetchOccupationalCategoryDataFromApi($identifier);
-        if (!empty($api_data) && is_array($api_data)) {
+        $api_data = $this->fetchDataFromApi($identifier);
+        if (!empty($api_data)) {
           foreach ($fields as $field) {
-            foreach ($api_data as $category) {
-              $field->addValue((string) $category);
-            }
+            $field->addValue((string) $api_data);
           }
         }
       }
@@ -74,25 +71,21 @@ class OccupationalCategoryProcessor extends ProcessorPluginBase {
    *   The identifier (e.g., NOC code).
    *
    * @return array
-   *   An array of occupational category strings, or empty array if not found.
+   *   The skills array or empty array if not found.
    */
-  protected function fetchOccupationalCategoryDataFromApi($id) {
-    $categories = [];
+  protected function fetchDataFromApi($id) {
     try {
       $ssot = ssotFullCareerProfile($id);
-      if (!empty($ssot['occupational_category']) && is_array($ssot['occupational_category'])) {
-        foreach ($ssot['occupational_category'] as $cat) {
-          if (!empty($cat['category'])) {
-            $categories[] = $cat['category'];
-          }
-        }
+      if (!empty($ssot['education']['teer'])) {
+        $tier = $ssot['education']['teer'] ?? '';
+        return "$tier";
       }
     }
     catch (\Exception $e) {
       \Drupal::logger('workbc_career_trek')->error('API error: @message', ['@message' => $e->getMessage()]);
     }
 
-    return $categories;
+    return [];
   }
 
 }
