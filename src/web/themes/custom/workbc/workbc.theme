@@ -7,6 +7,8 @@
 
 use Drupal\file\Entity\File;
 use Drupal\Core\Url;
+use Drupal\Core\Render\Markup;
+use Drupal\Component\Utility\Html;
 
 /**
  * Implements hook_theme_preprocess_paragraph().
@@ -44,20 +46,13 @@ function workbc_preprocess_paragraph(&$variables) {
     }
   }
 
-  static $first = false;
-
   if ($parent->bundle() == 'section_accordion') {
-    if ($first) {
-      ksm($parent);
-      $first = false;
-    }
     $variables['section_accordion_id'] = $parent->id();
   }
 
   if ($variables['paragraph']->bundle() == "section_accordion") {
     $variables['section_accordion_id'] = $variables['paragraph']->id();
   }
-
 
   // Find parent menu item for cards with links.
   $menu_link_manager = \Drupal::service('plugin.manager.menu.link');
@@ -289,7 +284,6 @@ function workbc_preprocess_views_view_summary_unformatted(&$variables) {
  */
 function workbc_preprocess_media(&$variables) {
 
-
   $media = $variables['media'];
   $thumbnailUri = $media->get('thumbnail')->entity->getFileUri();
   if($thumbnailUri) {
@@ -300,6 +294,18 @@ function workbc_preprocess_media(&$variables) {
     ];
     $variables['media_thumbnail'] = \Drupal::service('renderer')->render($image);
     $variables['media_id'] = $media->id();
+  }
+
+  if ($media->bundle() == "icon") {
+    $altText = $variables['content']['field_media_image_1']['#items']->alt;
+    if (isset($variables['elements']['field_media_image_1'][0]['#markup'])) {
+      $svgRaw = (string) $variables['elements']['field_media_image_1'][0]['#markup'];
+      $replace = '$1 aria-label="' . HTML::escape($altText) . '"$2';
+      $svgRaw = preg_replace('/(<svg.*)(>)/i', $replace, $svgRaw);
+      $markup = Markup::create(trim($svgRaw));
+      $render = array('#markup' => $markup);
+      $variables['content']['field_media_image_1'][0]['#markup'] = \Drupal::service('renderer')->render($render);
+    }
   }
 }
 
