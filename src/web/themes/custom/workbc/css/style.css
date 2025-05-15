@@ -16007,17 +16007,17 @@ app-filter .job-search-filters .navbar .navbar-nav .nav-item > .dropdown-menu {
   font-weight: 700;
   text-decoration: none; }
 
-.total-results {
+.plan-careercareer-trek-videos .total-results {
   font-size: 16px;
   line-height: 24px;
   color: #333333;
   font-weight: 400; }
 
-.career-bg .heading h3, .career-bg .heading .h3 {
+.plan-careercareer-trek-videos .career-bg .heading h3, .plan-careercareer-trek-videos .career-bg .heading .h3 {
   font-size: 30px;
   line-height: 36px;
   margin-bottom: 8px; }
-.career-bg .heading p {
+.plan-careercareer-trek-videos .career-bg .heading p {
   font-weight: 500;
   font-size: 18px;
   margin-top: 15px;
@@ -16026,21 +16026,21 @@ app-filter .job-search-filters .navbar .navbar-nav .nav-item > .dropdown-menu {
   line-height: 30px;
   color: black;
   margin-bottom: 16px; }
-.career-bg h3.card-w-icon__title, .career-bg .card-w-icon__title.h3 {
+.plan-careercareer-trek-videos .career-bg h3.card-w-icon__title, .plan-careercareer-trek-videos .career-bg .card-w-icon__title.h3 {
   font-weight: 600;
   color: black;
   font-size: 21px; }
-.career-bg .card-w-icon__content p {
+.plan-careercareer-trek-videos .career-bg .card-w-icon__content p {
   color: black;
   font-weight: 400;
   text-align: left;
   font-size: 14.4px;
   line-height: 21.6px; }
-.career-bg .paragraph--type--section-icons-1-3 .paragraph--type--action-card-icon {
+.plan-careercareer-trek-videos .career-bg .paragraph--type--section-icons-1-3 .paragraph--type--action-card-icon {
   width: 33%; }
-.career-bg .paragraph--type--section-icons-1-3 .card-body, .career-bg .paragraph--type--section-icons-1-3 fieldset.form-item > .fieldset-wrapper, .career-bg .paragraph--type--section-icons-1-3 .form-item-upload > div, .career-bg .paragraph--type--section-icons-1-3 .form-type-managed-file > div, .career-bg .paragraph--type--section-icons-1-3 .view-media-library .media-library-views-form .media-library-item--grid .views-field-rendered-entity, .view-media-library .media-library-views-form .media-library-item--grid .career-bg .paragraph--type--section-icons-1-3 .views-field-rendered-entity, .career-bg .paragraph--type--section-icons-1-3 .media-library-selection .media-library-item.media-library-item--grid > div, .media-library-selection .career-bg .paragraph--type--section-icons-1-3 .media-library-item.media-library-item--grid > div,
-.career-bg .paragraph--type--section-icons-1-3 .media-library-selection .media-library-item.media-library-item--grid article,
-.media-library-selection .media-library-item.media-library-item--grid .career-bg .paragraph--type--section-icons-1-3 article {
+.plan-careercareer-trek-videos .career-bg .paragraph--type--section-icons-1-3 .card-body, .plan-careercareer-trek-videos .career-bg .paragraph--type--section-icons-1-3 fieldset.form-item > .fieldset-wrapper, .plan-careercareer-trek-videos .career-bg .paragraph--type--section-icons-1-3 .form-item-upload > div, .plan-careercareer-trek-videos .career-bg .paragraph--type--section-icons-1-3 .form-type-managed-file > div, .plan-careercareer-trek-videos .career-bg .paragraph--type--section-icons-1-3 .view-media-library .media-library-views-form .media-library-item--grid .views-field-rendered-entity, .view-media-library .media-library-views-form .media-library-item--grid .plan-careercareer-trek-videos .career-bg .paragraph--type--section-icons-1-3 .views-field-rendered-entity, .plan-careercareer-trek-videos .career-bg .paragraph--type--section-icons-1-3 .media-library-selection .media-library-item.media-library-item--grid > div, .media-library-selection .plan-careercareer-trek-videos .career-bg .paragraph--type--section-icons-1-3 .media-library-item.media-library-item--grid > div,
+.plan-careercareer-trek-videos .career-bg .paragraph--type--section-icons-1-3 .media-library-selection .media-library-item.media-library-item--grid article,
+.media-library-selection .media-library-item.media-library-item--grid .plan-careercareer-trek-videos .career-bg .paragraph--type--section-icons-1-3 article {
   padding-left: 0;
   padding-right: 0; }
 
@@ -16273,7 +16273,7 @@ app-filter .job-search-filters .navbar .navbar-nav .nav-item > .dropdown-menu {
     .career-profile-node .career-profile-content .career-banner-bottom svg {
       margin-right: 10px; }
 
-.career-title span {
+.view-career-trek-node .career-title span {
   display: block;
   font-size: 35px;
   line-height: 38px;
@@ -16281,10 +16281,10 @@ app-filter .job-search-filters .navbar .navbar-nav .nav-item > .dropdown-menu {
   margin-bottom: 10px;
   font-weight: 700; }
 
-.profile-video {
+.view-career-trek-node .profile-video {
   position: relative; }
 
-.profile-video iframe {
+.view-career-trek-node .profile-video iframe {
   top: 0;
   left: 0;
   width: 100%;
@@ -16292,11 +16292,11 @@ app-filter .job-search-filters .navbar .navbar-nav .nav-item > .dropdown-menu {
   z-index: -1;
   display: none; }
 
-.profile-video img {
+.view-career-trek-node .profile-video img {
   position: relative;
   z-index: 1; }
 
-.profile-video.active .workbc-card-thumbnail, .media-library-view--widget .view-header a.profile-video.is-active .workbc-card-thumbnail {
+.view-career-trek-node .profile-video.active .workbc-card-thumbnail, .view-career-trek-node .media-library-view--widget .view-header a.profile-video.is-active .workbc-card-thumbnail, .media-library-view--widget .view-header .view-career-trek-node a.profile-video.is-active .workbc-card-thumbnail {
   opacity: 0; }
 
 .plan-careercareer-trek-videos .salary-range-search .form-item .details-wrapper.card-body, .plan-careercareer-trek-videos .salary-range-search fieldset.form-item > .details-wrapper.fieldset-wrapper, .plan-careercareer-trek-videos .salary-range-search .form-item .form-item-upload > div.details-wrapper, .plan-careercareer-trek-videos .salary-range-search .form-item .form-type-managed-file > div.details-wrapper, .plan-careercareer-trek-videos .salary-range-search .form-item .view-media-library .media-library-views-form .media-library-item--grid .details-wrapper.views-field-rendered-entity, .view-media-library .media-library-views-form .media-library-item--grid .plan-careercareer-trek-videos .salary-range-search .form-item .details-wrapper.views-field-rendered-entity, .plan-careercareer-trek-videos .salary-range-search .form-item .media-library-selection .media-library-item.media-library-item--grid > div.details-wrapper, .media-library-selection .plan-careercareer-trek-videos .salary-range-search .form-item .media-library-item.media-library-item--grid > div.details-wrapper,
