@@ -105,6 +105,7 @@
         width: 16px;
         height: 16px;
         margin: auto;
+        cursor: pointer;
       }
 
       @include media-breakpoint-down(lg) {
@@ -260,25 +261,27 @@
       padding: 5px 10px 5px 10px;
       margin-left: 0px;
       margin-right: 0px;
-    }
 
-    .form-type-checkbox:has(input:checked) {
-      border: 2px solid $workbc_palette_dark_secondary;
-      padding: 4px 9px 4px 9px;
+      &:has(input:checked) {
+        border: 2px solid $workbc_palette_dark_secondary;
+        padding: 4px 9px 4px 9px;
+      }
     }
 
     .form-check-input {
       border-color: $workbc_palette_dark_secondary;
       background-clip: padding-box;
-      -webkit-box-shadow: inset 0px 0px 0px 2px $workbc_palette_light_primary;
-      -moz-box-shadow: inset 0px 0px 0px 2px $workbc_palette_light_primary;
       box-shadow: inset 0px 0px 0px 2px $workbc_palette_light_primary;
       margin-right: 5px;
-    }
 
-    .form-check-input:checked {
-      background-image: none;
-      background-color: $workbc_palette_dark_secondary;
+      &:checked {
+        background-image: none;
+        background-color: $workbc_palette_dark_secondary;
+      }
+
+      &:focus {
+        box-shadow: inset 0px 0px 0px 2px $workbc_palette_light_primary, 0 0 0 .25rem rgba($workbc_palette_dark_primary,.25);
+      }
     }
 
     :nth-child(1) {
@@ -304,6 +307,12 @@
     .areas-of-interest-close {
       @include media-breakpoint-down(lg) {
         display: none;
+      }
+
+      .btn-close {
+        position: absolute;
+        top: 15px;
+        right: 15px;
       }
 
       img {
@@ -385,7 +394,12 @@
   }
 
   .form-item-keywords {
+    margin-top: 0;
     width: 50%;
+
+    label {
+      margin-bottom: 1em;
+    }
 
     @include media-breakpoint-down(lg) {
       width: 100%;
