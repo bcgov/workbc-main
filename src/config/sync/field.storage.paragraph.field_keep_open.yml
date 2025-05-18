@@ -1,16 +1,14 @@
-uuid: 524a230c-5012-4384-965e-c589c964584c
+uuid: 1b068bfb-496f-454b-ac0e-c82d8d946397
 langcode: en
 status: true
 dependencies:
   module:
-    - media
     - paragraphs
-id: paragraph.field_icon
-field_name: field_icon
+id: paragraph.field_keep_open
+field_name: field_keep_open
 entity_type: paragraph
-type: entity_reference
-settings:
-  target_type: media
+type: boolean
+settings: {  }
 module: core
 locked: false
 cardinality: 1
