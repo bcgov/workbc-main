@@ -391,12 +391,24 @@ function workbc_preprocess_breadcrumb(&$variables){
 }
 
 /**
+ * Implements hook_preprocess_views_view().
+ */
+function workbc_preprocess_views_view(&$variables) {
+  $view = $variables['view'];
+  if ($view->id() == "explore_careers") {
+    $variables['hide_category'] = \Drupal::request()->query->get('hide_category') == "1" ? true : false;
+    $variables['career_profiles_total'] = $view->total_rows;
+  }
+}
+
+/**
  * Implements hook_preprocess_views_view_field().
  */
 function workbc_preprocess_views_view_field(&$variables) {
 
   $view = $variables['view'];
   $field = $variables['field'];
+
   if($view->storage->id() == "high_opportunity_occupations" && $field->field == "teer") {
     $vocabulary = 'taxonomy_term';
     $terms = \Drupal::entityTypeManager()->getStorage($vocabulary)->loadByProperties([
@@ -408,6 +420,12 @@ function workbc_preprocess_views_view_field(&$variables) {
       $variables['output'] = $term->getName();
     }
     else {
+      $variables['output'] = WORKBC_EXTRA_FIELDS_NOT_AVAILABLE;
+    }
+  }
+
+  if($view->storage->id() == "explore_careers" && $field->field == "field_region_openings") {
+    if ($variables['row']->node__field_region_openings_field_region_openings_value == -999999) {
       $variables['output'] = WORKBC_EXTRA_FIELDS_NOT_AVAILABLE;
     }
   }
@@ -433,25 +451,6 @@ function workbc_preprocess_field(&$variables) {
   }
 }
 
-/*
- * Implements hook_theme_suggestions_HOOK_alter()
- */
-function workbc_theme_suggestions_fieldset_alter(array &$suggestions, array $variables) {
-  if(isset($variables['element']) && isset($variables['element']['#title'])) {
-    $title = strtolower(str_replace(" ", "__", $variables['element']['#title']));
-    $suggestions[] = $variables['theme_hook_original'] . "__" . $title;
-  }
-}
-
-/*
- * Implements hook_theme_suggestions_HOOK_alter()
- */
-function workbc_theme_suggestions_details_alter(array &$suggestions, array $variables) {
-  if(isset($variables['element']) && isset($variables['element']['#title'])) {
-    $title = strtolower(str_replace(" ", "__", $variables['element']['#title']));
-    $suggestions[] = $variables['theme_hook_original'] . "__" . $title;
-  }
-}
 /**
  * Implements hook_theme_suggestions_page_alter().
  */

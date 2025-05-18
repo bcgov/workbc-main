@@ -371,10 +371,10 @@ display:
             label: ''
             field_identifier: ''
           exposed: false
-        title:
-          id: title
+        field_noc:
+          id: field_noc
           table: search_api_index_career_profile_index
-          field: title
+          field: field_noc
           relationship: none
           group_type: group
           admin_label: ''
