@@ -451,21 +451,41 @@ function workbc_preprocess_field(&$variables) {
   }
 }
 
-/**
- * Implements hook_theme_suggestions_page_alter().
+/*
+ * Implements hook_theme_suggestions_HOOK_alter() for fieldset.
  */
-function workbc_theme_suggestions_page_alter(array &$suggestions, array $variables) {
-  if ($template = \Drupal::request()->get('template')){
-      $suggestions[] = 'page__'.$template;
+function workbc_theme_suggestions_fieldset_alter(array &$suggestions, array $variables) {
+  if(isset($variables['element']) && isset($variables['element']['#title'])) {
+    $title = strtolower(str_replace(" ", "__", $variables['element']['#title']));
+    $suggestions[] = $variables['theme_hook_original'] . "__" . $title;
+  }
+}
+
+/*
+ * Implements hook_theme_suggestions_HOOK_alter() for details.
+ */
+function workbc_theme_suggestions_details_alter(array &$suggestions, array $variables) {
+  if(isset($variables['element']) && isset($variables['element']['#title'])) {
+    $title = strtolower(str_replace(" ", "__", $variables['element']['#title']));
+    $suggestions[] = $variables['theme_hook_original'] . "__" . $title;
   }
 }
 
 /**
- * Implements hook_theme_suggestions_html_alter().
+ * Implements hook_theme_suggestions_HOOK_alter() for page.
+ */
+function workbc_theme_suggestions_page_alter(array &$suggestions, array $variables) {
+  if ($template = \Drupal::request()->get('template')){
+      $suggestions[] = 'page__' . $template;
+  }
+}
+
+/**
+ * Implements hook_theme_suggestions_HOOK_alter() for html.
  */
 function workbc_theme_suggestions_html_alter(array &$suggestions, array $variables) {
   if ($template = \Drupal::request()->get('template')){
-      $suggestions[] = 'html__'.$template;
+      $suggestions[] = 'html__' . $template;
   }
 }
 
