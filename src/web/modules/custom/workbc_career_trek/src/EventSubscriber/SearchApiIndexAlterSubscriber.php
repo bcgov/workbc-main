@@ -135,6 +135,7 @@ class SearchApiIndexAlterSubscriber implements EventSubscriberInterface {
                 $this->setItemEpisodeNum($reuse_item, $episode_num, $ssot_row);
                 $this->setItemUniqueId($reuse_item, $unique_key);
                 // Set the item id to the unique key so that it appears in the index view.
+                $unique_key = $reuse_item->getId();
                 $this->setItemId($reuse_item, $unique_key);
                 // IMPORTANT: Deep clone the item to avoid reference issues.
                 $cloned_item = $this->deepCloneItem($reuse_item);
