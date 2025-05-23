@@ -1,0 +1,56 @@
+uuid: 7f7f49b6-0ec2-485d-888d-8087bef3d690
+langcode: en
+status: true
+dependencies:
+  config:
+    - field.field.paragraph.content_accordion_entry.field_body
+    - field.field.paragraph.content_accordion_entry.field_icon
+    - field.field.paragraph.content_accordion_entry.field_key
+    - field.field.paragraph.content_accordion_entry.field_title
+    - paragraphs.paragraphs_type.content_accordion_entry
+  module:
+    - media_library
+    - media_library_edit
+    - text
+id: paragraph.content_accordion_entry.default
+targetEntityType: paragraph
+bundle: content_accordion_entry
+mode: default
+content:
+  field_body:
+    type: text_textarea
+    weight: 1
+    region: content
+    settings:
+      rows: 5
+      placeholder: ''
+    third_party_settings: {  }
+  field_icon:
+    type: media_library_widget
+    weight: 3
+    region: content
+    settings:
+      media_types: {  }
+      form_mode: media_library
+    third_party_settings:
+      media_library_edit:
+        show_edit: '1'
+  field_key:
+    type: string_textfield
+    weight: 4
+    region: content
+    settings:
+      size: 60
+      placeholder: ''
+    third_party_settings: {  }
+  field_title:
+    type: string_textfield
+    weight: 0
+    region: content
+    settings:
+      size: 60
+      placeholder: ''
+    third_party_settings: {  }
+hidden:
+  created: true
+  status: true

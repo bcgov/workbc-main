@@ -35,6 +35,9 @@ class WorkBCSearchApiRelevance extends SortPluginBase {
       usort($values, function($a, $b) use ($nids) {
         return $nids[$a->nid] - $nids[$b->nid];
       });
+      array_walk($values, function($v, $k) {
+        $v->index = $k;
+      });
     }
   }
 

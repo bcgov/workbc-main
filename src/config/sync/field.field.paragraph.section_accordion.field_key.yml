@@ -1,0 +1,19 @@
+uuid: 63166277-8998-4663-9320-76ff629834ab
+langcode: en
+status: true
+dependencies:
+  config:
+    - field.storage.paragraph.field_key
+    - paragraphs.paragraphs_type.section_accordion
+id: paragraph.section_accordion.field_key
+field_name: field_key
+entity_type: paragraph
+bundle: section_accordion
+label: 'Section key'
+description: 'This field is for internal use only and should not be edited.'
+required: false
+translatable: false
+default_value: {  }
+default_value_callback: ''
+settings: {  }
+field_type: string

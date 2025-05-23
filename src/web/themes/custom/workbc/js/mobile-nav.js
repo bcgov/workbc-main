@@ -13,6 +13,12 @@
         // Trigger the open or close method of mmenu.js.
         mmenuApi[opened ? "close" : "open"]();
       });
+
+      $(".new-logout-link > .nav-link").on('click' , function() {
+        if (window.location.pathname == "/account") {
+          mmenuApi["close"]();
+        }
+      });
     },
   };
 })(jQuery, Drupal, once);

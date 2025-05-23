@@ -213,6 +213,25 @@ function workbc_custom_views_pre_render(ViewExecutable $view) {
   }
 
 }
+/**
+ * Implements hook_views_query_alter().
+ */
+function workbc_custom_views_query_alter(ViewExecutable $view, QueryPluginBase $query) {
+  if ($view->id() == 'explore_careers') {
+    foreach ($query->where as &$condition_group) {
+      foreach ($condition_group['conditions'] as &$condition) {
+        // Filter out zero job openings when Region is not BC.
+        if ($condition['field'] == 'node__field_region_openings.delta' && $condition['value'] != REGION_BRITISH_COLUMBIA_ID) {
+          $condition_group['conditions'][] = [
+            'field' => 'node__field_region_openings.field_region_openings_value',
+            'value' => '0',
+            'operator' => '>'
+          ];
+        }
+      }
+    }
+  }
+}
 
 /**
 * Implements hook_form_alter().
@@ -298,18 +317,10 @@ function workbc_custom_form_views_exposed_form_alter(&$form, FormStateInterface 
     array_unshift($form['#submit'], 'hoo_multiselect_form_submit');
   }
 
-  if ($form['#id'] === 'views-exposed-form-video-library-block-1') {
-    $form['field_recently_added_value']['#type'] = 'hidden';
-    $form['actions']['recent'] = [
-      '#value' => 'Recently added',
-      '#type' => 'submit',
-      '#weight' => 100,
-      '#id' => 'edit-recently-added'
-    ];
-    $form['#submit'][] = 'video_library_exposed_form_submit';
-  }
-
-  if ($form['#id'] === 'views-exposed-form-explore-careers-page-1') {
+  if (in_array($form['#id'], [
+    'views-exposed-form-explore-careers-page-1',
+    'views-exposed-form-explore-careers-block-1'
+  ])) {
     $terms = \Drupal::entityTypeManager()->getStorage('taxonomy_term')->loadTree('epbc_categories');
     $categories = array_filter($terms, function ($term) {
       return $term->depth === 0;
@@ -319,7 +330,7 @@ function workbc_custom_form_views_exposed_form_alter(&$form, FormStateInterface 
     // - Coming from grid form - both field_epbc_categories_target_id and category are set in URL
     // - Refreshing exposed filter - both field_epbc_categories_target_id and category are set in URL
     // - AJAX callback from category - ajax_form is set in URL
-    $input = $form_state->getUserInput();
+    $input =& $form_state->getUserInput();
     $category_value = $form_state->getValue('term_node_tid_depth', $input['term_node_tid_depth'] ?? null);
     $interest_value = $form_state->getValue('field_epbc_categories_target_id', $input['field_epbc_categories_target_id'] ?? []);
     $hide_category = array_key_exists('hide_category', $input) ? $input['hide_category'] : false;
@@ -330,22 +341,30 @@ function workbc_custom_form_views_exposed_form_alter(&$form, FormStateInterface 
       '#type' => 'hidden',
       '#value' => $hide_category,
     ];
+
     if ($hide_category) {
-      $form['term_node_tid_depth']['#type'] = 'hidden';
-      $form['term_node_tid_depth']['#value'] = $category_value;
-      $form['term_node_tid_depth']['#multiple'] = false;
-      $form['term_node_tid_depth']['#attributes']['type'] = 'hidden';
+      $form['keyword_search']['#access'] = false;
+
+      $form['term_node_tid_depth'] = [
+        '#type' => 'hidden',
+        '#value' => $category_value,
+      ];
       $form_state->getStorage()['view']->getDisplay()->setOption('title', 'Results for ' . array_column(array_filter($categories, function ($term) use($category_value) {
         return $term->tid == $category_value;
       }), 'name')[0]);
     }
     else {
-      $form['term_node_tid_depth']['#options'] = ['All' => t('- Any -')] + array_column($categories, 'name', 'tid');
+      $uri = \Drupal\Component\Utility\UrlHelper::parse(\Drupal::request()->getRequestUri());
+      $uri['query']['form_id'] = $form['#id'];
+      $uri['query']['ajax_form'] = 1;
+      $form['term_node_tid_depth']['#options'] = ['All' => t('All')] + array_column($categories, 'name', 'tid');
       $form['term_node_tid_depth']['#ajax'] = [
         'callback' => 'workbc_custom_category_callback',
         'wrapper' => 'category-container',
+        'url' => Url::fromUri('internal:' . $uri['path']),
+        'options' => ['query' => $uri['query'], 'fragment' => $uri['fragment']]
       ];
-      $form_state->getStorage()['view']->getDisplay()->setOption('title', 'Your Results');
+      $form_state->getStorage()['view']->getDisplay()->setOption('title', 'Your results');
     }
     $form['field_epbc_categories_target_id']['#chosen'] = true;
     $form['field_epbc_categories_target_id']['#prefix'] = '<div id="category-container">';
@@ -354,7 +373,10 @@ function workbc_custom_form_views_exposed_form_alter(&$form, FormStateInterface 
     $form['field_epbc_categories_target_id']['#options'] = array_column(array_filter($terms, function($t) use ($category_value) {
       return $t->parents[0] == $category_value;
     }), 'name', 'tid');
-    $form['field_epbc_categories_target_id']['#default_value'] = $interest_value;
+    $form['field_epbc_categories_target_id']['#default_value'] =
+      $input['field_epbc_categories_target_id'] = array_filter($interest_value, function($t) use($form) {
+        return in_array($t, array_keys($form['field_epbc_categories_target_id']['#options']));
+      });
 
     // Other customizations.
     $form['field_teer_value']['#chosen'] = true;
@@ -371,10 +393,9 @@ function workbc_custom_form_views_exposed_form_alter(&$form, FormStateInterface 
 function workbc_custom_category_reset(array &$form, FormStateInterface $form_state) {
   $input = $form_state->getUserInput();
   if (
-    array_key_exists('op', $input) &&
+    array_key_exists('reset', $input) &&
     array_key_exists('hide_category', $input) &&
-    array_key_exists('term_node_tid_depth', $input) &&
-    $input['op'] === 'Clear all filters'
+    array_key_exists('term_node_tid_depth', $input)
   ) {
     $form_state->setRedirect('<current>', [], ['query' => [
       'hide_category' => empty($input['hide_category']) ? 0 : 1,
@@ -387,22 +408,7 @@ function workbc_custom_category_reset(array &$form, FormStateInterface $form_sta
  * AJAX callback function to replace the EPBC categories 2nd level select dropdown.
  */
 function workbc_custom_category_callback(array &$form, FormStateInterface $form_state) {
-  // TODO: The form label goes missing.
   return $form['field_epbc_categories_target_id'];
-}
-
-/**
- * Submit function for views-exposed-form-video-library-block-1.
- */
-function video_library_exposed_form_submit(array &$form, FormStateInterface &$form_state) {
-  if ($form_state->getValue('op') === 'Recently added') {
-    $form_state->disableRedirect(FALSE);
-    $form_state->setRedirect('<current>', [], [
-      'query' => [
-        'field_recently_added_value' => 1
-      ]
-    ]);
-  }
 }
 
 /**
@@ -660,6 +666,7 @@ function workbc_custom_search_api_autocomplete_suggestions_alter(array &$suggest
     if ($node && isset($node->field_noc)) {
       $markup = $suggestion->getLabel() . ' (NOC ' . $node->field_noc->value . ')';
       $markup = preg_replace("/(". preg_quote($alter_params['user_input']) .")/i", "<strong>$1</strong>", $markup);
+      $markup = '<div class="search-api-autocomplete-suggestion"><span class="autocomplete-suggestion-label">' . $markup . '</span></div>';
       $render = array(
         '#type' => 'markup',
         '#markup' => $markup
@@ -729,40 +736,28 @@ function workbc_custom_search_api_query_alter($query) {
 * Implements hook_search_api_query_TAG_alter() for explore_careers_search.
 */
 function workbc_custom_search_api_query_explore_careers_search_alter($query) {
-  // Adjust the query before it is sent to Solr:
+  // Adjust the query before it is sent to Solr.
   $keys =& $query->getKeys();
+
+  // Special case: Getting a single 0 confuses the index.
+  if (is_array($keys) && array_key_exists(0, $keys) && $keys[0] === '0') {
+    $query->abort();
+    return;
+  }
   if (empty($keys) || !is_string($keys)) return;
 
-  // 1. Upcase keywords to activate AND / OR.
+  // Upcase keywords to activate AND / OR.
   $keys = strtoupper($keys);
 
-  // 2. Automatically add + in front of each keyword
+  // Only keep NOC field if the query is purely numerical.
+  if (preg_match('/\d+/i', $keys)) {
+    $query->setFullTextFields(['field_noc']);
+  }
+
+  // Automatically add + in front of each keyword
   // ONLY WORKS WHEN THERE ARE NO SPECIAL QUERY CHARS!
   if (!preg_match('/"|\(|\)|\sAND\s|\sOR\s|&&|\|\||\+/i', $keys)) {
     $keys = preg_replace('/\b(\w+)\b/i', '+$1', $keys);
-  }
-}
-
-/**
- * Implements hook_oembed_resource_url_alter().
- */
-function workbc_custom_oembed_resource_url_alter(array &$parsed_url, \Drupal\media\OEmbed\Provider $provider) {
-  if ($provider->getName() === 'Vimeo') {
-    unset($parsed_url['query']['maxwidth']);
-    unset($parsed_url['query']['maxheight']);
-    $parsed_url['query']['responsive'] = 'true';
-  }
-}
-
-/**
- * Implements hook_views_query_alter().
- */
-function workbc_custom_views_query_alter(ViewExecutable $view, QueryPluginBase $query) {
-
-  // use GroupBy to ensure Video only appears once.
-  if ($view->id() == 'video_library') {
-    $query->addField('media_field_data', 'mid', '', ['function' => 'groupby']);
-    $query->addGroupBy('media_field_data.mid');
   }
 }
 

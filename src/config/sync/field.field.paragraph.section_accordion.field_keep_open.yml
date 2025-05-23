@@ -1,0 +1,23 @@
+uuid: 08837058-771f-4f18-ae61-72f51bd0270e
+langcode: en
+status: true
+dependencies:
+  config:
+    - field.storage.paragraph.field_keep_open
+    - paragraphs.paragraphs_type.section_accordion
+id: paragraph.section_accordion.field_keep_open
+field_name: field_keep_open
+entity_type: paragraph
+bundle: section_accordion
+label: 'Keep open'
+description: 'Check this option to make accordion items stay open when another item is opened.'
+required: false
+translatable: false
+default_value:
+  -
+    value: 0
+default_value_callback: ''
+settings:
+  on_label: 'Yes'
+  off_label: 'No'
+field_type: boolean

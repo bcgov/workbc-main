@@ -27,7 +27,7 @@ let currentRegion = {};
           }
         });
 
-        $(document).on('click', '.bc-map-region', function() {         
+        $(document).on('click', '.bc-map-region', function() {
           let mapType = $(this).closest('.workbc-interactive-map').data('interactive-map-type');
           let mapNo = $(this).closest('.workbc-interactive-map').data('interactive-map-no');
           let regionNo = $(this).data('interactive-map-region-no');
@@ -38,16 +38,16 @@ let currentRegion = {};
             if (element2 != null) {
               element2.classList.remove("interactive-map-row-hilite");
             }
-          }          
+          }
           $(this).addClass("active");
           currentRegion[mapNo] = regionNo;
 
           if (currentRegion[mapNo] !== 0) {
             var element = context.querySelector(".workbc-interactive-map-" + mapNo + " .interactive-map-row-"+regions[currentRegion[mapNo]]);
-            if (element != null) {            
+            if (element != null) {
               element.classList.add("interactive-map-row-hilite");
               element.scrollIntoView({ block: "center" });
-            }   
+            }
           }
 
           if (mapType == "link") {
@@ -55,7 +55,7 @@ let currentRegion = {};
             let regionLink = $('.map-region-label-' + mapId).data('interactive-map-region-link');
             window.open(regionLink, "_self");
           }
-        });        
+        });
 
 
         $('.map-region-label').on('click' , function() {
@@ -77,7 +77,7 @@ let currentRegion = {};
           }
           if (currentRegion[mapNo] != 0) {
             var element = context.querySelector(".workbc-interactive-map-" + mapNo + " .interactive-map-row-"+regions[currentRegion[mapNo]]);
-            if (element != null) {            
+            if (element != null) {
               element.classList.add("interactive-map-row-hilite");
               element.scrollIntoView({ block: "center" });
             }

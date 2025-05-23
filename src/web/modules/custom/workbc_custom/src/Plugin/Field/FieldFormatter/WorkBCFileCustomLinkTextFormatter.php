@@ -28,7 +28,7 @@ class WorkBCFileCustomLinkTextFormatter extends FormatterBase {
    */
   public function settingsSummary() {
     $summary = [];
-    $summary[] = $this->t('Displays custom link text ');
+    $summary[] = $this->t('Displays custom link text.');
     return $summary;
   }
 

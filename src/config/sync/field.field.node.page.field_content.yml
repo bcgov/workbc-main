@@ -19,6 +19,7 @@ dependencies:
     - paragraphs.paragraphs_type.content_text
     - paragraphs.paragraphs_type.content_view
     - paragraphs.paragraphs_type.section_icons_1_3
+    - paragraphs.paragraphs_type.section_accordion
   module:
     - entity_reference_revisions
 id: node.page.field_content
@@ -49,6 +50,7 @@ settings:
       content_interactive_map: content_interactive_map
       banner_video: banner_video
       section_icons_1_3: section_icons_1_3
+      section_accordion: section_accordion
     negate: 0
     target_bundles_drag_drop:
       action_card:
@@ -93,6 +95,9 @@ settings:
       banner_video:
         weight: 36
         enabled: true
+      content_accordion_entry:
+        weight: 36
+        enabled: false
       content_interactive_map:
         weight: 30
         enabled: true
@@ -109,6 +114,7 @@ settings:
         weight: -26
         enabled: false
       section_icons_1_3:
+      section_accordion:
         weight: 42
         enabled: true
       section_read_more:

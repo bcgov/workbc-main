@@ -7,12 +7,15 @@
 
 use Drupal\file\Entity\File;
 use Drupal\Core\Url;
+use Drupal\Core\Render\Markup;
+use Drupal\Component\Utility\Html;
 
 /**
  * Implements hook_theme_preprocess_paragraph().
  */
 function workbc_preprocess_paragraph(&$variables) {
   $parent = $variables['paragraph']->getParentEntity();
+
   if ($parent->bundle() == 'action_cards_full_width') {
     $align = $parent->field_alignment->value;
     $list = $parent->field_action_cards->getValue();
@@ -41,6 +44,15 @@ function workbc_preprocess_paragraph(&$variables) {
         }
       }
     }
+  }
+
+  if ($parent->bundle() == 'section_accordion') {
+    $variables['section_accordion_id'] = $parent->id();
+    $variables['keep_open'] = boolval($parent->field_keep_open->value);
+  }
+
+  if ($variables['paragraph']->bundle() == "section_accordion") {
+    $variables['section_accordion_id'] = $variables['paragraph']->id();
   }
 
   // Find parent menu item for cards with links.
@@ -274,7 +286,6 @@ function workbc_preprocess_views_view_summary_unformatted(&$variables) {
  */
 function workbc_preprocess_media(&$variables) {
 
-
   $media = $variables['media'];
   $thumbnailUri = $media->get('thumbnail')->entity->getFileUri();
   if($thumbnailUri) {
@@ -285,6 +296,18 @@ function workbc_preprocess_media(&$variables) {
     ];
     $variables['media_thumbnail'] = \Drupal::service('renderer')->render($image);
     $variables['media_id'] = $media->id();
+  }
+
+  if ($media->bundle() == "icon") {
+    $altText = $variables['content']['field_media_image_1']['#items']->alt;
+    if (isset($variables['elements']['field_media_image_1'][0]['#markup'])) {
+      $svgRaw = (string) $variables['elements']['field_media_image_1'][0]['#markup'];
+      $replace = '$1 aria-label="' . HTML::escape($altText) . '"$2';
+      $svgRaw = preg_replace('/(<svg.*)(>)/i', $replace, $svgRaw);
+      $markup = Markup::create(trim($svgRaw));
+      $render = array('#markup' => $markup);
+      $variables['content']['field_media_image_1'][0]['#markup'] = \Drupal::service('renderer')->render($render);
+    }
   }
 }
 
@@ -368,12 +391,24 @@ function workbc_preprocess_breadcrumb(&$variables){
 }
 
 /**
+ * Implements hook_preprocess_views_view().
+ */
+function workbc_preprocess_views_view(&$variables) {
+  $view = $variables['view'];
+  if ($view->id() == "explore_careers") {
+    $variables['hide_category'] = \Drupal::request()->query->get('hide_category') == "1" ? true : false;
+    $variables['career_profiles_total'] = $view->total_rows;
+  }
+}
+
+/**
  * Implements hook_preprocess_views_view_field().
  */
 function workbc_preprocess_views_view_field(&$variables) {
 
   $view = $variables['view'];
   $field = $variables['field'];
+
   if($view->storage->id() == "high_opportunity_occupations" && $field->field == "teer") {
     $vocabulary = 'taxonomy_term';
     $terms = \Drupal::entityTypeManager()->getStorage($vocabulary)->loadByProperties([
@@ -385,6 +420,12 @@ function workbc_preprocess_views_view_field(&$variables) {
       $variables['output'] = $term->getName();
     }
     else {
+      $variables['output'] = WORKBC_EXTRA_FIELDS_NOT_AVAILABLE;
+    }
+  }
+
+  if($view->storage->id() == "explore_careers" && $field->field == "field_region_openings") {
+    if ($variables['row']->node__field_region_openings_field_region_openings_value == -999999) {
       $variables['output'] = WORKBC_EXTRA_FIELDS_NOT_AVAILABLE;
     }
   }
@@ -411,7 +452,7 @@ function workbc_preprocess_field(&$variables) {
 }
 
 /*
- * Implements hook_theme_suggestions_HOOK_alter()
+ * Implements hook_theme_suggestions_HOOK_alter() for fieldset.
  */
 function workbc_theme_suggestions_fieldset_alter(array &$suggestions, array $variables) {
   if(isset($variables['element']) && isset($variables['element']['#title'])) {
@@ -421,7 +462,7 @@ function workbc_theme_suggestions_fieldset_alter(array &$suggestions, array $var
 }
 
 /*
- * Implements hook_theme_suggestions_HOOK_alter()
+ * Implements hook_theme_suggestions_HOOK_alter() for details.
  */
 function workbc_theme_suggestions_details_alter(array &$suggestions, array $variables) {
   if(isset($variables['element']) && isset($variables['element']['#title'])) {
@@ -429,21 +470,22 @@ function workbc_theme_suggestions_details_alter(array &$suggestions, array $vari
     $suggestions[] = $variables['theme_hook_original'] . "__" . $title;
   }
 }
+
 /**
- * Implements hook_theme_suggestions_page_alter().
+ * Implements hook_theme_suggestions_HOOK_alter() for page.
  */
 function workbc_theme_suggestions_page_alter(array &$suggestions, array $variables) {
   if ($template = \Drupal::request()->get('template')){
-      $suggestions[] = 'page__'.$template;
+      $suggestions[] = 'page__' . $template;
   }
 }
 
 /**
- * Implements hook_theme_suggestions_html_alter().
+ * Implements hook_theme_suggestions_HOOK_alter() for html.
  */
 function workbc_theme_suggestions_html_alter(array &$suggestions, array $variables) {
   if ($template = \Drupal::request()->get('template')){
-      $suggestions[] = 'html__'.$template;
+      $suggestions[] = 'html__' . $template;
   }
 }
 

@@ -30,7 +30,7 @@ display:
     display_plugin: default
     position: 0
     display_options:
-      title: 'Your Results'
+      title: 'Your results'
       fields:
         field_noc:
           id: field_noc
@@ -41,7 +41,7 @@ display:
           admin_label: ''
           plugin_id: field
           label: NOC
-          exclude: false
+          exclude: true
           alter:
             alter_text: false
             text: ''
@@ -105,11 +105,11 @@ display:
           entity_type: node
           entity_field: title
           plugin_id: field
-          label: 'Occupation title'
+          label: ''
           exclude: false
           alter:
-            alter_text: false
-            text: ''
+            alter_text: true
+            text: '{{ title }} (NOC {{ field_noc }})'
             make_link: false
             path: ''
             absolute: false
@@ -138,7 +138,7 @@ display:
           element_class: ''
           element_label_type: ''
           element_label_class: ''
-          element_label_colon: true
+          element_label_colon: false
           element_wrapper_type: ''
           element_wrapper_class: ''
           element_default_classes: true
@@ -149,7 +149,7 @@ display:
           click_sort_column: value
           type: string
           settings:
-            link_to_entity: true
+            link_to_entity: false
           group_column: value
           group_columns: {  }
           group_rows: true
@@ -168,7 +168,7 @@ display:
           group_type: group
           admin_label: ''
           plugin_id: field
-          label: 'Job openings'
+          label: 'Job openings (2024-2034)'
           exclude: false
           alter:
             alter_text: false
@@ -201,19 +201,17 @@ display:
           element_class: ''
           element_label_type: ''
           element_label_class: ''
-          element_label_colon: true
+          element_label_colon: false
           element_wrapper_type: ''
           element_wrapper_class: ''
           element_default_classes: true
-          empty: ''
+          empty: 'Not available'
           hide_empty: false
           empty_zero: false
           hide_alter_empty: true
           click_sort_column: value
-          type: number_integer
-          settings:
-            thousand_separator: ''
-            prefix_suffix: true
+          type: workbc_positive
+          settings: {  }
           group_column: value
           group_columns: {  }
           group_rows: false
@@ -265,20 +263,20 @@ display:
           element_class: ''
           element_label_type: ''
           element_label_class: ''
-          element_label_colon: true
+          element_label_colon: false
           element_wrapper_type: ''
           element_wrapper_class: ''
           element_default_classes: true
-          empty: ''
+          empty: 'Not available'
           hide_empty: false
           empty_zero: false
           hide_alter_empty: true
           click_sort_column: value
           type: number_decimal
           settings:
-            thousand_separator: ''
+            thousand_separator: ','
             decimal_separator: .
-            scale: 2
+            scale: 0
             prefix_suffix: true
           group_column: value
           group_columns: {  }
@@ -331,11 +329,11 @@ display:
           element_class: ''
           element_label_type: ''
           element_label_class: ''
-          element_label_colon: true
+          element_label_colon: false
           element_wrapper_type: ''
           element_wrapper_class: ''
           element_default_classes: true
-          empty: ''
+          empty: 'Not available'
           hide_empty: false
           empty_zero: false
           hide_alter_empty: true
@@ -352,6 +350,59 @@ display:
           multi_type: separator
           separator: ', '
           field_api_classes: false
+        view_node:
+          id: view_node
+          table: node
+          field: view_node
+          relationship: none
+          group_type: group
+          admin_label: ''
+          entity_type: node
+          plugin_id: entity_link
+          label: ''
+          exclude: false
+          alter:
+            alter_text: false
+            text: ''
+            make_link: true
+            path: ''
+            absolute: false
+            external: false
+            replace_spaces: false
+            path_case: none
+            trim_whitespace: false
+            alt: 'Explore career'
+            rel: ''
+            link_class: button
+            prefix: ''
+            suffix: ''
+            target: ''
+            nl2br: false
+            max_length: 0
+            word_boundary: true
+            ellipsis: true
+            more_link: false
+            more_link_text: ''
+            more_link_path: ''
+            strip_tags: false
+            trim: false
+            preserve_tags: ''
+            html: false
+          element_type: ''
+          element_class: ''
+          element_label_type: ''
+          element_label_class: ''
+          element_label_colon: false
+          element_wrapper_type: ''
+          element_wrapper_class: ''
+          element_default_classes: true
+          empty: ''
+          hide_empty: false
+          empty_zero: false
+          hide_alter_empty: true
+          text: 'Explore career'
+          output_url_as_text: false
+          absolute: false
       pager:
         type: none
         options:
@@ -359,9 +410,9 @@ display:
       exposed_form:
         type: bef
         options:
-          submit_button: 'Refine your results'
+          submit_button: 'Refine results'
           reset_button: true
-          reset_button_label: 'Clear all filters'
+          reset_button_label: 'Clear all'
           exposed_sorts_label: 'Sort profiles by'
           expose_sort_order: true
           sort_asc_label: Asc
@@ -470,7 +521,7 @@ display:
           plugin_id: text
           empty: true
           content:
-            value: 'No results founds'
+            value: "<p class=\"no-results\"><strong>There are no results matching your search criteria.</strong></p>\r\n<p class=\"search-suggestions\">Search suggestions:</p>\r\n<ul class=\"suggestions-list\">\r\n<li>Check your spelling</li>\r\n<li>Use broader search terms</li>\r\n<li>Try words that are similar</li>\r\n<li>Replace abbreviations with the entire word</li>\r\n<li>Remove filters to broaden your search</li>\r\n<li>Use 'and' to find results that contain all words</li>\r\n<li>Use 'or' to find results that contain either word</li>\r\n<li>Use double quotation marks (\" \") to find an exact match</li>\r\n</ul>"
             format: full_html
           tokenize: false
       sorts:
@@ -580,7 +631,7 @@ display:
           exposed: true
           expose:
             operator_id: ''
-            label: ''
+            label: 'Keyword or NOC code'
             description: ''
             use_operator: false
             operator: keyword_search_op
@@ -927,7 +978,11 @@ display:
           1: AND
           2: OR
       style:
-        type: table
+        type: default
+        options:
+          grouping: {  }
+          row_class: ''
+          default_row_class: true
       row:
         type: fields
       query:
@@ -939,6 +994,7 @@ display:
           replica: false
           query_tags: {  }
       relationships: {  }
+      css_class: ''
       header:
         area:
           id: area
@@ -948,22 +1004,34 @@ display:
           group_type: group
           admin_label: ''
           plugin_id: text
-          empty: false
+          empty: true
           content:
             value: '<h2>[view:title]</h2>'
             format: full_html
           tokenize: false
-        result:
-          id: result
-          table: views
-          field: result
-          relationship: none
-          group_type: group
-          admin_label: ''
-          plugin_id: result
-          empty: false
-          content: 'Displaying @total career profiles'
       footer: {  }
+      display_extenders: {  }
+    cache_metadata:
+      max-age: 0
+      contexts:
+        - 'languages:language_content'
+        - 'languages:language_interface'
+        - url
+        - 'url.query_args:sort_by'
+        - 'url.query_args:sort_order'
+        - 'user.node_grants:view'
+        - user.permissions
+      tags:
+        - 'config:field.storage.node.field_annual_salary'
+        - 'config:field.storage.node.field_noc'
+        - 'config:field.storage.node.field_region_openings'
+        - 'config:field.storage.node.field_teer'
+  block_1:
+    id: block_1
+    display_title: Block
+    display_plugin: block
+    position: 2
+    display_options:
       display_extenders: {  }
     cache_metadata:
       max-age: 0
@@ -986,7 +1054,10 @@ display:
     display_plugin: page
     position: 1
     display_options:
-      enabled: true
+      enabled: false
+      defaults:
+        css_class: false
+      css_class: container-lg
       display_extenders: {  }
       path: plan-career/explore-careers/career-profiles/search
     cache_metadata:
