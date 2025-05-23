@@ -31,6 +31,10 @@ class SearchApiIndexAlterSubscriber implements EventSubscriberInterface {
    * @param \Drupal\search_api\Event\IndexingItemsEvent $event
    */
   public function onIndexingItems(IndexingItemsEvent $event) {
+    $index = $event->getIndex();
+    if ($index->id() !== 'career_profile_index_sub') {
+      return;
+    }
     $items = $event->getItems();
     $new_items = [];
     $used_episode_nums = [];
