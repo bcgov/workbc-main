@@ -503,15 +503,6 @@ content:
     third_party_settings: {  }
     weight: 83
     region: content
-  field_region_openings:
-    type: number_integer
-    label: above
-    settings:
-      thousand_separator: ''
-      prefix_suffix: true
-    third_party_settings: {  }
-    weight: 83
-    region: content
   field_related_careers:
     type: entity_reference_label
     label: hidden
@@ -535,13 +526,6 @@ content:
       text_pattern: '%moderation_state% - %date%'
     third_party_settings: {  }
     weight: 16
-    region: content
-  field_teer:
-    type: list_default
-    label: above
-    settings: {  }
-    third_party_settings: {  }
-    weight: 84
     region: content
   field_teer:
     type: list_default
