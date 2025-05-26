@@ -113,10 +113,10 @@ settings:
       quote_card:
         weight: -26
         enabled: false
-      section_icons_1_3:
       section_accordion:
         weight: 42
         enabled: true
+      section_icons_1_3: null
       section_read_more:
         weight: 43
         enabled: false
