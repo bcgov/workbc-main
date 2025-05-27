@@ -269,7 +269,7 @@ $config['search_api.server.solr'] = [
 ];
 $config['search_api.server.solr_search'] = [
   'id' => 'solr_search',
-  'name' => 'Solr for Career Trek',
+  'name' => 'Solr (Career Trek)',
   'description' => '',
   'backend' => 'search_api_solr',
   'backend_config' => [
@@ -285,7 +285,7 @@ $config['search_api.server.solr_search'] = [
       'host' => 'solr',
       'port' => 8983,
       'path' => '/',
-      'core' => 'CarrerTrek1',
+      'core' => 'workbc_dev',
       'timeout' => 5,
       'index_timeout' => 5,
       'optimize_timeout' => 10,
