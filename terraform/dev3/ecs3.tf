@@ -31,7 +31,7 @@ resource "aws_ecs_task_definition" "cron-job" {
 			{
 				name = "Cron_Url",
         #Todo
-				value = "https://d1hc9w0qmlhr9f.cloudfront.net/cron/vNlYnxjqJe1cK9KaV4DO8LNiaHrIGA9z8PfluY11h-uW79PBFQ9vsS9EVnC-Bsy6ZnBE9luRqA"
+				value = "https://d2jl0994t9760k.cloudfront.net/cron/vNlYnxjqJe1cK9KaV4DO8LNiaHrIGA9z8PfluY11h-uW79PBFQ9vsS9EVnC-Bsy6ZnBE9luRqA"
 			}
 		]
 	}
