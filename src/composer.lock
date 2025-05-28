@@ -4,7 +4,7 @@
         "Read more about it at https://getcomposer.org/doc/01-basic-usage.md#installing-dependencies",
         "This file is @generated automatically"
     ],
-    "content-hash": "071e6a4357a9724c6ae8c8c0dad92f2b",
+    "content-hash": "4344b96a4b4367c2703575fd37fdb691",
     "packages": [
         {
             "name": "asm89/stack-cors",
@@ -10319,6 +10319,19 @@
             "time": "2024-09-04T18:46:31+00:00"
         },
         {
+            "name": "necyberteam/webform_submission_search_api",
+            "version": "1.0.0",
+            "source": {
+                "type": "git",
+                "url": "https://github.com/necyberteam/webform_submission_search_api",
+                "reference": "ebe44923cdd3e1a8a0e51ee42f5b90952e374442"
+            },
+            "type": "drupal-module",
+            "extra": {
+                "installer-name": "webform_submission_search_api"
+            }
+        },
+        {
             "name": "nikic/php-parser",
             "version": "v5.4.0",
             "source": {
@@ -20190,6 +20203,7 @@
     "minimum-stability": "dev",
     "stability-flags": {
         "drupal/advagg": 15,
+        "drupal/ai_provider_ollama": 10,
         "drupal/ai_vdb_provider_postgres": 15,
         "drupal/block_visibility_conditions": 20,
         "drupal/viewsreference": 10
