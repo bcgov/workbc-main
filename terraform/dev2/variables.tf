@@ -9,6 +9,11 @@ variable "target_env" {
 #  description = "AWS workload account id"
 #}
 
+variable "source_token" {
+  type      = string
+  sensitive = true
+}
+
 variable "aws_region" {
   description = "The AWS region things are created in"
   default     = "ca-central-1"
@@ -95,7 +100,7 @@ variable "common_tags" {
 
 variable "service_names" {
   description = "List of service names to use as subdomains"
-  default     = ["workbc-noc"]
+  default     = ["workbc-dev2"]
   type        = list(string)
 }
 

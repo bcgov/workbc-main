@@ -10,6 +10,12 @@ libraries:
   - workbc/fonts
   - workbc/submenu-underlay
   - workbc/related-topics-carousel
+  - workbc/view-switcher
+  - workbc/icon-append
+  - workbc/video-banner-carousel
+  - workbc/range-slider
+  - workbc/career-inner-video
+  - workbc/career-trek-back-button
   - workbc/sidenav-anchors
   - workbc/mobile-nav
   - workbc/nav

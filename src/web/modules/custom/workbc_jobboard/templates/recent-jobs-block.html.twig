@@ -21,16 +21,21 @@
             <div class="job-company">
               {{jobs.employer}}
             </div>
-            <div class="job-location">
-              <span>
-               <img src="/modules/custom/workbc_jobboard/images/location.svg" alt="Location pin icon"/>
-              </span>
-              {{jobs.location}}
+            <div class="job-footer">
+                <div class="job-location">
+                  <span>
+                    <svg width="12" height="24" viewBox="0 0 11 15" fill="none" xmlns="http://www.w3.org/2000/svg">
+                        <path d="M5.87891 14.022C5.55078 14.4321 4.92188 14.4321 4.59375 14.022C3.19922 12.2446 0 8.00635 0 5.6001C0 2.70166 2.35156 0.350098 5.25 0.350098C8.14844 0.350098 10.5 2.70166 10.5 5.6001C10.5 8.00635 7.30078 12.2446 5.87891 14.022ZM5.25 3.8501C4.62109 3.8501 4.04688 4.20557 3.71875 4.7251C3.41797 5.27197 3.41797 5.95557 3.71875 6.4751C4.04688 7.02197 4.62109 7.3501 5.25 7.3501C5.85156 7.3501 6.42578 7.02197 6.75391 6.4751C7.05469 5.95557 7.05469 5.27197 6.75391 4.7251C6.42578 4.20557 5.85156 3.8501 5.25 3.8501Z" fill="#2E6AB0"/>
+                    </svg>
+                  </span>
+                  {{jobs.location}}
+                </div>
+                <div class="job-post-date">
+                    <label>Posted on:</label>
+                    {{jobs.datePosted}}
+                </div>
             </div>
-            <div class="job-post-date">
-              <label>Posted on: </label>
-              {{jobs.datePosted}}
-            </div>
+            
           </div>
         {% endif %}
       {% endfor%}

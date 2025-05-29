@@ -43,16 +43,17 @@ resource "aws_cloudfront_distribution" "workbc3" {
 	
 	custom_header {
 	  name = "X-Forwarded-Host"
-	  #value = "aws.workbc.ca"
-	  #value = "aws-dev.workbc.ca"
-    #value = "devnoc.workbc.ca"
-    value = "dev3.workbc.ca"	
+	  value = "dev3.workbc.ca"	
+	}
+	custom_header {
+	  name = "WorkBC-Source"
+	  value = var.source_token	
 	}
 	
   }
 	
   origin {
-        domain_name = aws_s3_bucket.workbc_s32_dev3.bucket_regional_domain_name
+        domain_name = aws_s3_bucket.workbc_s33_dev3.bucket_regional_domain_name
 	origin_id = "SDPR-Contents"
 	origin_access_control_id = aws_cloudfront_origin_access_control.oac-dev3.id
   }

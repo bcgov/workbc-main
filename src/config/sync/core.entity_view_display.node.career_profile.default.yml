@@ -3,6 +3,7 @@ langcode: en
 status: true
 dependencies:
   config:
+    - field.field.node.career_profile.field_annual_salary
     - field.field.node.career_profile.field_career_overview
     - field.field.node.career_profile.field_career_pathways
     - field.field.node.career_profile.field_career_videos
@@ -11,6 +12,7 @@ dependencies:
     - field.field.node.career_profile.field_duties
     - field.field.node.career_profile.field_education_programs
     - field.field.node.career_profile.field_education_training_skills
+    - field.field.node.career_profile.field_epbc_categories
     - field.field.node.career_profile.field_hero_image
     - field.field.node.career_profile.field_hero_image_media
     - field.field.node.career_profile.field_insights_from_industry
@@ -19,16 +21,19 @@ dependencies:
     - field.field.node.career_profile.field_metatag_description
     - field.field.node.career_profile.field_noc
     - field.field.node.career_profile.field_noc_2016
+    - field.field.node.career_profile.field_region_openings
     - field.field.node.career_profile.field_related_careers
     - field.field.node.career_profile.field_resources
     - field.field.node.career_profile.field_resources_reference
     - field.field.node.career_profile.field_scheduled_publish
     - field.field.node.career_profile.field_skills_2
     - field.field.node.career_profile.field_tags
+    - field.field.node.career_profile.field_teer
     - field.field.node.career_profile.field_work_environment
     - node.type.career_profile
   module:
     - field_group
+    - options
     - scheduled_publish
     - text
 third_party_settings:
@@ -43,7 +48,7 @@ third_party_settings:
       label: 'Career Profile Tabs'
       parent_name: ''
       region: content
-      weight: 12
+      weight: 15
       format_type: tabs
       format_settings:
         classes: ''
@@ -87,6 +92,7 @@ third_party_settings:
         - extra_field_education_programs
         - extra_field_skills_introduction
         - extra_field_profile_skills
+        - extra_field_profile_location
       label: 'Education, Training & Skills'
       parent_name: group_career_profile_tabs
       region: content
@@ -308,6 +314,11 @@ content:
     third_party_settings: {  }
     weight: 4
     region: content
+  extra_field_occupational_categories:
+    settings: {  }
+    third_party_settings: {  }
+    weight: 14
+    region: content
   extra_field_occupational_interests:
     settings: {  }
     third_party_settings: {  }
@@ -317,6 +328,11 @@ content:
     settings: {  }
     third_party_settings: {  }
     weight: 26
+    region: content
+  extra_field_profile_location:
+    settings: {  }
+    third_party_settings: {  }
+    weight: 72
     region: content
   extra_field_profile_skills:
     settings: {  }
@@ -367,6 +383,17 @@ content:
     settings: {  }
     third_party_settings: {  }
     weight: 23
+    region: content
+  field_annual_salary:
+    type: number_decimal
+    label: above
+    settings:
+      thousand_separator: ''
+      decimal_separator: .
+      scale: 2
+      prefix_suffix: true
+    third_party_settings: {  }
+    weight: 82
     region: content
   field_career_overview:
     type: text_default
@@ -419,6 +446,14 @@ content:
     third_party_settings: {  }
     weight: 67
     region: content
+  field_epbc_categories:
+    type: entity_reference_label
+    label: above
+    settings:
+      link: true
+    third_party_settings: {  }
+    weight: 85
+    region: content
   field_hero_image_media:
     type: entity_reference_entity_view
     label: above
@@ -457,7 +492,16 @@ content:
     settings:
       link_to_entity: false
     third_party_settings: {  }
-    weight: 14
+    weight: 17
+    region: content
+  field_region_openings:
+    type: number_integer
+    label: above
+    settings:
+      thousand_separator: ''
+      prefix_suffix: true
+    third_party_settings: {  }
+    weight: 83
     region: content
   field_related_careers:
     type: entity_reference_label
@@ -481,7 +525,14 @@ content:
       date_format: html_datetime
       text_pattern: '%moderation_state% - %date%'
     third_party_settings: {  }
-    weight: 13
+    weight: 16
+    region: content
+  field_teer:
+    type: list_default
+    label: above
+    settings: {  }
+    third_party_settings: {  }
+    weight: 84
     region: content
   field_work_environment:
     type: text_default
@@ -497,6 +548,7 @@ content:
     region: content
 hidden:
   created: true
+  extra_field_career_trek_profile_skills: true
   extra_field_job_titles: true
   extra_field_search_index_job_titles: true
   extra_field_search_index_noc: true

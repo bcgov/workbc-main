@@ -1,7 +1,7 @@
 #cloudfront.tf
 /*
 resource "aws_cloudfront_cache_policy" "custom" {
-  name	      = "WorkBC-NOC-cache-policy"
+  name	      = "WorkBC-DEV2-cache-policy"
   comment     = "WorkBC main site cache policy"
   default_ttl = 300
   max_ttl     = 31536000
@@ -23,7 +23,7 @@ resource "aws_cloudfront_cache_policy" "custom" {
 }
 
 resource "aws_cloudfront_origin_request_policy" "custom" {
-  name    = "WorkBC-NOC-origin-request-policy"
+  name    = "WorkBC-DEV2-origin-request-policy"
   comment = "Origin request settings to test CF tablet CF mobile CF desktop"
   cookies_config {
     cookie_behavior = "all"

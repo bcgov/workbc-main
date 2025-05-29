@@ -4,6 +4,7 @@ status: true
 dependencies:
   config:
     - core.entity_view_mode.node.career_profile_search_index
+    - field.field.node.career_profile.field_annual_salary
     - field.field.node.career_profile.field_career_overview
     - field.field.node.career_profile.field_career_pathways
     - field.field.node.career_profile.field_career_videos
@@ -12,6 +13,7 @@ dependencies:
     - field.field.node.career_profile.field_duties
     - field.field.node.career_profile.field_education_programs
     - field.field.node.career_profile.field_education_training_skills
+    - field.field.node.career_profile.field_epbc_categories
     - field.field.node.career_profile.field_hero_image
     - field.field.node.career_profile.field_hero_image_media
     - field.field.node.career_profile.field_insights_from_industry
@@ -20,12 +22,14 @@ dependencies:
     - field.field.node.career_profile.field_metatag_description
     - field.field.node.career_profile.field_noc
     - field.field.node.career_profile.field_noc_2016
+    - field.field.node.career_profile.field_region_openings
     - field.field.node.career_profile.field_related_careers
     - field.field.node.career_profile.field_resources
     - field.field.node.career_profile.field_resources_reference
     - field.field.node.career_profile.field_scheduled_publish
     - field.field.node.career_profile.field_skills_2
     - field.field.node.career_profile.field_tags
+    - field.field.node.career_profile.field_teer
     - field.field.node.career_profile.field_work_environment
     - node.type.career_profile
 id: node.career_profile.career_profile_search_index
@@ -44,6 +48,7 @@ hidden:
   extra_field_annual_salary: true
   extra_field_annual_salary_source: true
   extra_field_career_employment_introduction: true
+  extra_field_career_trek_profile_skills: true
   extra_field_career_videos_introduction: true
   extra_field_education_programs: true
   extra_field_employment_growth_rate_forecast: true
@@ -70,8 +75,10 @@ hidden:
   extra_field_labour_market_region_employment_source: true
   extra_field_labour_market_statistics_i: true
   extra_field_minimum_education: true
+  extra_field_occupational_categories: true
   extra_field_occupational_interests: true
   extra_field_occupational_interests_int: true
+  extra_field_profile_location: true
   extra_field_profile_skills: true
   extra_field_salary_info_annual_salary: true
   extra_field_salary_info_annual_salary_note: true
@@ -85,6 +92,7 @@ hidden:
   extra_field_work_environment_source: true
   extra_field_workbc_page_title: true
   extra_field_workbc_published_on: true
+  field_annual_salary: true
   field_career_overview: true
   field_career_pathways: true
   field_career_videos: true
@@ -93,6 +101,7 @@ hidden:
   field_duties: true
   field_education_programs: true
   field_education_training_skills: true
+  field_epbc_categories: true
   field_hero_image: true
   field_hero_image_media: true
   field_insights_from_industry: true
@@ -101,12 +110,14 @@ hidden:
   field_metatag_description: true
   field_noc: true
   field_noc_2016: true
+  field_region_openings: true
   field_related_careers: true
   field_resources: true
   field_resources_reference: true
   field_scheduled_publish: true
   field_skills_2: true
   field_tags: true
+  field_teer: true
   field_work_environment: true
   langcode: true
   links: true

@@ -29,7 +29,7 @@ class WorkBCNumericToMoneyFormatter extends FormatterBase {
    */
   public function settingsSummary() {
     $summary = [];
-    $summary[] = $this->t('Displays converts numeric to money format');
+    $summary[] = $this->t('Converts numeric to money format.');
     return $summary;
   }
 

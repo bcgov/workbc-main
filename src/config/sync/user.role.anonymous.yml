@@ -3,6 +3,7 @@ langcode: en
 status: true
 dependencies:
   config:
+    - search_api_autocomplete.search.explore_careers_autocomplete
     - search_api_autocomplete.search.search_career_profiles
     - search_api_autocomplete.search.search_site_content
   module:
@@ -27,6 +28,7 @@ permissions:
   - 'access recent jobs block'
   - 'access site-wide contact form'
   - 'download media'
+  - 'use search_api_autocomplete for explore_careers_autocomplete'
   - 'use search_api_autocomplete for search_career_profiles'
   - 'use search_api_autocomplete for search_site_content'
   - 'view field_content'

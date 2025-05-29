@@ -1,0 +1,44 @@
+diff --git a/core/modules/views/src/Plugin/views/filter/Date.php b/core/modules/views/src/Plugin/views/filter/Date.php
+index 8d4b81d306..02ecd63d3a 100644
+--- a/core/modules/views/src/Plugin/views/filter/Date.php
++++ b/core/modules/views/src/Plugin/views/filter/Date.php
+@@ -150,13 +150,16 @@ public function acceptExposedInput($input) {
+     if ($operators[$operator]['values'] == 1) {
+       // When the operator is either <, <=, =, !=, >=, > or regular_expression
+       // the input contains only one value.
+-      if ($this->value['value'] == '') {
++      if (!isset($this->value['value']) || $this->value['value'] == '') {
+         return FALSE;
+       }
+     }
+     elseif ($operators[$operator]['values'] == 2) {
+       // When the operator is either between or not between the input contains
+       // two values.
++      if (!isset($this->value['min']) || !isset($this->value['max'])) {
++        return FALSE;
++      }
+       if ($this->value['min'] == '' || $this->value['max'] == '') {
+         return FALSE;
+       }
+
+diff --git a/core/modules/views/src/Plugin/views/filter/NumericFilter.php b/core/modules/views/src/Plugin/views/filter/NumericFilter.php
+index 973df184c5..6cfa032965 100644
+--- a/core/modules/views/src/Plugin/views/filter/NumericFilter.php
++++ b/core/modules/views/src/Plugin/views/filter/NumericFilter.php
+@@ -445,12 +445,15 @@ public function acceptExposedInput($input) {
+       if (!empty($info[$this->operator]['values'])) {
+         switch ($info[$this->operator]['values']) {
+           case 1:
+-            if ($value['value'] === '') {
++            if (!isset($value['value']) || $value['value'] === '') {
+               return FALSE;
+             }
+             break;
+ 
+           case 2:
++            if (!isset($value['min']) && !isset($value['max'])) {
++              return FALSE;
++            }
+             if ($value['min'] === '' && $value['max'] === '') {
+               return FALSE;
+             }

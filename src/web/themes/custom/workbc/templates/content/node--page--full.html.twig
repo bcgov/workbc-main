@@ -86,7 +86,6 @@
   {{ drupal_entity('block', 'related_topics') }}
 {% endset %}
 
-
 {%
   set classes = [
     'node',
@@ -97,13 +96,15 @@
     view_mode ? 'node--view-mode-' ~ view_mode|clean_class,
     page_format ? 'page-format--' ~ page_format|clean_class,
     'page-container',
-    'container-lg',
+    not is_career_trek ? 'container-lg',
+    is_career_trek ? 'career-bg',
   ]
 %}
 
-
 {% if is_front %}
   {% include '@workbc/includes/hero-home.html.twig' %}
+{% elseif drupal_view_result('banner_video', 'block_1') is not empty %}
+  {{ drupal_view('banner_video', 'block_1') }}
 {% elseif hero_image or hero_text %}
   {% include '@workbc/includes/hero.html.twig' %}
 {% endif %}
@@ -143,7 +144,6 @@
         {{ left_block }}
       </div>
     {% endif %}
-
     {% if is_contact %}
       <div class="contact-container">
         <div class="contact-form-container">
@@ -164,12 +164,24 @@
         </div>
       </div>
     {% else %}
-      {% if page_body %}
-        {{ page_body }}
+      {% if is_career_trek %}
+        <div class="light-wrapper">
+        <div class="container-lg">
       {% endif %}
+        {% if page_body %}
+          {{ page_body }}
+        {% endif %}
 
-      {% if page_content %}
-        {{ page_content }}
+        {% if page_content %}
+          {% for key, content in page_content %}
+            {% if (key|number_format or key == 0) and content['#paragraph'].getType() != "banner_video" %}
+              {{ content }}
+            {% endif %}
+          {% endfor %}
+        {% endif %}
+      {% if is_career_trek %}
+        </div>
+        </div>
       {% endif %}
     {% endif %}
 

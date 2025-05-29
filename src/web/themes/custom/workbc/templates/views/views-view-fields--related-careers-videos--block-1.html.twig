@@ -1,0 +1,31 @@
+<div class="related-carrer">
+    <div class="workbc-card-video-preview">
+        <a href="/plan-career/career-trek-videos/{{ fields.career_noc.content|striptags|trim }}/{{ fields.episode_num.content|striptags|trim }}">
+            <div class="workbc-card-thumbnail">
+               <div class="field field--name-thumbnail field--type-image field--label-hidden field__item">
+                    <img
+                        loading="lazy"
+                        src="{{ file_url(fields.thumbnail.content|striptags|trim|image_style('career_trek_node_banner')) }}"
+                        width="760"
+                        height="400"
+                        alt=""
+                        class="img-fluid image-style-career-trek-node-banner"
+                    />
+               </div>
+            </div>
+        </a>
+    </div>
+    <div class="workbc-card-content">
+        <div class="title">
+            <a href="/plan-career/career-trek-videos/{{ fields.career_noc.content|striptags|trim }}/{{ fields.episode_num.content|striptags|trim }}">
+                {{ fields.ssot_title.content }}
+            </a>
+        </div>
+        <div class="category">
+            {{ fields.occupational_category_api_field.content }}
+        </div>
+        <div class="city-location">
+            {{ fields.custom_location.content }}
+        </div>
+    </div>
+</div>

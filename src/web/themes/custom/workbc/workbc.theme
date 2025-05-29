@@ -267,10 +267,11 @@ function workbc_preprocess_node(&$variables) {
   $internal = \Drupal::service('path_alias.manager')->getAliasByPath($current_path);
   $variables['is_front'] = $internal == \Drupal::configFactory()->get('system.site')->get('page.front');
   $variables['is_contact'] = $internal == "/contact-us";
+  $variables['is_career_trek'] = $internal == "/plan-career/career-trek-videos";
 }
 
 /**
- * Implements template_preprocess_views_view_summary_unformatted().
+ * Implements hook_preprocess_views_view_summary_unformatted().
  *
  * Prepares "view_base_path" variables for unformatted summary view templates
  * for use with glossary All option.
@@ -281,7 +282,7 @@ function workbc_preprocess_views_view_summary_unformatted(&$variables) {
 }
 
 /**
- * Implements template_preprocess_media().
+ * Implements hook_preprocess_media().
  */
 function workbc_preprocess_media(&$variables) {
 
@@ -311,7 +312,7 @@ function workbc_preprocess_media(&$variables) {
 }
 
 /**
- * Implements template_preprocess_html().
+ * Implements hook_preprocess_html().
  */
 function workbc_preprocess_html(&$vars) {
   // Get the current path
@@ -323,7 +324,7 @@ function workbc_preprocess_html(&$vars) {
 }
 
 /**
- * Implements template_preprocess_menu().
+ * Implements hook_preprocess_menu().
  */
 function workbc_preprocess_menu(&$vars) {
   if ($vars['menu_name'] === 'footer') {
@@ -347,7 +348,7 @@ function workbc_theme_suggestions_form_element_alter(array &$suggestions, array 
 }
 
 /**
- * Implements template_preprocess_form_element().
+ * Implements hook_preprocess_form_element().
  */
 function workbc_preprocess_form_element(&$variables) {
 
@@ -360,7 +361,7 @@ function workbc_preprocess_form_element(&$variables) {
 }
 
 /**
- * Implements template_preprocess_block().
+ * Implements hook_preprocess_block().
  */
 function workbc_preprocess_block(&$vars) {
   if ($vars['plugin_id'] === 'side_nav_block') {
@@ -377,7 +378,7 @@ function workbc_preprocess_block(&$vars) {
 }
 
 /**
- * Implements template_preprocess_breadcrumb().
+ * Implements hook_preprocess_breadcrumb().
  */
 function workbc_preprocess_breadcrumb(&$variables){
   $types = ["career_profile", "industry_profile"];
@@ -390,12 +391,24 @@ function workbc_preprocess_breadcrumb(&$variables){
 }
 
 /**
- * Implements template_preprocess_views_view_field().
+ * Implements hook_preprocess_views_view().
+ */
+function workbc_preprocess_views_view(&$variables) {
+  $view = $variables['view'];
+  if ($view->id() == "explore_careers") {
+    $variables['hide_category'] = \Drupal::request()->query->get('hide_category') == "1" ? true : false;
+    $variables['career_profiles_total'] = $view->total_rows;
+  }
+}
+
+/**
+ * Implements hook_preprocess_views_view_field().
  */
 function workbc_preprocess_views_view_field(&$variables) {
 
   $view = $variables['view'];
   $field = $variables['field'];
+
   if($view->storage->id() == "high_opportunity_occupations" && $field->field == "teer") {
     $vocabulary = 'taxonomy_term';
     $terms = \Drupal::entityTypeManager()->getStorage($vocabulary)->loadByProperties([
@@ -410,9 +423,17 @@ function workbc_preprocess_views_view_field(&$variables) {
       $variables['output'] = WORKBC_EXTRA_FIELDS_NOT_AVAILABLE;
     }
   }
+
+  if($view->storage->id() == "explore_careers" && $field->field == "field_region_openings") {
+    if ($variables['row']->node__field_region_openings_field_region_openings_value == -999999) {
+      $variables['output'] = WORKBC_EXTRA_FIELDS_NOT_AVAILABLE;
+    }
+  }
 }
 
-
+/**
+ * Implements hook_preprocess_field().
+ */
 function workbc_preprocess_field(&$variables) {
 
   if ($variables['field_type'] == "extra_field" &&
@@ -427,5 +448,53 @@ function workbc_preprocess_field(&$variables) {
   // region information for interactive map
   if ($variables['field_name'] == "extra_field_lmo_report_2024_job_openings_regions_table") {
     $variables['region_info'] = ssotRegionInfo();
+  }
+}
+
+/*
+ * Implements hook_theme_suggestions_HOOK_alter() for fieldset.
+ */
+function workbc_theme_suggestions_fieldset_alter(array &$suggestions, array $variables) {
+  if(isset($variables['element']) && isset($variables['element']['#title'])) {
+    $title = strtolower(str_replace(" ", "__", $variables['element']['#title']));
+    $suggestions[] = $variables['theme_hook_original'] . "__" . $title;
+  }
+}
+
+/*
+ * Implements hook_theme_suggestions_HOOK_alter() for details.
+ */
+function workbc_theme_suggestions_details_alter(array &$suggestions, array $variables) {
+  if(isset($variables['element']) && isset($variables['element']['#title'])) {
+    $title = strtolower(str_replace(" ", "__", $variables['element']['#title']));
+    $suggestions[] = $variables['theme_hook_original'] . "__" . $title;
+  }
+}
+
+/**
+ * Implements hook_theme_suggestions_HOOK_alter() for page.
+ */
+function workbc_theme_suggestions_page_alter(array &$suggestions, array $variables) {
+  if ($template = \Drupal::request()->get('template')){
+      $suggestions[] = 'page__' . $template;
+  }
+}
+
+/**
+ * Implements hook_theme_suggestions_HOOK_alter() for html.
+ */
+function workbc_theme_suggestions_html_alter(array &$suggestions, array $variables) {
+  if ($template = \Drupal::request()->get('template')){
+      $suggestions[] = 'html__' . $template;
+  }
+}
+
+/**
+ * Implements hook_page_attachments_alter().
+ */
+function workbc_page_attachments_alter(array &$attachments){
+  if (\Drupal::request()->get('template') == 'embed') {
+    //Remove all libraries
+    unset($attachments['#attached']['library']);
   }
 }

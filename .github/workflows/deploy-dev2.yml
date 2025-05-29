@@ -1,9 +1,9 @@
-name: Deploy-Dev-NOC
+name: Deploy-Dev2
 
 on:
   workflow_run:
     workflows:
-      - DEV-NOC-CI
+      - DEV2-CI
     types:
       - completed
 
@@ -62,4 +62,5 @@ jobs:
         env:
           app_image: ${{ env.IMAGE_ID }}:${{ github.event.workflow_run.head_sha }}
           LICENSE_PLATE: ${{ secrets.MY_LICENSE_PLATE }}
+          TF_VAR_source_token: ${{ secrets.SOURCE_TOKEN }}
         run: terragrunt run-all apply --terragrunt-non-interactive

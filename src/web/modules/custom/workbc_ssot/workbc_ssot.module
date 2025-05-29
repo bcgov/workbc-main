@@ -1,10 +1,11 @@
 <?php
 
 use Drupal\Core\StreamWrapper\StreamWrapperManager;
-use Drupal\Core\Url;
 use GuzzleHttp\Client;
 use GuzzleHttp\Exception\RequestException;
 use Psr\Http\Message\ResponseInterface;
+use Drupal\Core\Entity\ContentEntityInterface;
+use Drupal\field\Entity\FieldStorageConfig;
 
 const SSOT_ROUTES = [
   'workbc_ssot.lmmu',
@@ -12,28 +13,136 @@ const SSOT_ROUTES = [
 ];
 
 const SSOT_DATASETS = [
-  'career_provincial',
-  'career_regional',
-  'census',
-  'education',
-  'high_opportunity_occupations',
-  'industries',
-  'industry_outlook',
-  'labour_force_survey_industry',
-  'labour_force_survey_regional_employment',
-  'labour_force_survey_regional_industry_province',
-  'labour_force_survey_regional_industry_region',
-  'monthly_labour_market_updates',
-  'occupational_interests',
-  'openings_careers',
-  'openings_industry',
-  'regional_labour_market_outlook',
-  'regional_top_occupations',
-  'skills',
-  'titles',
-  'wages'
+  'wages' => [
+    'noc_key' => 'noc',
+    'fields' => 'noc,calculated_median_annual_salary',
+  ],
+  'career_provincial' => [
+    'noc_key' => 'noc',
+    'fields' => 'noc,expected_job_openings_10y',
+  ],
+  'career_regional' => [
+    'noc_key' => 'noc',
+    'fields' => 'noc,cariboo_expected_number_of_job_openings_10y,kootenay_expected_number_of_job_openings_10y,mainland_southwest_expected_number_of_job_openings_10y,north_coast_nechako_expected_number_of_job_openings_10y,northeast_expected_number_of_job_openings_10y,thompson_okanagan_expected_number_of_job_openings_10y,vancouver_island_coast_expected_number_of_job_openings_10y',
+  ],
+  'census' => [],
+  'education' => [
+    'noc_key' => 'noc',
+    'fields' => 'noc,teer'
+  ],
+  'fyp_categories_interests' => [
+    'noc_key' => 'noc_2021',
+    'fields' => 'noc_2021,category,interest',
+    'endpoint' => 'fyp_categories_interests_nocs'
+  ],
+  'high_opportunity_occupations' => [],
+  'industries' => [],
+  'industry_outlook' => [],
+  'labour_force_survey_industry' => [],
+  'labour_force_survey_regional_employment' => [],
+  'labour_force_survey_regional_industry_province' => [],
+  'labour_force_survey_regional_industry_region' => [],
+  'monthly_labour_market_updates' => [],
+  'occupational_interests' => [],
+  'openings_careers' => [],
+  'openings_industry' => [],
+  'regional_labour_market_outlook' => [],
+  'regional_top_occupations' => [],
+  'skills' => [],
+  'titles' => [
+    'noc_key' => 'noc',
+    'fields' => 'noc,commonjobtitle'
+  ],
+  'lmo_report_2024_job_openings_10y' => [],
+  'lmo_report_2024_job_openings_annual' => [],
+  'lmo_report_2024_job_openings_teers' => [],
+  'lmo_report_2024_job_openings_industries' => [],
+  'lmo_report_2024_job_openings_broad_categories' => [],
+  'lmo_report_2024_job_openings_regions' => [],
+  'lmo_report_2024_job_openings_vancouver_island_coast' => [],
+  'lmo_report_2024_job_openings_mainland_southwest' => [],
+  'lmo_report_2024_job_openings_thompson_okanagan' =>[],
+  'lmo_report_2024_job_openings_kootenay' => [],
+  'lmo_report_2024_job_openings_cariboo' => [],
+  'lmo_report_2024_job_openings_north_coast_nechako' => [],
+  'lmo_report_2024_job_openings_northeast' => [],
 ];
 
+/**
+ * Implements hook_cron.
+ *
+ * Get the latest datasets from SSOT.
+ */
+function workbc_ssot_cron() {
+  // Retrieve the local state, making sure we set any modified datasets to null.
+  $local_dates = array_merge(array_combine(
+    array_keys(SSOT_DATASETS),
+    array_fill(0, count(SSOT_DATASETS), null)
+  ), \Drupal::state()->get('workbc.ssot_dates', []));
+
+  // Get the latest update dates from SSOT.
+  $result = ssot(
+    'sources?' . http_build_query([
+      'select' => 'endpoint,date',
+      'endpoint' => 'in.("' . join('","', array_keys(SSOT_DATASETS)) . '")',
+      'order' => 'date.desc'
+    ])
+  );
+  if (!$result) return;
+  $ssot_dates = json_decode($result->getBody());
+
+  // Compare each local date with remote date, scheduling a download job if needed.
+  $datasets = [];
+  foreach ($ssot_dates as $ssot_date) {
+    if (empty($ssot_date->date)) continue;
+    $date1 = DateTimeImmutable::createFromFormat(DateTimeInterface::ATOM, $ssot_date->date);
+    if (!$date1) {
+      \Drupal::logger('workbc')->error('Error parsing date @date for SSOT dataset @dataset: @errors', [
+        '@date' => $ssot_date->date,
+        '@dataset' => $ssot_date->endpoint,
+        '@errors' => print_r(DateTimeImmutable::getLastErrors()),
+      ]);
+      continue;
+    }
+    $date2 = empty($local_dates[$ssot_date->endpoint]) ? false : DateTimeImmutable::createFromFormat(DateTimeInterface::ATOM, $local_dates[$ssot_date->endpoint]);
+    if (empty($date2) || $date2 < $date1) {
+      // Some datasets have multiple entries. Pick the latest date and ignore the rest.
+      if (array_key_exists($ssot_date->endpoint, $datasets) && $date1 <= DateTimeImmutable::createFromFormat(DateTimeInterface::ATOM, $datasets[$ssot_date->endpoint]->date)) continue;
+
+      \Drupal::logger('workbc')->notice('Found an update for SSOT dataset @dataset.', [
+        '@dataset' => $ssot_date->endpoint
+      ]);
+      $datasets[$ssot_date->endpoint] = $ssot_date;
+    }
+  }
+
+  if (!empty($datasets)) {
+    // Clear the rendered cache to force pages to refresh their virtual fields with updated data points.
+    \Drupal\Core\Cache\Cache::invalidateTags(['rendered']);
+
+    $datasets_enqueued = [];
+    foreach ($datasets as $dataset) {
+      // Enqueue a job to update the career profiles with each qualifying updated dataset.
+      if (array_key_exists('noc_key', SSOT_DATASETS[$dataset->endpoint])) {
+        $datasets_enqueued[] = $dataset;
+      }
+      // Otherwise, just update the local date to reflect the latest date.
+      else {
+        $local_dates[$dataset->endpoint] = $dataset->date;
+      }
+    }
+
+    // Invoke the background job to download datasets.
+    if (!empty($datasets_enqueued)) {
+      Drupal::queue('ssot_downloader')->createItem([
+        'datasets' => $datasets_enqueued,
+      ]);
+    }
+
+    // Reset the SSOT local update dates.
+    \Drupal::state()->set('workbc.ssot_dates', $local_dates);
+  }
+}
 
 /**
  * Implements hook_file_download().
@@ -89,75 +198,9 @@ function workbc_ssot_menu_links_discovered_alter(&$links) {
   }
 }
 
-
-/**
- * Implements hook_cron.
- *
- */
-function workbc_ssot_cron() {
-  workbc_ssot_cache_clear();
-}
-
-
-/**
- * clears render cache if ssot data has been updated.
- *
- */
-function workbc_ssot_cache_clear() {
-
-  $local_dates = [];
-  foreach (SSOT_DATASETS as $dataset) {
-    $key = 'workbc.ssot_update_date.' . $dataset;
-    $local_dates[] = [
-      'endpoint' => $dataset, 
-      'date' => \Drupal::state()->get($key)
-    ];    
-  }
-
-  // Get the latest update dates from SSOT.
-  $result = ssot(
-    'sources?' . http_build_query([
-      'select' => 'endpoint,date',
-      'endpoint' => 'in.("' . join('","', SSOT_DATASETS) . '")'
-    ])
-  );
-  if (!$result) {
-    \Drupal::logger('workbc')->error("workbc_ssot_cache_clear() - ssot query returned empty result");
-    return;
-  }
-
-  $ssot_dates = json_decode($result->getBody(), true);
-
-  // sort results by descending date order
-  $sort_values = array_column($ssot_dates, "date");
-  array_multisort($sort_values, SORT_DESC, $ssot_dates);
-
-  // remove all LMMU elements except the first (most recent) one with a valid date
-  $keep = true;
-  foreach ($ssot_dates as $key => $value) {
-    if ($value['endpoint'] == "monthly_labour_market_updates") {
-      if (is_null($value['date']) || !$keep) {
-        unset($ssot_dates[$key]);
-      }
-      else {
-        $keep = false;
-      }
-    }
-  }
-  $sort_values = array_column($ssot_dates, "endpoint");
-  array_multisort($sort_values, SORT_ASC, $ssot_dates);
-
-  if($local_dates !== $ssot_dates) {
-    \Drupal\Core\Cache\Cache::invalidateTags(['rendered']);
-    foreach ($ssot_dates as $dataset) {
-      \Drupal::state()->set('workbc.ssot_update_date.' . $dataset['endpoint'], $dataset['date']);
-    }
-  }
-}
-
+/************************* SSOT FUNCTIONS ****************************/
 
 function ssot($endpoint, $method = 'GET', $options = [], $body = null): ResponseInterface | null {
-
   $ssot = \Drupal::config('workbc')->get('ssot_url');
   $client = new Client();
   try {
@@ -177,4 +220,437 @@ function ssot($endpoint, $method = 'GET', $options = [], $body = null): Response
     \Drupal::logger('workbc')->error($e->getMessage());
     return null;
   }
+}
+
+// TODO: Merge this function into the above.
+function querySSoT($endpoint, $read_timeout = NULL) {
+  $ssot = rtrim(\Drupal::config('workbc')->get('ssot_url'), '/');
+  $client = new Client();
+  try {
+    $options = [];
+    if ($read_timeout) {
+      $options['read_timeout'] = $read_timeout;
+    }
+    $response = $client->get($ssot . '/' . $endpoint, $options);
+    $result = json_decode($response->getBody(), TRUE);
+    return $result;
+  }
+  catch (RequestException $e) {
+    \Drupal::logger('workbc')->error($e->getMessage());
+    return NULL;
+  }
+}
+
+function ssotLabourMarketYearly() {
+  return [
+    'schema' => ssotSchema(),
+    'lmo_report_2024_job_openings_10y' => querySSoT('lmo_report_2024_job_openings_10y'),
+    'lmo_report_2024_job_openings_annual' => querySSoT('lmo_report_2024_job_openings_annual'),
+    'lmo_report_2024_job_openings_teers' => querySSoT('lmo_report_2024_job_openings_teers'),
+    'lmo_report_2024_job_openings_industries' => querySSoT('lmo_report_2024_job_openings_industries'),
+    'lmo_report_2024_job_openings_broad_categories' => querySSoT('lmo_report_2024_job_openings_broad_categories'),
+    'lmo_report_2024_job_openings_regions' => querySSoT('lmo_report_2024_job_openings_regions'),
+    'lmo_report_2024_job_openings_vancouver_island_coast' => querySSoT('lmo_report_2024_job_openings_vancouver_island_coast'),
+    'lmo_report_2024_job_openings_mainland_southwest' => querySSoT('lmo_report_2024_job_openings_mainland_southwest'),
+    'lmo_report_2024_job_openings_thompson_okanagan' => querySSoT('lmo_report_2024_job_openings_thompson_okanagan'),
+    'lmo_report_2024_job_openings_kootenay' => querySSoT('lmo_report_2024_job_openings_kootenay'),
+    'lmo_report_2024_job_openings_cariboo' => querySSoT('lmo_report_2024_job_openings_cariboo'),
+    'lmo_report_2024_job_openings_north_coast_nechako' => querySSoT('lmo_report_2024_job_openings_north_coast_nechako'),
+    'lmo_report_2024_job_openings_northeast' => querySSoT('lmo_report_2024_job_openings_northeast'),
+    'sources' => querySSoT('sources?endpoint=eq.lmo_report_2024_job_openings_10y')[0]
+  ];
+}
+
+function ssotLabourMarketMonthly($year = null, $month = null) {
+  $data = array();
+
+  // Months years data for select list element on top of the page.
+  $data['monthly_labour_market_updates_months_years'] = querySSoT('monthly_labour_market_updates?select=year%2Cmonth&order=year.desc%2Cmonth.desc');
+
+  // Full data query.
+  // http://localhost:3000/monthly_labour_market_updates?year=eq.2022&month=eq.1
+  $parameters = 'order=year.desc%2Cmonth.desc';
+  if(!empty($year)) {
+    $parameters .= '&year=eq.' . $year;
+  }
+  if(!empty($month)) {
+    $parameters .= '&month=eq.' . $month;
+  }
+  $data['monthly_labour_market_updates'] = querySSoT('monthly_labour_market_updates?' . $parameters);
+  if(empty($data['monthly_labour_market_updates'])) {
+    \Drupal::messenger()->addError('Chosen year and month has no data. Please select from the provided year and months dropdown.');
+  }
+  else {
+    $currentYear = $data['monthly_labour_market_updates'][0]['year'];
+    $currentMonth = $data['monthly_labour_market_updates'][0]['month'];
+    $data['current_previous_months_names'] = ssotGetPreviousMonthYear($currentMonth, $currentYear);
+  }
+  $data['industries'] = array_column(querySSoT('industries'), NULL, 'key');
+  $data['schema'] = ssotSchema();
+
+  // Source metadata.
+  // We read all monthly_labour_market_updates entries because we need to find the following:
+  // - The entry for any non-empty datapoint
+  // - The entry for the current period
+  $sources = querySSoT('sources?endpoint=eq.monthly_labour_market_updates');
+  $period = "$currentYear-" . str_pad($currentMonth, 2, '0', STR_PAD_LEFT);
+  foreach($sources as $source) {
+    if (!empty($source['datapoint'])) {
+      $data['sources'][$source['datapoint']] = $source['label'];
+    }
+    else if (str_starts_with($source['period'], $period)) {
+      $data['sources']['no-datapoint'] = $source['label'];
+    }
+  }
+
+  return $data;
+}
+
+function ssotBCProfile($region) {
+
+  $region = ssotRegionKey($region);
+
+  $data = array();
+
+  $data['regional_labour_market_outlook'] = querySSoT('regional_labour_market_outlook?region=eq.british_columbia')[0];
+  $data['labour_force_survey_bc_employment'] = querySSoT('labour_force_survey_regional_employment?region=eq.british_columbia')[0];
+  $data['labour_force_survey_regions_employment'] = querySSoT('labour_force_survey_regional_employment?region=neq.british_columbia');
+  $data['labour_force_survey_regional_industry_region'] = querySSoT('labour_force_survey_regional_industry_region')[0];
+  $data['labour_force_survey_regional_industry_province'] = querySSoT('labour_force_survey_regional_industry_province');
+  $data['industry_outlook'] = querySSoT('industry_outlook');
+  $data['industries'] = array_column(querySSoT('industries'), NULL, 'key');
+  $data['regional_top_occupations'] = querySSoT('regional_top_occupations?region=eq.' . $region);
+  $monthly_labour_market_updates = querySSoT('monthly_labour_market_updates');
+  $latest = ssotLatestMonthlyLabourMarketUpdate($monthly_labour_market_updates);
+  $data['monthly_labour_market_updates'] = $monthly_labour_market_updates[$latest];
+  $data['sources'] = ssotSources();
+  $data['schema'] = ssotSchema();
+  $data['region'] = $region;
+  return $data;
+}
+
+function ssotRegionProfile($region) {
+
+  $region = ssotRegionKey($region);
+  $data = array();
+
+  $data['regional_labour_market_outlook'] = querySSoT('regional_labour_market_outlook?region=eq.' . $region)[0];
+  $data['labour_force_survey_regional_employment'] = querySSoT('labour_force_survey_regional_employment?region=eq.' . $region)[0];
+  $data['labour_force_survey_bc_employment'] = querySSoT('labour_force_survey_regional_employment?region=eq.british_columbia')[0];
+  $data['labour_force_survey_regional_industry_region'] = querySSoT('labour_force_survey_regional_industry_region?region=eq.' . $region)[0];
+  $data['labour_force_survey_regional_industry_province'] = querySSoT('labour_force_survey_regional_industry_province');
+  $data['industry_outlook'] = querySSoT('industry_outlook');
+  $data['industries'] = array_column(querySSoT('industries'), NULL, 'key');
+  $data['regional_top_occupations'] = querySSoT('regional_top_occupations?region=eq.' . $region);
+  $monthly_labour_market_updates = querySSoT('monthly_labour_market_updates');
+  $latest = ssotLatestMonthlyLabourMarketUpdate($monthly_labour_market_updates);
+  $data['monthly_labour_market_updates'] = $monthly_labour_market_updates[$latest];
+  $data['sources'] = ssotSources();
+  $data['schema'] = ssotSchema();
+  $data['region'] = $region;
+  return $data;
+}
+
+function ssotIndustryProfile($industryName) {
+  $data = array();
+  $data['industries'] = array_column(querySSoT('industries'), NULL, 'key');
+  $industry = ssotIndustryKey($industryName, $data['industries']);
+  $data['industry_outlook'] = querySSoT('industry_outlook?industry=eq.' . $industry)[0];
+  $data['labour_force_survey_industry'] = querySSoT('labour_force_survey_industry?industry=eq.' . $industry)[0];
+  $data['monthly_labour_market_updates'] = querySSoT('monthly_labour_market_updates');
+  $data['openings_industry'] = querySSoT('openings_industry?industry=eq.' . $industry);
+  $data['sources'] = ssotSources();
+  $data['schema'] = ssotSchema();
+  return $data;
+}
+
+function ssotCareerProfile($noc) {
+
+  $data = array();
+  if (!empty(querySSoT('wages?noc=eq.' . $noc))) {
+    $data['wages'] = querySSoT('wages?noc=eq.' . $noc)[0];
+    $data['career_provincial'] = querySSoT('career_provincial?noc=eq.' . $noc)[0];
+    $data['career_regional'] = querySSoT('career_regional?noc=eq.' . $noc)[0];
+    $data['census'] = querySSoT('census?noc=eq.' . $noc)[0];
+    $data['education'] = querySSoT('education?noc=eq.' . $noc)[0];
+    $data['skills'] = querySSoT('skills?noc=eq.' . $noc);
+    $data['high_opportunity_occupations'] = querySSoT('high_opportunity_occupations?noc=eq.' . $noc);
+    $data['occupational_interests'] = querySSoT('occupational_interests?noc=eq.' . $noc);
+    $data['titles'] = querySSoT('titles?order=commonjobtitle.asc&noc=eq.' . $noc);
+    $data['epbc_nocs'] = querySSoT('fyp_categories_interests_sub_nocs?noc_2021=eq.' . $noc);
+    $opening_careers = querySSoT('openings_careers?noc=eq.' . $noc);
+    if (!empty($opening_careers)) {
+      $data['openings_careers'] = $opening_careers[0];
+    }
+  }
+  $data['industries'] = array_column(querySSoT('industries'), NULL, 'key');
+  $data['sources'] = ssotSources();
+  $data['schema'] = ssotSchema();
+
+  return $data;
+}
+
+function ssotParseDateRange($schema, $section, $field = "") {
+
+  $match = "";
+  if (isset($schema['definitions'][$section]['properties'][$field]['description'])) {
+    $text = $schema['definitions'][$section]['properties'][$field]['description'];
+    preg_match('#\{(.*?)\}#', $text, $match);
+  }
+  else if (isset($schema['definitions'][$section]['description'])) {
+    $text = $schema['definitions'][$section]['description'];
+    preg_match('#\{(.*?)\}#', $text, $match);
+  }
+  return empty($match) ? "" : $match[1];
+}
+
+function ssotSchema() {
+  $schema = querySSoT("");
+  return $schema;
+}
+
+function ssotSources() {
+
+  $sources = querySSoT('sources');
+  if (!$sources) return [];
+
+  return array_reduce($sources, function($ret, $source) {
+    $key = $source['endpoint'] . (!empty($source['datapoint']) ? '.' . $source['datapoint'] : '');
+    if (!array_key_exists($key, $ret)) {
+      $ret[$key] = $source;
+    }
+    return $ret;
+  }, []);
+}
+
+function ssotLatestMonthlyLabourMarketUpdate($sourceData) {
+  $latestKey = "000000";
+  $latestIdx = 0;
+  foreach ($sourceData as $idx => $data) {
+    $key = $data['year'] . str_pad($data['month'], 2, "0", STR_PAD_LEFT);
+    if ($key > $latestKey) {
+      $latestKey = $key;
+      $latestIdx = $idx;
+    }
+  }
+  return $latestIdx;
+}
+
+function ssotRegions() {
+  static $regions = array(
+    "british_columbia" => REGION_BRITISH_COLUMBIA,
+    "cariboo" => REGION_CARIBOO,
+    "kootenay" => REGION_KOOTENAY,
+    "mainland_southwest" => REGION_MAINLAND_SOUTHWEST,
+    "north_coast_nechako" => REGION_NORTH_COAST_NECHAKO,
+    "northeast" => REGION_NORTHEAST,
+    "thompson_okanagan" => REGION_THOMPSON_OKANAGAN,
+    "vancouver_island_coast" => REGION_VANCOUVER_ISLAND_COAST,
+  );
+
+  return $regions;
+}
+
+function ssotRegionIds() {
+  static $regions = array(
+    "british_columbia" => REGION_BRITISH_COLUMBIA_ID,
+    "cariboo" => REGION_CARIBOO_ID,
+    "kootenay" => REGION_KOOTENAY_ID,
+    "mainland_southwest" => REGION_MAINLAND_SOUTHWEST_ID,
+    "north_coast_nechako" => REGION_NORTH_COAST_NECHAKO_ID,
+    "northeast" => REGION_NORTHEAST_ID,
+    "thompson_okanagan" => REGION_THOMPSON_OKANAGAN_ID,
+    "vancouver_island_coast" => REGION_VANCOUVER_ISLAND_COAST_ID,
+  );
+
+  return $regions;
+}
+
+function ssotRegionKey($region) {
+  $key = array_search($region, ssotRegions());
+  return $key;
+}
+
+function ssotRegionName($machine_name) {
+  $regions = ssotRegions();
+  return isset($regions[$machine_name]) ? $regions[$machine_name] : "";
+}
+
+function ssotRegionLinks() {
+  static $region_links = array(
+    "cariboo" => "/region-profile/cariboo",
+    "kootenay" => "/region-profile/kootenay",
+    "northeast" => "/region-profile/northeast",
+    "mainland_southwest" => "/region-profile/mainlandsouthwest",
+    "thompson_okanagan" => "/region-profile/thompson-okanagan",
+    "vancouver_island_coast" => "/region-profile/vancouver-islandcoast",
+    "north_coast_nechako" => "/region-profile/north-coast-and-nechako",
+    "british_columbia" => "/region-profile/british-columbia",
+  );
+
+  return $region_links;
+}
+
+function ssotRegionLink($machine_name) {
+  $regions = ssotRegionLinks();
+  return isset($regions[$machine_name]) ? $regions[$machine_name] : "";
+}
+
+function ssotRegionInfo() {
+  $region_info = array();
+  $regions = ssotRegions();
+  $id = ssotRegionIds();
+  $links = ssotRegionLinks();
+
+  foreach ($regions as $key => $name) {
+    $region = array(
+      "id" => $id[$key],
+      "key" => $key,
+      "name" => $name,
+      "link" => $links[$key],
+    );
+    $region_info[] = $region;
+  }
+  $id_values = array_column($region_info, "id");
+  array_multisort($id_values, SORT_ASC, $region_info);
+  return $region_info;
+}
+
+function ssotProcessEmploymentIndustry($ssotdata) {
+  $employment_industry = $ssotdata['labour_force_survey_regional_industry_region'];
+  if (empty($employment_industry)) {
+    return [];
+  }
+
+  $data = [];
+  foreach ($ssotdata['industries'] as $key => $industry) {
+    $nid = \Drupal::entityQuery('node')
+      ->condition('title', $industry['name'])
+      ->sort('nid', 'DESC')
+      ->accessCheck(false)
+      ->execute();
+    $nid = reset($nid);
+
+    $data[] = array(
+      'key' => $key,
+      'name' => $industry['name'],
+      'share' => $employment_industry[$key],
+      'sector' => $industry['type'],
+      'employment' => $employment_industry[$key."_num"],
+      'link' => \Drupal::service('path_alias.manager')->getAliasByPath('/node/'. $nid),
+    );
+  }
+
+  $sort_values = array_column($data, "name");
+  array_multisort($sort_values, SORT_ASC, $data);
+  return $data;
+}
+
+function ssotIndustryKey($industry_name, $industries) {
+  $index = array_search($industry_name, array_column($industries, 'name'));
+  $keys = array_keys($industries);
+  return $keys[$index];
+}
+
+/*
+   custom number format function to add '+' if required
+   additional check to set value to 0 if null
+   additional special case for zero (no decimals)
+
+   decimal default 0
+   suffix default ""
+   prefix default ""
+   positive_sign TRUE, FALSE default FALSE
+   na_if_empty TRUE, FALSE default FALSE,
+   no_negative TRUE, FALSE default FALSE,
+   sanity_check TRUE, FALSE default FALSE, TRUE will display "[ssot]"
+ */
+function ssotFormatNumber($number, $options = []) {
+
+  $valid = ['decimals', 'positive_sign', 'suffix', 'prefix', 'na_if_empty', 'no_negative', 'sanity_check'];
+  foreach ($options as $key => $option) {
+    if (!in_array($key, $valid)) {
+      \Drupal::logger('workbc')->error("invalid option: @option", ['@option' => $key]);
+    }
+  }
+
+  $decimals = isset($options['decimals']) ? $options['decimals'] : 0;
+  $positive_sign = isset($options['positive_sign']) ? $options['positive_sign'] : FALSE;
+  $suffix = isset($options['suffix']) ? $options['suffix'] : "";
+  $prefix = isset($options['prefix']) ? $options['prefix'] : "";
+  $na_if_empty  = isset($options['na_if_empty']) ? $options['na_if_empty'] : FALSE;
+  $no_negative  = isset($options['no_negative']) ? $options['no_negative'] : FALSE;
+  $sanity_check = isset($options['sanity_check']) ? $options['sanity_check'] : FALSE;
+
+  if ($sanity_check) {
+    $value = "[ssot]";
+  }
+  else if ($na_if_empty && is_null($number)) {
+    $value = WORKBC_EXTRA_FIELDS_NOT_AVAILABLE;
+  }
+  else {
+    $number = is_null($number) ? 0 : $number;
+    if (abs($number) > PHP_FLOAT_EPSILON) {
+      if ($no_negative) {
+        $number = $number < 0 ? 0 : $number;
+      }
+      $sign = "";
+      if ($number < 0) {
+        $sign = "-";
+      }
+      else if ($number > 0 && $positive_sign) {
+        $sign = "+";
+      }
+      $value = $sign . $prefix . number_format(abs($number), $decimals) . $suffix;
+    }
+    else {
+      $value = $prefix . number_format(0, $decimals) . $suffix;
+    }
+
+  }
+  return $value;
+}
+
+/**
+ * Get Current and Previous Month Year.
+ */
+function ssotGetPreviousMonthYear($currentMonth, $currentYear) {
+  if(empty($currentMonth) || empty($currentYear)){
+    return;
+  }
+  //month
+  $currentMonthName = date ('F', mktime(0, 0, 0, $currentMonth, 10));
+
+  //current month and year
+  $data['current_month_year'] = $currentMonthName . ' ' . $currentYear;
+
+  //current month and previous year
+  $previousYear = $currentYear - 1;
+  $data['current_month_previous_year'] = $currentMonthName . ' ' . $previousYear;
+
+  //previous month and previous year
+  $previousMonth = $currentMonth - 1;
+  $previousYear = $currentYear;
+  if($previousMonth == 0) {
+    $previousMonth = 12;
+    $previousYear = $currentYear - 1;
+  }
+  $previousMonthName =  date ('F', mktime(0, 0, 0, $previousMonth, 10));
+  $data['previous_month_year'] = $previousMonthName. ' ' . $previousYear;
+
+  return $data;
+}
+
+/**
+ * Get canonical TEER values.
+ */
+function ssotTEERValues(FieldStorageConfig $definition, ContentEntityInterface $entity = NULL, $cacheable) {
+  return [
+    0 => 'Management',
+    1 => 'University degree',
+    2 => 'College diploma or apprenticeship, 2 or more years',
+    3 => 'College diploma or apprenticeship, less than 2 years',
+    4 => 'High school diploma',
+    5 => 'No formal education'
+  ];
 }

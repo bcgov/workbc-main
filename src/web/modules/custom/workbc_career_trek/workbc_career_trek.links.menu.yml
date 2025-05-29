@@ -1,0 +1,9 @@
+workbc_career_trek.admin_settings:
+  title: 'Career Trek Settings'
+  description: 'Configure Career Trek settings'
+  parent: system.admin_config
+  route_name: workbc_career_trek.settings_form
+  weight: 100
+  menu_name: admin
+  _admin_route: TRUE
+  _permission: 'administer site configuration'

@@ -74,6 +74,7 @@ class WorkbcJobboardSidebar extends BlockBase{
     $this->configuration['job_board_results_to_show'] = $values['job_board_results_to_show'];
     $this->configuration['job_board_results_to_show_horizontal_view'] = $values['job_board_results_to_show_horizontal_view'];
     $this->configuration['job_board_no_result_text'] = $values['job_board_no_result_text'];
+    $this->configuration['job_board_read_more_button_title'] = $values['job_board_read_more_button_title'];
   }
 
   /**
@@ -177,7 +178,7 @@ class WorkbcJobboardSidebar extends BlockBase{
       else {
         $no_result_text_val = 'Unable to connect to Job Board API.';
         $api_url = \Drupal::config('jobboard')->get('jobboard_api_url_backend');
-        \Drupal::logger('workbc_jobboard')->error('Error '. $recent_jobs['response'].': Unable to connect to Job Board API. '.$api_url);
+        \Drupal::logger('workbc')->error($recent_jobs['response']);
       }
       return [
         '#type' => 'markup',

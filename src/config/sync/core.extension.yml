@@ -13,6 +13,7 @@ module:
   auto_username: 0
   backup_migrate: 0
   backup_migrate_aws_s3: 0
+  better_exposed_filters: 0
   better_social_sharing_buttons: 0
   big_pipe: 0
   block: 0
@@ -83,6 +84,7 @@ module:
   linkit: 0
   log_stdout: 0
   mail_login: 0
+  manage_state: 0
   media: 0
   media_entity_download: 0
   media_file_delete: 0
@@ -146,6 +148,7 @@ module:
   viewsreference: 0
   webform: 0
   webform_publication_composite: 0
+  workbc_career_trek: 0
   workbc_custom: 0
   workbc_extra_fields: 0
   workbc_jobboard: 0

@@ -9,6 +9,7 @@ dependencies:
     - media.type.image
     - media.type.remote_video
     - media.type.video
+    - search_api_autocomplete.search.explore_careers_autocomplete
     - search_api_autocomplete.search.search_career_profiles
     - search_api_autocomplete.search.search_site_content
   module:
@@ -107,6 +108,7 @@ permissions:
   - 'update paragraph content quote_card'
   - 'update paragraph content section_read_more'
   - 'update paragraph content skills'
+  - 'use search_api_autocomplete for explore_careers_autocomplete'
   - 'use search_api_autocomplete for search_career_profiles'
   - 'use search_api_autocomplete for search_site_content'
   - 'use views bulk edit'
