@@ -105,7 +105,7 @@ class WorkBCKeywordSearch extends StringFilter {
     }
     else {
       // Exposed value.
-      if (empty($this->value) || empty($this->value[0])) {
+      if (empty($this->value) && $this->value != 0) {
         return;
       }
       $this->view->search_api_results = $this->search($this->value);
@@ -142,8 +142,10 @@ class WorkBCKeywordSearch extends StringFilter {
     $query->keys($this->value);
     $query->setFulltextFields(['title', 'field_noc', 'field_job_titles']);
 
-    // Add sorting.
+    // Add sorting and limiting.
     $query->sort('search_api_relevance', 'DESC');
+    $sorts =& $query->getSorts();
+    $sorts['field_noc'] = 'ASC';
     $query->setOption('limit', 1000);
 
     // Set one or more tags for the query.

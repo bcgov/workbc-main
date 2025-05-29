@@ -26,6 +26,7 @@ dependencies:
     - filter
     - node
     - override_node_options
+    - paragraphs_type_permissions
     - path
     - role_delegation
     - sitewide_alert
@@ -58,6 +59,8 @@ permissions:
   - 'create labour_market_monthly content'
   - 'create news content'
   - 'create page content'
+  - 'create paragraph content content_accordion_entry'
+  - 'create paragraph content section_accordion'
   - 'create publication content'
   - 'create region_profile content'
   - 'create region_profile_introductions content'
@@ -108,6 +111,8 @@ permissions:
   - 'delete own success_story content'
   - 'delete own workbc_centre content'
   - 'delete page revisions'
+  - 'delete paragraph content content_accordion_entry'
+  - 'delete paragraph content section_accordion'
   - 'delete publication revisions'
   - 'delete region_profile revisions'
   - 'delete region_profile_introductions revisions'
@@ -178,6 +183,8 @@ permissions:
   - 'revert region_profile_introductions revisions'
   - 'revert success_story revisions'
   - 'revert workbc_centre revisions'
+  - 'update paragraph content content_accordion_entry'
+  - 'update paragraph content section_accordion'
   - 'use text format full_html'
   - 'view all revisions'
   - 'view bc_profile revisions'

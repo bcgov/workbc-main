@@ -1,5 +1,3 @@
-
-
 #workbc-custom-explore-careers-grid-form {
   display: grid;
   grid-auto-flow: dense;
@@ -52,14 +50,14 @@
       img {
         width: 42px;
         height: 42px;
-        margin:auto;
+        margin: auto;
       }
 
       @include media-breakpoint-down(lg) {
         padding-top: 0px;
         padding-bottom: 0px;
-        padding-left: 10px;
-        padding-right: 15px;
+        padding-left: 20px;
+        padding-right: 10px;
 
         img {
           width: 24px;
@@ -71,14 +69,13 @@
     }
 
     .tile-name {
-      font-size: 1.35vw;
+      font-size: 21px;
       line-height: 125%;
       font-weight: bold;
       margin-top: 10%;
-      margin-bottom: 20px;
+      margin-bottom: 0px;
 
       @include media-breakpoint-down(lg) {
-        font-size: 1.125rem;
         line-height: 1.375rem;
         margin-top: 0px;
         margin-bottom: 0px;
@@ -87,7 +84,6 @@
     }
 
     .tile-areas {
-
       @include media-breakpoint-down(lg) {
         display: none;
       }
@@ -95,6 +91,10 @@
 
     .tile-group {
       margin-top: auto;
+
+      @include media-breakpoint-down(lg) {
+        margin-top: inherit;
+      }
     }
 
     .tile-expand {
@@ -105,6 +105,7 @@
         width: 16px;
         height: 16px;
         margin: auto;
+        cursor: pointer;
       }
 
       @include media-breakpoint-down(lg) {
@@ -119,102 +120,116 @@
     }
   }
 
-  $grid-item-border-top: 8px;
-  $grid-item-border-top-mobile: 5px;
+  $grid-color-orange: #D95700;
+  $grid-color-gold : #E7BF3E;
+  $grid-color-purple: #880364;
+  $grid-color-green : #81B216;
+  $grid-color-blue: #2E6AB0;
+  $grid-color-lite-blue: #009CDE;
 
-  #category-business {
-    border-top: $grid-item-border-top solid #DA5700;
+  div.grid-item {
+    border-top: 8px solid;
     @include media-breakpoint-down(lg) {
       border-top: inherit;
-      border-left: $grid-item-border-top-mobile solid #DA5700;
+      border-left: 3px solid;
+      padding-top: 10px;
+      padding-bottom: 10px;
+    }
+  }
+
+  #category-business {
+    border-top-color: $grid-color-orange;
+
+    @include media-breakpoint-down(lg) {
+      border-left-color: $grid-color-orange;
     }
   }
 
   #category-community-and-support-services {
-    border-top: $grid-item-border-top solid #E7BF3E;
+    border-top-color: $grid-color-gold;
+
     @include media-breakpoint-down(lg) {
-      border-top: inherit;
-      border-left: $grid-item-border-top-mobile solid #E7BF3E;
+      border-left-color: $grid-color-gold;
     }
   }
 
   #category-education {
-    border-top: $grid-item-border-top solid #870264;
+    border-top-color: $grid-color-purple;
+
     @include media-breakpoint-down(lg) {
-      border-top: inherit;
-      border-left: $grid-item-border-top-mobile solid #870264;
+      border-left-color: $grid-color-purple;
     }
   }
 
   #category-engineering-and-architecture {
-    border-top: $grid-item-border-top solid #80B317;
+    border-top-color: $grid-color-green;
+
     @include media-breakpoint-down(lg) {
-      border-top: inherit;
-      border-left: $grid-item-border-top-mobile solid #80B317;
+      border-left-color: $grid-color-green;
     }
   }
 
   #category-hospitality-tourism-and-recreation {
-    border-top: $grid-item-border-top solid #029CDE;
+    border-top-color: $grid-color-lite-blue;
+
     @include media-breakpoint-down(lg) {
-      border-top: inherit;
-      border-left: $grid-item-border-top-mobile solid #029CDE;
+      border-left-color: $grid-color-lite-blue;
     }
   }
 
   #category-labour-and-technical-skills {
-    border-top: $grid-item-border-top solid #2E6AB0;
+    border-top-color: $grid-color-blue;
+
     @include media-breakpoint-down(lg) {
-      border-top: inherit;
-      border-left: $grid-item-border-top-mobile solid #2E6AB0;
+      border-left-color: $grid-color-blue;
     }
   }
 
   #category-law-and-justice {
-    border-top: $grid-item-border-top solid #DA5700;
+    border-top-color: $grid-color-orange;
+
     @include media-breakpoint-down(lg) {
-      border-top: inherit;
-      border-left: $grid-item-border-top-mobile solid #DA5700;
+      border-left-color: $grid-color-orange;
     }
   }
 
   #category-mathematics-and-technology {
-    border-top: $grid-item-border-top solid #029CDE;
+    border-top-color: $grid-color-lite-blue;
+
     @include media-breakpoint-down(lg) {
-      border-top: inherit;
-      border-left: $grid-item-border-top-mobile solid #029CDE;
+      border-left-color: $grid-color-lite-blue;
     }
   }
 
   #category-medicine-and-health {
-    border-top: $grid-item-border-top solid #870264;
+    border-top-color: $grid-color-purple;
+
     @include media-breakpoint-down(lg) {
-      border-top: inherit;
-      border-left: $grid-item-border-top-mobile solid #870264;
+      border-left-color: $grid-color-purple;
     }
   }
 
   #category-performing-creative-and-fine-arts {
-    border-top: $grid-item-border-top solid #80B317;
+    border-top-color: $grid-color-green;
+
     @include media-breakpoint-down(lg) {
-      border-top: inherit;
-      border-left: $grid-item-border-top-mobile solid #80B317;
+      border-left-color: $grid-color-green;
     }
   }
 
   #category-physical-and-natural-sciences {
-    border-top: $grid-item-border-top solid #E7BF3E;
+    border-top-color: $grid-color-gold;
+
     @include media-breakpoint-down(lg) {
-      border-top: inherit;
-      border-left: $grid-item-border-top-mobile solid #E7BF3E;
+      border-left-color: $grid-color-gold;
     }
   }
 
   #category-trades {
-    border-top: $grid-item-border-top solid #2E6AB0;
+    border-top-color: $grid-color-blue;
+
     @include media-breakpoint-down(lg) {
-      border-top: inherit;
-      border-left: $grid-item-border-top-mobile solid #2E6AB0;
+      border-left-color: $grid-color-blue;
     }
   }
 
@@ -246,25 +261,27 @@
       padding: 5px 10px 5px 10px;
       margin-left: 0px;
       margin-right: 0px;
-    }
 
-    .form-type-checkbox:has(input:checked) {
-      border: 2px solid $workbc_palette_dark_secondary;
-      padding: 4px 9px 4px 9px;
+      &:has(input:checked) {
+        border: 2px solid $workbc_palette_dark_secondary;
+        padding: 4px 9px 4px 9px;
+      }
     }
 
     .form-check-input {
       border-color: $workbc_palette_dark_secondary;
       background-clip: padding-box;
-      -webkit-box-shadow: inset 0px 0px 0px 2px $workbc_palette_light_primary;
-      -moz-box-shadow: inset 0px 0px 0px 2px $workbc_palette_light_primary;
       box-shadow: inset 0px 0px 0px 2px $workbc_palette_light_primary;
       margin-right: 5px;
-    }
 
-    .form-check-input:checked {
-      background-image: none;
-      background-color: $workbc_palette_dark_secondary;
+      &:checked {
+        background-image: none;
+        background-color: $workbc_palette_dark_secondary;
+      }
+
+      &:focus {
+        box-shadow: inset 0px 0px 0px 2px $workbc_palette_light_primary, 0 0 0 .25rem rgba($workbc_palette_dark_primary,.25);
+      }
     }
 
     :nth-child(1) {
@@ -290,6 +307,12 @@
     .areas-of-interest-close {
       @include media-breakpoint-down(lg) {
         display: none;
+      }
+
+      .btn-close {
+        position: absolute;
+        top: 15px;
+        right: 15px;
       }
 
       img {
@@ -363,22 +386,29 @@
 .workbc-custom-explore-careers-search-form {
   margin-top: 25px;
   padding-top: 25px;
-  padding-bottom: 100px;
+  padding-bottom: 25px;
   background-color: $workbc_palette_light_secondary;
 
   h2 {
     padding-bottom: 15px;
   }
 
-  .single-row {
-    display: flex;
-    align-items: center;
-    width: 100%;
-  }
-
   .form-item-keywords {
-    width: 80%;
-    flex: 1;
+    margin-top: 0;
+    width: 50%;
+
+    label {
+      margin-bottom: 1em;
+    }
+
+    @include media-breakpoint-down(lg) {
+      width: 100%;
+    }
+}
+
+  .form-submit {
+    margin-top: 10px;
+    margin-left: 0;
   }
 
   @include media-breakpoint-down(lg) {
