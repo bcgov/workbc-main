@@ -72,7 +72,7 @@ resource "aws_ecs_task_definition" "solr" {
 			{
 				name = "SOLR_CORE_NAME2",
 				value = "CareerTrek"
-			}
+			},
 			{
 				name = "SOLR_JAVA_MEM",
 				value = "-Xms4g -Xmx7g"
