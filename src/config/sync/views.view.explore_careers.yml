@@ -900,11 +900,11 @@ display:
                   max: '99999'
                   value: '60000'
               4:
-                title: '$100,000 - $119,000'
+                title: '$100,000 - $119,999'
                 operator: between
                 value:
                   min: '100000'
-                  max: '119000'
+                  max: '119999'
                   value: ''
               5:
                 title: '$120,000 - $140,000'
