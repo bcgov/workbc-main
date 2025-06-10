@@ -1,0 +1,45 @@
+{#
+/**
+ * @file
+ * Theme override for a views exposed form.
+ *
+ * Available variables:
+ * - form: A render element representing the form.
+ *
+ * @see template_preprocess_views_exposed_form()
+ */
+#}
+{% if q is not empty %}
+  {#
+    This ensures that, if clean URLs are off, the 'q' is added first,
+    as a hidden form element, so that it shows up first in the POST URL.
+  #}
+{{ q }}
+{% endif %}
+<div class="form--inline clearfix career-videos-filters">
+  <div class="textfield-search">
+    {{ form.search_api_fulltext }}
+  </div>
+  <span class="total-results">
+  {{ form.header }}
+  </span>
+  <h4>{{ career_trek_config('filter_title') }}</h4>
+  <div class="career-category-search">
+    {{ form.occupational_category_api_field_collapsible }}
+  </div>
+  <div class="education-training-search">
+    {{ form.minimum_education_all_collapsible }}
+  </div>
+  <div class="salary-range-search">
+    {{ form.annual_salary_wrapper }}
+  </div>
+  <div class="skill-required-search">
+    {{ form.skills_collapsible }}
+  </div>
+  <div class="regions-search">
+    {{ form.regions_collapsible }}
+  </div>
+  <div class="exposed-action-button">
+    {{ form.actions }}
+  </div>
+</div>

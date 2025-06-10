@@ -1,0 +1,17 @@
+services:
+  workbc_career_trek.search_api_index_alter_subscriber:
+    class: 'Drupal\workbc_career_trek\EventSubscriber\SearchApiIndexAlterSubscriber'
+    arguments: []
+    tags:
+      - { name: event_subscriber }
+  workbc_career_trek.twig_extension:
+    class: 'Drupal\workbc_career_trek\Twig\CareerTrekTwigExtension'
+    arguments:
+      - '@config.factory'
+      - '@file_url_generator'
+    tags:
+      - { name: twig.extension }
+  workbc_career_trek.title_subscriber:
+    class: Drupal\workbc_career_trek\EventSubscriber\CareerTrekTitleSubscriber
+    tags:
+      - { name: event_subscriber }

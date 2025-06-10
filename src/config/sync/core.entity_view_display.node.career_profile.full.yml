@@ -48,7 +48,7 @@ third_party_settings:
       label: 'Career Profile Tabs'
       parent_name: ''
       region: content
-      weight: 15
+      weight: 17
       format_type: html_element
       format_settings:
         classes: ''
@@ -380,6 +380,11 @@ content:
     third_party_settings: {  }
     weight: 7
     region: content
+  extra_field_occupational_categories:
+    settings: {  }
+    third_party_settings: {  }
+    weight: 15
+    region: content
   extra_field_occupational_interests:
     settings: {  }
     third_party_settings: {  }
@@ -389,6 +394,11 @@ content:
     settings: {  }
     third_party_settings: {  }
     weight: 25
+    region: content
+  extra_field_profile_location:
+    settings: {  }
+    third_party_settings: {  }
+    weight: 14
     region: content
   extra_field_profile_skills:
     settings: {  }
@@ -461,7 +471,7 @@ content:
       view_mode: ajaxembed
       link: false
     third_party_settings: {  }
-    weight: 14
+    weight: 16
     region: content
   field_career_videos_introduction:
     type: text_default
@@ -566,6 +576,11 @@ content:
     weight: 0
     region: content
 hidden:
+  extra_field_career_trek_profile_skills: true
+  extra_field_profile_description: true
+  extra_field_profile_thumbnail: true
+  extra_field_profile_title: true
+  extra_field_profile_video_url: true
   extra_field_search_index_job_titles: true
   extra_field_search_index_noc: true
   extra_field_workbc_page_title: true

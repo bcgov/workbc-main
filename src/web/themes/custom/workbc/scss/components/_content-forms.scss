@@ -1,7 +1,7 @@
 .content-form {
   padding: 40px 30px;
   margin-bottom: 40px;
-  box-shadow: 0 0 10px rgb(219 219 219);
+  box-shadow: 0 0 10px #dbdbdb;
   overflow-x: scroll;
 
   @include media-breakpoint-up(lg) {

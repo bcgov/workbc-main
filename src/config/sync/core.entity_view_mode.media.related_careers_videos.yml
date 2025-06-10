@@ -1,0 +1,11 @@
+uuid: fc7f4a41-076c-4ff7-a4f1-faea9e774025
+langcode: en
+status: true
+dependencies:
+  module:
+    - media
+id: media.related_careers_videos
+label: 'Related Careers Videos'
+description: ''
+targetEntityType: media
+cache: true

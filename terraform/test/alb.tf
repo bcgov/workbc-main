@@ -55,5 +55,11 @@ resource "aws_lb_listener_rule" "host_based_weighted_routing" {
       values = [for sn in var.service_names : "${sn}.*"]
     }
   }
+  condition {
+    http_header {
+      http_header_name = "WorkBC-Source"
+      values = [var.source_token]
+    }
+  }
     
 }

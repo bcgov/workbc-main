@@ -275,6 +275,9 @@
             },
             "drupal/expand_collapse_formatter" : {
                 "Support summary": "patches/drupal/expand_collapse_formatter/support_summary.patch"
+            },
+            "drupal/search_api_solr" : {
+                "Allow parse mode of Career Trek": "patches/drupal/search_api_solr/add_parse_mode.patch"
             }
         }
     }

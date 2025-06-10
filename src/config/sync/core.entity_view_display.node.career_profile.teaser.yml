@@ -78,6 +78,7 @@ hidden:
   extra_field_annual_salary: true
   extra_field_annual_salary_source: true
   extra_field_career_employment_introduction: true
+  extra_field_career_trek_profile_skills: true
   extra_field_career_videos_introduction: true
   extra_field_education_programs: true
   extra_field_employment_growth_rate_forecast: true
@@ -104,8 +105,10 @@ hidden:
   extra_field_labour_market_region_employment_source: true
   extra_field_labour_market_statistics_i: true
   extra_field_minimum_education: true
+  extra_field_occupational_categories: true
   extra_field_occupational_interests: true
   extra_field_occupational_interests_int: true
+  extra_field_profile_location: true
   extra_field_profile_skills: true
   extra_field_salary_info_annual_salary: true
   extra_field_salary_info_annual_salary_note: true

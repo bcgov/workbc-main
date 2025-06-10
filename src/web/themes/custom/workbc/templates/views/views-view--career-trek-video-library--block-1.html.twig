@@ -1,0 +1,145 @@
+{#
+/**
+ * @file
+ * Theme override for a main view template.
+ *
+ * Available variables:
+ * - attributes: Remaining HTML attributes for the element.
+ * - css_name: A CSS-safe version of the view name.
+ * - css_class: The user-specified classes names, if any.
+ * - header: The optional header.
+ * - footer: The optional footer.
+ * - rows: The results of the view query, if any.
+ * - empty: The content to display if there are no rows.
+ * - pager: The optional pager next/prev links to display.
+ * - exposed: Exposed widget form/info to display.
+ * - feed_icons: Optional feed icons to display.
+ * - more: An optional link to the next page of results.
+ * - title: Title of the view, only used when displaying in the admin preview.
+ * - title_prefix: Additional output populated by modules, intended to be
+ *   displayed in front of the view title.
+ * - title_suffix: Additional output populated by modules, intended to be
+ *   displayed after the view title.
+ * - attachment_before: An optional attachment view to be displayed before the
+ *   view content.
+ * - attachment_after: An optional attachment view to be displayed after the
+ *   view content.
+ * - dom_id: Unique id for every view being printed to give unique class for
+ *   JavaScript.
+ *
+ * @see template_preprocess_views_view()
+ */
+#}
+{%
+  set classes = [
+    'view',
+    'view-' ~ id|clean_class,
+    'view-id-' ~ id,
+    'view-display-id-' ~ display_id,
+    dom_id ? 'js-view-dom-id-' ~ dom_id,
+  ]
+%}
+<div{{ attributes.addClass(classes) }}>
+  <div class="career-top-banner">
+    <div class="container-fluid">
+      <div class="row justify-content-between mt-3 align-items-center">
+        <div class="col-8">
+          {% if career_trek_config('logo') %}
+            <img src="{{ career_trek_config('logo') }}" alt="Career Trek Logo">
+          {% endif %}
+        </div>
+        <div class="col-4">
+            <div class="toggle-icon d-flex justify-content-end">
+                <div class="grid active">
+                  {% if career_trek_config('toggle_icon_grid') %}
+                    {{ career_trek_config('toggle_icon_grid') }}
+                  {% endif %}
+                </div>
+                <div class="list">
+                  {% if career_trek_config('toggle_icon_list') %}
+                    {{ career_trek_config('toggle_icon_list') }}
+                  {% endif %}
+                </div>
+            </div>
+        </div>
+      </div>
+    </div>
+  </div>
+  <div class="container-fluid">
+    {{ title_prefix }}
+    {% if title %}
+      {{ title }}
+    {% endif %}
+    {{ title_suffix }}
+    {% if attachment_before %}
+      <div class="attachment attachment-before">
+        {{ attachment_before }}
+      </div>
+    {% endif %}
+    <div class="row"> 
+      <div class="col-xl-3 career-trek-sidebar">
+          {% if exposed %}
+              <div class="responsive-filter-video-btn">
+                  <button>{{ career_trek_config('filter_title') }}</button>
+              </div>
+              <div class="career-trek-sidebar-panel">
+                <div class="career-sidebar-close-btn text-right">
+                  {% if career_trek_config('responsive_toggle_icon') %}
+                    {{ career_trek_config('responsive_toggle_icon') }}
+                  {% endif %}
+                </div>
+                <div class="view-filters">
+                    {{ exposed|merge({'header': header}) }}
+                    {{ drupal_block('simple_block:find_resources_for_educators') }}
+                </div>
+              </div>
+          {% endif %}
+      </div>
+      <div class="col-xl-9">
+          {% if search_view %}
+            {% set formatted_values = search_view|join(', ') %}
+            <div class="search-text">
+              <h2>{{ career_trek_config('searching_text') }} {{ formatted_values }}</h2>
+            </div>
+          {% else %}
+            <h2>{{ career_trek_config('in_demand_title') }}</h2>
+            {{ drupal_entity('block', 'workbc_views_block__career_trek_video_library_block_2') }}
+          {% endif %}
+          {% if rows %}
+            {% if not search_view %}
+              <h2>{{ career_trek_config('latest_career_title') }}</h2>
+            {% endif %}
+
+              <div class="view-content result-view">
+              {{ rows }}
+              </div>
+          {% elseif empty %}
+              <div class="view-empty">
+              {{ empty }}
+              </div>
+          {% endif %}
+          {% if pager %}
+            {{ pager }}
+          {% endif %}
+      </div>
+    </div>
+    {% if attachment_after %}
+      <div class="attachment attachment-after">
+        {{ attachment_after }}
+      </div>
+    {% endif %}
+    {% if more %}
+      {{ more }}
+    {% endif %}
+    {% if footer %}
+      <div class="view-footer">
+        {{ footer }}
+      </div>
+    {% endif %}
+    {% if feed_icons %}
+      <div class="feed-icons">
+        {{ feed_icons }}
+      </div>
+    {% endif %}
+  </div>
+</div>

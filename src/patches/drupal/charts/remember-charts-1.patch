@@ -18,4 +18,4 @@ index 5307bdb..3a02495 100755
 +      Drupal.googleCharts.charts[chartId] = chart;
      };
    };
- 
+   

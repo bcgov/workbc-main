@@ -26,6 +26,20 @@ back-to-top:
     - core/drupal
     - core/jquery
 
+view-switcher:
+  js:
+    js/view-switcher.js: {}
+  dependencies:
+    - core/drupal
+    - core/jquery
+
+icon-append:
+  js:
+    js/icon-append.js: {}
+  dependencies:
+    - core/drupal
+    - core/jquery
+
 mobile-nav:
   js:
     js/mobile-nav.js: {}
@@ -46,6 +60,35 @@ related-topics-carousel:
     - core/jquery
     - core/once
     - workbc/swiper-js
+
+video-banner-carousel:
+  js:
+    js/video-banner-carousel.js: {}
+  dependencies:
+    - core/drupal
+    - core/jquery
+    - core/once
+    - workbc/swiper-js
+
+career-inner-video:
+  js:
+    js/career-inner-video.js: {}
+  dependencies:
+    - core/drupal
+    - core/jquery
+    - core/once
+
+range-slider:
+  css:
+    theme:
+      css/jquery.range.css: {}
+  js:
+    js/jquery.range.js: {}
+    js/range-slider.js: {}
+  dependencies:
+    - core/drupal
+    - core/jquery
+    - core/once
 
 scrollbooster:
   js:
@@ -86,6 +129,10 @@ swiper-js:
 google-charts-redraw:
   js:
     js/google-charts-redraw.js: {}
+
+accordion-scroll:
+  js:
+    js/accordion-scroll.js: {}
 
 interactive-map:
   js:

@@ -1,0 +1,10 @@
+uuid: 798e052a-b571-45a4-b7d7-afe42bd6554a
+langcode: en
+status: true
+dependencies: {  }
+id: section_icons_1_3
+label: 'Section: Icons 1/3'
+icon_uuid: null
+icon_default: null
+description: ''
+behavior_plugins: {  }

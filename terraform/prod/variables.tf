@@ -5,6 +5,11 @@ variable "target_env" {
   default = "prod"
 }
 
+variable "source_token" {
+  type      = string
+  sensitive = true
+}
+
 #variable "target_aws_account_id" {
 #  description = "AWS workload account id"
 #}
