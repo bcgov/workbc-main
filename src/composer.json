@@ -17,22 +17,6 @@
         {
             "type": "package",
             "package": {
-                "name": "necyberteam/webform_submission_search_api",
-                "version": "1.0.0",
-                "type": "drupal-module",
-                "extra": {
-                    "installer-name": "webform_submission_search_api"
-                },
-                "source": {
-                    "url": "https://github.com/necyberteam/webform_submission_search_api",
-                    "type": "git",
-                    "reference": "ebe44923cdd3e1a8a0e51ee42f5b90952e374442"
-                }
-            }
-        },
-        {
-            "type": "package",
-            "package": {
                 "name": "google/charts",
                 "version": "45",
                 "type": "drupal-library",
@@ -187,7 +171,6 @@
         "google/charts": "45",
         "jjj/chosen": "2.2.1",
         "kint-php/kint": "^5.1.0",
-        "necyberteam/webform_submission_search_api": "^1.0",
         "phpoffice/phpspreadsheet": "^3.2",
         "ulrichsg/getopt-php": "^4.0",
         "vlucas/phpdotenv": "^5.1",
