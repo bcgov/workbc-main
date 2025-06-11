@@ -801,7 +801,7 @@ display:
             identifier: field_teer_value
             required: false
             remember: true
-            multiple: true
+            multiple: false
             remember_roles:
               anonymous: anonymous
               authenticated: authenticated
