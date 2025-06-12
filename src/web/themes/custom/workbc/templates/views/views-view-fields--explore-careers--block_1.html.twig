@@ -29,15 +29,19 @@
  * @see template_preprocess_views_view_fields()
  */
 #}
-{# {{ dump(fields) }} #}
-
-
 <div class="card-left">
-  <div>
-    <h3>{{ fields['title'].content }}</h3>
+  <h3>{{ fields['title'].content }}</h3>
+  <div class="career-profile-titles">
+    <h6>Example job titles:</h6>
+    {{ fields['field_job_titles_illustrative'].content }}
   </div>
-  <div class="career-profile-link">
-    {{ fields['view_node'].content }}
+  <div class="career-profile-buttons">
+    <div class="career-profile-link">
+      {{ fields['view_node'].content }}
+    </div>
+    <div class="career-profile-titles-toggle">
+      <a class="action-link">Show job titles</a>
+    </div>
   </div>
 </div>
 

@@ -238,11 +238,6 @@
       flex-direction: column;
     }
 
-    a {
-      @include btn-blue;
-      padding: 10px 35px;
-    }
-
     .card-left {
       width: 50%;
       margin-right: 10px;
@@ -253,8 +248,47 @@
         width: 100%;
       }
 
-      .career-profile-link {
+      .career-profile-titles {
+        margin-top: .75rem;
+        display: none;
+
+        h6 {
+          margin-bottom: .75rem;
+        }
+
+        ul {
+          display: flex;
+          flex-direction: row;
+          flex-wrap: wrap;
+          width: 100%;
+
+          li {
+            width: calc(100% / 2.2);
+          }
+        }
+      }
+
+      .career-profile-buttons {
         margin-top: auto;
+      }
+
+      .career-profile-titles-toggle {
+        display: inline-block;
+
+        a {
+          padding-left: 35px;
+          vertical-align: middle;
+          cursor: pointer;
+        }
+      }
+
+      .career-profile-link {
+        display: inline-block;
+
+        a {
+          @include btn-blue;
+          padding: 10px 35px;
+        }
 
         @include media-breakpoint-down(lg) {
           display: none;

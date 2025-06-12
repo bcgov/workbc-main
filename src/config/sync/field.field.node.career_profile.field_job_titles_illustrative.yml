@@ -1,0 +1,19 @@
+uuid: 2771638c-58b1-4366-bca9-c27bb827fac1
+langcode: en
+status: true
+dependencies:
+  config:
+    - field.storage.node.field_job_titles_illustrative
+    - node.type.career_profile
+id: node.career_profile.field_job_titles_illustrative
+field_name: field_job_titles_illustrative
+entity_type: node
+bundle: career_profile
+label: '[SSOT] Job Titles (Illustrative)'
+description: 'AUTOMATICALLY POPULATED FROM SSOT.'
+required: false
+translatable: false
+default_value: {  }
+default_value_callback: ''
+settings: {  }
+field_type: string

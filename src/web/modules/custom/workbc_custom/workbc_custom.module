@@ -765,11 +765,12 @@ function workbc_custom_search_api_query_explore_careers_search_alter($query) {
  * Implements hook_page_attachments_alter().
  */
 function workbc_custom_page_attachments_alter(array &$attachments) {
-  // Inject GDX Feedback Component for specific pages.
   $path = \Drupal::service('path.current')->getPath();
   $alias = \Drupal::service('path_alias.manager')->getAliasByPath($path);
   $config = \Drupal::config('workbc_custom.settings');
   $paths = \Drupal::config('workbc')->get('paths');
+
+  // Inject GDX Feedback Component for specific pages.
   if ($config->get('show_feedback') && in_array($alias, [
     $paths['find_jobs'],
     $paths['online_employment_services']
@@ -787,8 +788,13 @@ function workbc_custom_page_attachments_alter(array &$attachments) {
       ]
     ];
   }
-  if ($alias == $paths['career_exploration']) {
+
+  // Inject Career Exploration scripts for specific pages.
+  if ($alias === $paths['career_exploration']) {
     $attachments['#attached']['library'][] = 'workbc_custom/explore-grid';
+  }
+  if ($alias === $paths['career_exploration_search']) {
+    $attachments['#attached']['library'][] = 'workbc_custom/explore-careers-search';
   }
 }
 
