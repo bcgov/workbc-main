@@ -1068,7 +1068,7 @@ display:
         options:
           offset: 0
           pagination_heading_level: h4
-          items_per_page: 12
+          items_per_page: 15
           total_pages: null
           id: 0
           tags:
@@ -1084,9 +1084,8 @@ display:
             offset_label: Offset
           views_infinite_scroll:
             button_text: 'Load More'
-            automatically_load_content: true
-            initially_load_all_pages: false
-            initial: 12
+            automatically_load_content: false
+            initially_load_all_pages: true
       exposed_form:
         type: bef
         options:
@@ -3991,3 +3990,4 @@ display:
         - 'config:field.storage.node.field_career_videos'
         - 'config:search_api.index.career_profile_index_sub'
         - 'search_api_list:career_profile_index_sub'
+
