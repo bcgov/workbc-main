@@ -269,6 +269,7 @@ $config['search_api.server.solr'] = [
 ];
 $config['search_api.server.solr_search'] = [
   'id' => 'solr_search',
+  'status' => false,
   'name' => 'Solr (Career Trek)',
   'description' => '',
   'backend' => 'search_api_solr',
