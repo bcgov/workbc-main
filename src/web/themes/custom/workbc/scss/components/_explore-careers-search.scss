@@ -12,6 +12,10 @@
 .view-id-explore_careers {
   .explore-careers-filter {
     background-color: $workbc_palette_light_secondary;
+
+    input.chosen-search-input::placeholder {
+      color: $form-select-color;
+    }
   }
 
   .view-header {

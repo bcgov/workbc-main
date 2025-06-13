@@ -192,18 +192,18 @@ function workbc_custom_views_pre_render(ViewExecutable $view) {
 
   // TODO: Don't re-read the schema for SSOT at each rendering.
   if ($view->id() == 'high_opportunity_occupations') {
-    $schema = ssotSchema("");
+    $schema = ssotSchema('');
     $range = ssotParseDateRange($schema, 'high_opportunity_occupations', 'openings_forecast');
     if (preg_match('/(\d{4})$/', $range, $end_of_range)) {
-      $view->field['openings_forecast']->options['label'] = "Job Openings to " . $end_of_range[0];
+      $view->field['openings_forecast']->options['label'] = t('Job Openings to @range', ['@range' => $end_of_range[0]]);
     } else {
-      $view->field['openings_forecast']->options['label'] = "Job Openings";
+      $view->field['openings_forecast']->options['label'] = t('Job Openings');
     }
   }
 
   // TODO: Don't re-read the schema for SSOT at each rendering.
   if ($view->id() == 'industry_profiles') {
-    $schema = ssotSchema("");
+    $schema = ssotSchema('');
     $datestr = ssotParseDateRange($schema, 'labour_force_survey_industry', 'yoy_employment_growth_pct');
     $view->field['industry_profile_job_growth_rate']->options['label'] = "Job Growth Rate<p class='ssot-years'>(" . $datestr . ")</p>";
     $datestr = ssotParseDateRange($schema, 'labour_force_survey_industry', 'yoy_change_employment');
@@ -267,7 +267,7 @@ function workbc_custom_form_alter(&$form, FormStateInterface $form_state, $form_
 
   if ($form_id === 'node_blog_edit_form') {
     if (isset($form['body']['widget'][0]['summary']['#description'])) {
-      $form['body']['widget'][0]['summary']['#description'] = "Leave blank to use Related Topics Blurb text.";
+      $form['body']['widget'][0]['summary']['#description'] = t('Leave blank to use Related Topics Blurb text.');
     }
   }
 }
@@ -282,7 +282,7 @@ function workbc_custom_form_node_form_alter(&$form, FormStateInterface $form_sta
   if (isset($form['field_content_group']) && !$user->hasPermission('bypass content groups')) {
     $form['field_content_group']['#access'] = false;
     if (empty($form['field_content_group']['widget']['#default_value'])) {
-      $form['field_content_group']['widget']['#default_value'] = $user->get("field_content_group")->target_id;
+      $form['field_content_group']['widget']['#default_value'] = $user->get('field_content_group')->target_id;
     }
   }
 
@@ -299,7 +299,7 @@ function workbc_custom_form_views_exposed_form_alter(&$form, FormStateInterface 
     }
 
     if (isset($form['teer'])) {
-      $form['teer']['#options']['All'] = 'All';
+      $form['teer']['#options']['All'] = t('All');
     }
 
     if (isset($form['occupational_interest'])) {
@@ -311,7 +311,7 @@ function workbc_custom_form_views_exposed_form_alter(&$form, FormStateInterface 
     }
 
     if (isset($form['wage_rate_median'])) {
-      $form['wage_rate_median']['#options']['All'] = 'All';
+      $form['wage_rate_median']['#options']['All'] = t('All');
     }
 
     array_unshift($form['#submit'], 'hoo_multiselect_form_submit');
@@ -344,14 +344,14 @@ function workbc_custom_form_views_exposed_form_alter(&$form, FormStateInterface 
 
     if ($hide_category) {
       $form['keyword_search']['#access'] = false;
-
       $form['term_node_tid_depth'] = [
         '#type' => 'hidden',
         '#value' => $category_value,
       ];
-      $form_state->getStorage()['view']->getDisplay()->setOption('title', 'Results for ' . array_column(array_filter($categories, function ($term) use($category_value) {
-        return $term->tid == $category_value;
-      }), 'name')[0]);
+      $form_state->getStorage()['view']->getDisplay()->setOption('title', t('Results for @term', [
+        '@term' => array_column(array_filter($categories, function ($term) use($category_value) {
+          return $term->tid == $category_value;
+        }), 'name')[0]]));
     }
     else {
       $uri = \Drupal\Component\Utility\UrlHelper::parse(\Drupal::request()->getRequestUri());
@@ -369,17 +369,19 @@ function workbc_custom_form_views_exposed_form_alter(&$form, FormStateInterface 
     $form['field_epbc_categories_target_id']['#chosen'] = true;
     $form['field_epbc_categories_target_id']['#prefix'] = '<div id="category-container">';
     $form['field_epbc_categories_target_id']['#suffix'] = '</div>';
-    $form['field_epbc_categories_target_id']['#disabled'] = empty($category_value);
+    $form['field_epbc_categories_target_id']['#disabled'] = $category_value === 'All';
     $form['field_epbc_categories_target_id']['#options'] = array_column(array_filter($terms, function($t) use ($category_value) {
       return $t->parents[0] == $category_value;
     }), 'name', 'tid');
+    $form['field_epbc_categories_target_id']['#attributes']['data-placeholder'] =
+      $form['field_epbc_categories_target_id']['#disabled'] ? 'Choose an occupational category first' : 'All';
     $form['field_epbc_categories_target_id']['#default_value'] =
       $input['field_epbc_categories_target_id'] = array_filter($interest_value, function($t) use($form) {
         return in_array($t, array_keys($form['field_epbc_categories_target_id']['#options']));
       });
 
     // Other customizations.
-    $form['field_teer_value']['#options']['All'] = 'All';
+    $form['field_teer_value']['#options']['All'] = t('All');
     $form['field_annual_salary_value']['#chosen'] = true;
 
     // Capture the reset button to maintain the hide_category argument.
@@ -421,13 +423,13 @@ function hoo_multiselect_form_submit(array &$form, FormStateInterface &$form_sta
     $selections = $form['occupational_interest']['#value'];
     $all = empty($selections);
     foreach ($selections as $selection) {
-      if ($selection == "0") {
+      if ($selection == '0') {
         $all = true;
       }
     }
     if ($all) {
-      $form['occupational_interest']['#value'] = [0 => "0"];
-      $form_state->setValue('occupational_interest', [0 => "0"]);
+      $form['occupational_interest']['#value'] = [0 => '0'];
+      $form_state->setValue('occupational_interest', [0 => '0']);
     }
   }
 }
@@ -448,7 +450,7 @@ function workbc_custom_node_access(NodeInterface $node, $op, AccountInterface $a
 
   // we only allow update/delete of node if user is a member of the same content group
   // as the node or the user has "bypass content groups" permission.
-  if ($op == "update" || $op == "delete") {
+  if ($op === 'update' || $op === 'delete') {
     if (!$account->hasPermission("bypass content groups")) {
       $user = \Drupal\user\Entity\User::load($account->id());
       if (!isset($user->field_content_group->target_id) ||
@@ -477,7 +479,7 @@ function workbc_custom_node_presave(NodeInterface $entity) {
     }
   }
 
-  if ($entity->bundle() == "blog" || $entity->bundle() == "news") {
+  if ($entity->bundle() === 'blog' || $entity->bundle() === 'news') {
     if (!is_null($entity->get('field_published_date')->value)) {
       $update = strtotime($entity->get('field_published_date')->value);
       $entity->get('published_date')->setValue($update);
@@ -492,7 +494,7 @@ function workbc_custom_user_access(EntityInterface $entity, $operation, AccountI
 
   // users without "bypass content groups" permission can only update/delete
   // user accounts if they are members of the same content group
-  if ($operation == "update" || $operation == "delete") {
+  if ($operation === 'update' || $operation === 'delete') {
     if (!\Drupal::currentUser()->hasPermission('bypass content groups')) {
       $admin = \Drupal\user\Entity\User::load(\Drupal::currentUser()->id());
       if (!isset($admin->field_content_group->target_id) ||
@@ -515,7 +517,7 @@ function workbc_custom_entity_operation_alter(array &$operations, EntityInterfac
 
   // remove role operation, roles can be changed via edit tab.
   // this operation is unnecessary and gives certain users access when they shouldn't
-  if ($entity->getEntityTypeId() == "user") {
+  if ($entity->getEntityTypeId() === 'user') {
     if (isset($operations['role_delegation'])) {
       unset($operations['role_delegation']);
     }
