@@ -16,6 +16,20 @@
     input.chosen-search-input::placeholder {
       color: $form-select-color;
     }
+
+    #edit-field-teer-value,
+    .chosen-container-multi {
+      padding-top: 8px;
+      padding-bottom: 7px;
+
+      .chosen-choices {
+        border: 0;
+      }
+
+      .chosen-drop {
+        left: 0;
+      }
+    }
   }
 
   .view-header {
