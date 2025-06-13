@@ -269,6 +269,7 @@ $config['search_api.server.solr'] = [
 ];
 $config['search_api.server.solr_search'] = [
   'id' => 'solr_search',
+  'status' => false,
   'name' => 'Solr (Career Trek)',
   'description' => '',
   'backend' => 'search_api_solr',
@@ -316,6 +317,7 @@ $config['search_api.server.solr_search'] = [
     'suppress_missing_languages' => false
   ],
 ];
+$config['search_api.index.career_profile_index_sub']['status'] = false;
 
 // Enable/disable features
 $config['workbc']['features']['ssot_upload'] = TRUE;

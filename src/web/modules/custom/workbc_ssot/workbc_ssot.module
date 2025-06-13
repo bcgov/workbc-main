@@ -51,7 +51,7 @@ const SSOT_DATASETS = [
   'skills' => [],
   'titles' => [
     'noc_key' => 'noc',
-    'fields' => 'noc,commonjobtitle'
+    'fields' => 'noc,commonjobtitle,illustrative'
   ],
   'lmo_report_2024_job_openings_10y' => [],
   'lmo_report_2024_job_openings_annual' => [],

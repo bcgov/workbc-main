@@ -18,6 +18,7 @@ dependencies:
     - field.field.node.career_profile.field_insights_from_industry
     - field.field.node.career_profile.field_introductions
     - field.field.node.career_profile.field_job_titles
+    - field.field.node.career_profile.field_job_titles_illustrative
     - field.field.node.career_profile.field_metatag_description
     - field.field.node.career_profile.field_noc
     - field.field.node.career_profile.field_noc_2016
@@ -477,6 +478,14 @@ content:
       link_to_entity: false
     third_party_settings: {  }
     weight: 28
+    region: content
+  field_job_titles_illustrative:
+    type: string
+    label: above
+    settings:
+      link_to_entity: false
+    third_party_settings: {  }
+    weight: 86
     region: content
   field_noc:
     type: string
