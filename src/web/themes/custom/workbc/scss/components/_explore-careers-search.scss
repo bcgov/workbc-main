@@ -224,14 +224,14 @@
     background-color: $workbc_palette_light_primary;
     padding: 10px 64px;
 
-    @include media-breakpoint-down(lg) {
-      padding: 10px 10px;
+    @include media-breakpoint-down(sm) {
+      padding: 10px 15px;
     }
   }
 
   .form-submit {
-    @include media-breakpoint-down(lg) {
-      padding: 10px 10px;
+    @include media-breakpoint-down(sm) {
+      padding: 10px 15px;
     }
   }
 
@@ -286,6 +286,10 @@
         padding-left: 35px;
         vertical-align: middle;
         cursor: pointer;
+
+        @include media-breakpoint-down(sm) {
+          padding-left: 10px;
+        }
       }
     }
 
@@ -295,6 +299,10 @@
       a {
         @include btn-blue;
         padding: 10px 35px;
+
+        @include media-breakpoint-down(sm) {
+          padding: 10px 15px;
+        }
       }
     }
 
