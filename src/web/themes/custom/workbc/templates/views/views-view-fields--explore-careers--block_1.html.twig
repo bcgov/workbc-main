@@ -29,6 +29,7 @@
  * @see template_preprocess_views_view_fields()
  */
 #}
+{% set hoo = row._entity.field_region_hoo.0.value  %}
 <div class="card-left">
   <h3>{{ fields['title'].content }}</h3>
 
@@ -49,6 +50,13 @@
 </div>
 
 <div class="card-right">
+  {% if hoo == "1" %}
+  <div class="career-profile-hoo">
+    <img src="/themes/custom/workbc/assets/images/hoo-icon.svg" alt="High opportunity occupation">
+    High opportunity occupation
+  </div>
+  {% endif %}
+
   <div class="card-stats-container">
     <img src="/{{ directory }}/assets/images/profile-icon-envelope.svg" alt="" title="" />
     <div class="card-stats">
@@ -72,6 +80,13 @@
   </div>
 
   <div class="card-left-or-right">
+    {% if hoo == "1" %}
+    <div class="career-profile-hoo">
+      <img src="/themes/custom/workbc/assets/images/hoo-icon.svg" alt="High opportunity occupation">
+      High opportunity occupation
+    </div>
+    {% endif %}
+
     <div class="career-profile-titles">
       <h6>Example job titles:</h6>
       {{ fields['field_job_titles_illustrative'].content }}

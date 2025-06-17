@@ -23,6 +23,7 @@ dependencies:
     - field.field.node.career_profile.field_metatag_description
     - field.field.node.career_profile.field_noc
     - field.field.node.career_profile.field_noc_2016
+    - field.field.node.career_profile.field_region_hoo
     - field.field.node.career_profile.field_region_openings
     - field.field.node.career_profile.field_related_careers
     - field.field.node.career_profile.field_resources
@@ -593,6 +594,7 @@ hidden:
   field_introductions: true
   field_job_titles_illustrative: true
   field_metatag_description: true
+  field_region_hoo: true
   field_region_openings: true
   field_resources: true
   field_scheduled_publish: true
