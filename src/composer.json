@@ -75,6 +75,7 @@
         "drupal/address": "^2.0",
         "drupal/admin_toolbar": "^3.5, !=3.5.2",
         "drupal/advagg": "^6.0@alpha",
+        "drupal/ai_agents": "^1.1",
         "drupal/ai_provider_ollama": "^1.1@beta",
         "drupal/ai_vdb_provider_postgres": "^1.0@alpha",
         "drupal/auto_username": "^1.2",
@@ -280,9 +281,6 @@
             },
             "drupal/search_api_solr" : {
                 "Allow parse mode of Career Trek": "patches/drupal/search_api_solr/add_parse_mode.patch"
-            },
-            "drupal/ai_vdb_provider_postgres": {
-                "Add subquery alias to support older versions of Postgres": "patches/drupal/ai_vdb_provider_postgres/3526172-1.patch"
             }
         }
     }
