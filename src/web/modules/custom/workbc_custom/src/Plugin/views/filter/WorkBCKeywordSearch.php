@@ -127,7 +127,12 @@ class WorkBCKeywordSearch extends StringFilter {
     $processor = \Drupal::getContainer()
       ->get('search_api.plugin_helper')
       ->createProcessorPlugin($index, 'highlight', [
+        'prefix' => '<strong>',
+        'suffix' => '</strong>',
         'highlight_partial' => true,
+        'excerpt_length' => 10000,
+        'excerpt_always' => true,
+        'exclude_fields' => ['title', 'field_noc']
       ]);
     $index->addProcessor($processor);
     $query = $index->query();
@@ -165,10 +170,20 @@ class WorkBCKeywordSearch extends StringFilter {
       if (preg_match('/entity:node\/(\d+):/', $item->getId(), $match)) {
         return [
           'nid' => $match[1],
-          'excerpt' => $item->getExcerpt()
+          'excerpts' => $this->parseExcerpt($item->getExcerpt())
         ];
       }
       return false;
     }, $results ? $results->getResultItems() : [])));
+  }
+
+  private function parseExcerpt($excerpt) {
+    $excerpts = array_map(function ($e) {
+      return trim($e);
+    }, array_filter(explode('…', $excerpt), function ($e) {
+      return str_contains($e, '<strong>');
+    }));
+    sort($excerpts);
+    return $excerpts;
   }
 }

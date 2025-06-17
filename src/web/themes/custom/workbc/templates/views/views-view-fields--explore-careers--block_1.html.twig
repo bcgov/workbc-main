@@ -30,13 +30,19 @@
  */
 #}
 {% set hoo = row._entity.field_region_hoo.0.value  %}
+{% set excerpts = view.search_api_excerpts[row.nid] %}
 <div class="card-left">
   <h3>{{ fields['title'].content }}</h3>
 
   <div class="card-left-or-right">
     <div class="career-profile-titles">
+    {% if excerpts %}
+      <h6>Matching job titles:</h6>
+      {{ excerpts }}
+    {% else %}
       <h6>Example job titles:</h6>
       {{ fields['field_job_titles_illustrative'].content }}
+    {% endif %}
     </div>
     <div class="career-profile-buttons">
       <div class="career-profile-link">
@@ -88,8 +94,13 @@
     {% endif %}
 
     <div class="career-profile-titles">
+    {% if excerpts %}
+      <h6>Matching job titles:</h6>
+      {{ excerpts }}
+    {% else %}
       <h6>Example job titles:</h6>
       {{ fields['field_job_titles_illustrative'].content }}
+    {% endif %}
     </div>
     <div class="career-profile-buttons">
       <div class="career-profile-link">

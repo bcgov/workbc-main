@@ -191,7 +191,7 @@ function workbc_custom_views_data_alter(array &$data) {
 function workbc_custom_views_pre_render(ViewExecutable $view) {
 
   // TODO: Don't re-read the schema for SSOT at each rendering.
-  if ($view->id() == 'high_opportunity_occupations') {
+  if ($view->id() === 'high_opportunity_occupations') {
     $schema = ssotSchema('');
     $range = ssotParseDateRange($schema, 'high_opportunity_occupations', 'openings_forecast');
     if (preg_match('/(\d{4})$/', $range, $end_of_range)) {
@@ -202,7 +202,7 @@ function workbc_custom_views_pre_render(ViewExecutable $view) {
   }
 
   // TODO: Don't re-read the schema for SSOT at each rendering.
-  if ($view->id() == 'industry_profiles') {
+  if ($view->id() === 'industry_profiles') {
     $schema = ssotSchema('');
     $datestr = ssotParseDateRange($schema, 'labour_force_survey_industry', 'yoy_employment_growth_pct');
     $view->field['industry_profile_job_growth_rate']->options['label'] = "Job Growth Rate<p class='ssot-years'>(" . $datestr . ")</p>";
@@ -212,6 +212,24 @@ function workbc_custom_views_pre_render(ViewExecutable $view) {
     $view->field['industry_profile_total_employment']->options['label'] = "Total Employment<p class='ssot-years'>(" . $datestr . ")</p>";
   }
 
+  if ($view->id() === 'explore_careers') {
+    if (isset($view->search_api_results)) {
+      $view->search_api_excerpts = array_combine(array_column($view->search_api_results, 'nid'), array_column($view->search_api_results, 'excerpts'));
+      array_walk($view->search_api_excerpts, function(&$excerpts) {
+        $excerpts = [
+          '#theme' => 'item_list',
+          '#items' => array_map(function ($excerpt) {
+            return [
+              '#markup' => $excerpt,
+            ];
+          }, array_slice($excerpts, 0, 12))
+        ];
+      });
+    }
+    else {
+      $view->search_api_excerpts = [];
+    }
+  }
 }
 /**
  * Implements hook_views_query_alter().
