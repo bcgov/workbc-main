@@ -216,7 +216,7 @@ function workbc_custom_views_pre_render(ViewExecutable $view) {
     if (isset($view->search_api_results)) {
       $view->search_api_excerpts = array_combine(array_column($view->search_api_results, 'nid'), array_column($view->search_api_results, 'excerpts'));
       array_walk($view->search_api_excerpts, function(&$excerpts) {
-        $excerpts = [
+        $excerpts = empty($excerpts) ? false : [
           '#theme' => 'item_list',
           '#items' => array_map(function ($excerpt) {
             return [
