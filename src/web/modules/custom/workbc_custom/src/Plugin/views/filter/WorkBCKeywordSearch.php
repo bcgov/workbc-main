@@ -172,6 +172,7 @@ class WorkBCKeywordSearch extends StringFilter {
     $doc = $item->getExtraData('search_api_solr_document');
     $highlight = $results->getExtraData('search_api_solr_response')['highlighting'];
     $key = $doc['hash'] . '-' . $item->getIndex()->id() . '-' . $item->getId();
+    if (!array_key_exists('tcngramm_X3b_en_field_job_titles', $highlight[$key])) return [];
     if (in_array('explore_careers_search_modified', $query->getTags())) {
       // In case it's our "safe" use case, make sure the number of highlighted keywords match the number of query keywords.
       return array_filter($highlight[$key]['tcngramm_X3b_en_field_job_titles'], function ($title) use ($query) {
