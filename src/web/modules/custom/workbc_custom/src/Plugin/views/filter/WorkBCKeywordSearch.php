@@ -135,7 +135,9 @@ class WorkBCKeywordSearch extends StringFilter {
     $query->setParseMode($parse_mode);
 
     // Set fulltext search keywords and fields.
-    $query->keys($this->value);
+    // Convert curly quotations to regular quotations.
+    // https://stackoverflow.com/a/6610752/209184
+    $query->keys(iconv('UTF-8', 'ASCII//TRANSLIT', $this->value));
     $query->setFulltextFields(['title', 'field_noc', 'field_job_titles']);
 
     // Add sorting and limiting.
