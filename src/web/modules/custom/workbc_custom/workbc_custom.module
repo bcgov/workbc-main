@@ -231,6 +231,7 @@ function workbc_custom_views_pre_render(ViewExecutable $view) {
     }
   }
 }
+
 /**
  * Implements hook_views_query_alter().
  */
@@ -778,6 +779,11 @@ function workbc_custom_search_api_query_explore_careers_search_alter($query) {
   // ONLY WORKS WHEN THERE ARE NO SPECIAL QUERY CHARS!
   if (!preg_match('/"|\(|\)|\sAND\s|\sOR\s|&&|\|\||\+/i', $keys)) {
     $keys = preg_replace('/\b(\w+)\b/i', '+$1', $keys);
+    $tags = &$query->getTags();
+
+    // Set a tag because SearchApiSolrEventSubscriber will further modify this query to adjust field_job_titles.
+    // We can't do it here because the Solr query hasn't been generated yet - we need to wait for POST_CONVERT_QUERY event.
+    $tags['explore_careers_search_modified'] = 'explore_careers_search_modified';
   }
 }
 
