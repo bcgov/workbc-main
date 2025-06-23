@@ -202,5 +202,17 @@ class SsotDownloader extends QueueWorkerBase implements ContainerFactoryPluginIn
 
   private function update_titles($endpoint, $entries, &$career) {
     $career->set('field_job_titles', array_column($entries, 'commonjobtitle'));
+    $career->set('field_job_titles_illustrative', array_column(array_filter($entries, function($title) {
+      return !empty($title['illustrative']);
+    }), 'commonjobtitle'));
+  }
+
+  private function update_high_opportunity_occupations($endpoint, $entries, &$career) {
+    $openings = array_fill(0, 8, 0);
+    $regions = ssotRegionIds();
+    foreach ($entries as $entry) {
+      $openings[$regions[$entry['region']]] = 1;
+    }
+    $career->set('field_region_hoo', $openings);
   }
 }

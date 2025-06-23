@@ -1,0 +1,20 @@
+uuid: ef8384a7-052c-4b6a-ba01-64342b7f952a
+langcode: en
+status: true
+dependencies:
+  module:
+    - node
+id: node.field_region_hoo
+field_name: field_region_hoo
+entity_type: node
+type: integer
+settings:
+  unsigned: false
+  size: normal
+module: core
+locked: false
+cardinality: 8
+translatable: true
+indexes: {  }
+persist_with_no_fields: false
+custom_storage: false

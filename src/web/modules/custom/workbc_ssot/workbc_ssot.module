@@ -35,7 +35,10 @@ const SSOT_DATASETS = [
     'fields' => 'noc_2021,category,interest',
     'endpoint' => 'fyp_categories_interests_nocs'
   ],
-  'high_opportunity_occupations' => [],
+  'high_opportunity_occupations' => [
+    'noc_key' => 'noc',
+    'fields' => 'noc,region'
+  ],
   'industries' => [],
   'industry_outlook' => [],
   'labour_force_survey_industry' => [],
@@ -51,7 +54,8 @@ const SSOT_DATASETS = [
   'skills' => [],
   'titles' => [
     'noc_key' => 'noc',
-    'fields' => 'noc,commonjobtitle'
+    'fields' => 'noc,commonjobtitle,illustrative',
+    'order' => 'noc.asc,commonjobtitle.asc'
   ],
   'lmo_report_2024_job_openings_10y' => [],
   'lmo_report_2024_job_openings_annual' => [],
@@ -374,10 +378,12 @@ function ssotCareerProfile($noc) {
     $data['census'] = querySSoT('census?noc=eq.' . $noc)[0];
     $data['education'] = querySSoT('education?noc=eq.' . $noc)[0];
     $data['skills'] = querySSoT('skills?noc=eq.' . $noc);
+    // TODO Only retrieve record for british_columbia and adjust CareerProfileHighOpportunityOccupation accordingly.
     $data['high_opportunity_occupations'] = querySSoT('high_opportunity_occupations?noc=eq.' . $noc);
     $data['occupational_interests'] = querySSoT('occupational_interests?noc=eq.' . $noc);
     $data['titles'] = querySSoT('titles?order=commonjobtitle.asc&noc=eq.' . $noc);
     $data['epbc_nocs'] = querySSoT('fyp_categories_interests_sub_nocs?noc_2021=eq.' . $noc);
+    // TODO Adjust API query to retrieve first entry only.
     $opening_careers = querySSoT('openings_careers?noc=eq.' . $noc);
     if (!empty($opening_careers)) {
       $data['openings_careers'] = $opening_careers[0];

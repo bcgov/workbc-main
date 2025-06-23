@@ -4,7 +4,7 @@
         "Read more about it at https://getcomposer.org/doc/01-basic-usage.md#installing-dependencies",
         "This file is @generated automatically"
     ],
-    "content-hash": "c4808ed7ac4523da8d6264e1e73d6bc9",
+    "content-hash": "a0cf764f3da4ff3832cb43ab4c90d680",
     "packages": [
         {
             "name": "asm89/stack-cors",
@@ -118,16 +118,16 @@
         },
         {
             "name": "aws/aws-sdk-php",
-            "version": "3.344.4",
+            "version": "3.347.0",
             "source": {
                 "type": "git",
                 "url": "https://github.com/aws/aws-sdk-php.git",
-                "reference": "df314cc4169146d87a15bb408edfaf94ab9ca08c"
+                "reference": "c66a35e650f077caddd7db8d3a1f58b2c2b8c78b"
             },
             "dist": {
                 "type": "zip",
-                "url": "https://api.github.com/repos/aws/aws-sdk-php/zipball/df314cc4169146d87a15bb408edfaf94ab9ca08c",
-                "reference": "df314cc4169146d87a15bb408edfaf94ab9ca08c",
+                "url": "https://api.github.com/repos/aws/aws-sdk-php/zipball/c66a35e650f077caddd7db8d3a1f58b2c2b8c78b",
+                "reference": "c66a35e650f077caddd7db8d3a1f58b2c2b8c78b",
                 "shasum": ""
             },
             "require": {
@@ -209,9 +209,9 @@
             "support": {
                 "forum": "https://github.com/aws/aws-sdk-php/discussions",
                 "issues": "https://github.com/aws/aws-sdk-php/issues",
-                "source": "https://github.com/aws/aws-sdk-php/tree/3.344.4"
+                "source": "https://github.com/aws/aws-sdk-php/tree/3.347.0"
             },
-            "time": "2025-06-10T18:04:31+00:00"
+            "time": "2025-06-23T18:12:15+00:00"
         },
         {
             "name": "chi-teck/drupal-code-generator",
@@ -2737,17 +2737,17 @@
         },
         {
             "name": "drupal/charts",
-            "version": "5.1.5",
+            "version": "5.1.6",
             "source": {
                 "type": "git",
                 "url": "https://git.drupalcode.org/project/charts.git",
-                "reference": "5.1.5"
+                "reference": "5.1.6"
             },
             "dist": {
                 "type": "zip",
-                "url": "https://ftp.drupal.org/files/projects/charts-5.1.5.zip",
-                "reference": "5.1.5",
-                "shasum": "e0ef459623556ef3d9faa5656df9e35bfe4b2876"
+                "url": "https://ftp.drupal.org/files/projects/charts-5.1.6.zip",
+                "reference": "5.1.6",
+                "shasum": "0627d71bb86701dda800f4baf0986d7a81984ef1"
             },
             "require": {
                 "drupal/core": "^10.3 || ^11"
@@ -2755,8 +2755,8 @@
             "type": "drupal-module",
             "extra": {
                 "drupal": {
-                    "version": "5.1.5",
-                    "datestamp": "1744408472",
+                    "version": "5.1.6",
+                    "datestamp": "1749676956",
                     "security-coverage": {
                         "status": "covered",
                         "message": "Covered by Drupal's security advisory policy"
@@ -9235,16 +9235,16 @@
         },
         {
             "name": "halaxa/json-machine",
-            "version": "1.2.3",
+            "version": "1.2.4",
             "source": {
                 "type": "git",
                 "url": "https://github.com/halaxa/json-machine.git",
-                "reference": "58fb6e97c53c3341bb1f3685b8bdbeedf3f9616c"
+                "reference": "ca1e2fc61d3596655e5480e192ef30ad67478ad4"
             },
             "dist": {
                 "type": "zip",
-                "url": "https://api.github.com/repos/halaxa/json-machine/zipball/58fb6e97c53c3341bb1f3685b8bdbeedf3f9616c",
-                "reference": "58fb6e97c53c3341bb1f3685b8bdbeedf3f9616c",
+                "url": "https://api.github.com/repos/halaxa/json-machine/zipball/ca1e2fc61d3596655e5480e192ef30ad67478ad4",
+                "reference": "ca1e2fc61d3596655e5480e192ef30ad67478ad4",
                 "shasum": ""
             },
             "require": {
@@ -9285,7 +9285,7 @@
             "description": "Efficient, easy-to-use and fast JSON pull parser",
             "support": {
                 "issues": "https://github.com/halaxa/json-machine/issues",
-                "source": "https://github.com/halaxa/json-machine/tree/1.2.3"
+                "source": "https://github.com/halaxa/json-machine/tree/1.2.4"
             },
             "funding": [
                 {
@@ -9293,7 +9293,7 @@
                     "type": "other"
                 }
             ],
-            "time": "2025-05-30T12:36:04+00:00"
+            "time": "2025-06-16T07:42:34+00:00"
         },
         {
             "name": "jjj/chosen",
@@ -10434,16 +10434,16 @@
         },
         {
             "name": "phpoffice/phpspreadsheet",
-            "version": "3.9.1",
+            "version": "3.9.2",
             "source": {
                 "type": "git",
                 "url": "https://github.com/PHPOffice/PhpSpreadsheet.git",
-                "reference": "56f334ace62fc8301c98d425272cbf0a00eb848d"
+                "reference": "3b07468e1fcc2501d85e60501977f8f7f53cfb4a"
             },
             "dist": {
                 "type": "zip",
-                "url": "https://api.github.com/repos/PHPOffice/PhpSpreadsheet/zipball/56f334ace62fc8301c98d425272cbf0a00eb848d",
-                "reference": "56f334ace62fc8301c98d425272cbf0a00eb848d",
+                "url": "https://api.github.com/repos/PHPOffice/PhpSpreadsheet/zipball/3b07468e1fcc2501d85e60501977f8f7f53cfb4a",
+                "reference": "3b07468e1fcc2501d85e60501977f8f7f53cfb4a",
                 "shasum": ""
             },
             "require": {
@@ -10533,9 +10533,9 @@
             ],
             "support": {
                 "issues": "https://github.com/PHPOffice/PhpSpreadsheet/issues",
-                "source": "https://github.com/PHPOffice/PhpSpreadsheet/tree/3.9.1"
+                "source": "https://github.com/PHPOffice/PhpSpreadsheet/tree/3.9.2"
             },
-            "time": "2025-02-08T03:04:52+00:00"
+            "time": "2025-06-23T01:19:20+00:00"
         },
         {
             "name": "phpoption/phpoption",
@@ -11184,16 +11184,16 @@
         },
         {
             "name": "psy/psysh",
-            "version": "v0.12.8",
+            "version": "v0.12.9",
             "source": {
                 "type": "git",
                 "url": "https://github.com/bobthecow/psysh.git",
-                "reference": "85057ceedee50c49d4f6ecaff73ee96adb3b3625"
+                "reference": "1b801844becfe648985372cb4b12ad6840245ace"
             },
             "dist": {
                 "type": "zip",
-                "url": "https://api.github.com/repos/bobthecow/psysh/zipball/85057ceedee50c49d4f6ecaff73ee96adb3b3625",
-                "reference": "85057ceedee50c49d4f6ecaff73ee96adb3b3625",
+                "url": "https://api.github.com/repos/bobthecow/psysh/zipball/1b801844becfe648985372cb4b12ad6840245ace",
+                "reference": "1b801844becfe648985372cb4b12ad6840245ace",
                 "shasum": ""
             },
             "require": {
@@ -11257,9 +11257,9 @@
             ],
             "support": {
                 "issues": "https://github.com/bobthecow/psysh/issues",
-                "source": "https://github.com/bobthecow/psysh/tree/v0.12.8"
+                "source": "https://github.com/bobthecow/psysh/tree/v0.12.9"
             },
-            "time": "2025-03-16T03:05:19+00:00"
+            "time": "2025-06-23T02:35:06+00:00"
         },
         {
             "name": "ralouphie/getallheaders",
@@ -14834,16 +14834,16 @@
         },
         {
             "name": "composer/composer",
-            "version": "2.8.6",
+            "version": "2.8.9",
             "source": {
                 "type": "git",
                 "url": "https://github.com/composer/composer.git",
-                "reference": "937c775a644bd7d2c3dfbb352747488463a6e673"
+                "reference": "b4e6bff2db7ce756ddb77ecee958a0f41f42bd9d"
             },
             "dist": {
                 "type": "zip",
-                "url": "https://api.github.com/repos/composer/composer/zipball/937c775a644bd7d2c3dfbb352747488463a6e673",
-                "reference": "937c775a644bd7d2c3dfbb352747488463a6e673",
+                "url": "https://api.github.com/repos/composer/composer/zipball/b4e6bff2db7ce756ddb77ecee958a0f41f42bd9d",
+                "reference": "b4e6bff2db7ce756ddb77ecee958a0f41f42bd9d",
                 "shasum": ""
             },
             "require": {
@@ -14854,7 +14854,7 @@
                 "composer/semver": "^3.3",
                 "composer/spdx-licenses": "^1.5.7",
                 "composer/xdebug-handler": "^2.0.2 || ^3.0.3",
-                "justinrainbow/json-schema": "^5.3",
+                "justinrainbow/json-schema": "^6.3.1",
                 "php": "^7.2.5 || ^8.0",
                 "psr/log": "^1.0 || ^2.0 || ^3.0",
                 "react/promise": "^2.11 || ^3.2",
@@ -14928,7 +14928,7 @@
                 "irc": "ircs://irc.libera.chat:6697/composer",
                 "issues": "https://github.com/composer/composer/issues",
                 "security": "https://github.com/composer/composer/security/policy",
-                "source": "https://github.com/composer/composer/tree/2.8.6"
+                "source": "https://github.com/composer/composer/tree/2.8.9"
             },
             "funding": [
                 {
@@ -14944,7 +14944,7 @@
                     "type": "tidelift"
                 }
             ],
-            "time": "2025-02-25T12:03:50+00:00"
+            "time": "2025-05-13T12:01:37+00:00"
         },
         {
             "name": "composer/metadata-minifier",
@@ -15362,16 +15362,16 @@
         },
         {
             "name": "drupal/core-dev",
-            "version": "10.4.8",
+            "version": "10.5.0",
             "source": {
                 "type": "git",
                 "url": "https://github.com/drupal/core-dev.git",
-                "reference": "9c6c089f73671083d9588affa287a59a80e6edc8"
+                "reference": "17ab1bc1da4b20382ce00a237cd52b7f7b31d127"
             },
             "dist": {
                 "type": "zip",
-                "url": "https://api.github.com/repos/drupal/core-dev/zipball/9c6c089f73671083d9588affa287a59a80e6edc8",
-                "reference": "9c6c089f73671083d9588affa287a59a80e6edc8",
+                "url": "https://api.github.com/repos/drupal/core-dev/zipball/17ab1bc1da4b20382ce00a237cd52b7f7b31d127",
+                "reference": "17ab1bc1da4b20382ce00a237cd52b7f7b31d127",
                 "shasum": ""
             },
             "require": {
@@ -15380,7 +15380,7 @@
                 "colinodell/psr-testlogger": "^1.2",
                 "composer/composer": "^2.8.1",
                 "drupal/coder": "^8.3.10",
-                "justinrainbow/json-schema": "^5.2",
+                "justinrainbow/json-schema": "^5.2 || ^6.3",
                 "lullabot/mink-selenium2-driver": "^1.7",
                 "lullabot/php-webdriver": "^2.0.4",
                 "mglaman/phpstan-drupal": "^1.2.12",
@@ -15412,9 +15412,9 @@
             ],
             "description": "require-dev dependencies from drupal/drupal; use in addition to drupal/core-recommended to run tests from drupal/core.",
             "support": {
-                "source": "https://github.com/drupal/core-dev/tree/10.4.8"
+                "source": "https://github.com/drupal/core-dev/tree/10.5.0"
             },
-            "time": "2024-11-21T12:39:32+00:00"
+            "time": "2025-05-14T07:11:14+00:00"
         },
         {
             "name": "google/protobuf",
@@ -15462,30 +15462,40 @@
         },
         {
             "name": "justinrainbow/json-schema",
-            "version": "5.3.0",
+            "version": "6.4.2",
             "source": {
                 "type": "git",
                 "url": "https://github.com/jsonrainbow/json-schema.git",
-                "reference": "feb2ca6dd1cebdaf1ed60a4c8de2e53ce11c4fd8"
+                "reference": "ce1fd2d47799bb60668643bc6220f6278a4c1d02"
             },
             "dist": {
                 "type": "zip",
-                "url": "https://api.github.com/repos/jsonrainbow/json-schema/zipball/feb2ca6dd1cebdaf1ed60a4c8de2e53ce11c4fd8",
-                "reference": "feb2ca6dd1cebdaf1ed60a4c8de2e53ce11c4fd8",
+                "url": "https://api.github.com/repos/jsonrainbow/json-schema/zipball/ce1fd2d47799bb60668643bc6220f6278a4c1d02",
+                "reference": "ce1fd2d47799bb60668643bc6220f6278a4c1d02",
                 "shasum": ""
             },
             "require": {
-                "php": ">=7.1"
+                "ext-json": "*",
+                "marc-mabe/php-enum": "^4.0",
+                "php": "^7.2 || ^8.0"
             },
             "require-dev": {
-                "friendsofphp/php-cs-fixer": "~2.2.20||~2.15.1",
+                "friendsofphp/php-cs-fixer": "3.3.0",
                 "json-schema/json-schema-test-suite": "1.2.0",
-                "phpunit/phpunit": "^4.8.35"
+                "marc-mabe/php-enum-phpstan": "^2.0",
+                "phpspec/prophecy": "^1.19",
+                "phpstan/phpstan": "^1.12",
+                "phpunit/phpunit": "^8.5"
             },
             "bin": [
                 "bin/validate-json"
             ],
             "type": "library",
+            "extra": {
+                "branch-alias": {
+                    "dev-master": "6.x-dev"
+                }
+            },
             "autoload": {
                 "psr-4": {
                     "JsonSchema\\": "src/JsonSchema/"
@@ -15514,16 +15524,16 @@
                 }
             ],
             "description": "A library to validate a json schema.",
-            "homepage": "https://github.com/justinrainbow/json-schema",
+            "homepage": "https://github.com/jsonrainbow/json-schema",
             "keywords": [
                 "json",
                 "schema"
             ],
             "support": {
                 "issues": "https://github.com/jsonrainbow/json-schema/issues",
-                "source": "https://github.com/jsonrainbow/json-schema/tree/5.3.0"
+                "source": "https://github.com/jsonrainbow/json-schema/tree/6.4.2"
             },
-            "time": "2024-07-06T21:00:26+00:00"
+            "time": "2025-06-03T18:27:04+00:00"
         },
         {
             "name": "lullabot/mink-selenium2-driver",
@@ -15644,6 +15654,79 @@
                 "source": "https://github.com/Lullabot/php-webdriver/tree/v2.0.6"
             },
             "time": "2024-08-05T13:00:46+00:00"
+        },
+        {
+            "name": "marc-mabe/php-enum",
+            "version": "v4.7.1",
+            "source": {
+                "type": "git",
+                "url": "https://github.com/marc-mabe/php-enum.git",
+                "reference": "7159809e5cfa041dca28e61f7f7ae58063aae8ed"
+            },
+            "dist": {
+                "type": "zip",
+                "url": "https://api.github.com/repos/marc-mabe/php-enum/zipball/7159809e5cfa041dca28e61f7f7ae58063aae8ed",
+                "reference": "7159809e5cfa041dca28e61f7f7ae58063aae8ed",
+                "shasum": ""
+            },
+            "require": {
+                "ext-reflection": "*",
+                "php": "^7.1 | ^8.0"
+            },
+            "require-dev": {
+                "phpbench/phpbench": "^0.16.10 || ^1.0.4",
+                "phpstan/phpstan": "^1.3.1",
+                "phpunit/phpunit": "^7.5.20 | ^8.5.22 | ^9.5.11",
+                "vimeo/psalm": "^4.17.0 | ^5.26.1"
+            },
+            "type": "library",
+            "extra": {
+                "branch-alias": {
+                    "dev-3.x": "3.2-dev",
+                    "dev-master": "4.7-dev"
+                }
+            },
+            "autoload": {
+                "psr-4": {
+                    "MabeEnum\\": "src/"
+                },
+                "classmap": [
+                    "stubs/Stringable.php"
+                ]
+            },
+            "notification-url": "https://packagist.org/downloads/",
+            "license": [
+                "BSD-3-Clause"
+            ],
+            "authors": [
+                {
+                    "name": "Marc Bennewitz",
+                    "email": "dev@mabe.berlin",
+                    "homepage": "https://mabe.berlin/",
+                    "role": "Lead"
+                }
+            ],
+            "description": "Simple and fast implementation of enumerations with native PHP",
+            "homepage": "https://github.com/marc-mabe/php-enum",
+            "keywords": [
+                "enum",
+                "enum-map",
+                "enum-set",
+                "enumeration",
+                "enumerator",
+                "enummap",
+                "enumset",
+                "map",
+                "set",
+                "type",
+                "type-hint",
+                "typehint"
+            ],
+            "support": {
+                "issues": "https://github.com/marc-mabe/php-enum/issues",
+                "source": "https://github.com/marc-mabe/php-enum/tree/v4.7.1"
+            },
+            "time": "2024-11-28T04:54:44+00:00"
         },
         {
             "name": "micheh/phpcs-gitlab",
@@ -18942,16 +19025,16 @@
         },
         {
             "name": "squizlabs/php_codesniffer",
-            "version": "3.13.0",
+            "version": "3.13.2",
             "source": {
                 "type": "git",
                 "url": "https://github.com/PHPCSStandards/PHP_CodeSniffer.git",
-                "reference": "65ff2489553b83b4597e89c3b8b721487011d186"
+                "reference": "5b5e3821314f947dd040c70f7992a64eac89025c"
             },
             "dist": {
                 "type": "zip",
-                "url": "https://api.github.com/repos/PHPCSStandards/PHP_CodeSniffer/zipball/65ff2489553b83b4597e89c3b8b721487011d186",
-                "reference": "65ff2489553b83b4597e89c3b8b721487011d186",
+                "url": "https://api.github.com/repos/PHPCSStandards/PHP_CodeSniffer/zipball/5b5e3821314f947dd040c70f7992a64eac89025c",
+                "reference": "5b5e3821314f947dd040c70f7992a64eac89025c",
                 "shasum": ""
             },
             "require": {
@@ -19022,7 +19105,7 @@
                     "type": "thanks_dev"
                 }
             ],
-            "time": "2025-05-11T03:36:00+00:00"
+            "time": "2025-06-17T22:17:01+00:00"
         },
         {
             "name": "symfony/browser-kit",

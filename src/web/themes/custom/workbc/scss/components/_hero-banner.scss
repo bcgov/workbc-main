@@ -103,6 +103,10 @@
   padding-top: 30px;
   color: $workbc_palette_dark_secondary;
 
+  img, svg {
+    vertical-align: baseline;
+  }
+
   @include media-breakpoint-up(lg) {
     padding-top: 5px;
     text-align: right;

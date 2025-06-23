@@ -19,9 +19,11 @@ dependencies:
     - field.field.node.career_profile.field_insights_from_industry
     - field.field.node.career_profile.field_introductions
     - field.field.node.career_profile.field_job_titles
+    - field.field.node.career_profile.field_job_titles_illustrative
     - field.field.node.career_profile.field_metatag_description
     - field.field.node.career_profile.field_noc
     - field.field.node.career_profile.field_noc_2016
+    - field.field.node.career_profile.field_region_hoo
     - field.field.node.career_profile.field_region_openings
     - field.field.node.career_profile.field_related_careers
     - field.field.node.career_profile.field_resources
@@ -231,9 +233,11 @@ hidden:
   field_insights_from_industry: true
   field_introductions: true
   field_job_titles: true
+  field_job_titles_illustrative: true
   field_metatag_description: true
   field_noc: true
   field_noc_2016: true
+  field_region_hoo: true
   field_region_openings: true
   field_related_careers: true
   field_resources: true
