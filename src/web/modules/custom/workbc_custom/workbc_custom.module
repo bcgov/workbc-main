@@ -420,7 +420,8 @@ function workbc_custom_category_reset(array &$form, FormStateInterface $form_sta
   ) {
     $form_state->setRedirect('<current>', [], ['query' => [
       'hide_category' => empty($input['hide_category']) ? 0 : 1,
-      'term_node_tid_depth' => empty($input['hide_category']) ? 'All' : $input['term_node_tid_depth']
+      'term_node_tid_depth' => empty($input['hide_category']) ? 'All' : $input['term_node_tid_depth'],
+      'sort_bef_combine' => 'title_ASC'
     ]]);
   }
 }
@@ -638,8 +639,7 @@ function workbc_custom_system_breadcrumb_alter(Breadcrumb &$breadcrumb, RouteMat
   if ($node && $node instanceof Drupal\node\Entity\Node) {
     if ($node->bundle() == 'news' && $node->field_archived->get(0)->getValue()['value'] == "1") {
       $paths = \Drupal::config('workbc')->get('paths');
-      $url = Url::fromUri('internal:' . $paths['news_archive']);
-      $archive = Link::fromTextAndUrl("News Archive", $url);
+      $archive = Link::fromTextAndUrl(t('News Archive'), Url::fromUri('internal:' . $paths['news_archive']));
 
       $links = $breadcrumb->getLinks();
 
