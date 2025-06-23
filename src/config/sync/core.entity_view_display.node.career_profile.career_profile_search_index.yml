@@ -78,8 +78,12 @@ hidden:
   extra_field_occupational_categories: true
   extra_field_occupational_interests: true
   extra_field_occupational_interests_int: true
+  extra_field_profile_description: true
   extra_field_profile_location: true
   extra_field_profile_skills: true
+  extra_field_profile_thumbnail: true
+  extra_field_profile_title: true
+  extra_field_profile_video_url: true
   extra_field_salary_info_annual_salary: true
   extra_field_salary_info_annual_salary_note: true
   extra_field_salary_info_hourly_rate: true

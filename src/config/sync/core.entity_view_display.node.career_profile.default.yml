@@ -550,6 +550,10 @@ hidden:
   created: true
   extra_field_career_trek_profile_skills: true
   extra_field_job_titles: true
+  extra_field_profile_description: true
+  extra_field_profile_thumbnail: true
+  extra_field_profile_title: true
+  extra_field_profile_video_url: true
   extra_field_search_index_job_titles: true
   extra_field_search_index_noc: true
   extra_field_workbc_page_title: true
