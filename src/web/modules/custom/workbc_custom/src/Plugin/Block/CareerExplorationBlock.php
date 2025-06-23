@@ -3,10 +3,6 @@
 namespace Drupal\workbc_custom\Plugin\Block;
 
 use Drupal\Core\Block\BlockBase;
-use Drupal\Core\Form\FormStateInterface;
-use Drupal\Core\Url;
-use Drupal\Core\Link;
-use Drupal\views\Views;
 
 /**
  * Provides a WorkBC Related topics Block.

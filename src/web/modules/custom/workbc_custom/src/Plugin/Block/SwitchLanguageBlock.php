@@ -41,7 +41,9 @@ class SwitchLanguageBlock extends BlockBase {
     return $renderable;
   }
 
-
+  /**
+   * {@inheritdoc}
+   */
   public function getCacheTags() {
     // With this when your node change your block will rebuild.
     if ($node = \Drupal::routeMatch()->getParameter('node')) {
@@ -54,6 +56,9 @@ class SwitchLanguageBlock extends BlockBase {
     }
   }
 
+  /**
+   * {@inheritdoc}
+   */
   public function getCacheContexts() {
     // Every new route this block will rebuild.
     return Cache::mergeContexts(parent::getCacheContexts(), ['route']);
