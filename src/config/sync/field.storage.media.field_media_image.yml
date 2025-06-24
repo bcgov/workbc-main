@@ -3,16 +3,12 @@ langcode: en
 status: true
 dependencies:
   module:
-    - field_permissions
     - file
     - image
     - media
   enforced:
     module:
       - media
-third_party_settings:
-  field_permissions:
-    permission_type: public
 _core:
   default_config_hash: 0N0KSFk57p6qsq3qM4lYVGSuROvzXK-tSsdwByqUh3g
 id: media.field_media_image
@@ -22,10 +18,10 @@ type: image
 settings:
   target_type: file
   display_field: false
-  display_default: false
+  display_default: true
   uri_scheme: public
   default_image:
-    uuid: null
+    uuid: ''
     alt: ''
     title: ''
     width: null
