@@ -767,6 +767,10 @@ function workbc_custom_search_api_query_explore_careers_search_alter($query) {
   }
   if (empty($keys) || !is_string($keys)) return;
 
+  // Convert curly quotations to regular quotations.
+  // https://stackoverflow.com/a/6610752/209184
+  $keys = iconv('UTF-8', 'ASCII//TRANSLIT', $keys);
+
   // Upcase keywords to activate AND / OR.
   $keys = strtoupper($keys);
 
