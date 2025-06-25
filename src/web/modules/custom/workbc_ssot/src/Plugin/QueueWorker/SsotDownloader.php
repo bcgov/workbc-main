@@ -15,7 +15,7 @@ define("NULL_VALUE", -999999);
  * @QueueWorker(
  *   id = "ssot_downloader",
  *   title = @Translation("SSOT Downloader"),
- *   cron = {"time" = 60}
+ *   cron = {"time" = 120}
  * )
  */
 class SsotDownloader extends QueueWorkerBase implements ContainerFactoryPluginInterface {
