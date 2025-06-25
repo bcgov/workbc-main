@@ -13,6 +13,9 @@
       $(once('exploreCareerSearch', 'input.chosen-search-input', context)).each(function() {
         $(this).attr('aria-labelledby', $(this).closest('.js-form-item').find('label').attr('for'));
       });
+      $(once('exploreCareerSearch', '.chosen-enable', context)).on('change', function() {
+        $(this).closest('.form-item').find('input.chosen-search-input').attr('placeholder', '');
+      });
     }
   }
 })(jQuery, Drupal, once);

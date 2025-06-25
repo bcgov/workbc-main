@@ -557,6 +557,13 @@ function workbc_custom_menu_local_tasks_alter(&$data, $route_name) {
 }
 
 /**
+ * Implements hook_element_info_alter().
+ */
+function workbc_custom_element_info_alter(&$info) {
+  $info['select']['#pre_render'][] = '\Drupal\workbc_custom\ChosenFormRender::preRenderSelect';
+}
+
+/**
 * Implements hook_webform_element_alter().
 */
 function workbc_custom_webform_element_alter(array &$element, FormStateInterface $form_state, array $context) {
