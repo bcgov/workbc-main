@@ -125,6 +125,10 @@ class CareerProfileSkills extends ExtraFieldDisplayFormattedBase {
         $output .= '    <div class="career-profiles-skill-title">' . $skill['skills_competencies'] . '</div>';
         $output .= '    <div class="career-profiles-skill-description">' . $term->getDescription() . '</div>';
         $output .= '  </div>';
+        $output .= '  <div class="career-profiles-skill-chart-container">';
+        $output .= '    <div class="career-profiles-skill-chart-data">' . $chart_render . '</div>';
+        $output .= '    <div class="career-profiles-skill-chart-overlay">' . intval($skill['importance']) . '%</div>';
+        $output .= '  </div>';
         $output .= '</div>';
       }
     }

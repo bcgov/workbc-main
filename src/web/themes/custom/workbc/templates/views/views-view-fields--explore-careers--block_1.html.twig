@@ -29,19 +29,40 @@
  * @see template_preprocess_views_view_fields()
  */
 #}
-{# {{ dump(fields) }} #}
-
-
+{% set hoo = row._entity.field_region_hoo.0.value  %}
+{% set excerpts = view.search_api_excerpts[row.nid] %}
 <div class="card-left">
-  <div>
-    <h3>{{ fields['title'].content }}</h3>
-  </div>
-  <div class="career-profile-link">
-    {{ fields['view_node'].content }}
+  <h3>{{ fields['title'].content }}</h3>
+
+  <div class="card-left-or-right">
+    <div class="career-profile-titles">
+    {% if excerpts %}
+      <h6>Matching job titles:</h6>
+      {{ excerpts }}
+    {% else %}
+      <h6>Example job titles:</h6>
+      {{ fields['field_job_titles_illustrative'].content }}
+    {% endif %}
+    </div>
+    <div class="career-profile-buttons">
+      <div class="career-profile-link">
+        {{ fields['view_node'].content }}
+      </div>
+      <div class="career-profile-titles-toggle">
+        <a class="action-link">Show job titles</a>
+      </div>
+    </div>
   </div>
 </div>
 
 <div class="card-right">
+  {% if hoo == "1" %}
+  <div class="career-profile-hoo">
+    <img src="/themes/custom/workbc/assets/images/hoo-icon.svg" alt="High opportunity occupation">
+    High opportunity occupation (B.C.)
+  </div>
+  {% endif %}
+
   <div class="card-stats-container">
     <img src="/{{ directory }}/assets/images/profile-icon-envelope.svg" alt="" title="" />
     <div class="card-stats">
@@ -63,7 +84,31 @@
       <div class="field-content">{{ fields['field_teer'].content }}</div>
     </div>
   </div>
-  <div class="career-profile-link">
-    {{ fields['view_node'].content }}
+
+  <div class="card-left-or-right">
+    {% if hoo == "1" %}
+    <div class="career-profile-hoo">
+      <img src="/themes/custom/workbc/assets/images/hoo-icon.svg" alt="High opportunity occupation">
+      High opportunity occupation (B.C.)
+    </div>
+    {% endif %}
+
+    <div class="career-profile-titles">
+    {% if excerpts %}
+      <h6>Matching job titles:</h6>
+      {{ excerpts }}
+    {% else %}
+      <h6>Example job titles:</h6>
+      {{ fields['field_job_titles_illustrative'].content }}
+    {% endif %}
+    </div>
+    <div class="career-profile-buttons">
+      <div class="career-profile-link">
+        {{ fields['view_node'].content }}
+      </div>
+      <div class="career-profile-titles-toggle">
+        <a class="action-link">Show job titles</a>
+      </div>
+    </div>
   </div>
 </div>

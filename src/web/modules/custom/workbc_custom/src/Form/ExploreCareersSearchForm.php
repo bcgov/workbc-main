@@ -56,11 +56,12 @@ class ExploreCareersSearchForm extends FormBase {
   */
   public function submitForm(array &$form, FormStateInterface $form_state) {
     $url = URL::fromUserInput('/plan-career/explore-careers/career-profiles/search');
-
+    $keywords = trim($form_state->getValue('keywords'));
     $form_state->setRedirect($url->getRouteName(), $url->getRouteParameters(), [
       'query' => [
         'hide_category' => 0,
-        'keyword_search' => $form_state->getValue('keywords'),
+        'keyword_search' => $keywords,
+        'sort_bef_combine' => empty($keywords) ? 'title_ASC' : 'keyword_search_ASC',
       ]
     ]);
   }

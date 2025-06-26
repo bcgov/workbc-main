@@ -5,6 +5,8 @@ namespace Drupal\workbc_custom\Plugin\views\filter;
 use Drupal\views\Plugin\views\filter\StringFilter;
 use Drupal\Core\Form\FormStateInterface;
 use Drupal\search_api_solr\SearchApiSolrException;
+use Drupal\search_api\Query\Query;
+use Drupal\search_api\Query\ResultSetInterface;
 
 /**
  * Filters by Search API keywords.
@@ -124,12 +126,6 @@ class WorkBCKeywordSearch extends StringFilter {
    */
   private function search() {
     $index = \Drupal\search_api\Entity\Index::load('career_profile_index');
-    $processor = \Drupal::getContainer()
-      ->get('search_api.plugin_helper')
-      ->createProcessorPlugin($index, 'highlight', [
-        'highlight_partial' => true,
-      ]);
-    $index->addProcessor($processor);
     $query = $index->query();
 
     // Change the parse mode for the search.
@@ -139,7 +135,9 @@ class WorkBCKeywordSearch extends StringFilter {
     $query->setParseMode($parse_mode);
 
     // Set fulltext search keywords and fields.
-    $query->keys($this->value);
+    // Convert curly quotations to regular quotations.
+    // https://stackoverflow.com/a/6610752/209184
+    $query->keys(iconv('UTF-8', 'ASCII//TRANSLIT', $this->value));
     $query->setFulltextFields(['title', 'field_noc', 'field_job_titles']);
 
     // Add sorting and limiting.
@@ -161,14 +159,28 @@ class WorkBCKeywordSearch extends StringFilter {
       \Drupal::logger('workbc')->error($e->getMessage());
       return [];
     }
-    return array_values(array_filter(array_map(function($item) {
+    return array_values(array_filter(array_map(function($item) use ($results, $query) {
       if (preg_match('/entity:node\/(\d+):/', $item->getId(), $match)) {
         return [
           'nid' => $match[1],
-          'excerpt' => $item->getExcerpt()
+          'excerpts' => $this->parseExcerpt($item, $results, $query)
         ];
       }
       return false;
     }, $results ? $results->getResultItems() : [])));
+  }
+
+  private function parseExcerpt(\Drupal\search_api\Item\Item $item, ResultSetInterface $results, Query $query) {
+    $doc = $item->getExtraData('search_api_solr_document');
+    $highlight = $results->getExtraData('search_api_solr_response')['highlighting'];
+    $key = $doc['hash'] . '-' . $item->getIndex()->id() . '-' . $item->getId();
+    if (!array_key_exists('tcngramm_X3b_en_field_job_titles', $highlight[$key])) return [];
+    if (in_array('explore_careers_search_modified', $query->getTags())) {
+      // In case it's our "safe" use case, make sure the number of highlighted keywords match the number of query keywords.
+      return array_filter($highlight[$key]['tcngramm_X3b_en_field_job_titles'], function ($title) use ($query) {
+        return substr_count($title, '<strong>') >= substr_count($query->getKeys(), '+');
+      });
+    }
+    return $highlight[$key]['tcngramm_X3b_en_field_job_titles'];
   }
 }
