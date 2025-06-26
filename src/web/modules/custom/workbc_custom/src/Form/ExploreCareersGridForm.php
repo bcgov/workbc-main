@@ -59,7 +59,7 @@ class ExploreCareersGridForm extends FormBase {
       $pos = ($pos + 1) % 4;
 
       $form[$category_label]['help'] = [
-        '#markup' => '<div class="areas-of-interest-help">' . $this->t('Choose areas that interest you within @category', ['@category' => $category->name]) . '</div>',
+        '#markup' => '<div class="areas-of-interest-help">' . $this->t('Select one or more areas of interest within @category.', ['@category' => strtolower($category->name)]) . '</div>',
       ];
 
       $form[$category_label]['close'] = [
