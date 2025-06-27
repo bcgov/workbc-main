@@ -9,6 +9,16 @@
 }
 
 .view-id-explore_careers {
+  h2 {
+    line-height: 1.5em;
+  }
+
+  h3 {
+    font-weight: 700;
+    font-size: 1.15rem;
+    margin-bottom: 20px;
+  }
+
   .explore-careers-filter {
     background-color: $workbc_palette_light_secondary;
 
@@ -255,7 +265,6 @@
     }
 
     .career-profile-titles {
-      margin-top: 1rem;
       display: none;
 
       h6 {
@@ -349,7 +358,7 @@
       img {
         width: 42px;
         height: 42px;
-        margin: 10px 20px;
+        margin: 5px 20px;
 
         @include media-breakpoint-down(lg) {
           margin-top: 0px;
@@ -374,6 +383,7 @@
           }
 
           margin-top: 20px;
+          margin-bottom: 20px;
           float: none;
         }
       }
@@ -390,7 +400,7 @@
           display: none;
         }
 
-        margin-top: 10px;
+        margin-top: 5px;
         float: right;
         color: #2e6ab0;
 
