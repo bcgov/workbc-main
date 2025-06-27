@@ -161,8 +161,8 @@ class SsotDownloader extends QueueWorkerBase implements ContainerFactoryPluginIn
   }
 
   private function update_career_provincial($endpoint, $entries, &$career) {
-    $openings = $career->get('field_region_openings')->getValue() ?? array_fill(0, 8, 0);
-    $openings[REGION_BRITISH_COLUMBIA_ID] = reset($entries)['expected_job_openings_10y'] ?? 0;
+    $openings = $career->get('field_region_openings')->getValue() ?? array_fill(0, 8, NULL_VALUE);
+    $openings[REGION_BRITISH_COLUMBIA_ID] = reset($entries)['expected_job_openings_10y'] ?? NULL_VALUE;
     $career->set('field_region_openings', $openings);
   }
 
