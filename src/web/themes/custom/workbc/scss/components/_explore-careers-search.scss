@@ -64,19 +64,17 @@
     }
 
     .view-header-link {
+      padding-left: 25px;
+
       @include media-breakpoint-down(lg) {
         padding-top: 5px;
         padding-bottom: 5px;
+        padding-left: 0;
       }
     }
 
     a {
-      padding-left: 25px;
       text-decoration: underline;
-
-      @include media-breakpoint-down(lg) {
-        padding-left: 0px;
-      }
     }
   }
 
