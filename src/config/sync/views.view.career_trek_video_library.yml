@@ -3092,9 +3092,11 @@ display:
         filters: false
         filter_groups: false
         header: false
+        footer: false
       use_ajax: true
       display_description: ''
-      header:
+      header: {  }
+      footer:
         result:
           id: result
           table: views
@@ -3990,4 +3992,3 @@ display:
         - 'config:field.storage.node.field_career_videos'
         - 'config:search_api.index.career_profile_index_sub'
         - 'search_api_list:career_profile_index_sub'
-
