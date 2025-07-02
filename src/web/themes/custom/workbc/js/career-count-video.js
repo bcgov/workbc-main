@@ -21,14 +21,22 @@
 				}
 				
 				$summary.text(count);
-				}, 100);
 				
-				$(document).ready(updateSummary);
+				const $summaryWrapper = $view.find('.result-summary');
+				const $loadMore = $view.find('.load-more');
 				
-				$(document).ajaxComplete(function () {
-					console.log('AJAX complete - will update results summary shortly');
-					updateSummary();
-				});
-			}
-		};
-	})(jQuery, Drupal);
+				if ($summaryWrapper.length && $loadMore.length) {
+					$loadMore.after($summaryWrapper);
+				}
+			}, 100);
+		}
+		
+		
+		$(document).ready(updateSummaryAndMove);
+		
+		$(document).ajaxComplete(function () {
+			updateSummaryAndMove();
+		});
+	}
+	};
+})(jQuery, Drupal);
