@@ -78,6 +78,14 @@ career-inner-video:
     - core/jquery
     - core/once
 
+career-count-video:
+  js:
+    js/career-count-video.js: {}
+  dependencies:
+    - core/drupal
+    - core/jquery
+    - core/once
+
 range-slider:
   css:
     theme:
