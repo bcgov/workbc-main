@@ -23,10 +23,10 @@
 				$summary.text(count);
 				
 				const $summaryWrapper = $view.find('.result-summary');
-				const $loadMore = $view.find('.load-more');
+				const $loadMoreLink = $view.find('a.btn-primary[title="Load more items"]').last();
 				
-				if ($summaryWrapper.length && $loadMore.length) {
-					$loadMore.after($summaryWrapper);
+				if ($summaryWrapper.length && $loadMoreLink.length) {
+					$loadMoreLink.after($summaryWrapper);
 				}
 			}, 100);
 		}
