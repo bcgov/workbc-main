@@ -3,16 +3,32 @@
 		attach: function (context, settings) {
 			function updateSummary() {
 				const $view = $('.view-id-career_trek_video_library.view-display-id-block_1');
-        if (!$view.length) {
-          console.warn('View not found.');
-        }
-				const count = $view.find('.views-row').length;
-				$('.result-summary .update-result').text(count);
+				if (!$view.length) {
+					console.warn('View not found.');
+					return;
+				}
+				
+				setTimeout(function () {
+				const $rows = $view.find('.view-row');
+				const count = $rows.length;
+				
+				console.log('Loaded rows after delay:', count);
+				
+				const $summary = $('.result-summary .update-result');
+				if (!$summary.length) {
+					console.warn('Result summary span not found.');
+					return;
+				}
+				
+				$summary.text(count);
+				}, 100);
+				
+				$(document).ready(updateSummary);
+				
+				$(document).ajaxComplete(function () {
+					console.log('AJAX complete - will update results summary shortly');
+					updateSummary();
+				});
 			}
-			
-			$(document).ready(updateSummary);
-			
-			$(document).ajaxComplete(updateSummary);
-		}
-	};
-})(jQuery, Drupal);
+		};
+	})(jQuery, Drupal);
