@@ -34,7 +34,7 @@ class ExploreCareersSearchForm extends FormBase {
 
     $form['keywords'] = [
       '#type' => 'search_api_autocomplete',
-      '#title' => $this->t('Find a career profile by job title, occupation title, or NOC code.') . '&nbsp;' . $tooltip,
+      '#title' => $this->t('Find a career profile by job title, occupation title or NOC code.') . '&nbsp;' . $tooltip,
       '#search_id' => 'explore_careers_autocomplete',
       '#additional_data' => [
         'display' => 'block_1',
