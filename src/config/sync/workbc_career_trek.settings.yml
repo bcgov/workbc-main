@@ -1,5 +1,5 @@
 title: 'Back To All Videos'
-logo: /sites/default/files/career_trek_icons/carrerTrekLogo.png
+logo: /modules/custom/workbc_career_trek/assets/images/carrerTrekLogo.png
 back_button_url: /plan-career/career-trek-videos
 back_button_title: 'Back to all videos'
 toggle_icon_grid: /modules/custom/workbc_career_trek/assets/icons/grid_icon.svg
@@ -36,4 +36,4 @@ icon_noc: themes/custom/workbc/assets/icons/icon-noc.svg
 icon_noc_fid: null
 icon_calendar: themes/custom/workbc/assets/icons/icon-calendar.svg
 icon_calendar_fid: null
-logo_fid: '2640'
+logo_fid: null
