@@ -11,7 +11,7 @@ use Drupal\extra_field\Plugin\ExtraFieldDisplayFormattedBase;
  *
  * @ExtraFieldDisplay(
  *   id = "region_unemployment_rate",
- *   label = @Translation("Unemployment Rate"),
+ *   label = @Translation("[SSOT] Unemployment Rate"),
  *   description = @Translation("An extra field to display unemployment rate."),
  *   bundles = {
  *     "node.region_profile",

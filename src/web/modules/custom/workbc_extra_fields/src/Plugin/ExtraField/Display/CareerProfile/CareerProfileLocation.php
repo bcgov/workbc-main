@@ -11,7 +11,7 @@ use Drupal\extra_field\Plugin\ExtraFieldDisplayFormattedBase;
  *
  * @ExtraFieldDisplay(
  *   id = "profile_location",
- *   label = @Translation("Profile Location"),
+ *   label = @Translation("[SSOT] Profile Location"),
  *   description = @Translation("An extra field to display career Location."),
  *   bundles = {
  *     "node.career_profile",

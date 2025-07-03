@@ -12,7 +12,7 @@ use Drupal\image\Entity\ImageStyle;
  *
  * @ExtraFieldDisplay(
  *   id = "profile_skills",
- *   label = @Translation("Profile Skills"),
+ *   label = @Translation("[SSOT] Profile Skills"),
  *   description = @Translation("An extra field to display skills."),
  *   bundles = {
  *     "node.career_profile",

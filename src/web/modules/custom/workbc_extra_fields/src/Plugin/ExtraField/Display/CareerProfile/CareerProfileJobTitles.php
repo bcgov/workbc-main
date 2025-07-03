@@ -11,7 +11,7 @@ use Drupal\extra_field\Plugin\ExtraFieldDisplayFormattedBase;
  *
  * @ExtraFieldDisplay(
  *   id = "job_titles",
- *   label = @Translation("Job Titles"),
+ *   label = @Translation("[SSOT] Job Titles"),
  *   description = @Translation("List of Job Titles."),
  *   bundles = {
  *     "node.career_profile",

@@ -11,7 +11,7 @@ use Drupal\extra_field\Plugin\ExtraFieldDisplayFormattedBase;
  *
  * @ExtraFieldDisplay(
  *   id = "industry_wage_source",
- *   label = @Translation("Source: Wage"),
+ *   label = @Translation("[SSOT] Source: Wage"),
  *   description = @Translation("Provenance metadata for fields Average Wage BC & National Wage."),
  *   bundles = {
  *     "node.industry_profile",

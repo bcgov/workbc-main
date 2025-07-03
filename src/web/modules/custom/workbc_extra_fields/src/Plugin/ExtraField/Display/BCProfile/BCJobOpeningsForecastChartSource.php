@@ -11,7 +11,7 @@ use Drupal\extra_field\Plugin\ExtraFieldDisplayFormattedBase;
  *
  * @ExtraFieldDisplay(
  *   id = "bc_job_openings_forecast_chart_source",
- *   label = @Translation("Source: Job Openings Forecast Chart"),
+ *   label = @Translation("[SSOT] Source: Job Openings Forecast Chart"),
  *   description = @Translation("Provenance metadata for field BC Job Openings Forcast Chart Region."),
  *   bundles = {
  *     "node.bc_profile",

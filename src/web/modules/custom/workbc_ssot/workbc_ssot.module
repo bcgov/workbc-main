@@ -25,6 +25,7 @@ const SSOT_DATASETS = [
     'noc_key' => 'noc',
     'fields' => 'noc,cariboo_expected_number_of_job_openings_10y,kootenay_expected_number_of_job_openings_10y,mainland_southwest_expected_number_of_job_openings_10y,north_coast_nechako_expected_number_of_job_openings_10y,northeast_expected_number_of_job_openings_10y,thompson_okanagan_expected_number_of_job_openings_10y,vancouver_island_coast_expected_number_of_job_openings_10y',
   ],
+  'career_related' => [],
   'census' => [],
   'education' => [
     'noc_key' => 'noc',
@@ -52,6 +53,10 @@ const SSOT_DATASETS = [
   'regional_labour_market_outlook' => [],
   'regional_top_occupations' => [],
   'skills' => [],
+  // 'skills' => [
+  //   'noc_key' => 'noc',
+  //   'fields' => 'noc,skills_competencies,importance'
+  // ],
   'titles' => [
     'noc_key' => 'noc',
     'fields' => 'noc,commonjobtitle,illustrative',
@@ -311,11 +316,8 @@ function ssotLabourMarketMonthly($year = null, $month = null) {
 }
 
 function ssotBCProfile($region) {
-
   $region = ssotRegionKey($region);
-
   $data = array();
-
   $data['regional_labour_market_outlook'] = querySSoT('regional_labour_market_outlook?region=eq.british_columbia')[0];
   $data['labour_force_survey_bc_employment'] = querySSoT('labour_force_survey_regional_employment?region=eq.british_columbia')[0];
   $data['labour_force_survey_regions_employment'] = querySSoT('labour_force_survey_regional_employment?region=neq.british_columbia');
@@ -334,10 +336,8 @@ function ssotBCProfile($region) {
 }
 
 function ssotRegionProfile($region) {
-
   $region = ssotRegionKey($region);
   $data = array();
-
   $data['regional_labour_market_outlook'] = querySSoT('regional_labour_market_outlook?region=eq.' . $region)[0];
   $data['labour_force_survey_regional_employment'] = querySSoT('labour_force_survey_regional_employment?region=eq.' . $region)[0];
   $data['labour_force_survey_bc_employment'] = querySSoT('labour_force_survey_regional_employment?region=eq.british_columbia')[0];
@@ -371,6 +371,7 @@ function ssotIndustryProfile($industryName) {
 function ssotCareerProfile($noc) {
 
   $data = array();
+  // TODO Refactor this block to avoid the condition.
   if (!empty(querySSoT('wages?noc=eq.' . $noc))) {
     $data['wages'] = querySSoT('wages?noc=eq.' . $noc)[0];
     $data['career_provincial'] = querySSoT('career_provincial?noc=eq.' . $noc)[0];
@@ -383,6 +384,7 @@ function ssotCareerProfile($noc) {
     $data['occupational_interests'] = querySSoT('occupational_interests?noc=eq.' . $noc);
     $data['titles'] = querySSoT('titles?order=commonjobtitle.asc&noc=eq.' . $noc);
     $data['epbc_nocs'] = querySSoT('fyp_categories_interests_sub_nocs?noc_2021=eq.' . $noc);
+    $data['career_related'] = querySSoT('career_related?order=noc_related&noc=eq.' . $noc);
     // TODO Adjust API query to retrieve first entry only.
     $opening_careers = querySSoT('openings_careers?noc=eq.' . $noc);
     if (!empty($opening_careers)) {
@@ -397,7 +399,6 @@ function ssotCareerProfile($noc) {
 }
 
 function ssotParseDateRange($schema, $section, $field = "") {
-
   $match = "";
   if (isset($schema['definitions'][$section]['properties'][$field]['description'])) {
     $text = $schema['definitions'][$section]['properties'][$field]['description'];

@@ -11,7 +11,7 @@ use Drupal\extra_field\Plugin\ExtraFieldDisplayFormattedBase;
  *
  * @ExtraFieldDisplay(
  *   id = "industry_employment_growth_rate_ten_year_source",
- *   label = @Translation("Source: Employment Growth Rate Ten Year Forecast"),
+ *   label = @Translation("[SSOT] Source: Employment Growth Rate Ten Year Forecast"),
  *   description = @Translation("Provenance metadata for field Industry Employment Growth Rate Ten Year Forecast."),
  *   bundles = {
  *     "node.industry_profile",

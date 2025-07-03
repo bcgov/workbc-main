@@ -11,7 +11,7 @@ use Drupal\extra_field\Plugin\ExtraFieldDisplayFormattedBase;
  *
  * @ExtraFieldDisplay(
  *   id = "labourmarket_unemployed_current_month",
- *   label = @Translation("Unemployed Current Month"),
+ *   label = @Translation("[SSOT] Unemployed Current Month"),
  *   description = @Translation("An extra field to display industry unemployed current month."),
  *   bundles = {
  *     "node.labour_market_monthly",
@@ -63,8 +63,8 @@ class LabourMarketUnemployedCurrentMonth extends ExtraFieldDisplayFormattedBase 
       'decimals' => 1,
       'suffix' => "%",
       'na_if_empty' => TRUE,
-    );    
-    $unemployed_rate_value = ssotFormatNumber($data['employment_rate_pct_unemployment'], $options);   
+    );
+    $unemployed_rate_value = ssotFormatNumber($data['employment_rate_pct_unemployment'], $options);
     $unemployed_part_value = ssotFormatNumber($data['employment_rate_pct_participation'], $options);
 
     //output

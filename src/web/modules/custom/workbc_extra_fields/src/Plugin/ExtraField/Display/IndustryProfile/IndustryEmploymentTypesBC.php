@@ -11,7 +11,7 @@ use Drupal\extra_field\Plugin\ExtraFieldDisplayFormattedBase;
  *
  * @ExtraFieldDisplay(
  *   id = "industry_employment_types_bc",
- *   label = @Translation("Employment Type BC"),
+ *   label = @Translation("[SSOT] Employment Type BC"),
  *   description = @Translation("An extra field to display industry employment types BC."),
  *   bundles = {
  *     "node.industry_profile",

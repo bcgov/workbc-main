@@ -11,7 +11,7 @@ use Drupal\extra_field\Plugin\ExtraFieldDisplayFormattedBase;
  *
  * @ExtraFieldDisplay(
  *   id = "search_index_job_titles",
- *   label = @Translation("Search Index Job Titles"),
+ *   label = @Translation("[SSOT] Search Index Job Titles"),
  *   description = @Translation("An extra field to display job titles for search indexing."),
  *   bundles = {
  *     "node.career_profile",
