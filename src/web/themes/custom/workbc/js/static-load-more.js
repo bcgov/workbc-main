@@ -7,9 +7,17 @@
     let moreText = container.data('static-more-text');
     let items = container.find('[data-static-load-more-items]').first().children();
     let trigger = container.find('[data-static-load-more-trigger]').first();
+    let button = container.find('.static-load-more-button-container').first();
 
     // Hide the extra items: Either the ones outside the initial count, ...
     if (Number.isInteger(initialCount)) {
+
+      // If there are no extra items, hide the whole less/more area.
+      if (items.length <= initialCount) {
+        button.hide();
+        return;
+      }
+
       items.slice(initialCount).hide();
     }
     // ... or the ones with "illustrative" flag = 0.
