@@ -3095,7 +3095,17 @@ display:
         footer: false
       use_ajax: true
       display_description: ''
-      header: {  }
+      header:
+        result:
+          id: result
+          table: views
+          field: result
+          relationship: none
+          group_type: group
+          admin_label: ''
+          plugin_id: result
+          empty: true
+          content: '<div class="result-summary">Showing <span class="update-result">@end </span> of @total videos</div>'
       footer:
         result:
           id: result
