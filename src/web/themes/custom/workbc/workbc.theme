@@ -426,6 +426,9 @@ function workbc_theme_suggestions_fieldset_alter(array &$suggestions, array $var
 function workbc_theme_suggestions_details_alter(array &$suggestions, array $variables) {
   if(isset($variables['element']) && isset($variables['element']['#title'])) {
     $title = strtolower(str_replace(" ", "__", $variables['element']['#title']));
+    if(isset($variables['element'][0]['#name']) && !empty($variables['element'][0]['#name'])) {
+      $suggestions[] = $variables['theme_hook_original'] . "__name__" . $variables['element'][0]['#name'];
+    }
     $suggestions[] = $variables['theme_hook_original'] . "__" . $title;
   }
 }
@@ -455,4 +458,13 @@ function workbc_page_attachments_alter(array &$attachments){
     //Remove all libraries
     unset($attachments['#attached']['library']);
   }
+}
+
+/**
+ * Implements hook_theme_suggestions_HOOK_alter() for file_video theme hook.
+ */
+function workbc_theme_suggestions_file_video_alter(array &$suggestions, array $variables) {
+  $current_path = \Drupal::service('path.current')->getPath();
+  $path_alias = \Drupal::service('path_alias.manager')->getAliasByPath($current_path);
+  $suggestions[] = $variables['theme_hook_original'] . '__' . substr(str_replace(['/', '-'], '_', $path_alias), 1);
 }

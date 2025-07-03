@@ -101,7 +101,8 @@ field_settings:
   episode_title:
     label: 'Episode Title'
     property_path: episode_title
-    type: string
+    type: text
+    boost: 5.0
     configuration:
       value: ''
   field_noc:
@@ -188,6 +189,7 @@ processor_settings:
     weights:
       preprocess_index: -10
   custom_value: {  }
+  entity_status: {  }
   entity_type: {  }
   episode_number_processor:
     weights:
@@ -234,6 +236,6 @@ tracker_settings:
 options:
   cron_limit: 50
   delete_on_fail: true
-  index_directly: true
+  index_directly: false
   track_changes_in_references: true
 server: solr_search

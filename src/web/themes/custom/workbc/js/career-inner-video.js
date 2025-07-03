@@ -10,12 +10,18 @@
 
           const iframe = $(this).find('iframe');
           $('.profile-video')[0].offsetHeight;
+          $(window).on('resize.careerInnerVideo', function () {
+            iframe.css({
+              'width': $('.profile-video').parent().width() ?? "100%"
+            });
+          });
 
           setTimeout(() => {
               iframe.css({
                   'position': 'absolute',
                   'display': 'block',
-                  'z-index': '1'
+                  'z-index': '1',
+                  'width': $('.profile-video').parent().width() ?? "100%"
               })
           }, 200);
           // Force reflow

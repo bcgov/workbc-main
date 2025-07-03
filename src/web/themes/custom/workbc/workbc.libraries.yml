@@ -38,6 +38,7 @@ icon-append:
     js/icon-append.js: {}
   dependencies:
     - core/drupal
+    - core/drupalSettings
     - core/jquery
 
 mobile-nav:
