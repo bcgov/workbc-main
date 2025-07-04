@@ -394,6 +394,8 @@ function workbc_custom_form_views_exposed_form_alter(&$form, FormStateInterface 
     }), 'name', 'tid');
     $form['field_epbc_categories_target_id']['#attributes']['data-placeholder'] =
       $form['field_epbc_categories_target_id']['#disabled'] ? 'Choose an occupational category first' : 'All';
+    $form['field_epbc_categories_target_id']['#attributes']['data-description'] =
+      $form['field_epbc_categories_target_id']['#disabled'] ? 'Choose an occupational category first.' : 'Select one or more areas of interest.';
     $form['field_epbc_categories_target_id']['#default_value'] =
       $input['field_epbc_categories_target_id'] = array_filter($interest_value, function($t) use($form) {
         return in_array($t, array_keys($form['field_epbc_categories_target_id']['#options']));

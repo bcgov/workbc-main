@@ -105,6 +105,19 @@
     margin-right: 0;
   }
 
+  .form-select[multiple] {
+    background-image: escape-svg($form-select-indicator) !important;
+  }
+
+  .chosen-mobile {
+    display: none;
+
+    @include media-breakpoint-down(lg) {
+      display: block;
+      font-size: 0.75rem;
+    }
+  }
+
   #edit-term-node-tid-depth,
   #edit-delta {
     padding-top: 7px;
