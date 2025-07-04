@@ -43,10 +43,11 @@ resource "aws_cloudfront_distribution" "workbc2" {
 	
 	custom_header {
 	  name = "X-Forwarded-Host"
-	  #value = "aws.workbc.ca"
-	  #value = "aws-dev.workbc.ca"
-    #value = "devnoc.workbc.ca"	
-    value = "dev2.workbc.ca"
+	  value = "dev2.workbc.ca"
+	}
+	custom_header {
+	  name = "WorkBC-Source"
+	  value = var.source_token	
 	}
 	
   }
@@ -152,7 +153,7 @@ resource "aws_cloudfront_distribution" "workbc2" {
   aliases = ["dev2.workbc.ca"]	
 
   viewer_certificate {
-    acm_certificate_arn = "arn:aws:acm:us-east-1:873424993519:certificate/1e340149-4680-45d0-9897-5a628ff04d07"
+    acm_certificate_arn = "arn:aws:acm:us-east-1:873424993519:certificate/eb107937-bb69-469a-aaec-f1b2289f675f"
     minimum_protocol_version = "TLSv1.2_2021"
     ssl_support_method = "sni-only"
   }

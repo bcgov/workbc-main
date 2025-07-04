@@ -10,7 +10,7 @@ resource "aws_db_subnet_group" "data_subnet" {
 resource "aws_rds_cluster" "postgres2" {
   cluster_identifier      = "workbc-postgres-cluster"
   engine                  = "aurora-postgresql"
-  engine_version          = "13.12"
+  engine_version          = "13.18"
   engine_mode             = "provisioned"
   master_username         = local.db_creds.adm_username
   master_password         = local.db_creds.adm_password
@@ -19,7 +19,7 @@ resource "aws_rds_cluster" "postgres2" {
   db_subnet_group_name    = aws_db_subnet_group.data_subnet.name
   kms_key_id              = data.aws_kms_key.workbc-kms-key.arn
   storage_encrypted       = true
-  vpc_security_group_ids  = [data.aws_security_group.data.id]
+  vpc_security_group_ids  = [data.aws_security_group.data.id, data.aws_security_group.allow_postgres.id]
   skip_final_snapshot     = true
   final_snapshot_identifier = "workbc-finalsnapshot"
   #multi_az = true

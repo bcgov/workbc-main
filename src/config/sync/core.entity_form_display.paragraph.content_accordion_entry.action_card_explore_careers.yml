@@ -1,0 +1,30 @@
+uuid: ca1a095b-94c9-45b7-b6e9-d6ec6eab1760
+langcode: en
+status: true
+dependencies:
+  config:
+    - core.entity_form_mode.paragraph.action_card_explore_careers
+    - field.field.paragraph.content_accordion_entry.field_body
+    - field.field.paragraph.content_accordion_entry.field_icon
+    - field.field.paragraph.content_accordion_entry.field_key
+    - field.field.paragraph.content_accordion_entry.field_title
+    - paragraphs.paragraphs_type.content_accordion_entry
+id: paragraph.content_accordion_entry.action_card_explore_careers
+targetEntityType: paragraph
+bundle: content_accordion_entry
+mode: action_card_explore_careers
+content:
+  field_title:
+    type: string_textfield
+    weight: 1
+    region: content
+    settings:
+      size: 60
+      placeholder: ''
+    third_party_settings: {  }
+hidden:
+  created: true
+  field_body: true
+  field_icon: true
+  field_key: true
+  status: true

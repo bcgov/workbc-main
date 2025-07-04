@@ -52,8 +52,11 @@ class BigPipeDisableStrategy extends BigPipeStrategy {
    */
   public function processPlaceholders(array $placeholders) {
     $current_uri = \Drupal::request()->getRequestUri();
-    if (str_starts_with($current_uri, '/plan-career/career-trek-videos')) {
-      return [];
+    $paths = \Drupal::config('workbc')->get('paths');
+    foreach ([$paths['career_exploration_search'], $paths['career_trek']] as $path) {
+      if (str_starts_with($current_uri, $path)) {
+        return [];
+      }
     }
 
     return $this->bigPipeStrategy->processPlaceholders($placeholders);

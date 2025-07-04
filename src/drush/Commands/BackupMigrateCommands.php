@@ -7,6 +7,7 @@ use Drush\Commands\DrushCommands;
 use Drush\Boot\DrupalBootLevels;
 use Drupal\backup_migrate\Core\Destination\ListableDestinationInterface;
 use Symfony\Component\Console\Input\InputOption;
+use Drupal\backup_migrate\Core\Filter\FileNamer;
 
 class BackupMigrateCommands extends DrushCommands
 {
@@ -106,6 +107,7 @@ class BackupMigrateCommands extends DrushCommands
      *
      * @param source_id Identifier of the Backup Source.
      * @param destination_id Identifier of the Backup Destination.
+     * @param file optional Name prefix of the backup file.
      *
      * @return string Backup completion status
      *
@@ -114,11 +116,15 @@ class BackupMigrateCommands extends DrushCommands
      */
     public function backup(
         $source_id,
-        $destination_id
+        $destination_id,
+        $file = 'backup'
     ): string
     {
         Drush::bootstrapManager()->doBootstrap(DrupalBootLevels::FULL);
         $bam = \backup_migrate_get_service_object();
+        $bam->plugins()->add('filenamer', new FileNamer([
+          'filename' => $file,
+        ]));
         $bam->backup($source_id, $destination_id);
         return json_encode([
             'status' => 'success',

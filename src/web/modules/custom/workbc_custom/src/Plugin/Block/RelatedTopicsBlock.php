@@ -82,6 +82,9 @@ class RelatedTopicsBlock extends BlockBase {
   //     return 0;
   // }
 
+  /**
+   * {@inheritdoc}
+   */
   public function getCacheTags() {
     // With this when your node change your block will rebuild.
     if ($node = \Drupal::routeMatch()->getParameter('node')) {
@@ -94,14 +97,15 @@ class RelatedTopicsBlock extends BlockBase {
     }
   }
 
+  /**
+   * {@inheritdoc}
+   */
   public function getCacheContexts() {
     // Every new route this block will rebuild.
     return Cache::mergeContexts(parent::getCacheContexts(), ['route']);
   }
 
-
   private function renderImage($node) {
-
     if ($node->hasField('field_related_topics_image') && !$node->get('field_related_topics_image')->isEmpty()) {
       $media_id = $node->field_related_topics_image[0]->getValue()['target_id'];
       $media = Media::load($media_id);
@@ -145,7 +149,6 @@ class RelatedTopicsBlock extends BlockBase {
   }
 
   private function renderText($node) {
-
     if ($node->hasField('field_related_topics_blurb') && !empty($node->get('field_related_topics_blurb')->value)) {
       return strip_tags($node->get('field_related_topics_blurb')->value);
     }
@@ -183,7 +186,6 @@ class RelatedTopicsBlock extends BlockBase {
   }
 
   private function getTopLevel($node) {
-
     if ($node->getType() == "related_topics_card") {
       return $node->field_ia_location->value;
     }

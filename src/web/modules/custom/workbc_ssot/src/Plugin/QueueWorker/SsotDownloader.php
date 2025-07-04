@@ -7,13 +7,15 @@ use Symfony\Component\DependencyInjection\ContainerInterface;
 use Drupal\Core\Plugin\ContainerFactoryPluginInterface;
 use Drupal\Component\Utility\Timer;
 
+define("NULL_VALUE", -999999);
+
 /**
  * SSOT data fetcher.
  *
  * @QueueWorker(
  *   id = "ssot_downloader",
  *   title = @Translation("SSOT Downloader"),
- *   cron = {"time" = 60}
+ *   cron = {"time" = 120}
  * )
  */
 class SsotDownloader extends QueueWorkerBase implements ContainerFactoryPluginInterface {
@@ -165,15 +167,15 @@ class SsotDownloader extends QueueWorkerBase implements ContainerFactoryPluginIn
   }
 
   private function update_career_regional($endpoint, $entries, &$career) {
-    $openings = $career->get('field_region_openings')->getValue() ?? array_fill(0, 8, 0);
+    $openings = $career->get('field_region_openings')->getValue() ?? array_fill(0, 8, NULL_VALUE);
     $entry = reset($entries);
-    $openings[REGION_CARIBOO_ID] = $entry['cariboo_expected_number_of_job_openings_10y'] ?? 0;
-    $openings[REGION_KOOTENAY_ID] = $entry['kootenay_expected_number_of_job_openings_10y'] ?? 0;
-    $openings[REGION_MAINLAND_SOUTHWEST_ID] = $entry['mainland_southwest_expected_number_of_job_openings_10y'] ?? 0;
-    $openings[REGION_NORTH_COAST_NECHAKO_ID] = $entry['north_coast_nechako_expected_number_of_job_openings_10y'] ?? 0;
-    $openings[REGION_NORTHEAST_ID] = $entry['northeast_expected_number_of_job_openings_10y'] ?? 0;
-    $openings[REGION_THOMPSON_OKANAGAN_ID] = $entry['thompson_okanagan_expected_number_of_job_openings_10y'] ?? 0;
-    $openings[REGION_VANCOUVER_ISLAND_COAST_ID] = $entry['vancouver_island_coast_expected_number_of_job_openings_10y'] ?? 0;
+    $openings[REGION_CARIBOO_ID] = $entry['cariboo_expected_number_of_job_openings_10y'] ?? NULL_VALUE;
+    $openings[REGION_KOOTENAY_ID] = $entry['kootenay_expected_number_of_job_openings_10y'] ?? NULL_VALUE;
+    $openings[REGION_MAINLAND_SOUTHWEST_ID] = $entry['mainland_southwest_expected_number_of_job_openings_10y'] ?? NULL_VALUE;
+    $openings[REGION_NORTH_COAST_NECHAKO_ID] = $entry['north_coast_nechako_expected_number_of_job_openings_10y'] ?? NULL_VALUE;
+    $openings[REGION_NORTHEAST_ID] = $entry['northeast_expected_number_of_job_openings_10y'] ?? NULL_VALUE;
+    $openings[REGION_THOMPSON_OKANAGAN_ID] = $entry['thompson_okanagan_expected_number_of_job_openings_10y'] ?? NULL_VALUE;
+    $openings[REGION_VANCOUVER_ISLAND_COAST_ID] = $entry['vancouver_island_coast_expected_number_of_job_openings_10y'] ?? NULL_VALUE;
     $career->set('field_region_openings', $openings);
   }
 
@@ -200,5 +202,17 @@ class SsotDownloader extends QueueWorkerBase implements ContainerFactoryPluginIn
 
   private function update_titles($endpoint, $entries, &$career) {
     $career->set('field_job_titles', array_column($entries, 'commonjobtitle'));
+    $career->set('field_job_titles_illustrative', array_column(array_filter($entries, function($title) {
+      return !empty($title['illustrative']);
+    }), 'commonjobtitle'));
+  }
+
+  private function update_high_opportunity_occupations($endpoint, $entries, &$career) {
+    $openings = array_fill(0, 8, 0);
+    $regions = ssotRegionIds();
+    foreach ($entries as $entry) {
+      $openings[$regions[$entry['region']]] = 1;
+    }
+    $career->set('field_region_hoo', $openings);
   }
 }

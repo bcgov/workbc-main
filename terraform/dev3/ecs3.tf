@@ -1,4 +1,4 @@
-	
+
 resource "aws_ecs_task_definition" "cron-job" {
   family                   = "workbc-drupal-cron-task3"
   execution_role_arn       = data.aws_iam_role.ecs_task_execution_role.arn
@@ -15,7 +15,7 @@ resource "aws_ecs_task_definition" "cron-job" {
 		name        = "cron-runner"
 		image       = "${var.app_repo}/drupal-cron:1.0"
 		networkMode = "awsvpc"
-		
+
 		logConfiguration = {
 			logDriver = "awslogs"
 			options = {
@@ -24,19 +24,19 @@ resource "aws_ecs_task_definition" "cron-job" {
 				awslogs-region        = var.aws_region
 				awslogs-stream-prefix = "ecs"
 			}
-		}		
+		}
 
-		
+
 		environment = [
 			{
 				name = "Cron_Url",
         #Todo
-				value = "https://d2jl0994t9760k.cloudfront.net/cron/vNlYnxjqJe1cK9KaV4DO8LNiaHrIGA9z8PfluY11h-uW79PBFQ9vsS9EVnC-Bsy6ZnBE9luRqA"
+				value = "https://dev3.workbc.ca/cron/vNlYnxjqJe1cK9KaV4DO8LNiaHrIGA9z8PfluY11h-uW79PBFQ9vsS9EVnC-Bsy6ZnBE9luRqA"
 			}
 		]
 	}
   ])
-  
+
 }
 
 resource "aws_cloudwatch_event_rule" "cron" {

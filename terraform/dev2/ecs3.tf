@@ -31,7 +31,7 @@ resource "aws_ecs_task_definition" "cron-job" {
 			{
 				name = "Cron_Url",
         #Todo
-				value = "https://workbc-dev2.b89n0c-dev.nimbus.cloud.gov.bc.ca/cron/vNlYnxjqJe1cK9KaV4DO8LNiaHrIGA9z8PfluY11h-uW79PBFQ9vsS9EVnC-Bsy6ZnBE9luRqA"
+				value = "https://d11mwnwq16ik8q.cloudfront.net/cron/vNlYnxjqJe1cK9KaV4DO8LNiaHrIGA9z8PfluY11h-uW79PBFQ9vsS9EVnC-Bsy6ZnBE9luRqA"
 			}
 		]
 	}

@@ -10792,6 +10792,22 @@ body.mm-wrapper--opened a#mm-0 {
 .footer__copyright a {
   color: #fff; }
 
+.paragraph--type--section-accordion {
+  padding: 20px 0 0;
+  margin-bottom: 30px; }
+
+.workbc-accordion-component .accordion-button:not(.collapsed) {
+  background-color: #F2F2F2; }
+.workbc-accordion-component .accordion-button:focus {
+  box-shadow: none; }
+.workbc-accordion-component .field--name-field-title .field__item {
+  font-weight: bold;
+  font-size: 1.125rem; }
+.workbc-accordion-component .field--name-field-icon svg, .workbc-accordion-component .field--name-field-icon img {
+  width: 45px;
+  height: 45px;
+  margin-right: 15px; }
+
 .alphabet-navigation {
   display: flex;
   flex-flow: row wrap;
@@ -12152,21 +12168,20 @@ h3.card-profile__content-header, .card-profile__content-header.h3 {
         #workbc-custom-explore-careers-grid-form .tile .tile-icon {
           padding-top: 0px;
           padding-bottom: 0px;
-          padding-left: 10px;
-          padding-right: 15px; }
+          padding-left: 20px;
+          padding-right: 10px; }
           #workbc-custom-explore-careers-grid-form .tile .tile-icon img {
             width: 24px;
             height: 24px;
             margin: 0px; } }
     #workbc-custom-explore-careers-grid-form .tile .tile-name {
-      font-size: 1.35vw;
+      font-size: 21px;
       line-height: 125%;
       font-weight: bold;
       margin-top: 10%;
-      margin-bottom: 20px; }
+      margin-bottom: 0px; }
       @media (max-width: 991.98px) {
         #workbc-custom-explore-careers-grid-form .tile .tile-name {
-          font-size: 1.125rem;
           line-height: 1.375rem;
           margin-top: 0px;
           margin-bottom: 0px;
@@ -12176,91 +12191,91 @@ h3.card-profile__content-header, .card-profile__content-header.h3 {
         display: none; } }
     #workbc-custom-explore-careers-grid-form .tile .tile-group {
       margin-top: auto; }
+      @media (max-width: 991.98px) {
+        #workbc-custom-explore-careers-grid-form .tile .tile-group {
+          margin-top: inherit; } }
     #workbc-custom-explore-careers-grid-form .tile .tile-expand {
       padding-top: 10%;
       padding-bottom: 15%; }
       #workbc-custom-explore-careers-grid-form .tile .tile-expand img {
         width: 16px;
         height: 16px;
-        margin: auto; }
+        margin: auto;
+        cursor: pointer; }
       @media (max-width: 991.98px) {
         #workbc-custom-explore-careers-grid-form .tile .tile-expand {
           padding-right: 20px;
           padding-left: 20px; }
           #workbc-custom-explore-careers-grid-form .tile .tile-expand img {
             margin-left: auto; } }
+  #workbc-custom-explore-careers-grid-form div.grid-item {
+    border-top: 8px solid; }
+    @media (max-width: 991.98px) {
+      #workbc-custom-explore-careers-grid-form div.grid-item {
+        border-top: inherit;
+        border-left: 3px solid;
+        padding-top: 10px;
+        padding-bottom: 10px; } }
   #workbc-custom-explore-careers-grid-form #category-business {
-    border-top: 8px solid #DA5700; }
+    border-top-color: #D95700; }
     @media (max-width: 991.98px) {
       #workbc-custom-explore-careers-grid-form #category-business {
-        border-top: inherit;
-        border-left: 5px solid #DA5700; } }
+        border-left-color: #D95700; } }
   #workbc-custom-explore-careers-grid-form #category-community-and-support-services {
-    border-top: 8px solid #E7BF3E; }
+    border-top-color: #E7BF3E; }
     @media (max-width: 991.98px) {
       #workbc-custom-explore-careers-grid-form #category-community-and-support-services {
-        border-top: inherit;
-        border-left: 5px solid #E7BF3E; } }
+        border-left-color: #E7BF3E; } }
   #workbc-custom-explore-careers-grid-form #category-education {
-    border-top: 8px solid #870264; }
+    border-top-color: #880364; }
     @media (max-width: 991.98px) {
       #workbc-custom-explore-careers-grid-form #category-education {
-        border-top: inherit;
-        border-left: 5px solid #870264; } }
+        border-left-color: #880364; } }
   #workbc-custom-explore-careers-grid-form #category-engineering-and-architecture {
-    border-top: 8px solid #80B317; }
+    border-top-color: #81B216; }
     @media (max-width: 991.98px) {
       #workbc-custom-explore-careers-grid-form #category-engineering-and-architecture {
-        border-top: inherit;
-        border-left: 5px solid #80B317; } }
+        border-left-color: #81B216; } }
   #workbc-custom-explore-careers-grid-form #category-hospitality-tourism-and-recreation {
-    border-top: 8px solid #029CDE; }
+    border-top-color: #009CDE; }
     @media (max-width: 991.98px) {
       #workbc-custom-explore-careers-grid-form #category-hospitality-tourism-and-recreation {
-        border-top: inherit;
-        border-left: 5px solid #029CDE; } }
+        border-left-color: #009CDE; } }
   #workbc-custom-explore-careers-grid-form #category-labour-and-technical-skills {
-    border-top: 8px solid #2E6AB0; }
+    border-top-color: #2E6AB0; }
     @media (max-width: 991.98px) {
       #workbc-custom-explore-careers-grid-form #category-labour-and-technical-skills {
-        border-top: inherit;
-        border-left: 5px solid #2E6AB0; } }
+        border-left-color: #2E6AB0; } }
   #workbc-custom-explore-careers-grid-form #category-law-and-justice {
-    border-top: 8px solid #DA5700; }
+    border-top-color: #D95700; }
     @media (max-width: 991.98px) {
       #workbc-custom-explore-careers-grid-form #category-law-and-justice {
-        border-top: inherit;
-        border-left: 5px solid #DA5700; } }
+        border-left-color: #D95700; } }
   #workbc-custom-explore-careers-grid-form #category-mathematics-and-technology {
-    border-top: 8px solid #029CDE; }
+    border-top-color: #009CDE; }
     @media (max-width: 991.98px) {
       #workbc-custom-explore-careers-grid-form #category-mathematics-and-technology {
-        border-top: inherit;
-        border-left: 5px solid #029CDE; } }
+        border-left-color: #009CDE; } }
   #workbc-custom-explore-careers-grid-form #category-medicine-and-health {
-    border-top: 8px solid #870264; }
+    border-top-color: #880364; }
     @media (max-width: 991.98px) {
       #workbc-custom-explore-careers-grid-form #category-medicine-and-health {
-        border-top: inherit;
-        border-left: 5px solid #870264; } }
+        border-left-color: #880364; } }
   #workbc-custom-explore-careers-grid-form #category-performing-creative-and-fine-arts {
-    border-top: 8px solid #80B317; }
+    border-top-color: #81B216; }
     @media (max-width: 991.98px) {
       #workbc-custom-explore-careers-grid-form #category-performing-creative-and-fine-arts {
-        border-top: inherit;
-        border-left: 5px solid #80B317; } }
+        border-left-color: #81B216; } }
   #workbc-custom-explore-careers-grid-form #category-physical-and-natural-sciences {
-    border-top: 8px solid #E7BF3E; }
+    border-top-color: #E7BF3E; }
     @media (max-width: 991.98px) {
       #workbc-custom-explore-careers-grid-form #category-physical-and-natural-sciences {
-        border-top: inherit;
-        border-left: 5px solid #E7BF3E; } }
+        border-left-color: #E7BF3E; } }
   #workbc-custom-explore-careers-grid-form #category-trades {
-    border-top: 8px solid #2E6AB0; }
+    border-top-color: #2E6AB0; }
     @media (max-width: 991.98px) {
       #workbc-custom-explore-careers-grid-form #category-trades {
-        border-top: inherit;
-        border-left: 5px solid #2E6AB0; } }
+        border-left-color: #2E6AB0; } }
   #workbc-custom-explore-careers-grid-form .areas-of-interest {
     grid-column: 1 / -1;
     margin: 0px 0px 0px 0px;
@@ -12282,19 +12297,19 @@ h3.card-profile__content-header, .card-profile__content-header.h3 {
       padding: 5px 10px 5px 10px;
       margin-left: 0px;
       margin-right: 0px; }
-    #workbc-custom-explore-careers-grid-form .fieldset-wrapper .form-type-checkbox:has(input:checked) {
-      border: 2px solid #2E6AB0;
-      padding: 4px 9px 4px 9px; }
+      #workbc-custom-explore-careers-grid-form .fieldset-wrapper .form-type-checkbox:has(input:checked) {
+        border: 2px solid #2E6AB0;
+        padding: 4px 9px 4px 9px; }
     #workbc-custom-explore-careers-grid-form .fieldset-wrapper .form-check-input {
       border-color: #2E6AB0;
       background-clip: padding-box;
-      -webkit-box-shadow: inset 0px 0px 0px 2px #FFFFFF;
-      -moz-box-shadow: inset 0px 0px 0px 2px #FFFFFF;
       box-shadow: inset 0px 0px 0px 2px #FFFFFF;
       margin-right: 5px; }
-    #workbc-custom-explore-careers-grid-form .fieldset-wrapper .form-check-input:checked {
-      background-image: none;
-      background-color: #2E6AB0; }
+      #workbc-custom-explore-careers-grid-form .fieldset-wrapper .form-check-input:checked {
+        background-image: none;
+        background-color: #2E6AB0; }
+      #workbc-custom-explore-careers-grid-form .fieldset-wrapper .form-check-input:focus {
+        box-shadow: inset 0px 0px 0px 2px #FFFFFF, 0 0 0 0.25rem rgba(0, 40, 87, 0.25); }
     #workbc-custom-explore-careers-grid-form .fieldset-wrapper :nth-child(1) {
       grid-column-end: span 2; }
       @media (max-width: 991.98px) {
@@ -12312,6 +12327,10 @@ h3.card-profile__content-header, .card-profile__content-header.h3 {
     @media (max-width: 991.98px) {
       #workbc-custom-explore-careers-grid-form .fieldset-wrapper .areas-of-interest-close {
         display: none; } }
+    #workbc-custom-explore-careers-grid-form .fieldset-wrapper .areas-of-interest-close .btn-close, #workbc-custom-explore-careers-grid-form .fieldset-wrapper .areas-of-interest-close .ui-dialog .ui-dialog-titlebar-close, .ui-dialog #workbc-custom-explore-careers-grid-form .fieldset-wrapper .areas-of-interest-close .ui-dialog-titlebar-close {
+      position: absolute;
+      top: 15px;
+      right: 15px; }
     #workbc-custom-explore-careers-grid-form .fieldset-wrapper .areas-of-interest-close img {
       width: 16px;
       height: 16px;
@@ -12355,17 +12374,21 @@ h3.card-profile__content-header, .card-profile__content-header.h3 {
 .workbc-custom-explore-careers-search-form {
   margin-top: 25px;
   padding-top: 25px;
-  padding-bottom: 100px;
+  padding-bottom: 25px;
   background-color: #f2f2f2; }
   .workbc-custom-explore-careers-search-form h2, .workbc-custom-explore-careers-search-form .h2 {
     padding-bottom: 15px; }
-  .workbc-custom-explore-careers-search-form .single-row {
-    display: flex;
-    align-items: center;
-    width: 100%; }
   .workbc-custom-explore-careers-search-form .form-item-keywords {
-    width: 80%;
-    flex: 1; }
+    margin-top: 0;
+    width: 50%; }
+    .workbc-custom-explore-careers-search-form .form-item-keywords label {
+      margin-bottom: 1em; }
+    @media (max-width: 991.98px) {
+      .workbc-custom-explore-careers-search-form .form-item-keywords {
+        width: 100%; } }
+  .workbc-custom-explore-careers-search-form .form-submit {
+    margin-top: 10px;
+    margin-left: 0; }
   @media (max-width: 991.98px) {
     .workbc-custom-explore-careers-search-form .workbc-tooltip-content {
       left: -40px; }
@@ -12547,6 +12570,319 @@ h3.card-profile__content-header, .card-profile__content-header.h3 {
         border-width: 16px;
         margin-left: -16px;
         left: 88%; } }
+
+.plan-careerexplore-careerscareer-profilessearch #block-bettersocialsharingbuttons {
+  background-color: #f2f2f2; }
+.plan-careerexplore-careerscareer-profilessearch .node-page-content {
+  display: none; }
+
+.view-id-explore_careers .explore-careers-filter {
+  background-color: #f2f2f2; }
+  .view-id-explore_careers .explore-careers-filter input.chosen-search-input::placeholder {
+    color: #212529; }
+  .view-id-explore_careers .explore-careers-filter #edit-field-teer-value,
+  .view-id-explore_careers .explore-careers-filter .chosen-container-multi {
+    padding-top: 8px;
+    padding-bottom: 7px; }
+    .view-id-explore_careers .explore-careers-filter #edit-field-teer-value .chosen-choices,
+    .view-id-explore_careers .explore-careers-filter .chosen-container-multi .chosen-choices {
+      border: 0; }
+    .view-id-explore_careers .explore-careers-filter #edit-field-teer-value .chosen-drop,
+    .view-id-explore_careers .explore-careers-filter .chosen-container-multi .chosen-drop {
+      left: 0; }
+.view-id-explore_careers .view-header {
+  display: flex;
+  flex-direction: row;
+  justify-content: space-between;
+  align-items: center; }
+  @media (max-width: 991.98px) {
+    .view-id-explore_careers .view-header {
+      flex-direction: column;
+      align-items: start; } }
+.view-id-explore_careers .view-header-links {
+  display: flex;
+  flex-direction: row; }
+  @media (max-width: 991.98px) {
+    .view-id-explore_careers .view-header-links {
+      flex-direction: column;
+      padding-top: 5px;
+      padding-bottom: 5px; } }
+  @media (max-width: 991.98px) {
+    .view-id-explore_careers .view-header-links .view-header-link {
+      padding-top: 5px;
+      padding-bottom: 5px; } }
+  .view-id-explore_careers .view-header-links a {
+    padding-left: 25px;
+    text-decoration: underline; }
+    @media (max-width: 991.98px) {
+      .view-id-explore_careers .view-header-links a {
+        padding-left: 0px; } }
+.view-id-explore_careers .views-exposed-form .form--inline {
+  position: relative;
+  display: grid;
+  grid-auto-flow: dense;
+  grid-template-columns: repeat(4, minmax(0, 1fr));
+  grid-column-gap: 10px; }
+  @media (max-width: 991.98px) {
+    .view-id-explore_careers .views-exposed-form .form--inline {
+      grid-column-gap: 0px; } }
+.view-id-explore_careers label {
+  display: block; }
+.view-id-explore_careers .form-control {
+  border: 2px solid #2E6AB0;
+  border-radius: 0;
+  line-height: 1.95; }
+.view-id-explore_careers .form-item {
+  margin-right: 0; }
+.view-id-explore_careers #edit-term-node-tid-depth,
+.view-id-explore_careers #edit-delta {
+  padding-top: 7px;
+  padding-bottom: 8px; }
+.view-id-explore_careers .form-item-keyword-search {
+  grid-column-end: span 4;
+  width: 50%;
+  padding-right: 5px; }
+  @media (max-width: 991.98px) {
+    .view-id-explore_careers .form-item-keyword-search {
+      grid-column-end: span 4;
+      width: 100%;
+      padding-right: 0px; } }
+.view-id-explore_careers .form-item-term-node-tid-depth {
+  grid-column-end: span 2; }
+  @media (max-width: 991.98px) {
+    .view-id-explore_careers .form-item-term-node-tid-depth {
+      grid-column-end: span 4; } }
+.view-id-explore_careers .show-occupational-category #category-container {
+  grid-column-end: span 2; }
+  @media (max-width: 991.98px) {
+    .view-id-explore_careers .show-occupational-category #category-container {
+      grid-column-end: span 4; } }
+.view-id-explore_careers .hide-occupational-category #category-container {
+  grid-column-end: span 4;
+  width: 50%; }
+  .view-id-explore_careers .hide-occupational-category #category-container .form-item-field-epbc-categories-target-id {
+    grid-column-end: span 2;
+    padding-right: 5px; }
+    @media (max-width: 991.98px) {
+      .view-id-explore_careers .hide-occupational-category #category-container .form-item-field-epbc-categories-target-id {
+        grid-column-end: span 4;
+        padding-right: 0px; } }
+  @media (max-width: 991.98px) {
+    .view-id-explore_careers .hide-occupational-category #category-container {
+      width: 100%; } }
+.view-id-explore_careers .form-item-field-teer-value {
+  grid-column-end: span 2; }
+  @media (max-width: 991.98px) {
+    .view-id-explore_careers .form-item-field-teer-value {
+      grid-column-end: span 4;
+      width: 100%;
+      padding-right: 0px; } }
+.view-id-explore_careers .form-item-field-annual-salary-value {
+  grid-column-end: span 1; }
+  @media (max-width: 991.98px) {
+    .view-id-explore_careers .form-item-field-annual-salary-value {
+      grid-column-end: span 4;
+      width: 100%; } }
+.view-id-explore_careers .form-item-delta {
+  grid-column-end: span 1; }
+  @media (max-width: 991.98px) {
+    .view-id-explore_careers .form-item-delta {
+      grid-column-end: span 4;
+      width: 100%; } }
+.view-id-explore_careers .form-actions {
+  display: flex;
+  grid-column-end: span 4;
+  margin-top: 40px; }
+  @media (max-width: 991.98px) {
+    .view-id-explore_careers .form-actions {
+      margin-top: 20px; } }
+.view-id-explore_careers .form-item-sort-bef-combine {
+  position: absolute;
+  right: 0px;
+  bottom: 0px;
+  width: 40%; }
+  @media (max-width: 991.98px) {
+    .view-id-explore_careers .form-item-sort-bef-combine {
+      position: inherit;
+      grid-column-end: span 4;
+      width: 100%; } }
+.view-id-explore_careers .zero-found .form-item-sort-bef-combine {
+  display: none; }
+.view-id-explore_careers .career-profiles-found-title {
+  position: relative;
+  color: #333333;
+  border-bottom: 4px;
+  padding-bottom: 4px;
+  margin-bottom: 30px;
+  font-size: 2rem;
+  width: 50%; }
+  .view-id-explore_careers .career-profiles-found-title:after {
+    content: '';
+    height: 4px;
+    position: absolute;
+    left: 0px;
+    bottom: 0px;
+    right: 0px;
+    background-image: linear-gradient(to right, #D8E5F1 25%, #FFFFFF 100%); }
+  @media (max-width: 991.98px) {
+    .view-id-explore_careers .career-profiles-found-title {
+      width: 95%; } }
+.view-id-explore_careers #edit-reset-explore-careers {
+  display: inline-block;
+  padding: 8px 52px;
+  border: 2px solid #2E6AB0;
+  border-radius: 4px;
+  font-weight: 700;
+  color: #2e6ab0;
+  text-decoration: none;
+  background-color: #FFFFFF;
+  padding: 10px 64px; }
+  .view-id-explore_careers #edit-reset-explore-careers:hover, .view-id-explore_careers #edit-reset-explore-careers:focus {
+    background-color: #f2f2f2;
+    text-decoration: none; }
+  @media (max-width: 599.98px) {
+    .view-id-explore_careers #edit-reset-explore-careers {
+      padding: 10px 15px; } }
+@media (max-width: 599.98px) {
+  .view-id-explore_careers .form-submit {
+    padding: 10px 15px; } }
+.view-id-explore_careers .explore-careers-sort {
+  padding-top: 15px;
+  padding-bottom: 20px; }
+  @media (max-width: 991.98px) {
+    .view-id-explore_careers .explore-careers-sort {
+      padding-bottom: 0px; } }
+.view-id-explore_careers .views-row {
+  display: flex;
+  flex-direction: row;
+  box-shadow: 0 0 15px 0 rgba(0, 0, 0, 0.15);
+  margin-bottom: 25px;
+  padding: 25px 20px; }
+  @media (max-width: 991.98px) {
+    .view-id-explore_careers .views-row {
+      flex-direction: column; } }
+  .view-id-explore_careers .views-row .career-profile-titles {
+    margin-top: 1rem;
+    display: none; }
+    .view-id-explore_careers .views-row .career-profile-titles h6, .view-id-explore_careers .views-row .career-profile-titles .h6 {
+      margin-bottom: .75rem; }
+    .view-id-explore_careers .views-row .career-profile-titles ul {
+      display: flex;
+      flex-direction: row;
+      flex-wrap: wrap;
+      width: 100%; }
+      .view-id-explore_careers .views-row .career-profile-titles ul li {
+        width: calc(100% / 2.2); }
+        @media (max-width: 991.98px) {
+          .view-id-explore_careers .views-row .career-profile-titles ul li {
+            width: 100%; } }
+  .view-id-explore_careers .views-row .career-profile-titles-toggle {
+    display: inline-block; }
+    .view-id-explore_careers .views-row .career-profile-titles-toggle a {
+      padding-left: 35px;
+      vertical-align: middle;
+      cursor: pointer; }
+      @media (max-width: 599.98px) {
+        .view-id-explore_careers .views-row .career-profile-titles-toggle a {
+          padding-left: 10px; } }
+  .view-id-explore_careers .views-row .career-profile-link {
+    display: inline-block; }
+    .view-id-explore_careers .views-row .career-profile-link a {
+      display: inline-block;
+      padding: 10px 64px;
+      background-color: #2E6AB0;
+      color: #fff;
+      border-radius: 4px;
+      font-weight: 700;
+      transition: background-color 0.2s;
+      padding: 10px 35px; }
+      .view-id-explore_careers .views-row .career-profile-link a:hover, .view-id-explore_careers .views-row .career-profile-link a:focus {
+        background-color: #002857;
+        color: #fff;
+        text-decoration: none; }
+      @media (max-width: 599.98px) {
+        .view-id-explore_careers .views-row .career-profile-link a {
+          padding: 10px 15px; } }
+  .view-id-explore_careers .views-row .card-left {
+    width: 50%;
+    margin-right: 10px;
+    display: flex;
+    flex-direction: column; }
+    @media (max-width: 991.98px) {
+      .view-id-explore_careers .views-row .card-left {
+        width: 100%; } }
+    @media (min-width: 992px) {
+      .view-id-explore_careers .views-row .card-left .card-left-or-right {
+        margin-top: auto;
+        display: block; } }
+    @media (max-width: 991.98px) {
+      .view-id-explore_careers .views-row .card-left .card-left-or-right {
+        display: none; } }
+  .view-id-explore_careers .views-row .card-right {
+    width: 50%;
+    margin-left: 10px; }
+    @media (max-width: 991.98px) {
+      .view-id-explore_careers .views-row .card-right {
+        width: 100%;
+        margin-left: 0px; } }
+    .view-id-explore_careers .views-row .card-right .card-stats-container {
+      display: flex;
+      flex-direction: row;
+      align-items: center; }
+      @media (max-width: 991.98px) {
+        .view-id-explore_careers .views-row .card-right .card-stats-container {
+          align-items: start;
+          margin-top: 10px; } }
+    .view-id-explore_careers .views-row .card-right img {
+      width: 42px;
+      height: 42px;
+      margin: 10px 20px; }
+      @media (max-width: 991.98px) {
+        .view-id-explore_careers .views-row .card-right img {
+          margin-top: 0px;
+          margin-left: 0px; } }
+    @media (min-width: 992px) {
+      .view-id-explore_careers .views-row .card-right .card-left-or-right {
+        display: none; } }
+    @media (max-width: 991.98px) {
+      .view-id-explore_careers .views-row .card-right .card-left-or-right {
+        display: block; } }
+    .view-id-explore_careers .views-row .card-right .card-left-or-right .career-profile-hoo {
+      margin-top: 20px;
+      float: none; }
+      @media (min-width: 992px) {
+        .view-id-explore_careers .views-row .card-right .card-left-or-right .career-profile-hoo {
+          display: none; } }
+      @media (max-width: 991.98px) {
+        .view-id-explore_careers .views-row .card-right .card-left-or-right .career-profile-hoo {
+          display: block; } }
+    .view-id-explore_careers .views-row .card-right .career-profile-buttons {
+      padding-top: 25px; }
+    .view-id-explore_careers .views-row .card-right .career-profile-hoo {
+      margin-top: 10px;
+      float: right;
+      color: #2e6ab0; }
+      @media (min-width: 992px) {
+        .view-id-explore_careers .views-row .card-right .career-profile-hoo {
+          display: block; } }
+      @media (max-width: 991.98px) {
+        .view-id-explore_careers .views-row .card-right .career-profile-hoo {
+          display: none; } }
+      .view-id-explore_careers .views-row .card-right .career-profile-hoo img, .view-id-explore_careers .views-row .card-right .career-profile-hoo svg {
+        margin: 0;
+        height: 1em;
+        object-fit: contain;
+        width: auto;
+        vertical-align: baseline; }
+  .view-id-explore_careers .views-row .field-content {
+    font-weight: bold; }
+.view-id-explore_careers .view-empty {
+  margin-bottom: 50px; }
+  .view-id-explore_careers .view-empty .no-results {
+    margin-top: 0px;
+    margin-bottom: 15px; }
+  .view-id-explore_careers .view-empty .search-suggestions {
+    margin-bottom: 10px; }
 
 .featured-news {
   margin-bottom: 40px; }
@@ -12932,6 +13268,8 @@ h3.card-profile__content-header, .card-profile__content-header.h3 {
   text-align: left;
   padding-top: 30px;
   color: #2E6AB0; }
+  .hero-hoo img, .hero-hoo svg {
+    vertical-align: baseline; }
   @media (min-width: 992px) {
     .hero-hoo {
       padding-top: 5px;
@@ -14782,6 +15120,11 @@ page" block and enable the identical content under the page title.
 @media (min-width: 992px) {
   div.on-this-page {
     display: none; } }
+#block-site-search-explore-careers {
+  padding: 15px 0;
+  text-align: center;
+  background-color: #f2f2f2; }
+
 .social-sharing {
   padding: 20px 0 5px 0;
   position: relative;
@@ -15330,123 +15673,106 @@ article.media--type-remote-video {
 .event-cal .pager ul.pager__items {
   padding-left: 0px; }
 
-.jobs-data {
-  margin-bottom: 30px; }
-
 .block-workbc-jobboard h2, .block-workbc-jobboard .h2 {
   font-weight: 700;
   margin: 30px 0 10px 0;
   font-size: 21px;
   line-height: 23px; }
 
-.jobs-data .job-title.card-plain__title {
-  font-size: 18px;
-  text-transform: capitalize;
-  margin-bottom: 5px;
-  font-weight: bold; }
-
-.jobs-data .sub-title {
-  margin-top: 5px;
-  margin-bottom: 20px;
-  font-size: 16px;
-  font-weight: 500; }
-
-.jobs-data .job-box.item {
-  position: relative;
-  padding: 10px 20px 10px 20px; }
-
-.jobs-data .job-company {
-  font-size: 16px;
-  margin-bottom: 10px;
-  font-weight: 500; }
-
-.jobs-data .job-location {
-  font-size: 15px;
-  padding-bottom: 20px; }
-
-.jobs-data .job-location span {
-  margin-right: 10px; }
-
-.jobs-data .job-location span img, .jobs-data .sub-title span svg {
-  margin-top: -4px; }
-
-.jobs-data .job-post-date label {
-  display: inline-block; }
-
-.jobs-data .job-post-date {
-  font-family: 'BCSans';
-  font-weight: 400;
-  font-style: normal;
-  font-size: 15px;
-  position: absolute;
-  bottom: 12px; }
-
-.jobs-data a.more-jobs {
-  width: 100%;
-  text-align: center;
-  background: #FFFFFF; }
-
-.jobs-data a.more-jobs:hover {
-  background: #f2f2f2; }
+.jobs-data {
+  margin-bottom: 30px; }
+  .jobs-data .job-title.card-plain__title {
+    font-size: 18px;
+    text-transform: capitalize;
+    margin-bottom: 5px;
+    font-weight: bold; }
+  .jobs-data .sub-title {
+    margin-top: 5px;
+    margin-bottom: 20px;
+    font-size: 16px;
+    font-weight: 500; }
+  .jobs-data .job-box.item {
+    position: relative;
+    padding: 10px 20px 10px 20px; }
+  .jobs-data .job-company {
+    font-size: 16px;
+    margin-bottom: 10px;
+    font-weight: 500; }
+  .jobs-data .job-location {
+    font-size: 15px;
+    padding-bottom: 20px; }
+    .jobs-data .job-location span {
+      margin-right: 10px; }
+      .jobs-data .job-location span img, .jobs-data .job-location span svg {
+        margin-top: -4px; }
+  .jobs-data .job-post-date {
+    font-family: 'BCSans';
+    font-weight: 400;
+    font-style: normal;
+    font-size: 15px;
+    position: absolute;
+    bottom: 12px; }
+    .jobs-data .job-post-date label {
+      display: inline-block; }
+  .jobs-data a.more-jobs {
+    width: 100%;
+    text-align: center;
+    background: #FFFFFF; }
+  .jobs-data a.more-jobs:hover {
+    background: #f2f2f2; }
 
 .workbc-jobboard-save-profile {
   text-align: right; }
+  .workbc-jobboard-save-profile .save_career_profile .form-submit {
+    width: 28px;
+    height: 28px;
+    text-align: right;
+    padding: 0 0 0 5px;
+    background-image: url(../assets/images/save.svg);
+    background-repeat: no-repeat;
+    background-position: 100% 50%;
+    background-size: 18px;
+    background-color: #fff;
+    outline: 0;
+    color: transparent;
+    overflow: hidden;
+    visibility: hidden; }
+    .workbc-jobboard-save-profile .save_career_profile .form-submit:focus {
+      box-shadow: none; }
 
-.workbc-jobboard-save-profile .save_career_profile .form-submit {
-  width: 28px;
-  height: 28px;
-  text-align: right;
-  padding: 0 0 0 5px;
-  background-image: url(../assets/images/save.svg);
-  background-repeat: no-repeat;
-  background-position: 100% 50%;
-  background-size: 18px;
-  background-color: #fff;
-  outline: 0;
-  color: transparent;
-  overflow: hidden;
-  visibility: hidden; }
-
-.workbc-jobboard-save-profile .save_career_profile .form-submit:focus {
-  box-shadow: none; }
-
-.new-login-link a, .new-logout-link a {
+.new-login-link a,
+.new-logout-link a {
   font-weight: bold; }
 
 .nav-items .dropdown .nav-item:not(:last-of-type):after {
   display: none; }
-
 .nav-items .dropdown .dropdown-menu {
   margin-top: 15px !important;
   border: 2px solid #2e6ab0;
   min-width: 200px;
   left: -88px !important; }
-
-.nav-items .dropdown .dropdown-menu::before, .nav-items .dropdown .dropdown-menu::after {
-  bottom: 100%;
-  right: 20px;
-  border: solid transparent;
-  content: "";
-  height: 0;
-  width: 0;
-  position: absolute;
-  pointer-events: none; }
-
-.nav-items .dropdown .dropdown-menu::before {
-  border-color: rgba(194, 225, 245, 0);
-  border-bottom-color: #2e6ab0;
-  border-width: 20px;
-  margin-left: -20px; }
-
-.nav-items .dropdown .dropdown-menu::after {
-  border-color: rgba(136, 183, 213, 0);
-  border-bottom-color: #ffffff;
-  border-width: 17px;
-  margin-left: -17px;
-  margin-right: 3px; }
-
-.nav-items .dropdown .dropdown-menu .nav-item:active {
-  background: none !important; }
+  .nav-items .dropdown .dropdown-menu::before, .nav-items .dropdown .dropdown-menu::after {
+    bottom: 100%;
+    right: 20px;
+    border: solid transparent;
+    content: "";
+    height: 0;
+    width: 0;
+    position: absolute;
+    pointer-events: none; }
+  .nav-items .dropdown .dropdown-menu::before {
+    border-color: rgba(194, 225, 245, 0);
+    border-bottom-color: #2e6ab0;
+    border-width: 20px;
+    margin-left: -20px; }
+  .nav-items .dropdown .dropdown-menu::after {
+    border-color: rgba(136, 183, 213, 0);
+    border-bottom-color: #ffffff;
+    border-width: 17px;
+    margin-left: -17px;
+    margin-right: 3px; }
+  .nav-items .dropdown .dropdown-menu .nav-item:active {
+    background: none !important; }
 
 .view-id-video_library {
   margin-bottom: 2.4rem; }
@@ -15456,7 +15782,8 @@ article.media--type-remote-video {
     padding: 1rem 0 0; }
   .view-id-video_library #edit-recently-added {
     float: right; }
-  .view-id-video_library #edit-recently-added, .view-id-video_library #edit-reset {
+  .view-id-video_library #edit-recently-added,
+  .view-id-video_library #edit-reset {
     display: inline-block;
     padding: 8px 52px;
     border: 2px solid #2E6AB0;
@@ -15465,7 +15792,9 @@ article.media--type-remote-video {
     color: #2e6ab0;
     text-decoration: none;
     background-color: transparent; }
-    .view-id-video_library #edit-recently-added:hover, .view-id-video_library #edit-recently-added:focus, .view-id-video_library #edit-reset:hover, .view-id-video_library #edit-reset:focus {
+    .view-id-video_library #edit-recently-added:hover, .view-id-video_library #edit-recently-added:focus,
+    .view-id-video_library #edit-reset:hover,
+    .view-id-video_library #edit-reset:focus {
       background-color: #f2f2f2;
       text-decoration: none; }
 
@@ -15528,8 +15857,8 @@ article.media--type-remote-video {
 */
 app-root .breadcrumbs {
   display: none; }
-
-app-root input[type=checkbox], app-root input[type=radio] {
+app-root input[type=checkbox],
+app-root input[type=radio] {
   -webkit-appearance: none;
   -moz-appearance: none;
   appearance: none;
@@ -15540,10 +15869,25 @@ app-root input[type=checkbox], app-root input[type=radio] {
   vertical-align: middle;
   width: 0;
   position: absolute; }
-
-app-root .job-search-contain .icon-wrap, app-root .job-search-contain .icon-wrap.small, app-root .modal .icon-wrap.small, app-root .account-contain .icon-wrap, app-root .modal .icon-wrap {
+app-root .job-alerts-inner input[type=radio] {
+  -webkit-appearance: auto;
+  -moz-appearance: auto;
+  appearance: auto;
+  border: 0;
+  opacity: 1;
+  outline: 0;
+  padding: 0;
+  vertical-align: middle;
+  width: auto;
+  position: relative; }
+app-root .job-alerts-inner label {
+  padding-left: 9px; }
+app-root .job-search-contain .icon-wrap,
+app-root .job-search-contain .icon-wrap.small,
+app-root .modal .icon-wrap.small,
+app-root .account-contain .icon-wrap,
+app-root .modal .icon-wrap {
   display: inline-block; }
-
 app-root .account-contain app-account-dashboard .card .btn, app-root .account-contain app-account-dashboard fieldset.form-item .btn, app-root .account-contain app-account-dashboard .form-item-upload .btn, app-root .account-contain app-account-dashboard .form-type-managed-file .btn, app-root .account-contain app-account-dashboard .view-media-library .media-library-views-form .media-library-item--grid .views-field-rendered-entity .btn, .view-media-library .media-library-views-form .media-library-item--grid app-root .account-contain app-account-dashboard .views-field-rendered-entity .btn, app-root .account-contain app-account-dashboard .media-library-selection .media-library-item.media-library-item--grid .btn, .media-library-selection app-root .account-contain app-account-dashboard .media-library-item.media-library-item--grid .btn, app-root .account-contain app-account-dashboard .card button.link, app-root .account-contain app-account-dashboard fieldset.form-item button.link, app-root .account-contain app-account-dashboard .form-item-upload button.link, app-root .account-contain app-account-dashboard .form-type-managed-file button.link, app-root .account-contain app-account-dashboard .view-media-library .media-library-views-form .media-library-item--grid .views-field-rendered-entity button.link, .view-media-library .media-library-views-form .media-library-item--grid app-root .account-contain app-account-dashboard .views-field-rendered-entity button.link, app-root .account-contain app-account-dashboard .media-library-selection .media-library-item.media-library-item--grid button.link, .media-library-selection app-root .account-contain app-account-dashboard .media-library-item.media-library-item--grid button.link, app-root .account-contain app-account-dashboard .card .button, app-root .account-contain app-account-dashboard fieldset.form-item .button, app-root .account-contain app-account-dashboard .form-item-upload .button, app-root .account-contain app-account-dashboard .form-type-managed-file .button, app-root .account-contain app-account-dashboard .view-media-library .media-library-views-form .media-library-item--grid .views-field-rendered-entity .button, .view-media-library .media-library-views-form .media-library-item--grid app-root .account-contain app-account-dashboard .views-field-rendered-entity .button, app-root .account-contain app-account-dashboard .media-library-selection .media-library-item.media-library-item--grid .button, .media-library-selection app-root .account-contain app-account-dashboard .media-library-item.media-library-item--grid .button, app-root .account-contain app-account-dashboard .card .node-preview-container .node-preview-backlink, .node-preview-container app-root .account-contain app-account-dashboard .card .node-preview-backlink, app-root .account-contain app-account-dashboard fieldset.form-item .node-preview-container .node-preview-backlink, .node-preview-container app-root .account-contain app-account-dashboard fieldset.form-item .node-preview-backlink, app-root .account-contain app-account-dashboard .form-item-upload .node-preview-container .node-preview-backlink, .node-preview-container app-root .account-contain app-account-dashboard .form-item-upload .node-preview-backlink, app-root .account-contain app-account-dashboard .form-type-managed-file .node-preview-container .node-preview-backlink, .node-preview-container app-root .account-contain app-account-dashboard .form-type-managed-file .node-preview-backlink, app-root .account-contain app-account-dashboard .view-media-library .media-library-views-form .media-library-item--grid .views-field-rendered-entity .node-preview-container .node-preview-backlink, .node-preview-container app-root .account-contain app-account-dashboard .view-media-library .media-library-views-form .media-library-item--grid .views-field-rendered-entity .node-preview-backlink, .view-media-library .media-library-views-form .media-library-item--grid app-root .account-contain app-account-dashboard .views-field-rendered-entity .node-preview-container .node-preview-backlink, .node-preview-container .view-media-library .media-library-views-form .media-library-item--grid app-root .account-contain app-account-dashboard .views-field-rendered-entity .node-preview-backlink, app-root .account-contain app-account-dashboard .media-library-selection .media-library-item.media-library-item--grid .node-preview-container .node-preview-backlink, .node-preview-container app-root .account-contain app-account-dashboard .media-library-selection .media-library-item.media-library-item--grid .node-preview-backlink, .media-library-selection app-root .account-contain app-account-dashboard .media-library-item.media-library-item--grid .node-preview-container .node-preview-backlink, .node-preview-container .media-library-selection app-root .account-contain app-account-dashboard .media-library-item.media-library-item--grid .node-preview-backlink {
   margin: 0px; }
 
@@ -15553,22 +15897,17 @@ app-root .account-contain app-account-dashboard .card .btn, app-root .account-co
   display: flex;
   gap: 20px; }
 
-/***** Search Form starts *******/
 .workbc-jobboard-search-form fieldset.form-item {
   border: 0px; }
 
 .workbc-jobboard-search-form fieldset.form-item .fieldset-wrapper {
   padding: 0px; }
 
-/***** Search Form ends *******/
-/***** Dialog starts *******/
 mat-dialog-container .btn-close, mat-dialog-container .ui-dialog .ui-dialog-titlebar-close, .ui-dialog mat-dialog-container .ui-dialog-titlebar-close {
   background: none; }
-
 mat-dialog-container .terms-logo {
   display: none; }
 
-/***** Dialog end *******/
 .job-item .icon,
 .job-details .icon {
   width: 12px; }
@@ -15592,13 +15931,11 @@ mat-dialog-container .terms-logo {
   display: flex;
   flex-direction: row;
   align-items: flex-end; }
-
-#jobNo img {
-  width: 22px; }
+  #jobNo img {
+    width: 22px; }
 
 app-filter .job-search-filters .navbar .navbar-toggler {
   margin-right: 0px; }
-
 app-filter .job-search-filters .navbar .navbar-nav .nav-item > .dropdown-menu {
   z-index: 1; }
 
@@ -16132,8 +16469,7 @@ app-filter .job-search-filters .navbar .navbar-nav .nav-item > .dropdown-menu {
         font-weight: 700; }
     .view-id-related_careers_videos.view-display-id-block_1 .related-carrer .workbc-card-content .category, .view-id-related_careers_videos.view-display-id-block_1 .related-carrer .workbc-card-content .city-location {
       font-size: 12px;
-      color: #333333;
-      line-height: 1rem; }
+      color: #333333; }
 .view-id-related_careers_videos.view-display-id-block_1 .related-carrer .workbc-card-thumbnail .media--view-mode-related-careers-videos {
   width: 100%;
   padding: 0; }

@@ -44,7 +44,6 @@ class IndustryEmploymentLatestTrendsDates extends ExtraFieldDisplayFormattedBase
   public function viewElements(ContentEntityInterface $entity) {
 
     if (!empty($entity->ssot_data) && isset($entity->ssot_data['monthly_labour_market_updates'])) {
-      $sourceData = $entity->ssot_data['monthly_labour_market_updates'];
       $idx = ssotLatestMonthlyLabourMarketUpdate($entity->ssot_data['monthly_labour_market_updates']);
       $date1 = strtotime($entity->ssot_data['monthly_labour_market_updates'][$idx]['year'] . "-" . $entity->ssot_data['monthly_labour_market_updates'][$idx]['month']. "-01", 10);
       $date2 = strtotime("-1 month", $date1);

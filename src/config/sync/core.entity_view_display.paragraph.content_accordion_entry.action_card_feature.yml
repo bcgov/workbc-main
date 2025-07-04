@@ -1,0 +1,29 @@
+uuid: 18e76a0a-6a01-429e-87a9-d7986d9365b6
+langcode: en
+status: true
+dependencies:
+  config:
+    - core.entity_view_mode.paragraph.action_card_feature
+    - field.field.paragraph.content_accordion_entry.field_body
+    - field.field.paragraph.content_accordion_entry.field_icon
+    - field.field.paragraph.content_accordion_entry.field_key
+    - field.field.paragraph.content_accordion_entry.field_title
+    - paragraphs.paragraphs_type.content_accordion_entry
+id: paragraph.content_accordion_entry.action_card_feature
+targetEntityType: paragraph
+bundle: content_accordion_entry
+mode: action_card_feature
+content:
+  field_title:
+    type: string
+    label: above
+    settings:
+      link_to_entity: false
+    third_party_settings: {  }
+    weight: 0
+    region: content
+hidden:
+  field_body: true
+  field_icon: true
+  field_key: true
+  search_api_excerpt: true

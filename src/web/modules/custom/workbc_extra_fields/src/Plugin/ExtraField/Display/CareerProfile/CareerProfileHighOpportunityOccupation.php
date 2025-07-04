@@ -47,12 +47,12 @@ class CareerProfileHighOpportunityOccupation extends ExtraFieldDisplayFormattedB
       $output = 'NO';
       foreach ($entity->ssot_data['high_opportunity_occupations'] as $value) {
         if ($value['region'] == "british_columbia") {
-          $output = 'YES'; 
+          $output = 'YES';
         }
       }
     }
     else {
-        $output = 'NO';
+      $output = 'NO';
     }
     return [
       ['#markup' => $output],

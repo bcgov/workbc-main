@@ -33,7 +33,7 @@
       }
 
       // Change the anchor when a tab is clicked.
-      $('.nav-link', context).on('click', function (e) {
+      $('.nav-link', context).not('.new-logout-link .nav-link').not('.new-login-link .nav-link').on('click', function (e) {
         window.location.hash = $(e.target).attr('href');
       });
 

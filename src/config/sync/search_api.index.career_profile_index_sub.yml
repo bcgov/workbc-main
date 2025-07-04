@@ -57,7 +57,7 @@ third_party_settings:
         en: '0'
       use_universal_collation: false
 id: career_profile_index_sub
-name: 'Solr Search Career profiles index'
+name: 'Career Trek index'
 description: ''
 read_only: false
 field_settings:
