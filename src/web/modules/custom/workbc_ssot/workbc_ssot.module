@@ -7,6 +7,8 @@ use Psr\Http\Message\ResponseInterface;
 use Drupal\Core\Entity\ContentEntityInterface;
 use Drupal\field\Entity\FieldStorageConfig;
 
+define("NULL_VALUE", -999999);
+
 const SSOT_ROUTES = [
   'workbc_ssot.lmmu',
   'view.ssot_log.page_1'
@@ -52,11 +54,10 @@ const SSOT_DATASETS = [
   'openings_industry' => [],
   'regional_labour_market_outlook' => [],
   'regional_top_occupations' => [],
-  'skills' => [],
-  // 'skills' => [
-  //   'noc_key' => 'noc',
-  //   'fields' => 'noc,skills_competencies,importance'
-  // ],
+  'skills' => [
+    'noc_key' => 'noc',
+    'fields' => 'noc,skills_competencies,importance'
+  ],
   'titles' => [
     'noc_key' => 'noc',
     'fields' => 'noc,commonjobtitle,illustrative',
