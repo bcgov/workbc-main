@@ -1,10 +1,6 @@
 uuid: 3a1b4c5e-31aa-4f40-ba9f-ef3557d3991b
 langcode: en
-<<<<<<< HEAD
 status: false
-=======
-status: true
->>>>>>> 4dd5b88a77be3bf9455b3564204ee6f1a623f17c
 dependencies:
   config:
     - core.entity_view_mode.node.full_career_trek_videos

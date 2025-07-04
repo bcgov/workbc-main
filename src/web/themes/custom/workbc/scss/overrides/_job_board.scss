@@ -1,127 +1,148 @@
-.jobs-data {
-  margin-bottom:30px;
-}
-.block-workbc-jobboard h2{
+.block-workbc-jobboard h2 {
   font-weight: 700;
   margin: 30px 0 10px 0;
-  font-size:21px;
+  font-size: 21px;
   line-height: 23px;
 }
-.jobs-data .job-title.card-plain__title {
-  font-size: 18px;
-  text-transform:capitalize;
-  margin-bottom:5px;
-  font-weight: bold;
-}
-.jobs-data .sub-title{
-  margin-top:5px;
-  margin-bottom:20px;
-  font-size:16px;
-  font-weight:500;
-}
-.jobs-data .job-box.item {
-  position: relative;
-  padding: 10px 20px 10px 20px;
-}
-.jobs-data .job-company {
-  font-size: 16px;
-  margin-bottom: 10px;
-  font-weight: 500;
-}
-.jobs-data .job-location {
-  font-size: 15px;
-  padding-bottom: 20px;
-}
-.jobs-data .job-location span{
-  margin-right: 10px;
-}
-.jobs-data .job-location span img, .jobs-data .sub-title span svg{
-  margin-top:-4px;
-}
-.jobs-data .job-post-date label {
-  display: inline-block;
-}
-.jobs-data .job-post-date {
-  font-family: 'BCSans';
-  font-weight: 400;
-  font-style: normal;
-  font-size: 15px;
-  position: absolute;
-  bottom: 12px;
-}
-.jobs-data a.more-jobs{
-  width:100%;
-  text-align:center;
-  background: $workbc_palette_light_primary;
-}
 
-.jobs-data a.more-jobs:hover {
-  background: $workbc_palette_light_secondary;
+.jobs-data {
+  margin-bottom:30px;
+
+  .job-title.card-plain__title {
+    font-size: 18px;
+    text-transform: capitalize;
+    margin-bottom: 5px;
+    font-weight: bold;
+  }
+
+  .sub-title {
+    margin-top: 5px;
+    margin-bottom: 20px;
+    font-size: 16px;
+    font-weight: 500;
+  }
+
+  .job-box.item {
+    position: relative;
+    padding: 10px 20px 10px 20px;
+  }
+
+  .job-company {
+    font-size: 16px;
+    margin-bottom: 10px;
+    font-weight: 500;
+  }
+
+  .job-location {
+    font-size: 15px;
+    padding-bottom: 20px;
+
+    span {
+      margin-right: 10px;
+
+      img, svg {
+        margin-top: -4px;
+      }
+    }
+  }
+
+  .job-post-date {
+    font-family: 'BCSans';
+    font-weight: 400;
+    font-style: normal;
+    font-size: 15px;
+    position: absolute;
+    bottom: 12px;
+
+    label {
+      display: inline-block;
+    }
+  }
+
+  a.more-jobs{
+    width: 100%;
+    text-align: center;
+    background: $workbc_palette_light_primary;
+  }
+
+  a.more-jobs:hover {
+    background: $workbc_palette_light_secondary;
+  }
 }
 
 .workbc-jobboard-save-profile {
   text-align: right;
-}
-.workbc-jobboard-save-profile .save_career_profile .form-submit {
-  width: 28px;
-  height: 28px;
-  text-align:right;
-  padding: 0 0 0 5px;
-  background-image: url(../assets/images/save.svg);
-  background-repeat: no-repeat;
-  background-position: 100% 50%;
-  background-size: 18px;
-  background-color: #fff;
-  outline:0;
-  color: transparent;
-  overflow: hidden;
-  visibility: hidden;
-}
-.workbc-jobboard-save-profile .save_career_profile .form-submit:focus{
-  box-shadow: none;
-}
-.new-login-link a, .new-logout-link a {font-weight:bold;}
-.nav-items .dropdown .nav-item:not(:last-of-type):after{
-  display:none;
-}
-.nav-items .dropdown .dropdown-menu{
-  margin-top: 15px !important;
-  border: 2px solid #2e6ab0;
-  min-width: 200px;
-  left: -88px !important;
-}
-.nav-items .dropdown .dropdown-menu::before, .nav-items .dropdown .dropdown-menu::after{
-  bottom: 100%;
-	right: 20px;
-	border: solid transparent;
-	content: "";
-	height: 0;
-	width: 0;
-	position: absolute;
-	pointer-events: none;
-}
-.nav-items .dropdown .dropdown-menu::before{
-  border-color: rgba(194, 225, 245, 0);
-	border-bottom-color: #2e6ab0;
-	border-width: 20px;
-	margin-left: -20px;
-}
-.nav-items .dropdown .dropdown-menu::after{
-  border-color: rgba(136, 183, 213, 0);
-	border-bottom-color: #ffffff;
-	border-width: 17px;
-	margin-left: -17px;
-  margin-right:3px;
+
+  .save_career_profile {
+    .form-submit {
+      width: 28px;
+      height: 28px;
+      text-align: right;
+      padding: 0 0 0 5px;
+      background-image: url(../assets/images/save.svg);
+      background-repeat: no-repeat;
+      background-position: 100% 50%;
+      background-size: 18px;
+      background-color: #fff;
+      outline: 0;
+      color: transparent;
+      overflow: hidden;
+      visibility: hidden;
+
+      &:focus {
+        box-shadow: none;
+      }
+    }
+  }
 }
 
-.nav-items .dropdown .dropdown-menu .nav-item:active{
-  background:none !important;
+.new-login-link a,
+.new-logout-link a {
+  font-weight: bold;
 }
-.nav-items .dropdown .dropdown-menu .nav-item .nav-link{
 
-}
-.nav-items .dropdown .dropdown-menu .nav-item .nav-link:after{
+.nav-items .dropdown {
+  .nav-item:not(:last-of-type):after {
+    display: none;
+  }
 
+  .dropdown-menu {
+    margin-top: 15px !important;
+    border: 2px solid #2e6ab0;
+    min-width: 200px;
+    left: -88px !important;
+
+    &::before,
+    &::after {
+      bottom: 100%;
+      right: 20px;
+      border: solid transparent;
+      content: "";
+      height: 0;
+      width: 0;
+      position: absolute;
+      pointer-events: none;
+    }
+
+    &::before {
+      border-color: rgba(194, 225, 245, 0);
+      border-bottom-color: #2e6ab0;
+      border-width: 20px;
+      margin-left: -20px;
+    }
+
+    &::after {
+      border-color: rgba(136, 183, 213, 0);
+      border-bottom-color: #ffffff;
+      border-width: 17px;
+      margin-left: -17px;
+      margin-right:3px;
+    }
+
+    .nav-item:active {
+      background: none !important;
+    }
+  }
 }
 
 .view-id-video_library {
@@ -139,7 +160,8 @@
     float: right;
   }
 
-  #edit-recently-added, #edit-reset {
+  #edit-recently-added,
+  #edit-reset {
     @include btn-border;
     color: #2e6ab0;
     text-decoration: none;
@@ -154,7 +176,7 @@
 }
 
 @media screen and (min-width: 768px) {
-  .workbc-jobboard-save-profile .save_career_profile .form-submit{
+  .workbc-jobboard-save-profile .save_career_profile .form-submit {
     width: auto;
     padding-right: 28px;
     color: #2e6ab0;
@@ -168,33 +190,38 @@
 }
 
 @media screen and (min-width: 1024px) {
-  .jobs-data{
-    max-width:280px;
+  .jobs-data {
+    max-width: 280px;
   }
 
   .jobs-data-horizontal-view{
     width: 100%;
     max-width: 100%;
   }
-  .page-node-type-workbc-centre .block-workbc-jobboard h2{
-    width:100%;
-    margin:auto;
-    text-align:center;
+
+  .page-node-type-workbc-centre .block-workbc-jobboard h2 {
+    width: 100%;
+    margin: auto;
+    text-align: center;
   }
-  .jobs-data-horizontal-view .sub-title{
-    display:none;
+
+  .jobs-data-horizontal-view .sub-title {
+    display: none;
   }
-  .jobs-data-horizontal-view .job-location{
-    font-size:16px;
+
+  .jobs-data-horizontal-view .job-location {
+    font-size: 16px;
   }
-  .jobs-data-horizontal-view .cards-grid{
-    max-width:100%;
+
+  .jobs-data-horizontal-view .cards-grid {
+    max-width: 100%;
     display: flex;
     font-size: 0;
     flex-wrap: wrap;
-    margin-top:20px;
+    margin-top: 20px;
   }
-  .jobs-data-horizontal-view .cards-grid .card-plain{
+
+  .jobs-data-horizontal-view .cards-grid .card-plain {
     flex: 1 0 21%;
     margin: 5px;
     height: 100px;
@@ -208,18 +235,24 @@
     text-align: center;
     margin-bottom: 20px;
   }
-  .jobs-data-horizontal-view .more-jobs a{
-    margin:auto;
-    text-align:center;
-    width:auto;
+
+  .jobs-data-horizontal-view .more-jobs a {
+    margin: auto;
+    text-align: center;
+    width: auto;
   }
 }
 /*
  *  Styles below apply to the embedded Job Board app
  *
 */
-app-root .breadcrumbs{display:none;}
-app-root input[type=checkbox],app-root input[type=radio] {
+app-root {
+  .breadcrumbs {
+    display: none;
+  }
+
+  input[type=checkbox],
+  input[type=radio] {
     -webkit-appearance: none;
     -moz-appearance: none;
     appearance: none;
@@ -230,25 +263,64 @@ app-root input[type=checkbox],app-root input[type=radio] {
     vertical-align: middle;
     width: 0;
     position: absolute;
-}
-app-root .job-search-contain .icon-wrap, app-root .job-search-contain .icon-wrap.small, app-root .modal .icon-wrap.small,app-root .account-contain .icon-wrap, app-root .modal .icon-wrap {display:inline-block;}
-app-root .account-contain app-account-dashboard .card .btn{margin:0px;}
+  }
 
-.job-search__form-container .form-radios{width:100%;margin-bottom: 20px; display: flex; gap: 20px;}
+  .job-alerts-inner {
+    input[type=radio] {
+      -webkit-appearance: auto;
+      -moz-appearance: auto;
+      appearance: auto;
+      border: 0;
+      opacity: 1;
+      outline: 0;
+      padding: 0;
+      vertical-align: middle;
+      width: auto;
+      position: relative;
+    }
 
-/***** Search Form starts *******/
-.workbc-jobboard-search-form fieldset.form-item{border:0px;}
-.workbc-jobboard-search-form fieldset.form-item .fieldset-wrapper{padding:0px;}
-/***** Search Form ends *******/
+    label {
+      padding-left: 9px;
+    }
+  }
 
-/***** Dialog starts *******/
-mat-dialog-container .btn-close {
-  background: none;
+  .job-search-contain .icon-wrap,
+  .job-search-contain .icon-wrap.small,
+  .modal .icon-wrap.small,
+  .account-contain .icon-wrap,
+  .modal .icon-wrap {
+    display: inline-block;
+  }
+
+  .account-contain app-account-dashboard .card .btn {
+    margin: 0px;
+  }
 }
-mat-dialog-container .terms-logo {
-  display: none;
+
+.job-search__form-container .form-radios {
+  width: 100%;
+  margin-bottom: 20px;
+  display: flex;
+  gap: 20px;
 }
-/***** Dialog end *******/
+
+.workbc-jobboard-search-form fieldset.form-item {
+  border: 0px;
+}
+
+.workbc-jobboard-search-form fieldset.form-item .fieldset-wrapper{
+  padding: 0px;
+}
+
+mat-dialog-container {
+  .btn-close {
+    background: none;
+  }
+
+  .terms-logo {
+    display: none;
+  }
+}
 
 .job-item .icon,
 .job-details .icon {
@@ -275,21 +347,24 @@ mat-dialog-container .terms-logo {
   width: auto;
 }
 
-
 #jobNo {
   display: flex;
   flex-direction: row;
   align-items: flex-end;
+
+  img {
+    width: 22px;
+  }
 }
 
-#jobNo img {
-  width: 22px;
-}
+app-filter {
+  .job-search-filters .navbar {
+    .navbar-toggler {
+      margin-right: 0px;
+    }
 
-app-filter .job-search-filters .navbar .navbar-toggler {
-  margin-right: 0px;
-}
-
-app-filter .job-search-filters .navbar .navbar-nav .nav-item > .dropdown-menu {
-  z-index: 1;
+    .navbar-nav .nav-item > .dropdown-menu {
+      z-index: 1;
+    }
+  }
 }

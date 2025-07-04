@@ -1,0 +1,23 @@
+uuid: 52cfcc5f-5bd1-4bb5-a452-9f1f2e3c35d8
+langcode: en
+status: true
+dependencies:
+  config:
+    - field.storage.node.field_region_hoo
+    - node.type.career_profile
+id: node.career_profile.field_region_hoo
+field_name: field_region_hoo
+entity_type: node
+bundle: career_profile
+label: '[SSOT] Region High Opportunity Occupation'
+description: "AUTOMATICALLY POPULATED FROM SSOT.\r\n\r\n<p>HOO flag (no = 0, yes = 1) for regions in the following order:</p>\r\n<ul>\r\n<li>British Columbia</li>\r\n<li>Cariboo</li>\r\n<li>Kootenay</li>\r\n<li>Mainland/Southwest</li>\r\n<li>North Coast and Nechako</li>\r\n<li>Northeast</li>\r\n<li>Thompson-Okanagan</li>\r\n<li>Vancouver Island/Coast</li>\r\n</ul>"
+required: false
+translatable: false
+default_value: {  }
+default_value_callback: ''
+settings:
+  min: 0
+  max: 1
+  prefix: ''
+  suffix: ''
+field_type: integer

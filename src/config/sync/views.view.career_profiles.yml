@@ -663,6 +663,7 @@ display:
     display_plugin: page
     position: 3
     display_options:
+      enabled: false
       display_extenders: {  }
       path: plan-career/explore-careers/career-search
     cache_metadata:

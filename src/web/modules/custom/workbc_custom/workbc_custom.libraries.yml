@@ -18,3 +18,12 @@ explore-grid:
     - core/drupalSettings
     - core/once
     - core/drupal
+
+explore-careers-search:
+  js:
+    js/explore-careers-search.js: {}
+  dependencies:
+    - core/jquery
+    - core/drupalSettings
+    - core/once
+    - core/drupal

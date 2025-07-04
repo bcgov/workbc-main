@@ -1,0 +1,429 @@
+.plan-careerexplore-careerscareer-profilessearch {
+  #block-bettersocialsharingbuttons {
+    background-color: $workbc_palette_light_secondary;
+  }
+
+  .node-page-content {
+    display: none;
+  }
+}
+
+.view-id-explore_careers {
+  .explore-careers-filter {
+    background-color: $workbc_palette_light_secondary;
+
+    input.chosen-search-input::placeholder {
+      color: $form-select-color;
+    }
+
+    #edit-field-teer-value,
+    .chosen-container-multi {
+      padding-top: 8px;
+      padding-bottom: 7px;
+
+      .chosen-choices {
+        border: 0;
+      }
+
+      .chosen-drop {
+        left: 0;
+      }
+    }
+  }
+
+  .view-header {
+    display: flex;
+    flex-direction: row;
+    justify-content: space-between;
+    align-items: center;
+
+    @include media-breakpoint-down(lg) {
+      flex-direction: column;
+      align-items: start;
+    }
+  }
+
+  .view-header-links {
+    display: flex;
+    flex-direction: row;
+
+    @include media-breakpoint-down(lg) {
+      flex-direction: column;
+      padding-top: 5px;
+      padding-bottom: 5px;
+    }
+
+    .view-header-link {
+      @include media-breakpoint-down(lg) {
+        padding-top: 5px;
+        padding-bottom: 5px;
+      }
+    }
+
+    a {
+      padding-left: 25px;
+      text-decoration: underline;
+
+      @include media-breakpoint-down(lg) {
+        padding-left: 0px;
+      }
+    }
+  }
+
+  .views-exposed-form .form--inline {
+    position: relative;
+
+    display: grid;
+    grid-auto-flow: dense;
+    grid-template-columns: repeat(4, minmax(0, 1fr));
+    grid-column-gap: 10px;
+
+    @include media-breakpoint-down(lg) {
+      grid-column-gap: 0px;
+    }
+  }
+
+  label {
+    display: block;
+  }
+
+  .form-control {
+    border: 2px solid $workbc_palette_dark_secondary;
+    border-radius: 0;
+    line-height: 1.95;
+  }
+
+  .form-item {
+    margin-right: 0;
+  }
+
+  #edit-term-node-tid-depth,
+  #edit-delta {
+    padding-top: 7px;
+    padding-bottom: 8px;
+  }
+
+  .form-item-keyword-search {
+    grid-column-end: span 4;
+    width: 50%;
+    padding-right: 5px;
+
+    @include media-breakpoint-down(lg) {
+      grid-column-end: span 4;
+      width: 100%;
+      padding-right: 0px;
+    }
+  }
+
+  .form-item-term-node-tid-depth {
+    grid-column-end: span 2;
+
+    @include media-breakpoint-down(lg) {
+      grid-column-end: span 4;
+    }
+  }
+
+  .show-occupational-category #category-container {
+    grid-column-end: span 2;
+
+    @include media-breakpoint-down(lg) {
+      grid-column-end: span 4;
+    }
+  }
+
+  .hide-occupational-category #category-container {
+    grid-column-end: span 4;
+    width: 50%;
+
+    .form-item-field-epbc-categories-target-id {
+      grid-column-end: span 2;
+      padding-right: 5px;
+
+      @include media-breakpoint-down(lg) {
+        grid-column-end: span 4;
+        padding-right: 0px;
+      }
+    }
+
+    @include media-breakpoint-down(lg) {
+      width: 100%;
+    }
+  }
+
+  .form-item-field-teer-value {
+    grid-column-end: span 2;
+
+    @include media-breakpoint-down(lg) {
+      grid-column-end: span 4;
+      width: 100%;
+      padding-right: 0px;
+    }
+  }
+
+  .form-item-field-annual-salary-value {
+    grid-column-end: span 1;
+
+    @include media-breakpoint-down(lg) {
+      grid-column-end: span 4;
+      width: 100%;
+    }
+  }
+
+  .form-item-delta {
+    grid-column-end: span 1;
+
+    @include media-breakpoint-down(lg) {
+      grid-column-end: span 4;
+      width: 100%;
+    }
+  }
+
+  .form-actions {
+    display: flex;
+    grid-column-end: span 4;
+    margin-top: 40px;
+
+    @include media-breakpoint-down(lg) {
+      margin-top: 20px;
+    }
+  }
+
+  .form-item-sort-bef-combine {
+    position: absolute;
+    right: 0px;
+    bottom: 0px;
+    width: 40%;
+
+    @include media-breakpoint-down(lg) {
+      position: inherit;
+      grid-column-end: span 4;
+      width: 100%;
+    }
+  }
+
+  .zero-found .form-item-sort-bef-combine {
+    display: none;
+  }
+
+  .career-profiles-found-title {
+    @include gradient-underline;
+    margin-bottom: $workbc_spacing_default;
+    font-size: 2rem;
+    width: 50%;
+
+    @include media-breakpoint-down(lg) {
+      width: 95%;
+    }
+  }
+
+  #edit-reset-explore-careers {
+    @include btn-border;
+    color: #2e6ab0;
+    text-decoration: none;
+    background-color: $workbc_palette_light_primary;
+    padding: 10px 64px;
+
+    @include media-breakpoint-down(sm) {
+      padding: 10px 15px;
+    }
+  }
+
+  .form-submit {
+    @include media-breakpoint-down(sm) {
+      padding: 10px 15px;
+    }
+  }
+
+  .explore-careers-sort {
+    padding-top: 15px;
+    padding-bottom: 20px;
+
+    @include media-breakpoint-down(lg) {
+      padding-bottom: 0px;
+    }
+  }
+
+  .views-row {
+    display: flex;
+    flex-direction: row;
+    box-shadow: 0 0 15px 0 rgba(0,0,0,.15);
+    margin-bottom: 25px;
+    padding: 25px 20px;
+
+    @include media-breakpoint-down(lg) {
+      flex-direction: column;
+    }
+
+    .career-profile-titles {
+      margin-top: 1rem;
+      display: none;
+
+      h6 {
+        margin-bottom: .75rem;
+      }
+
+      ul {
+        display: flex;
+        flex-direction: row;
+        flex-wrap: wrap;
+        width: 100%;
+
+        li {
+          width: calc(100% / 2.2);
+
+          @include media-breakpoint-down(lg) {
+            width: 100%;
+          }
+        }
+      }
+    }
+
+    .career-profile-titles-toggle {
+      display: inline-block;
+
+      a {
+        padding-left: 35px;
+        vertical-align: middle;
+        cursor: pointer;
+
+        @include media-breakpoint-down(sm) {
+          padding-left: 10px;
+        }
+      }
+    }
+
+    .career-profile-link {
+      display: inline-block;
+
+      a {
+        @include btn-blue;
+        padding: 10px 35px;
+
+        @include media-breakpoint-down(sm) {
+          padding: 10px 15px;
+        }
+      }
+    }
+
+    .card-left {
+      width: 50%;
+      margin-right: 10px;
+      display: flex;
+      flex-direction: column;
+
+      @include media-breakpoint-down(lg) {
+        width: 100%;
+      }
+
+      .card-left-or-right {
+        @include media-breakpoint-up(lg) {
+          margin-top: auto;
+          display: block;
+        }
+        @include media-breakpoint-down(lg) {
+          display: none;
+        }
+      }
+    }
+
+    .card-right {
+      width: 50%;
+      margin-left: 10px;
+
+      @include media-breakpoint-down(lg) {
+        width: 100%;
+        margin-left: 0px;
+      }
+
+      .card-stats-container {
+        display: flex;
+        flex-direction: row;
+        align-items: center;
+
+        @include media-breakpoint-down(lg) {
+          align-items: start;
+          margin-top: 10px;
+        }
+      }
+
+      img {
+        width: 42px;
+        height: 42px;
+        margin: 10px 20px;
+
+        @include media-breakpoint-down(lg) {
+          margin-top: 0px;
+          margin-left: 0px;
+        }
+      }
+
+      .card-left-or-right {
+        @include media-breakpoint-up(lg) {
+          display: none;
+        }
+        @include media-breakpoint-down(lg) {
+          display: block;
+        }
+
+        .career-profile-hoo {
+          @include media-breakpoint-up(lg) {
+            display: none;
+          }
+          @include media-breakpoint-down(lg) {
+            display: block;
+          }
+
+          margin-top: 20px;
+          float: none;
+        }
+      }
+
+      .career-profile-buttons {
+        padding-top: 25px;
+      }
+
+      .career-profile-hoo {
+        @include media-breakpoint-up(lg) {
+          display: block;
+        }
+        @include media-breakpoint-down(lg) {
+          display: none;
+        }
+
+        margin-top: 10px;
+        float: right;
+        color: #2e6ab0;
+
+        img, svg {
+          margin: 0;
+          height: 1em;
+          object-fit: contain;
+          width: auto;
+          vertical-align: baseline;
+        }
+      }
+    }
+
+    .field-content {
+      font-weight: bold;
+    }
+  }
+
+
+  .view-empty {
+    margin-bottom: 50px;
+
+    .no-results {
+      margin-top: 0px;
+      margin-bottom: 15px;
+    }
+
+    .search-suggestions {
+      margin-bottom: 10px;
+    }
+
+  }
+}
+
+
+

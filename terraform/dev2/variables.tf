@@ -9,6 +9,11 @@ variable "target_env" {
 #  description = "AWS workload account id"
 #}
 
+variable "source_token" {
+  type      = string
+  sensitive = true
+}
+
 variable "aws_region" {
   description = "The AWS region things are created in"
   default     = "ca-central-1"

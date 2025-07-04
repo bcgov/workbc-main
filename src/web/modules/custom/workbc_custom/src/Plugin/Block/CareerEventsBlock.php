@@ -3,9 +3,6 @@
 namespace Drupal\workbc_custom\Plugin\Block;
 
 use Drupal\Core\Block\BlockBase;
-use Drupal\Core\Form\FormStateInterface;
-use Drupal\Core\Url;
-use Drupal\Core\Link;
 use Drupal\views\Views;
 
 /**
@@ -23,8 +20,6 @@ class CareerEventsBlock extends BlockBase {
    * {@inheritdoc}
    */
   public function build() {
-
-
     $view1 = Views::getView('career_events');
     $view1->setDisplay('block_1');
     $list = $view1->buildRenderable();
