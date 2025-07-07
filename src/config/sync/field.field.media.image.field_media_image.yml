@@ -6,10 +6,15 @@ dependencies:
     - field.storage.media.field_media_image
     - media.type.image
   module:
+    - filehash
     - image
   enforced:
     module:
       - media
+third_party_settings:
+  filehash:
+    dedupe: 0
+    dedupe_original: false
 _core:
   default_config_hash: HGRX21ciyn7K-q8KMxsKHQvIB4SHT-A3bqzmNDnGKyc
 id: media.image.field_media_image
@@ -27,15 +32,15 @@ settings:
   handler_settings: {  }
   file_directory: '[date:custom:Y]-[date:custom:m]'
   file_extensions: 'png gif jpg jpeg'
-  max_filesize: ''
-  max_resolution: ''
+  max_filesize: '8 MB'
+  max_resolution: 2560x1600
   min_resolution: ''
   alt_field: true
   alt_field_required: true
   title_field: false
   title_field_required: false
   default_image:
-    uuid: null
+    uuid: ''
     alt: ''
     title: ''
     width: null
