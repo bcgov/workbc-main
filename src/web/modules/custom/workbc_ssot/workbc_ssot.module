@@ -385,10 +385,7 @@ function ssotCareerProfile($noc) {
     $data['occupational_interests'] = querySSoT('occupational_interests?noc=eq.' . $noc);
     $data['titles'] = querySSoT('titles?order=commonjobtitle.asc&noc=eq.' . $noc);
     $data['epbc_nocs'] = querySSoT('fyp_categories_interests_sub_nocs?noc_2021=eq.' . $noc);
-<<<<<<< HEAD
-=======
     $data['career_related'] = querySSoT('career_related?order=noc_related&noc=eq.' . $noc);
->>>>>>> dev2
     // TODO Adjust API query to retrieve first entry only.
     $opening_careers = querySSoT('openings_careers?noc=eq.' . $noc);
     if (!empty($opening_careers)) {
