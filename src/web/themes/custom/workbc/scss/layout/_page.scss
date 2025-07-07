@@ -79,6 +79,10 @@
 
 .page-format--wide .node-page-content {
   padding-top: 40px;
+
+  h2, p {
+    width: 100%;
+  }
 }
 
 .plan-careerexplore-careers .node-page-content {
