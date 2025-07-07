@@ -11,7 +11,7 @@ use Drupal\extra_field\Plugin\ExtraFieldDisplayFormattedBase;
  *
  * @ExtraFieldDisplay(
  *   id = "labourmarket_unemployed_previous_month",
- *   label = @Translation("Unemployed Previous Month"),
+ *   label = @Translation("[SSOT] Unemployed Previous Month"),
  *   description = @Translation("An extra field to display industry unemployed previous month."),
  *   bundles = {
  *     "node.labour_market_monthly",

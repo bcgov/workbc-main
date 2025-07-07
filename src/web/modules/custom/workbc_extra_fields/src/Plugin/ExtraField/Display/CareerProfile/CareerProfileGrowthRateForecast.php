@@ -11,7 +11,7 @@ use Drupal\extra_field\Plugin\ExtraFieldDisplayFormattedBase;
  *
  * @ExtraFieldDisplay(
  *   id = "employment_growth_rate_forecast",
- *   label = @Translation("Labour Market Info - Forecasted Employment Growth Rate"),
+ *   label = @Translation("[SSOT] Labour Market Info - Forecasted Employment Growth Rate"),
  *   description = @Translation("An extra field to display job opening forecast chart."),
  *   bundles = {
  *     "node.career_profile",
@@ -73,8 +73,8 @@ class CareerProfileGrowthRateForecast extends ExtraFieldDisplayFormattedBase {
               'positive_sign' => TRUE,
             );
             return ssotFormatNumber($v, $options);
-          }, $data),          
-        ],     
+          }, $data),
+        ],
         'xaxis' => [
           '#type' => 'chart_xaxis',
           '#labels' => $dates,

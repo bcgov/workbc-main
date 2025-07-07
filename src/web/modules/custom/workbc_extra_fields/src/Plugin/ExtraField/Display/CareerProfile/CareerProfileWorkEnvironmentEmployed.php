@@ -11,7 +11,7 @@ use Drupal\extra_field\Plugin\ExtraFieldDisplayFormattedBase;
  *
  * @ExtraFieldDisplay(
  *   id = "work_environment_number_employed",
- *   label = @Translation("Work Environment Info - Number Employed"),
+ *   label = @Translation("[SSOT] Work Environment - Number Employed"),
  *   description = @Translation("An extra field to display job opening forecast chart."),
  *   bundles = {
  *     "node.career_profile",

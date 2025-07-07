@@ -29,13 +29,19 @@
   padding-right: 20px;
 }
 
+#related-careers .pointer:hover,
 #job-titles .pointer:hover {
   cursor: pointer;
 }
 
+#related-careers .static-load-more-button-container,
 #job-titles .static-load-more-button-container {
   padding-top: 1rem;
   justify-content: left;
+}
+
+#related-careers ul {
+  margin: 0;
 }
 
 #job-titles .career-content-job-titles {

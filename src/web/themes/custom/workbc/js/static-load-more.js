@@ -1,17 +1,23 @@
 (function ($, Drupal, once) {
   ("use strict");
 
-  let scrollTop = null;
-
   let initialize = function (containerJquery) {
     let container = $(containerJquery);
     let initialCount = container.data('static-load-more-initial');
     let moreText = container.data('static-more-text');
-    let items = container.children('[data-static-load-more-items]').first().children();
+    let items = container.find('[data-static-load-more-items]').first().children();
     let trigger = container.find('[data-static-load-more-trigger]').first();
+    let button = container.find('.static-load-more-button-container').first();
 
     // Hide the extra items: Either the ones outside the initial count, ...
     if (Number.isInteger(initialCount)) {
+
+      // If there are no extra items, hide the whole less/more area.
+      if (items.length <= initialCount) {
+        button.hide();
+        return;
+      }
+
       items.slice(initialCount).hide();
     }
     // ... or the ones with "illustrative" flag = 0.
@@ -32,25 +38,23 @@
 
   let loadMore = function (containerJquery) {
     let container = $(containerJquery);
-    let stepCount = container.data('static-load-more-step');
     let lessText = container.data('static-less-text');
-    let hiddenItems = container.children('[data-static-load-more-items]').first().children(':hidden');
-
-    hiddenItems.slice(0, stepCount).show();
+    let hiddenItems = container.find('[data-static-load-more-items]').first().children(':hidden');
     let trigger = container.find('[data-static-load-more-trigger]').first();
 
-    // If lessText is not set, hide the 'show less' link
-    if (hiddenItems.length <= stepCount && ! lessText) {
-      trigger.hide();
-    }
+    // Save the location and show the next slice.
+    container.data('scrollTop', document.documentElement.scrollTop ?? document.body.scrollTop);
+    hiddenItems.show();
 
     // If lessText is populated, display the 'show less' link text
-    if (hiddenItems.length <= stepCount && lessText) {
-      scrollTop = document.documentElement.scrollTop || document.body.scrollTop;
-
+    if (lessText) {
       trigger.off('click');
       trigger.on('click', function() { showLess(container) });
       trigger.text(lessText);
+    }
+    // If lessText is not set, hide the 'show less' link
+    else {
+      trigger.hide();
     }
   }
 
@@ -59,7 +63,7 @@
     let moreText = container.data('static-more-text');
     let initialCount = container.data('static-load-more-initial');
     let trigger = container.find('[data-static-load-more-trigger]').first();
-    let items = container.children('[data-static-load-more-items]').first().children();
+    let items = container.find('[data-static-load-more-items]').first().children();
 
     // Hide the extra items: Either the ones outside the initial count, ...
     if (Number.isInteger(initialCount)) {
@@ -71,15 +75,7 @@
     }
 
     // Scroll back to the container.
-    if (scrollTop) {
-      document.documentElement.scrollTop = document.body.scrollTop = scrollTop;
-    }
-    else {
-      containerJquery.get(0).scrollIntoView({
-        behavior: 'smooth',
-        block: 'center'
-      });
-    }
+    document.documentElement.scrollTop = document.body.scrollTop = container.data('scrollTop');
 
     container.show();
     trigger.off('click');

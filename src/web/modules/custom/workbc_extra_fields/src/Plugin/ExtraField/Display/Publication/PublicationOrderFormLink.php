@@ -12,7 +12,7 @@ use Drupal\Core\Link;
  *
  * @ExtraFieldDisplay(
  *   id = "publication_orderform_link",
- *   label = @Translation("Order Form Link"),
+ *   label = @Translation("[SSOT] Order Form Link"),
  *   description = @Translation("An extra field to display a link to the WorkBC Order form if Hardcopy available is checked."),
  *   bundles = {
  *     "node.publication",

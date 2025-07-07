@@ -12,7 +12,7 @@ use Drupal\Component\Render\FormattableMarkup;
  *
  * @ExtraFieldDisplay(
  *   id = "job_openings",
- *   label = @Translation("Job Openings"),
+ *   label = @Translation("[SSOT] Job Openings"),
  *   description = @Translation("An extra field to display job opening forecast chart."),
  *   bundles = {
  *     "node.career_profile",

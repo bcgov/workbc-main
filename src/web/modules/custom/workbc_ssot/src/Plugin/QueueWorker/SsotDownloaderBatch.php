@@ -5,21 +5,17 @@ namespace Drupal\workbc_ssot\Plugin\QueueWorker;
 use Drupal\Core\Queue\QueueWorkerBase;
 use Symfony\Component\DependencyInjection\ContainerInterface;
 use Drupal\Core\Plugin\ContainerFactoryPluginInterface;
-use Drupal\Component\Utility\Timer;
 
 /**
  * SSOT data fetcher.
  *
  * @QueueWorker(
- *   id = "ssot_downloader",
- *   title = @Translation("SSoT Downloader (Bulk)"),
+ *   id = "ssot_downloader_batch",
+ *   title = @Translation("SSoT Downloader (Batch)"),
  *   cron = {"time" = 60}
  * )
  */
-class SsotDownloader extends QueueWorkerBase implements ContainerFactoryPluginInterface {
-
-  private $epbc_categories;
-  private $skills;
+class SsotDownloaderBatch extends QueueWorkerBase implements ContainerFactoryPluginInterface {
 
   /**
   * Main constructor.
@@ -50,104 +46,36 @@ class SsotDownloader extends QueueWorkerBase implements ContainerFactoryPluginIn
    * Update the local dataset update date.
    */
   public function processItem($data) {
-    \Drupal::logger('workbc')->notice('Updating SSOT datasets: @datasets', [
-      '@datasets' => join(', ', array_map(function($dataset) {
-        return $dataset->endpoint;
-      }, $data['datasets']))
-    ]);
-    Timer::start('ssot_downloader');
+    $career = \Drupal::entityTypeManager()
+    ->getStorage('node')
+    ->load($data['nid']);
 
-    // Load all career profiles.
-    $storage = \Drupal::service('entity_type.manager')->getStorage('node');
-    $careers = $storage->loadByProperties([
-      'type' => 'career_profile',
-    ]);
-
-    // Load updated datasets.
-    $updated_datasets = [];
+    // Update the node with each dataset.
     foreach ($data['datasets'] as $dataset) {
-      $metadata = SSOT_DATASETS[$dataset->endpoint];
-
-      // Formulate SSOT query given dataset information.
-      $endpoint = (array_key_exists('endpoint', $metadata) ? $metadata['endpoint'] : $dataset->endpoint) . '?' . http_build_query(array_merge(
-        ['select' => $metadata['fields']],
-        array_key_exists('filters', $metadata) ? $metadata['filters'] : [],
-        array_key_exists('order', $metadata) ? ['order' => $metadata['order']] : [],
-      ));
-      $result = ssot($endpoint);
-      if (!$result) {
-        \Drupal::logger('workbc')->error('Error fetching SSOT dataset @dataset at @endpoint. Skipping.', [
-          '@dataset' => $dataset->endpoint,
-          '@endpoint' => $endpoint,
-        ]);
-        continue;
-      };
-
-      // Index the dataset by NOC.
-      $entries = array_reduce(json_decode($result->getBody(), true), function($entries, $entry) use($metadata) {
-        $noc = $entry[$metadata['noc_key']];
-        $entries[$noc] ??= []; $entries[$noc][] = $entry;
-        return $entries;
-      }, []);
-
-      // Update each career with the dataset-specific update function.
-      $method = 'update_' . $dataset->endpoint;
+      $method = 'update_' . $dataset['endpoint'];
       if (!method_exists($this, $method)) {
         \Drupal::logger('workbc')->error('Could not find the method @method for dataset @dataset. Skipping.', [
           '@method' => $method,
-          '@dataset' => $dataset->endpoint,
+          '@dataset' => $dataset['endpoint'],
         ]);
         continue;
       }
-
-      $missing_nocs = [];
-      foreach ($careers as &$career) {
-        $noc = $career->get('field_noc')->value;
-        if (empty($noc)) {
-          continue;
-        }
-        if (!array_key_exists($noc, $entries)) {
-          $missing_nocs[] = $noc;
-          continue;
-        }
-        $entry = $entries[$noc];
-        $this->$method($dataset->endpoint, $entry, $career);
-      }
-      if (!empty($missing_nocs)) {
-        \Drupal::logger('workbc')->warning('Could not find the following NOCs in dataset @dataset: @nocs', [
-          '@nocs' => join(', ', $missing_nocs),
-          '@dataset' => $dataset->endpoint,
+      if (empty($dataset['data'])) {
+        \Drupal::logger('workbc')->warning('Could not find the following NOC in dataset @dataset: @noc. Ignoring.', [
+          '@noc' => $career->get('field_noc')->value,
+          '@dataset' => $dataset['endpoint'],
         ]);
+        continue;
       }
-
-      // Indicate we have updated this dataset.
-      $updated_datasets[$dataset->endpoint] = $dataset->date;
+      $this->$method($dataset['endpoint'], $dataset['data'], $career);
     }
 
-    // Save the careers.
-    foreach ($careers as &$career) {
-      $career->setNewRevision(true);
-      $career->setRevisionLogMessage('Updating SSOT datasets: ' . join(', ', array_keys($updated_datasets)));
-      $career->setRevisionCreationTime(time());
-      $career->setRevisionUserId(1);
-      $career->save();
-    }
-
-    // Update local date for updated datasets.
-    $local_dates = array_merge(array_combine(
-      array_keys(SSOT_DATASETS),
-      array_fill(0, count(SSOT_DATASETS), null)
-    ), \Drupal::state()->get('workbc.ssot_dates', []));
-    foreach ($updated_datasets as $endpoint => $ssot_date) {
-      $local_dates[$endpoint] = $ssot_date;
-    }
-    \Drupal::state()->set('workbc.ssot_dates', $local_dates);
-
-    Timer::stop('ssot_downloader');
-    \Drupal::logger('workbc')->notice('Updated following SSOT datasets in @time: @datasets', [
-      '@datasets' => join(', ', array_keys($updated_datasets)),
-      '@time' => Timer::read('ssot_downloader') . 'ms'
-    ]);
+    // Save the node.
+    $career->setNewRevision(true);
+    $career->setRevisionLogMessage('Updating SSOT datasets: ' . join(', ', array_column($data['datasets'], 'endpoint')));
+    $career->setRevisionCreationTime(time());
+    $career->setRevisionUserId(1);
+    $career->save();
   }
 
   private function update_wages($endpoint, $entries, &$career) {
@@ -174,15 +102,13 @@ class SsotDownloader extends QueueWorkerBase implements ContainerFactoryPluginIn
   }
 
   private function update_fyp_categories_interests($endpoint, $entries, &$career) {
-    if (!isset($this->epbc_categories)) {
-      $this->epbc_categories = \Drupal::entityTypeManager()->getStorage('taxonomy_term')->loadTree('epbc_categories');
-    }
+    $terms = \Drupal::entityTypeManager()->getStorage('taxonomy_term')->loadTree('epbc_categories');
     $categories = [];
     foreach ($entries as $entry) {
-      $parent = array_find($this->epbc_categories, function ($v) use ($entry) {
+      $parent = array_find($terms, function ($v) use ($entry) {
         return $v->name === $entry['category'];
       });
-      $term = array_find($this->epbc_categories, function ($v) use ($entry, $parent) {
+      $term = array_find($terms, function ($v) use ($entry, $parent) {
         return $v->name === $entry['interest'] && $v->parents[0] === $parent->tid;
       });
       $categories[] = ['target_id' => $term->tid];
@@ -211,12 +137,10 @@ class SsotDownloader extends QueueWorkerBase implements ContainerFactoryPluginIn
   }
 
   private function update_skills($endpoint, $entries, &$career) {
-    if (!isset($this->skills)) {
-      $this->skills = \Drupal::entityTypeManager()->getStorage('taxonomy_term')->loadTree('skills');
-    }
+    $terms = \Drupal::entityTypeManager()->getStorage('taxonomy_term')->loadTree('skills');
     $skills = [];
     foreach ($entries as $entry) {
-      $term = array_find($this->skills, function ($v) use ($entry) {
+      $term = array_find($terms, function ($v) use ($entry) {
         return strcasecmp($v->name, $entry['skills_competencies']) === 0 && !empty($entry['importance']);
       });
       if ($term) {

@@ -13,7 +13,7 @@ use Drupal\extra_field\Plugin\ExtraFieldDisplayFormattedBase;
  *
  * @ExtraFieldDisplay(
  *   id = "labourmarket_unemployment_by_region",
- *   label = @Translation("Unemployment by Region"),
+ *   label = @Translation("[SSOT] Unemployment by Region"),
  *   description = @Translation("An extra field to display industry unemployment by region."),
  *   bundles = {
  *     "node.labour_market_monthly",
@@ -57,13 +57,13 @@ class LabourMarketUnemploymentByRegion extends ExtraFieldDisplayFormattedBase {
     $header = [' ',  $current_previous_months['current_month_year'] , $current_previous_months['current_month_previous_year']];
 
     $rows = $this->getRegionValues($entity->ssot_data['monthly_labour_market_updates'][0]);
-   
+
     $data = $rows;
 
     $rows = [];
     foreach ($data as $key => $region) {
       $rows[] = [
-        'data' => [$region['region'], $region['current'], $region['previous']], 
+        'data' => [$region['region'], $region['current'], $region['previous']],
         'class' => 'interactive-map-row-'. $key,
       ];
     }
@@ -79,7 +79,7 @@ class LabourMarketUnemploymentByRegion extends ExtraFieldDisplayFormattedBase {
       '#type' => 'table',
       '#header' => $header,
       '#rows' => $rows,
-    );  
+    );
 
     $source = array(
       '#plain_text' => !empty($entity->ssot_data['sources']['unemployment_pct'])?$entity->ssot_data['sources']['unemployment_pct']:WORKBC_EXTRA_FIELDS_NOT_AVAILABLE

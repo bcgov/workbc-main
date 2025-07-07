@@ -11,7 +11,7 @@ use Drupal\extra_field\Plugin\ExtraFieldDisplayFormattedBase;
  *
  * @ExtraFieldDisplay(
  *   id = "industry_top_ten_occupations",
- *   label = @Translation("Top Ten Occupations"),
+ *   label = @Translation("[SSOT] Top Ten Occupations"),
  *   description = @Translation("An extra field to display industry top ten occupations."),
  *   bundles = {
  *     "node.industry_profile",

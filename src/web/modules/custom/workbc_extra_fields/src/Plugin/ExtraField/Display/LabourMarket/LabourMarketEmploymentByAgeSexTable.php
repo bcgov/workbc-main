@@ -10,7 +10,7 @@ use Drupal\extra_field\Plugin\ExtraFieldDisplayFormattedBase;
  *
  * @ExtraFieldDisplay(
  *   id = "labourmarket_employment_by_age_sex_table",
- *   label = @Translation("Employment by Age Group and Sex"),
+ *   label = @Translation("[SSOT] Employment by Age Group and Sex"),
  *   description = @Translation("An extra field to display table of employment by age and sex."),
  *   bundles = {
  *     "node.labour_market_monthly",
@@ -121,7 +121,7 @@ class LabourMarketEmploymentByAgeSexTable extends ExtraFieldDisplayFormattedBase
             $genderAgeValues[$age]['data']['previous'] = [
               'data' => ssotFormatNumber($value, $options),
               'class' => $class,
-              'align' => "right",              
+              'align' => "right",
               'data-label' => $header[2]
             ];
 
@@ -135,7 +135,7 @@ class LabourMarketEmploymentByAgeSexTable extends ExtraFieldDisplayFormattedBase
             $genderAgeValues[$age]['data']['current'] = [
               'data' => ssotFormatNumber($value, $options),
               'class' => $class,
-              'align' => "right",              
+              'align' => "right",
               'data-label' => $header[1]
             ];
           }

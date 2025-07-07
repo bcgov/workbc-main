@@ -11,7 +11,7 @@ use Drupal\extra_field\Plugin\ExtraFieldDisplayFormattedBase;
  *
  * @ExtraFieldDisplay(
  *   id = "wbcc_recent_jobs",
- *   label = @Translation("Recent Jobs"),
+ *   label = @Translation("[SSOT] Recent Jobs"),
  *   description = @Translation("An extra field to display work bc centre recent jobs."),
  *   bundles = {
  *     "node.workbc_centre",

@@ -11,7 +11,7 @@ use Drupal\extra_field\Plugin\ExtraFieldDisplayFormattedBase;
  *
  * @ExtraFieldDisplay(
  *   id = "industry_bc_average_chart",
- *   label = @Translation("BC Average Chart"),
+ *   label = @Translation("[SSOT] BC Average Chart"),
  *   description = @Translation("An extra field to display industry bc average chart."),
  *   bundles = {
  *     "node.industry_profile",
