@@ -87,7 +87,6 @@ content:
     region: content
 hidden:
   content_moderation_control: true
-  extra_field_wbcc_recent_jobs: true
   extra_field_workbc_page_title: true
   extra_field_workbc_published_on: true
   field_alert: true
