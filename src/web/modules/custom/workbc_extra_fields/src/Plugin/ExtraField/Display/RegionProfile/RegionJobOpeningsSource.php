@@ -11,7 +11,7 @@ use Drupal\extra_field\Plugin\ExtraFieldDisplayFormattedBase;
  *
  * @ExtraFieldDisplay(
  *   id = "region_job_openings_source",
- *   label = @Translation("Source: Job Openings"),
+ *   label = @Translation("[SSOT] Source: Job Openings"),
  *   description = @Translation("Provenance metadata for field Region Job Openings."),
  *   bundles = {
  *     "node.region_profile",

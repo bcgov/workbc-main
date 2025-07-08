@@ -11,8 +11,8 @@ use Drupal\extra_field\Plugin\ExtraFieldDisplayFormattedBase;
  *
  * @ExtraFieldDisplay(
  *   id = "work_environment_source",
- *   label = @Translation("Source: Work Environment Info"),
- *   description = @Translation("Provenance metadata for section Work Environment Info."),
+ *   label = @Translation("[SSOT] Source: Work Environment"),
+ *   description = @Translation("Provenance metadata for section Work Environment."),
  *   bundles = {
  *     "node.career_profile",
  *   }
@@ -27,7 +27,7 @@ class CareerProfileWorkEnvironmentSource extends ExtraFieldDisplayFormattedBase 
    */
   public function getLabel() {
 
-    return $this->t('Source: Work Environment Info');
+    return $this->t('Source: Work Environment');
   }
 
   /**

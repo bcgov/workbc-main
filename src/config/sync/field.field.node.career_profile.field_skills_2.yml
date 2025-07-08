@@ -10,8 +10,8 @@ id: node.career_profile.field_skills_2
 field_name: field_skills_2
 entity_type: node
 bundle: career_profile
-label: Skills
-description: '[FOR INTERNAL USE ONLY]'
+label: '[SSOT] Skills'
+description: "AUTOMATICALLY POPULATED FROM SSOT.\r\n"
 required: false
 translatable: false
 default_value: {  }

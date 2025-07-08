@@ -394,6 +394,8 @@ function workbc_custom_form_views_exposed_form_alter(&$form, FormStateInterface 
     }), 'name', 'tid');
     $form['field_epbc_categories_target_id']['#attributes']['data-placeholder'] =
       $form['field_epbc_categories_target_id']['#disabled'] ? 'Choose an occupational category first' : 'All';
+    $form['field_epbc_categories_target_id']['#attributes']['data-description'] =
+      $form['field_epbc_categories_target_id']['#disabled'] ? 'Choose an occupational category first.' : 'Select one or more areas of interest.';
     $form['field_epbc_categories_target_id']['#default_value'] =
       $input['field_epbc_categories_target_id'] = array_filter($interest_value, function($t) use($form) {
         return in_array($t, array_keys($form['field_epbc_categories_target_id']['#options']));
@@ -554,6 +556,13 @@ function workbc_custom_menu_local_tasks_alter(&$data, $route_name) {
   if (isset($data['tabs'][0]['role_delegation.edit_form'])) {
     unset($data['tabs'][0]['role_delegation.edit_form']);
   }
+}
+
+/**
+ * Implements hook_element_info_alter().
+ */
+function workbc_custom_element_info_alter(&$info) {
+  $info['select']['#pre_render'][] = '\Drupal\workbc_custom\ChosenFormRender::preRenderSelect';
 }
 
 /**
@@ -766,6 +775,10 @@ function workbc_custom_search_api_query_explore_careers_search_alter($query) {
     return;
   }
   if (empty($keys) || !is_string($keys)) return;
+
+  // Convert curly quotations to regular quotations.
+  // https://stackoverflow.com/a/6610752/209184
+  $keys = iconv('UTF-8', 'ASCII//TRANSLIT', $keys);
 
   // Upcase keywords to activate AND / OR.
   $keys = strtoupper($keys);

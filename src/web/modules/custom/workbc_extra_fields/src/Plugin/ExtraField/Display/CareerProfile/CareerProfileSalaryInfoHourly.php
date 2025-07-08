@@ -11,7 +11,7 @@ use Drupal\extra_field\Plugin\ExtraFieldDisplayFormattedBase;
  *
  * @ExtraFieldDisplay(
  *   id = "salary_info_hourly_rate",
- *   label = @Translation("Salary Info - Hourly Rate"),
+ *   label = @Translation("[SSOT] Salary Info - Hourly Rate"),
  *   description = @Translation("An extra field to display job opening forecast chart."),
  *   bundles = {
  *     "node.career_profile",

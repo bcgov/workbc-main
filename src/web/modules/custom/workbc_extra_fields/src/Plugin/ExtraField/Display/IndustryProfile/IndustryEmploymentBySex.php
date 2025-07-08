@@ -11,7 +11,7 @@ use Drupal\extra_field\Plugin\ExtraFieldDisplayFormattedBase;
  *
  * @ExtraFieldDisplay(
  *   id = "industry_employment_by_sex",
- *   label = @Translation("Employment by Sex"),
+ *   label = @Translation("[SSOT] Employment by Sex"),
  *   description = @Translation("An extra field to display industry employment by sex."),
  *   bundles = {
  *     "node.industry_profile",

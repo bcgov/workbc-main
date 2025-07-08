@@ -11,7 +11,7 @@ use Drupal\extra_field\Plugin\ExtraFieldDisplayFormattedBase;
  *
  * @ExtraFieldDisplay(
  *   id = "lmo_search_index_keywords",
- *   label = @Translation("LMO Search Index Keywords"),
+ *   label = @Translation("[SSOT] LMO Search Index Keywords"),
  *   description = @Translation("An extra field to display LMO keywords for search indexing."),
  *   bundles = {
  *     "node.lmo_report_2024",

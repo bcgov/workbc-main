@@ -11,7 +11,7 @@ use Drupal\extra_field\Plugin\ExtraFieldDisplayFormattedBase;
  *
  * @ExtraFieldDisplay(
  *   id = "industry_employment_trends_dates",
- *   label = @Translation("Latest Employment Trends Dates"),
+ *   label = @Translation("[SSOT] Latest Employment Trends Dates"),
  *   description = @Translation("An extra field to display industry latest employment trends dates."),
  *   bundles = {
  *     "node.industry_profile",

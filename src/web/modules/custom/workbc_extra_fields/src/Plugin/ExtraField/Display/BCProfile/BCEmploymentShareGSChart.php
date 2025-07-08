@@ -11,7 +11,7 @@ use Drupal\extra_field\Plugin\ExtraFieldDisplayFormattedBase;
  *
  * @ExtraFieldDisplay(
  *   id = "bc_employment_goods_service_share_chart",
- *   label = @Translation("Employment Share Goods & Services Chart"),
+ *   label = @Translation("[SSOT] Employment Share Goods & Services Chart"),
  *   description = @Translation("An extra field to display employment share goods & services chart."),
  *   bundles = {
  *     "node.bc_profile",

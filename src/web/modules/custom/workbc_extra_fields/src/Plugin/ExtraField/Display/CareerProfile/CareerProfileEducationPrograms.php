@@ -13,7 +13,7 @@ use Drupal\Core\Url;
  *
  * @ExtraFieldDisplay(
  *   id = "education_programs",
- *   label = @Translation("Education Programs"),
+ *   label = @Translation("[SSOT] EPBC Education Programs"),
  *   description = @Translation("An extra field to display enterprise data."),
  *   bundles = {
  *     "node.career_profile",
@@ -50,7 +50,7 @@ class CareerProfileEducationPrograms extends ExtraFieldDisplayFormattedBase {
       $output = [
         '#theme' => 'item_list',
         '#items' => array_map(function ($v) {
-          return Link::fromTextAndUrl($v['sub_noc_label_en'] ?? $v['label_en'], Url::fromUri('https://www.educationplannerbc.ca/find-your-path/results/career/noc-' . ($v['sub_noc'] ?? $v['noc_2021']) . '#Post-secondary-programs', ['attributes' => [
+          return Link::fromTextAndUrl($v['sub_noc_label_en'] ?? $v['label_en'], Url::fromUri('https://www.educationplannerbc.ca/find-your-path/results/career/noc-' . ($v['sub_noc'] ?? $v['noc_2021']) . '?industry=skills&areaOfInterest=#Post-secondary-programs', ['attributes' => [
             'target' => '_blank',
             'rel' => 'noopener noreferrer',
           ]]));

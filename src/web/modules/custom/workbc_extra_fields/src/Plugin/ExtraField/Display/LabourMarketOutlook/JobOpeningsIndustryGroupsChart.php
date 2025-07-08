@@ -11,7 +11,7 @@ use Drupal\extra_field\Plugin\ExtraFieldDisplayFormattedBase;
  *
  * @ExtraFieldDisplay(
  *   id = "lmo_report_2024_job_openings_industries_chart",
- *   label = @Translation("Top Ten Major Industry Groups by Job Openings, B.C. (2024-2034)"),
+ *   label = @Translation("[SSOT] Top Ten Major Industry Groups by Job Openings, B.C. (2024-2034)"),
  *   description = @Translation("An extra field to display job openings chart."),
  *   bundles = {
  *     "paragraph.lmo_charts_tables",

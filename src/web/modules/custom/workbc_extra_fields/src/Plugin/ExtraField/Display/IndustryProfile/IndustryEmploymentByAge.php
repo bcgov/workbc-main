@@ -11,7 +11,7 @@ use Drupal\extra_field\Plugin\ExtraFieldDisplayFormattedBase;
  *
  * @ExtraFieldDisplay(
  *   id = "industry_employment_by_age",
- *   label = @Translation("Employment by Age Table"),
+ *   label = @Translation("[SSOT] Employment by Age Table"),
  *   description = @Translation("An extra field to display industry employment by age table."),
  *   bundles = {
  *     "node.industry_profile",

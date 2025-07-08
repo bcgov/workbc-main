@@ -196,7 +196,7 @@ function workbc_preprocess_page(&$variables) {
  * Implements hook_theme_preprocess_node().
  */
 function workbc_preprocess_node(&$variables) {
-  if ($variables['node']->bundle() === "publication" && $variables['view_mode'] === "publication") {
+  if ($variables['node']->bundle() === 'publication' && $variables['view_mode'] === 'publication') {
     $paths = \Drupal::config('workbc')->get('paths');
     $variables['order_form_path'] = $paths['order_form'];
     $media = $variables['content']['field_publication_media'][0]['#media'];
@@ -206,8 +206,8 @@ function workbc_preprocess_node(&$variables) {
     }
   }
 
-  if ($variables['node']->bundle() === "career_profile" || $variables['node']->bundle() === "industry_profile") {
-    $resources = $variables['node']->get("field_resources_reference")->referencedEntities();
+  if (in_array($variables['node']->bundle(), ['career_profile', 'industry_profile'])) {
+    $resources = $variables['node']->get('field_resources_reference')->referencedEntities();
     $links = [];
     foreach ($resources as $resource) {
       $link = [];
@@ -218,24 +218,8 @@ function workbc_preprocess_node(&$variables) {
     $variables['resources_links'] = $links;
   }
 
-  if ($variables['node']->bundle() === "career_profile") {
-    $careers = $variables['node']->get("field_related_careers")->referencedEntities();
-    $links = [];
-    foreach ($careers as $career) {
-      $link = [];
-      $link['title'] = $career->getTitle();
-      $link['noc'] = $career->get('field_noc')->value;
-      $options = ['absolute' => TRUE];
-      $url = \Drupal\Core\Url::fromRoute('entity.node.canonical', ['node' => $career->id()], $options);
-      $link['uri'] = $url->toString();
-      $links[] = $link;
-    }
-    $variables['related_career_links'] = $links;
-
-  }
-
-  if ($variables['node']->bundle() === "blog") {
-    $featured = "";
+  if ($variables['node']->bundle() === 'blog') {
+    $featured = '';
     $node = $variables['node'];
     if ($node->hasField('body')) {
       if (!empty($node->get('body')->summary)){
@@ -258,14 +242,16 @@ function workbc_preprocess_node(&$variables) {
   }
 
   // region information for interactive map
-  $types = ["career_profile", "bc_profile", "region_profile", "industry_profile", "labour_market_monthly"];
-  if (in_array($variables['node']->bundle(), $types)) {
+  if (in_array($variables['node']->bundle(), [
+    'career_profile', 'bc_profile', 'region_profile', 'industry_profile', 'labour_market_monthly'
+  ])) {
     $variables['region_info'] = ssotRegionInfo();
   }
 
   $current_path = \Drupal::service('path.current')->getPath();
   $internal = \Drupal::service('path_alias.manager')->getAliasByPath($current_path);
   $variables['is_front'] = $internal == \Drupal::configFactory()->get('system.site')->get('page.front');
+  // TODO Replace with \Drupal::config('workbc')->get('paths');
   $variables['is_contact'] = $internal == "/contact-us";
   $variables['is_career_trek'] = $internal == "/plan-career/career-trek-videos";
 }

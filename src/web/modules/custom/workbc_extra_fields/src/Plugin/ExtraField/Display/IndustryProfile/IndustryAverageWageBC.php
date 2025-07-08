@@ -11,7 +11,7 @@ use Drupal\extra_field\Plugin\ExtraFieldDisplayFormattedBase;
  *
  * @ExtraFieldDisplay(
  *   id = "industry_average_wage_bc",
- *   label = @Translation("BC Average Wage"),
+ *   label = @Translation("[SSOT] BC Average Wage"),
  *   description = @Translation("An extra field to display industry average wage BC."),
  *   bundles = {
  *     "node.industry_profile",

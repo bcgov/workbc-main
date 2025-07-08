@@ -11,7 +11,13 @@
         $links.text($closest.is(':visible') ? Drupal.t('Hide job titles') : Drupal.t('Show job titles'));
       });
       $(once('exploreCareerSearch', 'input.chosen-search-input', context)).each(function() {
-        $(this).attr('aria-labelledby', $(this).closest('.js-form-item').find('label').attr('for'));
+        $(this).attr('aria-labelledby', $(this).closest('.form-item').find('label').attr('for'));
+      });
+      $(once('exploreCareerSearch', '.chosen-mobile', context)).each(function() {
+        $(this).text($(this).closest('.form-item').find('select').data('description'));
+      });
+      $(once('exploreCareerSearch', '.chosen-enable', context)).on('change', function() {
+        $(this).closest('.form-item').find('input.chosen-search-input').attr('placeholder', '');
       });
     }
   }
