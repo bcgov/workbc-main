@@ -126,6 +126,17 @@ class WorkBCKeywordSearch extends StringFilter {
    */
   private function search() {
     $index = \Drupal\search_api\Entity\Index::load('career_profile_index');
+    $processor = \Drupal::getContainer()
+      ->get('search_api.plugin_helper')
+      ->createProcessorPlugin($index, 'highlight', [
+        'prefix' => '<strong>',
+        'suffix' => '</strong>',
+        'highlight_partial' => true,
+        'excerpt_length' => 10000,
+        'excerpt_always' => true,
+        'exclude_fields' => ['title', 'field_noc']
+      ]);
+    $index->addProcessor($processor);
     $query = $index->query();
 
     // Change the parse mode for the search.
@@ -161,14 +172,14 @@ class WorkBCKeywordSearch extends StringFilter {
       if (preg_match('/entity:node\/(\d+):/', $item->getId(), $match)) {
         return [
           'nid' => $match[1],
-          'excerpts' => $this->parseExcerpt($item, $results, $query)
+          'excerpts' => $this->parseSearchApiExcerpt($item->getExcerpt())
         ];
       }
       return false;
     }, $results ? $results->getResultItems() : [])));
   }
 
-  private function parseExcerpt(\Drupal\search_api\Item\Item $item, ResultSetInterface $results, Query $query) {
+  private function parseSolrExcerpt(\Drupal\search_api\Item\Item $item, ResultSetInterface $results, Query $query) {
     $doc = $item->getExtraData('search_api_solr_document');
     $highlight = $results->getExtraData('search_api_solr_response')['highlighting'];
     $key = $doc['hash'] . '-' . $item->getIndex()->id() . '-' . $item->getId();
@@ -180,5 +191,15 @@ class WorkBCKeywordSearch extends StringFilter {
       });
     }
     return $highlight[$key]['tcngramm_X3b_en_field_job_titles'];
+  }
+
+  private function parseSearchApiExcerpt($excerpt) {
+    $excerpts = array_map(function ($e) {
+      return trim($e);
+    }, array_filter(explode('…', $excerpt), function ($e) {
+      return str_contains($e, '<strong>');
+    }));
+    sort($excerpts);
+    return $excerpts;
   }
 }
