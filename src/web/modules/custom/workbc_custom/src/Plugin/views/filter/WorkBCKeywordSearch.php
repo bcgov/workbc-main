@@ -172,7 +172,8 @@ class WorkBCKeywordSearch extends StringFilter {
       if (preg_match('/entity:node\/(\d+):/', $item->getId(), $match)) {
         return [
           'nid' => $match[1],
-          'excerpts' => $this->parseSearchApiExcerpt($item->getExcerpt())
+          'excerpts' => $this->parseSearchApiExcerpt($item, $results, $query)
+          //'excerpts' => $this->parseSolrExcerpt($item, $results, $query)
         ];
       }
       return false;
@@ -193,11 +194,13 @@ class WorkBCKeywordSearch extends StringFilter {
     return $highlight[$key]['tcngramm_X3b_en_field_job_titles'];
   }
 
-  private function parseSearchApiExcerpt($excerpt) {
+  private function parseSearchApiExcerpt(\Drupal\search_api\Item\Item $item, ResultSetInterface $results, Query $query) {
     $excerpts = array_map(function ($e) {
       return trim($e);
-    }, array_filter(explode('…', $excerpt), function ($e) {
-      return str_contains($e, '<strong>');
+    }, array_filter(explode('…', $item->getExcerpt()), function ($title) use ($query) {
+      return in_array('explore_careers_search_modified', $query->getTags()) ?
+        substr_count($title, '<strong>') >= substr_count($query->getKeys(), '+') :
+        str_contains($title, '<strong>');
     }));
     sort($excerpts);
     return $excerpts;
