@@ -1,15 +1,39 @@
 title: 'Back To All Videos'
 logo: /modules/custom/workbc_career_trek/assets/images/carrerTrekLogo.png
 back_button_url: /plan-career/career-trek-videos
-back_button_title: 'Back To All Videos'
+back_button_title: 'Back to all videos'
 toggle_icon_grid: /modules/custom/workbc_career_trek/assets/icons/grid_icon.svg
 toggle_icon_list: /modules/custom/workbc_career_trek/assets/icons/list_icon.svg
-searching_text: 'Career Video Matching:'
-in_demand_title: 'Featured Videos'
-latest_career_title: 'Most recent videos'
-filter_title: 'Video filters'
+searching_text: 'Search results for:'
+in_demand_title: Featured
+latest_career_title: 'Most recent'
+filter_title: Filters
 url: null
 responsive_toggle_icon: /modules/custom/workbc_career_trek/assets/icons/close.svg
-related_careers_title: 'Related Careers Videos'
+related_careers_title: 'Related career videos'
 main_title: 'Career Trek'
 url_skills_future_workforce: /plan-career/skills-future-workforce
+link_to_career_profile_text: 'View career profile'
+view_occupational_category_api_field_title: 'Career Category'
+view_occupational_category_api_field_description: 'Select one or more options to filter your search results.'
+view_minimum_education_all_title: 'Education and training'
+view_minimum_education_all_description: 'Select one option to filter your search results.'
+view_annual_salary_wrapper_title: 'Salary Range'
+view_annual_salary_wrapper_description: 'Adjust the slider to set your desired salary range.'
+view_skills_title: Skills
+view_skills_description: 'Select one or more options to filter your search results.'
+view_regions_title: Regions
+view_regions_description: 'Select one option to filter your search results.'
+apply_button: 'Apply filters'
+clear_filter_button: 'Clear filters'
+icon_search: themes/custom/workbc/assets/icons/icon-search.svg
+icon_search_fid: null
+icon_occupational_categories: themes/custom/workbc/assets/icons/occupational-categories.svg
+icon_occupational_categories_fid: null
+icon_profile_location: themes/custom/workbc/assets/icons/profile-location.svg
+icon_profile_location_fid: null
+icon_noc: themes/custom/workbc/assets/icons/icon-noc.svg
+icon_noc_fid: null
+icon_calendar: themes/custom/workbc/assets/icons/icon-calendar.svg
+icon_calendar_fid: null
+logo_fid: null

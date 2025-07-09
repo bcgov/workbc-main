@@ -1068,7 +1068,7 @@ display:
         options:
           offset: 0
           pagination_heading_level: h4
-          items_per_page: 12
+          items_per_page: 15
           total_pages: null
           id: 0
           tags:
@@ -1084,15 +1084,14 @@ display:
             offset_label: Offset
           views_infinite_scroll:
             button_text: 'Load More'
-            automatically_load_content: true
+            automatically_load_content: false
             initially_load_all_pages: false
-            initial: 12
       exposed_form:
         type: bef
         options:
-          submit_button: 'Apply Filters'
+          submit_button: 'Apply filters'
           reset_button: true
-          reset_button_label: 'Clear Filters'
+          reset_button_label: 'Clear filters'
           exposed_sorts_label: 'Sort by'
           expose_sort_order: true
           sort_asc_label: Asc
@@ -2106,7 +2105,7 @@ display:
           admin_label: ''
           plugin_id: search_api
           label: ''
-          exclude: true
+          exclude: false
           alter:
             alter_text: false
             text: ''
@@ -2473,7 +2472,7 @@ display:
           min_length: null
           fields:
             - career_noc
-            - ssot_title
+            - episode_title
         status_1:
           id: status_1
           table: search_api_index_career_profile_index_sub
@@ -2607,7 +2606,7 @@ display:
             placeholder: ''
           is_grouped: true
           group_info:
-            label: 'Education and Training'
+            label: 'Education and training'
             description: 'Select one option to filter your search results.'
             identifier: minimum_education_all
             optional: true
@@ -2676,7 +2675,7 @@ display:
           exposed: true
           expose:
             operator_id: annual_salary_op
-            label: 'Salary Range'
+            label: 'Salary range'
             description: 'Adjust the slider to set your desired salary range.'
             use_operator: true
             operator: annual_salary_op
@@ -2935,7 +2934,7 @@ display:
             placeholder: null
           is_grouped: true
           group_info:
-            label: 'Career Category'
+            label: 'Career category'
             description: 'Select one or more options to filter your search results.'
             identifier: occupational_category_api_field
             optional: true
@@ -3043,7 +3042,7 @@ display:
           exposed: true
           expose:
             operator_id: skills_op
-            label: 'Skills Required'
+            label: Skills
             description: 'Select one or more options to filter your search results.'
             use_operator: false
             operator: skills_op

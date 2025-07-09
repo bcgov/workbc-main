@@ -48,9 +48,9 @@ class CareerTrekTitleSubscriber implements EventSubscriberInterface {
           // Try to get the title field from the first result row.
           $row = $view->result[0];
           // Try to get the field value, fallback to arg0 if not found.
-          if (isset($row->{'ssot_title|ssot_title'}) && is_array($row->{'ssot_title|ssot_title'}) && !empty($row->{'ssot_title|ssot_title'})) {
+          if (isset($row->{'episode_title|episode_title'}) && is_array($row->{'episode_title|episode_title'}) && !empty($row->{'episode_title|episode_title'})) {
             // The value is usually in the first element of the array.
-            $title = $row->{'ssot_title|ssot_title'}[0];
+            $title = $row->{'episode_title|episode_title'}[0];
           }
         }
         if($title) {
