@@ -11,7 +11,7 @@ use Drupal\extra_field\Plugin\ExtraFieldDisplayFormattedBase;
  *
  * @ExtraFieldDisplay(
  *   id = "industry_employment_latest_trends_percent",
- *   label = @Translation("Latest Employment Trends Percent"),
+ *   label = @Translation("[SSOT] Latest Employment Trends Percent"),
  *   description = @Translation("An extra field to display industry latest employment trends percent."),
  *   bundles = {
  *     "node.industry_profile",

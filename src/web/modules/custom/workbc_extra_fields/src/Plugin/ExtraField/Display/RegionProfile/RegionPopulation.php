@@ -11,7 +11,7 @@ use Drupal\extra_field\Plugin\ExtraFieldDisplayFormattedBase;
  *
  * @ExtraFieldDisplay(
  *   id = "region_population",
- *   label = @Translation("Population"),
+ *   label = @Translation("[SSOT] Population"),
  *   description = @Translation("An extra field to display region population."),
  *   bundles = {
  *     "node.region_profile",

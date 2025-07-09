@@ -7,20 +7,19 @@ use Symfony\Component\DependencyInjection\ContainerInterface;
 use Drupal\Core\Plugin\ContainerFactoryPluginInterface;
 use Drupal\Component\Utility\Timer;
 
-define("NULL_VALUE", -999999);
-
 /**
  * SSOT data fetcher.
  *
  * @QueueWorker(
  *   id = "ssot_downloader",
- *   title = @Translation("SSOT Downloader"),
- *   cron = {"time" = 120}
+ *   title = @Translation("SSoT Downloader (Bulk)"),
+ *   cron = {"time" = 60}
  * )
  */
 class SsotDownloader extends QueueWorkerBase implements ContainerFactoryPluginInterface {
 
   private $epbc_categories;
+  private $skills;
 
   /**
   * Main constructor.
@@ -87,12 +86,7 @@ class SsotDownloader extends QueueWorkerBase implements ContainerFactoryPluginIn
       // Index the dataset by NOC.
       $entries = array_reduce(json_decode($result->getBody(), true), function($entries, $entry) use($metadata) {
         $noc = $entry[$metadata['noc_key']];
-        if (array_key_exists($noc, $entries)) {
-          $entries[$noc][] = $entry;
-        }
-        else {
-          $entries[$noc] = [$entry];
-        }
+        $entries[$noc] ??= []; $entries[$noc][] = $entry;
         return $entries;
       }, []);
 
@@ -161,8 +155,8 @@ class SsotDownloader extends QueueWorkerBase implements ContainerFactoryPluginIn
   }
 
   private function update_career_provincial($endpoint, $entries, &$career) {
-    $openings = $career->get('field_region_openings')->getValue() ?? array_fill(0, 8, 0);
-    $openings[REGION_BRITISH_COLUMBIA_ID] = reset($entries)['expected_job_openings_10y'] ?? 0;
+    $openings = $career->get('field_region_openings')->getValue() ?? array_fill(0, 8, NULL_VALUE);
+    $openings[REGION_BRITISH_COLUMBIA_ID] = reset($entries)['expected_job_openings_10y'] ?? NULL_VALUE;
     $career->set('field_region_openings', $openings);
   }
 
@@ -214,5 +208,21 @@ class SsotDownloader extends QueueWorkerBase implements ContainerFactoryPluginIn
       $openings[$regions[$entry['region']]] = 1;
     }
     $career->set('field_region_hoo', $openings);
+  }
+
+  private function update_skills($endpoint, $entries, &$career) {
+    if (!isset($this->skills)) {
+      $this->skills = \Drupal::entityTypeManager()->getStorage('taxonomy_term')->loadTree('skills');
+    }
+    $skills = [];
+    foreach ($entries as $entry) {
+      $term = array_find($this->skills, function ($v) use ($entry) {
+        return strcasecmp($v->name, $entry['skills_competencies']) === 0 && !empty($entry['importance']);
+      });
+      if ($term) {
+        $skills[] = ['target_id' => $term->tid];
+      }
+    }
+    $career->set('field_skills_2', $skills);
   }
 }

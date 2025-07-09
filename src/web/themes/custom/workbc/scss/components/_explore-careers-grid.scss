@@ -22,6 +22,12 @@
       padding-right: 5px;
       aspect-ratio: inherit;
     }
+
+    @include media-breakpoint-only(lg) {
+      padding-top: 15px;
+      padding-left: 10px;
+      padding-right: 10px;
+    }
   }
 
   .tile {
@@ -75,6 +81,10 @@
       margin-top: 10%;
       margin-bottom: 0px;
 
+      @include media-breakpoint-only(lg) {
+        margin-top: 10px;
+      }
+
       @include media-breakpoint-down(lg) {
         line-height: 1.375rem;
         margin-top: 0px;
@@ -108,7 +118,14 @@
         cursor: pointer;
       }
 
+      @include media-breakpoint-only(lg) {
+        padding-top: 10px;
+        padding-bottom: 15px;
+      }
+
       @include media-breakpoint-down(lg) {
+        padding-top: 10%;
+        padding-bottom: 15%;
         padding-right: 20px;
         padding-left: 20px;
 
@@ -116,7 +133,6 @@
           margin-left: auto;
         }
       }
-
     }
   }
 

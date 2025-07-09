@@ -229,6 +229,11 @@ content:
     third_party_settings: {  }
     weight: 13
     region: content
+  extra_field_episode_title:
+    settings: {  }
+    third_party_settings: {  }
+    weight: 26
+    region: content
   extra_field_high_opportunity_occupation:
     settings: {  }
     third_party_settings: {  }
@@ -372,7 +377,7 @@ content:
   extra_field_profile_thumbnail:
     settings: {  }
     third_party_settings: {  }
-    weight: 26
+    weight: 27
     region: content
   extra_field_profile_title:
     settings: {  }

@@ -79,7 +79,7 @@ third_party_settings:
         - extra_field_work_environment_percent_fulltime
         - extra_field_work_environment_source
         - field_career_pathways
-        - field_related_careers
+        - extra_field_related_careers
         - extra_field_occupational_interests_int
         - extra_field_occupational_interests
         - field_job_titles
@@ -105,7 +105,6 @@ third_party_settings:
     group_education_training_skills:
       children:
         - field_education_training_skills
-        - field_education_programs
         - extra_field_education_programs
         - extra_field_skills_introduction
         - extra_field_profile_skills
@@ -407,6 +406,11 @@ content:
     third_party_settings: {  }
     weight: 5
     region: content
+  extra_field_related_careers:
+    settings: {  }
+    third_party_settings: {  }
+    weight: 24
+    region: content
   extra_field_salary_info_annual_salary:
     settings: {  }
     third_party_settings: {  }
@@ -494,7 +498,7 @@ content:
     label: above
     settings: {  }
     third_party_settings: {  }
-    weight: 2
+    weight: 19
     region: content
   field_education_training_skills:
     type: text_default
@@ -549,7 +553,7 @@ content:
     settings:
       link: true
     third_party_settings: {  }
-    weight: 24
+    weight: 20
     region: content
   field_resources_reference:
     type: entity_reference_entity_id
@@ -579,6 +583,7 @@ content:
     region: content
 hidden:
   extra_field_career_trek_profile_skills: true
+  extra_field_episode_title: true
   extra_field_profile_description: true
   extra_field_profile_thumbnail: true
   extra_field_profile_title: true

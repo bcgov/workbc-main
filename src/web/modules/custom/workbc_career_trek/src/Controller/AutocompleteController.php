@@ -46,7 +46,6 @@ class AutocompleteController extends ControllerBase {
   public function getSuggestions(Request $request) {
     $search_term = $request->query->get('q');
     $results = [];
-
     if (mb_strlen($search_term) < 2) {
       return new JsonResponse($results);
     }
@@ -59,16 +58,15 @@ class AutocompleteController extends ControllerBase {
 
     $query = $index->query();
     $group = $query->createConditionGroup('OR');
-    $group->addCondition('ssot_title', $search_term, 'CONTAINS');
+    $group->addCondition('episode_title', $search_term, 'CONTAINS');
     $group->addCondition('career_noc', $search_term, 'CONTAINS');
     $query->addConditionGroup($group);
     $query->range(0, 10);
 
     try {
       $result = $query->execute();
-
       foreach ($result as $item) {
-        $title = $item->getField('ssot_title')->getValues();
+        $title = $item->getField('episode_title')->getValues();
         $noc = $item->getField('career_noc')->getValues();
         $episode_num = $item->getField('episode_num')->getValues();
         if(!empty($title) && !empty($noc)  && !empty($episode_num)) {

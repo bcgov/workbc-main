@@ -5,3 +5,11 @@ workbc_ssot.lmmu:
     _form: '\Drupal\workbc_ssot\Form\SsotUploadLmmuForm'
   requirements:
     _permission: 'administer ssot settings'
+
+workbc_ssot.refresh:
+  path: '/admin/config/workbc/ssot/refresh'
+  defaults:
+    _title: 'SSoT: Refresh Datasets'
+    _form: '\Drupal\workbc_ssot\Form\SsotRefreshForm'
+  requirements:
+    _permission: 'administer ssot settings'

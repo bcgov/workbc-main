@@ -11,7 +11,7 @@ use Drupal\extra_field\Plugin\ExtraFieldDisplayFormattedBase;
  *
  * @ExtraFieldDisplay(
  *   id = "industry_employment_by_region_table",
- *   label = @Translation("Employment by Region Table"),
+ *   label = @Translation("[SSOT] Employment by Region Table"),
  *   description = @Translation("An extra field to display industry employment by region table."),
  *   bundles = {
  *     "node.industry_profile",
@@ -95,16 +95,16 @@ class IndustryEmploymentByRegionTable extends ExtraFieldDisplayFormattedBase {
     $rows = [];
     foreach ($regions as $region) {
       $rows[] = [
-        'data' => [$region['name'], $region['industry'], $region['all']], 
+        'data' => [$region['name'], $region['industry'], $region['all']],
         'class' => 'interactive-map-row-'.ssotRegionKey($region['name']),
       ];
     }
-  
+
     $table = array(
       '#type' => 'table',
       '#header' => $header,
       '#rows' => $rows,
-    );   
+    );
     return $table;
   }
 

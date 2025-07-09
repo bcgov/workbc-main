@@ -9,3 +9,9 @@ workbc_ssot.lmmu:
   parent: workbc_ssot.main
   route_name: workbc_ssot.lmmu
   description: 'Upload a new data sheet to the SSoT Labout Market Monthly Update.'
+
+workbc_ssot.refresh:
+  title: 'Refresh Datasets'
+  parent: workbc_ssot.main
+  route_name: workbc_ssot.refresh
+  description: 'Refresh the SSoT datasets that are used by this website.'

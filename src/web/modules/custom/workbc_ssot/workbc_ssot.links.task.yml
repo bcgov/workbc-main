@@ -7,3 +7,8 @@ workbc_ssot.log:
   route_name: view.ssot_log.page_1
   title: 'Upload Log'
   base_route: workbc_ssot.lmmu
+
+workbc_ssot.refresh:
+  route_name: workbc_ssot.refresh
+  title: 'Refresh Datasets'
+  base_route: workbc_ssot.lmmu

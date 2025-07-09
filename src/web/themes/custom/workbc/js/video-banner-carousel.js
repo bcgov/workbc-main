@@ -22,11 +22,13 @@
         // Remove audio from video
         video.muted = true;
 
-        // Handle video end event
-        video.addEventListener('ended', () => {
-          // video.style.display = 'none';
-          $('.career-trek-row').addClass('video-stop')
-        });
+        if (window.innerWidth <= 575) {
+          $('.career-trek-row').addClass('video-stop');
+        } else {
+          video.addEventListener('ended', () => {
+            $('.career-trek-row').addClass('video-stop');
+          });
+        }
 
         // Toggle play/pause on button click
         videoButton.addEventListener('click', function() {

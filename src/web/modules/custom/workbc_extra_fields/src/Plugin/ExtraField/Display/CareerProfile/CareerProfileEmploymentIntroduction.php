@@ -41,7 +41,7 @@ class CareerProfileEmploymentIntroduction extends ExtraFieldDisplayFormattedBase
   /**
    * {@inheritdoc}
    */
-  public function viewElements(ContentEntityInterface $entity) { 
+  public function viewElements(ContentEntityInterface $entity) {
     $introductions = $entity->get('field_introductions')?->referencedEntities();
     return empty($introductions) ? NULL : $introductions[0]->get('field_employment_introduction')?->view();
   }

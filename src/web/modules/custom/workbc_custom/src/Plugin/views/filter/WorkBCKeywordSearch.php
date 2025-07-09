@@ -126,6 +126,17 @@ class WorkBCKeywordSearch extends StringFilter {
    */
   private function search() {
     $index = \Drupal\search_api\Entity\Index::load('career_profile_index');
+    $processor = \Drupal::getContainer()
+      ->get('search_api.plugin_helper')
+      ->createProcessorPlugin($index, 'highlight', [
+        'prefix' => '<strong>',
+        'suffix' => '</strong>',
+        'highlight_partial' => true,
+        'excerpt_length' => 10000,
+        'excerpt_always' => true,
+        'exclude_fields' => ['title', 'field_noc']
+      ]);
+    $index->addProcessor($processor);
     $query = $index->query();
 
     // Change the parse mode for the search.
@@ -135,9 +146,7 @@ class WorkBCKeywordSearch extends StringFilter {
     $query->setParseMode($parse_mode);
 
     // Set fulltext search keywords and fields.
-    // Convert curly quotations to regular quotations.
-    // https://stackoverflow.com/a/6610752/209184
-    $query->keys(iconv('UTF-8', 'ASCII//TRANSLIT', $this->value));
+    $query->keys($this->value);
     $query->setFulltextFields(['title', 'field_noc', 'field_job_titles']);
 
     // Add sorting and limiting.
@@ -163,14 +172,15 @@ class WorkBCKeywordSearch extends StringFilter {
       if (preg_match('/entity:node\/(\d+):/', $item->getId(), $match)) {
         return [
           'nid' => $match[1],
-          'excerpts' => $this->parseExcerpt($item, $results, $query)
+          'excerpts' => $this->parseSearchApiExcerpt($item, $results, $query)
+          //'excerpts' => $this->parseSolrExcerpt($item, $results, $query)
         ];
       }
       return false;
     }, $results ? $results->getResultItems() : [])));
   }
 
-  private function parseExcerpt(\Drupal\search_api\Item\Item $item, ResultSetInterface $results, Query $query) {
+  private function parseSolrExcerpt(\Drupal\search_api\Item\Item $item, ResultSetInterface $results, Query $query) {
     $doc = $item->getExtraData('search_api_solr_document');
     $highlight = $results->getExtraData('search_api_solr_response')['highlighting'];
     $key = $doc['hash'] . '-' . $item->getIndex()->id() . '-' . $item->getId();
@@ -182,5 +192,17 @@ class WorkBCKeywordSearch extends StringFilter {
       });
     }
     return $highlight[$key]['tcngramm_X3b_en_field_job_titles'];
+  }
+
+  private function parseSearchApiExcerpt(\Drupal\search_api\Item\Item $item, ResultSetInterface $results, Query $query) {
+    $excerpts = array_map(function ($e) {
+      return trim($e);
+    }, array_filter(explode('…', $item->getExcerpt()), function ($title) use ($query) {
+      return in_array('explore_careers_search_modified', $query->getTags()) ?
+        substr_count($title, '<strong>') >= substr_count($query->getKeys(), '+') :
+        str_contains($title, '<strong>');
+    }));
+    sort($excerpts);
+    return $excerpts;
   }
 }

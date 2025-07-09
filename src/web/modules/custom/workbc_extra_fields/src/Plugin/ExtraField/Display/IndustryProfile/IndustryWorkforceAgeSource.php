@@ -11,7 +11,7 @@ use Drupal\extra_field\Plugin\ExtraFieldDisplayFormattedBase;
  *
  * @ExtraFieldDisplay(
  *   id = "industry_workforce_age_source",
- *   label = @Translation("Source: Workforce (Age)"),
+ *   label = @Translation("[SSOT] Source: Workforce (Age)"),
  *   description = @Translation("Provenance metadata for field Employment by Age."),
  *   bundles = {
  *     "node.industry_profile",

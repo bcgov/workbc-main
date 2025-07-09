@@ -15,7 +15,7 @@ use Drupal\user\Entity\User;
  *
  * @QueueWorker(
  *   id = "ssot_uploader",
- *   title = @Translation("SSOT Uploader"),
+ *   title = @Translation("SSoT Uploader"),
  *   cron = {"time" = 60}
  * )
  */

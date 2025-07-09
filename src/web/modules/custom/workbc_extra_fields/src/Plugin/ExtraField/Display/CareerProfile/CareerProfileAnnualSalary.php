@@ -11,7 +11,7 @@ use Drupal\extra_field\Plugin\ExtraFieldDisplayFormattedBase;
  *
  * @ExtraFieldDisplay(
  *   id = "annual_salary",
- *   label = @Translation("Annual Earnings"),
+ *   label = @Translation("[SSOT] Annual Earnings"),
  *   description = @Translation("An extra field to display career annual earnings."),
  *   bundles = {
  *     "node.career_profile",

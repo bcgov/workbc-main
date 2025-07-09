@@ -11,7 +11,7 @@ use Drupal\extra_field\Plugin\ExtraFieldDisplayFormattedBase;
  *
  * @ExtraFieldDisplay(
  *   id = "annual_salary_source",
- *   label = @Translation("Source: Annual Salary"),
+ *   label = @Translation("[SSOT] Source: Annual Salary"),
  *   description = @Translation("Provenance metadata for field Annual Salary."),
  *   bundles = {
  *     "node.career_profile",

@@ -300,7 +300,7 @@ class SearchApiIndexAlterSubscriber implements EventSubscriberInterface {
         if (isset($fields[$search_api_field])) {
           // Blank out previous values, then add the new value.
           $fields[$search_api_field]->setValues([]);
-          if ($search_api_field == "ssot_title" || $search_api_field == "career_noc") {
+          if ($search_api_field == "episode_title" || $search_api_field == "ssot_title" || $search_api_field == "career_noc") {
             $fields[$search_api_field]->addValue(new TextValue($ssot_row[$ssot_field]));
           }
           elseif ($search_api_field == "youtube_url") {
@@ -314,7 +314,7 @@ class SearchApiIndexAlterSubscriber implements EventSubscriberInterface {
         else {
           $field = new \Drupal\search_api\Item\Field($item->getIndex(), $search_api_field);
           $field->setValues([]);
-          if ($search_api_field == "ssot_title" || $search_api_field == "career_noc") {
+          if ($search_api_field == "episode_title" || $search_api_field == "ssot_title" || $search_api_field == "career_noc") {
             $field->addValue(new TextValue($ssot_row[$ssot_field]));
           }
           elseif ($search_api_field == "youtube_url") {

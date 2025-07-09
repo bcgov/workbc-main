@@ -11,7 +11,7 @@ use Drupal\extra_field\Plugin\ExtraFieldDisplayFormattedBase;
  *
  * @ExtraFieldDisplay(
  *   id = "bc_population",
- *   label = @Translation("BC Population"),
+ *   label = @Translation("[SSOT] BC Population"),
  *   description = @Translation("An extra field to display BC population."),
  *   bundles = {
  *     "node.bc_profile",

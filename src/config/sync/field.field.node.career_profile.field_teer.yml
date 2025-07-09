@@ -11,7 +11,7 @@ id: node.career_profile.field_teer
 field_name: field_teer
 entity_type: node
 bundle: career_profile
-label: '[SSOT] TEER'
+label: '[SSOT] Training, Education, Experience and Responsibilities'
 description: 'AUTOMATICALLY POPULATED FROM SSOT.'
 required: false
 translatable: false

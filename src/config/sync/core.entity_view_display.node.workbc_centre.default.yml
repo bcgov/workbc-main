@@ -66,11 +66,6 @@ content:
     third_party_settings: {  }
     weight: 0
     region: content
-  extra_field_wbcc_recent_jobs:
-    settings: {  }
-    third_party_settings: {  }
-    weight: 7
-    region: content
   field_address:
     type: address_default
     label: hidden
