@@ -38,6 +38,7 @@ icon-append:
     js/icon-append.js: {}
   dependencies:
     - core/drupal
+    - core/drupalSettings
     - core/jquery
 
 mobile-nav:
@@ -73,6 +74,14 @@ video-banner-carousel:
 career-inner-video:
   js:
     js/career-inner-video.js: {}
+  dependencies:
+    - core/drupal
+    - core/jquery
+    - core/once
+
+career-count-video:
+  js:
+    js/career-count-video.js: {}
   dependencies:
     - core/drupal
     - core/jquery

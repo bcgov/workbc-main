@@ -5,7 +5,7 @@ dependencies:
   config:
     - filter.format.full_html
 id: find_resources_for_educators
-title: 'Find resources for educators'
+title: 'Visit Career Education Resources'
 content:
-  value: '<div class="find-resources"><div class="find-resources-image-wrapper"><div class="find-resources-media-wrapper"><img class="img-fluid image-style-inline-w-content" loading="lazy" src="/themes/custom/workbc/assets/images/books.png" width="33" height="34" alt="Books"></div><div class="find-resources-wrapper"><h4>Find resources for educators&nbsp;</h4><p class="find-resources-description">Description of what this functionality allows the user to do specifically</p><p><a class="find-resources-links" href="https://careereducation.workbc.ca/" target="_blank">View Resources for Educators</a></p></div></div></div>'
+  value: '<div class="find-resources"><div class="find-resources-image-wrapper"><div class="find-resources-media-wrapper"><img class="img-fluid image-style-inline-w-content" loading="lazy" src="/themes/custom/workbc/assets/icons/books.svg" width="33" height="34" alt="Books"></div><div class="find-resources-wrapper"><h4>Visit Career Education Resources</h4><p class="find-resources-description">Check out lesson plans, learning activities, tools and resources to support teaching your career education class.</p><p><a class="find-resources-links" href="https://careereducation.workbc.ca/lesson-plan/career-trek-grade-8-9" target="_blank">View education plans and resources</a></p></div></div></div>'
   format: full_html

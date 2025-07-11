@@ -572,6 +572,7 @@ content:
 hidden:
   created: true
   extra_field_career_trek_profile_skills: true
+  extra_field_episode_title: true
   extra_field_job_titles: true
   extra_field_profile_description: true
   extra_field_profile_thumbnail: true

@@ -65,6 +65,12 @@
   }
 }
 
+.page-format--sidenav .node-page-content {
+  p {
+    width: 100%;
+  }
+}
+
 // Miscellaneous pages
 .page--not-found .region-content .block-system {
   padding: 80px 0;
@@ -73,6 +79,10 @@
 
 .page-format--wide .node-page-content {
   padding-top: 40px;
+
+  h2, p {
+    width: 100%;
+  }
 }
 
 .plan-careerexplore-careers .node-page-content {
@@ -83,4 +93,9 @@
   max-width: 900px;
   padding: 60px 12px;
   margin: 0 auto;
+}
+
+.media--type-remote-video.align-center {
+  margin-left: auto;
+  margin-right: auto;
 }

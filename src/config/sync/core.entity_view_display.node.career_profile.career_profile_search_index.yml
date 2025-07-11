@@ -55,6 +55,7 @@ hidden:
   extra_field_education_programs: true
   extra_field_employment_growth_rate_forecast: true
   extra_field_employment_introduction: true
+  extra_field_episode_title: true
   extra_field_high_opportunity_occupation: true
   extra_field_industry_highlights_intro: true
   extra_field_job_openings: true

@@ -30,7 +30,7 @@ resource "aws_ecs_task_definition" "cron-job" {
 		environment = [
 			{
 				name = "Cron_Url",
-				value = "https://d2exwyb2h4kjsx.cloudfront.net/cron/vNlYnxjqJe1cK9KaV4DO8LNiaHrIGA9z8PfluY11h-uW79PBFQ9vsS9EVnC-Bsy6ZnBE9luRqA"
+				value = "https://www.workbc.ca/cron/vNlYnxjqJe1cK9KaV4DO8LNiaHrIGA9z8PfluY11h-uW79PBFQ9vsS9EVnC-Bsy6ZnBE9luRqA"
 			}
 		]
 	}
