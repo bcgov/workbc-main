@@ -600,6 +600,7 @@ content:
     weight: 16
     region: content
 hidden:
+  extra_field_related_careers: true
   extra_field_search_index_job_titles: true
   extra_field_search_index_noc: true
   extra_field_workbc_page_title: true
