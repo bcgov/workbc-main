@@ -11,7 +11,7 @@ use Drupal\extra_field\Plugin\ExtraFieldDisplayFormattedBase;
  *
  * @ExtraFieldDisplay(
  *   id = "region_job_openings_composition_chart",
- *   label = @Translation("Job Openings Composition Chart"),
+ *   label = @Translation("[SSOT] Job Openings Composition Chart"),
  *   description = @Translation("An extra field to display region job openings forecast chart."),
  *   bundles = {
  *     "node.region_profile",

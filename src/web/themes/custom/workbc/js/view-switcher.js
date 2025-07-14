@@ -2,6 +2,25 @@
   ("use strict");
   Drupal.behaviors.viewSwitcher = {
     attach: function (context, settings) {
+
+      function applyViewMode() {
+        let isList = $('.toggle-icon .list').hasClass('active');
+        let winWidth = window.innerWidth;
+        $('.switcher-row .switcher-column', context).each(function () {
+          $(this).removeClass('col-lg-4 col-sm-6 col-12 grid-view col-lg-6 col-12 list-column');
+          // On screens <= 575px, always use list view
+          if (winWidth <= 575) {
+            $(this).addClass('col-lg-6 col-12 list-column');
+            $('.toggle-icon .list').addClass('active');
+            $('.toggle-icon .grid').removeClass('active');
+          } else if (isList) {
+            $(this).addClass('col-lg-6 col-12 list-column');
+          } else {
+            $(this).addClass('col-lg-4 col-sm-6 col-12 grid-view');
+          }
+        });
+      }
+
       // the second parameter must be a selector specific to the content this script applies to, to ensure it's loaded after the content in the case the content is lazy loaded by Drupal
       once('viewSwitcher', '.toggle-icon .list', context).forEach(function (element) {
           element.onclick = function () {
@@ -30,7 +49,18 @@
           $(this).addClass('col-lg-4 col-sm-6 col-12 grid-view');
         }
       });
+
+      applyViewMode();
+      $(window).on('resize', function () {
+        applyViewMode();
+      });
+
       $(document).ajaxComplete(function() {
+        // applyViewMode();
+        $('.plan-careercareer-trek-videos .view-id-career_trek_video_library.view-display-id-block_1 .workbc-card .workbc-card-container .workbc-card-content .workbc-card-title a, .view-id-related_careers_videos.view-display-id-block_1 .related-carrer .workbc-card-content .title a', context).each(function() {
+          var text = $(this).text();
+          $(this).text(toSentenceCase(text.trim()));
+        });
         var totalCount = $('.plan-careercareer-trek-videos .view-content.result-view .switcher-row div.career-grid').length;
         // Update the .update-result text
         $('.plan-careercareer-trek-videos .result-summary .update-result').text(totalCount);
@@ -67,6 +97,16 @@
           };
         });
       };
+
+      const toSentenceCase = function(str) {
+        if (!str) return '';
+        return str.charAt(0).toUpperCase() + str.slice(1).toLowerCase();
+      };
+
+      $('.plan-careercareer-trek-videos .view-id-career_trek_video_library.view-display-id-block_1 .workbc-card .workbc-card-container .workbc-card-content .workbc-card-title a, .view-id-related_careers_videos.view-display-id-block_1 .related-carrer .workbc-card-content .title a, .view-career-trek-node .career-title span', context).each(function() {
+        var text = $(this).text();
+        $(this).text(toSentenceCase(text.trim()));
+      });
 
       // Run on initial load
       checkCardImages(context);

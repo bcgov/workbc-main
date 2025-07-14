@@ -11,7 +11,7 @@ use Drupal\extra_field\Plugin\ExtraFieldDisplayFormattedBase;
  *
  * @ExtraFieldDisplay(
  *   id = "high_opportunity_occupation",
- *   label = @Translation("High Opportunity Occupation"),
+ *   label = @Translation("[SSOT] High Opportunity Occupation"),
  *   description = @Translation("High Opportunity Occupation"),
  *   bundles = {
  *     "node.career_profile",
@@ -47,12 +47,12 @@ class CareerProfileHighOpportunityOccupation extends ExtraFieldDisplayFormattedB
       $output = 'NO';
       foreach ($entity->ssot_data['high_opportunity_occupations'] as $value) {
         if ($value['region'] == "british_columbia") {
-          $output = 'YES'; 
+          $output = 'YES';
         }
       }
     }
     else {
-        $output = 'NO';
+      $output = 'NO';
     }
     return [
       ['#markup' => $output],

@@ -18,9 +18,11 @@ dependencies:
     - field.field.node.career_profile.field_insights_from_industry
     - field.field.node.career_profile.field_introductions
     - field.field.node.career_profile.field_job_titles
+    - field.field.node.career_profile.field_job_titles_illustrative
     - field.field.node.career_profile.field_metatag_description
     - field.field.node.career_profile.field_noc
     - field.field.node.career_profile.field_noc_2016
+    - field.field.node.career_profile.field_region_hoo
     - field.field.node.career_profile.field_region_openings
     - field.field.node.career_profile.field_related_careers
     - field.field.node.career_profile.field_resources
@@ -50,13 +52,6 @@ content:
     weight: 3
     region: content
     settings: {  }
-    third_party_settings: {  }
-  field_annual_salary:
-    type: number
-    weight: 30
-    region: content
-    settings:
-      placeholder: ''
     third_party_settings: {  }
   field_career_overview:
     type: text_textarea
@@ -92,7 +87,7 @@ content:
     third_party_settings: {  }
   field_content_group:
     type: options_select
-    weight: 25
+    weight: 23
     region: content
     settings: {  }
     third_party_settings: {  }
@@ -104,30 +99,12 @@ content:
       rows: 5
       placeholder: ''
     third_party_settings: {  }
-  field_education_programs:
-    type: text_textarea
-    weight: 19
-    region: content
-    settings:
-      rows: 5
-      placeholder: ''
-    third_party_settings: {  }
   field_education_training_skills:
     type: text_textarea
-    weight: 18
+    weight: 17
     region: content
     settings:
       rows: 5
-      placeholder: ''
-    third_party_settings: {  }
-  field_epbc_categories:
-    type: entity_reference_autocomplete
-    weight: 34
-    region: content
-    settings:
-      match_operator: CONTAINS
-      match_limit: 10
-      size: 60
       placeholder: ''
     third_party_settings: {  }
   field_hero_image_media:
@@ -142,7 +119,7 @@ content:
         show_edit: '1'
   field_insights_from_industry:
     type: text_textarea
-    weight: 20
+    weight: 18
     region: content
     settings:
       rows: 5
@@ -150,21 +127,13 @@ content:
     third_party_settings: {  }
   field_introductions:
     type: options_select
-    weight: 22
+    weight: 20
     region: content
     settings: {  }
     third_party_settings: {  }
-  field_job_titles:
-    type: string_textfield
-    weight: 31
-    region: content
-    settings:
-      size: 60
-      placeholder: ''
-    third_party_settings: {  }
   field_metatag_description:
     type: string_textfield
-    weight: 29
+    weight: 27
     region: content
     settings:
       size: 60
@@ -180,32 +149,15 @@ content:
     third_party_settings: {  }
   field_noc_2016:
     type: string_textfield
-    weight: 27
+    weight: 25
     region: content
     settings:
-      size: 60
-      placeholder: ''
-    third_party_settings: {  }
-  field_region_openings:
-    type: number
-    weight: 32
-    region: content
-    settings:
-      placeholder: ''
-    third_party_settings: {  }
-  field_related_careers:
-    type: entity_reference_autocomplete
-    weight: 17
-    region: content
-    settings:
-      match_operator: CONTAINS
-      match_limit: 10
       size: 60
       placeholder: ''
     third_party_settings: {  }
   field_resources_reference:
     type: entity_reference_autocomplete
-    weight: 21
+    weight: 19
     region: content
     settings:
       match_operator: CONTAINS
@@ -215,25 +167,19 @@ content:
     third_party_settings: {  }
   field_scheduled_publish:
     type: scheduled_publish
-    weight: 26
+    weight: 24
     region: content
     settings: {  }
     third_party_settings: {  }
   field_tags:
     type: entity_reference_autocomplete_tags
-    weight: 28
+    weight: 26
     region: content
     settings:
       match_operator: CONTAINS
       match_limit: 10
       size: 60
       placeholder: ''
-    third_party_settings: {  }
-  field_teer:
-    type: options_select
-    weight: 33
-    region: content
-    settings: {  }
     third_party_settings: {  }
   field_work_environment:
     type: text_textarea
@@ -252,7 +198,7 @@ content:
     third_party_settings: {  }
   moderation_state:
     type: moderation_state_default
-    weight: 24
+    weight: 22
     region: content
     settings: {  }
     third_party_settings: {  }
@@ -303,11 +249,20 @@ content:
     settings: {  }
     third_party_settings: {  }
   url_redirects:
-    weight: 23
+    weight: 21
     region: content
     settings: {  }
     third_party_settings: {  }
 hidden:
+  field_annual_salary: true
+  field_education_programs: true
+  field_epbc_categories: true
   field_hero_image: true
+  field_job_titles: true
+  field_job_titles_illustrative: true
+  field_region_hoo: true
+  field_region_openings: true
+  field_related_careers: true
   field_resources: true
   field_skills_2: true
+  field_teer: true

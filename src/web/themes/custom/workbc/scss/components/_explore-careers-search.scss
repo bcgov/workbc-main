@@ -6,13 +6,39 @@
   .node-page-content {
     display: none;
   }
-
 }
 
 .view-id-explore_careers {
+  h2 {
+    line-height: 1.5em;
+  }
+
+  h3 {
+    font-weight: 700;
+    font-size: 1.15rem;
+    margin-bottom: 20px;
+  }
 
   .explore-careers-filter {
     background-color: $workbc_palette_light_secondary;
+
+    input.chosen-search-input::placeholder {
+      color: $form-select-color;
+    }
+
+    #edit-field-teer-value,
+    .chosen-container-multi {
+      padding-top: 8px;
+      padding-bottom: 7px;
+
+      .chosen-choices {
+        border: 0;
+      }
+
+      .chosen-drop {
+        left: 0;
+      }
+    }
   }
 
   .view-header {
@@ -38,19 +64,17 @@
     }
 
     .view-header-link {
+      padding-left: 25px;
+
       @include media-breakpoint-down(lg) {
         padding-top: 5px;
         padding-bottom: 5px;
+        padding-left: 0;
       }
     }
 
     a {
-      padding-left: 25px;
       text-decoration: underline;
-
-      @include media-breakpoint-down(lg) {
-        padding-left: 0px;
-      }
     }
   }
 
@@ -79,6 +103,19 @@
 
   .form-item {
     margin-right: 0;
+  }
+
+  .form-select[multiple] {
+    background-image: escape-svg($form-select-indicator) !important;
+  }
+
+  .chosen-mobile {
+    display: none;
+
+    @include media-breakpoint-down(lg) {
+      display: block;
+      font-size: 0.75rem;
+    }
   }
 
   #edit-term-node-tid-depth,
@@ -207,14 +244,14 @@
     background-color: $workbc_palette_light_primary;
     padding: 10px 64px;
 
-    @include media-breakpoint-down(lg) {
-      padding: 10px 10px;
+    @include media-breakpoint-down(sm) {
+      padding: 10px 15px;
     }
   }
 
   .form-submit {
-    @include media-breakpoint-down(lg) {
-      padding: 10px 10px;
+    @include media-breakpoint-down(sm) {
+      padding: 10px 15px;
     }
   }
 
@@ -238,9 +275,54 @@
       flex-direction: column;
     }
 
-    a {
-      @include btn-blue;
-      padding: 10px 35px;
+    .career-profile-titles {
+      display: none;
+
+      h6 {
+        margin-bottom: .75rem;
+      }
+
+      ul {
+        display: flex;
+        flex-direction: row;
+        flex-wrap: wrap;
+        width: 100%;
+
+        li {
+          width: calc(100% / 2.2);
+
+          @include media-breakpoint-down(lg) {
+            width: 100%;
+          }
+        }
+      }
+    }
+
+    .career-profile-titles-toggle {
+      display: inline-block;
+
+      a {
+        padding-left: 35px;
+        vertical-align: middle;
+        cursor: pointer;
+
+        @include media-breakpoint-down(sm) {
+          padding-left: 10px;
+        }
+      }
+    }
+
+    .career-profile-link {
+      display: inline-block;
+
+      a {
+        @include btn-blue;
+        padding: 10px 35px;
+
+        @include media-breakpoint-down(sm) {
+          padding: 10px 15px;
+        }
+      }
     }
 
     .card-left {
@@ -253,9 +335,11 @@
         width: 100%;
       }
 
-      .career-profile-link {
-        margin-top: auto;
-
+      .card-left-or-right {
+        @include media-breakpoint-up(lg) {
+          margin-top: auto;
+          display: block;
+        }
         @include media-breakpoint-down(lg) {
           display: none;
         }
@@ -285,7 +369,7 @@
       img {
         width: 42px;
         height: 42px;
-        margin: 10px 20px;
+        margin: 5px 20px;
 
         @include media-breakpoint-down(lg) {
           margin-top: 0px;
@@ -293,13 +377,50 @@
         }
       }
 
-      .career-profile-link {
-        display: none;
-        margin-top: auto;
-        padding-top: 25px;
-
+      .card-left-or-right {
+        @include media-breakpoint-up(lg) {
+          display: none;
+        }
         @include media-breakpoint-down(lg) {
           display: block;
+        }
+
+        .career-profile-hoo {
+          @include media-breakpoint-up(lg) {
+            display: none;
+          }
+          @include media-breakpoint-down(lg) {
+            display: block;
+          }
+
+          margin-top: 20px;
+          margin-bottom: 20px;
+          float: none;
+        }
+      }
+
+      .career-profile-buttons {
+        padding-top: 25px;
+      }
+
+      .career-profile-hoo {
+        @include media-breakpoint-up(lg) {
+          display: block;
+        }
+        @include media-breakpoint-down(lg) {
+          display: none;
+        }
+
+        margin-top: 5px;
+        float: right;
+        color: #2e6ab0;
+
+        img, svg {
+          margin: 0;
+          height: 1em;
+          object-fit: contain;
+          width: auto;
+          vertical-align: baseline;
         }
       }
     }

@@ -11,7 +11,7 @@ use Drupal\extra_field\Plugin\ExtraFieldDisplayFormattedBase;
  *
  * @ExtraFieldDisplay(
  *   id = "labourmarket_employment",
- *   label = @Translation("Employment"),
+ *   label = @Translation("[SSOT] Employment"),
  *   description = @Translation("An extra field to display industry employment."),
  *   bundles = {
  *     "node.labour_market_monthly",

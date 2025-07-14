@@ -11,7 +11,7 @@ use Drupal\extra_field\Plugin\ExtraFieldDisplayFormattedBase;
  *
  * @ExtraFieldDisplay(
  *   id = "labour_market_expected_openings_source",
- *   label = @Translation("Labour Market Info - Source: Expected Job Openings"),
+ *   label = @Translation("[SSOT] Labour Market Info - Source: Expected Job Openings"),
  *   description = @Translation("Provenance metadata for field Labour Market Info - Expected Job Openings."),
  *   bundles = {
  *     "node.career_profile",

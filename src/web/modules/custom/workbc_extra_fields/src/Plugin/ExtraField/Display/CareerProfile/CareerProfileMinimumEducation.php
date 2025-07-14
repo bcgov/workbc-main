@@ -11,7 +11,7 @@ use Drupal\extra_field\Plugin\ExtraFieldDisplayFormattedBase;
  *
  * @ExtraFieldDisplay(
  *   id = "minimum_education",
- *   label = @Translation("TEER"),
+ *   label = @Translation("[SSOT] TEER"),
  *   description = @Translation("Training, Education, Experience and Responsibilities"),
  *   bundles = {
  *     "node.career_profile",

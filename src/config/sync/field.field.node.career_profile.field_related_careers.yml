@@ -9,8 +9,8 @@ id: node.career_profile.field_related_careers
 field_name: field_related_careers
 entity_type: node
 bundle: career_profile
-label: 'Related Careers'
-description: ''
+label: '[DEPRECATED] Related Careers'
+description: "DO NOT USE!\r\n\r\n<p>This is a legacy field that has been replaced by the newer <b>[SSOT] Related Careers</b> field which pulls the content from the SSOT.</p>"
 required: false
 translatable: false
 default_value: {  }

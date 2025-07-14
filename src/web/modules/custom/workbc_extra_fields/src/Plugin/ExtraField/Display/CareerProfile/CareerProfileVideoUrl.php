@@ -12,7 +12,7 @@ use Drupal\image\Entity\ImageStyle;
  *
  * @ExtraFieldDisplay(
  *   id = "profile_video_url",
- *   label = @Translation("Profile Video Url"),
+ *   label = @Translation("[SSOT] Profile Video Url"),
  *   description = @Translation("An extra field to display Video Url."),
  *   bundles = {
  *     "node.career_profile",

@@ -12,7 +12,7 @@ use Drupal\image\Entity\ImageStyle;
  *
  * @ExtraFieldDisplay(
  *   id = "profile_thumbnail",
- *   label = @Translation("Profile Thumbnail"),
+ *   label = @Translation("[SSOT] Profile Thumbnail"),
  *   description = @Translation("An extra field to display Thumbnail."),
  *   bundles = {
  *     "node.career_profile",

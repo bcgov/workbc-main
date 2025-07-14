@@ -11,7 +11,7 @@ use Drupal\extra_field\Plugin\ExtraFieldDisplayFormattedBase;
  *
  * @ExtraFieldDisplay(
  *   id = "industry_employment_by_region_map",
- *   label = @Translation("Employment by Region Map"),
+ *   label = @Translation("[SSOT] Employment by Region Map"),
  *   description = @Translation("An extra field to display industry employment by region map."),
  *   bundles = {
  *     "node.industry_profile",

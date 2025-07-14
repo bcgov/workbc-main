@@ -11,11 +11,12 @@ id: node.career_profile.field_education_programs
 field_name: field_education_programs
 entity_type: node
 bundle: career_profile
-label: 'Education programs in B.C.'
+label: '[DEPRECATED] Education programs in B.C.'
 description: ''
 required: false
 translatable: false
 default_value: {  }
 default_value_callback: ''
-settings: {  }
+settings:
+  allowed_formats: {  }
 field_type: text_long

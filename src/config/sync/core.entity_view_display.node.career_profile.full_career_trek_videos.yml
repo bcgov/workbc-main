@@ -19,9 +19,11 @@ dependencies:
     - field.field.node.career_profile.field_insights_from_industry
     - field.field.node.career_profile.field_introductions
     - field.field.node.career_profile.field_job_titles
+    - field.field.node.career_profile.field_job_titles_illustrative
     - field.field.node.career_profile.field_metatag_description
     - field.field.node.career_profile.field_noc
     - field.field.node.career_profile.field_noc_2016
+    - field.field.node.career_profile.field_region_hoo
     - field.field.node.career_profile.field_region_openings
     - field.field.node.career_profile.field_related_careers
     - field.field.node.career_profile.field_resources
@@ -227,6 +229,11 @@ content:
     third_party_settings: {  }
     weight: 13
     region: content
+  extra_field_episode_title:
+    settings: {  }
+    third_party_settings: {  }
+    weight: 26
+    region: content
   extra_field_high_opportunity_occupation:
     settings: {  }
     third_party_settings: {  }
@@ -370,7 +377,7 @@ content:
   extra_field_profile_thumbnail:
     settings: {  }
     third_party_settings: {  }
-    weight: 26
+    weight: 27
     region: content
   extra_field_profile_title:
     settings: {  }
@@ -601,6 +608,8 @@ hidden:
   field_content_group: true
   field_epbc_categories: true
   field_hero_image: true
+  field_job_titles_illustrative: true
+  field_region_hoo: true
   field_region_openings: true
   field_resources: true
   field_teer: true

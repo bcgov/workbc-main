@@ -11,7 +11,7 @@ use Drupal\extra_field\Plugin\ExtraFieldDisplayFormattedBase;
  *
  * @ExtraFieldDisplay(
  *   id = "labourmarket_months",
- *   label = @Translation("Months"),
+ *   label = @Translation("[SSOT] Months"),
  *   description = @Translation("An extra field to display months dropdown."),
  *   bundles = {
  *     "node.labour_market_monthly",

@@ -34,7 +34,7 @@ class ExploreCareersSearchForm extends FormBase {
 
     $form['keywords'] = [
       '#type' => 'search_api_autocomplete',
-      '#title' => $this->t('Find a career profile by job title, occupation title, or NOC code.') . '&nbsp;' . $tooltip,
+      '#title' => $this->t('Find a career profile by job title, occupation title or NOC code.') . '&nbsp;' . $tooltip,
       '#search_id' => 'explore_careers_autocomplete',
       '#additional_data' => [
         'display' => 'block_1',
@@ -56,11 +56,12 @@ class ExploreCareersSearchForm extends FormBase {
   */
   public function submitForm(array &$form, FormStateInterface $form_state) {
     $url = URL::fromUserInput('/plan-career/explore-careers/career-profiles/search');
-
+    $keywords = trim($form_state->getValue('keywords'));
     $form_state->setRedirect($url->getRouteName(), $url->getRouteParameters(), [
       'query' => [
         'hide_category' => 0,
-        'keyword_search' => $form_state->getValue('keywords'),
+        'keyword_search' => $keywords,
+        'sort_bef_combine' => empty($keywords) ? 'title_ASC' : 'keyword_search_ASC',
       ]
     ]);
   }

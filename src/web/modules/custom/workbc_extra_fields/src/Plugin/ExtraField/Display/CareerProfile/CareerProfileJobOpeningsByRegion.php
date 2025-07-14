@@ -11,7 +11,7 @@ use Drupal\extra_field\Plugin\ExtraFieldDisplayFormattedBase;
  *
  * @ExtraFieldDisplay(
  *   id = "job_openings_by_region",
- *   label = @Translation("Labour Market Info - Job Openings by Region"),
+ *   label = @Translation("[SSOT] Labour Market Info - Job Openings by Region"),
  *   description = @Translation("An extra field to display job opening forecast chart."),
  *   bundles = {
  *     "node.career_profile",
