@@ -253,6 +253,23 @@ function workbc_custom_views_query_alter(ViewExecutable $view, QueryPluginBase $
 }
 
 /**
+ * Implements hook_views_pre_build().
+ */
+function workbc_custom_views_pre_build(ViewExecutable $view) {
+
+  // validate query page parameter
+  $request = $view->getRequest();
+  $query = $request->query;
+  if ($page_no = $query->get('page')) {
+    $page_no = intval(filter_var($page_no, FILTER_SANITIZE_NUMBER_INT));
+    // remove page parameter from query if exceedingly large to prevent runtime errors.
+    if ($page_no > 1000000000) {
+      $query->remove('page');
+    }
+  }
+}
+
+/**
 * Implements hook_form_alter().
 */
 function workbc_custom_form_alter(&$form, FormStateInterface $form_state, $form_id) {
