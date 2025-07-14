@@ -27,7 +27,6 @@ libraries:
   - workbc/interactive-map
   - workbc/mobile-chosen
   - workbc/nav-tabs
-  - workbc/career-count-video
 libraries-override:
   bootstrap5/global-styling: false
   bootstrap5/dialog:
