@@ -118,16 +118,16 @@
         },
         {
             "name": "aws/aws-sdk-php",
-            "version": "3.349.2",
+            "version": "3.349.3",
             "source": {
                 "type": "git",
                 "url": "https://github.com/aws/aws-sdk-php.git",
-                "reference": "63cc727845f077d17cb94791deb327249e1626ce"
+                "reference": "b2d4718786398f47626add9c29840fc416175ef2"
             },
             "dist": {
                 "type": "zip",
-                "url": "https://api.github.com/repos/aws/aws-sdk-php/zipball/63cc727845f077d17cb94791deb327249e1626ce",
-                "reference": "63cc727845f077d17cb94791deb327249e1626ce",
+                "url": "https://api.github.com/repos/aws/aws-sdk-php/zipball/b2d4718786398f47626add9c29840fc416175ef2",
+                "reference": "b2d4718786398f47626add9c29840fc416175ef2",
                 "shasum": ""
             },
             "require": {
@@ -209,9 +209,9 @@
             "support": {
                 "forum": "https://github.com/aws/aws-sdk-php/discussions",
                 "issues": "https://github.com/aws/aws-sdk-php/issues",
-                "source": "https://github.com/aws/aws-sdk-php/tree/3.349.2"
+                "source": "https://github.com/aws/aws-sdk-php/tree/3.349.3"
             },
-            "time": "2025-07-03T18:08:27+00:00"
+            "time": "2025-07-09T18:10:17+00:00"
         },
         {
             "name": "chi-teck/drupal-code-generator",
@@ -5652,17 +5652,17 @@
         },
         {
             "name": "drupal/mail_login",
-            "version": "4.0.3",
+            "version": "4.2.2",
             "source": {
                 "type": "git",
                 "url": "https://git.drupalcode.org/project/mail_login.git",
-                "reference": "4.0.3"
+                "reference": "4.2.2"
             },
             "dist": {
                 "type": "zip",
-                "url": "https://ftp.drupal.org/files/projects/mail_login-4.0.3.zip",
-                "reference": "4.0.3",
-                "shasum": "f50cc0b838a5acaa40c31613f3e5b5508374b81f"
+                "url": "https://ftp.drupal.org/files/projects/mail_login-4.2.2.zip",
+                "reference": "4.2.2",
+                "shasum": "520995b5819ceffe2c051f7ab4aa3a919326a95b"
             },
             "require": {
                 "drupal/core": "^10.3 || ^11"
@@ -5670,8 +5670,8 @@
             "type": "drupal-module",
             "extra": {
                 "drupal": {
-                    "version": "4.0.3",
-                    "datestamp": "1724355121",
+                    "version": "4.2.2",
+                    "datestamp": "1752318596",
                     "security-coverage": {
                         "status": "covered",
                         "message": "Covered by Drupal's security advisory policy"
@@ -6052,7 +6052,7 @@
             "extra": {
                 "drupal": {
                     "version": "2.1.1",
-                    "datestamp": "1748539484",
+                    "datestamp": "1752433708",
                     "security-coverage": {
                         "status": "covered",
                         "message": "Covered by Drupal's security advisory policy"
@@ -7455,17 +7455,17 @@
         },
         {
             "name": "drupal/sitewide_alert",
-            "version": "3.0.0",
+            "version": "3.0.1",
             "source": {
                 "type": "git",
                 "url": "https://git.drupalcode.org/project/sitewide_alert.git",
-                "reference": "3.0.0"
+                "reference": "3.0.1"
             },
             "dist": {
                 "type": "zip",
-                "url": "https://ftp.drupal.org/files/projects/sitewide_alert-3.0.0.zip",
-                "reference": "3.0.0",
-                "shasum": "1eeafa6eccc4f30ec6fb4199a248fed745e825f9"
+                "url": "https://ftp.drupal.org/files/projects/sitewide_alert-3.0.1.zip",
+                "reference": "3.0.1",
+                "shasum": "258e8dcbd40346e25c77af5c9e6b55ad9ef6414a"
             },
             "require": {
                 "drupal/core": "^10.3 || ^11"
@@ -7478,8 +7478,8 @@
             "type": "drupal-module",
             "extra": {
                 "drupal": {
-                    "version": "3.0.0",
-                    "datestamp": "1735419445",
+                    "version": "3.0.1",
+                    "datestamp": "1752106651",
                     "security-coverage": {
                         "status": "covered",
                         "message": "Covered by Drupal's security advisory policy"
@@ -14840,16 +14840,16 @@
         },
         {
             "name": "composer/composer",
-            "version": "2.8.9",
+            "version": "2.8.10",
             "source": {
                 "type": "git",
                 "url": "https://github.com/composer/composer.git",
-                "reference": "b4e6bff2db7ce756ddb77ecee958a0f41f42bd9d"
+                "reference": "53834f587d7ab2527eb237459d7b94d1fb9d4c5a"
             },
             "dist": {
                 "type": "zip",
-                "url": "https://api.github.com/repos/composer/composer/zipball/b4e6bff2db7ce756ddb77ecee958a0f41f42bd9d",
-                "reference": "b4e6bff2db7ce756ddb77ecee958a0f41f42bd9d",
+                "url": "https://api.github.com/repos/composer/composer/zipball/53834f587d7ab2527eb237459d7b94d1fb9d4c5a",
+                "reference": "53834f587d7ab2527eb237459d7b94d1fb9d4c5a",
                 "shasum": ""
             },
             "require": {
@@ -14934,7 +14934,7 @@
                 "irc": "ircs://irc.libera.chat:6697/composer",
                 "issues": "https://github.com/composer/composer/issues",
                 "security": "https://github.com/composer/composer/security/policy",
-                "source": "https://github.com/composer/composer/tree/2.8.9"
+                "source": "https://github.com/composer/composer/tree/2.8.10"
             },
             "funding": [
                 {
@@ -14950,7 +14950,7 @@
                     "type": "tidelift"
                 }
             ],
-            "time": "2025-05-13T12:01:37+00:00"
+            "time": "2025-07-10T17:08:33+00:00"
         },
         {
             "name": "composer/metadata-minifier",
@@ -17104,16 +17104,16 @@
         },
         {
             "name": "phpstan/phpdoc-parser",
-            "version": "2.1.0",
+            "version": "2.2.0",
             "source": {
                 "type": "git",
                 "url": "https://github.com/phpstan/phpdoc-parser.git",
-                "reference": "9b30d6fd026b2c132b3985ce6b23bec09ab3aa68"
+                "reference": "b9e61a61e39e02dd90944e9115241c7f7e76bfd8"
             },
             "dist": {
                 "type": "zip",
-                "url": "https://api.github.com/repos/phpstan/phpdoc-parser/zipball/9b30d6fd026b2c132b3985ce6b23bec09ab3aa68",
-                "reference": "9b30d6fd026b2c132b3985ce6b23bec09ab3aa68",
+                "url": "https://api.github.com/repos/phpstan/phpdoc-parser/zipball/b9e61a61e39e02dd90944e9115241c7f7e76bfd8",
+                "reference": "b9e61a61e39e02dd90944e9115241c7f7e76bfd8",
                 "shasum": ""
             },
             "require": {
@@ -17145,9 +17145,9 @@
             "description": "PHPDoc parser with support for nullable, intersection and generic types",
             "support": {
                 "issues": "https://github.com/phpstan/phpdoc-parser/issues",
-                "source": "https://github.com/phpstan/phpdoc-parser/tree/2.1.0"
+                "source": "https://github.com/phpstan/phpdoc-parser/tree/2.2.0"
             },
-            "time": "2025-02-19T13:28:12+00:00"
+            "time": "2025-07-13T07:04:09+00:00"
         },
         {
             "name": "phpstan/phpstan-phpunit",
