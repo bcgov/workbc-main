@@ -117,6 +117,7 @@ hidden:
   extra_field_profile_thumbnail: true
   extra_field_profile_title: true
   extra_field_profile_video_url: true
+  extra_field_related_careers: true
   extra_field_salary_info_annual_salary: true
   extra_field_salary_info_annual_salary_note: true
   extra_field_salary_info_hourly_rate: true
