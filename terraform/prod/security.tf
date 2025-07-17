@@ -23,6 +23,6 @@ data "aws_security_group" "efs_security_group" {
   name        = "workbc-cc-efs-security-group"
 }
 
-data "aws_security_group" "postgres" {
+data "aws_security_group" "allow_postgres" {
   name = "allow_postgres"
 }
