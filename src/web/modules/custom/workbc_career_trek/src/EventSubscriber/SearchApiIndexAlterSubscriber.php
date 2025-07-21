@@ -289,7 +289,9 @@ class SearchApiIndexAlterSubscriber implements EventSubscriberInterface {
     $field_map = [
       'ssot_title'     => 'title_2021',
       'career_noc'     => 'noc_2021',
+      'career_noc_1'     => 'noc_2021',
       'episode_title'      => 'episode_title',
+      'episode_title_1'      => 'episode_title',
       'description'      => 'career_description',
       'youtube_url'      => 'youtube_link',
       'custom_location'  => 'location',

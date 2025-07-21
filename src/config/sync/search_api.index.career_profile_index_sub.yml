@@ -80,6 +80,12 @@ field_settings:
     boost: 2.0
     configuration:
       value: ''
+  career_noc_1:
+    label: 'Career NOC'
+    property_path: career_noc
+    type: string
+    configuration:
+      value: ''
   custom_location:
     label: 'Custom Location'
     property_path: custom_api_field
@@ -103,6 +109,12 @@ field_settings:
     property_path: episode_title
     type: text
     boost: 5.0
+    configuration:
+      value: ''
+  episode_title_1:
+    label: 'Episode Title'
+    property_path: episode_title
+    type: string
     configuration:
       value: ''
   field_noc:

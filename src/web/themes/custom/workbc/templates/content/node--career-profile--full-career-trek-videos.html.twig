@@ -110,8 +110,8 @@
   },
   tab_sections: {
     education: {
-      skills_title: content.group_career_profile_tabs.group_education_training_skills.extra_field_skills_introduction['#title'],
-      skills_introduction: content.group_career_profile_tabs.group_education_training_skills.extra_field_skills_introduction.0['#text'],
+      skills_title: content.group_career_profile_tabs.group_education_training_skills.extra_field_career_skills_introduction['#title'],
+      skills_introduction: content.group_career_profile_tabs.group_education_training_skills.extra_career_skills_introduction.0['#text'],
       skills_list: content.group_career_profile_tabs.group_education_training_skills.extra_field_career_trek_profile_skills.0,
     }
   }
@@ -232,7 +232,7 @@
           <div class="profile-content-section">
             <h2 class="profile-content-section__header">{{ viewmodel['tab_sections']['education']['skills_title'] }}</h2>
             <div class="profile-content-paragraph">{{ viewmodel['tab_sections']['education']['skills_introduction']|raw }}</div>
-            <div data-static-load-more-container data-static-load-more-initial="3" data-static-more-text="Show More" data-static-less-text="Show Less">
+            <div data-static-load-more-container data-static-load-more-initial="3" data-static-load-more-step="7" data-static-more-text="Show More" data-static-less-text="Show Less">
               <div data-static-load-more-items class="career-skills-row">
                 {% for skill in viewmodel['tab_sections']['education']['skills_list'] %}
                   {{ skill|raw }}

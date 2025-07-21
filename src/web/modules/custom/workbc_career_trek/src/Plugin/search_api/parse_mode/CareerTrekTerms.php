@@ -33,7 +33,7 @@ class CareerTrekTerms extends ParseModePluginBase {
     if (ctype_digit($keys)) {
       $ret[] = [
         '#full_numeric_prefix' => TRUE,
-        'value' => $keys,
+        '#value' => $keys,
       ];
       return $ret;
     }
@@ -45,7 +45,6 @@ class CareerTrekTerms extends ParseModePluginBase {
     $quoted = FALSE;
     $negated = FALSE;
     $phrase_contents = [];
-
     foreach ($tokens as $token) {
       // Ignore empty tokens. (Also helps keep the following code simpler.)
       if ($token === '') {
@@ -128,7 +127,16 @@ class CareerTrekTerms extends ParseModePluginBase {
           $ret[] = $token;
         }
         else {
-          $ret[] = $token;
+          // $ret['#conjunction'] = 'OR';
+          if((strpos($keys, 'and') !== FALSE || strpos($keys, '&') !== FALSE) && strlen($token) > 1) {
+            $ret[] = $token;
+          }else{
+            $ret[] = [
+              '#contains' => TRUE,
+              '#value' => $token,
+            ];
+
+          }
         }
       }
 
@@ -151,7 +159,6 @@ class CareerTrekTerms extends ParseModePluginBase {
         $ret[] = $phrase_contents;
       }
     }
-
     return $ret;
   }
 

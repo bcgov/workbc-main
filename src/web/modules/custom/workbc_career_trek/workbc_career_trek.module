@@ -3,6 +3,8 @@ use Drupal\taxonomy\Entity\Term;
 use Drupal\views\ViewExecutable;
 use Drupal\views\Plugin\views\query\Sql;
 use Drupal\Core\Form\FormStateInterface;
+use Drupal\search_api_solr\Event\SolrQueryEvent;
+use Drupal\search_api_solr\SolrSearchApiQueryInterface;
 
 /**
  * Implements hook_views_pre_view().
@@ -58,12 +60,12 @@ function workbc_career_trek_preprocess_views_view(&$variables) {
             }
           }
         } else {
-          if (!empty($expose) && $key != "reset" && $key != "annual_salary_op") {
+          if ((!empty($expose) || $expose === '0') && $key != "reset" && $key != "annual_salary_op") {
             $values[] = $expose;
           }
         }
       }
-      $variables['search_view'] = array_filter($values);
+      $variables['search_view'] = array_filter($values, function($v) { return ($v === '0' || $v === 0 || !empty($v)); });
     }
     $variables['view_title'] = $view->getTitle();
   }
@@ -168,18 +170,10 @@ function workbc_career_trek_views_query_alter(ViewExecutable $view, $query) {
       }
     }
     if ($any_filter_used) {
-      // Remove default sort by episode_num if present.
-      // if (method_exists($query, 'getSort')) {
+
         $sort = &$query->getSort();
         unset($sort['episode_num']);
-      // } elseif (isset($query->orderby)) {
-      //   // Fallback for Views SQL query object.
-      //   foreach ($query->orderby as $k => $order) {
-      //     if (isset($order['field']) && $order['field'] === 'episode_num') {
-      //       unset($query->orderby[$k]);
-      //     }
-      //   }
-      // }
+
       // If salary filter is used, sort by salary then title.
       if (!empty(array_filter($exposed_input['annual_salary']))) {
         $query->sort('annual_salary', 'ASC');
@@ -250,7 +244,7 @@ function workbc_career_trek_views_post_render($view) {
   }
 }
 
-/** 
+/**
 *{@inheritdoc}
 */
 function workbc_career_trek_theme($existing, $type, $theme, $path) {
@@ -380,3 +374,23 @@ function workbc_career_trek_preprocess_page(&$variables) {
   }
 }
 
+
+function workbc_career_trek_preprocess_views_view_fields(&$variables) {
+  $view = $variables['view'];
+  if ($view->id() === 'career_trek_video_library' && $view->current_display === 'block_1') {
+    $filters = $view->display_handler->getOption('filters');
+    $params = \Drupal::request()->query->all();
+    $categories = $filters['occupational_category_api_field']['group_info']['group_items'] ?? [];
+    $selected = $params['occupational_category_api_field'] ?? [];
+    $field_data = isset($variables['fields']['occupational_category_api_field'])
+      ? explode('; ', trim(strip_tags($variables['fields']['occupational_category_api_field']->content)))
+      : [];
+    $titles = [];
+    foreach ((array) $selected as $val) {
+      if (!empty($categories[$val]['title']) && in_array($categories[$val]['title'], $field_data)) {
+        $titles[] = $categories[$val]['title'];
+      }
+    }
+    $variables['occupational_category'] = $titles ? implode('; ', $titles) : [];
+  }
+}

@@ -252,18 +252,8 @@
         justify-content: center;
         display: flex;
         flex-direction: column;
-
-        input[type="submit"]:not(input[name="reset"]) {
-          background: transparent;
-          border: 3px solid #2E6AB0;
-          color: #2E6AB0;
-        }
-
         input[name="reset"] {
-          color: #2E6AB0;
-          margin: 5px auto;
-          background: transparent;
-          text-decoration: underline;
+          margin: 10px 0.5rem 0px 0px;
         }
       }
     }
@@ -1091,21 +1081,21 @@
         svg {
           width: 20px;
           height: 24px;
-          fill: #002857;  
+          fill: #002857;
         }
       }
       .icon-noc {
         svg {
           width: 20px;
           height: 24px;
-          fill: #002857;  
+          fill: #002857;
         }
       }
       .icon-profile-location {
         svg {
           width: 20px;
           height: 24px;
-          fill: #002857;  
+          fill: #002857;
         }
       }
     }

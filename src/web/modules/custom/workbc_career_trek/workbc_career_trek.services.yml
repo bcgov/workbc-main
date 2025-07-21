@@ -15,3 +15,7 @@ services:
     class: Drupal\workbc_career_trek\EventSubscriber\CareerTrekTitleSubscriber
     tags:
       - { name: event_subscriber }
+  workbc_career_trek.query_alter:
+    class: Drupal\workbc_career_trek\EventSubscriber\SolrQueryAlterEventSubscriber
+    tags:
+      - { name: event_subscriber }

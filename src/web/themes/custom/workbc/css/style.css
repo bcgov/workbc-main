@@ -15451,7 +15451,6 @@ h3.card-profile__content-header, .card-profile__content-header.h3 {
 }
 .view-id-explore_careers .views-row .card-right .card-left-or-right .career-profile-hoo {
   margin-top: 20px;
-  margin-bottom: 20px;
   float: none;
 }
 @media (min-width: 992px) {
@@ -15463,6 +15462,9 @@ h3.card-profile__content-header, .card-profile__content-header.h3 {
   .view-id-explore_careers .views-row .card-right .card-left-or-right .career-profile-hoo {
     display: block;
   }
+}
+.view-id-explore_careers .views-row .card-right .card-left-or-right .career-profile-titles {
+  margin-top: 20px;
 }
 .view-id-explore_careers .views-row .card-right .career-profile-buttons {
   padding-top: 25px;
@@ -19527,16 +19529,8 @@ app-filter .job-search-filters .navbar .navbar-nav .nav-item > .dropdown-menu {
   display: flex;
   flex-direction: column;
 }
-.plan-careercareer-trek-videos .view-career-trek-video-library .career-videos-filters div[data-drupal-selector=edit-actions] input[type=submit]:not(input[name=reset]) {
-  background: transparent;
-  border: 3px solid #2E6AB0;
-  color: #2E6AB0;
-}
 .plan-careercareer-trek-videos .view-career-trek-video-library .career-videos-filters div[data-drupal-selector=edit-actions] input[name=reset] {
-  color: #2E6AB0;
-  margin: 5px auto;
-  background: transparent;
-  text-decoration: underline;
+  margin: 10px 0.5rem 0px 0px;
 }
 .plan-careercareer-trek-videos .find-resources .find-resources-media-wrapper {
   width: 33px;
