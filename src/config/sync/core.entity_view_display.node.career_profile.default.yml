@@ -517,7 +517,7 @@ content:
     third_party_settings: {  }
     weight: 21
     region: content
-  field_region_hoo:
+  /*field_region_hoo:
     type: number_integer
     label: above
     settings:
@@ -525,7 +525,7 @@ content:
       prefix_suffix: true
     third_party_settings: {  }
     weight: 87
-    region: content
+    region: content*/
   field_region_openings:
     type: number_integer
     label: above
