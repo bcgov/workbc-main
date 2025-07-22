@@ -52,10 +52,9 @@ class SolrQueryAlterEventSubscriber implements EventSubscriberInterface {
                 ->setQuery('ss_career_noc_1:' . $key['#value'] . '*');
         }elseif(is_array($key) && !empty($key['#contains']) && isset($key['#value'])) {
           if(empty($string)) {
-            $string .= 'ss_episode_title_1:' . '*' . $key['#value'] . '*';
+            $string .= 'ss_episode_title_1:' . '*' . $key['#value'] . '*' . ' OR ss_episode_title_1:' . '*' . ucfirst($key['#value']) . '*';
           }else{
-            $string .= ' OR ss_episode_title_1:' . '*' . $key['#value'] . '*';
-
+            $string .= ' OR ss_episode_title_1:' . '*' . $key['#value'] . '*' . ' OR ss_episode_title_1:' . '*' . ucfirst($key['#value']) . '*';
           }
         }
       }
