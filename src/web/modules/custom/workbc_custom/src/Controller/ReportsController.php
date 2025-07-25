@@ -12,6 +12,7 @@ use Drupal\Core\Link;
 use Drupal\Core\Url;
 use Drupal\node\Entity\Node;
 use Drupal\taxonomy\Entity\Term;
+use Drupal\paragraphs\Entity\Paragraph;
 
 use Drupal\media\Entity\Media;
 use Drupal\media\MediaInterface;
@@ -161,4 +162,80 @@ class ReportsController extends ControllerBase {
       '#markup' => $markup,
     ];
   }
+
+
+  public function remote_videos() {
+
+    $markup = "<p>Node body - table: node__body - field: body_value</p>";
+    $markup .= "<p>Paragraph body - table: paragraph__field_body - field: field_body_value</p>";
+
+    $pattern = '/data-entity-uuid="[a-zA-Z0-9\-]+"/';
+
+    $database = \Drupal::database();
+    $query = $database->select('node__body', 'nb')
+      ->condition('nb.deleted', 0, '=')
+      ->fields('nb', ['entity_id', 'bundle', 'body_value']);
+    $result = $query->execute()->fetchAll();
+    $list = [];
+    foreach ($result as $record) {
+      if(preg_match_all($pattern, $record->body_value, $matches)) {
+        $matches = $matches[0];
+        $videos = [];
+        foreach ($matches as $key => $match) {
+          $uuid = str_replace('data-entity-uuid="', '', $match);
+          $uuid = str_replace('"', '', $uuid);
+          $media = \Drupal::entityTypeManager()->getStorage('media')->loadByProperties(['uuid' => $uuid]);
+          $media = reset($media);
+          if ($media && $media->bundle() == "remote_video") {
+            $videos[] = $media->bundle() . ": " . $uuid . " - " . $media->id() . " - " . $media->getName() ;
+          }
+        }
+        if (!empty($videos)) {
+          $url = Url::fromRoute('entity.node.canonical', ['node' => $record->entity_id], ['absolute' => TRUE]);
+          $list[$record->entity_id] = [$url->toString(), $videos];
+        }
+      }
+    }
+
+    $markup .= "<br>";
+    foreach ($list as $item) {
+      $markup .= '<p><a href="' . $item[0] . '" target="_blank">' . $item[0] . '</a></p>';
+    }
+    $query = $database->select('paragraph__field_body', 'pb')
+      ->condition('pb.deleted', 0, '=')
+      ->fields('pb', ['entity_id', 'bundle', 'field_body_value']);
+    $result = $query->execute()->fetchAll();
+    $list = [];
+    foreach ($result as $record) {
+      if(preg_match_all($pattern, $record->field_body_value, $matches)) {
+        $matches = $matches[0];
+        $videos = [];
+        foreach ($matches as $key => $match) {
+          $uuid = str_replace('data-entity-uuid="', '', $match);
+          $uuid = str_replace('"', '', $uuid);
+          $media = \Drupal::entityTypeManager()->getStorage('media')->loadByProperties(['uuid' => $uuid]);
+          $media = reset($media);
+          if ($media && $media->bundle() == "remote_video") {
+            $videos[] = $media->bundle() . ": " . $uuid . " - " . $media->id() . " - " . $media->getName() ;
+          }
+        }
+        if (!empty($videos)) {
+          $paragraph = Paragraph::load($record->entity_id);
+          $parent_id = $paragraph->getParentEntity()->id();
+          $url = Url::fromRoute('entity.node.canonical', ['node' => $parent_id], ['absolute' => TRUE]);
+          $list[$record->entity_id] = [$url->toString(), $videos];
+        }
+      }
+    }
+
+    foreach ($list as $item) {
+      $markup .= '<p><a href="' . $item[0] . '" target="_blank">' . $item[0] . '</a></p>';
+    }
+    return [
+      '#type' => 'markup',
+      '#markup' => $markup,
+    ];
+  }
+
+
 }

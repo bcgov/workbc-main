@@ -38,6 +38,14 @@ workbc_custom.report_environment:
   requirements:
     _permission: 'administer workbc settings'
 
+workbc_custom.report_remote_videos:
+  path: '/admin/reports/remote_videos'
+  defaults:
+    _controller: '\Drupal\workbc_custom\Controller\ReportsController::remote_videos'
+    _title: 'WorkBC remote video usage'
+  requirements:
+    _permission: 'administer workbc settings'
+
 workbc_custom.collection_notice:
   path: 'collection-notice'
   defaults:
