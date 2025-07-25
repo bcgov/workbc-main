@@ -253,6 +253,21 @@ article.media--type-remote-video {
   }
 }
 
+.media--type-remote-video,
+.media--type-image {
+  margin: 0 0 1rem 0;
+}
+
+.media--type-remote-video.align-left,
+.media--type-image.align-left {
+  margin: 0 1rem 1rem 0;
+}
+
+.media--type-remote-video.align-right,
+.media--type-image.align-right {
+    margin: 0 0 1rem 1rem;
+}
+
 .paragraph--key--indigenous-peoples-video-grid {
   article.media--type-remote-video {
     width: 100%;
