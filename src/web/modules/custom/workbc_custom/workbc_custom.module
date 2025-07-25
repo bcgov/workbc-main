@@ -191,13 +191,11 @@ function workbc_custom_views_data_alter(array &$data) {
 function workbc_custom_views_pre_render(ViewExecutable $view) {
 
   // TODO: Don't re-read the schema for SSOT at each rendering.
-  if ($view->id() === 'high_opportunity_occupations') {
+  if ($view->id() === 'high_opportunity_occupations_2') {
     $schema = ssotSchema('');
     $range = ssotParseDateRange($schema, 'high_opportunity_occupations', 'openings_forecast');
     if (preg_match('/(\d{4})$/', $range, $end_of_range)) {
-      $view->field['openings_forecast']->options['label'] = t('Job Openings to @range', ['@range' => $end_of_range[0]]);
-    } else {
-      $view->field['openings_forecast']->options['label'] = t('Job Openings');
+      $view->field['field_region_openings']->options['label'] = t('Job Openings to @range', ['@range' => $end_of_range[0]]);
     }
   }
 
@@ -236,7 +234,7 @@ function workbc_custom_views_pre_render(ViewExecutable $view) {
  * Implements hook_views_query_alter().
  */
 function workbc_custom_views_query_alter(ViewExecutable $view, QueryPluginBase $query) {
-  if ($view->id() == 'explore_careers') {
+  if (in_array($view->id(), ['explore_careers', 'high_opportunity_occupations_2'])) {
     foreach ($query->where as &$condition_group) {
       foreach ($condition_group['conditions'] as &$condition) {
         // Filter out zero job openings when Region is not BC.
@@ -312,25 +310,20 @@ function workbc_custom_form_node_form_alter(&$form, FormStateInterface $form_sta
 */
 function workbc_custom_form_views_exposed_form_alter(&$form, FormStateInterface $form_state, $form_id) {
 
-  if ($form['#id'] === 'views-exposed-form-high-opportunity-occupations-block-1') {
-    if (isset($form['region'])) {
-      unset($form['region']['#options']['All']);
+  if ($form['#id'] === 'views-exposed-form-high-opportunity-occupations-2-block-1') {
+    if (isset($form['field_teer_value'])) {
+      $form['field_teer_value']['#options']['All'] = t('All');
     }
-
-    if (isset($form['teer'])) {
-      $form['teer']['#options']['All'] = t('All');
-    }
-
-    if (isset($form['occupational_interest'])) {
+    if (isset($form['field_occupational_interests_target_id'])) {
       $md = \Drupal::service('mobile_detect');
       if ($md->isMobile() && !$md->isTablet()) {
-        array_unshift($form['occupational_interest']['#options'], 'All');
+        array_unshift($form['field_occupational_interests_target_id']['#options'], 'All');
       }
-      $form['occupational_interest']['#chosen'] = true;
+      $form['field_occupational_interests_target_id']['#chosen'] = true;
     }
 
-    if (isset($form['wage_rate_median'])) {
-      $form['wage_rate_median']['#options']['All'] = t('All');
+    if (isset($form['field_hourly_salary_value'])) {
+      $form['field_hourly_salary_value']['#options']['All'] = t('All');
     }
 
     array_unshift($form['#submit'], 'hoo_multiselect_form_submit');

@@ -17,7 +17,7 @@ const SSOT_ROUTES = [
 const SSOT_DATASETS = [
   'wages' => [
     'noc_key' => 'noc',
-    'fields' => 'noc,calculated_median_annual_salary',
+    'fields' => 'noc,calculated_median_annual_salary,esdc_wage_rate_median',
   ],
   'career_provincial' => [
     'noc_key' => 'noc',
@@ -49,7 +49,10 @@ const SSOT_DATASETS = [
   'labour_force_survey_regional_industry_province' => [],
   'labour_force_survey_regional_industry_region' => [],
   'monthly_labour_market_updates' => [],
-  'occupational_interests' => [],
+  'occupational_interests' => [
+    'noc_key' => 'noc',
+    'fields' => 'noc,options,occupational_interest'
+  ],
   'openings_careers' => [],
   'openings_industry' => [],
   'regional_labour_market_outlook' => [],

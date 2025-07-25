@@ -1,18 +1,29 @@
-uuid: 5e1496f4-1fe2-444a-b649-3e34dfd29768
+uuid: 93c3ea01-9435-441a-96f7-ebf8c646c2c7
 langcode: en
 status: true
 dependencies:
+  config:
+    - field.storage.node.field_hourly_salary
+    - field.storage.node.field_noc
+    - field.storage.node.field_occupational_interests
+    - field.storage.node.field_region_openings
+    - field.storage.node.field_teer
+    - node.type.career_profile
+    - taxonomy.vocabulary.occupational_interests
   module:
-    - views_database_connector
+    - node
+    - options
+    - taxonomy
+    - user
     - views_infinite_scroll
     - workbc_custom
-id: high_opportunity_occupations
-label: '[DEPRECATED] High Opportunity Occupations'
+id: high_opportunity_occupations_2
+label: 'High Opportunity Occupations'
 module: views
-description: 'DEPRECATED: This view has been replaced with "High Opportunity Occupations".'
+description: ''
 tag: ''
-base_table: high_opportunity_occupations
-base_field: noc
+base_table: node_field_data
+base_field: nid
 display:
   default:
     id: default
@@ -22,15 +33,15 @@ display:
     display_options:
       title: 'High Opportunity Occupations'
       fields:
-        noc:
-          id: noc
-          table: high_opportunity_occupations
-          field: noc
+        field_noc:
+          id: field_noc
+          table: node__field_noc
+          field: field_noc
           relationship: none
           group_type: group
           admin_label: ''
-          plugin_id: standard
-          label: noc
+          plugin_id: field
+          label: ''
           exclude: true
           alter:
             alter_text: false
@@ -63,7 +74,7 @@ display:
           element_class: ''
           element_label_type: ''
           element_label_class: ''
-          element_label_colon: true
+          element_label_colon: false
           element_wrapper_type: ''
           element_wrapper_class: ''
           element_default_classes: true
@@ -71,15 +82,30 @@ display:
           hide_empty: false
           empty_zero: false
           hide_alter_empty: true
-        career_link:
-          id: career_link
-          table: high_opportunity_occupations
-          field: career_link
+          click_sort_column: value
+          type: string
+          settings:
+            link_to_entity: false
+          group_column: value
+          group_columns: {  }
+          group_rows: true
+          delta_limit: 0
+          delta_offset: 0
+          delta_reversed: false
+          delta_first_last: false
+          multi_type: separator
+          separator: ', '
+          field_api_classes: false
+        view_node:
+          id: view_node
+          table: node
+          field: view_node
           relationship: none
           group_type: group
           admin_label: ''
-          plugin_id: high_opportunity_occupations_career_link
-          label: 'Career Profile link'
+          entity_type: node
+          plugin_id: entity_link
+          label: ''
           exclude: true
           alter:
             alter_text: false
@@ -112,7 +138,7 @@ display:
           element_class: ''
           element_label_type: ''
           element_label_class: ''
-          element_label_colon: true
+          element_label_colon: false
           element_wrapper_type: ''
           element_wrapper_class: ''
           element_default_classes: true
@@ -120,135 +146,26 @@ display:
           hide_empty: false
           empty_zero: false
           hide_alter_empty: true
-        wage_rate_median:
-          id: wage_rate_median
-          table: high_opportunity_occupations
-          field: wage_rate_median
+          text: view
+          output_url_as_text: true
+          absolute: false
+        title:
+          id: title
+          table: node_field_data
+          field: title
           relationship: none
           group_type: group
           admin_label: ''
-          plugin_id: numeric
-          label: wage_rate_median
-          exclude: true
-          alter:
-            alter_text: false
-            text: ''
-            make_link: false
-            path: ''
-            absolute: false
-            external: false
-            replace_spaces: false
-            path_case: none
-            trim_whitespace: false
-            alt: ''
-            rel: ''
-            link_class: ''
-            prefix: ''
-            suffix: ''
-            target: ''
-            nl2br: false
-            max_length: 0
-            word_boundary: true
-            ellipsis: true
-            more_link: false
-            more_link_text: ''
-            more_link_path: ''
-            strip_tags: false
-            trim: false
-            preserve_tags: ''
-            html: false
-          element_type: ''
-          element_class: ''
-          element_label_type: ''
-          element_label_class: ''
-          element_label_colon: true
-          element_wrapper_type: ''
-          element_wrapper_class: ''
-          element_default_classes: true
-          empty: ''
-          hide_empty: false
-          empty_zero: false
-          hide_alter_empty: true
-          set_precision: false
-          precision: 0
-          decimal: .
-          separator: ','
-          format_plural: false
-          format_plural_string: !!binary MQNAY291bnQ=
-          prefix: ''
-          suffix: ''
-        annual_salary_median:
-          id: annual_salary_median
-          table: high_opportunity_occupations
-          field: annual_salary_median
-          relationship: none
-          group_type: group
-          admin_label: ''
-          plugin_id: numeric
-          label: annual_salary_median
-          exclude: true
-          alter:
-            alter_text: false
-            text: ''
-            make_link: false
-            path: ''
-            absolute: false
-            external: false
-            replace_spaces: false
-            path_case: none
-            trim_whitespace: false
-            alt: ''
-            rel: ''
-            link_class: ''
-            prefix: ''
-            suffix: ''
-            target: ''
-            nl2br: false
-            max_length: 0
-            word_boundary: true
-            ellipsis: true
-            more_link: false
-            more_link_text: ''
-            more_link_path: ''
-            strip_tags: false
-            trim: false
-            preserve_tags: ''
-            html: false
-          element_type: ''
-          element_class: ''
-          element_label_type: ''
-          element_label_class: ''
-          element_label_colon: true
-          element_wrapper_type: ''
-          element_wrapper_class: ''
-          element_default_classes: true
-          empty: ''
-          hide_empty: false
-          empty_zero: false
-          hide_alter_empty: true
-          set_precision: false
-          precision: 0
-          decimal: .
-          separator: ','
-          format_plural: false
-          format_plural_string: !!binary MQNAY291bnQ=
-          prefix: ''
-          suffix: ''
-        occupation:
-          id: occupation
-          table: high_opportunity_occupations
-          field: occupation
-          relationship: none
-          group_type: group
-          admin_label: ''
-          plugin_id: standard
+          entity_type: node
+          entity_field: title
+          plugin_id: field
           label: Occupation
           exclude: false
           alter:
             alter_text: true
-            text: '{{ occupation }} (NOC {{ noc }})'
+            text: '{{ title__value }} ({{ field_noc }})'
             make_link: true
-            path: '{{ career_link }}'
+            path: '{{ view_node }}'
             absolute: false
             external: false
             replace_spaces: false
@@ -262,8 +179,8 @@ display:
             target: ''
             nl2br: false
             max_length: 0
-            word_boundary: true
-            ellipsis: true
+            word_boundary: false
+            ellipsis: false
             more_link: false
             more_link_text: ''
             more_link_path: ''
@@ -275,7 +192,7 @@ display:
           element_class: ''
           element_label_type: ''
           element_label_class: ''
-          element_label_colon: true
+          element_label_colon: false
           element_wrapper_type: ''
           element_wrapper_class: ''
           element_default_classes: true
@@ -283,14 +200,28 @@ display:
           hide_empty: false
           empty_zero: false
           hide_alter_empty: true
-        teer:
-          id: teer
-          table: high_opportunity_occupations
-          field: teer
+          click_sort_column: value
+          type: string
+          settings:
+            link_to_entity: true
+          group_column: value
+          group_columns: {  }
+          group_rows: true
+          delta_limit: 0
+          delta_offset: 0
+          delta_reversed: false
+          delta_first_last: false
+          multi_type: separator
+          separator: ', '
+          field_api_classes: false
+        field_teer:
+          id: field_teer
+          table: node__field_teer
+          field: field_teer
           relationship: none
           group_type: group
           admin_label: ''
-          plugin_id: numeric
+          plugin_id: field
           label: 'Training, Education, Experience and Responsibilities'
           exclude: false
           alter:
@@ -324,35 +255,40 @@ display:
           element_class: ''
           element_label_type: ''
           element_label_class: ''
-          element_label_colon: true
+          element_label_colon: false
           element_wrapper_type: ''
           element_wrapper_class: ''
           element_default_classes: true
-          empty: ''
+          empty: 'Not available'
           hide_empty: false
           empty_zero: false
           hide_alter_empty: true
-          set_precision: false
-          precision: 0
-          decimal: .
-          separator: ','
-          format_plural: false
-          format_plural_string: !!binary MQNAY291bnQ=
-          prefix: ''
-          suffix: ''
-        hourly_wage:
-          id: hourly_wage
-          table: high_opportunity_occupations
-          field: hourly_wage
+          click_sort_column: value
+          type: list_default
+          settings: {  }
+          group_column: value
+          group_columns: {  }
+          group_rows: true
+          delta_limit: 0
+          delta_offset: 0
+          delta_reversed: false
+          delta_first_last: false
+          multi_type: separator
+          separator: ', '
+          field_api_classes: false
+        field_hourly_salary:
+          id: field_hourly_salary
+          table: node__field_hourly_salary
+          field: field_hourly_salary
           relationship: none
           group_type: group
           admin_label: ''
-          plugin_id: high_opportunity_occupations_hourly_wage
+          plugin_id: field
           label: 'Median Hourly Earnings'
           exclude: false
           alter:
-            alter_text: false
-            text: ''
+            alter_text: true
+            text: "{% if field_hourly_salary__value > 1000 %}\r\n{{ field_hourly_salary[0:-3] }}*\r\n{% else %}\r\n{{ field_hourly_salary }}\r\n{% endif %}"
             make_link: false
             path: ''
             absolute: false
@@ -381,22 +317,39 @@ display:
           element_class: ''
           element_label_type: ''
           element_label_class: ''
-          element_label_colon: true
+          element_label_colon: false
           element_wrapper_type: ''
           element_wrapper_class: ''
           element_default_classes: true
-          empty: ''
+          empty: 'Not available'
           hide_empty: false
           empty_zero: false
           hide_alter_empty: true
-        openings_forecast:
-          id: openings_forecast
-          table: high_opportunity_occupations
-          field: openings_forecast
+          click_sort_column: value
+          type: number_decimal
+          settings:
+            thousand_separator: ','
+            decimal_separator: .
+            scale: 2
+            prefix_suffix: true
+          group_column: value
+          group_columns: {  }
+          group_rows: true
+          delta_limit: 0
+          delta_offset: 0
+          delta_reversed: false
+          delta_first_last: false
+          multi_type: separator
+          separator: ', '
+          field_api_classes: false
+        field_region_openings:
+          id: field_region_openings
+          table: node__field_region_openings
+          field: field_region_openings
           relationship: none
           group_type: group
           admin_label: ''
-          plugin_id: numeric
+          plugin_id: field
           label: 'Job Openings'
           exclude: false
           alter:
@@ -430,30 +383,37 @@ display:
           element_class: ''
           element_label_type: ''
           element_label_class: ''
-          element_label_colon: true
+          element_label_colon: false
           element_wrapper_type: ''
           element_wrapper_class: ''
           element_default_classes: true
-          empty: ''
+          empty: 'Not available'
           hide_empty: false
           empty_zero: false
           hide_alter_empty: true
-          set_precision: false
-          precision: 0
-          decimal: .
-          separator: ','
-          format_plural: false
-          format_plural_string: !!binary MQNAY291bnQ=
-          prefix: ''
-          suffix: ''
-        occupational_interest:
-          id: occupational_interest
-          table: high_opportunity_occupations
-          field: occupational_interest
+          click_sort_column: value
+          type: number_integer
+          settings:
+            thousand_separator: ','
+            prefix_suffix: true
+          group_column: value
+          group_columns: {  }
+          group_rows: false
+          delta_limit: 8
+          delta_offset: 0
+          delta_reversed: false
+          delta_first_last: false
+          multi_type: separator
+          separator: ', '
+          field_api_classes: false
+        field_occupational_interests:
+          id: field_occupational_interests
+          table: node__field_occupational_interests
+          field: field_occupational_interests
           relationship: none
           group_type: group
           admin_label: ''
-          plugin_id: standard
+          plugin_id: field
           label: 'Occupational Interest'
           exclude: false
           alter:
@@ -487,7 +447,7 @@ display:
           element_class: ''
           element_label_type: ''
           element_label_class: ''
-          element_label_colon: true
+          element_label_colon: false
           element_wrapper_type: ''
           element_wrapper_class: ''
           element_default_classes: true
@@ -495,10 +455,25 @@ display:
           hide_empty: false
           empty_zero: false
           hide_alter_empty: true
+          click_sort_column: target_id
+          type: entity_reference_label
+          settings:
+            link: false
+          group_column: target_id
+          group_columns: {  }
+          group_rows: true
+          delta_limit: 0
+          delta_offset: 0
+          delta_reversed: false
+          delta_first_last: false
+          multi_type: separator
+          separator: ', '
+          field_api_classes: false
       pager:
         type: infinite_scroll
         options:
           offset: 0
+          pagination_heading_level: h4
           items_per_page: 20
           total_pages: null
           id: 0
@@ -516,7 +491,7 @@ display:
           views_infinite_scroll:
             button_text: 'Load More'
             automatically_load_content: false
-            initially_load_all_pages: true
+            initially_load_all_pages: false
       exposed_form:
         type: basic
         options:
@@ -528,17 +503,18 @@ display:
           sort_asc_label: Asc
           sort_desc_label: Desc
       access:
-        type: none
-        options: {  }
+        type: perm
+        options:
+          perm: 'access content'
       cache:
-        type: none
+        type: tag
         options: {  }
       empty: {  }
       sorts:
-        openings_forecast:
-          id: openings_forecast
-          table: high_opportunity_occupations
-          field: openings_forecast
+        field_region_openings_value:
+          id: field_region_openings_value
+          table: node__field_region_openings
+          field: field_region_openings_value
           relationship: none
           group_type: group
           admin_label: ''
@@ -550,10 +526,31 @@ display:
           exposed: false
       arguments: {  }
       filters:
-        teer:
-          id: teer
-          table: high_opportunity_occupations
-          field: teer
+        status:
+          id: status
+          table: node_field_data
+          field: status
+          entity_type: node
+          entity_field: status
+          plugin_id: boolean
+          value: '1'
+          group: 1
+          expose:
+            operator: ''
+        type:
+          id: type
+          table: node_field_data
+          field: type
+          entity_type: node
+          entity_field: type
+          plugin_id: bundle
+          value:
+            career_profile: career_profile
+          group: 1
+        field_region_hoo_value:
+          id: field_region_hoo_value
+          table: node__field_region_hoo
+          field: field_region_hoo_value
           relationship: none
           group_type: group
           admin_label: ''
@@ -562,21 +559,200 @@ display:
           value:
             min: ''
             max: ''
-            value: ''
+            value: '1'
           group: 1
-          exposed: true
+          exposed: false
           expose:
-            operator_id: teer_op
-            label: Teer
+            operator_id: ''
+            label: ''
             description: ''
             use_operator: false
-            operator: teer_op
+            operator: ''
             operator_limit_selection: false
             operator_list: {  }
-            identifier: teer
+            identifier: ''
             required: false
             remember: false
             multiple: false
+            remember_roles:
+              authenticated: authenticated
+            min_placeholder: ''
+            max_placeholder: ''
+            placeholder: ''
+          is_grouped: false
+          group_info:
+            label: ''
+            description: ''
+            identifier: ''
+            optional: true
+            widget: select
+            multiple: false
+            remember: false
+            default_group: All
+            default_group_multiple: {  }
+            group_items: {  }
+        delta:
+          id: delta
+          table: node__field_region_hoo
+          field: delta
+          relationship: none
+          group_type: group
+          admin_label: ''
+          plugin_id: numeric
+          operator: '='
+          value:
+            min: ''
+            max: ''
+            value: '0'
+          group: 1
+          exposed: false
+          expose:
+            operator_id: ''
+            label: ''
+            description: ''
+            use_operator: false
+            operator: ''
+            operator_limit_selection: false
+            operator_list: {  }
+            identifier: ''
+            required: false
+            remember: false
+            multiple: false
+            remember_roles:
+              authenticated: authenticated
+            min_placeholder: ''
+            max_placeholder: ''
+            placeholder: ''
+          is_grouped: false
+          group_info:
+            label: ''
+            description: ''
+            identifier: ''
+            optional: true
+            widget: select
+            multiple: false
+            remember: false
+            default_group: All
+            default_group_multiple: {  }
+            group_items: {  }
+        field_teer_value:
+          id: field_teer_value
+          table: node__field_teer
+          field: field_teer_value
+          relationship: none
+          group_type: group
+          admin_label: ''
+          plugin_id: list_field
+          operator: or
+          value: {  }
+          group: 1
+          exposed: true
+          expose:
+            operator_id: field_teer_value_op
+            label: 'Training, Education, Experience and Responsibilities'
+            description: ''
+            use_operator: false
+            operator: field_teer_value_op
+            operator_limit_selection: false
+            operator_list: {  }
+            identifier: field_teer_value
+            required: false
+            remember: true
+            multiple: false
+            remember_roles:
+              anonymous: anonymous
+              authenticated: authenticated
+              content_editor: '0'
+              content_approver: '0'
+              workbc_administrator: '0'
+              global_editor: '0'
+              global_approver: '0'
+              workbc_global_administrator: '0'
+              administrator: '0'
+            reduce: false
+          is_grouped: false
+          group_info:
+            label: ''
+            description: ''
+            identifier: ''
+            optional: true
+            widget: select
+            multiple: false
+            remember: false
+            default_group: All
+            default_group_multiple: {  }
+            group_items: {  }
+          reduce_duplicates: false
+        delta_1:
+          id: delta_1
+          table: node__field_region_openings
+          field: delta
+          relationship: none
+          group_type: group
+          admin_label: ''
+          plugin_id: workbc_node_region_delta_filter
+          operator: '='
+          value: ''
+          group: 1
+          exposed: true
+          expose:
+            operator_id: ''
+            label: Region
+            description: ''
+            use_operator: false
+            operator: delta_1_op
+            operator_limit_selection: false
+            operator_list: {  }
+            identifier: delta
+            required: true
+            remember: true
+            multiple: false
+            remember_roles:
+              anonymous: anonymous
+              authenticated: authenticated
+              content_editor: '0'
+              content_approver: '0'
+              workbc_administrator: '0'
+              global_editor: '0'
+              global_approver: '0'
+              workbc_global_administrator: '0'
+              administrator: '0'
+          is_grouped: false
+          group_info:
+            label: ''
+            description: ''
+            identifier: ''
+            optional: true
+            widget: select
+            multiple: false
+            remember: false
+            default_group: All
+            default_group_multiple: {  }
+            group_items: {  }
+        field_occupational_interests_target_id:
+          id: field_occupational_interests_target_id
+          table: node__field_occupational_interests
+          field: field_occupational_interests_target_id
+          relationship: none
+          group_type: group
+          admin_label: ''
+          plugin_id: taxonomy_index_tid
+          operator: or
+          value: {  }
+          group: 1
+          exposed: true
+          expose:
+            operator_id: field_occupational_interests_target_id_op
+            label: 'Occupational Interest'
+            description: ''
+            use_operator: false
+            operator: field_occupational_interests_target_id_op
+            operator_limit_selection: false
+            operator_list: {  }
+            identifier: field_occupational_interests_target_id
+            required: false
+            remember: false
+            multiple: true
             remember_roles:
               authenticated: authenticated
               anonymous: '0'
@@ -587,205 +763,29 @@ display:
               global_approver: '0'
               workbc_global_administrator: '0'
               administrator: '0'
-            min_placeholder: ''
-            max_placeholder: ''
-            placeholder: ''
-          is_grouped: true
+            reduce: false
+          is_grouped: false
           group_info:
-            label: 'Training, Education, Experience and Responsibilities'
+            label: ''
             description: ''
-            identifier: teer
+            identifier: ''
             optional: true
             widget: select
             multiple: false
             remember: false
             default_group: All
             default_group_multiple: {  }
-            group_items:
-              1:
-                title: Management
-                operator: '='
-                value:
-                  min: ''
-                  max: ''
-                  value: '0'
-              2:
-                title: 'University Degree'
-                operator: '='
-                value:
-                  min: ''
-                  max: ''
-                  value: '1'
-              3:
-                title: 'College Diploma or Apprenticeship, 2 or more years'
-                operator: '='
-                value:
-                  min: ''
-                  max: ''
-                  value: '2'
-              4:
-                title: 'College Diploma or Apprenticeship, less than 2 years'
-                operator: '='
-                value:
-                  min: ''
-                  max: ''
-                  value: '3'
-              5:
-                title: 'High School Diploma'
-                operator: '='
-                value:
-                  min: ''
-                  max: ''
-                  value: '4'
-              6:
-                title: 'No Formal Education'
-                operator: '='
-                value:
-                  min: ''
-                  max: ''
-                  value: '5'
-        region:
-          id: region
-          table: high_opportunity_occupations
-          field: region
-          relationship: none
-          group_type: group
-          admin_label: ''
-          plugin_id: string
-          operator: '='
-          value: ''
-          group: 1
-          exposed: true
-          expose:
-            operator_id: region_op
-            label: region
-            description: null
-            use_operator: false
-            operator: region_op
-            operator_limit_selection: false
-            operator_list: {  }
-            identifier: region
-            required: false
-            remember: false
-            multiple: false
-            remember_roles:
-              authenticated: authenticated
-            placeholder: null
-          is_grouped: true
-          group_info:
-            label: Region
-            description: ''
-            identifier: region
-            optional: true
-            widget: select
-            multiple: false
-            remember: false
-            default_group: '1'
-            default_group_multiple: {  }
-            group_items:
-              1:
-                title: 'British Columbia'
-                operator: '='
-                value: british_columbia
-              2:
-                title: Cariboo
-                operator: '='
-                value: cariboo
-              3:
-                title: Kootenay
-                operator: '='
-                value: kootenay
-              4:
-                title: Mainland/Southwest
-                operator: '='
-                value: mainland_southwest
-              5:
-                title: 'North Coast and Nechako'
-                operator: '='
-                value: north_coast_nechako
-              6:
-                title: Northeast
-                operator: '='
-                value: northeast
-              7:
-                title: Thompson-Okanagan
-                operator: '='
-                value: thompson_okanagan
-              8:
-                title: 'Vancouver Island/Coast'
-                operator: '='
-                value: vancouver_island_coast
-              9:
-                title: ''
-                operator: '='
-                value: ''
-        occupational_interest:
-          id: occupational_interest
-          table: high_opportunity_occupations
-          field: occupational_interest
-          relationship: none
-          group_type: group
-          admin_label: ''
-          plugin_id: string
-          operator: '='
-          value: ''
-          group: 2
-          exposed: true
-          expose:
-            operator_id: occupational_interest_op
-            label: occupational_interest
-            description: null
-            use_operator: false
-            operator: occupational_interest_op
-            operator_limit_selection: false
-            operator_list: {  }
-            identifier: occupational_interest
-            required: false
-            remember: false
-            multiple: false
-            remember_roles:
-              authenticated: authenticated
-            placeholder: null
-          is_grouped: true
-          group_info:
-            label: 'Occupational Interest'
-            description: ''
-            identifier: occupational_interest
-            optional: true
-            widget: select
-            multiple: true
-            remember: false
-            default_group: All
-            default_group_multiple: {  }
-            group_items:
-              1:
-                title: Artistic
-                operator: contains
-                value: Artistic
-              2:
-                title: Conventional
-                operator: contains
-                value: Conventional
-              3:
-                title: Enterprising
-                operator: contains
-                value: Enterprising
-              4:
-                title: Investigative
-                operator: contains
-                value: Investigative
-              5:
-                title: Realistic
-                operator: contains
-                value: Realistic
-              6:
-                title: Social
-                operator: contains
-                value: Social
-        wage_rate_median:
-          id: wage_rate_median
-          table: high_opportunity_occupations
-          field: wage_rate_median
+            group_items: {  }
+          reduce_duplicates: true
+          vid: occupational_interests
+          type: select
+          hierarchy: false
+          limit: true
+          error_message: true
+        field_hourly_salary_value:
+          id: field_hourly_salary_value
+          table: node__field_hourly_salary
+          field: field_hourly_salary_value
           relationship: none
           group_type: group
           admin_label: ''
@@ -795,20 +795,20 @@ display:
             min: ''
             max: ''
             value: ''
-          group: 3
+          group: 2
           exposed: true
           expose:
-            operator_id: wage_rate_median_op
-            label: wage_rate_median
+            operator_id: field_hourly_salary_value_op
+            label: '[SSOT] Hourly Salary (field_hourly_salary)'
             description: null
             use_operator: false
-            operator: wage_rate_median_op
+            operator: field_hourly_salary_value_op
             operator_limit_selection: false
             operator_list: {  }
-            identifier: wage_rate_median
+            identifier: field_hourly_salary_value
             required: false
             remember: false
-            multiple: false
+            multiple: true
             remember_roles:
               authenticated: authenticated
             min_placeholder: null
@@ -818,11 +818,11 @@ display:
           group_info:
             label: 'Hourly Wage'
             description: ''
-            identifier: wage_rate_median
+            identifier: field_hourly_salary_value
             optional: true
             widget: select
             multiple: false
-            remember: false
+            remember: true
             default_group: All
             default_group_multiple: {  }
             group_items:
@@ -856,19 +856,39 @@ display:
                   value: ''
               5:
                 title: '$50.00+ per hour'
-                operator: between
+                operator: '>='
                 value:
-                  min: '50'
-                  max: '2500'
+                  min: ''
+                  max: ''
                   value: '50'
       filter_groups:
         operator: AND
         groups:
           1: AND
           2: OR
-          3: AND
       style:
         type: table
+        options:
+          grouping: {  }
+          row_class: ''
+          default_row_class: true
+          columns:
+            title: title
+          default: '-1'
+          info:
+            title:
+              sortable: false
+              default_sort_order: asc
+              align: ''
+              separator: ''
+              empty_column: false
+              responsive: ''
+          override: true
+          sticky: false
+          summary: ''
+          empty_table: false
+          caption: ''
+          description: ''
       row:
         type: fields
       query:
@@ -913,10 +933,18 @@ display:
     cache_metadata:
       max-age: -1
       contexts:
+        - 'languages:language_content'
         - 'languages:language_interface'
         - url
         - url.query_args
-      tags: {  }
+        - 'user.node_grants:view'
+        - user.permissions
+      tags:
+        - 'config:field.storage.node.field_hourly_salary'
+        - 'config:field.storage.node.field_noc'
+        - 'config:field.storage.node.field_occupational_interests'
+        - 'config:field.storage.node.field_region_openings'
+        - 'config:field.storage.node.field_teer'
   block_1:
     id: block_1
     display_title: Block
@@ -927,7 +955,15 @@ display:
     cache_metadata:
       max-age: -1
       contexts:
+        - 'languages:language_content'
         - 'languages:language_interface'
         - url
         - url.query_args
-      tags: {  }
+        - 'user.node_grants:view'
+        - user.permissions
+      tags:
+        - 'config:field.storage.node.field_hourly_salary'
+        - 'config:field.storage.node.field_noc'
+        - 'config:field.storage.node.field_occupational_interests'
+        - 'config:field.storage.node.field_region_openings'
+        - 'config:field.storage.node.field_teer'
