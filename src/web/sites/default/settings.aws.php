@@ -23,16 +23,6 @@ $databases['default']['default'] = array (
     'namespace' => 'Drupal\\Core\\Database\\Driver\\pgsql',
     'driver' => 'pgsql',
 );
-$databases['ssot']['default'] = array (
-    'database' => getenv('POSTGRES_SSOT') ?? 'ssot',
-    'username' => getenv('POSTGRES_ADM_USER'),
-    'password' => getenv('POSTGRES_ADM_PWD'),
-    'prefix' => '',
-    'host' => getenv('POSTGRES_HOST'),
-    'port' => getenv('POSTGRES_PORT'),
-    'namespace' => 'Drupal\\Core\\Database\\Driver\\pgsql',
-    'driver' => 'pgsql',
-);
 $settings['hash_salt'] = json_encode($databases);
 
 $settings['file_private_path'] = '/app/private';

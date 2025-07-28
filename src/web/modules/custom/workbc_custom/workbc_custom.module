@@ -149,24 +149,6 @@ function workbc_custom_views_data_alter(array &$data) {
     ],
   ];
 
-  $data['high_opportunity_occupations']['career_link'] = [
-    'title' => 'Career Profile link',
-    'help' => 'Requires high opportunity occupation NOC field to be included in view.',
-    'field' => [
-      'id' => 'high_opportunity_occupations_career_link',
-    ],
-  ];
-
-  $data['high_opportunity_occupations']['hourly_wage'] = [
-    'title' => 'Hourly Wage',
-    'help' => 'Provides formatted hourly wage.',
-    'field' => [
-      'id' => 'high_opportunity_occupations_hourly_wage',
-    ],
-  ];
-
-  $data['high_opportunity_occupations']['table']['base']['field'] = 'noc';
-
   $data['node_field_data']['keyword_search'] = [
     'title' => 'WorkBC Career Keyword Search',
     'group' => 'Content',

@@ -1,24 +1,24 @@
-.view-high-opportunity-occupations .view-header {
+.view-high-opportunity-occupations-2 .view-header {
   padding: 20px 20px 0px 20px;
   background-color: #f2f2f2;
 }
 
 
-.view-high-opportunity-occupations .form--inline {
+.view-high-opportunity-occupations-2 .form--inline {
   display: grid;
   grid-template-columns: 50% 50%;
   align-items: end;
 }
 
 
-.view-high-opportunity-occupations .view-filters {
+.view-high-opportunity-occupations-2 .view-filters {
   padding: 20px;
   margin-bottom: 40px;
   background-color: #f2f2f2;
 }
 
 
-.view-high-opportunity-occupations .view-filters .form-select {
+.view-high-opportunity-occupations-2 .view-filters .form-select {
     border: 2px solid #2e6ab0;
     line-height: 2;
     border-radius: 0;
@@ -28,25 +28,25 @@
     }
 }
 
-.view-high-opportunity-occupations .chosen-container-multi .form-select {
+.view-high-opportunity-occupations-2 .chosen-container-multi .form-select {
   border: 2px solid #2e6ab0;
 }
 
-.view-high-opportunity-occupations .chosen-container-multi .chosen-choices {
+.view-high-opportunity-occupations-2 .chosen-container-multi .chosen-choices {
   border: none;
 }
 
-.view-high-opportunity-occupations .chosen-container-multi {
+.view-high-opportunity-occupations-2 .chosen-container-multi {
   width: 100% !important;
 }
 
-.view-high-opportunity-occupations .chosen-container-multi input.chosen-search-input {
+.view-high-opportunity-occupations-2 .chosen-container-multi input.chosen-search-input {
   &::placeholder {
     color: $workbc_default_text;
   }
 }
 
-.view-high-opportunity-occupations .chosen-container-active .chosen-drop {
+.view-high-opportunity-occupations-2 .chosen-container-active .chosen-drop {
   border-color: black;
   box-shadow: 0 0 15px 0 rgba(0, 0, 0, 0.15);
   border-radius: 0;
@@ -54,23 +54,23 @@
   top: 106%;
 }
 
-.view-high-opportunity-occupations .chosen-results {
+.view-high-opportunity-occupations-2 .chosen-results {
   margin: 0px;
   padding-left: 0px;
 }
 
-.view-high-opportunity-occupations .chosen-container .chosen-results .active-result {
+.view-high-opportunity-occupations-2 .chosen-container .chosen-results .active-result {
   border-radius: 0;
   padding-left: 15px;
 }
 
-.view-high-opportunity-occupations .view-footer {
+.view-high-opportunity-occupations-2 .view-footer {
   font-size: 0.875rem;
   line-height: 0.875rem;
 }
 
 
-.view-high-opportunity-occupations .hoo-content {
+.view-high-opportunity-occupations-2 .hoo-content {
   padding: 40px 30px;
   margin-bottom: 40px;
   box-shadow: 0 0 10px #dbdbdb;
@@ -81,27 +81,27 @@
       padding: 10px;
     }
 
-    .views-field-occupation {
+    .views-field-title {
       width: 25%;
     }
 
-    .views-field-hourly-wage {
+    .views-field-field-hourly-salary {
       width: 17%;
     }
 
-    .views-field-teer,
-    .views-field-openings-forecast,
-    .views-field-occupational-interest {
+    .views-field-field-teer,
+    .views-field-field-region-openings,
+    .views-field-field-occupational-interests {
       width: 15%;
     }
 
-    .views-field-teer,
-    .views-field-occupational-interest {
+    .views-field-field-teer,
+    .views-field-field-occupational-interests {
       text-align: center;
     }
 
-    .views-field-openings-forecast,
-    .views-field-hourly-wage
+    .views-field-field-region-openings,
+    .views-field-field-hourly-salary
      {
       text-align: right;
     }
@@ -125,7 +125,7 @@
         padding: 0 0 0 0;
       }
 
-      td.views-field-occupation {
+      td.views-field-title {
         display: block;
         font-weight: normal;
         border: none;
@@ -139,10 +139,10 @@
         display: block;
       }
 
-      td.views-field-teer,
-      td.views-field-hourly-wage,
-      td.views-field-openings-forecast,
-      td.views-field-occupational-interest {
+      td.views-field-field-teer,
+      td.views-field-field-hourly-salary,
+      td.views-field-field-region-openings,
+      td.views-field-field-occupational-interests {
         display: block;
         text-align: right;
         border: none;
@@ -151,10 +151,10 @@
         padding-right: 30px;
       }
 
-      td.views-field-teer::before,
-      td.views-field-hourly-wage::before,
-      td.views-field-openings-forecast::before,
-      td.views-field-occupational-interest::before {
+      td.views-field-field-teer::before,
+      td.views-field-field-hourly-salary::before,
+      td.views-field-field-region-openings::before,
+      td.views-field-field-occupational-interests::before {
         /*
         * aria-label has no advantage, it won't be read inside a table
         content: attr(aria-label);
