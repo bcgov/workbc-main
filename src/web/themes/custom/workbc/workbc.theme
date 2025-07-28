@@ -16,42 +16,42 @@ use Drupal\Component\Utility\Html;
 function workbc_preprocess_paragraph(&$variables) {
   $parent = $variables['paragraph']->getParentEntity();
 
-  if ($parent->bundle() == 'action_cards_full_width') {
+  if ($parent->bundle() === 'action_cards_full_width') {
     $align = $parent->field_alignment->value;
     $list = $parent->field_action_cards->getValue();
     foreach($list as $key => $item) {
-      if ($item['target_id'] == $variables['paragraph']->id()) {
+      if ($item['target_id'] === $variables['paragraph']->id()) {
         if ($key % 2 == 0) {
-          $variables['full_width_image_alignment'] = $align == 'left' ? 'left' : 'right';
+          $variables['full_width_image_alignment'] = $align === 'left' ? 'left' : 'right';
         }
         else {
-          $variables['full_width_image_alignment'] = $align == 'left' ? 'right' : 'left';
+          $variables['full_width_image_alignment'] = $align === 'left' ? 'right' : 'left';
         }
       }
     }
   }
 
-  if ($parent->bundle() == 'action_card_feature') {
+  if ($parent->bundle() === 'action_card_feature') {
     $align = $parent->field_alignment->value;
     $list = $parent->field_action_card->getValue();
     foreach($list as $key => $item) {
-      if ($item['target_id'] == $variables['paragraph']->id()) {
+      if ($item['target_id'] === $variables['paragraph']->id()) {
         if ($key % 2 == 0) {
-          $variables['feature_image_alignment'] = $align == 'left' ? 'left' : 'right';
+          $variables['feature_image_alignment'] = $align === 'left' ? 'left' : 'right';
         }
         else {
-          $variables['feature_image_alignment'] = $align == 'left' ? 'right' : 'left';
+          $variables['feature_image_alignment'] = $align === 'left' ? 'right' : 'left';
         }
       }
     }
   }
 
-  if ($parent->bundle() == 'section_accordion') {
+  if ($parent->bundle() === 'section_accordion') {
     $variables['section_accordion_id'] = $parent->id();
     $variables['keep_open'] = boolval($parent->field_keep_open->value);
   }
 
-  if ($variables['paragraph']->bundle() == "section_accordion") {
+  if ($variables['paragraph']->bundle() === 'section_accordion') {
     $variables['section_accordion_id'] = $variables['paragraph']->id();
   }
 
@@ -75,7 +75,7 @@ function workbc_preprocess_paragraph(&$variables) {
         'link.uri' => $variables['paragraph']->field_link->uri
       ]);
       if ($links) {
-        $child_menu = $menu_link_manager->createInstance('menu_link_content:'.reset($links)->uuid());
+        $child_menu = $menu_link_manager->createInstance('menu_link_content:' . reset($links)->uuid());
         $variables['parent_title'] = workbc_get_descendant($child_menu);
       }
     }
@@ -84,14 +84,13 @@ function workbc_preprocess_paragraph(&$variables) {
     }
   }
 
-  if ($variables['paragraph']->bundle() == "content_interactive_map") {
+  if ($variables['paragraph']->bundle() === 'content_interactive_map') {
     $variables['region_info'] = ssotRegionInfo();
-    $paragraph = $variables['paragraph'];
     foreach ($variables['region_info'] as $key => $region) {
-      if ($region['key'] == "british_columbia") {
+      if ($region['key'] === 'british_columbia') {
         continue;
       }
-      $field_key = substr("field_link_". $region['key'], 0, 32);
+      $field_key = substr('field_link_' . $region['key'], 0, 32);
       $url = Url::fromUri($variables['paragraph']->$field_key->uri);
       $variables['region_info'][$key]['link'] = $url->toString();
     }
@@ -131,10 +130,8 @@ function workbc_preprocess_paragraph(&$variables) {
 
 
 function workbc_get_descendant($menu) {
-  $result = "";
-
+  $result = '';
   $menu_link_manager = \Drupal::service('plugin.manager.menu.link');
-
   $parent_menu = $menu->getParent();
   while (!empty($parent_menu)) {
     $parent = $menu_link_manager->createInstance($parent_menu);
@@ -149,7 +146,6 @@ function workbc_get_descendant($menu) {
  * Implements hook_theme_suggestions_paragraph_alter().
  */
 function workbc_theme_suggestions_paragraph_alter(array &$suggestions, array $variables) {
-
   $new_suggestions = array();
   foreach ($suggestions as $suggestion) {
     if (isset($variables['elements']['#paragraph']->field_key->value)) {
@@ -163,14 +159,17 @@ function workbc_theme_suggestions_paragraph_alter(array &$suggestions, array $va
  * Implements hook_form_alter().
  */
 function workbc_form_alter(&$form, \Drupal\Core\Form\FormStateInterface $form_state, $form_id) {
-  if ($form_id == 'views_exposed_form' && $form['#id'] == 'views-exposed-form-search-career-profiles-page-1' or $form['#id'] == 'views-exposed-form-search-site-content-page-1') {
+  if ($form_id === 'views_exposed_form' &&
+    $form['#id'] === 'views-exposed-form-search-career-profiles-page-1' or
+    $form['#id'] === 'views-exposed-form-search-site-content-page-1'
+  ) {
     $form['#attributes']['class'][] = 'search-form';
   }
-  if ($form_id == "views_exposed_form" && "views-exposed-form-search-site-content-page-1") {
-    $form['search_api_fulltext']['#attributes']['aria-label'] = "Search";
+  if ($form_id === 'views_exposed_form' && $form['#id'] === 'views-exposed-form-search-site-content-page-1') {
+    $form['search_api_fulltext']['#attributes']['aria-label'] = 'Search';
   }
-  if ($form_id == "views_exposed_form" && "views-exposed-form-search-career-profiles-page-1") {
-    $form['search']['#attributes']['aria-label'] = "Search";
+  if ($form_id === 'views_exposed_form' && $form['#id'] === 'views-exposed-form-search-career-profiles-page-1') {
+    $form['search']['#attributes']['aria-label'] = 'Search';
   }
 }
 
@@ -179,13 +178,13 @@ function workbc_form_alter(&$form, \Drupal\Core\Form\FormStateInterface $form_st
  */
 function workbc_preprocess_page(&$variables) {
   // default page format
-  $variables['page_format'] = "standard";
+  $variables['page_format'] = 'standard';
   if (isset($variables['node'])) {
     $node = $variables['node'];
     if ($node instanceof \Drupal\node\NodeInterface) {
-      if ($node->bundle() == "page") {
+      if ($node->bundle() === 'page') {
         if ($node->hasField('field_page_format') && !$node->get('field_page_format')->isEmpty()) {
-          $variables['page_format'] = $node->get("field_page_format")->getString();
+          $variables['page_format'] = $node->get('field_page_format')->getString();
         }
       }
     }
@@ -329,7 +328,7 @@ function workbc_preprocess_menu(&$vars) {
  */
 function workbc_theme_suggestions_form_element_alter(array &$suggestions, array $variables) {
   if (isset($variables['element']['#name'])) {
-    $suggestions[] = "form_element__" . str_replace('-', '_', $variables['element']['#name']);
+    $suggestions[] = 'form_element__' . str_replace('-', '_', $variables['element']['#name']);
   }
 }
 
@@ -337,13 +336,11 @@ function workbc_theme_suggestions_form_element_alter(array &$suggestions, array 
  * Implements hook_preprocess_form_element().
  */
 function workbc_preprocess_form_element(&$variables) {
-
   if (isset($variables['element']['#name'])) {
-    if ($variables['element']['#name'] == "occupational_interest") {
+    if ($variables['element']['#name'] === 'field_occupational_interests_target_id') {
       $variables['occupational_interest_tooltip'] = 'Careers based on <a href="/plan-career/skills-future-workforce/characteristics#sideNavAnchorId_1" target="_blank" rel="noopener noreferrer">six interest types</a>.';
     }
   }
-
 }
 
 /**
@@ -351,12 +348,12 @@ function workbc_preprocess_form_element(&$variables) {
  */
 function workbc_preprocess_block(&$vars) {
   if ($vars['plugin_id'] === 'side_nav_block') {
-    $vars['on_this_page'] = "On this page";
+    $vars['on_this_page'] = 'On this page';
     $node = \Drupal::routeMatch()->getParameter('node');
     if ($node instanceof \Drupal\node\NodeInterface) {
       if ($node->hasField('field_language')) {
-        if ($node->get('field_language')->value == "french") {
-          $vars['on_this_page'] = "Sur cette page";
+        if ($node->get('field_language')->value === 'french') {
+          $vars['on_this_page'] = 'Sur cette page';
         }
       }
     }
@@ -367,12 +364,11 @@ function workbc_preprocess_block(&$vars) {
  * Implements hook_preprocess_breadcrumb().
  */
 function workbc_preprocess_breadcrumb(&$variables){
-  $types = ["career_profile", "industry_profile"];
-  $node = \Drupal::routeMatch()->getParameter('node');
-
   $variables['save_profile_available'] = false;
+
+  $node = \Drupal::routeMatch()->getParameter('node');
   if ($node) {
-    $variables['save_profile_available'] = in_array($node->bundle(), $types);
+    $variables['save_profile_available'] = in_array($node->bundle(), ['career_profile', 'industry_profile']);
   }
 }
 
@@ -381,7 +377,8 @@ function workbc_preprocess_breadcrumb(&$variables){
  */
 function workbc_preprocess_views_view(&$variables) {
   $view = $variables['view'];
-  if ($view->id() == "explore_careers") {
+
+  if ($view->id() === 'explore_careers') {
     $variables['hide_category'] = \Drupal::request()->query->get('hide_category') == "1" ? true : false;
     $variables['career_profiles_total'] = $view->total_rows;
   }
@@ -391,27 +388,11 @@ function workbc_preprocess_views_view(&$variables) {
  * Implements hook_preprocess_views_view_field().
  */
 function workbc_preprocess_views_view_field(&$variables) {
-
   $view = $variables['view'];
   $field = $variables['field'];
 
-  if($view->storage->id() == "high_opportunity_occupations" && $field->field == "teer") {
-    $vocabulary = 'taxonomy_term';
-    $terms = \Drupal::entityTypeManager()->getStorage($vocabulary)->loadByProperties([
-      'vid' => 'education',
-      'field_teer' => $variables['output'],
-    ]);
-    $term = $terms[array_key_first($terms)];
-    if ($term) {
-      $variables['output'] = $term->getName();
-    }
-    else {
-      $variables['output'] = WORKBC_EXTRA_FIELDS_NOT_AVAILABLE;
-    }
-  }
-
-  if($view->storage->id() == "explore_careers" && $field->field == "field_region_openings") {
-    if ($variables['row']->node__field_region_openings_field_region_openings_value == -999999) {
+  if (in_array($view->storage->id(), ['explore_careers', 'high_opportunity_occupations_2']) && $field->field === 'field_region_openings') {
+    if ($variables['row']->node__field_region_openings_field_region_openings_value < 0) {
       $variables['output'] = WORKBC_EXTRA_FIELDS_NOT_AVAILABLE;
     }
   }
@@ -421,18 +402,19 @@ function workbc_preprocess_views_view_field(&$variables) {
  * Implements hook_preprocess_field().
  */
 function workbc_preprocess_field(&$variables) {
-
-  if ($variables['field_type'] == "extra_field" &&
-      str_starts_with($variables['field_name'], "extra_field_lmo_report_2024")) {
-    if (str_ends_with($variables['field_name'], "table")) {
-      $variables['attributes']['class'][] = "lmo-report-table";
+  if ($variables['field_type'] === 'extra_field' &&
+      str_starts_with($variables['field_name'], 'extra_field_lmo_report_2024')
+  ) {
+    if (str_ends_with($variables['field_name'], 'table')) {
+      $variables['attributes']['class'][] = 'lmo-report-table';
     }
-    if (str_ends_with($variables['field_name'], "chart")) {
-      $variables['attributes']['class'][] = "lmo-report-chart";
+    if (str_ends_with($variables['field_name'], 'chart')) {
+      $variables['attributes']['class'][] = 'lmo-report-chart';
     }
   }
+
   // region information for interactive map
-  if ($variables['field_name'] == "extra_field_lmo_report_2024_job_openings_regions_table") {
+  if ($variables['field_name'] === 'extra_field_lmo_report_2024_job_openings_regions_table') {
     $variables['region_info'] = ssotRegionInfo();
   }
 }
@@ -441,9 +423,9 @@ function workbc_preprocess_field(&$variables) {
  * Implements hook_theme_suggestions_HOOK_alter() for fieldset.
  */
 function workbc_theme_suggestions_fieldset_alter(array &$suggestions, array $variables) {
-  if(isset($variables['element']) && isset($variables['element']['#title'])) {
-    $title = strtolower(str_replace(" ", "__", $variables['element']['#title']));
-    $suggestions[] = $variables['theme_hook_original'] . "__" . $title;
+  if (isset($variables['element']) && isset($variables['element']['#title'])) {
+    $title = strtolower(str_replace(' ', '__', $variables['element']['#title']));
+    $suggestions[] = $variables['theme_hook_original'] . '__' . $title;
   }
 }
 
@@ -451,12 +433,12 @@ function workbc_theme_suggestions_fieldset_alter(array &$suggestions, array $var
  * Implements hook_theme_suggestions_HOOK_alter() for details.
  */
 function workbc_theme_suggestions_details_alter(array &$suggestions, array $variables) {
-  if(isset($variables['element']) && isset($variables['element']['#title'])) {
-    $title = strtolower(str_replace(" ", "__", $variables['element']['#title']));
+  if (isset($variables['element']) && isset($variables['element']['#title'])) {
+    $title = strtolower(str_replace(' ', '__', $variables['element']['#title']));
     if(isset($variables['element'][0]['#name']) && !empty($variables['element'][0]['#name'])) {
-      $suggestions[] = $variables['theme_hook_original'] . "__name__" . $variables['element'][0]['#name'];
+      $suggestions[] = $variables['theme_hook_original'] . '__name__' . $variables['element'][0]['#name'];
     }
-    $suggestions[] = $variables['theme_hook_original'] . "__" . $title;
+    $suggestions[] = $variables['theme_hook_original'] . '__' . $title;
   }
 }
 
@@ -482,7 +464,7 @@ function workbc_theme_suggestions_html_alter(array &$suggestions, array $variabl
  * Implements hook_page_attachments_alter().
  */
 function workbc_page_attachments_alter(array &$attachments){
-  if (\Drupal::request()->get('template') == 'embed') {
+  if (\Drupal::request()->get('template') === 'embed') {
     //Remove all libraries
     unset($attachments['#attached']['library']);
   }

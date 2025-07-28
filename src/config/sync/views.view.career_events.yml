@@ -18,9 +18,9 @@ dependencies:
     - time_field
     - user
 id: career_events
-label: 'Career Events'
+label: '[DEPRECATED] Career Events'
 module: views
-description: ''
+description: 'DEPRECATED: This view has been replaced with event_calendar.'
 tag: ''
 base_table: node_field_data
 base_field: nid

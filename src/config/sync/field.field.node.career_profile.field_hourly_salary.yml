@@ -1,0 +1,23 @@
+uuid: e44d8608-7bc5-4766-a350-ca66cc33b75b
+langcode: en
+status: true
+dependencies:
+  config:
+    - field.storage.node.field_hourly_salary
+    - node.type.career_profile
+id: node.career_profile.field_hourly_salary
+field_name: field_hourly_salary
+entity_type: node
+bundle: career_profile
+label: '[SSOT] Hourly Salary'
+description: 'AUTOMATICALLY POPULATED FROM SSOT.'
+required: false
+translatable: false
+default_value: {  }
+default_value_callback: ''
+settings:
+  min: null
+  max: null
+  prefix: $
+  suffix: ''
+field_type: decimal

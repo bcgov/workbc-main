@@ -1,0 +1,29 @@
+uuid: 266d8bef-c00e-4808-a2bb-5c0068d1a508
+langcode: en
+status: true
+dependencies:
+  config:
+    - field.storage.node.field_occupational_interests
+    - node.type.career_profile
+    - taxonomy.vocabulary.occupational_interests
+id: node.career_profile.field_occupational_interests
+field_name: field_occupational_interests
+entity_type: node
+bundle: career_profile
+label: '[SSOT] Occupational Interests'
+description: 'AUTOMATICALLY POPULATED FROM SSOT.'
+required: false
+translatable: false
+default_value: {  }
+default_value_callback: ''
+settings:
+  handler: 'default:taxonomy_term'
+  handler_settings:
+    target_bundles:
+      occupational_interests: occupational_interests
+    sort:
+      field: name
+      direction: asc
+    auto_create: false
+    auto_create_bundle: ''
+field_type: entity_reference
