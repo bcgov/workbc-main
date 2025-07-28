@@ -316,7 +316,7 @@ function workbc_custom_form_views_exposed_form_alter(&$form, FormStateInterface 
     if (isset($form['field_occupational_interests_target_id'])) {
       $md = \Drupal::service('mobile_detect');
       if ($md->isMobile() && !$md->isTablet()) {
-        array_unshift($form['field_occupational_interests_target_id']['#options'], 'All');
+        $form['field_occupational_interests_target_id']['#options'] = [0 => 'All'] + $form['field_occupational_interests_target_id']['#options'];
       }
       $form['field_occupational_interests_target_id']['#chosen'] = true;
     }
@@ -434,16 +434,16 @@ function hoo_multiselect_form_submit(array &$form, FormStateInterface &$form_sta
 
   $md = \Drupal::service('mobile_detect');
   if ($md->isMobile() && !$md->isTablet()) {
-    $selections = $form['occupational_interest']['#value'];
+    $selections = $form['field_occupational_interests_target_id']['#value'];
     $all = empty($selections);
     foreach ($selections as $selection) {
-      if ($selection == '0') {
+      if ($selection === '0') {
         $all = true;
       }
     }
     if ($all) {
-      $form['occupational_interest']['#value'] = [0 => '0'];
-      $form_state->setValue('occupational_interest', [0 => '0']);
+      $form['field_occupational_interests_target_id']['#value'] = [0 => '0'];
+      $form_state->setValue('field_occupational_interests_target_id', [0 => '0']);
     }
   }
 }
