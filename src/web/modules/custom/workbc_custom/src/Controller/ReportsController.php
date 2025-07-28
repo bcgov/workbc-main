@@ -12,7 +12,6 @@ use Drupal\Core\Link;
 use Drupal\Core\Url;
 use Drupal\node\Entity\Node;
 use Drupal\taxonomy\Entity\Term;
-use Drupal\paragraphs\Entity\Paragraph;
 
 use Drupal\media\Entity\Media;
 use Drupal\media\MediaInterface;
