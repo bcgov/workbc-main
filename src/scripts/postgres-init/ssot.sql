@@ -29,3 +29,4 @@ CREATE EVENT TRIGGER pgrst_watch
 
 -- Turn on case-insensitive text extension
 CREATE EXTENSION citext;
+CREATE EXTENSION vector;

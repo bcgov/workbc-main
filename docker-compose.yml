@@ -104,7 +104,13 @@ services:
     - "traefik.http.routers.${PROJECT_NAME}_mailhog.rule=Host(`mailhog.${PROJECT_BASE_URL}`)"
 
   postgres:
-    image: wodby/postgres:$POSTGRES_TAG
+#    image: wodby/postgres:$POSTGRES_TAG
+    build:
+      context: ./src/scripts/postgres-pgvector
+      dockerfile: Dockerfile
+      args:
+        POSTGRES_TAG: ${POSTGRES_TAG}
+        PGVECTOR_TAG: ${PGVECTOR_TAG}
 #    container_name: "${PROJECT_NAME}_postgres"
     stop_grace_period: 30s
     environment:
@@ -372,6 +378,13 @@ services:
 #       BASE_URL: http://workbc.docker.localhost:8000
 #     volumes:
 #     - ./src/scripts/test:/app:cached
+
+  ollama:
+    image: ollama/ollama:${OLLAMA_TAG}
+    ports:
+    - "11434:11434"
+    volumes:
+    - /usr/share/ollama/.ollama:/root/.ollama # To store models on my local host
 
 volumes:
   pgdata:

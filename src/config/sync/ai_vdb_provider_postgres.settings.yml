@@ -1,0 +1,7 @@
+host: postgres
+port: 5432
+username: workbc
+password: postgres
+default_database: workbc
+_core:
+  default_config_hash: zEgXHS20RKg5hj3QNhMcDQxhQd1gVO3_mE6qxdKWSfA

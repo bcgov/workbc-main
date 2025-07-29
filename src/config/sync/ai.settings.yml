@@ -1,0 +1,9 @@
+_core:
+  default_config_hash: RGedRkFydKZjS0ZJ6vbtZH00KbhYVGsK-ABILHdQLyw
+prompt_logging: false
+prompt_logging_tags: ''
+default_providers:
+  embeddings:
+    provider_id: ollama
+    model_id: 'mxbai-embed-large:latest'
+default_vdb_provider: postgres
