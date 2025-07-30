@@ -163,7 +163,7 @@ display:
           exclude: false
           alter:
             alter_text: true
-            text: '{{ title__value }} ({{ field_noc }})'
+            text: '{{ title__value }} (NOC {{ field_noc }})'
             make_link: true
             path: '{{ view_node }}'
             absolute: false
