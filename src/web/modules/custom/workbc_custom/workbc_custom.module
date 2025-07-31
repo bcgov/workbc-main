@@ -443,7 +443,7 @@ function hoo_multiselect_form_submit(array &$form, FormStateInterface &$form_sta
     }
     if ($all) {
       $form['field_occupational_interests_target_id']['#value'] = [0 => '0'];
-      $form_state->setValue('field_occupational_interests_target_id', [0 => '0']);
+      $form_state->setValue('field_occupational_interests_target_id', null);
     }
   }
 }
