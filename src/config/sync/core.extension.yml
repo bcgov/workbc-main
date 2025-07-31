@@ -11,7 +11,10 @@ module:
   advagg_js_minify: 0
   advagg_validator: 0
   ai: 0
+  ai_agents: 0
   ai_api_explorer: 0
+  ai_assistant_api: 0
+  ai_chatbot: 0
   ai_provider_ollama: 0
   ai_search: 0
   ai_vdb_provider_postgres: 0

@@ -1,0 +1,40 @@
+uuid: 609778fc-31f4-41c2-9bd7-1b05ad7052e0
+langcode: en
+status: true
+dependencies: {  }
+id: career_finder_assistant
+label: 'Career finder assistant'
+description: "An assistant that answers questions about career profiles.\r\n"
+system_prompt: ''
+pre_action_prompt: ''
+instructions: 'Answer the user question in no more than 100 words. Use only content supplied in the prompt. '
+allow_history: session
+history_context_length: '2'
+error_message: 'I am sorry, something went terribly wrong. Please try to ask me again.'
+specific_error_messages:
+  AiBadRequestException: ''
+  AiRateLimitException: ''
+  AiQuotaException: ''
+  AiSetupFailureException: ''
+  AiRequestErrorException: ''
+llm_provider: ollama
+llm_model: 'gemma3:4b'
+llm_configuration:
+  max_tokens: 1024
+  temperature: 1.0
+  frequency_penalty: 0
+  presence_penalty: 0
+  top_p: 1.0
+actions_enabled: {  }
+roles:
+  anonymous: 0
+  authenticated: 0
+  content_editor: 0
+  content_approver: 0
+  workbc_administrator: 0
+  global_editor: 0
+  global_approver: 0
+  workbc_global_administrator: 0
+  administrator: 0
+use_function_calling: false
+ai_agent: career_finder_assistant

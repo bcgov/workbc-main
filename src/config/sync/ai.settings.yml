@@ -3,6 +3,9 @@ _core:
 prompt_logging: false
 prompt_logging_tags: ''
 default_providers:
+  chat:
+    provider_id: ollama
+    model_id: 'gemma3:4b'
   embeddings:
     provider_id: ollama
     model_id: 'mxbai-embed-large:latest'

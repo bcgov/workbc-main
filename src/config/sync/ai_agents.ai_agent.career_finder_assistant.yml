@@ -1,0 +1,35 @@
+uuid: 1ef70fa0-9e18-4864-86c8-b0c3e071eebb
+langcode: en
+status: true
+dependencies: {  }
+id: career_finder_assistant
+label: 'Career finder assistant'
+description: "An assistant that answers questions about career profiles.\r\n"
+system_prompt: 'Answer the user question in no more than 100 words. Use only content supplied in the prompt. '
+secured_system_prompt: null
+tools:
+  'ai_search:rag_search': true
+tool_settings: null
+orchestration_agent: true
+triage_agent: false
+max_loops: 3
+default_information_tools: null
+tool_usage_limits:
+  'ai_search:rag_search':
+    index:
+      values:
+        - career_profiles_rag
+      action: force_value
+      hide_property: 1
+    amount:
+      values:
+        - '5'
+      action: force_value
+      hide_property: 1
+    min_score:
+      values:
+        - '0.5'
+      action: force_value
+      hide_property: 1
+exclude_users_role: false
+masquerade_roles: {  }
