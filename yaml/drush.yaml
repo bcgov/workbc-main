@@ -1,0 +1,26 @@
+apiVersion: batch/v1
+kind: Job
+metadata:
+  name: drupal-drush-workbc
+  namespace: app
+spec:
+  backoffLimit: 1
+  template:
+    spec:
+      restartPolicy: Never
+      containers:
+        - name: drush
+          image: __IMAGE__
+          envFrom:
+            - secretRef:
+                name: workbc-secret
+            - configMapRef:
+                name: workbc-config
+          command: ["/bin/sh", "-c"]
+          args:
+            - |
+              mv -T /code /app
+              drush cr
+              drush updb -y
+              drush cim -y
+              drush cr
