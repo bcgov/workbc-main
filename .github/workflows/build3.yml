@@ -10,7 +10,7 @@ on:
   push:
     branches: [ "master" ]
     paths-ignore:
-      - '.github/workflows/*'
+#      - '.github/workflows/*'
       - 'terraform/*'
 
   # Allows you to run this workflow manually from the Actions tab
