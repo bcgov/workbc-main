@@ -1,0 +1,11 @@
+uuid: f6730845-d613-4cab-aa32-b2c6fb227e90
+langcode: en
+status: true
+dependencies:
+  config:
+    - filter.format.full_html
+id: explore_grid_header
+title: 'Explore Grid Header'
+content:
+  value: '<h2>Select a category or search</h2><p>Explore different career profiles by selecting an occupational category or using the search bar at the bottom of the page.&nbsp;</p>'
+  format: full_html
