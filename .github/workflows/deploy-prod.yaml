@@ -53,14 +53,27 @@ jobs:
           role-to-assume: ${{ secrets.AWS_ROLE_ARN_TO_USE_PROD }}
           aws-region: ${{ secrets.AWS_REGION }}
           
-      - uses: peter-murray/terragrunt-github-action@v1.0.0
-        with:
-          terragrunt_version: ${{ env.TG_VERSION }}
+#      - uses: peter-murray/terragrunt-github-action@v1.0.0
+#        with:
+#          terragrunt_version: ${{ env.TG_VERSION }}
 
-      - name: Terragrunt Apply
-        working-directory: ${{ env.TG_SRC_PATH }}/${{ env.TFC_WORKSPACE }}
+#      - name: Terragrunt Apply
+#        working-directory: ${{ env.TG_SRC_PATH }}/${{ env.TFC_WORKSPACE }}
+#        env:
+#          app_image: ${{ env.IMAGE_ID }}:${{ github.event.workflow_run.head_branch}}          
+#          LICENSE_PLATE: ${{ secrets.MY_LICENSE_PLATE }}
+#          TF_VAR_source_token: ${{ secrets.SOURCE_TOKEN }}
+#        run: terragrunt run-all apply --terragrunt-non-interactive
+
+      - name: Update Kubeconfig
+        run: |
+          aws eks update-kubeconfig --name workbc-cluster --region ${{ secrets.AWS_REGION }}
+
+      - name: Set image on Kubernetes deployment
         env:
-          app_image: ${{ env.IMAGE_ID }}:${{ github.event.workflow_run.head_branch}}          
-          LICENSE_PLATE: ${{ secrets.MY_LICENSE_PLATE }}
-          TF_VAR_source_token: ${{ secrets.SOURCE_TOKEN }}
-        run: terragrunt run-all apply --terragrunt-non-interactive
+          IMAGE: ${{ secrets.AWS_ECR_URI }}:${{ github.event.workflow_run.head_branch }}
+        run: |
+          kubectl delete job drupal-drush-workbc -n app --ignore-not-found
+          sed "s|__IMAGE__|$IMAGE|g" yaml/drush.yaml | kubectl apply -f -
+          kubectl wait --for=condition=complete job/drupal-drush-workbc --timeout=300s -n app
+          kubectl set image deployment/workbc drupal=$IMAGE --namespace=app
