@@ -70,7 +70,7 @@ jobs:
 
       - name: Set image on Kubernetes deployment
         env:
-          IMAGE: ${{ secrets.AWS_ECR_URI }}:${{ github.event.workflow_run.head_sha }}
+          IMAGE: ${{ secrets.AWS_ECR_URI }}:${{ github.event.workflow_run.head_branch }}
         run: |
           kubectl delete job drupal-drush-workbc -n app --ignore-not-found
           sed "s|__IMAGE__|$IMAGE|g" yaml/drush.yaml | kubectl apply -f -
