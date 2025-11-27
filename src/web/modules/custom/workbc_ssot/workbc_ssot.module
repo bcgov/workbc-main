@@ -67,7 +67,6 @@ const SSOT_DATASETS = [
     'order' => 'noc.asc,commonjobtitle.asc'
   ],
   'lmo_report_2024_job_openings_10y' => [],
-  'lmo_report_2024_job_openings_annual' => [],
   'lmo_report_2024_job_openings_teers' => [],
   'lmo_report_2024_job_openings_industries' => [],
   'lmo_report_2024_job_openings_broad_categories' => [],
@@ -258,7 +257,6 @@ function ssotLabourMarketYearly() {
   return [
     'schema' => ssotSchema(),
     'lmo_report_2024_job_openings_10y' => querySSoT('lmo_report_2024_job_openings_10y'),
-    'lmo_report_2024_job_openings_annual' => querySSoT('lmo_report_2024_job_openings_annual'),
     'lmo_report_2024_job_openings_teers' => querySSoT('lmo_report_2024_job_openings_teers'),
     'lmo_report_2024_job_openings_industries' => querySSoT('lmo_report_2024_job_openings_industries'),
     'lmo_report_2024_job_openings_broad_categories' => querySSoT('lmo_report_2024_job_openings_broad_categories'),
