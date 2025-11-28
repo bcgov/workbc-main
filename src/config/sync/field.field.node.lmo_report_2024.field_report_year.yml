@@ -1,0 +1,23 @@
+uuid: bd79355a-3ce4-475e-a45f-fa9e6bdc67fb
+langcode: en
+status: true
+dependencies:
+  config:
+    - field.storage.node.field_report_year
+    - node.type.lmo_report_2024
+  module:
+    - options
+id: node.lmo_report_2024.field_report_year
+field_name: field_report_year
+entity_type: node
+bundle: lmo_report_2024
+label: 'Report Year'
+description: ''
+required: false
+translatable: false
+default_value:
+  -
+    value: 2024
+default_value_callback: ''
+settings: {  }
+field_type: list_integer
