@@ -279,6 +279,9 @@
             "drupal/search_api_solr": {
                 "Allow parse mode of Career Trek": "patches/drupal/search_api_solr/add_parse_mode.patch"
             },
+            "drupal/simple_sitemap": {
+                "Error on update": "patches/drupal/simple_sitemap/3560114.patch"
+            },
             "jjj/chosen": {
                 "Fix disabled interaction": "patches/jjj/chosen/disabled.patch"
             }
