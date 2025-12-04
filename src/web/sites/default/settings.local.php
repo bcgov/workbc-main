@@ -28,15 +28,6 @@ $databases['default']['default'] = [
   'prefix' => '',
   'username' => $_SERVER['DB_USER'],
 ];
-$databases['ssot']['default'] = [
-  'database' => 'ssot',
-  'driver' => 'pgsql',
-  'host' => 'postgres',
-  'password' => 'workbc',
-  'port' => 5432,
-  'prefix' => '',
-  'username' => 'workbc',
-];
 
 /**
  * Assertions.
@@ -269,7 +260,7 @@ $config['search_api.server.solr'] = [
 ];
 $config['search_api.server.solr_search'] = [
   'id' => 'solr_search',
-//  'status' => false,
+  'status' => false,
   'name' => 'Solr (Career Trek)',
   'description' => '',
   'backend' => 'search_api_solr',
@@ -317,7 +308,7 @@ $config['search_api.server.solr_search'] = [
     'suppress_missing_languages' => false
   ],
 ];
-//$config['search_api.index.career_profile_index_sub']['status'] = false;
+$config['search_api.index.career_profile_index_sub']['status'] = false;
 
 // Enable/disable features
 $config['workbc']['features']['ssot_upload'] = TRUE;

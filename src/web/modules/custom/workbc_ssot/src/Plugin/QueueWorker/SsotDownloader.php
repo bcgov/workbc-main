@@ -20,6 +20,7 @@ class SsotDownloader extends QueueWorkerBase implements ContainerFactoryPluginIn
 
   private $epbc_categories;
   private $skills;
+  private $occupational_interests;
 
   /**
   * Main constructor.
@@ -152,6 +153,7 @@ class SsotDownloader extends QueueWorkerBase implements ContainerFactoryPluginIn
 
   private function update_wages($endpoint, $entries, &$career) {
     $career->set('field_annual_salary', reset($entries)['calculated_median_annual_salary']);
+    $career->set('field_hourly_salary', reset($entries)['esdc_wage_rate_median']);
   }
 
   private function update_career_provincial($endpoint, $entries, &$career) {
@@ -224,5 +226,25 @@ class SsotDownloader extends QueueWorkerBase implements ContainerFactoryPluginIn
       }
     }
     $career->set('field_skills_2', $skills);
+  }
+
+  private function update_occupational_interests($endpoint, $entries, &$career) {
+    if (!isset($this->occupational_interests)) {
+      $this->occupational_interests = \Drupal::entityTypeManager()->getStorage('taxonomy_term')->loadTree('occupational_interests');
+    }
+    $interests = [];
+    foreach ($entries as $entry) {
+      $term = array_find($this->occupational_interests, function ($v) use ($entry) {
+        return strcasecmp($v->name, $entry['occupational_interest']) === 0;
+      });
+      if ($term) {
+        $interests[$entry['options']] = ['target_id' => $term->tid];
+      }
+    }
+    $order = ['Primary', 'Secondary', 'Tertiary'];
+    uksort($interests, function($a, $b) use($order) {
+      return array_search($a, $order) - array_search($b, $order);
+    });
+    $career->set('field_occupational_interests', array_values($interests));
   }
 }

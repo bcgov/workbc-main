@@ -17,7 +17,7 @@ const SSOT_ROUTES = [
 const SSOT_DATASETS = [
   'wages' => [
     'noc_key' => 'noc',
-    'fields' => 'noc,calculated_median_annual_salary',
+    'fields' => 'noc,calculated_median_annual_salary,esdc_wage_rate_median',
   ],
   'career_provincial' => [
     'noc_key' => 'noc',
@@ -49,7 +49,10 @@ const SSOT_DATASETS = [
   'labour_force_survey_regional_industry_province' => [],
   'labour_force_survey_regional_industry_region' => [],
   'monthly_labour_market_updates' => [],
-  'occupational_interests' => [],
+  'occupational_interests' => [
+    'noc_key' => 'noc',
+    'fields' => 'noc,options,occupational_interest'
+  ],
   'openings_careers' => [],
   'openings_industry' => [],
   'regional_labour_market_outlook' => [],
@@ -64,7 +67,6 @@ const SSOT_DATASETS = [
     'order' => 'noc.asc,commonjobtitle.asc'
   ],
   'lmo_report_2024_job_openings_10y' => [],
-  'lmo_report_2024_job_openings_annual' => [],
   'lmo_report_2024_job_openings_teers' => [],
   'lmo_report_2024_job_openings_industries' => [],
   'lmo_report_2024_job_openings_broad_categories' => [],
@@ -251,23 +253,22 @@ function querySSoT($endpoint, $read_timeout = NULL) {
   }
 }
 
-function ssotLabourMarketYearly() {
+function ssotLabourMarketYearly($year = '2024') {
   return [
     'schema' => ssotSchema(),
-    'lmo_report_2024_job_openings_10y' => querySSoT('lmo_report_2024_job_openings_10y'),
-    'lmo_report_2024_job_openings_annual' => querySSoT('lmo_report_2024_job_openings_annual'),
-    'lmo_report_2024_job_openings_teers' => querySSoT('lmo_report_2024_job_openings_teers'),
-    'lmo_report_2024_job_openings_industries' => querySSoT('lmo_report_2024_job_openings_industries'),
-    'lmo_report_2024_job_openings_broad_categories' => querySSoT('lmo_report_2024_job_openings_broad_categories'),
-    'lmo_report_2024_job_openings_regions' => querySSoT('lmo_report_2024_job_openings_regions'),
-    'lmo_report_2024_job_openings_vancouver_island_coast' => querySSoT('lmo_report_2024_job_openings_vancouver_island_coast'),
-    'lmo_report_2024_job_openings_mainland_southwest' => querySSoT('lmo_report_2024_job_openings_mainland_southwest'),
-    'lmo_report_2024_job_openings_thompson_okanagan' => querySSoT('lmo_report_2024_job_openings_thompson_okanagan'),
-    'lmo_report_2024_job_openings_kootenay' => querySSoT('lmo_report_2024_job_openings_kootenay'),
-    'lmo_report_2024_job_openings_cariboo' => querySSoT('lmo_report_2024_job_openings_cariboo'),
-    'lmo_report_2024_job_openings_north_coast_nechako' => querySSoT('lmo_report_2024_job_openings_north_coast_nechako'),
-    'lmo_report_2024_job_openings_northeast' => querySSoT('lmo_report_2024_job_openings_northeast'),
-    'sources' => querySSoT('sources?endpoint=eq.lmo_report_2024_job_openings_10y')[0]
+    'lmo_report_job_openings_10y' => querySSoT("lmo_report_{$year}_job_openings_10y"),
+    'lmo_report_job_openings_teers' => querySSoT("lmo_report_{$year}_job_openings_teers"),
+    'lmo_report_job_openings_industries' => querySSoT("lmo_report_{$year}_job_openings_industries"),
+    'lmo_report_job_openings_broad_categories' => querySSoT("lmo_report_{$year}_job_openings_broad_categories"),
+    'lmo_report_job_openings_regions' => querySSoT("lmo_report_{$year}_job_openings_regions"),
+    'lmo_report_job_openings_vancouver_island_coast' => querySSoT("lmo_report_{$year}_job_openings_vancouver_island_coast"),
+    'lmo_report_job_openings_mainland_southwest' => querySSoT("lmo_report_{$year}_job_openings_mainland_southwest"),
+    'lmo_report_job_openings_thompson_okanagan' => querySSoT("lmo_report_{$year}_job_openings_thompson_okanagan"),
+    'lmo_report_job_openings_kootenay' => querySSoT("lmo_report_{$year}_job_openings_kootenay"),
+    'lmo_report_job_openings_cariboo' => querySSoT("lmo_report_{$year}_job_openings_cariboo"),
+    'lmo_report_job_openings_north_coast_nechako' => querySSoT("lmo_report_{$year}_job_openings_north_coast_nechako"),
+    'lmo_report_job_openings_northeast' => querySSoT("lmo_report_{$year}_job_openings_northeast"),
+    'sources' => querySSoT("sources?endpoint=eq.lmo_report_{$year}_job_openings_10y")[0]
   ];
 }
 

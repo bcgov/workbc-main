@@ -196,7 +196,6 @@ $container-gutter: $workbc_spacing_gutters;
 }
 
 .workbc-card-video-preview {
-
   a,
   button {
     position: relative;
@@ -230,44 +229,75 @@ $container-gutter: $workbc_spacing_gutters;
   }
 }
 
-.field__item:has(article.media--type-remote-video) {
-  display: flex;
-  flex-wrap: wrap;
-}
-
-@include media-breakpoint-up(sm) {
-  article.media--type-remote-video:nth-last-of-type(-n + 2) {
-    border-bottom: none;
-  }
-}
-
-@include media-breakpoint-down(sm) {
-  article.media--type-remote-video:nth-last-of-type(1) {
-    border-bottom: none;
-  }
-}
-
 article.media--type-remote-video {
-  display: inline-block;
-  width: 50%;
-  padding-top: 20px;
-  padding-bottom: 20px;
-  border-bottom: $workbc_palette_light_secondary solid 2px;
+  width: 70%;
 
-  &:nth-of-type(odd) {
-    padding-right: 20px;
-    padding-left: 0;
+  @include media-breakpoint-down(md) {
+    width: 100%;
+  }
+}
+
+.page-format--wide article.media--type-remote-video {
+  width: 50%;
+
+  @include media-breakpoint-down(md) {
+    width: 100%;
+  }
+}
+
+.page-format--sidenav article.media--type-remote-video {
+  width: 60%;
+
+  @include media-breakpoint-down(md) {
+    width: 100%;
+  }
+}
+
+.paragraph--key--indigenous-peoples-video-grid {
+  article.media--type-remote-video {
+    width: 100%;
   }
 
-  &:nth-of-type(even) {
-    padding-left: 20px;
-    padding-right: 0;
+  .field__item:has(article.media--type-remote-video) {
+    display: flex;
+    flex-wrap: wrap;
+  }
+
+  @include media-breakpoint-up(sm) {
+    article.media--type-remote-video:nth-last-of-type(-n + 2) {
+      border-bottom: none;
+    }
   }
 
   @include media-breakpoint-down(sm) {
-    width: 100%;
-    padding: 10px !important;
+    article.media--type-remote-video:nth-last-of-type(1) {
+      border-bottom: none;
+    }
   }
+
+  article.media--type-remote-video {
+    display: inline-block;
+    width: 50%;
+    padding-top: 20px;
+    padding-bottom: 20px;
+    border-bottom: $workbc_palette_light_secondary solid 2px;
+
+    &:nth-of-type(odd) {
+      padding-right: 20px;
+      padding-left: 0;
+    }
+
+    &:nth-of-type(even) {
+      padding-left: 20px;
+      padding-right: 0;
+    }
+
+    @include media-breakpoint-down(sm) {
+      width: 100%;
+      padding: 10px !important;
+    }
+  }
+
 }
 
 #drupal-modal article.media--type-remote-video {

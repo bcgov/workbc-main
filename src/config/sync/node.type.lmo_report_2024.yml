@@ -9,9 +9,9 @@ third_party_settings:
     available_menus:
       - main
     parent: 'main:'
-name: 'LMO Report 2024'
+name: 'LMO Yearly Report'
 type: lmo_report_2024
-description: null
+description: "A content type for yearly Labour Market Outlook reports.\r\n"
 help: null
 new_revision: true
 preview_mode: 1

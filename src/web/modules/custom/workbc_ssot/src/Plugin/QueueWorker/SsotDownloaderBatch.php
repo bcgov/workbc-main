@@ -80,6 +80,7 @@ class SsotDownloaderBatch extends QueueWorkerBase implements ContainerFactoryPlu
 
   private function update_wages($endpoint, $entries, &$career) {
     $career->set('field_annual_salary', reset($entries)['calculated_median_annual_salary']);
+    $career->set('field_hourly_salary', reset($entries)['esdc_wage_rate_median']);
   }
 
   private function update_career_provincial($endpoint, $entries, &$career) {
@@ -148,5 +149,23 @@ class SsotDownloaderBatch extends QueueWorkerBase implements ContainerFactoryPlu
       }
     }
     $career->set('field_skills_2', $skills);
+  }
+
+  private function update_occupational_interests($endpoint, $entries, &$career) {
+    $terms = \Drupal::entityTypeManager()->getStorage('taxonomy_term')->loadTree('occupational_interests');
+    $interests = [];
+    foreach ($entries as $entry) {
+      $term = array_find($terms, function ($v) use ($entry) {
+        return strcasecmp($v->name, $entry['occupational_interest']) === 0;
+      });
+      if ($term) {
+        $interests[$entry['options']] = ['target_id' => $term->tid];
+      }
+    }
+    $order = ['Primary', 'Secondary', 'Tertiary'];
+    uksort($interests, function($a, $b) use($order) {
+      return array_search($a, $order) - array_search($b, $order);
+    });
+    $career->set('field_occupational_interests', array_values($interests));
   }
 }
