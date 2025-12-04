@@ -119,11 +119,12 @@ class SsotRefreshForm extends FormBase {
 
       \Drupal::queue('ssot_downloader_batch')->createItem([
         'nid' => $career->id(),
-        'datasets' => array_map(function ($dataset) use ($noc) {
+        'datasets' => array_map(function ($dataset) use ($noc, $ssot_datasets) {
           return [
             'endpoint' => $dataset['endpoint'],
             'date' => $dataset['date'],
-            'data' => array_key_exists($noc, $dataset['data']) ? $dataset['data'][$noc] : null
+            'data' => array_key_exists($noc, $dataset['data']) ? $dataset['data'][$noc] : null,
+            'call_if_missing' => $ssot_datasets[$dataset['endpoint']]['call_if_missing'] ?? false
           ];
         }, $datasets),
       ]);
