@@ -40,7 +40,8 @@ const SSOT_DATASETS = [
   ],
   'high_opportunity_occupations' => [
     'noc_key' => 'noc',
-    'fields' => 'noc,region'
+    'fields' => 'noc,region',
+    'call_if_missing' => true,
   ],
   'industries' => [],
   'industry_outlook' => [],
