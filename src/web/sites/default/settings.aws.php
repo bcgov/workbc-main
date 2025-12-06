@@ -27,6 +27,14 @@ $settings['hash_salt'] = json_encode($databases);
 
 $settings['file_private_path'] = '/app/private';
 
+/**
+ * Default mode for directories and files written by Drupal.
+ *
+ * Value should be in PHP Octal Notation, with leading zero.
+ */
+$settings['file_chmod_directory'] = 0777;
+# $settings['file_chmod_file'] = 0664;
+
 // Email sending via AWS SES.
 $config['system.mail']['interface']['default'] = 'ses_mail';
 $config['system.mail']['interface']['webform'] = 'ses_mail';
