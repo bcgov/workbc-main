@@ -32,3 +32,4 @@
 
 # ignore node-modules, they should be redownloaded
 node_modules
+.yarn*
