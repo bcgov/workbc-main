@@ -235,6 +235,28 @@ function workbc_custom_views_query_alter(ViewExecutable $view, QueryPluginBase $
       }
     }
   }
+
+  if (in_array($view->id(), ['high_opportunity_occupations_2'])) {
+    $delta = null;
+    $delta_group = null;
+    foreach ($query->where as &$condition_group) {
+      foreach ($condition_group['conditions'] as &$condition) {
+        // Find the openings delta (i.e. region).
+        if ($condition['field'] == 'node__field_region_openings.delta') {
+          $delta = $condition['value'];
+          $delta_group =& $condition_group;
+        }
+      }
+    }
+    if (!is_null($delta_group) && !is_null($delta)) {
+      foreach ($delta_group['conditions'] as &$condition) {
+        // Set the HOO delta (i.e.region) to be the same as openings.
+        if ($condition['field'] == 'node__field_region_hoo.delta') {
+          $condition['value'] = $delta;
+        }
+      }
+    }
+  }
 }
 
 /**
