@@ -181,7 +181,7 @@ function workbc_career_trek_views_query_alter(ViewExecutable $view, $query) {
       //   }
       // }
       // If salary filter is used, sort by salary then title.
-      if (array_key_exists('annual_salary', $exposed_input) && !empty(array_filter($exposed_input['annual_salary']))) {
+      if (!empty(array_filter($exposed_input['annual_salary']))) {
         $query->sort('annual_salary', 'ASC');
         $query->sort('episode_title', 'ASC');
       }
