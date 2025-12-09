@@ -15,6 +15,7 @@ dependencies:
     - field.field.node.career_profile.field_epbc_categories
     - field.field.node.career_profile.field_hero_image
     - field.field.node.career_profile.field_hero_image_media
+    - field.field.node.career_profile.field_hourly_salary
     - field.field.node.career_profile.field_insights_from_industry
     - field.field.node.career_profile.field_introductions
     - field.field.node.career_profile.field_job_titles
@@ -22,6 +23,7 @@ dependencies:
     - field.field.node.career_profile.field_metatag_description
     - field.field.node.career_profile.field_noc
     - field.field.node.career_profile.field_noc_2016
+    - field.field.node.career_profile.field_occupational_interests
     - field.field.node.career_profile.field_region_hoo
     - field.field.node.career_profile.field_region_openings
     - field.field.node.career_profile.field_related_careers
@@ -469,6 +471,17 @@ content:
     third_party_settings: {  }
     weight: 5
     region: content
+  field_hourly_salary:
+    type: number_decimal
+    label: above
+    settings:
+      thousand_separator: ''
+      decimal_separator: .
+      scale: 2
+      prefix_suffix: true
+    third_party_settings: {  }
+    weight: 25
+    region: content
   field_insights_from_industry:
     type: text_default
     label: above
@@ -508,6 +521,14 @@ content:
     third_party_settings: {  }
     weight: 15
     region: content
+  field_occupational_interests:
+    type: entity_reference_label
+    label: above
+    settings:
+      link: true
+    third_party_settings: {  }
+    weight: 26
+    region: content
   field_region_hoo:
     type: number_integer
     label: above
@@ -532,7 +553,7 @@ content:
     settings:
       link: true
     third_party_settings: {  }
-    weight: 42
+    weight: 23
     region: content
   field_resources_reference:
     type: entity_reference_entity_id

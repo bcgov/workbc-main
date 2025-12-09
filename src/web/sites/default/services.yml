@@ -25,6 +25,13 @@ parameters:
     # @default 2000000
     cookie_lifetime: 2000000
     #
+    # Set the SameSite cookie attribute: 'None', 'Lax', or 'Strict'. If set,
+    # this value will override the server value. See
+    # https://www.php.net/manual/en/session.security.ini.php for more
+    # information.
+    # @default no value
+    cookie_samesite: Lax
+    #
     # Drupal automatically generates a unique session cookie name based on the
     # full domain name used to access the site. This mechanism is sufficient
     # for most use-cases, including multi-site deployments. However, if it is

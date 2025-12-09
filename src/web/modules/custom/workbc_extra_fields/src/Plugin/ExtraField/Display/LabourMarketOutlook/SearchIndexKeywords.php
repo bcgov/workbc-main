@@ -26,7 +26,6 @@ class SearchIndexKeywords extends ExtraFieldDisplayFormattedBase {
    * {@inheritdoc}
    */
   public function getLabel() {
-
     return $this->t('');
   }
 
@@ -34,7 +33,6 @@ class SearchIndexKeywords extends ExtraFieldDisplayFormattedBase {
    * {@inheritdoc}
    */
   public function getLabelDisplay() {
-
     return 'above';
   }
 

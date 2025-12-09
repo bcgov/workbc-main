@@ -9,9 +9,9 @@ dependencies:
     - node
     - user
 id: career_trek_videos
-label: 'Career Trek Videos'
+label: '[DEPRECATED] Career Trek Videos'
 module: views
-description: ''
+description: 'DEPRECATED: This view has been replaced with career_trek_video_library.'
 tag: ''
 base_table: node_field_data
 base_field: nid

@@ -8,9 +8,9 @@ id: node
 label: Content
 tags:
   description: '[node:summary]'
-  image_src: '[node:field_hero_image:1_2_component]'
+  image_src: '[node:field_hero_image_media:entity:field_media_image:1_2_component:url]'
   og_description: '[node:summary]'
-  og_image: '[node:field_hero_image:1_2_component]'
+  og_image: '[node:field_hero_image_media:entity:field_media_image:1_2_component:url]'
   twitter_cards_description: '[node:summary]'
-  twitter_cards_image: '[node:field_hero_image:1_2_component]'
+  twitter_cards_image: '[node:field_hero_image_media:entity:field_media_image:1_2_component:url]'
   twitter_cards_type: summary

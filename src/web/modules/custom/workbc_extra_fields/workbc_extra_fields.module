@@ -69,7 +69,8 @@ function workbc_extra_fields_node_view(array &$build, \Drupal\Core\Entity\Entity
         $entity->ssot_data = ssotBCProfile($entity->getTitle());
         break;
       case "lmo_report_2024":
-        $entity->ssot_data = ssotLabourMarketYearly();
+        $year = $entity->field_report_year->value ?? '2024';
+        $entity->ssot_data = ssotLabourMarketYearly($year);
         break;
     }
   }
@@ -180,7 +181,7 @@ function workbc_extra_fields_chart_definition_alter(array &$definition, array $e
     $definition['options']['tooltip']['text'] = 'percentage';
   }
 
-  if ($chart_id === 'lmo_report_2024_job_openings_industries_chart') {
+  if ($chart_id === 'lmo_report_job_openings_industries_chart') {
     $definition['options']['hAxis']['gridlines']['color'] = 'transparent';
     $definition['options']['hAxis']['ticks'] = [
       0,
@@ -197,7 +198,7 @@ function workbc_extra_fields_chart_definition_alter(array &$definition, array $e
     $definition['options']['fontSize'] = 14;
   }
 
-  if ($chart_id === 'lmo_report_2024_job_openings_broad_categories_chart') {
+  if ($chart_id === 'lmo_report_job_openings_broad_categories_chart') {
     $definition['options']['hAxis']['gridlines']['color'] = 'transparent';
     $definition['options']['hAxis']['ticks'] = [
       0,

@@ -1,15 +1,14 @@
 uuid: 5e1496f4-1fe2-444a-b649-3e34dfd29768
 langcode: en
-status: true
+status: false
 dependencies:
   module:
-    - views_database_connector
     - views_infinite_scroll
     - workbc_custom
 id: high_opportunity_occupations
-label: 'High Opportunity Occupations'
+label: '[DEPRECATED] High Opportunity Occupations'
 module: views
-description: ''
+description: 'DEPRECATED: This view has been replaced with high_opportunity_occupations_2.'
 tag: ''
 base_table: high_opportunity_occupations
 base_field: noc

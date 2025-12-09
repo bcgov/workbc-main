@@ -14,6 +14,7 @@ dependencies:
     - field.field.node.lmo_report_2024.field_lmo_2024_occupational_outl
     - field.field.node.lmo_report_2024.field_lmo_2024_regional_outlook
     - field.field.node.lmo_report_2024.field_metatag_description
+    - field.field.node.lmo_report_2024.field_report_year
     - field.field.node.lmo_report_2024.field_tags
     - node.type.lmo_report_2024
   module:
@@ -24,6 +25,11 @@ targetEntityType: node
 bundle: lmo_report_2024
 mode: search_index
 content:
+  content_moderation_control:
+    settings: {  }
+    third_party_settings: {  }
+    weight: -20
+    region: content
   extra_field_lmo_report_2024_job_openings_10y_chart:
     settings: {  }
     third_party_settings: {  }
@@ -112,6 +118,7 @@ hidden:
   extra_field_workbc_published_on: true
   field_hero_image_media: true
   field_metatag_description: true
+  field_report_year: true
   field_tags: true
   langcode: true
   links: true

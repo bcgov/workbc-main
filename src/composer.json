@@ -78,7 +78,7 @@
         "drupal/auto_username": "^1.2",
         "drupal/backup_migrate": "^5.0",
         "drupal/backup_migrate_aws_s3": "^5.0",
-        "drupal/better_exposed_filters": "^7.0",
+        "drupal/better_exposed_filters": "7.0.5",
         "drupal/better_social_sharing_buttons": "^4.0",
         "drupal/block_visibility_conditions": "1.x-dev#89c578b252af0d99c832af5b6c6ee4d52b6490d1",
         "drupal/bootstrap5": "^3.0",
@@ -87,7 +87,7 @@
         "drupal/captcha": "^2.0",
         "drupal/charts": "^5.1",
         "drupal/chosen": "^4.0",
-        "drupal/ckeditor_media_resize": "^1.0",
+        "drupal/ckeditor_media_resize": "1.0",
         "drupal/config_filter": "^2.7",
         "drupal/config_ignore": "^3.3",
         "drupal/content_lock": "^2.2",
@@ -278,6 +278,9 @@
             },
             "drupal/search_api_solr": {
                 "Allow parse mode of Career Trek": "patches/drupal/search_api_solr/add_parse_mode.patch"
+            },
+            "drupal/simple_sitemap": {
+                "Error on update": "patches/drupal/simple_sitemap/3560114.patch"
             },
             "jjj/chosen": {
                 "Fix disabled interaction": "patches/jjj/chosen/disabled.patch"
