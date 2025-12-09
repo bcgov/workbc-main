@@ -250,7 +250,7 @@ function workbc_career_trek_views_post_render($view) {
   }
 }
 
-/** 
+/**
 *{@inheritdoc}
 */
 function workbc_career_trek_theme($existing, $type, $theme, $path) {
