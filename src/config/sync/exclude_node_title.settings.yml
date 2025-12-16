@@ -1,6 +1,5 @@
 _core:
   default_config_hash: 0yJNd4uWv8TzhYEPQBDiApPL2e8ar88kBmQrzDjNCqc
-nid_list: {  }
 translation_sync: true
 search: false
 type: hidden
@@ -42,3 +41,4 @@ content_type_modes:
     - teaser
   workbc_centre:
     - teaser
+nid_list: {  }
