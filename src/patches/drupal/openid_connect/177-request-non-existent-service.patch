@@ -1,0 +1,33 @@
+From 96d93a808c02cc11add6b1cff73a83414ebba0ad Mon Sep 17 00:00:00 2001
+From: =?UTF-8?q?Fabien=20Cl=C3=A9ment?=
+ <15911-goz@users.noreply.drupalcode.org>
+Date: Fri, 7 Nov 2025 09:47:05 +0000
+Subject: [PATCH] Issue #3537149: You have requested a non-existent service
+ "openid_connect.openid_connect".
+
+---
+ src/OpenidConnectServiceProvider.php | 7 ++++---
+ 1 file changed, 4 insertions(+), 3 deletions(-)
+
+diff --git a/src/OpenidConnectServiceProvider.php b/src/OpenidConnectServiceProvider.php
+index fa32a65..6736cca 100644
+--- a/src/OpenidConnectServiceProvider.php
++++ b/src/OpenidConnectServiceProvider.php
+@@ -19,10 +19,11 @@ class OpenidConnectServiceProvider extends ServiceProviderBase {
+     try {
+       $container->getDefinition('externalauth.authmap');
+     }
+-    // If the service is not available, remove its dependent services.
++    // If the service is not available, remove it from its dependent services.
+     catch (ServiceNotFoundException $exception) {
+-      // Requires 'externalauth.authmap'.
+-      $container->removeDefinition('openid_connect.openid_connect');
++      $openid_connect = $container->getDefinition('openid_connect.openid_connect');
++      $openid_connect->replaceArgument('$authmap', NULL);
++      $openid_connect->replaceArgument('$external_auth', NULL);
+     }
+   }
+ 
+-- 
+GitLab
+

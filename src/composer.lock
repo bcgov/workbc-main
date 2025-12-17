@@ -4,7 +4,7 @@
         "Read more about it at https://getcomposer.org/doc/01-basic-usage.md#installing-dependencies",
         "This file is @generated automatically"
     ],
-    "content-hash": "6b2aaf9e9806e13b1c4597c7f7a42ecb",
+    "content-hash": "1de78c200cca7fb2779357e93868b04d",
     "packages": [
         {
             "name": "asm89/stack-cors",
@@ -4339,6 +4339,60 @@
             }
         },
         {
+            "name": "drupal/externalauth",
+            "version": "2.0.8",
+            "source": {
+                "type": "git",
+                "url": "https://git.drupalcode.org/project/externalauth.git",
+                "reference": "2.0.8"
+            },
+            "dist": {
+                "type": "zip",
+                "url": "https://ftp.drupal.org/files/projects/externalauth-2.0.8.zip",
+                "reference": "2.0.8",
+                "shasum": "e9c1b41d6b59d0674b2756361ec729b046759387"
+            },
+            "require": {
+                "drupal/core": "^9.5 || ^10 || ^11"
+            },
+            "type": "drupal-module",
+            "extra": {
+                "drupal": {
+                    "version": "2.0.8",
+                    "datestamp": "1743603496",
+                    "security-coverage": {
+                        "status": "covered",
+                        "message": "Covered by Drupal's security advisory policy"
+                    }
+                }
+            },
+            "notification-url": "https://packages.drupal.org/8/downloads",
+            "license": [
+                "GPL-2.0-or-later"
+            ],
+            "authors": [
+                {
+                    "name": "Sven Decabooter",
+                    "homepage": "https://www.drupal.org/u/svendecabooter",
+                    "role": "Maintainer"
+                },
+                {
+                    "name": "snufkin",
+                    "homepage": "https://www.drupal.org/user/58645"
+                },
+                {
+                    "name": "svendecabooter",
+                    "homepage": "https://www.drupal.org/user/35369"
+                }
+            ],
+            "description": "Helper module to authenticate users using an external site / service and storing identification details",
+            "homepage": "https://drupal.org/project/externalauth",
+            "support": {
+                "source": "https://git.drupalcode.org/project/externalauth",
+                "issues": "https://www.drupal.org/project/issues/externalauth"
+            }
+        },
+        {
             "name": "drupal/extra_field",
             "version": "3.0.0-beta2",
             "source": {
@@ -5480,27 +5534,27 @@
         },
         {
             "name": "drupal/keycloak",
-            "version": "1.8.0",
+            "version": "2.2.2",
             "source": {
                 "type": "git",
                 "url": "https://git.drupalcode.org/project/keycloak.git",
-                "reference": "8.x-1.8"
+                "reference": "2.2.2"
             },
             "dist": {
                 "type": "zip",
-                "url": "https://ftp.drupal.org/files/projects/keycloak-8.x-1.8.zip",
-                "reference": "8.x-1.8",
-                "shasum": "c97cc3c3012fc42054378739c5e3848ee37819fd"
+                "url": "https://ftp.drupal.org/files/projects/keycloak-2.2.2.zip",
+                "reference": "2.2.2",
+                "shasum": "f7feaf5283ebf914992e6397b1ec128dffa1e33b"
             },
             "require": {
-                "drupal/core": "^8 || ^9 || ^10",
-                "drupal/openid_connect": "^1.0"
+                "drupal/core": "^10.3 || ^11",
+                "drupal/openid_connect": "^3.0@alpha"
             },
             "type": "drupal-module",
             "extra": {
                 "drupal": {
-                    "version": "8.x-1.8",
-                    "datestamp": "1699342165",
+                    "version": "2.2.2",
+                    "datestamp": "1763569763",
                     "security-coverage": {
                         "status": "covered",
                         "message": "Covered by Drupal's security advisory policy"
@@ -6195,30 +6249,32 @@
         },
         {
             "name": "drupal/openid_connect",
-            "version": "1.4.0",
+            "version": "3.0.0-alpha6",
             "source": {
                 "type": "git",
                 "url": "https://git.drupalcode.org/project/openid_connect.git",
-                "reference": "8.x-1.4"
+                "reference": "3.0.0-alpha6"
             },
             "dist": {
                 "type": "zip",
-                "url": "https://ftp.drupal.org/files/projects/openid_connect-8.x-1.4.zip",
-                "reference": "8.x-1.4",
-                "shasum": "9bdbfa6365d10b2029bdaee9fbd82265aa6d4fa4"
+                "url": "https://ftp.drupal.org/files/projects/openid_connect-3.0.0-alpha6.zip",
+                "reference": "3.0.0-alpha6",
+                "shasum": "ae9b7a24d8ad2534756e5b2689fad6688e6b3cb0"
             },
             "require": {
-                "drupal/core": "^9.5 || ^10",
-                "ext-json": "*"
+                "drupal/core": "^10.2 || ^11",
+                "drupal/externalauth": "^2.0",
+                "ext-json": "*",
+                "php": ">=8.1.0"
             },
             "type": "drupal-module",
             "extra": {
                 "drupal": {
-                    "version": "8.x-1.4",
-                    "datestamp": "1698170385",
+                    "version": "3.0.0-alpha6",
+                    "datestamp": "1739445531",
                     "security-coverage": {
-                        "status": "covered",
-                        "message": "Covered by Drupal's security advisory policy"
+                        "status": "not-covered",
+                        "message": "Alpha releases are not covered by Drupal security advisories."
                     }
                 }
             },
@@ -20036,6 +20092,8 @@
         "drupal/advagg": 15,
         "drupal/content_lock": 15,
         "drupal/extra_field": 10,
+        "drupal/keycloak": 5,
+        "drupal/openid_connect": 15,
         "drupal/popperjs": 20,
         "drupal/viewsreference": 10,
         "drupal/webform": 10

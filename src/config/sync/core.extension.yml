@@ -151,6 +151,7 @@ module:
   workbc_ssot: 0
   workflows: 0
   pathauto: 1
+  externalauth: 10
   views: 10
   paragraphs: 11
   standard: 1000
