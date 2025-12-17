@@ -164,7 +164,7 @@
         "drupal/views_infinite_scroll": "^2.0",
         "drupal/viewsreference": "^2.0@beta",
         "drupal/webform": "^6.3@beta",
-        "drush/drush": "^12",
+        "drush/drush": "^13",
         "frdh/mmenu-js": "^9.2.0",
         "google/charts": "45",
         "jjj/chosen": "2.2.1",
