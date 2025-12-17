@@ -96,7 +96,7 @@
         "drupal/core-recommended": "~10.4.1",
         "drupal/country": "^2.1",
         "drupal/crop": "^2.2",
-        "drupal/devel": "~5.2.1",
+        "drupal/devel": "^5.5",
         "drupal/devel_kint_extras": "^1.1",
         "drupal/devel_php": "^1.7",
         "drupal/duration_field": "^2.0",
@@ -282,9 +282,6 @@
             },
             "drupal/text_resize": {
                 "Fix DeprecationHelper": "patches/drupal/text_resize/text_resize.8.x-1.3.rector.patch"
-            },
-            "drupal/devel": {
-                "Fix Kint": "patches/drupal/devel/devel-ksm.patch"
             },
             "drupal/ckeditor_media_resize": {
                 "No HTML Filter required": "patches/drupal/ckeditor_media_resize/3401311_no_html_filter_required.patch"

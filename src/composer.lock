@@ -4,7 +4,7 @@
         "Read more about it at https://getcomposer.org/doc/01-basic-usage.md#installing-dependencies",
         "This file is @generated automatically"
     ],
-    "content-hash": "7b90758306841658897a01cc64785725",
+    "content-hash": "679be3b2d768f35a4796b90bb72206d4",
     "packages": [
         {
             "name": "asm89/stack-cors",
@@ -3735,39 +3735,38 @@
         },
         {
             "name": "drupal/devel",
-            "version": "5.2.1",
+            "version": "5.5.0",
             "source": {
                 "type": "git",
                 "url": "https://git.drupalcode.org/project/devel.git",
-                "reference": "5.2.1"
+                "reference": "5.5.0"
             },
             "dist": {
                 "type": "zip",
-                "url": "https://ftp.drupal.org/files/projects/devel-5.2.1.zip",
-                "reference": "5.2.1",
-                "shasum": "793861751e01092fe8bc7c0cd47589ebea2bb8df"
+                "url": "https://ftp.drupal.org/files/projects/devel-5.5.0.zip",
+                "reference": "5.5.0",
+                "shasum": "b6f45c84ec31bc18817c7464b51e951dec73d5ce"
             },
             "require": {
                 "doctrine/common": "^2.7 || ^3.4",
-                "drupal/core": ">=10.0 <12.0.0-stable",
-                "php": ">=8.1",
-                "symfony/var-dumper": "^4 || ^5 || ^6"
+                "drupal/core": "^10.3 || ^11 || ^12",
+                "php": ">=8.3",
+                "symfony/var-dumper": "^4 || ^5 || ^6 || ^7"
             },
             "conflict": {
-                "drush/drush": "<12.5.1",
-                "kint-php/kint": "<3"
+                "drupal/core": "<10.3",
+                "drush/drush": "<13.7.0"
             },
             "require-dev": {
-                "drush/drush": "^12.5.1"
-            },
-            "suggest": {
-                "kint-php/kint": "Kint provides an informative display of arrays/objects. Useful for debugging and developing."
+                "drupal/navigation_extra_tools": "1.0.x-dev",
+                "drush/drush": "^13",
+                "firephp/firephp-core": "^0.5.3"
             },
             "type": "drupal-module",
             "extra": {
                 "drupal": {
-                    "version": "5.2.1",
-                    "datestamp": "1711328410",
+                    "version": "5.5.0",
+                    "datestamp": "1764211205",
                     "security-coverage": {
                         "status": "covered",
                         "message": "Covered by Drupal's security advisory policy"
@@ -3794,28 +3793,28 @@
         },
         {
             "name": "drupal/devel_kint_extras",
-            "version": "1.1.4",
+            "version": "1.1.6",
             "source": {
                 "type": "git",
                 "url": "https://git.drupalcode.org/project/devel_kint_extras.git",
-                "reference": "1.1.4"
+                "reference": "1.1.6"
             },
             "dist": {
                 "type": "zip",
-                "url": "https://ftp.drupal.org/files/projects/devel_kint_extras-1.1.4.zip",
-                "reference": "1.1.4",
-                "shasum": "7723086e6edb52b6dacfda4f656f93cbd63b105b"
+                "url": "https://ftp.drupal.org/files/projects/devel_kint_extras-1.1.6.zip",
+                "reference": "1.1.6",
+                "shasum": "b1bd34276f0e0bf924710f3c6a7feccff11f158b"
             },
             "require": {
                 "drupal/core": "^9 || ^10 || ^11",
-                "drupal/devel": "^4.0 || ^5.0",
+                "drupal/devel": "^5.4",
                 "kint-php/kint": "^3.3 || ^4.0 || ^5.0 || ^6.0"
             },
             "type": "drupal-module",
             "extra": {
                 "drupal": {
-                    "version": "1.1.4",
-                    "datestamp": "1740995042",
+                    "version": "1.1.6",
+                    "datestamp": "1759998789",
                     "security-coverage": {
                         "status": "covered",
                         "message": "Covered by Drupal's security advisory policy"
