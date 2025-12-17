@@ -80,7 +80,7 @@
         "drupal/backup_migrate_aws_s3": "^6.0",
         "drupal/better_exposed_filters": "7.0.5",
         "drupal/better_social_sharing_buttons": "^4.0",
-        "drupal/bootstrap5": "^3.0",
+        "drupal/bootstrap5": "^4.0",
         "drupal/cache_control_override": "^1.1 || ^2.0",
         "drupal/cancel_button": "^1.5",
         "drupal/captcha": "^2.0",
