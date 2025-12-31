@@ -331,3 +331,13 @@ body.mm-wrapper--opened a#mm-0 {
 .mm-wrapper--position-left {
   --mm-translate-horizontal: 0;
 }
+
+.menu-item--unlogged-account,
+.menu-item--unlogged-login,
+.menu-item--unlogged-register,
+.menu-item--logged-account,
+.menu-item--logged-profile,
+.menu-item--logged-settings,
+.menu-item--logged-logout {
+  font-weight: bold;
+}

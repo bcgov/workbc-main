@@ -2,7 +2,7 @@ _core:
   default_config_hash: 7oNO5Ci1XbGo6pXiGAo8fY7GXlxy41RhL7lGyt2OXYw
 horizontal_menu: main
 horizontal_depth: 9
-off_canvas_menus: main
+off_canvas_menus: main,account
 horizontal_wrapping_element: nav
 horizontal_breakpoint: xl-min
 horizontal_media_query: '(min-width: 1200px)'
