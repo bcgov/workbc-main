@@ -119,70 +119,84 @@
         }
       });
 
-      let navUserMenu = function () {      
-        var currentUser = readCookie('currentUser.username');
-        var CheckLoginLinkExists = $("nav.nav-user .nav-items li.new-login-link");
-        var CheckLogoutLinkExists = $("nav.nav-user .nav-items li.new-logout-link");
+//       let navUserMenu = function () {
+//         var currentUser = readCookie('currentUser.username');
+//         var CheckLoginLinkExists = $("nav.nav-user .nav-items li.new-login-link");
+//         var CheckLogoutLinkExists = $("nav.nav-user .nav-items li.new-logout-link");
 
-        var CheckLoginLinkMobileExists = $(".mobile-nav__user-nav .nav-items li.new-login-link");
-        var CheckLogoutLinkMobileExists = $(".mobile-nav__user-nav .nav-items li.new-logout-link");
+//         var CheckLoginLinkMobileExists = $(".mobile-nav__user-nav .nav-items li.new-login-link");
+//         var CheckLogoutLinkMobileExists = $(".mobile-nav__user-nav .nav-items li.new-logout-link");
 
-          if(currentUser != ''){
-            CheckLogoutLinkExists.remove();
-            CheckLogoutLinkMobileExists.remove();
-            var appendLoginMenusM = `
-<li class="nav-item new-login-link">
-  <a href="/account#/dashboard" class="nav-link">My Profile</a>
-</li>
-<li class="nav-item new-login-link">
-  <a  href="/account#/personal-settings" class="nav-link">Personal Settings</a>
-</li>
-<li class="nav-item new-login-link">
-  <a href="/account#/logout" class="nav-link" onclick="localStorage.removeItem('currentUser'); document.cookie='currentUser.username=; expires=Thu, 01 Jan 1970 00:00:00 UTC; Path=/;'; document.cookie='currentUser.email=; expires=Thu, 01 Jan 1970 00:00:00 UTC; Path=/;'; document.cookie='currentUser.firstName=; expires=Thu, 01 Jan 1970 00:00:00 UTC; Path=/;'; document.cookie='currentUser.lastName=; expires=Thu, 01 Jan 1970 00:00:00 UTC; Path=/;'; document.cookie='currentUser.id=; expires=Thu, 01 Jan 1970 00:00:00 UTC; Path=/;'; document.cookie='currentUser.token=; expires=Thu, 01 Jan 1970 00:00:00 UTC; Path=/;'; if (location.pathname === '/account') location.reload(true); else return true;">Log out</a>
-</li>
-`;
-            var appendLoginMenusD = `
-<li class="nav-item new-login-link dropdown">
-  <a  href="javascript:void(0)" class="nav-link dropdown-toggle" data-bs-toggle="dropdown">My Account</a>
-  <ul class="dropdown-menu">
-    ${appendLoginMenusM}
-  </ul>
-</li>
-`;
+//           if(currentUser != ''){
+//             CheckLogoutLinkExists.remove();
+//             CheckLogoutLinkMobileExists.remove();
+//             var appendLoginMenusM = `
+// <li class="nav-item new-login-link">
+//   <a href="/account#/dashboard" class="nav-link">My Profile</a>
+// </li>
+// <li class="nav-item new-login-link">
+//   <a  href="/account#/personal-settings" class="nav-link">Personal Settings</a>
+// </li>
+// <li class="nav-item new-login-link">
+//   <a href="/account#/logout" class="nav-link" onclick="localStorage.removeItem('currentUser'); document.cookie='currentUser.username=; expires=Thu, 01 Jan 1970 00:00:00 UTC; Path=/;'; document.cookie='currentUser.email=; expires=Thu, 01 Jan 1970 00:00:00 UTC; Path=/;'; document.cookie='currentUser.firstName=; expires=Thu, 01 Jan 1970 00:00:00 UTC; Path=/;'; document.cookie='currentUser.lastName=; expires=Thu, 01 Jan 1970 00:00:00 UTC; Path=/;'; document.cookie='currentUser.id=; expires=Thu, 01 Jan 1970 00:00:00 UTC; Path=/;'; document.cookie='currentUser.token=; expires=Thu, 01 Jan 1970 00:00:00 UTC; Path=/;'; if (location.pathname === '/account') location.reload(true); else return true;">Log out</a>
+// </li>
+// `;
+//             var appendLoginMenusD = `
+// <li class="nav-item new-login-link dropdown">
+//   <a  href="javascript:void(0)" class="nav-link dropdown-toggle" data-bs-toggle="dropdown">My Account</a>
+//   <ul class="dropdown-menu">
+//     ${appendLoginMenusM}
+//   </ul>
+// </li>
+// `;
 
-            //Desktop menu
-            CheckLoginLinkExists.remove();
-            $("nav.nav-user .nav-items").append(appendLoginMenusD);
+//             //Desktop menu
+//             CheckLoginLinkExists.remove();
+//             $("nav.nav-user .nav-items").append(appendLoginMenusD);
 
-            //Mobile Menu
-            CheckLoginLinkMobileExists.remove();
-            $(".mobile-nav__user-nav .nav-items").append(appendLoginMenusM);
-          }else{
-            if(CheckLogoutLinkExists.length < 1){
-              CheckLoginLinkExists.remove();
-              CheckLoginLinkMobileExists.remove();
-              var appendLogoutMenus = `
-<li class="nav-item new-logout-link">
-  <a href="/account#/login" class="nav-link">Log in</a>
-</li>
-<li class="nav-item new-logout-link">
-  <a href="/account#/register" class="nav-link">Register</a>
-</li>
-`;
-              $("nav.nav-user .nav-items").append(appendLogoutMenus);
-              $(".mobile-nav__user-nav .nav-items").append(appendLogoutMenus);
-            }
-          }
+//             //Mobile Menu
+//             CheckLoginLinkMobileExists.remove();
+//             $(".mobile-nav__user-nav .nav-items").append(appendLoginMenusM);
+//           }else{
+//             if(CheckLogoutLinkExists.length < 1){
+//               CheckLoginLinkExists.remove();
+//               CheckLoginLinkMobileExists.remove();
+//               var appendLogoutMenus = `
+// <li class="nav-item new-logout-link">
+//   <a href="/account#/login" class="nav-link">Log in</a>
+// </li>
+// <li class="nav-item new-logout-link">
+//   <a href="/account#/register" class="nav-link">Register</a>
+// </li>
+// `;
+//               $("nav.nav-user .nav-items").append(appendLogoutMenus);
+//               $(".mobile-nav__user-nav .nav-items").append(appendLogoutMenus);
+//             }
+//           }
+//       };
+
+      const navUserMenu = function() {
+        const $unlogged = $('.menu-item--unlogged-account');
+        $('.mm-listitem__text', $unlogged).attr('href', $('.mm-btn', $unlogged).attr('href'));
+        const $logged = $('.menu-item--logged-account');
+        $('.mm-listitem__text', $logged).attr('href', $('.mm-btn', $logged).attr('href'));
+        const currentUser = readCookie('currentUser.username');
+        if (currentUser != '') {
+          $unlogged.hide();
+        }
+        else {
+          $logged.hide();
+        }
       };
 
       once('jobboard', 'html', context).forEach(function() {
         window.addEventListener('load', navUserMenu);
         window.addEventListener('hashchange', navUserMenu);
         window.addEventListener('jobboardlogin', navUserMenu);
-        window.addEventListener('dialog:aftercreate', navUserMenu);    
+        window.addEventListener('dialog:aftercreate', navUserMenu);
       });
 
-      $('.dropdown .dropdown-toggle').click(function(){
+      $('.dropdown .dropdown-toggle').click(function() {
          if($(this).parent().hasClass('open')){
              $(this).parent().removeClass('open');
              $(this).next('.dropdown-menu').hide();
@@ -195,11 +209,9 @@
   }
 })(Drupal, jQuery, once);
 
-
 if (window.location.hash) {
   jQuery(window).trigger('hashchange');
 }
-
 
 function readCookie(cookieName){
   if (window.localStorage) {
