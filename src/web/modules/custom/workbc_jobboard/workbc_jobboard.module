@@ -3,11 +3,11 @@
 use Drupal\workbc_jobboard\Controller\WorkBcJobboardController;
 
 /**
- * @file
- *  Work BC Job Board module
+ * @file WorkBC Job Board module
  */
 function workbc_jobboard_page_attachments_alter(array &$attachments) {
 	$attachments['#attached']['library'][] = 'workbc_jobboard/workbc-jobboard';
+	$attachments['#attached']['library'][] = 'devel/kint-resources';
 }
 
 /**

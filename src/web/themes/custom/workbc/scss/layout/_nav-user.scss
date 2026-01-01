@@ -36,6 +36,7 @@
   color: $workbc_palette_dark_default;
 }
 
-.nav-user .new-logout-link {
+.nav-user a.dropdown-toggle,
+.nav-user ul.dropdown-menu a.nav-link {
   font-weight: bold;
 }

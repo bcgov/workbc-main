@@ -175,36 +175,62 @@
 //           }
 //       };
 
+      const navLogout = function() {
+        localStorage.removeItem('currentUser');
+        document.cookie = 'currentUser.username=; expires=Thu, 01 Jan 1970 00:00:00 UTC; Path=/;';
+        document.cookie = 'currentUser.email=; expires=Thu, 01 Jan 1970 00:00:00 UTC; Path=/;';
+        document.cookie = 'currentUser.firstName=; expires=Thu, 01 Jan 1970 00:00:00 UTC; Path=/;';
+        document.cookie = 'currentUser.lastName=; expires=Thu, 01 Jan 1970 00:00:00 UTC; Path=/;';
+        document.cookie = 'currentUser.id=; expires=Thu, 01 Jan 1970 00:00:00 UTC; Path=/;';
+        document.cookie = 'currentUser.token=; expires=Thu, 01 Jan 1970 00:00:00 UTC; Path=/;';
+        if (location.pathname === '/account') location.reload(true); else return true;
+      }
+
       const navUserMenu = function() {
+        const currentUser = readCookie('currentUser.username');
+
+        // Mobile menu
         const $unlogged = $('.menu-item--unlogged-account');
         $('.mm-listitem__text', $unlogged).attr('href', $('.mm-btn', $unlogged).attr('href'));
         const $logged = $('.menu-item--logged-account');
         $('.mm-listitem__text', $logged).attr('href', $('.mm-btn', $logged).attr('href'));
-        const currentUser = readCookie('currentUser.username');
+        $('.menu-item--logged-logout a').on('click', navLogout);
         if (currentUser != '') {
           $unlogged.hide();
         }
         else {
           $logged.hide();
         }
+
+        // Desktop menu
+        const $dropdown = $('.nav-user .dropdown-toggle');
+        $dropdown.attr('href', 'javascript:void(0)');
+        $dropdown.attr('data-bs-toggle', 'dropdown');
+        $('#menu-item-logout').on('click', navLogout);
+        if (currentUser != '') {
+          $('#menu-item-unlogged-account').parent().hide();
+        }
+        else {
+          $('#menu-item-unlogged-account').parent().hide();
+        }
       };
 
       once('jobboard', 'html', context).forEach(function() {
         window.addEventListener('load', navUserMenu);
-        window.addEventListener('hashchange', navUserMenu);
+        // window.addEventListener('hashchange', navUserMenu);
         window.addEventListener('jobboardlogin', navUserMenu);
         window.addEventListener('dialog:aftercreate', navUserMenu);
       });
 
-      $('.dropdown .dropdown-toggle').click(function() {
-         if($(this).parent().hasClass('open')){
-             $(this).parent().removeClass('open');
-             $(this).next('.dropdown-menu').hide();
-         }else {
-          $(this).next('.dropdown-menu').show();
-          $(this).parent().addClass('open');
-         }
-      });
+      // $('.dropdown .dropdown-toggle').click(function() {
+      //    if($(this).parent().hasClass('open')){
+      //        $(this).parent().removeClass('open');
+      //        $(this).next('.dropdown-menu').hide();
+      //    }else {
+      //     $(this).next('.dropdown-menu').show();
+      //     $(this).parent().addClass('open');
+      //    }
+      // });
     }
   }
 })(Drupal, jQuery, once);
