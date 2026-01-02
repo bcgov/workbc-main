@@ -140,10 +140,12 @@
         $('#menu-item-logged-account').on('click', () => false);
         $('#menu-item-logout').on('click', navLogout);
         if (currentUser != '') {
+          $('#menu-item-logged-account').parent().show();
           $('#menu-item-unlogged-account').parent().hide();
         }
         else {
           $('#menu-item-logged-account').parent().hide();
+          $('#menu-item-unlogged-account').parent().show();
         }
 
         // Mobile menu
@@ -153,10 +155,12 @@
         $('.mm-listitem__text', $logged).attr('href', $('.mm-btn', $logged).attr('href'));
         $('.menu-item--logged-logout a').on('click', navLogout);
         if (currentUser != '') {
+          $logged.show();
           $unlogged.hide();
         }
         else {
           $logged.hide();
+          $unlogged.show();
         }
       };
 
