@@ -23,10 +23,10 @@
 }
 
 .nav-user .nav-item {
-  @include list-item-separator-after("|", 6px);
+  @include list-item-separator-after-minus-2("|", 6px);
   color: $workbc_palette_dark_default;
 
-  &:last-of-type > a {
+  &::nth-last-of-type(-n+2) > a {
     padding-right: 0;
   }
 }

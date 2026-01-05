@@ -36,6 +36,12 @@
   {% endif %}
   {% for item in items %}
     {%
+      set classes_li = [
+        'nav-item',
+        item.below ? 'dropdown',
+      ]
+    %}
+    {%
       set classes_link = [
         'nav-link',
         item.is_expanded ? 'dropdown-toggle',
@@ -43,7 +49,7 @@
         item.in_active_trail ? 'active',
       ]
     %}
-    <li{{ item.attributes.addClass('nav-item') }}>
+    <li{{ item.attributes.addClass(classes_li) }}>
       {{ link(item.title, item.url, item.attributes.addClass(classes_link)) }}
       {% if item.below %}
         {{ menus.menu_links(item.below, attributes, menu_level + 1) }}
