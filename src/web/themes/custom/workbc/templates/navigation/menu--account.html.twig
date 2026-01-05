@@ -36,11 +36,14 @@
   {% endif %}
   {% for item in items %}
     {%
-      set classes_li = [
+      set attributes_li = create_attribute({ 'class': [
         'nav-item',
         item.below ? 'dropdown',
-      ]
+      ]})
     %}
+    {% if item.below and item == items|last %}
+        {% set attributes_li = attributes_li.setAttribute('style', 'display: none') %}
+    {% endif %}
     {%
       set classes_link = [
         'nav-link',
@@ -49,7 +52,7 @@
         item.in_active_trail ? 'active',
       ]
     %}
-    <li{{ item.attributes.addClass(classes_li) }}>
+    <li{{ attributes_li }}>
       {{ link(item.title, item.url, item.attributes.addClass(classes_link)) }}
       {% if item.below %}
         {{ menus.menu_links(item.below, attributes, menu_level + 1) }}

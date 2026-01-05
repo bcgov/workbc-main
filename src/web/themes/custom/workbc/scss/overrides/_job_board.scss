@@ -97,7 +97,7 @@
 }
 
 .nav-items .dropdown {
-  .nav-item:not(:last-of-type):after {
+  .nav-item:not(:nth-last-of-type(-n+2)):after {
     display: none;
   }
 
