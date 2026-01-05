@@ -7,7 +7,6 @@ use Drupal\workbc_jobboard\Controller\WorkBcJobboardController;
  */
 function workbc_jobboard_page_attachments_alter(array &$attachments) {
 	$attachments['#attached']['library'][] = 'workbc_jobboard/workbc-jobboard';
-	$attachments['#attached']['library'][] = 'devel/kint-resources';
 }
 
 /**
