@@ -135,8 +135,8 @@
         "drupal/paragraphs": "^1.14",
         "drupal/paragraphs_edit": "^3.0",
         "drupal/pathauto": "^1.10",
-        "drupal/popperjs": "^1.0",
-        "drupal/published_corrected_date": "2.0.x-dev#329ddc6a4f0696b53e3b922e2a6a80cf75242e87",
+        "drupal/popperjs": "1.0.x-dev@dev",
+        "drupal/published_corrected_date": "^2.0",
         "drupal/queue_ui": "^3.2",
         "drupal/recaptcha": "^3.0",
         "drupal/redirect": "^1.8",
@@ -169,6 +169,7 @@
         "google/charts": "45",
         "jjj/chosen": "2.2.1",
         "kint-php/kint": "^5.1.0",
+        "mglaman/composer-drupal-lenient": "^1.0",
         "mobiledetect/mobiledetectlib": "^4.8",
         "phpoffice/phpspreadsheet": "^3.2",
         "ulrichsg/getopt-php": "^4.0",
@@ -189,11 +190,12 @@
         "allow-plugins": {
             "composer/installers": true,
             "cweagans/composer-patches": true,
-            "drupal/core-composer-scaffold": true,
             "dealerdirect/phpcodesniffer-composer-installer": true,
             "drupal/console-extend-plugin": true,
-            "php-http/discovery": true,
+            "drupal/core-composer-scaffold": true,
             "drupal/core-project-message": true,
+            "mglaman/composer-drupal-lenient": true,
+            "php-http/discovery": true,
             "phpstan/extension-installer": true,
             "tbachert/spi": true
         }
@@ -283,9 +285,24 @@
             "drupal/simple_sitemap": {
                 "Error on update": "patches/drupal/simple_sitemap/3560114.patch"
             },
+            "drupal/manage_state": {
+                "Drupal 11 compatibility": "patches/drupal/manage_state/manage_state-d11-compatibility.patch"
+            },
+            "drupal/popperjs": {
+                "Drupal 11 compatibility": "patches/drupal/popperjs/popperjs.1.0.x-dev.rector.patch"
+            },
+            "drupal/published_corrected_date": {
+                "Drupal 11 compatibility": "patches/drupal/published_corrected_date/published_corrected_date.2.0.2.rector.patch"
+            },
+            "drupal/text_resize": {
+                "Drupal 11 compatibility": "patches/drupal/text_resize/text_resize.8.x-1.3.rector.patch"
+            },
             "jjj/chosen": {
                 "Fix disabled interaction": "patches/jjj/chosen/disabled.patch"
             }
+        },
+        "drupal-lenient": {
+            "allowed-list": ["drupal/advagg", "drupal/manage_state", "drupal/popperjs", "drupal/published_corrected_date", "drupal/text_resize"]
         }
     }
 }
