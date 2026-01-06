@@ -68,7 +68,7 @@
         }
     ],
     "require": {
-        "php": ">=7.4",
+        "php": ">=8.3",
         "aws/aws-sdk-php": "~3.0",
         "composer/installers": "^1.9",
         "cweagans/composer-patches": "^1.7",
@@ -91,12 +91,12 @@
         "drupal/config_ignore": "^3.3",
         "drupal/content_lock": "^3.0@alpha",
         "drupal/content_moderation_notifications": "^3.4",
-        "drupal/core-composer-scaffold": "~10.4.1",
-        "drupal/core-project-message": "~10.4.1",
-        "drupal/core-recommended": "~10.4.1",
+        "drupal/core-composer-scaffold": "~11.3",
+        "drupal/core-project-message": "~11.3",
+        "drupal/core-recommended": "~11.3",
         "drupal/country": "^2.1",
         "drupal/crop": "^2.2",
-        "drupal/devel": "^5.5",
+        "drupal/devel": "^5.3",
         "drupal/devel_kint_extras": "^1.1",
         "drupal/devel_php": "^1.7",
         "drupal/duration_field": "^2.0",
@@ -122,7 +122,6 @@
         "drupal/linkit": "^7.0",
         "drupal/log_stdout": "^3.0",
         "drupal/mail_login": "^4.0",
-        "drupal/manage_state": "^1.0",
         "drupal/media_entity_download": "^2.4",
         "drupal/media_file_delete": "^1.3",
         "drupal/media_library_edit": "^3.0",
@@ -177,7 +176,7 @@
         "webflo/drupal-finder": "^1.2"
     },
     "require-dev": {
-        "drupal/core-dev": "^10.4.1"
+        "drupal/core-dev": "~11.3"
     },
     "conflict": {
         "drupal/drupal": "*"
@@ -285,9 +284,6 @@
             "drupal/simple_sitemap": {
                 "Error on update": "patches/drupal/simple_sitemap/3560114.patch"
             },
-            "drupal/manage_state": {
-                "Drupal 11 compatibility": "patches/drupal/manage_state/manage_state-d11-compatibility.patch"
-            },
             "drupal/popperjs": {
                 "Drupal 11 compatibility": "patches/drupal/popperjs/popperjs.1.0.x-dev.rector.patch"
             },
@@ -302,7 +298,7 @@
             }
         },
         "drupal-lenient": {
-            "allowed-list": ["drupal/advagg", "drupal/manage_state", "drupal/popperjs", "drupal/published_corrected_date", "drupal/text_resize"]
+            "allowed-list": ["drupal/advagg", "drupal/popperjs", "drupal/published_corrected_date", "drupal/text_resize"]
         }
     }
 }
