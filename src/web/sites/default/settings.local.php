@@ -45,8 +45,8 @@ $databases['default']['default'] = [
  *
  * @see https://wiki.php.net/rfc/expectations
  */
-assert_options(ASSERT_ACTIVE, TRUE);
-\Drupal\Component\Assertion\Handle::register();
+ini_set('zend.assertions', 1);
+assert_options(ASSERT_EXCEPTION, TRUE);
 
 /**
  * Control caching in the local development environment.
