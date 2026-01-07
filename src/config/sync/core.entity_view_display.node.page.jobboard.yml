@@ -38,12 +38,12 @@ content:
     label: hidden
     settings: {  }
     third_party_settings: {  }
-    weight: 1
+    weight: 4
     region: content
   content_moderation_control:
     settings: {  }
     third_party_settings: {  }
-    weight: 0
+    weight: 2
     region: content
   created:
     type: timestamp
@@ -62,7 +62,7 @@ content:
         granularity: 2
         refresh: 60
     third_party_settings: {  }
-    weight: 0
+    weight: 1
     region: content
   field_content:
     type: entity_reference_revisions_entity_view
@@ -71,14 +71,30 @@ content:
       view_mode: default
       link: ''
     third_party_settings: {  }
-    weight: 2
+    weight: 5
+    region: content
+  field_hero_image_media:
+    type: entity_reference_entity_view
+    label: above
+    settings:
+      view_mode: hero_image
+      link: false
+    third_party_settings: {  }
+    weight: 8
+    region: content
+  field_hero_text:
+    type: text_default
+    label: above
+    settings: {  }
+    third_party_settings: {  }
+    weight: 9
     region: content
   field_related_topics_blurb:
     type: text_default
     label: above
     settings: {  }
     third_party_settings: {  }
-    weight: 3
+    weight: 6
     region: content
   field_scheduled_publish:
     type: scheduled_publish_generic_formatter
@@ -87,12 +103,12 @@ content:
       date_format: html_datetime
       text_pattern: '%moderation_state% - %date%'
     third_party_settings: {  }
-    weight: 4
+    weight: 7
     region: content
   links:
     settings: {  }
     third_party_settings: {  }
-    weight: 0
+    weight: 3
     region: content
   uid:
     type: author
@@ -106,8 +122,6 @@ hidden:
   extra_field_workbc_published_on: true
   field_content_group: true
   field_hero_image: true
-  field_hero_image_media: true
-  field_hero_text: true
   field_language: true
   field_metatag_description: true
   field_multilingual_centre: true

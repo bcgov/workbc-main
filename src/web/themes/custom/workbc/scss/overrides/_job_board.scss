@@ -352,14 +352,96 @@ mat-dialog-container {
   }
 }
 
-app-filter {
-  .job-search-filters .navbar {
-    .navbar-toggler {
-      margin-right: 0px;
-    }
+.job-lang {
+  position: relative;
+  float: left;
+  z-index: 2;
+  display: flex;
+  align-items: center;
+  padding: 20px 0 0 5px;
 
-    .navbar-nav .nav-item > .dropdown-menu {
-      z-index: 1;
+  span {
+    font-size: 0.8rem;
+    font-weight: bold;
+    letter-spacing: 0.5px;
+  }
+
+  label {
+    position: relative;
+    left: 0px;
+    border: 1px solid #ccc;
+    height: 16px;
+    margin: 0px;
+    border-radius: 15px;
+    width: 36px;
+    background: #ccc;
+    margin: 0 8px;
+    cursor: pointer;
+
+    &:after {
+      content: "";
+      display: block;
+      height: 14px;
+      width: 14px;
+      border: 1px solid #666;
+      border-radius: 50%;
+      position: absolute;
+      left: 0px;
+      top: 0px;
+      background: #fff;
+      transition: all 0.3s ease;
+    }
+  }
+
+  input[type=checkbox],
+  input[type=radio] {
+    -webkit-appearance: none;
+    -moz-appearance: none;
+    appearance: none;
+    border: 0;
+    opacity: 0;
+    outline: 0;
+    padding: 0;
+    vertical-align: middle;
+    width: 0;
+    position: absolute;
+  }
+
+  input[type="checkbox"]:checked + label {
+    border-color: #5bc2e7;
+    background: #5bc2e7;
+
+    &:after {
+      left: 21px;
     }
   }
 }
+
+
+app-root {
+  app-filter {
+    .job-search-filters .navbar {
+      .navbar-toggler {
+        margin-right: 0px;
+      }
+
+      .navbar-nav .nav-item > .dropdown-menu {
+        z-index: 1;
+      }
+    }
+  }
+
+  app-login {
+    .header-banner {
+      display: none;
+    }
+    .account-login {
+      .login-form {
+        .form-group.register {
+          display: none;
+        }
+      }
+    }
+  }
+}
+

@@ -1,6 +1,6 @@
 (function (Drupal, $, once) {
 	Drupal.behaviors.jobboard = {
-    attach: function (context, settings){
+    attach: function (context, settings) {
       once('jobboard', '.block-workbc-jobboard', context).forEach(function() {
         $(once('jobboard', 'a', context)).filter(function() {
           return this.hostname && this.hostname !== location.hostname;
@@ -116,6 +116,17 @@
               }
               window.location.href = '/account#/login';
             });
+        }
+      });
+
+      let checkLang = $('.job-lang input').is(':checked');
+      $(once('jobboard', '.job-lang', context)).on('click', () => {
+        const l = $('.job-lang input').is(':checked');
+        if (l !== checkLang) {
+          checkLang = l;
+          const lang = checkLang ? 'en|fr' : 'en|en';
+          $('.gt_selector').val(lang).trigger('change');
+          window.doGTranslate(lang);
         }
       });
 
