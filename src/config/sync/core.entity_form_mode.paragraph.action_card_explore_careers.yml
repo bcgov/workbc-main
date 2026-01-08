@@ -6,6 +6,6 @@ dependencies:
     - paragraphs
 id: paragraph.action_card_explore_careers
 label: 'Action Card: Explore Careers'
-description: ''
+description: null
 targetEntityType: paragraph
 cache: true
