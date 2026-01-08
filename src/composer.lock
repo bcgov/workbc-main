@@ -4,7 +4,7 @@
         "Read more about it at https://getcomposer.org/doc/01-basic-usage.md#installing-dependencies",
         "This file is @generated automatically"
     ],
-    "content-hash": "422d14d14831e89146a2f8799b888c08",
+    "content-hash": "00ca9f9912bdfb1fdbf4f8b2bfeacb0e",
     "packages": [
         {
             "name": "asm89/stack-cors",
@@ -2554,27 +2554,27 @@
         },
         {
             "name": "drupal/chosen",
-            "version": "4.0.3",
+            "version": "5.0.3",
             "source": {
                 "type": "git",
                 "url": "https://git.drupalcode.org/project/chosen.git",
-                "reference": "4.0.3"
+                "reference": "5.0.3"
             },
             "dist": {
                 "type": "zip",
-                "url": "https://ftp.drupal.org/files/projects/chosen-4.0.3.zip",
-                "reference": "4.0.3",
-                "shasum": "72a4090b4b21ff7341d1f2e05866b25feede3188"
+                "url": "https://ftp.drupal.org/files/projects/chosen-5.0.3.zip",
+                "reference": "5.0.3",
+                "shasum": "ba50a6bf7c6d7f3bbf468ad20a3e65d3b034df08"
             },
             "require": {
                 "drupal/chosen_lib": "*",
-                "drupal/core": "^9.2 || ^10 || ^11"
+                "drupal/core": "^10.2 || ^11"
             },
             "type": "drupal-module",
             "extra": {
                 "drupal": {
-                    "version": "4.0.3",
-                    "datestamp": "1725307446",
+                    "version": "5.0.3",
+                    "datestamp": "1767462942",
                     "security-coverage": {
                         "status": "covered",
                         "message": "Covered by Drupal's security advisory policy"
@@ -2623,7 +2623,7 @@
                     "homepage": "https://www.drupal.org/user/235438"
                 }
             ],
-            "description": "Makes select elements more user-friendly using <a href=\"https://github.com/JJJ/chosen\">Chosen</a>.",
+            "description": "Makes select elements more user-friendly using <a href=\"https://github.com/noli42/chosen\">Chosen</a>.",
             "homepage": "https://www.drupal.org/project/chosen",
             "support": {
                 "source": "https://git.drupalcode.org/project/chosen"
@@ -2631,16 +2631,16 @@
         },
         {
             "name": "drupal/chosen_lib",
-            "version": "4.0.3",
+            "version": "5.0.3",
             "require": {
-                "drupal/chosen": "^4",
-                "drupal/core": "^9.2 || ^10 || ^11"
+                "drupal/chosen": "^5",
+                "drupal/core": "^10.2 || ^11"
             },
             "type": "metapackage",
             "extra": {
                 "drupal": {
-                    "version": "4.0.3",
-                    "datestamp": "1725307446",
+                    "version": "5.0.3",
+                    "datestamp": "1767462942",
                     "security-coverage": {
                         "status": "covered",
                         "message": "Covered by Drupal's security advisory policy"
@@ -2689,7 +2689,7 @@
                     "homepage": "https://www.drupal.org/user/235438"
                 }
             ],
-            "description": "Add <a href=\"https://github.com/JJJ/chosen\">chosen</a> library definition.",
+            "description": "Add <a href=\"https://github.com/noli42/chosen\">chosen</a> library definition.",
             "homepage": "https://www.drupal.org/project/chosen",
             "support": {
                 "source": "https://git.drupalcode.org/project/chosen"

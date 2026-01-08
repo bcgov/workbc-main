@@ -84,7 +84,7 @@
         "drupal/cancel_button": "^1.5",
         "drupal/captcha": "^2.0",
         "drupal/charts": "^5.1",
-        "drupal/chosen": "^4.0",
+        "drupal/chosen": "^5.0",
         "drupal/ckeditor_media_resize": "1.0",
         "drupal/config_filter": "^2.7",
         "drupal/config_ignore": "^3.3",
