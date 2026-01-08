@@ -1,6 +1,19 @@
 (function (Drupal, $, once) {
 	Drupal.behaviors.jobboard = {
     attach: function (context, settings) {
+      once('jobboard', 'html', context).forEach(function() {
+        window.addEventListener('load', navUserMenu);
+        window.addEventListener('hashchange', navUserMenu);
+        window.addEventListener('jobboardlogin', navUserMenu);
+        window.addEventListener('dialog:aftercreate', navUserMenu);
+      });
+
+      once('jobboard', 'body.account', context).forEach(function() {
+        window.addEventListener('load', accountPageChanges);
+        window.addEventListener('hashchange', accountPageChanges);
+        window.addEventListener('jobboardlogin', accountPageChanges);
+      });
+
       once('jobboard', '.block-workbc-jobboard', context).forEach(function() {
         $(once('jobboard', 'a', context)).filter(function() {
           return this.hostname && this.hostname !== location.hostname;
@@ -17,9 +30,10 @@
             };
           }
         });
-        $(once("jobboard", ".region-map-select select", context)).on("change", function(){
-          if($(this).val() != ""){
-            window.location.href=$(this).val();
+        $(once('jobboard', '.region-map-select select', context)).on('change', function(){
+          const val = $(this).val();
+          if (val) {
+            window.location.href = val;
           }
         });
       });
@@ -119,18 +133,24 @@
         }
       });
 
-      let checkLang = $('.job-lang input').is(':checked');
+      // FIXME: Copied from src/web/modules/contrib/gtranslate/js/dropdown.js
+      // because I couldn't figure out how to trigger the loading of the library. It should be triggerable as per:
+      // document.querySelectorAll(u_class).forEach(function(e){e.addEventListener('pointerenter',load_tlib)});
+      function load_tlib(){if(!window.gt_translate_script){window.gt_translate_script=document.createElement('script');gt_translate_script.src='https://translate.google.com/translate_a/element.js?cb=googleTranslateElementInit2';document.body.appendChild(gt_translate_script);}}
+
+      let job_lang = $('.job-lang input').is(':checked');
       $(once('jobboard', '.job-lang', context)).on('click', () => {
-        const l = $('.job-lang input').is(':checked');
-        if (l !== checkLang) {
-          checkLang = l;
-          const lang = checkLang ? 'en|fr' : 'en|en';
-          $('.gt_selector').val(lang).trigger('change');
+        const jl = $('.job-lang input').is(':checked');
+        if (jl !== job_lang) {
+          job_lang = jl;
+          const lang = job_lang ? 'en|fr' : 'en|en';
+          load_tlib();
+          $('.gt_selector').val(lang);
           window.doGTranslate(lang);
         }
       });
 
-      const navLogout = function() {
+      function navLogout() {
         localStorage.removeItem('currentUser');
         document.cookie = 'currentUser.username=; expires=Thu, 01 Jan 1970 00:00:00 UTC; Path=/;';
         document.cookie = 'currentUser.email=; expires=Thu, 01 Jan 1970 00:00:00 UTC; Path=/;';
@@ -141,7 +161,7 @@
         if (location.pathname === '/account') location.reload(true); else return true;
       }
 
-      const navUserMenu = function() {
+      function navUserMenu() {
         const currentUser = readCookie('currentUser.username');
 
         // Desktop menu
@@ -175,19 +195,34 @@
         }
       };
 
-      once('jobboard', 'html', context).forEach(function() {
-        window.addEventListener('load', navUserMenu);
-        window.addEventListener('hashchange', navUserMenu);
-        window.addEventListener('jobboardlogin', navUserMenu);
-        window.addEventListener('dialog:aftercreate', navUserMenu);
-      });
+      function accountPageChanges() {
+        const $headerLogin = $('#block-workbc-jobboardloginheader');
+        const $headerRegister = $('#block-workbc-jobboardregisterheader');
+        const $footerLogin = $('#block-workbc-jobboardloginfooter');
+        const $footerRegister = $('#block-workbc-jobboardregisterfooter');
+        switch (window.location.hash) {
+          case '#/login':
+            $headerLogin.show();
+            $headerRegister.hide();
+            $footerLogin.show();
+            $footerRegister.hide();
+            break;
+          case '#/register':
+            $headerLogin.hide();
+            $headerRegister.show();
+            $footerLogin.hide();
+            $footerRegister.show();
+            break;
+          default:
+            $headerLogin.hide();
+            $headerRegister.hide();
+            $footerLogin.hide();
+            $footerRegister.hide();
+        }
+      }
     }
   }
 })(Drupal, jQuery, once);
-
-if (window.location.hash) {
-  jQuery(window).trigger('hashchange');
-}
 
 function readCookie(cookieName){
   if (window.localStorage) {

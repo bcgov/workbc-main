@@ -352,6 +352,20 @@ mat-dialog-container {
   }
 }
 
+#block-workbc-jobboardloginheader {
+  background: #bcdced;
+  padding: 20px 20px 20px 20px;
+
+  p {
+    margin: 0;
+  }
+
+  a {
+    font-weight: bolder;
+    color: #234075;
+  }
+}
+
 .job-lang {
   position: relative;
   float: left;
@@ -417,7 +431,6 @@ mat-dialog-container {
   }
 }
 
-
 app-root {
   app-filter {
     .job-search-filters .navbar {
@@ -440,6 +453,18 @@ app-root {
         .form-group.register {
           display: none;
         }
+      }
+    }
+  }
+
+  app-register {
+    .header-banner {
+      display: none;
+    }
+
+    app-job-seeker {
+      .account-ribbon {
+        display: none;
       }
     }
   }
