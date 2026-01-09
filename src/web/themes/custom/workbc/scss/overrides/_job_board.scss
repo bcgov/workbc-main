@@ -189,7 +189,7 @@
     max-width: 280px;
   }
 
-  .jobs-data-horizontal-view{
+  .jobs-data-horizontal-view {
     width: 100%;
     max-width: 100%;
   }
@@ -237,6 +237,7 @@
     width: auto;
   }
 }
+
 /*
  *  Styles below apply to the embedded Job Board app
  *
@@ -352,6 +353,20 @@ mat-dialog-container {
   }
 }
 
+.node--type-page.node--view-mode-jobboard {
+  .hero-image-wrapper {
+    width: 100%;
+
+    &:before {
+      background: none;
+    }
+
+    img {
+      object-fit: cover;
+    }
+  }
+}
+
 #block-workbc-jobboardloginheader {
   background: #bcdced;
   padding: 20px 20px 20px 20px;
@@ -363,6 +378,20 @@ mat-dialog-container {
   a {
     font-weight: bolder;
     color: #234075;
+  }
+}
+
+#block-workbc-jobboardloginfooter {
+  border: 1px solid #fff;
+  box-shadow: 0px 8px 10px lightgray,
+              -10px 8px 15px lightgray,
+              10px 8px 15px lightgray;
+  padding: 15px;
+  margin: 30px;
+
+  p {
+    margin-top: 25px;
+    margin-bottom: 0px;
   }
 }
 
