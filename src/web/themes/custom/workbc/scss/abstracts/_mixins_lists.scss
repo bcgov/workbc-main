@@ -27,3 +27,17 @@
     }
   }
 }
+
+@mixin list-item-separator-after-minus-2($content, $padding) {
+  position: relative; // start position context %navli
+  &:not(:nth-last-of-type(-n+2)) {
+    padding-right: $padding; // make space for the :after
+
+    &:after {
+      content: $content;
+      position: absolute; // relative to position context %navli
+      right: 0;
+      top: $padding;
+    }
+  }
+}
