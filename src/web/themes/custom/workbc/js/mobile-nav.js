@@ -13,7 +13,10 @@
         mmenuApi[opened ? "close" : "open"]();
       });
 
-      $(once("mobileNavClose", ".new-logout-link > .nav-link", context)).on('click' , function() {
+      $(once("mobileNavClose", ".menu-name--account > a", context))
+      .not('#menu-item-unlogged-account')
+      .not('#menu-item-logged-account')
+      .on('click' , function() {
         if (window.location.pathname == "/account") {
           mmenuApi["close"]();
         }
