@@ -31,36 +31,37 @@
   {% if items %}
     {% if menu_level == 0 %}
 <ul{{ attributes.addClass(['nav-items']) }}>
-    {% else %}
-<ul>
+  {% else %}
+<ul class="dropdown-menu">
+  {% endif %}
+  {% for item in items %}
+    {%
+      set attributes_li = create_attribute({ 'class': [
+        'nav-item',
+        item.below ? 'dropdown',
+      ]})
+    %}
+    {% if item.below and item == items|last %}
+        {% set attributes_li = attributes_li.setAttribute('style', 'display: none') %}
     {% endif %}
-    {% for item in items %}
-      {%
-        set classes_link = [
+    {%
+      set classes_link = [
         'nav-link',
         item.is_expanded ? 'dropdown-toggle',
         item.is_collapsed ? 'dropdown-toggle',
         item.in_active_trail ? 'active',
       ]
-      %}
-  <li{{ item.attributes.addClass('nav-item') }}>
+    %}
+    <li{{ attributes_li }}>
       {{ link(item.title, item.url, item.attributes.addClass(classes_link)) }}
       {% if item.below %}
         {{ menus.menu_links(item.below, attributes, menu_level + 1) }}
       {% endif %}
-  </li>
+    </li>
     {% endfor %}
     {#
       Manually add Job Board menu links for logged out user.
     #}
-    {% if menu_level == 0 %}
-<li class="nav-item new-logout-link">
-  <a href="/account#/login" class="nav-link">Log in</a>
-</li>
-<li class="nav-item new-logout-link">
-  <a href="/account#/register" class="nav-link">Register</a>
-</li>
-    {% endif %}
-</ul>
+  </ul>
   {% endif %}
 {% endmacro %}

@@ -1,7 +1,7 @@
 <header class="header">
   <div class="container-lg header__container">
-    <nav class="nav-user" aria-label="User Nav">
-      {{ drupal_block('system_menu_block:account', wrapper=false) }}
+    <nav class="nav-user" aria-label="User Navigation">
+      {{ drupal_block('system_menu_block:account', {expand_all_items: true}, wrapper=false) }}
     </nav>
     <div class="header__logo-search-container">
       <a class="header__logo-link" href="{{ path('<front>') }}" title="{{ 'Home'|t }}" rel="home">

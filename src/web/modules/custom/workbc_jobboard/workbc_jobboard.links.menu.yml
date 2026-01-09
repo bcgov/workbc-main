@@ -1,0 +1,55 @@
+workbc_jobboard.unlogged_account:
+  title: 'Job Board Account'
+  menu_name: 'account'
+  route_name: '<none>'
+  expanded: 1
+  options:
+    attributes:
+      id: 'menu-item-unlogged-account'
+
+workbc_jobboard.unlogged_login:
+  title: 'Log in'
+  menu_name: 'account'
+  parent: 'workbc_jobboard.unlogged_account'
+  url: 'internal:/account#/login'
+  weight: 0
+
+workbc_jobboard.unlogged_register:
+  title: 'Register'
+  menu_name: 'account'
+  parent: 'workbc_jobboard.unlogged_account'
+  url: 'internal:/account#/register'
+  weight: 1
+
+workbc_jobboard.logged_account:
+  title: 'My Job Board Account'
+  menu_name: 'account'
+  route_name: '<none>'
+  expanded: 1
+  options:
+    attributes:
+      id: 'menu-item-logged-account'
+
+workbc_jobboard.logged_profile:
+  title: 'My Profile'
+  menu_name: 'account'
+  parent: 'workbc_jobboard.logged_account'
+  url: 'internal:/account#/dashboard'
+  weight: 0
+
+workbc_jobboard.logged_settings:
+  title: 'Personal Settings'
+  menu_name: 'account'
+  parent: 'workbc_jobboard.logged_account'
+  url: 'internal:/account#/personal-settings'
+  weight: 1
+
+workbc_jobboard.logged_logout:
+  title: 'Log out'
+  menu_name: 'account'
+  parent: 'workbc_jobboard.logged_account'
+  url: 'internal:/account#/logout'
+  weight: 2
+  options:
+    attributes:
+      id: 'menu-item-logout'
