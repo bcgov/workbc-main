@@ -4,7 +4,7 @@
         "Read more about it at https://getcomposer.org/doc/01-basic-usage.md#installing-dependencies",
         "This file is @generated automatically"
     ],
-    "content-hash": "56f03465a76b4230475fde71554ca994",
+    "content-hash": "fad13923c46e70535d54f934e5e1144b",
     "packages": [
         {
             "name": "asm89/stack-cors",
@@ -10055,6 +10055,15 @@
                 "source": "https://github.com/nikic/PHP-Parser/tree/v5.7.0"
             },
             "time": "2025-12-06T11:56:16+00:00"
+        },
+        {
+            "name": "noli42/chosen",
+            "version": "3.0.1",
+            "dist": {
+                "type": "zip",
+                "url": "https://github.com/noli42/chosen/releases/download/3.0.1/chosen-assets-v3.0.1.zip"
+            },
+            "type": "drupal-library"
         },
         {
             "name": "pear/archive_tar",

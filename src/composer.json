@@ -53,6 +53,18 @@
         {
             "type": "package",
             "package": {
+                "name": "noli42/chosen",
+                "version": "3.0.1",
+                "type": "drupal-library",
+                "dist": {
+                    "url": "https://github.com/noli42/chosen/releases/download/3.0.1/chosen-assets-v3.0.1.zip",
+                    "type": "zip"
+                }
+            }
+        },
+        {
+            "type": "package",
+            "package": {
                 "name": "jjj/chosen",
                 "version": "2.2.1",
                 "type": "drupal-library",
@@ -169,6 +181,7 @@
         "kint-php/kint": "^5.1.0",
         "mglaman/composer-drupal-lenient": "^1.0",
         "mobiledetect/mobiledetectlib": "^4.8",
+        "noli42/chosen": "3.0.1",
         "phpoffice/phpspreadsheet": "^3.2",
         "ulrichsg/getopt-php": "^4.0",
         "vlucas/phpdotenv": "^5.1",
