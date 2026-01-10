@@ -363,3 +363,15 @@ app-filter {
     }
   }
 }
+
+#menu-item-unlogged-login:before {
+  padding-right: 0.5em;
+  content: url('/modules/custom/workbc_jobboard/images/login.svg');
+  vertical-align: -2px;
+}
+
+#menu-item-unlogged-register:before {
+  padding-right: 0.5em;
+  content: url('/modules/custom/workbc_jobboard/images/register.svg');
+  vertical-align: -2px;
+}
