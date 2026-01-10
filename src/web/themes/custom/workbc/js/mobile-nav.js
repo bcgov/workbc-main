@@ -17,9 +17,10 @@
       .not('#menu-item-unlogged-account')
       .not('#menu-item-logged-account')
       .on('click' , function() {
-        if (window.location.pathname == "/account") {
-          mmenuApi["close"]();
-        }
+        if (window.location.pathname !== "/account") return;
+        if ($(this).prev('#menu-item-unlogged-account').length > 0) return;
+        if ($(this).prev('#menu-item-logged-account').length > 0) return;
+        mmenuApi["close"]();
       });
     },
   };

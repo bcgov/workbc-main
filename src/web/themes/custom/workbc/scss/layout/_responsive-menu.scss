@@ -332,6 +332,10 @@ body.mm-wrapper--opened a#mm-0 {
   font-weight: bold;
 }
 
+.mm-panel--opened:not(#mm-1):has(.menu-name--account) .mm-navbar__title {
+  font-weight: bold;
+}
+
 .mm-listitem:nth-child(1 of .menu-name--account) {
   margin-top: 30px;
 }
