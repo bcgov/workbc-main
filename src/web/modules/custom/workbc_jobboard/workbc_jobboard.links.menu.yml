@@ -13,6 +13,9 @@ workbc_jobboard.unlogged_login:
   parent: 'workbc_jobboard.unlogged_account'
   url: 'internal:/account#/login'
   weight: 0
+  options:
+    attributes:
+      id: 'menu-item-unlogged-login'
 
 workbc_jobboard.unlogged_register:
   title: 'Register'
@@ -20,6 +23,9 @@ workbc_jobboard.unlogged_register:
   parent: 'workbc_jobboard.unlogged_account'
   url: 'internal:/account#/register'
   weight: 1
+  options:
+    attributes:
+      id: 'menu-item-unlogged-register'
 
 workbc_jobboard.logged_account:
   title: 'My Job Board Account'
