@@ -288,6 +288,7 @@
       border-color: $workbc_palette_dark_secondary;
       background-clip: padding-box;
       box-shadow: inset 0px 0px 0px 2px $workbc_palette_light_primary;
+      margin-left: 0px;
       margin-right: 5px;
 
       &:checked {
@@ -298,6 +299,10 @@
       &:focus {
         box-shadow: inset 0px 0px 0px 2px $workbc_palette_light_primary, 0 0 0 .25rem rgba($workbc_palette_dark_primary,.25);
       }
+    }
+
+    .form-check-label {
+      margin-left: 5px;
     }
 
     :nth-child(1) {
