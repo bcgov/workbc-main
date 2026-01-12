@@ -12,6 +12,7 @@
         window.addEventListener('load', accountPageChanges);
         window.addEventListener('hashchange', accountPageChanges);
         window.addEventListener('jobboardlogin', accountPageChanges);
+        window.addEventListener('jobboardlogin', closePanel);
       });
 
       once('jobboard', '.block-workbc-jobboard', context).forEach(function() {
@@ -30,6 +31,7 @@
             };
           }
         });
+
         $(once('jobboard', '.region-map-select select', context)).on('change', function(){
           const val = $(this).val();
           if (val) {
@@ -221,6 +223,14 @@
             $headerRegister.hide();
             $footerLogin.hide();
             $footerRegister.hide();
+        }
+      }
+
+      function closePanel() {
+        const offCanvas = $("#off-canvas")[0];
+        if (offCanvas) {
+          const mmenuApi = offCanvas.mmApi;
+          mmenuApi["openPanel"](document.getElementById('mm-1'));
         }
       }
     }
