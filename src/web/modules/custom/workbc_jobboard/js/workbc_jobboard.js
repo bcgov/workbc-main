@@ -200,18 +200,21 @@
         const $headerRegister = $('#block-workbc-jobboardregisterheader');
         const $footerLogin = $('#block-workbc-jobboardloginfooter');
         const $footerRegister = $('#block-workbc-jobboardregisterfooter');
+        const $heroTitle = $('.hero-banner .hero-content');
         switch (window.location.hash) {
           case '#/login':
             $headerLogin.show();
             $headerRegister.hide();
             $footerLogin.show();
             $footerRegister.hide();
+            $heroTitle.html('<h2>Account Login</h2>');
             break;
           case '#/register':
             $headerLogin.hide();
             $headerRegister.show();
             $footerLogin.hide();
             $footerRegister.show();
+            $heroTitle.html('<h2>Account Registration</h2>');
             break;
           default:
             $headerLogin.hide();
