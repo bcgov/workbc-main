@@ -4,7 +4,7 @@
         "Read more about it at https://getcomposer.org/doc/01-basic-usage.md#installing-dependencies",
         "This file is @generated automatically"
     ],
-    "content-hash": "972d51450c195227c159b4c78baa99c7",
+    "content-hash": "800af8b44553e20b60958ba41d150db6",
     "packages": [
         {
             "name": "asm89/stack-cors",
@@ -118,16 +118,16 @@
         },
         {
             "name": "aws/aws-sdk-php",
-            "version": "3.369.9",
+            "version": "3.369.12",
             "source": {
                 "type": "git",
                 "url": "https://github.com/aws/aws-sdk-php.git",
-                "reference": "cb7c0a255a34d44f13f9276d720827d56a3b381b"
+                "reference": "36ee8894743a254ae2650bad4968c874b76bc7de"
             },
             "dist": {
                 "type": "zip",
-                "url": "https://api.github.com/repos/aws/aws-sdk-php/zipball/cb7c0a255a34d44f13f9276d720827d56a3b381b",
-                "reference": "cb7c0a255a34d44f13f9276d720827d56a3b381b",
+                "url": "https://api.github.com/repos/aws/aws-sdk-php/zipball/36ee8894743a254ae2650bad4968c874b76bc7de",
+                "reference": "36ee8894743a254ae2650bad4968c874b76bc7de",
                 "shasum": ""
             },
             "require": {
@@ -209,9 +209,9 @@
             "support": {
                 "forum": "https://github.com/aws/aws-sdk-php/discussions",
                 "issues": "https://github.com/aws/aws-sdk-php/issues",
-                "source": "https://github.com/aws/aws-sdk-php/tree/3.369.9"
+                "source": "https://github.com/aws/aws-sdk-php/tree/3.369.12"
             },
-            "time": "2026-01-07T19:06:56+00:00"
+            "time": "2026-01-13T19:12:08+00:00"
         },
         {
             "name": "chi-teck/drupal-code-generator",
@@ -1280,16 +1280,16 @@
         },
         {
             "name": "doctrine/collections",
-            "version": "2.5.0",
+            "version": "2.5.1",
             "source": {
                 "type": "git",
                 "url": "https://github.com/doctrine/collections.git",
-                "reference": "6108e0cd57d7ef125fb84696346a68860403a25d"
+                "reference": "171e68db4b9aca9dc1f5d49925762f3d53d248c5"
             },
             "dist": {
                 "type": "zip",
-                "url": "https://api.github.com/repos/doctrine/collections/zipball/6108e0cd57d7ef125fb84696346a68860403a25d",
-                "reference": "6108e0cd57d7ef125fb84696346a68860403a25d",
+                "url": "https://api.github.com/repos/doctrine/collections/zipball/171e68db4b9aca9dc1f5d49925762f3d53d248c5",
+                "reference": "171e68db4b9aca9dc1f5d49925762f3d53d248c5",
                 "shasum": ""
             },
             "require": {
@@ -1346,7 +1346,7 @@
             ],
             "support": {
                 "issues": "https://github.com/doctrine/collections/issues",
-                "source": "https://github.com/doctrine/collections/tree/2.5.0"
+                "source": "https://github.com/doctrine/collections/tree/2.5.1"
             },
             "funding": [
                 {
@@ -1362,7 +1362,7 @@
                     "type": "tidelift"
                 }
             ],
-            "time": "2026-01-07T17:26:56+00:00"
+            "time": "2026-01-12T20:53:55+00:00"
         },
         {
             "name": "doctrine/common",
@@ -2074,17 +2074,17 @@
         },
         {
             "name": "drupal/backup_migrate",
-            "version": "5.1.2",
+            "version": "5.1.3",
             "source": {
                 "type": "git",
                 "url": "https://git.drupalcode.org/project/backup_migrate.git",
-                "reference": "5.1.2"
+                "reference": "5.1.3"
             },
             "dist": {
                 "type": "zip",
-                "url": "https://ftp.drupal.org/files/projects/backup_migrate-5.1.2.zip",
-                "reference": "5.1.2",
-                "shasum": "87e48dddfa956f3bd260557be0b827f3a40e4eaf"
+                "url": "https://ftp.drupal.org/files/projects/backup_migrate-5.1.3.zip",
+                "reference": "5.1.3",
+                "shasum": "a597994dc9433516dc8ffb20725cfc6bd6b27ec4"
             },
             "require": {
                 "drupal/core": "^9.5 || ^10 || ^11"
@@ -2095,8 +2095,8 @@
             "type": "drupal-module",
             "extra": {
                 "drupal": {
-                    "version": "5.1.2",
-                    "datestamp": "1768119570",
+                    "version": "5.1.3",
+                    "datestamp": "1768291344",
                     "security-coverage": {
                         "status": "covered",
                         "message": "Covered by Drupal's security advisory policy"
@@ -9263,19 +9263,6 @@
             "time": "2025-12-05T14:53:09+00:00"
         },
         {
-            "name": "jjj/chosen",
-            "version": "2.2.1",
-            "source": {
-                "type": "git",
-                "url": "https://github.com/JJJ/chosen.git",
-                "reference": "2.2.1"
-            },
-            "type": "drupal-library",
-            "extra": {
-                "installer-name": "chosen"
-            }
-        },
-        {
             "name": "kint-php/kint",
             "version": "5.1.1",
             "source": {
@@ -9401,16 +9388,16 @@
         },
         {
             "name": "laravel/prompts",
-            "version": "v0.3.8",
+            "version": "v0.3.9",
             "source": {
                 "type": "git",
                 "url": "https://github.com/laravel/prompts.git",
-                "reference": "096748cdfb81988f60090bbb839ce3205ace0d35"
+                "reference": "5c41bf0555b7cfefaad4e66d3046675829581ac4"
             },
             "dist": {
                 "type": "zip",
-                "url": "https://api.github.com/repos/laravel/prompts/zipball/096748cdfb81988f60090bbb839ce3205ace0d35",
-                "reference": "096748cdfb81988f60090bbb839ce3205ace0d35",
+                "url": "https://api.github.com/repos/laravel/prompts/zipball/5c41bf0555b7cfefaad4e66d3046675829581ac4",
+                "reference": "5c41bf0555b7cfefaad4e66d3046675829581ac4",
                 "shasum": ""
             },
             "require": {
@@ -9454,9 +9441,9 @@
             "description": "Add beautiful and user-friendly forms to your command-line applications.",
             "support": {
                 "issues": "https://github.com/laravel/prompts/issues",
-                "source": "https://github.com/laravel/prompts/tree/v0.3.8"
+                "source": "https://github.com/laravel/prompts/tree/v0.3.9"
             },
-            "time": "2025-11-21T20:52:52+00:00"
+            "time": "2026-01-07T21:00:29+00:00"
         },
         {
             "name": "league/container",
@@ -10606,16 +10593,16 @@
         },
         {
             "name": "phpoffice/phpspreadsheet",
-            "version": "3.10.2",
+            "version": "3.10.3",
             "source": {
                 "type": "git",
                 "url": "https://github.com/PHPOffice/PhpSpreadsheet.git",
-                "reference": "cd1dd91d6ef2afc0629982e0ea5911b3746fe51e"
+                "reference": "ceba166a6c21830922e145c59999adc855412fe6"
             },
             "dist": {
                 "type": "zip",
-                "url": "https://api.github.com/repos/PHPOffice/PhpSpreadsheet/zipball/cd1dd91d6ef2afc0629982e0ea5911b3746fe51e",
-                "reference": "cd1dd91d6ef2afc0629982e0ea5911b3746fe51e",
+                "url": "https://api.github.com/repos/PHPOffice/PhpSpreadsheet/zipball/ceba166a6c21830922e145c59999adc855412fe6",
+                "reference": "ceba166a6c21830922e145c59999adc855412fe6",
                 "shasum": ""
             },
             "require": {
@@ -10637,8 +10624,6 @@
                 "markbaker/complex": "^3.0",
                 "markbaker/matrix": "^3.0",
                 "php": "^8.1",
-                "psr/http-client": "^1.0",
-                "psr/http-factory": "^1.0",
                 "psr/simple-cache": "^1.0 || ^2.0 || ^3.0"
             },
             "require-dev": {
@@ -10689,6 +10674,9 @@
                 },
                 {
                     "name": "Adrien Crivelli"
+                },
+                {
+                    "name": "Owen Leibman"
                 }
             ],
             "description": "PHPSpreadsheet - Read, Create and Write Spreadsheet documents in PHP - Spreadsheet engine",
@@ -10705,9 +10693,9 @@
             ],
             "support": {
                 "issues": "https://github.com/PHPOffice/PhpSpreadsheet/issues",
-                "source": "https://github.com/PHPOffice/PhpSpreadsheet/tree/3.10.2"
+                "source": "https://github.com/PHPOffice/PhpSpreadsheet/tree/3.10.3"
             },
-            "time": "2025-11-24T16:10:02+00:00"
+            "time": "2026-01-11T06:13:14+00:00"
         },
         {
             "name": "phpoption/phpoption",
@@ -15884,16 +15872,16 @@
         },
         {
             "name": "google/protobuf",
-            "version": "v4.33.2",
+            "version": "v4.33.4",
             "source": {
                 "type": "git",
                 "url": "https://github.com/protocolbuffers/protobuf-php.git",
-                "reference": "fbd96b7bf1343f4b0d8fb358526c7ba4d72f1318"
+                "reference": "22d28025cda0d223a2e48c2e16c5284ecc9f5402"
             },
             "dist": {
                 "type": "zip",
-                "url": "https://api.github.com/repos/protocolbuffers/protobuf-php/zipball/fbd96b7bf1343f4b0d8fb358526c7ba4d72f1318",
-                "reference": "fbd96b7bf1343f4b0d8fb358526c7ba4d72f1318",
+                "url": "https://api.github.com/repos/protocolbuffers/protobuf-php/zipball/22d28025cda0d223a2e48c2e16c5284ecc9f5402",
+                "reference": "22d28025cda0d223a2e48c2e16c5284ecc9f5402",
                 "shasum": ""
             },
             "require": {
@@ -15922,9 +15910,9 @@
                 "proto"
             ],
             "support": {
-                "source": "https://github.com/protocolbuffers/protobuf-php/tree/v4.33.2"
+                "source": "https://github.com/protocolbuffers/protobuf-php/tree/v4.33.4"
             },
-            "time": "2025-12-05T22:12:22+00:00"
+            "time": "2026-01-12T17:58:43+00:00"
         },
         {
             "name": "justinrainbow/json-schema",
@@ -17551,16 +17539,16 @@
         },
         {
             "name": "phpstan/phpdoc-parser",
-            "version": "2.3.0",
+            "version": "2.3.1",
             "source": {
                 "type": "git",
                 "url": "https://github.com/phpstan/phpdoc-parser.git",
-                "reference": "1e0cd5370df5dd2e556a36b9c62f62e555870495"
+                "reference": "16dbf9937da8d4528ceb2145c9c7c0bd29e26374"
             },
             "dist": {
                 "type": "zip",
-                "url": "https://api.github.com/repos/phpstan/phpdoc-parser/zipball/1e0cd5370df5dd2e556a36b9c62f62e555870495",
-                "reference": "1e0cd5370df5dd2e556a36b9c62f62e555870495",
+                "url": "https://api.github.com/repos/phpstan/phpdoc-parser/zipball/16dbf9937da8d4528ceb2145c9c7c0bd29e26374",
+                "reference": "16dbf9937da8d4528ceb2145c9c7c0bd29e26374",
                 "shasum": ""
             },
             "require": {
@@ -17592,9 +17580,9 @@
             "description": "PHPDoc parser with support for nullable, intersection and generic types",
             "support": {
                 "issues": "https://github.com/phpstan/phpdoc-parser/issues",
-                "source": "https://github.com/phpstan/phpdoc-parser/tree/2.3.0"
+                "source": "https://github.com/phpstan/phpdoc-parser/tree/2.3.1"
             },
-            "time": "2025-08-30T15:50:23+00:00"
+            "time": "2026-01-12T11:33:04+00:00"
         },
         {
             "name": "phpstan/phpstan-phpunit",
@@ -20225,16 +20213,16 @@
         },
         {
             "name": "webmozart/assert",
-            "version": "2.1.1",
+            "version": "2.1.2",
             "source": {
                 "type": "git",
                 "url": "https://github.com/webmozarts/assert.git",
-                "reference": "bdbabc199a7ba9965484e4725d66170e5711323b"
+                "reference": "ce6a2f100c404b2d32a1dd1270f9b59ad4f57649"
             },
             "dist": {
                 "type": "zip",
-                "url": "https://api.github.com/repos/webmozarts/assert/zipball/bdbabc199a7ba9965484e4725d66170e5711323b",
-                "reference": "bdbabc199a7ba9965484e4725d66170e5711323b",
+                "url": "https://api.github.com/repos/webmozarts/assert/zipball/ce6a2f100c404b2d32a1dd1270f9b59ad4f57649",
+                "reference": "ce6a2f100c404b2d32a1dd1270f9b59ad4f57649",
                 "shasum": ""
             },
             "require": {
@@ -20281,9 +20269,9 @@
             ],
             "support": {
                 "issues": "https://github.com/webmozarts/assert/issues",
-                "source": "https://github.com/webmozarts/assert/tree/2.1.1"
+                "source": "https://github.com/webmozarts/assert/tree/2.1.2"
             },
-            "time": "2026-01-08T11:28:40+00:00"
+            "time": "2026-01-13T14:02:24+00:00"
         }
     ],
     "aliases": [],
