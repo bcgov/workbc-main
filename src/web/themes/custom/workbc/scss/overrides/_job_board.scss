@@ -510,3 +510,59 @@ app-root {
   content: url('/modules/custom/workbc_jobboard/images/register.svg');
   vertical-align: -2px;
 }
+
+body.account {
+  .hero-image-wrapper {
+    height: auto;
+    overflow: hidden;
+
+    @include media-breakpoint-up(lg) {
+      position: absolute;
+      top: 0;
+      bottom: 0;
+      right: 0;
+      z-index: 0;
+      width: 100%;
+      overflow: auto;
+
+      &:before {
+        content: "";
+        display: block;
+        position: absolute;
+        top: 0;
+        right: 0;
+        bottom: 0;
+        left: 0;
+        z-index: 2;
+        background: none;
+      }
+    }
+
+    img {
+      display: block;
+      width: 100%;
+
+      @include media-breakpoint-up(lg) {
+        z-index: 1;
+        height: 100%;
+        object-fit: cover;
+      }
+    }
+  }
+
+  .hero-content-container {
+    margin-left: 200px;
+    padding: 0;
+    min-height: inherit;
+  }
+
+  .hero-content-wrapper {
+    background: rgba(0, 0, 0, .3);
+    color: white;
+    padding: 40px;
+    min-height: inherit;
+    display: flex;
+    flex-direction: column;
+    justify-content: center;
+  }
+}
