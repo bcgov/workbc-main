@@ -383,11 +383,9 @@ mat-dialog-container {
 
 #block-workbc-jobboardloginfooter {
   border: 1px solid #fff;
-  box-shadow: 0px 8px 10px lightgray,
-              -10px 8px 15px lightgray,
-              10px 8px 15px lightgray;
+  box-shadow: 0 3.2px 7.2px 0 lightgray;
   padding: 15px;
-  margin: 30px;
+  margin: 20px;
 
   p {
     margin-top: 25px;
@@ -401,7 +399,7 @@ mat-dialog-container {
   z-index: 2;
   display: flex;
   align-items: center;
-  padding: 20px 0 0 5px;
+  padding: 27px 0 0 5px;
 
   span {
     font-size: 0.8rem;
@@ -477,6 +475,11 @@ app-root {
     .header-banner {
       display: none;
     }
+
+    .header-banner--mobile {
+      display: none;
+    }
+
     .account-login {
       .login-form {
         .form-group.register {
@@ -557,12 +560,22 @@ body.account {
   }
 
   .hero-content-wrapper {
-    background: rgba(0, 0, 0, .3);
+    background: rgba(0, 0, 0, .5);
     color: white;
     padding: 40px;
     min-height: inherit;
     display: flex;
     flex-direction: column;
     justify-content: center;
+  }
+
+  @include media-breakpoint-down(lg) {
+    .hero-banner {
+      display: none;
+    }
+  }
+
+  .social-sharing-buttons {
+    justify-content: right;
   }
 }
