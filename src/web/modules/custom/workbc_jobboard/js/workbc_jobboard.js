@@ -147,7 +147,7 @@
       let job_lang = cookie_lang === '/en/fr';
       $('.job-lang input', context).prop('checked', job_lang);
       $(once('jobboard', '.job-lang', context)).on('click', () => {
-        const jl = $('.job-lang input').is(':checked');
+        const jl = $('.job-lang input', context).is(':checked');
         if (jl !== job_lang) {
           load_tlib();
           job_lang = jl;
@@ -155,7 +155,14 @@
           $('.gt_selector', context).val(lang);
           window.doGTranslate(lang);
         }
+      }).on('keydown', (e) => {
+        if (13 === e.keyCode) {
+          const $input = $('.job-lang input', context);
+          $input.prop('checked', !$input.prop('checked'));
+          $(e.target).trigger('click');
+        }
       });
+
       $(once('jobboard', '.gt_selector', context)).on('change', (e) => {
         const lang = $(e.target).val();
         job_lang = lang === 'en|fr';
