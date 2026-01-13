@@ -140,16 +140,26 @@
       // document.querySelectorAll(u_class).forEach(function(e){e.addEventListener('pointerenter',load_tlib)});
       function load_tlib(){if(!window.gt_translate_script){window.gt_translate_script=document.createElement('script');gt_translate_script.src='https://translate.google.com/translate_a/element.js?cb=googleTranslateElementInit2';document.body.appendChild(gt_translate_script);}}
 
-      let job_lang = $('.job-lang input').is(':checked');
+      const cookie_lang = document.cookie
+        .split("; ")
+        .find((row) => row.startsWith("googtrans="))
+        ?.split("=")[1];
+      let job_lang = cookie_lang === '/en/fr';
+      $('.job-lang input', context).prop('checked', job_lang);
       $(once('jobboard', '.job-lang', context)).on('click', () => {
         const jl = $('.job-lang input').is(':checked');
         if (jl !== job_lang) {
+          load_tlib();
           job_lang = jl;
           const lang = job_lang ? 'en|fr' : 'en|en';
-          load_tlib();
-          $('.gt_selector').val(lang);
+          $('.gt_selector', context).val(lang);
           window.doGTranslate(lang);
         }
+      });
+      $(once('jobboard', '.gt_selector', context)).on('change', (e) => {
+        const lang = $(e.target).val();
+        job_lang = lang === 'en|fr';
+        $('.job-lang input', context).prop('checked', job_lang);
       });
 
       function navLogout() {
