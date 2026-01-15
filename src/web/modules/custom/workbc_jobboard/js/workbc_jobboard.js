@@ -140,16 +140,33 @@
       // document.querySelectorAll(u_class).forEach(function(e){e.addEventListener('pointerenter',load_tlib)});
       function load_tlib(){if(!window.gt_translate_script){window.gt_translate_script=document.createElement('script');gt_translate_script.src='https://translate.google.com/translate_a/element.js?cb=googleTranslateElementInit2';document.body.appendChild(gt_translate_script);}}
 
-      let job_lang = $('.job-lang input').is(':checked');
+      const cookie_lang = document.cookie
+        .split("; ")
+        .find((row) => row.startsWith("googtrans="))
+        ?.split("=")[1];
+      let job_lang = cookie_lang === '/en/fr';
+      $('.job-lang input', context).prop('checked', job_lang);
       $(once('jobboard', '.job-lang', context)).on('click', () => {
-        const jl = $('.job-lang input').is(':checked');
+        const jl = $('.job-lang input', context).is(':checked');
         if (jl !== job_lang) {
+          load_tlib();
           job_lang = jl;
           const lang = job_lang ? 'en|fr' : 'en|en';
-          load_tlib();
-          $('.gt_selector').val(lang);
+          $('.gt_selector', context).val(lang);
           window.doGTranslate(lang);
         }
+      }).on('keydown', (e) => {
+        if (13 === e.keyCode) {
+          const $input = $('.job-lang input', context);
+          $input.prop('checked', !$input.prop('checked'));
+          $(e.target).trigger('click');
+        }
+      });
+
+      $(once('jobboard', '.gt_selector', context)).on('change', (e) => {
+        const lang = $(e.target).val();
+        job_lang = lang === 'en|fr';
+        $('.job-lang input', context).prop('checked', job_lang);
       });
 
       function navLogout() {
@@ -197,29 +214,34 @@
         }
       };
 
-      function accountPageChanges() {
+      function accountPageChanges(event) {
         const $headerLogin = $('#block-workbc-jobboardloginheader');
         const $headerRegister = $('#block-workbc-jobboardregisterheader');
         const $footerLogin = $('#block-workbc-jobboardloginfooter');
         const $footerRegister = $('#block-workbc-jobboardregisterfooter');
-        switch (window.location.hash) {
+        const $heroTitle = $('.hero-banner .hero-content');
+        const hash = event.type === 'jobboardlogin' ? '#/dashboard' : window.location.hash
+        switch (hash) {
           case '#/login':
             $headerLogin.show();
             $headerRegister.hide();
             $footerLogin.show();
             $footerRegister.hide();
+            $heroTitle.html('<h2>Account Login</h2>');
             break;
           case '#/register':
             $headerLogin.hide();
             $headerRegister.show();
             $footerLogin.hide();
             $footerRegister.show();
+            $heroTitle.html('<h2>Account Registration</h2>');
             break;
           default:
             $headerLogin.hide();
             $headerRegister.hide();
             $footerLogin.hide();
             $footerRegister.hide();
+            $heroTitle.html('');
         }
       }
 

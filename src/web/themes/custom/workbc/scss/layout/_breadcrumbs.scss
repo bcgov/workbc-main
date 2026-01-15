@@ -2,7 +2,7 @@
   position: relative;
   padding: 12px 0;
   box-shadow: $workbc_default_bottom_shadow;
-  overflow-x: scroll;
+  overflow-x: auto;
   z-index: 2;
 
   @include media-breakpoint-up(md) {

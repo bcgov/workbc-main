@@ -25,3 +25,15 @@ definitions:
     weight: 10
     expanded: false
     enabled: false
+  workbc_jobboard__unlogged_account:
+    menu_name: account
+    parent: ''
+    weight: 0
+    expanded: false
+    enabled: true
+  workbc_jobboard__logged_account:
+    menu_name: account
+    parent: ''
+    weight: 0
+    expanded: false
+    enabled: true

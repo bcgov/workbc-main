@@ -3,7 +3,7 @@ langcode: en
 status: true
 dependencies: {  }
 name: career_trek_node_banner
-label: 'Career Trek Node Banner(760*400)'
+label: 'Career Trek Node Banner (760 x 400)'
 effects:
   7697b13d-841d-4695-bb3d-c8044be44a66:
     uuid: 7697b13d-841d-4695-bb3d-c8044be44a66
