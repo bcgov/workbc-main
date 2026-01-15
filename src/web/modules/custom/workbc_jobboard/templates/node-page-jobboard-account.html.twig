@@ -76,7 +76,6 @@
 {% set page_body = content.body %}
 {% set page_content = content.field_content %}
 
-
 {% set left_block %}
   {{ drupal_entity('block', 'sidenavblock') }}
 {% endset %}
@@ -84,7 +83,6 @@
 {% set related %}
   {{ drupal_entity('block', 'related_topics') }}
 {% endset %}
-
 
 {%
   set classes = [
@@ -104,10 +102,18 @@
   {% include '@workbc/includes/hero.html.twig' %}
 {% endif %}
 
-{# When breadcrums are displayed below the hero section #}
-{{ drupal_block('system_breadcrumb_block', wrapper=false) }}
+{# Breadcrumbs #}
+{% include '@workbc/includes/breadcrumbs.html.twig' %}
 
-{{ drupal_entity('block', 'bettersocialsharingbuttons') }}
+<div class="job-lang" tabindex="0">
+  <span>ENGLISH</span>
+  <input title="French language" type="checkbox" name="job-language" id="job-language" />
+  <label for="job-language"></label>
+  <span>FRANÇAIS</span>
+</div>
+
+{# Social Sharing #}
+{% include '@workbc/includes/social-sharing.html.twig' %}
 
 <article{{ attributes.addClass(classes) }}>
 
@@ -118,10 +124,6 @@
   {% endif %}
 
   <div class="page-content">
-    {% if hero_image is empty and hero_text is empty %}
-
-    {% endif %}
-
     {% if drupal_region('content_top') %}
       {{ drupal_region('content_top') }}
     {% endif %}
@@ -129,6 +131,7 @@
     {% if page_body %}
       {{ page_body }}
     {% endif %}
+
     <div class="layout-container">
       <link rel="stylesheet" href="{{jobboard_api_url_frontend}}/bootstrap/bootstrap.min.css?v={{drupal_config('jobboard', 'sha')}}">
       <link rel="stylesheet" href="{{jobboard_api_url_frontend}}/dist/jb-account/styles.css?v={{drupal_config('jobboard', 'sha')}}">
@@ -140,6 +143,7 @@
       <script src="{{jobboard_api_url_frontend}}/dist/jb-account/main-es2017.js?v={{drupal_config('jobboard', 'sha')}}" type="module"></script>
       <script src="{{jobboard_api_url_frontend}}/dist/jb-account/main-es5.js?v={{drupal_config('jobboard', 'sha')}}" nomodule="" defer=""></script>
   </div>
+
     {{ page_content }}
 
     {% if drupal_region('content_bottom') %}
