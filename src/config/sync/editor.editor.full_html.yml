@@ -107,13 +107,7 @@ settings:
       multiBlock: true
     ckeditor5_sourceEditing:
       allowed_tags:
-        - '<a class data-entity-loader data-uuid rel target>'
-        - '<tr class>'
-        - '<td class>'
-        - '<ul class>'
-        - '<li class>'
-        - '<span class>'
-        - '<div class>'
+        - '<a data-entity-loader data-uuid>'
         - '<script type>'
         - '<img alt src>'
         - '<button class>'
