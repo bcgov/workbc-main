@@ -379,6 +379,11 @@ p.blue-banner {
 }
 
 #block-workbc-jobboardloginheader {
+  h2 {
+    font-weight: bolder;
+    padding-top: 1.5em;
+    padding-bottom: 1em;
+  }
 }
 
 #block-workbc-jobboardloginfooter {
@@ -394,6 +399,12 @@ p.blue-banner {
 }
 
 #block-workbc-jobboardregisterheader {
+  h2 {
+    font-weight: bolder;
+    padding-top: 1.5em;
+    padding-bottom: 1em;
+  }
+
   table {
     margin: 0 auto;
     width: auto;
@@ -538,6 +549,10 @@ app-root {
 
   app-register {
     .header-banner {
+      display: none;
+    }
+
+    .header-banner--mobile {
       display: none;
     }
 
