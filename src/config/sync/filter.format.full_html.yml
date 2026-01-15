@@ -112,5 +112,6 @@ filters:
         inline: inline
       allowed_media_types:
         document: document
+        icon: icon
         image: image
         remote_video: remote_video

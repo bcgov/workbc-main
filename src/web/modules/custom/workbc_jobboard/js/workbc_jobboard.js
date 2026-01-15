@@ -214,13 +214,14 @@
         }
       };
 
-      function accountPageChanges() {
+      function accountPageChanges(event) {
         const $headerLogin = $('#block-workbc-jobboardloginheader');
         const $headerRegister = $('#block-workbc-jobboardregisterheader');
         const $footerLogin = $('#block-workbc-jobboardloginfooter');
         const $footerRegister = $('#block-workbc-jobboardregisterfooter');
         const $heroTitle = $('.hero-banner .hero-content');
-        switch (window.location.hash) {
+        const hash = event.type === 'jobboardlogin' ? '#/dashboard' : window.location.hash
+        switch (hash) {
           case '#/login':
             $headerLogin.show();
             $headerRegister.hide();
@@ -240,6 +241,7 @@
             $headerRegister.hide();
             $footerLogin.hide();
             $footerRegister.hide();
+            $heroTitle.html('');
         }
       }
 

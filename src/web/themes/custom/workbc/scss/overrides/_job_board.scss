@@ -367,18 +367,18 @@ mat-dialog-container {
   }
 }
 
-#block-workbc-jobboardloginheader {
+p.blue-banner {
   background: #bcdced;
   padding: 20px 20px 20px 20px;
-
-  p {
-    margin: 0;
-  }
+  margin: 0;
 
   a {
     font-weight: bolder;
     color: #234075;
   }
+}
+
+#block-workbc-jobboardloginheader {
 }
 
 #block-workbc-jobboardloginfooter {
@@ -391,6 +391,51 @@ mat-dialog-container {
     margin-top: 25px;
     margin-bottom: 0px;
   }
+}
+
+#block-workbc-jobboardregisterheader {
+  table {
+    margin: 0 auto;
+    width: auto;
+  }
+
+  tr {
+    display: flex;
+    flex-wrap: wrap;
+    gap: 20px;
+    justify-content: center;
+
+    td {
+      padding: 20px 0 0 0;
+      height: 130px;
+      width: 130px;
+      text-align: center;
+      border: solid 1px lightgray;
+
+      &:nth-child(1) {
+        color: #276207;
+      }
+      &:nth-child(2) {
+        color: #CC4E11;
+      }
+      &:nth-child(3) {
+        color: #013366;
+      }
+      &:nth-child(4) {
+        color: #630083;
+      }
+      &:nth-child(5) {
+        color: #305DA6;
+      }
+
+      p {
+        margin: 10px 5px 0 5px;
+      }
+    }
+  }
+}
+
+#block-workbc-jobboardregisterfooter {
 }
 
 .job-lang {
