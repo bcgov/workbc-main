@@ -10,6 +10,7 @@ ignored_config_entities:
   - 'openid_connect.*'
   - 'recaptcha.*'
   - 'search_api.server.*'
+  - 'simple_block.simple_block.job_board_*'
   - system.mail
   - system.maintenance
   - system.performance

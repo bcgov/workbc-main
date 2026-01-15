@@ -383,7 +383,7 @@ p.blue-banner {
 
 #block-workbc-jobboardloginfooter {
   border: 1px solid #fff;
-  box-shadow: 0 3.2px 7.2px 0 lightgray;
+  box-shadow: 0 3.2px 7.2px 0 rgb(0,0,0,0.1);
   padding: 15px;
   margin: 20px 0 40px 0;
 
@@ -406,11 +406,13 @@ p.blue-banner {
     justify-content: center;
 
     td {
+      font-size: 13.3px;
       padding: 20px 0 0 0;
       height: 130px;
       width: 130px;
       text-align: center;
-      border: solid 1px lightgray;
+      border: 1px solid #fff;
+      box-shadow: 1px 1px 6px 0 rgb(0,0,0,0.1);
 
       &:nth-child(1) {
         color: #276207;
@@ -429,7 +431,7 @@ p.blue-banner {
       }
 
       p {
-        margin: 10px 5px 0 5px;
+        margin: 10px 10px 0 10px;
       }
     }
   }
