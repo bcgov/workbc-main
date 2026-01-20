@@ -365,7 +365,10 @@ function ssotIndustryProfile($industryName) {
   $data['industry_outlook'] = querySSoT('industry_outlook?industry=eq.' . $industry)[0];
   $data['labour_force_survey_industry'] = querySSoT('labour_force_survey_industry?industry=eq.' . $industry)[0];
   $data['monthly_labour_market_updates'] = querySSoT('monthly_labour_market_updates');
-  $data['openings_industry'] = querySSoT('openings_industry?industry=eq.' . $industry);
+  $openings = querySSoT('openings_industry?industry=eq.' . $industry);
+  $id_values = array_column($openings, "openings");
+  array_multisort($id_values, SORT_DESC, $openings);
+  $data['openings_industry'] = $openings;
   $data['sources'] = ssotSources();
   $data['schema'] = ssotSchema();
   return $data;
