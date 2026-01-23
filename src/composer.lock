@@ -4,7 +4,7 @@
         "Read more about it at https://getcomposer.org/doc/01-basic-usage.md#installing-dependencies",
         "This file is @generated automatically"
     ],
-    "content-hash": "f2c70b10553390482fae16ff08a07d09",
+    "content-hash": "c7d36eb5c45b68291115af84e9c76c27",
     "packages": [
         {
             "name": "asm89/stack-cors",
@@ -4148,17 +4148,17 @@
         },
         {
             "name": "drupal/extra_field",
-            "version": "3.0.0-beta2",
+            "version": "3.0.0",
             "source": {
                 "type": "git",
                 "url": "https://git.drupalcode.org/project/extra_field.git",
-                "reference": "3.0.0-beta2"
+                "reference": "3.0.0"
             },
             "dist": {
                 "type": "zip",
-                "url": "https://ftp.drupal.org/files/projects/extra_field-3.0.0-beta2.zip",
-                "reference": "3.0.0-beta2",
-                "shasum": "9a44fe914fab68d73dac66db47eb3f3061843f8e"
+                "url": "https://ftp.drupal.org/files/projects/extra_field-3.0.0.zip",
+                "reference": "3.0.0",
+                "shasum": "fe2a42d5933cecb472dbf6fef4f050792041394d"
             },
             "require": {
                 "drupal/core": "^10.2 || ^11"
@@ -4172,11 +4172,11 @@
             "type": "drupal-module",
             "extra": {
                 "drupal": {
-                    "version": "3.0.0-beta2",
-                    "datestamp": "1757085763",
+                    "version": "3.0.0",
+                    "datestamp": "1768906714",
                     "security-coverage": {
-                        "status": "not-covered",
-                        "message": "Beta releases are not covered by Drupal security advisories."
+                        "status": "covered",
+                        "message": "Covered by Drupal's security advisory policy"
                     }
                 },
                 "drush": {
@@ -5217,17 +5217,17 @@
         },
         {
             "name": "drupal/key",
-            "version": "1.21.0",
+            "version": "1.22.0",
             "source": {
                 "type": "git",
                 "url": "https://git.drupalcode.org/project/key.git",
-                "reference": "8.x-1.21"
+                "reference": "8.x-1.22"
             },
             "dist": {
                 "type": "zip",
-                "url": "https://ftp.drupal.org/files/projects/key-8.x-1.21.zip",
-                "reference": "8.x-1.21",
-                "shasum": "1e493e73bd41e70831821929b97bfb43818202fe"
+                "url": "https://ftp.drupal.org/files/projects/key-8.x-1.22.zip",
+                "reference": "8.x-1.22",
+                "shasum": "14b4b8ce1917dcbcf2d67955564b8b484f30cdda"
             },
             "require": {
                 "drupal/core": "^9.1 || ^10 || ^11"
@@ -5241,8 +5241,8 @@
             "type": "drupal-module",
             "extra": {
                 "drupal": {
-                    "version": "8.x-1.21",
-                    "datestamp": "1766353546",
+                    "version": "8.x-1.22",
+                    "datestamp": "1768921252",
                     "security-coverage": {
                         "status": "covered",
                         "message": "Covered by Drupal's security advisory policy"
@@ -5685,17 +5685,17 @@
         },
         {
             "name": "drupal/media_library_edit",
-            "version": "3.0.4",
+            "version": "3.0.5",
             "source": {
                 "type": "git",
                 "url": "https://git.drupalcode.org/project/media_library_edit.git",
-                "reference": "3.0.4"
+                "reference": "3.0.5"
             },
             "dist": {
                 "type": "zip",
-                "url": "https://ftp.drupal.org/files/projects/media_library_edit-3.0.4.zip",
-                "reference": "3.0.4",
-                "shasum": "92f1c1f58b5579363a9f18ffb5632cc368066dfe"
+                "url": "https://ftp.drupal.org/files/projects/media_library_edit-3.0.5.zip",
+                "reference": "3.0.5",
+                "shasum": "08370b035de0eeac59aa17ac3a279043db69d091"
             },
             "require": {
                 "drupal/core": "^9.2 || ^10 || ^11"
@@ -5703,8 +5703,8 @@
             "type": "drupal-module",
             "extra": {
                 "drupal": {
-                    "version": "3.0.4",
-                    "datestamp": "1724358009",
+                    "version": "3.0.5",
+                    "datestamp": "1769034502",
                     "security-coverage": {
                         "status": "covered",
                         "message": "Covered by Drupal's security advisory policy"
@@ -20162,7 +20162,6 @@
     "stability-flags": {
         "drupal/advagg": 15,
         "drupal/content_lock": 15,
-        "drupal/extra_field": 10,
         "drupal/keycloak": 5,
         "drupal/openid_connect": 15,
         "drupal/popperjs": 20,

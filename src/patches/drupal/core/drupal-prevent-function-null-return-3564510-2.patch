@@ -1,0 +1,22 @@
+diff --git a/core/lib/Drupal/Core/Utility/ThemeRegistry.php b/core/lib/Drupal/Core/Utility/ThemeRegistry.php
+index bdc8188b5e4..5f106c7fd9d 100644
+--- a/core/lib/Drupal/Core/Utility/ThemeRegistry.php
++++ b/core/lib/Drupal/Core/Utility/ThemeRegistry.php
+@@ -177,7 +177,7 @@ protected function updateCache($lock = TRUE) {
+    * @internal
+    */
+   public function getPreprocessInvokes(): array {
+-    return $this->get('preprocess invokes');
++    return $this->get('preprocess invokes') ?? [];
+   }
+ 
+   /**
+@@ -190,7 +190,7 @@ public function getPreprocessInvokes(): array {
+    * @internal
+    */
+   public function getGlobalPreprocess(): array {
+-    return $this->get('global preprocess');
++    return $this->get('global preprocess') ?? [];
+   }
+ 
+ }

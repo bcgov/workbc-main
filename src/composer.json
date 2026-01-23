@@ -99,7 +99,7 @@
         "drupal/entity_reference_revisions": "^1.9",
         "drupal/exclude_node_title": "^2.0",
         "drupal/expand_collapse_formatter": "^2.0",
-        "drupal/extra_field": "^3.0@beta",
+        "drupal/extra_field": "^3.0",
         "drupal/field_group": "^4.0",
         "drupal/field_permissions": "^1.5",
         "drupal/filehash": "^3.2",
@@ -112,6 +112,7 @@
         "drupal/health_check": "^3.1",
         "drupal/image_widget_crop": "^3.0",
         "drupal/jquery_ui_accordion": "^2.1",
+        "drupal/key": "^1.22",
         "drupal/keycloak": "^2.2@RC",
         "drupal/linkit": "^7.0",
         "drupal/log_stdout": "^3.0",
@@ -240,7 +241,8 @@
             "drupal/core": {
                 "Media library add form mode": "patches/drupal/core/core-10.3-3323232.patch",
                 "NumericFilter warning fix": "patches/drupal/core/core-10.3-3418238.patch",
-                "Views exposed form AJAX callback": "patches/drupal/core/core-10.3-2842525.patch"
+                "Views exposed form AJAX callback": "patches/drupal/core/core-10.3-2842525.patch",
+                "getGlobalPreprocess() Return value must be of type array": "patches/drupal/core/drupal-prevent-function-null-return-3564510-2.patch"
             },
             "drupal/backup_migrate": {
                 "PostgreSQL support": "patches/drupal/backup_migrate/0003-postgresql-support.patch",
