@@ -241,7 +241,8 @@
             "drupal/core": {
                 "Media library add form mode": "patches/drupal/core/core-10.3-3323232.patch",
                 "NumericFilter warning fix": "patches/drupal/core/core-10.3-3418238.patch",
-                "Views exposed form AJAX callback": "patches/drupal/core/core-10.3-2842525.patch"
+                "Views exposed form AJAX callback": "patches/drupal/core/core-10.3-2842525.patch",
+                "getGlobalPreprocess() Return value must be of type array": "patches/drupal/core/drupal-prevent-function-null-return-3564510-2.patch"
             },
             "drupal/backup_migrate": {
                 "PostgreSQL support": "patches/drupal/backup_migrate/0003-postgresql-support.patch",
