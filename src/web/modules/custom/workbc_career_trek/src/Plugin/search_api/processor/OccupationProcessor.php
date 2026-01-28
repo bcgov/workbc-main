@@ -75,7 +75,7 @@ class OccupationProcessor extends ProcessorPluginBase {
    */
   protected function fetchDataFromApi($id) {
     try {
-      $ssot = ssotCareerProfile($id);
+      $ssot = ssotCareerProfile($id, 'career_trek');
       if (!empty($ssot['career_trek'][0])) {
         return $ssot['career_trek'][0]['episode_title'] ?? '';
       }
