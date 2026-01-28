@@ -317,9 +317,6 @@ function workbc_career_trek_preprocess_breadcrumb(&$variables) {
  */
 function workbc_career_trek_form_views_exposed_form_alter(&$form, \Drupal\Core\Form\FormStateInterface $form_state, $form_id) {
   if($form['#id'] == "views-exposed-form-career-trek-video-library-block-1") {
-    $form['annual_salary_wrapper']['#type'] = 'details';
-    $form['annual_salary_wrapper']['#title'] = $form['annual_salary_wrapper']['annual_salary_wrapper']['#title'];
-    $form['annual_salary_wrapper']['#description'] = $form['annual_salary_wrapper']['annual_salary_wrapper']['#description'];
     $clone = $form['occupational_category_api_field'];
     $clone['#group'] = "skills_collapsible";
     $terms = \Drupal::entityTypeManager()
