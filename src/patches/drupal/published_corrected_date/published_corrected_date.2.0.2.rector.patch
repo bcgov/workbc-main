@@ -1,0 +1,14 @@
+diff --git a/published_corrected_date.info.yml b/published_corrected_date.info.yml
+index 96a830a..e85b7f3 100644
+--- a/published_corrected_date.info.yml
++++ b/published_corrected_date.info.yml
+@@ -1,8 +1,7 @@
+ name: 'Published and corrected dates'
+ description: 'Added a published and corrected date property to nodes.'
+ type: module
+-core: 8.x
+-core_version_requirement: ^8 || ^9 || ^10
++core_version_requirement: ^8 || ^9 || ^10 || ^11
+ package: 'Workflow'
+ dependencies:
+   - drupal:node

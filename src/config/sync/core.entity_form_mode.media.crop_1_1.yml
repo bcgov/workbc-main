@@ -6,6 +6,6 @@ dependencies:
     - media
 id: media.crop_1_1
 label: 'Crop 1:1'
-description: ''
+description: null
 targetEntityType: media
 cache: true

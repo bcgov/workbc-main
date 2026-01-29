@@ -393,15 +393,6 @@ display:
             multiple: false
             remember_roles:
               authenticated: authenticated
-              anonymous: '0'
-              content_editor: '0'
-              content_approver: '0'
-              workbc_administrator: '0'
-              global_editor: '0'
-              global_approver: '0'
-              workbc_global_administrator: '0'
-              administrator: '0'
-              switch_user: '0'
             expose_fields: false
             placeholder: Search
             searched_fields_id: search_api_fulltext_searched_fields

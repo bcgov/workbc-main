@@ -708,13 +708,6 @@ display:
             remember_roles:
               anonymous: anonymous
               authenticated: authenticated
-              content_editor: '0'
-              content_approver: '0'
-              workbc_administrator: '0'
-              global_editor: '0'
-              global_approver: '0'
-              workbc_global_administrator: '0'
-              administrator: '0'
             placeholder: ''
           is_grouped: false
           group_info:
@@ -756,13 +749,6 @@ display:
             remember_roles:
               anonymous: anonymous
               authenticated: authenticated
-              content_editor: '0'
-              content_approver: '0'
-              workbc_administrator: '0'
-              global_editor: '0'
-              global_approver: '0'
-              workbc_global_administrator: '0'
-              administrator: '0'
             reduce: false
           is_grouped: false
           group_info:
@@ -810,13 +796,6 @@ display:
             remember_roles:
               anonymous: anonymous
               authenticated: authenticated
-              content_editor: '0'
-              content_approver: '0'
-              workbc_administrator: '0'
-              global_editor: '0'
-              global_approver: '0'
-              workbc_global_administrator: '0'
-              administrator: '0'
             reduce: false
             chosen_override: 1
             disable_search: 0
@@ -869,13 +848,6 @@ display:
             remember_roles:
               anonymous: anonymous
               authenticated: authenticated
-              content_editor: '0'
-              content_approver: '0'
-              workbc_administrator: '0'
-              global_editor: '0'
-              global_approver: '0'
-              workbc_global_administrator: '0'
-              administrator: '0'
             reduce: false
           is_grouped: false
           group_info:
@@ -919,14 +891,6 @@ display:
             multiple: true
             remember_roles:
               authenticated: authenticated
-              anonymous: '0'
-              content_editor: '0'
-              content_approver: '0'
-              workbc_administrator: '0'
-              global_editor: '0'
-              global_approver: '0'
-              workbc_global_administrator: '0'
-              administrator: '0'
             min_placeholder: ''
             max_placeholder: ''
             placeholder: ''
@@ -1014,13 +978,6 @@ display:
             remember_roles:
               anonymous: anonymous
               authenticated: authenticated
-              content_editor: '0'
-              content_approver: '0'
-              workbc_administrator: '0'
-              global_editor: '0'
-              global_approver: '0'
-              workbc_global_administrator: '0'
-              administrator: '0'
             min_placeholder: ''
             max_placeholder: ''
             placeholder: ''

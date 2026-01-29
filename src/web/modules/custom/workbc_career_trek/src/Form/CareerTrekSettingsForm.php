@@ -8,6 +8,7 @@ use Drupal\Core\Config\FileStorage;
 use Drupal\Core\Site\Settings;
 use Drupal\file\Entity\File;
 use Drupal\Core\File\FileSystemInterface;
+use Drupal\Core\File\FileExists;
 
 class CareerTrekSettingsForm extends ConfigFormBase {
 
@@ -378,7 +379,7 @@ class CareerTrekSettingsForm extends ConfigFormBase {
     if (isset($_FILES['files']['name']['logo_file']) && !empty($_FILES['files']['name']['logo_file'])) {
       $destination = 'public://career_trek_icons/';
       \Drupal::service('file_system')->prepareDirectory($destination, FileSystemInterface::CREATE_DIRECTORY | FileSystemInterface::MODIFY_PERMISSIONS);
-      $file_upload = file_save_upload('logo_file', $validators, $destination, 0, FileSystemInterface::EXISTS_RENAME);
+      $file_upload = file_save_upload('logo_file', $validators, $destination, 0, FileExists::Rename);
       if ($file_upload) {
         // Remove previous file if exists
         $old_fid = $config->get('logo_fid');
@@ -416,7 +417,7 @@ class CareerTrekSettingsForm extends ConfigFormBase {
       if (isset($_FILES['files']['name'][$key . '_file']) && !empty($_FILES['files']['name'][$key . '_file'])) {
         $destination = 'public://career_trek_icons/';
         \Drupal::service('file_system')->prepareDirectory($destination, FileSystemInterface::CREATE_DIRECTORY | FileSystemInterface::MODIFY_PERMISSIONS);
-        $file_upload = file_save_upload($key . '_file', $validators, $destination, 0, FileSystemInterface::EXISTS_RENAME);
+        $file_upload = file_save_upload($key . '_file', $validators, $destination, 0, FileExists::Rename);
         if ($file_upload) {
           // Remove previous file if exists
           $old_fid = $config->get($key . '_fid');
