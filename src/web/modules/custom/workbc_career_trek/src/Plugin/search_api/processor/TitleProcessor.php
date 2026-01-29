@@ -75,7 +75,7 @@ class TitleProcessor extends ProcessorPluginBase {
    */
   protected function fetchOccupationalCategoryDataFromApi($id) {
     try {
-      $ssot = ssotFullCareerProfile($id);
+      $ssot = ssotFullCareerProfile($id, 'career_trek');
       if (!empty($ssot['career_trek'][0])) {
         return $ssot['career_trek'][0]['title_2021'] ?? '';
       }
