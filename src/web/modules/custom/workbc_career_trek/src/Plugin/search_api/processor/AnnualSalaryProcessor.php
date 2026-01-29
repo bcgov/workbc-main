@@ -75,7 +75,7 @@ class AnnualSalaryProcessor extends ProcessorPluginBase {
    */
   protected function fetchDataFromApi($id) {
     try {
-      $ssot = ssotFullCareerProfile($id);
+      $ssot = ssotFullCareerProfile($id, 'wages');
       if (!empty($ssot['wages']['calculated_median_annual_salary'])) {
         return $ssot['wages']['calculated_median_annual_salary'] ?? '';
       }
