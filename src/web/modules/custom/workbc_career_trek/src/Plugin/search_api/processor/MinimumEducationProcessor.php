@@ -75,7 +75,7 @@ class MinimumEducationProcessor extends ProcessorPluginBase {
    */
   protected function fetchDataFromApi($id) {
     try {
-      $ssot = ssotFullCareerProfile($id);
+      $ssot = ssotFullCareerProfile($id, 'education');
       if (!empty($ssot['education']['teer'])) {
         $tier = $ssot['education']['teer'] ?? '';
         return "$tier";

@@ -211,29 +211,28 @@ function workbc_career_trek_node_view(array &$build, \Drupal\Core\Entity\EntityI
   }
 }
 
-function ssotFullCareerProfile($noc) {
+function ssotFullCareerProfile($noc, $dataset = NULL) {
 
   $data = array();
-  if (!empty(querySSoT('wages?noc=eq.' . $noc))) {
-    $data['wages'] = querySSoT('wages?noc=eq.' . $noc)[0];
-    $data['career_provincial'] = querySSoT('career_provincial?noc=eq.' . $noc)[0];
-    $data['career_regional'] = querySSoT('career_regional?noc=eq.' . $noc)[0];
-    $data['census'] = querySSoT('census?noc=eq.' . $noc)[0];
-    $data['education'] = querySSoT('education?noc=eq.' . $noc)[0];
-    $data['skills'] = querySSoT('skills?noc=eq.' . $noc);
-    $data['high_opportunity_occupations'] = querySSoT('high_opportunity_occupations?noc=eq.' . $noc);
-    $data['occupational_interests'] = querySSoT('occupational_interests?noc=eq.' . $noc);
-    $data['titles'] = querySSoT('titles?noc=eq.' . $noc);
-    $data['career_trek'] = querySSoT('career_trek?noc_2021=eq.' . $noc);
-    $data['occupational_category'] = querySSoT('fyp_categories_interests_nocs?noc_2021=eq.' . $noc);
-    $opening_careers = querySSoT('openings_careers?noc=eq.' . $noc);
-    if (!empty($opening_careers)) {
-      $data['openings_careers'] = $opening_careers[0];
-    }
+
+  if (empty($dataset) || $dataset === 'wages') $data['wages'] = querySSoT('wages?noc=eq.' . $noc)[0];
+  if (empty($dataset) || $dataset === 'career_provincial') $data['career_provincial'] = querySSoT('career_provincial?noc=eq.' . $noc)[0];
+  if (empty($dataset) || $dataset === 'career_regional') $data['career_regional'] = querySSoT('career_regional?noc=eq.' . $noc)[0];
+  if (empty($dataset) || $dataset === 'census') $data['census'] = querySSoT('census?noc=eq.' . $noc)[0];
+  if (empty($dataset) || $dataset === 'education') $data['education'] = querySSoT('education?noc=eq.' . $noc)[0];
+  if (empty($dataset) || $dataset === 'skills') $data['skills'] = querySSoT('skills?noc=eq.' . $noc);
+  if (empty($dataset) || $dataset === 'high_opportunity_occupations') $data['high_opportunity_occupations'] = querySSoT('high_opportunity_occupations?noc=eq.' . $noc);
+  if (empty($dataset) || $dataset === 'occupational_interests') $data['occupational_interests'] = querySSoT('occupational_interests?noc=eq.' . $noc);
+  if (empty($dataset) || $dataset === 'titles') $data['titles'] = querySSoT('titles?noc=eq.' . $noc);
+  if (empty($dataset) || $dataset === 'career_trek') $data['career_trek'] = querySSoT('career_trek?noc_2021=eq.' . $noc);
+  if (empty($dataset) || $dataset === 'occupational_category') $data['occupational_category'] = querySSoT('fyp_categories_interests_nocs?noc_2021=eq.' . $noc);
+  if (empty($dataset) || $dataset === 'openings_careers') $opening_careers = querySSoT('openings_careers?noc=eq.' . $noc);
+  if (!empty($opening_careers)) {
+    $data['openings_careers'] = $opening_careers[0];
   }
-  $data['industries'] = (is_array(querySSoT('industries'))) ? array_column(querySSoT('industries'), NULL, 'key') : [];
-  $data['sources'] = ssotSources();
-  $data['schema'] = ssotSchema();
+  if (empty($dataset) || $dataset === 'industries') $data['industries'] = array_column(querySSoT('industries'), NULL, 'key');
+  if (empty($dataset) || $dataset === 'sources') $data['sources'] = ssotSources();
+  if (empty($dataset) || $dataset === 'schema') $data['schema'] = ssotSchema();
 
   return $data;
 }
@@ -318,9 +317,6 @@ function workbc_career_trek_preprocess_breadcrumb(&$variables) {
  */
 function workbc_career_trek_form_views_exposed_form_alter(&$form, \Drupal\Core\Form\FormStateInterface $form_state, $form_id) {
   if($form['#id'] == "views-exposed-form-career-trek-video-library-block-1") {
-    $form['annual_salary_wrapper']['#type'] = 'details';
-    $form['annual_salary_wrapper']['#title'] = $form['annual_salary_wrapper']['annual_salary_wrapper']['#title'];
-    $form['annual_salary_wrapper']['#description'] = $form['annual_salary_wrapper']['annual_salary_wrapper']['#description'];
     $clone = $form['occupational_category_api_field'];
     $clone['#group'] = "skills_collapsible";
     $terms = \Drupal::entityTypeManager()
