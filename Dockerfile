@@ -20,4 +20,5 @@ RUN sed -i "/;pm.max_spawn_rate/c\pm.max_spawn_rate = $SPAWN_RATE" /usr/local/et
 COPY src /code
 RUN chmod -R g+rwX /code
 RUN cd /code && rm -rf .git && composer install && composer update
-RUN ln -s /app/vendor/drush/drush/drush /usr/local/bin/drush
+#RUN ln -s /app/vendor/drush/drush/drush /usr/local/bin/drush
+ENV PATH="/app/vendor/bin:${PATH}"
