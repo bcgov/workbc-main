@@ -21,3 +21,4 @@ COPY src /code
 RUN chmod -R g+rwX /code
 RUN cd /code && rm -rf .git && composer install && composer update
 #RUN ln -s /app/vendor/drush/drush/drush /usr/local/bin/drush
+ENV PATH="/app/vendor/bin:${PATH}"
