@@ -233,24 +233,46 @@ article.media--type-remote-video {
   width: 70%;
 
   @include media-breakpoint-down(md) {
-    width: 100%;
+    width: 100% !important;
+  }
+
+  &.media--view-mode-action-card-explore-careers {
+    width: 100% !important;
+
+    .workbc-card-thumbnail {
+      aspect-ratio: 560 / 500;
+      background-color: black;
+      display: flex;
+
+      .img-fluid {
+        object-fit: cover;
+        margin-top: 10%;
+        margin-bottom: 10%;
+      }
+    }
+  }
+
+  &.media--view-mode-full-width-component {
+    width: 100% !important;
+
+    .workbc-card-thumbnail {
+      aspect-ratio: 3 / 2;
+      background-color: black;
+      display: flex;
+
+      .img-fluid {
+        object-fit: cover;
+      }
+    }
   }
 }
 
 .page-format--wide article.media--type-remote-video {
   width: 50%;
-
-  @include media-breakpoint-down(md) {
-    width: 100%;
-  }
 }
 
 .page-format--sidenav article.media--type-remote-video {
   width: 60%;
-
-  @include media-breakpoint-down(md) {
-    width: 100%;
-  }
 }
 
 .paragraph--key--indigenous-peoples-video-grid {
