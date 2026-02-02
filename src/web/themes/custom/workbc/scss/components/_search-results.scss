@@ -28,3 +28,24 @@
 .node p.search__teaser {
   margin-bottom: 0;
 }
+
+.view-search-site-content {
+
+  .search-site-content-results {
+    text-align: right;
+    padding-bottom: 5px;
+    border-bottom: 1px solid #9d9d9d;
+  }
+
+  .search-site-content-buttons {
+    a {
+
+        @include btn-subtle;
+        padding: 10px 35px;
+
+        @include media-breakpoint-down(sm) {
+          padding: 10px 15px;
+        }
+      }
+    }
+}

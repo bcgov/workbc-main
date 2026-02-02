@@ -9,7 +9,9 @@ dependencies:
     - search_api.server.solr
   module:
     - node
+    - published_corrected_date
     - search_api_solr
+    - workbc_career_trek
 third_party_settings:
   search_api_solr:
     finalize: false
@@ -95,6 +97,14 @@ field_settings:
     indexed_locked: true
     type_locked: true
     hidden: true
+  published_date:
+    label: 'Published on'
+    datasource_id: 'entity:node'
+    property_path: published_date
+    type: date
+    dependencies:
+      module:
+        - published_corrected_date
   rendered_item:
     label: 'Rendered HTML output'
     property_path: rendered_item
@@ -136,6 +146,14 @@ field_settings:
     dependencies:
       module:
         - node
+  type:
+    label: 'Content type'
+    datasource_id: 'entity:node'
+    property_path: type
+    type: string
+    dependencies:
+      module:
+        - node
   uid:
     label: 'Author ID'
     datasource_id: 'entity:node'
@@ -146,6 +164,12 @@ field_settings:
     dependencies:
       module:
         - node
+  url:
+    label: URI
+    property_path: search_api_url
+    type: string
+    configuration:
+      absolute: false
 datasource_settings:
   'entity:node':
     bundles:
@@ -180,7 +204,6 @@ processor_settings:
     excerpt_length: 256
     exclude_fields:
       - field_noc
-      - field_noc_2016
     highlight: server
     highlight_partial: false
   html_filter:
@@ -193,6 +216,8 @@ processor_settings:
       - field_noc
       - rendered_item
       - title
+      - type
+      - url
     title: true
     alt: true
     tags:
@@ -202,6 +227,9 @@ processor_settings:
       h3: 2.0
       strong: 2.0
   language_with_fallback: {  }
+  node_id_processor:
+    weights:
+      preprocess_index: -10
   rendered_item: {  }
   solr_date_range:
     weights:
