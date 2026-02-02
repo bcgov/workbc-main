@@ -5,12 +5,13 @@ dependencies:
   config:
     - field.storage.paragraph.field_image_media
     - media.type.image
+    - media.type.remote_video
     - paragraphs.paragraphs_type.action_card_full_width
 id: paragraph.action_card_full_width.field_image_media
 field_name: field_image_media
 entity_type: paragraph
 bundle: action_card_full_width
-label: Image
+label: Media
 description: 'Use a cropping of 3:2 for best visual results.<br>'
 required: false
 translatable: true
@@ -21,9 +22,10 @@ settings:
   handler_settings:
     target_bundles:
       image: image
+      remote_video: remote_video
     sort:
       field: _none
       direction: ASC
     auto_create: false
-    auto_create_bundle: feature_image
+    auto_create_bundle: image
 field_type: entity_reference
