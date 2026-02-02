@@ -268,7 +268,7 @@
 			var value = this.positionToValue(position);
 			// Is it higer or lower than it should be?
 
-			if ($.isFunction(this.options.format)) {
+			if (typeof this.options.format === 'function') {
 				var type = this.isSingle() ? undefined : (pointer.hasClass('low') ? 'low' : 'high');
 				text = this.options.format(value, type);
 			} else {
