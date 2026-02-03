@@ -215,6 +215,7 @@ function workbc_custom_views_pre_render(ViewExecutable $view) {
       '@range' => ssotParseDateRange($schema, 'career_provincial', 'expected_job_openings_10y')
     ]);
   }
+
 }
 
 /**
@@ -254,6 +255,27 @@ function workbc_custom_views_query_alter(ViewExecutable $view, QueryPluginBase $
         if ($condition['field'] == 'node__field_region_hoo.delta') {
           $condition['value'] = $delta;
         }
+      }
+    }
+  }
+
+  if (in_array($view->id(), ['search_site_content'])) {
+    $query_params = \Drupal::request()->query->all();
+    if (isset($query_params['filter'])) {
+      if ($query_params['filter'] == "funding") {
+        $keys = $query->getKeys();
+        $keys[] = "funding";
+        $query->keys($keys);
+      }
+      if ($query_params['filter'] == "training") {
+        $or_group = $query->createConditionGroup('OR');
+        $or_group->addCondition('url', '/discover-employment-services', '=');
+        $or_group->addCondition('url', '/plan-career', '=');
+        $or_group->addCondition('url', '/explore-training-and-education', '=');
+        $or_group->addCondition('url', ['/discover-employment-services/','/discover-employment-services/zzz'], 'BETWEEN');
+        $or_group->addCondition('url', ['/plan-career/','/plan-career/zzz'], 'BETWEEN');
+        $or_group->addCondition('url', ['/explore-training-and-education/','/explore-training-and-education/zzz'], 'BETWEEN');
+        $query->addConditionGroup($or_group);
       }
     }
   }

@@ -4,7 +4,7 @@
         "Read more about it at https://getcomposer.org/doc/01-basic-usage.md#installing-dependencies",
         "This file is @generated automatically"
     ],
-    "content-hash": "97e683fe50fa76ca8afa7e1306ad9978",
+    "content-hash": "17c7f4086b015ba6d70dcf9be826858a",
     "packages": [
         {
             "name": "asm89/stack-cors",
@@ -8075,54 +8075,6 @@
             "homepage": "https://www.drupal.org/project/views_infinite_scroll",
             "support": {
                 "source": "https://git.drupalcode.org/project/views_infinite_scroll"
-            }
-        },
-        {
-            "name": "drupal/views_url_path_arguments",
-            "version": "1.7.0",
-            "source": {
-                "type": "git",
-                "url": "https://git.drupalcode.org/project/views_url_path_arguments.git",
-                "reference": "8.x-1.7"
-            },
-            "dist": {
-                "type": "zip",
-                "url": "https://ftp.drupal.org/files/projects/views_url_path_arguments-8.x-1.7.zip",
-                "reference": "8.x-1.7",
-                "shasum": "e753898f899012afa240c37edd96ddec755bb141"
-            },
-            "require": {
-                "drupal/core": "^10.3 || ^11"
-            },
-            "type": "drupal-module",
-            "extra": {
-                "drupal": {
-                    "version": "8.x-1.7",
-                    "datestamp": "1764604784",
-                    "security-coverage": {
-                        "status": "covered",
-                        "message": "Covered by Drupal's security advisory policy"
-                    }
-                }
-            },
-            "notification-url": "https://packages.drupal.org/8/downloads",
-            "license": [
-                "GPL-2.0+"
-            ],
-            "authors": [
-                {
-                    "name": "heddn",
-                    "homepage": "https://www.drupal.org/user/1463982"
-                }
-            ],
-            "description": "Simple module to convert a view argument's entity id into its url path.",
-            "homepage": "https://www.drupal.org/project/views_url_path_arguments",
-            "keywords": [
-                "Drupal"
-            ],
-            "support": {
-                "source": "http://cgit.drupalcode.org/views_url_path_arguments",
-                "issues": "https://www.drupal.org/project/issues/views_url_path_arguments"
             }
         },
         {

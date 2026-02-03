@@ -158,7 +158,6 @@
         "drupal/views_bulk_operations": "^4.3",
         "drupal/views_database_connector": "^2.0",
         "drupal/views_infinite_scroll": "^2.0",
-        "drupal/views_url_path_arguments": "^1.7",
         "drupal/viewsreference": "^2.0@beta",
         "drupal/webform": "^6.3@beta",
         "drush/drush": "^13",
