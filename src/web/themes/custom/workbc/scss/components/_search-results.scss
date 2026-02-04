@@ -50,13 +50,18 @@
         padding: 10px 15px;
       }
 
-  &:hover,
-  &:focus,
-  .selected {
-    background-color: $workbc_palette_dark_primary;
-    color: #fff;
-    text-decoration: none;
-  }
+      &:hover,
+      &:focus {
+        background-color: $workbc_palette_dark_primary;
+        color: #fff;
+        text-decoration: none;
+      }
+    }
+
+    .selected {
+      background-color: $workbc_palette_dark_secondary;
+      color: #fff;
+      text-decoration: none;
     }
   }
 

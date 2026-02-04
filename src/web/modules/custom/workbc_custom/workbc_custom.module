@@ -216,7 +216,6 @@ function workbc_custom_views_pre_render(ViewExecutable $view) {
       '@range' => ssotParseDateRange($schema, 'career_provincial', 'expected_job_openings_10y')
     ]);
   }
-
 }
 
 /**
@@ -273,14 +272,6 @@ function workbc_custom_views_query_alter(ViewExecutable $view, QueryPluginBase $
         $keys[] = "training";
         $keys[] = "education";
         $query->keys($keys);
-        // $or_group = $query->createConditionGroup('OR');
-        // $or_group->addCondition('url', '/discover-employment-services', '=');
-        // $or_group->addCondition('url', '/plan-career', '=');
-        // $or_group->addCondition('url', '/explore-training-and-education', '=');
-        // $or_group->addCondition('url', ['/discover-employment-services/','/discover-employment-services/zzz'], 'BETWEEN');
-        // $or_group->addCondition('url', ['/plan-career/','/plan-career/zzz'], 'BETWEEN');
-        // $or_group->addCondition('url', ['/explore-training-and-education/','/explore-training-and-education/zzz'], 'BETWEEN');
-        // $query->addConditionGroup($or_group);
       }
     }
   }
@@ -1605,9 +1596,21 @@ function loadCareerTrekUrls() {
 
 function workbc_custom_token_info() {
 
-  $info['tokens']['current-page']['current-sort-by'] = array(
-    'name' => t('sort by query parameter'),
-    'description' => t('Full sort by query parameters, return empty string if no sort'),
+  $info['tokens']['current-page']['all-selected-class'] = array(
+    'name' => t('All button selected class'),
+    'description' => t('Return class name if All is selected, return empty string if no sort'),
+  );
+  $info['tokens']['current-page']['funding-selected-class'] = array(
+    'name' => t('Funding button selected class'),
+    'description' => t('Return class name if Funding is selected, return empty string if no sort'),
+  );
+  $info['tokens']['current-page']['training-selected-class'] = array(
+    'name' => t('Funding button selected class'),
+    'description' => t('Return class name if Funding is selected, return empty string if no sort'),
+  );
+  $info['tokens']['current-page']['quick-reads-selected-class'] = array(
+    'name' => t('Funding button selected class'),
+    'description' => t('Return class name if Funding is selected, return empty string if no sort'),
   );
   return $info;
 }
@@ -1620,13 +1623,30 @@ function workbc_custom_token_info() {
 function workbc_custom_tokens($type, $tokens, array $data, array $options, BubbleableMetadata $bubbleable_metadata) {
 
   $replacements = [];
-
+  $query_params = \Drupal::request()->query->all();
   if ($type == 'current-page') {
 
     foreach ($tokens as $name => $original) {
       switch ($name) {
-        case 'current-sort-by':
-          $replacements[$original] = "&sort_by=title_1";
+        case 'all-selected-class':
+          if (!array_key_exists("filter", $query_params) && !array_key_exists('type', $query_params)) {
+            $replacements[$original] = "selected";
+          }
+          break;
+        case 'funding-selected-class':
+          if (array_key_exists("filter", $query_params) && $query_params['filter'] == "funding") {
+            $replacements[$original] = "selected";
+          }
+          break;
+        case 'training-selected-class':
+          if (array_key_exists("filter", $query_params) && $query_params['filter'] == "training") {
+            $replacements[$original] = "selected";
+          }
+          break;
+        case 'quick-reads-selected-class':
+          if (array_key_exists('type', $query_params)) {
+            $replacements[$original] = "selected";
+          }
           break;
       }
     }
