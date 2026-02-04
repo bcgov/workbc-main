@@ -38,14 +38,46 @@
   }
 
   .search-site-content-buttons {
+    padding-top: 5px;
+
     a {
+      margin-right: 10px;
 
-        @include btn-subtle;
-        padding: 10px 35px;
+      @include btn-border;
+      padding: 5px 10px;
 
-        @include media-breakpoint-down(sm) {
-          padding: 10px 15px;
-        }
+      @include media-breakpoint-down(sm) {
+        padding: 10px 15px;
       }
+
+  &:hover,
+  &:focus,
+  .selected {
+    background-color: $workbc_palette_dark_primary;
+    color: #fff;
+    text-decoration: none;
+  }
     }
+  }
+
+
+  .form-item-sort-by {
+    display:flex;
+    align-items: center;
+    padding-left: 20px;
+
+    label {
+      white-space: nowrap;
+      padding-right: 10px
+    }
+
+    .form-select {
+      border: 2px solid #aaa;
+      height: 44px;
+    }
+  }
+
+  .search-site-content-results {
+    padding-top: 35px;
+  }
 }
