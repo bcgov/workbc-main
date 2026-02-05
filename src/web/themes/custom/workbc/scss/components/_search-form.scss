@@ -88,3 +88,13 @@
 .region-content .search-form .contextual .trigger {
   @include visually-hidden;
 }
+
+.search-api-autocomplete-search .ui-menu-item-wrapper.ui-state-active .search-api-autocomplete-suggestion {
+  margin-top: -24px;
+  margin-bottom: -24px;
+}
+
+.search-api-autocomplete-search .ui-menu-item-wrapper.ui-state-active .search-api-autocomplete-suggestion:hover {
+  margin-top: -24px;
+  margin-bottom: -24px;
+}
