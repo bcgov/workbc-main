@@ -11,7 +11,6 @@ dependencies:
     - node
     - published_corrected_date
     - search_api_solr
-    - workbc_career_trek
 third_party_settings:
   search_api_solr:
     finalize: false
@@ -227,9 +226,6 @@ processor_settings:
       h3: 2.0
       strong: 2.0
   language_with_fallback: {  }
-  node_id_processor:
-    weights:
-      preprocess_index: -10
   rendered_item: {  }
   solr_date_range:
     weights:
