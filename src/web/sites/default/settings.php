@@ -778,15 +778,10 @@ $settings['trusted_host_patterns'] = [
   '^www\.workbc\.ca$',
   '^www\.aws\.workbc\.ca$',
   '^aws\.workbc\.ca$',
-  '^workbc\.b89n0c-prod\.nimbus\.cloud\.gov\.bc\.ca$',
-  '^workbc\.b89n0c-dev\.nimbus\.cloud\.gov\.bc\.ca$',
-  //'^workbc-noc\.b89n0c-dev\.nimbus\.cloud\.gov\.bc\.ca$',
-  '^workbc-dev2\.b89n0c-dev\.nimbus\.cloud\.gov\.bc\.ca$',
-  '^workbc-dev3\.b89n0c-dev\.nimbus\.cloud\.gov\.bc\.ca$',
-  '^workbc\.b89n0c-test\.nimbus\.cloud\.gov\.bc\.ca$',
   '^workbc\.a55eb5-dev\.stratus\.cloud\.gov\.bc\.ca$',
   '^workbc\.a55eb5-test\.stratus\.cloud\.gov\.bc\.ca$',
   '^workbc\.a55eb5-prod\.stratus\.cloud\.gov\.bc\.ca$',
+  '^workbc-app-service$'
 ];
 
 // Redis cache.
