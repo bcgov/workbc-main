@@ -158,3 +158,11 @@ nav-tabs:
     - core/drupal
     - core/jquery
     - core/once
+
+language-toggle:
+  js:
+    js/language-toggle.js: {}
+  dependencies:
+    - core/drupal
+    - core/jquery
+    - core/once
