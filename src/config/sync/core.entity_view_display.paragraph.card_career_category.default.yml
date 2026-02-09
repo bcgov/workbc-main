@@ -1,0 +1,22 @@
+uuid: d8c4c1e0-cc92-4cf3-b9a9-6f53b01fae84
+langcode: en
+status: true
+dependencies:
+  config:
+    - field.field.paragraph.card_career_category.field_career_category
+    - paragraphs.paragraphs_type.card_career_category
+id: paragraph.card_career_category.default
+targetEntityType: paragraph
+bundle: card_career_category
+mode: default
+content:
+  field_career_category:
+    type: entity_reference_label
+    label: above
+    settings:
+      link: true
+    third_party_settings: {  }
+    weight: 0
+    region: content
+hidden:
+  search_api_excerpt: true
