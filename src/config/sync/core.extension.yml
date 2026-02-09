@@ -74,6 +74,7 @@ module:
   jquery_ui_menu: 0
   key: 0
   keycloak: 0
+  kint: 0
   language: 0
   link: 0
   linkit: 0
