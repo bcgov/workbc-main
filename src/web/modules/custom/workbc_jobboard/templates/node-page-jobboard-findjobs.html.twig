@@ -107,7 +107,11 @@
 {# When breadcrums are displayed below the hero section #}
 {{ drupal_block('system_breadcrumb_block', wrapper=false) }}
 
-{{ drupal_entity('block', 'bettersocialsharingbuttons') }}
+{# Language Toggle #}
+{% include '@workbc/includes/language-toggle.html.twig' %}
+
+{# Social Sharing #}
+{% include '@workbc/includes/social-sharing.html.twig' %}
 
 <article{{ attributes.addClass(classes) }}>
 
