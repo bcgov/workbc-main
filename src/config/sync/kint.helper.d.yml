@@ -1,0 +1,5 @@
+_core:
+  default_config_hash: 3NkSAQsI63JoZC7uIXAKoW3ovjx2E9VaOkEowOB0hYY
+renderer: Kint\Renderer\RichRenderer
+cli_detection: true
+mode: default
