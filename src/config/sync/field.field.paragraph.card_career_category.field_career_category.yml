@@ -5,7 +5,6 @@ dependencies:
   config:
     - field.storage.paragraph.field_career_category
     - paragraphs.paragraphs_type.card_career_category
-    - taxonomy.vocabulary.epbc_categories
 id: paragraph.card_career_category.field_career_category
 field_name: field_career_category
 entity_type: paragraph
@@ -17,13 +16,10 @@ translatable: false
 default_value: {  }
 default_value_callback: ''
 settings:
-  handler: 'default:taxonomy_term'
+  handler: views
   handler_settings:
-    target_bundles:
-      epbc_categories: epbc_categories
-    sort:
-      field: name
-      direction: asc
-    auto_create: false
-    auto_create_bundle: ''
+    view:
+      view_name: epbc_categories
+      display_name: entity_reference_1
+      arguments: {  }
 field_type: entity_reference

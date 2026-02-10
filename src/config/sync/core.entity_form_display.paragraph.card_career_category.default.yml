@@ -4,6 +4,7 @@ status: true
 dependencies:
   config:
     - field.field.paragraph.card_career_category.field_career_category
+    - field.field.paragraph.card_career_category.field_key
     - paragraphs.paragraphs_type.card_career_category
 id: paragraph.card_career_category.default
 targetEntityType: paragraph
@@ -15,6 +16,14 @@ content:
     weight: 0
     region: content
     settings: {  }
+    third_party_settings: {  }
+  field_key:
+    type: string_textfield
+    weight: 4
+    region: content
+    settings:
+      size: 60
+      placeholder: ''
     third_party_settings: {  }
 hidden:
   created: true
