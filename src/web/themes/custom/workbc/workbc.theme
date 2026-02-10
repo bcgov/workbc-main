@@ -471,7 +471,7 @@ function workbc_page_attachments_alter(array &$attachments){
 
   // Detect a page's manual translation via field_multilingual_centre and pass it to the language toggle.
   $node = \Drupal::routeMatch()->getParameter('node');
-  if (isset($node) && !$node->get('field_multilingual_centre')->isEmpty()) {
+  if (isset($node) && $node->hasField('field_multilingual_centre')) {
     $target = $node->get('field_multilingual_centre')->getValue();
     if (is_array($target) && count($target) > 0) {
       $attachments['#attached']['drupalSettings']['languageToggle'] = [
