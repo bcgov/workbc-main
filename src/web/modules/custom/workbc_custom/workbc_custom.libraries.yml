@@ -19,6 +19,15 @@ explore-grid:
     - core/once
     - core/drupal
 
+career-category-grid:
+  js:
+    js/career-category-grid.js: {}
+  dependencies:
+    - core/jquery
+    - core/drupalSettings
+    - core/once
+    - core/drupal
+
 explore-careers-search:
   js:
     js/explore-careers-search.js: {}
