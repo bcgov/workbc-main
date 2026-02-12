@@ -1,12 +1,12 @@
-uuid: bef79a21-0d35-4ea7-984c-bfdec061175d
+uuid: 7d1bbc95-93bb-4692-a61a-a0c421651b01
 langcode: en
 status: true
 dependencies:
   module:
     - media
     - node
-id: node.field_hero_image_media
-field_name: field_hero_image_media
+id: node.field_hero_image_full_width
+field_name: field_hero_image_full_width
 entity_type: node
 type: entity_reference
 settings:

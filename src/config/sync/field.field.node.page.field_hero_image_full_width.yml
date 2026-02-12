@@ -1,17 +1,17 @@
-uuid: 367344b3-e9a1-40ed-a6aa-1988018f040d
+uuid: 08b02a3e-1a77-43d6-9951-738ccc05fabb
 langcode: en
 status: true
 dependencies:
   config:
-    - field.storage.node.field_hero_image_media
+    - field.storage.node.field_hero_image_full_width
     - media.type.image
     - node.type.page
-id: node.page.field_hero_image_media
-field_name: field_hero_image_media
+id: node.page.field_hero_image_full_width
+field_name: field_hero_image_full_width
 entity_type: node
 bundle: page
-label: 'Hero Image (Faded)'
-description: 'Hero image, faded version. It is overridden by the more recent Hero Image (Full-Width) if present.'
+label: 'Hero Image (Full-Width)'
+description: 'Hero image, full-width version. If present, it replaces the earlier Hero Image (Faded).'
 required: false
 translatable: false
 default_value: {  }
@@ -25,5 +25,5 @@ settings:
       field: _none
       direction: ASC
     auto_create: false
-    auto_create_bundle: hero_image
+    auto_create_bundle: ''
 field_type: entity_reference

@@ -1,17 +1,17 @@
-uuid: e1600c6a-0f71-4147-96b0-87e426b008ea
+uuid: 8f12630d-ca16-4b3c-939f-cabe2a63f750
 langcode: en
 status: true
 dependencies:
   config:
-    - field.storage.node.field_hero_image_media
+    - field.storage.node.field_hero_image_full_width
     - media.type.image
     - node.type.lmo_report_2024
-id: node.lmo_report_2024.field_hero_image_media
-field_name: field_hero_image_media
+id: node.lmo_report_2024.field_hero_image_full_width
+field_name: field_hero_image_full_width
 entity_type: node
 bundle: lmo_report_2024
-label: 'Hero Image (Faded)'
-description: 'Hero image, faded version. It is overridden by the more recent Hero Image (Full-Width) if present.'
+label: 'Hero Image (Full-Width)'
+description: 'Hero image, full-width version. If present, it replaces the earlier Hero Image (Faded).'
 required: false
 translatable: false
 default_value: {  }
@@ -25,5 +25,5 @@ settings:
       field: _none
       direction: ASC
     auto_create: false
-    auto_create_bundle: hero_image
+    auto_create_bundle: ''
 field_type: entity_reference

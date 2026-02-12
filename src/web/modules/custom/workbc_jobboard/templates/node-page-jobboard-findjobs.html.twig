@@ -72,6 +72,7 @@
 
 {% set title = label %}
 {% set hero_image = content.field_hero_image_media[0] %}
+{% set hero_image_fullwidth = content.field_hero_image_full_width[0] %}
 {% set hero_text = content.field_hero_text[0] %}
 {% set page_body = content.body %}
 {% set page_content = content.field_content %}
@@ -100,7 +101,9 @@
   ]
 %}
 
-{% if hero_image or hero_text %}
+{% if hero_image_fullwidth %}
+  {% include '@workbc/includes/hero-fullwidth.html.twig' %}
+{% elseif hero_image or hero_text %}
   {% include '@workbc/includes/hero.html.twig' %}
 {% endif %}
 

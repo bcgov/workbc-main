@@ -15,6 +15,7 @@ dependencies:
     - field.field.node.career_profile.field_education_training_skills
     - field.field.node.career_profile.field_epbc_categories
     - field.field.node.career_profile.field_hero_image
+    - field.field.node.career_profile.field_hero_image_full_width
     - field.field.node.career_profile.field_hero_image_media
     - field.field.node.career_profile.field_hourly_salary
     - field.field.node.career_profile.field_insights_from_industry
@@ -52,7 +53,7 @@ third_party_settings:
       label: 'Career Profile Tabs'
       parent_name: ''
       region: content
-      weight: 17
+      weight: 18
       format_type: html_element
       format_settings:
         classes: ''
@@ -241,12 +242,12 @@ content:
   extra_field_annual_salary:
     settings: {  }
     third_party_settings: {  }
-    weight: 9
+    weight: 10
     region: content
   extra_field_annual_salary_source:
     settings: {  }
     third_party_settings: {  }
-    weight: 10
+    weight: 11
     region: content
   extra_field_career_employment_introduction:
     settings: {  }
@@ -286,7 +287,7 @@ content:
   extra_field_job_openings:
     settings: {  }
     third_party_settings: {  }
-    weight: 11
+    weight: 12
     region: content
   extra_field_job_openings_by_industry:
     settings: {  }
@@ -331,7 +332,7 @@ content:
   extra_field_job_openings_source:
     settings: {  }
     third_party_settings: {  }
-    weight: 12
+    weight: 13
     region: content
   extra_field_job_titles:
     settings: {  }
@@ -386,7 +387,7 @@ content:
   extra_field_occupational_categories:
     settings: {  }
     third_party_settings: {  }
-    weight: 15
+    weight: 16
     region: content
   extra_field_occupational_interests:
     settings: {  }
@@ -401,7 +402,7 @@ content:
   extra_field_profile_location:
     settings: {  }
     third_party_settings: {  }
-    weight: 14
+    weight: 15
     region: content
   extra_field_profile_skills:
     settings: {  }
@@ -479,14 +480,14 @@ content:
       view_mode: ajaxembed
       link: false
     third_party_settings: {  }
-    weight: 16
+    weight: 17
     region: content
   field_career_videos_introduction:
     type: text_default
     label: above
     settings: {  }
     third_party_settings: {  }
-    weight: 13
+    weight: 14
     region: content
   field_duties:
     type: text_default
@@ -509,6 +510,15 @@ content:
     third_party_settings: {  }
     weight: 1
     region: content
+  field_hero_image_full_width:
+    type: entity_reference_entity_view
+    label: above
+    settings:
+      view_mode: default
+      link: true
+    third_party_settings: {  }
+    weight: 8
+    region: content
   field_hero_image_media:
     type: entity_reference_entity_view
     label: above
@@ -516,7 +526,7 @@ content:
       view_mode: hero_image
       link: false
     third_party_settings: {  }
-    weight: 8
+    weight: 9
     region: content
   field_insights_from_industry:
     type: text_default

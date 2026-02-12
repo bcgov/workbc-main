@@ -14,6 +14,7 @@ dependencies:
     - field.field.node.career_profile.field_education_training_skills
     - field.field.node.career_profile.field_epbc_categories
     - field.field.node.career_profile.field_hero_image
+    - field.field.node.career_profile.field_hero_image_full_width
     - field.field.node.career_profile.field_hero_image_media
     - field.field.node.career_profile.field_hourly_salary
     - field.field.node.career_profile.field_insights_from_industry
@@ -461,6 +462,15 @@ content:
       link: true
     third_party_settings: {  }
     weight: 19
+    region: content
+  field_hero_image_full_width:
+    type: entity_reference_entity_view
+    label: above
+    settings:
+      view_mode: default
+      link: false
+    third_party_settings: {  }
+    weight: 25
     region: content
   field_hero_image_media:
     type: entity_reference_entity_view

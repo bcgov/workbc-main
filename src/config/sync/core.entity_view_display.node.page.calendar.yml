@@ -8,6 +8,7 @@ dependencies:
     - field.field.node.page.field_content
     - field.field.node.page.field_content_group
     - field.field.node.page.field_hero_image
+    - field.field.node.page.field_hero_image_full_width
     - field.field.node.page.field_hero_image_media
     - field.field.node.page.field_hero_text
     - field.field.node.page.field_language
@@ -105,6 +106,7 @@ hidden:
   extra_field_workbc_published_on: true
   field_content_group: true
   field_hero_image: true
+  field_hero_image_full_width: true
   field_language: true
   field_metatag_description: true
   field_multilingual_centre: true

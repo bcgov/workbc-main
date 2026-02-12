@@ -14,6 +14,7 @@ dependencies:
     - field.field.node.career_profile.field_education_training_skills
     - field.field.node.career_profile.field_epbc_categories
     - field.field.node.career_profile.field_hero_image
+    - field.field.node.career_profile.field_hero_image_full_width
     - field.field.node.career_profile.field_hero_image_media
     - field.field.node.career_profile.field_hourly_salary
     - field.field.node.career_profile.field_insights_from_industry
@@ -109,6 +110,17 @@ content:
       rows: 5
       placeholder: ''
     third_party_settings: {  }
+  field_hero_image_full_width:
+    type: media_library_widget
+    weight: 9
+    region: content
+    settings:
+      media_types: {  }
+      form_mode: media_library
+    third_party_settings:
+      media_library_edit:
+        show_edit: true
+        edit_form_mode: default
   field_hero_image_media:
     type: media_library_widget
     weight: 9
@@ -118,7 +130,7 @@ content:
       form_mode: crop_3_2
     third_party_settings:
       media_library_edit:
-        show_edit: '1'
+        show_edit: true
   field_insights_from_industry:
     type: text_textarea
     weight: 18
