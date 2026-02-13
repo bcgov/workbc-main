@@ -10,8 +10,8 @@ id: node.success_story.field_category
 field_name: field_category
 entity_type: node
 bundle: success_story
-label: Categories
-description: ''
+label: '[DEPRECATED] Categories'
+description: "NO LONGER NEEDED AS PER WBCAMS-1564.\r\n"
 required: false
 translatable: false
 default_value: {  }

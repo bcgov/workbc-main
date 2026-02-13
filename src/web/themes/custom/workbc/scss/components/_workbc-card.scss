@@ -66,6 +66,10 @@ $container-gutter: $workbc_spacing_gutters;
         flex: 2 1 80%;
       }
 
+      .workbc-card-type {
+        text-align: right;
+      }
+
       .workbc-card-duration {
         flex: 2 1 20%;
 

@@ -65,7 +65,7 @@ content:
     type: entity_reference_entity_view
     label: above
     settings:
-      view_mode: full_width_component
+      view_mode: action_card_1_4
       link: false
     third_party_settings: {  }
     weight: 3
