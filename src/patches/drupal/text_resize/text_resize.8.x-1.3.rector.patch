@@ -1,0 +1,13 @@
+diff --git a/text_resize.info.yml b/text_resize.info.yml
+index 182f384..a03649b 100755
+--- a/text_resize.info.yml
++++ b/text_resize.info.yml
+@@ -1,7 +1,6 @@
+ name: 'Text Resize'
+ description: 'Creates a block that allows your users to resize text on the page.'
+-core: 8.x
+-core_version_requirement: ^8 || ^9 || ^10
++core_version_requirement: ^8 || ^9 || ^10 || ^11
+ configure: text_resize_settings
+ package: 'User interface'
+ type: module

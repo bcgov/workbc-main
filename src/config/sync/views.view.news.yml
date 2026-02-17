@@ -2259,15 +2259,6 @@ display:
             multiple: false
             remember_roles:
               authenticated: authenticated
-              anonymous: '0'
-              content_editor: '0'
-              content_publisher: '0'
-              global_publisher: '0'
-              global_editor: '0'
-              content_lead: '0'
-              workbc_administrator: '0'
-              workbc_global_administrator: '0'
-              administrator: '0'
           is_grouped: false
           group_info:
             label: ''

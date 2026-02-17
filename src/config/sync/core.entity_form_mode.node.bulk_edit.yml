@@ -6,6 +6,6 @@ dependencies:
     - node
 id: node.bulk_edit
 label: 'Bulk edit'
-description: ''
+description: null
 targetEntityType: node
 cache: true

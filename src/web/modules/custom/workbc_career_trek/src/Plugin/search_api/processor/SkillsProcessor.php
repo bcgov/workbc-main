@@ -78,7 +78,7 @@ class SkillsProcessor extends ProcessorPluginBase {
    */
   protected function fetchDataFromApi($id) {
     try {
-      $ssot = ssotFullCareerProfile($id);
+      $ssot = ssotFullCareerProfile($id, 'skills');
       if (!empty($ssot['skills'][0])) {
         // Sort skills by importance descending
         usort($ssot['skills'], function($a, $b) {

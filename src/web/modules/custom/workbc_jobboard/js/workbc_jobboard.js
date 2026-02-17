@@ -1,6 +1,20 @@
 (function (Drupal, $, once) {
 	Drupal.behaviors.jobboard = {
-    attach: function (context, settings){
+    attach: function (context, settings) {
+      once('jobboard', 'html', context).forEach(function() {
+        window.addEventListener('load', navUserMenu);
+        window.addEventListener('hashchange', navUserMenu);
+        window.addEventListener('jobboardlogin', navUserMenu);
+        window.addEventListener('dialog:aftercreate', navUserMenu);
+      });
+
+      once('jobboard', 'body.account', context).forEach(function() {
+        window.addEventListener('load', accountPageChanges);
+        window.addEventListener('hashchange', accountPageChanges);
+        window.addEventListener('jobboardlogin', accountPageChanges);
+        window.addEventListener('jobboardlogin', closePanel);
+      });
+
       once('jobboard', '.block-workbc-jobboard', context).forEach(function() {
         $(once('jobboard', 'a', context)).filter(function() {
           return this.hostname && this.hostname !== location.hostname;
@@ -17,9 +31,11 @@
             };
           }
         });
-        $(once("jobboard", ".region-map-select select", context)).on("change", function(){
-          if($(this).val() != ""){
-            window.location.href=$(this).val();
+
+        $(once('jobboard', '.region-map-select select', context)).on('change', function(){
+          const val = $(this).val();
+          if (val) {
+            window.location.href = val;
           }
         });
       });
@@ -119,87 +135,122 @@
         }
       });
 
-      let navUserMenu = function () {      
-        var currentUser = readCookie('currentUser.username');
-        var CheckLoginLinkExists = $("nav.nav-user .nav-items li.new-login-link");
-        var CheckLogoutLinkExists = $("nav.nav-user .nav-items li.new-logout-link");
+      // FIXME: Copied from src/web/modules/contrib/gtranslate/js/dropdown.js
+      // because I couldn't figure out how to trigger the loading of the library. It should be triggerable as per:
+      // document.querySelectorAll(u_class).forEach(function(e){e.addEventListener('pointerenter',load_tlib)});
+      function load_tlib(){if(!window.gt_translate_script){window.gt_translate_script=document.createElement('script');gt_translate_script.src='https://translate.google.com/translate_a/element.js?cb=googleTranslateElementInit2';document.body.appendChild(gt_translate_script);}}
 
-        var CheckLoginLinkMobileExists = $(".mobile-nav__user-nav .nav-items li.new-login-link");
-        var CheckLogoutLinkMobileExists = $(".mobile-nav__user-nav .nav-items li.new-logout-link");
+      const cookie_lang = document.cookie
+        .split("; ")
+        .find((row) => row.startsWith("googtrans="))
+        ?.split("=")[1];
+      let job_lang = cookie_lang === '/en/fr';
+      $('.job-lang input', context).prop('checked', job_lang);
+      $(once('jobboard', '.job-lang', context)).on('click', () => {
+        const jl = $('.job-lang input', context).is(':checked');
+        if (jl !== job_lang) {
+          load_tlib();
+          job_lang = jl;
+          const lang = job_lang ? 'en|fr' : 'en|en';
+          $('.gt_selector', context).val(lang);
+          window.doGTranslate(lang);
+        }
+      }).on('keydown', (e) => {
+        if (13 === e.keyCode) {
+          const $input = $('.job-lang input', context);
+          $input.prop('checked', !$input.prop('checked'));
+          $(e.target).trigger('click');
+        }
+      });
 
-          if(currentUser != ''){
-            CheckLogoutLinkExists.remove();
-            CheckLogoutLinkMobileExists.remove();
-            var appendLoginMenusM = `
-<li class="nav-item new-login-link">
-  <a href="/account#/dashboard" class="nav-link">My Profile</a>
-</li>
-<li class="nav-item new-login-link">
-  <a  href="/account#/personal-settings" class="nav-link">Personal Settings</a>
-</li>
-<li class="nav-item new-login-link">
-  <a href="/account#/logout" class="nav-link" onclick="localStorage.removeItem('currentUser'); document.cookie='currentUser.username=; expires=Thu, 01 Jan 1970 00:00:00 UTC; Path=/;'; document.cookie='currentUser.email=; expires=Thu, 01 Jan 1970 00:00:00 UTC; Path=/;'; document.cookie='currentUser.firstName=; expires=Thu, 01 Jan 1970 00:00:00 UTC; Path=/;'; document.cookie='currentUser.lastName=; expires=Thu, 01 Jan 1970 00:00:00 UTC; Path=/;'; document.cookie='currentUser.id=; expires=Thu, 01 Jan 1970 00:00:00 UTC; Path=/;'; document.cookie='currentUser.token=; expires=Thu, 01 Jan 1970 00:00:00 UTC; Path=/;'; if (location.pathname === '/account') location.reload(true); else return true;">Log out</a>
-</li>
-`;
-            var appendLoginMenusD = `
-<li class="nav-item new-login-link dropdown">
-  <a  href="javascript:void(0)" class="nav-link dropdown-toggle" data-bs-toggle="dropdown">My Account</a>
-  <ul class="dropdown-menu">
-    ${appendLoginMenusM}
-  </ul>
-</li>
-`;
+      $(once('jobboard', '.gt_selector', context)).on('change', (e) => {
+        const lang = $(e.target).val();
+        job_lang = lang === 'en|fr';
+        $('.job-lang input', context).prop('checked', job_lang);
+      });
 
-            //Desktop menu
-            CheckLoginLinkExists.remove();
-            $("nav.nav-user .nav-items").append(appendLoginMenusD);
+      function navLogout() {
+        localStorage.removeItem('currentUser');
+        document.cookie = 'currentUser.username=; expires=Thu, 01 Jan 1970 00:00:00 UTC; Path=/;';
+        document.cookie = 'currentUser.email=; expires=Thu, 01 Jan 1970 00:00:00 UTC; Path=/;';
+        document.cookie = 'currentUser.firstName=; expires=Thu, 01 Jan 1970 00:00:00 UTC; Path=/;';
+        document.cookie = 'currentUser.lastName=; expires=Thu, 01 Jan 1970 00:00:00 UTC; Path=/;';
+        document.cookie = 'currentUser.id=; expires=Thu, 01 Jan 1970 00:00:00 UTC; Path=/;';
+        document.cookie = 'currentUser.token=; expires=Thu, 01 Jan 1970 00:00:00 UTC; Path=/;';
+        if (location.pathname === '/account') location.reload(true); else return true;
+      }
 
-            //Mobile Menu
-            CheckLoginLinkMobileExists.remove();
-            $(".mobile-nav__user-nav .nav-items").append(appendLoginMenusM);
-          }else{
-            if(CheckLogoutLinkExists.length < 1){
-              CheckLoginLinkExists.remove();
-              CheckLoginLinkMobileExists.remove();
-              var appendLogoutMenus = `
-<li class="nav-item new-logout-link">
-  <a href="/account#/login" class="nav-link">Log in</a>
-</li>
-<li class="nav-item new-logout-link">
-  <a href="/account#/register" class="nav-link">Register</a>
-</li>
-`;
-              $("nav.nav-user .nav-items").append(appendLogoutMenus);
-              $(".mobile-nav__user-nav .nav-items").append(appendLogoutMenus);
-            }
-          }
+      function navUserMenu() {
+        const currentUser = readCookie('currentUser.username');
+
+        // Desktop menu
+        const $dropdown = $('.nav-user .dropdown-toggle');
+        $dropdown.attr('data-bs-toggle', 'dropdown');
+        $('#menu-item-unlogged-account').on('click', () => false);
+        $('#menu-item-logged-account').on('click', () => false);
+        $('#menu-item-logout').on('click', navLogout);
+        if (currentUser != '') {
+          $('#menu-item-logged-account').parent().show();
+          $('#menu-item-unlogged-account').parent().hide();
+        }
+        else {
+          $('#menu-item-logged-account').parent().hide();
+          $('#menu-item-unlogged-account').parent().show();
+        }
+
+        // Mobile menu
+        const $unlogged = $('.menu-item--unlogged-account');
+        $('.mm-listitem__text', $unlogged).attr('href', $('.mm-btn', $unlogged).attr('href'));
+        const $logged = $('.menu-item--logged-account');
+        $('.mm-listitem__text', $logged).attr('href', $('.mm-btn', $logged).attr('href'));
+        $('.menu-item--logged-logout a').on('click', navLogout);
+        if (currentUser != '') {
+          $logged.show();
+          $unlogged.hide();
+        }
+        else {
+          $logged.hide();
+          $unlogged.show();
+        }
       };
 
-      once('jobboard', 'html', context).forEach(function() {
-        window.addEventListener('load', navUserMenu);
-        window.addEventListener('hashchange', navUserMenu);
-        window.addEventListener('jobboardlogin', navUserMenu);
-        window.addEventListener('dialog:aftercreate', navUserMenu);    
-      });
+      function accountPageChanges(event) {
+        const $headerLogin = $('#block-workbc-jobboardloginheader');
+        const $headerRegister = $('#block-workbc-jobboardregisterheader');
+        const $footerLogin = $('#block-workbc-jobboardloginfooter');
+        const $footerRegister = $('#block-workbc-jobboardregisterfooter');
+        const hash = event.type === 'jobboardlogin' ? '#/dashboard' : window.location.hash
+        switch (hash) {
+          case '#/login':
+            $headerLogin.show();
+            $headerRegister.hide();
+            $footerLogin.show();
+            $footerRegister.hide();
+            break;
+          case '#/register':
+            $headerLogin.hide();
+            $headerRegister.show();
+            $footerLogin.hide();
+            $footerRegister.show();
+            break;
+          default:
+            $headerLogin.hide();
+            $headerRegister.hide();
+            $footerLogin.hide();
+            $footerRegister.hide();
+        }
+      }
 
-      $('.dropdown .dropdown-toggle').click(function(){
-         if($(this).parent().hasClass('open')){
-             $(this).parent().removeClass('open');
-             $(this).next('.dropdown-menu').hide();
-         }else {
-          $(this).next('.dropdown-menu').show();
-          $(this).parent().addClass('open');
-         }
-      });
+      function closePanel() {
+        const offCanvas = $("#off-canvas")[0];
+        if (offCanvas) {
+          const mmenuApi = offCanvas.mmApi;
+          mmenuApi["openPanel"](document.getElementById('mm-1'));
+        }
+      }
     }
   }
 })(Drupal, jQuery, once);
-
-
-if (window.location.hash) {
-  jQuery(window).trigger('hashchange');
-}
-
 
 function readCookie(cookieName){
   if (window.localStorage) {

@@ -45,8 +45,8 @@ $databases['default']['default'] = [
  *
  * @see https://wiki.php.net/rfc/expectations
  */
-assert_options(ASSERT_ACTIVE, TRUE);
-\Drupal\Component\Assertion\Handle::register();
+ini_set('zend.assertions', 1);
+assert_options(ASSERT_EXCEPTION, TRUE);
 
 /**
  * Control caching in the local development environment.
@@ -192,8 +192,8 @@ $settings['redis.connection']['port'] = '6379';
 
 $config['workbc']['ssot_url'] = 'http://ssot:3000';
 
-$config['jobboard']['jobboard_api_url_frontend'] = 'https://workbc-jb.b89n0c-dev.nimbus.cloud.gov.bc.ca';
-$config['jobboard']['jobboard_api_url_backend'] = 'https://workbc-jb.b89n0c-dev.nimbus.cloud.gov.bc.ca';
+$config['jobboard']['jobboard_api_url_frontend'] = 'https://dev-api-jobboard.workbc.ca';
+$config['jobboard']['jobboard_api_url_backend'] = 'https://dev-api-jobboard.workbc.ca';
 $config['jobboard']['google_maps_key'] = '';
 
 $config['backup_migrate.backup_migrate_source.ssot_database'] = [

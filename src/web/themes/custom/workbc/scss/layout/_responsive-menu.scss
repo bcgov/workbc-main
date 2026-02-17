@@ -20,7 +20,6 @@ body.user-logged-in.toolbar-fixed.mm-wrapper_opened {
 .mm-wrapper_opening .toolbar-tray-open.toolbar-fixed.toolbar-vertical .mm-page,
 .mm-opened .toolbar-tray-open.toolbar-fixed.toolbar-vertical .mm-page {
   padding-left: 0;
-  //padding-left: 15rem;
 }
 
 .horizontal-menu {
@@ -299,18 +298,9 @@ html {
   top: 22px;
 }
 
-.mobile-nav__user-nav {
-  margin-top: 30px;
-}
-
-.mobile-nav__user-nav .nav-items {
-  @include list-reset;
-}
-
 .mm-wrapper--position-left .mm-slideout {
   transform: none;
 }
-
 
 #off-canvas:not(.mm-menu--opened) {
   display: none;
@@ -330,4 +320,30 @@ body.mm-wrapper--opened a#mm-0 {
 
 .mm-wrapper--position-left {
   --mm-translate-horizontal: 0;
+}
+
+.menu-item--unlogged-account,
+.menu-item--unlogged-login,
+.menu-item--unlogged-register,
+.menu-item--logged-account,
+.menu-item--logged-profile,
+.menu-item--logged-settings,
+.menu-item--logged-logout {
+  font-weight: bold;
+}
+
+.mm-panel--opened:not(#mm-1):has(.menu-name--account) .mm-navbar__title {
+  font-weight: bold;
+}
+
+.mm-listitem:nth-child(1 of .menu-name--account) {
+  margin-top: 30px;
+}
+
+.mm-listitem.menu-name--account {
+  border-color: transparent;
+}
+
+.mm-listitem.menu-name--account .mm-listitem__text {
+  padding: .5rem 1rem;
 }

@@ -486,6 +486,8 @@ display:
           bef:
             general:
               autosubmit: false
+              auto_submit_sort_only: false
+              autosubmit_breakpoint: ''
               autosubmit_exclude_textfield: false
               autosubmit_textfield_delay: 500
               autosubmit_textfield_minimum_length: 3
@@ -509,64 +511,88 @@ display:
               keyword_search:
                 plugin_id: default
                 advanced:
+                  sort_options_method: alphabetical_asc
+                  sort_options_natural: true
                   collapsible: false
                   collapsible_disable_automatic_open: false
+                  open_by_default: false
                   is_secondary: false
                   hide_label: false
+                  field_classes: ''
               term_node_tid_depth:
                 plugin_id: default
                 advanced:
                   sort_options: false
+                  sort_options_method: alphabetical_asc
+                  sort_options_natural: true
                   rewrite:
                     filter_rewrite_values: ''
                     filter_rewrite_values_key: false
                   collapsible: false
                   collapsible_disable_automatic_open: false
+                  open_by_default: false
                   is_secondary: false
                   hide_label: false
+                  field_classes: ''
               field_epbc_categories_target_id:
                 plugin_id: default
                 advanced:
                   sort_options: false
+                  sort_options_method: alphabetical_asc
+                  sort_options_natural: true
                   rewrite:
                     filter_rewrite_values: ''
                     filter_rewrite_values_key: false
                   collapsible: false
                   collapsible_disable_automatic_open: false
+                  open_by_default: false
                   is_secondary: false
                   hide_label: false
+                  field_classes: ''
               field_teer_value:
                 plugin_id: default
                 advanced:
                   sort_options: false
+                  sort_options_method: alphabetical_asc
+                  sort_options_natural: true
                   rewrite:
                     filter_rewrite_values: ''
                     filter_rewrite_values_key: false
                   collapsible: false
                   collapsible_disable_automatic_open: false
+                  open_by_default: false
                   is_secondary: false
                   hide_label: false
+                  field_classes: ''
               field_annual_salary_value:
                 plugin_id: default
                 advanced:
+                  sort_options_method: alphabetical_asc
+                  sort_options_natural: true
                   rewrite:
                     filter_rewrite_values: ''
                     filter_rewrite_values_key: false
                   collapsible: false
                   collapsible_disable_automatic_open: false
+                  open_by_default: false
                   is_secondary: false
                   hide_label: false
+                  field_classes: ''
               delta:
                 plugin_id: default
                 advanced:
                   sort_options: false
+                  sort_options_method: alphabetical_asc
+                  sort_options_natural: true
                   rewrite:
                     filter_rewrite_values: ''
                     filter_rewrite_values_key: false
                   collapsible: false
                   collapsible_disable_automatic_open: false
+                  open_by_default: false
                   is_secondary: false
                   hide_label: false
+                  field_classes: ''
       access:
         type: perm
         options:
@@ -708,13 +734,6 @@ display:
             remember_roles:
               anonymous: anonymous
               authenticated: authenticated
-              content_editor: '0'
-              content_approver: '0'
-              workbc_administrator: '0'
-              global_editor: '0'
-              global_approver: '0'
-              workbc_global_administrator: '0'
-              administrator: '0'
             placeholder: ''
           is_grouped: false
           group_info:
@@ -756,13 +775,6 @@ display:
             remember_roles:
               anonymous: anonymous
               authenticated: authenticated
-              content_editor: '0'
-              content_approver: '0'
-              workbc_administrator: '0'
-              global_editor: '0'
-              global_approver: '0'
-              workbc_global_administrator: '0'
-              administrator: '0'
             reduce: false
           is_grouped: false
           group_info:
@@ -810,13 +822,6 @@ display:
             remember_roles:
               anonymous: anonymous
               authenticated: authenticated
-              content_editor: '0'
-              content_approver: '0'
-              workbc_administrator: '0'
-              global_editor: '0'
-              global_approver: '0'
-              workbc_global_administrator: '0'
-              administrator: '0'
             reduce: false
             chosen_override: 1
             disable_search: 0
@@ -869,13 +874,6 @@ display:
             remember_roles:
               anonymous: anonymous
               authenticated: authenticated
-              content_editor: '0'
-              content_approver: '0'
-              workbc_administrator: '0'
-              global_editor: '0'
-              global_approver: '0'
-              workbc_global_administrator: '0'
-              administrator: '0'
             reduce: false
           is_grouped: false
           group_info:
@@ -919,14 +917,6 @@ display:
             multiple: true
             remember_roles:
               authenticated: authenticated
-              anonymous: '0'
-              content_editor: '0'
-              content_approver: '0'
-              workbc_administrator: '0'
-              global_editor: '0'
-              global_approver: '0'
-              workbc_global_administrator: '0'
-              administrator: '0'
             min_placeholder: ''
             max_placeholder: ''
             placeholder: ''
@@ -1014,13 +1004,6 @@ display:
             remember_roles:
               anonymous: anonymous
               authenticated: authenticated
-              content_editor: '0'
-              content_approver: '0'
-              workbc_administrator: '0'
-              global_editor: '0'
-              global_approver: '0'
-              workbc_global_administrator: '0'
-              administrator: '0'
             min_placeholder: ''
             max_placeholder: ''
             placeholder: ''

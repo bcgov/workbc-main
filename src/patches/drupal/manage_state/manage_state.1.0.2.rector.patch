@@ -1,0 +1,27 @@
+diff --git a/composer.json b/composer.json
+index 17f68c6..44c259a 100644
+--- a/composer.json
++++ b/composer.json
+@@ -17,7 +17,7 @@
+     },
+     "minimum-stability": "dev",
+     "require": {
+-        "drupal/core": "^8.8 || ^9 || ^10",
+-        "symfony/var-dumper": "^4 || ^5 || ^6"
++        "symfony/var-dumper": "^4 || ^5 || ^6",
++        "drupal/core": "^8.8 || ^9 || ^10 || ^11"
+     }
+ }
+diff --git a/manage_state.info.yml b/manage_state.info.yml
+index 7514751..461a1db 100644
+--- a/manage_state.info.yml
++++ b/manage_state.info.yml
+@@ -2,7 +2,7 @@ type: module
+ name: Manage State
+ description: 'Manage data stored in State API system.'
+ package: Development
+-core_version_requirement: ^8.8 || ^9 || ^10
++core_version_requirement: ^8.8 || ^9 || ^10 || ^11
+ configure: manage_state.state_overview
+ tags:
+   - developer

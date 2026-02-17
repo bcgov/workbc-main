@@ -6,6 +6,6 @@ dependencies:
     - media
 id: media.crop_wide
 label: 'Crop Wide'
-description: ''
+description: null
 targetEntityType: media
 cache: true

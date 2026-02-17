@@ -70,7 +70,7 @@ class SsotUploadLmmuForm extends ConfirmFormBase {
     'employment_change_pct_part_time_jobs' => ['cell' => 'B20', 'type' => 'chg_pct'],
     'employment_change_abs_part_time_jobs' => ['cell' => 'C20', 'type' => 'chg_abs', 'same_sign' => 'employment_change_pct_part_time_jobs'],
     'employment_change_pct_total_employment' => ['cell' => 'B18', 'type' => 'chg_pct', 'previous_month_change_pct' => 'total_employed'],
-    'employment_change_abs_total_employment' => ['cell' => 'C18', 'type' => 'chg_abs', 'same_sign' => 'employment_change_pct_total_employment', 'sum' => [
+    'employment_change_abs_total_employment' => ['cell' => 'C18', 'type' => 'chg_abs', 'same_sign' => 'employment_change_pct_total_employment', 'sum_warn' => [
       ['employment_change_abs_full_time_jobs', 'employment_change_abs_part_time_jobs']
     ], 'previous_month_change_abs' => 'total_employed'],
 
@@ -160,6 +160,7 @@ class SsotUploadLmmuForm extends ConfirmFormBase {
     'same_sign' => 'Both values agree in numeric sign (+/-).',
     'blank' => 'A blank cell value will be shown as "Not available".',
     'sum' => 'The sum of the cell values matches the total value.',
+    'sum_warn' => '(Optional) The sum of the cell values matches the total value.',
     'equal' => 'Both values are equal.',
     'previous_month' => 'The value matches the given cell\'s prior month value.',
     'previous_month_change_abs' => 'The value matches the absolute difference between the given cell\'s prior month value and current month value.',
@@ -234,6 +235,29 @@ class SsotUploadLmmuForm extends ConfirmFormBase {
             }, $sum_keys)),
             '@sum' => $sum,
             '@explanation' => $this->t($this->descriptions['sum']),
+          ]));
+        }
+      }
+      if (!empty($validation['sum_warn']) && !empty($validation['cell'])) {
+        foreach ($validation['sum_warn'] as $sum_keys) {
+          $sum = array_sum(array_map(function($sum_key) {
+            return $this->monthly_labour_market_updates[$sum_key] ?? 0;
+          }, $sum_keys));
+          if (abs($sum - ($value ?? 0)) > 100) {
+            $msg = '❗ Cell @cell (<strong>@key = @value</strong>) and cells @cells (<strong>sum = @sum</strong>) do not conform to: <em>@explanation</em>';
+          }
+          else {
+            $msg = '✅ Cell @cell (<strong>@key = @value</strong>) and cells @cells (<strong>sum = @sum</strong>) conform to: <em>@explanation</em>';
+          }
+          \Drupal::messenger()->addMessage($this->t($msg, [
+            '@cell' => $validation['cell'],
+            '@key' => $key,
+            '@value' => $value ?? 'N/A',
+            '@cells' => implode(' + ', array_map(function($sum_key) {
+              return $this->validations[$sum_key]['cell'];
+            }, $sum_keys)),
+            '@sum' => $sum,
+            '@explanation' => $this->t($this->descriptions['sum_warn']),
           ]));
         }
       }

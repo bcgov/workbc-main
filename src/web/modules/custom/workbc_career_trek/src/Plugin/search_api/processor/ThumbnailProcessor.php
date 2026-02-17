@@ -77,7 +77,7 @@ class ThumbnailProcessor extends ProcessorPluginBase {
    */
   protected function fetchDataFromApi($id) {
     try {
-      $ssot = ssotFullCareerProfile($id);
+      $ssot = ssotFullCareerProfile($id, 'career_trek');
       if (!empty($ssot['career_trek'][0])) {
         $youtube_link = $ssot['career_trek'][0]['youtube_link'] ?? '';
         if (!empty($youtube_link)) {

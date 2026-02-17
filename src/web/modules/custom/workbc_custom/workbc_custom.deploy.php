@@ -48,3 +48,15 @@ function workbc_custom_deploy_809_media_exclude(&$sandbox = NULL) {
   $sandbox['#finished'] = empty($sandbox['videos']) ? 1 : ($sandbox['count'] - count($sandbox['videos'])) / $sandbox['count'];
   return t("[WBCAMS-809] $message");
 }
+
+
+/**
+ * Fix mismatch entity type.
+ *
+ * As per ticket WBCAMS-1204
+ */
+function workbc_custom_deploy_1204_mismatch_fix(&$sandbox = NULL) {
+
+  \Drupal::service("meaofd.fixer")->fix("media");
+  return t("[WBCAMS-1204] fix The Drupal Media entity type issues.");
+}

@@ -1,0 +1,10 @@
+diff --git a/popperjs.info.yml b/popperjs.info.yml
+index 53eb3b8..69482c5 100644
+--- a/popperjs.info.yml
++++ b/popperjs.info.yml
+@@ -2,4 +2,4 @@ name: popperjs
+ type: module
+ description: 'Popper js library: Tooltip & popover positioning engine'
+ package: Popperjs
+-core_version_requirement: ^9 || ^10
++core_version_requirement: ^9 || ^10 || ^11

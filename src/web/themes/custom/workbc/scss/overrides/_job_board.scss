@@ -96,13 +96,8 @@
   }
 }
 
-.new-login-link a,
-.new-logout-link a {
-  font-weight: bold;
-}
-
 .nav-items .dropdown {
-  .nav-item:not(:last-of-type):after {
+  .nav-item:not(:nth-last-of-type(-n+2)):after {
     display: none;
   }
 
@@ -194,7 +189,7 @@
     max-width: 280px;
   }
 
-  .jobs-data-horizontal-view{
+  .jobs-data-horizontal-view {
     width: 100%;
     max-width: 100%;
   }
@@ -242,6 +237,7 @@
     width: auto;
   }
 }
+
 /*
  *  Styles below apply to the embedded Job Board app
  *
@@ -357,14 +353,290 @@ mat-dialog-container {
   }
 }
 
-app-filter {
-  .job-search-filters .navbar {
-    .navbar-toggler {
-      margin-right: 0px;
+.node--type-page.node--view-mode-jobboard {
+  .hero-image-wrapper {
+    width: 100%;
+
+    &:before {
+      background: none;
     }
 
-    .navbar-nav .nav-item > .dropdown-menu {
-      z-index: 1;
+    img {
+      object-fit: cover;
     }
+  }
+}
+
+p.blue-banner {
+  background: #bcdced;
+  padding: 20px 20px 20px 20px;
+  margin: 0;
+
+  a {
+    font-weight: bolder;
+    color: #234075;
+  }
+}
+
+#block-workbc-jobboardloginheader {
+  h2 {
+    font-weight: bolder;
+    padding-top: 1.5em;
+    padding-bottom: 1em;
+  }
+}
+
+#block-workbc-jobboardloginfooter {
+  border: 1px solid #fff;
+  box-shadow: 0 3.2px 7.2px 0 rgb(0,0,0,0.1);
+  padding: 15px;
+  margin: 20px 0 40px 0;
+
+  p {
+    margin-top: 25px;
+    margin-bottom: 0px;
+  }
+}
+
+#block-workbc-jobboardregisterheader {
+  h2 {
+    font-weight: bolder;
+    padding-top: 1.5em;
+    padding-bottom: 1em;
+  }
+
+  table {
+    width: auto;
+  }
+
+  tr {
+    display: flex;
+    flex-wrap: wrap;
+    gap: 20px;
+    justify-content: center;
+
+    td {
+      font-size: 13.3px;
+      padding: 20px 0 0 0;
+      height: 160px;
+      width: 160px;
+      text-align: center;
+      border: 1px solid #fff;
+      box-shadow: 1px 1px 6px 0 rgb(0,0,0,0.1);
+
+      &:nth-child(1) {
+        color: #276207;
+      }
+      &:nth-child(2) {
+        color: #CC4E11;
+      }
+      &:nth-child(3) {
+        color: #013366;
+      }
+      &:nth-child(4) {
+        color: #630083;
+      }
+      &:nth-child(5) {
+        color: #305DA6;
+      }
+
+      p {
+        margin: 10px 10px 0 10px;
+      }
+    }
+  }
+}
+
+#block-workbc-jobboardregisterfooter {
+}
+
+.job-lang {
+  position: relative;
+  float: left;
+  z-index: 2;
+  display: flex;
+  align-items: center;
+  padding: 27px 0 0 5px;
+
+  span {
+    font-size: 0.8rem;
+    font-weight: bold;
+    letter-spacing: 0.5px;
+  }
+
+  label {
+    position: relative;
+    left: 0px;
+    border: 1px solid #ccc;
+    height: 16px;
+    margin: 0px;
+    border-radius: 15px;
+    width: 36px;
+    background: #ccc;
+    margin: 0 8px;
+    cursor: pointer;
+
+    &:after {
+      content: "";
+      display: block;
+      height: 14px;
+      width: 14px;
+      border: 1px solid #666;
+      border-radius: 50%;
+      position: absolute;
+      left: 0px;
+      top: 0px;
+      background: #fff;
+      transition: all 0.3s ease;
+    }
+  }
+
+  input[type=checkbox],
+  input[type=radio] {
+    -webkit-appearance: none;
+    -moz-appearance: none;
+    appearance: none;
+    border: 0;
+    opacity: 0;
+    outline: 0;
+    padding: 0;
+    vertical-align: middle;
+    width: 0;
+    position: absolute;
+  }
+
+  input[type="checkbox"]:checked + label {
+    border-color: #5bc2e7;
+    background: #5bc2e7;
+
+    &:after {
+      left: 21px;
+    }
+  }
+}
+
+app-root {
+  app-filter {
+    .job-search-filters .navbar {
+      .navbar-toggler {
+        margin-right: 0px;
+      }
+
+      .navbar-nav .nav-item > .dropdown-menu {
+        z-index: 1;
+      }
+    }
+  }
+
+  app-login {
+    .header-banner {
+      display: none;
+    }
+
+    .header-banner--mobile {
+      display: none;
+    }
+
+    .account-login {
+      .login-form {
+        .form-group.register {
+          display: none;
+        }
+      }
+    }
+  }
+
+  app-register {
+    .header-banner {
+      display: none;
+    }
+
+    .header-banner--mobile {
+      display: none;
+    }
+
+    app-job-seeker {
+      .account-ribbon {
+        display: none;
+      }
+    }
+  }
+}
+
+#menu-item-unlogged-login:before {
+  padding-right: 0.5em;
+  content: url('/modules/custom/workbc_jobboard/images/login.svg');
+  vertical-align: -2px;
+}
+
+#menu-item-unlogged-register:before {
+  padding-right: 0.5em;
+  content: url('/modules/custom/workbc_jobboard/images/register.svg');
+  vertical-align: -2px;
+}
+
+body.account {
+  .hero-image-wrapper {
+    height: auto;
+    overflow: hidden;
+
+    @include media-breakpoint-up(lg) {
+      position: absolute;
+      top: 0;
+      bottom: 0;
+      right: 0;
+      z-index: 0;
+      width: 100%;
+      overflow: auto;
+
+      &:before {
+        content: "";
+        display: block;
+        position: absolute;
+        top: 0;
+        right: 0;
+        bottom: 0;
+        left: 0;
+        z-index: 2;
+        background: none;
+      }
+    }
+
+    img {
+      display: block;
+      width: 100%;
+
+      @include media-breakpoint-up(lg) {
+        z-index: 1;
+        height: 100%;
+        object-fit: cover;
+      }
+    }
+  }
+
+  .hero-content-container {
+    margin-left: 200px;
+    padding: 0;
+    min-height: inherit;
+  }
+
+  .hero-content-wrapper {
+    background: rgba(0, 0, 0, .5);
+    color: white;
+    padding: 40px;
+    min-height: inherit;
+    display: flex;
+    flex-direction: column;
+    justify-content: center;
+  }
+
+  @include media-breakpoint-down(lg) {
+    .hero-banner {
+      display: none;
+    }
+  }
+
+  .social-sharing-buttons {
+    justify-content: right;
   }
 }

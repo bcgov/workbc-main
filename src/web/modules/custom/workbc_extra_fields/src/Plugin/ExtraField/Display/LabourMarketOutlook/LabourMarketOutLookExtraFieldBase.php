@@ -35,7 +35,7 @@ class LabourMarketOutLookExtraFieldBase extends ExtraFieldDisplayFormattedBase {
   public function viewElements(ContentEntityInterface $paragraph) {
     // Don't display if this field is not selected in the parent paragraph.
     if ($this->getPluginId() != $paragraph->get('field_lmo_charts_tables')->value) {
-      return null;
+      return [];
     }
 
     // Get the report node and make sure the data is set.

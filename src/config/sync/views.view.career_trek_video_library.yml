@@ -1101,6 +1101,8 @@ display:
           bef:
             general:
               autosubmit: false
+              auto_submit_sort_only: false
+              autosubmit_breakpoint: ''
               autosubmit_exclude_textfield: false
               autosubmit_textfield_delay: 500
               autosubmit_textfield_minimum_length: 3
@@ -1120,65 +1122,97 @@ display:
                     filter_rewrite_values_key: false
                   collapsible: false
                   collapsible_disable_automatic_open: false
+                  open_by_default: false
                   is_secondary: false
                   hide_label: false
+                  field_classes: ''
+                  sort_options_unsupported: ''
               minimum_education:
                 plugin_id: bef
                 advanced:
+                  sort_options: false
+                  sort_options_method: alphabetical_asc
+                  sort_options_natural: true
                   placeholder_text: ''
                   rewrite:
                     filter_rewrite_values: ''
                     filter_rewrite_values_key: false
                   collapsible: true
                   collapsible_disable_automatic_open: false
+                  open_by_default: false
                   is_secondary: false
                   hide_label: false
+                  field_classes: ''
                 select_all_none: false
                 select_all_none_nested: false
                 display_inline: false
+                soft_limit: 0
+                soft_limit_label_less: 'Show less'
+                soft_limit_label_more: 'Show more'
               annual_salary:
                 plugin_id: default
                 advanced:
                   collapsible: true
                   collapsible_disable_automatic_open: false
+                  open_by_default: false
                   is_secondary: false
                   hide_label: false
+                  field_classes: ''
+                  sort_options_unsupported: ''
               region_api_field:
                 plugin_id: bef
                 advanced:
+                  sort_options: false
+                  sort_options_method: alphabetical_asc
+                  sort_options_natural: true
                   placeholder_text: ''
                   rewrite:
                     filter_rewrite_values: ''
                     filter_rewrite_values_key: false
                   collapsible: true
                   collapsible_disable_automatic_open: false
+                  open_by_default: false
                   is_secondary: false
                   hide_label: false
+                  field_classes: ''
                 select_all_none: false
                 select_all_none_nested: false
                 display_inline: false
+                soft_limit: 0
+                soft_limit_label_less: 'Show less'
+                soft_limit_label_more: 'Show more'
               occupational_category_api_field:
                 plugin_id: bef
                 advanced:
+                  sort_options: false
+                  sort_options_method: alphabetical_asc
+                  sort_options_natural: true
                   placeholder_text: ''
                   rewrite:
                     filter_rewrite_values: ''
                     filter_rewrite_values_key: false
                   collapsible: true
                   collapsible_disable_automatic_open: false
+                  open_by_default: false
                   is_secondary: false
                   hide_label: false
+                  field_classes: ''
                 select_all_none: false
                 select_all_none_nested: false
                 display_inline: false
+                soft_limit: 0
+                soft_limit_label_less: 'Show less'
+                soft_limit_label_more: 'Show more'
               skills:
                 plugin_id: default
                 advanced:
-                  sort_options: false
                   collapsible: true
                   collapsible_disable_automatic_open: false
+                  open_by_default: false
                   is_secondary: false
                   hide_label: false
+                  field_classes: ''
+                  sort_options_unsupported: ''
       access:
         type: none
         options: {  }
@@ -1269,14 +1303,6 @@ display:
             multiple: false
             remember_roles:
               authenticated: authenticated
-              anonymous: '0'
-              content_editor: '0'
-              content_approver: '0'
-              workbc_administrator: '0'
-              global_editor: '0'
-              global_approver: '0'
-              workbc_global_administrator: '0'
-              administrator: '0'
             expose_fields: false
             placeholder: 'Search by keyword or NOC'
             searched_fields_id: search_api_fulltext_searched_fields
@@ -1401,14 +1427,6 @@ display:
             multiple: true
             remember_roles:
               authenticated: authenticated
-              anonymous: '0'
-              content_editor: '0'
-              content_approver: '0'
-              workbc_administrator: '0'
-              global_editor: '0'
-              global_approver: '0'
-              workbc_global_administrator: '0'
-              administrator: '0'
             reduce: false
           is_grouped: false
           group_info:
@@ -1457,14 +1475,6 @@ display:
             multiple: true
             remember_roles:
               authenticated: authenticated
-              anonymous: '0'
-              content_editor: '0'
-              content_approver: '0'
-              workbc_administrator: '0'
-              global_editor: '0'
-              global_approver: '0'
-              workbc_global_administrator: '0'
-              administrator: '0'
             min_placeholder: ''
             max_placeholder: ''
             placeholder: ''
@@ -1551,14 +1561,6 @@ display:
             multiple: false
             remember_roles:
               authenticated: authenticated
-              anonymous: '0'
-              content_editor: '0'
-              content_approver: '0'
-              workbc_administrator: '0'
-              global_editor: '0'
-              global_approver: '0'
-              workbc_global_administrator: '0'
-              administrator: '0'
             min_placeholder: ''
             max_placeholder: ''
             placeholder: ''
@@ -1600,14 +1602,6 @@ display:
             multiple: true
             remember_roles:
               authenticated: authenticated
-              anonymous: '0'
-              content_editor: '0'
-              content_approver: '0'
-              workbc_administrator: '0'
-              global_editor: '0'
-              global_approver: '0'
-              workbc_global_administrator: '0'
-              administrator: '0'
             reduce: false
           is_grouped: false
           group_info:
@@ -2444,14 +2438,6 @@ display:
             multiple: false
             remember_roles:
               authenticated: authenticated
-              anonymous: '0'
-              content_editor: '0'
-              content_approver: '0'
-              workbc_administrator: '0'
-              global_editor: '0'
-              global_approver: '0'
-              workbc_global_administrator: '0'
-              administrator: '0'
             expose_fields: false
             placeholder: 'Search by keyword or NOC'
             searched_fields_id: search_api_fulltext_searched_fields
@@ -2537,14 +2523,6 @@ display:
             multiple: true
             remember_roles:
               authenticated: authenticated
-              anonymous: '0'
-              content_editor: '0'
-              content_approver: '0'
-              workbc_administrator: '0'
-              global_editor: '0'
-              global_approver: '0'
-              workbc_global_administrator: '0'
-              administrator: '0'
             reduce: false
           is_grouped: false
           group_info:
@@ -2593,14 +2571,6 @@ display:
             multiple: true
             remember_roles:
               authenticated: authenticated
-              anonymous: '0'
-              content_editor: '0'
-              content_approver: '0'
-              workbc_administrator: '0'
-              global_editor: '0'
-              global_approver: '0'
-              workbc_global_administrator: '0'
-              administrator: '0'
             min_placeholder: ''
             max_placeholder: ''
             placeholder: ''
@@ -2687,14 +2657,6 @@ display:
             multiple: false
             remember_roles:
               authenticated: authenticated
-              anonymous: '0'
-              content_editor: '0'
-              content_approver: '0'
-              workbc_administrator: '0'
-              global_editor: '0'
-              global_approver: '0'
-              workbc_global_administrator: '0'
-              administrator: '0'
             min_placeholder: ''
             max_placeholder: ''
             placeholder: ''
@@ -2736,14 +2698,6 @@ display:
             multiple: true
             remember_roles:
               authenticated: authenticated
-              anonymous: '0'
-              content_editor: '0'
-              content_approver: '0'
-              workbc_administrator: '0'
-              global_editor: '0'
-              global_approver: '0'
-              workbc_global_administrator: '0'
-              administrator: '0'
             reduce: false
           is_grouped: false
           group_info:
@@ -3054,14 +3008,6 @@ display:
             multiple: false
             remember_roles:
               authenticated: authenticated
-              anonymous: '0'
-              content_editor: '0'
-              content_approver: '0'
-              workbc_administrator: '0'
-              global_editor: '0'
-              global_approver: '0'
-              workbc_global_administrator: '0'
-              administrator: '0'
             min_placeholder: ''
             max_placeholder: ''
             placeholder: ''
