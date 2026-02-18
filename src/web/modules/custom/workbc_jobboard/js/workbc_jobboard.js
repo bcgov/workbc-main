@@ -215,6 +215,7 @@
       };
 
       function accountPageChanges(event) {
+        // Adjust block visibility
         const $headerLogin = $('#block-workbc-jobboardloginheader');
         const $headerRegister = $('#block-workbc-jobboardregisterheader');
         const $footerLogin = $('#block-workbc-jobboardloginfooter');
@@ -239,6 +240,9 @@
             $footerLogin.hide();
             $footerRegister.hide();
         }
+
+        // Adjust a11y link
+        $('#skip-link').attr('href', window.location.hash + '#main-content');
       }
 
       function closePanel() {
