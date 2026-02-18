@@ -73,9 +73,8 @@ class CareerProfileCareerTrekSkills extends ExtraFieldDisplayFormattedBase {
         if (!$term->get('field_image')->isEmpty()) {
           $file = $term->get('field_image')->entity;
           if ($file) {
-            $uri = $file->getFileUri();
-            $real_path = \Drupal::service('file_system')->realpath($uri);
-            $image = file_get_contents($real_path);
+            $real_path = \Drupal::service('file_system')->realpath($file->getFileUri());
+            if (!empty($real_path)) $image = file_get_contents($real_path);
           }
         }
         $output .= '<div class="career-profiles-skill">';

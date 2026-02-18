@@ -9,14 +9,6 @@ index bdc8188b5e4..5f106c7fd9d 100644
 -    return $this->get('preprocess invokes');
 +    return $this->get('preprocess invokes') ?? [];
    }
- 
+
    /**
-@@ -190,7 +190,7 @@ public function getPreprocessInvokes(): array {
-    * @internal
-    */
-   public function getGlobalPreprocess(): array {
--    return $this->get('global preprocess');
-+    return $this->get('global preprocess') ?? [];
-   }
- 
- }
+
