@@ -215,13 +215,15 @@
       };
 
       function accountPageChanges(event) {
+        const hash = window.location.hash.match(/(#\/[\w-]+)#?/) ?? ['', ''];
+
         // Adjust block visibility
         const $headerLogin = $('#block-workbc-jobboardloginheader');
         const $headerRegister = $('#block-workbc-jobboardregisterheader');
         const $footerLogin = $('#block-workbc-jobboardloginfooter');
         const $footerRegister = $('#block-workbc-jobboardregisterfooter');
-        const hash = event.type === 'jobboardlogin' ? '#/dashboard' : window.location.hash
-        switch (hash) {
+        const screen = event.type === 'jobboardlogin' ? '#/dashboard' : hash[1]
+        switch (screen) {
           case '#/login':
             $headerLogin.show();
             $headerRegister.hide();
@@ -242,7 +244,7 @@
         }
 
         // Adjust a11y link
-        $('#skip-link').attr('href', window.location.hash + '#main-content');
+        $('#skip-link').attr('href', hash[1] + '#main-content');
       }
 
       function closePanel() {
