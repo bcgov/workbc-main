@@ -70,26 +70,28 @@
 
 {% set image = content.field_image_media %}
 {% set title = content.extra_field_workbc_page_title %}
+{% set summary = content.body %}
 {% set call_to_action = content.field_call_to_action[0]['#context'].value %}
+{% if (call_to_action) %}
+    {% set readmore = call_to_action %}
+{% else %}
+    {% set readmore ="Read more" %}
+{%  endif %}
 
 <div class="success-story__sidebar-container">
   <div class="success-story__sidebar-content-container">
     <div class="success-story__sidebar-content">
-      {{ date }}
-      <p class="success-story__sidebar-title">
+      <h3 class="success-story__sidebar-title">
         {{ title }}
+      </h3>
+      <p class="success-story__sidebar-summary>
+        {{ summary }}
       </p>
     </div>
 
     {{ image }}
 
     <div class="success-story__sidebar-container">
-    {% if (call_to_action) %}
-        {% set readmore = call_to_action %}
-    {% else %}
-        {% set readmore ="Read more" %}
-    {%  endif %}
-
       <a class="success-story__sidebar-link" href="{{ url }}" title="{{ readmore|t }}">{{ readmore|t }}</a>
     </div>
   </div>
