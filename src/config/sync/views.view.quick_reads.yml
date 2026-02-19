@@ -570,18 +570,87 @@ display:
             remember_roles:
               authenticated: authenticated
             reduce: true
-          is_grouped: false
+          is_grouped: true
           group_info:
-            label: ''
+            label: 'Select Category'
             description: ''
-            identifier: ''
+            identifier: category
             optional: true
             widget: select
             multiple: false
             remember: false
             default_group: All
             default_group_multiple: {  }
-            group_items: {  }
+            group_items:
+              1:
+                title: Blogs
+                operator: in
+                value:
+                  blog: blog
+                  all: '0'
+                  bc_profile: '0'
+                  career_profile: '0'
+                  career_profile_introductions: '0'
+                  event: '0'
+                  industry_profile: '0'
+                  industry_profile_introductions: '0'
+                  lmo_report_2024: '0'
+                  labour_market_monthly: '0'
+                  news: '0'
+                  page: '0'
+                  publication: '0'
+                  region_profile: '0'
+                  region_profile_introductions: '0'
+                  related_topics_card: '0'
+                  resource: '0'
+                  success_story: '0'
+                  workbc_centre: '0'
+              2:
+                title: News
+                operator: in
+                value:
+                  news: news
+                  all: '0'
+                  bc_profile: '0'
+                  blog: '0'
+                  career_profile: '0'
+                  career_profile_introductions: '0'
+                  event: '0'
+                  industry_profile: '0'
+                  industry_profile_introductions: '0'
+                  lmo_report_2024: '0'
+                  labour_market_monthly: '0'
+                  page: '0'
+                  publication: '0'
+                  region_profile: '0'
+                  region_profile_introductions: '0'
+                  related_topics_card: '0'
+                  resource: '0'
+                  success_story: '0'
+                  workbc_centre: '0'
+              3:
+                title: 'Success Stories'
+                operator: in
+                value:
+                  success_story: success_story
+                  all: '0'
+                  bc_profile: '0'
+                  blog: '0'
+                  career_profile: '0'
+                  career_profile_introductions: '0'
+                  event: '0'
+                  industry_profile: '0'
+                  industry_profile_introductions: '0'
+                  lmo_report_2024: '0'
+                  labour_market_monthly: '0'
+                  news: '0'
+                  page: '0'
+                  publication: '0'
+                  region_profile: '0'
+                  region_profile_introductions: '0'
+                  related_topics_card: '0'
+                  resource: '0'
+                  workbc_centre: '0'
       style:
         type: grid
         options:
