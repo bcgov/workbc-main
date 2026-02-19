@@ -33,6 +33,7 @@ dependencies:
     - field.field.node.career_profile.field_resources_reference
     - field.field.node.career_profile.field_scheduled_publish
     - field.field.node.career_profile.field_skills_2
+    - field.field.node.career_profile.field_success_stories
     - field.field.node.career_profile.field_tags
     - field.field.node.career_profile.field_teer
     - field.field.node.career_profile.field_work_environment
@@ -53,7 +54,7 @@ third_party_settings:
       label: 'Career Profile Tabs'
       parent_name: ''
       region: content
-      weight: 18
+      weight: 19
       format_type: html_element
       format_settings:
         classes: ''
@@ -496,13 +497,6 @@ content:
     third_party_settings: {  }
     weight: 13
     region: content
-  field_education_programs:
-    type: text_default
-    label: above
-    settings: {  }
-    third_party_settings: {  }
-    weight: 19
-    region: content
   field_education_training_skills:
     type: text_default
     label: above
@@ -559,20 +553,21 @@ content:
     third_party_settings: {  }
     weight: 5
     region: content
-  field_related_careers:
-    type: entity_reference_label
-    label: hidden
-    settings:
-      link: true
-    third_party_settings: {  }
-    weight: 20
-    region: content
   field_resources_reference:
     type: entity_reference_entity_id
     label: above
     settings: {  }
     third_party_settings: {  }
     weight: 1
+    region: content
+  field_success_stories:
+    type: entity_reference_entity_view
+    label: above
+    settings:
+      view_mode: career_profile_sidebar
+      link: false
+    third_party_settings: {  }
+    weight: 18
     region: content
   field_work_environment:
     type: text_default
@@ -606,6 +601,7 @@ hidden:
   extra_field_workbc_published_on: true
   field_annual_salary: true
   field_content_group: true
+  field_education_programs: true
   field_epbc_categories: true
   field_hero_image: true
   field_hourly_salary: true
@@ -615,6 +611,7 @@ hidden:
   field_occupational_interests: true
   field_region_hoo: true
   field_region_openings: true
+  field_related_careers: true
   field_resources: true
   field_scheduled_publish: true
   field_skills_2: true

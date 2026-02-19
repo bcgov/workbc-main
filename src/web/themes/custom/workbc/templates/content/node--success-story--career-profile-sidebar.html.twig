@@ -69,33 +69,28 @@
 #}
 
 {% set image = content.field_image_media %}
-{% set date = content.extra_field_workbc_published_on %}
 {% set title = content.extra_field_workbc_page_title %}
 {% set call_to_action = content.field_call_to_action[0]['#context'].value %}
 
-{%
-  set classes = [
-    'featured-news__card-container',
-  ]
-%}
-
-<div{{ attributes.addClass(classes) }}>
-  {{ image }}
-  <div class="featured-news__card-content-container">
-    <div class="featured-news__card-content">
+<div class="success-story__sidebar-container">
+  <div class="success-story__sidebar-content-container">
+    <div class="success-story__sidebar-content">
       {{ date }}
-      <h3 class="featured-news__card-title">
+      <p class="success-story__sidebar-title">
         {{ title }}
-      </h3>
+      </p>
     </div>
-    <div class="featured-news__link-container">
+
+    {{ image }}
+
+    <div class="success-story__sidebar-container">
     {% if (call_to_action) %}
         {% set readmore = call_to_action %}
     {% else %}
         {% set readmore ="Read more" %}
     {%  endif %}
 
-      <a class="featured-news__card-link" href="{{ url }}" title="{{ readmore|t }}">{{ readmore|t }}</a>
+      <a class="success-story__sidebar-link" href="{{ url }}" title="{{ readmore|t }}">{{ readmore|t }}</a>
     </div>
   </div>
 </div>

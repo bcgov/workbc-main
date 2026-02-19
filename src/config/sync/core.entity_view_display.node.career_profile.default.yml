@@ -32,6 +32,7 @@ dependencies:
     - field.field.node.career_profile.field_resources_reference
     - field.field.node.career_profile.field_scheduled_publish
     - field.field.node.career_profile.field_skills_2
+    - field.field.node.career_profile.field_success_stories
     - field.field.node.career_profile.field_tags
     - field.field.node.career_profile.field_teer
     - field.field.node.career_profile.field_work_environment
@@ -580,6 +581,14 @@ content:
       text_pattern: '%moderation_state% - %date%'
     third_party_settings: {  }
     weight: 14
+    region: content
+  field_success_stories:
+    type: entity_reference_label
+    label: above
+    settings:
+      link: true
+    third_party_settings: {  }
+    weight: 78
     region: content
   field_teer:
     type: list_default

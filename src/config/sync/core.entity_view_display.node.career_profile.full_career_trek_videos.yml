@@ -33,6 +33,7 @@ dependencies:
     - field.field.node.career_profile.field_resources_reference
     - field.field.node.career_profile.field_scheduled_publish
     - field.field.node.career_profile.field_skills_2
+    - field.field.node.career_profile.field_success_stories
     - field.field.node.career_profile.field_tags
     - field.field.node.career_profile.field_teer
     - field.field.node.career_profile.field_work_environment
@@ -619,6 +620,7 @@ hidden:
   field_region_hoo: true
   field_region_openings: true
   field_resources: true
+  field_success_stories: true
   field_teer: true
   langcode: true
   search_api_excerpt: true

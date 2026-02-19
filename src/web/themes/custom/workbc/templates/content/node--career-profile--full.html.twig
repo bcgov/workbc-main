@@ -223,7 +223,7 @@
     introduction: content.field_career_videos_introduction,
     content: content.field_career_videos,
   },
-  links: content.links,
+  success_stories: content.field_success_stories,
 }
 %}
 
@@ -647,6 +647,14 @@
               <div class="container-lg">
                 <h2>{{ viewmodel['career_videos']['introduction'] }}</h2>
                 {{ viewmodel['career_videos']['content'] }}
+              </div>
+            </div>
+          {% endif %}
+
+          {% if (viewmodel['success_stories']) %}
+            <div class="success-stories-wrapper">
+              <div class="container-lg">
+                {{ viewmodel['success_stories'] }}
               </div>
             </div>
           {% endif %}

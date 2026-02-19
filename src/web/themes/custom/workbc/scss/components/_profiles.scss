@@ -120,6 +120,33 @@
     }
   }
 
+  .success-stories-wrapper {
+
+    .field__label {
+      font-size: 1.313rem;
+      font-weight: bold;
+      margin: 30px 0 10px 0;
+    }
+
+    .success-story__sidebar-container {
+      margin-top: 15px;
+      margin-bottom: 30px;
+    }
+
+    .success-story__sidebar-title {
+      margin-top: 15px;
+      margin-bottom: 15px;
+    }
+
+    .success-story__sidebar-link {
+      @include link-chevron;
+    }
+
+    .post__image {
+      margin-bottom: 0;
+    }
+  }
+
   .profile-videos-wrapper {
 
     @include media-breakpoint-up(lg) {
