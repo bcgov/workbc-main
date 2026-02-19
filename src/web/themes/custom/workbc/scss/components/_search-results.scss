@@ -50,6 +50,13 @@
         padding: 10px 15px;
       }
 
+      @include media-breakpoint-down(lg) {
+        padding: 5px 10px;
+        margin-right: 5px;
+        margin-bottom: 10px;
+
+      }
+
       &:hover,
       &:focus {
         background-color: $workbc_palette_dark_primary;
@@ -63,6 +70,7 @@
       color: #fff;
       text-decoration: none;
     }
+
   }
 
 
@@ -80,6 +88,24 @@
       border: 2px solid #aaa;
       height: 44px;
     }
+
+    @include media-breakpoint-down(lg) {
+      background-image: url("../assets/icons/sortby-mobile.svg");
+      background-size: 32px;
+      background-repeat: no-repeat;
+      background-position: 0% 50%;
+      margin-left: 10px !important;
+
+      label {
+        display:none;
+      }
+
+      #edit-sort-by--2 {
+        margin-left: 16px;
+      }
+
+    }
+
   }
 
   .search-site-content-results {
