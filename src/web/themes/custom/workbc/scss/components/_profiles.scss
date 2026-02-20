@@ -129,21 +129,26 @@
     }
 
     .success-story__sidebar-container {
-      margin-top: 15px;
       margin-bottom: 30px;
     }
 
     .success-story__sidebar-title {
       margin-top: 15px;
       margin-bottom: 15px;
+      font-weight: bold;
+      font-size: 13.3333px;
+    }
+
+    .field--type-text-with-summary {
+      margin-bottom: 15px;
+    }
+
+    .post__image {
+      margin-bottom: 15px;
     }
 
     .success-story__sidebar-link {
       @include link-chevron;
-    }
-
-    .post__image {
-      margin-bottom: 0;
     }
   }
 
