@@ -18,6 +18,7 @@
         $('#skip-link', context).on('click', () => {
           const hash = window.location.hash.match(/^(#\/[\w-]+)#?/) ?? ['', ''];
           $('#main-content')[0].scrollIntoView();
+          $('#main-content').focus();
           window.location.hash = hash[1] + '#main-content';
           return false;
         });
