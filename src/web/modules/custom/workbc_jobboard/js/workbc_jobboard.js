@@ -1,22 +1,31 @@
 (function (Drupal, $, once) {
-	Drupal.behaviors.jobboard = {
+  Drupal.behaviors.jobBoard = {
     attach: function (context, settings) {
-      once('jobboard', 'html', context).forEach(function() {
+      once('jobBoard', 'html', context).forEach(function() {
         window.addEventListener('load', navUserMenu);
         window.addEventListener('hashchange', navUserMenu);
         window.addEventListener('jobboardlogin', navUserMenu);
         window.addEventListener('dialog:aftercreate', navUserMenu);
       });
 
-      once('jobboard', 'body.account', context).forEach(function() {
+      once('jobBoard', 'body.account', context).forEach(function() {
         window.addEventListener('load', accountPageChanges);
         window.addEventListener('hashchange', accountPageChanges);
         window.addEventListener('jobboardlogin', accountPageChanges);
         window.addEventListener('jobboardlogin', closePanel);
+
+        // Adjust a11y link
+        $('#skip-link', context).on('click', () => {
+          console.log('hi');
+          const hash = window.location.hash.match(/^(#\/[\w-]+)#?/) ?? ['', ''];
+          $('#main-content')[0].scrollIntoView();
+          window.location.hash = hash[1] + '#main-content';
+          return false;
+        });
       });
 
-      once('jobboard', '.block-workbc-jobboard', context).forEach(function() {
-        $(once('jobboard', 'a', context)).filter(function() {
+      once('jobBoard', '.block-workbc-jobboard', context).forEach(function() {
+        $(once('jobBoard', 'a', context)).filter(function() {
           return this.hostname && this.hostname !== location.hostname;
         }).click(function(e) {
           var url = $(this).attr('href');
@@ -32,7 +41,7 @@
           }
         });
 
-        $(once('jobboard', '.region-map-select select', context)).on('change', function(){
+        $(once('jobBoard', '.region-map-select select', context)).on('change', function(){
           const val = $(this).val();
           if (val) {
             window.location.href = val;
@@ -40,7 +49,7 @@
         });
       });
 
-      once('jobboard', '.job-search', context).forEach(function() {
+      once('jobBoard', '.job-search', context).forEach(function() {
         $('#find-job .job-search__title').each(function() {
           const that = this;
           $.ajax({
@@ -65,7 +74,7 @@
         });
       });
 
-      once('jobboard', '.workbc-jobboard-save-profile', context).forEach(function() {
+      once('jobBoard', '.workbc-jobboard-save-profile', context).forEach(function() {
         const token = readCookie('currentUser.token');
         if (token) {
           $.ajax({
@@ -215,7 +224,7 @@
       };
 
       function accountPageChanges(event) {
-        const hash = window.location.hash.match(/(#\/[\w-]+)#?/) ?? ['', ''];
+        const hash = window.location.hash.match(/^(#\/[\w-]+)#?/) ?? ['', ''];
 
         // Adjust block visibility
         const $headerLogin = $('#block-workbc-jobboardloginheader');
@@ -242,9 +251,6 @@
             $footerLogin.hide();
             $footerRegister.hide();
         }
-
-        // Adjust a11y link
-        $('#skip-link').attr('href', hash[1] + '#main-content');
       }
 
       function closePanel() {
