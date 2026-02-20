@@ -16,7 +16,6 @@
 
         // Adjust a11y link
         $('#skip-link', context).on('click', () => {
-          console.log('hi');
           const hash = window.location.hash.match(/^(#\/[\w-]+)#?/) ?? ['', ''];
           $('#main-content')[0].scrollIntoView();
           window.location.hash = hash[1] + '#main-content';
