@@ -30,36 +30,17 @@ content:
     settings:
       trim_length: 600
     third_party_settings: {  }
-    weight: 2
-    region: content
-  created:
-    type: timestamp
-    label: hidden
-    settings:
-      date_format: medium
-      custom_date_format: ''
-      timezone: ''
-      tooltip:
-        date_format: long
-        custom_date_format: ''
-      time_diff:
-        enabled: false
-        future_format: '@interval hence'
-        past_format: '@interval ago'
-        granularity: 2
-        refresh: 60
-    third_party_settings: {  }
-    weight: 0
+    weight: 3
     region: content
   extra_field_workbc_page_title:
     settings: {  }
     third_party_settings: {  }
-    weight: 1
+    weight: 2
     region: content
   extra_field_workbc_published_on:
     settings: {  }
     third_party_settings: {  }
-    weight: 0
+    weight: 1
     region: content
   field_image_media:
     type: entity_reference_entity_view
@@ -68,12 +49,12 @@ content:
       view_mode: action_card_1_4
       link: false
     third_party_settings: {  }
-    weight: 3
+    weight: 4
     region: content
   links:
     settings: {  }
     third_party_settings: {  }
-    weight: 4
+    weight: 5
     region: content
   uid:
     type: author
@@ -84,6 +65,7 @@ content:
     region: content
 hidden:
   content_moderation_control: true
+  created: true
   field_call_to_action: true
   field_content_group: true
   field_image: true
