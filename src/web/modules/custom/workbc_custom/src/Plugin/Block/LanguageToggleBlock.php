@@ -5,11 +5,11 @@ namespace Drupal\workbc_custom\Plugin\Block;
 use Drupal\Core\Block\BlockBase;
 
 /**
- * Provides a WorkBC language toggle block.
+ * Provides a WorkBC Language toggle block.
  *
  * @Block(
  *   id = "language_toggle_block",
- *   admin_label = @Translation("WorkBC language toggle block"),
+ *   admin_label = @Translation("Language toggle block"),
  *   category = @Translation("WorkBC"),
  * )
  */
