@@ -381,7 +381,7 @@ class SsotUploadLmmuForm extends ConfirmFormBase {
       '#title' => $this->t('LMMU Spreadsheet'),
       '#required' => true,
       '#description' => $this->t('Please upload your Labour Market Monthly Update spreadsheet (Excel .xlsx format).'),
-      '#upload_validators' => ['file_validate_extensions' => ['xlsx']],
+      '#upload_validators' => ['FileExtension' => ['extensions' => 'xlsx']],
       '#upload_location' => 'private://ssot/',
     ];
 
