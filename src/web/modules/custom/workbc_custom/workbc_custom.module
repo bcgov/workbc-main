@@ -854,7 +854,4 @@ function workbc_custom_page_attachments_alter(array &$attachments) {
   if ($alias === $paths['career_exploration_search']) {
     $attachments['#attached']['library'][] = 'workbc_custom/explore-careers-search';
   }
-  if ($alias === $paths['career-exploration-hub']) {
-    $attachments['#attached']['library'][] = 'workbc_custom/career-category-grid';
-  }
 }

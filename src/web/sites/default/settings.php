@@ -821,7 +821,6 @@ $config['workbc']['paths'] = [
   'career_exploration_search' => '/plan-career/explore-careers/career-profiles/search',
   'news_archive' => '/plan-career/news-archive',
   'career_trek' => '/plan-career/career-trek-videos',
-  'career-exploration-hub' => '/plan-career/explore-careers',
 ];
 
 // File settings.
