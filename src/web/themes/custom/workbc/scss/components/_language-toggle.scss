@@ -1,3 +1,13 @@
+.page-node-type-career-profile,
+.page-node-type-bc-profile,
+.page-node-type-industry-profile,
+.page-node-type-lmo-report-2024,
+.page-node-type-region-profile {
+  .language-toggle-wrapper {
+    background-color: $workbc_palette_light_secondary;
+  }
+}
+
 .language-toggle-wrapper {
   .language-toggle-container {
     display: flex;
