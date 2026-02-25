@@ -9,26 +9,8 @@ workbc_custom.admin_settings:
   route_name: workbc_custom.admin_settings
   description: 'Administer WorkBC configuration.'
 
-workbc_custom.report_unmanaged_files:
-  title: 'WorkBC unmanaged files'
-  parent: system.admin_reports
-  route_name: workbc_custom.report_unmanaged_files
-  description: 'Report of pages containing unmanaged files instead of media library items.'
-
-workbc_custom.report_duplicate_files:
-  title: 'WorkBC duplicate files'
-  parent: system.admin_reports
-  route_name: workbc_custom.report_duplicate_files
-  description: 'Report of pages containing duplicate files in the filesystem.'
-
 workbc_custom.report_environment:
   title: 'WorkBC environment'
   parent: system.admin_reports
   route_name: workbc_custom.report_environment
   description: 'Report of system environment.'
-
-workbc_custom.report_noc2021_validation:
-  title: 'WorkBC NOC 2021 Migration Validation'
-  parent: system.admin_reports
-  route_name: workbc_custom.report_noc2021_validation
-  description: 'Report of NOC 2021 migration validation results.'
