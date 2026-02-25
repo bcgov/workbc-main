@@ -353,20 +353,6 @@ mat-dialog-container {
   }
 }
 
-.node--type-page.node--view-mode-jobboard {
-  .hero-image-wrapper {
-    width: 100%;
-
-    &:before {
-      background: none;
-    }
-
-    img {
-      object-fit: cover;
-    }
-  }
-}
-
 p.blue-banner {
   background: #bcdced;
   padding: 20px 20px 20px 20px;
@@ -450,71 +436,6 @@ p.blue-banner {
 #block-workbc-jobboardregisterfooter {
 }
 
-.job-lang {
-  position: relative;
-  float: left;
-  z-index: 2;
-  display: flex;
-  align-items: center;
-  padding: 27px 0 0 5px;
-
-  span {
-    font-size: 0.8rem;
-    font-weight: bold;
-    letter-spacing: 0.5px;
-  }
-
-  label {
-    position: relative;
-    left: 0px;
-    border: 1px solid #ccc;
-    height: 16px;
-    margin: 0px;
-    border-radius: 15px;
-    width: 36px;
-    background: #ccc;
-    margin: 0 8px;
-    cursor: pointer;
-
-    &:after {
-      content: "";
-      display: block;
-      height: 14px;
-      width: 14px;
-      border: 1px solid #666;
-      border-radius: 50%;
-      position: absolute;
-      left: 0px;
-      top: 0px;
-      background: #fff;
-      transition: all 0.3s ease;
-    }
-  }
-
-  input[type=checkbox],
-  input[type=radio] {
-    -webkit-appearance: none;
-    -moz-appearance: none;
-    appearance: none;
-    border: 0;
-    opacity: 0;
-    outline: 0;
-    padding: 0;
-    vertical-align: middle;
-    width: 0;
-    position: absolute;
-  }
-
-  input[type="checkbox"]:checked + label {
-    border-color: #5bc2e7;
-    background: #5bc2e7;
-
-    &:after {
-      left: 21px;
-    }
-  }
-}
-
 app-root {
   app-filter {
     .job-search-filters .navbar {
@@ -576,60 +497,6 @@ app-root {
 }
 
 body.account {
-  .hero-image-wrapper {
-    height: auto;
-    overflow: hidden;
-
-    @include media-breakpoint-up(lg) {
-      position: absolute;
-      top: 0;
-      bottom: 0;
-      right: 0;
-      z-index: 0;
-      width: 100%;
-      overflow: auto;
-
-      &:before {
-        content: "";
-        display: block;
-        position: absolute;
-        top: 0;
-        right: 0;
-        bottom: 0;
-        left: 0;
-        z-index: 2;
-        background: none;
-      }
-    }
-
-    img {
-      display: block;
-      width: 100%;
-
-      @include media-breakpoint-up(lg) {
-        z-index: 1;
-        height: 100%;
-        object-fit: cover;
-      }
-    }
-  }
-
-  .hero-content-container {
-    margin-left: 200px;
-    padding: 0;
-    min-height: inherit;
-  }
-
-  .hero-content-wrapper {
-    background: rgba(0, 0, 0, .5);
-    color: white;
-    padding: 40px;
-    min-height: inherit;
-    display: flex;
-    flex-direction: column;
-    justify-content: center;
-  }
-
   @include media-breakpoint-down(lg) {
     .hero-banner {
       display: none;

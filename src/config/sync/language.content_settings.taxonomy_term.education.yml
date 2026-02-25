@@ -1,0 +1,11 @@
+uuid: d7be000b-1943-44e5-aded-6d941f7b436a
+langcode: en
+status: true
+dependencies:
+  config:
+    - taxonomy.vocabulary.education
+id: taxonomy_term.education
+target_entity_type_id: taxonomy_term
+target_bundle: education
+default_langcode: site_default
+language_alterable: false

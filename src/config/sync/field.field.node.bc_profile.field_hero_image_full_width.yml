@@ -1,0 +1,29 @@
+uuid: 5e42cb14-10ed-445b-8ed3-334b06d78fd2
+langcode: en
+status: true
+dependencies:
+  config:
+    - field.storage.node.field_hero_image_full_width
+    - media.type.image
+    - node.type.bc_profile
+id: node.bc_profile.field_hero_image_full_width
+field_name: field_hero_image_full_width
+entity_type: node
+bundle: bc_profile
+label: 'Hero Image (Full-Width)'
+description: 'Hero image, full-width version. If present, it replaces the earlier Hero Image (Faded).'
+required: false
+translatable: false
+default_value: {  }
+default_value_callback: ''
+settings:
+  handler: 'default:media'
+  handler_settings:
+    target_bundles:
+      image: image
+    sort:
+      field: _none
+      direction: ASC
+    auto_create: false
+    auto_create_bundle: ''
+field_type: entity_reference

@@ -6,6 +6,7 @@ dependencies:
     - field.field.node.industry_profile.field_content
     - field.field.node.industry_profile.field_content_group
     - field.field.node.industry_profile.field_hero_image
+    - field.field.node.industry_profile.field_hero_image_full_width
     - field.field.node.industry_profile.field_hero_image_media
     - field.field.node.industry_profile.field_hourly_earnings_note
     - field.field.node.industry_profile.field_industry_overview
@@ -42,7 +43,7 @@ content:
     third_party_settings: {  }
   field_content:
     type: paragraphs
-    weight: 13
+    weight: 14
     region: content
     settings:
       title: Section
@@ -61,23 +62,34 @@ content:
     third_party_settings: {  }
   field_content_group:
     type: options_select
-    weight: 17
+    weight: 18
     region: content
     settings: {  }
     third_party_settings: {  }
-  field_hero_image_media:
+  field_hero_image_full_width:
     type: media_library_widget
     weight: 11
+    region: content
+    settings:
+      media_types: {  }
+      form_mode: media_library
+    third_party_settings:
+      media_library_edit:
+        show_edit: true
+        edit_form_mode: default
+  field_hero_image_media:
+    type: media_library_widget
+    weight: 12
     region: content
     settings:
       media_types: {  }
       form_mode: crop_3_2
     third_party_settings:
       media_library_edit:
-        show_edit: '1'
+        show_edit: true
   field_hourly_earnings_note:
     type: string_textfield
-    weight: 15
+    weight: 16
     region: content
     settings:
       size: 60
@@ -85,7 +97,7 @@ content:
     third_party_settings: {  }
   field_industry_overview:
     type: text_textarea
-    weight: 12
+    weight: 13
     region: content
     settings:
       rows: 5
@@ -93,7 +105,7 @@ content:
     third_party_settings: {  }
   field_introductions:
     type: entity_reference_autocomplete
-    weight: 19
+    weight: 20
     region: content
     settings:
       match_operator: CONTAINS
@@ -103,7 +115,7 @@ content:
     third_party_settings: {  }
   field_job_board_id:
     type: string_textfield
-    weight: 20
+    weight: 21
     region: content
     settings:
       size: 60
@@ -111,7 +123,7 @@ content:
     third_party_settings: {  }
   field_job_board_save_profile_id:
     type: string_textfield
-    weight: 21
+    weight: 22
     region: content
     settings:
       size: 60
@@ -119,7 +131,7 @@ content:
     third_party_settings: {  }
   field_key_facts:
     type: text_textarea
-    weight: 14
+    weight: 15
     region: content
     settings:
       rows: 5
@@ -127,7 +139,7 @@ content:
     third_party_settings: {  }
   field_metatag_description:
     type: string_textfield
-    weight: 23
+    weight: 24
     region: content
     settings:
       size: 60
@@ -135,7 +147,7 @@ content:
     third_party_settings: {  }
   field_resources_reference:
     type: entity_reference_autocomplete
-    weight: 16
+    weight: 17
     region: content
     settings:
       match_operator: CONTAINS
@@ -145,13 +157,13 @@ content:
     third_party_settings: {  }
   field_scheduled_publish:
     type: scheduled_publish
-    weight: 18
+    weight: 19
     region: content
     settings: {  }
     third_party_settings: {  }
   field_tags:
     type: entity_reference_autocomplete_tags
-    weight: 22
+    weight: 23
     region: content
     settings:
       match_operator: CONTAINS
