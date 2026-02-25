@@ -102,7 +102,9 @@
   ]
 %}
 
-{% if is_front %}
+{% if is_front and hero_image_fullwidth %}
+  {% include '@workbc/includes/hero-home-fullwidth.html.twig' %}
+{% elseif is_front %}
   {% include '@workbc/includes/hero-home.html.twig' %}
 {% elseif drupal_view_result('banner_video', 'block_1') is not empty %}
   {{ drupal_view('banner_video', 'block_1') }}
