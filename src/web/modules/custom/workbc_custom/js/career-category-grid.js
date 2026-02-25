@@ -1,7 +1,6 @@
 let currentCatId = null;
 
 (function ($, Drupal, once) {
-  console.log('career category grid');
   function closePreviousAreaOfInterest(area) {
     const cat = document.querySelectorAll(`#category-${currentCatId}`);
     $(cat).removeClass('is-selected');

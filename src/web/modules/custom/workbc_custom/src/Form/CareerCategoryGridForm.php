@@ -52,12 +52,8 @@ class CareerCategoryGridForm extends FormBase {
 
       if (isset($category_id)) {
         $category = Term::load($category_id);
-        // d($category->tid->value);
-        // d($category->getName());
         $areas = $children = \Drupal::entityTypeManager()->getStorage('taxonomy_term')->loadChildren($category_id);
-        // d($areas);
         $category_label = $clean_string_service->cleanString($category->getName());
-        // d($category_label);
         $form[$category_label . "-tile"] = [
           '#markup' => $this->generateTile($category_label, $category->getName(), count($areas)),
           '#attributes' => [
@@ -121,7 +117,6 @@ class CareerCategoryGridForm extends FormBase {
         ];
       }
       else {
-        // d("Explore Your Career Options");
         $paths = \Drupal::config('workbc')->get('paths');
 
         $tile = '<div class="tile">';
@@ -135,10 +130,6 @@ class CareerCategoryGridForm extends FormBase {
 
         $form["explore-your-career-options-tile"] = [
           '#markup' => $tile,
-          // '#attributes' => [
-          //   'id' => "category-id-$category_label",
-          //   'data-category-id' => $category_label,
-          // ],
           '#prefix' => '<div id="explore-your-career-options" class="grid-item occupational-category">',
           '#suffix' => '</div>',
         ];

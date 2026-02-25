@@ -7,7 +7,7 @@ use Drupal\Core\Field\FieldItemListInterface;
 use Drupal\Core\Form\FormStateInterface;
 
 /**
- * Plugin implementation of the 'workbc_positive' formatter.
+ * Plugin implementation of the 'workbc_career_categories_section' formatter.
  *
  * @FieldFormatter(
  *   id = "workbc_career_categories_section",

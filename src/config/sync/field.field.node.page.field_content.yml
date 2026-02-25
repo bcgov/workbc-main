@@ -18,6 +18,7 @@ dependencies:
     - paragraphs.paragraphs_type.content_interactive_map
     - paragraphs.paragraphs_type.content_text
     - paragraphs.paragraphs_type.content_view
+    - paragraphs.paragraphs_type.section_icons_1_3    
     - paragraphs.paragraphs_type.section_accordion
     - paragraphs.paragraphs_type.section_career_category
   module:
