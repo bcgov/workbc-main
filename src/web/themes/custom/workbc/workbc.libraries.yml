@@ -159,6 +159,13 @@ nav-tabs:
     - core/jquery
     - core/once
 
+language-toggle:
+  js:
+    js/language-toggle.js: {}
+  dependencies:
+    - core/drupal
+    - core/jquery
+    - core/once
 career-category-grid:
   js:
     js/career-category-grid.js: {}
