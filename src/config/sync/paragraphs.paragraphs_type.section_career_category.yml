@@ -3,7 +3,7 @@ langcode: en
 status: true
 dependencies: {  }
 id: section_career_category
-label: 'Section: Career Category'
+label: 'Section: Career Categories'
 icon_uuid: null
 icon_default: null
 description: ''
