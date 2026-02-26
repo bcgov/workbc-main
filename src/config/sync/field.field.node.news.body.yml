@@ -7,6 +7,12 @@ dependencies:
     - node.type.news
   module:
     - text
+    - text_summary_options
+third_party_settings:
+  text_summary_options:
+    show_summary: false
+    summary_help: 'Leave blank to use <b>Related Topics Blurb</b> text.'
+    summary_placeholder: ''
 id: node.news.body
 field_name: body
 entity_type: node
@@ -20,4 +26,5 @@ default_value_callback: ''
 settings:
   display_summary: true
   required_summary: false
+  allowed_formats: {  }
 field_type: text_with_summary

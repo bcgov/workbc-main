@@ -1,6 +1,6 @@
 uuid: 37544154-9eaa-417c-a65f-5ecc71c8ce34
 langcode: en
-status: true
+status: false
 dependencies:
   config:
     - core.entity_view_mode.node.teaser
@@ -18,9 +18,9 @@ dependencies:
     - text
     - user
 id: blog
-label: Blog
+label: '[DEPRECATED] Blog'
 module: views
-description: ''
+description: 'DEPRECATED: This view has been replaced with quick_reads.'
 tag: ''
 base_table: node_field_data
 base_field: nid
