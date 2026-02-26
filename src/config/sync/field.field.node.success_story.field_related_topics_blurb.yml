@@ -12,10 +12,11 @@ field_name: field_related_topics_blurb
 entity_type: node
 bundle: success_story
 label: 'Related Topics Blurb'
-description: 'The text that should appear in a Related Topics card for this page.'
+description: 'Text used for Quick Reads landing page card and should appear in a Related Topics card for this page.'
 required: false
 translatable: true
 default_value: {  }
 default_value_callback: ''
-settings: {  }
+settings:
+  allowed_formats: {  }
 field_type: text_long

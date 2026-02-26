@@ -12,10 +12,11 @@ field_name: field_related_topics_blurb
 entity_type: node
 bundle: related_topics_card
 label: 'Related Topics Blurb'
-description: ''
+description: 'The text that should appear in a Related Topics card for this page.'
 required: true
 translatable: true
 default_value: {  }
 default_value_callback: ''
-settings: {  }
+settings:
+  allowed_formats: {  }
 field_type: text_long
