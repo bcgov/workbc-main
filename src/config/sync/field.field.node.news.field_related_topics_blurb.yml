@@ -12,7 +12,7 @@ field_name: field_related_topics_blurb
 entity_type: node
 bundle: news
 label: 'Related Topics Blurb'
-description: 'Text used for Quick Reads landing page card and should appear in a Related Topics card for this page.'
+description: 'Text used for <b>Quick Reads</b> landing page card and should appear in a <b>Related Topics</b> card for this page.'
 required: false
 translatable: true
 default_value: {  }
