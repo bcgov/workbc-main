@@ -166,6 +166,7 @@ language-toggle:
     - core/drupal
     - core/jquery
     - core/once
+
 career-category-grid:
   js:
     js/career-category-grid.js: {}
