@@ -1,18 +1,5 @@
 <?php
 
-    // use Drupal\paragraphs\Entity\Paragraph;
-
-    // $paragraph_id = 123; // Replace with your paragraph ID
-    // $paragraph = Paragraph::load($paragraph_id);
-
-    // if ($paragraph) {
-    //   // Access a field value
-    //   $field_value = $paragraph->get('field_name')->value;
-    //   // Do something with the paragraph object
-    // }
-
-
-
 namespace Drupal\workbc_custom\Form;
 
 use Drupal\Core\Form\FormBase;
