@@ -890,3 +890,68 @@ function workbc_custom_page_attachments_alter(array &$attachments) {
     $attachments['#attached']['library'][] = 'workbc_custom/explore-careers-search';
   }
 }
+
+
+/**
+ * Implements hook_token_info()
+ */
+
+function workbc_custom_token_info() {
+
+  $info['tokens']['current-page']['all-selected-class'] = array(
+    'name' => t('All button selected class'),
+    'description' => t('Return class name if All is selected, return empty string if no sort'),
+  );
+  $info['tokens']['current-page']['funding-selected-class'] = array(
+    'name' => t('Funding button selected class'),
+    'description' => t('Return class name if Funding is selected, return empty string if no sort'),
+  );
+  $info['tokens']['current-page']['training-selected-class'] = array(
+    'name' => t('Funding button selected class'),
+    'description' => t('Return class name if Funding is selected, return empty string if no sort'),
+  );
+  $info['tokens']['current-page']['quick-reads-selected-class'] = array(
+    'name' => t('Funding button selected class'),
+    'description' => t('Return class name if Funding is selected, return empty string if no sort'),
+  );
+  return $info;
+}
+
+
+/**
+ * Implements hook_tokens()
+ */
+
+function workbc_custom_tokens($type, $tokens, array $data, array $options, BubbleableMetadata $bubbleable_metadata) {
+
+  $replacements = [];
+  $query_params = \Drupal::request()->query->all();
+  if ($type == 'current-page') {
+
+    foreach ($tokens as $name => $original) {
+      switch ($name) {
+        case 'all-selected-class':
+          if (!array_key_exists("filter", $query_params) && !array_key_exists('type', $query_params)) {
+            $replacements[$original] = "selected";
+          }
+          break;
+        case 'funding-selected-class':
+          if (array_key_exists("filter", $query_params) && $query_params['filter'] == "funding") {
+            $replacements[$original] = "selected";
+          }
+          break;
+        case 'training-selected-class':
+          if (array_key_exists("filter", $query_params) && $query_params['filter'] == "training") {
+            $replacements[$original] = "selected";
+          }
+          break;
+        case 'quick-reads-selected-class':
+          if (array_key_exists('type', $query_params)) {
+            $replacements[$original] = "selected";
+          }
+          break;
+      }
+    }
+  }
+  return $replacements;
+}
