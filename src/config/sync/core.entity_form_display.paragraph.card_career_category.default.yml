@@ -1,0 +1,25 @@
+uuid: 497b7374-a2c3-458a-8695-e586801ec300
+langcode: en
+status: true
+dependencies:
+  config:
+    - field.field.paragraph.card_career_category.field_career_category
+    - field.field.paragraph.card_career_category.field_key
+    - paragraphs.paragraphs_type.card_career_category
+  module:
+    - workbc_custom
+id: paragraph.card_career_category.default
+targetEntityType: paragraph
+bundle: card_career_category
+mode: default
+content:
+  field_career_category:
+    type: workbc_select_epbc_category
+    weight: 0
+    region: content
+    settings: {  }
+    third_party_settings: {  }
+hidden:
+  created: true
+  field_key: true
+  status: true

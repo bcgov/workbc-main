@@ -752,6 +752,7 @@
             margin-right: 10px;
             width: 16px;
             height: 16px;
+            min-width: 16px;
           }
         }
 
@@ -1248,7 +1249,7 @@
   top:17px;
 }
 
-.plan-careercareer-trek-videos .view-career-trek-video-library .career-videos-filters .details-wrapper .alert-info, .plan-careercareer-trek-videos .view-career-trek-video-library .career-videos-filters .salary-range-search .alert-info {
+.plan-careercareer-trek-videos .view-career-trek-video-library .career-videos-filters .alert-info {
   background: none;
   border: none;
   padding: 0;

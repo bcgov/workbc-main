@@ -1,0 +1,10 @@
+uuid: 5210b37f-fb1e-49e2-9918-0d8b6ed3dbd2
+langcode: en
+status: true
+dependencies: {  }
+id: card_career_category
+label: 'Card: Career Category'
+icon_uuid: null
+icon_default: null
+description: ''
+behavior_plugins: {  }

@@ -1,0 +1,106 @@
+uuid: 8718d565-8dde-4d33-b670-3a79779a1417
+langcode: en
+status: true
+dependencies:
+  config:
+    - field.storage.paragraph.field_career_categories
+    - paragraphs.paragraphs_type.card_career_category
+    - paragraphs.paragraphs_type.section_career_category
+  module:
+    - entity_reference_revisions
+id: paragraph.section_career_category.field_career_categories
+field_name: field_career_categories
+entity_type: paragraph
+bundle: section_career_category
+label: 'Career Categories'
+description: ''
+required: false
+translatable: false
+default_value: {  }
+default_value_callback: ''
+settings:
+  handler: 'default:paragraph'
+  handler_settings:
+    target_bundles:
+      card_career_category: card_career_category
+    negate: 0
+    target_bundles_drag_drop:
+      action_card:
+        weight: 27
+        enabled: false
+      action_card_feature:
+        weight: 28
+        enabled: false
+      action_card_full_width:
+        weight: 29
+        enabled: false
+      action_card_icon:
+        weight: 30
+        enabled: false
+      action_cards_1_2:
+        weight: 31
+        enabled: false
+      action_cards_1_3:
+        weight: 32
+        enabled: false
+      action_cards_1_4:
+        weight: 33
+        enabled: false
+      action_cards_explore_careers:
+        weight: 34
+        enabled: false
+      action_cards_full_width:
+        weight: 35
+        enabled: false
+      action_cards_icon:
+        weight: 36
+        enabled: false
+      action_cards_icon_1_2:
+        weight: 37
+        enabled: false
+      action_cards_publication:
+        weight: 38
+        enabled: false
+      additional_duties:
+        weight: 39
+        enabled: false
+      banner_video:
+        weight: 40
+        enabled: false
+      card_career_category:
+        weight: 41
+        enabled: true
+      content_accordion_entry:
+        weight: 42
+        enabled: false
+      content_interactive_map:
+        weight: 43
+        enabled: false
+      content_text:
+        weight: 44
+        enabled: false
+      content_view:
+        weight: 45
+        enabled: false
+      lmo_charts_tables:
+        weight: 46
+        enabled: false
+      quote_card:
+        weight: 47
+        enabled: false
+      section_accordion:
+        weight: 48
+        enabled: false
+      section_career_category:
+        weight: 49
+        enabled: false
+      section_icons_1_3:
+        weight: 50
+        enabled: false
+      section_read_more:
+        weight: 51
+        enabled: false
+      skills:
+        weight: 52
+        enabled: false
+field_type: entity_reference_revisions

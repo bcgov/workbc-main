@@ -126,7 +126,7 @@ submenu-underlay:
   dependencies:
     - core/drupal
     - core/jquery
-    - core/
+    - core/once
 
 swiper-js:
   css:
@@ -158,3 +158,20 @@ nav-tabs:
     - core/drupal
     - core/jquery
     - core/once
+
+language-toggle:
+  js:
+    js/language-toggle.js: {}
+  dependencies:
+    - core/drupal
+    - core/jquery
+    - core/once
+
+career-category-grid:
+  js:
+    js/career-category-grid.js: {}
+  dependencies:
+    - core/jquery
+    - core/drupalSettings
+    - core/once
+    - core/drupal

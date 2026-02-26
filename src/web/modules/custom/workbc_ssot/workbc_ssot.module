@@ -235,7 +235,7 @@ function ssot($endpoint, $method = 'GET', $options = [], $body = null): Response
   }
 }
 
-// TODO: Merge this function into the above.
+// TODO! Merge this function into the above.
 function querySSoT($endpoint, $read_timeout = NULL) {
   $ssot = rtrim(\Drupal::config('workbc')->get('ssot_url'), '/');
   $client = new Client();
@@ -377,7 +377,7 @@ function ssotIndustryProfile($industryName) {
 function ssotCareerProfile($noc) {
 
   $data = array();
-  // TODO Refactor this block to avoid the condition.
+  // TODO! Refactor this block to avoid the condition.
   if (!empty(querySSoT('wages?noc=eq.' . $noc))) {
     $data['wages'] = querySSoT('wages?noc=eq.' . $noc)[0];
     $data['career_provincial'] = querySSoT('career_provincial?noc=eq.' . $noc)[0];
@@ -385,13 +385,13 @@ function ssotCareerProfile($noc) {
     $data['census'] = querySSoT('census?noc=eq.' . $noc)[0];
     $data['education'] = querySSoT('education?noc=eq.' . $noc)[0];
     $data['skills'] = querySSoT('skills?noc=eq.' . $noc);
-    // TODO Only retrieve record for british_columbia and adjust CareerProfileHighOpportunityOccupation accordingly.
+    // TODO! Only retrieve record for british_columbia and adjust CareerProfileHighOpportunityOccupation accordingly.
     $data['high_opportunity_occupations'] = querySSoT('high_opportunity_occupations?noc=eq.' . $noc);
     $data['occupational_interests'] = querySSoT('occupational_interests?noc=eq.' . $noc);
     $data['titles'] = querySSoT('titles?order=commonjobtitle.asc&noc=eq.' . $noc);
     $data['epbc_nocs'] = querySSoT('fyp_categories_interests_sub_nocs?noc_2021=eq.' . $noc);
     $data['career_related'] = querySSoT('career_related?order=noc_related&noc=eq.' . $noc);
-    // TODO Adjust API query to retrieve first entry only.
+    // TODO! Adjust API query to retrieve first entry only.
     $opening_careers = querySSoT('openings_careers?noc=eq.' . $noc);
     if (!empty($opening_careers)) {
       $data['openings_careers'] = $opening_careers[0];
@@ -527,6 +527,21 @@ function ssotRegionInfo() {
   $id_values = array_column($region_info, "id");
   array_multisort($id_values, SORT_ASC, $region_info);
   return $region_info;
+}
+
+// TODO! Merge this function into the above.
+function getRegionMappings() {
+  return [
+    'all' => 'All regions',
+    'british_columbia' => 'British Columbia',
+    'vancouver_island_coast' =>'Vancouver Island/Coast',
+    'mainland_southwest'  => 'Mainland/Southwest',
+    'thompson_okanagan' => 'Thompson-Okanagan',
+    'kootenay' => 'Kootenay',
+    'cariboo' => 'Cariboo',
+    'north_coast_nechako' => 'North Coast and Nechako',
+    'northeast' => 'Northeast'
+  ];
 }
 
 function ssotProcessEmploymentIndustry($ssotdata) {

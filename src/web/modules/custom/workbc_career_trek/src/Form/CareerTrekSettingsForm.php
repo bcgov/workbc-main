@@ -373,8 +373,8 @@ class CareerTrekSettingsForm extends ConfigFormBase {
 
     // Handle logo upload (allow SVG, PNG, JPG, JPEG)
     $validators = [
-      'file_validate_extensions' => ['svg png jpg jpeg'],
-      'file_validate_size' => [2 * 1024 * 1024], // 2MB
+      'FileExtension' => ['extensions' => 'svg png jpg jpeg'],
+      'FileSizeLimit' => ['fileLimit' => 2 * 1024 * 1024], // 2MB
     ];
     if (isset($_FILES['files']['name']['logo_file']) && !empty($_FILES['files']['name']['logo_file'])) {
       $destination = 'public://career_trek_icons/';
@@ -411,8 +411,8 @@ class CareerTrekSettingsForm extends ConfigFormBase {
     ];
     foreach ($svg_icons as $key => $default_path) {
       $validators = [
-        'file_validate_extensions' => ['svg'],
-        'file_validate_size' => [2 * 1024 * 1024], // 2MB
+        'FileExtension' => ['extensions' => 'svg'],
+        'FileSizeLimit' => ['fileLimit' => 2 * 1024 * 1024], // 2MB
       ];
       if (isset($_FILES['files']['name'][$key . '_file']) && !empty($_FILES['files']['name'][$key . '_file'])) {
         $destination = 'public://career_trek_icons/';

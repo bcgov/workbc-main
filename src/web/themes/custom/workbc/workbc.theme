@@ -468,8 +468,20 @@ function workbc_theme_suggestions_html_alter(array &$suggestions, array $variabl
  */
 function workbc_page_attachments_alter(array &$attachments){
   if (\Drupal::request()->get('template') === 'embed') {
-    //Remove all libraries
+    // Remove all libraries
     unset($attachments['#attached']['library']);
+  }
+
+  // Detect a page's manual translation via field_multilingual_centre and pass it to the language toggle.
+  $node = \Drupal::routeMatch()->getParameter('node');
+  if (isset($node) && $node->hasField('field_multilingual_centre')) {
+    $target = $node->get('field_multilingual_centre')->getValue();
+    if (is_array($target) && count($target) > 0) {
+      $attachments['#attached']['drupalSettings']['languageToggle'] = [
+        'isFrench' => false !== stripos($target[0]['title'], 'english'),
+        'url' => Url::fromUri($target[0]['uri'], $target[0]['options'])->toString(TRUE)->getGeneratedUrl(),
+      ];
+    }
   }
 }
 
