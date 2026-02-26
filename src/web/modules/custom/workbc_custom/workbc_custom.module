@@ -16,6 +16,7 @@ use Drupal\redirect\Entity\Redirect;
 use Symfony\Component\HttpFoundation\Request;
 use Drupal\views\Plugin\views\query\QueryPluginBase;
 use Drupal\Core\Cache\Cache;
+use Drupal\Core\Render\BubbleableMetadata;
 
 /**
  * Implements hook_cron.
@@ -257,6 +258,23 @@ function workbc_custom_views_query_alter(ViewExecutable $view, QueryPluginBase $
       }
     }
   }
+
+  if (in_array($view->id(), ['search_site_content'])) {
+    $query_params = \Drupal::request()->query->all();
+    if (isset($query_params['filter'])) {
+      if ($query_params['filter'] == "funding") {
+        $keys = $query->getKeys();
+        $keys[] = "funding";
+        $query->keys($keys);
+      }
+      if ($query_params['filter'] == "training") {
+        $keys = $query->getKeys();
+        $keys[] = "training";
+        $keys[] = "education";
+        $query->keys($keys);
+      }
+    }
+  }
 }
 
 /**
@@ -427,6 +445,23 @@ function workbc_custom_form_views_exposed_form_alter(&$form, FormStateInterface 
     // Capture the reset button to maintain the hide_category argument.
     $form['#submit'][] = 'workbc_custom_category_reset';
   }
+
+  if (in_array($form['#id'], [
+    'views-exposed-form-search-site-content-page-1'
+  ])) {
+
+    // store query parameters
+    $query_params = \Drupal::request()->query->all();
+    foreach ($query_params as $key => $value) {
+      if ($key <> "search_api_fulltext") {
+        $form['workbc_query'][$key] = [
+          '#type' => 'hidden',
+          '#value' => $value,
+        ];
+      }
+    }
+  }
+
 }
 
 /**
@@ -854,4 +889,69 @@ function workbc_custom_page_attachments_alter(array &$attachments) {
   if ($alias === $paths['career_exploration_search']) {
     $attachments['#attached']['library'][] = 'workbc_custom/explore-careers-search';
   }
+}
+
+
+/**
+ * Implements hook_token_info()
+ */
+
+function workbc_custom_token_info() {
+
+  $info['tokens']['current-page']['all-selected-class'] = array(
+    'name' => t('All button selected class'),
+    'description' => t('Return class name if All is selected, return empty string if no sort'),
+  );
+  $info['tokens']['current-page']['funding-selected-class'] = array(
+    'name' => t('Funding button selected class'),
+    'description' => t('Return class name if Funding is selected, return empty string if no sort'),
+  );
+  $info['tokens']['current-page']['training-selected-class'] = array(
+    'name' => t('Funding button selected class'),
+    'description' => t('Return class name if Funding is selected, return empty string if no sort'),
+  );
+  $info['tokens']['current-page']['quick-reads-selected-class'] = array(
+    'name' => t('Funding button selected class'),
+    'description' => t('Return class name if Funding is selected, return empty string if no sort'),
+  );
+  return $info;
+}
+
+
+/**
+ * Implements hook_tokens()
+ */
+
+function workbc_custom_tokens($type, $tokens, array $data, array $options, BubbleableMetadata $bubbleable_metadata) {
+
+  $replacements = [];
+  $query_params = \Drupal::request()->query->all();
+  if ($type == 'current-page') {
+
+    foreach ($tokens as $name => $original) {
+      switch ($name) {
+        case 'all-selected-class':
+          if (!array_key_exists("filter", $query_params) && !array_key_exists('type', $query_params)) {
+            $replacements[$original] = "selected";
+          }
+          break;
+        case 'funding-selected-class':
+          if (array_key_exists("filter", $query_params) && $query_params['filter'] == "funding") {
+            $replacements[$original] = "selected";
+          }
+          break;
+        case 'training-selected-class':
+          if (array_key_exists("filter", $query_params) && $query_params['filter'] == "training") {
+            $replacements[$original] = "selected";
+          }
+          break;
+        case 'quick-reads-selected-class':
+          if (array_key_exists('type', $query_params)) {
+            $replacements[$original] = "selected";
+          }
+          break;
+      }
+    }
+  }
+  return $replacements;
 }
