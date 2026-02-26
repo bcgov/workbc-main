@@ -1,0 +1,29 @@
+uuid: c406f049-8034-4136-86b8-5837f16cc91b
+langcode: en
+status: true
+dependencies:
+  config:
+    - field.storage.paragraph.field_career_category
+    - paragraphs.paragraphs_type.card_career_category
+    - taxonomy.vocabulary.epbc_categories
+id: paragraph.card_career_category.field_career_category
+field_name: field_career_category
+entity_type: paragraph
+bundle: card_career_category
+label: 'Career Category'
+description: ''
+required: false
+translatable: false
+default_value: {  }
+default_value_callback: ''
+settings:
+  handler: 'default:taxonomy_term'
+  handler_settings:
+    target_bundles:
+      epbc_categories: epbc_categories
+    sort:
+      field: name
+      direction: asc
+    auto_create: false
+    auto_create_bundle: ''
+field_type: entity_reference

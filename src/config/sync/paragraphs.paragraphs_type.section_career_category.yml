@@ -1,0 +1,10 @@
+uuid: a365d83f-15b6-42cc-a3fb-76327f5196c3
+langcode: en
+status: true
+dependencies: {  }
+id: section_career_category
+label: 'Section: Career Categories'
+icon_uuid: null
+icon_default: null
+description: ''
+behavior_plugins: {  }
