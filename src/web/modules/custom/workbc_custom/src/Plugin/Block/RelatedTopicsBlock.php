@@ -12,7 +12,7 @@ use Drupal\media\Entity\Media;
  *
  * @Block(
  *   id = "related_topics_block",
- *   admin_label = @Translation("WorkBC related topics block"),
+ *   admin_label = @Translation("WorkBC Related topics block"),
  *   category = @Translation("WorkBC"),
  * )
  */

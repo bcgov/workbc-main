@@ -4,7 +4,7 @@ definitions:
   contact__site_page:
     menu_name: footer
     parent: ''
-    weight: -43
+    weight: -50
     expanded: false
     enabled: false
   user__page:

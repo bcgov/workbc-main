@@ -128,6 +128,7 @@ module:
   telephone: 0
   text: 0
   text_resize: 0
+  text_summary_formatter: 0
   time_field: 0
   token: 0
   toolbar: 0

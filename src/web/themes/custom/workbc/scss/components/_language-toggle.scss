@@ -1,0 +1,79 @@
+.page-node-type-career-profile,
+.page-node-type-bc-profile,
+.page-node-type-industry-profile,
+.page-node-type-lmo-report-2024,
+.page-node-type-region-profile {
+  .language-toggle-wrapper {
+    background-color: $workbc_palette_light_secondary;
+  }
+}
+
+.language-toggle-wrapper {
+  .language-toggle-container {
+    display: flex;
+    justify-content: space-between;
+  }
+
+  .language-toggle {
+    z-index: 2;
+    display: flex;
+    align-items: center;
+    padding: 27px 0 5px 0;
+
+    span {
+      font-size: 0.8rem;
+      font-weight: bold;
+      letter-spacing: 0.5px;
+    }
+
+    label {
+      position: relative;
+      left: 0px;
+      border: 1px solid #ccc;
+      height: 16px;
+      margin: 0px;
+      border-radius: 15px;
+      width: 36px;
+      background: #ccc;
+      margin: 0 8px;
+      cursor: pointer;
+
+      &:after {
+        content: "";
+        display: block;
+        height: 14px;
+        width: 14px;
+        border: 1px solid #666;
+        border-radius: 50%;
+        position: absolute;
+        left: 0px;
+        top: 0px;
+        background: #fff;
+        transition: all 0.3s ease;
+      }
+    }
+
+    input[type=checkbox],
+    input[type=radio] {
+      -webkit-appearance: none;
+      -moz-appearance: none;
+      appearance: none;
+      border: 0;
+      opacity: 0;
+      outline: 0;
+      padding: 0;
+      vertical-align: middle;
+      width: 0;
+      position: absolute;
+    }
+
+    input[type="checkbox"]:checked + label {
+      border-color: #5bc2e7;
+      background: #5bc2e7;
+
+      &:after {
+        left: 21px;
+      }
+    }
+  }
+}
