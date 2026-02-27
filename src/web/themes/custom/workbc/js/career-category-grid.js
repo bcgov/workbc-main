@@ -1,18 +1,18 @@
-let currentCatId = null;
+let currentCareerCatId = null;
 
 (function ($, Drupal, once) {
   function closePreviousAreaOfInterest(area) {
-    const cat = document.querySelectorAll(`#category-${currentCatId}`);
+    const cat = document.querySelectorAll(`#category-${currentCareerCatId}`);
     $(cat).removeClass('is-selected');
     $(cat).find('.tile-expand img').attr('src', '/modules/custom/workbc_custom/icons/expand.svg');
-    const areas = document.querySelectorAll(`#selector-${currentCatId}`);
+    const areas = document.querySelectorAll(`#selector-${currentCareerCatId}`);
     $(areas).addClass('is-hidden');
     $(areas).find('.error').addClass('hidden');
-    $(area).siblings(`#selector-${currentCatId}`).find('input:checkbox').prop('checked', false);
+    $(area).siblings(`#selector-${currentCareerCatId}`).find('input:checkbox').prop('checked', false);
     $(cat).find('.tile-expand img').focus();
   }
 
-  Drupal.behaviors.exploreGrid = {
+  Drupal.behaviors.careerCategoryGrid = {
     attach: function (context, settings) {
       $(once('career-category-grid', '#workbc-custom-career-category-grid-form .grid-all')).change(function() {
         const checked = $(this).is(':checked');
@@ -28,7 +28,7 @@ let currentCatId = null;
       $(once('career-category-grid', '#workbc-custom-career-category-grid-form .occupational-category')).on('click', function() {
         const catId = $(this).data('category-id');
         const top = this.getBoundingClientRect().top;
-        if (currentCatId !== null && currentCatId !== catId) {
+        if (currentCareerCatId !== null && currentCareerCatId !== catId) {
           closePreviousAreaOfInterest(this);
         }
 
@@ -45,7 +45,7 @@ let currentCatId = null;
         }
 
         window.scrollTo({ top: window.scrollY - (top - this.getBoundingClientRect().top), behavior: 'instant' });
-        currentCatId = catId;
+        currentCareerCatId = catId;
       });
 
       $(once('career-category-grid', '#workbc-custom-career-category-grid-form .areas-of-interest-close')).on('click', function() {
@@ -53,7 +53,7 @@ let currentCatId = null;
       });
 
       $(once('career-category-grid', '#workbc-custom-career-category-grid-form')).on('submit', function(e) {
-        const parent = $(this).find(`#selector-${currentCatId}`);
+        const parent = $(this).find(`#selector-${currentCareerCatId}`);
         if (parent.length > 0) {
           if (!parent.find('input:checkbox:checked').length) {
             parent.find('.error').removeClass('hidden');
@@ -67,8 +67,8 @@ let currentCatId = null;
           $(document.activeElement).closest('.occupational-category').trigger('click');
           e.preventDefault();
         }
-        if (e.keyCode === 27 && currentCatId !== null) {
-          closePreviousAreaOfInterest($(`#category-${currentCatId}`));
+        if (e.keyCode === 27 && currentCareerCatId !== null) {
+          closePreviousAreaOfInterest($(`#category-${currentCareerCatId}`));
         }
       });
     }
