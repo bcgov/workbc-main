@@ -260,6 +260,10 @@
 
     .tile-name {
       margin-top: 50px;
+      @include media-breakpoint-down(lg) {
+        margin-top: 0px;
+        padding-left: 20px;
+      }
     }
 
     .tile-arrow {
@@ -267,14 +271,25 @@
       margin-left: auto;
       margin-right: auto;
       img {
-        width: 48px;
-        height: 48px;
-        // position: absolute;
-        // filter: brightness(0) saturate(100%);
-        // top: 15px;
-        // right: 15px;
+        width: 24px;
+        height: 24px;
+      }
+
+      @include media-breakpoint-down(lg) {
+        margin-top: 0px;
+        padding-left: 20px;
+        padding-right: 20px;
+      img {
+        width: 16px;
+        height: 16px;
+      }
       }
     }
+
+    @include media-breakpoint-down(lg) {
+      border-left-color: $grid-color-lite-blue;
+    }
+
   }
 
 
