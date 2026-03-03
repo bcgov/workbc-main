@@ -56,7 +56,7 @@ $workbc_text_footnote_lineheight: 1.5rem;
 $workbc_text_footnote_color: #8A8D8B;
 
 // home page hero container and image
-$workbc_home_hero_container_height: 499px;
+$workbc_home_hero_container_height: 600px;
 $workbc_home_hero_raw_image_aspect_ratio: calc(987 / 658);
 $workbc_home_hero_image_height: $workbc_home_hero_container_height - $workbc_trim_ultra_thin_size;
 $workbc_home_hero_image_width: calc($workbc_home_hero_image_height * $workbc_home_hero_raw_image_aspect_ratio);
