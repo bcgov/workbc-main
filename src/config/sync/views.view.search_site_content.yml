@@ -336,8 +336,8 @@ display:
           plugin_id: text
           empty: true
           content:
-            value: 'No results found'
-            format: basic_html
+            value: 'There are no results matching your search criteria'
+            format: full_html
           tokenize: false
       sorts:
         search_api_relevance:
@@ -915,7 +915,7 @@ display:
           group_type: group
           admin_label: ''
           plugin_id: text_custom
-          empty: false
+          empty: true
           content: "<div class=\"search-site-content-buttons\">\r\n<a class=\"[current-page:all-selected-class]\" href=\"/search-site-content?search_api_fulltext=[current-page:query:search_api_fulltext]\">All</a>\r\n<a href=\"/plan-career/explore-careers/career-profiles/search?hide_category=0&keyword_search=[current-page:query:search_api_fulltext]&sort_bef_combine=keyword_search_ASC\">Career Profiles</a>\r\n<a class=\"[current-page:funding-selected-class]\" href=\"/search-site-content?search_api_fulltext=[current-page:query:search_api_fulltext]&filter=funding&exclude=news+blog+success_story+career_profile\" class>Funding</a>\r\n<a class=\"[current-page:training-selected-class]\" href=\"/search-site-content?search_api_fulltext=[current-page:query:search_api_fulltext]&filter=training&exclude=news+blog+success_story+career_profile\">Training and Education</a>\r\n<a class=\"[current-page:quick-reads-selected-class]\" href=\"/search-site-content?search_api_fulltext=[current-page:query:search_api_fulltext]&type=news+blog+success_story\">Quick Reads</a>\r\n</div>"
           tokenize: false
         result:

@@ -175,3 +175,11 @@ career-category-grid:
     - core/drupalSettings
     - core/once
     - core/drupal
+
+search-sort-by-reset:
+  js:
+    js/search-sort-by-reset.js: {}
+  dependencies:
+    - core/drupal
+    - core/jquery
+    - core/once
