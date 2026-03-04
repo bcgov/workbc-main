@@ -15,31 +15,35 @@
         window.addEventListener('hashchange', jobFindPageChanges);
       });
 
-      // FIXME: Copied from src/web/modules/contrib/gtranslate/js/dropdown.js
-      // because I couldn't figure out how to trigger the loading of the library. It should be triggerable as per:
-      // document.querySelectorAll(u_class).forEach(function(e){e.addEventListener('pointerenter',load_tlib)});
-      function load_tlib(){if(!window.gt_translate_script){window.gt_translate_script=document.createElement('script');gt_translate_script.src='https://translate.google.com/translate_a/element.js?cb=googleTranslateElementInit2';document.body.appendChild(gt_translate_script);}}
-
+      // Get the Google Translate cookie.
       const googtrans = document.cookie
         .split("; ")
         .find((row) => row.startsWith("googtrans="))
         ?.split("=")[1];
-      let isFrench = 'languageToggle' in settings ? settings.languageToggle.isFrench : googtrans === '/en/fr';
 
+      // Determine the current page's language from these sources in order:
+      // 1. sessionStorage(KEY_LANGUAGE_TOGGLE)
+      // 2. languageToggle.isFrench setting
+      // 3. googtrans cookie
+      const KEY_LANGUAGE_TOGGLE = 'WorkBC.languageToggle';
+      let isFrench =
+        window.sessionStorage.getItem(KEY_LANGUAGE_TOGGLE) !== null ? window.sessionStorage.getItem(KEY_LANGUAGE_TOGGLE) === 'fr' :
+        (settings.languageToggle?.isFrench ?? (googtrans === '/en/fr'));
+      window.sessionStorage.setItem(KEY_LANGUAGE_TOGGLE, isFrench ? 'fr' : 'en');
+
+      // Handle clicking our toggle.
       $(once('languageToggle', '.language-toggle', context)).on('click', () => {
         const checked = $('.language-toggle input', context).is(':checked');
+        window.sessionStorage.setItem(KEY_LANGUAGE_TOGGLE, checked ? 'fr' : 'en');
+
         if (checked !== isFrench) {
           if ('languageToggle' in settings) {
-            window.sessionStorage.setItem('WorkBC.languageToggle', checked ? 'fr' : 'en');
             window.location = settings.languageToggle.url;
             return;
           }
           else {
-            load_tlib();
             isFrench = checked;
-            const lang = isFrench ? 'en|fr' : 'en|en';
-            $('.gt_selector', context).val(lang);
-            window.doGTranslate(lang);
+            doGTranslate();
           }
         }
       }).on('keydown', (e) => {
@@ -50,6 +54,7 @@
         }
       });
 
+      // Handle selecting the Google Translate dropdown.
       $(once('languageToggle', '.gt_selector', context)).on('change', (e) => {
         const lang = $(e.target).val();
         if ('languageToggle' in settings) {
@@ -57,49 +62,79 @@
             (lang === 'en|fr' && !settings.languageToggle.isFrench) ||
             (lang === 'en|en' && settings.languageToggle.isFrench)
           ) {
-            window.sessionStorage.setItem('WorkBC.languageToggle', lang.split('|')[1]);
+            window.sessionStorage.setItem(KEY_LANGUAGE_TOGGLE, lang.split('|')[1]);
             window.location = settings.languageToggle.url;
             return;
           }
         }
         isFrench = lang === 'en|fr';
+        window.sessionStorage.setItem(KEY_LANGUAGE_TOGGLE, isFrench ? 'fr' : 'en');
         $('.language-toggle input', context).prop('checked', isFrench);
       });
 
+      // Handle initial page load.
       function pageLoad() {
         $('.language-toggle input', context).prop('checked', isFrench);
 
         if ('languageToggle' in settings) {
           // Redirect to correct language if needed.
-          const wasFrench = window.sessionStorage.getItem('WorkBC.languageToggle') === 'fr';
-          if (wasFrench != isFrench) {
+          if (isFrench !== settings.languageToggle.isFrench) {
             window.location = settings.languageToggle.url;
             return;
           }
 
           // Reset the Google Translate widget.
-          load_tlib();
-          $('.gt_selector', context).val('en|en');
-          window.doGTranslate('en|en');
+          doGTranslate(true);
         }
         else {
           // Set the Google Translate widget.
-          load_tlib();
-          const lang = isFrench ? 'en|fr' : 'en|en';
-          $('.gt_selector', context).val(lang);
-          window.doGTranslate(lang);
+          doGTranslate();
         }
-
-        // Remember current language setting.
-        window.sessionStorage.setItem('WorkBC.languageToggle', isFrench ? 'fr' : 'en');
       }
 
+      // Handle special case for Job Board detail screen.
       function jobFindPageChanges() {
         if (window.location.hash.startsWith('#/job-details/')) {
-          $('.language-toggle', context).hide();
+          doGTranslate(true);
+
+          // Sync the Job Board language toggle with ours.
+          waitForEl('app-job-detail #job-language', () => {
+            if (isFrench) $('app-job-detail #job-language').click();
+
+            $(once('languageToggle', 'app-job-detail #job-language')).on('change', (e) => {
+              isFrench = $(e.target).prop('checked');
+              window.sessionStorage.setItem(KEY_LANGUAGE_TOGGLE, isFrench ? 'fr' : 'en');
+              const $input = $('.language-toggle input', context);
+              $input.prop('checked', !$input.prop('checked'));
+            });
+          });
         }
         else {
-          $('.language-toggle', context).show();
+          doGTranslate();
+        }
+      }
+
+      // FIXME: Copied from src/web/modules/contrib/gtranslate/js/dropdown.js
+      // because I couldn't figure out how to trigger the loading of the library. It should be triggerable as per:
+      // document.querySelectorAll(u_class).forEach(function(e){e.addEventListener('pointerenter',load_tlib)});
+      function load_tlib(){if(!window.gt_translate_script){window.gt_translate_script=document.createElement('script');gt_translate_script.src='https://translate.google.com/translate_a/element.js?cb=googleTranslateElementInit2';document.body.appendChild(gt_translate_script);}}
+
+      // Activate / reset Google Translate.
+      function doGTranslate(reset = false) {
+          load_tlib();
+          const lang = isFrench && !reset ? 'en|fr' : 'en|en';
+          $('.gt_selector', context).val(lang);
+          window.doGTranslate(lang);
+      }
+
+      // Wait for an element to be available before calling a function.
+      function waitForEl (selector, callback) {
+        if ($(selector).length) {
+          callback();
+        } else {
+          setTimeout(function() {
+            waitForEl(selector, callback);
+          }, 100);
         }
       }
     }

@@ -9,6 +9,12 @@
   }
 }
 
+.page-content:has(app-job-detail) {
+  .language-toggle {
+    display: none;
+  }
+}
+
 .plan-careercareer-trek-videos {
   .language-toggle-wrapper {
     background-color: #1d70b808;
