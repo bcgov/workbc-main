@@ -1,0 +1,13 @@
+diff --git a/src/Plugin/search_api/backend/SearchApiSolrBackend.php b/src/Plugin/search_api/backend/SearchApiSolrBackend.php
+index f85b8fa3..2b46b95e 100644
+--- a/src/Plugin/search_api/backend/SearchApiSolrBackend.php
++++ b/src/Plugin/search_api/backend/SearchApiSolrBackend.php
+@@ -2674,7 +2674,7 @@ class SearchApiSolrBackend extends BackendPluginBase implements SolrBackendInter
+    *   The first value of $values that has been added to the index.
+    */
+   protected function addIndexField(Document $doc, $key, array $values, $type, array &$boost_terms) {
+-    if (strpos($type, 'solr_text_') === 0) {
++    if (isset($type) && strpos($type, 'solr_text_') === 0) {
+       $type = 'text';
+     }
+ 
