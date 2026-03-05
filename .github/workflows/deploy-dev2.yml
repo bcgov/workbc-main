@@ -20,22 +20,7 @@ permissions:
   contents: read
 
 jobs:
-  # workaround for the intermittent skip issue        
- # get_workflow_conclusion:
- #   name: Lookup conclusion of workflow_run event
- #   runs-on: ubuntu-22.04
- #   outputs:
- #     conclusion: ${{ fromJson(steps.get_conclusion.outputs.data).conclusion }}
- #   steps:
- #     - name: Get workflow conclusion
- #       id: get_conclusion
- #       uses: octokit/request-action@v2.1.0
- #       with:
- #         route: GET /repos/${{ github.repository }}/actions/runs/${{ github.event.workflow_run.id }}
- #       env:
- #         GITHUB_TOKEN: ${{ secrets.GITHUB_TOKEN }}
-  
-  # automated deployment to DEV
+  # automated deployment to DEV2
   cd:
     name: cd
     runs-on: ubuntu-22.04
@@ -77,3 +62,4 @@ jobs:
           sed "s|__IMAGE__|$IMAGE|g" yaml/drush.yaml | kubectl apply -f -
           kubectl wait --for=condition=complete job/drupal-drush-workbc2 --timeout=600s -n app
           kubectl set image deployment/workbc2 drupal=$IMAGE --namespace=app
+
