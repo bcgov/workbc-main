@@ -42,8 +42,8 @@ $config['system.mail']['interface']['webform'] = 'ses_mail';
 // Single Source of Truth (SSoT) configuration.
 $config['workbc']['ssot_url'] = getenv('SSOT_URL');
 
-$config['jobboard']['jobboard_api_url_frontend'] = 'bad'; //getenv('JOBBOARD_API_URL');
-$config['jobboard']['jobboard_api_url_backend'] = 'bad'; //getenv('JOBBOARD_API_INTERNAL_URL');
+$config['jobboard']['jobboard_api_url_frontend'] = getenv('JOBBOARD_API_URL');
+$config['jobboard']['jobboard_api_url_backend'] = getenv('JOBBOARD_API_INTERNAL_URL');
 $config['jobboard']['google_maps_key'] = getenv('JOBBOARD_GOOGLE_MAPS_KEY');
 
 $settings['redis.connection']['host'] = getenv('REDIS_HOST');
