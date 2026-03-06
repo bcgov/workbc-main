@@ -196,11 +196,11 @@
 
   .page-node-type-workbc-centre .block-workbc-jobboard h2 {
     width: 100%;
-    margin: auto;
+    margin: 30px auto;
     text-align: center;
   }
 
-  .jobs-data-horizontal-view .sub-title {
+  .jobs-data-horizontal-view .sub-title:not(.no-data) {
     display: none;
   }
 

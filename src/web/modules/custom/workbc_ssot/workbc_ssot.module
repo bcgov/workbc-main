@@ -229,7 +229,7 @@ function ssot($endpoint, $method = 'GET', $options = [], $body = null): Response
     }
     return $response;
   }
-  catch (RequestException $e) {
+  catch (\Exception $e) {
     \Drupal::logger('workbc')->error($e->getMessage());
     return null;
   }
@@ -248,7 +248,7 @@ function querySSoT($endpoint, $read_timeout = NULL) {
     $result = json_decode($response->getBody(), TRUE);
     return $result;
   }
-  catch (RequestException $e) {
+  catch (\Exception $e) {
     \Drupal::logger('workbc')->error($e->getMessage());
     return NULL;
   }

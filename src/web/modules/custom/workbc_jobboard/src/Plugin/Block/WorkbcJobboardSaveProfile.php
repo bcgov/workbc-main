@@ -2,6 +2,7 @@
 namespace Drupal\workbc_jobboard\Plugin\Block;
 
 use Drupal\Core\Block\BlockBase;
+use GuzzleHttp\Client;
 
 /**
  * Provides a 'Save Career Profile' Block.
@@ -20,7 +21,10 @@ class WorkbcJobboardSaveProfile extends BlockBase {
    */
   public function build() {
     $node = \Drupal::routeMatch()->getParameter('node');
-    if (!($node instanceof \Drupal\node\NodeInterface)) return null;
+    if (!($node instanceof \Drupal\node\NodeInterface)) return [];
+
+    // Check if Job Board API is available.
+    if (!$this->testConnection()) return [];
 
     $type = $node->bundle();
     switch ($type) {
@@ -57,5 +61,17 @@ class WorkbcJobboardSaveProfile extends BlockBase {
         ]
       ]
     ];
+  }
+
+  private function testConnection() {
+    try {
+      $client = new Client();
+      $response = $client->get(\Drupal::config('jobboard')->get('jobboard_api_url_backend') . '/api/SystemSettings/BuildInfo');
+      return !empty($response);
+    }
+    catch (\Exception $e) {
+      \Drupal::logger('workbc')->error($e->getMessage());
+      return false;
+    }
   }
 }
