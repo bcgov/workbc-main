@@ -17,6 +17,7 @@ dependencies:
     - field.field.node.workbc_centre.field_metatag_description
     - field.field.node.workbc_centre.field_multilingual_centre
     - field.field.node.workbc_centre.field_phone
+    - field.field.node.workbc_centre.field_region
     - field.field.node.workbc_centre.field_related_topics
     - field.field.node.workbc_centre.field_scheduled_publish
     - field.field.node.workbc_centre.field_tags
@@ -102,6 +103,7 @@ hidden:
   field_metatag_description: true
   field_multilingual_centre: true
   field_phone: true
+  field_region: true
   field_related_topics: true
   field_scheduled_publish: true
   field_tags: true

@@ -1,0 +1,30 @@
+uuid: cca1eb64-7a7f-4e4c-97e5-c8468e5fc5cb
+langcode: en
+status: true
+dependencies:
+  config:
+    - field.field.paragraph.content_workbc_centres_list.field_key
+    - field.field.paragraph.content_workbc_centres_list.field_language
+    - paragraphs.paragraphs_type.content_workbc_centres_list
+id: paragraph.content_workbc_centres_list.default
+targetEntityType: paragraph
+bundle: content_workbc_centres_list
+mode: default
+content:
+  field_key:
+    type: string_textfield
+    weight: 1
+    region: content
+    settings:
+      size: 60
+      placeholder: ''
+    third_party_settings: {  }
+  field_language:
+    type: options_buttons
+    weight: 0
+    region: content
+    settings: {  }
+    third_party_settings: {  }
+hidden:
+  created: true
+  status: true

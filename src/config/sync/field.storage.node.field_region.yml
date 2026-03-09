@@ -1,0 +1,42 @@
+uuid: 54b1143a-609e-4089-bf39-60f1ce93d9e0
+langcode: en
+status: true
+dependencies:
+  module:
+    - node
+    - options
+id: node.field_region
+field_name: field_region
+entity_type: node
+type: list_string
+settings:
+  allowed_values:
+    -
+      value: cariboo
+      label: Cariboo
+    -
+      value: kootenay
+      label: Kootenay
+    -
+      value: mainland_southwest
+      label: 'Mainland Southwest'
+    -
+      value: north_coast_nechako
+      label: 'North Coast Nechako'
+    -
+      value: northeast
+      label: Northeast
+    -
+      value: thompson_okanagan
+      label: 'Thompson Okanagan'
+    -
+      value: vancouver_island_coast
+      label: 'Vancouver Island Coast'
+  allowed_values_function: ''
+module: options
+locked: false
+cardinality: 1
+translatable: true
+indexes: {  }
+persist_with_no_fields: false
+custom_storage: false

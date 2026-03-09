@@ -1,0 +1,54 @@
+.paragraph--type--content-workbc-centres-list {
+
+  .nav-link.active {
+    background-color: $workbc_palette_dark_primary;
+    color: #fff;
+  }
+
+  .nav-link:hover {
+    text-decoration: none;
+    background-color: #f2f2f2;
+  }
+
+  .region-title {
+    font-size: 1.313rem;
+    margin-top: 15px;
+    margin-bottom: 5px;
+  }
+
+  .centre-details-container {
+    margin: 25px;
+    box-shadow: 0 0 15px 0 rgba(0, 0, 0, 0.15);
+  }
+
+  .centre-details {
+    padding: 0px;
+    display: flex;
+    gap: 10px;
+    padding-top: 10px;
+    padding-left: 15px;
+    padding-right: 15px;
+  }
+
+  .centre-details-header {
+    background-color: #F2F2F2;
+  }
+
+  .centre-details-content {
+    padding-bottom: 15px;
+  }
+
+  .centre-details-section {
+    flex: 1;
+    text-align: left;
+  }
+
+  .centre-details-section-title {
+    font-weight: bold;
+    padding-bottom: 10px;
+  }
+
+  .centre-details-email {
+    padding-top: 20px;
+  }
+}

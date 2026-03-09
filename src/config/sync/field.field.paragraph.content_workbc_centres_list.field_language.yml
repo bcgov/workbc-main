@@ -1,0 +1,23 @@
+uuid: 453e3dfd-7273-43b7-90c9-939ae524902c
+langcode: en
+status: true
+dependencies:
+  config:
+    - field.storage.paragraph.field_language
+    - paragraphs.paragraphs_type.content_workbc_centres_list
+  module:
+    - options
+id: paragraph.content_workbc_centres_list.field_language
+field_name: field_language
+entity_type: paragraph
+bundle: content_workbc_centres_list
+label: Language
+description: ''
+required: true
+translatable: false
+default_value:
+  -
+    value: english
+default_value_callback: ''
+settings: {  }
+field_type: list_string

@@ -1,0 +1,10 @@
+uuid: 91e9a496-ab27-432b-b0cd-e56087345e91
+langcode: en
+status: true
+dependencies: {  }
+id: content_workbc_centres_list
+label: 'Content: WorkBC Centres List'
+icon_uuid: null
+icon_default: null
+description: ''
+behavior_plugins: {  }
