@@ -5,7 +5,6 @@ use Drupal\Core\Controller\ControllerBase;
 use Symfony\Component\HttpFoundation\JsonResponse;
 use Symfony\Component\HttpFoundation\Request;
 use GuzzleHttp\Client;
-use GuzzleHttp\Exception\RequestException;
 
 const SEARCH_POST = 'api/Search/JobSearch';
 const GETTOTAL_JOBS = 'api/Search/gettotaljobs';
@@ -62,7 +61,7 @@ class WorkBcJobboardController extends ControllerBase {
       $result = json_decode($response->getBody(), TRUE);
       return $result;
     }
-    catch (RequestException $e) {
+    catch (\Exception $e) {
       \Drupal::logger('workbc')->error($e->getMessage());
       return NULL;
     }

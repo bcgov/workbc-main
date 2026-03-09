@@ -136,7 +136,11 @@
     {% if page_body %}
       {{ page_body }}
     {% endif %}
+
     <div class="layout-container">
+    {% if jobboard_connection %}
+      {{ jobboard_connection }}
+    {% else %}
       <link rel="stylesheet" href="{{jobboard_api_url_frontend}}/bootstrap/bootstrap.min.css?v={{drupal_config('jobboard', 'sha')}}">
       <link rel="stylesheet" href="{{jobboard_api_url_frontend}}/dist/jb-search/styles.css?v={{drupal_config('jobboard', 'sha')}}">
       <app-root api="{{jobboard_api_url_frontend}}/" jbsearch="{{find_job_url}}" jbaccount="{{find_job_account_url}}" _nghost-dxq-c45="" ng-version="12.2.16"></app-root>
@@ -147,7 +151,9 @@
       <script src="{{jobboard_api_url_frontend}}/dist/jb-search/main-es2017.js?v={{drupal_config('jobboard', 'sha')}}" type="module"></script>
       <script src="{{jobboard_api_url_frontend}}/dist/jb-search/main-es5.js?v={{drupal_config('jobboard', 'sha')}}" nomodule="" defer=""></script>
       <script src="https://maps.googleapis.com/maps/api/js?key={{google_maps_key}}" async defer=""></script>
+    {% endif %}
     </div>
+
     {{ page_content }}
 
     {% if drupal_region('content_bottom') %}

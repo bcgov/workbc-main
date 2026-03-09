@@ -20,7 +20,10 @@ class WorkbcJobboardSaveProfile extends BlockBase {
    */
   public function build() {
     $node = \Drupal::routeMatch()->getParameter('node');
-    if (!($node instanceof \Drupal\node\NodeInterface)) return null;
+    if (!($node instanceof \Drupal\node\NodeInterface)) return [];
+
+    // Check if Job Board API is available.
+    if (!jbTestConnection()) return [];
 
     $type = $node->bundle();
     switch ($type) {
