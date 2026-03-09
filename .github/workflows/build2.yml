@@ -29,9 +29,9 @@ jobs:
       - name: Configure AWS credentials
         uses: aws-actions/configure-aws-credentials@v1
         with:
-          aws-region: ${{ secrets.AWS_REGION }}
           role-to-assume: ${{ secrets.AWS_ROLE_ARN_TO_USE_TOOLS }}
-
+          aws-region: ${{ secrets.AWS_REGION }}
+          
       # Login to ECR
       - name: Login to Amazon ECR
         id: login-ecr
@@ -44,5 +44,6 @@ jobs:
       - name: Push Drupal docker image
         run: |
           docker push ${{ secrets.AWS_ECR_URI }}:${{ github.sha }}
+
 
 
