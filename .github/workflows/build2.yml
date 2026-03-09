@@ -44,6 +44,3 @@ jobs:
       - name: Push Drupal docker image
         run: |
           docker push ${{ secrets.AWS_ECR_URI }}:${{ github.sha }}
-
-
-
