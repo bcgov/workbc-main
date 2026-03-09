@@ -6,12 +6,15 @@ name: DEV2-CI
 on:
   # Triggers the workflow on push or pull request events but only for the "master" branch
   #push:
-  #  branches: [ "develop" ]
   push:
     branches: [ "dev2" ]
 
   # Allows you to run this workflow manually from the Actions tab
   workflow_dispatch:
+# required for OIDC auth
+permissions:
+  id-token: write
+  contents: read
 
 # A workflow run is made up of one or more jobs that can run sequentially or in parallel
 jobs:
@@ -27,10 +30,10 @@ jobs:
 
       # Pull AWS credentials
       - name: Configure AWS credentials
-        uses: aws-actions/configure-aws-credentials@v1
+        uses: aws-actions/configure-aws-credentials@v3
         with:
           role-to-assume: ${{ secrets.AWS_ROLE_ARN_TO_USE_TOOLS }}
-          aws-region: ca-central-1
+          aws-region: ${{ secrets.AWS_REGION }}
           
       # Login to ECR
       - name: Login to Amazon ECR
