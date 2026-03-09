@@ -336,7 +336,7 @@ display:
           plugin_id: text
           empty: true
           content:
-            value: 'There are no results matching your search criteria'
+            value: 'There are no results matching your search criteria.'
             format: full_html
           tokenize: false
       sorts:
