@@ -6,7 +6,6 @@ name: DEV2-CI
 on:
   # Triggers the workflow on push or pull request events but only for the "master" branch
   #push:
-  #  branches: [ "develop" ]
   push:
     branches: [ "dev2" ]
 
@@ -44,3 +43,4 @@ jobs:
       - name: Push Drupal docker image
         run: |
           docker push ${{ secrets.AWS_ECR_URI }}:${{ github.sha }}
+
