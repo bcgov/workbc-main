@@ -20,22 +20,7 @@ permissions:
   contents: read
 
 jobs:
-  # workaround for the intermittent skip issue        
- # get_workflow_conclusion:
- #   name: Lookup conclusion of workflow_run event
- #   runs-on: ubuntu-22.04
- #   outputs:
- #     conclusion: ${{ fromJson(steps.get_conclusion.outputs.data).conclusion }}
- #   steps:
- #     - name: Get workflow conclusion
- #       id: get_conclusion
- #       uses: octokit/request-action@v2.1.0
- #       with:
- #         route: GET /repos/${{ github.repository }}/actions/runs/${{ github.event.workflow_run.id }}
- #       env:
- #         GITHUB_TOKEN: ${{ secrets.GITHUB_TOKEN }}
-  
-  # automated deployment to DEV
+  # automated deployment to DEV2
   cd:
     name: cd
     runs-on: ubuntu-22.04
@@ -53,14 +38,28 @@ jobs:
           role-to-assume: ${{ secrets.AWS_ROLE_ARN_TO_USE_DEV }}
           aws-region: ${{ secrets.AWS_REGION }}
           
-      - uses: peter-murray/terragrunt-github-action@v1.0.0
-        with:
-          terragrunt_version: ${{ env.TG_VERSION }}
+#      - uses: peter-murray/terragrunt-github-action@v1.0.0
+#        with:
+#          terragrunt_version: ${{ env.TG_VERSION }}
 
-      - name: Terragrunt Apply
-        working-directory: ${{ env.TG_SRC_PATH }}/${{ env.TFC_WORKSPACE }}
+#      - name: Terragrunt Apply
+#        working-directory: ${{ env.TG_SRC_PATH }}/${{ env.TFC_WORKSPACE }}
+#        env:
+#          app_image: ${{ env.IMAGE_ID }}:${{ github.event.workflow_run.head_sha }}
+#          LICENSE_PLATE: ${{ secrets.MY_LICENSE_PLATE }}
+#          TF_VAR_source_token: ${{ secrets.SOURCE_TOKEN }}
+#        run: terragrunt run-all apply --terragrunt-non-interactive
+
+      - name: Update Kubeconfig
+        run: |
+          aws eks update-kubeconfig --name workbc-cluster2 --region ${{ secrets.AWS_REGION }}
+
+      - name: Set image on Kubernetes deployment
         env:
-          app_image: ${{ env.IMAGE_ID }}:${{ github.event.workflow_run.head_sha }}
-          LICENSE_PLATE: ${{ secrets.MY_LICENSE_PLATE }}
-          TF_VAR_source_token: ${{ secrets.SOURCE_TOKEN }}
-        run: terragrunt run-all apply --terragrunt-non-interactive
+          IMAGE: ${{ secrets.AWS_ECR_URI }}:${{ github.event.workflow_run.head_sha }}
+        run: |
+          kubectl delete job drupal-drush-workbc2 -n app --ignore-not-found
+          sed "s|__IMAGE__|$IMAGE|g" yaml/drush.yaml | kubectl apply -f -
+          kubectl wait --for=condition=complete job/drupal-drush-workbc2 --timeout=600s -n app
+          kubectl set image deployment/workbc2 drupal=$IMAGE --namespace=app
+
