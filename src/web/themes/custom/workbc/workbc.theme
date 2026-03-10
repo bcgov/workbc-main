@@ -96,10 +96,15 @@ function workbc_preprocess_paragraph(&$variables) {
     }
   }
 
+  if ($variables['paragraph']->bundle() === 'content_workbc_centres_map') {
+    $variables['map_url'] = $variables['paragraph']->field_workbc_centres_map->uri;
+    $url = parse_url($variables['map_url']);
+    $variables['base_url'] = rtrim($url['scheme'] . '://' . $url['host'], '/');
+  }
+
   if (isset($variables['paragraph']->field_color)) {
     $variables['text_color'] = $variables['paragraph']->field_color->value;
   }
-
 
   // SPECIAL CASE
   // Override cards for "EducationPlannerBC" and "StudentAidBC" by injecting their logos.
@@ -127,7 +132,6 @@ function workbc_preprocess_paragraph(&$variables) {
     }
   }
 }
-
 
 function workbc_get_descendant($menu) {
   $result = '';
