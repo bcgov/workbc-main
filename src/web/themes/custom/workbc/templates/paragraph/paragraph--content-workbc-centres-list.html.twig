@@ -71,13 +71,14 @@
             </div>
 
             <div class="region-list">
-              <div class="accordion accordion-flush workbc-accordion-component" id="accordion-component-{{ key }}">
+              <div class="accordion accordion-flush workbc-centre-accordion" id="accordion-component-{{ key }}">
                 {% for centre in centres[key] %}
 
                   <div class="accordion-header" id="header-{{ centre.id() }}">
-                    <button class="accordion-button collapsed" type="button" data-bs-toggle="collapse" data-bs-target="#collapse-{{ centre.id() }}" aria-expanded="false" aria-controls="collapse-{{ centre.id() }}">
-                      {{ centre.label }}
-                    </button>
+                    <div class="accordion-header-link">
+                      <a href="/node/{{ centre.id() }}">{{ centre.label }}</a>
+                    </div>
+                    <button class="accordion-button collapsed" type="button" data-bs-toggle="collapse" data-bs-target="#collapse-{{ centre.id() }}" aria-expanded="false" aria-controls="collapse-{{ centre.id() }}"></button>
                   </div>
 
                   <div id="collapse-{{ centre.id() }}" class="accordion-collapse collapse" aria-labelledby="header-{{ centre.id() }}" data-bs-parent="#accordion-component-{{ key }}">
@@ -91,9 +92,9 @@
                         <div class="centre-details-section centre-address">
                           <div class="centre-details-section-title">Hours of Operation</div>
                         </div>
-                        <div class="centre-details-section centre-address">
+                        {# <div class="centre-details-section centre-address">
                           <div class="centre-details-section-title">More Information</div>
-                        </div>
+                        </div> #}
                       </div>
 
                       <div class="centre-details centre-details-content">
@@ -106,7 +107,7 @@
                             <div>{{ centre.field_address.locality }}, {{ centre.field_address.administrative_area }}, {{ centre.field_address.postal_code }}</div>
                             <div>{{ centre.field_phone.value }}</div>
                             <div class="centre-details-email">{{ centre.field_email.value }}</div>
-                            <div>{{ centre.field_website.uri }}</div>
+                            <div><a href="{{ centre.field_website.uri }}">{{ centre.field_website.uri }}</a></div>
                           </div>
                         </div>
 
@@ -114,13 +115,15 @@
                           <div>{{ centre.field_working_hours.value|raw }}</div>
                         </div>
 
-                      <div class="centre-details-section centre-information">
+                      {# <div class="centre-details-section centre-information">
                         <div></div>
-                      </div>
+                      </div> #}
                      </div>
                   </div>
                 </div>
-
+                  {# <div>
+                    <hr>
+                  </div> #}
                 {% endfor %}
               </div>
             </div>
