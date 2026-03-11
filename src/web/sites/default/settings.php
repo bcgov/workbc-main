@@ -779,6 +779,7 @@ $settings['trusted_host_patterns'] = [
   '^www\.aws\.workbc\.ca$',
   '^aws\.workbc\.ca$',
   '^workbc\.a55eb5-dev\.stratus\.cloud\.gov\.bc\.ca$',
+  '^workbc2\.a55eb5-dev\.stratus\.cloud\.gov\.bc\.ca$',
   '^workbc\.a55eb5-test\.stratus\.cloud\.gov\.bc\.ca$',
   '^workbc\.a55eb5-prod\.stratus\.cloud\.gov\.bc\.ca$',
   '^workbc-app-service$',
