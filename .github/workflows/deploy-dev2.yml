@@ -52,5 +52,3 @@ jobs:
           sed "s|__IMAGE__|$IMAGE|g" yaml/drush2.yaml | kubectl apply -f -
           kubectl wait --for=condition=complete job/drupal-drush-workbc2 --timeout=600s -n app
           kubectl set image deployment/workbc2 drupal=$IMAGE --namespace=app
-
-
