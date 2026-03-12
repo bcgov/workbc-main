@@ -110,7 +110,6 @@ function workbc_preprocess_paragraph(&$variables) {
   if($variables['paragraph']->bundle() == "content_workbc_centres_list") {
     $language = $variables['paragraph']->field_language->value;
 
-
     $query = \Drupal::entityQuery("node");
     $nids = $query
       ->accessCheck(TRUE)
@@ -122,7 +121,6 @@ function workbc_preprocess_paragraph(&$variables) {
     if (!empty($nids)) {
       $nodes = \Drupal\node\Entity\Node::loadMultiple($nids);
       if (!empty($nodes)) {
-        // d($nodes[741]);
         $centres = [];
         foreach ($nodes as $node) {
           if (isset($node->field_region->value)) {
@@ -136,13 +134,11 @@ function workbc_preprocess_paragraph(&$variables) {
           if ($language == "french") {
             if (stripos($title, 'english')) {
               $centres[$region][] = $node;
-              // $centres[$region][] = $node->id() . " - " . $node->getTitle() . " - " . $title;
             }
           }
           else {
             if (stripos($title, 'english') === false) {
               $centres[$region][] = $node;
-              // $centres[$region][] = $node->id() . " - " . $node->getTitle() . " - " . $title;
             }
           }
         }
@@ -152,7 +148,6 @@ function workbc_preprocess_paragraph(&$variables) {
         unset($regions['british_columbia']);
         $variables['regions'] = $regions;
       }
-      // d($variables);
     }
   }
 
