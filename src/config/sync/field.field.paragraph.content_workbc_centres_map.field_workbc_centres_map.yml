@@ -12,7 +12,7 @@ field_name: field_workbc_centres_map
 entity_type: paragraph
 bundle: content_workbc_centres_map
 label: 'WorkBC Centres Map'
-description: 'The URL of the WorkBC Centres map, e.g. https://maps.es.workbc.ca/workbc/map.html or https://maps.es.workbc.ca/workbc/map_fr.html'
+description: 'The URL of the WorkBC Centres map, e.g. <em>https://maps.es.workbc.ca/workbc/map.html</em> or <em>https://maps.es.workbc.ca/workbc/map_fr.html</em>.'
 required: true
 translatable: false
 default_value: {  }

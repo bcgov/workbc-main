@@ -98,8 +98,8 @@ function workbc_preprocess_paragraph(&$variables) {
 
   if ($variables['paragraph']->bundle() === 'content_workbc_centres_map') {
     $variables['map_url'] = $variables['paragraph']->field_workbc_centres_map->uri;
-    $url = parse_url($variables['map_url']);
-    $variables['base_url'] = rtrim($url['scheme'] . '://' . $url['host'], '/');
+    $map_url = parse_url($variables['map_url']);
+    $variables['base_url'] = rtrim($map_url['scheme'] . '://' . $map_url['host'], '/');
   }
 
   if (isset($variables['paragraph']->field_color)) {
