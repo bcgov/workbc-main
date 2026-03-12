@@ -16,7 +16,7 @@ settings:
       label: 'English Centres'
     -
       value: french
-      label: French
+      label: 'French Centres'
   allowed_values_function: ''
 module: options
 locked: false

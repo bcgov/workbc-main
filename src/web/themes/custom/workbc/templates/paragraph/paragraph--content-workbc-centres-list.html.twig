@@ -76,7 +76,7 @@
 
                   <div class="accordion-header" id="header-{{ centre.id() }}">
                     <div class="accordion-header-link">
-                      <a href="/node/{{ centre.id() }}">{{ centre.label }}</a>
+                      <a href="/node/{{ centre.id() }}" target="_blank">{{ centre.label }}</a>
                     </div>
                     <button class="accordion-button collapsed" type="button" data-bs-toggle="collapse" data-bs-target="#collapse-{{ centre.id() }}" aria-expanded="false" aria-controls="collapse-{{ centre.id() }}"></button>
                   </div>
@@ -100,7 +100,7 @@
                           <div>
                             <div>{{ centre.field_address.address_line1 }}</div>
                             {% if centre.field_address.address_line2 is not empty %}
-                              <div>{{ centre.field_address.address_line2 }}xXx</div>
+                              <div>{{ centre.field_address.address_line2 }}</div>
                             {% endif %}
                             <div>{{ centre.field_address.locality }}, {{ centre.field_address.administrative_area }}, {{ centre.field_address.postal_code }}</div>
                             <div>{{ centre.field_phone.value }}</div>
