@@ -1,0 +1,21 @@
+{#
+/**
+ * @file
+ * Theme override for a language toggle.
+ */
+#}
+<div class="language-toggle-wrapper">
+  <div class="container-lg">
+    <div class="language-toggle-container">
+      <div class="language-toggle-content">
+        <div class="language-toggle" tabindex="0">
+          <span>ENGLISH</span>
+          <input title="French language" type="checkbox" name="language-toggle-selected" id="language-toggle-selected" />
+          <label for="language-toggle-selected"></label>
+          <span>FRANÇAIS</span>
+        </div>
+      </div>
+      {{ drupal_entity('block', 'bettersocialsharingbuttons') }}
+    </div>
+  </div>
+</div>

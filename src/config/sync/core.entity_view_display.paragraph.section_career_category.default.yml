@@ -1,0 +1,25 @@
+uuid: d7d27b7f-9549-40db-bb11-1c9e72318ca0
+langcode: en
+status: true
+dependencies:
+  config:
+    - field.field.paragraph.section_career_category.field_career_categories
+    - field.field.paragraph.section_career_category.field_key
+    - paragraphs.paragraphs_type.section_career_category
+  module:
+    - workbc_custom
+id: paragraph.section_career_category.default
+targetEntityType: paragraph
+bundle: section_career_category
+mode: default
+content:
+  field_career_categories:
+    type: workbc_career_categories_section
+    label: visually_hidden
+    settings: {  }
+    third_party_settings: {  }
+    weight: 0
+    region: content
+hidden:
+  field_key: true
+  search_api_excerpt: true

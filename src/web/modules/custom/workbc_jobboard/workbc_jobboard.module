@@ -1,6 +1,7 @@
 <?php
 
 use Drupal\workbc_jobboard\Controller\WorkBcJobboardController;
+use GuzzleHttp\Client;
 
 /**
  * Implements hook_page_attachments_alter().
@@ -73,6 +74,7 @@ function workbc_jobboard_theme($existing, $type, $theme, $path) {
         'jobboard_api_url_frontend'=>'',
         'find_job_url'=>'',
         'find_job_account_url'=>'',
+        'jobboard_connection'=>'',
       ],
     ],
     'node__page_jobboard_account' => [
@@ -84,6 +86,7 @@ function workbc_jobboard_theme($existing, $type, $theme, $path) {
         'find_job_account_url'=>'',
         'search_career_profile_link'=>'',
         'labour_market_outlook'=>'',
+        'jobboard_connection'=>'',
       ],
     ],
   ];
@@ -127,6 +130,7 @@ function workbc_jobboard_preprocess_node(&$variables) {
     else if($current_path == $variables['find_job_account_url']){
       $variables['elements']['#theme'] = 'node__page_jobboard_account';
     }
+    $variables['jobboard_connection'] = jbTestConnection() ? '' : 'The Job Board is currently unavailable.';
   }
 }
 
@@ -136,10 +140,24 @@ function workbc_jobboard_preprocess_node(&$variables) {
 function workbc_jobboard_cron() {
   $WorkBcJobboardController = new WorkBcJobboardController();
   $total_jobs = $WorkBcJobboardController->getPosts(['getTotalJobs'=>true], 'getTotalJobs', 'get');
-  if (isset($total_jobs['data'])) {
+  if (is_numeric($total_jobs['data'])) {
     \Drupal::state()->set('jobboard_total_jobs', $total_jobs['data']);
   }
   else {
-    \Drupal::logger('workbc')->warning('Could not pull total jobs from Job Board API.');
+    \Drupal::logger('workbc')->error('Could not pull total jobs from Job Board API.');
+  }
+}
+
+/************************* JOB BOARD FUNCTIONS ****************************/
+
+function jbTestConnection() {
+  try {
+    $client = new Client();
+    $response = $client->get(\Drupal::config('jobboard')->get('jobboard_api_url_backend') . '/api/SystemSettings/BuildInfo');
+    return !empty($response);
+  }
+  catch (\Exception $e) {
+    \Drupal::logger('workbc')->error($e->getMessage());
+    return false;
   }
 }

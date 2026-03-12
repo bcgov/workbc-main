@@ -10,8 +10,8 @@ id: node.lmo_report_2024.field_hero_image_media
 field_name: field_hero_image_media
 entity_type: node
 bundle: lmo_report_2024
-label: 'Hero Image'
-description: ''
+label: 'Hero Image (Faded)'
+description: 'Hero image, faded version. It is overridden by the more recent Hero Image (Full-Width) if present.'
 required: false
 translatable: false
 default_value: {  }

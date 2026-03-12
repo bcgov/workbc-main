@@ -34,7 +34,8 @@
 
       // Change the anchor when a tab is clicked.
       $('.nav-tabs .nav-link', context).on('click', function (e) {
-        window.location.hash = $(e.target).attr('href');
+        const $target = $(e.target);
+        if ($target.attr('href')) window.location.hash = $target.attr('href');
       });
 
       // Change tab when navigating to a different anchor.

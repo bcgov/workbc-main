@@ -14,6 +14,7 @@ dependencies:
     - field.field.node.career_profile.field_education_training_skills
     - field.field.node.career_profile.field_epbc_categories
     - field.field.node.career_profile.field_hero_image
+    - field.field.node.career_profile.field_hero_image_full_width
     - field.field.node.career_profile.field_hero_image_media
     - field.field.node.career_profile.field_hourly_salary
     - field.field.node.career_profile.field_insights_from_industry
@@ -31,6 +32,7 @@ dependencies:
     - field.field.node.career_profile.field_resources_reference
     - field.field.node.career_profile.field_scheduled_publish
     - field.field.node.career_profile.field_skills_2
+    - field.field.node.career_profile.field_success_stories
     - field.field.node.career_profile.field_tags
     - field.field.node.career_profile.field_teer
     - field.field.node.career_profile.field_work_environment
@@ -57,7 +59,7 @@ content:
     third_party_settings: {  }
   field_career_overview:
     type: text_textarea
-    weight: 11
+    weight: 12
     region: content
     settings:
       rows: 5
@@ -65,7 +67,7 @@ content:
     third_party_settings: {  }
   field_career_pathways:
     type: text_textarea
-    weight: 16
+    weight: 18
     region: content
     settings:
       rows: 5
@@ -73,7 +75,7 @@ content:
     third_party_settings: {  }
   field_career_videos:
     type: media_library_widget
-    weight: 13
+    weight: 14
     region: content
     settings:
       media_types: {  }
@@ -81,7 +83,7 @@ content:
     third_party_settings: {  }
   field_career_videos_introduction:
     type: text_textarea
-    weight: 12
+    weight: 13
     region: content
     settings:
       rows: 5
@@ -89,13 +91,13 @@ content:
     third_party_settings: {  }
   field_content_group:
     type: options_select
-    weight: 23
+    weight: 25
     region: content
     settings: {  }
     third_party_settings: {  }
   field_duties:
     type: text_textarea
-    weight: 14
+    weight: 16
     region: content
     settings:
       rows: 5
@@ -103,25 +105,36 @@ content:
     third_party_settings: {  }
   field_education_training_skills:
     type: text_textarea
-    weight: 17
+    weight: 19
     region: content
     settings:
       rows: 5
       placeholder: ''
     third_party_settings: {  }
-  field_hero_image_media:
+  field_hero_image_full_width:
     type: media_library_widget
     weight: 9
+    region: content
+    settings:
+      media_types: {  }
+      form_mode: media_library
+    third_party_settings:
+      media_library_edit:
+        show_edit: true
+        edit_form_mode: default
+  field_hero_image_media:
+    type: media_library_widget
+    weight: 10
     region: content
     settings:
       media_types: {  }
       form_mode: crop_3_2
     third_party_settings:
       media_library_edit:
-        show_edit: '1'
+        show_edit: true
   field_insights_from_industry:
     type: text_textarea
-    weight: 18
+    weight: 20
     region: content
     settings:
       rows: 5
@@ -129,13 +142,13 @@ content:
     third_party_settings: {  }
   field_introductions:
     type: options_select
-    weight: 20
+    weight: 22
     region: content
     settings: {  }
     third_party_settings: {  }
   field_metatag_description:
     type: string_textfield
-    weight: 27
+    weight: 29
     region: content
     settings:
       size: 60
@@ -151,7 +164,7 @@ content:
     third_party_settings: {  }
   field_noc_2016:
     type: string_textfield
-    weight: 25
+    weight: 27
     region: content
     settings:
       size: 60
@@ -159,7 +172,7 @@ content:
     third_party_settings: {  }
   field_resources_reference:
     type: entity_reference_autocomplete
-    weight: 19
+    weight: 21
     region: content
     settings:
       match_operator: CONTAINS
@@ -169,13 +182,23 @@ content:
     third_party_settings: {  }
   field_scheduled_publish:
     type: scheduled_publish
-    weight: 24
+    weight: 26
     region: content
     settings: {  }
     third_party_settings: {  }
+  field_success_stories:
+    type: entity_reference_autocomplete
+    weight: 15
+    region: content
+    settings:
+      match_operator: CONTAINS
+      match_limit: 10
+      size: 60
+      placeholder: ''
+    third_party_settings: {  }
   field_tags:
     type: entity_reference_autocomplete_tags
-    weight: 26
+    weight: 28
     region: content
     settings:
       match_operator: CONTAINS
@@ -185,7 +208,7 @@ content:
     third_party_settings: {  }
   field_work_environment:
     type: text_textarea
-    weight: 15
+    weight: 17
     region: content
     settings:
       rows: 5
@@ -200,7 +223,7 @@ content:
     third_party_settings: {  }
   moderation_state:
     type: moderation_state_default
-    weight: 22
+    weight: 24
     region: content
     settings: {  }
     third_party_settings: {  }
@@ -218,7 +241,7 @@ content:
       display_label: true
     third_party_settings: {  }
   simple_sitemap:
-    weight: 10
+    weight: 11
     region: content
     settings: {  }
     third_party_settings: {  }
@@ -251,7 +274,7 @@ content:
     settings: {  }
     third_party_settings: {  }
   url_redirects:
-    weight: 21
+    weight: 23
     region: content
     settings: {  }
     third_party_settings: {  }

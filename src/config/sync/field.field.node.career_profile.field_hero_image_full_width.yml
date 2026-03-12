@@ -1,0 +1,29 @@
+uuid: 1ce17e18-8b7f-40c7-a4d1-e6da84bfe55a
+langcode: en
+status: true
+dependencies:
+  config:
+    - field.storage.node.field_hero_image_full_width
+    - media.type.image
+    - node.type.career_profile
+id: node.career_profile.field_hero_image_full_width
+field_name: field_hero_image_full_width
+entity_type: node
+bundle: career_profile
+label: 'Hero Image (Full-Width)'
+description: 'Hero image, full-width version. If present, it replaces the earlier Hero Image (Faded).'
+required: false
+translatable: false
+default_value: {  }
+default_value_callback: ''
+settings:
+  handler: 'default:media'
+  handler_settings:
+    target_bundles:
+      image: image
+    sort:
+      field: _none
+      direction: ASC
+    auto_create: false
+    auto_create_bundle: ''
+field_type: entity_reference

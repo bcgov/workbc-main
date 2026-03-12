@@ -42,7 +42,6 @@ class IndustryEmploymentByAge extends ExtraFieldDisplayFormattedBase {
    * {@inheritdoc}
    */
   public function viewElements(ContentEntityInterface $entity) {
-
     if (!empty($entity->ssot_data) && isset($entity->ssot_data['labour_force_survey_industry'])) {
       $options = array(
         'decimals' => 1,

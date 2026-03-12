@@ -2,11 +2,7 @@
 namespace Drupal\workbc_jobboard\Plugin\Block;
 
 use Drupal\Core\Block\BlockBase;
-use Drupal\Core\Url;
 use Drupal\Core\Form\FormStateInterface;
-use Drupal\Component\Utility\UrlHelper;
-use Drupal\Core\Access\AccessResult;
-use Drupal\Core\Session\AccountInterface;
 use Drupal\workbc_jobboard\Controller\WorkBcJobboardController;
 
 /**
@@ -176,8 +172,7 @@ class WorkbcJobboardSidebar extends BlockBase{
         $no_result_text_val = (isset($config['job_board_no_result_text'])) ?$config['job_board_no_result_text'] : 'There are no current job postings.';
       }
       else {
-        $no_result_text_val = 'Unable to connect to Job Board API.';
-        $api_url = \Drupal::config('jobboard')->get('jobboard_api_url_backend');
+        $no_result_text_val = 'Job postings cannot be loaded at this time.';
         \Drupal::logger('workbc')->error($recent_jobs['response']);
       }
       return [

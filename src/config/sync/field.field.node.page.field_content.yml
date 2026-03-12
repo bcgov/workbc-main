@@ -20,6 +20,7 @@ dependencies:
     - paragraphs.paragraphs_type.content_view
     - paragraphs.paragraphs_type.section_icons_1_3
     - paragraphs.paragraphs_type.section_accordion
+    - paragraphs.paragraphs_type.section_career_category
   module:
     - entity_reference_revisions
 id: node.page.field_content
@@ -51,6 +52,7 @@ settings:
       banner_video: banner_video
       section_icons_1_3: section_icons_1_3
       section_accordion: section_accordion
+      section_career_category: section_career_category
     negate: 0
     target_bundles_drag_drop:
       action_card:
@@ -95,6 +97,9 @@ settings:
       banner_video:
         weight: 36
         enabled: true
+      card_career_category:
+        weight: 41
+        enabled: false
       content_accordion_entry:
         weight: 36
         enabled: false
@@ -116,7 +121,12 @@ settings:
       section_accordion:
         weight: 42
         enabled: true
-      section_icons_1_3: null
+      section_career_category:
+        weight: 49
+        enabled: true
+      section_icons_1_3:
+        weight: 50
+        enabled: false
       section_read_more:
         weight: 43
         enabled: false

@@ -105,15 +105,15 @@ class WorkbcCareerTrekJobboardSidebar extends BlockBase{
         $parameters["SortOrder"]= 11;
         $parameters["PageSize"]= $config['job_board_results_to_show']??3;
         $theme = 'career_trek_recent_jobs';
-  
+
         if($type == 'career_profile') {
           $noc_value = ($node->get('field_noc')->getValue())? $node->get('field_noc')->getValue(): '';
           $noc_value = (!empty($noc_value) && isset($noc_value[0]['value']))? $noc_value[0]['value'] :'';
           $parameters["SearchNocField"] ="$noc_value";
           $view_more_link_parameters = "noc=$noc_value";
         }
-        
-  
+
+
         $WorkBcJobboardController = new WorkBcJobboardController();
         $recent_jobs = $WorkBcJobboardController->getPosts($parameters);
         if($recent_jobs['response'] == 200){
@@ -129,9 +129,8 @@ class WorkbcCareerTrekJobboardSidebar extends BlockBase{
           $no_result_text_val = (isset($config['job_board_no_result_text'])) ?$config['job_board_no_result_text'] : 'There are no current job postings.';
         }
         else {
-          $no_result_text_val = 'Unable to connect to Job Board API.';
-          $api_url = \Drupal::config('jobboard')->get('jobboard_api_url_backend');
-          \Drupal::logger('workbc_jobboard')->error('Error '. $recent_jobs['response'].': Unable to connect to Job Board API. '.$api_url);
+          $no_result_text_val = 'Job postings cannot be loaded at this time.';
+          \Drupal::logger('workbc')->error($recent_jobs['response']);
         }
         return [
           '#type' => 'markup',
@@ -150,6 +149,6 @@ class WorkbcCareerTrekJobboardSidebar extends BlockBase{
         ];
       }
     }
-    
+
 	}
 }

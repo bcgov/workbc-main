@@ -18,40 +18,34 @@ dependencies:
     - field.field.node.news.field_tags
     - node.type.news
   module:
+    - text
     - user
 id: node.news.teaser
 targetEntityType: node
 bundle: news
 mode: teaser
 content:
-  created:
-    type: timestamp
-    label: hidden
-    settings:
-      date_format: medium
-      custom_date_format: ''
-      timezone: ''
-      tooltip:
-        date_format: long
-        custom_date_format: ''
-      time_diff:
-        enabled: false
-        future_format: '@interval hence'
-        past_format: '@interval ago'
-        granularity: 2
-        refresh: 60
-    third_party_settings: {  }
-    weight: 1
-    region: content
-  extra_field_workbc_page_title:
+  body:
+    type: text_default
+    label: above
     settings: {  }
     third_party_settings: {  }
     weight: 4
     region: content
-  extra_field_workbc_published_on:
+  content_moderation_control:
+    settings: {  }
+    third_party_settings: {  }
+    weight: 0
+    region: content
+  extra_field_workbc_page_title:
     settings: {  }
     third_party_settings: {  }
     weight: 3
+    region: content
+  extra_field_workbc_published_on:
+    settings: {  }
+    third_party_settings: {  }
+    weight: 2
     region: content
   field_call_to_action:
     type: string
@@ -59,7 +53,7 @@ content:
     settings:
       link_to_entity: false
     third_party_settings: {  }
-    weight: 6
+    weight: 7
     region: content
   field_image_media:
     type: entity_reference_entity_view
@@ -68,23 +62,22 @@ content:
       view_mode: action_card_1_4
       link: false
     third_party_settings: {  }
-    weight: 2
+    weight: 5
     region: content
   links:
     settings: {  }
     third_party_settings: {  }
-    weight: 5
+    weight: 6
     region: content
   uid:
     type: author
     label: hidden
     settings: {  }
     third_party_settings: {  }
-    weight: 0
+    weight: 1
     region: content
 hidden:
-  body: true
-  content_moderation_control: true
+  created: true
   field_archived: true
   field_content_group: true
   field_image: true

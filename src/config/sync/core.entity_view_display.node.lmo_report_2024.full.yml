@@ -4,6 +4,7 @@ status: true
 dependencies:
   config:
     - core.entity_view_mode.node.full
+    - field.field.node.lmo_report_2024.field_hero_image_full_width
     - field.field.node.lmo_report_2024.field_hero_image_media
     - field.field.node.lmo_report_2024.field_hero_text
     - field.field.node.lmo_report_2024.field_lmo_2024_definitions_metho
@@ -28,7 +29,16 @@ content:
   content_moderation_control:
     settings: {  }
     third_party_settings: {  }
-    weight: -20
+    weight: 0
+    region: content
+  field_hero_image_full_width:
+    type: entity_reference_entity_view
+    label: visually_hidden
+    settings:
+      view_mode: default
+      link: true
+    third_party_settings: {  }
+    weight: 1
     region: content
   field_hero_image_media:
     type: entity_reference_entity_view
@@ -37,14 +47,14 @@ content:
       view_mode: hero_image
       link: false
     third_party_settings: {  }
-    weight: 0
+    weight: 2
     region: content
   field_hero_text:
     type: text_default
     label: visually_hidden
     settings: {  }
     third_party_settings: {  }
-    weight: 1
+    weight: 3
     region: content
   field_lmo_2024_definitions_metho:
     type: entity_reference_revisions_entity_view
@@ -53,7 +63,7 @@ content:
       view_mode: default
       link: ''
     third_party_settings: {  }
-    weight: 8
+    weight: 10
     region: content
   field_lmo_2024_education:
     type: entity_reference_revisions_entity_view
@@ -62,7 +72,7 @@ content:
       view_mode: default
       link: ''
     third_party_settings: {  }
-    weight: 2
+    weight: 4
     region: content
   field_lmo_2024_featured_topics:
     type: entity_reference_revisions_entity_view
@@ -71,7 +81,7 @@ content:
       view_mode: default
       link: ''
     third_party_settings: {  }
-    weight: 3
+    weight: 5
     region: content
   field_lmo_2024_industry_outlook:
     type: entity_reference_revisions_entity_view
@@ -80,7 +90,7 @@ content:
       view_mode: default
       link: ''
     third_party_settings: {  }
-    weight: 4
+    weight: 6
     region: content
   field_lmo_2024_labour_market:
     type: entity_reference_revisions_entity_view
@@ -89,7 +99,7 @@ content:
       view_mode: default
       link: ''
     third_party_settings: {  }
-    weight: 5
+    weight: 7
     region: content
   field_lmo_2024_occupational_outl:
     type: entity_reference_revisions_entity_view
@@ -98,7 +108,7 @@ content:
       view_mode: default
       link: ''
     third_party_settings: {  }
-    weight: 6
+    weight: 8
     region: content
   field_lmo_2024_regional_outlook:
     type: entity_reference_revisions_entity_view
@@ -107,12 +117,12 @@ content:
       view_mode: default
       link: ''
     third_party_settings: {  }
-    weight: 7
+    weight: 9
     region: content
   links:
     settings: {  }
     third_party_settings: {  }
-    weight: 9
+    weight: 11
     region: content
 hidden:
   created: true
