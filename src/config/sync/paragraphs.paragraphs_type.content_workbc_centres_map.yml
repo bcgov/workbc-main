@@ -1,0 +1,10 @@
+uuid: d50bd3be-0116-4e06-a62b-266c56cb4c74
+langcode: en
+status: true
+dependencies: {  }
+id: content_workbc_centres_map
+label: 'Content: WorkBC Centres Map'
+icon_uuid: null
+icon_default: null
+description: "A component that shows a map of WorkBC Centre locations.\r\n"
+behavior_plugins: {  }

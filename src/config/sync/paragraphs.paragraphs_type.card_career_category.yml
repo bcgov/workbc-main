@@ -6,5 +6,5 @@ id: card_career_category
 label: 'Card: Career Category'
 icon_uuid: null
 icon_default: null
-description: ''
+description: "A single card showing a Career Category.\r\n"
 behavior_plugins: {  }

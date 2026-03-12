@@ -1,0 +1,28 @@
+uuid: 41995d40-1814-4adb-9e86-7f3ed84d5422
+langcode: en
+status: true
+dependencies:
+  config:
+    - field.field.paragraph.content_workbc_centres_map.field_workbc_centres_map
+    - paragraphs.paragraphs_type.content_workbc_centres_map
+  module:
+    - link
+id: paragraph.content_workbc_centres_map.default
+targetEntityType: paragraph
+bundle: content_workbc_centres_map
+mode: default
+content:
+  field_workbc_centres_map:
+    type: link
+    label: hidden
+    settings:
+      trim_length: null
+      url_only: true
+      url_plain: false
+      rel: '0'
+      target: '0'
+    third_party_settings: {  }
+    weight: 0
+    region: content
+hidden:
+  search_api_excerpt: true
