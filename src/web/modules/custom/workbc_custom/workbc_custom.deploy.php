@@ -91,7 +91,7 @@ function workbc_custom_deploy_1717_import_centre_regions(&$sandbox = NULL) {
 
   $entity_type_manager = \Drupal::entityTypeManager();
 
-  // Load all nodes matching the title
+  // Load all nodes matching the title (existing French and English centres have the same title).
   $nodes = $entity_type_manager->getStorage('node')->loadByProperties(['title' => $centre[0]]);
   if (!empty($nodes)) {
     foreach ($nodes as $node) {
