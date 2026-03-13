@@ -9,13 +9,13 @@ use Drupal\file\Entity\File;
 use Drupal\Core\Url;
 use Drupal\Core\Render\Markup;
 use Drupal\Component\Utility\Html;
+use Drupal\Core\Entity\EntityTypeManagerInterface;
 
 /**
  * Implements hook_theme_preprocess_paragraph().
  */
 function workbc_preprocess_paragraph(&$variables) {
   $parent = $variables['paragraph']->getParentEntity();
-
   if ($parent->bundle() === 'action_cards_full_width') {
     $align = $parent->field_alignment->value;
     $list = $parent->field_action_cards->getValue();
@@ -105,6 +105,52 @@ function workbc_preprocess_paragraph(&$variables) {
   if (isset($variables['paragraph']->field_color)) {
     $variables['text_color'] = $variables['paragraph']->field_color->value;
   }
+
+
+  if($variables['paragraph']->bundle() == "content_workbc_centres_list") {
+    $language = $variables['paragraph']->field_language->value;
+
+    $query = \Drupal::entityQuery("node");
+    $nids = $query
+      ->accessCheck(TRUE)
+      ->condition('type', 'workbc_centre')
+      ->condition('status', 1)
+      ->sort('title', 'ASC')
+      ->execute();
+
+    if (!empty($nids)) {
+      $nodes = \Drupal\node\Entity\Node::loadMultiple($nids);
+      if (!empty($nodes)) {
+        $centres = [];
+        foreach ($nodes as $node) {
+          if (isset($node->field_region->value)) {
+            $region = $node->field_region->value;
+          }
+          else {
+            $region = 'not assigned';
+          }
+          $link = $node->get('field_multilingual_centre')->first();
+          $title = isset($link) ? $link->title : "";
+          if ($language == "french") {
+            if (stripos($title, 'english')) {
+              $centres[$region][] = $node;
+            }
+          }
+          else {
+            if (stripos($title, 'english') === false) {
+              $centres[$region][] = $node;
+            }
+          }
+        }
+        ksort($centres);
+        $variables['centres'] = $centres;
+        $regions = ssotRegions();
+        unset($regions['british_columbia']);
+        $variables['regions'] = $regions;
+      }
+    }
+  }
+
 
   // SPECIAL CASE
   // Override cards for "EducationPlannerBC" and "StudentAidBC" by injecting their logos.

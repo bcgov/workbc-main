@@ -17,6 +17,7 @@ dependencies:
     - paragraphs.paragraphs_type.content_interactive_map
     - paragraphs.paragraphs_type.content_text
     - paragraphs.paragraphs_type.content_view
+    - paragraphs.paragraphs_type.content_workbc_centres_list
     - paragraphs.paragraphs_type.content_workbc_centres_map
     - paragraphs.paragraphs_type.section_accordion
     - paragraphs.paragraphs_type.section_career_category
@@ -53,6 +54,7 @@ settings:
       content_interactive_map: content_interactive_map
       content_workbc_centres_map: content_workbc_centres_map
       banner_video: banner_video
+      content_workbc_centres_list: content_workbc_centres_list
     negate: 0
     target_bundles_drag_drop:
       action_card:
@@ -111,6 +113,9 @@ settings:
         enabled: true
       content_view:
         weight: -42
+        enabled: true
+      content_workbc_centres_list:
+        weight: 48
         enabled: true
       content_workbc_centres_map:
         weight: -40

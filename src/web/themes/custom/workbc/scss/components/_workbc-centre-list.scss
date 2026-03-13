@@ -1,0 +1,120 @@
+.paragraph--type--content-workbc-centres-list {
+
+  #workbc-centres-list {
+    border-left: 1px solid rgba(0, 0, 0, 0.15);
+    border-right: 1px solid rgba(0, 0, 0, 0.15);
+    border-bottom: 1px solid rgba(0, 0, 0, 0.15);
+    box-shadow: 0 0 5px 0 rgba(0, 0, 0, 0.15);
+    border-radius: 0 0 15px 15px;
+    padding-left: 15px;
+    padding-right: 15px;
+    margin-bottom: 50px;
+  }
+
+  .container-lg.scroll-container {
+    padding-left: 1px;
+    padding-right: 0px;
+  }
+
+  .nav-link {
+    border: 1px solid rgba(0, 0, 0, 0.15);
+    margin-left: -1px;
+  }
+
+  .nav-link.active {
+    background-color: $workbc_palette_dark_primary;
+    color: #fff;
+  }
+
+  .nav-link:hover:not(.active) {
+    text-decoration: none;
+    background-color: #f2f2f2;
+    color: $blue;
+  }
+
+  .tab-content {
+    height: 485px;
+  }
+
+  .region-list {
+    position: absolute;
+    width: 98%;
+  }
+
+  .region-title {
+    font-size: 1.313rem;
+    padding-top: 15px;
+    padding-bottom: 10px;
+  }
+
+  .workbc-centre-accordion {
+    overflow: auto;
+    padding-right: 25px;
+    max-height: 400px;
+
+    .accordion-button:not(.collapsed) {
+      background-color: #ffffff;
+      box-shadow: none;
+    }
+
+    .accordion-button:focus {
+      box-shadow: none;
+    }
+
+    .accordion-header {
+      display: flex;
+      align-items: center;
+
+      .accordion-header-link {
+        width: 100%;
+        text-decoration: underline;
+      }
+    }
+  }
+
+  .centre-details-container {
+    margin: 25px;
+    box-shadow: 0 0 15px 0 rgba(0, 0, 0, 0.15);
+  }
+
+  .centre-details {
+    padding: 0px;
+    display: flex;
+    gap: 10px;
+    padding-top: 10px;
+    padding-left: 15px;
+    padding-right: 15px;
+  }
+
+  .centre-details-header {
+    background-color: #F2F2F2;
+  }
+
+  .centre-details-content {
+    padding-bottom: 15px;
+  }
+
+  .centre-details-section {
+    flex: 1;
+    text-align: left;
+  }
+
+  .centre-details-section-title {
+    font-weight: bold;
+    padding-bottom: 10px;
+  }
+
+  .centre-address a {
+    text-decoration: none;
+    color: $workbc_palette_dark_default;
+  }
+
+  .centre-details-email {
+    padding-top: 20px;
+  }
+
+  hr {
+    margin: 2px;
+  }
+
+}
