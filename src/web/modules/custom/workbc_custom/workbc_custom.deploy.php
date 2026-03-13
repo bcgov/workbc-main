@@ -63,7 +63,8 @@ function workbc_custom_deploy_1204_mismatch_fix(&$sandbox = NULL) {
 
 
 /**
- * Fix mismatch entity type.
+ * import WorkBC Centre Regions csv and assign region to WorkBC Centres.
+ *
  *
  * As per ticket WBCAMS-1717
  */
@@ -98,6 +99,9 @@ function workbc_custom_deploy_1717_import_centre_regions(&$sandbox = NULL) {
       $node->save();
     }
     $message = "WorkBC Centre: " . $centre[0] . " - region set to " . $centre[1];
+  }
+  else {
+    $message = "WorkBC Centre: " . $centre[0] . " - not found ";
   }
 
   $sandbox['#finished'] = empty($sandbox['centres']) ? 1 : ($sandbox['count'] - count($sandbox['centres'])) / $sandbox['count'];
