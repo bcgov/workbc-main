@@ -70,9 +70,6 @@ function workbc_custom_deploy_1204_mismatch_fix(&$sandbox = NULL) {
 function workbc_custom_deploy_1717_import_centre_regions(&$sandbox = NULL) {
 
   if (!isset($sandbox['centres'])) {
-    // load remote videos
-    $database = \Drupal::database();
-
     $module_path = \Drupal::service('extension.path.resolver')->getPath('module', 'workbc_custom');
     $file_path = $module_path . '/data/centres_regions.csv';
     if (file_exists($file_path)) {
@@ -97,7 +94,6 @@ function workbc_custom_deploy_1717_import_centre_regions(&$sandbox = NULL) {
   $nodes = $entity_type_manager->getStorage('node')->loadByProperties(['title' => $centre[0]]);
   if (!empty($nodes)) {
     foreach ($nodes as $node) {
-      // You can then access its properties, e.g.,
       $node->set('field_region', $centre[1]);
       $node->save();
     }
