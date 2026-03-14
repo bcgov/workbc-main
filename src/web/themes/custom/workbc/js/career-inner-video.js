@@ -12,7 +12,8 @@
           $('.profile-video')[0].offsetHeight;
           $(window).on('resize.careerInnerVideo', function () {
             iframe.css({
-              'width': $('.profile-video').parent().width() ?? "100%"
+              'width': $('.profile-video').parent().width() ?? "100%",
+              'height': $('.profile-video').parent().height() ?? "100%"
             });
           });
 
@@ -21,7 +22,8 @@
                   'position': 'absolute',
                   'display': 'block',
                   'z-index': '1',
-                  'width': $('.profile-video').parent().width() ?? "100%"
+                  'width': $('.profile-video').parent().width() ?? "100%",
+                  'height': $('.profile-video').parent().height() ?? "100%"
               })
           }, 200);
           // Force reflow
