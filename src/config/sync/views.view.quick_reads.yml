@@ -453,7 +453,7 @@ display:
           sort_asc_label: Asc
           sort_desc_label: Desc
           autosubmit_hide: true
-          timeout: 500
+          timeout: 2000
       access:
         type: perm
         options:
