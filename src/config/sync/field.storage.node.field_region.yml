@@ -19,19 +19,19 @@ settings:
       label: Kootenay
     -
       value: mainland_southwest
-      label: 'Mainland Southwest'
+      label: Mainland/Southwest
     -
       value: north_coast_nechako
-      label: 'North Coast Nechako'
+      label: 'North Coast and Nechako'
     -
       value: northeast
       label: Northeast
     -
       value: thompson_okanagan
-      label: 'Thompson Okanagan'
+      label: Thompson-Okanagan
     -
       value: vancouver_island_coast
-      label: 'Vancouver Island Coast'
+      label: 'Vancouver Island/Coast'
   allowed_values_function: ''
 module: options
 locked: false
