@@ -95,6 +95,8 @@ function workbc_custom_deploy_1717_import_centre_regions(&$sandbox = NULL) {
   $nodes = $entity_type_manager->getStorage('node')->loadByProperties(['title' => $centre[0]]);
   if (!empty($nodes)) {
     foreach ($nodes as $node) {
+      $node->setNewRevision(TRUE);
+      $node->isDefaultRevision(TRUE);
       $node->set('field_region', $centre[1]);
       $node->save();
     }
