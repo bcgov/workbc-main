@@ -52,6 +52,6 @@ jobs:
       - name: Build Python docker image
         run: |
           docker build ./python -t ${{ secrets.AWS_ECR_URI2 }}:${{ github.sha }} 
-      - name: Push Drupal docker image
+      - name: Push Python docker image
         run: |
           docker push ${{ secrets.AWS_ECR_URI2 }}:${{ github.sha }}
