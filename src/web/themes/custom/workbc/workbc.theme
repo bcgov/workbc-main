@@ -123,6 +123,7 @@ function workbc_preprocess_paragraph(&$variables) {
       if (!empty($nodes)) {
         $centres = [];
         foreach ($nodes as $node) {
+          $node->workbc_centre_url = $node->toUrl()->toString();
           if (isset($node->field_region->value)) {
             $region = $node->field_region->value;
           }
