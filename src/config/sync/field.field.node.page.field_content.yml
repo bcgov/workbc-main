@@ -52,93 +52,93 @@ settings:
       content_text: content_text
       content_view: content_view
       content_interactive_map: content_interactive_map
+      content_workbc_centres_list: content_workbc_centres_list
       content_workbc_centres_map: content_workbc_centres_map
       banner_video: banner_video
-      content_workbc_centres_list: content_workbc_centres_list
     negate: 0
     target_bundles_drag_drop:
       action_card:
-        weight: -55
+        weight: -57
         enabled: false
       action_card_feature:
-        weight: -54
+        weight: -56
         enabled: true
       action_card_full_width:
-        weight: -38
-        enabled: false
-      action_card_icon:
-        weight: -37
-        enabled: false
-      action_cards_1_2:
-        weight: -52
-        enabled: true
-      action_cards_1_3:
-        weight: -51
-        enabled: true
-      action_cards_1_4:
-        weight: -50
-        enabled: true
-      action_cards_explore_careers:
-        weight: -46
-        enabled: true
-      action_cards_full_width:
-        weight: -53
-        enabled: true
-      action_cards_icon:
-        weight: -49
-        enabled: true
-      action_cards_icon_1_2:
-        weight: -48
-        enabled: true
-      action_cards_publication:
-        weight: -34
-        enabled: false
-      additional_duties:
         weight: -39
         enabled: false
+      action_card_icon:
+        weight: -38
+        enabled: false
+      action_cards_1_2:
+        weight: -54
+        enabled: true
+      action_cards_1_3:
+        weight: -53
+        enabled: true
+      action_cards_1_4:
+        weight: -52
+        enabled: true
+      action_cards_explore_careers:
+        weight: -48
+        enabled: true
+      action_cards_full_width:
+        weight: -55
+        enabled: true
+      action_cards_icon:
+        weight: -51
+        enabled: true
+      action_cards_icon_1_2:
+        weight: -50
+        enabled: true
+      action_cards_publication:
+        weight: -35
+        enabled: false
+      additional_duties:
+        weight: -40
+        enabled: false
       banner_video:
-        weight: -33
+        weight: -34
         enabled: true
       card_career_category:
-        weight: -30
-        enabled: false
-      content_accordion_entry:
-        weight: -32
-        enabled: false
-      content_interactive_map:
-        weight: -41
-        enabled: true
-      content_text:
-        weight: -43
-        enabled: true
-      content_view:
-        weight: -42
-        enabled: true
-      content_workbc_centres_list:
-        weight: 48
-        enabled: true
-      content_workbc_centres_map:
-        weight: -40
-        enabled: true
-      lmo_charts_tables:
         weight: -31
         enabled: false
-      quote_card:
-        weight: -36
+      content_accordion_entry:
+        weight: -33
         enabled: false
-      section_accordion:
-        weight: -44
+      content_interactive_map:
+        weight: -43
         enabled: true
-      section_career_category:
+      content_text:
         weight: -45
         enabled: true
-      section_icons_1_3:
+      content_view:
+        weight: -44
+        enabled: true
+      content_workbc_centres_list:
+        weight: -42
+        enabled: true
+      content_workbc_centres_map:
+        weight: -41
+        enabled: true
+      lmo_charts_tables:
+        weight: -32
+        enabled: false
+      quote_card:
+        weight: -37
+        enabled: false
+      section_accordion:
+        weight: -46
+        enabled: true
+      section_career_category:
         weight: -47
         enabled: true
+      section_icons_1_3:
+        weight: -49
+        enabled: true
       section_read_more:
-        weight: -29
+        weight: -30
         enabled: false
       skills:
-        weight: -35
+        weight: -36
         enabled: false
 field_type: entity_reference_revisions
