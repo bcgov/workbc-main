@@ -54,7 +54,7 @@
     {% block content %}
 
       <div class="container-lg scroll-container">
-        <ul class="nav nav-tabs" role="tablist">
+        <ul class="nav nav-tabs no-hash" role="tablist">
           {% for key, region in regions %}
             <li class="nav-item" role="presentation">
               <a id="{{ key }}-tab" class="nav-link{{ loop.first ? ' active'}}" data-bs-toggle="tab" data-bs-target="#{{ key }}-content" aria-controls="{{key}}-content" aria-selected="{{ loop.first ? 'true':'false'}}" role="tab" href="#{{key}}">{{ region }}</a>
