@@ -509,7 +509,20 @@ display:
       cache:
         type: none
         options: {  }
-      empty: {  }
+      empty:
+        area:
+          id: area
+          table: views
+          field: area
+          relationship: none
+          group_type: group
+          admin_label: ''
+          plugin_id: text
+          empty: true
+          content:
+            value: "We couldn't find any results for your search. Please try another search."
+            format: full_html
+          tokenize: false
       sorts:
         field_region_openings_value:
           id: field_region_openings_value
