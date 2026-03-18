@@ -1,0 +1,10 @@
+chat-app:
+  version: 1.x
+  css:
+    theme:
+      js/chat_app.css: {}
+  js:
+    js/chat_app.js: { minified: true }
+  dependencies:
+    - core/drupal
+    - core/drupalSettings

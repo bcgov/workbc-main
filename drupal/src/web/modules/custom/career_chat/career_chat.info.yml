@@ -1,0 +1,5 @@
+name: 'Career AI Chat'
+type: module
+description: 'AI Career Advisor widget powered by React and FastAPI.'
+package: Custom
+core_version_requirement: ^10 || ^11
