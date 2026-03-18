@@ -1,0 +1,21 @@
+diff --git a/src/Plugin/Block/GTranslateBlock.php b/src/Plugin/Block/GTranslateBlock.php
+index c514b74..af7c910 100644
+--- a/src/Plugin/Block/GTranslateBlock.php
++++ b/src/Plugin/Block/GTranslateBlock.php
+@@ -3,6 +3,7 @@
+ namespace Drupal\gtranslate\Plugin\Block;
+ 
+ use Drupal\Core\Block\BlockBase;
++use Drupal\Core\Cache\Cache;
+ 
+ /**
+  * Provides a 'GTranslate' block.
+@@ -387,7 +388,7 @@ EOT;
+         $return = array(
+           '#theme' => 'gtranslate',
+           '#gtranslate_html' => $block_content,
+-          '#cache' => array('max-age' => 0),
++          '#cache' => array('max-age' => Cache::PERMANENT),
+         );
+ 
+         if(isset($jquery_slider))

@@ -1,0 +1,108 @@
+// this file is intended to be a centralized location for importing all of the pieces needed.
+// actual CSS should be broken out to various files.
+
+// abstracts
+@import 'abstracts/variables_workbc';
+@import 'abstracts/variables_bootstrap'; // @see https://getbootstrap.com/docs/5.1/customize/sass/#variable-defaults.
+@import 'abstracts/variables_drupal';
+@import 'abstracts/mixins_buttons';
+@import 'abstracts/mixins_links';
+@import 'abstracts/mixins_lists';
+@import 'abstracts/mixins_arrow';
+@import 'abstracts/mixins_typography';
+
+// vendor
+@import '../bootstrap/scss/style-51';
+
+// base
+@import 'base/reset';
+@import 'base/fonts';
+@import 'base/typography';
+@import 'base/global';
+@import 'base/forms';
+@import 'base/tables';
+
+// overrides
+@import 'overrides/overrides_drupal';
+
+// layouts
+@import 'layout/local-tasks.scss';
+@import 'layout/page';
+@import 'layout/alert-ribbon';
+@import 'layout/header';
+@import 'layout/nav-main';
+@import 'layout/nav-user';
+@import 'layout/nav-footer';
+@import 'layout/responsive-menu';
+@import 'layout/breadcrumbs';
+@import 'layout/footer';
+
+// components
+@import 'components/accordion';
+@import 'components/alphabet-navigation';
+@import 'components/alphabet-search';
+@import 'components/back-to-top';
+@import 'components/buttons';
+@import 'components/card-career';
+@import 'components/card-feature';
+@import 'components/card-occupational-interest';
+@import 'components/card-plain';
+@import 'components/card-profile';
+@import 'components/card-quote';
+@import 'components/card-w-icon';
+@import 'components/card-w-image';
+@import 'components/card-read-more';
+@import 'components/cards-grids';
+@import 'components/career-profiles-search';
+@import 'components/career-profiles-skill';
+@import 'components/contact';
+@import 'components/content-forms';
+@import 'components/editor-content';
+@import 'components/explore-careers';
+@import 'components/explore-careers-grid';
+@import 'components/explore-careers-search';
+@import 'components/featured-news';
+@import 'components/featured-blog';
+@import 'components/footer-translate';
+@import 'components/french-link';
+@import 'components/job-search';
+@import 'components/hero-banner';
+@import 'components/hero-home';
+@import 'components/high-opportunity-occupations-2';
+@import 'components/industry-overview';
+@import 'components/info-tooltip';
+@import 'components/interactive-map';
+@import 'components/labour-market';
+@import 'components/labour-market-guide-table';
+@import 'components/lmo-report';
+@import 'components/megamenu-splash';
+@import 'components/pagination';
+@import 'components/post';
+@import 'components/profile-information-card';
+@import 'components/profiles';
+@import 'components/publication';
+@import 'components/regional_profile_map';
+@import 'components/related-careers-links';
+@import 'components/related-topics';
+@import 'components/request-tour-stop';
+@import 'components/resource-link';
+@import 'components/search-form';
+@import 'components/search-results';
+@import 'components/side-nav';
+@import 'components/site-search-explore-careers';
+@import 'components/social-sharing';
+@import 'components/static-load-more';
+@import 'components/text-component';
+@import 'components/text-resize';
+@import 'components/video-library-modal';
+@import 'components/workbc-card';
+@import 'components/workbc-centre';
+
+// special cases
+@import 'overrides/cards_featured_topics';
+@import 'overrides/events_calendar';
+@import 'overrides/job_board';
+@import 'overrides/career_profile';
+@import 'overrides/industry_profile';
+@import 'overrides/media_resize';
+@import 'overrides/region_profile';

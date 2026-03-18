@@ -1,0 +1,378 @@
+<?php
+use Drupal\taxonomy\Entity\Term;
+use Drupal\views\ViewExecutable;
+use Drupal\views\Plugin\views\query\Sql;
+use Drupal\Core\Form\FormStateInterface;
+
+/**
+ * Implements hook_views_pre_view().
+ */
+function workbc_career_trek_preprocess_views_view(&$variables) {
+  // Check if it's the view you want to target
+  $view = $variables['view'];
+  if ($view->id() == 'career_trek_video_library' && $view->current_display == 'block_1') {
+    $values = [];
+    $filters = $view->display_handler->getOption('filters');
+
+    if ($exposed = $view->getExposedInput()) {
+      foreach ($exposed as $key => $expose) {
+        if ($key == "skills") {
+          foreach($expose as $row) {
+            $term = Term::load($row);
+            if ($term && !empty($term->getName())) {
+              $values[] = $term->getName();
+            }
+          }
+        } elseif ($key == "occupational_category_api_field") {
+          foreach($expose as $exp) {
+            $title = $filters['occupational_category_api_field']['group_info']['group_items'][$exp]['title'] ?? '';
+            if (!empty($title)) {
+              $values[] = $title;
+            }
+          }
+
+        }
+         elseif ($key == "minimum_education_all") {
+          $title = $filters['minimum_education']['group_info']['group_items'][$expose]['title'] ?? '';
+          if (!empty($title)) {
+            $values[] = $title;
+          }
+        } elseif ($key == "regions") {
+          $title = $filters['region_api_field']['group_info']['group_items'][$expose]['title'] ?? '';
+          if (!empty($title)) {
+            $values[] = $title;
+          }
+        } elseif ($key == "annual_salary") {
+
+          if(isset($expose['value']) && !empty($expose['value']) && $exposed['annual_salary_op'] != "between") {
+            $min = $expose['value'];
+            $max = 140000 .  "+";
+            if (!empty($min) || !empty($max)) {
+              $values[] = "Salary $" . $min . " - $" . $max;
+            }
+          }else{
+            $min = $expose['min'] ?? '';
+            $max = $expose['max'] ?? '';
+            if (!empty($min) || !empty($max)) {
+              $values[] = "Salary $" . $min . " - $" . $max;
+            }
+          }
+        } else {
+          if (!empty($expose) && $key != "reset" && $key != "annual_salary_op") {
+            $values[] = $expose;
+          }
+        }
+      }
+      $variables['search_view'] = array_filter($values);
+    }
+    $variables['view_title'] = $view->getTitle();
+  }
+}
+
+/**
+ * Implements hook_uninstall().
+ */
+function workbc_career_trek_uninstall() {
+    // Load the entity type manager service.
+    $entity_type_manager = \Drupal::entityTypeManager();
+
+    // Load and remove paragraph items of type 'section_icons_1_3' before removing its fields and type.
+    $paragraph_items = $entity_type_manager->getStorage('paragraph')->loadByProperties(['type' => 'section_icons_1_3']);
+    foreach ($paragraph_items as $paragraph_item) {
+      $paragraph_item->delete();
+    }
+    if ($paragraph_type = $entity_type_manager->getStorage('paragraphs_type')->load('section_icons_1_3')) {
+      $field_definitions = $entity_type_manager->getStorage('field_config')->loadByProperties(['entity_type' => 'paragraph', 'bundle' => 'section_icons_1_3']);
+      foreach ($field_definitions as $field_definition) {
+        $field_definition->delete();
+      }
+      $paragraph_type->delete();
+    }
+
+    // Load and remove paragraph items of type 'banner_video' before deleting its fields and type.
+    $paragraph_items = $entity_type_manager->getStorage('paragraph')->loadByProperties(['type' => 'banner_video']);
+    foreach ($paragraph_items as $paragraph_item) {
+      $paragraph_item->delete();
+    }
+    // Load the paragraph type 'section_icons_1_3' and remove its fields.
+    if ($paragraph_type = $entity_type_manager->getStorage('paragraphs_type')->load('section_icons_1_3')) {
+      $field_definitions = $entity_type_manager->getStorage('field_config')->loadByProperties(['entity_type' => 'paragraph', 'bundle' => 'section_icons_1_3']);
+      foreach ($field_definitions as $field_definition) {
+        $field_definition->delete();
+      }
+      $paragraph_type->delete();
+    }
+
+    // Load the paragraph type 'banner_video' and delete its fields.
+    if ($paragraph_type = $entity_type_manager->getStorage('paragraphs_type')->load('banner_video')) {
+      $field_storage_definitions = $entity_type_manager->getStorage('field_storage_config')->loadByProperties(['entity_type' => 'paragraph', 'bundle' => 'banner_video']);
+      foreach ($field_storage_definitions as $field_storage_definition) {
+        $field_storage_definition->delete();
+      }
+      $paragraph_type->delete();
+    }
+
+    // Remove views from the website.
+    $views_to_remove = [
+      'banner_video',
+      'career_trek_video_library',
+      'related_careers_videos',
+    ];
+    foreach ($views_to_remove as $view_id) {
+      if ($view = $entity_type_manager->getStorage('view')->load($view_id)) {
+        $view->delete();
+      }
+    }
+
+    // Remove the simple block 'find_resources_for_educators'.
+    if ($block = $entity_type_manager->getStorage('simple_block')->load('find_resources_for_educators')) {
+      $block->delete();
+    }
+
+    // Remove the search API server 'solr_search'.
+    if ($server = $entity_type_manager->getStorage('search_api_server')->load('solr_search')) {
+      $server->delete();
+    }
+
+    // Remove the search API index 'career_profile_index'.
+    if ($index = $entity_type_manager->getStorage('search_api_index')->load('career_profile_index')) {
+      $index->delete();
+    }
+}
+
+/**
+ * Implements hook_views_query_alter().
+ *
+ * Sorts the video library according to filter usage:
+ * - If "annual_salary" filter is present, sort by salary (ASC), then by title (A–Z).
+ * - Otherwise, always sort by title (A–Z) when any of the main filters are used.
+ */
+function workbc_career_trek_views_query_alter(ViewExecutable $view, $query) {
+  if ($view->id() === 'career_trek_video_library' && $view->current_display === 'block_1') {
+    $exposed_input = $view->getExposedInput();
+    // List of all relevant filters.
+    $filters = [
+      'minimum_education_all',
+      'annual_salary',
+      'regions',
+      'skills',
+      'occupational_category_api_field',
+      'search_api_fulltext',
+    ];
+    // Check if any of the filters are present and non-empty.
+    $any_filter_used = FALSE;
+    foreach ($filters as $filter) {
+      if (!empty($exposed_input[$filter])) {
+        $any_filter_used = TRUE;
+        break;
+      }
+    }
+    if ($any_filter_used) {
+      // Remove default sort by episode_num if present.
+      // if (method_exists($query, 'getSort')) {
+        $sort = &$query->getSort();
+        unset($sort['episode_num']);
+      // } elseif (isset($query->orderby)) {
+      //   // Fallback for Views SQL query object.
+      //   foreach ($query->orderby as $k => $order) {
+      //     if (isset($order['field']) && $order['field'] === 'episode_num') {
+      //       unset($query->orderby[$k]);
+      //     }
+      //   }
+      // }
+      // If salary filter is used, sort by salary then title.
+      if (!empty(array_filter($exposed_input['annual_salary']))) {
+        $query->sort('annual_salary', 'ASC');
+        $query->sort('episode_title', 'ASC');
+      }
+      // Otherwise, always sort by title (A–Z).
+      else {
+        $query->sort('episode_title', 'ASC');
+      }
+    }
+  }
+}
+
+/**
+ * Implements hook_node_view().
+ *
+ * We use hook_entity_view instead of hook_entity_load as we only need to load data from SSoT
+ * for the node that is being displayed, not for nodes that are being referenced.
+ */
+function workbc_career_trek_node_view(array &$build, \Drupal\Core\Entity\EntityInterface $entity, \Drupal\Core\Entity\Display\EntityViewDisplayInterface $display, $view_mode) {
+
+  if ($view_mode === "full_career_trek_videos") {
+    if($entity->bundle() == "career_profile") {
+      $current_uri = \Drupal::request()->getRequestUri();
+      $episode_number = explode('/', $current_uri);
+      $entity->episode_number = end($episode_number);
+      $entity->ssot_data = ssotFullCareerProfile($entity->get("field_noc")->getString());
+    }
+  }
+}
+
+function ssotFullCareerProfile($noc, $dataset = NULL) {
+
+  $data = array();
+
+  if (empty($dataset) || $dataset === 'wages') $data['wages'] = querySSoT('wages?noc=eq.' . $noc)[0];
+  if (empty($dataset) || $dataset === 'career_provincial') $data['career_provincial'] = querySSoT('career_provincial?noc=eq.' . $noc)[0];
+  if (empty($dataset) || $dataset === 'career_regional') $data['career_regional'] = querySSoT('career_regional?noc=eq.' . $noc)[0];
+  if (empty($dataset) || $dataset === 'census') $data['census'] = querySSoT('census?noc=eq.' . $noc)[0];
+  if (empty($dataset) || $dataset === 'education') $data['education'] = querySSoT('education?noc=eq.' . $noc)[0];
+  if (empty($dataset) || $dataset === 'skills') $data['skills'] = querySSoT('skills?noc=eq.' . $noc);
+  if (empty($dataset) || $dataset === 'high_opportunity_occupations') $data['high_opportunity_occupations'] = querySSoT('high_opportunity_occupations?noc=eq.' . $noc);
+  if (empty($dataset) || $dataset === 'occupational_interests') $data['occupational_interests'] = querySSoT('occupational_interests?noc=eq.' . $noc);
+  if (empty($dataset) || $dataset === 'titles') $data['titles'] = querySSoT('titles?noc=eq.' . $noc);
+  if (empty($dataset) || $dataset === 'career_trek') $data['career_trek'] = querySSoT('career_trek?noc_2021=eq.' . $noc);
+  if (empty($dataset) || $dataset === 'occupational_category') $data['occupational_category'] = querySSoT('fyp_categories_interests_nocs?noc_2021=eq.' . $noc);
+  if (empty($dataset) || $dataset === 'openings_careers') $opening_careers = querySSoT('openings_careers?noc=eq.' . $noc);
+  if (!empty($opening_careers)) {
+    $data['openings_careers'] = $opening_careers[0];
+  }
+  if (empty($dataset) || $dataset === 'industries') $data['industries'] = array_column(querySSoT('industries'), NULL, 'key');
+  if (empty($dataset) || $dataset === 'sources') $data['sources'] = ssotSources();
+  if (empty($dataset) || $dataset === 'schema') $data['schema'] = ssotSchema();
+
+  return $data;
+}
+
+/**
+ * Implements hook_views_post_render().
+ */
+function workbc_career_trek_views_post_render($view) {
+  /** @var \Drupal\views\ViewExecutable $view */
+  if ($view->id() === 'career_trek_videos' && isset($view->args[0])) {
+      $title = $view->args[0];
+      $title = (string) t('@title', ['@title' => $title]);
+      $view->setTitle($title);
+  }
+}
+
+/**
+*{@inheritdoc}
+*/
+function workbc_career_trek_theme($existing, $type, $theme, $path) {
+  return [
+    'career_trek_recent_jobs' => [
+      'template' => 'career-trek-recent-jobs-block',
+      'variables' => [
+        'data' => [],
+        'title' => '',
+        'sub_title' => '',
+        'no_of_records_to_show' => '',
+        'total_result' => '',
+        'no_result_text' => '',
+        'readmore_label' => '',
+        'jobboard_api_url_frontend' => '',
+        'jobboard_api_url_backend' => '',
+        'noc' => '',
+        'find_job_url'=>'',
+      ],
+    ]
+  ];
+}
+
+function workbc_career_trek_preprocess_breadcrumb(&$variables) {
+  $route_match = \Drupal::service('current_route_match');
+  $route_name = $route_match->getRouteName();
+
+  // Only for the specific view route.
+  if ($route_name === 'view.career_trek_node.page_1') {
+    $arg0 = $route_match->getRawParameter('arg_0');
+    $arg1 = $route_match->getRawParameter('arg_1');
+    $breadcrumb = &$variables['breadcrumb'];
+
+    // Load the view and get the result for the current display.
+    $view = \Drupal\views\Views::getView('career_trek_node');
+    if ($view && isset($arg0)) {
+      $view->setDisplay('page_1');
+      $view->setArguments([$arg0, $arg1]);
+      $view->execute();
+
+      // Try to get the title field value from the result.
+      $title = '';
+      if (!empty($view->result)) {
+
+        // Try to get the title field from the first result row.
+        $row = $view->result[0];
+        // Try to get the field value, fallback to arg0 if not found.
+        if (isset($row->{'episode_title|episode_title'}) && is_array($row->{'episode_title|episode_title'}) && !empty($row->{'episode_title|episode_title'})) {
+          // The value is usually in the first element of the array.
+          $title = $row->{'episode_title|episode_title'}[0];
+        }
+      }
+
+      // Add the title to the last breadcrumb item.
+      if (!empty($breadcrumb)) {
+        $breadcrumb[count($breadcrumb) - 1]['text'] = $title;
+      }
+    }
+  }
+}
+
+/**
+ * Implements hook_form_FORM_ID_alter().
+ * Alter the exposed filter form for the Career Trek Video Library block.
+ */
+function workbc_career_trek_form_views_exposed_form_alter(&$form, \Drupal\Core\Form\FormStateInterface $form_state, $form_id) {
+  if($form['#id'] == "views-exposed-form-career-trek-video-library-block-1") {
+    $clone = $form['occupational_category_api_field'];
+    $clone['#group'] = "skills_collapsible";
+    $terms = \Drupal::entityTypeManager()
+      ->getStorage('taxonomy_term')
+      ->loadTree('skills');
+      $options = [];
+    foreach ($terms as $term) {
+      $options[$term->tid] = $term->name;
+    }
+    $clone['#options'] = $options;
+    $form['skills'] = $clone;
+    $form['search_api_fulltext']['#attributes']['class'][] = 'custom-autocomplete';
+    $form['#attached']['library'][] = 'workbc_career_trek/career_trek_autocomplete';
+
+
+    $config = \Drupal::configFactory()->getEditable('workbc_career_trek.settings');
+    foreach($form as $key => &$value) {
+      $field_value = $config->get("view_" . $key . "_title");
+      $field_description_value = $config->get("view_" . $key . "_description");
+      if (!empty($field_value)) {
+        if(isset($form[$key. '_collapsible'])) {
+          $form[$key. '_collapsible']['#title'] = $field_value;
+          if(isset($form[$key. '_collapsible']['#description']) && $field_description_value) {
+            $form[$key. '_collapsible']['#description'] = $field_description_value;
+          }
+        }elseif(strpos('annual_salary_wrapper', $key) !== FALSE){
+          $form[$key]['#title'] = $field_value;
+          if(isset($form[$key]['#description']) && $field_description_value) {
+            $form[$key]['#description'] = $field_description_value;
+          }
+        }
+      }
+      if($key == "actions") {
+        if($config->get('apply_button')) {
+          $form[$key]['submit']['#value'] = $config->get('apply_button');
+        }
+        if($config->get('apply_button')) {
+          $form[$key]['reset']['#value'] = $config->get('clear_filter_button');
+        }
+
+      }
+    }
+  }
+
+}
+
+/**
+ * Implements hook_preprocess_HOOK() for page templates.
+ */
+function workbc_career_trek_preprocess_page(&$variables) {
+  // Load the configuration.
+  $config = \Drupal::config('workbc_career_trek.settings');
+  // Pass the configuration values to drupalSettings.
+  $settings = $config->getRawData();
+  if (!empty($settings)) {
+    $variables['#attached']['drupalSettings']['workbc_career_trek'] = $settings;
+  }
+}
+

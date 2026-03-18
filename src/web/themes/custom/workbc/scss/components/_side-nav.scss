@@ -1,0 +1,59 @@
+.page-left-nav-wrapper {
+  height: 100%;
+  margin-bottom: $workbc_spacing_gutters;
+
+  @include media-breakpoint-up(lg) {
+    padding-top: 20px;
+    margin-bottom: 0;
+  }
+}
+
+.page-left-nav {
+  @include media-breakpoint-up(lg) {
+    position: sticky; // relative to positional context %leftnav
+    top: 120px;
+  }
+}
+
+.page-left-nav__links {
+  @include list-reset;
+}
+
+.page-left-nav__links li {
+  padding-bottom: $workbc_spacing_gutters;
+}
+
+.page-left-nav__title {
+  margin-bottom: 20px;
+  font-size: 1.125rem;
+  font-weight: bold;
+
+  @include media-breakpoint-up(lg) {
+    margin-bottom: 50px;
+  }
+}
+
+.sidenav-anchor:target {
+  // add a negative vertical offset - this should prevent the anchor snapping from placing the anchored content below the fixed header
+  display: block;
+  height: 80px;
+  margin-top: -80px;
+  visibility: hidden;
+}
+
+/*
+On screen widths less than 992px, hide the left side bar "On this
+page" block and enable the identical content under the page title.
+ */
+
+@include media-breakpoint-down(lg) {
+  aside.page-sidebar {
+    display: none;
+  }
+}
+
+@include media-breakpoint-up(lg) {
+  div.on-this-page {
+    display: none;
+  }
+}

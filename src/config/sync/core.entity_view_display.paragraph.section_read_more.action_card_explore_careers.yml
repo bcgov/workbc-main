@@ -1,0 +1,25 @@
+uuid: ddf77821-3487-4167-8584-4e653f6a6017
+langcode: en
+status: true
+dependencies:
+  config:
+    - core.entity_view_mode.paragraph.action_card_explore_careers
+    - field.field.paragraph.section_read_more.field_content
+    - field.field.paragraph.section_read_more.field_title
+    - paragraphs.paragraphs_type.section_read_more
+id: paragraph.section_read_more.action_card_explore_careers
+targetEntityType: paragraph
+bundle: section_read_more
+mode: action_card_explore_careers
+content:
+  field_title:
+    type: string
+    label: above
+    settings:
+      link_to_entity: false
+    third_party_settings: {  }
+    weight: 1
+    region: content
+hidden:
+  field_content: true
+  search_api_excerpt: true

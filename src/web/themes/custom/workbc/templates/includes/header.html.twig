@@ -1,0 +1,21 @@
+<header class="header">
+  <div class="container-lg header__container">
+    <nav class="nav-user" aria-label="User Navigation">
+      {{ drupal_block('system_menu_block:account', {expand_all_items: true}, wrapper=false) }}
+    </nav>
+    <div class="header__logo-search-container">
+      <a class="header__logo-link" href="{{ path('<front>') }}" title="{{ 'Home'|t }}" rel="home">
+        <span class="visually-hidden">
+          {{ 'Home'|t }}
+        </span>
+        <img src="/{{ directory }}/logo.svg" aria-hidden="true"  title="{{ 'WorkBC'|t }}" alt="{{ 'WorkBC'|t }}" />
+      </a>
+      <div class="header__search">
+        {{ drupal_block('views_exposed_filter_block:search_site_content-page_1', wrapper=false) }}
+      </div>
+    </div>
+    <div class="header__menu-toggle">
+      {{ drupal_block('responsive_menu_toggle', wrapper=false) }}
+    </div>
+  </div>
+</header>

@@ -1,0 +1,19 @@
+uuid: 616cdabe-3734-4939-a56f-705c5dd5309e
+langcode: en
+status: true
+dependencies:
+  config:
+    - field.storage.node.field_hourly_earnings_note
+    - node.type.industry_profile
+id: node.industry_profile.field_hourly_earnings_note
+field_name: field_hourly_earnings_note
+entity_type: node
+bundle: industry_profile
+label: 'Hourly Earnings Note'
+description: 'Note to include below Hourly Earnings table.'
+required: false
+translatable: false
+default_value: {  }
+default_value_callback: ''
+settings: {  }
+field_type: string

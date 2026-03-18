@@ -1,0 +1,459 @@
+diff --git a/core/modules/media_library/config/schema/media_library.schema.yml b/core/modules/media_library/config/schema/media_library.schema.yml
+index 312f4ab607..bfc92b01e9 100644
+--- a/core/modules/media_library/config/schema/media_library.schema.yml
++++ b/core/modules/media_library/config/schema/media_library.schema.yml
+@@ -8,6 +8,9 @@ field.widget.settings.media_library_widget:
+       sequence:
+         type: string
+         label: 'Media type ID'
++    form_mode:
++      type: string
++      label: 'Form mode'
+ 
+ media_library.settings:
+   type: config_object
+diff --git a/core/modules/media_library/src/Form/AddFormBase.php b/core/modules/media_library/src/Form/AddFormBase.php
+index 05f2596c03..9b0064df1f 100644
+--- a/core/modules/media_library/src/Form/AddFormBase.php
++++ b/core/modules/media_library/src/Form/AddFormBase.php
+@@ -2,6 +2,7 @@
+ 
+ namespace Drupal\media_library\Form;
+ 
++use Drupal\Component\Utility\Html;
+ use Drupal\Core\Ajax\AjaxResponse;
+ use Drupal\Core\Ajax\CloseDialogCommand;
+ use Drupal\Core\Ajax\FocusFirstCommand;
+@@ -20,6 +21,7 @@
+ use Drupal\media\MediaInterface;
+ use Drupal\media\MediaTypeInterface;
+ use Drupal\media_library\Ajax\UpdateSelectionCommand;
++use Drupal\media_library\MediaLibraryState;
+ use Drupal\media_library\MediaLibraryUiBuilder;
+ use Drupal\media_library\OpenerResolverInterface;
+ use Symfony\Component\DependencyInjection\ContainerInterface;
+@@ -136,12 +138,18 @@ public function buildForm(array $form, FormStateInterface $form_state) {
+     $form['#prefix'] = '<div id="media-library-add-form-wrapper">';
+     $form['#suffix'] = '</div>';
+ 
++    // The media library state includes the widget settings of the form.
++    $media_state = $this->getMediaLibraryState($form_state);
++
++    // Form mode to render the secondary edit phase after uploading any bundle.
++    $add_form_mode = $media_state->getFormModeId();
++
+     // The media library is loaded via AJAX, which means that the form action
+     // URL defaults to the current URL. However, to add media, we always need to
+     // submit the form to the media library URL, not whatever the current URL
+     // may be.
+     $form['#action'] = Url::fromRoute('media_library.ui', [], [
+-      'query' => $this->getMediaLibraryState($form_state)->all(),
++      'query' => $media_state->all(),
+     ])->toString();
+ 
+     // The form is posted via AJAX. When there are messages set during the
+@@ -153,6 +161,7 @@ public function buildForm(array $form, FormStateInterface $form_state) {
+ 
+     $form['#attributes']['class'] = [
+       'js-media-library-add-form',
++      Html::getClass('media_library_form_mode--' . $add_form_mode),
+     ];
+ 
+     $added_media = $this->getAddedMediaItems($form_state);
+@@ -192,7 +201,7 @@ public function buildForm(array $form, FormStateInterface $form_state) {
+         ],
+       ];
+       foreach ($added_media as $delta => $media) {
+-        $form['media'][$delta] = $this->buildEntityFormElement($media, $form, $form_state, $delta);
++        $form['media'][$delta] = $this->buildEntityFormElement($media, $form, $form_state, $delta, $add_form_mode);
+       }
+ 
+       $form['selection'] = $this->buildCurrentSelectionArea($form, $form_state);
+@@ -246,11 +255,14 @@ abstract protected function buildInputElement(array $form, FormStateInterface $f
+    *   The current form state.
+    * @param int $delta
+    *   The delta of the media item.
++   * @param string $add_form_mode
++   *   The machine name of the form mode valid for all media types enabled
++   *   on a specific field (defined in widget).
+    *
+    * @return array
+    *   The element containing the required fields sub-form.
+    */
+-  protected function buildEntityFormElement(MediaInterface $media, array $form, FormStateInterface $form_state, $delta) {
++  protected function buildEntityFormElement(MediaInterface $media, array $form, FormStateInterface $form_state, int $delta, string $add_form_mode = MediaLibraryState::DEFAULT_FORM_MODE) {
+     // We need to make sure each button has a unique name attribute. The default
+     // name for button elements is 'op'. If the name is not unique, the
+     // triggering element is not set correctly and the wrong media item is
+@@ -314,7 +326,8 @@ protected function buildEntityFormElement(MediaInterface $media, array $form, Fo
+       ];
+     }
+ 
+-    $form_display = EntityFormDisplay::collectRenderDisplay($media, 'media_library');
++    $form_display = EntityFormDisplay::collectRenderDisplay($media, $add_form_mode);
++
+     // When the name is not added to the form as an editable field, output
+     // the name as a fixed element to confirm the right file was uploaded.
+     if (!$form_display->getComponent('name')) {
+diff --git a/core/modules/media_library/src/Form/FileUploadForm.php b/core/modules/media_library/src/Form/FileUploadForm.php
+index fd2bc14a41..8e53e431a2 100644
+--- a/core/modules/media_library/src/Form/FileUploadForm.php
++++ b/core/modules/media_library/src/Form/FileUploadForm.php
+@@ -258,10 +258,16 @@ public function processUploadElement(array $element, FormStateInterface $form_st
+   }
+ 
+   /**
++   * Build the sub form for media entities, but modify base to slim it down.
++   *
++   * @see hideExtraSourceFieldComponents()
++   *
+    * {@inheritdoc}
+    */
+-  protected function buildEntityFormElement(MediaInterface $media, array $form, FormStateInterface $form_state, $delta) {
+-    $element = parent::buildEntityFormElement($media, $form, $form_state, $delta);
++  protected function buildEntityFormElement(MediaInterface $media, array $form, FormStateInterface $form_state, int $delta, string $add_form_mode = 'media_library'): array {
++    $element = parent::buildEntityFormElement($media, $form, $form_state, $delta, $add_form_mode);
++
++    // @todo $media->bundle is not part of MediaInterface.
+     $source_field = $this->getSourceFieldName($media->bundle->entity);
+     if (isset($element['fields'][$source_field])) {
+       $element['fields'][$source_field]['widget'][0]['#process'][] = [static::class, 'hideExtraSourceFieldComponents'];
+@@ -272,6 +278,9 @@ protected function buildEntityFormElement(MediaInterface $media, array $form, Fo
+   /**
+    * Processes an image or file source field element.
+    *
++   * Removes the remove_button, preview, title, description and filename
++   * elements from the form.
++   *
+    * @param array $element
+    *   The entity form source field element.
+    * @param \Drupal\Core\Form\FormStateInterface $form_state
+@@ -359,6 +368,7 @@ protected function createFileItem(MediaTypeInterface $media_type) {
+    * {@inheritdoc}
+    */
+   protected function prepareMediaEntityForSave(MediaInterface $media) {
++    // @todo $media->bundle is not part of MediaInterface.
+     /** @var \Drupal\file\FileInterface $file */
+     $file = $media->get($this->getSourceFieldName($media->bundle->entity))->entity;
+     $file->setPermanent();
+@@ -382,6 +392,7 @@ public function removeButtonSubmit(array $form, FormStateInterface $form_state)
+     /** @var \Drupal\media\MediaInterface $removed_media */
+     $removed_media = $form_state->get(['media', $delta]);
+ 
++    // @todo $media->bundle is not part of MediaInterface.
+     $file = $removed_media->get($this->getSourceFieldName($removed_media->bundle->entity))->entity;
+     if ($file instanceof FileInterface && empty($this->fileUsage->listUsage($file))) {
+       $file->delete();
+diff --git a/core/modules/media_library/src/MediaLibraryState.php b/core/modules/media_library/src/MediaLibraryState.php
+index 12491abd0a..f71f2f9b70 100644
+--- a/core/modules/media_library/src/MediaLibraryState.php
++++ b/core/modules/media_library/src/MediaLibraryState.php
+@@ -27,6 +27,8 @@
+  * - media_library_selected_type: The media library contains tabs to navigate
+  *   between the different media types. The selected type contains the ID of the
+  *   media type whose tab that should be opened.
++ * - media_library_form_mode: form mode machine name valid for all media types
++ *   enabled on this specific field (or 'default' will be used).
+  * - media_library_remaining: When the opener wants to limit the amount of media
+  *   items that can be selected, it can pass the number of remaining slots. When
+  *   the number of remaining slots is a negative number, an unlimited amount of
+@@ -41,14 +43,25 @@
+  */
+ class MediaLibraryState extends ParameterBag implements CacheableDependencyInterface {
+ 
++  public const DEFAULT_FORM_MODE = 'media_library';
++
+   /**
+    * {@inheritdoc}
+    */
+   public function __construct(array $parameters = []) {
+-    $this->validateRequiredParameters($parameters['media_library_opener_id'], $parameters['media_library_allowed_types'], $parameters['media_library_selected_type'], $parameters['media_library_remaining']);
+     $parameters += [
++      'media_library_form_mode' => self::DEFAULT_FORM_MODE,
+       'media_library_opener_parameters' => [],
+     ];
++
++    $this->validateRequiredParameters(
++      $parameters['media_library_opener_id'],
++      $parameters['media_library_allowed_types'],
++      $parameters['media_library_selected_type'],
++      $parameters['media_library_remaining'],
++      $parameters['media_library_form_mode'],
++    );
++
+     parent::__construct($parameters);
+     $this->set('hash', $this->getHash());
+   }
+@@ -67,17 +80,24 @@ public function __construct(array $parameters = []) {
+    *   library.
+    * @param array $opener_parameters
+    *   (optional) Any additional opener-specific parameter values.
++   * @param string|null $form_mode
++   *   (optional) The form_mode machine name for the add media form.
+    *
+    * @return static
+    *   A state object.
+    */
+-  public static function create($opener_id, array $allowed_media_type_ids, $selected_type_id, $remaining_slots, array $opener_parameters = []) {
++  public static function create($opener_id, array $allowed_media_type_ids, $selected_type_id, $remaining_slots, array $opener_parameters = [], ?string $form_mode = self::DEFAULT_FORM_MODE) {
++    // When form_mode is passed explicitly as null, defaulting doesn't happen:
++    if (is_null($form_mode)) {
++      $form_mode = self::DEFAULT_FORM_MODE;
++    }
+     $state = new static([
+       'media_library_opener_id' => $opener_id,
+       'media_library_allowed_types' => $allowed_media_type_ids,
+       'media_library_selected_type' => $selected_type_id,
+       'media_library_remaining' => $remaining_slots,
+       'media_library_opener_parameters' => $opener_parameters,
++      'media_library_form_mode' => $form_mode,
+     ]);
+     return $state;
+   }
+@@ -104,7 +124,8 @@ public static function fromRequest(Request $request) {
+       $query->all('media_library_allowed_types'),
+       $query->get('media_library_selected_type'),
+       $query->get('media_library_remaining'),
+-      $query->all('media_library_opener_parameters')
++      $query->all('media_library_opener_parameters'),
++      $query->get('media_library_form_mode')
+     );
+ 
+     // The request parameters need to contain a valid hash to prevent a
+@@ -135,12 +156,18 @@ public static function fromRequest(Request $request) {
+    * @param int $remaining_slots
+    *   The number of remaining items the user is allowed to select or add in the
+    *   library.
++   * @param string|null $form_mode
++   *   The form_mode machine name for the add media form.
+    *
+    * @throws \InvalidArgumentException
+    *   If one of the passed arguments is missing or does not pass the
+    *   validation.
+    */
+-  protected function validateRequiredParameters($opener_id, array $allowed_media_type_ids, $selected_type_id, $remaining_slots) {
++  protected function validateRequiredParameters($opener_id, array $allowed_media_type_ids, $selected_type_id, $remaining_slots, ?string $form_mode = self::DEFAULT_FORM_MODE) {
++    // When form_mode is passed explicitly as null, defaulting doesn't happen:
++    if (is_null($form_mode)) {
++      $form_mode = self::DEFAULT_FORM_MODE;
++    }
+     // The opener ID must be a non-empty string.
+     if (!is_string($opener_id) || empty(trim($opener_id))) {
+       throw new \InvalidArgumentException('The opener ID parameter is required and must be a string.');
+@@ -160,6 +187,10 @@ protected function validateRequiredParameters($opener_id, array $allowed_media_t
+     if (!is_string($selected_type_id) || empty(trim($selected_type_id))) {
+       throw new \InvalidArgumentException('The selected type parameter is required and must be a string.');
+     }
++    // The form mode must be a non-empty valid machine name string.
++    if (trim($form_mode) === '' || preg_match('@[^a-z0-9_]@', $form_mode)) {
++      throw new \InvalidArgumentException('The form mode parameter is required and must be a valid string.');
++    }
+     // The selected type ID must be present in the list of allowed types.
+     if (!in_array($selected_type_id, $allowed_media_type_ids, TRUE)) {
+       throw new \InvalidArgumentException('The selected type parameter must be present in the list of allowed types.');
+@@ -192,6 +223,7 @@ public function getHash() {
+       $this->getSelectedTypeId(),
+       $this->getAvailableSlots(),
+       serialize($opener_parameters),
++      $this->getFormModeId(),
+     ]);
+ 
+     return Crypt::hmacBase64($hash, \Drupal::service('private_key')->get() . Settings::getHashSalt());
+@@ -240,6 +272,21 @@ public function getSelectedTypeId() {
+     return $this->get('media_library_selected_type');
+   }
+ 
++  /**
++   * Returns the form mode for the media's add/edit media form.
++   *
++   * This is the (sub)form displayed after the media is added (e.g. after
++   * upload, for the FileUploadForm), that is embedded within the media_library
++   * selection form. The same form_mode is used for every media bundle the
++   * field accepts.
++   *
++   * @return string
++   *   The form mode machine id.
++   */
++  public function getFormModeId() {
++    return $this->get('media_library_form_mode');
++  }
++
+   /**
+    * Determines if additional media items can be selected.
+    *
+diff --git a/core/modules/media_library/src/MediaLibraryUiBuilder.php b/core/modules/media_library/src/MediaLibraryUiBuilder.php
+index 37847351a2..58c8dda670 100644
+--- a/core/modules/media_library/src/MediaLibraryUiBuilder.php
++++ b/core/modules/media_library/src/MediaLibraryUiBuilder.php
+@@ -241,7 +241,8 @@ protected function buildMediaTypeMenu(MediaLibraryState $state) {
+ 
+     $selected_type_id = $state->getSelectedTypeId();
+     foreach ($allowed_types as $allowed_type_id => $allowed_type) {
+-      $link_state = MediaLibraryState::create($state->getOpenerId(), $state->getAllowedTypeIds(), $allowed_type_id, $state->getAvailableSlots(), $state->getOpenerParameters());
++      $link_state = MediaLibraryState::create($state->getOpenerId(), $state->getAllowedTypeIds(), $allowed_type_id, $state->getAvailableSlots(), $state->getOpenerParameters(), $state->getFormModeId());
++
+       // Add the 'media_library_content' parameter so the response will contain
+       // only the updated content for the tab.
+       // @see self::buildUi()
+@@ -312,7 +313,8 @@ protected function buildMediaTypeAddForm(MediaLibraryState $state) {
+       $state->remove('_media_library_form_rebuild');
+     }
+     $form_state->set('media_library_state', $state);
+-    return $this->formBuilder->buildForm($plugin_definition['forms']['media_library_add'], $form_state);
++    $form_class = $plugin_definition['forms']['media_library_add'];
++    return $this->formBuilder->buildForm($form_class, $form_state);
+   }
+ 
+   /**
+diff --git a/core/modules/media_library/src/Plugin/Field/FieldWidget/MediaLibraryWidget.php b/core/modules/media_library/src/Plugin/Field/FieldWidget/MediaLibraryWidget.php
+index 14902898cd..1ea7d9437d 100644
+--- a/core/modules/media_library/src/Plugin/Field/FieldWidget/MediaLibraryWidget.php
++++ b/core/modules/media_library/src/Plugin/Field/FieldWidget/MediaLibraryWidget.php
+@@ -10,6 +10,7 @@
+ use Drupal\Core\Ajax\InvokeCommand;
+ use Drupal\Core\Ajax\OpenModalDialogCommand;
+ use Drupal\Core\Ajax\ReplaceCommand;
++use Drupal\Core\Entity\EntityDisplayRepositoryInterface;
+ use Drupal\Core\Entity\EntityTypeManagerInterface;
+ use Drupal\Core\Extension\ModuleHandlerInterface;
+ use Drupal\Core\Field\Attribute\FieldWidget;
+@@ -65,6 +66,13 @@ class MediaLibraryWidget extends WidgetBase implements TrustedCallbackInterface
+    */
+   protected $moduleHandler;
+ 
++  /**
++   * The entity display repository.
++   *
++   * @var \Drupal\Core\Entity\EntityDisplayRepositoryInterface
++   */
++  protected $entityDisplayRepository;
++
+   /**
+    * Constructs a MediaLibraryWidget widget.
+    *
+@@ -84,12 +92,15 @@ class MediaLibraryWidget extends WidgetBase implements TrustedCallbackInterface
+    *   The current active user.
+    * @param \Drupal\Core\Extension\ModuleHandlerInterface $module_handler
+    *   The module handler.
++   * @param \Drupal\Core\Entity\EntityDisplayRepositoryInterface $entity_display_repository
++   *   The entity display repository.
+    */
+-  public function __construct($plugin_id, $plugin_definition, FieldDefinitionInterface $field_definition, array $settings, array $third_party_settings, EntityTypeManagerInterface $entity_type_manager, AccountInterface $current_user, ModuleHandlerInterface $module_handler) {
++  public function __construct($plugin_id, $plugin_definition, FieldDefinitionInterface $field_definition, array $settings, array $third_party_settings, EntityTypeManagerInterface $entity_type_manager, AccountInterface $current_user, ModuleHandlerInterface $module_handler, EntityDisplayRepositoryInterface $entity_display_repository) {
+     parent::__construct($plugin_id, $plugin_definition, $field_definition, $settings, $third_party_settings);
+     $this->entityTypeManager = $entity_type_manager;
+     $this->currentUser = $current_user;
+     $this->moduleHandler = $module_handler;
++    $this->entityDisplayRepository = $entity_display_repository;
+   }
+ 
+   /**
+@@ -104,7 +115,8 @@ public static function create(ContainerInterface $container, array $configuratio
+       $configuration['third_party_settings'],
+       $container->get('entity_type.manager'),
+       $container->get('current_user'),
+-      $container->get('module_handler')
++      $container->get('module_handler'),
++      $container->get('entity_display.repository')
+     );
+   }
+ 
+@@ -121,6 +133,7 @@ public static function isApplicable(FieldDefinitionInterface $field_definition)
+   public static function defaultSettings() {
+     return [
+       'media_types' => [],
++      'form_mode' => MediaLibraryState::DEFAULT_FORM_MODE,
+     ] + parent::defaultSettings();
+   }
+ 
+@@ -175,6 +188,17 @@ protected function getAllowedMediaTypeIdsSorted() {
+    */
+   public function settingsForm(array $form, FormStateInterface $form_state) {
+     $elements = [];
++
++    $elements['form_mode'] = [
++      '#type' => 'select',
++      '#options' => $this->entityDisplayRepository->getFormModeOptions('media'),
++      '#title' => $this->t('Media Form mode'),
++      '#default_value' => $this->getSetting('form_mode'),
++      '#required' => TRUE,
++    ];
++
++    // Return $elements early if there aren't at least two types, as otherwise
++    // there's no selection to be made.
+     $media_type_ids = $this->getAllowedMediaTypeIdsSorted();
+ 
+     if (count($media_type_ids) <= 1) {
+@@ -262,6 +286,11 @@ public static function setMediaTypesValue(array &$element, $input, FormStateInte
+   public function settingsSummary() {
+     $summary = [];
+     $media_type_labels = [];
++
++    $form_modes = $this->entityDisplayRepository->getFormModeOptions('media');
++    $mode = $this->getSetting('form_mode');
++    $summary[] = $this->t('Form mode: @mode', ['@mode' => $form_modes[$mode]]);
++
+     $media_types = $this->entityTypeManager->getStorage('media_type')->loadMultiple($this->getAllowedMediaTypeIdsSorted());
+     if (count($media_types) !== 1) {
+       foreach ($media_types as $media_type) {
+@@ -506,7 +535,8 @@ public function formElement(FieldItemListInterface $items, $delta, array $elemen
+         $opener_parameters['revision_id'] = (string) $entity->getRevisionId();
+       }
+     }
+-    $state = MediaLibraryState::create('media_library.opener.field_widget', $allowed_media_type_ids, $selected_type_id, $remaining, $opener_parameters);
++    $form_mode = $this->getSetting('form_mode') ?? MediaLibraryState::DEFAULT_FORM_MODE;
++    $state = MediaLibraryState::create('media_library.opener.field_widget', $allowed_media_type_ids, $selected_type_id, $remaining, $opener_parameters, $form_mode);
+ 
+     // Add a button that will load the Media library in a modal using AJAX.
+     $element['open_button'] = [
+diff --git a/core/modules/media_library/tests/modules/media_library_test_widget/config/schema/media_library_test_widget.schema.yml b/core/modules/media_library/tests/modules/media_library_test_widget/config/schema/media_library_test_widget.schema.yml
+index 81186253e1..0e74387667 100644
+--- a/core/modules/media_library/tests/modules/media_library_test_widget/config/schema/media_library_test_widget.schema.yml
++++ b/core/modules/media_library/tests/modules/media_library_test_widget/config/schema/media_library_test_widget.schema.yml
+@@ -8,3 +8,6 @@ field.widget.settings.media_library_inception_widget:
+       sequence:
+         type: string
+         label: 'Media type ID'
++    form_mode:
++      type: string
++      label: 'Form mode'
+diff --git a/core/modules/media_library/tests/src/FunctionalJavascript/EntityReferenceWidgetTest.php b/core/modules/media_library/tests/src/FunctionalJavascript/EntityReferenceWidgetTest.php
+index ac1f792225..7a51549776 100644
+--- a/core/modules/media_library/tests/src/FunctionalJavascript/EntityReferenceWidgetTest.php
++++ b/core/modules/media_library/tests/src/FunctionalJavascript/EntityReferenceWidgetTest.php
+@@ -186,10 +186,10 @@ public function testWidget(): void {
+     $this->assertSame($link_titles, $expected_link_titles);
+     $this->drupalGet('admin/structure/types/manage/basic_page/form-display');
+ 
+-    // Ensure that the widget settings form is not displayed when only
++    // Ensure that the widget settings form is displayed even when only
+     // one media type is allowed.
+     $assert_session->pageTextContains('Single media type');
+-    $assert_session->buttonNotExists('field_single_media_type_settings_edit');
++    $assert_session->buttonExists('field_single_media_type_settings_edit');
+ 
+     $assert_session->buttonExists('field_twin_media_settings_edit')->press();
+     $this->assertElementExistsAfterWait('css', '#field-twin-media .tabledrag-toggle-weight')->press();
+diff --git a/core/modules/media_library/tests/src/FunctionalJavascript/WidgetAccessTest.php b/core/modules/media_library/tests/src/FunctionalJavascript/WidgetAccessTest.php
+index 78f4d6acf0..71c6239005 100644
+--- a/core/modules/media_library/tests/src/FunctionalJavascript/WidgetAccessTest.php
++++ b/core/modules/media_library/tests/src/FunctionalJavascript/WidgetAccessTest.php
+@@ -61,6 +61,9 @@ public function testWidgetAccess(): void {
+     $role->revokePermission('view media');
+     $role->save();
+ 
++    // @todo where should this be pulled from? The field widget specifies.
++    $form_mode = MediaLibraryState::DEFAULT_FORM_MODE;
++
+     // Create a working state.
+     $allowed_types = ['type_one', 'type_two', 'type_three', 'type_four'];
+     // The opener parameters are not relevant to the test, but the opener
+@@ -69,7 +72,7 @@ public function testWidgetAccess(): void {
+       'entity_type_id' => 'node',
+       'bundle' => 'basic_page',
+       'field_name' => 'field_unlimited_media',
+-    ]);
++    ], $form_mode);
+     $url_options = ['query' => $state->all()];
+ 
+     // Verify that unprivileged users can't access the widget view.

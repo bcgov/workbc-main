@@ -1,0 +1,21 @@
+uuid: 3ef28999-48fb-456d-99f3-c8095e63269b
+langcode: en
+status: true
+dependencies:
+  config:
+    - field.storage.node.field_published_date
+    - node.type.blog
+  module:
+    - datetime
+id: node.blog.field_published_date
+field_name: field_published_date
+entity_type: node
+bundle: blog
+label: 'Updated Published Date'
+description: 'Enter an updated published date if you wish to override the original published date.'
+required: false
+translatable: false
+default_value: {  }
+default_value_callback: ''
+settings: {  }
+field_type: datetime

@@ -1,0 +1,160 @@
+
+fonts:
+  css:
+    theme:
+      '//fonts.googleapis.com/css2?family=Material+Symbols+Outlined': { type: external, minified: true }
+
+global-styling:
+  css:
+    theme:
+      css/style.css: {}
+      css/print.css: { media: print }
+
+init-popovers:
+  js:
+    js/init-popovers.js: {}
+  dependencies:
+    - core/drupal
+    - core/jquery
+    - core/once
+    - popperjs/popperjs
+
+back-to-top:
+  js:
+    js/back-to-top.js: {}
+  dependencies:
+    - core/drupal
+    - core/jquery
+
+view-switcher:
+  js:
+    js/view-switcher.js: {}
+  dependencies:
+    - core/drupal
+    - core/jquery
+
+icon-append:
+  js:
+    js/icon-append.js: {}
+  dependencies:
+    - core/drupal
+    - core/drupalSettings
+    - core/jquery
+
+mobile-nav:
+  js:
+    js/mobile-nav.js: {}
+  dependencies:
+    - core/drupal
+    - core/jquery
+    - core/once
+
+nav:
+  js:
+    js/nav.js: {}
+
+related-topics-carousel:
+  js:
+    js/related-topics-carousel.js: {}
+  dependencies:
+    - core/drupal
+    - core/jquery
+    - core/once
+    - workbc/swiper-js
+
+video-banner-carousel:
+  js:
+    js/video-banner-carousel.js: {}
+  dependencies:
+    - core/drupal
+    - core/jquery
+    - core/once
+    - workbc/swiper-js
+
+career-inner-video:
+  js:
+    js/career-inner-video.js: {}
+  dependencies:
+    - core/drupal
+    - core/jquery
+    - core/once
+
+career-count-video:
+  js:
+    js/career-count-video.js: {}
+  dependencies:
+    - core/drupal
+    - core/jquery
+    - core/once
+
+range-slider:
+  css:
+    theme:
+      css/jquery.range.css: {}
+  js:
+    js/jquery.range.js: {}
+    js/range-slider.js: {}
+  dependencies:
+    - core/drupal
+    - core/jquery
+    - core/once
+
+scrollbooster:
+  js:
+    '//unpkg.com/scrollbooster@3.0.2/dist/scrollbooster.min.js': { type: module, minified: true }
+    js/scrollbooster-init.js: { }
+
+sidenav-anchors:
+  js:
+    js/sidenav-anchors.js: {}
+  dependencies:
+    - core/drupal
+    - core/jquery
+    - core/once
+
+static-load-more:
+  js:
+    js/static-load-more.js: {}
+  dependencies:
+    - core/drupal
+    - core/jquery
+    - core/once
+
+submenu-underlay:
+  js:
+    js/submenu-underlay.js: {}
+  dependencies:
+    - core/drupal
+    - core/jquery
+    - core/
+
+swiper-js:
+  css:
+    theme:
+      '//cdn.jsdelivr.net/npm/swiper@8/swiper-bundle.min.css': { type: external, minified: true }
+  js:
+    '//cdn.jsdelivr.net/npm/swiper@8/swiper-bundle.min.js': { type: external, minified: true }
+
+google-charts-redraw:
+  js:
+    js/google-charts-redraw.js: {}
+
+accordion-scroll:
+  js:
+    js/accordion-scroll.js: {}
+
+interactive-map:
+  js:
+    js/interactive-map.js: {}
+
+mobile-chosen:
+  js:
+    js/mobile-chosen.js: {}
+
+nav-tabs:
+  js:
+    js/nav-tabs.js: {}
+  dependencies:
+    - core/drupal
+    - core/jquery
+    - core/once

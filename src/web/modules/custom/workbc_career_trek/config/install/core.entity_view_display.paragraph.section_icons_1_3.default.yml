@@ -1,0 +1,34 @@
+uuid: 5614bdcc-c135-4a56-b2bf-c45ed32ef26c
+langcode: en
+status: true
+dependencies:
+  config:
+    - field.field.paragraph.section_icons_1_3.field_action_cards
+    - field.field.paragraph.section_icons_1_3.field_key
+    - paragraphs.paragraphs_type.section_icons_1_3
+  module:
+    - entity_reference_revisions
+id: paragraph.section_icons_1_3.default
+targetEntityType: paragraph
+bundle: section_icons_1_3
+mode: default
+content:
+  field_action_cards:
+    type: entity_reference_revisions_entity_view
+    label: above
+    settings:
+      view_mode: action_card_1_2
+      link: ''
+    third_party_settings: {  }
+    weight: 0
+    region: content
+  field_key:
+    type: string
+    label: above
+    settings:
+      link_to_entity: false
+    third_party_settings: {  }
+    weight: 1
+    region: content
+hidden:
+  search_api_excerpt: true

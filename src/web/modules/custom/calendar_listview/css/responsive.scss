@@ -1,0 +1,403 @@
+@media  screen and (max-width:1199px){
+/****** List View starts Here ******/
+.event-cal{
+  .list-view{
+      margin-top:20px;
+      .ev-date {
+          background-size: 28px;
+          padding-left: 35px;
+      }
+      .ev-date div,.ev-address p{
+          font-size:15px;
+          line-height:23px;
+      }
+  }
+  .list-full-view{
+      .view-header h2{
+          font-size:26px;
+          line-height:43px;
+      }
+  }
+}
+/****** List View ends Here ******/
+}
+
+@media  screen and (max-width:991px){
+.event-cal{
+  .list-nav {
+      margin-bottom: 20px;
+  }
+  .list-view{
+      .right-side .e-title{
+          margin-bottom:6px;
+      }
+      .right-side{
+          margin-bottom:0px;
+      }
+      .ev-date::Before{
+          position: absolute;
+          left: 0px;
+          top:112%;
+          height: 5px;
+          width: 100%;
+          background-color: #f2f2f2;
+          content: "";
+      }
+  } 
+
+  /****** List View starts Here ******/
+  .list-view{
+      .ev-date {
+          background-size: 28px;
+          padding-left:40px;
+      }
+      .ev-date div{
+          font-size:15px;
+      }
+      .ev-address{
+          margin:0px;
+      }
+      .right-side .ev-address {
+              margin-bottom:0px;
+              margin-top: 15px;
+      }
+      .ev-address {
+          background-size: 22px;
+          padding-left:40px;
+      }
+  }
+  .list-full-view{
+      .view-header h2{
+          font-size:22px;
+          line-height:46px;
+      }
+  }
+  /****** List View ends Here ******/
+
+  /****** Calendar View starts Here ******/
+  .tab-content{
+      .fc-toolbar h2 {
+          font-size:22px;
+          line-height:25px;
+      }
+  }
+  /****** Calendar View ends Here ******/
+  }
+}
+@media  screen and (max-width:767px){
+  .event-cal{
+    .right-side{
+        margin-top:18px;
+    }
+    .list-view .sd-date-panel{
+        margin-top:0px;
+        padding-top:0px;
+    }
+    .e-title {
+        font-size: 20px;
+        line-height: 27px;
+    }
+    .ev-date div, .ev-address p {
+        font-size: 16px;
+        line-height: 23px;
+    }
+    .view-header h2 {
+        font-size:20px;
+    }
+    .pager .pager__item a{
+        font-size:14px;
+    }
+    .fc-toolbar h2{
+        font-size: 22px;
+        margin-right:110px;
+    }
+    .fc-button-group{
+        .fc-button{
+            font-size:14px;
+            line-height:22px; 
+        }
+    }
+    .list-view{
+        .sd-date-panel{
+            margin:unset;
+        }
+        .sd-middle{
+            line-height:125%;
+        }
+    }
+    .tab-content{
+        .fc-toolbar h2 {
+            font-size:21px;
+        }
+    }
+    .nav-tabs{
+      align-items: center;
+      justify-content: center;
+      width: 268px;
+      margin: auto;
+      display:flex;
+    }
+    .view-header{
+      margin-bottom: 34px;
+    }
+    .pager{
+      top:40px;
+    }
+    .list-view.list-row{
+      margin-top:30px;
+    }
+    .list-view {
+      .sd-date-panel{
+        max-width: 124px;
+        width: 124px;
+        border-width:4px;
+      }
+      .sd-top{
+        font-size:16px;
+      }
+      .sd-middle{
+        font-size:50px;
+      }
+      .sd-bottom{
+        font-size:16px;
+      }
+      .sd-date-panel{
+        margin-bottom:10px;
+      }
+      .right-side {
+        .ev-date{
+          padding-bottom: 8px;
+        }
+        .ev-address{
+          margin-top:25px !important;
+        }
+        .e-title{
+          font-size: 19px;
+          line-height: 24px;
+          margin-bottom: 10px;
+        }
+        .e-description{
+          margin-bottom:20px;
+        }
+        .e-description p{
+          font-weight: 400;
+          font-style: normal;
+          font-size: 16px;
+          line-height: 24px;
+          font-family: 'BCSans-Regular', 'BC Sans Regular', 'BC Sans', sans-serif;
+          color: #333333;
+        }
+        .ev-date::Before{
+          height:4px;
+        }
+      }
+    }
+    .list-full-view {
+      .view-content h3{
+        font-family: 'BCSans-Regular', 'BC Sans Regular', 'BC Sans', sans-serif;
+        font-weight: 400;
+        font-style: normal;
+        font-size: 21px;
+        color: #333333;
+        text-align: center;
+        line-height: 24px;
+      }
+    }
+  }
+}
+@media  screen and (max-width:500px){
+  .event-cal{
+    .fc .fc-row .fc-content-skeleton td{
+      text-align:center;
+      margin:auto;
+    }
+    .fc-event-container{
+      position:relative;
+    }
+    .fc-event-container::before{
+      position: absolute;
+      top: -47px;
+      left: 0px;
+      content: "";
+      background-color: #dfeaf4;
+      width: 100%;
+      height: 500%;
+    }
+    .fc-future{
+      position:relative;
+      z-index:8;
+    }
+    .fc-day-top,.fc-day-grid-event{
+      position:relative;
+      z-index:999;
+    }
+    .fc-day-header span{
+      display:none;
+    }
+    .fc-event-container{
+      position:relative;
+    }
+    .fc-future{
+      position:relative;
+      z-index:8;
+    }
+
+    .fc .fc-row .fc-content-skeleton td.fc-day-top.active {
+      background: #dfeaf4;
+    }
+    .fc .fc-row .fc-content-skeleton td.fc-event-container
+    {
+      background:rgba(223, 234, 244, 1);
+    }
+    .fc .fc-row .fc-content-skeleton td .fc-day-grid-event{
+      margin: auto !important;
+      text-align: center !important;
+      height: 6px !important;
+      width: 6px !important;
+      padding: 0px !important;
+      margin: 0px !important;
+      border: 0px !important;
+    } 
+    .fc-dayGrid-view .fc-body .fc-row{
+      min-height:0px;
+    }
+    .fc .fc-row .fc-content-skeleton td .fc-day-grid-event .fc-content{
+      padding:0px !important;
+    }
+    .view-event-calendar .fc-ltr .fc-dayGrid-view .fc-day-top .fc-day-number{
+      float:none;
+      text-align:center;
+    }
+    .view-header{
+      margin-bottom:34px;
+    } 
+    .view-display-id-block_1 .list-row, .view-display-id-block_3 .list-row{
+      padding:20px 15px;
+    }
+    .pager{
+      top:33px;
+      .pager__item img{
+        height:11px;
+      }
+      .pager__item--previous span{
+        padding-left:4px;
+      }
+      .pager__item--next span{
+        padding-right:4px;
+      }
+    }
+    .pager2 .pager{top:0px;}
+    .list-view {
+      .sd-middle {
+        line-height: 113%;
+        font-size:60px;
+        margin-top:5px;
+      }
+      .e-title{
+        font-size:18px;
+        line-height:26px;
+      }
+    }
+    .list-full-view{
+        .view-header h2 {
+            font-size: 20px;
+            line-height: 30px;
+        }
+    }
+    .fc-button-group{
+        .fc-button{
+            font-size:14px;
+        }
+    }
+    /****** Calendar View starts Here ******/
+    .tab-content{
+      .fc-toolbar h2 {
+        font-size: 20px;
+        margin-right:0px;
+      }
+    }
+    .fc-toolbar{
+       position:relative;
+      .fc-button-group{
+          position:absolute;
+          z-index:999;
+          top:33px;
+          left:0px;
+          width:100%;
+          display:unset;
+      }
+    }
+    .fc-head{
+      .fc-widget-header {
+        font-size: 15px;
+        margin-top:21px;
+        text-align:center;
+      }    
+    }
+    .fc-view{
+      a.fc-day-grid-event{
+        border-bottom:0px;
+        margin:5px;
+      }
+      .fc-content-skeleton{
+        overflow:hidden;
+      }
+      .fc-content-skeleton table{
+        height:45px;
+      }
+    }
+    .calendar-full-view{
+      .fc-title{
+          display:none;
+      }
+      .fc-ltr .fc-h-event.fc-not-end,.fc-ltr .fc-h-event.fc-not-start{
+          border-radius:50%;
+      }
+      .fc-day-grid-event{
+          width:5px;
+          height:5px;
+          border-radius:50%;
+          margin: 0px;
+          padding: 0px;
+          display:inline-block;
+      }
+      .fc-event-container{
+          display:inline-block;
+          border:none;
+          width: 99%;
+          border-right: 1px solid #ddd;
+      }
+    }
+    /****** Calendar View ends Here ******/
+  }
+}
+@media  screen and (max-width:400px){
+
+/****** list View starts Here ******/
+  .event-cal{
+    .list-view{
+        .ev-date {
+            background-size: 22px;
+            padding-left:28px;
+        }
+        .ev-address {
+            background-size: 19px;
+            padding-left: 28px;
+        }      
+    } 
+    .list-nav{
+        .nav-tabs .nav-link{
+            padding: 0.1rem 0.8rem;
+        }
+    }
+    /****** List View ends Here ******/
+  }
+}
+
+ @media screen and (min-width: 500px) {     
+  .event-cal {
+    .view-event-calendar .fc-event {
+      background-color: #e9f0f9 !important;
+    }
+  }
+ }

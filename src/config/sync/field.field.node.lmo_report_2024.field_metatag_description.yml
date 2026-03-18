@@ -1,0 +1,19 @@
+uuid: 9ad04433-0984-480a-ab57-9dc9c36a8668
+langcode: en
+status: true
+dependencies:
+  config:
+    - field.storage.node.field_metatag_description
+    - node.type.lmo_report_2024
+id: node.lmo_report_2024.field_metatag_description
+field_name: field_metatag_description
+entity_type: node
+bundle: lmo_report_2024
+label: 'Metatag Description'
+description: 'Description to be used for metatags. Limited to 160 characters.'
+required: false
+translatable: false
+default_value: {  }
+default_value_callback: ''
+settings: {  }
+field_type: string

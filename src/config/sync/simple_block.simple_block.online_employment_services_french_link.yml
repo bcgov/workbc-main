@@ -1,0 +1,11 @@
+uuid: 54ab1921-ad82-420e-aca4-fc8f2210caba
+langcode: en
+status: true
+dependencies:
+  config:
+    - filter.format.full_html
+id: online_employment_services_french_link
+title: 'Online Employment Services - French Link'
+content:
+  value: "<p><a href=\"/discover-employment-services/online-employment-services/services-demploi-en-ligne\">Services disponibles en français</a></p>\r\n"
+  format: full_html

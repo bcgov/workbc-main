@@ -1,0 +1,19 @@
+uuid: cffc5cdd-3df7-4090-95a6-231e6a163e67
+langcode: en
+status: true
+dependencies:
+  config:
+    - field.storage.paragraph.field_key
+    - paragraphs.paragraphs_type.content_accordion_entry
+id: paragraph.content_accordion_entry.field_key
+field_name: field_key
+entity_type: paragraph
+bundle: content_accordion_entry
+label: 'Card key'
+description: 'This field is for internal use only and should not be edited.'
+required: false
+translatable: false
+default_value: {  }
+default_value_callback: ''
+settings: {  }
+field_type: string

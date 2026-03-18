@@ -1,0 +1,376 @@
+:root {
+  --left-offset: 0px;
+  --top-offset: 0px;
+}
+
+.workbc-interactive-map-container {
+  position: relative;
+}
+
+.workbc-interactive-map-component img {
+  aspect-ratio: 400/330;
+}
+
+.workbc-interactive-map {
+  border-width: 0px;
+  position: relative;
+  left: 0px;
+  top: 0px;
+  width: 400px;
+  height: 370px;
+  margin: 0 auto;
+
+  @media print {
+    width: 800px !important;
+    left: 200px;
+  }
+
+  @include media-breakpoint-down(sm) {
+    width: 100%;
+  }
+}
+
+.workbc-interactive-map-container {
+  padding-bottom: 8px;
+}
+
+
+.workbc-interactive-map svg {
+  width: 400px;
+  height: 340px;
+
+  @include media-breakpoint-down(lg) {
+    width: 100%;
+  }
+}
+
+.workbc-interactive-map {
+  .bc-map-region {
+    fill: #002857;
+  }
+
+  .bc-map-region:hover {
+    fill: #009cde;
+  }
+
+  .active {
+    fill: #009cde;
+  }
+}
+
+
+
+.work-interactive-map img {
+  margin: 0px;
+}
+
+
+.map-region {
+  border-width: 0px;
+  position: absolute;
+  left: 0px;
+  top: 0px;
+  width: 400px;
+  height: 330px;
+  padding-right: 30px;
+}
+
+tr.interactive-map-row-hilite {
+  color: $workbc_dark_theme_text;
+  background-color: $workbc_palette_dark_tertiary;
+}
+
+.interactive-map-row-hilite a {
+  color: $workbc_dark_theme_text;
+}
+
+.map-region-label {
+  font-size: 14px;
+  color: #2E6AB0;
+  cursor: pointer;
+}
+
+.map-region-label:hover {
+  text-decoration: underline;
+}
+
+.map-region-label-cariboo {
+  position: absolute;
+  left: calc(var(--left-offset) + 337px);
+  top: calc(var(--top-offset) + 186px);
+  width: 88px;
+  height: 32px;
+}
+
+.map-region-label-kootenay {
+  position: absolute;
+  left: calc(var(--left-offset) + 440px);
+  top: calc(var(--top-offset) + 281px);
+  width: 89px;
+  height: 32px;
+}
+
+.map-region-label-mainland_southwest {
+  position: absolute;
+  left: calc(var(--left-offset) + -75px);
+  top: calc(var(--top-offset) + 290px);
+  width: 171px;
+  height: 32px;
+}
+
+.map-region-label-north_coast_nechako {
+  position: absolute;
+  left: calc(var(--left-offset) + -125px);
+  top: calc(var(--top-offset) + 80px);
+  width: 177px;
+  height: 32px;
+}
+
+.map-region-label-northeast {
+  position: absolute;
+  left: calc(var(--left-offset) + 335px);
+  top: calc(var(--top-offset) + 85px);
+  width: 88px;
+  height: 32px;
+}
+
+.map-region-label-thompson_okanagan {
+  position: absolute;
+  left: calc(var(--left-offset) + 380px);
+  top: calc(var(--top-offset) + 235px);
+  width: 171px;
+  height:32px
+}
+
+.map-region-label-vancouver_island_coast {
+  position: absolute;
+  left: calc(var(--left-offset) + -100px);
+  top: calc(var(--top-offset) + 240px);
+  width: 194px;
+  height: 32px;
+}
+
+
+.map-region-label-line {
+  /* background-color: #d7d7d7; */
+}
+
+.map-region-label-line-cariboo img {
+  position: absolute;
+  left: calc(var(--left-offset) + 240px);
+  top: calc(var(--top-offset) + 195px);
+  width: 88px;
+  height: 3px;
+}
+
+.map-region-label-line-kootenay img {
+  position: absolute;
+  left: calc(var(--left-offset) + 345px);
+  top: calc(var(--top-offset) + 290px);
+  width: 85px;
+  height: 3px;
+}
+
+.map-region-label-line-mainland_southwest img {
+  position: absolute;
+  left: calc(var(--left-offset) + 70px);
+  top: calc(var(--top-offset) + 300px);
+  width: 180px;
+  height: 3px;
+}
+
+.map-region-label-line-north_coast_nechako img {
+  position: absolute;
+  left: calc(var(--left-offset) + 50px);
+  top: calc(var(--top-offset) + 90px);
+  width: 75px;
+  height: 3px;
+}
+
+.map-region-label-line-northeast img {
+  position: absolute;
+  left: calc(var(--left-offset) + 235px);
+  top: calc(var(--top-offset) + 95px);
+  width: 88px;
+  height: 3px;
+}
+
+.map-region-label-line-thompson_okanagan img {
+  position: absolute;
+  left: calc(var(--left-offset) + 295px);
+  top: calc(var(--top-offset) + 245px);
+  width: 80px;
+  height: 3px
+}
+
+.map-region-label-line-vancouver_island_coast img {
+  position: absolute;
+  left: calc(var(--left-offset) + 60px);
+  top: calc(var(--top-offset) + 250px);
+  width: 115px;
+  height: 3px;
+}
+
+
+.job-openings-by-region, .employment-by-region, .workbc-interactive-map-0 {
+
+  tr.odd {
+    background: $workbc_palette_light_secondary;
+  }
+
+  tr.interactive-map-row-hilite {
+    background: $workbc_palette_dark_tertiary !important;
+
+    td {
+      color: $workbc_palette_light_primary;
+      background: $workbc_palette_dark_tertiary;
+    }
+  }
+}
+
+div#bc-region-interactive-map,
+div#career-profile-interactive-map-1,
+div#career-profile-interactive-map-2 {
+  display: block;
+  width: 90%;
+  margin: auto;
+
+  table {
+    td, th {
+      text-align: right;
+    }
+
+    td:first-child, th:first-child {
+      text-align: left;
+    }
+
+  }
+}
+
+div#career-profile-interactive-map-1,
+div#career-profile-interactive-map-2 {
+  table th {
+    width: 33%;
+  }
+}
+
+@include media-breakpoint-down(sm) {
+
+  .lm-table-container {
+    padding: 1em 0 0 0 !important;
+
+    .lm-source {
+      padding: 0 1.5em 1.5em 1.5em;
+    }
+
+  }
+
+  .job-openings-by-region, .employment-by-region {
+    display: block;
+    padding: 0;
+
+    .card-profile__content {
+      display: block;
+    }
+
+    h3 {
+      display: block;
+      padding-top: 1.5em;
+    }
+
+    .card-profile__source {
+      padding-left: 1.5em;
+      padding-top: 3em;
+      padding-bottom: 1em;
+    }
+  }
+
+  #lm-interactive-map,
+  #career-profile-interactive-map-1,
+  #career-profile-interactive-map-2,
+  #bc-region-interactive-map,
+  #industry-profile-interactive-map,
+  .workbc-interactive-map-component {
+    .label-line, .map-region-label, thead {
+      display: none;
+    }
+
+    padding: 0 0 0 0;
+
+    table {
+      margin: 0 0 0;
+      width: 100%;
+      overflow-x: hidden;
+
+      td {
+        padding: 0.7em 1.5em 0.7em 1.5em;
+        border: none;
+        background: $workbc_palette_light_primary;
+      }
+
+      td.region {
+        display: block;
+        color: $workbc_palette_dark_secondary;
+        font-weight: bold;
+        border: none;
+      }
+
+      td.data-row {
+        display: block;
+        text-align: right;
+        padding-top: 0;
+        padding-bottom: 0;
+        border: none;
+      }
+
+      td.data-row::before {
+        content: attr(data-label);
+        float: left;
+        font-weight: bold;
+      }
+
+      td.percent-employment, td.prior-year {
+        padding-bottom: 0.7em;
+      }
+
+      tr {
+        display: block;
+        padding-top: 0;
+        padding-bottom: 0.7em;
+        background: $workbc_palette_light_primary;
+        margin: 0 0 0 0;
+      }
+
+      tr.odd {
+        background: inherit;
+      }
+
+      tr.bc-profile-employment-region-footer,
+      tr.lmo-region-job-openings-footer {
+        background: $workbc_palette_dark_tertiary;
+        td.region {
+          color: $workbc_palette_light_primary;
+        }
+
+        td {
+          background: $workbc_palette_dark_tertiary;
+        }
+      }
+
+      tr.horizontal-line {
+        border-top: $workbc_trim_ultra_thin_size solid $workbc_palette_light_secondary;
+        margin: 0 1.5em 0 1.5em;
+        padding: 0 0 0 0;
+      }
+
+      tr.interactive-map-row-hilite {
+        background: $workbc_palette_dark_tertiary;
+
+        td {
+          color: $workbc_palette_light_primary;
+          background: $workbc_palette_dark_tertiary;
+        }
+      }
+    }
+  }
+}

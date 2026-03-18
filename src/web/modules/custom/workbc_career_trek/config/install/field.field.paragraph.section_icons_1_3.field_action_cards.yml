@@ -1,0 +1,94 @@
+uuid: 9a1cb970-db0a-4aea-99d3-5517cb74210e
+langcode: en
+status: true
+dependencies:
+  config:
+    - field.storage.paragraph.field_action_cards
+    - paragraphs.paragraphs_type.action_card_icon
+    - paragraphs.paragraphs_type.section_icons_1_3
+  module:
+    - entity_reference_revisions
+id: paragraph.section_icons_1_3.field_action_cards
+field_name: field_action_cards
+entity_type: paragraph
+bundle: section_icons_1_3
+label: Cards
+description: ''
+required: false
+translatable: false
+default_value: {  }
+default_value_callback: ''
+settings:
+  handler: 'default:paragraph'
+  handler_settings:
+    target_bundles:
+      action_card_icon: action_card_icon
+    negate: 0
+    target_bundles_drag_drop:
+      action_card:
+        weight: 9
+        enabled: false
+      action_card_feature:
+        weight: 10
+        enabled: false
+      action_card_full_width:
+        weight: 19
+        enabled: false
+      action_card_icon:
+        weight: 20
+        enabled: true
+      action_cards_1_2:
+        weight: 11
+        enabled: false
+      action_cards_1_3:
+        weight: 14
+        enabled: false
+      action_cards_1_4:
+        weight: 15
+        enabled: false
+      action_cards_explore_careers:
+        weight: 24
+        enabled: false
+      action_cards_full_width:
+        weight: 12
+        enabled: false
+      action_cards_icon:
+        weight: 26
+        enabled: false
+      action_cards_icon_1_2:
+        weight: 33
+        enabled: false
+      action_cards_publication:
+        weight: 27
+        enabled: false
+      additional_duties:
+        weight: 13
+        enabled: false
+      banner_video:
+        weight: 36
+        enabled: false
+      content_interactive_map:
+        weight: 37
+        enabled: false
+      content_text:
+        weight: 29
+        enabled: false
+      content_view:
+        weight: 30
+        enabled: false
+      lmo_charts_tables:
+        weight: 40
+        enabled: false
+      quote_card:
+        weight: 15
+        enabled: false
+      section_icons_1_3:
+        weight: 42
+        enabled: false
+      section_read_more:
+        weight: 43
+        enabled: false
+      skills:
+        weight: 16
+        enabled: false
+field_type: entity_reference_revisions

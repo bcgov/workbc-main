@@ -1,0 +1,19 @@
+uuid: 531d3e2f-b839-420b-b205-a02a6f25d932
+langcode: en
+status: true
+dependencies:
+  config:
+    - field.storage.paragraph.field_key
+    - paragraphs.paragraphs_type.action_cards_icon_1_2
+id: paragraph.action_cards_icon_1_2.field_key
+field_name: field_key
+entity_type: paragraph
+bundle: action_cards_icon_1_2
+label: 'Section key'
+description: 'This field is for internal use only and should not be edited.'
+required: false
+translatable: true
+default_value: {  }
+default_value_callback: ''
+settings: {  }
+field_type: string

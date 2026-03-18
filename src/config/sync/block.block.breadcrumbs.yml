@@ -1,0 +1,24 @@
+uuid: 6c4e1e96-2c44-48be-a5e1-1cdb76b087b8
+langcode: en
+status: true
+dependencies:
+  module:
+    - system
+  theme:
+    - workbc
+id: breadcrumbs
+theme: workbc
+region: hidden
+weight: -16
+provider: null
+plugin: system_breadcrumb_block
+settings:
+  id: system_breadcrumb_block
+  label: Breadcrumbs
+  label_display: '0'
+  provider: system
+visibility:
+  request_path:
+    id: request_path
+    negate: true
+    pages: "<front>\r\n/contact-us\r\n/contactez-nous\r\n/search-and-prepare-job\r\n/plan-career\r\n/plan-career/resources\r\n/discover-employment-services\r\n/explore-training-and-education\r\n/research-labour-market\r\n/access-employer-resources\r\n/find-loans-and-grants"

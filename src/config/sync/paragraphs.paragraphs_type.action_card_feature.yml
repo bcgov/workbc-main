@@ -1,0 +1,10 @@
+uuid: 2f10f2c7-612b-4f66-84d1-a106a61fd0e2
+langcode: en
+status: true
+dependencies: {  }
+id: action_card_feature
+label: 'Section: Feature'
+icon_uuid: null
+icon_default: null
+description: 'A section for a single featured card.'
+behavior_plugins: {  }

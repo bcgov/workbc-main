@@ -1,0 +1,39 @@
+uuid: e4ffe012-ff45-4b94-8327-83219dbd5365
+langcode: en
+status: true
+dependencies:
+  config:
+    - core.entity_form_mode.node.bulk_edit
+    - field.field.node.region_profile_introductions.field_content_group
+    - field.field.node.region_profile_introductions.field_employment_introduction
+    - field.field.node.region_profile_introductions.field_labour_market_introduction
+    - field.field.node.region_profile_introductions.field_labour_market_statistics_i
+    - field.field.node.region_profile_introductions.field_top_occupations_introducti
+    - node.type.region_profile_introductions
+id: node.region_profile_introductions.bulk_edit
+targetEntityType: node
+bundle: region_profile_introductions
+mode: bulk_edit
+content:
+  field_content_group:
+    type: options_select
+    weight: 0
+    region: content
+    settings: {  }
+    third_party_settings: {  }
+hidden:
+  created: true
+  field_employment_introduction: true
+  field_labour_market_introduction: true
+  field_labour_market_statistics_i: true
+  field_top_occupations_introducti: true
+  langcode: true
+  moderation_state: true
+  path: true
+  promote: true
+  simple_sitemap: true
+  status: true
+  sticky: true
+  title: true
+  uid: true
+  url_redirects: true

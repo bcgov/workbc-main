@@ -1,0 +1,52 @@
+uuid: 642e7f19-f25a-47a2-acaf-4b6b2da9a7bc
+langcode: en
+status: true
+dependencies:
+  config:
+    - field.storage.node.field_address
+    - node.type.workbc_centre
+  module:
+    - address
+id: node.workbc_centre.field_address
+field_name: field_address
+entity_type: node
+bundle: workbc_centre
+label: Address
+description: ''
+required: false
+translatable: true
+default_value:
+  -
+    langcode: null
+    country_code: CA
+    administrative_area: BC
+    locality: ''
+    dependent_locality: null
+    postal_code: ''
+    sorting_code: null
+    address_line1: ''
+    address_line2: ''
+    organization: ''
+    given_name: ''
+    additional_name: null
+    family_name: ''
+default_value_callback: ''
+settings:
+  available_countries:
+    CA: CA
+  langcode_override: ''
+  field_overrides:
+    givenName:
+      override: hidden
+    additionalName:
+      override: hidden
+    familyName:
+      override: hidden
+    organization:
+      override: hidden
+    sortingCode:
+      override: hidden
+    dependentLocality:
+      override: hidden
+  fields: {  }
+field_type: address

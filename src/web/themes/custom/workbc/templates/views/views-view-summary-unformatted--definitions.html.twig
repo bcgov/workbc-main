@@ -1,0 +1,68 @@
+{#
+/**
+ * @file
+ * Theme override for unformatted summary links.
+ *
+ * Available variables:
+ * - rows: The rows contained in this view.
+ *   - url: The URL to this row's content.
+ *   - count: The number of items this summary item represents.
+ *   - separator: A separator between each row.
+ *   - attributes: HTML attributes for a row.
+ *   - active: A flag indicating whether the row is active.
+ * - options: Flags indicating how each row should be displayed. This contains:
+ *   - count: A flag indicating whether the row's 'count' should be displayed.
+ *   - inline: A flag indicating whether the item should be wrapped in an inline
+ *     or block level HTML element.
+ *
+ * @see template_preprocess_views_view_summary_unformatted()
+ */
+#}
+
+{% set all_active = true %}
+{% for row in rows %}
+  {% if row.active %}
+    {% set all_active = false %}
+  {% endif %}
+{% endfor %}
+
+{% set allClasses = [
+    '',
+    all_active ? 'is-active'
+] %}
+
+<div class='alphabet-navigation views-summary views-summary-unformatted'>
+  {{ options.inline ? '<span' : '<div' }} class="alphabet-navigation-unfiltered{{all_active ? ' is-active'}}">
+
+  <a href="/{{ view_base_path }}">All</a>
+
+  {{ options.inline ? '</span>' : '</div>' }}
+
+  {% set counter = 0 %}
+  {% set max = rows|length %}
+
+  {% for letter in 'A'..'Z' %}
+    {% set hasResults = (counter < max and rows[counter].link == letter) %}
+    {% set isActive = rows[counter].active and hasResults %}
+
+    {{ options.inline ? '<span' : '<div' }} class="{{hasResults ? '' : 'no-results'}} {{isActive ? 'is-active'}}">
+
+    {% if rows[1].separator -%}
+      {{ rows[1].separator }}
+    {%- endif %}
+
+    {% if hasResults %}
+      <a href="{{ rows[counter].url }}">{{ letter|upper }}</a>
+      {% set counter = counter+1 %}
+    {% else %}
+      {{ letter|upper }}
+    {% endif %}
+
+    {% if options.count %}
+      ({{ rows[counter].count }})
+    {% endif %}
+
+    {{ options.inline ? '</span>' : '</div>' }}
+
+  {% endfor %}
+</div>

@@ -1,0 +1,11 @@
+{
+  "dependencies": {
+    "grunt-cli": "^1.4.3"
+  },
+  "devDependencies": {
+    "grunt": "^1.5.3",
+    "grunt-contrib-watch": "^1.1.0",
+    "grunt-dart-sass": "^2.0.1",
+    "sass": "^1.53.0"
+  }
+}

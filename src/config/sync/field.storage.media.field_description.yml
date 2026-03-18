@@ -1,0 +1,23 @@
+uuid: f28aa3a6-4ad5-4647-bb80-47154dda618f
+langcode: en
+status: true
+dependencies:
+  module:
+    - field_permissions
+    - media
+    - text
+third_party_settings:
+  field_permissions:
+    permission_type: public
+id: media.field_description
+field_name: field_description
+entity_type: media
+type: text_long
+settings: {  }
+module: text
+locked: false
+cardinality: 1
+translatable: true
+indexes: {  }
+persist_with_no_fields: false
+custom_storage: false

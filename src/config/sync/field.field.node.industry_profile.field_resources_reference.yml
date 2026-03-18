@@ -1,0 +1,29 @@
+uuid: b6f32b8d-dea3-44b3-b5cc-d4c4e89747d8
+langcode: en
+status: true
+dependencies:
+  config:
+    - field.storage.node.field_resources_reference
+    - node.type.industry_profile
+    - node.type.resource
+id: node.industry_profile.field_resources_reference
+field_name: field_resources_reference
+entity_type: node
+bundle: industry_profile
+label: Resources
+description: ''
+required: false
+translatable: false
+default_value: {  }
+default_value_callback: ''
+settings:
+  handler: 'default:node'
+  handler_settings:
+    target_bundles:
+      resource: resource
+    sort:
+      field: title
+      direction: ASC
+    auto_create: false
+    auto_create_bundle: ''
+field_type: entity_reference

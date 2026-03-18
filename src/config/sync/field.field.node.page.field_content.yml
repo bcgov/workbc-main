@@ -1,0 +1,126 @@
+uuid: 7d77be74-7139-4cce-a8b3-986bb8eaf699
+langcode: en
+status: true
+dependencies:
+  config:
+    - field.storage.node.field_content
+    - node.type.page
+    - paragraphs.paragraphs_type.action_card_feature
+    - paragraphs.paragraphs_type.action_cards_1_2
+    - paragraphs.paragraphs_type.action_cards_1_3
+    - paragraphs.paragraphs_type.action_cards_1_4
+    - paragraphs.paragraphs_type.action_cards_explore_careers
+    - paragraphs.paragraphs_type.action_cards_full_width
+    - paragraphs.paragraphs_type.action_cards_icon
+    - paragraphs.paragraphs_type.action_cards_icon_1_2
+    - paragraphs.paragraphs_type.action_cards_publication
+    - paragraphs.paragraphs_type.banner_video
+    - paragraphs.paragraphs_type.content_interactive_map
+    - paragraphs.paragraphs_type.content_text
+    - paragraphs.paragraphs_type.content_view
+    - paragraphs.paragraphs_type.section_icons_1_3
+    - paragraphs.paragraphs_type.section_accordion
+  module:
+    - entity_reference_revisions
+id: node.page.field_content
+field_name: field_content
+entity_type: node
+bundle: page
+label: Content
+description: ''
+required: false
+translatable: false
+default_value: {  }
+default_value_callback: ''
+settings:
+  handler: 'default:paragraph'
+  handler_settings:
+    target_bundles:
+      action_card_feature: action_card_feature
+      action_cards_1_2: action_cards_1_2
+      action_cards_1_3: action_cards_1_3
+      action_cards_1_4: action_cards_1_4
+      action_cards_full_width: action_cards_full_width
+      action_cards_explore_careers: action_cards_explore_careers
+      content_text: content_text
+      content_view: content_view
+      action_cards_icon: action_cards_icon
+      action_cards_icon_1_2: action_cards_icon_1_2
+      action_cards_publication: action_cards_publication
+      content_interactive_map: content_interactive_map
+      banner_video: banner_video
+      section_icons_1_3: section_icons_1_3
+      section_accordion: section_accordion
+    negate: 0
+    target_bundles_drag_drop:
+      action_card:
+        weight: -35
+        enabled: false
+      action_card_feature:
+        weight: -34
+        enabled: true
+      action_card_full_width:
+        weight: -28
+        enabled: false
+      action_card_icon:
+        weight: -27
+        enabled: false
+      action_cards_1_2:
+        weight: -33
+        enabled: true
+      action_cards_1_3:
+        weight: -32
+        enabled: true
+      action_cards_1_4:
+        weight: -31
+        enabled: true
+      action_cards_explore_careers:
+        weight: -25
+        enabled: true
+      action_cards_full_width:
+        weight: -30
+        enabled: true
+      action_cards_icon:
+        weight: -21
+        enabled: true
+      action_cards_icon_1_2:
+        weight: -20
+        enabled: true
+      action_cards_publication:
+        weight: -19
+        enabled: true
+      additional_duties:
+        weight: -29
+        enabled: false
+      banner_video:
+        weight: 36
+        enabled: true
+      content_accordion_entry:
+        weight: 36
+        enabled: false
+      content_interactive_map:
+        weight: 30
+        enabled: true
+      content_text:
+        weight: -24
+        enabled: true
+      content_view:
+        weight: -22
+        enabled: true
+      lmo_charts_tables:
+        weight: 40
+        enabled: false
+      quote_card:
+        weight: -26
+        enabled: false
+      section_accordion:
+        weight: 42
+        enabled: true
+      section_icons_1_3: null
+      section_read_more:
+        weight: 43
+        enabled: false
+      skills:
+        weight: -23
+        enabled: false
+field_type: entity_reference_revisions

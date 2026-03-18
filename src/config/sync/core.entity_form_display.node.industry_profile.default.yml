@@ -1,0 +1,228 @@
+uuid: 1f4ecb4b-7544-4a4c-aed0-58e6dfc64fbd
+langcode: en
+status: true
+dependencies:
+  config:
+    - field.field.node.industry_profile.field_content
+    - field.field.node.industry_profile.field_content_group
+    - field.field.node.industry_profile.field_hero_image
+    - field.field.node.industry_profile.field_hero_image_media
+    - field.field.node.industry_profile.field_hourly_earnings_note
+    - field.field.node.industry_profile.field_industry_overview
+    - field.field.node.industry_profile.field_introductions
+    - field.field.node.industry_profile.field_job_board_id
+    - field.field.node.industry_profile.field_job_board_save_profile_id
+    - field.field.node.industry_profile.field_key_facts
+    - field.field.node.industry_profile.field_metatag_description
+    - field.field.node.industry_profile.field_resources
+    - field.field.node.industry_profile.field_resources_reference
+    - field.field.node.industry_profile.field_scheduled_publish
+    - field.field.node.industry_profile.field_tags
+    - node.type.industry_profile
+    - workflows.workflow.editorial
+  module:
+    - content_moderation
+    - media_library
+    - media_library_edit
+    - paragraphs
+    - path
+    - scheduled_publish
+    - text
+    - workbc_custom
+id: node.industry_profile.default
+targetEntityType: node
+bundle: industry_profile
+mode: default
+content:
+  created:
+    type: datetime_timestamp
+    weight: 3
+    region: content
+    settings: {  }
+    third_party_settings: {  }
+  field_content:
+    type: paragraphs
+    weight: 13
+    region: content
+    settings:
+      title: Section
+      title_plural: Sections
+      edit_mode: closed
+      closed_mode: summary
+      autocollapse: none
+      closed_mode_threshold: 0
+      add_mode: select
+      form_display_mode: default
+      default_paragraph_type: _none
+      features:
+        add_above: '0'
+        collapse_edit_all: collapse_edit_all
+        duplicate: duplicate
+    third_party_settings: {  }
+  field_content_group:
+    type: options_select
+    weight: 17
+    region: content
+    settings: {  }
+    third_party_settings: {  }
+  field_hero_image_media:
+    type: media_library_widget
+    weight: 11
+    region: content
+    settings:
+      media_types: {  }
+      form_mode: crop_3_2
+    third_party_settings:
+      media_library_edit:
+        show_edit: '1'
+  field_hourly_earnings_note:
+    type: string_textfield
+    weight: 15
+    region: content
+    settings:
+      size: 60
+      placeholder: ''
+    third_party_settings: {  }
+  field_industry_overview:
+    type: text_textarea
+    weight: 12
+    region: content
+    settings:
+      rows: 5
+      placeholder: ''
+    third_party_settings: {  }
+  field_introductions:
+    type: entity_reference_autocomplete
+    weight: 19
+    region: content
+    settings:
+      match_operator: CONTAINS
+      match_limit: 10
+      size: 60
+      placeholder: ''
+    third_party_settings: {  }
+  field_job_board_id:
+    type: string_textfield
+    weight: 20
+    region: content
+    settings:
+      size: 60
+      placeholder: ''
+    third_party_settings: {  }
+  field_job_board_save_profile_id:
+    type: string_textfield
+    weight: 21
+    region: content
+    settings:
+      size: 60
+      placeholder: ''
+    third_party_settings: {  }
+  field_key_facts:
+    type: text_textarea
+    weight: 14
+    region: content
+    settings:
+      rows: 5
+      placeholder: ''
+    third_party_settings: {  }
+  field_metatag_description:
+    type: string_textfield
+    weight: 23
+    region: content
+    settings:
+      size: 60
+      placeholder: ''
+    third_party_settings: {  }
+  field_resources_reference:
+    type: entity_reference_autocomplete
+    weight: 16
+    region: content
+    settings:
+      match_operator: CONTAINS
+      match_limit: 10
+      size: 60
+      placeholder: ''
+    third_party_settings: {  }
+  field_scheduled_publish:
+    type: scheduled_publish
+    weight: 18
+    region: content
+    settings: {  }
+    third_party_settings: {  }
+  field_tags:
+    type: entity_reference_autocomplete_tags
+    weight: 22
+    region: content
+    settings:
+      match_operator: CONTAINS
+      match_limit: 10
+      size: 60
+      placeholder: ''
+    third_party_settings: {  }
+  langcode:
+    type: language_select
+    weight: 1
+    region: content
+    settings:
+      include_locked: true
+    third_party_settings: {  }
+  moderation_state:
+    type: moderation_state_default
+    weight: 9
+    region: content
+    settings: {  }
+    third_party_settings: {  }
+  path:
+    type: path
+    weight: 7
+    region: content
+    settings: {  }
+    third_party_settings: {  }
+  promote:
+    type: boolean_checkbox
+    weight: 5
+    region: content
+    settings:
+      display_label: true
+    third_party_settings: {  }
+  simple_sitemap:
+    weight: 4
+    region: content
+    settings: {  }
+    third_party_settings: {  }
+  status:
+    type: boolean_checkbox
+    weight: 10
+    region: content
+    settings:
+      display_label: true
+    third_party_settings: {  }
+  sticky:
+    type: boolean_checkbox
+    weight: 6
+    region: content
+    settings:
+      display_label: true
+    third_party_settings: {  }
+  title:
+    type: string_textfield
+    weight: 0
+    region: content
+    settings:
+      size: 60
+      placeholder: ''
+    third_party_settings: {  }
+  uid:
+    type: workbc_select_resort
+    weight: 2
+    region: content
+    settings: {  }
+    third_party_settings: {  }
+  url_redirects:
+    weight: 8
+    region: content
+    settings: {  }
+    third_party_settings: {  }
+hidden:
+  field_hero_image: true
+  field_resources: true

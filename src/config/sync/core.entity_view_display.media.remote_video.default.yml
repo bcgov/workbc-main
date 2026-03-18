@@ -1,0 +1,87 @@
+uuid: e5fb191e-8845-421c-b4a8-c6fd1cdf6cf1
+langcode: en
+status: true
+dependencies:
+  config:
+    - field.field.media.remote_video.field_career_trek
+    - field.field.media.remote_video.field_category
+    - field.field.media.remote_video.field_description
+    - field.field.media.remote_video.field_duration
+    - field.field.media.remote_video.field_exclude_from_video_page
+    - field.field.media.remote_video.field_media_oembed_video
+    - field.field.media.remote_video.field_recently_added
+    - field.field.media.remote_video.field_weight
+    - media.type.remote_video
+  module:
+    - link
+    - media
+_core:
+  default_config_hash: zQoBQ0BtnMM_rlDdgftyu6eI4AVs9mo5K8xq7NFO2Zc
+id: media.remote_video.default
+targetEntityType: media
+bundle: remote_video
+mode: default
+content:
+  field_career_trek:
+    type: link
+    label: above
+    settings:
+      trim_length: 80
+      url_only: false
+      url_plain: false
+      rel: ''
+      target: ''
+    third_party_settings: {  }
+    weight: 1
+    region: content
+  field_exclude_from_video_page:
+    type: boolean
+    label: above
+    settings:
+      format: default
+      format_custom_false: ''
+      format_custom_true: ''
+    third_party_settings: {  }
+    weight: 4
+    region: content
+  field_media_oembed_video:
+    type: oembed
+    label: hidden
+    settings:
+      max_width: 1200
+      max_height: 675
+      loading:
+        attribute: eager
+    third_party_settings: {  }
+    weight: 0
+    region: content
+  field_recently_added:
+    type: boolean
+    label: above
+    settings:
+      format: default
+      format_custom_false: ''
+      format_custom_true: ''
+    third_party_settings: {  }
+    weight: 2
+    region: content
+  field_weight:
+    type: number_integer
+    label: above
+    settings:
+      thousand_separator: ''
+      prefix_suffix: true
+    third_party_settings: {  }
+    weight: 3
+    region: content
+hidden:
+  created: true
+  field_category: true
+  field_description: true
+  field_duration: true
+  field_title: true
+  langcode: true
+  name: true
+  search_api_excerpt: true
+  thumbnail: true
+  uid: true

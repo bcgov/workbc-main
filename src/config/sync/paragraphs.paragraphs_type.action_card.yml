@@ -1,0 +1,10 @@
+uuid: c5002c27-c6e6-4467-ad42-278e86b126ab
+langcode: en
+status: true
+dependencies: {  }
+id: action_card
+label: Card
+icon_uuid: null
+icon_default: null
+description: 'Card with image, title, description and link to another page.'
+behavior_plugins: {  }

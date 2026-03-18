@@ -1,0 +1,18 @@
+.region-sidebar-first,
+.region-sidebar-second,
+.region-footer,
+.region-content {
+  padding: $region-padding;
+}
+
+.node-preview-container {
+  background-color: $white;
+  .node-preview-backlink {
+    @extend .btn;
+    @extend .btn-outline-primary;
+  }
+
+  .form-type-select {
+    margin: 0;
+  }
+}

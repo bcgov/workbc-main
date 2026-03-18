@@ -1,0 +1,27 @@
+diff --git forkSrcPrefix/manage_state.info.yml forkDstPrefix/manage_state.info.yml
+index 75147511688f1856d8bb9629d19c4619c8f0dff2..461a1dbbdc877127d65742aa7a86957714ee58ad 100644
+--- forkSrcPrefix/manage_state.info.yml
++++ forkDstPrefix/manage_state.info.yml
+@@ -2,7 +2,7 @@ type: module
+ name: Manage State
+ description: 'Manage data stored in State API system.'
+ package: Development
+-core_version_requirement: ^8.8 || ^9 || ^10
++core_version_requirement: ^8.8 || ^9 || ^10 || ^11
+ configure: manage_state.state_overview
+ tags:
+   - developer
+diff --git forkSrcPrefix/composer.json forkDstPrefix/composer.json
+index 17f68c633a666d73be6c5a98837d1fcd4e815563..dcd7f0d7aeaa2db1a60521f649173b3703fac025 100644
+--- forkSrcPrefix/composer.json
++++ forkDstPrefix/composer.json
+@@ -17,7 +17,7 @@
+     },
+     "minimum-stability": "dev",
+     "require": {
+-        "drupal/core": "^8.8 || ^9 || ^10",
+-        "symfony/var-dumper": "^4 || ^5 || ^6"
++        "symfony/var-dumper": "^4 || ^5 || ^6 || ^7",
++        "drupal/core": "^8.8 || ^9 || ^10 || ^11"
+     }
+ }

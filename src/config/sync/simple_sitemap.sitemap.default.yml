@@ -1,0 +1,13 @@
+uuid: 34615994-4051-4df7-be06-f942a5e7a0b7
+langcode: en
+status: true
+dependencies:
+  config:
+    - simple_sitemap.type.default_hreflang
+_core:
+  default_config_hash: zHW-ZT11Lkf2zSRgisGKjgU7TzrNcT8_MwFeuVtl8O8
+id: default
+label: WorkBC
+description: 'The default hreflang sitemap - lists URLs to be indexed by modern search engines.'
+type: default_hreflang
+weight: 0

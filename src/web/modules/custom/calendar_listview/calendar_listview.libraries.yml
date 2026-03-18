@@ -1,0 +1,8 @@
+calendar-listview-lib:
+    css:
+       theme:
+        css/main.css: {}
+        css/responsive.css: {}
+            
+    js:
+        js/cv-custom.js: {}

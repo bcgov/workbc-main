@@ -1,0 +1,10 @@
+uuid: f156975f-06bb-4991-a1b6-f14c2a17f892
+langcode: en
+status: true
+dependencies: {  }
+id: content_accordion_entry
+label: 'Content: Accordion Entry'
+icon_uuid: null
+icon_default: null
+description: 'A single accordion entry.'
+behavior_plugins: {  }

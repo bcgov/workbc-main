@@ -1,0 +1,16 @@
+uuid: 475ba02b-3245-4c6a-86e5-001a2f6792d1
+langcode: en
+status: true
+dependencies:
+  module:
+    - backup_migrate_aws_s3
+id: s3_bucket
+label: 'S3 Bucket'
+type: awss3
+config:
+  s3_endpoint: ''
+  s3_access_key_name: ''
+  s3_secret_key_name: ''
+  s3_bucket: workbc-backup-restore-bucket
+  s3_folder_prefix: ''
+  s3_region: ca-central-1

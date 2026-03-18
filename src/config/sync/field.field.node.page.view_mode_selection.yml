@@ -1,0 +1,21 @@
+uuid: e1ae4887-90b9-4808-8587-d896465754ee
+langcode: en
+status: true
+dependencies:
+  config:
+    - field.storage.node.view_mode_selection
+    - node.type.page
+id: node.page.view_mode_selection
+field_name: view_mode_selection
+entity_type: node
+bundle: page
+label: 'View Mode'
+description: ''
+required: false
+translatable: true
+default_value: {  }
+default_value_callback: ''
+settings:
+  handler: field_view_mode
+  handler_settings: {  }
+field_type: entity_reference

@@ -1,0 +1,24 @@
+uuid: bef79a21-0d35-4ea7-984c-bfdec061175d
+langcode: en
+status: true
+dependencies:
+  module:
+    - field_permissions
+    - media
+    - node
+third_party_settings:
+  field_permissions:
+    permission_type: public
+id: node.field_hero_image_media
+field_name: field_hero_image_media
+entity_type: node
+type: entity_reference
+settings:
+  target_type: media
+module: core
+locked: false
+cardinality: 1
+translatable: true
+indexes: {  }
+persist_with_no_fields: false
+custom_storage: false

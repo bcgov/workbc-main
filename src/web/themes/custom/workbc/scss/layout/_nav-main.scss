@@ -1,0 +1,320 @@
+// This mixin houses all the basic trim size setup, visibility and general layout
+@mixin nav-theme-base {
+  ul.nav-t1 {
+    @include list-reset;
+
+    position: relative; // create positioning context %nav-t1
+    height: 100%;
+    width: 100%;
+    display: flex;
+    flex-wrap: nowrap;
+    justify-content: space-between;
+    align-items: stretch;
+    gap: 0;
+    padding: 0;
+    margin: 0;
+
+    & a {
+      padding: 5px 20px 5px 10px;
+
+      &:hover {
+        text-decoration: none;
+      }
+    }
+
+    & > li {
+      padding: $workbc_trim_standard_size 10px 0 10px; // top padding set to balance border-bottom and keep content centered
+      border-bottom: $workbc_trim_standard_size solid $workbc_palette_transparent; // placeholder for hover styling to avoid content jumping
+      min-width: 80px;
+      height: 80px;
+      flex: 2 1 auto;
+      display: flex;
+      flex-direction: column;
+      justify-content: space-around;
+      align-items: stretch;
+
+      & > a {
+        font-size: 1rem;
+        padding: 0;
+      }
+
+      &:hover {
+        .submenu-container {
+          display: block;
+        }
+      }
+
+      .submenu-container {
+        display: none;
+        position: absolute; // relative to positioning context %nav-t1
+        top: 100%;
+        right: 0;
+        left: 0;
+        z-index: 1000;
+
+        ul.nav-t1 > li:hover & {
+          display: block;
+        }
+
+        .submenu {
+          width: 100%;
+          min-height: 420px;
+          padding: 15px 0;
+
+          ul.nav-t2 {
+            @include list-reset;
+
+            position: relative; // create positioning context %nav-t2
+            height: 100%;
+            width: 50%;
+
+            & > li {
+              border-left: $workbc_trim_standard_size solid
+                $workbc_palette_transparent; //placeholder to prevent content shifting when colored borders are in place (hover, etc.)
+
+              & > a {
+                &.has-submenu {
+                  position: relative; // create positioning context %has-submenu
+
+                  &:after {
+                    position: absolute; // relative to positioning context %has-submenu
+                    top: 0;
+                    right: 0;
+                    bottom: 0;
+                    content: "\e5cc";
+                    font-family: "Material Symbols Outlined";
+                    font-weight: normal;
+                    font-style: normal;
+                    font-size: 24px; /* Preferred icon size */
+                    color: $workbc_palette_light_tertiary;
+                  }
+                }
+              }
+
+              &:hover > a {
+                text-decoration: underline;
+
+                &:after {
+                  color: $workbc_default_link;
+                }
+              }
+
+              ul.nav-t3 {
+                @include list-reset;
+
+                display: none;
+                position: absolute; // relative to positioning context %nav-t2
+                left: 100%;
+                top: 0;
+                height: 100%;
+                width: 100%;
+                padding: 0 15px;
+              }
+
+              &:hover .nav-t3 {
+                display: block;
+              }
+
+              li:hover > a {
+                text-decoration: underline;
+              }
+            }
+          }
+        }
+      }
+    }
+  }
+}
+
+// Nav colors and styling
+.nav-main {
+  @include nav-theme-base;
+  background-color: $workbc_dark_theme_background;
+
+  ul.nav-t1 {
+    & > li {
+      & > a,
+      a:focus {
+        color: $workbc_dark_theme_text;
+      }
+
+      &:hover {
+        border-color: $workbc_light_theme_trim;
+        background-color: $workbc_light_theme_background_default;
+
+        & > a,
+        a:focus {
+          color: $workbc_light_theme_text;
+        }
+      }
+
+      &.active {
+        border-color: $workbc_light_theme_trim;
+        background-color: $workbc_light_theme_background_default;
+
+        & > a,
+        a:focus {
+          color: $workbc_light_theme_text;
+        }
+      }
+
+      .submenu-container {
+        .submenu {
+          background: $workbc_light_theme_background_default;
+          border-bottom: $workbc_trim_thin_size solid
+            $workbc_light_theme_trim_alternate;
+
+          ul.nav-t2 {
+            border-right: 3px solid $workbc_light_theme_background_accent;
+
+            & > li {
+              & > a,
+              a:focus {
+                color: $workbc_light_theme_text;
+              }
+
+              &:hover {
+                border-left: $workbc_trim_standard_size solid $workbc_dark_theme_background;
+                background-color: $workbc_light_theme_background_accent;
+
+                & > a,
+                a:focus {
+                  color: $workbc_default_link;
+                }
+              }
+            }
+
+            // hacky style for when a t1 menu is open, but the t2 menu is not hovered
+            // makes it behave as though the first t2 item is hovered
+            // (styling and t3 visibility)
+            &:not(:hover) {
+              & > li:first-child {
+                border-left: $workbc_trim_standard_size solid $workbc_dark_theme_background;
+                background-color: $workbc_light_theme_background_accent;
+
+                .nav-t3 {
+                  display: block;
+                }
+              }
+            }
+          }
+        }
+      }
+    }
+  }
+}
+
+.nav-main {
+  display: none;
+
+  // only display the desktop menu if the device
+  // screen width larger than "xl" and the device
+  // recognizes the hover state
+  @include media-breakpoint-up(xl) {
+    @media (hover: hover) and (pointer: fine) {
+      display: block;
+      position: relative;
+      transition: all 0.3s ease-out;
+      z-index: 3;
+      height: 80px;
+      padding: 0;
+      margin: 0;
+      box-shadow: $workbc_default_bottom_shadow;
+    }
+  }
+
+  .container {
+    position: relative;
+    z-index: -1;
+    height: 100%;
+  }
+}
+
+.submenu-underlay {
+  position: absolute;
+  top: 0;
+  right: 0;
+  bottom: 0;
+  left: 0;
+  z-index: 2;
+  background-color: rgba(20, 20, 20, 0.15);
+  display: none;
+}
+
+// Fixed Nav
+.nav-fixed {
+    padding-top: 180px;
+
+  @include media-breakpoint-up(xl) {
+    padding-top: 36px;
+  }
+}
+
+.nav-fixed .nav-main {
+  @include media-breakpoint-up(xl) {
+    position: fixed;
+    z-index: 10;
+    width: 100%;
+    top: 0;
+    left: 0;
+    transition: all 0.3s ease-out;
+    background-color: #fff;
+  }
+}
+
+.nav-fixed.page-has-alert {
+  @include media-breakpoint-up(xl) {
+    padding-top: 81px;
+  }
+}
+
+// Drupal Admin Menu Offset
+.nav-fixed.toolbar-fixed .nav-main {
+  @include media-breakpoint-up(xl) {
+    top: 38px;
+  }
+}
+
+.nav-fixed.toolbar-tray-open .nav-main {
+  @include media-breakpoint-up(xl) {
+    top: 79px;
+  }
+}
+
+.nav-fixed.toolbar-fixed {
+  @include media-breakpoint-up(xl) {
+    padding-top: 79px;
+  }
+}
+
+// logo in the nav
+.nav-fixed .nav-main .nav-t1 > .nav-item:first-child {
+  padding: 0;
+  border-bottom: none;
+  min-width: 170px;
+  height: auto;
+}
+
+.nav-fixed .nav-main .nav-t1 > .nav-item:first-child a {
+  @include media-breakpoint-up(xl) {
+    display: block;
+    height: 32px;
+    background-image: url(../logo.svg);
+    background-repeat: no-repeat;
+    background-size: 170px auto;
+    font-size: 0;
+    color: transparent;
+  }
+}
+
+.nav-fixed .nav-main ul.nav-t1 > li > a {
+  @include media-breakpoint-up(xl) {
+    color: #234075;
+  }
+}
+
+.nav-fixed .nav-main .submenu-container .submenu {
+  @include media-breakpoint-up(xl) {
+    box-shadow: 0px 8px 5px -5px rgba(0, 0, 0, 0.1) inset;
+  }
+}

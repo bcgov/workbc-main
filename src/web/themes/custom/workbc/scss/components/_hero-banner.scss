@@ -1,0 +1,140 @@
+.hero-banner {
+  position: relative; // create positional context %herobanner
+  z-index: 0;
+  border-bottom: $workbc_trim_ultra_thin_size solid
+    $workbc_palette_dark_secondary;
+  background-color: $workbc_light_theme_background_accent;
+
+  @include media-breakpoint-up(lg) {
+    min-height: $workbc_hero_container_height;
+  }
+}
+
+.hero-image-wrapper {
+  height: auto;
+  overflow: hidden;
+
+  @include media-breakpoint-up(lg) {
+    position: absolute;
+    top: 0;
+    bottom: 0;
+    right: 0;
+    z-index: 0;
+    height: $workbc_hero_image_height;
+    width: $workbc_hero_image_width;
+    overflow: auto;
+
+    &:before {
+      content: "";
+      display: block;
+      position: absolute;
+      top: 0;
+      right: 0;
+      bottom: 0;
+      left: 0;
+      z-index: 2;
+      background: linear-gradient(
+        90deg,
+        rgba($workbc_light_theme_background_accent, 1) 10%,
+        rgba($workbc_light_theme_background_accent, 0) 50%
+      );
+    }
+  }
+}
+
+.hero-image-wrapper img {
+  display: block;
+  width: 100%;
+
+  @include media-breakpoint-up(lg) {
+    z-index: 1;
+    height: 100%;
+    object-fit: contain;
+    object-position: right top;
+  }
+}
+
+.hero-content-container {
+  position: relative;
+  padding-top: 30px;
+  padding-bottom: 30px;
+
+  @include media-breakpoint-up(lg) {
+    padding-top: 80px;
+  }
+}
+
+.hero-content-wrapper {
+  @include media-breakpoint-up(lg) {
+    width: 50%;
+    max-width: 640px;
+  }
+}
+
+.hero-title {
+  font-size: 2.25rem;
+
+  @include media-breakpoint-up(lg) {
+    margin-bottom: 10px;
+    font-size: 2.813rem;
+  }
+}
+
+.hero-title-card .basic-page-header {
+  margin-bottom: 0;
+}
+
+.hero-noc {
+  padding-top: 7px;
+  font-size: 21px;
+  flex: 0 0;
+  color: #6e6e6e;
+}
+
+.hero-subtitle {
+  flex: 0 0;
+  color: #6e6e6e;
+  margin-bottom: $workbc_spacing_default;
+  font-size: 1.313rem;
+}
+
+.hero-hoo {
+  text-align: left;
+  padding-top: 30px;
+  color: $workbc_palette_dark_secondary;
+
+  img, svg {
+    vertical-align: baseline;
+  }
+
+  @include media-breakpoint-up(lg) {
+    padding-top: 5px;
+    text-align: right;
+  }
+}
+
+// Profile Hero Variations
+.profile-header-banner.hero-banner {
+  border-bottom: none;
+}
+
+.profile-header-banner .hero-content-container {
+  padding: 30px 20px 12px 20px;
+  border-bottom: $workbc_trim_ultra_thin_size solid
+    $workbc_palette_dark_secondary;
+  @include media-breakpoint-up(lg) {
+    padding-top: 70px;
+    border-bottom: none;
+  }
+}
+
+.profile-header-banner .hero-content-wrapper {
+  @include media-breakpoint-up(lg) {
+    width: 500px;
+    padding: 30px 20px 10px 20px;
+    background: $workbc_palette_light_primary;
+    border-bottom: $workbc_trim_standard_size solid
+      $workbc_palette_dark_secondary;
+    box-shadow: $workbc_default_box_shadow;
+  }
+}

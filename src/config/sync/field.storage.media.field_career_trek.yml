@@ -1,0 +1,23 @@
+uuid: 393d90f0-b0aa-47dd-b487-9771546141da
+langcode: en
+status: true
+dependencies:
+  module:
+    - field_permissions
+    - link
+    - media
+third_party_settings:
+  field_permissions:
+    permission_type: public
+id: media.field_career_trek
+field_name: field_career_trek
+entity_type: media
+type: link
+settings: {  }
+module: link
+locked: false
+cardinality: 1
+translatable: true
+indexes: {  }
+persist_with_no_fields: false
+custom_storage: false

@@ -1,0 +1,55 @@
+<?php
+
+/**
+ * @file
+ * SES Mailer module installer.
+ */
+
+use Drupal\Core\Utility\Error;
+
+/**
+ * Implements hook_requirements().
+ */
+function ses_mailer_requirements($phase) {
+  if ($phase === 'runtime') {
+    $requirements = [
+      'ses_mailer_aws_lib' => [
+        'title' => 'SES Mailer: AWS Library',
+      ],
+      'ses_mailer_connection' => [
+        'title' => 'SES Mailer: Identities',
+      ],
+    ];
+
+    // Check if the AWS library is available.
+    if (!class_exists('\Aws\Ses\SesClient')) {
+      $requirements['ses_mailer_aws_lib']['value'] = 'Not found';
+      $requirements['ses_mailer_aws_lib']['severity'] = REQUIREMENT_ERROR;
+    }
+    else {
+      $requirements['ses_mailer_aws_lib']['value'] = 'Available';
+    }
+
+    // Check if we can connect to AWS and get validated identities.
+    try {
+      /* @var \Aws\Ses\SesClient $client */
+      $client = \Drupal::service('ses_mailer.ses_client');
+      $identities = $client->listIdentities();
+      if (!empty($identities['Identities'])) {
+        $requirements['ses_mailer_connection']['value'] = 'Connected to AWS';
+        $requirements['ses_mailer_connection']['description'] = 'Validated identities: ' . implode(', ', $identities['Identities']);
+      }
+      else {
+        $requirements['ses_mailer_connection']['value'] = 'No validated identities found';
+        $requirements['ses_mailer_connection']['severity'] = REQUIREMENT_WARNING;
+      }
+    }
+    catch (\Exception $e) {
+      \Drupal::logger('ses_mailer')->error('%type: @message in %function (line %line of %file).', Error::decodeException($e));
+      $requirements['ses_mailer_connection']['value'] = 'Could not connect to AWS';
+      $requirements['ses_mailer_connection']['severity'] = REQUIREMENT_ERROR;
+    }
+
+    return $requirements;
+  }
+}

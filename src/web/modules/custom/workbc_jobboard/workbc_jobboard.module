@@ -1,0 +1,145 @@
+<?php
+
+use Drupal\workbc_jobboard\Controller\WorkBcJobboardController;
+
+/**
+ * Implements hook_page_attachments_alter().
+ */
+function workbc_jobboard_page_attachments_alter(array &$attachments) {
+	$attachments['#attached']['library'][] = 'workbc_jobboard/workbc-jobboard';
+}
+
+/**
+ * Implements hook_theme().
+ */
+function workbc_jobboard_theme($existing, $type, $theme, $path) {
+  return [
+    'recent_jobs' => [
+      'template' => 'recent-jobs-block',
+      'variables' => [
+        'data' => [],
+        'sub_title' => '',
+        'no_of_records_to_show' => '',
+        'total_result' => '',
+        'no_result_text' => '',
+        'readmore_label' => '',
+        'jobboard_api_url_frontend' => '',
+        'jobboard_api_url_backend' => '',
+        'noc' => '',
+        'find_job_url'=>'',
+      ],
+    ],
+    'recent_jobs_horizontal_view' => [
+      'template' => 'recent-jobs-horizontal-block',
+      'variables' => [
+        'data' => [],
+        'sub_title' => '',
+        'no_of_records_to_show' => '',
+        'no_of_records_to_show_horizontal_view' => '',
+        'total_result' => '',
+        'no_result_text' => '',
+        'readmore_label' => '',
+        'jobboard_api_url_frontend' => '',
+        'jobboard_api_url_backend' => '',
+        'noc' => '',
+        'find_job_url'=>'',
+      ],
+    ],
+    'search_recent_jobs' => [
+      'template' => 'search-recent-jobs-block',
+      'variables' => [
+        'data' => [],
+        'form' => '',
+        'totalJobs' => '',
+        'job_title' => '',
+        'job_description' => '',
+        'postjob_title' => '',
+        'postjob_description' => '',
+        'postjob_link_label' => '',
+        'postjob_link_url' => '',
+      ],
+    ],
+    'save_profile' => [
+      'template' => 'save-profile-block',
+      'variables' => [
+        'data' => [],
+        'form' => '',
+      ],
+    ],
+    'node__page_jobboard_findjobs' => [
+      'template' => 'node-page-jobboard-findjobs',
+      'base hook' => 'node',
+      'variables' => [
+        'jobboard_api_url_frontend'=>'',
+        'find_job_url'=>'',
+        'find_job_account_url'=>'',
+      ],
+    ],
+    'node__page_jobboard_account' => [
+      'template' => 'node-page-jobboard-account',
+      'base hook' => 'node',
+      'variables' => [
+        'jobboard_api_url_frontend'=>'',
+        'find_job_url'=>'',
+        'find_job_account_url'=>'',
+        'search_career_profile_link'=>'',
+        'labour_market_outlook'=>'',
+      ],
+    ],
+  ];
+}
+
+/**
+ * Implements hook_theme_suggestions_node_alter().
+ */
+function workbc_jobboard_theme_suggestions_node_alter(array &$suggestions, array $variables){
+	if(isset($variables['elements']['#view_mode']) && $variables['elements']['#view_mode'] === "jobboard"){
+    $node = $variables['elements']['#node'];
+    $nid = $node->id();
+    $current_path = \Drupal::service('path_alias.manager')->getAliasByPath('/node/'.$nid);
+    $find_job_url = \Drupal::config('jobboard')->get('find_job_url');
+    $find_job_account_url = \Drupal::config('jobboard')->get('find_job_account_url');
+
+    if($current_path == $find_job_url){
+      $suggestions[] = 'node__' . $node->bundle().'_'.$variables['elements']['#view_mode'].'_findjobs';
+    }
+    else if($current_path == $find_job_account_url){
+      $suggestions[] = 'node__' . $node->bundle().'_'.$variables['elements']['#view_mode'].'_account';
+    }
+  }
+}
+
+/**
+ * Implements hook_preprocess_node().
+ */
+function workbc_jobboard_preprocess_node(&$variables) {
+  if($variables['view_mode'] === "jobboard"){
+    $nid = $variables['node']->id();
+    $current_path = \Drupal::service('path_alias.manager')->getAliasByPath('/node/'.$nid);
+    $variables['jobboard_api_url_frontend'] = \Drupal::config('jobboard')->get('jobboard_api_url_frontend');
+    $variables['jobboard_api_url_backend'] = \Drupal::config('jobboard')->get('jobboard_api_url_backend');
+    $variables['find_job_url'] = \Drupal::config('jobboard')->get('find_job_url');
+    $variables['find_job_account_url'] = \Drupal::config('jobboard')->get('find_job_account_url');
+    $variables['google_maps_key'] = \Drupal::config('jobboard')->get('google_maps_key');
+    if($current_path == $variables['find_job_url']){
+      $variables['elements']['#theme'] = 'node__page_jobboard_findjobs';
+    }
+    else if($current_path == $variables['find_job_account_url']){
+      $variables['elements']['#theme'] = 'node__page_jobboard_account';
+    }
+  }
+}
+
+/**
+ * Implements hook_cron().
+ */
+function workbc_jobboard_cron() {
+  $WorkBcJobboardController = new WorkBcJobboardController();
+  $total_jobs = $WorkBcJobboardController->getPosts(['getTotalJobs'=>true], 'getTotalJobs', 'get');
+  if (isset($total_jobs['data'])) {
+    \Drupal::state()->set('jobboard_total_jobs', $total_jobs['data']);
+  }
+  else {
+    \Drupal::logger('workbc')->warning('Could not pull total jobs from Job Board API.');
+  }
+}

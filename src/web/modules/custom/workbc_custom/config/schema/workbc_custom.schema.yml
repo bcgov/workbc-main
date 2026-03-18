@@ -1,0 +1,8 @@
+# Schema for the configuration files of the Calendar module.
+
+workbc_custom.settings:
+  type: mapping
+  label: 'WorkBC settings'
+  mapping:
+      order_form:
+        type: text

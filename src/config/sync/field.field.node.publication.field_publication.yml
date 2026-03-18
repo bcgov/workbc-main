@@ -1,0 +1,27 @@
+uuid: 8e690187-4c4e-457d-b73d-e1dd4f347678
+langcode: en
+status: true
+dependencies:
+  config:
+    - field.storage.node.field_publication
+    - node.type.publication
+  module:
+    - file
+id: node.publication.field_publication
+field_name: field_publication
+entity_type: node
+bundle: publication
+label: '[DEPRECATED] Publication'
+description: "DO NOT USE! \r\n\r\nThis is a legacy field that has been replaced by the newer <b>Publication</b> field which pulls the content from the Media Library."
+required: false
+translatable: false
+default_value: {  }
+default_value_callback: ''
+settings:
+  handler: 'default:file'
+  handler_settings: {  }
+  file_directory: publications
+  file_extensions: pdf
+  max_filesize: ''
+  description_field: false
+field_type: file

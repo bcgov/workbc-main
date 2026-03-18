@@ -1,0 +1,21 @@
+uuid: 6fae5811-bb0f-49b0-a354-9a59a1917ed6
+langcode: en
+status: true
+dependencies:
+  config:
+    - field.storage.node.field_related_topics_blurb
+    - node.type.related_topics_card
+  module:
+    - text
+id: node.related_topics_card.field_related_topics_blurb
+field_name: field_related_topics_blurb
+entity_type: node
+bundle: related_topics_card
+label: 'Related Topics Blurb'
+description: ''
+required: true
+translatable: true
+default_value: {  }
+default_value_callback: ''
+settings: {  }
+field_type: text_long

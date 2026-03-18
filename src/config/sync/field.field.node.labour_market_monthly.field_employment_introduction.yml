@@ -1,0 +1,21 @@
+uuid: 8bd0b209-0909-4e7f-9581-06f719899adc
+langcode: en
+status: true
+dependencies:
+  config:
+    - field.storage.node.field_employment_introduction
+    - node.type.labour_market_monthly
+  module:
+    - text
+id: node.labour_market_monthly.field_employment_introduction
+field_name: field_employment_introduction
+entity_type: node
+bundle: labour_market_monthly
+label: 'Employment Introduction'
+description: ''
+required: false
+translatable: true
+default_value: {  }
+default_value_callback: ''
+settings: {  }
+field_type: text_long

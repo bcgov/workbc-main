@@ -1,0 +1,293 @@
+<?php
+
+use GuzzleHttp\Client;
+use GuzzleHttp\Exception\RequestException;
+use Drupal\views\ViewExecutable;
+
+define ("WORKBC_EXTRA_FIELDS_NOT_AVAILABLE", "Not available");
+define ("WORKBC_EXTRA_FIELDS_DATA_NOT_AVAILABLE", "Data not available");
+
+define ("WORKBC_BC_MAP_WITH_LABELS", "bc-map-labels.png");
+define ("WORKBC_BC_MAP", "bc-map.png");
+
+define ("REGION_BRITISH_COLUMBIA", "British Columbia");
+define ("REGION_CARIBOO", "Cariboo");
+define ("REGION_KOOTENAY", "Kootenay");
+define ("REGION_MAINLAND_SOUTHWEST", "Mainland/Southwest");
+define ("REGION_NORTH_COAST_NECHAKO", "North Coast and Nechako");
+define ("REGION_NORTHEAST", "Northeast");
+define ("REGION_THOMPSON_OKANAGAN", "Thompson-Okanagan");
+define ("REGION_VANCOUVER_ISLAND_COAST", "Vancouver Island/Coast");
+
+define ("REGION_BRITISH_COLUMBIA_ID", 0);
+define ("REGION_CARIBOO_ID", 1);
+define ("REGION_KOOTENAY_ID", 2);
+define ("REGION_MAINLAND_SOUTHWEST_ID", 3);
+define ("REGION_NORTH_COAST_NECHAKO_ID", 4);
+define ("REGION_NORTHEAST_ID", 5);
+define ("REGION_THOMPSON_OKANAGAN_ID", 6);
+define ("REGION_VANCOUVER_ISLAND_COAST_ID", 7);
+
+define ("WORK_BC_INTERACTIVE_MAP_1", 0);  // Career Profile Employment by Region
+define ("WORK_BC_INTERACTIVE_MAP_2", 1);  // Career Profile Job Openings by Region
+define ("WORK_BC_INTERACTIVE_MAP_3", 2);  // B.C. Region Employment by Region
+define ("WORK_BC_INTERACTIVE_MAP_4", 3);  // Labour Market Monthly Unemployment Rate
+define ("WORK_BC_INTERACTIVE_MAP_5", 4);  // Industry Profile Employment by Region
+
+define ('SSOT_PING_TIMEOUT', 5);
+
+/**
+ * Implements hook_node_view().
+ *
+ * We use hook_entity_view instead of hook_entity_load as we only need to load data from SSoT
+ * for the node that is being displayed, not for nodes that are being referenced.
+ */
+function workbc_extra_fields_node_view(array &$build, \Drupal\Core\Entity\EntityInterface $entity, \Drupal\Core\Entity\Display\EntityViewDisplayInterface $display, $view_mode) {
+
+  if ($view_mode === "full") {
+    if (!querySSoT('', SSOT_PING_TIMEOUT)) {
+      $entity->ssot_data = NULL;
+      return;
+    }
+
+    switch($entity->bundle()) {
+      case "labour_market_monthly":
+        $year = \Drupal::request()->query->get('year');
+        $month = \Drupal::request()->query->get('month');
+        $entity->ssot_data = ssotLabourMarketMonthly($year, $month);
+        break;
+      case "career_profile":
+        $entity->ssot_data = ssotCareerProfile($entity->get("field_noc")->getString());
+        break;
+      case "industry_profile":
+        $entity->ssot_data = ssotIndustryProfile($entity->getTitle());
+        break;
+      case "region_profile":
+        $entity->ssot_data = ssotRegionProfile($entity->getTitle());
+        break;
+      case "bc_profile":
+        $entity->ssot_data = ssotBCProfile($entity->getTitle());
+        break;
+      case "lmo_report_2024":
+        $year = $entity->field_report_year->value ?? '2024';
+        $entity->ssot_data = ssotLabourMarketYearly($year);
+        break;
+    }
+  }
+}
+
+/**
+ * Implements hook_page_attachments_alter().
+ */
+function workbc_extra_fields_page_attachments_alter(array &$attachments) {
+  $attachments['#attached']['library'][] = 'workbc_extra_fields/extra-fields';
+}
+
+/**
+ * Implements hook_chart_definition_alter().
+ *
+ * Alter an individual chart's raw library representation.
+ *
+ * This hook is called AFTER hook_chart_alter(), after Charts module has
+ * converted the renderable into the chart definition that will be used by the
+ * library. Note that the structure of $definition will differ based on the
+ * charting library used. Switching charting libraries may cause your code
+ * to break when using this hook.
+ *
+ * Even though this hook may be fragile, it may provide developers with access
+ * to library-specific functionality.
+ *
+ * @param array $definition
+ *   The chart definition to be modified. The raw values are passed directly to
+ *   the charting library.
+ * @param array $element
+ *   The chart renderable. This may be used for reference (or read to add
+ *   support for new properties), but any changes to this variable will not
+ *   have an effect on output.
+ * @param string $chart_id
+ *   The chart ID, derived from the $chart['#chart_id'] property. Note that not
+ *   all charts may have a $chart_id.
+ */
+function workbc_extra_fields_chart_definition_alter(array &$definition, array $element, $chart_id) {
+
+  $definition['options']['fontName'] = 'BCSans';
+  $definition['options']['fontSize'] = 15;
+
+  if ($definition['visualization'] === 'ColumnChart') {
+    $colors = ['#009CDE', '#002857', '#2E6AB0'];
+    foreach ($definition['data'] as $key => $value) {
+      if ($key === 0) {
+        $definition['data'][0][] = ['role' => 'style'];
+      }
+      else {
+        if ($chart_id === 'career-forecasted-job-openings') {
+          $definition['data'][$key][] = $colors[$key % 3];
+        }
+        else if (in_array($chart_id, [
+          'career-forecasted-employment-growth-rate',
+          'region-forecasted-employment-growth-rate'
+        ])) {
+          $definition['data'][$key][] = ($key % 2) ? '#002857' : '#2E6AB0';
+        }
+       else {
+         $definition['data'][$key][] = ($key % 2) ? '#2E6AB0' : '#002857';
+        }
+      }
+    }
+  }
+
+  if ($definition['visualization'] === 'BarChart' && in_array($chart_id, [
+    'bc-share-of-employment',
+    'bc-share-of-employment-avg'
+  ])) {
+    $definition['options']['hAxis']['gridlines']['count'] = 0;
+    $definition['options']['hAxis']['baselineColor'] = 'transparent';
+    $definition['options']['hAxis']['textPosition'] = 'none';
+    $definition['options']['chartArea']['height'] = $chart_id === 'bc-share-of-employment' ? 400 : 80;
+    $definition['options']['chartArea']['width'] = '50%';
+    if ($chart_id == 'bc-share-of-employment-avg') {
+      $definition['options']['vAxis']['textStyle']['bold'] = TRUE;
+    }
+    $definition['options']['fontSize'] = 16;
+  }
+
+  if ($definition['visualization'] === 'LineChart' && in_array($chart_id, [
+    'bc-unemployment-rate',
+    'region-unemployment-rate'
+  ])) {
+    $definition['options']['hAxis']['gridlines']['count'] = 0;
+    $definition['options']['vAxis']['gridlines']['multiple'] = 2;
+    $definition['options']['vAxis']['ticks'] = array(0,2,4,6,8,10,12,14,16,18,20,22,24,26,28,30);
+    $definition['options']['height'] = 350;
+    $definition['options']['fontSize'] = 15;
+  }
+
+  if ($definition['visualization'] === 'DonutChart') {
+    $definition['options']['fontSize'] = 16;
+  }
+
+  if ($definition['visualization'] === 'DonutChart' && in_array($chart_id, [
+    'industry-employment-by-sex',
+    'industry-bc-average'
+  ])) {
+    $definition['options']['width'] = 415;
+  }
+
+  if (in_array($chart_id, [
+    'career-composition-job-openings',
+    'region-composition-job-openings',
+    'bc-composition-job-openings',
+  ])) {
+    $definition['options']['tooltip']['text'] = 'percentage';
+  }
+
+  if ($chart_id === 'lmo_report_job_openings_industries_chart') {
+    $definition['options']['hAxis']['gridlines']['color'] = 'transparent';
+    $definition['options']['hAxis']['ticks'] = [
+      0,
+      ['v' => 40000, 'f' => '40,000'],
+      ['v' => 80000, 'f' => '80,000'],
+      ['v' => 120000, 'f' => '120,000'],
+      ['v' => 160000, 'f' => '160,000'],
+      ['v' => 200000, 'f' => '200,000'],
+    ];
+    $definition['options']['hAxis']['baselineColor'] = 'transparent';
+    $definition['options']['hAxis']['textPosition'] = 'out';
+    $definition['options']['hAxis']['viewWindow']['min'] = -5000;
+    $definition['options']['hAxis']['viewWindow']['max'] = 200000;
+    $definition['options']['fontSize'] = 14;
+  }
+
+  if ($chart_id === 'lmo_report_job_openings_broad_categories_chart') {
+    $definition['options']['hAxis']['gridlines']['color'] = 'transparent';
+    $definition['options']['hAxis']['ticks'] = [
+      0,
+      ['v' => 50000, 'f' => '50,000'],
+      ['v' => 100000, 'f' => '100,000'],
+      ['v' => 150000, 'f' => '150,000'],
+      ['v' => 200000, 'f' => '200,000'],
+      ['v' => 250000, 'f' => '250,000'],
+      ['v' => 300000, 'f' => '300,000'],
+    ];
+    $definition['options']['hAxis']['baselineColor'] = 'transparent';
+    $definition['options']['hAxis']['textPosition'] = 'out';
+    $definition['options']['hAxis']['viewWindow']['min'] = -5000;
+    $definition['options']['fontSize'] = 14;
+  }
+}
+
+/**
+ * Implements hook_views_pre_render().
+ *
+ * Populate view results with SSoT data here so API is called only once per row.
+ */
+function workbc_extra_fields_views_pre_render(ViewExecutable $view) {
+
+  if ($view->id() == "industry_profiles") {
+    foreach($view->result as $key => $result) {
+      $view->result[$key]->ssot_data = ssotIndustryProfile($result->node_field_data_title);
+    }
+  }
+}
+
+function workbcInteractiveMap($map_id) {
+
+  $module_handler = \Drupal::service('module_handler');
+  $module_path = $module_handler->getModule('workbc_extra_fields')->getPath();
+
+  $regions = [];
+  $labels = [];
+  $temp = ssotRegions();
+  foreach ($temp as $key => $value) {
+    if ($key <> "british_columbia") {
+      $regions[] = $key;
+      $labels[$key] = $value;
+    }
+
+  }
+  $map = '<div class="workbc-interactive-map-container">';
+  $map .= '<div class="workbc-interactive-map">';
+  $map .= '<img class="map-region" src="/' . $module_path . '/images/map-british_columbia.png">';
+
+  foreach ($regions as $region) {
+    $map .= '<img class="interactive-map-' . $region . ' map-region" src="/' . $module_path . '/images/map-' . $region . '.png">';
+  }
+
+  $hotspots = [0,
+               REGION_NORTHEAST_ID,REGION_NORTHEAST_ID,REGION_NORTHEAST_ID,REGION_NORTHEAST_ID,
+               REGION_NORTHEAST_ID,REGION_NORTHEAST_ID,REGION_NORTHEAST_ID,
+               REGION_CARIBOO_ID,REGION_CARIBOO_ID,REGION_CARIBOO_ID,
+               REGION_CARIBOO_ID,REGION_CARIBOO_ID,REGION_CARIBOO_ID,
+               REGION_THOMPSON_OKANAGAN_ID,REGION_THOMPSON_OKANAGAN_ID,REGION_THOMPSON_OKANAGAN_ID,
+               REGION_THOMPSON_OKANAGAN_ID,REGION_THOMPSON_OKANAGAN_ID,REGION_THOMPSON_OKANAGAN_ID,
+               REGION_THOMPSON_OKANAGAN_ID,
+               REGION_KOOTENAY_ID,REGION_KOOTENAY_ID,REGION_KOOTENAY_ID,
+               REGION_NORTH_COAST_NECHAKO_ID,REGION_NORTH_COAST_NECHAKO_ID,REGION_NORTH_COAST_NECHAKO_ID,
+               REGION_NORTH_COAST_NECHAKO_ID,REGION_NORTH_COAST_NECHAKO_ID,REGION_NORTH_COAST_NECHAKO_ID,
+               REGION_NORTH_COAST_NECHAKO_ID,REGION_NORTH_COAST_NECHAKO_ID,REGION_NORTH_COAST_NECHAKO_ID,
+               REGION_VANCOUVER_ISLAND_COAST_ID,REGION_VANCOUVER_ISLAND_COAST_ID,REGION_VANCOUVER_ISLAND_COAST_ID,
+               REGION_MAINLAND_SOUTHWEST_ID,REGION_MAINLAND_SOUTHWEST_ID];
+
+  for ($i = 1; $i <= 37; $i++) {
+    $id = "map-hot-spot-". str_pad($i, 2, "0", STR_PAD_LEFT);
+    $map .= '<div class="' . $id . ' map-hot-spot" data-interactive-map-no="' . $map_id . '" data-interactive-map-region-no="' . $hotspots[$i] . '"> </div>';
+  }
+
+  $hotspots = ssotRegionIds();
+
+  foreach ($labels as $key => $region) {
+    $id = "map-region-label-" . $key;
+    $map .= '<div class="' . $id . ' map-hot-spot map-region-label" data-interactive-map-no="' . $map_id . '" data-interactive-map-region-no="' . $hotspots[$key] . '">' . $region . '</div>';
+  }
+
+  foreach ($labels as $key => $region) {
+    $id = "map-region-label-line-" . $key;
+    $map .= '<div class="' . $id . '">';
+    $map .= '<img src="/' . $module_path . '/images/map-line.svg">';
+    $map .= '</div>';
+  }
+
+  $map .= '</div>';
+  $map .= '</div>';
+  return $map;
+}

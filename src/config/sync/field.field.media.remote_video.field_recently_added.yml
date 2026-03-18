@@ -1,0 +1,23 @@
+uuid: 59259804-ccaf-4583-b388-b037dc73f48d
+langcode: en
+status: true
+dependencies:
+  config:
+    - field.storage.media.field_recently_added
+    - media.type.remote_video
+id: media.remote_video.field_recently_added
+field_name: field_recently_added
+entity_type: media
+bundle: remote_video
+label: 'Recently Added'
+description: ''
+required: false
+translatable: false
+default_value:
+  -
+    value: 0
+default_value_callback: ''
+settings:
+  on_label: 'On'
+  off_label: 'Off'
+field_type: boolean

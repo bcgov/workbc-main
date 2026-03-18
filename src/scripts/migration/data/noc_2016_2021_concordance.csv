@@ -1,0 +1,580 @@
+NOC 2016 Code (4-digit),NOC 2016 Label,NOC 2016 Skill level,NOC 2021 Code (5-digit),NOC 2021 Label,NOC 2021 TEER,Description
+11,Legislators,Management / A,10,Legislators,0,N/A
+12,Senior government managers and officials,Management / A,00018,Senior managers - public and private sector,0,N/A
+13,"Senior managers - financial, communications and other business services",Management / A,00018,"Senior managers - financial, communications and other business services",0,NOC 0013 merged into NOC 00018
+14,"Senior managers - health, education, social and community services and membership organizations",Management / A,00018,"Senior managers - health, education, social and community services and membership organizations",0,NOC 0014 merged into NOC 00018
+15,"Senior managers - trade, broadcasting and other services, n.e.c.",Management / A,00018,"Senior managers - trade, broadcasting and other services",0,NOC 0015 merged into NOC 00018
+16,"Senior managers - construction, transportation, production and utilities",Management / A,00018,"Senior managers - construction, transportation, production and utilities",0,NOC 0016 merged into NOC 00018
+111,Financial managers,Management / A,10010,Financial managers,0,N/A
+1121,Human resources professionals,A,11200,Human resources professionals,1,N/A
+1241,Administrative assistants,B,13110,Administrative assistants,3,N/A
+112,Human resources managers,Management / A,10011,Human resources managers,0,NOC 0112 was split. Job titles related to human resources managers moved from NOC 0112 to NOC 10011.
+,,,11200,Human resources professionals,1,"NOC 0112 was split. Job title ""Staff training coordinator"" moved from NOC 0112 to NOC 11200."
+,,,13110,Administrative assistants,3,"NOC 0112 was split. Job title ""Human resources administrator"" moved from NOC 0112 to NOC 13110."
+,,,21120,Public and environmental health and safety professionals,1,NOC 0112 was split. Job titles related to public and environmental health and safety coordinators moved from NOC 0112 to NOC 21120.
+,,,22232,Occupational health and safety specialists,2,NOC 0112 was split. Job titles related to occupational health and safety specialists moved from NOC 0112 to NOC 22232.
+113,Purchasing managers,Management / A,10012,Purchasing managers,0,N/A
+114,Other administrative services managers,Management / A,10019,Other administrative services managers,0,N/A
+121,"Insurance, real estate and financial brokerage managers",Management / A,10020,"Insurance, real estate and financial brokerage managers",0,N/A
+122,"Banking, credit and other investment managers",Management / A,10021,"Banking, credit and other investment managers",0,N/A
+124,"Advertising, marketing and public relations managers",Management / A,10022,"Advertising, marketing and public relations managers",0,N/A
+125,Other business services managers,Management / A,10029,Other business services managers,0,N/A
+131,Telecommunication carriers managers,Management / A,10030,Telecommunication carriers managers,0,N/A
+132,Postal and courier services managers,Management / A,70021,Postal and courier services managers,0,"NOC 0132 moved to the transport sector, BOC 7 (Trades, transport and equipment operators and related occupations)."
+1111,Financial auditors and accountants,A,11100,Financial auditors and accountants,1,N/A
+1112,Financial and investment analysts,A,11101,Financial and investment analysts,1,N/A
+1113,"Securities agents, investment dealers and brokers",A,11103,"Securities agents, investment dealers and brokers",1,N/A
+1114,Other financial officers,A,11109,Other financial officers,1,NOC 1114 was split. Job titles related to other financial officers moved from NOC 1114 to NOC 11109.
+,,,11100,Financial auditors and accountants,1,NOC 1114 was split. Job titles related to financial management moved to NOC 1114 to NOC 11100.
+,,,11102,Financial advisors,1,NOC 1114 was split. Job titles related to financial advisors moved from NOC 1114 to new NOC 11102.
+1122,Professional occupations in business management consulting,A,11201,Professional occupations in business management consulting,1,N/A
+6552,Other customer and information services representatives,C,64409,Other customer and information services representatives,4,N/A
+1123,"Professional occupations in advertising, marketing and public relations",A,11202,"Professional occupations in advertising, marketing and public relations",1,"NOC 1123 was split. Job titles related to professional occupations in advertising, marketing and public relations moved from NOC 1123 to NOC 11202."
+,,,10022,"Advertising, marketing and public relations managers",0,"NOC 1123 was split. Job title ""social media community manager"" updated to ""social media manager"" moved from NOC 1123 to NOC 10022."
+,,,64409,Other customer and information services representatives,4,"NOC 1123 was split. Job titles ""tourism information officer"" and ""tourism information technician"" moved from NOC 1123 to NOC 64409."
+1211,"Supervisors, general office and administrative support workers",B,12010,"Supervisors, general office and administrative support workers",2,N/A
+1212,"Supervisors, finance and insurance office workers",B,12011,"Supervisors, finance and insurance office workers",2,N/A
+1213,"Supervisors, library, correspondence and related information workers",B,12012,"Supervisors, library, correspondence and related information workers",2,N/A
+1214,"Supervisors, mail and message distribution occupations",B,72025,"Supervisors, mail and message distribution occupations",2,"NOC 1214 moved to the transport sector, BOC 7 (Trades, transport and equipment operators and related occupations)."
+7534,Air transport ramp attendants,C,74202,Air transport ramp attendants,4,N/A
+1215,"Supervisors, supply chain, tracking and scheduling co-ordination occupations",B,12013,"Supervisors, supply chain, tracking and scheduling coordination occupations",2,"NOC 1215 was split. Job titles related to supervisors in supply chain, tracking and scheduling coordination occupations moved from NOC 1215 to NOC 12013."
+,,,13201,Production and transportation logistics coordinators,3,"NOC 1215 was split. Job titles related to non-supervisor logistics, freight, transportation positions moved from NOC 1215 to NOC 13201."
+,,,74202,Air transport ramp attendants,4,"NOC 1215 was split. Job title ""Ramp services supervisor - airport"" moved from NOC 1215 to NOC 74202."
+1221,Administrative officers,B,13100,Administrative officers,3,N/A
+1222,Executive assistants,B,12100,Executive assistants,2,N/A
+1223,Human resources and recruitment officers,B,12101,Human resources and recruitment officers,2,N/A
+1224,Property administrators,B,13101,Property administrators,3,N/A
+1225,Purchasing agents and officers,B,12102,Procurement and purchasing agents and officers,2,N/A
+1226,Conference and event planners,B,12103,Conference and event planners,2,N/A
+4211,Paralegal and related occupations,B,42200,Paralegal and related occupations,2,N/A
+1227,Court officers and justices of the peace,B,10019,Other administrative services managers,0,"NOC 1227 was spilt. Job title ""Court registrar"" moved from NOC 1227 to NOC 10019."
+,,,14103,Court clerks and related court services occupations,4,NOC 1227 was spilt. Job titles related to court officers and court administrators moved from NOC 1227 to NOC 14103.
+,,,42200,Paralegal and related occupations,2,NOC 1227 was spilt. Job titles related to justices of the peace moved from NOC 1227 to NOC 42200.
+1228,"Employment insurance, immigration, border services and revenue officers",B,12104,Employment insurance and revenue officers,2,NOC 1228 was split. Job titles related to employment insurance and revenue moved from NOC 1228 to NOC 12104.
+,,,43203,"Border services, customs, and immigration officers",3,"NOC 1228 was split. Job titles related to immigration and border service moved from NOC 1228 to NOC 43203. Occupation was moved to the social sector, BOC 4 (Occupations in education, law and social, community and government services)."
+1242,Legal administrative assistants,B,13111,Legal administrative assistants,3,N/A
+1243,Medical administrative assistants,B,13112,Medical administrative assistants,3,N/A
+1251,"Court reporters, medical transcriptionists and related occupations",B,12110,"Court reporters, medical transcriptionists and related occupations",2,N/A
+1252,Health information management occupations,B,12111,Health information management occupations,2,N/A
+1253,Records management technicians,B,12112,Records management technicians,2,N/A
+1254,Statistical officers and related research support occupations,B,12113,Statistical officers and related research support occupations,2,N/A
+1311,Accounting technicians and bookkeepers,B,12200,Accounting technicians and bookkeepers,2,N/A
+1312,Insurance adjusters and claims examiners,B,12201,Insurance adjusters and claims examiners,2,N/A
+1313,Insurance underwriters,B,12202,Insurance underwriters,2,N/A
+1314,"Assessors, valuators and appraisers",B,12203,"Assessors, business valuators and appraisers",2,N/A
+1315,"Customs, ship and other brokers",B,13200,"Customs, ship and other brokers",3,N/A
+1411,General office support workers,C,14100,General office support workers,4,N/A
+1414,Receptionists,C,14101,Receptionists,4,N/A
+1415,Personnel clerks,C,14102,Personnel clerks,4,N/A
+1416,Court clerks,C,14103,Court clerks and related court services occupations,4,N/A
+1422,Data entry clerks,C,14111,Data entry clerks,4,N/A
+1423,Desktop publishing operators and related occupations,C,14112,Desktop publishing operators and related occupations,4,N/A
+1431,Accounting and related clerks,C,14200,Accounting and related clerks,4,N/A
+1432,Payroll administrators,C,13102,Payroll administrators,3,N/A
+1434,"Banking, insurance and other financial clerks",C,14201,"Banking, insurance and other financial clerks",4,N/A
+1435,Collectors,C,14202,Collection clerks,4,N/A
+1451,Library assistants and clerks,C,14300,Library assistants and clerks,4,N/A
+1452,"Correspondence, publication and regulatory clerks",C,14301,"Correspondence, publication and regulatory clerks",4,N/A
+1454,Survey interviewers and statistical clerks,C,14110,Survey interviewers and statistical clerks,4,N/A
+1511,"Mail, postal and related workers",C,64401,Postal services representatives,4,"NOC 1511 was split. Job titles related to postal clerks and workers moved from NOC 1511 to NOC 64401. Mail clerk and postal worker occupation was moved to services sector, BOC 6 (sales and service occupations)."
+,,,74100,Mail and parcel sorters and related occupations,4,"NOC 1511 was split. Job titles related to mail and parcel sorter moved from NOC 1511 to NOC 74100. Mail and parcel sorter occupation was moved to transport sector, BOC 7 (Trades, transport and equipment operators and related occupations)."
+1512,Letter carriers,C,74101,Letter carriers,4,"NOC 1512 was moved to the transport sector, BOC 7 (Trades, transport and equipment operators and related occupations)."
+1513,"Couriers, messengers and door-to-door distributors",C,74102,Couriers and messengers,4,"NOC 1513 was split. Job titles related to couriers and messengers moved from NOC 1513 to NOC 74102. Courier and messenger occupation was moved to the transport sector, BOC 7 (Trades, transport and equipment operators and related occupations)."
+,,,75201,Delivery service drivers and door-to-door distributors,5,NOC 1513 was split. Job titles related to door-to-door distributors moved from NOC 1513 to NOC 7514 75201.
+1521,Shippers and receivers,C,14400,Shippers and receivers,4,N/A
+1522,Storekeepers and partspersons,C,14401,Storekeepers and partspersons,4,N/A
+1523,Production logistics co-ordinators,C,14402,Production logistics workers,4,NOC 1523 was split. Job titles related to production logistic workers moved from NOC 1523 to NOC 14402.
+,,,13201,Production and transportation logistics coordinators,,NOC 1523 was split. Job titles related to production logistic coordination moved from NOC 1523 to NOC 13201.
+1524,Purchasing and inventory control workers,C,14403,Purchasing and inventory control workers,4,N/A
+1525,Dispatchers,C,14404,Dispatchers,4,N/A
+1526,Transportation route and crew schedulers,C,14405,Transportation route and crew schedulers,4,N/A
+211,Engineering managers,A,20010,Engineering managers,0,N/A
+212,Architecture and science managers,A,20011,Architecture and science managers,0,N/A
+213,Computer and information systems managers,A,20012,Computer and information systems managers,0,N/A
+2111,Physicists and astronomers,A,21100,Physicists and astronomers,1,N/A
+2112,Chemists,A,21101,Chemists,1,N/A
+2113,Geoscientists and oceanographers,A,21102,Geoscientists and oceanographers,1,N/A
+2114,Meteorologists and climatologists,A,21103,Meteorologists and climatologists,1,N/A
+2115,Other professional occupations in physical sciences,A,21109,Other professional occupations in physical sciences,1,N/A
+2121,Biologists and related scientists,A,21110,Biologists and related scientists,1,N/A
+2122,Forestry professionals,A,21111,Forestry professionals,1,N/A
+2123,"Agricultural representatives, consultants and specialists",A,21112,"Agricultural representatives, consultants and specialists",1,N/A
+2131,Civil engineers,A,21300,Civil engineers,1,N/A
+2132,Mechanical engineers,A,21301,Mechanical engineers,1,N/A
+2133,Electrical and electronics engineers,A,21310,Electrical and electronics engineers,1,N/A
+2134,Chemical engineers,A,21320,Chemical engineers,1,N/A
+2141,Industrial and manufacturing engineers,A,21321,Industrial and manufacturing engineers,1,N/A
+2142,Metallurgical and materials engineers,A,21322,Metallurgical and materials engineers,1,N/A
+2143,Mining engineers,A,21330,Mining engineers,1,N/A
+2144,Geological engineers,A,21331,Geological engineers,1,N/A
+2145,Petroleum engineers,A,21332,Petroleum engineers,1,N/A
+2146,Aerospace engineers,A,21390,Aerospace engineers,1,N/A
+2147,Computer engineers (except software engineers and designers),A,21311,Computer engineers (except software engineers and designers),1,N/A
+2148,"Other professional engineers, n.e.c.",A,21399,Other professional engineers,1,N/A
+2151,Architects,A,21200,Architects,1,N/A
+2152,Landscape architects,A,21201,Landscape architects,1,N/A
+2153,Urban and land use planners,A,21202,Urban and land use planners,1,N/A
+2154,Land surveyors,A,21203,Land surveyors,1,N/A
+2161,"Mathematicians, statisticians and actuaries",A,21210,"Mathematicians, statisticians and actuaries",1,N/A
+2171,Information systems analysts and consultants,A,21211,Data scientists,1,NOC 2171 was split. Job titles related to AI analysis and consulting moved from NOC 2171 to NOC 21211.
+,,,21220,Cybersecurity specialists,1,NOC 2171 was split. Job titles related to cybersecurity moved from NOC 2171 to NOC 21220.
+,,,21221,Business system specialists,1,NOC 2171 was split. Job titles related to business systems moved from NOC 2171 to NOC 21211.
+,,,21222,Information systems specialists,1,NOC 2171 was split. Job titles related to information system specialists moved from NOC 2171 to NOC 21222.
+,,,21233,Web designers,1,"NOC 2171 was split. Job titles ""interactive media consultant"" and ""multimedia consultant"" moved from NOC 2171 to NOC 21233."
+2172,Database analysts and data administrators,A,21223,Database analysts and data administrators,1,NOC 2172 was split. Job titles related to database analysts and data administrators moved from NOC 2172 to NOC 21223.
+,,,21211,Data scientists,1,NOC 2172 was split. Job titles related to data scientist and data miner moved from NOC 2172 to NOC 21211.
+2173,Software engineers and designers,A,21231,Software engineers and designers,1,NOC 2173 was split. Job titles related to software engineers and designers moved from NOC 2173 to NOC 21231.
+,,,21211,Data scientists,1,NOC 2173 was split. Job title Artificial intelligence (AI) designer moved from NOC 2173 to NOC 21211.
+2174,Computer programmers and interactive media developers,A,21230,Computer systems developers and programmers,1,NOC 2174 was split. Job titles related to computer systems development and programming moved from NOC 2174 to NOC 21230
+,,,21232,Software developers and programmers,1,NOC 2174 was split. Job titles related to software and multimedia development moved from NOC 2174 to NOC 21232.
+,,,21234,Web developers and programmers,1,NOC 2174 was split. Job titles related to web development and programming moved from NOC 2174 to NOC 21234.
+2175,Web designers and developers,A,21233,Web designers,1,NOC 2175 was split. Job titles related to web design moved from NOC 2175 to NOC 21233.
+,,,21234,Web developers and programmers,1,NOC 2175 was split. Job titles related to web development and programing moved from NOC 2175 to NOC 21234.
+2211,Chemical technologists and technicians,B,22100,Chemical technologists and technicians,2,N/A
+2212,Geological and mineral technologists and technicians,B,22101,Geological and mineral technologists and technicians,2,N/A
+2221,Biological technologists and technicians,B,22110,Biological technologists and technicians,2,N/A
+2222,Agricultural and fish products inspectors,B,22111,Agricultural and fish products inspectors,2,N/A
+2223,Forestry technologists and technicians,B,22112,Forestry technologists and technicians,2,N/A
+2224,Conservation and fishery officers,B,22113,Conservation and fishery officers,2,N/A
+2225,Landscape and horticulture technicians and specialists,B,22114,Landscape and horticulture technicians and specialists,2,N/A
+2231,Civil engineering technologists and technicians,B,22300,Civil engineering technologists and technicians,2,N/A
+2232,Mechanical engineering technologists and technicians,B,22301,Mechanical engineering technologists and technicians,2,N/A
+2233,Industrial engineering and manufacturing technologists and technicians,B,22302,Industrial engineering and manufacturing technologists and technicians,2,N/A
+2234,Construction estimators,B,22303,Construction estimators,2,N/A
+2241,Electrical and electronics engineering technologists and technicians,B,22310,Electrical and electronics engineering technologists and technicians,2,N/A
+2242,Electronic service technicians (household and business equipment),B,22311,Electronic service technicians (household and business equipment),2,N/A
+2243,Industrial instrument technicians and mechanics,B,22312,Industrial instrument technicians and mechanics,2,N/A
+2244,"Aircraft instrument, electrical and avionics mechanics, technicians and inspectors",B,22313,"Aircraft instrument, electrical and avionics mechanics, technicians and inspectors",2,N/A
+2251,Architectural technologists and technicians,B,22210,Architectural technologists and technicians,2,N/A
+2252,Industrial designers,B,22211,Industrial designers,2,N/A
+2253,Drafting technologists and technicians,B,22212,Drafting technologists and technicians,2,N/A
+2254,Land survey technologists and technicians,B,22213,Land survey technologists and technicians,2,N/A
+2255,Technical occupations in geomatics and meteorology,B,22214,Technical occupations in geomatics and meteorology,2,N/A
+2261,Non-destructive testers and inspection technicians,B,22230,Non-destructive testers and inspectors,2,N/A
+2262,Engineering inspectors and regulatory officers,B,22231,Engineering inspectors and regulatory officers,2,N/A
+2263,Inspectors in public and environmental health and occupational health and safety,B,21120,Public and environmental health and safety professionals,1,NOC 2263 was split. Job titles related to public and environmental health and safety moved from NOC 2263 to NOC 21120
+,,,22232,Occupational health and safety specialists,2,NOC 2263 was split. Job titles related to occupational health and safety moved from NOC 2263 to NOC 22232.
+2264,Construction inspectors,B,22233,Construction inspectors,2,N/A
+2271,"Air pilots, flight engineers and flying instructors",B,72600,"Air pilots, flight engineers and flying instructors",2,"NOC 2271 was moved to the transport sector, BOC 7 (Trades, transport and equipment operators and related occupations)."
+2272,Air traffic controllers and related occupations,B,72601,Air traffic controllers and related occupations,2,"NOC 2272 was moved to the transport sector, BOC 7 (Trades, transport and equipment operators and related occupations)."
+2273,"Deck officers, water transport",B,72602,"Deck officers, water transport",2,"NOC 2273 was moved to the transport sector, BOC 7 (Trades, transport and equipment operators and related occupations)."
+2274,"Engineer officers, water transport",B,72603,"Engineer officers, water transport",2,"NOC 2274 was moved to the transport sector, BOC 7 (Trades, transport and equipment operators and related occupations)."
+2275,Railway traffic controllers and marine traffic regulators,B,72604,Railway traffic controllers and marine traffic regulators,2,"NOC 2275 was moved to the transport sector, BOC 7 (Trades, transport and equipment operators and related occupations)."
+2281,Computer network technicians,B,22220,Computer network and web technicians,2,N/A
+2282,User support technicians,B,22221,User support technicians,2,N/A
+2283,Information systems testing technicians,B,22222,Information systems testing technicians,2,N/A
+311,Managers in health care,A,30010,Managers in health care,0,N/A
+3011,Nursing co-ordinators and supervisors,A,31300,Nursing coordinators and supervisors,1,N/A
+3012,Registered nurses and registered psychiatric nurses,A,31301,Registered nurses and registered psychiatric nurses,1,N/A
+3111,Specialist physicians,A,31100,Specialists in clinical and laboratory medicine,1,NOC 3111 was split. Job titles related to specialists in clinical and laboratory medicine moved from NOC 3111 to NOC 31100
+,,,31101,Specialists in surgery,1,NOC 3111 was split. Job titles related to surgery specialists moved from NOC 3111 to NOC 31101.
+3112,General practitioners and family physicians,A,31102,General practitioners and family physicians,1,N/A
+3113,Dentists,A,31110,Dentists,1,N/A
+3114,Veterinarians,A,31103,Veterinarians,1,N/A
+3121,Optometrists,A,31111,Optometrists,1,N/A
+3122,Chiropractors,A,31201,Chiropractors,1,N/A
+3214,"Respiratory therapists, clinical perfusionists and cardiopulmonary technologists",B,32103,"Respiratory therapists, clinical perfusionists and cardiopulmonary technologists",2,N/A
+3124,Allied primary health practitioners,A,31302,Nurse practitioners,1,NOC 3124 was split. Job titles related to nurse practitioner moved from NOC 3124 to new NOC 31302.
+,,,32103,"Respiratory therapists, clinical perfusionists and cardiopulmonary technologists",2,NOC 3124 was split. Job title anesthesia assistant moved from NOC 3124 to NOC 32103.
+,,,31303,"Physician assistants, midwives and allied health professionals",1,"NOC 3124 was split. Job titles related to physician assistants, midwives and allied health professionals moved from NOC 3124 to NOC 31303."
+3125,Other professional occupations in health diagnosing and treating,A,31209,Other professional occupations in health diagnosing and treating,1,NOC 3125 was split. Job titles related to professional occupations in health diagnosing and treating was moved from NOC 3125 to NOC 31209.
+,,,31303,"Physician assistants, midwives and allied health professionals",1,NOC 3125 was split. Job titles related to Orthoptist moved from NOC 3125 to NOC 31303.
+3131,Pharmacists,A,31120,Pharmacists,1,N/A
+3132,Dietitians and nutritionists,A,31121,Dietitians and nutritionists,1,N/A
+3141,Audiologists and speech-language pathologists,A,31112,Audiologists and speech-language pathologists,1,N/A
+3142,Physiotherapists,A,31202,Physiotherapists,1,NOC 3142 was split. Job titles related to physiotherapy was moved from NOC 3142 to NOC 31202.
+3143,Occupational therapists,A,31203,Occupational therapists,1,N/A
+3144,Other professional occupations in therapy and assessment,A,31204,Kinesiologists and other professional occupations in therapy and assessment,1,NOC 3144 was split. Job titles related to kinesiologist and other professional therapy and assessment moved from NOC 3144 to NOC 31204.
+,,,41301,Therapists in counselling and related specialized therapies,1,NOC 3144 was split. Job titles related to art therapy moved from NOC 3144 to NOC 41301.
+3211,Medical laboratory technologists,B,32120,Medical laboratory technologists,2,N/A
+3212,Medical laboratory technicians and pathologists' assistants,B,33101,Medical laboratory assistants and related technical occupations,3,NOC 3212 was split. Job titles related to medical laboratory assistants and related technical occupations was moved from NOC 3212 to NOC 33101.
+,,,31303,"Physician assistants, midwives and allied health professionals",1,NOC 3212 was split. Job titles related to pathologist assistant moved from NOC 3212 to NOC 31303.
+,,,32120,Medical laboratory technologists,2,"NOC 3212 was split. Job title ""combined laboratory and x-ray technician"" moved from NOC 3212 to NOC 32120."
+3213,Animal health technologists and veterinary technicians,B,32104,Animal health technologists and veterinary technicians,2,N/A
+3215,Medical radiation technologists,B,32121,Medical radiation technologists,2,N/A
+3216,Medical sonographers,B,32122,Medical sonographers,2,N/A
+3217,"Cardiology technologists and electrophysiological diagnostic technologists, n.e.c.",B,32123,Cardiology technologists and electrophysiological diagnostic technologists,2,N/A
+3219,Other medical technologists and technicians (except dental health),B,32124,Pharmacy technicians,2,NOC 3219 was split. Job titles related to pharmacy technician moved from NOC 3219 to NOC 32124.
+,,,32129,Other medical technologists and technicians,2,NOC 3219 was split. Job titles related to other medical technologist and technicians moved from NOC 3219 to NOC 32129.
+,,,33103,Pharmacy technical assistants and pharmacy assistants,3,NOC 3219 was split. Job titles related to pharmacy technical assistant moved from NOC 3219 to NOC 33103.
+3221,Denturists,B,32110,Denturists,2,N/A
+3222,Dental hygienists and dental therapists,B,32111,Dental hygienists and dental therapists,2,N/A
+3223,"Dental technologists, technicians and laboratory assistants",B,32112,Dental technologists and technicians,2,NOC 3223 was split. Job titles related to dental technologist and technicians moved from NOC 3223 to NOC 32112.
+,,,33100,Dental assistants and dental laboratory assistants,3,NOC 3223 was split. Job titles related to dental assistant and dental laboratory assistant moved from NOC 3223 to NOC 33100.
+3231,Opticians,B,32100,Opticians,2,N/A
+3232,Practitioners of natural healing,B,32200,Traditional Chinese medicine practitioners and acupuncturists,2,NOC 3232 was split. Job titles related to traditional chinese medicine practitioner and acupuncturist moved from NOC 3232 to NOC 32200.
+,,,32209,Other practitioners of natural healing,2,NOC 3232 was split. Job titles related other practitioners of natural healing moved from NOC 3232 to NOC 32209.
+3233,Licensed practical nurses,B,32101,Licensed practical nurses,2,N/A
+3234,Paramedical occupations,B,32102,Paramedical occupations,2,N/A
+3236,Massage therapists,B,32201,Massage therapists,2,N/A
+3237,Other technical occupations in therapy and assessment,B,32109,Other technical occupations in therapy and assessment,2,NOC 3237 was split. Job titles related to other technical occupations in therapy and assessment moved from NOC 3237 to NOC 32109.
+3411,Dental assistants,C,33100,Dental assistants and dental laboratory assistants,3,N/A
+3413,"Nurse aides, orderlies and patient service associates",C,33102,"Nurse aides, orderlies and patient service associates",3,N/A
+3414,Other assisting occupations in support of health services,C,33109,Other assisting occupations in support of health services,3,NOC 3414 was split. Job titles related to other assisting occupations in support of health services moved from NOC 3414 to NOC 33109.
+,,,33103,Pharmacy technical assistants and pharmacy assistants,3,NOC 3414 was split. Job titles related to pharmacy aides and drugstore dispensing assistants moved from NOC 3414 to NOC 33103.
+411,Government managers - health and social policy development and program administration,Management / A,40010,Government managers - health and social policy development and program administration,0,N/A
+412,"Government managers - economic analysis, policy development and program administration",Management / A,40011,"Government managers - economic analysis, policy development and program administration",0,N/A
+413,Government managers - education policy development and program administration,Management / A,40012,Government managers - education policy development and program administration,0,N/A
+414,Other managers in public administration,Management / A,40019,Other managers in public administration,0,N/A
+421,Administrators - post-secondary education and vocational training,Management / A,40020,Administrators - post-secondary education and vocational training,0,N/A
+422,School principals and administrators of elementary and secondary education,Management / A,40021,School principals and administrators of elementary and secondary education,0,N/A
+423,"Managers in social, community and correctional services",Management / A,40030,"Managers in social, community and correctional services",0,N/A
+431,Commissioned police officers,Management / A,40040,Commissioned police officers and related occupations in public protection services,0,NOC 0431 was split. Job titles related to commissioned police officers and related occupations in public protection services moved from NOC 0431 to NOC 40040.
+,,,41310,Police investigators and other investigative occupations,1,NOC 0431 was split. Job titles related to police investigator moved from NOC 0431 to NOC 41310
+432,Fire chiefs and senior firefighting officers,Management / A,40041,Fire chiefs and senior firefighting officers,0,N/A
+433,Commissioned officers of the Canadian Armed Forces,Management / A,40042,Commissioned officers of the Canadian Armed Forces,0,NOC 0433 was split. Job titles related to commissioned officers of the Canadian Armed Forces moved from NOC 0433 to NOC 40042.
+,,,40040,Commissioned police officers and related occupations in public protection services,0,"NOC 0433 was split. Job title ""Military police officer – commissioned"" moved from 0433 to NOC 40040."
+4011,University professors and lecturers,A,41200,University professors and lecturers,1,N/A
+4012,Post-secondary teaching and research assistants,A,41201,Post-secondary teaching and research assistants,1,N/A
+4021,College and other vocational instructors,A,41210,College and other vocational instructors,1,N/A
+4031,Secondary school teachers,A,41220,Secondary school teachers,1,N/A
+4032,Elementary school and kindergarten teachers,A,41221,Elementary school and kindergarten teachers,1,N/A
+4033,Educational counsellors,A,41320,Educational counsellors,1,N/A
+4111,Judges,A,41100,Judges,1,N/A
+4112,Lawyers and Quebec notaries,A,41101,Lawyers and Quebec notaries,1,N/A
+4151,Psychologists,A,31200,Psychologists,1,NOC 4151 was split. Job titles related to psychologists moved from NOC 4151 to NOC 31200. Occupation was moved to the Health sector BOC 3.
+,,,41301,Therapists in counselling and related specialized therapies,1,NOC 4151 was split. Job titles related to psychotherapy moved from NOC 4151 to NOC 41301.
+4152,Social workers,A,41300,Social workers,1,N/A
+4153,"Family, marriage and other related counsellors",A,41301,Therapists in counselling and related specialized therapies,1,NOC 4153 was split. Job titles related to therapists in counselling and related specialized therapies moved from NOC 4153 to NOC 41301.
+,,,31303,"Physician assistants, midwives and allied health professionals",1,"NOC 4153 was split. Job title ""Genetic counsellor"" moved from NOC 4153 to NOC 31303."
+,,,41321,Career development practitioners and career counsellors (except education),1,"NOC 4153 was split. Job title ""vocational counsellors"" moved from NOC 4153 to NOC 41321."
+4154,Professional occupations in religion,A,41302,Religious leaders,1,N/A
+4212,Social and community service workers,B,42201,Social and community service workers,2,N/A
+4155,Probation and parole officers and related occupations,A,41311,Probation and parole officers,1,NOC 4155 was split. Job titles related to probation and parole officers moved from NOC 4155 to NOC 41311
+,,,42201,Social and community service workers,2,NOC 4155 was split. Job titles related to correctional case worker and manager moved from NOC 4155 to NOC 42201.
+4156,Employment counsellors,A,41321,Career development practitioners and career counsellors (except education),1,N/A
+4161,"Natural and applied science policy researchers, consultants and program officers",A,41400,"Natural and applied science policy researchers, consultants and program officers",1,N/A
+4162,Economists and economic policy researchers and analysts,A,41401,Economists and economic policy researchers and analysts,1,N/A
+4163,Business development officers and marketing researchers and consultants,A,11202,"Professional occupations in advertising, marketing and public relations",1,"NOC 4163 was split. Job title ""Marketing consultant"" moved from NOC 4163 to NOC 11202."
+,,,41402,Business development officers and market researchers and analysts,1,NOC 4163 was split. Job titles related to business development officers and market researchers and analyst moved from NOC 4163 to NOC 41403.
+4164,"Social policy researchers, consultants and program officers",A,41403,"Social policy researchers, consultants and program officers",1,N/A
+4165,"Health policy researchers, consultants and program officers",A,41404,"Health policy researchers, consultants and program officers",1,"NOC 4165 was split. Job titles related to health policy researchers, consultants and program officers moved from NOC 4165 to NOC 41404."
+,,,21110,Biologists and related scientists,1,NOC 4165 was split. Job titles related to clinical research moved from NOC 4165 to NOC 21110.
+,,,41310,Police investigators and other investigative occupations,1,"NOC 4165 was split. Job title ""coroner"" moved from NOC 4165 to NOC 41310."
+4166,"Education policy researchers, consultants and program officers",A,41405,"Education policy researchers, consultants and program officers",1,N/A
+4167,"Recreation, sports and fitness policy researchers, consultants and program officers",A,41406,"Recreation, sports and fitness policy researchers, consultants and program officers",1,N/A
+4168,Program officers unique to government,A,41407,Program officers unique to government,1,N/A
+4169,"Other professional occupations in social science, n.e.c.",A,41409,Other professional occupations in social science,1,N/A
+4214,Early childhood educators and assistants,B,42202,Early childhood educators and assistants,2,N/A
+4215,Instructors of persons with disabilities,B,42203,Instructors of persons with disabilities,2,N/A
+4216,Other instructors,B,43109,Other instructors,3,N/A
+4217,Other religious occupations,B,42204,Religion workers,2,N/A
+4311,Police officers (except commissioned),B,42100,Police officers (except commissioned),2,NOC 4311 was split. Job titles related to police officers (except commissioned) moved from NOC 4311 to NOC 42100.
+,,,41310,Police investigators and other investigative occupations,1,NOC 4311 was split. Job titles related to police investigator moved from NOC 4311 to NOC 41310.
+4312,Firefighters,B,42101,Firefighters,2,N/A
+4313,Non-commissioned ranks of the Canadian Armed Forces,B,42100,Police officers (except commissioned),2,"NOC 4313 was split. Job title ""Military policeman / woman - except commissioned"" moved from 4313 to NOC 42100."
+,,,42102,Specialized members of the Canadian Armed Forces,2,NOC 4313 was split. Job titles for military occupations requiring college education or apprenticeship or 2 years or more moved from NOC 4313 to NOC 42102.
+,,,43204,Operations Members of the Canadian Armed Forces,3,NOC 4313 was split. Job titles for military occupations requiring a college certificate or apprenticeship of less than 2 years moved from NOC 4313 to NOC 43204.
+,,,44200,Primary combat members of the Canadian Armed Forces,4,NOC 4313 was split. Job titles for military occupations NOT requiring college education or apprenticeship moved from NOC 4313 to NOC 44200.
+4411,Home child care providers,C,44100,Home child care providers,4,N/A
+6731,Light duty cleaners,D,65310,Light duty cleaners,5,N/A
+4412,"Home support workers, housekeepers and related occupations",C,44101,"Home support workers, caregivers and related occupations",4,"NOC 4412 was split. Job titles related to home support workers, caregivers and related occupations moved from NOC 4412 to NOC 44101."
+,,,65310,Light duty cleaners,5,"NOC 4412 was split. Job titles ""Housekeepers"" and ""Domestic housekeepers"" moved from NOC 4412 to NOC 65310."
+4413,Elementary and secondary school teacher assistants,C,43100,Elementary and secondary school teacher assistants,3,NOC 4413 was split. Job titles related to elementary and secondary school teacher assistants moved from NOC 4413 to NOC 43100.
+,,,45100,"Student monitors, crossing guards and related occupations",5,NOC 4413 was split. Job titles related to student monitors moved from NOC 4413 to NOC 45100.
+4421,Sheriffs and bailiffs,C,43200,Sheriffs and bailiffs,3,N/A
+4422,Correctional service officers,C,43201,Correctional service officers,3,N/A
+4423,"By-law enforcement and other regulatory officers, n.e.c.",C,43202,By-law enforcement and other regulatory officers,3,N/A
+511,"Library, archive, museum and art gallery managers",Management / A,50010,"Library, archive, museum and art gallery managers",0,N/A
+512,"Managers - publishing, motion pictures, broadcasting and performing arts",Management / A,50011,"Managers - publishing, motion pictures, broadcasting and performing arts",0,N/A
+513,"Recreation, sports and fitness program and service directors",Management / A,50012,"Recreation, sports and fitness program and service directors",0,N/A
+5111,Librarians,A,51100,Librarians,1,N/A
+5112,Conservators and curators,A,51101,Conservators and curators,1,N/A
+5113,Archivists,A,51102,Archivists,1,N/A
+5121,Authors and writers,A,51111,Authors and writers (except technical),1,NOC 5121 was split. Job titles related to authors and writers moved from NOC 5121 to NOC 51111.
+,,,51112,Technical writers,1,NOC 5121 was split. Job titles related to technical writer moved from NOC 5121 to NOC 51112.
+5122,Editors,A,51110,Editors,1,N/A
+5123,Journalists,A,51113,Journalists,1,N/A
+5125,"Translators, terminologists and interpreters",A,51114,"Translators, terminologists and interpreters",1,N/A
+5131,"Producers, directors, choreographers and related occupations",A,51120,"Producers, directors, choreographers and related occupations",1,N/A
+5132,"Conductors, composers and arrangers",A,51121,"Conductors, composers and arrangers",1,N/A
+5133,Musicians and singers,A,51122,Musicians and singers,1,N/A
+5134,Dancers,A,53120,Dancers,3,N/A
+5135,Actors and comedians,A,53121,"Actors, comedians and circus performers",3,N/A
+5136,"Painters, sculptors and other visual artists",A,53122,"Painters, sculptors and other visual artists",3,N/A
+5211,Library and public archive technicians,B,52100,Library and public archive technicians,2,N/A
+5212,Technical occupations related to museums and art galleries,B,53100,"Registrars, restorers, interpreters and other occupations related to museum and art galleries",3,N/A
+5221,Photographers,B,53110,Photographers,3,N/A
+5222,Film and video camera operators,B,52110,Film and video camera operators,2,N/A
+5223,Graphic arts technicians,B,52111,Graphic arts technicians,2,N/A
+5224,Broadcast technicians,B,52112,Broadcast technicians,2,N/A
+5225,Audio and video recording technicians,B,52113,Audio and video recording technicians,2,N/A
+5226,"Other technical and co-ordinating occupations in motion pictures, broadcasting and the performing arts",B,52119,"Other technical and coordinating occupations in motion pictures, broadcasting and the performing arts",2,N/A
+5227,"Support occupations in motion pictures, broadcasting, photography and the performing arts",B,53111,"Motion pictures, broadcasting, photography and performing arts assistants and operators",3,N/A
+5231,Announcers and other broadcasters,B,52114,Announcers and other broadcasters,2,N/A
+5232,"Other performers, n.e.c.",B,55109,Other performers,5,NOC 5232 was split. Job titles related to other performers moved from NOC 5232 to NOC 55109.
+,,,53121,"Actors, comedians and circus performers",3,NOC 5232 was split. Job titles related to circus performance moved from NOC 5232 to NOC 53121.
+5241,Graphic designers and illustrators,B,52120,Graphic designers and illustrators,2,N/A
+5242,Interior designers and interior decorators,B,52121,Interior designers and interior decorators,2,N/A
+6211,Retail sales supervisors,B,62010,Retail sales supervisors,2,N/A
+5243,"Theatre, fashion, exhibit and other creative designers",B,53123,"Theatre, fashion, exhibit and other creative designers",3,"NOC 5234 was split. Job titles related to theatre, fashion, exhibit and other creative designers moved from NOC 5234 to NOC 53123."
+,,,62010,Retail sales supervisors,2,"NOC 5234 was split. Job titles ""display designer supervisor"" and ""display design supervisor"" moved from NOC 5243 to NOC 62010."
+,,,64100,Retail salespersons and visual merchandisers,4,"NOC 5234 was split. Job titles related to display design, styling, and visual merchandising moved from NOC 5243 to NOC 64100."
+5244,Artisans and craftspersons,B,53124,Artisans and craftspersons,3,N/A
+5245,"Patternmakers - textile, leather and fur products",B,53125,"Patternmakers - textile, leather and fur products",3,N/A
+5251,Athletes,B,53200,Athletes,3,N/A
+5252,Coaches,B,53201,Coaches,3,N/A
+5253,Sports officials and referees,B,53202,Sports officials and referees,3,N/A
+5254,"Program leaders and instructors in recreation, sport and fitness",B,54100,"Program leaders and instructors in recreation, sport and fitness",4,N/A
+601,Corporate sales managers,A,60010,Corporate sales managers,0,N/A
+621,Retail and wholesale trade managers,A,60020,Retail and wholesale trade managers,0,N/A
+631,Restaurant and food service managers,A,60030,Restaurant and food service managers,0,N/A
+632,Accommodation service managers,A,60031,Accommodation service managers,0,N/A
+651,"Managers in customer and personal services, n.e.c.",A,60040,Managers in customer and personal services,0,N/A
+714,Facility operation and maintenance managers,A,70012,Facility operation and maintenance managers,0,N/A
+7452,Material handlers,C,75101,Material handlers,5,N/A
+6221,Technical sales specialists - wholesale trade,B,62100,Technical sales specialists - wholesale trade,2,NOC 6221 was split. Job titles related to technical sales specialists in wholesale trade moved from NOC 6221 to NOC 62100.
+,,,70012,Facility operation and maintenance managers,0,"NOC 6221 was split. Job titles ""Grain elevator district manager"", ""grain elevator manager"", and ""assistant grain elevator manager"" moved from NOC 6221 to NOC 70012."
+,,,75101,Material handlers,5,"NOC 6221 was split. Job title ""grain elevator operator"" moved from NOC 6221 to NOC 75101."
+6222,Retail and wholesale buyers,B,62101,Retail and wholesale buyers,2,N/A
+6231,Insurance agents and brokers,B,63100,Insurance agents and brokers,3,N/A
+6232,Real estate agents and salespersons,B,63101,Real estate agents and salespersons,3,N/A
+6235,Financial sales representatives,B,63102,Financial sales representatives,3,N/A
+6311,Food service supervisors,B,62020,Food service supervisors,2,N/A
+6312,Executive housekeepers,B,62021,Executive housekeepers,2,N/A
+6313,"Accommodation, travel, tourism and related services supervisors",B,62022,"Accommodation, travel, tourism and related services supervisors",2,N/A
+6314,Customer and information services supervisors,B,62023,Customer and information services supervisors,2,N/A
+6315,Cleaning supervisors,B,62024,Cleaning supervisors,2,N/A
+6722,"Operators and attendants in amusement, recreation and sport",D,65211,"Operators and attendants in amusement, recreation and sport",5,N/A
+6316,Other services supervisors,B,62029,Other services supervisors,2,NOC 6316 was split. Job titles related to other services supervisors moved from NOC 6316 to NOC 62029.
+,,,65211,"Operators and attendants in amusement, recreation and sport",5,"NOC 6316 was split. Job titles ""Park supervisor"", ""Rink supervisor"", and ""Campground supervisor"" moved from NOC 6316 to NOC 65211."
+6321,Chefs,B,62200,Chefs,2,N/A
+6322,Cooks,B,63200,Cooks,3,N/A
+6331,"Butchers, meat cutters and fishmongers - retail and wholesale",B,63201,Butchers - retail and wholesale,3,NOC 6331 was split. Job titles related to butchers moved from NOC 6331 to new NOC 63201.
+,,,65202,Meat cutters and fishmongers - retail and wholesale,5,NOC 6331 was split. Job titles related to meat cutters and fishmongers moved from NOC 6331 to NOC 65202.
+6332,Bakers,B,63202,Bakers,3,N/A
+6341,Hairstylists and barbers,B,63210,Hairstylists and barbers,3,N/A
+6342,"Tailors, dressmakers, furriers and milliners",B,64200,"Tailors, dressmakers, furriers and milliners",4,N/A
+6343,Shoe repairers and shoemakers,B,63220,Shoe repairers and shoemakers,3,N/A
+6344,"Jewellers, jewellery and watch repairers and related occupations",B,62202,"Jewellers, jewellery and watch repairers and related occupations",2,N/A
+6345,Upholsterers,B,63221,Upholsterers,3,N/A
+6346,Funeral directors and embalmers,B,62201,Funeral directors and embalmers,2,N/A
+6411,Sales and account representatives - wholesale trade (non-technical),C,64101,Sales and account representatives - wholesale trade (non-technical),4,NOC 6411 was split. Job titles related to sales and account representatives of wholesale trade (non-technical) moved from NOC 6411 to NOC 64101.
+,,,62100,Technical sales specialists - wholesale trade,2,"NOC 6411 was split. Job titles ""grain merchandiser"" and ""livestock sales representative – wholesale"" moved from NOC 6411 to NOC 62100."
+6421,Retail salespersons,C,64100,Retail salespersons and visual merchandisers,4,N/A
+6511,Maîtres d'hôtel and hosts / hostesses,C,64300,Maîtres d'hôtel and hosts / hostesses,4,N/A
+6512,Bartenders,C,64301,Bartenders,4,N/A
+6513,Food and beverage servers,C,65200,Food and beverage servers,5,N/A
+6521,Travel counsellors,C,64310,Travel counsellors,4,N/A
+6522,Pursers and flight attendants,C,64311,Pursers and flight attendants,4,N/A
+6523,Airline ticket and service agents,C,64312,Airline ticket and service agents,4,N/A
+6524,"Ground and water transport ticket agents, cargo service representatives and related clerks",C,64313,"Ground and water transport ticket agents, cargo service representatives and related clerks",4,N/A
+6525,Hotel front desk clerks,C,64314,Hotel front desk clerks,4,N/A
+6531,Tour and travel guides,C,64320,Tour and travel guides,4,N/A
+6532,Outdoor sport and recreational guides,C,64322,Outdoor sport and recreational guides,4,N/A
+6533,Casino workers,C,64321,Casino workers,4,N/A
+6541,Security guards and related security service occupations,C,64410,Security guards and related security service occupations,4,NOC 6541 was split. Job titles related to security service occupations moved from NOC 6541 to NOC 64410.
+,,,45100,"Student monitors, crossing guards and related occupations",5,"NOC 6541 was split. Job titles ""School crossing guard"", and ""crossing guard"" moved from NOC 6541 to NOC 45100."
+,,,65329,Other service support occupations,5,"NOC 6541 was split. Job title ""mystery shopper"" moved from NOC 6541 to NOC 65329."
+6551,Customer services representatives - financial institutions,C,64400,Customer services representatives - financial institutions,4,N/A
+6561,"Image, social and other personal consultants",C,64201,"Image, social and other personal consultants",4,N/A
+6562,"Estheticians, electrologists and related occupations",C,63211,"Estheticians, electrologists and related occupations",3,N/A
+6563,Pet groomers and animal care workers,C,65220,Pet groomers and animal care workers,5,N/A
+6564,Other personal service occupations,C,65229,Other support occupations in personal services,5,N/A
+6611,Cashiers,D,65100,Cashiers,5,N/A
+6621,Service station attendants,D,65101,Service station attendants,5,N/A
+6622,"Store shelf stockers, clerks and order fillers",D,65102,"Store shelf stockers, clerks and order fillers",5,N/A
+6623,Other sales related occupations,D,65109,Other sales related occupations,5,N/A
+6711,"Food counter attendants, kitchen helpers and related support occupations",D,65201,"Food counter attendants, kitchen helpers and related support occupations",5,N/A
+6721,"Support occupations in accommodation, travel and facilities set-up services",D,65210,"Support occupations in accommodation, travel and facilities set-up services",5,N/A
+6732,Specialized cleaners,D,65311,Specialized cleaners,5,N/A
+6733,"Janitors, caretakers and building superintendents",D,65312,"Janitors, caretakers and heavy-duty cleaners",5,"NOC 6733 was split. Job titles related to janitors, caretakers and heavy-duty cleaners moved from NOC 6733 to NOC 65312."
+,,,73201,General building maintenance workers and building superintendents,3,NOC 6733 was split. Job titles related to building superintendent and maintenance work moved from NOC 6733 to NOC 73201.
+6741,"Dry cleaning, laundry and related occupations",D,65320,"Dry cleaning, laundry and related occupations",5,N/A
+6742,"Other service support occupations, n.e.c.",D,65329,Other service support occupations,5,N/A
+711,Construction managers,A,70010,Construction managers,0,N/A
+712,Home building and renovation managers,A,70011,Home building and renovation managers,0,N/A
+731,Managers in transportation,A,70020,Managers in transportation,0,N/A
+7201,"Contractors and supervisors, machining, metal forming, shaping and erecting trades and related occupations",B,72010,"Contractors and supervisors, machining, metal forming, shaping and erecting trades and related occupations",2,N/A
+7202,"Contractors and supervisors, electrical trades and telecommunications occupations",B,72011,"Contractors and supervisors, electrical trades and telecommunications occupations",2,N/A
+7203,"Contractors and supervisors, pipefitting trades",B,72012,"Contractors and supervisors, pipefitting trades",2,N/A
+7204,"Contractors and supervisors, carpentry trades",B,72013,"Contractors and supervisors, carpentry trades",2,N/A
+7205,"Contractors and supervisors, other construction trades, installers, repairers and servicers",B,72014,"Contractors and supervisors, other construction trades, installers, repairers and servicers",2,N/A
+7231,Machinists and machining and tooling inspectors,B,72100,Machinists and machining and tooling inspectors,2,N/A
+7232,Tool and die makers,B,72101,Tool and die makers,2,N/A
+7233,Sheet metal workers,B,72102,Sheet metal workers,2,N/A
+7234,Boilermakers,B,72103,Boilermakers,2,N/A
+7235,Structural metal and platework fabricators and fitters,B,72104,Structural metal and platework fabricators and fitters,2,N/A
+7236,Ironworkers,B,72105,Ironworkers,2,N/A
+7237,Welders and related machine operators,B,72106,Welders and related machine operators,2,N/A
+7241,Electricians (except industrial and power system),B,72200,Electricians (except industrial and power system),2,N/A
+7242,Industrial electricians,B,72201,Industrial electricians,2,N/A
+7243,Power system electricians,B,72202,Power system electricians,2,N/A
+7244,Electrical power line and cable workers,B,72203,Electrical power line and cable workers,2,N/A
+7245,Telecommunications line and cable workers,B,72204,Telecommunications line and cable installers and repairers,2,N/A
+7246,Telecommunications installation and repair workers,B,72205,Telecommunications equipment installation and cable television service technicians,2,N/A
+7247,Cable television service and maintenance technicians,B,72204,Telecommunications line and cable installers and repairers,2,NOC 7247 was split. Job titles related to cable television maintenance technician moved from NOC 7247 to NOC 72204.
+,,,72205,Telecommunications equipment installation and cable television service technicians,2,NOC 7247 was split. Job titles related to distribution systems and cable television service technicians moved from NOC 7247 to NOC 72205.
+7251,Plumbers,B,72300,Plumbers,2,N/A
+7252,"Steamfitters, pipefitters and sprinkler system installers",B,72301,"Steamfitters, pipefitters and sprinkler system installers",2,N/A
+7253,Gas fitters,B,72302,Gas fitters,2,N/A
+7271,Carpenters,B,72310,Carpenters,2,N/A
+7272,Cabinetmakers,B,72311,Cabinetmakers,2,N/A
+7281,Bricklayers,B,72320,Bricklayers,2,N/A
+7282,Concrete finishers,B,73100,Concrete finishers,3,N/A
+7283,Tilesetters,B,73101,Tilesetters,3,N/A
+7284,"Plasterers, drywall installers and finishers and lathers",B,73102,"Plasterers, drywall installers and finishers and lathers",3,N/A
+7291,Roofers and shinglers,B,73110,Roofers and shinglers,3,N/A
+7292,Glaziers,B,73111,Glaziers,3,N/A
+7293,Insulators,B,72321,Insulators,2,N/A
+7294,Painters and decorators (except interior decorators),B,73112,Painters and decorators (except interior decorators),3,N/A
+7295,Floor covering installers,B,73113,Floor covering installers,3,N/A
+7301,"Contractors and supervisors, mechanic trades",B,72020,"Contractors and supervisors, mechanic trades",2,N/A
+7302,"Contractors and supervisors, heavy equipment operator crews",B,72021,"Contractors and supervisors, heavy equipment operator crews",2,N/A
+7303,"Supervisors, printing and related occupations",B,72022,"Supervisors, printing and related occupations",2,N/A
+7304,"Supervisors, railway transport operations",B,72023,"Supervisors, railway transport operations",2,N/A
+7305,"Supervisors, motor transport and other ground transit operators",B,72024,"Supervisors, motor transport and other ground transit operators",2,N/A
+7311,Construction millwrights and industrial mechanics,B,72400,Construction millwrights and industrial mechanics,2,N/A
+7312,Heavy-duty equipment mechanics,B,72401,Heavy-duty equipment mechanics,2,N/A
+7313,"Heating, refrigeration and air conditioning mechanics",B,72402,"Heating, refrigeration and air conditioning mechanics",2,N/A
+7314,Railway carmen / women,B,72403,Railway carmen / women,2,N/A
+7315,Aircraft mechanics and aircraft inspectors,B,72404,Aircraft mechanics and aircraft inspectors,2,N/A
+7316,Machine fitters,B,72405,Machine fitters,2,N/A
+7318,Elevator constructors and mechanics,B,72406,Elevator constructors and mechanics,2,N/A
+7321,"Automotive service technicians, truck and bus mechanics and mechanical repairers",B,72410,"Automotive service technicians, truck and bus mechanics and mechanical repairers",2,N/A
+7322,Motor vehicle body repairers,B,72411,"Auto body collision, refinishing and glass technicians and damage repair estimators",2,N/A
+7331,Oil and solid fuel heating mechanics,B,72420,Oil and solid fuel heating mechanics,2,N/A
+7332,Appliance servicers and repairers,B,72421,Appliance servicers and repairers,2,N/A
+7333,Electrical mechanics,B,72422,Electrical mechanics,2,N/A
+7334,"Motorcycle, all-terrain vehicle and other related mechanics",B,72423,"Motorcycle, all-terrain vehicle and other related mechanics",2,N/A
+7335,Other small engine and small equipment repairers,B,72429,Other small engine and small equipment repairers,2,N/A
+7361,Railway and yard locomotive engineers,B,73310,Railway and yard locomotive engineers,3,N/A
+7362,Railway conductors and brakemen / women,B,73311,Railway conductors and brakemen / women,3,N/A
+7611,Construction trades helpers and labourers,D,75110,Construction trades helpers and labourers,5,N/A
+7371,Crane operators,B,72500,Crane operators,2,NOC 7371 was split. Job titles related to crane operators moved from NOC 7371 to NOC 72500.
+,,,75110,Construction trades helpers and labourers,5,NOC 7371 was split. Job titles related to rigging moved from NOC 7371 to NOC 75100.
+7372,"Drillers and blasters - surface mining, quarrying and construction",B,73402,"Drillers and blasters - surface mining, quarrying and construction",3,N/A
+7373,Water well drillers,B,72501,Water well drillers,2,N/A
+7381,Printing press operators,B,73401,Printing press operators,3,N/A
+7384,"Other trades and related occupations, n.e.c.",B,72999,Other technical trades and related occupations,2,NOC 7384 was split. Job titles related to other technical trades and related occupations moved from NOC 7384 to NOC 72999.
+,,,72423,"Motorcycle, all-terrain vehicle and other related mechanics",2,"NOC 7384 was split. Job titles related to recreation and vehicle mechanic, repairer, and service technician moved from NOC 7384 to NOC 72423."
+7441,Residential and commercial installers and servicers,C,73200,Residential and commercial installers and servicers,3,N/A
+7442,Waterworks and gas maintenance workers,C,74204,Utility maintenance workers,4,N/A
+7444,Pest controllers and fumigators,C,73202,Pest controllers and fumigators,3,N/A
+7445,Other repairers and servicers,C,73209,Other repairers and servicers,3,NOC 7445 was split. Job title related to other repairers and servicers moved from NOC 7445 to NOC 73209.
+,,,22311,Electronic service technicians (household and business equipment),2,"NOC 7445 was split. Job title ""Security systems technician"" moved from NOC 7445 to NOC 22311."
+7451,Longshore workers,C,75100,Longshore workers,5,N/A
+7511,Transport truck drivers,C,73300,Transport truck drivers,3,N/A
+7512,"Bus drivers, subway operators and other transit operators",C,73301,"Bus drivers, subway operators and other transit operators",3,N/A
+7513,Taxi and limousine drivers and chauffeurs,C,75200,Taxi and limousine drivers and chauffeurs,5,N/A
+7514,Delivery and courier service drivers,C,75201,Delivery service drivers and door-to-door distributors,5,NOC 7514 was split. Job titles related to delivery service drivers and door-to-door distributors moved from NOC 7514 to NOC 75201.
+,,,74102,Couriers and messengers,4,NOC 7514 was split. Job titles related to courier service drivers moved from NOC 7514 to NOC 74102.
+7521,Heavy equipment operators (except crane),C,73400,Heavy equipment operators,3,N/A
+7522,Public works maintenance equipment operators and related workers,C,74205,Public works maintenance equipment operators and related workers,4,NOC 7522 was split. Job titles related to public works maintenance equipment operators and related workers moved from NOC 7522 to NOC 74205.
+,,,74204,Utility maintenance workers,4,NOC 7522 was split. Job titles related to utility and power pole inspection moved from NOC 7522 to NOC 74204.
+7531,Railway yard and track maintenance workers,C,74200,Railway yard and track maintenance workers,4,N/A
+7532,Water transport deck and engine room crew,C,74201,Water transport deck and engine room crew,4,N/A
+7533,Boat and cable ferry operators and related occupations,C,75210,Boat and cable ferry operators and related occupations,5,N/A
+7535,Other automotive mechanical installers and servicers,C,74203,Automotive and heavy truck and equipment parts installers and servicers,4,N/A
+7612,Other trades helpers and labourers,D,75119,Other trades helpers and labourers,5,N/A
+7621,Public works and maintenance labourers,D,75212,Public works and maintenance labourers,5,N/A
+7622,Railway and motor transport labourers,D,75211,Railway and motor transport labourers,5,N/A
+811,Managers in natural resources production and fishing,A,80010,Managers in natural resources production and fishing,0,N/A
+821,Managers in agriculture,A,80020,Managers in agriculture,0,N/A
+822,Managers in horticulture,A,80021,Managers in horticulture,0,N/A
+823,Managers in aquaculture,A,80022,Managers in aquaculture,0,N/A
+8211,"Supervisors, logging and forestry",B,82010,"Supervisors, logging and forestry",2,N/A
+8221,"Supervisors, mining and quarrying",B,82020,"Supervisors, mining and quarrying",2,N/A
+8222,"Contractors and supervisors, oil and gas drilling and services",B,82021,"Contractors and supervisors, oil and gas drilling and services",3,N/A
+8231,Underground production and development miners,B,83100,Underground production and development miners,3,N/A
+8232,"Oil and gas well drillers, servicers, testers and related workers",B,83101,"Oil and gas well drillers, servicers, testers and related workers",3,N/A
+8241,Logging machinery operators,B,83110,Logging machinery operators,3,N/A
+8252,"Agricultural service contractors, farm supervisors and specialized livestock workers",B,72600,"Air pilots, flight engineers and flying instructors",2,"NOC 8252 was split. Job title ""Aerial crop dusting service contractor"" moved from NOC 8252 to NOC 72600."
+,,,82030,Agricultural service contractors and farm supervisors,2,NOC 8252 was split. Job titles related to agricultural service contractors and farm supervisors moved from NOC 8252 to NOC 82030.
+,,,84120,Specialized livestock workers and farm machinery operators,4,NOC 8252 was split. Job titles related to specialized livestock work moved from NOC 8252 to NOC 84120.
+,,,85100,Livestock labourers,5,"NOC 8252 was split. Job title ""Feedlot herd attendant"" moved from NOC 8252 to NOC 85100."
+8255,"Contractors and supervisors, landscaping, grounds maintenance and horticulture services",B,82031,"Contractors and supervisors, landscaping, grounds maintenance and horticulture services",2,N/A
+8261,Fishing masters and officers,B,83120,Fishing masters and officers,3,N/A
+8262,Fishermen / women,B,83121,Fishermen / women,3,N/A
+8411,Underground mine service and support workers,C,84100,Underground mine service and support workers,4,N/A
+8412,Oil and gas well drilling and related workers and services operators,C,84101,Oil and gas well drilling and related workers and services operators,4,N/A
+8421,Chain saw and skidder operators,C,84110,Chain saw and skidder operators,4,N/A
+8422,Silviculture and forestry workers,C,84111,Silviculture and forestry workers,4,N/A
+8611,Harvesting labourers,D,85101,Harvesting labourers,5,N/A
+8431,General farm workers,C,85100,Livestock labourers,5,NOC 8431 was split. Job titles related to livestock labourer moved from NOC 8431 to NOC 85100.
+,,,85101,Harvesting labourers,4,NOC 8431 was split. Job titles related to harvesting labourer moved from NOC 8431 to NOC 85101.
+,,,84120,Specialized livestock workers and farm machinery operators,4,NOC 8431 was split. Job titles related to farm machinery operation moved from NOC 8431 to NOC 84120.
+8432,Nursery and greenhouse workers,C,85103,Nursery and greenhouse labourers,5,N/A
+8441,Fishing vessel deckhands,C,84121,Fishing vessel deckhands,4,N/A
+8442,Trappers and hunters,C,85104,Trappers and hunters,5,N/A
+8612,Landscaping and grounds maintenance labourers,D,85121,Landscaping and grounds maintenance labourers,5,N/A
+8613,Aquaculture and marine harvest labourers,D,85102,Aquaculture and marine harvest labourers,5,N/A
+8614,Mine labourers,D,85110,Mine labourers,5,N/A
+8615,"Oil and gas drilling, servicing and related labourers",D,85111,"Oil and gas drilling, servicing and related labourers",5,N/A
+8616,Logging and forestry labourers,D,85120,Logging and forestry labourers,5,N/A
+911,Manufacturing managers,A,90010,Manufacturing managers,0,N/A
+912,Utilities managers,A,90011,Utilities managers,0,N/A
+9211,"Supervisors, mineral and metal processing",B,92010,"Supervisors, mineral and metal processing",2,N/A
+9212,"Supervisors, petroleum, gas and chemical processing and utilities",B,92011,"Supervisors, petroleum, gas and chemical processing and utilities",2,N/A
+9213,"Supervisors, food and beverage processing",B,92012,"Supervisors, food and beverage processing",2,N/A
+9214,"Supervisors, plastic and rubber products manufacturing",B,92013,"Supervisors, plastic and rubber products manufacturing",2,N/A
+9215,"Supervisors, forest products processing",B,92014,"Supervisors, forest products processing",2,N/A
+9217,"Supervisors, textile, fabric, fur and leather products processing and manufacturing",B,92015,"Supervisors, textile, fabric, fur and leather products processing and manufacturing",2,N/A
+9221,"Supervisors, motor vehicle assembling",B,92020,"Supervisors, motor vehicle assembling",2,N/A
+9222,"Supervisors, electronics manufacturing",B,92021,"Supervisors, electronics and electrical products manufacturing",2,NOC 9222 merged with NOC 9223 to create NOC 92021.
+9223,"Supervisors, electrical products manufacturing",B,92021,"Supervisors, electronics and electrical products manufacturing",2,NOC 9223 merged with NOC 9222 to create NOC 92021.
+9224,"Supervisors, furniture and fixtures manufacturing",B,92022,"Supervisors, furniture and fixtures manufacturing",2,N/A
+9226,"Supervisors, other mechanical and metal products manufacturing",B,92023,"Supervisors, other mechanical and metal products manufacturing",2,N/A
+9227,"Supervisors, other products manufacturing and assembly",B,92024,"Supervisors, other products manufacturing and assembly",2,N/A
+9231,"Central control and process operators, mineral and metal processing",B,93100,"Central control and process operators, mineral and metal processing",3,N/A
+9232,"Central control and process operators, petroleum, gas and chemical processing",B,93101,"Central control and process operators, petroleum, gas and chemical processing",3,N/A
+9235,"Pulping, papermaking and coating control operators",B,93102,"Pulping, papermaking and coating control operators",3,N/A
+9241,Power engineers and power systems operators,B,92100,Power engineers and power systems operators,2,N/A
+9243,Water and waste treatment plant operators,B,92101,Water and waste treatment plant operators,2,N/A
+9411,"Machine operators, mineral and metal processing",C,94100,"Machine operators, mineral and metal processing",4,N/A
+9412,Foundry workers,C,94101,Foundry workers,4,N/A
+9413,Glass forming and finishing machine operators and glass cutters,C,94102,Glass forming and finishing machine operators and glass cutters,4,N/A
+9414,"Concrete, clay and stone forming operators",C,94103,"Concrete, clay and stone forming operators",4,N/A
+9415,"Inspectors and testers, mineral and metal processing",C,94104,"Inspectors and testers, mineral and metal processing",4,N/A
+9416,Metalworking and forging machine operators,C,94105,Metalworking and forging machine operators,4,N/A
+9417,Machining tool operators,C,94106,Machining tool operators,4,N/A
+9418,Other metal products machine operators,C,94107,Machine operators of other metal products,4,N/A
+9613,Labourers in chemical products processing and utilities,D,95102,Labourers in chemical products processing and utilities,5,N/A
+9421,Chemical plant machine operators,C,94110,Chemical plant machine operators,4,NOC 9421 was split. Job titles related to chemical plant machine operators moved from NOC 9421 to NOC 94110.
+,,,95102,Labourers in chemical products processing and utilities,5,"NOC 9421 was split. Job title ""Ring furnace operator helper"" moved from NOC 9421 to NOC 95102."
+9422,Plastics processing machine operators,C,94111,Plastics processing machine operators,4,N/A
+9423,Rubber processing machine operators and related workers,C,94112,Rubber processing machine operators and related workers,4,N/A
+9431,Sawmill machine operators,C,94120,Sawmill machine operators,4,N/A
+9432,Pulp mill machine operators,C,94121,"Pulp mill, papermaking and finishing machine operators",4,NOC 9432 merged with NOC 9433 to create NOC 94121.
+9433,Papermaking and finishing machine operators,C,94121,"Pulp mill, papermaking and finishing machine operators",4,NOC 9433 merged with NOC 9432 to create NOC 94121.
+9434,Other wood processing machine operators,C,94129,Other wood processing machine operators,4,N/A
+9435,Paper converting machine operators,C,94122,Paper converting machine operators,4,N/A
+9436,Lumber graders and other wood processing inspectors and graders,C,94123,Lumber graders and other wood processing inspectors and graders,4,N/A
+9437,Woodworking machine operators,C,94124,Woodworking machine operators,4,N/A
+9441,"Textile fibre and yarn, hide and pelt processing machine operators and workers",C,94130,"Textile fibre and yarn, hide and pelt processing machine operators and workers",4,"NOC 9441 was split. Job titles related to textile fibre and yarn, hide and pelt processing machine operators and workers moved from NOC 9441 to NOC 94130."
+,,,95105,Labourers in textile processing and cutting,5,"NOC 9441 was split. Job title ""Cloth-printing machine helper"" moved from NOC 9441 to NOC 95105."
+9442,"Weavers, knitters and other fabric making occupations",C,94131,"Weavers, knitters and other fabric making occupations",4,N/A
+9445,"Fabric, fur and leather cutters",C,95105,Labourers in textile processing and cutting,5,NOC 9445 merged with NOC 9616 to create NOC 95105.
+9446,Industrial sewing machine operators,C,94132,Industrial sewing machine operators,4,N/A
+9447,"Inspectors and graders, textile, fabric, fur and leather products manufacturing",C,94133,"Inspectors and graders, textile, fabric, fur and leather products manufacturing",4,N/A
+9461,"Process control and machine operators, food and beverage processing",C,94140,"Process control and machine operators, food and beverage processing",4,N/A
+9462,"Industrial butchers and meat cutters, poultry preparers and related workers",C,94141,"Industrial butchers and meat cutters, poultry preparers and related workers",4,N/A
+9463,Fish and seafood plant workers,C,94142,Fish and seafood plant workers,4,N/A
+9465,"Testers and graders, food and beverage processing",C,94143,"Testers and graders, food and beverage processing",4,N/A
+9471,Plateless printing equipment operators,C,94150,Plateless printing equipment operators,4,N/A
+9472,"Camera, platemaking and other prepress occupations",C,94151,"Camera, platemaking and other prepress occupations",4,N/A
+9473,Binding and finishing machine operators,C,94152,Binding and finishing machine operators,4,N/A
+9474,Photographic and film processors,C,94153,Photographic and film processors,4,N/A
+9521,Aircraft assemblers and aircraft assembly inspectors,C,93200,Aircraft assemblers and aircraft assembly inspectors,3,N/A
+9522,"Motor vehicle assemblers, inspectors and testers",C,94200,"Motor vehicle assemblers, inspectors and testers",4,N/A
+9523,"Electronics assemblers, fabricators, inspectors and testers",C,94201,"Electronics assemblers, fabricators, inspectors and testers",4,N/A
+9524,"Assemblers and inspectors, electrical appliance, apparatus and equipment manufacturing",C,94202,"Assemblers and inspectors, electrical appliance, apparatus and equipment manufacturing",4,N/A
+9525,"Assemblers, fabricators and inspectors, industrial electrical motors and transformers",C,94203,"Assemblers, fabricators and inspectors, industrial electrical motors and transformers",4,N/A
+9526,Mechanical assemblers and inspectors,C,94204,Mechanical assemblers and inspectors,4,N/A
+9527,"Machine operators and inspectors, electrical apparatus manufacturing",C,94205,"Machine operators and inspectors, electrical apparatus manufacturing",4,N/A
+9532,Furniture and fixture assemblers and inspectors,C,94210,"Furniture and fixture assemblers, finishers, refinishers and inspectors",4,NOC 9532 merged with NOC 9534 to create NOC 94210.
+9533,Other wood products assemblers and inspectors,C,94211,Assemblers and inspectors of other wood products,4,N/A
+9534,Furniture finishers and refinishers,C,94210,"Furniture and fixture assemblers, finishers, refinishers and inspectors",4,NOC 9534 merged with NOC 9532 to create NOC 94210.
+9535,"Plastic products assemblers, finishers and inspectors",C,94212,"Plastic products assemblers, finishers and inspectors",4,N/A
+9536,"Industrial painters, coaters and metal finishing process operators",C,94213,"Industrial painters, coaters and metal finishing process operators",4,N/A
+9537,"Other products assemblers, finishers and inspectors",C,94219,"Other products assemblers, finishers and inspectors",4,NOC 9531 merged with NOC 9537 to create NOC 94219.
+9531,Boat assemblers and inspectors,C,94219,"Other products assemblers, finishers and inspectors",4,NOC 9531 merged with NOC 9537 to create NOC 94219.
+9611,Labourers in mineral and metal processing,D,95100,Labourers in mineral and metal processing,5,N/A
+9612,Labourers in metal fabrication,D,95101,Labourers in metal fabrication,5,N/A
+9614,"Labourers in wood, pulp and paper processing",D,95103,"Labourers in wood, pulp and paper processing",5,N/A
+9615,Labourers in rubber and plastic products manufacturing,D,95104,Labourers in rubber and plastic products manufacturing,5,N/A
+9616,Labourers in textile processing,D,95105,Labourers in textile processing and cutting,5,NOC 9445 merged with NOC 9616 to create NOC 95105.
+9617,Labourers in food and beverage processing,D,95106,Labourers in food and beverage processing,5,N/A
+9618,Labourers in fish and seafood processing,D,95107,Labourers in fish and seafood processing,5,NOC 9618 was split. Job titles related to labourers in fish and seafood processing moved from NOC 9618 to NOC 95107.
+,,,94142,Fish and seafood plant workers,4,"NOC 9618 was split. Job title ""fish flaker - fish processing"" moved from NOC 9618 to NOC 94142."
+9619,"Other labourers in processing, manufacturing and utilities",D,95109,"Other labourers in processing, manufacturing and utilities",5,N/A

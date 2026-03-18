@@ -1,0 +1,15 @@
+diff --git a/js/dropdown.js b/js/dropdown.js
+index 01af7773911a7e7715114152d21a61dfe818dc42..8181ab9b109647e53a2964de7b74aa0e6b47b702 100644
+--- a/js/dropdown.js
++++ b/js/dropdown.js
+@@ -59,10 +59,6 @@
+     el_s.classList.add('gt_selector', 'notranslate');
+     el_s.setAttribute('aria-label', select_language_label);
+ 
+-    var el_o = document.createElement('option');
+-    el_o.value = '';
+-    el_o.innerText = select_language_label;
+-    el_s.appendChild(el_o);
+     languages.forEach(function(lang) {
+         var el_o = document.createElement('option');
+         el_o.value = default_language + '|' + lang;

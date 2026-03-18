@@ -1,0 +1,42 @@
+{#
+/**
+* @file
+* Template for custom WorkBC Career Exploration page
+*
+* Available variables:
+* - career_exploration
+*   - categories
+*   - interests
+#}
+
+<style>
+.grid-container {
+  display: grid;
+  grid-template-columns: auto auto auto auto;
+  padding: 10px;
+}
+.grid-container > div {
+  background-color: #f1f1f1;
+  border: 2px solid white;
+  padding: 10px;
+  font-size: 20px;
+  text-align: center;
+}
+</style>
+
+{% if career_exploration %}
+
+  <div class="career-exploration-grid-container">
+    <ul class="career-exploration-grid">
+      {% for key, epbc in career_exploration.categories %} 
+        <li id="category-id-{{key}}" class="grid-item" data-category-id={{key}}>{{ epbc }}</li>
+        <li id="selector-id-{{key}}" class="fullwidth is-hidden">
+          {% for interest in career_exploration.interests[key] %}
+            <p>{{ interest }}</p>
+          {% endfor %}
+        </li>
+      {% endfor %}
+    </ul>
+  </div>
+
+{% endif %}

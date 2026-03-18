@@ -1,0 +1,14 @@
+parameters:
+  ses_mailer.ses_client.options:
+    region: us-east-1
+    version: latest
+
+services:
+
+  ses_mailer.ses_client:
+    class: \Aws\Ses\SesClient
+    arguments: ['%ses_mailer.ses_client.options%']
+
+  logger.channel.ses_mailer:
+    parent: logger.channel_base
+    arguments: ['ses_mailer']

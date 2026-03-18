@@ -1,0 +1,100 @@
+.header {
+  position: relative;
+  background-color: #fff;
+  box-shadow: 0 4px 7px rgba(0, 0, 0, 0.1);
+  transition: all 1.3s ease-out;
+
+  @include media-breakpoint-up(xl) {
+    @media (hover: hover) and (pointer: fine) {
+      box-shadow: none;
+    }
+  }
+}
+
+.nav-fixed .header {
+  @media (max-width: 1200px), (hover: none), (pointer: coarse) {
+      position: fixed;
+      top: 0;
+      left: 0;
+      width: 100%;
+      z-index: 4;
+  }
+}
+
+.nav-fixed.toolbar-fixed .header {
+  top: 38px;
+}
+
+.nav-fixed.toolbar-tray-open .header {
+  top: 79px;
+}
+
+.header__container {
+  position: relative;
+  padding-top: 20px;
+  padding-bottom: 30px;
+
+  @include media-breakpoint-up(xl) {
+    @media (hover: hover) and (pointer: fine) {
+      padding-top: 10px;
+      padding-bottom: 30px;
+    }
+  }
+}
+
+.header__logo-search-container {
+  @include media-breakpoint-up(xl) {
+    @media (hover: hover) and (pointer: fine) {
+      display: flex;
+    }
+  }
+}
+
+.header__logo-link {
+  display: block;
+  width: 170px;
+
+  @include media-breakpoint-up(xl) {
+    @media (hover: hover) and (pointer: fine) {
+      width: 260px;
+      align-self: end;
+    }
+  }
+
+  img {
+    display: block;
+    width: 100%;
+  }
+}
+
+.header__search {
+  margin-top: 20px;
+
+  @include media-breakpoint-up(xl) {
+    @media (hover: hover) and (pointer: fine) {
+      margin-left: auto;
+      align-self: end;
+      min-width: 500px;
+    }
+  }
+}
+
+.nav-fixed .header__search {
+  display: none;
+}
+
+.header__menu-toggle {
+  display: block;
+  position: absolute;
+  top: 20px;
+  right: 6px;
+
+  // only display the following if the device
+  // screen width larger than "xl" and the device
+  // recognizes the hover state
+  @include media-breakpoint-up(xl) {
+    @media (hover: hover) and (pointer: fine) {
+      display: none;
+    }
+  }
+}

@@ -1,0 +1,34 @@
+.nav-footer {
+  display: block;
+  text-align: center;
+
+  @include media-breakpoint-up(lg) {
+    text-align: left;
+  }
+}
+
+.nav-footer .nav-items {
+  @include list-reset;
+}
+
+.nav-footer .nav-item {
+  @include list-item-separator-after("|", 8px);
+  display: inline-block;
+  color: $workbc_dark_theme_text;
+
+  &:first-child {
+    .nav-link {
+      padding-left: 0;
+    }
+  }
+}
+
+.nav-footer .nav-link {
+  color: $workbc_dark_theme_text;
+  font-size: 0.9rem;
+  padding: 8px 9px;
+
+  @include media-breakpoint-up(lg) {
+    font-size: .9375rem;
+  }
+}

@@ -1,0 +1,9 @@
+workbc_jobboard.get_recent_jobs:
+  path: '/api/getCities'
+  defaults:
+    _title: 'Get Cities'
+    _controller: '\Drupal\workbc_jobboard\Controller\WorkBcJobboardController::getCitiesJson'
+  requirements:
+    _permission: 'access content'
+  options:
+    no_cache: 'TRUE'

@@ -1,0 +1,11 @@
+.cke-media-resize.align-center {
+  display: blook;
+  margin-left: auto;
+  margin-right: auto;
+}
+
+.cke-media-resize {
+  @include media-breakpoint-down(md) {
+    width: 100% !important;
+  }
+}

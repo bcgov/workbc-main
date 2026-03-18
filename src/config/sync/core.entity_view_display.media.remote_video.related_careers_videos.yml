@@ -1,0 +1,55 @@
+uuid: 9e8b8cd5-e587-4e83-8cc3-9061ac764415
+langcode: en
+status: true
+dependencies:
+  config:
+    - core.entity_view_mode.media.related_careers_videos
+    - field.field.media.remote_video.field_career_trek
+    - field.field.media.remote_video.field_category
+    - field.field.media.remote_video.field_description
+    - field.field.media.remote_video.field_duration
+    - field.field.media.remote_video.field_exclude_from_video_page
+    - field.field.media.remote_video.field_media_oembed_video
+    - field.field.media.remote_video.field_recently_added
+    - field.field.media.remote_video.field_weight
+    - image.style.career_trek_node_banner
+    - media.type.remote_video
+  module:
+    - svg_image
+_core:
+  default_config_hash: zQoBQ0BtnMM_rlDdgftyu6eI4AVs9mo5K8xq7NFO2Zc
+id: media.remote_video.related_careers_videos
+targetEntityType: media
+bundle: remote_video
+mode: related_careers_videos
+content:
+  thumbnail:
+    type: image
+    label: hidden
+    settings:
+      image_link: ''
+      image_style: career_trek_node_banner
+      image_loading:
+        attribute: lazy
+      svg_attributes:
+        width: null
+        height: null
+      svg_render_as_image: true
+    third_party_settings: {  }
+    weight: 0
+    region: content
+hidden:
+  created: true
+  field_career_trek: true
+  field_category: true
+  field_description: true
+  field_duration: true
+  field_exclude_from_video_page: true
+  field_media_oembed_video: true
+  field_recently_added: true
+  field_title: true
+  field_weight: true
+  langcode: true
+  name: true
+  search_api_excerpt: true
+  uid: true

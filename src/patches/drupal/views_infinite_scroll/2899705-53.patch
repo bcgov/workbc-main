@@ -1,0 +1,187 @@
+diff --git a/js/infinite-scroll.js b/js/infinite-scroll.js
+index 31af211..98369e8 100644
+--- a/js/infinite-scroll.js
++++ b/js/infinite-scroll.js
+@@ -18,9 +18,6 @@
+   // The selector for both manual load and automatic pager.
+   var pagerSelector = '[data-drupal-views-infinite-scroll-pager]';
+ 
+-  // The selector for the automatic pager.
+-  var contentWrapperSelector = '[data-drupal-views-infinite-scroll-content-wrapper]';
+-
+   // The event and namespace that is bound to window for automatic scrolling.
+   var scrollEvent = 'scroll.views_infinite_scroll';
+ 
+@@ -50,6 +47,12 @@
+     var $existingPager = view.$view.find(pagerSelector);
+     once.remove('infinite-scroll', $existingPager);
+ 
++    // The selector for the automatic pager.
++    var contentWrapperSelector = '[data-drupal-views-infinite-scroll-content-wrapper]';
++    if ($newView.find('[data-drupal-views-infinite-scroll-table]' + ' > tbody').length) {
++      contentWrapperSelector = '[data-drupal-views-infinite-scroll-table]' + ' > tbody';
++    }
++
+     var $newRows = $newView.find(contentWrapperSelector).children();
+     var $newPager = $newView.find(pagerSelector);
+ 
+diff --git a/tests/modules/views_infinite_scroll_test/config/install/views.view.table.yml b/tests/modules/views_infinite_scroll_test/config/install/views.view.table.yml
+new file mode 100644
+index 0000000..97e4acf
+--- /dev/null
++++ b/tests/modules/views_infinite_scroll_test/config/install/views.view.table.yml
+@@ -0,0 +1,55 @@
++langcode: en
++status: true
++dependencies:
++  module:
++    - node
++    - user
++    - views_infinite_scroll
++id: table
++label: Table
++module: views
++description: ''
++tag: ''
++base_table: node_field_data
++base_field: nid
++core: 8.x
++display:
++  default:
++    display_plugin: default
++    id: default
++    display_title: Master
++    position: 0
++    display_options:
++      pager:
++        type: infinite_scroll
++        options:
++          items_per_page: 3
++          offset: 0
++          id: 0
++          total_pages: null
++          views_infinite_scroll:
++            button_text: 'Load More'
++            automatically_load_content: false
++      use_ajax: true
++      style:
++        type: table
++      row:
++        type: fields
++      fields:
++        title:
++          id: title
++          table: node_field_data
++          field: title
++          entity_type: node
++          entity_field: title
++          plugin_id: field
++          relationship: none
++          label: Title
++      title: Table
++  page_1:
++    display_plugin: page
++    id: page_1
++    display_title: Page
++    position: 1
++    display_options:
++      path: table
+diff --git a/tests/modules/views_infinite_scroll_test/views_infinite_scroll_test.info.yml b/tests/modules/views_infinite_scroll_test/views_infinite_scroll_test.info.yml
+new file mode 100644
+index 0000000..581199b
+--- /dev/null
++++ b/tests/modules/views_infinite_scroll_test/views_infinite_scroll_test.info.yml
+@@ -0,0 +1,5 @@
++name: 'Views infinite scroll test'
++type: module
++package: Testing
++dependencies:
++  - views_infinite_scroll:views_infinite_scroll
+diff --git a/tests/src/FunctionalJavascript/InfiniteScrollTest.php b/tests/src/FunctionalJavascript/InfiniteScrollTest.php
+index 43e7f19..3ffb5d0 100644
+--- a/tests/src/FunctionalJavascript/InfiniteScrollTest.php
++++ b/tests/src/FunctionalJavascript/InfiniteScrollTest.php
+@@ -24,6 +24,7 @@ class InfiniteScrollTest extends WebDriverTestBase {
+     'views',
+     'views_ui',
+     'views_infinite_scroll',
++    'views_infinite_scroll_test',
+     'node',
+   ];
+ 
+@@ -115,6 +116,13 @@ class InfiniteScrollTest extends WebDriverTestBase {
+     $this->getSession()->getPage()->clickLink('Load 3 more of 8 remaining');
+     $this->assertSession()->waitForElement('css', '.node--type-page:nth-child(7)');
+     $this->assertTotalNodes(6);
++
++    $this->drupalGet('table');
++    $this->assertTotalRows(3);
++    $this->getSession()->getPage()->clickLink('Load More');
++    $this->assertSession()->waitForElement('css', '.node--type-page:nth-child(7)');
++    $this->assertCount(1, $this->getSession()->getPage()->findAll('css', 'th'));
++    $this->assertTotalRows(6);
+   }
+ 
+   /**
+@@ -127,6 +135,16 @@ class InfiniteScrollTest extends WebDriverTestBase {
+     $this->assertEquals($total, count($this->getSession()->getPage()->findAll('css', '.node--type-page')));
+   }
+ 
++  /**
++   * Assert how many table rows appear on the page.
++   *
++   * @param int $total
++   *   The total nodes on the page.
++   */
++  protected function assertTotalRows($total) {
++    $this->assertCount($total, $this->getSession()->getPage()->findAll('css', 'tbody tr'));
++  }
++
+   /**
+    * Scroll to a pixel offset.
+    *
+diff --git a/views_infinite_scroll.module b/views_infinite_scroll.module
+index 1362c17..6cafa9e 100644
+--- a/views_infinite_scroll.module
++++ b/views_infinite_scroll.module
+@@ -39,18 +39,34 @@ function views_infinite_scroll_preprocess_views_infinite_scroll_pager(&$vars) {
+  * Implements hook_preprocess_views_view().
+  */
+ function views_infinite_scroll_preprocess_views_view(&$vars) {
++  if (_views_infinite_scroll_has_pager($vars)) {
++    $vars['rows']['#theme_wrappers']['container']['#attributes']['data-drupal-views-infinite-scroll-content-wrapper'] = TRUE;
++    $vars['rows']['#theme_wrappers']['container']['#attributes']['class'][] = 'views-infinite-scroll-content-wrapper';
++    $vars['rows']['#theme_wrappers']['container']['#attributes']['class'][] = 'clearfix';
++  }
++}
++
++/**
++ * Implements hook_preprocess_views_view_table().
++ */
++function views_infinite_scroll_preprocess_views_view_table(&$vars) {
++  if (_views_infinite_scroll_has_pager($vars)) {
++    $vars['attributes']['data-drupal-views-infinite-scroll-table'] = TRUE;
++  }
++}
++
++/**
++ * Helper function that determines whether views_infinite_scroll pager is in use.
++ */
++function _views_infinite_scroll_has_pager($vars) {
+   $view = $vars['view'];
+   if ($view->getDisplay()->isPagerEnabled() && !empty($vars['rows'])) {
+     $pager = $view->getPager();
+     if ($pager && $pager instanceof InfiniteScroll) {
+-      if (!isset($vars['rows']['#theme_wrappers'])) {
+-        $vars['rows']['#theme_wrappers'] = [];
+-      }
+-      $vars['rows']['#theme_wrappers']['container']['#attributes']['data-drupal-views-infinite-scroll-content-wrapper'] = TRUE;
+-      $vars['rows']['#theme_wrappers']['container']['#attributes']['class'][] = 'views-infinite-scroll-content-wrapper';
+-      $vars['rows']['#theme_wrappers']['container']['#attributes']['class'][] = 'clearfix';
++      return TRUE;
+     }
+   }
++  return FALSE;
+ }
+ 
+ /**

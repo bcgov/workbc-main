@@ -1,0 +1,21 @@
+uuid: c558c539-09a0-4c35-aa17-020f48553fbd
+langcode: en
+status: true
+dependencies:
+  module:
+    - workbc_custom
+  theme:
+    - workbc
+id: related_topics
+theme: workbc
+region: hidden
+weight: -21
+provider: null
+plugin: related_topics_block
+settings:
+  id: related_topics_block
+  label: 'Related Topics'
+  label_display: '0'
+  provider: workbc_custom
+  trimmed_limit: '150'
+visibility: {  }

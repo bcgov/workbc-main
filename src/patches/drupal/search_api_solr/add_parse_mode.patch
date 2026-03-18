@@ -1,0 +1,63 @@
+diff --git a/search_api_solr/src/Plugin/search_api/backend/SearchApiSolrBackend.php b/search_api_solr/src/Plugin/search_api/backend/SearchApiSolrBackend.php
+index 2c4f328..4344093 100644
+--- a/search_api_solr/src/Plugin/search_api/backend/SearchApiSolrBackend.php
++++ b/search_api_solr/src/Plugin/search_api/backend/SearchApiSolrBackend.php
+@@ -3343,6 +3343,7 @@ protected function createFilterQueries(ConditionGroupInterface $condition_group,
+               // phrase. But this prevents an explicit selection of all terms.
+               // @see https://www.drupal.org/project/search_api/issues/2991134
+               case 'terms':
++              case 'career_trek_terms':
+               case 'phrase':
+               case 'sloppy_phrase':
+               case 'sloppy_terms':
+diff --git a/search_api_solr/src/Utility/Utility.php b/search_api_solr/src/Utility/Utility.php
+index 404b32f..c8e69fd 100644
+--- a/search_api_solr/src/Utility/Utility.php
++++ b/search_api_solr/src/Utility/Utility.php
+@@ -820,6 +820,7 @@ public static function flattenKeys($keys, array $fields = [], string $parse_mode
+             // To have Solr behave like the database backend, these three
+             // "terms" should be handled like three phrases.
+             case 'terms':
++            case 'career_trek_terms':
+             case 'sloppy_terms':
+             case 'phrase':
+             case 'sloppy_phrase':
+@@ -902,7 +903,29 @@ public static function flattenKeys($keys, array $fields = [], string $parse_mode
+             $query_parts[] = '(' . implode(' ', $key_parts) . ')';
+           }
+           // No break! Execute 'default', too.
+-        default:
++          case 'career_trek_terms':
++            if (count($k) > 1 && count($fields) > 0) {
++              $key_parts = [];
++              foreach ($k as $l) {
++                $field_parts = [];
++                foreach ($fields as $f) {
++                  $field = $f;
++                  $boost = '';
++                  // Split on operators:
++                  // - boost (^)
++                  // - fixed score (^=)
++                  if ($split = preg_split('/([\^])/', $f, -1, PREG_SPLIT_NO_EMPTY | PREG_SPLIT_DELIM_CAPTURE)) {
++                    $field = array_shift($split);
++                    $boost = implode('', $split);
++                  }
++                  $field_parts[] = $field . ':' . $l . $boost;
++                }
++                $key_parts[] = $pre . '(' . implode(' ', $field_parts) . ')';
++              }
++              $query_parts[] = '(' . implode(' ', $key_parts) . ')';
++            }
++            // No break! Execute 'default', too.
++          default:
+           foreach ($k as &$term_or_phrase) {
+             // Just add sloppiness when if we really have a phrase, indicated
+             // by double quotes and terms separated by blanks.
+@@ -1008,6 +1031,7 @@ public static function flattenKeysToPayloadScore($keys, ?ParseModeInterface $par
+           else {
+             switch ($parse_mode_id) {
+               case 'terms':
++              case 'career_trek_terms':
+               case "sloppy_terms":
+               case 'fuzzy_terms':
+               case 'edismax':

@@ -1,0 +1,23 @@
+uuid: a7f6fa94-1057-42a6-b1c0-eb488cf7fffe
+langcode: en
+status: true
+dependencies:
+  config:
+    - field.storage.media.field_exclude_from_video_page
+    - media.type.remote_video
+id: media.remote_video.field_exclude_from_video_page
+field_name: field_exclude_from_video_page
+entity_type: media
+bundle: remote_video
+label: "Don't show on Career Trek page"
+description: ''
+required: false
+translatable: false
+default_value:
+  -
+    value: 0
+default_value_callback: ''
+settings:
+  on_label: "Don't Show"
+  off_label: Show
+field_type: boolean

@@ -1,0 +1,42 @@
+.paragraph--key--featured-topics {
+  .card-plain__desc {
+    p {
+      margin-bottom: 0;
+    }
+  }
+
+  .card-plain__content {
+    padding-bottom: 0;
+  }
+
+  .card-plain__parent {
+    display: block;
+    background-color: $workbc_light_theme_background_accent;
+    padding: 5px $card-spacing;
+    font-size: 0.875rem;
+  }
+}
+
+.paragraph--key--education-planner-bc {
+  img {
+    width: 75%;
+  }
+}
+
+.paragraph--key--student-aid-bc {
+  img {
+    width: 50%;
+  }
+}
+
+.paragraph--key--find-your-path-1 {
+  img {
+    width: 85%;
+  }
+}
+
+.paragraph--key--find-your-path-2 {
+  img {
+    width: 65%;
+  }
+}

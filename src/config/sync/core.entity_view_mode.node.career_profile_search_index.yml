@@ -1,0 +1,11 @@
+uuid: 06d21dd3-9756-4082-8a45-623f044b3aaf
+langcode: en
+status: true
+dependencies:
+  module:
+    - node
+id: node.career_profile_search_index
+label: 'Career Profile search index'
+description: 'Search Index view for Career Profile search index'
+targetEntityType: node
+cache: true

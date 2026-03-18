@@ -1,0 +1,10 @@
+uuid: 1ea784e0-dd19-4971-aa2a-eca562d18eb6
+langcode: en
+status: true
+dependencies: {  }
+id: action_cards_icon_1_2
+label: 'Section: Icons 1/2'
+icon_uuid: null
+icon_default: null
+description: 'A section of icon cards displayed with a 2-per-row layout.'
+behavior_plugins: {  }

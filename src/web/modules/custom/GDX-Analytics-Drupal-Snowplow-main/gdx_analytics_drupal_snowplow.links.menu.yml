@@ -1,0 +1,7 @@
+gdx_analytics_drupal_snowplow.gdx_analytics_drupal_snowplow_settings_form:
+  title: 'GDX Analytics Drupal Snowplow settings'
+  route_name: gdx_analytics_drupal_snowplow.gdx_analytics_drupal_snowplow_settings_form
+  description: 'Configure the collector environment, tracking script URI, app ID, and whether searches are tracked.'
+  parent: system.admin_config_system
+  weight: 99
+

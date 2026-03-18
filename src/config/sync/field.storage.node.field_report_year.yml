@@ -1,0 +1,27 @@
+uuid: b0629e97-190b-4120-9cb1-77d1864920f9
+langcode: en
+status: true
+dependencies:
+  module:
+    - node
+    - options
+id: node.field_report_year
+field_name: field_report_year
+entity_type: node
+type: list_integer
+settings:
+  allowed_values:
+    -
+      value: 2024
+      label: '2024'
+    -
+      value: 2025
+      label: '2025'
+  allowed_values_function: ''
+module: options
+locked: false
+cardinality: 1
+translatable: true
+indexes: {  }
+persist_with_no_fields: false
+custom_storage: false

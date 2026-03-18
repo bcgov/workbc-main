@@ -1,0 +1,29 @@
+uuid: fd9e0a88-4142-4aef-a010-50b000e58349
+langcode: en
+status: true
+dependencies:
+  config:
+    - field.storage.node.field_related_topics_image
+    - media.type.image
+    - node.type.news
+id: node.news.field_related_topics_image
+field_name: field_related_topics_image
+entity_type: node
+bundle: news
+label: 'Related Topics Image'
+description: ''
+required: false
+translatable: true
+default_value: {  }
+default_value_callback: ''
+settings:
+  handler: 'default:media'
+  handler_settings:
+    target_bundles:
+      image: image
+    sort:
+      field: _none
+      direction: ASC
+    auto_create: false
+    auto_create_bundle: ''
+field_type: entity_reference

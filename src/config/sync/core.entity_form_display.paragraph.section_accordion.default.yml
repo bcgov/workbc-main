@@ -1,0 +1,54 @@
+uuid: 9431ee15-b959-4379-83f2-0a827ece4fe5
+langcode: en
+status: true
+dependencies:
+  config:
+    - field.field.paragraph.section_accordion.field_accordion_entry
+    - field.field.paragraph.section_accordion.field_keep_open
+    - field.field.paragraph.section_accordion.field_key
+    - paragraphs.paragraphs_type.section_accordion
+  module:
+    - paragraphs
+id: paragraph.section_accordion.default
+targetEntityType: paragraph
+bundle: section_accordion
+mode: default
+content:
+  field_accordion_entry:
+    type: paragraphs
+    weight: 1
+    region: content
+    settings:
+      title: 'Accordion entry'
+      title_plural: 'Accordion entries'
+      edit_mode: closed
+      closed_mode: summary
+      autocollapse: none
+      closed_mode_threshold: 0
+      add_mode: dropdown
+      form_display_mode: default
+      default_paragraph_type: content_accordion_entry
+      features:
+        add_above: '0'
+        collapse_edit_all: collapse_edit_all
+        convert: '0'
+        duplicate: duplicate
+    third_party_settings: {  }
+  field_keep_open:
+    type: boolean_checkbox
+    weight: 0
+    region: content
+    settings:
+      display_label: true
+    third_party_settings: {  }
+  field_key:
+    type: string_textfield
+    weight: 2
+    region: content
+    settings:
+      size: 60
+      placeholder: ''
+    third_party_settings: {  }
+hidden:
+  created: true
+  status: true

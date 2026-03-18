@@ -1,0 +1,35 @@
+@mixin css-arrow($height: 10px, $border: 2px, $color: #efefef, $border-color: #999, $position: 25%) {
+  $border-shift: $border;
+  
+  @if $border > 0px {
+    $border: round($border * 1.41421356);
+  }
+   
+  position: relative;
+  
+  &:after,
+  &:before {
+    border: solid transparent;
+    content: " ";
+    display: block;
+    height: 0;
+    position: absolute;
+    pointer-events: none;
+    width: 0;   
+    bottom: 100%;
+  }
+
+  &:after {
+    border-bottom-color: $color;
+    border-width: $height;
+    margin-left: -$height;
+    left: $position;  
+  }
+
+  &:before {
+    border-bottom-color: $border-color;
+    border-width: $height + $border;
+    margin-left: -($height + $border);
+    left: $position;
+  }
+}

@@ -1,0 +1,45 @@
+uuid: f4e090bb-afa7-477a-8d5d-fe283fbd252b
+langcode: en
+status: true
+dependencies:
+  config:
+    - core.entity_form_mode.node.bulk_edit
+    - field.field.node.career_profile_introductions.field_content_group
+    - field.field.node.career_profile_introductions.field_employment_introduction
+    - field.field.node.career_profile_introductions.field_industry_highlights_intro
+    - field.field.node.career_profile_introductions.field_labour_market_introduction
+    - field.field.node.career_profile_introductions.field_labour_market_statistics_i
+    - field.field.node.career_profile_introductions.field_occupational_interests_int
+    - field.field.node.career_profile_introductions.field_salary_introduction
+    - field.field.node.career_profile_introductions.field_skills_introduction
+    - node.type.career_profile_introductions
+id: node.career_profile_introductions.bulk_edit
+targetEntityType: node
+bundle: career_profile_introductions
+mode: bulk_edit
+content:
+  field_content_group:
+    type: options_select
+    weight: 0
+    region: content
+    settings: {  }
+    third_party_settings: {  }
+hidden:
+  created: true
+  field_employment_introduction: true
+  field_industry_highlights_intro: true
+  field_labour_market_introduction: true
+  field_labour_market_statistics_i: true
+  field_occupational_interests_int: true
+  field_salary_introduction: true
+  field_skills_introduction: true
+  langcode: true
+  moderation_state: true
+  path: true
+  promote: true
+  simple_sitemap: true
+  status: true
+  sticky: true
+  title: true
+  uid: true
+  url_redirects: true

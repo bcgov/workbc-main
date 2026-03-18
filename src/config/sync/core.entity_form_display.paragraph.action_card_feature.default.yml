@@ -1,0 +1,52 @@
+uuid: 83a97611-918b-4b34-b045-93081a836042
+langcode: en
+status: true
+dependencies:
+  config:
+    - field.field.paragraph.action_card_feature.field_action_card
+    - field.field.paragraph.action_card_feature.field_alignment
+    - field.field.paragraph.action_card_feature.field_key
+    - paragraphs.paragraphs_type.action_card_feature
+  module:
+    - paragraphs
+id: paragraph.action_card_feature.default
+targetEntityType: paragraph
+bundle: action_card_feature
+mode: default
+content:
+  field_action_card:
+    type: paragraphs
+    weight: 1
+    region: content
+    settings:
+      title: Card
+      title_plural: Cards
+      edit_mode: closed
+      closed_mode: summary
+      autocollapse: none
+      closed_mode_threshold: 0
+      add_mode: dropdown
+      form_display_mode: default
+      default_paragraph_type: action_card
+      features:
+        add_above: '0'
+        collapse_edit_all: collapse_edit_all
+        duplicate: duplicate
+    third_party_settings: {  }
+  field_alignment:
+    type: options_buttons
+    weight: 0
+    region: content
+    settings: {  }
+    third_party_settings: {  }
+  field_key:
+    type: string_textfield
+    weight: 2
+    region: content
+    settings:
+      size: 60
+      placeholder: ''
+    third_party_settings: {  }
+hidden:
+  created: true
+  status: true

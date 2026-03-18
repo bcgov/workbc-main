@@ -1,0 +1,148 @@
+uuid: 9998bfe7-88c9-47e5-8cd8-59b59622e3e4
+langcode: en
+status: true
+dependencies:
+  config:
+    - media.type.audio
+    - media.type.document
+    - media.type.icon
+    - media.type.image
+    - media.type.remote_video
+    - media.type.video
+    - search_api_autocomplete.search.explore_careers_autocomplete
+    - search_api_autocomplete.search.search_career_profiles
+    - search_api_autocomplete.search.search_site_content
+  module:
+    - contact
+    - field_permissions
+    - file
+    - media
+    - media_entity_download
+    - paragraphs_type_permissions
+    - search_api_autocomplete
+    - shortcut
+    - sitewide_alert
+    - system
+    - views_bulk_edit
+    - workbc_jobboard
+_core:
+  default_config_hash: I44QAB4es39lNzMQWiJLq2dfjX7VRSOzT_5KzAcUq_M
+id: authenticated
+label: 'Authenticated user'
+weight: -9
+is_admin: false
+permissions:
+  - 'access content'
+  - 'access find jobs block'
+  - 'access media overview'
+  - 'access recent jobs block'
+  - 'access shortcuts'
+  - 'access site-wide contact form'
+  - 'administer menu'
+  - 'create audio media'
+  - 'create document media'
+  - 'create field_content'
+  - 'create field_content_group'
+  - 'create field_organization'
+  - 'create field_scheduled_publish'
+  - 'create icon media'
+  - 'create image media'
+  - 'create media'
+  - 'create remote_video media'
+  - 'create video media'
+  - 'delete any audio media'
+  - 'delete any document media'
+  - 'delete any icon media'
+  - 'delete any image media'
+  - 'delete any media'
+  - 'delete any remote_video media'
+  - 'delete any video media'
+  - 'delete media'
+  - 'delete own audio media'
+  - 'delete own document media'
+  - 'delete own files'
+  - 'delete own icon media'
+  - 'delete own image media'
+  - 'delete own remote_video media'
+  - 'delete own video media'
+  - 'download media'
+  - 'edit any audio media'
+  - 'edit any document media'
+  - 'edit any icon media'
+  - 'edit any image media'
+  - 'edit any remote_video media'
+  - 'edit any video media'
+  - 'edit field_content'
+  - 'edit field_content_group'
+  - 'edit field_organization'
+  - 'edit field_scheduled_publish'
+  - 'edit own audio media'
+  - 'edit own document media'
+  - 'edit own field_content'
+  - 'edit own field_content_group'
+  - 'edit own field_organization'
+  - 'edit own field_scheduled_publish'
+  - 'edit own icon media'
+  - 'edit own image media'
+  - 'edit own remote_video media'
+  - 'edit own video media'
+  - 'update any media'
+  - 'update media'
+  - 'update paragraph content action_card'
+  - 'update paragraph content action_card_feature'
+  - 'update paragraph content action_card_full_width'
+  - 'update paragraph content action_card_icon'
+  - 'update paragraph content action_cards_1_2'
+  - 'update paragraph content action_cards_1_3'
+  - 'update paragraph content action_cards_1_4'
+  - 'update paragraph content action_cards_explore_careers'
+  - 'update paragraph content action_cards_full_width'
+  - 'update paragraph content action_cards_icon'
+  - 'update paragraph content action_cards_icon_1_2'
+  - 'update paragraph content action_cards_publication'
+  - 'update paragraph content additional_duties'
+  - 'update paragraph content content_interactive_map'
+  - 'update paragraph content content_text'
+  - 'update paragraph content content_view'
+  - 'update paragraph content lmo_charts_tables'
+  - 'update paragraph content quote_card'
+  - 'update paragraph content section_read_more'
+  - 'update paragraph content skills'
+  - 'use search_api_autocomplete for explore_careers_autocomplete'
+  - 'use search_api_autocomplete for search_career_profiles'
+  - 'use search_api_autocomplete for search_site_content'
+  - 'use views bulk edit'
+  - 'view all media revisions'
+  - 'view field_content'
+  - 'view field_content_group'
+  - 'view field_organization'
+  - 'view field_scheduled_publish'
+  - 'view media'
+  - 'view own field_content'
+  - 'view own field_content_group'
+  - 'view own field_organization'
+  - 'view own field_scheduled_publish'
+  - 'view own unpublished media'
+  - 'view paragraph content action_card'
+  - 'view paragraph content action_card_feature'
+  - 'view paragraph content action_card_full_width'
+  - 'view paragraph content action_card_icon'
+  - 'view paragraph content action_cards_1_2'
+  - 'view paragraph content action_cards_1_3'
+  - 'view paragraph content action_cards_1_4'
+  - 'view paragraph content action_cards_explore_careers'
+  - 'view paragraph content action_cards_full_width'
+  - 'view paragraph content action_cards_icon'
+  - 'view paragraph content action_cards_icon_1_2'
+  - 'view paragraph content action_cards_publication'
+  - 'view paragraph content additional_duties'
+  - 'view paragraph content content_accordion_entry'
+  - 'view paragraph content content_interactive_map'
+  - 'view paragraph content content_text'
+  - 'view paragraph content content_view'
+  - 'view paragraph content lmo_charts_tables'
+  - 'view paragraph content quote_card'
+  - 'view paragraph content section_accordion'
+  - 'view paragraph content section_read_more'
+  - 'view paragraph content skills'
+  - 'view published sitewide alert entities'

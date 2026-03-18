@@ -1,0 +1,38 @@
+uuid: c9979ba3-17ff-4ce8-8479-a99eeb6647fc
+langcode: en
+status: true
+dependencies:
+  config:
+    - search_api.index.career_profile_index
+    - views.view.explore_careers_autocomplete
+  module:
+    - views
+id: explore_careers_autocomplete
+label: 'Explore Careers Autocomplete'
+index_id: career_profile_index
+suggester_settings:
+  live_results:
+    fields: {  }
+    highlight:
+      enabled: false
+      field: ''
+    suggest_keys: false
+    view_modes:
+      'entity:node':
+        career_profile: ''
+suggester_weights:
+  live_results: 0
+suggester_limits: {  }
+search_settings:
+  'views:explore_careers_autocomplete':
+    displays:
+      default: true
+      selected:
+        - block_1
+options:
+  limit: 10
+  min_length: 1
+  show_count: false
+  delay: null
+  submit_button_selector: ':submit'
+  autosubmit: true

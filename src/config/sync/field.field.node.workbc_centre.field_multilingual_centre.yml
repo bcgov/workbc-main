@@ -1,0 +1,23 @@
+uuid: 951f4e61-dd0f-4253-ae42-95861d7527fc
+langcode: en
+status: true
+dependencies:
+  config:
+    - field.storage.node.field_multilingual_centre
+    - node.type.workbc_centre
+  module:
+    - link
+id: node.workbc_centre.field_multilingual_centre
+field_name: field_multilingual_centre
+entity_type: node
+bundle: workbc_centre
+label: 'Multilingual Centre'
+description: ''
+required: false
+translatable: false
+default_value: {  }
+default_value_callback: ''
+settings:
+  title: 1
+  link_type: 1
+field_type: link

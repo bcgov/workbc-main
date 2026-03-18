@@ -1,0 +1,25 @@
+uuid: eb4a24bf-c7a7-470e-ae18-63f0b93da004
+langcode: en
+status: true
+dependencies:
+  module:
+    - system
+    - workbc_custom
+  theme:
+    - workbc
+id: collectionnoticeblock
+theme: workbc
+region: hidden
+weight: -12
+provider: null
+plugin: collection_notice_block
+settings:
+  id: collection_notice_block
+  label: 'Collection Notice block'
+  label_display: '0'
+  provider: workbc_custom
+visibility:
+  request_path:
+    id: request_path
+    negate: false
+    pages: "/contact-us\r\n/plan-career/career-events/find-your-fit-tour/request-tour-stop"

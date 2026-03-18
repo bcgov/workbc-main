@@ -1,0 +1,21 @@
+{#
+/**
+ * @file
+ * Default theme implementation of a webform publication composite.
+ *
+ * Available variables:
+ * - content: The webform example composite to be output.
+
+ * @see template_preprocess_webform_publication_composite()
+ *
+ * @ingroup themeable
+ */
+#}
+{{ attach_library('webform_publication_composite/webform_publication_composite') }}
+{% if flexbox %}
+    <div class="webform-flexbox">
+      <h3>*** Do not use flexbox ***</h3>
+    </div>
+{% else %}
+  {{ content }}
+{% endif %}

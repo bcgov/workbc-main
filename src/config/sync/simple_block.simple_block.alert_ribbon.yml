@@ -1,0 +1,11 @@
+uuid: a0770d01-b136-4a9c-abb4-57b4d51b61cb
+langcode: en
+status: true
+dependencies:
+  config:
+    - filter.format.full_html
+id: alert_ribbon
+title: 'Alert Ribbon'
+content:
+  value: "<p>This is placeholder Alert Ribbon content</p>\r\n"
+  format: full_html

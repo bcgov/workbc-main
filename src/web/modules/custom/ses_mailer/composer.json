@@ -1,0 +1,9 @@
+{
+  "name": "drupal/ses_mailer",
+  "description": "Provides a simple AWS SES mailer implementation.",
+  "type": "drupal-module",
+  "license": "GPL-2.0+",
+  "require": {
+    "aws/aws-sdk-php": "~3.0"
+  }
+}

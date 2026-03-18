@@ -1,0 +1,55 @@
+.career-profiles-search table {
+  margin-bottom: 30px;
+}
+
+.career-profiles-search td.is-active {
+  background-color: #fff;
+  border-bottom: 1px solid #dbdbdb;
+}
+
+.career-profiles-search  tbody tr td {
+  padding: 20px 0;
+}
+
+.view-search-career-profiles .views-row {
+  padding: 20px 0;
+  border-bottom: 1px solid #dbdbdb;
+}
+
+#job-titles .career-content-job-titles {
+  display: flex;
+  flex-wrap: wrap;
+}
+
+#job-titles .career-content-job-titles > * {
+  width: 100%;
+  display: list-item;
+  list-style-type: disc;
+  list-style-position: outside;
+  padding-right: 20px;
+}
+
+#related-careers .pointer:hover,
+#job-titles .pointer:hover {
+  cursor: pointer;
+}
+
+#related-careers .static-load-more-button-container,
+#job-titles .static-load-more-button-container {
+  padding-top: 1rem;
+  justify-content: left;
+}
+
+#related-careers ul {
+  margin: 0;
+}
+
+#job-titles .career-content-job-titles {
+  margin-left: 2rem;
+}
+
+@media (min-width:768px) {
+  #job-titles .career-content-job-titles > * {
+    width:50%;
+  }
+}

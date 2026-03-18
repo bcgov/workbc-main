@@ -1,0 +1,10 @@
+career_trek_autocomplete:
+  version: 1.x
+  js:
+    js/career-trek-autocomplete.js: {}
+  dependencies:
+    - core/drupal
+    - core/jquery
+    - core/jquery.ui
+    - core/jquery.ui.autocomplete
+    - core/drupalSettings

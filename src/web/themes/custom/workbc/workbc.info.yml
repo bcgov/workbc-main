@@ -1,0 +1,42 @@
+name: WorkBC
+type: theme
+description: 'WorkBC subtheme based on Bootstrap 5 theme.'
+core_version_requirement: '^8.9 || ^9 || ^10 || ^11'
+'base theme': bootstrap5
+dependencies:
+  - popperjs:popperjs
+libraries:
+  - workbc/global-styling
+  - workbc/fonts
+  - workbc/submenu-underlay
+  - workbc/related-topics-carousel
+  - workbc/view-switcher
+  - workbc/icon-append
+  - workbc/video-banner-carousel
+  - workbc/range-slider
+  - workbc/career-inner-video
+  - workbc/career-trek-back-button
+  - workbc/sidenav-anchors
+  - workbc/mobile-nav
+  - workbc/nav
+  - workbc/init-popovers
+  - workbc/static-load-more
+  - workbc/swiper-js
+  - workbc/scrollbooster
+  - workbc/google-charts-redraw
+  - workbc/interactive-map
+  - workbc/mobile-chosen
+  - workbc/nav-tabs
+libraries-override:
+  bootstrap5/global-styling: false
+  bootstrap5/dialog:
+    css:
+      component:
+        css/components/dialog.css: false
+regions:
+  header: Header
+  content_top: 'Main Content Top'
+  content: 'Main Content'
+  content_bottom: 'Main Content Bottom'
+  footer: Footer
+  hidden: Hidden (For Blocks and Paragraphs) # Needed for Blocks/Paragraphs not placed on Page using Regions but TwigTweaks.

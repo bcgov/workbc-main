@@ -1,0 +1,21 @@
+_core:
+  default_config_hash: UVH1aJ4b44UM-VdPVN7hNNuuVqfReJxwfVeDQH1Hvsk
+mode: simple
+ignored_config_entities:
+  - 'backup_migrate.backup_migrate_source.*'
+  - 'block.block.*'
+  - cdn.settings
+  - 'contact.form.*'
+  - gdx_analytics_drupal_snowplow.settings
+  - 'openid_connect.*'
+  - 'recaptcha.*'
+  - 'search_api.server.*'
+  - 'simple_block.simple_block.job_board_*'
+  - system.mail
+  - system.maintenance
+  - system.performance
+  - update.settings
+  - 'user.role.*'
+  - 'webform.webform.*'
+  - workbc_career_trek.settings
+  - workbc_custom.settings

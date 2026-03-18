@@ -1,0 +1,144 @@
+diff --git a/core/lib/Drupal/Core/Form/FormBuilder.php b/core/lib/Drupal/Core/Form/FormBuilder.php
+index a9f5d8795b..e2bceecbef 100644
+--- a/core/lib/Drupal/Core/Form/FormBuilder.php
++++ b/core/lib/Drupal/Core/Form/FormBuilder.php
+@@ -578,6 +578,18 @@ public function processForm($form_id, &$form, FormStateInterface &$form_state) {
+     $unprocessed_form = $form;
+     $form = $this->doBuildForm($form_id, $form, $form_state);
+
++    // Allow an Ajax callback while the form is operating in GET mode. For
++    // example, when using HOOK_form_views_exposed_form_alter.
++    if ($form_state->isMethodType('get')) {
++      $triggering_element_name = $this->requestStack->getCurrentRequest()->request->get('_triggering_element_name');
++      $triggering_element = $form_state->getTriggeringElement();
++      if (isset($triggering_element['#name'])
++        && $triggering_element['#name'] == $triggering_element_name
++        && isset($triggering_element['#ajax'])) {
++        throw new FormAjaxException($form, $form_state);
++      }
++    }
++
+     // Only process the input if we have a correct form submission.
+     if ($form_state->isProcessingInput()) {
+       // Form values for programmed form submissions typically do not include a
+diff --git a/core/modules/views/src/ViewExecutable.php b/core/modules/views/src/ViewExecutable.php
+index 16baeda36a..e03fa80589 100644
+--- a/core/modules/views/src/ViewExecutable.php
++++ b/core/modules/views/src/ViewExecutable.php
+@@ -743,7 +743,10 @@ public function getExposedInput() {
+       // Ensure that we can call the method at any point in time.
+       $this->initDisplay();
+
+-      $this->exposed_input = $this->request->query->all();
++      $request = \Drupal::request();
++      $triggered = $request->request->get('_triggering_element_name');
++      $this->exposed_input = $request->isMethod('post') && $triggered ? $request->request->all() : $request->query->all();
++
+       // Unset items that are definitely not our input:
+       foreach (['page', 'q'] as $key) {
+         if (isset($this->exposed_input[$key])) {
+diff --git a/core/modules/views/tests/modules/views_test_exposed_filter/views_test_exposed_filter.info.yml b/core/modules/views/tests/modules/views_test_exposed_filter/views_test_exposed_filter.info.yml
+new file mode 100644
+index 0000000000..68982d6195
+--- /dev/null
++++ b/core/modules/views/tests/modules/views_test_exposed_filter/views_test_exposed_filter.info.yml
+@@ -0,0 +1,8 @@
++name: 'Views Test Exposed Filter'
++type: module
++description: 'Alters Views exposed filter form for testing AJAX callbacks.'
++package: Testing
++version: VERSION
++core_version_requirement: ^8 || ^9
++dependencies:
++  - drupal:views
+diff --git a/core/modules/views/tests/modules/views_test_exposed_filter/views_test_exposed_filter.module b/core/modules/views/tests/modules/views_test_exposed_filter/views_test_exposed_filter.module
+new file mode 100644
+index 0000000000..17cf485345
+--- /dev/null
++++ b/core/modules/views/tests/modules/views_test_exposed_filter/views_test_exposed_filter.module
+@@ -0,0 +1,36 @@
++<?php
++
++/**
++ * @file
++ * Contains the "views_test_exposed_filter" module hooks and callbacks.
++ */
++
++use Drupal\Core\Form\FormStateInterface;
++
++/**
++ * Implements hook_form_FORM_ID_alter().
++ */
++function views_test_exposed_filter_form_views_exposed_form_alter(&$form, FormStateInterface $form_state) {
++  if (isset($form['title'])) {
++    $form['title']['#ajax']['callback'] = 'views_test_exposed_filter_ajax_callback';
++    $form['title']['#ajax']['wrapper'] = 'views-test-exposed-filter-test';
++    $form['title']['#prefix'] = '<span id="views-test-exposed-filter-test">Default prefix</span>';
++  }
++}
++
++/**
++ * Returns render array via an AJAX callback for testing.
++ *
++ * @param array $form
++ *   The form definition array.
++ * @param \Drupal\Core\Form\FormStateInterface $form_state
++ *   The form state object.
++ *
++ * @return array
++ *   Render array to display when the AJAX callback is triggered.
++ */
++function views_test_exposed_filter_ajax_callback(array &$form, FormStateInterface $form_state) {
++  return [
++    '#markup' => 'Callback called.',
++  ];
++}
+diff --git a/core/modules/views/tests/src/FunctionalJavascript/ExposedFilterAJAXTest.php b/core/modules/views/tests/src/FunctionalJavascript/ExposedFilterAJAXTest.php
+index 6d61ecef80..ba85de4d2a 100644
+--- a/core/modules/views/tests/src/FunctionalJavascript/ExposedFilterAJAXTest.php
++++ b/core/modules/views/tests/src/FunctionalJavascript/ExposedFilterAJAXTest.php
+@@ -27,6 +27,7 @@ class ExposedFilterAJAXTest extends WebDriverTestBase {
+     'views',
+     'views_test_modal',
+     'user_test_views',
++    'views_test_config',
+   ];
+
+   /**
+@@ -39,7 +40,7 @@ class ExposedFilterAJAXTest extends WebDriverTestBase {
+    *
+    * @var array
+    */
+-  public static $testViews = ['test_user_name'];
++  public static $testViews = ['test_user_name', 'test_content_ajax'];
+
+   /**
+    * {@inheritdoc}
+@@ -258,4 +259,27 @@ public function testExposedFilterErrorMessages(): void {
+     $this->assertSession()->pageTextContainsOnce(sprintf('There are no users matching "%s"', $name));
+   }
+
++  /**
++   * Tests if AJAX events can be attached to the exposed filter form.
++   */
++  public function testExposedFilterAjaxCallback() {
++    ViewTestData::createTestViews(self::class, ['views_test_config']);
++
++    // Attach an AJAX event to all 'title' fields in the exposed filter form.
++    \Drupal::service('module_installer')->install(['views_test_exposed_filter']);
++    $this->resetAll();
++    $this->rebuildContainer();
++    $this->container->get('module_handler')->reload();
++
++    $this->drupalGet('test-content-ajax');
++
++    $page = $this->getSession()->getPage();
++    $this->assertSession()->pageTextContains('Default prefix');
++
++    $page->fillField('title', 'value');
++    $this->assertSession()->assertWaitOnAjaxRequest();
++
++    $this->assertSession()->pageTextContains('Callback called.');
++  }
++
+ }

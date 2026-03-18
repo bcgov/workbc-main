@@ -1,0 +1,29 @@
+uuid: 0e5f11bd-d8eb-494b-95d5-840eaec97268
+langcode: en
+status: true
+dependencies:
+  config:
+    - field.storage.paragraph.field_skill
+    - paragraphs.paragraphs_type.skills
+    - taxonomy.vocabulary.skills
+id: paragraph.skills.field_skill
+field_name: field_skill
+entity_type: paragraph
+bundle: skills
+label: Skill
+description: ''
+required: false
+translatable: false
+default_value: {  }
+default_value_callback: ''
+settings:
+  handler: 'default:taxonomy_term'
+  handler_settings:
+    target_bundles:
+      skills: skills
+    sort:
+      field: name
+      direction: asc
+    auto_create: false
+    auto_create_bundle: ''
+field_type: entity_reference

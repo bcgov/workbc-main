@@ -1,0 +1,43 @@
+uuid: b6f58a2e-c611-4500-b695-cac49af4474f
+langcode: en
+status: true
+dependencies:
+  config:
+    - core.entity_form_mode.media.media_library
+    - field.field.media.remote_video.field_career_trek
+    - field.field.media.remote_video.field_category
+    - field.field.media.remote_video.field_description
+    - field.field.media.remote_video.field_duration
+    - field.field.media.remote_video.field_exclude_from_video_page
+    - field.field.media.remote_video.field_media_oembed_video
+    - field.field.media.remote_video.field_recently_added
+    - field.field.media.remote_video.field_weight
+    - media.type.remote_video
+_core:
+  default_config_hash: TBgPW-uaXRaICBwLaVc16rXpRiLSknDIdF9q0XL7qso
+id: media.remote_video.media_library
+targetEntityType: media
+bundle: remote_video
+mode: media_library
+content:
+  langcode:
+    type: language_select
+    weight: 2
+    region: content
+    settings:
+      include_locked: true
+    third_party_settings: {  }
+hidden:
+  created: true
+  field_career_trek: true
+  field_category: true
+  field_description: true
+  field_duration: true
+  field_exclude_from_video_page: true
+  field_media_oembed_video: true
+  field_recently_added: true
+  field_weight: true
+  name: true
+  path: true
+  status: true
+  uid: true

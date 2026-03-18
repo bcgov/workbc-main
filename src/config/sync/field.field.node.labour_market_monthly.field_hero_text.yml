@@ -1,0 +1,21 @@
+uuid: faf0cccf-4018-4432-a15b-7955e58ef4ab
+langcode: en
+status: true
+dependencies:
+  config:
+    - field.storage.node.field_hero_text
+    - node.type.labour_market_monthly
+  module:
+    - text
+id: node.labour_market_monthly.field_hero_text
+field_name: field_hero_text
+entity_type: node
+bundle: labour_market_monthly
+label: 'Hero Text'
+description: ''
+required: false
+translatable: true
+default_value: {  }
+default_value_callback: ''
+settings: {  }
+field_type: text_long

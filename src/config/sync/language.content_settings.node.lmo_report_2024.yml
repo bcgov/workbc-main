@@ -1,0 +1,11 @@
+uuid: cbba85e3-2a08-4f65-9d47-795a4bb30ab3
+langcode: en
+status: true
+dependencies:
+  config:
+    - node.type.lmo_report_2024
+id: node.lmo_report_2024
+target_entity_type_id: node
+target_bundle: lmo_report_2024
+default_langcode: site_default
+language_alterable: false

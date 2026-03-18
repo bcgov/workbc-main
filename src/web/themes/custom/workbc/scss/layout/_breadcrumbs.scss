@@ -1,0 +1,50 @@
+.breadcrumb-wrapper {
+  position: relative;
+  padding: 12px 0;
+  box-shadow: $workbc_default_bottom_shadow;
+  overflow-x: auto;
+  z-index: 2;
+
+  @include media-breakpoint-up(md) {
+    overflow-x: auto;
+  }
+}
+
+.breadcrumb {
+  margin: 0;
+  padding: 0;
+  display: flex;
+  flex-wrap: nowrap;
+}
+
+.breadcrumb .breadcrumb-item {
+  display: block;
+  white-space: nowrap;
+  font-size: 13px;
+
+  @include media-breakpoint-up(lg) {
+    font-size: 14px;
+  }
+
+  &:before {
+    float: none;
+    color: $workbc_default_text;
+  }
+}
+
+
+.breadcrumb-container {
+  display: flex;
+  align-items: center;
+  flex-wrap: wrap;
+
+}
+
+.breadcrumb-content {
+  width: auto;
+  margin: auto;
+}
+
+.save-profile-block {
+  flex-grow: 1;
+}

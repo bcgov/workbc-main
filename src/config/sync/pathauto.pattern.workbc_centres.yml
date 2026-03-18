@@ -1,0 +1,22 @@
+uuid: bf567a5d-b0c4-4e15-98f9-be3367e37872
+langcode: en
+status: true
+dependencies:
+  module:
+    - node
+id: workbc_centres
+label: 'WorkBC Centres'
+type: 'canonical_entities:node'
+pattern: 'workbc-centres/[node:title]'
+selection_criteria:
+  5bc329e6-32e4-4921-8425-b5028f4c1723:
+    id: 'entity_bundle:node'
+    negate: false
+    uuid: 5bc329e6-32e4-4921-8425-b5028f4c1723
+    context_mapping:
+      node: node
+    bundles:
+      workbc_centre: workbc_centre
+selection_logic: and
+weight: -5
+relationships: {  }

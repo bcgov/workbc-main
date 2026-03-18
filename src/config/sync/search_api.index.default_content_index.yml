@@ -1,0 +1,217 @@
+uuid: 67f1999a-a977-46fd-8634-23e2710c09f4
+langcode: en
+status: true
+dependencies:
+  config:
+    - core.entity_view_mode.node.search_index
+    - field.storage.node.field_job_titles
+    - field.storage.node.field_noc
+    - search_api.server.solr
+  module:
+    - node
+    - search_api_solr
+third_party_settings:
+  search_api_solr:
+    finalize: false
+    commit_before_finalize: false
+    commit_after_finalize: false
+    debug_finalize: false
+    highlighter:
+      maxAnalyzedChars: 51200
+      fragmenter: gap
+      usePhraseHighlighter: false
+      highlightMultiTerm: false
+      preserveMulti: false
+      regex:
+        slop: 0.5
+        pattern: blank
+        maxAnalyzedChars: 10000
+      highlight:
+        mergeContiguous: false
+        requireFieldMatch: false
+        snippets: 3
+        fragsize: 0
+    mlt:
+      mintf: 1
+      mindf: 1
+      maxdf: 0
+      maxdfpct: 0
+      minwl: 0
+      maxwl: 0
+      maxqt: 100
+      maxntp: 2000
+      boost: false
+      interestingTerms: none
+    term_modifiers:
+      slop: 3
+      fuzzy: 1
+      fuzzy_analyzer: true
+    advanced:
+      index_prefix: ''
+      collection: ''
+      timezone: ''
+    multilingual:
+      limit_to_content_language: false
+      include_language_independent: true
+      use_language_undefined_as_fallback_language: false
+      specific_languages:
+        en: '0'
+      use_universal_collation: false
+id: default_content_index
+name: 'Site content index'
+description: ''
+read_only: false
+field_settings:
+  field_job_titles:
+    label: '[SSOT] Job Titles'
+    datasource_id: 'entity:node'
+    property_path: field_job_titles
+    type: 'solr_text_custom:ngram'
+    boost: 5.0
+    dependencies:
+      config:
+        - field.storage.node.field_job_titles
+  field_noc:
+    label: NOC
+    datasource_id: 'entity:node'
+    property_path: field_noc
+    type: text
+    boost: 5.0
+    dependencies:
+      config:
+        - field.storage.node.field_noc
+  nid:
+    label: ID
+    datasource_id: 'entity:node'
+    property_path: nid
+    type: integer
+    dependencies:
+      module:
+        - node
+  node_grants:
+    label: 'Node access information'
+    property_path: search_api_node_grants
+    type: string
+    indexed_locked: true
+    type_locked: true
+    hidden: true
+  rendered_item:
+    label: 'Rendered HTML output'
+    property_path: rendered_item
+    type: 'solr_text_custom:ngram'
+    configuration:
+      roles:
+        - anonymous
+      view_mode:
+        'entity:node':
+          ':default': ''
+          bc_profile: search_index
+          blog: search_index
+          career_profile: search_index
+          event: search_index
+          industry_profile: search_index
+          lmo_report_2024: search_index
+          news: search_index
+          page: search_index
+          publication: search_index
+          region_profile: search_index
+          success_story: search_index
+          workbc_centre: search_index
+  status:
+    label: 'Publishing status'
+    datasource_id: 'entity:node'
+    property_path: status
+    type: boolean
+    indexed_locked: true
+    type_locked: true
+    dependencies:
+      module:
+        - node
+  title:
+    label: Title
+    datasource_id: 'entity:node'
+    property_path: title
+    type: 'solr_text_custom:ngram'
+    boost: 8.0
+    dependencies:
+      module:
+        - node
+  uid:
+    label: 'Author ID'
+    datasource_id: 'entity:node'
+    property_path: uid
+    type: integer
+    indexed_locked: true
+    type_locked: true
+    dependencies:
+      module:
+        - node
+datasource_settings:
+  'entity:node':
+    bundles:
+      default: true
+      selected:
+        - career_profile_introductions
+        - industry_profile_introductions
+        - labour_market_monthly
+        - region_profile_introductions
+        - related_topics_card
+        - resource
+    languages:
+      default: true
+      selected: {  }
+processor_settings:
+  add_url: {  }
+  aggregated_field: {  }
+  auto_aggregated_fulltext_field: {  }
+  content_access:
+    weights:
+      preprocess_query: -43
+  custom_value: {  }
+  entity_status: {  }
+  entity_type: {  }
+  highlight:
+    weights:
+      postprocess_query: 0
+    prefix: '<strong>'
+    suffix: '</strong>'
+    excerpt: true
+    excerpt_always: false
+    excerpt_length: 256
+    exclude_fields:
+      - field_noc
+      - field_noc_2016
+    highlight: server
+    highlight_partial: false
+  html_filter:
+    weights:
+      preprocess_index: -47
+      preprocess_query: -46
+    all_fields: true
+    fields:
+      - field_job_titles
+      - field_noc
+      - rendered_item
+      - title
+    title: true
+    alt: true
+    tags:
+      b: 2.0
+      h1: 5.0
+      h2: 3.0
+      h3: 2.0
+      strong: 2.0
+  language_with_fallback: {  }
+  rendered_item: {  }
+  solr_date_range:
+    weights:
+      preprocess_index: 0
+tracker_settings:
+  default:
+    indexing_order: fifo
+options:
+  cron_limit: 50
+  delete_on_fail: true
+  index_directly: false
+  track_changes_in_references: true
+server: solr

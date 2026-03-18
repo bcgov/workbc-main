@@ -1,0 +1,31 @@
+uuid: 5508cd04-affc-43a5-a74d-e07eb36d3538
+langcode: en
+status: true
+dependencies:
+  config:
+    - webform.webform.workbc_order_form
+  module:
+    - system
+    - webform
+  theme:
+    - workbc
+id: webform
+theme: workbc
+region: content_bottom
+weight: -17
+provider: null
+plugin: webform_block
+settings:
+  id: webform_block
+  label: 'Webform (WorkBC Order Form)'
+  label_display: '0'
+  provider: webform
+  webform_id: workbc_order_form
+  default_data: ''
+  redirect: false
+  lazy: false
+visibility:
+  request_path:
+    id: request_path
+    negate: false
+    pages: /plan-career/publications/workbc-order-form

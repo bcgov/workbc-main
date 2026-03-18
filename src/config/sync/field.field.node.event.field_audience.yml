@@ -1,0 +1,19 @@
+uuid: 09245cd8-c8f1-4efb-833c-63c01e02ebe8
+langcode: en
+status: true
+dependencies:
+  config:
+    - field.storage.node.field_audience
+    - node.type.event
+id: node.event.field_audience
+field_name: field_audience
+entity_type: node
+bundle: event
+label: 'Target Audience'
+description: ''
+required: false
+translatable: false
+default_value: {  }
+default_value_callback: ''
+settings: {  }
+field_type: string

@@ -1,0 +1,11 @@
+uuid: 22a9251b-5d6f-4b6b-99fe-52b3bae00d86
+langcode: en
+status: true
+dependencies:
+  config:
+    - filter.format.full_html
+id: who_should_visit_workbc_centre_french_link
+title: 'Who Should Visit Workbc Centre - French link'
+content:
+  value: "<p><a href=\"/discover-employment-services/workbc-centres/who-should-visit-workbc-centre/qui-devrait-visiter-un\">Services disponibles en français</a></p>\r\n"
+  format: full_html

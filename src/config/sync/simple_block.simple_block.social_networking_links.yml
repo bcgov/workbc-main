@@ -1,0 +1,11 @@
+uuid: 56fb00da-4f9c-4dac-b0c9-4412d5350f81
+langcode: en
+status: true
+dependencies:
+  config:
+    - filter.format.full_html
+id: social_networking_links
+title: 'Social Networking Links'
+content:
+  value: '<ul class="footer__social-links"><li class="footer__social-link-item"><a class="footer__social-link--twitter" href="https://twitter.com/WorkBC" target="_blank" title="Follow Us on Twitter @WorkBC"><span class="visually-hidden">Follow Us on Twitter @WorkBC&nbsp;</span></a></li><li class="footer__social-link-item"><a class="footer__social-link--facebook" href="https://www.facebook.com/WorkBC" target="_blank" title="Like Us on Facebook"><span class="visually-hidden">Like Us on Facebook&nbsp;</span></a></li><li class="footer__social-link-item"><a class="footer__social-link--youtube" href="https://www.youtube.com/user/WorkBC" target="_blank" title="Visit Us on YouTube"><span class="visually-hidden">Visit Us on YouTube&nbsp;</span></a></li><li class="footer__social-link-item"><a class="footer__social-link--instagram" href="https://www.instagram.com/workbc.ca" target="_blank" title="Visit Us on Instagram"><span class="visually-hidden">Visit Us on Instagram&nbsp;</span></a></li><li class="footer__social-link-item"><a class="footer__social-link--linkedin" href="https://www.linkedin.com/company/official-workbc" target="_blank" title="Visit Us on LinkedIn"><span class="visually-hidden">Visit Us on LinkedIn&nbsp;</span></a></li></ul>'
+  format: full_html

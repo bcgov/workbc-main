@@ -1,0 +1,38 @@
+{#
+/**
+ * @file
+ * Theme override for a breadcrumb trail.
+ *
+ * Available variables:
+ * - breadcrumb: Breadcrumb trail items.
+ */
+#}
+<div class="breadcrumb-wrapper">
+  {% if breadcrumb %}
+    <div class="container-lg">
+      <div class="breadcrumb-container">
+        <div class="breadcrumb-content">
+          <nav aria-label="breadcrumb">
+            <h2 id="system-breadcrumb" class="visually-hidden">{{ 'Breadcrumb'|t }}</h2>
+            <ol class="breadcrumb">
+            {% for item in breadcrumb %}
+              <li class="breadcrumb-item">
+                {% if item.url %}
+                  <a href="{{ item.url }}">{{ item.text }}</a>
+                {% else %}
+                  {{ item.text }}
+                {% endif %}
+              </li>
+            {% endfor %}
+            </ol>
+          </nav>
+        </div>
+        {% if save_profile_available %} 
+          <div class="save-profile-block">
+            {{ drupal_entity('block', 'saveprofile') }}
+          </div>
+        {% endif %}
+      </div>
+    </div>
+  {% endif %}
+</div>

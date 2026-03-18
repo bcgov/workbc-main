@@ -1,0 +1,15 @@
+diff --git a/simple_sitemap.services.yml b/simple_sitemap.services.yml
+index ab8bae9fd0800e723d48c995e77e69b3f475fa2b..d7132633ec5b26573f125443a7e5b16a8ffbf7df 100644
+--- a/simple_sitemap.services.yml
++++ b/simple_sitemap.services.yml
+@@ -48,6 +48,10 @@ services:
+
+   simple_sitemap.logger:
+     class: Drupal\simple_sitemap\Logger
++    arguments:
++      - '@messenger'
++      - '@current_user'
++      - '@logger.channel.simple_sitemap'
+   Drupal\simple_sitemap\Logger: '@simple_sitemap.logger'
+
+   simple_sitemap.path_processor:

@@ -1,0 +1,29 @@
+uuid: 39d4e235-8398-434e-8d00-962a4d030877
+langcode: en
+status: true
+dependencies:
+  module:
+    - node
+    - workbc_custom
+  theme:
+    - workbc
+id: sidenavblock
+theme: workbc
+region: hidden
+weight: -20
+provider: null
+plugin: side_nav_block
+settings:
+  id: side_nav_block
+  label: 'Side Nav Block'
+  label_display: '0'
+  provider: workbc_custom
+visibility:
+  'entity_bundle:node':
+    id: 'entity_bundle:node'
+    negate: false
+    context_mapping:
+      node: '@node.node_route_context:node'
+    bundles:
+      lmo_report_2024: lmo_report_2024
+      page: page

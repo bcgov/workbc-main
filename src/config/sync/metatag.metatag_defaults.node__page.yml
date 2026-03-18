@@ -1,0 +1,9 @@
+uuid: b75a4296-43bf-402d-8119-eb94f76bdce6
+langcode: en
+status: true
+dependencies: {  }
+id: node__page
+label: 'Content: Page'
+tags:
+  description: '[node:field_metatag_description]'
+  keywords: '[node:field_tags]'

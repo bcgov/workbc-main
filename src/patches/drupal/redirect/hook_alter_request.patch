@@ -1,0 +1,13 @@
+diff --git a/src/EventSubscriber/RedirectRequestSubscriber.php b/src/EventSubscriber/RedirectRequestSubscriber.php
+index b01869d..877e25c 100644
+--- a/src/EventSubscriber/RedirectRequestSubscriber.php
++++ b/src/EventSubscriber/RedirectRequestSubscriber.php
+@@ -167,7 +167,7 @@ class RedirectRequestSubscriber implements EventSubscriberInterface {
+       $response->addCacheableDependency($redirect);
+ 
+       // Invoke hook_redirect_response_alter().
+-      $this->moduleHandler->alter('redirect_response', $response, $redirect);
++      $this->moduleHandler->alter('redirect_response', $response, $redirect, $request);
+ 
+       $event->setResponse($response);
+     }

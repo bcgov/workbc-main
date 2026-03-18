@@ -1,0 +1,21 @@
+{#
+/**
+* @file
+* Template for custom WorkBC Career Events Block
+*
+* Available variables:
+* - career_events
+*
+#}
+
+{% if career_events %}
+
+<div id="career-events-calendar">
+{{ career_events.calendar}}
+</div>
+
+<div id="career-events-list">
+{{ career_events.list}}
+</div>
+
+{% endif %}

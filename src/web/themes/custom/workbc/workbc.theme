@@ -1,0 +1,480 @@
+<?php
+
+/**
+ * @file
+ * WorkBC theme file.
+ */
+
+use Drupal\file\Entity\File;
+use Drupal\Core\Url;
+use Drupal\Core\Render\Markup;
+use Drupal\Component\Utility\Html;
+
+/**
+ * Implements hook_theme_preprocess_paragraph().
+ */
+function workbc_preprocess_paragraph(&$variables) {
+  $parent = $variables['paragraph']->getParentEntity();
+
+  if ($parent->bundle() === 'action_cards_full_width') {
+    $align = $parent->field_alignment->value;
+    $list = $parent->field_action_cards->getValue();
+    foreach($list as $key => $item) {
+      if ($item['target_id'] === $variables['paragraph']->id()) {
+        if ($key % 2 == 0) {
+          $variables['full_width_image_alignment'] = $align === 'left' ? 'left' : 'right';
+        }
+        else {
+          $variables['full_width_image_alignment'] = $align === 'left' ? 'right' : 'left';
+        }
+      }
+    }
+  }
+
+  if ($parent->bundle() === 'action_card_feature') {
+    $align = $parent->field_alignment->value;
+    $list = $parent->field_action_card->getValue();
+    foreach($list as $key => $item) {
+      if ($item['target_id'] === $variables['paragraph']->id()) {
+        if ($key % 2 == 0) {
+          $variables['feature_image_alignment'] = $align === 'left' ? 'left' : 'right';
+        }
+        else {
+          $variables['feature_image_alignment'] = $align === 'left' ? 'right' : 'left';
+        }
+      }
+    }
+  }
+
+  if ($parent->bundle() === 'section_accordion') {
+    $variables['section_accordion_id'] = $parent->id();
+    $variables['keep_open'] = boolval($parent->field_keep_open->value);
+  }
+
+  if ($variables['paragraph']->bundle() === 'section_accordion') {
+    $variables['section_accordion_id'] = $variables['paragraph']->id();
+  }
+
+  // Find parent menu item for cards with links.
+  $menu_link_manager = \Drupal::service('plugin.manager.menu.link');
+  if (isset($variables['paragraph']->field_link->uri)) {
+    $url = Url::fromUri($variables['paragraph']->field_link->uri);
+    if ($url->isRouted()) {
+      $params = $url->getRouteParameters();
+      if (isset($params['node'])) {
+        $links = $menu_link_manager->loadLinksByRoute('entity.node.canonical', array('node' => $params['node']));
+        if ($links) {
+          $variables['parent_title'] = workbc_get_descendant(reset($links));
+        }
+      }
+    }
+    else {
+      $links = \Drupal::entityTypeManager()
+      ->getStorage('menu_link_content')
+      ->loadByProperties([
+        'link.uri' => $variables['paragraph']->field_link->uri
+      ]);
+      if ($links) {
+        $child_menu = $menu_link_manager->createInstance('menu_link_content:' . reset($links)->uuid());
+        $variables['parent_title'] = workbc_get_descendant($child_menu);
+      }
+    }
+    if (empty($variables['parent_title'])) {
+      $variables['parent_title'] = 'WorkBC';
+    }
+  }
+
+  if ($variables['paragraph']->bundle() === 'content_interactive_map') {
+    $variables['region_info'] = ssotRegionInfo();
+    foreach ($variables['region_info'] as $key => $region) {
+      if ($region['key'] === 'british_columbia') {
+        continue;
+      }
+      $field_key = substr('field_link_' . $region['key'], 0, 32);
+      $url = Url::fromUri($variables['paragraph']->$field_key->uri);
+      $variables['region_info'][$key]['link'] = $url->toString();
+    }
+  }
+
+  if (isset($variables['paragraph']->field_color)) {
+    $variables['text_color'] = $variables['paragraph']->field_color->value;
+  }
+
+
+  // SPECIAL CASE
+  // Override cards for "EducationPlannerBC" and "StudentAidBC" by injecting their logos.
+  if (isset($variables['paragraph']->field_key)) {
+    $key = $variables['paragraph']->field_key->value;
+    $image = null;
+    switch ($key) {
+      case 'education-planner-bc':
+      case 'student-aid-bc':
+      case 'find-your-path-1':
+      case 'find-your-path-2':
+        $image = "$key.png";
+        break;
+      default:
+        break;
+    }
+    if ($image) {
+      $default_theme_name = \Drupal::config('system.theme')->get('default');
+      $theme_path = \Drupal::service('extension.list.theme')->getPath($default_theme_name);
+      $variables['override_image'] = [
+        '#theme' => 'image',
+        '#uri' => $theme_path . '/assets/images/' . $image,
+        '#alt' => $variables['paragraph']->field_title->value,
+      ];
+    }
+  }
+}
+
+
+function workbc_get_descendant($menu) {
+  $result = '';
+  $menu_link_manager = \Drupal::service('plugin.manager.menu.link');
+  $parent_menu = $menu->getParent();
+  while (!empty($parent_menu)) {
+    $parent = $menu_link_manager->createInstance($parent_menu);
+    $result = $parent->getTitle();
+    $parent_menu = $parent->getParent();
+  }
+  return $result;
+}
+
+
+/**
+ * Implements hook_theme_suggestions_paragraph_alter().
+ */
+function workbc_theme_suggestions_paragraph_alter(array &$suggestions, array $variables) {
+  $new_suggestions = array();
+  foreach ($suggestions as $suggestion) {
+    if (isset($variables['elements']['#paragraph']->field_key->value)) {
+      $new_suggestions[] = $suggestion . '__' . strtr($variables['elements']['#paragraph']->field_key->value, '-', '_');
+    }
+  }
+  $suggestions = array_merge($suggestions, $new_suggestions);
+}
+
+/**
+ * Implements hook_form_alter().
+ */
+function workbc_form_alter(&$form, \Drupal\Core\Form\FormStateInterface $form_state, $form_id) {
+  if ($form_id === 'views_exposed_form' &&
+    $form['#id'] === 'views-exposed-form-search-career-profiles-page-1' or
+    $form['#id'] === 'views-exposed-form-search-site-content-page-1'
+  ) {
+    $form['#attributes']['class'][] = 'search-form';
+  }
+  if ($form_id === 'views_exposed_form' && $form['#id'] === 'views-exposed-form-search-site-content-page-1') {
+    $form['search_api_fulltext']['#attributes']['aria-label'] = 'Search';
+  }
+  if ($form_id === 'views_exposed_form' && $form['#id'] === 'views-exposed-form-search-career-profiles-page-1') {
+    $form['search']['#attributes']['aria-label'] = 'Search';
+  }
+}
+
+/**
+ * Implements hook_theme_preprocess_page().
+ */
+function workbc_preprocess_page(&$variables) {
+  // default page format
+  $variables['page_format'] = 'standard';
+  if (isset($variables['node'])) {
+    $node = $variables['node'];
+    if ($node instanceof \Drupal\node\NodeInterface) {
+      if ($node->bundle() === 'page') {
+        if ($node->hasField('field_page_format') && !$node->get('field_page_format')->isEmpty()) {
+          $variables['page_format'] = $node->get('field_page_format')->getString();
+        }
+      }
+    }
+  }
+}
+
+/**
+ * Implements hook_theme_preprocess_node().
+ */
+function workbc_preprocess_node(&$variables) {
+  if ($variables['node']->bundle() === 'publication' && $variables['view_mode'] === 'publication') {
+    $paths = \Drupal::config('workbc')->get('paths');
+    $variables['order_form_path'] = $paths['order_form'];
+    $media = $variables['content']['field_publication_media'][0]['#media'];
+    if (!empty($media->field_media_document[0])) {
+      $fid = $media->field_media_document[0]->getValue()['target_id'];
+      $variables['file_link'] = File::load($fid)->createFileUrl();
+    }
+  }
+
+  if (in_array($variables['node']->bundle(), ['career_profile', 'industry_profile'])) {
+    $resources = $variables['node']->get('field_resources_reference')->referencedEntities();
+    $links = [];
+    foreach ($resources as $resource) {
+      $link = [];
+      $link['title'] = $resource->getTitle();
+      $link['uri'] = Url::fromUri($resource->get("field_resource")->uri);
+      $links[] = $link;
+    }
+    $variables['resources_links'] = $links;
+  }
+
+  if ($variables['node']->bundle() === 'blog') {
+    $featured = '';
+    $node = $variables['node'];
+    if ($node->hasField('body')) {
+      if (!empty($node->get('body')->summary)){
+        $featured = $node->get('body')->summary;
+      }
+      else {
+        if ($node->hasField('field_related_topics_blurb') && !empty($node->get('field_related_topics_blurb')->value)) {
+          $featured = $node->get('field_related_topics_blurb')->value;
+        }
+        else {
+          if (!empty($node->get('body')->value)) {
+            $text = strip_tags($node->get('body')->value);
+            $text = \Drupal\Component\Utility\Unicode::truncate($text, 150, TRUE, TRUE);
+            $featured = $text;
+          }
+        }
+      }
+    }
+    $variables['featured_text'] = $featured;
+  }
+
+  // region information for interactive map
+  if (in_array($variables['node']->bundle(), [
+    'career_profile', 'bc_profile', 'region_profile', 'industry_profile', 'labour_market_monthly'
+  ])) {
+    $variables['region_info'] = ssotRegionInfo();
+  }
+
+  $current_path = \Drupal::service('path.current')->getPath();
+  $internal = \Drupal::service('path_alias.manager')->getAliasByPath($current_path);
+  $variables['is_front'] = $internal == \Drupal::configFactory()->get('system.site')->get('page.front');
+  // TODO Replace with \Drupal::config('workbc')->get('paths');
+  $variables['is_contact'] = $internal == "/contact-us";
+  $variables['is_career_trek'] = $internal == "/plan-career/career-trek-videos";
+}
+
+/**
+ * Implements hook_preprocess_views_view_summary_unformatted().
+ *
+ * Prepares "view_base_path" variables for unformatted summary view templates
+ * for use with glossary All option.
+ */
+function workbc_preprocess_views_view_summary_unformatted(&$variables) {
+  $view = $variables['view'];
+  $variables['view_base_path'] = $view->getPath();
+}
+
+/**
+ * Implements hook_preprocess_media().
+ */
+function workbc_preprocess_media(&$variables) {
+
+  $media = $variables['media'];
+  $thumbnailUri = $media->get('thumbnail')->entity->getFileUri();
+  if ($thumbnailUri) {
+    $image_style_1_3 = [
+      '#theme' => 'image_style',
+      '#style_name' => '1_3_component',
+      '#uri' => $thumbnailUri
+    ];
+    $variables['media_thumbnail'] = \Drupal::service('renderer')->render($image_style_1_3);
+    $variables['media_id'] = $media->id();
+  }
+
+  if ($media->bundle() == "icon") {
+    $altText = $variables['content']['field_media_image_1']['#items']->alt;
+    if (isset($variables['elements']['field_media_image_1'][0]['#markup'])) {
+      $svgRaw = (string) $variables['elements']['field_media_image_1'][0]['#markup'];
+      $replace = '$1 aria-label="' . HTML::escape($altText) . '"$2';
+      $svgRaw = preg_replace('/(<svg.*)(>)/i', $replace, $svgRaw);
+      $markup = Markup::create(trim($svgRaw));
+      $render = array('#markup' => $markup);
+      $variables['content']['field_media_image_1'][0]['#markup'] = \Drupal::service('renderer')->render($render);
+    }
+  }
+}
+
+/**
+ * Implements hook_preprocess_html().
+ */
+function workbc_preprocess_html(&$vars) {
+  // Get the current path
+  $current_path = \Drupal::service('path.current')->getPath();
+  $internal = \Drupal::service('path_alias.manager')->getAliasByPath($current_path);
+
+  // Assign it to body class
+  $vars['attributes']['class'][] = str_replace("/", "", $internal);
+}
+
+/**
+ * Implements hook_preprocess_menu().
+ */
+function workbc_preprocess_menu(&$vars) {
+  if ($vars['menu_name'] === 'footer') {
+    foreach ($vars['items'] as &$item) {
+      if ($item['url']->isExternal()) {
+        $item['attributes']
+        ->setAttribute('target', '_blank')
+        ->setAttribute('rel', 'noopener norefereer');
+      }
+    }
+  }
+}
+
+/**
+ * Implements hook_theme_suggestions_paragraph_alter().
+ */
+function workbc_theme_suggestions_form_element_alter(array &$suggestions, array $variables) {
+  if (isset($variables['element']['#name'])) {
+    $suggestions[] = 'form_element__' . str_replace('-', '_', $variables['element']['#name']);
+  }
+}
+
+/**
+ * Implements hook_preprocess_form_element().
+ */
+function workbc_preprocess_form_element(&$variables) {
+  if (isset($variables['element']['#name'])) {
+    if ($variables['element']['#name'] === 'field_occupational_interests_target_id') {
+      $variables['occupational_interest_tooltip'] = 'Careers based on <a href="/plan-career/skills-future-workforce/characteristics#sideNavAnchorId_1" target="_blank" rel="noopener noreferrer">six interest types</a>.';
+    }
+  }
+}
+
+/**
+ * Implements hook_preprocess_block().
+ */
+function workbc_preprocess_block(&$vars) {
+  if ($vars['plugin_id'] === 'side_nav_block') {
+    $vars['on_this_page'] = 'On this page';
+    $node = \Drupal::routeMatch()->getParameter('node');
+    if ($node instanceof \Drupal\node\NodeInterface) {
+      if ($node->hasField('field_language')) {
+        if ($node->get('field_language')->value === 'french') {
+          $vars['on_this_page'] = 'Sur cette page';
+        }
+      }
+    }
+  }
+}
+
+/**
+ * Implements hook_preprocess_breadcrumb().
+ */
+function workbc_preprocess_breadcrumb(&$variables){
+  $variables['save_profile_available'] = false;
+
+  $node = \Drupal::routeMatch()->getParameter('node');
+  if ($node) {
+    $variables['save_profile_available'] = in_array($node->bundle(), ['career_profile', 'industry_profile']);
+  }
+}
+
+/**
+ * Implements hook_preprocess_views_view().
+ */
+function workbc_preprocess_views_view(&$variables) {
+  $view = $variables['view'];
+
+  if ($view->id() === 'explore_careers') {
+    $variables['hide_category'] = \Drupal::request()->query->get('hide_category') == "1" ? true : false;
+    $variables['career_profiles_total'] = $view->total_rows;
+  }
+}
+
+/**
+ * Implements hook_preprocess_views_view_field().
+ */
+function workbc_preprocess_views_view_field(&$variables) {
+  $view = $variables['view'];
+  $field = $variables['field'];
+
+  if (in_array($view->storage->id(), ['explore_careers', 'high_opportunity_occupations_2']) && $field->field === 'field_region_openings') {
+    if ($variables['row']->node__field_region_openings_field_region_openings_value < 0) {
+      $variables['output'] = WORKBC_EXTRA_FIELDS_NOT_AVAILABLE;
+    }
+  }
+}
+
+/**
+ * Implements hook_preprocess_field().
+ */
+function workbc_preprocess_field(&$variables) {
+  if ($variables['field_type'] === 'extra_field' &&
+      str_starts_with($variables['field_name'], 'extra_field_lmo_report_2024')
+  ) {
+    if (str_ends_with($variables['field_name'], 'table')) {
+      $variables['attributes']['class'][] = 'lmo-report-table';
+    }
+    if (str_ends_with($variables['field_name'], 'chart')) {
+      $variables['attributes']['class'][] = 'lmo-report-chart';
+    }
+  }
+
+  // region information for interactive map
+  if ($variables['field_name'] === 'extra_field_lmo_report_2024_job_openings_regions_table') {
+    $variables['region_info'] = ssotRegionInfo();
+  }
+}
+
+/*
+ * Implements hook_theme_suggestions_HOOK_alter() for fieldset.
+ */
+function workbc_theme_suggestions_fieldset_alter(array &$suggestions, array $variables) {
+  if (isset($variables['element']) && isset($variables['element']['#title'])) {
+    $title = strtolower(str_replace(' ', '__', $variables['element']['#title']));
+    $suggestions[] = $variables['theme_hook_original'] . '__' . $title;
+  }
+}
+
+/*
+ * Implements hook_theme_suggestions_HOOK_alter() for details.
+ */
+function workbc_theme_suggestions_details_alter(array &$suggestions, array $variables) {
+  if (isset($variables['element']) && isset($variables['element']['#title'])) {
+    $title = strtolower(str_replace(' ', '__', $variables['element']['#title']));
+    if(isset($variables['element'][0]['#name']) && !empty($variables['element'][0]['#name'])) {
+      $suggestions[] = $variables['theme_hook_original'] . '__name__' . $variables['element'][0]['#name'];
+    }
+    $suggestions[] = $variables['theme_hook_original'] . '__' . $title;
+  }
+}
+
+/**
+ * Implements hook_theme_suggestions_HOOK_alter() for page.
+ */
+function workbc_theme_suggestions_page_alter(array &$suggestions, array $variables) {
+  if ($template = \Drupal::request()->get('template')){
+      $suggestions[] = 'page__' . $template;
+  }
+}
+
+/**
+ * Implements hook_theme_suggestions_HOOK_alter() for html.
+ */
+function workbc_theme_suggestions_html_alter(array &$suggestions, array $variables) {
+  if ($template = \Drupal::request()->get('template')){
+      $suggestions[] = 'html__' . $template;
+  }
+}
+
+/**
+ * Implements hook_page_attachments_alter().
+ */
+function workbc_page_attachments_alter(array &$attachments){
+  if (\Drupal::request()->get('template') === 'embed') {
+    //Remove all libraries
+    unset($attachments['#attached']['library']);
+  }
+}
+
+/**
+ * Implements hook_theme_suggestions_HOOK_alter() for file_video theme hook.
+ */
+function workbc_theme_suggestions_file_video_alter(array &$suggestions, array $variables) {
+  $current_path = \Drupal::service('path.current')->getPath();
+  $path_alias = \Drupal::service('path_alias.manager')->getAliasByPath($current_path);
+  $suggestions[] = $variables['theme_hook_original'] . '__' . substr(str_replace(['/', '-'], '_', $path_alias), 1);
+}

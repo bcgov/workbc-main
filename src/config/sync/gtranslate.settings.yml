@@ -1,0 +1,137 @@
+_core:
+  default_config_hash: 6Vv7P3pQThR3GfLZC4SY_L8O5usil2RSOpIaLeEx6VI
+source_lang: en
+widget_look: dropdown
+url_structure: none
+flag_size: '32'
+flag_style: 2d
+globe_size: '60'
+color_scheme: light
+alt_flags:
+  usa: 0
+  canada: 0
+  mexico: 0
+  argentina: 0
+  colombia: 0
+  brazil: 0
+  quebec: 0
+wrapper_selector: .gtranslate_wrapper
+float_position: bottom-left
+float_switcher_open_direction: top
+position: inline
+switcher_open_direction: bottom
+native_language_names: 0
+detect_browser_language: 0
+enable_cdn: 0
+add_new_line: 1
+select_language_label: 'Select Language'
+custom_domains: 0
+custom_domains_config: ''
+custom_css: ''
+languages:
+  en: en
+  ar: ar
+  bg: bg
+  zh-CN: zh-CN
+  zh-TW: zh-TW
+  hr: hr
+  cs: cs
+  da: da
+  nl: nl
+  fi: fi
+  fr: fr
+  de: de
+  el: el
+  hi: hi
+  it: it
+  ja: ja
+  ko: ko
+  'no': 'no'
+  pl: pl
+  pt: pt
+  ro: ro
+  ru: ru
+  es: es
+  sv: sv
+  ca: ca
+  tl: tl
+  iw: iw
+  id: id
+  lv: lv
+  lt: lt
+  sr: sr
+  sk: sk
+  sl: sl
+  uk: uk
+  vi: vi
+  sq: sq
+  et: et
+  gl: gl
+  hu: hu
+  mt: mt
+  th: th
+  tr: tr
+  fa: fa
+  af: af
+  ms: ms
+  sw: sw
+  ga: ga
+  cy: cy
+  be: be
+  is: is
+  mk: mk
+  yi: yi
+  hy: hy
+  az: az
+  eu: eu
+  ka: ka
+  ht: ht
+  ur: ur
+  bn: bn
+  bs: bs
+  ceb: ceb
+  eo: eo
+  gu: gu
+  ha: ha
+  hmn: hmn
+  ig: ig
+  jw: jw
+  kn: kn
+  km: km
+  lo: lo
+  la: la
+  mi: mi
+  mr: mr
+  mn: mn
+  ne: ne
+  pa: pa
+  so: so
+  ta: ta
+  te: te
+  yo: yo
+  zu: zu
+  my: 0
+  ny: 0
+  kk: 0
+  mg: 0
+  ml: 0
+  si: 0
+  st: 0
+  su: 0
+  tg: 0
+  uz: 0
+  am: 0
+  co: 0
+  haw: 0
+  ku: 0
+  ky: 0
+  lb: 0
+  ps: 0
+  sm: 0
+  gd: 0
+  sn: 0
+  sd: 0
+  fy: 0
+  xh: 0
+flag_languages:
+  en: en

@@ -1,0 +1,40 @@
+uuid: 44be1787-d43e-4865-a13a-58918ba24a41
+langcode: en
+status: false
+dependencies:
+  config:
+    - search_api.index.career_profile_index_sub
+    - views.view.career_trek_video_library
+  module:
+    - views
+id: career_trek_video_library
+label: 'Career Trek Video Library'
+index_id: career_profile_index_sub
+suggester_settings:
+  live_results:
+    fields:
+      - field_noc
+      - title
+    highlight:
+      enabled: false
+      field: ''
+    suggest_keys: false
+    view_modes:
+      'entity:node':
+        career_profile: ''
+suggester_weights:
+  live_results: 0
+suggester_limits:
+  live_results: 10
+search_settings:
+  'views:career_trek_video_library':
+    displays:
+      default: true
+      selected: {  }
+options:
+  limit: 10
+  min_length: 1
+  show_count: false
+  delay: null
+  submit_button_selector: ':submit'
+  autosubmit: true

@@ -1,0 +1,11 @@
+uuid: 04e3bb13-40b3-486f-b551-99b1116c16e6
+langcode: en
+status: true
+dependencies:
+  config:
+    - filter.format.full_html
+id: translation_controls
+title: 'Translation Controls'
+content:
+  value: "<p>Placeholder - Translation controls</p>\r\n"
+  format: full_html

@@ -1,0 +1,21 @@
+uuid: f8f7f91f-a968-4d66-b080-4dd4d9dfa41a
+langcode: en
+status: true
+dependencies:
+  config:
+    - field.storage.node.field_published_date
+    - node.type.news
+  module:
+    - datetime
+id: node.news.field_published_date
+field_name: field_published_date
+entity_type: node
+bundle: news
+label: 'Updated Published Date'
+description: 'Enter an updated published date if you wish to override the original published date.'
+required: false
+translatable: true
+default_value: {  }
+default_value_callback: ''
+settings: {  }
+field_type: datetime

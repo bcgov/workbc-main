@@ -1,0 +1,52 @@
+$letter-block-size-mobile: 44px;
+$letter-block-size-desktop: 28px;
+
+.alphabet-navigation {
+    display: flex;
+    flex-flow: row wrap;
+
+    margin-top: 20px;
+
+    a:hover {
+        text-decoration: none;
+    }
+
+    span {
+        height: $letter-block-size-mobile;
+        line-height: $letter-block-size-mobile;
+        flex: 0 0 $letter-block-size-mobile;
+
+        text-align: center;
+        font-weight: 400;
+        font-size: 1.3125rem;
+
+        &.alphabet-navigation-unfiltered {
+            flex-basis: calc(2 * $letter-block-size-mobile); // takes up two spots to have enough room but keep everything tiling evenly
+        }
+
+        &.no-results {
+            color: $workbc_text_footnote_color;
+        }
+
+        &:not(.no-results):hover,
+        &.is-active {
+            background: $workbc_palette_dark_secondary;
+
+            a,
+            a:hover {
+                color: $workbc_dark_theme_text;
+            }
+        }
+
+        @include media-breakpoint-up(md) {
+            height: $letter-block-size-desktop;
+            line-height: $letter-block-size-desktop;
+            flex: 0 0 $letter-block-size-desktop;
+
+            &.alphabet-navigation-unfiltered {
+                flex-basis: calc(2 * $letter-block-size-desktop); // takes up two spots to have enough room but keep everything tiling evenly
+            }
+        }
+
+    }
+}

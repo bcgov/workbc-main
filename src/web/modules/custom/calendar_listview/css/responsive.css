@@ -1,0 +1,267 @@
+@media screen and (max-width: 1199px) {
+  /****** List View starts Here ******/
+  .event-cal .list-view {
+    margin-top: 20px; }
+    .event-cal .list-view .ev-date {
+      background-size: 28px;
+      padding-left: 35px; }
+    .event-cal .list-view .ev-date div, .event-cal .list-view .ev-address p {
+      font-size: 15px;
+      line-height: 23px; }
+  .event-cal .list-full-view .view-header h2 {
+    font-size: 26px;
+    line-height: 43px; }
+
+  /****** List View ends Here ******/ }
+@media screen and (max-width: 991px) {
+  .event-cal {
+    /****** List View starts Here ******/
+    /****** List View ends Here ******/
+    /****** Calendar View starts Here ******/
+    /****** Calendar View ends Here ******/ }
+    .event-cal .list-nav {
+      margin-bottom: 20px; }
+    .event-cal .list-view .right-side .e-title {
+      margin-bottom: 6px; }
+    .event-cal .list-view .right-side {
+      margin-bottom: 0px; }
+    .event-cal .list-view .ev-date::Before {
+      position: absolute;
+      left: 0px;
+      top: 112%;
+      height: 5px;
+      width: 100%;
+      background-color: #f2f2f2;
+      content: ""; }
+    .event-cal .list-view .ev-date {
+      background-size: 28px;
+      padding-left: 40px; }
+    .event-cal .list-view .ev-date div {
+      font-size: 15px; }
+    .event-cal .list-view .ev-address {
+      margin: 0px; }
+    .event-cal .list-view .right-side .ev-address {
+      margin-bottom: 0px;
+      margin-top: 15px; }
+    .event-cal .list-view .ev-address {
+      background-size: 22px;
+      padding-left: 40px; }
+    .event-cal .list-full-view .view-header h2 {
+      font-size: 22px;
+      line-height: 46px; }
+    .event-cal .tab-content .fc-toolbar h2 {
+      font-size: 22px;
+      line-height: 25px; } }
+@media screen and (max-width: 767px) {
+  .event-cal .right-side {
+    margin-top: 18px; }
+  .event-cal .list-view .sd-date-panel {
+    margin-top: 0px;
+    padding-top: 0px; }
+  .event-cal .e-title {
+    font-size: 20px;
+    line-height: 27px; }
+  .event-cal .ev-date div, .event-cal .ev-address p {
+    font-size: 16px;
+    line-height: 23px; }
+  .event-cal .view-header h2 {
+    font-size: 20px; }
+  .event-cal .pager .pager__item a {
+    font-size: 14px; }
+  .event-cal .fc-toolbar h2 {
+    font-size: 22px;
+    margin-right: 110px; }
+  .event-cal .fc-button-group .fc-button {
+    font-size: 14px;
+    line-height: 22px; }
+  .event-cal .list-view .sd-date-panel {
+    margin: unset; }
+  .event-cal .list-view .sd-middle {
+    line-height: 125%; }
+  .event-cal .tab-content .fc-toolbar h2 {
+    font-size: 21px; }
+  .event-cal .nav-tabs {
+    align-items: center;
+    justify-content: center;
+    width: 268px;
+    margin: auto;
+    display: flex; }
+  .event-cal .view-header {
+    margin-bottom: 34px; }
+  .event-cal .pager {
+    top: 40px; }
+  .event-cal .list-view.list-row {
+    margin-top: 30px; }
+  .event-cal .list-view .sd-date-panel {
+    max-width: 124px;
+    width: 124px;
+    border-width: 4px; }
+  .event-cal .list-view .sd-top {
+    font-size: 16px; }
+  .event-cal .list-view .sd-middle {
+    font-size: 50px; }
+  .event-cal .list-view .sd-bottom {
+    font-size: 16px; }
+  .event-cal .list-view .sd-date-panel {
+    margin-bottom: 10px; }
+  .event-cal .list-view .right-side .ev-date {
+    padding-bottom: 8px; }
+  .event-cal .list-view .right-side .ev-address {
+    margin-top: 25px !important; }
+  .event-cal .list-view .right-side .e-title {
+    font-size: 19px;
+    line-height: 24px;
+    margin-bottom: 10px; }
+  .event-cal .list-view .right-side .e-description {
+    margin-bottom: 20px; }
+  .event-cal .list-view .right-side .e-description p {
+    font-weight: 400;
+    font-style: normal;
+    font-size: 16px;
+    line-height: 24px;
+    font-family: 'BCSans-Regular', 'BC Sans Regular', 'BC Sans', sans-serif;
+    color: #333333; }
+  .event-cal .list-view .right-side .ev-date::Before {
+    height: 4px; }
+  .event-cal .list-full-view .view-content h3 {
+    font-family: 'BCSans-Regular', 'BC Sans Regular', 'BC Sans', sans-serif;
+    font-weight: 400;
+    font-style: normal;
+    font-size: 21px;
+    color: #333333;
+    text-align: center;
+    line-height: 24px; } }
+@media screen and (max-width: 500px) {
+  .event-cal {
+    /****** Calendar View starts Here ******/
+    /****** Calendar View ends Here ******/ }
+    .event-cal .fc .fc-row .fc-content-skeleton td {
+      text-align: center;
+      margin: auto; }
+    .event-cal .fc-event-container {
+      position: relative; }
+    .event-cal .fc-event-container::before {
+      position: absolute;
+      top: -47px;
+      left: 0px;
+      content: "";
+      background-color: #dfeaf4;
+      width: 100%;
+      height: 500%; }
+    .event-cal .fc-future {
+      position: relative;
+      z-index: 8; }
+    .event-cal .fc-day-top, .event-cal .fc-day-grid-event {
+      position: relative;
+      z-index: 999; }
+    .event-cal .fc-day-header span {
+      display: none; }
+    .event-cal .fc-event-container {
+      position: relative; }
+    
+    .event-cal .fc-future {
+      position: relative;
+      z-index: 8; }
+    .event-cal .fc .fc-row .fc-content-skeleton td.fc-day-top.active {
+      background: #dfeaf4; }
+    .event-cal .fc .fc-row .fc-content-skeleton td.fc-event-container {
+      background: #dfeaf4; }
+    .event-cal .fc .fc-row .fc-content-skeleton td .fc-day-grid-event {
+      margin: auto !important;
+      text-align: center !important;
+      height: 6px !important;
+      width: 6px !important;
+      padding: 0px !important;
+      margin: 0px !important;
+      border: 0px !important; }
+    .event-cal .fc-dayGrid-view .fc-body .fc-row {
+      min-height: 0px; }
+    .event-cal .fc .fc-row .fc-content-skeleton td .fc-day-grid-event .fc-content {
+      padding: 0px !important; }
+    .event-cal .view-event-calendar .fc-ltr .fc-dayGrid-view .fc-day-top .fc-day-number {
+      float: none;
+      text-align: center; }
+    .event-cal .view-header {
+      margin-bottom: 34px; }
+    .event-cal .view-display-id-block_1 .list-row, .event-cal .view-display-id-block_3 .list-row {
+      padding: 20px 15px; }
+    .event-cal .pager {
+      top: 33px; }
+      .event-cal .pager .pager__item img {
+        height: 11px; }
+      .event-cal .pager .pager__item--previous span {
+        padding-left: 4px; }
+      .event-cal .pager .pager__item--next span {
+        padding-right: 4px; }
+    .event-cal .pager2 .pager {
+      top: 0px; }
+    .event-cal .list-view .sd-middle {
+      line-height: 113%;
+      font-size: 60px;
+      margin-top: 5px; }
+    .event-cal .list-view .e-title {
+      font-size: 18px;
+      line-height: 26px; }
+    .event-cal .list-full-view .view-header h2 {
+      font-size: 20px;
+      line-height: 30px; }
+    .event-cal .fc-button-group .fc-button {
+      font-size: 14px; }
+    .event-cal .tab-content .fc-toolbar h2 {
+      font-size: 20px;
+      margin-right: 0px; }
+    .event-cal .fc-toolbar {
+      position: relative; }
+      .event-cal .fc-toolbar .fc-button-group {
+        position: absolute;
+        z-index: 999;
+        top: 33px;
+        left: 0px;
+        width: 100%;
+        display: unset; }
+    .event-cal .fc-head .fc-widget-header {
+      font-size: 15px;
+      margin-top: 21px;
+      text-align: center; }
+    .event-cal .fc-view a.fc-day-grid-event {
+      border-bottom: 0px;
+      margin: 5px; }
+    .event-cal .fc-view .fc-content-skeleton {
+      overflow: hidden; }
+    .event-cal .fc-view .fc-content-skeleton table {
+      height: 45px; }
+    .event-cal .calendar-full-view .fc-title {
+      display: none; }
+    .event-cal .calendar-full-view .fc-ltr .fc-h-event.fc-not-end, .event-cal .calendar-full-view .fc-ltr .fc-h-event.fc-not-start {
+      border-radius: 50%; }
+    .event-cal .calendar-full-view .fc-day-grid-event {
+      width: 5px;
+      height: 5px;
+      border-radius: 50%;
+      margin: 0px;
+      padding: 0px;
+      display: inline-block; }
+    .event-cal .calendar-full-view .fc-event-container {
+      display: inline-block;
+      border: none;
+      width: 99%;
+      border-right: 1px solid #ddd; } }
+@media screen and (max-width: 400px) {
+  /****** list View starts Here ******/
+  .event-cal {
+    /****** List View ends Here ******/ }
+    .event-cal .list-view .ev-date {
+      background-size: 22px;
+      padding-left: 28px; }
+    .event-cal .list-view .ev-address {
+      background-size: 19px;
+      padding-left: 28px; }
+    .event-cal .list-nav .nav-tabs .nav-link {
+      padding: 0.1rem 0.8rem; } }
+
+ @media screen and (min-width: 500px) {     
+  .event-cal .view-event-calendar .fc-event {
+     background-color: #e9f0f9 !important;
+  }
+ }
+/*# sourceMappingURL=responsive.css.map */

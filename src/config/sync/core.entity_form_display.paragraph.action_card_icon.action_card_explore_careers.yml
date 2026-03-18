@@ -1,0 +1,74 @@
+uuid: 8881c8c7-f0e5-400f-970c-bd5c98c8b50a
+langcode: en
+status: true
+dependencies:
+  config:
+    - core.entity_form_mode.paragraph.action_card_explore_careers
+    - field.field.paragraph.action_card_icon.field_color
+    - field.field.paragraph.action_card_icon.field_description
+    - field.field.paragraph.action_card_icon.field_icon
+    - field.field.paragraph.action_card_icon.field_key
+    - field.field.paragraph.action_card_icon.field_link
+    - field.field.paragraph.action_card_icon.field_title
+    - paragraphs.paragraphs_type.action_card_icon
+  module:
+    - link
+    - media_library
+    - media_library_edit
+    - text
+id: paragraph.action_card_icon.action_card_explore_careers
+targetEntityType: paragraph
+bundle: action_card_icon
+mode: action_card_explore_careers
+content:
+  field_color:
+    type: options_select
+    weight: 2
+    region: content
+    settings: {  }
+    third_party_settings: {  }
+  field_description:
+    type: text_textarea
+    weight: 3
+    region: content
+    settings:
+      rows: 5
+      placeholder: ''
+    third_party_settings: {  }
+  field_icon:
+    type: media_library_widget
+    weight: 0
+    region: content
+    settings:
+      media_types: {  }
+      form_mode: media_library
+    third_party_settings:
+      media_library_edit:
+        show_edit: '1'
+  field_key:
+    type: string_textfield
+    weight: 5
+    region: content
+    settings:
+      size: 60
+      placeholder: ''
+    third_party_settings: {  }
+  field_link:
+    type: link_default
+    weight: 4
+    region: content
+    settings:
+      placeholder_url: ''
+      placeholder_title: ''
+    third_party_settings: {  }
+  field_title:
+    type: string_textfield
+    weight: 1
+    region: content
+    settings:
+      size: 60
+      placeholder: ''
+    third_party_settings: {  }
+hidden:
+  created: true
+  status: true

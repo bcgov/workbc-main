@@ -1,0 +1,22 @@
+uuid: 1519390d-ae2b-4885-9001-6c9171680e45
+langcode: en
+status: true
+dependencies:
+  config:
+    - node.type.industry_profile
+id: node.industry_profile.promote
+field_name: promote
+entity_type: node
+bundle: industry_profile
+label: 'Promoted to front page'
+description: ''
+required: false
+translatable: true
+default_value:
+  -
+    value: 0
+default_value_callback: ''
+settings:
+  on_label: 'On'
+  off_label: 'Off'
+field_type: boolean

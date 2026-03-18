@@ -1,0 +1,11 @@
+uuid: 9a7ec995-c0a6-4581-9e4b-87e1cdcaaf83
+langcode: en
+status: true
+dependencies:
+  module:
+    - media
+id: media.career_trek_video
+label: 'Career Trek Video'
+description: ''
+targetEntityType: media
+cache: true

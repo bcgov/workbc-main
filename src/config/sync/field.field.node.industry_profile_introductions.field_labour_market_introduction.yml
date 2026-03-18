@@ -1,0 +1,21 @@
+uuid: 1d4c6380-5de7-46f1-9427-818411bb01ee
+langcode: en
+status: true
+dependencies:
+  config:
+    - field.storage.node.field_labour_market_introduction
+    - node.type.industry_profile_introductions
+  module:
+    - text
+id: node.industry_profile_introductions.field_labour_market_introduction
+field_name: field_labour_market_introduction
+entity_type: node
+bundle: industry_profile_introductions
+label: 'Labour Market Outlook Introduction'
+description: ''
+required: false
+translatable: true
+default_value: {  }
+default_value_callback: ''
+settings: {  }
+field_type: text_long

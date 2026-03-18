@@ -1,0 +1,89 @@
+uuid: 4b2c04b8-0a41-462b-8d68-7ef0e9a46d82
+langcode: en
+status: true
+dependencies:
+  config:
+    - core.entity_view_mode.node.teaser
+    - field.field.node.workbc_centre.field_address
+    - field.field.node.workbc_centre.field_alert
+    - field.field.node.workbc_centre.field_content
+    - field.field.node.workbc_centre.field_content_group
+    - field.field.node.workbc_centre.field_email
+    - field.field.node.workbc_centre.field_geolocation
+    - field.field.node.workbc_centre.field_hero_image
+    - field.field.node.workbc_centre.field_hero_image_media
+    - field.field.node.workbc_centre.field_job_board_id
+    - field.field.node.workbc_centre.field_metatag_description
+    - field.field.node.workbc_centre.field_multilingual_centre
+    - field.field.node.workbc_centre.field_phone
+    - field.field.node.workbc_centre.field_related_topics
+    - field.field.node.workbc_centre.field_scheduled_publish
+    - field.field.node.workbc_centre.field_tags
+    - field.field.node.workbc_centre.field_website
+    - field.field.node.workbc_centre.field_working_hours
+    - node.type.workbc_centre
+  module:
+    - user
+id: node.workbc_centre.teaser
+targetEntityType: node
+bundle: workbc_centre
+mode: teaser
+content:
+  content_moderation_control:
+    settings: {  }
+    third_party_settings: {  }
+    weight: -20
+    region: content
+  created:
+    type: timestamp
+    label: hidden
+    settings:
+      date_format: medium
+      custom_date_format: ''
+      timezone: ''
+      tooltip:
+        date_format: long
+        custom_date_format: ''
+      time_diff:
+        enabled: false
+        future_format: '@interval hence'
+        past_format: '@interval ago'
+        granularity: 2
+        refresh: 60
+    third_party_settings: {  }
+    weight: 0
+    region: content
+  links:
+    settings: {  }
+    third_party_settings: {  }
+    weight: 100
+    region: content
+  uid:
+    type: author
+    label: hidden
+    settings: {  }
+    third_party_settings: {  }
+    weight: 0
+    region: content
+hidden:
+  extra_field_workbc_page_title: true
+  extra_field_workbc_published_on: true
+  field_address: true
+  field_alert: true
+  field_content: true
+  field_content_group: true
+  field_email: true
+  field_geolocation: true
+  field_hero_image: true
+  field_hero_image_media: true
+  field_job_board_id: true
+  field_metatag_description: true
+  field_multilingual_centre: true
+  field_phone: true
+  field_related_topics: true
+  field_scheduled_publish: true
+  field_tags: true
+  field_website: true
+  field_working_hours: true
+  langcode: true
+  search_api_excerpt: true

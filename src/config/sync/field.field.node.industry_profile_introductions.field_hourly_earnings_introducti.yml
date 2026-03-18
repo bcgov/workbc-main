@@ -1,0 +1,21 @@
+uuid: 21d232f6-00fc-468b-b4c7-c6502896a305
+langcode: en
+status: true
+dependencies:
+  config:
+    - field.storage.node.field_hourly_earnings_introducti
+    - node.type.industry_profile_introductions
+  module:
+    - text
+id: node.industry_profile_introductions.field_hourly_earnings_introducti
+field_name: field_hourly_earnings_introducti
+entity_type: node
+bundle: industry_profile_introductions
+label: 'Hourly Earnings Introduction'
+description: ''
+required: false
+translatable: false
+default_value: {  }
+default_value_callback: ''
+settings: {  }
+field_type: text_long

@@ -1,0 +1,21 @@
+uuid: 1a98a959-17b8-4bd7-b569-a611709cb1c5
+langcode: en
+status: true
+dependencies:
+  config:
+    - field.storage.node.field_employment_introduction
+    - node.type.career_profile_introductions
+  module:
+    - text
+id: node.career_profile_introductions.field_employment_introduction
+field_name: field_employment_introduction
+entity_type: node
+bundle: career_profile_introductions
+label: 'Employment Introduction'
+description: ''
+required: false
+translatable: true
+default_value: {  }
+default_value_callback: ''
+settings: {  }
+field_type: text_long

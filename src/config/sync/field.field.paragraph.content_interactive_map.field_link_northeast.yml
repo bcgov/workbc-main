@@ -1,0 +1,23 @@
+uuid: 73816484-62f1-4ae9-80b7-80091f7f0fe6
+langcode: en
+status: true
+dependencies:
+  config:
+    - field.storage.paragraph.field_link_northeast
+    - paragraphs.paragraphs_type.content_interactive_map
+  module:
+    - link
+id: paragraph.content_interactive_map.field_link_northeast
+field_name: field_link_northeast
+entity_type: paragraph
+bundle: content_interactive_map
+label: 'Northeast Link'
+description: ''
+required: true
+translatable: false
+default_value: {  }
+default_value_callback: ''
+settings:
+  title: 0
+  link_type: 1
+field_type: link

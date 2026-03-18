@@ -1,0 +1,12 @@
+.static-load-more-button-container {
+  display: flex;
+  justify-content: center;
+
+  button {
+    width: 100%;
+
+    @include media-breakpoint-up(xl) {
+      width: 200px;
+    }
+  }
+}

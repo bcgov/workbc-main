@@ -1,0 +1,207 @@
+{#
+/**
+ * @file
+ * Theme override to display a node.
+ *
+ * Available variables:
+ * - node: The node entity with limited access to object properties and methods.
+ *   Only method names starting with "get", "has", or "is" and a few common
+ *   methods such as "id", "label", and "bundle" are available. For example:
+ *   - node.getCreatedTime() will return the node creation timestamp.
+ *   - node.hasField('field_example') returns TRUE if the node bundle includes
+ *     field_example. (This does not indicate the presence of a value in this
+ *     field.)
+ *   - node.isPublished() will return whether the node is published or not.
+ *   Calling other methods, such as node.delete(), will result in an exception.
+ *   See \Drupal\node\Entity\Node for a full list of public properties and
+ *   methods for the node object.
+ * - label: (optional) The title of the node.
+ * - content: All node items. Use {{ content }} to print them all,
+ *   or print a subset such as {{ content.field_example }}. Use
+ *   {{ content|without('field_example') }} to temporarily suppress the printing
+ *   of a given child element.
+ * - author_picture: The node author user entity, rendered using the "compact"
+ *   view mode.
+ * - metadata: Metadata for this node.
+ * - date: (optional) Themed creation date field.
+ * - author_name: (optional) Themed author name field.
+ * - url: Direct URL of the current node.
+ * - display_submitted: Whether submission information should be displayed.
+ * - attributes: HTML attributes for the containing element.
+ *   The attributes.class element may contain one or more of the following
+ *   classes:
+ *   - node: The current template type (also known as a "theming hook").
+ *   - node--type-[type]: The current node type. For example, if the node is an
+ *     "Article" it would result in "node--type-article". Note that the machine
+ *     name will often be in a short form of the human readable label.
+ *   - node--view-mode-[view_mode]: The View Mode of the node; for example, a
+ *     teaser would result in: "node--view-mode-teaser", and
+ *     full: "node--view-mode-full".
+ *   The following are controlled through the node publishing options.
+ *   - node--promoted: Appears on nodes promoted to the front page.
+ *   - node--sticky: Appears on nodes ordered above other non-sticky nodes in
+ *     teaser listings.
+ *   - node--unpublished: Appears on unpublished nodes visible only to site
+ *     admins.
+ * - title_attributes: Same as attributes, except applied to the main title
+ *   tag that appears in the template.
+ * - content_attributes: Same as attributes, except applied to the main
+ *   content tag that appears in the template.
+ * - author_attributes: Same as attributes, except applied to the author of
+ *   the node tag that appears in the template.
+ * - title_prefix: Additional output populated by modules, intended to be
+ *   displayed in front of the main title tag that appears in the template.
+ * - title_suffix: Additional output populated by modules, intended to be
+ *   displayed after the main title tag that appears in the template.
+ * - view_mode: View mode; for example, "teaser" or "full".
+ * - teaser: Flag for the teaser state. Will be true if view_mode is 'teaser'.
+ * - page: Flag for the full page state. Will be true if view_mode is 'full'.
+ * - readmore: Flag for more state. Will be true if the teaser content of the
+ *   node cannot hold the main body content.
+ * - logged_in: Flag for authenticated user status. Will be true when the
+ *   current user is a logged-in member.
+ * - is_admin: Flag for admin user status. Will be true when the current user
+ *   is an administrator.
+ *
+ * @see template_preprocess_node()
+ *
+ */
+#}
+
+{% set title = label %}
+{% set hero_image = content.field_hero_image_media[0] %}
+{% set hero_text = content.field_hero_text[0] %}
+
+{% set months = content.extra_field_labourmarket_months %}
+{% set employment_intro = content.field_employment_introduction %}
+{% set total_employed = content.extra_field_labourmarket_employment %}
+{% set employment_change = content.extra_field_labourmarket_employment_change %}
+{% set employment_change_percent = content.extra_field_labourmarket_employment_change_percent %}
+{% set employment_by_age_sex_table = content.extra_field_labourmarket_employment_by_age_sex_table %}
+{% set unemployment_intro = content.field_unemployment_introduction %}
+{% set unemployed_current_month = content.extra_field_labourmarket_unemployed_current_month %}
+{% set unemployed_previous_month = content.extra_field_labourmarket_unemployed_previous_month %}
+{% set unemployment_region_intro = content.field_unemployment_region_intro %}
+{% set unemployment_by_region_markup = content.extra_field_labourmarket_unemployment_by_region.0['#markup'] %}
+{% set unemployment_by_region_table_header = content.extra_field_labourmarket_unemployment_by_region.0['#header'] %}
+{% set unemployment_by_region_table_rows = content.extra_field_labourmarket_unemployment_by_region.0['#rows'] %}
+{% set unemployment_by_region_table_source = content.extra_field_labourmarket_unemployment_by_region.1['#plain_text'] %}
+
+{% set industry_highlights_intro = content.field_industry_highlights_intro %}
+{% set employment_industries_table = content.extra_field_labourmarket_employment_industries_table %}
+
+{%
+  set classes = [
+    'node',
+    'node--type-' ~ node.bundle|clean_class,
+    node.isPromoted() ? 'node--promoted',
+    node.isSticky() ? 'node--sticky',
+    not node.isPublished() ? 'node--unpublished',
+    view_mode ? 'node--view-mode-' ~ view_mode|clean_class,
+    'container-lg',
+    'page-format--standard'
+  ]
+%}
+
+{% if hero_image or hero_text %}
+  {% include '@workbc/includes/hero.html.twig' %}
+{% endif %}
+
+{# Breadcrumbs #}
+{% include '@workbc/includes/breadcrumbs.html.twig' %}
+
+{# Social Sharing #}
+{% include '@workbc/includes/social-sharing.html.twig' %}
+
+<article{{ attributes.addClass(classes) }}>
+
+  <div class="lm-months">
+    {{ months }}
+  </div>
+
+  <div class="lm-employment-intro">
+    <h2 class="title-w-underline">{{ 'Employment'|t }}</h2>
+    {{ employment_intro }}
+  </div>
+
+  <div class="lm-total-employment-container">
+    {{ total_employed }}
+  </div>
+
+  <div class="lm-change-container">
+    {{ employment_change }}
+    {{ employment_change_percent }}
+  </div>
+
+  <div class="lm-table-container">
+    <div class="lm-label lm-label-table">{{ 'Employment by Age Group and Sex'|t }}</div>
+    {{ employment_by_age_sex_table }}
+  </div>
+
+  <div class="lm-unemployment-intro">
+    <h2 class="title-w-underline">{{ 'Unemployment'|t }}</h2>
+    {{ unemployment_intro }}
+  </div>
+
+  <div class="lm-change-container lm-unemployment-container">
+    {{ unemployed_current_month }}
+    {{ unemployed_previous_month }}
+  </div>
+
+  <div class="lm-intro">
+    <h2 class="title-w-underline">{{ 'Unemployment by Region'|t }}</h2>
+    {{ unemployment_region_intro }}
+  </div>
+
+  <div class="lm-table-container">
+    <div class="lm-label lm-label-table">{{ 'Unemployment Rate'|t }}</div>
+
+    {% if unemployment_by_region_markup %}
+      <div>{{ unemployment_by_region_markup }}</div>
+    {% else %}
+      {# Interactive Map #}
+      {% set map_no = 0 %}
+      {% set regions = region_info %}
+
+      <div id=lm-interactive-map class="workbc-interactive-map-{{ map_no }}">
+        {% include '@workbc/includes/interactive-map.html.twig' with { map_no, regions } %}
+        <div>
+          <table class='lm-table-region table'>
+            <thead>
+              <tr class='lm-header'>
+                <th>{{ unemployment_by_region_table_header.0 }}</th>
+                <th>{{ unemployment_by_region_table_header.1 }}</th>
+                <th>{{ unemployment_by_region_table_header.2 }}</th>
+              </tr>
+            </thead>
+            {% for key, region in unemployment_by_region_table_rows %}
+              <tr class='{{ region.class }} {{ cycle(['odd', 'even'], loop.index0) }}'>
+                <td class='region'>{{ region.data.0 }}</td>
+                <td class="data-row current-year" data-label="{{ unemployment_by_region_table_header.1 }}" align="right">
+                  {{ region.data.1 }}
+                </td>
+                <td class="data-row prior-year" data-label="{{ unemployment_by_region_table_header.2 }}" align="right">
+                  {{ region.data.2 }}
+                </td>
+              </tr>
+              {% if not loop.last %}
+                <tr class="horizontal-line"></tr>
+              {% endif %}
+            {% endfor %}
+          </table>
+          <div class="lm-source"><strong>Source: </strong>{{ unemployment_by_region_table_source }}</div>
+        </div>
+      </div>
+    {% endif %}
+  </div>
+
+  <div class="lm-intro">
+    <h2 class="title-w-underline">{{ 'Industry Highlights'|t }}</h2>
+    {{ industry_highlights_intro }}
+  </div>
+
+  <div class="lm-table-container" id="employment-industries">
+    {{ employment_industries_table }}
+  </div>
+
+</article>

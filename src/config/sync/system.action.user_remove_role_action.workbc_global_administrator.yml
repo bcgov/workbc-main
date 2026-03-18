@@ -1,0 +1,14 @@
+uuid: 426f056d-933d-4179-97d4-26310e6ec708
+langcode: en
+status: true
+dependencies:
+  config:
+    - user.role.workbc_global_administrator
+  module:
+    - user
+id: user_remove_role_action.workbc_global_administrator
+label: 'Remove the WorkBC Global Administrator role from the selected user(s)'
+type: user
+plugin: user_remove_role_action
+configuration:
+  rid: workbc_global_administrator

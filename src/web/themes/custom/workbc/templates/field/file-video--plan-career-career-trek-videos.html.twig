@@ -1,0 +1,24 @@
+{#
+/**
+* @file
+* Default theme implementation to display the file entity as a video tag.
+*
+* Available variables:
+* - attributes: An array of HTML attributes, intended to be added to the
+*   video tag.
+* - files: And array of files to be added as sources for the video tag. Each
+*   element is an array with the following elements:
+*   - file: The full file object.
+*   - source_attributes: An array of HTML attributes for to be added to the
+*     source tag.
+*
+* @ingroup themeable
+*/
+#}
+{{ attach_library('bootstrap5/file') }}
+<img src="/themes/custom/workbc/assets/images/career-trek-video-banner.png" width="640" height="480" class="career-trek-banner">
+<video {{ attributes }}>
+  {% for file in files %}
+    <source {{ file.source_attributes }} />
+  {% endfor %}
+</video>

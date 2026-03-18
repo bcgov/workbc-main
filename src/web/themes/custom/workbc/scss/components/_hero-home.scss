@@ -1,0 +1,58 @@
+.hero-home {
+  position: relative;
+  border-bottom: $workbc_trim_ultra_thin_size solid $workbc_palette_dark_secondary;
+  background: #ccd7dc;
+
+  @include media-breakpoint-up(xxl) {
+    height: $workbc_home_hero_container_height;
+  }
+}
+
+.hero-home__container {
+  padding-top: 35px;
+  padding-bottom: 35px;
+  position: relative;
+}
+
+.hero-home__job-search-container {
+  padding: 40px 0;
+}
+
+.hero-home__image {
+  height: auto;
+  overflow: hidden;
+
+  @include media-breakpoint-up(xxl) {
+    position: absolute;
+    top: 0;
+    bottom: 0;
+    right: 0;
+    z-index: 0;
+    height: $workbc_home_hero_image_height;
+    width: $workbc_home_hero_image_width;
+    overflow: auto;
+
+    &:before {
+      content: "";
+      display: block;
+      position: absolute;
+      top: 0;
+      right: 0;
+      bottom: 0;
+      left: 0;
+      z-index: 1;
+      background: linear-gradient(90deg, #ccd7dc 5%, rgba(0, 0, 0, 0) 20%);
+    }
+  }
+}
+
+.hero-home__image img {
+  display: block;
+  width: 100%;
+
+  @include media-breakpoint-up(xxl) {
+    height: 100%;
+    object-fit: contain;
+    object-position: right top;
+  }
+}

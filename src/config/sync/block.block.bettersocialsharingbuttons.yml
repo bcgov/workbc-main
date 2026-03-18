@@ -1,0 +1,43 @@
+uuid: 7757864f-d47b-4af8-870e-a11acfa3bb0d
+langcode: en
+status: true
+dependencies:
+  module:
+    - better_social_sharing_buttons
+    - system
+  theme:
+    - workbc
+id: bettersocialsharingbuttons
+theme: workbc
+region: hidden
+weight: -17
+provider: null
+plugin: social_sharing_buttons_block
+settings:
+  id: social_sharing_buttons_block
+  label: 'Better Social Sharing Buttons'
+  label_display: '0'
+  provider: better_social_sharing_buttons
+  iconset: social-icons--no-color
+  services:
+    facebook: facebook
+    x: x
+    whatsapp: '0'
+    facebook_messenger: '0'
+    email: email
+    pinterest: '0'
+    linkedin: linkedin
+    tumblr: '0'
+    reddit: '0'
+    evernote: '0'
+    print: print
+    copy: '0'
+  width: 35px
+  radius: 3px
+  print_css: ''
+  facebook_app_id: ''
+visibility:
+  request_path:
+    id: request_path
+    negate: true
+    pages: "<front>\r\n/contact-us\r\n/contactez-nous\r\n/search-and-prepare-job\r\n/plan-career\r\n/plan-career/resources\r\n/discover-employment-services\r\n/explore-training-and-education\r\n/research-labour-market\r\n/access-employer-resources\r\n/find-loans-and-grants"

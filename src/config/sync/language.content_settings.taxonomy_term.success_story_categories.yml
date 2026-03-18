@@ -1,0 +1,11 @@
+uuid: 9b69ee1a-b5ad-49aa-bd93-47b0419023d6
+langcode: en
+status: true
+dependencies:
+  config:
+    - taxonomy.vocabulary.success_story_categories
+id: taxonomy_term.success_story_categories
+target_entity_type_id: taxonomy_term
+target_bundle: success_story_categories
+default_langcode: site_default
+language_alterable: false

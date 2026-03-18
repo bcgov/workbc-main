@@ -1,0 +1,22 @@
+uuid: 5c0261b7-36b5-4bb4-8b63-b74a44cd7361
+langcode: en
+status: true
+dependencies:
+  module:
+    - node
+id: labour_market_monthly
+label: 'Labour Market Monthly'
+type: 'canonical_entities:node'
+pattern: '[node:menu-link:parents:join-path]/[node:title]'
+selection_criteria:
+  97f93319-1ad9-4598-b748-46ed014b4a91:
+    id: 'entity_bundle:node'
+    negate: false
+    uuid: 97f93319-1ad9-4598-b748-46ed014b4a91
+    context_mapping:
+      node: node
+    bundles:
+      labour_market_monthly: labour_market_monthly
+selection_logic: and
+weight: -5
+relationships: {  }

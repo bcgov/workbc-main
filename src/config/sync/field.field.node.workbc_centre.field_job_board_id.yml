@@ -1,0 +1,19 @@
+uuid: 10a46881-4462-4ae0-8396-b6fcc683dacd
+langcode: en
+status: true
+dependencies:
+  config:
+    - field.storage.node.field_job_board_id
+    - node.type.workbc_centre
+id: node.workbc_centre.field_job_board_id
+field_name: field_job_board_id
+entity_type: node
+bundle: workbc_centre
+label: 'Job Board ID'
+description: ''
+required: false
+translatable: true
+default_value: {  }
+default_value_callback: ''
+settings: {  }
+field_type: string

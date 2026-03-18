@@ -1,0 +1,21 @@
+uuid: 9826871c-ee36-495a-8b09-366e15b9d9d8
+langcode: en
+status: true
+dependencies:
+  config:
+    - field.storage.paragraph.field_color
+    - paragraphs.paragraphs_type.action_card_icon
+  module:
+    - options
+id: paragraph.action_card_icon.field_color
+field_name: field_color
+entity_type: paragraph
+bundle: action_card_icon
+label: 'Title Color'
+description: ''
+required: false
+translatable: false
+default_value: {  }
+default_value_callback: ''
+settings: {  }
+field_type: list_string

@@ -1,0 +1,11 @@
+uuid: bdf1890c-b71b-4fda-91ae-3a374f29a23d
+langcode: en
+status: true
+dependencies:
+  module:
+    - media
+id: media.action_card_feature
+label: 'Action Card: Feature'
+description: ''
+targetEntityType: media
+cache: true

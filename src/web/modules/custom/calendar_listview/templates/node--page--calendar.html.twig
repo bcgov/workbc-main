@@ -1,0 +1,110 @@
+{%
+  set classes = [
+    'node',
+    'node--type-' ~ node.bundle|clean_class,
+    node.isPromoted() ? 'node--promoted',
+    node.isSticky() ? 'node--sticky',
+    not node.isPublished() ? 'node--unpublished',
+    view_mode ? 'node--view-mode-' ~ view_mode|clean_class,
+  ]
+%}
+
+{% set page_format = content.field_page_format|render|striptags|trim|lower %}
+
+{% set title = label %}
+{% set hero_image = content.field_hero_image_media[0] %}
+{% set hero_text = content.field_hero_text[0] %}
+{% set page_body = content.body %}
+{% set page_content = content.field_content %}
+
+
+{% set left_block %}
+  {{ drupal_entity('block', 'sidenavblock') }}
+{% endset %}
+
+{% set related %}
+  {{ drupal_entity('block', 'related_topics') }}
+{% endset %}
+
+
+{%
+  set classes = [
+    'node',
+    'node--type-' ~ node.bundle|clean_class,
+    node.isPromoted() ? 'node--promoted',
+    node.isSticky() ? 'node--sticky',
+    not node.isPublished() ? 'node--unpublished',
+    view_mode ? 'node--view-mode-' ~ view_mode|clean_class,
+    page_format ? 'page-format--' ~ page_format|clean_class,
+    'page-container',
+    'container-lg',
+  ]
+%}
+{% if hero_image or hero_text %}
+  {% include '@workbc/includes/hero.html.twig' %}
+{% endif %}
+
+{# When breadcrums are displayed below the hero section #}
+{{ drupal_block('system_breadcrumb_block', wrapper=false) }}
+
+{{ drupal_entity('block', 'bettersocialsharingbuttons') }}
+<article{{ attributes.addClass(classes) }}>
+
+  {% if display_submitted %}
+    <footer class="node__meta">
+      {{ author_picture }}
+      <div{{ author_attributes.addClass('node__submitted') }}>
+        {% trans %}Submitted by {{ author_name }} on {{ date }}{% endtrans %}
+        {{ metadata }}
+      </div>
+    </footer>
+  {% endif %}
+
+  <div{{ content_attributes.addClass('node__content') }}>
+    {% if viewmode is not null %}
+      <div class="calendar event-cal container calendar--view-mode-{{view_mode|clean_class}}">
+        <div class="calendar-content">
+        <nav class="list-nav" aria-label="list-nav">
+          <div class="nav nav-tabs" id="nav-tab" role="tablist">
+            <a href="{{ path('<current>') }}?mode=list" class="nav-link {{ viewmode=='list' or viewmode=='archive'   ? 'show active' :'' }}" role="tab"  >
+              {%
+                set active = viewmode=='list' or viewmode=='archive' ? '-hover' : ''
+              %}
+              <span class="calender_icon">
+                <img src="/modules/custom/calendar_listview/images/list-view{{active}}.svg" class="icon" alt="List View Icon"/>
+              </span>
+               Icon
+            </a>
+            <a href="{{ path('<current>') }}?mode=calendar" class="nav-link {{ viewmode=='calendar' ? 'show active' :'' }}"  role="tab" >
+            {%
+                set active = viewmode=='calendar' ? '-hover' : ''
+              %}
+              <span class="calender_icon">
+                <img src="/modules/custom/calendar_listview/images/calendar-view{{active}}.svg" class="icon" alt="Calendar View Icon"/>
+              </span>
+              Calendar View
+            </a>
+          </div>
+        </nav>
+        <div class="tab-content" id="nav-tabContent">
+          {% if viewmode == 'list' %}
+            <div class="list-full-view tab-pane fade show active" id="nav-list-view" role="tabpanel" >
+              {{ drupal_view('event_calendar_listview', 'block_1') }}
+            </div>
+          {% elseif viewmode == 'calendar' %}
+            <div class="calendar-full-view tab-pane fade show active" id="nav-calendar-view" role="tabpanel" aria-label="Calendar View">
+              {{ drupal_view('event_calendar', 'block_1') }}
+            </div>
+          {% else %}
+            <div class="list-full-view tab-pane fade show active" id="nav-list-view" role="tabpanel" aria-label="List View">
+              {{ drupal_view('event_calendar_listview', 'block_2') }}
+            </div>
+          {% endif %}
+        </div>
+      </div>
+    </div>
+    {% endif %}
+
+  </div>
+  {{custom_var}}
+</article>
