@@ -8,6 +8,7 @@
     attach: function (context, settings) {
       once('languageToggle', 'html', context).forEach(function() {
         window.addEventListener('load', pageLoad);
+        window.addEventListener('unload', () => {});
       });
 
       once('languageToggle', 'body.search-and-prepare-jobfind-jobs', context).forEach(function() {
