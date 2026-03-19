@@ -1,0 +1,27 @@
+uuid: 5c273865-8d5e-4c85-8d7c-70174b98a9eb
+langcode: en
+status: true
+dependencies:
+  module:
+    - options
+    - paragraphs
+id: paragraph.field_language
+field_name: field_language
+entity_type: paragraph
+type: list_string
+settings:
+  allowed_values:
+    -
+      value: english
+      label: 'English Centres'
+    -
+      value: french
+      label: 'French Centres'
+  allowed_values_function: ''
+module: options
+locked: false
+cardinality: 1
+translatable: true
+indexes: {  }
+persist_with_no_fields: false
+custom_storage: false

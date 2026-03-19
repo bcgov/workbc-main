@@ -22,13 +22,14 @@
         ?.split("=")[1];
 
       // Determine the current page's language from these sources in order:
-      // 1. sessionStorage(KEY_LANGUAGE_TOGGLE)
-      // 2. languageToggle.isFrench setting
-      // 3. googtrans cookie
+      // * settings.languageToggle.isFrench (from Drupal backend)
+      // * sessionStorage(KEY_LANGUAGE_TOGGLE) (from this script)
+      // * googtrans cookie (from Google Translate)
       const KEY_LANGUAGE_TOGGLE = 'WorkBC.languageToggle';
       let isFrench =
-        window.sessionStorage.getItem(KEY_LANGUAGE_TOGGLE) !== null ? window.sessionStorage.getItem(KEY_LANGUAGE_TOGGLE) === 'fr' :
-        (settings.languageToggle?.isFrench ?? (googtrans === '/en/fr'));
+        settings.languageToggle?.isFrench === true ||
+        window.sessionStorage.getItem(KEY_LANGUAGE_TOGGLE) === 'fr' ||
+        googtrans === '/en/fr';
       window.sessionStorage.setItem(KEY_LANGUAGE_TOGGLE, isFrench ? 'fr' : 'en');
 
       // Handle clicking our toggle.

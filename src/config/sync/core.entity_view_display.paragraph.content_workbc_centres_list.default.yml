@@ -1,0 +1,25 @@
+uuid: b9534eea-6b4b-4fca-9acf-5c10ef524370
+langcode: en
+status: true
+dependencies:
+  config:
+    - field.field.paragraph.content_workbc_centres_list.field_key
+    - field.field.paragraph.content_workbc_centres_list.field_language
+    - paragraphs.paragraphs_type.content_workbc_centres_list
+  module:
+    - options
+id: paragraph.content_workbc_centres_list.default
+targetEntityType: paragraph
+bundle: content_workbc_centres_list
+mode: default
+content:
+  field_language:
+    type: list_default
+    label: above
+    settings: {  }
+    third_party_settings: {  }
+    weight: 0
+    region: content
+hidden:
+  field_key: true
+  search_api_excerpt: true

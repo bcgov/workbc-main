@@ -1,0 +1,25 @@
+uuid: 1c4bd153-b937-46f5-84dc-373551d52c7b
+langcode: en
+status: true
+dependencies:
+  config:
+    - field.field.paragraph.content_workbc_centres_map.field_workbc_centres_map
+    - paragraphs.paragraphs_type.content_workbc_centres_map
+  module:
+    - link
+id: paragraph.content_workbc_centres_map.default
+targetEntityType: paragraph
+bundle: content_workbc_centres_map
+mode: default
+content:
+  field_workbc_centres_map:
+    type: link_default
+    weight: 0
+    region: content
+    settings:
+      placeholder_url: ''
+      placeholder_title: ''
+    third_party_settings: {  }
+hidden:
+  created: true
+  status: true
