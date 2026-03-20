@@ -44,7 +44,7 @@ collection = chroma_client.get_collection("career_content")
 class QueryRequest(BaseModel):
     prompt: str
 
-@app.post("/ask")
+@app.post("/api/ask")
 async def ask_career_bot(request: QueryRequest):
     user_query = request.prompt
     
