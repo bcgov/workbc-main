@@ -34,6 +34,7 @@ bi_encoder = SentenceTransformer("BAAI/bge-base-en-v1.5", device=DEVICE)
 vllm_client = OpenAI(
     base_url=f"http://{MISTRAL_HOST}:{MISTRAL_PORT}/v1", 
     api_key="none"
+    timeout=120.0
 )
 
 MODEL_NAME = "TheBloke/Mistral-7B-Instruct-v0.2-AWQ"
