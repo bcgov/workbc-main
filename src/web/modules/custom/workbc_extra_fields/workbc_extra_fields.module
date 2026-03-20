@@ -20,6 +20,15 @@ define ("REGION_NORTHEAST", "Northeast");
 define ("REGION_THOMPSON_OKANAGAN", "Thompson-Okanagan");
 define ("REGION_VANCOUVER_ISLAND_COAST", "Vancouver Island/Coast");
 
+define ("REGION_BRITISH_COLUMBIA_FR", "Colombie-Britannique");
+define ("REGION_CARIBOO_FR", "Cariboo");
+define ("REGION_KOOTENAY_FR", "Kootenay");
+define ("REGION_MAINLAND_SOUTHWEST_FR", "Continent/Sud-Ouest");
+define ("REGION_NORTH_COAST_NECHAKO_FR", "Côte Nord/Nechako");
+define ("REGION_NORTHEAST_FR", "Nord-Est");
+define ("REGION_THOMPSON_OKANAGAN_FR", "Thompson-Okanagan");
+define ("REGION_VANCOUVER_ISLAND_COAST_FR", "Île/Côte de Vancouver");
+
 define ("REGION_BRITISH_COLUMBIA_ID", 0);
 define ("REGION_CARIBOO_ID", 1);
 define ("REGION_KOOTENAY_ID", 2);

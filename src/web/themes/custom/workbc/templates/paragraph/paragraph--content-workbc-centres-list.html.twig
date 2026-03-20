@@ -67,60 +67,72 @@
         {% for key, region in regions %}
           <div class="tab-pane{{ loop.first ? ' active'}}" id="{{ key }}-content" role="tabpanel" aria-labelledby="{{ key }}-tab">
             <div class="region-title">
-              WorkBC Centres in {{ region }}
+              {% if language == "french"  %}
+                Centres WorkBC dans {{ region }}
+              {% else %}
+                WorkBC Centres in {{ region }}
+              {% endif %}
             </div>
 
             <div class="region-list">
-              <div class="accordion accordion-flush workbc-centre-accordion" id="accordion-component-{{ key }}">
-                {% for centre in centres[key] %}
+              {% if centres[key]|length > 0 %}
+                <div class="accordion accordion-flush workbc-centre-accordion" id="accordion-component-{{ key }}">
+                  {% for centre in centres[key] %}
 
-                  <div class="accordion-header" id="header-{{ centre.id() }}">
-                    <div class="accordion-header-link">
-                      <a href="{{ centre.workbc_centre_url }}">{{ centre.label }}</a>
+                    <div class="accordion-header" id="header-{{ centre.id() }}">
+                      <div class="accordion-header-link">
+                        <a href="{{ centre.workbc_centre_url }}">{{ centre.label }}</a>
+                      </div>
+                      <button class="accordion-button collapsed" type="button" data-bs-toggle="collapse" data-bs-target="#collapse-{{ centre.id() }}" aria-expanded="false" aria-controls="collapse-{{ centre.id() }}"></button>
                     </div>
-                    <button class="accordion-button collapsed" type="button" data-bs-toggle="collapse" data-bs-target="#collapse-{{ centre.id() }}" aria-expanded="false" aria-controls="collapse-{{ centre.id() }}"></button>
-                  </div>
 
-                  <div id="collapse-{{ centre.id() }}" class="accordion-collapse collapse" aria-labelledby="header-{{ centre.id() }}" data-bs-parent="#accordion-component-{{ key }}">
+                    <div id="collapse-{{ centre.id() }}" class="accordion-collapse collapse" aria-labelledby="header-{{ centre.id() }}" data-bs-parent="#accordion-component-{{ key }}">
 
-                    <div class="centre-details-container">
+                      <div class="centre-details-container">
 
-                      <div class="centre-details centre-details-header">
-                        <div class="centre-details-section">
-                          <div class="centre-details-section-title">Address and Contact details</div>
+                        <div class="centre-details centre-details-header">
+                          <div class="centre-details-section">
+                            <div class="centre-details-section-title">Address and Contact details</div>
+                          </div>
+                          <div class="centre-details-section centre-address">
+                            <div class="centre-details-section-title">Hours of Operation</div>
+                          </div>
+
                         </div>
-                        <div class="centre-details-section centre-address">
-                          <div class="centre-details-section-title">Hours of Operation</div>
-                        </div>
+
+                        <div class="centre-details centre-details-content">
+                          <div class="centre-details-section centre-address">
+                            <div>
+                              <div>{{ centre.field_address.address_line1 }}</div>
+                              {% if centre.field_address.address_line2 is not empty %}
+                                <div>{{ centre.field_address.address_line2 }}</div>
+                              {% endif %}
+                              <div>{{ centre.field_address.locality }}, {{ centre.field_address.administrative_area }}, {{ centre.field_address.postal_code }}</div>
+                              <div>{{ centre.field_phone.value }}</div>
+                              <div class="centre-details-email">{{ centre.field_email.value }}</div>
+                              <div class="centre-details-link"><a target="_blank" rel="noopener noreferrer nofollow" href="{{ centre.field_website.uri }}">{{ centre.field_website.uri }}</a></div>
+                            </div>
+                          </div>
+
+                          <div class="centre-details-section centre-hours">
+                            <div>{{ centre.field_working_hours.value|raw }}</div>
+                          </div>
 
                       </div>
-
-                      <div class="centre-details centre-details-content">
-                        <div class="centre-details-section centre-address">
-                          <div>
-                            <div>{{ centre.field_address.address_line1 }}</div>
-                            {% if centre.field_address.address_line2 is not empty %}
-                              <div>{{ centre.field_address.address_line2 }}</div>
-                            {% endif %}
-                            <div>{{ centre.field_address.locality }}, {{ centre.field_address.administrative_area }}, {{ centre.field_address.postal_code }}</div>
-                            <div>{{ centre.field_phone.value }}</div>
-                            <div class="centre-details-email">{{ centre.field_email.value }}</div>
-                            <div class="centre-details-link"><a target="_blank" rel="noopener noreferrer nofollow" href="{{ centre.field_website.uri }}">{{ centre.field_website.uri }}</a></div>
-                          </div>
-                        </div>
-
-                        <div class="centre-details-section centre-hours">
-                          <div>{{ centre.field_working_hours.value|raw }}</div>
-                        </div>
-
-                     </div>
+                    </div>
                   </div>
+                    <div>
+                      <hr>
+                    </div>
+                  {% endfor %}
                 </div>
-                  <div>
-                    <hr>
-                  </div>
-                {% endfor %}
-              </div>
+              {% else %}
+                <div class="no-centres">
+                  {% if language == "french"  %}
+                    Il n'existe pas de centres WorkBC francophones désignés dans cette région, mais les services sont accessibles en français avec des services d'interprétation dans les locaux de WorkBC.
+                  {% endif %}
+                </div>
+              {% endif %}
             </div>
 
           </div>

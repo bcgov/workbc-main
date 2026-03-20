@@ -449,7 +449,7 @@ function ssotLatestMonthlyLabourMarketUpdate($sourceData) {
   return $latestIdx;
 }
 
-function ssotRegions() {
+function ssotRegions($language = "english") {
   static $regions = array(
     "british_columbia" => REGION_BRITISH_COLUMBIA,
     "cariboo" => REGION_CARIBOO,
@@ -461,6 +461,18 @@ function ssotRegions() {
     "vancouver_island_coast" => REGION_VANCOUVER_ISLAND_COAST,
   );
 
+  if ($language == "french") {
+    $regions = array(
+      "british_columbia" => REGION_BRITISH_COLUMBIA_FR,
+      "cariboo" => REGION_CARIBOO_FR,
+      "kootenay" => REGION_KOOTENAY_FR,
+      "mainland_southwest" => REGION_MAINLAND_SOUTHWEST_FR,
+      "north_coast_nechako" => REGION_NORTH_COAST_NECHAKO_FR,
+      "northeast" => REGION_NORTHEAST_FR,
+      "thompson_okanagan" => REGION_THOMPSON_OKANAGAN_FR,
+      "vancouver_island_coast" => REGION_VANCOUVER_ISLAND_COAST_FR,
+    );
+  }
   return $regions;
 }
 
@@ -530,8 +542,9 @@ function ssotRegionInfo() {
 }
 
 // TODO! Merge this function into the above.
-function getRegionMappings() {
-  return [
+function getRegionMappings($language = "english") {
+
+$regions = array(
     'all' => 'All regions',
     'british_columbia' => 'British Columbia',
     'vancouver_island_coast' =>'Vancouver Island/Coast',
@@ -541,7 +554,22 @@ function getRegionMappings() {
     'cariboo' => 'Cariboo',
     'north_coast_nechako' => 'North Coast and Nechako',
     'northeast' => 'Northeast'
-  ];
+  );
+
+  if ($language == "french") {
+    $regions = array(
+      'all' => 'Toutes les régions',
+      'british_columbia' => 'Colombie-Britannique',
+      'vancouver_island_coast' =>'Île/Côte de Vancouver',
+      'mainland_southwest'  => 'Continent/Sud-Ouest',
+      'thompson_okanagan' => 'Thompson-Okanagan',
+      'kootenay' => 'Kootenay',
+      'cariboo' => 'Cariboo',
+      'north_coast_nechako' => 'Côte Nord/Nechako',
+      'northeast' => 'Nord-Est'
+    );
+  }
+  return $regions;
 }
 
 function ssotProcessEmploymentIndustry($ssotdata) {
