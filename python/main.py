@@ -33,7 +33,7 @@ bi_encoder = SentenceTransformer("BAAI/bge-base-en-v1.5", device=DEVICE)
 # Updated base_url to use Port 80
 vllm_client = OpenAI(
     base_url=f"http://{MISTRAL_HOST}:{MISTRAL_PORT}/v1", 
-    api_key="none"
+    api_key="none",
     timeout=120.0
 )
 
