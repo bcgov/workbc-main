@@ -28,6 +28,10 @@ const SSOT_DATASETS = [
     'fields' => 'noc,cariboo_expected_number_of_job_openings_10y,kootenay_expected_number_of_job_openings_10y,mainland_southwest_expected_number_of_job_openings_10y,north_coast_nechako_expected_number_of_job_openings_10y,northeast_expected_number_of_job_openings_10y,thompson_okanagan_expected_number_of_job_openings_10y,vancouver_island_coast_expected_number_of_job_openings_10y',
   ],
   'career_related' => [],
+  'career_trek' => [
+    'noc_key' => 'noc_2021',
+    'fields' => 'noc_2021,episode_num,episode_title,youtube_link,location,region,description',
+  ],
   'census' => [],
   'education' => [
     'noc_key' => 'noc',

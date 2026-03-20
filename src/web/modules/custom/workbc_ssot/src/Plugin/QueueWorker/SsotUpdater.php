@@ -31,6 +31,13 @@ trait SsotUpdater {
     $career->set('field_region_openings', $openings);
   }
 
+  public function update_career_trek($endpoint, $entries, &$career) {
+    // Create missing videos in Media Library
+
+
+    // Reset references to videos in Career Profile
+  }
+
   public function update_fyp_categories_interests($endpoint, $entries, &$career) {
     if (!isset($this->epbc_categories)) {
       $this->epbc_categories = \Drupal::entityTypeManager()->getStorage('taxonomy_term')->loadTree('epbc_categories');
