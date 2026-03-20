@@ -102,7 +102,7 @@ async def ask_career_bot(request: QueryRequest):
     return {"answer": answer, "debug": {"searched_for": sub_queries}}
 
 # --- NEW: HEALTH CHECK ---
-@app.get("/health")
+@app.get("/api/health")
 async def health_check():
     return {"status": "healthy", "mistral_endpoint": f"http://{MISTRAL_HOST}:{MISTRAL_PORT}"}
 
