@@ -77,7 +77,8 @@ class CareerProfileJobOpeningsComposition extends ExtraFieldDisplayFormattedBase
       ];
       $output = \Drupal::service('renderer')->render($chart);
     }
-    else if (!is_null($entity->ssot_data['career_provincial']['expected_job_openings_10y']) &&
+    else if (!empty($entity->ssot_data) && isset($entity->ssot_data['career_provincial']) &&
+             !is_null($entity->ssot_data['career_provincial']['expected_job_openings_10y']) &&
              $entity->ssot_data['career_provincial']['expected_job_openings_10y'] == 0) {
       $output = '<div class="workbc-data-not-available-350">' . WORKBC_EXTRA_FIELDS_NOT_APPLICABLE . "</div>";
     }
