@@ -29,7 +29,7 @@ class ChatBlock extends BlockBase {
         // Passing the API URL to React safely via drupalSettings
         'drupalSettings' => [
           'careerChat' => [
-            'apiUrl' => 'http://localhost:8000/ask',
+            'apiUrl' => '/api/ask',
           ],
         ],
       ],
