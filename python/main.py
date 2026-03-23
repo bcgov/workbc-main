@@ -8,6 +8,7 @@ import chromadb
 from sentence_transformers import SentenceTransformer
 from openai import OpenAI
 import uvicorn
+import traceback
 
 REDIS_HOST = os.getenv("REDIS_HOST2", "localhost")
 REDIS_PORT = int(os.getenv("REDIS_PORT", 6379))
@@ -62,81 +63,60 @@ class QueryRequest(BaseModel):
 
 @app.post("/api/ask")
 async def ask_career_bot(request: QueryRequest):
-    user_query = request.prompt
-    session_id = request.session_id
-    redis_key = f"chat_history:{session_id}"
-
-    # A. Retrieve Chat History from Redis
     try:
-        raw_history = r.get(redis_key)
-        chat_history = json.loads(raw_history) if raw_history else []
-    except Exception as e:
-        print(f"Redis connection error: {e}")
-        chat_history = []
+        user_query = request.prompt
+        session_id = request.session_id
+        redis_key = f"chat_history:{session_id}"
 
-    # B. Query Contextualization (Memory Logic)
-    # If the question is short, we append previous context to help the vector search
-    search_term = user_query
-    if chat_history and len(user_query.split()) < 5:
-        last_user_msg = next((m['content'] for m in reversed(chat_history) if m['role'] == 'user'), "")
-        search_term = f"{last_user_msg} {user_query}"
+        # A. Retrieve Chat History
+        try:
+            raw_history = r.get(redis_key)
+            chat_history = json.loads(raw_history) if raw_history else []
+        except Exception as e:
+            print(f"Redis lookup error: {e}")
+            chat_history = []
 
-    # C. Retrieval with Distance Guard (Accuracy Fix)
-    # BGE models require this specific instruction prefix for retrieval
-    instruction = "Represent this sentence for searching relevant passages: "
-    q_emb = bi_encoder.encode(instruction + search_term).tolist()
-    
-    results = collection.query(query_embeddings=[q_emb], n_results=5)
-    
-    context_chunks = []
-    for i in range(len(results['documents'][0])):
-        distance = results['distances'][0][i]
+        # B. FIX: ENFORCE ALTERNATING ROLES (The Mistral 400 Fix)
+        # If the history ends with a 'user' message, the last bot call failed.
+        # We must remove it so the new message becomes the fresh 'user' turn.
+        if chat_history and chat_history[-1]["role"] == "user":
+            chat_history.pop()
+
+        # C. Retrieval Logic
+        search_term = user_query
+        if chat_history and len(user_query.split()) < 5:
+            last_user_msg = next((m['content'] for m in reversed(chat_history) if m['role'] == 'user'), "")
+            search_term = f"{last_user_msg} {user_query}"
+
+        instruction = "Represent this sentence for searching relevant passages: "
+        q_emb = bi_encoder.encode(instruction + search_term).tolist()
+        results = collection.query(query_embeddings=[q_emb], n_results=5)
         
-        # DISTANCE GUARD: 
-        # Only accept documents that are a strong mathematical match (< 0.48).
-        # This prevents the bot from talking about "Marketing" when asked about "Nurses".
-        if distance < 0.48:
-            doc = results['documents'][0][i]
-            meta = results['metadatas'][0][i]
-            salary = meta.get('salary', 'Data not available')
-            url = meta.get('url', '#')
-            context_chunks.append(
-                f"JOB: {meta.get('job_title')}\n"
-                f"ANNUAL SALARY: {salary}\n"
-                f"URL: {url}\n"
-                f"CONTENT: {doc}"
-            )
+        context_chunks = []
+        for i in range(len(results['documents'][0])):
+            if results['distances'][0][i] < 0.48:
+                meta = results['metadatas'][0][i]
+                context_chunks.append(
+                    f"JOB: {meta.get('job_title')}\n"
+                    f"ANNUAL SALARY: {meta.get('salary', 'Data not available')}\n"
+                    f"URL: {meta.get('url', '#')}\n"
+                    f"CONTENT: {results['documents'][0][i]}"
+                )
 
-    # D. Prepare Response Context
-    if not context_chunks:
-        top_context = "No specific WorkBC data was found for this career or query in the database."
-    else:
-        top_context = "\n---\n".join(context_chunks)
+        top_context = "\n---\n".join(context_chunks) if context_chunks else "No WorkBC data found."
 
-    # E. Build LLM Prompt
-    system_prompt = (
-        "You are the WorkBC Career Advisor. Your goal is to provide accurate BC career data.\n"
-        "RULES:\n"
-        "1. Answer strictly using the provided Context.\n"
-        "2. If the Context is unrelated to the user's career question, state that you don't have that data.\n"
-        "3. Use Markdown tables for job comparisons.\n"
-        "4. Always **bold** annual salaries.\n"
-        "5. Provide WorkBC URLs as clickable Markdown links: [View Career Profile](URL)."
-    )
+        # D. Build LLM Messages
+        system_prompt = (
+            "You are the WorkBC Career Advisor. Provide accurate BC career data.\n"
+            "Answer strictly using the Context. If unrelated, say you don't have the data.\n"
+            "Use Markdown tables. **Bold** annual salaries. Use [View Career Profile](URL)."
+        )
 
-    messages = [{"role": "system", "content": system_prompt}]
-    
-    # Inject up to 6 previous messages for conversation continuity
-    messages.extend(chat_history[-6:])
-    
-    # Add the final user query with the RAG context
-    messages.append({
-        "role": "user", 
-        "content": f"Context:\n{top_context}\n\nQuestion: {user_query}"
-    })
+        messages = [{"role": "system", "content": system_prompt}]
+        messages.extend(chat_history[-6:]) # Keep context slim
+        messages.append({"role": "user", "content": f"Context:\n{top_context}\n\nQuestion: {user_query}"})
 
-    # F. Generate Answer
-    try:
+        # E. Generate Answer
         completion = vllm_client.chat.completions.create(
             model=MODEL_NAME,
             messages=messages,
@@ -145,20 +125,20 @@ async def ask_career_bot(request: QueryRequest):
         )
         answer = completion.choices[0].message.content
 
-        # G. Save new exchange back to AWS Redis
+        # F. Save Clean Exchange back to Redis
+        # We save the actual query and answer, not the RAG-stuffed prompt
         chat_history.append({"role": "user", "content": user_query})
         chat_history.append({"role": "assistant", "content": answer})
-        
-        # Save to Redis for 1 hour (3600s), keeping only the last 10 messages
         r.setex(redis_key, 3600, json.dumps(chat_history[-10:]))
 
-    except Exception as e:
-        raise HTTPException(status_code=500, detail=f"Mistral Error: {str(e)}")
+        return {"answer": answer, "session_id": session_id}
 
-    return {
-        "answer": answer,
-        "session_id": session_id
-    }
+    except Exception as e:
+        # Prints the full error to your 'kubectl logs'
+        print("!!! SERVER ERROR !!!")
+        traceback.print_exc()
+        raise HTTPException(status_code=500, detail=f"Internal Server Error: {str(e)}")
+
 
     
     
