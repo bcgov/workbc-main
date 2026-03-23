@@ -23,7 +23,8 @@ RUN pip install --upgrade pip && pip install --no-cache-dir \
     "uvicorn[standard]" \
     openai \
     chromadb \
-    sentence-transformers
+    sentence-transformers \
+    redis
 RUN python -c "from sentence_transformers import SentenceTransformer; SentenceTransformer('BAAI/bge-base-en-v1.5')"
 
 
