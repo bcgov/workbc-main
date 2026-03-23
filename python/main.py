@@ -68,21 +68,15 @@ async def ask_career_bot(request: QueryRequest):
         session_id = request.session_id
         redis_key = f"chat_history:{session_id}"
 
-        # A. Retrieve Chat History
+        # A. Retrieve History
         try:
             raw_history = r.get(redis_key)
             chat_history = json.loads(raw_history) if raw_history else []
         except Exception as e:
-            print(f"Redis lookup error: {e}")
+            print(f"Redis error: {e}")
             chat_history = []
 
-        # B. FIX: ENFORCE ALTERNATING ROLES (The Mistral 400 Fix)
-        # If the history ends with a 'user' message, the last bot call failed.
-        # We must remove it so the new message becomes the fresh 'user' turn.
-        if chat_history and chat_history[-1]["role"] == "user":
-            chat_history.pop()
-
-        # C. Retrieval Logic
+        # B. Retrieval (RAG)
         search_term = user_query
         if chat_history and len(user_query.split()) < 5:
             last_user_msg = next((m['content'] for m in reversed(chat_history) if m['role'] == 'user'), "")
@@ -94,27 +88,44 @@ async def ask_career_bot(request: QueryRequest):
         
         context_chunks = []
         for i in range(len(results['documents'][0])):
-            if results['distances'][0][i] < 0.48:
+            if results['distances'][0][i] < 0.48: # Your Distance Guard
                 meta = results['metadatas'][0][i]
                 context_chunks.append(
                     f"JOB: {meta.get('job_title')}\n"
-                    f"ANNUAL SALARY: {meta.get('salary', 'Data not available')}\n"
+                    f"ANNUAL SALARY: {meta.get('salary', 'N/A')}\n"
                     f"URL: {meta.get('url', '#')}\n"
                     f"CONTENT: {results['documents'][0][i]}"
                 )
 
-        top_context = "\n---\n".join(context_chunks) if context_chunks else "No WorkBC data found."
+        top_context = "\n---\n".join(context_chunks) if context_chunks else "No specific data found."
 
-        # D. Build LLM Messages
-        system_prompt = (
-            "You are the WorkBC Career Advisor. Provide accurate BC career data.\n"
-            "Answer strictly using the Context. If unrelated, say you don't have the data.\n"
-            "Use Markdown tables. **Bold** annual salaries. Use [View Career Profile](URL)."
-        )
+        # C. FIX: ALTERNATING ROLES SANITIZER (Stops 400 Mistral Errors)
+        # Mistral MUST follow: System -> User -> Assistant -> User
+        sanitized_history = []
+        
+        # Ensure we start with a 'user' message after the system prompt
+        current_role_needed = "user"
+        
+        for msg in chat_history:
+            if msg["role"] == current_role_needed:
+                sanitized_history.append(msg)
+                # Flip the requirement for the next message
+                current_role_needed = "assistant" if current_role_needed == "user" else "user"
 
-        messages = [{"role": "system", "content": system_prompt}]
-        messages.extend(chat_history[-6:]) # Keep context slim
-        messages.append({"role": "user", "content": f"Context:\n{top_context}\n\nQuestion: {user_query}"})
+        # If the last message in history is 'user', Mistral will crash because 
+        # our NEW prompt is also 'user'. We must end history with an 'assistant'.
+        if sanitized_history and sanitized_history[-1]["role"] == "user":
+            sanitized_history.pop()
+
+        # D. Build Final Message Payload
+        messages = [
+            {"role": "system", "content": "You are a WorkBC Career Advisor. Use the Context provided."}
+        ]
+        messages.extend(sanitized_history[-6:]) # Last 3 exchanges
+        messages.append({
+            "role": "user", 
+            "content": f"Context:\n{top_context}\n\nQuestion: {user_query}"
+        })
 
         # E. Generate Answer
         completion = vllm_client.chat.completions.create(
@@ -125,8 +136,7 @@ async def ask_career_bot(request: QueryRequest):
         )
         answer = completion.choices[0].message.content
 
-        # F. Save Clean Exchange back to Redis
-        # We save the actual query and answer, not the RAG-stuffed prompt
+        # F. Save to Redis (Save the original query, not the RAG-bloated one)
         chat_history.append({"role": "user", "content": user_query})
         chat_history.append({"role": "assistant", "content": answer})
         r.setex(redis_key, 3600, json.dumps(chat_history[-10:]))
@@ -134,13 +144,9 @@ async def ask_career_bot(request: QueryRequest):
         return {"answer": answer, "session_id": session_id}
 
     except Exception as e:
-        # Prints the full error to your 'kubectl logs'
         print("!!! SERVER ERROR !!!")
-        traceback.print_exc()
-        raise HTTPException(status_code=500, detail=f"Internal Server Error: {str(e)}")
-
-
-    
+        traceback.print_exc() # This will show exactly why in kubectl logs
+        return {"detail": f"Internal Error: {str(e)}"}, 500
     
 
 
