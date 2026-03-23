@@ -62,6 +62,7 @@ class QueryRequest(BaseModel):
     session_id: str
 
 @app.post("/api/ask")
+@app.post("/api/ask/")
 async def ask_career_bot(request: QueryRequest):
     try:
         user_query = request.prompt
@@ -73,10 +74,10 @@ async def ask_career_bot(request: QueryRequest):
             raw_history = r.get(redis_key)
             chat_history = json.loads(raw_history) if raw_history else []
         except Exception as e:
-            print(f"Redis error: {e}")
+            print(f"Redis lookup error: {e}")
             chat_history = []
 
-        # B. Retrieval (RAG)
+        # B. RAG: Vector Search
         search_term = user_query
         if chat_history and len(user_query.split()) < 5:
             last_user_msg = next((m['content'] for m in reversed(chat_history) if m['role'] == 'user'), "")
@@ -88,64 +89,66 @@ async def ask_career_bot(request: QueryRequest):
         
         context_chunks = []
         for i in range(len(results['documents'][0])):
-            if results['distances'][0][i] < 0.48: # Your Distance Guard
+            if results['distances'][0][i] < 0.48:
                 meta = results['metadatas'][0][i]
                 context_chunks.append(
                     f"JOB: {meta.get('job_title')}\n"
-                    f"ANNUAL SALARY: {meta.get('salary', 'N/A')}\n"
+                    f"SALARY: {meta.get('salary', 'N/A')}\n"
                     f"URL: {meta.get('url', '#')}\n"
                     f"CONTENT: {results['documents'][0][i]}"
                 )
 
-        top_context = "\n---\n".join(context_chunks) if context_chunks else "No specific data found."
+        top_context = "\n---\n".join(context_chunks) if context_chunks else "No specific WorkBC data found."
 
-        # C. FIX: ALTERNATING ROLES SANITIZER (Stops 400 Mistral Errors)
-        # Mistral MUST follow: System -> User -> Assistant -> User
+        # C. PATTERN SANITIZER (The Mistral 400 Fix)
+        # We build a fresh clean history list
         sanitized_history = []
-        
-        # Ensure we start with a 'user' message after the system prompt
-        current_role_needed = "user"
+        next_role_expected = "user"
         
         for msg in chat_history:
-            if msg["role"] == current_role_needed:
+            if msg["role"] == next_role_expected:
                 sanitized_history.append(msg)
-                # Flip the requirement for the next message
-                current_role_needed = "assistant" if current_role_needed == "user" else "user"
+                next_role_expected = "assistant" if next_role_expected == "user" else "user"
 
-        # If the last message in history is 'user', Mistral will crash because 
-        # our NEW prompt is also 'user'. We must end history with an 'assistant'.
+        # If the last message in history is 'user', we pop it because 
+        # our NEW message is also 'user'. Mistral requires User -> Assistant -> User.
         if sanitized_history and sanitized_history[-1]["role"] == "user":
             sanitized_history.pop()
 
-        # D. Build Final Message Payload
-        messages = [
-            {"role": "system", "content": "You are a WorkBC Career Advisor. Use the Context provided."}
-        ]
-        messages.extend(sanitized_history[-6:]) # Last 3 exchanges
-        messages.append({
-            "role": "user", 
-            "content": f"Context:\n{top_context}\n\nQuestion: {user_query}"
-        })
+        # D. Build LLM Payload
+        # We put instructions in a User message if History is empty, 
+        # some vLLM/Mistral versions prefer this over 'system'.
+        messages = []
+        if not sanitized_history:
+            final_prompt = f"Instruction: You are a WorkBC Career Advisor. Context: {top_context}\n\nQuestion: {user_query}"
+        else:
+            final_prompt = f"Context: {top_context}\n\nQuestion: {user_query}"
+
+        messages.extend(sanitized_history[-6:])
+        messages.append({"role": "user", "content": final_prompt})
 
         # E. Generate Answer
         completion = vllm_client.chat.completions.create(
             model=MODEL_NAME,
             messages=messages,
             temperature=0.2,
-            max_tokens=1000
+            max_tokens=800
         )
         answer = completion.choices[0].message.content
 
-        # F. Save to Redis (Save the original query, not the RAG-bloated one)
-        chat_history.append({"role": "user", "content": user_query})
-        chat_history.append({"role": "assistant", "content": answer})
-        r.setex(redis_key, 3600, json.dumps(chat_history[-10:]))
+        # F. SELF-HEALING REDIS SAVE
+        # We save the SANITIZED history + the new exchange.
+        # This overwrites any "broken" history in Redis so the error doesn't repeat.
+        sanitized_history.append({"role": "user", "content": user_query})
+        sanitized_history.append({"role": "assistant", "content": answer})
+        
+        r.setex(redis_key, 3600, json.dumps(sanitized_history[-10:]))
 
         return {"answer": answer, "session_id": session_id}
 
     except Exception as e:
         print("!!! SERVER ERROR !!!")
-        traceback.print_exc() # This will show exactly why in kubectl logs
+        traceback.print_exc()
         return {"detail": f"Internal Error: {str(e)}"}, 500
     
 
