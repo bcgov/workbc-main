@@ -2,6 +2,8 @@
 
 namespace Drupal\workbc_ssot\Plugin\QueueWorker;
 
+use Drupal\media\Entity\Media;
+
 trait SsotUpdater {
   private $epbc_categories;
   private $skills;
@@ -32,10 +34,40 @@ trait SsotUpdater {
   }
 
   public function update_career_trek($endpoint, $entries, &$career) {
-    // Create missing videos in Media Library
+    $videos = [];
+    foreach ($entries as $entry) {
+      // Query each incoming video in Media Library.
+      preg_match('%(?:youtube(?:-nocookie)?\.com/(?:[^/]+/.+/|(?:v|e(?:mbed)?)/|.*[?&]v=)|youtu\.be/)([^"&?/ ]{11})%i', $entry['youtube_link'], $match);
+      $youtube_id = $match[1];
+      $mid = array_values(\Drupal::entityQuery('media')
+        ->condition('bundle', 'remote_video')
+        ->condition('field_media_oembed_video', $youtube_id, 'CONTAINS')
+        ->accessCheck(false)
+        ->currentRevision()
+        ->execute());
+      if (empty($mid)) {
+        // Create missing video in Media Library.
+        $media = Media::create([
+          'bundle'=> 'remote_video',
+          'uid' => 1,
+          'field_media_oembed_video' => $entry['youtube_link']
+        ]);
+      }
+      else {
+        // Update the existing video with incoming data.
+        $media = Media::load(reset($mid));
+      }
+      $media
+        ->setPublished()
+        ->setName($entry['episode_title'])
+        ->set('field_description', $entry['description'])
+        ->save();
 
+      $videos[] = ['target_id' => $media->id()];
+    }
 
-    // Reset references to videos in Career Profile
+    // Reset the Career Profiles video references.
+    $career->set('field_career_videos', $videos);
   }
 
   public function update_fyp_categories_interests($endpoint, $entries, &$career) {
