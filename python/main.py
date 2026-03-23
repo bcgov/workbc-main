@@ -89,7 +89,7 @@ async def ask_career_bot(request: QueryRequest):
         
         context_chunks = []
         for i in range(len(results['documents'][0])):
-            if results['distances'][0][i] < 0.48:
+            if results['distances'][0][i] < 0.60:
                 meta = results['metadatas'][0][i]
                 context_chunks.append(
                     f"JOB: {meta.get('job_title')}\n"
@@ -154,6 +154,7 @@ async def ask_career_bot(request: QueryRequest):
 
 
 # --- NEW: HEALTH CHECK ---
+@app.get("/health") 
 @app.get("/api/health")
 async def health_check():
     return {"status": "healthy", "mistral_endpoint": f"http://{MISTRAL_HOST}:{MISTRAL_PORT}"}
