@@ -1,19 +1,19 @@
-uuid: aa802073-f2a7-40db-9d0d-7b7b9522ad2c
+uuid: c8468f34-46c7-4462-8ff3-5ca5c4b0047e
 langcode: en
 status: true
 dependencies:
   module:
     - media
-    - taxonomy
-id: media.field_category
-field_name: field_category
+id: media.field_episode
+field_name: field_episode
 entity_type: media
-type: entity_reference
+type: integer
 settings:
-  target_type: taxonomy_term
+  unsigned: false
+  size: normal
 module: core
 locked: false
-cardinality: -1
+cardinality: 1
 translatable: true
 indexes: {  }
 persist_with_no_fields: false

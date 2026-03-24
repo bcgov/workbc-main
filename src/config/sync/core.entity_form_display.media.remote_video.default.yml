@@ -7,13 +7,15 @@ dependencies:
     - field.field.media.remote_video.field_category
     - field.field.media.remote_video.field_description
     - field.field.media.remote_video.field_duration
+    - field.field.media.remote_video.field_episode
     - field.field.media.remote_video.field_exclude_from_video_page
+    - field.field.media.remote_video.field_location
     - field.field.media.remote_video.field_media_oembed_video
     - field.field.media.remote_video.field_recently_added
+    - field.field.media.remote_video.field_region
     - field.field.media.remote_video.field_weight
     - media.type.remote_video
   module:
-    - duration_field
     - media
     - path
     - text
@@ -26,12 +28,6 @@ mode: default
 content:
   created:
     type: datetime_timestamp
-    weight: 7
-    region: content
-    settings: {  }
-    third_party_settings: {  }
-  field_category:
-    type: options_buttons
     weight: 5
     region: content
     settings: {  }
@@ -44,18 +40,20 @@ content:
       rows: 5
       placeholder: ''
     third_party_settings: {  }
-  field_duration:
-    type: duration_widget
-    weight: 4
-    region: content
-    settings: {  }
-    third_party_settings: {  }
-  field_exclude_from_video_page:
-    type: boolean_checkbox
-    weight: 11
+  field_episode:
+    type: number
+    weight: 26
     region: content
     settings:
-      display_label: true
+      placeholder: ''
+    third_party_settings: {  }
+  field_location:
+    type: string_textfield
+    weight: 27
+    region: content
+    settings:
+      size: 60
+      placeholder: ''
     third_party_settings: {  }
   field_media_oembed_video:
     type: oembed_textfield
@@ -65,18 +63,12 @@ content:
       size: 60
       placeholder: ''
     third_party_settings: {  }
-  field_recently_added:
-    type: boolean_checkbox
-    weight: 10
+  field_region:
+    type: string_textfield
+    weight: 28
     region: content
     settings:
-      display_label: true
-    third_party_settings: {  }
-  field_weight:
-    type: number
-    weight: 12
-    region: content
-    settings:
+      size: 60
       placeholder: ''
     third_party_settings: {  }
   langcode:
@@ -96,20 +88,20 @@ content:
     third_party_settings: {  }
   path:
     type: path
-    weight: 8
+    weight: 6
     region: content
     settings: {  }
     third_party_settings: {  }
   status:
     type: boolean_checkbox
-    weight: 9
+    weight: 7
     region: content
     settings:
       display_label: true
     third_party_settings: {  }
   uid:
     type: entity_reference_autocomplete
-    weight: 6
+    weight: 4
     region: content
     settings:
       match_operator: CONTAINS
@@ -119,3 +111,8 @@ content:
     third_party_settings: {  }
 hidden:
   field_career_trek: true
+  field_category: true
+  field_duration: true
+  field_exclude_from_video_page: true
+  field_recently_added: true
+  field_weight: true

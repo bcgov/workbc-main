@@ -1,21 +1,19 @@
-uuid: 8b6208ab-b412-4245-9fcb-e2d90b423341
+uuid: 76f671f3-49b0-44c6-a804-04eb6ddd4f8f
 langcode: en
 status: true
 dependencies:
   config:
-    - field.storage.media.field_weight
+    - field.storage.media.field_episode
     - media.type.remote_video
-id: media.remote_video.field_weight
-field_name: field_weight
+id: media.remote_video.field_episode
+field_name: field_episode
 entity_type: media
 bundle: remote_video
-label: '[DEPRECATED] Weight'
+label: '[SSOT] Episode'
 description: ''
 required: false
 translatable: false
-default_value:
-  -
-    value: 0
+default_value: {  }
 default_value_callback: ''
 settings:
   min: null

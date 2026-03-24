@@ -61,6 +61,9 @@ trait SsotUpdater {
         ->setPublished()
         ->setName($entry['episode_title'])
         ->set('field_description', $entry['description'])
+        ->set('field_episode', $entry['episode_num'])
+        ->set('field_location', $entry['location'])
+        ->set('field_region', $entry['region'])
         ->save();
 
       $videos[] = ['target_id' => $media->id()];

@@ -25,7 +25,18 @@ class SsotRefreshForm extends FormBase {
 	public function buildForm(array $form, FormStateInterface $form_state)
   {
     $form['description'] = [
-      '#markup' => '<p>Schedule a full refresh of SSoT datasets that are used by this site. You will be redirected to the <strong>Queue manager</strong> page to run the <strong>SSoT Downloader</strong> batch process.</p>'
+      '#markup' => '<p>Schedule a full refresh of selected SSoT datasets below. You will be redirected to the <strong>Queue manager</strong> page to run the <strong>SSoT Downloader</strong> batch process.</p>'
+    ];
+    $ssot_datasets = SSOT_DATASETS;
+    $form['datasets'] = [
+      '#title' => t('Datasets'),
+      '#type' => 'checkboxes',
+      '#options' => array_reduce(array_keys(SSOT_DATASETS), function ($datasets, $key) use($ssot_datasets) {
+        if (array_key_exists('noc_key', $ssot_datasets[$key])) {
+          $datasets[$key] = $key;
+        }
+        return $datasets;
+      }, [])
     ];
     $form['submit'] = [
       '#type' => 'submit',
@@ -40,9 +51,10 @@ class SsotRefreshForm extends FormBase {
   public function submitForm(array &$form, FormStateInterface $form_state)
   {
     // Retrieve the local state, making sure we set any modified datasets to null.
-    $ssot_datasets = array_filter(SSOT_DATASETS, function($dataset) {
-      return array_key_exists('noc_key', $dataset);
-    });
+    $selected_datasets = array_filter($form_state->getValue('datasets'));
+    $ssot_datasets = array_filter(SSOT_DATASETS, function($key) use($selected_datasets) {
+      return array_key_exists($key, $selected_datasets);
+    }, ARRAY_FILTER_USE_KEY);
     $local_dates = array_merge(array_combine(
       array_keys($ssot_datasets),
       array_fill(0, count($ssot_datasets), null)

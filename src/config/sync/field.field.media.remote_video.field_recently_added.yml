@@ -9,7 +9,7 @@ id: media.remote_video.field_recently_added
 field_name: field_recently_added
 entity_type: media
 bundle: remote_video
-label: 'Recently Added'
+label: '[DEPRECATED] Recently Added'
 description: ''
 required: false
 translatable: false

@@ -1,0 +1,19 @@
+uuid: c6bb3b89-02bb-48f6-baa8-1deebf4949d5
+langcode: en
+status: true
+dependencies:
+  config:
+    - field.storage.media.field_location
+    - media.type.remote_video
+id: media.remote_video.field_location
+field_name: field_location
+entity_type: media
+bundle: remote_video
+label: '[SSOT] Location'
+description: ''
+required: false
+translatable: false
+default_value: {  }
+default_value_callback: ''
+settings: {  }
+field_type: string
