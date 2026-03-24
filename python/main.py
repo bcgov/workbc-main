@@ -73,8 +73,11 @@ async def ask_career_bot(request: QueryRequest):
 
         # --- STEP 2: QUERY REWRITING (Fixes "the position" search) ---
         rewrite_prompt = (
-            f"Based on history, what specific job title is being discussed? "
-            f"Output ONLY the title.\nHistory: {sanitized_history[-2:]}\nQuery: {user_query}"
+            f"Based on the conversation history, what is the specific job title or career name "
+            f"this user is asking about? Output ONLY the job title.\n"
+            f"History: {sanitized_history[-2:]}\n"
+            f"Current Query: {user_query}"
+            
         )
         try:
             rewrite_res = vllm_client.chat.completions.create(
@@ -87,21 +90,34 @@ async def ask_career_bot(request: QueryRequest):
             search_term = user_query
 
         # --- STEP 3: RAG RETRIEVAL (Fixes Salary Hallucination) ---
-        q_emb = bi_encoder.encode(f"Represent this sentence for searching: {search_term}").tolist()
+        q_emb = bi_encoder.encode(
+            f"Represent this sentence for searching: {search_term}", 
+            normalize_embeddings=True
+        ).tolist()
+        
         results = collection.query(query_embeddings=[q_emb], n_results=5)
         
         context_chunks = []
         for i in range(len(results['documents'][0])):
-            if results['distances'][0][i] < 0.50:
-                meta = results['metadatas'][0][i]
-                context_chunks.append(
-                    f"JOB: {meta.get('job_title')} (NOC: {meta.get('noc_code', 'N/A')})\n"
-                    f"SALARY: **${meta.get('salary', 'N/A')}**\n"
-                    f"URL: {meta.get('url', '#')}\n"
-                    f"CONTENT: {results['documents'][0][i]}"
-                )
+            # REMOVED: The 'if distance < 0.50' check that was causing hallucinations
+            meta = results['metadatas'][0][i]
+            salary_val = meta.get('salary', 'N/A')
+            
+            # Formatting salary like your V1 script
+            try:
+                salary_str = f"**${float(salary_val):,.2f}**" if salary_val != 'N/A' else "Data missing"
+            except:
+                salary_str = f"**${salary_val}**"
 
-        top_context = "\n---\n".join(context_chunks) if context_chunks else "No WorkBC data found."
+            context_chunks.append(
+                f"JOB: {meta.get('job_title')} (NOC: {meta.get('noc_code', 'N/A')})\n"
+                f"SALARY: {salary_str}\n"
+                f"URL: {meta.get('url', '#')}\n"
+                f"CONTENT: {results['documents'][0][i]}"
+            )
+
+        top_context = "\n---\n".join(context_chunks) if context_chunks else "No WorkBC data found for this query."
+     
 
         # --- STEP 4: FINAL MESSAGE ASSEMBLY (The "Stone Wall" Logic) ---
         # 1. Rules move inside the user content to avoid 'system' role conflicts
@@ -114,26 +130,29 @@ async def ask_career_bot(request: QueryRequest):
             "5. If context is missing, say you don't have that information in WorkBC records."
         )
 
-        final_messages = []
-        # Keep last 6 messages (3 turns)
+        # Build history window (last 3 turns / 6 messages)
         history_window = sanitized_history[-6:]
-        
-        # Ensure we always start the list with a 'user' role
         if history_window and history_window[0]["role"] == "assistant":
             history_window.pop(0)
 
+        # Build message list for the LLM
+        final_messages = []
         final_messages.extend(history_window)
 
-        # Build the final payload
         current_user_content = f"Context:\n{top_context}\n\nQuestion: {user_query}"
         
-        # If it's the start of a chat, put rules in the first message
+        # FIXED: Prepend rules to the first message of this specific prompt 
+        # without corrupting the permanent Redis history.
         if not final_messages:
-            final_messages.append({"role": "user", "content": f"{system_rules}{current_user_content}"})
+            final_messages.append({"role": "user", "content": f"{system_rules}\n\n{current_user_content}"})
         else:
-            # Inject rules into the very first message of the thread for persistence
-            final_messages[0]["content"] = system_rules + final_messages[0]["content"]
+            # We copy the first message so we don't modify the reference in sanitized_history
+            first_msg_copy = final_messages[0].copy()
+            first_msg_copy["content"] = f"{system_rules}\n\n{first_msg_copy['content']}"
+            final_messages[0] = first_msg_copy
             final_messages.append({"role": "user", "content": current_user_content})
+
+
 
         # --- STEP 5: GENERATE & SAVE ---
         completion = vllm_client.chat.completions.create(
@@ -149,7 +168,7 @@ async def ask_career_bot(request: QueryRequest):
         sanitized_history.append({"role": "assistant", "content": answer})
         r.setex(redis_key, 3600, json.dumps(sanitized_history[-10:]))
 
-        return {"answer": answer, "session_id": session_id}
+        return {"answer": answer, "session_id": session_id, "debug_search": search_term}
 
     except Exception as e:
         traceback.print_exc()
