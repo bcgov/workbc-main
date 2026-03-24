@@ -95,7 +95,7 @@ async def ask_career_bot(request: QueryRequest):
             normalize_embeddings=True
         ).tolist()
         
-        results = collection.query(query_embeddings=[q_emb], n_results=5)
+        results = collection.query(query_embeddings=[q_emb], n_results=3)
         
         context_chunks = []
         for i in range(len(results['documents'][0])):
@@ -116,7 +116,10 @@ async def ask_career_bot(request: QueryRequest):
                 f"CONTENT: {results['documents'][0][i]}"
             )
 
-        top_context = "\n---\n".join(context_chunks) if context_chunks else "No WorkBC data found for this query."
+        full_context = "\n---\n".join(context_chunks) if context_chunks else "No WorkBC data found for this query."
+        top_context = full_context[:6000]
+
+        #top_context = "\n---\n".join(context_chunks) if context_chunks else "No WorkBC data found for this query."
      
 
         # --- STEP 4: FINAL MESSAGE ASSEMBLY (The "Stone Wall" Logic) ---
@@ -159,7 +162,7 @@ async def ask_career_bot(request: QueryRequest):
             model=MODEL_NAME,
             messages=final_messages,
             temperature=0.0, # Forces accuracy over creativity
-            max_tokens=1000
+            max_tokens=500
         )
         answer = completion.choices[0].message.content
 
