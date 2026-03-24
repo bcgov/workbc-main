@@ -145,9 +145,10 @@ function workbc_preprocess_paragraph(&$variables) {
         }
         ksort($centres);
         $variables['centres'] = $centres;
-        $regions = ssotRegions();
+        $regions = ssotRegions($language);
         unset($regions['british_columbia']);
         $variables['regions'] = $regions;
+        $variables['language'] = $language;
       }
     }
   }
