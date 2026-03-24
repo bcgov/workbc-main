@@ -62,7 +62,6 @@ class QueryRequest(BaseModel):
     session_id: str
 
 @app.post("/api/ask")
-@app.post("/api/ask/")
 @app.post("/api/ask")
 async def ask_career_bot(request: QueryRequest):
     try:
@@ -70,7 +69,7 @@ async def ask_career_bot(request: QueryRequest):
         session_id = request.session_id
         redis_key = f"chat_history:{session_id}"
 
-        # 1. Retrieve & Sanitize History (The "400 Fix")
+        # 1. Retrieve & Sanitize History (Ensures alternating roles)
         try:
             raw_history = r.get(redis_key)
             chat_history = json.loads(raw_history) if raw_history else []
@@ -79,16 +78,18 @@ async def ask_career_bot(request: QueryRequest):
             chat_history = []
 
         sanitized_history = []
-        next_role = "user"
-        for msg in chat_history:
-            if msg["role"] == next_role:
-                sanitized_history.append(msg)
-                next_role = "assistant" if next_role == "user" else "user"
+        next_role_expected = "user"
         
+        for msg in chat_history:
+            if msg["role"] == next_role_expected:
+                sanitized_history.append(msg)
+                next_role_expected = "assistant" if next_role_expected == "user" else "user"
+
+        # IMPORTANT: Since our NEW message is 'user', the last history msg MUST be 'assistant'
         if sanitized_history and sanitized_history[-1]["role"] == "user":
             sanitized_history.pop()
 
-        # 2. RAG Retrieval with Strict Guard
+        # 2. RAG Retrieval with the 0.48 Guard
         search_term = user_query
         if sanitized_history and len(user_query.split()) < 5:
             last_msg = next((m['content'] for m in reversed(sanitized_history) if m['role'] == 'user'), "")
@@ -100,47 +101,55 @@ async def ask_career_bot(request: QueryRequest):
         
         context_chunks = []
         for i in range(len(results['documents'][0])):
-            # STICK TO THE 0.48 GUARD from your working version
-            if results['distances'][0][i] < 0.48: 
+            if results['distances'][0][i] < 0.48: # Back to your working threshold
                 meta = results['metadatas'][0][i]
                 context_chunks.append(
                     f"JOB: {meta.get('job_title')}\n"
                     f"SALARY: **{meta.get('salary', 'N/A')}**\n"
-                    f"URL: [{meta.get('job_title')}]({meta.get('url', '#')})\n"
+                    f"URL: {meta.get('url', '#')}\n"
                     f"CONTENT: {results['documents'][0][i]}"
                 )
 
-        # 3. Force Grounding in the Prompt
-        if not context_chunks:
-            top_context = "CRITICAL: No WorkBC career data found for this query."
-        else:
-            top_context = "\n---\n".join(context_chunks)
+        top_context = "\n---\n".join(context_chunks) if context_chunks else "No specific WorkBC data found."
 
-        system_instruction = (
-            "You are the WorkBC Career Advisor. RULES:\n"
-            "1. ONLY use the provided Context to answer.\n"
-            "2. If the Context says 'No WorkBC career data found' or is unrelated to careers (like weather), "
-            "respond: 'I am sorry, but I only have access to WorkBC career data and cannot answer that.'\n"
-            "3. Do not use outside knowledge.\n"
-            "4. Use Markdown tables for job comparisons.\n"
-            "5. Provide WorkBC URLs as clickable Markdown links: [View Career Profile](URL)."
+        # 3. Grounding Instructions (Merged into User content to avoid 400 error)
+        system_rules = (
+            "INSTRUCTION: You are a WorkBC Career Advisor. Answer strictly using the provided Context. "
+            "If the Context is unrelated or says 'No data found', say you don't have that information. "
+            "Do not answer general questions like weather.\n"
+            "RULES:\n"
+             "1. Answer strictly using the provided Context.\n"
+             "2. If the Context is unrelated to the user's career question, state that you don't have that data.\n"
+             "3. Use Markdown tables for job comparisons.\n"
+             "4. Always **bold** annual salaries.\n"
+             "5. Provide WorkBC URLs as clickable Markdown links: [View Career Profile](URL)."
+
         )
 
-        # 4. Construct Messages
-        messages = [{"role": "system", "content": system_instruction}]
-        messages.extend(sanitized_history[-6:])
-        messages.append({"role": "user", "content": f"Context:\n{top_context}\n\nQuestion: {user_query}"})
+        # 4. Build Messages List (Strictly User/Assistant/User)
+        messages = []
+        messages.extend(sanitized_history[-6:]) # Grab last 6 valid turns
 
-        # 5. Generate & Save
+        # Construct the final turn
+        # If history is empty, prepend the system rules to this first message
+        if not messages:
+            final_content = f"{system_rules}Context: {top_context}\n\nQuestion: {user_query}"
+        else:
+            final_content = f"Context: {top_context}\n\nQuestion: {user_query}"
+
+        messages.append({"role": "user", "content": final_content})
+
+        # 5. Generate Answer
         completion = vllm_client.chat.completions.create(
             model=MODEL_NAME,
             messages=messages,
-            temperature=0.1, # Lower temperature = less hallucination
+            temperature=0.1,
             max_tokens=800
         )
         answer = completion.choices[0].message.content
 
-        # Update History
+        # 6. Save to Redis
+        # We save the clean prompt/answer, not the massive context string
         sanitized_history.append({"role": "user", "content": user_query})
         sanitized_history.append({"role": "assistant", "content": answer})
         r.setex(redis_key, 3600, json.dumps(sanitized_history[-10:]))
@@ -149,7 +158,7 @@ async def ask_career_bot(request: QueryRequest):
 
     except Exception as e:
         traceback.print_exc()
-        return {"detail": "Internal Server Error"}, 500
+        return {"detail": f"Internal Error: {str(e)}"}, 500
 
 
 # --- NEW: HEALTH CHECK ---
