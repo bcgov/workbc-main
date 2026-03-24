@@ -117,7 +117,7 @@ async def ask_career_bot(request: QueryRequest):
             )
 
         full_context = "\n---\n".join(context_chunks) if context_chunks else "No WorkBC data found for this query."
-        top_context = full_context[:6000]
+        top_context = full_context[:5000]
 
         #top_context = "\n---\n".join(context_chunks) if context_chunks else "No WorkBC data found for this query."
      
@@ -133,8 +133,8 @@ async def ask_career_bot(request: QueryRequest):
             "5. If context is missing, say you don't have that information in WorkBC records."
         )
 
-        # Build history window (last 3 turns / 6 messages)
-        history_window = sanitized_history[-6:]
+        # Build history window (last 3 turns / 4 messages)
+        history_window = sanitized_history[-4:]
         if history_window and history_window[0]["role"] == "assistant":
             history_window.pop(0)
 
@@ -162,7 +162,7 @@ async def ask_career_bot(request: QueryRequest):
             model=MODEL_NAME,
             messages=final_messages,
             temperature=0.0, # Forces accuracy over creativity
-            max_tokens=500
+            max_tokens=800
         )
         answer = completion.choices[0].message.content
 
