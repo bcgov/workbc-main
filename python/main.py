@@ -63,25 +63,36 @@ class QueryRequest(BaseModel):
 
 @app.post("/api/ask")
 @app.post("/api/ask/")
+@app.post("/api/ask")
 async def ask_career_bot(request: QueryRequest):
     try:
         user_query = request.prompt
         session_id = request.session_id
         redis_key = f"chat_history:{session_id}"
 
-        # A. Retrieve History
+        # 1. Retrieve & Sanitize History (The "400 Fix")
         try:
             raw_history = r.get(redis_key)
             chat_history = json.loads(raw_history) if raw_history else []
         except Exception as e:
-            print(f"Redis lookup error: {e}")
+            print(f"Redis error: {e}")
             chat_history = []
 
-        # B. RAG: Vector Search
+        sanitized_history = []
+        next_role = "user"
+        for msg in chat_history:
+            if msg["role"] == next_role:
+                sanitized_history.append(msg)
+                next_role = "assistant" if next_role == "user" else "user"
+        
+        if sanitized_history and sanitized_history[-1]["role"] == "user":
+            sanitized_history.pop()
+
+        # 2. RAG Retrieval with Strict Guard
         search_term = user_query
-        if chat_history and len(user_query.split()) < 5:
-            last_user_msg = next((m['content'] for m in reversed(chat_history) if m['role'] == 'user'), "")
-            search_term = f"{last_user_msg} {user_query}"
+        if sanitized_history and len(user_query.split()) < 5:
+            last_msg = next((m['content'] for m in reversed(sanitized_history) if m['role'] == 'user'), "")
+            search_term = f"{last_msg} {user_query}"
 
         instruction = "Represent this sentence for searching relevant passages: "
         q_emb = bi_encoder.encode(instruction + search_term).tolist()
@@ -89,68 +100,56 @@ async def ask_career_bot(request: QueryRequest):
         
         context_chunks = []
         for i in range(len(results['documents'][0])):
-            if results['distances'][0][i] < 0.60:
+            # STICK TO THE 0.48 GUARD from your working version
+            if results['distances'][0][i] < 0.48: 
                 meta = results['metadatas'][0][i]
                 context_chunks.append(
                     f"JOB: {meta.get('job_title')}\n"
-                    f"SALARY: {meta.get('salary', 'N/A')}\n"
-                    f"URL: {meta.get('url', '#')}\n"
+                    f"SALARY: **{meta.get('salary', 'N/A')}**\n"
+                    f"URL: [{meta.get('job_title')}]({meta.get('url', '#')})\n"
                     f"CONTENT: {results['documents'][0][i]}"
                 )
 
-        top_context = "\n---\n".join(context_chunks) if context_chunks else "No specific WorkBC data found."
-
-        # C. PATTERN SANITIZER (The Mistral 400 Fix)
-        # We build a fresh clean history list
-        sanitized_history = []
-        next_role_expected = "user"
-        
-        for msg in chat_history:
-            if msg["role"] == next_role_expected:
-                sanitized_history.append(msg)
-                next_role_expected = "assistant" if next_role_expected == "user" else "user"
-
-        # If the last message in history is 'user', we pop it because 
-        # our NEW message is also 'user'. Mistral requires User -> Assistant -> User.
-        if sanitized_history and sanitized_history[-1]["role"] == "user":
-            sanitized_history.pop()
-
-        # D. Build LLM Payload
-        # We put instructions in a User message if History is empty, 
-        # some vLLM/Mistral versions prefer this over 'system'.
-        messages = []
-        if not sanitized_history:
-            final_prompt = f"Instruction: You are a WorkBC Career Advisor. Context: {top_context}\n\nQuestion: {user_query}"
+        # 3. Force Grounding in the Prompt
+        if not context_chunks:
+            top_context = "CRITICAL: No WorkBC career data found for this query."
         else:
-            final_prompt = f"Context: {top_context}\n\nQuestion: {user_query}"
+            top_context = "\n---\n".join(context_chunks)
 
+        system_instruction = (
+            "You are the WorkBC Career Advisor. RULES:\n"
+            "1. ONLY use the provided Context to answer.\n"
+            "2. If the Context says 'No WorkBC career data found' or is unrelated to careers (like weather), "
+            "respond: 'I am sorry, but I only have access to WorkBC career data and cannot answer that.'\n"
+            "3. Do not use outside knowledge.\n"
+            "4. Use Markdown tables for job comparisons.\n"
+            "5. Provide WorkBC URLs as clickable Markdown links: [View Career Profile](URL)."
+        )
+
+        # 4. Construct Messages
+        messages = [{"role": "system", "content": system_instruction}]
         messages.extend(sanitized_history[-6:])
-        messages.append({"role": "user", "content": final_prompt})
+        messages.append({"role": "user", "content": f"Context:\n{top_context}\n\nQuestion: {user_query}"})
 
-        # E. Generate Answer
+        # 5. Generate & Save
         completion = vllm_client.chat.completions.create(
             model=MODEL_NAME,
             messages=messages,
-            temperature=0.2,
+            temperature=0.1, # Lower temperature = less hallucination
             max_tokens=800
         )
         answer = completion.choices[0].message.content
 
-        # F. SELF-HEALING REDIS SAVE
-        # We save the SANITIZED history + the new exchange.
-        # This overwrites any "broken" history in Redis so the error doesn't repeat.
+        # Update History
         sanitized_history.append({"role": "user", "content": user_query})
         sanitized_history.append({"role": "assistant", "content": answer})
-        
         r.setex(redis_key, 3600, json.dumps(sanitized_history[-10:]))
 
         return {"answer": answer, "session_id": session_id}
 
     except Exception as e:
-        print("!!! SERVER ERROR !!!")
         traceback.print_exc()
-        return {"detail": f"Internal Error: {str(e)}"}, 500
-    
+        return {"detail": "Internal Server Error"}, 500
 
 
 # --- NEW: HEALTH CHECK ---
