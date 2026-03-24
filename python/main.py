@@ -122,7 +122,8 @@ async def ask_career_bot(request: QueryRequest):
              "2. If the Context is unrelated to the user's career question, state that you don't have that data.\n"
              "3. Use Markdown tables for job comparisons.\n"
              "4. Always **bold** annual salaries.\n"
-             "5. Provide WorkBC URLs as clickable Markdown links: [View Career Profile](URL)."
+             "5. Use ONLY URLs provided in the Context. Format: [View Career Profile](URL).\n"
+             "6. CRITICAL: If a career (like 'Plumber') is not in the Context, do NOT invent a URL or provide general advice."
 
         )
 
