@@ -86,10 +86,30 @@ async def ask_career_bot(request: QueryRequest):
                 messages=[{"role": "user", "content": rewrite_prompt}],
                 temperature=0
             )
-            search_term = rewrite_res.choices[0].message.content.strip()
-        except:
+            raw_content = rewrite_res.choices[0].message.content.strip()
+    
+            # 1. Split by newlines and remove bullet points/numbers/quotes
+            lines = [line.strip('- *123456789."\' ') for line in raw_content.split('\n')]
+            
+            # 2. Filter out conversational filler like "Based on..." or "The job is..."
+            filtered_lines = [
+                l for l in lines 
+                if len(l) > 0 and "Based on" not in l and "Therefore" not in l and "current query" not in l.lower()
+            ]
+            
+            # 3. Join them back together or fallback to the raw content if the filter was too aggressive
+            search_term = ", ".join(filtered_lines) if filtered_lines else raw_content
+        except Exception as e:
+            print(f"DEBUG: Rewriter failed: {e}")
             search_term = user_query
-        print(f"DEBUG: Search Term being used: {search_term}")
+
+        print(f"DEBUG: Final Search Term for Chroma: {search_term}")
+
+
+            #search_term = rewrite_res.choices[0].message.content.strip()
+       # except:
+        #    search_term = user_query
+        #print(f"DEBUG: Search Term being used: {search_term}")
 
 
         # --- STEP 3: RAG RETRIEVAL (Fixes Salary Hallucination) ---
@@ -144,10 +164,12 @@ async def ask_career_bot(request: QueryRequest):
         system_rules = (
             "You are a WorkBC Career Advisor. BE CONCISE. Use bullet points. Rules:\n"
             "1. Use ONLY the provided Context. No external sources or internal knowledge.\n"
-            "2. If comparing careers, YOU MUST USE A MARKDOWN TABLE.\n"
-            "3. Always include the NOC code and **bold** salaries.\n"
-            "4. Format links as [View Career Profile](URL).\n"
-            "5. If context is missing, say you don't have that information in WorkBC records."
+            "2. IDENTITY CHECK: If the context describes a job that is NOT what the user asked for "
+            "(e.g., user asks for 'Teacher' but context is 'Principal'), do NOT use that data. "
+            "3. If comparing careers, YOU MUST USE A MARKDOWN TABLE.\n"
+            "4. Always include the NOC code and **bold** salaries.\n"
+            "5. Format links as [View Career Profile](URL).\n"
+            "6. If context is missing, say you don't have that information in WorkBC records."
         )
 
         # Build history window (last 2 messages / 1 messages)
