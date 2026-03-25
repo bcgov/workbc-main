@@ -11,6 +11,7 @@ dependencies:
     - field.field.media.remote_video.field_exclude_from_video_page
     - field.field.media.remote_video.field_location
     - field.field.media.remote_video.field_media_oembed_video
+    - field.field.media.remote_video.field_noc
     - field.field.media.remote_video.field_recently_added
     - field.field.media.remote_video.field_region
     - field.field.media.remote_video.field_weight
@@ -58,6 +59,14 @@ content:
   field_media_oembed_video:
     type: oembed_textfield
     weight: 0
+    region: content
+    settings:
+      size: 60
+      placeholder: ''
+    third_party_settings: {  }
+  field_noc:
+    type: string_textfield
+    weight: 29
     region: content
     settings:
       size: 60

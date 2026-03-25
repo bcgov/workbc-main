@@ -11,6 +11,7 @@ dependencies:
     - field.field.media.remote_video.field_exclude_from_video_page
     - field.field.media.remote_video.field_location
     - field.field.media.remote_video.field_media_oembed_video
+    - field.field.media.remote_video.field_noc
     - field.field.media.remote_video.field_recently_added
     - field.field.media.remote_video.field_region
     - field.field.media.remote_video.field_weight
@@ -51,6 +52,14 @@ content:
         attribute: eager
     third_party_settings: {  }
     weight: 0
+    region: content
+  field_noc:
+    type: string
+    label: above
+    settings:
+      link_to_entity: false
+    third_party_settings: {  }
+    weight: 4
     region: content
   field_region:
     type: string

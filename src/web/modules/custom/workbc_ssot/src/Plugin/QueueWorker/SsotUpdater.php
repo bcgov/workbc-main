@@ -64,6 +64,7 @@ trait SsotUpdater {
         ->set('field_episode', $entry['episode_num'])
         ->set('field_location', $entry['location'])
         ->set('field_region', $entry['region'])
+        ->set('field_noc', $entry['noc_2021'])
         ->save();
 
       $videos[] = ['target_id' => $media->id()];
