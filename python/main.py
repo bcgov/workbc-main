@@ -73,12 +73,13 @@ async def ask_career_bot(request: QueryRequest):
 
         # --- STEP 2: QUERY REWRITING (Fixes "the position" search) ---
         rewrite_prompt = (
-            f"Based on the conversation history, what is the specific job title or career name "
-            f"this user is asking about? Output ONLY the job title.\n"
-            f"History: {sanitized_history[-2:]}\n"
-            f"Current Query: {user_query}"
-            
+            f"Current User Query: {user_query}\n"
+            f"Last 2 Chat Messages: {sanitized_history[-2:]}\n\n"
+            "TASK: Identify the EXACT job titles the user is asking about NOW. "
+            "If the user is asking a NEW question (e.g. switching from Arts to Trades), "
+            "IGNORE the history. Output ONLY the job titles for the NEW search."
         )
+
         try:
             rewrite_res = vllm_client.chat.completions.create(
                 model=MODEL_NAME,
@@ -99,6 +100,16 @@ async def ask_career_bot(request: QueryRequest):
         
         context_chunks = []
         for i in range(len(results['documents'][0])):
+
+            # --- NEW: The 'Soft' Distance Filter ---
+            # BGE embeddings usually score relevant matches between 0.4 and 0.9.
+            # Anything above 1.1 is likely completely unrelated to the query.
+            distance = results['distances'][0][i]
+            if distance > 1.1:
+                print(f"DEBUG: Skipping result {i} due to high distance: {distance}")
+                continue 
+            # ---------------------------------------
+
             # REMOVED: The 'if distance < 0.50' check that was causing hallucinations
             meta = results['metadatas'][0][i]
             salary_val = meta.get('salary', 'N/A')
