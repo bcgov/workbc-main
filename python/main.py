@@ -89,6 +89,8 @@ async def ask_career_bot(request: QueryRequest):
             search_term = rewrite_res.choices[0].message.content.strip()
         except:
             search_term = user_query
+        print(f"DEBUG: Search Term being used: {search_term}")
+
 
         # --- STEP 3: RAG RETRIEVAL (Fixes Salary Hallucination) ---
         q_emb = bi_encoder.encode(
@@ -105,7 +107,11 @@ async def ask_career_bot(request: QueryRequest):
             # BGE embeddings usually score relevant matches between 0.4 and 0.9.
             # Anything above 1.1 is likely completely unrelated to the query.
             distance = results['distances'][0][i]
-            if distance > 1.1:
+            job_title = results['metadatas'][0][i].get('job_title') # Get the title
+            
+            # This shows you exactly what Chroma found and how 'far' it is
+            print(f"DEBUG: Chroma found '{job_title}' with distance {distance}")
+            if distance > 1.0:
                 print(f"DEBUG: Skipping result {i} due to high distance: {distance}")
                 continue 
             # ---------------------------------------
