@@ -95,7 +95,7 @@ async def ask_career_bot(request: QueryRequest):
             normalize_embeddings=True
         ).tolist()
         
-        results = collection.query(query_embeddings=[q_emb], n_results=3)
+        results = collection.query(query_embeddings=[q_emb], n_results=2)
         
         context_chunks = []
         for i in range(len(results['documents'][0])):
@@ -125,7 +125,7 @@ async def ask_career_bot(request: QueryRequest):
         # --- STEP 4: FINAL MESSAGE ASSEMBLY (The "Stone Wall" Logic) ---
         # 1. Rules move inside the user content to avoid 'system' role conflicts
         system_rules = (
-            "You are a WorkBC Career Advisor. Rules:\n"
+            "You are a WorkBC Career Advisor. BE CONCISE. Use bullet points. Rules:\n"
             "1. Use ONLY the provided Context. No external sources or internal knowledge.\n"
             "2. If comparing careers, YOU MUST USE A MARKDOWN TABLE.\n"
             "3. Always include the NOC code and **bold** salaries.\n"
