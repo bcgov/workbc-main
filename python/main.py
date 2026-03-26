@@ -2,14 +2,13 @@ import os
 import json
 import redis
 import traceback
-import uvicorn
 from fastapi import FastAPI
 from fastapi.middleware.cors import CORSMiddleware
 from pydantic import BaseModel
 import chromadb
 from sentence_transformers import SentenceTransformer
 from openai import OpenAI
-from opensearchpy import OpenSearch
+import uvicorn
 
 # --- 1. CONFIGURATION ---
 REDIS_HOST = os.getenv("REDIS_HOST2", "localhost")
@@ -19,69 +18,32 @@ MISTRAL_PORT = os.getenv("MISTRAL_SERVICE_SERVICE_PORT", "80")
 CHROMA_HOST = os.getenv("CHROMA_SERVICE_HOST", "chroma-service")
 CHROMA_PORT = os.getenv("CHROMA_SERVICE_PORT", "8000")
 
-# OpenSearch Credentials
-OS_HOST = os.getenv("ConnectionStrings__ElasticSearchServer")
-OS_USER = os.getenv("IndexSettings__ElasticUser")
-OS_PASS = os.getenv("IndexSettings__ElasticPassword")
-
 app = FastAPI()
-app.add_middleware(CORSMiddleware, allow_origins=["*"], allow_credentials=True, allow_methods=["*"], allow_headers=["*"])
+
+app.add_middleware(
+    CORSMiddleware,
+    allow_origins=["*"],
+    allow_credentials=True,
+    allow_methods=["*"],
+    allow_headers=["*"],
+)
 
 # --- 2. INITIALIZATION ---
 bi_encoder = SentenceTransformer("BAAI/bge-base-en-v1.5", device="cpu")
-vllm_client = OpenAI(base_url=f"http://{MISTRAL_HOST}:{MISTRAL_PORT}/v1", api_key="none", timeout=120.0)
+vllm_client = OpenAI(
+    base_url=f"http://{MISTRAL_HOST}:{MISTRAL_PORT}/v1",
+    api_key="none",
+    timeout=120.0
+)
+
 MODEL_NAME = "TheBloke/Mistral-7B-Instruct-v0.2-AWQ"
 chroma_client = chromadb.HttpClient(host=CHROMA_HOST, port=int(CHROMA_PORT))
 collection = chroma_client.get_collection("career_content")
 r = redis.Redis(host=REDIS_HOST, port=REDIS_PORT, decode_responses=True)
 
-# OpenSearch Client
-os_client = None
-if all([OS_HOST, OS_USER, OS_PASS]):
-    clean_host = OS_HOST.replace("https://", "").replace("http://", "").split(":")[0]
-    os_client = OpenSearch(
-        hosts=[{'host': clean_host, 'port': 443}],
-        http_auth=(OS_USER, OS_PASS),
-        use_ssl=True, verify_certs=True, ssl_assert_hostname=False, ssl_show_warn=False
-    )
-
-# --- 3. HELPERS ---
-
-def get_live_job_data(title: str = "", city: str = "", employer: str = ""):
-    """Queries OpenSearch for precise job filtering and returns a summary count + list."""
-    if not os_client: return {"count": 0, "jobs": []}
-    
-    must_clauses = []
-    if title:
-        must_clauses.append({"multi_match": {"query": title, "fields": ["Title^3", "JobDescription"], "fuzziness": "AUTO"}})
-    if city:
-        must_clauses.append({"match_phrase": {"City": city}})
-    if employer:
-        must_clauses.append({"match_phrase": {"EmployerName": employer}})
-    
-    query = {"query": {"bool": {"must": must_clauses}}} if must_clauses else {"query": {"match_all": {}}}
-    
-    try:
-        count_res = os_client.count(index="jobs_en", body=query)
-        search_res = os_client.search(index="jobs_en", body={**query, "size": 5})
-        
-        jobs = [{
-            "title": h['_source'].get("Title"),
-            "employer": h['_source'].get("EmployerName"),
-            "location": ", ".join(h['_source'].get("City", [])),
-            "salary": h['_source'].get("SalarySummary", "Not listed"),
-            "url": h['_source'].get("ApplyWebsite")
-        } for h in search_res['hits']['hits']]
-        
-        return {"count": count_res['count'], "jobs": jobs}
-    except:
-        return {"count": 0, "jobs": []}
-
 class QueryRequest(BaseModel):
     prompt: str
     session_id: str
-
-# --- 4. THE API ROUTE ---
 
 @app.post("/api/ask")
 async def ask_career_bot(request: QueryRequest):
@@ -90,75 +52,175 @@ async def ask_career_bot(request: QueryRequest):
         session_id = request.session_id
         redis_key = f"chat_history:{session_id}"
 
-        # 1. History Handling
-        raw_h = r.get(redis_key)
-        history = json.loads(raw_h) if raw_h else []
-        sanitized_h = []
-        role = "user"
-        for m in history:
-            if m["role"] == role:
-                sanitized_h.append(m); role = "assistant" if role == "user" else "user"
-        if sanitized_h and sanitized_h[-1]["role"] == "user": sanitized_h.pop()
-
-        # 2. Advanced Query Rewriting (Entity Extraction)
-        rewrite_prompt = (
-            f"Query: {user_query}\nHistory: {sanitized_h[-2:]}\n"
-            "TASK: Extract Job Title, City, and Employer.\n"
-            "FORMAT: Title | City | Employer\n"
-            "Example: 'Any jobs at Best Buy in Surrey?' -> | Surrey | Best Buy"
-        )
+        # --- STEP 1: RETRIEVE & CLEAN HISTORY (The "400 Error" Fix) ---
         try:
-            rw = vllm_client.chat.completions.create(model=MODEL_NAME, messages=[{"role": "user", "content": rewrite_prompt}], temperature=0)
-            parts = rw.choices[0].message.content.split("|")
-            s_title = parts[0].strip().strip("- *\"' ")
-            s_city = parts[1].strip().strip("- *\"' ") if len(parts) > 1 else ""
-            s_employer = parts[2].strip().strip("- *\"' ") if len(parts) > 2 else ""
+            raw_history = r.get(redis_key)
+            history = json.loads(raw_history) if raw_history else []
         except:
-            s_title, s_city, s_employer = user_query, "", ""
+            history = []
 
-        # 3. ChromaDB Retrieval (Career Advice)
-        q_emb = bi_encoder.encode(f"Represent: {s_title}", normalize_embeddings=True).tolist()
-        results = collection.query(query_embeddings=[q_emb], n_results=1)
-        
-        career_context = ""
-        if results['documents'][0] and results['distances'][0][0] < 1.0:
-            meta = results['metadatas'][0][0]
-            career_context = f"JOB: {meta.get('job_title')}\nSALARY: {meta.get('salary')}\nCONTENT: {results['documents'][0][0]}"
+        # Logic to ensure strict user/assistant alternating roles
+        sanitized_history = []
+        next_role = "user"
+        for msg in history:
+            if msg["role"] == next_role:
+                sanitized_history.append(msg)
+                next_role = "assistant" if next_role == "user" else "user"
 
-        # 4. OpenSearch Retrieval (Live Jobs)
-        # GATEKEEPER: Only search if intent is "hiring/job" or specific entity found
-        is_job_search = any([s_city, s_employer, "job" in user_query.lower(), "hiring" in user_query.lower()])
-        job_data = get_live_job_data(s_title, s_city, s_employer) if is_job_search else {"count": 0, "jobs": []}
+        # Since our next message IS a 'user' message, history MUST end with 'assistant'
+        if sanitized_history and sanitized_history[-1]["role"] == "user":
+            sanitized_history.pop()
 
-        # 5. Advice Generation
-        summary = f"I found {job_data['count']} active job postings matching your request." if is_job_search else ""
-        system_rules = (
-            "You are a WorkBC Career Advisor. Use ONLY the provided context for requirements. "
-            "If a job count is provided, mention it in your summary. Do not list individual jobs in your text."
+        # --- STEP 2: QUERY REWRITING (Fixes "the position" search) ---
+        rewrite_prompt = (
+            f"Current User Query: {user_query}\n"
+            f"Last 2 Chat Messages: {sanitized_history[-2:]}\n\n"
+            "TASK: Identify the EXACT job titles the user is asking about NOW. "
+            "If the user is asking a NEW question (e.g. switching from Arts to Trades), "
+            "IGNORE the history. Output ONLY the job titles for the NEW search."
         )
-        
+
+        try:
+            rewrite_res = vllm_client.chat.completions.create(
+                model=MODEL_NAME,
+                messages=[{"role": "user", "content": rewrite_prompt}],
+                temperature=0
+            )
+            raw_content = rewrite_res.choices[0].message.content.strip()
+
+            # 1. Split by newlines and remove bullet points/numbers/quotes
+            lines = [line.strip('- *123456789."\' ') for line in raw_content.split('\n')]
+
+            # 2. Filter out conversational filler like "Based on..." or "The job is..."
+            filtered_lines = [
+                l for l in lines
+                if len(l) > 0 and "Based on" not in l and "Therefore" not in l and "current query" not in l.lower()
+            ]
+
+            # 3. Join them back together or fallback to the raw content if the filter was too aggressive
+            search_term = ", ".join(filtered_lines) if filtered_lines else raw_content
+        except Exception as e:
+            print(f"DEBUG: Rewriter failed: {e}")
+            search_term = user_query
+
+        print(f"DEBUG: Final Search Term for Chroma: {search_term}")
+
+
+            #search_term = rewrite_res.choices[0].message.content.strip()
+       # except:
+        #    search_term = user_query
+        #print(f"DEBUG: Search Term being used: {search_term}")
+
+
+        # --- STEP 3: RAG RETRIEVAL (Fixes Salary Hallucination) ---
+        q_emb = bi_encoder.encode(
+            f"Represent this sentence for searching: {search_term}",
+            normalize_embeddings=True
+        ).tolist()
+
+        results = collection.query(query_embeddings=[q_emb], n_results=2)
+
+        context_chunks = []
+        for i in range(len(results['documents'][0])):
+
+            # --- NEW: The 'Soft' Distance Filter ---
+            # BGE embeddings usually score relevant matches between 0.4 and 0.9.
+            # Anything above 1.1 is likely completely unrelated to the query.
+            distance = results['distances'][0][i]
+            job_title = results['metadatas'][0][i].get('job_title') # Get the title
+
+            # This shows you exactly what Chroma found and how 'far' it is
+            print(f"DEBUG: Chroma found '{job_title}' with distance {distance}")
+            if distance > 1.0:
+                print(f"DEBUG: Skipping result {i} due to high distance: {distance}")
+                continue
+            # ---------------------------------------
+
+            # REMOVED: The 'if distance < 0.50' check that was causing hallucinations
+            meta = results['metadatas'][0][i]
+            salary_val = meta.get('salary', 'N/A')
+
+            # Formatting salary like your V1 script
+            try:
+                salary_str = f"**${float(salary_val):,.2f}**" if salary_val != 'N/A' else "Data missing"
+            except:
+                salary_str = f"**${salary_val}**"
+
+            context_chunks.append(
+                f"JOB: {meta.get('job_title')} (NOC: {meta.get('noc_code', 'N/A')})\n"
+                f"SALARY: {salary_str}\n"
+                f"URL: {meta.get('url', '#')}\n"
+                f"CONTENT: {results['documents'][0][i]}"
+            )
+
+        full_context = "\n---\n".join(context_chunks) if context_chunks else "No WorkBC data found for this query."
+        top_context = full_context[:3500]
+
+        #top_context = "\n---\n".join(context_chunks) if context_chunks else "No WorkBC data found for this query."
+
+
+        # --- STEP 4: FINAL MESSAGE ASSEMBLY (The "Stone Wall" Logic) ---
+        # 1. Rules move inside the user content to avoid 'system' role conflicts
+        system_rules = (
+            "You are a WorkBC Career Advisor. BE CONCISE. Use bullet points. Rules:\n"
+            "1. Use ONLY the provided Context. No external sources or internal knowledge.\n"
+            "2. IDENTITY CHECK: If the context describes a job that is NOT what the user asked for "
+            "(e.g., user asks for 'Teacher' but context is 'Principal'), do NOT use that data. "
+            "3. If comparing careers, YOU MUST USE A MARKDOWN TABLE.\n"
+            "4. Always include the NOC code and **bold** salaries.\n"
+            "5. Format links as [View Career Profile](URL).\n"
+            "6. If context is missing, say you don't have that information in WorkBC records."
+        )
+
+        # Build history window (last 2 messages / 1 messages)
+        history_window = sanitized_history[-2:]
+        if history_window and history_window[0]["role"] == "assistant":
+            history_window.pop(0)
+
+        # Build message list for the LLM
+        final_messages = []
+        final_messages.extend(history_window)
+
+        current_user_content = f"Context:\n{top_context}\n\nQuestion: {user_query}"
+
+        # FIXED: Prepend rules to the first message of this specific prompt
+        # without corrupting the permanent Redis history.
+        if not final_messages:
+            final_messages.append({"role": "user", "content": f"{system_rules}\n\n{current_user_content}"})
+        else:
+            # We copy the first message so we don't modify the reference in sanitized_history
+            first_msg_copy = final_messages[0].copy()
+            first_msg_copy["content"] = f"{system_rules}\n\n{first_msg_copy['content']}"
+            final_messages[0] = first_msg_copy
+            final_messages.append({"role": "user", "content": current_user_content})
+
+
+
+        # --- STEP 5: GENERATE & SAVE ---
         completion = vllm_client.chat.completions.create(
             model=MODEL_NAME,
-            messages=[{"role": "user", "content": f"{system_rules}\n\nContext: {career_context}\nSummary: {summary}\nUser: {user_query}"}],
-            temperature=0.0
+            messages=final_messages,
+            temperature=0.0, # Forces accuracy over creativity
+            max_tokens=800
         )
         answer = completion.choices[0].message.content
 
-        # Update Redis
-        sanitized_h.append({"role": "user", "content": user_query})
-        sanitized_h.append({"role": "assistant", "content": answer})
-        r.setex(redis_key, 3600, json.dumps(sanitized_h[-10:]))
+        # Update Redis with clean User/Assistant pairs
+        sanitized_history.append({"role": "user", "content": user_query})
+        sanitized_history.append({"role": "assistant", "content": answer})
+        r.setex(redis_key, 3600, json.dumps(sanitized_history[-10:]))
 
-        return {
-            "answer": answer,
-            "live_jobs": job_data['jobs'],
-            "total_count": job_data['count'],
-            "session_id": session_id
-        }
+        return {"answer": answer, "session_id": session_id, "debug_search": search_term}
 
     except Exception as e:
         traceback.print_exc()
-        return {"error": str(e)}, 500
+        return {"error": f"Internal Server Error: {str(e)}"}, 500
+
+# --- NEW: HEALTH CHECK ---
+@app.get("/health")
+@app.get("/api/health")
+async def health_check():
+    return {"status": "healthy", "mistral_endpoint": f"http://{MISTRAL_HOST}:{MISTRAL_PORT}"}
 
 if __name__ == "__main__":
     uvicorn.run(app, host="0.0.0.0", port=8000)
