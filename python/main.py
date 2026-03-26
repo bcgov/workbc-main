@@ -8,6 +8,7 @@ from pydantic import BaseModel
 import chromadb
 from sentence_transformers import SentenceTransformer
 from openai import OpenAI
+from opensearchpy import OpenSearch
 import uvicorn
 
 # --- 1. CONFIGURATION ---
@@ -17,6 +18,10 @@ MISTRAL_HOST = os.getenv("MISTRAL_SERVICE_SERVICE_HOST", "mistral-service")
 MISTRAL_PORT = os.getenv("MISTRAL_SERVICE_SERVICE_PORT", "80")
 CHROMA_HOST = os.getenv("CHROMA_SERVICE_HOST", "chroma-service")
 CHROMA_PORT = os.getenv("CHROMA_SERVICE_PORT", "8000")
+OS_HOST = os.getenv("ConnectionStrings__ElasticSearchServer")
+OS_USER = os.getenv("IndexSettings__ElasticUser")
+OS_PASS = os.getenv("IndexSettings__ElasticPassword")
+
 
 app = FastAPI()
 
@@ -40,6 +45,53 @@ MODEL_NAME = "TheBloke/Mistral-7B-Instruct-v0.2-AWQ"
 chroma_client = chromadb.HttpClient(host=CHROMA_HOST, port=int(CHROMA_PORT))
 collection = chroma_client.get_collection("career_content")
 r = redis.Redis(host=REDIS_HOST, port=REDIS_PORT, decode_responses=True)
+
+# --- INITIALIZATION OPENSEARCH
+os_client = None
+if all([OS_HOST, OS_USER, OS_PASS]):
+    os_client = OpenSearch(
+        hosts=[{'host': OS_HOST.replace("https://", ""), 'port': 443}],
+        http_auth=(OS_USER, OS_PASS),
+        use_ssl=True,
+        verify_certs=True
+    )
+
+def get_live_job_context(search_term: str):
+    if not os_client:
+        return "Live job search is currently unavailable."
+    
+    query = {
+        "size": 3,
+        "query": {
+            "multi_match": {
+                "query": search_term,
+                "fields": ["Title^3", "JobDescription", "NocJobTitle"],
+                "fuzziness": "AUTO"
+            }
+        }
+    }
+    
+    try:
+        res = os_client.search(index="jobs_en", body=query)
+        hits = res['hits']['hits']
+        if not hits:
+            return "No live job postings found for this role."
+        
+        chunks = []
+        for hit in hits:
+            s = hit['_source']
+            chunks.append(
+                f"LIVE JOB: {s.get('Title')} at {s.get('EmployerName')}\n"
+                f"SALARY: {s.get('SalarySummary', 'Not listed')}\n"
+                f"LOCATION: {', '.join(s.get('City', []))}\n"
+                f"APPLY HERE: {s.get('ApplyWebsite')}\n"
+            )
+        return "\n---\n".join(chunks)
+    except Exception as e:
+        print(f"DEBUG: OpenSearch Query Failed: {e}")
+        return "Error retrieving live jobs."
+
+
 
 class QueryRequest(BaseModel):
     prompt: str
@@ -153,11 +205,21 @@ async def ask_career_bot(request: QueryRequest):
                 f"CONTENT: {results['documents'][0][i]}"
             )
 
-        full_context = "\n---\n".join(context_chunks) if context_chunks else "No WorkBC data found for this query."
-        top_context = full_context[:3500]
+        #full_context = "\n---\n".join(context_chunks) if context_chunks else "No WorkBC data found for this query."
+        career_context = "\n---\n".join(context_chunks) if context_chunks else "No WorkBC career profile found."
+        #top_context = full_context[:3500]
 
         #top_context = "\n---\n".join(context_chunks) if context_chunks else "No WorkBC data found for this query."
-     
+    # 2. Fetch Live Vacancies (OpenSearch)
+        live_job_context = get_live_job_context(search_term)
+
+        # 3. Combine into the final 'top_context'
+        top_context = (
+            f"--- WORKBC CAREER RECORDS ---\n{career_context}\n\n"
+            f"--- LIVE JOB POSTINGS FROM BOARD ---\n{live_job_context}"
+        )
+        
+        top_context = top_context[:3500] # Keeping your safety limit
 
         # --- STEP 4: FINAL MESSAGE ASSEMBLY (The "Stone Wall" Logic) ---
         # 1. Rules move inside the user content to avoid 'system' role conflicts
