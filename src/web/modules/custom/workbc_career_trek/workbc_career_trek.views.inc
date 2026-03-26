@@ -12,7 +12,7 @@ function workbc_career_trek_views_data_alter(array &$data) {
 
   $data['media']['keyword_search'] = [
     'title' => 'WorkBC Media Keyword Search',
-    'group' => 'Content',
+    'group' => 'Media',
     'filter' => [
       'title' => 'WorkBC Media Keyword Search',
       'help' => 'Provides a way to use Search API in a media view.',

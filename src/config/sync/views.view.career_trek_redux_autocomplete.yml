@@ -1,26 +1,24 @@
-uuid: 555ebe81-080b-453e-ab7b-86e551591828
+uuid: ee3fda0a-c743-408c-972e-eb13ec27c3a6
 langcode: en
 status: true
 dependencies:
   config:
+    - field.storage.media.field_description
     - field.storage.media.field_episode
+    - field.storage.media.field_location
     - field.storage.media.field_noc
-    - image.style.career_trek_video_library_480_x_270
-    - media.type.remote_video
+    - field.storage.media.field_region
+    - search_api.index.career_trek_index
   module:
-    - better_exposed_filters
-    - media
-    - node
-    - svg_image
-    - user
-    - workbc_career_trek
-id: career_trek_redux
-label: 'Career Trek Redux'
+    - search_api
+    - text
+id: career_trek_redux_autocomplete
+label: 'Career Trek Redux Autocomplete'
 module: views
-description: ''
+description: 'View used to provide predictive results (autocomplete) to the Career Trek Redux search.'
 tag: ''
-base_table: media_field_data
-base_field: mid
+base_table: search_api_index_career_trek_index
+base_field: search_api_id
 display:
   default:
     id: default
@@ -28,88 +26,18 @@ display:
     display_plugin: default
     position: 0
     display_options:
-      title: 'Career Trek Redux'
+      title: 'Career Trek Redux Autocomplete'
       fields:
-        thumbnail__target_id:
-          id: thumbnail__target_id
-          table: media_field_data
-          field: thumbnail__target_id
+        field_description:
+          id: field_description
+          table: search_api_index_career_trek_index
+          field: field_description
           relationship: none
           group_type: group
           admin_label: ''
-          entity_type: media
-          entity_field: thumbnail
-          plugin_id: field
-          label: ''
-          exclude: false
-          alter:
-            alter_text: false
-            text: ''
-            make_link: false
-            path: ''
-            absolute: false
-            external: false
-            replace_spaces: false
-            path_case: none
-            trim_whitespace: false
-            alt: ''
-            rel: ''
-            link_class: ''
-            prefix: ''
-            suffix: ''
-            target: ''
-            nl2br: false
-            max_length: 0
-            word_boundary: true
-            ellipsis: true
-            more_link: false
-            more_link_text: ''
-            more_link_path: ''
-            strip_tags: false
-            trim: false
-            preserve_tags: ''
-            html: false
-          element_type: ''
-          element_class: ''
-          element_label_type: ''
-          element_label_class: ''
-          element_label_colon: false
-          element_wrapper_type: ''
-          element_wrapper_class: ''
-          element_default_classes: true
-          empty: ''
-          hide_empty: false
-          empty_zero: false
-          hide_alter_empty: true
-          click_sort_column: target_id
-          type: image
-          settings:
-            image_link: ''
-            image_style: career_trek_video_library_480_x_270
-            image_loading:
-              attribute: lazy
-            svg_attributes:
-              width: null
-              height: null
-            svg_render_as_image: true
-          group_column: ''
-          group_columns: {  }
-          group_rows: true
-          delta_limit: 0
-          delta_offset: 0
-          delta_reversed: false
-          delta_first_last: false
-          multi_type: separator
-          separator: ', '
-          field_api_classes: false
-        field_episode:
-          id: field_episode
-          table: media__field_episode
-          field: field_episode
-          relationship: none
-          group_type: group
-          admin_label: ''
-          plugin_id: field
+          entity_type: null
+          entity_field: null
+          plugin_id: search_api_field
           label: ''
           exclude: false
           alter:
@@ -152,10 +80,8 @@ display:
           empty_zero: false
           hide_alter_empty: true
           click_sort_column: value
-          type: number_integer
-          settings:
-            thousand_separator: ''
-            prefix_suffix: true
+          type: text_default
+          settings: {  }
           group_column: value
           group_columns: {  }
           group_rows: true
@@ -166,26 +92,50 @@ display:
           multi_type: separator
           separator: ', '
           field_api_classes: false
-        name:
-          id: name
-          table: media_field_data
-          field: name
+          field_rendering: true
+          fallback_handler: search_api_text
+          fallback_options:
+            link_to_item: false
+            use_highlighting: false
+            multi_type: separator
+            multi_separator: ', '
+            filter_type: xss
+        field_noc:
+          id: field_noc
+          table: search_api_index_career_trek_index
+          field: field_noc
           relationship: none
           group_type: group
           admin_label: ''
-          entity_type: media
-          entity_field: media
-          plugin_id: field
+          plugin_id: search_api_field
           label: ''
-          exclude: false
+          exclude: true
           alter:
             alter_text: false
+            text: ''
             make_link: false
+            path: ''
             absolute: false
-            word_boundary: false
-            ellipsis: false
+            external: false
+            replace_spaces: false
+            path_case: none
+            trim_whitespace: false
+            alt: ''
+            rel: ''
+            link_class: ''
+            prefix: ''
+            suffix: ''
+            target: ''
+            nl2br: false
+            max_length: 0
+            word_boundary: true
+            ellipsis: true
+            more_link: false
+            more_link_text: ''
+            more_link_path: ''
             strip_tags: false
             trim: false
+            preserve_tags: ''
             html: false
           element_type: ''
           element_class: ''
@@ -202,7 +152,7 @@ display:
           click_sort_column: value
           type: string
           settings:
-            link_to_entity: true
+            link_to_entity: false
           group_column: value
           group_columns: {  }
           group_rows: true
@@ -213,14 +163,21 @@ display:
           multi_type: separator
           separator: ', '
           field_api_classes: false
-        field_noc:
-          id: field_noc
-          table: media__field_noc
-          field: field_noc
+          field_rendering: true
+          fallback_handler: search_api
+          fallback_options:
+            link_to_item: false
+            use_highlighting: false
+            multi_type: separator
+            multi_separator: ', '
+        name:
+          id: name
+          table: search_api_index_career_trek_index
+          field: name
           relationship: none
           group_type: group
           admin_label: ''
-          plugin_id: field
+          plugin_id: search_api_field
           label: ''
           exclude: false
           alter:
@@ -276,18 +233,106 @@ display:
           multi_type: separator
           separator: ', '
           field_api_classes: false
-        title:
-          id: title
-          table: node_field_data
-          field: title
-          relationship: reverse__node__field_career_videos
+          field_rendering: true
+          fallback_handler: search_api
+          fallback_options:
+            link_to_item: false
+            use_highlighting: false
+            multi_type: separator
+            multi_separator: ', '
+        field_episode:
+          id: field_episode
+          table: search_api_datasource_career_trek_index_entity_media
+          field: field_episode
+          relationship: none
           group_type: group
           admin_label: ''
-          entity_type: node
-          entity_field: title
-          plugin_id: field
+          entity_type: media
+          plugin_id: search_api_field
           label: ''
-          exclude: false
+          exclude: true
+          alter:
+            alter_text: false
+            text: ''
+            make_link: false
+            path: ''
+            absolute: false
+            external: false
+            replace_spaces: false
+            path_case: none
+            trim_whitespace: false
+            alt: ''
+            rel: ''
+            link_class: ''
+            prefix: ''
+            suffix: ''
+            target: ''
+            nl2br: false
+            max_length: 0
+            word_boundary: true
+            ellipsis: true
+            more_link: false
+            more_link_text: ''
+            more_link_path: ''
+            strip_tags: false
+            trim: false
+            preserve_tags: ''
+            html: false
+          element_type: ''
+          element_class: ''
+          element_label_type: ''
+          element_label_class: ''
+          element_label_colon: false
+          element_wrapper_type: ''
+          element_wrapper_class: ''
+          element_default_classes: true
+          empty: ''
+          hide_empty: false
+          empty_zero: false
+          hide_alter_empty: true
+          click_sort_column: value
+          type: number_integer
+          settings:
+            thousand_separator: ''
+            prefix_suffix: true
+          group_column: value
+          group_columns: {  }
+          group_rows: true
+          delta_limit: 0
+          delta_offset: 0
+          delta_reversed: false
+          delta_first_last: false
+          multi_type: separator
+          separator: ', '
+          field_api_classes: false
+          field_rendering: true
+          fallback_handler: search_api_numeric
+          fallback_options:
+            set_precision: false
+            precision: 0
+            decimal: .
+            separator: ','
+            format_plural: false
+            format_plural_string: !!binary MQNAY291bnQ=
+            prefix: ''
+            suffix: ''
+            link_to_item: false
+            use_highlighting: false
+            multi_type: separator
+            multi_separator: ', '
+            format_plural_values:
+              - '1'
+              - '@count'
+        field_location:
+          id: field_location
+          table: search_api_index_career_trek_index
+          field: field_location
+          relationship: none
+          group_type: group
+          admin_label: ''
+          plugin_id: search_api_field
+          label: ''
+          exclude: true
           alter:
             alter_text: false
             text: ''
@@ -330,7 +375,7 @@ display:
           click_sort_column: value
           type: string
           settings:
-            link_to_entity: true
+            link_to_entity: false
           group_column: value
           group_columns: {  }
           group_rows: true
@@ -341,192 +386,152 @@ display:
           multi_type: separator
           separator: ', '
           field_api_classes: false
+          field_rendering: true
+          fallback_handler: search_api
+          fallback_options:
+            link_to_item: false
+            use_highlighting: false
+            multi_type: separator
+            multi_separator: ', '
+        field_region:
+          id: field_region
+          table: search_api_index_career_trek_index
+          field: field_region
+          relationship: none
+          group_type: group
+          admin_label: ''
+          plugin_id: search_api_field
+          label: ''
+          exclude: true
+          alter:
+            alter_text: false
+            text: ''
+            make_link: false
+            path: ''
+            absolute: false
+            external: false
+            replace_spaces: false
+            path_case: none
+            trim_whitespace: false
+            alt: ''
+            rel: ''
+            link_class: ''
+            prefix: ''
+            suffix: ''
+            target: ''
+            nl2br: false
+            max_length: 0
+            word_boundary: true
+            ellipsis: true
+            more_link: false
+            more_link_text: ''
+            more_link_path: ''
+            strip_tags: false
+            trim: false
+            preserve_tags: ''
+            html: false
+          element_type: ''
+          element_class: ''
+          element_label_type: ''
+          element_label_class: ''
+          element_label_colon: false
+          element_wrapper_type: ''
+          element_wrapper_class: ''
+          element_default_classes: true
+          empty: ''
+          hide_empty: false
+          empty_zero: false
+          hide_alter_empty: true
+          click_sort_column: value
+          type: string
+          settings:
+            link_to_entity: false
+          group_column: value
+          group_columns: {  }
+          group_rows: true
+          delta_limit: 0
+          delta_offset: 0
+          delta_reversed: false
+          delta_first_last: false
+          multi_type: separator
+          separator: ', '
+          field_api_classes: false
+          field_rendering: true
+          fallback_handler: search_api
+          fallback_options:
+            link_to_item: false
+            use_highlighting: false
+            multi_type: separator
+            multi_separator: ', '
       pager:
-        type: none
+        type: some
         options:
           offset: 0
+          items_per_page: 10
       exposed_form:
-        type: bef
+        type: basic
         options:
           submit_button: Apply
-          reset_button: true
+          reset_button: false
           reset_button_label: Reset
           exposed_sorts_label: 'Sort by'
           expose_sort_order: true
           sort_asc_label: Asc
           sort_desc_label: Desc
-          text_input_required: 'Select any filter and click on Apply to see results'
-          text_input_required_format: full_html
-          bef:
-            general:
-              autosubmit: false
-              auto_submit_sort_only: false
-              autosubmit_breakpoint: ''
-              autosubmit_exclude_textfield: false
-              autosubmit_textfield_delay: 500
-              autosubmit_textfield_minimum_length: 3
-              autosubmit_hide: false
-              input_required: false
-              allow_secondary: false
-              secondary_label: 'Advanced options'
-              secondary_open: false
-              reset_button_always_show: true
-            filter:
-              keyword_search:
-                plugin_id: default
-                advanced:
-                  collapsible: false
-                  collapsible_disable_automatic_open: false
-                  open_by_default: false
-                  is_secondary: false
-                  hide_label: false
-                  field_classes: ''
-                  sort_options_unsupported: ''
-              field_annual_salary_value:
-                plugin_id: bef_sliders
-                advanced:
-                  collapsible: false
-                  collapsible_disable_automatic_open: false
-                  open_by_default: false
-                  is_secondary: false
-                  hide_label: false
-                  field_classes: ''
-                  sort_options_unsupported: ''
-                min: '10000'
-                max: '140000'
-                step: '1000'
-                animate: '0'
-                animate_ms: '0'
-                orientation: horizontal
-                enable_tooltips: false
-                tooltips_value_prefix: ''
-                tooltips_value_suffix: ''
-                placement_location: end
       access:
-        type: perm
-        options:
-          perm: 'view media'
+        type: none
+        options: {  }
       cache:
-        type: tag
+        type: search_api_none
         options: {  }
       empty: {  }
       sorts:
-        field_annual_salary_value:
-          id: field_annual_salary_value
-          table: node__field_annual_salary
-          field: field_annual_salary_value
-          relationship: reverse__node__field_career_videos
-          group_type: group
-          admin_label: ''
-          plugin_id: standard
-          order: ASC
-          expose:
-            label: ''
-            field_identifier: ''
-          exposed: false
-        field_episode_value:
-          id: field_episode_value
-          table: media__field_episode
-          field: field_episode_value
+        search_api_relevance:
+          id: search_api_relevance
+          table: search_api_index_career_trek_index
+          field: search_api_relevance
           relationship: none
           group_type: group
           admin_label: ''
-          plugin_id: standard
-          order: ASC
+          plugin_id: search_api
+          order: DESC
           expose:
             label: ''
             field_identifier: ''
           exposed: false
       arguments: {  }
       filters:
-        status:
-          id: status
-          table: media_field_data
-          field: status
-          entity_type: media
-          entity_field: status
-          plugin_id: boolean
-          value: '1'
-          group: 1
-          expose:
-            operator: ''
-        bundle:
-          id: bundle
-          table: media_field_data
-          field: bundle
-          entity_type: media
-          entity_field: bundle
-          plugin_id: bundle
-          value:
-            remote_video: remote_video
-        status_1:
-          id: status_1
-          table: node_field_data
-          field: status
-          relationship: reverse__node__field_career_videos
-          group_type: group
-          admin_label: ''
-          entity_type: node
-          entity_field: status
-          plugin_id: boolean
-          operator: '='
-          value: '1'
-          group: 1
-          exposed: false
-          expose:
-            operator_id: ''
-            label: ''
-            description: ''
-            use_operator: false
-            operator: ''
-            operator_limit_selection: false
-            operator_list: {  }
-            identifier: ''
-            required: false
-            remember: false
-            multiple: false
-            remember_roles:
-              authenticated: authenticated
-          is_grouped: false
-          group_info:
-            label: ''
-            description: ''
-            identifier: ''
-            optional: true
-            widget: select
-            multiple: false
-            remember: false
-            default_group: All
-            default_group_multiple: {  }
-            group_items: {  }
-        keyword_search:
-          id: keyword_search
-          table: media
-          field: keyword_search
+        search_api_fulltext:
+          id: search_api_fulltext
+          table: search_api_index_career_trek_index
+          field: search_api_fulltext
           relationship: none
           group_type: group
           admin_label: ''
-          entity_type: media
-          plugin_id: workbc_media_keyword_search
-          operator: matches
+          plugin_id: search_api_fulltext
+          operator: or
           value: ''
           group: 1
           exposed: true
           expose:
-            operator_id: keyword_search_op
-            label: 'Search by Keyword or NOC'
+            operator_id: search_api_fulltext_op
+            label: ''
             description: ''
             use_operator: false
-            operator: keyword_search_op
+            operator: search_api_fulltext_op
             operator_limit_selection: false
             operator_list: {  }
-            identifier: keyword_search
+            identifier: search
             required: false
             remember: false
             multiple: false
             remember_roles:
               authenticated: authenticated
-            placeholder: ''
+            expose_fields: false
+            placeholder: 'Search by keyword or NOC'
+            searched_fields_id: search_api_fulltext_searched_fields
+            value_maxlength: 128
+            value_max_words: null
           is_grouped: false
           group_info:
             label: ''
@@ -539,94 +544,23 @@ display:
             default_group: All
             default_group_multiple: {  }
             group_items: {  }
-        field_annual_salary_value:
-          id: field_annual_salary_value
-          table: node__field_annual_salary
-          field: field_annual_salary_value
-          relationship: reverse__node__field_career_videos
-          group_type: group
-          admin_label: ''
-          plugin_id: numeric
-          operator: between
-          value:
-            min: '10000'
-            max: '140000'
-            value: ''
-          group: 1
-          exposed: true
-          expose:
-            operator_id: field_annual_salary_value_op
-            label: 'Salary range'
-            description: 'Adjust the slider to set your desired salary range.'
-            use_operator: false
-            operator: field_annual_salary_value_op
-            operator_limit_selection: false
-            operator_list: {  }
-            identifier: salary
-            required: false
-            remember: false
-            multiple: false
-            remember_roles:
-              authenticated: authenticated
-            min_placeholder: ''
-            max_placeholder: ''
-            placeholder: ''
-          is_grouped: false
-          group_info:
-            label: '[SSOT] Annual Salary (field_annual_salary)'
-            description: null
-            identifier: field_annual_salary_value
-            optional: true
-            widget: select
-            multiple: false
-            remember: false
-            default_group: All
-            default_group_multiple: {  }
-            group_items:
-              1: {  }
-              2: {  }
-              3: {  }
+          parse_mode: direct
+          min_length: null
+          fields: {  }
       style:
-        type: grid_responsive
-        options:
-          grouping: {  }
-          columns: 3
-          cell_min_width: 100
-          grid_gutter: 10
-          alignment: horizontal
+        type: default
       row:
         type: fields
       query:
-        type: views_query
+        type: search_api_query
         options:
-          query_comment: ''
-          disable_sql_rewrite: false
-          distinct: false
-          replica: false
+          bypass_access: false
+          skip_access: false
+          preserve_facet_query_args: false
           query_tags:
             - career_trek_search
-      relationships:
-        reverse__node__field_career_videos:
-          id: reverse__node__field_career_videos
-          table: media_field_data
-          field: reverse__node__field_career_videos
-          relationship: none
-          group_type: group
-          admin_label: field_career_videos
-          entity_type: media
-          plugin_id: entity_reverse
-          required: true
-      header:
-        result:
-          id: result
-          table: views
-          field: result
-          relationship: none
-          group_type: group
-          admin_label: ''
-          plugin_id: result
-          empty: false
-          content: 'Displaying @start - @end of @total'
+      relationships: {  }
+      header: {  }
       footer: {  }
       display_extenders: {  }
     cache_metadata:
@@ -635,25 +569,32 @@ display:
         - 'languages:language_content'
         - 'languages:language_interface'
         - url
-        - user.permissions
       tags:
+        - 'config:field.storage.media.field_description'
         - 'config:field.storage.media.field_episode'
+        - 'config:field.storage.media.field_location'
         - 'config:field.storage.media.field_noc'
-  page_1:
-    id: page_1
-    display_title: Page
-    display_plugin: page
+        - 'config:field.storage.media.field_region'
+        - 'config:search_api.index.career_trek_index'
+        - 'search_api_list:career_trek_index'
+  block_1:
+    id: block_1
+    display_title: Block
+    display_plugin: block
     position: 1
     display_options:
       display_extenders: {  }
-      path: career-trek-redux
     cache_metadata:
       max-age: -1
       contexts:
         - 'languages:language_content'
         - 'languages:language_interface'
         - url
-        - user.permissions
       tags:
+        - 'config:field.storage.media.field_description'
         - 'config:field.storage.media.field_episode'
+        - 'config:field.storage.media.field_location'
         - 'config:field.storage.media.field_noc'
+        - 'config:field.storage.media.field_region'
+        - 'config:search_api.index.career_trek_index'
+        - 'search_api_list:career_trek_index'

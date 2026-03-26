@@ -11,7 +11,7 @@ _core:
 id: redirect
 label: Redirect
 module: views
-description: 'List of redirects'
+description: 'List of redirects.'
 tag: ''
 base_table: redirect
 base_field: rid

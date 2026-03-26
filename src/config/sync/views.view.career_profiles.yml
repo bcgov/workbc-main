@@ -1,6 +1,6 @@
 uuid: 1536646a-5f87-4887-8d7a-8685962674c5
 langcode: en
-status: true
+status: false
 dependencies:
   config:
     - field.storage.node.field_noc
@@ -11,7 +11,7 @@ dependencies:
 _core:
   default_config_hash: sz_FoMz5aClG4jFy4UDlkenXQtgTUXohEDjWVBuHaro
 id: career_profiles
-label: 'Career Profiles'
+label: '[DEPRECATED] Career Profiles'
 module: node
 description: 'All content, by letter.'
 tag: default

@@ -5,8 +5,6 @@ namespace Drupal\workbc_career_trek\Plugin\views\filter;
 use Drupal\views\Plugin\views\filter\StringFilter;
 use Drupal\Core\Form\FormStateInterface;
 use Drupal\search_api_solr\SearchApiSolrException;
-use Drupal\search_api\Query\Query;
-use Drupal\search_api\Query\ResultSetInterface;
 
 /**
  * Filters by Search API keywords.
@@ -113,7 +111,7 @@ class CareerTrekKeywordSearch extends StringFilter {
       $this->view->search_api_results = $this->search($this->value);
       $this->query->addWhere(
         0, 'media.mid',
-        empty($this->view->search_api_results) ? [0] : array_column($this->view->search_api_results, 'nid'),
+        empty($this->view->search_api_results) ? [0] : array_column($this->view->search_api_results, 'mid'),
         'IN'
       );
     }
@@ -155,6 +153,13 @@ class CareerTrekKeywordSearch extends StringFilter {
       \Drupal::logger('workbc')->error($e->getMessage());
       return [];
     }
-    return $results ? $results->getResultItems() : [];
+    return array_values(array_filter(array_map(function($item) {
+      if (preg_match('/entity:media\/(\d+):/', $item->getId(), $match)) {
+        return [
+          'mid' => $match[1],
+        ];
+      }
+      return false;
+    }, $results ? $results->getResultItems() : [])));
   }
 }

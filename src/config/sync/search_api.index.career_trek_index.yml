@@ -67,7 +67,7 @@ field_settings:
     label: '[SSOT] Description'
     datasource_id: 'entity:media'
     property_path: field_description
-    type: text
+    type: 'solr_text_custom:ngram'
     dependencies:
       config:
         - field.storage.media.field_description
@@ -75,7 +75,7 @@ field_settings:
     label: '[SSOT] Location'
     datasource_id: 'entity:media'
     property_path: field_location
-    type: string
+    type: 'solr_text_custom:ngram'
     dependencies:
       config:
         - field.storage.media.field_location
@@ -83,7 +83,7 @@ field_settings:
     label: '[SSOT] NOC'
     datasource_id: 'entity:media'
     property_path: field_noc
-    type: string
+    type: 'solr_text_custom:edge'
     dependencies:
       config:
         - field.storage.media.field_noc
@@ -91,7 +91,7 @@ field_settings:
     label: '[SSOT] Region'
     datasource_id: 'entity:media'
     property_path: field_region
-    type: string
+    type: 'solr_text_custom:ngram'
     dependencies:
       config:
         - field.storage.media.field_region
@@ -99,7 +99,7 @@ field_settings:
     label: Name
     datasource_id: 'entity:media'
     property_path: name
-    type: string
+    type: 'solr_text_custom:ngram'
     dependencies:
       module:
         - media

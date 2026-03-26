@@ -1,8 +1,7 @@
 <?php
 use Drupal\taxonomy\Entity\Term;
 use Drupal\views\ViewExecutable;
-use Drupal\views\Plugin\views\query\Sql;
-use Drupal\Core\Form\FormStateInterface;
+use Drupal\media\Entity\Media;
 
 /**
  * Implements hook_views_pre_view().
@@ -70,74 +69,21 @@ function workbc_career_trek_preprocess_views_view(&$variables) {
 }
 
 /**
- * Implements hook_uninstall().
+ * Implements hook_search_api_autocomplete_suggestions_alter().
  */
-function workbc_career_trek_uninstall() {
-    // Load the entity type manager service.
-    $entity_type_manager = \Drupal::entityTypeManager();
-
-    // Load and remove paragraph items of type 'section_icons_1_3' before removing its fields and type.
-    $paragraph_items = $entity_type_manager->getStorage('paragraph')->loadByProperties(['type' => 'section_icons_1_3']);
-    foreach ($paragraph_items as $paragraph_item) {
-      $paragraph_item->delete();
+function workbc_career_trek_search_api_autocomplete_suggestions_alter(array &$suggestions, array $alter_params) {
+  if (!$alter_params['query']->hasTag('career_trek_search')) return;
+  foreach ($suggestions as &$suggestion) {
+    $params = $suggestion->getUrl()->getRouteParameters();
+    $media = Media::load($params['media']);
+    if ($media && isset($media->field_noc) && isset($media->field_episode)) {
+      $markup = $suggestion->getLabel() . ' (Episode ' . $media->field_episode->value . ', NOC ' . $media->field_noc->value . ')';
+      $render = array(
+        '#markup' => $markup
+      );
+      $suggestion->setRender($render);
     }
-    if ($paragraph_type = $entity_type_manager->getStorage('paragraphs_type')->load('section_icons_1_3')) {
-      $field_definitions = $entity_type_manager->getStorage('field_config')->loadByProperties(['entity_type' => 'paragraph', 'bundle' => 'section_icons_1_3']);
-      foreach ($field_definitions as $field_definition) {
-        $field_definition->delete();
-      }
-      $paragraph_type->delete();
-    }
-
-    // Load and remove paragraph items of type 'banner_video' before deleting its fields and type.
-    $paragraph_items = $entity_type_manager->getStorage('paragraph')->loadByProperties(['type' => 'banner_video']);
-    foreach ($paragraph_items as $paragraph_item) {
-      $paragraph_item->delete();
-    }
-    // Load the paragraph type 'section_icons_1_3' and remove its fields.
-    if ($paragraph_type = $entity_type_manager->getStorage('paragraphs_type')->load('section_icons_1_3')) {
-      $field_definitions = $entity_type_manager->getStorage('field_config')->loadByProperties(['entity_type' => 'paragraph', 'bundle' => 'section_icons_1_3']);
-      foreach ($field_definitions as $field_definition) {
-        $field_definition->delete();
-      }
-      $paragraph_type->delete();
-    }
-
-    // Load the paragraph type 'banner_video' and delete its fields.
-    if ($paragraph_type = $entity_type_manager->getStorage('paragraphs_type')->load('banner_video')) {
-      $field_storage_definitions = $entity_type_manager->getStorage('field_storage_config')->loadByProperties(['entity_type' => 'paragraph', 'bundle' => 'banner_video']);
-      foreach ($field_storage_definitions as $field_storage_definition) {
-        $field_storage_definition->delete();
-      }
-      $paragraph_type->delete();
-    }
-
-    // Remove views from the website.
-    $views_to_remove = [
-      'banner_video',
-      'career_trek_video_library',
-      'related_careers_videos',
-    ];
-    foreach ($views_to_remove as $view_id) {
-      if ($view = $entity_type_manager->getStorage('view')->load($view_id)) {
-        $view->delete();
-      }
-    }
-
-    // Remove the simple block 'find_resources_for_educators'.
-    if ($block = $entity_type_manager->getStorage('simple_block')->load('find_resources_for_educators')) {
-      $block->delete();
-    }
-
-    // Remove the search API server 'solr_search'.
-    if ($server = $entity_type_manager->getStorage('search_api_server')->load('solr_search')) {
-      $server->delete();
-    }
-
-    // Remove the search API index 'career_profile_index'.
-    if ($index = $entity_type_manager->getStorage('search_api_index')->load('career_profile_index')) {
-      $index->delete();
-    }
+  }
 }
 
 /**
@@ -148,6 +94,19 @@ function workbc_career_trek_uninstall() {
  * - Otherwise, always sort by title (A–Z) when any of the main filters are used.
  */
 function workbc_career_trek_views_query_alter(ViewExecutable $view, $query) {
+  if (in_array('career_trek_search', $query->options['query_tags'] ?? [])) {
+    foreach ($query->where as &$condition_group) {
+      foreach ($condition_group['conditions'] as &$condition) {
+        if (str_contains($condition['field'], 'field_annual_salary_value')) {
+          $max =& $condition['value'][1];
+          if ($max >= $view->filter['field_annual_salary_value']->options['value']['max']) {
+            $max = 1000000;
+          }
+        }
+      }
+    }
+  }
+
   if ($view->id() === 'career_trek_video_library' && $view->current_display === 'block_1') {
     $exposed_input = $view->getExposedInput();
     // List of all relevant filters.

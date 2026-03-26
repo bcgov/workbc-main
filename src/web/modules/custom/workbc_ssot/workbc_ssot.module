@@ -2,7 +2,6 @@
 
 use Drupal\Core\StreamWrapper\StreamWrapperManager;
 use GuzzleHttp\Client;
-use GuzzleHttp\Exception\RequestException;
 use Psr\Http\Message\ResponseInterface;
 use Drupal\Core\Entity\ContentEntityInterface;
 use Drupal\field\Entity\FieldStorageConfig;

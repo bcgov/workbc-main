@@ -1,0 +1,28 @@
+uuid: 76f906fa-18bc-49d7-8f28-b05900329df1
+langcode: en
+status: true
+dependencies:
+  config:
+    - search_api.index.career_trek_index
+    - views.view.career_trek_redux_autocomplete
+  module:
+    - views
+id: career_trek_redux_autocomplete
+label: 'Career Trek Redux Autocomplete'
+index_id: career_trek_index
+suggester_settings:
+  live_results:
+    fields: {  }
+    highlight:
+      enabled: false
+      field: ''
+    suggest_keys: false
+    view_modes: {  }
+suggester_weights: {  }
+suggester_limits: {  }
+search_settings:
+  'views:career_trek_redux_autocomplete':
+    displays:
+      default: true
+      selected: {  }
+options: {  }

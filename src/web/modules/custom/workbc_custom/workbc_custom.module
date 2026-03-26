@@ -744,6 +744,7 @@ function workbc_custom_entity_base_field_info_alter(&$fields, \Drupal\Core\Entit
  * Implements hook_search_api_autocomplete_suggestions_alter().
  */
 function workbc_custom_search_api_autocomplete_suggestions_alter(array &$suggestions, array $alter_params) {
+  if (!$alter_params['query']->hasTag('explore_careers_search')) return;
   foreach ($suggestions as &$suggestion) {
     $params = $suggestion->getUrl()->getRouteParameters();
     $node = \Drupal\node\Entity\Node::load($params['node']);
