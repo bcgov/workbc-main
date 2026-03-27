@@ -1,0 +1,11 @@
+uuid: 7ffedfd2-86f4-400d-8d40-91cb4bdd2f40
+langcode: en
+status: true
+dependencies:
+  module:
+    - media
+id: media_update_metadata
+label: 'Update metadata'
+type: media
+plugin: media_update_metadata
+configuration: {  }

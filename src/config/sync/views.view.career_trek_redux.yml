@@ -432,7 +432,7 @@ display:
           group_type: group
           admin_label: ''
           plugin_id: standard
-          order: ASC
+          order: DESC
           expose:
             label: ''
             field_identifier: ''
@@ -587,13 +587,16 @@ display:
               2: {  }
               3: {  }
       style:
-        type: grid_responsive
+        type: grid
         options:
           grouping: {  }
-          columns: 3
-          cell_min_width: 100
-          grid_gutter: 10
-          alignment: horizontal
+          columns: 1
+          automatic_width: true
+          alignment: vertical
+          row_class_custom: 'col-lg-4 mb-3 switcher-column grid-view career-grid'
+          row_class_default: false
+          col_class_custom: 'row switcher-row'
+          col_class_default: false
       row:
         type: fields
       query:
@@ -626,7 +629,7 @@ display:
           admin_label: ''
           plugin_id: result
           empty: false
-          content: 'Displaying @start - @end of @total'
+          content: 'Showing @end of @total videos'
       footer: {  }
       display_extenders: {  }
     cache_metadata:
@@ -639,14 +642,15 @@ display:
       tags:
         - 'config:field.storage.media.field_episode'
         - 'config:field.storage.media.field_noc'
-  page_1:
-    id: page_1
-    display_title: Page
-    display_plugin: page
-    position: 1
+  block_1:
+    id: block_1
+    display_title: 'Latest Career Videos'
+    display_plugin: block
+    position: 2
     display_options:
+      display_description: ''
+      exposed_block: false
       display_extenders: {  }
-      path: career-trek-redux
     cache_metadata:
       max-age: -1
       contexts:

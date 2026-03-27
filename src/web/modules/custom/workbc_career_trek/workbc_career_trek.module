@@ -4,7 +4,7 @@ use Drupal\views\ViewExecutable;
 use Drupal\media\Entity\Media;
 
 /**
- * Implements hook_views_pre_view().
+ * Implements hook_preprocess_views_view().
  */
 function workbc_career_trek_preprocess_views_view(&$variables) {
   // Check if it's the view you want to target
@@ -95,15 +95,27 @@ function workbc_career_trek_search_api_autocomplete_suggestions_alter(array &$su
  */
 function workbc_career_trek_views_query_alter(ViewExecutable $view, $query) {
   if (in_array('career_trek_search', $query->options['query_tags'] ?? [])) {
+    // Adjust the salary max range to "infinite" if it's set to the upper range.
+    $salary = false;
     foreach ($query->where as &$condition_group) {
       foreach ($condition_group['conditions'] as &$condition) {
         if (str_contains($condition['field'], 'field_annual_salary_value')) {
+          $salary = $condition['value'][0] !== $view->filter['field_annual_salary_value']->options['value']['min'] ||
+                    $condition['value'][1] !== $view->filter['field_annual_salary_value']->options['value']['max'];
+
           $max =& $condition['value'][1];
           if ($max >= $view->filter['field_annual_salary_value']->options['value']['max']) {
-            $max = 1000000;
+            $max = PHP_INT_MAX;
           }
         }
       }
+    }
+
+    // Remove the salary sort if it's not used in the filters.
+    if (!$salary) {
+      $query->orderby = array_filter($query->orderby, function ($sort) {
+        return !str_starts_with($sort['field'], 'field_career_videos_media_field_data__node__field_annual_sal');
+      });
     }
   }
 

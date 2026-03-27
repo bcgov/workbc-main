@@ -245,7 +245,8 @@
                 "NumericFilter warning fix": "patches/drupal/core/core-10.3-3418238.patch",
                 "Views exposed form AJAX callback": "patches/drupal/core/core-10.3-2842525.patch",
                 "getGlobalPreprocess() Return value must be of type array": "patches/drupal/core/drupal-prevent-function-null-return-3564510-2.patch",
-                "Views reverse relationships automatically for entity base fields": "patches/drupal/core/drupal-views-reverse-reference-2706431-91.patch"
+                "Views reverse relationships automatically for entity base fields": "patches/drupal/core/drupal-views-reverse-reference-2706431-91.patch",
+                "Media refresh metadata": "patches/drupal/core/drupal-refresh-media-metadata-2983456-168-11.x.patch"
             },
             "drupal/backup_migrate": {
                 "PostgreSQL support": "patches/drupal/backup_migrate/0003-postgresql-support.patch",
