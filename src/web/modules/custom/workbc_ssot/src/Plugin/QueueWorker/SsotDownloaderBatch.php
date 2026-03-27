@@ -80,5 +80,17 @@ class SsotDownloaderBatch extends QueueWorkerBase implements ContainerFactoryPlu
     $career->setRevisionCreationTime(time());
     $career->setRevisionUserId(1);
     $career->save();
+
+    // Update local date for updated datasets when we're down to the last item.
+    if (\Drupal::queue('ssot_downloader_batch')->numberOfItems() == 1) {
+      $local_dates = array_merge(array_combine(
+        array_keys(SSOT_DATASETS),
+        array_fill(0, count(SSOT_DATASETS), null)
+      ), \Drupal::state()->get('workbc.ssot_dates', []));
+      foreach ($data['datasets'] as $dataset) {
+        $local_dates[$dataset['endpoint']] = $dataset['date'];
+      }
+      \Drupal::state()->set('workbc.ssot_dates', $local_dates);
+    }
   }
 }
