@@ -223,7 +223,7 @@ function workbc_custom_views_pre_render(ViewExecutable $view) {
  */
 function workbc_custom_views_query_alter(ViewExecutable $view, QueryPluginBase $query) {
   if (in_array($view->id(), ['explore_careers', 'high_opportunity_occupations_2'])) {
-    foreach ($query->where as &$condition_group) {
+    foreach ($query->conditions() as &$condition_group) {
       foreach ($condition_group['conditions'] as &$condition) {
         // Filter out zero job openings when Region is not BC.
         if ($condition['field'] == 'node__field_region_openings.delta' && $condition['value'] != REGION_BRITISH_COLUMBIA_ID) {

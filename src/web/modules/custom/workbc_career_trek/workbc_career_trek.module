@@ -97,7 +97,7 @@ function workbc_career_trek_views_query_alter(ViewExecutable $view, $query) {
   if (in_array('career_trek_search', $query->options['query_tags'] ?? [])) {
     // Adjust the salary max range to "infinite" if it's set to the upper range.
     $salary = false;
-    foreach ($query->where as &$condition_group) {
+    foreach ($query->conditions() as &$condition_group) {
       foreach ($condition_group['conditions'] as &$condition) {
         if (str_contains($condition['field'], 'field_annual_salary_value')) {
           $salary = $condition['value'][0] !== $view->filter['field_annual_salary_value']->options['value']['min'] ||
