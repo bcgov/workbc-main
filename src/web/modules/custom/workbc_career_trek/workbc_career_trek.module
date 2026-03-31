@@ -240,7 +240,18 @@ function workbc_career_trek_theme($existing, $type, $theme, $path) {
         'noc' => '',
         'find_job_url'=>'',
       ],
-    ]
+    ],
+  'career_trek_video_detail' => [
+      'variables' => [
+        'noc' => NULL,
+        'episode' => NULL,
+        'node' => NULL,
+        'video' => NULL,
+        'content' => NULL,
+        'view_mode' => NULL
+      ],
+      'template' => 'career-trek-video-detail',
+    ],
   ];
 }
 

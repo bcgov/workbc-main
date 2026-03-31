@@ -13,3 +13,11 @@ workbc_career_trek.suggestions:
     _title: 'Search Autocomplete Suggestions'
   requirements:
     _permission: 'access content'
+
+workbc_career_trek.content:
+  path: '/plan-career/career-trek-videos/{noc}/{episode}'
+  defaults:
+    _controller: '\Drupal\workbc_career_trek\Controller\CareerTrekVideoController::content'
+    _title: 'Career Trek Video Display'
+  requirements:
+    _permission: 'access content'
