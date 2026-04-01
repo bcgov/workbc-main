@@ -64,7 +64,7 @@ const SSOT_DATASETS = [
   'regional_top_occupations' => [],
   'skills' => [
     'noc_key' => 'noc',
-    'fields' => 'noc,skills_competencies,importance'
+    'fields' => 'noc,skills_competencies,importance,proficiency'
   ],
   'titles' => [
     'noc_key' => 'noc',

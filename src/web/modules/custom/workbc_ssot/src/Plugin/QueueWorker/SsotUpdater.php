@@ -112,13 +112,28 @@ trait SsotUpdater {
   }
 
   public function update_skills($endpoint, $entries, &$career) {
+    // Cache the skills vocabulary.
     if (!isset($this->skills)) {
       $this->skills = \Drupal::entityTypeManager()->getStorage('taxonomy_term')->loadTree('skills');
     }
+
+    // Sort and limit the incoming skills by importance and proficiency.
+    $filteredSkills = array_filter($entries, function($entry) {
+      return intval($entry['importance']) > 0;
+    });
+    array_multisort(
+      array_column($filteredSkills, 'importance'), SORT_DESC,
+      array_column($filteredSkills, 'proficiency'), SORT_DESC,
+      array_column($filteredSkills, 'skills_competencies'), SORT_ASC,
+      $filteredSkills
+    );
+    $filteredSkills = array_slice($filteredSkills, 0, 10);
+
+    // Match the filtered skills to the vocabulary.
     $skills = [];
-    foreach ($entries as $entry) {
+    foreach ($filteredSkills as $entry) {
       $term = array_find($this->skills, function ($v) use ($entry) {
-        return strcasecmp($v->name, $entry['skills_competencies']) === 0 && !empty($entry['importance']);
+        return strcasecmp($v->name, $entry['skills_competencies']) === 0;
       });
       if ($term) {
         $skills[] = ['target_id' => $term->tid];
