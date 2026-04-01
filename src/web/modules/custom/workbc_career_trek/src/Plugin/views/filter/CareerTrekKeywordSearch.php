@@ -14,7 +14,6 @@ use Drupal\search_api_solr\SearchApiSolrException;
  * @ViewsFilter("workbc_media_keyword_search")
  */
 class CareerTrekKeywordSearch extends StringFilter {
-
   /**
    * {@inheritdoc}
    */

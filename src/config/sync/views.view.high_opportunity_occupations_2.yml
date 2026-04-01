@@ -683,7 +683,7 @@ display:
             operator_list: {  }
             identifier: field_teer_value
             required: false
-            remember: true
+            remember: false
             multiple: false
             remember_roles:
               anonymous: anonymous
@@ -724,7 +724,7 @@ display:
             operator_list: {  }
             identifier: delta
             required: true
-            remember: true
+            remember: false
             multiple: false
             remember_roles:
               anonymous: anonymous
@@ -826,7 +826,7 @@ display:
             optional: true
             widget: select
             multiple: false
-            remember: true
+            remember: false
             default_group: All
             default_group_multiple: {  }
             group_items:
@@ -860,11 +860,11 @@ display:
                   value: ''
               5:
                 title: '$50.00+ per hour'
-                operator: '>='
+                operator: between
                 value:
-                  min: ''
-                  max: ''
-                  value: '50'
+                  min: '50'
+                  max: '2500'
+                  value: ''
       filter_groups:
         operator: AND
         groups:

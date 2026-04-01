@@ -36,6 +36,16 @@
     color: $blue;
   }
 
+  button:focus-visible {
+    outline: 2px solid;
+    border-radius: 3px;
+    transition-property: none;
+    outline-color: -webkit-focus-ring-color;
+    @supports (-moz-appearance:none) {
+      outline-color: Highlight;
+    }
+  }
+
   .tab-content {
     height: 485px;
   }
@@ -59,6 +69,10 @@
     padding-right: 25px;
     max-height: 400px;
 
+    .accordion-button {
+      padding: 0px;
+    }
+
     .accordion-button:not(.collapsed) {
       background-color: #ffffff;
       box-shadow: none;
@@ -75,6 +89,11 @@
       .accordion-header-link {
         width: 100%;
         text-decoration: underline;
+        margin-left: 20px;
+      }
+
+      span {
+        padding: 16px 20px;
       }
     }
   }
