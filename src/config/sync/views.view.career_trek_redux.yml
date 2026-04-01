@@ -937,7 +937,7 @@ display:
           entity_type: media
           plugin_id: entity_reverse
           required: true
-      use_ajax: false
+      use_ajax: true
       header:
         result:
           id: result
@@ -947,8 +947,8 @@ display:
           group_type: group
           admin_label: ''
           plugin_id: result
-          empty: false
-          content: 'Showing @end of @total videos'
+          empty: true
+          content: '<div class="result-summary">Showing <span class="update-result">@end</span> of @total videos</div>'
       footer: {  }
       display_extenders: {  }
     cache_metadata:
