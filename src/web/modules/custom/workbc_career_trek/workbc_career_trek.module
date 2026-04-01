@@ -94,12 +94,24 @@ function workbc_career_trek_search_api_autocomplete_suggestions_alter(array &$su
  * - Otherwise, always sort by title (A–Z) when any of the main filters are used.
  */
 function workbc_career_trek_views_query_alter(ViewExecutable $view, $query) {
-  if (in_array('career_trek_search', $query->options['query_tags'] ?? [])) {
-    // Adjust the salary max range to "infinite" if it's set to the upper range.
+  if ($view->id() === 'career_trek_redux') {
+    // Preload the EPBC/FYP categories.
+    $epbc_tree = array_reduce(\Drupal::entityTypeManager()->getStorage('taxonomy_term')->loadTree('epbc_categories'),
+    function ($epbc_tree, $term) {
+      if ($term->depth > 0) {
+        $parent_tid = reset($term->parents);
+        if (!array_key_exists($parent_tid, $epbc_tree)) {
+          $epbc_tree[$parent_tid] = [];
+        }
+        $epbc_tree[$parent_tid][] = $term->tid;
+      }
+      return $epbc_tree;
+    }, []);
     $salary = false;
-    foreach ($query->conditions() as &$condition_group) {
+    foreach ($query->where as &$condition_group) {
       foreach ($condition_group['conditions'] as &$condition) {
-        if (str_contains($condition['field'], 'field_annual_salary_value')) {
+        // Adjust the salary max range to "infinite" if it's set to the upper range.
+        if (is_array($condition) && str_contains($condition['field'], 'field_annual_salary_value')) {
           $salary = $condition['value'][0] !== $view->filter['field_annual_salary_value']->options['value']['min'] ||
                     $condition['value'][1] !== $view->filter['field_annual_salary_value']->options['value']['max'];
 
@@ -107,6 +119,13 @@ function workbc_career_trek_views_query_alter(ViewExecutable $view, $query) {
           if ($max >= $view->filter['field_annual_salary_value']->options['value']['max']) {
             $max = PHP_INT_MAX;
           }
+        }
+
+        // Adjust the EPBC to child categories.
+        if (is_array($condition) && str_contains($condition['field'], 'field_epbc_categories_target_id')) {
+          $condition['field'] = 'field_career_videos_media_field_data__node__field_epbc_categories.field_epbc_categories_target_id';
+          $condition['operator'] = 'IN';
+          $condition['value'] = $epbc_tree[reset($condition['value'])];
         }
       }
     }
