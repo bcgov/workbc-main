@@ -22,6 +22,7 @@ class CareerTrekVideoController extends ControllerBase {
     $query->condition('status', 1);
     $result = $query->accessCheck(false)->execute();
     $node = Node::load($result[array_key_first($result)]);
+    $node->episode_number = $episode;
 
     $view_builder = \Drupal::entityTypeManager()->getViewBuilder('node');
     $render_array = $view_builder->view($node, 'full_career_trek_videos');
