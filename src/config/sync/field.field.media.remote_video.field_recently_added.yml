@@ -9,8 +9,8 @@ id: media.remote_video.field_recently_added
 field_name: field_recently_added
 entity_type: media
 bundle: remote_video
-label: '[DEPRECATED] Recently Added'
-description: ''
+label: Featured
+description: 'Show this video in the Career Trek Featured section.'
 required: false
 translatable: false
 default_value:

@@ -116,16 +116,6 @@ function workbc_custom_theme($existing, $type, $theme, $path) {
  */
 function workbc_custom_views_data_alter(array &$data) {
 
-  $data['node_field_data']['workbc_nodes_granular_dates'] = [
-    'title' => t('WorkBC node granular date filter'),
-    'filter' => [
-      'title' => t('WorkBC node granular date filter'),
-      'help' => t('WorkBC node granular date filter.'),
-      'field' => 'title',
-      'id' => 'workbc_node_granular_date_filter',
-    ],
-  ];
-
   $data['node__field_region_openings']['delta'] = [
     'title' => t('WorkBC Region Openings delta filter'),
     'group' => 'Content',
@@ -134,19 +124,6 @@ function workbc_custom_views_data_alter(array &$data) {
       'help' => t('Filter nodes by Region Openings delta.'),
       'field' => 'delta',
       'id' => 'workbc_node_region_delta_filter',
-    ],
-  ];
-
-  $data['node__field_skills_2']['field_skills_2_target_id'] = [
-    'title' => t('WorkBC Top 6 Skills filter'),
-    'group' => 'Content',
-    'filter' => [
-      'title' => 'Skills (Top Skills filter)',
-      'id' => 'workbc_taxonomy_index_tid_filter',
-      'hierarchy table' => 'taxonomy_term__parent',
-      'numeric' => TRUE,
-      'skip base' => 'taxonomy_term_field_data',
-      'allow empty' => TRUE,
     ],
   ];
 

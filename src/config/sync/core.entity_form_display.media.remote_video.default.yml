@@ -43,14 +43,14 @@ content:
     third_party_settings: {  }
   field_episode:
     type: number
-    weight: 26
+    weight: 9
     region: content
     settings:
       placeholder: ''
     third_party_settings: {  }
   field_location:
     type: string_textfield
-    weight: 27
+    weight: 10
     region: content
     settings:
       size: 60
@@ -66,15 +66,22 @@ content:
     third_party_settings: {  }
   field_noc:
     type: string_textfield
-    weight: 29
+    weight: 12
     region: content
     settings:
       size: 60
       placeholder: ''
     third_party_settings: {  }
+  field_recently_added:
+    type: boolean_checkbox
+    weight: 7
+    region: content
+    settings:
+      display_label: true
+    third_party_settings: {  }
   field_region:
     type: string_textfield
-    weight: 28
+    weight: 11
     region: content
     settings:
       size: 60
@@ -103,7 +110,7 @@ content:
     third_party_settings: {  }
   status:
     type: boolean_checkbox
-    weight: 7
+    weight: 8
     region: content
     settings:
       display_label: true
@@ -123,5 +130,4 @@ hidden:
   field_category: true
   field_duration: true
   field_exclude_from_video_page: true
-  field_recently_added: true
   field_weight: true
