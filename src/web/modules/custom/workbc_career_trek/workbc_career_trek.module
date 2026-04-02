@@ -183,24 +183,6 @@ function workbc_career_trek_views_query_alter(ViewExecutable $view, $query) {
   }
 }
 
-/**
- * Implements hook_node_view().
- *
- * We use hook_entity_view instead of hook_entity_load as we only need to load data from SSoT
- * for the node that is being displayed, not for nodes that are being referenced.
- */
-function workbc_career_trek_node_view(array &$build, \Drupal\Core\Entity\EntityInterface $entity, \Drupal\Core\Entity\Display\EntityViewDisplayInterface $display, $view_mode) {
-
-  if ($view_mode === "full_career_trek_videos") {
-    if($entity->bundle() == "career_profile") {
-      $current_uri = \Drupal::request()->getRequestUri();
-      $episode_number = explode('/', $current_uri);
-      $entity->episode_number = end($episode_number);
-      $entity->ssot_data = ssotFullCareerProfile($entity->get("field_noc")->getString());
-    }
-  }
-}
-
 function ssotFullCareerProfile($noc, $dataset = NULL) {
 
   $data = array();
@@ -259,47 +241,20 @@ function workbc_career_trek_theme($existing, $type, $theme, $path) {
         'noc' => '',
         'find_job_url'=>'',
       ],
-    ]
+    ],
+  'career_trek_video_detail' => [
+      'variables' => [
+        'noc' => NULL,
+        'episode' => NULL,
+        'node' => NULL,
+        'content' => NULL,
+        'view_mode' => NULL
+      ],
+      'template' => 'career-trek-video-detail',
+    ],
   ];
 }
 
-function workbc_career_trek_preprocess_breadcrumb(&$variables) {
-  $route_match = \Drupal::service('current_route_match');
-  $route_name = $route_match->getRouteName();
-
-  // Only for the specific view route.
-  if ($route_name === 'view.career_trek_node.page_1') {
-    $arg0 = $route_match->getRawParameter('arg_0');
-    $arg1 = $route_match->getRawParameter('arg_1');
-    $breadcrumb = &$variables['breadcrumb'];
-
-    // Load the view and get the result for the current display.
-    $view = \Drupal\views\Views::getView('career_trek_node');
-    if ($view && isset($arg0)) {
-      $view->setDisplay('page_1');
-      $view->setArguments([$arg0, $arg1]);
-      $view->execute();
-
-      // Try to get the title field value from the result.
-      $title = '';
-      if (!empty($view->result)) {
-
-        // Try to get the title field from the first result row.
-        $row = $view->result[0];
-        // Try to get the field value, fallback to arg0 if not found.
-        if (isset($row->{'episode_title|episode_title'}) && is_array($row->{'episode_title|episode_title'}) && !empty($row->{'episode_title|episode_title'})) {
-          // The value is usually in the first element of the array.
-          $title = $row->{'episode_title|episode_title'}[0];
-        }
-      }
-
-      // Add the title to the last breadcrumb item.
-      if (!empty($breadcrumb)) {
-        $breadcrumb[count($breadcrumb) - 1]['text'] = $title;
-      }
-    }
-  }
-}
 
 /**
  * Implements hook_form_FORM_ID_alter().
