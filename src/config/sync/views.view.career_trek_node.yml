@@ -1,13 +1,13 @@
 uuid: 418477aa-554b-460e-96f6-00ac8ea9bbed
 langcode: en
-status: true
+status: false
 dependencies:
   config:
     - search_api.index.career_profile_index_sub
   module:
     - search_api
 id: career_trek_node
-label: 'Career Trek Node'
+label: '[DEPRECATED] Career Trek Node'
 module: views
 description: ''
 tag: ''

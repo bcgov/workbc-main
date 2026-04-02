@@ -242,7 +242,7 @@
               </div>
               {% if viewmodel['tab_sections']['education']['skills_list']['#markup'] is not empty %}
                 <div class="static-load-more-button-container">
-                  <a href="{{ path('entity.node.canonical', {'node': node.id}) }}" class="btn btn-secondary">View career profile</a>
+                  <a href="{{ path('entity.node.canonical', {'node': node.id}) }}" class="btn btn-secondary">{{ career_trek_config('link_to_career_profile_text') }}</a>
                 </div>
               {% else %}
                 <div class="career-skills-not-available">Data not available</div>
