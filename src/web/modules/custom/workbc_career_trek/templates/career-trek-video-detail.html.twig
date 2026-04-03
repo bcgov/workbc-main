@@ -80,6 +80,13 @@
   ]
 %}
 
+{% set epbc_categories = [] %}
+{% for category in content.field_epbc_categories %}
+  {% if category['#plain_text'] | length %}
+    {% set epbc_categories = epbc_categories | merge([category['#plain_text']]) %}
+  {% endif %}
+{% endfor %}
+
 {% set viewmodel = {
   title: label,
   top_statistics: {
@@ -254,7 +261,7 @@
           </div>
         </div>
         <div class="col-lg-4">
-          {{ drupal_view('related_careers_videos', 'block_1', content.extra_field_occupational_categories|render|striptags|trim, viewmodel['hero']['noc']|render|striptags|trim) }}
+          {{ drupal_view('career_trek_redux', 'block_3', epbc_categories.0, '000') }}
         </div>
       </div>
     </div>

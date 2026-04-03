@@ -104,6 +104,7 @@ function workbc_career_trek_views_query_alter(ViewExecutable $view, $query) {
           $epbc_tree[$parent_tid] = [];
         }
         $epbc_tree[$parent_tid][] = $term->tid;
+        $epbc_tree[$term->tid] = $parent_tid;
       }
       return $epbc_tree;
     }, []);
@@ -125,7 +126,11 @@ function workbc_career_trek_views_query_alter(ViewExecutable $view, $query) {
         if (is_array($condition) && str_contains($condition['field'], 'field_epbc_categories_target_id')) {
           $condition['field'] = 'field_career_videos_media_field_data__node__field_epbc_categories.field_epbc_categories_target_id';
           $condition['operator'] = 'IN';
-          $condition['value'] = $epbc_tree[reset($condition['value'])];
+          // If the incoming category is a parent, get all its children.
+          // If it's a child, get the parent first then all its children.
+          $value = reset($condition['value']);
+          if (!is_array($epbc_tree[$value])) $value = $epbc_tree[$value];
+          $condition['value'] = $epbc_tree[$value];
         }
       }
     }
