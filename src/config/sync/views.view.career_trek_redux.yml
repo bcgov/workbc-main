@@ -47,7 +47,7 @@ display:
     display_plugin: default
     position: 0
     display_options:
-      title: 'Career Trek Redux'
+      title: 'Career Trek Videos'
       fields:
         thumbnail__target_id:
           id: thumbnail__target_id

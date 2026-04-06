@@ -712,7 +712,7 @@ function ssotGetPreviousMonthYear($currentMonth, $currentYear) {
 /**
  * Get canonical TEER values.
  */
-function ssotTEERValues(FieldStorageConfig $definition, ContentEntityInterface $entity = NULL, $cacheable) {
+function ssotTEERValues() {
   return [
     0 => 'Management',
     1 => 'University degree',

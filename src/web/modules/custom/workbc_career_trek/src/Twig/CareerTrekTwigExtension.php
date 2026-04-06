@@ -34,7 +34,7 @@ class CareerTrekTwigExtension extends AbstractExtension {
   public function getFunctions() {
     return [
       new TwigFunction('career_trek_config', [$this, 'getCareerTrekConfig']),
-      new TwigFunction('render_career_trek_job_posting', [$this, 'getCareerTrekJobPosting']),
+      new TwigFunction('career_trek_job_posting', [$this, 'getCareerTrekJobPosting']),
     ];
   }
 
@@ -54,7 +54,7 @@ class CareerTrekTwigExtension extends AbstractExtension {
         return $renderer->render($build);
       }
     }
-    return '';
+    return NULL;
   }
 
   /**

@@ -9,52 +9,44 @@ use Drupal\media\Entity\Media;
 function workbc_career_trek_preprocess_views_view(&$variables) {
   // Check if it's the view you want to target
   $view = $variables['view'];
-  if ($view->id() == 'career_trek_video_library' && $view->current_display == 'block_1') {
+  if ($view->id() == 'career_trek_redux' && $view->current_display == 'block_1') {
     $values = [];
-    $filters = $view->display_handler->getOption('filters');
-
     if ($exposed = $view->getExposedInput()) {
+      $filters = $view->display_handler->getOption('filters');
       foreach ($exposed as $key => $expose) {
-        if ($key == "skills") {
-          foreach($expose as $row) {
+        if ($key === "field_skills_2_target_id") {
+          foreach ($expose as $row) {
             $term = Term::load($row);
             if ($term && !empty($term->getName())) {
               $values[] = $term->getName();
             }
           }
-        } elseif ($key == "occupational_category_api_field") {
-          foreach($expose as $exp) {
-            $title = $filters['occupational_category_api_field']['group_info']['group_items'][$exp]['title'] ?? '';
-            if (!empty($title)) {
-              $values[] = $title;
-            }
-          }
-
         }
-         elseif ($key == "minimum_education_all") {
-          $title = $filters['minimum_education']['group_info']['group_items'][$expose]['title'] ?? '';
+        else if ($key === "field_epbc_categories_target_id") {
+          if ($expose !== 'All') foreach ((array)$expose as $row) {
+            $term = Term::load($row);
+            if ($term && !empty($term->getName())) {
+              $values[] = $term->getName();
+            }
+          }
+        }
+        else if ($key === "field_teer_value") {
+          if ($expose !== 'All') {
+            $values[] = ssotTEERValues()[$expose];
+          }
+        }
+        else if ($key === "field_region_value") {
+          $title = $filters['field_region_value']['group_info']['group_items'][$expose]['title'] ?? '';
           if (!empty($title)) {
             $values[] = $title;
           }
-        } elseif ($key == "regions") {
-          $title = $filters['region_api_field']['group_info']['group_items'][$expose]['title'] ?? '';
-          if (!empty($title)) {
-            $values[] = $title;
-          }
-        } elseif ($key == "annual_salary") {
-
-          if(isset($expose['value']) && !empty($expose['value']) && $exposed['annual_salary_op'] != "between") {
-            $min = $expose['value'];
-            $max = 140000 .  "+";
-            if (!empty($min) || !empty($max)) {
-              $values[] = "Salary $" . $min . " - $" . $max;
-            }
-          }else{
-            $min = $expose['min'] ?? '';
-            $max = $expose['max'] ?? '';
-            if (!empty($min) || !empty($max)) {
-              $values[] = "Salary $" . $min . " - $" . $max;
-            }
+        }
+        else if ($key === "salary") {
+          $min = $expose['min'] ?? '';
+          $max = $expose['max'] ?? '';
+          if (!empty($min) || !empty($max)) {
+            if ($max == '140000') $max .= '+';
+            $values[] = "Salary $" . $min . " - $" . $max;
           }
         } else {
           if (!empty($expose) && $key != "reset" && $key != "annual_salary_op") {
@@ -142,76 +134,6 @@ function workbc_career_trek_views_query_alter(ViewExecutable $view, $query) {
       });
     }
   }
-
-  if ($view->id() === 'career_trek_video_library' && $view->current_display === 'block_1') {
-    $exposed_input = $view->getExposedInput();
-    // List of all relevant filters.
-    $filters = [
-      'minimum_education_all',
-      'annual_salary',
-      'regions',
-      'skills',
-      'occupational_category_api_field',
-      'search_api_fulltext',
-    ];
-    // Check if any of the filters are present and non-empty.
-    $any_filter_used = FALSE;
-    foreach ($filters as $filter) {
-      if (!empty($exposed_input[$filter])) {
-        $any_filter_used = TRUE;
-        break;
-      }
-    }
-    if ($any_filter_used) {
-      // Remove default sort by episode_num if present.
-      // if (method_exists($query, 'getSort')) {
-        $sort = &$query->getSort();
-        unset($sort['episode_num']);
-      // } elseif (isset($query->orderby)) {
-      //   // Fallback for Views SQL query object.
-      //   foreach ($query->orderby as $k => $order) {
-      //     if (isset($order['field']) && $order['field'] === 'episode_num') {
-      //       unset($query->orderby[$k]);
-      //     }
-      //   }
-      // }
-      // If salary filter is used, sort by salary then title.
-      if (!empty(array_filter($exposed_input['annual_salary']))) {
-        $query->sort('annual_salary', 'ASC');
-        $query->sort('episode_title', 'ASC');
-      }
-      // Otherwise, always sort by title (A–Z).
-      else {
-        $query->sort('episode_title', 'ASC');
-      }
-    }
-  }
-}
-
-function ssotFullCareerProfile($noc, $dataset = NULL) {
-
-  $data = array();
-
-  if (empty($dataset) || $dataset === 'wages') $data['wages'] = querySSoT('wages?noc=eq.' . $noc)[0];
-  if (empty($dataset) || $dataset === 'career_provincial') $data['career_provincial'] = querySSoT('career_provincial?noc=eq.' . $noc)[0];
-  if (empty($dataset) || $dataset === 'career_regional') $data['career_regional'] = querySSoT('career_regional?noc=eq.' . $noc)[0];
-  if (empty($dataset) || $dataset === 'census') $data['census'] = querySSoT('census?noc=eq.' . $noc)[0];
-  if (empty($dataset) || $dataset === 'education') $data['education'] = querySSoT('education?noc=eq.' . $noc)[0];
-  if (empty($dataset) || $dataset === 'skills') $data['skills'] = querySSoT('skills?noc=eq.' . $noc);
-  if (empty($dataset) || $dataset === 'high_opportunity_occupations') $data['high_opportunity_occupations'] = querySSoT('high_opportunity_occupations?noc=eq.' . $noc);
-  if (empty($dataset) || $dataset === 'occupational_interests') $data['occupational_interests'] = querySSoT('occupational_interests?noc=eq.' . $noc);
-  if (empty($dataset) || $dataset === 'titles') $data['titles'] = querySSoT('titles?noc=eq.' . $noc);
-  if (empty($dataset) || $dataset === 'career_trek') $data['career_trek'] = querySSoT('career_trek?noc_2021=eq.' . $noc);
-  if (empty($dataset) || $dataset === 'occupational_category') $data['occupational_category'] = querySSoT('fyp_categories_interests_nocs?noc_2021=eq.' . $noc);
-  if (empty($dataset) || $dataset === 'openings_careers') $opening_careers = querySSoT('openings_careers?noc=eq.' . $noc);
-  if (!empty($opening_careers)) {
-    $data['openings_careers'] = $opening_careers[0];
-  }
-  if (empty($dataset) || $dataset === 'industries') $data['industries'] = array_column(querySSoT('industries'), NULL, 'key');
-  if (empty($dataset) || $dataset === 'sources') $data['sources'] = ssotSources();
-  if (empty($dataset) || $dataset === 'schema') $data['schema'] = ssotSchema();
-
-  return $data;
 }
 
 /**

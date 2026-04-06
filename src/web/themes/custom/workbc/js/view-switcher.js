@@ -57,13 +57,13 @@
 
       $(document).ajaxComplete(function() {
         // applyViewMode();
-        $('.plan-careercareer-trek-redux .view-id-career_trek_video_library.view-display-id-block_1 .workbc-card .workbc-card-container .workbc-card-content .workbc-card-title a, .view-id-related_careers_videos.view-display-id-block_1 .related-carrer .workbc-card-content .title a', context).each(function() {
+        $('.plan-careercareer-trek-videos .view-id-career_trek_redux.view-display-id-block_1 .workbc-card .workbc-card-container .workbc-card-content .workbc-card-title a, .view-id-related_careers_videos.view-display-id-block_1 .related-carrer .workbc-card-content .title a', context).each(function() {
           var text = $(this).text();
           $(this).text(toSentenceCase(text.trim()));
         });
-        var totalCount = $('.plan-careercareer-trek-redux .view-content.result-view .switcher-row div.career-grid').length;
+        var totalCount = $('.plan-careercareer-trek-videos .view-content.result-view .switcher-row div.career-grid').length;
         // Update the .update-result text
-        $('.plan-careercareer-trek-redux .result-summary .update-result').text(totalCount);
+        $('.plan-careercareer-trek-videos .result-summary .update-result').text(totalCount);
       });
 
       once('viewSwitcher', '.career-trek-sidebar .responsive-filter-video-btn', context).forEach(function (element) {
@@ -78,7 +78,7 @@
           };
       });
       const checkCardImages = function(context) {
-        once('workbcCardImageCheck', '.plan-careercareer-trek-redux .view-career-trek-video-library .workbc-card img', context).forEach(function(element) {
+        once('workbcCardImageCheck', '.plan-careercareer-trek-videos .view-career-trek-video-library .workbc-card img', context).forEach(function(element) {
           const img = new Image();
           img.src = element.src;
           img.onload = function() {
@@ -97,7 +97,7 @@
         return str.charAt(0).toUpperCase() + str.slice(1).toLowerCase();
       };
 
-      $('.plan-careercareer-trek-redux .view-id-career_trek_video_library.view-display-id-block_1 .workbc-card .workbc-card-container .workbc-card-content .workbc-card-title a, .view-id-related_careers_videos.view-display-id-block_1 .related-carrer .workbc-card-content .title a, .view-career-trek-node .career-title span', context).each(function() {
+      $('.plan-careercareer-trek-videos .view-id-career_trek_redux.view-display-id-block_1 .workbc-card .workbc-card-container .workbc-card-content .workbc-card-title a, .view-id-related_careers_videos.view-display-id-block_1 .related-carrer .workbc-card-content .title a, .view-career-trek-node .career-title span', context).each(function() {
         var text = $(this).text();
         $(this).text(toSentenceCase(text.trim()));
       });
