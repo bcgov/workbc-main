@@ -15,7 +15,7 @@ dependencies:
 id: career_trek_redux_autocomplete
 label: 'Career Trek Redux Autocomplete'
 module: views
-description: 'View used to provide predictive results (autocomplete) to the Career Trek Redux search.'
+description: 'View used to provide predictive results (autocomplete) to the Career Trek Videos search.'
 tag: ''
 base_table: search_api_index_career_trek_index
 base_field: search_api_id

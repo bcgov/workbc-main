@@ -10,7 +10,7 @@ dependencies:
 id: search_career_profiles
 label: '[DEPRECATED] Search: Career Profiles'
 module: views
-description: ''
+description: 'DEPRECATED: This view has been replaced with explore_careers.'
 tag: ''
 base_table: search_api_index_career_profile_index
 base_field: search_api_id
