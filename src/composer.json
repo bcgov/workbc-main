@@ -284,9 +284,6 @@
             },
             "drupal/published_corrected_date": {
                 "Drupal 11 compatibility": "patches/drupal/published_corrected_date/published_corrected_date.2.0.2.rector.patch"
-            },
-            "drupal/text_resize": {
-                "Drupal 11 compatibility": "patches/drupal/text_resize/text_resize.8.x-1.3.rector.patch"
             }
         },
         "drupal-lenient": {
