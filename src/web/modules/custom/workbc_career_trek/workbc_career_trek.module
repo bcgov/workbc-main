@@ -44,8 +44,14 @@ function workbc_career_trek_preprocess_views_view(&$variables) {
         else if ($key === "salary") {
           $min = $expose['min'] ?? '';
           $max = $expose['max'] ?? '';
-          if (!empty($min) || !empty($max)) {
-            if ($max == '140000') $max .= '+';
+          if (
+            (!empty($min) || !empty($max)) &&
+            (
+              $min > $view->filter['field_annual_salary_value']->options['value']['min'] ||
+              $max < $view->filter['field_annual_salary_value']->options['value']['max']
+            )
+          ) {
+            if ($max >= $view->filter['field_annual_salary_value']->options['value']['max']) $max .= '+';
             $values[] = "Salary $" . $min . " - $" . $max;
           }
         } else {
@@ -137,18 +143,6 @@ function workbc_career_trek_views_query_alter(ViewExecutable $view, $query) {
 }
 
 /**
- * Implements hook_views_post_render().
- */
-function workbc_career_trek_views_post_render($view) {
-  /** @var \Drupal\views\ViewExecutable $view */
-  if ($view->id() === 'career_trek_videos' && isset($view->args[0])) {
-      $title = $view->args[0];
-      $title = (string) t('@title', ['@title' => $title]);
-      $view->setTitle($title);
-  }
-}
-
-/**
 *{@inheritdoc}
 */
 function workbc_career_trek_theme($existing, $type, $theme, $path) {
@@ -188,7 +182,10 @@ function workbc_career_trek_theme($existing, $type, $theme, $path) {
  * Alter the exposed filter form for the Career Trek Video Library block.
  */
 function workbc_career_trek_form_views_exposed_form_alter(&$form, \Drupal\Core\Form\FormStateInterface $form_state, $form_id) {
-  if($form['#id'] == "views-exposed-form-career-trek-video-library-block-1") {
+  return;
+  d('hello');
+  if ($form['#id'] === 'views-exposed-form-career-trek-redux-block-1') {
+    d($form);
     $clone = $form['occupational_category_api_field'];
     $clone['#group'] = "skills_collapsible";
     $terms = \Drupal::entityTypeManager()
@@ -200,16 +197,14 @@ function workbc_career_trek_form_views_exposed_form_alter(&$form, \Drupal\Core\F
     }
     $clone['#options'] = $options;
     $form['skills'] = $clone;
-    $form['search_api_fulltext']['#attributes']['class'][] = 'custom-autocomplete';
-    $form['#attached']['library'][] = 'workbc_career_trek/career_trek_autocomplete';
 
 
     $config = \Drupal::configFactory()->getEditable('workbc_career_trek.settings');
-    foreach($form as $key => &$value) {
+    foreach ($form as $key => &$value) {
       $field_value = $config->get("view_" . $key . "_title");
       $field_description_value = $config->get("view_" . $key . "_description");
       if (!empty($field_value)) {
-        if(isset($form[$key. '_collapsible'])) {
+        if (isset($form[$key. '_collapsible'])) {
           $form[$key. '_collapsible']['#title'] = $field_value;
           if(isset($form[$key. '_collapsible']['#description']) && $field_description_value) {
             $form[$key. '_collapsible']['#description'] = $field_description_value;

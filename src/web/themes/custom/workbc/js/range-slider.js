@@ -61,7 +61,7 @@
           const $valueInput = $('fieldset[data-drupal-selector="edit-annual-salary-wrapper"] input[name="annual_salary[value]"]');
           const min = $minInput.val() || $valueInput.val() || 10000;
           const max = $maxInput.val() || 140000;
-          const $salaryOp = $('.plan-careercareer-trek-videos .view-career-trek-video-library .career-videos-filters .salary-range-search select[name="annual_salary_op"]');
+          const $salaryOp = $('.plan-careercareer-trek-videos .view-career-trek-redux .career-videos-filters .salary-range-search select[name="annual_salary_op"]');
           if (min && max) {
             $(`#annual-salary`).jRange('setValue', `${min},${max}`);
           }
@@ -107,7 +107,7 @@
               const [minValue, maxValue] = value.split(',');
 
               if(value != "10000,10000") {
-                const $annualSalaryOp = $('.plan-careercareer-trek-videos .view-career-trek-video-library .career-videos-filters .salary-range-search select[name="annual_salary_op"]');
+                const $annualSalaryOp = $('.plan-careercareer-trek-videos .view-career-trek-redux .career-videos-filters .salary-range-search select[name="annual_salary_op"]');
                 if (maxValue == 140000) {
                   $annualSalaryOp.val('>');
                   if(minValue != 10000) {
@@ -133,7 +133,7 @@
               const $valueInput = $('fieldset[data-drupal-selector="edit-annual-salary-wrapper"] input[name="annual_salary[value]"]');
               const min = $minInput.val() || $valueInput.val() || 10000;
               const max = $maxInput.val() || 140000;
-              const $salaryOp = $('.plan-careercareer-trek-videos .view-career-trek-video-library .career-videos-filters .salary-range-search select[name="annual_salary_op"]');
+              const $salaryOp = $('.plan-careercareer-trek-videos .view-career-trek-redux .career-videos-filters .salary-range-search select[name="annual_salary_op"]');
               if (min && max) {
                 $(`#annual-salary`).jRange('setValue', `${min},${max}`);
               }

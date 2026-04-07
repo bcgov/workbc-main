@@ -16,28 +16,29 @@
   #}
 {{ q }}
 {% endif %}
+
 <div class="form--inline clearfix career-videos-filters">
   <div class="textfield-search">
-    {{ form.search_api_fulltext }}
+    {{ form.keyword_search }}
   </div>
   <span class="total-results">
   {{ form.header }}
   </span>
   <h4>{{ career_trek_config('filter_title') }}</h4>
   <div class="career-category-search">
-    {{ form.occupational_category_api_field_collapsible }}
+    {{ form.field_epbc_categories_target_id_collapsible }}
   </div>
   <div class="education-training-search">
-    {{ form.minimum_education_all_collapsible }}
+    {{ form.field_teer_value_collapsible }}
   </div>
   <div class="salary-range-search">
-    {{ form.annual_salary_collapsible }}
+    {{ form.salary_collapsible }}
   </div>
   <div class="skill-required-search">
-    {{ form.skills_collapsible }}
+    {{ form.field_skills_2_target_id_collapsible }}
   </div>
   <div class="regions-search">
-    {{ form.regions_collapsible }}
+    {{ form.field_region_value_collapsible }}
   </div>
   <div class="exposed-action-button">
     {{ form.actions }}
