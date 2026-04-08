@@ -483,7 +483,7 @@ display:
                   collapsible_disable_automatic_open: false
                   open_by_default: false
                   is_secondary: false
-                  hide_label: false
+                  hide_label: true
                   field_classes: ''
                   sort_options_unsupported: ''
               field_annual_salary_value:
@@ -586,7 +586,20 @@ display:
       cache:
         type: tag
         options: {  }
-      empty: {  }
+      empty:
+        area:
+          id: area
+          table: views
+          field: area
+          relationship: none
+          group_type: group
+          admin_label: ''
+          plugin_id: text
+          empty: true
+          content:
+            value: "<div class=\"text-center no-result-text\">\r\n<img src=\"/themes/custom/workbc/assets/images/clear-filter.svg\">\r\n<h3>No Videos found</h3>\r\n<p>Please reduce the amount of filters you have selected to broaden your search</p>\r\n<a href=\"/plan-career/career-trek-videos\">Clear All Filters</a>\r\n</div>"
+            format: full_html
+          tokenize: false
       sorts:
         field_annual_salary_value:
           id: field_annual_salary_value
@@ -704,7 +717,7 @@ display:
             multiple: false
             remember_roles:
               authenticated: authenticated
-            placeholder: ''
+            placeholder: 'Search by keyword or NOC'
           is_grouped: false
           group_info:
             label: ''
@@ -831,7 +844,7 @@ display:
           expose:
             operator_id: field_epbc_categories_target_id_op
             label: 'Career category'
-            description: ''
+            description: 'Select one or more options to filter your search results.'
             use_operator: false
             operator: field_epbc_categories_target_id_op
             operator_limit_selection: false
@@ -839,7 +852,7 @@ display:
             identifier: field_epbc_categories_target_id
             required: false
             remember: false
-            multiple: false
+            multiple: true
             remember_roles:
               authenticated: authenticated
             reduce: true
@@ -860,7 +873,7 @@ display:
           type: select
           hierarchy: false
           limit: true
-          error_message: true
+          error_message: false
         field_region_value:
           id: field_region_value
           table: media__field_region

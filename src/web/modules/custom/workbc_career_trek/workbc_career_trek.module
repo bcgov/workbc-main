@@ -124,11 +124,20 @@ function workbc_career_trek_views_query_alter(ViewExecutable $view, $query) {
         if (is_array($condition) && str_contains($condition['field'], 'field_epbc_categories_target_id')) {
           $condition['field'] = 'field_career_videos_media_field_data__node__field_epbc_categories.field_epbc_categories_target_id';
           $condition['operator'] = 'IN';
-          // If the incoming category is a parent, get all its children.
-          // If it's a child, get the parent first then all its children.
-          $value = reset($condition['value']);
-          if (!is_array($epbc_tree[$value])) $value = $epbc_tree[$value];
-          $condition['value'] = $epbc_tree[$value];
+          // If the incoming value is a parent category, get all its children.
+          // If the incoming value is a child, get the parent first then all its children.
+          // Repeat for each incoming value.
+          $condition_value = [];
+          $condition_parents = [];
+          if (array_key_exists(':node__field_epbc_categories_field_epbc_categories_target_id', $condition['value']))
+            $condition_parents += (array)$condition['value'][':node__field_epbc_categories_field_epbc_categories_target_id'];
+          if (array_key_exists(':node__field_epbc_categories_field_epbc_categories_target_id[]', $condition['value']))
+            $condition_parents += $condition['value'][':node__field_epbc_categories_field_epbc_categories_target_id[]'];
+          foreach ($condition_parents as $parent) {
+            if (!is_array($epbc_tree[$parent])) $parent = $epbc_tree[$parent];
+            $condition_value += $epbc_tree[$parent];
+          }
+          $condition['value'] = $condition_value;
         }
       }
     }
@@ -143,8 +152,36 @@ function workbc_career_trek_views_query_alter(ViewExecutable $view, $query) {
 }
 
 /**
-*{@inheritdoc}
-*/
+ * Implements hook_search_api_query_TAG_alter() for career_trek_search.
+ */
+function workbc_career_trek_search_api_query_career_trek_search_alter($query) {
+  // Adjust the query before it is sent to Solr.
+  $keys =& $query->getKeys();
+
+  // Special case: Getting a single 0 confuses the index.
+  if (is_array($keys) && array_key_exists(0, $keys) && $keys[0] === '0') {
+    $query->abort();
+    return;
+  }
+  if (empty($keys) || !is_string($keys)) return;
+
+  // Convert curly quotations to regular quotations.
+  // https://stackoverflow.com/a/6610752/209184
+  $keys = iconv('UTF-8', 'ASCII//TRANSLIT', $keys);
+
+  // Upcase keywords to activate AND / OR.
+  $keys = strtoupper($keys);
+
+  // Automatically add + in front of each keyword
+  // ONLY WORKS WHEN THERE ARE NO SPECIAL QUERY CHARS!
+  if (!preg_match('/"|\(|\)|\sAND\s|\sOR\s|&&|\|\||\+/i', $keys)) {
+    $keys = preg_replace('/\b(\w+)\b/i', '+$1', $keys);
+  }
+}
+
+/**
+ * Implements hook_theme().
+ */
 function workbc_career_trek_theme($existing, $type, $theme, $path) {
   return [
     'career_trek_recent_jobs' => [
@@ -182,23 +219,7 @@ function workbc_career_trek_theme($existing, $type, $theme, $path) {
  * Alter the exposed filter form for the Career Trek Video Library block.
  */
 function workbc_career_trek_form_views_exposed_form_alter(&$form, \Drupal\Core\Form\FormStateInterface $form_state, $form_id) {
-  return;
-  d('hello');
   if ($form['#id'] === 'views-exposed-form-career-trek-redux-block-1') {
-    d($form);
-    $clone = $form['occupational_category_api_field'];
-    $clone['#group'] = "skills_collapsible";
-    $terms = \Drupal::entityTypeManager()
-      ->getStorage('taxonomy_term')
-      ->loadTree('skills');
-      $options = [];
-    foreach ($terms as $term) {
-      $options[$term->tid] = $term->name;
-    }
-    $clone['#options'] = $options;
-    $form['skills'] = $clone;
-
-
     $config = \Drupal::configFactory()->getEditable('workbc_career_trek.settings');
     foreach ($form as $key => &$value) {
       $field_value = $config->get("view_" . $key . "_title");
@@ -209,21 +230,20 @@ function workbc_career_trek_form_views_exposed_form_alter(&$form, \Drupal\Core\F
           if(isset($form[$key. '_collapsible']['#description']) && $field_description_value) {
             $form[$key. '_collapsible']['#description'] = $field_description_value;
           }
-        }elseif(strpos('annual_salary_wrapper', $key) !== FALSE){
+        } elseif (strpos('annual_salary_wrapper', $key) !== FALSE) {
           $form[$key]['#title'] = $field_value;
-          if(isset($form[$key]['#description']) && $field_description_value) {
+          if (isset($form[$key]['#description']) && $field_description_value) {
             $form[$key]['#description'] = $field_description_value;
           }
         }
       }
-      if($key == "actions") {
-        if($config->get('apply_button')) {
+      if ($key === "actions") {
+        if ($config->get('apply_button')) {
           $form[$key]['submit']['#value'] = $config->get('apply_button');
         }
-        if($config->get('apply_button')) {
+        if ($config->get('apply_button')) {
           $form[$key]['reset']['#value'] = $config->get('clear_filter_button');
         }
-
       }
     }
   }
@@ -242,4 +262,3 @@ function workbc_career_trek_preprocess_page(&$variables) {
     $variables['#attached']['drupalSettings']['workbc_career_trek'] = $settings;
   }
 }
-

@@ -54,7 +54,7 @@ class CareerTrekTwigExtension extends AbstractExtension {
         return $renderer->render($build);
       }
     }
-    return NULL;
+    return '';
   }
 
   /**
