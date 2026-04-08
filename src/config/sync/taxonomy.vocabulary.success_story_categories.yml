@@ -4,6 +4,6 @@ status: true
 dependencies: {  }
 name: '[DEPRECATED] Success Story Categories'
 vid: success_story_categories
-description: 'NO LONGER NEEDED AS PER WBCAMS-1564.'
+description: 'DEPRECATED: This vocabulary is no longer used as per WBCAMS-1564.'
 weight: 0
 new_revision: false
