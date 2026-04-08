@@ -282,7 +282,10 @@ function workbc_career_trek_preprocess_page(&$variables) {
  * @inheritdoc
  */
 function workbc_career_trek_theme_suggestions_details_alter(array &$suggestions, array $variables) {
-  if ($variables['element']['#attributes']['data-drupal-selector'] === 'edit-salary-collapsible') {
+  if (
+    array_key_exists('data-drupal-selector', $variables['element']['#attributes']) &&
+    $variables['element']['#attributes']['data-drupal-selector'] === 'edit-salary-collapsible'
+  ) {
     $suggestions[] = 'details__name__salary';
   }
 }
