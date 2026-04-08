@@ -1,6 +1,6 @@
 uuid: 06d3007e-ba71-48ba-b8dc-73d6cedae09c
 langcode: en
-status: true
+status: false
 dependencies:
   config:
     - field.storage.node.field_career_videos
@@ -12,9 +12,9 @@ dependencies:
     - views_infinite_scroll
     - workbc_career_trek
 id: career_trek_video_library
-label: 'Career Trek Video Library'
+label: '[DEPRECATED] Career Trek Video Library'
 module: views
-description: ''
+description: 'DEPRECATED: This view has been replaced with career_trek_redux as per WBCAMS-1809.'
 tag: ''
 base_table: search_api_index_career_profile_index_sub
 base_field: search_api_id

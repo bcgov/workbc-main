@@ -1,0 +1,21 @@
+uuid: c2b7ef1a-71f4-4738-bcb4-223313a1c36f
+langcode: en
+status: true
+dependencies:
+  module:
+    - media
+id: media.field_noc
+field_name: field_noc
+entity_type: media
+type: string
+settings:
+  max_length: 255
+  case_sensitive: false
+  is_ascii: false
+module: core
+locked: false
+cardinality: 1
+translatable: true
+indexes: {  }
+persist_with_no_fields: false
+custom_storage: false

@@ -1,15 +1,15 @@
 uuid: 250ccf70-7cd4-44f4-879e-b0d8ab51ae91
 langcode: en
-status: true
+status: false
 dependencies:
   config:
     - search_api.index.career_profile_index_sub
   module:
     - search_api
 id: related_careers_videos
-label: 'Related Careers Videos'
+label: '[DEPRECATED] Career Trek Related Videos'
 module: views
-description: ''
+description: 'DEPRECATED: This view has been replaced with career_trek_redux as per WBCAMS-1809.'
 tag: ''
 base_table: search_api_index_career_profile_index_sub
 base_field: search_api_id

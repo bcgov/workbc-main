@@ -489,6 +489,13 @@ content:
     third_party_settings: {  }
     weight: 67
     region: content
+  field_epbc_categories:
+    type: entity_reference_entity_id
+    label: hidden
+    settings: {  }
+    third_party_settings: {  }
+    weight: 28
+    region: content
   field_hero_image_media:
     type: entity_reference_entity_view
     label: above
@@ -611,7 +618,6 @@ hidden:
   extra_field_workbc_published_on: true
   field_annual_salary: true
   field_content_group: true
-  field_epbc_categories: true
   field_hero_image: true
   field_hero_image_full_width: true
   field_hourly_salary: true

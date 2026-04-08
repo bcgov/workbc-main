@@ -79,6 +79,13 @@
   ]
 %}
 
+{% set epbc_categories = [] %}
+{% for category in content.field_epbc_categories %}
+  {% if category['#plain_text'] | length %}
+    {% set epbc_categories = epbc_categories | merge([category['#plain_text']]) %}
+  {% endif %}
+{% endfor %}
+
 {% set viewmodel = {
   title: label,
   top_statistics: {
@@ -88,17 +95,17 @@
       value: content.extra_field_annual_salary.0['#markup'],
       source: "<em>Source:</em> " ~ content.extra_field_annual_salary_source.0['#markup'],
     },
-    minimum_education: {
-      icon_class: 'profile-information-education',
-      title: content.extra_field_minimum_education['#title'],
-      value: content.extra_field_minimum_education.0['#markup'],
-      source: content.extra_field_minimum_education.0['#infotip'],
-    },
     job_openings: {
       icon_class: 'profile-information-jobs',
       title: content.extra_field_job_openings['#title'],
       value: content.extra_field_job_openings.0['#markup'],
       source: "<em>Source:</em> " ~ content.extra_field_job_openings_source.0['#markup']
+    },
+    minimum_education: {
+      icon_class: 'profile-information-education',
+      title: content.extra_field_minimum_education['#title'],
+      value: content.extra_field_minimum_education.0['#markup'],
+      source: content.extra_field_minimum_education.0['#infotip'],
     },
   },
   hero: {
@@ -110,15 +117,15 @@
   },
   tab_sections: {
     education: {
-      skills_title: content.group_career_profile_tabs.group_education_training_skills.extra_field_skills_introduction['#title'],
-      skills_introduction: content.group_career_profile_tabs.group_education_training_skills.extra_field_skills_introduction.0['#text'],
-      skills_list: content.group_career_profile_tabs.group_education_training_skills.extra_field_career_trek_profile_skills.0,
+      skills_title: content.extra_field_skills_introduction['#title'],
+      skills_introduction: content.extra_field_skills_introduction.0['#text'],
+      skills_list: content.extra_field_career_trek_profile_skills.0,
     }
   }
 }
 %}
 
-<div class="profile-header">
+<div class="profile-header view-career-trek-node">
   <div class="top-video-row">
     <div class="container-lg">
       <div class="top-banner row align-items-center">
@@ -152,6 +159,7 @@
   </div>
 
   {% include '@workbc/includes/breadcrumbs.html.twig' %}
+
   <div class="career-profile-node">
     <div class="container">
       <div class="career-inner-banner">
@@ -248,11 +256,11 @@
             </div>
           </div>
           <div class="career-recent-jobs-wrapper">
-              {{ render_career_trek_job_posting(node.id, 'workbc_recentcareertrekjobs') }}
+              {{ career_trek_job_posting(node.id, 'workbc_recentcareertrekjobs') }}
           </div>
         </div>
         <div class="col-lg-4">
-          {{ drupal_view('related_careers_videos', 'block_1', content.extra_field_occupational_categories|render|striptags|trim, viewmodel['hero']['noc']|render|striptags|trim) }}
+          {{ drupal_view('career_trek_redux', 'block_3', epbc_categories.0, node.mid) }}
         </div>
       </div>
     </div>

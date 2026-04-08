@@ -1,0 +1,23 @@
+uuid: 76f671f3-49b0-44c6-a804-04eb6ddd4f8f
+langcode: en
+status: true
+dependencies:
+  config:
+    - field.storage.media.field_episode
+    - media.type.remote_video
+id: media.remote_video.field_episode
+field_name: field_episode
+entity_type: media
+bundle: remote_video
+label: '[SSOT] Episode'
+description: ''
+required: false
+translatable: false
+default_value: {  }
+default_value_callback: ''
+settings:
+  min: null
+  max: null
+  prefix: ''
+  suffix: ''
+field_type: integer

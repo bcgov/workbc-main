@@ -2,7 +2,6 @@
 
 use Drupal\Core\StreamWrapper\StreamWrapperManager;
 use GuzzleHttp\Client;
-use GuzzleHttp\Exception\RequestException;
 use Psr\Http\Message\ResponseInterface;
 use Drupal\Core\Entity\ContentEntityInterface;
 use Drupal\field\Entity\FieldStorageConfig;
@@ -28,6 +27,11 @@ const SSOT_DATASETS = [
     'fields' => 'noc,cariboo_expected_number_of_job_openings_10y,kootenay_expected_number_of_job_openings_10y,mainland_southwest_expected_number_of_job_openings_10y,north_coast_nechako_expected_number_of_job_openings_10y,northeast_expected_number_of_job_openings_10y,thompson_okanagan_expected_number_of_job_openings_10y,vancouver_island_coast_expected_number_of_job_openings_10y',
   ],
   'career_related' => [],
+  'career_trek' => [
+    'noc_key' => 'noc_2021',
+    'fields' => 'noc_2021,episode_num,episode_title,youtube_link,location,region,description',
+    'order' => 'episode_num.asc'
+  ],
   'census' => [],
   'education' => [
     'noc_key' => 'noc',
@@ -60,7 +64,7 @@ const SSOT_DATASETS = [
   'regional_top_occupations' => [],
   'skills' => [
     'noc_key' => 'noc',
-    'fields' => 'noc,skills_competencies,importance'
+    'fields' => 'noc,skills_competencies,importance,proficiency'
   ],
   'titles' => [
     'noc_key' => 'noc',
@@ -87,6 +91,12 @@ const SSOT_DATASETS = [
  * Get the latest datasets from SSOT.
  */
 function workbc_ssot_cron() {
+  // Don't do anything if the ssot_downloader_batch queue is active.
+  if (Drupal::queue('ssot_downloader_batch')->numberOfItems() > 0) {
+    \Drupal::logger('workbc')->notice('Skipping SSOT cron while ssot_downloader_batch is running.');
+    return;
+  }
+
   // Retrieve the local state, making sure we set any modified datasets to null.
   $local_dates = array_merge(array_combine(
     array_keys(SSOT_DATASETS),
@@ -389,8 +399,10 @@ function ssotCareerProfile($noc) {
     $data['high_opportunity_occupations'] = querySSoT('high_opportunity_occupations?noc=eq.' . $noc);
     $data['occupational_interests'] = querySSoT('occupational_interests?noc=eq.' . $noc);
     $data['titles'] = querySSoT('titles?order=commonjobtitle.asc&noc=eq.' . $noc);
+    $data['career_trek'] = querySSoT('career_trek?noc_2021=eq.' . $noc);
     $data['epbc_nocs'] = querySSoT('fyp_categories_interests_sub_nocs?noc_2021=eq.' . $noc);
     $data['career_related'] = querySSoT('career_related?order=noc_related&noc=eq.' . $noc);
+    $data['occupational_category'] = querySSoT('fyp_categories_interests_nocs?noc_2021=eq.' . $noc);
     // TODO! Adjust API query to retrieve first entry only.
     $opening_careers = querySSoT('openings_careers?noc=eq.' . $noc);
     if (!empty($opening_careers)) {
@@ -700,7 +712,7 @@ function ssotGetPreviousMonthYear($currentMonth, $currentYear) {
 /**
  * Get canonical TEER values.
  */
-function ssotTEERValues(FieldStorageConfig $definition, ContentEntityInterface $entity = NULL, $cacheable) {
+function ssotTEERValues() {
   return [
     0 => 'Management',
     1 => 'University degree',

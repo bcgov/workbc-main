@@ -34,10 +34,10 @@
 <div class="workbc-card">
    <div class="workbc-card-container">
       <div class="workbc-card-video-preview">
-         <a href="/plan-career/career-trek-videos/{{ fields.career_noc.content|striptags|trim }}/{{ fields.episode_num.content|striptags|trim }}">
+         <a href="/plan-career/career-trek-videos/{{ fields.field_noc.content|striptags|trim }}/{{ fields.field_episode.content|striptags|trim }}">
             <div class="workbc-card-thumbnail">
                <div class="field field--name-thumbnail field--type-image field--label-hidden field__item">
-                  <img loading="lazy" src="{{ file_url(fields.thumbnail.content|striptags|trim|image_style('career_trek_video_library_480_x_270')) }}" width="480" height="270" alt="{{ fields.episode_title.content|striptags|trim }}" class="img-fluid image-style-career-trek-video-library-480-x-270" data-once="workbcCardImageCheck">
+                {{ fields.thumbnail__target_id.content }}
                </div>
             </div>
          </a>
@@ -50,12 +50,12 @@
 
       <div class="workbc-card-content">
          <div class="workbc-card-title">
-            <a href="/plan-career/career-trek-videos/{{ fields.career_noc.content|striptags|trim }}/{{ fields.episode_num.content|striptags|trim }}">
-               {{ fields.episode_title.content }}
+            <a href="/plan-career/career-trek-videos/{{ fields.field_noc.content|striptags|trim }}/{{ fields.field_episode.content|striptags|trim }}">
+               {{ fields.name.content }}
             </a>
          </div>
-         <div class="workbc-card-description">{{ fields.occupational_category_api_field.content }}</div>
-         <div class="workbc-card-description">{{ fields.custom_location.content }}</div>
+         <div class="workbc-card-description">{{ fields.career_categories.content }}</div>
+         <div class="workbc-card-description">{{ fields.field_location.content }}</div>
       </div>
    </div>
 </div>

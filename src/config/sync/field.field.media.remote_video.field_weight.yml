@@ -9,7 +9,7 @@ id: media.remote_video.field_weight
 field_name: field_weight
 entity_type: media
 bundle: remote_video
-label: Weight
+label: '[DEPRECATED] Weight'
 description: ''
 required: false
 translatable: false

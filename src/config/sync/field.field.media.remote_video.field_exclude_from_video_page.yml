@@ -9,7 +9,7 @@ id: media.remote_video.field_exclude_from_video_page
 field_name: field_exclude_from_video_page
 entity_type: media
 bundle: remote_video
-label: "Don't show on Career Trek page"
+label: "[DEPRECATED] Don't show on Career Trek page"
 description: ''
 required: false
 translatable: false
