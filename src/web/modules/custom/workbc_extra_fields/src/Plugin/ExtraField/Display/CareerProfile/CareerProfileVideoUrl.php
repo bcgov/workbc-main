@@ -44,6 +44,7 @@ class CareerProfileVideoUrl extends ExtraFieldDisplayFormattedBase {
    * {@inheritdoc}
    */
   public function viewElements(ContentEntityInterface $entity) {
+    $output = WORKBC_EXTRA_FIELDS_NOT_AVAILABLE;
     if (!empty($entity->ssot_data) && isset($entity->ssot_data['career_trek'])) {
       foreach($entity->ssot_data['career_trek'] as $career_trek) {
         if($career_trek['episode_num'] == $entity->episode_number) {
@@ -83,13 +84,8 @@ class CareerProfileVideoUrl extends ExtraFieldDisplayFormattedBase {
         }
       }
     }
-    else {
-      $output = WORKBC_EXTRA_FIELDS_NOT_AVAILABLE;
-    }
     return [
       ['#markup' => $output],
     ];
-
   }
-
 }
