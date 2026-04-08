@@ -28,12 +28,16 @@ class SsotRefreshForm extends FormBase {
       '#markup' => '<p>Schedule a full refresh of selected SSoT datasets below. You will be redirected to the <strong>Queue manager</strong> page to run the <strong>SSoT Downloader</strong> batch process.</p>'
     ];
     $ssot_datasets = SSOT_DATASETS;
+    $local_dates = array_merge(array_combine(
+      array_keys($ssot_datasets),
+      array_fill(0, count($ssot_datasets), null)
+    ), \Drupal::state()->get('workbc.ssot_dates', []));
     $form['datasets'] = [
       '#title' => t('Datasets'),
       '#type' => 'checkboxes',
-      '#options' => array_reduce(array_keys(SSOT_DATASETS), function ($datasets, $key) use($ssot_datasets) {
+      '#options' => array_reduce(array_keys(SSOT_DATASETS), function ($datasets, $key) use($ssot_datasets, $local_dates) {
         if (array_key_exists('noc_key', $ssot_datasets[$key])) {
-          $datasets[$key] = $key;
+          $datasets[$key] = "$key (local version: ". (isset($local_dates[$key]) ? $local_dates[$key] : 'N/A') . ')';
         }
         return $datasets;
       }, [])
@@ -55,10 +59,6 @@ class SsotRefreshForm extends FormBase {
     $ssot_datasets = array_filter(SSOT_DATASETS, function($key) use($selected_datasets) {
       return array_key_exists($key, $selected_datasets);
     }, ARRAY_FILTER_USE_KEY);
-    $local_dates = array_merge(array_combine(
-      array_keys($ssot_datasets),
-      array_fill(0, count($ssot_datasets), null)
-    ), \Drupal::state()->get('workbc.ssot_dates', []));
 
     // Get the latest update dates from SSOT.
     $result = ssot(

@@ -216,24 +216,35 @@ function workbc_career_trek_theme($existing, $type, $theme, $path) {
 
 /**
  * Implements hook_form_FORM_ID_alter().
- * Alter the exposed filter form for the Career Trek Video Library block.
+ *
+ * @inheritdoc
  */
 function workbc_career_trek_form_views_exposed_form_alter(&$form, \Drupal\Core\Form\FormStateInterface $form_state, $form_id) {
   if ($form['#id'] === 'views-exposed-form-career-trek-redux-block-1') {
     $config = \Drupal::configFactory()->getEditable('workbc_career_trek.settings');
+    $keymap = [
+      'field_epbc_categories_target_id' => 'occupational_category_api_field',
+      'field_teer_value' => 'minimum_education_all',
+      'salary_collapsible' => 'annual_salary_wrapper',
+      'field_skills_2_target_id' => 'skills',
+      'field_region_value' => 'regions',
+    ];
     foreach ($form as $key => &$value) {
-      $field_value = $config->get("view_" . $key . "_title");
-      $field_description_value = $config->get("view_" . $key . "_description");
-      if (!empty($field_value)) {
-        if (isset($form[$key. '_collapsible'])) {
-          $form[$key. '_collapsible']['#title'] = $field_value;
-          if(isset($form[$key. '_collapsible']['#description']) && $field_description_value) {
-            $form[$key. '_collapsible']['#description'] = $field_description_value;
+      if (array_key_exists($key, $keymap)) {
+        $field_value = $config->get("view_" . $keymap[$key] . "_title");
+        $field_description_value = $config->get("view_" . $keymap[$key] . "_description");
+        if (!empty($field_value)) {
+          if (isset($form[$key. '_collapsible'])) {
+            $form[$key. '_collapsible']['#title'] = $field_value;
+            if (isset($form[$key. '_collapsible']['#description']) && !empty($field_description_value)) {
+              $form[$key. '_collapsible']['#description'] = $field_description_value;
+            }
           }
-        } elseif (strpos('annual_salary_wrapper', $key) !== FALSE) {
-          $form[$key]['#title'] = $field_value;
-          if (isset($form[$key]['#description']) && $field_description_value) {
-            $form[$key]['#description'] = $field_description_value;
+          else {
+            $form[$key]['#title'] = $field_value;
+            if (isset($form[$key]['#description']) && !empty($field_description_value)) {
+              $form[$key]['#description'] = $field_description_value;
+            }
           }
         }
       }
@@ -251,7 +262,9 @@ function workbc_career_trek_form_views_exposed_form_alter(&$form, \Drupal\Core\F
 }
 
 /**
- * Implements hook_preprocess_HOOK() for page templates.
+ * Implements hook_preprocess_HOOK().
+ *
+ * @inheritdoc
  */
 function workbc_career_trek_preprocess_page(&$variables) {
   // Load the configuration.
@@ -260,5 +273,16 @@ function workbc_career_trek_preprocess_page(&$variables) {
   $settings = $config->getRawData();
   if (!empty($settings)) {
     $variables['#attached']['drupalSettings']['workbc_career_trek'] = $settings;
+  }
+}
+
+/**
+ * Implements hook_theme_suggestions_HOOK_alter().
+ *
+ * @inheritdoc
+ */
+function workbc_career_trek_theme_suggestions_details_alter(array &$suggestions, array $variables) {
+  if ($variables['element']['#attributes']['data-drupal-selector'] === 'edit-salary-collapsible') {
+    $suggestions[] = 'details__name__salary';
   }
 }
