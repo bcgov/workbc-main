@@ -25,7 +25,7 @@ class SsotRefreshForm extends FormBase {
 	public function buildForm(array $form, FormStateInterface $form_state)
   {
     $form['description'] = [
-      '#markup' => '<p>Schedule a full refresh of selected SSoT datasets below. You will be redirected to the <strong>Queue manager</strong> page to run the <strong>SSoT Downloader</strong> batch process.</p>'
+      '#markup' => '<p>Schedule a full refresh of selected SSoT datasets below. You will be redirected to the <strong>Queue manager</strong> page to run the <strong>SSoT Downloader (Batch)</strong> process.</p>'
     ];
     $ssot_datasets = SSOT_DATASETS;
     $local_dates = array_merge(array_combine(

@@ -4,6 +4,8 @@ namespace Drupal\workbc_ssot\Plugin\QueueWorker;
 
 use Drupal\media\Entity\Media;
 
+const YOUTUBE_REGEX = '%(?:youtube(?:-nocookie)?\.com/(?:[^/]+/.+/|(?:v|e(?:mbed)?)/|.*[?&]v=)|youtu\.be/)([^"&?/ ]{11})%i';
+
 trait SsotUpdater {
   private $epbc_categories;
   private $skills;
@@ -37,11 +39,10 @@ trait SsotUpdater {
     $videos = [];
     foreach ($entries as $entry) {
       // Query each incoming video in Media Library.
-      preg_match('%(?:youtube(?:-nocookie)?\.com/(?:[^/]+/.+/|(?:v|e(?:mbed)?)/|.*[?&]v=)|youtu\.be/)([^"&?/ ]{11})%i', $entry['youtube_link'], $match);
-      $youtube_id = $match[1];
+      preg_match(YOUTUBE_REGEX, $entry['youtube_link'], $match);
       $mid = array_values(\Drupal::entityQuery('media')
         ->condition('bundle', 'remote_video')
-        ->condition('field_media_oembed_video', $youtube_id, 'CONTAINS')
+        ->condition('field_media_oembed_video', $match[1], 'CONTAINS')
         ->accessCheck(false)
         ->currentRevision()
         ->execute());
@@ -57,16 +58,24 @@ trait SsotUpdater {
         // Update the existing video with incoming data.
         $media = Media::load(reset($mid));
       }
-      $media
-        ->setPublished()
-        ->setName($entry['episode_title'])
-        ->set('field_description', $entry['description'])
-        ->set('field_episode', $entry['episode_num'])
-        ->set('field_location', $entry['location'])
-        ->set('field_region', $entry['region'])
-        ->set('field_noc', $entry['noc_2021'])
-        ->save();
-
+      if (
+        $media->getName() != $entry['episode_title'] ||
+        $media->get('field_description')->value != $entry['description'] ||
+        $media->get('field_episode')->value != $entry['episode_num'] ||
+        $media->get('field_location')->value != $entry['location'] ||
+        $media->get('field_region')->value != $entry['region'] ||
+        $media->get('field_noc')->value != $entry['noc_2021']
+      ) {
+        $media
+          ->setPublished()
+          ->setName($entry['episode_title'])
+          ->set('field_description', $entry['description'])
+          ->set('field_episode', $entry['episode_num'])
+          ->set('field_location', $entry['location'])
+          ->set('field_region', $entry['region'])
+          ->set('field_noc', $entry['noc_2021'])
+          ->save();
+      }
       $videos[] = ['target_id' => $media->id()];
     }
 
