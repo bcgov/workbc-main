@@ -107,7 +107,9 @@ function workbc_career_trek_views_query_alter(ViewExecutable $view, $query) {
       return $epbc_tree;
     }, []);
     $salary_used = false;
+    $filters_used = false;
     foreach ($query->where as &$condition_group) {
+      $filters_used = count($condition_group['conditions']) > 4;
       foreach ($condition_group['conditions'] as &$condition) {
         // Adjust the salary max range to "infinite" if it's set to the upper range.
         if (is_array($condition) && str_contains($condition['field'], 'field_annual_salary_value')) {
@@ -143,7 +145,7 @@ function workbc_career_trek_views_query_alter(ViewExecutable $view, $query) {
     }
 
     // Remove the salary sort if it's not used in the filters.
-    if (!empty($view->getExposedInput())) {
+    if ($filters_used) {
       $query->orderby = array_filter($query->orderby, function ($sort) {
         return !str_starts_with($sort['field'], 'media__field_episode_field_episode_value');
       });
