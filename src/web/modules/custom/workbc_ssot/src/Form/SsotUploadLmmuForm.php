@@ -415,7 +415,7 @@ class SsotUploadLmmuForm extends ConfirmFormBase {
 
     $form['warn_only'] = [
       '#type' => 'checkbox',
-      '#title' => $this->t('Only warnings'),
+      '#title' => $this->t('Ignore validation errors'),
       '#default_value' => FALSE,
       '#description' => $this->t('Check this box ON if you want to bypass all the validation rules, allowing potentially invalid sheets to be uploaded. In this case, validation rules will only appear as warnings on the confirmation screen.'),
     ];
