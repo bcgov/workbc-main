@@ -11,6 +11,7 @@ use Drupal\Core\Datetime\DateHelper;
 use Drupal\Core\Url;
 use GuzzleHttp\Client;
 use Drupal\Core\Datetime\DrupalDateTime;
+use Drupal\Core\Messenger\MessengerInterface;
 
 // @see https://stackoverflow.com/a/2430144/209184
 function number_precision($value) {
@@ -188,7 +189,7 @@ class SsotUploadLmmuForm extends ConfirmFormBase {
             '@cell' => $validation['cell'],
             '@key' => $key,
             '@explanation' => $this->t($this->descriptions['blank'])
-          ]));
+          ]), MessengerInterface::TYPE_WARNING);
         }
         else {
           \Drupal::messenger()->addMessage($this->t('✅ Cell @cell (<strong>@key = @value</strong>) conforms to: <em>@explanation</em>', [
@@ -240,11 +241,13 @@ class SsotUploadLmmuForm extends ConfirmFormBase {
       }
       if (!empty($validation['sum_warn']) && !empty($validation['cell'])) {
         foreach ($validation['sum_warn'] as $sum_keys) {
+          $warning = false;
           $sum = array_sum(array_map(function($sum_key) {
             return $this->monthly_labour_market_updates[$sum_key] ?? 0;
           }, $sum_keys));
           if (abs($sum - ($value ?? 0)) > 100) {
             $msg = '❗ Cell @cell (<strong>@key = @value</strong>) and cells @cells (<strong>sum = @sum</strong>) do not conform to: <em>@explanation</em>';
+            $warning = true;
           }
           else {
             $msg = '✅ Cell @cell (<strong>@key = @value</strong>) and cells @cells (<strong>sum = @sum</strong>) conform to: <em>@explanation</em>';
@@ -258,7 +261,7 @@ class SsotUploadLmmuForm extends ConfirmFormBase {
             }, $sum_keys)),
             '@sum' => $sum,
             '@explanation' => $this->t($this->descriptions['sum_warn']),
-          ]));
+          ]), $warning ? MessengerInterface::TYPE_WARNING : MessengerInterface::TYPE_STATUS);
         }
       }
       if (!empty($validation['previous_month']) && !empty($validation['cell'])) {
@@ -284,7 +287,7 @@ class SsotUploadLmmuForm extends ConfirmFormBase {
             '@cell_previous' => $this->validations[$validation['previous_month_change_abs']]['cell'],
             '@diff' => $diff,
             '@explanation' => $this->t($this->descriptions['previous_month_change_abs']),
-          ]));
+          ]), MessengerInterface::TYPE_WARNING);
         }
         else {
           \Drupal::messenger()->addMessage($this->t('✅ Cell @cell (<strong>@key = @value</strong>) and monthly difference in @cell_previous (<strong>absolute difference = @diff</strong>) conform to: <em>@explanation</em>', [
@@ -309,7 +312,7 @@ class SsotUploadLmmuForm extends ConfirmFormBase {
             '@cell_previous' => $this->validations[$validation['previous_month_change_pct']]['cell'],
             '@diff' => $diff,
             '@explanation' => $this->t($this->descriptions['previous_month_change_pct']),
-          ]));
+          ]), MessengerInterface::TYPE_WARNING);
         }
         else {
           \Drupal::messenger()->addMessage($this->t('✅ Cell @cell (<strong>@key = @value</strong>) and monthly difference in @cell_previous (<strong>difference percentage = @diff</strong>) conform to: <em>@explanation</em>', [
@@ -354,7 +357,14 @@ class SsotUploadLmmuForm extends ConfirmFormBase {
     if ($form_state->get('confirmation')) {
       $this->monthly_labour_market_updates = $form_state->get('monthly_labour_market_updates');
       $this->previous_month = $form_state->get('previous_month');
-      return parent::buildForm($form, $form_state);
+      $parent_form = parent::buildForm($form, $form_state);
+      $parent_form['toggle_warnings'] = [
+        '#type' => 'checkbox',
+        '#title' => t('Show successful validations'),
+        '#default_value' => false,
+        '#attached' => ['library' => ['workbc_ssot/validation-toggle']]
+      ];
+      return $parent_form;
     }
 
     $form['year'] = [
@@ -401,6 +411,13 @@ class SsotUploadLmmuForm extends ConfirmFormBase {
       '#attributes' => [
         'maxlength' => 250,
       ]
+    ];
+
+    $form['warn_only'] = [
+      '#type' => 'checkbox',
+      '#title' => $this->t('Only warnings'),
+      '#default_value' => FALSE,
+      '#description' => $this->t('Check this box ON if you want to bypass all the validation rules, allowing potentially invalid sheets to be uploaded. In this case, validation rules will only appear as warnings on the confirmation screen.'),
     ];
 
     $form['repo'] = [
@@ -552,6 +569,9 @@ class SsotUploadLmmuForm extends ConfirmFormBase {
               ]));
             }
             break;
+          default:
+            // Bypass other validation rules if only warning.
+            if ($form_state->getValue('warn_only')) break;
           case 'abs':
             if (!is_numeric($value)) {
               $value = null;
@@ -623,85 +643,87 @@ class SsotUploadLmmuForm extends ConfirmFormBase {
           }
       }
 
-      // Perform inter-cell same sign validation.
-      if (array_key_exists('same_sign', $validation)) {
-        $related_value = $monthly_labour_market_updates[$validation['same_sign']];
-        if (!(
-          (is_null($related_value) && is_null($value)) ||
-          ($related_value * $value >= 0)
-        )) {
-          array_key_push($errors, $key, $this->t('❌ Cells @cell1 (<strong>@key1 = @value1</strong>) and @cell2 (<strong>@key2 = @value2</strong>) do not conform to: <em>@explanation</em> @suggestion', [
-            '@cell1' => $this->validations[$validation['same_sign']]['cell'],
-            '@key1' => $validation['same_sign'],
-            '@value1' => $related_value,
-            '@cell2' => $validation['cell'],
-            '@key2' => $key,
-            '@value2' => $value ?? 'N/A',
-            '@explanation' => $this->t($this->descriptions['same_sign']),
-            '@suggestion' => $this->t('Please correct the values.'),
-          ]));
-        }
-      }
-
-      // Perform inter-cell equality validation.
-      if (array_key_exists('equal', $validation)) {
-        $related_value = $monthly_labour_market_updates[$validation['equal']];
-        if (!(
-          (is_null($related_value) && is_null($value)) ||
-          (abs($value - $related_value) <= PHP_FLOAT_EPSILON)
-        )) {
-          array_key_push($errors, $key, $this->t('❌ Cells @cell1 (<strong>@key1 = @value1</strong>) and @cell2 (<strong>@key2 = @value2</strong>) do not conform to: <em>@explanation</em> @suggestion', [
-            '@cell1' => $this->validations[$validation['equal']]['cell'],
-            '@key1' => $validation['equal'],
-            '@value1' => $related_value,
-            '@cell2' => $validation['cell'],
-            '@key2' => $key,
-            '@value2' => $value ?? 'N/A',
-            '@explanation' => $this->t($this->descriptions['equal']),
-            '@suggestion' => $this->t('Please correct the values.'),
-          ]));
-        }
-      }
-
-      // Perform inter-cell sum validation.
-      if (array_key_exists('sum', $validation)) {
-        foreach ($validation['sum'] as $sum_keys) {
-          $sum = array_sum(array_map(function($sum_key) use ($monthly_labour_market_updates) {
-            return $monthly_labour_market_updates[$sum_key] ?? 0;
-          }, $sum_keys));
-          if (abs($sum - ($value ?? 0)) > 100) {
-            array_key_push($errors, $key, $this->t('❌ Cell @cell (<strong>@key = @value</strong>) and cells @cells (<strong>sum = @sum</strong>) do not conform to: <em>@explanation</em> @suggestion', [
-              '@cell' => $validation['cell'],
-              '@key' => $key,
-              '@value' => $value ?? 'N/A',
-              '@cells' => implode(' + ', array_map(function($sum_key) {
-                return $this->validations[$sum_key]['cell'];
-              }, $sum_keys)),
-              '@sum' => $sum,
-              '@explanation' => $this->t($this->descriptions['sum']),
+      if (!$form_state->getValue('warn_only')) {
+        // Perform inter-cell same sign validation.
+        if (array_key_exists('same_sign', $validation)) {
+          $related_value = $monthly_labour_market_updates[$validation['same_sign']];
+          if (!(
+            (is_null($related_value) && is_null($value)) ||
+            ($related_value * $value >= 0)
+          )) {
+            array_key_push($errors, $key, $this->t('❌ Cells @cell1 (<strong>@key1 = @value1</strong>) and @cell2 (<strong>@key2 = @value2</strong>) do not conform to: <em>@explanation</em> @suggestion', [
+              '@cell1' => $this->validations[$validation['same_sign']]['cell'],
+              '@key1' => $validation['same_sign'],
+              '@value1' => $related_value,
+              '@cell2' => $validation['cell'],
+              '@key2' => $key,
+              '@value2' => $value ?? 'N/A',
+              '@explanation' => $this->t($this->descriptions['same_sign']),
               '@suggestion' => $this->t('Please correct the values.'),
             ]));
           }
         }
-      }
 
-      // Perform inter-sheet previous month validation.
-      if (!empty($previous_month) && array_key_exists('previous_month', $validation)) {
-        $previous_value = $previous_month[$validation['previous_month']];
-        if (!(
-          (is_null($previous_value) && is_null($value)) ||
-          ($previous_value == $value)
-        )) {
-          array_key_push($errors, $key, $this->t('❌ Cell @cell (<strong>@key = @value</strong>) and previous month cell @cell_previous (<strong>@key_previous = @value_previous</strong>) do not conform to: <em>@explanation</em> @suggestion', [
-            '@cell' => $validation['cell'],
-            '@key' => $key,
-            '@value' => $value ?? 'N/A',
-            '@cell_previous' => $this->validations[$validation['previous_month']]['cell'],
-            '@key_previous' => $validation['previous_month'],
-            '@value_previous' => $previous_value ?? 'N/A',
-            '@explanation' => $this->t($this->descriptions['previous_month']),
-            '@suggestion' => $this->t('Please correct the value.'),
-          ]));
+        // Perform inter-cell equality validation.
+        if (array_key_exists('equal', $validation)) {
+          $related_value = $monthly_labour_market_updates[$validation['equal']];
+          if (!(
+            (is_null($related_value) && is_null($value)) ||
+            (abs($value - $related_value) <= PHP_FLOAT_EPSILON)
+          )) {
+            array_key_push($errors, $key, $this->t('❌ Cells @cell1 (<strong>@key1 = @value1</strong>) and @cell2 (<strong>@key2 = @value2</strong>) do not conform to: <em>@explanation</em> @suggestion', [
+              '@cell1' => $this->validations[$validation['equal']]['cell'],
+              '@key1' => $validation['equal'],
+              '@value1' => $related_value,
+              '@cell2' => $validation['cell'],
+              '@key2' => $key,
+              '@value2' => $value ?? 'N/A',
+              '@explanation' => $this->t($this->descriptions['equal']),
+              '@suggestion' => $this->t('Please correct the values.'),
+            ]));
+          }
+        }
+
+        // Perform inter-cell sum validation.
+        if (array_key_exists('sum', $validation)) {
+          foreach ($validation['sum'] as $sum_keys) {
+            $sum = array_sum(array_map(function($sum_key) use ($monthly_labour_market_updates) {
+              return $monthly_labour_market_updates[$sum_key] ?? 0;
+            }, $sum_keys));
+            if (abs($sum - ($value ?? 0)) > 100) {
+              array_key_push($errors, $key, $this->t('❌ Cell @cell (<strong>@key = @value</strong>) and cells @cells (<strong>sum = @sum</strong>) do not conform to: <em>@explanation</em> @suggestion', [
+                '@cell' => $validation['cell'],
+                '@key' => $key,
+                '@value' => $value ?? 'N/A',
+                '@cells' => implode(' + ', array_map(function($sum_key) {
+                  return $this->validations[$sum_key]['cell'];
+                }, $sum_keys)),
+                '@sum' => $sum,
+                '@explanation' => $this->t($this->descriptions['sum']),
+                '@suggestion' => $this->t('Please correct the values.'),
+              ]));
+            }
+          }
+        }
+
+        // Perform inter-sheet previous month validation.
+        if (!empty($previous_month) && array_key_exists('previous_month', $validation)) {
+          $previous_value = $previous_month[$validation['previous_month']];
+          if (!(
+            (is_null($previous_value) && is_null($value)) ||
+            ($previous_value == $value)
+          )) {
+            array_key_push($errors, $key, $this->t('❌ Cell @cell (<strong>@key = @value</strong>) and previous month cell @cell_previous (<strong>@key_previous = @value_previous</strong>) do not conform to: <em>@explanation</em> @suggestion', [
+              '@cell' => $validation['cell'],
+              '@key' => $key,
+              '@value' => $value ?? 'N/A',
+              '@cell_previous' => $this->validations[$validation['previous_month']]['cell'],
+              '@key_previous' => $validation['previous_month'],
+              '@value_previous' => $previous_value ?? 'N/A',
+              '@explanation' => $this->t($this->descriptions['previous_month']),
+              '@suggestion' => $this->t('Please correct the value.'),
+            ]));
+          }
         }
       }
 
