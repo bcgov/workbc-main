@@ -106,13 +106,13 @@ function workbc_career_trek_views_query_alter(ViewExecutable $view, $query) {
       }
       return $epbc_tree;
     }, []);
-    $salary = false;
+    $salary_used = false;
     foreach ($query->where as &$condition_group) {
       foreach ($condition_group['conditions'] as &$condition) {
         // Adjust the salary max range to "infinite" if it's set to the upper range.
         if (is_array($condition) && str_contains($condition['field'], 'field_annual_salary_value')) {
-          $salary = $condition['value'][0] !== $view->filter['field_annual_salary_value']->options['value']['min'] ||
-                    $condition['value'][1] !== $view->filter['field_annual_salary_value']->options['value']['max'];
+          $salary_used = $condition['value'][0] !== $view->filter['field_annual_salary_value']->options['value']['min'] ||
+            $condition['value'][1] !== $view->filter['field_annual_salary_value']->options['value']['max'];
 
           $max =& $condition['value'][1];
           if ($max >= $view->filter['field_annual_salary_value']->options['value']['max']) {
@@ -143,10 +143,15 @@ function workbc_career_trek_views_query_alter(ViewExecutable $view, $query) {
     }
 
     // Remove the salary sort if it's not used in the filters.
-    if (!$salary) {
+    if (!empty($view->getExposedInput())) {
       $query->orderby = array_filter($query->orderby, function ($sort) {
-        return !str_starts_with($sort['field'], 'field_career_videos_media_field_data__node__field_annual_sal');
+        return !str_starts_with($sort['field'], 'media__field_episode_field_episode_value');
       });
+      if (!$salary_used) {
+        $query->orderby = array_filter($query->orderby, function ($sort) {
+          return !str_starts_with($sort['field'], 'field_career_videos_media_field_data__node__field_annual_sal');
+        });
+      }
     }
   }
 }
