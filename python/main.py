@@ -144,12 +144,12 @@ def search_jobs(params: dict, size: int = 5) -> list:
             or "#"
         )
  
-        # FIX: use (... or [None])[0] pattern for all array fields
-        # handles both None and empty list [] without IndexError
+        # Safe extraction for all array fields — handles None and empty list []
         jobs.append({
+            "job_id":          src.get("JobId"),
             "title":           src.get("Title"),
             "employer":        src.get("EmployerName"),
-            "city":            (src.get("City")                                     or [None])[0],
+            "city":            (src.get("City")                                      or [None])[0],
             "salary":          src.get("SalarySummary", "Not specified"),
             "hours":           (src.get("HoursOfWork",        {}).get("Description") or [None])[0],
             "employment_type": (src.get("PeriodOfEmployment", {}).get("Description") or [None])[0],
@@ -184,6 +184,7 @@ def format_job_results(jobs: list, params: dict) -> str:
             f"🏭 {job['industry']} | NOC: {job['noc_code']}\n"
             f"📋 {job['description']}...\n"
             f"[View Job Posting]({job['url']})\n"
+            f"🔎 `Job ID: {job['job_id']}`\n"   # debug — remove before production
         )
  
     lines.append(
