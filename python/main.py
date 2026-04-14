@@ -94,12 +94,15 @@ def search_jobs(params: dict, size: int = 5) -> list:
     filter_clauses = [{"range": {"ExpireDate": {"gte": "now"}}}]
 
     if params.get("keywords"):
-        must_clauses.append({
-            "multi_match": {
-                "query":  params["keywords"],
-                "fields": ["Title^3", "JobDescription"],
-            }
-        })
+        # Exclude generic keywords that add no search value
+        generic = {"jobs", "job", "work", "position", "positions", "opening", "openings"}
+        if params["keywords"].lower().strip() not in generic:
+            must_clauses.append({
+                "multi_match": {
+                    "query":  params["keywords"],
+                    "fields": ["Title^3", "JobDescription"],
+                }
+            })
 
     # Exclude province-level values misclassified as cities
     city = params.get("city")
@@ -220,7 +223,8 @@ async def get_career_answer(
             and "Therefore"     not in l
             and "current query" not in l.lower()
         ]
-        search_term = ", ".join(filtered_lines) if filtered_lines else raw_content
+        # FIX: fall back to user_query, not raw_content
+        search_term = ", ".join(filtered_lines) if filtered_lines else user_query
     except Exception as e:
         print(f"DEBUG: Rewriter failed, falling back to raw query: {e}")
         search_term = user_query
@@ -247,8 +251,9 @@ async def get_career_answer(
         job_title = results['metadatas'][0][i].get('job_title')
         print(f"DEBUG: Chroma found '{job_title}' with distance {distance}")
 
-        if distance > 1.0:
-            print(f"DEBUG: Skipping result {i} — distance too high: {distance}")
+        # FIX: tighter threshold — BGE cosine distances above 0.5 are likely irrelevant
+        if distance > 0.5:
+            print(f"DEBUG: Skipping '{job_title}' — distance too high: {distance}")
             continue
 
         meta       = results['metadatas'][0][i]
@@ -343,7 +348,21 @@ async def ask_career_bot(request: QueryRequest):
 
         # --- Intent detection ---
         intent_prompt = (
-            "Analyze this query and return JSON only, no explanation, no markdown fences:\n"
+            "Classify this query and return JSON only, no explanation, no markdown fences.\n\n"
+            "RULES:\n"
+            "- 'job_search' = user wants to find/see/browse actual job postings or openings\n"
+            "- 'career_info' = user wants to learn about a career (duties, salary, education)\n"
+            "- 'both' = user wants career info AND job postings\n\n"
+            "EXAMPLES:\n"
+            "Query: 'find nursing jobs in Vancouver' -> job_search\n"
+            "Query: 'show me accounting jobs' -> job_search\n"
+            "Query: 'any openings for teachers?' -> job_search\n"
+            "Query: 'jobs paying over 80000' -> job_search\n"
+            "Query: 'what does a nurse do?' -> career_info\n"
+            "Query: 'what is the salary for a firefighter?' -> career_info\n"
+            "Query: 'what education do I need to be a pharmacist?' -> career_info\n"
+            "Query: 'tell me about plumbers and show me jobs' -> both\n\n"
+            "OUTPUT FORMAT:\n"
             "{\n"
             '  "intent": "job_search" or "career_info" or "both",\n'
             '  "job_search_params": {\n'
@@ -352,7 +371,7 @@ async def ask_career_bot(request: QueryRequest):
             '    "employment_type": "Full-time or Part-time or null",\n'
             '    "salary_min": null\n'
             "  }\n"
-            "}\n"
+            "}\n\n"
             f"Query: {user_query}"
         )
 
