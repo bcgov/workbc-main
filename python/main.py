@@ -104,7 +104,7 @@ def search_jobs(params: dict, size: int = 5) -> list:
                 }
             })
  
-    # FIX: use City.keyword for exact matching — City is a text field with a keyword sub-field
+    # City.keyword for exact matching — City is a text field with keyword sub-field
     city = params.get("city")
     if city and city.upper() not in ("BC", "BRITISH COLUMBIA"):
         filter_clauses.append({"terms": {"City.keyword": [city]}})
@@ -144,13 +144,15 @@ def search_jobs(params: dict, size: int = 5) -> list:
             or "#"
         )
  
+        # FIX: use (... or [None])[0] pattern for all array fields
+        # handles both None and empty list [] without IndexError
         jobs.append({
             "title":           src.get("Title"),
             "employer":        src.get("EmployerName"),
-            "city":            (src.get("City") or [None])[0],
+            "city":            (src.get("City")                                     or [None])[0],
             "salary":          src.get("SalarySummary", "Not specified"),
-            "hours":           src.get("HoursOfWork",        {}).get("Description", [None])[0],
-            "employment_type": src.get("PeriodOfEmployment", {}).get("Description", [None])[0],
+            "hours":           (src.get("HoursOfWork",        {}).get("Description") or [None])[0],
+            "employment_type": (src.get("PeriodOfEmployment", {}).get("Description") or [None])[0],
             "noc_code":        src.get("Noc2021"),
             "industry":        src.get("Industry"),
             "url":             url,
