@@ -83,6 +83,7 @@ def parse_intent(raw: str) -> dict:
            .strip()
            .replace("\\_", "_")
     )
+    print(f"DEBUG PARSE_INTENT: cleaned string = {repr(cleaned)}")
     parsed = json.loads(cleaned)
     parsed["intent"] = parsed.get("intent") or "career_info"
     return parsed
@@ -223,7 +224,7 @@ async def get_career_answer(
             and "Therefore"     not in l
             and "current query" not in l.lower()
         ]
-        # FIX: fall back to user_query, not raw_content
+        # Fallback to user_query, not raw_content
         search_term = ", ".join(filtered_lines) if filtered_lines else user_query
     except Exception as e:
         print(f"DEBUG: Rewriter failed, falling back to raw query: {e}")
@@ -251,7 +252,7 @@ async def get_career_answer(
         job_title = results['metadatas'][0][i].get('job_title')
         print(f"DEBUG: Chroma found '{job_title}' with distance {distance}")
 
-        # FIX: tighter threshold — BGE cosine distances above 0.5 are likely irrelevant
+        # Tighter threshold — BGE cosine distances above 0.5 are likely irrelevant
         if distance > 0.5:
             print(f"DEBUG: Skipping '{job_title}' — distance too high: {distance}")
             continue
@@ -381,12 +382,27 @@ async def ask_career_bot(request: QueryRequest):
                 messages=[{"role": "user", "content": intent_prompt}],
                 temperature=0,
             )
-            raw_intent  = intent_res.choices[0].message.content.strip()
+            raw_intent = intent_res.choices[0].message.content.strip()
+
+            # --- DEBUG: show exactly what the LLM returned before parsing ---
+            print(f"DEBUG RAW INTENT: {repr(raw_intent)}")
+
             intent_data = parse_intent(raw_intent)
-            intent      = intent_data["intent"]
-            params      = intent_data.get("job_search_params", {})
+
+            # --- DEBUG: show what came out of parse_intent ---
+            print(f"DEBUG PARSED INTENT DATA: {intent_data}")
+
+            intent = intent_data["intent"]
+            params = intent_data.get("job_search_params", {})
+
+        except json.JSONDecodeError as e:
+            # --- DEBUG: surface JSON parse failures explicitly ---
+            print(f"DEBUG INTENT JSON PARSE FAILED: {e}")
+            print(f"DEBUG INTENT RAW WAS: {repr(raw_intent)}")
+            intent = "career_info"
+            params = {}
         except Exception as e:
-            print(f"DEBUG: Intent detection failed, defaulting to career_info: {e}")
+            print(f"DEBUG: Intent detection failed ({type(e).__name__}): {e}")
             intent = "career_info"
             params = {}
 
