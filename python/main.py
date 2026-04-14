@@ -89,6 +89,26 @@ def parse_intent(raw: str) -> dict:
     return parsed
  
  
+def get_max_tokens(user_query: str, intent: str) -> int:
+    """
+    Dynamically set max_tokens based on query complexity.
+    Simple queries stay fast at 800.
+    Comparisons and combined responses get extra headroom at 1200.
+    """
+    query_lower = user_query.lower()
+ 
+    comparison_triggers = [
+        "compare", "comparison", "difference", "differ",
+        "vs", "versus", "better", "which is", "how does",
+    ]
+ 
+    if intent == "both":
+        return 1200
+    if any(trigger in query_lower for trigger in comparison_triggers):
+        return 1200
+    return 800
+ 
+ 
 # Bad URL fragments that indicate a broken or internal URL
 BAD_URL_FRAGMENTS = [
     "dev2.workbc.ca",   # dev environment base — rejects dev URLs when on prod
@@ -96,6 +116,7 @@ BAD_URL_FRAGMENTS = [
     "#/",               # hash with trailing slash — catches broken WorkBC URLs
     "localhost",        # local dev
 ]
+ 
  
 def build_job_url(src: dict) -> str:
     """
@@ -232,18 +253,23 @@ async def get_career_answer(
     user_query: str,
     sanitized_history: list,
     system_rules: str,
+    max_tokens: int,
 ) -> tuple[str, str]:
     """
     Run the full RAG + Mistral career info flow.
     Returns (answer, search_term).
     """
-    # Query rewriting
+    # Query rewriting — handles follow-up comparison questions by including
+    # both the current job and the job from the previous message
     rewrite_prompt = (
         f"Current User Query: {user_query}\n"
         f"Last 2 Chat Messages: {sanitized_history[-2:]}\n\n"
         "TASK: Identify the EXACT job titles the user is asking about NOW. "
-        "If the user is asking a NEW question (e.g. switching from Arts to Trades), "
-        "IGNORE the history. Output ONLY the job titles for the NEW search."
+        "If this is a follow-up comparison question (e.g. 'what is the difference', "
+        "'compare with', 'how does it compare', 'what about'), include BOTH the "
+        "current job AND the job from the previous message. "
+        "If the user is asking a completely NEW question, IGNORE the history. "
+        "Output ONLY the job titles, comma separated. No explanation."
     )
  
     try:
@@ -340,7 +366,7 @@ async def get_career_answer(
             model=MODEL_NAME,
             messages=final_messages,
             temperature=0.0,
-            max_tokens=800,
+            max_tokens=max_tokens,
         )
         answer = completion.choices[0].message.content
     except Exception as e:
@@ -435,16 +461,23 @@ async def ask_career_bot(request: QueryRequest):
  
         print(f"DEBUG: Intent={intent} | Params={params}")
  
+        # --- Dynamic max_tokens based on query complexity ---
+        max_tokens = get_max_tokens(user_query, intent)
+        print(f"DEBUG: max_tokens={max_tokens}")
+ 
         # --- System rules (career info path) ---
         system_rules = (
             "You are a WorkBC Career Advisor. BE CONCISE. Use bullet points. Rules:\n"
             "1. Use ONLY the provided Context. No external sources or internal knowledge.\n"
             "2. IDENTITY CHECK: If the context describes a job that is NOT what the user asked for "
             "(e.g., user asks for 'Teacher' but context is 'Principal'), do NOT use that data.\n"
-            "3. If comparing careers, YOU MUST USE A MARKDOWN TABLE.\n"
+            "3. If the user asks to compare careers OR asks about differences between careers, "
+            "YOU MUST USE A MARKDOWN TABLE with columns: NOC | Job Title | Salary | Key Difference.\n"
             "4. Always include the NOC code and **bold** salaries.\n"
             "5. Format links as [View Career Profile](URL).\n"
-            "6. If context is missing, say you don't have that information in WorkBC records."
+            "6. If context is missing, say you don't have that information in WorkBC records.\n"
+            "7. Never start a table or list you cannot complete. "
+            "If the response would be too long, summarize in bullet points instead."
         )
  
         # --- Route by intent ---
@@ -453,7 +486,7 @@ async def ask_career_bot(request: QueryRequest):
  
         if intent == "career_info":
             answer, search_term = await get_career_answer(
-                user_query, sanitized_history, system_rules
+                user_query, sanitized_history, system_rules, max_tokens
             )
  
         elif intent == "job_search":
@@ -462,7 +495,7 @@ async def ask_career_bot(request: QueryRequest):
         elif intent == "both":
             # Run career info and job search in parallel
             career_task = asyncio.create_task(
-                get_career_answer(user_query, sanitized_history, system_rules)
+                get_career_answer(user_query, sanitized_history, system_rules, max_tokens)
             )
             jobs_task = asyncio.create_task(get_job_answer(params))
  
@@ -488,6 +521,7 @@ async def ask_career_bot(request: QueryRequest):
             "debug_search":  search_term,
             "debug_intent":  intent,
             "debug_params":  params,
+            "debug_tokens":  max_tokens,
         }
  
     except HTTPException:
@@ -509,9 +543,10 @@ async def health_check():
         "opensearch_server":   OPENSEARCH_SERVER,
         "opensearch_user_set": bool(OPENSEARCH_USER),
         "opensearch_pass_set": bool(OPENSEARCH_PASS),
-        "workbc_base_url":     WORKBC_BASE_URL,   # confirm correct env var loaded
+        "workbc_base_url":     WORKBC_BASE_URL,
     }
  
  
 if __name__ == "__main__":
     uvicorn.run(app, host="0.0.0.0", port=8000)
+ 
