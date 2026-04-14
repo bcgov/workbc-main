@@ -1,148 +1,10 @@
-import os
-import json
-import asyncio
-import traceback
-from functools import partial
- 
-import redis
-import chromadb
-from fastapi import FastAPI, HTTPException
-from fastapi.middleware.cors import CORSMiddleware
-from pydantic import BaseModel
-from sentence_transformers import SentenceTransformer
-from opensearchpy import OpenSearch
-from openai import OpenAI
-import uvicorn
- 
-# ---------------------------------------------------------------------------
-# 1. CONFIGURATION
-# ---------------------------------------------------------------------------
-REDIS_HOST        = os.getenv("REDIS_HOST2", "localhost")
-REDIS_PORT        = int(os.getenv("REDIS_PORT", 6379))
-MISTRAL_HOST      = os.getenv("MISTRAL_SERVICE_SERVICE_HOST", "mistral-service")
-MISTRAL_PORT      = os.getenv("MISTRAL_SERVICE_SERVICE_PORT", "80")
-CHROMA_HOST       = os.getenv("CHROMA_SERVICE_HOST", "chroma-service")
-CHROMA_PORT       = os.getenv("CHROMA_SERVICE_PORT", "8000")
-OPENSEARCH_SERVER = os.getenv("ConnectionStrings__ElasticSearchServer", "localhost")
-OPENSEARCH_USER   = os.getenv("IndexSettings__ElasticUser", "")
-OPENSEARCH_PASS   = os.getenv("IndexSettings__ElasticPassword", "")
- 
-app = FastAPI()
- 
-app.add_middleware(
-    CORSMiddleware,
-    allow_origins=["*"],
-    allow_credentials=True,
-    allow_methods=["*"],
-    allow_headers=["*"],
-)
- 
-# ---------------------------------------------------------------------------
-# 2. INITIALIZATION
-# ---------------------------------------------------------------------------
-bi_encoder = SentenceTransformer("BAAI/bge-base-en-v1.5", device="cpu")
- 
-vllm_client = OpenAI(
-    base_url=f"http://{MISTRAL_HOST}:{MISTRAL_PORT}/v1",
-    api_key="none",
-    timeout=120.0,
-)
- 
-MODEL_NAME    = "TheBloke/Mistral-7B-Instruct-v0.2-AWQ"
-chroma_client = chromadb.HttpClient(host=CHROMA_HOST, port=int(CHROMA_PORT))
-collection    = chroma_client.get_collection("career_content")
-r             = redis.Redis(host=REDIS_HOST, port=REDIS_PORT, decode_responses=True)
- 
-os_client = OpenSearch(
-    hosts=[OPENSEARCH_SERVER],
-    http_auth=(OPENSEARCH_USER, OPENSEARCH_PASS),
-    use_ssl=OPENSEARCH_SERVER.startswith("https"),
-    verify_certs=True,
-)
- 
- 
-# ---------------------------------------------------------------------------
-# 3. REQUEST MODEL
-# ---------------------------------------------------------------------------
-class QueryRequest(BaseModel):
-    prompt: str
-    session_id: str
- 
- 
-# ---------------------------------------------------------------------------
-# 4. HELPERS
-# ---------------------------------------------------------------------------
- 
-def parse_intent(raw: str) -> dict:
-    """Parse intent JSON from LLM output, handling markdown fences and escaped underscores."""
-    cleaned = (
-        raw.strip()
-           .removeprefix("```json")
-           .removeprefix("```")
-           .removesuffix("```")
-           .strip()
-           .replace("\\_", "_")
-    )
-    parsed = json.loads(cleaned)
-    parsed["intent"] = parsed.get("intent") or "career_info"
-    return parsed
- 
- 
-def search_jobs(params: dict, size: int = 5) -> list:
-    """Build and execute an OpenSearch query from extracted intent params."""
-    must_clauses   = []
-    filter_clauses = [{"range": {"ExpireDate": {"gte": "now"}}}]
- 
-    if params.get("keywords"):
-        # Exclude generic keywords that add no search value
-        generic = {"jobs", "job", "work", "position", "positions", "opening", "openings"}
-        if params["keywords"].lower().strip() not in generic:
-            must_clauses.append({
-                "multi_match": {
-                    "query":  params["keywords"],
-                    "fields": ["Title^3", "JobDescription"],
-                }
-            })
- 
-    # City.keyword for exact matching — City is a text field with keyword sub-field
-    city = params.get("city")
-    if city and city.upper() not in ("BC", "BRITISH COLUMBIA"):
-        filter_clauses.append({"terms": {"City.keyword": [city]}})
- 
-    if params.get("employment_type"):
-        filter_clauses.append({
-            "term": {"HoursOfWork.Description": params["employment_type"]}
-        })
- 
-    if params.get("salary_min"):
-        filter_clauses.append({
-            "range": {"Salary": {"gte": params["salary_min"]}}
-        })
- 
-    os_query = {
-        "query": {
-            "bool": {
-                "must":   must_clauses if must_clauses else [{"match_all": {}}],
-                "filter": filter_clauses,
-            }
-        },
-        "size": size,
-    }
- 
-    print(f"DEBUG: OpenSearch query: {json.dumps(os_query, indent=2)}")
+ps(os_query, indent=2)}")
     response = os_client.search(index="jobs_en", body=os_query)
     print(f"DEBUG: OpenSearch returned {response['hits']['total']['value']} total matches")
  
     jobs = []
     for hit in response["hits"]["hits"]:
         src = hit["_source"]
- 
-        # Prefer ApplyWebsite, fall back to ExternalSource URL
-        url = (
-            src.get("ApplyWebsite")
-            or src.get("ExternalSource", {}).get("Source", [{}])[0].get("Url")
-            or "#"
-        )
  
         # Safe extraction for all array fields — handles None and empty list []
         jobs.append({
@@ -155,7 +17,7 @@ def search_jobs(params: dict, size: int = 5) -> list:
             "employment_type": (src.get("PeriodOfEmployment", {}).get("Description") or [None])[0],
             "noc_code":        src.get("Noc2021"),
             "industry":        src.get("Industry"),
-            "url":             url,
+            "url":             build_job_url(src),
             "description":     src.get("JobDescription", "")[:200],
         })
  
@@ -475,6 +337,7 @@ async def health_check():
         "opensearch_server":   OPENSEARCH_SERVER,
         "opensearch_user_set": bool(OPENSEARCH_USER),
         "opensearch_pass_set": bool(OPENSEARCH_PASS),
+        "workbc_base_url":     WORKBC_BASE_URL,   # confirm correct env var loaded
     }
  
  
