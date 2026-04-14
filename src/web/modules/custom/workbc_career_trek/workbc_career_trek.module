@@ -92,6 +92,7 @@ function workbc_career_trek_search_api_autocomplete_suggestions_alter(array &$su
  * - Otherwise, always sort by title (A–Z) when any of the main filters are used.
  */
 function workbc_career_trek_views_query_alter(ViewExecutable $view, $query) {
+  d('hello');
   if ($view->id() === 'career_trek_redux') {
     // Preload the EPBC/FYP categories.
     $epbc_tree = array_reduce(\Drupal::entityTypeManager()->getStorage('taxonomy_term')->loadTree('epbc_categories'),
@@ -129,15 +130,15 @@ function workbc_career_trek_views_query_alter(ViewExecutable $view, $query) {
           // If the incoming value is a parent category, get all its children.
           // If the incoming value is a child, get the parent first then all its children.
           // Repeat for each incoming value.
-          $condition_value = [];
           $condition_parents = [];
           if (array_key_exists(':node__field_epbc_categories_field_epbc_categories_target_id', $condition['value']))
-            $condition_parents += (array)$condition['value'][':node__field_epbc_categories_field_epbc_categories_target_id'];
+            $condition_parents = array_merge($condition_parents, (array)$condition['value'][':node__field_epbc_categories_field_epbc_categories_target_id']);
           if (array_key_exists(':node__field_epbc_categories_field_epbc_categories_target_id[]', $condition['value']))
-            $condition_parents += $condition['value'][':node__field_epbc_categories_field_epbc_categories_target_id[]'];
+            $condition_parents = array_merge($condition_parents, $condition['value'][':node__field_epbc_categories_field_epbc_categories_target_id[]']);
+          $condition_value = [];
           foreach ($condition_parents as $parent) {
             if (!is_array($epbc_tree[$parent])) $parent = $epbc_tree[$parent];
-            $condition_value += $epbc_tree[$parent];
+            $condition_value = array_merge($condition_value, $epbc_tree[$parent]);
           }
           $condition['value'] = $condition_value;
         }
