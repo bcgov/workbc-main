@@ -93,7 +93,6 @@ OUT_OF_SCOPE_LOCATIONS = (
 
 DATE_SORT_KEYWORDS = {"latest", "recent", "newest", "new", "today", "this week"}
 
-# Province suffixes the LLM sometimes appends to city names
 CITY_PROVINCE_SUFFIXES = [
     ", BC", ", B.C.", ", British Columbia",
     ", AB", ", Alberta",
@@ -171,9 +170,8 @@ def strip_html(text: str) -> str:
 
 def clean_city(city: str) -> str:
     """
-    Strip province/country suffixes that the LLM sometimes appends to city names.
+    Strip province/country suffixes the LLM sometimes appends to city names.
     e.g. 'Vancouver, BC' -> 'Vancouver'
-         'Surrey, British Columbia' -> 'Surrey'
     """
     if not city:
         return city
@@ -182,6 +180,20 @@ def clean_city(city: str) -> str:
             city = city[:len(city) - len(suffix)].strip()
             break
     return city
+
+
+def fix_city_of_misclassification(params: dict) -> dict:
+    """
+    If the LLM places 'City of X' into city field instead of employer,
+    move it to employer and clear city.
+    e.g. city='City of Surrey' -> employer='City of Surrey', city=None
+    """
+    city = params.get("city") or ""
+    if city.lower().startswith("city of ") and not params.get("employer"):
+        print(f"DEBUG: Moving '{city}' from city to employer field")
+        params["employer"] = city
+        params["city"]     = None
+    return params
 
 
 def parse_intent(raw: str) -> dict:
@@ -251,7 +263,6 @@ def format_job_results(jobs: list, params: dict, total: int) -> str:
     city     = params.get("city")
     keywords = params.get("keywords")
 
-    # Out-of-scope location check
     if city and is_out_of_scope(city):
         keyword_str = f"**{employer or keywords}**" if (employer or keywords) else "jobs"
         return (
@@ -266,13 +277,15 @@ def format_job_results(jobs: list, params: dict, total: int) -> str:
         if employer and city:
             return (
                 f"I couldn't find any current **{employer}** postings in **{city}**. "
-                f"They may not have active listings there right now.\n\n"
+                f"Their listings may have expired or they may not be actively hiring right now.\n\n"
                 f"Try asking: *{employer} jobs* to see all their BC postings."
             )
         elif employer:
             return (
                 f"I couldn't find any current **{employer}** postings in WorkBC's job bank. "
-                f"They may not have active listings right now."
+                f"Their listings may have expired or they may not be actively hiring right now.\n\n"
+                f"Check back later or visit [WorkBC Job Bank]"
+                f"({WORKBC_BASE_URL}/search-and-prepare-job/find-jobs) directly."
             )
         else:
             return (
@@ -294,7 +307,6 @@ def search_jobs(params: dict, size: int = PAGE_SIZE, from_offset: int = 0) -> tu
     must_clauses   = []
     filter_clauses = [{"range": {"ExpireDate": {"gte": "now"}}}]
 
-    # Job title keywords — skip if employer specified to avoid noise
     if params.get("keywords") and not params.get("employer"):
         generic = {"jobs", "job", "work", "position", "positions", "opening", "openings"}
         clean_keywords = " ".join(
@@ -309,7 +321,6 @@ def search_jobs(params: dict, size: int = PAGE_SIZE, from_offset: int = 0) -> tu
                 }
             })
 
-    # Employer wildcard — matches "The City of Surrey", "City of Surrey" etc.
     if params.get("employer"):
         filter_clauses.append({
             "wildcard": {
@@ -317,7 +328,6 @@ def search_jobs(params: dict, size: int = PAGE_SIZE, from_offset: int = 0) -> tu
             }
         })
 
-    # City filter — only apply for valid BC cities
     city = params.get("city")
     if city and not is_out_of_scope(city) and city.upper() not in BC_VARIANTS:
         filter_clauses.append({"terms": {"City.keyword": [city]}})
@@ -429,32 +439,58 @@ async def get_career_answer(
     Returns (answer, search_term).
     Appends a truncation note if the response was cut off by max_tokens.
     """
+    # Build a compact history summary for the rewriter
+    # Only include the last assistant message topic to avoid over-influencing
+    last_topic = ""
+    for msg in reversed(sanitized_history):
+        if msg["role"] == "assistant":
+            last_topic = msg["content"][:120]
+            break
+
+    # FIX: Use examples instead of conditional logic so Mistral outputs
+    # only job titles and does not copy prompt text into the search term
     rewrite_prompt = (
-        f"Current User Query: {user_query}\n"
-        f"Last 2 Chat Messages: {sanitized_history[-2:]}\n\n"
-        "TASK: Identify the EXACT job titles the user is asking about NOW. "
-        "If this is a follow-up comparison question (e.g. 'what is the difference', "
-        "'compare with', 'how does it compare', 'what about'), include BOTH the "
-        "current job AND the job from the previous message. "
-        "If the user is asking a completely NEW question, IGNORE the history. "
-        "Output ONLY the job titles, comma separated. No explanation."
+        "Extract job titles to search for. Output ONLY job titles separated by commas.\n\n"
+        "EXAMPLES:\n"
+        "Query: 'what does a nurse do?' -> nurse\n"
+        "Query: 'requirements to become a teacher?' -> teacher\n"
+        "Query: 'tell me about plumbers' -> plumber\n"
+        "Query: 'what is the salary?' Last topic: firefighter -> firefighter\n"
+        "Query: 'how does it compare?' Last topic: nurse and doctor -> nurse, doctor\n"
+        "Query: 'what is the difference?' Last topic: teacher -> teacher\n"
+        "Query: 'requirements to become a teacher?' Last topic: plumber -> teacher\n"
+        "Query: 'what about the education?' Last topic: electrician -> electrician\n\n"
+        "RULE: If the query names a job title explicitly, output ONLY that title. "
+        "Only include the last topic when the query has NO job title "
+        "and is clearly a follow-up like 'what about', 'how does it compare', "
+        "'what is the salary', 'what is the difference'.\n\n"
+        f"Query: {user_query}\n"
+        f"Last topic: {last_topic if last_topic else 'none'}\n\n"
+        "Job titles:"
     )
 
     try:
-        rewrite_res    = vllm_client.chat.completions.create(
+        rewrite_res = vllm_client.chat.completions.create(
             model=MODEL_NAME,
             messages=[{"role": "user", "content": rewrite_prompt}],
             temperature=0,
         )
-        raw_content    = rewrite_res.choices[0].message.content.strip()
-        lines          = [line.strip('- *123456789."\' ') for line in raw_content.split('\n')]
+        raw_content = rewrite_res.choices[0].message.content.strip()
+
+        # Strip any preamble Mistral adds before the actual titles
+        lines = [line.strip('- *123456789."\' ') for line in raw_content.split('\n')]
         filtered_lines = [
             l for l in lines
             if len(l) > 0
+            and len(l) < 100              # reject long sentences — prompt bleed
             and "Based on"      not in l
             and "Therefore"     not in l
             and "current query" not in l.lower()
+            and "last topic"    not in l.lower()
+            and "if this"       not in l.lower()
+            and "follow-up"     not in l.lower()
         ]
+
         search_term = ", ".join(filtered_lines) if filtered_lines else user_query
     except Exception as e:
         print(f"DEBUG: Rewriter failed, falling back to raw query: {e}")
@@ -602,6 +638,7 @@ async def ask_career_bot(request: QueryRequest):
             "Query: 'City of Kelowna part time' -> job_search, employer=City of Kelowna, employment_type=Part-time, city=null\n"
             "Query: 'City of Kelowna jobs in Kelowna' -> job_search, employer=City of Kelowna, city=Kelowna\n"
             "Query: 'jobs with the City of Burnaby' -> job_search, employer=City of Burnaby, city=null\n"
+            "Query: 'looking for jobs with city of surrey' -> job_search, employer=City of Surrey, city=null\n"
             "Query: 'latest business analyst jobs in Ontario' -> job_search, keywords=latest business analyst, city=Ontario\n"
             "Query: 'show me accounting jobs' -> job_search, keywords=accounting\n"
             "Query: 'any openings for teachers?' -> job_search, keywords=teacher\n"
@@ -638,6 +675,9 @@ async def ask_career_bot(request: QueryRequest):
             # Clean province suffixes from extracted city value
             if params.get("city"):
                 params["city"] = clean_city(params["city"])
+
+            # Fix City of X being placed in city field instead of employer
+            params = fix_city_of_misclassification(params)
 
         except json.JSONDecodeError as e:
             print(f"DEBUG: Intent JSON parse failed ({e}) — raw was: {repr(raw_intent)}")
