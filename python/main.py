@@ -630,10 +630,16 @@ async def ask_career_bot(request: QueryRequest):
             "use a SHORT markdown table with MAXIMUM 3 columns: NOC | Job Title | Salary. "
             "Keep the table under 5 rows. Do not add explanation after the table.\n"
             "4. Always include the NOC code and **bold** salaries.\n"
-            "5. Format links as [View Career Profile](URL).\n"
+            "5. Format links as [View Career Profile](URL) using ONLY the URL field "
+             "from the Context. NEVER construct or guess a URL.\n"
             "6. If context is missing, say you don't have that information in WorkBC records.\n"
             "7. Never start a table or list you cannot complete. "
             "If the response would be too long, summarize in bullet points instead."
+             "8. HALLUCINATION GUARD: Only mention job titles, NOC codes, salaries and URLs "
+            "that appear explicitly in the Context section below. "
+            "Do NOT suggest careers from your training knowledge. "
+            "If the context does not contain enough careers to answer the question, "
+            "say so rather than inventing additional ones."
         )
 
         # --- Route by intent ---
