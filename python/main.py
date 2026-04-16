@@ -27,13 +27,77 @@ CHROMA_PORT       = os.getenv("CHROMA_SERVICE_PORT", "8000")
 OPENSEARCH_SERVER = os.getenv("ConnectionStrings__ElasticSearchServer", "localhost")
 OPENSEARCH_USER   = os.getenv("IndexSettings__ElasticUser", "")
 OPENSEARCH_PASS   = os.getenv("IndexSettings__ElasticPassword", "")
-WORKBC_BASE_URL   = os.getenv("WORKBC_BASE_URL", "https://www.workbc.ca").rstrip("/")
+WORKBC_BASE_URL   = os.getenv("WORKBC_BASE_URL", "https://dev2.workbc.ca").rstrip("/")
 
-# Fixed at 800 for reliable T4 GPU performance (~7-10 seconds per response)
+
 MAX_TOKENS = 800
 
 # Number of job results per page
 PAGE_SIZE = 5
+
+# ---------------------------------------------------------------------------
+# 2. LOCATION EXCLUSION SETS
+# ---------------------------------------------------------------------------
+
+# Locations that are in BC — valid for city filter
+BC_VARIANTS = {"BC", "BRITISH COLUMBIA", "B.C."}
+
+# All other Canadian provinces/territories — out of scope
+OTHER_CANADIAN_PROVINCES = {
+    "ONTARIO", "ON",
+    "ALBERTA", "AB",
+    "QUEBEC", "QC", "QUÉBEC",
+    "MANITOBA", "MB",
+    "SASKATCHEWAN", "SK",
+    "NOVA SCOTIA", "NS",
+    "NEW BRUNSWICK", "NB",
+    "NEWFOUNDLAND", "NL", "NEWFOUNDLAND AND LABRADOR",
+    "PRINCE EDWARD ISLAND", "PEI",
+    "NORTHWEST TERRITORIES", "NT",
+    "NUNAVUT", "NU",
+    "YUKON", "YT",
+}
+
+# US states — out of scope
+US_STATES = {
+    "ALABAMA", "AL", "ALASKA", "AK", "ARIZONA", "AZ", "ARKANSAS", "AR",
+    "CALIFORNIA", "CA", "COLORADO", "CO", "CONNECTICUT", "CT",
+    "DELAWARE", "DE", "FLORIDA", "FL", "GEORGIA", "GA", "HAWAII", "HI",
+    "IDAHO", "ID", "ILLINOIS", "IL", "INDIANA", "IN", "IOWA", "IA",
+    "KANSAS", "KS", "KENTUCKY", "KY", "LOUISIANA", "LA", "MAINE", "ME",
+    "MARYLAND", "MD", "MASSACHUSETTS", "MA", "MICHIGAN", "MI",
+    "MINNESOTA", "MN", "MISSISSIPPI", "MS", "MISSOURI", "MO",
+    "MONTANA", "MT", "NEBRASKA", "NE", "NEVADA", "NV",
+    "NEW HAMPSHIRE", "NH", "NEW JERSEY", "NJ", "NEW MEXICO", "NM",
+    "NEW YORK", "NY", "NORTH CAROLINA", "NC", "NORTH DAKOTA", "ND",
+    "OHIO", "OH", "OKLAHOMA", "OK", "OREGON", "OR", "PENNSYLVANIA", "PA",
+    "RHODE ISLAND", "RI", "SOUTH CAROLINA", "SC", "SOUTH DAKOTA", "SD",
+    "TENNESSEE", "TN", "TEXAS", "TX", "UTAH", "UT", "VERMONT", "VT",
+    "VIRGINIA", "VA", "WASHINGTON", "WA", "WEST VIRGINIA", "WV",
+    "WISCONSIN", "WI", "WYOMING", "WY",
+    "UNITED STATES", "USA", "US",
+}
+
+# Countries and other regions — out of scope
+OTHER_COUNTRIES = {
+    "AUSTRALIA", "INDIA", "CHINA", "JAPAN", "GERMANY", "FRANCE",
+    "UNITED KINGDOM", "UK", "ENGLAND", "SCOTLAND", "WALES",
+    "IRELAND", "ITALY", "SPAIN", "MEXICO", "BRAZIL", "ARGENTINA",
+    "SOUTH AFRICA", "NIGERIA", "KENYA", "EGYPT", "SAUDI ARABIA",
+    "UAE", "SINGAPORE", "SOUTH KOREA", "KOREA", "TAIWAN", "THAILAND",
+    "VIETNAM", "PHILIPPINES", "INDONESIA", "MALAYSIA", "NEW ZEALAND",
+    "CANADA",   # too broad — only BC is in the index
+}
+
+# Combined out-of-scope set
+OUT_OF_SCOPE_LOCATIONS = (
+    OTHER_CANADIAN_PROVINCES |
+    US_STATES |
+    OTHER_COUNTRIES
+)
+
+# Keywords that indicate user wants results sorted by most recent
+DATE_SORT_KEYWORDS = {"latest", "recent", "newest", "new", "today", "this week"}
 
 app = FastAPI()
 
@@ -46,7 +110,7 @@ app.add_middleware(
 )
 
 # ---------------------------------------------------------------------------
-# 2. INITIALIZATION
+# 3. INITIALIZATION
 # ---------------------------------------------------------------------------
 bi_encoder = SentenceTransformer("BAAI/bge-base-en-v1.5", device="cpu")
 
@@ -70,7 +134,7 @@ os_client = OpenSearch(
 
 
 # ---------------------------------------------------------------------------
-# 3. REQUEST MODEL
+# 4. REQUEST MODEL
 # ---------------------------------------------------------------------------
 class QueryRequest(BaseModel):
     prompt: str
@@ -78,7 +142,7 @@ class QueryRequest(BaseModel):
 
 
 # ---------------------------------------------------------------------------
-# 4. HELPERS
+# 5. HELPERS
 # ---------------------------------------------------------------------------
 
 def strip_html(text: str) -> str:
@@ -143,14 +207,36 @@ def build_job_url(src: dict) -> str:
     return workbc_url
 
 
+def is_out_of_scope(city: str) -> bool:
+    """Return True if the city/location is outside BC."""
+    return city.upper().strip() in OUT_OF_SCOPE_LOCATIONS
+
+
+def needs_date_sort(params: dict) -> bool:
+    """Return True if the user's keywords indicate they want most recent results."""
+    keywords = (params.get("keywords") or "").lower()
+    return any(kw in keywords for kw in DATE_SORT_KEYWORDS)
+
+
 def format_job_results(jobs: list, params: dict, total: int) -> str:
     """
     Format job results as markdown header text for the chat UI.
-    Returns a no-results message with helpful suggestions when empty.
+    Returns a helpful message for out-of-scope locations or no results.
     """
     employer = params.get("employer")
     city     = params.get("city")
     keywords = params.get("keywords")
+
+    # Out-of-scope location — explain before showing any results
+    if city and is_out_of_scope(city):
+        keyword_str = f"**{employer or keywords}**" if (employer or keywords) else "jobs"
+        return (
+            f"WorkBC's job bank only contains **British Columbia** postings — "
+            f"I can't search for jobs in **{city}**.\n\n"
+            f"Try asking for {keyword_str} in a BC city like "
+            f"Vancouver, Surrey, Kelowna or Victoria, "
+            f"or search without a location to see all BC postings."
+        )
 
     if not jobs:
         if employer and city:
@@ -170,9 +256,9 @@ def format_job_results(jobs: list, params: dict, total: int) -> str:
                 "matching your request. Try broader keywords or a different location."
             )
 
-    location_str = f" in **{city}**"       if city     else ""
-    keyword_str  = f"**{employer}**"        if employer else \
-                   f"**{keywords}**"         if keywords else "your search"
+    location_str = f" in **{city}**"   if city     else ""
+    keyword_str  = f"**{employer}**"   if employer else \
+                   f"**{keywords}**"   if keywords else "your search"
     return f"Found **{total}** job postings for {keyword_str}{location_str}:"
 
 
@@ -180,23 +266,29 @@ def search_jobs(params: dict, size: int = PAGE_SIZE, from_offset: int = 0) -> tu
     """
     Build and execute an OpenSearch query.
     Returns (jobs, total_count).
-    Supports employer wildcard filter for company-specific searches.
+    Supports employer wildcard, city filter, date sort, and salary range.
+    Skips city filter for out-of-scope locations (handled at response layer).
     """
     must_clauses   = []
     filter_clauses = [{"range": {"ExpireDate": {"gte": "now"}}}]
 
-    # Job title keywords — skip if employer is specified to avoid noise
+    # Job title keywords — skip if employer specified to avoid noise
     if params.get("keywords") and not params.get("employer"):
         generic = {"jobs", "job", "work", "position", "positions", "opening", "openings"}
-        if params["keywords"].lower().strip() not in generic:
+        # Strip date-sort keywords before using as search terms
+        clean_keywords = " ".join(
+            w for w in params["keywords"].split()
+            if w.lower() not in DATE_SORT_KEYWORDS
+        ).strip()
+        if clean_keywords and clean_keywords.lower() not in generic:
             must_clauses.append({
                 "multi_match": {
-                    "query":  params["keywords"],
+                    "query":  clean_keywords,
                     "fields": ["Title^3", "JobDescription"],
                 }
             })
 
-    # Employer wildcard — matches "Best Buy", "Best Buy Canada", "Best Buy Inc." etc.
+    # Employer wildcard — matches "Best Buy", "Best Buy Canada" etc.
     if params.get("employer"):
         filter_clauses.append({
             "wildcard": {
@@ -204,9 +296,9 @@ def search_jobs(params: dict, size: int = PAGE_SIZE, from_offset: int = 0) -> tu
             }
         })
 
-    # City filter — City.keyword for exact matching
+    # City filter — only apply for valid BC cities
     city = params.get("city")
-    if city and city.upper() not in ("BC", "BRITISH COLUMBIA"):
+    if city and not is_out_of_scope(city) and city.upper() not in BC_VARIANTS:
         filter_clauses.append({"terms": {"City.keyword": [city]}})
 
     if params.get("employment_type"):
@@ -229,6 +321,14 @@ def search_jobs(params: dict, size: int = PAGE_SIZE, from_offset: int = 0) -> tu
         "from": from_offset,
         "size": size,
     }
+
+    # Sort by date when user asks for latest/recent jobs
+    if needs_date_sort(params):
+        os_query["sort"] = [
+            {"DatePosted": {"order": "desc"}},
+            {"_score":     {"order": "desc"}},
+        ]
+        print(f"DEBUG: Sorting by DatePosted descending")
 
     print(f"DEBUG: OpenSearch query (from={from_offset}): {json.dumps(os_query, indent=2)}")
     response = os_client.search(index="jobs_en", body=os_query)
@@ -429,7 +529,7 @@ async def get_career_answer(
 
 
 # ---------------------------------------------------------------------------
-# 5. MAIN ENDPOINT
+# 6. MAIN ENDPOINT
 # ---------------------------------------------------------------------------
 @app.post("/api/ask")
 async def ask_career_bot(request: QueryRequest):
@@ -463,6 +563,10 @@ async def ask_career_bot(request: QueryRequest):
         # --- Intent detection ---
         intent_prompt = (
             "Classify this query and return JSON only, no explanation, no markdown fences.\n\n"
+            "IMPORTANT: This job bank only contains British Columbia, Canada postings. "
+            "If the user specifies a location outside BC (another Canadian province, "
+            "a US state, or a foreign country), still extract it as city so the system "
+            "can return a helpful out-of-scope message.\n\n"
             "RULES:\n"
             "- 'job_search' = user wants to find/see/browse actual job postings or openings\n"
             "- 'career_info' = user wants to learn about a career (duties, salary, education)\n"
@@ -472,6 +576,7 @@ async def ask_career_bot(request: QueryRequest):
             "Query: 'Best Buy jobs in Surrey' -> job_search, employer=Best Buy, city=Surrey\n"
             "Query: 'McDonald's part time jobs' -> job_search, employer=McDonald's, employment_type=Part-time\n"
             "Query: 'Telus jobs in Burnaby' -> job_search, employer=Telus, city=Burnaby\n"
+            "Query: 'latest business analyst jobs in Ontario' -> job_search, keywords=latest business analyst, city=Ontario\n"
             "Query: 'show me accounting jobs' -> job_search, keywords=accounting\n"
             "Query: 'any openings for teachers?' -> job_search, keywords=teacher\n"
             "Query: 'jobs paying over 80000' -> job_search, salary_min=80000\n"
@@ -485,7 +590,7 @@ async def ask_career_bot(request: QueryRequest):
             '  "job_search_params": {\n'
             '    "keywords": "extracted job title or null",\n'
             '    "employer": "extracted company name or null",\n'
-            '    "city": "extracted city or null",\n'
+            '    "city": "extracted city, province, state or country or null",\n'
             '    "employment_type": "Full-time or Part-time or null",\n'
             '    "salary_min": null\n'
             "  }\n"
@@ -546,17 +651,24 @@ async def ask_career_bot(request: QueryRequest):
             )
 
         elif intent == "job_search":
-            jobs, total = await get_job_results(params, from_offset=0)
-            has_more    = total > PAGE_SIZE
+            # Check out-of-scope location before hitting OpenSearch
+            city = params.get("city")
+            if city and is_out_of_scope(city):
+                answer   = format_job_results([], params, 0)
+                jobs     = []
+                total    = 0
+                has_more = False
+            else:
+                jobs, total = await get_job_results(params, from_offset=0)
+                has_more    = total > PAGE_SIZE
 
-            # Store search params for pagination
-            r.setex(
-                f"job_search_params:{session_id}",
-                3600,
-                json.dumps({"params": params, "page": 1}),
-            )
+                r.setex(
+                    f"job_search_params:{session_id}",
+                    3600,
+                    json.dumps({"params": params, "page": 1}),
+                )
 
-            answer = format_job_results(jobs, params, total)
+                answer = format_job_results(jobs, params, total)
 
         elif intent == "both":
             career_task = asyncio.create_task(
@@ -605,7 +717,7 @@ async def ask_career_bot(request: QueryRequest):
 
 
 # ---------------------------------------------------------------------------
-# 6. HEALTH CHECK
+# 7. HEALTH CHECK
 # ---------------------------------------------------------------------------
 @app.get("/health")
 @app.get("/api/health")
@@ -624,5 +736,3 @@ async def health_check():
 
 if __name__ == "__main__":
     uvicorn.run(app, host="0.0.0.0", port=8000)
-
- 
