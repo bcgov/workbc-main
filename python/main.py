@@ -720,7 +720,7 @@ async def ask_career_bot(request: QueryRequest):
             "5. URLS ONLY FROM CONTEXT: Format links as [View Career Profile](URL) "
             "using ONLY URLs that appear word-for-word in the Context. "
             "NEVER invent, guess or construct URLs. "
-            "If no URL exists in the context for a job, DO NOT include any link for it.\n"
+            "If no URL exists in the context for a job, silently omit the link with no explanation.\n"
             "If no URL is in the context, do not include a link.\n"
             "6. NO DATA: If the Context truly has no relevant information, "
             "say: 'I don't have that information in WorkBC records.' "
