@@ -429,46 +429,23 @@ async def get_career_answer(
     user_query: str,
     sanitized_history: list,
     system_rules: str,
-    session_id: str,
 ) -> tuple[str, str]:
     """
     Run the full RAG + Mistral career info flow.
     Returns (answer, search_term).
     Appends a truncation note if the response was cut off by max_tokens.
     """
-    # Only pass last_topic for genuine follow-up queries
-    # New explicit career questions get an empty last_topic
-    follow_up_indicators = {
-        "what about", "how does", "compare", "difference",
-        "salary", "same", "similar", "also", "and what"
-    }
-    is_follow_up = any(ind in user_query.lower() for ind in follow_up_indicators)
-
-    last_topic = ""
-    if is_follow_up:
-        for msg in reversed(sanitized_history):
-            if msg["role"] == "assistant":
-                last_topic = msg["content"][:120]
-                break
-
+    # Original working rewriter prompt — simple, reliable
     rewrite_prompt = (
-        "Extract job titles to search for. Output ONLY job titles separated by commas.\n\n"
-        "EXAMPLES:\n"
-        "Query: 'what does a nurse do?' -> nurse\n"
-        "Query: 'requirements to become a teacher?' -> teacher\n"
-        "Query: 'tell me about plumbers' -> plumber\n"
-        "Query: 'what is the salary?' Last topic: firefighter -> firefighter\n"
-        "Query: 'how does it compare?' Last topic: nurse and doctor -> nurse, doctor\n"
-        "Query: 'what is the difference?' Last topic: teacher -> teacher\n"
-        "Query: 'requirements to become a teacher?' Last topic: plumber -> teacher\n"
-        "Query: 'what about the education?' Last topic: electrician -> electrician\n\n"
-        "RULE: If the query names a job title explicitly, output ONLY that title. "
-        "Only include the last topic when the query has NO job title "
-        "and is clearly a follow-up like 'what about', 'how does it compare', "
-        "'what is the salary', 'what is the difference'.\n\n"
-        f"Query: {user_query}\n"
-        f"Last topic: {last_topic if last_topic else 'none'}\n\n"
-        "Job titles:"
+        f"Current User Query: {user_query}\n"
+        f"Last 2 Chat Messages: {sanitized_history[-2:]}\n\n"
+        "TASK: Identify the EXACT job titles the user is asking about NOW. "
+        "If this is a follow-up question (e.g. 'what is the difference', "
+        "'compare with', 'how does it compare', 'what about', 'what is the salary'), "
+        "include BOTH the current job AND the job from the previous message. "
+        "If the user is asking a completely NEW question about a DIFFERENT job, "
+        "output ONLY the new job title — ignore history. "
+        "Output ONLY the job titles, comma separated. No explanation. No preamble."
     )
 
     try:
@@ -479,25 +456,21 @@ async def get_career_answer(
         )
         raw_content = rewrite_res.choices[0].message.content.strip()
 
-        # Strip "Job titles:" prefix if Mistral echoes it back
-        if "job titles:" in raw_content.lower():
-            raw_content = raw_content.lower().split("job titles:")[-1].strip()
-
         lines = [line.strip('- *123456789."\' ') for line in raw_content.split('\n')]
         filtered_lines = [
             l for l in lines
             if len(l) > 0
-            and len(l) < 60
+            and len(l) < 80               # reject long sentences — catches prompt bleed
             and "Based on"      not in l
             and "Therefore"     not in l
             and "current query" not in l.lower()
             and "if this"       not in l.lower()
             and "follow-up"     not in l.lower()
-            and "last topic"    not in l.lower()
             and "job title"     not in l.lower()
         ]
 
         search_term = ", ".join(filtered_lines) if filtered_lines else user_query
+
     except Exception as e:
         print(f"DEBUG: Rewriter failed, falling back to raw query: {e}")
         search_term = user_query
@@ -515,7 +488,7 @@ async def get_career_answer(
     )
     q_emb = q_emb_array.tolist()
 
-    results = collection.query(query_embeddings=[q_emb], n_results=4)
+    results = collection.query(query_embeddings=[q_emb], n_results=6)
 
     context_chunks = []
     for i in range(len(results['documents'][0])):
@@ -553,26 +526,10 @@ async def get_career_answer(
 
     top_context = "\n---\n".join(truncated_chunks) if truncated_chunks else "No WorkBC data found."
 
-    # History window — use Redis last_search for relevance check
+    # History window — must start with user
     history_window = sanitized_history[-2:]
     while history_window and history_window[0]["role"] != "user":
         history_window.pop(0)
-
-    # Compare current search term against last stored search term
-    last_search_raw   = r.get(f"last_search:{session_id}") or ""
-    last_search_terms = [t.lower().strip() for t in last_search_raw.split(",") if t.strip()]
-    current_terms     = [t.lower().strip() for t in search_term.split(",")      if t.strip()]
-
-    history_is_relevant = any(
-        term in last_search_terms
-        for term in current_terms
-    )
-
-    if not history_is_relevant:
-        history_window = []
-        print(f"DEBUG: History cleared — '{search_term}' differs from last search '{last_search_raw}'")
-    else:
-        print(f"DEBUG: History kept — '{search_term}' matches last search '{last_search_raw}'")
 
     current_user_content = f"Context:\n{top_context}\n\nQuestion: {user_query}"
 
@@ -753,7 +710,7 @@ async def ask_career_bot(request: QueryRequest):
 
         if intent == "career_info":
             answer, search_term = await get_career_answer(
-                user_query, sanitized_history, system_rules, session_id
+                user_query, sanitized_history, system_rules
             )
 
         elif intent == "job_search":
@@ -777,7 +734,7 @@ async def ask_career_bot(request: QueryRequest):
 
         elif intent == "both":
             career_task = asyncio.create_task(
-                get_career_answer(user_query, sanitized_history, system_rules, session_id)
+                get_career_answer(user_query, sanitized_history, system_rules)
             )
             jobs_task = asyncio.create_task(get_job_results(params, from_offset=0))
 
@@ -795,15 +752,11 @@ async def ask_career_bot(request: QueryRequest):
 
             answer = format_job_results(jobs, params, total)
 
-        # --- Save history and last search term ---
+        # --- Save history ---
         history_answer = career_answer if intent == "both" else answer
         sanitized_history.append({"role": "user",     "content": user_query})
         sanitized_history.append({"role": "assistant", "content": history_answer})
         r.setex(redis_key, 3600, json.dumps(sanitized_history[-10:]))
-
-        # Store last career search term for history relevance check
-        if intent in ("career_info", "both") and search_term:
-            r.setex(f"last_search:{session_id}", 3600, search_term)
 
         return {
             "answer":        answer,
