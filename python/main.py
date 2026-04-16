@@ -27,9 +27,9 @@ CHROMA_PORT       = os.getenv("CHROMA_SERVICE_PORT", "8000")
 OPENSEARCH_SERVER = os.getenv("ConnectionStrings__ElasticSearchServer", "localhost")
 OPENSEARCH_USER   = os.getenv("IndexSettings__ElasticUser", "")
 OPENSEARCH_PASS   = os.getenv("IndexSettings__ElasticPassword", "")
-WORKBC_BASE_URL   = os.getenv("WORKBC_BASE_URL", "https://dev2.workbc.ca").rstrip("/")
+WORKBC_BASE_URL   = os.getenv("WORKBC_BASE_URL", "https://www.workbc.ca").rstrip("/")
 
-
+# Fixed at 800 for reliable T4 GPU performance (~7-10 seconds per response)
 MAX_TOKENS = 800
 
 # Number of job results per page
@@ -39,10 +39,8 @@ PAGE_SIZE = 5
 # 2. LOCATION EXCLUSION SETS
 # ---------------------------------------------------------------------------
 
-# Locations that are in BC — valid for city filter
 BC_VARIANTS = {"BC", "BRITISH COLUMBIA", "B.C."}
 
-# All other Canadian provinces/territories — out of scope
 OTHER_CANADIAN_PROVINCES = {
     "ONTARIO", "ON",
     "ALBERTA", "AB",
@@ -58,7 +56,6 @@ OTHER_CANADIAN_PROVINCES = {
     "YUKON", "YT",
 }
 
-# US states — out of scope
 US_STATES = {
     "ALABAMA", "AL", "ALASKA", "AK", "ARIZONA", "AZ", "ARKANSAS", "AR",
     "CALIFORNIA", "CA", "COLORADO", "CO", "CONNECTICUT", "CT",
@@ -78,7 +75,6 @@ US_STATES = {
     "UNITED STATES", "USA", "US",
 }
 
-# Countries and other regions — out of scope
 OTHER_COUNTRIES = {
     "AUSTRALIA", "INDIA", "CHINA", "JAPAN", "GERMANY", "FRANCE",
     "UNITED KINGDOM", "UK", "ENGLAND", "SCOTLAND", "WALES",
@@ -86,18 +82,31 @@ OTHER_COUNTRIES = {
     "SOUTH AFRICA", "NIGERIA", "KENYA", "EGYPT", "SAUDI ARABIA",
     "UAE", "SINGAPORE", "SOUTH KOREA", "KOREA", "TAIWAN", "THAILAND",
     "VIETNAM", "PHILIPPINES", "INDONESIA", "MALAYSIA", "NEW ZEALAND",
-    "CANADA",   # too broad — only BC is in the index
+    "CANADA",
 }
 
-# Combined out-of-scope set
 OUT_OF_SCOPE_LOCATIONS = (
     OTHER_CANADIAN_PROVINCES |
     US_STATES |
     OTHER_COUNTRIES
 )
 
-# Keywords that indicate user wants results sorted by most recent
 DATE_SORT_KEYWORDS = {"latest", "recent", "newest", "new", "today", "this week"}
+
+# Province suffixes the LLM sometimes appends to city names
+CITY_PROVINCE_SUFFIXES = [
+    ", BC", ", B.C.", ", British Columbia",
+    ", AB", ", Alberta",
+    ", ON", ", Ontario",
+    ", QC", ", Quebec", ", Québec",
+    ", MB", ", Manitoba",
+    ", SK", ", Saskatchewan",
+    ", NS", ", Nova Scotia",
+    ", NB", ", New Brunswick",
+    ", NL", ", Newfoundland",
+    ", PEI", ", Prince Edward Island",
+    ", Canada",
+]
 
 app = FastAPI()
 
@@ -158,6 +167,21 @@ def strip_html(text: str) -> str:
     text = text.replace('&quot;', '"')
     text = re.sub(r'\s+', ' ', text).strip()
     return text
+
+
+def clean_city(city: str) -> str:
+    """
+    Strip province/country suffixes that the LLM sometimes appends to city names.
+    e.g. 'Vancouver, BC' -> 'Vancouver'
+         'Surrey, British Columbia' -> 'Surrey'
+    """
+    if not city:
+        return city
+    for suffix in CITY_PROVINCE_SUFFIXES:
+        if city.upper().endswith(suffix.upper()):
+            city = city[:len(city) - len(suffix)].strip()
+            break
+    return city
 
 
 def parse_intent(raw: str) -> dict:
@@ -227,7 +251,7 @@ def format_job_results(jobs: list, params: dict, total: int) -> str:
     city     = params.get("city")
     keywords = params.get("keywords")
 
-    # Out-of-scope location — explain before showing any results
+    # Out-of-scope location check
     if city and is_out_of_scope(city):
         keyword_str = f"**{employer or keywords}**" if (employer or keywords) else "jobs"
         return (
@@ -266,8 +290,6 @@ def search_jobs(params: dict, size: int = PAGE_SIZE, from_offset: int = 0) -> tu
     """
     Build and execute an OpenSearch query.
     Returns (jobs, total_count).
-    Supports employer wildcard, city filter, date sort, and salary range.
-    Skips city filter for out-of-scope locations (handled at response layer).
     """
     must_clauses   = []
     filter_clauses = [{"range": {"ExpireDate": {"gte": "now"}}}]
@@ -275,7 +297,6 @@ def search_jobs(params: dict, size: int = PAGE_SIZE, from_offset: int = 0) -> tu
     # Job title keywords — skip if employer specified to avoid noise
     if params.get("keywords") and not params.get("employer"):
         generic = {"jobs", "job", "work", "position", "positions", "opening", "openings"}
-        # Strip date-sort keywords before using as search terms
         clean_keywords = " ".join(
             w for w in params["keywords"].split()
             if w.lower() not in DATE_SORT_KEYWORDS
@@ -288,7 +309,7 @@ def search_jobs(params: dict, size: int = PAGE_SIZE, from_offset: int = 0) -> tu
                 }
             })
 
-    # Employer wildcard — matches "Best Buy", "Best Buy Canada" etc.
+    # Employer wildcard — matches "The City of Surrey", "City of Surrey" etc.
     if params.get("employer"):
         filter_clauses.append({
             "wildcard": {
@@ -322,7 +343,6 @@ def search_jobs(params: dict, size: int = PAGE_SIZE, from_offset: int = 0) -> tu
         "size": size,
     }
 
-    # Sort by date when user asks for latest/recent jobs
     if needs_date_sort(params):
         os_query["sort"] = [
             {"DatePosted": {"order": "desc"}},
@@ -576,6 +596,12 @@ async def ask_career_bot(request: QueryRequest):
             "Query: 'Best Buy jobs in Surrey' -> job_search, employer=Best Buy, city=Surrey\n"
             "Query: 'McDonald's part time jobs' -> job_search, employer=McDonald's, employment_type=Part-time\n"
             "Query: 'Telus jobs in Burnaby' -> job_search, employer=Telus, city=Burnaby\n"
+            "Query: 'jobs in Surrey' -> job_search, keywords=null, city=Surrey\n"
+            "Query: 'City of Surrey jobs' -> job_search, employer=City of Surrey, city=null\n"
+            "Query: 'City of Vancouver engineer jobs' -> job_search, employer=City of Vancouver, keywords=engineer, city=null\n"
+            "Query: 'City of Kelowna part time' -> job_search, employer=City of Kelowna, employment_type=Part-time, city=null\n"
+            "Query: 'City of Kelowna jobs in Kelowna' -> job_search, employer=City of Kelowna, city=Kelowna\n"
+            "Query: 'jobs with the City of Burnaby' -> job_search, employer=City of Burnaby, city=null\n"
             "Query: 'latest business analyst jobs in Ontario' -> job_search, keywords=latest business analyst, city=Ontario\n"
             "Query: 'show me accounting jobs' -> job_search, keywords=accounting\n"
             "Query: 'any openings for teachers?' -> job_search, keywords=teacher\n"
@@ -609,6 +635,10 @@ async def ask_career_bot(request: QueryRequest):
             intent      = intent_data["intent"]
             params      = intent_data.get("job_search_params", {})
 
+            # Clean province suffixes from extracted city value
+            if params.get("city"):
+                params["city"] = clean_city(params["city"])
+
         except json.JSONDecodeError as e:
             print(f"DEBUG: Intent JSON parse failed ({e}) — raw was: {repr(raw_intent)}")
             intent = "career_info"
@@ -631,11 +661,11 @@ async def ask_career_bot(request: QueryRequest):
             "Keep the table under 5 rows. Do not add explanation after the table.\n"
             "4. Always include the NOC code and **bold** salaries.\n"
             "5. Format links as [View Career Profile](URL) using ONLY the URL field "
-             "from the Context. NEVER construct or guess a URL.\n"
+            "from the Context. NEVER construct or guess a URL.\n"
             "6. If context is missing, say you don't have that information in WorkBC records.\n"
             "7. Never start a table or list you cannot complete. "
-            "If the response would be too long, summarize in bullet points instead."
-             "8. HALLUCINATION GUARD: Only mention job titles, NOC codes, salaries and URLs "
+            "If the response would be too long, summarize in bullet points instead.\n"
+            "8. HALLUCINATION GUARD: Only mention job titles, NOC codes, salaries and URLs "
             "that appear explicitly in the Context section below. "
             "Do NOT suggest careers from your training knowledge. "
             "If the context does not contain enough careers to answer the question, "
@@ -657,7 +687,6 @@ async def ask_career_bot(request: QueryRequest):
             )
 
         elif intent == "job_search":
-            # Check out-of-scope location before hitting OpenSearch
             city = params.get("city")
             if city and is_out_of_scope(city):
                 answer   = format_job_results([], params, 0)
