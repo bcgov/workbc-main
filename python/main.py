@@ -125,7 +125,7 @@ bi_encoder = SentenceTransformer("BAAI/bge-base-en-v1.5", device="cpu")
 vllm_client = OpenAI(
     base_url=f"http://{MISTRAL_HOST}:{MISTRAL_PORT}/v1",
     api_key="none",
-    timeout=90.0,
+    timeout=120.0,
 )
 
 MODEL_NAME    = "TheBloke/Mistral-7B-Instruct-v0.2-AWQ"
@@ -169,10 +169,7 @@ def strip_html(text: str) -> str:
 
 
 def clean_city(city: str) -> str:
-    """
-    Strip province/country suffixes the LLM sometimes appends to city names.
-    e.g. 'Vancouver, BC' -> 'Vancouver'
-    """
+    """Strip province/country suffixes the LLM sometimes appends to city names."""
     if not city:
         return city
     for suffix in CITY_PROVINCE_SUFFIXES:
@@ -186,7 +183,6 @@ def fix_city_of_misclassification(params: dict) -> dict:
     """
     If the LLM places 'City of X' into city field instead of employer,
     move it to employer and clear city.
-    e.g. city='City of Surrey' -> employer='City of Surrey', city=None
     """
     city = params.get("city") or ""
     if city.lower().startswith("city of ") and not params.get("employer"):
@@ -433,22 +429,28 @@ async def get_career_answer(
     user_query: str,
     sanitized_history: list,
     system_rules: str,
+    session_id: str,
 ) -> tuple[str, str]:
     """
     Run the full RAG + Mistral career info flow.
     Returns (answer, search_term).
     Appends a truncation note if the response was cut off by max_tokens.
     """
-    # Build a compact history summary for the rewriter
-    # Only include the last assistant message topic to avoid over-influencing
-    last_topic = ""
-    for msg in reversed(sanitized_history):
-        if msg["role"] == "assistant":
-            last_topic = msg["content"][:120]
-            break
+    # Only pass last_topic for genuine follow-up queries
+    # New explicit career questions get an empty last_topic
+    follow_up_indicators = {
+        "what about", "how does", "compare", "difference",
+        "salary", "same", "similar", "also", "and what"
+    }
+    is_follow_up = any(ind in user_query.lower() for ind in follow_up_indicators)
 
-    # FIX: Use examples instead of conditional logic so Mistral outputs
-    # only job titles and does not copy prompt text into the search term
+    last_topic = ""
+    if is_follow_up:
+        for msg in reversed(sanitized_history):
+            if msg["role"] == "assistant":
+                last_topic = msg["content"][:120]
+                break
+
     rewrite_prompt = (
         "Extract job titles to search for. Output ONLY job titles separated by commas.\n\n"
         "EXAMPLES:\n"
@@ -477,18 +479,22 @@ async def get_career_answer(
         )
         raw_content = rewrite_res.choices[0].message.content.strip()
 
-        # Strip any preamble Mistral adds before the actual titles
+        # Strip "Job titles:" prefix if Mistral echoes it back
+        if "job titles:" in raw_content.lower():
+            raw_content = raw_content.lower().split("job titles:")[-1].strip()
+
         lines = [line.strip('- *123456789."\' ') for line in raw_content.split('\n')]
         filtered_lines = [
             l for l in lines
             if len(l) > 0
-            and len(l) < 100              # reject long sentences — prompt bleed
+            and len(l) < 60
             and "Based on"      not in l
             and "Therefore"     not in l
             and "current query" not in l.lower()
-            and "last topic"    not in l.lower()
             and "if this"       not in l.lower()
             and "follow-up"     not in l.lower()
+            and "last topic"    not in l.lower()
+            and "job title"     not in l.lower()
         ]
 
         search_term = ", ".join(filtered_lines) if filtered_lines else user_query
@@ -547,23 +553,26 @@ async def get_career_answer(
 
     top_context = "\n---\n".join(truncated_chunks) if truncated_chunks else "No WorkBC data found."
 
+    # History window — use Redis last_search for relevance check
     history_window = sanitized_history[-2:]
     while history_window and history_window[0]["role"] != "user":
         history_window.pop(0)
-    
-    # Clear history if the search term is about a different career than last response
-    # Prevents plumber history contaminating a teacher query
-    last_assistant = next(
-        (m["content"] for m in reversed(sanitized_history) if m["role"] == "assistant"),
-        ""
-    )
+
+    # Compare current search term against last stored search term
+    last_search_raw   = r.get(f"last_search:{session_id}") or ""
+    last_search_terms = [t.lower().strip() for t in last_search_raw.split(",") if t.strip()]
+    current_terms     = [t.lower().strip() for t in search_term.split(",")      if t.strip()]
+
     history_is_relevant = any(
-        term.lower().strip() in last_assistant.lower()
-        for term in search_term.split(",")
+        term in last_search_terms
+        for term in current_terms
     )
+
     if not history_is_relevant:
         history_window = []
-        print(f"DEBUG: History cleared — '{search_term}' not in last response")
+        print(f"DEBUG: History cleared — '{search_term}' differs from last search '{last_search_raw}'")
+    else:
+        print(f"DEBUG: History kept — '{search_term}' matches last search '{last_search_raw}'")
 
     current_user_content = f"Context:\n{top_context}\n\nQuestion: {user_query}"
 
@@ -706,7 +715,7 @@ async def ask_career_bot(request: QueryRequest):
 
         # --- System rules ---
         system_rules = (
-             "You are a WorkBC Career Advisor. BE CONCISE. Use bullet points.\n\n"
+            "You are a WorkBC Career Advisor. BE CONCISE. Use bullet points.\n\n"
             "CRITICAL RULES — never violate these:\n"
             "1. CONTEXT ONLY: Use ONLY the Context section below. "
             "If the Context contains relevant information, use it. "
@@ -719,11 +728,12 @@ async def ask_career_bot(request: QueryRequest):
             "4. NOC AND SALARY: Always include the NOC code and **bold** the salary.\n"
             "5. URLS ONLY FROM CONTEXT: Format links as [View Career Profile](URL) "
             "using ONLY URLs that appear word-for-word in the Context. "
+            "Each context chunk contains a URL: field — use that value for the link. "
             "NEVER invent, guess or construct URLs. "
             "If no URL exists in the context for a job, silently omit the link with no explanation.\n"
-            "If no URL is in the context, do not include a link.\n"
             "6. NO DATA: If the Context truly has no relevant information, "
             "say: 'I don't have that information in WorkBC records.' "
+            "Do NOT say 'based on general knowledge'. "
             "Do NOT answer from general knowledge.\n"
             "7. LENGTH: Never start a table or list you cannot complete. "
             "Summarize in bullet points if the response would be too long.\n"
@@ -731,7 +741,6 @@ async def ask_career_bot(request: QueryRequest):
             "that appear explicitly in the Context. "
             "Do NOT use your training knowledge to add careers, requirements or links."
         )
-
 
         # --- Route by intent ---
         answer        = ""
@@ -744,7 +753,7 @@ async def ask_career_bot(request: QueryRequest):
 
         if intent == "career_info":
             answer, search_term = await get_career_answer(
-                user_query, sanitized_history, system_rules
+                user_query, sanitized_history, system_rules, session_id
             )
 
         elif intent == "job_search":
@@ -768,7 +777,7 @@ async def ask_career_bot(request: QueryRequest):
 
         elif intent == "both":
             career_task = asyncio.create_task(
-                get_career_answer(user_query, sanitized_history, system_rules)
+                get_career_answer(user_query, sanitized_history, system_rules, session_id)
             )
             jobs_task = asyncio.create_task(get_job_results(params, from_offset=0))
 
@@ -786,11 +795,15 @@ async def ask_career_bot(request: QueryRequest):
 
             answer = format_job_results(jobs, params, total)
 
-        # --- Save history ---
+        # --- Save history and last search term ---
         history_answer = career_answer if intent == "both" else answer
         sanitized_history.append({"role": "user",     "content": user_query})
         sanitized_history.append({"role": "assistant", "content": history_answer})
         r.setex(redis_key, 3600, json.dumps(sanitized_history[-10:]))
+
+        # Store last career search term for history relevance check
+        if intent in ("career_info", "both") and search_term:
+            r.setex(f"last_search:{session_id}", 3600, search_term)
 
         return {
             "answer":        answer,
