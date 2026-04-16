@@ -509,7 +509,7 @@ async def get_career_answer(
     )
     q_emb = q_emb_array.tolist()
 
-    results = collection.query(query_embeddings=[q_emb], n_results=6)
+    results = collection.query(query_embeddings=[q_emb], n_results=4)
 
     context_chunks = []
     for i in range(len(results['documents'][0])):
@@ -550,6 +550,20 @@ async def get_career_answer(
     history_window = sanitized_history[-2:]
     while history_window and history_window[0]["role"] != "user":
         history_window.pop(0)
+    
+    # Clear history if the search term is about a different career than last response
+    # Prevents plumber history contaminating a teacher query
+    last_assistant = next(
+        (m["content"] for m in reversed(sanitized_history) if m["role"] == "assistant"),
+        ""
+    )
+    history_is_relevant = any(
+        term.lower().strip() in last_assistant.lower()
+        for term in search_term.split(",")
+    )
+    if not history_is_relevant:
+        history_window = []
+        print(f"DEBUG: History cleared — '{search_term}' not in last response")
 
     current_user_content = f"Context:\n{top_context}\n\nQuestion: {user_query}"
 
@@ -704,8 +718,9 @@ async def ask_career_bot(request: QueryRequest):
             "use a SHORT markdown table: NOC | Job Title | Salary. Max 5 rows.\n"
             "4. NOC AND SALARY: Always include the NOC code and **bold** the salary.\n"
             "5. URLS ONLY FROM CONTEXT: Format links as [View Career Profile](URL) "
-            "using ONLY URLs that appear in the Context. "
+            "using ONLY URLs that appear word-for-word in the Context. "
             "NEVER invent, guess or construct URLs. "
+            "If no URL exists in the context for a job, DO NOT include any link for it.\n"
             "If no URL is in the context, do not include a link.\n"
             "6. NO DATA: If the Context truly has no relevant information, "
             "say: 'I don't have that information in WorkBC records.' "
