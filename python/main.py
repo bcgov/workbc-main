@@ -29,11 +29,8 @@ OPENSEARCH_USER   = os.getenv("IndexSettings__ElasticUser", "")
 OPENSEARCH_PASS   = os.getenv("IndexSettings__ElasticPassword", "")
 WORKBC_BASE_URL   = os.getenv("WORKBC_BASE_URL", "https://www.workbc.ca").rstrip("/")
 
-# Fixed at 800 for reliable T4 GPU performance (~7-10 seconds per response)
 MAX_TOKENS = 800
-
-# Number of job results per page
-PAGE_SIZE = 5
+PAGE_SIZE  = 5
 
 # ---------------------------------------------------------------------------
 # 2. LOCATION EXCLUSION SETS
@@ -42,18 +39,11 @@ PAGE_SIZE = 5
 BC_VARIANTS = {"BC", "BRITISH COLUMBIA", "B.C."}
 
 OTHER_CANADIAN_PROVINCES = {
-    "ONTARIO", "ON",
-    "ALBERTA", "AB",
-    "QUEBEC", "QC", "QUÉBEC",
-    "MANITOBA", "MB",
-    "SASKATCHEWAN", "SK",
-    "NOVA SCOTIA", "NS",
-    "NEW BRUNSWICK", "NB",
-    "NEWFOUNDLAND", "NL", "NEWFOUNDLAND AND LABRADOR",
-    "PRINCE EDWARD ISLAND", "PEI",
-    "NORTHWEST TERRITORIES", "NT",
-    "NUNAVUT", "NU",
-    "YUKON", "YT",
+    "ONTARIO", "ON", "ALBERTA", "AB", "QUEBEC", "QC", "QUÉBEC",
+    "MANITOBA", "MB", "SASKATCHEWAN", "SK", "NOVA SCOTIA", "NS",
+    "NEW BRUNSWICK", "NB", "NEWFOUNDLAND", "NL", "NEWFOUNDLAND AND LABRADOR",
+    "PRINCE EDWARD ISLAND", "PEI", "NORTHWEST TERRITORIES", "NT",
+    "NUNAVUT", "NU", "YUKON", "YT",
 }
 
 US_STATES = {
@@ -71,8 +61,7 @@ US_STATES = {
     "RHODE ISLAND", "RI", "SOUTH CAROLINA", "SC", "SOUTH DAKOTA", "SD",
     "TENNESSEE", "TN", "TEXAS", "TX", "UTAH", "UT", "VERMONT", "VT",
     "VIRGINIA", "VA", "WASHINGTON", "WA", "WEST VIRGINIA", "WV",
-    "WISCONSIN", "WI", "WYOMING", "WY",
-    "UNITED STATES", "USA", "US",
+    "WISCONSIN", "WI", "WYOMING", "WY", "UNITED STATES", "USA", "US",
 }
 
 OTHER_COUNTRIES = {
@@ -85,30 +74,26 @@ OTHER_COUNTRIES = {
     "CANADA",
 }
 
-OUT_OF_SCOPE_LOCATIONS = (
-    OTHER_CANADIAN_PROVINCES |
-    US_STATES |
-    OTHER_COUNTRIES
-)
+OUT_OF_SCOPE_LOCATIONS = OTHER_CANADIAN_PROVINCES | US_STATES | OTHER_COUNTRIES
 
 DATE_SORT_KEYWORDS = {"latest", "recent", "newest", "new", "today", "this week"}
 
 CITY_PROVINCE_SUFFIXES = [
-    ", BC", ", B.C.", ", British Columbia",
-    ", AB", ", Alberta",
-    ", ON", ", Ontario",
-    ", QC", ", Quebec", ", Québec",
-    ", MB", ", Manitoba",
-    ", SK", ", Saskatchewan",
-    ", NS", ", Nova Scotia",
-    ", NB", ", New Brunswick",
-    ", NL", ", Newfoundland",
-    ", PEI", ", Prince Edward Island",
-    ", Canada",
+    ", BC", ", B.C.", ", British Columbia", ", AB", ", Alberta",
+    ", ON", ", Ontario", ", QC", ", Quebec", ", Québec",
+    ", MB", ", Manitoba", ", SK", ", Saskatchewan",
+    ", NS", ", Nova Scotia", ", NB", ", New Brunswick",
+    ", NL", ", Newfoundland", ", PEI", ", Prince Edward Island", ", Canada",
 ]
 
-app = FastAPI()
+# Words that indicate a genuine follow-up (no new job title named)
+FOLLOW_UP_WORDS = {
+    "what about", "how about", "how does", "how do", "compare",
+    "difference", "versus", "vs", "same", "similar", "also",
+    "and what", "tell me more", "more about", "elaborate",
+}
 
+app = FastAPI()
 app.add_middleware(
     CORSMiddleware,
     allow_origins=["*"],
@@ -140,7 +125,6 @@ os_client = OpenSearch(
     verify_certs=True,
 )
 
-
 # ---------------------------------------------------------------------------
 # 4. REQUEST MODEL
 # ---------------------------------------------------------------------------
@@ -148,28 +132,20 @@ class QueryRequest(BaseModel):
     prompt: str
     session_id: str
 
-
 # ---------------------------------------------------------------------------
 # 5. HELPERS
 # ---------------------------------------------------------------------------
 
 def strip_html(text: str) -> str:
-    """Remove HTML tags and decode common HTML entities from job descriptions."""
     if not text:
         return ""
     text = re.sub(r'<[^>]+>', ' ', text)
-    text = text.replace('&amp;',  '&')
-    text = text.replace('&lt;',   '<')
-    text = text.replace('&gt;',   '>')
-    text = text.replace('&nbsp;', ' ')
-    text = text.replace('&#39;',  "'")
-    text = text.replace('&quot;', '"')
-    text = re.sub(r'\s+', ' ', text).strip()
-    return text
+    text = text.replace('&amp;', '&').replace('&lt;', '<').replace('&gt;', '>')
+    text = text.replace('&nbsp;', ' ').replace('&#39;', "'").replace('&quot;', '"')
+    return re.sub(r'\s+', ' ', text).strip()
 
 
 def clean_city(city: str) -> str:
-    """Strip province/country suffixes the LLM sometimes appends to city names."""
     if not city:
         return city
     for suffix in CITY_PROVINCE_SUFFIXES:
@@ -180,10 +156,6 @@ def clean_city(city: str) -> str:
 
 
 def fix_city_of_misclassification(params: dict) -> dict:
-    """
-    If the LLM places 'City of X' into city field instead of employer,
-    move it to employer and clear city.
-    """
     city = params.get("city") or ""
     if city.lower().startswith("city of ") and not params.get("employer"):
         print(f"DEBUG: Moving '{city}' from city to employer field")
@@ -193,13 +165,10 @@ def fix_city_of_misclassification(params: dict) -> dict:
 
 
 def parse_intent(raw: str) -> dict:
-    """Parse intent JSON from LLM output, handling markdown fences and escaped underscores."""
     cleaned = (
         raw.strip()
-           .removeprefix("```json")
-           .removeprefix("```")
-           .removesuffix("```")
-           .strip()
+           .removeprefix("```json").removeprefix("```")
+           .removesuffix("```").strip()
            .replace("\\_", "_")
     )
     parsed = json.loads(cleaned)
@@ -207,54 +176,52 @@ def parse_intent(raw: str) -> dict:
     return parsed
 
 
-BAD_URL_FRAGMENTS = [
-    "dev2.workbc.ca",
-    "/#",
-    "#/",
-    "localhost",
-]
+BAD_URL_FRAGMENTS = ["dev2.workbc.ca", "/#", "#/", "localhost"]
 
 
 def build_job_url(src: dict) -> str:
-    """
-    Build the best available URL for a job posting.
-    Priority: ApplyWebsite → ExternalSource → WorkBC job bank URL from JobId.
-    """
     job_id     = src.get("JobId", "")
     workbc_url = f"{WORKBC_BASE_URL}/search-and-prepare-job/find-jobs#/job-details/{job_id}"
-
     apply_website = (src.get("ApplyWebsite") or "").strip()
     if apply_website and not any(bad in apply_website for bad in BAD_URL_FRAGMENTS):
         return apply_website
-
     external_url = (
         (src.get("ExternalSource") or {})
         .get("Source", [{}])[0]
-        .get("Url", "")
-        .strip()
+        .get("Url", "").strip()
     )
     if external_url:
         return external_url
-
     return workbc_url
 
 
 def is_out_of_scope(city: str) -> bool:
-    """Return True if the city/location is outside BC."""
     return city.upper().strip() in OUT_OF_SCOPE_LOCATIONS
 
 
 def needs_date_sort(params: dict) -> bool:
-    """Return True if the user's keywords indicate they want most recent results."""
     keywords = (params.get("keywords") or "").lower()
     return any(kw in keywords for kw in DATE_SORT_KEYWORDS)
 
 
+def is_follow_up_query(user_query: str) -> bool:
+    """
+    Returns True if the query looks like a follow-up with no new job title.
+    These are short queries that refer back to the previous topic.
+    e.g. 'what about the salary?' / 'how does it compare?' / 'tell me more'
+    """
+    q = user_query.lower().strip()
+    # Short queries with no career-specific nouns are likely follow-ups
+    if len(q.split()) <= 6 and any(w in q for w in FOLLOW_UP_WORDS):
+        return True
+    # Queries starting with follow-up patterns
+    follow_up_starts = ["what about", "how about", "and what", "what is the", "how does", "how do"]
+    if any(q.startswith(s) for s in follow_up_starts) and len(q.split()) <= 8:
+        return True
+    return False
+
+
 def format_job_results(jobs: list, params: dict, total: int) -> str:
-    """
-    Format job results as markdown header text for the chat UI.
-    Returns a helpful message for out-of-scope locations or no results.
-    """
     employer = params.get("employer")
     city     = params.get("city")
     keywords = params.get("keywords")
@@ -289,17 +256,13 @@ def format_job_results(jobs: list, params: dict, total: int) -> str:
                 "matching your request. Try broader keywords or a different location."
             )
 
-    location_str = f" in **{city}**"   if city     else ""
-    keyword_str  = f"**{employer}**"   if employer else \
-                   f"**{keywords}**"   if keywords else "your search"
+    location_str = f" in **{city}**"  if city     else ""
+    keyword_str  = f"**{employer}**"  if employer else \
+                   f"**{keywords}**"  if keywords else "your search"
     return f"Found **{total}** job postings for {keyword_str}{location_str}:"
 
 
 def search_jobs(params: dict, size: int = PAGE_SIZE, from_offset: int = 0) -> tuple[list, int]:
-    """
-    Build and execute an OpenSearch query.
-    Returns (jobs, total_count).
-    """
     must_clauses   = []
     filter_clauses = [{"range": {"ExpireDate": {"gte": "now"}}}]
 
@@ -319,9 +282,7 @@ def search_jobs(params: dict, size: int = PAGE_SIZE, from_offset: int = 0) -> tu
 
     if params.get("employer"):
         filter_clauses.append({
-            "wildcard": {
-                "EmployerName.keyword": f"*{params['employer']}*"
-            }
+            "wildcard": {"EmployerName.keyword": f"*{params['employer']}*"}
         })
 
     city = params.get("city")
@@ -329,14 +290,10 @@ def search_jobs(params: dict, size: int = PAGE_SIZE, from_offset: int = 0) -> tu
         filter_clauses.append({"terms": {"City.keyword": [city]}})
 
     if params.get("employment_type"):
-        filter_clauses.append({
-            "term": {"HoursOfWork.Description": params["employment_type"]}
-        })
+        filter_clauses.append({"term": {"HoursOfWork.Description": params["employment_type"]}})
 
     if params.get("salary_min"):
-        filter_clauses.append({
-            "range": {"Salary": {"gte": params["salary_min"]}}
-        })
+        filter_clauses.append({"range": {"Salary": {"gte": params["salary_min"]}}})
 
     os_query = {
         "query": {
@@ -354,7 +311,6 @@ def search_jobs(params: dict, size: int = PAGE_SIZE, from_offset: int = 0) -> tu
             {"DatePosted": {"order": "desc"}},
             {"_score":     {"order": "desc"}},
         ]
-        print(f"DEBUG: Sorting by DatePosted descending")
 
     print(f"DEBUG: OpenSearch query (from={from_offset}): {json.dumps(os_query, indent=2)}")
     response = os_client.search(index="jobs_en", body=os_query)
@@ -382,7 +338,6 @@ def search_jobs(params: dict, size: int = PAGE_SIZE, from_offset: int = 0) -> tu
 
 
 async def get_job_results(params: dict, from_offset: int = 0) -> tuple[list, int]:
-    """Run job search in executor. Returns (jobs, total)."""
     loop = asyncio.get_event_loop()
     return await loop.run_in_executor(
         None, partial(search_jobs, params, PAGE_SIZE, from_offset)
@@ -390,10 +345,6 @@ async def get_job_results(params: dict, from_offset: int = 0) -> tuple[list, int
 
 
 async def handle_load_more(session_id: str) -> dict:
-    """
-    Handle load more request — fetch next page of the last job search.
-    Uses stored search params from Redis.
-    """
     stored_raw = r.get(f"job_search_params:{session_id}")
     if not stored_raw:
         return {
@@ -433,18 +384,32 @@ async def get_career_answer(
     """
     Run the full RAG + Mistral career info flow.
     Returns (answer, search_term).
-    Appends a truncation note if the response was cut off by max_tokens.
+
+    KEY BEHAVIOUR:
+    - If the query looks like a follow-up (no new job title), pass history to
+      the rewriter so it can resolve 'what about the salary?' correctly.
+    - If the query names a new job title explicitly, pass EMPTY history to the
+      rewriter so previous careers never contaminate the search term.
     """
-    # Original working rewriter prompt — simple, reliable
+    follow_up = is_follow_up_query(user_query)
+
+    if follow_up:
+        # Pass history so rewriter can resolve ambiguous follow-ups
+        history_for_rewriter = sanitized_history[-2:]
+        print(f"DEBUG: Follow-up detected — passing history to rewriter")
+    else:
+        # New explicit career question — do NOT pass history
+        history_for_rewriter = []
+        print(f"DEBUG: New career query — history withheld from rewriter")
+
     rewrite_prompt = (
         f"Current User Query: {user_query}\n"
-        f"Last 2 Chat Messages: {sanitized_history[-2:]}\n\n"
+        f"Last 2 Chat Messages: {history_for_rewriter}\n\n"
         "TASK: Identify the EXACT job titles the user is asking about NOW. "
-        "If this is a follow-up question (e.g. 'what is the difference', "
+        "If this is a follow-up comparison question (e.g. 'what is the difference', "
         "'compare with', 'how does it compare', 'what about', 'what is the salary'), "
         "include BOTH the current job AND the job from the previous message. "
-        "If the user is asking a completely NEW question about a DIFFERENT job, "
-        "output ONLY the new job title — ignore history. "
+        "If the user is asking a completely NEW question, IGNORE the history. "
         "Output ONLY the job titles, comma separated. No explanation. No preamble."
     )
 
@@ -460,7 +425,7 @@ async def get_career_answer(
         filtered_lines = [
             l for l in lines
             if len(l) > 0
-            and len(l) < 80               # reject long sentences — catches prompt bleed
+            and len(l) < 80
             and "Based on"      not in l
             and "Therefore"     not in l
             and "current query" not in l.lower()
@@ -526,10 +491,13 @@ async def get_career_answer(
 
     top_context = "\n---\n".join(truncated_chunks) if truncated_chunks else "No WorkBC data found."
 
-    # History window — must start with user
-    history_window = sanitized_history[-2:]
-    while history_window and history_window[0]["role"] != "user":
-        history_window.pop(0)
+    # Pass history to Mistral only for follow-ups
+    if follow_up:
+        history_window = sanitized_history[-2:]
+        while history_window and history_window[0]["role"] != "user":
+            history_window.pop(0)
+    else:
+        history_window = []
 
     current_user_content = f"Context:\n{top_context}\n\nQuestion: {user_query}"
 
@@ -556,7 +524,6 @@ async def get_career_answer(
                 "_Response was truncated due to length. "
                 "Try asking a more specific question for complete information._"
             )
-            print(f"DEBUG: Response truncated at max_tokens={MAX_TOKENS}")
 
     except Exception as e:
         raise HTTPException(status_code=502, detail=f"LLM inference error: {str(e)}")
@@ -574,11 +541,9 @@ async def ask_career_bot(request: QueryRequest):
         session_id = request.session_id
         redis_key  = f"chat_history:{session_id}"
 
-        # Load more — handle before any other processing
         if user_query.strip() == "__load_more__":
             return await handle_load_more(session_id)
 
-        # --- History ---
         try:
             raw_history = r.get(redis_key)
             history     = json.loads(raw_history) if raw_history else []
@@ -596,7 +561,6 @@ async def ask_career_bot(request: QueryRequest):
         if sanitized_history and sanitized_history[-1]["role"] == "user":
             sanitized_history.pop()
 
-        # --- Intent detection ---
         intent_prompt = (
             "Classify this query and return JSON only, no explanation, no markdown fences.\n\n"
             "IMPORTANT: This job bank only contains British Columbia, Canada postings. "
@@ -652,11 +616,8 @@ async def ask_career_bot(request: QueryRequest):
             intent      = intent_data["intent"]
             params      = intent_data.get("job_search_params", {})
 
-            # Clean province suffixes from extracted city value
             if params.get("city"):
                 params["city"] = clean_city(params["city"])
-
-            # Fix City of X being placed in city field instead of employer
             params = fix_city_of_misclassification(params)
 
         except json.JSONDecodeError as e:
@@ -670,7 +631,6 @@ async def ask_career_bot(request: QueryRequest):
 
         print(f"DEBUG: Intent={intent} | Params={params}")
 
-        # --- System rules ---
         system_rules = (
             "You are a WorkBC Career Advisor. BE CONCISE. Use bullet points.\n\n"
             "CRITICAL RULES — never violate these:\n"
@@ -699,7 +659,6 @@ async def ask_career_bot(request: QueryRequest):
             "Do NOT use your training knowledge to add careers, requirements or links."
         )
 
-        # --- Route by intent ---
         answer        = ""
         career_answer = ""
         search_term   = user_query
@@ -716,20 +675,15 @@ async def ask_career_bot(request: QueryRequest):
         elif intent == "job_search":
             city = params.get("city")
             if city and is_out_of_scope(city):
-                answer   = format_job_results([], params, 0)
-                jobs     = []
-                total    = 0
-                has_more = False
+                answer = format_job_results([], params, 0)
             else:
                 jobs, total = await get_job_results(params, from_offset=0)
                 has_more    = total > PAGE_SIZE
-
                 r.setex(
                     f"job_search_params:{session_id}",
                     3600,
                     json.dumps({"params": params, "page": 1}),
                 )
-
                 answer = format_job_results(jobs, params, total)
 
         elif intent == "both":
@@ -741,21 +695,17 @@ async def ask_career_bot(request: QueryRequest):
             (career_answer, search_term), (jobs, total) = await asyncio.gather(
                 career_task, jobs_task
             )
-
             has_more = total > PAGE_SIZE
-
             r.setex(
                 f"job_search_params:{session_id}",
                 3600,
                 json.dumps({"params": params, "page": 1}),
             )
-
             answer = format_job_results(jobs, params, total)
 
-        # --- Save history ---
         history_answer = career_answer if intent == "both" else answer
-        sanitized_history.append({"role": "user",     "content": user_query})
-        sanitized_history.append({"role": "assistant", "content": history_answer})
+        sanitized_history.append({"role": "user",      "content": user_query})
+        sanitized_history.append({"role": "assistant",  "content": history_answer})
         r.setex(redis_key, 3600, json.dumps(sanitized_history[-10:]))
 
         return {
