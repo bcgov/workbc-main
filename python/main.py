@@ -86,7 +86,7 @@ CITY_PROVINCE_SUFFIXES = [
     ", NL", ", Newfoundland", ", PEI", ", Prince Edward Island", ", Canada",
 ]
 
-# Words that indicate a genuine follow-up (no new job title named)
+# Words that indicate a genuine follow-up with no new job title
 FOLLOW_UP_WORDS = {
     "what about", "how about", "how does", "how do", "compare",
     "difference", "versus", "vs", "same", "similar", "also",
@@ -207,18 +207,24 @@ def needs_date_sort(params: dict) -> bool:
 def is_follow_up_query(user_query: str) -> bool:
     """
     Returns True if the query looks like a follow-up with no new job title.
-    These are short queries that refer back to the previous topic.
-    e.g. 'what about the salary?' / 'how does it compare?' / 'tell me more'
+    Short queries containing follow-up words like 'what about', 'compare', etc.
     """
     q = user_query.lower().strip()
-    # Short queries with no career-specific nouns are likely follow-ups
     if len(q.split()) <= 6 and any(w in q for w in FOLLOW_UP_WORDS):
         return True
-    # Queries starting with follow-up patterns
     follow_up_starts = ["what about", "how about", "and what", "what is the", "how does", "how do"]
     if any(q.startswith(s) for s in follow_up_starts) and len(q.split()) <= 8:
         return True
     return False
+
+
+def looks_like_question(text: str) -> bool:
+    """Returns True if the rewriter returned a question instead of job titles."""
+    t = text.lower().strip()
+    return (
+        "?" in t or
+        t.startswith(("what", "how", "why", "when", "where", "can", "could", "would"))
+    )
 
 
 def format_job_results(jobs: list, params: dict, total: int) -> str:
@@ -386,19 +392,19 @@ async def get_career_answer(
     Returns (answer, search_term).
 
     KEY BEHAVIOUR:
-    - If the query looks like a follow-up (no new job title), pass history to
-      the rewriter so it can resolve 'what about the salary?' correctly.
-    - If the query names a new job title explicitly, pass EMPTY history to the
-      rewriter so previous careers never contaminate the search term.
+    - New career queries: history withheld from rewriter so previous careers
+      never contaminate the search term.
+    - Follow-up queries: history passed to rewriter so it can resolve
+      'what about the salary?' to the correct job title.
+    - Safety net: if the rewriter returns a question for a follow-up,
+      fall back to the previous user query from history.
     """
     follow_up = is_follow_up_query(user_query)
 
     if follow_up:
-        # Pass history so rewriter can resolve ambiguous follow-ups
         history_for_rewriter = sanitized_history[-2:]
         print(f"DEBUG: Follow-up detected — passing history to rewriter")
     else:
-        # New explicit career question — do NOT pass history
         history_for_rewriter = []
         print(f"DEBUG: New career query — history withheld from rewriter")
 
@@ -406,7 +412,7 @@ async def get_career_answer(
         f"Current User Query: {user_query}\n"
         f"Last 2 Chat Messages: {history_for_rewriter}\n\n"
         "TASK: Identify the EXACT job titles the user is asking about NOW. "
-        "If this is a follow-up comparison question (e.g. 'what is the difference', "
+        "If this is a follow-up question (e.g. 'what is the difference', "
         "'compare with', 'how does it compare', 'what about', 'what is the salary'), "
         "include BOTH the current job AND the job from the previous message. "
         "If the user is asking a completely NEW question, IGNORE the history. "
@@ -435,6 +441,16 @@ async def get_career_answer(
         ]
 
         search_term = ", ".join(filtered_lines) if filtered_lines else user_query
+
+        # Safety net: if the rewriter returned a question instead of job titles
+        # (common when Mistral fails to resolve a follow-up), fall back to the
+        # previous user query from history so Chroma gets a real job title.
+        if looks_like_question(search_term) and follow_up:
+            for msg in reversed(sanitized_history):
+                if msg["role"] == "user" and msg["content"].strip() != user_query.strip():
+                    search_term = msg["content"]
+                    print(f"DEBUG: Rewriter returned question — falling back to previous query: {search_term}")
+                    break
 
     except Exception as e:
         print(f"DEBUG: Rewriter failed, falling back to raw query: {e}")
@@ -491,7 +507,7 @@ async def get_career_answer(
 
     top_context = "\n---\n".join(truncated_chunks) if truncated_chunks else "No WorkBC data found."
 
-    # Pass history to Mistral only for follow-ups
+    # Pass history to Mistral only for follow-ups so the answer has context
     if follow_up:
         history_window = sanitized_history[-2:]
         while history_window and history_window[0]["role"] != "user":
