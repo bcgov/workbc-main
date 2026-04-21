@@ -1,0 +1,11 @@
+langcode: en
+status: true
+dependencies:
+  module:
+    - media
+    - workbc_career_trek
+id: media_set_featured
+label: 'Set featured video'
+type: media
+plugin: media_set_featured
+configuration: {  }
