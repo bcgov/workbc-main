@@ -196,6 +196,33 @@ class QueryRequest(BaseModel):
 # 5. HELPERS
 # ---------------------------------------------------------------------------
 
+def detect_chunk_types(user_query: str) -> list[str]:
+    """
+    Determine which chunk types are needed based on the question.
+    Returns a list of chunk_types to retrieve from ChromaDB.
+    """
+    q = user_query.lower()
+
+    # Comparison queries — Overview has salary + summary
+    if any(w in q for w in ["compare", "difference", "versus", "vs", "between"]):
+        return ["Overview"]
+
+    # Salary questions — salary is in Overview metadata
+    if any(w in q for w in ["salary", "pay", "earn", "income", "wage", "how much"]):
+        return ["Overview"]
+
+    # Duty/responsibility questions
+    if any(w in q for w in ["duties", "do", "does", "responsibilities", "role", "tasks", "day to day"]):
+        return ["Duties"]
+
+    # Education/requirement questions
+    if any(w in q for w in ["education", "requirement", "qualification", "training",
+                             "certification", "degree", "school", "become"]):
+        return ["Education"]
+
+    # General questions — Overview gives the best broad answer
+    return ["Overview"]
+
 def strip_html(text: str) -> str:
     if not text:
         return ""
@@ -580,7 +607,22 @@ async def get_career_answer(
         )
     )
     q_emb = q_emb_array.tolist()
-    results = collection.query(query_embeddings=[q_emb], n_results=6)
+    chunk_types = detect_chunk_types(user_query)
+    print(f"DEBUG: Chunk types for this query: {chunk_types}")
+
+    if len(chunk_types) == 1:
+        results = collection.query(
+            query_embeddings=[q_emb],
+            n_results=6,
+            where={"chunk_type": {"$eq": chunk_types[0]}}
+        )
+    else:
+        results = collection.query(
+            query_embeddings=[q_emb],
+            n_results=6,
+            where={"chunk_type": {"$in": chunk_types}}
+        )
+  
 
     context_chunks = []
     for i in range(len(results['documents'][0])):
