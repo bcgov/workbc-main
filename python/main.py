@@ -601,8 +601,10 @@ async def get_career_answer(
             f"SALARY: {salary_str}\n"
             f"URL: {meta.get('url', '#')}\n"
             f"CONTENT: {results['documents'][0][i]}"
-        )
+            print(f'DEBUG: Appended chunk {i}, total now: {len(context_chunks)}')
 
+        )
+    print(f"DEBUG: context_chunks length before truncation: {len(context_chunks)}")
     MAX_CONTEXT_CHARS = 3500
     truncated_chunks  = []
     total_chars       = 0
