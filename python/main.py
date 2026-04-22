@@ -33,7 +33,7 @@ MAX_TOKENS = 800
 PAGE_SIZE  = 5
 
 # ---------------------------------------------------------------------------
-# 2. LOCATION EXCLUSION SETS
+# 2. LOCATION AND EMPLOYER MAPS
 # ---------------------------------------------------------------------------
 
 BC_VARIANTS = {"BC", "BRITISH COLUMBIA", "B.C."}
@@ -86,11 +86,71 @@ CITY_PROVINCE_SUFFIXES = [
     ", NL", ", Newfoundland", ", PEI", ", Prince Edward Island", ", Canada",
 ]
 
-# Words that indicate a genuine follow-up with no new job title
+# Abbreviations and casual names that do NOT appear as substrings
+# in the actual EmployerName stored in OpenSearch.
+EMPLOYER_ALIASES = {
+    # Provincial government
+    "bc provincial":            "Province of British Columbia",
+    "bc government":            "Province of British Columbia",
+    "provincial government":    "Province of British Columbia",
+    "bc public service":        "Province of British Columbia",
+    "province of bc":           "Province of British Columbia",
+    # Health authorities
+    "vch":                      "Vancouver Coastal Health",
+    "phsa":                     "Provincial Health Services Authority",
+    "interior health authority": "Interior Health",
+    "island health authority":  "Island Health",
+    "northern health authority": "Northern Health",
+    # Education abbreviations
+    "ubc":                      "University of British Columbia",
+    "uvic":                     "University of Victoria",
+    "tru":                      "Thompson Rivers University",
+    "vcc":                      "Vancouver Community College",
+    # School district abbreviations (SD + number)
+    "sd5":  "School District #5",  "sd6":  "School District #6",
+    "sd8":  "School District #8",  "sd22": "School District #22",
+    "sd23": "School District #23", "sd27": "School District #27",
+    "sd28": "School District #28", "sd33": "School District #33",
+    "sd35": "School District #35", "sd36": "School District #36",
+    "sd38": "School District #38", "sd39": "School District #39",
+    "sd41": "School District #41", "sd42": "School District #42",
+    "sd43": "School District #43", "sd44": "School District #44",
+    "sd48": "School District #48", "sd57": "School District 57",
+    "sd58": "School District #58", "sd60": "School District #60",
+    "sd62": "School District #62", "sd63": "School District #63",
+    "sd69": "School District #69", "sd71": "School District #71",
+    "sd75": "School District #75", "sd79": "School District #79",
+    "sd82": "School District #82", "sd83": "School District #83",
+    "sd91": "School District #91", "sd92": "School District #92",
+    "sd93": "School District #93",
+    # Crown corporations
+    "bc ferries":               "BC Ferries",
+    "bc hydro":                 "BC Hydro",
+    # Common abbreviations
+    "spca":                     "BC SPCA",
+    "bc spca":                  "BC SPCA",
+}
+
+# City name normalization for duplicate/abbreviated entries
+CITY_ALIASES = {
+    "fort st john":   "Fort St. John",
+    "north van":      "North Vancouver",
+    "west van":       "West Vancouver",
+    "poco":           "Port Coquitlam",
+    "new west":       "New Westminster",
+    "pitt meadow":    "Pitt Meadows",
+}
+
 FOLLOW_UP_WORDS = {
     "what about", "how about", "how does", "how do", "compare",
     "difference", "versus", "vs", "same", "similar", "also",
     "and what", "tell me more", "more about", "elaborate",
+}
+
+# Keywords that trigger the full-text match fallback when wildcard returns 0
+FALLBACK_KEYWORDS = {
+    "school", "district", "university", "college", "institute", "academy",
+    "health", "authority", "provincial", "government", "ministry",
 }
 
 app = FastAPI()
@@ -155,6 +215,31 @@ def clean_city(city: str) -> str:
     return city
 
 
+def resolve_city(city: str) -> str:
+    if not city:
+        return city
+    return CITY_ALIASES.get(city.lower().strip(), city)
+
+
+def resolve_employer(employer: str) -> str:
+    if not employer:
+        return employer
+    lookup = employer.lower().strip()
+    if lookup in EMPLOYER_ALIASES:
+        resolved = EMPLOYER_ALIASES[lookup]
+        print(f"DEBUG: Employer alias resolved: '{employer}' -> '{resolved}'")
+        return resolved
+    # Handle "SD 36", "SD #36", "SD36" style inputs
+    sd_match = re.match(r'^sd\s*#?\s*(\d+)$', lookup)
+    if sd_match:
+        sd_key = f"sd{sd_match.group(1)}"
+        if sd_key in EMPLOYER_ALIASES:
+            resolved = EMPLOYER_ALIASES[sd_key]
+            print(f"DEBUG: School district alias resolved: '{employer}' -> '{resolved}'")
+            return resolved
+    return employer
+
+
 def fix_city_of_misclassification(params: dict) -> dict:
     city = params.get("city") or ""
     if city.lower().startswith("city of ") and not params.get("employer"):
@@ -205,10 +290,6 @@ def needs_date_sort(params: dict) -> bool:
 
 
 def is_follow_up_query(user_query: str) -> bool:
-    """
-    Returns True if the query looks like a follow-up with no new job title.
-    Short queries containing follow-up words like 'what about', 'compare', etc.
-    """
     q = user_query.lower().strip()
     if len(q.split()) <= 6 and any(w in q for w in FOLLOW_UP_WORDS):
         return True
@@ -219,12 +300,8 @@ def is_follow_up_query(user_query: str) -> bool:
 
 
 def looks_like_question(text: str) -> bool:
-    """Returns True if the rewriter returned a question instead of job titles."""
     t = text.lower().strip()
-    return (
-        "?" in t or
-        t.startswith(("what", "how", "why", "when", "where", "can", "could", "would"))
-    )
+    return "?" in t or t.startswith(("what", "how", "why", "when", "where", "can", "could", "would"))
 
 
 def format_job_results(jobs: list, params: dict, total: int) -> str:
@@ -241,7 +318,6 @@ def format_job_results(jobs: list, params: dict, total: int) -> str:
             f"Vancouver, Surrey, Kelowna or Victoria, "
             f"or search without a location to see all BC postings."
         )
-
     if not jobs:
         if employer and city:
             return (
@@ -268,10 +344,53 @@ def format_job_results(jobs: list, params: dict, total: int) -> str:
     return f"Found **{total}** job postings for {keyword_str}{location_str}:"
 
 
-def search_jobs(params: dict, size: int = PAGE_SIZE, from_offset: int = 0) -> tuple[list, int]:
-    must_clauses   = []
-    filter_clauses = [{"range": {"ExpireDate": {"gte": "now"}}}]
+def _parse_os_hits(hits: list) -> list:
+    jobs = []
+    for hit in hits:
+        src = hit["_source"]
+        jobs.append({
+            "job_id":          src.get("JobId"),
+            "title":           src.get("Title"),
+            "employer":        src.get("EmployerName"),
+            "city":            (src.get("City")                                      or [None])[0],
+            "salary":          src.get("SalarySummary", "Not specified"),
+            "hours":           (src.get("HoursOfWork",        {}).get("Description") or [None])[0],
+            "employment_type": (src.get("PeriodOfEmployment", {}).get("Description") or [None])[0],
+            "noc_code":        src.get("Noc2021"),
+            "industry":        src.get("Industry"),
+            "url":             build_job_url(src),
+            "description":     strip_html(src.get("JobDescription", ""))[:200],
+        })
+    return jobs
 
+
+def _build_common_filters(params: dict) -> list:
+    """Build filter clauses shared by both wildcard and fallback queries."""
+    filter_clauses = [{"range": {"ExpireDate": {"gte": "now"}}}]
+    city = params.get("city")
+    if city and not is_out_of_scope(city) and city.upper() not in BC_VARIANTS:
+        filter_clauses.append({"terms": {"City.keyword": [city]}})
+    if params.get("employment_type"):
+        filter_clauses.append({"term": {"HoursOfWork.Description": params["employment_type"]}})
+    if params.get("salary_min"):
+        filter_clauses.append({"range": {"Salary": {"gte": params["salary_min"]}}})
+    return filter_clauses
+
+
+def search_jobs(params: dict, size: int = PAGE_SIZE, from_offset: int = 0) -> tuple[list, int]:
+    """
+    Build and execute an OpenSearch query. Returns (jobs, total_count).
+
+    Strategy:
+    1. Try wildcard on EmployerName.keyword (handles exact substrings)
+    2. If zero results and employer contains education/gov keywords,
+       retry with full-text match (handles word-order mismatches like
+       'Surrey school district' matching 'School District #36 (Surrey)')
+    """
+    must_clauses   = []
+    filter_clauses = _build_common_filters(params)
+
+    # Job title keywords — skip if employer specified
     if params.get("keywords") and not params.get("employer"):
         generic = {"jobs", "job", "work", "position", "positions", "opening", "openings"}
         clean_keywords = " ".join(
@@ -286,20 +405,11 @@ def search_jobs(params: dict, size: int = PAGE_SIZE, from_offset: int = 0) -> tu
                 }
             })
 
+    # Employer wildcard filter
     if params.get("employer"):
         filter_clauses.append({
             "wildcard": {"EmployerName.keyword": f"*{params['employer']}*"}
         })
-
-    city = params.get("city")
-    if city and not is_out_of_scope(city) and city.upper() not in BC_VARIANTS:
-        filter_clauses.append({"terms": {"City.keyword": [city]}})
-
-    if params.get("employment_type"):
-        filter_clauses.append({"term": {"HoursOfWork.Description": params["employment_type"]}})
-
-    if params.get("salary_min"):
-        filter_clauses.append({"range": {"Salary": {"gte": params["salary_min"]}}})
 
     os_query = {
         "query": {
@@ -323,23 +433,45 @@ def search_jobs(params: dict, size: int = PAGE_SIZE, from_offset: int = 0) -> tu
     total    = response["hits"]["total"]["value"]
     print(f"DEBUG: OpenSearch returned {total} total matches")
 
-    jobs = []
-    for hit in response["hits"]["hits"]:
-        src = hit["_source"]
-        jobs.append({
-            "job_id":          src.get("JobId"),
-            "title":           src.get("Title"),
-            "employer":        src.get("EmployerName"),
-            "city":            (src.get("City")                                      or [None])[0],
-            "salary":          src.get("SalarySummary", "Not specified"),
-            "hours":           (src.get("HoursOfWork",        {}).get("Description") or [None])[0],
-            "employment_type": (src.get("PeriodOfEmployment", {}).get("Description") or [None])[0],
-            "noc_code":        src.get("Noc2021"),
-            "industry":        src.get("Industry"),
-            "url":             build_job_url(src),
-            "description":     strip_html(src.get("JobDescription", ""))[:200],
-        })
+    # --- Fallback: full-text match if wildcard returned 0 ---
+    if total == 0 and params.get("employer"):
+        employer_lower = params["employer"].lower()
+        if any(kw in employer_lower for kw in FALLBACK_KEYWORDS):
+            print(f"DEBUG: Wildcard returned 0 — retrying with full-text match for '{params['employer']}'")
 
+            fallback_filter = _build_common_filters(params)
+            fallback_must   = [{
+                "match": {
+                    "EmployerName": {
+                        "query":    params["employer"],
+                        "operator": "and",
+                    }
+                }
+            }]
+
+            fallback_query = {
+                "query": {
+                    "bool": {
+                        "must":   fallback_must,
+                        "filter": fallback_filter,
+                    }
+                },
+                "from": from_offset,
+                "size": size,
+            }
+
+            if needs_date_sort(params):
+                fallback_query["sort"] = [
+                    {"DatePosted": {"order": "desc"}},
+                    {"_score":     {"order": "desc"}},
+                ]
+
+            print(f"DEBUG: Fallback query: {json.dumps(fallback_query, indent=2)}")
+            response = os_client.search(index="jobs_en", body=fallback_query)
+            total    = response["hits"]["total"]["value"]
+            print(f"DEBUG: Fallback returned {total} total matches")
+
+    jobs = _parse_os_hits(response["hits"]["hits"])
     return jobs, total
 
 
@@ -358,20 +490,16 @@ async def handle_load_more(session_id: str) -> dict:
             "jobs":       [],
             "session_id": session_id,
         }
-
     stored      = json.loads(stored_raw)
     params      = stored["params"]
     next_page   = stored["page"] + 1
     from_offset = (next_page - 1) * PAGE_SIZE
-
     jobs, total = await get_job_results(params, from_offset=from_offset)
-
     r.setex(
         f"job_search_params:{session_id}",
         3600,
         json.dumps({"params": params, "page": next_page}),
     )
-
     return {
         "answer":     "",
         "jobs":       jobs,
@@ -387,18 +515,6 @@ async def get_career_answer(
     sanitized_history: list,
     system_rules: str,
 ) -> tuple[str, str]:
-    """
-    Run the full RAG + Mistral career info flow.
-    Returns (answer, search_term).
-
-    KEY BEHAVIOUR:
-    - New career queries: history withheld from rewriter so previous careers
-      never contaminate the search term.
-    - Follow-up queries: history passed to rewriter so it can resolve
-      'what about the salary?' to the correct job title.
-    - Safety net: if the rewriter returns a question for a follow-up,
-      fall back to the previous user query from history.
-    """
     follow_up = is_follow_up_query(user_query)
 
     if follow_up:
@@ -426,7 +542,6 @@ async def get_career_answer(
             temperature=0,
         )
         raw_content = rewrite_res.choices[0].message.content.strip()
-
         lines = [line.strip('- *123456789."\' ') for line in raw_content.split('\n')]
         filtered_lines = [
             l for l in lines
@@ -439,12 +554,8 @@ async def get_career_answer(
             and "follow-up"     not in l.lower()
             and "job title"     not in l.lower()
         ]
-
         search_term = ", ".join(filtered_lines) if filtered_lines else user_query
 
-        # Safety net: if the rewriter returned a question instead of job titles
-        # (common when Mistral fails to resolve a follow-up), fall back to the
-        # previous user query from history so Chroma gets a real job title.
         if looks_like_question(search_term) and follow_up:
             for msg in reversed(sanitized_history):
                 if msg["role"] == "user" and msg["content"].strip() != user_query.strip():
@@ -468,7 +579,6 @@ async def get_career_answer(
         )
     )
     q_emb = q_emb_array.tolist()
-
     results = collection.query(query_embeddings=[q_emb], n_results=6)
 
     context_chunks = []
@@ -476,19 +586,15 @@ async def get_career_answer(
         distance  = results['distances'][0][i]
         job_title = results['metadatas'][0][i].get('job_title')
         print(f"DEBUG: Chroma found '{job_title}' with distance {distance}")
-
         if distance > 0.5:
             print(f"DEBUG: Skipping '{job_title}' — distance too high: {distance}")
             continue
-
         meta       = results['metadatas'][0][i]
         salary_val = meta.get('salary', 'N/A')
-
         try:
             salary_str = f"**${float(salary_val):,.2f}**" if salary_val != 'N/A' else "Data missing"
         except (ValueError, TypeError):
             salary_str = f"**${salary_val}**"
-
         context_chunks.append(
             f"JOB: {meta.get('job_title')} (NOC: {meta.get('noc_code', 'N/A')})\n"
             f"SALARY: {salary_str}\n"
@@ -504,10 +610,8 @@ async def get_career_answer(
             break
         truncated_chunks.append(chunk)
         total_chars += len(chunk)
-
     top_context = "\n---\n".join(truncated_chunks) if truncated_chunks else "No WorkBC data found."
 
-    # Pass history to Mistral only for follow-ups so the answer has context
     if follow_up:
         history_window = sanitized_history[-2:]
         while history_window and history_window[0]["role"] != "user":
@@ -516,7 +620,6 @@ async def get_career_answer(
         history_window = []
 
     current_user_content = f"Context:\n{top_context}\n\nQuestion: {user_query}"
-
     final_messages = [
         {"role": "user",      "content": system_rules},
         {"role": "assistant", "content": "Understood. I will follow these guidelines strictly."},
@@ -533,14 +636,12 @@ async def get_career_answer(
         )
         answer        = completion.choices[0].message.content
         finish_reason = completion.choices[0].finish_reason
-
         if finish_reason == "length":
             answer += (
                 "\n\n---\n"
                 "_Response was truncated due to length. "
                 "Try asking a more specific question for complete information._"
             )
-
     except Exception as e:
         raise HTTPException(status_code=502, detail=f"LLM inference error: {str(e)}")
 
@@ -573,7 +674,6 @@ async def ask_career_bot(request: QueryRequest):
             if msg["role"] == next_role:
                 sanitized_history.append(msg)
                 next_role = "assistant" if next_role == "user" else "user"
-
         if sanitized_history and sanitized_history[-1]["role"] == "user":
             sanitized_history.pop()
 
@@ -599,6 +699,12 @@ async def ask_career_bot(request: QueryRequest):
             "Query: 'City of Kelowna jobs in Kelowna' -> job_search, employer=City of Kelowna, city=Kelowna\n"
             "Query: 'jobs with the City of Burnaby' -> job_search, employer=City of Burnaby, city=null\n"
             "Query: 'looking for jobs with city of surrey' -> job_search, employer=City of Surrey, city=null\n"
+            "Query: 'BC provincial jobs' -> job_search, employer=BC Provincial, city=null\n"
+            "Query: 'VCH jobs' -> job_search, employer=VCH, city=null\n"
+            "Query: 'Surrey school district jobs' -> job_search, employer=Surrey school district, city=null\n"
+            "Query: 'SD36 jobs' -> job_search, employer=SD36, city=null\n"
+            "Query: 'UBC jobs' -> job_search, employer=UBC, city=null\n"
+            "Query: 'Island Health jobs in Nanaimo' -> job_search, employer=Island Health, city=Nanaimo\n"
             "Query: 'latest business analyst jobs in Ontario' -> job_search, keywords=latest business analyst, city=Ontario\n"
             "Query: 'show me accounting jobs' -> job_search, keywords=accounting\n"
             "Query: 'any openings for teachers?' -> job_search, keywords=teacher\n"
@@ -632,9 +738,14 @@ async def ask_career_bot(request: QueryRequest):
             intent      = intent_data["intent"]
             params      = intent_data.get("job_search_params", {})
 
+            # Post-processing pipeline
             if params.get("city"):
                 params["city"] = clean_city(params["city"])
             params = fix_city_of_misclassification(params)
+            if params.get("city"):
+                params["city"] = resolve_city(params["city"])
+            if params.get("employer"):
+                params["employer"] = resolve_employer(params["employer"])
 
         except json.JSONDecodeError as e:
             print(f"DEBUG: Intent JSON parse failed ({e}) — raw was: {repr(raw_intent)}")
@@ -687,7 +798,6 @@ async def ask_career_bot(request: QueryRequest):
             answer, search_term = await get_career_answer(
                 user_query, sanitized_history, system_rules
             )
-
         elif intent == "job_search":
             city = params.get("city")
             if city and is_out_of_scope(city):
@@ -701,13 +811,11 @@ async def ask_career_bot(request: QueryRequest):
                     json.dumps({"params": params, "page": 1}),
                 )
                 answer = format_job_results(jobs, params, total)
-
         elif intent == "both":
             career_task = asyncio.create_task(
                 get_career_answer(user_query, sanitized_history, system_rules)
             )
             jobs_task = asyncio.create_task(get_job_results(params, from_offset=0))
-
             (career_answer, search_term), (jobs, total) = await asyncio.gather(
                 career_task, jobs_task
             )
