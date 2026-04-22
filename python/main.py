@@ -634,11 +634,15 @@ async def get_career_answer(
     ]
 
     try:
+        is_comparison = any(w in user_query.lower() for w in
+            ["compare", "difference", "versus", "vs", "between"])
+        tokens_for_request = 1200 if is_comparison else MAX_TOKENS
+
         completion    = vllm_client.chat.completions.create(
             model=MODEL_NAME,
             messages=final_messages,
             temperature=0.0,
-            max_tokens=MAX_TOKENS,
+            max_tokens=tokens_for_request,
         )
         answer        = completion.choices[0].message.content
         finish_reason = completion.choices[0].finish_reason
@@ -773,8 +777,11 @@ async def ask_career_bot(request: QueryRequest):
             "read it carefully before responding.\n"
             "2. IDENTITY CHECK: Only describe the exact job the user asked for. "
             "If the context job title does not match the user query, skip that chunk.\n"
-            "3. COMPARISON TABLE: If the user compares careers or asks differences, "
-            "use a SHORT markdown table: NOC | Job Title | Salary. Max 5 rows.\n"
+            "3. COMPARISON TABLE: If the user compares careers, asks about differences, "
+            "or mentions two or more job titles, first give a ONE sentence summary "
+            "per career (max 2 sentences total), then a markdown table: "
+            "NOC | Job Title | Key Difference | Salary. Max 5 rows. "
+            "Do NOT add any text after the table.\n"
             "4. NOC AND SALARY: Always include the NOC code and **bold** the salary.\n"
             "5. URLS ONLY FROM CONTEXT: Format links as [View Career Profile](URL) "
             "using ONLY URLs that appear word-for-word in the Context. "
