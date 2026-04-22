@@ -610,7 +610,7 @@ async def get_career_answer(
     truncated_chunks  = []
     total_chars       = 0
     for chunk in context_chunks:
-        if total_chars + len(chunk) > MAX_CONTEXT_CHARS:
+        if truncated_chunks and total_chars + len(chunk) > MAX_CONTEXT_CHARS:
             break
         truncated_chunks.append(chunk)
         total_chars += len(chunk)
