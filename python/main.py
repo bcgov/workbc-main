@@ -568,7 +568,7 @@ async def get_career_answer(
         search_term = user_query
 
     print(f"DEBUG: Final Search Term for Chroma: {search_term}")
-    print(f"DEBUG CONTEXT SENT TO LLM:\n{top_context[:600]}")
+    
 
     loop        = asyncio.get_event_loop()
     q_emb_array = await loop.run_in_executor(
@@ -612,6 +612,8 @@ async def get_career_answer(
         truncated_chunks.append(chunk)
         total_chars += len(chunk)
     top_context = "\n---\n".join(truncated_chunks) if truncated_chunks else "No WorkBC data found."
+
+    print(f"DEBUG CONTEXT SENT TO LLM:\n{top_context[:600]}")
 
     if follow_up:
         history_window = sanitized_history[-2:]
