@@ -606,10 +606,24 @@ async def get_career_answer(
         print(f'DEBUG: Appended chunk {i}, total now: {len(context_chunks)}')
     
     print(f"DEBUG: context_chunks length before truncation: {len(context_chunks)}")
+
+    seen_careers = {}
+    priority_chunks = []
+    secondary_chunks = []
+    for chunk in context_chunks:
+        job_line = chunk.split('\n')[0]
+        if job_line not in seen_careers:
+            seen_careers[job_line] = True
+            priority_chunks.append(chunk)
+        else:
+            secondary_chunks.append(chunk)
+    ordered_chunks = priority_chunks + secondary_chunks
+
+
     MAX_CONTEXT_CHARS = 3500
     truncated_chunks  = []
     total_chars       = 0
-    for chunk in context_chunks:
+    for chunk in ordered_chunks:
         if truncated_chunks and total_chars + len(chunk) > MAX_CONTEXT_CHARS:
             break
         truncated_chunks.append(chunk)
