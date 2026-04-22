@@ -10,7 +10,7 @@ use Drupal\system\Entity\Action;
 /**
  * Install the 'Set and Reset featured video' actions.
  */
-function workbc_career_trek_post_update_install_set_reset_featured_action() {
+function workbc_career_trek_post_update_install_set_reset_featured_action_2() {
   if (!Action::load('media_set_featured')) {
     Action::create([
       'id' => 'media_set_featured',
