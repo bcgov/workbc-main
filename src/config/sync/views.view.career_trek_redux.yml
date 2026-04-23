@@ -10,19 +10,6 @@ dependencies:
     - media.type.remote_video
     - taxonomy.vocabulary.epbc_categories
     - taxonomy.vocabulary.skills
-  content:
-    - 'taxonomy_term:epbc_categories:2994efab-85b6-45b5-b5ab-831f67f90148'
-    - 'taxonomy_term:epbc_categories:2d620e2f-0f7a-4f75-8361-8a310fdbdb3c'
-    - 'taxonomy_term:epbc_categories:38d6305a-7afd-4368-8073-342e6406b141'
-    - 'taxonomy_term:epbc_categories:5bf6cf48-c739-451f-aac9-37db57562ae4'
-    - 'taxonomy_term:epbc_categories:63140ec6-135b-4448-9601-e7d12774b966'
-    - 'taxonomy_term:epbc_categories:81b3f62e-0f09-467a-91bb-31f3c1c3d476'
-    - 'taxonomy_term:epbc_categories:84b36721-792a-4a9a-8c3a-11e3471aaa79'
-    - 'taxonomy_term:epbc_categories:af936df4-a3ca-45f4-bff8-2f1ebfe4c67a'
-    - 'taxonomy_term:epbc_categories:b6ec89e7-9749-455d-8c0e-cba9a6065517'
-    - 'taxonomy_term:epbc_categories:b7e87714-f69b-44b5-882e-10ca66824091'
-    - 'taxonomy_term:epbc_categories:d4b2b3f9-ee64-4ec1-a75b-fed3e4d37995'
-    - 'taxonomy_term:epbc_categories:fb527338-d6e2-4d69-94a9-0ed9866c1ff4'
   module:
     - better_exposed_filters
     - media
@@ -841,19 +828,7 @@ display:
           admin_label: ''
           plugin_id: taxonomy_index_tid
           operator: or
-          value:
-            1118: 1118
-            1132: 1132
-            1144: 1144
-            1149: 1149
-            1162: 1162
-            1171: 1171
-            1187: 1187
-            1193: 1193
-            1198: 1198
-            1211: 1211
-            1221: 1221
-            1230: 1230
+          value: {  }
           group: 1
           exposed: true
           expose:
@@ -870,7 +845,7 @@ display:
             multiple: true
             remember_roles:
               authenticated: authenticated
-            reduce: true
+            reduce: false
           is_grouped: false
           group_info:
             label: ''

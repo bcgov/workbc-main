@@ -11,7 +11,7 @@ ignored_config_entities:
   - 'recaptcha.*'
   - 'search_api.server.*'
   - 'simple_block.simple_block.job_board_*'
-  - system.action.*
+  - 'system.action.*'
   - system.mail
   - system.maintenance
   - system.performance
