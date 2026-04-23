@@ -608,20 +608,24 @@ async def get_career_answer(
     )
     q_emb = q_emb_array.tolist()
     chunk_types = detect_chunk_types(user_query)
-    print(f"DEBUG: Chunk types for this query: {chunk_types}")
+    is_comparison = any(w in user_query.lower() for w in
+        ["compare", "difference", "versus", "vs", "between"])
+    n_chunks = 4 if is_comparison else 6
+    print(f"DEBUG: Chunk types: {chunk_types} | n_results: {n_chunks}")
 
     if len(chunk_types) == 1:
         results = collection.query(
             query_embeddings=[q_emb],
-            n_results=6,
+            n_results=n_chunks,
             where={"chunk_type": {"$eq": chunk_types[0]}}
         )
     else:
         results = collection.query(
             query_embeddings=[q_emb],
-            n_results=6,
+            n_results=n_chunks,
             where={"chunk_type": {"$in": chunk_types}}
         )
+    
   
 
     context_chunks = []
@@ -690,8 +694,8 @@ async def get_career_answer(
     ]
 
     try:
-        is_comparison = any(w in user_query.lower() for w in
-            ["compare", "difference", "versus", "vs", "between"])
+        ##is_comparison = any(w in user_query.lower() for w in
+        ##    ["compare", "difference", "versus", "vs", "between"])
         tokens_for_request = 1200 if is_comparison else MAX_TOKENS
 
         completion    = vllm_client.chat.completions.create(
