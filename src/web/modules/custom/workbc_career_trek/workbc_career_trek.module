@@ -228,6 +228,15 @@ function workbc_career_trek_theme($existing, $type, $theme, $path) {
  */
 function workbc_career_trek_form_views_exposed_form_alter(&$form, \Drupal\Core\Form\FormStateInterface $form_state, $form_id) {
   if ($form['#id'] === 'views-exposed-form-career-trek-redux-block-1') {
+    // Only show top-level EPBC categories in the filter.
+    $form['field_epbc_categories_target_id']['#options'] = array_reduce(array_filter(\Drupal::entityTypeManager()->getStorage('taxonomy_term')->loadTree('epbc_categories'),
+      function ($term) { return $term->depth === 0; }
+    ), function ($options, $term) {
+      $options[$term->tid] = $term->name;
+      return $options;
+    }, []);
+
+    // Customize the filter labels and blurbs.
     $config = \Drupal::configFactory()->getEditable('workbc_career_trek.settings');
     $keymap = [
       'field_epbc_categories_target_id' => 'occupational_category_api_field',
