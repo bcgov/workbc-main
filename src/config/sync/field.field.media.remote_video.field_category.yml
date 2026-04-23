@@ -10,7 +10,7 @@ id: media.remote_video.field_category
 field_name: field_category
 entity_type: media
 bundle: remote_video
-label: Categories
+label: '[DEPRECATED] Categories'
 description: ''
 required: false
 translatable: false

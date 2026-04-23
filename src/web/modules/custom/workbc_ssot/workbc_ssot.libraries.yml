@@ -1,0 +1,8 @@
+validation-toggle:
+  js:
+    js/validation-toggle.js: {}
+  dependencies:
+    - core/jquery
+    - core/drupalSettings
+    - core/once
+    - core/drupal

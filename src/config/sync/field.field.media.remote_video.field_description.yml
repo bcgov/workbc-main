@@ -11,11 +11,12 @@ id: media.remote_video.field_description
 field_name: field_description
 entity_type: media
 bundle: remote_video
-label: Description
+label: '[SSOT] Description'
 description: ''
 required: false
 translatable: false
 default_value: {  }
 default_value_callback: ''
-settings: {  }
+settings:
+  allowed_formats: {  }
 field_type: text_long

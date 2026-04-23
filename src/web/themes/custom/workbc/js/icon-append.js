@@ -9,14 +9,14 @@
             return response.text();
           });
       }
-      once('iconAppendSingle', '.plan-careercareer-trek-videos .node-page-content .js-form-item-search-api-fulltext', context).forEach(function (element) {
+      once('iconAppendSingle', '.plan-careercareer-trek-videos .node-page-content .js-form-item-keyword-search', context).forEach(function (element) {
         var iconUrl = "/" . drupalSettings?.workbc_career_trek?.icon_search ?? '/themes/custom/workbc/assets/icons/icon-search.svg';
         fetchSvgIcon(iconUrl).then(function(svg) {
           $(element).append(`<span class="icon-single">${svg}</span>`);
         });
       });
 
-      $(context).on('click', '.plan-careercareer-trek-videos .node-page-content .js-form-item-search-api-fulltext .icon-single', function () {
+      $(context).on('click', '.plan-careercareer-trek-videos .node-page-content .js-form-item-keyword-search .icon-single', function () {
         var $form = $(this).closest('form');
         $form.find('input[type="submit"]:not([name="reset"])').trigger('click');
       });

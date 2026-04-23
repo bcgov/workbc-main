@@ -1039,7 +1039,8 @@ display:
           disable_sql_rewrite: false
           distinct: true
           replica: false
-          query_tags: {  }
+          query_tags:
+            - explore_careers_search
       relationships: {  }
       css_class: ''
       header:
@@ -1081,34 +1082,6 @@ display:
     position: 2
     display_options:
       display_extenders: {  }
-    cache_metadata:
-      max-age: 0
-      contexts:
-        - 'languages:language_content'
-        - 'languages:language_interface'
-        - url
-        - 'url.query_args:sort_by'
-        - 'url.query_args:sort_order'
-        - 'user.node_grants:view'
-        - user.permissions
-      tags:
-        - 'config:field.storage.node.field_annual_salary'
-        - 'config:field.storage.node.field_job_titles_illustrative'
-        - 'config:field.storage.node.field_noc'
-        - 'config:field.storage.node.field_region_openings'
-        - 'config:field.storage.node.field_teer'
-  page_1:
-    id: page_1
-    display_title: Page
-    display_plugin: page
-    position: 1
-    display_options:
-      enabled: false
-      defaults:
-        css_class: false
-      css_class: container-lg
-      display_extenders: {  }
-      path: plan-career/explore-careers/career-profiles/search
     cache_metadata:
       max-age: 0
       contexts:

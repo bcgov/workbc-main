@@ -1,0 +1,19 @@
+uuid: 8fb38286-2294-4467-a1ec-99fd90b818ef
+langcode: en
+status: true
+dependencies:
+  config:
+    - field.storage.media.field_region
+    - media.type.remote_video
+id: media.remote_video.field_region
+field_name: field_region
+entity_type: media
+bundle: remote_video
+label: '[SSOT] Region'
+description: ''
+required: false
+translatable: false
+default_value: {  }
+default_value_callback: ''
+settings: {  }
+field_type: string

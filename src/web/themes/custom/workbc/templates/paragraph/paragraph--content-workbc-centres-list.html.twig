@@ -83,7 +83,9 @@
                       <div class="accordion-header-link">
                         <a href="{{ centre.workbc_centre_url }}">{{ centre.label }}</a>
                       </div>
-                      <button class="accordion-button collapsed" type="button" data-bs-toggle="collapse" data-bs-target="#collapse-{{ centre.id() }}" aria-expanded="false" aria-controls="collapse-{{ centre.id() }}"></button>
+                      <span>
+                        <button class="accordion-button collapsed" type="button" data-bs-toggle="collapse" data-bs-target="#collapse-{{ centre.id() }}" aria-expanded="false" aria-controls="collapse-{{ centre.id() }}" aria-label="expand {{ centre.label }}"></button>
+                      </span>
                     </div>
 
                     <div id="collapse-{{ centre.id() }}" class="accordion-collapse collapse" aria-labelledby="header-{{ centre.id() }}" data-bs-parent="#accordion-component-{{ key }}">

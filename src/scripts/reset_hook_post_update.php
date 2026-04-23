@@ -35,18 +35,18 @@ if ($extra) {
     );
 }
 
+if (empty($choices)) die("No updates found.");
+
 $io = DrushCommands::io();
-$reset = $io->choice("Which post_update hook do you want to reset?", $choices, 0);
+$reset = $io->choice("Which post_update hook do you want to reset? (Ctrl-C to abort)", $choices, 0);
 if ($reset !== FALSE) {
-    $remove = $choices[$reset];
-    $index = $indexes[$remove];
-    if ($remove === $update_list[$index]) {
+    if (array_key_exists($reset, $indexes)) {
+        $index = $indexes[$reset];
         unset($update_list[$index]);
         $key_value->set("existing_updates", $update_list);
-        $io->success("$remove has been reset.");
+        $io->success("$reset has been reset.");
     }
     else {
-        // Really should not even get here!
         $io->error("Unable to match selection!");
     }
 }

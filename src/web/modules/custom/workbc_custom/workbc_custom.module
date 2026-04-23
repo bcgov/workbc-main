@@ -62,8 +62,8 @@ function workbc_sitewide_alert_cache_clear() {
 }
 
 /**
-* Implements hook_theme().
-*/
+ * Implements hook_theme().
+ */
 function workbc_custom_theme($existing, $type, $theme, $path) {
   return [
     'related_topics_block' => [
@@ -112,19 +112,9 @@ function workbc_custom_theme($existing, $type, $theme, $path) {
 }
 
 /**
-* Implements hook_views_data_alter().
-*/
+ * Implements hook_views_data_alter().
+ */
 function workbc_custom_views_data_alter(array &$data) {
-
-  $data['node_field_data']['workbc_nodes_granular_dates'] = [
-    'title' => t('WorkBC node granular date filter'),
-    'filter' => [
-      'title' => t('WorkBC node granular date filter'),
-      'help' => t('WorkBC node granular date filter.'),
-      'field' => 'title',
-      'id' => 'workbc_node_granular_date_filter',
-    ],
-  ];
 
   $data['node__field_region_openings']['delta'] = [
     'title' => t('WorkBC Region Openings delta filter'),
@@ -134,19 +124,6 @@ function workbc_custom_views_data_alter(array &$data) {
       'help' => t('Filter nodes by Region Openings delta.'),
       'field' => 'delta',
       'id' => 'workbc_node_region_delta_filter',
-    ],
-  ];
-
-  $data['node__field_skills_2']['field_skills_2_target_id'] = [
-    'title' => t('WorkBC Top 6 Skills filter'),
-    'group' => 'Content',
-    'filter' => [
-      'title' => 'Skills (Top Skills filter)',
-      'id' => 'workbc_taxonomy_index_tid_filter',
-      'hierarchy table' => 'taxonomy_term__parent',
-      'numeric' => TRUE,
-      'skip base' => 'taxonomy_term_field_data',
-      'allow empty' => TRUE,
     ],
   ];
 
@@ -169,8 +146,8 @@ function workbc_custom_views_data_alter(array &$data) {
 }
 
 /**
-* Implements hook_views_pre_render().
-*/
+ * Implements hook_views_pre_render().
+ */
 function workbc_custom_views_pre_render(ViewExecutable $view) {
 
   if ($view->id() === 'high_opportunity_occupations_2') {
@@ -295,8 +272,8 @@ function workbc_custom_views_pre_build(ViewExecutable $view) {
 }
 
 /**
-* Implements hook_form_alter().
-*/
+ * Implements hook_form_alter().
+ */
 function workbc_custom_form_alter(&$form, FormStateInterface $form_state, $form_id) {
   // hide password and disable editing of username and email
   // maintenance of this info is handled by keycloak
@@ -334,8 +311,8 @@ function workbc_custom_form_alter(&$form, FormStateInterface $form_state, $form_
 }
 
 /**
-* Implements hook_form_FORM_ID_alter() for node_form_alter.
-*/
+ * Implements hook_form_FORM_ID_alter() for node_form_alter.
+ */
 function workbc_custom_form_node_form_alter(&$form, FormStateInterface $form_state, $form_id) {
 
   $user = \Drupal\user\Entity\User::load(\Drupal::currentUser()->id());
@@ -350,8 +327,8 @@ function workbc_custom_form_node_form_alter(&$form, FormStateInterface $form_sta
 }
 
 /**
-* Implements hook_form_FORM_ID_alter() for views_exposed_form.
-*/
+ * Implements hook_form_FORM_ID_alter() for views_exposed_form.
+ */
 function workbc_custom_form_views_exposed_form_alter(&$form, FormStateInterface $form_state, $form_id) {
 
   if ($form['#id'] === 'views-exposed-form-high-opportunity-occupations-2-block-1') {
@@ -511,8 +488,8 @@ function hoo_multiselect_form_submit(array &$form, FormStateInterface &$form_sta
 }
 
 /**
-* Implements hook_entity_form_mode_alter().
-*/
+ * Implements hook_entity_form_mode_alter().
+ */
 function workbc_custom_entity_form_mode_alter(&$form_mode, Drupal\Core\Entity\EntityInterface $entity) {
   if ($entity->getEntityTypeId() === 'media' && \Drupal::request()->query->get('form_mode')) {
     $form_mode = \Drupal::request()->query->get('form_mode');
@@ -520,8 +497,8 @@ function workbc_custom_entity_form_mode_alter(&$form_mode, Drupal\Core\Entity\En
 }
 
 /**
-* Implements hook_node_access().
-*/
+ * Implements hook_node_access().
+ */
 function workbc_custom_node_access(NodeInterface $node, $op, AccountInterface $account) {
 
   // we only allow update/delete of node if user is a member of the same content group
@@ -540,8 +517,8 @@ function workbc_custom_node_access(NodeInterface $node, $op, AccountInterface $a
 }
 
 /**
-* Implements hook_node_presave().
-*/
+ * Implements hook_node_presave().
+ */
 function workbc_custom_node_presave(NodeInterface $entity) {
 
   // if this is a new node and user doesn't have bypass content groups hasPermission
@@ -564,8 +541,8 @@ function workbc_custom_node_presave(NodeInterface $entity) {
 }
 
 /**
-* Implements hook_user_access().
-*/
+ * Implements hook_user_access().
+ */
 function workbc_custom_user_access(EntityInterface $entity, $operation, AccountInterface $account) {
 
   // users without "bypass content groups" permission can only update/delete
@@ -587,8 +564,8 @@ function workbc_custom_user_access(EntityInterface $entity, $operation, AccountI
 }
 
 /**
-* Implements hook_entity_operation_alter().
-*/
+ * Implements hook_entity_operation_alter().
+ */
 function workbc_custom_entity_operation_alter(array &$operations, EntityInterface $entity) {
 
   // remove role operation, roles can be changed via edit tab.
@@ -601,8 +578,8 @@ function workbc_custom_entity_operation_alter(array &$operations, EntityInterfac
 }
 
 /**
-* Implements hook_menu_local_tasks_alter().
-*/
+ * Implements hook_menu_local_tasks_alter().
+ */
 function workbc_custom_menu_local_tasks_alter(&$data, $route_name) {
 
   // remove role tab, roles can be changed via edit tab.
@@ -620,8 +597,8 @@ function workbc_custom_element_info_alter(&$info) {
 }
 
 /**
-* Implements hook_webform_element_alter().
-*/
+ * Implements hook_webform_element_alter().
+ */
 function workbc_custom_webform_element_alter(array &$element, FormStateInterface $form_state, array $context) {
   if (isset($element['#webform_id']) && $element['#webform_id'] === 'contact--name') {
     $element['#element_validate'][] = 'workbc_custom_webform_contact_name_validate';
@@ -636,10 +613,10 @@ function workbc_custom_webform_contact_name_validate(array &$element, FormStateI
 }
 
 /**
-* Implements hook_form_FORM_ID_alter() for config_admin_import_form.
-*
-* Show export link for each modified config item.
-*/
+ * Implements hook_form_FORM_ID_alter() for config_admin_import_form.
+ *
+ * Show export link for each modified config item.
+ */
 function workbc_custom_form_config_admin_import_form_alter(&$form, FormStateInterface $form_state, $form_id) {
   $configs = [];
   foreach (\Drupal::service('entity_type.manager')->getDefinitions() as $entity_type => $definition) {
@@ -679,10 +656,10 @@ function workbc_custom_form_config_admin_import_form_alter(&$form, FormStateInte
 }
 
 /**
-* Implements hook_redirect_response_alter().
-*
-* Capture a Find Jobs redirect and add the noc argument if searchNOC is present.
-*/
+ * Implements hook_redirect_response_alter().
+ *
+ * Capture a Find Jobs redirect and add the noc argument if searchNOC is present.
+ */
 function workbc_custom_redirect_response_alter(TrustedRedirectResponse $response, Redirect $redirect, Request $request) {
   if (!empty($request->query)) {
     $params = array_change_key_case($request->query->all(), CASE_LOWER);
@@ -694,8 +671,8 @@ function workbc_custom_redirect_response_alter(TrustedRedirectResponse $response
 }
 
 /**
-* Implements hook_system_breadcrumb_alter().
-*/
+ * Implements hook_system_breadcrumb_alter().
+ */
 function workbc_custom_system_breadcrumb_alter(Breadcrumb &$breadcrumb, RouteMatchInterface $route_match, array $context) {
 
   $node = \Drupal::request()->attributes->get('node');
@@ -722,8 +699,8 @@ function workbc_custom_system_breadcrumb_alter(Breadcrumb &$breadcrumb, RouteMat
 }
 
 /**
-* Implements hook_entity_type_build().
-*/
+ * Implements hook_entity_type_build().
+ */
 function workbc_custom_entity_type_build(array &$entity_types) {
   // Inhibit default rendering of nodes which causes uncacheable pages.
   $entity_types['node']->set('enable_base_field_custom_preprocess_skipping', TRUE);
@@ -741,9 +718,10 @@ function workbc_custom_entity_base_field_info_alter(&$fields, \Drupal\Core\Entit
 }
 
 /**
-* Implements hook_search_api_autocomplete_suggestions_alter().
-*/
+ * Implements hook_search_api_autocomplete_suggestions_alter().
+ */
 function workbc_custom_search_api_autocomplete_suggestions_alter(array &$suggestions, array $alter_params) {
+  if (!$alter_params['query']->hasTag('explore_careers_search')) return;
   foreach ($suggestions as &$suggestion) {
     $params = $suggestion->getUrl()->getRouteParameters();
     $node = \Drupal\node\Entity\Node::load($params['node']);
@@ -807,8 +785,8 @@ function workbc_custom_metatags_attachments_alter(array &$metatag_attachments) {
 
 
 /**
-* Implements hook_search_api_query_alter().
-*/
+ * Implements hook_search_api_query_alter().
+ */
 function workbc_custom_search_api_query_alter($query) {
   if ($query->hasTag('search_api_autocomplete')) {
     // Set the processing level to basic to prevent highlighting processor from working during autocomplete queries.
@@ -817,8 +795,8 @@ function workbc_custom_search_api_query_alter($query) {
 }
 
 /**
-* Implements hook_search_api_query_TAG_alter() for explore_careers_search.
-*/
+ * Implements hook_search_api_query_TAG_alter() for explore_careers_search.
+ */
 function workbc_custom_search_api_query_explore_careers_search_alter($query) {
   // Adjust the query before it is sent to Solr.
   $keys =& $query->getKeys();
@@ -891,11 +869,9 @@ function workbc_custom_page_attachments_alter(array &$attachments) {
   }
 }
 
-
 /**
- * Implements hook_token_info()
+ * Implements hook_token_info().
  */
-
 function workbc_custom_token_info() {
 
   $info['tokens']['current-page']['all-selected-class'] = array(
@@ -917,11 +893,9 @@ function workbc_custom_token_info() {
   return $info;
 }
 
-
 /**
- * Implements hook_tokens()
+ * Implements hook_tokens().
  */
-
 function workbc_custom_tokens($type, $tokens, array $data, array $options, BubbleableMetadata $bubbleable_metadata) {
 
   $replacements = [];

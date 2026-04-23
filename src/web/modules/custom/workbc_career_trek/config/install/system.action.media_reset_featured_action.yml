@@ -1,0 +1,11 @@
+langcode: en
+status: true
+dependencies:
+  module:
+    - media
+    - workbc_career_trek
+id: media_reset_featured
+label: 'Reset featured video'
+type: media
+plugin: media_reset_featured
+configuration: {  }

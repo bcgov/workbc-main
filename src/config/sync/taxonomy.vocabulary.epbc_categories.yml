@@ -4,6 +4,6 @@ status: true
 dependencies: {  }
 name: 'EPBC Categories'
 vid: epbc_categories
-description: 'Career categories used in EducationPlannerBC. '
+description: 'Career categories used in EducationPlannerBC (EPBC).'
 weight: 0
 new_revision: false

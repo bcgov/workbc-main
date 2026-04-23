@@ -1,6 +1,6 @@
 uuid: 0430f4ea-cf1f-4bae-adc5-8c0cf880ax4e
 langcode: en
-status: true
+status: false
 dependencies:
   config:
     - field.storage.node.field_noc
@@ -8,7 +8,6 @@ dependencies:
   module:
     - node
     - search_api_solr
-    - workbc_career_trek
 third_party_settings:
   search_api_solr:
     finalize: false
@@ -61,48 +60,10 @@ name: 'Career Trek index'
 description: ''
 read_only: false
 field_settings:
-  annual_salary:
-    label: 'Annual Salary'
-    property_path: annual_salary
-    type: decimal
-    configuration:
-      value: ''
-  career_description:
-    label: 'Career Description'
-    property_path: career_description
-    type: string
-    configuration:
-      value: ''
-  career_noc:
-    label: 'Career NOC'
-    property_path: career_noc
-    type: 'solr_text_custom:ngram'
-    boost: 2.0
-    configuration:
-      value: ''
-  custom_location:
-    label: 'Custom Location'
-    property_path: custom_api_field
-    type: string
-    configuration:
-      value: ''
   custom_unique_id:
     label: 'Custom Unique Id'
     property_path: custom_value
     type: string
-    configuration:
-      value: ''
-  episode_num:
-    label: 'Episode Number'
-    property_path: episode_number
-    type: integer
-    configuration:
-      value: ''
-  episode_title:
-    label: 'Episode Title'
-    property_path: episode_title
-    type: text
-    boost: 5.0
     configuration:
       value: ''
   field_noc:
@@ -114,55 +75,6 @@ field_settings:
     dependencies:
       config:
         - field.storage.node.field_noc
-  minimum_education:
-    label: 'Minimum Education'
-    property_path: minimum_education
-    type: string
-    configuration:
-      value: ''
-  node_id:
-    label: 'Node Id'
-    property_path: node_id
-    type: string
-    configuration:
-      value: ''
-  occupational_category_api_field:
-    label: 'Occupational Category Field'
-    property_path: occupational_category_api_field
-    type: string
-    configuration:
-      value: ''
-  region_api_field:
-    label: 'Region API Field'
-    property_path: region_api_field
-    type: string
-    configuration:
-      value: ''
-  skills:
-    label: Skills
-    property_path: skills
-    type: string
-    configuration:
-      value: ''
-  ssot_title:
-    label: 'Title Ssot'
-    property_path: ssot_title
-    type: text
-    boost: 5.0
-    configuration:
-      value: ''
-  thumbnail:
-    label: Thumbnail
-    property_path: thumbnail
-    type: string
-    configuration:
-      value: ''
-  youtube_url:
-    label: 'Youtube Url'
-    property_path: youtube_url
-    type: string
-    configuration:
-      value: ''
 datasource_settings:
   'entity:node':
     bundles:
@@ -175,61 +87,16 @@ datasource_settings:
 processor_settings:
   add_url: {  }
   aggregated_field: {  }
-  annual_salary_processor:
-    weights:
-      preprocess_index: -10
   auto_aggregated_fulltext_field: {  }
-  career_description_processor:
-    weights:
-      preprocess_index: -10
-  career_noc_processor:
-    weights:
-      preprocess_index: -10
-  custom_api_processor:
-    weights:
-      preprocess_index: -10
   custom_value: {  }
   entity_status: {  }
   entity_type: {  }
-  episode_number_processor:
-    weights:
-      preprocess_index: -10
-  episode_title_processor:
-    weights:
-      preprocess_index: -10
   language_with_fallback: {  }
-  minimum_education_processor:
-    weights:
-      preprocess_index: -10
-  node_id_processor:
-    weights:
-      preprocess_index: -10
-  occupational_category_processor:
-    weights:
-      preprocess_index: -10
-  regions_processor:
-    weights:
-      preprocess_index: -10
   rendered_item: {  }
-  skills_processor:
-    weights:
-      preprocess_index: -10
   solr_date_range:
     weights:
       preprocess_index: 0
   solr_dummy_fields: {  }
-  thumbnail_processor:
-    weights:
-      preprocess_index: -10
-  title_processor:
-    weights:
-      preprocess_index: -10
-  workbc_numeric_prefix:
-    weights:
-      preprocess_query: 0
-  youtube_url_processor:
-    weights:
-      preprocess_index: -10
 tracker_settings:
   default:
     indexing_order: fifo
