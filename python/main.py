@@ -429,6 +429,7 @@ def search_jobs(params: dict, size: int = PAGE_SIZE, from_offset: int = 0) -> tu
                 "multi_match": {
                     "query":  clean_keywords,
                     "fields": ["Title^3", "JobDescription"],
+                    "operator":"and",
                 }
             })
 
