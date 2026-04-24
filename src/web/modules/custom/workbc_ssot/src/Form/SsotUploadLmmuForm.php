@@ -44,9 +44,6 @@ class SsotUploadLmmuForm extends ConfirmFormBase {
   private $previous_month = null;
 
   public $validations = [
-    'year' => ['value' => ['form_state_key' => 'year'], 'cell' => 'A3', 'type' => 'date_year'],
-    'month' => ['value' => ['form_state_key' => 'month'], 'cell' => 'A3', 'type' => 'date_month'],
-
     'employment_by_age_group_15_24' => ['cell' => 'C8', 'type' => 'abs'],
     'employment_by_age_group_25_54' => ['cell' => 'C9', 'type' => 'abs'],
     'employment_by_age_group_55' => ['cell' => 'C10', 'type' => 'abs'],
@@ -70,10 +67,10 @@ class SsotUploadLmmuForm extends ConfirmFormBase {
     'employment_change_abs_full_time_jobs' => ['cell' => 'C19', 'type' => 'chg_abs', 'same_sign' => 'employment_change_pct_full_time_jobs'],
     'employment_change_pct_part_time_jobs' => ['cell' => 'B20', 'type' => 'chg_pct'],
     'employment_change_abs_part_time_jobs' => ['cell' => 'C20', 'type' => 'chg_abs', 'same_sign' => 'employment_change_pct_part_time_jobs'],
-    'employment_change_pct_total_employment' => ['cell' => 'B18', 'type' => 'chg_pct', 'previous_month_change_pct' => 'total_employed'],
-    'employment_change_abs_total_employment' => ['cell' => 'C18', 'type' => 'chg_abs', 'same_sign' => 'employment_change_pct_total_employment', 'sum_warn' => [
+    'employment_change_pct_total_employment' => ['cell' => 'B18', 'type' => 'chg_pct', 'previous_month_change_pct' => 'total_employed', 'warn_only' => ['previous_month_change_pct']],
+    'employment_change_abs_total_employment' => ['cell' => 'C18', 'type' => 'chg_abs', 'same_sign' => 'employment_change_pct_total_employment', 'sum' => [
       ['employment_change_abs_full_time_jobs', 'employment_change_abs_part_time_jobs']
-    ], 'previous_month_change_abs' => 'total_employed'],
+    ], 'previous_month_change_abs' => 'total_employed', 'warn_only' => ['sum', 'previous_month_change_abs']],
 
     'employment_rate_change_pct_unemployment' => ['cell' => 'B22', 'type' => 'chg_pct'],
     'employment_rate_pct_unemployment' => ['cell' => 'C22', 'type' => 'pct'],
@@ -156,16 +153,13 @@ class SsotUploadLmmuForm extends ConfirmFormBase {
     'pct' => 'Percentage value (0-100), positive, single decimal place.',
     'chg_abs' => 'Change absolute value (+/-), no decimals.',
     'chg_pct' => 'Change percentage (+/-) (0-50), single decimal place.',
-    'date_year' => 'Sheet year corresponds to selected year.',
-    'date_month' => 'Sheet month corresponds to selected month.',
     'same_sign' => 'Both values agree in numeric sign (+/-).',
     'blank' => 'A blank cell value will be shown as "Not available".',
     'sum' => 'The sum of the cell values matches the total value.',
-    'sum_warn' => '(Optional) The sum of the cell values matches the total value.',
     'equal' => 'Both values are equal.',
     'previous_month' => 'The value matches the given cell\'s prior month value.',
-    'previous_month_change_abs' => 'The value matches the absolute difference between the given cell\'s prior month value and current month value.',
-    'previous_month_change_pct' => 'The value matches the difference percentage between the given cell\'s prior month value and current month value.',
+    'previous_month_change_abs' => 'The value matches the absolute difference between the given cell\'s current and prior month value.',
+    'previous_month_change_pct' => 'The value matches the percentage difference between the given cell\'s current and prior month value.',
   ];
 
   /**
@@ -181,150 +175,9 @@ class SsotUploadLmmuForm extends ConfirmFormBase {
    */
   public function getDescription()
   {
-    foreach ($this->monthly_labour_market_updates as $key => $value) {
-      $validation = $this->validations[$key];
-      if (!empty($validation['type']) && !empty($validation['cell'])) {
-        if (is_null($value)) {
-          \Drupal::messenger()->addMessage($this->t('❗Cell @cell (<strong>@key</strong> is <strong>blank</strong>) has a warning: <em>@explanation</em>', [
-            '@cell' => $validation['cell'],
-            '@key' => $key,
-            '@explanation' => $this->t($this->descriptions['blank'])
-          ]), MessengerInterface::TYPE_WARNING);
-        }
-        else {
-          \Drupal::messenger()->addMessage($this->t('✅ Cell @cell (<strong>@key = @value</strong>) conforms to: <em>@explanation</em>', [
-            '@cell' => $validation['cell'],
-            '@key' => $key,
-            '@value' => $value,
-            '@explanation' => $this->t($this->descriptions[$validation['type']])
-          ]));
-        }
-      }
-      if (!empty($validation['same_sign']) && !empty($validation['cell'])) {
-        \Drupal::messenger()->addMessage($this->t('✅ Cells @cell1 (<strong>@key1 = @value1</strong>) and @cell2 (<strong>@key2 = @value2</strong>) conform to: <em>@explanation</em>', [
-          '@cell2' => $validation['cell'],
-          '@key2' => $key,
-          '@value2' => $value ?? 'N/A',
-          '@cell1' => $this->validations[$validation['same_sign']]['cell'],
-          '@key1' => $validation['same_sign'],
-          '@value1' => $this->monthly_labour_market_updates[$validation['same_sign']] ?? 'N/A',
-          '@explanation' => $this->t($this->descriptions['same_sign'])
-        ]));
-      }
-      if (!empty($validation['equal']) && !empty($validation['cell'])) {
-        \Drupal::messenger()->addMessage($this->t('✅ Cells @cell1 (<strong>@key1 = @value1</strong>) and @cell2 (<strong>@key2 = @value2</strong>) conform to: <em>@explanation</em>', [
-          '@cell2' => $validation['cell'],
-          '@key2' => $key,
-          '@value2' => $value ?? 'N/A',
-          '@cell1' => $this->validations[$validation['equal']]['cell'],
-          '@key1' => $validation['equal'],
-          '@value1' => $this->monthly_labour_market_updates[$validation['equal']] ?? 'N/A',
-          '@explanation' => $this->t($this->descriptions['equal'])
-        ]));
-      }
-      if (!empty($validation['sum']) && !empty($validation['cell'])) {
-        foreach ($validation['sum'] as $sum_keys) {
-          $sum = array_sum(array_map(function($sum_key) {
-            return $this->monthly_labour_market_updates[$sum_key] ?? 0;
-          }, $sum_keys));
-          \Drupal::messenger()->addMessage($this->t('✅ Cell @cell (<strong>@key = @value</strong>) and cells @cells (<strong>sum = @sum</strong>) conform to: <em>@explanation</em>', [
-            '@cell' => $validation['cell'],
-            '@key' => $key,
-            '@value' => $value ?? 'N/A',
-            '@cells' => implode(' + ', array_map(function($sum_key) {
-              return $this->validations[$sum_key]['cell'];
-            }, $sum_keys)),
-            '@sum' => $sum,
-            '@explanation' => $this->t($this->descriptions['sum']),
-          ]));
-        }
-      }
-      if (!empty($validation['sum_warn']) && !empty($validation['cell'])) {
-        foreach ($validation['sum_warn'] as $sum_keys) {
-          $warning = false;
-          $sum = array_sum(array_map(function($sum_key) {
-            return $this->monthly_labour_market_updates[$sum_key] ?? 0;
-          }, $sum_keys));
-          if (abs($sum - ($value ?? 0)) > 100) {
-            $msg = '❗ Cell @cell (<strong>@key = @value</strong>) and cells @cells (<strong>sum = @sum</strong>) do not conform to: <em>@explanation</em>';
-            $warning = true;
-          }
-          else {
-            $msg = '✅ Cell @cell (<strong>@key = @value</strong>) and cells @cells (<strong>sum = @sum</strong>) conform to: <em>@explanation</em>';
-          }
-          \Drupal::messenger()->addMessage($this->t($msg, [
-            '@cell' => $validation['cell'],
-            '@key' => $key,
-            '@value' => $value ?? 'N/A',
-            '@cells' => implode(' + ', array_map(function($sum_key) {
-              return $this->validations[$sum_key]['cell'];
-            }, $sum_keys)),
-            '@sum' => $sum,
-            '@explanation' => $this->t($this->descriptions['sum_warn']),
-          ]), $warning ? MessengerInterface::TYPE_WARNING : MessengerInterface::TYPE_STATUS);
-        }
-      }
-      if (!empty($validation['previous_month']) && !empty($validation['cell'])) {
-        \Drupal::messenger()->addMessage($this->t('✅ Cell @cell (<strong>@key = @value</strong>) and previous month cell @cell_previous (<strong>@key_previous = @value_previous</strong>) conform to: <em>@explanation</em>', [
-          '@cell' => $validation['cell'],
-          '@key' => $key,
-          '@value' => $value ?? 'N/A',
-          '@cell_previous' => $this->validations[$validation['previous_month']]['cell'],
-          '@key_previous' => $validation['previous_month'],
-          '@value_previous' => $this->previous_month[$validation['previous_month']] ?? 'N/A',
-          '@explanation' => $this->t($this->descriptions['previous_month']),
-        ]));
-      }
-      if (!empty($this->previous_month) && !empty($validation['previous_month_change_abs']) && !empty($validation['cell'])) {
-        $previous_value = $this->previous_month[$validation['previous_month_change_abs']];
-        $current_value = $this->monthly_labour_market_updates[$validation['previous_month_change_abs']];
-        $diff = $current_value - $previous_value;
-        if (abs($diff - $value) > PHP_FLOAT_EPSILON) {
-          \Drupal::messenger()->addMessage($this->t('❗Cell @cell (<strong>@key = @value</strong>) and monthly difference in @cell_previous (<strong>absolute difference = @diff</strong>) do not conform to: <em>@explanation</em>', [
-            '@cell' => $validation['cell'],
-            '@key' => $key,
-            '@value' => $value ?? 'N/A',
-            '@cell_previous' => $this->validations[$validation['previous_month_change_abs']]['cell'],
-            '@diff' => $diff,
-            '@explanation' => $this->t($this->descriptions['previous_month_change_abs']),
-          ]), MessengerInterface::TYPE_WARNING);
-        }
-        else {
-          \Drupal::messenger()->addMessage($this->t('✅ Cell @cell (<strong>@key = @value</strong>) and monthly difference in @cell_previous (<strong>absolute difference = @diff</strong>) conform to: <em>@explanation</em>', [
-            '@cell' => $validation['cell'],
-            '@key' => $key,
-            '@value' => $value ?? 'N/A',
-            '@cell_previous' => $this->validations[$validation['previous_month_change_abs']]['cell'],
-            '@diff' => $diff,
-            '@explanation' => $this->t($this->descriptions['previous_month_change_abs']),
-          ]));
-        }
-      }
-      if (!empty($this->previous_month) && !empty($validation['previous_month_change_pct']) && !empty($validation['cell'])) {
-        $previous_value = $this->previous_month[$validation['previous_month_change_pct']];
-        $current_value = $this->monthly_labour_market_updates[$validation['previous_month_change_pct']];
-        $diff = round(($current_value - $previous_value) * 100 / $current_value, 1);
-        if (abs($diff - $value) > PHP_FLOAT_EPSILON) {
-          \Drupal::messenger()->addMessage($this->t('❗Cell @cell (<strong>@key = @value</strong>) and monthly difference in @cell_previous (<strong>difference percentage = @diff</strong>) do not conform to: <em>@explanation</em>', [
-            '@cell' => $validation['cell'],
-            '@key' => $key,
-            '@value' => $value ?? 'N/A',
-            '@cell_previous' => $this->validations[$validation['previous_month_change_pct']]['cell'],
-            '@diff' => $diff,
-            '@explanation' => $this->t($this->descriptions['previous_month_change_pct']),
-          ]), MessengerInterface::TYPE_WARNING);
-        }
-        else {
-          \Drupal::messenger()->addMessage($this->t('✅ Cell @cell (<strong>@key = @value</strong>) and monthly difference in @cell_previous (<strong>difference percentage = @diff</strong>) conform to: <em>@explanation</em>', [
-            '@cell' => $validation['cell'],
-            '@key' => $key,
-            '@value' => $value ?? 'N/A',
-            '@cell_previous' => $this->validations[$validation['previous_month_change_pct']]['cell'],
-            '@diff' => $diff,
-            '@explanation' => $this->t($this->descriptions['previous_month_change_pct']),
-          ]));
-        }
-      }
+    $results = $this->validateRules($this->monthly_labour_market_updates, $this->previous_month);
+    foreach ($results as $result) {
+      \Drupal::messenger()->addMessage($result['message'], $result['result'] === 'success' ? MessengerInterface::TYPE_STATUS : MessengerInterface::TYPE_WARNING);
     }
     return $this->t('This action will update the SSoT Labour Market Monthly Update for <strong>@month @year</strong>.', [
       '@month' => DateHelper::monthNames(true)[$this->monthly_labour_market_updates['month']],
@@ -484,257 +337,73 @@ class SsotUploadLmmuForm extends ConfirmFormBase {
       return strcasecmp($sheet->getTitle(), LMMU_TAB) === 0;
     });
     if (empty($sheet)) {
-      $s = LMMU_TAB;
-      $form_state->setErrorByName('lmmu', $this->t("❌ Tab \"$s\" is not found. Please ensure that the tab containing LMMU information is called \"$s\"."));
+      $form_state->setErrorByName('lmmu', $this->t("❌ Tab \"@tab\" is not found. Please ensure that the tab containing LMMU information is called \"@tab\".", [
+        '@tab' => LMMU_TAB
+      ]));
       return;
     }
     else {
       $sheet = reset($sheet);
     }
 
-    // Get the previous month dataset to compare some cells.
+    // Get sheet date and compare to form date.
     try {
       $date = ExcelDate::excelToDateTimeObject($sheet->getCell('A3')->getValue());
-      $previous_year = $date->format('Y') + 0;
-      $previous_month = $date->format('n') - 1;
-      if ($previous_month == 0) {
-        $previous_month = 12;
-        $previous_year -= 1;
-      }
-      $previous_month = json_decode($this->ssot("monthly_labour_market_updates?year=eq.$previous_year&month=eq.$previous_month")->getBody(), true);
-      if (!empty($previous_month)) {
-        $previous_month = reset($previous_month);
-      }
     }
     catch (\TypeError $e) {
-      \Drupal::logger('workbc')->error('Error validating @name: @error', [
-        '@name' => $name, '@error' => $e->getMessage()
-      ]);
-      $form_state->setErrorByName('lmmu', $this->t('❌ This spreadsheet file is likely invalid. Please refer to the logs for more information.'));
+      $form_state->setErrorByName('lmmu', $this->t('❌ Invalid date in cell A3. Please check you are uploading the correct spreadsheet.'));
+      return;
+    }
+    if ($date->format('Y') != $form_state->getValue('year')) {
+      $form_state->setErrorByName('year', $this->t('❌ The selected year does not match the date in cell A3. Please check you are uploading the correct spreadsheet.'));
+      return;
+    }
+    if ($date->format('n') != $form_state->getValue('month')) {
+      $form_state->setErrorByName('month', $this->t('❌ The selected month does not match the date in cell A3. Please check you are uploading the correct spreadsheet.'));
       return;
     }
 
-    // Validate and fill the monthly_labour_market_updates values.
+    // Get the previous month dataset to compare some cells.
+    $previous_year = $date->format('Y') + 0;
+    $previous_month = $date->format('n') - 1;
+    if ($previous_month == 0) {
+      $previous_month = 12;
+      $previous_year -= 1;
+    }
+    $previous_month = json_decode($this->ssot("monthly_labour_market_updates?year=eq.$previous_year&month=eq.$previous_month")->getBody(), true);
+    if (!empty($previous_month)) {
+      $previous_month = reset($previous_month);
+    }
+
+    // Fill the monthly_labour_market_updates values.
     // @see https://github.com/bcgov/workbc-ssot/blob/master/migration/load/updates/monthly_labour_market_updates.load
-    $monthly_labour_market_updates = [];
-    $errors = [];
+    $monthly_labour_market_updates = [
+      'month' => $date->format('n'),
+      'year' => $date->format('Y'),
+    ];
     foreach ($this->validations as $key => $validation) {
       // Set the value. An explicit value overrides the cell value.
       if (array_key_exists('value', $validation)) {
-        if (is_array($validation['value'])) {
-          $value = $form_state->getValue($validation['value']['form_state_key']);
-        }
-        else {
-          $value = $validation['value'];
-        }
+        $value = $validation['value'];
       }
       else if (array_key_exists('cell', $validation)) {
         $value = $sheet->getCell($validation['cell'])->getValue();
-      }
-
-      // Perform validations based on type.
-      if (array_key_exists('type', $validation)) {
-        switch ($validation['type']) {
-          case 'date_year':
-            try {
-              $date = ExcelDate::excelToDateTimeObject($sheet->getCell($validation['cell'])->getValue());
-            }
-            catch (\TypeError $e) {
-              $date = null;
-            }
-            if (!empty($date) && $date->format('Y') != $value) {
-              array_key_push($errors, $key, $this->t('❌ Cell @cell (<strong>@key = @value</strong>) does not conform to: <em>@explanation</em> @suggestion', [
-                '@cell' => $validation['cell'],
-                '@key' => $key,
-                '@value' => $date->format('Y'),
-                '@explanation' => $this->t($this->descriptions[$validation['type']]),
-                '@suggestion' => $this->t('Please verify that you are uploading the right sheet and/or correct the selection.'),
-              ]));
-            }
-            break;
-          case 'date_month':
-            try {
-              $date = ExcelDate::excelToDateTimeObject($sheet->getCell($validation['cell'])->getValue());
-            }
-            catch (\TypeError $e) {
-              $date = null;
-            }
-            if (!empty($date) && $date->format('n') != $value) {
-              array_key_push($errors, $key, $this->t('❌ Cell @cell (<strong>@key = @value</strong>) does not conform to: <em>@explanation</em> @suggestion', [
-                '@cell' => $validation['cell'],
-                '@key' => $key,
-                '@value' => $date->format('F'),
-                '@explanation' => $this->t($this->descriptions[$validation['type']]),
-                '@suggestion' => $this->t('Please verify that you are uploading the right sheet and/or correct the selection.'),
-              ]));
-            }
-            break;
-          default:
-            // Bypass other validation rules if only warning.
-            if ($form_state->getValue('warn_only')) break;
-          case 'abs':
-            if (!is_numeric($value)) {
-              $value = null;
-            }
-            else {
-              $value = floatval($value);
-              if ($value < 0 || !is_number_integer($value)) {
-                array_key_push($errors, $key, $this->t('❌ Cell @cell (<strong>@key = @value</strong>) does not conform to: <em>@explanation</em> @suggestion', [
-                  '@cell' => $validation['cell'],
-                  '@key' => $key,
-                  '@value' => $value,
-                  '@explanation' => $this->t($this->descriptions[$validation['type']]),
-                  '@suggestion' => $this->t('Please correct the value.'),
-                ]));
-              }
-            }
-            break;
-          case 'pct':
-            if (!is_numeric($value)) {
-              $value = null;
-            }
-            else {
-              $value = floatval($value);
-              if ($value < 0 || number_precision($value) > 1 || $value > 100) {
-                array_key_push($errors, $key, $this->t('❌ Cell @cell (<strong>@key = @value</strong>) does not conform to: <em>@explanation</em> @suggestion', [
-                  '@cell' => $validation['cell'],
-                  '@key' => $key,
-                  '@value' => $value,
-                  '@explanation' => $this->t($this->descriptions[$validation['type']]),
-                  '@suggestion' => $this->t('Please correct the value.'),
-                ]));
-              }
-            }
-            break;
-          case 'chg_pct':
-            if (!is_numeric($value)) {
-              $value = null;
-            }
-            else {
-              $value = floatval($value);
-              if (number_precision($value) > 1 || abs($value) > 50) {
-                array_key_push($errors, $key, $this->t('❌ Cell @cell (<strong>@key = @value</strong>) does not conform to: <em>@explanation</em> @suggestion', [
-                  '@cell' => $validation['cell'],
-                  '@key' => $key,
-                  '@value' => $value,
-                  '@explanation' => $this->t($this->descriptions[$validation['type']]),
-                  '@suggestion' => $this->t('Please correct the value.'),
-                ]));
-              }
-            }
-            break;
-          case 'chg_abs':
-            if (!is_numeric($value)) {
-              $value = null;
-            }
-            else {
-              $value = floatval($value);
-              if (!is_number_integer($value)) {
-                array_key_push($errors, $key, $this->t('❌ Cell @cell (<strong>@key = @value</strong>) does not conform to: <em>@explanation</em> @suggestion', [
-                  '@cell' => $validation['cell'],
-                  '@key' => $key,
-                  '@value' => $value,
-                  '@explanation' => $this->t($this->descriptions[$validation['type']]),
-                  '@suggestion' => $this->t('Please correct the value.'),
-                ]));
-              }
-            }
-            break;
-          }
-      }
-
-      if (!$form_state->getValue('warn_only')) {
-        // Perform inter-cell same sign validation.
-        if (array_key_exists('same_sign', $validation)) {
-          $related_value = $monthly_labour_market_updates[$validation['same_sign']];
-          if (!(
-            (is_null($related_value) && is_null($value)) ||
-            ($related_value * $value >= 0)
-          )) {
-            array_key_push($errors, $key, $this->t('❌ Cells @cell1 (<strong>@key1 = @value1</strong>) and @cell2 (<strong>@key2 = @value2</strong>) do not conform to: <em>@explanation</em> @suggestion', [
-              '@cell1' => $this->validations[$validation['same_sign']]['cell'],
-              '@key1' => $validation['same_sign'],
-              '@value1' => $related_value,
-              '@cell2' => $validation['cell'],
-              '@key2' => $key,
-              '@value2' => $value ?? 'N/A',
-              '@explanation' => $this->t($this->descriptions['same_sign']),
-              '@suggestion' => $this->t('Please correct the values.'),
-            ]));
-          }
-        }
-
-        // Perform inter-cell equality validation.
-        if (array_key_exists('equal', $validation)) {
-          $related_value = $monthly_labour_market_updates[$validation['equal']];
-          if (!(
-            (is_null($related_value) && is_null($value)) ||
-            (abs($value - $related_value) <= PHP_FLOAT_EPSILON)
-          )) {
-            array_key_push($errors, $key, $this->t('❌ Cells @cell1 (<strong>@key1 = @value1</strong>) and @cell2 (<strong>@key2 = @value2</strong>) do not conform to: <em>@explanation</em> @suggestion', [
-              '@cell1' => $this->validations[$validation['equal']]['cell'],
-              '@key1' => $validation['equal'],
-              '@value1' => $related_value,
-              '@cell2' => $validation['cell'],
-              '@key2' => $key,
-              '@value2' => $value ?? 'N/A',
-              '@explanation' => $this->t($this->descriptions['equal']),
-              '@suggestion' => $this->t('Please correct the values.'),
-            ]));
-          }
-        }
-
-        // Perform inter-cell sum validation.
-        if (array_key_exists('sum', $validation)) {
-          foreach ($validation['sum'] as $sum_keys) {
-            $sum = array_sum(array_map(function($sum_key) use ($monthly_labour_market_updates) {
-              return $monthly_labour_market_updates[$sum_key] ?? 0;
-            }, $sum_keys));
-            if (abs($sum - ($value ?? 0)) > 100) {
-              array_key_push($errors, $key, $this->t('❌ Cell @cell (<strong>@key = @value</strong>) and cells @cells (<strong>sum = @sum</strong>) do not conform to: <em>@explanation</em> @suggestion', [
-                '@cell' => $validation['cell'],
-                '@key' => $key,
-                '@value' => $value ?? 'N/A',
-                '@cells' => implode(' + ', array_map(function($sum_key) {
-                  return $this->validations[$sum_key]['cell'];
-                }, $sum_keys)),
-                '@sum' => $sum,
-                '@explanation' => $this->t($this->descriptions['sum']),
-                '@suggestion' => $this->t('Please correct the values.'),
-              ]));
-            }
-          }
-        }
-
-        // Perform inter-sheet previous month validation.
-        if (!empty($previous_month) && array_key_exists('previous_month', $validation)) {
-          $previous_value = $previous_month[$validation['previous_month']];
-          if (!(
-            (is_null($previous_value) && is_null($value)) ||
-            ($previous_value == $value)
-          )) {
-            array_key_push($errors, $key, $this->t('❌ Cell @cell (<strong>@key = @value</strong>) and previous month cell @cell_previous (<strong>@key_previous = @value_previous</strong>) do not conform to: <em>@explanation</em> @suggestion', [
-              '@cell' => $validation['cell'],
-              '@key' => $key,
-              '@value' => $value ?? 'N/A',
-              '@cell_previous' => $this->validations[$validation['previous_month']]['cell'],
-              '@key_previous' => $validation['previous_month'],
-              '@value_previous' => $previous_value ?? 'N/A',
-              '@explanation' => $this->t($this->descriptions['previous_month']),
-              '@suggestion' => $this->t('Please correct the value.'),
-            ]));
-          }
-        }
       }
 
       // Set the value.
       $monthly_labour_market_updates[$key] = $value;
     }
 
+    // Retrieve only the errors in case of form validation.
+    if (!$form_state->getValue('warn_only')) {
+      $errors = array_column(array_filter($this->validateRules($monthly_labour_market_updates, $previous_month), function ($result) {
+        return $result['result'] === 'error';
+      }), 'message');
+    }
+
     // Display errors if any.
     if (!empty($errors)) {
-      $all_errors = array_merge(...array_values($errors));
-      foreach ($all_errors as $error) {
+      foreach ($errors as $error) {
         \Drupal::messenger()->addError($error);
       }
       $form_state->setErrorByName('lmms', $this->t('Please re-upload the sheet once the errors above have been corrected.'));
@@ -875,5 +544,335 @@ class SsotUploadLmmuForm extends ConfirmFormBase {
         break;
     }
     return $response;
+  }
+
+  function validateRules($monthly_labour_market_updates, $previous_month)
+  {
+    $icons = [
+      'error' => '❌',
+      'warning' => '❗',
+      'success' => '✅',
+    ];
+    $actions = [
+      'error' => 'correct',
+      'warning' => 'review',
+    ];
+    $results = [];
+    foreach ($this->validations as $key => $validation) {
+      $value = $monthly_labour_market_updates[$key];
+      $warn_only = array_key_exists('warn_only', $validation) ? $validation['warn_only'] : [];
+
+      // Perform validations based on type.
+      if (array_key_exists('type', $validation)) {
+        $success = true;
+        switch ($validation['type']) {
+          case 'abs':
+            $result = in_array('abs', $warn_only) ? 'warning' : 'error';
+            if (!is_numeric($value)) {
+              $value = null;
+            }
+            else {
+              $value = floatval($value);
+              if ($value < 0 || !is_number_integer($value)) {
+                array_push($results, ['result' => $result, 'message' => $this->t('@icon Cell @cell (<strong>@key = @value</strong>) does not conform to: <em>@explanation</em> @suggestion', [
+                  '@icon' => $icons[$result],
+                  '@cell' => $validation['cell'],
+                  '@key' => $key,
+                  '@value' => $value,
+                  '@explanation' => $this->t($this->descriptions[$validation['type']]),
+                  '@suggestion' => $this->t('Please @action the value.', ['@action' => $actions[$result]]),
+                ])]);
+                $success = false;
+              }
+            }
+            break;
+          case 'pct':
+            $result = in_array('pct', $warn_only) ? 'warning' : 'error';
+            if (!is_numeric($value)) {
+              $value = null;
+            }
+            else {
+              $value = floatval($value);
+              if ($value < 0 || number_precision($value) > 1 || $value > 100) {
+                array_push($results, ['result' => $result, 'message' => $this->t('@icon Cell @cell (<strong>@key = @value</strong>) does not conform to: <em>@explanation</em> @suggestion', [
+                  '@icon' => $icons[$result],
+                  '@cell' => $validation['cell'],
+                  '@key' => $key,
+                  '@value' => $value,
+                  '@explanation' => $this->t($this->descriptions[$validation['type']]),
+                  '@suggestion' => $this->t('Please @action the value.', ['@action' => $actions[$result]]),
+                ])]);
+                $success = false;
+              }
+            }
+            break;
+          case 'chg_pct':
+            $result = in_array('chg_pct', $warn_only) ? 'warning' : 'error';
+            if (!is_numeric($value)) {
+              $value = null;
+            }
+            else {
+              $value = floatval($value);
+              if (number_precision($value) > 1 || abs($value) > 50) {
+                array_push($results, ['result' => $result, 'message' => $this->t('@icon Cell @cell (<strong>@key = @value</strong>) does not conform to: <em>@explanation</em> @suggestion', [
+                  '@icon' => $icons[$result],
+                  '@cell' => $validation['cell'],
+                  '@key' => $key,
+                  '@value' => $value,
+                  '@explanation' => $this->t($this->descriptions[$validation['type']]),
+                  '@suggestion' => $this->t('Please @action the value.', ['@action' => $actions[$result]]),
+                ])]);
+                $success = false;
+              }
+            }
+            break;
+          case 'chg_abs':
+            $result = in_array('chg_abs', $warn_only) ? 'warning' : 'error';
+            if (!is_numeric($value)) {
+              $value = null;
+            }
+            else {
+              $value = floatval($value);
+              if (!is_number_integer($value)) {
+                array_push($results, ['result' => $result, 'message' => $this->t('@icon Cell @cell (<strong>@key = @value</strong>) does not conform to: <em>@explanation</em> @suggestion', [
+                  '@icon' => $icons[$result],
+                  '@cell' => $validation['cell'],
+                  '@key' => $key,
+                  '@value' => $value,
+                  '@explanation' => $this->t($this->descriptions[$validation['type']]),
+                  '@suggestion' => $this->t('Please @action the value.', ['@action' => $actions[$result]]),
+                ])]);
+                $success = false;
+              }
+            }
+            break;
+        }
+        if (is_null($value)) {
+          $result = 'warning';
+          array_push($results, ['result' => $result, 'message' => $this->t('@icon Cell @cell has a warning: <em>@explanation</em> @suggestion', [
+            '@icon' => $icons[$result],
+            '@cell' => $validation['cell'],
+            '@key' => $key,
+            '@explanation' => $this->t($this->descriptions['blank']),
+            '@suggestion' => $this->t('Please @action the value.', ['@action' => $actions[$result]]),
+          ])]);
+        }
+        else if ($success) {
+          $result = 'success';
+          array_push($results, ['result' => $result, 'message' => $this->t('@icon Cell @cell (<strong>@key = @value</strong>) conforms to: <em>@explanation</em>', [
+            '@icon' => $icons[$result],
+            '@cell' => $validation['cell'],
+            '@key' => $key,
+            '@value' => $value,
+            '@explanation' => $this->t($this->descriptions[$validation['type']])
+          ])]);
+        }
+      }
+
+      // Perform inter-cell same sign validation.
+      if (array_key_exists('same_sign', $validation)) {
+        $result = in_array('same_sign', $warn_only) ? 'warning' : 'error';
+        $related_value = $monthly_labour_market_updates[$validation['same_sign']];
+        if (!(
+          (is_null($related_value) && is_null($value)) ||
+          ($related_value * $value >= 0)
+        )) {
+          array_push($results, ['result' => $result, 'message' => $this->t('@icon Cells @cell1 (<strong>@key1 = @value1</strong>) and @cell2 (<strong>@key2 = @value2</strong>) do not conform to: <em>@explanation</em> @suggestion', [
+            '@icon' => $icons[$result],
+            '@cell1' => $this->validations[$validation['same_sign']]['cell'],
+            '@key1' => $validation['same_sign'],
+            '@value1' => $related_value,
+            '@cell2' => $validation['cell'],
+            '@key2' => $key,
+            '@value2' => $value ?? 'N/A',
+            '@explanation' => $this->t($this->descriptions['same_sign']),
+            '@suggestion' => $this->t('Please @action the values.', ['@action' => $actions[$result]]),
+          ])]);
+        }
+        else {
+          $result = 'success';
+          array_push($results, ['result' => $result, 'message' => $this->t('@icon Cells @cell1 (<strong>@key1 = @value1</strong>) and @cell2 (<strong>@key2 = @value2</strong>) conform to: <em>@explanation</em>', [
+            '@icon' => $icons[$result],
+            '@cell2' => $validation['cell'],
+            '@key2' => $key,
+            '@value2' => $value ?? 'N/A',
+            '@cell1' => $this->validations[$validation['same_sign']]['cell'],
+            '@key1' => $validation['same_sign'],
+            '@value1' => $related_value ?? 'N/A',
+            '@explanation' => $this->t($this->descriptions['same_sign'])
+          ])]);
+        }
+      }
+
+      // Perform inter-cell equality validation.
+      if (array_key_exists('equal', $validation)) {
+        $result = in_array('equal', $warn_only) ? 'warning' : 'error';
+        $related_value = $monthly_labour_market_updates[$validation['equal']];
+        if (!(
+          (is_null($related_value) && is_null($value)) ||
+          (abs($value - $related_value) <= PHP_FLOAT_EPSILON)
+        )) {
+          array_push($results, ['result' => $result, 'message' => $this->t('@icon Cells @cell1 (<strong>@key1 = @value1</strong>) and @cell2 (<strong>@key2 = @value2</strong>) do not conform to: <em>@explanation</em> @suggestion', [
+            '@icon' => $icons[$result],
+            '@cell1' => $this->validations[$validation['equal']]['cell'],
+            '@key1' => $validation['equal'],
+            '@value1' => $related_value,
+            '@cell2' => $validation['cell'],
+            '@key2' => $key,
+            '@value2' => $value ?? 'N/A',
+            '@explanation' => $this->t($this->descriptions['equal']),
+            '@suggestion' => $this->t('Please @action the values.', ['@action' => $actions[$result]]),
+          ])]);
+        }
+        else {
+          $result = 'success';
+          array_push($results, ['result' => $result, 'message' => $this->t('@icon Cells @cell1 (<strong>@key1 = @value1</strong>) and @cell2 (<strong>@key2 = @value2</strong>) conform to: <em>@explanation</em>', [
+            '@icon' => $icons[$result],
+            '@cell2' => $validation['cell'],
+            '@key2' => $key,
+            '@value2' => $value ?? 'N/A',
+            '@cell1' => $this->validations[$validation['equal']]['cell'],
+            '@key1' => $validation['equal'],
+            '@value1' => $related_value ?? 'N/A',
+            '@explanation' => $this->t($this->descriptions['equal'])
+          ])]);
+        }
+      }
+
+      // Perform inter-cell sum validation.
+      if (array_key_exists('sum', $validation)) {
+        $result = in_array('sum', $warn_only) ? 'warning' : 'error';
+        foreach ($validation['sum'] as $sum_keys) {
+          $sum = array_sum(array_map(function($sum_key) use ($monthly_labour_market_updates) {
+            return $monthly_labour_market_updates[$sum_key] ?? 0;
+          }, $sum_keys));
+          if (abs($sum - ($value ?? 0)) > 100) {
+            array_push($results, ['result' => $result, 'message' => $this->t('@icon Cell @cell (<strong>@key = @value</strong>) and cells @cells (<strong>sum = @sum</strong>) do not conform to: <em>@explanation</em> @suggestion', [
+              '@icon' => $icons[$result],
+              '@cell' => $validation['cell'],
+              '@key' => $key,
+              '@value' => $value ?? 'N/A',
+              '@cells' => implode(' + ', array_map(function($sum_key) {
+                return $this->validations[$sum_key]['cell'];
+              }, $sum_keys)),
+              '@sum' => $sum,
+              '@explanation' => $this->t($this->descriptions['sum']),
+              '@suggestion' => $this->t('Please @action the values.', ['@action' => $actions[$result]]),
+            ])]);
+          }
+          else {
+            $result = 'success';
+            array_push($results, ['result' => $result, 'message' => $this->t('@icon Cell @cell (<strong>@key = @value</strong>) and cells @cells (<strong>sum = @sum</strong>) conform to: <em>@explanation</em>', [
+              '@icon' => $icons[$result],
+              '@cell' => $validation['cell'],
+              '@key' => $key,
+              '@value' => $value ?? 'N/A',
+              '@cells' => implode(' + ', array_map(function($sum_key) {
+                return $this->validations[$sum_key]['cell'];
+              }, $sum_keys)),
+              '@sum' => $sum,
+              '@explanation' => $this->t($this->descriptions['sum']),
+            ])]);
+          }
+        }
+      }
+
+      // Perform inter-sheet previous month validation.
+      if (!empty($previous_month) && array_key_exists('previous_month', $validation)) {
+        $result = in_array('previous_month', $warn_only) ? 'warning' : 'error';
+        $previous_value = $previous_month[$validation['previous_month']];
+        if (!(
+          (is_null($previous_value) && is_null($value)) ||
+          ($previous_value == $value)
+        )) {
+          array_push($results, ['result' => $result, 'message' => $this->t('@icon Cell @cell (<strong>@key = @value</strong>) and previous month cell @cell_previous (<strong>@key_previous = @value_previous</strong>) do not conform to: <em>@explanation</em> @suggestion', [
+            '@icon' => $icons[$result],
+            '@cell' => $validation['cell'],
+            '@key' => $key,
+            '@value' => $value ?? 'N/A',
+            '@cell_previous' => $this->validations[$validation['previous_month']]['cell'],
+            '@key_previous' => $validation['previous_month'],
+            '@value_previous' => $previous_value ?? 'N/A',
+            '@explanation' => $this->t($this->descriptions['previous_month']),
+            '@suggestion' => $this->t('Please @action the value.', ['@action' => $actions[$result]]),
+          ])]);
+        }
+        else {
+          $result = 'success';
+          array_push($results, ['result' => $result, 'message' => $this->t('@icon Cell @cell (<strong>@key = @value</strong>) and previous month cell @cell_previous (<strong>@key_previous = @value_previous</strong>) conform to: <em>@explanation</em>', [
+            '@icon' => $icons[$result],
+            '@cell' => $validation['cell'],
+            '@key' => $key,
+            '@value' => $value ?? 'N/A',
+            '@cell_previous' => $this->validations[$validation['previous_month']]['cell'],
+            '@key_previous' => $validation['previous_month'],
+            '@value_previous' => $previous_value ?? 'N/A',
+            '@explanation' => $this->t($this->descriptions['previous_month']),
+          ])]);
+        }
+      }
+      if (!empty($previous_month) && array_key_exists('previous_month_change_abs', $validation)) {
+        $result = in_array('previous_month_change_abs', $warn_only) ? 'warning' : 'error';
+        $previous_value = $previous_month[$validation['previous_month_change_abs']];
+        $current_value = $monthly_labour_market_updates[$validation['previous_month_change_abs']];
+        $diff = is_numeric($current_value) && $current_value > 0 ? $current_value - $previous_value : NAN;
+        if (is_nan($diff) || abs($diff - $value) > PHP_FLOAT_EPSILON) {
+          array_push($results, ['result' => $result, 'message' => $this->t('@icon Cell @cell (<strong>@key = @value</strong>) and monthly difference in @cell_previous (<strong>absolute difference = @diff</strong>) do not conform to: <em>@explanation</em> @suggestion', [
+            '@icon' => $icons[$result],
+            '@cell' => $validation['cell'],
+            '@key' => $key,
+            '@value' => $value ?? 'N/A',
+            '@cell_previous' => $this->validations[$validation['previous_month_change_abs']]['cell'],
+            '@diff' => $diff,
+            '@explanation' => $this->t($this->descriptions['previous_month_change_abs']),
+            '@suggestion' => $this->t('Please @action the values.', ['@action' => $actions[$result]]),
+          ])]);
+        }
+        else {
+          $result = 'success';
+          array_push($results, ['result' => $result, 'message' => $this->t('@icon Cell @cell (<strong>@key = @value</strong>) and monthly difference in @cell_previous (<strong>absolute difference = @diff</strong>) conform to: <em>@explanation</em>', [
+            '@icon' => $icons[$result],
+            '@cell' => $validation['cell'],
+            '@key' => $key,
+            '@value' => $value ?? 'N/A',
+            '@cell_previous' => $this->validations[$validation['previous_month_change_abs']]['cell'],
+            '@diff' => $diff,
+            '@explanation' => $this->t($this->descriptions['previous_month_change_abs']),
+          ])]);
+        }
+      }
+      if (!empty($previous_month) && array_key_exists('previous_month_change_pct', $validation)) {
+        $result = in_array('previous_month_change_pct', $warn_only) ? 'warning' : 'error';
+        $previous_value = $previous_month[$validation['previous_month_change_pct']];
+        $current_value = $monthly_labour_market_updates[$validation['previous_month_change_pct']];
+        $diff = is_numeric($current_value) && $current_value > 0 ? round(($current_value - $previous_value) * 100 / $current_value, 1) : NAN;
+        if (is_nan($diff) || abs($diff - $value) > PHP_FLOAT_EPSILON) {
+          array_push($results, ['result' => $result, 'message' => $this->t('@icon Cell @cell (<strong>@key = @value</strong>) and monthly difference in @cell_previous (<strong>difference percentage = @diff</strong>) do not conform to: <em>@explanation</em> @suggestion', [
+            '@icon' => $icons[$result],
+            '@cell' => $validation['cell'],
+            '@key' => $key,
+            '@value' => $value ?? 'N/A',
+            '@cell_previous' => $this->validations[$validation['previous_month_change_pct']]['cell'],
+            '@diff' => $diff,
+            '@explanation' => $this->t($this->descriptions['previous_month_change_pct']),
+            '@suggestion' => $this->t('Please @action the values.', ['@action' => $actions[$result]]),
+          ])]);
+        }
+        else {
+          $result = 'success';
+          array_push($results, ['result' => $result, 'message' => $this->t('@icon Cell @cell (<strong>@key = @value</strong>) and monthly difference in @cell_previous (<strong>difference percentage = @diff</strong>) conform to: <em>@explanation</em>', [
+            '@icon' => $icons[$result],
+            '@cell' => $validation['cell'],
+            '@key' => $key,
+            '@value' => $value ?? 'N/A',
+            '@cell_previous' => $this->validations[$validation['previous_month_change_pct']]['cell'],
+            '@diff' => $diff,
+            '@explanation' => $this->t($this->descriptions['previous_month_change_pct']),
+          ])]);
+        }
+      }
+    }
+
+    return $results;
   }
 }
