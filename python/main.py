@@ -337,7 +337,7 @@ def format_city_bar_chart(city_counts: dict, total: int, keyword: str) -> str:
     lines = [f"Found **{total}** {keyword} jobs across {len(city_counts)} cities:\n"]
     lines.append("```")
     for city, count in sorted(city_counts.items(), key=lambda x: -x[1]):
-        bar_len = int((count / max_count) * max_bar) if max_count > 0 else 0
+        bar_len = max(1, int((count / max_count) * max_bar)) if max_count > 0 else 0
         bar     = "█" * bar_len
         lines.append(f"{city:<22} {bar} {count}")
     lines.append("```")
@@ -558,6 +558,7 @@ def _build_common_filters(params: dict) -> list:
 
 
 def search_jobs(params: dict, size: int = PAGE_SIZE, from_offset: int = 0) -> tuple[list, int]:
+    print(f"DEBUG search_jobs: keywords={params.get('keywords')} employer={params.get('employer')} multi_cities={params.get('_multi_cities')}")
     """
     Build and execute an OpenSearch query. Returns (jobs, total_count).
 
@@ -571,29 +572,30 @@ def search_jobs(params: dict, size: int = PAGE_SIZE, from_offset: int = 0) -> tu
     filter_clauses = _build_common_filters(params)
 
     # Job title keywords — skip if employer specified
-    if params.get("keywords") and not params.get("employer"):
+    if params.get("keywords"):
         generic = {"jobs", "job", "work", "position", "positions", "opening", "openings"}
         clean_keywords = " ".join(
             w for w in params["keywords"].split()
             if w.lower() not in DATE_SORT_KEYWORDS
         ).strip()
         if clean_keywords and clean_keywords.lower() not in generic:
-            must_clauses.append({
-                "multi_match": {
-                    "query":  clean_keywords,
-                    "fields": ["Title^3", "JobDescription"],
-                    "type": "phrase",
-                    "slop": 2,
-                }
-            })
-        else:
-            # Single word: regular match for broad results
-            must_clauses.append({
-                "multi_match": {
-                    "query": clean_keywords,
-                    "fields": ["Title^3", "JobDescription"],
-                }
-            })
+            if len(clean_keywords.split()) > 1:
+                must_clauses.append({
+                    "multi_match": {
+                        "query":  clean_keywords,
+                        "fields": ["Title^3", "JobDescription"],
+                        "type":   "phrase",
+                        "slop":   2,
+                    }
+                })
+            else:
+                must_clauses.append({
+                    "multi_match": {
+                        "query":  clean_keywords,
+                        "fields": ["Title^3", "JobDescription"],
+                    }
+                })
+ 
 
     # Employer wildcard filter
     if params.get("employer"):
