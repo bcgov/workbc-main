@@ -228,7 +228,7 @@ def search_jobs_by_city(params: dict, cities: list) -> tuple[dict, int]:
 
     if params.get("employer"):
         filter_clauses.append({
-            {"wildcard": {"EmployerName.keyword": {"value": f"*{params['employer']}*", "case_insensitive": True}}}
+            {"wildcard": {"EmployerName.keyword": f"*{params['employer']}*"}}
         })
 
     os_query = {
@@ -412,7 +412,7 @@ def resolve_employer(employer: str) -> str:
             resolved = EMPLOYER_ALIASES[sd_key]
             print(f"DEBUG: School district alias resolved: '{employer}' -> '{resolved}'")
             return resolved
-    return employer
+    return employer.title()
 
 
 def fix_city_of_misclassification(params: dict) -> dict:
@@ -598,7 +598,7 @@ def search_jobs(params: dict, size: int = PAGE_SIZE, from_offset: int = 0) -> tu
     # Employer wildcard filter
     if params.get("employer"):
         filter_clauses.append({
-            {"wildcard": {"EmployerName.keyword": {"value": f"*{params['employer']}*", "case_insensitive": True}}}
+            {"wildcard": {"EmployerName.keyword": f"*{params['employer']}*"}}
         })
 
     os_query = {
