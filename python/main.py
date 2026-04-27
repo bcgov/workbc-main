@@ -227,9 +227,9 @@ def search_jobs_by_city(params: dict, cities: list) -> tuple[dict, int]:
                 })
 
     if params.get("employer"):
-        filter_clauses.append({
+        filter_clauses.append(
             {"wildcard": {"EmployerName.keyword": f"*{params['employer']}*"}}
-        })
+        )
 
     os_query = {
         "query": {
@@ -597,9 +597,9 @@ def search_jobs(params: dict, size: int = PAGE_SIZE, from_offset: int = 0) -> tu
 
     # Employer wildcard filter
     if params.get("employer"):
-        filter_clauses.append({
+        filter_clauses.append(
             {"wildcard": {"EmployerName.keyword": f"*{params['employer']}*"}}
-        })
+        )
 
     os_query = {
         "query": {
