@@ -196,6 +196,87 @@ class QueryRequest(BaseModel):
 # 5. HELPERS
 # ---------------------------------------------------------------------------
 
+def search_jobs_by_city(params: dict, cities: list) -> tuple[dict, int]:
+    """Returns job counts per city using OpenSearch aggregation."""
+    must_clauses   = []
+    filter_clauses = [
+        {"range": {"ExpireDate": {"gte": "now"}}},
+        {"terms": {"City.keyword": cities}},
+    ]
+
+    if params.get("keywords"):
+        generic = {"jobs", "job", "work", "position", "positions", "opening", "openings"}
+        clean = " ".join(w for w in params["keywords"].split()
+                        if w.lower() not in DATE_SORT_KEYWORDS).strip()
+        if clean and clean.lower() not in generic:
+            if len(clean.split()) > 1:
+                must_clauses.append({
+                    "multi_match": {
+                        "query":  clean,
+                        "fields": ["Title^3", "JobDescription"],
+                        "type":   "phrase",
+                        "slop":   2,
+                    }
+                })
+            else:
+                must_clauses.append({
+                    "multi_match": {
+                        "query":  clean,
+                        "fields": ["Title^3", "JobDescription"],
+                    }
+                })
+
+    if params.get("employer"):
+        filter_clauses.append({
+            "wildcard": {"EmployerName.keyword": f"*{params['employer']}*"}
+        })
+
+    os_query = {
+        "query": {
+            "bool": {
+                "must":   must_clauses if must_clauses else [{"match_all": {}}],
+                "filter": filter_clauses,
+            }
+        },
+        "size": 0,
+        "aggs": {
+            "by_city": {
+                "terms": {
+                    "field": "City.keyword",
+                    "size":  len(cities),
+                    "order": {"_count": "desc"},
+                }
+            }
+        },
+    }
+
+    print(f"DEBUG: Aggregation query: {json.dumps(os_query, indent=2)}")
+    response = os_client.search(index="jobs_en", body=os_query)
+    total    = response["hits"]["total"]["value"]
+    buckets  = response["aggregations"]["by_city"]["buckets"]
+    city_counts = {b["key"]: b["doc_count"] for b in buckets}
+    print(f"DEBUG: Aggregation results: {city_counts}")
+    return city_counts, total
+
+
+def format_city_bar_chart(city_counts: dict, total: int, keyword: str) -> str:
+    """Render a text-based bar chart of job counts by city."""
+    if not city_counts:
+        return f"No **{keyword}** jobs found in those cities."
+
+    max_count = max(city_counts.values())
+    max_bar   = 20
+
+    lines = [f"Found **{total}** {keyword} jobs across {len(city_counts)} cities:\n"]
+    lines.append("```")
+    for city, count in sorted(city_counts.items(), key=lambda x: -x[1]):
+        bar_len = int((count / max_count) * max_bar) if max_count > 0 else 0
+        bar     = "█" * bar_len
+        lines.append(f"{city:<22} {bar} {count}")
+    lines.append("```")
+
+    return "\n".join(lines)
+
 def detect_chunk_types(user_query: str) -> list[str]:
     """
     Determine which chunk types are needed based on the question.
@@ -395,8 +476,13 @@ def _build_common_filters(params: dict) -> list:
     """Build filter clauses shared by both wildcard and fallback queries."""
     filter_clauses = [{"range": {"ExpireDate": {"gte": "now"}}}]
     city = params.get("city")
-    if city and not is_out_of_scope(city) and city.upper() not in BC_VARIANTS:
-        filter_clauses.append({"terms": {"City.keyword": [city]}})
+    if params.get("_multi_cities"):
+        filter_clauses.append({"terms": {"City.keyword": params["_multi_cities"]}})
+    else:
+        city = params.get("city")
+        if city and not is_out_of_scope(city) and city.upper() not in BC_VARIANTS:
+            filter_clauses.append({"terms": {"City.keyword": [city]}})
+
     if params.get("employment_type"):
         filter_clauses.append({"term": {"HoursOfWork.Description": params["employment_type"]}})
     if params.get("salary_min"):
@@ -793,6 +879,8 @@ async def ask_career_bot(request: QueryRequest):
             "Query: 'what is the salary for a firefighter?' -> career_info\n"
             "Query: 'what education do I need to be a pharmacist?' -> career_info\n"
             "Query: 'tell me about plumbers and show me jobs' -> both\n\n"
+            "Query: 'electrical jobs in surrey, vancouver, richmond' -> job_search, keywords=electrical, city=Surrey,Vancouver,Richmond\n"
+            "Query: 'nursing jobs in kelowna and kamloops' -> job_search, keywords=nursing, city=Kelowna,Kamloops\n"
             "OUTPUT FORMAT:\n"
             "{\n"
             '  "intent": "job_search" or "career_info" or "both",\n'
@@ -807,6 +895,7 @@ async def ask_career_bot(request: QueryRequest):
             f"Query: {user_query}"
         )
 
+        multi_cities = None
         try:
             intent_res  = vllm_client.chat.completions.create(
                 model=MODEL_NAME,
@@ -826,6 +915,15 @@ async def ask_career_bot(request: QueryRequest):
                 params["city"] = resolve_city(params["city"])
             if params.get("employer"):
                 params["employer"] = resolve_employer(params["employer"])
+
+            #multi-city detection
+            multi_cities = None
+            city = params.get("city")
+            if city and ("," in city or " and " in city.lower()):
+                raw_cities = re.split(r',\s*|\s+and\s+', city, flags=re.IGNORECASE)
+                multi_cities = [clean_city(c.strip()) for c in raw_cities if c.strip()]
+                params["city"] = None
+                print(f"Debug: Multi-city detected: {multi_cities}")        
 
         except json.JSONDecodeError as e:
             print(f"DEBUG: Intent JSON parse failed ({e}) — raw was: {repr(raw_intent)}")
@@ -885,6 +983,23 @@ async def ask_career_bot(request: QueryRequest):
             city = params.get("city")
             if city and is_out_of_scope(city):
                 answer = format_job_results([], params, 0)
+            elif multi_cities:
+                # Multi-city: bar chart + top 5 job cards
+                loop = asyncio.get_event_loop()
+                city_counts, agg_total = await loop.run_in_executor(
+                    None, partial(search_jobs_by_city, params, multi_cities)
+                )
+                keyword_str = params.get("keywords") or params.get("employer") or "all"
+                answer = format_city_bar_chart(city_counts, agg_total, keyword_str)
+
+                params["_multi_cities"] = multi_cities
+                jobs, total = await get_job_results(params, from_offset=0)
+                has_more = total > PAGE_SIZE
+                r.setex(
+                    f"job_search_params:{session_id}",
+                    3600,
+                    json.dumps({"params": params, "page": 1}),
+                )
             else:
                 jobs, total = await get_job_results(params, from_offset=0)
                 has_more    = total > PAGE_SIZE
@@ -894,21 +1009,7 @@ async def ask_career_bot(request: QueryRequest):
                     json.dumps({"params": params, "page": 1}),
                 )
                 answer = format_job_results(jobs, params, total)
-        elif intent == "both":
-            career_task = asyncio.create_task(
-                get_career_answer(user_query, sanitized_history, system_rules)
-            )
-            jobs_task = asyncio.create_task(get_job_results(params, from_offset=0))
-            (career_answer, search_term), (jobs, total) = await asyncio.gather(
-                career_task, jobs_task
-            )
-            has_more = total > PAGE_SIZE
-            r.setex(
-                f"job_search_params:{session_id}",
-                3600,
-                json.dumps({"params": params, "page": 1}),
-            )
-            answer = format_job_results(jobs, params, total)
+
 
         history_answer = career_answer if intent == "both" else answer
         sanitized_history.append({"role": "user",      "content": user_query})
