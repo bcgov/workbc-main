@@ -228,7 +228,7 @@ def search_jobs_by_city(params: dict, cities: list) -> tuple[dict, int]:
 
     if params.get("employer"):
         filter_clauses.append({
-            "wildcard": {"EmployerName.keyword": f"*{params['employer']}*"}
+            {"wildcard": {"EmployerName.keyword": {"value": f"*{params['employer']}*", "case_insensitive": True}}}
         })
 
     os_query = {
@@ -256,7 +256,74 @@ def search_jobs_by_city(params: dict, cities: list) -> tuple[dict, int]:
     buckets  = response["aggregations"]["by_city"]["buckets"]
     city_counts = {b["key"]: b["doc_count"] for b in buckets}
     print(f"DEBUG: Aggregation results: {city_counts}")
+
+    # Fallback: if wildcard returned 0 and employer contains fallback keywords
+    if total == 0 and params.get("employer"):
+        employer_lower = params["employer"].lower()
+        if any(kw in employer_lower for kw in FALLBACK_KEYWORDS):
+            print(f"DEBUG: Aggregation wildcard returned 0 — retrying with full-text match")
+            fallback_filter = [
+                {"range": {"ExpireDate": {"gte": "now"}}},
+                {"terms": {"City.keyword": cities}},
+            ]
+            fallback_must = [{
+                "match": {
+                    "EmployerName": {
+                        "query":    params["employer"],
+                        "operator": "and",
+                    }
+                }
+            }]
+            if params.get("keywords"):
+                clean = " ".join(w for w in params["keywords"].split()
+                                if w.lower() not in DATE_SORT_KEYWORDS).strip()
+                generic = {"jobs", "job", "work", "position", "positions", "opening", "openings"}
+                if clean and clean.lower() not in generic:
+                    if len(clean.split()) > 1:
+                        fallback_must.append({
+                            "multi_match": {
+                                "query":  clean,
+                                "fields": ["Title^3", "JobDescription"],
+                                "type":   "phrase",
+                                "slop":   2,
+                            }
+                        })
+                    else:
+                        fallback_must.append({
+                            "multi_match": {
+                                "query":  clean,
+                                "fields": ["Title^3", "JobDescription"],
+                            }
+                        })
+
+            fallback_query = {
+                "query": {
+                    "bool": {
+                        "must":   fallback_must,
+                        "filter": fallback_filter,
+                    }
+                },
+                "size": 0,
+                "aggs": {
+                    "by_city": {
+                        "terms": {
+                            "field": "City.keyword",
+                            "size":  len(cities),
+                            "order": {"_count": "desc"},
+                        }
+                    }
+                },
+            }
+
+            print(f"DEBUG: Aggregation fallback query: {json.dumps(fallback_query, indent=2)}")
+            response = os_client.search(index="jobs_en", body=fallback_query)
+            total    = response["hits"]["total"]["value"]
+            buckets  = response["aggregations"]["by_city"]["buckets"]
+            city_counts = {b["key"]: b["doc_count"] for b in buckets}
+            print(f"DEBUG: Aggregation fallback results: {city_counts}")
+
     return city_counts, total
+    
 
 
 def format_city_bar_chart(city_counts: dict, total: int, keyword: str) -> str:
@@ -531,7 +598,7 @@ def search_jobs(params: dict, size: int = PAGE_SIZE, from_offset: int = 0) -> tu
     # Employer wildcard filter
     if params.get("employer"):
         filter_clauses.append({
-            "wildcard": {"EmployerName.keyword": f"*{params['employer']}*"}
+            {"wildcard": {"EmployerName.keyword": {"value": f"*{params['employer']}*", "case_insensitive": True}}}
         })
 
     os_query = {
