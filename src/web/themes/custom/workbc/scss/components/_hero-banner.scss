@@ -5,52 +5,11 @@
     $workbc_palette_dark_secondary;
   background-color: $workbc_light_theme_background_accent;
 
-  @include media-breakpoint-up(lg) {
+  @include media-breakpoint-up(xl) {
+    min-height: $workbc_hero_xxl_container_height;
+  }
+  @include media-breakpoint-between(sm, xl) {
     min-height: $workbc_hero_container_height;
-  }
-}
-
-.hero-image-wrapper {
-  height: auto;
-  overflow: hidden;
-
-  @include media-breakpoint-up(lg) {
-    position: absolute;
-    top: 0;
-    bottom: 0;
-    right: 0;
-    z-index: 0;
-    height: $workbc_hero_image_height;
-    width: $workbc_hero_image_width;
-    overflow: auto;
-
-    &:before {
-      content: "";
-      display: block;
-      position: absolute;
-      top: 0;
-      right: 0;
-      bottom: 0;
-      left: 0;
-      z-index: 2;
-      background: linear-gradient(
-        90deg,
-        rgba($workbc_light_theme_background_accent, 1) 10%,
-        rgba($workbc_light_theme_background_accent, 0) 50%
-      );
-    }
-  }
-}
-
-.hero-image-wrapper img {
-  display: block;
-  width: 100%;
-
-  @include media-breakpoint-up(lg) {
-    z-index: 1;
-    height: 100%;
-    object-fit: contain;
-    object-position: right top;
   }
 }
 
@@ -58,16 +17,14 @@
   position: relative;
   padding-top: 30px;
   padding-bottom: 30px;
-
-  @include media-breakpoint-up(lg) {
-    padding-top: 80px;
-  }
 }
 
-.hero-content-wrapper {
-  @include media-breakpoint-up(lg) {
-    width: 50%;
-    max-width: 640px;
+.hero-image-wrapper {
+  overflow: hidden;
+
+  img {
+    display: block;
+    width: 100%;
   }
 }
 
@@ -113,43 +70,70 @@
   }
 }
 
-// Profile Hero Variations
-.profile-header-banner.hero-banner {
-  border-bottom: none;
-}
+.hero-faded-banner {
+  .hero-image-wrapper {
+    @include media-breakpoint-up(lg) {
+      position: absolute;
+      top: 0;
+      bottom: 0;
+      right: 0;
+      z-index: 0;
+      height: $workbc_hero_image_height;
+      width: $workbc_hero_image_width;
+      overflow: auto;
 
-.profile-header-banner .hero-content-container {
-  padding: 30px 20px 12px 20px;
-  border-bottom: $workbc_trim_ultra_thin_size solid
-    $workbc_palette_dark_secondary;
-  @include media-breakpoint-up(lg) {
-    padding-top: 70px;
-    border-bottom: none;
+      &:before {
+        content: "";
+        display: block;
+        position: absolute;
+        top: 0;
+        right: 0;
+        bottom: 0;
+        left: 0;
+        z-index: 2;
+        background: linear-gradient(
+          90deg,
+          rgba($workbc_light_theme_background_accent, 1) 10%,
+          rgba($workbc_light_theme_background_accent, 0) 50%
+        );
+      }
+    }
   }
-}
 
-.profile-header-banner .hero-content-wrapper {
-  @include media-breakpoint-up(lg) {
-    width: 500px;
-    padding: 30px 20px 10px 20px;
-    background: $workbc_palette_light_primary;
-    border-bottom: $workbc_trim_standard_size solid
-      $workbc_palette_dark_secondary;
-    box-shadow: $workbc_default_box_shadow;
+  .hero-image-wrapper img {
+    @include media-breakpoint-up(lg) {
+      z-index: 1;
+      height: 100%;
+      object-fit: contain;
+      object-position: right top;
+    }
+  }
+
+  .hero-content-container {
+    @include media-breakpoint-up(lg) {
+      padding-top: 80px;
+    }
+  }
+
+  .hero-content-wrapper {
+    @include media-breakpoint-up(lg) {
+      width: 50%;
+      max-width: 640px;
+    }
   }
 }
 
 .hero-fullwidth-banner {
   .hero-image-wrapper {
-    height: auto;
-    overflow: hidden;
-    width: 100%;
-
     &:before {
       background: none;
     }
 
-    @include media-breakpoint-up(lg) {
+    @include media-breakpoint-down(sm) {
+      min-height: $workbc_hero_xs_image_height;
+    }
+
+    @include media-breakpoint-up(sm) {
       position: absolute;
       top: 0;
       bottom: 0;
@@ -173,19 +157,17 @@
 
     img {
       object-fit: cover;
-      display: block;
-      width: 100%;
+      object-position: center;
 
-      @include media-breakpoint-up(lg) {
+      @include media-breakpoint-up(sm) {
         z-index: 1;
         height: 100%;
       }
     }
   }
 
-  @include media-breakpoint-up(lg) {
+  @include media-breakpoint-up(sm) {
     .hero-content-container {
-      margin-left: 200px;
       padding: 0;
       min-height: inherit;
     }
@@ -198,6 +180,34 @@
       display: flex;
       flex-direction: column;
       justify-content: center;
+    }
+  }
+}
+
+// Profile Hero Variations
+.profile-header-banner{
+  &.hero-banner {
+    border-bottom: none;
+  }
+
+  .hero-content-container {
+    padding: 30px 20px 12px 20px;
+    border-bottom: $workbc_trim_ultra_thin_size solid
+      $workbc_palette_dark_secondary;
+    @include media-breakpoint-up(lg) {
+      padding-top: 70px;
+      border-bottom: none;
+    }
+  }
+
+  .hero-content-wrapper {
+    @include media-breakpoint-up(lg) {
+      width: 500px;
+      padding: 30px 20px 10px 20px;
+      background: $workbc_palette_light_primary;
+      border-bottom: $workbc_trim_standard_size solid
+        $workbc_palette_dark_secondary;
+      box-shadow: $workbc_default_box_shadow;
     }
   }
 }
