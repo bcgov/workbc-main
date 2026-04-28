@@ -22,7 +22,6 @@ use Drupal\Core\Render\BubbleableMetadata;
  * Implements hook_cron.
  */
 function workbc_custom_cron() {
-
   if (\Drupal::moduleHandler()->moduleExists('sitewide_alert')) {
     workbc_sitewide_alert_cache_clear();
   }
@@ -32,11 +31,8 @@ function workbc_custom_cron() {
  * Clear Sitewide Alert cache if a visible alert has been added or removed.
  */
 function workbc_sitewide_alert_cache_clear() {
-
   $stateActiveVisible = \Drupal::state()->get('workbc.active_visible_alerts', []);
-
   $sitewideAlertStorage = \Drupal::entityTypeManager()->getStorage('sitewide_alert');
-
   $sitewideAlertIds = $sitewideAlertStorage
     ->getQuery()
     ->condition('status', 1)
@@ -45,7 +41,6 @@ function workbc_sitewide_alert_cache_clear() {
     ->execute();
 
   $requestDateTime = new \DateTime();
-
   $sitewideAlerts = $sitewideAlertStorage->loadMultiple($sitewideAlertIds);
   $activeVisible = [];
   foreach ($sitewideAlerts as $key => $alert) {
@@ -58,7 +53,6 @@ function workbc_sitewide_alert_cache_clear() {
     Cache::invalidateTags(['sitewide_alert_list']);
     \Drupal::state()->set('workbc.active_visible_alerts', $activeVisible);
   }
-
 }
 
 /**
@@ -115,7 +109,6 @@ function workbc_custom_theme($existing, $type, $theme, $path) {
  * Implements hook_views_data_alter().
  */
 function workbc_custom_views_data_alter(array &$data) {
-
   $data['node__field_region_openings']['delta'] = [
     'title' => t('WorkBC Region Openings delta filter'),
     'group' => 'Content',
@@ -149,7 +142,6 @@ function workbc_custom_views_data_alter(array &$data) {
  * Implements hook_views_pre_render().
  */
 function workbc_custom_views_pre_render(ViewExecutable $view) {
-
   if ($view->id() === 'high_opportunity_occupations_2') {
     // TODO: Don't re-read the schema for SSOT at each rendering.
     $schema = ssotSchema('');
@@ -314,7 +306,6 @@ function workbc_custom_form_alter(&$form, FormStateInterface $form_state, $form_
  * Implements hook_form_FORM_ID_alter() for node_form_alter.
  */
 function workbc_custom_form_node_form_alter(&$form, FormStateInterface $form_state, $form_id) {
-
   $user = \Drupal\user\Entity\User::load(\Drupal::currentUser()->id());
 
   if (isset($form['field_content_group']) && !$user->hasPermission('bypass content groups')) {
@@ -330,7 +321,6 @@ function workbc_custom_form_node_form_alter(&$form, FormStateInterface $form_sta
  * Implements hook_form_FORM_ID_alter() for views_exposed_form.
  */
 function workbc_custom_form_views_exposed_form_alter(&$form, FormStateInterface $form_state, $form_id) {
-
   if ($form['#id'] === 'views-exposed-form-high-opportunity-occupations-2-block-1') {
     if (isset($form['field_teer_value'])) {
       $form['field_teer_value']['#options']['All'] = t('All');
@@ -419,6 +409,13 @@ function workbc_custom_form_views_exposed_form_alter(&$form, FormStateInterface 
     $form['field_teer_value']['#options']['All'] = t('All');
     $form['field_annual_salary_value']['#chosen'] = true;
 
+    // Collapsible if mobile.
+    $md = \Drupal::service('mobile_detect');
+    if ($md->isMobile()) {
+      $form['#prefix'] = '<details><summary>Refine your search</summary>';
+      $form['#suffix'] = '</details>';
+    }
+
     // Capture the reset button to maintain the hide_category argument.
     $form['#submit'][] = 'workbc_custom_category_reset';
   }
@@ -426,7 +423,6 @@ function workbc_custom_form_views_exposed_form_alter(&$form, FormStateInterface 
   if (in_array($form['#id'], [
     'views-exposed-form-search-site-content-page-1'
   ])) {
-
     // store query parameters
     $query_params = \Drupal::request()->query->all();
     foreach ($query_params as $key => $value) {
@@ -438,7 +434,6 @@ function workbc_custom_form_views_exposed_form_alter(&$form, FormStateInterface 
       }
     }
   }
-
 }
 
 /**
@@ -470,7 +465,6 @@ function workbc_custom_category_callback(array &$form, FormStateInterface $form_
  * Submit function for views-exposed-form-high-opportunity-occupations-block-1.
  */
 function hoo_multiselect_form_submit(array &$form, FormStateInterface &$form_state) {
-
   $md = \Drupal::service('mobile_detect');
   if ($md->isMobile() && !$md->isTablet()) {
     $selections = $form['field_occupational_interests_target_id']['#value'];
@@ -500,7 +494,6 @@ function workbc_custom_entity_form_mode_alter(&$form_mode, Drupal\Core\Entity\En
  * Implements hook_node_access().
  */
 function workbc_custom_node_access(NodeInterface $node, $op, AccountInterface $account) {
-
   // we only allow update/delete of node if user is a member of the same content group
   // as the node or the user has "bypass content groups" permission.
   if ($op === 'update' || $op === 'delete') {
@@ -520,7 +513,6 @@ function workbc_custom_node_access(NodeInterface $node, $op, AccountInterface $a
  * Implements hook_node_presave().
  */
 function workbc_custom_node_presave(NodeInterface $entity) {
-
   // if this is a new node and user doesn't have bypass content groups hasPermission
   // we set the content group for the node to the same group as the user.
   if ($entity->isNew()) {
@@ -544,7 +536,6 @@ function workbc_custom_node_presave(NodeInterface $entity) {
  * Implements hook_user_access().
  */
 function workbc_custom_user_access(EntityInterface $entity, $operation, AccountInterface $account) {
-
   // users without "bypass content groups" permission can only update/delete
   // user accounts if they are members of the same content group
   if ($operation === 'update' || $operation === 'delete') {
@@ -567,7 +558,6 @@ function workbc_custom_user_access(EntityInterface $entity, $operation, AccountI
  * Implements hook_entity_operation_alter().
  */
 function workbc_custom_entity_operation_alter(array &$operations, EntityInterface $entity) {
-
   // remove role operation, roles can be changed via edit tab.
   // this operation is unnecessary and gives certain users access when they shouldn't
   if ($entity->getEntityTypeId() === 'user') {
@@ -581,7 +571,6 @@ function workbc_custom_entity_operation_alter(array &$operations, EntityInterfac
  * Implements hook_menu_local_tasks_alter().
  */
 function workbc_custom_menu_local_tasks_alter(&$data, $route_name) {
-
   // remove role tab, roles can be changed via edit tab.
   // this operation is unnecessary and gives certain users access when they shouldn't
   if (isset($data['tabs'][0]['role_delegation.edit_form'])) {
@@ -674,7 +663,6 @@ function workbc_custom_redirect_response_alter(TrustedRedirectResponse $response
  * Implements hook_system_breadcrumb_alter().
  */
 function workbc_custom_system_breadcrumb_alter(Breadcrumb &$breadcrumb, RouteMatchInterface $route_match, array $context) {
-
   $node = \Drupal::request()->attributes->get('node');
   if ($node && $node instanceof Drupal\node\Entity\Node) {
     if ($node->bundle() == 'news' && $node->field_archived->get(0)->getValue()['value'] == "1") {
@@ -873,7 +861,6 @@ function workbc_custom_page_attachments_alter(array &$attachments) {
  * Implements hook_token_info().
  */
 function workbc_custom_token_info() {
-
   $info['tokens']['current-page']['all-selected-class'] = array(
     'name' => t('All button selected class'),
     'description' => t('Return class name if All is selected, return empty string if no sort'),
@@ -897,7 +884,6 @@ function workbc_custom_token_info() {
  * Implements hook_tokens().
  */
 function workbc_custom_tokens($type, $tokens, array $data, array $options, BubbleableMetadata $bubbleable_metadata) {
-
   $replacements = [];
   $query_params = \Drupal::request()->query->all();
   if ($type == 'current-page') {

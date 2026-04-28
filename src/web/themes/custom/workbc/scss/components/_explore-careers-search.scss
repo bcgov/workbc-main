@@ -22,6 +22,10 @@
   .explore-careers-filter {
     background-color: $workbc_palette_light_secondary;
 
+    details {
+      border: 0;
+    }
+
     .chosen-container-multi .chosen-choices li.search-field input[type=text] {
       margin: 0;
       padding: 0;
