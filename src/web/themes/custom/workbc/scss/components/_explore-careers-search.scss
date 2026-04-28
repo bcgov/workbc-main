@@ -24,6 +24,11 @@
 
     details {
       border: 0;
+
+      summary {
+        text-decoration: underline;
+        color: $workbc_default_link;
+      }
     }
 
     .chosen-container-multi .chosen-choices li.search-field input[type=text] {
