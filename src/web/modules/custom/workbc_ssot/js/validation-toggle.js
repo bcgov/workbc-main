@@ -10,6 +10,10 @@
 
   function toggleValidations(toggle, context) {
     const $status_messages = $('.messages-list__item.messages--status', context);
-    if (toggle) $($status_messages).show(); else $($status_messages).hide();
+    if (toggle) {
+      $($status_messages).show();
+      $($status_messages)[0].scrollIntoView();
+    }
+    else $($status_messages).hide();
   }
 })(jQuery, Drupal, once);
