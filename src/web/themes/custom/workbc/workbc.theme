@@ -9,13 +9,13 @@ use Drupal\file\Entity\File;
 use Drupal\Core\Url;
 use Drupal\Core\Render\Markup;
 use Drupal\Component\Utility\Html;
+use Drupal\Core\Entity\EntityTypeManagerInterface;
 
 /**
  * Implements hook_theme_preprocess_paragraph().
  */
 function workbc_preprocess_paragraph(&$variables) {
   $parent = $variables['paragraph']->getParentEntity();
-
   if ($parent->bundle() === 'action_cards_full_width') {
     $align = $parent->field_alignment->value;
     $list = $parent->field_action_cards->getValue();
@@ -96,8 +96,61 @@ function workbc_preprocess_paragraph(&$variables) {
     }
   }
 
+  if ($variables['paragraph']->bundle() === 'content_workbc_centres_map') {
+    $variables['map_url'] = $variables['paragraph']->field_workbc_centres_map->uri;
+    $map_url = parse_url($variables['map_url']);
+    $variables['base_url'] = rtrim($map_url['scheme'] . '://' . $map_url['host'], '/');
+  }
+
   if (isset($variables['paragraph']->field_color)) {
     $variables['text_color'] = $variables['paragraph']->field_color->value;
+  }
+
+
+  if($variables['paragraph']->bundle() == "content_workbc_centres_list") {
+    $language = $variables['paragraph']->field_language->value;
+
+    $query = \Drupal::entityQuery("node");
+    $nids = $query
+      ->accessCheck(TRUE)
+      ->condition('type', 'workbc_centre')
+      ->condition('status', 1)
+      ->sort('title', 'ASC')
+      ->execute();
+
+    if (!empty($nids)) {
+      $nodes = \Drupal\node\Entity\Node::loadMultiple($nids);
+      if (!empty($nodes)) {
+        $centres = [];
+        foreach ($nodes as $node) {
+          $node->workbc_centre_url = $node->toUrl()->toString();
+          if (isset($node->field_region->value)) {
+            $region = $node->field_region->value;
+          }
+          else {
+            $region = 'not assigned';
+          }
+          $link = $node->get('field_multilingual_centre')->first();
+          $title = isset($link) ? $link->title : "";
+          if ($language == "french") {
+            if (stripos($title, 'english')) {
+              $centres[$region][] = $node;
+            }
+          }
+          else {
+            if (stripos($title, 'english') === false) {
+              $centres[$region][] = $node;
+            }
+          }
+        }
+        ksort($centres);
+        $variables['centres'] = $centres;
+        $regions = ssotRegions($language);
+        unset($regions['british_columbia']);
+        $variables['regions'] = $regions;
+        $variables['language'] = $language;
+      }
+    }
   }
 
 
@@ -127,7 +180,6 @@ function workbc_preprocess_paragraph(&$variables) {
     }
   }
 }
-
 
 function workbc_get_descendant($menu) {
   $result = '';
@@ -161,16 +213,19 @@ function workbc_theme_suggestions_paragraph_alter(array &$suggestions, array $va
 function workbc_form_alter(&$form, \Drupal\Core\Form\FormStateInterface $form_state, $form_id) {
   if ($form_id === 'views_exposed_form' &&
     $form['#id'] === 'views-exposed-form-search-career-profiles-page-1' or
-    $form['#id'] === 'views-exposed-form-search-site-content-page-1'
+    $form['#id'] === 'views-exposed-form-search-site-content-page-1' or
+    $form['#id'] === 'views-exposed-form-search-site-content-block-1'
   ) {
     $form['#attributes']['class'][] = 'search-form';
   }
   if ($form_id === 'views_exposed_form' && $form['#id'] === 'views-exposed-form-search-site-content-page-1') {
     $form['search_api_fulltext']['#attributes']['aria-label'] = 'Search';
+    $form['sort_by']['#weight'] = 100;
   }
   if ($form_id === 'views_exposed_form' && $form['#id'] === 'views-exposed-form-search-career-profiles-page-1') {
     $form['search']['#attributes']['aria-label'] = 'Search';
   }
+
 }
 
 /**
@@ -465,8 +520,20 @@ function workbc_theme_suggestions_html_alter(array &$suggestions, array $variabl
  */
 function workbc_page_attachments_alter(array &$attachments){
   if (\Drupal::request()->get('template') === 'embed') {
-    //Remove all libraries
+    // Remove all libraries
     unset($attachments['#attached']['library']);
+  }
+
+  // Detect a page's manual translation via field_multilingual_centre and pass it to the language toggle.
+  $node = \Drupal::routeMatch()->getParameter('node');
+  if (isset($node) && $node->hasField('field_multilingual_centre')) {
+    $target = $node->get('field_multilingual_centre')->getValue();
+    if (is_array($target) && count($target) > 0) {
+      $attachments['#attached']['drupalSettings']['languageToggle'] = [
+        'isFrench' => false !== stripos($target[0]['title'], 'english'),
+        'url' => Url::fromUri($target[0]['uri'], $target[0]['options'])->toString(TRUE)->getGeneratedUrl(),
+      ];
+    }
   }
 }
 

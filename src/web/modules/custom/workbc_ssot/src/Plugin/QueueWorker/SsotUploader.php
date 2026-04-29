@@ -52,6 +52,12 @@ class SsotUploader extends QueueWorkerBase implements ContainerFactoryPluginInte
     $file = File::load($data['file_id']);
     $sheet = $file->getFilename();
     $repo = \Drupal::config('workbc')->get('ssot_repo');
+    if (!array_key_exists(getenv('PROJECT_ENVIRONMENT'), $repo['branches'])) {
+      \Drupal::logger('workbc')->warning('No SSoT upload branch information for stage @stage. Skipping.', [
+        '@stage' => getenv('PROJECT_ENVIRONMENT'),
+      ]);
+      return;
+    }
     $filepath = \Drupal::service('file_system')->realpath($file->getFileUri());
     \Drupal::logger('workbc')->notice('Uploading SSoT LMMU sheet @sheet for @month/@year.', [
       '@sheet' => $sheet,

@@ -27,14 +27,16 @@
       }
       else {
         const triggerEl = $('a[data-bs-target]:first', context);
-        if (triggerEl.length) {
+        const tabEl = $('.nav-tabs:not(.no-hash)', context);
+        if (triggerEl.length && tabEl.length) {
           window.location.hash = triggerEl.data('bs-target').replace('-content', '');
         }
       }
 
       // Change the anchor when a tab is clicked.
-      $('.nav-tabs .nav-link', context).on('click', function (e) {
-        window.location.hash = $(e.target).attr('href');
+      $('.nav-tabs:not(.no-hash) .nav-link', context).on('click', function (e) {
+        const $target = $(e.target);
+        if ($target.attr('href')) window.location.hash = $target.attr('href');
       });
 
       // Change tab when navigating to a different anchor.

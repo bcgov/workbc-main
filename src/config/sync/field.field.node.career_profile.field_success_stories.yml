@@ -1,0 +1,29 @@
+uuid: e598bfe8-8667-4084-a24a-d593d170cdc5
+langcode: en
+status: true
+dependencies:
+  config:
+    - field.storage.node.field_success_stories
+    - node.type.career_profile
+    - node.type.success_story
+id: node.career_profile.field_success_stories
+field_name: field_success_stories
+entity_type: node
+bundle: career_profile
+label: 'Success Stories'
+description: ''
+required: false
+translatable: false
+default_value: {  }
+default_value_callback: ''
+settings:
+  handler: 'default:node'
+  handler_settings:
+    target_bundles:
+      success_story: success_story
+    sort:
+      field: _none
+      direction: ASC
+    auto_create: false
+    auto_create_bundle: ''
+field_type: entity_reference

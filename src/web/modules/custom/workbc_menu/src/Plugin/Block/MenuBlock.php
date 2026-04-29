@@ -7,11 +7,11 @@ use Drupal\image\Entity\ImageStyle;
 use Drupal\media\Entity\Media;
 
 /**
- * Provides a WorkBC Menu Block.
+ * Provides a WorkBC Menu block.
  *
  * @Block(
  *   id = "menu_block",
- *   admin_label = @Translation("WorkBC menu block"),
+ *   admin_label = @Translation("WorkBC Menu block"),
  *   category = @Translation("WorkBC"),
  * )
  */

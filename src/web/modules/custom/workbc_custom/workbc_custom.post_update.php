@@ -4,10 +4,7 @@ use Drupal\redirect\Entity\Redirect;
 use Drupal\Core\Url;
 use Drupal\file\Entity\File;
 use Drupal\media\Entity\Media;
-use Drupal\media\MediaInterface;
-use Drupal\media\MediaStorage;
 use Drupal\node\Entity\Node;
-use Drupal\taxonomy\Entity\Term;
 
 /**
  * Add redirections of the form http://www.workbc.ca/Job-Seekers/Career-Profiles/[NOC]
@@ -379,6 +376,11 @@ function workbc_custom_post_update_1566_paragraph_links(&$sandbox = NULL) {
   return t('[WR-1566] Migrated one paragraph link.');
 }
 
+function getUnmanagedFiles() {
+  \Drupal::messenger()->addWarning('Deprecated function getUnmanagedFiles()');
+  return [];
+}
+
 /**
  * Migrate rich content fields that refer to files.
  *
@@ -507,6 +509,11 @@ function workbc_custom_post_update_1660_part_01_generate_filehash(&$sandbox = NU
   }
   $sandbox['#finished'] = $sandbox['count'] ? $sandbox['processed'] / $sandbox['count'] : 1;
   return t('[WR-1660] Generated file hash for %url.', ['%url' => $file->getFileUri()]);
+}
+
+function getDuplicateFiles() {
+  \Drupal::messenger()->addWarning('Deprecated function getDuplicateFiles()');
+  return [];
 }
 
 /**
@@ -695,8 +702,6 @@ function workbc_custom_post_update_1603_resources(&$sandbox = NULL) {
   return t('[WR-1603] Migrated one resource field.');
 }
 
-
-
 /**
  * Delete media item revisions
  *
@@ -739,6 +744,14 @@ function workbc_custom_post_update_1677(&$sandbox = NULL) {
   return t('[WR-1677] Delete non-current revisions for one media item.');
 }
 
+function loadConcordance() {
+  \Drupal::messenger()->addWarning('Deprecated function loadConcordance()');
+  return [];
+}
+
+function saveCareerProfilePaths() {
+  \Drupal::messenger()->addWarning('Deprecated function saveCareerProfilePaths()');
+}
 
 /**
  * NOC 2021 data migration.
@@ -795,7 +808,7 @@ function workbc_custom_post_update_227_noc_migration(&$sandbox = NULL) {
         $sandbox['noc_map'][$split->field_noc->value] = ['noc2016' => $split->field_noc_2016->value, 'nid' => $split->id()];
 
         if ($sandbox['last_noc_type'] == "merge") {
-          $message = "NOC 2021 data migration: Split after Merge " . $node->field_noc_2016->value . " -> " . $split->field_noc->value;
+          $message = "NOC 2021 data migration: Split after merge " . $node->field_noc_2016->value . " -> " . $split->field_noc->value;
         }
         else {
           $message = "NOC 2021 data migration: Split " . $node->field_noc_2016->value . " -> " . $split->field_noc->value;
@@ -982,7 +995,15 @@ function workbc_custom_post_update_227_taxonomy_migration() {
   return t('[NOC-227] NOC 2021 taxonomy migration.');
 }
 
+function loadCareerTrek() {
+  \Drupal::messenger()->addWarning('Deprecated function loadCareerTrek()');
+  return [];
+}
 
+function loadCareerTrekUrls() {
+  \Drupal::messenger()->addWarning('Deprecated function loadCareerTrekUrls()');
+  return [];
+}
 
 /**
  * Career Trek link data migration.
@@ -995,8 +1016,6 @@ function workbc_custom_post_update_14_wbcams_migration(&$sandbox = NULL) {
     $sandbox['career_trek_urls'] = loadCareerTrekUrls();
     $sandbox['count'] = count($sandbox['career_trek']);
   }
-
-  $connection = \Drupal::database();
 
   $message = "No action taken.";
   $career = array_shift($sandbox['career_trek']);
@@ -1016,19 +1035,12 @@ function workbc_custom_post_update_14_wbcams_migration(&$sandbox = NULL) {
       if ($record) {
         $media = Drupal\media\Entity\Media::load($record->mid);
         if ($media) {
-
           $episode = isset($sandbox['career_trek_urls'][$career[2]]) ? $sandbox['career_trek_urls'][$career[2]] : $career[2];
           $target_url = rtrim(\Drupal::config('workbc')->get('careertrek_url'), '/') . "/episode/" .  $episode;
           $media->field_career_trek = $target_url;
           $media->save();
           $message = "Episode " . $career[2] . " Remote Video: " . $media->name->value . " link updated - " . $target_url;
         }
-        else {
-          $message = $search . " - Media " . $record->mid . " not found";
-        }
-      }
-      else {
-        $message = $search . " - Episode not found";
       }
     }
   }
@@ -1058,8 +1070,6 @@ function workbc_custom_post_update_542_career_profile_skills(&$sandbox = NULL) {
   $message = "No action taken.";
   $career = array_shift($sandbox['career_profiles']);
   if (!empty($career)) {
-      $database = \Drupal::database();
-
       $message = "Career Profile ";
 
       $node = Node::load($career->entity_id);
@@ -1086,7 +1096,6 @@ function workbc_custom_post_update_542_career_profile_skills(&$sandbox = NULL) {
   $sandbox['#finished'] = empty($sandbox['career_profiles']) ? 1 : ($sandbox['count'] - count($sandbox['career_profiles'])) / $sandbox['count'];
   return t("[WBCAMS-542] $message");
 }
-
 
 /**
  * Assign Weight to Media - Remote Video.
@@ -1119,12 +1128,7 @@ function workbc_custom_post_update_521_media_weights(&$sandbox = NULL) {
       $message = "Remote Video: " . $media->name->value . " - weight already set";
     }
   }
-  else {
-    $message = $search . " - Media " . $record->mid . " not found";
-  }
-
 
   $sandbox['#finished'] = empty($sandbox['videos']) ? 1 : ($sandbox['count'] - count($sandbox['videos'])) / $sandbox['count'];
   return t("[WBCAMS-521] $message");
 }
-

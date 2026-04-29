@@ -4,6 +4,6 @@ status: true
 dependencies: {  }
 name: Education
 vid: education
-description: 'Education level'
+description: 'Levels of Training, Education, Experience, and Responsibilities.'
 weight: 0
 new_revision: false

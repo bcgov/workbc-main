@@ -223,7 +223,7 @@
     introduction: content.field_career_videos_introduction,
     content: content.field_career_videos,
   },
-  links: content.links,
+  success_stories: content.field_success_stories,
 }
 %}
 
@@ -264,6 +264,9 @@
 
 {# Breadcrumbs #}
 {% include '@workbc/includes/breadcrumbs.html.twig' %}
+
+{# Language Toggle #}
+{% include '@workbc/includes/language-toggle.html.twig' %}
 
 {# Social Sharing #}
 {% include '@workbc/includes/social-sharing.html.twig' %}
@@ -644,6 +647,14 @@
               <div class="container-lg">
                 <h2>{{ viewmodel['career_videos']['introduction'] }}</h2>
                 {{ viewmodel['career_videos']['content'] }}
+              </div>
+            </div>
+          {% endif %}
+
+          {% if (viewmodel['success_stories']) %}
+            <div class="success-stories-wrapper">
+              <div class="container-lg">
+                {{ viewmodel['success_stories'] }}
               </div>
             </div>
           {% endif %}

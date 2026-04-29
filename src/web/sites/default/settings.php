@@ -794,19 +794,14 @@ $settings['container_yamls'][] = 'modules/contrib/redis/example.services.yml';
 // Job Board settings.
 $config['jobboard']['find_job_url'] = '/search-and-prepare-job/find-jobs';
 $config['jobboard']['find_job_account_url'] = '/account';
-$config['jobboard']['sha'] = 'ed922428a5da171ed7463d27f111bbd55a4b0d2d';
+$config['jobboard']['sha'] = '9699449dd4448f5c684f24e791662c2e9ffa445b';
 
 // SSoT settings.
 $config['workbc']['ssot_repo'] = [
   'name' => 'bcgov/workbc-ssot',
   'path' => 'migration/data',
   'branches' => [
-    'dev' => 'noc',
-    'local' => 'noc',
-    'aws-dev' => 'noc',
-    'aws-dev-noc' => 'noc',
-    'aws-dev2' => 'noc',
-    'aws-dev3' => 'noc',
+    'aws-dev' => 'ams',
     'aws-test' => 'ams',
     'aws-prod' => 'master',
   ],

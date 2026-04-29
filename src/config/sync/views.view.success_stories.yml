@@ -1,6 +1,6 @@
 uuid: f5d12160-dd7f-492f-bdd5-a8bcaa911325
 langcode: en
-status: true
+status: false
 dependencies:
   config:
     - field.storage.node.body
@@ -18,9 +18,9 @@ dependencies:
     - user
     - views_autosubmit
 id: success_stories
-label: 'Success Stories'
+label: '[DEPRECATED] Success Stories'
 module: views
-description: ''
+description: 'DEPRECATED: This view has been replaced with quick_reads.'
 tag: ''
 base_table: node_field_data
 base_field: nid
@@ -814,7 +814,6 @@ display:
         - 'languages:language_interface'
         - url
         - url.query_args
-        - user
         - 'user.node_grants:view'
         - user.permissions
       tags:
@@ -839,7 +838,6 @@ display:
         - 'languages:language_interface'
         - url
         - url.query_args
-        - user
         - 'user.node_grants:view'
         - user.permissions
       tags:

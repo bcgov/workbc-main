@@ -6,6 +6,7 @@ dependencies:
     - field.field.node.labour_market_monthly.field_content_group
     - field.field.node.labour_market_monthly.field_employment_introduction
     - field.field.node.labour_market_monthly.field_hero_image
+    - field.field.node.labour_market_monthly.field_hero_image_full_width
     - field.field.node.labour_market_monthly.field_hero_image_media
     - field.field.node.labour_market_monthly.field_hero_text
     - field.field.node.labour_market_monthly.field_industry_highlights_intro
@@ -129,6 +130,15 @@ content:
     settings: {  }
     third_party_settings: {  }
     weight: 5
+    region: content
+  field_hero_image_full_width:
+    type: entity_reference_entity_view
+    label: above
+    settings:
+      view_mode: default
+      link: false
+    third_party_settings: {  }
+    weight: 25
     region: content
   field_hero_image_media:
     type: entity_reference_entity_view

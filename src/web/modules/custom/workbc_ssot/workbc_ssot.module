@@ -2,7 +2,6 @@
 
 use Drupal\Core\StreamWrapper\StreamWrapperManager;
 use GuzzleHttp\Client;
-use GuzzleHttp\Exception\RequestException;
 use Psr\Http\Message\ResponseInterface;
 use Drupal\Core\Entity\ContentEntityInterface;
 use Drupal\field\Entity\FieldStorageConfig;
@@ -28,6 +27,11 @@ const SSOT_DATASETS = [
     'fields' => 'noc,cariboo_expected_number_of_job_openings_10y,kootenay_expected_number_of_job_openings_10y,mainland_southwest_expected_number_of_job_openings_10y,north_coast_nechako_expected_number_of_job_openings_10y,northeast_expected_number_of_job_openings_10y,thompson_okanagan_expected_number_of_job_openings_10y,vancouver_island_coast_expected_number_of_job_openings_10y',
   ],
   'career_related' => [],
+  'career_trek' => [
+    'noc_key' => 'noc_2021',
+    'fields' => 'noc_2021,episode_num,episode_title,youtube_link,location,region,description',
+    'order' => 'episode_num.asc'
+  ],
   'census' => [],
   'education' => [
     'noc_key' => 'noc',
@@ -60,7 +64,7 @@ const SSOT_DATASETS = [
   'regional_top_occupations' => [],
   'skills' => [
     'noc_key' => 'noc',
-    'fields' => 'noc,skills_competencies,importance'
+    'fields' => 'noc,skills_competencies,importance,proficiency'
   ],
   'titles' => [
     'noc_key' => 'noc',
@@ -87,6 +91,12 @@ const SSOT_DATASETS = [
  * Get the latest datasets from SSOT.
  */
 function workbc_ssot_cron() {
+  // Don't do anything if the ssot_downloader_batch queue is active.
+  if (Drupal::queue('ssot_downloader_batch')->numberOfItems() > 0) {
+    \Drupal::logger('workbc')->notice('Skipping SSOT cron while ssot_downloader_batch is running.');
+    return;
+  }
+
   // Retrieve the local state, making sure we set any modified datasets to null.
   $local_dates = array_merge(array_combine(
     array_keys(SSOT_DATASETS),
@@ -229,13 +239,13 @@ function ssot($endpoint, $method = 'GET', $options = [], $body = null): Response
     }
     return $response;
   }
-  catch (RequestException $e) {
+  catch (\Exception $e) {
     \Drupal::logger('workbc')->error($e->getMessage());
     return null;
   }
 }
 
-// TODO: Merge this function into the above.
+// TODO! Merge this function into the above.
 function querySSoT($endpoint, $read_timeout = NULL) {
   $ssot = rtrim(\Drupal::config('workbc')->get('ssot_url'), '/');
   $client = new Client();
@@ -248,7 +258,7 @@ function querySSoT($endpoint, $read_timeout = NULL) {
     $result = json_decode($response->getBody(), TRUE);
     return $result;
   }
-  catch (RequestException $e) {
+  catch (\Exception $e) {
     \Drupal::logger('workbc')->error($e->getMessage());
     return NULL;
   }
@@ -377,7 +387,7 @@ function ssotIndustryProfile($industryName) {
 function ssotCareerProfile($noc) {
 
   $data = array();
-  // TODO Refactor this block to avoid the condition.
+  // TODO! Refactor this block to avoid the condition.
   if (!empty(querySSoT('wages?noc=eq.' . $noc))) {
     $data['wages'] = querySSoT('wages?noc=eq.' . $noc)[0];
     $data['career_provincial'] = querySSoT('career_provincial?noc=eq.' . $noc)[0];
@@ -385,13 +395,15 @@ function ssotCareerProfile($noc) {
     $data['census'] = querySSoT('census?noc=eq.' . $noc)[0];
     $data['education'] = querySSoT('education?noc=eq.' . $noc)[0];
     $data['skills'] = querySSoT('skills?noc=eq.' . $noc);
-    // TODO Only retrieve record for british_columbia and adjust CareerProfileHighOpportunityOccupation accordingly.
+    // TODO! Only retrieve record for british_columbia and adjust CareerProfileHighOpportunityOccupation accordingly.
     $data['high_opportunity_occupations'] = querySSoT('high_opportunity_occupations?noc=eq.' . $noc);
     $data['occupational_interests'] = querySSoT('occupational_interests?noc=eq.' . $noc);
     $data['titles'] = querySSoT('titles?order=commonjobtitle.asc&noc=eq.' . $noc);
+    $data['career_trek'] = querySSoT('career_trek?noc_2021=eq.' . $noc);
     $data['epbc_nocs'] = querySSoT('fyp_categories_interests_sub_nocs?noc_2021=eq.' . $noc);
     $data['career_related'] = querySSoT('career_related?order=noc_related&noc=eq.' . $noc);
-    // TODO Adjust API query to retrieve first entry only.
+    $data['occupational_category'] = querySSoT('fyp_categories_interests_nocs?noc_2021=eq.' . $noc);
+    // TODO! Adjust API query to retrieve first entry only.
     $opening_careers = querySSoT('openings_careers?noc=eq.' . $noc);
     if (!empty($opening_careers)) {
       $data['openings_careers'] = $opening_careers[0];
@@ -449,7 +461,7 @@ function ssotLatestMonthlyLabourMarketUpdate($sourceData) {
   return $latestIdx;
 }
 
-function ssotRegions() {
+function ssotRegions($language = "english") {
   static $regions = array(
     "british_columbia" => REGION_BRITISH_COLUMBIA,
     "cariboo" => REGION_CARIBOO,
@@ -461,6 +473,18 @@ function ssotRegions() {
     "vancouver_island_coast" => REGION_VANCOUVER_ISLAND_COAST,
   );
 
+  if ($language == "french") {
+    $regions = array(
+      "british_columbia" => REGION_BRITISH_COLUMBIA_FR,
+      "cariboo" => REGION_CARIBOO_FR,
+      "kootenay" => REGION_KOOTENAY_FR,
+      "mainland_southwest" => REGION_MAINLAND_SOUTHWEST_FR,
+      "north_coast_nechako" => REGION_NORTH_COAST_NECHAKO_FR,
+      "northeast" => REGION_NORTHEAST_FR,
+      "thompson_okanagan" => REGION_THOMPSON_OKANAGAN_FR,
+      "vancouver_island_coast" => REGION_VANCOUVER_ISLAND_COAST_FR,
+    );
+  }
   return $regions;
 }
 
@@ -527,6 +551,37 @@ function ssotRegionInfo() {
   $id_values = array_column($region_info, "id");
   array_multisort($id_values, SORT_ASC, $region_info);
   return $region_info;
+}
+
+// TODO! Merge this function into the above.
+function getRegionMappings($language = "english") {
+
+$regions = array(
+    'all' => 'All regions',
+    'british_columbia' => 'British Columbia',
+    'vancouver_island_coast' =>'Vancouver Island/Coast',
+    'mainland_southwest'  => 'Mainland/Southwest',
+    'thompson_okanagan' => 'Thompson-Okanagan',
+    'kootenay' => 'Kootenay',
+    'cariboo' => 'Cariboo',
+    'north_coast_nechako' => 'North Coast and Nechako',
+    'northeast' => 'Northeast'
+  );
+
+  if ($language == "french") {
+    $regions = array(
+      'all' => 'Toutes les régions',
+      'british_columbia' => 'Colombie-Britannique',
+      'vancouver_island_coast' =>'Île/Côte de Vancouver',
+      'mainland_southwest'  => 'Continent/Sud-Ouest',
+      'thompson_okanagan' => 'Thompson-Okanagan',
+      'kootenay' => 'Kootenay',
+      'cariboo' => 'Cariboo',
+      'north_coast_nechako' => 'Côte Nord/Nechako',
+      'northeast' => 'Nord-Est'
+    );
+  }
+  return $regions;
 }
 
 function ssotProcessEmploymentIndustry($ssotdata) {
@@ -657,7 +712,7 @@ function ssotGetPreviousMonthYear($currentMonth, $currentYear) {
 /**
  * Get canonical TEER values.
  */
-function ssotTEERValues(FieldStorageConfig $definition, ContentEntityInterface $entity = NULL, $cacheable) {
+function ssotTEERValues() {
   return [
     0 => 'Management',
     1 => 'University degree',

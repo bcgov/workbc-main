@@ -45,7 +45,9 @@ class CareerProfileJobOpeningsComposition extends ExtraFieldDisplayFormattedBase
 
     if (!empty($entity->ssot_data) && isset($entity->ssot_data['career_provincial']) &&
         !is_null($entity->ssot_data['career_provincial']['replacement_of_retiring_workers_10y_pct']) &&
-        !is_null($entity->ssot_data['career_provincial']['new_jobs_due_to_economic_growth_10y_pct'])) {
+        !is_null($entity->ssot_data['career_provincial']['new_jobs_due_to_economic_growth_10y_pct']) &&
+        !is_null($entity->ssot_data['career_provincial']['expected_job_openings_10y']) &&
+        $entity->ssot_data['career_provincial']['expected_job_openings_10y'] > 0) {
       $data = array();
       $data[] = floatval($entity->ssot_data['career_provincial']['replacement_of_retiring_workers_10y_pct']);
       $data[] = floatval($entity->ssot_data['career_provincial']['new_jobs_due_to_economic_growth_10y_pct']);
@@ -74,6 +76,11 @@ class CareerProfileJobOpeningsComposition extends ExtraFieldDisplayFormattedBase
         ]
       ];
       $output = \Drupal::service('renderer')->render($chart);
+    }
+    else if (!empty($entity->ssot_data) && isset($entity->ssot_data['career_provincial']) &&
+             !is_null($entity->ssot_data['career_provincial']['expected_job_openings_10y']) &&
+             $entity->ssot_data['career_provincial']['expected_job_openings_10y'] == 0) {
+      $output = '<div class="workbc-data-not-available-350">' . WORKBC_EXTRA_FIELDS_NOT_APPLICABLE . "</div>";
     }
     else {
       $output = '<div class="workbc-data-not-available-350">' . WORKBC_EXTRA_FIELDS_DATA_NOT_AVAILABLE . "</div>";

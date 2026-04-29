@@ -10,6 +10,7 @@ dependencies:
     - field.field.node.success_story.field_image
     - field.field.node.success_story.field_image_media
     - field.field.node.success_story.field_metatag_description
+    - field.field.node.success_story.field_published_date
     - field.field.node.success_story.field_related_topics_blurb
     - field.field.node.success_story.field_related_topics_image
     - field.field.node.success_story.field_scheduled_publish
@@ -19,6 +20,7 @@ dependencies:
     - workflows.workflow.editorial
   module:
     - content_moderation
+    - datetime
     - media_library
     - path
     - scheduled_publish
@@ -47,21 +49,15 @@ content:
     third_party_settings: {  }
   field_call_to_action:
     type: string_textfield
-    weight: 20
+    weight: 19
     region: content
     settings:
       size: 60
       placeholder: ''
     third_party_settings: {  }
-  field_category:
-    type: options_buttons
-    weight: 14
-    region: content
-    settings: {  }
-    third_party_settings: {  }
   field_content_group:
     type: options_select
-    weight: 17
+    weight: 16
     region: content
     settings: {  }
     third_party_settings: {  }
@@ -74,18 +70,24 @@ content:
       form_mode: crop_wide
     third_party_settings:
       media_library_edit:
-        show_edit: '1'
+        show_edit: true
   field_metatag_description:
     type: string_textfield
-    weight: 16
+    weight: 15
     region: content
     settings:
       size: 160
       placeholder: ''
     third_party_settings: {  }
+  field_published_date:
+    type: datetime_default
+    weight: 19
+    region: content
+    settings: {  }
+    third_party_settings: {  }
   field_related_topics_blurb:
     type: text_textarea
-    weight: 18
+    weight: 17
     region: content
     settings:
       rows: 5
@@ -93,7 +95,7 @@ content:
     third_party_settings: {  }
   field_related_topics_image:
     type: media_library_widget
-    weight: 19
+    weight: 18
     region: content
     settings:
       media_types: {  }
@@ -101,7 +103,7 @@ content:
     third_party_settings: {  }
   field_scheduled_publish:
     type: scheduled_publish
-    weight: 21
+    weight: 20
     region: content
     settings: {  }
     third_party_settings: {  }
@@ -115,7 +117,7 @@ content:
     third_party_settings: {  }
   field_tags:
     type: entity_reference_autocomplete_tags
-    weight: 15
+    weight: 14
     region: content
     settings:
       match_operator: CONTAINS
@@ -188,4 +190,5 @@ content:
     settings: {  }
     third_party_settings: {  }
 hidden:
+  field_category: true
   field_image: true

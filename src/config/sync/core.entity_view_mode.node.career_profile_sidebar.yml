@@ -1,0 +1,11 @@
+uuid: dc8fd792-3f83-4a6f-b4ec-cd89387817cb
+langcode: en
+status: true
+dependencies:
+  module:
+    - node
+id: node.career_profile_sidebar
+label: 'Career Profile sidebar'
+description: null
+targetEntityType: node
+cache: true

@@ -13,13 +13,15 @@ dependencies:
     - paragraphs.paragraphs_type.action_cards_full_width
     - paragraphs.paragraphs_type.action_cards_icon
     - paragraphs.paragraphs_type.action_cards_icon_1_2
-    - paragraphs.paragraphs_type.action_cards_publication
     - paragraphs.paragraphs_type.banner_video
     - paragraphs.paragraphs_type.content_interactive_map
     - paragraphs.paragraphs_type.content_text
     - paragraphs.paragraphs_type.content_view
-    - paragraphs.paragraphs_type.section_icons_1_3
+    - paragraphs.paragraphs_type.content_workbc_centres_list
+    - paragraphs.paragraphs_type.content_workbc_centres_map
     - paragraphs.paragraphs_type.section_accordion
+    - paragraphs.paragraphs_type.section_career_category
+    - paragraphs.paragraphs_type.section_icons_1_3
   module:
     - entity_reference_revisions
 id: node.page.field_content
@@ -37,90 +39,106 @@ settings:
   handler_settings:
     target_bundles:
       action_card_feature: action_card_feature
+      action_cards_full_width: action_cards_full_width
       action_cards_1_2: action_cards_1_2
       action_cards_1_3: action_cards_1_3
       action_cards_1_4: action_cards_1_4
-      action_cards_full_width: action_cards_full_width
-      action_cards_explore_careers: action_cards_explore_careers
-      content_text: content_text
-      content_view: content_view
       action_cards_icon: action_cards_icon
       action_cards_icon_1_2: action_cards_icon_1_2
-      action_cards_publication: action_cards_publication
-      content_interactive_map: content_interactive_map
-      banner_video: banner_video
       section_icons_1_3: section_icons_1_3
+      action_cards_explore_careers: action_cards_explore_careers
+      section_career_category: section_career_category
       section_accordion: section_accordion
+      content_text: content_text
+      content_view: content_view
+      content_interactive_map: content_interactive_map
+      content_workbc_centres_list: content_workbc_centres_list
+      content_workbc_centres_map: content_workbc_centres_map
+      banner_video: banner_video
     negate: 0
     target_bundles_drag_drop:
       action_card:
-        weight: -35
+        weight: -57
         enabled: false
       action_card_feature:
-        weight: -34
+        weight: -56
         enabled: true
       action_card_full_width:
-        weight: -28
+        weight: -39
         enabled: false
       action_card_icon:
-        weight: -27
+        weight: -38
         enabled: false
       action_cards_1_2:
-        weight: -33
+        weight: -54
         enabled: true
       action_cards_1_3:
-        weight: -32
+        weight: -53
         enabled: true
       action_cards_1_4:
-        weight: -31
+        weight: -52
         enabled: true
       action_cards_explore_careers:
-        weight: -25
+        weight: -48
         enabled: true
       action_cards_full_width:
-        weight: -30
+        weight: -55
         enabled: true
       action_cards_icon:
-        weight: -21
+        weight: -51
         enabled: true
       action_cards_icon_1_2:
-        weight: -20
+        weight: -50
         enabled: true
       action_cards_publication:
-        weight: -19
-        enabled: true
+        weight: -35
+        enabled: false
       additional_duties:
-        weight: -29
+        weight: -40
         enabled: false
       banner_video:
-        weight: 36
+        weight: -34
         enabled: true
+      card_career_category:
+        weight: -31
+        enabled: false
       content_accordion_entry:
-        weight: 36
+        weight: -33
         enabled: false
       content_interactive_map:
-        weight: 30
+        weight: -43
         enabled: true
       content_text:
-        weight: -24
+        weight: -45
         enabled: true
       content_view:
-        weight: -22
+        weight: -44
+        enabled: true
+      content_workbc_centres_list:
+        weight: -42
+        enabled: true
+      content_workbc_centres_map:
+        weight: -41
         enabled: true
       lmo_charts_tables:
-        weight: 40
+        weight: -32
         enabled: false
       quote_card:
-        weight: -26
+        weight: -37
         enabled: false
       section_accordion:
-        weight: 42
+        weight: -46
         enabled: true
-      section_icons_1_3: null
+      section_career_category:
+        weight: -47
+        enabled: true
+      section_icons_1_3:
+        weight: -49
+        enabled: true
       section_read_more:
-        weight: 43
+        weight: -30
         enabled: false
       skills:
-        weight: -23
+        weight: -36
         enabled: false
 field_type: entity_reference_revisions

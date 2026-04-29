@@ -1,0 +1,21 @@
+uuid: ffd9c180-753b-4879-90e8-da77a3c4f497
+langcode: en
+status: true
+dependencies:
+  config:
+    - field.storage.node.field_published_date
+    - node.type.success_story
+  module:
+    - datetime
+id: node.success_story.field_published_date
+field_name: field_published_date
+entity_type: node
+bundle: success_story
+label: 'Updated Published Date'
+description: 'Enter an updated published date if you wish to override the original published date.'
+required: false
+translatable: false
+default_value: {  }
+default_value_callback: ''
+settings: {  }
+field_type: datetime

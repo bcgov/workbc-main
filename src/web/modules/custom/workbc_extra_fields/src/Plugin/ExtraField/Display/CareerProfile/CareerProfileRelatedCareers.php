@@ -44,7 +44,7 @@ class CareerProfileRelatedCareers extends ExtraFieldDisplayFormattedBase {
    * {@inheritdoc}
    */
   public function viewElements(ContentEntityInterface $entity) {
-    if (!empty($entity->ssot_data) && isset($entity->ssot_data['career_related'])) {
+    if (!empty($entity->ssot_data) && !empty($entity->ssot_data['career_related'])) {
       $careers = \Drupal::entityTypeManager()
         ->getStorage('node')
         ->loadByProperties([

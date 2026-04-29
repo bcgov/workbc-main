@@ -6,6 +6,7 @@ use Drupal\views\ViewExecutable;
 
 define ("WORKBC_EXTRA_FIELDS_NOT_AVAILABLE", "Not available");
 define ("WORKBC_EXTRA_FIELDS_DATA_NOT_AVAILABLE", "Data not available");
+define ("WORKBC_EXTRA_FIELDS_NOT_APPLICABLE", "Not applicable");
 
 define ("WORKBC_BC_MAP_WITH_LABELS", "bc-map-labels.png");
 define ("WORKBC_BC_MAP", "bc-map.png");
@@ -18,6 +19,15 @@ define ("REGION_NORTH_COAST_NECHAKO", "North Coast and Nechako");
 define ("REGION_NORTHEAST", "Northeast");
 define ("REGION_THOMPSON_OKANAGAN", "Thompson-Okanagan");
 define ("REGION_VANCOUVER_ISLAND_COAST", "Vancouver Island/Coast");
+
+define ("REGION_BRITISH_COLUMBIA_FR", "Colombie-Britannique");
+define ("REGION_CARIBOO_FR", "Cariboo");
+define ("REGION_KOOTENAY_FR", "Kootenay");
+define ("REGION_MAINLAND_SOUTHWEST_FR", "Continent/Sud-Ouest");
+define ("REGION_NORTH_COAST_NECHAKO_FR", "Côte Nord/Nechako");
+define ("REGION_NORTHEAST_FR", "Nord-Est");
+define ("REGION_THOMPSON_OKANAGAN_FR", "Thompson-Okanagan");
+define ("REGION_VANCOUVER_ISLAND_COAST_FR", "Île/Côte de Vancouver");
 
 define ("REGION_BRITISH_COLUMBIA_ID", 0);
 define ("REGION_CARIBOO_ID", 1);
@@ -44,7 +54,7 @@ define ('SSOT_PING_TIMEOUT', 5);
  */
 function workbc_extra_fields_node_view(array &$build, \Drupal\Core\Entity\EntityInterface $entity, \Drupal\Core\Entity\Display\EntityViewDisplayInterface $display, $view_mode) {
 
-  if ($view_mode === "full") {
+  if ($view_mode === "full" || $view_mode === "full_career_trek_videos") {
     if (!querySSoT('', SSOT_PING_TIMEOUT)) {
       $entity->ssot_data = NULL;
       return;

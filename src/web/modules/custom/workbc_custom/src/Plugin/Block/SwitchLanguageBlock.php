@@ -13,7 +13,7 @@ use Drupal\Core\Link;
  *
  * @Block(
  *   id = "switch_language_block",
- *   admin_label = @Translation("WorkBC switch language block"),
+ *   admin_label = @Translation("WorkBC Switch language block"),
  *   category = @Translation("WorkBC"),
  * )
  */

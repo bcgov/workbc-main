@@ -1,6 +1,6 @@
 uuid: 2551b174-b0d2-4a22-b83b-3994b7a2b987
 langcode: en
-status: true
+status: false
 dependencies:
   config:
     - field.storage.media.field_category
@@ -21,9 +21,9 @@ dependencies:
     - user
     - workbc_custom
 id: video_library
-label: 'Video Library'
+label: '[DEPRECATED] Video Library'
 module: views
-description: ''
+description: 'DEPRECATED: This view has been replaced with career_trek_video_library.'
 tag: ''
 base_table: media_field_data
 base_field: mid

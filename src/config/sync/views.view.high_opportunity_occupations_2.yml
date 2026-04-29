@@ -509,7 +509,20 @@ display:
       cache:
         type: none
         options: {  }
-      empty: {  }
+      empty:
+        area:
+          id: area
+          table: views
+          field: area
+          relationship: none
+          group_type: group
+          admin_label: ''
+          plugin_id: text
+          empty: true
+          content:
+            value: "We couldn't find any results for your search. Please try another search."
+            format: full_html
+          tokenize: false
       sorts:
         field_region_openings_value:
           id: field_region_openings_value
@@ -670,7 +683,7 @@ display:
             operator_list: {  }
             identifier: field_teer_value
             required: false
-            remember: true
+            remember: false
             multiple: false
             remember_roles:
               anonymous: anonymous
@@ -711,7 +724,7 @@ display:
             operator_list: {  }
             identifier: delta
             required: true
-            remember: true
+            remember: false
             multiple: false
             remember_roles:
               anonymous: anonymous
@@ -813,7 +826,7 @@ display:
             optional: true
             widget: select
             multiple: false
-            remember: true
+            remember: false
             default_group: All
             default_group_multiple: {  }
             group_items:
@@ -847,11 +860,11 @@ display:
                   value: ''
               5:
                 title: '$50.00+ per hour'
-                operator: '>='
+                operator: between
                 value:
-                  min: ''
-                  max: ''
-                  value: '50'
+                  min: '50'
+                  max: '2500'
+                  value: ''
       filter_groups:
         operator: AND
         groups:

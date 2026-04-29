@@ -3,7 +3,7 @@ langcode: en
 status: true
 dependencies: {  }
 id: lmo_charts_tables
-label: 'SSOT: LMO Yearly Report Charts and Tables'
+label: 'Content: SSOT LMO Yearly Report Charts and Tables'
 icon_uuid: null
 icon_default: null
 description: 'SSOT datasets for the Labour Market Outlook yearly report.'

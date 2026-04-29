@@ -2,6 +2,10 @@
 
 namespace Drupal\workbc_ssot\Plugin\QueueWorker;
 
+use Drupal\media\Entity\Media;
+
+const YOUTUBE_REGEX = '%(?:youtube(?:-nocookie)?\.com/(?:[^/]+/.+/|(?:v|e(?:mbed)?)/|.*[?&]v=)|youtu\.be/)([^"&?/ ]{11})%i';
+
 trait SsotUpdater {
   private $epbc_categories;
   private $skills;
@@ -29,6 +33,54 @@ trait SsotUpdater {
     $openings[REGION_THOMPSON_OKANAGAN_ID] = $entry['thompson_okanagan_expected_number_of_job_openings_10y'] ?? NULL_VALUE;
     $openings[REGION_VANCOUVER_ISLAND_COAST_ID] = $entry['vancouver_island_coast_expected_number_of_job_openings_10y'] ?? NULL_VALUE;
     $career->set('field_region_openings', $openings);
+  }
+
+  public function update_career_trek($endpoint, $entries, &$career) {
+    $videos = [];
+    foreach ($entries as $entry) {
+      // Query each incoming video in Media Library.
+      preg_match(YOUTUBE_REGEX, $entry['youtube_link'], $match);
+      $mid = array_values(\Drupal::entityQuery('media')
+        ->condition('bundle', 'remote_video')
+        ->condition('field_media_oembed_video', $match[1], 'CONTAINS')
+        ->accessCheck(false)
+        ->currentRevision()
+        ->execute());
+      if (empty($mid)) {
+        // Create missing video in Media Library.
+        $media = Media::create([
+          'bundle'=> 'remote_video',
+          'uid' => 1,
+          'field_media_oembed_video' => $entry['youtube_link']
+        ]);
+      }
+      else {
+        // Update the existing video with incoming data.
+        $media = Media::load(reset($mid));
+      }
+      if (
+        $media->getName() != $entry['episode_title'] ||
+        $media->get('field_description')->value != $entry['description'] ||
+        $media->get('field_episode')->value != $entry['episode_num'] ||
+        $media->get('field_location')->value != $entry['location'] ||
+        $media->get('field_region')->value != $entry['region'] ||
+        $media->get('field_noc')->value != $entry['noc_2021']
+      ) {
+        $media
+          ->setPublished()
+          ->setName($entry['episode_title'])
+          ->set('field_description', $entry['description'])
+          ->set('field_episode', $entry['episode_num'])
+          ->set('field_location', $entry['location'])
+          ->set('field_region', $entry['region'])
+          ->set('field_noc', $entry['noc_2021'])
+          ->save();
+      }
+      $videos[] = ['target_id' => $media->id()];
+    }
+
+    // Reset the Career Profiles video references.
+    $career->set('field_career_videos', $videos);
   }
 
   public function update_fyp_categories_interests($endpoint, $entries, &$career) {
@@ -69,13 +121,28 @@ trait SsotUpdater {
   }
 
   public function update_skills($endpoint, $entries, &$career) {
+    // Cache the skills vocabulary.
     if (!isset($this->skills)) {
       $this->skills = \Drupal::entityTypeManager()->getStorage('taxonomy_term')->loadTree('skills');
     }
+
+    // Sort and limit the incoming skills by importance and proficiency.
+    $filteredSkills = array_filter($entries, function($entry) {
+      return intval($entry['importance']) > 0;
+    });
+    array_multisort(
+      array_column($filteredSkills, 'importance'), SORT_DESC,
+      array_column($filteredSkills, 'proficiency'), SORT_DESC,
+      array_column($filteredSkills, 'skills_competencies'), SORT_ASC,
+      $filteredSkills
+    );
+    $filteredSkills = array_slice($filteredSkills, 0, 10);
+
+    // Match the filtered skills to the vocabulary.
     $skills = [];
-    foreach ($entries as $entry) {
+    foreach ($filteredSkills as $entry) {
       $term = array_find($this->skills, function ($v) use ($entry) {
-        return strcasecmp($v->name, $entry['skills_competencies']) === 0 && !empty($entry['importance']);
+        return strcasecmp($v->name, $entry['skills_competencies']) === 0;
       });
       if ($term) {
         $skills[] = ['target_id' => $term->tid];

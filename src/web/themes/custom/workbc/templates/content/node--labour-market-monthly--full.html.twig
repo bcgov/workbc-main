@@ -70,6 +70,7 @@
 
 {% set title = label %}
 {% set hero_image = content.field_hero_image_media[0] %}
+{% set hero_image_fullwidth = content.field_hero_image_full_width[0] %}
 {% set hero_text = content.field_hero_text[0] %}
 
 {% set months = content.extra_field_labourmarket_months %}
@@ -103,12 +104,17 @@
   ]
 %}
 
-{% if hero_image or hero_text %}
+{% if hero_image_fullwidth %}
+  {% include '@workbc/includes/hero-fullwidth.html.twig' %}
+{% elseif hero_image or hero_text %}
   {% include '@workbc/includes/hero.html.twig' %}
 {% endif %}
 
 {# Breadcrumbs #}
 {% include '@workbc/includes/breadcrumbs.html.twig' %}
+
+{# Language Toggle #}
+{% include '@workbc/includes/language-toggle.html.twig' %}
 
 {# Social Sharing #}
 {% include '@workbc/includes/social-sharing.html.twig' %}

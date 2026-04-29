@@ -1,15 +1,15 @@
 uuid: 418477aa-554b-460e-96f6-00ac8ea9bbed
 langcode: en
-status: true
+status: false
 dependencies:
   config:
     - search_api.index.career_profile_index_sub
   module:
     - search_api
 id: career_trek_node
-label: 'Career Trek Node'
+label: '[DEPRECATED] Career Trek Node'
 module: views
-description: ''
+description: 'DEPRECATED: This view has been replaced with a single-page controller as per WBCAMS-1809.'
 tag: ''
 base_table: search_api_index_career_profile_index_sub
 base_field: search_api_id

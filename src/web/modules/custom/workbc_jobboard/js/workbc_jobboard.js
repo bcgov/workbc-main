@@ -144,40 +144,6 @@
         }
       });
 
-      // FIXME: Copied from src/web/modules/contrib/gtranslate/js/dropdown.js
-      // because I couldn't figure out how to trigger the loading of the library. It should be triggerable as per:
-      // document.querySelectorAll(u_class).forEach(function(e){e.addEventListener('pointerenter',load_tlib)});
-      function load_tlib(){if(!window.gt_translate_script){window.gt_translate_script=document.createElement('script');gt_translate_script.src='https://translate.google.com/translate_a/element.js?cb=googleTranslateElementInit2';document.body.appendChild(gt_translate_script);}}
-
-      const cookie_lang = document.cookie
-        .split("; ")
-        .find((row) => row.startsWith("googtrans="))
-        ?.split("=")[1];
-      let job_lang = cookie_lang === '/en/fr';
-      $('.job-lang input', context).prop('checked', job_lang);
-      $(once('jobboard', '.job-lang', context)).on('click', () => {
-        const jl = $('.job-lang input', context).is(':checked');
-        if (jl !== job_lang) {
-          load_tlib();
-          job_lang = jl;
-          const lang = job_lang ? 'en|fr' : 'en|en';
-          $('.gt_selector', context).val(lang);
-          window.doGTranslate(lang);
-        }
-      }).on('keydown', (e) => {
-        if (13 === e.keyCode) {
-          const $input = $('.job-lang input', context);
-          $input.prop('checked', !$input.prop('checked'));
-          $(e.target).trigger('click');
-        }
-      });
-
-      $(once('jobboard', '.gt_selector', context)).on('change', (e) => {
-        const lang = $(e.target).val();
-        job_lang = lang === 'en|fr';
-        $('.job-lang input', context).prop('checked', job_lang);
-      });
-
       function navLogout() {
         localStorage.removeItem('currentUser');
         document.cookie = 'currentUser.username=; expires=Thu, 01 Jan 1970 00:00:00 UTC; Path=/;';

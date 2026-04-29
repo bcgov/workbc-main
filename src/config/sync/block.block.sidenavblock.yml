@@ -15,7 +15,7 @@ provider: null
 plugin: side_nav_block
 settings:
   id: side_nav_block
-  label: 'Side Nav Block'
+  label: 'Side Navigation block'
   label_display: '0'
   provider: workbc_custom
 visibility:

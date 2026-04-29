@@ -1,0 +1,201 @@
+Subject: [PATCH] 2706431-91
+---
+Index: modules/views/src/EntityViewsData.php
+IDEA additional info:
+Subsystem: com.intellij.openapi.diff.impl.patch.CharsetEP
+<+>UTF-8
+===================================================================
+diff --git a/modules/views/src/EntityViewsData.php b/modules/views/src/EntityViewsData.php
+--- a/core/modules/views/src/EntityViewsData.php	(revision 934841e6e9efd010aa93dbf374e297cb266e368f)
++++ b/core/modules/views/src/EntityViewsData.php	(date 1758286876971)
+@@ -348,7 +348,7 @@
+         if ($data_table && ($table === $base_table || $table === $revision_table) && in_array($field_name, $duplicate_fields)) {
+           continue;
+         }
+-        $this->mapFieldDefinition($table, $field_name, $field_definitions[$field_name], $table_mapping, $data[$table]);
++        $this->mapFieldDefinition($table, $field_name, $field_definitions[$field_name], $table_mapping, $data);
+       }
+     }
+
+@@ -391,7 +391,9 @@
+     // Add the entity type key to each table generated.
+     $entity_type_id = $this->entityType->id();
+     array_walk($data, function (&$table_data) use ($entity_type_id) {
+-      $table_data['table']['entity type'] = $entity_type_id;
++      if (isset($table_data['table'])) {
++        $table_data['table']['entity type'] = $entity_type_id;
++      }
+     });
+
+     return $data;
+@@ -446,11 +448,10 @@
+    *   The field definition.
+    * @param \Drupal\Core\Entity\Sql\TableMappingInterface $table_mapping
+    *   The table mapping information.
+-   * @param array $table_data
+-   *   A reference to a specific entity table (for example data_table) inside
+-   *   the views data.
++   * @param array $data
++   *   A reference to all the views data.
+    */
+-  protected function mapFieldDefinition($table, $field_name, FieldDefinitionInterface $field_definition, TableMappingInterface $table_mapping, &$table_data) {
++  protected function mapFieldDefinition($table, $field_name, FieldDefinitionInterface $field_definition, TableMappingInterface $table_mapping, &$data) {
+     // Create a dummy instance to retrieve property definitions.
+     $field_column_mapping = $table_mapping->getColumnNames($field_name);
+     $field_schema = $field_definition->getFieldStorageDefinition()->getSchema();
+@@ -462,14 +463,16 @@
+     //   assuming the first one is the main column. See also what the
+     //   mapSingleFieldViewsData() method does with $first.
+     $first = TRUE;
++    $table_data = $data[$table] ?? [];
+     foreach ($field_column_mapping as $field_column_name => $schema_field_name) {
+       // The fields might be defined before the actual table.
+       $table_data = $table_data ?: [];
+       $table_data += [$schema_field_name => []];
+-      $table_data[$schema_field_name] = NestedArray::mergeDeep($table_data[$schema_field_name], $this->mapSingleFieldViewsData($table, $field_name, $field_definition_type, $field_column_name, $field_schema['columns'][$field_column_name]['type'], $first, $field_definition));
++      $table_data[$schema_field_name] = NestedArray::mergeDeep($table_data[$schema_field_name], $this->mapSingleFieldViewsData($table, $field_name, $field_definition_type, $field_column_name, $field_schema['columns'][$field_column_name]['type'], $first, $field_definition, $data));
+       $table_data[$schema_field_name]['entity field'] = $field_name;
+       $first = FALSE;
+     }
++    $data[$table] = $table_data;
+   }
+
+   /**
+@@ -489,11 +492,13 @@
+    *   TRUE if this is the first column within the field.
+    * @param \Drupal\Core\Field\FieldDefinitionInterface $field_definition
+    *   The field definition.
++   * @param array $data
++   *   A reference to all the views data.
+    *
+    * @return array
+    *   The modified views data field definition.
+    */
+-  protected function mapSingleFieldViewsData($table, $field_name, $field_type, $column_name, $column_type, $first, FieldDefinitionInterface $field_definition) {
++  protected function mapSingleFieldViewsData($table, $field_name, $field_type, $column_name, $column_type, $first, FieldDefinitionInterface $field_definition, array &$data) {
+     $views_field = [];
+
+     // Provide a nicer, less verbose label for the first column within a field.
+@@ -604,7 +609,7 @@
+     // Do post-processing for a few field types.
+     $process_method = 'processViewsDataFor' . Container::camelize($field_type);
+     if (method_exists($this, $process_method)) {
+-      $this->{$process_method}($table, $field_definition, $views_field, $column_name);
++      $this->{$process_method}($table, $field_definition, $views_field, $column_name, $data);
+     }
+
+     return $views_field;
+@@ -645,8 +650,10 @@
+    *   The views field data.
+    * @param string $field_column_name
+    *   The field column being processed.
++   * @param array $data
++   *   A reference to all the views data.
+    */
+-  protected function processViewsDataForEntityReference($table, FieldDefinitionInterface $field_definition, array &$views_field, $field_column_name) {
++  protected function processViewsDataForEntityReference($table, FieldDefinitionInterface $field_definition, array &$views_field, $field_column_name, array &$data) {
+
+     // @todo Should the actual field handler respect that this just renders a
+     //   number?
+@@ -656,9 +663,10 @@
+
+     if ($entity_type_id = $field_definition->getItemDefinition()->getSetting('target_type')) {
+       $entity_type = $this->entityTypeManager->getDefinition($entity_type_id);
++      $target_base_table = $this->getViewsTableForEntityType($entity_type);
+       if ($entity_type instanceof ContentEntityType) {
+         $views_field['relationship'] = [
+-          'base' => $this->getViewsTableForEntityType($entity_type),
++          'base' => $target_base_table,
+           'base field' => $entity_type->getKey('id'),
+           'label' => $entity_type->getLabel(),
+           'title' => $entity_type->getLabel(),
+@@ -671,6 +679,77 @@
+         $views_field['argument']['target_entity_type_id'] = $entity_type_id;
+         $views_field['filter']['id'] = 'numeric';
+         $views_field['sort']['id'] = 'standard';
++
++        // Provide a reverse relationship for the entity type that is referenced
++        // by the field.
++        $args = [
++          '@label' => $entity_type->getSingularLabel(),
++          '@field_name' => $field_definition->getName(),
++          '@entity' => $this->entityType->getLabel(),
++        ];
++        $field_name = $field_definition->getName();
++        $table_mapping = $this->storage->getTableMapping();
++        $field_storage = $field_definition->getFieldStorageDefinition();
++        $revision_metadata_field_names = array_flip($this->entityType->getRevisionMetadataKeys());
++        $pseudo_field_name = 'reverse__' . $this->entityType->id() . '__' . $field_name;
++        // Note that we are adding to a table data item that may not exist
++        // yet, but views_views_data() deep-merges the data returned from
++        // entity views handlers.
++        if ($table_mapping->requiresDedicatedTableStorage($field_storage)) {
++          $data[$target_base_table][$pseudo_field_name] = [
++            // There is a bridge table.
++            // Use the entity_reverse relationship plugin.
++            'relationship' => [
++              'title' => $this->t('@entity using @field_name', $args),
++              'label' => $this->t('@field_name', ['@field_name' => $field_name]),
++              'help' => $this->t('Relate each @entity with a @field_name set to the @label.', $args),
++              'group' => $entity_type->getLabel(),
++              'id' => 'entity_reverse',
++              'base' => $this->getViewsTableForEntityType($this->entityType),
++              'base field' => $this->entityType->getKey('id'),
++              'field_name' => $field_name,
++              'field table' => $table_mapping->getFieldTableName($field_name),
++              'field field' => $table_mapping->getFieldColumnName($field_storage, 'target_id'),
++              'entity_type' => $this->entityType->id(),
++            ],
++          ];
++        }
++        elseif (isset($revision_metadata_field_names[$field_name])) {
++          // Revision metadata fields exist only on the revision table, so the
++          // relationship has to be to that rather than to the base table.
++          $revision_table = $this->entityType->getRevisionTable() ?: $this->entityType->id() . '_revision';
++          $data[$target_base_table][$pseudo_field_name] = [
++            'relationship' => [
++              'title' => $this->t('@entity revision using @field_name', $args),
++              'label' => $this->t('@field_name', ['@field_name' => $field_name]),
++              'help' => $this->t('Relate each @entity revision with a @field_name set to the @label.', $args),
++              'group' => $entity_type->getLabel(),
++              'id' => 'standard',
++              'relationship field' => $entity_type->getKey('id'),
++              'base' => $revision_table,
++              'base field' => $table_mapping->getFieldColumnName($field_storage, 'target_id'),
++              'entity_type' => $this->entityType->id(),
++            ],
++          ];
++        }
++        else {
++          // The data is on the base table.
++          // Use the standard relationship plugin.
++          $data[$target_base_table][$pseudo_field_name] = [
++            'relationship' => [
++              'title' => $this->t('@entity using @field_name', $args),
++              'label' => $this->t('@field_name', ['@field_name' => $field_name]),
++              'help' => $this->t('Relate each @entity with a @field_name set to the @label.', $args),
++              'group' => $entity_type->getLabel(),
++              'id' => 'standard',
++              'relationship field' => $entity_type->getKey('id'),
++              'base' => $this->getViewsTableForEntityType($this->entityType),
++              'base field' => $table_mapping->getFieldColumnName($field_storage, 'target_id'),
++              'entity_type' => $this->entityType->id(),
++            ],
++          ];
++        }
++
+       }
+       else {
+         $views_field['field']['id'] = 'field';
+@@ -716,8 +795,10 @@
+    *   The views field data.
+    * @param string $field_column_name
+    *   The field column being processed.
++   * @param array $data
++   *   A reference to all the views data.
+    */
+-  protected function processViewsDataForUuid($table, FieldDefinitionInterface $field_definition, array &$views_field, $field_column_name) {
++  protected function processViewsDataForUuid($table, FieldDefinitionInterface $field_definition, array &$views_field, $field_column_name, array &$data) {
+     // It does not make sense for UUID fields to be click sortable.
+     $views_field['field']['click sortable'] = FALSE;
+   }

@@ -1,6 +1,6 @@
 uuid: 5221ac7f-0dfc-492b-bb03-1f31b3caa368
 langcode: en
-status: true
+status: false
 dependencies:
   config:
     - core.entity_view_mode.node.teaser
@@ -21,9 +21,9 @@ dependencies:
     - views_autosubmit
     - workbc_custom
 id: news
-label: News
+label: '[DEPRECATED] News'
 module: views
-description: ''
+description: 'DEPRECATED: This view has been replaced with quick_reads.'
 tag: ''
 base_table: node_field_data
 base_field: nid
