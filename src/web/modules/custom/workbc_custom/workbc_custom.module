@@ -411,7 +411,7 @@ function workbc_custom_form_views_exposed_form_alter(&$form, FormStateInterface 
 
     // Collapsible if mobile.
     $md = \Drupal::service('mobile_detect');
-    if ($md->isMobile()) {
+    if ($md->isMobile() || $md->isTablet()) {
       $form['#prefix'] = '<details><summary>Refine your search</summary>';
       $form['#suffix'] = '</details>';
     }
