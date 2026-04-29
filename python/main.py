@@ -204,6 +204,12 @@ def search_jobs_by_city(params: dict, cities: list) -> tuple[dict, int]:
         {"terms": {"City.keyword": cities}},
     ]
 
+    if params.get("salary_min"):
+        filter_clauses.append({"range": {"Salary": {"gte": params["salary_min"]}}})
+
+    if params.get("employment_type"):
+        filter_clauses.append({"term": {"HoursOfWork.Description": params["employment_type"]}})
+
     if params.get("keywords"):
         generic = {"jobs", "job", "work", "position", "positions", "opening", "openings"}
         clean = " ".join(w for w in params["keywords"].split()
@@ -266,6 +272,13 @@ def search_jobs_by_city(params: dict, cities: list) -> tuple[dict, int]:
                 {"range": {"ExpireDate": {"gte": "now"}}},
                 {"terms": {"City.keyword": cities}},
             ]
+
+            if params.get("salary_min"):
+                fallback_filter.append({"range": {"Salary": {"gte": params["salary_min"]}}})
+
+            if params.get("employment_type"):
+                fallback_filter.append({"term": {"HoursOfWork.Description": params["employment_type"]}})
+                
             fallback_must = [{
                 "match": {
                     "EmployerName": {
