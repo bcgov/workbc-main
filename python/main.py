@@ -721,58 +721,64 @@ async def get_career_answer(
     system_rules: str,
 ) -> tuple[str, str]:
     follow_up = is_follow_up_query(user_query)
+    is_comparison = any(w in user_query.lower() for w in
+        ["compare", "difference", "versus", "vs", "between"])
 
-    if follow_up:
+    if is_comparison:
+        search_term = user_query
+        print(f"DEBUG: Comparison query — skipping rewriter")
+    elif follow_up:
         history_for_rewriter = sanitized_history[-2:]
         print(f"DEBUG: Follow-up detected — passing history to rewriter")
     else:
         history_for_rewriter = []
         print(f"DEBUG: New career query — history withheld from rewriter")
 
-    rewrite_prompt = (
-        f"Current User Query: {user_query}\n"
-        f"Last 2 Chat Messages: {history_for_rewriter}\n\n"
-        "TASK: Identify the EXACT job titles the user is asking about NOW. "
-        "If this is a follow-up question (e.g. 'what is the difference', "
-        "'compare with', 'how does it compare', 'what about', 'what is the salary'), "
-        "include BOTH the current job AND the job from the previous message. "
-        "If the user is asking a completely NEW question, IGNORE the history. "
-        "Output ONLY the job titles, comma separated. No explanation. No preamble."
-    )
-
-    try:
-        rewrite_res = vllm_client.chat.completions.create(
-            model=MODEL_NAME,
-            messages=[{"role": "user", "content": rewrite_prompt}],
-            temperature=0,
+    if not is_comparison:
+        rewrite_prompt = (
+            f"Current User Query: {user_query}\n"
+            f"Last 2 Chat Messages: {history_for_rewriter}\n\n"
+            "TASK: Identify the EXACT job titles the user is asking about NOW. "
+            "If this is a follow-up question (e.g. 'what is the difference', "
+            "'compare with', 'how does it compare', 'what about', 'what is the salary'), "
+            "include BOTH the current job AND the job from the previous message. "
+            "If the user is asking a completely NEW question, IGNORE the history. "
+            "Output ONLY the job titles, comma separated. No explanation. No preamble."
         )
-        raw_content = rewrite_res.choices[0].message.content.strip()
-        lines = [line.strip('- *123456789."\' ') for line in raw_content.split('\n')]
-        filtered_lines = [
-            l for l in lines
-            if len(l) > 0
-            and len(l) < 80
-            and "Based on"      not in l
-            and "Therefore"     not in l
-            and "current query" not in l.lower()
-            and "if this"       not in l.lower()
-            and "follow-up"     not in l.lower()
-            and "job title"     not in l.lower()
-        ]
-        search_term = ", ".join(filtered_lines) if filtered_lines else user_query
 
-        if looks_like_question(search_term) and follow_up:
-            for msg in reversed(sanitized_history):
-                if msg["role"] == "user" and msg["content"].strip() != user_query.strip():
-                    search_term = msg["content"]
-                    print(f"DEBUG: Rewriter returned question — falling back to previous query: {search_term}")
-                    break
+        try:
+            rewrite_res = vllm_client.chat.completions.create(
+                model=MODEL_NAME,
+                messages=[{"role": "user", "content": rewrite_prompt}],
+                temperature=0,
+            )
+            raw_content = rewrite_res.choices[0].message.content.strip()
+            lines = [line.strip('- *123456789."\' ') for line in raw_content.split('\n')]
+            filtered_lines = [
+                l for l in lines
+                if len(l) > 0
+                and len(l) < 80
+                and "Based on"      not in l
+                and "Therefore"     not in l
+                and "current query" not in l.lower()
+                and "if this"       not in l.lower()
+                and "follow-up"     not in l.lower()
+                and "job title"     not in l.lower()
+            ]
+            search_term = ", ".join(filtered_lines) if filtered_lines else user_query
 
-    except Exception as e:
-        print(f"DEBUG: Rewriter failed, falling back to raw query: {e}")
-        search_term = user_query
+            if looks_like_question(search_term) and follow_up:
+                for msg in reversed(sanitized_history):
+                    if msg["role"] == "user" and msg["content"].strip() != user_query.strip():
+                        search_term = msg["content"]
+                        print(f"DEBUG: Rewriter returned question — falling back to previous query: {search_term}")
+                        break
 
-    print(f"DEBUG: Final Search Term for Chroma: {search_term}")
+        except Exception as e:
+            print(f"DEBUG: Rewriter failed, falling back to raw query: {e}")
+            search_term = user_query
+
+        print(f"DEBUG: Final Search Term for Chroma: {search_term}")
     
 
     loop        = asyncio.get_event_loop()
@@ -874,7 +880,7 @@ async def get_career_answer(
     try:
         ##is_comparison = any(w in user_query.lower() for w in
         ##    ["compare", "difference", "versus", "vs", "between"])
-        tokens_for_request = 1200 if is_comparison else MAX_TOKENS
+        tokens_for_request = 800 if is_comparison else MAX_TOKENS
 
         completion    = vllm_client.chat.completions.create(
             model=MODEL_NAME,
