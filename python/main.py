@@ -914,6 +914,23 @@ async def ask_career_bot(request: QueryRequest):
 
         if user_query.strip() == "__load_more__":
             return await handle_load_more(session_id)
+        # Handle greetings and help request - No LLM requested needed
+        GREETING_PATTERNS = {"hello","hi","hey","help", "what can you do", "what do you do", "who are you"}
+
+        if user_query.lower().strip().rstrip("?!.") in GREETING_PATTERNS:
+            return {
+                "answer": "I'm the WorkBC Career Advisor! I can help you: \n\n"
+                          "* **Learn about career** - duties, salary, education requirements\n"
+                          "* **Search for jobs** - by title, employer, or city\n"
+                          "* **Compare careers** - side by side with salary data\n\n"
+                          "Try asking: *\"What does a nurse do?\"* or *\"Find nursing jobs in Vancouver\"*",
+                "career_answer": "",
+                "jobs": [],
+                "total": 0,
+                "page": 1,
+                "has_more": False,
+                "session_id": session_id,
+            }
 
         try:
             raw_history = r.get(redis_key)
