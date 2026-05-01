@@ -382,7 +382,7 @@ def detect_chunk_types(user_query: str) -> list[str]:
         return ["Education"]
 
     # General questions — Overview gives the best broad answer
-    return ["Overview"]
+    return ["Overview", "Duties"]
 
 def strip_html(text: str) -> str:
     if not text:
@@ -1068,8 +1068,9 @@ async def ask_career_bot(request: QueryRequest):
             "say: 'I don\'t have that information in WorkBC records.' "
             "Do NOT say 'based on general knowledge'. "
             "Do NOT answer from general knowledge.\n"
-            "7. LENGTH: Never start a table or list you cannot complete within a short response. "
-            "Keep answers to 5-6 bullet points maximum.\n"
+            "7. LENGTH: For single-career questions, provide a thorough answer with up to 8 bullet points. "
+            "For comparisons, keep it to a table only. "
+            "Never start a table or list you cannot complete.\n"
             "Summarize in bullet points if the response would be too long.\n"
             "8. NO HALLUCINATION: Only mention job titles, NOC codes, salaries and URLs "
             "that appear explicitly in the Context. "
