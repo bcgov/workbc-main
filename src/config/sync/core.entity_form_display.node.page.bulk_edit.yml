@@ -8,6 +8,8 @@ dependencies:
     - field.field.node.page.field_content
     - field.field.node.page.field_content_group
     - field.field.node.page.field_hero_image
+    - field.field.node.page.field_hero_image_full_small
+    - field.field.node.page.field_hero_image_full_wide
     - field.field.node.page.field_hero_image_full_width
     - field.field.node.page.field_hero_image_media
     - field.field.node.page.field_hero_text
@@ -46,6 +48,8 @@ hidden:
   created: true
   field_content: true
   field_hero_image: true
+  field_hero_image_full_small: true
+  field_hero_image_full_wide: true
   field_hero_image_full_width: true
   field_hero_image_media: true
   field_hero_text: true

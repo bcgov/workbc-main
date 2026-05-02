@@ -1,8 +1,16 @@
+{% set hero_image_fullwidth_small = content.field_hero_image_full_small[0] %}
+{% set hero_image_fullwidth_wide = content.field_hero_image_full_wide[0] %}
 <div class="hero-banner hero-fullwidth-banner">
   <div class="hero-image-wrapper">
     {{ hero_image_fullwidth }}
   </div>
-  <div class="hero-content-container container-lg">
+  <div class="hero-image-wrapper-small">
+    {{ hero_image_fullwidth_small }}
+  </div>
+  <div class="hero-image-wrapper-wide">
+    {{ hero_image_fullwidth_wide }}
+  </div>
+  <div class="hero-content-container container-sm">
     <div class="hero-content-wrapper">
       <h1 class="hero-title">
         {{ title }}

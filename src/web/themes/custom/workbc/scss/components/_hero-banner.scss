@@ -124,13 +124,9 @@
 }
 
 .hero-fullwidth-banner {
-  .hero-image-wrapper {
+  .hero-image-wrapper, .hero-image-wrapper-small, .hero-image-wrapper-wide {
     &:before {
       background: none;
-    }
-
-    @include media-breakpoint-down(sm) {
-      min-height: $workbc_hero_xs_image_height;
     }
 
     @include media-breakpoint-up(sm) {
@@ -140,7 +136,6 @@
       right: 0;
       z-index: 0;
       width: 100%;
-      overflow: auto;
 
       &:before {
         content: "";
@@ -166,6 +161,44 @@
     }
   }
 
+  .hero-image-wrapper {
+    @include media-breakpoint-down(sm) {
+      min-height: $workbc_hero_xs_image_height;
+    }
+    @include media-breakpoint-between(sm, xl) {
+      display: initial;
+    }
+    @include media-breakpoint-up(xl) {
+      display: none;
+    }
+  }
+
+  .hero-image-wrapper-wide {
+    display: none;
+  }
+
+  .hero-image-wrapper-small {
+    display: none;
+  }
+
+  .hero-content-container {
+    @include media-breakpoint-up(sm) {
+      max-width: 600px;
+    }
+    @include media-breakpoint-up(md) {
+      max-width: 760px;
+    }
+    @include media-breakpoint-up(lg) {
+      max-width: 1000px;
+    }
+    @include media-breakpoint-up(xl) {
+      max-width: 1180px;
+    }
+    @include media-breakpoint-up(xxl) {
+      max-width: 1360px;
+    }
+  }
+
   @include media-breakpoint-up(sm) {
     .hero-content-container {
       padding: 0;
@@ -173,7 +206,8 @@
     }
 
     .hero-content-wrapper {
-      background: rgba(0, 0, 0, .5);
+      width: 50%;
+      background: rgba(0, 0, 0, .7);
       color: white;
       padding: 40px;
       min-height: inherit;

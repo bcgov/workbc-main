@@ -10,8 +10,8 @@ id: node.page.field_hero_image_full_width
 field_name: field_hero_image_full_width
 entity_type: node
 bundle: page
-label: 'Hero Image (Full-Width)'
-description: 'Hero image, full-width version. If present, it replaces the earlier Hero Image (Faded).'
+label: 'Hero Image (Full-Width, Tablet/Desktop)'
+description: 'Hero image, full-width version for tablet/desktop. If present, it replaces the earlier <strong>Hero Image (Faded)</strong>.'
 required: false
 translatable: false
 default_value: {  }
