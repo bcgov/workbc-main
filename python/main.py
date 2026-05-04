@@ -733,20 +733,22 @@ async def get_career_answer(
         print(f"DEBUG: Passing history to rewriter (entries: {len(history_for_rewriter)})")
 
         rewrite_prompt = (
-            f"Recent conversation history (may or may not be relevant):\n"
+            f"Recent conversation history (oldest to newest):\n"
             f"{history_for_rewriter if history_for_rewriter else 'None'}\n\n"
             f"Current user query: {user_query}\n\n"
             "TASK: Identify the EXACT career or job titles the user wants information about right now.\n\n"
             "RULES:\n"
             "1. If the current query names specific careers, use ONLY those careers. "
             "Ignore the history — the user is asking a new question.\n"
-            "2. If the current query uses pronouns ('those', 'they', 'it', 'each', 'them'), "
-            "refers back to previous topics ('what about salary', 'how do they compare', "
-            "'tell me more', 'and the education?'), or is incomplete without context — "
-            "resolve to the careers from the recent history.\n"
-            "3. If the current query has no relation to the history, output only what the "
+            "2. If the current query uses pronouns ('those', 'they', 'it', 'each', 'them') "
+            "or refers back ('what about salary', 'tell me more', 'and the education?') — "
+            "resolve to the MOST RECENT career discussed in history. "
+            "Do NOT include older careers from earlier in the conversation.\n"
+            "3. ONLY include multiple careers if the user uses words like 'both', "
+            "'these two', 'all of them', or explicitly compares them.\n"
+            "4. If the current query has no relation to the history, output only what the "
             "current query asks about.\n\n"
-            "Output ONLY the career titles, comma separated. No explanation. No preamble."
+            "Output ONLY the career titles, comma separated. No explanation. No preamble." 
         )
 
         try:
