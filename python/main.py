@@ -729,7 +729,7 @@ async def get_career_answer(
         print(f"DEBUG: Comparison query — skipping rewriter")
     else:
         # Always pass history to rewriter and let the LLM decide what to do with it
-        history_for_rewriter = sanitized_history[-4:] if sanitized_history else []
+        history_for_rewriter = sanitized_history[-2:] if sanitized_history else []
         print(f"DEBUG: Passing history to rewriter (entries: {len(history_for_rewriter)})")
 
         rewrite_prompt = (
@@ -872,7 +872,7 @@ async def get_career_answer(
 
     # Always pass recent history to the answer LLM so it can resolve
     # references like "those two careers" naturally
-    history_window = sanitized_history[-4:] if sanitized_history else []
+    history_window = sanitized_history[-2:] if sanitized_history else []
     while history_window and history_window[0]["role"] != "user":
         history_window.pop(0)
 
