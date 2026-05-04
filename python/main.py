@@ -887,7 +887,7 @@ async def get_career_answer(
     try:
         ##is_comparison = any(w in user_query.lower() for w in
         ##    ["compare", "difference", "versus", "vs", "between"])
-        tokens_for_request = 800 if is_comparison else MAX_TOKENS
+        tokens_for_request = 1000 if is_comparison else MAX_TOKENS
 
         completion    = vllm_client.chat.completions.create(
             model=MODEL_NAME,
@@ -1053,7 +1053,10 @@ async def ask_career_bot(request: QueryRequest):
             "CRITICAL RULES — never violate these:\n"
             "1. CONTEXT ONLY: Use ONLY the information provided below to answer. "
             "Read the provided data carefully before responding. "
-            "NEVER say 'no context was provided' or 'based on the context' — "
+            "NEVER start your response with phrases like 'Based on the context', "
+            "'According to the data', 'Here is a comparison of', or any preamble. "
+            "Start your response directly with the answer — for comparisons, start "
+            "directly with the markdown table.\n"
             "just answer naturally as if you already know the information.\n"
             "2. IDENTITY CHECK: Only describe the exact job the user asked for. "
             "If the provided data contains related but different careers, ignore them. "
