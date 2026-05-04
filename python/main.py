@@ -720,30 +720,33 @@ async def get_career_answer(
     sanitized_history: list,
     system_rules: str,
 ) -> tuple[str, str]:
-    follow_up = is_follow_up_query(user_query)
     is_comparison = any(w in user_query.lower() for w in
         ["compare", "difference", "versus", "vs", "between"])
 
     if is_comparison:
+        # Comparisons are always self-contained — skip rewriter
         search_term = user_query
         print(f"DEBUG: Comparison query — skipping rewriter")
-    elif follow_up:
-        history_for_rewriter = sanitized_history[-2:]
-        print(f"DEBUG: Follow-up detected — passing history to rewriter")
     else:
-        history_for_rewriter = []
-        print(f"DEBUG: New career query — history withheld from rewriter")
+        # Always pass history to rewriter and let the LLM decide what to do with it
+        history_for_rewriter = sanitized_history[-4:] if sanitized_history else []
+        print(f"DEBUG: Passing history to rewriter (entries: {len(history_for_rewriter)})")
 
-    if not is_comparison:
         rewrite_prompt = (
-            f"Current User Query: {user_query}\n"
-            f"Last 2 Chat Messages: {history_for_rewriter}\n\n"
-            "TASK: Identify the EXACT job titles the user is asking about NOW. "
-            "If this is a follow-up question (e.g. 'what is the difference', "
-            "'compare with', 'how does it compare', 'what about', 'what is the salary'), "
-            "include BOTH the current job AND the job from the previous message. "
-            "If the user is asking a completely NEW question, IGNORE the history. "
-            "Output ONLY the job titles, comma separated. No explanation. No preamble."
+            f"Recent conversation history (may or may not be relevant):\n"
+            f"{history_for_rewriter if history_for_rewriter else 'None'}\n\n"
+            f"Current user query: {user_query}\n\n"
+            "TASK: Identify the EXACT career or job titles the user wants information about right now.\n\n"
+            "RULES:\n"
+            "1. If the current query names specific careers, use ONLY those careers. "
+            "Ignore the history — the user is asking a new question.\n"
+            "2. If the current query uses pronouns ('those', 'they', 'it', 'each', 'them'), "
+            "refers back to previous topics ('what about salary', 'how do they compare', "
+            "'tell me more', 'and the education?'), or is incomplete without context — "
+            "resolve to the careers from the recent history.\n"
+            "3. If the current query has no relation to the history, output only what the "
+            "current query asks about.\n\n"
+            "Output ONLY the career titles, comma separated. No explanation. No preamble."
         )
 
         try:
@@ -758,16 +761,19 @@ async def get_career_answer(
                 l for l in lines
                 if len(l) > 0
                 and len(l) < 80
-                and "Based on"      not in l
-                and "Therefore"     not in l
-                and "current query" not in l.lower()
-                and "if this"       not in l.lower()
-                and "follow-up"     not in l.lower()
-                and "job title"     not in l.lower()
+                and "Based on"       not in l
+                and "Therefore"      not in l
+                and "current query"  not in l.lower()
+                and "if this"        not in l.lower()
+                and "follow-up"      not in l.lower()
+                and "job title"      not in l.lower()
+                and "history"        not in l.lower()
             ]
             search_term = ", ".join(filtered_lines) if filtered_lines else user_query
 
-            if looks_like_question(search_term) and follow_up:
+            # Safety net: if rewriter returned a question instead of job titles,
+            # fall back to most recent user query from history
+            if looks_like_question(search_term):
                 for msg in reversed(sanitized_history):
                     if msg["role"] == "user" and msg["content"].strip() != user_query.strip():
                         search_term = msg["content"]
@@ -778,7 +784,7 @@ async def get_career_answer(
             print(f"DEBUG: Rewriter failed, falling back to raw query: {e}")
             search_term = user_query
 
-        print(f"DEBUG: Final Search Term for Chroma: {search_term}")
+    print(f"DEBUG: Final Search Term for Chroma: {search_term}")
     
 
     loop        = asyncio.get_event_loop()
@@ -862,12 +868,11 @@ async def get_career_answer(
 
     print(f"DEBUG CONTEXT SENT TO LLM:\n{top_context[:600]}")
 
-    if follow_up:
-        history_window = sanitized_history[-2:]
-        while history_window and history_window[0]["role"] != "user":
-            history_window.pop(0)
-    else:
-        history_window = []
+    # Always pass recent history to the answer LLM so it can resolve
+    # references like "those two careers" naturally
+    history_window = sanitized_history[-4:] if sanitized_history else []
+    while history_window and history_window[0]["role"] != "user":
+        history_window.pop(0)
 
     current_user_content = f"Context:\n{top_context}\n\nQuestion: {user_query}"
     final_messages = [
