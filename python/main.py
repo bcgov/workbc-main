@@ -109,6 +109,60 @@ CITY_PROVINCE_SUFFIXES = [
     ", NL", ", Newfoundland", ", PEI", ", Prince Edward Island", ", Canada",
 ]
 
+# NOC 2021 major groups for category filtering
+# First 2 digits of NOC code identify the broad occupational category
+NOC_CATEGORY_PREFIXES = {
+    "trades": {
+        "prefixes": ["72", "73", "75"],
+        "label": "trades",
+        "description": "Construction, electrical, mechanical, and skilled trades"
+    },
+    "health": {
+        "prefixes": ["31", "32", "33"],
+        "label": "healthcare",
+        "description": "Nursing, medical, allied health, and care occupations"
+    },
+    "tech": {
+        "prefixes": ["21", "22"],
+        "label": "technology and science",
+        "description": "Software, engineering, scientific occupations"
+    },
+    "education": {
+        "prefixes": ["41", "42", "43"],
+        "label": "education and social services",
+        "description": "Teachers, social workers, education assistants"
+    },
+    "business": {
+        "prefixes": ["11", "12", "13", "14"],
+        "label": "business and administration",
+        "description": "Finance, HR, administration, business services"
+    },
+    "sales_service": {
+        "prefixes": ["62", "63", "64", "65"],
+        "label": "sales and service",
+        "description": "Retail, food service, customer service, hospitality"
+    },
+    "labour": {
+        "prefixes": ["95"],
+        "label": "manufacturing and labour",
+        "description": "Processing, manufacturing, general labour"
+    },
+}
+
+
+CATEGORY_PATTERNS = {
+    "trades": ["trade", "trades", "trade job", "trades job", "construction job",
+               "skilled trade", "skilled trades"],
+    "health": ["health", "healthcare", "health care", "medical", "nursing job",
+               "health job"],
+    "tech": ["tech", "technology", "software", "it job", "tech job",
+             "engineering job", "computer"],
+    "education": ["education job", "teaching job", "social work"],
+    "business": ["business job", "administrative", "office job", "finance job"],
+    "sales_service": ["retail", "hospitality", "service job", "food service"],
+    "labour": ["labour", "labor", "manufacturing", "warehouse"],
+}
+
 
 
 # Abbreviations and casual names that do NOT appear as substrings
@@ -413,19 +467,43 @@ HIRING_TRENDS_PATTERNS = [
 ]
 
 
-def get_top_hiring_careers(limit: int = 10) -> tuple[list, int]:
+def get_top_hiring_careers(limit: int = 10, category: str = None) -> tuple[list, int, str]:
     """
-    Aggregate active job postings by NOC code.
-    Returns (results, total) where results is a list of
-    {noc, title, url, count} dicts sorted by count descending.
+    Aggregate active job postings by NOC code, optionally filtered by category.
+
+    Returns:
+        results: [{noc, title, url, count}, ...] sorted by count desc
+        total: total postings considered
+        category_label: human-readable category name or None
     """
+    filter_clauses = [{"range": {"ExpireDate": {"gte": "now"}}}]
+
+    category_label = None
+    if category and category in NOC_CATEGORY_PREFIXES:
+        cat_info = NOC_CATEGORY_PREFIXES[category]
+        category_label = cat_info["label"]
+
+        # NOC stored as float — build numeric ranges per prefix
+        # e.g. prefix "72" matches NOCs 72000.0 - 72999.0
+        prefix_ranges = []
+        for prefix in cat_info["prefixes"]:
+            lower = float(prefix + "000")
+            upper = float(prefix + "999")
+            prefix_ranges.append({
+                "range": {
+                    "Noc2021": {"gte": lower, "lte": upper}
+                }
+            })
+
+        filter_clauses.append({
+            "bool": {"should": prefix_ranges, "minimum_should_match": 1}
+        })
+
     os_query = {
         "size": 0,
         "track_total_hits": True,
         "query": {
-            "bool": {
-                "filter": [{"range": {"ExpireDate": {"gte": "now"}}}]
-            }
+            "bool": {"filter": filter_clauses}
         },
         "aggs": {
             "by_noc": {
@@ -438,14 +516,13 @@ def get_top_hiring_careers(limit: int = 10) -> tuple[list, int]:
         },
     }
 
-    print(f"DEBUG: Top hiring aggregation query: {json.dumps(os_query)}")
+    print(f"DEBUG: Top hiring query (category={category}): {json.dumps(os_query)}")
     response = os_client.search(index="jobs_en", body=os_query)
     total = response["hits"]["total"]["value"]
     buckets = response["aggregations"]["by_noc"]["buckets"]
 
     results = []
     for bucket in buckets:
-        # NOC is stored as float — convert to int then string for lookup
         noc_str = str(int(bucket["key"]))
         career_info = NOC_TITLE_MAP.get(noc_str, {})
         results.append({
@@ -456,24 +533,29 @@ def get_top_hiring_careers(limit: int = 10) -> tuple[list, int]:
         })
 
     print(f"DEBUG: Top hiring results: {[(r['title'], r['count']) for r in results]}")
-    return results, total
+    return results, total, category_label
 
 
-def format_top_hiring_chart(results: list, total: int) -> str:
+def format_top_hiring_chart(results: list, total: int, category_label: str = None) -> str:
     """Render top hiring careers as a markdown bar chart."""
     if not results:
-        return "I couldn't find any active job postings to analyze right now."
+        scope = f" in {category_label}" if category_label else ""
+        return f"I couldn't find any active job postings{scope} right now."
 
     max_count = max(r["count"] for r in results)
     max_bar = 20
 
-    lines = [f"**Top {len(results)} careers hiring in BC right now** "
-             f"(out of {total:,} active postings):\n"]
-    lines.append("```")
+    if category_label:
+        header = (f"**Top {len(results)} {category_label} careers hiring in BC** "
+                  f"(out of {total:,} active postings):\n")
+    else:
+        header = (f"**Top {len(results)} careers hiring in BC right now** "
+                  f"(out of {total:,} active postings):\n")
+
+    lines = [header, "```"]
     for r in results:
         bar_len = max(1, int((r["count"] / max_count) * max_bar))
         bar = "█" * bar_len
-        # Truncate long titles to keep alignment readable
         title_short = r["title"][:35] + "…" if len(r["title"]) > 36 else r["title"]
         lines.append(f"{title_short:<37} {bar} {r['count']}")
     lines.append("```")
@@ -1163,12 +1245,19 @@ async def ask_career_bot(request: QueryRequest):
 
         # Handle "what is hiring" / "top careers" trend questions
         if any(pattern in normalized for pattern in HIRING_TRENDS_PATTERNS):
+            # Detect category from query (trades, health, tech, etc.)
+            detected_category = None
+            for cat_key, cat_patterns in CATEGORY_PATTERNS.items():
+                if any(p in normalized for p in cat_patterns):
+                    detected_category = cat_key
+                    break
+
             loop = asyncio.get_event_loop()
             try:
-                results, total = await loop.run_in_executor(
-                    None, partial(get_top_hiring_careers, 10)
+                results, total, category_label = await loop.run_in_executor(
+                    None, partial(get_top_hiring_careers, 10, detected_category)
                 )
-                answer = format_top_hiring_chart(results, total)
+                answer = format_top_hiring_chart(results, total, category_label)
             except Exception as e:
                 print(f"ERROR: Top hiring aggregation failed: {e}")
                 answer = (
