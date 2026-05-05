@@ -15,6 +15,9 @@ from opensearchpy import OpenSearch
 from openai import OpenAI
 import uvicorn
 
+# NOC code → career title/URL lookup, populated at startup
+NOC_TITLE_MAP = {}
+
 # ---------------------------------------------------------------------------
 # 1. CONFIGURATION
 # ---------------------------------------------------------------------------
@@ -218,6 +221,26 @@ class QueryRequest(BaseModel):
 # 5. HELPERS
 # ---------------------------------------------------------------------------
 
+def build_noc_title_map():
+    """Build NOC → title/url lookup from ChromaDB metadata at startup."""
+    global NOC_TITLE_MAP
+    try:
+        all_data = collection.get(include=["metadatas"])
+        for meta in all_data.get("metadatas", []):
+            noc = meta.get("noc_code")
+            title = meta.get("job_title")
+            url = meta.get("url")
+            if noc and title and noc not in NOC_TITLE_MAP:
+                NOC_TITLE_MAP[str(noc)] = {
+                    "title": title,
+                    "url": url,
+                }
+        print(f"DEBUG: Built NOC title map with {len(NOC_TITLE_MAP)} entries")
+    except Exception as e:
+        print(f"WARN: Failed to build NOC map: {e}")
+
+build_noc_title_map()
+
 def search_jobs_by_city(params: dict, cities: list) -> tuple[dict, int]:
     """Returns job counts per city using OpenSearch aggregation."""
     must_clauses   = []
@@ -377,6 +400,84 @@ def format_city_bar_chart(city_counts: dict, total: int, keyword: str) -> str:
         lines.append(f"{city:<22} {bar} {count}")
     lines.append("```")
 
+    return "\n".join(lines)
+
+HIRING_TRENDS_PATTERNS = [
+    "what's hiring", "what is hiring", "whats hiring",
+    "most in demand", "in demand jobs", "in demand careers",
+    "hiring most", "hot jobs", "trending careers",
+    "most jobs", "most openings", "which career has most",
+    "top hiring", "top careers hiring", "most hired",
+    "what careers are hiring", "what jobs are hiring",
+    "top jobs", "top careers",
+]
+
+
+def get_top_hiring_careers(limit: int = 10) -> tuple[list, int]:
+    """
+    Aggregate active job postings by NOC code.
+    Returns (results, total) where results is a list of
+    {noc, title, url, count} dicts sorted by count descending.
+    """
+    os_query = {
+        "size": 0,
+        "query": {
+            "bool": {
+                "filter": [{"range": {"ExpireDate": {"gte": "now"}}}]
+            }
+        },
+        "aggs": {
+            "by_noc": {
+                "terms": {
+                    "field": "Noc2021",
+                    "size":  limit,
+                    "order": {"_count": "desc"},
+                }
+            }
+        },
+    }
+
+    print(f"DEBUG: Top hiring aggregation query: {json.dumps(os_query)}")
+    response = os_client.search(index="jobs_en", body=os_query)
+    total = response["hits"]["total"]["value"]
+    buckets = response["aggregations"]["by_noc"]["buckets"]
+
+    results = []
+    for bucket in buckets:
+        # NOC is stored as float — convert to int then string for lookup
+        noc_str = str(int(bucket["key"]))
+        career_info = NOC_TITLE_MAP.get(noc_str, {})
+        results.append({
+            "noc":   noc_str,
+            "title": career_info.get("title", f"NOC {noc_str}"),
+            "url":   career_info.get("url"),
+            "count": bucket["doc_count"],
+        })
+
+    print(f"DEBUG: Top hiring results: {[(r['title'], r['count']) for r in results]}")
+    return results, total
+
+
+def format_top_hiring_chart(results: list, total: int) -> str:
+    """Render top hiring careers as a markdown bar chart."""
+    if not results:
+        return "I couldn't find any active job postings to analyze right now."
+
+    max_count = max(r["count"] for r in results)
+    max_bar = 20
+
+    lines = [f"**Top {len(results)} careers hiring in BC right now** "
+             f"(out of {total:,} active postings):\n"]
+    lines.append("```")
+    for r in results:
+        bar_len = max(1, int((r["count"] / max_count) * max_bar))
+        bar = "█" * bar_len
+        # Truncate long titles to keep alignment readable
+        title_short = r["title"][:35] + "…" if len(r["title"]) > 36 else r["title"]
+        lines.append(f"{title_short:<37} {bar} {r['count']}")
+    lines.append("```")
+    lines.append("\n*Counts reflect current open job postings on WorkBC. "
+                 "Ask about any of these careers to learn more.*")
     return "\n".join(lines)
 
 def detect_chunk_types(user_query: str) -> list[str]:
@@ -1054,7 +1155,37 @@ async def ask_career_bot(request: QueryRequest):
                 "has_more": False,
                 "session_id": session_id,
             }
-        
+        if any(pattern in normalized for pattern in DISCOVERY_PATTERNS):
+            return {
+                # ... existing discovery response ...
+            }
+
+        # Handle "what is hiring" / "top careers" trend questions
+        if any(pattern in normalized for pattern in HIRING_TRENDS_PATTERNS):
+            loop = asyncio.get_event_loop()
+            try:
+                results, total = await loop.run_in_executor(
+                    None, partial(get_top_hiring_careers, 10)
+                )
+                answer = format_top_hiring_chart(results, total)
+            except Exception as e:
+                print(f"ERROR: Top hiring aggregation failed: {e}")
+                answer = (
+                    "I couldn't retrieve hiring trends right now. "
+                    "Try asking for jobs in a specific field, or visit "
+                    "[WorkBC's Labour Market Information]"
+                    "(https://www.workbc.ca/labour-market-information)."
+                )
+            return {
+                "answer":        answer,
+                "career_answer": "",
+                "jobs":          [],
+                "total":         0,
+                "page":          1,
+                "has_more":      False,
+                "session_id":    session_id,
+            }
+
 
         try:
             raw_history = r.get(redis_key)
