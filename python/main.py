@@ -421,6 +421,7 @@ def get_top_hiring_careers(limit: int = 10) -> tuple[list, int]:
     """
     os_query = {
         "size": 0,
+        "track_total_hits": True,
         "query": {
             "bool": {
                 "filter": [{"range": {"ExpireDate": {"gte": "now"}}}]
