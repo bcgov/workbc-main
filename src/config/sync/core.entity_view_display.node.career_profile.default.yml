@@ -14,6 +14,8 @@ dependencies:
     - field.field.node.career_profile.field_education_training_skills
     - field.field.node.career_profile.field_epbc_categories
     - field.field.node.career_profile.field_hero_image
+    - field.field.node.career_profile.field_hero_image_full_small
+    - field.field.node.career_profile.field_hero_image_full_wide
     - field.field.node.career_profile.field_hero_image_full_width
     - field.field.node.career_profile.field_hero_image_media
     - field.field.node.career_profile.field_hourly_salary
@@ -464,14 +466,32 @@ content:
     third_party_settings: {  }
     weight: 19
     region: content
+  field_hero_image_full_small:
+    type: entity_reference_entity_view
+    label: above
+    settings:
+      view_mode: full
+      link: false
+    third_party_settings: {  }
+    weight: 26
+    region: content
+  field_hero_image_full_wide:
+    type: entity_reference_entity_view
+    label: above
+    settings:
+      view_mode: full
+      link: false
+    third_party_settings: {  }
+    weight: 25
+    region: content
   field_hero_image_full_width:
     type: entity_reference_entity_view
     label: above
     settings:
-      view_mode: default
+      view_mode: full
       link: false
     third_party_settings: {  }
-    weight: 25
+    weight: 24
     region: content
   field_hero_image_media:
     type: entity_reference_entity_view
@@ -491,7 +511,7 @@ content:
       scale: 2
       prefix_suffix: true
     third_party_settings: {  }
-    weight: 25
+    weight: 27
     region: content
   field_insights_from_industry:
     type: text_default
@@ -538,7 +558,7 @@ content:
     settings:
       link: true
     third_party_settings: {  }
-    weight: 26
+    weight: 28
     region: content
   field_region_hoo:
     type: number_integer
@@ -588,7 +608,7 @@ content:
     settings:
       link: true
     third_party_settings: {  }
-    weight: 78
+    weight: 29
     region: content
   field_teer:
     type: list_default

@@ -4,13 +4,6 @@
   border-bottom: $workbc_trim_ultra_thin_size solid
     $workbc_palette_dark_secondary;
   background-color: $workbc_light_theme_background_accent;
-
-  @include media-breakpoint-up(xl) {
-    min-height: $workbc_hero_xxl_container_height;
-  }
-  @include media-breakpoint-between(sm, xl) {
-    min-height: $workbc_hero_container_height;
-  }
 }
 
 .hero-content-container {
@@ -71,6 +64,10 @@
 }
 
 .hero-faded-banner {
+  @include media-breakpoint-up(lg) {
+    min-height: $workbc_hero_container_height;
+  }
+
   .hero-image-wrapper {
     @include media-breakpoint-up(lg) {
       position: absolute;
@@ -124,6 +121,13 @@
 }
 
 .hero-fullwidth-banner {
+  @include media-breakpoint-up(xl) {
+    min-height: $workbc_hero_xxl_container_height;
+  }
+  @include media-breakpoint-between(sm, xl) {
+    min-height: $workbc_hero_lg_container_height;
+  }
+
   .hero-image-wrapper, .hero-image-wrapper-small, .hero-image-wrapper-wide {
     &:before {
       background: none;
@@ -155,15 +159,15 @@
       object-position: center;
 
       @include media-breakpoint-up(sm) {
-        z-index: 1;
         height: 100%;
+        width: 100%;
       }
     }
   }
 
   .hero-image-wrapper {
     @include media-breakpoint-down(sm) {
-      min-height: $workbc_hero_xs_image_height;
+      display: none;
     }
     @include media-breakpoint-between(sm, xl) {
       display: initial;
@@ -174,11 +178,27 @@
   }
 
   .hero-image-wrapper-wide {
-    display: none;
+    @include media-breakpoint-down(sm) {
+      display: none;
+    }
+    @include media-breakpoint-between(sm, xl) {
+      display: none;
+    }
+    @include media-breakpoint-up(xl) {
+      display: initial;
+    }
   }
 
   .hero-image-wrapper-small {
-    display: none;
+    @include media-breakpoint-down(sm) {
+      display: initial;
+    }
+    @include media-breakpoint-between(sm, xl) {
+      display: none;
+    }
+    @include media-breakpoint-up(xl) {
+      display: none;
+    }
   }
 
   .hero-content-container {

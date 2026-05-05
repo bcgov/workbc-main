@@ -1,9 +1,9 @@
-uuid: 2c86365f-72e3-4d2d-9e4f-9c931dd5130a
+uuid: 02e55831-04f1-47fe-9448-40099350ace1
 langcode: en
 status: true
 dependencies:
   config:
-    - core.entity_view_mode.node.career_profile_search_index
+    - core.entity_view_mode.node.jobboard
     - field.field.node.career_profile.field_annual_salary
     - field.field.node.career_profile.field_career_overview
     - field.field.node.career_profile.field_career_pathways
@@ -40,27 +40,74 @@ dependencies:
     - field.field.node.career_profile.field_teer
     - field.field.node.career_profile.field_work_environment
     - node.type.career_profile
-id: node.career_profile.career_profile_search_index
+  module:
+    - user
+id: node.career_profile.jobboard
 targetEntityType: node
 bundle: career_profile
-mode: career_profile_search_index
+mode: jobboard
 content:
-  extra_field_search_index_job_titles:
+  content_moderation_control:
+    settings: {  }
+    third_party_settings: {  }
+    weight: -20
+    region: content
+  created:
+    type: timestamp
+    label: hidden
+    settings:
+      date_format: medium
+      custom_date_format: ''
+      timezone: ''
+      tooltip:
+        date_format: long
+        custom_date_format: ''
+      time_diff:
+        enabled: false
+        future_format: '@interval hence'
+        past_format: '@interval ago'
+        granularity: 2
+        refresh: 60
+    third_party_settings: {  }
+    weight: 0
+    region: content
+  field_hero_image_full_small:
+    type: entity_reference_entity_view
+    label: above
+    settings:
+      view_mode: full
+      link: false
+    third_party_settings: {  }
+    weight: 10
+    region: content
+  field_hero_image_full_wide:
+    type: entity_reference_entity_view
+    label: above
+    settings:
+      view_mode: full
+      link: false
+    third_party_settings: {  }
+    weight: 9
+    region: content
+  links:
+    settings: {  }
+    third_party_settings: {  }
+    weight: 100
+    region: content
+  uid:
+    type: author
+    label: hidden
     settings: {  }
     third_party_settings: {  }
     weight: 0
     region: content
 hidden:
-  content_moderation_control: true
-  created: true
   extra_field_annual_salary: true
   extra_field_annual_salary_source: true
   extra_field_career_employment_introduction: true
   extra_field_career_trek_profile_skills: true
-  extra_field_career_videos_introduction: true
   extra_field_education_programs: true
   extra_field_employment_growth_rate_forecast: true
-  extra_field_employment_introduction: true
   extra_field_episode_title: true
   extra_field_high_opportunity_occupation: true
   extra_field_industry_highlights_intro: true
@@ -99,6 +146,7 @@ hidden:
   extra_field_salary_info_hourly_rate: true
   extra_field_salary_info_source: true
   extra_field_salary_introduction: true
+  extra_field_search_index_job_titles: true
   extra_field_search_index_noc: true
   extra_field_skills_introduction: true
   extra_field_work_environment_number_employed: true
@@ -117,8 +165,6 @@ hidden:
   field_education_training_skills: true
   field_epbc_categories: true
   field_hero_image: true
-  field_hero_image_full_small: true
-  field_hero_image_full_wide: true
   field_hero_image_full_width: true
   field_hero_image_media: true
   field_hourly_salary: true
@@ -142,6 +188,4 @@ hidden:
   field_teer: true
   field_work_environment: true
   langcode: true
-  links: true
   search_api_excerpt: true
-  uid: true

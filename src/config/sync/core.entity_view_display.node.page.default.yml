@@ -61,7 +61,7 @@ content:
     type: entity_reference_entity_view
     label: above
     settings:
-      view_mode: default
+      view_mode: full
       link: false
     third_party_settings: {  }
     weight: 26
@@ -70,7 +70,7 @@ content:
     type: entity_reference_entity_view
     label: above
     settings:
-      view_mode: default
+      view_mode: full
       link: false
     third_party_settings: {  }
     weight: 27
@@ -79,7 +79,7 @@ content:
     type: entity_reference_entity_view
     label: above
     settings:
-      view_mode: default
+      view_mode: full
       link: false
     third_party_settings: {  }
     weight: 25

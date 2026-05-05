@@ -106,6 +106,9 @@
   },
   hero: {
     image: content.field_hero_image_media[0],
+    image_fullwidth: content.field_hero_image_full_width[0],
+    image_fullwidth_small: content.field_hero_image_full_small[0] | default(content.field_hero_image_full_width[0]),
+    image_fullwidth_wide: content.field_hero_image_full_wide[0] | default(content.field_hero_image_full_width[0]),
     title: label,
     description: null,
     noc: content.field_noc[0],
@@ -229,14 +232,35 @@
 
 <div class="profile-header">
 
-  {% if viewmodel['hero']['image'] or viewmodel['hero']['description'] %}
-    <div class="profile-header-banner hero-banner hero-banner-profile">
+{% if viewmodel['hero']['image'] or viewmodel['hero']['image_fullwidth'] or viewmodel['hero']['description'] %}
 
+    {%
+      set hero_classes = [
+        'profile-header-banner',
+        'hero-banner',
+        'hero-banner-profile',
+        viewmodel['hero']['image_fullwidth'] ? 'hero-fullwidth-banner' : 'hero-faded-banner'
+      ]
+    %}
+    <div{{ create_attribute({'class': hero_classes}) }}>
+
+      {% if viewmodel['hero']['image_fullwidth'] %}
+      <div class="hero-image-wrapper">
+        {{ viewmodel['hero']['image_fullwidth'] }}
+      </div>
+      <div class="hero-image-wrapper-small">
+        {{ viewmodel['hero']['image_fullwidth_small'] }}
+      </div>
+      <div class="hero-image-wrapper-wide">
+        {{ viewmodel['hero']['image_fullwidth_wide'] }}
+      </div>
+      {% else %}
       <div class="hero-image-wrapper">
         {{ viewmodel['hero']['image'] }}
       </div>
+      {% endif %}
 
-      <div class="hero-content-container container-lg">
+      <div class="hero-content-container container-sm">
         <div class="hero-content-wrapper">
           <div class="hero-title">
             <h1>{{ viewmodel['hero']['title'] }}</h1>
@@ -258,7 +282,7 @@
       </div>
 
     </div>
-  {% endif %}
+{% endif %}
 
 </div>
 

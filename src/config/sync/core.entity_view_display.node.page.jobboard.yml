@@ -80,8 +80,8 @@ content:
     type: entity_reference_entity_view
     label: above
     settings:
-      view_mode: default
-      link: true
+      view_mode: full
+      link: false
     third_party_settings: {  }
     weight: 10
     region: content
@@ -89,8 +89,8 @@ content:
     type: entity_reference_entity_view
     label: above
     settings:
-      view_mode: default
-      link: true
+      view_mode: full
+      link: false
     third_party_settings: {  }
     weight: 9
     region: content
@@ -98,7 +98,7 @@ content:
     type: entity_reference_entity_view
     label: above
     settings:
-      view_mode: default
+      view_mode: full
       link: false
     third_party_settings: {  }
     weight: 8
