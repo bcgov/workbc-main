@@ -898,7 +898,28 @@ async def get_career_answer(
     while history_window and history_window[0]["role"] != "user":
         history_window.pop(0)
 
-    current_user_content = f"Context:\n{top_context}\n\nQuestion: {user_query}"
+    # Extract the exact career titles available in the context
+    available_careers = []
+    seen_titles = set()
+    for chunk in truncated_chunks:
+        first_line = chunk.split('\n')[0]  # "JOB: Title (NOC: XXXXX)"
+        if first_line.startswith("JOB:") and first_line not in seen_titles:
+            seen_titles.add(first_line)
+            available_careers.append(first_line.replace("JOB: ", ""))
+    careers_list = "\n- ".join(available_careers)
+
+    current_user_content = (
+        f"WorkBC career data:\n{top_context}\n\n"
+        f"IMPORTANT: The ONLY careers available in WorkBC data for this query are:\n"
+        f"- {careers_list}\n\n"
+        f"You may ONLY mention these exact careers and their NOC codes/salaries/URLs from above. "
+        f"Do NOT mention any career not in this list. "
+        f"Do NOT invent NOC codes — WorkBC NOC codes are always 5 digits. "
+        f"If the user asks about a career not in the list, use the closest match and explicitly state "
+        f"'WorkBC does not have a specific profile for that term'.\n\n"
+        f"Question: {user_query}"
+    )
+
     final_messages = [
         {"role": "user",      "content": system_rules},
         {"role": "assistant", "content": "Understood. I will follow these guidelines strictly."},
@@ -907,8 +928,6 @@ async def get_career_answer(
     ]
 
     try:
-        ##is_comparison = any(w in user_query.lower() for w in
-        ##    ["compare", "difference", "versus", "vs", "between"])
         tokens_for_request = 1000 if is_comparison else MAX_TOKENS
 
         completion    = vllm_client.chat.completions.create(
@@ -925,6 +944,31 @@ async def get_career_answer(
                 "_Response was truncated due to length. "
                 "Try asking a more specific question for complete information._"
             )
+
+        # Validation: detect hallucinated NOC codes
+        response_nocs = set(re.findall(r'NOC[:\s]+(\d+)', answer, re.IGNORECASE))
+        context_nocs  = set(re.findall(r'NOC:\s*(\d+)', top_context))
+        hallucinated  = response_nocs - context_nocs
+
+        if hallucinated:
+            print(f"WARNING: Hallucinated NOC codes detected: {hallucinated}")
+            print(f"DEBUG: Response NOCs: {response_nocs} | Context NOCs: {context_nocs}")
+
+            if available_careers:
+                careers_bullets = "\n".join(f"- **{career}**" for career in available_careers[:3])
+                answer = (
+                    f"WorkBC does not have a specific profile for that career. "
+                    f"The closest related careers in WorkBC's database are:\n\n"
+                    f"{careers_bullets}\n\n"
+                    f"Would you like to know more about any of these?"
+                )
+            else:
+                answer = (
+                    "I don't have that specific career in WorkBC records. "
+                    "Try searching for a related career or browse [WorkBC career profiles]"
+                    f"({WORKBC_BASE_URL}/career-profiles) directly."
+                )
+
     except Exception as e:
         raise HTTPException(status_code=502, detail=f"LLM inference error: {str(e)}")
 
