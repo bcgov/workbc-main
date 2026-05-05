@@ -295,6 +295,23 @@ def build_noc_title_map():
 
 build_noc_title_map()
 
+def is_hiring_trends_query(normalized: str) -> bool:
+    """
+    Detect hiring trend queries via two strategies:
+    1. Explicit phrase patterns (e.g. "what's hiring")
+    2. Prefix + suffix pattern (e.g. "top trade jobs", "best tech careers")
+    """
+    if any(pattern in normalized for pattern in HIRING_TRENDS_PATTERNS):
+        return True
+
+    # Match "top|best|most ... jobs|careers|hiring|openings"
+    starts_with_prefix = any(normalized.startswith(p + " ") for p in HIRING_PREFIX_WORDS)
+    has_suffix = any(s in normalized for s in HIRING_SUFFIX_WORDS)
+    if starts_with_prefix and has_suffix:
+        return True
+
+    return False
+
 def search_jobs_by_city(params: dict, cities: list) -> tuple[dict, int]:
     """Returns job counts per city using OpenSearch aggregation."""
     must_clauses   = []
@@ -460,11 +477,13 @@ HIRING_TRENDS_PATTERNS = [
     "what's hiring", "what is hiring", "whats hiring",
     "most in demand", "in demand jobs", "in demand careers",
     "hiring most", "hot jobs", "trending careers",
-    "most jobs", "most openings", "which career has most",
-    "top hiring", "top careers hiring", "most hired",
+    "most openings", "which career has most",
+    "top hiring", "most hired",
     "what careers are hiring", "what jobs are hiring",
-    "top jobs", "top careers",
 ]
+
+HIRING_PREFIX_WORDS = ["top", "best", "most"]
+HIRING_SUFFIX_WORDS = [" jobs", " careers", " hiring", " openings", " roles", " positions"]
 
 
 def get_top_hiring_careers(limit: int = 10, category: str = None) -> tuple[list, int, str]:
@@ -1244,7 +1263,7 @@ async def ask_career_bot(request: QueryRequest):
             }
 
         # Handle "what is hiring" / "top careers" trend questions
-        if any(pattern in normalized for pattern in HIRING_TRENDS_PATTERNS):
+        if is_hiring_trends_query(normalized):
             # Detect category from query (trades, health, tech, etc.)
             detected_category = None
             for cat_key, cat_patterns in CATEGORY_PATTERNS.items():
