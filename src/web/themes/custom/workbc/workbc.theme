@@ -247,6 +247,16 @@ function workbc_preprocess_page(&$variables) {
 }
 
 /**
+ * Implements hook_theme_preprocess_image().
+ */
+function workbc_preprocess_image(&$variables) {
+  if (is_null($variables['style_name'])) {
+    unset($variables['attributes']['width']);
+    unset($variables['attributes']['height']);
+  }
+}
+
+/**
  * Implements hook_theme_preprocess_node().
  */
 function workbc_preprocess_node(&$variables) {
