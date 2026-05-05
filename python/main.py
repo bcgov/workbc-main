@@ -1020,6 +1020,41 @@ async def ask_career_bot(request: QueryRequest):
                 "has_more": False,
                 "session_id": session_id,
             }
+        # Handle career discovery / exploration queries — redirect to quiz
+        DISCOVERY_PATTERNS = [
+            "what career should i", "what job should i", "which career should i",
+            "which job should i", "what should i be", "what career is right",
+            "what career fits", "what job fits", "help me choose a career",
+            "help me find a career", "help me pick a career",
+            "what career suits me", "what job suits me",
+            "i don't know what career", "i dont know what career",
+            "i don't know what to do", "i dont know what to do",
+            "career advice", "career guidance", "career suggestions",
+            "what are my options", "career options",
+            "what kind of career", "what type of career",
+        ]
+
+        if any(pattern in normalized for pattern in DISCOVERY_PATTERNS):
+            return {
+                "answer": (
+                    "Choosing the right career is a personal journey — I can help you "
+                    "explore specific careers, but I'm not able to recommend a career path "
+                    "based on your interests or skills.\n\n"
+                    "**WorkBC has a free Career Discovery Quiz** that matches your interests, "
+                    "skills, and values to careers that might be a good fit:\n\n"
+                    "👉 [**Take the Career Discovery Quiz**](http://careerdiscoveryquizzes.workbc.ca/)\n\n"
+                    "Once you have some career ideas, come back and ask me about them — "
+                    "I can tell you about duties, salary, education requirements, and "
+                    "show you current job openings."
+                ),
+                "career_answer": "",
+                "jobs": [],
+                "total": 0,
+                "page": 1,
+                "has_more": False,
+                "session_id": session_id,
+            }
+        
 
         try:
             raw_history = r.get(redis_key)
