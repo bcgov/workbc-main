@@ -74,7 +74,27 @@ OTHER_COUNTRIES = {
     "CANADA",
 }
 
-OUT_OF_SCOPE_LOCATIONS = OTHER_CANADIAN_PROVINCES | US_STATES | OTHER_COUNTRIES
+NON_BC_CITIES = {
+    # Canadian cities outside BC
+    "TORONTO", "MONTREAL", "CALGARY", "EDMONTON", "OTTAWA",
+    "WINNIPEG", "HALIFAX", "SASKATOON", "REGINA", "HAMILTON",
+    "LONDON", "KITCHENER", "WATERLOO", "WINDSOR", "QUEBEC CITY",
+    "MISSISSAUGA", "BRAMPTON", "MARKHAM", "VAUGHAN", "OSHAWA",
+    "GATINEAU", "LAVAL", "LONGUEUIL", "SHERBROOKE", "TROIS-RIVIÈRES",
+    "BARRIE", "GUELPH", "KINGSTON", "ST. CATHARINES", "OAKVILLE",
+    "BURLINGTON", "RICHMOND HILL", "SUDBURY", "THUNDER BAY",
+    "RED DEER", "LETHBRIDGE", "MEDICINE HAT", "FORT MCMURRAY",
+    "GRANDE PRAIRIE", "SHERWOOD PARK", "ST. JOHN'S", "MONCTON",
+    "FREDERICTON", "CHARLOTTETOWN", "WHITEHORSE", "YELLOWKNIFE",
+
+    # Major US cities
+    "SEATTLE", "PORTLAND", "SAN FRANCISCO", "LOS ANGELES",
+    "NEW YORK CITY", "CHICAGO", "BOSTON", "DENVER", "MIAMI",
+    "DALLAS", "HOUSTON", "PHOENIX", "ATLANTA", "PHILADELPHIA",
+    "SAN DIEGO", "MINNEAPOLIS", "DETROIT", "WASHINGTON DC",
+}
+
+OUT_OF_SCOPE_LOCATIONS = OTHER_CANADIAN_PROVINCES | US_STATES | OTHER_COUNTRIES | NON_BC_CITIES
 
 DATE_SORT_KEYWORDS = {"latest", "recent", "newest", "new", "today", "this week"}
 
@@ -85,6 +105,8 @@ CITY_PROVINCE_SUFFIXES = [
     ", NS", ", Nova Scotia", ", NB", ", New Brunswick",
     ", NL", ", Newfoundland", ", PEI", ", Prince Edward Island", ", Canada",
 ]
+
+
 
 # Abbreviations and casual names that do NOT appear as substrings
 # in the actual EmployerName stored in OpenSearch.
@@ -993,6 +1015,12 @@ async def ask_career_bot(request: QueryRequest):
             "Query: 'tell me about plumbers and show me jobs' -> both\n\n"
             "Query: 'electrical jobs in surrey, vancouver, richmond' -> job_search, keywords=electrical, city=Surrey,Vancouver,Richmond\n"
             "Query: 'nursing jobs in kelowna and kamloops' -> job_search, keywords=nursing, city=Kelowna,Kamloops\n"
+            "Query: 'jobs in Toronto' -> job_search, keywords=null, city=Ontario\n"
+            "Query: 'nursing jobs in Calgary' -> job_search, keywords=nursing, city=Alberta\n"
+            "Query: 'jobs in Montreal' -> job_search, keywords=null, city=Quebec\n"
+            "Query: 'developer jobs in Seattle' -> job_search, keywords=developer, city=Washington\n"
+            "Query: 'show me jobs in Edmonton' -> job_search, keywords=null, city=Alberta\n"
+            "Query: 'engineering jobs in San Francisco' -> job_search, keywords=engineering, city=California\n"
             "OUTPUT FORMAT:\n"
             "{\n"
             '  "intent": "job_search" or "career_info" or "both",\n'
