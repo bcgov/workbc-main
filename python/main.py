@@ -987,10 +987,26 @@ async def ask_career_bot(request: QueryRequest):
 
         if user_query.strip() == "__load_more__":
             return await handle_load_more(session_id)
-        # Handle greetings and help request - No LLM requested needed
-        GREETING_PATTERNS = {"hello","hi","hey","help", "what can you do", "what do you do", "who are you"}
 
-        if user_query.lower().strip().rstrip("?!.") in GREETING_PATTERNS:
+        # Handle greetings and help requests - no LLM call needed
+        GREETING_PATTERNS = {"hello", "hi", "hey", "help", "hola", "yo"}
+
+        # Phrases that indicate the user is asking about the bot itself
+        BOT_INTRO_PATTERNS = [
+            "what can you do", "what do you do", "what you do", "what can u do",
+            "who are you", "who r u", "what are you", "what r u",
+            "how do you work", "how does this work", "what is this",
+            "tell me what you do", "what do you help with",
+            "what can you help", "how can you help",
+        ]
+
+        normalized = user_query.lower().strip().rstrip("?!.,")
+        is_greeting = (
+            normalized in GREETING_PATTERNS or
+            any(pattern in normalized for pattern in BOT_INTRO_PATTERNS)
+        )
+
+        if is_greeting:
             return {
                 "answer": "I'm the WorkBC Career Advisor! I can help you: \n\n"
                           "* **Learn about career** - duties, salary, education requirements\n"
