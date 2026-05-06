@@ -271,6 +271,9 @@ class QueryRequest(BaseModel):
     prompt: str
     session_id: str
 
+class ClearSessionRequest(BaseModel):
+    session_id: str
+
 # ---------------------------------------------------------------------------
 # 5. HELPERS
 # ---------------------------------------------------------------------------
@@ -1531,6 +1534,19 @@ async def ask_career_bot(request: QueryRequest):
         traceback.print_exc()
         raise HTTPException(status_code=500, detail=f"Internal Server Error: {str(e)}")
 
+#---------------------------------------------------------------------------
+#clear session of chat
+#---------------------------------------------------------------------------
+
+@app.post("/api/clear_session")
+async def clear_session(request: ClearSessionRequest):
+    """Delete conversation history and stored params for a session."""
+    try:
+        r.delete(f"chat_history:{request.session_id}")
+        r.delete(f"job_search_params:{request.session_id}")
+        return {"status": "cleared"}
+    except Exception as e:
+        raise HTTPException(status_code=500, detail=str(e))
 
 # ---------------------------------------------------------------------------
 # 7. HEALTH CHECK
