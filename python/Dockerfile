@@ -26,7 +26,9 @@ RUN pip install --upgrade pip && pip install --no-cache-dir \
     sentence-transformers \
     redis \
     opensearch-py \
-    boto3
+    boto3 \
+    psycopg2-binary
+
     
 RUN python -c "from sentence_transformers import SentenceTransformer; SentenceTransformer('BAAI/bge-base-en-v1.5')"
 
