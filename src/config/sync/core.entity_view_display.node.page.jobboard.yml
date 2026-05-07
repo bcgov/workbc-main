@@ -16,6 +16,7 @@ dependencies:
     - field.field.node.page.field_language
     - field.field.node.page.field_metatag_description
     - field.field.node.page.field_multilingual_centre
+    - field.field.node.page.field_navigation_blurb
     - field.field.node.page.field_page_format
     - field.field.node.page.field_related_topics
     - field.field.node.page.field_related_topics_blurb
@@ -155,6 +156,7 @@ hidden:
   field_language: true
   field_metatag_description: true
   field_multilingual_centre: true
+  field_navigation_blurb: true
   field_page_format: true
   field_related_topics: true
   field_related_topics_image: true

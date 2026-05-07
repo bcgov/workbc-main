@@ -1,0 +1,19 @@
+uuid: 784f4b02-d31b-4106-a8ca-08a5f2f3d06c
+langcode: en
+status: true
+dependencies:
+  config:
+    - field.storage.node.field_navigation_blurb
+    - node.type.page
+id: node.page.field_navigation_blurb
+field_name: field_navigation_blurb
+entity_type: node
+bundle: page
+label: 'Navigation Blurb'
+description: 'Blurb that appears in Main Navigation menu. Only applies to L2 pages.'
+required: false
+translatable: false
+default_value: {  }
+default_value_callback: ''
+settings: {  }
+field_type: string_long

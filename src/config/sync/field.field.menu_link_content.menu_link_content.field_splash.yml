@@ -1,0 +1,23 @@
+uuid: fcafcc52-c3c3-4316-83ce-ceb2666ed97a
+langcode: en
+status: true
+dependencies:
+  config:
+    - field.storage.menu_link_content.field_splash
+  module:
+    - menu_link_content
+    - text
+    - menu_item_fields
+id: menu_link_content.menu_link_content.field_splash
+field_name: field_splash
+entity_type: menu_link_content
+bundle: menu_link_content
+label: 'Popular/Quick Links'
+description: "Rich text content that appears in the right-hand area of the Main Navigation menu. Only applies to L1 menu items.\r\n"
+required: false
+translatable: false
+default_value: {  }
+default_value_callback: ''
+settings:
+  allowed_formats: {  }
+field_type: text_long

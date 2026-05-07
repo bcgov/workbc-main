@@ -7,7 +7,7 @@ dependencies:
 id: industry_profile
 label: 'Industry Profile'
 type: 'canonical_entities:node'
-pattern: 'industry-profile/[node:title]'
+pattern: '/industry-profile/[node:title]'
 selection_criteria:
   51f88382-e215-4996-ae14-1eeb34b32a9b:
     id: 'entity_bundle:node'

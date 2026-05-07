@@ -64,25 +64,26 @@ class MenuBlock extends BlockBase {
   }
 
   private function getBlurb(NodeInterface $node) {
-    if ($node->hasField('field_related_topics_blurb') && !empty($node->get('field_related_topics_blurb')->value)) {
+    if ($node->hasField('field_navigation_blurb') && !empty($node->get('field_navigation_blurb')->value)) {
+      return strip_tags($node->get('field_navigation_blurb')->value);
+    }
+    else if ($node->hasField('field_related_topics_blurb') && !empty($node->get('field_related_topics_blurb')->value)) {
       return strip_tags($node->get('field_related_topics_blurb')->value);
     }
     else if ($node->hasField('field_hero_text') && !empty($node->get('field_hero_text')->value)) {
       return strip_tags($node->get('field_hero_text')->value);
     }
-    else {
-      if ($node->hasField('body')) {
-        if (!empty($node->get('body')->summary)){
-          return $node->get('body')->summary;
-        }
-        else {
-          if (!empty($node->get('body')->value)) {
-            $text = strip_tags($node->get('body')->value);
-            $config = $this->getConfiguration();
-            $trim = isset($config['trimmed_limit']) ? $config['trimmed_limit'] : 150;
-            $text = \Drupal\Component\Utility\Unicode::truncate($text, $trim, TRUE, TRUE);
-            return $text;
-          }
+    else if ($node->hasField('body')) {
+      if (!empty($node->get('body')->summary)){
+        return $node->get('body')->summary;
+      }
+      else {
+        if (!empty($node->get('body')->value)) {
+          $text = strip_tags($node->get('body')->value);
+          $config = $this->getConfiguration();
+          $trim = isset($config['trimmed_limit']) ? $config['trimmed_limit'] : 150;
+          $text = \Drupal\Component\Utility\Unicode::truncate($text, $trim, TRUE, TRUE);
+          return $text;
         }
       }
     }
@@ -127,13 +128,9 @@ class MenuBlock extends BlockBase {
         }
         $output .= "</div>\n";
 
-        $splash = <<<EOT
-          <div class="col-sm-4 megamenu-splash">
-          SPLASH
-          </div>
-        EOT;
-        $output .= $splash;
-        $output .= "</div></div>";
+        $output .= "<div class=\"col-sm-4 megamenu-splash\">\n";
+        $output .= $item->link->getEntity()->get('field_splash')->value;
+        $output .= "</div></div></div>\n";
       }
       $output .= "</li>\n";
     }
