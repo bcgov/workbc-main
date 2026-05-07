@@ -173,6 +173,256 @@ CATEGORY_PATTERNS = {
     "labour": ["labour", "labor", "manufacturing", "warehouse"],
 }
 
+# Career-to-comparison map — only careers with well-known peers get a "compare" suggestion
+# Keys are lowercase keywords found in the career title
+COMPARISON_SUGGESTIONS = {
+    # Healthcare — Nursing
+    "registered nurse":          "Compare registered nurse and licensed practical nurse",
+    "registered psychiatric":    "Compare registered nurse and licensed practical nurse",
+    "licensed practical nurse":  "Compare registered nurse and licensed practical nurse",
+    "nurse practitioner":        "Compare nurse practitioner and registered nurse",
+    "nurse aide":                "Compare nurse aide and licensed practical nurse",
+    "nursing coordinator":       "Compare nursing coordinator and registered nurse",
+
+    # Healthcare — Pharmacy
+    "pharmacist":                "Compare pharmacist and pharmacy technician",
+    "pharmacy technician":       "Compare pharmacist and pharmacy technician",
+    "pharmacy assistant":        "Compare pharmacy technician and pharmacy assistant",
+
+    # Healthcare — Dental
+    "dental hygienist":          "Compare dental hygienist and dental assistant",
+    "dental assistant":          "Compare dental hygienist and dental assistant",
+    "denturist":                 "Compare denturist and dental technologist",
+    "dental technologist":       "Compare dental hygienist and dental technologist",
+
+    # Healthcare — Therapy
+    "physiotherapist":           "Compare physiotherapist and occupational therapist",
+    "occupational therapist":    "Compare physiotherapist and occupational therapist",
+    "massage therapist":         "Compare massage therapist and physiotherapist",
+    "chiropractor":              "Compare chiropractor and physiotherapist",
+    "kinesiologist":             "Compare kinesiologist and physiotherapist",
+
+    # Healthcare — Vision
+    "optometrist":               "Compare optometrist and optician",
+    "optician":                  "Compare optometrist and optician",
+
+    # Healthcare — Other
+    "general practitioner":      "Compare general practitioner and nurse practitioner",
+    "family physician":          "Compare family physician and nurse practitioner",
+    "specialists surgery":       "Compare surgeon and general practitioner",
+    "specialists clinical":      "Compare specialist physician and general practitioner",
+    "veterinarian":              "Compare veterinarian and animal health technologist",
+    "animal health":             "Compare veterinarian and animal health technologist",
+    "midwives":                  "Compare midwife and registered nurse",
+    "audiologist":               "Compare audiologist and speech language pathologist",
+    "speech language":           "Compare audiologist and speech language pathologist",
+    "respiratory therapist":     "Compare respiratory therapist and registered nurse",
+    "medical radiation":         "Compare medical radiation technologist and medical sonographer",
+    "medical sonographer":       "Compare medical sonographer and medical radiation technologist",
+    "paramedical":               "Compare paramedic and firefighter",
+    "dietitian":                 "Compare dietitian and nutritionist",
+
+    # Trades — Electrical
+    "electrician":               "Compare electrician and industrial electrician",
+    "industrial electrician":    "Compare electrician and industrial electrician",
+    "power system electrician":  "Compare power system electrician and industrial electrician",
+    "electrical mechanic":       "Compare electrical mechanic and electrician",
+    "electrical power line":     "Compare electrical power line worker and electrician",
+
+    # Trades — Plumbing/Piping
+    "plumber":                   "Compare plumber and steamfitter",
+    "steamfitter":               "Compare plumber and steamfitter",
+    "pipefitter":                "Compare plumber and steamfitter",
+    "gas fitter":                "Compare gas fitter and plumber",
+
+    # Trades — Carpentry/Construction
+    "carpenter":                 "Compare carpenter and cabinetmaker",
+    "cabinetmaker":              "Compare carpenter and cabinetmaker",
+    "bricklayer":                "Compare bricklayer and carpenter",
+    "roofer":                    "Compare roofer and carpenter",
+    "tilesetter":                "Compare tilesetter and carpenter",
+    "drywall":                   "Compare drywall installer and carpenter",
+    "plasterer":                 "Compare plasterer and drywall installer",
+    "concrete finisher":         "Compare concrete finisher and bricklayer",
+    "floor covering":            "Compare floor covering installer and carpenter",
+    "ironworker":                "Compare ironworker and welder",
+    "construction trades helper": "Compare construction trades helper and carpenter",
+    "glazier":                   "Compare glazier and carpenter",
+    "insulator":                 "Compare insulator and roofer",
+    "sheet metal worker":        "Compare sheet metal worker and ironworker",
+
+    # Trades — Mechanical
+    "welder":                    "Compare welder and steamfitter",
+    "machinist":                 "Compare machinist and tool and die maker",
+    "tool and die":              "Compare tool and die maker and machinist",
+    "millwright":                "Compare construction millwright and industrial mechanic",
+    "industrial mechanic":       "Compare construction millwright and industrial mechanic",
+    "automotive service":        "Compare automotive service technician and heavy duty equipment mechanic",
+    "heavy duty equipment":      "Compare heavy duty equipment mechanic and automotive service technician",
+    "auto body":                 "Compare auto body technician and automotive service technician",
+    "heating refrigeration":     "Compare HVAC mechanic and electrician",
+    "boilermaker":               "Compare boilermaker and welder",
+    "elevator":                  "Compare elevator constructor and electrician",
+    "aircraft mechanic":         "Compare aircraft mechanic and aircraft assembler",
+    "appliance servicer":        "Compare appliance servicer and HVAC mechanic",
+    "crane operator":            "Compare crane operator and heavy equipment operator",
+    "heavy equipment operator":  "Compare heavy equipment operator and crane operator",
+
+    # Public Safety
+    "firefighter":               "Compare firefighter and paramedic",
+    "police officer":            "Compare police officer and firefighter",
+    "commissioned police":       "Compare police officer and commissioned police officer",
+    "correctional service":      "Compare correctional service officer and police officer",
+    "sheriff":                   "Compare sheriff and correctional service officer",
+    "bailiff":                   "Compare sheriff and bailiff",
+    "border services":           "Compare border services officer and police officer",
+    "security guard":            "Compare security guard and police officer",
+    "fire chief":                "Compare fire chief and firefighter",
+    "police investigator":       "Compare police investigator and police officer",
+
+    # Education
+    "elementary school":         "Compare elementary and secondary school teacher",
+    "kindergarten":              "Compare elementary and secondary school teacher",
+    "secondary school teacher":  "Compare elementary and secondary school teacher",
+    "teacher assistant":         "Compare teacher and teacher assistant",
+    "early childhood educator":  "Compare early childhood educator and elementary school teacher",
+    "college and other vocational": "Compare college instructor and university professor",
+    "university professor":      "Compare university professor and college instructor",
+    "school principal":          "Compare school principal and teacher",
+    "educational counsellor":    "Compare educational counsellor and career development practitioner",
+    "career development":        "Compare career development practitioner and educational counsellor",
+
+    # Tech
+    "software engineer":         "Compare software engineer and software developer",
+    "software developer":        "Compare software developer and web developer",
+    "web developer":             "Compare web developer and web designer",
+    "web designer":              "Compare web designer and graphic designer",
+    "computer systems developer": "Compare computer systems developer and software developer",
+    "data scientist":            "Compare data scientist and database analyst",
+    "database analyst":          "Compare database analyst and data scientist",
+    "cybersecurity":             "Compare cybersecurity specialist and information systems specialist",
+    "information systems specialist": "Compare information systems specialist and database analyst",
+    "computer engineer":         "Compare computer engineer and software engineer",
+    "user support technician":   "Compare user support technician and computer network technician",
+    "computer network":          "Compare computer network technician and user support technician",
+    "business system specialist": "Compare business system specialist and information systems specialist",
+
+    # Finance/Business
+    "financial auditor":         "Compare financial auditor and accounting technician",
+    "accountant":                "Compare accountant and bookkeeper",
+    "accounting technician":     "Compare accountant and bookkeeper",
+    "bookkeeper":                "Compare accountant and bookkeeper",
+    "financial advisor":         "Compare financial advisor and financial investment analyst",
+    "financial and investment":  "Compare financial advisor and financial investment analyst",
+    "securities agent":          "Compare securities agent and financial advisor",
+    "insurance agent":           "Compare insurance agent and insurance adjuster",
+    "insurance adjuster":        "Compare insurance agent and insurance adjuster",
+    "insurance underwriter":     "Compare insurance underwriter and insurance agent",
+    "real estate agent":         "Compare real estate agent and insurance agent",
+    "economist":                 "Compare economist and financial analyst",
+    "human resources professional": "Compare human resources professional and human resources manager",
+
+    # Engineering
+    "civil engineer":            "Compare civil engineer and civil engineering technologist",
+    "mechanical engineer":       "Compare mechanical engineer and mechanical engineering technologist",
+    "electrical and electronics engineer": "Compare electrical engineer and electrical engineering technologist",
+    "aerospace engineer":        "Compare aerospace engineer and mechanical engineer",
+    "chemical engineer":         "Compare chemical engineer and petroleum engineer",
+    "petroleum engineer":        "Compare petroleum engineer and chemical engineer",
+    "mining engineer":           "Compare mining engineer and geological engineer",
+    "geological engineer":       "Compare geological engineer and mining engineer",
+    "metallurgical":             "Compare metallurgical engineer and chemical engineer",
+    "industrial and manufacturing engineer": "Compare industrial engineer and mechanical engineer",
+    "engineering inspector":     "Compare engineering inspector and construction inspector",
+    "construction inspector":    "Compare construction inspector and engineering inspector",
+
+    # Social Services
+    "social worker":             "Compare social worker and community service worker",
+    "social and community":      "Compare social worker and community service worker",
+    "psychologist":              "Compare psychologist and therapist",
+    "therapists counselling":    "Compare therapist and psychologist",
+    "probation and parole":      "Compare probation officer and correctional service officer",
+
+    # Food Service
+    "chef":                      "Compare chef and cook",
+    "cook":                      "Compare chef and cook",
+    "baker":                     "Compare baker and chef",
+    "restaurant and food service manager": "Compare restaurant manager and food service supervisor",
+    "food service supervisor":   "Compare restaurant manager and food service supervisor",
+    "butcher":                   "Compare butcher and meat cutter",
+    "meat cutter":               "Compare butcher and meat cutter",
+    "bartender":                 "Compare bartender and food and beverage server",
+    "food and beverage server":  "Compare food server and bartender",
+
+    # Creative/Media
+    "graphic designer":          "Compare graphic designer and web designer",
+    "interior designer":         "Compare interior designer and graphic designer",
+    "industrial designer":       "Compare industrial designer and graphic designer",
+    "photographer":              "Compare photographer and film camera operator",
+    "film and video camera":     "Compare film camera operator and photographer",
+    "author":                    "Compare author and journalist",
+    "journalist":                "Compare journalist and editor",
+    "editor":                    "Compare editor and journalist",
+    "technical writer":          "Compare technical writer and author",
+    "translator":                "Compare translator and editor",
+    "broadcast technician":      "Compare broadcast technician and audio video technician",
+    "audio and video":           "Compare audio video technician and broadcast technician",
+    "musicians and singers":     "Compare musician and announcer",
+    "announcers":                "Compare announcer and broadcast technician",
+
+    # Transportation
+    "transport truck driver":    "Compare transport truck driver and bus driver",
+    "bus driver":                "Compare bus driver and taxi driver",
+    "taxi":                      "Compare taxi driver and bus driver",
+    "delivery service driver":   "Compare delivery driver and transport truck driver",
+    "air pilot":                 "Compare air pilot and air traffic controller",
+    "air traffic controller":    "Compare air traffic controller and air pilot",
+    "deck officer":              "Compare deck officer and engineer officer water transport",
+    "railway and yard locomotive": "Compare locomotive engineer and railway conductor",
+    "railway conductor":         "Compare railway conductor and locomotive engineer",
+    "pursers and flight":        "Compare flight attendant and travel counsellor",
+    "airline ticket":            "Compare airline ticket agent and travel counsellor",
+    "travel counsellor":         "Compare travel counsellor and airline ticket agent",
+    "tour and travel":           "Compare tour guide and travel counsellor",
+
+    # Sales/Customer Service
+    "retail salesperson":        "Compare retail salesperson and retail sales supervisor",
+    "retail sales supervisor":   "Compare retail sales supervisor and retail manager",
+    "retail and wholesale trade manager": "Compare retail manager and retail sales supervisor",
+    "cashier":                   "Compare cashier and retail salesperson",
+    "technical sales":           "Compare technical sales specialist and retail salesperson",
+
+    # Office/Admin
+    "administrative officer":    "Compare administrative officer and executive assistant",
+    "executive assistant":       "Compare executive assistant and administrative assistant",
+    "medical administrative":    "Compare medical administrative assistant and administrative assistant",
+    "legal administrative":      "Compare legal administrative assistant and paralegal",
+    "data entry clerk":          "Compare data entry clerk and administrative assistant",
+    "receptionist":              "Compare receptionist and administrative assistant",
+
+    # Personal Services
+    "hairstylist":               "Compare hairstylist and esthetician",
+    "esthetician":                "Compare esthetician and hairstylist",
+    "funeral director":          "Compare funeral director and embalmer",
+
+    # Other notable
+    "lawyer":                    "Compare lawyer and paralegal",
+    "paralegal":                 "Compare lawyer and paralegal",
+    "judge":                     "Compare judge and lawyer",
+    "architect":                 "Compare architect and architectural technologist",
+    "landscape architect":       "Compare landscape architect and architect",
+    "urban and land use":        "Compare urban planner and architect",
+    "biologist":                 "Compare biologist and chemist",
+    "chemist":                   "Compare chemist and biologist",
+    "geoscientist":              "Compare geoscientist and geological engineer",
+    "physicist":                 "Compare physicist and astronomer",
+    "mathematician":             "Compare mathematician and statistician",
+    "land surveyor":             "Compare land surveyor and land survey technologist",
+    "librarian":                 "Compare librarian and library technician",
+    "archivist":                 "Compare archivist and librarian",
+}
+
+
 
 
 # Abbreviations and casual names that do NOT appear as substrings
@@ -1412,18 +1662,33 @@ def generate_suggestions(intent: str, user_query: str, answer: str = "",
         if career_short and career_short != "this career":
             suggestions.append(f"Find {career_short.lower()} jobs")
 
-        # If we have fewer than 3, add useful generic suggestions
-        if len(suggestions) < 3:
-            extra_options = [
-                "Compare with related careers",
-                "Top hiring careers in BC",
-                "What other careers are similar?",
-            ]
-            for opt in extra_options:
-                if opt not in suggestions:
-                    suggestions.append(opt)
-                if len(suggestions) >= 3:
+        # Look up a known comparison for this career
+        comparison_suggestion = None
+        if career_title:
+            career_lower = career_title.lower()
+            for keyword, suggestion in COMPARISON_SUGGESTIONS.items():
+                if keyword in career_lower:
+                    comparison_suggestion = suggestion
                     break
+
+        # If we have fewer than 3, add useful suggestions
+        if len(suggestions) < 3:
+            extra_options = []
+
+            if comparison_suggestion:
+                extra_options.append(comparison_suggestion)
+
+            if career_short and career_short != "this career":
+                extra_options.extend([
+                    f"Is {career_short.lower()} in demand?",
+                    f"What skills do I need for {career_short.lower()}?",
+                ])
+
+            extra_options.append("Top hiring careers in BC")
+
+            for opt in extra_options:
+                if opt not in suggestions and len(suggestions) < 3:
+                    suggestions.append(opt)
 
         return suggestions[:3]
     
