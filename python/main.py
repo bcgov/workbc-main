@@ -4,6 +4,8 @@ import json
 import asyncio
 import traceback
 from functools import partial
+import psycopg2
+from psycopg2.extras import RealDictCursor
 
 import redis
 import chromadb
@@ -31,6 +33,14 @@ OPENSEARCH_SERVER = os.getenv("ConnectionStrings__ElasticSearchServer", "localho
 OPENSEARCH_USER   = os.getenv("IndexSettings__ElasticUser", "")
 OPENSEARCH_PASS   = os.getenv("IndexSettings__ElasticPassword", "")
 WORKBC_BASE_URL   = os.getenv("WORKBC_BASE_URL", "https://www.workbc.ca").rstrip("/")
+
+# PostgreSQL connection for Career Trek videos
+POSTGRES_HOST     = os.getenv("POSTGRES_HOST")
+POSTGRES_PORT     = int(os.getenv("POSTGRES_PORT", "5432"))
+POSTGRES_DB       = os.getenv("POSTGRES_DB")
+POSTGRES_USER     = os.getenv("POSTGRES_USER")
+POSTGRES_PASSWORD = os.getenv("POSTGRES_PASSWORD")
+
 
 MAX_TOKENS = 800
 PAGE_SIZE  = 5
@@ -278,6 +288,36 @@ class ClearSessionRequest(BaseModel):
 # 5. HELPERS
 # ---------------------------------------------------------------------------
 
+def format_video_section(noc: str) -> str:
+    """Return a markdown video section for a given NOC, or empty string if none."""
+    videos = VIDEO_MAP.get(str(noc), [])
+    if not videos:
+        return ""
+
+    lines = ["\n\n🎥 **Watch a real BC professional at work:**\n"]
+    for v in videos[:2]:  # Cap at 2 videos to keep response concise
+        episode_label = f"Episode {v['episode_num']}: {v['episode_title']}"
+        location_label = f"{v['location']}, {v['region']}" if v.get('location') else ""
+
+        lines.append(
+            f"- [{episode_label}]({v['youtube_link']})"
+            + (f" — *{location_label}*" if location_label else "")
+        )
+
+        if v.get("description"):
+            desc = v["description"][:200]
+            if len(v["description"]) > 200:
+                desc += "…"
+            lines.append(f"  *{desc}*")
+
+    return "\n".join(lines)
+
+def extract_primary_noc_from_answer(answer: str) -> str | None:
+    """Extract the primary NOC code mentioned in a career_info response."""
+    matches = re.findall(r'NOC[:\s]+(\d{5})', answer, re.IGNORECASE)
+    return matches[0] if matches else None
+
+
 def build_noc_title_map():
     """Build NOC → title/url lookup from ChromaDB metadata at startup."""
     global NOC_TITLE_MAP
@@ -297,6 +337,78 @@ def build_noc_title_map():
         print(f"WARN: Failed to build NOC map: {e}")
 
 build_noc_title_map()
+
+VIDEO_MAP = {}
+
+def build_video_map():
+    """Load Career Trek videos from PostgreSQL at startup or refresh."""
+    global VIDEO_MAP
+
+    if not POSTGRES_HOST:
+        print("WARN: POSTGRES_HOST not configured — Career Trek videos disabled")
+        return
+
+    new_map = {}
+    conn = None
+    try:
+        conn = psycopg2.connect(
+            host=POSTGRES_HOST,
+            port=POSTGRES_PORT,
+            dbname=POSTGRES_DB,
+            user=POSTGRES_USER,
+            password=POSTGRES_PASSWORD,
+            connect_timeout=5,
+        )
+
+        with conn.cursor(cursor_factory=RealDictCursor) as cur:
+            cur.execute("""
+                SELECT
+                    episode_num,
+                    episode_title,
+                    noc_2021,
+                    title_2021,
+                    youtube_link,
+                    location,
+                    region,
+                    description
+                FROM career_trek
+                WHERE noc_2021 IS NOT NULL
+                  AND youtube_link IS NOT NULL
+                ORDER BY episode_num DESC
+            """)
+
+            for row in cur.fetchall():
+                noc = str(row["noc_2021"]).strip()
+                if not noc:
+                    continue
+
+                video_entry = {
+                    "episode_num":   str(row["episode_num"] or "").strip(),
+                    "episode_title": (row["episode_title"] or "").strip(),
+                    "title_2021":    (row["title_2021"] or "").strip(),
+                    "youtube_link":  (row["youtube_link"] or "").strip(),
+                    "location":      (row["location"] or "").strip(),
+                    "region":        (row["region"] or "").strip(),
+                    "description":   (row["description"] or "").strip(),
+                }
+                new_map.setdefault(noc, []).append(video_entry)
+
+        # Atomic swap — only replace if successful
+        VIDEO_MAP = new_map
+        total_videos = sum(len(v) for v in VIDEO_MAP.values())
+        print(f"DEBUG: Built video map from PostgreSQL — "
+              f"{len(VIDEO_MAP)} NOC codes covered, {total_videos} total videos")
+
+    except psycopg2.Error as e:
+        print(f"WARN: PostgreSQL error loading videos: {e}")
+    except Exception as e:
+        print(f"WARN: Failed to load Career Trek videos: {e}")
+    finally:
+        if conn:
+            conn.close()
+
+# Call at startup
+build_video_map()
 
 def is_hiring_trends_query(normalized: str) -> bool:
     """
@@ -1160,6 +1272,7 @@ async def get_career_answer(
             print(f"WARNING: Hallucinated NOC codes detected: {hallucinated}")
             print(f"DEBUG: Response NOCs: {response_nocs} | Context NOCs: {context_nocs}")
 
+          
             if available_careers:
                 careers_bullets = "\n".join(f"- **{career}**" for career in available_careers[:3])
                 answer = (
@@ -1174,6 +1287,14 @@ async def get_career_answer(
                     "Try searching for a related career or browse [WorkBC career profiles]"
                     f"({WORKBC_BASE_URL}/career-profiles) directly."
                 )
+          # Career Trek videos if available for the primary career
+        if not hallucinated:  # only append for valid responses
+            primary_noc = extract_primary_noc_from_answer(answer)
+            if primary_noc:
+                video_section = format_video_section(primary_noc)
+                if video_section:
+                    answer += video_section
+                    print(f"DEBUG: Appended Career Trek video for NOC {primary_noc}")
 
     except Exception as e:
         raise HTTPException(status_code=502, detail=f"LLM inference error: {str(e)}")
@@ -1547,6 +1668,35 @@ async def clear_session(request: ClearSessionRequest):
         return {"status": "cleared"}
     except Exception as e:
         raise HTTPException(status_code=500, detail=str(e))
+
+#---------------------------------------------------------------------------
+# Admin reload endpoint and scheduled refresh
+#---------------------------------------------------------------------------
+@app.post("/api/admin/reload_videos")
+async def reload_videos():
+    """Manually trigger an immediate video reload from PostgreSQL."""
+    old_count = len(VIDEO_MAP)
+    build_video_map()
+    return {
+        "status":   "reloaded",
+        "previous": old_count,
+        "current":  len(VIDEO_MAP),
+    }
+
+
+async def video_reload_task():
+    """Refresh videos from PostgreSQL every hour."""
+    while True:
+        await asyncio.sleep(60 * 60)
+        try:
+            print("DEBUG: Hourly video reload from PostgreSQL")
+            build_video_map()
+        except Exception as e:
+            print(f"WARN: Hourly reload failed: {e}")
+@app.on_event("startup")
+async def start_background_tasks():
+    asyncio.create_task(video_reload_task())
+    print("DEBUG: Started video reload background task")
 
 # ---------------------------------------------------------------------------
 # 7. HEALTH CHECK
