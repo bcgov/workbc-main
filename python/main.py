@@ -1679,10 +1679,7 @@ def generate_suggestions(intent: str, user_query: str, answer: str = "",
                 extra_options.append(comparison_suggestion)
 
             if career_short and career_short != "this career":
-                extra_options.extend([
-                    f"Is {career_short.lower()} in demand?",
-                    f"What skills do I need for {career_short.lower()}?",
-                ])
+                extra_options.append(f"Show me current {career_short.lower()} jobs")
 
             extra_options.append("Top hiring careers in BC")
 
