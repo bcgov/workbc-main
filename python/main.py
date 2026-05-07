@@ -1301,6 +1301,158 @@ async def get_career_answer(
 
     return answer, search_term
 
+def generate_suggestions(intent: str, user_query: str, answer: str = "",
+                         params: dict = None, has_results: bool = True) -> list[str]:
+    """
+    Generate 2-3 contextual follow-up suggestions based on the conversation.
+    Returns a list of suggestion strings to display as clickable buttons.
+    """
+    params = params or {}
+    normalized = user_query.lower().strip()
+
+    # Greeting/intro responses
+    if any(p in normalized for p in ["hello", "hi", "hey", "what can you do",
+                                       "what do you do", "who are you"]):
+        return [
+            "What does a nurse do?",
+            "Find software developer jobs in Vancouver",
+            "Top trade jobs hiring in BC",
+        ]
+
+    # Career discovery quiz redirect
+    if any(p in normalized for p in ["what career should i", "help me choose",
+                                       "career advice"]):
+        return [
+            "What does a plumber do?",
+            "Top healthcare jobs",
+            "Find jobs in Vancouver",
+        ]
+
+    # Hiring trends / top careers chart
+    if any(p in normalized for p in ["top", "most in demand", "what's hiring",
+                                       "hiring most"]):
+        # Determine if a category was filtered
+        category_words = ["trade", "health", "tech", "retail", "business"]
+        used_category = next((c for c in category_words if c in normalized), None)
+
+        if used_category == "trade":
+            return [
+                "What does an electrician do?",
+                "Find plumber jobs in Vancouver",
+                "Top healthcare jobs",
+            ]
+        elif used_category == "health":
+            return [
+                "What does a nurse do?",
+                "Find nursing jobs in Surrey",
+                "Top trade jobs",
+            ]
+        elif used_category == "tech":
+            return [
+                "What does a data scientist do?",
+                "Find software developer jobs",
+                "Top business careers",
+            ]
+        else:
+            return [
+                "Top trade jobs",
+                "Top healthcare jobs",
+                "Find jobs in Vancouver",
+            ]
+
+    # Comparison query
+    is_comparison = any(w in normalized for w in
+                        ["compare", "difference", "versus", "vs", "between"])
+    if is_comparison:
+        # Extract career names from response NOCs
+        career_titles = re.findall(r'\|\s*\d{5}\s*\|\s*([^|]+?)\s*\|', answer)
+        if career_titles and len(career_titles) >= 2:
+            first_career = career_titles[0].strip()
+            return [
+                f"What education is needed for {first_career}?",
+                f"Find {first_career.lower()} jobs",
+                "Top hiring careers in BC",
+            ]
+        return [
+            "What is salary for both?",
+            "What education is needed?",
+            "Find jobs in either",
+        ]
+
+    # Career info responses
+    if intent == "career_info":
+        # Extract primary career from response
+        primary_noc = extract_primary_noc_from_answer(answer)
+        career_title = ""
+        if primary_noc and primary_noc in NOC_TITLE_MAP:
+            career_title = NOC_TITLE_MAP[primary_noc].get("title", "")
+            # Shorten long titles for button display
+            career_short = career_title.split(" And ")[0].split(",")[0].strip()
+        else:
+            career_short = "this career"
+
+        # Detect what the user already asked about to avoid duplicate suggestions
+        asked_education = any(w in normalized for w in
+                              ["education", "qualification", "training", "degree",
+                               "school", "become", "requirement"])
+        asked_salary = any(w in normalized for w in
+                           ["salary", "pay", "earn", "income", "wage"])
+        asked_duties = any(w in normalized for w in
+                           ["duties", "do", "does", "responsibilities", "tasks"])
+
+        suggestions = []
+
+        if not asked_education:
+            suggestions.append(f"What education do I need?")
+        if not asked_salary:
+            suggestions.append(f"What is the salary?")
+
+        # Always offer job search and comparison
+        if career_short and career_short != "this career":
+            suggestions.append(f"Find {career_short.lower()} jobs")
+
+        # Cap at 3 suggestions
+        return suggestions[:3] if suggestions else [
+            "Find related jobs",
+            "Top hiring careers",
+            "Help me choose a career",
+        ]
+
+    # Job search results
+    if intent == "job_search":
+        keywords = params.get("keywords", "")
+        city = params.get("city", "")
+
+        if not has_results:
+            return [
+                "Try a different city",
+                "Top hiring careers",
+                "Help me choose a career",
+            ]
+
+        suggestions = []
+        if keywords and not city:
+            suggestions.append(f"{keywords} jobs in Vancouver")
+        if keywords:
+            suggestions.append(f"What does a {keywords.split()[0]} do?")
+        suggestions.append("Top hiring careers")
+
+        return suggestions[:3]
+
+    # Both intent (career info + jobs)
+    if intent == "both":
+        return [
+            "What is the salary?",
+            "What education is needed?",
+            "Show more jobs",
+        ]
+
+    # Default fallback
+    return [
+        "What does a nurse do?",
+        "Find jobs in Vancouver",
+        "Top hiring careers",
+    ]
 
 # ---------------------------------------------------------------------------
 # 6. MAIN ENDPOINT
@@ -1346,6 +1498,7 @@ async def ask_career_bot(request: QueryRequest):
                 "page": 1,
                 "has_more": False,
                 "session_id": session_id,
+                "suggestions": generate_suggestions("greeting", user_query)
             }
         # Handle career discovery / exploration queries — redirect to quiz
         DISCOVERY_PATTERNS = [
@@ -1380,11 +1533,8 @@ async def ask_career_bot(request: QueryRequest):
                 "page": 1,
                 "has_more": False,
                 "session_id": session_id,
-            }
-        if any(pattern in normalized for pattern in DISCOVERY_PATTERNS):
-            return {
-                # ... existing discovery response ...
-            }
+                "suggestions": generate_suggestions("discovery", user_query),
+            }        
 
         # Handle "what is hiring" / "top careers" trend questions
         if is_hiring_trends_query(normalized):
@@ -1417,6 +1567,7 @@ async def ask_career_bot(request: QueryRequest):
                 "page":          1,
                 "has_more":      False,
                 "session_id":    session_id,
+                "suggestions": generate_suggestions("hiring_trends", user_query),
             }
 
 
@@ -1647,6 +1798,13 @@ async def ask_career_bot(request: QueryRequest):
             "debug_search":  search_term,
             "debug_intent":  intent,
             "debug_params":  params,
+            "suggestions":   generate_suggestions(
+                intent,
+                user_query,
+                answer=answer,
+                params=params,
+                has_results=(total > 0 if intent == "job_search" else True),
+            ),
         }
 
     except HTTPException:
