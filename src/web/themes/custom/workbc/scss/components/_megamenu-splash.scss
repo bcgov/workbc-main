@@ -1,7 +1,6 @@
 .megamenu-splash {
     display: flex;
     flex-flow: column nowrap;
-    border-left: 3px solid $workbc_light_theme_background_accent;
     padding: 30px;
     row-gap: 15px;
 }
@@ -17,6 +16,6 @@
     .action-link {
         @include link-chevron;
 
-        padding: 0 !important; 
+        padding: 0 !important;
     }
 }
