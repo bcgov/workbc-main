@@ -1380,43 +1380,53 @@ def generate_suggestions(intent: str, user_query: str, answer: str = "",
         ]
 
     # Career info responses
+    # Career info responses
     if intent == "career_info":
         # Extract primary career from response
         primary_noc = extract_primary_noc_from_answer(answer)
         career_title = ""
         if primary_noc and primary_noc in NOC_TITLE_MAP:
             career_title = NOC_TITLE_MAP[primary_noc].get("title", "")
-            # Shorten long titles for button display
             career_short = career_title.split(" And ")[0].split(",")[0].strip()
         else:
             career_short = "this career"
 
-        # Detect what the user already asked about to avoid duplicate suggestions
-        asked_education = any(w in normalized for w in
-                              ["education", "qualification", "training", "degree",
-                               "school", "become", "requirement"])
-        asked_salary = any(w in normalized for w in
-                           ["salary", "pay", "earn", "income", "wage"])
-        asked_duties = any(w in normalized for w in
-                           ["duties", "do", "does", "responsibilities", "tasks"])
+        # Check what the response ALREADY CONTAINS (not just what user asked)
+        answer_lower = answer.lower()
+        has_salary = bool(re.search(r'\$[\d,]+', answer))
+        has_education = any(w in answer_lower for w in
+                            ["education", "degree", "diploma", "certificate",
+                             "training program", "bachelor", "qualification"])
 
         suggestions = []
 
-        if not asked_education:
-            suggestions.append(f"What education do I need?")
-        if not asked_salary:
-            suggestions.append(f"What is the salary?")
+        # Only suggest education if not already in the response
+        if not has_education:
+            suggestions.append("What education do I need?")
+
+        # Only suggest salary if not already in the response
+        if not has_salary:
+            suggestions.append("What is the salary?")
 
         # Always offer job search and comparison
         if career_short and career_short != "this career":
             suggestions.append(f"Find {career_short.lower()} jobs")
 
-        # Cap at 3 suggestions
-        return suggestions[:3] if suggestions else [
-            "Find related jobs",
-            "Top hiring careers",
-            "Help me choose a career",
-        ]
+        # If we have fewer than 3, add useful generic suggestions
+        if len(suggestions) < 3:
+            extra_options = [
+                "Compare with related careers",
+                "Top hiring careers in BC",
+                "What other careers are similar?",
+            ]
+            for opt in extra_options:
+                if opt not in suggestions:
+                    suggestions.append(opt)
+                if len(suggestions) >= 3:
+                    break
+
+        return suggestions[:3]
+    
 
     # Job search results
     if intent == "job_search":
