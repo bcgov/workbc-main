@@ -1671,15 +1671,12 @@ def generate_suggestions(intent: str, user_query: str, answer: str = "",
                     comparison_suggestion = suggestion
                     break
 
-        # If we have fewer than 3, add useful suggestions
+       # If we have fewer than 3, add useful suggestions
         if len(suggestions) < 3:
             extra_options = []
 
             if comparison_suggestion:
                 extra_options.append(comparison_suggestion)
-
-            if career_short and career_short != "this career":
-                extra_options.append(f"Show me current {career_short.lower()} jobs")
 
             extra_options.append("Top hiring careers in BC")
 
