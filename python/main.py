@@ -1496,7 +1496,7 @@ async def get_career_answer(
     ]
 
     try:
-        tokens_for_request = 1000 if is_comparison else MAX_TOKENS
+        tokens_for_request = 800 if is_comparison else MAX_TOKENS
 
         completion    = vllm_client.chat.completions.create(
             model=MODEL_NAME,
@@ -1974,10 +1974,9 @@ async def ask_career_bot(request: QueryRequest):
             "3. COMPARISON TABLE: ONLY if the user explicitly asks to compare, "
             "asks about differences, or uses words like 'versus' or 'vs', "
             "respond with ONLY a markdown table: NOC | Job Title | Key Difference | Salary. "
-            "Include only the careers the user named — ignore other careers in the data even if present. "
-            "Max 5 rows. No text before the table. No text after the table. "
-            "Do NOT describe each career separately — the table IS the answer. "
-            "Do NOT add disclaimers about careers not included.\n"
+            "Include only the careers the user named — ignore other careers in the data. "
+            "Key Difference: max 12 words per row. Max 4 rows. "
+            "No text before or after the table. No disclaimers.\n"
             "4. SINGLE CAREER FORMAT: For questions about ONE career, "
             "state the NOC code and **bold** salary in your FIRST bullet point. "
             "Example: '**Registered Nurses (NOC: 31301) — Salary: $87,229.63**'. "
