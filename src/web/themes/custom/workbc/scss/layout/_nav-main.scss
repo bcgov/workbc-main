@@ -138,6 +138,10 @@
           ul.nav-t2 {
             border-right: 3px solid $workbc_light_theme_background_accent;
 
+            & > .nav-item {
+              height: 8rem;
+            }
+
             & > li {
               & > a,
               a:focus {
