@@ -1867,8 +1867,29 @@ async def ask_career_bot(request: QueryRequest):
             "RULES:\n"
             "- 'job_search' = user wants to find/see/browse actual job postings or openings\n"
             "- 'career_info' = user wants to learn about a career (duties, salary, education)\n"
-            "- 'both' = user wants career info AND job postings\n\n"
-            "EXAMPLES:\n"
+            "- 'both' = user wants career info AND job postings\n"
+            "- 'out_of_scope' = greetings, bot questions, or anything NOT about BC careers/jobs\n\n"
+            "OUT-OF-SCOPE EXAMPLES (return out_of_scope):\n"
+            "Query: 'hi' -> out_of_scope\n"
+            "Query: 'hello' -> out_of_scope\n"
+            "Query: 'hi jennifer' -> out_of_scope\n"
+            "Query: 'hey there' -> out_of_scope\n"
+            "Query: 'good morning' -> out_of_scope\n"
+            "Query: 'howdy' -> out_of_scope\n"
+            "Query: 'who are you' -> out_of_scope\n"
+            "Query: 'what can you do' -> out_of_scope\n"
+            "Query: 'how does this work' -> out_of_scope\n"
+            "Query: 'help' -> out_of_scope\n"
+            "Query: 'thanks' -> out_of_scope\n"
+            "Query: 'thank you' -> out_of_scope\n"
+            "Query: 'tell me a joke' -> out_of_scope\n"
+            "Query: 'what is the weather' -> out_of_scope\n"
+            "Query: 'how do I cook pasta' -> out_of_scope\n"
+            "Query: 'what is 2+2' -> out_of_scope\n"
+            "Query: 'how are you' -> out_of_scope\n"
+            "Query: 'are you a robot' -> out_of_scope\n"
+            "Query: 'asdfgh' -> out_of_scope\n\n"
+            "CAREER/JOB EXAMPLES:\n"
             "Query: 'find nursing jobs in Vancouver' -> job_search, keywords=nursing, city=Vancouver\n"
             "Query: 'Best Buy jobs in Surrey' -> job_search, employer=Best Buy, city=Surrey\n"
             "Query: 'McDonald's part time jobs' -> job_search, employer=McDonald's, employment_type=Part-time\n"
@@ -1893,7 +1914,7 @@ async def ask_career_bot(request: QueryRequest):
             "Query: 'what does a nurse do?' -> career_info\n"
             "Query: 'what is the salary for a firefighter?' -> career_info\n"
             "Query: 'what education do I need to be a pharmacist?' -> career_info\n"
-            "Query: 'tell me about plumbers and show me jobs' -> both\n\n"
+            "Query: 'tell me about plumbers and show me jobs' -> both\n"
             "Query: 'electrical jobs in surrey, vancouver, richmond' -> job_search, keywords=electrical, city=Surrey,Vancouver,Richmond\n"
             "Query: 'nursing jobs in kelowna and kamloops' -> job_search, keywords=nursing, city=Kelowna,Kamloops\n"
             "Query: 'jobs in Toronto' -> job_search, keywords=null, city=Ontario\n"
@@ -1901,10 +1922,10 @@ async def ask_career_bot(request: QueryRequest):
             "Query: 'jobs in Montreal' -> job_search, keywords=null, city=Quebec\n"
             "Query: 'developer jobs in Seattle' -> job_search, keywords=developer, city=Washington\n"
             "Query: 'show me jobs in Edmonton' -> job_search, keywords=null, city=Alberta\n"
-            "Query: 'engineering jobs in San Francisco' -> job_search, keywords=engineering, city=California\n"
+            "Query: 'engineering jobs in San Francisco' -> job_search, keywords=engineering, city=California\n\n"
             "OUTPUT FORMAT:\n"
             "{\n"
-            '  "intent": "job_search" or "career_info" or "both",\n'
+            '  "intent": "job_search" or "career_info" or "both" or "out_of_scope",\n'
             '  "job_search_params": {\n'
             '    "keywords": "extracted job title or null",\n'
             '    "employer": "extracted company name or null",\n'
@@ -2017,10 +2038,19 @@ async def ask_career_bot(request: QueryRequest):
         page          = 1
         has_more      = False
 
-        if intent == "career_info":
+        if intent == "out_of_scope":
+            answer = (
+                "I'm the WorkBC Career Advisor! I can help you: \n\n"
+                "* **Learn about career** - duties, salary, education requirements\n"
+                "* **Search for jobs** - by title, employer, or city\n"
+                "* **Compare careers** - side by side with salary data\n\n"
+                "Try asking: *\"What does a nurse do?\"* or *\"Find nursing jobs in Vancouver\"*"
+            )
+        elif intent == "career_info":
             answer, search_term = await get_career_answer(
                 user_query, sanitized_history, system_rules
             )
+        
         elif intent == "job_search":
             city = params.get("city")
             if city and is_out_of_scope(city):
