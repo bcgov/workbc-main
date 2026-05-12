@@ -58,32 +58,6 @@ class JobboardSearchForm extends FormBase {
         'size'=>20,
       ],
     ];
-    $form['markup'] = [
-      '#title' => 'Search Type',
-      '#type' => 'fieldset',
-      '#collapsible' => False,
-      '#collapsed' => FALSE,
-      '#required' => FALSE,
-    ];
-    $form['markup']['searchtype'] = [
-      '#type' => 'radios',
-      '#options' => [
-        'bySearchAll' => 'Search All',
-        'byJobTitle' => 'Job title only',
-        'byEmployerName' => 'Employer name only',
-        'byJobNumber' => 'Job Number'
-      ],
-      '#default_value' => 'bySearchAll',
-      '#required' => TRUE,
-      '#prefix' => '<div class="job-search__form-radios">',
-      '#suffix' => '</div>',
-      '#attributes' => [
-        'data-twig-suggestion' => [
-          'jobboard-radios',
-        ],
-      ],
-    ];
-    $form['markup']['searchtype']['#attributes']['class'][] = 'wj_radio';
     $form['submit'] = [
       '#type' => 'submit',
       '#value' => t('Find Jobs'),
@@ -112,24 +86,8 @@ class JobboardSearchForm extends FormBase {
     $find_job_url = \Drupal::config('jobboard')->get('find_job_url');
     $url = $base_url.$find_job_url."#/job-search;";
     $keywords = $values['keywords'];
+    $url .= "search=$keywords;";
     $location = $values['location'];
-    $searchtype = $values['searchtype'];
-    if(!empty($keywords)){
-      switch($searchtype){
-        case 'byJobTitle':
-          $url .= "title=$keywords;";
-        break;
-        case 'byEmployerName':
-          $url .= "employer=$keywords;";
-        break;
-        case 'byJobNumber':
-          $url .= "job=$keywords;";
-        break;
-        default:
-          $url .= "search=$keywords;";
-        break;
-      }
-    }
     if(!empty($location)){
       $WorkBcJobboardController = new WorkBcJobboardController();
       $getCities = $WorkBcJobboardController->getPosts($location, 'getCities', 'get');
