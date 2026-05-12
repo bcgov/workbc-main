@@ -1741,6 +1741,40 @@ async def ask_career_bot(request: QueryRequest):
             "what can you help", "how can you help",
         ]
 
+        # Meta question detection — handles natural phrasing variation
+        # Triggers when query contains BOTH a question-starter AND a meta subject
+        META_QUESTION_STARTERS = [
+            "what is", "what's", "what does", "what do you mean by",
+            "explain", "tell me about", "tell me what", "describe",
+            "define", "meaning of", "what mean", "what means",
+            "can you explain", "can you tell me about",
+            "how do", "how does",
+        ]
+
+        META_SUBJECTS = {
+            "career_profile": ["career profile", "career profiles"],
+            "noc":            ["noc code", "noc codes", " noc ", " noc?", "what's noc", "what is noc", "explain noc", "tell me about noc", "describe noc"],
+            "workbc":         ["workbc"],
+            "data_source":    ["data come from", "data sources", "data do you use",
+                               "where do you get", "where does this come from"],
+            "accuracy":       ["how accurate", "how reliable", "is this accurate",
+                               "can i trust", "how trustworthy"],
+        }
+
+        def detect_meta_subject(query: str) -> str | None:
+            """Return the meta subject if query is a meta question, else None."""
+            # Check if any meta subject is present (some subjects are self-identifying)
+            for subject, keywords in META_SUBJECTS.items():
+                if any(k in query for k in keywords):
+                    # For terms that need a question context (career_profile, workbc)
+                    # require a question starter to avoid false matches
+                    if subject in ("career_profile", "workbc"):
+                        if any(s in query for s in META_QUESTION_STARTERS):
+                            return subject
+                    else:
+                        return subject
+            return None
+
         normalized = user_query.lower().strip().rstrip("?!.,")
         is_greeting = (
             normalized in GREETING_PATTERNS or
@@ -1762,6 +1796,74 @@ async def ask_career_bot(request: QueryRequest):
                 "session_id": session_id,
                 "suggestions": generate_suggestions("greeting", user_query)
             }
+        
+        # Handle meta questions about how the system works
+        meta_subject = detect_meta_subject(normalized)
+
+        if meta_subject:
+            if meta_subject == "career_profile":
+                meta_answer = (
+                    "A **career profile** is a detailed summary of an occupation that includes:\n\n"
+                    "* **Duties and responsibilities** — what people in this role do day-to-day\n"
+                    "* **Salary information** — typical earnings in British Columbia\n"
+                    "* **Education and training** — what qualifications you need\n"
+                    "* **NOC code** — the official 5-digit classification code\n\n"
+                    "WorkBC has **511 career profiles** covering occupations across BC. "
+                    "I use these profiles to answer your career questions.\n\n"
+                    "Try asking about a specific career — for example: *\"What does a nurse do?\"* "
+                    "or *\"Tell me about plumbers\"*."
+                )
+            elif meta_subject == "noc":
+                meta_answer = (
+                    "**NOC** stands for **National Occupational Classification** — "
+                    "Canada's official system for organizing occupations.\n\n"
+                    "Every career has a unique 5-digit NOC code. For example:\n\n"
+                    "* Registered Nurses → NOC 31301\n"
+                    "* Plumbers → NOC 72300\n"
+                    "* Software Developers → NOC 21232\n\n"
+                    "NOC codes help match careers across job postings, government statistics, "
+                    "and immigration programs.\n\n"
+                    "Try asking: *\"What does a firefighter do?\"* and I'll show you the NOC code."
+                )
+            elif meta_subject == "workbc":
+                meta_answer = (
+                    "**WorkBC** is the British Columbia government's career and employment service. "
+                    "I use WorkBC's data to answer your questions, including:\n\n"
+                    "* **511 career profiles** with duties, salaries, and education requirements\n"
+                    "* **Live job postings** updated continuously across BC\n"
+                    "* **Career Trek videos** featuring real BC professionals\n\n"
+                    "Visit [workbc.ca](https://www.workbc.ca) for more resources."
+                )
+            elif meta_subject == "data_source":
+                meta_answer = (
+                    "All my information comes from **official WorkBC sources**:\n\n"
+                    "* **Career profiles** — 511 occupations with duties, salaries, and education paths\n"
+                    "* **Job postings** — live data from WorkBC's job bank\n"
+                    "* **Career Trek videos** — real BC professionals describing their work\n\n"
+                    "I don't use any external sources — every answer is grounded in WorkBC data."
+                )
+            elif meta_subject == "accuracy":
+                meta_answer = (
+                    "I work hard to give accurate information by:\n\n"
+                    "* Using **only official WorkBC data** — no external sources\n"
+                    "* **Validating every career code** against the source list\n"
+                    "* **Catching invented data** before showing it to you\n"
+                    "* Being **honest when I don't know** rather than guessing\n\n"
+                    "If you ever see something that looks wrong, please let us know."
+                )
+
+            return {
+                "answer":        meta_answer,
+                "career_answer": "",
+                "jobs":          [],
+                "total":         0,
+                "page":          1,
+                "has_more":      False,
+                "session_id":    session_id,
+                "suggestions": generate_suggestions("greeting", user_query),
+            }
+        
+        
         # Handle career discovery / exploration queries — redirect to quiz
         DISCOVERY_PATTERNS = [
             "what career should i", "what job should i", "which career should i",
