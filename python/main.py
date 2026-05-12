@@ -1562,9 +1562,8 @@ def generate_suggestions(intent: str, user_query: str, answer: str = "",
     params = params or {}
     normalized = user_query.lower().strip()
 
-    # Greeting/intro responses
-    if any(p in normalized for p in ["hello", "hi", "hey", "what can you do",
-                                       "what do you do", "who are you"]):
+    # Greeting/intro responses — only when intent confirms this is a greeting
+    if intent in ("greeting", "out_of_scope"):
         return [
             "What does a nurse do?",
             "Find software developer jobs in Vancouver",
