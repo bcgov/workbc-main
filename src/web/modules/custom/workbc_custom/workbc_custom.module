@@ -7,10 +7,7 @@ use Drupal\Core\Entity\EntityInterface;
 use Drupal\Core\Config\Entity\ConfigEntityInterface;
 use Drupal\Core\Form\FormStateInterface;
 use Drupal\Core\Url;
-use Drupal\Core\Link;
 use Drupal\Core\Routing\TrustedRedirectResponse;
-use Drupal\Core\Breadcrumb\Breadcrumb;
-use Drupal\Core\Routing\RouteMatchInterface;
 use Drupal\views\ViewExecutable;
 use Drupal\redirect\Entity\Redirect;
 use Symfony\Component\HttpFoundation\Request;
@@ -887,4 +884,12 @@ function workbc_custom_tokens($type, $tokens, array $data, array $options, Bubbl
     }
   }
   return $replacements;
+}
+
+/**
+ * Implements hook_field_widget_info_alter().
+ */
+function workbc_custom_field_widget_info_alter(&$info) {
+  $info['text_textarea']['field_types'][] = 'text';
+  $info['string_textarea']['field_types'][] = 'string';
 }

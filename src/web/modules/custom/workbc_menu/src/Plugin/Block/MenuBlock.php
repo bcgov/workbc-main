@@ -50,7 +50,7 @@ class MenuBlock extends BlockBase {
       $uo = $link->getUrlObject();
       if ($uo->isRouted() && $uo->getRouteName() === 'entity.node.canonical') {
         $node = \Drupal::entityTypeManager()->getStorage('node')->load($uo->getRouteParameters()['node']);
-        $blurb = $this->getBlurb($node);
+        $blurb = $node->get('field_navigation_blurb')?->value ?? '';
       }
       $attributes = implode(' ', $a_attributes);
       $classes = implode(' ', $a_classes);
@@ -61,28 +61,6 @@ class MenuBlock extends BlockBase {
         </a>
       EOT;
     }
-  }
-
-  private function getBlurb(NodeInterface $node) {
-    $text = '';
-    if ($node->hasField('field_navigation_blurb') && !empty($node->get('field_navigation_blurb')->value)) {
-      $text = strip_tags($node->get('field_navigation_blurb')->value);
-    }
-    else if ($node->hasField('field_related_topics_blurb') && !empty($node->get('field_related_topics_blurb')->value)) {
-      $text = strip_tags($node->get('field_related_topics_blurb')->value);
-    }
-    else if ($node->hasField('field_hero_text') && !empty($node->get('field_hero_text')->value)) {
-      $text = strip_tags($node->get('field_hero_text')->value);
-    }
-    else if ($node->hasField('body')) {
-      if (!empty($node->get('body')->summary)){
-        $text = $node->get('body')->summary;
-      }
-      else if (!empty($node->get('body')->value)) {
-        $text = strip_tags($node->get('body')->value);
-      }
-    }
-    return \Drupal\Component\Utility\Unicode::truncate($text, 125, TRUE, TRUE);
   }
 
   private function generateMegaMenu($input) {

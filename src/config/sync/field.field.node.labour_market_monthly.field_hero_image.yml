@@ -12,7 +12,7 @@ field_name: field_hero_image
 entity_type: node
 bundle: labour_market_monthly
 label: '[DEPRECATED] Hero Image'
-description: "DEPRECATED: This is a legacy field that has been replaced by the newer <b>Hero Image</b> field which pulls the content from the Media Library."
+description: 'DEPRECATED: This is a legacy field that has been replaced by the newer <b>Hero Image</b> field which pulls the content from the Media Library.'
 required: false
 translatable: true
 default_value: {  }

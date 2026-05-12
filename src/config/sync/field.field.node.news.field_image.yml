@@ -12,7 +12,7 @@ field_name: field_image
 entity_type: node
 bundle: news
 label: '[DEPRECATED] Image'
-description: "DEPRECATED: This is a legacy field that has been replaced by the newer <b>Image</b> field which pulls the content from the Media Library."
+description: 'DEPRECATED: This is a legacy field that has been replaced by the newer <b>Image</b> field which pulls the content from the Media Library.'
 required: false
 translatable: false
 default_value: {  }

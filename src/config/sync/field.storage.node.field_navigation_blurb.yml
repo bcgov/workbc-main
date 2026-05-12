@@ -1,4 +1,4 @@
-uuid: 67885594-4209-451c-90ba-284beac60ec8
+uuid: ef6c8e22-581a-4cf3-9408-e852f79c68ed
 langcode: en
 status: true
 dependencies:
@@ -7,9 +7,11 @@ dependencies:
 id: node.field_navigation_blurb
 field_name: field_navigation_blurb
 entity_type: node
-type: string_long
+type: string
 settings:
+  max_length: 158
   case_sensitive: false
+  is_ascii: false
 module: core
 locked: false
 cardinality: 1
