@@ -1392,7 +1392,7 @@ async def get_career_answer(
     chunk_types = detect_chunk_types(user_query)
     is_comparison = any(w in user_query.lower() for w in
         ["compare", "difference", "versus", "vs", "between"])
-    n_chunks = 4 if is_comparison else 6
+    n_chunks = 4 if is_comparison else 10
     print(f"DEBUG: Chunk types: {chunk_types} | n_results: {n_chunks}")
 
     if len(chunk_types) == 1:
