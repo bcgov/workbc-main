@@ -7,7 +7,7 @@ dependencies:
 id: basic_page
 label: Pages
 type: 'canonical_entities:node'
-pattern: '[node:menu-link:parents:join-path]/[node:title]'
+pattern: '/[node:menu-link:parents:join-path]/[node:title]'
 selection_criteria:
   a7df1b1d-ce79-40e3-b0f4-a457ec29adbb:
     id: 'entity_bundle:node'

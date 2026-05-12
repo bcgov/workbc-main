@@ -1,0 +1,20 @@
+uuid: 01f47d50-ce64-469a-8d52-708ec9b45a45
+langcode: en
+status: true
+dependencies:
+  module:
+    - menu_link_content
+    - text
+    - menu_item_fields
+id: menu_link_content.field_splash
+field_name: field_splash
+entity_type: menu_link_content
+type: text_long
+settings: {  }
+module: text
+locked: false
+cardinality: 1
+translatable: true
+indexes: {  }
+persist_with_no_fields: false
+custom_storage: false

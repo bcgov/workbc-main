@@ -347,3 +347,9 @@ body.mm-wrapper--opened a#mm-0 {
 .mm-listitem.menu-name--account .mm-listitem__text {
   padding: .5rem 1rem;
 }
+
+.mm-panel--opened[data-mm-parent] a {
+  &::after {
+    display: none;
+  }
+}

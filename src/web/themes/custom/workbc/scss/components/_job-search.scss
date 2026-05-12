@@ -23,7 +23,7 @@
   color:  $workbc_palette_dark_default;
 
   @include media-breakpoint-down(sm) {
-    padding: 12px 35px;    
+    padding: 12px 35px;
   }
 
   &:hover {
@@ -97,6 +97,7 @@
 
 .job-search .button {
   margin: 0;
+  margin-top: 18px;
 
   @include media-breakpoint-up(sm) {
     min-width: 260px;

@@ -9,8 +9,8 @@ id: node.news.field_archived
 field_name: field_archived
 entity_type: node
 bundle: news
-label: Archived
-description: ''
+label: '[DEPRECATED] Archived'
+description: 'DEPRECATED: This field is no longer used as of WBCAMS-1564. Mark a news post as unpublished to remove it from the Quick Reads view.'
 required: false
 translatable: false
 default_value:

@@ -15,6 +15,7 @@ dependencies:
     - field.field.node.page.field_language
     - field.field.node.page.field_metatag_description
     - field.field.node.page.field_multilingual_centre
+    - field.field.node.page.field_navigation_blurb
     - field.field.node.page.field_page_format
     - field.field.node.page.field_related_topics
     - field.field.node.page.field_related_topics_blurb
@@ -102,6 +103,14 @@ content:
       target: ''
     third_party_settings: {  }
     weight: 6
+    region: content
+  field_navigation_blurb:
+    type: string
+    label: above
+    settings:
+      link_to_entity: false
+    third_party_settings: {  }
+    weight: 28
     region: content
   field_related_topics_blurb:
     type: text_default

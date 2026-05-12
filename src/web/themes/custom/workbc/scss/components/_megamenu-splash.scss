@@ -1,22 +1,11 @@
 .megamenu-splash {
-    display: flex;
-    flex-flow: column nowrap;
-    border-left: 3px solid $workbc_light_theme_background_accent;
-    padding: 30px;
-    row-gap: 15px;
-}
+  display: flex;
+  flex-flow: column nowrap;
+  padding: 30px;
+  row-gap: 15px;
+  cursor: default;
 
-.megamenu-splash__image {
-
-}
-
-.megamenu-splash__content {
-}
-
-.megamenu-splash__actions {
-    .action-link {
-        @include link-chevron;
-
-        padding: 0 !important; 
-    }
+  a {
+    @include link-chevron;
+  }
 }

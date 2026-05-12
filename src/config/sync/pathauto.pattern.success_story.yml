@@ -7,7 +7,7 @@ dependencies:
 id: success_story
 label: 'Success Story'
 type: 'canonical_entities:node'
-pattern: 'success-story/[node:title]'
+pattern: '/success-story/[node:title]'
 selection_criteria:
   46d8167e-93c1-4773-a4ba-a3b95df29a9e:
     id: 'entity_bundle:node'
