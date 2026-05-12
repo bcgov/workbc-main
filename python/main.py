@@ -1562,7 +1562,7 @@ def generate_suggestions(intent: str, user_query: str, answer: str = "",
     params = params or {}
     normalized = user_query.lower().strip()
 
-    # Greeting/intro responses — only when intent confirms this is a greeting
+    # Greeting / intro / out-of-scope responses
     if intent in ("greeting", "out_of_scope"):
         return [
             "What does a nurse do?",
@@ -1571,8 +1571,7 @@ def generate_suggestions(intent: str, user_query: str, answer: str = "",
         ]
 
     # Career discovery quiz redirect
-    if any(p in normalized for p in ["what career should i", "help me choose",
-                                       "career advice"]):
+    if intent == "discovery":
         return [
             "What does a plumber do?",
             "Top healthcare jobs",
@@ -1580,38 +1579,33 @@ def generate_suggestions(intent: str, user_query: str, answer: str = "",
         ]
 
     # Hiring trends / top careers chart
-    if any(p in normalized for p in ["top", "most in demand", "what's hiring",
-                                       "hiring most"]):
-        # Determine if a category was filtered
-        category_words = ["trade", "health", "tech", "retail", "business"]
-        used_category = next((c for c in category_words if c in normalized), None)
-
-        if used_category == "trade":
+    if intent == "hiring_trends":
+        # Detect category from the query so we suggest a different category next
+        if any(w in normalized for w in ["trade", "trades"]):
             return [
                 "What does an electrician do?",
                 "Find plumber jobs in Vancouver",
                 "Top healthcare jobs",
             ]
-        elif used_category == "health":
+        if any(w in normalized for w in ["health", "healthcare", "medical", "nursing"]):
             return [
                 "What does a nurse do?",
                 "Find nursing jobs in Surrey",
                 "Top trade jobs",
             ]
-        elif used_category == "tech":
+        if any(w in normalized for w in ["tech", "technology", "software", "it"]):
             return [
                 "What does a data scientist do?",
                 "Find software developer jobs",
                 "Top business careers",
             ]
-        else:
-            return [
-                "Top trade jobs",
-                "Top healthcare jobs",
-                "Find jobs in Vancouver",
-            ]
+        return [
+            "Top trade jobs",
+            "Top healthcare jobs",
+            "Find jobs in Vancouver",
+        ]
 
-    # Comparison query
+    # Comparison query — check the user's actual question, not just intent
     is_comparison = any(w in normalized for w in
                         ["compare", "difference", "versus", "vs", "between"])
     if is_comparison:
@@ -1630,7 +1624,6 @@ def generate_suggestions(intent: str, user_query: str, answer: str = "",
             "Find jobs in either",
         ]
 
-    # Career info responses
     # Career info responses
     if intent == "career_info":
         # Extract primary career from response
@@ -1659,7 +1652,7 @@ def generate_suggestions(intent: str, user_query: str, answer: str = "",
         if not has_salary:
             suggestions.append("What is the salary?")
 
-        # Always offer job search and comparison
+        # Always offer job search
         if career_short and career_short != "this career":
             suggestions.append(f"Find {career_short.lower()} jobs")
 
@@ -1672,7 +1665,7 @@ def generate_suggestions(intent: str, user_query: str, answer: str = "",
                     comparison_suggestion = suggestion
                     break
 
-       # If we have fewer than 3, add useful suggestions
+        # If we have fewer than 3, add useful suggestions
         if len(suggestions) < 3:
             extra_options = []
 
@@ -1686,7 +1679,6 @@ def generate_suggestions(intent: str, user_query: str, answer: str = "",
                     suggestions.append(opt)
 
         return suggestions[:3]
-    
 
     # Job search results
     if intent == "job_search":
