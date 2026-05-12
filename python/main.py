@@ -1680,24 +1680,53 @@ def generate_suggestions(intent: str, user_query: str, answer: str = "",
 
         return suggestions[:3]
 
-    # Job search results
+        # Job search results
     if intent == "job_search":
         keywords = params.get("keywords", "")
         city = params.get("city", "")
 
         if not has_results:
+            # Special case: out-of-scope city (Toronto, Seattle, etc.)
+            # Suggest the same search in BC cities
+            if city and is_out_of_scope(city):
+                if keywords:
+                    return [
+                        f"Find {keywords} jobs in Vancouver",
+                        f"Find {keywords} jobs in Surrey",
+                        "Top hiring careers in BC",
+                    ]
+                return [
+                    "Find jobs in Vancouver",
+                    "Find jobs in Surrey",
+                    "Top hiring careers in BC",
+                ]
+
+            # No results in a valid BC city — broaden the search
+            if keywords and city:
+                return [
+                    f"Find {keywords} jobs in Vancouver",
+                    f"What does a {keywords.split()[0]} do?",
+                    "Top hiring careers in BC",
+                ]
+            if keywords:
+                return [
+                    f"What does a {keywords.split()[0]} do?",
+                    "Top hiring careers in BC",
+                    "Find jobs in Vancouver",
+                ]
             return [
-                "Try a different city",
-                "Top hiring careers",
-                "Help me choose a career",
+                "Find nursing jobs in Vancouver",
+                "Top hiring careers in BC",
+                "What does a nurse do?",
             ]
 
+        # Has results — offer to drill down or pivot
         suggestions = []
         if keywords and not city:
             suggestions.append(f"{keywords} jobs in Vancouver")
         if keywords:
             suggestions.append(f"What does a {keywords.split()[0]} do?")
-        suggestions.append("Top hiring careers")
+        suggestions.append("Top hiring careers in BC")
 
         return suggestions[:3]
 
