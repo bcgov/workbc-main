@@ -1469,7 +1469,7 @@ async def get_career_answer(
         if filtered_chunks:  # Only apply filter if it doesn't remove everything
             context_chunks = filtered_chunks
             print(f"DEBUG: After qualifier filter: {len(context_chunks)} chunks remain")
-            
+
     seen_careers = {}
     priority_chunks = []
     secondary_chunks = []
@@ -1512,16 +1512,30 @@ async def get_career_answer(
     careers_list = "\n- ".join(available_careers)
 
     current_user_content = (
-        f"WorkBC career data:\n{top_context}\n\n"
-        f"IMPORTANT: The ONLY careers available in WorkBC data for this query are:\n"
-        f"- {careers_list}\n\n"
-        f"You may ONLY mention these exact careers and their NOC codes/salaries/URLs from above. "
-        f"Do NOT mention any career not in this list. "
-        f"Do NOT invent NOC codes — WorkBC NOC codes are always 5 digits. "
-        f"If the user asks about a career not in the list, use the closest match and explicitly state "
-        f"'WorkBC does not have a specific profile for that term'.\n\n"
-        f"Question: {user_query}"
-    )
+            f"WorkBC career data:\n{top_context}\n\n"
+            f"IMPORTANT: The ONLY careers available in WorkBC data for this query are:\n"
+            f"- {careers_list}\n\n"
+            f"You may ONLY mention these exact careers and their NOC codes/salaries/URLs from above. "
+            f"Do NOT mention any career not in this list. "
+            f"Do NOT invent NOC codes — WorkBC NOC codes are always 5 digits.\n\n"
+            f"If the user's career is NOT an exact match in this list, you MUST list ALL related careers "
+            f"from the list above (up to 5). Do NOT pick just one or two — list every related career.\n\n"
+            f"Your response MUST start with this exact line:\n"
+            f"'WorkBC does not have a specific profile for [user's term]. Here are related careers in WorkBC data:'\n\n"
+            f"Then list each related career on a new line in this format:\n"
+            f"**[Career Title] (NOC: [code]) — Salary: $[amount]**\n"
+            f"- [duty 1]\n"
+            f"- [duty 2]\n"
+            f"- [duty 3]\n"
+            f"[View Career Profile](url)\n\n"
+            f"FORBIDDEN PHRASES — never use these:\n"
+            f"- 'Based on the WorkBC data'\n"
+            f"- 'According to the data'\n"
+            f"- 'You may choose either'\n"
+            f"- 'For more information about'\n"
+            f"- Any closing remark after the last career listing\n\n"
+            f"Question: {user_query}"
+        )
 
     final_messages = [
         {"role": "user",      "content": system_rules},
