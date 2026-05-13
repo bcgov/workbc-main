@@ -50,7 +50,7 @@ class MenuBlock extends BlockBase {
       $uo = $link->getUrlObject();
       if ($uo->isRouted() && $uo->getRouteName() === 'entity.node.canonical') {
         $node = \Drupal::entityTypeManager()->getStorage('node')->load($uo->getRouteParameters()['node']);
-        $blurb = $node->get('field_navigation_blurb')?->value ?? '';
+        $blurb = $node->hasField('field_navigation_blurb') ? $node->get('field_navigation_blurb')->value : '';
       }
       $attributes = implode(' ', $a_attributes);
       $classes = implode(' ', $a_classes);
