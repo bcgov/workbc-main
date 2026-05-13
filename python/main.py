@@ -538,6 +538,40 @@ class ClearSessionRequest(BaseModel):
 # 5. HELPERS
 # ---------------------------------------------------------------------------
 
+def has_clear_career_match(user_query: str, available_careers: list) -> bool:
+    """
+    Returns True if the user's query clearly matches one career in the available list.
+    Used to decide between single-career response vs multi-career listing.
+    """
+    if not available_careers or not user_query:
+        return False
+
+    # Extract meaningful words from query (skip common verbs/prepositions)
+    skip_words = {"a", "an", "the", "i", "me", "my", "am", "is", "are", "be",
+                  "tell", "about", "what", "how", "do", "does", "want", "to",
+                  "for", "in", "of", "with", "interested", "career", "as",
+                  "can", "you", "give", "info", "information", "more"}
+    query_words = {w for w in re.findall(r'\b[a-z]+\b', user_query.lower())
+                   if len(w) > 2 and w not in skip_words}
+
+    if not query_words:
+        return False
+
+    # Check if any career title contains substantial overlap with query words
+    for career in available_careers:
+        career_lower = career.lower()
+        career_words = set(re.findall(r'\b[a-z]+\b', career_lower))
+        # Substantial overlap = at least one meaningful query word in the title
+        overlap = query_words & career_words
+        if overlap:
+            # Pluralization fuzzy check
+            for qw in query_words:
+                if qw in career_lower or f"{qw}s" in career_lower or qw.rstrip('s') in career_lower:
+                    print(f"DEBUG: Clear career match — query word '{qw}' found in '{career}'")
+                    return True
+
+    return False
+
 def format_video_section(noc: str) -> str:
     """Return a markdown video section for a given NOC, or empty string if none."""
     videos = VIDEO_MAP.get(str(noc), [])
@@ -1338,7 +1372,7 @@ async def get_career_answer(
             "'these two', 'all of them', or explicitly compares them.\n"
             "4. If the current query has no relation to the history, output only what the "
             "current query asks about.\n\n"
-            "Output ONLY the career titles, comma separated. No explanation. No preamble." 
+            "Output ONLY the career titles, comma separated. No explanation. No preamble."
         )
 
         try:
@@ -1364,20 +1398,16 @@ async def get_career_answer(
             search_term = ", ".join(filtered_lines) if filtered_lines else user_query
 
             # Safety net: if rewriter returned a question instead of job titles,
-            # fall back to most recent user query from history
+            # fall back to the CURRENT user query (NOT history — that causes topic confusion)
             if looks_like_question(search_term):
-                for msg in reversed(sanitized_history):
-                    if msg["role"] == "user" and msg["content"].strip() != user_query.strip():
-                        search_term = msg["content"]
-                        print(f"DEBUG: Rewriter returned question — falling back to previous query: {search_term}")
-                        break
+                search_term = user_query
+                print(f"DEBUG: Rewriter returned question — falling back to current query: {search_term}")
 
         except Exception as e:
             print(f"DEBUG: Rewriter failed, falling back to raw query: {e}")
             search_term = user_query
 
     print(f"DEBUG: Final Search Term for Chroma: {search_term}")
-    
 
     loop        = asyncio.get_event_loop()
     q_emb_array = await loop.run_in_executor(
@@ -1407,8 +1437,6 @@ async def get_career_answer(
             n_results=n_chunks,
             where={"chunk_type": {"$in": chunk_types}}
         )
-    
-  
 
     context_chunks = []
     for i in range(len(results['documents'][0])):
@@ -1428,14 +1456,13 @@ async def get_career_answer(
             f"JOB: {meta.get('job_title')} (NOC: {meta.get('noc_code', 'N/A')})\n"
             f"SALARY: {salary_str}\n"
             f"URL: {meta.get('url', '#')}\n"
-            f"CONTENT: {results['documents'][0][i]}"       
-
+            f"CONTENT: {results['documents'][0][i]}"
         )
         print(f'DEBUG: Appended chunk {i}, total now: {len(context_chunks)}')
-    
+
     print(f"DEBUG: context_chunks length before truncation: {len(context_chunks)}")
 
-     # Sanity filter — remove ChromaDB matches that only share qualifier words with query
+    # Sanity filter — remove ChromaDB matches that only share qualifier words with query
     # Example: query "professional boxer" should NOT match "Professional Marketing"
     QUALIFIER_WORDS = {"professional", "senior", "junior", "lead", "chief", "head", "assistant"}
     STOP_WORDS = {"and", "or", "the", "of", "in", "for", "a", "an", "to", "be", "is",
@@ -1482,7 +1509,6 @@ async def get_career_answer(
             secondary_chunks.append(chunk)
     ordered_chunks = priority_chunks + secondary_chunks
 
-
     MAX_CONTEXT_CHARS = 3500
     truncated_chunks  = []
     total_chars       = 0
@@ -1511,31 +1537,55 @@ async def get_career_answer(
             available_careers.append(first_line.replace("JOB: ", ""))
     careers_list = "\n- ".join(available_careers)
 
-    current_user_content = (
-            f"WorkBC career data:\n{top_context}\n\n"
-            f"IMPORTANT: The ONLY careers available in WorkBC data for this query are:\n"
-            f"- {careers_list}\n\n"
-            f"You may ONLY mention these exact careers and their NOC codes/salaries/URLs from above. "
-            f"Do NOT mention any career not in this list. "
-            f"Do NOT invent NOC codes — WorkBC NOC codes are always 5 digits.\n\n"
-            f"If the user's career is NOT an exact match in this list, you MUST list ALL related careers "
-            f"from the list above (up to 5). Do NOT pick just one or two — list every related career.\n\n"
-            f"Your response MUST start with this exact line:\n"
-            f"'WorkBC does not have a specific profile for [user's term]. Here are related careers in WorkBC data:'\n\n"
-            f"Then list each related career on a new line in this format:\n"
-            f"**[Career Title] (NOC: [code]) — Salary: $[amount]**\n"
-            f"- [duty 1]\n"
-            f"- [duty 2]\n"
-            f"- [duty 3]\n"
-            f"[View Career Profile](url)\n\n"
-            f"FORBIDDEN PHRASES — never use these:\n"
-            f"- 'Based on the WorkBC data'\n"
-            f"- 'According to the data'\n"
-            f"- 'You may choose either'\n"
-            f"- 'For more information about'\n"
-            f"- Any closing remark after the last career listing\n\n"
-            f"Question: {user_query}"
+    # Pre-compute whether the query has a clear single-career match
+    is_clear_match = has_clear_career_match(user_query, available_careers)
+    print(f"DEBUG: is_clear_match={is_clear_match}")
+
+    if is_clear_match:
+        # Single-career mode — describe the matching career normally
+        mode_instruction = (
+            "INSTRUCTIONS:\n"
+            "The user is asking about a specific career that matches one in the list above. "
+            "Describe that ONE career using the standard format:\n\n"
+            "**[Career Title] (NOC: [code]) — Salary: $[amount]**\n"
+            "- [duty 1]\n"
+            "- [duty 2]\n"
+            "- ... (6-8 bullets)\n"
+            "[View Career Profile](url)\n\n"
+            "Do NOT list multiple careers. Do NOT start with disclaimer phrases. "
+            "Do NOT say 'WorkBC does not have a specific profile' — the career IS available.\n"
         )
+    else:
+        # Multi-career mode — list all related careers with disclaimer
+        mode_instruction = (
+            "INSTRUCTIONS:\n"
+            "The user's query does not have an exact career match in the list above. "
+            "List ALL related careers from the list (up to 5).\n\n"
+            "Your response MUST start with this exact line:\n"
+            "'WorkBC does not have a specific profile for [user's term]. "
+            "Here are related careers in WorkBC data:'\n\n"
+            "Then for EACH related career provide:\n"
+            "**[Career Title] (NOC: [code]) — Salary: $[amount]**\n"
+            "- [2-3 duty bullets]\n"
+            "[View Career Profile](url)\n"
+        )
+
+    current_user_content = (
+        f"WorkBC career data:\n{top_context}\n\n"
+        f"AVAILABLE CAREERS — you may ONLY mention these:\n"
+        f"- {careers_list}\n\n"
+        f"{mode_instruction}\n"
+        f"CRITICAL RULES:\n"
+        f"- Use ONLY careers and NOC codes from the list above\n"
+        f"- Do NOT invent NOC codes — they are always 5 digits\n"
+        f"- Do NOT mention any career not in the list\n\n"
+        f"FORBIDDEN PHRASES:\n"
+        f"- 'Based on the WorkBC data'\n"
+        f"- 'According to the data'\n"
+        f"- 'You may choose either'\n"
+        f"- Any closing remark or 'For more information' postamble\n\n"
+        f"Question: {user_query}"
+    )
 
     final_messages = [
         {"role": "user",      "content": system_rules},
@@ -1573,7 +1623,6 @@ async def get_career_answer(
             print(f"WARNING: Hallucinated NOC codes detected: {hallucinated}")
             print(f"DEBUG: Response NOCs: {response_nocs} | Context NOCs: {context_nocs}")
 
-          
             if available_careers:
                 careers_bullets = "\n".join(f"- **{career}**" for career in available_careers[:3])
                 answer = (
@@ -1588,7 +1637,8 @@ async def get_career_answer(
                     "Try searching for a related career or browse [WorkBC career profiles]"
                     f"({WORKBC_BASE_URL}/career-profiles) directly."
                 )
-          # Career Trek videos if available for the primary career
+
+        # Career Trek videos if available for the primary career
         if not hallucinated:  # only append for valid responses
             primary_noc = extract_primary_noc_from_answer(answer)
             if primary_noc:
