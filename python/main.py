@@ -492,6 +492,12 @@ FALLBACK_KEYWORDS = {
     "health", "authority", "provincial", "government", "ministry",
 }
 
+# Maps lowercase keywords (substring match) to NOC codes that must always appear
+# in results for that query, even if ChromaDB doesn't rank them high enough.
+CAREER_SEARCH_ALIASES: dict[str, list[str]] = {
+    "business analyst": ["11201"],
+}
+
 app = FastAPI()
 app.add_middleware(
     CORSMiddleware,
@@ -1436,6 +1442,54 @@ async def get_career_answer(
 
     print(f"DEBUG: context_chunks length before truncation: {len(context_chunks)}")
 
+    # Inject aliased NOCs that ChromaDB may have ranked too low
+    search_lower = search_term.lower()
+    already_nocs = {
+        chunk.split("NOC: ")[1].split(")")[0].strip()
+        for chunk in context_chunks
+        if "NOC: " in chunk
+    }
+    for alias_key, alias_nocs in CAREER_SEARCH_ALIASES.items():
+        if alias_key in search_lower:
+            for noc in alias_nocs:
+                if noc in already_nocs:
+                    # Already present — move its chunk(s) to the front so LLM sees it first
+                    noc_tag = f"(NOC: {noc})"
+                    pinned   = [c for c in context_chunks if noc_tag in c]
+                    rest     = [c for c in context_chunks if noc_tag not in c]
+                    context_chunks[:] = pinned + rest
+                    print(f"DEBUG: Alias-pinned NOC {noc} to front of context")
+                    continue
+                try:
+                    alias_res = collection.get(
+                        where={"$and": [
+                            {"noc_code":   {"$eq": noc}},
+                            {"chunk_type": {"$in": chunk_types}},
+                        ]},
+                        include=["documents", "metadatas"],
+                    )
+                    for doc, meta in zip(alias_res["documents"], alias_res["metadatas"]):
+                        salary_val = meta.get("salary", "N/A")
+                        try:
+                            salary_str = f"**${float(salary_val):,.2f}**" if salary_val != "N/A" else "Data missing"
+                        except (ValueError, TypeError):
+                            salary_str = f"**${salary_val}**"
+                        chunk = (
+                            f"JOB: {meta.get('job_title')} (NOC: {meta.get('noc_code', 'N/A')})\n"
+                            f"SALARY: {salary_str}\n"
+                            f"URL: {meta.get('url', '#')}\n"
+                            f"CONTENT: {doc}"
+                        )
+                        context_chunks.insert(0, chunk)
+                        job_title = meta.get("job_title")
+                        if job_title and job_title not in career_distances:
+                            career_distances[job_title] = 0.30  # treat as high-relevance
+                        already_nocs.add(noc)
+                        print(f"DEBUG: Alias-injected NOC {noc} ({meta.get('job_title')})")
+                        break  # one overview chunk per aliased NOC is enough
+                except Exception as e:
+                    print(f"DEBUG: Alias fetch failed for NOC {noc}: {e}")
+
     # Sanity filter — remove ChromaDB matches that only share qualifier words with query
     # Example: query "professional boxer" should NOT match "Professional Marketing"
     QUALIFIER_WORDS = {"professional", "senior", "junior", "lead", "chief", "head", "assistant"}
@@ -1527,6 +1581,16 @@ async def get_career_answer(
         is_clear_match = gap > 0.05
         print(f"DEBUG: Distance gap = {gap:.3f} (threshold=0.05) — is_clear_match={is_clear_match}")
 
+    # Override: if search term words don't appear in any matched career title, it's not a true match
+    if is_clear_match and available_careers:
+        search_words = set(
+            w.lower() for w in re.split(r'\W+', search_term) if len(w) > 2
+        )
+        matched_titles_text = " ".join(available_careers).lower()
+        if search_words and not any(w in matched_titles_text for w in search_words):
+            is_clear_match = False
+            print(f"DEBUG: Title mismatch — search words {search_words} not in career titles → is_clear_match=False")
+
     if is_clear_match:
         # Single-career mode — describe the matching career normally
         mode_instruction = (
@@ -1538,22 +1602,36 @@ async def get_career_answer(
             "- [duty 2]\n"
             "- ... (6-8 bullets)\n"
             "[View Career Profile](url)\n\n"
+            "CRITICAL: [Career Title] must be copied EXACTLY from the data — "
+            "do NOT rename or rephrase it to match the user's wording. "
+            "For example, if the data says 'Athletes', write 'Athletes' — never 'Professional Boxers' or any variant.\n"
             "Do NOT list multiple careers. Do NOT start with disclaimer phrases. "
             "Do NOT say 'WorkBC does not have a specific profile' — the career IS available.\n"
         )
     else:
         # Multi-career mode — list all related careers with disclaimer
+        if len(available_careers) == 1:
+            disclaimer_line = (
+                f"WorkBC does not have a specific profile for {search_term}. "
+                f"The closest related career is:"
+            )
+        else:
+            disclaimer_line = (
+                f"WorkBC does not have a specific profile for {search_term}. "
+                f"Here are related careers in WorkBC data:"
+            )
         mode_instruction = (
             "INSTRUCTIONS:\n"
             "The user's query does not have an exact career match in the list above. "
             "List ALL related careers from the list (up to 5).\n\n"
             "Your response MUST start with this exact line:\n"
-            "'WorkBC does not have a specific profile for [user's term]. "
-            "Here are related careers in WorkBC data:'\n\n"
+            f"'{disclaimer_line}'\n\n"
             "Then for EACH related career provide:\n"
             "**[Career Title] (NOC: [code]) — Salary: $[amount]**\n"
             "- [2-3 duty bullets]\n"
-            "[View Career Profile](url)\n"
+            "[View Career Profile](url)\n\n"
+            "CRITICAL: [Career Title] must be copied EXACTLY from the data — "
+            "do NOT rename or rephrase it to match the user's wording.\n"
         )
 
     current_user_content = (
@@ -2201,7 +2279,7 @@ async def ask_career_bot(request: QueryRequest):
             "just answer naturally as if you already know the information.\n"                 
             "2. IDENTITY CHECK: If the provided data contains the EXACT career the user asked about, "
             "describe only that one — ignore unrelated careers in the data. "
-            "If the EXACT career is NOT in the provided data, list 1-4 GENUINELY RELATED careers from the data. "
+            "If the EXACT career is NOT in the provided data, list 1-5 GENUINELY RELATED careers from the data. "
             "\n\nCRITICAL — judge relevance before listing each career:\n"
             "- A career is related ONLY if it involves similar work, skills, or industry\n"
             "- A career is NOT related just because it shares a word like 'Professional' or 'Worker'\n"
