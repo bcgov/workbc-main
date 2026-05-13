@@ -1435,6 +1435,41 @@ async def get_career_answer(
     
     print(f"DEBUG: context_chunks length before truncation: {len(context_chunks)}")
 
+     # Sanity filter — remove ChromaDB matches that only share qualifier words with query
+    # Example: query "professional boxer" should NOT match "Professional Marketing"
+    QUALIFIER_WORDS = {"professional", "senior", "junior", "lead", "chief", "head", "assistant"}
+    STOP_WORDS = {"and", "or", "the", "of", "in", "for", "a", "an", "to", "be", "is",
+                  "do", "does", "how", "what", "who", "i", "me", "my", "you", "become",
+                  "are", "was", "were", "want", "need", "should", "can", "could", "would"}
+
+    query_lower = user_query.lower()
+    query_words = set(re.findall(r'\b[a-z]+\b', query_lower))
+    query_qualifiers = query_words & QUALIFIER_WORDS
+
+    if query_qualifiers and len(context_chunks) > 1:
+        filtered_chunks = []
+        for chunk in context_chunks:
+            first_line = chunk.split('\n')[0].lower()
+            title_text = first_line.replace("job:", "").split("(noc:")[0].strip()
+            title_words = set(re.findall(r'\b[a-z]+\b', title_text))
+
+            # Find substantive overlap (excluding qualifiers and stop words)
+            shared = (title_words & query_words) - query_qualifiers - STOP_WORDS
+
+            if shared:
+                # Has substantive word overlap — keep it
+                filtered_chunks.append(chunk)
+            elif not (title_words & query_words):
+                # No word overlap at all — pure semantic match, keep it
+                filtered_chunks.append(chunk)
+            else:
+                # Matched ONLY on qualifier word — almost certainly a false positive
+                print(f"DEBUG: Filtered out '{title_text}' — only matched on qualifier word")
+
+        if filtered_chunks:  # Only apply filter if it doesn't remove everything
+            context_chunks = filtered_chunks
+            print(f"DEBUG: After qualifier filter: {len(context_chunks)} chunks remain")
+            
     seen_careers = {}
     priority_chunks = []
     secondary_chunks = []
