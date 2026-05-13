@@ -538,39 +538,6 @@ class ClearSessionRequest(BaseModel):
 # 5. HELPERS
 # ---------------------------------------------------------------------------
 
-def has_clear_career_match(user_query: str, available_careers: list) -> bool:
-    """
-    Returns True if the user's query clearly matches one career in the available list.
-    Used to decide between single-career response vs multi-career listing.
-    """
-    if not available_careers or not user_query:
-        return False
-
-    # Extract meaningful words from query (skip common verbs/prepositions)
-    skip_words = {"a", "an", "the", "i", "me", "my", "am", "is", "are", "be",
-                  "tell", "about", "what", "how", "do", "does", "want", "to",
-                  "for", "in", "of", "with", "interested", "career", "as",
-                  "can", "you", "give", "info", "information", "more"}
-    query_words = {w for w in re.findall(r'\b[a-z]+\b', user_query.lower())
-                   if len(w) > 2 and w not in skip_words}
-
-    if not query_words:
-        return False
-
-    # Check if any career title contains substantial overlap with query words
-    for career in available_careers:
-        career_lower = career.lower()
-        career_words = set(re.findall(r'\b[a-z]+\b', career_lower))
-        # Substantial overlap = at least one meaningful query word in the title
-        overlap = query_words & career_words
-        if overlap:
-            # Pluralization fuzzy check
-            for qw in query_words:
-                if qw in career_lower or f"{qw}s" in career_lower or qw.rstrip('s') in career_lower:
-                    print(f"DEBUG: Clear career match — query word '{qw}' found in '{career}'")
-                    return True
-
-    return False
 
 def format_video_section(noc: str) -> str:
     """Return a markdown video section for a given NOC, or empty string if none."""
@@ -1439,6 +1406,9 @@ async def get_career_answer(
         )
 
     context_chunks = []
+    context_chunks = []
+    career_distances = {}  # Track best (lowest) distance per career for is_clear_match decision
+
     for i in range(len(results['documents'][0])):
         distance  = results['distances'][0][i]
         job_title = results['metadatas'][0][i].get('job_title')
@@ -1446,6 +1416,10 @@ async def get_career_answer(
         if distance > 0.5:
             print(f"DEBUG: Skipping '{job_title}' — distance too high: {distance}")
             continue
+
+        # Track best distance per career
+        if job_title not in career_distances or distance < career_distances[job_title]:
+            career_distances[job_title] = distance
         meta       = results['metadatas'][0][i]
         salary_val = meta.get('salary', 'N/A')
         try:
@@ -1537,9 +1511,21 @@ async def get_career_answer(
             available_careers.append(first_line.replace("JOB: ", ""))
     careers_list = "\n- ".join(available_careers)
 
-    # Pre-compute whether the query has a clear single-career match
-    is_clear_match = has_clear_career_match(user_query, available_careers)
-    print(f"DEBUG: is_clear_match={is_clear_match}")
+   # Determine response mode based on ChromaDB distance gap
+    # If top match is significantly closer than second → clear single match
+    # If matches are close together → ambiguous, list multiple
+    remaining_distances = sorted([
+        d for title, d in career_distances.items()
+        if any(title in chunk for chunk in context_chunks)
+    ])
+
+    if len(remaining_distances) <= 1:
+        is_clear_match = True
+        print(f"DEBUG: Only {len(remaining_distances)} unique career — is_clear_match=True")
+    else:
+        gap = remaining_distances[1] - remaining_distances[0]
+        is_clear_match = gap > 0.05
+        print(f"DEBUG: Distance gap = {gap:.3f} (threshold=0.05) — is_clear_match={is_clear_match}")
 
     if is_clear_match:
         # Single-career mode — describe the matching career normally
