@@ -1,6 +1,20 @@
 (function ($) {
   ("use strict");
 
+  // Manage the main navigation menu open/close status.
+  Drupal.behaviors.mainNav = {
+    attach: function (context, settings) {
+      $(once("mainNav", ".nav-t1 > .nav-item", context)).on('focus', function() {
+        $(this).parent().children(".nav-item").removeClass('open');
+        $(this).addClass('open');
+      });
+      $("body").on('click', function(event) {
+        if ($(event.target).parents(".nav-t1").length > 0) return;
+        $(".nav-t1 > .nav-item").removeClass('open');
+      });
+    }
+  }
+
   // Scroll detection for Banner Top offset.
   Drupal.behaviors.bannerTop = {
     attach: function (context, settings) {

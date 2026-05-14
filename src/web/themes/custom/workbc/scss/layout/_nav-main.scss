@@ -38,8 +38,7 @@
         padding: 0;
       }
 
-      span:focus + .submenu-container,
-      .submenu-container:hover {
+      &.open > .submenu-container {
         display: block;
       }
 
@@ -50,10 +49,6 @@
         right: 0;
         left: 0;
         z-index: 1000;
-
-        ul.nav-t1 > li:hover & {
-          display: block;
-        }
 
         .submenu {
           width: 100%;
@@ -71,10 +66,8 @@
               border-left: $workbc_trim_standard_size solid
                 $workbc_palette_transparent; //placeholder to prevent content shifting when colored borders are in place (hover, etc.)
 
-              &:hover > a {
-                &:after {
-                  color: $workbc_default_link;
-                }
+              &:hover > a:after {
+                color: $workbc_default_link;
               }
 
               li:hover > a {
@@ -102,29 +95,18 @@
       cursor: pointer;
 
       & > a,
-      & > a:focus,
       & > span {
         color: $workbc_dark_theme_text;
       }
 
-      &:hover {
+      &:focus,
+      &:hover,
+      &.open {
         border-color: $workbc_light_theme_trim;
         background-color: $workbc_light_theme_background_default;
 
         & > a,
-        a:focus,
-        span {
-          color: $workbc_light_theme_text;
-        }
-      }
-
-      &.active {
-        border-color: $workbc_light_theme_trim;
-        background-color: $workbc_light_theme_background_default;
-
-        & > a,
-        a:focus,
-        span {
+        & > span {
           color: $workbc_light_theme_text;
         }
       }
@@ -144,7 +126,7 @@
 
             & > li {
               & > a,
-              a:focus {
+              & > a:focus {
                 color: $workbc_light_theme_text;
               }
 
@@ -160,7 +142,7 @@
                 background-color: $workbc_light_theme_background_accent;
 
                 & > a,
-                a:focus {
+                & > a:focus {
                   color: $workbc_default_link;
                 }
               }

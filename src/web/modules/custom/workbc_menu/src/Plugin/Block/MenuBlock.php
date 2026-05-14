@@ -3,11 +3,8 @@
 namespace Drupal\workbc_menu\Plugin\Block;
 
 use Drupal\Core\Block\BlockBase;
-use Drupal\image\Entity\ImageStyle;
-use Drupal\media\Entity\Media;
 use Drupal\Core\Menu\MenuLinkBase;
 use Drupal\Core\Menu\MenuLinkTreeElement;
-use Drupal\Node\NodeInterface;
 
 /**
  * Provides a WorkBC Menu block.
@@ -42,7 +39,7 @@ class MenuBlock extends BlockBase {
     }
     if ($level === 1) {
       return $url !== "/" ?
-        "<span tabindex=\"0\" class=\"" . implode(' ', $a_classes) . "\">$name</span>" :
+        "<span class=\"" . implode(' ', $a_classes) . "\">$name</span>" :
         "<a " . implode(' ', $a_attributes) . " class=\"" . implode(' ', $a_classes) . "\" href=\"$url\">$name</a>";
     }
     else {
@@ -71,7 +68,7 @@ class MenuBlock extends BlockBase {
       if ($item->hasChildren) {
         array_push($li_classes, "has-submenu");
       }
-      $output .= "<li class=\"" . implode(' ', $li_classes) . "\">\n";
+      $output .= "<li tabindex=\"0\" class=\"" . implode(' ', $li_classes) . "\">\n";
       $output .= $this->renderLink($item->link, $item->hasChildren, 1) . "\n";
       if ($item->hasChildren) {
         $output .= "<div class=\"submenu-container\"><div class=\"row g-0 submenu\">\n";
