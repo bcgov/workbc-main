@@ -11,6 +11,7 @@ import redis
 import chromadb
 from fastapi import FastAPI, HTTPException
 from fastapi.middleware.cors import CORSMiddleware
+from fastapi.responses import HTMLResponse
 from pydantic import BaseModel
 from sentence_transformers import SentenceTransformer
 from opensearchpy import OpenSearch
@@ -2534,6 +2535,165 @@ async def get_feedback(limit: int = 100):
         }
     except Exception as e:
         raise HTTPException(status_code=500, detail=str(e))
+
+#----------------------------------------------------------------------------
+# feedback view html
+#----------------------------------------------------------------------------
+@app.get("/api/admin/feedback/view", response_class=HTMLResponse)
+async def view_feedback_html(limit: int = 100):
+    """HTML dashboard for browsing user feedback."""
+    try:
+        raw_items = r.lrange("feedback:all", 0, limit - 1)
+        items = [json.loads(item) for item in raw_items]
+
+        up_count = sum(1 for i in items if i.get("rating") == "up")
+        down_count = sum(1 for i in items if i.get("rating") == "down")
+        satisfaction = round(up_count / len(items) * 100, 1) if items else 0
+
+        # Build HTML rows
+        rows_html = ""
+        for item in items:
+            rating_emoji = "👍" if item.get("rating") == "up" else "👎"
+            rating_color = "#28a745" if item.get("rating") == "up" else "#dc3545"
+            timestamp = item.get("timestamp", "")[:19].replace("T", " ")
+            comment = item.get("comment", "") or "<em style='color:#999'>(no comment)</em>"
+
+            rows_html += f"""
+            <tr>
+                <td style="white-space:nowrap; font-family:monospace; font-size:12px;">{timestamp}</td>
+                <td style="text-align:center; font-size:20px; color:{rating_color};">{rating_emoji}</td>
+                <td style="max-width:200px; font-size:13px;">{item.get('user_query', '')[:150]}</td>
+                <td style="max-width:300px; font-size:12px; color:#555;">{item.get('bot_response', '')[:200]}...</td>
+                <td style="font-size:13px;">{comment}</td>
+                <td style="font-size:11px; color:#888;">{item.get('intent', '')}</td>
+                <td style="font-family:monospace; font-size:11px; color:#888;">{item.get('session_id', '')[:12]}</td>
+            </tr>
+            """
+
+        html = f"""
+        <!DOCTYPE html>
+        <html>
+        <head>
+            <title>WorkBC Career Advisor — Feedback</title>
+            <meta charset="utf-8">
+            <style>
+                body {{
+                    font-family: -apple-system, BlinkMacSystemFont, 'Segoe UI', sans-serif;
+                    margin: 0;
+                    padding: 20px;
+                    background: #f5f7fa;
+                    color: #333;
+                }}
+                h1 {{
+                    margin: 0 0 20px;
+                    color: #04364A;
+                }}
+                .stats {{
+                    display: flex;
+                    gap: 20px;
+                    margin-bottom: 30px;
+                }}
+                .stat-card {{
+                    background: white;
+                    border: 1px solid #ddd;
+                    border-radius: 8px;
+                    padding: 16px 24px;
+                    flex: 1;
+                    box-shadow: 0 2px 4px rgba(0,0,0,0.05);
+                }}
+                .stat-label {{
+                    color: #888;
+                    font-size: 12px;
+                    text-transform: uppercase;
+                    letter-spacing: 1px;
+                }}
+                .stat-value {{
+                    font-size: 32px;
+                    font-weight: bold;
+                    color: #028090;
+                    margin-top: 6px;
+                }}
+                table {{
+                    width: 100%;
+                    border-collapse: collapse;
+                    background: white;
+                    box-shadow: 0 2px 4px rgba(0,0,0,0.05);
+                    border-radius: 8px;
+                    overflow: hidden;
+                }}
+                th {{
+                    background: #028090;
+                    color: white;
+                    text-align: left;
+                    padding: 12px;
+                    font-size: 12px;
+                    text-transform: uppercase;
+                    letter-spacing: 0.5px;
+                }}
+                td {{
+                    padding: 10px 12px;
+                    border-top: 1px solid #eee;
+                    vertical-align: top;
+                }}
+                tr:hover {{
+                    background: #f9fafb;
+                }}
+                .empty {{
+                    text-align: center;
+                    padding: 40px;
+                    color: #999;
+                    font-style: italic;
+                }}
+            </style>
+        </head>
+        <body>
+            <h1>📊 WorkBC Career Advisor — User Feedback</h1>
+
+            <div class="stats">
+                <div class="stat-card">
+                    <div class="stat-label">Total Feedback</div>
+                    <div class="stat-value">{len(items)}</div>
+                </div>
+                <div class="stat-card">
+                    <div class="stat-label">Thumbs Up</div>
+                    <div class="stat-value" style="color:#28a745;">{up_count}</div>
+                </div>
+                <div class="stat-card">
+                    <div class="stat-label">Thumbs Down</div>
+                    <div class="stat-value" style="color:#dc3545;">{down_count}</div>
+                </div>
+                <div class="stat-card">
+                    <div class="stat-label">Satisfaction</div>
+                    <div class="stat-value">{satisfaction}%</div>
+                </div>
+            </div>
+
+            {"<table>" if items else ""}
+                {f'''
+                <thead>
+                    <tr>
+                        <th>Time (UTC)</th>
+                        <th>Rating</th>
+                        <th>Question</th>
+                        <th>Response</th>
+                        <th>Comment</th>
+                        <th>Intent</th>
+                        <th>Session</th>
+                    </tr>
+                </thead>
+                <tbody>
+                    {rows_html}
+                </tbody>
+                ''' if items else '<div class="empty">No feedback received yet.</div>'}
+            {"</table>" if items else ""}
+        </body>
+        </html>
+        """
+
+        return HTMLResponse(content=html)
+
+    except Exception as e:
+        return HTMLResponse(content=f"<h1>Error loading feedback</h1><pre>{e}</pre>")
 
 # ---------------------------------------------------------------------------
 # 7. HEALTH CHECK
