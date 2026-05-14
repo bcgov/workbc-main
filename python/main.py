@@ -495,7 +495,7 @@ FALLBACK_KEYWORDS = {
 # Maps lowercase keywords (substring match) to NOC codes that must always appear
 # in results for that query, even if ChromaDB doesn't rank them high enough.
 CAREER_SEARCH_ALIASES: dict[str, list[str]] = {
-    "business analyst": ["11201"],
+    "business analyst": ["11201", "21221"],
 }
 
 app = FastAPI()
@@ -1620,18 +1620,25 @@ async def get_career_answer(
                 f"WorkBC does not have a specific profile for {search_term}. "
                 f"Here are related careers in WorkBC data:"
             )
+        career_count = len(available_careers)
         mode_instruction = (
             "INSTRUCTIONS:\n"
             "The user's query does not have an exact career match in the list above. "
-            "List ALL related careers from the list (up to 5).\n\n"
+            f"The AVAILABLE CAREERS list contains exactly {career_count} career(s). "
+            f"Describe {'ONLY that ONE career' if career_count == 1 else 'ALL of them (up to 5)'}. "
+            "Do NOT mention any career, NOC code, or job title not in the list.\n\n"
             "Your response MUST start with this exact line:\n"
             f"'{disclaimer_line}'\n\n"
-            "Then for EACH related career provide:\n"
+            "Then for EACH career in the list provide:\n"
             "**[Career Title] (NOC: [code]) — Salary: $[amount]**\n"
-            "- [2-3 duty bullets]\n"
+            "- [duty bullet]\n"
+            "- [duty bullet]\n"
+            "- [duty bullet]\n"
             "[View Career Profile](url)\n\n"
             "CRITICAL: [Career Title] must be copied EXACTLY from the data — "
             "do NOT rename or rephrase it to match the user's wording.\n"
+            "STOP after listing only the careers in the AVAILABLE CAREERS list. "
+            "Do NOT add suggestions, related roles, or invented NOC codes.\n"
         )
 
     current_user_content = (
