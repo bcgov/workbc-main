@@ -537,8 +537,18 @@ class QueryRequest(BaseModel):
     prompt: str
     session_id: str
 
-class ClearSessionRequest(BaseModel):
+class ClearSessionRequest(BaseModel):    
     session_id: str
+
+class FeedbackRequest(BaseModel):
+    session_id: str
+    message_id: str          # unique ID per bot response
+    user_query: str          # the original user question
+    bot_response: str        # the bot's answer
+    rating: str              # "up" or "down"
+    comment: str | None = None   # optional explanation
+    intent: str | None = None    # what intent the bot classified
+    timestamp: str | None = None # client-side timestamp
 
 # ---------------------------------------------------------------------------
 # 5. HELPERS
@@ -2455,6 +2465,75 @@ async def video_reload_task():
 async def start_background_tasks():
     asyncio.create_task(video_reload_task())
     print("DEBUG: Started video reload background task")
+
+#----------------------------------------------------------------------------
+#Feedback buttons
+#----------------------------------------------------------------------------
+@app.post("/api/feedback")
+async def submit_feedback(request: FeedbackRequest):
+    """Store user feedback on a bot response."""
+    try:
+        # Validate rating
+        if request.rating not in ("up", "down"):
+            raise HTTPException(status_code=400, detail="rating must be 'up' or 'down'")
+
+        # Build feedback record
+        from datetime import datetime
+        feedback = {
+            "session_id":   request.session_id,
+            "message_id":   request.message_id,
+            "user_query":   request.user_query[:500],  # cap length
+            "bot_response": request.bot_response[:2000],  # cap length
+            "rating":       request.rating,
+            "comment":      (request.comment or "")[:500],
+            "intent":       request.intent or "",
+            "timestamp":    request.timestamp or datetime.utcnow().isoformat() + "Z",
+        }
+
+        # Store in Redis with a 30-day expiry
+        # Key format: feedback:<timestamp>:<session_id>
+        feedback_key = f"feedback:{feedback['timestamp']}:{request.session_id}"
+        r.setex(feedback_key, 60 * 60 * 24 * 30, json.dumps(feedback))
+
+        # Also add to a sorted list for easy retrieval
+        r.lpush("feedback:all", json.dumps(feedback))
+        r.ltrim("feedback:all", 0, 999)  # Keep last 1000 entries
+
+        print(f"DEBUG: Feedback received — {request.rating} for session {request.session_id}")
+
+        return {"status": "received"}
+
+    except HTTPException:
+        raise
+    except Exception as e:
+        traceback.print_exc()
+        # Don't expose internal errors — just log and return generic response
+        print(f"ERROR: Feedback save failed: {e}")
+        return {"status": "received"}  # Pretend success to avoid blocking user
+
+#-----------------------------------------------------------------------------------
+# Admin feedback
+#-----------------------------------------------------------------------------------
+@app.get("/api/admin/feedback")
+async def get_feedback(limit: int = 100):
+    """Retrieve recent feedback for review."""
+    try:
+        raw_items = r.lrange("feedback:all", 0, limit - 1)
+        items = [json.loads(item) for item in raw_items]
+
+        # Summary stats
+        up_count = sum(1 for i in items if i.get("rating") == "up")
+        down_count = sum(1 for i in items if i.get("rating") == "down")
+
+        return {
+            "total":        len(items),
+            "thumbs_up":    up_count,
+            "thumbs_down":  down_count,
+            "satisfaction": round(up_count / len(items) * 100, 1) if items else 0,
+            "items":        items,
+        }
+    except Exception as e:
+        raise HTTPException(status_code=500, detail=str(e))
 
 # ---------------------------------------------------------------------------
 # 7. HEALTH CHECK
