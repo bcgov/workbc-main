@@ -12,6 +12,11 @@
         if ($(event.target).parents(".nav-t1").length > 0) return;
         $(".nav-t1 > .nav-item").removeClass('open');
       });
+      $(document).on("keyup", function(event) {
+        if (event.key == "Escape") {
+          $(".nav-t1 > .nav-item").removeClass('open');
+        }
+      });
     }
   }
 
