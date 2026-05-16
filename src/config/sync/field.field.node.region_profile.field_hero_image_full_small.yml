@@ -1,17 +1,17 @@
-uuid: 14d02ad6-12e6-4f5b-b99a-656f0e1494e1
+uuid: 287070c4-0f65-4eb2-9139-9fa1ad1b0c5d
 langcode: en
 status: true
 dependencies:
   config:
-    - field.storage.node.field_hero_image_full_width
+    - field.storage.node.field_hero_image_full_small
     - media.type.image
     - node.type.region_profile
-id: node.region_profile.field_hero_image_full_width
-field_name: field_hero_image_full_width
+id: node.region_profile.field_hero_image_full_small
+field_name: field_hero_image_full_small
 entity_type: node
 bundle: region_profile
-label: 'Hero Image (Full-Width, Tablet/Desktop)'
-description: 'Hero image, full-width version for tablet/desktop. If present, it replaces the earlier <strong>Hero Image (Faded)</strong>.'
+label: 'Hero Image (Full-Width, Mobile)'
+description: 'Hero image, full-width version for mobile. If missing, it is replaced by <strong>Hero Image (Full-Width, Tablet/Desktop)</strong>.'
 required: false
 translatable: false
 default_value: {  }

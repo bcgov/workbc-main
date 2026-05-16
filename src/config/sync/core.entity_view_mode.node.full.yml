@@ -8,6 +8,6 @@ _core:
   default_config_hash: ElrtInxGjZd7GaapJ5O9n-ugi2hG2IxFivtgn0tHOsk
 id: node.full
 label: 'Full content'
-description: ''
+description: null
 targetEntityType: node
 cache: true

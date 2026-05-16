@@ -1,9 +1,9 @@
-uuid: d4a5a18a-7cf8-49a0-b5e1-6adbe3910853
+uuid: 06318833-6221-466c-82a1-bf82512c76c7
 langcode: en
 status: true
 dependencies:
   config:
-    - core.entity_view_mode.node.search_results
+    - core.entity_view_mode.node.jobboard
     - field.field.node.industry_profile.field_content
     - field.field.node.industry_profile.field_content_group
     - field.field.node.industry_profile.field_hero_image
@@ -24,68 +24,17 @@ dependencies:
     - field.field.node.industry_profile.field_tags
     - node.type.industry_profile
   module:
-    - field_group
-    - text
     - user
-third_party_settings:
-  field_group:
-    group_industry_profile:
-      children: {  }
-      label: 'Industry Profile'
-      parent_name: ''
-      region: hidden
-      weight: 10
-      format_type: tabs
-      format_settings:
-        classes: ''
-        show_empty_fields: true
-        id: ''
-        direction: horizontal
-        width_breakpoint: 640
-    group_industry_overview:
-      children: {  }
-      label: 'Industry Overview'
-      parent_name: ''
-      region: hidden
-      weight: 11
-      format_type: tab
-      format_settings:
-        classes: ''
-        show_empty_fields: true
-        id: ''
-        formatter: open
-        description: ''
-    group_labour_market_statistics:
-      children: {  }
-      label: 'Labour Market Statistics'
-      parent_name: ''
-      region: hidden
-      weight: 23
-      format_type: tab
-      format_settings:
-        classes: ''
-        show_empty_fields: true
-        id: ''
-        formatter: closed
-        description: ''
-    group_resources:
-      children: {  }
-      label: Resources
-      parent_name: ''
-      region: hidden
-      weight: 45
-      format_type: tab
-      format_settings:
-        classes: ''
-        show_empty_fields: true
-        id: ''
-        formatter: closed
-        description: ''
-id: node.industry_profile.search_results
+id: node.industry_profile.jobboard
 targetEntityType: node
 bundle: industry_profile
-mode: search_results
+mode: jobboard
 content:
+  content_moderation_control:
+    settings: {  }
+    third_party_settings: {  }
+    weight: -20
+    region: content
   created:
     type: timestamp
     label: hidden
@@ -105,13 +54,28 @@ content:
     third_party_settings: {  }
     weight: 0
     region: content
-  field_industry_overview:
-    type: text_trimmed
-    label: hidden
+  field_hero_image_full_small:
+    type: entity_reference_entity_view
+    label: above
     settings:
-      trim_length: 275
+      view_mode: full
+      link: false
     third_party_settings: {  }
-    weight: 0
+    weight: 10
+    region: content
+  field_hero_image_full_wide:
+    type: entity_reference_entity_view
+    label: above
+    settings:
+      view_mode: full
+      link: false
+    third_party_settings: {  }
+    weight: 9
+    region: content
+  links:
+    settings: {  }
+    third_party_settings: {  }
+    weight: 100
     region: content
   uid:
     type: author
@@ -121,7 +85,6 @@ content:
     weight: 0
     region: content
 hidden:
-  content_moderation_control: true
   extra_field_employment_introduction: true
   extra_field_hourly_earnings_introduction: true
   extra_field_industry_average_wage_bc: true
@@ -165,11 +128,10 @@ hidden:
   field_content: true
   field_content_group: true
   field_hero_image: true
-  field_hero_image_full_small: true
-  field_hero_image_full_wide: true
   field_hero_image_full_width: true
   field_hero_image_media: true
   field_hourly_earnings_note: true
+  field_industry_overview: true
   field_introductions: true
   field_job_board_id: true
   field_job_board_save_profile_id: true
@@ -180,5 +142,4 @@ hidden:
   field_scheduled_publish: true
   field_tags: true
   langcode: true
-  links: true
   search_api_excerpt: true

@@ -118,6 +118,31 @@
       max-width: 640px;
     }
   }
+
+  &.profile-header-banner {
+    border-bottom: none;
+
+    .hero-content-container {
+      padding: 30px 20px 12px 20px;
+      border-bottom: $workbc_trim_ultra_thin_size solid
+        $workbc_palette_dark_secondary;
+      @include media-breakpoint-up(lg) {
+        padding-top: 70px;
+        border-bottom: none;
+      }
+    }
+
+    .hero-content-wrapper {
+      @include media-breakpoint-up(lg) {
+        width: 500px;
+        padding: 30px 20px 10px 20px;
+        background: $workbc_palette_light_primary;
+        border-bottom: $workbc_trim_standard_size solid
+          $workbc_palette_dark_secondary;
+        box-shadow: $workbc_default_box_shadow;
+      }
+    }
+  }
 }
 
 .hero-fullwidth-banner {
@@ -236,32 +261,50 @@
       justify-content: center;
     }
   }
-}
 
-// Profile Hero Variations
-.profile-header-banner{
-  &.hero-banner {
-    border-bottom: none;
-  }
-
-  .hero-content-container {
-    padding: 30px 20px 12px 20px;
-    border-bottom: $workbc_trim_ultra_thin_size solid
-      $workbc_palette_dark_secondary;
-    @include media-breakpoint-up(lg) {
-      padding-top: 70px;
-      border-bottom: none;
+  &.profile-header-banner {
+    .hero-noc {
+      color: white;
     }
-  }
 
-  .hero-content-wrapper {
-    @include media-breakpoint-up(lg) {
-      width: 500px;
-      padding: 30px 20px 10px 20px;
-      background: $workbc_palette_light_primary;
-      border-bottom: $workbc_trim_standard_size solid
-        $workbc_palette_dark_secondary;
-      box-shadow: $workbc_default_box_shadow;
+    .hero-subtitle {
+      color: white;
+    }
+
+    .hero-hoo {
+      color: white;
+
+      img, svg {
+        &:first-of-type {
+          display: initial;
+        }
+        &:last-of-type {
+          display: none;
+        }
+      }
+    }
+
+    @include media-breakpoint-down(sm) {
+      .hero-hoo {
+        color: $workbc_palette_dark_secondary;
+
+        img, svg {
+          &:first-of-type {
+            display: none;
+          }
+          &:last-of-type {
+            display: initial;
+          }
+        }
+      }
+
+      .hero-noc {
+        color: #6e6e6e;
+      }
+
+      .hero-subtitle {
+        color: #6e6e6e;
+      }
     }
   }
 }

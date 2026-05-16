@@ -1,9 +1,9 @@
-uuid: 141e34ad-f3d2-4e9d-b846-6ec26549a559
+uuid: 6a2a58f5-ef8e-4064-b19c-a06b4104573c
 langcode: en
 status: true
 dependencies:
   config:
-    - core.entity_view_mode.node.search_results
+    - core.entity_view_mode.node.jobboard
     - field.field.node.region_profile.field_content
     - field.field.node.region_profile.field_content_group
     - field.field.node.region_profile.field_hero_image
@@ -21,70 +21,17 @@ dependencies:
     - field.field.node.region_profile.field_tags
     - node.type.region_profile
   module:
-    - field_group
-    - text
     - user
-third_party_settings:
-  field_group:
-    group_region_profile_tabs:
-      children: {  }
-      label: 'Region Profile Tabs'
-      parent_name: ''
-      region: hidden
-      weight: 13
-      format_type: tabs
-      format_settings:
-        classes: ''
-        show_empty_fields: true
-        id: ''
-        direction: horizontal
-        width_breakpoint: 640
-    group_regional_overview:
-      children: {  }
-      label: 'Regional Overview'
-      parent_name: group_labour_market_statistics
-      region: hidden
-      weight: 25
-      format_type: tab
-      format_settings:
-        classes: ''
-        show_empty_fields: true
-        id: ''
-        formatter: open
-        description: ''
-    group_labour_market_statistics:
-      children:
-        - field_key_facts
-        - group_regional_overview
-      label: 'Labour Market Statistics'
-      parent_name: ''
-      region: hidden
-      weight: 14
-      format_type: tab
-      format_settings:
-        classes: ''
-        show_empty_fields: true
-        id: ''
-        formatter: open
-        description: ''
-    group_industry_highlights:
-      children: {  }
-      label: 'Industry Highlights'
-      parent_name: ''
-      region: hidden
-      weight: 39
-      format_type: tab
-      format_settings:
-        classes: ''
-        show_empty_fields: true
-        id: ''
-        formatter: closed
-        description: ''
-id: node.region_profile.search_results
+id: node.region_profile.jobboard
 targetEntityType: node
 bundle: region_profile
-mode: search_results
+mode: jobboard
 content:
+  content_moderation_control:
+    settings: {  }
+    third_party_settings: {  }
+    weight: -20
+    region: content
   created:
     type: timestamp
     label: hidden
@@ -104,34 +51,28 @@ content:
     third_party_settings: {  }
     weight: 0
     region: content
-  extra_field_labour_market_outlook_introduction:
-    settings: {  }
+  field_hero_image_full_small:
+    type: entity_reference_entity_view
+    label: above
+    settings:
+      view_mode: full
+      link: false
     third_party_settings: {  }
-    weight: 17
+    weight: 10
     region: content
-  extra_field_labour_market_stats_introduction:
-    settings: {  }
+  field_hero_image_full_wide:
+    type: entity_reference_entity_view
+    label: above
+    settings:
+      view_mode: full
+      link: false
     third_party_settings: {  }
     weight: 9
     region: content
-  extra_field_top_occupations_introduction:
+  links:
     settings: {  }
     third_party_settings: {  }
-    weight: 23
-    region: content
-  field_region_overview:
-    type: text_default
-    label: hidden
-    settings: {  }
-    third_party_settings: {  }
-    weight: 0
-    region: content
-  field_top_occupations_intro:
-    type: text_default
-    label: above
-    settings: {  }
-    third_party_settings: {  }
-    weight: 12
+    weight: 100
     region: content
   uid:
     type: author
@@ -141,12 +82,10 @@ content:
     weight: 0
     region: content
 hidden:
-  content_moderation_control: true
   extra_field_region_employment: true
   extra_field_region_employment_bc: true
   extra_field_region_employment_by_industry_source: true
   extra_field_region_employment_by_industry_table: true
-  extra_field_region_employment_by_region_table: true
   extra_field_region_employment_growth_forecast_percent: true
   extra_field_region_employment_growth_forecast_source: true
   extra_field_region_employment_growth_forecast_total: true
@@ -154,7 +93,6 @@ hidden:
   extra_field_region_employment_introduction: true
   extra_field_region_employment_region: true
   extra_field_region_employment_region_source: true
-  extra_field_region_employment_shart_goods_services_chart: true
   extra_field_region_employment_source: true
   extra_field_region_ft_pt_employment_table: true
   extra_field_region_ft_pt_employment_table_bc: true
@@ -168,7 +106,6 @@ hidden:
   extra_field_region_labour_market_outlook_introduction: true
   extra_field_region_labour_market_stats_introduction: true
   extra_field_region_population: true
-  extra_field_region_population_bc: true
   extra_field_region_population_source: true
   extra_field_region_top_occupations_introduction: true
   extra_field_region_top_ten_occupations: true
@@ -184,8 +121,6 @@ hidden:
   field_content: true
   field_content_group: true
   field_hero_image: true
-  field_hero_image_full_small: true
-  field_hero_image_full_wide: true
   field_hero_image_full_width: true
   field_hero_image_media: true
   field_industry_highlights_intro: true
@@ -193,8 +128,8 @@ hidden:
   field_job_board_id: true
   field_key_facts: true
   field_metatag_description: true
+  field_region_overview: true
   field_scheduled_publish: true
   field_tags: true
   langcode: true
-  links: true
   search_api_excerpt: true
