@@ -2125,73 +2125,6 @@ async def ask_career_bot(request: QueryRequest):
                 "suggestions": generate_suggestions("greeting", user_query)
             }
         
-        # Handle meta questions about how the system works
-        meta_subject = detect_meta_subject(normalized)
-
-        if meta_subject:
-            if meta_subject == "career_profile":
-                meta_answer = (
-                    "A **career profile** is a detailed summary of an occupation that includes:\n\n"
-                    "* **Duties and responsibilities** — what people in this role do day-to-day\n"
-                    "* **Salary information** — typical earnings in British Columbia\n"
-                    "* **Education and training** — what qualifications you need\n"
-                    "* **NOC code** — the official 5-digit classification code\n\n"
-                    "WorkBC has **511 career profiles** covering occupations across BC. "
-                    "I use these profiles to answer your career questions.\n\n"
-                    "Try asking about a specific career — for example: *\"What does a nurse do?\"* "
-                    "or *\"Tell me about plumbers\"*."
-                )
-            elif meta_subject == "noc":
-                meta_answer = (
-                    "**NOC** stands for **National Occupational Classification** — "
-                    "Canada's official system for organizing occupations.\n\n"
-                    "Every career has a unique 5-digit NOC code. For example:\n\n"
-                    "* Registered Nurses → NOC 31301\n"
-                    "* Plumbers → NOC 72300\n"
-                    "* Software Developers → NOC 21232\n\n"
-                    "NOC codes help match careers across job postings, government statistics, "
-                    "and immigration programs.\n\n"
-                    "Try asking: *\"What does a firefighter do?\"* and I'll show you the NOC code."
-                )
-            elif meta_subject == "workbc":
-                meta_answer = (
-                    "**WorkBC** is the British Columbia government's career and employment service. "
-                    "I use WorkBC's data to answer your questions, including:\n\n"
-                    "* **511 career profiles** with duties, salaries, and education requirements\n"
-                    "* **Live job postings** updated continuously across BC\n"
-                    "* **Career Trek videos** featuring real BC professionals\n\n"
-                    "Visit [workbc.ca](https://www.workbc.ca) for more resources."
-                )
-            elif meta_subject == "data_source":
-                meta_answer = (
-                    "All my information comes from **official WorkBC sources**:\n\n"
-                    "* **Career profiles** — 511 occupations with duties, salaries, and education paths\n"
-                    "* **Job postings** — live data from WorkBC's job bank\n"
-                    "* **Career Trek videos** — real BC professionals describing their work\n\n"
-                    "I don't use any external sources — every answer is grounded in WorkBC data."
-                )
-            elif meta_subject == "accuracy":
-                meta_answer = (
-                    "I work hard to give accurate information by:\n\n"
-                    "* Using **only official WorkBC data** — no external sources\n"
-                    "* **Validating every career code** against the source list\n"
-                    "* **Catching invented data** before showing it to you\n"
-                    "* Being **honest when I don't know** rather than guessing\n\n"
-                    "If you ever see something that looks wrong, please let us know."
-                )
-
-            return {
-                "answer":        meta_answer,
-                "career_answer": "",
-                "jobs":          [],
-                "total":         0,
-                "page":          1,
-                "has_more":      False,
-                "session_id":    session_id,
-                "suggestions": generate_suggestions("greeting", user_query),
-            }
-        
-        
         # Handle career discovery / exploration queries — redirect to quiz
         DISCOVERY_PATTERNS = [
             "what career should i", "what job should i", "which career should i",
@@ -2289,6 +2222,11 @@ async def ask_career_bot(request: QueryRequest):
             "- 'job_search' = user wants to find/see/browse actual job postings or openings\n"
             "- 'career_info' = user wants to learn about a career (duties, salary, education)\n"
             "- 'both' = user wants career info AND job postings\n"
+            "- 'meta_noc' = user asks what a NOC code is or how NOC codes work\n"
+            "- 'meta_workbc' = user asks what WorkBC is\n"
+            "- 'meta_profile' = user asks what a career profile is\n"
+            "- 'meta_data_source' = user asks where the data comes from\n"
+            "- 'discovery' = user wants help choosing a career path\n"
             "- 'out_of_scope' = greetings, bot questions, or anything NOT about BC careers/jobs\n\n"
             "OUT-OF-SCOPE EXAMPLES (return out_of_scope):\n"
             "Query: 'hi' -> out_of_scope\n"
@@ -2344,6 +2282,13 @@ async def ask_career_bot(request: QueryRequest):
             "Query: 'developer jobs in Seattle' -> job_search, keywords=developer, city=Washington\n"
             "Query: 'show me jobs in Edmonton' -> job_search, keywords=null, city=Alberta\n"
             "Query: 'engineering jobs in San Francisco' -> job_search, keywords=engineering, city=California\n\n"
+            "META EXAMPLES:\n"
+            "Query: 'what is a noc' -> meta_noc\n"
+            "Query: 'what is a NOC code' -> meta_noc\n"
+            "Query: 'explain noc' -> meta_noc\n"
+            "Query: 'what is workbc' -> meta_workbc\n"
+            "Query: 'what is a career profile' -> meta_profile\n"
+            "Query: 'where does this data come from' -> meta_data_source\n\n"
             "OUTPUT FORMAT:\n"
             "{\n"
             '  "intent": "job_search" or "career_info" or "both" or "out_of_scope",\n'
@@ -2446,6 +2391,54 @@ async def ask_career_bot(request: QueryRequest):
                 "* **Compare careers** - side by side with salary data\n\n"
                 "Try asking: *\"What does a nurse do?\"* or *\"Find nursing jobs in Vancouver\"*"
             )
+        
+        # ========== LLM-BASED META QUESTION HANDLING ==========
+        elif intent == "meta_noc":
+            answer = (
+                "**NOC** stands for **National Occupational Classification** — "
+                "Canada's official system for organizing occupations.\n\n"
+                "Every career has a unique 5-digit NOC code. For example:\n\n"
+                "* Registered Nurses → NOC 31301\n"
+                "* Plumbers → NOC 72300\n"
+                "* Software Developers → NOC 21232\n\n"
+                "NOC codes help match careers across job postings, government statistics, "
+                "and immigration programs.\n\n"
+                "Try asking: *\"What does a firefighter do?\"* and I'll show you the NOC code."
+            )
+        
+        elif intent == "meta_workbc":
+            answer = (
+                "**WorkBC** is the British Columbia government's career and employment service. "
+                "I use WorkBC's data to answer your questions, including:\n\n"
+                "* **511 career profiles** with duties, salaries, and education requirements\n"
+                "* **Live job postings** updated continuously across BC\n"
+                "* **Career Trek videos** featuring real BC professionals\n\n"
+                "Visit [workbc.ca](https://www.workbc.ca) for more resources."
+            )
+        
+        elif intent == "meta_profile":
+            answer = (
+                "A **career profile** is a detailed summary of an occupation that includes:\n\n"
+                "* **Duties and responsibilities** — what people in this role do day-to-day\n"
+                "* **Salary information** — typical earnings in British Columbia\n"
+                "* **Education and training** — what qualifications you need\n"
+                "* **NOC code** — the official 5-digit classification code\n\n"
+                "WorkBC has **511 career profiles** covering occupations across BC. "
+                "I use these profiles to answer your career questions.\n\n"
+                "Try asking about a specific career — for example: *\"What does a nurse do?\"* "
+                "or *\"Tell me about plumbers\"*."
+            )
+        
+        elif intent == "meta_data_source":
+            answer = (
+                "All my information comes from **official WorkBC sources**:\n\n"
+                "* **Career profiles** — 511 occupations with duties, salaries, and education paths\n"
+                "* **Job postings** — live data from WorkBC's job bank\n"
+                "* **Career Trek videos** — real BC professionals describing their work\n\n"
+                "I don't use any external sources — every answer is grounded in WorkBC data."
+            )
+        # ========== END META HANDLERS ==========
+        
         elif intent == "career_info":
             answer, search_term = await get_career_answer(
                 user_query, sanitized_history, system_rules
