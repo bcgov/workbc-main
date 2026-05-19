@@ -120,6 +120,77 @@ CITY_PROVINCE_SUFFIXES = [
     ", NL", ", Newfoundland", ", PEI", ", Prince Edward Island", ", Canada",
 ]
 
+# Common synonyms and abbreviations → canonical search terms
+# These get expanded BEFORE the rewriter / ChromaDB search
+CAREER_SYNONYMS = {
+    # Nursing abbreviations
+    "rn":                  "registered nurse",
+    "lpn":                 "licensed practical nurse",
+    "np":                  "nurse practitioner",
+    "rpn":                 "registered psychiatric nurse",
+
+    # Medical
+    "doctor":              "general practitioner physician",
+    "doctors":             "general practitioner physician",
+    "physician":           "general practitioner",
+    "surgeon":             "specialists surgery",
+    "surgeons":            "specialists surgery",
+    "gp":                  "general practitioner",
+    "md":                  "physician",
+    "vet":                 "veterinarian",
+    "vets":                "veterinarian",
+
+    # Personal services
+    "hairdresser":         "hairstylist",
+    "hairdressers":        "hairstylist",
+    "stylist":             "hairstylist",
+    "esthetician":         "estheticians",
+
+    # Tech abbreviations
+    "dev":                 "software developer",
+    "developer":           "software developer",
+    "swe":                 "software engineer",
+    "sde":                 "software developer",
+    "ux designer":         "web designer",
+    "ui designer":         "web designer",
+    "data analyst":        "database analyst",
+    "qa":                  "software tester",
+
+    # Trades
+    "hvac":                "heating refrigeration air conditioning mechanic",
+    "electrician apprentice": "electrician",
+    "plumber apprentice":  "plumber",
+
+    # Education
+    "prof":                "university professor",
+    "teacher":             "elementary school teacher",
+    "professor":           "university professor",
+    "tutor":               "private tutor",
+
+    # Office/admin
+    "secretary":           "administrative assistant",
+    "admin":               "administrative officer",
+    "ea":                  "executive assistant",
+
+    # Sales/service
+    "cashier":             "cashiers",
+    "barista":             "food and beverage server",
+    "waiter":              "food and beverage server",
+    "waitress":            "food and beverage server",
+    "server":              "food and beverage server",
+
+    # Creative
+    "writer":              "author",
+    "designer":            "graphic designer",
+    "photographer":        "photographers",
+
+    # Public safety
+    "cop":                 "police officer",
+    "cops":                "police officer",
+}
+
+
+
 # NOC 2021 major groups for category filtering
 # First 2 digits of NOC code identify the broad occupational category
 NOC_CATEGORY_PREFIXES = {
@@ -555,6 +626,26 @@ class FeedbackRequest(BaseModel):
 # 5. HELPERS
 # ---------------------------------------------------------------------------
 
+def expand_synonyms(query: str) -> str:
+    """
+    Expand common synonyms and abbreviations to canonical WorkBC terms.
+    Operates on whole-word matches only to avoid false positives.
+    """
+    if not query:
+        return query
+
+    # Process longest matches first to handle multi-word synonyms
+    sorted_synonyms = sorted(CAREER_SYNONYMS.items(), key=lambda x: -len(x[0]))
+
+    result = query
+    for synonym, canonical in sorted_synonyms:
+        # Whole-word boundary match (case-insensitive)
+        pattern = r'\b' + re.escape(synonym) + r'\b'
+        if re.search(pattern, result, re.IGNORECASE):
+            result = re.sub(pattern, canonical, result, flags=re.IGNORECASE)
+            print(f"DEBUG: Expanded synonym '{synonym}' → '{canonical}'")
+
+    return result
 
 def format_video_section(noc: str) -> str:
     """Return a markdown video section for a given NOC, or empty string if none."""
@@ -1393,6 +1484,12 @@ async def get_career_answer(
 
     print(f"DEBUG: Final Search Term for Chroma: {search_term}")
 
+    expanded_term = expand_synonyms(search_term)
+    if expanded_term != search_term:
+        search_term = expanded_term
+        print(f"DEBUG: After synonym expansion: {search_term}")
+
+    
     loop        = asyncio.get_event_loop()
     q_emb_array = await loop.run_in_executor(
         None,
