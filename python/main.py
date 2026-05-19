@@ -1697,9 +1697,30 @@ async def get_career_answer(
         matched_titles_text = " ".join(available_careers).lower()
         if search_words and not any(w in matched_titles_text for w in search_words):
             is_clear_match = False
-            print(f"DEBUG: Title mismatch — search words {search_words} not in career titles → is_clear_match=False")
+            print(f"DEBUG: Title mismatch — search words {search_words} not in career titles → is_clear_match=False")  
 
-    if is_clear_match:
+    is_comparison_query = any(w in user_query.lower() for w in
+        ["compare", "difference", "versus", "vs", "between"])
+    
+    if is_comparison_query:
+        print(f"DEBUG: Comparison query detected — forcing table mode")
+        mode_instruction = (
+            "INSTRUCTIONS:\n"
+            "The user wants to COMPARE careers. Respond with ONLY a markdown table — "
+            "no text before, no text after.\n\n"
+            "Table format:\n"
+            "| NOC Code | Career Title | Key Difference | Annual Salary |\n"
+            "|----------|--------------|----------------|---------------|\n"
+            "| 31301    | Registered Nurses... | [difference] | $87,229.63 |\n"
+            "| 32101    | Licensed Practical... | [difference] | $64,144.38 |\n\n"
+            "CRITICAL:\n"
+            "- Include ALL careers from the AVAILABLE CAREERS list\n"
+            "- Use EXACT career titles from the data\n"
+            "- Key Difference: 1-2 sentences explaining the main distinction\n"
+            "- Start immediately with the table (first character = |)\n"
+            "- NO preamble, NO closing remarks, NO links\n"
+        ) 
+    elif is_clear_match:
         # Single-career mode — describe the matching career normally
         mode_instruction = (
             "INSTRUCTIONS:\n"
