@@ -1552,6 +1552,7 @@ async def get_career_answer(
 
     # Inject aliased NOCs that ChromaDB may have ranked too low
     search_lower = search_term.lower()
+    alias_matched = False
     already_nocs = {
         chunk.split("NOC: ")[1].split(")")[0].strip()
         for chunk in context_chunks
@@ -1559,6 +1560,7 @@ async def get_career_answer(
     }
     for alias_key, alias_nocs in CAREER_SEARCH_ALIASES.items():
         if alias_key in search_lower:
+             alias_matched = True
             for noc in alias_nocs:
                 if noc in already_nocs:
                     # Already present — move its chunk(s) to the front so LLM sees it first
@@ -1684,10 +1686,22 @@ async def get_career_answer(
     if len(remaining_distances) <= 1:
         is_clear_match = True
         print(f"DEBUG: Only {len(remaining_distances)} unique career — is_clear_match=True")
+        
     else:
         gap = remaining_distances[1] - remaining_distances[0]
         is_clear_match = gap > 0.05
         print(f"DEBUG: Distance gap = {gap:.3f} (threshold=0.05) — is_clear_match={is_clear_match}")
+    
+    # Positive override: if the TOP (closest) career title contains the full search
+    # term, treat it as a clear match even when the runner-up is close. Skip when an
+    # alias deliberately injected multiple careers (e.g. business analyst).
+    if not is_clear_match and available_careers and not alias_matched:
+        top_title    = available_careers[0].lower()
+        search_words = {w.lower() for w in re.split(r'\W+', search_term) if len(w) > 2}
+        if search_words and all(w in top_title for w in search_words):
+            is_clear_match = True
+            print("DEBUG: Top-title contains full search term — is_clear_match=True")
+
 
     # Override: if search term words don't appear in any matched career title, it's not a true match
     if is_clear_match and available_careers:
@@ -1832,7 +1846,7 @@ async def get_career_answer(
         # Validation: only flag genuinely fabricated 5-digit codes not in context
         response_nocs = set(re.findall(r'NOC[:\s]+(\d{5})', answer, re.IGNORECASE))
         hallucinated  = response_nocs - context_nocs
-        
+
         if hallucinated:
             print(f"WARNING: Hallucinated NOC codes detected: {hallucinated}")
             print(f"DEBUG: Response NOCs: {response_nocs} | Context NOCs: {context_nocs}")
