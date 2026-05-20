@@ -286,9 +286,6 @@
             },
             "drupal/popperjs": {
                 "Drupal 11 compatibility": "patches/drupal/popperjs/popperjs.1.0.x-dev.rector.patch"
-            },
-            "drupal/published_corrected_date": {
-                "Drupal 11 compatibility": "patches/drupal/published_corrected_date/published_corrected_date.2.0.2.rector.patch"
             }
         },
         "drupal-lenient": {
