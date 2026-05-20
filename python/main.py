@@ -2226,7 +2226,8 @@ async def ask_career_bot(request: QueryRequest):
             "- 'meta_workbc' = user asks what WorkBC is\n"
             "- 'meta_profile' = user asks what a career profile is\n"
             "- 'meta_data_source' = user asks where the data comes from\n"
-            "- 'discovery' = user wants help choosing a career path\n"
+            "- 'discovery' = user wants help choosing a career path based on their own "
+            "interests/skills (NOT comparing named careers)\n"
             "- 'out_of_scope' = greetings, bot questions, or anything NOT about BC careers/jobs\n\n"
             "OUT-OF-SCOPE EXAMPLES (return out_of_scope):\n"
             "Query: 'hi' -> out_of_scope\n"
@@ -2274,6 +2275,10 @@ async def ask_career_bot(request: QueryRequest):
             "Query: 'what is the salary for a firefighter?' -> career_info\n"
             "Query: 'what education do I need to be a pharmacist?' -> career_info\n"
             "Query: 'tell me about plumbers and show me jobs' -> both\n"
+            "Query: 'compare RN and LPN' -> career_info\n"
+            "Query: 'compare nurse and doctor' -> career_info\n"
+            "Query: 'difference between electrician and plumber' -> career_info\n"
+            "Query: 'registered nurse vs licensed practical nurse' -> career_info\n"
             "Query: 'electrical jobs in surrey, vancouver, richmond' -> job_search, keywords=electrical, city=Surrey,Vancouver,Richmond\n"
             "Query: 'nursing jobs in kelowna and kamloops' -> job_search, keywords=nursing, city=Kelowna,Kamloops\n"
             "Query: 'jobs in Toronto' -> job_search, keywords=null, city=Ontario\n"
@@ -2438,6 +2443,17 @@ async def ask_career_bot(request: QueryRequest):
                 "I don't use any external sources — every answer is grounded in WorkBC data."
             )
         # ========== END META HANDLERS ==========
+
+        elif intent == "discovery":
+            answer = (
+                "Choosing the right career is a personal journey — I can help you "
+                "explore specific careers, but I'm not able to recommend a career path "
+                "based on your interests or skills.\n\n"
+                "**WorkBC has a free Career Discovery Quiz** that matches your interests, "
+                "skills, and values to careers that might be a good fit:\n\n"
+                "👉 [**Take the Career Discovery Quiz**](http://careerdiscoveryquizzes.workbc.ca/)\n\n"
+                "Once you have some career ideas, come back and ask me about them."
+            )
         
         elif intent == "career_info":
             answer, search_term = await get_career_answer(
@@ -2474,9 +2490,14 @@ async def ask_career_bot(request: QueryRequest):
                     json.dumps({"params": params, "page": 1}),
                 )
                 answer = format_job_results(jobs, params, total)
-
-
+        else:
+            # career_info + any unexpected/unhandled intent → treat as a career question.
+            # This is also the comparison path (get_career_answer renders the table).
+            answer, search_term = await get_career_answer(
+                user_query, sanitized_history, system_rules
+            )
         history_answer = career_answer if intent == "both" else answer
+        
         sanitized_history.append({"role": "user",      "content": user_query})
         sanitized_history.append({"role": "assistant",  "content": history_answer})
         r.setex(redis_key, 3600, json.dumps(sanitized_history[-10:]))
