@@ -1814,11 +1814,25 @@ async def get_career_answer(
                 "Try asking a more specific question for complete information._"
             )
 
-        # Validation: detect hallucinated NOC codes
-        response_nocs = set(re.findall(r'NOC[:\s]+(\d+)', answer, re.IGNORECASE))
-        context_nocs  = set(re.findall(r'NOC:\s*(\d+)', top_context))
-        hallucinated  = response_nocs - context_nocs
+        # Repair formatting slips: a short NOC that is the unambiguous prefix of a
+        # real 5-digit code in context (e.g. model wrote 3210 for 32101)
+        context_nocs = set(re.findall(r'NOC:\s*(\d{5})', top_context))
 
+        def _repair_noc(m):
+            code = m.group(1)
+            if len(code) == 5:
+                return m.group(0)
+            matches = [c for c in context_nocs if c.startswith(code)]
+            if len(matches) == 1:                     # only repair if unambiguous
+                return m.group(0).replace(code, matches[0])
+            return m.group(0)
+
+        answer = re.sub(r'NOC[:\s]+(\d{4,5})', _repair_noc, answer, flags=re.IGNORECASE)
+
+        # Validation: only flag genuinely fabricated 5-digit codes not in context
+        response_nocs = set(re.findall(r'NOC[:\s]+(\d{5})', answer, re.IGNORECASE))
+        hallucinated  = response_nocs - context_nocs
+        
         if hallucinated:
             print(f"WARNING: Hallucinated NOC codes detected: {hallucinated}")
             print(f"DEBUG: Response NOCs: {response_nocs} | Context NOCs: {context_nocs}")
