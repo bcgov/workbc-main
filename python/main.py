@@ -1561,7 +1561,7 @@ async def get_career_answer(
     for alias_key, alias_nocs in CAREER_SEARCH_ALIASES.items():
         if alias_key in search_lower:
              alias_matched = True
-            for noc in alias_nocs:
+             for noc in alias_nocs:
                 if noc in already_nocs:
                     # Already present — move its chunk(s) to the front so LLM sees it first
                     noc_tag = f"(NOC: {noc})"
