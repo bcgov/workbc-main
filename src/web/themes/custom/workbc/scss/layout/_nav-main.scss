@@ -122,6 +122,14 @@
 
             & > .nav-item {
               height: 9.25rem;
+
+              .nav-blurb {
+                display: -webkit-box;
+                -webkit-line-clamp: 4;
+                -webkit-box-orient: vertical;
+                overflow: hidden;
+                text-overflow: ellipsis;
+              }
             }
 
             & > li {
