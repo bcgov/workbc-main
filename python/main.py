@@ -2612,12 +2612,12 @@ async def ask_career_bot(request: QueryRequest):
         
         elif intent == "meta_workbc":
             answer = (
-                "**WorkBC** is the British Columbia government's career and employment service. "
-                "I use WorkBC's data to answer your questions, including:\n\n"
-                "* **511 career profiles** with duties, salaries, and education requirements\n"
-                "* **Live job postings** updated continuously across BC\n"
-                "* **Career Trek videos** featuring real BC professionals\n\n"
-                "Visit [workbc.ca](https://www.workbc.ca) for more resources."
+                  "**WorkBC** is the British Columbia government's career and employment service. "
+                    "At WorkBC Centres, you can access employment services including job search "
+                    "resources, skills assessment, training, work experience placement, and online services.\n\n"
+                    "Visit [WorkBC Centres](https://www.workbc.ca/discover-employment-services/workbc-centres) "
+                    "for more resources."
+               
             )
         
         elif intent == "meta_profile":
