@@ -12,6 +12,7 @@ from psycopg2.extras import RealDictCursor
 
 import redis
 import chromadb
+import urllib.parse
 from fastapi import FastAPI, HTTPException
 from fastapi.middleware.cors import CORSMiddleware
 from fastapi.responses import HTMLResponse
@@ -47,6 +48,10 @@ POSTGRES_PASSWORD = os.getenv("POSTGRES_PASSWORD")
 
 #GET Location to load WORKBC CENTERS
 WORKBC_CENTRES_KML_URL = os.getenv("WORKBC_CENTRES_KML_URL","https://maps.es.workbc.ca/data/workbc-no-ats-as.kml",)
+
+#BC Address GeoCoder
+BC_GEOCODER_API_KEY = os.getenv("BC_GEOCODER_API_KEY")
+BC_GEOCODER_URL = "https://geocoder.api.gov.bc.ca/addresses.json"
 
 
 MAX_TOKENS = 800
@@ -728,6 +733,61 @@ def haversine_km(lat1, lng1, lat2, lng2):
     a = math.sin(dphi/2)**2 + math.cos(phi1) * math.cos(phi2) * math.sin(dlmb/2)**2
     return 2 * R * math.asin(math.sqrt(a))
 
+# Module-level cache so we don't re-geocode the same place repeatedly
+_geocode_cache = {}
+
+def geocode_bc_place(place: str) -> tuple[float, float] | None:
+    """Resolve a BC place name to (lat, lng). Returns None on failure or low confidence."""
+    if not BC_GEOCODER_API_KEY or not place:
+        return None
+
+    cache_key = place.lower().strip()
+    if cache_key in _geocode_cache:
+        return _geocode_cache[cache_key]
+
+    try:
+        query = urllib.parse.urlencode({
+            "addressString": f"{place}, BC",
+            "maxResults":    1,
+            "minScore":      50,
+        })
+        url = f"{BC_GEOCODER_URL}?{query}"
+        req = urllib.request.Request(url, headers={"apikey": BC_GEOCODER_API_KEY})
+
+        with urllib.request.urlopen(req, timeout=5) as resp:
+            data = json.loads(resp.read())
+
+        features = data.get("features", [])
+        if not features:
+            _geocode_cache[cache_key] = None
+            return None
+
+        feature = features[0]
+        coords = feature.get("geometry", {}).get("coordinates", [])
+        if len(coords) < 2:
+            _geocode_cache[cache_key] = None
+            return None
+
+        lng, lat = coords[0], coords[1]  # GeoJSON order
+
+        # Sanity check: must be inside BC bounding box
+        if not (48 <= lat <= 60 and -140 <= lng <= -114):
+            print(f"WARN: Geocode for '{place}' returned non-BC coords ({lat},{lng})")
+            _geocode_cache[cache_key] = None
+            return None
+
+        score = feature.get("properties", {}).get("score", 0)
+        precision = feature.get("properties", {}).get("matchPrecision", "")
+        result = (lat, lng)
+        _geocode_cache[cache_key] = result
+        print(f"DEBUG: Geocoded '{place}' → ({lat:.4f},{lng:.4f}) "
+              f"score={score} precision={precision}")
+        return result
+
+    except Exception as e:
+        print(f"WARN: Geocode failed for '{place}': {e}")
+        return None
+
 def format_centres(centres: list, query_city: str = "") -> str:
     """Render a list of centre dicts as a markdown response."""
     if not centres:
@@ -769,6 +829,48 @@ def format_centres(centres: list, query_city: str = "") -> str:
 
     blocks.append(
         "\n\n*Information shown is pulled directly from WorkBC and refreshed regularly.*"
+    )
+    return "\n\n---\n".join(blocks)
+
+def format_nearest_centres(nearest: list, query_city: str) -> str:
+    """Render the closest centres to a place that doesn't have its own centre.
+    
+    nearest: list of (distance_km, centre_dict) tuples, sorted by distance ascending.
+    query_city: the place the user asked about (e.g., "Fleetwood").
+    """
+    if not nearest:
+        # Geocoded successfully but nothing close enough — fall back to standard not-found
+        return format_centres([], query_city=query_city)
+
+    count = len(nearest)
+    header = (
+         f"There is no WorkBC Centre directly in **{query_city.title()}**, "
+         f"but here {'is the' if count == 1 else f'are the {count}'} closest:"
+       
+    )
+
+    blocks = [header]
+    for distance_km, c in nearest:
+        lines = [f"\n### {c['name']}"]
+        lines.append(f"📏 *{distance_km:.1f} km from {query_city.title()}*")
+        if c.get("region"):
+            lines.append(f"*{c['region']}*")
+        lines.append(f"\n📍 {c['address']}")
+        if c.get("phone"):
+            lines.append(f"📞 {c['phone']}")
+        if c.get("email"):
+            lines.append(f"✉️ {c['email']}")
+        if c.get("hours"):
+            lines.append("\n**Hours:**")
+            for h in c["hours"]:
+                lines.append(f"- {h}")
+        if c.get("website"):
+            lines.append(f"\n[View centre profile]({c['website']})")
+        blocks.append("\n".join(lines))
+
+    blocks.append(
+        "\n\n*Distances are straight-line (as the crow flies). "
+        "Information is pulled directly from WorkBC and refreshed regularly.*"
     )
     return "\n\n---\n".join(blocks)
 
@@ -2645,8 +2747,7 @@ async def ask_career_bot(request: QueryRequest):
 
         elif intent == "find_centre":
             city = params.get("city")
-            # Backup: if the classifier didn't extract a city, scan the query
-            # against known centre cities. Catches LLM extraction misses.
+            # Backup 1: scan query against known centre cities if LLM didn't extract
             if not city:
                 query_lower = user_query.lower()
                 for known_city in CENTRE_MAP.keys():
@@ -2655,15 +2756,36 @@ async def ask_career_bot(request: QueryRequest):
                         params["city"] = city
                         print(f"DEBUG: find_centre — city '{city}' recovered from query scan")
                         break
-            if city:
-                matches = CENTRE_MAP.get(city.lower(), [])
-                answer = format_centres(matches, query_city=city)
-            else:
+
+            if not city:
                 answer = (
                     "There are over 90 WorkBC Centres across BC. Which city or region "
                     "would you like centres for? For example: *WorkBC centre in Surrey* "
                     "or *WorkBC centre in Kelowna*."
-            )       
+                )
+            else:
+                # First try direct centre-city match (fast, no API call)
+                matches = CENTRE_MAP.get(city.lower(), [])
+                if matches:
+                    answer = format_centres(matches, query_city=city)
+                else:
+                    # No direct match — geocode the place and find the closest centres
+                    coords = geocode_bc_place(city)
+                    if coords:
+                        lat, lng = coords
+                        ranked = sorted(
+                            [(haversine_km(lat, lng, c["lat"], c["lng"]), c)
+                            for c in CENTRE_LIST if c.get("lat") and c.get("lng")],
+                            key=lambda x: x[0],
+                        )
+                        nearest = ranked[:3]  # top 3 closest
+                        print(f"DEBUG: Nearest to '{city}': "
+                            f"{[(round(d,1), c['name']) for d, c in nearest]}")
+                        answer = format_nearest_centres(nearest, query_city=city)
+                    else:
+                        # Geocoder couldn't resolve — show standard not-found message
+                        answer = format_centres([], query_city=city)
+
 
         elif intent == "discovery":
             answer = (
