@@ -2747,15 +2747,34 @@ async def ask_career_bot(request: QueryRequest):
 
         elif intent == "find_centre":
             city = params.get("city")
-            # Backup 1: scan query against known centre cities if LLM didn't extract
+
+            # Backup 1: scan query against known centre cities (catches direct centre cities)
             if not city:
                 query_lower = user_query.lower()
                 for known_city in CENTRE_MAP.keys():
                     if known_city in query_lower:
                         city = known_city.title()
                         params["city"] = city
-                        print(f"DEBUG: find_centre — city '{city}' recovered from query scan")
+                        print(f"DEBUG: find_centre — city '{city}' recovered from centre-city scan")
                         break
+
+            # Backup 2: regex extract any place name after "in/near/around/at"
+            # Catches neighborhoods that aren't centre cities (e.g., "Fleetwood")
+            if not city:
+                place_match = re.search(
+                    r'\b(?:in|near|around|at)\s+([A-Za-z][A-Za-z\s.\'-]+?)(?:\s*[?!.,]|\s*$)',
+                    user_query,
+                    re.IGNORECASE,
+                )
+                if place_match:
+                    candidate = place_match.group(1).strip()
+                    # Strip common trailing words that aren't part of the place name
+                    candidate = re.sub(r'\b(bc|british columbia|please|thanks)\b',
+                                    '', candidate, flags=re.IGNORECASE).strip()
+                    if candidate and len(candidate) > 1:
+                        city = candidate.title()
+                        params["city"] = city
+                        print(f"DEBUG: find_centre — '{city}' extracted from query via regex")
 
             if not city:
                 answer = (
@@ -2764,12 +2783,11 @@ async def ask_career_bot(request: QueryRequest):
                     "or *WorkBC centre in Kelowna*."
                 )
             else:
-                # First try direct centre-city match (fast, no API call)
+                # ... rest stays exactly the same: direct match → geocode → format ...
                 matches = CENTRE_MAP.get(city.lower(), [])
                 if matches:
                     answer = format_centres(matches, query_city=city)
                 else:
-                    # No direct match — geocode the place and find the closest centres
                     coords = geocode_bc_place(city)
                     if coords:
                         lat, lng = coords
@@ -2778,12 +2796,11 @@ async def ask_career_bot(request: QueryRequest):
                             for c in CENTRE_LIST if c.get("lat") and c.get("lng")],
                             key=lambda x: x[0],
                         )
-                        nearest = ranked[:3]  # top 3 closest
+                        nearest = ranked[:3]
                         print(f"DEBUG: Nearest to '{city}': "
                             f"{[(round(d,1), c['name']) for d, c in nearest]}")
                         answer = format_nearest_centres(nearest, query_city=city)
                     else:
-                        # Geocoder couldn't resolve — show standard not-found message
                         answer = format_centres([], query_city=city)
 
 
