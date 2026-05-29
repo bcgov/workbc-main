@@ -3,6 +3,9 @@ import re
 import json
 import asyncio
 import traceback
+import urllib.request
+import math
+import xml.etree.ElementTree as ET
 from functools import partial
 import psycopg2
 from psycopg2.extras import RealDictCursor
@@ -41,6 +44,9 @@ POSTGRES_PORT     = int(os.getenv("POSTGRES_PORT", "5432"))
 POSTGRES_DB       = os.getenv("POSTGRES_DB")
 POSTGRES_USER     = os.getenv("POSTGRES_USER")
 POSTGRES_PASSWORD = os.getenv("POSTGRES_PASSWORD")
+
+#GET Location to load WORKBC CENTERS
+WORKBC_CENTRES_KML_URL = os.getenv("WORKBC_CENTRES_KML_URL","https://maps.es.workbc.ca/data/workbc-no-ats-as.kml",)
 
 
 MAX_TOKENS = 800
@@ -625,6 +631,146 @@ class FeedbackRequest(BaseModel):
 # ---------------------------------------------------------------------------
 # 5. HELPERS
 # ---------------------------------------------------------------------------
+
+def _kml_text(elem, tag, ns):
+    """Pull a value from a <Data name=tag><value>…</value> element."""
+    for data in elem.findall(f"{ns}ExtendedData/{ns}Data"):
+        if data.get("name") == tag:
+            value = data.find(f"{ns}value")
+            return (value.text or "").strip() if value is not None else ""
+    return ""
+
+def _city_from_address(address: str) -> str:
+    """Derive city from an address like '107 - 1835 Gordon Dr, Kelowna, BC V1Y 3H4'."""
+    parts = [p.strip() for p in address.split(",")]
+    for i, part in enumerate(parts):
+        if part.upper().startswith("BC") or part.upper() == "BRITISH COLUMBIA":
+            if i > 0:
+                return parts[i - 1]
+    return parts[-2] if len(parts) >= 2 else ""
+
+def build_centre_map():
+    """Load WorkBC Centre locations from the public KML feed at startup/refresh."""
+    global CENTRE_MAP, CENTRE_LIST
+
+    new_map = {}
+    new_list = []
+    try:
+        req = urllib.request.Request(
+            WORKBC_CENTRES_KML_URL,
+            headers={"User-Agent": "WorkBC-Career-Advisor/1.0"},
+        )
+        with urllib.request.urlopen(req, timeout=10) as resp:
+            raw = resp.read()
+
+        root = ET.fromstring(raw)
+        ns = root.tag.split("}")[0] + "}" if root.tag.startswith("{") else ""
+
+        for pm in root.iter(f"{ns}Placemark"):
+            name_el = pm.find(f"{ns}name")
+            name = (name_el.text or "").strip() if name_el is not None else ""
+            if not name:
+                continue
+
+            address = _kml_text(pm, "address", ns)
+            email   = _kml_text(pm, "email", ns).replace("mailto:", "").strip()
+            phone   = _kml_text(pm, "phone", ns)
+            website = _kml_text(pm, "website", ns)
+            region  = _kml_text(pm, "catchmentName", ns)
+
+            hours = [
+                _kml_text(pm, "hours1", ns),
+                _kml_text(pm, "hours2", ns),
+                _kml_text(pm, "hours3", ns),
+                _kml_text(pm, "hours4", ns),
+            ]
+            hours = [h for h in hours if h]
+
+            lat = lng = None
+            coord_el = pm.find(f"{ns}Point/{ns}coordinates")
+            if coord_el is not None and coord_el.text:
+                try:
+                    lng_s, lat_s, *_ = coord_el.text.strip().split(",")
+                    lng, lat = float(lng_s), float(lat_s)
+                except (ValueError, TypeError):
+                    pass
+
+            city = _city_from_address(address)
+
+            centre = {
+                "name": name, "city": city, "address": address,
+                "phone": phone, "email": email, "website": website,
+                "region": region, "hours": hours, "lat": lat, "lng": lng,
+            }
+            new_list.append(centre)
+            if city:
+                new_map.setdefault(city.lower(), []).append(centre)
+
+        if new_list:
+            CENTRE_MAP = new_map
+            CENTRE_LIST = new_list
+            print(f"DEBUG: Built centre map — {len(CENTRE_LIST)} centres across "
+                  f"{len(CENTRE_MAP)} cities")
+        else:
+            print("WARN: Centre KML parsed but produced 0 centres — keeping old map")
+
+    except Exception as e:
+        print(f"WARN: Failed to load WorkBC centres: {e}")
+
+build_centre_map()
+
+def haversine_km(lat1, lng1, lat2, lng2):
+    """Great-circle distance in kilometres between two lat/lng points."""
+    R = 6371.0
+    phi1, phi2 = math.radians(lat1), math.radians(lat2)
+    dphi = math.radians(lat2 - lat1)
+    dlmb = math.radians(lng2 - lng1)
+    a = math.sin(dphi/2)**2 + math.cos(phi1) * math.cos(phi2) * math.sin(dlmb/2)**2
+    return 2 * R * math.asin(math.sqrt(a))
+
+def format_centres(centres: list, query_city: str = "") -> str:
+    """Render a list of centre dicts as a markdown response."""
+    if not centres:
+        if query_city:
+            return (
+                f"I don't have a WorkBC Centre in **{query_city}** in my data. "
+                f"You can browse all locations at the "
+                f"[WorkBC Centres directory]"
+                f"(https://www.workbc.ca/discover-employment-services/workbc-centres)."
+            )
+        return (
+            "I couldn't find any WorkBC Centres matching that. Try a BC city "
+            "name like Surrey, Vancouver, Kelowna, or Victoria."
+        )
+
+    location_str = f" in **{query_city.title()}**" if query_city else ""
+    header = (
+        f"There {'is' if len(centres) == 1 else 'are'} **{len(centres)}** "
+        f"WorkBC Centre{'s' if len(centres) != 1 else ''}{location_str}:"
+    )
+
+    blocks = [header]
+    for c in centres:
+        lines = [f"\n### {c['name']}"]
+        if c.get("region"):
+            lines.append(f"*{c['region']}*")
+        lines.append(f"\n📍 {c['address']}")
+        if c.get("phone"):
+            lines.append(f"📞 {c['phone']}")
+        if c.get("email"):
+            lines.append(f"✉️ {c['email']}")
+        if c.get("hours"):
+            lines.append("\n**Hours:**")
+            for h in c["hours"]:
+                lines.append(f"- {h}")
+        if c.get("website"):
+            lines.append(f"\n[View centre profile]({c['website']})")
+        blocks.append("\n".join(lines))
+
+    blocks.append(
+        "\n\n*Information shown is pulled directly from WorkBC and refreshed regularly.*"
+    )
+    return "\n\n---\n".join(blocks)
 
 def expand_synonyms(query: str) -> str:
     """
@@ -1904,6 +2050,20 @@ def generate_suggestions(intent: str, user_query: str, answer: str = "",
             "Top healthcare jobs",
             "Find jobs in Vancouver",
         ]
+    # WorkBC Centre lookups
+    if intent == "find_centre":
+        city = params.get("city", "") if params else ""
+        if city:
+            return [
+                f"Find nursing jobs in {city}",
+                "WorkBC centre in Vancouver",
+                "Who should visit a WorkBC centre?",
+            ]
+        return [
+            "WorkBC centre in Surrey",
+            "WorkBC centre in Kelowna",
+            "WorkBC centre in Victoria",
+        ]
 
     # Hiring trends / top careers chart
     if intent == "hiring_trends":
@@ -2253,10 +2413,12 @@ async def ask_career_bot(request: QueryRequest):
             "- 'meta_noc' = user asks what a NOC code is or how NOC codes work\n"
             "- 'meta_workbc' = user asks what WorkBC is\n"
             "- 'meta_profile' = user asks what a career profile is\n"
-            "- 'meta_data_source' = user asks where the data comes from\n"
+            "- 'meta_data_source' = user asks where the data comes from\n"           
+            "- 'find_centre' = user wants to find a WorkBC Centre location, address, "
+            "hours, or phone (extract city if mentioned)\n"
             "- 'discovery' = user wants help choosing a career path based on their own "
             "interests/skills (NOT comparing named careers)\n"
-            "- 'out_of_scope' = greetings, bot questions, or anything NOT about BC careers/jobs\n\n"
+            "- 'out_of_scope' = greetings, bot questions, or anything NOT about BC careers/jobs\n\n"            
             "OUT-OF-SCOPE EXAMPLES (return out_of_scope):\n"
             "Query: 'hi' -> out_of_scope\n"
             "Query: 'hello' -> out_of_scope\n"
@@ -2322,6 +2484,13 @@ async def ask_career_bot(request: QueryRequest):
             "Query: 'what is workbc' -> meta_workbc\n"
             "Query: 'what is a career profile' -> meta_profile\n"
             "Query: 'where does this data come from' -> meta_data_source\n\n"
+            "FIND_CENTRE EXAMPLES:\n"
+            "Query: 'find a WorkBC centre near me in Surrey' -> find_centre, city=Surrey\n"
+            "Query: 'WorkBC centre in Kelowna' -> find_centre, city=Kelowna\n"
+            "Query: 'where is the nearest WorkBC centre' -> find_centre, city=null\n"
+            "Query: 'WorkBC office address Vancouver' -> find_centre, city=Vancouver\n"
+            "Query: 'WorkBC centre hours Kamloops' -> find_centre, city=Kamloops\n"
+            "Query: 'list WorkBC centres on Vancouver Island' -> find_centre, city=null\n\n"
             "OUTPUT FORMAT:\n"
             "{\n"
             '  "intent": "job_search" or "career_info" or "both" or "out_of_scope",\n'
@@ -2472,6 +2641,18 @@ async def ask_career_bot(request: QueryRequest):
             )
         # ========== END META HANDLERS ==========
 
+        elif intent == "find_centre":
+            city = params.get("city")
+            if city:
+                matches = CENTRE_MAP.get(city.lower(), [])
+                answer = format_centres(matches, query_city=city)
+            else:
+                answer = (
+                    "There are over 90 WorkBC Centres across BC. Which city or region "
+                    "would you like centres for? For example: *WorkBC centre in Surrey* "
+                    "or *WorkBC centre in Kelowna*."
+                )
+
         elif intent == "discovery":
             answer = (
                 "Choosing the right career is a personal journey — I can help you "
@@ -2594,10 +2775,22 @@ async def video_reload_task():
             build_video_map()
         except Exception as e:
             print(f"WARN: Hourly reload failed: {e}")
+
+async def centre_reload_task():
+    """Refresh WorkBC Centre data from the KML feed every month."""
+    while True:
+        await asyncio.sleep(60 * 60 * 24 * 30)  # ~30 days
+        try:
+            print("DEBUG: Monthly centre reload from KML feed")
+            build_centre_map()
+        except Exception as e:
+            print(f"WARN: Monthly centre reload failed: {e}")
+
 @app.on_event("startup")
 async def start_background_tasks():
     asyncio.create_task(video_reload_task())
-    print("DEBUG: Started video reload background task")
+    asyncio.create_task(centre_reload_task())
+    print("DEBUG: Started video and centre reload background tasks")
 
 #----------------------------------------------------------------------------
 #Feedback buttons
