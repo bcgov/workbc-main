@@ -2493,15 +2493,17 @@ async def ask_career_bot(request: QueryRequest):
             "Query: 'list WorkBC centres on Vancouver Island' -> find_centre, city=null\n\n"
             "OUTPUT FORMAT:\n"
             "{\n"
-            '  "intent": "job_search" or "career_info" or "both" or "out_of_scope",\n'
+            '  "intent": "job_search" or "career_info" or "both" or "find_centre" or "discovery" or "meta_noc" or "meta_workbc" or "meta_profile" or "meta_data_source" or "out_of_scope",\n'
             '  "job_search_params": {\n'
             '    "keywords": "extracted job title or null",\n'
             '    "employer": "extracted company name or null",\n'
-            '    "city": "extracted city, province, state or country or null",\n'
+            '    "city": "extracted city, province, state or country (also used for find_centre) or null",\n'
             '    "employment_type": "Full-time or Part-time or null",\n'
             '    "salary_min": null\n'
             "  }\n"
             "}\n\n"
+           
+           
             f"Query: {user_query}"
         )
 
@@ -2643,6 +2645,16 @@ async def ask_career_bot(request: QueryRequest):
 
         elif intent == "find_centre":
             city = params.get("city")
+            # Backup: if the classifier didn't extract a city, scan the query
+            # against known centre cities. Catches LLM extraction misses.
+            if not city:
+                query_lower = user_query.lower()
+                for known_city in CENTRE_MAP.keys():
+                    if known_city in query_lower:
+                        city = known_city.title()
+                        params["city"] = city
+                        print(f"DEBUG: find_centre — city '{city}' recovered from query scan")
+                        break
             if city:
                 matches = CENTRE_MAP.get(city.lower(), [])
                 answer = format_centres(matches, query_city=city)
@@ -2651,7 +2663,7 @@ async def ask_career_bot(request: QueryRequest):
                     "There are over 90 WorkBC Centres across BC. Which city or region "
                     "would you like centres for? For example: *WorkBC centre in Surrey* "
                     "or *WorkBC centre in Kelowna*."
-                )
+            )       
 
         elif intent == "discovery":
             answer = (
