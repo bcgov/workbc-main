@@ -348,8 +348,6 @@ body.mm-wrapper--opened a#mm-0 {
   padding: .5rem 1rem;
 }
 
-.mm-panel--opened[data-mm-parent] a {
-  &::after {
-    display: none;
-  }
+.mm-panel--opened[data-mm-parent] a.mm-listitem__btn {
+  display: none;
 }
