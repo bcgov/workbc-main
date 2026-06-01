@@ -776,8 +776,16 @@ def geocode_bc_place(place: str) -> tuple[float, float] | None:
             _geocode_cache[cache_key] = None
             return None
 
-        score = feature.get("properties", {}).get("score", 0)
-        precision = feature.get("properties", {}).get("matchPrecision", "")
+        props = feature.get("properties", {})
+        score = props.get("score", 0)
+        precision = props.get("matchPrecision", "")
+
+        # Reject STREET-level matches when the query has no civic number — the
+        # geocoder snapped to a street centreline rather than a named place.
+        if precision == "STREET" and not re.search(r'\d', place):
+            print(f"WARN: Geocode for '{place}' rejected — STREET precision but no civic number")
+            _geocode_cache[cache_key] = None
+            return None
         result = (lat, lng)
         _geocode_cache[cache_key] = result
         print(f"DEBUG: Geocoded '{place}' → ({lat:.4f},{lng:.4f}) "
@@ -813,7 +821,7 @@ def format_centres(centres: list, query_city: str = "") -> str:
     for c in centres:
         lines = [f"\n### {c['name']}"]
         if c.get("region"):
-            lines.append(f"*{c['region']}*")
+            lines.append(f"\n**Region:** {c['region']}")
         lines.append(f"\n📍 {c['address']}")
         if c.get("phone"):
             lines.append(f"📞 {c['phone']}")
@@ -854,7 +862,7 @@ def format_nearest_centres(nearest: list, query_city: str) -> str:
         lines = [f"\n### {c['name']}"]
         lines.append(f"📏 *{distance_km:.1f} km from {query_city.title()}*")
         if c.get("region"):
-            lines.append(f"*{c['region']}*")
+            lines.append(f"\n**Region:** {c['region']}")
         lines.append(f"\n📍 {c['address']}")
         if c.get("phone"):
             lines.append(f"📞 {c['phone']}")
@@ -2783,11 +2791,27 @@ async def ask_career_bot(request: QueryRequest):
                     "or *WorkBC centre in Kelowna*."
                 )
             else:
-                # ... rest stays exactly the same: direct match → geocode → format ...
+                # Layer 1: direct city match (fast, no API call)
                 matches = CENTRE_MAP.get(city.lower(), [])
+
+                # Layer 2: name/region scan — catches sub-neighborhoods like Newton, Whalley, Guildford
+                # that are stored under their parent city ("Surrey") but appear in the centre's name
+                if not matches:
+                    city_lower = city.lower()
+                    name_matches = [
+                        c for c in CENTRE_LIST
+                        if city_lower in c.get("name", "").lower()
+                        or city_lower in c.get("region", "").lower()
+                    ]
+                    if name_matches:
+                        matches = name_matches
+                        print(f"DEBUG: find_centre — matched '{city}' against centre name/region "
+                            f"({len(name_matches)} hits)")
+
                 if matches:
                     answer = format_centres(matches, query_city=city)
                 else:
+                    # Layer 3: geocode + nearest centres fallback
                     coords = geocode_bc_place(city)
                     if coords:
                         lat, lng = coords
@@ -2802,7 +2826,6 @@ async def ask_career_bot(request: QueryRequest):
                         answer = format_nearest_centres(nearest, query_city=city)
                     else:
                         answer = format_centres([], query_city=city)
-
 
         elif intent == "discovery":
             answer = (
