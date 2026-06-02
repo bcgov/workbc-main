@@ -9,3 +9,11 @@
     @include link-chevron;
   }
 }
+
+.mm-panel .megamenu-splash {
+  padding-left: 20px;
+
+  a {
+    color: $workbc_default_link;
+  }
+}

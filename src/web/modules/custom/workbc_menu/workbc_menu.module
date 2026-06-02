@@ -28,3 +28,23 @@ function workbc_menu_entity_delete(EntityInterface $entity) {
     \Drupal::service('cache.render')->invalidateAll();
   }
 }
+
+/**
+ * Implements hook_responsive_menu_off_canvas_tree_alter().
+ */
+function workbc_menu_responsive_menu_off_canvas_tree_alter(array &$menu) {
+  $splash = function(&$item) use(&$splash) {
+    if (!empty($item['original_link'])) {
+      $link = $item['original_link'];
+      if (method_exists($link, 'getEntity') && !empty($link->getEntity()?->get('field_splash')?->value)) {
+        $item['attributes']->setAttribute('data-splash', $link->getEntity()->get('field_splash')->value);
+      }
+    }
+    foreach ($item['below'] as &$child) {
+      $splash($child);
+    }
+  };
+  foreach ($menu['#items'] as &$item) {
+    $splash($item);
+  }
+}
