@@ -14,7 +14,7 @@
     padding: 0;
     margin: 0;
 
-    & a {
+    & a, span {
       padding: 5px 20px 5px 10px;
 
       &:hover {
@@ -33,15 +33,13 @@
       justify-content: space-around;
       align-items: stretch;
 
-      & > a {
+      & > a, span {
         font-size: 1rem;
         padding: 0;
       }
 
-      &:hover {
-        .submenu-container {
-          display: block;
-        }
+      &.open > .submenu-container {
+        display: block;
       }
 
       .submenu-container {
@@ -51,10 +49,6 @@
         right: 0;
         left: 0;
         z-index: 1000;
-
-        ul.nav-t1 > li:hover & {
-          display: block;
-        }
 
         .submenu {
           width: 100%;
@@ -66,53 +60,14 @@
 
             position: relative; // create positioning context %nav-t2
             height: 100%;
-            width: 50%;
+            width: 100%;
 
             & > li {
               border-left: $workbc_trim_standard_size solid
                 $workbc_palette_transparent; //placeholder to prevent content shifting when colored borders are in place (hover, etc.)
 
-              & > a {
-                &.has-submenu {
-                  position: relative; // create positioning context %has-submenu
-
-                  &:after {
-                    position: absolute; // relative to positioning context %has-submenu
-                    top: 0;
-                    right: 0;
-                    bottom: 0;
-                    content: "\e5cc";
-                    font-family: "Material Symbols Outlined";
-                    font-weight: normal;
-                    font-style: normal;
-                    font-size: 24px; /* Preferred icon size */
-                    color: $workbc_palette_light_tertiary;
-                  }
-                }
-              }
-
-              &:hover > a {
-                text-decoration: underline;
-
-                &:after {
-                  color: $workbc_default_link;
-                }
-              }
-
-              ul.nav-t3 {
-                @include list-reset;
-
-                display: none;
-                position: absolute; // relative to positioning context %nav-t2
-                left: 100%;
-                top: 0;
-                height: 100%;
-                width: 100%;
-                padding: 0 15px;
-              }
-
-              &:hover .nav-t3 {
-                display: block;
+              &:hover > a:after {
+                color: $workbc_default_link;
               }
 
               li:hover > a {
@@ -132,28 +87,26 @@
   background-color: $workbc_dark_theme_background;
 
   ul.nav-t1 {
+    & > .nav-item:first-child {
+      display: none;
+    }
+
     & > li {
+      cursor: pointer;
+
       & > a,
-      a:focus {
+      & > span {
         color: $workbc_dark_theme_text;
       }
 
-      &:hover {
+      &:focus,
+      &:hover,
+      &.open {
         border-color: $workbc_light_theme_trim;
         background-color: $workbc_light_theme_background_default;
 
         & > a,
-        a:focus {
-          color: $workbc_light_theme_text;
-        }
-      }
-
-      &.active {
-        border-color: $workbc_light_theme_trim;
-        background-color: $workbc_light_theme_background_default;
-
-        & > a,
-        a:focus {
+        & > span {
           color: $workbc_light_theme_text;
         }
       }
@@ -167,10 +120,29 @@
           ul.nav-t2 {
             border-right: 3px solid $workbc_light_theme_background_accent;
 
+            & > .nav-item {
+              height: 9.25rem;
+
+              .nav-blurb {
+                display: -webkit-box;
+                -webkit-line-clamp: 4;
+                -webkit-box-orient: vertical;
+                overflow: hidden;
+                text-overflow: ellipsis;
+              }
+            }
+
             & > li {
               & > a,
-              a:focus {
+              & > a:focus {
                 color: $workbc_light_theme_text;
+              }
+
+              & > a {
+                .nav-title {
+                  font-weight: bold;
+                  display: block;
+                }
               }
 
               &:hover {
@@ -178,22 +150,8 @@
                 background-color: $workbc_light_theme_background_accent;
 
                 & > a,
-                a:focus {
+                & > a:focus {
                   color: $workbc_default_link;
-                }
-              }
-            }
-
-            // hacky style for when a t1 menu is open, but the t2 menu is not hovered
-            // makes it behave as though the first t2 item is hovered
-            // (styling and t3 visibility)
-            &:not(:hover) {
-              & > li:first-child {
-                border-left: $workbc_trim_standard_size solid $workbc_dark_theme_background;
-                background-color: $workbc_light_theme_background_accent;
-
-                .nav-t3 {
-                  display: block;
                 }
               }
             }
@@ -211,7 +169,7 @@
   // screen width larger than "xl" and the device
   // recognizes the hover state
   @include media-breakpoint-up(xl) {
-    @media (hover: hover) and (pointer: fine) {
+    @media (pointer: fine) {
       display: block;
       position: relative;
       transition: all 0.3s ease-out;
@@ -293,6 +251,7 @@
   border-bottom: none;
   min-width: 170px;
   height: auto;
+  display: inherit;
 }
 
 .nav-fixed .nav-main .nav-t1 > .nav-item:first-child a {
@@ -307,7 +266,7 @@
   }
 }
 
-.nav-fixed .nav-main ul.nav-t1 > li > a {
+.nav-fixed .nav-main ul.nav-t1 > li span {
   @include media-breakpoint-up(xl) {
     color: #234075;
   }

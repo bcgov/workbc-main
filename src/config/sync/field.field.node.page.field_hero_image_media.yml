@@ -11,7 +11,7 @@ field_name: field_hero_image_media
 entity_type: node
 bundle: page
 label: 'Hero Image (Faded)'
-description: 'Hero image, faded version. It is overridden by the more recent Hero Image (Full-Width) if present.'
+description: 'Hero image, faded version. It is overridden by the more recent <strong>Hero Image (Full-Width, Tablet/Desktop)</strong> if present.'
 required: false
 translatable: false
 default_value: {  }

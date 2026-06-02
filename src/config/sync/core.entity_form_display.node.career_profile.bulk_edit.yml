@@ -15,6 +15,8 @@ dependencies:
     - field.field.node.career_profile.field_education_training_skills
     - field.field.node.career_profile.field_epbc_categories
     - field.field.node.career_profile.field_hero_image
+    - field.field.node.career_profile.field_hero_image_full_small
+    - field.field.node.career_profile.field_hero_image_full_wide
     - field.field.node.career_profile.field_hero_image_full_width
     - field.field.node.career_profile.field_hero_image_media
     - field.field.node.career_profile.field_hourly_salary
@@ -61,6 +63,8 @@ hidden:
   field_education_training_skills: true
   field_epbc_categories: true
   field_hero_image: true
+  field_hero_image_full_small: true
+  field_hero_image_full_wide: true
   field_hero_image_full_width: true
   field_hero_image_media: true
   field_hourly_salary: true

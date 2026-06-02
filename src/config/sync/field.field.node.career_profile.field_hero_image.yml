@@ -17,7 +17,7 @@ field_name: field_hero_image
 entity_type: node
 bundle: career_profile
 label: '[DEPRECATED] Hero Image'
-description: "DO NOT USE!\r\n\r\n<p>This is a legacy field that has been replaced by the newer <b>Hero Image</b> field which pulls the content from the Media Library.</p>"
+description: 'DEPRECATED: This is a legacy field that has been replaced by the newer <b>Hero Image</b> field which pulls the content from the Media Library.'
 required: false
 translatable: true
 default_value: {  }

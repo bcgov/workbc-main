@@ -86,6 +86,9 @@
   title: label,
   hero: {
     image: content.field_hero_image_media[0],
+    image_fullwidth: content.field_hero_image_full_width[0],
+    image_fullwidth_small: content.field_hero_image_full_small[0] | default(content.field_hero_image_full_width[0]),
+    image_fullwidth_wide: content.field_hero_image_full_wide[0] | default(content.field_hero_image_full_width[0]),
     title: label,
   },
   address_contact: content.group_address_contact_informatio,
@@ -101,11 +104,31 @@
 
 <div class="profile-header">
 
-  <div class="profile-header-banner hero-banner">
+  {%
+    set hero_classes = [
+      'profile-header-banner',
+      'hero-banner',
+      'hero-banner-profile',
+      viewmodel['hero']['image_fullwidth'] ? 'hero-fullwidth-banner' : 'hero-faded-banner'
+    ]
+  %}
+  <div{{ create_attribute({'class': hero_classes}) }}>
 
+    {% if viewmodel['hero']['image_fullwidth'] %}
+    <div class="hero-image-wrapper">
+      {{ viewmodel['hero']['image_fullwidth'] }}
+    </div>
+    <div class="hero-image-wrapper-small">
+      {{ viewmodel['hero']['image_fullwidth_small'] }}
+    </div>
+    <div class="hero-image-wrapper-wide">
+      {{ viewmodel['hero']['image_fullwidth_wide'] }}
+    </div>
+    {% else %}
     <div class="hero-image-wrapper workbc_centre__hero-image-wrapper">
       {{ viewmodel['hero']['image'] }}
     </div>
+    {% endif %}
 
     <div class="hero-content-container container-lg">
       <div class="hero-content-wrapper workbc_centre__hero-content-wrapper">
@@ -115,7 +138,7 @@
 
         <div class="hero-content workbc_centre__hero-content">
           <div class="workbc-centre__address">
-            <h3>Address &amp; Contact Information</h3>
+            <h3>Address &amp; Contact Details</h3>
             {{ viewmodel['address_contact'] }}
           </div>
           <div class="workbc-centre__hours">

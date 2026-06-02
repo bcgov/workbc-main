@@ -1,0 +1,29 @@
+uuid: 621a3057-5b5c-4796-8d47-c53589e3add2
+langcode: en
+status: true
+dependencies:
+  config:
+    - field.storage.node.field_hero_image_full_wide
+    - media.type.image
+    - node.type.page
+id: node.page.field_hero_image_full_wide
+field_name: field_hero_image_full_wide
+entity_type: node
+bundle: page
+label: 'Hero Image (Full-Width, Wide Screen)'
+description: 'Hero image, full-width version for wide screen. If missing, it is replaced by <strong>Hero Image (Full-Width, Tablet/Desktop)</strong>.'
+required: false
+translatable: false
+default_value: {  }
+default_value_callback: ''
+settings:
+  handler: 'default:media'
+  handler_settings:
+    target_bundles:
+      image: image
+    sort:
+      field: _none
+      direction: ASC
+    auto_create: false
+    auto_create_bundle: ''
+field_type: entity_reference

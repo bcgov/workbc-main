@@ -18,20 +18,18 @@
 .workbc_centre__hero-content {
   display: flex;
   flex-flow: row wrap;
-  column-gap: 30px;
+  column-gap: 40px;
   row-gap: 30px;
   margin: 25px 0 25px 0;
 }
 
 .workbc_centre__hero-title h1 {
-  
   font-size: 35px !important;
 
   @include media-breakpoint-up(lg) {
     font-size: 30px !important;
   }
 }
-
 
 .workbc-centre__address {
   flex: 1 0 100%;
@@ -137,4 +135,15 @@
   flex-flow: column wrap;
   justify-content: center;
   align-items: center;
+}
+
+.hero-fullwidth-banner {
+  @include media-breakpoint-up(sm) {
+    .workbc_centre__hero-content {
+      a {
+        color: white;
+        text-decoration: underline;
+      }
+    }
+  }
 }

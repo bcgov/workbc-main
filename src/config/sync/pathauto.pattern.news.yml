@@ -7,7 +7,7 @@ dependencies:
 id: news
 label: News
 type: 'canonical_entities:node'
-pattern: 'news/[node:title]'
+pattern: '/news/[node:title]'
 selection_criteria:
   a241c353-0ac6-42f6-8df8-a8747d53dade:
     id: 'entity_bundle:node'
