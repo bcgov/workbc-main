@@ -1132,3 +1132,123 @@ function workbc_custom_post_update_521_media_weights(&$sandbox = NULL) {
   $sandbox['#finished'] = empty($sandbox['videos']) ? 1 : ($sandbox['count'] - count($sandbox['videos'])) / $sandbox['count'];
   return t("[WBCAMS-521] $message");
 }
+
+const IA_2026_COL_MENU = 0;
+const IA_2026_COL_LEVEL_1 = 1;
+const IA_2026_COL_LEVEL_2 = 2;
+const IA_2026_COL_LEVEL_3 = 3;
+const IA_2026_COL_LEVEL_4 = 4;
+const IA_2026_COL_LEVEL_5 = 5;
+const IA_2026_COL_MEGAMENU = 6;
+const IA_2026_COL_ACTION = 7;
+const IA_2026_COL_CURRENT_URL = 8;
+const IA_2026_COL_TARGET_URL = 9;
+
+/**
+ * Import ia_2026.csv and execute needed changes to menu structure / path aliases / redirections.
+ *
+ * As per tickets WBCAMS-1561 / 1917
+ */
+function workbc_custom_post_update_1561_1917_ia_changes(&$sandbox = NULL) {
+  if (!isset($sandbox['ia'])) {
+    $module_path = \Drupal::service('extension.path.resolver')->getPath('module', 'workbc_custom');
+    $file_path = $module_path . '/data/ia_2026.csv';
+    if (file_exists($file_path)) {
+      if (($handle = fopen($file_path, 'r')) !== FALSE) {
+        $data = [];
+        while (($row = fgetcsv($handle, 1000, ',')) !== FALSE) {
+          $data[] = $row;
+        }
+        fclose($handle);
+      }
+    }
+    $sandbox['ia'] = array_filter($data, function($entry) {
+      return !empty($entry[IA_2026_COL_ACTION]);
+    });
+    $sandbox['count'] = count($sandbox['ia']);
+    $sandbox['hierarchy'] = [];
+    $sandbox['menu'] = "";
+  }
+
+  $entry = array_shift($sandbox['ia']);
+  fwrite(STDOUT, "-----" . PHP_EOL);
+
+  $hierarchy =& $sandbox['hierarchy'];
+  // Menu name.
+  if (!empty($entry[IA_2026_COL_MENU])) {
+    $sandbox['menu'] = trim($entry[IA_2026_COL_MENU]);
+  }
+
+  // Menu hierarchy.
+  for ($c = IA_2026_COL_LEVEL_5; $c >= IA_2026_COL_LEVEL_1; $c--) {
+    if (!empty($entry[$c])) {
+      $title = trim($entry[$c]);
+      $level = max(0, $c - IA_2026_COL_LEVEL_1);
+      $hierarchy[$level] = $title;
+      if ($level < count($hierarchy)) {
+        $hierarchy = array_slice($hierarchy, 0, $level + 1);
+      }
+      break;
+    }
+  }
+  if (isset($level)) {
+    $L = $level + 1;
+    fwrite(STDOUT, "Target hierarchy: L{$L} {$sandbox['menu']} > " . join(" > ", $hierarchy) . PHP_EOL);
+  }
+
+  if (strcasecmp('no updates', $entry[IA_2026_COL_ACTION])) {
+    // Current URL.
+    $current_url = trim(explode(',', $entry[IA_2026_COL_CURRENT_URL])[0]);
+    $current_path = parse_url($current_url, PHP_URL_PATH);
+    $alias_path = \Drupal::service('path_alias.manager')->getPathByAlias($current_path);
+    $url_object = \Drupal::service('path.validator')->getUrlIfValid($alias_path);
+    $route_name = false;
+    if (preg_match('/node\/(\d+)/', $alias_path, $matches)) {
+      $route_name = "entity:node/{$matches[1]}";
+      fwrite(STDOUT, "Current URL: {$current_url} => {$route_name}" . PHP_EOL);
+      $node = \Drupal\node\Entity\Node::load($matches[1]);
+    }
+    else if ($url_object) {
+      $route_name = $url_object->getInternalPath();
+      fwrite(STDOUT, "Current URL: {$current_url} => {$route_name}" . PHP_EOL);
+    }
+    else if (0 === strcasecmp($current_path, "n/a")) {
+      $current_path = "N/A";
+      fwrite(STDOUT, "Current URL: {$current_path}" . PHP_EOL);
+    }
+    else if (!str_contains($current_url, 'www.workbc.ca')) {
+      fwrite(STDOUT, "Current URL: {$current_url} EXTERNAL" . PHP_EOL);
+    }
+    else {
+      fwrite(STDOUT, "Current URL: {$current_url} ???" . PHP_EOL);
+    }
+
+    // Current menu entry.
+    $menu_content_storage = \Drupal::entityTypeManager()->getStorage('menu_link_content');
+    $menu_link_content = current($menu_content_storage->loadByProperties(['title' => $title ?? '']));
+    if (empty($menu_link_content) && $route_name) {
+      $menu_link_content = current($menu_content_storage->loadByProperties(['link__uri' => $route_name]));
+    }
+    if (isset($level) and $level < 3) {
+      fwrite(STDOUT, "Current menu item: " . ($menu_link_content ? $menu_link_content->id() : '???') . PHP_EOL);
+    }
+
+    // Target URL.
+    $target_url = trim(explode(',', $entry[IA_2026_COL_TARGET_URL])[0]);
+    $target_path = parse_url($target_url, PHP_URL_PATH);
+    if (!str_contains($target_url, 'https')) {
+      $target_path = strtoupper($target_path);
+    }
+    fwrite(STDOUT, "Target URL: {$target_path}" . PHP_EOL);
+
+    // Vanity URLs.
+    $current_vanity = array_map('trim', explode(',', $entry[IA_2026_COL_CURRENT_URL]));
+    array_shift($current_vanity);
+    $target_vanity = array_map('trim', explode(',', $entry[IA_2026_COL_TARGET_URL]));
+    array_shift($target_vanity);
+    fwrite(STDOUT, "Vanity URLs: " . ($current_vanity ? join(", ", $current_vanity) . " => " : '') . join(", ", $target_vanity) . PHP_EOL);
+  }
+
+  $sandbox['#finished'] = empty($sandbox['ia']) ? 1 : ($sandbox['count'] - count($sandbox['ia'])) / $sandbox['count'];
+  return t("[WBCAMS-1561 / 1917] Processed one entry.");
+}
