@@ -1,0 +1,19 @@
+uuid: b9e19389-7fb6-4518-9c48-b24c8f201ea5
+langcode: en
+status: true
+dependencies:
+  config:
+    - field.storage.paragraph.field_email
+    - paragraphs.paragraphs_type.card_support
+id: paragraph.card_support.field_email
+field_name: field_email
+entity_type: paragraph
+bundle: card_support
+label: Email
+description: ''
+required: false
+translatable: false
+default_value: {  }
+default_value_callback: ''
+settings: {  }
+field_type: email
