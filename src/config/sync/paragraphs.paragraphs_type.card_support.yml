@@ -1,0 +1,10 @@
+uuid: 88138461-62bb-4cee-a9f3-12011a003e38
+langcode: en
+status: true
+dependencies: {  }
+id: card_support
+label: 'Card: Support'
+icon_uuid: null
+icon_default: null
+description: 'A Support Page card'
+behavior_plugins: {  }

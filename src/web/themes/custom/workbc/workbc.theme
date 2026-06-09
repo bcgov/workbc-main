@@ -9,12 +9,18 @@ use Drupal\file\Entity\File;
 use Drupal\Core\Url;
 use Drupal\Core\Render\Markup;
 use Drupal\Component\Utility\Html;
+use Drupal\Component\Utility\UrlHelper;
 use Drupal\Core\Entity\EntityTypeManagerInterface;
 
 /**
  * Implements hook_theme_preprocess_paragraph().
  */
 function workbc_preprocess_paragraph(&$variables) {
+
+  if ($variables['paragraph']->bundle() == "card_support") {
+    $variables['is_external'] = UrlHelper::isExternal($variables['elements']['field_link']['#items'][0]->getString());
+  }
+
   $parent = $variables['paragraph']->getParentEntity();
   if ($parent->bundle() === 'action_cards_full_width') {
     $align = $parent->field_alignment->value;

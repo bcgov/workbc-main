@@ -1,0 +1,59 @@
+{# Variables #}
+
+{% set card_image = content.field_image_media[0] %}
+{% set card_title = content.field_title[0] %}
+{% set card_desc = content.field_description[0] %}
+{% set card_link_url = content.field_link[0]['#url'] %}
+{% set card_link_title = content.field_link[0]['#title'] %}
+{% set card_email = content.field_email[0] %}
+{% set card_color = content.field_card_color['#items'].getString() %}
+
+{%
+  set classes = [
+    'paragraph',
+    paragraph.field_key[0].value ? 'paragraph--key--' ~ paragraph.field_key[0].value|clean_class,
+    'paragraph--type--' ~ paragraph.bundle|clean_class,
+    view_mode ? 'paragraph--view-mode--' ~ view_mode|clean_class,
+    not paragraph.isPublished() ? 'paragraph--unpublished',
+    'card-plain',
+    'card-support-' ~ content.field_card_color['#items'].getString(),
+  ]
+%}
+
+{% block paragraph %}
+  <div{{ attributes.addClass(classes) }}>
+    {% block content %}
+      <div class="card-support__title-container">
+        <h3 class="card-plain__title">
+          {{ card_title }}
+        </h3>
+      </div>
+      <div class="card-support-content-top">
+        {% if card_image %}
+          <div class="card-plain__image" >
+            {{ card_image }}
+          </div>
+        {% endif %}
+        <div class="card-plain__desc">
+          {{ card_desc }}
+        </div>
+      </div>
+      <div class="card-support-content-bottom">
+        {% if card_email %}
+          <div class="card-support__email">
+            <a href="mailto:{{ card_email }}">{{ card_email }}</a>
+          </div>
+        {% endif %}
+        {% if card_link_url %}
+          <div class="card-plain__link-container">
+            <a class="card-plain__link" href="{{ card_link_url }}">{{ card_link_title }}
+              {% if is_external %}
+                <img class="external-link" src="/{{ directory }}/assets/icons/external-link.svg" alt="" title="" />
+              {% endif %}
+            </a>
+          </div>
+        {% endif %}
+      </div>
+    {% endblock %}
+  </div>
+{% endblock paragraph %}
