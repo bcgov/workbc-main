@@ -1148,9 +1148,9 @@ const IA_2026_COL_PREVIOUS_TITLE = 9;
 /**
  * Import ia_2026.csv and execute needed changes to menu structure / path aliases / redirections.
  *
- * As per tickets WBCAMS-1561 / 1917
+ * As per ticket WBCAMS-1561
  */
-function workbc_custom_post_update_1561_1917_ia_changes(&$sandbox = NULL) {
+function workbc_custom_post_update_1561_ia_changes(&$sandbox = NULL) {
   if (!isset($sandbox['ia'])) {
     $module_path = \Drupal::service('extension.path.resolver')->getPath('module', 'workbc_custom');
     $file_path = $module_path . '/data/ia_2026.csv';
@@ -1326,22 +1326,22 @@ function workbc_custom_post_update_1561_1917_ia_changes(&$sandbox = NULL) {
     $pages[join('/', $hierarchy)] = $menu_link ? $menu_link->getPluginId() : '???';
   }
 
-  // Vanity URLs.
-  $current_vanity = array_map('trim', explode(',', $entry[IA_2026_COL_CURRENT_URL]));
-  array_shift($current_vanity);
-  $target_vanity = array_map('trim', explode(',', $entry[IA_2026_COL_TARGET_URL]));
-  array_shift($target_vanity);
-  $remove_vanity = array_filter($current_vanity, function ($vanity) use ($target_vanity) {
-    return !in_array($vanity, $target_vanity);
-  });
-  $add_vanity = array_filter($target_vanity, function ($vanity) use ($current_vanity) {
-    return !in_array($vanity, $current_vanity);
-  });
-  $update_vanity = array_filter($current_vanity, function ($vanity) use ($target_vanity) {
-    return in_array($vanity, $target_vanity);
-  });
+  // // Vanity URLs.
+  // $current_vanity = array_map('trim', explode(',', $entry[IA_2026_COL_CURRENT_URL]));
+  // array_shift($current_vanity);
+  // $target_vanity = array_map('trim', explode(',', $entry[IA_2026_COL_TARGET_URL]));
+  // array_shift($target_vanity);
+  // $remove_vanity = array_filter($current_vanity, function ($vanity) use ($target_vanity) {
+  //   return !in_array($vanity, $target_vanity);
+  // });
+  // $add_vanity = array_filter($target_vanity, function ($vanity) use ($current_vanity) {
+  //   return !in_array($vanity, $current_vanity);
+  // });
+  // $update_vanity = array_filter($current_vanity, function ($vanity) use ($target_vanity) {
+  //   return in_array($vanity, $target_vanity);
+  // });
 //  fwrite(STDOUT, "Vanity URLs: REMOVE [" . join(", ", $remove_vanity) . '], CREATE [' . join(", ", $add_vanity) . '], UPDATE [' . join(", ", $update_vanity) . ']' . PHP_EOL);
 
   $sandbox['#finished'] = empty($sandbox['ia']) ? 1 : ($sandbox['count'] - count($sandbox['ia'])) / $sandbox['count'];
-  return t("[WBCAMS-1561 / 1917] $message");
+  return t("[WBCAMS-1561] $message");
 }
