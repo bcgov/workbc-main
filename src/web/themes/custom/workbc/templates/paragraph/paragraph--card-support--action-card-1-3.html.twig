@@ -27,8 +27,9 @@
         <h3 class="card-plain__title">
           {{ card_title }}
         </h3>
+        <img data-category-id="card-support-{{ paragraph.id() }}" tabindex="0" src="/modules/custom/workbc_custom/icons/expand.svg" alt="expand">
       </div>
-      <div class="card-support-content-top">
+      <div id="card-top-{{ paragraph.id() }}" class="card-support-content-top">
         {% if card_image %}
           <div class="card-plain__image" >
             {{ card_image }}
@@ -38,7 +39,7 @@
           {{ card_desc }}
         </div>
       </div>
-      <div class="card-support-content-bottom">
+      <div id="card-bottom-{{ paragraph.id() }}" class="card-support-content-bottom">
         {% if card_email %}
           <div class="card-support__email">
             <a href="mailto:{{ card_email }}">{{ card_email }}</a>
