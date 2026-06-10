@@ -171,7 +171,7 @@ custom_error_response {
   aliases = ["test.workbc.ca"]
 
   viewer_certificate {
-    acm_certificate_arn = "arn:aws:acm:us-east-1:318574063652:certificate/6c9be00f-eb33-4bdb-a388-02c6f7d2c1d5"
+    acm_certificate_arn = "arn:aws:acm:ca-central-1:318574063652:certificate/c0af2406-ad4a-43a9-83a6-5c7d6acc0a65"
     minimum_protocol_version = "TLSv1.2_2021"
     ssl_support_method = "sni-only"
   }
