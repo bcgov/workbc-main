@@ -1301,6 +1301,10 @@ function workbc_custom_post_update_1561_ia_changes(&$sandbox = NULL) {
       $menu_item_parent = null;
     }
 
+    if (empty($route_name) && $level > 0) {
+      $message .= ' [WARNING route_name EMPTY!]';
+      $route_name = 'route:<nolink>';
+    }
     if (empty($menu_link)) {
       $menu_link = \Drupal::entityTypeManager()
       ->getStorage('menu_link_content')

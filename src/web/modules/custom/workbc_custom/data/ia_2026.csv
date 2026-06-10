@@ -1,4 +1,4 @@
-"Find a Job",,,,,yes,"update name; remove LP",https://www.workbc.ca/search-and-prepare-job,remove,"Search and Prepare for a Job"
+"Find a Job",,,,,yes,"update name; REMOVE LP",https://www.workbc.ca/search-and-prepare-job,REMOVE,"Search and Prepare for a Job"
 ,"Search Jobs",,,,yes,"update name & URL; update vanity URL",https://www.workbc.ca/search-and-prepare-job/find-jobs,"https://www.workbc.ca/find-job/search-jobs/job-search,https://www.workbc.ca/jobs","Find Jobs"
 ,,"Job Search Tips",,,,"update URL only",https://www.workbc.ca/search-and-prepare-job/find-jobs/job-search-tips,https://www.workbc.ca/find-job/search-jobs/job-search-tips,
 ,"Industry Job Boards",,,,yes,"update URL only",https://www.workbc.ca/search-and-prepare-job/industry-job-boards,https://www.workbc.ca/find-job/industry-job-boards,
@@ -7,12 +7,12 @@
 ,,,"Request a Tour Stop",,,"move IA, update URL",https://www.workbc.ca/plan-career/career-events/find-your-fit-tour/request-tour-stop,https://www.workbc.ca/find-job/career-events/find-your-fit-tour/request-tour-stop,
 ,,"Calendar of Upcoming Events",,,,"move IA, update URL",https://www.workbc.ca/plan-career/career-events/calendar-upcoming-events,https://www.workbc.ca/find-job/career-events/calendar-upcoming-events,
 ,,"Career and Education Fairs",,,,"move IA, update URL",https://www.workbc.ca/plan-career/career-events/career-and-education-fairs,https://www.workbc.ca/find-job/career-events/career-and-education-fairs,
-,"Work in British Columbia",,,,,"REMOVE page",https://www.workbc.ca/search-and-prepare-job/work-british-columbia,remove,
-,,"Why You Should Come Work in B.C.",,,,"REMOVE page",https://www.workbc.ca/search-and-prepare-job/work-british-columbia/why-you-should-come-work-bc,remove,
-,,"Get Started on Your Career in B.C.",,,,"REMOVE page, content moved",https://www.workbc.ca/search-and-prepare-job/work-british-columbia/get-started-your-career-bc,remove,
-,"WorkBC Job Board Advantage",,,,,"REMOVE page",https://www.workbc.ca/search-and-prepare-job/workbc-job-board-advantage,remove,
+,"Work in British Columbia",,,,,"REMOVE page",https://www.workbc.ca/search-and-prepare-job/work-british-columbia,REMOVE,
+,,"Why You Should Come Work in B.C.",,,,"REMOVE page",https://www.workbc.ca/search-and-prepare-job/work-british-columbia/why-you-should-come-work-bc,REMOVE,
+,,"Get Started on Your Career in B.C.",,,,"REMOVE page, content moved",https://www.workbc.ca/search-and-prepare-job/work-british-columbia/get-started-your-career-bc,REMOVE,
+,"WorkBC Job Board Advantage",,,,,"REMOVE page",https://www.workbc.ca/search-and-prepare-job/workbc-job-board-advantage,REMOVE,
 ,,,,,,,,,
-"Plan a Career",,,,,yes,"remove LP",https://www.workbc.ca/plan-career,remove,
+"Plan a Career",,,,,yes,"REMOVE LP",https://www.workbc.ca/plan-career,REMOVE,
 ,"Career Exploration Hub",,,,yes,"update L2 label/name;
 update page (by editors)","https://www.workbc.ca/plan-career/explore-careers,https://www.workbc.ca/careers  ","https://www.workbc.ca/plan-career/explore-careers,https://www.workbc.ca/careers  ","Explore Careers"
 ,"Career Profiles",,,,yes,"move IA to L2; update URL; update vanity URL","https://www.workbc.ca/plan-career/explore-careers/career-profiles,https://www.workbc.ca/careerprofiles","https://www.workbc.ca/plan-career/career-profiles,https://www.workbc.ca/careerprofiles",
@@ -20,9 +20,9 @@ update page (by editors)","https://www.workbc.ca/plan-career/explore-careers,htt
 ,"Career Discovery Quizzes",,,,yes,"move IA to L2;  update vanity name & URL","https://careerdiscoveryquizzes.workbc.ca,https://www.workbc.ca/careercompass","https://careerdiscoveryquizzes.workbc.ca,https://www.workbc.ca/careercompass",
 ,"Career Trek Videos",,,,yes,"no updates",https://www.workbc.ca/plan-career/career-trek-videos,https://www.workbc.ca/plan-career/career-trek-videos,
 ,,"Career Transition Tool",,,,"no updates","https://www2.workbc.ca/careertransitiontool,https://www.workbc.ca/careertransitiontool/","https://www2.workbc.ca/careertransitiontool,https://www.workbc.ca/careertransitiontool/",
-,,Self-Employment,,,,"no updates",https://www.workbc.ca/plan-career/explore-careers/self-employment,remove,
-,,"Types of Employment",,,,"REMOVE page, content moved",https://www.workbc.ca/plan-career/explore-careers/types-employment-bc,remove,
-,,Glossary,,,,"update name, move IA (to footer) update URL",https://www.workbc.ca/plan-career/explore-careers/definitions,remove,Definitions
+,,Self-Employment,,,,"no updates",https://www.workbc.ca/plan-career/explore-careers/self-employment,REMOVE,
+,,"Types of Employment",,,,"REMOVE page, content moved",https://www.workbc.ca/plan-career/explore-careers/types-employment-bc,REMOVE,
+,,Glossary,,,,"update name, move IA (to footer) update URL",https://www.workbc.ca/plan-career/explore-careers/definitions,REMOVE,Definitions
 ,"Inclusive Career Resources",,,,yes,"update L2 label/name; no update to URL",https://www.workbc.ca/plan-career/resources,https://www.workbc.ca/plan-career/resources,"Resources for"
 ,,2SLGBTQIA+,,,,"no updates",https://www.workbc.ca/plan-career/resources/2slgbtqia,https://www.workbc.ca/plan-career/resources/2slgbtqia,
 ,,"Indigenous Peoples",,,,"update vanity URLs, no other updates","https://www.workbc.ca/plan-career/resources/indigenous-peoples,https://www.workbc.ca/Aboriginal,https://www.workbc.ca/indigenous","https://www.workbc.ca/plan-career/resources/indigenous-peoples,https://www.workbc.ca/Aboriginal,https://www.workbc.ca/indigenous",
@@ -44,14 +44,14 @@ update page (by editors)","https://www.workbc.ca/plan-career/explore-careers,htt
 ,,Youth,,,,"update vanity URL, no other updates","https://www.workbc.ca/plan-career/resources/youth,https://www.workbc.ca/youth","https://www.workbc.ca/plan-career/resources/youth,https://www.workbc.ca/youth",
 ,,,,,,,,,
 "Get Support Finding Work",,,,,yes,"update L1 label/name; Remove LP
-Replace page URL with WorkBC Centre Services ",add,remove,"Looking for help finding a job?"
+Replace page URL with WorkBC Centre Services ",ADD,REMOVE,"Looking for help finding a job?"
 ,"WorkBC Centre Services",,,,,"Replace page URL with WorkBC Centre Services; Remove Employment Services page",https://www.workbc.ca/discover-employment-services,"https://www.workbc.ca/get-support/workbc-centre-services,www.workbc.ca/WorkBCCentres,www.workbc.ca/WorkBC-Centres",
 ,,"Vous avez besoin d'aide pour trouver un emploi ?",,,,"update URL",https://www.workbc.ca/vous-avez-besoin-daide-pour-trouver-un-emploi,https://www.workbc.ca/get-support/workbc-centre-services/vous-avez-besoin-daide-pour-trouver-un-emploi,
-,,"WorkBC Centre Locations (Map)",,,,"embedded map",https://www.workbc.ca/discover-employment-services/workbc-centre-locations,remove,
-,,"WorkBC Centre Listings",,,,"embedded list",https://www.workbc.ca/discover-employment-services/workbc-centres/workbc-centre-locations/workbc-centre-listings,remove,
+,,"WorkBC Centre Locations (Map)",,,,"embedded map",https://www.workbc.ca/discover-employment-services/workbc-centre-locations,REMOVE,
+,,"WorkBC Centre Listings",,,,"embedded list",https://www.workbc.ca/discover-employment-services/workbc-centres/workbc-centre-locations/workbc-centre-listings,REMOVE,
 ,,"Who Should Visit a WorkBC Centre",,,,"update URL ",https://www.workbc.ca/discover-employment-services/employment-services/who-should-visit-workbc-centre,https://www.workbc.ca/get-support/workbc-centre-services/who-should-visit-workbc-centre,
 ,,"Future of WorkBC Employment Services",,,,"move IA, update URL",https://www.workbc.ca/discover-employment-services/future-workbc-employment-services,https://www.workbc.ca/get-support/workbc-centre-services/future-workbc-employment-services,
-,"WorkBC Centres",,,,,"REMOVE current L2 WorkBC Centres landing page and URL",https://www.workbc.ca/discover-employment-services/workbc-centres,remove,
+,"WorkBC Centres",,,,,"REMOVE current L2 WorkBC Centres landing page and URL",https://www.workbc.ca/discover-employment-services/workbc-centres,REMOVE,
 ,"Online Employment Services",,,,yes,"move IA to L2, update URL (direct link to portal)",https://www.workbc.ca/discover-employment-services/online-employment-services,https://apply.workbc.ca/,
 ,"Employment Readiness Services",,,,yes,"move IA to L2; update URL",https://www.workbc.ca/discover-employment-services/employment-services/employment-readiness-services,https://www.workbc.ca/get-support/employment-readiness-services,
 ,,"Community-based Employment Services",,,,"update URL",https://www.workbc.ca/discover-employment-services/employment-services/employment-readiness-services/cbes,https://www.workbc.ca/get-support/employment-readiness-services/cbes,
@@ -67,7 +67,7 @@ Replace page URL with WorkBC Centre Services ",add,remove,"Looking for help find
 ,,"Social Media",,,,"move IA, update URL",https://www.workbc.ca/search-and-prepare-job/job-application-tips/social-media,https://www.workbc.ca/get-support/job-application-tips/social-media,
 ,,"Know Your Rights as a Job Applicant",,,,"move IA, update URL",https://www.workbc.ca/search-and-prepare-job/job-application-tips/job-applicants-and-workers-rights,https://www.workbc.ca/get-support/job-application-tips/job-applicants-and-workers-rights,
 ,,,,,,,,,
-"Develop Your Skills",,,,,yes,"update name & URL; remove LP",https://www.workbc.ca/explore-training-and-education,remove,"Explore Training and Education"
+"Develop Your Skills",,,,,yes,"update name & URL; REMOVE LP",https://www.workbc.ca/explore-training-and-education,REMOVE,"Explore Training and Education"
 ,"Job Skills Training",,,,yes,"update name & URL",https://www.workbc.ca/explore-training-and-education/skills-training-and-supports,https://www.workbc.ca/develop-skills/job-skills-training,"Skills Training and Supports"
 ,,"Skills Training for Employment Program",,,,"update URL only",https://www.workbc.ca/explore-training-and-education/skills-training-and-supports/skills-training-employment-program,https://www.workbc.ca/develop-skills/job-skills-training/skills-training-employment-program,
 ,,,"Skills Training for Employment Participants",,,"update URL only",https://www.workbc.ca/success-story/skills-training-employment-participants,https://www.workbc.ca/success-story/skills-training-employment-participants,
@@ -94,13 +94,13 @@ Replace page URL with WorkBC Centre Services ",add,remove,"Looking for help find
 ,,,"Indigenous Peoples in Trades Training",,,"update URL only",https://www.workbc.ca/explore-training-and-education/trades-training/pre-apprenticeship-programs/indigenous-peoples,https://www.workbc.ca/develop-skills/trades-training-apprenticeship/pre-apprenticeship-programs/indigenous-peoples,
 ,,,"Equity Seeking Groups in Trades Training",,,"update URL only",https://www.workbc.ca/explore-training-and-education/trades-training/pre-apprenticeship-programs/equity-trades-training,https://www.workbc.ca/develop-skills/trades-training-apprenticeship/pre-apprenticeship-programs/equity-trades-training,
 ,,"Apprentice Services",,,,"move IA, update URL",https://www.workbc.ca/discover-employment-services/apprentice-services,https://www.workbc.ca/develop-skills/trades-training-apprenticeship/apprentice-services,
-,,,"Access Online WorkBC Apprentice Services",,,"REMOVE page, content moved",https://www.workbc.ca/discover-employment-services/apprentice-services/access-online-workbc-apprentice-services,N/A,
-,,,"Assess Your Eligibility",,,"REMOVE page, content moved",https://www.workbc.ca/discover-employment-services/apprentice-services/assess-your-eligibility,N/A,
-,,,"How To Apply",,,"REMOVE page, content moved",https://www.workbc.ca/discover-employment-services/apprentice-services/how-apply,N/A,
-,,,"Training Supports",,,"REMOVE page, content moved",https://www.workbc.ca/discover-employment-services/apprentice-services/training-supports,N/A,
+,,,"Access Online WorkBC Apprentice Services",,,"REMOVE page, content moved",https://www.workbc.ca/discover-employment-services/apprentice-services/access-online-workbc-apprentice-services,REMOVE,
+,,,"Assess Your Eligibility",,,"REMOVE page, content moved",https://www.workbc.ca/discover-employment-services/apprentice-services/assess-your-eligibility,REMOVE,
+,,,"How To Apply",,,"REMOVE page, content moved",https://www.workbc.ca/discover-employment-services/apprentice-services/how-apply,REMOVE,
+,,,"Training Supports",,,"REMOVE page, content moved",https://www.workbc.ca/discover-employment-services/apprentice-services/training-supports,REMOVE,
 ,"Post-Secondary Education",,,,yes,"update URL only",https://www.workbc.ca/explore-training-and-education/post-secondary-education,https://www.workbc.ca/develop-skills/post-secondary-education,
-,"Co-operative Education",,,,,"REMOVE page",https://www.workbc.ca/explore-training-and-education/co-operative-education,N/A,
-,"Find Your Path",,,,,"REMOVE page",https://www.workbc.ca/explore-training-and-education/find-your-path,N/A,
+,"Co-operative Education",,,,,"REMOVE page",https://www.workbc.ca/explore-training-and-education/co-operative-education,REMOVE,
+,"Find Your Path",,,,,"REMOVE page",https://www.workbc.ca/explore-training-and-education/find-your-path,REMOVE,
 ,"Skills and Competencies List",,,,yes,"move IA; update name and URL; update vanity URL","https://www.workbc.ca/plan-career/skills-future-workforce,https://www.workbc.ca/futureworkforce ","https://www.workbc.ca/develop-skills/skills-competencies-list,https://www.workbc.ca/futureworkforce ","Skills for the Future Workforce"
 ,,Skills,,,,"move IA, update URL",https://www.workbc.ca/plan-career/skills-future-workforce/skills,https://www.workbc.ca/develop-skills/skills-competencies-list/skills,
 ,,Competencies,,,,"move IA, update URL",https://www.workbc.ca/plan-career/skills-future-workforce/competencies,https://www.workbc.ca/develop-skills/skills-competencies-list/competencies,
@@ -114,7 +114,7 @@ Replace page URL with WorkBC Centre Services ",add,remove,"Looking for help find
 ,,,Guidelines,,,"move IA, update URL",https://www.workbc.ca/find-loans-and-grants/students-and-adult-learners/strongerbc-future-skills-grant/guidelines,https://www.workbc.ca/develop-skills/funding-grants-learners/strongerbc-future-skills-grant/guidelines,
 ,,,,"Step 2: Assess your eligibility",,"move IA only",https://www.workbc.ca/find-loans-and-grants/students-and-adult-learners/strongerbc-future-skills-grant/eligibility-criteria,https://www.workbc.ca/develop-skills/funding-grants-learners/strongerbc-future-skills-grant/eligibility-criteria,
 ,,,,,,,,,
-"B.C.'s Labour Market Trends",,,,,yes,"update name & URL; LP removed","https://www.workbc.ca/research-labour-market,https://www.workbc.ca/Labour-Market-Information.aspx,https://www.workbc.ca/economy",remove,"Research the Labour Market"
+"B.C.'s Labour Market Trends",,,,,yes,"update name & URL; LP REMOVEd","https://www.workbc.ca/research-labour-market,https://www.workbc.ca/Labour-Market-Information.aspx,https://www.workbc.ca/economy",REMOVE,"Research the Labour Market"
 ,"B.C.'s Economy",,,,yes,"update URL; update vanity URL",https://www.workbc.ca/research-labour-market/bcs-economy,"https://www.workbc.ca/labour-market/bcs-economy,https://www.workbc.ca/economy",
 ,,"Labour Market Monthly Update",,,,"update URL; update vanity URL",https://www.workbc.ca/research-labour-market/bcs-economy/labour-market-monthly-update,"https://www.workbc.ca/labour-market/bcs-economy/labour-market-monthly-update,https://www.workbc.ca/Labour-Market-Information",
 ,,"Guide to Using Labour Market Information",,,,"update URL only",https://www.workbc.ca/research-labour-market/bcs-economy/guide-using-labour-market-information,https://www.workbc.ca/labour-market/bcs-economy/guide-using-labour-market-information,
@@ -123,22 +123,22 @@ Replace page URL with WorkBC Centre Services ",add,remove,"Looking for help find
 ,,"Green Economy",,,,"update URL only",https://www.workbc.ca/research-labour-market/bcs-economy/green-economy,https://www.workbc.ca/labour-market/bcs-economy/green-economy,
 ,,"STEM Economy",,,,"update URL only",https://www.workbc.ca/research-labour-market/bcs-economy/stem-economy,https://www.workbc.ca/labour-market/bcs-economy/stem-economy,
 ,,"Workforce Development Agreement and Annual Reports",,,,"update URL only",https://www.workbc.ca/research-labour-market/bcs-economy/workforce-development-agreement-and-annual-reports,https://www.workbc.ca/labour-market/bcs-economy/workforce-development-agreement-and-annual-reports,
-,"B.C.'s Labour Market Outlook",,,,yes,"update URL; update vanity URL","https://www.workbc.ca/research-labour-market/bc-labour-market-outlook#overview,https://www.workbc.ca/labourmarketoutlook","https://www.workbc.ca/labour-market/bc-labour-market-outlook#overview,https://www.workbc.ca/labourmarketoutlook",
+,"B.C.'s Labour Market Outlook",,,,yes,"update URL; update vanity URL","https://www.workbc.ca/research-labour-market/bc-labour-market-outlook,https://www.workbc.ca/labourmarketoutlook","https://www.workbc.ca/labour-market/bc-labour-market-outlook,https://www.workbc.ca/labourmarketoutlook",
 ,"High Opportunity Occupations",,,,yes,"update URL only",https://www.workbc.ca/research-labour-market/high-opportunity-occupations,https://www.workbc.ca/labour-market/high-opportunity-occupations,
 ,"Top Demand Trades",,,,yes,"update URL only",https://www.workbc.ca/research-labour-market/top-demand-trades,https://www.workbc.ca/labour-market/top-demand-trades,
 ,"B.C. and Regional Profiles",,,,yes,"update URL; update vanity URL","https://www.workbc.ca/research-labour-market/bc-and-regional-profiles,https://www.workbc.ca/regional,https://www.workbc.ca/bcandregional","https://www.workbc.ca/labour-market/bc-and-regional-profiles,https://www.workbc.ca/bcandregional",
-,,"British Columbia",,,,"update URL only",https://www.workbc.ca/region-profile/british-columbia#overview,https://www.workbc.ca/region-profile/british-columbia#overview,
-,,"North Coast and Nechako",,,,"update URL only",https://www.workbc.ca/region-profile/north-coast-and-nechako#overview,https://www.workbc.ca/region-profile/north-coast-and-nechako#overview,
-,,"Vancouver Island/Coast",,,,"update URL only",https://www.workbc.ca/region-profile/vancouver-islandcoast#overview,https://www.workbc.ca/region-profile/vancouver-islandcoast#overview,
-,,Mainland/Southwest,,,,"update URL only",https://www.workbc.ca/region-profile/mainlandsouthwest#overview,https://www.workbc.ca/region-profile/mainlandsouthwest#overview,
-,,Northeast,,,,"update URL only",https://www.workbc.ca/region-profile/northeast#overview,https://www.workbc.ca/region-profile/northeast#overview,
-,,Cariboo,,,,"update URL only",https://www.workbc.ca/region-profile/cariboo#overview,https://www.workbc.ca/region-profile/cariboo#overview,
-,,Thompson-Okanagan,,,,"update URL only",https://www.workbc.ca/region-profile/thompson-okanagan#overview,https://www.workbc.ca/region-profile/thompson-okanagan#overview,
-,,Kootenay,,,,"update URL only",https://www.workbc.ca/region-profile/kootenay#overview,https://www.workbc.ca/region-profile/kootenay#overview,
+,,"British Columbia",,,,"update URL only",https://www.workbc.ca/region-profile/british-columbia,https://www.workbc.ca/region-profile/british-columbia,
+,,"North Coast and Nechako",,,,"update URL only",https://www.workbc.ca/region-profile/north-coast-and-nechako,https://www.workbc.ca/region-profile/north-coast-and-nechako,
+,,"Vancouver Island/Coast",,,,"update URL only",https://www.workbc.ca/region-profile/vancouver-islandcoast,https://www.workbc.ca/region-profile/vancouver-islandcoast,
+,,Mainland/Southwest,,,,"update URL only",https://www.workbc.ca/region-profile/mainlandsouthwest,https://www.workbc.ca/region-profile/mainlandsouthwest,
+,,Northeast,,,,"update URL only",https://www.workbc.ca/region-profile/northeast,https://www.workbc.ca/region-profile/northeast,
+,,Cariboo,,,,"update URL only",https://www.workbc.ca/region-profile/cariboo,https://www.workbc.ca/region-profile/cariboo,
+,,Thompson-Okanagan,,,,"update URL only",https://www.workbc.ca/region-profile/thompson-okanagan,https://www.workbc.ca/region-profile/thompson-okanagan,
+,,Kootenay,,,,"update URL only",https://www.workbc.ca/region-profile/kootenay,https://www.workbc.ca/region-profile/kootenay,
 ,"B.C.'s Industries and Sectors",,,,yes,"update URL; update vanity URLs","https://www.workbc.ca/research-labour-market/bcs-industries-and-sectors,https://www.workbc.ca/Labour-Market-Industry/Industry-and-Sector-Information/Industry-and-Sector-Outlooks.aspx,https://www.workbc.ca/industry,https://www.workbc.ca/sector","https://www.workbc.ca/labour-market/bcs-industries-and-sectors,https://www.workbc.ca/industry,https://www.workbc.ca/sector",
 ,,"Industry Profiles",,,,"update URL; update vanity URL","https://www.workbc.ca/research-labour-market/bcs-industries-and-sectors/industry-profiles,https://www.workbc.ca/industryprofiles","https://www.workbc.ca/labour-market/bcs-industries-and-sectors/industry-profiles,https://www.workbc.ca/industryprofiles",
 ,,,,,,,,,
-"For Employers and Industry",,,,,yes,"update name & URL, remove LP","https://www.workbc.ca/access-employer-resources,https://www.workbc.ca/employer,https://www.workbc.ca/employers",remove,"Access Employer Resources"
+"For Employers and Industry",,,,,yes,"update name & URL, REMOVE LP","https://www.workbc.ca/access-employer-resources,https://www.workbc.ca/employer,https://www.workbc.ca/employers",REMOVE,"Access Employer Resources"
 ,"Hire Employees",,,,yes,"update URL; update vanity URLS",https://www.workbc.ca/access-employer-resources/hire-employees,"https://www.workbc.ca/employers-industry/hire-employees,www.workbc.ca/employer,www.workbc.ca/employers",
 ,,"Find Workers",,,,"update URL; update vanity URL","https://www.workbc.ca/access-employer-resources/hire-employees/find-workers,www.workbc.ca/postjobs","https://www.workbc.ca/employers-industry/hire-employees/find-workers,www.workbc.ca/postjobs",
 ,,,"Frequently Asked Questions for Employers",,,"update URL only",https://www.workbc.ca/access-employer-resources/hire-employees/find-workers/frequently-asked-questions-employers,https://www.workbc.ca/employers-industry/hire-employees/find-workers/frequently-asked-questions-employers,
@@ -187,7 +187,7 @@ Replace page URL with WorkBC Centre Services ",add,remove,"Looking for help find
 ,,,"Project-Based Labour Market Training",,,"move IA, update URL ",https://www.workbc.ca/discover-employment-services/community-and-employer-partnerships/project-based-labour-market,https://www.workbc.ca/employers-industry/funding-programs/community-and-employer-partnerships/project-based-labour-market,
 ,,,"Research and Innovation",,,"move IA, update URL ",https://www.workbc.ca/discover-employment-services/community-and-employer-partnerships/research-and-innovation,https://www.workbc.ca/employers-industry/funding-programs/community-and-employer-partnerships/research-and-innovation,
 ,,"Forest Sector Supports",,,,"update URL only",https://www.workbc.ca/find-loans-and-grants/forest-sector-supports,https://www.workbc.ca/employers-industry/funding-programs/forest-sector-supports,
-,Community,,,,,"REMOVE page, content moved",https://www.workbc.ca/find-loans-and-grants/community,remove,
-,,"Incentives and Tax Credits",,,,"REMOVE page",https://www.workbc.ca/find-loans-and-grants/industry-and-employers/incentives-and-tax-credits,remove,
+,Community,,,,,"REMOVE page, content moved",https://www.workbc.ca/find-loans-and-grants/community,REMOVE,
+,,"Incentives and Tax Credits",,,,"REMOVE page",https://www.workbc.ca/find-loans-and-grants/industry-and-employers/incentives-and-tax-credits,REMOVE,
 ,,,,,,,,,
-"Find Loans and Grants",,,,,,"REMOVE",https://www.workbc.ca/find-loans-and-grants,remove,
+"Find Loans and Grants",,,,,,"REMOVE",https://www.workbc.ca/find-loans-and-grants,REMOVE,
