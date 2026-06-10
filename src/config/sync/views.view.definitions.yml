@@ -9,7 +9,7 @@ dependencies:
     - text
     - user
 id: definitions
-label: Definitions
+label: Glossary
 module: views
 description: 'List of terms with definitions with A-Z filter'
 tag: ''
@@ -505,7 +505,7 @@ display:
     display_plugin: page
     position: 1
     display_options:
-      title: Definitions
+      title: Glossary
       defaults:
         title: false
         css_class: false
@@ -522,11 +522,11 @@ display:
           plugin_id: text
           empty: false
           content:
-            value: '<h1 class="page-title">Definitions</h1>'
+            value: '<h1 class="page-title">Glossary</h1>'
             format: full_html
           tokenize: false
       display_extenders: {  }
-      path: plan-career/explore-careers/definitions
+      path: glossary
     cache_metadata:
       max-age: -1
       contexts:
