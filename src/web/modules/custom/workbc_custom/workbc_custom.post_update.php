@@ -5,6 +5,7 @@ use Drupal\Core\Url;
 use Drupal\file\Entity\File;
 use Drupal\media\Entity\Media;
 use Drupal\node\Entity\Node;
+use Drupal\path_alias\Entity\PathAlias;
 
 /**
  * Add redirections of the form http://www.workbc.ca/Job-Seekers/Career-Profiles/[NOC]
@@ -1133,16 +1134,16 @@ function workbc_custom_post_update_521_media_weights(&$sandbox = NULL) {
   return t("[WBCAMS-521] $message");
 }
 
-const IA_2026_COL_MENU = 0;
-const IA_2026_COL_LEVEL_1 = 1;
-const IA_2026_COL_LEVEL_2 = 2;
-const IA_2026_COL_LEVEL_3 = 3;
-const IA_2026_COL_LEVEL_4 = 4;
-const IA_2026_COL_LEVEL_5 = 5;
-const IA_2026_COL_MEGAMENU = 6;
-const IA_2026_COL_ACTION = 7;
-const IA_2026_COL_CURRENT_URL = 8;
-const IA_2026_COL_TARGET_URL = 9;
+const IA_2026_COL_LEVEL_1 = 0;
+const IA_2026_COL_LEVEL_2 = 1;
+const IA_2026_COL_LEVEL_3 = 2;
+const IA_2026_COL_LEVEL_4 = 3;
+const IA_2026_COL_LEVEL_5 = 4;
+const IA_2026_COL_MEGAMENU = 5;
+const IA_2026_COL_ACTION = 6;
+const IA_2026_COL_CURRENT_URL = 7;
+const IA_2026_COL_TARGET_URL = 8;
+const IA_2026_COL_PREVIOUS_TITLE = 9;
 
 /**
  * Import ia_2026.csv and execute needed changes to menu structure / path aliases / redirections.
@@ -1153,9 +1154,9 @@ function workbc_custom_post_update_1561_1917_ia_changes(&$sandbox = NULL) {
   if (!isset($sandbox['ia'])) {
     $module_path = \Drupal::service('extension.path.resolver')->getPath('module', 'workbc_custom');
     $file_path = $module_path . '/data/ia_2026.csv';
+    $data = [];
     if (file_exists($file_path)) {
       if (($handle = fopen($file_path, 'r')) !== FALSE) {
-        $data = [];
         while (($row = fgetcsv($handle, 1000, ',')) !== FALSE) {
           $data[] = $row;
         }
@@ -1167,19 +1168,16 @@ function workbc_custom_post_update_1561_1917_ia_changes(&$sandbox = NULL) {
     });
     $sandbox['count'] = count($sandbox['ia']);
     $sandbox['hierarchy'] = [];
-    $sandbox['menu'] = "";
+    $sandbox['pages'] = [];
   }
 
   $entry = array_shift($sandbox['ia']);
-  fwrite(STDOUT, "-----" . PHP_EOL);
-
-  $hierarchy =& $sandbox['hierarchy'];
-  // Menu name.
-  if (!empty($entry[IA_2026_COL_MENU])) {
-    $sandbox['menu'] = trim($entry[IA_2026_COL_MENU]);
-  }
+  $message = "";
 
   // Menu hierarchy.
+  $hierarchy =& $sandbox['hierarchy'];
+  $pages =& $sandbox['pages'];
+  $title = '';
   for ($c = IA_2026_COL_LEVEL_5; $c >= IA_2026_COL_LEVEL_1; $c--) {
     if (!empty($entry[$c])) {
       $title = trim($entry[$c]);
@@ -1193,62 +1191,157 @@ function workbc_custom_post_update_1561_1917_ia_changes(&$sandbox = NULL) {
   }
   if (isset($level)) {
     $L = $level + 1;
-    fwrite(STDOUT, "Target hierarchy: L{$L} {$sandbox['menu']} > " . join(" > ", $hierarchy) . PHP_EOL);
+//    fwrite(STDOUT, "Target hierarchy: L{$L} " . join(" > ", $hierarchy) . PHP_EOL);
+    $message .= "L{$L} " . join(" > ", $hierarchy);
   }
 
-  if (strcasecmp('no updates', $entry[IA_2026_COL_ACTION])) {
-    // Current URL.
-    $current_url = trim(explode(',', $entry[IA_2026_COL_CURRENT_URL])[0]);
-    $current_path = parse_url($current_url, PHP_URL_PATH);
-    $alias_path = \Drupal::service('path_alias.manager')->getPathByAlias($current_path);
-    $url_object = \Drupal::service('path.validator')->getUrlIfValid($alias_path);
-    $route_name = false;
-    if (preg_match('/node\/(\d+)/', $alias_path, $matches)) {
-      $route_name = "entity:node/{$matches[1]}";
-      fwrite(STDOUT, "Current URL: {$current_url} => {$route_name}" . PHP_EOL);
-      $node = \Drupal\node\Entity\Node::load($matches[1]);
-    }
-    else if ($url_object) {
-      $route_name = $url_object->getInternalPath();
-      fwrite(STDOUT, "Current URL: {$current_url} => {$route_name}" . PHP_EOL);
-    }
-    else if (0 === strcasecmp($current_path, "n/a")) {
-      $current_path = "N/A";
-      fwrite(STDOUT, "Current URL: {$current_path}" . PHP_EOL);
-    }
-    else if (!str_contains($current_url, 'www.workbc.ca')) {
-      fwrite(STDOUT, "Current URL: {$current_url} EXTERNAL" . PHP_EOL);
+  // Current URL.
+  $current_url = trim(explode(',', $entry[IA_2026_COL_CURRENT_URL])[0]);
+  $current_path = parse_url($current_url, PHP_URL_PATH);
+  $alias_path = \Drupal::service('path_alias.manager')->getPathByAlias($current_path);
+  $url_object = \Drupal::service('path.validator')->getUrlIfValid($alias_path);
+  $route_name = false;
+  if (0 === strcasecmp($current_path, "add")) {
+    $current_path = "NONE";
+//    fwrite(STDOUT, "Current URL: {$current_path}" . PHP_EOL);
+  }
+  else if (!str_contains($current_url, 'www.workbc.ca')) {
+    $route_name = $current_url;
+//    fwrite(STDOUT, "Current URL: {$route_name} EXTERNAL" . PHP_EOL);
+  }
+  else if (preg_match('/node\/(\d+)/', $alias_path, $matches)) {
+    $route_name = "entity:node/{$matches[1]}";
+//    fwrite(STDOUT, "Current URL: {$current_url} => {$route_name}" . PHP_EOL);
+    $node = \Drupal\node\Entity\Node::load($matches[1]);
+  }
+  else if ($url_object) {
+    $route_name = "internal:/{$url_object->getInternalPath()}";
+//    fwrite(STDOUT, "Current URL: {$current_url} => {$route_name}" . PHP_EOL);
+  }
+  else {
+//    fwrite(STDOUT, "Current URL: {$current_url} ???" . PHP_EOL);
+  }
+  $message .= " " . $current_url;
+
+  // Current menu entry.
+  $menu_content_storage = \Drupal::entityTypeManager()->getStorage('menu_link_content');
+  $menu_link = current($menu_content_storage->loadByProperties(['title' => $title]));
+  /** @var Drupal\menu_link_content\MenuLinkContentInterface $menu_link */
+  if (empty($menu_link) && !empty($entry[IA_2026_COL_PREVIOUS_TITLE])) {
+    $menu_link = current($menu_content_storage->loadByProperties(['title' => trim($entry[IA_2026_COL_PREVIOUS_TITLE])]));
+  }
+  if (empty($menu_link) && $route_name) {
+    $menu_link = current($menu_content_storage->loadByProperties(['link__uri' => $route_name]));
+  }
+//  fwrite(STDOUT, "Current menu item: " . ($menu_link ? $menu_link->id() : 'CREATE') . PHP_EOL);
+
+  // Target URL.
+  $target_url = trim(explode(',', $entry[IA_2026_COL_TARGET_URL])[0]);
+  $target_path = str_contains($target_url, 'www.workbc.ca') ? parse_url($target_url, PHP_URL_PATH) : $target_url;
+  $target_action = "UPDATE";
+  if (!str_contains($target_url, 'https')) {
+    $target_action = "REMOVE";
+  }
+  else if ($target_path === $current_path) {
+    $target_action = "KEEP";
+  }
+  else if ($target_path === $target_url) {
+    $route_name = $target_path;
+  }
+//  fwrite(STDOUT, "Target URL: {$target_action} {$target_path}" . PHP_EOL);
+  $message .= " => " . $target_url;
+
+  // Update node entry.
+  if (!empty($node)) {
+    $node->setTitle($title);
+    if ($target_action === "REMOVE" || $target_url === $target_path) {
+      $node->setUnpublished();
+      $node->set('moderation_state', 'archived');
     }
     else {
-      fwrite(STDOUT, "Current URL: {$current_url} ???" . PHP_EOL);
+      $node->setPublished();
+      $node->set('moderation_state', 'published');
     }
+    $node->path->pathauto = false;
+    $node->save();
 
-    // Current menu entry.
-    $menu_content_storage = \Drupal::entityTypeManager()->getStorage('menu_link_content');
-    $menu_link_content = current($menu_content_storage->loadByProperties(['title' => $title ?? '']));
-    if (empty($menu_link_content) && $route_name) {
-      $menu_link_content = current($menu_content_storage->loadByProperties(['link__uri' => $route_name]));
+    // Update path alias.
+    $path_alias_manager = \Drupal::entityTypeManager()->getStorage('path_alias');
+    $path_aliases = $path_alias_manager->loadByProperties([
+      'path' => '/node/' . $node->id(),
+    ]);
+    /** @var PathAlias $path_alias */
+    $path_alias = reset($path_aliases);
+    if (!empty($path_alias)) {
+      $path_alias->delete();
     }
-    if (isset($level) and $level < 3) {
-      fwrite(STDOUT, "Current menu item: " . ($menu_link_content ? $menu_link_content->id() : '???') . PHP_EOL);
+    if ($target_action !== "REMOVE") {
+      $path_alias = $path_alias_manager->create([
+        'path' => '/node/' . $node->id(),
+        'alias' => $target_path,
+      ]);
+      $path_alias->save();
     }
-
-    // Target URL.
-    $target_url = trim(explode(',', $entry[IA_2026_COL_TARGET_URL])[0]);
-    $target_path = parse_url($target_url, PHP_URL_PATH);
-    if (!str_contains($target_url, 'https')) {
-      $target_path = strtoupper($target_path);
-    }
-    fwrite(STDOUT, "Target URL: {$target_path}" . PHP_EOL);
-
-    // Vanity URLs.
-    $current_vanity = array_map('trim', explode(',', $entry[IA_2026_COL_CURRENT_URL]));
-    array_shift($current_vanity);
-    $target_vanity = array_map('trim', explode(',', $entry[IA_2026_COL_TARGET_URL]));
-    array_shift($target_vanity);
-    fwrite(STDOUT, "Vanity URLs: " . ($current_vanity ? join(", ", $current_vanity) . " => " : '') . join(", ", $target_vanity) . PHP_EOL);
   }
 
+  // Update menu entry.
+  if ($target_action === "REMOVE" && ($level > 0 || strcasecmp($title, 'Find Loans and Grants') === 0)) {
+    if (!empty($menu_link)) {
+      $menu_link->delete();
+    }
+    unset($pages[join('/', $hierarchy)]);
+  }
+  else {
+    if ($level > 0) {
+      $hierarchy_parent = array_slice($hierarchy, 0, $level);
+      $menu_item_parent = $pages[join('/', $hierarchy_parent)] ?? 'NOT FOUND';
+//      fwrite(STDOUT, "Parent menu item: {$menu_item_parent}" . PHP_EOL);
+    }
+    else {
+      $menu_item_parent = null;
+    }
+
+    if (empty($menu_link)) {
+      $menu_link = \Drupal::entityTypeManager()
+      ->getStorage('menu_link_content')
+      ->create([
+          'title' => $hierarchy[$level],
+          'link' => $level == 0 ? 'route:<nolink>' : $route_name,
+          'menu_name' => 'main',
+          'parent' => $menu_item_parent,
+          'expanded' => true,
+          'weight' => count($pages),
+          'enabled' => true,
+      ]);
+    }
+    else {
+      $menu_link->set('title', $hierarchy[$level]);
+      $menu_link->set('link', $level == 0 ? 'route:<nolink>' : $route_name);
+      $menu_link->set('weight', count($pages));
+      if ($level > 0) {
+        $menu_link->set('parent', $menu_item_parent);
+      }
+    }
+    $menu_link->save();
+    $pages[join('/', $hierarchy)] = $menu_link ? $menu_link->getPluginId() : '???';
+  }
+
+  // Vanity URLs.
+  $current_vanity = array_map('trim', explode(',', $entry[IA_2026_COL_CURRENT_URL]));
+  array_shift($current_vanity);
+  $target_vanity = array_map('trim', explode(',', $entry[IA_2026_COL_TARGET_URL]));
+  array_shift($target_vanity);
+  $remove_vanity = array_filter($current_vanity, function ($vanity) use ($target_vanity) {
+    return !in_array($vanity, $target_vanity);
+  });
+  $add_vanity = array_filter($target_vanity, function ($vanity) use ($current_vanity) {
+    return !in_array($vanity, $current_vanity);
+  });
+  $update_vanity = array_filter($current_vanity, function ($vanity) use ($target_vanity) {
+    return in_array($vanity, $target_vanity);
+  });
+//  fwrite(STDOUT, "Vanity URLs: REMOVE [" . join(", ", $remove_vanity) . '], CREATE [' . join(", ", $add_vanity) . '], UPDATE [' . join(", ", $update_vanity) . ']' . PHP_EOL);
+
   $sandbox['#finished'] = empty($sandbox['ia']) ? 1 : ($sandbox['count'] - count($sandbox['ia'])) / $sandbox['count'];
-  return t("[WBCAMS-1561 / 1917] Processed one entry.");
+  return t("[WBCAMS-1561 / 1917] $message");
 }

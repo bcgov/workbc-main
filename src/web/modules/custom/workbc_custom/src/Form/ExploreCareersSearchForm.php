@@ -55,7 +55,8 @@ class ExploreCareersSearchForm extends FormBase {
   * {@inheritdoc}
   */
   public function submitForm(array &$form, FormStateInterface $form_state) {
-    $url = URL::fromUserInput('/plan-career/explore-careers/career-profiles/search');
+    $paths = \Drupal::config('workbc')->get('paths');
+    $url = URL::fromUserInput($paths['career_exploration_search']);
     $keywords = trim($form_state->getValue('keywords'));
     $form_state->setRedirect($url->getRouteName(), $url->getRouteParameters(), [
       'query' => [
