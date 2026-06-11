@@ -7,6 +7,7 @@ import urllib.request
 import math
 import xml.etree.ElementTree as ET
 from functools import partial
+from service_info_handler import ServiceInfoHandler
 import psycopg2
 from psycopg2.extras import RealDictCursor
 
@@ -604,6 +605,17 @@ vllm_client = OpenAI(
 MODEL_NAME    = "TheBloke/Mistral-7B-Instruct-v0.2-AWQ"
 chroma_client = chromadb.HttpClient(host=CHROMA_HOST, port=int(CHROMA_PORT))
 collection    = chroma_client.get_collection("career_content")
+try:
+    service_handler = ServiceInfoHandler(
+        chroma_client=chroma_client,
+        embedder=bi_encoder,
+        llm_client=vllm_client,
+        model_name=MODEL_NAME,
+    )
+    print("DEBUG: service_info handler initialized (workbc_services collection)")
+except Exception as e:
+    service_handler = None
+    print(f"WARN: workbc_services collection unavailable - service_info disabled: {e}")
 r             = redis.Redis(host=REDIS_HOST, port=REDIS_PORT, decode_responses=True)
 
 os_client = OpenSearch(
@@ -2526,6 +2538,10 @@ async def ask_career_bot(request: QueryRequest):
             "- 'meta_data_source' = user asks where the data comes from\n"           
             "- 'find_centre' = user wants to find a WorkBC Centre location, address, "
             "hours, or phone (extract city if mentioned)\n"
+            "- 'service_info' = user asks about WorkBC programs, services, grants, or funding "
+            "(e.g. Skills Training for Employment Program, BC Employer Training Grant, Wage Subsidy "
+            "Program, BladeRunners, StrongerBC grant, apprentice services, employment services "
+            "eligibility). NOT for job postings, NOT for career duties/salaries.\n"
             "- 'discovery' = user wants help choosing a career path based on their own "
             "interests/skills (NOT comparing named careers)\n"
             "- 'out_of_scope' = greetings, bot questions, or anything NOT about BC careers/jobs\n\n"            
@@ -2601,9 +2617,19 @@ async def ask_career_bot(request: QueryRequest):
             "Query: 'WorkBC office address Vancouver' -> find_centre, city=Vancouver\n"
             "Query: 'WorkBC centre hours Kamloops' -> find_centre, city=Kamloops\n"
             "Query: 'list WorkBC centres on Vancouver Island' -> find_centre, city=null\n\n"
+            "SERVICE_INFO EXAMPLES:\n"
+            "Query: 'what is the skills training for employment program' -> service_info\n"
+            "Query: 'am I eligible for STEP' -> service_info\n"
+            "Query: 'tell me about the BC employer training grant' -> service_info\n"
+            "Query: 'skills training programs in Kelowna' -> service_info\n"
+            "Query: 'what grants are available for my business' -> service_info\n"
+            "Query: 'how do I apply for the wage subsidy program' -> service_info\n"
+            "Query: 'what is BladeRunners' -> service_info\n"
+            "Query: 'StrongerBC future skills grant eligibility' -> service_info\n"
+            "Query: 'what employment programs are available for youth' -> service_info\n\n"
             "OUTPUT FORMAT:\n"
             "{\n"
-            '  "intent": "job_search" or "career_info" or "both" or "find_centre" or "discovery" or "meta_noc" or "meta_workbc" or "meta_profile" or "meta_data_source" or "out_of_scope",\n'
+            '  "intent": "job_search" or "career_info" or "both" or "find_centre" or "service_info" or "discovery" or "meta_noc" or "meta_workbc" or "meta_profile" or "meta_data_source" or "out_of_scope",\n'
             '  "job_search_params": {\n'
             '    "keywords": "extracted job title or null",\n'
             '    "employer": "extracted company name or null",\n'
@@ -2691,6 +2717,7 @@ async def ask_career_bot(request: QueryRequest):
 
         answer        = ""
         career_answer = ""
+        service_suggestions = None
         search_term   = user_query
         jobs          = []
         total         = 0
@@ -2752,6 +2779,25 @@ async def ask_career_bot(request: QueryRequest):
                 "I don't use any external sources — every answer is grounded in WorkBC data."
             )
         # ========== END META HANDLERS ==========
+
+        elif intent == "service_info":
+            if service_handler is None:
+                answer = (
+                    "I can't access WorkBC program information right now. "
+                    "You can browse all programs and services at "
+                    "[WorkBC.ca](https://www.workbc.ca)."
+                )
+            else:
+                loop = asyncio.get_event_loop()
+                service_resp = await loop.run_in_executor(
+                    None, service_handler.handle, user_query
+                )
+                answer = service_resp.text
+                service_suggestions = service_resp.suggestions
+                print(f"DEBUG: service_info mode={service_resp.mode} "
+                      f"sub_intent={service_resp.matched_intent} "
+                      f"region={service_resp.matched_region}")
+               
 
         elif intent == "find_centre":
             city = params.get("city")
@@ -2896,7 +2942,7 @@ async def ask_career_bot(request: QueryRequest):
             "debug_search":  search_term,
             "debug_intent":  intent,
             "debug_params":  params,
-            "suggestions":   generate_suggestions(
+            "suggestions":  service_suggestions or generate_suggestions(
                 intent,
                 user_query,
                 answer=answer,
