@@ -279,8 +279,17 @@ class ServiceInfoHandler:
                 temperature=0.0,
                 max_tokens=LLM_MAX_TOKENS,
                 frequency_penalty=0.5,
+                stop=["\nQuestion:", "\nWorkBC source content:"],
             )
             answer = completion.choices[0].message.content.strip()
+
+            # Belt-and-braces: strip any leaked prompt-format continuation
+            for marker in ("\nQuestion:", "Question: What", "\nAnswer the question"):
+                idx = answer.find(marker)
+                if idx > 0:
+                    answer = answer[:idx].strip()
+                    print(f"WARN: service_info — stripped leaked prompt "
+                          f"continuation at '{marker}'")
         except Exception as e:
             print(f"WARN: service_info LLM call failed — verbatim fallback: {e}")
             return None
