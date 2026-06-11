@@ -1,9 +1,9 @@
-uuid: fe80bb96-cee1-44c6-b515-ba5169009038
+uuid: c3f73f22-23d7-46c9-9525-4d706b72a62b
 langcode: en
 status: true
 dependencies:
   config:
-    - core.entity_view_mode.node.teaser
+    - core.entity_view_mode.node.jobboard
     - field.field.node.lmo_report_2024.field_hero_image_full_small
     - field.field.node.lmo_report_2024.field_hero_image_full_wide
     - field.field.node.lmo_report_2024.field_hero_image_full_width
@@ -23,10 +23,10 @@ dependencies:
     - node.type.lmo_report_2024
   module:
     - user
-id: node.lmo_report_2024.teaser
+id: node.lmo_report_2024.jobboard
 targetEntityType: node
 bundle: lmo_report_2024
-mode: teaser
+mode: jobboard
 content:
   content_moderation_control:
     settings: {  }
@@ -52,6 +52,24 @@ content:
     third_party_settings: {  }
     weight: 0
     region: content
+  field_hero_image_full_small:
+    type: entity_reference_entity_view
+    label: above
+    settings:
+      view_mode: full
+      link: false
+    third_party_settings: {  }
+    weight: 10
+    region: content
+  field_hero_image_full_wide:
+    type: entity_reference_entity_view
+    label: above
+    settings:
+      view_mode: full
+      link: false
+    third_party_settings: {  }
+    weight: 9
+    region: content
   links:
     settings: {  }
     third_party_settings: {  }
@@ -65,13 +83,9 @@ content:
     weight: 0
     region: content
 hidden:
-  extra_field_labourmarketoutlook_test: true
-  extra_field_lmo_report_2024_bc_job_openings_composition_chart: true
   extra_field_lmo_search_index_keywords: true
   extra_field_workbc_page_title: true
   extra_field_workbc_published_on: true
-  field_hero_image_full_small: true
-  field_hero_image_full_wide: true
   field_hero_image_full_width: true
   field_hero_image_media: true
   field_hero_text: true

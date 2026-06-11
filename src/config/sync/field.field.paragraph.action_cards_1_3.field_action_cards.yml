@@ -6,6 +6,7 @@ dependencies:
     - field.storage.paragraph.field_action_cards
     - paragraphs.paragraphs_type.action_card
     - paragraphs.paragraphs_type.action_cards_1_3
+    - paragraphs.paragraphs_type.card_support
     - paragraphs.paragraphs_type.quote_card
   module:
     - entity_reference_revisions
@@ -25,6 +26,7 @@ settings:
     target_bundles:
       action_card: action_card
       quote_card: quote_card
+      card_support: card_support
     negate: 0
     target_bundles_drag_drop:
       action_card:
@@ -57,11 +59,29 @@ settings:
       action_cards_icon:
         weight: 26
         enabled: false
+      action_cards_icon_1_2:
+        weight: 40
+        enabled: false
       action_cards_publication:
         weight: 27
         enabled: false
       additional_duties:
         weight: 15
+        enabled: false
+      banner_video:
+        weight: 43
+        enabled: false
+      card_career_category:
+        weight: 44
+        enabled: false
+      card_support:
+        weight: 45
+        enabled: true
+      content_accordion_entry:
+        weight: 46
+        enabled: false
+      content_interactive_map:
+        weight: 47
         enabled: false
       content_text:
         weight: 29
@@ -69,9 +89,30 @@ settings:
       content_view:
         weight: 30
         enabled: false
+      content_workbc_centres_list:
+        weight: 50
+        enabled: false
+      content_workbc_centres_map:
+        weight: 51
+        enabled: false
+      lmo_charts_tables:
+        weight: 52
+        enabled: false
       quote_card:
         weight: 17
         enabled: true
+      section_accordion:
+        weight: 54
+        enabled: false
+      section_career_category:
+        weight: 55
+        enabled: false
+      section_icons_1_3:
+        weight: 56
+        enabled: false
+      section_read_more:
+        weight: 57
+        enabled: false
       skills:
         weight: 18
         enabled: false

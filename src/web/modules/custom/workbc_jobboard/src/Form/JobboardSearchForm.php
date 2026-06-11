@@ -34,7 +34,7 @@ class JobboardSearchForm extends FormBase {
       '#attributes' => [
         'class'=>['form-control','ng-untouched','ng-pristine','ng-valid'],
         'id'=>['edit-keywords'],
-        'placeholder'=>'Job Title / Description / Employer',
+        'placeholder'=>'Job Title/Description/Employer',
         'aria-label'=>'Keyword(s)',
         'data-form-type'=>'query',
         'size'=>20,
@@ -50,7 +50,7 @@ class JobboardSearchForm extends FormBase {
       '#attributes' => [
         'class'=>['form-control','ng-untouched','ng-pristine','ng-valid','mat-autocomplete-trigger'],
         'id'=>['edit-location'],
-        'placeholder'=>'City / Postal Code',
+        'placeholder'=>'City/Postal Code',
         'aria-label'=>'Location',
         'data-form-type'=>'query',
         'role'=>'combobox',

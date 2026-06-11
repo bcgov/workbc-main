@@ -1,0 +1,102 @@
+.paragraph--type--card-support {
+
+  &.card-support-orange {
+    border-top: 10px solid $grid-color-orange;
+  }
+
+  &.card-support-gold {
+    border-top: 10px solid $grid-color-gold;
+  }
+
+  &.card-support-purple {
+    border-top: 10px solid $grid-color-purple;
+  }
+
+  &.card-support-green {
+    border-top: 10px solid $grid-color-green;
+  }
+
+  &.card-support-blue {
+    border-top: 10px solid $grid-color-blue;
+  }
+
+  &.card-support-light_blue {
+    border-top: 10px solid $grid-color-lite-blue;
+  }
+
+
+  .card-plain__content {
+    padding: 0px;
+    min-height: 335px;
+  }
+
+  .card-support__title-container {
+    border-bottom: 1px solid rgba(0, 0, 0, 0.15);
+  }
+
+  .card-plain__title {
+    padding: 15px 20px 15px 20px;
+    margin: 0px;
+    font-size: 1.1rem
+  }
+
+  .card-plain__image {
+    padding-top: 20px;
+
+    .img-fluid  {
+      width: fit-content;
+    }
+  }
+
+  .card-plain__desc {
+    padding-top: 20px;
+
+    p {
+      margin-bottom: 20px;
+    }
+  }
+
+  .card-support-content-top {
+    padding-left: 20px;
+    padding-right: 20px;
+  }
+
+  .card-support-content-bottom {
+    padding: 0px 20px 20px 20px;
+    margin-top: auto;
+  }
+
+  .card-support__email {
+    padding-top: 20px;
+
+    a {
+      color: $workbc_palette_dark_default;
+
+      padding-left: 22px; /* Leave enough room so text doesn't overlap icon */
+      background-image: url('../assets/icons/email.svg');
+      background-repeat: no-repeat;
+      background-position: left center;
+      background-size: 16px;
+    }
+  }
+
+
+  .card-plain__link-container {
+    padding: 20px 0px 0px 0px;
+
+    a {
+      text-decoration: underline;
+
+      &:after {
+        content: none;
+      }
+    }
+
+    .external-link {
+      padding-left: 5px;
+      width: 22px;
+      height: 22px;
+    }
+  }
+
+}

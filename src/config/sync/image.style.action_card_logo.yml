@@ -1,0 +1,15 @@
+uuid: 32b65679-cecc-4af9-9c1b-d6770891edee
+langcode: en
+status: true
+dependencies: {  }
+name: action_card_logo
+label: 'Action Card Logo'
+effects:
+  3c5ddbb6-8605-4d24-a98e-81644b11b9b3:
+    uuid: 3c5ddbb6-8605-4d24-a98e-81644b11b9b3
+    id: image_scale
+    weight: 1
+    data:
+      width: null
+      height: 40
+      upscale: false
