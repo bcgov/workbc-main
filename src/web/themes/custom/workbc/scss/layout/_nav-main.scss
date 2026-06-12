@@ -86,6 +86,11 @@
   @include nav-theme-base;
   background-color: $workbc_dark_theme_background;
 
+  span.nav-link {
+    -webkit-user-select: none;
+    user-select: none;
+  }
+
   ul.nav-t1 {
     & > .nav-item:first-child {
       display: none;
