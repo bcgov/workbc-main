@@ -47,8 +47,11 @@ class MenuBlock extends BlockBase {
       $uo = $link->getUrlObject();
       if ($uo->isRouted() && $uo->getRouteName() === 'entity.node.canonical') {
         $node = \Drupal::entityTypeManager()->getStorage('node')->load($uo->getRouteParameters()['node']);
-        $blurb = $node->hasField('field_navigation_blurb') ? $node->get('field_navigation_blurb')->value : '';
       }
+      else {
+        $node = null;
+      }
+      $blurb = $this->getBlurb($link, $node);
       $attributes = implode(' ', $a_attributes);
       $classes = implode(' ', $a_classes);
       return <<<EOT
@@ -58,6 +61,16 @@ class MenuBlock extends BlockBase {
         </a>
       EOT;
     }
+  }
+
+  private function getBlurb($link, $node) {
+    if ($link->getEntity()->hasField('field_splash') && !empty($link->getEntity()->get('field_splash')->value)) {
+      return strip_tags($link->getEntity()->get('field_splash')->value);
+    }
+    else if (!empty($node) && $node->hasField('field_navigation_blurb') && !empty($node->get('field_navigation_blurb')->value)) {
+      return $node->get('field_navigation_blurb')->value;
+    }
+    return '';
   }
 
   private function generateMegaMenu($input) {
