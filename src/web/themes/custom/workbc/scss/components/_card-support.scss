@@ -78,7 +78,7 @@
   .card-support__title-container {
     border-bottom: 1px solid rgba(0, 0, 0, 0.15);
 
-    img {
+    .card-support-expand {
       display: none;
     }
 
@@ -88,6 +88,10 @@
       justify-content: space-between;
       align-items: center;   /* Vertically centers the image with the text */
       gap: 12px;
+
+      .card-support-expand {
+        display: block;
+      }
 
       img {
         width: 16px;
@@ -122,16 +126,14 @@
   .card-support-content-top {
     padding-left: 20px;
     padding-right: 20px;
-
-    @include media-breakpoint-down(lg) {
-      display: none
-    }
   }
 
   .card-support-content-bottom {
     padding: 0px 20px 20px 20px;
     margin-top: auto;
+  }
 
+  .mobile-is-hidden {
     @include media-breakpoint-down(lg) {
       display: none
     }
