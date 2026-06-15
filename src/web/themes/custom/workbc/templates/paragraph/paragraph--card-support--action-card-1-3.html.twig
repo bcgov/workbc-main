@@ -21,14 +21,17 @@
 %}
 
 {% block paragraph %}
-  <div{{ attributes.addClass(classes) }}>
+  <div id="workbc-card-support-{{ paragraph.id() }}" {{ attributes.addClass(classes) }}>
     {% block content %}
       <div class="card-support__title-container">
         <h3 class="card-plain__title">
           {{ card_title }}
         </h3>
+        <span id="card-support-{{ paragraph.id() }}" class="card-support-expand" data-card-id="{{ paragraph.id() }}">
+          <img tabindex="0" src="/modules/custom/workbc_custom/icons/expand.svg" alt="expand">
+        </span>
       </div>
-      <div class="card-support-content-top">
+      <div id="card-top-{{ paragraph.id() }}" class="card-support-content-top mobile-is-hidden">
         {% if card_image %}
           <div class="card-plain__image" >
             {{ card_image }}
@@ -38,7 +41,7 @@
           {{ card_desc }}
         </div>
       </div>
-      <div class="card-support-content-bottom">
+      <div id="card-bottom-{{ paragraph.id() }}" class="card-support-content-bottom mobile-is-hidden">
         {% if card_email %}
           <div class="card-support__email">
             <a href="mailto:{{ card_email }}">{{ card_email }}</a>
