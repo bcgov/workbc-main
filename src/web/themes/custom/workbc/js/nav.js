@@ -6,7 +6,7 @@
   // Time in ms between focus and click event that we consider to be "the same user event".
   // Take into consideration reduced event.timeStamp precision for privacy purposes.
   // @see https://developer.mozilla.org/en-US/docs/Web/API/Event/timeStamp
-  const TIMESTAMP_DELTA = 100;
+  const TIMESTAMP_DELTA = 250;
 
   // Manage the main navigation menu open/close status.
   Drupal.behaviors.mainNav = {
@@ -16,6 +16,7 @@
         $(this).parent().children(".nav-item").removeClass('open');
         $(this).addClass('open');
       }).on('click', function(event) {
+        console.log('focus:', timeStampFocus, 'click:', event.timeStamp);
         if (Math.abs(event.timeStamp - timeStampFocus) > TIMESTAMP_DELTA) {
           const alreadyOpen = $(event.target).is('.open') || $(event.target).parent('.open').length > 0;
           if (alreadyOpen) {
