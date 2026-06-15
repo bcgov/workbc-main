@@ -1,5 +1,10 @@
 .paragraph--type--card-support {
 
+  min-height: 335px;
+  @include media-breakpoint-down(lg) {
+    min-height: 0px;
+  }
+
   &.card-support-orange {
     border-top: 10px solid $grid-color-orange;
     @include media-breakpoint-down(lg) {
@@ -68,11 +73,6 @@
     &.card-plain {
       border-top: 0px;
     }
-  }
-
-  .card-plain__content {
-    padding: 0px;
-    min-height: 335px;
   }
 
   .card-support__title-container {
