@@ -18,7 +18,9 @@ use Drupal\Core\Entity\EntityTypeManagerInterface;
 function workbc_preprocess_paragraph(&$variables) {
 
   if ($variables['paragraph']->bundle() == "card_support") {
-    $variables['is_external'] = UrlHelper::isExternal($variables['elements']['field_link']['#items'][0]->getString());
+    if (isset($variables['elements']['field_link']['#items'])) {
+      $variables['is_external'] = UrlHelper::isExternal($variables['elements']['field_link']['#items'][0]->getString());
+    }
   }
 
   $parent = $variables['paragraph']->getParentEntity();

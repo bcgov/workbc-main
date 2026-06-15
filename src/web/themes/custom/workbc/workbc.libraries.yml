@@ -151,6 +151,10 @@ mobile-chosen:
   js:
     js/mobile-chosen.js: {}
 
+support-card:
+  js:
+    js/support-card.js: {}
+
 nav-tabs:
   js:
     js/nav-tabs.js: {}
