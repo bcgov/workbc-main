@@ -6,7 +6,7 @@
   // Time in ms between focus and click event that we consider to be "the same user event".
   // Take into consideration reduced event.timeStamp precision for privacy purposes.
   // @see https://developer.mozilla.org/en-US/docs/Web/API/Event/timeStamp
-  const TIMESTAMP_DELTA = 100;
+  const TIMESTAMP_DELTA = 250;
 
   // Manage the main navigation menu open/close status.
   Drupal.behaviors.mainNav = {

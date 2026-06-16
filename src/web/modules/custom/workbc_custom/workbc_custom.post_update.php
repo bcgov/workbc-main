@@ -1315,13 +1315,14 @@ function workbc_custom_post_update_1561_ia_changes(&$sandbox = NULL) {
           'parent' => $menu_item_parent,
           'expanded' => true,
           'weight' => count($pages),
-          'enabled' => true,
+          'enabled' => $level < 2,
       ]);
     }
     else {
       $menu_link->set('title', $hierarchy[$level]);
       $menu_link->set('link', $level == 0 ? 'route:<nolink>' : $route_name);
       $menu_link->set('weight', count($pages));
+      $menu_link->set('enabled', $level < 2);
       if ($level > 0) {
         $menu_link->set('parent', $menu_item_parent);
       }
@@ -1330,21 +1331,91 @@ function workbc_custom_post_update_1561_ia_changes(&$sandbox = NULL) {
     $pages[join('/', $hierarchy)] = $menu_link ? $menu_link->getPluginId() : '???';
   }
 
-  // // Vanity URLs.
-  // $current_vanity = array_map('trim', explode(',', $entry[IA_2026_COL_CURRENT_URL]));
-  // array_shift($current_vanity);
-  // $target_vanity = array_map('trim', explode(',', $entry[IA_2026_COL_TARGET_URL]));
-  // array_shift($target_vanity);
-  // $remove_vanity = array_filter($current_vanity, function ($vanity) use ($target_vanity) {
-  //   return !in_array($vanity, $target_vanity);
-  // });
-  // $add_vanity = array_filter($target_vanity, function ($vanity) use ($current_vanity) {
-  //   return !in_array($vanity, $current_vanity);
-  // });
-  // $update_vanity = array_filter($current_vanity, function ($vanity) use ($target_vanity) {
-  //   return in_array($vanity, $target_vanity);
-  // });
-//  fwrite(STDOUT, "Vanity URLs: REMOVE [" . join(", ", $remove_vanity) . '], CREATE [' . join(", ", $add_vanity) . '], UPDATE [' . join(", ", $update_vanity) . ']' . PHP_EOL);
+  $sandbox['#finished'] = empty($sandbox['ia']) ? 1 : ($sandbox['count'] - count($sandbox['ia'])) / $sandbox['count'];
+  return t("[WBCAMS-1561] $message");
+}
+
+function createRedirection($source, $target) {
+  $redirect_source = parse_url($source, PHP_URL_PATH);
+  Redirect::create([
+    'redirect_source' => $redirect_source,
+    'redirect_redirect' => $target,
+    'language' => 'und',
+    'status_code' => '301',
+  ])->save();
+}
+
+/**
+ * Import ia_2026.csv and add redirections.
+ *
+ * As per ticket WBCAMS-1917
+ */
+function test_workbc_custom_post_update_1917_ia_redirections(&$sandbox = NULL) {
+  if (!isset($sandbox['ia'])) {
+    $module_path = \Drupal::service('extension.path.resolver')->getPath('module', 'workbc_custom');
+    $file_path = $module_path . '/data/ia_2026.csv';
+    $data = [];
+    if (file_exists($file_path)) {
+      if (($handle = fopen($file_path, 'r')) !== FALSE) {
+        while (($row = fgetcsv($handle, 1000, ',')) !== FALSE) {
+          $data[] = $row;
+        }
+        fclose($handle);
+      }
+    }
+    $sandbox['ia'] = array_filter($data, function($entry) {
+      return !empty($entry[IA_2026_COL_ACTION]);
+    });
+    $sandbox['count'] = count($sandbox['ia']);
+  }
+
+  $entry = array_shift($sandbox['ia']);
+  $message = "";
+
+  // Load URLs.
+  $current_vanity = array_map('trim', explode(',', $entry[IA_2026_COL_CURRENT_URL]));
+  $current_url = array_shift($current_vanity);
+  $target_vanity = array_map('trim', explode(',', $entry[IA_2026_COL_TARGET_URL]));
+  $target_url = array_shift($target_vanity);
+
+  // Get node.
+  if (str_starts_with($target_url, "https://www.workbc.ca")) {
+    $target_path = parse_url($target_url, PHP_URL_PATH);
+    $alias_path = \Drupal::service('path_alias.manager')->getPathByAlias($target_path);
+    if (preg_match('/node\/(\d+)/', $alias_path, $matches)) {
+      $route_name = "entity:node/{$matches[1]}";
+      fwrite(STDOUT, "Current URL: {$target_url} => {$route_name}" . PHP_EOL);
+      $node = \Drupal\node\Entity\Node::load($matches[1]);
+    }
+    else {
+      fwrite(STDOUT, "Current URL: {$target_url} NOT FOUND" . PHP_EOL);
+      $target_path = $target_path.ltrim('/');
+      $route_name = "internal:{$target_path}";
+    }
+
+    // Redirect current URL => New URL.
+    if ($current_url !== $target_url) {
+      fwrite(STDOUT, "Redirect URL: {$target_url} => {$route_name}" . PHP_EOL);
+      //createRedirection($target_url, $route_name);
+    }
+
+    // Redirect vanity URLs.
+    $remove_vanity = array_filter($current_vanity, function ($vanity) use ($target_vanity) {
+      return !in_array($vanity, $target_vanity);
+    });
+    $add_vanity = array_filter($target_vanity, function ($vanity) use ($current_vanity) {
+      return !in_array($vanity, $current_vanity);
+    });
+    $update_vanity = array_filter($current_vanity, function ($vanity) use ($target_vanity) {
+      return in_array($vanity, $target_vanity);
+    });
+    if ($remove_vanity || $add_vanity || $update_vanity) {
+      fwrite(STDOUT, "Vanity URLs: REMOVE [" . join(", ", $remove_vanity) . '], CREATE [' . join(", ", $add_vanity) . '], UPDATE [' . join(", ", $update_vanity) . ']' . PHP_EOL);
+    }
+  }
+  else {
+    fwrite(STDOUT, "Current URL: {$target_url} IGNORING" . PHP_EOL);
+  }
 
   $sandbox['#finished'] = empty($sandbox['ia']) ? 1 : ($sandbox['count'] - count($sandbox['ia'])) / $sandbox['count'];
   return t("[WBCAMS-1561] $message");
