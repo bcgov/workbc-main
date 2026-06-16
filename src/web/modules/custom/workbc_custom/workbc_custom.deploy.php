@@ -108,3 +108,59 @@ function workbc_custom_deploy_1717_import_centre_regions(&$sandbox = NULL) {
   $sandbox['#finished'] = empty($sandbox['centres']) ? 1 : ($sandbox['count'] - count($sandbox['centres'])) / $sandbox['count'];
   return t("[WBCAMS-1717] $message");
 }
+
+
+/**
+ * update alt text - Image/Icon.
+ *
+ * As per ticket WBCAMS-1997.
+ */
+function workbc_custom_deploy_1997_media_image_alt_text(&$sandbox = NULL) {
+  if (!isset($sandbox['images'])) {
+    // load media images & icons
+    $database = \Drupal::database();
+
+    $query = $database->select('media_field_data', 'm');
+    $query->fields('m', ['mid', 'name', 'status', 'created', 'bundle']);
+    $or_group = $query->orConditionGroup()
+      ->condition('m.bundle', 'image', '=')
+      ->condition('m.bundle', 'icon', '=');
+    $query->condition($or_group);
+    $sandbox['images'] = $query->execute()->fetchAll();
+    $sandbox['count'] = count($sandbox['images']);
+  }
+
+  $message = "No action taken.";
+  $image = array_shift($sandbox['images']);
+
+  $media = Media::load($image->mid);
+  if ($media) {
+    if ($image->bundle == "icon") {
+      $image_value = $media->get('field_media_image_1')->getValue();
+    }
+    else {
+      $image_value = $media->get('field_media_image')->getValue();
+    }
+    if (!empty($image_value) && strtolower($image_value[0]['alt']) == "alt") {
+      $image_value[0]['alt'] = '';
+      if ($image->bundle == "icon") {
+        $media->set('field_media_image_1', $image_value);
+      }
+      else {
+        $media->set('field_media_image', $image_value);
+      }
+      $media->save();
+      $message = $image->bundle . ": " . $image->mid . " - alt text changed to empty string.";
+    }
+    else {
+      $message = $image->bundle . ": " . $image->mid . " - alt text unchanged.";
+    }
+  }
+  else {
+    $message = "Media: " . $image->mid . " not found";
+  }
+
+
+  $sandbox['#finished'] = empty($sandbox['images']) ? 1 : ($sandbox['count'] - count($sandbox['images'])) / $sandbox['count'];
+  return t("[WBCAMS-1997] $message");
+}
