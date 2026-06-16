@@ -269,6 +269,10 @@ html {
   color: #000;
 }
 
+.mm-listitem.menu-item--front-page {
+  display: none;
+}
+
 .mm-listitem__btn:not(.mm-listitem__text) {
   border-left: none;
 }

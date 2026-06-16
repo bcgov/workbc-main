@@ -16,7 +16,6 @@
         $(this).parent().children(".nav-item").removeClass('open');
         $(this).addClass('open');
       }).on('click', function(event) {
-        console.log('focus:', timeStampFocus, 'click:', event.timeStamp);
         if (Math.abs(event.timeStamp - timeStampFocus) > TIMESTAMP_DELTA) {
           const alreadyOpen = $(event.target).is('.open') || $(event.target).parent('.open').length > 0;
           if (alreadyOpen) {
