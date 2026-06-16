@@ -157,7 +157,7 @@ function workbc_custom_deploy_1997_media_image_alt_text(&$sandbox = NULL) {
     }
   }
   else {
-    $message = $search . " - Media " . $record->mid . " not found";
+    $message = "Media: " . $image->mid . " not found";
   }
 
 
