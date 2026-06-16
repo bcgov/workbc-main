@@ -806,7 +806,7 @@ $config['workbc']['ssot_repo'] = [
 // Path settings.
 $config['workbc']['paths'] = [
   'order_form' => '/plan-career/publications/workbc-order-form',
-  'find_jobs' => '/find-job/search-jobs/job-search',
+  'find_jobs' => '/find-job/search-jobs',
   'online_employment_services' => '/discover-employment-services/online-employment-services',
   'career_exploration' => '/plan-career/career-profiles',
   'career_exploration_search' => '/plan-career/career-profiles/search',
