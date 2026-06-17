@@ -45,7 +45,7 @@ update page (by editors)","https://www.workbc.ca/plan-career/explore-careers,htt
 ,,,,,,,,,
 "Get Support Finding Work",,,,,yes,"update L1 label/name; Remove LP
 Replace page URL with WorkBC Centre Services ",ADD,REMOVE,"Looking for help finding a job?"
-,"WorkBC Centre Services",,,,,"Replace page URL with WorkBC Centre Services; Remove Employment Services page",https://www.workbc.ca/discover-employment-services,"https://www.workbc.ca/get-support/workbc-centre-services,https://www.workbc.ca/WorkBCCentres,https://www.workbc.ca/WorkBC-Centres",
+,"WorkBC Centre Services",,,,,"Replace page URL with WorkBC Centre Services; Remove Employment Services page",https://www.workbc.ca/discover-employment-services,"https://www.workbc.ca/get-support/workbc-centre-services,https://www.workbc.ca/discover-employment-services/workbc-centres,https://www.workbc.ca/WorkBCCentres,https://www.workbc.ca/WorkBC-Centres",
 ,,"Vous avez besoin d'aide pour trouver un emploi ?",,,,"update URL",https://www.workbc.ca/vous-avez-besoin-daide-pour-trouver-un-emploi,https://www.workbc.ca/get-support/workbc-centre-services/vous-avez-besoin-daide-pour-trouver-un-emploi,
 ,,"WorkBC Centre Locations (Map)",,,,"embedded map",https://www.workbc.ca/discover-employment-services/workbc-centre-locations,REMOVE,
 ,,"WorkBC Centre Listings",,,,"embedded list",https://www.workbc.ca/discover-employment-services/workbc-centres/workbc-centre-locations/workbc-centre-listings,REMOVE,
