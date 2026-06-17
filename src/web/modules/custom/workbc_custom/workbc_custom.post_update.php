@@ -1336,13 +1336,24 @@ function workbc_custom_post_update_1561_ia_changes(&$sandbox = NULL) {
 }
 
 function createRedirection($source, $target) {
-  $redirect_source = parse_url($source, PHP_URL_PATH);
+  $source_path = ltrim(parse_url($source, PHP_URL_PATH), '/');
+  $redirects = \Drupal::entityTypeManager()
+    ->getStorage('redirect')
+    ->loadByProperties(['redirect_source__path' => $source_path]);
+  if (!empty($redirects)) {
+    $redirect = reset($redirects);
+//    fwrite(STDOUT, "Delete existing redirect: {$redirect->get('redirect_source')->path} => {$redirect->get('redirect_redirect')->uri}" . PHP_EOL);
+    $redirect->delete();
+  }
   Redirect::create([
-    'redirect_source' => $redirect_source,
+    'redirect_source' => $source_path,
     'redirect_redirect' => $target,
     'language' => 'und',
     'status_code' => '301',
   ])->save();
+  if (str_ends_with($source, '.aspx')) {
+    createRedirection(str_replace('.aspx', '', $source), $target);
+  }
 }
 
 /**
@@ -1350,7 +1361,7 @@ function createRedirection($source, $target) {
  *
  * As per ticket WBCAMS-1917
  */
-function test_workbc_custom_post_update_1917_ia_redirections(&$sandbox = NULL) {
+function workbc_custom_post_update_1917_ia_redirections(&$sandbox = NULL) {
   if (!isset($sandbox['ia'])) {
     $module_path = \Drupal::service('extension.path.resolver')->getPath('module', 'workbc_custom');
     $file_path = $module_path . '/data/ia_2026.csv';
@@ -1370,7 +1381,7 @@ function test_workbc_custom_post_update_1917_ia_redirections(&$sandbox = NULL) {
   }
 
   $entry = array_shift($sandbox['ia']);
-  $message = "";
+  $messages = [];
 
   // Load URLs.
   $current_vanity = array_map('trim', explode(',', $entry[IA_2026_COL_CURRENT_URL]));
@@ -1384,45 +1395,63 @@ function test_workbc_custom_post_update_1917_ia_redirections(&$sandbox = NULL) {
     $alias_path = \Drupal::service('path_alias.manager')->getPathByAlias($target_path);
     if (preg_match('/node\/(\d+)/', $alias_path, $matches)) {
       $route_name = "entity:node/{$matches[1]}";
-      fwrite(STDOUT, "Current URL: {$target_url} => {$route_name}" . PHP_EOL);
-      $node = \Drupal\node\Entity\Node::load($matches[1]);
+//      fwrite(STDOUT, "Current URL: {$target_url} => {$route_name}" . PHP_EOL);
     }
     else {
-      fwrite(STDOUT, "Current URL: {$target_url} NOT FOUND" . PHP_EOL);
+//      fwrite(STDOUT, "Current URL: {$target_url} NOT FOUND" . PHP_EOL);
       $target_path = $target_path.ltrim('/');
       $route_name = "internal:{$target_path}";
     }
 
     // Redirect current URL => New URL.
     if ($current_url !== $target_url) {
-      fwrite(STDOUT, "Redirect URL: {$target_url} => {$route_name}" . PHP_EOL);
-      //createRedirection($target_url, $route_name);
+//      fwrite(STDOUT, "Create redirect: {$current_url} => {$route_name}" . PHP_EOL);
+      $messages[] = $current_url;
+      createRedirection($current_url, $route_name);
+    }
+
+    // Remove current vanity URLs.
+    foreach ($current_vanity as $vanity) {
+      $source_path = ltrim(parse_url($vanity, PHP_URL_PATH), '/');
+      $redirects = \Drupal::entityTypeManager()
+        ->getStorage('redirect')
+        ->loadByProperties(['redirect_source__path' => $source_path]);
+      if ($redirects) {
+        $redirect = reset($redirects);
+//        fwrite(STDOUT, "Delete existing redirect: {$redirect->get('redirect_source')->path} => {$redirect->get('redirect_redirect')->uri}" . PHP_EOL);
+        $redirect->delete();
+      }
     }
 
     // Redirect vanity URLs.
-    $remove_vanity = array_filter($current_vanity, function ($vanity) use ($target_vanity) {
-      return !in_array($vanity, $target_vanity);
-    });
-    $add_vanity = array_filter($target_vanity, function ($vanity) use ($current_vanity) {
-      return !in_array($vanity, $current_vanity);
-    });
-    $update_vanity = array_filter($current_vanity, function ($vanity) use ($target_vanity) {
-      return in_array($vanity, $target_vanity);
-    });
-    if ($remove_vanity || $add_vanity || $update_vanity) {
-      fwrite(STDOUT, "Vanity URLs: REMOVE [" . join(", ", $remove_vanity) . '], CREATE [' . join(", ", $add_vanity) . '], UPDATE [' . join(", ", $update_vanity) . ']' . PHP_EOL);
+    foreach ($target_vanity as $vanity) {
+      if (!str_starts_with($vanity, 'https://www.workbc.ca')) continue;
+//      fwrite(STDOUT, "Create vanity redirect: {$vanity} => {$route_name}" . PHP_EOL);
+      $messages[] = $vanity;
+      createRedirection($vanity, $route_name);
     }
   }
   else {
-    fwrite(STDOUT, "Current URL: {$target_url} IGNORING" . PHP_EOL);
+//    fwrite(STDOUT, "Current URL: {$current_url} REMOVE/EXTERNAL" . PHP_EOL);
+    if (str_starts_with($current_url, 'https://www.workbc.ca')) foreach ($current_vanity as $vanity) {
+      $source_path = ltrim(parse_url($vanity, PHP_URL_PATH), '/');
+      $redirects = \Drupal::entityTypeManager()
+        ->getStorage('redirect')
+        ->loadByProperties(['redirect_source__path' => $source_path]);
+      if ($redirects) {
+        $redirect = reset($redirects);
+//        fwrite(STDOUT, "Delete existing redirect: {$redirect->get('redirect_source')->path} => {$redirect->get('redirect_redirect')->uri}" . PHP_EOL);
+        $redirect->delete();
+      }
+    }
   }
 
   $sandbox['#finished'] = empty($sandbox['ia']) ? 1 : ($sandbox['count'] - count($sandbox['ia'])) / $sandbox['count'];
-  return t("[WBCAMS-1561] $message");
+  return t("[WBCAMS-1917] @messages => @target", ['@messages' => $messages ? join(", ", $messages) : $current_url, '@target' => $target_url]);
 }
 
 /**
- * update alt text - Image/Icon.
+ * Update alt text for Image/Icon.
  *
  * As per ticket WBCAMS-1997.
  */
