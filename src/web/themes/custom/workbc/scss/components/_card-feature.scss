@@ -108,7 +108,9 @@ body:not(.front) .card-feature__link {
 }
 
 .paragraph--key--explore-careers .card-feature__image {
-  align-content: center;
+  @include media-breakpoint-up(lg) {
+    align-content: center;
+  }
 }
 
 .paragraph--key--explore-labour-market {
