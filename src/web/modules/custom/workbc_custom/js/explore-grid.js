@@ -1,6 +1,6 @@
-let currentCatId = null;
-
 (function ($, Drupal, once) {
+  let currentCatId = null;
+
   function closePreviousAreaOfInterest(area) {
     const cat = document.querySelectorAll(`#category-${currentCatId}`);
     $(cat).removeClass('is-selected');
