@@ -14,3 +14,9 @@ workbc_custom.report_environment:
   parent: system.admin_reports
   route_name: workbc_custom.report_environment
   description: 'Report of system environment.'
+
+workbc_custom.report_wbcams_1997:
+  title: 'WorkBC QA: WBCAMS-1997'
+  parent: system.admin_reports
+  route_name: workbc_custom.report_wbcams_1997
+  description: 'WorkBC QA: WBCAMS-1997 report.'

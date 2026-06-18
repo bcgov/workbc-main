@@ -1315,13 +1315,14 @@ function workbc_custom_post_update_1561_ia_changes(&$sandbox = NULL) {
           'parent' => $menu_item_parent,
           'expanded' => true,
           'weight' => count($pages),
-          'enabled' => true,
+          'enabled' => $level < 2,
       ]);
     }
     else {
       $menu_link->set('title', $hierarchy[$level]);
       $menu_link->set('link', $level == 0 ? 'route:<nolink>' : $route_name);
       $menu_link->set('weight', count($pages));
+      $menu_link->set('enabled', $level < 2);
       if ($level > 0) {
         $menu_link->set('parent', $menu_item_parent);
       }
@@ -1330,22 +1331,175 @@ function workbc_custom_post_update_1561_ia_changes(&$sandbox = NULL) {
     $pages[join('/', $hierarchy)] = $menu_link ? $menu_link->getPluginId() : '???';
   }
 
-  // // Vanity URLs.
-  // $current_vanity = array_map('trim', explode(',', $entry[IA_2026_COL_CURRENT_URL]));
-  // array_shift($current_vanity);
-  // $target_vanity = array_map('trim', explode(',', $entry[IA_2026_COL_TARGET_URL]));
-  // array_shift($target_vanity);
-  // $remove_vanity = array_filter($current_vanity, function ($vanity) use ($target_vanity) {
-  //   return !in_array($vanity, $target_vanity);
-  // });
-  // $add_vanity = array_filter($target_vanity, function ($vanity) use ($current_vanity) {
-  //   return !in_array($vanity, $current_vanity);
-  // });
-  // $update_vanity = array_filter($current_vanity, function ($vanity) use ($target_vanity) {
-  //   return in_array($vanity, $target_vanity);
-  // });
-//  fwrite(STDOUT, "Vanity URLs: REMOVE [" . join(", ", $remove_vanity) . '], CREATE [' . join(", ", $add_vanity) . '], UPDATE [' . join(", ", $update_vanity) . ']' . PHP_EOL);
-
   $sandbox['#finished'] = empty($sandbox['ia']) ? 1 : ($sandbox['count'] - count($sandbox['ia'])) / $sandbox['count'];
   return t("[WBCAMS-1561] $message");
+}
+
+function createRedirection($source, $target) {
+  $source_path = ltrim(parse_url($source, PHP_URL_PATH), '/');
+  $redirects = \Drupal::entityTypeManager()
+    ->getStorage('redirect')
+    ->loadByProperties(['redirect_source__path' => $source_path]);
+  if (!empty($redirects)) {
+    $redirect = reset($redirects);
+//    fwrite(STDOUT, "Delete existing redirect: {$redirect->get('redirect_source')->path} => {$redirect->get('redirect_redirect')->uri}" . PHP_EOL);
+    $redirect->delete();
+  }
+  Redirect::create([
+    'redirect_source' => $source_path,
+    'redirect_redirect' => $target,
+    'language' => 'und',
+    'status_code' => '301',
+  ])->save();
+  if (str_ends_with($source, '.aspx')) {
+    createRedirection(str_replace('.aspx', '', $source), $target);
+  }
+}
+
+/**
+ * Import ia_2026.csv and add redirections.
+ *
+ * As per ticket WBCAMS-1917
+ */
+function workbc_custom_post_update_1917_ia_redirections(&$sandbox = NULL) {
+  if (!isset($sandbox['ia'])) {
+    $module_path = \Drupal::service('extension.path.resolver')->getPath('module', 'workbc_custom');
+    $file_path = $module_path . '/data/ia_2026.csv';
+    $data = [];
+    if (file_exists($file_path)) {
+      if (($handle = fopen($file_path, 'r')) !== FALSE) {
+        while (($row = fgetcsv($handle, 1000, ',')) !== FALSE) {
+          $data[] = $row;
+        }
+        fclose($handle);
+      }
+    }
+    $sandbox['ia'] = array_filter($data, function($entry) {
+      return !empty($entry[IA_2026_COL_ACTION]);
+    });
+    $sandbox['count'] = count($sandbox['ia']);
+  }
+
+  $entry = array_shift($sandbox['ia']);
+  $messages = [];
+
+  // Load URLs.
+  $current_vanity = array_map('trim', explode(',', $entry[IA_2026_COL_CURRENT_URL]));
+  $current_url = array_shift($current_vanity);
+  $target_vanity = array_map('trim', explode(',', $entry[IA_2026_COL_TARGET_URL]));
+  $target_url = array_shift($target_vanity);
+
+  // Get node.
+  if (str_starts_with($target_url, "https://www.workbc.ca")) {
+    $target_path = parse_url($target_url, PHP_URL_PATH);
+    $alias_path = \Drupal::service('path_alias.manager')->getPathByAlias($target_path);
+    if (preg_match('/node\/(\d+)/', $alias_path, $matches)) {
+      $route_name = "entity:node/{$matches[1]}";
+//      fwrite(STDOUT, "Current URL: {$target_url} => {$route_name}" . PHP_EOL);
+    }
+    else {
+//      fwrite(STDOUT, "Current URL: {$target_url} NOT FOUND" . PHP_EOL);
+      $target_path = $target_path.ltrim('/');
+      $route_name = "internal:{$target_path}";
+    }
+
+    // Redirect current URL => New URL.
+    if ($current_url !== $target_url) {
+//      fwrite(STDOUT, "Create redirect: {$current_url} => {$route_name}" . PHP_EOL);
+      $messages[] = $current_url;
+      createRedirection($current_url, $route_name);
+    }
+
+    // Remove current vanity URLs.
+    foreach ($current_vanity as $vanity) {
+      $source_path = ltrim(parse_url($vanity, PHP_URL_PATH), '/');
+      $redirects = \Drupal::entityTypeManager()
+        ->getStorage('redirect')
+        ->loadByProperties(['redirect_source__path' => $source_path]);
+      if ($redirects) {
+        $redirect = reset($redirects);
+//        fwrite(STDOUT, "Delete existing redirect: {$redirect->get('redirect_source')->path} => {$redirect->get('redirect_redirect')->uri}" . PHP_EOL);
+        $redirect->delete();
+      }
+    }
+
+    // Redirect vanity URLs.
+    foreach ($target_vanity as $vanity) {
+      if (!str_starts_with($vanity, 'https://www.workbc.ca')) continue;
+//      fwrite(STDOUT, "Create vanity redirect: {$vanity} => {$route_name}" . PHP_EOL);
+      $messages[] = $vanity;
+      createRedirection($vanity, $route_name);
+    }
+  }
+  else {
+//    fwrite(STDOUT, "Current URL: {$current_url} REMOVE/EXTERNAL" . PHP_EOL);
+    if (str_starts_with($current_url, 'https://www.workbc.ca')) foreach ($current_vanity as $vanity) {
+      $source_path = ltrim(parse_url($vanity, PHP_URL_PATH), '/');
+      $redirects = \Drupal::entityTypeManager()
+        ->getStorage('redirect')
+        ->loadByProperties(['redirect_source__path' => $source_path]);
+      if ($redirects) {
+        $redirect = reset($redirects);
+//        fwrite(STDOUT, "Delete existing redirect: {$redirect->get('redirect_source')->path} => {$redirect->get('redirect_redirect')->uri}" . PHP_EOL);
+        $redirect->delete();
+      }
+    }
+  }
+
+  $sandbox['#finished'] = empty($sandbox['ia']) ? 1 : ($sandbox['count'] - count($sandbox['ia'])) / $sandbox['count'];
+  return t("[WBCAMS-1917] @messages => @target", ['@messages' => $messages ? join(", ", $messages) : $current_url, '@target' => $target_url]);
+}
+
+/**
+ * Update alt text for Image/Icon.
+ *
+ * As per ticket WBCAMS-1997.
+ */
+function workbc_custom_post_update_1997_media_image_alt_text(&$sandbox = NULL) {
+  if (!isset($sandbox['images'])) {
+    // load media images & icons
+    $database = \Drupal::database();
+
+    $query = $database->select('media_field_data', 'm');
+    $query->fields('m', ['mid', 'name', 'status', 'created', 'bundle']);
+    $or_group = $query->orConditionGroup()
+      ->condition('m.bundle', 'image', '=')
+      ->condition('m.bundle', 'icon', '=');
+    $query->condition($or_group);
+    $sandbox['images'] = $query->execute()->fetchAll();
+    $sandbox['count'] = count($sandbox['images']);
+  }
+
+  $message = "No action taken.";
+  $image = array_shift($sandbox['images']);
+
+  $media = Media::load($image->mid);
+  if ($media) {
+    if ($image->bundle == "icon") {
+      $image_value = $media->get('field_media_image_1')->getValue();
+    }
+    else {
+      $image_value = $media->get('field_media_image')->getValue();
+    }
+    if (!empty($image_value) && strtolower($image_value[0]['alt']) == "alt") {
+      $image_value[0]['alt'] = '';
+      if ($image->bundle == "icon") {
+        $media->set('field_media_image_1', $image_value);
+      }
+      else {
+        $media->set('field_media_image', $image_value);
+      }
+      $media->save();
+      $message = $image->bundle . ": " . $image->mid . " - alt text changed to empty string.";
+    }
+    else {
+      $message = $image->bundle . ": " . $image->mid . " - alt text unchanged.";
+    }
+  }
+  else {
+    $message = "Media: " . $image->mid . " not found";
+  }
+
+  $sandbox['#finished'] = empty($sandbox['images']) ? 1 : ($sandbox['count'] - count($sandbox['images'])) / $sandbox['count'];
+  return t("[WBCAMS-1997] $message");
 }
