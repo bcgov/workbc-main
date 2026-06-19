@@ -9,7 +9,7 @@ use Drupal\media\Entity\Media;
 function workbc_career_trek_preprocess_views_view(&$variables) {
   // Check if it's the view you want to target
   $view = $variables['view'];
-  if ($view->id() == 'career_trek_redux' && $view->current_display == 'block_1') {
+  if ($view->id() === 'career_trek_redux' && $view->current_display === 'block_1') {
     $values = [];
     if ($exposed = $view->getExposedInput()) {
       $filters = $view->display_handler->getOption('filters');
@@ -207,19 +207,8 @@ function workbc_career_trek_theme($existing, $type, $theme, $path) {
         'find_job_url'=>'',
       ],
     ],
-  'career_trek_video_detail' => [
-      'variables' => [
-        'noc' => NULL,
-        'episode' => NULL,
-        'node' => NULL,
-        'content' => NULL,
-        'view_mode' => NULL
-      ],
-      'template' => 'career-trek-video-detail',
-    ],
   ];
 }
-
 
 /**
  * Implements hook_form_FORM_ID_alter().

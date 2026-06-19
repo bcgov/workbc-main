@@ -11,7 +11,7 @@ use Drupal\extra_field\Plugin\ExtraFieldDisplayFormattedBase;
  *
  * @ExtraFieldDisplay(
  *   id = "episode_title",
- *   label = @Translation("Episode Title"),
+ *   label = @Translation("[SSOT] Episode Title"),
  *   description = @Translation("An extra field to display career Episode Title."),
  *   bundles = {
  *     "node.career_profile",

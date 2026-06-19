@@ -555,17 +555,7 @@
 
     .field--type-image {
       position: relative;
-
-      &::after {
-        content: '';
-        background: url(../assets/images/banner-play-icon.svg) center no-repeat;
-        position: absolute;
-        top: 0;
-        right: 0;
-        bottom: 0;
-        left: 0;
-        z-index:100;
-      }
+      visibility: hidden;
     }
 
     .profile-video a {
