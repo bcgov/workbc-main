@@ -15,6 +15,10 @@
         timeStampFocus = event.timeStamp;
         $(this).parent().children(".nav-item").removeClass('open');
         $(this).addClass('open');
+      }).on('blur', function(event) {
+        if (event.relatedTarget && !$(event.relatedTarget).hasClass('nav-link')) {
+          $(this).removeClass('open');
+        }
       }).on('click', function(event) {
         if (Math.abs(event.timeStamp - timeStampFocus) > TIMESTAMP_DELTA) {
           const alreadyOpen = $(event.target).is('.open') || $(event.target).parent('.open').length > 0;
@@ -26,11 +30,16 @@
           }
         }
       });
+      $(once("mainNav", ".nav-t2 .nav-link", context)).on('blur', function(event) {
+        if (event.relatedTarget && !$(event.relatedTarget).hasClass('nav-link') && !$(event.relatedTarget).hasClass('nav-item')) {
+          $(".nav-t1 > .nav-item").removeClass('open');
+        }
+      });
       $(once("mainNav", "body", context)).on('click', function(event) {
         if ($(event.target).parents(".nav-t1").length > 0) return;
         $(".nav-t1 > .nav-item").removeClass('open');
       });
-      $(once("mainNav", document, context)).on("keyup", function(event) {
+      $(document).on('keyup', function(event) {
         if (event.key == "Escape") {
           $(".nav-t1 > .nav-item").removeClass('open');
         }
