@@ -31,7 +31,7 @@
         }
       });
       $(once("mainNav", ".nav-t2 .nav-link", context)).on('blur', function(event) {
-        if (event.relatedTarget && !$(event.relatedTarget).hasClass('nav-link') && !$(event.relatedTarget).hasClass('nav-item')) {
+        if (event.relatedTarget && !$(event.relatedTarget).parents('.nav-t1').length) {
           $(".nav-t1 > .nav-item").removeClass('open');
         }
       });
