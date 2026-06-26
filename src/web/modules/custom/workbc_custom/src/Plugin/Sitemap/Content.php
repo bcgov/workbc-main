@@ -9,7 +9,6 @@ use Drupal\sitemap\SitemapBase;
 use Symfony\Component\DependencyInjection\ContainerInterface;
 use Drupal\Core\Link;
 use Drupal\Core\Url;
-use Drupal\menu_link_content\Entity\MenuLinkContent;
 
 if (!function_exists('array_find')) {
   function array_find(array $array, callable $callback): mixed
@@ -58,15 +57,20 @@ class Content extends SitemapBase {
    */
   public function view() {
     // Load the main menu.
+    $menu_weight = [
+      'main' => 0,
+      'account' => 5000, // push account items after main
+      'footer' => 6000, // push footer items after account
+    ];
     $menu_items = array_reduce(\Drupal::entityTypeManager()->getStorage('menu_link_content')->loadByProperties([
-      'menu_name' => 'main',
+      'menu_name' => ['main', 'footer', 'account'],
       'enabled' => 1,
-    ]), function ($menu_items, $menu_item) {
+    ]), function ($menu_items, $menu_item) use($menu_weight) {
       $entity = $menu_item->link->getEntity();
       $menu_items["menu_link_content:{$entity->uuid()}"] = [
         'title' => $entity->get('title')->value,
         'parent' => $entity->get('parent')->value,
-        'weight' => $entity->get('weight')->value,
+        'weight' => $entity->get('weight')->value + $menu_weight[$entity->get('menu_name')->value],
         'url' => $entity->getUrlObject()->toString()
       ];
       return $menu_items;
@@ -156,8 +160,16 @@ class Content extends SitemapBase {
       $current['#metadata'] = [
         'title' => $node->getTitle(),
         'url' => $url,
-        'weight' => $url == "/front" ? PHP_INT_MIN : ($menu_item ? intval($menu_item['weight']) : PHP_INT_MAX)
+        'weight' => $url == "/front" ? -1000 : ($menu_item ? intval($menu_item['weight']) : 1000)
       ];
+    }
+
+    // Add glossary manually.
+    $glossary_item = array_find($menu_items, function($menu_item) {
+      return $menu_item['url'] == "/glossary";
+    });
+    if ($glossary_item) {
+      $structure['glossary']['#metadata'] = $glossary_item;
     }
 
     // Render into an item_list tree structure.
