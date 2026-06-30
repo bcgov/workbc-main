@@ -49,11 +49,13 @@
         {% endif %}
         {% if card_link_url %}
           <div class="card-plain__link-container">
-            <a class="card-plain__link" href="{{ card_link_url }}">{{ card_link_title }}
-              {% if is_external %}
+            {% if is_external %}
+              <a class="card-plain__link" href="{{ card_link_url }}" target="_blank" rel="noopener noreferrer">{{ card_link_title }}
                 <img class="external-link" src="/{{ directory }}/assets/icons/external-link.svg" alt="" title="" />
-              {% endif %}
-            </a>
+              </a>
+            {% else %}
+              <a class="card-plain__link" href="{{ card_link_url }}">{{ card_link_title }}</a>
+            {% endif %}
           </div>
         {% endif %}
       </div>
