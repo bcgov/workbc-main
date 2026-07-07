@@ -44,7 +44,7 @@ class CareerProfileOccupationalCategories extends ExtraFieldDisplayFormattedBase
   public function viewElements(ContentEntityInterface $entity) {
 
     if (!empty($entity->ssot_data) && isset($entity->ssot_data['occupational_category'][0]['category'])) {
-      $output = $entity->ssot_data['occupational_category'][0]['category'];
+      $output = join(', ', array_unique(array_map(function ($category) { return $category['category']; }, $entity->ssot_data['occupational_category'])));
     }
     else {
       $output = WORKBC_EXTRA_FIELDS_NOT_AVAILABLE;

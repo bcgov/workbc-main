@@ -67,6 +67,53 @@ function workbc_career_trek_preprocess_views_view(&$variables) {
 }
 
 /**
+ * Implements hook_preprocess_views_view_fields().
+ */
+function workbc_career_trek_preprocess_views_view_fields(&$variables) {
+  $view = $variables['view'];
+  if ($view->id() === 'career_trek_redux' && $view->current_display === 'block_1') {
+    $variables['exposed_input'] = http_build_query($view->exposed_raw_input);
+  }
+}
+
+/**
+ * Implements hook_preprocess_node().
+ */
+function workbc_career_trek_preprocess_node(&$variables) {
+  $node = $variables['node'];
+  if ($node->getType() === 'career_profile' && $variables['view_mode'] === 'full_career_trek_videos') {
+    $exposed_input = parse_url(\Drupal::request()->getRequestUri(), PHP_URL_QUERY);
+    $variables['exposed_input'] = $exposed_input;
+    parse_str($exposed_input ?? '', $args);
+
+    // Preload the EPBC/FYP categories if needed.
+    $epbc_tree = [];
+    if (array_key_exists('field_epbc_categories_target_id', $args)) {
+      $epbc_tree = array_reduce(\Drupal::entityTypeManager()->getStorage('taxonomy_term')->loadTree('epbc_categories'),
+      function ($epbc_tree, $term) {
+        if ($term->depth > 0) {
+          $parent_tid = reset($term->parents);
+          if (!array_key_exists($parent_tid, $epbc_tree)) {
+            $epbc_tree[$parent_tid] = [];
+          }
+          $epbc_tree[$parent_tid][] = $term->tid;
+          $epbc_tree[$term->tid] = $parent_tid;
+        }
+        return $epbc_tree;
+      }, []);
+    }
+
+    // Add the career's EPBC categories and filter by user-selected categories.
+    foreach (array_filter(array_keys($variables['content']['field_epbc_categories']), 'is_integer') as $key) {
+      $cat = intval($variables['content']['field_epbc_categories'][$key]['#plain_text']);
+      if (!array_key_exists('field_epbc_categories_target_id', $args) || array_key_exists($epbc_tree[$cat], $args['field_epbc_categories_target_id'])) {
+        $variables['epbc_categories'][] = $cat;
+      }
+    }
+  }
+}
+
+/**
  * Implements hook_search_api_autocomplete_suggestions_alter().
  */
 function workbc_career_trek_search_api_autocomplete_suggestions_alter(array &$suggestions, array $alter_params) {
