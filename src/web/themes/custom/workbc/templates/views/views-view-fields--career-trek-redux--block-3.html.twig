@@ -1,6 +1,6 @@
 <div class="related-career">
     <div class="workbc-card-video-preview">
-        <a href="/plan-career/career-trek-videos/{{ fields.field_noc.content|striptags|trim }}/{{ fields.field_episode.content|striptags|trim }}">
+        <a href="/plan-career/career-trek-videos/{{ fields.field_noc.content|striptags|trim }}/{{ fields.field_episode.content|striptags|trim }}{{ exposed_input ? '?' : '' }}{{ exposed_input }}">
           <div class="workbc-card-thumbnail">
             {{ fields.thumbnail__target_id.content }}
           </div>
@@ -8,7 +8,7 @@
     </div>
     <div class="workbc-card-content">
         <div class="title">
-            <a href="/plan-career/career-trek-videos/{{ fields.field_noc.content|striptags|trim }}/{{ fields.field_episode.content|striptags|trim }}">
+            <a href="/plan-career/career-trek-videos/{{ fields.field_noc.content|striptags|trim }}/{{ fields.field_episode.content|striptags|trim }}{{ exposed_input ? '?' : '' }}{{ exposed_input }}">
               {{ fields.name.content }}
             </a>
         </div>

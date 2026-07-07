@@ -74,6 +74,10 @@ function workbc_career_trek_preprocess_views_view_fields(&$variables) {
   if ($view->id() === 'career_trek_redux' && $view->current_display === 'block_1') {
     $variables['exposed_input'] = http_build_query($view->exposed_raw_input);
   }
+  elseif ($view->id() === 'career_trek_redux' && $view->current_display === 'block_3') {
+    $exposed_input = parse_url(\Drupal::request()->getRequestUri(), PHP_URL_QUERY);
+    $variables['exposed_input'] = $exposed_input;
+  }
 }
 
 /**
