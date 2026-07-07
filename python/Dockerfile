@@ -27,7 +27,8 @@ RUN pip install --upgrade pip && pip install --no-cache-dir \
     redis \
     opensearch-py \
     boto3 \
-    psycopg2-binary
+    psycopg2-binary \
+    defusedxml==0.7.1
 
     
 RUN python -c "from sentence_transformers import SentenceTransformer; SentenceTransformer('BAAI/bge-base-en-v1.5')"
