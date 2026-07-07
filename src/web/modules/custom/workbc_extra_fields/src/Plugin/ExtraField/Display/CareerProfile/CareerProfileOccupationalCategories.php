@@ -43,8 +43,28 @@ class CareerProfileOccupationalCategories extends ExtraFieldDisplayFormattedBase
    */
   public function viewElements(ContentEntityInterface $entity) {
 
-    if (!empty($entity->ssot_data) && isset($entity->ssot_data['occupational_category'][0]['category'])) {
-      $output = join(', ', array_unique(array_map(function ($category) { return $category['category']; }, $entity->ssot_data['occupational_category'])));
+    if (!empty($entity->ssot_data) && isset($entity->ssot_data['occupational_category'])) {
+      $exposed_input = parse_url(\Drupal::request()->getRequestUri(), PHP_URL_QUERY);
+      parse_str($exposed_input ?? '', $args);
+
+      // Preload the EPBC/FYP categories if needed.
+      $epbc_tree = [];
+      if (array_key_exists('field_epbc_categories_target_id', $args)) {
+        $epbc_tree = array_reduce(\Drupal::entityTypeManager()->getStorage('taxonomy_term')->loadTree('epbc_categories'),
+        function ($epbc_tree, $term) {
+          if ($term->depth == 0) {
+            $epbc_tree[strtolower(trim($term->name))] = $term->tid;
+          }
+          return $epbc_tree;
+        }, []);
+      }
+
+      $output = join(', ', array_unique(array_map(function ($category) {
+          return $category['category'];
+        }, array_filter($entity->ssot_data['occupational_category'], function ($category) use ($args, $epbc_tree) {
+          return !array_key_exists('field_epbc_categories_target_id', $args) || array_key_exists($epbc_tree[strtolower(trim($category['category']))], $args['field_epbc_categories_target_id']);
+        })
+      )));
     }
     else {
       $output = WORKBC_EXTRA_FIELDS_NOT_AVAILABLE;
