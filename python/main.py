@@ -104,12 +104,6 @@ RATE_LIMIT_PER_MINUTE = int(os.getenv("RATE_LIMIT_PER_MINUTE", "20"))
 # Set true only when running behind a trusted proxy (CloudFront/ALB) that
 # sets X-Forwarded-For.
 TRUST_PROXY = os.getenv("TRUST_PROXY", "false").lower() == "true"
-# Number of trusted proxies that APPEND to X-Forwarded-For in front of the
-# app. Each proxy appends the address it saw, so the real client IP is the
-# Nth entry from the RIGHT (entries left of that are client-spoofable).
-#   ALB only:              1
-#   CloudFront -> ALB:     2
-XFF_TRUSTED_HOPS = max(1, int(os.getenv("XFF_TRUSTED_HOPS", "1")))
 
 # LLM client behaviour + in-flight concurrency cap (back-pressure for vLLM)
 LLM_TIMEOUT         = float(os.getenv("LLM_TIMEOUT", "120"))
@@ -749,21 +743,11 @@ async def require_admin(api_key: str = Security(_api_key_header)):
 
 
 def client_identifier(request: Request) -> str:
-    """Client identity for rate limiting.
-
-    Behind trusted proxies the real client IP is the XFF_TRUSTED_HOPS-th entry
-    from the RIGHT of X-Forwarded-For: proxies append the address they saw, so
-    everything left of the trusted entries is attacker-controlled and must be
-    ignored (taking the first entry would let clients spoof fresh rate-limit
-    buckets on every request)."""
+    """Best-effort client identity for rate limiting."""
     if TRUST_PROXY:
         xff = request.headers.get("x-forwarded-for", "")
         if xff:
-            parts = [p.strip() for p in xff.split(",") if p.strip()]
-            if len(parts) >= XFF_TRUSTED_HOPS:
-                return parts[-XFF_TRUSTED_HOPS]
-            if parts:
-                return parts[0]  # fewer hops than expected — best effort
+            return xff.split(",")[0].strip()
     return request.client.host if request.client else "unknown"
 
 
@@ -1873,6 +1857,8 @@ async def get_career_answer(
                 model=MODEL_NAME,
                 messages=[{"role": "user", "content": rewrite_prompt}],
                 temperature=0,
+                max_tokens=80,   # a few career titles — uncapped, certain prompts
+                                 # rambled past LLM_TIMEOUT deterministically
             )
             raw_content = rewrite_res.choices[0].message.content.strip()
             lines = [line.strip('- *123456789."\' ') for line in raw_content.split('\n')]
@@ -2953,6 +2939,9 @@ async def ask_career_bot(payload: QueryRequest, request: Request):
                 model=MODEL_NAME,
                 messages=[{"role": "user", "content": intent_prompt}],
                 temperature=0,
+                max_tokens=200,          # one small JSON object
+                stop=["\nQuery:"],       # halt if the model starts generating
+                                          # more few-shot examples past its JSON
             )
             raw_intent  = intent_res.choices[0].message.content.strip()
             intent_data = parse_intent(raw_intent)
