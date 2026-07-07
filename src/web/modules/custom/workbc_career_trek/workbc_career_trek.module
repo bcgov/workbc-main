@@ -2,6 +2,7 @@
 use Drupal\taxonomy\Entity\Term;
 use Drupal\views\ViewExecutable;
 use Drupal\media\Entity\Media;
+use Drupal\core\Url;
 
 /**
  * Implements hook_preprocess_views_view().
@@ -122,6 +123,7 @@ function workbc_career_trek_preprocess_node(&$variables) {
  */
 function workbc_career_trek_search_api_autocomplete_suggestions_alter(array &$suggestions, array $alter_params) {
   if (!$alter_params['query']->hasTag('career_trek_search')) return;
+  /** @var \Drupal\search_api_autocomplete\Suggestion\SuggestionInterface[] $suggestions */
   foreach ($suggestions as &$suggestion) {
     $params = $suggestion->getUrl()->getRouteParameters();
     $media = Media::load($params['media']);
@@ -131,6 +133,10 @@ function workbc_career_trek_search_api_autocomplete_suggestions_alter(array &$su
         '#markup' => $markup
       );
       $suggestion->setRender($render);
+      $suggestion->setUrl(Url::fromRoute('workbc_career_trek.content', [
+        'noc' => $media->field_noc->value,
+        'episode' => $media->field_episode->value
+      ]));
     }
   }
 }
