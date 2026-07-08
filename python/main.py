@@ -32,7 +32,7 @@ import redis.asyncio as aioredis
 import chromadb
 from fastapi import FastAPI, HTTPException, Request, Security
 from fastapi.middleware.cors import CORSMiddleware
-from fastapi.responses import HTMLResponse, JSONResponse
+from fastapi.responses import HTMLResponse, JSONResponse, RedirectResponse
 from fastapi.security.api_key import APIKeyHeader
 from pydantic import BaseModel, Field, field_validator
 from sentence_transformers import SentenceTransformer
@@ -87,6 +87,8 @@ BC_GEOCODER_URL     = "https://geocoder.api.gov.bc.ca/addresses.json"
 # --- NEW security / behaviour config ---
 # Admin endpoints are DISABLED unless ADMIN_API_KEY is set (fail closed).
 ADMIN_API_KEY = os.getenv("ADMIN_API_KEY", "")
+# Browser sessions for the admin dashboards (cookie set after /api/admin/login)
+ADMIN_SESSION_TTL_SECONDS = int(os.getenv("ADMIN_SESSION_TTL_SECONDS", "43200"))  # 12h
 
 # Comma-separated list of allowed CORS origins. Never use "*" with credentials.
 ALLOWED_ORIGINS = [
@@ -734,12 +736,26 @@ async def llm_chat(**kwargs):
 _api_key_header = APIKeyHeader(name="X-Admin-Key", auto_error=False)
 
 
-async def require_admin(api_key: str = Security(_api_key_header)):
-    """Admin endpoints fail closed: no ADMIN_API_KEY configured = no access."""
+_SESSION_TOKEN_RE = re.compile(r"^[A-Za-z0-9_-]{32,64}$")
+
+
+async def require_admin(request: Request, api_key: str = Security(_api_key_header)):
+    """Admin endpoints fail closed: no ADMIN_API_KEY configured = no access.
+
+    Accepts EITHER the X-Admin-Key header (curl / scripts) OR a browser
+    session cookie issued by /api/admin/login."""
     if not ADMIN_API_KEY:
         raise HTTPException(status_code=403, detail="Admin access is not configured")
-    if not api_key or not secrets.compare_digest(api_key, ADMIN_API_KEY):
-        raise HTTPException(status_code=403, detail="Forbidden")
+    if api_key and secrets.compare_digest(api_key, ADMIN_API_KEY):
+        return
+    token = request.cookies.get("admin_session", "")
+    if token and _SESSION_TOKEN_RE.match(token):
+        try:
+            if await r.get(f"admin_session:{token}"):
+                return
+        except redis.RedisError:
+            pass  # Redis down -> header-only access still works
+    raise HTTPException(status_code=403, detail="Forbidden")
 
 
 def client_identifier(request: Request) -> str:
@@ -3491,6 +3507,87 @@ async def view_feedback_html(limit: int = 100, _: None = Security(require_admin)
     except Exception:
         log.exception("Feedback dashboard failed")
         return HTMLResponse(content="<h1>Error loading feedback</h1>", status_code=500)
+
+# ---------------------------------------------------------------------------
+# 13a. ADMIN LOGIN (browser session so dashboards are bookmarkable)
+# ---------------------------------------------------------------------------
+def _login_page(error: str = "") -> str:
+    error_html = f"<div class='err'>{html.escape(error)}</div>" if error else ""
+    return f"""<!DOCTYPE html>
+<html><head><title>WorkBC Career Advisor — Admin Login</title><meta charset="utf-8">
+<style>
+  body {{ font-family: -apple-system, BlinkMacSystemFont, 'Segoe UI', sans-serif;
+         background: #f5f7fa; display: flex; justify-content: center;
+         align-items: center; height: 100vh; margin: 0; }}
+  .card {{ background: white; border: 1px solid #ddd; border-radius: 10px;
+          padding: 30px 34px; width: 320px; box-shadow: 0 2px 8px rgba(0,0,0,0.08); }}
+  h1 {{ color: #04364A; font-size: 18px; margin: 0 0 18px; }}
+  input[type=password] {{ width: 100%; padding: 10px; border: 1px solid #ccc;
+          border-radius: 6px; box-sizing: border-box; font-size: 14px; }}
+  button {{ width: 100%; margin-top: 14px; padding: 10px; background: #028090;
+          color: white; border: none; border-radius: 6px; font-size: 14px;
+          cursor: pointer; }}
+  .err {{ color: #dc3545; font-size: 13px; margin-bottom: 12px; }}
+  .hint {{ color: #888; font-size: 12px; margin-top: 12px; }}
+</style></head>
+<body><div class="card">
+  <h1>Admin dashboards</h1>
+  {error_html}
+  <form method="post" action="/api/admin/login">
+    <input type="password" name="key" placeholder="Admin key" autofocus autocomplete="current-password">
+    <button type="submit">Sign in</button>
+  </form>
+  <div class="hint">Session lasts {ADMIN_SESSION_TTL_SECONDS // 3600} hours.</div>
+</div></body></html>"""
+
+
+_LOGIN_CSP = {"Content-Security-Policy": "default-src 'none'; style-src 'unsafe-inline'; form-action 'self'"}
+
+
+@app.get("/api/admin/login", response_class=HTMLResponse)
+async def admin_login_form():
+    return HTMLResponse(_login_page(), headers=_LOGIN_CSP)
+
+
+@app.post("/api/admin/login")
+async def admin_login(request: Request):
+    if not ADMIN_API_KEY:
+        raise HTTPException(status_code=403, detail="Admin access is not configured")
+    # Brute-force protection: login attempts share the per-client rate limit
+    if not await check_rate_limit(f"login:{client_identifier(request)}"):
+        return HTMLResponse(_login_page("Too many attempts — wait a minute."),
+                            status_code=429, headers=_LOGIN_CSP)
+    form = await request.form()
+    key = str(form.get("key", ""))
+    if not key or not secrets.compare_digest(key, ADMIN_API_KEY):
+        log.warning("Failed admin login from %s", client_identifier(request))
+        return HTMLResponse(_login_page("Invalid key."),
+                            status_code=403, headers=_LOGIN_CSP)
+
+    token = secrets.token_urlsafe(32)
+    await r.setex(f"admin_session:{token}", ADMIN_SESSION_TTL_SECONDS, "1")
+    resp = RedirectResponse("/api/admin/analytics/view", status_code=303)
+    resp.set_cookie(
+        "admin_session", token,
+        max_age=ADMIN_SESSION_TTL_SECONDS,
+        httponly=True, secure=True, samesite="strict", path="/api/admin",
+    )
+    log.info("Admin login from %s", client_identifier(request))
+    return resp
+
+
+@app.get("/api/admin/logout")
+async def admin_logout(request: Request):
+    token = request.cookies.get("admin_session", "")
+    if token and _SESSION_TOKEN_RE.match(token):
+        try:
+            await r.delete(f"admin_session:{token}")
+        except redis.RedisError:
+            pass
+    resp = RedirectResponse("/api/admin/login", status_code=303)
+    resp.delete_cookie("admin_session", path="/api/admin")
+    return resp
+
 
 # ---------------------------------------------------------------------------
 # 13b. ADMIN ANALYTICS (usage metrics — requires X-Admin-Key)
