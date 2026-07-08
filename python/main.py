@@ -3565,7 +3565,14 @@ async def admin_login(request: Request):
                             status_code=403, headers=_LOGIN_CSP)
 
     token = secrets.token_urlsafe(32)
-    await r.setex(f"admin_session:{token}", ADMIN_SESSION_TTL_SECONDS, "1")
+    try:
+        await r.setex(f"admin_session:{token}", ADMIN_SESSION_TTL_SECONDS, "1")
+    except redis.RedisError as exc:
+        log.error("Admin login: Redis unavailable when storing session — %s", exc)
+        return HTMLResponse(
+            _login_page("Service temporarily unavailable. Please try again."),
+            status_code=503, headers=_LOGIN_CSP,
+        )
     resp = RedirectResponse("/api/admin/analytics/view", status_code=303)
     resp.set_cookie(
         "admin_session", token,

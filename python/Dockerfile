@@ -21,6 +21,7 @@ RUN pip install --no-cache-dir torch --index-url https://download.pytorch.org/wh
 RUN pip install --upgrade pip && pip install --no-cache-dir \
     fastapi \
     "uvicorn[standard]" \
+    python-multipart \
     openai \
     chromadb \
     sentence-transformers \
