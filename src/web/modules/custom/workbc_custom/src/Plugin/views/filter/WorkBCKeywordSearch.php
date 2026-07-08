@@ -126,17 +126,17 @@ class WorkBCKeywordSearch extends StringFilter {
    */
   private function search() {
     $index = \Drupal\search_api\Entity\Index::load('career_profile_index');
-    $processor = \Drupal::getContainer()
-      ->get('search_api.plugin_helper')
-      ->createProcessorPlugin($index, 'highlight', [
-        'prefix' => '<strong>',
-        'suffix' => '</strong>',
-        'highlight_partial' => true,
-        'excerpt_length' => 10000,
-        'excerpt_always' => true,
-        'exclude_fields' => ['title', 'field_noc']
-      ]);
-    $index->addProcessor($processor);
+    // $processor = \Drupal::getContainer()
+    //   ->get('search_api.plugin_helper')
+    //   ->createProcessorPlugin($index, 'highlight', [
+    //     'prefix' => '<strong>',
+    //     'suffix' => '</strong>',
+    //     'highlight_partial' => false,
+    //     'excerpt_length' => 10000,
+    //     'excerpt_always' => true,
+    //     'exclude_fields' => ['title', 'field_noc']
+    //   ]);
+//    $index->addProcessor($processor);
     $query = $index->query();
 
     // Change the parse mode for the search.
@@ -168,39 +168,54 @@ class WorkBCKeywordSearch extends StringFilter {
       \Drupal::logger('workbc')->error($e->getMessage());
       return [];
     }
-    return array_values(array_filter(array_map(function($item) use ($results, $query) {
+
+    // Precompute some values to avoid unneeded work while we process the results.
+    $search_context = [
+      // Count the number of + signs in the keywords.
+      'count_plus' => substr_count($query->getKeys(), '+'),
+      // Generate a regex that matches all <strong> fragments that DON'T include the given keywords.
+      'regex_keys' => '/<strong>(?:(?!\b(?:' . implode('|', array_map('preg_quote', array_unique(preg_split('/[^a-zA-Z0-9]+/', $query->getKeys(), -1, PREG_SPLIT_NO_EMPTY)))) . ')\b).)*?<\/strong>/i',
+    ];
+    return array_values(array_filter(array_map(function($item) use ($results, $query, $search_context) {
+      if ($item->getScore() < 1) return false;
       if (preg_match('/entity:node\/(\d+):/', $item->getId(), $match)) {
         return [
           'nid' => $match[1],
-          'excerpts' => $this->parseSearchApiExcerpt($item, $results, $query)
-          //'excerpts' => $this->parseSolrExcerpt($item, $results, $query)
+          //'excerpts' => $this->parseSearchApiExcerpt($item, $results, $query, $search_context)
+          'excerpts' => $this->parseSolrExcerpt($item, $results, $query, $search_context)
         ];
       }
       return false;
     }, $results ? $results->getResultItems() : [])));
   }
 
-  private function parseSolrExcerpt(\Drupal\search_api\Item\Item $item, ResultSetInterface $results, Query $query) {
+  private function parseSolrExcerpt(\Drupal\search_api\Item\Item $item, ResultSetInterface $results, Query $query, $search_context) {
     $doc = $item->getExtraData('search_api_solr_document');
     $highlight = $results->getExtraData('search_api_solr_response')['highlighting'];
     $key = $doc['hash'] . '-' . $item->getIndex()->id() . '-' . $item->getId();
     if (!array_key_exists('tcngramm_X3b_en_field_job_titles', $highlight[$key])) return [];
+    // Discard highlights that contain non-verbatim keywords.
+    $excerpts = array_filter($highlight[$key]['tcngramm_X3b_en_field_job_titles'], function ($title) use ($search_context) {
+      return !preg_match($search_context['regex_keys'], $title);
+    });
     if (in_array('explore_careers_search_modified', $query->getTags())) {
       // In case it's our "safe" use case, make sure the number of highlighted keywords match the number of query keywords.
-      return array_filter($highlight[$key]['tcngramm_X3b_en_field_job_titles'], function ($title) use ($query) {
-        return substr_count($title, '<strong>') >= substr_count($query->getKeys(), '+');
+      $excerpts = array_filter($excerpts, function ($title) use ($search_context) {
+        return substr_count($title, '<strong>') >= $search_context['count_plus'];
       });
     }
-    return $highlight[$key]['tcngramm_X3b_en_field_job_titles'];
+    return $excerpts;
   }
 
-  private function parseSearchApiExcerpt(\Drupal\search_api\Item\Item $item, ResultSetInterface $results, Query $query) {
+  private function parseSearchApiExcerpt(\Drupal\search_api\Item\Item $item, ResultSetInterface $results, Query $query, $search_context) {
     $excerpts = array_map(function ($e) {
       return trim($e);
-    }, array_filter(explode('…', $item->getExcerpt()), function ($title) use ($query) {
+    }, array_filter(explode('…', $item->getExcerpt()), function ($title) use ($query, $search_context) {
+      $adjust_title = preg_replace('/\<strong\>(?:AND|OR)\<\/strong\>/i', '', $title);
+
       return in_array('explore_careers_search_modified', $query->getTags()) ?
-        substr_count($title, '<strong>') >= substr_count($query->getKeys(), '+') :
-        str_contains($title, '<strong>');
+        substr_count($adjust_title, '<strong>') >= $$search_context['count_plus'] :
+        str_contains($adjust_title, '<strong>');
     }));
     sort($excerpts);
     return $excerpts;
