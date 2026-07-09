@@ -175,9 +175,14 @@ class WorkBCKeywordSearch extends StringFilter {
       'count_plus' => substr_count($query->getKeys(), '+'),
       // Generate a regex that matches all <strong> fragments that DON'T include the given keywords.
       'regex_keys' => '/<strong>(?:(?!\b(?:' . implode('|', array_map('preg_quote', array_unique(preg_split('/[^a-zA-Z0-9]+/', $query->getKeys(), -1, PREG_SPLIT_NO_EMPTY)))) . ')\b).)*?<\/strong>/i',
+      // Max score in the results.
+      'max_score' => $results ? max(array_map(function ($item) { return $item->getScore(); }, $results->getResultItems())) : 0,
     ];
     return array_values(array_filter(array_map(function($item) use ($results, $query, $search_context) {
-      if ($item->getScore() < 1) return false;
+      // Discard low scores if there are high scores.
+      if ($search_context['max_score'] > 1 && $item->getScore() < 1) return false;
+
+      // Keep only node results.
       if (preg_match('/entity:node\/(\d+):/', $item->getId(), $match)) {
         return [
           'nid' => $match[1],
@@ -185,6 +190,7 @@ class WorkBCKeywordSearch extends StringFilter {
           'excerpts' => $this->parseSolrExcerpt($item, $results, $query, $search_context)
         ];
       }
+
       return false;
     }, $results ? $results->getResultItems() : [])));
   }
