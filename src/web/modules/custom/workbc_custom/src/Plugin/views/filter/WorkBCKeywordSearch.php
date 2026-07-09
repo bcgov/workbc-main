@@ -176,7 +176,7 @@ class WorkBCKeywordSearch extends StringFilter {
       // Generate a regex that matches all <strong> fragments that DON'T include the given keywords.
       'regex_keys' => '/<strong>(?:(?!\b(?:' . implode('|', array_map('preg_quote', array_unique(preg_split('/[^a-zA-Z0-9]+/', $query->getKeys(), -1, PREG_SPLIT_NO_EMPTY)))) . ')\b).)*?<\/strong>/i',
       // Max score in the results.
-      'max_score' => $results ? max(array_map(function ($item) { return $item->getScore(); }, $results->getResultItems())) : 0,
+      'max_score' => $results && $results->getResultCount() > 0 ? max(array_map(function ($item) { return $item->getScore(); }, $results->getResultItems())) : 0,
     ];
     return array_values(array_filter(array_map(function($item) use ($results, $query, $search_context) {
       // Discard low scores if there are high scores.
