@@ -225,7 +225,7 @@ function workbc_form_alter(&$form, \Drupal\Core\Form\FormStateInterface $form_st
       'views-exposed-form-search-site-content-block-1'
   ])) {
     $form['#attributes']['class'][] = 'search-form';
-    $form['search_api_fulltext']['#attributes']['aria-label'] = 'Search';
+    $form['search_api_fulltext']['#attributes']['aria-label'] = 'Search WorkBC.ca';
   }
   if ($form_id === 'views_exposed_form' && $form['#id'] === 'views-exposed-form-search-site-content-page-1') {
     $form['sort_by']['#weight'] = 100;
