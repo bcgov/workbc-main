@@ -23,8 +23,8 @@
           $('fieldset[data-drupal-selector="edit-salary-wrapper"] .fieldset-wrapper').prepend('<div id="salary"></div>');
           setTimeout(resizeSlider, RESIZE_TIMEOUT);
         }
-
       });
+
       $('.responsive-filter-video-btn', context).on('click', function () {
         setTimeout(resizeSlider, RESIZE_TIMEOUT);
       });
@@ -76,7 +76,6 @@
         // If force is true, skip once() and always re-initialize
         const elements = force ? $element.toArray() : once('rangeSliderInit', $element, context);
         elements.forEach(element => {
-
           $(element).jRange({
             from: salaryMin,
             to: salaryMax,
@@ -96,29 +95,35 @@
               }
             }
           });
-          if(!force) {
+          if (!force) {
             $(document).ajaxComplete(function () {
-              const $minInput = $('fieldset[data-drupal-selector="edit-salary-wrapper"] input[name="salary[min]"]');
-              const $maxInput = $('fieldset[data-drupal-selector="edit-salary-wrapper"] input[name="salary[max]"]');
-              const min = $minInput.val() || salaryMin;
-              const max = $maxInput.val() || salaryMax;
-              const $salaryOp = $('.plan-careercareer-trek-videos .view-career-trek-redux .career-videos-filters .salary-range-search select[name="salary_op"]');
-              if (min && max) {
-                $(`#salary`).jRange('setValue', `${min},${max}`);
-              }
-
-              $salaryOp.val('between');
-              if (max != salaryMax) {
-                $maxInput.val(max);
-                if (min == salaryMin) {
-                  $minInput.val(min);
-                }
-              }
-              if (min != salaryMin) {
-                $minInput.val(min);
-              }
+              updateRangeSlider();
             });
           }
+
+          function updateRangeSlider() {
+            const $minInput = $('fieldset[data-drupal-selector="edit-salary-wrapper"] input[name="salary[min]"]');
+            const $maxInput = $('fieldset[data-drupal-selector="edit-salary-wrapper"] input[name="salary[max]"]');
+            const min = $minInput.val() || salaryMin;
+            const max = $maxInput.val() || salaryMax;
+            const $salaryOp = $('.plan-careercareer-trek-videos .view-career-trek-redux .career-videos-filters .salary-range-search select[name="salary_op"]');
+            if (min && max) {
+              $(`#salary`).jRange('setValue', `${min},${max}`);
+            }
+
+            $salaryOp.val('between');
+            if (max != salaryMax) {
+              $maxInput.val(max);
+              if (min == salaryMin) {
+                $minInput.val(min);
+              }
+            }
+            if (min != salaryMin) {
+              $minInput.val(min);
+            }
+          }
+
+          $(window).on('load', function() { updateRangeSlider(); });
         });
       }
     }
