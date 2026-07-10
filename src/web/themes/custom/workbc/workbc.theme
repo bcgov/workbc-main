@@ -406,7 +406,8 @@ function workbc_theme_suggestions_form_element_alter(array &$suggestions, array 
 function workbc_preprocess_form_element(&$variables) {
   if (isset($variables['element']['#name'])) {
     if ($variables['element']['#name'] === 'field_occupational_interests_target_id') {
-      $variables['occupational_interest_tooltip'] = 'Careers based on <a href="/plan-career/skills-future-workforce/characteristics#sideNavAnchorId_1" target="_blank" rel="noopener noreferrer">six interest types</a>.';
+      $paths = \Drupal::config('workbc')->get('paths');
+      $variables['occupational_interest_tooltip'] = 'Careers based on <a href="' . $paths['skills_competencies'] . '" target="_blank" rel="noopener noreferrer">six interest types</a>.';
     }
   }
 }

@@ -122,10 +122,10 @@
     <div class="container-lg">
       <div class="top-banner row align-items-center">
         <div class="col-md-4 col-2 back-btton">
-          <a href="{{ career_trek_config('back_button_url') }}" class="desktop-back-btn">
+          <a href="{{ career_trek_config('back_button_url') }}{{ exposed_input ? '?' : '' }}{{ exposed_input }}" class="desktop-back-btn">
             {{ career_trek_config('back_button_title') }}
           </a>
-          <a href="{{ career_trek_config('back_button_url') }}" class="mobile-back-btn">
+          <a href="{{ career_trek_config('back_button_url') }}{{ exposed_input ? '?' : '' }}{{ exposed_input }}" class="mobile-back-btn">
             <svg width="8" height="14" viewBox="0 0 8 14" fill="none" xmlns="http://www.w3.org/2000/svg">
               <path d="M0.46875 6.46875L6.46875 0.5C6.75 0.1875 7.21875 0.1875 7.53125 0.5C7.8125 0.78125 7.8125 1.25 7.53125 1.53125L2.03125 7L7.5 12.5C7.8125 12.7812 7.8125 13.25 7.5 13.5312C7.21875 13.8438 6.75 13.8438 6.46875 13.5312L0.46875 7.53125C0.15625 7.25 0.15625 6.78125 0.46875 6.46875Z" fill="#2E6AB0"/>
             </svg>

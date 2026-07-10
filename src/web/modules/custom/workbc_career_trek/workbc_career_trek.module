@@ -53,7 +53,7 @@ function workbc_career_trek_preprocess_views_view(&$variables) {
             )
           ) {
             if ($max >= $view->filter['field_annual_salary_value']->options['value']['max']) $max .= '+';
-            $values[] = "Salary $" . $min . " - $" . $max;
+            $values[] = "Salary $" . $min . "−$" . $max;
           }
         } else {
           if (!empty($expose) && $key != "reset" && $key != "annual_salary_op") {
@@ -319,8 +319,21 @@ function workbc_career_trek_form_views_exposed_form_alter(&$form, \Drupal\Core\F
         }
       }
     }
-  }
 
+    // Adjust initial values.
+    $input = $form_state->getUserInput();
+    $storage = $form_state->getStorage();
+    $view = $storage['view'];
+    if (array_key_exists('field_teer_value', $input) && $input['field_teer_value'] !== "All") {
+      $form['field_teer_value_collapsible']['#open'] = true;
+    }
+    if (array_key_exists('salary', $input) && (
+      $input['salary']['min'] > $view->filter['field_annual_salary_value']->options['value']['min'] ||
+      $input['salary']['max'] < $view->filter['field_annual_salary_value']->options['value']['max']
+    )) {
+      $form['salary_collapsible']['#open'] = true;
+    }
+  }
 }
 
 /**

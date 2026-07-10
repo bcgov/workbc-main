@@ -2,79 +2,70 @@
 (function ($, Drupal, once) {
   "use strict";
 
+  const RESIZE_TIMEOUT = 100;
+  const WIDTH_DELTA = 15;
+  const SALARY_STEP = 1000;
+
   Drupal.behaviors.rangeSlider = {
     attach: function (context, settings) {
       // Only initialize ONCE on attach.
+      const salaryMin = 10000;
+      const salaryMax = 140000;
       once('rangeSlider', '#salary', context).forEach(initializeSlider);
 
       // Re-initialize the slider on window resize
-      // Re-initialize the slider on window resize
       $(window).on('resize', function () {
         const $slider = $('#salary');
-        if($('.salary-range-search details').width()){
-          const parentWidth = $('.salary-range-search details').width() - 15;
+        if ($('.salary-range-search details').width()) {
+          const parentWidth = $('.salary-range-search details').width() - WIDTH_DELTA;
           $('.slider-container').remove();
           $('#salary').remove();
           $('fieldset[data-drupal-selector="edit-salary-wrapper"] .fieldset-wrapper').prepend('<div id="salary"></div>');
-          setTimeout(resizeSlider, 100);
+          setTimeout(resizeSlider, RESIZE_TIMEOUT);
         }
 
       });
       $('.responsive-filter-video-btn', context).on('click', function () {
-        setTimeout(resizeSlider, 100);
+        setTimeout(resizeSlider, RESIZE_TIMEOUT);
       });
-
-      // $(window).on('resize', function () {
-      //   clearTimeout(window.resizingSlider);
-      //   window.resizingSlider = setTimeout(resizeSlider, 200);
-      // });
 
       function initializeSlider(element) {
         const $element = $(element);
-        if($('.salary-range-search details').width()){
-          const parentWidth = $('.salary-range-search details').width() - 15;
+        if ($('.salary-range-search details').width()) {
+          const parentWidth = $('.salary-range-search details').width() - WIDTH_DELTA;
           initializeRangeSlider($element, parentWidth, context);
         }
       }
 
       // Fix: Do NOT use once() in resizeSlider, just update the slider directly.
       function resizeSlider() {
-        const newWidth = $('.salary-range-search details').width() - 15;
+        const newWidth = $('.salary-range-search details').width() - WIDTH_DELTA;
         const $slider = $('#salary');
         initializeRangeSlider($slider, newWidth, context, true);
         const $minInput = $('fieldset[data-drupal-selector="edit-salary-wrapper"] input[name="salary[min]"]');
         const $maxInput = $('fieldset[data-drupal-selector="edit-salary-wrapper"] input[name="salary[max]"]');
-        const $valueInput = $('fieldset[data-drupal-selector="edit-salary-wrapper"] input[name="salary[value]"]');
-        if(!$minInput.val() && !$maxInput.val() && !$valueInput.val()) {
-          $slider.jRange('setValue', '10000,140000');
+        if (!$minInput.val() && !$maxInput.val()) {
+          $slider.jRange('setValue', `${salaryMin},${salaryMax}`);
         }
         // Run the ajaxComplete logic ONCE here instead of in initializeRangeSlider
         (function runAjaxCompleteLogicOnce() {
           const $minInput = $('fieldset[data-drupal-selector="edit-salary-wrapper"] input[name="salary[min]"]');
           const $maxInput = $('fieldset[data-drupal-selector="edit-salary-wrapper"] input[name="salary[max]"]');
-          const $valueInput = $('fieldset[data-drupal-selector="edit-salary-wrapper"] input[name="salary[value]"]');
-          const min = $minInput.val() || $valueInput.val() || 10000;
-          const max = $maxInput.val() || 140000;
+          const min = $minInput.val() || salaryMin;
+          const max = $maxInput.val() || salaryMax;
           const $salaryOp = $('.plan-careercareer-trek-videos .view-career-trek-redux .career-videos-filters .salary-range-search select[name="salary_op"]');
           if (min && max) {
             $(`#salary`).jRange('setValue', `${min},${max}`);
           }
 
-          if ($valueInput.val()) {
-            $salaryOp.val('>');
-            $minInput.val(min);
+          $salaryOp.val('between');
+          if (max != salaryMax) {
             $maxInput.val(max);
-          } else {
-            $salaryOp.val('between');
-            $('fieldset[data-drupal-selector="edit-salary-wrapper"] input[name^="salary"]').val('');
-          }
-          if(max != 140000) {
-            $maxInput.val(max);
-            if(min == 10000) {
+            if (min == salaryMin) {
               $minInput.val(min);
             }
           }
-          if(min != 10000) {
+          if (min != salaryMin) {
             $minInput.val(min);
           }
         })();
@@ -87,20 +78,20 @@
         elements.forEach(element => {
 
           $(element).jRange({
-            from: 10000,
-            to: 140000,
-            step: 1000,
+            from: salaryMin,
+            to: salaryMax,
+            step: SALARY_STEP,
             width: (width > 0 && width !== "") ? width : 300,
             format: function (value) {
               const val = parseInt(value);
-              return (val === 140000) ? '140000+' : val;
+              return (val === salaryMax) ? `${salaryMax}+` : val;
             },
             showLabels: true,
             isRange: true,
             onstatechange: function (value) {
               const [minValue, maxValue] = value.split(',');
-              if(value != "10000,10000") {
-                $(`fieldset[data-drupal-selector="edit-salary-wrapper"] input[name="salary[min]"]`).val(minValue);
+              if (value != `${salaryMin},${salaryMin}`) {
+                $('fieldset[data-drupal-selector="edit-salary-wrapper"] input[name="salary[min]"]').val(minValue);
                 $('fieldset[data-drupal-selector="edit-salary-wrapper"] input[name="salary[max]"]').val(maxValue);
               }
             }
@@ -109,39 +100,26 @@
             $(document).ajaxComplete(function () {
               const $minInput = $('fieldset[data-drupal-selector="edit-salary-wrapper"] input[name="salary[min]"]');
               const $maxInput = $('fieldset[data-drupal-selector="edit-salary-wrapper"] input[name="salary[max]"]');
-              const $valueInput = $('fieldset[data-drupal-selector="edit-salary-wrapper"] input[name="salary[value]"]');
-              const min = $minInput.val() || $valueInput.val() || 10000;
-              const max = $maxInput.val() || 140000;
+              const min = $minInput.val() || salaryMin;
+              const max = $maxInput.val() || salaryMax;
               const $salaryOp = $('.plan-careercareer-trek-videos .view-career-trek-redux .career-videos-filters .salary-range-search select[name="salary_op"]');
               if (min && max) {
                 $(`#salary`).jRange('setValue', `${min},${max}`);
               }
 
-              if ($valueInput.val()) {
-                $salaryOp.val('>');
-                $minInput.val(min);
+              $salaryOp.val('between');
+              if (max != salaryMax) {
                 $maxInput.val(max);
-              } else {
-                $salaryOp.val('between');
-                $('fieldset[data-drupal-selector="edit-salary-wrapper"] input[name^="salary"]').val('');
-              }
-              if(max != 140000) {
-                $maxInput.val(max);
-                if(min == 10000) {
+                if (min == salaryMin) {
                   $minInput.val(min);
                 }
               }
-              if(min != 10000) {
+              if (min != salaryMin) {
                 $minInput.val(min);
               }
             });
           }
-          $(window).on('load', function() {
-            $element.jRange('setValue', '10000,140000');
-            $('fieldset[data-drupal-selector="edit-salary-wrapper"] input[name^="salary"]').val('');
-          });
         });
-
       }
     }
   };

@@ -812,6 +812,7 @@ $config['workbc']['paths'] = [
   'career_exploration_search' => '/plan-career/career-profiles/search',
   'career_trek' => '/plan-career/career-trek-videos',
   'account' => '/account',
+  'skills_competencies' => '/develop-skills/skills-competencies-list',
 ];
 
 // Job Board settings.
