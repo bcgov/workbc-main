@@ -171,22 +171,19 @@ class WorkBCKeywordSearch extends StringFilter {
 
     // Precompute some values to avoid unneeded work while we process the results.
     $search_context = [
-      // Count the number of + signs in the keywords.
-      'count_plus' => substr_count($query->getKeys(), '+'),
+      // Generate a regex that matches all the keywords and fails if some are missing.
+      'regex_include' => '/^' . implode('', array_map(function ($keyword) {
+        $escaped = preg_quote($keyword);
+        return "(?=.*<strong>{$escaped}<\/strong>)";
+      }, array_unique(preg_split('/[^a-zA-Z0-9]+/', $query->getKeys(), -1, PREG_SPLIT_NO_EMPTY)))) . '/si',
       // Generate a regex that matches all <strong> fragments that DON'T include the given keywords.
-      'regex_keys' => '/<strong>(?:(?!\b(?:' . implode('|', array_map('preg_quote', array_unique(preg_split('/[^a-zA-Z0-9]+/', $query->getKeys(), -1, PREG_SPLIT_NO_EMPTY)))) . ')\b).)*?<\/strong>/i',
-      // Max score in the results.
-      'max_score' => $results && $results->getResultCount() > 0 ? max(array_map(function ($item) { return $item->getScore(); }, $results->getResultItems())) : 0,
+      'regex_exclude' => '/<strong>(?:(?!\b(?:' . implode('|', array_map('preg_quote', array_unique(preg_split('/[^a-zA-Z0-9]+/', $query->getKeys(), -1, PREG_SPLIT_NO_EMPTY)))) . ')\b).)*?<\/strong>/i',
     ];
     return array_values(array_filter(array_map(function($item) use ($results, $query, $search_context) {
-      // Discard low scores if there are high scores.
-      if ($search_context['max_score'] > 1 && $item->getScore() < 1) return false;
-
       // Keep only node results.
       if (preg_match('/entity:node\/(\d+):/', $item->getId(), $match)) {
         return [
           'nid' => $match[1],
-          //'excerpts' => $this->parseSearchApiExcerpt($item, $results, $query, $search_context)
           'excerpts' => $this->parseSolrExcerpt($item, $results, $query, $search_context)
         ];
       }
@@ -202,28 +199,14 @@ class WorkBCKeywordSearch extends StringFilter {
     if (!array_key_exists('tcngramm_X3b_en_field_job_titles', $highlight[$key])) return [];
     // Discard highlights that contain non-verbatim keywords.
     $excerpts = array_filter($highlight[$key]['tcngramm_X3b_en_field_job_titles'], function ($title) use ($search_context) {
-      return !preg_match($search_context['regex_keys'], $title);
+      return !preg_match($search_context['regex_exclude'], $title);
     });
     if (in_array('explore_careers_search_modified', $query->getTags())) {
-      // In case it's our "safe" use case, make sure the number of highlighted keywords match the number of query keywords.
+      // In case it's our "safe" use case, make sure the highlighted keywords match all the query keywords.
       $excerpts = array_filter($excerpts, function ($title) use ($search_context) {
-        return substr_count($title, '<strong>') >= $search_context['count_plus'];
+        return preg_match($search_context['regex_include'], $title);
       });
     }
-    return $excerpts;
-  }
-
-  private function parseSearchApiExcerpt(\Drupal\search_api\Item\Item $item, ResultSetInterface $results, Query $query, $search_context) {
-    $excerpts = array_map(function ($e) {
-      return trim($e);
-    }, array_filter(explode('…', $item->getExcerpt()), function ($title) use ($query, $search_context) {
-      $adjust_title = preg_replace('/\<strong\>(?:AND|OR)\<\/strong\>/i', '', $title);
-
-      return in_array('explore_careers_search_modified', $query->getTags()) ?
-        substr_count($adjust_title, '<strong>') >= $$search_context['count_plus'] :
-        str_contains($adjust_title, '<strong>');
-    }));
-    sort($excerpts);
     return $excerpts;
   }
 }
