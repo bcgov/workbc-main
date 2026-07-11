@@ -778,10 +778,9 @@ function workbc_custom_search_api_query_explore_careers_search_alter($query) {
     $query->setFullTextFields(['field_noc']);
   }
 
-  // SPECIAL CASE: No query operators or only AND operator.
+  // SPECIAL CASE: No query operators.
   // Automatically add + in front of each keyword.
-  if (!preg_match('/"|\(|\)|\sOR\s|&&|\|\||\+/i', $keys)) {
-    $keys = preg_replace('/\bAND\b/i', '', $keys);
+  if (!preg_match('/"|\(|\)|\sOR\s|\sAND\s|&&|\|\||\+/i', $keys)) {
     $keys = preg_replace('/\b(\w+)\b/i', '+$1', $keys);
 
     // Set a tag because SearchApiSolrEventSubscriber will further modify this query to adjust field_job_titles.
