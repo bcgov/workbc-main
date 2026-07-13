@@ -252,7 +252,7 @@
             },
             "drupal/backup_migrate": {
                 "PostgreSQL support": "patches/drupal/backup_migrate/0003-postgresql-support.patch",
-                "Directory restore": "patches/drupal/backup_migrate/backup-migrate-restore-public-files-3245802-3.patch"
+                "Directory restore": "patches/drupal/backup_migrate/backup-migrate-restore-public-files-3245802-4.patch"
             },
             "drupal/redirect": {
                 "Ignore query strings": "patches/drupal/redirect/2976930-redirect-hashes-created-when-not-retaining-the-query-string-2.patch",
