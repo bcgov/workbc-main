@@ -3,7 +3,7 @@ index e4e522a..03823ae 100644
 --- a/src/Core/Service/TarArchiveReader.php
 +++ b/src/Core/Service/TarArchiveReader.php
 @@ -137,7 +137,7 @@ class TarArchiveReader implements ArchiveReaderInterface {
- 
+
        // Extract a directory.
        if ($header['typeflag'] == "5") {
 -        if (!$this->createDir($header['filename'])) {
@@ -16,7 +16,7 @@ index e4e522a..03823ae 100644
        // Extract a file/symlink.
        else {
 -        if (!$this->createDir(dirname($header['filename']))) {
-+        if (!$this->createDir($directory, dirname($filename)))) {
++        if (!$this->createDir($directory, dirname($filename))) {
            throw new BackupMigrateException(
              'Unable to create directory for %filename',
              ['%filename' => $header['filename']]
@@ -38,7 +38,7 @@ index e4e522a..03823ae 100644
      }
 -    $parent = dirname($directory);
 +    $parent = dirname($filename);
- 
+
      if (
 -      ($parent != $directory) &&
 +      ($parent != $filename) &&
