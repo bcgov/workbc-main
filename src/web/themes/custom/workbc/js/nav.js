@@ -1,26 +1,25 @@
 (function ($) {
   ("use strict");
 
-  let timeStampFocus = 0;
-
-  // Time in ms between focus and click event that we consider to be "the same user event".
-  // Take into consideration reduced event.timeStamp precision for privacy purposes.
-  // @see https://developer.mozilla.org/en-US/docs/Web/API/Event/timeStamp
-  const TIMESTAMP_DELTA = 250;
-
   // Manage the main navigation menu open/close status.
   Drupal.behaviors.mainNav = {
     attach: function (context, settings) {
       $(once("mainNav", ".nav-t1 > .nav-item", context)).on('focus', function(event) {
-        timeStampFocus = event.timeStamp;
         $(this).parent().children(".nav-item").removeClass('open');
-        $(this).addClass('open');
       }).on('blur', function(event) {
         if (event.relatedTarget && !$(event.relatedTarget).hasClass('nav-link')) {
           $(this).removeClass('open');
         }
       }).on('click', function(event) {
-        if (Math.abs(event.timeStamp - timeStampFocus) > TIMESTAMP_DELTA) {
+        const alreadyOpen = $(event.target).is('.open') || $(event.target).parent('.open').length > 0;
+        if (alreadyOpen) {
+          $(this).parent().children(".nav-item").removeClass('open');
+        }
+        else {
+          $(this).addClass('open');
+        }
+      }).on('keyup', function(event) {
+        if (event.key == "Enter" || event.key == " " || event.key == "Spacebar") {
           const alreadyOpen = $(event.target).is('.open') || $(event.target).parent('.open').length > 0;
           if (alreadyOpen) {
             $(this).parent().children(".nav-item").removeClass('open');
@@ -28,6 +27,15 @@
           else {
             $(this).addClass('open');
           }
+          return false;
+        }
+      }).on('keypress', function(event) {
+        if (event.key == " " || event.key == "Spacebar") {
+          return false;
+        }
+      }).on('keydown', function(event) {
+        if (event.key == " " || event.key == "Spacebar") {
+          return false;
         }
       });
       $(once("mainNav", ".nav-t2 .nav-link", context)).on('blur', function(event) {
