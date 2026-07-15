@@ -49,6 +49,7 @@
       });
       $(document).on('keyup', function(event) {
         if (event.key == "Escape") {
+          $(".nav-t1 > .nav-item.open").focus();
           $(".nav-t1 > .nav-item").removeClass('open');
         }
       });
