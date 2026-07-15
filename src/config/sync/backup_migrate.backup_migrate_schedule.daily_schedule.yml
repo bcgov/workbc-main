@@ -8,6 +8,8 @@ id: daily_schedule
 label: 'Daily Schedule'
 enabled: null
 keep: null
+encrypt: null
+encrypt_password: null
 period: null
 cron: null
 source_id: null

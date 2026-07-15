@@ -195,52 +195,52 @@ class CareerTrekSettingsForm extends ConfigFormBase {
       '#type' => 'textfield',
       '#title' => $this->t('Back Button URL'),
       '#default_value' => $config->get('back_button_url'),
-      '#description' => $this->t('Enter the URL for the back button'),
+      '#description' => $this->t('Enter the URL for the back button.'),
     ];
 
     $form['back_button']['title'] = [
       '#type' => 'textfield',
       '#title' => $this->t('Back Button Title'),
       '#default_value' => $config->get('back_button_title'),
-      '#description' => $this->t('Enter the text to display on the back button'),
+      '#description' => $this->t('Enter the text to display on the back button.'),
     ];
 
     $form['searching_text'] = [
       '#type' => 'textfield',
       '#title' => $this->t('Searching text'),
       '#default_value' => $config->get('searching_text'),
-      '#description' => $this->t('Enter the searching text'),
+      '#description' => $this->t('Enter the searching text.'),
     ];
     $form['in_demand_title'] = [
       '#type' => 'textfield',
       '#title' => $this->t('In Demand Title'),
       '#default_value' => $config->get('in_demand_title'),
-      '#description' => $this->t('Enter the demand title'),
+      '#description' => $this->t('Enter the demand title.'),
     ];
     $form['latest_career_title'] = [
       '#type' => 'textfield',
       '#title' => $this->t('Latest Career Title'),
       '#default_value' => $config->get('latest_career_title'),
-      '#description' => $this->t('Enter the latest career title'),
+      '#description' => $this->t('Enter the latest career title.'),
     ];
     $form['filter_title'] = [
       '#type' => 'textfield',
       '#title' => $this->t('Filter Title'),
       '#default_value' => $config->get('filter_title'),
-      '#description' => $this->t('Enter the Filter title'),
+      '#description' => $this->t('Enter the filter title.'),
     ];
     $form['related_careers_title'] = [
       '#type' => 'textfield',
       '#title' => $this->t('Related Title'),
       '#default_value' => $config->get('related_careers_title'),
-      '#description' => $this->t('Enter the Related title'),
+      '#description' => $this->t('Enter the related title.'),
     ];
 
     $form['url_skills_future_workforce'] = [
       '#type' => 'textfield',
-      '#title' => $this->t('Skill Future Url'),
+      '#title' => $this->t('Skills and Competencies List URL'),
       '#default_value' => $config->get('url_skills_future_workforce'),
-      '#description' => $this->t('Enter the Related title'),
+      '#description' => $this->t('Enter the related title.'),
     ];
     $form['link_to_career_profile_text'] = [
       '#type' => 'textfield',
@@ -310,16 +310,16 @@ class CareerTrekSettingsForm extends ConfigFormBase {
     ];
     $form['apply_button'] = [
       '#type' => 'textfield',
-      '#title' => $this->t('Apply Filter Text'),
+      '#title' => $this->t('Apply Filters Text'),
       '#default_value' => $config->get('apply_button') ?? "Apply filters",
-      '#description' => $this->t('Enter the text for the Apply Filter.'),
+      '#description' => $this->t('Enter the text for the Apply Filters button.'),
     ];
 
     $form['clear_filter_button'] = [
       '#type' => 'textfield',
-      '#title' => $this->t('Clear Filter Text'),
+      '#title' => $this->t('Clear Filters Text'),
       '#default_value' => $config->get('clear_filter_button') ?? "Clear filters",
-      '#description' => $this->t('Enter the text for the Clear filters.'),
+      '#description' => $this->t('Enter the text for the Clear Filters button.'),
     ];
 
     // Add a wrapper to the entire form for AJAX partial rendering.

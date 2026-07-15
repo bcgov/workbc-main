@@ -2,6 +2,7 @@
 use Drupal\taxonomy\Entity\Term;
 use Drupal\views\ViewExecutable;
 use Drupal\media\Entity\Media;
+use Drupal\core\Url;
 
 /**
  * Implements hook_preprocess_views_view().
@@ -9,7 +10,7 @@ use Drupal\media\Entity\Media;
 function workbc_career_trek_preprocess_views_view(&$variables) {
   // Check if it's the view you want to target
   $view = $variables['view'];
-  if ($view->id() == 'career_trek_redux' && $view->current_display == 'block_1') {
+  if ($view->id() === 'career_trek_redux' && $view->current_display === 'block_1') {
     $values = [];
     if ($exposed = $view->getExposedInput()) {
       $filters = $view->display_handler->getOption('filters');
@@ -52,7 +53,7 @@ function workbc_career_trek_preprocess_views_view(&$variables) {
             )
           ) {
             if ($max >= $view->filter['field_annual_salary_value']->options['value']['max']) $max .= '+';
-            $values[] = "Salary $" . $min . " - $" . $max;
+            $values[] = "Salary $" . $min . "−$" . $max;
           }
         } else {
           if (!empty($expose) && $key != "reset" && $key != "annual_salary_op") {
@@ -67,10 +68,62 @@ function workbc_career_trek_preprocess_views_view(&$variables) {
 }
 
 /**
+ * Implements hook_preprocess_views_view_fields().
+ */
+function workbc_career_trek_preprocess_views_view_fields(&$variables) {
+  $view = $variables['view'];
+  if ($view->id() === 'career_trek_redux' && $view->current_display === 'block_1') {
+    $variables['exposed_input'] = http_build_query($view->exposed_raw_input);
+  }
+  elseif ($view->id() === 'career_trek_redux' && $view->current_display === 'block_3') {
+    $exposed_input = parse_url(\Drupal::request()->getRequestUri(), PHP_URL_QUERY);
+    $variables['exposed_input'] = $exposed_input;
+  }
+}
+
+/**
+ * Implements hook_preprocess_node().
+ */
+function workbc_career_trek_preprocess_node(&$variables) {
+  $node = $variables['node'];
+  if ($node->getType() === 'career_profile' && $variables['view_mode'] === 'full_career_trek_videos') {
+    $exposed_input = parse_url(\Drupal::request()->getRequestUri(), PHP_URL_QUERY);
+    $variables['exposed_input'] = $exposed_input;
+    parse_str($exposed_input ?? '', $args);
+
+    // Preload the EPBC/FYP categories if needed.
+    $epbc_tree = [];
+    if (array_key_exists('field_epbc_categories_target_id', $args)) {
+      $epbc_tree = array_reduce(\Drupal::entityTypeManager()->getStorage('taxonomy_term')->loadTree('epbc_categories'),
+      function ($epbc_tree, $term) {
+        if ($term->depth > 0) {
+          $parent_tid = reset($term->parents);
+          if (!array_key_exists($parent_tid, $epbc_tree)) {
+            $epbc_tree[$parent_tid] = [];
+          }
+          $epbc_tree[$parent_tid][] = $term->tid;
+          $epbc_tree[$term->tid] = $parent_tid;
+        }
+        return $epbc_tree;
+      }, []);
+    }
+
+    // Add the career's EPBC categories and filter by user-selected categories.
+    foreach (array_filter(array_keys($variables['content']['field_epbc_categories']), 'is_integer') as $key) {
+      $cat = intval($variables['content']['field_epbc_categories'][$key]['#plain_text']);
+      if (!array_key_exists('field_epbc_categories_target_id', $args) || array_key_exists($epbc_tree[$cat], $args['field_epbc_categories_target_id'])) {
+        $variables['epbc_categories'][] = $cat;
+      }
+    }
+  }
+}
+
+/**
  * Implements hook_search_api_autocomplete_suggestions_alter().
  */
 function workbc_career_trek_search_api_autocomplete_suggestions_alter(array &$suggestions, array $alter_params) {
   if (!$alter_params['query']->hasTag('career_trek_search')) return;
+  /** @var \Drupal\search_api_autocomplete\Suggestion\SuggestionInterface[] $suggestions */
   foreach ($suggestions as &$suggestion) {
     $params = $suggestion->getUrl()->getRouteParameters();
     $media = Media::load($params['media']);
@@ -80,6 +133,10 @@ function workbc_career_trek_search_api_autocomplete_suggestions_alter(array &$su
         '#markup' => $markup
       );
       $suggestion->setRender($render);
+      $suggestion->setUrl(Url::fromRoute('workbc_career_trek.content', [
+        'noc' => $media->field_noc->value,
+        'episode' => $media->field_episode->value
+      ]));
     }
   }
 }
@@ -207,19 +264,8 @@ function workbc_career_trek_theme($existing, $type, $theme, $path) {
         'find_job_url'=>'',
       ],
     ],
-  'career_trek_video_detail' => [
-      'variables' => [
-        'noc' => NULL,
-        'episode' => NULL,
-        'node' => NULL,
-        'content' => NULL,
-        'view_mode' => NULL
-      ],
-      'template' => 'career-trek-video-detail',
-    ],
   ];
 }
-
 
 /**
  * Implements hook_form_FORM_ID_alter().
@@ -273,8 +319,21 @@ function workbc_career_trek_form_views_exposed_form_alter(&$form, \Drupal\Core\F
         }
       }
     }
-  }
 
+    // Adjust initial values.
+    $input = $form_state->getUserInput();
+    $storage = $form_state->getStorage();
+    $view = $storage['view'];
+    if (array_key_exists('field_teer_value', $input) && $input['field_teer_value'] !== "All") {
+      $form['field_teer_value_collapsible']['#open'] = true;
+    }
+    if (array_key_exists('salary', $input) && (
+      $input['salary']['min'] > $view->filter['field_annual_salary_value']->options['value']['min'] ||
+      $input['salary']['max'] < $view->filter['field_annual_salary_value']->options['value']['max']
+    )) {
+      $form['salary_collapsible']['#open'] = true;
+    }
+  }
 }
 
 /**

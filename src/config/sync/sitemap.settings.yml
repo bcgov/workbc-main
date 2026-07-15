@@ -1,0 +1,19 @@
+_core:
+  default_config_hash: GUKBlXIBQ2d0H8Q7M_Rqn1Q93tRxLPfs9cG-VeQC9NI
+page_title: Sitemap
+path: /sitemap2
+message:
+  value: ''
+  format: plain_text
+plugins:
+  frontpage:
+    enabled: false
+  content:
+    base_plugin: content
+    enabled: true
+    weight: -48
+    settings:
+      title: ''
+    id: content
+    provider: workbc_custom
+include_css: true
