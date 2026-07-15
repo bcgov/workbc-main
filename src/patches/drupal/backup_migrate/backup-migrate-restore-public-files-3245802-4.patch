@@ -1,17 +1,9 @@
 diff --git a/src/Core/Service/TarArchiveReader.php b/src/Core/Service/TarArchiveReader.php
-index bf1b9d6..0077483 100644
+index e4e522a..03823ae 100644
 --- a/src/Core/Service/TarArchiveReader.php
 +++ b/src/Core/Service/TarArchiveReader.php
-@@ -90,6 +90,7 @@ class TarArchiveReader implements ArchiveReaderInterface {
-       }
- 
-       // Add the destination directory to the path.
-+      $filename = $header['filename'];
-       if (substr($header['filename'], 0, 1) == '/') {
-         $header['filename'] = $directory . $header['filename'];
-       }
-@@ -128,7 +129,7 @@ class TarArchiveReader implements ArchiveReaderInterface {
- 
+@@ -137,7 +137,7 @@ class TarArchiveReader implements ArchiveReaderInterface {
+
        // Extract a directory.
        if ($header['typeflag'] == "5") {
 -        if (!$this->createDir($header['filename'])) {
@@ -19,7 +11,7 @@ index bf1b9d6..0077483 100644
            throw new BackupMigrateException(
              'Unable to create directory %filename',
              ['%filename' => $header['filename']]
-@@ -137,7 +138,7 @@ class TarArchiveReader implements ArchiveReaderInterface {
+@@ -146,7 +146,7 @@ class TarArchiveReader implements ArchiveReaderInterface {
        }
        // Extract a file/symlink.
        else {
@@ -28,13 +20,15 @@ index bf1b9d6..0077483 100644
            throw new BackupMigrateException(
              'Unable to create directory for %filename',
              ['%filename' => $header['filename']]
-@@ -220,23 +221,24 @@ class TarArchiveReader implements ArchiveReaderInterface {
-    * Create a directory or return true if it already exists.
+@@ -231,23 +231,26 @@ class TarArchiveReader implements ArchiveReaderInterface {
+    * @param mixed $directory
+    *   The directory.
     *
-    * @param $directory
-+   * @param $filename
-    *
++   * @param mixed $filename
++   *   The filename.
++   *
     * @return bool
+    *   TRUE when successful, FALSE otherwise.
     */
 -  private function createDir($directory) {
 -    if ((@is_dir($directory)) || ($directory == '')) {
@@ -44,7 +38,7 @@ index bf1b9d6..0077483 100644
      }
 -    $parent = dirname($directory);
 +    $parent = dirname($filename);
- 
+
      if (
 -      ($parent != $directory) &&
 +      ($parent != $filename) &&
