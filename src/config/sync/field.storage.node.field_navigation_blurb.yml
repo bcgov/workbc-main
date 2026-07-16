@@ -9,7 +9,7 @@ field_name: field_navigation_blurb
 entity_type: node
 type: string
 settings:
-  max_length: 137
+  max_length: 158
   case_sensitive: false
   is_ascii: false
 module: core
