@@ -126,14 +126,13 @@
             border-right: 3px solid $workbc_light_theme_background_accent;
 
             & > .nav-item {
-              height: 9.25rem;
+              height: 7.75rem;
 
               .nav-blurb {
                 display: -webkit-box;
-                -webkit-line-clamp: 4;
+                -webkit-line-clamp: 3;
                 -webkit-box-orient: vertical;
                 overflow: hidden;
-                text-overflow: ellipsis;
               }
             }
 

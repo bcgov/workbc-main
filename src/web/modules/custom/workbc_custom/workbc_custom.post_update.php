@@ -6,6 +6,7 @@ use Drupal\file\Entity\File;
 use Drupal\media\Entity\Media;
 use Drupal\node\Entity\Node;
 use Drupal\path_alias\Entity\PathAlias;
+use Drupal\field\Entity\FieldStorageConfig;
 
 /**
  * Add redirections of the form http://www.workbc.ca/Job-Seekers/Career-Profiles/[NOC]
@@ -1502,4 +1503,66 @@ function workbc_custom_post_update_1997_media_image_alt_text(&$sandbox = NULL) {
 
   $sandbox['#finished'] = empty($sandbox['images']) ? 1 : ($sandbox['count'] - count($sandbox['images'])) / $sandbox['count'];
   return t("[WBCAMS-1997] $message");
+}
+
+function workbc_custom_post_update_2086_navigation_blurb_max_length(&$sandbox = NULL) {
+  _change_text_field_max_length('node', 'field_navigation_blurb', 137);
+}
+
+
+/**
+ * Updates the length of a text field which already contains data.
+ *
+ * @param string $entity_type_id
+ *   The entity type ID.
+ * @param string $field_name
+ *   The field name to update.
+ * @param int $new_length
+ *   The new maximum length for the field.
+ */
+function _change_text_field_max_length(string $entity_type_id, string $field_name, int $new_length): void {
+  $schema = \Drupal::database()->schema();
+  $table = $entity_type_id . '__' . $field_name;
+  $table_revision = $entity_type_id . '_revision__' . $field_name;
+  $new_field = [
+    'type' => 'varchar',
+    'length' => $new_length,
+  ];
+  $col_name = $field_name . '_value';
+
+  try {
+    $schema->changeField($table, $col_name, $col_name, $new_field);
+
+    if ($schema->tableExists($table_revision)) {
+      $schema->changeField($table_revision, $col_name, $col_name, $new_field);
+    }
+
+    $storage_key = "$entity_type_id.field_schema_data.$field_name";
+    $storage_schema = \Drupal::keyValue('entity.storage_schema.sql');
+    $field_schema = $storage_schema->get($storage_key);
+    $field_schema[$table]['fields'][$col_name]['length'] = $new_length;
+
+    if ($schema->tableExists($table_revision)) {
+      $field_schema[$table_revision]['fields'][$col_name]['length'] = $new_length;
+    }
+
+    $storage_schema->set($storage_key, $field_schema);
+
+    \Drupal::configFactory()
+      ->getEditable("field.storage.$entity_type_id.$field_name")
+      ->set('settings.max_length', $new_length)
+      ->save(TRUE);
+
+    FieldStorageConfig::loadByName($entity_type_id, $field_name)->save();
+  }
+  catch (\Exception $e) {
+    \Drupal::logger('system')->error(
+      'Failed to update field length for @entity_type.@field: @message',
+      [
+        '@entity_type' => $entity_type_id,
+        '@field' => $field_name,
+        '@message' => $e->getMessage(),
+      ]
+    );
+  }
 }
