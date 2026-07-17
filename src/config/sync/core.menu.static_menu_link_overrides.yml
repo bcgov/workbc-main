@@ -38,8 +38,8 @@ definitions:
     expanded: false
     enabled: true
   standard__front_page:
-    weight: 4
     menu_name: main
     parent: ''
+    weight: 4
     expanded: false
     enabled: true

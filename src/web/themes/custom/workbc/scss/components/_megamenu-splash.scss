@@ -4,6 +4,8 @@
   padding: 30px;
   row-gap: 15px;
   cursor: default;
+  max-height: 375px;
+  overflow: hidden;
 
   a {
     @include link-chevron;

@@ -10,7 +10,7 @@ field_name: field_navigation_blurb
 entity_type: node
 bundle: page
 label: 'Navigation Blurb'
-description: 'Blurb that appears in Main Navigation menu. Only applies to L2 pages.'
+description: 'Blurb that appears in Main Navigation menu. Only applies to L2 pages. Limited to 137 characters.'
 required: false
 translatable: false
 default_value: {  }

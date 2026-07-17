@@ -6,6 +6,7 @@ use Drupal\file\Entity\File;
 use Drupal\media\Entity\Media;
 use Drupal\node\Entity\Node;
 use Drupal\path_alias\Entity\PathAlias;
+use Drupal\field\Entity\FieldStorageConfig;
 
 /**
  * Add redirections of the form http://www.workbc.ca/Job-Seekers/Career-Profiles/[NOC]
