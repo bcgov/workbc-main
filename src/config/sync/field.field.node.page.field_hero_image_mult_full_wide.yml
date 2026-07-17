@@ -1,0 +1,29 @@
+uuid: 766470d2-fbda-4315-bb25-9f56f7418ac5
+langcode: en
+status: true
+dependencies:
+  config:
+    - field.storage.node.field_hero_image_mult_full_wide
+    - media.type.image
+    - node.type.page
+id: node.page.field_hero_image_mult_full_wide
+field_name: field_hero_image_mult_full_wide
+entity_type: node
+bundle: page
+label: 'Hero Image Multiple (Full-Width, Wide Screen)'
+description: ''
+required: false
+translatable: false
+default_value: {  }
+default_value_callback: ''
+settings:
+  handler: 'default:media'
+  handler_settings:
+    target_bundles:
+      image: image
+    sort:
+      field: _none
+      direction: ASC
+    auto_create: false
+    auto_create_bundle: ''
+field_type: entity_reference
