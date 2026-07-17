@@ -81,7 +81,7 @@ class MenuBlock extends BlockBase {
       if ($item->hasChildren) {
         array_push($li_classes, "has-submenu");
       }
-      $output .= "<li tabindex=\"0\" class=\"" . implode(' ', $li_classes) . "\">\n";
+      $output .= "<li tabindex=\"0\" " . ($item->hasChildren ? "aria-expanded=\"false\" " : "") . "aria-role=\"menuitem\" class=\"" . implode(' ', $li_classes) . "\">\n";
       $output .= $this->renderLink($item->link, $item->hasChildren, 1) . "\n";
       if ($item->hasChildren) {
         $output .= "<div class=\"submenu-container\"><div class=\"row g-0 submenu\">\n";
@@ -91,7 +91,7 @@ class MenuBlock extends BlockBase {
         $output .= "<div class=\"col-sm-4\">\n";
         $output .= "<ul class=\"nav-t2\">\n";
         foreach ($column1 as $child) {
-          $output .= "<li class=\"nav-item\">\n";
+          $output .= "<li aria-role=\"menuitem\" class=\"nav-item\">\n";
           $output .= $this->renderLink($child->link, $child->hasChildren, 2) . "\n";
           $output .= "</li>\n";
         }
@@ -103,7 +103,7 @@ class MenuBlock extends BlockBase {
         if (count($column2) > 0) {
           $output .= "<ul class=\"nav-t2\">\n";
           foreach ($column2 as $child) {
-            $output .= "<li class=\"nav-item\">\n";
+            $output .= "<li aria-role=\"menuitem\" class=\"nav-item\">\n";
             $output .= $this->renderLink($child->link, false, 2) . "\n";
             $output .= "</li>\n";
           }

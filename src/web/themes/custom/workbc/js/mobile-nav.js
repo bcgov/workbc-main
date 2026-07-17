@@ -11,6 +11,11 @@
         var opened = offCanvas.classList.contains("mm-menu--opened");
         // Trigger the open or close method of mmenu.js.
         mmenuApi[opened ? "close" : "open"]();
+      }).on('keyup', function(event) {
+        if (event.key == "Enter" || event.key == " " || event.key == "Spacebar") {
+          var opened = offCanvas.classList.contains("mm-menu--opened");
+          mmenuApi[opened ? "close" : "open"]();
+        }
       });
 
       function updateSplash(panel) {
@@ -22,11 +27,22 @@
         }
       }
 
+      let parentId = null;
+      function updateFocus(panel) {
+        setTimeout(() => {
+          $(`#${parentId} a`, offCanvas).focus();
+          parentId = panel.dataset.mmParent ?? null;
+        }, 0);
+      }
+
       $(once("mobileNavClose", "#off-canvas", context)).each(() => {
         mmenuApi.bind('open:after', () => {
-          updateSplash($(".mm-panel--opened", offCanvas)[0]);
+          const panel = $(".mm-panel--opened", offCanvas)[0];
+          updateFocus(panel);
+          updateSplash(panel);
         });
         mmenuApi.bind('openPanel:before', (panel) => {
+          updateFocus(panel);
           updateSplash(panel);
         });
       });
