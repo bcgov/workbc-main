@@ -7,8 +7,8 @@
       $(once("mainNav", ".nav-t1 > .nav-item", context)).on('focus', function(event) {
         $(this).parent().children(".nav-item").removeClass('open').attr('aria-expanded', 'false');
       }).on('blur', function(event) {
-        if (event.relatedTarget && !$(event.relatedTarget).hasClass('nav-link')) {
-          $(this).removeClass('open').attr('aria-expanded', 'true');
+        if (event.relatedTarget && !$(event.relatedTarget).hasClass('nav-link') && !(event.relatedTarget.parent('.megamenu-splash').length > 0)) {
+          $(this).removeClass('open').attr('aria-expanded', 'false');
         }
       }).on('click', function(event) {
         const alreadyOpen = $(event.target).is('.open') || $(event.target).parent('.open').length > 0;
