@@ -308,6 +308,15 @@ function workbc_custom_form_alter(&$form, FormStateInterface $form_state, $form_
     if (isset($form['field_navigation_blurb']['widget'][0]['value'])) {
       $form['field_navigation_blurb']['widget'][0]['value']['#maxlength'] = 137;
     }
+
+    $alias = $form_state->getFormObject()->getEntity()->toUrl()->toString();
+    $front = \Drupal::configFactory()->get('system.site')->get('page.front');
+    $form['field_hero_image_mult_full_small']['#access'] = $alias === $front;
+    $form['field_hero_image_mult_full_width']['#access'] = $alias === $front;
+    $form['field_hero_image_mult_full_wide']['#access'] = $alias === $front;
+    $form['field_hero_image_full_small']['#access'] = $alias <> $front;
+    $form['field_hero_image_full_width']['#access'] = $alias <> $front;
+    $form['field_hero_image_full_wide']['#access'] = $alias <> $front;
   }
 
 }

@@ -11,6 +11,9 @@ dependencies:
     - field.field.node.page.field_hero_image_full_wide
     - field.field.node.page.field_hero_image_full_width
     - field.field.node.page.field_hero_image_media
+    - field.field.node.page.field_hero_image_mult_full_small
+    - field.field.node.page.field_hero_image_mult_full_wide
+    - field.field.node.page.field_hero_image_mult_full_width
     - field.field.node.page.field_hero_text
     - field.field.node.page.field_language
     - field.field.node.page.field_metatag_description
@@ -43,7 +46,7 @@ mode: default
 content:
   body:
     type: text_textarea_with_summary
-    weight: 14
+    weight: 17
     region: content
     settings:
       rows: 9
@@ -59,7 +62,7 @@ content:
     third_party_settings: {  }
   field_content:
     type: paragraphs
-    weight: 16
+    weight: 19
     region: content
     settings:
       title: Section
@@ -117,7 +120,7 @@ content:
         edit_form_mode: default
   field_hero_image_media:
     type: media_library_widget
-    weight: 12
+    weight: 15
     region: content
     settings:
       media_types: {  }
@@ -125,9 +128,33 @@ content:
     third_party_settings:
       media_library_edit:
         show_edit: true
+  field_hero_image_mult_full_small:
+    type: media_library_widget
+    weight: 14
+    region: content
+    settings:
+      media_types: {  }
+      form_mode: media_library
+    third_party_settings: {  }
+  field_hero_image_mult_full_wide:
+    type: media_library_widget
+    weight: 13
+    region: content
+    settings:
+      media_types: {  }
+      form_mode: media_library
+    third_party_settings: {  }
+  field_hero_image_mult_full_width:
+    type: media_library_widget
+    weight: 12
+    region: content
+    settings:
+      media_types: {  }
+      form_mode: media_library
+    third_party_settings: {  }
   field_hero_text:
     type: text_textarea
-    weight: 13
+    weight: 16
     region: content
     settings:
       rows: 5
@@ -135,13 +162,13 @@ content:
     third_party_settings: {  }
   field_language:
     type: options_select
-    weight: 23
+    weight: 26
     region: content
     settings: {  }
     third_party_settings: {  }
   field_metatag_description:
     type: string_textfield
-    weight: 19
+    weight: 22
     region: content
     settings:
       size: 160
@@ -149,7 +176,7 @@ content:
     third_party_settings: {  }
   field_multilingual_centre:
     type: link_default
-    weight: 24
+    weight: 27
     region: content
     settings:
       placeholder_url: ''
@@ -171,7 +198,7 @@ content:
     third_party_settings: {  }
   field_related_topics:
     type: entity_reference_autocomplete
-    weight: 17
+    weight: 20
     region: content
     settings:
       match_operator: CONTAINS
@@ -181,7 +208,7 @@ content:
     third_party_settings: {  }
   field_related_topics_blurb:
     type: text_textarea
-    weight: 20
+    weight: 23
     region: content
     settings:
       rows: 5
@@ -189,7 +216,7 @@ content:
     third_party_settings: {  }
   field_related_topics_image:
     type: media_library_widget
-    weight: 21
+    weight: 24
     region: content
     settings:
       media_types: {  }
@@ -197,13 +224,13 @@ content:
     third_party_settings: {  }
   field_scheduled_publish:
     type: scheduled_publish
-    weight: 25
+    weight: 28
     region: content
     settings: {  }
     third_party_settings: {  }
   field_tags:
     type: entity_reference_autocomplete_tags
-    weight: 18
+    weight: 21
     region: content
     settings:
       match_operator: CONTAINS
@@ -220,7 +247,7 @@ content:
     third_party_settings: {  }
   moderation_state:
     type: moderation_state_default
-    weight: 22
+    weight: 25
     region: content
     settings: {  }
     third_party_settings: {  }
@@ -231,7 +258,7 @@ content:
     settings: {  }
     third_party_settings: {  }
   simple_sitemap:
-    weight: 15
+    weight: 18
     region: content
     settings: {  }
     third_party_settings: {  }
@@ -257,7 +284,7 @@ content:
     settings: {  }
     third_party_settings: {  }
   url_redirects:
-    weight: 26
+    weight: 29
     region: content
     settings: {  }
     third_party_settings: {  }
