@@ -11,7 +11,7 @@ field_name: field_hero_image_mult_full_small
 entity_type: node
 bundle: page
 label: 'Hero Image Multiple (Full-Width, Mobile)'
-description: ''
+description: 'Hero image, full-width version for mobile. If missing, it is replaced by <strong>Hero Image (Full-Width, Tablet/Desktop)</strong>.'
 required: false
 translatable: false
 default_value: {  }

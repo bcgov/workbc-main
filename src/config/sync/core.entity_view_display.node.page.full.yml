@@ -45,12 +45,12 @@ content:
     label: hidden
     settings: {  }
     third_party_settings: {  }
-    weight: 8
+    weight: 11
     region: content
   content_moderation_control:
     settings: {  }
     third_party_settings: {  }
-    weight: 6
+    weight: 9
     region: content
   created:
     type: timestamp
@@ -78,7 +78,7 @@ content:
       view_mode: default
       link: ''
     third_party_settings: {  }
-    weight: 9
+    weight: 12
     region: content
   field_hero_image_full_small:
     type: entity_reference_entity_view
@@ -114,6 +114,33 @@ content:
       view_mode: hero_image
       link: false
     third_party_settings: {  }
+    weight: 8
+    region: content
+  field_hero_image_mult_full_small:
+    type: entity_reference_entity_view
+    label: above
+    settings:
+      view_mode: full
+      link: false
+    third_party_settings: {  }
+    weight: 7
+    region: content
+  field_hero_image_mult_full_wide:
+    type: entity_reference_entity_view
+    label: above
+    settings:
+      view_mode: full
+      link: false
+    third_party_settings: {  }
+    weight: 6
+    region: content
+  field_hero_image_mult_full_width:
+    type: entity_reference_entity_view
+    label: above
+    settings:
+      view_mode: full
+      link: false
+    third_party_settings: {  }
     weight: 5
     region: content
   field_hero_text:
@@ -121,19 +148,19 @@ content:
     label: above
     settings: {  }
     third_party_settings: {  }
-    weight: 7
+    weight: 10
     region: content
   field_page_format:
     type: list_key
     label: hidden
     settings: {  }
     third_party_settings: {  }
-    weight: 10
+    weight: 13
     region: content
   links:
     settings: {  }
     third_party_settings: {  }
-    weight: 11
+    weight: 14
     region: content
   uid:
     type: author
@@ -147,9 +174,6 @@ hidden:
   extra_field_workbc_published_on: true
   field_content_group: true
   field_hero_image: true
-  field_hero_image_mult_full_small: true
-  field_hero_image_mult_full_wide: true
-  field_hero_image_mult_full_width: true
   field_language: true
   field_metatag_description: true
   field_multilingual_centre: true

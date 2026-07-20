@@ -74,9 +74,9 @@
 {% set hero_image = content.field_hero_image_media[0] %}
 
 {% if is_front %}
-  {% set image_count = content.field_hero_image_mult_full_width|filter((v, k) => k|first != '#')|length %}
-  {% set random_image = random(0, image_count-1) %}
-  {% set hero_image_fullwidth = content.field_hero_image_mult_full_width[random_image] %}
+  {% if  content.field_hero_image_mult_full_width[random_hero_image] is not null %}
+    {% set hero_image_fullwidth = content.field_hero_image_mult_full_width[random_hero_image] %}
+  {% endif %}
 {% else %}
   {% set hero_image_fullwidth = content.field_hero_image_full_width[0] %}
 {% endif %}
