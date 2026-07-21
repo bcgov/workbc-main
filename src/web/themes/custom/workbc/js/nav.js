@@ -7,7 +7,7 @@
       $(once("mainNav", ".nav-t1 > .nav-item", context)).on('focus', function(event) {
         $(this).parent().children(".nav-item").removeClass('open').attr('aria-expanded', 'false');
       }).on('blur', function(event) {
-        if (event.relatedTarget && !$(event.relatedTarget).hasClass('nav-link') && !(event.relatedTarget.parent('.megamenu-splash').length > 0)) {
+        if (event.relatedTarget && !$(event.relatedTarget).hasClass('nav-link') && !$(event.relatedTarget).parents('.megamenu-splash').length > 0) {
           $(this).removeClass('open').attr('aria-expanded', 'false');
         }
       }).on('click', function(event) {
@@ -38,7 +38,8 @@
           return false;
         }
       });
-      $(once("mainNav", ".nav-t2 .nav-link", context)).on('blur', function(event) {
+      $(once("mainNav", ".nav-t2 .nav-link, .megamenu-splash *", context)).on('blur', function(event) {
+        console.log(event.target, event.relatedTarget);
         if (event.relatedTarget && !$(event.relatedTarget).parents('.nav-t1').length) {
           $(".nav-t1 > .nav-item").removeClass('open').attr('aria-expanded', 'false');
         }
