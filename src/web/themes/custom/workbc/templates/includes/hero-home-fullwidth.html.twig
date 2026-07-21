@@ -2,13 +2,13 @@
 {% set hero_image_fullwidth_wide = content.field_hero_image_mult_full_wide[random_hero_image] | default(hero_image_fullwidth) %}
 <div class="hero-home hero-fullwidth-banner">
   <div class="hero-image-wrapper">
-    {{ hero_image_fullwidth }}
+    {{ hero_image_fullwidth|merge({'#cache': {'max-age': 0}}) }}
   </div>
   <div class="hero-image-wrapper-small">
-    {{ hero_image_fullwidth_small }}
+    {{ hero_image_fullwidth_small|merge({'#cache': {'max-age': 0}}) }}
   </div>
   <div class="hero-image-wrapper-wide">
-    {{ hero_image_fullwidth_wide }}
+    {{ hero_image_fullwidth_wide|merge({'#cache': {'max-age': 0}}) }}
   </div>
   <div class="hero-home__container container-sm">
     {{ drupal_entity('block', 'searchrecentjobs') }}
