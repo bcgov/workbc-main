@@ -152,6 +152,16 @@ function workbc_career_trek_preprocess_file_video(&$variables) {
 }
 
 /**
+ * Implements hook_preprocess_better_social_sharing_buttons().
+ */
+function workbc_career_trek_preprocess_better_social_sharing_buttons(&$variables) {
+  if (isset($variables['items']['page_url'])) {
+    $url = $variables['items']['page_url'];
+    $variables['items']['page_url'] = $url->toString() . urlencode('?' . http_build_query(\Drupal::request()->query->all()));
+  }
+}
+
+/**
  * Implements hook_views_query_alter().
  *
  * Sorts the video library according to filter usage:
