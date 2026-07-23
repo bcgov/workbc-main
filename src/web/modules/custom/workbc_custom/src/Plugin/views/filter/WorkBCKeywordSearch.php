@@ -171,6 +171,7 @@ class WorkBCKeywordSearch extends StringFilter {
 
     // Precompute some values to avoid unneeded work while we process the results.
     $search_context = [
+      'keys' => $query->getKeys(),
       // Generate a regex that matches all the keywords and fails if some are missing.
       'regex_include' => '/^' . implode('', array_map(function ($keyword) {
         $escaped = preg_quote($keyword);
@@ -182,10 +183,13 @@ class WorkBCKeywordSearch extends StringFilter {
     return array_values(array_filter(array_map(function($item) use ($results, $query, $search_context) {
       // Keep only node results.
       if (preg_match('/entity:node\/(\d+):/', $item->getId(), $match)) {
-        return [
-          'nid' => $match[1],
-          'excerpts' => $this->parseSolrExcerpt($item, $results, $query, $search_context)
-        ];
+        $excerpts = $this->parseSolrExcerpt($item, $results, $query, $search_context);
+        if (!empty($excerpts)) {
+          return [
+            'nid' => $match[1],
+            'excerpts' => $excerpts
+          ];
+        }
       }
 
       return false;
@@ -197,12 +201,18 @@ class WorkBCKeywordSearch extends StringFilter {
     $highlight = $results->getExtraData('search_api_solr_response')['highlighting'];
     $key = $doc['hash'] . '-' . $item->getIndex()->id() . '-' . $item->getId();
     if (!array_key_exists('tcngramm_X3b_en_field_job_titles', $highlight[$key])) return [];
-    // Discard highlights that contain non-verbatim keywords.
-    $excerpts = array_filter($highlight[$key]['tcngramm_X3b_en_field_job_titles'], function ($title) use ($search_context) {
-      return !preg_match($search_context['regex_exclude'], $title);
-    });
+
+    $excerpts = $highlight[$key]['tcngramm_X3b_en_field_job_titles'];
+
+    // No AND/OR: Discard highlights that contain non-verbatim keywords.
+    if (!preg_match('/\sOR\s|\sAND\s|&&|\|\|/i', $search_context['keys'])) {
+      $excerpts = array_filter($excerpts, function ($title) use ($search_context) {
+        return !preg_match($search_context['regex_exclude'], $title);
+      });
+    }
+
+    // In case it's our "safe" use case, make sure the highlighted keywords match ALL the query keywords.
     if (in_array('explore_careers_search_modified', $query->getTags())) {
-      // In case it's our "safe" use case, make sure the highlighted keywords match all the query keywords.
       $excerpts = array_filter($excerpts, function ($title) use ($search_context) {
         return preg_match($search_context['regex_include'], $title);
       });
