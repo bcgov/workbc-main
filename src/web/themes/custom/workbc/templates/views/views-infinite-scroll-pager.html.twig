@@ -5,12 +5,13 @@
  */
 #}
 
+<div style="text-align:center; padding-top:10px; padding-bottom:10px;">
 {% if items.next %}
-<div style="text-align:center; padding-top:10px;">
 <ul{{ attributes }}>
   <li class="pager__item">
     <a class="btn-primary" href="{{ items.next.href }}" title="{{ 'Load more items'|t }}" rel="next">{{ options.button_text }}</a>
   </li>
 </ul>
-</div>
+<div class="result-summary" style="padding-left:2rem;">Showing <span class="update-result">15</span> of {{ view.total_rows }} videos</div>
 {% endif %}
+</div>
