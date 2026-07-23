@@ -175,7 +175,7 @@ class WorkBCKeywordSearch extends StringFilter {
       // Generate a regex that matches all the keywords and fails if some are missing.
       'regex_include' => '/^' . implode('', array_map(function ($keyword) {
         $escaped = preg_quote($keyword);
-        return "(?=.*<strong>{$escaped}<\/strong>)";
+        return "(?=.*{$escaped})";
       }, array_unique(preg_split('/[^a-zA-Z0-9]+/', $query->getKeys(), -1, PREG_SPLIT_NO_EMPTY)))) . '/si',
       // Generate a regex that matches all <strong> fragments that DON'T include the given keywords.
       'regex_exclude' => '/<strong>(?:(?!\b(?:' . implode('|', array_map('preg_quote', array_unique(preg_split('/[^a-zA-Z0-9]+/', $query->getKeys(), -1, PREG_SPLIT_NO_EMPTY)))) . ')\b).)*?<\/strong>/i',
@@ -204,8 +204,7 @@ class WorkBCKeywordSearch extends StringFilter {
 
     $excerpts = $highlight[$key]['tcngramm_X3b_en_field_job_titles'];
 
-    // No AND/OR: Discard highlights that contain non-verbatim keywords.
-    if (!preg_match('/\sOR\s|\sAND\s|&&|\|\|/i', $search_context['keys'])) {
+    if (preg_match('/"/', $search_context['keys'])) {
       $excerpts = array_filter($excerpts, function ($title) use ($search_context) {
         return !preg_match($search_context['regex_exclude'], $title);
       });
