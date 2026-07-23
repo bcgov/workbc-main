@@ -109,10 +109,18 @@ class MenuBlock extends BlockBase {
           }
           $output .= "</ul>\n";
         }
+        $rendered = "";
+        if ($item->link->getEntity()->get('field_splash')->value) {
+          $build = [
+            '#type' => 'processed_text',
+            '#text' => $item->link->getEntity()->get('field_splash')->value,
+            '#format' => 'full_html',
+          ];
+          $rendered = \Drupal::service('renderer')->renderInIsolation($build);
+        }
         $output .= "</div>\n";
-
         $output .= "<div class=\"col-sm-4 megamenu-splash\">\n";
-        $output .= $item->link->getEntity()->get('field_splash')->value;
+        $output .= $rendered;
         $output .= "</div></div></div>\n";
       }
       $output .= "</li>\n";
