@@ -39,14 +39,8 @@
         }
       });
       $(once("mainNav", ".nav-t2 .nav-link, .megamenu-splash *", context)).on('blur', function(event) {
-        console.log(event.target, event.relatedTarget);
         if (event.relatedTarget && !$(event.relatedTarget).parents('.nav-t1').length) {
           $(".nav-t1 > .nav-item").removeClass('open').attr('aria-expanded', 'false');
-        }
-      });
-      $(once("mainNav", ".nav-t2 .nav-link", context)).on('blur', function(event) {
-        if (event.relatedTarget && !$(event.relatedTarget).parents('.nav-t1').length) {
-          $(".nav-t1 > .nav-item").removeClass('open');
         }
       });
       $(once("mainNav", "body", context)).on('click', function(event) {
