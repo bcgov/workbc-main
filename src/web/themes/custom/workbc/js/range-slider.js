@@ -81,17 +81,18 @@
             to: salaryMax,
             step: SALARY_STEP,
             width: (width > 0 && width !== "") ? width : 300,
-            format: function (value) {
-              const val = parseInt(value);
-              return (val === salaryMax) ? `${salaryMax}+` : val;
-            },
-            showLabels: true,
+            showLabels: false,
+            showScale: true,
             isRange: true,
             onstatechange: function (value) {
               const [minValue, maxValue] = value.split(',');
               if (value != `${salaryMin},${salaryMin}`) {
-                $('fieldset[data-drupal-selector="edit-salary-wrapper"] input[name="salary[min]"]').val(minValue);
-                $('fieldset[data-drupal-selector="edit-salary-wrapper"] input[name="salary[max]"]').val(maxValue);
+                const $wrapper = $('fieldset[data-drupal-selector="edit-salary-wrapper"]');
+                $('input[name="salary[min]"]', $wrapper).val(minValue);
+                $('input[name="salary[max]"]', $wrapper).val(maxValue);
+                $('.scale span:first ins', $wrapper).text(minValue);
+                const val = parseInt(maxValue);
+                $('.scale span:last ins', $wrapper).text(val === salaryMax ? `${salaryMax}+` : val);
               }
             }
           });
