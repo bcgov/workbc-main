@@ -118,16 +118,16 @@
         },
         {
             "name": "aws/aws-sdk-php",
-            "version": "3.389.0",
+            "version": "3.389.2",
             "source": {
                 "type": "git",
                 "url": "https://github.com/aws/aws-sdk-php.git",
-                "reference": "e6e6649e58826c7edaa9f546f444461a25a22719"
+                "reference": "784e0fb95e752e55c4654b5800b900c78f6d3990"
             },
             "dist": {
                 "type": "zip",
-                "url": "https://api.github.com/repos/aws/aws-sdk-php/zipball/e6e6649e58826c7edaa9f546f444461a25a22719",
-                "reference": "e6e6649e58826c7edaa9f546f444461a25a22719",
+                "url": "https://api.github.com/repos/aws/aws-sdk-php/zipball/784e0fb95e752e55c4654b5800b900c78f6d3990",
+                "reference": "784e0fb95e752e55c4654b5800b900c78f6d3990",
                 "shasum": ""
             },
             "require": {
@@ -209,9 +209,9 @@
             "support": {
                 "forum": "https://github.com/aws/aws-sdk-php/discussions",
                 "issues": "https://github.com/aws/aws-sdk-php/issues",
-                "source": "https://github.com/aws/aws-sdk-php/tree/3.389.0"
+                "source": "https://github.com/aws/aws-sdk-php/tree/3.389.2"
             },
-            "time": "2026-07-24T18:05:53+00:00"
+            "time": "2026-07-28T18:10:25+00:00"
         },
         {
             "name": "chi-teck/drupal-code-generator",
@@ -7225,17 +7225,17 @@
         },
         {
             "name": "drupal/search_api_solr",
-            "version": "4.3.13",
+            "version": "4.4.0",
             "source": {
                 "type": "git",
                 "url": "https://git.drupalcode.org/project/search_api_solr.git",
-                "reference": "4.3.13"
+                "reference": "4.4.0"
             },
             "dist": {
                 "type": "zip",
-                "url": "https://ftp.drupal.org/files/projects/search_api_solr-4.3.13.zip",
-                "reference": "4.3.13",
-                "shasum": "2c8bccc6e0188952e90f96f620dc54ca719b95d1"
+                "url": "https://ftp.drupal.org/files/projects/search_api_solr-4.4.0.zip",
+                "reference": "4.4.0",
+                "shasum": "229048d820c9b67b4ebeee63511fb30e5cf6212c"
             },
             "require": {
                 "composer-runtime-api": ">=2.0",
@@ -7277,8 +7277,8 @@
             "type": "drupal-module",
             "extra": {
                 "drupal": {
-                    "version": "4.3.13",
-                    "datestamp": "1784384466",
+                    "version": "4.4.0",
+                    "datestamp": "1785233385",
                     "security-coverage": {
                         "status": "covered",
                         "message": "Covered by Drupal's security advisory policy"
@@ -13660,16 +13660,16 @@
         },
         {
             "name": "symfony/polyfill-php83",
-            "version": "v1.38.2",
+            "version": "v1.41.0",
             "source": {
                 "type": "git",
                 "url": "https://github.com/symfony/polyfill-php83.git",
-                "reference": "796a26abb75ce49f3a84433cd81bf1009d73d5f8"
+                "reference": "5ea99087fb99c273a9b9236ed4c31e78b16103c6"
             },
             "dist": {
                 "type": "zip",
-                "url": "https://api.github.com/repos/symfony/polyfill-php83/zipball/796a26abb75ce49f3a84433cd81bf1009d73d5f8",
-                "reference": "796a26abb75ce49f3a84433cd81bf1009d73d5f8",
+                "url": "https://api.github.com/repos/symfony/polyfill-php83/zipball/5ea99087fb99c273a9b9236ed4c31e78b16103c6",
+                "reference": "5ea99087fb99c273a9b9236ed4c31e78b16103c6",
                 "shasum": ""
             },
             "require": {
@@ -13716,7 +13716,7 @@
                 "shim"
             ],
             "support": {
-                "source": "https://github.com/symfony/polyfill-php83/tree/v1.38.2"
+                "source": "https://github.com/symfony/polyfill-php83/tree/v1.41.0"
             },
             "funding": [
                 {
@@ -13736,7 +13736,7 @@
                     "type": "tidelift"
                 }
             ],
-            "time": "2026-05-27T06:51:48+00:00"
+            "time": "2026-07-01T12:47:55+00:00"
         },
         {
             "name": "symfony/polyfill-php84",
