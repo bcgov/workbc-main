@@ -64,6 +64,7 @@ function workbc_career_trek_preprocess_views_view(&$variables) {
       $variables['search_view'] = array_filter($values);
     }
     $variables['view_title'] = $view->getTitle();
+    $variables['#attached']['drupalSettings']['back_to_top'] = 'block-workbc-views-block-career-trek-redux-block-1';
   }
 }
 
