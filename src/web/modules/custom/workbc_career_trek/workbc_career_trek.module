@@ -156,8 +156,7 @@ function workbc_career_trek_preprocess_file_video(&$variables) {
  */
 function workbc_career_trek_preprocess_better_social_sharing_buttons(&$variables) {
   if (isset($variables['items']['page_url'])) {
-    $url = $variables['items']['page_url'];
-    $variables['items']['page_url'] = $url->toString() . urlencode('?' . http_build_query(\Drupal::request()->query->all()));
+    $variables['items']['page_url']->setOption('query', \Drupal::request()->query->all());
   }
 }
 
