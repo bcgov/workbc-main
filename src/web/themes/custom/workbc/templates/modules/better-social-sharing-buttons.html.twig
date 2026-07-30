@@ -1,59 +1,13 @@
 {{ attach_library('better_social_sharing_buttons/styling') }}
 
 <div class="social-sharing-buttons">
-    {# Facebook share button #}
-    {% if items.services.facebook %}
-      <a href="https://www.facebook.com/sharer/sharer.php?u={{ items.page_url }}&title={{ items.title }}" target="_blank" title="{{ 'Share to'|t }} Facebook" aria-label="{{ 'Share to'|t }} Facebook" class="social-sharing-buttons__button share-facebook" rel="noopener">
-        <span class="visually-hidden"> Share to Facebook </span>
-      </a>
+  {% for service in items.services %}
+    {% if service.enabled %}
+      {% include '@better_social_sharing_buttons/partials/' ~ service.id ~ '.html.twig' with {
+        items: items,
+        social_buttons_sprite: social_buttons_sprite,
+        service: service.id
+      } %}
     {% endif %}
-
-    {# Twitter share button #}
-    {% if items.services.twitter %}
-      <a href="http://twitter.com/intent/tweet?text={{ items.title }}+{{ items.page_url }}" target="_blank" title="{{ 'Share to'|t }} Twitter" aria-label="{{ 'Share to'|t }} Twitter" class="social-sharing-buttons__button share-twitter" rel="noopener">
-        <span class="visually-hidden"> Share to Twitter </span>
-      </a>
-    {% endif %}
-
-    {% if items.services.x %}
-      <a href="http://twitter.com/intent/tweet?text={{ items.title }}+{{ items.page_url }}" target="_blank" title="{{ 'Share to'|t }} X" aria-label="{{ 'Share to'|t }} X" class="social-sharing-buttons__button share-twitter" rel="noopener">
-        <span class="visually-hidden"> Share to X </span>
-      </a>
-    {% endif %}
-
-    {# Linkedin share button #}
-    {% if items.services.linkedin %}
-      <a href="https://www.linkedin.com/sharing/share-offsite/?url={{ items.page_url }}" target="_blank" title="{{ 'Share to'|t }} Linkedin" aria-label="{{ 'Share to'|t }} Linkedin" class="social-sharing-buttons__button share-linkedin" rel="noopener">
-        <span class="visually-hidden"> Share to LinkedIn </span>
-      </a>
-    {% endif %}
-
-    {# Email share button #}
-    {% if items.services.email %}
-      <a href="mailto:?subject=WorkBC.ca: {{ items.title }}&body=A WorkBC.ca link has been shared with you: {{ items.page_url }}" title="{{ 'Share to'|t }} Email" aria-label="{{ 'Share to'|t }} Email" class="social-sharing-buttons__button share-email" target="_blank" rel="noopener">
-        <span class="visually-hidden"> Share to Email </span>
-      </a>
-    {% endif %}
-
-    {# Copy link share button #}
-    {% if items.services.copy %}
-        {{ attach_library('better_social_sharing_buttons/copy-current-url') }}
-        <a href="#" class="btn-copy social-sharing-buttons-button share-copy" role="button" title="{{ 'Copy link'|t }}" aria-label="{{ 'Copy link'|t }}">
-          <div class="social-sharing-buttons-popup" role="alert" aria-live="assertive">{{ 'Copied to clipboard'|t }}</div>
-        </a>
-    {% endif %}
-
-    {# Print share button #}
-    {% if items.services.print %}
-    {% if items.print_css %}
-      {% set href = "#" %}
-      {% set rel = items.print_css %}
-      {{ attach_library('better_social_sharing_buttons/print-css') }}
-    {% else %}
-      {% set href = "javascript:window.print()" %}
-    {% endif %}
-    <a href="{{ href }}" rel="{{ rel }}" id="printlink" title="{{ 'Print this page'|t }}" aria-label="{{ 'Print this page'|t }}" class="share-print">
-      <span class="visually-hidden"> Print this page </span>
-    </a>
-    {% endif %}
+  {% endfor %}
 </div>
