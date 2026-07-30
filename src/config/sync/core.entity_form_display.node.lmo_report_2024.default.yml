@@ -244,7 +244,7 @@ content:
     weight: 12
     region: content
     settings:
-      rows: 5
+      rows: 3
       placeholder: ''
     third_party_settings: {  }
   field_report_year:

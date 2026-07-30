@@ -12,6 +12,9 @@ dependencies:
     - field.field.node.page.field_hero_image_full_wide
     - field.field.node.page.field_hero_image_full_width
     - field.field.node.page.field_hero_image_media
+    - field.field.node.page.field_hero_image_mult_full_small
+    - field.field.node.page.field_hero_image_mult_full_wide
+    - field.field.node.page.field_hero_image_mult_full_width
     - field.field.node.page.field_hero_text
     - field.field.node.page.field_language
     - field.field.node.page.field_metatag_description
@@ -53,6 +56,9 @@ hidden:
   field_hero_image_full_wide: true
   field_hero_image_full_width: true
   field_hero_image_media: true
+  field_hero_image_mult_full_small: true
+  field_hero_image_mult_full_wide: true
+  field_hero_image_mult_full_width: true
   field_hero_text: true
   field_language: true
   field_metatag_description: true

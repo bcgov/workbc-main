@@ -37,7 +37,13 @@ function workbc_menu_responsive_menu_off_canvas_tree_alter(array &$menu) {
     if (!empty($item['original_link'])) {
       $link = $item['original_link'];
       if (method_exists($link, 'getEntity') && !empty($link->getEntity()?->get('field_splash')?->value)) {
-        $item['attributes']->setAttribute('data-splash', $link->getEntity()->get('field_splash')->value);
+        $build = [
+          '#type' => 'processed_text',
+          '#text' => $link->getEntity()->get('field_splash')->value,
+          '#format' => 'full_html',
+        ];
+        $rendered = \Drupal::service('renderer')->renderInIsolation($build);
+        $item['attributes']->setAttribute('data-splash', (string) $rendered);
       }
     }
     foreach ($item['below'] as &$child) {

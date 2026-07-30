@@ -35,6 +35,14 @@
       </a>
     {% endif %}
 
+    {# Copy link share button #}
+    {% if items.services.copy %}
+        {{ attach_library('better_social_sharing_buttons/copy-current-url') }}
+        <a href="#" class="btn-copy social-sharing-buttons-button share-copy" role="button" title="{{ 'Copy link'|t }}" aria-label="{{ 'Copy link'|t }}">
+          <div class="social-sharing-buttons-popup" role="alert" aria-live="assertive">{{ 'Copied to clipboard'|t }}</div>
+        </a>
+    {% endif %}
+
     {# Print share button #}
     {% if items.services.print %}
     {% if items.print_css %}

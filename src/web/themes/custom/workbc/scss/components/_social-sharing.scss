@@ -25,6 +25,8 @@
   text-decoration: none;
 
   &.share-facebook {
+    width: 36px;
+    height: 36px;
     background-image: url("../assets/images/social-icon-facebook-grey.svg");
 
     &:hover {
@@ -43,6 +45,8 @@
   }
 
   &.share-linkedin {
+    width: 34px;
+    height: 34px;
     background-image: url("../assets/images/social-icon-linkedin-grey.svg");
 
     &:hover {
@@ -63,6 +67,16 @@
 
     &:hover {
       background-image: url("../assets/images/social-icon-printer-blue.svg");
+    }
+  }
+
+  &.share-copy {
+    width: 40px;
+    height: 40px;
+    background-image: url("../assets/images/social-icon-copy-grey.svg");
+
+    &:hover {
+      background-image: url("../assets/images/social-icon-copy-blue.svg");
     }
   }
 
@@ -93,6 +107,10 @@
       background-repeat: no-repeat;
     }
 
+    &.share-copy {
+      background-size: contain;
+      background-repeat: no-repeat;
+    }
   }
 }
 

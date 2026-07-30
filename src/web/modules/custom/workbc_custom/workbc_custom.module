@@ -297,6 +297,32 @@ function workbc_custom_form_alter(&$form, FormStateInterface $form_state, $form_
       $form['body']['widget'][0]['summary']['#description'] = t('Leave blank to use Related Topics Blurb text.');
     }
   }
+
+  $form_ids = [
+    'node_page_form',
+    'node_page_edit_form',
+    'node_lmo_report_2024_form',
+    'node_lmo_report_2024_edit_form',
+  ];
+  if (in_array($form_id, $form_ids)) {
+    if (isset($form['field_navigation_blurb']['widget'][0]['value'])) {
+      $form['field_navigation_blurb']['widget'][0]['value']['#maxlength'] = 137;
+    }
+  }
+
+  if (in_array($form_id, ['node_page_form','node_page_edit_form'])) {
+    $alias = "";
+    if (!$form_state->getFormObject()->getEntity()->isNew()) {
+      $alias = $form_state->getFormObject()->getEntity()->toUrl()->toString();
+    }
+    $front = \Drupal::configFactory()->get('system.site')->get('page.front');
+    $form['field_hero_image_mult_full_small']['#access'] = $alias === $front;
+    $form['field_hero_image_mult_full_width']['#access'] = $alias === $front;
+    $form['field_hero_image_mult_full_wide']['#access'] = $alias === $front;
+    $form['field_hero_image_full_small']['#access'] = $alias <> $front;
+    $form['field_hero_image_full_width']['#access'] = $alias <> $front;
+    $form['field_hero_image_full_wide']['#access'] = $alias <> $front;
+  }
 }
 
 /**

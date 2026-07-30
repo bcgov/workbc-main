@@ -72,7 +72,15 @@
 
 {% set title = label %}
 {% set hero_image = content.field_hero_image_media[0] %}
-{% set hero_image_fullwidth = content.field_hero_image_full_width[0] %}
+
+{% if is_front %}
+  {% if  content.field_hero_image_mult_full_width[random_hero_image] is not null %}
+    {% set hero_image_fullwidth = content.field_hero_image_mult_full_width[random_hero_image] %}
+  {% endif %}
+{% else %}
+  {% set hero_image_fullwidth = content.field_hero_image_full_width[0] %}
+{% endif %}
+
 {% set hero_text = content.field_hero_text[0] %}
 {% set page_body = content.body %}
 {% set page_content = content.field_content %}

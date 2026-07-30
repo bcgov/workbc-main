@@ -230,29 +230,45 @@ html {
   max-width: 440px;
 }
 
-.mobile-nav-header {
-  padding: 15px 20px 40px;
-}
+.mm-menu {
+  .mobile-nav-header {
+    padding: 15px 20px 40px;
+  }
 
-.mobile-nav-logo {
-  display: block;
-  max-width: 125px;
-}
+  .mobile-nav-logo-link {
+    display: block;
+    width: 125px;
 
-.mobile-nav-close {
-  position: absolute;
-  top: 12px;
-  right: 15px;
-  width: 30px;
-  height: 30px;
-  background-image: url(../assets/images/close-icon.svg);
-  background-position: center;
-  background-repeat: no-repeat;
-  cursor: pointer;
-}
+    &:focus-visible {
+      outline-offset: 1px;
+      outline: -webkit-focus-ring-color auto 1px;
+    }
+  }
 
-.mobile-nav-close__label {
-  @include visually-hidden;
+  .mobile-nav-logo {
+    display: block;
+    width: 100%;
+  }
+
+  .mobile-nav-close {
+    position: absolute;
+    top: 12px;
+    right: 15px;
+    width: 30px;
+    height: 30px;
+    background-image: url(../assets/images/close-icon.svg);
+    background-position: center;
+    background-repeat: no-repeat;
+    cursor: pointer;
+
+    &:focus {
+      outline: -webkit-focus-ring-color auto 1px;
+    }
+  }
+
+  .mobile-nav-close__label {
+    @include visually-hidden;
+  }
 }
 
 //  Responsive menu overrides

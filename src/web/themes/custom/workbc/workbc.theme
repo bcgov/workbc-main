@@ -11,6 +11,7 @@ use Drupal\Core\Render\Markup;
 use Drupal\Component\Utility\Html;
 use Drupal\Component\Utility\UrlHelper;
 use Drupal\Core\Entity\EntityTypeManagerInterface;
+use Symfony\Component\HttpFoundation\Request;
 
 /**
  * Implements hook_theme_preprocess_paragraph().
@@ -318,9 +319,30 @@ function workbc_preprocess_node(&$variables) {
 
   $current_path = \Drupal::service('path.current')->getPath();
   $current_alias = \Drupal::service('path_alias.manager')->getAliasByPath($current_path);
+
   $variables['is_front'] = $current_alias == \Drupal::configFactory()->get('system.site')->get('page.front');
   $paths = \Drupal::config('workbc')->get('paths');
   $variables['is_career_trek'] = $current_alias == $paths['career_trek'];
+
+  if ($variables['is_front']) {
+    $variables['random_hero_image'] = 0;
+    $node = $variables['node'];
+    if ($node->hasField('field_hero_image_mult_full_width')) {
+      $hero_images = $node->get('field_hero_image_mult_full_width')->getValue();
+      if (count($hero_images) > 1) {
+        $request = \Drupal::request();
+        $session = $request->getSession();
+        $last_image = $session->get('workbc.last_hero_image', -1);
+        $random = mt_rand(0, count($hero_images)-1);
+        while ($random == $last_image) {
+          $random = mt_rand(0, count($hero_images)-1);
+        }
+        $variables['random_hero_image'] = $random;
+        $session->set('workbc.last_hero_image', $random);
+      }
+    }
+  }
+
 }
 
 /**
