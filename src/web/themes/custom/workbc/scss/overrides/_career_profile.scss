@@ -253,19 +253,19 @@
         justify-content: center;
         display: flex;
         flex-direction: column;
+      }
 
-        input[type="submit"]:not(input[name="reset"]) {
-          background: transparent;
-          border: 3px solid #2E6AB0;
-          color: #2E6AB0;
-        }
+      .form-submit {
+        margin: 0;
+      }
 
-        input[name="reset"] {
-          color: #2E6AB0;
-          margin: 5px auto;
-          background: transparent;
-          text-decoration: underline;
-        }
+      #edit-reset-career-trek-redux {
+        @include btn-border;
+        margin-top: 5px;
+        padding: 10px 64px;
+        color: #2e6ab0;
+        text-decoration: none;
+        background-color: $workbc_palette_light_primary;
       }
     }
   }

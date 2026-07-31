@@ -584,7 +584,7 @@ display:
           plugin_id: text
           empty: true
           content:
-            value: "<div class=\"text-center no-result-text\">\r\n<img src=\"/themes/custom/workbc/assets/images/clear-filter.svg\">\r\n<h3>No Videos found</h3>\r\n<p>Please reduce the amount of filters you have selected to broaden your search</p>\r\n<a href=\"/plan-career/career-trek-videos\">Clear All Filters</a>\r\n</div>"
+            value: "<div class=\"text-center no-result-text\">\r\n<img src=\"/themes/custom/workbc/assets/images/clear-filter.svg\">\r\n<h3>No videos found</h3>\r\n<p>Please reduce the amount of filters you have selected to broaden your search.</p>\r\n<a href=\"/plan-career/career-trek-videos\">Clear filters</a>\r\n</div>"
             format: full_html
           tokenize: false
       sorts:
@@ -1034,7 +1034,7 @@ display:
           group_type: group
           admin_label: ''
           plugin_id: result
-          empty: true
+          empty: false
           content: '<div class="result-summary">Showing <span class="update-result">@end</span> of @total videos</div>'
       display_extenders: {  }
     cache_metadata:
