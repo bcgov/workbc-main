@@ -584,7 +584,7 @@ display:
           plugin_id: text
           empty: true
           content:
-            value: "<div class=\"text-center no-result-text\">\r\n<img src=\"/themes/custom/workbc/assets/images/clear-filter.svg\">\r\n<h3>No videos found</h3>\r\n<p>Please reduce the amount of filters you have selected to broaden your search.</p>\r\n<a href=\"/plan-career/career-trek-videos\">Clear filters</a>\r\n</div>"
+            value: "<div class=\"text-center no-result-text\">\r\n<img src=\"/themes/custom/workbc/assets/images/clear-filter.svg\">\r\n<h3>No videos found</h3>\r\n<p>Please reduce the amount of filters you have selected to broaden your search.</p>\r\n<a href=\"{{ career_trek }}\">{{ clear_filter_button }}</a>\r\n</div>"
             format: full_html
           tokenize: false
       sorts:
@@ -1081,6 +1081,7 @@ display:
         options:
           offset: 0
           items_per_page: 3
+      empty: {  }
       sorts: {  }
       filters:
         status:
@@ -1187,6 +1188,7 @@ display:
         groups:
           1: AND
       defaults:
+        empty: false
         pager: false
         sorts: false
         filters: false
@@ -1218,6 +1220,7 @@ display:
         options:
           offset: 0
           items_per_page: 5
+      empty: {  }
       arguments:
         field_epbc_categories_target_id:
           id: field_epbc_categories_target_id
@@ -1365,6 +1368,7 @@ display:
         type: fields
         options: {  }
       defaults:
+        empty: false
         pager: false
         style: false
         row: false
