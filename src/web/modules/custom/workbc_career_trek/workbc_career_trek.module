@@ -64,6 +64,16 @@ function workbc_career_trek_preprocess_views_view(&$variables) {
       $variables['search_view'] = array_filter($values);
     }
     $variables['view_title'] = $view->getTitle();
+    $variables['#attached']['drupalSettings']['back_to_top'] = 'block-workbc-views-block-career-trek-redux-block-1';
+
+    // Override the "empty results" text by replacing the placeholders with settings values.
+    $paths = \Drupal::config('workbc')->get('paths');
+    $config = \Drupal::configFactory()->getEditable('workbc_career_trek.settings');
+    $variables['empty']['area']['#text'] = str_replace(
+      ['{{ career_trek }}', '{{ clear_filter_button }}'],
+      [$paths['career_trek'], $config->get('clear_filter_button')],
+      $variables['empty']['area']['#text']
+    );
   }
 }
 

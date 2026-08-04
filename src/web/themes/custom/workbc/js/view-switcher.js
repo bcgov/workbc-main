@@ -1,7 +1,14 @@
 (function ($, Drupal, once) {
   ("use strict");
+
+  const VIEW_KEY = 'workbc.careertrek.view';
+
   Drupal.behaviors.viewSwitcher = {
     attach: function (context, settings) {
+      const view = localStorage.getItem(VIEW_KEY) ?? 'grid';
+      const other = view === 'grid' ? 'list' : 'grid';
+      $(`.toggle-icon .${view}`).addClass('active');
+      $(`.toggle-icon .${other}`).removeClass('active');
 
       function applyViewMode() {
         let isList = $('.toggle-icon .list').hasClass('active');
@@ -13,6 +20,7 @@
             $(this).addClass('col-lg-6 col-12 list-column');
             $('.toggle-icon .list').addClass('active');
             $('.toggle-icon .grid').removeClass('active');
+            localStorage.setItem(VIEW_KEY, 'list');
           } else if (isList) {
             $(this).addClass('col-lg-6 col-12 list-column');
           } else {
@@ -26,6 +34,7 @@
           element.onclick = function () {
             $('.toggle-icon .list').addClass('active');
             $('.toggle-icon .grid').removeClass('active');
+            localStorage.setItem(VIEW_KEY, 'list');
             $(`.switcher-row .switcher-column`).fadeOut(300, function() {
               $(this).removeClass('col-lg-4 col-sm-6 col-12 grid-view').addClass('col-lg-6 col-12  list-column').fadeIn(300);
             });
@@ -35,6 +44,7 @@
         element.onclick = function () {
           $('.toggle-icon .grid').addClass('active');
           $('.toggle-icon .list').removeClass('active');
+            localStorage.setItem(VIEW_KEY, 'grid');
           $(`.switcher-row .switcher-column`).fadeOut(300, function() {
             $(this).removeClass('col-lg-6 col-12 list-column').addClass('col-lg-4 col-sm-6 col-12 grid-view').fadeIn(300);
           });

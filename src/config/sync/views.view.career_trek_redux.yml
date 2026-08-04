@@ -418,7 +418,7 @@ display:
         options:
           offset: 0
           pagination_heading_level: h4
-          items_per_page: 15
+          items_per_page: 18
           total_pages: null
           id: 0
           tags:
@@ -427,7 +427,7 @@ display:
           expose:
             items_per_page: false
             items_per_page_label: 'Items per page'
-            items_per_page_options: '5, 10, 25, 50'
+            items_per_page_options: '6, 18, 36, 72'
             items_per_page_options_all: false
             items_per_page_options_all_label: '- All -'
             offset: false
@@ -584,7 +584,7 @@ display:
           plugin_id: text
           empty: true
           content:
-            value: "<div class=\"text-center no-result-text\">\r\n<img src=\"/themes/custom/workbc/assets/images/clear-filter.svg\">\r\n<h3>No Videos found</h3>\r\n<p>Please reduce the amount of filters you have selected to broaden your search</p>\r\n<a href=\"/plan-career/career-trek-videos\">Clear All Filters</a>\r\n</div>"
+            value: "<div class=\"text-center no-result-text\">\r\n<img src=\"/themes/custom/workbc/assets/images/clear-filter.svg\">\r\n<h3>No videos found</h3>\r\n<p>Please reduce the amount of filters you have selected to broaden your search.</p>\r\n<a href=\"{{ career_trek }}\">{{ clear_filter_button }}</a>\r\n</div>"
             format: full_html
           tokenize: false
       sorts:
@@ -1034,7 +1034,7 @@ display:
           group_type: group
           admin_label: ''
           plugin_id: result
-          empty: true
+          empty: false
           content: '<div class="result-summary">Showing <span class="update-result">@end</span> of @total videos</div>'
       display_extenders: {  }
     cache_metadata:
@@ -1081,6 +1081,7 @@ display:
         options:
           offset: 0
           items_per_page: 3
+      empty: {  }
       sorts: {  }
       filters:
         status:
@@ -1187,6 +1188,7 @@ display:
         groups:
           1: AND
       defaults:
+        empty: false
         pager: false
         sorts: false
         filters: false
@@ -1218,6 +1220,7 @@ display:
         options:
           offset: 0
           items_per_page: 5
+      empty: {  }
       arguments:
         field_epbc_categories_target_id:
           id: field_epbc_categories_target_id
@@ -1365,6 +1368,7 @@ display:
         type: fields
         options: {  }
       defaults:
+        empty: false
         pager: false
         style: false
         row: false
