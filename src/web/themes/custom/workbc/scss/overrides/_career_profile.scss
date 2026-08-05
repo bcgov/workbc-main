@@ -198,7 +198,6 @@
 
       details {
         border-bottom:1px solid #C2CCD5;
-        //padding-bottom: 12px;
         border-radius:0;
 
         .details-wrapper {
@@ -225,7 +224,6 @@
           font-weight:bold;
           padding:15px 0px;
           font-size:14px;
-          // display: flex;
           justify-content: space-between;
           align-items: center;
 
@@ -259,7 +257,7 @@
         margin: 0;
       }
 
-      #edit-reset-career-trek-redux {
+      input[name="reset"] {
         @include btn-border;
         margin-top: 5px;
         padding: 10px 64px;
@@ -334,7 +332,6 @@
       video {
         height: 100%;
         width: 100%;
-       // max-width: 870px;
         margin-left: auto;
         float: right;
       }
@@ -452,7 +449,6 @@
             font-size: 14px;
             line-height:21px;
             text-decoration: none;
-            // text-transform: capitalize;
           }
 
           .workbc-card-description {
@@ -1277,7 +1273,7 @@
 .workbc-profile .profile-videos-wrapper .profile-video a {
   width: 100%;
 }
-// Responsive styles
+
 @media screen and (max-width: 1440px) {
   .plan-careercareer-trek-videos .career-trek-row .hero-content-container {
     padding: 80px 0px;
