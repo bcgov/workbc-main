@@ -2,26 +2,20 @@
   ("use strict");
 
   const VIEW_KEY = 'workbc.careertrek.view';
+  const MOBILE_WIDTH = 575;
 
   Drupal.behaviors.viewSwitcher = {
     attach: function (context, settings) {
-      const view = localStorage.getItem(VIEW_KEY) ?? 'grid';
+      const view = localStorage.getItem(VIEW_KEY) ?? (window.innerWidth <= MOBILE_WIDTH ? 'list' : 'grid');
       const other = view === 'grid' ? 'list' : 'grid';
       $(`.toggle-icon .${view}`).addClass('active');
       $(`.toggle-icon .${other}`).removeClass('active');
 
       function applyViewMode() {
         let isList = $('.toggle-icon .list').hasClass('active');
-        let winWidth = window.innerWidth;
         $('.switcher-row .switcher-column', context).each(function () {
           $(this).removeClass('col-lg-4 col-sm-6 col-12 grid-view col-lg-6 col-12 list-column');
-          // On screens <= 575px, always use list view
-          if (winWidth <= 575) {
-            $(this).addClass('col-lg-6 col-12 list-column');
-            $('.toggle-icon .list').addClass('active');
-            $('.toggle-icon .grid').removeClass('active');
-            localStorage.setItem(VIEW_KEY, 'list');
-          } else if (isList) {
+          if (isList) {
             $(this).addClass('col-lg-6 col-12 list-column');
           } else {
             $(this).addClass('col-lg-4 col-sm-6 col-12 grid-view');
@@ -31,20 +25,20 @@
 
       // the second parameter must be a selector specific to the content this script applies to, to ensure it's loaded after the content in the case the content is lazy loaded by Drupal
       once('viewSwitcher', '.toggle-icon .list', context).forEach(function (element) {
-          element.onclick = function () {
-            $('.toggle-icon .list').addClass('active');
-            $('.toggle-icon .grid').removeClass('active');
-            localStorage.setItem(VIEW_KEY, 'list');
-            $(`.switcher-row .switcher-column`).fadeOut(300, function() {
-              $(this).removeClass('col-lg-4 col-sm-6 col-12 grid-view').addClass('col-lg-6 col-12  list-column').fadeIn(300);
-            });
-          };
+        element.onclick = function () {
+          $('.toggle-icon .list').addClass('active');
+          $('.toggle-icon .grid').removeClass('active');
+          localStorage.setItem(VIEW_KEY, 'list');
+          $(`.switcher-row .switcher-column`).fadeOut(300, function() {
+            $(this).removeClass('col-lg-4 col-sm-6 col-12 grid-view').addClass('col-lg-6 col-12 list-column').fadeIn(300);
+          });
+        };
       });
       once('viewSwitcher', '.toggle-icon .grid', context).forEach(function (element) {
         element.onclick = function () {
           $('.toggle-icon .grid').addClass('active');
           $('.toggle-icon .list').removeClass('active');
-            localStorage.setItem(VIEW_KEY, 'grid');
+          localStorage.setItem(VIEW_KEY, 'grid');
           $(`.switcher-row .switcher-column`).fadeOut(300, function() {
             $(this).removeClass('col-lg-6 col-12 list-column').addClass('col-lg-4 col-sm-6 col-12 grid-view').fadeIn(300);
           });
@@ -77,14 +71,14 @@
 
       once('viewSwitcher', '.career-trek-sidebar .responsive-filter-video-btn', context).forEach(function (element) {
         element.onclick = function () {
-            $(this).siblings('.career-trek-sidebar-panel').addClass('active');
+          $(this).siblings('.career-trek-sidebar-panel').addClass('active');
         };
       });
 
       once('viewSwitcher', '.career-trek-sidebar .career-sidebar-close-btn', context).forEach(function (element) {
-          element.onclick = function () {
-              $(this).closest('.career-trek-sidebar-panel').removeClass('active');
-          };
+        element.onclick = function () {
+          $(this).closest('.career-trek-sidebar-panel').removeClass('active');
+        };
       });
       const checkCardImages = function(context) {
         once('workbcCardImageCheck', '.plan-careercareer-trek-videos .view-career-trek-redux .workbc-card img', context).forEach(function(element) {
