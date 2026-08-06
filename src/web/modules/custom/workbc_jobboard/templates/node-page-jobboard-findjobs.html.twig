@@ -141,16 +141,32 @@
     {% if jobboard_connection %}
       {{ jobboard_connection }}
     {% else %}
-      <link rel="stylesheet" href="{{jobboard_api_url_frontend}}/bootstrap/bootstrap.min.css?v={{drupal_config('jobboard', 'sha')}}">
-      <link rel="stylesheet" href="{{jobboard_api_url_frontend}}/dist/jb-search/styles.css?v={{drupal_config('jobboard', 'sha')}}">
-      <app-root api="{{jobboard_api_url_frontend}}/" jbsearch="{{find_job_url}}" jbaccount="{{find_job_account_url}}" _nghost-dxq-c45="" ng-version="12.2.16"></app-root>
-      <script src="{{jobboard_api_url_frontend}}/dist/jb-search/runtime-es2017.js?v={{drupal_config('jobboard', 'sha')}}" type="module"></script>
-      <script src="{{jobboard_api_url_frontend}}/dist/jb-search/runtime-es5.js?v={{drupal_config('jobboard', 'sha')}}" nomodule="" defer=""></script>
-      <script src="{{jobboard_api_url_frontend}}/dist/jb-search/polyfills-es2017.js?v={{drupal_config('jobboard', 'sha')}}" type="module"></script>
-      <script src="{{jobboard_api_url_frontend}}/dist/jb-search/polyfills-es5.js?v={{drupal_config('jobboard', 'sha')}}" nomodule="" defer=""></script>
-      <script src="{{jobboard_api_url_frontend}}/dist/jb-search/main-es2017.js?v={{drupal_config('jobboard', 'sha')}}" type="module"></script>
-      <script src="{{jobboard_api_url_frontend}}/dist/jb-search/main-es5.js?v={{drupal_config('jobboard', 'sha')}}" nomodule="" defer=""></script>
-      <script src="https://maps.googleapis.com/maps/api/js?key={{google_maps_key}}" async defer=""></script>
+      {#
+        ADR-006 — the search UI is FRAMED, not injected.
+
+        The Laravel rewrite renders server-side HTML bound to its own session and
+        CSRF token, so it cannot be shipped as a bundle dropped into this
+        document's DOM the way the Angular build was. The whole inline-injection
+        pattern ends here: no stylesheets, no <app-root>, no six-bundle script
+        list, and no Google Maps tag (the app loads its own key inside the frame
+        — Drupal's `google_maps_key` cannot reach across the origin boundary).
+
+        `jobboard_api_url_frontend` is reused deliberately rather than hardcoding
+        a hostname: it already resolves per-environment, so test and prod need no
+        further edit when they are repointed.
+
+        `?embed=1` selects the chrome-less layout (FND-4) — Drupal keeps the
+        hero, breadcrumbs, sidebar and social sharing above.
+
+        Height is driven by the `jobboard:height` listener in
+        js/workbc_jobboard.js, which replaces min-height once the frame reports
+        its content height. Without that JS the frame stays 60vh and scrolls
+        internally, which hides the search form as you scroll the results.
+      #}
+      <iframe id="jobboard-search"
+              src="{{jobboard_api_url_frontend}}/jobs?embed=1"
+              title="Search jobs in B.C."
+              style="width:100%;border:0;min-height:60vh"></iframe>
     {% endif %}
     </div>
 

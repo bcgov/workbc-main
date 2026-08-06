@@ -8,6 +8,31 @@
         window.addEventListener('dialog:aftercreate', navUserMenu);
       });
 
+      // ADR-006 — content-height bridge for the framed job board.
+      //
+      // A cross-origin iframe cannot size itself to its content, so without this
+      // the frame stays a fixed box and scrolls internally: the search form
+      // scrolls out of view while the Drupal chrome around it sits still. The
+      // framed app posts its document height on load, on resize and after every
+      // Livewire update; mirroring that onto the element makes the PAGE scroll
+      // and the frame simply grow.
+      once('jobBoardEmbed', '#jobboard-search', context).forEach(function (frame) {
+        // Derive the trusted origin from the iframe's own src rather than
+        // hardcoding it, so dev/test/prod need no per-environment edit.
+        var appOrigin = new URL(frame.getAttribute('src'), window.location.href).origin;
+
+        window.addEventListener('message', function (e) {
+          // Any site can postMessage to this window, so check the sender.
+          if (e.origin !== appOrigin) { return; }
+          if (!e.data || e.data.type !== 'jobboard:height') { return; }
+
+          var height = parseInt(e.data.height, 10);
+          if (!isFinite(height) || height <= 0) { return; }
+
+          frame.style.height = height + 'px';
+        });
+      });
+
       once('jobBoard', 'body.account', context).forEach(function() {
         window.addEventListener('load', accountPageChanges);
         window.addEventListener('hashchange', accountPageChanges);
