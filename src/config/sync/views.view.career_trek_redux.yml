@@ -435,7 +435,7 @@ display:
           views_infinite_scroll:
             button_text: 'Load More'
             automatically_load_content: false
-            initially_load_all_pages: false
+            initially_load_all_pages: true
       exposed_form:
         type: bef
         options:
