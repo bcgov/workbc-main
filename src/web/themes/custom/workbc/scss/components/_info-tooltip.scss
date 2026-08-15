@@ -9,6 +9,18 @@
     background-repeat: no-repeat;
 }
 
+.info-tooltip-inline {
+    content: '';
+    display: inline;
+    width: 24px;
+    height: 24px;
+    background-image: url(../assets/images/info-tooltip-icon.svg);
+    background-size: 24px;
+    background-position: center;
+    background-repeat: no-repeat;
+    margin-left: 4px !important;
+}
+
 .workbc-popover {
     border: 2px solid $workbc_palette_dark_primary;
     background-color: rgba(255, 255, 255, 0.9);
@@ -49,7 +61,7 @@
 
   &:hover .workbc-tooltip-content-right {
     display: block;
-  }  
+  }
 }
 
 .workbc-tooltip-content {

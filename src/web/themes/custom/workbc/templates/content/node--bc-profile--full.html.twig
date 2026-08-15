@@ -359,10 +359,8 @@
                     <div>
 
                             <div class="bc-profile--employment-tooltip-mobile">
-                              <span class="workbc-tooltip">
-                                <div class="workbc-tooltip-content bc-profile--employment-tooltip-content">
-                                  {{ tooltip | raw }}
-                                </div>
+                              <span class="profile-information-card-infotip">
+                                <a tabindex="0" class="btn btn-link info-tooltip-inline" role="button" data-bs-toggle="popover" data-bs-container="body" data-bs-trigger="click hover" data-bs-placement="bottom" data-bs-custom-class="workbc-popover" title="hidden title" data-bs-html="true" data-bs-content="{{ tooltip | raw }}"></a>
                               </span>
                             </div>
 
@@ -373,10 +371,8 @@
                           <tr class='table-header'>
                             <th>{{ header.0 }}</th>
                             <th class="data-align-right">{{ header.1 }}
-                              <span class="workbc-tooltip bc-profile--employment-tooltip">
-                                <div class="workbc-tooltip-content bc-profile--employment-tooltip-content">
-                                  {{ tooltip | raw }}
-                                </div>
+                              <span class="profile-information-card-infotip">
+                                <a tabindex="0" class="btn btn-link info-tooltip-inline" role="button" data-bs-toggle="popover" data-bs-container="body" data-bs-trigger="click hover" data-bs-placement="bottom" data-bs-custom-class="workbc-popover" title="hidden title" data-bs-html="true" data-bs-content="{{ tooltip | raw }}"></a>
                               </span>
                             </th>
                             <th class="data-align-right">{{ header.2 }}</th>
@@ -417,11 +413,11 @@
 
             <div class="card-profile"  id="bc-regional-unemployment-stats">
               <div class="card-profile__content">
-                <h3 class="card-profile__content-header">{{ viewmodel['tab_sections']['labour_market_statistics']['uneployment_bc_title'] }}
-                  <span class="workbc-tooltip">
-                    <div class="workbc-tooltip-content bc-profile--tooltip-content">
-                     <em>{{'Unemployment rate'|t }}</em> {{ 'refers to the percentage of the population 15 years and older that are not employed.'|t }}
-                    </div>
+                <h3 class="card-profile__content-header">
+                  {{ viewmodel['tab_sections']['labour_market_statistics']['uneployment_bc_title'] }}
+                  {% set tooltip = "<em>Unemployment rate</em> refers to the percentage of the population 15 years and older that are not employed." %}
+                  <span class="profile-information-card-infotip">
+                    <a tabindex="0" class="btn btn-link info-tooltip-inline" role="button" data-bs-toggle="popover" data-bs-container="body" data-bs-trigger="click hover" data-bs-placement="bottom" data-bs-custom-class="workbc-popover" title="hidden title" data-bs-html="true" data-bs-content="{{ tooltip | raw }}"></a>
                   </span>
                 </h3>
                 <span class="card-profile__content-value">{{ viewmodel['tab_sections']['labour_market_statistics']['uneployment_bc_markup']|raw }}</span>
@@ -479,14 +475,12 @@
               </div>
             </div>
 
-            {% set tooltip2 = "<em><strong>Goods and Services Sectors</strong></em> refers to goods-producing industries and services-producing industries." %}
             <div class="card-profile">
               <div class="card-profile__content">
                 <h3 class="card-profile__content-header">{{ viewmodel['tab_sections']['industry_highlights']['employment_goods_service_share_chart_title'] }}
-                  <span class="workbc-tooltip">
-                    <div class="workbc-tooltip-content bc-profile--tooltip-content">
-                      {{ tooltip2 | raw }}
-                    </div>
+                  {% set tooltip = "<em><strong>Goods and Services Sectors</strong></em> refers to goods-producing industries and services-producing industries." %}
+                  <span class="profile-information-card-infotip">
+                    <a tabindex="0" class="btn btn-link info-tooltip-inline" role="button" data-bs-toggle="popover" data-bs-container="body" data-bs-trigger="click hover" data-bs-placement="bottom" data-bs-custom-class="workbc-popover" title="hidden title" data-bs-html="true" data-bs-content="{{ tooltip | raw }}"></a>
                   </span>
                 </h3>
                 <span class="card-profile__content-item">{{ viewmodel['tab_sections']['industry_highlights']['employment_goods_service_share_chart_markup']|raw }}</span>

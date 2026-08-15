@@ -29,10 +29,8 @@
       <div class="explore-careers__label">{{ explore_careers.title_1 }}</div>
       <div class="explore-careers__text">
         {{ explore_careers.body_1 }}
-        <span class="workbc-tooltip explore-careers--tooltip">
-          <div class="workbc-tooltip-content explore-careers--tooltip-content">
-            {{ explore_careers.tooltip_1 }}
-          </div>
+        <span class="explore-careers--tooltip">
+          <a tabindex="0" class="btn btn-link info-tooltip" role="button" data-bs-toggle="popover" data-bs-container="body" data-bs-trigger="click hover" data-bs-placement="bottom" data-bs-custom-class="workbc-popover" title="hidden title" data-bs-html="true" data-bs-content="{{ explore_careers.tooltip_1 }}"></a>
         </span>
       </div>
       <div>{{ explore_careers.action_1 }}</div>
