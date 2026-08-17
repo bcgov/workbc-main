@@ -68,7 +68,7 @@
   {% if label_display in ['before', 'invisible'] %}
     {{ label }}
     <span>
-      <a tabindex="0" class="btn btn-link info-tooltip" role="button" data-bs-toggle="popover" data-bs-container="body" data-bs-trigger="click hover" data-bs-placement="bottom" data-bs-custom-class="workbc-popover" title="hidden title" data-bs-html="true" data-bs-content="{{ occupational_interest_tooltip }}"></a>
+      <a tabindex="0" id="occupation-interest-tooltip" class="btn btn-link info-tooltip info-tooltip-inline" role="button" data-bs-toggle="popover" data-bs-container="#occupation-interest-tooltip" data-bs-trigger="click hover" data-bs-placement="bottom" data-bs-custom-class="workbc-popover" title="hidden title" data-bs-html="true" data-bs-content="{{ occupational_interest_tooltip }}"></a>
     </span>
   {% endif %}
   </div>

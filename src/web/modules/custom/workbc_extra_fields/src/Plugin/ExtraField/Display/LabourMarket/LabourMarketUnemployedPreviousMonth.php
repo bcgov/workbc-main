@@ -51,43 +51,44 @@ class LabourMarketUnemployedPreviousMonth extends ExtraFieldDisplayFormattedBase
     }
 
     $data = $entity->ssot_data['monthly_labour_market_updates'][0];
-    //values
-    $current_previous_months = $entity->ssot_data['current_previous_months_names'];
-
     $options = array(
       'decimals' => 0,
       'na_if_empty' => TRUE,
     );
-    $total_unemployed = ssotFormatNumber($data['total_unemployed_previous'], $options);
     $options = array(
       'decimals' => 1,
       'suffix' => "%",
       'na_if_empty' => TRUE,
     );
-    $unemployed_rate_value =  ssotFormatNumber($data['employment_rate_pct_unemployment_previous'], $options);
+    $total_unemployed = ssotFormatNumber($data['total_unemployed_previous'], $options);
+    $current_previous_months = $entity->ssot_data['current_previous_months_names'];
+    $unemployed_rate_value = ssotFormatNumber($data['employment_rate_pct_unemployment_previous'], $options);
     $unemployed_part_value = ssotFormatNumber($data['employment_rate_pct_participation_previous'], $options);
-    $information_text_tooltip = '
-                  <div class="workbc-tooltip-content lm-tooltip-content">
-                    <p>'. $this->t('Participation Rate represents the number of people in the workforce that are of working age as a percentage of total BC population.') . '</p>
-                  </div>';
     $source_text = !empty($entity->ssot_data['sources']['no-datapoint'])?$entity->ssot_data['sources']['no-datapoint']:WORKBC_EXTRA_FIELDS_NOT_AVAILABLE;
 
-
-    //output
-    $output = '
+    $output = <<<EOS
     <div class="lm-data-box text-center">
-    <div class="lm-label">'.$this->t("<strong>Total Unemployed</strong> (@previousmonthyear)", ["@previousmonthyear" => $current_previous_months['previous_month_year']]).'</div>
-    <div class="lm-data-value">'.$total_unemployed.'</div>
+      <div class="lm-label">
+        {$this->t("<strong>Total Unemployed</strong> (@previousmonthyear)", ["@previousmonthyear" => $current_previous_months['previous_month_year']])}
+      </div>
+    <div class="lm-data-value">{$total_unemployed}</div>
     <div class="lm-data-container">
       <div class="lm-data-item">
-        <div class="lm-data-item-label">'.$this->t("Unemployment Rate").'</div><div class="lm-data-item-value">'.$unemployed_rate_value.'</div></div>
+        <div class="lm-data-item-label">{$this->t("Unemployment Rate")}</div><div class="lm-data-item-value">{$unemployed_rate_value}</div>
+      </div>
       <div class="lm-data-item lm-has-tooltip">
-        <div class="lm-data-item-label">'.$this->t("Participation Rate").'</div>
-        <div class="lm-data-item-value">'.$unemployed_part_value.' <span class="workbc-tooltip lm-tooltip">'.$information_text_tooltip.'</span></div>
+        <div class="lm-data-item-label">{$this->t("Participation Rate")}</div>
+        <div class="lm-data-item-value">
+          {$unemployed_part_value}
+          <span class="lm-tooltip">
+            <a tabindex="0" class="btn btn-link info-tooltip info-tooltip-inline" role="button" data-bs-toggle="popover" data-bs-container="body" data-bs-trigger="click hover" data-bs-placement="bottom" data-bs-custom-class="workbc-popover" title="hidden title" data-bs-html="true" data-bs-content="{$this->t('Participation Rate represents the number of people in the workforce that are of working age as a percentage of total BC population.')}"></a>
+          </span>
+        </div>
       </div>
     </div>
     </div>
-    <div class="lm-source"><strong>'.$this->t("Source").': </strong>'.$source_text.'</div>';
+    <div class="lm-source"><strong>{$this->t("Source")}: </strong>{$source_text}</div>
+  EOS;
 
     return [
       ['#markup' => $output],
