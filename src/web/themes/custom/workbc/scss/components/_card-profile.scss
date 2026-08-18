@@ -27,10 +27,6 @@ $card-divider-size: calc(2 * $card-divider-size-half);
     flex: 1 1 100%;
   }
 
-  a.info-tooltip {
-    display: inline-block;
-  }
-
   h2 {
     flex: 0 0;
     display: block;
@@ -113,6 +109,10 @@ $card-divider-size: calc(2 * $card-divider-size-half);
   line-height: 1.125rem;
   font-weight: bold;
   margin-bottom: $card-padding;
+
+  a.info-tooltip-inline {
+    margin-left: 4px;
+  }
 }
 
 h3.card-profile__content-header {
@@ -211,12 +211,6 @@ h3.card-profile__content-header {
 
 .card-profile__default-color {
   color: $workbc_default_text !important;
-}
-
-.card-profile__content-tooltip {
-  a.info-tooltip {
-    display: inline-block;
-  }
 }
 
 .card-profile__link-container {

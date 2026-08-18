@@ -313,10 +313,10 @@
       top: 0;
       background: linear-gradient(
       to right,
-        #002957 0%,
-        #002957 32%,
-        #052C5B 38%,
-        rgba(0, 41, 86, 0.38) 100%
+      #002957 0%,
+      #002957 32%,
+      #052C5B 38%,
+      rgba(0, 41, 86, 0.38) 100%
       );
     }
 
@@ -909,71 +909,71 @@
     margin-top: 24px;
 
 
-      .jobs-data {
-        max-width: 100%;
+    .jobs-data {
+      max-width: 100%;
 
-        .cards-grid {
-          display: flex;
-          flex-wrap: wrap;
-          gap: 16px;
-        }
-
-        .job-box.item {
-          width: 49%;
-          padding: 16px;
-        }
-
-        .card-plain__content {
-          min-height: auto;
-          display: block;
-        }
-
-        .job-title a {
-          font-size: 14.4px;
-          line-height: 21.6px;
-          font-weight: 800;
-          color: #333333;
-          text-decoration: underline;
-        }
-
-        .job-company {
-          font-size: 14px;
-          margin-bottom: 10px;
-          font-weight: 400;
-          color: #333333;
-        }
-      }
-
-      .job-footer {
+      .cards-grid {
         display: flex;
         flex-wrap: wrap;
+        gap: 16px;
+      }
 
-        .job-location {
-          margin-right: 16px;
-          display: inline-flex;
-          align-items: center;
-          font-size: 14.4px;
-          line-height: 22px;
-          color: #333333;
-          padding: 0;
-          margin-bottom: 6px;
-        }
+      .job-box.item {
+        width: 49%;
+        padding: 16px;
+      }
 
-        .job-post-date {
-          position: inherit;
-          font-size: 14.4px;
-          line-height: 22px;
-          color: #333333;
+      .card-plain__content {
+        min-height: auto;
+        display: block;
+      }
 
-          label {
-            display: none;
-          }
-        }
+      .job-title a {
+        font-size: 14.4px;
+        line-height: 21.6px;
+        font-weight: 800;
+        color: #333333;
+        text-decoration: underline;
+      }
 
-        span {
-          margin-right: 6px;
+      .job-company {
+        font-size: 14px;
+        margin-bottom: 10px;
+        font-weight: 400;
+        color: #333333;
+      }
+    }
+
+    .job-footer {
+      display: flex;
+      flex-wrap: wrap;
+
+      .job-location {
+        margin-right: 16px;
+        display: inline-flex;
+        align-items: center;
+        font-size: 14.4px;
+        line-height: 22px;
+        color: #333333;
+        padding: 0;
+        margin-bottom: 6px;
+      }
+
+      .job-post-date {
+        position: inherit;
+        font-size: 14.4px;
+        line-height: 22px;
+        color: #333333;
+
+        label {
+          display: none;
         }
       }
+
+      span {
+        margin-right: 6px;
+      }
+    }
 
     .career-skills-row {
       display: flex;
@@ -1379,9 +1379,9 @@
   }
   .plan-careercareer-trek-videos .career-trek-row::after,.plan-careercareer-trek-videos .career-trek-row.video-stop::after {
     background:linear-gradient(
-      to top,
-      #002957 30%,
-      rgba(0, 41, 86, 0.58) 98%
+    to top,
+    #002957 30%,
+    rgba(0, 41, 86, 0.58) 98%
     )
   }
 }

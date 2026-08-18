@@ -26,7 +26,7 @@ class ExploreCareersSearchForm extends FormBase {
   public function buildForm(array $form, FormStateInterface $form_state) {
     $tooltip = <<<EOS
       <span class="explore-careers--tooltip">
-        <a tabindex="0" class="btn btn-link info-tooltip info-tooltip-inline" role="button" data-bs-toggle="popover" data-bs-container="body" data-bs-trigger="click hover" data-bs-placement="bottom" data-bs-custom-class="workbc-popover" title="hidden title" data-bs-html="true" data-bs-content="{$this->t('The National Occupational Classification System (NOC) is Canada’s national system for describing occupations. Each occupation is assigned a unique five-digit NOC code.')}"></a>
+        <a tabindex="0" class="btn btn-link info-tooltip info-tooltip-inline" role="button" data-bs-toggle="popover" data-bs-container="body" data-bs-trigger="click hover" data-bs-placement="bottom" data-bs-custom-class="workbc-popover--inline" title="hidden title" data-bs-html="true" data-bs-content="{$this->t('The National Occupational Classification System (NOC) is Canada’s national system for describing occupations. Each occupation is assigned a unique five-digit NOC code.')}"></a>
       </span>
     EOS;
 
