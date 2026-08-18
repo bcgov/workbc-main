@@ -241,7 +241,7 @@ html {
 
     &:focus-visible {
       outline-offset: 1px;
-      outline: -webkit-focus-ring-color auto 1px;
+      outline: auto;
     }
   }
 
@@ -262,7 +262,7 @@ html {
     cursor: pointer;
 
     &:focus {
-      outline: -webkit-focus-ring-color auto 1px;
+      outline: auto;
     }
   }
 
