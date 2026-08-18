@@ -361,14 +361,12 @@
                 <h3 class="card-profile__content-header">{{ viewmodel['tab_sections']['labour_market_statistics']['uneployment_bc_title'] }}</h3>
                 <span class="card-profile__content-value">{{ viewmodel['tab_sections']['labour_market_statistics']['uneployment_bc_markup']|raw }}</span>
               </div>
-              {% set tooltip = "Unemployment rate refers to the percentage of the population 15 years and older that are not employed." %}
+              {% set tooltip = "<em>Unemployment rate</em> refers to the percentage of the population 15 years and older that are not employed." %}
               <div class="card-profile__content">
                 <h3 class="card-profile__content-header">
                   {{ viewmodel['tab_sections']['labour_market_statistics']['uneployment_chart_title'] }}
-                  <span class="workbc-tooltip">
-                    <div class="workbc-tooltip-content">
-                      {{ tooltip | raw }}
-                    </div>
+                  <span class="profile-information-card-infotip">
+                    <a tabindex="0" class="btn btn-link info-tooltip info-tooltip-inline" role="button" data-bs-toggle="popover" data-bs-container="body" data-bs-trigger="click hover" data-bs-placement="bottom" data-bs-custom-class="workbc-popover--inline" title="hidden title" data-bs-html="true" data-bs-content="{{ tooltip }}"></a>
                   </span>
                 </h3>
                 <span class="card-profile__content-value">{{ viewmodel['tab_sections']['labour_market_statistics']['uneployment_chart_markup']|raw }}</span>

@@ -6,20 +6,20 @@
   let managePopoverClosure = function () {
     $(document).on('click', function (e) {
       var $popover,
-          $target = $(e.target);
+      $target = $(e.target);
       //do nothing if there was a click on popover content
       if ($target.hasClass('popover') || $target.closest('.popover').length) {
-          return;
+        return;
       }
       $('[data-bs-toggle="popover"]').each(function () {
-          $popover = $(this);
-  
-          if (!$popover.is(e.target) &&
-              $popover.has(e.target).length === 0 &&
-              $('.popover').has(e.target).length === 0)
-          {
-              $popover.popover('hide');
-          } 
+        $popover = $(this);
+
+        if (!$popover.is(e.target) &&
+        $popover.has(e.target).length === 0 &&
+        $('.popover').has(e.target).length === 0)
+        {
+          $popover.popover('hide');
+        }
       });
     })
   }

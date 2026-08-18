@@ -3,13 +3,11 @@
   background-color: #f2f2f2;
 }
 
-
 .view-high-opportunity-occupations-2 .form--inline {
   display: grid;
   grid-template-columns: 50% 50%;
   align-items: end;
 }
-
 
 .view-high-opportunity-occupations-2 .view-filters {
   padding: 20px;
@@ -17,15 +15,14 @@
   background-color: #f2f2f2;
 }
 
-
 .view-high-opportunity-occupations-2 .view-filters .form-select {
-    border: 2px solid #2e6ab0;
-    line-height: 2;
-    border-radius: 0;
+  border: 2px solid #2e6ab0;
+  line-height: 2;
+  border-radius: 0;
 
-    &:focus {
-      box-shadow: none;
-    }
+  &:focus {
+    box-shadow: none;
+  }
 }
 
 .view-high-opportunity-occupations-2 .chosen-container-multi .form-select {
@@ -70,14 +67,12 @@
   padding-top: 1.5em;
 }
 
-
 .view-high-opportunity-occupations-2 .hoo-content {
   padding: 40px 30px;
   margin-bottom: 40px;
   box-shadow: 0 0 10px #dbdbdb;
 
   @include media-breakpoint-up(md) {
-
     .views-field {
       padding: 10px;
     }
@@ -102,14 +97,12 @@
     }
 
     .views-field-field-region-openings,
-    .views-field-field-hourly-salary
-     {
+    .views-field-field-hourly-salary {
       text-align: right;
     }
   }
 
   @include media-breakpoint-down(md) {
-
     padding: 0 0 0 0;
 
     table {
@@ -156,10 +149,6 @@
       td.views-field-field-hourly-salary::before,
       td.views-field-field-region-openings::before,
       td.views-field-field-occupational-interests::before {
-        /*
-        * aria-label has no advantage, it won't be read inside a table
-        content: attr(aria-label);
-        */
         content: attr(data-label);
         float: left;
         padding-left: 1.5em;
@@ -174,18 +163,13 @@
     }
 
     ul.pager {
-
       li.pager__item, .btn-primary {
         padding-top: 1em;
         display: block;
         width: 100%;
       }
-
     }
-
-
   }
-
 }
 
 .occupation-interest-tooltip {
@@ -193,29 +177,4 @@
   label {
     display: inline;
   }
-
 }
-
-
-  .occupation-interest-tooltip .workbc-tooltip-content {
-    @include media-breakpoint-down(sm) {
-    left: -80px;
-
-    &:before {
-      content: "";
-      position: absolute;
-      top: -10px;
-      left: 34%;
-      width: 16px;
-      height: 12px;
-      background-image: url(../assets/images/triangle.svg);
-      background-size: 16px 12px;
-      background-position: center;
-      background-repeat: no-repeat;
-    }
-  }
-
-}
-
-
-
