@@ -120,9 +120,8 @@ h3.card-profile__content-header {
 }
 
 .card-profile__content-tooltip {
-  position: absolute; // relative to positional context %content-header
-  top: 0;
-  bottom: 0;
+  display: inline-block;
+  vertical-align: text-top;
 }
 
 // hacky style overrides on external content we have no direct control over

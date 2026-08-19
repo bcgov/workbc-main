@@ -376,7 +376,11 @@
 
               <div class="card-profile">
                 <div class="card-profile__content-small">
-                  <h3 class="card-profile__content-header">{{ viewmodel['tab_sections']['career_overview']['salary_annual_salary_title'] }}<a tabindex="0" class="btn btn-link info-tooltip card-profile__content-tooltip" role="button" data-bs-toggle="popover" data-bs-container="body" data-bs-trigger="click hover" data-bs-placement="bottom" data-bs-custom-class="workbc-popover" title="hidden title" data-bs-html="true" data-bs-content="{{ viewmodel['tab_sections']['career_overview']['salary_annual_salary_note']|raw }}"></a></h3>
+                  <h3 class="card-profile__content-header">{{ viewmodel['tab_sections']['career_overview']['salary_annual_salary_title'] }}
+                    <span class="card-profile__content-tooltip">
+                      <a tabindex="0" class="btn btn-link info-tooltip " role="button" data-bs-toggle="popover" data-bs-container="body" data-bs-trigger="click hover" data-bs-placement="bottom" data-bs-custom-class="workbc-popover" title="hidden title" data-bs-html="true" data-bs-content="{{ viewmodel['tab_sections']['career_overview']['salary_annual_salary_note']|raw }}"></a>
+                    </span>
+                  </h3>
                   <span class="card-profile__content-value">{{ viewmodel['tab_sections']['career_overview']['salary_annual_salary_markup']|raw }}</span>
                 </div>
                 <div class="card-profile__content-divider"></div>
