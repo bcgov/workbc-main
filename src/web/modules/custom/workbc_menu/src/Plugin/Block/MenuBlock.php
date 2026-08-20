@@ -32,7 +32,8 @@ class MenuBlock extends BlockBase {
     $a_classes = ["nav-link"];
     $a_attributes = [
       "aria-setsize=\"$c\"",
-      "aria-posinset=\"$i\""
+      "aria-posinset=\"$i\"",
+      "aria-label=\"$name\"",
     ];
     if ($hasChildren) {
       array_push($a_classes, "has-submenu");
@@ -57,6 +58,7 @@ class MenuBlock extends BlockBase {
         $node = null;
       }
       $blurb = $this->getBlurb($link, $node);
+      $a_attributes[] = "aria-description=\"$blurb\"";
       $attributes = implode(' ', $a_attributes);
       $classes = implode(' ', $a_classes);
       return <<<EOT
