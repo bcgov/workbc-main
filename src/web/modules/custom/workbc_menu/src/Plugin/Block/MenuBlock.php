@@ -22,31 +22,25 @@ class MenuBlock extends BlockBase {
    */
   public function build() {
     return [
-      '#markup' => $this->generateMegaMenu(\Drupal::menuTree()->load('main', new \Drupal\Core\Menu\MenuTreeParameters())),
+      '#children' => $this->generateMegaMenu(\Drupal::menuTree()->load('main', new \Drupal\Core\Menu\MenuTreeParameters())),
     ];
   }
 
-  private function renderLink(MenuLinkBase $link, bool $hasChildren, int $level, int $i, int $c) {
+  private function renderLink(MenuLinkBase $link, bool $hasChildren, int $level) {
     $name = $link->getTitle();
     $url = $link->getUrlObject()->toString();
     $a_classes = ["nav-link"];
-    $a_attributes = [
-      "aria-setsize=\"$c\"",
-      "aria-posinset=\"$i\"",
-      "aria-label=\"$name\"",
-    ];
+    $a_attributes = [];
     if ($hasChildren) {
       array_push($a_classes, "has-submenu");
-      $a_attributes[] = "aria-haspopup=\"true\"";
-      $a_attributes[] = "aria-expanded=\"false\"";
     }
     if (array_key_exists('attributes', $link->getOptions())) foreach ($link->getOptions()['attributes'] as $key => $attr) {
       $a_attributes[] = "$key=\"$attr\"";
     }
     if ($level === 1) {
       return $url !== "/" ?
-        "<span role=\"menuitem\" " . implode(' ', $a_attributes) . " class=\"" . implode(' ', $a_classes) . "\">$name</span>" :
-        "<a role=\"menuitem\" " . implode(' ', $a_attributes) . " class=\"" . implode(' ', $a_classes) . "\" href=\"$url\">$name</a>";
+        "<button aria-expanded=\"false\"" . implode(' ', $a_attributes) . " class=\"" . implode(' ', $a_classes) . "\">$name</button>" :
+        "<a " . implode(' ', $a_attributes) . " class=\"" . implode(' ', $a_classes) . "\" href=\"$url\">$name</a>";
     }
     else {
       $blurb = "";
@@ -58,11 +52,10 @@ class MenuBlock extends BlockBase {
         $node = null;
       }
       $blurb = $this->getBlurb($link, $node);
-      $a_attributes[] = "aria-description=\"$blurb\"";
       $attributes = implode(' ', $a_attributes);
       $classes = implode(' ', $a_classes);
       return <<<EOT
-        <a role="menuitem" $attributes class="$classes" href="$url">
+        <a $attributes class="$classes" href="$url">
           <span class="nav-title">$name</span>
           <span class="nav-blurb">$blurb</span>
         </a>
@@ -82,25 +75,24 @@ class MenuBlock extends BlockBase {
 
   private function generateMegaMenu($input) {
     /** @var MenuLinkTreeElement[] $input */
-    $output = "<ul aria-role=\"menubar\" aria-label=\"Main navigation menu\" class=\"nav-t1\">\n";
-    $items = $this->getEnabledItems($input);
-    foreach (array_values($items) as $i => $item) {
+    $output = "<ul class=\"nav-t1\">\n";
+    foreach ($this->getEnabledItems($input) as $item) {
       $li_classes = ["nav-item"];
       if ($item->hasChildren) {
         array_push($li_classes, "has-submenu");
       }
-      $output .= "<li role=\"none\" tabindex=\"0\" class=\"" . implode(' ', $li_classes) . "\">\n";
-      $output .= $this->renderLink($item->link, $item->hasChildren, 1, $i+1, count($items)) . "\n";
+      $output .= "<li aria-role=\"none\" class=\"" . implode(' ', $li_classes) . "\">\n";
+      $output .= $this->renderLink($item->link, $item->hasChildren, 1) . "\n";
       if ($item->hasChildren) {
         $output .= "<div class=\"submenu-container\"><div class=\"row g-0 submenu\">\n";
 
         $children = $this->getEnabledItems($item->subtree);
         $column1 = array_slice($children, 0, 3);
         $output .= "<div class=\"col-sm-4\">\n";
-        $output .= "<ul role=\"menu\" class=\"nav-t2\">\n";
-        foreach (array_values($column1) as $j => $child) {
-          $output .= "<li role=\"none\" class=\"nav-item\">\n";
-          $output .= $this->renderLink($child->link, false, 2, $j+1, count($children)) . "\n";
+        $output .= "<ul class=\"nav-t2\">\n";
+        foreach ($column1 as $child) {
+          $output .= "<li aria-role=\"none\" class=\"nav-item\">\n";
+          $output .= $this->renderLink($child->link, $child->hasChildren, 2) . "\n";
           $output .= "</li>\n";
         }
         $output .= "</ul>\n";
@@ -109,10 +101,10 @@ class MenuBlock extends BlockBase {
         $column2 = array_slice($children, 3);
         $output .= "<div class=\"col-sm-4\">\n";
         if (count($column2) > 0) {
-          $output .= "<ul role=\"menu\" class=\"nav-t2\">\n";
-          foreach (array_values($column2) as $j => $child) {
-            $output .= "<li role=\"none\" class=\"nav-item\">\n";
-            $output .= $this->renderLink($child->link, false, 2, $j+4, count($children)) . "\n";
+          $output .= "<ul class=\"nav-t2\">\n";
+          foreach ($column2 as $child) {
+            $output .= "<li aria-role=\"menuitem\" class=\"nav-item\">\n";
+            $output .= $this->renderLink($child->link, false, 2) . "\n";
             $output .= "</li>\n";
           }
           $output .= "</ul>\n";
