@@ -45,11 +45,3 @@ workbc_custom.report_wbcams_1997:
     _title: 'WBCAMS-1997 report'
   requirements:
     _permission: 'administer workbc settings'
-
-workbc_custom.report_wbcams_2131:
-  path: '/admin/reports/wbcams-2131'
-  defaults:
-    _controller: '\Drupal\workbc_custom\Controller\ReportsController::wbcams_2131'
-    _title: 'WBCAMS-2131 test'
-  requirements:
-    _permission: 'administer workbc settings'

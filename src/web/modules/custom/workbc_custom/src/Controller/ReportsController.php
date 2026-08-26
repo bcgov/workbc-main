@@ -65,16 +65,4 @@ class ReportsController extends ControllerBase {
     ];
   }
 
-
-  public function wbcams_2131() {
-    $content = "2131 menu item delete test";
-
-    \Drupal::service('module_installer')->uninstall(['module_machine_name']);
-    \Drupal::service('cache.menu')->invalidateAll();
-    return [
-      '#type' => 'markup',
-      '#markup' => $content,
-    ];
-  }
-
 }
