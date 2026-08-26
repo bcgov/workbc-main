@@ -9,6 +9,8 @@ namespace Drupal\workbc_custom\Controller;
 
 use Drupal\Core\Controller\ControllerBase;
 use Drupal\media\Entity\Media;
+use Drupal\Core\Menu\MenuTreeParameters;
+use Drupal\Core\Entity\EntityTypeManagerInterface;
 
 class ReportsController extends ControllerBase {
   public function environment() {
@@ -57,6 +59,18 @@ class ReportsController extends ControllerBase {
       $content .= '<p><a href="/media/' . $alt->mid . '/edit">[' . $alt->mid . '] - ' . $alt->name . '</a></p>';
     }
 
+    return [
+      '#type' => 'markup',
+      '#markup' => $content,
+    ];
+  }
+
+
+  public function wbcams_2131() {
+    $content = "2131 menu item delete test";
+
+    \Drupal::service('module_installer')->uninstall(['module_machine_name']);
+    \Drupal::service('cache.menu')->invalidateAll();
     return [
       '#type' => 'markup',
       '#markup' => $content,
