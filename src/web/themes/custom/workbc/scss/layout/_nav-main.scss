@@ -3,7 +3,7 @@
   ul.nav-t1 {
     @include list-reset;
 
-    position: relative; // create positioning context %nav-t1
+    position: relative;
     height: 100%;
     width: 100%;
     display: flex;
@@ -14,7 +14,13 @@
     padding: 0;
     margin: 0;
 
-    & a, span {
+    button {
+      padding: initial;
+      border: 0;
+      background-color: transparent;
+    }
+
+    a {
       padding: 5px 20px 5px 10px;
 
       &:hover {
@@ -33,7 +39,8 @@
       justify-content: space-around;
       align-items: stretch;
 
-      & > a, span {
+      & > a,
+      & > button {
         font-size: 1rem;
         padding: 0;
       }
@@ -81,15 +88,12 @@
   }
 }
 
+$menuitem_height: 7.75rem;
+
 // Nav colors and styling
 .nav-main {
   @include nav-theme-base;
   background-color: $workbc_dark_theme_background;
-
-  span.nav-link {
-    -webkit-user-select: none;
-    user-select: none;
-  }
 
   ul.nav-t1 {
     & > .nav-item:first-child {
@@ -100,18 +104,18 @@
       cursor: pointer;
 
       & > a,
-      & > span {
+      & > button {
         color: $workbc_dark_theme_text;
       }
 
-      &:focus,
+      &:has(button:focus),
       &:hover,
       &.open {
         border-color: $workbc_light_theme_trim;
         background-color: $workbc_light_theme_background_default;
 
         & > a,
-        & > span {
+        & > button {
           color: $workbc_light_theme_text;
         }
       }
@@ -124,13 +128,19 @@
 
           ul.nav-t2 {
             border-right: 3px solid $workbc_light_theme_background_accent;
+            column-count: 2;
+            column-rule: 3px solid $workbc_light_theme_background_accent;
+            column-fill: auto;
+            column-gap: 0;
+            height: calc($menuitem_height * 3);
 
             & > .nav-item {
-              height: 7.75rem;
+              height: $menuitem_height;
 
               .nav-blurb {
                 display: -webkit-box;
                 -webkit-line-clamp: 3;
+                line-clamp: 3;
                 -webkit-box-orient: vertical;
                 overflow: hidden;
               }
@@ -270,9 +280,14 @@
   }
 }
 
-.nav-fixed .nav-main ul.nav-t1 > li span {
-  @include media-breakpoint-up(xl) {
-    color: #234075;
+.nav-fixed .nav-main ul.nav-t1 {
+  & > li,
+  & > li.open {
+    button {
+      @include media-breakpoint-up(xl) {
+        color: #234075;
+      }
+    }
   }
 }
 
@@ -288,7 +303,7 @@
   padding: 30px;
   row-gap: 15px;
   cursor: default;
-  max-height: calc(7.75rem * 3);
+  max-height: calc($menuitem_height * 3);
   overflow: hidden;
 
   a {

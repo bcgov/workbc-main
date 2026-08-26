@@ -4,53 +4,54 @@
   // Manage the main navigation menu open/close status.
   Drupal.behaviors.mainNav = {
     attach: function (context, settings) {
-      $(once("mainNav", ".nav-t1 > .nav-item", context)).on('focus', function(event) {
-        $(this).parent().children(".nav-item").removeClass('open').children(".nav-link").attr('aria-expanded', 'false');
-      }).on('blur', function(event) {
-        if (event.relatedTarget && !$(event.relatedTarget).hasClass('nav-link') && !$(event.relatedTarget).parents('.megamenu-splash').length > 0) {
-          $(this).removeClass('open').children(".nav-link").attr('aria-expanded', 'false');
+      $(once("mainNav", ".nav-t1 button.nav-link", context)).on("focus", function(event) {
+        $(this).parent().siblings().removeClass("open").children(".nav-link").attr("aria-expanded", "false");
+      }).on("blur", function(event) {
+        if (event.relatedTarget && !$(event.relatedTarget).hasClass("nav-link") && !$(event.relatedTarget).parents(".megamenu-splash").length > 0) {
+          $(this).parent().removeClass("open").children(".nav-link").attr("aria-expanded", "false");
         }
-      }).on('click', function(event) {
-        const alreadyOpen = $(event.target).is('.open') || $(event.target).parent('.open').length > 0;
+      });
+      $(once("mainNav", ".nav-t1 > .nav-item", context)).on("click", function(event) {
+        const alreadyOpen = $(event.target).is(".open") || $(event.target).parent(".open").length > 0;
         if (alreadyOpen) {
-          $(this).parent().children(".nav-item").removeClass('open').children(".nav-link").attr('aria-expanded', 'false');
+          $(this).parent().children(".nav-item").removeClass("open").children(".nav-link").attr("aria-expanded", "false");
         }
         else {
-          $(this).addClass('open').children(".nav-link").attr('aria-expanded', 'true');
+          $(this).addClass("open").children(".nav-link").attr("aria-expanded", "true").focus();
         }
-      }).on('keyup', function(event) {
-        if (event.key == "Enter" || event.key == " " || event.key == "Spacebar") {
-          const alreadyOpen = $(event.target).is('.open') || $(event.target).parent('.open').length > 0;
+      }).on("keyup", function(event) {
+        if (event.key == " " || event.key == "Spacebar") {
+          const alreadyOpen = $(event.target).is(".open") || $(event.target).parent(".open").length > 0;
           if (alreadyOpen) {
-            $(this).parent().children(".nav-item").removeClass('open').children(".nav-link").attr('aria-expanded', 'false');
+            $(this).parent().children(".nav-item").removeClass("open").children(".nav-link").attr("aria-expanded", "false");
           }
           else {
-            $(this).addClass('open').children(".nav-link").attr('aria-expanded', 'true');
+            $(this).addClass("open").children(".nav-link").attr("aria-expanded", "true").focus();
           }
           return false;
         }
-      }).on('keypress', function(event) {
+      }).on("keypress", function(event) {
         if (event.key == " " || event.key == "Spacebar") {
           return false;
         }
-      }).on('keydown', function(event) {
+      }).on("keydown", function(event) {
         if (event.key == " " || event.key == "Spacebar") {
           return false;
         }
       });
-      $(once("mainNav", ".nav-t2 .nav-link, .megamenu-splash *", context)).on('blur', function(event) {
-        if (event.relatedTarget && !$(event.relatedTarget).parents('.nav-t1').length) {
-          $(".nav-t1 > .nav-item").removeClass('open').children(".nav-link").attr('aria-expanded', 'false');
+      $(once("mainNav", ".nav-t2 .nav-link, .megamenu-splash *", context)).on("blur", function(event) {
+        if (event.relatedTarget && !$(event.relatedTarget).parents(".nav-t1").length) {
+          $(".nav-t1 > .nav-item").removeClass("open").children(".nav-link").attr("aria-expanded", "false");
         }
       });
-      $(once("mainNav", "body", context)).on('click', function(event) {
+      $(once("mainNav", "body", context)).on("click", function(event) {
         if ($(event.target).parents(".nav-t1").length > 0) return;
-        $(".nav-t1 > .nav-item").removeClass('open').children(".nav-link").attr('aria-expanded', 'false');
+        $(".nav-t1 > .nav-item").removeClass("open").children(".nav-link").attr("aria-expanded", "false");
       });
-      $(document).on('keyup', function(event) {
+      $(document).on("keyup", function(event) {
         if (event.key == "Escape") {
-          $(".nav-t1 > .nav-item.open").focus();
-          $(".nav-t1 > .nav-item").removeClass('open').children(".nav-link").attr('aria-expanded', 'false');
+          $(".nav-t1 > .nav-item.open").children(".nav-link").focus();
+          $(".nav-t1 > .nav-item").removeClass("open").children(".nav-link").attr("aria-expanded", "false");
         }
       });
     }
