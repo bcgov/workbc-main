@@ -9,6 +9,8 @@ namespace Drupal\workbc_custom\Controller;
 
 use Drupal\Core\Controller\ControllerBase;
 use Drupal\media\Entity\Media;
+use Drupal\Core\Menu\MenuTreeParameters;
+use Drupal\Core\Entity\EntityTypeManagerInterface;
 
 class ReportsController extends ControllerBase {
   public function environment() {
