@@ -75,7 +75,7 @@ class MenuBlock extends BlockBase {
 
   private function generateMegaMenu($input) {
     /** @var MenuLinkTreeElement[] $input */
-    $output = "<ul class=\"nav-t1\">\n";
+    $output = "<ul aria-label=\"Main navigation menu\" class=\"nav-t1\">\n";
     foreach ($this->getEnabledItems($input) as $ul_id => $item) {
       $li_classes = ["nav-item"];
       if ($item->hasChildren) {
