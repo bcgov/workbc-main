@@ -26,7 +26,7 @@ class MenuBlock extends BlockBase {
     ];
   }
 
-  private function renderLink(MenuLinkBase $link, bool $hasChildren, int $level) {
+  private function renderLink(MenuLinkBase $link, bool $hasChildren, int $level, $ul_id = null) {
     $name = $link->getTitle();
     $url = $link->getUrlObject()->toString();
     $a_classes = ["nav-link"];
@@ -39,7 +39,7 @@ class MenuBlock extends BlockBase {
     }
     if ($level === 1) {
       return $url !== "/" ?
-        "<button aria-expanded=\"false\"" . implode(' ', $a_attributes) . " class=\"" . implode(' ', $a_classes) . "\">$name</button>" :
+        "<button type=\"button\" aria-controls=\"{$ul_id}\" aria-expanded=\"false\"" . implode(' ', $a_attributes) . " class=\"" . implode(' ', $a_classes) . "\">$name</button>" :
         "<a " . implode(' ', $a_attributes) . " class=\"" . implode(' ', $a_classes) . "\" href=\"$url\">$name</a>";
     }
     else {
@@ -76,51 +76,38 @@ class MenuBlock extends BlockBase {
   private function generateMegaMenu($input) {
     /** @var MenuLinkTreeElement[] $input */
     $output = "<ul class=\"nav-t1\">\n";
-    foreach ($this->getEnabledItems($input) as $item) {
+    foreach ($this->getEnabledItems($input) as $ul_id => $item) {
       $li_classes = ["nav-item"];
       if ($item->hasChildren) {
         array_push($li_classes, "has-submenu");
       }
-      $output .= "<li aria-role=\"none\" class=\"" . implode(' ', $li_classes) . "\">\n";
-      $output .= $this->renderLink($item->link, $item->hasChildren, 1) . "\n";
+      $output .= "<li class=\"" . implode(' ', $li_classes) . "\">\n";
+      $output .= $this->renderLink($item->link, $item->hasChildren, 1, $ul_id) . "\n";
       if ($item->hasChildren) {
         $output .= "<div class=\"submenu-container\"><div class=\"row g-0 submenu\">\n";
 
         $children = $this->getEnabledItems($item->subtree);
-        $column1 = array_slice($children, 0, 3);
-        $output .= "<div class=\"col-sm-4\">\n";
-        $output .= "<ul class=\"nav-t2\">\n";
-        foreach ($column1 as $child) {
-          $output .= "<li aria-role=\"none\" class=\"nav-item\">\n";
-          $output .= $this->renderLink($child->link, $child->hasChildren, 2) . "\n";
+        $output .= "<div class=\"col-sm-8\">\n";
+        $output .= "<ul id=\"{$ul_id}\" class=\"nav-t2\">\n";
+        foreach ($children as $child) {
+          $output .= "<li class=\"nav-item\">\n";
+          $output .= $this->renderLink($child->link, false, 2) . "\n";
           $output .= "</li>\n";
         }
         $output .= "</ul>\n";
         $output .= "</div>\n";
 
-        $column2 = array_slice($children, 3);
-        $output .= "<div class=\"col-sm-4\">\n";
-        if (count($column2) > 0) {
-          $output .= "<ul class=\"nav-t2\">\n";
-          foreach ($column2 as $child) {
-            $output .= "<li aria-role=\"menuitem\" class=\"nav-item\">\n";
-            $output .= $this->renderLink($child->link, false, 2) . "\n";
-            $output .= "</li>\n";
-          }
-          $output .= "</ul>\n";
-        }
-        $rendered = "";
+        $output .= "<div class=\"col-sm-4 megamenu-splash\">\n";
+        $splash = "";
         if ($item->link->getEntity()->get('field_splash')->value) {
           $build = [
             '#type' => 'processed_text',
             '#text' => $item->link->getEntity()->get('field_splash')->value,
             '#format' => 'full_html',
           ];
-          $rendered = \Drupal::service('renderer')->renderInIsolation($build);
+          $splash = \Drupal::service('renderer')->renderInIsolation($build);
         }
-        $output .= "</div>\n";
-        $output .= "<div class=\"col-sm-4 megamenu-splash\">\n";
-        $output .= $rendered;
+        $output .= $splash;
         $output .= "</div></div></div>\n";
       }
       $output .= "</li>\n";
