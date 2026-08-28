@@ -28,7 +28,9 @@
     <summary{{ summary_attributes.addClass(summary_classes) }}>
         <div class="skill-title-wrapper">
             {{ title }}
-            <a target="_blank" href="{{ career_trek_config('url_skills_future_workforce') }}" class="btn btn-link info-tooltip" role="button"></a>
+            <span>
+                <a tabindex="0" id="occupation-interest-tooltip" class="btn btn-link info-tooltip" role="button" data-bs-toggle="popover" data-bs-container="#occupation-interest-tooltip" data-bs-trigger="click hover" data-bs-placement="bottom" data-bs-custom-class="workbc-popover--inline" title="hidden title" data-bs-html="true" data-bs-content="{{ skills_competencies_tooltip }}"></a>
+            </span>
         </div>
     </summary>
   {%- endif -%}
