@@ -35,6 +35,18 @@
           else if (event.key == "ArrowRight") {
             value[pointer] = Math.min(1 == pointer ? salaryMax : value[1], value[pointer] + SALARY_STEP);
           }
+          else if (event.key == "PageUp") {
+            value[pointer] = Math.max(0 == pointer ? salaryMin : value[0], value[pointer] - SALARY_STEP*10);
+          }
+          else if (event.key == "PageDown") {
+            value[pointer] = Math.min(1 == pointer ? salaryMax : value[1], value[pointer] + SALARY_STEP*10);
+          }
+          else if (event.key == "Home") {
+            value[0] = salaryMin;
+          }
+          else if (event.key == "End") {
+            value[1] = salaryMax;
+          }
           else return true;
           $slider.jRange('setValue', `${value[0]},${value[1]}`);
           $('.pointer.low', $slider).attr('aria-valuenow', value[0]);
