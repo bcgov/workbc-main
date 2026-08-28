@@ -35,6 +35,7 @@
           else if (event.key == "ArrowRight") {
             value[pointer] = Math.min(1 == pointer ? salaryMax : value[1], value[pointer] + SALARY_STEP);
           }
+          else return true;
           $slider.jRange('setValue', `${value[0]},${value[1]}`);
           $('.pointer.low', $slider).attr('aria-valuenow', value[0]);
           $('.pointer.high', $slider).attr('aria-valuenow', value[1]);
