@@ -35,10 +35,10 @@
           else if (event.key == "ArrowRight") {
             value[pointer] = Math.min(1 == pointer ? salaryMax : value[1], value[pointer] + SALARY_STEP);
           }
-          else if (event.key == "PageUp") {
+          else if (event.key == "PageDown") {
             value[pointer] = Math.max(0 == pointer ? salaryMin : value[0], value[pointer] - SALARY_STEP*10);
           }
-          else if (event.key == "PageDown") {
+          else if (event.key == "PageUp") {
             value[pointer] = Math.min(1 == pointer ? salaryMax : value[1], value[pointer] + SALARY_STEP*10);
           }
           else if (event.key == "Home") {
