@@ -15,6 +15,8 @@
  * @see template_preprocess_details()
  */
 #}
+{# {{ dump(attributes) }}
+{{ dump(summary_attributes) }} #}
 <details{{ attributes.addClass('card') }}>
   {%- if title -%}
     {%
@@ -25,7 +27,7 @@
     ]
     %}
 
-    <summary{{ summary_attributes.addClass(summary_classes) }}>
+    <summary{{ summary_attributes.addClass(summary_classes) }} id="edit-field-teer-value-collapsible--description">
         {{ title }}
     </summary>
   {%- endif -%}
