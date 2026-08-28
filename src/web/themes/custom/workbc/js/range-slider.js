@@ -38,6 +38,7 @@
           $slider.jRange('setValue', `${value[0]},${value[1]}`);
           $('.pointer.low', $slider).attr('aria-valuenow', value[0]);
           $('.pointer.high', $slider).attr('aria-valuenow', value[1]);
+          return false;
         }
       });
 
