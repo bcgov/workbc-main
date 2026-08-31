@@ -281,7 +281,8 @@
           </div>
           {% if statistic['source'] %}
             <div class="profile-information-card-infotip">
-              <a tabindex="0" class="btn btn-link info-tooltip" role="button" data-bs-toggle="popover" data-bs-container="body" data-bs-trigger="click hover" data-bs-placement="bottom" data-bs-custom-class="workbc-popover" title="hidden title" data-bs-html="true" data-bs-content="<em>Source:</em> {{ statistic['source'] }}"></a>
+              {% set id = statistic['icon_class']|clean_id %}
+              <a tabindex="0" id="profile-information-card-infotip--{{ id }}" class="btn btn-link info-tooltip" role="button" data-bs-toggle="popover" data-bs-container="#profile-information-card-infotip--{{ id }}" data-bs-trigger="click hover" data-bs-placement="bottom" data-bs-custom-class="workbc-popover" title="hidden title" data-bs-html="true" data-bs-content="<em>Source:</em> {{ statistic['source'] }}"></a>
             </div>
           {% endif %}
         </div>
@@ -400,7 +401,7 @@
                 <div class="card-profile__header">
                   <h2>{{ viewmodel['tab_sections']['labour_market_statistics']['employment_types_title'] }}
                     <span class="profile-information-card-infotip">
-                      <a tabindex="0" class="btn btn-link info-tooltip" role="button" data-bs-toggle="popover" data-bs-container="body" data-bs-trigger="click hover" data-bs-placement="bottom" data-bs-custom-class="workbc-popover" title="Types of Employment infotip" data-bs-html="true" data-bs-content="Total employed&nbsp;(100%) = full-time&nbsp;(%) + part-time&nbsp;(%). Self-employed and temporary jobs are not included in this calculation."></a>
+                      <a tabindex="0" id="profile-information-card-infotip-2" class="btn btn-link info-tooltip" role="button" data-bs-toggle="popover" data-bs-container="#profile-information-card-infotip-2" data-bs-trigger="click hover" data-bs-placement="bottom" data-bs-custom-class="workbc-popover" title="Types of Employment infotip" data-bs-html="true" data-bs-content="Total employed&nbsp;(100%) = full-time&nbsp;(%) + part-time&nbsp;(%). Self-employed and temporary jobs are not included in this calculation."></a>
                     </span>
                   </h2>
                   <h3>{{ viewmodel['tab_sections']['labour_market_statistics']['employment_types_text__field'] }}</h3>
