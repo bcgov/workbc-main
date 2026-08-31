@@ -307,7 +307,20 @@ $menuitem_height: 7.75rem;
   overflow: hidden;
 
   a {
-    @include link-chevron;
+    display: inline-block;
+    vertical-align: top;
+    padding-top: 0 !important;
+
+    &:after {
+      content: "";
+      padding-left: 2em;
+      background: url(../assets/images/chevron.svg) 50% 50% no-repeat;
+      transition: background-position 0.1s;
+    }
+
+    &:hover:after {
+      background: url(../assets/images/chevron.svg) 65% 50% no-repeat;
+    }
   }
 }
 
