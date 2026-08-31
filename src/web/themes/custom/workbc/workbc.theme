@@ -426,11 +426,19 @@ function workbc_theme_suggestions_form_element_alter(array &$suggestions, array 
  * Implements hook_preprocess_form_element().
  */
 function workbc_preprocess_form_element(&$variables) {
-  if (isset($variables['element']['#name'])) {
-    if ($variables['element']['#name'] === 'field_occupational_interests_target_id') {
-      $paths = \Drupal::config('workbc')->get('paths');
-      $variables['occupational_interest_tooltip'] = 'Careers based on <a href="' . $paths['skills_competencies'] . '" target="_blank" rel="noopener noreferrer">six interest types</a>.';
-    }
+  if (isset($variables['element']['#name']) && $variables['element']['#name'] === 'field_occupational_interests_target_id') {
+    $paths = \Drupal::config('workbc')->get('paths');
+    $variables['occupational_interest_tooltip'] = 'Careers based on <a href="' . $paths['skills_competencies'] . '" target="_blank" rel="noopener noreferrer">six interest types</a>.';
+  }
+}
+
+/**
+ * Implements hook_preprocess_details().
+ */
+function workbc_preprocess_details(&$variables) {
+  if (isset($variables['element']['#id']) && $variables['element']['#id'] === 'edit-field-skills-2-target-id-collapsible') {
+    $config = \Drupal::configFactory()->getEditable('workbc_career_trek.settings');
+    $variables['skills_competencies_tooltip'] = 'Visit the <a href="' . $config->get('url_skills_future_workforce') . '" target="_blank" rel="noopener noreferrer">Skills and Competencies List</a> page for more information.';
   }
 }
 
