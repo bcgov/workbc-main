@@ -81,7 +81,7 @@ class LabourMarketUnemployedPreviousMonth extends ExtraFieldDisplayFormattedBase
         <div class="lm-data-item-value">
           {$unemployed_part_value}
           <span class="lm-tooltip">
-            <a tabindex="0" id="lm-tooltip" class="btn btn-link info-tooltip info-tooltip-inline" role="button" data-bs-toggle="popover" data-bs-container="#lm-tooltip" data-bs-trigger="click hover" data-bs-placement="bottom" data-bs-custom-class="workbc-popover--inline" title="hidden title" data-bs-html="true" data-bs-content="{$this->t('Participation Rate represents the number of people in the workforce that are of working age as a percentage of total BC population.')}"></a>
+            <a tabindex="0" id="lm-tooltip" class="btn btn-link info-tooltip info-tooltip-inline" role="button" data-bs-toggle="popover" data-bs-container="#lm-tooltip" data-bs-trigger="focus click hover" data-bs-placement="bottom" data-bs-custom-class="workbc-popover--inline" title="hidden title" data-bs-html="true" data-bs-content="{$this->t('Participation Rate represents the number of people in the workforce that are of working age as a percentage of total BC population.')}"></a>
           </span>
         </div>
       </div>
