@@ -9,6 +9,13 @@
   background-repeat: no-repeat;
 }
 
+.info-tooltip:focus-visible {
+  box-shadow: none !important;
+  outline: 2px solid !important;
+  outline-offset: 1px !important;
+  outline-color: rgb(16, 16, 16) !important;
+}
+
 .info-tooltip-inline {
   display: inline-block;
   width: 20px;
