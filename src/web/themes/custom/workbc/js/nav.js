@@ -30,11 +30,7 @@
           }
           return false;
         }
-      }).on("keypress", function(event) {
-        if (event.key == " " || event.key == "Spacebar") {
-          return false;
-        }
-      }).on("keydown", function(event) {
+      }).on("keypress keydown", function(event) {
         if (event.key == " " || event.key == "Spacebar") {
           return false;
         }
