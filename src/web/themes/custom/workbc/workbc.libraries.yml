@@ -187,3 +187,11 @@ search-sort-by-reset:
     - core/drupal
     - core/jquery
     - core/once
+
+accessibility:
+  js:
+    js/accessibility.js: {}
+  dependencies:
+    - core/drupal
+    - core/jquery
+    - core/once
