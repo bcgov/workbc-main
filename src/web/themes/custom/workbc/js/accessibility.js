@@ -14,7 +14,7 @@
       // Treat groups of checkboxes like radiobuttons:
       // - Tab/Shift-Tab moves to next/previous group instead of next/previous checkbox
       // - Up/Down arrow moves to next/previous checkbox within group
-      const $checkboxes = $(once('a11yChecks', '.form-checkboxes input[type="checkbox"]', context));
+      const $checkboxes = $(once('a11yCheckboxes', '.form-checkboxes input[type="checkbox"]', context));
       $checkboxes.on('keydown', function(event) {
         switch (event.key) {
           case "ArrowUp":
@@ -28,7 +28,7 @@
             const $parents = $current.add($current.parentsUntil('form'));
             let $candidates;
             if (event.shiftKey) {
-              $candidates = $parents.map(function() { return $(this).prevAll().get(); });
+              $candidates = $.merge($current.parents('.form-item'), $parents.map(function() { return $(this).prevAll().get(); }));
             }
             else {
               $candidates = $parents.map(function() { return $(this).nextAll().get(); });
