@@ -28,7 +28,7 @@
           $(this).popover('hide');
         });
       }
-      if (event.key == "Enter" && $(event.target).is('[data-bs-toggle="popover"]')) {
+      if (event.key == "Enter" && $(event.target).is('[data-bs-toggle="popover"]') && $(event.target).children('div.popover').length == 0) {
         $(event.target).popover('show');
       }
     });
