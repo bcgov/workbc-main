@@ -4,8 +4,8 @@
   // this set of functions is intended to cause popovers to close if the user clicks anywhere outside of them
   // see https://stackoverflow.com/a/69602400/495000
   const managePopoverClosure = function () {
-    $(document).on('click', function (e) {
-      const $target = $(e.target);
+    $(document).on('click', function (event) {
+      const $target = $(event.target);
       //do nothing if there was a click on popover content
       if ($target.hasClass('popover') || $target.closest('.popover').length) {
         return;
@@ -13,9 +13,9 @@
       $('[data-bs-toggle="popover"]').each(function () {
         const $popover = $(this);
         if (
-          !$popover.is(e.target) &&
-          $popover.has(e.target).length === 0 &&
-          $('.popover').has(e.target).length === 0
+          !$popover.is(event.target) &&
+          $popover.has(event.target).length === 0 &&
+          $('.popover').has(event.target).length === 0
         ) {
           $popover.popover('hide');
         }
@@ -27,6 +27,9 @@
         $('[data-bs-toggle="popover"]').each(function () {
           $(this).popover('hide');
         });
+      }
+      if (event.key == "Enter" && $(event.target).is('[data-bs-toggle="popover"]')) {
+        $(event.target).popover('show');
       }
     });
 
