@@ -132,10 +132,9 @@
                   .attr('tabindex', 0)
                   .attr('role', 'slider')
                   .attr('aria-valuemin', salaryMin)
-                  .attr('aria-valuemax', salaryMax)
-                  .attr('aria-label', 'Salary range');
-                $('.pointer.low', $wrapper).attr('aria-valuenow', minValue);
-                $('.pointer.high', $wrapper).attr('aria-valuenow', maxValue);
+                  .attr('aria-valuemax', salaryMax);
+                $('.pointer.low', $wrapper).attr('aria-valuenow', minValue).attr('aria-label', 'Minimum salary');
+                $('.pointer.high', $wrapper).attr('aria-valuenow', maxValue).attr('aria-label', 'Maximum salary');
               }
             }
           });
