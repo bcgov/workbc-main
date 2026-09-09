@@ -3,14 +3,14 @@
 
   // this set of functions is intended to cause popovers to close if the user clicks anywhere outside of them
   // see https://stackoverflow.com/a/69602400/495000
-  const managePopoverClosure = function () {
+  const managePopoverClosure = function (context) {
     $(document).on('click', function (event) {
       const $target = $(event.target);
-      //do nothing if there was a click on popover content
+      // Do nothing if there was a click on popover content
       if ($target.hasClass('popover') || $target.closest('.popover').length) {
         return;
       }
-      $('[data-bs-toggle="popover"]').each(function () {
+      $('[data-bs-toggle="popover"]', context).each(function () {
         const $popover = $(this);
         if (
           !$popover.is(event.target) &&
@@ -24,7 +24,7 @@
 
     $(document).on('keyup', function(event) {
       if (event.key == "Escape") {
-        $('[data-bs-toggle="popover"]').each(function () {
+        $('[data-bs-toggle="popover"]', context).each(function () {
           $(this).popover('hide');
         });
       }
@@ -40,16 +40,20 @@
     });
   }
 
-  const initPopovers = function () {
-    $(document).ready(function() {
-      managePopoverClosure();
-      $('[data-bs-toggle="popover"]').popover();
-    });
-  };
-
-  Drupal.behaviors.initPopoverBehavior = {
+  Drupal.behaviors.initPopoverBehaviour = {
     attach: function (context, settings) {
-      $(once('initPopoverBehavior', '.info-tooltip', context)).each(initPopovers);
+      $(once('initPopoverBehaviour', '.info-tooltip', context)).each(function() {
+        const $element = $(this);
+        $(document).ready(function() {
+          managePopoverClosure(context);
+          $element.on('shown.bs.popover', function (event) {
+            const $element = $(event.target);
+            $('#tooltip-live-region').html($element.attr('data-bs-original-title') + $element.attr('data-bs-content'));
+          }).on('hidden.bs.popover', function (event) {
+            $('#tooltip-live-region').text('');
+          }).popover();
+        });
+      });
     },
   };
 
