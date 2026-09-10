@@ -904,3 +904,30 @@ function workbc_custom_field_widget_info_alter(&$info) {
   $info['text_textarea']['field_types'][] = 'text';
   $info['string_textarea']['field_types'][] = 'string';
 }
+
+/**
+ * Implements hook_ENTITY_TYPE_delete() for node.
+ *
+ * Clear sitemap cache on any content change.
+ */
+function workbc_custom_node_delete(NodeInterface $node) {
+  _sitemap_clear_plugin_cache();
+}
+
+/**
+ * Implements hook_ENTITY_TYPE_insert() for node.
+ *
+ * Clear sitemap cache on any content change.
+ */
+function workbc_custom_node_insert(NodeInterface $node) {
+  _sitemap_clear_plugin_cache();
+}
+
+/**
+ * Implements hook_ENTITY_TYPE_update() for node.
+ *
+ * Clear sitemap cache on any content change.
+ */
+function workbc_custom_node_update(NodeInterface $node) {
+  _sitemap_clear_plugin_cache();
+}
