@@ -1504,3 +1504,26 @@ function workbc_custom_post_update_1997_media_image_alt_text(&$sandbox = NULL) {
   $sandbox['#finished'] = empty($sandbox['images']) ? 1 : ($sandbox['count'] - count($sandbox['images'])) / $sandbox['count'];
   return t("[WBCAMS-1997] $message");
 }
+
+
+
+/**
+ * Remove advagg_js_minify module remnants
+ *
+ * As per ticket WBCAMS-2131.
+ */
+function workbc_custom_post_update_2131_remove_advagg_js_minify_remnants(&$sandbox = NULL) {
+
+  $num_deleted = \Drupal::database()->delete('menu_tree')
+      ->condition('menu_name', 'admin')
+      ->condition('provider', 'advagg_js_minify')
+      ->execute();
+  if ($num_deleted > 0) {
+    \Drupal::service('cache.menu')->invalidateAll();
+  }
+
+  if (\Drupal::service('keyvalue')->get('system.schema')->has('advagg_js_minify')) {
+    \Drupal::service('keyvalue')->get('system.schema')->delete('advagg_js_minify');
+  }
+  return t("[WBCAMS-2131] remove advagg_js_minify module remnants.");
+}
