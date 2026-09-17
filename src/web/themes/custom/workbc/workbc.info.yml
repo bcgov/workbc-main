@@ -29,6 +29,7 @@ libraries:
   - workbc/nav-tabs
   - workbc/support-card
   - workbc/language-toggle
+  - workbc/accessibility
 libraries-override:
   bootstrap5/global-styling: false
   bootstrap5/dialog:

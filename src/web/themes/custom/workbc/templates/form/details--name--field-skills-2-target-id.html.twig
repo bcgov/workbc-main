@@ -15,6 +15,7 @@
  * @see template_preprocess_details()
  */
 #}
+{% set summary_id = attribute(attributes,'aria-describedby') ~ '' %}
 <details{{ attributes.addClass('card') }}>
   {%- if title -%}
     {%
@@ -25,10 +26,12 @@
     ]
     %}
 
-    <summary{{ summary_attributes.addClass(summary_classes) }}>
+    <summary{{ summary_attributes.addClass(summary_classes) }} id="{{ summary_id }}">
         <div class="skill-title-wrapper">
             {{ title }}
-            <a target="_blank" href="{{ career_trek_config('url_skills_future_workforce') }}" class="btn btn-link info-tooltip" role="button"></a>
+            <span>
+                <a tabindex="0" id="occupation-interest-tooltip" class="btn btn-link info-tooltip" role="button" data-bs-toggle="popover" data-bs-container="#occupation-interest-tooltip" data-bs-trigger="focus click hover" data-bs-placement="bottom" data-bs-custom-class="workbc-popover--inline" title="Information about {{ title|render|striptags|trim }}" data-bs-html="true" data-bs-content="{{ skills_competencies_tooltip }}"></a>
+            </span>
         </div>
     </summary>
   {%- endif -%}
