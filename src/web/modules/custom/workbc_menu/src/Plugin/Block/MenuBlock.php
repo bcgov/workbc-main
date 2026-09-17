@@ -64,6 +64,7 @@ class MenuBlock extends BlockBase {
   }
 
   private function getBlurb($link, $node) {
+    if (!method_exists($link, 'getEntity')) return '';
     if ($link->getEntity()->hasField('field_splash') && !empty($link->getEntity()->get('field_splash')->value)) {
       return strip_tags($link->getEntity()->get('field_splash')->value);
     }
@@ -99,7 +100,7 @@ class MenuBlock extends BlockBase {
 
         $output .= "<div class=\"col-sm-4 megamenu-splash\">\n";
         $splash = "";
-        if ($item->link->getEntity()->get('field_splash')->value) {
+        if (method_exists($item->link, 'getEntity') && $item->link->getEntity()->get('field_splash')->value) {
           $build = [
             '#type' => 'processed_text',
             '#text' => $item->link->getEntity()->get('field_splash')->value,
