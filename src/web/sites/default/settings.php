@@ -795,7 +795,7 @@ $config['workbc']['ssot_repo'] = [
   'name' => 'bcgov/workbc-ssot',
   'path' => 'migration/data',
   'branches' => [
-    'aws-dev' => 'ams',
+    'aws_dev' => 'ams',
     'aws-test' => 'ams',
     'aws-prod' => 'master',
   ],
