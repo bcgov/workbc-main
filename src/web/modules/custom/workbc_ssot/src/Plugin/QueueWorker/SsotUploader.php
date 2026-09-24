@@ -68,7 +68,7 @@ class SsotUploader extends QueueWorkerBase implements ContainerFactoryPluginInte
 
     // First get the sha of the existing file if any.
     try {
-      $existing = $this->github("https://api.github.com/repos/{$repo['name']}/contents/{$repo['path']}/{$sheet}?ref=" . $repo['branches'][getenv('PROJECT_ENVIRONMENT')], 'GET', $repo['token']);
+      $existing = $this->github("https://api.github.com/repos/{$repo['name']}/contents/{$repo['path']}/{$sheet}?ref=" . $repo['branch'], 'GET', $repo['token']);
       $sha = json_decode($existing->getBody())->sha;
     }
     catch (\Exception $e) {
@@ -77,7 +77,7 @@ class SsotUploader extends QueueWorkerBase implements ContainerFactoryPluginInte
 
     // Create / update the file.
     $this->github("https://api.github.com/repos/{$repo['name']}/contents/{$repo['path']}/{$sheet}", 'PUT', $repo['token'], [
-      'branch' => $repo['branches'][getenv('PROJECT_ENVIRONMENT')],
+      'branch' => $repo['branch'],
       'sha' => $sha,
       'content' => base64_encode(file_get_contents($filepath)),
       'committer' => [
@@ -95,7 +95,7 @@ class SsotUploader extends QueueWorkerBase implements ContainerFactoryPluginInte
     $this->github("https://api.github.com/repos/{$repo['name']}/dispatches", 'POST', $repo['token'], [
       'event_type' => 'monthly_labour_market_update',
       'client_payload' => [
-        'branch' => $repo['branches'][getenv('PROJECT_ENVIRONMENT')],
+        'branch' => $repo['branch'],
         'filename' => $sheet,
         'year' => $data['year'],
         'month' => $data['month'],

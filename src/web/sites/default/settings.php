@@ -794,11 +794,7 @@ $settings['container_yamls'][] = 'modules/contrib/redis/example.services.yml';
 $config['workbc']['ssot_repo'] = [
   'name' => 'bcgov/workbc-ssot',
   'path' => 'migration/data',
-  'branches' => [
-    'aws_dev' => 'ams',
-    'aws-test' => 'ams',
-    'aws-prod' => 'master',
-  ],
+  'branch' => 'ams',
   'token' => getenv('GITHUB_API_TOKEN'),
   'committer' => 'WorkBC SSoT Uploader',
 ];
