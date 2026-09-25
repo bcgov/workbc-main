@@ -89,7 +89,7 @@
     image_fullwidth: content.field_hero_image_full_width[0],
     image_fullwidth_small: content.field_hero_image_full_small[0] | default(content.field_hero_image_full_width[0]),
     image_fullwidth_wide: content.field_hero_image_full_wide[0] | default(content.field_hero_image_full_width[0]),
-    title: label,
+    title: label[0] | render ~ "",
     subtitle: 'Regional Profile',
     description: null,
   },
@@ -230,7 +230,7 @@
       <div class="hero-content-container container-sm">
         <div class="hero-content-wrapper">
           <div class="hero-title">
-            <h1>{{ viewmodel['hero']['title'] }}</h1>
+            <h1>{{ viewmodel['hero']['title'] | replace({'/': '/<wbr>'}) | raw }}</h1>
           </div>
 
           <div class="hero-subtitle">{{ viewmodel['hero']['subtitle'] }}</div>
