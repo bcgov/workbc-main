@@ -65,15 +65,6 @@
 }
 
 
-@include media-breakpoint-down(sm) {
-  #industry-profile-interactive-map {
-    .card-profile__content-item {
-      display: block;
-      width: 100%;
-    }
-  }
-}
-
 div#industry-profile-interactive-map {
   .card-profile {
     flex: auto;

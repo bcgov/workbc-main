@@ -135,3 +135,96 @@
   }
 
 }
+
+
+@include media-breakpoint-down(sm) {
+  #industry_highlights-content {
+
+    .card-profile__content-item {
+      display: block;
+      width: 100%;
+    }
+
+    padding: 0 0 0 0;
+
+    table {
+      margin: 0 0 0;
+      width: 100%;
+      overflow-x: hidden;
+
+      thead {
+        display: none;
+      }
+
+      td {
+        padding: 0.7em 1.5em 0.7em 1.5em;
+        border: none;
+        background: $workbc_palette_light_primary;
+      }
+
+      td.region {
+        display: block;
+        color: $workbc_palette_dark_secondary;
+        font-weight: bold;
+        border: none;
+      }
+
+      td.data-row {
+        display: block;
+        text-align: right;
+        padding-top: 0;
+        padding-bottom: 0;
+        border: none;
+      }
+
+      td.data-row::before {
+        content: attr(data-label);
+        float: left;
+        font-weight: bold;
+      }
+
+      td.percent-employment, td.prior-year {
+        padding-bottom: 0.7em;
+      }
+
+      tr {
+        display: block;
+        padding-top: 0;
+        padding-bottom: 0.7em;
+        background: $workbc_palette_light_primary;
+        margin: 0 0 0 0;
+      }
+
+      tr.odd {
+        background: inherit;
+      }
+
+      tr.bc-profile-employment-region-footer,
+      tr.lmo-region-job-openings-footer {
+        background: $workbc_palette_dark_tertiary;
+        td.region {
+          color: $workbc_palette_light_primary;
+        }
+
+        td {
+          background: $workbc_palette_dark_tertiary;
+        }
+      }
+
+      tr.horizontal-line {
+        border-top: $workbc_trim_ultra_thin_size solid $workbc_palette_light_secondary;
+        margin: 0 1.5em 0 1.5em;
+        padding: 0 0 0 0;
+      }
+
+      tr.interactive-map-row-hilite {
+        background: $workbc_palette_dark_tertiary;
+
+        td {
+          color: $workbc_palette_light_primary;
+          background: $workbc_palette_dark_tertiary;
+        }
+      }
+    }
+  }
+}
