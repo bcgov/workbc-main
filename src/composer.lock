@@ -4,7 +4,7 @@
         "Read more about it at https://getcomposer.org/doc/01-basic-usage.md#installing-dependencies",
         "This file is @generated automatically"
     ],
-    "content-hash": "ab2ca9d6d65142bc997fb9ff63f02d8c",
+    "content-hash": "46618c3df0bcc7d19a81318fc16b3e65",
     "packages": [
         {
             "name": "asm89/stack-cors",
@@ -4644,17 +4644,17 @@
         },
         {
             "name": "drupal/gtranslate",
-            "version": "3.0.5",
+            "version": "3.0.6",
             "source": {
                 "type": "git",
                 "url": "https://git.drupalcode.org/project/gtranslate.git",
-                "reference": "3.0.5"
+                "reference": "3.0.6"
             },
             "dist": {
                 "type": "zip",
-                "url": "https://ftp.drupal.org/files/projects/gtranslate-3.0.5.zip",
-                "reference": "3.0.5",
-                "shasum": "855d7006c63d1fc4f2a1365ab0e393f60e8dd854"
+                "url": "https://ftp.drupal.org/files/projects/gtranslate-3.0.6.zip",
+                "reference": "3.0.6",
+                "shasum": "c061d4f8fac9e8dd3aec5bce1ae3426ce02714cb"
             },
             "require": {
                 "drupal/core": "^9.3 || ^10 || ^11"
@@ -4662,8 +4662,8 @@
             "type": "drupal-module",
             "extra": {
                 "drupal": {
-                    "version": "3.0.5",
-                    "datestamp": "1778692439",
+                    "version": "3.0.6",
+                    "datestamp": "1790020759",
                     "security-coverage": {
                         "status": "covered",
                         "message": "Covered by Drupal's security advisory policy"
