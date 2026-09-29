@@ -126,7 +126,7 @@
       function doGTranslate(reset = false) {
           const lang = isFrench && !reset ? 'en|fr' : 'en|en';
           $('.gt_selector', context).val(lang).each(function() {
-            this.dispatchEvent(new Event("change"));
+            if (!reset) this.dispatchEvent(new Event("change"));
           });
       }
 
