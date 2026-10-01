@@ -162,7 +162,7 @@
         background: $workbc_palette_light_primary;
       }
 
-      td.region {
+      td.industry {
         display: block;
         color: $workbc_palette_dark_secondary;
         font-weight: bold;
@@ -197,18 +197,6 @@
 
       tr.odd {
         background: inherit;
-      }
-
-      tr.bc-profile-employment-region-footer,
-      tr.lmo-region-job-openings-footer {
-        background: $workbc_palette_dark_tertiary;
-        td.region {
-          color: $workbc_palette_light_primary;
-        }
-
-        td {
-          background: $workbc_palette_dark_tertiary;
-        }
       }
 
       tr.horizontal-line {
