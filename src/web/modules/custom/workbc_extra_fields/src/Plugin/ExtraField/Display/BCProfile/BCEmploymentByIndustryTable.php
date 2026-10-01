@@ -53,16 +53,21 @@ class BCEmploymentByIndustryTable extends ExtraFieldDisplayFormattedBase {
       );
 
       $content = '<table>';
-      $content .= "<tr><th>Industry</th><th class='data-align-right bc-employment-share'>% Share of Employment<br>for this Industry</th><th class='data-align-center'>Sector</th></tr>";
-      foreach ($industries as $industry) {
+      $content .= "<thead><tr><th>Industry</th><th class='data-align-right bc-employment-share'>% Share of Employment<br>for this Industry</th><th class='data-align-center'>Sector</th></tr></thead>";
+      $content .= "<tbody>";
+      foreach ($industries as $key => $industry) {
         $link = "<a href='" . $industry['link'] . "'>";
         $close = "</a>";
         $content .= "<tr>";
-        $content .= "<td>" . $link . $industry['name'] . $close . "</td>";
-        $content .= "<td class='data-align-right bc-employment-share'>" . ssotFormatNumber($industry['share'], $options) . "</td>";
-        $content .= "<td class='data-align-center'>" . $industry['sector'] . "</td>";
+        $content .= "<td class='industry'>" . $link . $industry['name'] . $close . "</td>";
+        $content .= "<td class='data-row data-align-right' data-label='% Share of Employment'>" . ssotFormatNumber($industry['share'], $options) . "</td>";
+        $content .= "<td class='data-row data-align-center' data-label='Share'>" . $industry['sector'] . "</td>";
         $content .= "</tr>";
+        if ($key <> array_key_last($industries)) {
+          $content .= '<tr class="horizontal-line"></tr>';
+        }
       }
+      $content .= "</tbody>";
       $content .= "</table>";
       $output = $content;
     }

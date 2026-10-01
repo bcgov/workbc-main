@@ -27,7 +27,7 @@ class RegionEmploymentByIndustryTable extends ExtraFieldDisplayFormattedBase {
    */
   public function getLabel() {
 
-    return $this->t('Employment by Industry Table');
+    return $this->t('Employment by Industry');
   }
 
   /**
@@ -59,17 +59,20 @@ class RegionEmploymentByIndustryTable extends ExtraFieldDisplayFormattedBase {
       );
 
       $content = "<table>";
-      $content .= "<tr><th>Industry</th><th class='data-align-right'>Employment (" . $datestr . ")</th><th class='data-align-right'>% Share of Employment for this Industry</th></tr>";
-      foreach ($industries as $industry) {
+      $content .= "<thead><tr><th>Industry</th><th class=''>Employment (" . $datestr . ")</th><th class=''>% Share of Employment for this Industry</th></tr></thead>";
+      foreach ($industries as $key => $industry) {
         $link = "<a href='" . $industry['link'] . "'>";
         $close = "</a>";
         $content .= "<tr>";
-        $content .= "<td>" . $link . $industry['name'] . $close . "</td>";
+        $content .= "<td class='industry'>" . $link . $industry['name'] . $close . "</td>";
         $employment = ssotFormatNumber($industry['employment'], $options1);
-        $content .= "<td class='data-align-right'>" . $employment . "</td>";
+        $content .= "<td class='employment data-row data-align-right' data-label='Employment (" . $datestr . ")'>" . $employment . "</td>";
         $share = ssotFormatNumber($industry['share'], $options2);
-        $content .= "<td class='data-align-right'>" . $share . "</td>";
+        $content .= "<td class='employment-share data-row data-align-right' data-label='% Share of Employment'>" . $share . "</td>";
         $content .= "</tr>";
+        if ($key <> array_key_last($industries)) {
+          $content .= '<tr class="horizontal-line"></tr>';
+        }
       }
       $content .= "</table>";
       $output = $content;
