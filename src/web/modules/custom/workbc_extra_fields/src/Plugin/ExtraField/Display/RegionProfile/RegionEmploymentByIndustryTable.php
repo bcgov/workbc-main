@@ -27,7 +27,7 @@ class RegionEmploymentByIndustryTable extends ExtraFieldDisplayFormattedBase {
    */
   public function getLabel() {
 
-    return $this->t('Employment by Industry Table');
+    return $this->t('Employment by Industry');
   }
 
   /**
