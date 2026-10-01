@@ -136,6 +136,11 @@
 
 }
 
+tr {
+  &:nth-child(2n of :not(.horizontal-line)) td {
+    background-color: $workbc_palette_light_secondary;
+  }
+}
 
 @include media-breakpoint-down(sm) {
   #industry_highlights-content {
