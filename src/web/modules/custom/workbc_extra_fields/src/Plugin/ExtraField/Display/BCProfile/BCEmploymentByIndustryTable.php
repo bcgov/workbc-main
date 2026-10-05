@@ -61,7 +61,7 @@ class BCEmploymentByIndustryTable extends ExtraFieldDisplayFormattedBase {
         $content .= "<tr>";
         $content .= "<td class='industry'>" . $link . $industry['name'] . $close . "</td>";
         $content .= "<td class='data-row data-align-right' data-label='% Share of Employment'>" . ssotFormatNumber($industry['share'], $options) . "</td>";
-        $content .= "<td class='data-row data-align-center' data-label='Share'>" . $industry['sector'] . "</td>";
+        $content .= "<td class='data-row data-align-center' data-label='Sector'>" . $industry['sector'] . "</td>";
         $content .= "</tr>";
         if ($key <> array_key_last($industries)) {
           $content .= '<tr class="horizontal-line"></tr>';
