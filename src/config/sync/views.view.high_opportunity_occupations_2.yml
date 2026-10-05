@@ -904,7 +904,7 @@ display:
           replica: false
           query_tags: {  }
       relationships: {  }
-      use_ajax: true
+      use_ajax: false
       header:
         area:
           id: area
