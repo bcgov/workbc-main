@@ -190,19 +190,18 @@ class Content extends SitemapBase {
       foreach ($structure as $name => $data) {
         if ($name === '#metadata') continue;
 
-        $children = [];
         if (isset($data['#metadata']['url'])) {
           $child = Link::fromTextAndUrl($data['#metadata']['title'], Url::fromUri("internal:{$data['#metadata']['url']}"))->toRenderable();
-          $children['children'][] = $child;
         }
         else {
           $child = ['#markup' => $data['#metadata']['title']];
         }
         if (count($data) > 1) {
+          $children = [];
           renderItemList($data, $children);
           $items['children'][] = [
             '#type' => 'details',
-            '#title' => $data['#metadata']['title'],
+            '#title' => \Drupal::service('renderer')->render($child),
             '#open' => false,
             'content' => [
               '#theme' => 'item_list',
