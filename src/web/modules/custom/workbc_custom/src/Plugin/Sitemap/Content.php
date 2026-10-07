@@ -197,11 +197,14 @@ class Content extends SitemapBase {
           $child = ['#markup' => $data['#metadata']['title']];
         }
         if (count($data) > 1) {
+          if (isset($data['#metadata']['url'])) {
+            $items['children'][] = $child;
+          }
           $children = [];
           renderItemList($data, $children);
           $items['children'][] = [
             '#type' => 'details',
-            '#title' => \Drupal::service('renderer')->render($child),
+            '#title' => $data['#metadata']['title'],
             '#open' => false,
             'content' => [
               '#theme' => 'item_list',

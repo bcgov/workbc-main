@@ -1,35 +1,35 @@
 body.sitemap .sitemap-item {
-  // li:has(details) {
-  //   list-style: none;
-  // }
-
-  // .accordion-body {
-  //   padding: unset;
-  // }
-
-  // details {
-  //   border: unset;
-  //   margin: unset;
-  //   padding: unset;
-  // }
-
-  summary {
-  //   background-color: unset;
-    color: unset;
-  //   box-shadow: unset;
-  //   border: unset;
-  //   padding: unset;
-  //   margin: unset;
-  //   display: list-item;
-  //   font-size: unset;
-  //   list-style-position: outside;
-
-  //   &::after {
-  //     content: unset;
+  li:has(details) {
+    list-style: none;
   }
 
-  //   &:focus {
-  //     outline: 2px solid;
-  //   }
-  // }
+  .accordion-body {
+    padding: unset;
+  }
+
+  details {
+    border: unset;
+    margin: unset;
+    padding: unset;
+  }
+
+  summary {
+    background-color: unset;
+    color: unset;
+    box-shadow: unset;
+    border: unset;
+    padding: unset;
+    margin: unset;
+    display: list-item;
+    font-size: unset;
+    list-style-position: outside;
+
+    &::after {
+      content: unset;
+    }
+
+    &:focus {
+      outline: 2px solid;
+    }
+  }
 }
