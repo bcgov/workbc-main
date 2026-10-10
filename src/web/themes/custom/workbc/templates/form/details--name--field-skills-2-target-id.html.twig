@@ -16,6 +16,8 @@
  */
 #}
 {% set summary_id = attribute(attributes,'aria-describedby') ~ '' %}
+{% set info_dialog_id = 'skills-competencies-info-dialog'|clean_unique_id %}
+{% set info_title = 'Information about @title'|t({'@title': title|render|striptags|trim}) %}
 <details{{ attributes.addClass('card') }}>
   {%- if title -%}
     {%
@@ -29,9 +31,6 @@
     <summary{{ summary_attributes.addClass(summary_classes) }} id="{{ summary_id }}">
         <div class="skill-title-wrapper">
             {{ title }}
-            <span>
-                <a tabindex="0" id="occupation-interest-tooltip" class="btn btn-link info-tooltip" role="button" data-bs-toggle="popover" data-bs-container="#occupation-interest-tooltip" data-bs-trigger="focus click hover" data-bs-placement="bottom" data-bs-custom-class="workbc-popover--inline" title="Information about {{ title|render|striptags|trim }}" data-bs-html="true" data-bs-content="{{ skills_competencies_tooltip }}"></a>
-            </span>
         </div>
     </summary>
   {%- endif -%}
@@ -42,7 +41,20 @@
       </div>
     {% endif %}
     {%- if description -%}
-      <div class="alert alert-info">{{ description }}</div>
+      <div class="alert alert-info">{{ description }}
+          <button type="button" class="btn btn-link info-tooltip info-dialog-toggle" aria-haspopup="dialog" aria-expanded="false" aria-controls="{{ info_dialog_id }}" data-workbc-info-dialog="#{{ info_dialog_id }}" title="{{ info_title }}"><span class="visually-hidden">{{ info_title }}</span></button>
+      </div>
+      <div class="modal workbc-info-dialog" id="{{ info_dialog_id }}" role="dialog" aria-modal="false" aria-hidden="true" tabindex="-1" aria-labelledby="{{ info_dialog_id }}-title">
+        <div class="modal-dialog popover bs-popover-auto workbc-popover--inline">
+          <div class="popover-arrow" data-popper-arrow></div>
+          <div class="modal-content">
+            <h2 class="visually-hidden" id="{{ info_dialog_id }}-title">{{ info_title }}</h2>
+            <div class="popover-body">
+              {{ skills_competencies_tooltip|raw }}
+            </div>
+          </div>
+        </div>
+      </div>
     {%- endif -%}
     {%- if children -%}
       {{ children }}
