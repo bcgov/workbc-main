@@ -143,10 +143,6 @@ accordion-scroll:
   js:
     js/accordion-scroll.js: {}
 
-hoo-page-position:
-  js:
-    js/hoo-page-position.js: {}
-
 interactive-map:
   js:
     js/interactive-map.js: {}
