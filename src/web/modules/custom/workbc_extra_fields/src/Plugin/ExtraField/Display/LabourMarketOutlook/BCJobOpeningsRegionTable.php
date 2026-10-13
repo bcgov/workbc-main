@@ -81,6 +81,11 @@ class BCJobOpeningsRegionTable extends LabourMarketOutLookExtraFieldBase {
     }
     $output .= '</tbody>';
 
+    // B.C. stats
+    $region = array_find($this->report->ssot_data[$this->getDataset()], function ($r) {
+      return $r['region'] == 'british_columbia';
+    });
+    $region_name = ssotRegionName($region['region']);
     $output .= '<tfoot>';
     $output .= '<tr class="clearfix lmo-region-job-openings-footer interactive-map-row-'. $region['region'] . '">';
     $output .= '<td class="data-align-left lmo-report-region" data-label="Regions">' . $region_name . '</td>';
