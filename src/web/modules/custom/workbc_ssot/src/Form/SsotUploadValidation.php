@@ -2,6 +2,8 @@
 
 namespace Drupal\workbc_ssot\Form;
 
+use GuzzleHttp\Client;
+
 trait SsotUploadValidation {
   // @see https://stackoverflow.com/a/2430144/209184
   public function number_precision($value) {

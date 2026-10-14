@@ -9,7 +9,6 @@ use PhpOffice\PhpSpreadsheet\IOFactory;
 use PhpOffice\PhpSpreadsheet\Shared\Date as ExcelDate;
 use Drupal\Core\Datetime\DateHelper;
 use Drupal\Core\Url;
-use GuzzleHttp\Client;
 use Drupal\Core\Datetime\DrupalDateTime;
 use Drupal\Core\Messenger\MessengerInterface;
 
