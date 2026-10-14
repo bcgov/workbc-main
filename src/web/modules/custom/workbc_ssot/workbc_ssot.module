@@ -722,3 +722,13 @@ function ssotTEERValues() {
     5 => 'No formal education'
   ];
 }
+
+/**
+ * Get LMO report years.
+ */
+function ssotReportYearValues() {
+  return array_combine(
+    range(2024, intval(date('Y'))),
+    range(2024, intval(date('Y')))
+  );
+}

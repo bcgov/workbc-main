@@ -122,17 +122,12 @@
         }
       }
 
-      // FIXME: Copied from src/web/modules/contrib/gtranslate/js/dropdown.js
-      // because I couldn't figure out how to trigger the loading of the library. It should be triggerable as per:
-      // document.querySelectorAll(u_class).forEach(function(e){e.addEventListener('pointerenter',load_tlib)});
-      function load_tlib(){if(!window.gt_translate_script){window.gt_translate_script=document.createElement('script');gt_translate_script.src='https://translate.google.com/translate_a/element.js?cb=googleTranslateElementInit2';document.body.appendChild(gt_translate_script);}}
-
       // Activate / reset Google Translate.
       function doGTranslate(reset = false) {
-          load_tlib();
           const lang = isFrench && !reset ? 'en|fr' : 'en|en';
-          $('.gt_selector', context).val(lang);
-          window.doGTranslate(lang);
+          $('.gt_selector', context).val(lang).each(function() {
+            if (!reset) this.dispatchEvent(new Event("change"));
+          });
       }
 
       // Wait for an element to be available before calling a function.

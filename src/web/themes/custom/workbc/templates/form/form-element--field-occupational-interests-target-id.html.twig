@@ -63,13 +63,26 @@
     description_display == 'invisible' ? 'visually-hidden',
   ]
 %}
+{% set info_dialog_id = 'occupation-interest-info-dialog'|clean_unique_id %}
+{% set info_title = 'Information about @title'|t({'@title': label|render|striptags|trim}) %}
 <div{{ attributes.addClass(classes) }}>
 <div class="occupation-interest-tooltip">
   {% if label_display in ['before', 'invisible'] %}
     {{ label }}
     <span>
-      <a tabindex="0" id="occupation-interest-tooltip" class="btn btn-link info-tooltip info-tooltip-inline" role="button" data-bs-toggle="popover" data-bs-container="#occupation-interest-tooltip" data-bs-trigger="focus click hover" data-bs-placement="bottom" data-bs-custom-class="workbc-popover--inline" title="Information about {{ label|render|striptags|trim }}" data-bs-html="true" data-bs-content="{{ occupational_interest_tooltip }}"></a>
+      <button type="button" class="btn btn-link info-tooltip info-tooltip-inline info-dialog-toggle" aria-haspopup="dialog" aria-expanded="false" aria-controls="{{ info_dialog_id }}" data-workbc-info-dialog="#{{ info_dialog_id }}" title="{{ info_title }}"><span class="visually-hidden">{{ info_title }}</span></button>
     </span>
+    <div class="modal workbc-info-dialog" id="{{ info_dialog_id }}" role="dialog" aria-modal="false" aria-hidden="true" tabindex="-1" aria-labelledby="{{ info_dialog_id }}-title">
+      <div class="modal-dialog popover bs-popover-auto workbc-popover--inline">
+        <div class="popover-arrow" data-popper-arrow></div>
+        <div class="modal-content">
+          <h2 class="visually-hidden" id="{{ info_dialog_id }}-title">{{ info_title }}</h2>
+          <div class="popover-body">
+            {{ occupational_interest_tooltip|raw }}
+          </div>
+        </div>
+      </div>
+    </div>
   {% endif %}
   </div>
   {% if prefix is not empty %}

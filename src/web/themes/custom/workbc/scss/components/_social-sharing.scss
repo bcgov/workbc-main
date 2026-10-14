@@ -12,6 +12,10 @@
   @include media-breakpoint-up(md) {
     justify-content: right;
   }
+
+  @media screen and (max-width:480px) {
+    justify-content: right;
+  }
 }
 
 .social-sharing-buttons a {

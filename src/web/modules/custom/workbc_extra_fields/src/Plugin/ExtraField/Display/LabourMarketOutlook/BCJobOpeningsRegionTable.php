@@ -50,7 +50,18 @@ class BCJobOpeningsRegionTable extends LabourMarketOutLookExtraFieldBase {
       </thead>
       <tbody>
     END;
-    foreach ($this->report->ssot_data[$this->getDataset()] as $i => $region) {
+    foreach ([
+      'vancouver_island_coast',
+      'mainland_southwest',
+      'thompson_okanagan',
+      'kootenay',
+      'cariboo',
+      'northeast',
+      'north_coast_nechako',
+    ] as $i => $region_key) {
+      $region = array_find($this->report->ssot_data[$this->getDataset()], function ($r) use ($region_key) {
+        return $r['region'] == $region_key;
+      });
       $region_name = ssotRegionName($region['region']);
 
       // Special case: Inject &shy; after '/' to avoid long columns.
@@ -70,6 +81,11 @@ class BCJobOpeningsRegionTable extends LabourMarketOutLookExtraFieldBase {
     }
     $output .= '</tbody>';
 
+    // B.C. stats
+    $region = array_find($this->report->ssot_data[$this->getDataset()], function ($r) {
+      return $r['region'] == 'british_columbia';
+    });
+    $region_name = ssotRegionName($region['region']);
     $output .= '<tfoot>';
     $output .= '<tr class="clearfix lmo-region-job-openings-footer interactive-map-row-'. $region['region'] . '">';
     $output .= '<td class="data-align-left lmo-report-region" data-label="Regions">' . $region_name . '</td>';

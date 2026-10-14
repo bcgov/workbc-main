@@ -28,17 +28,27 @@
             const $parents = $current.add($current.parentsUntil('form'));
             let $candidates;
             if (event.shiftKey) {
-              $candidates = $.merge($current.parents('.form-item'), $parents.map(function() { return $(this).prevAll().get(); }));
+              const $parent = $current.parents('.form-item');
+              $candidates = $([
+                ...$parent.find('.info-tooltip'),
+                ...$parent,
+                ...$parents.map(function() { return $(this).prevAll().get(); })
+              ]);
             }
             else {
               $candidates = $parents.map(function() { return $(this).nextAll().get(); });
             }
-            $candidates
-              .has('.form-item')
-              .first()
-              .find(':focusable, summary')
-              .first()
-              .focus();
+            if ($candidates.is('.info-tooltip')) {
+              $candidates.first().focus();
+            }
+            else {
+              $candidates
+                .has('.form-item')
+                .first()
+                .find(':focusable, summary')
+                .first()
+                .focus();
+            }
             return false;
         }
       });
