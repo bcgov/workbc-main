@@ -136,7 +136,7 @@
 
 }
 
-#bc-employmenet-by-industry-table {
+#bc-employment-by-industry-table {
   @include media-breakpoint-up(sm) {
     tr {
       &:nth-child(2n of :not(.horizontal-line)) td {
