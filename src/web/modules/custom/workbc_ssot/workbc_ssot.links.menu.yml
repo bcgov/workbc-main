@@ -15,3 +15,9 @@ workbc_ssot.refresh:
   parent: workbc_ssot.main
   route_name: workbc_ssot.refresh
   description: 'Refresh the SSoT datasets that are used by this website.'
+
+workbc_ssot.industryprofile:
+  title: 'Industry Profile Yearly Update'
+  parent: workbc_ssot.main
+  route_name: workbc_ssot.industryprofile
+  description: 'Upload a new data sheet to the SSoT Industry Profile.'

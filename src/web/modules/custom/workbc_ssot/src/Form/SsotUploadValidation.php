@@ -37,6 +37,7 @@ trait SsotUploadValidation {
         break;
       case 'POST':
       case 'PATCH':
+      case 'DELETE':
         $options['body'] = $body;
         $response = $client->request($method, $ssot . $url, $options);
         break;

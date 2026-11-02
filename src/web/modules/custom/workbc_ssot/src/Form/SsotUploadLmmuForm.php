@@ -478,6 +478,7 @@ class SsotUploadLmmuForm extends ConfirmFormBase {
       if ($form_state->get('repo')) {
         \Drupal::queue('ssot_uploader')->createItem([
           'file_id' => $form_state->get('file_id'),
+          'event_type' => 'monthly_labour_market_update',
           'month' => $month,
           'year' => $year,
           'notes' => $form_state->get('notes'),
