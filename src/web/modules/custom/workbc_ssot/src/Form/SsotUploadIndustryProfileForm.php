@@ -324,10 +324,10 @@ class SsotUploadIndustryProfileForm extends ConfirmFormBase {
 
     $this->yearly_industry_profile_updates = $form_state->get('yearly_industry_profile_updates');
     $year = $this->yearly_industry_profile_updates['year'];
-    $month = 12;
-
+    $month = 1;
+    $month_with_zero = str_pad(strval($month), 2, '0', STR_PAD_LEFT);
     $ssot_date = date('Y/m/d H:i', $form_state->get('timestamp'));
-    $ssot_period = "$year/01/01 08:00";
+    $ssot_period = "$year/$month_with_zero/01 08:00";
 
     $this->ssot('industry_outlook', null, 'DELETE');
 
