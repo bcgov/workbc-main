@@ -44,11 +44,10 @@
       <div class="alert alert-info">{{ description }}
           <button type="button" class="btn btn-link info-tooltip info-dialog-toggle" aria-haspopup="dialog" aria-expanded="false" aria-controls="{{ info_dialog_id }}" data-workbc-info-dialog="#{{ info_dialog_id }}" title="{{ info_title }}"><span class="visually-hidden">{{ info_title }}</span></button>
       </div>
-      <div class="modal workbc-info-dialog" id="{{ info_dialog_id }}" role="dialog" aria-modal="false" aria-hidden="true" tabindex="-1" aria-labelledby="{{ info_dialog_id }}-title">
+      <div class="modal workbc-info-dialog" id="{{ info_dialog_id }}" role="dialog" aria-modal="false" aria-hidden="true" tabindex="-1" aria-label="{{ skills_competencies_tooltip|striptags }}">
         <div class="modal-dialog popover bs-popover-auto workbc-popover--inline">
           <div class="popover-arrow" data-popper-arrow></div>
           <div class="modal-content">
-            <h2 class="visually-hidden" id="{{ info_dialog_id }}-title">{{ info_title }}</h2>
             <div class="popover-body">
               {{ skills_competencies_tooltip|raw }}
             </div>
