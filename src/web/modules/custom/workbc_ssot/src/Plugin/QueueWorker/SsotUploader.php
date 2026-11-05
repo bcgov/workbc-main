@@ -49,11 +49,13 @@ class SsotUploader extends QueueWorkerBase implements ContainerFactoryPluginInte
    * Use the GitHub API for repository contents https://docs.github.com/en/rest/repos/contents?apiVersion=2022-11-28
    */
   public function processItem($data) {
+   \Drupal::logger('workbc')->notice('queue - processing item.');
     $file = File::load($data['file_id']);
     $sheet = $file->getFilename();
     $repo = \Drupal::config('workbc')->get('ssot_repo');
     $filepath = \Drupal::service('file_system')->realpath($file->getFileUri());
-    \Drupal::logger('workbc')->notice('Uploading SSoT LMMU sheet @sheet for @month/@year.', [
+    \Drupal::logger('workbc')->notice('Uploading SSoT @event sheet @sheet for @month/@year.', [
+      '@event' => $data['event_type'],
       '@sheet' => $sheet,
       '@month' => $data['month'],
       '@year' => $data['year'],
@@ -64,6 +66,7 @@ class SsotUploader extends QueueWorkerBase implements ContainerFactoryPluginInte
     try {
       $existing = $this->github("https://api.github.com/repos/{$repo['name']}/contents/{$repo['path']}/{$sheet}?ref={$repo['branch']}", 'GET', $repo['token']);
       $sha = json_decode($existing->getBody())->sha;
+      \Drupal::logger('workbc')->notice('queue - api calls - ' . $sha);
     }
     catch (\Exception $e) {
       $sha = null;
@@ -84,10 +87,12 @@ class SsotUploader extends QueueWorkerBase implements ContainerFactoryPluginInte
       ],
       'message' => $data['notes'],
     ]);
+    \Drupal::logger('workbc')->notice('queue - api call - PUT');
+    dsm($data);
 
     // Trigger the GitHub workflow.
     $this->github("https://api.github.com/repos/{$repo['name']}/dispatches", 'POST', $repo['token'], [
-      'event_type' => 'monthly_labour_market_update',
+      'event_type' => $data['event_type'],
       'client_payload' => [
         'branch' => $repo['branch'],
         'filename' => $sheet,
@@ -99,7 +104,8 @@ class SsotUploader extends QueueWorkerBase implements ContainerFactoryPluginInte
     ]);
 
     Timer::stop('ssot_uploader');
-    \Drupal::logger('workbc')->notice('Done uploading SSoT LMMU sheet @sheet in @time.', [
+    \Drupal::logger('workbc')->notice('Done uploading SSoT @event_type sheet @sheet in @time.', [
+      '@event_type' => $data['event_type'],
       '@sheet' => $sheet,
       '@time' => Timer::read('ssot_uploader') . 'ms'
     ]);
