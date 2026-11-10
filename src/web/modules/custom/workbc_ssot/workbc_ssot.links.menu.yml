@@ -21,3 +21,9 @@ workbc_ssot.industryprofile:
   parent: workbc_ssot.main
   route_name: workbc_ssot.industryprofile
   description: 'Upload a new data sheet to the SSoT Industry Profile.'
+
+workbc_ssot.lfs:
+  title: 'Labour Force Survey Yearly Update'
+  parent: workbc_ssot.main
+  route_name: workbc_ssot.lfs
+  description: 'Upload a new data sheet to the SSoT Labour Force Survey datasets.'

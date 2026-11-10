@@ -21,3 +21,11 @@ workbc_ssot.industryprofile:
     _form: '\Drupal\workbc_ssot\Form\SsotUploadIndustryProfileForm'
   requirements:
     _permission: 'administer ssot settings'
+
+workbc_ssot.lfs:
+  path: '/admin/config/workbc/ssot/labour-force-survey'
+  defaults:
+    _title: 'SSoT: Labour Force Survey Update'
+    _form: '\Drupal\workbc_ssot\Form\SsotUploadLabourForceSurveyForm'
+  requirements:
+    _permission: 'administer ssot settings'

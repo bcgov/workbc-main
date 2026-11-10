@@ -8,6 +8,11 @@ workbc_ssot.industryprofile:
   title: 'Industry Profile Yearly Update'
   base_route: workbc_ssot.lmmu
 
+workbc_ssot.lfs:
+  route_name: workbc_ssot.lfs
+  title: 'Labour Force Survey Yearly Update'
+  base_route: workbc_ssot.lmmu
+
 workbc_ssot.log:
   route_name: view.ssot_log.page_1
   title: 'Upload Log'
