@@ -764,7 +764,7 @@ display:
             identifier: field_occupational_interests_target_id
             required: false
             remember: false
-            multiple: true
+            multiple: false
             remember_roles:
               authenticated: authenticated
             reduce: false
@@ -904,7 +904,7 @@ display:
           replica: false
           query_tags: {  }
       relationships: {  }
-      use_ajax: false
+      use_ajax: true
       header:
         area:
           id: area

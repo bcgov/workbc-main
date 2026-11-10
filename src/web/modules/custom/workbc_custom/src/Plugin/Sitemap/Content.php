@@ -190,17 +190,15 @@ class Content extends SitemapBase {
       foreach ($structure as $name => $data) {
         if ($name === '#metadata') continue;
 
+        $children = [];
         if (isset($data['#metadata']['url'])) {
           $child = Link::fromTextAndUrl($data['#metadata']['title'], Url::fromUri("internal:{$data['#metadata']['url']}"))->toRenderable();
+          $children['children'][] = $child;
         }
         else {
           $child = ['#markup' => $data['#metadata']['title']];
         }
         if (count($data) > 1) {
-          if (isset($data['#metadata']['url'])) {
-            $items['children'][] = $child;
-          }
-          $children = [];
           renderItemList($data, $children);
           $items['children'][] = [
             '#type' => 'details',

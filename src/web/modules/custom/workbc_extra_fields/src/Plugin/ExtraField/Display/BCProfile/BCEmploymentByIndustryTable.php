@@ -52,7 +52,7 @@ class BCEmploymentByIndustryTable extends ExtraFieldDisplayFormattedBase {
         'na_if_empty' => TRUE,
       );
 
-      $content = '<table>';
+      $content = '<table id="bc-employment-by-industry-table">';
       $content .= "<thead><tr><th>Industry</th><th class='data-align-right bc-employment-share'>% Share of Employment<br>for this Industry</th><th class='data-align-center'>Sector</th></tr></thead>";
       $content .= "<tbody>";
       foreach ($industries as $key => $industry) {

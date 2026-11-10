@@ -74,6 +74,7 @@
         let pinned = false;
         let hoverTimer = null;
         let popper = null;
+        let escaped = false;
 
         const containsTarget = function (target) {
           return target && (toggle.contains(target) || dialogEl.contains(target));
@@ -139,6 +140,10 @@
         content.addEventListener('mouseleave', scheduleHoverHide);
 
         toggle.addEventListener('focus', function () {
+          if (escaped) {
+            escaped = false;
+            return;
+          }
           pinned = true;
           cancelHoverHide();
           dialog.show();
@@ -178,6 +183,8 @@
         document.addEventListener('keydown', function (event) {
           if (event.key === 'Escape' && isShown()) {
             dialog.hide();
+            escaped = true;
+            toggle.focus();
           }
         });
 
