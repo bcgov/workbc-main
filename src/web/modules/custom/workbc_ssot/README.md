@@ -157,8 +157,9 @@ Every form is a thin declaration on top of `SsotUploadFormBase`. Common fields:
   (`_num`→`abs`, `_pct`/rates/shares→`pct`, `yoy_*`→`chg_*`, `earnings_*`→`num`).
 - `fill_down` replicates `csv_refill.php` for the vertically merged "B.C. average"
   columns on the Industry Profiles tab.
-- The "British Columbia" row of `regional_industry_province` is intentionally blank
-  in the source and yields ❗ warnings, not errors.
+- In `regional_industry_province`, `Regional Profiles!B35:S35` is expected to be
+  blank for British Columbia. These cells pass via `blank_if`; populated values
+  are errors. Columns T-U (`goods`, `services`) retain ordinary percentage validation.
 - Write: `replace` for all four; `sources` rows are matched by endpoint.
 
 ## `SsotUploadFormBase`: the TOC-driven engine
@@ -273,6 +274,7 @@ available"). A blank or unknown lookup value is an **error** (it is the primary 
 |------|---------|
 | `'same_sign' => 'other'` | both values share the sign |
 | `'equal' => 'other'` | values are equal |
+| `'blank_if' => ['field' => 'region', 'value' => 'british_columbia']` | this cell must be blank when the referenced field equals the given value |
 | `'sum' => [['a','b'], ['c','d']]` | each group sums to this cell (±100) |
 | `'crosscheck_value' => 'other'` | equals the prior period's `other` |
 | `'crosscheck_change_abs' => 'other'` | equals `other_now − other_prev` |
@@ -281,6 +283,16 @@ available"). A blank or unknown lookup value is an **error** (it is the primary 
 
 Every rule defaults to `error`. In `validateForm()` only errors block submission (unless
 *Ignore validation errors* is checked).
+
+`blank_if` compares strictly against the referenced field's value, resolving
+`industry`/`region` lookups to their canonical SSoT keys regardless of field order.
+When the condition matches, a normalized `NULL` produces a success instead of the
+usual blank warning; any nonblank value (including zero or invalid text) is an
+error. `warn_only => ['blank_if']` downgrades that violation to a warning.
+When the condition does not match, existing validation applies unchanged.
+The rule never changes the data. A malformed condition or missing referenced
+field raises a `LogicException`. Blankness uses the reader's existing normalization
+(including N/A markers); it is checked before numeric coercion.
 
 ## Background job (`SsotUploader` queue worker)
 

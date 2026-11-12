@@ -138,7 +138,7 @@ trait SsotUploadValidation {
    *   Map of field key => rule. Each rule has a 'cell' (absolute cell address
    *   for record-shaped datasets, or column letter for table-shaped datasets)
    *   and optionally 'type', 'same_sign', 'equal', 'sum', 'crosscheck_value',
-   *   'crosscheck_change_abs', 'crosscheck_change_pct', 'warn_only'.
+   *   'crosscheck_change_abs', 'crosscheck_change_pct', 'blank_if', 'warn_only'.
    * @param array $dataset
    *   Map of field key => value for the row being validated.
    * @param array|null $dataset_crosscheck
@@ -153,6 +153,17 @@ trait SsotUploadValidation {
    */
   function validateRules(array $rules, array $dataset, ?array $dataset_crosscheck = null, ?int $row = null, string $sheet = '')
   {
+    foreach ($rules as $key => $rule) {
+      if (array_key_exists('blank_if', $rule)) {
+        $condition = $rule['blank_if'];
+        if (!is_array($condition) || !isset($condition['field']) || !is_string($condition['field']) ||
+            !array_key_exists('value', $condition) || !array_key_exists($condition['field'], $rules) ||
+            !array_key_exists($condition['field'], $dataset)) {
+          throw new \LogicException("Invalid blank_if condition for field $key: expected an existing row field and a value.");
+        }
+      }
+    }
+
     $icons = [
       'error' => '❌',
       'warning' => '❗',
@@ -170,6 +181,30 @@ trait SsotUploadValidation {
       $value = $dataset[$key] ?? null;
       $cell = $cellOf($key);
       $warn_only = array_key_exists('warn_only', $validation) ? $validation['warn_only'] : [];
+
+      if (array_key_exists('blank_if', $validation)) {
+        $condition = $validation['blank_if'];
+        $related_rule = $rules[$condition['field']];
+        $related_value = $dataset[$condition['field']];
+        if (in_array($related_rule['type'] ?? null, ['industry', 'region'], true)) {
+          $related_value = $this->resolveLookup($related_rule['type'], $related_value, $related_rule) ?? $related_value;
+        }
+        if ($related_value === $condition['value']) {
+          $result = is_null($value) ? 'success' : (in_array('blank_if', $warn_only, true) ? 'warning' : 'error');
+          $results[] = [
+            'result' => $result,
+            'message' => $this->t('@icon @cell (<strong>@key</strong>) @expectation because @field = @value.', [
+              '@icon' => $icons[$result],
+              '@cell' => $cell,
+              '@key' => $key,
+              '@expectation' => is_null($value) ? $this->t('is blank as expected') : $this->t('must be blank'),
+              '@field' => $condition['field'],
+              '@value' => $condition['value'],
+            ]),
+          ];
+          continue;
+        }
+      }
 
       // Perform validations based on type.
       if (array_key_exists('type', $validation)) {

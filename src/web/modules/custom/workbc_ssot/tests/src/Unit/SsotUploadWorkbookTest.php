@@ -61,16 +61,12 @@ class SsotUploadWorkbookTest extends SsotUploadTestBase {
     $this->assertCount(8, $out['labour_force_survey_regional_industry_region']['rows']);
     $this->assertCount(8, $out['labour_force_survey_regional_industry_province']['rows']);
 
-    // Only the deliberately blank "British Columbia" row of the province
-    // dataset produces warnings.
+    // Expected blanks in the British Columbia row pass without warnings.
     $this->assertSame(0, static::tally($out['labour_force_survey_industry']['results'])['warning']);
     $this->assertSame(0, static::tally($out['labour_force_survey_regional_employment']['results'])['warning']);
     $this->assertSame(0, static::tally($out['labour_force_survey_regional_industry_region']['results'])['warning']);
     $province_warnings = static::messages($out['labour_force_survey_regional_industry_province']['results'], 'warning');
-    $this->assertGreaterThan(0, count($province_warnings));
-    foreach ($province_warnings as $message) {
-      $this->assertMatchesRegularExpression('/Cell Regional Profiles![A-Z]+35 has a warning/', $message);
-    }
+    $this->assertSame([], $province_warnings);
 
     // Every key column resolves to an SSoT key.
     $industries = array_column($out['labour_force_survey_industry']['payload'], 'industry');
@@ -84,6 +80,27 @@ class SsotUploadWorkbookTest extends SsotUploadTestBase {
     $avg = array_column($out['labour_force_survey_industry']['rows'], 'workforce_provincial_average_pct_men');
     $this->assertCount(1, array_unique($avg));
     $this->assertNotNull($avg[0]);
+  }
+
+  public function testProvinceExpectedBlanksRejectPopulatedCells(): void {
+    $form = new TestLabourForceSurveyForm();
+    $form->setStringTranslation($this->getStringTranslationStub());
+    $wb = static::workbook('lfs_2024.xlsx');
+    $sheet = $wb->getSheetByName('Regional Profiles');
+    $sheet->setCellValue('B35', 0);
+    $sheet->setCellValue('S35', 'unexpected');
+    $sheet->setCellValue('T35', 40);
+    $sheet->setCellValue('U35', 60);
+    $out = $form->process($wb, 2024);
+    $dataset = $out['labour_force_survey_regional_industry_province'];
+    $errors = static::messages($dataset['results'], 'error');
+    $this->assertCount(2, $errors);
+    $this->assertStringContainsString('Regional Profiles!B35', $errors[0]);
+    $this->assertStringContainsString('must be blank', $errors[0]);
+    $this->assertStringContainsString('Regional Profiles!S35', $errors[1]);
+    $this->assertStringContainsString('must be blank', $errors[1]);
+    $this->assertSame(0, $dataset['payload'][0]['accommodation_food_services']);
+    $this->assertSame('unexpected', $dataset['payload'][0]['wholesale_trade']);
   }
 
   /**
@@ -163,7 +180,7 @@ class SsotUploadWorkbookTest extends SsotUploadTestBase {
     $previous['employment_by_age_group_15_24'] += 1;
     $errors = static::messages($form->validateRules($rules, $row, $previous), 'error');
     $this->assertCount(1, $errors);
-    $this->assertStringContainsString('Cell B8 (employment_by_age_group_15_24_previous', $errors[0]);
+    $this->assertStringContainsString('B8 (employment_by_age_group_15_24_previous', $errors[0]);
   }
 
   /**
@@ -184,10 +201,10 @@ class SsotUploadWorkbookTest extends SsotUploadTestBase {
       $errors = array_merge($errors, static::messages($d['results'], 'error'));
     }
     $this->assertCount(4, $errors);
-    $this->assertStringContainsString('Cell Industry Profiles!A6 (industry = Hospitality) does not conform to: A known SSoT industry name.', $errors[0]);
-    $this->assertStringContainsString('Cell Industry Profiles!D6 (total_employment = 12.5) does not conform to: Absolute value, positive, no decimals.', $errors[1]);
-    $this->assertStringContainsString('Cell Regional Profiles!A7 (region = Caribou) does not conform to: A known SSoT region name.', $errors[2]);
-    $this->assertStringContainsString('Cell Regional Profiles!B8 (age_distribution_0_14 = -3.25) does not conform to: Percentage value (0-100)', $errors[3]);
+    $this->assertStringContainsString('Industry Profiles!A6 (industry = Hospitality) does not conform to: A known SSoT industry name.', $errors[0]);
+    $this->assertStringContainsString('Industry Profiles!D6 (total_employment = 12.5) does not conform to: Absolute value, positive, no decimals.', $errors[1]);
+    $this->assertStringContainsString('Regional Profiles!A7 (region = Caribou) does not conform to: A known SSoT region name.', $errors[2]);
+    $this->assertStringContainsString('Regional Profiles!B8 (age_distribution_0_14 = -3.25) does not conform to: Percentage value (0-100)', $errors[3]);
 
     // Unresolved industry stays verbatim in the payload (the form blocks on the error anyway).
     $this->assertSame('Hospitality', $out['labour_force_survey_industry']['payload'][1]['industry']);

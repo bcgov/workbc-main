@@ -30,6 +30,71 @@ class SsotUploadValidationTest extends SsotUploadTestBase {
     return array_column($this->form->validateRules($rules, ['f' => $value], $crosscheck), 'result');
   }
 
+  #[DataProvider('blankIfProvider')]
+  public function testConditionalBlanks($value, string $region, bool $warn_only, string $expected): void {
+    // The lookup field comes last to exercise order-independent resolution.
+    $rules = [
+      'share' => [
+        'cell' => 'B',
+        'type' => 'pct',
+        'blank_if' => ['field' => 'region', 'value' => 'british_columbia'],
+        'warn_only' => $warn_only ? ['blank_if'] : [],
+      ],
+      'region' => ['cell' => 'A', 'type' => 'region'],
+    ];
+    $dataset = ['share' => $value, 'region' => $region];
+    $results = $this->form->validateRules($rules, $dataset, null, 35, 'Regional Profiles');
+    $this->assertSame([$expected, 'success'], array_column($results, 'result'));
+    if ($region === 'British Columbia') {
+      $this->assertStringContainsString('Regional Profiles!B35', static::text($results[0]));
+      $this->assertStringContainsString(is_null($value) ? 'is blank as expected' : 'must be blank', static::text($results[0]));
+    }
+    $this->assertSame(['share' => $value, 'region' => $region], $dataset);
+  }
+
+  public static function blankIfProvider(): array {
+    return [
+      'expected blank' => [null, 'British Columbia', false, 'success'],
+      'zero is nonblank' => [0, 'British Columbia', false, 'error'],
+      'percentage is nonblank' => [5.5, 'British Columbia', false, 'error'],
+      'invalid text is nonblank' => ['invalid', 'British Columbia', false, 'error'],
+      'downgraded violation' => [0, 'British Columbia', true, 'warning'],
+      'other region valid percentage' => [5.5, 'Cariboo', false, 'success'],
+      'other region blank warning' => [null, 'Cariboo', false, 'warning'],
+      'other region type error' => [-5, 'Cariboo', true, 'error'],
+    ];
+  }
+
+  public function testBlankIfSupportsNonLookupFields(): void {
+    $rules = [
+      'share' => ['cell' => 'B', 'type' => 'pct', 'blank_if' => ['field' => 'category', 'value' => 'total']],
+      'category' => ['cell' => 'A'],
+    ];
+    $results = $this->form->validateRules($rules, ['share' => null, 'category' => 'total']);
+    $this->assertSame(['success'], array_column($results, 'result'));
+  }
+
+  #[DataProvider('invalidBlankIfProvider')]
+  public function testInvalidBlankIfIsRejected($condition): void {
+    $this->expectException(\LogicException::class);
+    $this->expectExceptionMessage('Invalid blank_if condition for field share');
+    $this->form->validateRules([
+      'share' => ['cell' => 'B', 'type' => 'pct', 'blank_if' => $condition],
+      'region' => ['cell' => 'A', 'type' => 'region'],
+    ], ['share' => null, 'region' => 'British Columbia']);
+  }
+
+  public static function invalidBlankIfProvider(): array {
+    return [
+      [null],
+      ['invalid'],
+      [['value' => 'british_columbia']],
+      [['field' => 'region']],
+      [['field' => ['region'], 'value' => 'british_columbia']],
+      [['field' => 'missing', 'value' => 'british_columbia']],
+    ];
+  }
+
   /**
    */
   #[DataProvider('typeProvider')]
@@ -84,13 +149,13 @@ class SsotUploadValidationTest extends SsotUploadTestBase {
     $this->assertCount(1, $results);
     $this->assertSame('error', $results[0]['result']);
     $text = static::text($results[0]);
-    $this->assertStringContainsString('Cell Industry Profiles!F9', $text);
+    $this->assertStringContainsString('Industry Profiles!F9', $text);
     $this->assertStringContainsString('total = 12.5', $text);
     $this->assertStringContainsString('Absolute value, positive, no decimals.', $text);
 
     // Record-shaped: no row, no sheet prefix.
     $results = $this->form->validateRules(['t' => ['cell' => 'B18', 'type' => 'abs']], ['t' => 5]);
-    $this->assertStringContainsString('Cell B18 ', static::text($results[0]));
+    $this->assertStringContainsString('B18 ', static::text($results[0]));
   }
 
   /**
@@ -105,7 +170,7 @@ class SsotUploadValidationTest extends SsotUploadTestBase {
 
     $bad = $this->form->validateRules($rules, ['pct' => -5.4, 'abs' => 10708]);
     $this->assertSame(1, static::tally($bad)['error']);
-    $this->assertStringContainsString('Cells B19 (pct = -5.4) and C19 (abs = 10708)', static::messages($bad, 'error')[0]);
+    $this->assertStringContainsString('B19 (pct = -5.4) and C19 (abs = 10708)', static::messages($bad, 'error')[0]);
 
     // Both blank is acceptable; one blank is not.
     $this->assertSame(0, static::tally($this->form->validateRules($rules, ['pct' => null, 'abs' => null]))['error']);
@@ -197,7 +262,7 @@ class SsotUploadValidationTest extends SsotUploadTestBase {
 
     $bad = $this->form->validateRules($rules, ['region' => 'Caribou'], null, 7, 'Regional Profiles');
     $this->assertSame('error', $bad[0]['result']);
-    $this->assertStringContainsString('Cell Regional Profiles!A7 (region = Caribou)', static::text($bad[0]));
+    $this->assertStringContainsString('Regional Profiles!A7 (region = Caribou)', static::text($bad[0]));
 
     // A blank key column is always an error, even with warn_only.
     $blank = $this->form->validateRules(['region' => ['cell' => 'A', 'type' => 'region', 'warn_only' => ['region']]], ['region' => null], null, 7);

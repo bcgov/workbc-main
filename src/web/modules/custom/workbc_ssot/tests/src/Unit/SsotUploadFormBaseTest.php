@@ -213,7 +213,7 @@ class SsotUploadFormBaseTest extends SsotUploadTestBase {
     // 3 rows x 4 fields: two NULL cells are warnings, nothing is an error.
     $this->assertSame(['success' => 10, 'warning' => 2, 'error' => 0], $regional);
     // Multi-dataset uploads prefix cells with the tab title.
-    $this->assertStringContainsString('Cell Data!B4 has a warning', static::messages($out['regional']['results'], 'warning')[0]);
+    $this->assertStringContainsString('Data!B4 has a warning', static::messages($out['regional']['results'], 'warning')[0]);
     $this->assertSame(['cariboo', 'kootenay', 'northeast'], array_column($out['regional']['payload'], 'region'));
     $this->assertSame([['total' => 2944700]], $out['summary']['payload']);
   }
@@ -228,7 +228,7 @@ class SsotUploadFormBaseTest extends SsotUploadTestBase {
     /** @var \Drupal\Tests\workbc_ssot\Unit\EngineAccess $form */
     $form = new $class();
     $types = ['abs', 'num', 'pct', 'chg_abs', 'chg_pct', 'industry', 'region'];
-    $rule_keys = ['cell', 'value', 'type', 'exceptions', 'same_sign', 'equal', 'sum', 'crosscheck_value', 'crosscheck_change_abs', 'crosscheck_change_pct', 'warn_only'];
+    $rule_keys = ['cell', 'value', 'type', 'exceptions', 'same_sign', 'equal', 'sum', 'crosscheck_value', 'crosscheck_change_abs', 'crosscheck_change_pct', 'blank_if', 'warn_only'];
 
     $this->assertNotEmpty($form->toc());
     $this->assertContains($form->period()['granularity'], ['year', 'month']);
@@ -240,6 +240,10 @@ class SsotUploadFormBaseTest extends SsotUploadTestBase {
         $this->assertSame([], $unknown, "$endpoint.$field has unknown rule keys");
         if (isset($rule['type'])) {
           $this->assertContains($rule['type'], $types, "$endpoint.$field");
+        }
+        if (isset($rule['blank_if'])) {
+          $this->assertArrayHasKey($rule['blank_if']['field'], $rules, "$endpoint.$field.blank_if");
+          $this->assertArrayHasKey('value', $rule['blank_if']);
         }
         foreach (['same_sign', 'equal', 'crosscheck_value', 'crosscheck_change_abs', 'crosscheck_change_pct'] as $ref) {
           if (isset($rule[$ref])) {
