@@ -180,7 +180,7 @@ trait SsotUploadValidation {
 
         if ($is_lookup) {
           if (is_null($value) || trim((string) $value) === '') {
-            array_push($results, ['result' => 'error', 'message' => $this->t('@icon Cell @cell (<strong>@key</strong>) is blank: <em>@explanation</em> @suggestion', [
+            array_push($results, ['result' => 'error', 'message' => $this->t('@icon @cell (<strong>@key</strong>) is blank: <em>@explanation</em> @suggestion', [
               '@icon' => $icons['error'],
               '@cell' => $cell,
               '@key' => $key,
@@ -191,7 +191,7 @@ trait SsotUploadValidation {
           }
           $resolved = $this->resolveLookup($type, $value, $validation);
           if (is_null($resolved)) {
-            array_push($results, ['result' => $result, 'message' => $this->t('@icon Cell @cell (<strong>@key = @value</strong>) does not conform to: <em>@explanation</em> @suggestion', [
+            array_push($results, ['result' => $result, 'message' => $this->t('@icon @cell (<strong>@key = @value</strong>) does not conform to: <em>@explanation</em> @suggestion', [
               '@icon' => $icons[$result],
               '@cell' => $cell,
               '@key' => $key,
@@ -201,7 +201,7 @@ trait SsotUploadValidation {
             ])]);
           }
           else {
-            array_push($results, ['result' => 'success', 'message' => $this->t('@icon Cell @cell (<strong>@key = @value</strong>) conforms to: <em>@explanation</em> (<code>@resolved</code>)', [
+            array_push($results, ['result' => 'success', 'message' => $this->t('@icon @cell (<strong>@key = @value</strong>) conforms to: <em>@explanation</em> (<code>@resolved</code>)', [
               '@icon' => $icons['success'],
               '@cell' => $cell,
               '@key' => $key,
@@ -236,7 +236,7 @@ trait SsotUploadValidation {
               break;
           }
           if (!$success) {
-            array_push($results, ['result' => $result, 'message' => $this->t('@icon Cell @cell (<strong>@key = @value</strong>) does not conform to: <em>@explanation</em> @suggestion', [
+            array_push($results, ['result' => $result, 'message' => $this->t('@icon @cell (<strong>@key = @value</strong>) does not conform to: <em>@explanation</em> @suggestion', [
               '@icon' => $icons[$result],
               '@cell' => $cell,
               '@key' => $key,
@@ -248,7 +248,7 @@ trait SsotUploadValidation {
         }
         if (is_null($value)) {
           $result = 'warning';
-          array_push($results, ['result' => $result, 'message' => $this->t('@icon Cell @cell has a warning: <em>@explanation</em> @suggestion', [
+          array_push($results, ['result' => $result, 'message' => $this->t('@icon @cell has a warning: <em>@explanation</em> @suggestion', [
             '@icon' => $icons[$result],
             '@cell' => $cell,
             '@key' => $key,
@@ -258,7 +258,7 @@ trait SsotUploadValidation {
         }
         else if ($success) {
           $result = 'success';
-          array_push($results, ['result' => $result, 'message' => $this->t('@icon Cell @cell (<strong>@key = @value</strong>) conforms to: <em>@explanation</em>', [
+          array_push($results, ['result' => $result, 'message' => $this->t('@icon @cell (<strong>@key = @value</strong>) conforms to: <em>@explanation</em>', [
             '@icon' => $icons[$result],
             '@cell' => $cell,
             '@key' => $key,
@@ -276,7 +276,7 @@ trait SsotUploadValidation {
           (is_null($related_value) && is_null($value)) ||
           ($related_value * $value >= 0)
         )) {
-          array_push($results, ['result' => $result, 'message' => $this->t('@icon Cells @cell1 (<strong>@key1 = @value1</strong>) and @cell2 (<strong>@key2 = @value2</strong>) do not conform to: <em>@explanation</em> @suggestion', [
+          array_push($results, ['result' => $result, 'message' => $this->t('@icon @cell1 (<strong>@key1 = @value1</strong>) and @cell2 (<strong>@key2 = @value2</strong>) do not conform to: <em>@explanation</em> @suggestion', [
             '@icon' => $icons[$result],
             '@cell1' => $cellOf($validation['same_sign']),
             '@key1' => $validation['same_sign'],
@@ -290,7 +290,7 @@ trait SsotUploadValidation {
         }
         else {
           $result = 'success';
-          array_push($results, ['result' => $result, 'message' => $this->t('@icon Cells @cell1 (<strong>@key1 = @value1</strong>) and @cell2 (<strong>@key2 = @value2</strong>) conform to: <em>@explanation</em>', [
+          array_push($results, ['result' => $result, 'message' => $this->t('@icon @cell1 (<strong>@key1 = @value1</strong>) and @cell2 (<strong>@key2 = @value2</strong>) conform to: <em>@explanation</em>', [
             '@icon' => $icons[$result],
             '@cell2' => $cell,
             '@key2' => $key,
@@ -311,7 +311,7 @@ trait SsotUploadValidation {
           (is_null($related_value) && is_null($value)) ||
           (abs($value - $related_value) <= PHP_FLOAT_EPSILON)
         )) {
-          array_push($results, ['result' => $result, 'message' => $this->t('@icon Cells @cell1 (<strong>@key1 = @value1</strong>) and @cell2 (<strong>@key2 = @value2</strong>) do not conform to: <em>@explanation</em> @suggestion', [
+          array_push($results, ['result' => $result, 'message' => $this->t('@icon @cell1 (<strong>@key1 = @value1</strong>) and @cell2 (<strong>@key2 = @value2</strong>) do not conform to: <em>@explanation</em> @suggestion', [
             '@icon' => $icons[$result],
             '@cell1' => $cellOf($validation['equal']),
             '@key1' => $validation['equal'],
@@ -325,7 +325,7 @@ trait SsotUploadValidation {
         }
         else {
           $result = 'success';
-          array_push($results, ['result' => $result, 'message' => $this->t('@icon Cells @cell1 (<strong>@key1 = @value1</strong>) and @cell2 (<strong>@key2 = @value2</strong>) conform to: <em>@explanation</em>', [
+          array_push($results, ['result' => $result, 'message' => $this->t('@icon @cell1 (<strong>@key1 = @value1</strong>) and @cell2 (<strong>@key2 = @value2</strong>) conform to: <em>@explanation</em>', [
             '@icon' => $icons[$result],
             '@cell2' => $cell,
             '@key2' => $key,
@@ -347,7 +347,7 @@ trait SsotUploadValidation {
           }, $sum_keys));
           $cells = implode(' + ', array_map($cellOf, $sum_keys));
           if (abs($sum - ($value ?? 0)) > 100) {
-            array_push($results, ['result' => $result, 'message' => $this->t('@icon Cell @cell (<strong>@key = @value</strong>) and cells @cells (<strong>sum = @sum</strong>) do not conform to: <em>@explanation</em> @suggestion', [
+            array_push($results, ['result' => $result, 'message' => $this->t('@icon @cell (<strong>@key = @value</strong>) and cells @cells (<strong>sum = @sum</strong>) do not conform to: <em>@explanation</em> @suggestion', [
               '@icon' => $icons[$result],
               '@cell' => $cell,
               '@key' => $key,
@@ -360,7 +360,7 @@ trait SsotUploadValidation {
           }
           else {
             $result = 'success';
-            array_push($results, ['result' => $result, 'message' => $this->t('@icon Cell @cell (<strong>@key = @value</strong>) and cells @cells (<strong>sum = @sum</strong>) conform to: <em>@explanation</em>', [
+            array_push($results, ['result' => $result, 'message' => $this->t('@icon @cell (<strong>@key = @value</strong>) and cells @cells (<strong>sum = @sum</strong>) conform to: <em>@explanation</em>', [
               '@icon' => $icons[$result],
               '@cell' => $cell,
               '@key' => $key,
@@ -381,7 +381,7 @@ trait SsotUploadValidation {
           (is_null($previous_value) && is_null($value)) ||
           ($previous_value == $value)
         )) {
-          array_push($results, ['result' => $result, 'message' => $this->t('@icon Cell @cell (<strong>@key = @value</strong>) and previous month cell @cell_previous (<strong>@key_previous = @value_previous</strong>) do not conform to: <em>@explanation</em> @suggestion', [
+          array_push($results, ['result' => $result, 'message' => $this->t('@icon @cell (<strong>@key = @value</strong>) and previous month cell @cell_previous (<strong>@key_previous = @value_previous</strong>) do not conform to: <em>@explanation</em> @suggestion', [
             '@icon' => $icons[$result],
             '@cell' => $cell,
             '@key' => $key,
@@ -395,7 +395,7 @@ trait SsotUploadValidation {
         }
         else {
           $result = 'success';
-          array_push($results, ['result' => $result, 'message' => $this->t('@icon Cell @cell (<strong>@key = @value</strong>) and previous month cell @cell_previous (<strong>@key_previous = @value_previous</strong>) conform to: <em>@explanation</em>', [
+          array_push($results, ['result' => $result, 'message' => $this->t('@icon @cell (<strong>@key = @value</strong>) and previous month cell @cell_previous (<strong>@key_previous = @value_previous</strong>) conform to: <em>@explanation</em>', [
             '@icon' => $icons[$result],
             '@cell' => $cell,
             '@key' => $key,
@@ -413,7 +413,7 @@ trait SsotUploadValidation {
         $current_value = $dataset[$validation['crosscheck_change_abs']] ?? null;
         $diff = is_numeric($current_value) && $current_value > 0 ? $current_value - $previous_value : NAN;
         if (is_nan($diff) || abs($diff - $value) > PHP_FLOAT_EPSILON) {
-          array_push($results, ['result' => $result, 'message' => $this->t('@icon Cell @cell (<strong>@key = @value</strong>) and monthly difference in @cell_previous (<strong>absolute difference = @diff</strong>) do not conform to: <em>@explanation</em> @suggestion', [
+          array_push($results, ['result' => $result, 'message' => $this->t('@icon @cell (<strong>@key = @value</strong>) and monthly difference in @cell_previous (<strong>absolute difference = @diff</strong>) do not conform to: <em>@explanation</em> @suggestion', [
             '@icon' => $icons[$result],
             '@cell' => $cell,
             '@key' => $key,
@@ -426,7 +426,7 @@ trait SsotUploadValidation {
         }
         else {
           $result = 'success';
-          array_push($results, ['result' => $result, 'message' => $this->t('@icon Cell @cell (<strong>@key = @value</strong>) and monthly difference in @cell_previous (<strong>absolute difference = @diff</strong>) conform to: <em>@explanation</em>', [
+          array_push($results, ['result' => $result, 'message' => $this->t('@icon @cell (<strong>@key = @value</strong>) and monthly difference in @cell_previous (<strong>absolute difference = @diff</strong>) conform to: <em>@explanation</em>', [
             '@icon' => $icons[$result],
             '@cell' => $cell,
             '@key' => $key,
@@ -443,7 +443,7 @@ trait SsotUploadValidation {
         $current_value = $dataset[$validation['crosscheck_change_pct']] ?? null;
         $diff = is_numeric($current_value) && $current_value > 0 ? round(($current_value - $previous_value) * 100 / $current_value, 1) : NAN;
         if (is_nan($diff) || abs($diff - $value) > PHP_FLOAT_EPSILON) {
-          array_push($results, ['result' => $result, 'message' => $this->t('@icon Cell @cell (<strong>@key = @value</strong>) and monthly difference in @cell_previous (<strong>difference percentage = @diff</strong>) do not conform to: <em>@explanation</em> @suggestion', [
+          array_push($results, ['result' => $result, 'message' => $this->t('@icon @cell (<strong>@key = @value</strong>) and monthly difference in @cell_previous (<strong>difference percentage = @diff</strong>) do not conform to: <em>@explanation</em> @suggestion', [
             '@icon' => $icons[$result],
             '@cell' => $cell,
             '@key' => $key,
@@ -456,7 +456,7 @@ trait SsotUploadValidation {
         }
         else {
           $result = 'success';
-          array_push($results, ['result' => $result, 'message' => $this->t('@icon Cell @cell (<strong>@key = @value</strong>) and monthly difference in @cell_previous (<strong>difference percentage = @diff</strong>) conform to: <em>@explanation</em>', [
+          array_push($results, ['result' => $result, 'message' => $this->t('@icon @cell (<strong>@key = @value</strong>) and monthly difference in @cell_previous (<strong>difference percentage = @diff</strong>) conform to: <em>@explanation</em>', [
             '@icon' => $icons[$result],
             '@cell' => $cell,
             '@key' => $key,
