@@ -1,0 +1,3 @@
+views.field.workbc_ssot_dataset_period:
+  type: views.field.date
+  label: 'SSoT dataset period'

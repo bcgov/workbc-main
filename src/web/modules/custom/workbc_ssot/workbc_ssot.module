@@ -9,6 +9,7 @@ use Drupal\field\Entity\FieldStorageConfig;
 define("NULL_VALUE", -999999);
 
 const SSOT_ROUTES = [
+  'workbc_ssot.uploads',
   'workbc_ssot.lmmu',
   'view.ssot_log.page_1'
 ];

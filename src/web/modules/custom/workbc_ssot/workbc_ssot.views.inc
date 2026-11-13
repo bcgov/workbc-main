@@ -104,7 +104,8 @@ function workbc_ssot_views_data() {
       'title' => t('Period'),
       'help' => t('Date period of the dataset.'),
       'field' => [
-        'id' => 'date',
+        'id' => 'workbc_ssot_dataset_period',
+        'additional fields' => ['dataset_name'],
         'click sortable' => true,
       ],
       'argument' => [

@@ -1,3 +1,11 @@
+workbc_ssot.uploads:
+  path: '/admin/config/workbc/ssot/upload'
+  defaults:
+    _title: 'SSoT: Upload Datasets'
+    _controller: '\Drupal\system\Controller\SystemController::systemAdminMenuBlockPage'
+  requirements:
+    _permission: 'administer ssot settings'
+
 workbc_ssot.lmmu:
   path: '/admin/config/workbc/ssot/lmmu'
   defaults:

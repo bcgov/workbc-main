@@ -250,8 +250,8 @@ display:
           relationship: none
           group_type: group
           admin_label: ''
-          plugin_id: standard
-          label: Month/Year
+          plugin_id: workbc_ssot_dataset_period
+          label: Period
           exclude: false
           alter:
             alter_text: false
@@ -808,7 +808,7 @@ display:
         type: normal
         title: 'Upload Log'
         description: 'View the log of all SSoT operations.'
-        weight: 100
+        weight: -20
         expanded: false
         menu_name: admin
         parent: workbc_ssot.main

@@ -45,12 +45,20 @@ workflow regenerates the SSoT snapshot.
 
 Routes:
 
-| Route | Path | Form |
+| Route | Path | Page / Form |
 |-------|------|------|
+| `view.ssot_log.page_1` | `/admin/config/workbc/ssot/log` | Upload log (default SSoT destination) |
+| `workbc_ssot.uploads` | `/admin/config/workbc/ssot/upload` | Links to the upload forms, using Drupal's standard admin menu listing |
 | `workbc_ssot.lmmu` | `/admin/config/workbc/ssot/lmmu` | `SsotUploadLmmuForm` |
 | `workbc_ssot.industryprofile` | `/admin/config/workbc/ssot/industry-profile` | `SsotUploadIndustryProfileForm` |
 | `workbc_ssot.lfs` | `/admin/config/workbc/ssot/labour-force-survey` | `SsotUploadLabourForceSurveyForm` |
 | `workbc_ssot.refresh` | `/admin/config/workbc/ssot/refresh` | `SsotRefreshForm` (not covered here) |
+
+Under **Configuration > WorkBC > SSoT**, the menu and primary tabs are ordered
+**Upload Log**, **Upload Datasets**, **Refresh Datasets**. The three upload forms
+are submenu items of **Upload Datasets**, not separate tabs. The Upload Datasets
+landing page lists these submenu links and their descriptions, respecting route
+access. Import the view configuration and rebuild caches after changing navigation.
 
 ## End-to-end flow
 
@@ -356,6 +364,13 @@ with the same `dataset_name` + `dataset_period`.
 | `latest` | 1 if this is the current upload for the period |
 
 `workbc_ssot.views.inc` exposes the table to Views. The **SSoT upload log** view
+uses `SsotDatasetPeriod` for its *Period* column: Industry Outlook and the four LFS
+datasets display only the year, including comma-separated uploads containing only
+those yearly datasets. Monthly LMMU uploads retain the month and year (including
+January). Unknown or mixed-granularity datasets retain the configured date format.
+New yearly endpoints must be added to the handler's `YEARLY_DATASETS` list.
+
+The view
 (`config/sync/views.view.ssot_log.yml`) has an exposed *Dataset* drop-down backed by
 `SsotDatasetFilter` (`plugin_id: workbc_ssot_dataset`):
 
@@ -375,8 +390,9 @@ with the same `dataset_name` + `dataset_period`.
    from the matching `workbc-ssot/migration/load/<endpoint>.load` file in order and take
    `range`/`sheet` from `migration/load/sources.csv`. Add `fill_down` for any columns the
    migrator runs through `csv_refill.php`.
-4. Implement `getRouteName()`; add the route to `workbc_ssot.routing.yml` and links to
-   `workbc_ssot.links.menu.yml` / `workbc_ssot.links.task.yml`.
+4. Implement `getRouteName()`; add the route to `workbc_ssot.routing.yml` and a menu
+   link under `workbc_ssot.uploads` in `workbc_ssot.links.menu.yml`. It will appear
+   automatically on the Upload Datasets landing page; no new tab is needed.
 5. Add the workbook and migrator CSVs to `tests/fixtures/` and extend the
    [tests](#tests); the payload must match `load/<endpoint>.csv` cell-by-cell.
 6. In `workbc-ssot`, add a `repository_dispatch` type to a workflow for the new

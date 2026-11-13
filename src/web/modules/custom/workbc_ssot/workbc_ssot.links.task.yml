@@ -1,24 +1,17 @@
-workbc_ssot.lmmu:
-  route_name: workbc_ssot.lmmu
-  title: 'Labour Market Monthly Update'
-  base_route: workbc_ssot.lmmu
-
-workbc_ssot.industryprofile:
-  route_name: workbc_ssot.industryprofile
-  title: 'Industry Profile Yearly Update'
-  base_route: workbc_ssot.lmmu
-
-workbc_ssot.lfs:
-  route_name: workbc_ssot.lfs
-  title: 'Labour Force Survey Yearly Update'
-  base_route: workbc_ssot.lmmu
-
 workbc_ssot.log:
   route_name: view.ssot_log.page_1
   title: 'Upload Log'
-  base_route: workbc_ssot.lmmu
+  base_route: view.ssot_log.page_1
+  weight: -20
+
+workbc_ssot.uploads:
+  route_name: workbc_ssot.uploads
+  title: 'Upload Datasets'
+  base_route: view.ssot_log.page_1
+  weight: -10
 
 workbc_ssot.refresh:
   route_name: workbc_ssot.refresh
   title: 'Refresh Datasets'
-  base_route: workbc_ssot.lmmu
+  base_route: view.ssot_log.page_1
+  weight: 0

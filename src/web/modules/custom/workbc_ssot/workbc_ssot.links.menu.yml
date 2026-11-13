@@ -1,29 +1,40 @@
 workbc_ssot.main:
   title: 'SSoT'
   parent: workbc_custom.admin_index
-  route_name: workbc_ssot.lmmu
+  route_name: view.ssot_log.page_1
   description: 'SSoT administration.'
+
+workbc_ssot.uploads:
+  title: 'Upload Datasets'
+  parent: workbc_ssot.main
+  route_name: workbc_ssot.uploads
+  description: 'Choose a dataset spreadsheet to upload to the SSoT.'
+  weight: -10
 
 workbc_ssot.lmmu:
   title: 'Labour Market Monthly Update'
-  parent: workbc_ssot.main
+  parent: workbc_ssot.uploads
   route_name: workbc_ssot.lmmu
-  description: 'Upload a new data sheet to the SSoT Labout Market Monthly Update.'
+  description: 'Upload a new data sheet to the SSoT Labour Market Monthly Update.'
+  weight: 0
 
 workbc_ssot.refresh:
   title: 'Refresh Datasets'
   parent: workbc_ssot.main
   route_name: workbc_ssot.refresh
   description: 'Refresh the SSoT datasets that are used by this website.'
+  weight: 0
 
 workbc_ssot.industryprofile:
   title: 'Industry Profile Yearly Update'
-  parent: workbc_ssot.main
+  parent: workbc_ssot.uploads
   route_name: workbc_ssot.industryprofile
   description: 'Upload a new data sheet to the SSoT Industry Profile.'
+  weight: 10
 
 workbc_ssot.lfs:
   title: 'Labour Force Survey Yearly Update'
-  parent: workbc_ssot.main
+  parent: workbc_ssot.uploads
   route_name: workbc_ssot.lfs
-  description: 'Upload a new data sheet to the SSoT Labour Force Survey datasets.'
+  description: 'Upload a new data sheet to the SSoT Labour Force Survey.'
+  weight: 20
