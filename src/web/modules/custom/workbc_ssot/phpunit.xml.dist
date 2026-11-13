@@ -1,0 +1,37 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!--
+  PHPUnit configuration for the workbc_ssot module only.
+
+  Run from the project root (src/) or inside the docker-compose "php" service:
+    vendor/bin/phpunit -c web/modules/custom/workbc_ssot
+    composer test:ssot
+-->
+<phpunit xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance"
+         xsi:noNamespaceSchemaLocation="https://schema.phpunit.de/11.5/phpunit.xsd"
+         bootstrap="../../../core/tests/bootstrap.php"
+         colors="true"
+         beStrictAboutTestsThatDoNotTestAnything="true"
+         beStrictAboutOutputDuringTests="true"
+         failOnRisky="true"
+         failOnWarning="true"
+         displayDetailsOnTestsThatTriggerDeprecations="true"
+         cacheResult="false">
+  <php>
+    <ini name="error_reporting" value="32767"/>
+    <ini name="memory_limit" value="-1"/>
+    <!-- Unit tests only: no site, database or browser output is needed. -->
+    <env name="SIMPLETEST_BASE_URL" value=""/>
+    <env name="SIMPLETEST_DB" value=""/>
+    <env name="BROWSERTEST_OUTPUT_DIRECTORY" value="/tmp"/>
+  </php>
+  <testsuites>
+    <testsuite name="workbc_ssot">
+      <directory>tests/src/Unit</directory>
+    </testsuite>
+  </testsuites>
+  <source>
+    <include>
+      <directory>src</directory>
+    </include>
+  </source>
+</phpunit>

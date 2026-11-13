@@ -568,6 +568,45 @@ display:
       sorts: {  }
       arguments: {  }
       filters:
+        dataset_name:
+          id: dataset_name
+          table: workbc_ssot_log
+          field: dataset_name
+          relationship: none
+          group_type: group
+          admin_label: ''
+          plugin_id: workbc_ssot_dataset
+          operator: in
+          value: {  }
+          group: 1
+          exposed: true
+          expose:
+            operator_id: dataset_name_op
+            label: Dataset
+            description: ''
+            use_operator: false
+            operator: dataset_name_op
+            operator_limit_selection: false
+            operator_list: {  }
+            identifier: dataset
+            required: false
+            remember: false
+            multiple: false
+            remember_roles:
+              authenticated: authenticated
+            reduce: false
+          is_grouped: false
+          group_info:
+            label: ''
+            description: ''
+            identifier: ''
+            optional: true
+            widget: select
+            multiple: false
+            remember: false
+            default_group: All
+            default_group_multiple: {  }
+            group_items: {  }
         notes:
           id: notes
           table: workbc_ssot_log

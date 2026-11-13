@@ -615,7 +615,7 @@ function ssotProcessEmploymentIndustry($ssotdata) {
 }
 
 function ssotIndustryKey($industry_name, $industries) {
-  $index = array_search($industry_name, array_column($industries, 'name'));
+  $index = array_search(strtolower($industry_name), array_map('strtolower', array_column($industries, 'name')));
   $keys = array_keys($industries);
   return $keys[$index];
 }
