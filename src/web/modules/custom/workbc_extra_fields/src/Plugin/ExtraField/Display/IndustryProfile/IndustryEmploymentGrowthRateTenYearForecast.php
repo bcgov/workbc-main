@@ -48,9 +48,9 @@ class IndustryEmploymentGrowthRateTenYearForecast extends ExtraFieldDisplayForma
       $data[] = $entity->ssot_data['industry_outlook']['share_total_employment_pct_first'];
       $data[] = $entity->ssot_data['industry_outlook']['share_total_employment_pct_second'];
       $data[] = $entity->ssot_data['industry_outlook']['share_total_employment_pct_third'];
-      $date1 = ssotParseDateRange($entity->ssot_data['schema'], 'industry_outlook', 'share_total_employment_pct_first');
-      $date2 = ssotParseDateRange($entity->ssot_data['schema'], 'industry_outlook', 'share_total_employment_pct_second');
-      $date3 = ssotParseDateRange($entity->ssot_data['schema'], 'industry_outlook', 'share_total_employment_pct_third');
+      $date1 = ssotParseDateRange($entity->ssot_data['schema'], 'industry_outlook', 'share_total_employment_pct_first', $entity->ssot_data['sources']);
+      $date2 = ssotParseDateRange($entity->ssot_data['schema'], 'industry_outlook', 'share_total_employment_pct_second', $entity->ssot_data['sources']);
+      $date3 = ssotParseDateRange($entity->ssot_data['schema'], 'industry_outlook', 'share_total_employment_pct_third', $entity->ssot_data['sources']);
       $dates = array();
       $dates[] = $date1;
       $dates[] = $date2;

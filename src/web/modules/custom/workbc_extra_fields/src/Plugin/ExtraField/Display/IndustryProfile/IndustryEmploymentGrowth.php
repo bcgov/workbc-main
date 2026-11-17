@@ -26,7 +26,7 @@ class IndustryEmploymentGrowth extends ExtraFieldDisplayFormattedBase {
    * {@inheritdoc}
    */
   public function getLabel() {
-    $datestr = empty($this->getEntity()->ssot_data) ? '' : ssotParseDateRange($this->getEntity()->ssot_data['schema'], 'industry_outlook', 'annual_employment_growth_rate_pct_10y');
+    $datestr = empty($this->getEntity()->ssot_data) ? '' : ssotParseDateRange($this->getEntity()->ssot_data['schema'], 'industry_outlook', 'annual_employment_growth_rate_pct_10y', $this->getEntity()->ssot_data['sources']);
     return array('#markup' => $this->t("Employment Growth") . "<br>(" . $datestr . ")");
   }
 

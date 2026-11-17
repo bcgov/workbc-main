@@ -417,7 +417,7 @@ function ssotCareerProfile($noc) {
   return $data;
 }
 
-function ssotParseDateRange($schema, $section, $field = "") {
+function ssotParseDateRange($schema, $section, $field = "", $sources = null) {
   $match = "";
   if (isset($schema['definitions'][$section]['properties'][$field]['description'])) {
     $text = $schema['definitions'][$section]['properties'][$field]['description'];
@@ -426,6 +426,23 @@ function ssotParseDateRange($schema, $section, $field = "") {
   else if (isset($schema['definitions'][$section]['description'])) {
     $text = $schema['definitions'][$section]['description'];
     preg_match('#\{(.*?)\}#', $text, $match);
+  }
+  if(isset($sources)) {
+    if (isset($sources[$section])) {
+      $year = intval(date('Y', strtotime($sources[$section]['period'])));
+    }
+    else {
+      $year = intval(date('Y', strtotime($sources['period'])));
+    }
+    preg_match('/^\{?(-?\d+)(?:-(-?\d+))?\}?$/', $match[1], $matches);
+    $years = array_slice($matches, 1);
+    foreach($years as $key => $value) {
+      $years[$key] = $year + $value;
+    }
+    $match[1] = implode('-', $years);
+  }
+  else {
+    // error message?
   }
   return empty($match) ? "" : $match[1];
 }

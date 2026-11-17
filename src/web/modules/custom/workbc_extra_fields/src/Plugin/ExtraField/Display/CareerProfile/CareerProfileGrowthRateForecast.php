@@ -49,8 +49,8 @@ class CareerProfileGrowthRateForecast extends ExtraFieldDisplayFormattedBase {
       $data = array();
       $data[] = floatval($entity->ssot_data['career_provincial']['forecasted_average_employment_growth_rate_first5y']);
       $data[] = floatval($entity->ssot_data['career_provincial']['forecasted_average_employment_growth_rate_second5y']);
-      $date1 = ssotParseDateRange($entity->ssot_data['schema'], 'career_provincial', 'forecasted_average_employment_growth_rate_first5y');
-      $date2 = ssotParseDateRange($entity->ssot_data['schema'], 'career_provincial', 'forecasted_average_employment_growth_rate_second5y');
+      $date1 = ssotParseDateRange($entity->ssot_data['schema'], 'career_provincial', 'forecasted_average_employment_growth_rate_first5y', $entity->ssot_data['sources']);
+      $date2 = ssotParseDateRange($entity->ssot_data['schema'], 'career_provincial', 'forecasted_average_employment_growth_rate_second5y', $entity->ssot_data['sources']);
       $dates[] = $date1;
       $dates[] = $date2;
 

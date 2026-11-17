@@ -82,7 +82,7 @@ class CareerProfileIndustryHighlightsJobOpeningsByIndustry extends ExtraFieldDis
 
     $openings = array_sum(array_column($industries,'openings_careers'));
     if (!empty($industries) && $openings > 0) {
-      $datestr = ssotParseDateRange($this->getEntity()->ssot_data['schema'], 'openings_careers', 'industry_1_openings');
+      $datestr = ssotParseDateRange($this->getEntity()->ssot_data['schema'], 'openings_careers', 'industry_1_openings', $this->getEntity()->ssot_data['sources']);
       $options = array(
         'na_if_empty' => TRUE,
       );

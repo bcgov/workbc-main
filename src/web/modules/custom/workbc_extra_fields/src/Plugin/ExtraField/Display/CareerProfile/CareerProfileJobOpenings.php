@@ -27,7 +27,7 @@ class CareerProfileJobOpenings extends ExtraFieldDisplayFormattedBase {
    * {@inheritdoc}
    */
   public function getLabel() {
-    $datestr = empty($this->getEntity()->ssot_data) ? '' : ssotParseDateRange($this->getEntity()->ssot_data['schema'], 'career_provincial', 'expected_job_openings_10y');
+    $datestr = empty($this->getEntity()->ssot_data) ? '' : ssotParseDateRange($this->getEntity()->ssot_data['schema'], 'career_provincial', 'expected_job_openings_10y', $this->getEntity()->ssot_data['sources']);
     return array('#markup' => $this->t('Job Openings') . '<br>(' . $datestr . ')');
   }
 

@@ -45,7 +45,7 @@ class IndustryTopTenOccupations extends ExtraFieldDisplayFormattedBase {
 
     if (!empty($entity->ssot_data) && isset($entity->ssot_data['openings_industry'])) {
 
-      $datestr = ssotParseDateRange($this->getEntity()->ssot_data['schema'], 'openings_industry', 'openings');
+      $datestr = ssotParseDateRange($this->getEntity()->ssot_data['schema'], 'openings_industry', 'openings', $this->getEntity()->ssot_data['sources']);
 
       $options = array(
         'decimals' => 0,

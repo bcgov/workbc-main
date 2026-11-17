@@ -18,11 +18,11 @@ class RegionTopFiveIndustriesBaseTable extends LabourMarketOutLookExtraFieldBase
       'na_if_empty' => TRUE,
     );
 
-    $employment_date = ssotParseDateRange($this->report->ssot_data['schema'], $this->getDataset(true), 'employment');
-    $growth_rate_date = ssotParseDateRange($this->report->ssot_data['schema'], $this->getDataset(true), 'growth_rate');
-    $expansion_date = ssotParseDateRange($this->report->ssot_data['schema'], $this->getDataset(true), 'expansion');
-    $replacement_date = ssotParseDateRange($this->report->ssot_data['schema'], $this->getDataset(true), 'replacement');
-    $openings_date = ssotParseDateRange($this->report->ssot_data['schema'], $this->getDataset(true), 'openings');
+    $employment_date = ssotParseDateRange($this->report->ssot_data['schema'], $this->getDataset(true), 'employment', $this->report->ssot_data['sources']);
+    $growth_rate_date = ssotParseDateRange($this->report->ssot_data['schema'], $this->getDataset(true), 'growth_rate', $this->report->ssot_data['sources']);
+    $expansion_date = ssotParseDateRange($this->report->ssot_data['schema'], $this->getDataset(true), 'expansion', $this->report->ssot_data['sources']);
+    $replacement_date = ssotParseDateRange($this->report->ssot_data['schema'], $this->getDataset(true), 'replacement', $this->report->ssot_data['sources']);
+    $openings_date = ssotParseDateRange($this->report->ssot_data['schema'], $this->getDataset(true), 'openings', $this->report->ssot_data['sources']);
 
     $output = '<div id="' . $this->getRegion() . '">';
     $output .= <<<END

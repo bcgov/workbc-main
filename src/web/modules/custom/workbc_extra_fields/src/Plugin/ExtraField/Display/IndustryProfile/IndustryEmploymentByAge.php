@@ -73,8 +73,8 @@ class IndustryEmploymentByAge extends ExtraFieldDisplayFormattedBase {
       $industryAvgOver55 = WORKBC_EXTRA_FIELDS_NOT_AVAILABLE;
     }
 
-    $datestr1 = ssotParseDateRange($entity->ssot_data['schema'], 'labour_force_survey_industry', 'workforce_employment_under_25_pct_average');
-    $datestr2 = ssotParseDateRange($entity->ssot_data['schema'], 'labour_force_survey_industry', 'workforce_employment_under_25_pct');
+    $datestr1 = ssotParseDateRange($entity->ssot_data['schema'], 'labour_force_survey_industry', 'workforce_employment_under_25_pct_average', $entity->ssot_data['sources']);
+    $datestr2 = ssotParseDateRange($entity->ssot_data['schema'], 'labour_force_survey_industry', 'workforce_employment_under_25_pct', $entity->ssot_data['sources']);
 
     $label1 = "Industry Average (" . $datestr1 . ")";
     $label2 = "B.C. Average (" . $datestr2 . ")";

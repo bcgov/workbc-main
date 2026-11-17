@@ -48,7 +48,7 @@ class RegionTopTenOccupations extends ExtraFieldDisplayFormattedBase {
       'na_if_empty' => TRUE,
     );
     if (!empty($entity->ssot_data) && isset($entity->ssot_data['regional_top_occupations'])) {
-      $datestr = ssotParseDateRange($this->getEntity()->ssot_data['schema'], 'regional_top_occupations', 'openings');
+      $datestr = ssotParseDateRange($this->getEntity()->ssot_data['schema'], 'regional_top_occupations', 'openings', $this->getEntity()->ssot_data['sources']);
       $content = "<table>";
       $content .= "<tr><th>Top Ten Occupations</th><th class='data-align-right'>Job Openings (" . $datestr . ")</th></tr>";
       foreach ($entity->ssot_data['regional_top_occupations'] as $job) {

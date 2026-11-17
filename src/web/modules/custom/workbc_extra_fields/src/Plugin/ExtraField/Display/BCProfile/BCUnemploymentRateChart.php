@@ -44,7 +44,7 @@ class BCUnemploymentRateChart extends ExtraFieldDisplayFormattedBase {
   public function viewElements(ContentEntityInterface $entity) {
 
     if (!empty($entity->ssot_data) && isset($entity->ssot_data['labour_force_survey_bc_employment'])) {
-      $year = intval(ssotParseDateRange($entity->ssot_data['schema'], 'labour_force_survey_regional_employment', 'total_employment_num'));
+      $year = intval(ssotParseDateRange($entity->ssot_data['schema'], 'labour_force_survey_regional_employment', 'total_employment_num', $entity->ssot_data['sources']));
       $hi = floatval($entity->ssot_data['labour_force_survey_bc_employment']['unemployment_rate_year_high']);
       $lo = floatval($entity->ssot_data['labour_force_survey_bc_employment']['unemployment_rate_year_low']);
       $bc = array();
