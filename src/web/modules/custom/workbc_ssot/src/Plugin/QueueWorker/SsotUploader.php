@@ -7,6 +7,7 @@ use Symfony\Component\DependencyInjection\ContainerInterface;
 use Drupal\Core\Plugin\ContainerFactoryPluginInterface;
 use Drupal\Component\Utility\Timer;
 use GuzzleHttp\Client;
+use GuzzleHttp\Exception\ClientException;
 use Drupal\file\Entity\File;
 use Drupal\user\Entity\User;
 
@@ -45,8 +46,7 @@ class SsotUploader extends QueueWorkerBase implements ContainerFactoryPluginInte
   /**
    * {@inheritdoc}
    *
-   * Upload the given LMMU sheet to the correct location in the workbc-ssot repo.
-   * Use the GitHub API for repository contents https://docs.github.com/en/rest/repos/contents?apiVersion=2022-11-28
+   * Upload the workbook and dispatch its metadata for backend ingestion.
    */
   public function processItem($data) {
    \Drupal::logger('workbc')->notice('queue - processing item.');
@@ -54,29 +54,32 @@ class SsotUploader extends QueueWorkerBase implements ContainerFactoryPluginInte
     $sheet = $file->getFilename();
     $repo = \Drupal::config('workbc')->get('ssot_repo');
     $filepath = \Drupal::service('file_system')->realpath($file->getFileUri());
-    \Drupal::logger('workbc')->notice('Uploading SSoT @event sheet @sheet for @month/@year.', [
-      '@event' => $data['event_type'],
+    \Drupal::logger('workbc')->notice('Uploading SSoT sheet @sheet for @month/@year.', [
       '@sheet' => $sheet,
       '@month' => $data['month'],
       '@year' => $data['year'],
     ]);
     Timer::start('ssot_uploader');
 
-    // First get the sha of the existing file if any.
+    $content = file_get_contents($filepath);
+    if ($content === FALSE) {
+      throw new \RuntimeException('Unable to read the uploaded workbook.');
+    }
+    $endpoint = "https://api.github.com/repos/{$repo['name']}/contents/{$repo['path']}/" . rawurlencode($sheet);
+    $sha = null;
     try {
-      $existing = $this->github("https://api.github.com/repos/{$repo['name']}/contents/{$repo['path']}/{$sheet}?ref={$repo['branch']}", 'GET', $repo['token']);
-      $sha = json_decode($existing->getBody())->sha;
-      \Drupal::logger('workbc')->notice('queue - api calls - ' . $sha);
+      $existing = $this->github($endpoint . '?ref=' . rawurlencode($repo['branch']), 'GET', $repo['token']);
+      $sha = json_decode($existing->getBody(), TRUE, 512, JSON_THROW_ON_ERROR)['sha'];
     }
-    catch (\Exception $e) {
-      $sha = null;
+    catch (ClientException $error) {
+      if ($error->getResponse()->getStatusCode() !== 404) {
+        throw $error;
+      }
     }
-
-    // Create / update the file.
-    $this->github("https://api.github.com/repos/{$repo['name']}/contents/{$repo['path']}/{$sheet}", 'PUT', $repo['token'], [
+    $uploaded = $this->github($endpoint, 'PUT', $repo['token'], [
       'branch' => $repo['branch'],
       'sha' => $sha,
-      'content' => base64_encode(file_get_contents($filepath)),
+      'content' => base64_encode($content),
       'committer' => [
         'name' => $repo['committer'],
         'email' => \Drupal::config('system.site')->get('mail'),
@@ -87,12 +90,14 @@ class SsotUploader extends QueueWorkerBase implements ContainerFactoryPluginInte
       ],
       'message' => $data['notes'],
     ]);
-    \Drupal::logger('workbc')->notice('queue - api call - PUT');
-    dsm($data);
+    $workbook_sha = json_decode($uploaded->getBody(), TRUE, 512, JSON_THROW_ON_ERROR)['content']['sha'] ?? null;
+    if (!is_string($workbook_sha) || !preg_match('/^[a-f0-9]{40}$/i', $workbook_sha)) {
+      throw new \UnexpectedValueException('GitHub did not return the uploaded workbook SHA.');
+    }
 
     // Trigger the GitHub workflow.
     $this->github("https://api.github.com/repos/{$repo['name']}/dispatches", 'POST', $repo['token'], [
-      'event_type' => $data['event_type'],
+      'event_type' => 'ssot_update',
       'client_payload' => [
         'branch' => $repo['branch'],
         'filename' => $sheet,
@@ -100,18 +105,23 @@ class SsotUploader extends QueueWorkerBase implements ContainerFactoryPluginInte
         'month' => $data['month'],
         'date' => $data['date'],
         'notes' => $data['notes'],
+        'workbook_sha' => $workbook_sha,
+        'metadata' => [
+          'label' => $data['label'] ?? null,
+          'author' => $data['author'] ?? null,
+          'datasets' => $data['datasets'],
+        ],
       ]
     ]);
 
     Timer::stop('ssot_uploader');
-    \Drupal::logger('workbc')->notice('Done uploading SSoT @event_type sheet @sheet in @time.', [
-      '@event_type' => $data['event_type'],
+    \Drupal::logger('workbc')->notice('Done uploading SSoT sheet @sheet in @time.', [
       '@sheet' => $sheet,
       '@time' => Timer::read('ssot_uploader') . 'ms'
     ]);
   }
 
-  private function github($endpoint, $method, $token, $body = null) {
+  protected function github($endpoint, $method, $token, $body = null) {
     $client = new Client();
     $options = [
       'headers' => [

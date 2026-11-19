@@ -77,11 +77,6 @@ abstract class SsotUploadFormBase extends ConfirmFormBase {
   protected array $toc = [];
 
   /**
-   * GitHub repository_dispatch event type sent to the workbc-ssot repo.
-   */
-  protected string $event_type;
-
-  /**
    * Default state of the "Update SSoT repo" checkbox.
    */
   protected bool $repo_default = TRUE;
@@ -524,14 +519,21 @@ abstract class SsotUploadFormBase extends ConfirmFormBase {
       if ($form_state->get('repo')) {
         \Drupal::queue('ssot_uploader')->createItem([
           'file_id' => $form_state->get('file_id'),
-          'event_type' => $this->event_type,
           'month' => $month,
           'year' => $year,
           'notes' => $form_state->get('notes'),
           'uid' => \Drupal::currentUser()->id(),
           'date' => $ssot_date,
+          'label' => $this->interpolate($this->label, $context),
+          'author' => $this->author,
           'datasets' => array_map(function ($endpoint, $entry) {
-            return ['endpoint' => $endpoint, 'sheet' => $entry['sheet'], 'range' => $entry['range'] ?? null];
+            $write = is_array($entry['write'] ?? null) ? $entry['write'] : ['mode' => $entry['write'] ?? 'replace'];
+            return [
+              'endpoint' => $endpoint,
+              'sheet' => $entry['sheet'],
+              'range' => $entry['range'] ?? null,
+              'match' => $entry['sources'] ?? ($write['mode'] === 'upsert' ? 'period' : 'endpoint'),
+            ];
           }, array_keys($this->toc), $this->toc),
         ]);
       }

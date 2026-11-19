@@ -12,7 +12,6 @@ class SsotUploadLmmuForm extends SsotUploadFormBase {
   protected string $id = 'monthly_labour_market_updates';
   protected string $title = 'Labour Market Monthly Update';
   protected string $label = 'Labour Force Survey (monthly, seasonally adjusted)';
-  protected string $event_type = 'monthly_labour_market_update';
   protected ?string $frontend_path = '/research-labour-market/bcs-economy/labour-market-monthly-update';
 
   protected array $period = [

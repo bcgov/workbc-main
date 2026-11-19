@@ -101,14 +101,15 @@ access. Import the view configuration and rebuild caches after changing navigati
                                            ▼
             ┌──────────────────────────────────────────────────────────────┐
             │ SsotUploader::processItem()                                   │
-            │  1. GET  /repos/{name}/contents/{path}/{file}?ref={branch}    │
-            │  2. PUT  /repos/{name}/contents/{path}/{file}  (commit)       │
-            │  3. POST /repos/{name}/dispatches  (repository_dispatch)      │
+            │  1. Read existing workbook SHA, if present                   │
+            │  2. Upload workbook through the Contents API                 │
+            │  3. Dispatch ssot_update with workbook SHA and metadata       │
             └──────────────────────────────┬───────────────────────────────┘
                                            ▼
             ┌──────────────────────────────────────────────────────────────┐
             │ workbc-ssot/.github/workflows/ssot-update.yml                 │
-            │  checkout client_payload.branch → run migrator → pg_dump      │
+            │  checkout → verify workbook → register metadata              │
+            │  run migrator → pg_dump → commit metadata + snapshot          │
             └──────────────────────────────────────────────────────────────┘
 ```
 
@@ -137,7 +138,6 @@ Every form is a thin declaration on top of `SsotUploadFormBase`. Common fields:
 - Write: `upsert` matched on `year=eq.{year}&month=eq.{month}`.
 - Crosscheck: previous month's row is fetched from SSoT so `crosscheck_*` rules can
   compare "previous" columns against the prior upload.
-- Queue event `monthly_labour_market_update` (handled by `ssot-update.yml`).
 
 ### Industry Profile Yearly Update
 
@@ -145,12 +145,12 @@ Every form is a thin declaration on top of `SsotUploadFormBase`. Common fields:
 - One `table`-shaped dataset `industry_outlook`, range `Sheet1!A3:H20` (18 industries ×
   8 columns). `industry` is a lookup column resolved to the SSoT industry key.
 - Write: `replace` (the table is a snapshot with no year column).
-- Queue event `industry_outlook_update` (**no workflow listens for it yet**).
 
 ### Labour Force Survey Yearly Update
 
 - Granularity `year`; **no period check** — the workbook has no reliable date cell, so
-  the form's year is trusted. `repo` defaults to **off** (no workflow exists yet).
+  the form's year is trusted. `repo` defaults to **off**; when enabled, the generic
+  workflow ingests all four registered datasets from this workbook.
 - Four `table` datasets across two tabs, ranges copied from `sources.range`:
 
   | Dataset | Tab | Range | Key column |
@@ -180,7 +180,6 @@ class SsotUploadFooForm extends SsotUploadFormBase {
   protected string  $title         = 'Foo Update';           // UI messages
   protected string  $label         = '{year} Foo Survey';    // sources.label (placeholders allowed)
   protected ?string $author        = 'BC LMIO';              // sources.author (optional)
-  protected string  $event_type    = 'foo_update';           // GitHub repository_dispatch type
   protected bool    $repo_default  = TRUE;                   // default of the "Update SSoT repo" box
   protected ?string $frontend_path = '/some/page';           // success message link (optional)
   protected array   $period        = [...];                  // see "Period handling"
@@ -309,25 +308,38 @@ Plugin id `ssot_uploader`, runs on cron (`cron = {"time" = 60}`). Each item is:
 ```php
 [
   'file_id'    => <fid>,
-  'event_type' => 'monthly_labour_market_update' | 'industry_outlook_update' | 'labour_force_survey_update',
   'month'      => <int>,              // 1 for yearly uploads
   'year'       => <int>,
   'notes'      => <string>,           // commit message
   'uid'        => <uid>,              // commit author
   'date'       => 'Y/m/d H:i',        // spreadsheet timestamp
-  'datasets'   => [['endpoint' => …, 'sheet' => …, 'range' => …], …],  // not yet consumed by the worker
+  'label'      => <string>,           // interpolated source label
+  'author'     => <string|null>,      // optional source author
+  'datasets'   => [['endpoint' => …, 'sheet' => …, 'range' => …, 'match' => 'endpoint'|'period'], …],
 ]
 ```
 
 `processItem()` uses the GitHub REST API (`X-GitHub-Api-Version: 2022-11-28`):
 
-1. `GET /repos/{name}/contents/{path}/{filename}?ref={branch}` — fetch the current blob `sha`.
-2. `PUT /repos/{name}/contents/{path}/{filename}` — create/update the file (`message` = notes).
-3. `POST /repos/{name}/dispatches` — `repository_dispatch` with `event_type` and
-   `client_payload = { branch, filename, year, month, date, notes }`.
+1. Read the workbook's current SHA using the Contents API. Only a 404 means a new
+   file; other errors propagate for queue retry.
+2. Upload the workbook using the Contents API (`message` = notes), passing its
+   current SHA when replacing it. The client does not read or edit the manifest.
+3. `POST /repos/{name}/dispatches` — `repository_dispatch` with `event_type=ssot_update` and
+   `client_payload = { branch, filename, workbook_sha, year, month, date, notes,
+   metadata: { label, author, datasets } }`. The SHA identifies the uploaded Git
+   blob, not a commit. Upload failures prevent dispatch.
 
-On the `workbc-ssot` side, `.github/workflows/ssot-update.yml` currently listens only
-for `monthly_labour_market_update`. Run the queue manually with `drush queue:run ssot_uploader`.
+On the `workbc-ssot` side, `.github/workflows/ssot-update.yml` reads the dispatch
+JSON through `GITHUB_EVENT_PATH`. Its `register_sources.php` command verifies the
+workbook SHA, updates `migration/load/sources.csv`, then the workflow invokes
+`php src/ssot_ingest.php --file "$SOURCE_FILENAME"`. Metadata registration and replacement
+rules belong entirely to that repository. After successful ingestion, the
+manifest, generated CSVs and snapshots are committed together with a non-forced
+push. A stale workbook or concurrent publication fails the workflow and requires
+an explicit retry; accepting the dispatch does not mean ingestion has succeeded.
+Deploy the backend registration command/workflow before enabling this worker.
+Run the queue manually with `drush queue:run ssot_uploader`.
 
 ## Configuration
 
@@ -384,7 +396,7 @@ The view
 ## Adding a new upload form
 
 1. Create `src/Form/SsotUpload<Name>Form.php` extending `SsotUploadFormBase`.
-2. Set `$id`, `$title`, `$label`, `$event_type`, `$period`, optionally `$author`,
+2. Set `$id`, `$title`, `$label`, `$period`, optionally `$author`,
    `$frontend_path`, `$repo_default`.
 3. Write the `$toc`: one entry per SSoT endpoint. For tables, copy the CSV column list
    from the matching `workbc-ssot/migration/load/<endpoint>.load` file in order and take
@@ -395,8 +407,9 @@ The view
    automatically on the Upload Datasets landing page; no new tab is needed.
 5. Add the workbook and migrator CSVs to `tests/fixtures/` and extend the
    [tests](#tests); the payload must match `load/<endpoint>.csv` cell-by-cell.
-6. In `workbc-ssot`, add a `repository_dispatch` type to a workflow for the new
-   `event_type` (until then set `$repo_default = FALSE`).
+6. In `workbc-ssot`, provide the endpoint's loader and any source-specific recipe.
+   The existing generic dispatch handles the workbook; no new workflow job or
+   dataset-specific conversion step is required.
 
 ## Tests
 
@@ -408,6 +421,7 @@ The view
 | `SsotUploadFormBaseTest` | `buildContext` (month wrap, periods), `interpolate`, case-insensitive tab lookup, column derivation for tables (incl. `value` fields), range/field width mismatch, `fill_down`, N/A normalisation, formula evaluation, `prepareRows` casting and key resolution, and a declaration-consistency check of every shipped form's TOC |
 | `SsotDatasetFilterTest` | option building from `sources` rows + logged names, `in`/`not in` WHERE conditions (via a mocked Views query), LIKE escaping |
 | `SsotUploadWorkbookTest` | end-to-end regression against real workbooks in `tests/fixtures/`: LFS (4 datasets), Industry Profile and LMMU payloads are compared cell-by-cell with the CSVs the `workbc-ssot` migrator produced from the same files; also fault injection (unknown region/industry, bad numbers) |
+| `SsotUploaderTest` | Contents API upload/create, generic dispatch with dataset metadata and workbook identity, and failure propagation without network calls |
 
 Fixtures are the real published workbooks and the migrator's `load/*.csv` output copied
 from `workbc-ssot/migration`. Lookups are fed from `tests/fixtures/industries.csv` and a
@@ -432,12 +446,6 @@ add a case to `SsotUploadWorkbookTest` plus an entry in `shippedFormProvider()`.
 
 ## Known issues / TODO
 
-- `SsotUploader::processItem()` calls `dsm($data)` (meaningless during cron) and emits
-  several debug-level `notice` logs. It ignores the new `datasets` payload key.
-- `ssot-update.yml` only handles `monthly_labour_market_update`; there are no workflows
-  for `industry_outlook_update` or `labour_force_survey_update`, and the migrator
-  script hard-codes `Sheet3`. A generic script driven by `client_payload.datasets` would
-  let one workflow serve every form.
 - Crosschecks against the previous period are only implemented for `record` datasets.
 - Validation results are one message per cell; for large tables (LFS ≈ 1,700 checks)
   the confirmation screen is long even with successes hidden.

@@ -12,7 +12,6 @@ class SsotUploadIndustryProfileForm extends SsotUploadFormBase {
   protected string $id = 'industry_outlook';
   protected string $title = 'Industry Profile Yearly Update';
   protected string $label = 'B.C. Labour Market Outlook';
-  protected string $event_type = 'industry_outlook_update';
   protected ?string $frontend_path = '/research-labour-market/bcs-economy/industry-profile-yearly-update';
 
   protected array $period = [

@@ -13,7 +13,6 @@ class TestGenericForm extends SsotUploadFormBase {
   protected string $id = 'generic';
   protected string $title = 'Generic';
   protected string $label = 'Generic {year}';
-  protected string $event_type = 'generic_update';
 
   public function __construct(array $toc = [], array $period = ['granularity' => 'year']) {
     $this->toc = $toc;

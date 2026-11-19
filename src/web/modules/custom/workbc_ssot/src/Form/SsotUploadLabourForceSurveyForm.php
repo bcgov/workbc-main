@@ -19,9 +19,7 @@ class SsotUploadLabourForceSurveyForm extends SsotUploadFormBase {
   protected string $title = 'Labour Force Survey';
   protected string $label = '{year} Labour Force Survey';
   protected ?string $author = 'BC Labour Market Information Office';
-  protected string $event_type = 'labour_force_survey_update';
 
-  // No workbc-ssot workflow handles this event yet.
   protected bool $repo_default = FALSE;
 
   // The sheet has no reliable period cell: trust the year selected in the form.

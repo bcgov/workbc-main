@@ -263,7 +263,7 @@ $config['search_api.server.solr'] = [
 $config['workbc']['ssot_repo'] = [
   'name' => 'rjkuyvenhoven/workbc-ssot',
   'path' => 'migration/data',
-  'branch' => 'ams',
+  'branch' => 'WBCAMS-2271-ssot-upload',
   'token' => getenv('GITHUB_API_TOKEN'),
   'committer' => 'WorkBC SSoT Uploader',
 ];
