@@ -56,6 +56,10 @@ class Content extends SitemapBase {
    * {@inheritdoc}
    */
   public function view() {
+    $times = [
+      ['start', microtime(true)]
+    ];
+
     // Load the main menu.
     $menu_weight = [
       'main' => 0,
@@ -81,6 +85,7 @@ class Content extends SitemapBase {
         $menu_items[$menu_item['parent']]['url'] = '/' . join('/', array_slice($parts, 0, -1));
       }
     }
+    array_push($times, ['load menu', microtime(true)]);
 
     // Query the content in the order we want to display.
     $nids0 = \Drupal::entityQuery('node')
@@ -107,6 +112,7 @@ class Content extends SitemapBase {
       ->condition('type', ['blog', 'news', 'success_story'], 'IN')
       ->sort('field_published_date', 'DESC')
       ->execute();
+    array_push($times, ['load nids', microtime(true)]);
 
     // Group URLs by directory.
     $structure = [];
@@ -163,6 +169,7 @@ class Content extends SitemapBase {
         'weight' => $url == "/front" ? -1000 : ($menu_item ? intval($menu_item['weight']) : 1000)
       ];
     }
+    array_push($times, ['load nodes', microtime(true)]);
 
     // Add glossary manually.
     $glossary_item = array_find($menu_items, function($menu_item) {
@@ -183,17 +190,41 @@ class Content extends SitemapBase {
       foreach ($structure as $name => $data) {
         if ($name === '#metadata') continue;
 
+        $children = [];
         if (isset($data['#metadata']['url'])) {
           $child = Link::fromTextAndUrl($data['#metadata']['title'], Url::fromUri("internal:{$data['#metadata']['url']}"))->toRenderable();
+          $children['children'][] = $child;
         }
         else {
           $child = ['#markup' => $data['#metadata']['title']];
         }
-        if (count($data) > 1) renderItemList($data, $child);
-        $items['children'][] = $child;
+        if (count($data) > 1) {
+          renderItemList($data, $children);
+          $items['children'][] = [
+            '#type' => 'details',
+            '#title' => $data['#metadata']['title'],
+            '#open' => false,
+            'content' => [
+              '#theme' => 'item_list',
+              '#items' => $children['children'],
+            ]
+          ];
+        }
+        else {
+          $items['children'][] = $child;
+        }
       }
     }
     renderItemList($structure, $items);
+    array_push($times, ['render', microtime(true)]);
+
+    // Report on timing needed to build this sitemap.
+    // d(array_map(function ($time, $i) use ($times) {
+    //     return [
+    //       $time[0], $time[1] - $times[$i][1]
+    //     ];
+    // }, array_slice($times, 1), range(0, count($times)-2)));
+
     return [
       '#theme' => 'sitemap_item',
       '#content' => [

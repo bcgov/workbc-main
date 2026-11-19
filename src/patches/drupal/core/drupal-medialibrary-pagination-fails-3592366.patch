@@ -1,0 +1,138 @@
+diff --git a/core/lib/Drupal/Core/Pager/PagerPreprocess.php b/core/lib/Drupal/Core/Pager/PagerPreprocess.php
+index 42d1b6c3dcc38cefd01d25f31623669086a5ea4e..c5dbe690892b3b712daf79bbd15fb1a41d90dead 100644
+--- a/core/lib/Drupal/Core/Pager/PagerPreprocess.php
++++ b/core/lib/Drupal/Core/Pager/PagerPreprocess.php
+@@ -41,6 +41,11 @@ public function __construct(
+    *       append to the pager links.
+    *     - #route_parameters: An associative array of the route parameters.
+    *     - #quantity: The number of pages in the list.
++   *     - #modal_dialog_links: (optional) Set to FALSE to stop the pager links
++   *       from being turned into modal dialog links when the pager is rendered
++   *       inside a modal. Defaults to TRUE. A view that already handles its
++   *       pager links with the views AJAX JavaScript sets this to FALSE to
++   *       avoid conflicting with that handling.
+    */
+   public function preprocessPager(array &$variables): void {
+     $element = $variables['pager']['#element'];
+@@ -51,7 +56,14 @@ public function preprocessPager(array &$variables): void {
+ 
+     $link_attributes = [];
+ 
+-    if ($this->requestStack->getCurrentRequest()?->query->get(MainContentViewSubscriber::WRAPPER_FORMAT) === 'drupal_modal') {
++    // Turn pager links into modal dialog links when the pager is rendered
++    // inside a modal, so paging reloads the modal instead of navigating away.
++    // A pager opts out by setting #modal_dialog_links to FALSE, for example an
++    // AJAX view whose links are already handled by the views AJAX JavaScript;
++    // adding the modal link attributes there would conflict and load the
++    // current page's (relative) URL into the dialog instead.
++    if (($variables['pager']['#modal_dialog_links'] ?? TRUE) !== FALSE
++      && $this->requestStack->getCurrentRequest()?->query->get(MainContentViewSubscriber::WRAPPER_FORMAT) === 'drupal_modal') {
+       $link_attributes = [
+         'class' => ['use-ajax'],
+         'data-dialog-type' => 'modal',
+diff --git a/core/modules/ckeditor5/tests/src/FunctionalJavascript/MediaLibraryTest.php b/core/modules/ckeditor5/tests/src/FunctionalJavascript/MediaLibraryTest.php
+index 1385aed3b67767caae40045999ad568636b63bad..d343b14d6c2fb84bd65ebb512e7b11e24bd3f997 100644
+--- a/core/modules/ckeditor5/tests/src/FunctionalJavascript/MediaLibraryTest.php
++++ b/core/modules/ckeditor5/tests/src/FunctionalJavascript/MediaLibraryTest.php
+@@ -158,6 +158,83 @@ function (ConstraintViolationInterface $v): string {
+     $this->drupalLogin($this->user);
+   }
+ 
++  /**
++   * Tests that a full pager works in the media library modal.
++   *
++   * When the media library view is configured to use a full pager instead of
++   * the default mini pager, its pager links must continue to be handled by the
++   * views AJAX behavior and update the view in place. They must not be turned
++   * into modal dialog links, which would load the current page (the node form)
++   * into the modal and break the media library.
++   *
++   * @see https://www.drupal.org/project/drupal/issues/3592366
++   * @see \Drupal\Core\Pager\PagerPreprocess::preprocessPager()
++   */
++  public function testFullPagerInModal(): void {
++    $assert_session = $this->assertSession();
++    $page = $this->getSession()->getPage();
++
++    // Configure the media library view to use a full pager showing a single
++    // item per page, so that a second page of results exists.
++    $this->config('views.view.media_library')
++      ->set('display.default.display_options.pager', [
++        'type' => 'full',
++        'options' => [
++          'items_per_page' => 1,
++          'tags' => [
++            'next' => 'Next ›',
++            'previous' => '‹ Previous',
++            'first' => '« First',
++            'last' => 'Last »',
++          ],
++        ],
++      ])
++      ->save();
++
++    // The "Image" media type is selected by default when the library opens
++    // (see ::testButton()). setUp() created a single image media item; create
++    // a second one so the full pager has more than one page.
++    $file = File::create([
++      'uri' => $this->getTestFiles('image')[1]->uri,
++    ]);
++    $file->save();
++    Media::create([
++      'bundle' => 'image',
++      'name' => 'The spice must flow',
++      'field_media_image' => [
++        [
++          'target_id' => $file->id(),
++          'alt' => 'second alt',
++          'title' => 'second title',
++        ],
++      ],
++    ])->save();
++
++    $this->drupalGet('/node/add/blog');
++    $this->waitForEditor();
++    $this->pressEditorButton('Insert Media');
++    $this->assertNotEmpty($assert_session->waitForElementVisible('css', '#drupal-modal #media-library-content'));
++
++    // The full pager links must be plain views AJAX links, not modal dialog
++    // links: turning them into modal dialog links is what caused the node form
++    // to be loaded into the dialog.
++    $assert_session->elementExists('css', '#drupal-modal .js-media-library-view .js-pager__items');
++    $assert_session->elementNotExists('css', '#drupal-modal .js-pager__items a.use-ajax');
++
++    // Navigate to the second page using the numbered pager link.
++    $page->clickLink('Go to page 2');
++
++    // The view must update in place: a link back to the first page appears in
++    // the media library pager and the media library content is still present
++    // inside the modal. Before the fix the click loaded the node form into the
++    // modal, so none of these would be true.
++    $this->assertNotEmpty($assert_session->waitForElementVisible('named', ['link', 'Go to page 1']));
++    $assert_session->elementExists('css', '#drupal-modal #media-library-content');
++    $assert_session->elementExists('css', '#drupal-modal .js-media-library-view');
++    // The node form must not have been loaded into the modal.
++    $assert_session->elementNotExists('css', '#drupal-modal #edit-title-0-value');
++  }
++
+   /**
+    * Tests using drupalMedia button to embed media into CKEditor 5.
+    */
+diff --git a/core/modules/views/src/Plugin/views/pager/Full.php b/core/modules/views/src/Plugin/views/pager/Full.php
+index 7a2689062af9f802cdf32a09c9a9818929b460b9..10dcc91ed6428e0a263f9362d1ac1c731273f097 100644
+--- a/core/modules/views/src/Plugin/views/pager/Full.php
++++ b/core/modules/views/src/Plugin/views/pager/Full.php
+@@ -102,6 +102,13 @@ public function render($input) {
+       '#parameters' => $input,
+       '#quantity' => $this->options['quantity'],
+       '#route_name' => !empty($this->view->live_preview) ? '<current>' : '<none>',
++      // When the view uses AJAX, the pager links are handled by the views
++      // AJAX JavaScript (ajax_view.js), which updates the view in place. Opt
++      // out of turning them into modal dialog links inside a modal: the two
++      // mechanisms conflict, and the modal link would load the current page's
++      // (relative) URL into the dialog.
++      // @see \Drupal\Core\Pager\PagerPreprocess::preprocessPager()
++      '#modal_dialog_links' => !$this->view->display_handler->ajaxEnabled(),
+     ];
+   }
+ 

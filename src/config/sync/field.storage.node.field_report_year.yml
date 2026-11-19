@@ -17,7 +17,7 @@ settings:
     -
       value: 2025
       label: '2025'
-  allowed_values_function: ''
+  allowed_values_function: ssotReportYearValues
 module: options
 locked: false
 cardinality: 1
