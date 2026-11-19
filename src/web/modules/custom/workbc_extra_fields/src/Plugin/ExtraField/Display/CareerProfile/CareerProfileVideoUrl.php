@@ -46,8 +46,8 @@ class CareerProfileVideoUrl extends ExtraFieldDisplayFormattedBase {
   public function viewElements(ContentEntityInterface $entity) {
     $output = WORKBC_EXTRA_FIELDS_NOT_AVAILABLE;
     if (!empty($entity->ssot_data) && isset($entity->ssot_data['career_trek'])) {
-      foreach($entity->ssot_data['career_trek'] as $career_trek) {
-        if($career_trek['episode_num'] == $entity->episode_number) {
+      foreach ($entity->ssot_data['career_trek'] as $career_trek) {
+        if ($career_trek['episode_num'] == $entity->episode_number) {
           // Convert YouTube URL to oEmbed iframe with hash check.
           $video_id = explode('/', $career_trek['youtube_link']);
           $youtube_url = "https://www.youtube.com/watch?v=" . end($video_id);

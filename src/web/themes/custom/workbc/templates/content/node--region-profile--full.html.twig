@@ -86,7 +86,10 @@
   title: label,
   hero: {
     image: content.field_hero_image_media[0],
-    title: label,
+    image_fullwidth: content.field_hero_image_full_width[0],
+    image_fullwidth_small: content.field_hero_image_full_small[0] | default(content.field_hero_image_full_width[0]),
+    image_fullwidth_wide: content.field_hero_image_full_wide[0] | default(content.field_hero_image_full_width[0]),
+    title: label[0] | render ~ "",
     subtitle: 'Regional Profile',
     description: null,
   },
@@ -196,17 +199,38 @@
 
 <div class="profile-header">
 
-  {% if viewmodel['hero']['image'] or viewmodel['hero']['description'] %}
-    <div class="profile-header-banner hero-banner hero-banner-profile">
+{% if viewmodel['hero']['image'] or viewmodel['hero']['image_fullwidth'] or viewmodel['hero']['description'] %}
 
+    {%
+      set hero_classes = [
+        'profile-header-banner',
+        'hero-banner',
+        'hero-banner-profile',
+        viewmodel['hero']['image_fullwidth'] ? 'hero-fullwidth-banner' : 'hero-faded-banner'
+      ]
+    %}
+    <div{{ create_attribute({'class': hero_classes}) }}>
+
+      {% if viewmodel['hero']['image_fullwidth'] %}
+      <div class="hero-image-wrapper">
+        {{ viewmodel['hero']['image_fullwidth'] }}
+      </div>
+      <div class="hero-image-wrapper-small">
+        {{ viewmodel['hero']['image_fullwidth_small'] }}
+      </div>
+      <div class="hero-image-wrapper-wide">
+        {{ viewmodel['hero']['image_fullwidth_wide'] }}
+      </div>
+      {% else %}
       <div class="hero-image-wrapper">
         {{ viewmodel['hero']['image'] }}
       </div>
+      {% endif %}
 
-      <div class="hero-content-container container-lg">
+      <div class="hero-content-container container-sm">
         <div class="hero-content-wrapper">
           <div class="hero-title">
-            <h1>{{ viewmodel['hero']['title'] }}</h1>
+            <h1>{{ viewmodel['hero']['title'] | replace({'/': '/<wbr>'}) | raw }}</h1>
           </div>
 
           <div class="hero-subtitle">{{ viewmodel['hero']['subtitle'] }}</div>
@@ -252,7 +276,8 @@
           </div>
           {% if statistic['source'] %}
             <div class="profile-information-card-infotip">
-              <a tabindex="0" class="btn btn-link info-tooltip" role="button" data-bs-toggle="popover" data-bs-container="body" data-bs-trigger="click hover" data-bs-placement="bottom" data-bs-custom-class="workbc-popover" title="hidden title" data-bs-html="true" data-bs-content="<em>Source:</em> {{ statistic['source'] }}"></a>
+              {% set id = statistic['icon_class']|clean_id %}
+              <a tabindex="0" id="profile-information-card-infotip--{{ id }}" class="btn btn-link info-tooltip" role="button" data-bs-toggle="popover" data-bs-container="#profile-information-card-infotip--{{ id }}" data-bs-trigger="focus click hover" data-bs-placement="bottom" data-bs-custom-class="workbc-popover" title="Information about {{ statistic['title'] }}" data-bs-html="true" data-bs-content="<em>Source:</em> {{ statistic['source'] }}"></a>
             </div>
           {% endif %}
         </div>
@@ -337,14 +362,12 @@
                 <h3 class="card-profile__content-header">{{ viewmodel['tab_sections']['labour_market_statistics']['uneployment_bc_title'] }}</h3>
                 <span class="card-profile__content-value">{{ viewmodel['tab_sections']['labour_market_statistics']['uneployment_bc_markup']|raw }}</span>
               </div>
-              {% set tooltip = "Unemployment rate refers to the percentage of the population 15 years and older that are not employed." %}
+              {% set tooltip = "<em>Unemployment rate</em> refers to the percentage of the population 15 years and older that are not employed." %}
               <div class="card-profile__content">
                 <h3 class="card-profile__content-header">
                   {{ viewmodel['tab_sections']['labour_market_statistics']['uneployment_chart_title'] }}
-                  <span class="workbc-tooltip">
-                    <div class="workbc-tooltip-content">
-                      {{ tooltip | raw }}
-                    </div>
+                  <span class="profile-information-card-infotip">
+                    <a tabindex="0" id="profile-information-card-infotip-2" class="btn btn-link info-tooltip info-tooltip-inline" role="button" data-bs-toggle="popover" data-bs-container="#profile-information-card-infotip-2" data-bs-trigger="focus click hover" data-bs-placement="bottom" data-bs-custom-class="workbc-popover--inline" title="Information about Unemployment rate" data-bs-html="true" data-bs-content="{{ tooltip }}"></a>
                   </span>
                 </h3>
                 <span class="card-profile__content-value">{{ viewmodel['tab_sections']['labour_market_statistics']['uneployment_chart_markup']|raw }}</span>

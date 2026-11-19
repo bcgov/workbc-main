@@ -1,0 +1,40 @@
+uuid: ec6cb1f1-4aa2-4f3b-b897-6cab0f8824d9
+langcode: en
+status: true
+dependencies:
+  config:
+    - core.entity_view_mode.media.action_card_support
+    - field.field.media.image.field_media_image
+    - image.style.action_card_logo
+    - media.type.image
+  module:
+    - svg_image
+_core:
+  default_config_hash: whJrNezqUJ7Qhg7raMQj2Hz9JPiWxijezhWIEN9BVVk
+id: media.image.action_card_support
+targetEntityType: media
+bundle: image
+mode: action_card_support
+content:
+  field_media_image:
+    type: image
+    label: hidden
+    settings:
+      image_link: ''
+      image_style: action_card_logo
+      image_loading:
+        attribute: lazy
+      svg_attributes:
+        width: null
+        height: null
+      svg_render_as_image: true
+    third_party_settings: {  }
+    weight: 1
+    region: content
+hidden:
+  created: true
+  langcode: true
+  name: true
+  search_api_excerpt: true
+  thumbnail: true
+  uid: true

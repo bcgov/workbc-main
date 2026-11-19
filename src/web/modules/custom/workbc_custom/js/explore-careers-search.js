@@ -19,6 +19,9 @@
       $(once('exploreCareerSearch', '.chosen-enable', context)).on('change', function() {
         $(this).closest('.form-item').find('input.chosen-search-input').attr('placeholder', '');
       });
+      $(once('exploreCareerSearch', '.explore-careers-filter details')).on('toggle', function(event) {
+        $('summary', event.target).text(event.target.open ? 'View less' : 'Refine your search');
+      });
     }
   }
 })(jQuery, Drupal, once);

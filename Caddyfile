@@ -1,0 +1,8 @@
+# Use this file to expose the site to your local network.
+# First make sure that your machine's firewall allows incoming connections on 8001, e.g. `ufw allow 8001` on Linux.
+# Then `caddy run` in this folder to start serving.
+:8001 {
+    reverse_proxy workbc.docker.localhost:8000 {
+        header_up Host workbc.docker.localhost
+    }
+}

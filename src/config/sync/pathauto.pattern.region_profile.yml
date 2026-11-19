@@ -7,7 +7,7 @@ dependencies:
 id: region_profile
 label: 'Region Profile'
 type: 'canonical_entities:node'
-pattern: 'region-profile/[node:title]'
+pattern: '/region-profile/[node:title]'
 selection_criteria:
   3dd6183c-2f2a-4e6f-b274-388796dab137:
     id: 'entity_bundle:node'

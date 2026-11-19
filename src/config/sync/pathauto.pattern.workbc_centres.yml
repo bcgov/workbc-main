@@ -7,7 +7,7 @@ dependencies:
 id: workbc_centres
 label: 'WorkBC Centres'
 type: 'canonical_entities:node'
-pattern: 'workbc-centres/[node:title]'
+pattern: '/workbc-centres/[node:title]'
 selection_criteria:
   5bc329e6-32e4-4921-8425-b5028f4c1723:
     id: 'entity_bundle:node'

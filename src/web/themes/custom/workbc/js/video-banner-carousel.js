@@ -46,13 +46,12 @@
         }
 
         // Delay video start by 3 seconds
-        setTimeout(() => {
+        if (video.autoplay) setTimeout(() => {
           const playPromise = video.play();
           if (playPromise !== undefined) {
             playPromise.then(() => {
               // Video started playing successfully
             }).catch(error => {
-              console.log('Autoplay failed:', error);
             });
           }
         }, 3000); // 3000 milliseconds = 3 seconds

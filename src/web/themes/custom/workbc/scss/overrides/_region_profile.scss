@@ -36,9 +36,15 @@
   }
 }
 
-.bc-profile--employment-tooltip {
-  margin-top: 3px;
-  background-image: url(../assets/images/info-tooltip-icon-white.svg);
+#bc-region-interactive-map th {
+  span.profile-information-card-infotip {
+    position: absolute;
+    margin-left: 4px;
+
+    a.info-tooltip {
+      background-image: url(../assets/images/info-tooltip-icon-white.svg);
+    }
+  }
 }
 
 .bc-profile--employment-tooltip-mobile {

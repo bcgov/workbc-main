@@ -47,6 +47,15 @@ class CareerProfileEducationPrograms extends ExtraFieldDisplayFormattedBase {
     if (!empty($entity->ssot_data) && isset($entity->ssot_data['epbc_nocs'])) {
       // Show the EPBC sub-NOCS if there are any.
       // Otherwise, show the main NOC with the incoming label (which may be different from the official career profile title).
+      $items = array_filter($entity->ssot_data['epbc_nocs'], function($v) use($entity) {
+        if (count($entity->ssot_data['epbc_nocs']) > 1 && empty($v['sub_noc'])) {
+          return false;
+        }
+        return true;
+      });
+      usort($items, function($a, $b) {
+        return strcmp($a['sub_noc_label_en'] ?? $a['label_en'], $b['sub_noc_label_en'] ?? $b['label_en']);
+      });
       $output = [
         '#theme' => 'item_list',
         '#items' => array_map(function ($v) {
@@ -54,12 +63,7 @@ class CareerProfileEducationPrograms extends ExtraFieldDisplayFormattedBase {
             'target' => '_blank',
             'rel' => 'noopener noreferrer',
           ]]));
-        }, array_filter($entity->ssot_data['epbc_nocs'], function($v) use($entity) {
-          if (count($entity->ssot_data['epbc_nocs']) > 1 && empty($v['sub_noc'])) {
-            return false;
-          }
-          return true;
-        })),
+        }, $items),
         '#list_type' => 'ul',
       ];
     }

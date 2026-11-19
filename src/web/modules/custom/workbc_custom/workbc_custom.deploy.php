@@ -63,8 +63,7 @@ function workbc_custom_deploy_1204_mismatch_fix(&$sandbox = NULL) {
 
 
 /**
- * import WorkBC Centre Regions csv and assign region to WorkBC Centres.
- *
+ * Import WorkBC Centre Regions csv and assign region to WorkBC Centres.
  *
  * As per ticket WBCAMS-1717
  */

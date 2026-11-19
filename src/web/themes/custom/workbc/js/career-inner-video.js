@@ -7,7 +7,6 @@
         $('.profile-video', context).each(function () {
           $(this).addClass('active');
 
-
           const iframe = $(this).find('iframe');
           $('.profile-video')[0].offsetHeight;
           $(window).on('resize.careerInnerVideo', function () {

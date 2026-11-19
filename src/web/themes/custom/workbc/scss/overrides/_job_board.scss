@@ -256,9 +256,22 @@ app-root {
     opacity: 0;
     outline: 0;
     padding: 0;
+    margin: 0;
     vertical-align: middle;
-    width: 0;
+    // The invisible native input must keep a real hit box over the 16px SVG
+    // checkbox artwork: width 0 gave assistive tech (Windows Voice Access)
+    // nothing to click, so the control could not be toggled by voice.
+    // No !important here: .job-alerts-inner below deliberately restores
+    // visible native radios with width:auto and must stay able to win.
+    width: 16px;
+    height: 16px;
     position: absolute;
+  }
+
+  // Decorative checkbox artwork must never intercept clicks aimed at the
+  // (invisible) native input sitting on top of it.
+  .checkbox-icons {
+    pointer-events: none !important;
   }
 
   .job-alerts-inner {

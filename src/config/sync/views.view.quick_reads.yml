@@ -492,6 +492,21 @@ display:
             field_identifier: ''
           exposed: false
           granularity: second
+        nid:
+          id: nid
+          table: node_field_data
+          field: nid
+          relationship: none
+          group_type: group
+          admin_label: 'ID (required to ensure uniqueness for correct pagination)'
+          entity_type: node
+          entity_field: nid
+          plugin_id: standard
+          order: ASC
+          expose:
+            label: ''
+            field_identifier: ''
+          exposed: false
       arguments: {  }
       filters:
         status:
@@ -1554,7 +1569,7 @@ display:
           plugin_id: text
           empty: false
           content:
-            value: '<a class="featured-news-all-link" href="/plan-career/quick-reads">View All Quick Reads</a>'
+            value: '<a class="featured-news-all-link" href="/quick-reads">View All Quick Reads</a>'
             format: full_html
           tokenize: false
       display_extenders: {  }

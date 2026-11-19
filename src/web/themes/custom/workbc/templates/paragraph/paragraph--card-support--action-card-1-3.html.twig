@@ -1,0 +1,64 @@
+{# Variables #}
+
+{% set card_image = content.field_image_media[0] %}
+{% set card_title = content.field_title[0] %}
+{% set card_desc = content.field_description[0] %}
+{% set card_link_url = content.field_link[0]['#url'] %}
+{% set card_link_title = content.field_link[0]['#title'] %}
+{% set card_email = content.field_email[0] %}
+{% set card_color = content.field_card_color['#items'].getString() %}
+
+{%
+  set classes = [
+    'paragraph',
+    paragraph.field_key[0].value ? 'paragraph--key--' ~ paragraph.field_key[0].value|clean_class,
+    'paragraph--type--' ~ paragraph.bundle|clean_class,
+    view_mode ? 'paragraph--view-mode--' ~ view_mode|clean_class,
+    not paragraph.isPublished() ? 'paragraph--unpublished',
+    'card-plain',
+    'card-support-' ~ content.field_card_color['#items'].getString(),
+  ]
+%}
+
+{% block paragraph %}
+  <div id="workbc-card-support-{{ paragraph.id() }}" {{ attributes.addClass(classes) }}>
+    {% block content %}
+      <div class="card-support__title-container">
+        <h3 class="card-plain__title">
+          {{ card_title }}
+        </h3>
+        <span id="card-support-{{ paragraph.id() }}" class="card-support-expand" data-card-id="{{ paragraph.id() }}">
+          <img tabindex="0" src="/modules/custom/workbc_custom/icons/expand.svg" alt="expand">
+        </span>
+      </div>
+      <div id="card-top-{{ paragraph.id() }}" class="card-support-content-top mobile-is-hidden">
+        {% if card_image %}
+          <div class="card-plain__image" >
+            {{ card_image }}
+          </div>
+        {% endif %}
+        <div class="card-plain__desc">
+          {{ card_desc }}
+        </div>
+      </div>
+      <div id="card-bottom-{{ paragraph.id() }}" class="card-support-content-bottom mobile-is-hidden">
+        {% if card_email %}
+          <div class="card-support__email">
+            <a href="mailto:{{ card_email }}">{{ card_email }}</a>
+          </div>
+        {% endif %}
+        {% if card_link_url %}
+          <div class="card-plain__link-container">
+            {% if is_external %}
+              <a class="card-plain__link" href="{{ card_link_url }}" target="_blank" rel="noopener noreferrer">{{ card_link_title }}
+                <img class="external-link" src="/{{ directory }}/assets/icons/external-link.svg" alt="" title="" />
+              </a>
+            {% else %}
+              <a class="card-plain__link" href="{{ card_link_url }}">{{ card_link_title }}</a>
+            {% endif %}
+          </div>
+        {% endif %}
+      </div>
+    {% endblock %}
+  </div>
+{% endblock paragraph %}

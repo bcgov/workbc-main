@@ -40,6 +40,9 @@
 #}
 
 {%
+  set cards =  content['field_action_cards']['#items'] | length
+%}
+{%
   set classes = [
     'paragraph',
     paragraph.field_key[0].value ? 'paragraph--key--' ~ paragraph.field_key[0].value|clean_class,
@@ -48,7 +51,7 @@
     not paragraph.isPublished() ? 'paragraph--unpublished',
     'cards-career',
     'cards-grid',
-    'cards-grid-1-4'
+    cards == 3 ? 'cards-grid-1-3' : 'cards-grid-1-4'
   ]
 %}
 

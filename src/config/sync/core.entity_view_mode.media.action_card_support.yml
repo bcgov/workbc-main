@@ -1,0 +1,11 @@
+uuid: 80b676d3-013b-48fc-ad2b-877581a7960f
+langcode: en
+status: true
+dependencies:
+  module:
+    - media
+id: media.action_card_support
+label: 'Action Card: Support'
+description: null
+targetEntityType: media
+cache: true

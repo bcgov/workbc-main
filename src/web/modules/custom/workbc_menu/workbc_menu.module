@@ -1,11 +1,12 @@
 <?php
 
+use Drupal\Core\Entity\EntityInterface;
+
 /**
  * Implements hook_entity_insert().
  */
-function workbc_menu_entity_insert(\Drupal\Core\Entity\EntityInterface $entity) {
-
-  if ($entity->getEntityTypeId() == "menu_link_content") {
+function workbc_menu_entity_insert(EntityInterface $entity) {
+  if ($entity->getEntityTypeId() === "menu_link_content") {
     \Drupal::service('cache.render')->invalidateAll();
   }
 }
@@ -13,9 +14,8 @@ function workbc_menu_entity_insert(\Drupal\Core\Entity\EntityInterface $entity) 
 /**
  * Implements hook_entity_update().
  */
-function workbc_menu_entity_update(\Drupal\Core\Entity\EntityInterface $entity) {
-
-  if ($entity->getEntityTypeId() == "menu_link_content") {
+function workbc_menu_entity_update(EntityInterface $entity) {
+  if ($entity->getEntityTypeId() === "menu_link_content") {
     \Drupal::service('cache.render')->invalidateAll();
   }
 }
@@ -23,9 +23,34 @@ function workbc_menu_entity_update(\Drupal\Core\Entity\EntityInterface $entity) 
 /**
  * Implements hook_entity_delete().
  */
-function workbc_menu_entity_delete(\Drupal\Core\Entity\EntityInterface $entity) {
-
-  if ($entity->getEntityTypeId() == "menu_link_content") {
+function workbc_menu_entity_delete(EntityInterface $entity) {
+  if ($entity->getEntityTypeId() === "menu_link_content") {
     \Drupal::service('cache.render')->invalidateAll();
+  }
+}
+
+/**
+ * Implements hook_responsive_menu_off_canvas_tree_alter().
+ */
+function workbc_menu_responsive_menu_off_canvas_tree_alter(array &$menu) {
+  $splash = function(&$item) use(&$splash) {
+    if (!empty($item['original_link'])) {
+      $link = $item['original_link'];
+      if (method_exists($link, 'getEntity') && !empty($link->getEntity()?->get('field_splash')?->value)) {
+        $build = [
+          '#type' => 'processed_text',
+          '#text' => $link->getEntity()->get('field_splash')->value,
+          '#format' => 'full_html',
+        ];
+        $rendered = \Drupal::service('renderer')->renderInIsolation($build);
+        $item['attributes']->setAttribute('data-splash', (string) $rendered);
+      }
+    }
+    foreach ($item['below'] as &$child) {
+      $splash($child);
+    }
+  };
+  foreach ($menu['#items'] as &$item) {
+    $splash($item);
   }
 }

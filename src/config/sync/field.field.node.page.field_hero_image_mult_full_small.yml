@@ -1,0 +1,29 @@
+uuid: 8e39e34a-423c-4af9-8122-eec65c26fb41
+langcode: en
+status: true
+dependencies:
+  config:
+    - field.storage.node.field_hero_image_mult_full_small
+    - media.type.image
+    - node.type.page
+id: node.page.field_hero_image_mult_full_small
+field_name: field_hero_image_mult_full_small
+entity_type: node
+bundle: page
+label: 'Hero Image Multiple (Full-Width, Mobile)'
+description: 'Hero image, full-width version for mobile. If missing, it is replaced by <strong>Hero Image (Full-Width, Tablet/Desktop)</strong>.'
+required: false
+translatable: false
+default_value: {  }
+default_value_callback: ''
+settings:
+  handler: 'default:media'
+  handler_settings:
+    target_bundles:
+      image: image
+    sort:
+      field: _none
+      direction: ASC
+    auto_create: false
+    auto_create_bundle: ''
+field_type: entity_reference

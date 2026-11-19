@@ -37,3 +37,11 @@ workbc_custom.career_profile_by_noc:
     _title: 'Display Career Profile by NOC #'
   requirements:
     _permission: 'access content'
+
+workbc_custom.report_wbcams_1997:
+  path: '/admin/reports/wbcams-1997'
+  defaults:
+    _controller: '\Drupal\workbc_custom\Controller\ReportsController::wbcams_1997'
+    _title: 'WBCAMS-1997 report'
+  requirements:
+    _permission: 'administer workbc settings'

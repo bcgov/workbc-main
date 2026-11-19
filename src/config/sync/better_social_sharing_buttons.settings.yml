@@ -3,18 +3,11 @@ _core:
 iconset: social-icons--no-color
 services:
   facebook: facebook
-  whatsapp: '0'
-  facebook_messenger: '0'
+  x: x
   email: email
-  pinterest: '0'
   linkedin: linkedin
-  tumblr: '0'
-  reddit: '0'
-  evernote: '0'
   print: print
-  copy: '0'
-  twitter: twitter
-  digg: 0
+  copy: copy
 width: 28px
 radius: 3px
 print_css: ''

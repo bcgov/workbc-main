@@ -151,6 +151,10 @@ mobile-chosen:
   js:
     js/mobile-chosen.js: {}
 
+support-card:
+  js:
+    js/support-card.js: {}
+
 nav-tabs:
   js:
     js/nav-tabs.js: {}
@@ -179,6 +183,14 @@ career-category-grid:
 search-sort-by-reset:
   js:
     js/search-sort-by-reset.js: {}
+  dependencies:
+    - core/drupal
+    - core/jquery
+    - core/once
+
+accessibility:
+  js:
+    js/accessibility.js: {}
   dependencies:
     - core/drupal
     - core/jquery

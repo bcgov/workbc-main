@@ -35,6 +35,7 @@ class SearchApiSolrEventSubscriber implements EventSubscriberInterface {
         $hl = $query->getHighlighting();
         $hl->setFields('tcngramm_X3b_en_field_job_titles');
         $hl->setSimplePrefix('<strong>');
+        $hl->setUsePhraseHighlighter(true);
         $hl->setSimplePostfix('</strong>');
         $hl->setSnippets(100);
       }

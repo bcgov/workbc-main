@@ -791,20 +791,11 @@ $settings['redis.connection']['interface'] = 'PhpRedis';
 $settings['cache']['default'] = 'cache.backend.redis';
 $settings['container_yamls'][] = 'modules/contrib/redis/example.services.yml';
 
-// Job Board settings.
-$config['jobboard']['find_job_url'] = '/search-and-prepare-job/find-jobs';
-$config['jobboard']['find_job_account_url'] = '/account';
-$config['jobboard']['sha'] = '9699449dd4448f5c684f24e791662c2e9ffa445b';
-
 // SSoT settings.
 $config['workbc']['ssot_repo'] = [
   'name' => 'bcgov/workbc-ssot',
   'path' => 'migration/data',
-  'branches' => [
-    'aws-dev' => 'ams',
-    'aws-test' => 'ams',
-    'aws-prod' => 'master',
-  ],
+  'branch' => 'ams',
   'token' => getenv('GITHUB_API_TOKEN'),
   'committer' => 'WorkBC SSoT Uploader',
 ];
@@ -812,13 +803,19 @@ $config['workbc']['ssot_repo'] = [
 // Path settings.
 $config['workbc']['paths'] = [
   'order_form' => '/plan-career/publications/workbc-order-form',
-  'find_jobs' => '/search-and-prepare-job/find-jobs',
+  'find_jobs' => '/find-job/search-jobs',
   'online_employment_services' => '/discover-employment-services/online-employment-services',
-  'career_exploration' => '/plan-career/explore-careers/career-profiles',
-  'career_exploration_search' => '/plan-career/explore-careers/career-profiles/search',
-  'news_archive' => '/plan-career/news-archive',
+  'career_exploration' => '/plan-career/career-profiles',
+  'career_exploration_search' => '/plan-career/career-profiles/search',
   'career_trek' => '/plan-career/career-trek-videos',
+  'account' => '/account',
+  'skills_competencies' => '/develop-skills/skills-competencies-list',
 ];
+
+// Job Board settings.
+$config['jobboard']['find_job_url'] = $config['workbc']['paths']['find_jobs'];
+$config['jobboard']['find_job_account_url'] = $config['workbc']['paths']['account'];
+$config['jobboard']['sha'] = '9699449dd4448f5c684f24e791662c2e9ffa445b';
 
 // File settings.
 $config['file.settings']['make_unused_managed_files_temporary'] = TRUE;

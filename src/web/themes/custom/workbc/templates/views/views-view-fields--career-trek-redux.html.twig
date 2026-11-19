@@ -34,7 +34,7 @@
 <div class="workbc-card">
    <div class="workbc-card-container">
       <div class="workbc-card-video-preview">
-         <a href="/plan-career/career-trek-videos/{{ fields.field_noc.content|striptags|trim }}/{{ fields.field_episode.content|striptags|trim }}">
+         <a href="/plan-career/career-trek-videos/{{ fields.field_noc.content|striptags|trim }}/{{ fields.field_episode.content|striptags|trim }}{{ exposed_input ? '?' : '' }}{{ exposed_input }}">
             <div class="workbc-card-thumbnail">
                <div class="field field--name-thumbnail field--type-image field--label-hidden field__item">
                 {{ fields.thumbnail__target_id.content }}
@@ -50,7 +50,7 @@
 
       <div class="workbc-card-content">
          <div class="workbc-card-title">
-            <a href="/plan-career/career-trek-videos/{{ fields.field_noc.content|striptags|trim }}/{{ fields.field_episode.content|striptags|trim }}">
+            <a href="/plan-career/career-trek-videos/{{ fields.field_noc.content|striptags|trim }}/{{ fields.field_episode.content|striptags|trim }}{{ exposed_input ? '?' : '' }}{{ exposed_input }}">
                {{ fields.name.content }}
             </a>
          </div>

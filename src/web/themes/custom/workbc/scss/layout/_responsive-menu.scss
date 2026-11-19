@@ -230,29 +230,45 @@ html {
   max-width: 440px;
 }
 
-.mobile-nav-header {
-  padding: 15px 20px 40px;
-}
+.mm-menu {
+  .mobile-nav-header {
+    padding: 15px 20px 40px;
+  }
 
-.mobile-nav-logo {
-  display: block;
-  max-width: 125px;
-}
+  .mobile-nav-logo-link {
+    display: block;
+    width: 125px;
 
-.mobile-nav-close {
-  position: absolute;
-  top: 12px;
-  right: 15px;
-  width: 30px;
-  height: 30px;
-  background-image: url(../assets/images/close-icon.svg);
-  background-position: center;
-  background-repeat: no-repeat;
-  cursor: pointer;
-}
+    &:focus-visible {
+      outline-offset: 1px;
+      outline: auto;
+    }
+  }
 
-.mobile-nav-close__label {
-  @include visually-hidden;
+  .mobile-nav-logo {
+    display: block;
+    width: 100%;
+  }
+
+  .mobile-nav-close {
+    position: absolute;
+    top: 12px;
+    right: 15px;
+    width: 30px;
+    height: 30px;
+    background-image: url(../assets/images/close-icon.svg);
+    background-position: center;
+    background-repeat: no-repeat;
+    cursor: pointer;
+
+    &:focus {
+      outline: auto;
+    }
+  }
+
+  .mobile-nav-close__label {
+    @include visually-hidden;
+  }
 }
 
 //  Responsive menu overrides
@@ -267,6 +283,10 @@ html {
 .mm-panel {
   background-color: #fff;
   color: #000;
+}
+
+.mm-listitem.menu-item--front-page {
+  display: none;
 }
 
 .mm-listitem__btn:not(.mm-listitem__text) {
@@ -346,4 +366,8 @@ body.mm-wrapper--opened a#mm-0 {
 
 .mm-listitem.menu-name--account .mm-listitem__text {
   padding: .5rem 1rem;
+}
+
+.mm-panel--opened[data-mm-parent] a.mm-listitem__btn {
+  display: none;
 }

@@ -72,7 +72,15 @@
 
 {% set title = label %}
 {% set hero_image = content.field_hero_image_media[0] %}
-{% set hero_image_fullwidth = content.field_hero_image_full_width[0] %}
+
+{% if is_front %}
+  {% if  content.field_hero_image_mult_full_width[random_hero_image] is not null %}
+    {% set hero_image_fullwidth = content.field_hero_image_mult_full_width[random_hero_image] %}
+  {% endif %}
+{% else %}
+  {% set hero_image_fullwidth = content.field_hero_image_full_width[0] %}
+{% endif %}
+
 {% set hero_text = content.field_hero_text[0] %}
 {% set page_body = content.body %}
 {% set page_content = content.field_content %}
@@ -145,45 +153,24 @@
         {{ left_block }}
       </div>
     {% endif %}
-    {% if is_contact %}
-      <div class="contact-container">
-        <div class="contact-form-container">
-          {% if page_body %}
-            {{ page_body }}
-          {% endif %}
+    {% if is_career_trek %}
+      <div class="light-wrapper">
+        <div class="container-lg">
+    {% endif %}
+      {% if page_body %}
+        {{ page_body }}
+      {% endif %}
 
-          {% if page_content %}
-            {{ page_content }}
+      {% if page_content %}
+        {% for key, content in page_content %}
+          {% if (key|number_format or key == 0) and content['#paragraph'].getType() != "banner_video" %}
+            {{ content }}
           {% endif %}
-
-          {{ drupal_entity('block', 'webform_3') }}
-          {{ drupal_entity('block', 'collectionnoticeblock') }}
-        </div>
-        <div class="contact-blocks-container">
-          {{ drupal_entity('block', 'onlinechat') }}
-          {{ drupal_entity('block', 'visitaworkbccentre') }}
+        {% endfor %}
+      {% endif %}
+    {% if is_career_trek %}
         </div>
       </div>
-    {% else %}
-      {% if is_career_trek %}
-        <div class="light-wrapper">
-        <div class="container-lg">
-      {% endif %}
-        {% if page_body %}
-          {{ page_body }}
-        {% endif %}
-
-        {% if page_content %}
-          {% for key, content in page_content %}
-            {% if (key|number_format or key == 0) and content['#paragraph'].getType() != "banner_video" %}
-              {{ content }}
-            {% endif %}
-          {% endfor %}
-        {% endif %}
-      {% if is_career_trek %}
-        </div>
-        </div>
-      {% endif %}
     {% endif %}
 
     {% if drupal_region('content_bottom') %}
