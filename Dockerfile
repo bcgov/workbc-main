@@ -1,4 +1,4 @@
-FROM 001674982960.dkr.ecr.ca-central-1.amazonaws.com/drupal-base:1.0
+FROM 001674982960.dkr.ecr.ca-central-1.amazonaws.com/drupal-base:1.1
 ARG GITHUB_SHA=unknown
 ENV GITHUB_SHA=$GITHUB_SHA
 
