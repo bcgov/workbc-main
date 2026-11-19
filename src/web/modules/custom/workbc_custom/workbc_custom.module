@@ -334,18 +334,13 @@ function workbc_custom_form_views_exposed_form_alter(&$form, FormStateInterface 
       $form['field_teer_value']['#options']['All'] = t('All');
     }
     if (isset($form['field_occupational_interests_target_id'])) {
-      $md = \Drupal::service('mobile_detect');
-      if ($md->isMobile() && !$md->isTablet()) {
-        $form['field_occupational_interests_target_id']['#options'] = [0 => 'All'] + $form['field_occupational_interests_target_id']['#options'];
-      }
-      $form['field_occupational_interests_target_id']['#chosen'] = true;
+      $form['field_occupational_interests_target_id']['#options']['All'] = t('All');
     }
 
     if (isset($form['field_hourly_salary_value'])) {
       $form['field_hourly_salary_value']['#options']['All'] = t('All');
     }
 
-    array_unshift($form['#submit'], 'hoo_multiselect_form_submit');
   }
 
   if (in_array($form['#id'], [
@@ -467,26 +462,6 @@ function workbc_custom_category_reset(array &$form, FormStateInterface $form_sta
  */
 function workbc_custom_category_callback(array &$form, FormStateInterface $form_state) {
   return $form['field_epbc_categories_target_id'];
-}
-
-/**
- * Submit function for views-exposed-form-high-opportunity-occupations-block-1.
- */
-function hoo_multiselect_form_submit(array &$form, FormStateInterface &$form_state) {
-  $md = \Drupal::service('mobile_detect');
-  if ($md->isMobile() && !$md->isTablet()) {
-    $selections = $form['field_occupational_interests_target_id']['#value'];
-    $all = empty($selections);
-    foreach ($selections as $selection) {
-      if ($selection === '0') {
-        $all = true;
-      }
-    }
-    if ($all) {
-      $form['field_occupational_interests_target_id']['#value'] = [0 => '0'];
-      $form_state->setValue('field_occupational_interests_target_id', null);
-    }
-  }
 }
 
 /**

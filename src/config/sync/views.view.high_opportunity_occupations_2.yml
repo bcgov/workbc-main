@@ -764,7 +764,7 @@ display:
             identifier: field_occupational_interests_target_id
             required: false
             remember: false
-            multiple: true
+            multiple: false
             remember_roles:
               authenticated: authenticated
             reduce: false

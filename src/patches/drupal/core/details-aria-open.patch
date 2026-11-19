@@ -1,0 +1,13 @@
+diff --git a/core/misc/details-aria.js b/core/misc/details-aria.js
+index c629719a3fc..79140d0705c 100644
+--- a/core/misc/details-aria.js
++++ b/core/misc/details-aria.js
+@@ -17,7 +17,7 @@
+         (event) => {
+           const $summary = $(event.currentTarget);
+           const open =
+-            $(event.currentTarget.parentNode).attr('open') === 'open'
++            $(event.currentTarget.parentNode).is('[open]')
+               ? 'false'
+               : 'true';
+ 

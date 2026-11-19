@@ -26,6 +26,9 @@ class JobOpeningsOccupationGroupsChart extends LabourMarketOutLookExtraFieldBase
     $colorReplacement = '#002857';
     $colorExpansion = '#009cde';
 
+    usort($this->report->ssot_data[$this->getDataset()], function ($a, $b) {
+      return $b['openings'] - $a['openings'];
+    });
     $data = $this->report->ssot_data[$this->getDataset()];
     foreach ($data as $category) {
       if (!is_numeric($category['category'])) continue;

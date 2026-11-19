@@ -218,9 +218,44 @@ class BCEmploymentShareGSChart extends ExtraFieldDisplayFormattedBase {
           ]
         ]
       ];
+      $output = '<div class="bc-profile-desktop">';
+      $output .= \Drupal::service('renderer')->render($chart) . \Drupal::service('renderer')->render($chart_avg);
+      $output .= '</div>';
 
-      $output = \Drupal::service('renderer')->render($chart) . \Drupal::service('renderer')->render($chart_avg);
-    }
+      $output .= <<<END
+      <div id="bc-profile-share-goods-services" class="bc-profile-mobile">
+      <table>
+        <thead>
+          <tr>
+            <th class="data-align-left">Region</th>
+            <th class="data-align-right">Goods</th>
+            <th class="data-align-right">Services</th>
+          </tr>
+        </thead>
+        <tbody>
+      END;
+
+      $options = array(
+        'decimals' => 0,
+        'suffix' => '%',
+        'na_if_empty' => TRUE,
+      );
+
+      foreach ($ssot as $region) {
+        $goods = round($region['goods']);
+        $services = round($region['services']);
+        $label = $region['region'] === 'british_columbia' ? 'B.C. Average' : ssotRegionName($region['region']);
+        $output .= '<tr>';
+        $output .= '<td class="data-align-left bc-profile-share-gs-title">Region</td>';
+        $output .= '<td class="data-align-left bc-profile-share-gs-region" data-label="Region">' . $label . '</td>';
+        $output .= '<td class="data-align-right bc-profile-share-gs-goods" data-label="Goods">' . ssotFormatNumber($goods, $options) . '</td>';
+        $output .= '<td class="data-align-right bc-profile-share-gs-services" data-label="Services">' . ssotFormatNumber($services, $options) . '</td>';
+        $output .= '</tr>';
+      }
+      $output .= '</tbody></table>';
+      $output .= '</div>';
+
+      }
     else {
       $output = WORKBC_EXTRA_FIELDS_NOT_AVAILABLE;
     }
