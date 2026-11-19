@@ -45,6 +45,7 @@ class RegionEmploymentByIndustryTable extends ExtraFieldDisplayFormattedBase {
 
     if (!empty($entity->ssot_data) && isset($entity->ssot_data['labour_force_survey_regional_industry_region'])) {
       $datestr = ssotParseDateRange($this->getEntity()->ssot_data['schema'], 'labour_force_survey_regional_industry_region', null, $this->getEntity()->ssot_data['sources']);
+      $datestr = empty($datestr) ? "" : "(" . $datestr . ")";
       $industries = ssotProcessEmploymentIndustry($entity->ssot_data);
 
       $options1 = array(
@@ -58,14 +59,14 @@ class RegionEmploymentByIndustryTable extends ExtraFieldDisplayFormattedBase {
       );
 
       $content = "<table>";
-      $content .= "<thead><tr><th>Industry</th><th class='data-align-right'>Employment (" . $datestr . ")</th><th class='data-align-right'>% Share of Employment for this Industry</th></tr></thead>";
+      $content .= "<thead><tr><th>Industry</th><th class='data-align-right'>Employment " . $datestr . "</th><th class='data-align-right'>% Share of Employment for this Industry</th></tr></thead>";
       foreach ($industries as $key => $industry) {
         $link = "<a href='" . $industry['link'] . "'>";
         $close = "</a>";
         $content .= "<tr>";
         $content .= "<td class='industry'>" . $link . $industry['name'] . $close . "</td>";
         $employment = ssotFormatNumber($industry['employment'], $options1);
-        $content .= "<td class='employment data-row data-align-right' data-label='Employment (" . $datestr . ")'>" . $employment . "</td>";
+        $content .= "<td class='employment data-row data-align-right' data-label='Employment " . $datestr . "'>" . $employment . "</td>";
         $share = ssotFormatNumber($industry['share'], $options2);
         $content .= "<td class='employment-share data-row data-align-right' data-label='% Share of Employment'>" . $share . "</td>";
         $content .= "</tr>";

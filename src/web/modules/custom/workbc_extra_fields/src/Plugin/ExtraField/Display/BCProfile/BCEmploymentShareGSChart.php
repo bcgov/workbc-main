@@ -27,7 +27,8 @@ class BCEmploymentShareGSChart extends ExtraFieldDisplayFormattedBase {
    */
   public function getLabel() {
     $datestr = empty($this->getEntity()->ssot_data) ? '' : ssotParseDateRange($this->getEntity()->ssot_data['schema'], 'labour_force_survey_regional_industry_province', 'goods', $this->getEntity()->ssot_data['sources']);
-    return $this->t('Share of Employment in Goods and Services Sector (' . $datestr . ')');
+    $datestr = empty($datestr) ? "" : "(" . $datestr . ")";
+    return $this->t('Share of Employment in Goods and Services Sector ' . $datestr);
   }
 
   /**

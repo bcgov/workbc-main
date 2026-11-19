@@ -28,19 +28,24 @@ class BCJobOpeningsRegionTable extends LabourMarketOutLookExtraFieldBase {
     );
 
     $employment_date = ssotParseDateRange($this->report->ssot_data['schema'], $this->getDataset(true), 'employment', $this->report->ssot_data['sources']);
+    $employment_date = empty($employment_date) ? "" : "(" . $employment_date . ")";
     $openings_date = ssotParseDateRange($this->report->ssot_data['schema'], $this->getDataset(true), 'openings', $this->report->ssot_data['sources']);
+    $openings_date = empty($openings_date) ? "" : "(" . $openings_date . ")";
     $expansion_date = ssotParseDateRange($this->report->ssot_data['schema'], $this->getDataset(true), 'expansion', $this->report->ssot_data['sources']);
+    $expansion_date = empty($expansion_date) ? "" : "(" . $expansion_date . ")";
     $replacement_date = ssotParseDateRange($this->report->ssot_data['schema'], $this->getDataset(true), 'replacement', $this->report->ssot_data['sources']);
+    $replacement_date = empty($replacement_date) ? "" : "(" . $replacement_date . ")";
     $growth_rate_date = ssotParseDateRange($this->report->ssot_data['schema'], $this->getDataset(true), 'growth_rate', $this->report->ssot_data['sources']);
+    $growth_rate_date = empty($growth_rate_date) ? "" : "(" . $growth_rate_date . ")";
 
     $output = <<<END
     <table class="lmo-report">
       <thead>
         <tr>
           <th width="20%" rowspan="2" class="data-align-left">Region</th>
-          <th rowspan="2" class="data-align-right">Employment ({$employment_date})</th>
-          <th rowspan="2" class="data-align-right">Annual Employment Growth Rate ({$growth_rate_date})</th>
-          <th colspan="3" class="lmo-report-job-openings-header data-align-center">Job Openings ({$openings_date})</th>
+          <th rowspan="2" class="data-align-right">Employment {$employment_date}</th>
+          <th rowspan="2" class="data-align-right">Annual Employment Growth Rate {$growth_rate_date}</th>
+          <th colspan="3" class="lmo-report-job-openings-header data-align-center">Job Openings {$openings_date}</th>
         </tr>
         <tr>
           <th class="data-align-right">Expansion</th>
@@ -71,11 +76,11 @@ class BCJobOpeningsRegionTable extends LabourMarketOutLookExtraFieldBase {
         $output .= '<tr class="clearfix interactive-map-row-'. $region['region'] . '">';
         $output .= '<td class="data-align-left lmo-mobile">Regions</td>';
         $output .= '<td class="data-align-left lmo-report-region" data-label="Regions"><a href="#regional_outlook-content-sidenav-anchor-' . $i . '">' . $region_name . '</a></td>';
-        $output .= '<td class="data-align-right lmo-report-employment" data-label="Employment (' . $employment_date . ')">' . ssotFormatNumber($region['employment'], $options1) . '</td>';
-        $output .= '<td class="data-align-right lmo-report-growth" data-label="Annual Employment Growth Rate (' . $growth_rate_date . ')">' . ssotFormatNumber($region['growth_rate'], $options2) . '</td>';
-        $output .= '<td class="data-align-right lmo-report-expansion" data-label="Job Openings by Expansion (' . $expansion_date . ')">' . ssotFormatNumber($region['expansion'], $options1) . '</td>';
-        $output .= '<td class="data-align-right lmo-report-replacement" data-label="Job Openings by Replacement (' . $replacement_date . ')">' . ssotFormatNumber($region['replacement'], $options1) . '</td>';
-        $output .= '<td class="data-align-right lmo-report-openings" data-label="Total Job Openings (' . $openings_date . ')">' . ssotFormatNumber($region['openings'], $options1) . '</td>';
+        $output .= '<td class="data-align-right lmo-report-employment" data-label="Employment ' . $employment_date . '">' . ssotFormatNumber($region['employment'], $options1) . '</td>';
+        $output .= '<td class="data-align-right lmo-report-growth" data-label="Annual Employment Growth Rate ' . $growth_rate_date . '">' . ssotFormatNumber($region['growth_rate'], $options2) . '</td>';
+        $output .= '<td class="data-align-right lmo-report-expansion" data-label="Job Openings by Expansion ' . $expansion_date . '">' . ssotFormatNumber($region['expansion'], $options1) . '</td>';
+        $output .= '<td class="data-align-right lmo-report-replacement" data-label="Job Openings by Replacement ' . $replacement_date . '">' . ssotFormatNumber($region['replacement'], $options1) . '</td>';
+        $output .= '<td class="data-align-right lmo-report-openings" data-label="Total Job Openings ' . $openings_date . '">' . ssotFormatNumber($region['openings'], $options1) . '</td>';
         $output .= '</tr>';
       }
     }
@@ -89,11 +94,11 @@ class BCJobOpeningsRegionTable extends LabourMarketOutLookExtraFieldBase {
     $output .= '<tfoot>';
     $output .= '<tr class="clearfix lmo-region-job-openings-footer interactive-map-row-'. $region['region'] . '">';
     $output .= '<td class="data-align-left lmo-report-region" data-label="Regions">' . $region_name . '</td>';
-    $output .= '<td class="data-align-right lmo-report-employment" data-label="Employment (' . $employment_date . ')">' . ssotFormatNumber($region['employment'], $options1) . '</td>';
-    $output .= '<td class="data-align-right lmo-report-growth" data-label="Annual Employment Growth Rate (' . $growth_rate_date . ')">' . ssotFormatNumber($region['growth_rate'], $options2) . '</td>';
-    $output .= '<td class="data-align-right lmo-report-expansion" data-label="Job Openings by Expansion (' . $expansion_date . ')">' . ssotFormatNumber($region['expansion'], $options1) . '</td>';
-    $output .= '<td class="data-align-right lmo-report-replacement" data-label="Job Openings by Replacement (' . $replacement_date . ')">' . ssotFormatNumber($region['replacement'], $options1) . '</td>';
-    $output .= '<td class="data-align-right lmo-report-openings" data-label="Total Job Openings (' . $openings_date . ')">' . ssotFormatNumber($region['openings'], $options1) . '</td>';
+    $output .= '<td class="data-align-right lmo-report-employment" data-label="Employment ' . $employment_date . '">' . ssotFormatNumber($region['employment'], $options1) . '</td>';
+    $output .= '<td class="data-align-right lmo-report-growth" data-label="Annual Employment Growth Rate ' . $growth_rate_date . '">' . ssotFormatNumber($region['growth_rate'], $options2) . '</td>';
+    $output .= '<td class="data-align-right lmo-report-expansion" data-label="Job Openings by Expansion ' . $expansion_date . '">' . ssotFormatNumber($region['expansion'], $options1) . '</td>';
+    $output .= '<td class="data-align-right lmo-report-replacement" data-label="Job Openings by Replacement ' . $replacement_date . '">' . ssotFormatNumber($region['replacement'], $options1) . '</td>';
+    $output .= '<td class="data-align-right lmo-report-openings" data-label="Total Job Openings ' . $openings_date . '">' . ssotFormatNumber($region['openings'], $options1) . '</td>';
     $output .= '</tr>';
     $output .= '</tfoot>';
 

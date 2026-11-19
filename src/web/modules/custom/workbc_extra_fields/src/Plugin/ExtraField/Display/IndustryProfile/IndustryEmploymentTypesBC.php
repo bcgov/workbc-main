@@ -27,7 +27,8 @@ class IndustryEmploymentTypesBC extends ExtraFieldDisplayFormattedBase {
    */
   public function getLabel() {
     $datestr = empty($this->getEntity()->ssot_data) ? '' : ssotParseDateRange($this->getEntity()->ssot_data['schema'], 'labour_force_survey_industry', 'employment_part_time_pct_average', $this->getEntity()->ssot_data['sources']);
-    return $this->t("B.C. (" . $datestr . ")");
+    $datestr = empty($datestr) ? "" : "(" . $datestr . ")";
+    return $this->t("B.C. " . $datestr);
   }
 
   /**

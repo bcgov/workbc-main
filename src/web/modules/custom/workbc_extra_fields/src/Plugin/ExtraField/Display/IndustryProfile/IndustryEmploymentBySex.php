@@ -27,7 +27,8 @@ class IndustryEmploymentBySex extends ExtraFieldDisplayFormattedBase {
    */
   public function getLabel() {
     $datestr = empty($this->getEntity()->ssot_data) ? '' : ssotParseDateRange($this->getEntity()->ssot_data['schema'], 'labour_force_survey_industry', 'workforce_employment_gender_pct_men', $this->getEntity()->ssot_data['sources']);
-    return $this->t("Employment by Sex (" . $datestr . ")");
+    $datestr = empty($datestr) ? "" : "(" . $datestr . ")";
+    return $this->t("Employment by Sex " . $datestr);
   }
 
   /**

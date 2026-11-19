@@ -32,11 +32,12 @@ class RegionEmploymentGrowthForecastChart extends ExtraFieldDisplayFormattedBase
       $date1 = explode("-", $date1);
       $date2 = explode("-", $date2);
       $datestr = $date1[0] . " - " . $date2[1];
+      $datestr = empty($datestr) ? "" : "(" . $datestr . ")";
     }
     else {
       $datestr = '';
     }
-    return $this->t('Forecasted Employment Growth Rate (' . $datestr . ')');
+    return $this->t('Forecasted Employment Growth Rate ' . $datestr);
   }
 
   /**

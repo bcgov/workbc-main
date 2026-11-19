@@ -5,6 +5,7 @@ use GuzzleHttp\Client;
 use Psr\Http\Message\ResponseInterface;
 use Drupal\Core\Entity\ContentEntityInterface;
 use Drupal\field\Entity\FieldStorageConfig;
+use Drupal\Core\Utility\Error;
 
 define("NULL_VALUE", -999999);
 
@@ -429,11 +430,24 @@ function ssotParseDateRange($schema, $section, $field = "", $sources = null) {
   }
   if(isset($sources)) {
     if (isset($sources[$section])) {
-      $year = intval(date('Y', strtotime($sources[$section]['period'])));
+      if (isset($sources[$section]['period'])) {
+        $year = intval(date('Y', strtotime($sources[$section]['period'])));
+      }
+      else {
+        \Drupal::logger('workbc')->error('SSoT Sources endpoint "@section" missing period (year).', ['@section' => $section]);
+        return "";
+      }
     }
     else {
-      $year = intval(date('Y', strtotime($sources['period'])));
+      if (isset($sources['period'])) {
+        $year = intval(date('Y', strtotime($sources['period'])));
+      }
+      else {
+        \Drupal::logger('workbc')->error('SSoT Sources endpoint "@section" missing period (year).', ['@section' => $section]);
+        return "";
+      }
     }
+
     preg_match('/^\{?(-?\d+)(?:-(-?\d+))?\}?$/', $match[1], $matches);
     $years = array_slice($matches, 1);
     foreach($years as $key => $value) {
@@ -442,7 +456,8 @@ function ssotParseDateRange($schema, $section, $field = "", $sources = null) {
     $match[1] = implode('-', $years);
   }
   else {
-    // error message?
+    \Drupal::logger('workbc')->error('SSoT Sources missing.');
+    return "";
   }
   return empty($match) ? "" : $match[1];
 }

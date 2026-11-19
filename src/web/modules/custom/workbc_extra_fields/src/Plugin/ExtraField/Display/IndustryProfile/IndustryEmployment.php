@@ -27,7 +27,8 @@ class IndustryEmployment extends ExtraFieldDisplayFormattedBase {
    */
   public function getLabel() {
     $datestr = empty($this->getEntity()->ssot_data) ? '' : ssotParseDateRange($this->getEntity()->ssot_data['schema'], 'labour_force_survey_industry', 'total_employment', $this->getEntity()->ssot_data['sources']);
-    return array('#markup' => $this->t("Employment") . "<br>(" . $datestr . ")");
+    $datestr = empty($datestr) ? "" : "(" . $datestr . ")";
+    return array('#markup' => $this->t("Employment") . "<br>" . $datestr);
   }
 
   /**

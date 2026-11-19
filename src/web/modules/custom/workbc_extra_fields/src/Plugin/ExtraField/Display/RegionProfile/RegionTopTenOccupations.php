@@ -49,8 +49,9 @@ class RegionTopTenOccupations extends ExtraFieldDisplayFormattedBase {
     );
     if (!empty($entity->ssot_data) && isset($entity->ssot_data['regional_top_occupations'])) {
       $datestr = ssotParseDateRange($this->getEntity()->ssot_data['schema'], 'regional_top_occupations', 'openings', $this->getEntity()->ssot_data['sources']);
+      $datestr = empty($datestr) ? "" : "(" . $datestr . ")";
       $content = "<table>";
-      $content .= "<tr><th>Top Ten Occupations</th><th class='data-align-right'>Job Openings (" . $datestr . ")</th></tr>";
+      $content .= "<tr><th>Top Ten Occupations</th><th class='data-align-right'>Job Openings " . $datestr . "</th></tr>";
       foreach ($entity->ssot_data['regional_top_occupations'] as $job) {
         if ($nid = $this->nodeID($job['noc'])) {
           $alias = \Drupal::service('path_alias.manager')->getAliasByPath('/node/'.$nid);
