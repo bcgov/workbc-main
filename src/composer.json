@@ -107,7 +107,7 @@
         "drupal/fullcalendar_view": "^5.1",
         "drupal/fvm": "^2.0",
         "drupal/geolocation": "^3.14",
-        "drupal/gtranslate": "3.0.5",
+        "drupal/gtranslate": "^3.0",
         "drupal/health_check": "^3.1",
         "drupal/image_widget_crop": "^3.0",
         "drupal/jquery_ui_accordion": "^2.1",
@@ -171,7 +171,6 @@
         "mobiledetect/mobiledetectlib": "^4.8",
         "noli42/chosen": "3.0.1",
         "phpoffice/phpspreadsheet": "^3.2",
-        "twig/twig": "~3.28.0",
         "ulrichsg/getopt-php": "^4.0",
         "vlucas/phpdotenv": "^5.1",
         "webflo/drupal-finder": "^1.2"
