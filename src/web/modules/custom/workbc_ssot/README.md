@@ -160,9 +160,15 @@ Every form is a thin declaration on top of `SsotUploadFormBase`. Common fields:
   | `labour_force_survey_regional_industry_region` | Regional Profiles | `A21:AK28` | `region` |
   | `labour_force_survey_regional_industry_province` | Regional Profiles | `A35:U42` | `region` |
 
-- Field lists mirror the CSV column lists in the corresponding
+- Cell-backed field lists mirror the CSV column lists in the corresponding
   `workbc-ssot/migration/load/*.load` files. Types were inferred from column names
   (`_num`→`abs`, `_pct`/rates/shares→`pct`, `yoy_*`→`chg_*`, `earnings_*`→`num`).
+- Regional employment also computes `total_employment_num`,
+  `part_time_employment_pct` and `part_time_employment_num` from the full-time
+  count and percentage, matching the loader's post-load formulas. Missing
+  operands propagate NULL; a zero full-time percentage with a provided count,
+  or a nonnumeric operand, stops the upload before writing. PHP floating-point
+  results can differ slightly from PostgreSQL `numeric`.
 - `fill_down` replicates `csv_refill.php` for the vertically merged "B.C. average"
   columns on the Industry Profiles tab.
 - In `regional_industry_province`, `Regional Profiles!B35:S35` is expected to be
@@ -205,6 +211,7 @@ class SsotUploadFooForm extends SsotUploadFormBase {
     '<field>' => ['cell' => 'B3', 'type' => 'abs', ...rules],   // record: absolute cell
     '<field>' => ['type' => 'pct', ...rules],                   // table: column derived from range + position
     '<field>' => ['value' => '{year}'],                         // literal/interpolated, consumes no column
+    '<field>' => ['type' => 'synthetic', 'callback' => 'methodName'], // computed, consumes no column
   ],
 ],
 ```
@@ -225,6 +232,22 @@ Placeholders available everywhere a string is interpolated: `{year}`, `{month}`,
 
 Both shapes normalise "not available" markers (`-`, `..`, `x`, `n/a`, `not available`,
 empty) to `NULL`; formulas are evaluated (`getCalculatedValue()`).
+
+### Synthetic fields
+
+A synthetic field names a callable method on the form. After all source and
+literal values are read and normalized (and table `fill_down` is applied), the
+engine passes the complete source row to each callback. Callbacks return a
+scalar or `NULL`; non-finite floats and non-scalar results fail explicitly.
+They do not receive other synthetic values, so their order does not affect the
+result. Synthetic fields consume no worksheet columns, have no cell validation
+messages, and are included in the prepared API payload.
+
+The rule accepts only `type` and `callback`. Missing or inaccessible methods,
+additional rule keys, and callback failures stop the upload before confirmation
+or writing, even when validation errors are ignored. Callback failures identify
+the field and table row in the logs. Validate source inputs in callbacks when
+needed and keep calculations consistent with the corresponding SSoT loader.
 
 ### Period handling
 

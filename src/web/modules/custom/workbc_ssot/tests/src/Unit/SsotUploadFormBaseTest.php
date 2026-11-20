@@ -180,6 +180,75 @@ class SsotUploadFormBaseTest extends SsotUploadTestBase {
     $this->assertSame([['year' => '2025', 'month' => '9', 'total' => 2944700, 'youth' => '349200', 'missing' => null]], $data['rows']);
   }
 
+  public function testSyntheticFieldsUseCompletedFilledRowsWithoutConsumingColumns(): void {
+    $form = $this->form();
+    $entry = $this->tableEntry(['fields' => [
+      'synthetic' => ['type' => 'synthetic', 'callback' => 'syntheticTotal'],
+      'region' => ['type' => 'region'],
+      'num' => ['type' => 'abs'],
+      'pct' => ['type' => 'pct'],
+      'avg' => ['type' => 'pct'],
+    ]]);
+    $rules = $form->rules($entry);
+    $this->assertArrayNotHasKey('cell', $rules['synthetic']);
+    $this->assertArrayNotHasKey('_col', $rules['synthetic']);
+    $this->assertSame(['A', 'B', 'C', 'D'], array_column(array_slice($rules, 1), 'cell'));
+    $workbook = $this->workbookFixture();
+    $data = $form->read($form->sheet($workbook, 'Data'), $entry, $form->context(2024));
+    $this->assertSame(152.6, $data['rows'][0]['synthetic']);
+    $this->assertNull($data['rows'][1]['synthetic']);
+    $this->assertSame(252.6, $data['rows'][2]['synthetic']);
+    $payload = $form->prepare($entry, $data['rows']);
+    $this->assertSame(252.6, $payload[2]['synthetic']);
+    $results = $form->validateRules($rules, $data['rows'][0], null, 3, 'Data');
+    $this->assertCount(4, $results);
+
+    $record = [
+      'shape' => 'record',
+      'fields' => [
+        'synthetic' => ['type' => 'synthetic', 'callback' => 'syntheticTotal'],
+        'num' => ['cell' => 'B3', 'type' => 'abs'],
+        'avg' => ['value' => '2'],
+      ],
+    ];
+    $data = $form->read($form->sheet($workbook, 'Summary'), $record, $form->context(2024));
+    $this->assertSame(2944702.0, $data['rows'][0]['synthetic']);
+  }
+
+  #[DataProvider('invalidSyntheticDefinitionProvider')]
+  public function testInvalidSyntheticDefinitionsFail(array $rule): void {
+    $entry = $this->tableEntry(['fields' => [
+      'synthetic' => $rule,
+      'region' => ['type' => 'region'],
+      'num' => ['type' => 'abs'],
+      'pct' => ['type' => 'pct'],
+      'avg' => ['type' => 'pct'],
+    ]]);
+    $this->expectException(\LogicException::class);
+    $this->expectExceptionMessage('Invalid synthetic field definition for synthetic');
+    $this->form()->rules($entry);
+  }
+
+  public static function invalidSyntheticDefinitionProvider(): array {
+    return [
+      'missing callback' => [['type' => 'synthetic']],
+      'unknown callback' => [['type' => 'synthetic', 'callback' => 'doesNotExist']],
+      'non-string callback' => [['type' => 'synthetic', 'callback' => 42]],
+      'cell conflicts' => [['type' => 'synthetic', 'callback' => 'syntheticTotal', 'cell' => 'A']],
+      'value conflicts' => [['type' => 'synthetic', 'callback' => 'syntheticTotal', 'value' => '1']],
+      'validation conflicts' => [['type' => 'synthetic', 'callback' => 'syntheticTotal', 'equal' => 'num']],
+    ];
+  }
+
+  public function testSyntheticCallbackCannotReturnInvalidPayloadValue(): void {
+    $form = $this->form();
+    $entry = $this->tableEntry();
+    $entry['fields']['synthetic'] = ['type' => 'synthetic', 'callback' => 'invalidSyntheticValue'];
+    $this->expectException(\UnexpectedValueException::class);
+    $this->expectExceptionMessage('Invalid synthetic value for synthetic');
+    $form->read($form->sheet($this->workbookFixture(), 'Data'), $entry, $form->context(2024));
+  }
+
   /**
    */
   public function testPrepareRowsResolvesLookupsAndCastsNumbers(): void {
@@ -227,8 +296,8 @@ class SsotUploadFormBaseTest extends SsotUploadTestBase {
   public function testShippedFormDeclarationsAreConsistent(string $class): void {
     /** @var \Drupal\Tests\workbc_ssot\Unit\EngineAccess $form */
     $form = new $class();
-    $types = ['abs', 'num', 'pct', 'chg_abs', 'chg_pct', 'industry', 'region'];
-    $rule_keys = ['cell', 'value', 'type', 'exceptions', 'same_sign', 'equal', 'sum', 'crosscheck_value', 'crosscheck_change_abs', 'crosscheck_change_pct', 'blank_if', 'warn_only'];
+    $types = ['abs', 'num', 'pct', 'chg_abs', 'chg_pct', 'industry', 'region', 'synthetic'];
+    $rule_keys = ['cell', 'value', 'type', 'callback', 'exceptions', 'same_sign', 'equal', 'sum', 'crosscheck_value', 'crosscheck_change_abs', 'crosscheck_change_pct', 'blank_if', 'warn_only'];
 
     $this->assertNotEmpty($form->toc());
     $this->assertContains($form->period()['granularity'], ['year', 'month']);

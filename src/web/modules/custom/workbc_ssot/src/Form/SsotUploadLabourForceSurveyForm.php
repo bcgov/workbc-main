@@ -142,6 +142,9 @@ class SsotUploadLabourForceSurveyForm extends SsotUploadFormBase {
         'unemployment_rate_year_low' => ['type' => 'pct'],
         'unemployment_rate_year_high' => ['type' => 'pct'],
         'unemployment_rate_year_avg' => ['type' => 'pct'],
+        'total_employment_num' => ['type' => 'synthetic', 'callback' => 'calculateTotalEmployment'],
+        'part_time_employment_pct' => ['type' => 'synthetic', 'callback' => 'calculatePartTimePercentage'],
+        'part_time_employment_num' => ['type' => 'synthetic', 'callback' => 'calculatePartTimeEmployment'],
       ],
     ],
     // @see https://github.com/bcgov/workbc-ssot/blob/master/migration/load/labour_force_survey_regional_industry_region.load
@@ -221,6 +224,48 @@ class SsotUploadLabourForceSurveyForm extends SsotUploadFormBase {
       ],
     ],
   ];
+
+  /**
+   * Return the two numeric full-time employment inputs, preserving NULL.
+   */
+  protected function fullTimeEmployment(array $row): array {
+    $values = [];
+    foreach (['full_time_employment_num', 'full_time_employment_pct'] as $field) {
+      if (!array_key_exists($field, $row)) {
+        throw new \LogicException("Missing employment field $field.");
+      }
+      $value = $row[$field];
+      if ($value !== null && !is_numeric($value)) {
+        throw new \UnexpectedValueException("Invalid numeric value for $field.");
+      }
+      $values[$field] = $value === null ? null : (float) $value;
+    }
+    return $values;
+  }
+
+  protected function calculateTotalEmployment(array $row): ?float {
+    $values = $this->fullTimeEmployment($row);
+    $number = $values['full_time_employment_num'];
+    $percentage = $values['full_time_employment_pct'];
+    if ($number === null || $percentage === null) {
+      return null;
+    }
+    if ($percentage == 0.0) {
+      throw new \UnexpectedValueException('Full-time employment percentage cannot be zero when its number is provided.');
+    }
+    return $number * 100 / $percentage;
+  }
+
+  protected function calculatePartTimePercentage(array $row): ?float {
+    $percentage = $this->fullTimeEmployment($row)['full_time_employment_pct'];
+    return $percentage === null ? null : 100 - $percentage;
+  }
+
+  protected function calculatePartTimeEmployment(array $row): ?float {
+    $total = $this->calculateTotalEmployment($row);
+    $percentage = $this->calculatePartTimePercentage($row);
+    return $total === null || $percentage === null ? null : $total * $percentage / 100;
+  }
 
   /**
    * {@inheritdoc}

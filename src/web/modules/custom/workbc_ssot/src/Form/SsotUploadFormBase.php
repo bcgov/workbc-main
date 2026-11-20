@@ -38,6 +38,7 @@ use PhpOffice\PhpSpreadsheet\Worksheet\Worksheet;
  *   'fields'    => [                         // in column order for tables
  *     '<field>' => ['cell' => 'B3', 'type' => 'abs', ...rules],   // 'cell' is derived for tables
  *     '<field>' => ['value' => '{year}'],                         // literal / interpolated value
+ *     '<field>' => ['type' => 'synthetic', 'callback' => 'methodName'], // computed from the completed row
  *   ],
  * ]
  * @endcode
@@ -630,12 +631,20 @@ abstract class SsotUploadFormBase extends ConfirmFormBase {
    */
   protected function fieldRules(array $entry): array {
     $fields = $entry['fields'];
+    foreach ($fields as $key => $rule) {
+      if (($rule['type'] ?? null) === 'synthetic' &&
+        (!isset($rule['callback']) || !is_string($rule['callback']) ||
+          !method_exists($this, $rule['callback']) || !is_callable([$this, $rule['callback']]) ||
+          array_diff(array_keys($rule), ['type', 'callback']))) {
+        throw new \LogicException("Invalid synthetic field definition for $key.");
+      }
+    }
     if (($entry['shape'] ?? 'record') === 'table') {
       [[$col_start, $row_start], [$col_end, $row_end]] = Coordinate::rangeBoundaries($entry['range']);
       $columns = $col_end - $col_start + 1;
       $offset = 0;
       foreach ($fields as $key => &$rule) {
-        if (array_key_exists('value', $rule)) {
+        if (array_key_exists('value', $rule) || ($rule['type'] ?? null) === 'synthetic') {
           continue;
         }
         // Column offset within the range, used to pick the value out of each row.
@@ -670,6 +679,9 @@ abstract class SsotUploadFormBase extends ConfirmFormBase {
       foreach ($values as $cells) {
         $row = [];
         foreach ($rules as $key => $rule) {
+          if (($rule['type'] ?? null) === 'synthetic') {
+            continue;
+          }
           $row[$key] = array_key_exists('value', $rule)
             ? $this->interpolate($rule['value'], $context)
             : $this->normalizeValue($cells[$rule['_col']] ?? null);
@@ -680,13 +692,16 @@ abstract class SsotUploadFormBase extends ConfirmFormBase {
           }
         }
         $previous = $row;
-        $rows[] = $row;
+        $rows[] = $this->calculateSyntheticFields($rules, $row, (int) $row_start + count($rows));
       }
       return ['rows' => $rows, 'first_row' => (int) $row_start];
     }
 
     $row = [];
     foreach ($rules as $key => $rule) {
+      if (($rule['type'] ?? null) === 'synthetic') {
+        continue;
+      }
       if (array_key_exists('value', $rule)) {
         $row[$key] = $this->interpolate($rule['value'], $context);
       }
@@ -694,7 +709,30 @@ abstract class SsotUploadFormBase extends ConfirmFormBase {
         $row[$key] = $this->normalizeValue($sheet->getCell($rule['cell'])->getCalculatedValue());
       }
     }
-    return ['rows' => [$row], 'first_row' => null];
+    return ['rows' => [$this->calculateSyntheticFields($rules, $row)], 'first_row' => null];
+  }
+
+  /**
+   * Calculate synthetic fields from the complete source row.
+   */
+  protected function calculateSyntheticFields(array $rules, array $row, ?int $row_number = null): array {
+    $values = [];
+    foreach ($rules as $key => $rule) {
+      if (($rule['type'] ?? null) === 'synthetic') {
+        try {
+          $value = $this->{$rule['callback']}($row);
+          if ((!is_scalar($value) && !is_null($value)) || (is_float($value) && !is_finite($value))) {
+            throw new \UnexpectedValueException("Invalid synthetic value for $key.");
+          }
+        }
+        catch (\Throwable $error) {
+          $location = $row_number === null ? '' : " on row $row_number";
+          throw new \UnexpectedValueException("Unable to calculate $key$location: " . $error->getMessage(), 0, $error);
+        }
+        $values[$key] = $value;
+      }
+    }
+    return array_merge($row, $values);
   }
 
   /**

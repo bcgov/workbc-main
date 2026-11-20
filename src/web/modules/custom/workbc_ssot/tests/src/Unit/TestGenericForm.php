@@ -23,4 +23,12 @@ class TestGenericForm extends SsotUploadFormBase {
     return 'workbc_ssot.generic';
   }
 
+  protected function syntheticTotal(array $row): ?float {
+    return $row['num'] === null ? null : $row['num'] + $row['avg'];
+  }
+
+  protected function invalidSyntheticValue(array $row): array {
+    return $row;
+  }
+
 }

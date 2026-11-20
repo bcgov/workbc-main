@@ -3,6 +3,7 @@
 namespace Drupal\Tests\workbc_ssot\Unit;
 
 use PHPUnit\Framework\Attributes\Group;
+use PHPUnit\Framework\Attributes\DataProvider;
 
 /**
  * Regression tests running the shipped forms against real workbooks and
@@ -18,14 +19,18 @@ class SsotUploadWorkbookTest extends SsotUploadTestBase {
    * normalises it in SQL after loading. CSV rows may carry trailing empty
    * columns when the tab is wider than the dataset's range.
    */
-  protected function assertPayloadMatchesCsv(array $payload, array $csv, string $endpoint): void {
+  protected function assertPayloadMatchesCsv(array $payload, array $csv, string $endpoint, array $rules = []): void {
     $this->assertCount(count($csv), $payload, "$endpoint row count");
     foreach ($payload as $i => $row) {
       $expected = $csv[$i];
-      $this->assertGreaterThanOrEqual(count($row), count($expected), "$endpoint row $i column count");
-      $this->assertSame('', implode('', array_slice($expected, count($row))), "$endpoint row $i has data beyond the declared range");
+      $cell_fields = array_filter(array_keys($row), fn($field) => ($rules[$field]['type'] ?? null) !== 'synthetic');
+      $this->assertGreaterThanOrEqual(count($cell_fields), count($expected), "$endpoint row $i column count");
+      $this->assertSame('', implode('', array_slice($expected, count($cell_fields))), "$endpoint row $i has data beyond the declared range");
       $j = 0;
       foreach ($row as $field => $value) {
+        if (($rules[$field]['type'] ?? null) === 'synthetic') {
+          continue;
+        }
         $cell = $expected[$j++];
         if ($j === 1) {
           continue;
@@ -52,7 +57,7 @@ class SsotUploadWorkbookTest extends SsotUploadTestBase {
 
     foreach ($out as $endpoint => $d) {
       $this->assertSame([], static::messages($d['results'], 'error'), "$endpoint must validate without errors");
-      $this->assertPayloadMatchesCsv($d['payload'], static::csv("$endpoint.csv"), $endpoint);
+      $this->assertPayloadMatchesCsv($d['payload'], static::csv("$endpoint.csv"), $endpoint, $form->rules($form->toc()[$endpoint]));
     }
 
     // Row counts follow the declared ranges.
@@ -76,10 +81,74 @@ class SsotUploadWorkbookTest extends SsotUploadTestBase {
     }
     $this->assertSame(array_keys(static::regions()), array_column($out['labour_force_survey_regional_employment']['payload'], 'region'));
 
+    // PostgreSQL numeric results from the corresponding loader's UPDATEs.
+    $expected = [
+      [2915704.119850187266, 19.9, 580225.1198501872659],
+      [83612.942612942613, 18.1, 15133.9426129426130],
+      [86579.821200510856, 21.7, 18787.8212005108558],
+      [1891375.153751537515, 18.7, 353687.1537515375153],
+      [45747.279322853688, 17.3, 7914.2793228536880240],
+      [35456.057007125891, 15.8, 5602.0570071258907780],
+      [302286.831812255541, 23.3, 70432.8318122555411],
+      [469492.866407263294, 22.9, 107513.8664072632943],
+    ];
+    foreach ($out['labour_force_survey_regional_employment']['payload'] as $i => $row) {
+      foreach (['total_employment_num', 'part_time_employment_pct', 'part_time_employment_num'] as $j => $field) {
+        $this->assertArrayHasKey($field, $row);
+        $this->assertEqualsWithDelta($expected[$i][$j], $row[$field], 1e-8, "row $i $field");
+      }
+    }
+
     // fill_down: the merged "provincial average" cells repeat on every row.
     $avg = array_column($out['labour_force_survey_industry']['rows'], 'workforce_provincial_average_pct_men');
     $this->assertCount(1, array_unique($avg));
     $this->assertNotNull($avg[0]);
+  }
+
+  #[DataProvider('employmentInputsProvider')]
+  public function testSyntheticEmploymentInputs($number, $percentage, ?float $total, ?float $part_percentage, ?float $part_number): void {
+    $form = new TestLabourForceSurveyForm();
+    $wb = static::workbook('lfs_2024.xlsx');
+    $sheet = $wb->getSheetByName('Regional Profiles');
+    $sheet->setCellValue('G6', $percentage);
+    $sheet->setCellValue('H6', $number);
+    $entry = $form->toc()['labour_force_survey_regional_employment'];
+    $row = $form->read($sheet, $entry, $form->context(2024))['rows'][0];
+    $this->assertSame($total, $row['total_employment_num']);
+    $this->assertSame($part_percentage, $row['part_time_employment_pct']);
+    $this->assertSame($part_number, $row['part_time_employment_num']);
+  }
+
+  public static function employmentInputsProvider(): array {
+    return [
+      'fractional result' => [100, 80, 125.0, 20.0, 25.0],
+      'missing number' => [null, 80, null, 20.0, null],
+      'missing percentage' => [100, null, null, null, null],
+      'both missing' => [null, null, null, null, null],
+      'zero percentage with null number' => [null, 0, null, 100.0, null],
+      'zero number' => [0, 80, 0.0, 20.0, 0.0],
+      'all full-time' => [100, 100, 100.0, 0.0, 0.0],
+    ];
+  }
+
+  #[DataProvider('invalidEmploymentInputsProvider')]
+  public function testSyntheticEmploymentInvalidInputsFail($number, $percentage, string $message): void {
+    $form = new TestLabourForceSurveyForm();
+    $wb = static::workbook('lfs_2024.xlsx');
+    $sheet = $wb->getSheetByName('Regional Profiles');
+    $sheet->setCellValue('G6', $percentage);
+    $sheet->setCellValue('H6', $number);
+    $this->expectException(\UnexpectedValueException::class);
+    $this->expectExceptionMessage($message);
+    $form->read($sheet, $form->toc()['labour_force_survey_regional_employment'], $form->context(2024));
+  }
+
+  public static function invalidEmploymentInputsProvider(): array {
+    return [
+      'zero percentage' => [100, 0, 'percentage cannot be zero'],
+      'invalid number' => ['invalid', 80, 'Invalid numeric value for full_time_employment_num'],
+      'invalid percentage' => [100, 'invalid', 'Invalid numeric value for full_time_employment_pct'],
+    ];
   }
 
   public function testProvinceExpectedBlanksRejectPopulatedCells(): void {

@@ -178,6 +178,9 @@ trait SsotUploadValidation {
     };
     $results = [];
     foreach ($rules as $key => $validation) {
+      if (($validation['type'] ?? null) === 'synthetic') {
+        continue;
+      }
       $value = $dataset[$key] ?? null;
       $cell = $cellOf($key);
       $warn_only = array_key_exists('warn_only', $validation) ? $validation['warn_only'] : [];
