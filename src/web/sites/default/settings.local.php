@@ -259,6 +259,15 @@ $config['search_api.server.solr'] = [
   ],
 ];
 
+// SSoT settings.
+$config['workbc']['ssot_repo'] = [
+  'name' => 'rjkuyvenhoven/workbc-ssot',
+  'path' => 'migration/data',
+  'branch' => 'WBCAMS-2271-ssot-upload',
+  'token' => getenv('GITHUB_API_TOKEN'),
+  'committer' => 'WorkBC SSoT Uploader',
+];
+
 // Enable/disable features
 $config['workbc']['features']['ssot_upload'] = TRUE;
 

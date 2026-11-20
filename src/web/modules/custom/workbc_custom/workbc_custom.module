@@ -127,7 +127,8 @@ function workbc_custom_views_pre_render(ViewExecutable $view) {
   if ($view->id() === 'high_opportunity_occupations_2') {
     // TODO: Don't re-read the schema for SSOT at each rendering.
     $schema = ssotSchema('');
-    $range = ssotParseDateRange($schema, 'high_opportunity_occupations', 'openings_forecast');
+    $sources = ssotSources();
+    $range = ssotParseDateRange($schema, 'high_opportunity_occupations', 'openings_forecast', $sources);
     if (preg_match('/(\d{4})$/', $range, $end_of_range)) {
       $view->field['field_region_openings']->options['label'] = t('Job Openings to @range', ['@range' => $end_of_range[0]]);
     }
@@ -136,12 +137,16 @@ function workbc_custom_views_pre_render(ViewExecutable $view) {
   if ($view->id() === 'industry_profiles') {
     // TODO: Don't re-read the schema for SSOT at each rendering.
     $schema = ssotSchema('');
-    $datestr = ssotParseDateRange($schema, 'labour_force_survey_industry', 'yoy_employment_growth_pct');
-    $view->field['industry_profile_job_growth_rate']->options['label'] = "Job Growth Rate<p class='ssot-years'>($datestr)</p>";
-    $datestr = ssotParseDateRange($schema, 'labour_force_survey_industry', 'yoy_change_employment');
-    $view->field['industry_profile_job_growth']->options['label'] = "Job Growth<p class='ssot-years'>($datestr)</p>";
-    $datestr = ssotParseDateRange($schema, 'labour_force_survey_industry', 'total_employment');
-    $view->field['industry_profile_total_employment']->options['label'] = "Total Employment<p class='ssot-years'>($datestr)</p>";
+    $sources = ssotSources();
+    $datestr = ssotParseDateRange($schema, 'labour_force_survey_industry', 'yoy_employment_growth_pct', $sources);
+    $datestr = empty($datestr) ? "" : "(" . $datestr . ")";
+    $view->field['industry_profile_job_growth_rate']->options['label'] = "Job Growth Rate<p class='ssot-years'>$datestr</p>";
+    $datestr = ssotParseDateRange($schema, 'labour_force_survey_industry', 'yoy_change_employment', $sources);
+    $datestr = empty($datestr) ? "" : "(" . $datestr . ")";
+    $view->field['industry_profile_job_growth']->options['label'] = "Job Growth<p class='ssot-years'>$datestr</p>";
+    $datestr = ssotParseDateRange($schema, 'labour_force_survey_industry', 'total_employment', $sources);
+    $datestr = empty($datestr) ? "" : "(" . $datestr . ")";
+    $view->field['industry_profile_total_employment']->options['label'] = "Total Employment<p class='ssot-years'>$datestr</p>";
   }
 
   if ($view->id() === 'explore_careers') {
@@ -163,8 +168,9 @@ function workbc_custom_views_pre_render(ViewExecutable $view) {
     }
     // TODO: Don't re-read the schema for SSOT at each rendering.
     $schema = ssotSchema('');
+    $sources = ssotSources();
     $view->field['field_region_openings']->options['label'] = t('Job openings (@range)', [
-      '@range' => ssotParseDateRange($schema, 'career_provincial', 'expected_job_openings_10y')
+      '@range' => ssotParseDateRange($schema, 'career_provincial', 'expected_job_openings_10y', $sources)
     ]);
   }
 }

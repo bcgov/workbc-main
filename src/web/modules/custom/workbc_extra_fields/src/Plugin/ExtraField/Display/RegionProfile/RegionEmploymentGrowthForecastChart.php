@@ -27,16 +27,17 @@ class RegionEmploymentGrowthForecastChart extends ExtraFieldDisplayFormattedBase
    */
   public function getLabel() {
     if (!empty($this->getEntity()->ssot_data)) {
-      $date1 = ssotParseDateRange($this->getEntity()->ssot_data['schema'], 'regional_labour_market_outlook', 'forecasted_employment_growth_rate_first5y');
-      $date2 = ssotParseDateRange($this->getEntity()->ssot_data['schema'], 'regional_labour_market_outlook', 'forecasted_employment_growth_rate_second5y');
+      $date1 = ssotParseDateRange($this->getEntity()->ssot_data['schema'], 'regional_labour_market_outlook', 'forecasted_employment_growth_rate_first5y', $this->getEntity()->ssot_data['sources']);
+      $date2 = ssotParseDateRange($this->getEntity()->ssot_data['schema'], 'regional_labour_market_outlook', 'forecasted_employment_growth_rate_second5y', $this->getEntity()->ssot_data['sources']);
       $date1 = explode("-", $date1);
       $date2 = explode("-", $date2);
       $datestr = $date1[0] . " - " . $date2[1];
+      $datestr = empty($datestr) ? "" : "(" . $datestr . ")";
     }
     else {
       $datestr = '';
     }
-    return $this->t('Forecasted Employment Growth Rate (' . $datestr . ')');
+    return $this->t('Forecasted Employment Growth Rate ' . $datestr);
   }
 
   /**
@@ -56,8 +57,8 @@ class RegionEmploymentGrowthForecastChart extends ExtraFieldDisplayFormattedBase
       $data = array();
       $data[] = $entity->ssot_data['regional_labour_market_outlook']['forecasted_employment_growth_rate_first5y'];
       $data[] = $entity->ssot_data['regional_labour_market_outlook']['forecasted_employment_growth_rate_second5y'];
-      $date1 = ssotParseDateRange($this->getEntity()->ssot_data['schema'], 'regional_labour_market_outlook', 'forecasted_employment_growth_rate_first5y');
-      $date2 = ssotParseDateRange($this->getEntity()->ssot_data['schema'], 'regional_labour_market_outlook', 'forecasted_employment_growth_rate_second5y');
+      $date1 = ssotParseDateRange($this->getEntity()->ssot_data['schema'], 'regional_labour_market_outlook', 'forecasted_employment_growth_rate_first5y', $this->getEntity()->ssot_data['sources']);
+      $date2 = ssotParseDateRange($this->getEntity()->ssot_data['schema'], 'regional_labour_market_outlook', 'forecasted_employment_growth_rate_second5y', $this->getEntity()->ssot_data['sources']);
       $dates = array();
       $dates[] = $date1;
       $dates[] = $date2;

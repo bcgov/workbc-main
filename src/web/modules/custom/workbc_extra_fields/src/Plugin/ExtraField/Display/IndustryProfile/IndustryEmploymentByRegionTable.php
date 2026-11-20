@@ -88,9 +88,10 @@ class IndustryEmploymentByRegionTable extends ExtraFieldDisplayFormattedBase {
       $regions[] = $region;
     }
 
-    $datestr = ssotParseDateRange($this->getEntity()->ssot_data['schema'], 'labour_force_survey_industry', 'total_employment');
+    $datestr = ssotParseDateRange($this->getEntity()->ssot_data['schema'], 'labour_force_survey_industry', 'total_employment', $this->getEntity()->ssot_data['sources']);
+    $datestr = empty($datestr) ? "" : "(" . $datestr . ")";
 
-    $header = ['Region', '% Employment this Industry (' . $datestr . ')', '% Employment All Industries (' . $datestr . ')'];
+    $header = ['Region', '% Employment this Industry ' . $datestr, '% Employment All Industries ' . $datestr];
 
     $rows = [];
     foreach ($regions as $region) {

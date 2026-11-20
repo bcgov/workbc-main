@@ -45,7 +45,7 @@ class RegionUnemploymentRateChart extends ExtraFieldDisplayFormattedBase {
 
     if (!empty($entity->ssot_data) && isset($entity->ssot_data['labour_force_survey_regional_employment'])) {
       $regionName = ssotRegionName($entity->ssot_data['labour_force_survey_regional_employment']['region']);
-      $year = intval(ssotParseDateRange($entity->ssot_data['schema'], 'labour_force_survey_regional_employment', 'total_employment_num'));
+      $year = intval(ssotParseDateRange($entity->ssot_data['schema'], 'labour_force_survey_regional_employment', 'total_employment_num', $entity->ssot_data['sources']));
       $regionHi = floatval($entity->ssot_data['labour_force_survey_regional_employment']['unemployment_rate_year_high']);
       $regionLo = floatval($entity->ssot_data['labour_force_survey_regional_employment']['unemployment_rate_year_low']);
       $bcHi = floatval($entity->ssot_data['labour_force_survey_bc_employment']['unemployment_rate_year_high']);

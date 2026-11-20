@@ -48,8 +48,8 @@ class BCJobOpeningsForecastChart extends ExtraFieldDisplayFormattedBase {
       $data[] = round(floatval($entity->ssot_data['regional_labour_market_outlook']['job_openings_first5y']));
       $data[] = round(floatval($entity->ssot_data['regional_labour_market_outlook']['job_openings_second5y']));
 
-      $date1 = ssotParseDateRange($entity->ssot_data['schema'], 'regional_labour_market_outlook', 'job_openings_first5y');
-      $date2 = ssotParseDateRange($entity->ssot_data['schema'], 'regional_labour_market_outlook', 'job_openings_second5y');
+      $date1 = ssotParseDateRange($entity->ssot_data['schema'], 'regional_labour_market_outlook', 'job_openings_first5y', $entity->ssot_data['sources']);
+      $date2 = ssotParseDateRange($entity->ssot_data['schema'], 'regional_labour_market_outlook', 'job_openings_second5y', $entity->ssot_data['sources']);
       $dates = array();
       $dates[] = $date1;
       $dates[] = $date2;

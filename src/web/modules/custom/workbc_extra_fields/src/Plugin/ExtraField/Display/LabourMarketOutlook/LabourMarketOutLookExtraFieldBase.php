@@ -47,9 +47,8 @@ class LabourMarketOutLookExtraFieldBase extends ExtraFieldDisplayFormattedBase {
         ['#markup' => WORKBC_EXTRA_FIELDS_NOT_AVAILABLE],
       ];
     }
-
     // Set the label's date range.
-    $this->datestr = ssotParseDateRange($this->report->ssot_data['schema'], $this->getDataset(true));
+    $this->datestr = ssotParseDateRange($this->report->ssot_data['schema'], $this->getDataset(true), null, $this->report->ssot_data['sources']);
 
     // Call the child function's display.
     return [

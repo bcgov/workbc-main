@@ -218,7 +218,11 @@
         ],
         "post-update-cmd": [
             "DrupalProject\\composer\\ScriptHandler::createRequiredFiles"
-        ]
+        ],
+        "test:ssot": "phpunit -c web/modules/custom/workbc_ssot"
+    },
+    "scripts-descriptions": {
+        "test:ssot": "Run the workbc_ssot module PHPUnit suite."
     },
     "extra": {
         "drupal-scaffold": {

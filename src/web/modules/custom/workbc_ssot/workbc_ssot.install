@@ -32,7 +32,7 @@ function workbc_ssot_schema(){
         'length' => 255,
         'not null' => true,
         'default' => '',
-        'description' => 'The dataset (aka SSOT endpoint) that was updated.',
+        'description' => 'Dataset(s) (aka SSOT endpoints) updated by this upload (comma-separated).',
       ],
       'dataset_period' => [
         'type' => 'int',
