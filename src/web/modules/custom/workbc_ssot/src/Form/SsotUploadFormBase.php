@@ -2,13 +2,16 @@
 
 namespace Drupal\workbc_ssot\Form;
 
+use Drupal\Core\Access\AccessResult;
 use Drupal\Core\Form\ConfirmFormBase;
 use Drupal\Core\Form\FormStateInterface;
 use Drupal\Core\Datetime\DateHelper;
 use Drupal\Core\Datetime\DrupalDateTime;
 use Drupal\Core\Messenger\MessengerInterface;
+use Drupal\Core\Session\AccountInterface;
 use Drupal\Core\Url;
 use Drupal\file\Entity\File;
+use Drupal\workbc_ssot\Routing\SsotUploadAccess;
 use PhpOffice\PhpSpreadsheet\Cell\Coordinate;
 use PhpOffice\PhpSpreadsheet\IOFactory;
 use PhpOffice\PhpSpreadsheet\Shared\Date as ExcelDate;
@@ -119,6 +122,16 @@ abstract class SsotUploadFormBase extends ConfirmFormBase {
    */
   public function getFormId() {
     return 'ssot_' . $this->id . '_form';
+  }
+
+  /**
+   * Checks access to this sheet's upload route.
+   */
+  public function access(AccountInterface $account): AccessResult {
+    return AccessResult::allowedIfHasPermissions($account, [
+      SsotUploadAccess::ADMIN_PERMISSION,
+      SsotUploadAccess::SHEET_PERMISSION_PREFIX . $this->id,
+    ], 'OR');
   }
 
   /**
@@ -495,7 +508,7 @@ abstract class SsotUploadFormBase extends ConfirmFormBase {
       /** @var \Drupal\Core\Database\Connection $connection */
       $connection = \Drupal::service('database');
       $log_period = $context['log_period'];
-      $dataset_name = implode(',', array_keys($this->toc));
+      $dataset_name = implode(', ', array_keys($this->toc));
       $log_id = $connection->insert('workbc_ssot_log')
       ->fields([
         'uid' => \Drupal::currentUser()->id(),

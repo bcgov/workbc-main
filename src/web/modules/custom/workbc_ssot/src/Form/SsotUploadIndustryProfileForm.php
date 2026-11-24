@@ -43,6 +43,6 @@ class SsotUploadIndustryProfileForm extends SsotUploadFormBase {
    * {@inheritdoc}
    */
   protected function getRouteName(): string {
-    return 'workbc_ssot.industryprofile';
+    return 'workbc_ssot.industry_outlook';
   }
 }

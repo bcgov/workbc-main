@@ -271,6 +271,6 @@ class SsotUploadLabourForceSurveyForm extends SsotUploadFormBase {
    * {@inheritdoc}
    */
   protected function getRouteName(): string {
-    return 'workbc_ssot.lfs';
+    return 'workbc_ssot.labour_force_survey';
   }
 }

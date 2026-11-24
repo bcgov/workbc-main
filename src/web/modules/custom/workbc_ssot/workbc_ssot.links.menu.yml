@@ -1,40 +1,40 @@
 workbc_ssot.main:
-  title: 'SSoT'
+  title: 'SSoT administration'
   parent: workbc_custom.admin_index
   route_name: view.ssot_log.page_1
-  description: 'SSoT administration.'
-
-workbc_ssot.uploads:
-  title: 'Upload Datasets'
-  parent: workbc_ssot.main
-  route_name: workbc_ssot.uploads
-  description: 'Choose a dataset spreadsheet to upload to the SSoT.'
-  weight: -10
-
-workbc_ssot.lmmu:
-  title: 'Labour Market Monthly Update'
-  parent: workbc_ssot.uploads
-  route_name: workbc_ssot.lmmu
-  description: 'Upload a new data sheet to the SSoT Labour Market Monthly Update.'
-  weight: 0
+  description: 'Administer SSoT settings and review upload log.'
 
 workbc_ssot.refresh:
   title: 'Refresh Datasets'
   parent: workbc_ssot.main
   route_name: workbc_ssot.refresh
-  description: 'Refresh the SSoT datasets that are used by this website.'
+  description: 'Refresh the local copy of SSoT datasets that are used by this website.'
   weight: 0
 
-workbc_ssot.industryprofile:
+workbc_ssot.uploads:
+  title: 'SSoT upload'
+  parent: workbc_custom.admin_index
+  route_name: workbc_ssot.uploads
+  description: 'Upload data sheets to update the SSoT.'
+  weight: -10
+
+workbc_ssot.monthly_labour_market_updates:
+  title: 'Labour Market Monthly Update'
+  parent: workbc_ssot.uploads
+  route_name: workbc_ssot.monthly_labour_market_updates
+  description: 'Upload a new data sheet to the SSoT Labour Market Monthly Update.'
+  weight: 0
+
+workbc_ssot.industry_outlook:
   title: 'Industry Profile Yearly Update'
   parent: workbc_ssot.uploads
-  route_name: workbc_ssot.industryprofile
+  route_name: workbc_ssot.industry_outlook
   description: 'Upload a new data sheet to the SSoT Industry Profile.'
   weight: 10
 
-workbc_ssot.lfs:
+workbc_ssot.labour_force_survey:
   title: 'Labour Force Survey Yearly Update'
   parent: workbc_ssot.uploads
-  route_name: workbc_ssot.lfs
+  route_name: workbc_ssot.labour_force_survey
   description: 'Upload a new data sheet to the SSoT Labour Force Survey.'
   weight: 20

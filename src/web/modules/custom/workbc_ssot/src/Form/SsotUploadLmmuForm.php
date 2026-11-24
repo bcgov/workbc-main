@@ -141,6 +141,6 @@ class SsotUploadLmmuForm extends SsotUploadFormBase {
    * {@inheritdoc}
    */
   protected function getRouteName(): string {
-    return 'workbc_ssot.lmmu';
+    return 'workbc_ssot.monthly_labour_market_updates';
   }
 }

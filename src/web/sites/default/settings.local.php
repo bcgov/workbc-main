@@ -268,9 +268,6 @@ $config['workbc']['ssot_repo'] = [
   'committer' => 'WorkBC SSoT Uploader',
 ];
 
-// Enable/disable features
-$config['workbc']['features']['ssot_upload'] = TRUE;
-
 ini_set('memory_limit', '1G');
 if (class_exists('Kint')) {
   // Set the max_depth to prevent out-of-memory.

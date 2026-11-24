@@ -41,24 +41,34 @@ workflow regenerates the SSoT snapshot.
 | [`src/Plugin/views/filter/SsotDatasetFilter.php`](./src/Plugin/views/filter/SsotDatasetFilter.php) | Views exposed filter for the upload log: dataset drop-down fed by the SSoT `sources` API, matching comma-separated `dataset_name` values. |
 | [`js/validation-toggle.js`](./js/validation-toggle.js) | Hides ✅ "success" messages on the confirmation screen behind a checkbox. |
 | [`workbc_ssot.install`](./workbc_ssot.install) | Defines the `workbc_ssot_log` operations-log table. |
-| [`workbc_ssot.routing.yml`](./workbc_ssot.routing.yml) | Admin routes under `/admin/config/workbc/ssot/*` (permission `administer ssot settings`). |
+| [`workbc_ssot.routing.yml`](./workbc_ssot.routing.yml) | Admin routes under `/admin/config/workbc/ssot/*`. |
 
 Routes:
 
 | Route | Path | Page / Form |
 |-------|------|------|
-| `view.ssot_log.page_1` | `/admin/config/workbc/ssot/log` | Upload log (default SSoT destination) |
+| `view.ssot_log.page_1` | `/admin/config/workbc/ssot/log` | Upload log (main SSoT menu page) |
 | `workbc_ssot.uploads` | `/admin/config/workbc/ssot/upload` | Links to the upload forms, using Drupal's standard admin menu listing |
-| `workbc_ssot.lmmu` | `/admin/config/workbc/ssot/lmmu` | `SsotUploadLmmuForm` |
-| `workbc_ssot.industryprofile` | `/admin/config/workbc/ssot/industry-profile` | `SsotUploadIndustryProfileForm` |
-| `workbc_ssot.lfs` | `/admin/config/workbc/ssot/labour-force-survey` | `SsotUploadLabourForceSurveyForm` |
-| `workbc_ssot.refresh` | `/admin/config/workbc/ssot/refresh` | `SsotRefreshForm` (not covered here) |
+| `workbc_ssot.monthly_labour_market_updates` | `/admin/config/workbc/ssot/monthly-labour-market-updates` | `SsotUploadLmmuForm` |
+| `workbc_ssot.industry_outlook` | `/admin/config/workbc/ssot/industry-outlook` | `SsotUploadIndustryProfileForm` |
+| `workbc_ssot.labour_force_survey` | `/admin/config/workbc/ssot/labour-force-survey` | `SsotUploadLabourForceSurveyForm` |
+| `workbc_ssot.refresh` | `/admin/config/workbc/ssot/refresh` | `SsotRefreshForm` (Refresh local version of SSoT datasets) |
 
-Under **Configuration > WorkBC > SSoT**, the menu and primary tabs are ordered
-**Upload Log**, **Upload Datasets**, **Refresh Datasets**. The three upload forms
-are submenu items of **Upload Datasets**, not separate tabs. The Upload Datasets
-landing page lists these submenu links and their descriptions, respecting route
-access. Import the view configuration and rebuild caches after changing navigation.
+The **Configuration > WorkBC > SSoT** menu opens the upload log. Its primary
+tabs are **Upload Log**, **Upload Datasets**, and **Refresh Datasets**. A separate
+**SSoT: Upload Datasets** menu under WorkBC gives users without log access a
+route to the upload forms. Its landing page lists the permitted forms and their
+descriptions. Import the view configuration and rebuild caches after changing
+navigation.
+
+Each upload form has an `upload ssot data sheet <id>` permission, labelled with
+its `$title`. Users with `administer ssot settings` can use all forms and access
+the upload log and refresh page; a sheet-specific permission grants only that
+form and the Upload Datasets landing page. The landing page discovers sheet
+permissions from Drupal's registered permissions, so its route does not need
+updating for each new sheet. Users also need Drupal's `access
+administration pages` permission to navigate the administrative menu. Rebuild
+caches after adding or changing permissions or routes.
 
 ## End-to-end flow
 
@@ -425,9 +435,12 @@ The view
    from the matching `workbc-ssot/migration/load/<endpoint>.load` file in order and take
    `range`/`sheet` from `migration/load/sources.csv`. Add `fill_down` for any columns the
    migrator runs through `csv_refill.php`.
-4. Implement `getRouteName()`; add the route to `workbc_ssot.routing.yml` and a menu
-   link under `workbc_ssot.uploads` in `workbc_ssot.links.menu.yml`. It will appear
-   automatically on the Upload Datasets landing page; no new tab is needed.
+4. Implement `getRouteName()`; add the route to `workbc_ssot.routing.yml` with
+   `_custom_access: '\Drupal\workbc_ssot\Form\SsotUpload<Name>Form::access'` and a
+   menu link under `workbc_ssot.uploads` in `workbc_ssot.links.menu.yml`. Define
+   `upload ssot data sheet <id>` in `workbc_ssot.permissions.yml` with the title
+   `Upload data sheet <title>`. The base class grants route
+   access to that permission or `administer ssot settings`. No new tab is needed.
 5. Add the workbook and migrator CSVs to `tests/fixtures/` and extend the
    [tests](#tests); the payload must match `load/<endpoint>.csv` cell-by-cell.
 6. In `workbc-ssot`, provide the endpoint's loader and any source-specific recipe.
@@ -440,6 +453,7 @@ The view
 
 | Test class | What it covers |
 |---|---|
+| `SsotUploadAccessTest` | upload permission isolation, administrator access, landing page and route declarations |
 | `SsotUploadValidationTest` | every `type` rule (pass/fail/blank), `warn_only`, `same_sign`, `equal`, `sum` tolerance, the three `crosscheck_*` rules, cell/row/sheet addressing in messages, industry/region name normalisation and lookup rules |
 | `SsotUploadFormBaseTest` | `buildContext` (month wrap, periods), `interpolate`, case-insensitive tab lookup, column derivation for tables (incl. `value` fields), range/field width mismatch, `fill_down`, N/A normalisation, formula evaluation, `prepareRows` casting and key resolution, and a declaration-consistency check of every shipped form's TOC |
 | `SsotDatasetFilterTest` | option building from `sources` rows + logged names, `in`/`not in` WHERE conditions (via a mocked Views query), LIKE escaping |
@@ -456,7 +470,7 @@ Drupal core, no DB/site required) and a Composer script. PHPUnit 11 needs PHP �
 run inside the docker-compose `php` service from the repository root:
 
 ```bash
-docker compose exec php composer test:ssot                       # whole module suite
+docker compose exec php composer test:ssot                       # unit suite
 docker compose exec php vendor/bin/phpunit -c web/modules/custom/workbc_ssot --filter Workbook
 docker compose exec php vendor/bin/phpunit -c web/core web/modules/custom/workbc_ssot   # via core config
 ```
@@ -466,6 +480,60 @@ down.) On a host with PHP ≥ 8.3, the same commands run directly from `src/`.
 
 When adding a form, drop its workbook and the migrator CSVs into `tests/fixtures/` and
 add a case to `SsotUploadWorkbookTest` plus an entry in `shippedFormProvider()`.
+
+### Logged-in permission tests
+
+[`SsotUploadPermissionsTest`](./tests/src/Functional/SsotUploadPermissionsTest.php)
+uses Drupal's `BrowserTestBase` and real logins, not mocked accounts. Each
+sheet-only user has exactly one permission and can open the upload landing page,
+see and follow only their sheet link, and open that upload form. Other sheets,
+the upload log, refresh page, and WorkBC administration page return HTTP 403.
+The suite also covers logged-in users without upload permissions and users with
+`administer ssot settings`. It imports the actual log view and tests local tabs;
+cached dataset options keep the tests independent of the external SSoT API.
+
+These functional tests run separately from the database-free unit suite. No
+separate database server or Drupal installation is needed: SQLite stores the
+temporary test databases in files shared with the web server.
+
+For this repository's Compose stack, prepare the test directory from the
+repository root:
+
+```bash
+docker compose exec php sh -c '
+  mkdir -p web/sites/simpletest
+  chgrp www-data web/sites/simpletest
+  chmod 2775 web/sites/simpletest
+  touch web/sites/simpletest/ssot-tests.sqlite
+  chgrp www-data web/sites/simpletest/ssot-tests.sqlite
+  chmod 0664 web/sites/simpletest/ssot-tests.sqlite
+'
+```
+
+Run PHPUnit as the PHP-FPM worker account (`www-data`), not the container's
+default CLI account (`wodby`):
+
+```bash
+docker compose exec --user www-data \
+  -e SIMPLETEST_BASE_URL=http://nginx \
+  -e SIMPLETEST_DB='sqlite://localhost//var/www/html/web/sites/simpletest/ssot-tests.sqlite' \
+  -e BROWSERTEST_OUTPUT_DIRECTORY=/tmp \
+  php vendor/bin/phpunit -c web/core \
+  web/modules/custom/workbc_ssot/tests/src/Functional
+```
+
+CLI and HTTP requests must run as the same OS user so both can write the generated
+SQLite databases, journals and test-site files. Otherwise the login page can
+fail with a database error, reported by the test as a missing "Log in" button.
+If previous runs created HTML logs under another user, their directory and
+counter file must also be writable by `www-data`; alternatively pass
+`-e BROWSERTEST_OUTPUT_DIRECTORY=` to disable HTML logging.
+
+Outside Compose, use PHP 8.3 or newer, a reachable web server, and a shared,
+absolute SQLite path in `SIMPLETEST_DB`. Never point these tests at the site's
+production database. Drupal creates temporary test sites and cleans them up.
+The existing log view's schema gaps are excluded from schema checking for these
+access tests; unrelated Drupal/module deprecation notices may still be reported.
 
 ## Known issues / TODO
 
