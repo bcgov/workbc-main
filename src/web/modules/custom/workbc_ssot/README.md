@@ -211,7 +211,7 @@ class SsotUploadFooForm extends SsotUploadFormBase {
 '<endpoint>' => [
   'sheet'      => 'Sheet3',                        // tab title, case-insensitive
   'shape'      => 'record' | 'table',
-  'range'      => 'A5:BC23',                       // table only
+  'range'      => 'A5:BC23' | 'A5:BC',             // table only; open end uses the last non-empty row
   'write'      => 'replace'                        // DELETE all rows, then POST
                |  ['mode' => 'upsert', 'match' => 'year=eq.{year}&month=eq.{month}'],
   'sources'    => 'endpoint' | 'period',           // optional; default 'period' for upsert, 'endpoint' for replace
@@ -243,6 +243,15 @@ Placeholders available everywhere a string is interpolated: `{year}`, `{month}`,
 
 Both shapes normalise "not available" markers (`-`, `..`, `x`, `n/a`, `not available`,
 empty) to `NULL`; formulas are evaluated (`getCalculatedValue()`).
+
+An open table range such as `A5:H` ends at the last non-empty row within
+columns A–H, starting at row 5. A cell is empty if its calculated value is
+`NULL`, an empty string, or whitespace; `0` and markers such as `-` and `x`
+count as content, including in ignored columns. Formatting alone does not count.
+Interior empty rows are retained. The upload fails if no data is found.
+Footers or stray values within the declared columns extend the range.
+The resolved closed range is shown at confirmation and stored in source metadata
+and sent to backend ingestion, so `sources.csv` continues to use closed ranges.
 
 For tables, an `ignore` field consumes one column in the range but does not
 appear in the row, validation results, synthetic callback input, or API payload.

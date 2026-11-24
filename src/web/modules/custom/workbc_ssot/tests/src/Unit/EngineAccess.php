@@ -59,6 +59,16 @@ trait EngineAccess {
     return $this->prepareRows($entry, $rows);
   }
 
+  public function metadata(string $endpoint, array $entry, array $dataset): array {
+    return $this->sourceMetadata($endpoint, $entry, $dataset);
+  }
+
+  public function confirmationDescription(array $datasets, array $context) {
+    $this->datasets = $datasets;
+    $this->context = $context;
+    return $this->getDescription();
+  }
+
   /**
    * Full pipeline for one workbook: read, validate and prepare every dataset.
    *

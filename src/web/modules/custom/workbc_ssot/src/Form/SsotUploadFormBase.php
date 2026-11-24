@@ -32,7 +32,7 @@ use PhpOffice\PhpSpreadsheet\Worksheet\Worksheet;
  * '<endpoint>' => [
  *   'sheet'     => 'Sheet3',                 // tab title (case-insensitive)
  *   'shape'     => 'record' | 'table',       // scattered cells => 1 row, or rectangular range => N rows
- *   'range'     => 'A5:BC23',                // table only
+ *   'range'     => 'A5:BC23' | 'A5:BC',    // table only; open end uses the last non-empty row
  *   'write'     => 'replace'                 // DELETE all rows then POST
  *               | ['mode' => 'upsert', 'match' => 'year=eq.{year}&month=eq.{month}'],
  *   'sources'   => 'endpoint' | 'period',    // how to match the existing `sources` row (default by mode)
@@ -158,7 +158,11 @@ abstract class SsotUploadFormBase extends ConfirmFormBase {
    * {@inheritdoc}
    */
   public function getDescription() {
+    $resolved_ranges = [];
     foreach ($this->toc as $endpoint => $entry) {
+      if (isset($entry['range']) && preg_match('/^[A-Z]+[1-9][0-9]*:[A-Z]+$/', $entry['range'])) {
+        $resolved_ranges[] = $endpoint . ': ' . $this->datasets[$endpoint]['range'];
+      }
       $sheet = count($this->toc) > 1 ? $entry['sheet'] : '';
       $rules = $this->fieldRules($entry);
       $crosscheck = $this->crosschecks[$endpoint] ?? null;
@@ -175,10 +179,15 @@ abstract class SsotUploadFormBase extends ConfirmFormBase {
         \Drupal::messenger()->addMessage($result['message'], $result['result'] === 'success' ? MessengerInterface::TYPE_STATUS : MessengerInterface::TYPE_WARNING);
       }
     }
-    return $this->t('This action will update the SSoT dataset(s) <strong>@datasets</strong> for <strong>@period</strong>.', [
+    $arguments = [
       '@datasets' => implode(', ', array_keys($this->toc)),
       '@period' => $this->periodLabel($this->context),
-    ]);
+    ];
+    if ($resolved_ranges) {
+      $arguments['@ranges'] = implode('; ', $resolved_ranges);
+      return $this->t('This action will update the SSoT dataset(s) <strong>@datasets</strong> for <strong>@period</strong>. Resolved ranges: @ranges.', $arguments);
+    }
+    return $this->t('This action will update the SSoT dataset(s) <strong>@datasets</strong> for <strong>@period</strong>.', $arguments);
   }
 
   /**
@@ -384,6 +393,12 @@ abstract class SsotUploadFormBase extends ConfirmFormBase {
       try {
         $datasets[$endpoint] = $this->readDataset($sheet, $entry, $context);
       }
+      catch (\UnderflowException $e) {
+        $form_state->setErrorByName('source_file', $this->t('❌ No data found in range @range on tab "@tab" for dataset @endpoint.', [
+          '@range' => $entry['range'], '@tab' => $entry['sheet'], '@endpoint' => $endpoint,
+        ]));
+        return;
+      }
       catch (\Exception $e) {
         \Drupal::logger('workbc')->error('Error reading @endpoint from @name: @error', [
           '@endpoint' => $endpoint, '@name' => $name, '@error' => $e->getMessage()
@@ -456,6 +471,10 @@ abstract class SsotUploadFormBase extends ConfirmFormBase {
     $written = [];
 
     try {
+      $source_metadata = [];
+      foreach ($this->toc as $endpoint => $entry) {
+        $source_metadata[$endpoint] = $this->sourceMetadata($endpoint, $entry, $this->datasets[$endpoint]);
+      }
       foreach ($this->toc as $endpoint => $entry) {
         $rows = $this->prepareRows($entry, $this->datasets[$endpoint]['rows']);
         $write = is_array($entry['write'] ?? null) ? $entry['write'] : ['mode' => $entry['write'] ?? 'replace'];
@@ -483,7 +502,7 @@ abstract class SsotUploadFormBase extends ConfirmFormBase {
           'filename' => $file->getFilename(),
           'endpoint' => $endpoint,
           'sheet' => $entry['sheet'],
-          'range' => $entry['range'] ?? null,
+          'range' => $source_metadata[$endpoint]['range'],
           'label' => $this->interpolate($this->label, $context),
         ];
         if (!is_null($this->author)) {
@@ -541,15 +560,7 @@ abstract class SsotUploadFormBase extends ConfirmFormBase {
           'date' => $ssot_date,
           'label' => $this->interpolate($this->label, $context),
           'author' => $this->author,
-          'datasets' => array_map(function ($endpoint, $entry) {
-            $write = is_array($entry['write'] ?? null) ? $entry['write'] : ['mode' => $entry['write'] ?? 'replace'];
-            return [
-              'endpoint' => $endpoint,
-              'sheet' => $entry['sheet'],
-              'range' => $entry['range'] ?? null,
-              'match' => $entry['sources'] ?? ($write['mode'] === 'upsert' ? 'period' : 'endpoint'),
-            ];
-          }, array_keys($this->toc), $this->toc),
+          'datasets' => array_values($source_metadata),
         ]);
       }
 
@@ -641,6 +652,63 @@ abstract class SsotUploadFormBase extends ConfirmFormBase {
   }
 
   /**
+   * Return the column and starting row boundaries of a table range.
+   */
+  protected function tableRangeBoundaries(string $range): array {
+    if (preg_match('/^([A-Z]+)([1-9][0-9]*):([A-Z]+)$/', $range, $matches)) {
+      $range .= $matches[2];
+    }
+    $bounds = Coordinate::rangeBoundaries($range);
+    if ($bounds[0][0] > $bounds[1][0] || $bounds[0][1] > $bounds[1][1]) {
+      throw new \LogicException("Invalid table range $range.");
+    }
+    return $bounds;
+  }
+
+  /**
+   * Resolve an open range using calculated values in its declared columns.
+   */
+  protected function resolveTableRange(Worksheet $sheet, string $range): string {
+    if (!preg_match('/^([A-Z]+)([1-9][0-9]*):([A-Z]+)$/', $range, $matches)) {
+      return $range;
+    }
+    [[$first_column, $first_row], [$last_column]] = $this->tableRangeBoundaries($range);
+    $last_row = null;
+    foreach ($sheet->getCoordinates(false) as $coordinate) {
+      [$column_index, $row] = Coordinate::indexesFromString($coordinate);
+      if ($row < $first_row || $column_index < $first_column || $column_index > $last_column ||
+          ($last_row !== null && $row <= $last_row)) {
+        continue;
+      }
+      $value = $sheet->getCell($coordinate)->getCalculatedValue();
+      if ($value !== null && (!is_string($value) || trim($value) !== '')) {
+        $last_row = $row;
+      }
+    }
+    if ($last_row === null) {
+      throw new \UnderflowException("No data found in range $range.");
+    }
+    return $range . $last_row;
+  }
+
+  /**
+   * Build metadata shared by the sources record and upload queue.
+   */
+  protected function sourceMetadata(string $endpoint, array $entry, array $dataset): array {
+    $range = $dataset['range'] ?? ($entry['range'] ?? null);
+    if ($range !== null && preg_match('/^[A-Z]+[1-9][0-9]*:[A-Z]+$/', $range)) {
+      throw new \LogicException("Missing resolved range for $endpoint.");
+    }
+    $write = is_array($entry['write'] ?? null) ? $entry['write'] : ['mode' => $entry['write'] ?? 'replace'];
+    return [
+      'endpoint' => $endpoint,
+      'sheet' => $entry['sheet'],
+      'range' => $range,
+      'match' => $entry['sources'] ?? ($write['mode'] === 'upsert' ? 'period' : 'endpoint'),
+    ];
+  }
+
+  /**
    * Field rules for a TOC entry, with 'cell' derived from the range for tables.
    */
   protected function fieldRules(array $entry): array {
@@ -660,7 +728,7 @@ abstract class SsotUploadFormBase extends ConfirmFormBase {
       }
     }
     if (($entry['shape'] ?? 'record') === 'table') {
-      [[$col_start, $row_start], [$col_end, $row_end]] = Coordinate::rangeBoundaries($entry['range']);
+      [[$col_start, $row_start], [$col_end, $row_end]] = $this->tableRangeBoundaries($entry['range']);
       $columns = $col_end - $col_start + 1;
       $offset = 0;
       foreach ($fields as $key => &$rule) {
@@ -686,14 +754,15 @@ abstract class SsotUploadFormBase extends ConfirmFormBase {
    * Read a dataset from the worksheet.
    *
    * @return array
-   *   ['rows' => list of field => value rows, 'first_row' => sheet row number of the first row]
+   *   Rows, first sheet row, and the resolved range for tables.
    */
   protected function readDataset(Worksheet $sheet, array $entry, array $context): array {
     $rules = $this->fieldRules($entry);
 
     if (($entry['shape'] ?? 'record') === 'table') {
-      [[, $row_start], [, $row_end]] = Coordinate::rangeBoundaries($entry['range']);
-      $values = $sheet->rangeToArray($entry['range'], null, true, false, false);
+      $range = $this->resolveTableRange($sheet, $entry['range']);
+      [[, $row_start], [, $row_end]] = $this->tableRangeBoundaries($range);
+      $values = $sheet->rangeToArray($range, null, true, false, false);
       $rows = [];
       $previous = [];
       foreach ($values as $cells) {
@@ -714,7 +783,7 @@ abstract class SsotUploadFormBase extends ConfirmFormBase {
         $previous = $row;
         $rows[] = $this->calculateSyntheticFields($rules, $row, (int) $row_start + count($rows));
       }
-      return ['rows' => $rows, 'first_row' => (int) $row_start];
+      return ['rows' => $rows, 'first_row' => (int) $row_start, 'range' => $range];
     }
 
     $row = [];

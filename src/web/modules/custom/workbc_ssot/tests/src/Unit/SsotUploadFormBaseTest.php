@@ -2,7 +2,26 @@
 
 namespace Drupal\Tests\workbc_ssot\Unit;
 
+use Drupal\Component\Datetime\TimeInterface;
+use Drupal\Core\Cache\CacheTagsInvalidatorInterface;
+use Drupal\Core\Database\Connection;
+use Drupal\Core\Database\Query\Insert;
+use Drupal\Core\Database\Query\Update;
+use Drupal\Core\Entity\EntityStorageInterface;
+use Drupal\Core\Entity\EntityTypeManagerInterface;
+use Drupal\Core\Entity\EntityTypeRepositoryInterface;
+use Drupal\Core\File\FileUrlGeneratorInterface;
+use Drupal\Core\Form\FormState;
+use Drupal\Core\Logger\LoggerChannelFactoryInterface;
+use Drupal\Core\Logger\LoggerChannelInterface;
+use Drupal\Core\Messenger\MessengerInterface;
+use Drupal\Core\Queue\QueueFactory;
+use Drupal\Core\Queue\QueueInterface;
+use Drupal\Core\Session\AccountInterface;
+use Drupal\file\Entity\File;
+use Drupal\file\FileInterface;
 use Drupal\workbc_ssot\Form\SsotUploadFormBase;
+use GuzzleHttp\Psr7\Response;
 use PHPUnit\Framework\Attributes\CoversClass;
 use PHPUnit\Framework\Attributes\DataProvider;
 use PHPUnit\Framework\Attributes\Group;
@@ -138,6 +157,176 @@ class SsotUploadFormBaseTest extends SsotUploadTestBase {
     $this->expectException(\LogicException::class);
     $this->expectExceptionMessage('Range A3:D5 has 4 columns but 3 cell fields are defined.');
     $this->form()->rules($entry);
+  }
+
+  public function testOpenRangeUsesLastNonEmptyRowWithinColumns(): void {
+    $form = $this->form();
+    $workbook = $this->workbookFixture();
+    $sheet = $form->sheet($workbook, 'Data');
+    $sheet->setCellValue('C6', 'x');
+    $sheet->setCellValue('A8', 0);
+    $sheet->setCellValue('B9', '  ');
+    $sheet->setCellValue('C10', '=""');
+    $sheet->getStyle('D11')->getFont()->setBold(true);
+    $sheet->setCellValue('E30', 'outside');
+    $entry = $this->tableEntry(['range' => 'A3:D', 'fill_down' => [], 'fields' => [
+      'region' => ['type' => 'region'],
+      'num' => ['type' => 'abs'],
+      'unused' => ['type' => 'ignore'],
+      'avg' => ['type' => 'pct'],
+    ]]);
+    $data = $form->read($sheet, $entry, $form->context(2024));
+    $this->assertSame('A3:D8', $data['range']);
+    $this->assertCount(6, $data['rows']);
+    $this->assertSame(0, $data['rows'][5]['region']);
+    $this->assertSame(['region' => null, 'num' => null, 'avg' => null], $data['rows'][3]);
+    $this->assertSame('A3:D8', $form->metadata('example', $entry, $data)['range']);
+
+    $sheet->setCellValue('C12', '-');
+    $data = $form->read($sheet, $entry, $form->context(2024));
+    $this->assertSame('A3:D12', $data['range']);
+    $this->assertArrayNotHasKey('unused', $data['rows'][9]);
+  }
+
+  public function testOpenRangeRequiresDataAtOrAfterStartingRow(): void {
+    $form = $this->form();
+    $sheet = $form->sheet($this->workbookFixture(), 'Data');
+    $sheet->setCellValue('A8', " \t");
+    $sheet->setCellValue('B9', '=""');
+    $sheet->setCellValue('E20', 'outside');
+    $entry = $this->tableEntry(['range' => 'A8:D']);
+    $this->expectException(\UnderflowException::class);
+    $this->expectExceptionMessage('No data found in range A8:D.');
+    $form->read($sheet, $entry, $form->context(2024));
+  }
+
+  #[DataProvider('openRangeContentProvider')]
+  public function testOpenRangeTreatsValuesInIgnoredColumnsAsContent($value): void {
+    $form = $this->form();
+    $sheet = (new Spreadsheet())->getActiveSheet();
+    $sheet->setCellValue('AB7', $value);
+    $entry = $this->tableEntry(['range' => 'AA3:AB', 'fill_down' => [], 'fields' => [
+      'value' => ['type' => 'abs'],
+      'unused' => ['type' => 'ignore'],
+    ]]);
+    $data = $form->read($sheet, $entry, $form->context(2024));
+    $this->assertSame('AA3:AB7', $data['range']);
+    $this->assertCount(5, $data['rows']);
+  }
+
+  public static function openRangeContentProvider(): array {
+    return [
+      'zero' => [0],
+      'dash' => ['-'],
+      'x' => ['x'],
+      'nonempty formula' => ['=1+1'],
+    ];
+  }
+
+  public function testOpenRangeKeepsWidthChecksAndRequiresResolvedMetadata(): void {
+    $form = $this->form();
+    $entry = $this->tableEntry(['range' => 'A3:D']);
+    $rules = $form->rules($entry);
+    $this->assertSame(['A', 'B', 'C', 'D'], array_column($rules, 'cell'));
+    $this->assertSame([
+      'endpoint' => 'example', 'sheet' => 'Data', 'range' => 'A3:D5', 'match' => 'endpoint',
+    ], $form->metadata('example', $entry, ['range' => 'A3:D5']));
+    $this->expectException(\LogicException::class);
+    $this->expectExceptionMessage('Missing resolved range for example.');
+    $form->metadata('example', $entry, []);
+  }
+
+  public function testOpenRangeRejectsMismatchedColumnCount(): void {
+    $entry = $this->tableEntry(['range' => 'A3:D']);
+    array_pop($entry['fields']);
+    $this->expectException(\LogicException::class);
+    $this->expectExceptionMessage('Range A3:D has 4 columns but 3 cell fields are defined.');
+    $this->form()->rules($entry);
+  }
+
+  public function testResolvedRangeIsUsedForSourceAndQueuedUpload(): void {
+    $entry = $this->tableEntry(['range' => 'A3:D']);
+    $form = $this->getMockBuilder(TestGenericForm::class)
+      ->setConstructorArgs([['example' => $entry]])
+      ->onlyMethods(['ssot'])
+      ->getMock();
+    $form->setStringTranslation($this->getStringTranslationStub());
+    $data = $form->read($form->sheet($this->workbookFixture(), 'Data'), $entry, $form->context(2024));
+    $calls = [];
+    $form->method('ssot')->willReturnCallback(function ($url, $timeout = null, $method = 'GET', $body = null) use (&$calls) {
+      $calls[] = [$url, $method, $body];
+      return new Response(200, [], '[]');
+    });
+
+    $file = $this->createMock(FileInterface::class);
+    $file->method('getFilename')->willReturn('example.xlsx');
+    $file->method('getFileUri')->willReturn('public://example.xlsx');
+    $file_storage = $this->createMock(EntityStorageInterface::class);
+    $file_storage->method('load')->with(1)->willReturn($file);
+    $manager = $this->createMock(EntityTypeManagerInterface::class);
+    $manager->method('getStorage')->with('file')->willReturn($file_storage);
+    $repository = $this->createMock(EntityTypeRepositoryInterface::class);
+    $repository->method('getEntityTypeFromClass')->with(File::class)->willReturn('file');
+    $insert = $this->createMock(Insert::class);
+    $insert->method('fields')->willReturnSelf();
+    $insert->method('execute')->willReturn(1);
+    $update = $this->createMock(Update::class);
+    $update->method('fields')->willReturnSelf();
+    $update->method('condition')->willReturnSelf();
+    $database = $this->createMock(Connection::class);
+    $database->method('insert')->willReturn($insert);
+    $database->method('update')->willReturn($update);
+    $queued = null;
+    $queue = $this->createMock(QueueInterface::class);
+    $queue->expects($this->once())->method('createItem')->willReturnCallback(function ($item) use (&$queued) {
+      $queued = $item;
+      return 1;
+    });
+    $queue_factory = $this->createMock(QueueFactory::class);
+    $queue_factory->method('get')->willReturn($queue);
+    $account = $this->createMock(AccountInterface::class);
+    $account->method('id')->willReturn(2);
+    $time = $this->createMock(TimeInterface::class);
+    $time->method('getRequestTime')->willReturn(1700000000);
+    $urls = $this->createMock(FileUrlGeneratorInterface::class);
+    $urls->method('generateAbsoluteString')->willReturn('https://example.test/example.xlsx');
+    $logger_factory = $this->createMock(LoggerChannelFactoryInterface::class);
+    $logger_factory->method('get')->willReturn($this->createMock(LoggerChannelInterface::class));
+    $messenger = $this->createMock(MessengerInterface::class);
+    $messenger->expects($this->never())->method('addError');
+    $container = \Drupal::getContainer();
+    foreach ([
+      'entity_type.manager' => $manager,
+      'entity_type.repository' => $repository,
+      'database' => $database,
+      'queue' => $queue_factory,
+      'current_user' => $account,
+      'datetime.time' => $time,
+      'file_url_generator' => $urls,
+      'logger.factory' => $logger_factory,
+      'messenger' => $messenger,
+      'cache_tags.invalidator' => $this->createMock(CacheTagsInvalidatorInterface::class),
+    ] as $id => $service) {
+      $container->set($id, $service);
+    }
+
+    $description = $form->confirmationDescription(['example' => $data], $form->context(2024));
+    $this->assertStringContainsString('example: A3:D5', (string) $description);
+    $state = new FormState();
+    $state->set('confirmation', true);
+    $state->set('datasets', ['example' => $data]);
+    $state->set('context', $form->context(2024));
+    $state->set('file_id', 1);
+    $state->set('timestamp', 1700000000);
+    $state->set('repo', true);
+    $form_array = [];
+    $form->submitForm($form_array, $state);
+
+    $source_calls = array_values(array_filter($calls, fn($call) => $call[0] === 'sources' && $call[1] === 'POST'));
+    $this->assertCount(1, $source_calls);
+    $source = json_decode($source_calls[0][2], true, 512, JSON_THROW_ON_ERROR);
+    $this->assertSame('A3:D5', $source['range']);
+    $this->assertSame('A3:D5', $queued['datasets'][0]['range']);
   }
 
   public function testIgnoredColumnsAreExcludedFromRowsValidationAndPayload(): void {
