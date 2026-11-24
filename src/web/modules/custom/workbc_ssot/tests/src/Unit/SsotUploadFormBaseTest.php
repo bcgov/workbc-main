@@ -10,6 +10,7 @@ use Drupal\Core\Database\Query\Update;
 use Drupal\Core\Entity\EntityStorageInterface;
 use Drupal\Core\Entity\EntityTypeManagerInterface;
 use Drupal\Core\Entity\EntityTypeRepositoryInterface;
+use Drupal\Core\File\FileSystemInterface;
 use Drupal\Core\File\FileUrlGeneratorInterface;
 use Drupal\Core\Form\FormState;
 use Drupal\Core\Logger\LoggerChannelFactoryInterface;
@@ -26,6 +27,9 @@ use PHPUnit\Framework\Attributes\CoversClass;
 use PHPUnit\Framework\Attributes\DataProvider;
 use PHPUnit\Framework\Attributes\Group;
 use PhpOffice\PhpSpreadsheet\Spreadsheet;
+use PhpOffice\PhpSpreadsheet\IOFactory;
+use Symfony\Component\HttpFoundation\Request;
+use Symfony\Component\HttpFoundation\RequestStack;
 
 /**
  * Tests the TOC-driven engine of SsotUploadFormBase with in-memory workbooks.
@@ -438,6 +442,103 @@ class SsotUploadFormBaseTest extends SsotUploadTestBase {
     $this->assertSame(2944702.0, $data['rows'][0]['synthetic']);
   }
 
+  public function testSyntheticFieldCanUseCustomValidators(): void {
+    $form = $this->form();
+    $entry = $this->tableEntry();
+    $entry['fields']['synthetic'] = [
+      'type' => 'synthetic', 'callback' => 'syntheticTotal',
+      'validators' => ['validateLessThanAverage'], 'warn_only' => ['validators'],
+    ];
+    $data = $form->read($form->sheet($this->workbookFixture(), 'Data'), $entry, $form->context(2024));
+    $results = $form->validateRules($form->rules($entry), $data['rows'][0], null, 3, 'Data');
+    $warnings = static::messages($results, 'warning');
+    $this->assertCount(1, $warnings);
+    $this->assertStringContainsString('Data!row 3 (synthetic = 152.6)', $warnings[0]);
+  }
+
+  #[DataProvider('customValidationFormProvider')]
+  public function testCustomValidationHonorsGlobalAndLocalWarnings(bool $global_warning, bool $local_warning, bool $invalid, bool $blocked, bool $skip = false): void {
+    $path = tempnam(sys_get_temp_dir(), 'ssot-validator-');
+    IOFactory::createWriter($this->workbookFixture(), 'Xlsx')->save($path);
+    $state = new FormState();
+    try {
+      $file = $this->createMock(FileInterface::class);
+      $file->method('getFileUri')->willReturn('private://test.xlsx');
+      $file->method('id')->willReturn(1);
+      $file_storage = $this->createMock(EntityStorageInterface::class);
+      $file_storage->method('load')->willReturn($file);
+      $manager = $this->createMock(EntityTypeManagerInterface::class);
+      $manager->method('getStorage')->willReturn($file_storage);
+      $repository = $this->createMock(EntityTypeRepositoryInterface::class);
+      $repository->method('getEntityTypeFromClass')->willReturn('file');
+      $filesystem = $this->createMock(FileSystemInterface::class);
+      $filesystem->method('realpath')->willReturn($path);
+      $requests = new RequestStack();
+      $requests->push(new Request());
+      $logger_factory = $this->createMock(LoggerChannelFactoryInterface::class);
+      $logger_factory->method('get')->willReturn($this->createMock(LoggerChannelInterface::class));
+      $messenger = $this->createMock(MessengerInterface::class);
+      $messages = [];
+      $messenger->method('addMessage')->willReturnCallback(function ($message, $type = 'status') use (&$messages) {
+        $messages[] = [(string) $message, $type];
+        return $this->createMock(MessengerInterface::class);
+      });
+      $container = \Drupal::getContainer();
+      foreach ([
+        'entity_type.manager' => $manager,
+        'entity_type.repository' => $repository,
+        'file_system' => $filesystem,
+        'request_stack' => $requests,
+        'logger.factory' => $logger_factory,
+        'messenger' => $messenger,
+      ] as $id => $service) {
+        $container->set($id, $service);
+      }
+      $validator = $invalid
+        ? fn() => ['success' => 'no', 'explanation' => 'Invalid result']
+        : ($skip ? fn() => ['success' => false, 'action' => 'skip'] : fn() => ['success' => false, 'explanation' => 'Custom failure']);
+      $entry = [
+        'sheet' => 'Summary', 'shape' => 'record',
+        'fields' => ['total' => [
+          'cell' => 'B3', 'type' => $global_warning ? 'pct' : 'abs', 'validators' => ['check' => $validator],
+          'warn_only' => $local_warning ? ['check'] : [],
+        ]],
+      ];
+      $form = $this->form(['example' => $entry]);
+      $state->setValue('source_file', [1]);
+      $state->setValue('timestamp', new \DateTimeImmutable('2024-01-01'));
+      $state->setValue('year', 2024);
+      $state->setValue('warn_only', $global_warning);
+      $form_array = [];
+      $form->validateForm($form_array, $state);
+      $this->assertSame($blocked, isset($state->getErrors()['source_file']));
+      if (!$blocked) {
+        $form->confirmationDescription($state->get('datasets'), $state->get('context'));
+        $this->assertSame('warning', $messages[0][1]);
+        $this->assertStringContainsString($skip ? 'No explanation given.' : 'Custom failure', $messages[0][0]);
+        if ($skip) {
+          $this->assertCount(1, $messages);
+        }
+      }
+    }
+    finally {
+      $state->clearErrors();
+      unlink($path);
+    }
+  }
+
+  public static function customValidationFormProvider(): array {
+    return [
+      'error blocks' => [false, false, false, true],
+      'local warning allows' => [false, true, false, false],
+      'global warning allows' => [true, false, false, false],
+      'invalid result still blocks globally' => [true, false, true, true],
+      'unexplained skip still blocks' => [false, false, false, true, true],
+      'local warning skip allows' => [false, true, false, false, true],
+      'global warning skip allows' => [true, false, false, false, true],
+    ];
+  }
+
   #[DataProvider('invalidSyntheticDefinitionProvider')]
   public function testInvalidSyntheticDefinitionsFail(array $rule): void {
     $entry = $this->tableEntry(['fields' => [
@@ -520,7 +621,7 @@ class SsotUploadFormBaseTest extends SsotUploadTestBase {
     /** @var \Drupal\Tests\workbc_ssot\Unit\EngineAccess $form */
     $form = new $class();
     $types = ['abs', 'num', 'pct', 'chg_abs', 'chg_pct', 'industry', 'region', 'synthetic', 'ignore'];
-    $rule_keys = ['cell', 'value', 'type', 'callback', 'exceptions', 'same_sign', 'equal', 'sum', 'crosscheck_value', 'crosscheck_change_abs', 'crosscheck_change_pct', 'blank_if', 'warn_only'];
+    $rule_keys = ['cell', 'value', 'type', 'callback', 'validators', 'exceptions', 'same_sign', 'equal', 'sum', 'crosscheck_value', 'crosscheck_change_abs', 'crosscheck_change_pct', 'warn_only'];
 
     $this->assertNotEmpty($form->toc());
     $this->assertContains($form->period()['granularity'], ['year', 'month']);
@@ -533,9 +634,12 @@ class SsotUploadFormBaseTest extends SsotUploadTestBase {
         if (isset($rule['type'])) {
           $this->assertContains($rule['type'], $types, "$endpoint.$field");
         }
-        if (isset($rule['blank_if'])) {
-          $this->assertArrayHasKey($rule['blank_if']['field'], $rules, "$endpoint.$field.blank_if");
-          $this->assertArrayHasKey('value', $rule['blank_if']);
+        foreach ($rule['validators'] ?? [] as $validator) {
+          if (is_array($validator) && ($validator['callback'] ?? null) === 'validateBlankIf') {
+            $options = $validator['options'];
+            $this->assertArrayHasKey($options['field'], $rules, "$endpoint.$field");
+            $this->assertArrayHasKey('value', $options);
+          }
         }
         foreach (['same_sign', 'equal', 'crosscheck_value', 'crosscheck_change_abs', 'crosscheck_change_pct'] as $ref) {
           if (isset($rule[$ref])) {

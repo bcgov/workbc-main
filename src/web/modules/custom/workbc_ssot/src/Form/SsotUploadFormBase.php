@@ -42,6 +42,7 @@ use PhpOffice\PhpSpreadsheet\Worksheet\Worksheet;
  *     '<field>' => ['cell' => 'B3', 'type' => 'abs', ...rules],   // 'cell' is derived for tables
  *     '<field>' => ['value' => '{year}'],                         // literal / interpolated value
  *     '<field>' => ['type' => 'synthetic', 'callback' => 'methodName'], // computed from the completed row
+ *     '<field>' => ['type' => 'abs', 'validators' => ['validatorMethod']], // custom row validations
  *     '<placeholder>' => ['type' => 'ignore'],                    // table only: skip one column
  *   ],
  * ]
@@ -414,21 +415,32 @@ abstract class SsotUploadFormBase extends ConfirmFormBase {
         $crosschecks[$endpoint] = !empty($crosscheck) ? reset($crosscheck) : null;
       }
 
-      // Retrieve only the errors in case of form validation.
-      if (!$form_state->getValue('warn_only')) {
+      try {
         $rules = $this->fieldRules($entry);
         $results = [];
+        $warn_only = (bool) $form_state->getValue('warn_only');
         if ($entry['shape'] === 'table') {
           foreach ($datasets[$endpoint]['rows'] as $i => $row) {
-            $results = array_merge($results, $this->validateRules($rules, $row, null, $datasets[$endpoint]['first_row'] + $i, $sheet_label));
+            $results = array_merge($results, $this->validateRules($rules, $row, null, $datasets[$endpoint]['first_row'] + $i, $sheet_label, $warn_only));
           }
         }
         else {
-          $results = $this->validateRules($rules, $datasets[$endpoint]['rows'][0], $crosschecks[$endpoint] ?? null, null, $sheet_label);
+          $results = $this->validateRules($rules, $datasets[$endpoint]['rows'][0], $crosschecks[$endpoint] ?? null, null, $sheet_label, $warn_only);
         }
-        $errors = array_merge($errors, array_column(array_filter($results, function ($result) {
-          return $result['result'] === 'error';
-        }), 'message'));
+        if (!$warn_only) {
+          $errors = array_merge($errors, array_column(array_filter($results, function ($result) {
+            return $result['result'] === 'error';
+          }), 'message'));
+        }
+      }
+      catch (\LogicException | \UnexpectedValueException $e) {
+        \Drupal::logger('workbc')->error('Error validating @endpoint from @name: @error', [
+          '@endpoint' => $endpoint, '@name' => $name, '@error' => $e->getMessage(),
+        ]);
+        $form_state->setErrorByName('source_file', $this->t('❌ Could not validate dataset @endpoint from tab "@tab". Please refer to the logs for more information.', [
+          '@endpoint' => $endpoint, '@tab' => $sheet_label ?: $entry['sheet'],
+        ]));
+        return;
       }
     }
 
@@ -717,7 +729,7 @@ abstract class SsotUploadFormBase extends ConfirmFormBase {
       if (($rule['type'] ?? null) === 'synthetic' &&
         (!isset($rule['callback']) || !is_string($rule['callback']) ||
           !method_exists($this, $rule['callback']) || !is_callable([$this, $rule['callback']]) ||
-          array_diff(array_keys($rule), ['type', 'callback']))) {
+          array_diff(array_keys($rule), ['type', 'callback', 'validators', 'warn_only']))) {
         throw new \LogicException("Invalid synthetic field definition for $key.");
       }
       if (($rule['type'] ?? null) === 'ignore' &&

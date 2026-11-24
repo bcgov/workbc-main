@@ -37,7 +37,10 @@ class SsotUploadValidationTest extends SsotUploadTestBase {
       'share' => [
         'cell' => 'B',
         'type' => 'pct',
-        'blank_if' => ['field' => 'region', 'value' => 'british_columbia'],
+        'validators' => ['blank_if' => [
+          'callback' => 'validateBlankIf',
+          'options' => ['field' => 'region', 'value' => 'british_columbia'],
+        ]],
         'warn_only' => $warn_only ? ['blank_if'] : [],
       ],
       'region' => ['cell' => 'A', 'type' => 'region'],
@@ -47,7 +50,7 @@ class SsotUploadValidationTest extends SsotUploadTestBase {
     $this->assertSame([$expected, 'success'], array_column($results, 'result'));
     if ($region === 'British Columbia') {
       $this->assertStringContainsString('Regional Profiles!B35', static::text($results[0]));
-      $this->assertStringContainsString(is_null($value) ? 'is blank as expected' : 'must be blank', static::text($results[0]));
+      $this->assertStringContainsString('must be blank when region = british_columbia.', static::text($results[0]));
     }
     $this->assertSame(['share' => $value, 'region' => $region], $dataset);
   }
@@ -67,7 +70,9 @@ class SsotUploadValidationTest extends SsotUploadTestBase {
 
   public function testBlankIfSupportsNonLookupFields(): void {
     $rules = [
-      'share' => ['cell' => 'B', 'type' => 'pct', 'blank_if' => ['field' => 'category', 'value' => 'total']],
+      'share' => ['cell' => 'B', 'type' => 'pct', 'validators' => [[
+        'callback' => 'validateBlankIf', 'options' => ['field' => 'category', 'value' => 'total'],
+      ]]],
       'category' => ['cell' => 'A'],
     ];
     $results = $this->form->validateRules($rules, ['share' => null, 'category' => 'total']);
@@ -76,23 +81,89 @@ class SsotUploadValidationTest extends SsotUploadTestBase {
 
   #[DataProvider('invalidBlankIfProvider')]
   public function testInvalidBlankIfIsRejected($condition): void {
-    $this->expectException(\LogicException::class);
-    $this->expectExceptionMessage('Invalid blank_if condition for field share');
+    $this->expectException(\UnexpectedValueException::class);
+    $this->expectExceptionMessage('Invalid blank-if options for field share');
     $this->form->validateRules([
-      'share' => ['cell' => 'B', 'type' => 'pct', 'blank_if' => $condition],
+      'share' => ['cell' => 'B', 'type' => 'pct', 'validators' => [[
+        'callback' => 'validateBlankIf', 'options' => $condition,
+      ]]],
       'region' => ['cell' => 'A', 'type' => 'region'],
     ], ['share' => null, 'region' => 'British Columbia']);
   }
 
   public static function invalidBlankIfProvider(): array {
     return [
-      [null],
-      ['invalid'],
       [['value' => 'british_columbia']],
       [['field' => 'region']],
       [['field' => ['region'], 'value' => 'british_columbia']],
       [['field' => 'missing', 'value' => 'british_columbia']],
+      [['field' => 'region', 'value' => 'british_columbia', 'lookup' => 'unknown']],
+      [['field' => 'region', 'value' => 'british_columbia', 'exceptions' => []]],
+      [['field' => 'region', 'value' => []]],
     ];
+  }
+
+  public function testBlankIfResolvesIndustryExceptions(): void {
+    $rules = [
+      'share' => ['cell' => 'B', 'type' => 'pct', 'validators' => [[
+        'callback' => 'validateBlankIf',
+        'options' => ['field' => 'industry', 'value' => 'Total, All Industries'],
+      ]]],
+      'industry' => ['cell' => 'A', 'type' => 'industry', 'exceptions' => ['Total, All Industries']],
+    ];
+    $results = $this->form->validateRules($rules, ['share' => null, 'industry' => 'total, all industries']);
+    $this->assertSame(['success', 'success'], array_column($results, 'result'));
+  }
+
+  #[DataProvider('blankIfLookupProvider')]
+  public function testBlankIfResolvesLookupOrUsesRawValue(string $type, string $input, string $expected): void {
+    $rules = [
+      'share' => ['validators' => [[
+        'callback' => 'validateBlankIf',
+        'options' => ['field' => 'category', 'value' => $expected],
+      ]]],
+      'category' => ['type' => $type],
+    ];
+    $results = $this->form->validateRules($rules, ['share' => 1, 'category' => $input], null, null, '', true);
+    $this->assertSame(['error'], array_column($results, 'result'));
+  }
+
+  public static function blankIfLookupProvider(): array {
+    return [
+      'industry key' => ['industry', 'Accommodation And Food Services', 'accommodation_food_services'],
+      'unknown region' => ['region', 'Caribou', 'Caribou'],
+      'unknown industry' => ['industry', 'Hospitality', 'Hospitality'],
+    ];
+  }
+
+  public function testBlankIfConditionIsEscapedOnce(): void {
+    $rules = [
+      'share' => ['validators' => [[
+        'callback' => 'validateBlankIf',
+        'options' => ['field' => 'category', 'value' => '<total>'],
+      ]]],
+      'category' => [],
+    ];
+    $results = $this->form->validateRules($rules, ['share' => 3, 'category' => '<total>']);
+    $message = (string) $results[0]['message'];
+    $this->assertStringContainsString('&lt;total&gt;', $message);
+    $this->assertStringNotContainsString('&amp;lt;', $message);
+  }
+
+  public function testBlankIfRequiresReferencedFieldDescriptor(): void {
+    $rules = ['share' => ['validators' => [[
+      'callback' => 'validateBlankIf',
+      'options' => ['field' => 'category', 'value' => 'total'],
+    ]]]];
+    $this->expectException(\UnexpectedValueException::class);
+    $this->expectExceptionMessage('Invalid blank-if options for field share');
+    $this->form->validateRules($rules, ['share' => null, 'category' => 'total']);
+  }
+
+  public function testLegacyBlankIfRuleFailsExplicitly(): void {
+    $this->expectException(\LogicException::class);
+    $this->expectExceptionMessage('blank_if rule for field share has been replaced');
+    $this->form->validateRules(['share' => ['blank_if' => ['field' => 'region', 'value' => 'british_columbia']]], ['share' => null]);
   }
 
   /**
@@ -139,6 +210,198 @@ class SsotUploadValidationTest extends SsotUploadTestBase {
   public function testWarnOnlyDowngradesTypeErrors(): void {
     $this->assertSame(['warning'], $this->kinds(['type' => 'pct', 'warn_only' => ['pct']], -5));
     $this->assertSame(['error'], $this->kinds(['type' => 'pct', 'warn_only' => ['sum']], -5));
+  }
+
+  public function testCustomValidatorsReceiveTheFullRowAndReportIndependently(): void {
+    $seen = [];
+    $rules = [
+      'num' => [
+        'cell' => 'B',
+        'type' => 'abs',
+        'validators' => [
+          'mutating' => function (string $field, array &$row) use (&$seen): array {
+            $seen[] = [$field, $row];
+            $row['avg'] = -1;
+            return ['success' => true, 'explanation' => 'First check'];
+          },
+          'validateLessThanAverage',
+          'unnamed' => fn(string $field, array $row): array => [
+            'success' => false, 'explanation' => '<invalid>', 'suggestion' => '<check>',
+          ],
+        ],
+        'warn_only' => ['validateLessThanAverage'],
+      ],
+      'avg' => ['cell' => 'C'],
+    ];
+    $row = ['num' => 12, 'avg' => 10];
+    $results = $this->form->validateRules($rules, $row, null, 8, 'Data');
+    $this->assertSame([['num', $row]], $seen);
+    $this->assertSame(['success', 'warning', 'error', 'success'], array_column($results, 'result'));
+    $this->assertStringContainsString('Data!B8 (num = 12)', static::text($results[1]));
+    $this->assertStringContainsString('Check the average.', static::text($results[1]));
+    $this->assertStringContainsString('&lt;invalid&gt;', (string) $results[2]['message']);
+    $this->assertStringContainsString('&lt;check&gt;', (string) $results[2]['message']);
+    $this->assertSame(['num' => 12, 'avg' => 10], $row);
+
+    $rules['num']['warn_only'] = ['validators'];
+    $results = $this->form->validateRules($rules, $row);
+    $this->assertSame(['success', 'warning', 'warning', 'success'], array_column($results, 'result'));
+  }
+
+  public function testCustomValidatorsRunForLookupAndConditionalBlankFields(): void {
+    $validator = fn(string $field, array $row): array => ['success' => false, 'explanation' => 'Custom'];
+    $results = $this->form->validateRules([
+      'region' => ['cell' => 'A', 'type' => 'region', 'validators' => ['custom' => $validator], 'warn_only' => ['custom']],
+      'share' => ['cell' => 'B', 'type' => 'pct', 'validators' => [
+        $validator,
+        ['callback' => 'validateBlankIf', 'options' => ['field' => 'region', 'value' => 'british_columbia']],
+      ]],
+    ], ['region' => 'British Columbia', 'share' => null], null, 3);
+    $this->assertSame(['warning', 'success', 'error', 'success'], array_column($results, 'result'));
+    $this->assertStringContainsString('Please correct the value.', static::text($results[2]));
+  }
+
+  public function testCustomValidatorOptionsArePassedToTheCallback(): void {
+    $seen = [];
+    $validator = function (string $field, array &$row, array $options) use (&$seen): array {
+      $seen = [$field, $row, $options];
+      return ['success' => $row[$field] <= $row[$options['field']], 'explanation' => 'Within limit'];
+    };
+    $results = $this->form->validateRules([
+      'value' => ['cell' => 'B2', 'validators' => ['withinLimit' => [
+        'callback' => $validator, 'options' => ['field' => 'limit', 'value' => 42],
+      ]]],
+      'limit' => ['cell' => 'C2'],
+    ], ['value' => 4, 'limit' => 10]);
+    $this->assertSame(['value', ['value' => 4, 'limit' => 10], ['field' => 'limit', 'value' => 42]], $seen);
+    $this->assertSame(['success'], array_column($results, 'result'));
+
+    $rules = ['value' => [
+      'validators' => [['callback' => 'validateLimit', 'options' => ['limit' => 3]]],
+      'warn_only' => ['validateLimit'],
+    ]];
+    $this->assertSame(['warning'], array_column($this->form->validateRules($rules, ['value' => 4]), 'result'));
+  }
+
+  public function testCustomValidatorsReceiveFieldDescriptorsWithoutChangingOtherCallbacks(): void {
+    $seen = [];
+    $rules = [
+      'value' => [
+        'cell' => 'B', 'type' => 'abs',
+        'validators' => [
+          function (string $field, array &$row, array $options, array &$fields) use (&$seen): array {
+            $seen[] = [$field, $row, $options, $fields['region']];
+            $fields['region']['type'] = 'changed';
+            return ['success' => true];
+          },
+          ['callback' => function (string $field, array $row, array $options, array $fields) use (&$seen): array {
+            $seen[] = [$field, $row, $options, $fields['region']];
+            return ['success' => true];
+          }, 'options' => ['limit' => 10]],
+          function ($field, $row, $options = 'default') use (&$seen): array {
+            $seen[] = [$options, func_num_args()];
+            return ['success' => true];
+          },
+          function ($field, $row, ...$extra) use (&$seen): array {
+            $seen[] = $extra;
+            return ['success' => true];
+          },
+        ],
+      ],
+      'region' => ['cell' => 'A', 'type' => 'region', 'exceptions' => ['example']],
+    ];
+    $row = ['value' => 4, 'region' => 'Cariboo'];
+    $results = $this->form->validateRules($rules, $row);
+    $this->assertSame(['success', 'success'], array_column($results, 'result'));
+    $this->assertSame(['value', $row, [], $rules['region']], $seen[0]);
+    $this->assertSame(['value', $row, ['limit' => 10], $rules['region']], $seen[1]);
+    $this->assertSame(['default', 2], $seen[2]);
+    $this->assertSame([[], $rules], $seen[3]);
+    $this->assertSame('region', $rules['region']['type']);
+  }
+
+  #[DataProvider('customValidatorActionProvider')]
+  public function testCustomValidatorActionsAndMissingExplanations(array $response, array $warn_only, array $expected, bool $next_called): void {
+    $called = false;
+    $results = $this->form->validateRules([
+      'f' => [
+        'cell' => 'A', 'type' => 'pct', 'warn_only' => $warn_only,
+        'validators' => [
+          'first' => fn() => $response,
+          'next' => function () use (&$called): array {
+            $called = true;
+            return ['success' => true, 'explanation' => 'Next validator'];
+          },
+        ],
+      ],
+      'other' => ['cell' => 'B', 'type' => 'abs'],
+    ], ['f' => -1, 'other' => 2], null, 3);
+    $this->assertSame($expected, array_column($results, 'result'));
+    $this->assertSame($next_called, $called);
+    if (!$response['success'] && empty(trim($response['explanation'] ?? ''))) {
+      $this->assertStringContainsString('No explanation given.', static::text($results[0]));
+    }
+  }
+
+  public static function customValidatorActionProvider(): array {
+    return [
+      'silent continue' => [['success' => true, 'action' => 'continue'], [], ['success', 'error', 'success'], true],
+      'silent skip' => [['success' => true, 'action' => 'skip'], [], ['success'], false],
+      'pass skip' => [['success' => true, 'action' => 'skip', 'explanation' => 'Done'], [], ['success', 'success'], false],
+      'fail skip' => [['success' => false, 'action' => 'skip'], [], ['error', 'success'], false],
+      'warning skip' => [['success' => false, 'action' => 'skip', 'explanation' => '  '], ['first'], ['warning', 'success'], false],
+      'fail continue' => [['success' => false], [], ['error', 'success', 'error', 'success'], true],
+    ];
+  }
+
+  #[DataProvider('invalidCustomValidatorProvider')]
+  public function testInvalidCustomValidatorsFailExplicitly($validators, string $message): void {
+    $this->expectException(\LogicException::class);
+    $this->expectExceptionMessage($message);
+    $this->form->validateRules(['f' => ['cell' => 'B2', 'validators' => $validators]], ['f' => 1]);
+  }
+
+  public static function invalidCustomValidatorProvider(): array {
+    return [
+      'not an array' => ['invalid', 'Invalid validators for field f'],
+      'missing method' => [['notAValidator'], 'Invalid validator notAValidator for field f'],
+      'empty name' => [['' => fn() => []], 'Invalid validator name for field f'],
+      'descriptor without callback' => [['check' => ['options' => []]], 'Invalid validator definition for field f'],
+      'non-array options' => [['check' => ['callback' => 'validateLessThanAverage', 'options' => 'bad']], 'Invalid validator definition for field f'],
+      'unknown descriptor key' => [['check' => ['callback' => 'validateLessThanAverage', 'option' => []]], 'Invalid validator definition for field f'],
+    ];
+  }
+
+  #[DataProvider('invalidCustomResultProvider')]
+  public function testInvalidCustomResultsFailExplicitly($response): void {
+    $this->expectException(\UnexpectedValueException::class);
+    $this->expectExceptionMessage('Invalid result from validator check for field f');
+    $this->form->validateRules(['f' => ['validators' => ['check' => fn() => $response]]], ['f' => 1]);
+  }
+
+  public static function invalidCustomResultProvider(): array {
+    return [
+      'non-array' => [true],
+      'missing success' => [['explanation' => 'Reason']],
+      'non-boolean success' => [['success' => 1, 'explanation' => 'Reason']],
+      'non-string explanation' => [['success' => true, 'explanation' => null]],
+      'non-string suggestion' => [['success' => false, 'explanation' => 'Reason', 'suggestion' => null]],
+      'invalid action' => [['success' => true, 'action' => 'stop']],
+      'null action' => [['success' => true, 'action' => null]],
+    ];
+  }
+
+  public function testCustomValidatorExceptionsIdentifyFieldAndPreserveCause(): void {
+    try {
+      $this->form->validateRules(['f' => ['cell' => 'B', 'validators' => ['bad' => function () {
+        throw new \RuntimeException('broken');
+      }]]], ['f' => 1], null, 3, 'Data');
+      $this->fail('Expected the validator exception.');
+    }
+    catch (\UnexpectedValueException $error) {
+      $this->assertStringContainsString('Validator bad failed for field f at Data!B3: broken', $error->getMessage());
+      $this->assertInstanceOf(\RuntimeException::class, $error->getPrevious());
+    }
   }
 
   /**

@@ -31,4 +31,19 @@ class TestGenericForm extends SsotUploadFormBase {
     return $row;
   }
 
+  protected function validateLessThanAverage(string $field, array &$row): array {
+    return [
+      'success' => $row[$field] <= $row['avg'],
+      'explanation' => 'The value must not exceed the average.',
+      'suggestion' => 'Check the average.',
+    ];
+  }
+
+  protected function validateLimit(string $field, array &$row, array $options): array {
+    return [
+      'success' => $row[$field] <= $options['limit'],
+      'explanation' => 'Within limit',
+    ];
+  }
+
 }

@@ -69,6 +69,36 @@ trait SsotUploadValidation {
   }
 
   /**
+   * Require a field to be blank when another field has a specified value.
+   */
+  protected function validateBlankIf(string $field, array &$row, array $options, array $fields): array {
+    if (!isset($options['field']) || !is_string($options['field']) ||
+        !array_key_exists('value', $options) || (!is_scalar($options['value']) && $options['value'] !== null) ||
+        !array_key_exists($options['field'], $row) ||
+        !array_key_exists($field, $row) ||
+        !isset($fields[$options['field']]) || !is_array($fields[$options['field']]) ||
+        array_diff(array_keys($options), ['field', 'value'])) {
+      throw new \LogicException("Invalid blank-if options for field $field.");
+    }
+
+    $related_field = $options['field'];
+    $related_value = $row[$related_field];
+    $related_rule = $fields[$related_field];
+    $related_value = $this->resolveLookup($related_rule['type'] ?? null, $related_value, $related_rule) ?? $related_value;
+    if ($related_value !== $options['value']) {
+      return ['success' => true, 'action' => 'continue'];
+    }
+    return [
+      'success' => $row[$field] === null,
+      'explanation' => html_entity_decode((string) $this->t('must be blank when @field = @value.', [
+        '@field' => $related_field,
+        '@value' => $options['value'],
+      ]), ENT_QUOTES | ENT_HTML5, 'UTF-8'),
+      'action' => 'skip',
+    ];
+  }
+
+  /**
    * Mirror of the SSoT SQL function normalize_industry_name().
    */
   public function industryKey($name, array $exceptions = []) {
@@ -138,7 +168,8 @@ trait SsotUploadValidation {
    *   Map of field key => rule. Each rule has a 'cell' (absolute cell address
    *   for record-shaped datasets, or column letter for table-shaped datasets)
    *   and optionally 'type', 'same_sign', 'equal', 'sum', 'crosscheck_value',
-   *   'crosscheck_change_abs', 'crosscheck_change_pct', 'blank_if', 'warn_only'.
+   *   'crosscheck_change_abs', 'crosscheck_change_pct', 'validators',
+   *   'warn_only'.
    * @param array $dataset
    *   Map of field key => value for the row being validated.
    * @param array|null $dataset_crosscheck
@@ -147,19 +178,49 @@ trait SsotUploadValidation {
    *   Sheet row number appended to column letters for table-shaped datasets.
    * @param string $sheet
    *   Sheet title, prefixed to cell addresses in messages when non-empty.
+   * @param bool $custom_only
+   *   Run custom validators without the core rules.
    *
    * @return array
    *   List of ['result' => 'error'|'warning'|'success', 'message' => ...].
    */
-  function validateRules(array $rules, array $dataset, ?array $dataset_crosscheck = null, ?int $row = null, string $sheet = '')
+  function validateRules(array $rules, array $dataset, ?array $dataset_crosscheck = null, ?int $row = null, string $sheet = '', bool $custom_only = false)
   {
+    $custom_validators = [];
     foreach ($rules as $key => $rule) {
       if (array_key_exists('blank_if', $rule)) {
-        $condition = $rule['blank_if'];
-        if (!is_array($condition) || !isset($condition['field']) || !is_string($condition['field']) ||
-            !array_key_exists('value', $condition) || !array_key_exists($condition['field'], $rules) ||
-            !array_key_exists($condition['field'], $dataset)) {
-          throw new \LogicException("Invalid blank_if condition for field $key: expected an existing row field and a value.");
+        throw new \LogicException("The blank_if rule for field $key has been replaced by the validateBlankIf validator.");
+      }
+      if (array_key_exists('validators', $rule)) {
+        if (!is_array($rule['validators'])) {
+          throw new \LogicException("Invalid validators for field $key: expected an array.");
+        }
+        foreach ($rule['validators'] as $name => $validator) {
+          $options = null;
+          if (is_array($validator) && !array_is_list($validator)) {
+            if (!array_key_exists('callback', $validator) ||
+                (array_key_exists('options', $validator) && !is_array($validator['options'])) ||
+                array_diff(array_keys($validator), ['callback', 'options'])) {
+              throw new \LogicException("Invalid validator definition for field $key.");
+            }
+            $options = $validator['options'] ?? [];
+            $validator = $validator['callback'];
+          }
+          $label = is_string($name) ? $name : (is_string($validator) ? $validator : (string) ($name + 1));
+          if ($label === '') {
+            throw new \LogicException("Invalid validator name for field $key.");
+          }
+          $callback = is_string($validator) && is_callable([$this, $validator])
+            ? [$this, $validator] : $validator;
+          if (!is_callable($callback)) {
+            throw new \LogicException("Invalid validator $label for field $key.");
+          }
+          $callback = \Closure::fromCallable($callback);
+          $signature = new \ReflectionFunction($callback);
+          $custom_validators[$key][] = [
+            'name' => $label, 'callback' => $callback, 'options' => $options,
+            'accepts_fields' => $signature->isVariadic() || $signature->getNumberOfParameters() >= 4,
+          ];
         }
       }
     }
@@ -178,35 +239,66 @@ trait SsotUploadValidation {
     };
     $results = [];
     foreach ($rules as $key => $validation) {
-      if (in_array($validation['type'] ?? null, ['synthetic', 'ignore'], true)) {
+      if (($validation['type'] ?? null) === 'ignore') {
         continue;
       }
       $value = $dataset[$key] ?? null;
       $cell = $cellOf($key);
       $warn_only = array_key_exists('warn_only', $validation) ? $validation['warn_only'] : [];
 
-      if (array_key_exists('blank_if', $validation)) {
-        $condition = $validation['blank_if'];
-        $related_rule = $rules[$condition['field']];
-        $related_value = $dataset[$condition['field']];
-        if (in_array($related_rule['type'] ?? null, ['industry', 'region'], true)) {
-          $related_value = $this->resolveLookup($related_rule['type'], $related_value, $related_rule) ?? $related_value;
+      foreach ($custom_validators[$key] ?? [] as $validator) {
+        $location = isset($validation['cell']) ? $cell :
+          (($sheet !== '' ? "$sheet!" : '') . ($row !== null ? "row $row" : ''));
+        $where = $location !== '' ? " at $location" : '';
+        $validator_row = $dataset;
+        $validator_fields = $rules;
+        try {
+          if ($validator['accepts_fields']) {
+            $check = ($validator['callback'])($key, $validator_row, $validator['options'] ?? [], $validator_fields);
+          }
+          elseif ($validator['options'] === null) {
+            $check = ($validator['callback'])($key, $validator_row);
+          }
+          else {
+            $check = ($validator['callback'])($key, $validator_row, $validator['options']);
+          }
         }
-        if ($related_value === $condition['value']) {
-          $result = is_null($value) ? 'success' : (in_array('blank_if', $warn_only, true) ? 'warning' : 'error');
-          $results[] = [
-            'result' => $result,
-            'message' => $this->t('@icon @cell (<strong>@key</strong>) @expectation because @field = @value.', [
-              '@icon' => $icons[$result],
-              '@cell' => $cell,
-              '@key' => $key,
-              '@expectation' => is_null($value) ? $this->t('is blank as expected') : $this->t('must be blank'),
-              '@field' => $condition['field'],
-              '@value' => $condition['value'],
-            ]),
+        catch (\Throwable $error) {
+          throw new \UnexpectedValueException("Validator {$validator['name']} failed for field $key$where: " . $error->getMessage(), 0, $error);
+        }
+        if (!is_array($check) || !isset($check['success']) || !is_bool($check['success']) ||
+            (array_key_exists('explanation', $check) && !is_string($check['explanation'])) ||
+            (array_key_exists('suggestion', $check) && !is_string($check['suggestion'])) ||
+            (array_key_exists('action', $check) && !in_array($check['action'], ['continue', 'skip'], true))) {
+          throw new \UnexpectedValueException("Invalid result from validator {$validator['name']} for field $key$where.");
+        }
+        $result = $check['success'] ? 'success' :
+          (in_array('validators', $warn_only, true) || in_array($validator['name'], $warn_only, true) ? 'warning' : 'error');
+        $explanation = $check['explanation'] ?? '';
+        if ($result !== 'success' || trim($explanation) !== '') {
+          $arguments = [
+            '@icon' => $icons[$result],
+            '@cell' => $location,
+            '@key' => $key,
+            '@value' => $value ?? 'N/A',
+            '@explanation' => trim($explanation) !== '' ? $explanation : $this->t('No explanation given.'),
           ];
-          continue;
+          if ($result === 'success') {
+            $message = $this->t('@icon @cell (<strong>@key = @value</strong>) conforms to: <em>@explanation</em>', $arguments);
+          }
+          else {
+            $arguments['@suggestion'] = $check['suggestion'] ?? $this->t('Please @action the value.', ['@action' => $actions[$result]]);
+            $message = $this->t('@icon @cell (<strong>@key = @value</strong>) does not conform to: <em>@explanation</em> @suggestion', $arguments);
+          }
+          $results[] = ['result' => $result, 'message' => $message];
         }
+        if (($check['action'] ?? 'continue') === 'skip') {
+          continue 2;
+        }
+      }
+
+      if ($custom_only || ($validation['type'] ?? null) === 'synthetic') {
+        continue;
       }
 
       // Perform validations based on type.

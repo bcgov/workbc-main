@@ -15,6 +15,16 @@ namespace Drupal\workbc_ssot\Form;
  */
 class SsotUploadLabourForceSurveyForm extends SsotUploadFormBase {
 
+  private const BC_BLANK_PERCENTAGE = [
+    'type' => 'pct',
+    'validators' => [
+      'blank_if' => [
+        'callback' => 'validateBlankIf',
+        'options' => ['field' => 'region', 'value' => 'british_columbia'],
+      ],
+    ],
+  ];
+
   protected string $id = 'labour_force_survey';
   protected string $title = 'Labour Force Survey';
   protected string $label = '{year} Labour Force Survey';
@@ -201,24 +211,24 @@ class SsotUploadLabourForceSurveyForm extends SsotUploadFormBase {
       'write' => 'replace',
       'fields' => [
         'region' => ['type' => 'region'],
-        'accommodation_food_services' => ['type' => 'pct', 'blank_if' => ['field' => 'region', 'value' => 'british_columbia']],
-        'agriculture_fishing' => ['type' => 'pct', 'blank_if' => ['field' => 'region', 'value' => 'british_columbia']],
-        'business_building_other_support_services' => ['type' => 'pct', 'blank_if' => ['field' => 'region', 'value' => 'british_columbia']],
-        'construction' => ['type' => 'pct', 'blank_if' => ['field' => 'region', 'value' => 'british_columbia']],
-        'educational_services' => ['type' => 'pct', 'blank_if' => ['field' => 'region', 'value' => 'british_columbia']],
-        'finance_insurance_real_estate' => ['type' => 'pct', 'blank_if' => ['field' => 'region', 'value' => 'british_columbia']],
-        'forestry_logging_support_activities' => ['type' => 'pct', 'blank_if' => ['field' => 'region', 'value' => 'british_columbia']],
-        'health_care_social_assistance' => ['type' => 'pct', 'blank_if' => ['field' => 'region', 'value' => 'british_columbia']],
-        'information_culture_recreation' => ['type' => 'pct', 'blank_if' => ['field' => 'region', 'value' => 'british_columbia']],
-        'manufacturing' => ['type' => 'pct', 'blank_if' => ['field' => 'region', 'value' => 'british_columbia']],
-        'mining_oil_gas_extraction' => ['type' => 'pct', 'blank_if' => ['field' => 'region', 'value' => 'british_columbia']],
-        'professional_scientific_technical_services' => ['type' => 'pct', 'blank_if' => ['field' => 'region', 'value' => 'british_columbia']],
-        'public_administration' => ['type' => 'pct', 'blank_if' => ['field' => 'region', 'value' => 'british_columbia']],
-        'other_private_services' => ['type' => 'pct', 'blank_if' => ['field' => 'region', 'value' => 'british_columbia']],
-        'retail_trade' => ['type' => 'pct', 'blank_if' => ['field' => 'region', 'value' => 'british_columbia']],
-        'transportation_warehousing' => ['type' => 'pct', 'blank_if' => ['field' => 'region', 'value' => 'british_columbia']],
-        'utilities' => ['type' => 'pct', 'blank_if' => ['field' => 'region', 'value' => 'british_columbia']],
-        'wholesale_trade' => ['type' => 'pct', 'blank_if' => ['field' => 'region', 'value' => 'british_columbia']],
+        'accommodation_food_services' => self::BC_BLANK_PERCENTAGE,
+        'agriculture_fishing' => self::BC_BLANK_PERCENTAGE,
+        'business_building_other_support_services' => self::BC_BLANK_PERCENTAGE,
+        'construction' => self::BC_BLANK_PERCENTAGE,
+        'educational_services' => self::BC_BLANK_PERCENTAGE,
+        'finance_insurance_real_estate' => self::BC_BLANK_PERCENTAGE,
+        'forestry_logging_support_activities' => self::BC_BLANK_PERCENTAGE,
+        'health_care_social_assistance' => self::BC_BLANK_PERCENTAGE,
+        'information_culture_recreation' => self::BC_BLANK_PERCENTAGE,
+        'manufacturing' => self::BC_BLANK_PERCENTAGE,
+        'mining_oil_gas_extraction' => self::BC_BLANK_PERCENTAGE,
+        'professional_scientific_technical_services' => self::BC_BLANK_PERCENTAGE,
+        'public_administration' => self::BC_BLANK_PERCENTAGE,
+        'other_private_services' => self::BC_BLANK_PERCENTAGE,
+        'retail_trade' => self::BC_BLANK_PERCENTAGE,
+        'transportation_warehousing' => self::BC_BLANK_PERCENTAGE,
+        'utilities' => self::BC_BLANK_PERCENTAGE,
+        'wholesale_trade' => self::BC_BLANK_PERCENTAGE,
         'goods' => ['type' => 'pct'],
         'services' => ['type' => 'pct'],
       ],

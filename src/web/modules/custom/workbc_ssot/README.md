@@ -182,7 +182,7 @@ Every form is a thin declaration on top of `SsotUploadFormBase`. Common fields:
 - `fill_down` replicates `csv_refill.php` for the vertically merged "B.C. average"
   columns on the Industry Profiles tab.
 - In `regional_industry_province`, `Regional Profiles!B35:S35` is expected to be
-  blank for British Columbia. These cells pass via `blank_if`; populated values
+  blank for British Columbia. These cells pass via the `validateBlankIf` custom validator; populated values
   are errors. Columns T-U (`goods`, `services`) retain ordinary percentage validation.
 - Write: `replace` for all four; `sources` rows are matched by endpoint.
 
@@ -220,6 +220,7 @@ class SsotUploadFooForm extends SsotUploadFormBase {
   'fields'     => [
     '<field>' => ['cell' => 'B3', 'type' => 'abs', ...rules],   // record: absolute cell
     '<field>' => ['type' => 'pct', ...rules],                   // table: column derived from range + position
+    '<field>' => ['type' => 'abs', 'validators' => ['checkField']], // form method or PHP callable
     '<field>' => ['value' => '{year}'],                         // literal/interpolated, consumes no column
     '<field>' => ['type' => 'synthetic', 'callback' => 'methodName'], // computed, consumes no column
     '<placeholder>' => ['type' => 'ignore'],                    // table only: skip one column
@@ -265,10 +266,10 @@ literal values are read and normalized (and table `fill_down` is applied), the
 engine passes the complete source row to each callback. Callbacks return a
 scalar or `NULL`; non-finite floats and non-scalar results fail explicitly.
 They do not receive other synthetic values, so their order does not affect the
-result. Synthetic fields consume no worksheet columns, have no cell validation
-messages, and are included in the prepared API payload.
+result. Synthetic fields consume no worksheet columns and are included in the
+prepared API payload. They can optionally declare custom validators.
 
-The rule accepts only `type` and `callback`. Missing or inaccessible methods,
+The rule accepts `type`, `callback`, `validators` and `warn_only`. Missing or inaccessible methods,
 additional rule keys, and callback failures stop the upload before confirmation
 or writing, even when validation errors are ignored. Callback failures identify
 the field and table row in the logs. Validate source inputs in callbacks when
@@ -329,25 +330,105 @@ available"). A blank or unknown lookup value is an **error** (it is the primary 
 |------|---------|
 | `'same_sign' => 'other'` | both values share the sign |
 | `'equal' => 'other'` | values are equal |
-| `'blank_if' => ['field' => 'region', 'value' => 'british_columbia']` | this cell must be blank when the referenced field equals the given value |
 | `'sum' => [['a','b'], ['c','d']]` | each group sums to this cell (±100) |
 | `'crosscheck_value' => 'other'` | equals the prior period's `other` |
 | `'crosscheck_change_abs' => 'other'` | equals `other_now − other_prev` |
 | `'crosscheck_change_pct' => 'other'` | equals `round((now−prev)·100/now, 1)` |
+| `'validators' => ['checkField']` | run custom validation callbacks against the complete row |
 | `'warn_only' => ['sum', …]` | downgrade the listed rules from error to warning |
 
 Every rule defaults to `error`. In `validateForm()` only errors block submission (unless
 *Ignore validation errors* is checked).
 
-`blank_if` compares strictly against the referenced field's value, resolving
-`industry`/`region` lookups to their canonical SSoT keys regardless of field order.
-When the condition matches, a normalized `NULL` produces a success instead of the
-usual blank warning; any nonblank value (including zero or invalid text) is an
-error. `warn_only => ['blank_if']` downgrades that violation to a warning.
-When the condition does not match, existing validation applies unchanged.
-The rule never changes the data. A malformed condition or missing referenced
-field raises a `LogicException`. Blankness uses the reader's existing normalization
-(including N/A markers); it is checked before numeric coercion.
+### Custom validators
+
+Declare form method names or PHP callables in a field's `validators` array.
+Methods can be protected, as with synthetic callbacks. Each callback receives
+the field key and the complete normalized row keyed by field name, including
+synthetic values. Callbacks accepting the row by reference are supported, but
+receive a copy: validators must not modify the upload data or each other's input.
+Callbacks declaring a fourth argument (or a variadic argument) also receive the
+complete field-rule map keyed by field name, including derived table columns.
+The third argument is the declared options array, or an empty array when none is
+declared. Field rules are passed as a copy. Existing two- and three-argument
+callbacks continue to receive their original arguments.
+They run during upload validation and again on confirmation, so they should be
+deterministic and free of side effects.
+
+```php
+'employment' => [
+  'type' => 'abs',
+  'validators' => ['checkEmployment'],
+  'warn_only' => ['checkEmployment'],
+],
+
+// On the form:
+protected function checkEmployment(string $field, array &$row): array {
+  return [
+    'success' => $row[$field] <= $row['total'],
+    'explanation' => 'Employment must not exceed the total.',
+    'suggestion' => 'Check the total and employment values.',
+  ];
+}
+```
+
+For additional parameters, use a descriptor with a `callback` and an `options`
+array. The callback receives the options array as its third argument:
+
+```php
+'validators' => [
+  'withinLimit' => [
+    'callback' => 'checkLimit',
+    'options' => ['field' => 'total'],
+  ],
+],
+'warn_only' => ['withinLimit'],
+
+// On the form:
+protected function checkLimit(string $field, array &$row, array $options): array {
+  return [
+    'success' => $row[$field] <= $row[$options['field']],
+    'explanation' => 'The value must not exceed the limit.',
+    'action' => 'continue',
+  ];
+}
+```
+
+`success` must be a boolean. `explanation` and `suggestion` are optional strings;
+a success without an explanation produces no message, while a failure without
+one reports "No explanation given." `suggestion` is shown only on failure.
+`action` can be `continue` (the default) or `skip`; `skip` stops all remaining
+custom and core validations for that field, regardless of success or warning
+severity. Other fields are still validated.
+
+Custom validators run in declaration order before core validation rules,
+including for blank cells and synthetic fields. Failures are errors by default.
+`warn_only => ['validators']` downgrades all custom failures; listing a method
+name or an associative validator key downgrades only that validator. The global
+*Ignore validation errors* option bypasses validation failures as usual.
+Invalid callbacks or options, malformed results, and callback exceptions stop
+the upload even with that option enabled.
+
+The reusable `validateBlankIf` validator requires a cell to be blank when a
+referenced row field equals a value:
+
+```php
+'validators' => [
+  'blank_if' => [
+    'callback' => 'validateBlankIf',
+    'options' => ['field' => 'region', 'value' => 'british_columbia'],
+  ],
+],
+// Optional: 'warn_only' => ['blank_if'],
+```
+
+Comparison is strict. The validator uses the referenced field's type and
+exceptions to resolve lookups; non-lookup types and unknown lookup values fall
+back to the raw normalized value.
+If the condition matches, a normalized `NULL` passes; any nonblank value
+(including zero) fails. Either result skips the field's remaining validations.
+If it does not match, validation continues without a message. The validator
+does not modify data. Invalid options or missing row fields or descriptors stop the upload.
 
 ## Background job (`SsotUploader` queue worker)
 
