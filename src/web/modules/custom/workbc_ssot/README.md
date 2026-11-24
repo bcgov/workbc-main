@@ -222,6 +222,7 @@ class SsotUploadFooForm extends SsotUploadFormBase {
     '<field>' => ['type' => 'pct', ...rules],                   // table: column derived from range + position
     '<field>' => ['value' => '{year}'],                         // literal/interpolated, consumes no column
     '<field>' => ['type' => 'synthetic', 'callback' => 'methodName'], // computed, consumes no column
+    '<placeholder>' => ['type' => 'ignore'],                    // table only: skip one column
   ],
 ],
 ```
@@ -242,6 +243,11 @@ Placeholders available everywhere a string is interpolated: `{year}`, `{month}`,
 
 Both shapes normalise "not available" markers (`-`, `..`, `x`, `n/a`, `not available`,
 empty) to `NULL`; formulas are evaluated (`getCalculatedValue()`).
+
+For tables, an `ignore` field consumes one column in the range but does not
+appear in the row, validation results, synthetic callback input, or API payload.
+Give each ignored column a distinct placeholder key. Its rule accepts only
+`type` and cannot be used in `fill_down`. Do not reference it from other fields.
 
 ### Synthetic fields
 

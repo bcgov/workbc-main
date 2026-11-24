@@ -140,6 +140,40 @@ class SsotUploadFormBaseTest extends SsotUploadTestBase {
     $this->form()->rules($entry);
   }
 
+  public function testIgnoredColumnsAreExcludedFromRowsValidationAndPayload(): void {
+    $entry = $this->tableEntry(['fill_down' => [], 'fields' => [
+      'unused_region' => ['type' => 'ignore'],
+      'year' => ['value' => '{year}'],
+      'num' => ['type' => 'abs'],
+      'unused_pct' => ['type' => 'ignore'],
+      'avg' => ['type' => 'pct'],
+      'synthetic' => ['type' => 'synthetic', 'callback' => 'syntheticTotal'],
+    ]]);
+    $form = $this->form(['data' => $entry]);
+    $rules = $form->rules($entry);
+    $this->assertSame(['A', 'B', 'C', 'D'], array_column($rules, 'cell'));
+    $result = $form->process($this->workbookFixture(), 2024)['data'];
+    $this->assertSame(['year' => '2024', 'num' => 100, 'avg' => 52.6, 'synthetic' => 152.6], $result['rows'][0]);
+    $this->assertSame($result['rows'][0], $result['payload'][0]);
+    $this->assertSame(['success' => 3, 'warning' => 3, 'error' => 0], static::tally($result['results']));
+  }
+
+  #[DataProvider('invalidIgnoredDefinitionProvider')]
+  public function testInvalidIgnoredDefinitionsFail(array $overrides): void {
+    $this->expectException(\LogicException::class);
+    $this->expectExceptionMessage('Invalid ignored field definition for unused');
+    $this->form()->rules($this->tableEntry($overrides));
+  }
+
+  public static function invalidIgnoredDefinitionProvider(): array {
+    return [
+      'record' => [['shape' => 'record', 'fields' => ['unused' => ['type' => 'ignore']]]],
+      'value' => [['fields' => ['unused' => ['type' => 'ignore', 'value' => '1']]]],
+      'validation' => [['fields' => ['unused' => ['type' => 'ignore', 'equal' => 'num']]]],
+      'fill down' => [['fill_down' => ['unused'], 'fields' => ['unused' => ['type' => 'ignore']]]],
+    ];
+  }
+
   /**
    */
   public function testReadTableNormalizesFillsDownAndEvaluatesFormulas(): void {
@@ -296,7 +330,7 @@ class SsotUploadFormBaseTest extends SsotUploadTestBase {
   public function testShippedFormDeclarationsAreConsistent(string $class): void {
     /** @var \Drupal\Tests\workbc_ssot\Unit\EngineAccess $form */
     $form = new $class();
-    $types = ['abs', 'num', 'pct', 'chg_abs', 'chg_pct', 'industry', 'region', 'synthetic'];
+    $types = ['abs', 'num', 'pct', 'chg_abs', 'chg_pct', 'industry', 'region', 'synthetic', 'ignore'];
     $rule_keys = ['cell', 'value', 'type', 'callback', 'exceptions', 'same_sign', 'equal', 'sum', 'crosscheck_value', 'crosscheck_change_abs', 'crosscheck_change_pct', 'blank_if', 'warn_only'];
 
     $this->assertNotEmpty($form->toc());

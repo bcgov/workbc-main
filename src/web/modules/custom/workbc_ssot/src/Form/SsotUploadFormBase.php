@@ -42,6 +42,7 @@ use PhpOffice\PhpSpreadsheet\Worksheet\Worksheet;
  *     '<field>' => ['cell' => 'B3', 'type' => 'abs', ...rules],   // 'cell' is derived for tables
  *     '<field>' => ['value' => '{year}'],                         // literal / interpolated value
  *     '<field>' => ['type' => 'synthetic', 'callback' => 'methodName'], // computed from the completed row
+ *     '<placeholder>' => ['type' => 'ignore'],                    // table only: skip one column
  *   ],
  * ]
  * @endcode
@@ -651,6 +652,12 @@ abstract class SsotUploadFormBase extends ConfirmFormBase {
           array_diff(array_keys($rule), ['type', 'callback']))) {
         throw new \LogicException("Invalid synthetic field definition for $key.");
       }
+      if (($rule['type'] ?? null) === 'ignore' &&
+        (($entry['shape'] ?? 'record') !== 'table' ||
+          array_diff(array_keys($rule), ['type']) ||
+          in_array($key, $entry['fill_down'] ?? [], true))) {
+        throw new \LogicException("Invalid ignored field definition for $key.");
+      }
     }
     if (($entry['shape'] ?? 'record') === 'table') {
       [[$col_start, $row_start], [$col_end, $row_end]] = Coordinate::rangeBoundaries($entry['range']);
@@ -692,7 +699,7 @@ abstract class SsotUploadFormBase extends ConfirmFormBase {
       foreach ($values as $cells) {
         $row = [];
         foreach ($rules as $key => $rule) {
-          if (($rule['type'] ?? null) === 'synthetic') {
+          if (in_array($rule['type'] ?? null, ['synthetic', 'ignore'], true)) {
             continue;
           }
           $row[$key] = array_key_exists('value', $rule)
@@ -774,6 +781,9 @@ abstract class SsotUploadFormBase extends ConfirmFormBase {
     foreach ($rows as $row) {
       $out = [];
       foreach ($rules as $key => $rule) {
+        if (($rule['type'] ?? null) === 'ignore') {
+          continue;
+        }
         $value = $row[$key] ?? null;
         $type = $rule['type'] ?? null;
         if (in_array($type, ['industry', 'region'])) {

@@ -178,7 +178,7 @@ trait SsotUploadValidation {
     };
     $results = [];
     foreach ($rules as $key => $validation) {
-      if (($validation['type'] ?? null) === 'synthetic') {
+      if (in_array($validation['type'] ?? null, ['synthetic', 'ignore'], true)) {
         continue;
       }
       $value = $dataset[$key] ?? null;
