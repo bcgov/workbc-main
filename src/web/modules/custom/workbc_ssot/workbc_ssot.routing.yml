@@ -37,3 +37,11 @@ workbc_ssot.labour_force_survey:
     _form: '\Drupal\workbc_ssot\Form\SsotUploadLabourForceSurveyForm'
   requirements:
     _custom_access: '\Drupal\workbc_ssot\Form\SsotUploadLabourForceSurveyForm::access'
+
+workbc_ssot.high_opportunity_occupations:
+  path: '/admin/config/workbc/ssot/high-opportunity-occupations'
+  defaults:
+    _title: 'SSoT: High Opportunity Occupations Update'
+    _form: '\Drupal\workbc_ssot\Form\SsotUploadHighOpportunityOccupationsForm'
+  requirements:
+    _custom_access: '\Drupal\workbc_ssot\Form\SsotUploadHighOpportunityOccupationsForm::access'

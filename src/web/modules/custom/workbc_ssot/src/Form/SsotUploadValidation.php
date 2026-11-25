@@ -98,6 +98,15 @@ trait SsotUploadValidation {
     ];
   }
 
+
+    /**
+   * Require a field to be blank when field has a valid "not available" value.
+   */
+  protected function validateBlankIfNull(string $field, array &$row, array $options, array $fields): array {
+
+    return ['success' => true, 'action' => $row[$field] === null ? 'skip' : 'continue'];
+  }
+
   /**
    * Mirror of the SSoT SQL function normalize_industry_name().
    */
@@ -152,6 +161,32 @@ trait SsotUploadValidation {
 
   private ?array $industry_keys = null;
   private ?array $region_keys = null;
+  private ?array $skill_names = null;
+  private ?array $interest_names = null;
+  private ?array $teer_values = null;
+
+  /**
+   * TEER categories. Overridable for tests.
+   */
+  protected function loadTeers(): array {
+    return array_keys(ssotTEERValues());
+  }
+
+  /**
+  * Occupational interest names. Overridable for tests.
+  */
+  protected function loadInterests(): array {
+    $terms = \Drupal::entityTypeManager()->getStorage('taxonomy_term')->loadTree('occupational_interests');
+    return array_map(fn($term) => $term->name, $terms);
+  }
+
+  /**
+  * Skill names. Overridable for tests.
+  */
+  protected function loadSkills(): array {
+    $terms = \Drupal::entityTypeManager()->getStorage('taxonomy_term')->loadTree('skills');
+    return array_map(fn($term) => $term->name, $terms);
+  }
 
   /**
    * Same normalization as the SQL side: drop "with", "and", commas, whitespace
@@ -159,6 +194,41 @@ trait SsotUploadValidation {
    */
   public function normalizeName($name) {
     return strtolower(preg_replace('/with|and|,|\s+|[\/\-&\.()]/i', '', (string) $name));
+  }
+
+
+  /**
+   * Check a value (skill, occupational interest or TEER) against its known values.
+   *
+   * Returns TRUE when the value is known, FALSE when it is not, or NULL for an
+   * unsupported type. Subclasses may override to provide extra string types.
+   */
+  public function validateString($type, $value, array $rule) {
+    switch ($type) {
+      case 'skill':
+        return $this->validSkill($value);
+      case 'interest':
+        return $this->validInterests($value);
+      case 'teer':
+        return $this->validTeer($value);
+    }
+    return null;
+  }
+
+  protected function validTeer($value): bool {
+    $this->teer_values ??= array_map('strval', $this->loadTeers());
+    return in_array(trim((string) $value), $this->teer_values, true);
+  }
+
+  protected function validSkill($value): bool {
+    $this->skill_names ??= array_map('strtolower', $this->loadSkills());
+    return in_array(strtolower(trim((string) $value)), $this->skill_names, true);
+  }
+
+  protected function validInterests($value): bool {
+    $this->interest_names ??= array_map('strtolower', $this->loadInterests());
+    $interests = array_filter(array_map('trim', explode(',', (string) $value)), 'strlen');
+    return $interests && !array_diff(array_map('strtolower', $interests), $this->interest_names);
   }
 
   /**
@@ -343,6 +413,41 @@ trait SsotUploadValidation {
           continue;
         }
 
+        $is_lookup = in_array($type, ['skill', 'interest', 'teer']);
+        if ($is_lookup) {
+          if (is_null($value) || trim((string) $value) === '') {
+            array_push($results, ['result' => 'error', 'message' => $this->t('@icon @cell (<strong>@key</strong>) is blank: <em>@explanation</em> @suggestion', [
+              '@icon' => $icons['error'],
+              '@cell' => $cell,
+              '@key' => $key,
+              '@explanation' => $this->t($this->descriptions[$type]),
+              '@suggestion' => $this->t('Please correct the value.'),
+            ])]);
+            continue;
+          }
+          $exists = $this->validateString($type, $value, $validation);
+          if ($exists) {
+            array_push($results, ['result' => 'success', 'message' => $this->t('@icon @cell (<strong>@key = @value</strong>) conforms to: <em>@explanation</em>', [
+              '@icon' => $icons['success'],
+              '@cell' => $cell,
+              '@key' => $key,
+              '@value' => $value,
+              '@explanation' => $this->t($this->descriptions[$type]),
+            ])]);
+          }
+          else {
+            array_push($results, ['result' => $result, 'message' => $this->t('@icon @cell (<strong>@key = @value</strong>) does not conform to: <em>@explanation</em> @suggestion', [
+              '@icon' => $icons[$result],
+              '@cell' => $cell,
+              '@key' => $key,
+              '@value' => $value,
+              '@explanation' => $this->t($this->descriptions[$type]),
+              '@suggestion' => $this->t('Please @action the value.', ['@action' => $actions[$result]]),
+            ])]);
+          }
+          continue;
+        }
+
         if (!is_numeric($value)) {
           $value = null;
         }
@@ -353,7 +458,7 @@ trait SsotUploadValidation {
               $success = !($value < 0 || !$this->is_number_integer($value));
               break;
             case 'num':
-              $success = !($value < 0 || $this->number_precision($value) > 2);
+              $success = !($value < 0);
               break;
             case 'pct':
               $success = !($value < 0 || $this->number_precision($value) > 1 || $value > 100);

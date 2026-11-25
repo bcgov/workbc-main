@@ -38,3 +38,10 @@ workbc_ssot.labour_force_survey:
   route_name: workbc_ssot.labour_force_survey
   description: 'Upload a new data sheet to the SSoT Labour Force Survey.'
   weight: 20
+
+workbc_ssot.high_opportunity_occupations:
+  title: 'High Opportunity Occupations Yearly Update'
+  parent: workbc_ssot.uploads
+  route_name: workbc_ssot.high_opportunity_occupations
+  description: 'Upload a new data sheet to the SSoT High Opportunity Occupations.'
+  weight: 30

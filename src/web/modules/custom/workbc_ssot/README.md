@@ -314,12 +314,15 @@ cell produces a **success** entry so the confirmation screen can list what was c
 | Type | Passes when |
 |------|-------------|
 | `abs` | numeric, ≥ 0, integer |
-| `num` | numeric, ≥ 0, ≤ 2 decimal places (e.g. hourly earnings) |
+| `num` | numeric, ≥ 0 (e.g. hourly earnings) |
 | `pct` | numeric, 0 ≤ v ≤ 100, ≤ 1 decimal place |
 | `chg_abs` | numeric, integer (sign allowed) |
 | `chg_pct` | numeric, \|v\| ≤ 50, ≤ 1 decimal place |
 | `industry` | resolves to an SSoT industry key; `'exceptions' => [...]` keeps listed names verbatim |
 | `region` | resolves to an SSoT region key (`ssotRegions()` names + migrator aliases) |
+| `skill` | a term name in the `skills` vocabulary, ignoring case |
+| `interest` | comma-separated term names in the `occupational_interests` vocabulary, ignoring case |
+| `teer` | a TEER category listed by `ssotTEERValues()` (0–5) |
 
 A blank/non-numeric value for a numeric type is a **warning** ("will be shown as Not
 available"). A blank or unknown lookup value is an **error** (it is the primary key).
@@ -550,16 +553,16 @@ The view
 | Test class | What it covers |
 |---|---|
 | `SsotUploadAccessTest` | upload permission isolation, administrator access, landing page and route declarations |
-| `SsotUploadValidationTest` | every `type` rule (pass/fail/blank), `warn_only`, `same_sign`, `equal`, `sum` tolerance, the three `crosscheck_*` rules, cell/row/sheet addressing in messages, industry/region name normalisation and lookup rules |
+| `SsotUploadValidationTest` | every `type` rule (pass/fail/blank), `warn_only`, `same_sign`, `equal`, `sum` tolerance, the three `crosscheck_*` rules, cell/row/sheet addressing in messages, industry/region name normalisation and lookup rules, skill/interest/TEER string rules |
 | `SsotUploadFormBaseTest` | `buildContext` (month wrap, periods), `interpolate`, case-insensitive tab lookup, column derivation for tables (incl. `value` fields), range/field width mismatch, `fill_down`, N/A normalisation, formula evaluation, `prepareRows` casting and key resolution, and a declaration-consistency check of every shipped form's TOC |
 | `SsotDatasetFilterTest` | option building from `sources` rows + logged names, `in`/`not in` WHERE conditions (via a mocked Views query), LIKE escaping |
 | `SsotUploadWorkbookTest` | end-to-end regression against real workbooks in `tests/fixtures/`: LFS (4 datasets), Industry Profile and LMMU payloads are compared cell-by-cell with the CSVs the `workbc-ssot` migrator produced from the same files; also fault injection (unknown region/industry, bad numbers) |
 | `SsotUploaderTest` | Contents API upload/create, generic dispatch with dataset metadata and workbook identity, and failure propagation without network calls |
 
 Fixtures are the real published workbooks and the migrator's `load/*.csv` output copied
-from `workbc-ssot/migration`. Lookups are fed from `tests/fixtures/industries.csv` and a
-static region list via the `EngineAccess` test trait, which also exposes the protected
-engine methods on `Test*Form` doubles.
+from `workbc-ssot/migration`. Lookups are fed from `tests/fixtures/industries.csv` and
+static region, skill, interest and TEER lists via the `EngineAccess` test trait, which also
+exposes the protected engine methods on `Test*Form` doubles.
 
 The module ships its own [`phpunit.xml.dist`](./phpunit.xml.dist) (bootstrapped from
 Drupal core, no DB/site required) and a Composer script. PHPUnit 11 needs PHP ≥ 8.3, so

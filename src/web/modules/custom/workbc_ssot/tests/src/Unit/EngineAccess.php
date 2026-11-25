@@ -19,6 +19,18 @@ trait EngineAccess {
     return SsotUploadTestBase::regions();
   }
 
+  protected function loadSkills(): array {
+    return SsotUploadTestBase::skills();
+  }
+
+  protected function loadInterests(): array {
+    return SsotUploadTestBase::interests();
+  }
+
+  protected function loadTeers(): array {
+    return SsotUploadTestBase::teers();
+  }
+
   public function toc(): array {
     return $this->toc;
   }

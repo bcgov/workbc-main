@@ -65,6 +65,27 @@ abstract class SsotUploadTestBase extends UnitTestCase {
   }
 
   /**
+   * Skill names, a subset of the skills vocabulary.
+   */
+  public static function skills(): array {
+    return ['Active Learning', 'Critical Thinking', 'Judgment and Decision Making', 'Operation and Control', 'Operations Monitoring'];
+  }
+
+  /**
+   * Occupational interest names, mirroring the occupational_interests vocabulary.
+   */
+  public static function interests(): array {
+    return ['Artistic', 'Conventional', 'Enterprising', 'Investigative', 'Realistic', 'Social'];
+  }
+
+  /**
+   * TEER categories, mirroring ssotTEERValues().
+   */
+  public static function teers(): array {
+    return [0, 1, 2, 3, 4, 5];
+  }
+
+  /**
    * Read a migrator CSV, optionally skipping a header row.
    */
   protected static function csv(string $name, bool $header = false): array {

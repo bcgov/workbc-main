@@ -183,9 +183,9 @@ class SsotUploadValidationTest extends SsotUploadTestBase {
       ['abs', 1.5, 'error'],
       ['abs', null, 'warning'],
       ['abs', 'n/a', 'warning'],
-      // num: positive, up to 2 decimals.
+      // num: positive, any number of decimals.
       ['num', 17.81, 'success'],
-      ['num', 17.815, 'error'],
+      ['num', 17.815, 'success'],
       ['num', -0.5, 'error'],
       // pct: 0..100, one decimal.
       ['pct', 52.6, 'success'],
@@ -202,6 +202,26 @@ class SsotUploadValidationTest extends SsotUploadTestBase {
       ['chg_abs', -10708, 'success'],
       ['chg_abs', 3.5, 'error'],
       ['chg_abs', '', 'warning'],
+      // skill: one known skill name, ignoring case and surrounding whitespace.
+      ['skill', 'Critical Thinking', 'success'],
+      ['skill', ' critical thinking ', 'success'],
+      ['skill', 'Judgment and Decision Making', 'success'],
+      ['skill', 'Operation Monitoring', 'error'],
+      ['skill', 'Critical Thinking, Active Learning', 'error'],
+      // interest: comma-separated known interests, ignoring case and whitespace.
+      ['interest', 'Social', 'success'],
+      ['interest', 'Realistic, Conventional, Investigative', 'success'],
+      ['interest', 'realistic,SOCIAL', 'success'],
+      ['interest', 'Realistic, Bogus', 'error'],
+      ['interest', 'Realistic; Social', 'error'],
+      ['interest', ',', 'error'],
+      // teer: a known TEER category, as a number or numeric text.
+      ['teer', 0, 'success'],
+      ['teer', '5', 'success'],
+      ['teer', 2.0, 'success'],
+      ['teer', 6, 'error'],
+      ['teer', 2.5, 'error'],
+      ['teer', 'TEER 2', 'error'],
     ];
   }
 
@@ -534,6 +554,24 @@ class SsotUploadValidationTest extends SsotUploadTestBase {
 
     $exc = $this->form->validateRules(['industry' => ['cell' => 'A', 'type' => 'industry', 'exceptions' => ['Total, All Industries']]], ['industry' => 'Total, All Industries'], null, 5);
     $this->assertSame('success', $exc[0]['result']);
+  }
+
+  /**
+   */
+  public function testStringRules(): void {
+    $rules = ['skill_1' => ['cell' => 'I', 'type' => 'skill']];
+    $bad = $this->form->validateRules($rules, ['skill_1' => 'Operation Monitoring'], null, 7);
+    $this->assertSame('error', $bad[0]['result']);
+    $this->assertStringContainsString('I7 (skill_1 = Operation Monitoring)', static::text($bad[0]));
+    $this->assertStringContainsString('A known SSoT skill name.', static::text($bad[0]));
+
+    // An unknown value can be downgraded with warn_only.
+    $this->assertSame(['warning'], $this->kinds(['type' => 'interest', 'warn_only' => ['interest']], 'Realistic, Bogus'));
+
+    // Only string types are dispatched.
+    $this->assertTrue($this->form->validateString('skill', 'Active Learning', []));
+    $this->assertFalse($this->form->validateString('interest', 'Active Learning', []));
+    $this->assertNull($this->form->validateString('abs', 'Active Learning', []));
   }
 
 }

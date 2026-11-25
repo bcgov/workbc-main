@@ -99,7 +99,7 @@ abstract class SsotUploadFormBase extends ConfirmFormBase {
 
   public $descriptions = [
     'abs' => 'Absolute value, positive, no decimals.',
-    'num' => 'Numeric value, positive, up to two decimal places.',
+    'num' => 'Numeric value, positive.',
     'pct' => 'Percentage value (0-100), positive, single decimal place.',
     'chg_abs' => 'Change absolute value (+/-), no decimals.',
     'chg_pct' => 'Change percentage (+/-) (0-50), single decimal place.',
@@ -112,6 +112,9 @@ abstract class SsotUploadFormBase extends ConfirmFormBase {
     'crosscheck_value' => 'The value matches the given cell\'s prior month value.',
     'crosscheck_change_abs' => 'The value matches the absolute difference between the given cell\'s current and prior month value.',
     'crosscheck_change_pct' => 'The value matches the percentage difference between the given cell\'s current and prior month value.',
+    'skill' => 'A known SSoT skill name.',
+    'interest' => 'A comma-separated list of known occupational interests.',
+    'teer' => 'A known TEER category (0-5).',
   ];
 
   // Runtime state restored from form state on the confirmation step.

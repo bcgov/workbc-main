@@ -10,3 +10,6 @@ upload ssot data sheet industry_outlook:
 
 upload ssot data sheet labour_force_survey:
   title: 'Upload data sheet Labour Force Survey'
+
+upload ssot data sheet high_opportunity_occupations:
+  title: 'Upload data sheet High Opportunity Occupations'
