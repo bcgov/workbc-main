@@ -290,6 +290,9 @@
             },
             "drupal/popperjs": {
                 "Drupal 11 compatibility": "patches/drupal/popperjs/popperjs.1.0.x-dev.rector.patch"
+            },
+            "drupal/keycloak": {
+                "add void return type": "patches/drupal/keycloak/add-void-return-type-55.patch"
             }
         },
         "drupal-lenient": {

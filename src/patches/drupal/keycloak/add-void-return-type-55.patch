@@ -1,0 +1,13 @@
+diff --git a/src/Plugin/OpenIDConnectClient/Keycloak.php b/src/Plugin/OpenIDConnectClient/Keycloak.php
+index a74758c7f6fdf111b1e8a68553a079e6592a5d4c..eed06e1aefb6998d9cfec2a948cad27d467dc3bf 100644
+--- a/src/Plugin/OpenIDConnectClient/Keycloak.php
++++ b/src/Plugin/OpenIDConnectClient/Keycloak.php
+@@ -381,7 +381,7 @@ class Keycloak extends OpenIDConnectClientBase {
+   /**
+    * {@inheritdoc}
+    */
+-  public function submitConfigurationForm(array &$form, FormStateInterface $form_state) {
++  public function submitConfigurationForm(array &$form, FormStateInterface $form_state): void {
+     parent::submitConfigurationForm($form, $form_state);
+ 
+     // Remove trailing slashes and spaces.
