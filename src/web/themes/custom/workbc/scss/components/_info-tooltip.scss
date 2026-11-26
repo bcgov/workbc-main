@@ -57,6 +57,49 @@
   }
 }
 
+// Non-modal dialog using Bootstrap styles: let clicks pass through to the page.
+.workbc-info-dialog {
+  pointer-events: none;
+
+  .modal-dialog {
+    position: fixed;
+    max-width: calc(100vw - 1rem);
+    margin: 0;
+  }
+
+  .modal-content {
+    border: 0;
+    background: transparent;
+  }
+
+  .popover-body {
+    max-height: calc(100dvh - 2rem);
+    overflow-y: auto;
+  }
+
+  [data-popper-placement^="top"] > .popover-arrow::before {
+    border-top-color: $workbc_palette_dark_primary;
+  }
+
+  [data-popper-placement^="bottom"] > .popover-arrow::before {
+    border-bottom-color: $workbc_palette_dark_primary;
+  }
+
+  [data-popper-placement^="left"] > .popover-arrow::before {
+    border-left-color: $workbc_palette_dark_primary;
+  }
+
+  [data-popper-placement^="right"] > .popover-arrow::before {
+    border-right-color: $workbc_palette_dark_primary;
+  }
+}
+
+.skill-required-search .info-dialog-toggle {
+  vertical-align: baseline;
+  margin-left: 5px;
+  display: inline-block;
+}
+
 .profile-information-education--tooltip-content {
   font-size: 1rem;
 }

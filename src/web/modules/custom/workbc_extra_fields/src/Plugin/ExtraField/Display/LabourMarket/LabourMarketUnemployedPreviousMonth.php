@@ -51,19 +51,19 @@ class LabourMarketUnemployedPreviousMonth extends ExtraFieldDisplayFormattedBase
     }
 
     $data = $entity->ssot_data['monthly_labour_market_updates'][0];
-    $options = array(
+    $options1 = array(
       'decimals' => 0,
       'na_if_empty' => TRUE,
     );
-    $options = array(
+    $options2 = array(
       'decimals' => 1,
       'suffix' => "%",
       'na_if_empty' => TRUE,
     );
-    $total_unemployed = ssotFormatNumber($data['total_unemployed_previous'], $options);
+    $total_unemployed = ssotFormatNumber($data['total_unemployed_previous'], $options1);
     $current_previous_months = $entity->ssot_data['current_previous_months_names'];
-    $unemployed_rate_value = ssotFormatNumber($data['employment_rate_pct_unemployment_previous'], $options);
-    $unemployed_part_value = ssotFormatNumber($data['employment_rate_pct_participation_previous'], $options);
+    $unemployed_rate_value = ssotFormatNumber($data['employment_rate_pct_unemployment_previous'], $options2);
+    $unemployed_part_value = ssotFormatNumber($data['employment_rate_pct_participation_previous'], $options2);
     $source_text = !empty($entity->ssot_data['sources']['no-datapoint'])?$entity->ssot_data['sources']['no-datapoint']:WORKBC_EXTRA_FIELDS_NOT_AVAILABLE;
 
     $output = <<<EOS

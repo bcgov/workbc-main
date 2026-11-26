@@ -1,5 +1,7 @@
 {{ attach_library('better_social_sharing_buttons/styling') }}
 
+{% set items = items|merge({'page_url': url('<current>')}) %}
+
 <div class="social-sharing-buttons">
   {% for service in items.services %}
     {% if service.enabled %}

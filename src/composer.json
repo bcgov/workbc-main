@@ -107,7 +107,7 @@
         "drupal/fullcalendar_view": "^5.1",
         "drupal/fvm": "^2.0",
         "drupal/geolocation": "^3.14",
-        "drupal/gtranslate": "3.0.5",
+        "drupal/gtranslate": "^3.0",
         "drupal/health_check": "^3.1",
         "drupal/image_widget_crop": "^3.0",
         "drupal/jquery_ui_accordion": "^2.1",
@@ -171,7 +171,6 @@
         "mobiledetect/mobiledetectlib": "^4.8",
         "noli42/chosen": "3.0.1",
         "phpoffice/phpspreadsheet": "^3.2",
-        "twig/twig": "~3.28.0",
         "ulrichsg/getopt-php": "^4.0",
         "vlucas/phpdotenv": "^5.1",
         "webflo/drupal-finder": "^1.2"
@@ -249,7 +248,9 @@
                 "Views exposed form AJAX callback": "patches/drupal/core/core-10.3-2842525.patch",
                 "getGlobalPreprocess() Return value must be of type array": "patches/drupal/core/drupal-prevent-function-null-return-3564510-2.patch",
                 "Views reverse relationships automatically for entity base fields": "patches/drupal/core/drupal-views-reverse-reference-2706431-91.patch",
-                "Media refresh metadata": "patches/drupal/core/drupal-refresh-media-metadata-2983456-168-11.x.patch"
+                "Media refresh metadata": "patches/drupal/core/drupal-refresh-media-metadata-2983456-168-11.x.patch",
+                "Fix <detail> aria-expanded": "patches/drupal/core/details-aria-open.patch",
+                "Media library pagination failure": "patches/drupal/core/drupal-medialibrary-pagination-fails-3592366.patch"
             },
             "drupal/backup_migrate": {
                 "PostgreSQL support": "patches/drupal/backup_migrate/0003-postgresql-support.patch",
@@ -289,6 +290,9 @@
             },
             "drupal/popperjs": {
                 "Drupal 11 compatibility": "patches/drupal/popperjs/popperjs.1.0.x-dev.rector.patch"
+            },
+            "drupal/keycloak": {
+                "add void return type": "patches/drupal/keycloak/add-void-return-type-55.patch"
             }
         },
         "drupal-lenient": {

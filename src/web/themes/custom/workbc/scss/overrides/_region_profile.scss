@@ -135,3 +135,174 @@
   }
 
 }
+
+#bc-employment-by-industry-table {
+  @include media-breakpoint-up(sm) {
+    tr {
+      &:nth-child(2n of :not(.horizontal-line)) td {
+        background-color: $workbc_palette_light_secondary;
+      }
+    }
+  }
+}
+
+@include media-breakpoint-down(sm) {
+  #industry_highlights-content {
+
+    .card-profile__content-item {
+      display: block;
+      width: 100%;
+    }
+
+    padding: 0 0 0 0;
+
+    table {
+      margin: 0 0 0;
+      width: 100%;
+      overflow-x: hidden;
+
+      thead {
+        display: none;
+      }
+
+      td {
+        padding: 0.7em 1.5em 0.7em 1.5em;
+        border: none;
+        background: $workbc_palette_light_primary;
+      }
+
+      td.industry {
+        display: block;
+        color: $workbc_palette_dark_secondary;
+        font-weight: bold;
+        border: none;
+      }
+
+      td.data-row {
+        display: block;
+        text-align: right;
+        padding-top: 0;
+        padding-bottom: 0;
+        border: none;
+      }
+
+      td.data-row::before {
+        content: attr(data-label);
+        float: left;
+        font-weight: bold;
+      }
+
+      td.percent-employment, td.prior-year {
+        padding-bottom: 0.7em;
+      }
+
+      tr {
+        display: block;
+        padding-top: 0;
+        padding-bottom: 0.7em;
+        background: $workbc_palette_light_primary;
+        margin: 0 0 0 0;
+      }
+
+      tr.odd {
+        background: inherit;
+      }
+
+      tr.horizontal-line {
+        border-top: $workbc_trim_ultra_thin_size solid $workbc_palette_light_secondary;
+        margin: 0 1.5em 0 1.5em;
+        padding: 0 0 0 0;
+      }
+
+      tr.interactive-map-row-hilite {
+        background: $workbc_palette_dark_tertiary;
+
+        td {
+          color: $workbc_palette_light_primary;
+          background: $workbc_palette_dark_tertiary;
+        }
+      }
+    }
+  }
+}
+
+
+@include media-breakpoint-up(sm) {
+  .bc-profile-mobile {
+    display: none;
+  }
+}
+
+@include media-breakpoint-down(sm) {
+  .bc-profile-desktop {
+    display: none;
+  }
+
+  #bc-profile-share-goods-services table {
+    thead {
+      display: none;
+    }
+
+    tbody td {
+      padding: 0 0 0 0;
+    }
+
+    tbody tr {
+      padding: 0 0 0 0;
+      display: block;
+      padding-bottom: .7em;
+      &:not(:last-child) {
+        border-bottom: 2px solid lightgray;
+      }
+    }
+
+    td {
+      background-color: inherit;
+      clear: both;
+    }
+
+    tr:first-child td.bc-profile-share-gs-title {
+      background-color: $workbc_dark_theme_background;
+      color: $workbc_dark_theme_text;
+      display: block;
+      font-weight: bold;
+      border: none;
+      padding-left: 1.5em !important;
+      padding-top: 1.0em;
+      padding-bottom: 1.0em;
+    }
+    tr:not(:first-child) td.bc-profile-share-gs-title {
+      display: none;
+    }
+
+    td.bc-profile-share-gs-region {
+      display: block;
+      font-weight: bold;
+      color: $workbc_default_link;
+      border: none;
+      padding-left: 1.5em !important;
+      padding-top: 1.0em;
+      padding-bottom: 1.0em;
+    }
+
+    td.bc-profile-share-gs-goods,
+    td.bc-profile-share-gs-services {
+      display: block;
+      text-align: right;
+      border: none;
+      padding-bottom: 1.0em;
+      padding-left: 1.5em;
+      padding-right: 1.5em;
+    }
+
+    td.bc-profile-share-gs-goods::before,
+    td.bc-profile-share-gs-services::before {
+      content: attr(data-label);
+      float: left;
+      font-weight: bold;
+      text-align: left;
+      padding-bottom: 0.75em;
+      width: 65%;
+    }
+  }
+}
