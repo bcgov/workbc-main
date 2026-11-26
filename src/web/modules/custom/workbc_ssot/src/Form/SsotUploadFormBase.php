@@ -241,6 +241,7 @@ abstract class SsotUploadFormBase extends ConfirmFormBase {
       '#description' => $this->t('Please upload your @title spreadsheet (Excel .xlsx format).', ['@title' => $this->title]),
       '#upload_validators' => ['FileExtension' => ['extensions' => 'xlsx']],
       '#upload_location' => 'private://ssot/',
+      '#progress_indicator' => 'throbber',
     ];
 
     $form['timestamp'] = [
