@@ -5,7 +5,7 @@ namespace Drupal\workbc_ssot\Form;
 /**
  * Upload form for the yearly High Opportunity Occupations (HOO) data sheet.
  *
- * The workbook has two tabs that feed four SSoT datasets:
+ * The workbook has one tabs that feeds one SSoT dataset:
  * - "Sheet1" -> high_opportunity_occupations
  *
  * @package Drupal\workbc_ssot\Form

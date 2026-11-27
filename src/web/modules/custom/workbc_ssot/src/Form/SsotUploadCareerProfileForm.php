@@ -3,25 +3,15 @@
 namespace Drupal\workbc_ssot\Form;
 
 /**
- * Upload form for the yearly Labour Force Survey (LFS) data sheet.
+ * Upload form for the yearly Career Profile data sheet.
  *
- * The workbook has two tabs that feed four SSoT datasets:
+ * The workbook has two tabs that feed two SSoT datasets:
  * - "Provincial Outlook" -> career_provincial
  * - "Regional Outlook" -> career_regional
  *
  * @package Drupal\workbc_ssot\Form
  */
 class SsotUploadCareerProfileForm extends SsotUploadFormBase {
-
-  private const BC_BLANK_PERCENTAGE = [
-    'type' => 'pct',
-    'validators' => [
-      'blank_if' => [
-        'callback' => 'validateBlankIf',
-        'options' => ['field' => 'region', 'value' => 'british_columbia'],
-      ],
-    ],
-  ];
 
   protected string $id = 'career_profile';
   protected string $title = 'Career Profile';

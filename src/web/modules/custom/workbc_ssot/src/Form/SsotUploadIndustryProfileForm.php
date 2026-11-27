@@ -5,6 +5,9 @@ namespace Drupal\workbc_ssot\Form;
 /**
  * Upload form for the Industry Profile Yearly Update spreadsheet.
  *
+ * The workbook has one tab that feeds one SSoT datasets:
+ * - "Sheet1" -> industry_outlook
+ *
  * @package Drupal\workbc_ssot\Form
  */
 class SsotUploadIndustryProfileForm extends SsotUploadFormBase {
