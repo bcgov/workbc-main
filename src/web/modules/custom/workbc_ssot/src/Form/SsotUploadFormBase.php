@@ -115,6 +115,7 @@ abstract class SsotUploadFormBase extends ConfirmFormBase {
     'skill' => 'A known SSoT skill name.',
     'interest' => 'A comma-separated list of known occupational interests.',
     'teer' => 'A known TEER category (0-5).',
+    'noc' => 'A NOC code (a leading # is removed).',
   ];
 
   // Runtime state restored from form state on the confirmation step.
@@ -857,8 +858,8 @@ abstract class SsotUploadFormBase extends ConfirmFormBase {
   }
 
   /**
-   * Convert the read rows into API payload rows: resolve lookups to keys and
-   * cast numeric strings to numbers.
+   * Convert the read rows into API payload rows: resolve lookups to keys, strip
+   * the # prefix from NOC codes and cast numeric strings to numbers.
    */
   protected function prepareRows(array $entry, array $rows): array {
     $rules = $this->fieldRules($entry);
@@ -873,6 +874,15 @@ abstract class SsotUploadFormBase extends ConfirmFormBase {
         $type = $rule['type'] ?? null;
         if (in_array($type, ['industry', 'region'])) {
           $value = $this->resolveLookup($type, $value, $rule) ?? $value;
+        }
+        elseif ($type === 'noc') {
+          // NOC codes stay text so leading zeros survive; drop the sheet's # prefix.
+          if (!is_null($value)) {
+            $value = (string) $value;
+            if (str_starts_with($value, '#')) {
+              $value = substr($value, 1);
+            }
+          }
         }
         elseif (!is_null($type) && is_numeric($value)) {
           $value = $value + 0;

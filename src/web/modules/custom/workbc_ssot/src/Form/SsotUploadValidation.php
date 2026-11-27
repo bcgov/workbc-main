@@ -376,6 +376,22 @@ trait SsotUploadValidation {
         $type = $validation['type'];
         $result = in_array($type, $warn_only) ? 'warning' : 'error';
         $success = true;
+
+        // NOC codes are text identifiers: they skip the numeric checks and only
+        // a blank is reported.
+        if ($type === 'noc') {
+          if (is_null($value) || ltrim(trim((string) $value), '#') === '') {
+            array_push($results, ['result' => $result, 'message' => $this->t('@icon @cell (<strong>@key</strong>) is blank: <em>@explanation</em> @suggestion', [
+              '@icon' => $icons[$result],
+              '@cell' => $cell,
+              '@key' => $key,
+              '@explanation' => $this->t($this->descriptions[$type]),
+              '@suggestion' => $this->t('Please @action the value.', ['@action' => $actions[$result]]),
+            ])]);
+          }
+          continue;
+        }
+
         $is_lookup = in_array($type, ['industry', 'region']);
 
         if ($is_lookup) {

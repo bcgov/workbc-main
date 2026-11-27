@@ -589,6 +589,28 @@ class SsotUploadFormBaseTest extends SsotUploadTestBase {
 
   /**
    */
+  public function testPrepareRowsStripsNocPrefixAndKeepsText(): void {
+    $entry = [
+      'shape' => 'table',
+      'range' => 'A2:B5',
+      'fields' => ['noc' => ['type' => 'noc'], 'openings' => ['type' => 'abs']],
+    ];
+    $payload = $this->form()->prepare($entry, [
+      ['noc' => '#00018', 'openings' => '120'],
+      ['noc' => '00018', 'openings' => 5],
+      ['noc' => 10010, 'openings' => null],
+      ['noc' => null, 'openings' => 1],
+    ]);
+    $this->assertSame([
+      ['noc' => '00018', 'openings' => 120],
+      ['noc' => '00018', 'openings' => 5],
+      ['noc' => '10010', 'openings' => null],
+      ['noc' => null, 'openings' => 1],
+    ], $payload);
+  }
+
+  /**
+   */
   public function testFullPipelineOnInMemoryWorkbook(): void {
     $form = $this->form([
       'regional' => $this->tableEntry(),

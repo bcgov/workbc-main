@@ -574,4 +574,23 @@ class SsotUploadValidationTest extends SsotUploadTestBase {
     $this->assertNull($this->form->validateString('abs', 'Active Learning', []));
   }
 
+  /**
+   */
+  public function testNocRules(): void {
+    // A code is text: it skips the numeric checks and reports nothing.
+    foreach (['#00018', '00018', 10010] as $noc) {
+      $this->assertSame([], $this->kinds(['type' => 'noc'], $noc), (string) $noc);
+    }
+
+    // A blank code, or a lone # prefix, is an error.
+    foreach ([null, '', '#'] as $blank) {
+      $this->assertSame(['error'], $this->kinds(['type' => 'noc'], $blank), var_export($blank, true));
+    }
+    $results = $this->form->validateRules(['noc' => ['cell' => 'A', 'type' => 'noc']], ['noc' => null], null, 5, 'Provincial Outlook');
+    $this->assertStringContainsString('Provincial Outlook!A5 (noc) is blank', static::text($results[0]));
+
+    // The blank error can be downgraded with warn_only.
+    $this->assertSame(['warning'], $this->kinds(['type' => 'noc', 'warn_only' => ['noc']], null));
+  }
+
 }

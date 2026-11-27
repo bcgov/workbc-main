@@ -45,3 +45,10 @@ workbc_ssot.high_opportunity_occupations:
   route_name: workbc_ssot.high_opportunity_occupations
   description: 'Upload a new data sheet to the SSoT High Opportunity Occupations.'
   weight: 30
+
+workbc_ssot.career_profile:
+  title: 'Career Profile Yearly Update'
+  parent: workbc_ssot.uploads
+  route_name: workbc_ssot.career_profile
+  description: 'Upload a new data sheet to the SSoT Career Profile.'
+  weight: 30

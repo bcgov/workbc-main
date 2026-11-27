@@ -13,3 +13,6 @@ upload ssot data sheet labour_force_survey:
 
 upload ssot data sheet high_opportunity_occupations:
   title: 'Upload data sheet High Opportunity Occupations'
+
+upload ssot data sheet career_profile:
+  title: 'Upload data sheet Career Profile'
