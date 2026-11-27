@@ -26,8 +26,9 @@ class IndustryAverageWage extends ExtraFieldDisplayFormattedBase {
    * {@inheritdoc}
    */
   public function getLabel() {
-    $datestr = empty($this->getEntity()->ssot_data) ? '' : ssotParseDateRange($this->getEntity()->ssot_data['schema'], 'labour_force_survey_industry', 'earnings_men');
-    return $this->t("Industry Average Hourly Earnings (" . $datestr . ")");
+    $datestr = empty($this->getEntity()->ssot_data) ? '' : ssotParseDateRange($this->getEntity()->ssot_data['schema'], 'labour_force_survey_industry', 'earnings_men', $this->getEntity()->ssot_data['sources']);
+    $datestr = empty($datestr) ? "" : "(" . $datestr . ")";
+    return $this->t("Industry Average Hourly Earnings " . $datestr);
   }
 
   /**

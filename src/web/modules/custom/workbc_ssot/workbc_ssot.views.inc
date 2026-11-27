@@ -85,8 +85,8 @@ function workbc_ssot_views_data() {
       ],
     ],
     'dataset_name' => [
-      'title' => t('Dataset'),
-      'help' => t('Dataset (aka SSoT endpoint) that was updated.'),
+      'title' => t('Dataset(s)'),
+      'help' => t('Dataset(s) (aka SSoT endpoints) updated by this upload (comma-separated).'),
       'field' => [
         'id' => 'standard',
       ],
@@ -94,7 +94,7 @@ function workbc_ssot_views_data() {
         'id' => 'string',
       ],
       'filter' => [
-        'id' => 'string',
+        'id' => 'workbc_ssot_dataset',
       ],
       'sort' => [
         'id' => 'standard',
@@ -104,7 +104,8 @@ function workbc_ssot_views_data() {
       'title' => t('Period'),
       'help' => t('Date period of the dataset.'),
       'field' => [
-        'id' => 'date',
+        'id' => 'workbc_ssot_dataset_period',
+        'additional fields' => ['dataset_name'],
         'click sortable' => true,
       ],
       'argument' => [

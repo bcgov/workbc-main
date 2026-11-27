@@ -47,8 +47,8 @@ class IndustryEmploymentGrowthRateOneYearForecast extends ExtraFieldDisplayForma
       $data = array();
       $data[] = $entity->ssot_data['industry_outlook']['annual_employment_growth_rate_pct_first5y'];
       $data[] = $entity->ssot_data['industry_outlook']['annual_employment_growth_rate_pct_second5y'];
-      $date1 = ssotParseDateRange($entity->ssot_data['schema'], 'industry_outlook', 'annual_employment_growth_rate_pct_first5y');
-      $date2 = ssotParseDateRange($entity->ssot_data['schema'], 'industry_outlook', 'annual_employment_growth_rate_pct_second5y');
+      $date1 = ssotParseDateRange($entity->ssot_data['schema'], 'industry_outlook', 'annual_employment_growth_rate_pct_first5y', $entity->ssot_data['sources']);
+      $date2 = ssotParseDateRange($entity->ssot_data['schema'], 'industry_outlook', 'annual_employment_growth_rate_pct_second5y', $entity->ssot_data['sources']);
       $dates = array();
       $dates[] = $date1;
       $dates[] = $date2;

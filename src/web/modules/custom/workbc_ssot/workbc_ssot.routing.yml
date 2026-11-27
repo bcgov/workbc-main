@@ -1,10 +1,18 @@
-workbc_ssot.lmmu:
-  path: '/admin/config/workbc/ssot/lmmu'
+workbc_ssot.uploads:
+  path: '/admin/config/workbc/ssot/upload'
+  defaults:
+    _title: 'SSoT: Upload Datasets'
+    _controller: '\Drupal\system\Controller\SystemController::systemAdminMenuBlockPage'
+  requirements:
+    _custom_access: 'workbc_ssot.upload_access:access'
+
+workbc_ssot.monthly_labour_market_updates:
+  path: '/admin/config/workbc/ssot/monthly-labour-market-updates'
   defaults:
     _title: 'SSoT: Labour Market Monthly Update'
     _form: '\Drupal\workbc_ssot\Form\SsotUploadLmmuForm'
   requirements:
-    _permission: 'administer ssot settings'
+    _custom_access: '\Drupal\workbc_ssot\Form\SsotUploadLmmuForm::access'
 
 workbc_ssot.refresh:
   path: '/admin/config/workbc/ssot/refresh'
@@ -13,3 +21,35 @@ workbc_ssot.refresh:
     _form: '\Drupal\workbc_ssot\Form\SsotRefreshForm'
   requirements:
     _permission: 'administer ssot settings'
+
+workbc_ssot.industry_outlook:
+  path: '/admin/config/workbc/ssot/industry-outlook'
+  defaults:
+    _title: 'SSoT: Industry Profile Update'
+    _form: '\Drupal\workbc_ssot\Form\SsotUploadIndustryProfileForm'
+  requirements:
+    _custom_access: '\Drupal\workbc_ssot\Form\SsotUploadIndustryProfileForm::access'
+
+workbc_ssot.labour_force_survey:
+  path: '/admin/config/workbc/ssot/labour-force-survey'
+  defaults:
+    _title: 'SSoT: Labour Force Survey Update'
+    _form: '\Drupal\workbc_ssot\Form\SsotUploadLabourForceSurveyForm'
+  requirements:
+    _custom_access: '\Drupal\workbc_ssot\Form\SsotUploadLabourForceSurveyForm::access'
+
+workbc_ssot.high_opportunity_occupations:
+  path: '/admin/config/workbc/ssot/high-opportunity-occupations'
+  defaults:
+    _title: 'SSoT: High Opportunity Occupations Update'
+    _form: '\Drupal\workbc_ssot\Form\SsotUploadHighOpportunityOccupationsForm'
+  requirements:
+    _custom_access: '\Drupal\workbc_ssot\Form\SsotUploadHighOpportunityOccupationsForm::access'
+
+workbc_ssot.career_profile:
+  path: '/admin/config/workbc/ssot/career-profile'
+  defaults:
+    _title: 'SSoT: Career Profile Update'
+    _form: '\Drupal\workbc_ssot\Form\SsotUploadCareerProfileForm'
+  requirements:
+    _custom_access: '\Drupal\workbc_ssot\Form\SsotUploadCareerProfileForm::access'

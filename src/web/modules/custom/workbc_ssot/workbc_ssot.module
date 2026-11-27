@@ -5,13 +5,9 @@ use GuzzleHttp\Client;
 use Psr\Http\Message\ResponseInterface;
 use Drupal\Core\Entity\ContentEntityInterface;
 use Drupal\field\Entity\FieldStorageConfig;
+use Drupal\Core\Utility\Error;
 
 define("NULL_VALUE", -999999);
-
-const SSOT_ROUTES = [
-  'workbc_ssot.lmmu',
-  'view.ssot_log.page_1'
-];
 
 const SSOT_DATASETS = [
   'wages' => [
@@ -206,19 +202,6 @@ function workbc_ssot_process_element($element) {
   // Remove seconds in browsers that support HTML5 type=date.
   $element['time']['#attributes']['step'] = 60;
   return $element;
-}
-
-/**
- * Implements hook_menu_links_discovered_alter().
- */
-function workbc_ssot_menu_links_discovered_alter(&$links) {
-  if (empty(\Drupal::config('workbc')->get('features.ssot_upload'))) {
-    foreach ($links as $key => $link) {
-      if (array_key_exists('route_name', $link) && in_array($link['route_name'], SSOT_ROUTES)) {
-        unset($links[$key]);
-      }
-    }
-  }
 }
 
 /************************* SSOT FUNCTIONS ****************************/
@@ -416,8 +399,8 @@ function ssotCareerProfile($noc) {
   return $data;
 }
 
-function ssotParseDateRange($schema, $section, $field = "") {
-  $match = "";
+function ssotParseDateRange($schema, $section, $field = "", $sources = null) {
+  $match = NULL;
   if (isset($schema['definitions'][$section]['properties'][$field]['description'])) {
     $text = $schema['definitions'][$section]['properties'][$field]['description'];
     preg_match('#\{(.*?)\}#', $text, $match);
@@ -425,6 +408,37 @@ function ssotParseDateRange($schema, $section, $field = "") {
   else if (isset($schema['definitions'][$section]['description'])) {
     $text = $schema['definitions'][$section]['description'];
     preg_match('#\{(.*?)\}#', $text, $match);
+  }
+  if(isset($sources)) {
+    if (isset($sources[$section])) {
+      if (isset($sources[$section]['period'])) {
+        $year = intval(date('Y', strtotime($sources[$section]['period'])));
+      }
+      else {
+        \Drupal::logger('workbc')->error('SSoT Sources endpoint "@section" missing period (year).', ['@section' => $section]);
+        return "";
+      }
+    }
+    else {
+      if (isset($sources['period'])) {
+        $year = intval(date('Y', strtotime($sources['period'])));
+      }
+      else {
+        \Drupal::logger('workbc')->error('SSoT Sources endpoint "@section" missing period (year).', ['@section' => $section]);
+        return "";
+      }
+    }
+
+    preg_match('/^\{?(-?\d+)(?:-(-?\d+))?\}?$/', $match[1], $matches);
+    $years = array_slice($matches, 1);
+    foreach($years as $key => $value) {
+      $years[$key] = $year + $value;
+    }
+    $match[1] = implode('-', $years);
+  }
+  else {
+    \Drupal::logger('workbc')->error('SSoT Sources missing.');
+    return "";
   }
   return empty($match) ? "" : $match[1];
 }
@@ -615,7 +629,7 @@ function ssotProcessEmploymentIndustry($ssotdata) {
 }
 
 function ssotIndustryKey($industry_name, $industries) {
-  $index = array_search($industry_name, array_column($industries, 'name'));
+  $index = array_search(strtolower($industry_name), array_map('strtolower', array_column($industries, 'name')));
   $keys = array_keys($industries);
   return $keys[$index];
 }

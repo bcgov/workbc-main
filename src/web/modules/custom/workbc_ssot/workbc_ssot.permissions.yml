@@ -1,3 +1,18 @@
 administer ssot settings:
   title: 'Administer SSoT settings'
   description: 'Users with this permission are able to administer SSoT, including uploading datasheets.'
+
+upload ssot data sheet monthly_labour_market_updates:
+  title: 'Upload data sheet Labour Market Monthly Update'
+
+upload ssot data sheet industry_outlook:
+  title: 'Upload data sheet Industry Profile Yearly Update'
+
+upload ssot data sheet labour_force_survey:
+  title: 'Upload data sheet Labour Force Survey'
+
+upload ssot data sheet high_opportunity_occupations:
+  title: 'Upload data sheet High Opportunity Occupations'
+
+upload ssot data sheet career_profile:
+  title: 'Upload data sheet Career Profile'

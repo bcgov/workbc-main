@@ -18,11 +18,16 @@ class RegionTopFiveIndustriesBaseTable extends LabourMarketOutLookExtraFieldBase
       'na_if_empty' => TRUE,
     );
 
-    $employment_date = ssotParseDateRange($this->report->ssot_data['schema'], $this->getDataset(true), 'employment');
-    $growth_rate_date = ssotParseDateRange($this->report->ssot_data['schema'], $this->getDataset(true), 'growth_rate');
-    $expansion_date = ssotParseDateRange($this->report->ssot_data['schema'], $this->getDataset(true), 'expansion');
-    $replacement_date = ssotParseDateRange($this->report->ssot_data['schema'], $this->getDataset(true), 'replacement');
-    $openings_date = ssotParseDateRange($this->report->ssot_data['schema'], $this->getDataset(true), 'openings');
+    $employment_date = ssotParseDateRange($this->report->ssot_data['schema'], $this->getDataset(true), 'employment', $this->report->ssot_data['sources']);
+    $employment_date = empty($employment_date) ? "" : "(" . $employment_date . ")";
+    $growth_rate_date = ssotParseDateRange($this->report->ssot_data['schema'], $this->getDataset(true), 'growth_rate', $this->report->ssot_data['sources']);
+    $growth_rate_date = empty($growth_rate_date) ? "" : "(" . $growth_rate_date . ")";
+    $expansion_date = ssotParseDateRange($this->report->ssot_data['schema'], $this->getDataset(true), 'expansion', $this->report->ssot_data['sources']);
+    $expansion_date = empty($expansion_date) ? "" : "(" . $expansion_date . ")";
+    $replacement_date = ssotParseDateRange($this->report->ssot_data['schema'], $this->getDataset(true), 'replacement', $this->report->ssot_data['sources']);
+    $replacement_date = empty($replacement_date) ? "" : "(" . $replacement_date . ")";
+    $openings_date = ssotParseDateRange($this->report->ssot_data['schema'], $this->getDataset(true), 'openings', $this->report->ssot_data['sources']);
+    $openings_date = empty($openings_date) ? "" : "(" . $openings_date . ")";
 
     $output = '<div id="' . $this->getRegion() . '">';
     $output .= <<<END
@@ -30,9 +35,9 @@ class RegionTopFiveIndustriesBaseTable extends LabourMarketOutLookExtraFieldBase
       <thead>
         <tr>
           <th width="20%" rowspan="2" class="data-align-left">Industry</th>
-          <th rowspan="2" class="data-align-right">Employment ({$employment_date})</th>
-          <th rowspan="2" class="data-align-right">Annual Employment Growth Rate ({$growth_rate_date})</th>
-          <th colspan="3" class="lmo-report-job-openings-header data-align-center">Job Openings ({$openings_date})</th>
+          <th rowspan="2" class="data-align-right">Employment {$employment_date}</th>
+          <th rowspan="2" class="data-align-right">Annual Employment Growth Rate {$growth_rate_date}</th>
+          <th colspan="3" class="lmo-report-job-openings-header data-align-center">Job Openings {$openings_date}</th>
         </tr>
         <tr>
           <th class="data-align-right">Expansion</th>
@@ -46,11 +51,11 @@ class RegionTopFiveIndustriesBaseTable extends LabourMarketOutLookExtraFieldBase
       $output .= '<tr class="clearfix">';
       $output .= '<td class="data-align-left lmo-mobile">Industry</td>';
       $output .= '<td class="data-align-left lmo-report-industry" data-label="Industry">' . $industry['industry'] . '</td>';
-      $output .= '<td class="data-align-right lmo-report-employment" data-label="Employment (' . $employment_date . ')">' . ssotFormatNumber($industry['employment'], $options1) . '</td>';
-      $output .= '<td class="data-align-right lmo-report-growth" data-label="Annual Employment Growth Rate (' . $growth_rate_date . ')">' . ssotFormatNumber($industry['growth_rate'], $options2) . '</td>';
-      $output .= '<td class="data-align-right lmo-report-expansion" data-label="Job Openings by Expansion (' . $expansion_date . ')">' . ssotFormatNumber($industry['expansion'], $options1) . '</td>';
-      $output .= '<td class="data-align-right lmo-report-replacement" data-label="Job Openings by Replacement (' . $replacement_date . ')">' . ssotFormatNumber($industry['replacement'], $options1) . '</td>';
-      $output .= '<td class="data-align-right lmo-report-openings" data-label="Total Job Openings (' . $openings_date . ')">' . ssotFormatNumber($industry['openings'], $options1) . '</td>';
+      $output .= '<td class="data-align-right lmo-report-employment" data-label="Employment ' . $employment_date . '">' . ssotFormatNumber($industry['employment'], $options1) . '</td>';
+      $output .= '<td class="data-align-right lmo-report-growth" data-label="Annual Employment Growth Rate ' . $growth_rate_date . '">' . ssotFormatNumber($industry['growth_rate'], $options2) . '</td>';
+      $output .= '<td class="data-align-right lmo-report-expansion" data-label="Job Openings by Expansion ' . $expansion_date . '">' . ssotFormatNumber($industry['expansion'], $options1) . '</td>';
+      $output .= '<td class="data-align-right lmo-report-replacement" data-label="Job Openings by Replacement ' . $replacement_date . '">' . ssotFormatNumber($industry['replacement'], $options1) . '</td>';
+      $output .= '<td class="data-align-right lmo-report-openings" data-label="Total Job Openings ' . $openings_date . '">' . ssotFormatNumber($industry['openings'], $options1) . '</td>';
       $output .= '</tr>';
     }
     $output .= '</tbody></table></div>';
