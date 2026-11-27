@@ -839,6 +839,11 @@ function workbc_custom_token_info() {
     'name' => t('Funding button selected class'),
     'description' => t('Return class name if Funding is selected, return empty string if no sort'),
   );
+  $info['tokens']['current-page']['query-urlencoded'] = array(
+    'name' => t('URL-encoded query string value'),
+    'description' => t('The value of a specific query string field of the current page, URL-encoded for use inside a link. Empty if the field is absent.'),
+    'dynamic' => TRUE,
+  );
   return $info;
 }
 
@@ -873,6 +878,13 @@ function workbc_custom_tokens($type, $tokens, array $data, array $options, Bubbl
           }
           break;
       }
+    }
+
+    // [current-page:query-urlencoded:?] dynamic tokens.
+    foreach (\Drupal::token()->findWithPrefix($tokens, 'query-urlencoded') as $name => $original) {
+      $bubbleable_metadata->addCacheContexts(['url.query_args:' . $name]);
+      $value = $query_params[$name] ?? '';
+      $replacements[$original] = is_scalar($value) ? rawurlencode($value) : '';
     }
   }
   return $replacements;
